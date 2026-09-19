@@ -1,22 +1,88 @@
 # Migration Progress
 
-Updated 2026-09-14
+Updated 2026-09-16
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 68 ルート = ガイドライブラリ index + 67 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 71 ルート = ガイドライブラリ index + 70 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 25 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 21 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `fa49b4e` |
-| 最新コミット内容 | `docs(data-quality): align chapter titles with original book in data quality monitoring guide` |
+| 最新 HEAD | `762f8fe` |
+| 最新コミット内容 | `docs(genai-guide): update EU AI Act enforcement dates and CT-GenAI syllabus reference to v1.1` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/16: Mark Winteringham『Software Testing with Generative AI』実践ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のモダン・テックテーマ（`--primary: #1a365d`、`--primary-light: #2b6cb0`、`--accent: #2b6cb0`、`--accent-light: #ebf8ff`、`--bg-subtle: #f7fafc`、`--border: #e2e8f0`、`--border-light: #edf2f7`、`--text-primary: #2d3748`、`--text-secondary: #4a5568`、`--text-muted: #718096`）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--text-primary) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.prompt-box`、`.checklist-card`、`.ref-card`、`.badge` 等）を完全実装。
+  - レスポンシブ対応のサイドバー（`NavBar.tsx`）とメイン領域（`.software-testing-genai-layout`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全13図解（AIの系譜 `#DIAGRAM_1`、人間とAIの協働モデル `#DIAGRAM_2`、プロンプトチェイニング `#DIAGRAM_3`、テスト分析からケース生成 `#DIAGRAM_4`、テストデータ生成パイプライン `#DIAGRAM_5`、Playwright MCPアーキテクチャ `#DIAGRAM_6`、探索的テストループ `#DIAGRAM_7`、エージェントのループ構造 `#DIAGRAM_8`、MCPクライアント・サーバー `#DIAGRAM_9`、ハルシネーション検出 `#DIAGRAM_10`、RAGパイプライン `#DIAGRAM_11`、LLMOpsライフサイクル `#DIAGRAM_12`、段階的導入ロードマップ `#DIAGRAM_13`）を移植。
+  - スコープ下で `.mermaid`、ノード、エッジラベル背景などのスタイルを完全定義し、白飛び・黒潰れを防止。
+- **プロンプト例 & テーブル**:
+  - 全3件のプロンプト例（ECクーポン機能、システムプロンプト例、Gherkin受け入れテスト）を完全移植。
+  - 全9テーブル（表1〜表9）を完全移植。
+- **インタラクティブチェックリスト**:
+  - 第12章のチェックリスト（`Checklist.tsx`、全13項目動的カウンター・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 全18件の参考文献カードを完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全60セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/software-testing-with-generative-ai-guide/`: ページコンポーネント、専用スタイル（`.software-testing-genai-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/software-testing-with-generative-ai-guide`（生成AIとソフトウェアテスト実践ガイド）を追加（全71件）。
+- `tests/software-testing-with-generative-ai-guide/page.test.tsx`: TDD 必須サイクルに従い、全12章、全13Mermaid図、全9テーブル、全3プロンプト例、全チェックリスト、全参考文献18件の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 140 expect()）。
+- `Software-testing-with-generative-ai-guide.html` は `archive/html-archive/books/`、`Software-testing-with-generative-ai-guide.md` は `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 71 ページ体制に同期。
+
+## 2026/09/16: Gerald M. Weinberg『Perfect Software: And Other Illusions about Testing』初学者ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のエディトリアル・ペーパーテーマ（`--paper: #faf6ee`、`--paper-card: #f3ece0`、`--paper-warm: #ede4d4`、`--ink: #2a241d`、`--ink-muted: #6b6155`、`--ink-faint: #9c9184`、`--border: #dfd5c4`、`--accent: #b84c2a`、`--accent-light: #f5ebe6`、`--terracotta: #c45d3c`、`--sage: #4a7c59`、`--slate: #3d5a80`、`--lavender: #6b5b95`、`--gold: #d4a373`、`--amber: #b45309`）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.ref-card`、`.pill` 等）を完全実装。
+  - レスポンシブ対応のサイドバー（`NavBar.tsx`）とメイン領域（`.perfect-software-layout`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全8図解（書籍構成 `DIAGRAM_1`、全数テスト不可能とサンプリング `DIAGRAM_2`、テストとデバッグの違い `DIAGRAM_3`、受け入れがたい結果への防衛反応 `DIAGRAM_4`、テストにまつわる5大誤解 `DIAGRAM_5`、情報処理サイクル `DIAGRAM_6`、ツール営業の判定フロー `DIAGRAM_7`、学習ロードマップ `DIAGRAM_8`）を移植。全図に固有の `accTitle`/`accDescr` を付与。
+  - `.perfect-software-layout` スコープ下で `.mermaid-wrapper` に背景 `#fff`、枠線、`.hub`、`.done`、エッジラベル背景などのスタイルを完全定義し、白飛び・黒潰れを防止。
+- **テーブル & インタラクティブチェックリスト**:
+  - 全4テーブル（書籍データ、章立て一覧、テストとデバッグの違い、テストにまつわる5大誤解）を完全移植。
+  - `id="roadmap"` セクションのチェックリスト（`Checklist.tsx`、全7項目動的カウンター・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 全11件の参考文献カードを完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/perfect-software-guide/`: ページコンポーネント、専用スタイル（`.perfect-software-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/perfect-software-guide`（Perfect Software 実践ガイド）を追加（全70件）。
+- `tests/perfect-software-guide/page.test.tsx`: TDD 必須サイクルに従い、全19セクション、全8Mermaid図、全4テーブル、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（24 pass / 163 expect()）。
+- `Perfect-software-guide.html` は `archive/html-archive/books/`、`Perfect-software-guide.md` は `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 70 ページ体制に同期。
+
+## 2026/09/16: 『コンポーネントベースソフトウェアシステムのテストと品質保証』完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のダークテーマ（`--bg: #07111e`、`--bg-elev: #0d1a2e`、`--bg-elev2: #122238`、`--accent: #7c9eff`、`--accent-soft: rgba(124, 158, 255, 0.14)`、`--accent-border: rgba(124, 158, 255, 0.3)`、`--text: #eef2fa`、`--text-dim: #b8c4de`、`--border: rgba(124, 158, 255, 0.16)`）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--text) !important`、セルパディング、Tailwindリストマーカー、`.checklist-card`、`.ref-card`、`.pill` 等）を完全実装。
+  - レスポンシブ対応のサイドバーとメイン領域（`.cbss-qa-layout`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全11図解（開発プロセスの比較 `#DIAGRAM_1`、ブラックボックステストの課題 `#DIAGRAM_2`、COTS/サードパーティコンポーネントのリスク `#DIAGRAM_3`、テストピラミッド `#DIAGRAM_4`、統合テストアプローチ比較(トップダウン/ボトムアップ) `#DIAGRAM_5`、Pactコントラクトテストの基本フロー `#DIAGRAM_6`、複数コンシューマーとブローカーによる契約管理 `#DIAGRAM_7`、SCAのパイプライン組み込み `#DIAGRAM_8`、Testcontainersアーキテクチャ `#DIAGRAM_9`、ミューテーションテストの流れ `#DIAGRAM_10`、CI/CD継続的テストパイプライン `#DIAGRAM_11`）を移植。
+- **コードブロック & 改行保持**:
+  - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れを完全に防止（Pactテストコード）。
+- **テーブル & インタラクティブチェックリスト**:
+  - 全12テーブル（表1〜表12）を完全移植。
+  - セクション11のチェックリスト（`Checklist.tsx`、全10項目動的カウンター・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 全19件の参考文献（学術文献・専門書籍、Martin Fowler / ThoughtWorks、Google、標準・非営利団体、ツール公式ドキュメント）を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全53アンカー（H2, H3）、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/component-based-testing-qa-guide/`: ページコンポーネント、専用スタイル（`.cbss-qa-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/component-based-testing-qa-guide`（コンポーネントテスト/QA 完全ガイド）を追加（全69件）。
+- `tests/component-based-testing-qa-guide/page.test.tsx`: TDD 必須サイクルに従い、全12セクション、全11Mermaid図、全12テーブル、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス。
+- `Component-based-testing-qa-guide.html`: `archive/html-archive/books/` へ、`Component-based-testing-qa-guide.md`: `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 69 ページ体制に同期。
 
 ## 2026/09/14: 『Unit Testing Principles, Practices, and Patterns』完全ガイドのNext.js完全移行
 
@@ -834,20 +900,23 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Art-of-software-testing-guide.html` | `/art-of-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Test-driven-development-by-example-guide.html` | `/test-driven-development-by-example-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Unit-testing-principles-practices-patterns-guide.html` | `/unit-testing-principles-practices-patterns-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Component-based-testing-qa-guide.html` | `/component-based-testing-qa-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Perfect-software-guide.html` | `/perfect-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Software-testing-with-generative-ai-guide.html` | `/software-testing-with-generative-ai-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 25 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 21 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 8 ペア = 16 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（6 ファイル）: `Ai-driven-software-testing-guide.*` / `Component-based-testing-qa-guide.*`（各 HTML+Markdown ペア）/ `Automating-data-quality-monitoring-guide.md` / `Software-testing-with-generative-ai-guide.md`（Markdown 単体） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（4 ファイル）: `Ai-driven-software-testing-guide.*`（HTML+Markdown ペア）/ `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -860,8 +929,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 68 ルート（ガイドライブラリ index + 67 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 25 ファイル（書籍ガイド系の HTML/Markdown 8 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`、新規ガイド系 6 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 71 ルート（ガイドライブラリ index + 70 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 21 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`、新規ガイド系 4 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

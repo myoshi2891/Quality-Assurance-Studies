@@ -1,0 +1,905 @@
+/* ==========================================================================
+   Perfect Software: And Other Illusions about Testing Guide
+   Scoped styles for .perfect-software-layout
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@400;600;700&display=swap');
+
+.perfect-software-layout {
+  --paper: #faf6ee;
+  --paper-card: #ffffff;
+  --paper-card-2: #f2ecdd;
+  --ink: #2a241d;
+  --ink-soft: #5c5344;
+  --ink-faint: #726a5c;
+  --border: #e0d5bd;
+  --indigo: #413d8f;
+  --indigo-soft: #eae8fb;
+  --indigo-dark: #2c2a63;
+  --gold: #8a5f13;
+  --gold-soft: #fbf0dc;
+  --forest: #2f6b4f;
+  --forest-soft: #e7f3ec;
+  --plum: #7a3f6b;
+  --plum-soft: #f5e9f1;
+  --sidebar-w: 280px;
+  --radius: 14px;
+  --shadow: 0 2px 10px rgba(42, 36, 29, 0.08);
+  --font-display: 'Source Serif 4', 'Noto Serif JP', Georgia, serif;
+  --font-body: 'Noto Sans JP', -apple-system, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.85;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Skip link */
+.perfect-software-layout .skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--indigo);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  z-index: 200;
+  border-radius: 0 0 8px 0;
+}
+
+.perfect-software-layout .skip-link:focus {
+  left: 0;
+}
+
+/* 1. Layout & globals.css resets */
+.perfect-software-layout section {
+  padding-top: 0;
+}
+
+.perfect-software-layout .hero {
+  min-height: 0 !important;
+  display: block !important;
+  padding-top: 0 !important;
+}
+
+.perfect-software-layout .main {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none !important;
+  width: auto !important;
+  margin: 0 !important;
+  margin-left: var(--sidebar-w) !important;
+}
+
+.perfect-software-layout .content {
+  max-width: none !important;
+  padding: 0 3.2rem 5rem;
+}
+
+/* 2. Sidebar Navigation */
+.perfect-software-layout .sidebar {
+  position: fixed;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  left: 0;
+  bottom: 0;
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  width: var(--sidebar-w);
+  background: var(--paper-card);
+  border-right: 1px solid var(--border) !important;
+  overflow-y: auto;
+  padding: 1.4rem 1.1rem 3rem;
+  z-index: 40;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.perfect-software-layout .sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.perfect-software-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.perfect-software-layout .sidebar::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+  border-radius: 3px;
+}
+
+.perfect-software-layout .sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft) !important;
+}
+
+.perfect-software-layout .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--indigo-dark);
+  padding: 0.4rem 0.3rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.perfect-software-layout .sidebar-brand i {
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.perfect-software-layout .nav-group-label {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  font-weight: 700;
+  margin: 1.1rem 0.4rem 0.4rem;
+  text-transform: uppercase;
+}
+
+.perfect-software-layout .nav-group-label:first-of-type {
+  margin-top: 0;
+}
+
+.perfect-software-layout .nav-a {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.55rem;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.perfect-software-layout .nav-a:hover {
+  background: var(--indigo-soft);
+  color: var(--indigo-dark);
+  text-decoration: none;
+}
+
+.perfect-software-layout .nav-a.active {
+  background: var(--indigo);
+  color: #fdfbf6 !important;
+}
+
+.perfect-software-layout .nav-a.active .n-num {
+  color: #fdfbf6 !important;
+  opacity: 0.85;
+}
+
+.perfect-software-layout .n-num {
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-faint);
+  width: 1.6em;
+}
+
+/* Mobile Bar & Scrim */
+.perfect-software-layout .mobile-bar {
+  display: none;
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  z-index: 39;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 1rem;
+}
+
+.perfect-software-layout .mobile-bar .brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--indigo-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.perfect-software-layout #mobileToggle {
+  background: var(--indigo-soft);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--indigo-dark);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.perfect-software-layout .sidebar-scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 16, 10, 0.35);
+  z-index: 38;
+}
+
+/* 3. Hero Section */
+.perfect-software-layout .hero {
+  padding: 2.2rem 3.2rem 2.2rem !important;
+  background: linear-gradient(135deg, #3a3676 0%, #413d8f 45%, #7a3f6b 100%) !important;
+  color: #fdfbf6 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  display: block !important;
+}
+
+.perfect-software-layout .hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.1rem;
+  color: #fdfbf6;
+}
+
+.perfect-software-layout .hero h1,
+.perfect-software-layout .hero .hero-title {
+  font-family: var(--font-display) !important;
+  font-size: 2.3rem;
+  line-height: 1.35;
+  margin: 0 0 0.7rem;
+  color: #fdfbf6 !important;
+  font-weight: 700;
+}
+
+.perfect-software-layout .hero .hero-sub {
+  font-family: var(--font-display) !important;
+  font-size: 1.15rem;
+  color: #f1eefb !important;
+  margin: 0 0 1.1rem;
+}
+
+.perfect-software-layout .hero p.lede {
+  max-width: 70ch;
+  color: #e9e6f7;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* 4. Content Sections */
+.perfect-software-layout .section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
+}
+
+.perfect-software-layout .section:last-of-type {
+  border-bottom: none;
+}
+
+.perfect-software-layout .section h2 {
+  font-family: var(--font-display) !important;
+  font-size: 1.55rem;
+  color: var(--indigo-dark) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.1rem;
+  font-weight: 700;
+}
+
+.perfect-software-layout .section h2 i {
+  color: var(--gold);
+  font-size: 1.3rem;
+}
+
+.perfect-software-layout .section h3 {
+  font-family: var(--font-display) !important;
+  font-size: 1.18rem;
+  color: var(--ink) !important;
+  margin: 1.6rem 0 0.7rem;
+  font-weight: 700;
+}
+
+.perfect-software-layout .section p {
+  margin: 0 0 1rem;
+  color: var(--ink) !important;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+/* リスト装飾の復元（Tailwind Preflight 対策） */
+.perfect-software-layout .section ul:not(.checklist):not(.ref-list) {
+  list-style-type: disc !important;
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+.perfect-software-layout .section ol {
+  list-style-type: decimal !important;
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+.perfect-software-layout .section ul:not(.checklist):not(.ref-list) li,
+.perfect-software-layout .section ol li {
+  margin-bottom: 0.45rem;
+  color: var(--ink) !important;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.perfect-software-layout .section strong {
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+
+/* Callout / Notes */
+.perfect-software-layout .lede-note {
+  background: var(--gold-soft);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.6rem;
+  line-height: 1.75;
+}
+
+.perfect-software-layout blockquote {
+  margin: 1.4rem 0;
+  padding: 1rem 1.3rem;
+  background: var(--indigo-soft);
+  border-left: 4px solid var(--indigo);
+  border-radius: 0 10px 10px 0;
+  font-family: var(--font-display) !important;
+  font-style: italic;
+  color: var(--indigo-dark) !important;
+  line-height: 1.75;
+}
+
+.perfect-software-layout blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-body) !important;
+  font-style: normal;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* Book Card */
+.perfect-software-layout .book-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.perfect-software-layout .book-card-cover {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 168px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #413d8f, #7a3f6b);
+  color: #fdfbf6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.8rem;
+  font-family: var(--font-display) !important;
+  box-shadow: 0 6px 16px rgba(65, 61, 143, 0.35);
+}
+
+.perfect-software-layout .book-card-cover i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--gold-soft);
+}
+
+.perfect-software-layout .book-card-cover span {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.perfect-software-layout .book-card-body {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.perfect-software-layout .book-card-body h3 {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display) !important;
+  font-size: 1.2rem;
+  color: var(--ink) !important;
+}
+
+.perfect-software-layout .book-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0;
+}
+
+.perfect-software-layout .tag {
+  font-size: 0.88rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: var(--forest-soft);
+  color: var(--forest);
+  font-weight: 600;
+}
+
+.perfect-software-layout .tag.gold {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+.perfect-software-layout .tag.plum {
+  background: var(--plum-soft);
+  color: var(--plum);
+}
+
+/* 5. Tables & globals.css Complete Reset */
+.perfect-software-layout .table-wrap {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 0 1.6rem;
+  box-shadow: var(--shadow);
+}
+
+.perfect-software-layout .table-title {
+  background: var(--indigo-soft);
+  color: var(--indigo-dark);
+  font-weight: 700;
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.perfect-software-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper-card) !important;
+  font-size: 1rem !important;
+  color: var(--ink) !important;
+}
+
+.perfect-software-layout thead th {
+  background: var(--indigo-dark) !important;
+  color: #fdfbf6 !important;
+  text-align: left !important;
+  padding: 0.85rem 1.1rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  letter-spacing: 0.01em;
+  border: none !important;
+}
+
+.perfect-software-layout tbody td {
+  padding: 0.75rem 1.1rem !important;
+  border-bottom: 1px solid var(--border) !important;
+  vertical-align: top !important;
+  color: var(--ink) !important;
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+  background: var(--paper-card);
+}
+
+.perfect-software-layout tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+.perfect-software-layout tbody tr:nth-child(even) td {
+  background: rgba(65, 61, 143, 0.045);
+}
+
+.perfect-software-layout tbody tr:hover td {
+  background: var(--indigo-soft) !important;
+}
+
+/* Key-value table (書籍データなど) */
+.perfect-software-layout .kv-table tbody tr:nth-child(even) td,
+.perfect-software-layout .kv-table tbody tr:nth-child(even) th {
+  background: transparent !important;
+}
+
+.perfect-software-layout .kv-table tbody tr:hover td,
+.perfect-software-layout .kv-table tbody tr:hover th {
+  background: var(--indigo-soft) !important;
+}
+
+.perfect-software-layout .kv-table tr {
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.perfect-software-layout .kv-table tr:last-child {
+  border-bottom: none !important;
+}
+
+.perfect-software-layout .kv-table th {
+  width: 9.5rem;
+  background: transparent !important;
+  color: var(--indigo-dark) !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  font-weight: 700 !important;
+  padding: 0.85rem 1.1rem !important;
+  border-right: 1px solid var(--border) !important;
+  border-bottom: none !important;
+  vertical-align: top !important;
+}
+
+.perfect-software-layout .kv-table td {
+  border-bottom: none !important;
+  color: var(--ink) !important;
+}
+
+/* 6. Mermaid Diagrams Styling */
+.perfect-software-layout .diagram-wrap {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  background: var(--paper-card) !important;
+  box-shadow: var(--shadow) !important;
+  padding: 1.4rem 1rem !important;
+  margin: 0 0 1.6rem !important;
+  overflow-x: auto !important;
+  display: flex !important;
+  justify-content: safe center !important;
+}
+
+.perfect-software-layout .diagram-caption {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+  margin: -0.8rem 0 1.6rem;
+}
+
+/* 2重外枠の完全解消 & 内側の .mermaid-wrapper の影・ボーダー・マージンの完全リセット */
+.perfect-software-layout .diagram-wrap .mermaid-wrapper,
+.perfect-software-layout .mermaid-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+/* SVG の自然サイズ描画（縮小による文字切れ防止） */
+.perfect-software-layout .mermaid-wrapper svg {
+  max-width: none !important;
+  height: auto !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+}
+
+/* 文字切れ防止: foreignObject とノードラベルの overflow: visible (折り返しは自然に許容) */
+.perfect-software-layout .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+.perfect-software-layout .mermaid-wrapper foreignObject > div,
+.perfect-software-layout .mermaid-wrapper .nodeLabel,
+.perfect-software-layout .mermaid-wrapper .label,
+.perfect-software-layout .mermaid-wrapper .node text {
+  overflow: visible !important;
+  line-height: 1.4 !important;
+  font-family: 'Noto Sans JP', -apple-system, 'Hiragino Sans', 'Yu Gothic', sans-serif !important;
+  font-size: 14.5px !important;
+  text-align: center !important;
+}
+
+/* Mermaid Node & Edge Styling */
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) rect,
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) polygon,
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) circle,
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) path {
+  fill: #eae8fb !important;
+  stroke: #413d8f !important;
+  stroke-width: 1.5px !important;
+}
+
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel,
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) text,
+.perfect-software-layout .mermaid-wrapper .node:not(.hub):not(.done) span {
+  color: #2a241d !important;
+  fill: #2a241d !important;
+  font-weight: 500 !important;
+}
+
+/* Hub Node (Lavender Purple) */
+.perfect-software-layout .mermaid-wrapper .node.hub rect,
+.perfect-software-layout .mermaid-wrapper .node.hub polygon,
+.perfect-software-layout .mermaid-wrapper .node.hub path {
+  fill: #c9c4ef !important;
+  stroke: #3f3d8a !important;
+  stroke-width: 2px !important;
+}
+
+.perfect-software-layout .mermaid-wrapper .node.hub .nodeLabel,
+.perfect-software-layout .mermaid-wrapper .node.hub text,
+.perfect-software-layout .mermaid-wrapper .node.hub span {
+  color: #221f52 !important;
+  fill: #221f52 !important;
+  font-weight: 700 !important;
+}
+
+/* Done Node (Mint Green) */
+.perfect-software-layout .mermaid-wrapper .node.done rect,
+.perfect-software-layout .mermaid-wrapper .node.done polygon,
+.perfect-software-layout .mermaid-wrapper .node.done path {
+  fill: #bfe4d2 !important;
+  stroke: #2f6b4f !important;
+  stroke-width: 2px !important;
+}
+
+.perfect-software-layout .mermaid-wrapper .node.done .nodeLabel,
+.perfect-software-layout .mermaid-wrapper .node.done text,
+.perfect-software-layout .mermaid-wrapper .node.done span {
+  color: #123722 !important;
+  fill: #123722 !important;
+  font-weight: 700 !important;
+}
+
+/* Edge Labels (はい・いいえ等の分岐テキスト: 背景ベージュ、インク文字色) */
+.perfect-software-layout .mermaid-wrapper .edgeLabel,
+.perfect-software-layout .mermaid-wrapper .edgeLabel span,
+.perfect-software-layout .mermaid-wrapper .edgeLabel p,
+.perfect-software-layout .mermaid-wrapper .edgeLabel text,
+.perfect-software-layout .mermaid-wrapper .edgeLabels .edgeLabel,
+.perfect-software-layout .mermaid-wrapper .edgeLabels .label,
+.perfect-software-layout .mermaid-wrapper .edgeLabels text,
+.perfect-software-layout .mermaid-wrapper .edgeLabels span {
+  background-color: var(--paper) !important;
+  color: var(--ink) !important;
+  fill: var(--ink) !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+}
+
+.perfect-software-layout .mermaid-wrapper .edgeLabels rect,
+.perfect-software-layout .mermaid-wrapper .edgeLabel rect {
+  fill: var(--paper) !important;
+  stroke: none !important;
+}
+
+/* Connectors & Arrows (線と矢印マーカー: 落ち着いたブロンズ #8b8272) */
+.perfect-software-layout .mermaid-wrapper .edgePath .path,
+.perfect-software-layout .mermaid-wrapper .flowchart-link {
+  stroke: #8b8272 !important;
+  stroke-width: 1.5px !important;
+}
+
+.perfect-software-layout .mermaid-wrapper .marker,
+.perfect-software-layout .mermaid-wrapper marker path {
+  fill: #8b8272 !important;
+  stroke: #8b8272 !important;
+}
+
+/* 7. Checklist */
+.perfect-software-layout .checklist {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 1rem !important;
+}
+
+.perfect-software-layout .checklist li {
+  margin-bottom: 0.6rem;
+}
+
+.perfect-software-layout .checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.perfect-software-layout .checklist label:hover {
+  background: var(--indigo-soft);
+}
+
+.perfect-software-layout .checklist input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  border: 2px solid var(--ink-faint);
+  border-radius: 5px;
+  margin-top: 0.15rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.perfect-software-layout .checklist input[type='checkbox']:checked {
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.perfect-software-layout .checklist input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 0.32rem;
+  top: 0.06rem;
+  width: 0.32rem;
+  height: 0.62rem;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.perfect-software-layout .checklist li.done label {
+  background: var(--forest-soft);
+  border-color: var(--forest);
+}
+
+.perfect-software-layout .checklist li.done span {
+  text-decoration: line-through;
+  color: var(--ink-faint);
+}
+
+.perfect-software-layout .checklist-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* 8. Reference Cards */
+.perfect-software-layout .ref-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.perfect-software-layout .ref-card {
+  display: flex;
+  gap: 1rem;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+.perfect-software-layout .ref-num {
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: #fdfbf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.perfect-software-layout .ref-body {
+  min-width: 0;
+}
+
+.perfect-software-layout .ref-body .ref-title {
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+  line-height: 1.6;
+}
+
+.perfect-software-layout .ref-body .ref-url {
+  font-size: 0.95rem;
+  color: var(--indigo);
+  word-break: break-all;
+  overflow-wrap: break-word;
+  text-decoration: none;
+}
+
+.perfect-software-layout .ref-body .ref-url:hover {
+  text-decoration: underline;
+}
+
+/* 9. Footer */
+.perfect-software-layout .footer {
+  padding: 2.4rem 3.2rem 3.4rem;
+  color: var(--ink-faint);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--border);
+  line-height: 1.8;
+}
+
+/* 10. Responsive Breakpoints */
+@media (max-width: 960px) {
+  .perfect-software-layout .sidebar {
+    transform: translateX(-100%);
+    /* 閉じている間はフォーカス順・支援技術・クリック対象から除外する。
+       visibility の切り替えはスライドアウト完了後に遅延させ、退場アニメを保つ。 */
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.22s ease, visibility 0s linear 0.22s;
+    width: min(84vw, 320px);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .perfect-software-layout .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.22s ease, visibility 0s linear 0s;
+  }
+
+  .perfect-software-layout .main {
+    margin-left: 0 !important;
+  }
+
+  .perfect-software-layout .mobile-bar {
+    display: flex;
+  }
+
+  /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+  .perfect-software-layout .section {
+    scroll-margin-top: calc(60px + 4rem + var(--disclaimer-height, 0px));
+  }
+
+  .perfect-software-layout .sidebar-scrim.open {
+    display: block;
+  }
+
+  .perfect-software-layout .hero {
+    padding: 2.2rem 1.3rem;
+  }
+
+  .perfect-software-layout .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .perfect-software-layout .content {
+    padding: 0 1.2rem 3.5rem;
+  }
+
+  .perfect-software-layout .section {
+    padding: 2.2rem 0;
+  }
+
+  .perfect-software-layout .book-card {
+    padding: 1.1rem;
+  }
+}

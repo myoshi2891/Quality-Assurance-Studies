@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 68 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 13 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(68);
+  it('contains 71 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 16 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(71);
   });
 
   it('every item has a unique href', () => {
@@ -181,6 +181,12 @@ describe('NAV_ITEMS', () => {
     expect(book?.category).toBe('books-practices');
   });
 
+  it('classifies /perfect-software-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/perfect-software-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
   it('classifies home "/" as home category and labels it as the guide index', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home).toBeDefined();
@@ -277,6 +283,16 @@ describe('groupByCategory', () => {
     expect(foundation?.items).toHaveLength(9);
   });
 
+  it('classifies /component-based-testing-qa-guide as books-practices', () => {
+    const item = NAV_ITEMS.find((i: NavItem) => i.href === '/component-based-testing-qa-guide');
+    expect(item?.category).toBe('books-practices');
+  });
+
+  it('classifies /software-testing-with-generative-ai-guide as books-practices', () => {
+    const item = NAV_ITEMS.find((i: NavItem) => i.href === '/software-testing-with-generative-ai-guide');
+    expect(item?.category).toBe('books-practices');
+  });
+
   it('places 2 items in the cicd-devops group', () => {
     const cicd = groupByCategory(NAV_ITEMS).find((g) => g.category === 'cicd-devops');
     expect(cicd?.items).toHaveLength(2);
@@ -287,9 +303,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(7);
   });
 
-  it('places 13 items in the books-practices group', () => {
+  it('places 16 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(13);
+    expect(books?.items).toHaveLength(16);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 

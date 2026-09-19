@@ -1,0 +1,690 @@
+/* software-testing-with-generative-ai-guide.css */
+
+.software-testing-genai-layout {
+  --bg: #ffffff;
+  --bg-elevated: #f5f7fb;
+  --bg-card: #eaeef6;
+  --border: #d3dae6;
+  --accent: #2f56c8;
+  --accent-soft: #b9c6ea;
+  --text: #16213d;
+  --text-dim: #4c5972;
+  --danger-bg: #fdecef;
+  --danger-border: #d1495b;
+  --danger-text: #7a1f2b;
+  --success: #0f7a52;
+  --code-bg: #eef1f7;
+  --sidebar-width: 300px;
+  --font-jp: var(--font-body), 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono-stack: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--font-jp) !important;
+  line-height: 1.85 !important;
+  font-size: 16px !important;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ---------- Globals.css 干渉リセット ---------- */
+.software-testing-genai-layout section {
+  padding-top: 0 !important;
+}
+
+.software-testing-genai-layout .hero {
+  min-height: 0 !important;
+  display: block !important;
+  padding: 64px 56px 40px 56px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
+}
+
+.software-testing-genai-layout .main {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 48px 56px 100px 56px;
+}
+
+.software-testing-genai-layout a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.software-testing-genai-layout a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Sidebar ---------- */
+.software-testing-genai-layout .sidebar {
+  position: fixed;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  overflow-y: auto;
+  background: var(--bg-elevated) !important;
+  border-right: 1px solid var(--border) !important;
+  padding: 24px 0 60px 0;
+  z-index: 40;
+  box-sizing: border-box !important;
+}
+
+/* スクロールバートラックの黒帯を完全に透明化し、元HTMLの繊細な1px境界線を復元 */
+.software-testing-genai-layout .sidebar::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.software-testing-genai-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.software-testing-genai-layout .sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(47, 86, 200, 0.2) !important;
+  border-radius: 3px !important;
+}
+
+.software-testing-genai-layout .sidebar-title {
+  padding: 0 24px 16px 24px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.software-testing-genai-layout ul.nav-list {
+  list-style: none !important;
+  margin: 0;
+  padding: 0 12px !important;
+}
+
+.software-testing-genai-layout li.nav-h2 {
+  margin-top: 4px;
+  list-style: none !important;
+}
+
+.software-testing-genai-layout li.nav-h2 > a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.software-testing-genai-layout li.nav-h2 > a:hover {
+  background: var(--bg-card);
+  text-decoration: none;
+}
+
+.software-testing-genai-layout li.nav-h2 > a.active {
+  color: var(--accent);
+  background: var(--bg-card);
+}
+
+.software-testing-genai-layout ul.nav-sub {
+  list-style: none !important;
+  margin: 2px 0 6px 0;
+  padding: 0 !important;
+}
+
+.software-testing-genai-layout li.nav-h3 {
+  list-style: none !important;
+}
+
+.software-testing-genai-layout li.nav-h3 > a {
+  display: block;
+  padding: 6px 12px 6px 26px;
+  font-size: 13px;
+  color: var(--text-dim);
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.software-testing-genai-layout li.nav-h3 > a:hover {
+  background: var(--bg-card);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.software-testing-genai-layout li.nav-h3 > a.active {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.software-testing-genai-layout .sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: calc(68px + var(--disclaimer-height, 0px));
+  left: 16px;
+  z-index: 50;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.software-testing-genai-layout .sidebar-scrim {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 35;
+}
+
+/* ---------- Content Wrap ---------- */
+.software-testing-genai-layout .content-wrap {
+  margin-left: var(--sidebar-width);
+}
+
+.software-testing-genai-layout .hero h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+  background: linear-gradient(90deg, var(--text), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.software-testing-genai-layout .hero-lede {
+  font-size: 16.5px;
+  color: var(--text-dim);
+  max-width: 980px;
+  line-height: 1.9;
+  margin: 0 0 16px 0;
+}
+
+.software-testing-genai-layout .hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.software-testing-genai-layout .pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ---------- Typography & Base elements ---------- */
+.software-testing-genai-layout .main h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 56px 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+  color: var(--text);
+}
+
+.software-testing-genai-layout .main h2:first-of-type {
+  margin-top: 0;
+}
+
+.software-testing-genai-layout .main h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 36px 0 14px 0;
+  color: var(--accent);
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.software-testing-genai-layout .main p {
+  color: var(--text);
+  margin: 0 0 18px 0;
+}
+
+.software-testing-genai-layout .main ul,
+.software-testing-genai-layout .main ol {
+  color: var(--text);
+  margin: 0 0 18px 0;
+  padding-left: 28px !important;
+}
+
+.software-testing-genai-layout .main ul {
+  list-style-type: disc !important;
+}
+
+.software-testing-genai-layout .main ol {
+  list-style-type: decimal !important;
+}
+
+.software-testing-genai-layout .main li {
+  margin-bottom: 8px;
+  display: list-item !important;
+}
+
+.software-testing-genai-layout .main hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+.software-testing-genai-layout .main strong {
+  color: #0a1020 !important;
+  font-weight: 700;
+}
+
+.software-testing-genai-layout .main code {
+  font-family: var(--font-mono-stack);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  color: var(--success) !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ---------- Mermaid Diagrams ---------- */
+/* 外枠コンテナ: 元HTMLの pre.mermaid と100%同一のスタイル。box-shadow は完全排除 */
+.software-testing-genai-layout .mermaid-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  padding: 28px 20px !important;
+  margin: 24px 0 32px 0 !important;
+  box-shadow: none !important;
+  overflow-x: auto !important;
+}
+
+/* 内側ラッパーの 2重枠・影・余白の完全リセット */
+.software-testing-genai-layout .mermaid-container .mermaid-wrapper,
+.software-testing-genai-layout .mermaid-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper svg {
+  flex-shrink: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+/* 文字切れ防止: foreignObject とノードラベルの overflow: visible */
+.software-testing-genai-layout .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper foreignObject > div,
+.software-testing-genai-layout .mermaid-wrapper .nodeLabel,
+.software-testing-genai-layout .mermaid-wrapper .label,
+.software-testing-genai-layout .mermaid-wrapper .node text {
+  overflow: visible !important;
+  line-height: 1.4 !important;
+  font-family: var(--font-jp) !important;
+  font-size: 14.5px !important;
+  text-align: center !important;
+}
+
+/* ノードスタイル（元HTMLテーマ完全復元: 背景 #eaeef6, ボーダー #7e8fc7, 文字色 #16213d） */
+.software-testing-genai-layout .mermaid-wrapper .node rect,
+.software-testing-genai-layout .mermaid-wrapper .node circle,
+.software-testing-genai-layout .mermaid-wrapper .node polygon,
+.software-testing-genai-layout .mermaid-wrapper .node path {
+  fill: #eaeef6 !important;
+  stroke: #7e8fc7 !important;
+  stroke-width: 1.5px !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .node .nodeLabel,
+.software-testing-genai-layout .mermaid-wrapper .node text,
+.software-testing-genai-layout .mermaid-wrapper .node span,
+.software-testing-genai-layout .mermaid-wrapper .node div {
+  color: #16213d !important;
+  fill: #16213d !important;
+  font-weight: 500 !important;
+  font-family: var(--font-jp) !important;
+}
+
+/* エッジ（線）と矢印マーカー: ブルー #2f56c8 */
+.software-testing-genai-layout .mermaid-wrapper .edgePath .path,
+.software-testing-genai-layout .mermaid-wrapper .flowchart-link,
+.software-testing-genai-layout .mermaid-wrapper path.link {
+  stroke: #2f56c8 !important;
+  stroke-width: 1.5px !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .marker,
+.software-testing-genai-layout .mermaid-wrapper marker path {
+  fill: #2f56c8 !important;
+  stroke: #2f56c8 !important;
+}
+
+/* エッジラベル（白背景、濃紺文字色） */
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel span,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel p,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel text,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels .edgeLabel,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels .label,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels text,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels span {
+  background-color: #ffffff !important;
+  color: #16213d !important;
+  fill: #16213d !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  font-family: var(--font-jp) !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels rect,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel rect {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+/* クラスター（サブグラフ） */
+.software-testing-genai-layout .mermaid-wrapper .cluster rect {
+  fill: #f5f7fb !important;
+  stroke: #7e8fc7 !important;
+  stroke-width: 1px !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .cluster .nodeLabel,
+.software-testing-genai-layout .mermaid-wrapper .cluster text {
+  fill: #16213d !important;
+  color: #16213d !important;
+  font-weight: 700 !important;
+  font-family: var(--font-jp) !important;
+}
+
+/* ---------- Tables ---------- */
+.software-testing-genai-layout .table-scroll {
+  overflow-x: auto;
+  margin: 24px 0 32px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.software-testing-genai-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  min-width: 520px;
+  background: var(--bg) !important;
+}
+
+.software-testing-genai-layout thead tr.header {
+  background: var(--bg-card) !important;
+}
+
+.software-testing-genai-layout thead th,
+.software-testing-genai-layout th {
+  text-align: left;
+  padding: 12px 16px !important;
+  color: var(--accent) !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--border) !important;
+  white-space: normal !important;
+  background: var(--bg-card) !important;
+}
+
+.software-testing-genai-layout tbody td,
+.software-testing-genai-layout td {
+  padding: 12px 16px !important;
+  color: var(--text-dim) !important;
+  border-bottom: 1px solid var(--border) !important;
+  vertical-align: top;
+  font-size: 14.5px !important;
+  line-height: 1.7 !important;
+}
+
+.software-testing-genai-layout td strong {
+  color: var(--text) !important;
+  font-weight: 700 !important;
+}
+
+.software-testing-genai-layout tr.odd {
+  background: var(--bg) !important;
+}
+
+.software-testing-genai-layout tr.even {
+  background: var(--bg-elevated) !important;
+}
+
+.software-testing-genai-layout tbody tr:hover td {
+  background: var(--bg-card) !important;
+}
+
+.software-testing-genai-layout tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* ---------- Prompt example blocks ---------- */
+.software-testing-genai-layout .prompt-example {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  margin: 20px 0 28px 0;
+  overflow: hidden;
+}
+
+.software-testing-genai-layout .prompt-example-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--bg-elevated);
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.03em;
+}
+
+.software-testing-genai-layout .prompt-example pre {
+  margin: 0;
+  padding: 16px 20px 20px 20px;
+  font-family: var(--font-mono-stack);
+  font-size: 13.5px;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.7;
+}
+
+/* ---------- Checklist ---------- */
+.software-testing-genai-layout .checklist-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
+  margin: 20px 0 32px 0;
+}
+
+.software-testing-genai-layout .checklist-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 6px;
+}
+
+.software-testing-genai-layout .checklist-progress {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.software-testing-genai-layout ul.checklist-list {
+  list-style: none !important;
+  margin: 0;
+  padding: 4px !important;
+}
+
+.software-testing-genai-layout ul.checklist-list li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 2px;
+  list-style: none !important;
+}
+
+.software-testing-genai-layout ul.checklist-list li:hover {
+  background: var(--bg-card);
+}
+
+.software-testing-genai-layout ul.checklist-list li label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14.5px;
+}
+
+.software-testing-genai-layout ul.checklist-list input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 19px;
+  height: 19px;
+  min-width: 19px;
+  border: 2px solid var(--accent-soft);
+  border-radius: 5px;
+  margin-top: 2px;
+  position: relative;
+  cursor: pointer;
+  background: var(--bg-card);
+}
+
+.software-testing-genai-layout ul.checklist-list input[type='checkbox']:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.software-testing-genai-layout ul.checklist-list input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--bg);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.software-testing-genai-layout ul.checklist-list li:has(input:checked) label {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+/* ---------- References ---------- */
+.software-testing-genai-layout .ref-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0 32px 0;
+}
+
+@media (max-width: 900px) {
+  .software-testing-genai-layout .ref-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.software-testing-genai-layout .ref-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-dim);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.software-testing-genai-layout .ref-badge {
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.software-testing-genai-layout .ref-body {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.software-testing-genai-layout .ref-body a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ---------- Disclaimer ---------- */
+.software-testing-genai-layout p.disclaimer {
+  font-size: 13px;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  margin-top: 12px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .software-testing-genai-layout .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .software-testing-genai-layout .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .software-testing-genai-layout .sidebar-toggle {
+    display: block;
+  }
+  .software-testing-genai-layout .sidebar-scrim.open {
+    display: block;
+  }
+  .software-testing-genai-layout .content-wrap {
+    margin-left: 0;
+  }
+  .software-testing-genai-layout .hero {
+    padding: 60px 24px 32px 24px;
+  }
+  .software-testing-genai-layout .main {
+    padding: 32px 20px 80px 20px;
+  }
+  .software-testing-genai-layout .main h2 {
+    font-size: 22px;
+  }
+}

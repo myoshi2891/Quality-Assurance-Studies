@@ -1,0 +1,951 @@
+/* ==========================================================================
+   Component-based Testing QA Guide Styles
+   Scope: .cbss-qa-layout
+   Theme: Modern Dark Navy with Light Grayish Blue text & Cyan/Blue Accents
+   ========================================================================== */
+
+.cbss-qa-layout {
+  --bg: #07111e;
+  --bg-elev: #0d1a2e;
+  --bg-elev2: #122238;
+  --accent: #7c9eff;
+  --accent-soft: rgba(124, 158, 255, 0.14);
+  --accent-border: rgba(124, 158, 255, 0.3);
+  --text: #eef2fa;
+  --text-dim: #b8c4de;
+  --border: rgba(124, 158, 255, 0.16);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+    'Hiragino Sans', 'Yu Gothic UI', 'Noto Sans JP', Meiryo, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.85;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ---------- Reset globals.css Interference ---------- */
+.cbss-qa-layout section {
+  padding-top: 0;
+}
+
+.cbss-qa-layout .hero {
+  min-height: 0;
+  display: block;
+  padding-top: 0;
+}
+
+.cbss-qa-layout .main {
+  flex: 1 1 auto;
+  max-width: none !important;
+  width: auto !important;
+  margin: 0 !important;
+  margin-left: 300px !important;
+  padding: 56px 64px 100px;
+}
+
+/* ---------- Sidebar ---------- */
+.cbss-qa-layout .sidebar {
+  position: fixed;
+  left: 0;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  width: 300px;
+  background: var(--bg-elev);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 24px 0 40px;
+  z-index: 40;
+}
+
+.cbss-qa-layout .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 22px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.cbss-qa-layout .sidebar-brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), #4d6fd1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #07111e;
+  font-size: 15px;
+  flex: none;
+}
+
+.cbss-qa-layout .sidebar-brand-text {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.cbss-qa-layout .sidebar-brand-sub {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-top: 1px;
+}
+
+.cbss-qa-layout ul.nav-list {
+  list-style: none !important;
+  margin: 0;
+  padding: 0 12px;
+}
+
+.cbss-qa-layout ul.nav-list > li {
+  margin: 2px 0;
+  list-style: none !important;
+}
+
+.cbss-qa-layout a.nav-h2 {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cbss-qa-layout a.nav-h2:hover,
+.cbss-qa-layout a.nav-h2.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.cbss-qa-layout ul.nav-sub {
+  list-style: none !important;
+  margin: 2px 0 6px;
+  padding: 0 0 0 14px;
+  border-left: 1px solid var(--border);
+}
+
+.cbss-qa-layout ul.nav-sub li {
+  margin: 0;
+  list-style: none !important;
+}
+
+.cbss-qa-layout a.nav-h3 {
+  display: block;
+  padding: 6px 12px;
+  border-radius: 7px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 12.5px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cbss-qa-layout a.nav-h3:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.cbss-qa-layout a.nav-h3.active {
+  color: var(--accent);
+}
+
+.cbss-qa-layout .sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: calc(74px + var(--disclaimer-height, 0px));
+  left: 14px;
+  z-index: 45;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cbss-qa-layout .sidebar-toggle span,
+.cbss-qa-layout .sidebar-toggle span::before,
+.cbss-qa-layout .sidebar-toggle span::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  position: relative;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.cbss-qa-layout .sidebar-toggle span::before {
+  position: absolute;
+  top: -6px;
+}
+
+.cbss-qa-layout .sidebar-toggle span::after {
+  position: absolute;
+  top: 6px;
+}
+
+/* ---------- Hero ---------- */
+.cbss-qa-layout .hero {
+  padding-bottom: 36px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cbss-qa-layout .hero h1 {
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.35;
+  margin: 0 0 14px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fff, var(--accent) 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cbss-qa-layout .hero-lede {
+  font-size: 16.5px;
+  color: var(--text-dim);
+  max-width: 900px;
+  margin: 0 0 22px;
+}
+
+.cbss-qa-layout .hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cbss-qa-layout .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---------- Typography & Base ---------- */
+.cbss-qa-layout .main h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 56px 0 18px;
+  padding-top: 8px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+  color: var(--text);
+}
+
+.cbss-qa-layout .main h2:first-of-type {
+  margin-top: 0;
+}
+
+.cbss-qa-layout .main h3 {
+  font-size: 19.5px;
+  font-weight: 700;
+  margin: 38px 0 14px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+  color: var(--text);
+}
+
+.cbss-qa-layout .main h4 {
+  font-size: 16.5px;
+  font-weight: 700;
+  margin: 26px 0 10px;
+  color: var(--text);
+}
+
+.cbss-qa-layout .main p {
+  margin: 0 0 18px;
+  color: var(--text);
+}
+
+.cbss-qa-layout .main ul.bullet-list {
+  margin: 0 0 18px;
+  padding-left: 1.4em;
+  color: var(--text);
+  list-style-type: disc !important;
+}
+
+.cbss-qa-layout .main ul.bullet-list li {
+  margin: 6px 0;
+  display: list-item !important;
+}
+
+.cbss-qa-layout .main ol.number-list {
+  margin: 0 0 18px;
+  padding-left: 1.4em;
+  color: var(--text);
+  list-style-type: decimal !important;
+}
+
+.cbss-qa-layout .main ol.number-list li {
+  margin: 6px 0;
+  display: list-item !important;
+}
+
+.cbss-qa-layout .main strong {
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.cbss-qa-layout .main em {
+  color: var(--text);
+}
+
+.cbss-qa-layout .main a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-border);
+  text-underline-offset: 2px;
+}
+
+.cbss-qa-layout .main a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.cbss-qa-layout .main hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 44px 0;
+}
+
+.cbss-qa-layout code:not(pre code) {
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  padding: 0.15em 0.45em;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: #c9d6f5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ---------- Tables ---------- */
+.cbss-qa-layout .table-scroll {
+  overflow-x: auto;
+  margin: 0 0 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.cbss-qa-layout table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 520px;
+  font-size: 14.5px;
+  background: var(--bg-elev);
+}
+
+.cbss-qa-layout thead th {
+  background: var(--bg-elev2) !important;
+  color: var(--text) !important;
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border) !important;
+  white-space: normal !important;
+}
+
+.cbss-qa-layout tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text-dim) !important;
+  vertical-align: top;
+  line-height: 1.7;
+}
+
+.cbss-qa-layout tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+.cbss-qa-layout tbody tr.odd,
+.cbss-qa-layout tbody tr:nth-child(odd) {
+  background: rgba(124, 158, 255, 0.03) !important;
+}
+
+.cbss-qa-layout tbody tr.even,
+.cbss-qa-layout tbody tr:nth-child(even) {
+  background: transparent !important;
+}
+
+.cbss-qa-layout tbody tr:hover td {
+  background: rgba(124, 158, 255, 0.07) !important;
+}
+
+.cbss-qa-layout td strong {
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* ---------- Mermaid Diagram Styling ---------- */
+/* 外枠: 大元 HTML の pre.mermaid に準拠。十分な余白と横スクロール */
+.cbss-qa-layout .mermaid-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: safe center;
+  align-items: center;
+  overflow-x: auto;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px 20px;
+  margin: 0 0 28px;
+}
+
+/* 内側 .mermaid-wrapper: globals.css の背景・枠線・影・パディング・マージンを完全リセットし、親幅への縮小を防止 */
+.cbss-qa-layout .mermaid-wrap .mermaid-wrapper {
+  width: max-content !important;
+  min-width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  justify-content: safe center !important;
+  align-items: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+}
+
+/* SVG: max-width: none で自然な幅を保持（親コンテナ幅への縮小による極小化を防止）し、flex-shrink: 0 で横スクロール可能に */
+.cbss-qa-layout .mermaid-wrap svg {
+  display: block !important;
+  margin: 0 auto !important;
+  max-width: none !important;
+  height: auto !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+/* 通常ノードのスタイル（大元 HTML の dark theme 準拠） */
+.cbss-qa-layout .mermaid-wrapper .node rect,
+.cbss-qa-layout .mermaid-wrapper .node circle,
+.cbss-qa-layout .mermaid-wrapper .node ellipse,
+.cbss-qa-layout .mermaid-wrapper .node polygon,
+.cbss-qa-layout .mermaid-wrapper .node path,
+.cbss-qa-layout .mermaid-wrapper .node .basic,
+.cbss-qa-layout .mermaid-wrapper .node .label-container {
+  fill: #152238 !important;
+  stroke: #3b5a8c !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node .label,
+.cbss-qa-layout .mermaid-wrapper .node .label text,
+.cbss-qa-layout .mermaid-wrapper .node .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node text,
+.cbss-qa-layout .mermaid-wrapper .node span,
+.cbss-qa-layout .mermaid-wrapper .node p,
+.cbss-qa-layout .mermaid-wrapper .node div {
+  color: #eef2fa !important;
+  fill: #eef2fa !important;
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+}
+
+/* compStyle / COTSノード (大元 HTML のダークサーフェス: #1f2430 / #8b9bb4 / #ffffff) */
+.cbss-qa-layout .mermaid-wrapper .node.compStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.compStyle polygon,
+.cbss-qa-layout .mermaid-wrapper .node.compStyle path,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#1f2430" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#1f2430" i]) polygon {
+  fill: #1f2430 !important;
+  stroke: #8b9bb4 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.compStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.compStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) .nodeLabel * {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* riskStyle / e2eStyle / blockStyle / survivedStyle (薄赤背景 #fdecea / 濃赤枠線 #c0526e / 濃赤文字 #5a1420) */
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle polygon,
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle path,
+.cbss-qa-layout .mermaid-wrapper .node.e2eStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.blockStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.survivedStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdecea" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdecea" i]) polygon {
+  fill: #fdecea !important;
+  stroke: #c0526e !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.e2eStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.e2eStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.blockStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.blockStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.survivedStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.survivedStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) .nodeLabel * {
+  color: #5a1420 !important;
+  fill: #5a1420 !important;
+  font-weight: 600 !important;
+}
+
+/* unitStyle / provStyle / passStyle / cleanupStyle / killedStyle / fastStyle (薄緑背景 #eafaf1 / 濃緑枠線 #2e9e5b / 濃緑文字 #164a2c) */
+.cbss-qa-layout .mermaid-wrapper .node.unitStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.provStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.passStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.cleanupStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.killedStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.fastStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#eafaf1" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#eafaf1" i]) polygon {
+  fill: #eafaf1 !important;
+  stroke: #2e9e5b !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.unitStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.unitStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.provStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.provStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.passStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.passStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.cleanupStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.cleanupStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.killedStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.killedStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.fastStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.fastStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) .nodeLabel * {
+  color: #164a2c !important;
+  fill: #164a2c !important;
+  font-weight: 600 !important;
+}
+
+/* intStyle / conStyle / stepStyle / testStyle / srcStyle / midStyle (薄青背景 #e8f0fe / 濃青枠線 #3b6fd6 / 濃青文字 #1a2b4c) */
+.cbss-qa-layout .mermaid-wrapper .node.intStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.conStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.stepStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.testStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.srcStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.midStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#e8f0fe" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#e8f0fe" i]) polygon {
+  fill: #e8f0fe !important;
+  stroke: #3b6fd6 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.intStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.intStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.conStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.conStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.stepStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.stepStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.testStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.testStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.srcStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.srcStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.midStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.midStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) .nodeLabel * {
+  color: #1a2b4c !important;
+  fill: #1a2b4c !important;
+  font-weight: 600 !important;
+}
+
+/* ctStyle / brokerStyle / gateStyle / infraStyle / slowStyle (薄黄背景 #fdf3e0 / 濃黄枠線 #c98a1f / 濃茶文字 #4c3a1a) */
+.cbss-qa-layout .mermaid-wrapper .node.ctStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.brokerStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.gateStyle polygon,
+.cbss-qa-layout .mermaid-wrapper .node.infraStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.slowStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdf3e0" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdf3e0" i]) polygon {
+  fill: #fdf3e0 !important;
+  stroke: #c98a1f !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.ctStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.ctStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.brokerStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.brokerStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.gateStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.gateStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.infraStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.infraStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.slowStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.slowStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) .nodeLabel * {
+  color: #4c3a1a !important;
+  fill: #4c3a1a !important;
+  font-weight: 600 !important;
+}
+
+/* サブグラフ（クラスタ）スタイル */
+.cbss-qa-layout .mermaid-wrapper .cluster rect {
+  fill: rgba(13, 26, 46, 0.7) !important;
+  stroke: rgba(124, 158, 255, 0.3) !important;
+  stroke-width: 1.5px !important;
+  rx: 8px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .cluster .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .cluster .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .cluster text {
+  color: #eef2fa !important;
+  fill: #eef2fa !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+/* シーケンス図のアクター・Note スタイル */
+.cbss-qa-layout .mermaid-wrapper .actor {
+  fill: #152238 !important;
+  stroke: #3b5a8c !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper text.actor > tspan {
+  fill: #eef2fa !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .note {
+  fill: #1f2430 !important;
+  stroke: #8b9bb4 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper text.noteText > tspan {
+  fill: #eef2fa !important;
+  font-size: 13.5px !important;
+}
+
+/* エッジラベルと矢印 */
+.cbss-qa-layout .mermaid-wrapper .edgeLabel,
+.cbss-qa-layout .mermaid-wrapper .edgeLabel span,
+.cbss-qa-layout .mermaid-wrapper .edgeLabel text {
+  background-color: var(--bg-elev2) !important;
+  color: var(--text) !important;
+  fill: var(--text) !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .edgeLabels rect {
+  fill: var(--bg-elev2) !important;
+  stroke: var(--accent-border) !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .edgePath .path {
+  stroke: #5f7fb8 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .arrowheadPath {
+  fill: #5f7fb8 !important;
+}
+
+/* ---------- Code block (Prism / Custom) ---------- */
+.cbss-qa-layout .code-block {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 0 0 24px;
+  font-size: 13.5px;
+  overflow-x: auto;
+  background: #0b1524;
+  padding: 16px 20px;
+  font-family: var(--font-mono);
+  color: #d1dced;
+}
+
+.cbss-qa-layout .code-line {
+  white-space: pre;
+  line-height: 1.6;
+}
+
+.cbss-qa-layout .code-comment {
+  color: #7b8fae;
+  font-style: italic;
+}
+
+.cbss-qa-layout .code-keyword {
+  color: #ff7b9f;
+  font-weight: 600;
+}
+
+.cbss-qa-layout .code-string {
+  color: #a8df8e;
+}
+
+.cbss-qa-layout .code-fn {
+  color: #7c9eff;
+}
+
+.cbss-qa-layout .code-prop {
+  color: #ffd166;
+}
+
+.cbss-qa-layout .code-num {
+  color: #ef8354;
+}
+
+/* ---------- Checklist Card ---------- */
+.cbss-qa-layout .checklist-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  padding: 6px 0 8px;
+  margin: 0 0 24px;
+  overflow: hidden;
+}
+
+.cbss-qa-layout .checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cbss-qa-layout .checklist-title {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+.cbss-qa-layout .checklist-progress {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.cbss-qa-layout ul.checklist {
+  list-style: none !important;
+  margin: 0;
+  padding: 6px 8px;
+}
+
+.cbss-qa-layout ul.checklist li {
+  margin: 0;
+  list-style: none !important;
+}
+
+.cbss-qa-layout ul.checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--text);
+  font-size: 14.5px;
+}
+
+.cbss-qa-layout ul.checklist label:hover {
+  background: var(--accent-soft);
+}
+
+.cbss-qa-layout ul.checklist input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 19px;
+  height: 19px;
+  flex: none;
+  margin-top: 1px;
+  border: 1.5px solid var(--accent-border);
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  background: var(--bg-elev2);
+}
+
+.cbss-qa-layout ul.checklist input[type='checkbox']:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.cbss-qa-layout ul.checklist input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #07111e;
+  border-width: 0 2px 2px 0;
+  transform: rotate(40deg);
+}
+
+.cbss-qa-layout ul.checklist li:has(input:checked) label {
+  color: var(--text-dim);
+  text-decoration: line-through;
+  text-decoration-color: var(--border);
+}
+
+/* ---------- References ---------- */
+.cbss-qa-layout .ref-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 30px;
+}
+
+.cbss-qa-layout .ref-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.cbss-qa-layout .ref-badge {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cbss-qa-layout .ref-body {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  min-width: 0;
+}
+
+.cbss-qa-layout .ref-body em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.cbss-qa-layout .ref-body a {
+  display: inline-block;
+  margin-top: 3px;
+  word-break: break-all;
+}
+
+.cbss-qa-layout .disclaimer {
+  margin-top: 40px;
+  padding: 16px 20px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-border);
+  border-radius: 10px;
+  color: var(--text-dim);
+  font-size: 13.5px;
+  font-style: italic;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .cbss-qa-layout .sidebar {
+    transform: translateX(-100%);
+    /* 閉じている間はフォーカス順・支援技術・クリック対象から除外する。
+       visibility の切り替えはスライドアウト完了後に遅延させ、退場アニメを保つ。 */
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s, visibility 0s linear 0.25s;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0);
+  }
+  .cbss-qa-layout .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.25s, visibility 0s linear 0s;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  }
+  .cbss-qa-layout .main {
+    margin-left: 0 !important;
+    padding: 88px 20px 80px;
+  }
+  .cbss-qa-layout .sidebar-toggle {
+    display: flex;
+  }
+  .cbss-qa-layout .hero-pills {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .cbss-qa-layout .ref-grid {
+    grid-template-columns: 1fr;
+  }
+}
