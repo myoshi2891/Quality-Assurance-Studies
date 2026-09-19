@@ -571,47 +571,145 @@
 }
 
 .ai-driven-test-layout .mermaid-wrap {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--paper-card);
-  padding: 1.4rem 1rem;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  background: var(--paper-card) !important;
+  padding: 1.4rem 1rem !important;
   overflow-x: auto;
-  display: flex;
-  justify-content: center;
+  display: flex !important;
+  justify-content: center !important;
+  box-shadow: var(--shadow);
 }
 
+/* 2重外枠の完全解消 & 内側の .mermaid-wrapper の影・ボーダー・マージンの完全リセット */
+.ai-driven-test-layout .mermaid-wrap .mermaid-wrapper,
 .ai-driven-test-layout .mermaid-wrapper {
   width: 100% !important;
-  max-width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  justify-content: center !important;
   background: transparent !important;
   border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
   padding: 0 !important;
-  display: flex;
-  justify-content: center;
+  border-radius: 0 !important;
+  overflow: visible !important;
 }
 
+/* SVG の自然サイズ描画 */
 .ai-driven-test-layout .mermaid-wrapper svg {
-  display: block;
-  margin: 0 auto;
   max-width: 100% !important;
   height: auto !important;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  display: block !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
 }
 
-/* Mermaid Edge Labels & Text Contrast (No Dark Box) */
+/* 文字切れ防止: foreignObject とノードラベルの overflow: visible */
+.ai-driven-test-layout .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+.ai-driven-test-layout .mermaid-wrapper foreignObject > div,
+.ai-driven-test-layout .mermaid-wrapper .nodeLabel,
+.ai-driven-test-layout .mermaid-wrapper .label,
+.ai-driven-test-layout .mermaid-wrapper .node text {
+  overflow: visible !important;
+  line-height: 1.4 !important;
+  font-family: var(--font-body) !important;
+  font-size: 14.5px !important;
+  text-align: center !important;
+}
+
+/* 通常ノード (白背景、indigoボーダー、インク文字色) */
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) rect,
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) polygon,
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) circle,
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) path {
+  fill: #ffffff !important;
+  stroke: #3f3d8a !important;
+  stroke-width: 1.5px !important;
+}
+
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel,
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) text,
+.ai-driven-test-layout .mermaid-wrapper .node:not(.hub):not(.done) span {
+  color: #26221c !important;
+  fill: #26221c !important;
+  font-weight: 500 !important;
+}
+
+/* Hub Node (薄紫ラベンダー背景、濃紺ボーダー、濃紺太字) */
+.ai-driven-test-layout .mermaid-wrapper .node.hub rect,
+.ai-driven-test-layout .mermaid-wrapper .node.hub polygon,
+.ai-driven-test-layout .mermaid-wrapper .node.hub circle,
+.ai-driven-test-layout .mermaid-wrapper .node.hub path {
+  fill: #c9c4ef !important;
+  stroke: #3f3d8a !important;
+  stroke-width: 2px !important;
+}
+
+.ai-driven-test-layout .mermaid-wrapper .node.hub .nodeLabel,
+.ai-driven-test-layout .mermaid-wrapper .node.hub text,
+.ai-driven-test-layout .mermaid-wrapper .node.hub span {
+  color: #221f52 !important;
+  fill: #221f52 !important;
+  font-weight: 700 !important;
+}
+
+/* Done Node (薄ミントグリーン背景、濃緑ボーダー、濃緑太字) */
+.ai-driven-test-layout .mermaid-wrapper .node.done rect,
+.ai-driven-test-layout .mermaid-wrapper .node.done polygon,
+.ai-driven-test-layout .mermaid-wrapper .node.done circle,
+.ai-driven-test-layout .mermaid-wrapper .node.done path {
+  fill: #bfe4d2 !important;
+  stroke: #2f6b4f !important;
+  stroke-width: 2px !important;
+}
+
+.ai-driven-test-layout .mermaid-wrapper .node.done .nodeLabel,
+.ai-driven-test-layout .mermaid-wrapper .node.done text,
+.ai-driven-test-layout .mermaid-wrapper .node.done span {
+  color: #123722 !important;
+  fill: #123722 !important;
+  font-weight: 700 !important;
+}
+
+/* Edge Labels (分岐ラベル等) */
 .ai-driven-test-layout .mermaid-wrapper .edgeLabel,
 .ai-driven-test-layout .mermaid-wrapper .edgeLabel span,
-.ai-driven-test-layout .mermaid-wrapper .edgeLabel text {
+.ai-driven-test-layout .mermaid-wrapper .edgeLabel p,
+.ai-driven-test-layout .mermaid-wrapper .edgeLabel text,
+.ai-driven-test-layout .mermaid-wrapper .edgeLabels .edgeLabel,
+.ai-driven-test-layout .mermaid-wrapper .edgeLabels .label,
+.ai-driven-test-layout .mermaid-wrapper .edgeLabels text,
+.ai-driven-test-layout .mermaid-wrapper .edgeLabels span {
   background-color: var(--paper-card) !important;
   color: var(--ink) !important;
   fill: var(--ink) !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+}
+
+.ai-driven-test-layout .mermaid-wrapper .edgeLabels rect,
+.ai-driven-test-layout .mermaid-wrapper .edgeLabel rect {
+  fill: var(--paper-card) !important;
   stroke: none !important;
 }
 
-.ai-driven-test-layout .mermaid-wrapper .edgeLabels rect {
-  fill: var(--paper-card) !important;
-  stroke: none !important;
+/* Connectors & Arrows (線と矢印) */
+.ai-driven-test-layout .mermaid-wrapper .edgePath .path,
+.ai-driven-test-layout .mermaid-wrapper .flowchart-link {
+  stroke: #8a8477 !important;
+  stroke-width: 1.5px !important;
+}
+
+.ai-driven-test-layout .mermaid-wrapper .marker,
+.ai-driven-test-layout .mermaid-wrapper marker path {
+  fill: #8a8477 !important;
+  stroke: #8a8477 !important;
 }
 
 /* 9. Tags */
