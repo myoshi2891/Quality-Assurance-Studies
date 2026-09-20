@@ -48,7 +48,7 @@
 .testing-ai-confidence-layout .hero {
   min-height: 0 !important;
   display: block !important;
-  padding-top: 0 !important;
+  padding: 2.2rem 3rem 2.6rem !important;
 }
 
 .testing-ai-confidence-layout .main {
@@ -58,7 +58,8 @@
   width: auto !important;
   margin: 0 !important;
   margin-left: var(--sidebar-w) !important;
-  padding: 0 0 4rem;
+  padding: 1.5rem 0 4rem;
+  background: var(--paper);
 }
 
 /* Typography */
@@ -124,6 +125,21 @@
   overflow-y: auto;
   padding: 1.5rem 0 2.5rem;
   z-index: 40;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.testing-ai-confidence-layout .sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.testing-ai-confidence-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.testing-ai-confidence-layout .sidebar::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+  border-radius: 3px;
 }
 
 .testing-ai-confidence-layout .sidebar-brand {
@@ -476,11 +492,14 @@
   justify-content: center;
 }
 
+.testing-ai-confidence-layout .diagram-wrap .mermaid-wrapper,
 .testing-ai-confidence-layout .mermaid-wrapper {
   width: 100% !important;
   max-width: 100% !important;
   background: transparent !important;
   border: none !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
   padding: 0 !important;
   display: flex;
   justify-content: center;
@@ -491,22 +510,178 @@
   margin: 0 auto;
   max-width: 100% !important;
   height: auto !important;
+  background: transparent !important;
 }
 
-/* Mermaid Edge Labels / Nodes styling */
-.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel,
-.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel span,
-.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel text {
-  background-color: var(--paper) !important;
+/* --- Mermaid Paper Theme Node Styles --- */
+
+/* 1. 通常ノード（hub, done, box 以外）: 淡い紫背景、紫枠線、インク文字 */
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) path,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .label-container {
+  fill: #efeaf9 !important;
+  stroke: #9d95d1 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) text,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) span,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) p,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) div {
+  color: #221f2e !important;
+  fill: #221f2e !important;
+  font-family: var(--font-serif) !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+  font-weight: 500 !important;
+}
+
+/* 2. .hub ノード（開始・ハブノード）: ラベンダー紫背景、濃紫枠線 */
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub path,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .label-container {
+  fill: #c9c4ef !important;
+  stroke: #8f86d9 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub span,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub p,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub div {
+  color: #221f52 !important;
+  fill: #221f52 !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* 3. .done ノード（終了・共通ゴール・成功ノード）: ミントグリーン背景、緑枠線 */
+.testing-ai-confidence-layout .mermaid-wrapper .node.done rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done path,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .label-container {
+  fill: #bfe4d2 !important;
+  stroke: #6fb897 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done span,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done p,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done div {
+  color: #123722 !important;
+  fill: #123722 !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* 4. .box ノード（従来型・対比ノード）: ゴールド/クリーム黄色背景、金枠線 */
+.testing-ai-confidence-layout .mermaid-wrapper .node.box rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box path,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .label-container {
+  fill: #f0dfb0 !important;
+  stroke: #d1ad4f !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box span,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box p,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box div {
+  color: #4a3a0a !important;
+  fill: #4a3a0a !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* 5. クラスタ（サブグラフ） */
+.testing-ai-confidence-layout .mermaid-wrapper .cluster rect {
+  fill: var(--paper-card-2) !important;
+  stroke: var(--border) !important;
+  stroke-width: 1.5px !important;
+  rx: 10px !important;
+  ry: 10px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .cluster .label,
+.testing-ai-confidence-layout .mermaid-wrapper .cluster .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .cluster text,
+.testing-ai-confidence-layout .mermaid-wrapper .cluster span {
   color: var(--ink) !important;
   fill: var(--ink) !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
 }
 
-.testing-ai-confidence-layout .mermaid-wrapper .edgeLabels rect {
+/* 6. エッジ（接続線と矢印マーカー） */
+.testing-ai-confidence-layout .mermaid-wrapper .edgePath .path,
+.testing-ai-confidence-layout .mermaid-wrapper .flowchart-link {
+  stroke: #6f6aa0 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .marker,
+.testing-ai-confidence-layout .mermaid-wrapper marker path {
+  fill: #6f6aa0 !important;
+  stroke: #6f6aa0 !important;
+}
+
+/* 7. エッジラベル */
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel span,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel p,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel text,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabels .label {
+  color: #221f2e !important;
+  fill: #221f2e !important;
+  font-family: var(--font-serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  background-color: var(--paper) !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabels rect,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel rect {
   fill: var(--paper) !important;
-  stroke: none !important;
+  stroke: transparent !important;
 }
 
 /* ---------- Checklist ---------- */
