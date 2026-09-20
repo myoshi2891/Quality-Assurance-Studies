@@ -172,6 +172,67 @@ export const DIAGRAM_CONFIDENCE_ENGINEER = `${MERMAID_CONFIG}flowchart TD
     class CE hub
     class Exec done`;
 
+export const DIAGRAM_MODEL_INTERNALS = `${MERMAID_CONFIG}flowchart TD
+    Token["トークン化と入力の扱い"]
+    Context["コンテキストウィンドウとサンプリング"]
+    Attention["アテンション診断 どのトークンに注目しているか"]
+    Activation["活性化と概念プローブ"]
+    SAE["スパースオートエンコーダによる特徴の分解"]
+    Triage["既知の良い例 悪い例 曖昧な例と比較しトリアージの根拠にする"]
+
+    Token --> Context --> Attention --> Activation --> SAE --> Triage
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Token hub
+    class Triage done`;
+
+export const DIAGRAM_SECURITY_SAFETY = `${MERMAID_CONFIG}flowchart TD
+    Channels["信頼できない入力チャネル ユーザーテキスト 取得したページ ツール出力 ファイル 画像 外部API"]
+    Threat["脅威モデリングを行う"]
+    Guard["ガードレールを実装する"]
+    Frontier["危険能力テストと封じ込めを設計する"]
+    Layered["層になった安全性として運用する"]
+
+    Channels --> Threat --> Guard --> Frontier --> Layered
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Channels hub
+    class Layered done`;
+
+export const DIAGRAM_PART5_CHAIN = `${MERMAID_CONFIG}flowchart TD
+    P17["第17章 パーソナライズされた動的なAIプロダクト ユーザーが1人でもそのユーザーにとって正しくあるべき"]
+    P18["第18章 身体性AIと長時間稼働するAIシステム シミュレーションを優先し 重要なケースのみ物理検証する"]
+    P19["第19章 ガバナンス 規制 道徳的な未来 現行法と普遍的な品質原則を分けて追跡する"]
+
+    P17 --> P18 --> P19
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class P17 hub
+    class P19 done`;
+
+export const DIAGRAM_SIX_PREDICTIONS = `${MERMAID_CONFIG}flowchart LR
+    Hub["トークン化プロダクトの未来への6つの予測"]
+    Pred1["予測1 検証がコンピュートの中心になる"]
+    Pred2["予測2 開発者がコーディングエージェントを管理し 実践的な統計家になる"]
+    Pred3["予測3 プロダクトが動的であることがデフォルトになる"]
+    Pred4["予測4 プロダクト作成が継続的なプロセスになる"]
+    Pred5["予測5 APIとインターフェースがより緩やかになる"]
+    Pred6["予測6 AIがAIテストの大半を行うようになる"]
+
+    Hub --> Pred1
+    Hub --> Pred2
+    Hub --> Pred3
+    Hub --> Pred4
+    Hub --> Pred5
+    Hub --> Pred6
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Hub hub`;
+
 export default function TestingAiConfidenceGuidePage() {
   return (
     <div className="testing-ai-confidence-layout">
@@ -675,6 +736,144 @@ export default function TestingAiConfidenceGuidePage() {
               <Mermaid chart={DIAGRAM_CONFIDENCE_ENGINEER} />
             </div>
             <div className="diagram-caption">図8　Confidence Engineerの役割</div>
+          </div>
+        </section>
+
+        {/* Section: step4 */}
+        <section className="section" id="step4">
+          <h2>
+            <i className="ti ti-circle-number-4" aria-hidden="true"></i>
+            <span>
+              Step 4：第IV部 — データ・セキュリティ・安全性・モデル内部（第12〜16章）
+            </span>
+          </h2>
+          <div className="prose">
+            <p>
+              第IV部は、データとバイアス、セキュリティ、フロンティア安全性、そしてモデルそのものの仕組みという、やや発展的なテーマを扱う5つの章です。
+            </p>
+          </div>
+
+          <h3>第12章　データ、バイアス、評価者、インセンティブ</h3>
+          <div className="prose">
+            <p>
+              データ・ラベル・評価者（レイター）・インセンティブ・展開後のフィードバックのすべてを、品質に関わる監査対象として扱います。ユーザーの属性・言語・文化・デバイス・地域・アクセス性によってスライスと反実仮想（カウンターファクチュアル、もし属性が違っていたらどうなるか）を報告することが求められます。データのバイアス、ラベリングのバイアス、学習時のバイアス、プロダクト化する段階でのバイアス、そして生存バイアス（うまくいった事例だけが目に入ってしまう罠）まで、細かく分解して扱われます。
+            </p>
+          </div>
+
+          <h3>第13章　AIセキュリティとガードレール</h3>
+          <div className="prose">
+            <p>
+              チャットボットのテキストボックスだけでなく、AIシステム全体を脅威モデリングすることが出発点です。ユーザーテキスト・取得したページ・ツール出力・ファイル・OCR・隠れたUnicode文字・画像・外部APIなど、信頼できないあらゆるチャネルをテストします。プロンプトインジェクションや間接的プロンプトインジェクション、学習データの汚染やバックドア、MCP（Model Context Protocol）のようなツール連携における権限管理、OWASPのLLMアプリケーション向けトップ10といった具体的な脅威分類も扱われます。
+            </p>
+          </div>
+
+          <h3>第14章　フロンティア安全性と封じ込め</h3>
+          <div className="prose">
+            <p>
+              フロンティアの安全性を、通常のプロダクトバグとは別の品質クラスとして扱うべきだと説きます。危険なコンテンツそのものを教え込むことなく悪用可能性を測定する「危険能力テスト」の設計、操作・説得・不当な影響力の行使のテスト、欺瞞やスキーミング（計画的な振る舞い）、評価されていることに気づいてしまう「evaluation awareness」のテスト、封じ込めやサンドボックスの設計まで扱われます。
+            </p>
+          </div>
+
+          <h3>第15章　モデルの仕組み</h3>
+          <div className="prose">
+            <p>
+              トークン化、コンテキストウィンドウ、サンプリング、ロジット、報酬チューニング、マルチモーダルパイプラインが、それぞれ固有の失敗モードを生むという前提で、より良いテストを設計する方法を扱います。RLHFやRLAIF、報酬モデルの振る舞いのテスト、有用なLLMバグレポートと役に立たないバグレポートの違い、画像生成モデルや視覚言語モデルの仕組み、ファインチューニング済みモデルにおけるリグレッションのリスクなど、幅広いトピックが含まれます。
+            </p>
+          </div>
+
+          <h3>第16章　内省：ホワイトボックスでネットワークをテストする</h3>
+          <div className="prose">
+            <p>
+              内省（introspection）を「正しさの証明」としてではなく「トリアージ（優先順位づけ）のためのエビデンス」として使うという立場が明確に示されています。既知の良い例・悪い例・曖昧な例・新バージョンの例の間で、内部シグナル（アテンション、活性化など）を比較する手法や、概念プローブ、スパースオートエンコーダといった解釈可能性（interpretability）のツールを、テスト設計にどう活かすかが扱われます。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_MODEL_INTERNALS} />
+            </div>
+            <div className="diagram-caption">図9　モデル内部を理解するテスト観点</div>
+          </div>
+          <div className="prose">
+            <p>
+              安全性の観点でも、脅威モデリングから封じ込めまでは一続きの階層として理解すると整理しやすくなります。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_SECURITY_SAFETY} />
+            </div>
+            <div className="diagram-caption">
+              図10　AIセキュリティの脅威モデルと安全性の階層
+            </div>
+          </div>
+        </section>
+
+        {/* Section: step5 */}
+        <section className="section" id="step5">
+          <h2>
+            <i className="ti ti-circle-number-5" aria-hidden="true"></i>
+            <span>
+              Step 5：第V部 — 未来のシステムと実践プレイブック（第17〜21章）
+            </span>
+          </h2>
+          <div className="prose">
+            <p>
+              最後の第V部は、パーソナライズされたプロダクト、身体性AI（ロボティクス）、ガバナンス、そして実践的なプレイブックと未来予測という5つの章で締めくくられます。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_PART5_CHAIN} />
+            </div>
+            <div className="diagram-caption">
+              図11　第V部　パーソナライズ・身体性AI・ガバナンスのテスト範囲
+            </div>
+          </div>
+
+          <h3>第17章　パーソナライズされた動的なAIプロダクト</h3>
+          <div className="prose">
+            <p>
+              「N=1」、つまりユーザーがたった1人であっても、その人にとって正しくなければならないという前提でパーソナライズされた振る舞いをテストします。コンテンツ・レイアウト・アクション・トーン・ランキングといった動的なUIサーフェスをマッピングし、いつパーソナライズすべきでないかも検討します。ユーザーが所有する記憶やAIのアイデンティティ、パーソナライズによるロックインとポータビリティ、AIペルソナや合成ユーザーのテストも扱われます。
+            </p>
+          </div>
+
+          <h3>第18章　身体性AIと長時間稼働するAIシステム</h3>
+          <div className="prose">
+            <p>
+              速度・安全性・コストの観点から、まずシミュレーションと仮想世界での検証を優先し、重要なケースだけを物理的に検証するという方針が示されます。危害を及ぼさないデフォルトの振る舞い、安全な不作為（何もしない選択）、復旧、権限管理といった観点でロボティクスをテストします。センサーフュージョンや知覚・世界モデル、電力・レイテンシ・運用コスト、人間との相互作用と社会的受容性、AI同士の群れや社会のテスト、永続的に動き続けるAIシステムのテストまで幅広く扱われます。
+            </p>
+          </div>
+
+          <h3>第19章　ガバナンス、規制、道徳的な未来</h3>
+          <div className="prose">
+            <p>
+              ガバナンス・倫理・規制を、テスト入力とエビデンス要件に翻訳するという実務的な姿勢が中心です。現行の法律や標準は、時代とともに変わるものとして、普遍的な品質原則とは別に追跡すべきだとされます。AIの意識の可能性やモデルウェルフェア、AIの法的人格や自動化された法といった、やや思弁的なテーマにも踏み込んでいます。
+            </p>
+          </div>
+
+          <h3>第20章　実践プレイブック</h3>
+          <div className="prose">
+            <p>
+              本書を、チームやリポジトリのための具体的な運用システムに変換する章です。ケース・繰り返し実行・トレース・ルーブリック・スライス・ゲート・モニター・インシデント対応ループという「小さな品質システム」から始めることが推奨されています。この章の実践的な内容は、次の「実践ワーク」セクションで詳しく取り上げます。
+            </p>
+          </div>
+
+          <h3>第21章　トークン化されたプロダクトの未来への予測</h3>
+          <div className="prose">
+            <p>
+              未来のAI品質は「もっと大きなテスト計画」ではなく、プロダクトの振る舞いの大半が動的になり、多くの開発者がコーディングエージェントを管理する立場になり、検証のための計算量が生成のための計算量を上回っていく世界だと著者は予測します。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_SIX_PREDICTIONS} />
+            </div>
+            <div className="diagram-caption">図12　トークン化プロダクトの未来への6つの予測</div>
+          </div>
+          <div className="prose">
+            <p>
+              生成されたインターフェース・コード・ワークフロー・API呼び出し・説明文などを、すべて「候補となる成果物」として扱い、利用の前・最中・後にスコアリングし、モデル・プロンプト・データ・ツール・制約・ポリシー・ユーザー文脈のプロブナンス（来歴）を保持し続けることが、この未来に備える具体的な行動として示されています。
+            </p>
           </div>
         </section>
       </main>
