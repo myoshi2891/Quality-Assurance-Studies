@@ -58,6 +58,38 @@ D --> E["ステップ5<br/>Appium Inspectorを導入"]
 E --> F["ステップ6<br/>appiumコマンドでサーバー起動"]
 F --> G["ステップ7<br/>最初のテストスクリプトを実行"]`;
 
+export const DIAGRAM_LOCATOR = `${MERMAID_CONFIG}flowchart TD
+A["要素を特定したい"] --> B{"resource-id や<br/>accessibility idがあるか"}
+B -->|"ある"| C["ID / AccessibilityIdを使う<br/>最優先"]
+B -->|"ない"| D{"プラットフォーム固有の<br/>属性で絞り込めるか"}
+D -->|"Android"| E["安定したresource-id /<br/>accessibility idの付与を優先<br/>(-android uiautomatorはレガシー)"]
+D -->|"iOS"| F["-ios predicate string<br/>-ios class chainを使う"]
+D -->|"判断できない"| G["ClassNameで候補を絞れるか"]
+G -->|"絞れる"| H["ClassNameを併用する"]
+G -->|"絞れない"| I["最終手段としてXPathを使う<br/>変更に弱いため多用しない"]`;
+
+export const DIAGRAM_POM = `${MERMAID_CONFIG}flowchart TD
+A["テストケース<br/>test_login.py"] --> B["Page Object<br/>LoginPage"]
+A --> C["Page Object<br/>HomePage"]
+B --> D["ロケーター定義"]
+B --> E["操作メソッド<br/>enter_id / enter_password / tap_login"]
+C --> F["ロケーター定義"]
+C --> G["操作メソッド<br/>get_welcome_text"]
+D --> H["Appiumドライバー"]
+E --> H
+F --> H
+G --> H`;
+
+export const DIAGRAM_WAIT = `${MERMAID_CONFIG}flowchart TD
+A["要素の出現を待ちたい"] --> B{"固定sleepを<br/>使っていないか"}
+B -->|"使っている"| C["アンチパターン<br/>遅くて不安定になる"]
+B -->|"使っていない"| D{"待ちたい条件は<br/>要素ごとに異なるか"}
+D -->|"はい"| E["WebDriverWaitで<br/>Explicit Waitを使う"]
+D -->|"いいえ・全体で統一したい"| F["Implicit Waitを<br/>セッション全体に設定"]
+E --> G["Explicit WaitとImplicit Waitを<br/>混在させない"]
+F --> G
+G --> H["安定したテスト実行"]`;
+
 export default function AppiumGuidePage() {
   return (
     <div className="appium-guide-layout">
@@ -671,35 +703,345 @@ public class LoginScreenTest {
             </div>
           </section>
 
-          {/* Stubs for Category 3 - 4 (Sections 8-17) */}
+          {/* Section 8 */}
           <section id="locators" className="section">
             <h2>
               <span className="num">8</span>要素を見つけるロケーター戦略
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              Appiumのテストが壊れる最大の原因は、多くの場合「不安定なロケーター」です。著名なAppiumプロジェクトの開発者であるJonathan
+              Lipps氏も、Appiumテストが不安定になる要因の多くは、フレームワーク自体の問題ではなく、待機処理の不備や壊れやすいロケーターの選び方に起因すると指摘しています。ロケーター戦略の優先順位を理解しておくことが、保守しやすいテストへの近道です。
+            </p>
+            <div className="mermaid-wrapper">
+              <Mermaid chart={DIAGRAM_LOCATOR} />
+            </div>
+            <div className="fig-caption">図4: ロケーター選定の意思決定フロー</div>
+
+            <h3>主なロケーター戦略の比較</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ロケーター戦略</th>
+                    <th>対応プラットフォーム</th>
+                    <th>特徴・推奨度</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ID（resource-id）</td>
+                    <td>Android</td>
+                    <td>ネイティブのID属性を利用。高速かつ安定。最優先候補。</td>
+                  </tr>
+                  <tr>
+                    <td>Accessibility ID</td>
+                    <td>Android / iOS</td>
+                    <td>
+                      アクセシビリティラベルを利用。クロスプラットフォームで同じ書き方ができ、テストコードの再利用性が高い。最優先候補。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-android uiautomator</code></td>
+                    <td>Android</td>
+                    <td>
+                      UiAutomatorのUiSelectorをそのまま文字列で渡せる。複雑な条件での絞り込みに強いが、UI階層や表示文言の変更に追随しづらいレガシーな選択肢。まずはresource-idやaccessibility
+                      idを付与してもらう方向で解決し、それが難しい場合の代替手段とする。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-ios predicate string</code></td>
+                    <td>iOS</td>
+                    <td>
+                      NSPredicateベースの柔軟な条件指定。iOS版XPathの代替として推奨される。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>-ios class chain</code></td>
+                    <td>iOS</td>
+                    <td>
+                      XPathとpredicate stringのハイブリッド的な記法。階層的な問い合わせをXPathより高速に処理できる。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ClassName</td>
+                    <td>Android / iOS</td>
+                    <td>
+                      UI部品の型（ボタン、テキストフィールドなど）で絞り込む。単独では要素を一意に特定しにくいことが多い。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>XPath</td>
+                    <td>Android / iOS</td>
+                    <td>
+                      最も柔軟だが、DOM階層のわずかな変更にも弱く、実行速度も他の戦略より遅い傾向がある。他の戦略で特定できない場合の最終手段とするのが定石。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Image（テンプレート画像）</td>
+                    <td>Android / iOS</td>
+                    <td>
+                      <strong>Appium 2.x以降ではドライバー標準の機能ではなく、別途Imagesプラグインの導入が必要</strong>（下記参照）。他の戦略が使えない特殊なケース向けで、解像度やUIの見た目の変化に弱くテストが不安定になりやすい。
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Imageロケーターを使う場合のみ必要な追加セットアップ</h3>
+            <p>
+              <code>-image</code>ロケーター戦略は、Appium 2.xでコア機能からプラグインとして分離されました。<code>uiautomator2</code>や<code>xcuitest</code>といったドライバーを入れただけでは利用できず、<code>-image</code>を使うテストがある場合に限り、次の追加セットアップを行います。他のロケーター戦略しか使わないのであれば、前章のドライバー導入手順だけで十分です。
+            </p>
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>{`# 1. Imagesプラグインをインストールする（-image を使う場合のみ）
+appium plugin install images
+
+# 2. インストール済みプラグインを確認する
+appium plugin list --installed
+
+# 3. プラグインを有効にしてサーバーを起動する（認証を持たないため接続元をループバックに限定する）
+appium --use-plugins=images --address 127.0.0.1`}</code>
+              </pre>
+            </div>
+            <p>
+              プラグインは明示的に有効化しないと読み込まれません。手順3の<code>--use-plugins=images</code>を忘れると、テスト実行時に<code>-image</code>ロケーターが未知の戦略として拒否されます。複数のプラグインを同時に使う場合は<code>--use-plugins=images,other-plugin</code>のようにカンマ区切りで指定します。指定できるのは<code>appium plugin install</code>でインストール済みのプラグインだけです。
+            </p>
+            <p>
+              要素を実際に調べる際は、前章で紹介したAppium Inspectorを使い、画面をキャプチャしながらresource-idやaccessibility
+              idの有無を確認するのが最も効率的です。アプリ開発チームと連携し、主要なUI部品にaccessibility
+              idやresource-idを付与してもらう「テスト容易性の作り込み」も、長期的には非常に効果の高い施策です。
+            </p>
           </section>
 
+          {/* Section 9 */}
           <section id="pom" className="section">
             <h2>
               <span className="num">9</span>Page Object Modelを実践する
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              テストが増えてくると、「同じ画面のロケーターが複数のテストファイルに散らばる」という問題が起きます。あるボタンのIDがアプリの改修で変わっただけで、数十個のテストファイルを直さなければならない、という状況です。これを防ぐデザインパターンがPage Object Model（POM）です。
+            </p>
+            <p>
+              POMの考え方はシンプルです。画面（ページ）ごとに1つのクラスを作り、その画面に関するロケーターと操作メソッドをそのクラスの中に閉じ込めます。テストコード側は「ログインページでIDとパスワードを入力してログインボタンを押す」という意図だけを書き、実際にどのロケーターでどう操作するかはPage Objectクラスに任せます。
+            </p>
+            <div className="mermaid-wrapper">
+              <Mermaid chart={DIAGRAM_POM} />
+            </div>
+            <div className="fig-caption">図5: Page Object Modelのアーキテクチャ</div>
+
+            <h3>コード例（Python）</h3>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`from appium.webdriver.common.appiumby import AppiumBy
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+class LoginPage:
+    ID_FIELD = (AppiumBy.ACCESSIBILITY_ID, "login_id_field")
+    PASSWORD_FIELD = (AppiumBy.ACCESSIBILITY_ID, "login_password_field")
+    LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "login_submit_button")
+
+    def __init__(self, driver):
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
+
+    def enter_id(self, user_id: str):
+        field = self.wait.until(EC.visibility_of_element_located(self.ID_FIELD))
+        field.send_keys(user_id)
+        return self
+
+    def enter_password(self, password: str):
+        field = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_FIELD))
+        field.send_keys(password)
+        return self
+
+    def tap_login(self):
+        button = self.wait.until(EC.element_to_be_clickable(self.LOGIN_BUTTON))
+        button.click()
+        return self`}</code>
+              </pre>
+            </div>
+            <p>テストコード側は次のようにシンプルになります。</p>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`def test_successful_login(driver):
+    login_page = LoginPage(driver)
+    login_page.enter_id("demo_user").enter_password("demo_pass").tap_login()`}</code>
+              </pre>
+            </div>
+            <p>POMを導入する効果は次の3点に集約されます。</p>
+            <ol>
+              <li><strong>保守性</strong>：UI変更があってもPage Objectクラス1箇所を直せばよい</li>
+              <li><strong>可読性</strong>：テストコードが「業務シナリオ」の記述に集中できる</li>
+              <li><strong>再利用性</strong>：複数のテストシナリオで同じ画面操作を使い回せる</li>
+            </ol>
+            <p>
+              また、Android/iOSで同じユーザーシナリオを検証する場合、Page Objectの内部実装（ロケーターの種類など）だけをプラットフォームごとに分岐させ、テストシナリオ本体はプラットフォームに依存しないコードとして共通化する、という設計も広く採用されています。
+            </p>
           </section>
 
+          {/* Section 10 */}
           <section id="waits" className="section">
             <h2>
               <span className="num">10</span>待機戦略でテストを安定させる
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              モバイルアプリはネットワーク通信やアニメーションを伴うことが多く、画面遷移や要素の表示に時間差が生じます。この時間差を正しく吸収できないと、テストは「たまに失敗する」不安定な状態（Flaky Test）に陥ります。
+            </p>
+            <div className="mermaid-wrapper">
+              <Mermaid chart={DIAGRAM_WAIT} />
+            </div>
+            <div className="fig-caption">図6: 待機戦略の判断フロー</div>
+
+            <h3>Implicit WaitとExplicit Waitの違い</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>項目</th>
+                    <th>Implicit Wait（暗黙的待機）</th>
+                    <th>Explicit Wait（明示的待機）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>適用範囲</td>
+                    <td>セッション全体に一律で適用される</td>
+                    <td>個々の要素・条件ごとに個別指定できる</td>
+                  </tr>
+                  <tr>
+                    <td>柔軟性</td>
+                    <td>低い（すべての検索に同じ時間がかかる）</td>
+                    <td>高い（可視性・クリック可能性など条件を選べる）</td>
+                  </tr>
+                  <tr>
+                    <td>向いている場面</td>
+                    <td>アプリ全体でおおよそ同じ応答速度が期待できる小規模なテスト</td>
+                    <td>画面ごとに読み込み時間が大きく異なる実務的なテストスイート</td>
+                  </tr>
+                  <tr>
+                    <td>注意点</td>
+                    <td>
+                      Explicit Waitと併用すると待機時間が予測できなくなるため、基本的にどちらか一方に統一する
+                    </td>
+                    <td>Explicit Waitを使う場合はImplicit Waitを0にしておくのが定石</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              現場のノウハウとして広く共有されているのが、「固定の<code>sleep</code>は使わない」という原則です。<code>sleep(5)</code>のようなハードコードされた待機は、通信が速いときには無駄に時間を浪費し、通信が遅いときにはタイムアウトしてテストが失敗する、という両方向のデメリットしかありません。Explicit Waitで「特定の状態になるまで、最大N秒だけポーリングする」という書き方にすることで、平均実行時間の短縮とテストの安定化を同時に達成できます。
+            </p>
+
+            <h3>Explicit Waitのコード例（Python）</h3>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.appiumby import AppiumBy
+
+wait = WebDriverWait(driver, 15, poll_frequency=0.5)
+element = wait.until(
+    EC.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, "checkout_button"))
+)
+element.click()`}</code>
+              </pre>
+            </div>
+            <p>
+              ImplicitとExplicitのWaitを同一セッション内で混在させると、「Explicit Waitのポーリングのたびに、内部的なfindElement呼び出しにImplicit Waitの待機時間が上乗せされる」といった、直感に反する遅延が発生することが実務でも報告されています。どちらか一方の戦略に統一することを強くおすすめします。
+            </p>
           </section>
 
+          {/* Section 11 */}
           <section id="gestures" className="section">
             <h2>
               <span className="num">11</span>ジェスチャー操作を自動化する
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              スワイプ・スクロール・ロングタップ・ピンチといったタッチジェスチャーは、モバイルアプリのテストにおいて避けて通れません。Appiumは、W3C WebDriver仕様で定義された「Actionsクラス」（複数の入力ポインターを組み合わせて任意のジェスチャーを合成できる低レベルAPI）と、各ドライバーが独自に提供する<code>mobile:</code>名前空間の高レベルコマンドの、2種類の方法でジェスチャーを実現します。
+            </p>
+            <p>
+              初学者には、まず各ドライバー標準の<code>mobile:</code>コマンドを使うことをおすすめします。W3C Actions APIは非常に柔軟な反面、複雑なジェスチャーを一から組み立てる必要があり、学習コストが高いためです。
+            </p>
+
+            <h3>代表的な <code>mobile:</code> ジェスチャーコマンド</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ジェスチャー</th>
+                    <th>Android（UiAutomator2）</th>
+                    <th>iOS（XCUITest）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>タップ</td>
+                    <td><code>mobile: clickGesture</code></td>
+                    <td>標準の<code>click()</code>で代用可能</td>
+                  </tr>
+                  <tr>
+                    <td>ロングプレス</td>
+                    <td><code>mobile: longClickGesture</code></td>
+                    <td><code>mobile: touchAndHold</code></td>
+                  </tr>
+                  <tr>
+                    <td>スワイプ</td>
+                    <td><code>mobile: swipeGesture</code></td>
+                    <td><code>mobile: swipe</code></td>
+                  </tr>
+                  <tr>
+                    <td>スクロール</td>
+                    <td><code>mobile: scrollGesture</code></td>
+                    <td><code>mobile: scroll</code></td>
+                  </tr>
+                  <tr>
+                    <td>ドラッグ＆ドロップ</td>
+                    <td><code>mobile: dragGesture</code></td>
+                    <td><code>mobile: dragFromToForDuration</code></td>
+                  </tr>
+                  <tr>
+                    <td>ピンチ（拡大縮小）</td>
+                    <td>
+                      <code>mobile: pinchOpenGesture</code> / <code>mobile: pinchCloseGesture</code>
+                    </td>
+                    <td><code>mobile: pinch</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>コード例（Python・Android）</h3>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`driver.execute_script("mobile: scrollGesture", {
+    "left": 100, "top": 300, "width": 200, "height": 800,
+    "direction": "down",
+    "percent": 1.0,
+})
+
+driver.execute_script("mobile: swipeGesture", {
+    "left": 100, "top": 800, "width": 200, "height": 400,
+    "direction": "up",
+    "percent": 0.75,
+})`}</code>
+              </pre>
+            </div>
+            <p>
+              <code>left</code>・<code>top</code>・<code>width</code>・<code>height</code>でジェスチャーを行う矩形領域を指定し、<code>direction</code>と<code>percent</code>（その領域に対する移動量の割合）で動きを制御する、という設計になっています。座標を直接ハードコードするのではなく、対象要素の<code>elementId</code>を渡すオプションも用意されており、画面サイズの異なる端末間でも同じロジックを再利用しやすくなっています。
+            </p>
+            <p>
+              W3C Actions APIは、ドライバー標準のジェスチャーコマンドでは表現できない特殊な複合入力（マルチタッチでの複雑な同時操作など）が必要になったときの、より汎用的な選択肢として押さえておくとよいでしょう。
+            </p>
           </section>
 
+          {/* Stubs for Category 4 (Sections 12-17) */}
           <section id="environments" className="section">
             <h2>
               <span className="num">12</span>実機・エミュレーター・クラウドデバイスファームでの実行

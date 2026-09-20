@@ -231,7 +231,7 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       const table = sec?.querySelector('table');
       expect(table).toBeDefined();
       const ths = table?.querySelectorAll('th');
-      expect(ths?.length).toBe(4);
+      expect(ths?.length).toBe(3);
       expect(ths?.[0]?.textContent).toBe('ロケーター戦略');
 
       const codeBlocks = sec?.querySelectorAll('.code-block');
@@ -266,7 +266,7 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       const table = sec?.querySelector('table');
       expect(table).toBeDefined();
       const ths = table?.querySelectorAll('th');
-      expect(ths?.length).toBe(4);
+      expect(ths?.length).toBe(3);
       expect(ths?.[0]?.textContent).toBe('項目');
 
       const codeBlocks = sec?.querySelectorAll('.code-block');
@@ -283,8 +283,8 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       const table = sec?.querySelector('table');
       expect(table).toBeDefined();
       const ths = table?.querySelectorAll('th');
-      expect(ths?.length).toBe(4);
-      expect(ths?.[0]?.textContent).toBe('コマンド名');
+      expect(ths?.length).toBe(3);
+      expect(ths?.[0]?.textContent).toBe('ジェスチャー');
 
       const codeBlocks = sec?.querySelectorAll('.code-block');
       expect(codeBlocks?.length).toBe(1);
