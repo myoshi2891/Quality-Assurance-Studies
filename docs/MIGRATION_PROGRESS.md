@@ -5,18 +5,40 @@ Updated 2026-09-20
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 72 ルート = ガイドライブラリ index + 71 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 73 ルート = ガイドライブラリ index + 72 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 24 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 22 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `1cdc6db` |
-| 最新コミット内容 | `fix(ai-driven-guide): add optional chaining to prevent TS2532 possibly undefined errors in tests` |
+| 最新 HEAD | `423fd0e` |
+| 最新コミット内容 | `chore(archive): move source files to archive and sync progress` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/20: Manoj Hans『Appium Essentials』完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のダークテーマ（`--bg: #07111e`、`--bg-card: #0f2138`、`--accent: #86efc9`、`--accent-2: #7c9eff`、`--text: #e7edf7`、`--text-dim: #9fb3ce`、`--border: #1d3557` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--text) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist` 装飾、`.fig-caption` 等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全17セクションアンカー、スクロールスパイ、モバイルトグル対応）とメイン領域（`.appium-guide-layout`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全7図解（アーキテクチャ `DIAGRAM_ARCH`、バージョンの歴史 `DIAGRAM_VERSION`、環境構築7ステップ `DIAGRAM_SETUP`、ロケーター選定フロー `DIAGRAM_LOCATOR`、POMアーキテクチャ `DIAGRAM_POM`、待機戦略の判断フロー `DIAGRAM_WAIT`、CI/CDパイプライン全体像 `DIAGRAM_CICD`）を共通 `<Mermaid>` コンポーネントへ移植。全角波ダッシュを置換して構文エラーを防止。
+- **コードブロック & 改行保持**:
+  - 全17コードブロック（code-1〜code-17: Python, Java, Bash）を正確に移植。
+- **テーブル & インタラクティブチェックリスト**:
+  - 全5テーブル（バージョン変遷、Capabilities一覧、リセット戦略比較、ロケーター戦略比較、ジェスチャーコマンド比較、実行環境比較、アンチパターン表）を完全移植。
+  - セクション15のチェックリスト（`Checklist.tsx`、全10項目動的カウンター・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 全21件の参考文献（Appium公式ドキュメント、Jonathan Lipps氏ニュースレター、BrowserStack、Sauce Labs、TestMu AI、書籍情報）を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全17セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/appium-essentials-guide/`: ページコンポーネント、専用スタイル（`.appium-guide-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリに `/appium-essentials-guide`（Appium Essentials 完全ガイド）を追加（全73件）。
+- `tests/appium-essentials-guide/page.test.tsx`: TDD 必須サイクルに従い、全17セクション、全7Mermaid図、全5テーブル、全コードブロック、全チェックリスト、全参考文献21件の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 146 expect()）。
+- `Appium-essentials-guide.html` は `archive/html-archive/tools/`、`Appium-essentials-guide.md` は `archive/md-archive/tools/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 73 ページ体制に同期。
 
 ## 2026/09/20: Srinivasa Rao Bittla『AI-Driven Software Testing』完全ガイドのNext.js完全移行
 
@@ -925,10 +947,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Perfect-software-guide.html` | `/perfect-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Software-testing-with-generative-ai-guide.html` | `/software-testing-with-generative-ai-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ai-driven-software-testing-guide.html` | `/ai-driven-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 24 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 22 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -936,8 +959,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
-| ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
-| `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
+| ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（7 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Testing-ai-confidence-engineering-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4.0-ch1.md` / `Ctal-ta-v4.0-ch2.md` / `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
@@ -951,8 +973,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 72 ルート（ガイドライブラリ index + 71 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 24 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`、新規ガイド系 7 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 73 ルート（ガイドライブラリ index + 72 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 22 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 7 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
