@@ -50,6 +50,54 @@ export const DIAGRAM_ROADMAP = `${MERMAID_CONFIG}flowchart TD
     class Start hub
     class Common done`;
 
+export const DIAGRAM_CONFIDENCE_LOOP = `${MERMAID_CONFIG}flowchart LR
+    Gen["AIが出力を生成する"]
+    Sample["同じケースを繰り返し実行してサンプリングする"]
+    Judge["人間とLLM判定者で評価する"]
+    Evidence["結果をエビデンスとして記録する"]
+    Decide["出荷 保留 カナリア ロールバックを判断する"]
+    Monitor["本番でモニタリングする"]
+
+    Gen --> Sample --> Judge --> Evidence --> Decide --> Monitor
+    Monitor -->|次のバージョンへ フィードバック| Gen
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Gen hub
+    class Monitor done`;
+
+export const DIAGRAM_OLD_VS_NEW = `${MERMAID_CONFIG}flowchart TD
+    Old["従来の考え方 単発の入力を1回実行し 出力を正解と完全一致で照合する"]
+    New["新しい考え方 同じケースを繰り返し実行し 出力の分布とばらつきを測定する"]
+
+    Old -->|限界 1回の結果だけでは母集団のリスクは分からない| New
+    New --> Interval["スコアと一緒に信頼区間とサンプル数を報告する"]
+    New --> Slice["ユーザー属性や状況ごとにスライスして報告する"]
+    New --> Rare["まれにしか起きない致命的な失敗を積極的に探す"]
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Old box
+    class New done`;
+
+export const DIAGRAM_LLM_JUDGE = `${MERMAID_CONFIG}flowchart TD
+    Input["ユーザーからの入力"]
+    LLMJudge["LLM判定者がスコアリングする"]
+    Compare["人間によるキャリブレーションセットと比較する"]
+    Agree{"十分に一致しているか"}
+    Escalate["深刻な失敗や曖昧なケースは人間がレビューする"]
+    Version["ルーブリックと判定プロンプトをバージョン管理して更新する"]
+
+    Input --> LLMJudge --> Compare --> Agree
+    Agree -->|一致している| Version
+    Agree -->|不一致が多い| Escalate --> Version
+    Version -->|再度キャリブレーション| LLMJudge
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Input hub
+    class Version done`;
+
 export default function TestingAiConfidenceGuidePage() {
   return (
     <div className="testing-ai-confidence-layout">
@@ -255,6 +303,109 @@ export default function TestingAiConfidenceGuidePage() {
             <div className="diagram-caption">
               図1　学習ロードマップ　読者の役割別おすすめの読み進め方
             </div>
+          </div>
+        </section>
+
+        {/* Section: step0 */}
+        <section className="section" id="step0">
+          <h2>
+            <i className="ti ti-flag" aria-hidden="true"></i>
+            <span>
+              Step 0：なぜ「AIのテスト」は別物なのか — Confidence Engineeringという発想
+            </span>
+          </h2>
+          <div className="prose">
+            <p>従来のソフトウェアテストは、次のような前提の上に成り立っていました。</p>
+            <ul className="plain-list">
+              <li>同じ入力を与えれば、同じ出力が返る（決定性）</li>
+              <li>
+                出力が「正解」と一致するかどうかを、完全一致のアサーションでチェックできる
+              </li>
+              <li>テストが1回通れば、その振る舞いは今後も保証される</li>
+            </ul>
+            <p>
+              生成AIやLLMを組み込んだシステムでは、この前提のすべてが崩れます。モデルはサンプリングによってゆらぎのある出力を返し、検索拡張生成（RAG）は取得するコンテキストによって挙動が変わり、エージェントはツールを呼び出しながら多段階で動きます。ここで必要になるのが、著者が「Confidence Engineering（確信のエンジニアリング）」と呼ぶ考え方です。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_CONFIDENCE_LOOP} />
+            </div>
+            <div className="diagram-caption">図2　Confidence Engineeringのコアループ</div>
+          </div>
+          <div className="prose">
+            <p>
+              このループの中心にあるのが「観察」と「推論」を分けるという発想です。あるサンプルで得られた結果は「観察」にすぎず、そこから見積もる信頼区間は「推論」であり、リリースするかどうかの判断は、その両方に加えてビジネス上の文脈・深刻度・可逆性・モニタリング計画を組み合わせたリスク判断になります。本書全体は、この一連の流れを実務レベルまで具体化していく構成になっています。
+            </p>
+          </div>
+        </section>
+
+        {/* Section: step1 */}
+        <section className="section" id="step1">
+          <h2>
+            <i className="ti ti-circle-number-1" aria-hidden="true"></i>
+            <span>
+              Step 1：第I部 — AI品質の新しいかたち（第1〜5章）
+            </span>
+          </h2>
+          <div className="prose">
+            <p>
+              第I部は、本書全体の土台となる5つの章で構成されています。「完全一致のテスト」から「分布とエビデンスに基づく評価」へと発想を転換するパートです。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_OLD_VS_NEW} />
+            </div>
+            <div className="diagram-caption">
+              図3　ワンショットテストから分布ベースの評価への転換
+            </div>
+          </div>
+
+          <h3>第1章　ワンショットテストの終焉</h3>
+          <div className="prose">
+            <p>
+              完全一致のアサーションをやめ、「許容できるばらつき」と「有害なばらつき」を区別できる評価基準に置き換えることが出発点です。同じテストケースを繰り返し実行して、出力の分布そのものを測定します。0から10、あるいは0から1のスケールで品質をスコアリングする発想もここで導入されます。重要なのは、「観察したサンプル結果」と「そこから見積もる母集団の信頼区間」、そして「ビジネス文脈を踏まえたリリース判断」を、はっきり切り分けて考えることです。
+            </p>
+          </div>
+
+          <h3>第2章　テストからリリースエビデンスへ</h3>
+          <div className="prose">
+            <p>
+              個々のテストケースを、スライス（セグメント別の集計）・トレース・レビュアーの判断・明示的なリリースゲートと組み合わせて、初めて「リリースの根拠（エビデンス）」と呼べるものに変わります。同値なはずの入力に対して重要な振る舞いが保たれているかを確認する「メタモルフィックテスト」も、ここで紹介される有力な手法です。ゴールデンセット（いつも使う基準ケース集）と、本番トラフィックからのライブサンプリングを組み合わせる考え方や、めったに起きない失敗を狙って探す「レア障害ハンティング」もこの章の範囲です。
+            </p>
+          </div>
+
+          <h3>第3章　サンプリングと不確実性</h3>
+          <div className="prose">
+            <p>
+              「1回の実行結果はほとんど何も教えてくれない」という前提から始まります。何件サンプリングすれば十分と言えるのか、信頼区間を専門家らしく「だいたい」と言うにはどう計算するのか、AIモデル自身が申告する確信度と統計的な信頼度がどう違うのか、といった基礎統計を扱います。同じケース集合を新旧バージョンの両方に走らせる「ペア比較」を優先することも、この章で強調されるポイントです。
+            </p>
+          </div>
+
+          <h3>第4章　AI品質のための統計的検定</h3>
+          <div className="prose">
+            <p>
+              対応あり・対応なし、数値・カテゴリ、順序・二値といったデータの形に応じて、適切な統計検定を選ぶ方法を扱います。Evalを実行する前に帰無仮説を明確にすること、p値を「証明」ではなく「エビデンスの一部」として扱うこと、統計的有意性と実務上の意味のある有意性（practical significance）を区別すること、検出力分析（power analysis）や多重比較による誤検出の問題、適合率・再現率・F値の扱いなどが含まれます。
+            </p>
+          </div>
+
+          <h3>第5章　判定者、人間、そして意見の不一致</h3>
+          <div className="prose">
+            <p>
+              LLMを「判定者（ジャッジ）」として自動化する前に、まず人間による測定システム自体を定義しておく必要がある、というのがこの章の核心です。具体的な根拠の要件とキャリブレーション用の例を盛り込んだルーブリックを書くこと、そして一致率だけでなく「意見の不一致そのもの」を測定することが強調されます。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_LLM_JUDGE} />
+            </div>
+            <div className="diagram-caption">図4　LLM判定者の運用フロー</div>
+          </div>
+          <div className="prose">
+            <p>
+              実務で信頼されているチームは、判定者自体を「テスト対象のシステム」として扱います。人間レビュアーとの一致率を測定し、流暢な文章に引きずられるバイアスを追跡し、ブラインドでの比較を使い、判定プロンプトをバージョン管理し、判定者が低い確信度を報告した例や過去に信頼できなかった例を隔離して扱う、といった運用が紹介されています。
+            </p>
           </div>
         </section>
       </main>
