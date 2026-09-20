@@ -67,6 +67,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
   { path: '/cypress-beginner-guide', h1: /Cypress.*入門ガイド/ },
   { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
+  { path: '/appium-essentials-guide', h1: /Appium.*Essentials.*完全ガイド/s },
   { path: '/sonarqube-intermediate-guide', h1: /SonarQube 完全解説ガイド/ },
   { path: '/clean-code-cookbook-guide', h1: /Clean Code Cookbook 実践ガイド/ },
   { path: '/the-way-of-the-web-tester-guide', h1: /The Way of the Web Tester.*実践ガイド/ },
@@ -84,7 +85,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/unit-testing-principles-practices-patterns-guide', h1: /Unit Testing.*完全ガイド/ },
   { path: '/perfect-software-guide', h1: /Perfect Software/ },
   { path: '/software-testing-with-generative-ai-guide', h1: /生成AIとソフトウェアテスト実践ガイド/ },
+  { path: '/ai-driven-software-testing-guide', h1: /AI駆動ソフトウェアテスト入門ガイド/ },
+  { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 71;
+export const EXPECTED_PAGE_COUNT = 74;
 

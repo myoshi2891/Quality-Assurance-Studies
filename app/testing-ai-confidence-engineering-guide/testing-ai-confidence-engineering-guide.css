@@ -1,0 +1,876 @@
+/* ==========================================================================
+   Testing AI Confidence Engineering Guide
+   Scoped styles for .testing-ai-confidence-layout
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@400;600;700&display=swap');
+
+.testing-ai-confidence-layout {
+  --paper: #faf6ec;
+  --paper-card: #fffefb;
+  --paper-card-2: #f2ecdd;
+  --ink: #221f2e;
+  --ink-soft: #4a4560;
+  --indigo: #3f3d8a;
+  --indigo-dark: #2e2c66;
+  --indigo-soft: rgba(65, 61, 143, 0.07);
+  --gold: #b08d2f;
+  --forest: #2f6b4f;
+  --forest-dark: #1f4d38;
+  --plum: #6d3b73;
+  --hub-fill: #c9c4ef;
+  --hub-text: #221f52;
+  --done-fill: #bfe4d2;
+  --done-text: #123722;
+  --box-fill: #f0dfb0;
+  --box-text: #4a3a0a;
+  --border: #e4dcc8;
+  --sidebar-w: 280px;
+  --radius: 14px;
+  --font-serif: 'Source Serif 4', 'Noto Serif JP', Georgia, 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.85;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 1. Layout & globals.css resets */
+
+.testing-ai-confidence-layout .hero {
+  min-height: 0 !important;
+  display: block !important;
+  padding: 3.2rem 3rem 2.6rem !important;
+  background: linear-gradient(160deg, var(--indigo-soft), transparent 60%) !important;
+  margin-top: 0 !important;
+}
+
+.testing-ai-confidence-layout .main {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none !important;
+  width: auto !important;
+  margin: 0 !important;
+  margin-left: var(--sidebar-w) !important;
+  padding: 0 0 4rem !important;
+  background: var(--paper);
+}
+
+/* Typography */
+.testing-ai-confidence-layout h1,
+.testing-ai-confidence-layout h2,
+.testing-ai-confidence-layout h3,
+.testing-ai-confidence-layout h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.testing-ai-confidence-layout p,
+.testing-ai-confidence-layout li {
+  overflow-wrap: break-word;
+}
+
+.testing-ai-confidence-layout a {
+  color: var(--indigo);
+}
+
+.testing-ai-confidence-layout strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* 2. Lists & Tailwind Preflight Restoration */
+.testing-ai-confidence-layout .prose ul,
+.testing-ai-confidence-layout ul.plain-list,
+.testing-ai-confidence-layout section > ul:not(.checklist):not(.ref-list) {
+  list-style-type: disc !important;
+  margin: 0.8rem 0 1rem 1.6rem !important;
+  padding: 0 !important;
+}
+
+.testing-ai-confidence-layout .prose ol,
+.testing-ai-confidence-layout ol.plain-list,
+.testing-ai-confidence-layout section > ol {
+  list-style-type: decimal !important;
+  margin: 0.8rem 0 1rem 1.6rem !important;
+  padding: 0 !important;
+}
+
+.testing-ai-confidence-layout .prose li,
+.testing-ai-confidence-layout ul.plain-list li,
+.testing-ai-confidence-layout ol.plain-list li,
+.testing-ai-confidence-layout section > ul:not(.checklist):not(.ref-list) li,
+.testing-ai-confidence-layout section > ol li {
+  display: list-item !important;
+  margin-bottom: 0.4rem;
+}
+
+/* ---------- Sidebar ---------- */
+.testing-ai-confidence-layout .sidebar {
+  position: fixed;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--paper-card);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 1.5rem 0 2.5rem;
+  z-index: 40;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.testing-ai-confidence-layout .sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.testing-ai-confidence-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.testing-ai-confidence-layout .sidebar::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+  border-radius: 3px;
+}
+
+.testing-ai-confidence-layout .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.4rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.8rem;
+}
+
+.testing-ai-confidence-layout .sidebar-brand i {
+  font-size: 1.4rem;
+  color: var(--indigo);
+}
+
+.testing-ai-confidence-layout .sidebar-brand span {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.testing-ai-confidence-layout .nav-a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.4rem;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.testing-ai-confidence-layout .nav-a i {
+  font-size: 1.05rem;
+  width: 1.2rem;
+  text-align: center;
+  flex: none;
+}
+
+.testing-ai-confidence-layout .nav-a:hover {
+  background: var(--indigo-soft);
+  color: var(--ink);
+}
+
+.testing-ai-confidence-layout .nav-a.active {
+  color: var(--indigo-dark);
+  border-left-color: var(--indigo);
+  background: var(--indigo-soft);
+  font-weight: 700;
+}
+
+/* ---------- Mobile bar ---------- */
+.testing-ai-confidence-layout .mobile-bar {
+  display: none;
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  background: var(--paper-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 35;
+}
+
+.testing-ai-confidence-layout .mobile-bar .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.testing-ai-confidence-layout .mobile-bar .brand i {
+  color: var(--indigo);
+}
+
+.testing-ai-confidence-layout .mobile-bar button {
+  background: var(--indigo);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.testing-ai-confidence-layout .scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(34, 31, 46, 0.4);
+  z-index: 39;
+}
+
+.testing-ai-confidence-layout .scrim.show {
+  display: block;
+}
+
+/* ---------- Hero ---------- */
+.testing-ai-confidence-layout .hero {
+  padding: 3.2rem 3rem 2.6rem;
+  background: linear-gradient(160deg, var(--indigo-soft), transparent 60%);
+  border-bottom: 1px solid var(--border);
+  max-width: none;
+}
+
+.testing-ai-confidence-layout .hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--indigo-dark);
+  font-weight: 700;
+  background: var(--indigo-soft);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.testing-ai-confidence-layout .hero-title {
+  font-size: 2.1rem;
+  margin: 0 0 0.8rem;
+  max-width: none;
+}
+
+.testing-ai-confidence-layout .hero-lead {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  max-width: none;
+  line-height: 1.7;
+}
+
+.testing-ai-confidence-layout .hero-note {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  max-width: none;
+}
+
+/* ---------- Section ---------- */
+.testing-ai-confidence-layout .section {
+  padding: 2.8rem 3rem 2.4rem !important;
+  max-width: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.testing-ai-confidence-layout .section:last-of-type {
+  border-bottom: none;
+}
+
+.testing-ai-confidence-layout .section h2 {
+  font-size: 1.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.testing-ai-confidence-layout .section h2 i {
+  color: var(--indigo);
+  font-size: 1.3rem;
+  flex: none;
+}
+
+.testing-ai-confidence-layout .section h3 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+  color: var(--indigo-dark);
+}
+
+.testing-ai-confidence-layout .prose {
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.85;
+}
+
+.testing-ai-confidence-layout .prose p {
+  margin: 0.8rem 0;
+}
+
+/* ---------- Callout ---------- */
+.testing-ai-confidence-layout .callout {
+  display: flex;
+  gap: 0.9rem;
+  background: var(--paper-card-2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+  margin: 1.2rem 0;
+}
+
+.testing-ai-confidence-layout .callout i {
+  font-size: 1.3rem;
+  color: var(--gold);
+  flex: none;
+  margin-top: 0.15rem;
+}
+
+.testing-ai-confidence-layout .callout-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.testing-ai-confidence-layout .callout-body p {
+  margin: 0.3rem 0;
+}
+
+.testing-ai-confidence-layout .callout.box {
+  border-left-color: var(--gold);
+}
+
+.testing-ai-confidence-layout .callout.box i {
+  color: var(--gold);
+}
+
+.testing-ai-confidence-layout .callout.forest {
+  border-left-color: var(--forest);
+}
+
+.testing-ai-confidence-layout .callout.forest i {
+  color: var(--forest);
+}
+
+.testing-ai-confidence-layout .callout.plum {
+  border-left-color: var(--plum);
+}
+
+.testing-ai-confidence-layout .callout.plum i {
+  color: var(--plum);
+}
+
+/* ---------- Tables & globals.css Reset (CRITICAL) ---------- */
+.testing-ai-confidence-layout .table-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 1.2rem 0;
+  background: var(--paper-card);
+}
+
+.testing-ai-confidence-layout table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 480px;
+  font-size: 1rem !important;
+  color: var(--ink) !important;
+  font-family: var(--font-serif) !important;
+}
+
+.testing-ai-confidence-layout .kv-table {
+  min-width: 0;
+}
+
+.testing-ai-confidence-layout th,
+.testing-ai-confidence-layout td {
+  padding: 0.7rem 1rem !important;
+  text-align: left !important;
+  overflow-wrap: anywhere;
+  font-size: 1rem !important;
+}
+
+.testing-ai-confidence-layout thead th {
+  background: var(--indigo-dark) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  white-space: normal !important;
+  border: none !important;
+}
+
+.testing-ai-confidence-layout thead th * {
+  color: #ffffff !important;
+}
+
+.testing-ai-confidence-layout .table-title {
+  background: var(--paper-card-2);
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border);
+}
+
+.testing-ai-confidence-layout table tbody td {
+  color: var(--ink) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.testing-ai-confidence-layout table tbody td * {
+  color: var(--ink);
+}
+
+.testing-ai-confidence-layout table tbody tr:nth-child(even) {
+  background: rgba(65, 61, 143, 0.045) !important;
+}
+
+.testing-ai-confidence-layout .kv-table tbody tr:nth-child(even) {
+  background: transparent !important;
+}
+
+.testing-ai-confidence-layout .kv-table th {
+  background: transparent !important;
+  color: var(--ink) !important;
+  border-right: 1px solid var(--border) !important;
+  border-bottom: 1px solid var(--border) !important;
+  width: 32%;
+  font-weight: 700 !important;
+}
+
+.testing-ai-confidence-layout .kv-table td {
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.testing-ai-confidence-layout .kv-table tr:last-child td,
+.testing-ai-confidence-layout .kv-table tr:last-child th {
+  border-bottom: none !important;
+}
+
+.testing-ai-confidence-layout .kv-table tr:hover {
+  background: var(--indigo-soft) !important;
+}
+
+.testing-ai-confidence-layout table tbody tr:hover td {
+  background: var(--indigo-soft) !important;
+}
+
+/* ---------- Diagrams (Mermaid) ---------- */
+.testing-ai-confidence-layout .diagram-block {
+  margin: 1.6rem 0;
+}
+
+.testing-ai-confidence-layout .diagram-caption {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+
+.testing-ai-confidence-layout .diagram-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--paper-card);
+  padding: 1.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.testing-ai-confidence-layout .diagram-wrap .mermaid-wrapper,
+.testing-ai-confidence-layout .mermaid-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100% !important;
+  height: auto !important;
+  background: transparent !important;
+}
+
+/* --- Mermaid Paper Theme Node Styles --- */
+
+/* 1. 通常ノード（hub, done, box 以外）: 淡い紫背景、紫枠線、インク文字 */
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) path,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .label-container {
+  fill: #efeaf9 !important;
+  stroke: #9d95d1 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) text,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) span,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) p,
+.testing-ai-confidence-layout .mermaid-wrapper .node:not(.hub):not(.done):not(.box) div {
+  color: #221f2e !important;
+  fill: #221f2e !important;
+  font-family: var(--font-serif) !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+  font-weight: 500 !important;
+}
+
+/* 2. .hub ノード（開始・ハブノード）: ラベンダー紫背景、濃紫枠線 */
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub path,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .label-container {
+  fill: #c9c4ef !important;
+  stroke: #8f86d9 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub span,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub p,
+.testing-ai-confidence-layout .mermaid-wrapper .node.hub div {
+  color: #221f52 !important;
+  fill: #221f52 !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* 3. .done ノード（終了・共通ゴール・成功ノード）: ミントグリーン背景、緑枠線 */
+.testing-ai-confidence-layout .mermaid-wrapper .node.done rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done path,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .label-container {
+  fill: #bfe4d2 !important;
+  stroke: #6fb897 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done span,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done p,
+.testing-ai-confidence-layout .mermaid-wrapper .node.done div {
+  color: #123722 !important;
+  fill: #123722 !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* 4. .box ノード（従来型・対比ノード）: ゴールド/クリーム黄色背景、金枠線 */
+.testing-ai-confidence-layout .mermaid-wrapper .node.box rect,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box circle,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box ellipse,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box polygon,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box path,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .basic,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .label-container {
+  fill: #f0dfb0 !important;
+  stroke: #d1ad4f !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .label,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .nodeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box .nodeLabel *,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box text,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box span,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box p,
+.testing-ai-confidence-layout .mermaid-wrapper .node.box div {
+  color: #4a3a0a !important;
+  fill: #4a3a0a !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* 5. クラスタ（サブグラフ） */
+.testing-ai-confidence-layout .mermaid-wrapper .cluster rect {
+  fill: var(--paper-card-2) !important;
+  stroke: var(--border) !important;
+  stroke-width: 1.5px !important;
+  rx: 10px !important;
+  ry: 10px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .cluster .label,
+.testing-ai-confidence-layout .mermaid-wrapper .cluster .label text,
+.testing-ai-confidence-layout .mermaid-wrapper .cluster text,
+.testing-ai-confidence-layout .mermaid-wrapper .cluster span {
+  color: var(--ink) !important;
+  fill: var(--ink) !important;
+  font-family: var(--font-serif) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+/* 6. エッジ（接続線と矢印マーカー） */
+.testing-ai-confidence-layout .mermaid-wrapper .edgePath .path,
+.testing-ai-confidence-layout .mermaid-wrapper .flowchart-link {
+  stroke: #6f6aa0 !important;
+  stroke-width: 1.5px !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .marker,
+.testing-ai-confidence-layout .mermaid-wrapper marker path {
+  fill: #6f6aa0 !important;
+  stroke: #6f6aa0 !important;
+}
+
+/* 7. エッジラベル */
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel span,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel p,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel text,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabels .label {
+  color: #221f2e !important;
+  fill: #221f2e !important;
+  font-family: var(--font-serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  background-color: var(--paper) !important;
+}
+
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabels rect,
+.testing-ai-confidence-layout .mermaid-wrapper .edgeLabel rect {
+  fill: var(--paper) !important;
+  stroke: transparent !important;
+}
+
+/* ---------- Checklist ---------- */
+.testing-ai-confidence-layout .checklist {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1rem 0 !important;
+}
+
+.testing-ai-confidence-layout .checklist li {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  background: var(--paper-card);
+}
+
+.testing-ai-confidence-layout .checklist input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  flex: none;
+  border: 2px solid var(--indigo);
+  border-radius: 6px;
+  margin-top: 0.1rem;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+}
+
+.testing-ai-confidence-layout .checklist input[type='checkbox']:checked {
+  background: var(--indigo);
+}
+
+.testing-ai-confidence-layout .checklist input[type='checkbox']:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  color: #fff;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.testing-ai-confidence-layout .checklist label {
+  cursor: pointer;
+  flex: 1;
+}
+
+.testing-ai-confidence-layout .checklist li.done label {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.testing-ai-confidence-layout .checklist-counter {
+  font-weight: 700;
+  color: var(--indigo-dark);
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+}
+
+/* ---------- Reference cards ---------- */
+.testing-ai-confidence-layout .ref-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1rem 0 !important;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.testing-ai-confidence-layout .ref-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  background: var(--paper-card);
+  display: flex;
+  gap: 0.8rem;
+}
+
+.testing-ai-confidence-layout .ref-num {
+  flex: none;
+  font-weight: 700;
+  color: var(--indigo);
+  font-size: 1rem;
+  min-width: 1.6rem;
+}
+
+.testing-ai-confidence-layout .ref-body {
+  min-width: 0;
+}
+
+.testing-ai-confidence-layout .ref-title {
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+  overflow-wrap: break-word;
+  color: var(--ink);
+}
+
+.testing-ai-confidence-layout .ref-url {
+  font-size: 1rem;
+  color: var(--indigo);
+  word-break: break-all;
+  display: inline-block;
+  margin-top: 0.2rem;
+}
+
+/* ---------- Book card ---------- */
+.testing-ai-confidence-layout .book-card {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  background: var(--paper-card);
+  margin: 1rem 0;
+}
+
+.testing-ai-confidence-layout .book-cover {
+  flex: 0 0 150px;
+  min-height: 200px;
+  background: linear-gradient(160deg, var(--indigo), var(--plum));
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  color: #fdfbf6;
+}
+
+.testing-ai-confidence-layout .book-cover .bc-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.testing-ai-confidence-layout .book-cover .bc-author {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.testing-ai-confidence-layout .book-card-body {
+  flex: 1;
+  min-width: 240px;
+}
+
+/* ---------- Footer ---------- */
+.testing-ai-confidence-layout .footer {
+  padding: 2.4rem 3rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  max-width: none;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .testing-ai-confidence-layout .sidebar {
+    transform: translateX(-100%);
+    /* 閉じている間はフォーカス・ポインタ操作の対象から外す */
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+    width: 82vw;
+    max-width: 320px;
+    top: calc(60px + var(--disclaimer-height, 0px));
+  }
+  .testing-ai-confidence-layout .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.25s ease, visibility 0s linear 0s;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+  }
+  .testing-ai-confidence-layout .main {
+    margin-left: 0 !important;
+  }
+  .testing-ai-confidence-layout .mobile-bar {
+    display: flex;
+  }
+  .testing-ai-confidence-layout .hero,
+  .testing-ai-confidence-layout .section,
+  .testing-ai-confidence-layout .footer {
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+  }
+}

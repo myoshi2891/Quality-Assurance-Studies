@@ -102,6 +102,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/cucumber-beginner-guide', label: 'Cucumber 入門ガイド', description: 'Gherkin による実行可能仕様とステップ定義の書き方。', category: 'tools-frameworks' },
   { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', description: 'ブラウザ内実行モデルを活かしたテスト作成とデバッグ。', category: 'tools-frameworks' },
   { href: '/selenium-beginner-guide', label: 'Selenium 完全ガイド', description: 'WebDriver の仕組み、待機戦略、Grid によるスケール実行。', category: 'tools-frameworks' },
+  { href: '/appium-essentials-guide', label: 'Appium Essentials 完全ガイド', description: 'アーキテクチャ、Capabilities、ロケーター、待機、POM、CI/CDまで網羅。', category: 'tools-frameworks' },
   { href: '/sonarqube-intermediate-guide', label: 'SonarQube 完全解説ガイド', description: 'アーキテクチャ、品質モデル、Clean as You Code、CI/CD連携、AIエージェント対応までの中上級解説。', category: 'tools-frameworks' },
   { href: '/owasp-zap-beginner-guide', label: 'OWASP ZAP 完全ガイド', description: 'プロキシ設定、スパイダー、受動/能動スキャン、認証、CI/CD自動化までを網羅した入門ガイド。', category: 'tools-frameworks' },
   { href: '/clean-code-cookbook-guide', label: 'Clean Code Cookbook 実践ガイド', description: 'コードスメルの発見・分類から8ステップの改善、Sandi Metzのルールまで。', category: 'books-practices' },
@@ -120,6 +121,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/component-based-testing-qa-guide', label: 'コンポーネントテスト/QA 完全ガイド', description: 'Jerry Gaoらの名著に基づくコンポーネントテスト、統合、Pact、SCA、Testcontainers、ミューテーションテスト。', category: 'books-practices' },
   { href: '/perfect-software-guide', label: 'Perfect Software 実践ガイド', description: 'Gerald M. Weinbergの名著に基づくテストの限界、情報収集、心理的防衛反応、実践的ベストプラクティス。', category: 'books-practices' },
   { href: '/software-testing-with-generative-ai-guide', label: '生成AIとソフトウェアテスト実践ガイド', description: '生成AIとLLMをテスト業務へ体系的かつ安全に取り入れるための実践ガイド。', category: 'books-practices' },
+  { href: '/ai-driven-software-testing-guide', label: 'AI駆動テスト入門ガイド', description: 'Srinivasa Rao Bittla著『AI-Driven Software Testing』に基づく初学者向け解説ガイド。全18章のテーマを整理。', category: 'books-practices' },
+  { href: '/testing-ai-confidence-engineering-guide', label: 'Testing AI 完全ガイド', description: '非決定的なAIシステムをどうやって「自信を持って」出荷できる状態にするか。Jason Arbon著に基づく初学者向け解説。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
