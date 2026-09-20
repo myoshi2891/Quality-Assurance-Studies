@@ -41,9 +41,6 @@
 }
 
 /* 1. Layout & globals.css resets */
-.testing-ai-confidence-layout section {
-  padding-top: 0 !important;
-}
 
 .testing-ai-confidence-layout .hero {
   min-height: 0 !important;
@@ -283,7 +280,7 @@
 
 /* ---------- Section ---------- */
 .testing-ai-confidence-layout .section {
-  padding: 2.4rem 3rem;
+  padding: 2.8rem 3rem 2.4rem !important;
   max-width: none;
   border-bottom: 1px solid var(--border);
 }
