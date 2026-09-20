@@ -292,4 +292,91 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       expect(sec?.textContent).toContain('mobile: swipeGesture');
     });
   });
+
+  describe('Category 4 (Environments, CI/CD, Checklist, and References: Sections 12-17)', () => {
+    it('renders Section 12: #environments with table and code-16', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#environments');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('12実機・エミュレーター・クラウドデバイスファームでの実行');
+
+      const table = sec?.querySelector('table');
+      expect(table).toBeDefined();
+      const ths = table?.querySelectorAll('th');
+      expect(ths?.length).toBe(4);
+      expect(ths?.[0]?.textContent).toBe('環境');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(1);
+      expect(sec?.textContent).toContain('bs://<uploaded-app-hash>');
+    });
+
+    it('renders Section 13: #cicd with diagram-cicd and code-17', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#cicd');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('13並列実行とCI/CD統合');
+
+      const figCaption = sec?.querySelector('.fig-caption');
+      expect(figCaption?.textContent).toBe('図7: CI/CDパイプラインにおけるAppiumテストの流れ');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(1);
+      expect(sec?.textContent).toContain('bundletool build-apks');
+    });
+
+    it('renders Section 14: #anti-patterns with anti-pattern table', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#anti-patterns');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('14よくあるアンチパターンと落とし穴');
+
+      const table = sec?.querySelector('table');
+      expect(table).toBeDefined();
+      const ths = table?.querySelectorAll('th');
+      expect(ths?.length).toBe(3);
+      expect(ths?.[0]?.textContent).toBe('アンチパターン');
+      expect(ths?.[1]?.textContent).toBe('何が問題か');
+      expect(ths?.[2]?.textContent).toBe('どう直すべきか');
+
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(8);
+    });
+
+    it('renders Section 15: #checklist with 10 interactive checklist items and counter', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#checklist');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('15ベストプラクティスチェックリスト');
+
+      const counter = sec?.querySelector('#checklistCounter');
+      expect(counter?.textContent).toBe('0 / 10 完了');
+
+      const checklistItems = sec?.querySelectorAll('.checklist li');
+      expect(checklistItems?.length).toBe(10);
+    });
+
+    it('renders Section 16: #summary with key takeaway advice', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#summary');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('16まとめ');
+      expect(sec?.textContent).toContain('テスト自動化を成功させる3つの柱');
+    });
+
+    it('renders Section 17: #references with all 14 reference items and footer', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#references');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('17参考文献と情報源');
+
+      const refItems = sec?.querySelectorAll('.ref-list li');
+      expect(refItems?.length).toBe(14);
+
+      const footer = container.querySelector('.footer');
+      expect(footer).toBeDefined();
+      expect(footer?.textContent).toContain('Manoj Hans 著『Appium Essentials』');
+      expect(footer?.textContent).toContain('appium.io');
+    });
+  });
 });
