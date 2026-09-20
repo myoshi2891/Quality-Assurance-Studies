@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import Checklist from './Checklist';
 import Mermaid from '../../components/Mermaid';
 import './appium-essentials-guide.css';
 
@@ -89,6 +90,21 @@ D -->|"いいえ・全体で統一したい"| F["Implicit Waitを<br/>セッシ�
 E --> G["Explicit WaitとImplicit Waitを<br/>混在させない"]
 F --> G
 G --> H["安定したテスト実行"]`;
+
+export const DIAGRAM_CICD = `${MERMAID_CONFIG}flowchart TD
+A["開発者がコードをpush"] --> B["CIパイプラインが起動<br/>GitHub Actions等"]
+B --> C["アプリをビルド<br/>Android: .apk / iOSシミュレーター: .app（.app.zip）/ iOS実機: .ipa"]
+C --> E{"実行先を選択"}
+E -->|"ローカルCI内"| D["CI上でAppiumサーバーを起動"]
+D --> F["エミュレーター / シミュレーター"]
+E -->|"クラウド"| R["ベンダーの接続先URLと<br/>Capabilitiesを設定"]
+R --> G["実機デバイスファーム<br/>BrowserStack等"]
+F --> H["複数デバイスへ<br/>並列にテストを分散"]
+G --> H
+H --> I["テストレポートを収集"]
+I --> J{"すべて成功したか"}
+J -->|"成功"| K["マージ / デプロイを許可"]
+J -->|"失敗"| L["開発者に通知して修正"]`;
 
 export default function AppiumGuidePage() {
   return (
@@ -1041,49 +1057,601 @@ driver.execute_script("mobile: swipeGesture", {
             </p>
           </section>
 
-          {/* Stubs for Category 4 (Sections 12-17) */}
           <section id="environments" className="section">
             <h2>
               <span className="num">12</span>実機・エミュレーター・クラウドデバイスファームでの実行
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              Appiumのテストは、大きく分けて3つの環境で実行できます。それぞれにトレードオフがあります。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>実行環境</th>
+                    <th>メリット</th>
+                    <th>デメリット</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>エミュレーター（Android）/ シミュレーター（iOS）</td>
+                    <td>
+                      無料。CI環境に組み込みやすい。起動・リセットが速い。
+                    </td>
+                    <td>
+                      実機特有の挙動（カメラ、センサー、通知、キャリア差異など）を再現しきれない。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>手元の実機</td>
+                    <td>実際のハードウェア挙動を検証できる。</td>
+                    <td>
+                      保有台数に限りがあり、OSバージョンや機種のカバレッジを増やしにくい。USB接続の管理コストもかかる。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>クラウド実機デバイスファーム</td>
+                    <td>
+                      数百〜数千台規模の実機・OSバージョンの組み合わせに、必要なときだけアクセスできる。CI/CDとの統合機能が充実している。
+                    </td>
+                    <td>
+                      利用料金がかかる。ネットワーク越しの実行になるため、通信環境に依存する部分がある。
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              クラウド型の実機デバイスファームは、BrowserStack App Automate、Sauce
+              Labs、TestMu
+              AI（旧LambdaTest）、Kobitonなど複数のベンダーが提供しています。いずれもAppiumクライアントの接続先URLとCapabilitiesを変更するだけで、既存のテストコードをほぼそのまま実機クラウドに向けて実行できる点が共通しています。多くのベンダーがGitHub
+              ActionsやJenkinsといった主要CIツールとの連携も公式にサポートしています。
+            </p>
+
+            <p>
+              ただし「接続先URLとCapabilitiesを変えるだけ」と言っても、<strong>アプリ本体の指定方法だけはローカル実行と同じにはできません</strong>。本ガイドのこれまでの例で使ってきた<code>options.app = &quot;/path/to/your/app.apk&quot;</code>（Python）や<code>options.setApp(&quot;/path/to/your/app.apk&quot;)</code>（Java）のようなローカルファイルパスは、CIマシン上のパスを指しています。クラウド実行ではAppiumサーバーがベンダー側で動いているため、CIマシンのローカルパスは解決できず、セッション開始時に失敗します。クラウドでは次のいずれかの方法でアプリを配置します。
+            </p>
+            <ul>
+              <li>
+                <strong>事前アップロードしてアプリIDを指定する（推奨）</strong>
+                ：CIのビルドステップで生成したAPK／IPAを、ベンダーのREST
+                APIまたはCLIでアップロードし、返却されたアプリIDを<code>appium:app</code>に指定する。IDの形式はベンダーごとに異なり、BrowserStackは<code>bs://&lt;hash&gt;</code>、Sauce
+                Labsは<code>storage:&lt;file-id&gt;</code>といった独自スキームを用いる。Sauce
+                Labsにはファイル名で参照する<code>storage:filename=&lt;name&gt;</code>という形式もあるが、同名のファイルは最後にアップロードされたものへ解決されるため、<code>app.apk</code>のような固定名のままでは並列実行中の別ジョブがアップロードしたビルドを掴んでしまうおそれがある。<strong>ファイル名で参照する場合は<code>app-&lt;commit-sha&gt;.apk</code>のようにビルドごと（またはジョブごと）に一意な名前を付け、確実性を優先するならアップロード時に返る<code>&lt;file-id&gt;</code>を直接指定してください。</strong>多くのベンダーはビルド名やカスタムIDによる再利用にも対応しているため、意図的に同じビルドを複数ジョブから参照させることもできる。
+              </li>
+              <li>
+                <strong>Appiumサーバーから到達可能なアプリURLを指定する</strong>
+                ：アーティファクトストレージ上のAPK／IPAを、ベンダー側から取得できる公開URLまたは署名付きURLとして<code>appium:app</code>に渡す。社内ネットワーク内のURLは到達できないため、この方式を使う場合は外部から取得可能であることが前提になる。
+              </li>
+            </ul>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`# ローカル実行: CIマシン上のパス
+options.app = "/path/to/your/app.apk"
+
+# クラウド実行: 事前アップロードで得たアプリID、または到達可能なURL
+options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
+# options.app = "storage:8b0e1a3c-..."             # Sauce Labsの例（アップロードで得たfile-id）
+# options.app = "storage:filename=app-<commit-sha>.apk"  # 名前で参照する場合はビルドごとに一意にする
+# options.app = "https://example.com/builds/app.apk"  # URL指定の例`}</code>
+              </pre>
+            </div>
+
+            <p>あわせて、クラウド実行では次の2点の設定も必要になります。</p>
+            <ul>
+              <li>
+                <strong>認証情報</strong>
+                ：ベンダーが発行するユーザー名とアクセスキーは、<strong>接続先URLではなくベンダー固有のCapabilitiesで渡すことを既定とします</strong>（BrowserStackなら<code>bstack:options</code>の<code>userName</code>／<code>accessKey</code>、Sauce
+                Labsなら<code>sauce:options</code>の<code>username</code>／<code>accessKey</code>）。接続先URLは<code>https://hub.&lt;vendor&gt;.com/wd/hub</code>のように資格情報を含まない形にしておけば、URL自体をログやCI設定にそのまま出しても安全です。URLへの埋め込み形式（<code>https://&lt;user&gt;:&lt;accessKey&gt;@hub.&lt;vendor&gt;.com/wd/hub</code>）は、ツールの制約でCapabilities経由の指定ができない場合に限って使い、その際は<strong>実行時に環境変数から組み立てて</strong>リポジトリに残さないようにします。<strong>いずれの場合も値はCIのシークレット管理機能（GitHub
+                ActionsのSecretsなど）から環境変数として注入し、テストコードやリポジトリにハードコードしないでください。</strong>あわせて、接続先URLやCapabilitiesをログ・レポート・失敗時のスタックトレースへ出力する箇所ではアクセスキーをマスクします（自前のログ出力では<code>accessKey</code>相当の値を<code>***</code>へ置換する、CIのシークレットは<code>add-mask</code>等でマスク登録する、<code>--verbose</code>系のHTTPトレースを本番CIで有効にしない、といった対策を組み合わせます）。
+              </li>
+              <li>
+                <strong>ベンダー固有Capabilities</strong>
+                ：セッション名・ビルド名、ログや画面録画の取得可否、社内環境へアクセスするためのローカルトンネルの有効化といった設定は、W3C標準ではなくベンダー独自の名前空間（<code>bstack:options</code>、<code>sauce:options</code>など）にまとめて指定します。名前空間ごと差し替えれば済むよう、これらの設定は共通のCapabilities組み立て処理に切り出しておくと、ローカル／クラウドの切り替えが容易になります。
+              </li>
+            </ul>
+            <p>
+              実務でよく採用される方針は、「開発中のスモークテストはローカルのエミュレーター/シミュレーターで高速に回し、リリース前の網羅的な回帰テストはクラウド実機デバイスファームで多機種並列実行する」という、フェーズに応じた使い分けです。
+            </p>
           </section>
 
           <section id="cicd" className="section">
             <h2>
               <span className="num">13</span>並列実行とCI/CD統合
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              Appiumのテストを1台のデバイスで直列に実行していると、テストケースが増えるほどフィードバックが遅くなります。複数のデバイス（エミュレーターや実機ファーム）に対してテストを並列分散させることで、実行時間を大幅に短縮できます。
+            </p>
+
+            <div className="mermaid-wrapper">
+              <Mermaid chart={DIAGRAM_CICD} id="diagram-cicd" />
+            </div>
+            <p className="fig-caption">図7: CI/CDパイプラインにおけるAppiumテストの流れ</p>
+
+            <p>
+              ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには<code>.apk</code>、iOSシミュレーターには<code>.app</code>（クラウド実行では<code>.app.zip</code>に圧縮したもの）、iOS実機には<code>.ipa</code>を<code>appium:app</code>へ渡します。なお、Google
+              Playへの配信形式であるAndroid App
+              Bundle（<code>.aab</code>）はAppiumへ直接渡せません。<code>.aab</code>を扱う場合は、CIのビルド後に<a
+                href="https://developer.android.com/tools/bundletool"
+                target="_blank"
+                rel="noopener"
+              >bundletool</a>で<code>.apks</code>を生成し、そこから取り出したユニバーサル<code>.apk</code>をテストに使う変換手順をパイプラインへ組み込んでください。<code>build-apks</code>では入力の<code>.aab</code>を<code>--bundle</code>で、出力の<code>.apks</code>を<code>--output</code>で指定します。生成された<code>.apks</code>はZIPアーカイブなので、そこから<code>universal.apk</code>を取り出して<code>appium:app</code>へ渡します。
+            </p>
+
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>{`# 0) パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す
+#    （プロセス一覧やCIのコマンドエコーへ露出させないため）
+KS_PASS_FILE="$(mktemp)"; KEY_PASS_FILE="$(mktemp)"
+chmod 600 "$KS_PASS_FILE" "$KEY_PASS_FILE"
+# ジョブが途中で失敗しても削除されるようにしておく
+trap 'rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"' EXIT
+printf '%s' "$ANDROID_KEYSTORE_PASSWORD" > "$KS_PASS_FILE"
+printf '%s' "$ANDROID_KEY_PASSWORD" > "$KEY_PASS_FILE"
+
+# 1) AAB からユニバーサル APK セット（.apks）を生成する
+bundletool build-apks \\
+  --bundle=app/build/outputs/bundle/release/app-release.aab \\
+  --output=build/app.apks \\
+  --mode=universal \\
+  --overwrite \\
+  --ks="$ANDROID_KEYSTORE_PATH" \\
+  --ks-pass="file:$KS_PASS_FILE" \\
+  --ks-key-alias="$ANDROID_KEY_ALIAS" \\
+  --key-pass="file:$KEY_PASS_FILE"
+
+# 2) パスワードファイルを確実に削除する
+rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"
+
+# 3) .apks（ZIP）から universal.apk を取り出す
+unzip -p build/app.apks universal.apk > build/app-universal.apk`}</code>
+              </pre>
+            </div>
+
+            <p>
+              署名オプション（<code>--ks</code>／<code>--ks-pass</code>／<code>--ks-key-alias</code>／<code>--key-pass</code>）を省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りますが、リリース版と同じ署名で検証したい場合はCIで署名鍵を渡す必要があります。その際、<strong>キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください</strong>（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードはパーミッションを絞った一時ファイルへ書き出して<code>file:</code>形式で渡し、bundletoolの完了後に削除する、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。<code>--ks-pass</code>／<code>--key-pass</code>に<code>pass:</code>形式でパスワードを渡すと、値がプロセス引数として<code>ps</code>などから見える点にも注意してください（上記のように<code>file:</code>形式を使えば回避できます）。あわせて、CIのコマンドエコー設定でシークレットがログへ出力されないようにします。
+            </p>
+
+            <p>
+              CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
+            </p>
+            <ul>
+              <li>
+                <strong>テストの独立性を保つ</strong>
+                ：並列実行するテストケース同士が同じデバイス状態やアプリデータに依存しないよう設計する。テスト間でアプリの状態がリセットされることを前提にする。
+              </li>
+              <li>
+                <strong>セッションごとに端末識別子とポートを分離する</strong>
+                ：同一マシン上で複数セッションを並列実行する場合、識別子とポートが衝突するとセッション同士が干渉して不可解な失敗を起こす。ローカルやセルフホストランナーのように自前でAppiumサーバーを動かす実行形態では、Androidでは
+                <code>appium:udid</code>（対象端末の一意な指定）と
+                <code>appium:systemPort</code>（UiAutomator2サーバーの待受ポート）を、iOSでは
+                <code>appium:udid</code> に加えて
+                <code>appium:wdaLocalPort</code>（WebDriverAgentの待受ポート）と
+                <code>appium:derivedDataPath</code>（ビルド成果物の格納先）を、<strong>セッションごとに必ず別の値</strong>で指定する。画面録画やスクリーンストリーミングを併用する場合は
+                <code>appium:mjpegServerPort</code>
+                も同様にセッションごとへ分離する。さらにAndroidでWebViewやChromeを並列に自動化する場合は、<code>appium:chromedriverPort</code>（Chromedriverの待受ポート）と
+                <code>appium:webviewDevtoolsPort</code>（WebViewのDevToolsへ接続するためのポート）にもセッションごとに異なる値を指定しておく。未指定の場合、<code>appium:chromedriverPort</code>は空きポートが自動的に選択され、<code>appium:webviewDevtoolsPort</code>は10900〜11000の範囲から空きポートが選択されるため、既定のままでも必ず衝突するわけではない。ただしポートを確保できなかった場合はセッションが失敗するため、並列度の高いCIではセッションごとに一意な値を明示的に割り当てることを推奨する。なお、ここまでの識別子・ポートの分離は自前でAppiumサーバーを動かす場合の話であり、<strong>クラウド端末ファームでの実行には当てはまらない</strong>。クラウド実行では端末の割り当てもWebDriverAgentのビルド・起動もポート管理もベンダー側が行うため、<code>appium:udid</code>・<code>appium:wdaLocalPort</code>・<code>appium:derivedDataPath</code>・<code>appium:systemPort</code>を利用者が指定する必要はない。対象端末の選択はベンダーが定める形式のCapabilitiesで行い、指定可能な項目は利用するサービスのドキュメントで確認する。
+              </li>
+              <li>
+                <strong>失敗時の証跡を残す</strong>
+                ：スクリーンショットやAppiumサーバーのログ、可能であれば画面録画を自動保存し、CI上でも失敗原因を追いやすくする。
+              </li>
+              <li>
+                <strong>リトライの扱いに注意する</strong>
+                ：一時的なネットワーク遅延などによる偶発的失敗を吸収するためにリトライ機構を入れるチームは多いが、リトライで「隠れた不安定テスト」を放置しないよう、リトライ発生自体もメトリクスとして可視化しておくとよい。
+              </li>
+              <li>
+                <strong>段階的なテスト戦略</strong>
+                ：コミットごとに全テストを実機ファームでフル実行するとコストと時間がかさむため、プルリクエスト時はスモークテストのみエミュレーターで実行し、マージ後や夜間バッチで実機ファームによるフル回帰テストを走らせる、といった段階分けが一般的です。
+              </li>
+            </ul>
           </section>
 
           <section id="anti-patterns" className="section">
             <h2>
               <span className="num">14</span>よくあるアンチパターンと落とし穴
             </h2>
-            <p>（実装準備中）</p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>アンチパターン</th>
+                    <th>何が問題か</th>
+                    <th>代わりにすべきこと</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>固定<code>sleep</code>を多用する</td>
+                    <td>
+                      テストが遅くなる上に、環境によっては待機時間が足りず失敗する
+                    </td>
+                    <td>Explicit Waitで条件ベースの待機に置き換える</td>
+                  </tr>
+                  <tr>
+                    <td>XPathを第一候補にする</td>
+                    <td>UI階層のわずかな変更で壊れやすく、実行速度も遅い</td>
+                    <td>
+                      ID / Accessibility IDを優先し、XPathは最終手段にする
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ロケーターをテストコードに直書きする</td>
+                    <td>UI変更のたびに複数ファイルを修正することになる</td>
+                    <td>Page Object Modelでロケーターを1箇所に集約する</td>
+                  </tr>
+                  <tr>
+                    <td>Implicit WaitとExplicit Waitを併用する</td>
+                    <td>待機時間が予測できなくなり、かえって不安定になる</td>
+                    <td>どちらか一方の戦略に統一する</td>
+                  </tr>
+                  <tr>
+                    <td><code>automationName</code>を省略する</td>
+                    <td>
+                      Appium
+                      2.x以降はドライバーの暗黙デフォルトがないため、どのドライバーを使うか解決できずセッション作成が失敗する（エラーとして拒否される）
+                    </td>
+                    <td>
+                      Capabilitiesで<code>automationName</code>を必ず明示する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>セッション終了処理（<code>quit()</code>）を省略する</td>
+                    <td>
+                      エミュレーター/実機のリソースが解放されず、後続テストに悪影響を与える
+                    </td>
+                    <td>
+                      <code>finally</code>句やテストフレームワークのteardownフックで確実に呼び出す
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>すべてのテストをクラウド実機ファームで直列実行する</td>
+                    <td>
+                      CI全体の実行時間が長くなり、フィードバックサイクルが遅くなる
+                    </td>
+                    <td>
+                      テストのレイヤーに応じてエミュレーター/実機/並列実行を使い分ける
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
 
           <section id="checklist" className="section">
             <h2>
               <span className="num">15</span>ベストプラクティスチェックリスト
             </h2>
-            <p>（実装準備中）</p>
+            <Checklist />
           </section>
 
           <section id="summary" className="section">
             <h2>
               <span className="num">16</span>まとめ
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              Appiumは「W3C
+              WebDriverプロトコルを介して、各プラットフォームベンダー純正の自動化技術をラップする」という一貫した設計思想を持つツールです。この骨格さえ理解してしまえば、Appium
+              1.xから2.x、3.xへの変化も「サーバーとドライバーの分離が進んだ」「プロトコルがより標準に寄った」という延長線上の出来事として自然に理解できます。
+            </p>
+            <p>初学者がまず身につけるべきは、以下の3点に集約されます。</p>
+            <ol>
+              <li>
+                アーキテクチャ（クライアント・サーバー・ドライバーの関係）を理解すること
+              </li>
+              <li>
+                安定したロケーター戦略（ID/Accessibility ID優先）とPage Object
+                Modelを組み合わせること
+              </li>
+              <li>
+                固定<code>sleep</code>に頼らない、条件ベースの待機戦略を徹底すること
+              </li>
+            </ol>
+            <p>
+              この3点を押さえたうえで、CI/CD統合やクラウドデバイスファームの活用へとステップアップしていくのが、実務で通用するAppiumスキルへの近道です。
+            </p>
           </section>
 
           <section id="references" className="section">
             <h2>
               <span className="num">17</span>参考文献と情報源
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              本ガイドの作成にあたり、2026年8月26日時点で参照した主な情報源です。公式ドキュメントおよび、Appiumプロジェクトの主要開発者やBrowserStack・Sauce
+              Labsなど著名な国際的テスト自動化ベンダーの技術ブログを優先的に参照しました。
+            </p>
+            <ol className="ref-list">
+              <li>
+                <span className="ref-num">1</span>
+                <div>
+                  Appium公式ドキュメント（Getting Started / Quickstart）:{' '}
+                  <a
+                    href="https://appium.io/docs/en/3.2/quickstart/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/3.2/quickstart/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">2</span>
+                <div>
+                  Appium公式ドキュメント（Intro to Appium / アーキテクチャ解説）:{' '}
+                  <a
+                    href="https://appium.io/docs/en/2.0/intro/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/2.0/intro/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">3</span>
+                <div>
+                  Appium公式ドキュメント（Appium Documentation トップページ）:{' '}
+                  <a
+                    href="https://appium.io/docs/en/2.0/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/2.0/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">4</span>
+                <div>
+                  Appium公式ブログ「Migrating to Appium 3」（移行ガイド）:{' '}
+                  <a
+                    href="https://appium.io/docs/en/3.4/guides/migrating-2-to-3/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/3.4/guides/migrating-2-to-3/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">5</span>
+                <div>
+                  Appium公式ブログ「🚀 Appium 3」（リリースアナウンス）:{' '}
+                  <a
+                    href="https://appium.io/docs/en/3.1/blog/2025/08/07/-appium-3/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/3.1/blog/2025/08/07/-appium-3/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">6</span>
+                <div>
+                  Appium公式ドキュメント「Migrating from Appium 1.x to Appium 2.x」:{' '}
+                  <a
+                    href="https://appium.io/docs/en/2.16/guides/migrating-1-to-2/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/2.16/guides/migrating-1-to-2/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">7</span>
+                <div>
+                  Appium公式ドキュメント「Capabilities」:{' '}
+                  <a
+                    href="https://appium.io/docs/en/2.0/guides/caps/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/2.0/guides/caps/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">8</span>
+                <div>
+                  Appium公式ドキュメント「Install the UiAutomator2 Driver」:{' '}
+                  <a
+                    href="https://appium.io/docs/en/2.0/quickstart/uiauto2-driver/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appium.io/docs/en/2.0/quickstart/uiauto2-driver/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">9</span>
+                <div>
+                  Appium Pro（Appiumプロジェクト主要開発者 Jonathan Lipps氏によるニュースレター）「How to Pick the Right Locator Strategy」:{' '}
+                  <a
+                    href="https://appiumpro.com/editions/60-how-to-pick-the-right-locator-strategy"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appiumpro.com/editions/60-how-to-pick-the-right-locator-strategy
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">10</span>
+                <div>
+                  Appium Pro「How to Find Elements in iOS (Not) By XPath」:{' '}
+                  <a
+                    href="https://appiumpro.com/editions/8-how-to-find-elements-in-ios-not-by-xpath"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appiumpro.com/editions/8-how-to-find-elements-in-ios-not-by-xpath
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">11</span>
+                <div>
+                  Appium Pro「Installing Appium 2.0 and the Driver and Plugins CLI」:{' '}
+                  <a
+                    href="https://appiumpro.com/editions/122-installing-appium-20-and-the-driver-and-plugins-cli"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://appiumpro.com/editions/122-installing-appium-20-and-the-driver-and-plugins-cli
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">12</span>
+                <div>
+                  BrowserStack「Appium Best Practices Every Developer Must Know in 2026」:{' '}
+                  <a
+                    href="https://www.browserstack.com/guide/appium-best-practices"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://www.browserstack.com/guide/appium-best-practices
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">13</span>
+                <div>
+                  BrowserStack「Effective Locator Strategies in Appium」:{' '}
+                  <a
+                    href="https://www.browserstack.com/guide/locators-in-appium"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://www.browserstack.com/guide/locators-in-appium
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">14</span>
+                <div>
+                  Sauce Labs公式ドキュメント「Appium Versions」:{' '}
+                  <a
+                    href="https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-versions/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-versions/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">15</span>
+                <div>
+                  Sauce Labs公式ドキュメント「Migrating to Appium 2 on Sauce Labs」:{' '}
+                  <a
+                    href="https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-2-migration/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-2-migration/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">16</span>
+                <div>
+                  TestingBot公式ドキュメント「Supported Appium Versions」:{' '}
+                  <a
+                    href="https://testingbot.com/support/appium/appium2.html"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://testingbot.com/support/appium/appium2.html
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">17</span>
+                <div>
+                  TestMu AI（旧LambdaTest）「Latest Version of Appium」:{' '}
+                  <a
+                    href="https://www.testmuai.com/latest-version/appium-latest-version/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://www.testmuai.com/latest-version/appium-latest-version/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">18</span>
+                <div>
+                  TestMu AI（旧LambdaTest）「How to Automate Mobile Gestures With Appium」:{' '}
+                  <a
+                    href="https://www.testmuai.com/learning-hub/appium-gestures/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://www.testmuai.com/learning-hub/appium-gestures/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">19</span>
+                <div>
+                  HeadSpin「Automating Mobile Gestures with Appium」:{' '}
+                  <a
+                    href="https://www.headspin.io/blog/automating-mobile-gestures-with-appium"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://www.headspin.io/blog/automating-mobile-gestures-with-appium
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">20</span>
+                <div>
+                  Kobiton「Appium Desired Capabilities Explained」:{' '}
+                  <a
+                    href="https://kobiton.com/blog/understanding-appium-desired-capabilities/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://kobiton.com/blog/understanding-appium-desired-capabilities/
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="ref-num">21</span>
+                <div>
+                  参考書籍: Manoj Hans 著『Appium Essentials』（Packt Publishing, 2015年）／O&apos;Reilly掲載ページ:{' '}
+                  <a
+                    href="https://www.oreilly.com/library/view/appium-essentials/9781784392482/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://www.oreilly.com/library/view/appium-essentials/9781784392482/
+                  </a>
+                </div>
+              </li>
+            </ol>
           </section>
         </div>
+
+        <footer className="footer">
+          <p>
+            Appium Essentials 完全ガイド ― 2026年8月26日時点の情報に基づき作成。原典:
+            Manoj Hans 著『Appium Essentials』（O&apos;Reilly / Packt
+            Publishing）。最新の公式情報は{' '}
+            <a href="https://appium.io/" target="_blank" rel="noopener">
+              appium.io
+            </a>{' '}
+            を参照してください。
+          </p>
+        </footer>
       </main>
     </div>
   );

@@ -303,8 +303,13 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       const table = sec?.querySelector('table');
       expect(table).toBeDefined();
       const ths = table?.querySelectorAll('th');
-      expect(ths?.length).toBe(4);
-      expect(ths?.[0]?.textContent).toBe('環境');
+      expect(ths?.length).toBe(3);
+      expect(ths?.[0]?.textContent).toBe('実行環境');
+      expect(ths?.[1]?.textContent).toBe('メリット');
+      expect(ths?.[2]?.textContent).toBe('デメリット');
+
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(3);
 
       const codeBlocks = sec?.querySelectorAll('.code-block');
       expect(codeBlocks?.length).toBe(1);
@@ -337,10 +342,10 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       expect(ths?.length).toBe(3);
       expect(ths?.[0]?.textContent).toBe('アンチパターン');
       expect(ths?.[1]?.textContent).toBe('何が問題か');
-      expect(ths?.[2]?.textContent).toBe('どう直すべきか');
+      expect(ths?.[2]?.textContent).toBe('代わりにすべきこと');
 
       const rows = table?.querySelectorAll('tbody tr');
-      expect(rows?.length).toBe(8);
+      expect(rows?.length).toBe(7);
     });
 
     it('renders Section 15: #checklist with 10 interactive checklist items and counter', () => {
@@ -361,17 +366,18 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       const sec = container.querySelector('#summary');
       expect(sec).toBeDefined();
       expect(sec?.querySelector('h2')?.textContent).toContain('16まとめ');
-      expect(sec?.textContent).toContain('テスト自動化を成功させる3つの柱');
+      expect(sec?.textContent).toContain('アーキテクチャ（クライアント・サーバー・ドライバーの関係）を理解すること');
+      expect(sec?.textContent).toContain('固定sleepに頼らない、条件ベースの待機戦略を徹底すること');
     });
 
-    it('renders Section 17: #references with all 14 reference items and footer', () => {
+    it('renders Section 17: #references with all 21 reference items and footer', () => {
       const { container } = render(<AppiumGuidePage />);
       const sec = container.querySelector('#references');
       expect(sec).toBeDefined();
       expect(sec?.querySelector('h2')?.textContent).toContain('17参考文献と情報源');
 
       const refItems = sec?.querySelectorAll('.ref-list li');
-      expect(refItems?.length).toBe(14);
+      expect(refItems?.length).toBe(21);
 
       const footer = container.querySelector('.footer');
       expect(footer).toBeDefined();
