@@ -139,4 +139,77 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
     const rows = table?.querySelectorAll('tbody tr');
     expect(rows?.length).toBe(3);
   });
+
+  describe('Category 2 (Setup, Capabilities, and First Test: Sections 5-7)', () => {
+    it('renders Section 5: #setup (環境構築ステップバイステップ) with diagram-setup and codes', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#setup');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('5環境構築ステップバイステップ');
+
+      const figCaption = sec?.querySelector('.fig-caption');
+      expect(figCaption?.textContent).toBe('図3: 環境構築の7つのステップ');
+
+      const h3s = sec?.querySelectorAll('h3');
+      expect(h3s?.length).toBe(6);
+      expect(h3s?.[0]?.textContent).toContain('ステップ1: Node.jsをインストールする');
+      expect(h3s?.[1]?.textContent).toContain('ステップ2: Appiumサーバーをインストールする');
+      expect(h3s?.[2]?.textContent).toContain('ステップ3: プラットフォームドライバーを追加する');
+      expect(h3s?.[3]?.textContent).toContain('ステップ4: 環境をセルフチェックする');
+      expect(h3s?.[4]?.textContent).toContain('ステップ5: Appium Inspectorを導入する');
+      expect(h3s?.[5]?.textContent).toContain('ステップ6・7: サーバーを起動し、最初のテストを動かす');
+
+      // Check code blocks
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(5);
+      expect(sec?.textContent).toContain('npm install -g appium');
+      expect(sec?.textContent).toContain('appium driver doctor uiautomator2');
+    });
+
+    it('renders Section 6: #capabilities (Capabilitiesを理解する) with 2 tables and codes', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#capabilities');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('6Capabilitiesを理解する');
+
+      const h3s = sec?.querySelectorAll('h3');
+      expect(h3s?.length).toBe(5);
+
+      const tables = sec?.querySelectorAll('table');
+      expect(tables?.length).toBe(2);
+
+      // Table 1: Capabilities list
+      const ths1 = tables?.[0]?.querySelectorAll('th');
+      expect(ths1?.length).toBe(4);
+      expect(ths1?.[0]?.textContent).toBe('キー名');
+
+      // Table 2: Reset strategies
+      const ths2 = tables?.[1]?.querySelectorAll('th');
+      expect(ths2?.length).toBe(3);
+      expect(ths2?.[0]?.textContent).toBe('Option / 設定');
+
+      // Code blocks (code-6, code-7, code-8)
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(3);
+      expect(sec?.textContent).toContain('UiAutomator2Options');
+      expect(sec?.textContent).toContain('terminate_app');
+    });
+
+    it('renders Section 7: #first-test (はじめてのテストを書く) with Python and Java codes', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#first-test');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('7はじめてのテストを書く');
+
+      const h3s = sec?.querySelectorAll('h3');
+      expect(h3s?.length).toBe(2);
+      expect(h3s?.[0]?.textContent).toContain('Python版（pytest + Appium-Python-Client）');
+      expect(h3s?.[1]?.textContent).toContain('Java版（TestNG）');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(2);
+      expect(sec?.textContent).toContain('test_login_success');
+      expect(sec?.textContent).toContain('AndroidDriver');
+    });
+  });
 });
