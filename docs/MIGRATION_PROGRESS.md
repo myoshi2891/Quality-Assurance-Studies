@@ -5,18 +5,39 @@ Updated 2026-09-20
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 73 ルート = ガイドライブラリ index + 72 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 74 ルート = ガイドライブラリ index + 73 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 22 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 20 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f62ac5d` |
-| 最新コミット内容 | `fix(appium-guide): fix type errors in NavBar and Mermaid component invocation` |
-| 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
+| 最新 HEAD | `6f17a77` |
+| 最新コミット内容 | `chore(archive): move Testing-ai-confidence-engineering-guide html/md to archive` |
+| 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/20: Jason Arbon『Testing AI: Engineering Confidence in Non-Deterministic Systems』完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のエディトリアル・ペーパーテーマ（`--paper: #faf6ec`、`--paper-card: #fffefb`、`--paper-card-2: #f2ecdd`、`--ink: #221f2e`、`--ink-soft: #555068`、`--ink-faint: #8a84a0`、`--border: #dfd8cb`、`--indigo: #3f3d8a`、`--indigo-soft: #eceaf8`、`--plum: #6e335b`、`--forest: #295c44` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.book-card`、`.callout`、`.diagram-caption`、`.tag` 等）を完全実装。
+  - レスポンシブ対応のサイドバー（`NavBar.tsx`、全19アンカーリンク、スクロールスパイ、モバイルトグル対応）とメイン領域（`.testing-ai-confidence-layout`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全13図解（学習ロードマップ `DIAGRAM_ROADMAP`、コアループ `DIAGRAM_CONFIDENCE_LOOP`、新旧対比 `DIAGRAM_OLD_VS_NEW`、LLM判定者フロー `DIAGRAM_LLM_JUDGE`、Eval構築ステップ `DIAGRAM_EVAL_STEPS`、リリースゲート `DIAGRAM_RELEASE_GATE`、生成コードパイプライン `DIAGRAM_GENCODE_PIPELINE`、Confidence Engineerの役割 `DIAGRAM_CONFIDENCE_ENGINEER`、モデル内部観点 `DIAGRAM_MODEL_INTERNALS`、セキュリティ脅威・安全性 `DIAGRAM_SECURITY_SAFETY`、第V部テスト範囲 `DIAGRAM_PART5_CHAIN`、6つの予測 `DIAGRAM_SIX_PREDICTIONS`、最小限のAI品質システム `DIAGRAM_MVP_QUALITY`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - `%%{init: { "theme": "base", ... }}%%` 設定を適用し、通常ノード、Hubノード、Doneノード、Boxノード、エッジラベル背景のスタイルを完全定義。
+- **テーブル & インタラクティブチェックリスト**:
+  - 書籍情報（`kv-table`）、代表的なアンチパターン16行テーブル、重要用語集20語テーブルの全3テーブルを完全移植。
+  - セクション `#checklist` のチェックリスト（`Checklist.tsx`、全13項目動的カウンター `0 / 13 完了`・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 全20件の参考文献カード（公式サイト、各章ブリーフ、Amazon書誌情報、TestGuildポッドキャスト、LinkedIn、Semantic Scholarなど）を完全移植（`target="_blank" rel="noopener noreferrer"`）。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/testing-ai-confidence-engineering-guide/`: ページコンポーネント、専用スタイル（`.testing-ai-confidence-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/testing-ai-confidence-engineering-guide`（Testing AI 完全ガイド）を追加（全74件）。
+- `tests/testing-ai-confidence-engineering-guide/page.test.tsx`: TDD 必須サイクルに従い、全19セクション、全13Mermaid図、全3テーブル、全コールアウト、全チェックリスト、全参考文献20件の存在を検証する厳格なテストスイートを実装して全パス（22 pass / 264 expect()）。
+- `Testing-ai-confidence-engineering-guide.html` は `archive/html-archive/books/`、`Testing-ai-confidence-engineering-guide.md` は `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 74 ページ体制に同期。
 
 ## 2026/09/20: Manoj Hans『Appium Essentials』完全ガイドのNext.js完全移行
 
@@ -948,10 +969,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Software-testing-with-generative-ai-guide.html` | `/software-testing-with-generative-ai-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ai-driven-software-testing-guide.html` | `/ai-driven-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 22 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 20 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -960,7 +982,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（7 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Testing-ai-confidence-engineering-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4.0-ch1.md` / `Ctal-ta-v4.0-ch2.md` / `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（5 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4.0-ch1.md` / `Ctal-ta-v4.0-ch2.md` / `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -973,8 +995,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 73 ルート（ガイドライブラリ index + 72 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 22 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 7 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 74 ルート（ガイドライブラリ index + 73 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 20 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 5 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
