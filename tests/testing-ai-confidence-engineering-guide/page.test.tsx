@@ -11,6 +11,10 @@ import TestingAiConfidenceGuidePage, {
   DIAGRAM_RELEASE_GATE,
   DIAGRAM_GENCODE_PIPELINE,
   DIAGRAM_CONFIDENCE_ENGINEER,
+  DIAGRAM_MODEL_INTERNALS,
+  DIAGRAM_SECURITY_SAFETY,
+  DIAGRAM_PART5_CHAIN,
+  DIAGRAM_SIX_PREDICTIONS,
 } from '../../app/testing-ai-confidence-engineering-guide/page';
 import NavBar, { NAV_LINKS } from '../../app/testing-ai-confidence-engineering-guide/NavBar';
 
@@ -331,5 +335,85 @@ describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)
     expect(DIAGRAM_CONFIDENCE_ENGINEER).toContain('Confidence Engineer');
   });
 });
+
+describe('Testing AI Confidence Engineering Guide - Category 4 (Step 4 & Step 5)', () => {
+  it('renders Section: #step4 (第IV部 — データ・セキュリティ・安全性・モデル内部) with chapters 12 to 16', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#step4');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('Step 4：第IV部 — データ・セキュリティ・安全性・モデル内部（第12〜16章）');
+
+    const h3s = sec?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(5);
+
+    // Chapter 12
+    expect(h3s?.[0]?.textContent).toBe('第12章　データ、バイアス、評価者、インセンティブ');
+    expect(sec?.textContent).toContain('反実仮想（カウンターファクチュアル');
+
+    // Chapter 13
+    expect(h3s?.[1]?.textContent).toBe('第13章　AIセキュリティとガードレール');
+    expect(sec?.textContent).toContain('プロンプトインジェクションや間接的プロンプトインジェクション');
+
+    // Chapter 14
+    expect(h3s?.[2]?.textContent).toBe('第14章　フロンティア安全性と封じ込め');
+    expect(sec?.textContent).toContain('危険能力テスト');
+
+    // Chapter 15
+    expect(h3s?.[3]?.textContent).toBe('第15章　モデルの仕組み');
+    expect(sec?.textContent).toContain('RLHFやRLAIF');
+
+    // Chapter 16 & Diagram 9: model-internals, Diagram 10: security-safety
+    expect(h3s?.[4]?.textContent).toBe('第16章　内省：ホワイトボックスでネットワークをテストする');
+    expect(sec?.textContent).toContain('図9　モデル内部を理解するテスト観点');
+    expect(DIAGRAM_MODEL_INTERNALS).toBeDefined();
+    expect(DIAGRAM_MODEL_INTERNALS).toContain('flowchart TD');
+    expect(DIAGRAM_MODEL_INTERNALS).toContain('トークン化と入力の扱い');
+
+    expect(sec?.textContent).toContain('図10　AIセキュリティの脅威モデルと安全性の階層');
+    expect(DIAGRAM_SECURITY_SAFETY).toBeDefined();
+    expect(DIAGRAM_SECURITY_SAFETY).toContain('flowchart TD');
+    expect(DIAGRAM_SECURITY_SAFETY).toContain('信頼できない入力チャネル');
+  });
+
+  it('renders Section: #step5 (第V部 — 未来のシステムと実践プレイブック) with chapters 17 to 21', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#step5');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('Step 5：第V部 — 未来のシステムと実践プレイブック（第17〜21章）');
+
+    // Diagram 11: part5-chain
+    expect(sec?.textContent).toContain('図11　第V部　パーソナライズ・身体性AI・ガバナンスのテスト範囲');
+    expect(DIAGRAM_PART5_CHAIN).toBeDefined();
+    expect(DIAGRAM_PART5_CHAIN).toContain('flowchart TD');
+    expect(DIAGRAM_PART5_CHAIN).toContain('第17章');
+
+    const h3s = sec?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(5);
+
+    // Chapter 17
+    expect(h3s?.[0]?.textContent).toBe('第17章　パーソナライズされた動的なAIプロダクト');
+    expect(sec?.textContent).toContain('「N=1」、つまりユーザーがたった1人であっても');
+
+    // Chapter 18
+    expect(h3s?.[1]?.textContent).toBe('第18章　身体性AIと長時間稼働するAIシステム');
+    expect(sec?.textContent).toContain('シミュレーションと仮想世界での検証を優先');
+
+    // Chapter 19
+    expect(h3s?.[2]?.textContent).toBe('第19章　ガバナンス、規制、道徳的な未来');
+    expect(sec?.textContent).toContain('普遍的な品質原則とは別に追跡すべき');
+
+    // Chapter 20
+    expect(h3s?.[3]?.textContent).toBe('第20章　実践プレイブック');
+    expect(sec?.textContent).toContain('ケース・繰り返し実行・トレース・ルーブリック・スライス・ゲート・モニター・インシデント対応ループ');
+
+    // Chapter 21 & Diagram 12: six-predictions
+    expect(h3s?.[4]?.textContent).toBe('第21章　トークン化されたプロダクトの未来への予測');
+    expect(sec?.textContent).toContain('図12　トークン化プロダクトの未来への6つの予測');
+    expect(DIAGRAM_SIX_PREDICTIONS).toBeDefined();
+    expect(DIAGRAM_SIX_PREDICTIONS).toContain('flowchart LR');
+    expect(DIAGRAM_SIX_PREDICTIONS).toContain('トークン化プロダクトの未来への6つの予測');
+  });
+});
+
 
 
