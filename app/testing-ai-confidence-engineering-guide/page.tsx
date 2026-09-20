@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import Checklist from './Checklist';
 import Mermaid from '../../components/Mermaid';
 import './testing-ai-confidence-engineering-guide.css';
 
@@ -229,9 +230,23 @@ export const DIAGRAM_SIX_PREDICTIONS = `${MERMAID_CONFIG}flowchart LR
     Hub --> Pred5
     Hub --> Pred6
     classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    class Hub hub`;
+
+export const DIAGRAM_MVP_QUALITY = `${MERMAID_CONFIG}flowchart LR
+    Cases["本番相当のケースを約50件用意する"]
+    Score["0から10 または0から1のスコアを定義する"]
+    Judge["LLM判定者を人間のレビューでキャリブレーションする"]
+    Review["意見の不一致をレビューする"]
+    Trace["すべての実行のトレースを記録する"]
+    Gate["ハードブロッカーとリリース判断を紐づける"]
+
+    Cases --> Score --> Judge --> Review --> Trace --> Gate
+    Gate -->|継続的に更新| Cases
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
     classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
     classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
-    class Hub hub`;
+    class Cases hub
+    class Gate done`;
 
 export default function TestingAiConfidenceGuidePage() {
   return (
@@ -876,7 +891,452 @@ export default function TestingAiConfidenceGuidePage() {
             </p>
           </div>
         </section>
+
+        <section className="section" id="practice">
+          <h2>
+            <i className="ti ti-tools" aria-hidden="true"></i>
+            <span>実践ワーク：最小限のAI品質システムを組んでみる</span>
+          </h2>
+          <div className="prose">
+            <p>
+              本書のボリュームに圧倒されそうになったら、第20章で紹介されている「最小限のAI品質システム」から始めるとよい、と著者は述べています。これは儀式ではなく本物のエビデンスを生み出す、小さいが機能するシステムです。初学者が最初の一歩として真似できる形で整理すると、次のようになります。
+            </p>
+            <ol>
+              <li>
+                <strong>本番相当のケースをおよそ50件用意する</strong> — よくある利用シーン、価値の高いビジネスフロー、境界ケース、ポリシー境界、セキュリティに敏感なケース、紛らわしいユーザー入力、そして本番やドッグフーディングで実際に見つかった失敗例を含める
+              </li>
+              <li>
+                <strong>0から10、あるいは0から1のスコアを定義する</strong> — ただし、その数字が何を意味するのかを明確にしておく
+              </li>
+              <li>
+                <strong>1つのLLM判定者をスケール用に使う</strong> — ただし必ず人間によるレビューでキャリブレーションする
+              </li>
+              <li>
+                <strong>意見の不一致を隠さずレビューする</strong>
+              </li>
+              <li>
+                <strong>すべての実行についてトレースを記録する</strong> — プロンプト、モデル、システムメッセージ、検索コンテキスト、ツール呼び出しとその引数、レスポンス、コスト、レイテンシ、判定者のバージョン、ルーブリックのバージョン、最終判断まで
+              </li>
+              <li>
+                <strong>ハードブロッカーを明確に定義しておく</strong> — プライバシー漏えい、危険なツール呼び出し、ポリシー違反、深刻なハルシネーション、取り返しのつかない操作、スクリーンショットを撮られたら会社の恥になるような失敗など
+              </li>
+            </ol>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_MVP_QUALITY} />
+            </div>
+            <div className="diagram-caption">図13　最小限のAI品質システム</div>
+          </div>
+          <div className="prose">
+            <p>
+              著者は、この最小限のシステムを「進化し続ける制御システム」として扱うべきだと強調しています。ケース・ルーブリック・判定者・モデル・プロンプト・ポリシー・検索インデックス・ツール・リリース閾値のすべてを、まとめてバージョン管理することが重要です。来歴（provenance）のないスコアは、エビデンスとは呼べません。
+            </p>
+          </div>
+        </section>
+
+        <section className="section" id="glossary">
+          <h2>
+            <i className="ti ti-book-2" aria-hidden="true"></i>
+            <span>用語集</span>
+          </h2>
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>用語</th>
+                  <th>説明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Confidence Engineering（確信のエンジニアリング）</td>
+                  <td>非決定的なAIシステムに対して、正当化された確信を築くための実務規律</td>
+                </tr>
+                <tr>
+                  <td>Confidence Engineer</td>
+                  <td>プロダクトの意図・コード・テスト・Eval・トレース・ロールアウトをつなぎ、リリース判断のエビデンスに責任を持つ役割</td>
+                </tr>
+                <tr>
+                  <td>非決定的システム</td>
+                  <td>同じ入力でも実行するたびに出力が変わりうるシステム</td>
+                </tr>
+                <tr>
+                  <td>Eval（エバル）</td>
+                  <td>AIシステムの振る舞いを測定するための評価の仕組み全体。ケース・オラクル・スコアリングを含む</td>
+                </tr>
+                <tr>
+                  <td>オラクル</td>
+                  <td>ある出力が正しいかどうかを判定するための基準や仕組み</td>
+                </tr>
+                <tr>
+                  <td>LLM判定者（LLM as a Judge）</td>
+                  <td>LLM自身に出力の品質を評価させる仕組み。人間によるキャリブレーションが必要</td>
+                </tr>
+                <tr>
+                  <td>ルーブリック</td>
+                  <td>評価の基準と具体的な根拠、キャリブレーション例をまとめた採点表</td>
+                </tr>
+                <tr>
+                  <td>信頼区間</td>
+                  <td>サンプルから推定した母集団の値が含まれるとみられる範囲</td>
+                </tr>
+                <tr>
+                  <td>メタモルフィックテスト</td>
+                  <td>意味的に同値な入力を与えたときに、重要な振る舞いが保たれているかを確認するテスト手法</td>
+                </tr>
+                <tr>
+                  <td>ゴールデンセット</td>
+                  <td>継続的に使い続ける基準となるテストケース集</td>
+                </tr>
+                <tr>
+                  <td>スライス</td>
+                  <td>ユーザー属性や状況などのセグメントごとに結果を分けて報告すること</td>
+                </tr>
+                <tr>
+                  <td>カナリア展開</td>
+                  <td>新バージョンを一部のユーザーにだけ先行公開し、問題がないか確認する展開方式</td>
+                </tr>
+                <tr>
+                  <td>シャドウ展開</td>
+                  <td>実際のトラフィックを複製して新バージョンに流し、ユーザーには影響を与えずに検証する方式</td>
+                </tr>
+                <tr>
+                  <td>ガードレール</td>
+                  <td>AIシステムが逸脱した振る舞いをしないよう制御する仕組み</td>
+                </tr>
+                <tr>
+                  <td>プロンプトインジェクション</td>
+                  <td>悪意ある指示を入力やコンテキストに紛れ込ませ、AIの振る舞いを乗っ取ろうとする攻撃</td>
+                </tr>
+                <tr>
+                  <td>MCP（Model Context Protocol）</td>
+                  <td>AIがツールや外部システムと連携するための接続プロトコル。その権限管理もテスト対象になる</td>
+                </tr>
+                <tr>
+                  <td>内省（introspection）</td>
+                  <td>モデル内部のアテンションや活性化などの信号を調べ、振る舞いの手がかりとして使う手法</td>
+                </tr>
+                <tr>
+                  <td>RAG（検索拡張生成）</td>
+                  <td>外部の情報源を検索して取得し、その結果を踏まえて生成を行う仕組み</td>
+                </tr>
+                <tr>
+                  <td>N=1テスト</td>
+                  <td>ユーザーが1人しかいない状況でも、その人にとって正しい振る舞いをしているかを確かめるテスト</td>
+                </tr>
+                <tr>
+                  <td>トークン化プロダクトの未来</td>
+                  <td>プロダクトの大半が動的に生成され、検証のための計算量が生成のための計算量を上回っていく世界観</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="section" id="voices">
+          <h2>
+            <i className="ti ti-microphone-2" aria-hidden="true"></i>
+            <span>業界の声：プロミネントな実践者たちの反応</span>
+          </h2>
+          <div className="prose">
+            <p>
+              本書はまだ2026年に刊行されたばかりですが、テスト業界で国際的に知られる実践者たちからすでに反応が寄せられています。
+            </p>
+            <ul>
+              <li>
+                <strong>TestGuild Automation Podcast（Joe Colantonio）</strong>：自動化テスト分野で国際的に知られるポッドキャストのエピソード600でJason Arbonを迎え、「コーディングがAIに吸収され、仕様書き作業が薄くなり、プロダクト・開発・テストの役割が1つに収束していく」という本書の議論を紹介しています。番組では、AIが生み出した成果物を見て、出荷してよいかをエビデンスに基づいて判断できる人こそが最後まで残る役割だ、という著者の主張が取り上げられています。
+              </li>
+              <li>
+                <strong>Tariq King（AISTA共同創設者、Jason Arbonの長年の協業者）</strong>：自身のLinkedInで本書を「この分野への大きな貢献」と評し、2026年のPacific Northwest Software Quality Conferenceで開かれるというサイン会にも言及しています。
+              </li>
+              <li>
+                <strong>書籍サイトに名を連ねる実務レビュアーたち</strong>：LLM判定者のコスト面での現実性や実務的な評価ツールを助言したSergio Segura、判定者の一貫性やプロフェッショナル向けのトーンについて助言したZoltán Tarkó、ISO/IEC 42001といった規制文脈や初学者向けのSKILL.md解説について助言したJeffery Evansなど、実務者からのフィードバックを取り入れて執筆された経緯が公開されています。
+              </li>
+            </ul>
+            <p>
+              なお、同時期に刊行されたAI品質関連の書籍としては、ISTQBの公式CT-AIシラバスに基づく『Introduction to AI Testing: Guide to ISTQB CT-AI Certification』（BCS、2025年）もあります。こちらは資格試験対策という性格が強く、『Testing AI』が実務者の経験と議論を軸にしているのとは対照的な位置づけです。両者を読み比べると、AI品質という分野が「標準化された資格の枠組み」と「実務者コミュニティの生きた知見」という2つの方向から同時に整備されつつあることがよく分かります。
+            </p>
+          </div>
+        </section>
+
+        <section className="section" id="critical">
+          <h2>
+            <i className="ti ti-scale" aria-hidden="true"></i>
+            <span>批判的に読む</span>
+          </h2>
+          <div className="prose">
+            <p>
+              本書を鵜呑みにせず、バランスよく受け止めるために意識しておきたい点をいくつか挙げます。
+            </p>
+          </div>
+          <div className="callout box">
+            <i className="ti ti-alert-triangle" aria-hidden="true"></i>
+            <div className="callout-body">
+              <p>
+                <strong>刊行されたばかりで独立系の流通である点</strong>：本書は2026年刊行の初版で、AmazonのASIN表記からは、O&apos;ReillyやManning、BCSのような伝統的な出版社を介さず独立系（セルフパブリッシング寄り）で流通している可能性が高いと見られます。長年の版を重ねてきたソフトウェア工学の古典と違い、まだ広範な査読やレビューの蓄積があるわけではない点は踏まえておく必要があります。
+              </p>
+            </div>
+          </div>
+          <div className="callout box">
+            <i className="ti ti-alert-triangle" aria-hidden="true"></i>
+            <div className="callout-body">
+              <p>
+                <strong>「Confidence Engineer」はまだ提案段階の呼称であること</strong>：本書はこの役割名を強く打ち出していますが、2026年時点で「SDET」や「QAエンジニア」のように業界標準として定着した肩書きではありません。著者自身の造語であり、今後この呼び方がどれだけ定着するかは未知数です。
+              </p>
+            </div>
+          </div>
+          <div className="callout box">
+            <i className="ti ti-alert-triangle" aria-hidden="true"></i>
+            <div className="callout-body">
+              <p>
+                <strong>著者自身のビジネスとの近さ</strong>：Jason Arbonはtest.ai、Testers.ai、Checkie.AI、Jank.AI、IcebergQAといったAIテスト関連の企業を創業・関与してきた人物です。実務経験に裏打ちされた説得力がある一方で、紹介されるツールや手法が著者自身のビジネス領域と重なる可能性も念頭に置いて読むとよいでしょう。
+              </p>
+            </div>
+          </div>
+          <div className="callout box">
+            <i className="ti ti-alert-triangle" aria-hidden="true"></i>
+            <div className="callout-body">
+              <p>
+                <strong>具体的な数値や個別ツールの言及は陳腐化が早い</strong>：AI分野の進歩は非常に速く、特定のモデルの挙動やベンチマークの数値、個別ツールの紹介は、刊行から時間が経つほど古くなっていきます。統計や測定の「考え方」を吸収することを優先し、個別の数値例はあくまで執筆時点のスナップショットとして扱うのが安全です。
+              </p>
+            </div>
+          </div>
+          <div className="callout forest">
+            <i className="ti ti-books" aria-hidden="true"></i>
+            <div className="callout-body">
+              <p>
+                <strong>標準志向の代替資料と併読する価値</strong>：ベンダー中立で標準化された枠組みを重視するなら、ISTQBのCT-AIシラバスに基づく書籍や、OWASPのLLMアプリケーション向けトップ10、NISTのAIリスクマネジメントフレームワークといった一次情報を併読すると、本書の実務的な主張をより客観的に検証できます。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="checklist">
+          <h2>
+            <i className="ti ti-checklist" aria-hidden="true"></i>
+            <span>チェックリスト</span>
+          </h2>
+          <div className="prose">
+            <p>
+              初めてAIシステムの品質保証に取り組むときに、本書の考え方をどこから適用すればよいか迷ったら、以下を目安にしてください。
+            </p>
+          </div>
+          <Checklist />
+        </section>
+
+        <section className="section" id="summary">
+          <h2>
+            <i className="ti ti-flag-3" aria-hidden="true"></i>
+            <span>まとめ</span>
+          </h2>
+          <div className="prose">
+            <p>
+              『Testing AI: Engineering Confidence in Non-Deterministic Systems』は、AIを組み込んだソフトウェアの品質保証を、「テストが通ったか通らなかったか」という二値的な発想から、「どれだけの根拠（エビデンス）を積み上げて出荷を判断できるか」という考え方へと転換させる実務書です。
+            </p>
+            <p>
+              第I部で完全一致から分布ベースの評価への発想転換を学び、第II部でEvalの作り方と本番運用を学び、第III部で生成コードの検証と「Confidence Engineer」という役割を理解し、第IV部でデータ・セキュリティ・安全性・モデル内部という発展的なテーマに触れ、第V部で未来のシステムと実践的なプレイブックに落とし込む、という流れは、初学者がAI品質という新しい分野を体系的に学ぶための良い地図になります。
+            </p>
+            <p>
+              本書はまだ新しく、独立系の刊行物であるという性質上、鵜呑みにせず他の標準的な資料と突き合わせながら読むことが望ましいものの、非決定的なAIシステムをどう「エビデンスに基づいて」出荷するかという問いに正面から取り組んだ、現時点で貴重な実務書であることは間違いありません。
+            </p>
+          </div>
+        </section>
+
+        <section className="section" id="references">
+          <h2>
+            <i className="ti ti-link" aria-hidden="true"></i>
+            <span>参考文献・出典</span>
+          </h2>
+          <ul className="ref-list">
+            <li className="ref-card">
+              <div className="ref-num">1</div>
+              <div className="ref-body">
+                <div className="ref-title">Testing AI 公式サイト（書籍概要、全21章の構成、読者向けメッセージ）</div>
+                <a className="ref-url" href="https://www.testingaibook.com/" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">2</div>
+              <div className="ref-body">
+                <div className="ref-title">Testing AI Knowledge Edition（章ごとの概念解説、194のセクションブリーフ）</div>
+                <a className="ref-url" href="https://www.testingaibook.com/knowledge/index.html" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/knowledge/index.html
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">3</div>
+              <div className="ref-body">
+                <div className="ref-title">第1章 セクション001「The Next Generation AI Builder Will Measure Uncertainty」</div>
+                <a className="ref-url" href="https://www.testingaibook.com/knowledge/ch001-measure-uncertainty.html" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/knowledge/ch001-measure-uncertainty.html
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">4</div>
+              <div className="ref-body">
+                <div className="ref-title">第5章 セクション028「LLM-as-a-Judge」</div>
+                <a className="ref-url" href="https://www.testingaibook.com/knowledge/ch028-llm-judge.html" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/knowledge/ch028-llm-judge.html
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">5</div>
+              <div className="ref-body">
+                <div className="ref-title">第11章 セクション087「The Confidence Engineer」</div>
+                <a className="ref-url" href="https://www.testingaibook.com/knowledge/ch087-confidence-engineer.html" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/knowledge/ch087-confidence-engineer.html
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">6</div>
+              <div className="ref-body">
+                <div className="ref-title">第20章 セクション172「Minimum Viable AI Quality System」</div>
+                <a className="ref-url" href="https://www.testingaibook.com/knowledge/ch172-minimum-viable-quality.html" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/knowledge/ch172-minimum-viable-quality.html
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">7</div>
+              <div className="ref-body">
+                <div className="ref-title">第21章 セクション174「Six Predictions for the Tokenized Product Future」</div>
+                <a className="ref-url" href="https://www.testingaibook.com/knowledge/ch174-predictions-tokenized-product-future.html" target="_blank" rel="noopener noreferrer">
+                  https://www.testingaibook.com/knowledge/ch174-predictions-tokenized-product-future.html
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">8</div>
+              <div className="ref-body">
+                <div className="ref-title">Amazon（Testing AI ペーパーバック・Kindle版の書誌情報）</div>
+                <a className="ref-url" href="https://www.amazon.com/dp/B0H8J9GCK1" target="_blank" rel="noopener noreferrer">
+                  https://www.amazon.com/dp/B0H8J9GCK1
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">9</div>
+              <div className="ref-body">
+                <div className="ref-title">TestGuild Automation Podcast エピソード600　Joe ColantonioによるJason Arbonへのインタビュー</div>
+                <a className="ref-url" href="https://testguild.com/podcast/a600-jason/" target="_blank" rel="noopener noreferrer">
+                  https://testguild.com/podcast/a600-jason/
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">10</div>
+              <div className="ref-body">
+                <div className="ref-title">Tariq King LinkedInプロフィール（本書への言及を含む投稿）</div>
+                <a className="ref-url" href="https://www.linkedin.com/in/tariqking/" target="_blank" rel="noopener noreferrer">
+                  https://www.linkedin.com/in/tariqking/
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">11</div>
+              <div className="ref-body">
+                <div className="ref-title">Jason Arbon LinkedInプロフィール</div>
+                <a className="ref-url" href="https://www.linkedin.com/in/jasonarbon" target="_blank" rel="noopener noreferrer">
+                  https://www.linkedin.com/in/jasonarbon
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">12</div>
+              <div className="ref-body">
+                <div className="ref-title">Jason Arbon 個人サイト</div>
+                <a className="ref-url" href="https://jarbon.ai/" target="_blank" rel="noopener noreferrer">
+                  https://jarbon.ai/
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">13</div>
+              <div className="ref-body">
+                <div className="ref-title">Testers.ai（Jason Arbonが設立したAIテスト企業）</div>
+                <a className="ref-url" href="https://testers.ai/" target="_blank" rel="noopener noreferrer">
+                  https://testers.ai/
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">14</div>
+              <div className="ref-body">
+                <div className="ref-title">Jason Arbon Medium（執筆記事一覧）</div>
+                <a className="ref-url" href="https://jarbon.medium.com/" target="_blank" rel="noopener noreferrer">
+                  https://jarbon.medium.com/
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">15</div>
+              <div className="ref-body">
+                <div className="ref-title">How Google Tests Software（Jason Arbon 共著）Amazon書誌情報</div>
+                <a className="ref-url" href="https://www.amazon.com/dp/0321803027" target="_blank" rel="noopener noreferrer">
+                  https://www.amazon.com/dp/0321803027
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">16</div>
+              <div className="ref-body">
+                <div className="ref-title">App Quality: Secrets for Agile App Teams（Jason Arbon 著）Amazon書誌情報</div>
+                <a className="ref-url" href="https://www.amazon.com/dp/1499751273" target="_blank" rel="noopener noreferrer">
+                  https://www.amazon.com/dp/1499751273
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">17</div>
+              <div className="ref-body">
+                <div className="ref-title">Tariq King プロフィール　Perforce Software</div>
+                <a className="ref-url" href="https://www.perforce.com/author/tariq-king" target="_blank" rel="noopener noreferrer">
+                  https://www.perforce.com/author/tariq-king
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">18</div>
+              <div className="ref-body">
+                <div className="ref-title">King T. M., Arbon J., Santiago D., Adamo D., Chin W., Shanmugam R.「AI for Testing Today and Tomorrow: Industry Perspectives」IEEE International Conference on Artificial Intelligence Testing 2019　Semantic Scholar</div>
+                <a className="ref-url" href="https://www.semanticscholar.org/paper/AI-for-Testing-Today-and-Tomorrow:-Industry-King-Arbon/d19232f659c0f1681a1a837099be46bf10dae7ae" target="_blank" rel="noopener noreferrer">
+                  https://www.semanticscholar.org/paper/AI-for-Testing-Today-and-Tomorrow:-Industry-King-Arbon/d19232f659c0f1681a1a837099be46bf10dae7ae
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">19</div>
+              <div className="ref-body">
+                <div className="ref-title">Arbon J.「AI for Software Testing」Semantic Scholar（当初ご共有いただいたリンク）</div>
+                <a className="ref-url" href="https://www.semanticscholar.org/paper/AI-for-Software-Testing-Arbon/50f77f76012710ca45ee214145e5e031af67c93b" target="_blank" rel="noopener noreferrer">
+                  https://www.semanticscholar.org/paper/AI-for-Software-Testing-Arbon/50f77f76012710ca45ee214145e5e031af67c93b
+                </a>
+              </div>
+            </li>
+            <li className="ref-card">
+              <div className="ref-num">20</div>
+              <div className="ref-body">
+                <div className="ref-title">Introduction to AI Testing: Guide to ISTQB CT-AI Certification（BCS 2025年、比較対象として言及）Amazon書誌情報</div>
+                <a className="ref-url" href="https://www.amazon.com/Introduction-AI-Testing-ISTQB%C2%AE-Certification/dp/1780177186" target="_blank" rel="noopener noreferrer">
+                  https://www.amazon.com/Introduction-AI-Testing-ISTQB%C2%AE-Certification/dp/1780177186
+                </a>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <footer className="footer">
+          Testing AI: Engineering Confidence in Non-Deterministic Systems — 初学者向け解説ガイド
+        </footer>
       </main>
     </div>
   );
 }
+
