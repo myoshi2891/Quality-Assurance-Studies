@@ -102,6 +102,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/cucumber-beginner-guide', label: 'Cucumber 入門ガイド', description: 'Gherkin による実行可能仕様とステップ定義の書き方。', category: 'tools-frameworks' },
   { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', description: 'ブラウザ内実行モデルを活かしたテスト作成とデバッグ。', category: 'tools-frameworks' },
   { href: '/selenium-beginner-guide', label: 'Selenium 完全ガイド', description: 'WebDriver の仕組み、待機戦略、Grid によるスケール実行。', category: 'tools-frameworks' },
+  { href: '/appium-essentials-guide', label: 'Appium Essentials 完全ガイド', description: 'アーキテクチャ、Capabilities、ロケーター、待機、POM、CI/CDまで網羅。', category: 'tools-frameworks' },
   { href: '/sonarqube-intermediate-guide', label: 'SonarQube 完全解説ガイド', description: 'アーキテクチャ、品質モデル、Clean as You Code、CI/CD連携、AIエージェント対応までの中上級解説。', category: 'tools-frameworks' },
   { href: '/owasp-zap-beginner-guide', label: 'OWASP ZAP 完全ガイド', description: 'プロキシ設定、スパイダー、受動/能動スキャン、認証、CI/CD自動化までを網羅した入門ガイド。', category: 'tools-frameworks' },
   { href: '/clean-code-cookbook-guide', label: 'Clean Code Cookbook 実践ガイド', description: 'コードスメルの発見・分類から8ステップの改善、Sandi Metzのルールまで。', category: 'books-practices' },

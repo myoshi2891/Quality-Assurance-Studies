@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 72 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 17 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(72);
+  it('contains 73 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 17 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(73);
   });
 
   it('every item has a unique href', () => {
@@ -95,6 +95,12 @@ describe('NAV_ITEMS', () => {
     const sel = NAV_ITEMS.find((item: NavItem) => item.href === '/selenium-beginner-guide');
     expect(sel).toBeDefined();
     expect(sel?.category).toBe('tools-frameworks');
+  });
+
+  it('classifies /appium-essentials-guide as tools-frameworks', () => {
+    const appium = NAV_ITEMS.find((item: NavItem) => item.href === '/appium-essentials-guide');
+    expect(appium).toBeDefined();
+    expect(appium?.category).toBe('tools-frameworks');
   });
 
   it('classifies /owasp-zap-beginner-guide as tools-frameworks', () => {
@@ -304,9 +310,9 @@ describe('groupByCategory', () => {
     expect(cicd?.items).toHaveLength(2);
   });
 
-  it('places 7 items in the tools-frameworks group', () => {
+  it('places 8 items in the tools-frameworks group', () => {
     const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
-    expect(tools?.items).toHaveLength(7);
+    expect(tools?.items).toHaveLength(8);
   });
 
   it('places 17 items in the books-practices group', () => {
