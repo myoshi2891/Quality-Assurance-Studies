@@ -48,7 +48,9 @@
 .testing-ai-confidence-layout .hero {
   min-height: 0 !important;
   display: block !important;
-  padding: 2.2rem 3rem 2.6rem !important;
+  padding: 3.2rem 3rem 2.6rem !important;
+  background: linear-gradient(160deg, var(--indigo-soft), transparent 60%) !important;
+  margin-top: 0 !important;
 }
 
 .testing-ai-confidence-layout .main {
@@ -58,7 +60,7 @@
   width: auto !important;
   margin: 0 !important;
   margin-left: var(--sidebar-w) !important;
-  padding: 1.5rem 0 4rem;
+  padding: 0 0 4rem !important;
   background: var(--paper);
 }
 
