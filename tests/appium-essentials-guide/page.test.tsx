@@ -208,7 +208,7 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
 
       const codeBlocks = sec?.querySelectorAll('.code-block');
       expect(codeBlocks?.length).toBe(2);
-      expect(sec?.textContent).toContain('test_login_success');
+      expect(sec?.textContent).toContain('test_login_screen_shows_header');
       expect(sec?.textContent).toContain('AndroidDriver');
     });
   });

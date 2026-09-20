@@ -50,6 +50,14 @@ C --> D["W3C WebDriver専用<br/>ドライバー・プラグイン分離"]
 D --> E["Appium 3.x<br/>2025年8月GA"]
 E --> F["Node.js 20.19+ / 22.12+ / 24+ が必須<br/>非推奨エンドポイント全廃"]`;
 
+export const DIAGRAM_SETUP = `${MERMAID_CONFIG}flowchart TD
+A["ステップ1<br/>Node.jsをインストール"] --> B["ステップ2<br/>npm install -g appiumでサーバー導入"]
+B --> C["ステップ3<br/>プラットフォームドライバーを追加"]
+C --> D["ステップ4<br/>appium driver doctorで環境検証"]
+D --> E["ステップ5<br/>Appium Inspectorを導入"]
+E --> F["ステップ6<br/>appiumコマンドでサーバー起動"]
+F --> G["ステップ7<br/>最初のテストスクリプトを実行"]`;
+
 export default function AppiumGuidePage() {
   return (
     <div className="appium-guide-layout">
@@ -266,28 +274,404 @@ export default function AppiumGuidePage() {
             </div>
           </section>
 
-          {/* Stubs for Category 2 - 4 (Will be incrementally implemented in upcoming steps) */}
+          {/* Section 5 */}
           <section id="setup" className="section">
             <h2>
               <span className="num">5</span>環境構築ステップバイステップ
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              Appiumの環境構築は、<strong>「Node.jsの導入 → Appiumサーバーの導入 → プラットフォームドライバーの追加 → ドクターによる環境検証 → Inspectorの導入 → サーバー起動 → テスト実行」</strong>という7つの明確なステップに沿って進めます。
+            </p>
+            <div className="mermaid-wrapper">
+              <Mermaid chart={DIAGRAM_SETUP} />
+            </div>
+            <div className="fig-caption">図3: 環境構築の7つのステップ</div>
+
+            <h3>ステップ1: Node.jsをインストールする</h3>
+            <p>
+              Appium 3.xは<strong>Node.js 20.19以降、22.12以降、または24以降</strong>が必要です（LTSバージョンの利用を強く推奨します）。ターミナルでバージョンを確認してください。
+            </p>
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>{`node -v
+npm -v`}</code>
+              </pre>
+            </div>
+
+            <h3>ステップ2: Appiumサーバーをインストールする</h3>
+            <p>npmを使ってAppiumサーバーをグローバルにインストールします。</p>
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>{`npm install -g appium
+appium -v`}</code>
+              </pre>
+            </div>
+            <p>
+              <code>appium -v</code>を実行して、<code>3.x.x</code>（または最新バージョン）が表示されればサーバー本体のインストールは完了です。
+            </p>
+
+            <h3>ステップ3: プラットフォームドライバーを追加する</h3>
+            <p>
+              Appium 2.x以降、ドライバーはサーバー本体に含まれていません。自動化したいプラットフォームに応じたドライバーをコマンドで追加します。
+            </p>
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>{`# Androidを自動化する場合
+appium driver install uiautomator2
+
+# iOSを自動化する場合（macOSのみ）
+appium driver install xcuitest
+
+# インストール済みドライバーの一覧を確認
+appium driver list --installed`}</code>
+              </pre>
+            </div>
+
+            <h3>ステップ4: 環境をセルフチェックする</h3>
+            <p>
+              モバイルテストの環境構築で最もつまずきやすいのが、Android SDKやXcode、環境変数（<code>ANDROID_HOME</code>や<code>JAVA_HOME</code>）の設定漏れです。Appium公式のドクターツールを使って、必要な前提条件が揃っているかを自動検証します。
+            </p>
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>{`# uiautomator2 をインストールしている場合のみ
+appium driver doctor uiautomator2
+
+# xcuitest をインストールしている場合のみ（macOS）
+appium driver doctor xcuitest`}</code>
+              </pre>
+            </div>
+            <div className="callout">
+              <div className="callout-title">Appium Doctorの変更点</div>
+              <p>
+                以前使われていた独立パッケージ<code>appium-doctor</code>は非推奨となり、現在は各ドライバーの拡張コマンド<code>appium driver doctor &lt;driver-name&gt;</code>に統合されました。必要なツールが欠けている場合は、コンソールに表示される解決策に従って設定を追加してください。
+              </p>
+            </div>
+
+            <h3>ステップ5: Appium Inspectorを導入する</h3>
+            <p>
+              <strong>Appium Inspector</strong>は、接続中の端末画面をGUI上にミラーリング表示し、画面上のUI要素の階層構造や属性（ID、XPath、Accessibility ID等）をリアルタイムに調査できる必須の公式ツールです。
+            </p>
+            <p>
+              公式GitHubリポジトリ（<code>appium/appium-inspector</code>）のリリースページから、お使いのOSに応じたデスクトップアプリ（macOSなら<code>.dmg</code>、Windowsなら<code>.exe</code>）をダウンロードしてインストールしてください。ブラウザから直接使えるWeb版（<code>inspector.appium.io</code>）も提供されています。
+            </p>
+
+            <h3>ステップ6・7: サーバーを起動し、最初のテストを動かす</h3>
+            <p>
+              ターミナルで<code>appium</code>コマンドを実行してサーバーを起動します。
+            </p>
+            <div className="code-block">
+              <div className="code-label">bash</div>
+              <pre>
+                <code>appium --address 127.0.0.1</code>
+              </pre>
+            </div>
+            <p>
+              デフォルトでは<code>http://127.0.0.1:4723</code>でHTTPサーバーが待ち受けを開始します。この状態でInspectorやテストコードから接続を行います。
+            </p>
           </section>
 
+          {/* Section 6 */}
           <section id="capabilities" className="section">
             <h2>
               <span className="num">6</span>Capabilitiesを理解する
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              <strong>Capabilities（機能指定子）</strong>は、テストセッションを開始する際にクライアントからAppiumサーバーへ送る「セッション要求パラメータ」です。どのOSの、どのデバイスで、どのアプリを、どういう条件で起動するかを宣言します。
+            </p>
+
+            <h3>何が変わったのか</h3>
+            <p>
+              Appium 1.x時代はプレーンな辞書形式（JSON）で自由なキー名（<code>platformName</code>, <code>deviceName</code>, <code>app</code>等）を渡していましたが、W3C WebDriver仕様の完全適用に伴い、<strong>ベンダープレフィックス（<code>appium:</code>）が標準必須</strong>となりました。
+            </p>
+            <p>
+              手動でプレフィックスを付ける手間やタイプミスを防ぐため、最新のクライアントライブラリではプラットフォーム専用の<strong>Optionsクラス</strong>（<code>UiAutomator2Options</code>や<code>XCUITestOptions</code>）を使用することが強く推奨されています。
+            </p>
+
+            <h3>コード例（Python）</h3>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`from appium.options.android import UiAutomator2Options
+
+options = UiAutomator2Options()
+options.platform_name = "Android"
+options.automation_name = "UiAutomator2"
+options.device_name = "Pixel_7_API_34"
+# avd と udid は排他。どちらか一方だけを指定する
+# ここでは avd を有効にし、エミュレーターをAVD名から起動して使う
+options.avd = "Pixel_7_API_34"
+# 実機、または既に起動済みのエミュレーターに接続する場合は、
+# 上の avd を指定せず、代わりに udid を指定する
+# options.udid = "emulator-5554"   # adb devices で確認できるID
+options.app = "/path/to/your/app.apk"
+# テスト間の独立性を確保するため、アプリのデータを毎回初期化する
+options.full_reset = True`}</code>
+              </pre>
+            </div>
+
+            <h3>コード例（Java）</h3>
+            <div className="code-block">
+              <div className="code-label">java</div>
+              <pre>
+                <code>{`import io.appium.java_client.android.options.UiAutomator2Options;
+
+UiAutomator2Options options = new UiAutomator2Options();
+options.setPlatformName("Android");
+options.setAutomationName("UiAutomator2");
+options.setDeviceName("Pixel_7_API_34");
+// エミュレーターを起動して使う場合は setAvd() でAVD名を指定する
+options.setAvd("Pixel_7_API_34");
+// 実機、または既に起動済みのエミュレーターに接続する場合は setUdid() を指定する
+// options.setUdid("emulator-5554");   // adb devices で確認できるID
+options.setApp("/path/to/your/app.apk");
+// テスト間の独立性を確保するため、アプリのデータを毎回初期化する
+options.setFullReset(true);`}</code>
+              </pre>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>キー名</th>
+                    <th>型</th>
+                    <th>説明</th>
+                    <th>指定例</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>platformName</code></td>
+                    <td>文字列</td>
+                    <td>対象OS名（W3C標準。プレフィックス不要）</td>
+                    <td><code>&quot;Android&quot;</code>, <code>&quot;iOS&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:automationName</code></td>
+                    <td>文字列</td>
+                    <td>利用するドライバー名（必須）</td>
+                    <td><code>&quot;UiAutomator2&quot;</code>, <code>&quot;XCUITest&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:deviceName</code></td>
+                    <td>文字列</td>
+                    <td>デバイス表示名（ログや一部ドライバー参照用）</td>
+                    <td><code>&quot;Pixel_7_API_34&quot;</code>, <code>&quot;iPhone 15&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:udid</code></td>
+                    <td>文字列</td>
+                    <td>実機または特定エミュレーターの一意識別子</td>
+                    <td><code>&quot;emulator-5554&quot;</code>, <code>&quot;00008101-00123...&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:app</code></td>
+                    <td>文字列</td>
+                    <td>インストールするアプリファイルの絶対パス / URL</td>
+                    <td><code>&quot;/path/to/app.apk&quot;</code>, <code>&quot;/path/to/app.app&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:appPackage</code></td>
+                    <td>文字列</td>
+                    <td>起動するAndroidパッケージ名（既存アプリ起動時）</td>
+                    <td><code>&quot;com.example.myapp&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:appActivity</code></td>
+                    <td>文字列</td>
+                    <td>起動するAndroidメインActivity名</td>
+                    <td><code>&quot;.MainActivity&quot;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:noReset</code></td>
+                    <td>真偽値</td>
+                    <td>セッション前後でアプリデータを消去しない</td>
+                    <td><code>True</code> / <code>False</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:fullReset</code></td>
+                    <td>真偽値</td>
+                    <td>アプリのアンインストールと再インストールを行う</td>
+                    <td><code>True</code> / <code>False</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>appium:autoGrantPermissions</code></td>
+                    <td>真偽値</td>
+                    <td>初回起動時のシステム権限ダイアログを自動承認（Android）</td>
+                    <td><code>True</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>対象デバイスの指定方法に注意する</h3>
+            <p>
+              初学者がよく陥るミスとして、「<code>device_name</code>にエミュレーターの名前を書いたのに、意図しないデバイスに接続されてしまう」という現象があります。実は<code>device_name</code>は主にログ用の表示名であり、複数の端末が接続されている場合にどの端末を使うかを決定づける識別子としては機能しません。
+            </p>
+            <ul>
+              <li><strong>エミュレーターをAppiumに自動起動させたい場合:</strong> <code>avd</code>オプションにAVDマネージャーで作成した名前を指定します。</li>
+              <li><strong>起動済みの特定デバイス（実機またはエミュレーター）に接続したい場合:</strong> <code>adb devices</code>コマンドで確認できる一意のシリアル番号を<code>udid</code>オプションに指定します。</li>
+            </ul>
+
+            <h3>リセット系capabilityとテストの独立性</h3>
+            <p>
+              自動テストでは「前のテストケースのログイン状態や保存データが次のテストに影響を与えない」という<strong>テストの独立性</strong>を保つことが鉄則です。Appiumにはリセットレベルを制御するいくつかの方法があります。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Option / 設定</th>
+                    <th>アプリデータ（DB/キャッシュ）</th>
+                    <th>アプリのアンインストール</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>既定値（両方False）</td>
+                    <td>セッション終了時にクリアされる</td>
+                    <td>アンインストールされない（高速）</td>
+                  </tr>
+                  <tr>
+                    <td><code>noReset = True</code></td>
+                    <td>保持される（ログイン状態を維持してテストしたい場合）</td>
+                    <td>アンインストールされない</td>
+                  </tr>
+                  <tr>
+                    <td><code>fullReset = True</code></td>
+                    <td>完全に消去される</td>
+                    <td>セッション終了時にアンインストールされる（最もクリーンだが低速）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              テスト実行速度を向上させつつクリーンな状態を保ちたい場合は、毎回フル再インストールを行うのではなく、既定のリセット動作を利用するか、テスト終了時（teardown）にアプリデータをコマンドでクリアする手法が実務的です。
+            </p>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`# プロセス停止 → データ削除の順に実行する
+driver.terminate_app(app_id)
+driver.execute_script("mobile: clearApp", {"appId": app_id})`}</code>
+              </pre>
+            </div>
           </section>
 
+          {/* Section 7 */}
           <section id="first-test" className="section">
             <h2>
               <span className="num">7</span>はじめてのテストを書く
             </h2>
-            <p>（実装準備中）</p>
+            <p>
+              環境が整ったら、最初の自動テストスクリプトを書いて動かしてみましょう。ここでは「アプリを起動し、ログイン画面のヘッダーテキストが表示されていることをアサートして終了する」という最小構成のスモークテストを作成します。
+            </p>
+
+            <h3>Python版（pytest + Appium-Python-Client）</h3>
+            <div className="code-block">
+              <div className="code-label">python</div>
+              <pre>
+                <code>{`import pytest
+from appium import webdriver
+from appium.options.android import UiAutomator2Options
+from appium.webdriver.common.appiumby import AppiumBy
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+@pytest.fixture
+def driver():
+    options = UiAutomator2Options()
+    options.platform_name = "Android"
+    options.device_name = "Pixel_7_API_34"
+    options.automation_name = "UiAutomator2"
+    options.app = "/path/to/your/app.apk"
+    # 対象デバイスを明示する（前述のとおりdevice_nameだけでは一意に決まらない）
+    # エミュレーターをAppiumに起動させる場合:
+    options.avd = "Pixel_7_API_34"
+    # 実機や起動済みエミュレーターに接続する場合は、avdの代わりにudidを指定する:
+    # options.udid = "emulator-5554"  # adb devices で確認したデバイスID
+
+    drv = webdriver.Remote("http://127.0.0.1:4723", options=options)
+    yield drv
+    drv.quit()
+
+
+def test_login_screen_shows_header(driver):
+    wait = WebDriverWait(driver, 10)
+    header = wait.until(
+        EC.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, "login_header"))
+    )
+    assert header.text == "ログイン"`}</code>
+              </pre>
+            </div>
+
+            <h3>Java版（TestNG）</h3>
+            <div className="code-block">
+              <div className="code-label">java</div>
+              <pre>
+                <code>{`import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+import java.net.URL;
+import java.time.Duration;
+
+public class LoginScreenTest {
+    private AndroidDriver driver;
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        UiAutomator2Options options = new UiAutomator2Options();
+        options.setPlatformName("Android");
+        options.setDeviceName("Pixel_7_API_34");
+        options.setAutomationName("UiAutomator2");
+        options.setApp("/path/to/your/app.apk");
+        // 対象デバイスを明示する（deviceNameだけでは一意に決まらない）
+        // エミュレーターをAppiumに起動させる場合:
+        options.setAvd("Pixel_7_API_34");
+        // 実機や起動済みエミュレーターに接続する場合は setAvd()の代わりにsetUdid()を使う:
+        // options.setUdid("emulator-5554");  // adb devices で確認したデバイスID
+
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
+    }
+
+    @Test
+    public void loginScreenShowsHeader() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement header = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("login_header"))
+        );
+        Assert.assertEquals(header.getText(), "ログイン");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}`}</code>
+              </pre>
+            </div>
+            <div className="callout">
+              <div className="callout-title">driver.quit()の重要性</div>
+              <p>
+                テストが成功しても失敗しても、<strong>必ず<code>tearDown</code>で<code>driver.quit()</code>を呼ぶこと</strong>が極めて重要です。これを怠ると、端末上のエージェントサーバー（UI Automator等）やポートフォワーディングのセッションが端末に残骸として残り続け、次回のテスト実行時に「セッションを作成できない」というトラブルの原因になります。
+              </p>
+            </div>
           </section>
 
+          {/* Stubs for Category 3 - 4 (Sections 8-17) */}
           <section id="locators" className="section">
             <h2>
               <span className="num">8</span>要素を見つけるロケーター戦略
