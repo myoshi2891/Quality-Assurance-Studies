@@ -98,6 +98,80 @@ export const DIAGRAM_LLM_JUDGE = `${MERMAID_CONFIG}flowchart TD
     class Input hub
     class Version done`;
 
+export const DIAGRAM_EVAL_STEPS = `${MERMAID_CONFIG}flowchart TD
+    Define["何を測定するか なぜユーザーに重要かを定義する"]
+    Oracle["正解判定の仕組み オラクルを決める"]
+    Cases["代表的なケース集合を作る 通常利用 高価値フロー 境界ケース ポリシー境界 セキュリティに敏感なケース"]
+    Adversarial["敵対的 レッドチーム的なサンプルを加える"]
+    Manage["Evalデータをバージョン管理し 継続的に更新する"]
+    Compare["公開ベンチマークと比較しつつ その死角を鵜呑みにしない"]
+
+    Define --> Oracle --> Cases --> Adversarial --> Manage --> Compare
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Define hub
+    class Compare done`;
+
+export const DIAGRAM_RELEASE_GATE = `${MERMAID_CONFIG}flowchart LR
+    NewVer["新しいバージョンを用意する"]
+    OfflineEval["オフラインEvalのゲートを通過させる"]
+    Shadow["シャドウ展開 実トラフィックを複製し ユーザーには影響を与えない"]
+    Canary["カナリア展開 一部のユーザーにだけ公開する"]
+    Watch["コスト レイテンシ 品質 安全性の指標を監視する"]
+    Ship["問題なければ全体展開する"]
+    Rollback["問題があれば即座にロールバックする"]
+
+    NewVer --> OfflineEval --> Shadow --> Canary --> Watch
+    Watch -->|良好| Ship
+    Watch -->|悪化| Rollback
+    Rollback --> NewVer
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class NewVer hub
+    class Ship done
+    class Rollback box`;
+
+export const DIAGRAM_GENCODE_PIPELINE = `${MERMAID_CONFIG}flowchart TD
+    Gen["AIがコードを生成する"]
+    Static["静的解析と自動チェックを行う"]
+    Review["別のAIまたは人間による独立したレビュー経路を通す"]
+    Integ["統合テストとセキュリティテストを行う"]
+    Deploy["デプロイ時の振る舞いを検証する"]
+    Maint["保守性とアーキテクチャ上の負債を確認する"]
+    Ship["出荷を判断する"]
+
+    Gen --> Static --> Review --> Integ --> Deploy --> Maint --> Ship
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class Gen hub
+    class Ship done`;
+
+export const DIAGRAM_CONFIDENCE_ENGINEER = `${MERMAID_CONFIG}flowchart TD
+    CE["Confidence Engineer"]
+    Intent["プロダクトの意図"]
+    Code["コード"]
+    TestsEval["テストとEval"]
+    Trace["トレース"]
+    Rollout["ロールアウト"]
+    Business["ビジネス上の帰結"]
+    Exec["経営層 エンジニア 利用者への説明"]
+
+    Intent --> CE
+    Code --> CE
+    TestsEval --> CE
+    Trace --> CE
+    Rollout --> CE
+    CE --> Business
+    CE --> Exec
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f86d9,stroke-width:1.5px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6fb897,stroke-width:1.5px;
+    classDef box fill:#f0dfb0,color:#4a3a0a,stroke:#d1ad4f,stroke-width:1.5px;
+    class CE hub
+    class Exec done`;
+
 export default function TestingAiConfidenceGuidePage() {
   return (
     <div className="testing-ai-confidence-layout">
@@ -406,6 +480,201 @@ export default function TestingAiConfidenceGuidePage() {
             <p>
               実務で信頼されているチームは、判定者自体を「テスト対象のシステム」として扱います。人間レビュアーとの一致率を測定し、流暢な文章に引きずられるバイアスを追跡し、ブラインドでの比較を使い、判定プロンプトをバージョン管理し、判定者が低い確信度を報告した例や過去に信頼できなかった例を隔離して扱う、といった運用が紹介されています。
             </p>
+          </div>
+        </section>
+
+        {/* Section: step2 */}
+        <section className="section" id="step2">
+          <h2>
+            <i className="ti ti-circle-number-2" aria-hidden="true"></i>
+            <span>
+              Step 2：第II部 — エビデンス、Eval、本番運用（第6〜8章）
+            </span>
+          </h2>
+          <div className="prose">
+            <p>
+              第II部では、「意味のあるEvalをどう作るか」「リリース判断をどう下すか」「本番でどう運用し続けるか」という、実務に直結する3つの章を扱います。
+            </p>
+          </div>
+
+          <h3>第6章　意味のあるEvalの構築</h3>
+          <div className="prose">
+            <p>
+              Evalが「何を測定しているのか」「なぜユーザーにとって重要なのか」「オラクル（正解判定の仕組み）がどう機能するのか」を明確に定義することから始まります。公開ベンチマークと製品固有のEvalを比較し、ベンチマークが持つ死角をそのまま引き継がないようにすること、敵対的・レッドチーム的なサンプリングを取り入れること、検索の関連性を測るNDCGのような指標、そして「品質の頭打ちカーブ（asymptotic curve）」を意識して高水準だけを追い求めないようにすることなどが扱われます。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_EVAL_STEPS} />
+            </div>
+            <div className="diagram-caption">図5　意味のあるEvalを構築するステップ</div>
+          </div>
+
+          <h3>第7章　AIシステムのリリース準備</h3>
+          <div className="prose">
+            <p>
+              リリースは「品質保証の終わり」ではなく「本当の意味での品質測定の始まり」だという考え方が軸になります。許容できるばらつきは通しつつ、ポリシー違反・ツールの誤用・安全性の後退といったリグレッションは確実に検知する仕組みを作ります。ツールを使う多段階エージェントのワークフローをどう評価するか、人間によるレビューとエスカレーションのルールをどう設計するかもここで扱われます。
+            </p>
+          </div>
+
+          <h3>第8章　AIの運用：可観測性、関連性、経済性</h3>
+          <div className="prose">
+            <p>
+              入力・プロンプト組み立て・検索（retrieval）・モデル呼び出し・ツール・出力フィルタ・ユーザーに見える結果まで、パイプライン全体を計装（インストルメント）することが出発点です。RAGでは検索の失敗と生成の失敗を切り分けて評価する必要があります。本番トレースからの学習、プロンプトやポリシーのバージョン管理、そしてカナリア・シャドウ・ロールバック戦略が、この章の重要なテーマです。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_RELEASE_GATE} />
+            </div>
+            <div className="diagram-caption">
+              図6　リリースゲートとCanary Shadow Rollbackの流れ
+            </div>
+          </div>
+        </section>
+
+        {/* Section: step3 */}
+        <section className="section" id="step3">
+          <h2>
+            <i className="ti ti-circle-number-3" aria-hidden="true"></i>
+            <span>
+              Step 3：第III部 — AI生成コードとConfidence Engineering（第9〜11章）
+            </span>
+          </h2>
+          <div className="prose">
+            <p>
+              第III部は、AIがコードそのものを生成する時代における品質保証と、「Confidence Engineer」という新しい役割を扱います。
+            </p>
+          </div>
+
+          <h3>第9章　生成コードが仕事を変える</h3>
+          <div className="prose">
+            <p>
+              一見正しく見える生成コードでも、統合・セキュリティ・プライバシー・権限・デプロイの振る舞いにおいて誤りうる、という前提から出発します。生成されたコードを検証するために、別のAIやレビュー経路を使うことが推奨されます。生成テストが「カバレッジがあるように見えて実は薄い」という錯覚を生む問題や、ハルティング問題やゲーデルの不完全性定理が示すような「AI生成コードのテストには理論的な限界がある」という視点も紹介されます。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_GENCODE_PIPELINE} />
+            </div>
+            <div className="diagram-caption">図7　AI生成コードの検証パイプライン</div>
+          </div>
+
+          <h3>第10章　誤った安心感を生むアンチパターン</h3>
+          <div className="prose">
+            <p>
+              この章は16個ものセクションブリーフを持つ、本書で最もボリュームのあるアンチパターン集です。修正を提案する前に、まずその「誤った安心感のパターン」に名前を付けることが大切だと説きます。以下は代表的なアンチパターンの一部です。
+            </p>
+          </div>
+          <div className="table-wrap">
+            <div className="table-title">代表的なアンチパターン（第10章より抜粋）</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>アンチパターン</th>
+                  <th>何が問題か</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>合否だけのブール判定の罠</td>
+                  <td>
+                    「通った・落ちた」の二値だけでは、どれだけ悪かったか、どれだけ際どかったかが分からない
+                  </td>
+                </tr>
+                <tr>
+                  <td>通過率だけを品質と見なす</td>
+                  <td>
+                    パーセンテージは平均を隠し、致命的な少数の失敗を埋もれさせる
+                  </td>
+                </tr>
+                <tr>
+                  <td>過度に具体的なテストケースやテスト計画</td>
+                  <td>
+                    非決定的な出力に完全一致を求めると、些細な言い換えでも壊れる
+                  </td>
+                </tr>
+                <tr>
+                  <td>ゴールデンアンサー問題</td>
+                  <td>唯一の正解を決め打ちすると、妥当な別解を誤って不合格にする</td>
+                </tr>
+                <tr>
+                  <td>すべての悪い出力をバグとして起票する</td>
+                  <td>
+                    ばらつきの範囲内の変動まで、バグ管理システムを埋め尽くしてしまう
+                  </td>
+                </tr>
+                <tr>
+                  <td>もぐら叩き式のチューニングの罠</td>
+                  <td>個別の失敗を潰すたびに、別の場所で新しい失敗が生まれる</td>
+                </tr>
+                <tr>
+                  <td>ワンショットデモの誤謬</td>
+                  <td>1回のデモがうまくいっただけで、本番品質を保証したと錯覚する</td>
+                </tr>
+                <tr>
+                  <td>静的なテスト計画</td>
+                  <td>
+                    モデルやデータが変わり続けるのに、テスト計画だけが固定されたままになる
+                  </td>
+                </tr>
+                <tr>
+                  <td>集計スコアの罠</td>
+                  <td>
+                    一つの数字に平均化すると、どのスライスで何が壊れているか見えなくなる
+                  </td>
+                </tr>
+                <tr>
+                  <td>最終回答だけをテストする</td>
+                  <td>
+                    途中の検索やツール呼び出しの過程を検証しないと、原因を特定できない
+                  </td>
+                </tr>
+                <tr>
+                  <td>判定者を真実として扱う</td>
+                  <td>
+                    LLM判定者自体もキャリブレーションが必要な測定システムにすぎない
+                  </td>
+                </tr>
+                <tr>
+                  <td>テストの数が多いほど確信できるという誤解</td>
+                  <td>量よりも、リスクに対してカバレッジがあるかが重要</td>
+                </tr>
+                <tr>
+                  <td>拒否を安全性と混同する</td>
+                  <td>
+                    何でも断るAIは安全なのではなく、ただ役に立たないだけの場合がある
+                  </td>
+                </tr>
+                <tr>
+                  <td>AIのバグをUIのバグと同じように扱う</td>
+                  <td>非決定的な失敗には、UIの決定的なバグとは違う調査手法が必要</td>
+                </tr>
+                <tr>
+                  <td>古いテスターの肩書きの罠</td>
+                  <td>
+                    役割の呼び名だけを変えても、実務のやり方が変わらなければ意味がない
+                  </td>
+                </tr>
+                <tr>
+                  <td>昨日のテスターを今日のシステムのために雇う罠</td>
+                  <td>統計、Eval設計、AIの仕組みを理解した人材が必要になっている</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>第11章　Confidence Engineerという役割</h3>
+          <div className="prose">
+            <p>
+              第11章はわずか1つのセクションブリーフしかありませんが、本書全体の結論にあたる重要な章です。プロダクトの意図・コード・テスト・Eval・トレース・ロールアウト・ビジネス上の帰結をつなぐ人物として「Confidence Engineer」を位置づけます。役職名自体は新しいものですが、その必要性は昔から変わりません。著者は、真剣に取り組むすべてのAIプロダクトには、そのシステムが良くなっているか、安全になっているか、現実の世界でより信頼できるようになっているかを裏付けるエビデンスに、誰かが責任を持つ必要があると論じています。
+            </p>
+          </div>
+          <div className="diagram-block">
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_CONFIDENCE_ENGINEER} />
+            </div>
+            <div className="diagram-caption">図8　Confidence Engineerの役割</div>
           </div>
         </section>
       </main>
