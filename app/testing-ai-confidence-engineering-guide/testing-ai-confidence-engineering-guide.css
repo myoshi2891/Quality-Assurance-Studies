@@ -283,6 +283,7 @@
   padding: 2.8rem 3rem 2.4rem !important;
   max-width: none;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .testing-ai-confidence-layout .section:last-of-type {
@@ -866,6 +867,10 @@
   }
   .testing-ai-confidence-layout .mobile-bar {
     display: flex;
+  }
+  /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+  .testing-ai-confidence-layout .section {
+    scroll-margin-top: calc(60px + 4rem + var(--disclaimer-height, 0px));
   }
   .testing-ai-confidence-layout .hero,
   .testing-ai-confidence-layout .section,

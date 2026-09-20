@@ -277,6 +277,7 @@
 .ai-driven-test-layout .section {
   padding: 2.6rem 0;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .ai-driven-test-layout .section:last-of-type {
@@ -932,6 +933,11 @@
 
   .ai-driven-test-layout .mobile-bar {
     display: flex;
+  }
+
+  /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+  .ai-driven-test-layout .section {
+    scroll-margin-top: calc(60px + 4rem + var(--disclaimer-height, 0px));
   }
 
   .ai-driven-test-layout .hero {

@@ -223,6 +223,7 @@
 .appium-guide-layout .section {
     padding: 44px 0 !important;
     border-top: 1px solid var(--border);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .appium-guide-layout .section:first-of-type {
