@@ -340,20 +340,24 @@ export default function AppiumGuidePage() {
               Appium 3.xは<strong>Node.js 20.19以降、22.12以降、または24以降</strong>が必要です（LTSバージョンの利用を強く推奨します）。ターミナルでバージョンを確認してください。
             </p>
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>{`node -v
-npm -v`}</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-function">node</span> -v</div>
+                  <div className="code-line"><span className="token-function">npm</span> -v</div>
+                </code>
               </pre>
             </div>
 
             <h3>ステップ2: Appiumサーバーをインストールする</h3>
             <p>npmを使ってAppiumサーバーをグローバルにインストールします。</p>
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>{`npm install -g appium
-appium -v`}</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-function">npm</span> install -g appium</div>
+                  <div className="code-line"><span className="token-function">appium</span> -v</div>
+                </code>
               </pre>
             </div>
             <p>
@@ -365,16 +369,18 @@ appium -v`}</code>
               Appium 2.x以降、ドライバーはサーバー本体に含まれていません。自動化したいプラットフォームに応じたドライバーをコマンドで追加します。
             </p>
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>{`# Androidを自動化する場合
-appium driver install uiautomator2
-
-# iOSを自動化する場合（macOSのみ）
-appium driver install xcuitest
-
-# インストール済みドライバーの一覧を確認
-appium driver list --installed`}</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-comment"># Androidを自動化する場合</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> driver install uiautomator2</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># iOSを自動化する場合（macOSのみ）</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> driver install xcuitest</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># インストール済みドライバーの一覧を確認</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> driver list <span className="token-property">--installed</span></div>
+                </code>
               </pre>
             </div>
 
@@ -383,13 +389,15 @@ appium driver list --installed`}</code>
               モバイルテストの環境構築で最もつまずきやすいのが、Android SDKやXcode、環境変数（<code>ANDROID_HOME</code>や<code>JAVA_HOME</code>）の設定漏れです。Appium公式のドクターツールを使って、必要な前提条件が揃っているかを自動検証します。
             </p>
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>{`# uiautomator2 をインストールしている場合のみ
-appium driver doctor uiautomator2
-
-# xcuitest をインストールしている場合のみ（macOS）
-appium driver doctor xcuitest`}</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-comment"># uiautomator2 をインストールしている場合のみ</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> driver doctor uiautomator2</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># xcuitest をインストールしている場合のみ（macOS）</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> driver doctor xcuitest</div>
+                </code>
               </pre>
             </div>
             <div className="callout">
@@ -412,9 +420,11 @@ appium driver doctor xcuitest`}</code>
               ターミナルで<code>appium</code>コマンドを実行してサーバーを起動します。
             </p>
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>appium --address 127.0.0.1</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-function">appium</span> <span className="token-property">--address</span> <span className="token-number">127.0.0.1</span></div>
+                </code>
               </pre>
             </div>
             <p>
@@ -441,43 +451,47 @@ appium driver doctor xcuitest`}</code>
 
             <h3>コード例（Python）</h3>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`from appium.options.android import UiAutomator2Options
-
-options = UiAutomator2Options()
-options.platform_name = "Android"
-options.automation_name = "UiAutomator2"
-options.device_name = "Pixel_7_API_34"
-# avd と udid は排他。どちらか一方だけを指定する
-# ここでは avd を有効にし、エミュレーターをAVD名から起動して使う
-options.avd = "Pixel_7_API_34"
-# 実機、または既に起動済みのエミュレーターに接続する場合は、
-# 上の avd を指定せず、代わりに udid を指定する
-# options.udid = "emulator-5554"   # adb devices で確認できるID
-options.app = "/path/to/your/app.apk"
-# テスト間の独立性を確保するため、アプリのデータを毎回初期化する
-options.full_reset = True`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-keyword">from</span> appium.options.android <span className="token-keyword">import</span> <span className="token-class">UiAutomator2Options</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">options = <span className="token-class">UiAutomator2Options</span>()</div>
+                  <div className="code-line">options.platform_name = <span className="token-string">&quot;Android&quot;</span></div>
+                  <div className="code-line">options.automation_name = <span className="token-string">&quot;UiAutomator2&quot;</span></div>
+                  <div className="code-line">options.device_name = <span className="token-string">&quot;Pixel_7_API_34&quot;</span></div>
+                  <div className="code-line"><span className="token-comment"># avd と udid は排他。どちらか一方だけを指定する</span></div>
+                  <div className="code-line"><span className="token-comment"># ここでは avd を有効にし、エミュレーターをAVD名から起動して使う</span></div>
+                  <div className="code-line">options.avd = <span className="token-string">&quot;Pixel_7_API_34&quot;</span></div>
+                  <div className="code-line"><span className="token-comment"># 実機、または既に起動済みのエミュレーターに接続する場合は、</span></div>
+                  <div className="code-line"><span className="token-comment"># 上の avd を指定せず、代わりに udid を指定する</span></div>
+                  <div className="code-line"><span className="token-comment"># options.udid = &quot;emulator-5554&quot;   # adb devices で確認できるID</span></div>
+                  <div className="code-line">options.app = <span className="token-string">&quot;/path/to/your/app.apk&quot;</span></div>
+                  <div className="code-line"><span className="token-comment"># テスト間の独立性を確保するため、アプリのデータを毎回初期化する</span></div>
+                  <div className="code-line">options.full_reset = <span className="token-number">True</span></div>
+                </code>
               </pre>
             </div>
 
             <h3>コード例（Java）</h3>
             <div className="code-block">
-              <div className="code-label">java</div>
+              <div className="code-label"><span>java</span></div>
               <pre>
-                <code>{`import io.appium.java_client.android.options.UiAutomator2Options;
-
-UiAutomator2Options options = new UiAutomator2Options();
-options.setPlatformName("Android");
-options.setAutomationName("UiAutomator2");
-options.setDeviceName("Pixel_7_API_34");
-// エミュレーターを起動して使う場合は setAvd() でAVD名を指定する
-options.setAvd("Pixel_7_API_34");
-// 実機、または既に起動済みのエミュレーターに接続する場合は setUdid() を指定する
-// options.setUdid("emulator-5554");   // adb devices で確認できるID
-options.setApp("/path/to/your/app.apk");
-// テスト間の独立性を確保するため、アプリのデータを毎回初期化する
-options.setFullReset(true);`}</code>
+                <code className="hljs language-java">
+                  <div className="code-line"><span className="token-keyword">import</span> io.appium.java_client.android.options.<span className="token-class">UiAutomator2Options</span>;</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-class">UiAutomator2Options</span> options = <span className="token-keyword">new</span> <span className="token-class">UiAutomator2Options</span>();</div>
+                  <div className="code-line">options.<span className="token-function">setPlatformName</span>(<span className="token-string">&quot;Android&quot;</span>);</div>
+                  <div className="code-line">options.<span className="token-function">setAutomationName</span>(<span className="token-string">&quot;UiAutomator2&quot;</span>);</div>
+                  <div className="code-line">options.<span className="token-function">setDeviceName</span>(<span className="token-string">&quot;Pixel_7_API_34&quot;</span>);</div>
+                  <div className="code-line"><span className="token-comment">// エミュレーターを起動して使う場合は setAvd() でAVD名を指定する</span></div>
+                  <div className="code-line">options.<span className="token-function">setAvd</span>(<span className="token-string">&quot;Pixel_7_API_34&quot;</span>);</div>
+                  <div className="code-line"><span className="token-comment">// 実機、または既に起動済みのエミュレーターに接続する場合は setUdid() を指定する</span></div>
+                  <div className="code-line"><span className="token-comment">// options.setUdid(&quot;emulator-5554&quot;);   // adb devices で確認できるID</span></div>
+                  <div className="code-line">options.<span className="token-function">setApp</span>(<span className="token-string">&quot;/path/to/your/app.apk&quot;</span>);</div>
+                  <div className="code-line"><span className="token-comment">// テスト間の独立性を確保するため、アプリのデータを毎回初期化する</span></div>
+                  <div className="code-line">options.<span className="token-function">setFullReset</span>(<span className="token-number">true</span>);</div>
+                </code>
               </pre>
             </div>
 
@@ -601,11 +615,13 @@ options.setFullReset(true);`}</code>
               テスト実行速度を向上させつつクリーンな状態を保ちたい場合は、毎回フル再インストールを行うのではなく、既定のリセット動作を利用するか、テスト終了時（teardown）にアプリデータをコマンドでクリアする手法が実務的です。
             </p>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`# プロセス停止 → データ削除の順に実行する
-driver.terminate_app(app_id)
-driver.execute_script("mobile: clearApp", {"appId": app_id})`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-comment"># プロセス停止 → データ削除の順に実行する</span></div>
+                  <div className="code-line">driver.<span className="token-function">terminate_app</span>(app_id)</div>
+                  <div className="code-line">driver.<span className="token-function">execute_script</span>(<span className="token-string">&quot;mobile: clearApp&quot;</span>, &#123;<span className="token-string">&quot;appId&quot;</span>: app_id&#125;)</div>
+                </code>
               </pre>
             </div>
           </section>
@@ -621,94 +637,96 @@ driver.execute_script("mobile: clearApp", {"appId": app_id})`}</code>
 
             <h3>Python版（pytest + Appium-Python-Client）</h3>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`import pytest
-from appium import webdriver
-from appium.options.android import UiAutomator2Options
-from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
-@pytest.fixture
-def driver():
-    options = UiAutomator2Options()
-    options.platform_name = "Android"
-    options.device_name = "Pixel_7_API_34"
-    options.automation_name = "UiAutomator2"
-    options.app = "/path/to/your/app.apk"
-    # 対象デバイスを明示する（前述のとおりdevice_nameだけでは一意に決まらない）
-    # エミュレーターをAppiumに起動させる場合:
-    options.avd = "Pixel_7_API_34"
-    # 実機や起動済みエミュレーターに接続する場合は、avdの代わりにudidを指定する:
-    # options.udid = "emulator-5554"  # adb devices で確認したデバイスID
-
-    drv = webdriver.Remote("http://127.0.0.1:4723", options=options)
-    yield drv
-    drv.quit()
-
-
-def test_login_screen_shows_header(driver):
-    wait = WebDriverWait(driver, 10)
-    header = wait.until(
-        EC.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, "login_header"))
-    )
-    assert header.text == "ログイン"`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-keyword">import</span> pytest</div>
+                  <div className="code-line"><span className="token-keyword">from</span> appium <span className="token-keyword">import</span> webdriver</div>
+                  <div className="code-line"><span className="token-keyword">from</span> appium.options.android <span className="token-keyword">import</span> <span className="token-class">UiAutomator2Options</span></div>
+                  <div className="code-line"><span className="token-keyword">from</span> appium.webdriver.common.appiumby <span className="token-keyword">import</span> <span className="token-class">AppiumBy</span></div>
+                  <div className="code-line"><span className="token-keyword">from</span> selenium.webdriver.support.ui <span className="token-keyword">import</span> <span className="token-class">WebDriverWait</span></div>
+                  <div className="code-line"><span className="token-keyword">from</span> selenium.webdriver.support <span className="token-keyword">import</span> expected_conditions <span className="token-keyword">as</span> EC</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-meta">@pytest.fixture</span></div>
+                  <div className="code-line"><span className="token-keyword">def</span> <span className="token-function">driver</span>():</div>
+                  <div className="code-line">    options = <span className="token-class">UiAutomator2Options</span>()</div>
+                  <div className="code-line">    options.platform_name = <span className="token-string">&quot;Android&quot;</span></div>
+                  <div className="code-line">    options.device_name = <span className="token-string">&quot;Pixel_7_API_34&quot;</span></div>
+                  <div className="code-line">    options.automation_name = <span className="token-string">&quot;UiAutomator2&quot;</span></div>
+                  <div className="code-line">    options.app = <span className="token-string">&quot;/path/to/your/app.apk&quot;</span></div>
+                  <div className="code-line">    <span className="token-comment"># 対象デバイスを明示する（前述のとおりdevice_nameだけでは一意に決まらない）</span></div>
+                  <div className="code-line">    <span className="token-comment"># エミュレーターをAppiumに起動させる場合:</span></div>
+                  <div className="code-line">    options.avd = <span className="token-string">&quot;Pixel_7_API_34&quot;</span></div>
+                  <div className="code-line">    <span className="token-comment"># 実機や起動済みエミュレーターに接続する場合は、avdの代わりにudidを指定する:</span></div>
+                  <div className="code-line">    <span className="token-comment"># options.udid = &quot;emulator-5554&quot;  # adb devices で確認したデバイスID</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    drv = webdriver.<span className="token-function">Remote</span>(<span className="token-string">&quot;http://127.0.0.1:4723&quot;</span>, options=options)</div>
+                  <div className="code-line">    <span className="token-keyword">yield</span> drv</div>
+                  <div className="code-line">    drv.<span className="token-function">quit</span>()</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-keyword">def</span> <span className="token-function">test_login_screen_shows_header</span>(driver):</div>
+                  <div className="code-line">    wait = <span className="token-class">WebDriverWait</span>(driver, <span className="token-number">10</span>)</div>
+                  <div className="code-line">    header = wait.<span className="token-function">until</span>(</div>
+                  <div className="code-line">        EC.<span className="token-function">visibility_of_element_located</span>((<span className="token-class">AppiumBy</span>.ACCESSIBILITY_ID, <span className="token-string">&quot;login_header&quot;</span>))</div>
+                  <div className="code-line">    )</div>
+                  <div className="code-line">    <span className="token-keyword">assert</span> header.text == <span className="token-string">&quot;ログイン&quot;</span></div>
+                </code>
               </pre>
             </div>
 
             <h3>Java版（TestNG）</h3>
             <div className="code-block">
-              <div className="code-label">java</div>
+              <div className="code-label"><span>java</span></div>
               <pre>
-                <code>{`import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.*;
-
-import java.net.URL;
-import java.time.Duration;
-
-public class LoginScreenTest {
-    private AndroidDriver driver;
-
-    @BeforeMethod
-    public void setUp() throws Exception {
-        UiAutomator2Options options = new UiAutomator2Options();
-        options.setPlatformName("Android");
-        options.setDeviceName("Pixel_7_API_34");
-        options.setAutomationName("UiAutomator2");
-        options.setApp("/path/to/your/app.apk");
-        // 対象デバイスを明示する（deviceNameだけでは一意に決まらない）
-        // エミュレーターをAppiumに起動させる場合:
-        options.setAvd("Pixel_7_API_34");
-        // 実機や起動済みエミュレーターに接続する場合は setAvd()の代わりにsetUdid()を使う:
-        // options.setUdid("emulator-5554");  // adb devices で確認したデバイスID
-
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
-    }
-
-    @Test
-    public void loginScreenShowsHeader() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement header = wait.until(
-            ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("login_header"))
-        );
-        Assert.assertEquals(header.getText(), "ログイン");
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-}`}</code>
+                <code className="hljs language-java">
+                  <div className="code-line"><span className="token-keyword">import</span> io.appium.java_client.<span className="token-class">AppiumBy</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> io.appium.java_client.android.<span className="token-class">AndroidDriver</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> io.appium.java_client.android.options.<span className="token-class">UiAutomator2Options</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> org.openqa.selenium.<span className="token-class">WebElement</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> org.openqa.selenium.support.ui.<span className="token-class">ExpectedConditions</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> org.openqa.selenium.support.ui.<span className="token-class">WebDriverWait</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> org.testng.<span className="token-class">Assert</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> org.testng.annotations.*;</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> java.net.<span className="token-class">URL</span>;</div>
+                  <div className="code-line"><span className="token-keyword">import</span> java.time.<span className="token-class">Duration</span>;</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-keyword">public</span> <span className="token-keyword">class</span> <span className="token-class">LoginScreenTest</span> &#123;</div>
+                  <div className="code-line">    <span className="token-keyword">private</span> <span className="token-class">AndroidDriver</span> driver;</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-meta">@BeforeMethod</span></div>
+                  <div className="code-line">    <span className="token-keyword">public</span> <span className="token-keyword">void</span> <span className="token-function">setUp</span>() <span className="token-keyword">throws</span> <span className="token-class">Exception</span> &#123;</div>
+                  <div className="code-line">        <span className="token-class">UiAutomator2Options</span> options = <span className="token-keyword">new</span> <span className="token-class">UiAutomator2Options</span>();</div>
+                  <div className="code-line">        options.<span className="token-function">setPlatformName</span>(<span className="token-string">&quot;Android&quot;</span>);</div>
+                  <div className="code-line">        options.<span className="token-function">setDeviceName</span>(<span className="token-string">&quot;Pixel_7_API_34&quot;</span>);</div>
+                  <div className="code-line">        options.<span className="token-function">setAutomationName</span>(<span className="token-string">&quot;UiAutomator2&quot;</span>);</div>
+                  <div className="code-line">        options.<span className="token-function">setApp</span>(<span className="token-string">&quot;/path/to/your/app.apk&quot;</span>);</div>
+                  <div className="code-line">        <span className="token-comment">// 対象デバイスを明示する（deviceNameだけでは一意に決まらない）</span></div>
+                  <div className="code-line">        <span className="token-comment">// エミュレーターをAppiumに起動させる場合:</span></div>
+                  <div className="code-line">        options.<span className="token-function">setAvd</span>(<span className="token-string">&quot;Pixel_7_API_34&quot;</span>);</div>
+                  <div className="code-line">        <span className="token-comment">// 実機や起動済みエミュレーターに接続する場合は setAvd()の代わりにsetUdid()を使う:</span></div>
+                  <div className="code-line">        <span className="token-comment">// options.setUdid(&quot;emulator-5554&quot;);  // adb devices で確認したデバイスID</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">        driver = <span className="token-keyword">new</span> <span className="token-class">AndroidDriver</span>(<span className="token-keyword">new</span> <span className="token-class">URL</span>(<span className="token-string">&quot;http://127.0.0.1:4723&quot;</span>), options);</div>
+                  <div className="code-line">    &#125;</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-meta">@Test</span></div>
+                  <div className="code-line">    <span className="token-keyword">public</span> <span className="token-keyword">void</span> <span className="token-function">loginScreenShowsHeader</span>() &#123;</div>
+                  <div className="code-line">        <span className="token-class">WebDriverWait</span> wait = <span className="token-keyword">new</span> <span className="token-class">WebDriverWait</span>(driver, <span className="token-class">Duration</span>.<span className="token-function">ofSeconds</span>(<span className="token-number">10</span>));</div>
+                  <div className="code-line">        <span className="token-class">WebElement</span> header = wait.<span className="token-function">until</span>(</div>
+                  <div className="code-line">            <span className="token-class">ExpectedConditions</span>.<span className="token-function">visibilityOfElementLocated</span>(<span className="token-class">AppiumBy</span>.<span className="token-function">accessibilityId</span>(<span className="token-string">&quot;login_header&quot;</span>))</div>
+                  <div className="code-line">        );</div>
+                  <div className="code-line">        <span className="token-class">Assert</span>.<span className="token-function">assertEquals</span>(header.<span className="token-function">getText</span>(), <span className="token-string">&quot;ログイン&quot;</span>);</div>
+                  <div className="code-line">    &#125;</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-meta">@AfterMethod</span></div>
+                  <div className="code-line">    <span className="token-keyword">public</span> <span className="token-keyword">void</span> <span className="token-function">tearDown</span>() &#123;</div>
+                  <div className="code-line">        <span className="token-keyword">if</span> (driver != <span className="token-number">null</span>) &#123;</div>
+                  <div className="code-line">            driver.<span className="token-function">quit</span>();</div>
+                  <div className="code-line">        &#125;</div>
+                  <div className="code-line">    &#125;</div>
+                  <div className="code-line">&#125;</div>
+                </code>
               </pre>
             </div>
             <div className="callout">
@@ -808,16 +826,18 @@ public class LoginScreenTest {
               <code>-image</code>ロケーター戦略は、Appium 2.xでコア機能からプラグインとして分離されました。<code>uiautomator2</code>や<code>xcuitest</code>といったドライバーを入れただけでは利用できず、<code>-image</code>を使うテストがある場合に限り、次の追加セットアップを行います。他のロケーター戦略しか使わないのであれば、前章のドライバー導入手順だけで十分です。
             </p>
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>{`# 1. Imagesプラグインをインストールする（-image を使う場合のみ）
-appium plugin install images
-
-# 2. インストール済みプラグインを確認する
-appium plugin list --installed
-
-# 3. プラグインを有効にしてサーバーを起動する（認証を持たないため接続元をループバックに限定する）
-appium --use-plugins=images --address 127.0.0.1`}</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-comment"># 1. Imagesプラグインをインストールする（-image を使う場合のみ）</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> plugin install images</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># 2. インストール済みプラグインを確認する</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> plugin list <span className="token-property">--installed</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># 3. プラグインを有効にしてサーバーを起動する（認証を持たないため接続元をループバックに限定する）</span></div>
+                  <div className="code-line"><span className="token-function">appium</span> <span className="token-property">--use-plugins</span>=images <span className="token-property">--address</span> <span className="token-number">127.0.0.1</span></div>
+                </code>
               </pre>
             </div>
             <p>
@@ -848,45 +868,48 @@ appium --use-plugins=images --address 127.0.0.1`}</code>
 
             <h3>コード例（Python）</h3>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
-class LoginPage:
-    ID_FIELD = (AppiumBy.ACCESSIBILITY_ID, "login_id_field")
-    PASSWORD_FIELD = (AppiumBy.ACCESSIBILITY_ID, "login_password_field")
-    LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "login_submit_button")
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
-
-    def enter_id(self, user_id: str):
-        field = self.wait.until(EC.visibility_of_element_located(self.ID_FIELD))
-        field.send_keys(user_id)
-        return self
-
-    def enter_password(self, password: str):
-        field = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_FIELD))
-        field.send_keys(password)
-        return self
-
-    def tap_login(self):
-        button = self.wait.until(EC.element_to_be_clickable(self.LOGIN_BUTTON))
-        button.click()
-        return self`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-keyword">from</span> appium.webdriver.common.appiumby <span className="token-keyword">import</span> <span className="token-class">AppiumBy</span></div>
+                  <div className="code-line"><span className="token-keyword">from</span> selenium.webdriver.support.ui <span className="token-keyword">import</span> <span className="token-class">WebDriverWait</span></div>
+                  <div className="code-line"><span className="token-keyword">from</span> selenium.webdriver.support <span className="token-keyword">import</span> expected_conditions <span className="token-keyword">as</span> EC</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-keyword">class</span> <span className="token-class">LoginPage</span>:</div>
+                  <div className="code-line">    ID_FIELD = (<span className="token-class">AppiumBy</span>.ACCESSIBILITY_ID, <span className="token-string">&quot;login_id_field&quot;</span>)</div>
+                  <div className="code-line">    PASSWORD_FIELD = (<span className="token-class">AppiumBy</span>.ACCESSIBILITY_ID, <span className="token-string">&quot;login_password_field&quot;</span>)</div>
+                  <div className="code-line">    LOGIN_BUTTON = (<span className="token-class">AppiumBy</span>.ACCESSIBILITY_ID, <span className="token-string">&quot;login_submit_button&quot;</span>)</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-keyword">def</span> <span className="token-function">__init__</span>(self, driver):</div>
+                  <div className="code-line">        self.driver = driver</div>
+                  <div className="code-line">        self.wait = <span className="token-class">WebDriverWait</span>(driver, <span className="token-number">10</span>)</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-keyword">def</span> <span className="token-function">enter_id</span>(self, user_id: <span className="token-class">str</span>):</div>
+                  <div className="code-line">        field = self.wait.<span className="token-function">until</span>(EC.<span className="token-function">visibility_of_element_located</span>(self.ID_FIELD))</div>
+                  <div className="code-line">        field.<span className="token-function">send_keys</span>(user_id)</div>
+                  <div className="code-line">        <span className="token-keyword">return</span> self</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-keyword">def</span> <span className="token-function">enter_password</span>(self, password: <span className="token-class">str</span>):</div>
+                  <div className="code-line">        field = self.wait.<span className="token-function">until</span>(EC.<span className="token-function">visibility_of_element_located</span>(self.PASSWORD_FIELD))</div>
+                  <div className="code-line">        field.<span className="token-function">send_keys</span>(password)</div>
+                  <div className="code-line">        <span className="token-keyword">return</span> self</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">    <span className="token-keyword">def</span> <span className="token-function">tap_login</span>(self):</div>
+                  <div className="code-line">        button = self.wait.<span className="token-function">until</span>(EC.<span className="token-function">element_to_be_clickable</span>(self.LOGIN_BUTTON))</div>
+                  <div className="code-line">        button.<span className="token-function">click</span>()</div>
+                  <div className="code-line">        <span className="token-keyword">return</span> self</div>
+                </code>
               </pre>
             </div>
             <p>テストコード側は次のようにシンプルになります。</p>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`def test_successful_login(driver):
-    login_page = LoginPage(driver)
-    login_page.enter_id("demo_user").enter_password("demo_pass").tap_login()`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-keyword">def</span> <span className="token-function">test_successful_login</span>(driver):</div>
+                  <div className="code-line">    login_page = <span className="token-class">LoginPage</span>(driver)</div>
+                  <div className="code-line">    login_page.<span className="token-function">enter_id</span>(<span className="token-string">&quot;demo_user&quot;</span>).<span className="token-function">enter_password</span>(<span className="token-string">&quot;demo_pass&quot;</span>).<span className="token-function">tap_login</span>()</div>
+                </code>
               </pre>
             </div>
             <p>POMを導入する効果は次の3点に集約されます。</p>
@@ -955,17 +978,19 @@ class LoginPage:
 
             <h3>Explicit Waitのコード例（Python）</h3>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from appium.webdriver.common.appiumby import AppiumBy
-
-wait = WebDriverWait(driver, 15, poll_frequency=0.5)
-element = wait.until(
-    EC.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, "checkout_button"))
-)
-element.click()`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-keyword">from</span> selenium.webdriver.support.ui <span className="token-keyword">import</span> <span className="token-class">WebDriverWait</span></div>
+                  <div className="code-line"><span className="token-keyword">from</span> selenium.webdriver.support <span className="token-keyword">import</span> expected_conditions <span className="token-keyword">as</span> EC</div>
+                  <div className="code-line"><span className="token-keyword">from</span> appium.webdriver.common.appiumby <span className="token-keyword">import</span> <span className="token-class">AppiumBy</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">wait = <span className="token-class">WebDriverWait</span>(driver, <span className="token-number">15</span>, poll_frequency=<span className="token-number">0.5</span>)</div>
+                  <div className="code-line">element = wait.<span className="token-function">until</span>(</div>
+                  <div className="code-line">    EC.<span className="token-function">visibility_of_element_located</span>((<span className="token-class">AppiumBy</span>.ACCESSIBILITY_ID, <span className="token-string">&quot;checkout_button&quot;</span>))</div>
+                  <div className="code-line">)</div>
+                  <div className="code-line">element.<span className="token-function">click</span>()</div>
+                </code>
               </pre>
             </div>
             <p>
@@ -1034,19 +1059,21 @@ element.click()`}</code>
 
             <h3>コード例（Python・Android）</h3>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`driver.execute_script("mobile: scrollGesture", {
-    "left": 100, "top": 300, "width": 200, "height": 800,
-    "direction": "down",
-    "percent": 1.0,
-})
-
-driver.execute_script("mobile: swipeGesture", {
-    "left": 100, "top": 800, "width": 200, "height": 400,
-    "direction": "up",
-    "percent": 0.75,
-})`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line">driver.<span className="token-function">execute_script</span>(<span className="token-string">&quot;mobile: scrollGesture&quot;</span>, &#123;</div>
+                  <div className="code-line">    <span className="token-string">&quot;left&quot;</span>: <span className="token-number">100</span>, <span className="token-string">&quot;top&quot;</span>: <span className="token-number">300</span>, <span className="token-string">&quot;width&quot;</span>: <span className="token-number">200</span>, <span className="token-string">&quot;height&quot;</span>: <span className="token-number">800</span>,</div>
+                  <div className="code-line">    <span className="token-string">&quot;direction&quot;</span>: <span className="token-string">&quot;down&quot;</span>,</div>
+                  <div className="code-line">    <span className="token-string">&quot;percent&quot;</span>: <span className="token-number">1.0</span>,</div>
+                  <div className="code-line">&#125;)</div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line">driver.<span className="token-function">execute_script</span>(<span className="token-string">&quot;mobile: swipeGesture&quot;</span>, &#123;</div>
+                  <div className="code-line">    <span className="token-string">&quot;left&quot;</span>: <span className="token-number">100</span>, <span className="token-string">&quot;top&quot;</span>: <span className="token-number">800</span>, <span className="token-string">&quot;width&quot;</span>: <span className="token-number">200</span>, <span className="token-string">&quot;height&quot;</span>: <span className="token-number">400</span>,</div>
+                  <div className="code-line">    <span className="token-string">&quot;direction&quot;</span>: <span className="token-string">&quot;up&quot;</span>,</div>
+                  <div className="code-line">    <span className="token-string">&quot;percent&quot;</span>: <span className="token-number">0.75</span>,</div>
+                  <div className="code-line">&#125;)</div>
+                </code>
               </pre>
             </div>
             <p>
@@ -1126,16 +1153,18 @@ driver.execute_script("mobile: swipeGesture", {
               </li>
             </ul>
             <div className="code-block">
-              <div className="code-label">python</div>
+              <div className="code-label"><span>python</span></div>
               <pre>
-                <code>{`# ローカル実行: CIマシン上のパス
-options.app = "/path/to/your/app.apk"
-
-# クラウド実行: 事前アップロードで得たアプリID、または到達可能なURL
-options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
-# options.app = "storage:8b0e1a3c-..."             # Sauce Labsの例（アップロードで得たfile-id）
-# options.app = "storage:filename=app-<commit-sha>.apk"  # 名前で参照する場合はビルドごとに一意にする
-# options.app = "https://example.com/builds/app.apk"  # URL指定の例`}</code>
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="token-comment"># ローカル実行: CIマシン上のパス</span></div>
+                  <div className="code-line">options.app = <span className="token-string">&quot;/path/to/your/app.apk&quot;</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># クラウド実行: 事前アップロードで得たアプリID、または到達可能なURL</span></div>
+                  <div className="code-line">options.app = <span className="token-string">&quot;bs://&lt;uploaded-app-hash&gt;&quot;</span>          <span className="token-comment"># BrowserStackの例</span></div>
+                  <div className="code-line"><span className="token-comment"># options.app = &quot;storage:8b0e1a3c-...&quot;             # Sauce Labsの例（アップロードで得たfile-id）</span></div>
+                  <div className="code-line"><span className="token-comment"># options.app = &quot;storage:filename=app-&lt;commit-sha&gt;.apk&quot;  # 名前で参照する場合はビルドごとに一意にする</span></div>
+                  <div className="code-line"><span className="token-comment"># options.app = &quot;https://example.com/builds/app.apk&quot;  # URL指定の例</span></div>
+                </code>
               </pre>
             </div>
 
@@ -1181,33 +1210,35 @@ options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
             </p>
 
             <div className="code-block">
-              <div className="code-label">bash</div>
+              <div className="code-label"><span>bash</span></div>
               <pre>
-                <code>{`# 0) パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す
-#    （プロセス一覧やCIのコマンドエコーへ露出させないため）
-KS_PASS_FILE="$(mktemp)"; KEY_PASS_FILE="$(mktemp)"
-chmod 600 "$KS_PASS_FILE" "$KEY_PASS_FILE"
-# ジョブが途中で失敗しても削除されるようにしておく
-trap 'rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"' EXIT
-printf '%s' "$ANDROID_KEYSTORE_PASSWORD" > "$KS_PASS_FILE"
-printf '%s' "$ANDROID_KEY_PASSWORD" > "$KEY_PASS_FILE"
-
-# 1) AAB からユニバーサル APK セット（.apks）を生成する
-bundletool build-apks \\
-  --bundle=app/build/outputs/bundle/release/app-release.aab \\
-  --output=build/app.apks \\
-  --mode=universal \\
-  --overwrite \\
-  --ks="$ANDROID_KEYSTORE_PATH" \\
-  --ks-pass="file:$KS_PASS_FILE" \\
-  --ks-key-alias="$ANDROID_KEY_ALIAS" \\
-  --key-pass="file:$KEY_PASS_FILE"
-
-# 2) パスワードファイルを確実に削除する
-rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"
-
-# 3) .apks（ZIP）から universal.apk を取り出す
-unzip -p build/app.apks universal.apk > build/app-universal.apk`}</code>
+                <code className="hljs language-bash">
+                  <div className="code-line"><span className="token-comment"># 0) パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す</span></div>
+                  <div className="code-line"><span className="token-comment">#    （プロセス一覧やCIのコマンドエコーへ露出させないため）</span></div>
+                  <div className="code-line">KS_PASS_FILE=<span className="token-string">&quot;$(mktemp)&quot;</span>; KEY_PASS_FILE=<span className="token-string">&quot;$(mktemp)&quot;</span></div>
+                  <div className="code-line"><span className="token-function">chmod</span> <span className="token-number">600</span> <span className="token-string">&quot;$KS_PASS_FILE&quot;</span> <span className="token-string">&quot;$KEY_PASS_FILE&quot;</span></div>
+                  <div className="code-line"><span className="token-comment"># ジョブが途中で失敗しても削除されるようにしておく</span></div>
+                  <div className="code-line"><span className="token-function">trap</span> <span className="token-string">&#39;rm -f &quot;$KS_PASS_FILE&quot; &quot;$KEY_PASS_FILE&quot;&#39;</span> EXIT</div>
+                  <div className="code-line"><span className="token-function">printf</span> <span className="token-string">&#39;%s&#39;</span> <span className="token-string">&quot;$ANDROID_KEYSTORE_PASSWORD&quot;</span> &gt; <span className="token-string">&quot;$KS_PASS_FILE&quot;</span></div>
+                  <div className="code-line"><span className="token-function">printf</span> <span className="token-string">&#39;%s&#39;</span> <span className="token-string">&quot;$ANDROID_KEY_PASSWORD&quot;</span> &gt; <span className="token-string">&quot;$KEY_PASS_FILE&quot;</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># 1) AAB からユニバーサル APK セット（.apks）を生成する</span></div>
+                  <div className="code-line"><span className="token-function">bundletool</span> build-apks \</div>
+                  <div className="code-line">  <span className="token-property">--bundle</span>=app/build/outputs/bundle/release/app-release.aab \</div>
+                  <div className="code-line">  <span className="token-property">--output</span>=build/app.apks \</div>
+                  <div className="code-line">  <span className="token-property">--mode</span>=universal \</div>
+                  <div className="code-line">  <span className="token-property">--overwrite</span> \</div>
+                  <div className="code-line">  <span className="token-property">--ks</span>=<span className="token-string">&quot;$ANDROID_KEYSTORE_PATH&quot;</span> \</div>
+                  <div className="code-line">  <span className="token-property">--ks-pass</span>=<span className="token-string">&quot;file:$KS_PASS_FILE&quot;</span> \</div>
+                  <div className="code-line">  <span className="token-property">--ks-key-alias</span>=<span className="token-string">&quot;$ANDROID_KEY_ALIAS&quot;</span> \</div>
+                  <div className="code-line">  <span className="token-property">--key-pass</span>=<span className="token-string">&quot;file:$KEY_PASS_FILE&quot;</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># 2) パスワードファイルを確実に削除する</span></div>
+                  <div className="code-line"><span className="token-function">rm</span> -f <span className="token-string">&quot;$KS_PASS_FILE&quot;</span> <span className="token-string">&quot;$KEY_PASS_FILE&quot;</span></div>
+                  <div className="code-line">&nbsp;</div>
+                  <div className="code-line"><span className="token-comment"># 3) .apks（ZIP）から universal.apk を取り出す</span></div>
+                  <div className="code-line"><span className="token-function">unzip</span> -p build/app.apks universal.apk &gt; build/app-universal.apk</div>
+                </code>
               </pre>
             </div>
 

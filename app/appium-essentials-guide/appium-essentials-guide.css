@@ -440,23 +440,53 @@
     line-height: 1.7;
 }
 
-/* Syntax highlight tokens */
-.appium-guide-layout .token-comment {
-    color: #6c7f9d;
+/* Syntax highlight tokens (Atom One Dark Inspired) */
+.appium-guide-layout .token-comment,
+.appium-guide-layout .hljs-comment {
+    color: #7f8ea3;
     font-style: italic;
 }
-.appium-guide-layout .token-keyword {
-    color: var(--accent-2);
+.appium-guide-layout .token-keyword,
+.appium-guide-layout .hljs-keyword {
+    color: #c678dd;
     font-weight: 600;
 }
-.appium-guide-layout .token-string {
-    color: var(--accent);
+.appium-guide-layout .token-string,
+.appium-guide-layout .hljs-string {
+    color: #98c379;
 }
-.appium-guide-layout .token-function {
-    color: #ffc777;
+.appium-guide-layout .token-function,
+.appium-guide-layout .hljs-function,
+.appium-guide-layout .hljs-title.function_,
+.appium-guide-layout .hljs-title {
+    color: #61afef;
 }
-.appium-guide-layout .token-number {
-    color: #ff9a8b;
+.appium-guide-layout .token-number,
+.appium-guide-layout .hljs-number,
+.appium-guide-layout .hljs-literal {
+    color: #d19a66;
+}
+.appium-guide-layout .token-class,
+.appium-guide-layout .token-type,
+.appium-guide-layout .hljs-type,
+.appium-guide-layout .hljs-built_in {
+    color: #e5c07b;
+}
+.appium-guide-layout .token-property,
+.appium-guide-layout .token-param,
+.appium-guide-layout .token-attr,
+.appium-guide-layout .hljs-params,
+.appium-guide-layout .hljs-attr,
+.appium-guide-layout .hljs-variable {
+    color: #e06c75;
+}
+.appium-guide-layout .token-operator,
+.appium-guide-layout .hljs-operator {
+    color: #56b6c2;
+}
+.appium-guide-layout .token-meta,
+.appium-guide-layout .hljs-meta {
+    color: #e5c07b;
 }
 
 /* ---- Mermaid Diagrams ---- */

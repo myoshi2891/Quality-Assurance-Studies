@@ -384,5 +384,33 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       expect(footer?.textContent).toContain('Manoj Hans 著『Appium Essentials』');
       expect(footer?.textContent).toContain('appium.io');
     });
+
+    it('renders all 17 code blocks with code-line wrapper and syntax highlight tokens', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const codeBlocks = container.querySelectorAll('.code-block');
+      expect(codeBlocks.length).toBe(17);
+
+      // Check that code blocks have language class
+      const bashBlocks = container.querySelectorAll('.code-block code.language-bash');
+      const pythonBlocks = container.querySelectorAll('.code-block code.language-python');
+      const javaBlocks = container.querySelectorAll('.code-block code.language-java');
+      expect(bashBlocks.length).toBe(7);
+      expect(pythonBlocks.length).toBe(8);
+      expect(javaBlocks.length).toBe(2);
+
+      // Check code-line elements
+      const codeLines = container.querySelectorAll('.code-block .code-line');
+      expect(codeLines.length).toBeGreaterThan(100);
+
+      // Check syntax tokens
+      const keywords = container.querySelectorAll('.code-block .token-keyword');
+      const comments = container.querySelectorAll('.code-block .token-comment');
+      const strings = container.querySelectorAll('.code-block .token-string');
+      const functions = container.querySelectorAll('.code-block .token-function');
+      expect(keywords.length).toBeGreaterThan(15);
+      expect(comments.length).toBeGreaterThan(15);
+      expect(strings.length).toBeGreaterThan(20);
+      expect(functions.length).toBeGreaterThan(15);
+    });
   });
 });
