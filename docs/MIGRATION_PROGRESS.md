@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `6f17a77` |
 | 最新コミット内容 | `chore(archive): move Testing-ai-confidence-engineering-guide html/md to archive` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
 ## 2026/09/20: Jason Arbon『Testing AI: Engineering Confidence in Non-Deterministic Systems』完全ガイドのNext.js完全移行
 
@@ -50,7 +50,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **コードブロック & 改行保持**:
   - 全17コードブロック（code-1〜code-17: Python, Java, Bash）を正確に移植。
 - **テーブル & インタラクティブチェックリスト**:
-  - 全5テーブル（バージョン変遷、Capabilities一覧、リセット戦略比較、ロケーター戦略比較、ジェスチャーコマンド比較、実行環境比較、アンチパターン表）を完全移植。
+  - 全7テーブル（バージョン変遷、Capabilities一覧、リセット戦略比較、ロケーター戦略比較、ジェスチャーコマンド比較、実行環境比較、アンチパターン表）を完全移植。
   - セクション15のチェックリスト（`Checklist.tsx`、全10項目動的カウンター・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 全21件の参考文献（Appium公式ドキュメント、Jonathan Lipps氏ニュースレター、BrowserStack、Sauce Labs、TestMu AI、書籍情報）を完全移植。
