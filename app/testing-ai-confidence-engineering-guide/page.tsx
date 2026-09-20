@@ -301,7 +301,7 @@ export default function TestingAiConfidenceGuidePage() {
             </div>
             <div className="book-card-body">
               <div className="table-wrap">
-                <table className="kv-table">
+                <table className="kv-table" aria-label="書籍データ">
                   <tbody>
                     <tr>
                       <th>原題</th>
@@ -643,8 +643,8 @@ export default function TestingAiConfidenceGuidePage() {
             </p>
           </div>
           <div className="table-wrap">
-            <div className="table-title">代表的なアンチパターン（第10章より抜粋）</div>
-            <table>
+            <div className="table-title" id="table-antipatterns-title">代表的なアンチパターン（第10章より抜粋）</div>
+            <table aria-labelledby="table-antipatterns-title">
               <thead>
                 <tr>
                   <th>アンチパターン</th>
@@ -941,7 +941,7 @@ export default function TestingAiConfidenceGuidePage() {
             <span>用語集</span>
           </h2>
           <div className="table-wrap">
-            <table>
+            <table aria-label="用語集">
               <thead>
                 <tr>
                   <th>用語</th>
