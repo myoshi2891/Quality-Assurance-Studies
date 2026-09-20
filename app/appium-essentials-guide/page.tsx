@@ -1166,7 +1166,7 @@ options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
             </p>
 
             <div className="mermaid-wrapper">
-              <Mermaid chart={DIAGRAM_CICD} id="diagram-cicd" />
+              <Mermaid chart={DIAGRAM_CICD} />
             </div>
             <p className="fig-caption">図7: CI/CDパイプラインにおけるAppiumテストの流れ</p>
 

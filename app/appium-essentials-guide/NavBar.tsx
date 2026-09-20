@@ -42,7 +42,7 @@ export default function NavBar() {
       for (let i = sectionElements.length - 1; i >= 0; i--) {
         const section = sectionElements[i];
         if (section && section.offsetTop <= scrollPosition) {
-          setActiveId(NAV_LINKS[i].id);
+          setActiveId(section.id);
           break;
         }
       }

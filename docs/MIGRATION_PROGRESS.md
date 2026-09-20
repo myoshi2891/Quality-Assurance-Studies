@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `423fd0e` |
-| 最新コミット内容 | `chore(archive): move source files to archive and sync progress` |
+| 最新 HEAD | `f62ac5d` |
+| 最新コミット内容 | `fix(appium-guide): fix type errors in NavBar and Mermaid component invocation` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
