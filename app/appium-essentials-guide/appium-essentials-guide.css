@@ -691,4 +691,8 @@
     .appium-guide-layout .section h2 {
         font-size: 1.35rem;
     }
+    /* 固定表示の .nav-toggle（top:72px 〜 116px）と見出しの重なりを防ぐ */
+    .appium-guide-layout .section {
+        scroll-margin-top: calc(116px + var(--disclaimer-height, 0px));
+    }
 }

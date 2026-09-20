@@ -28,6 +28,8 @@
   --sidebar-w: 280px;
   --radius: 14px;
   --font-serif: 'Source Serif 4', 'Noto Serif JP', Georgia, 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  /* .mobile-bar の実高さ（padding 0.8rem*2 + button 約2.85rem + border-bottom 1px） */
+  --mobile-bar-height: calc(4.45rem + 1px);
 
   background: var(--paper);
   color: var(--ink);
@@ -202,6 +204,7 @@
   align-items: center;
   justify-content: space-between;
   z-index: 35;
+  min-height: var(--mobile-bar-height);
 }
 
 .testing-ai-confidence-layout .mobile-bar .brand {
@@ -870,7 +873,7 @@
   }
   /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
   .testing-ai-confidence-layout .section {
-    scroll-margin-top: calc(60px + 4rem + var(--disclaimer-height, 0px));
+    scroll-margin-top: calc(60px + var(--mobile-bar-height) + var(--disclaimer-height, 0px));
   }
   .testing-ai-confidence-layout .hero,
   .testing-ai-confidence-layout .section,
