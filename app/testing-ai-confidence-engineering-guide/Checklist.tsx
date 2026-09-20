@@ -39,7 +39,7 @@ export default function Checklist() {
         {CHECKLIST_ITEMS.map((item, index) => {
           const id = `chk${index + 1}`;
           return (
-            <li key={id}>
+            <li key={id} className={checkedItems[index] ? 'done' : ''}>
               <input
                 type="checkbox"
                 id={id}

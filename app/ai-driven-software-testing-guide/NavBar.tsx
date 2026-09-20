@@ -114,7 +114,7 @@ export default function NavBar() {
         <button
           ref={toggleRef}
           id="mobileToggle"
-          aria-label="メニューを開く"
+          aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
           aria-expanded={isOpen}
           onClick={handleToggle}
           type="button"

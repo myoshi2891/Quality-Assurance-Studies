@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface NavLinkItem {
   id: string;
@@ -30,6 +30,7 @@ export const NAV_LINKS: NavLinkItem[] = [
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('about');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,12 +59,16 @@ export default function NavBar() {
 
   const handleLinkClick = (id: string) => {
     setActiveId(id);
+    if (isOpen) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
     setIsOpen(false);
   };
 
   return (
     <>
       <button
+        ref={toggleRef}
         id="navToggle"
         className="nav-toggle"
         aria-label="メニューを開閉"
