@@ -7,6 +7,10 @@ import TestingAiConfidenceGuidePage, {
   DIAGRAM_CONFIDENCE_LOOP,
   DIAGRAM_OLD_VS_NEW,
   DIAGRAM_LLM_JUDGE,
+  DIAGRAM_EVAL_STEPS,
+  DIAGRAM_RELEASE_GATE,
+  DIAGRAM_GENCODE_PIPELINE,
+  DIAGRAM_CONFIDENCE_ENGINEER,
 } from '../../app/testing-ai-confidence-engineering-guide/page';
 import NavBar, { NAV_LINKS } from '../../app/testing-ai-confidence-engineering-guide/NavBar';
 
@@ -262,4 +266,70 @@ describe('Testing AI Confidence Engineering Guide - Category 2 (Step 0 & Step 1)
     expect(DIAGRAM_LLM_JUDGE).toContain('LLM判定者がスコアリングする');
   });
 });
+
+describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)', () => {
+  it('renders Section: #step2 (第II部 — エビデンス、Eval、本番運用) with chapters 6 to 8', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#step2');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('Step 2：第II部 — エビデンス、Eval、本番運用（第6〜8章）');
+
+    const h3s = sec?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+
+    // Chapter 6 & Diagram 5: eval-steps
+    expect(h3s?.[0]?.textContent).toBe('第6章　意味のあるEvalの構築');
+    expect(sec?.textContent).toContain('図5　意味のあるEvalを構築するステップ');
+    expect(DIAGRAM_EVAL_STEPS).toBeDefined();
+    expect(DIAGRAM_EVAL_STEPS).toContain('flowchart TD');
+    expect(DIAGRAM_EVAL_STEPS).toContain('何を測定するか');
+
+    // Chapter 7
+    expect(h3s?.[1]?.textContent).toBe('第7章　AIシステムのリリース準備');
+    expect(sec?.textContent).toContain('リリースは「品質保証の終わり」ではなく「本当の意味での品質測定の始まり」');
+
+    // Chapter 8 & Diagram 6: release-gate
+    expect(h3s?.[2]?.textContent).toBe('第8章　AIの運用：可観測性、関連性、経済性');
+    expect(sec?.textContent).toContain('図6　リリースゲートとCanary Shadow Rollbackの流れ');
+    expect(DIAGRAM_RELEASE_GATE).toBeDefined();
+    expect(DIAGRAM_RELEASE_GATE).toContain('flowchart LR');
+    expect(DIAGRAM_RELEASE_GATE).toContain('新しいバージョンを用意する');
+  });
+
+  it('renders Section: #step3 (第III部 — AI生成コードとConfidence Engineering) with chapters 9 to 11', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#step3');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('Step 3：第III部 — AI生成コードとConfidence Engineering（第9〜11章）');
+
+    const h3s = sec?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+
+    // Chapter 9 & Diagram 7: gencode-pipeline
+    expect(h3s?.[0]?.textContent).toBe('第9章　生成コードが仕事を変える');
+    expect(sec?.textContent).toContain('図7　AI生成コードの検証パイプライン');
+    expect(DIAGRAM_GENCODE_PIPELINE).toBeDefined();
+    expect(DIAGRAM_GENCODE_PIPELINE).toContain('flowchart TD');
+    expect(DIAGRAM_GENCODE_PIPELINE).toContain('AIがコードを生成する');
+
+    // Chapter 10 & Anti-patterns table
+    expect(h3s?.[1]?.textContent).toBe('第10章　誤った安心感を生むアンチパターン');
+    expect(sec?.querySelector('.table-title')?.textContent).toContain('代表的なアンチパターン（第10章より抜粋）');
+    const table = sec?.querySelector('table');
+    expect(table).toBeDefined();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(16);
+    expect(rows?.[0]?.querySelectorAll('td')?.[0]?.textContent).toContain('合否だけのブール判定の罠');
+    expect(rows?.[1]?.querySelectorAll('td')?.[0]?.textContent).toContain('通過率だけを品質と見なす');
+    expect(rows?.[15]?.querySelectorAll('td')?.[0]?.textContent).toContain('昨日のテスターを今日のシステムのために雇う罠');
+
+    // Chapter 11 & Diagram 8: confidence-engineer
+    expect(h3s?.[2]?.textContent).toBe('第11章　Confidence Engineerという役割');
+    expect(sec?.textContent).toContain('図8　Confidence Engineerの役割');
+    expect(DIAGRAM_CONFIDENCE_ENGINEER).toBeDefined();
+    expect(DIAGRAM_CONFIDENCE_ENGINEER).toContain('flowchart TD');
+    expect(DIAGRAM_CONFIDENCE_ENGINEER).toContain('Confidence Engineer');
+  });
+});
+
 
