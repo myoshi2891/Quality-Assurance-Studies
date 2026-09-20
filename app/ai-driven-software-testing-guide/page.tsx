@@ -248,8 +248,8 @@ export default function AiDrivenSoftwareTestingGuidePage() {
             </div>
             <h2>まず押さえておきたい7つの用語</h2>
             <div className="table-wrap">
-              <div className="table-title">用語ミニ辞典</div>
-              <table>
+              <div className="table-title" id="table-glossary-title">用語ミニ辞典</div>
+              <table aria-labelledby="table-glossary-title">
                 <thead>
                   <tr>
                     <th>用語</th>
@@ -324,7 +324,7 @@ export default function AiDrivenSoftwareTestingGuidePage() {
                   Transforming Software Testing with Artificial Intelligence and Machine Learning
                 </p>
                 <div className="table-wrap">
-                  <table className="kv-table">
+                  <table className="kv-table" aria-label="書籍情報">
                     <tbody>
                       <tr>
                         <th>著者</th>
@@ -450,8 +450,8 @@ export default function AiDrivenSoftwareTestingGuidePage() {
               </div>
             </div>
             <div className="table-wrap">
-              <div className="table-title">テストの時代区分と課題</div>
-              <table>
+              <div className="table-title" id="table-testing-eras-title">テストの時代区分と課題</div>
+              <table aria-labelledby="table-testing-eras-title">
                 <thead>
                   <tr>
                     <th>時代</th>
@@ -529,8 +529,8 @@ export default function AiDrivenSoftwareTestingGuidePage() {
               <p>両者の違いを整理すると、次のようになります。</p>
             </div>
             <div className="table-wrap">
-              <div className="table-title">従来型テストとAI駆動テストの比較</div>
-              <table>
+              <div className="table-title" id="table-traditional-vs-ai-title">従来型テストとAI駆動テストの比較</div>
+              <table aria-labelledby="table-traditional-vs-ai-title">
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -843,10 +843,10 @@ export default function AiDrivenSoftwareTestingGuidePage() {
               </ul>
             </div>
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-close-comparison-title">
                 従来のテストクローズとAI強化テストクローズの比較
               </div>
-              <table>
+              <table aria-labelledby="table-close-comparison-title">
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -931,8 +931,8 @@ export default function AiDrivenSoftwareTestingGuidePage() {
               </p>
             </div>
             <div className="table-wrap">
-              <div className="table-title">AI駆動スケーリングの4つの柱</div>
-              <table>
+              <div className="table-title" id="table-scaling-pillars-title">AI駆動スケーリングの4つの柱</div>
+              <table aria-labelledby="table-scaling-pillars-title">
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -1024,8 +1024,8 @@ export default function AiDrivenSoftwareTestingGuidePage() {
               <p>何を監視すべきかを整理すると、次のようになります。</p>
             </div>
             <div className="table-wrap">
-              <div className="table-title">監視すべき主要指標</div>
-              <table>
+              <div className="table-title" id="table-monitoring-metrics-title">監視すべき主要指標</div>
+              <table aria-labelledby="table-monitoring-metrics-title">
                 <thead>
                   <tr>
                     <th>指標</th>
@@ -1172,8 +1172,8 @@ export default function AiDrivenSoftwareTestingGuidePage() {
             </div>
             <h2>全18章 一覧</h2>
             <div className="table-wrap">
-              <div className="table-title">全18章 一覧</div>
-              <table>
+              <div className="table-title" id="table-chapters-title">全18章 一覧</div>
+              <table aria-labelledby="table-chapters-title">
                 <thead>
                   <tr>
                     <th>Part</th>
