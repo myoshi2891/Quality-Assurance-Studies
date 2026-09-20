@@ -43,10 +43,10 @@
 /* ---- Sidebar Navigation ---- */
 .appium-guide-layout .sidebar {
     position: fixed;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     left: 0;
     width: var(--sidebar-w);
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     overflow-y: auto;
     background: var(--panel);
     border-right: 1px solid var(--border);
@@ -143,7 +143,7 @@
 .appium-guide-layout .nav-toggle {
     display: none;
     position: fixed;
-    top: 72px;
+    top: calc(72px + var(--disclaimer-height, 0px));
     right: 16px;
     z-index: 60;
     width: 44px;
@@ -669,12 +669,18 @@
     }
     .appium-guide-layout .sidebar {
         transform: translateX(-105%);
-        transition: transform 0.2s ease;
+        /* 閉じている間はフォーカス・ポインタ操作の対象から外す */
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.2s ease, visibility 0s linear 0.2s;
         width: 86vw;
         box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0);
     }
     .appium-guide-layout .sidebar.open {
         transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition: transform 0.2s ease, visibility 0s linear 0s;
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
     }
     .appium-guide-layout .content {
