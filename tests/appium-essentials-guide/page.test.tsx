@@ -212,4 +212,84 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
       expect(sec?.textContent).toContain('AndroidDriver');
     });
   });
+
+  describe('Category 3 (Techniques: Sections 8-11)', () => {
+    it('renders Section 8: #locators (要素を見つけるロケーター戦略) with diagram, table, and code-11', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#locators');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('8要素を見つけるロケーター戦略');
+
+      const figCaption = sec?.querySelector('.fig-caption');
+      expect(figCaption?.textContent).toBe('図4: ロケーター選定の意思決定フロー');
+
+      const h3s = sec?.querySelectorAll('h3');
+      expect(h3s?.length).toBe(2);
+      expect(h3s?.[0]?.textContent).toContain('主なロケーター戦略の比較');
+      expect(h3s?.[1]?.textContent).toContain('Imageロケーターを使う場合のみ必要な追加セットアップ');
+
+      const table = sec?.querySelector('table');
+      expect(table).toBeDefined();
+      const ths = table?.querySelectorAll('th');
+      expect(ths?.length).toBe(4);
+      expect(ths?.[0]?.textContent).toBe('ロケーター戦略');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(1);
+      expect(sec?.textContent).toContain('appium plugin install images');
+    });
+
+    it('renders Section 9: #pom (Page Object Modelを実践する) with diagram and code-12/13', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#pom');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('9Page Object Modelを実践する');
+
+      const figCaption = sec?.querySelector('.fig-caption');
+      expect(figCaption?.textContent).toBe('図5: Page Object Modelのアーキテクチャ');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(2);
+      expect(sec?.textContent).toContain('class LoginPage:');
+      expect(sec?.textContent).toContain('def test_successful_login');
+    });
+
+    it('renders Section 10: #waits (待機戦略でテストを安定させる) with diagram, table, and code-14', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#waits');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('10待機戦略でテストを安定させる');
+
+      const figCaption = sec?.querySelector('.fig-caption');
+      expect(figCaption?.textContent).toBe('図6: 待機戦略の判断フロー');
+
+      const table = sec?.querySelector('table');
+      expect(table).toBeDefined();
+      const ths = table?.querySelectorAll('th');
+      expect(ths?.length).toBe(4);
+      expect(ths?.[0]?.textContent).toBe('項目');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(1);
+      expect(sec?.textContent).toContain('WebDriverWait(driver, 15');
+    });
+
+    it('renders Section 11: #gestures (ジェスチャー操作を自動化する) with table and code-15', () => {
+      const { container } = render(<AppiumGuidePage />);
+      const sec = container.querySelector('#gestures');
+      expect(sec).toBeDefined();
+      expect(sec?.querySelector('h2')?.textContent).toContain('11ジェスチャー操作を自動化する');
+
+      const table = sec?.querySelector('table');
+      expect(table).toBeDefined();
+      const ths = table?.querySelectorAll('th');
+      expect(ths?.length).toBe(4);
+      expect(ths?.[0]?.textContent).toBe('コマンド名');
+
+      const codeBlocks = sec?.querySelectorAll('.code-block');
+      expect(codeBlocks?.length).toBe(1);
+      expect(sec?.textContent).toContain('mobile: scrollGesture');
+      expect(sec?.textContent).toContain('mobile: swipeGesture');
+    });
+  });
 });
