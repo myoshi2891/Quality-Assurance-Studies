@@ -122,6 +122,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/perfect-software-guide', label: 'Perfect Software 実践ガイド', description: 'Gerald M. Weinbergの名著に基づくテストの限界、情報収集、心理的防衛反応、実践的ベストプラクティス。', category: 'books-practices' },
   { href: '/software-testing-with-generative-ai-guide', label: '生成AIとソフトウェアテスト実践ガイド', description: '生成AIとLLMをテスト業務へ体系的かつ安全に取り入れるための実践ガイド。', category: 'books-practices' },
   { href: '/ai-driven-software-testing-guide', label: 'AI駆動テスト入門ガイド', description: 'Srinivasa Rao Bittla著『AI-Driven Software Testing』に基づく初学者向け解説ガイド。全18章のテーマを整理。', category: 'books-practices' },
+  { href: '/testing-ai-confidence-engineering-guide', label: 'Testing AI 完全ガイド', description: '非決定的なAIシステムをどうやって「自信を持って」出荷できる状態にするか。Jason Arbon著に基づく初学者向け解説。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

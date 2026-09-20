@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 73 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 17 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(73);
+  it('contains 74 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(74);
   });
 
   it('every item has a unique href', () => {
@@ -199,6 +199,13 @@ describe('NAV_ITEMS', () => {
     expect(book?.category).toBe('books-practices');
   });
 
+  it('classifies /testing-ai-confidence-engineering-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/testing-ai-confidence-engineering-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+    expect(book?.label).toBe('Testing AI 完全ガイド');
+  });
+
   it('classifies home "/" as home category and labels it as the guide index', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home).toBeDefined();
@@ -315,9 +322,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(8);
   });
 
-  it('places 17 items in the books-practices group', () => {
+  it('places 18 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(17);
+    expect(books?.items).toHaveLength(18);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 

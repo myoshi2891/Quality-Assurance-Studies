@@ -86,7 +86,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/perfect-software-guide', h1: /Perfect Software/ },
   { path: '/software-testing-with-generative-ai-guide', h1: /生成AIとソフトウェアテスト実践ガイド/ },
   { path: '/ai-driven-software-testing-guide', h1: /AI駆動ソフトウェアテスト入門ガイド/ },
+  { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 73;
+export const EXPECTED_PAGE_COUNT = 74;
 
