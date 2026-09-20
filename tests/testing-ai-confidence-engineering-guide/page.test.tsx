@@ -15,6 +15,7 @@ import TestingAiConfidenceGuidePage, {
   DIAGRAM_SECURITY_SAFETY,
   DIAGRAM_PART5_CHAIN,
   DIAGRAM_SIX_PREDICTIONS,
+  DIAGRAM_MVP_QUALITY,
 } from '../../app/testing-ai-confidence-engineering-guide/page';
 import NavBar, { NAV_LINKS } from '../../app/testing-ai-confidence-engineering-guide/NavBar';
 
@@ -415,5 +416,140 @@ describe('Testing AI Confidence Engineering Guide - Category 4 (Step 4 & Step 5)
   });
 });
 
+describe('Testing AI Confidence Engineering Guide - Category 5 (Practice, Glossary, Voices, Checklist, References)', () => {
+  it('renders Section: #practice (実践ワーク) with MVP Quality diagram', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#practice');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('実践ワーク：最小限のAI品質システムを組んでみる');
 
+    const listItems = sec?.querySelectorAll('ol li');
+    expect(listItems?.length).toBe(6);
+    expect(listItems?.[0]?.textContent).toContain('本番相当のケースをおよそ50件用意する');
+    expect(listItems?.[1]?.textContent).toContain('0から10、あるいは0から1のスコアを定義する');
+    expect(listItems?.[2]?.textContent).toContain('1つのLLM判定者をスケール用に使う');
+    expect(listItems?.[3]?.textContent).toContain('意見の不一致を隠さずレビューする');
+    expect(listItems?.[4]?.textContent).toContain('すべての実行についてトレースを記録する');
+    expect(listItems?.[5]?.textContent).toContain('ハードブロッカーを明確に定義しておく');
 
+    expect(sec?.textContent).toContain('図13　最小限のAI品質システム');
+    expect(DIAGRAM_MVP_QUALITY).toBeDefined();
+    expect(DIAGRAM_MVP_QUALITY).toContain('flowchart LR');
+    expect(DIAGRAM_MVP_QUALITY).toContain('本番相当のケースを約50件用意する');
+  });
+
+  it('renders Section: #glossary (用語集) with 20 key terms', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#glossary');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('用語集');
+
+    const table = sec?.querySelector('table');
+    expect(table).toBeDefined();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(20);
+
+    const term0 = rows?.[0]?.querySelectorAll('td');
+    expect(term0?.[0]?.textContent).toContain('Confidence Engineering（確信のエンジニアリング）');
+    expect(term0?.[1]?.textContent).toContain('非決定的なAIシステムに対して、正当化された確信を築くための実務規律');
+
+    const term1 = rows?.[1]?.querySelectorAll('td');
+    expect(term1?.[0]?.textContent).toContain('Confidence Engineer');
+
+    const term19 = rows?.[19]?.querySelectorAll('td');
+    expect(term19?.[0]?.textContent).toContain('トークン化プロダクトの未来');
+  });
+
+  it('renders Section: #voices (業界の声)', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#voices');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('業界の声：プロミネントな実践者たちの反応');
+
+    const listItems = sec?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0]?.textContent).toContain('TestGuild Automation Podcast（Joe Colantonio）');
+    expect(listItems?.[1]?.textContent).toContain('Tariq King（AISTA共同創設者、Jason Arbonの長年の協業者）');
+    expect(listItems?.[2]?.textContent).toContain('書籍サイトに名を連ねる実務レビュアーたち');
+    expect(sec?.textContent).toContain('Introduction to AI Testing: Guide to ISTQB CT-AI Certification');
+  });
+
+  it('renders Section: #critical (批判的に読む) with 5 callouts', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#critical');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('批判的に読む');
+
+    const callouts = sec?.querySelectorAll('.callout');
+    expect(callouts?.length).toBe(5);
+    expect(callouts?.[0]?.classList.contains('box')).toBe(true);
+    expect(callouts?.[0]?.textContent).toContain('刊行されたばかりで独立系の流通である点');
+    expect(callouts?.[1]?.classList.contains('box')).toBe(true);
+    expect(callouts?.[1]?.textContent).toContain('「Confidence Engineer」はまだ提案段階の呼称であること');
+    expect(callouts?.[2]?.classList.contains('box')).toBe(true);
+    expect(callouts?.[2]?.textContent).toContain('著者自身のビジネスとの近さ');
+    expect(callouts?.[3]?.classList.contains('box')).toBe(true);
+    expect(callouts?.[3]?.textContent).toContain('具体的な数値や個別ツールの言及は陳腐化が早い');
+    expect(callouts?.[4]?.classList.contains('forest')).toBe(true);
+    expect(callouts?.[4]?.textContent).toContain('標準志向の代替資料と併読する価値');
+  });
+
+  it('renders Section: #checklist (チェックリスト) with 13 interactive items', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#checklist');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('チェックリスト');
+
+    const counter = sec?.querySelector('.checklist-counter');
+    expect(counter?.textContent).toContain('0 / 13 完了');
+
+    const checkboxes = sec?.querySelectorAll('input[type="checkbox"]');
+    expect(checkboxes?.length).toBe(13);
+
+    const labels = sec?.querySelectorAll('.checklist label');
+    expect(labels?.length).toBe(13);
+    expect(labels?.[0]?.textContent).toContain('完全一致のアサーションに頼っているテストがないか洗い出した');
+    expect(labels?.[1]?.textContent).toContain('少なくとも1つの重要な機能について、繰り返し実行して出力の分布を測定した');
+    expect(labels?.[12]?.textContent).toContain('品質に関するエビデンスに責任を持つ人（Confidence Engineerに相当する役割）が明確になっている');
+  });
+
+  it('renders Section: #summary (まとめ)', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#summary');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('まとめ');
+    expect(sec?.textContent).toContain('「テストが通ったか通らなかったか」という二値的な発想から');
+    expect(sec?.textContent).toContain('初学者がAI品質という新しい分野を体系的に学ぶための良い地図になります');
+  });
+
+  it('renders Section: #references (参考文献・出典) with 20 reference cards and external links', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const sec = container.querySelector('#references');
+    expect(sec).toBeDefined();
+    expect(sec?.querySelector('h2')?.textContent).toContain('参考文献・出典');
+
+    const refCards = sec?.querySelectorAll('.ref-card');
+    expect(refCards?.length).toBe(20);
+
+    const ref1 = refCards?.[0];
+    expect(ref1?.querySelector('.ref-num')?.textContent).toBe('1');
+    expect(ref1?.querySelector('.ref-title')?.textContent).toContain('Testing AI 公式サイト');
+    const link1 = ref1?.querySelector('a');
+    expect(link1?.getAttribute('href')).toBe('https://www.testingaibook.com/');
+    expect(link1?.getAttribute('target')).toBe('_blank');
+    expect(link1?.getAttribute('rel')).toContain('noopener');
+
+    const ref20 = refCards?.[19];
+    expect(ref20?.querySelector('.ref-num')?.textContent).toBe('20');
+    expect(ref20?.querySelector('.ref-title')?.textContent).toContain('Introduction to AI Testing: Guide to ISTQB CT-AI Certification');
+    const link20 = ref20?.querySelector('a');
+    expect(link20?.getAttribute('href')).toContain('1780177186');
+  });
+
+  it('renders the footer', () => {
+    const { container } = render(<TestingAiConfidenceGuidePage />);
+    const footer = container.querySelector('footer');
+    expect(footer).toBeDefined();
+    expect(footer?.textContent).toContain('Testing AI: Engineering Confidence in Non-Deterministic Systems — 初学者向け解説ガイド');
+  });
+});
