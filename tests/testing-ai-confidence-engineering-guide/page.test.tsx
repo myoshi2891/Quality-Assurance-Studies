@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import TestingAiConfidenceGuidePage, {
@@ -190,7 +190,7 @@ describe('Testing AI Confidence Engineering Guide - Category 1 (Overview, Book I
     expect(listItems?.[5]?.textContent).toContain('どのエビデンスがリリースを正当化し');
   });
 
-  it('renders Section: #roadmap (学習ロードマップ) with Mermaid diagram', () => {
+  it('renders Section: #roadmap (学習ロードマップ) with Mermaid diagram', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#roadmap');
     expect(sec).toBeDefined();
@@ -198,14 +198,31 @@ describe('Testing AI Confidence Engineering Guide - Category 1 (Overview, Book I
 
     const mermaidWrapper = sec?.querySelector('.diagram-wrap');
     expect(mermaidWrapper).toBeDefined();
-    expect(DIAGRAM_ROADMAP).toBeDefined();
+
+    await waitFor(() => {
+      expect(renderedCharts.length).toBe(13);
+    });
+    expect(renderedCharts).toContain(DIAGRAM_ROADMAP);
+    expect(renderedCharts).toContain(DIAGRAM_CONFIDENCE_LOOP);
+    expect(renderedCharts).toContain(DIAGRAM_OLD_VS_NEW);
+    expect(renderedCharts).toContain(DIAGRAM_LLM_JUDGE);
+    expect(renderedCharts).toContain(DIAGRAM_EVAL_STEPS);
+    expect(renderedCharts).toContain(DIAGRAM_RELEASE_GATE);
+    expect(renderedCharts).toContain(DIAGRAM_GENCODE_PIPELINE);
+    expect(renderedCharts).toContain(DIAGRAM_CONFIDENCE_ENGINEER);
+    expect(renderedCharts).toContain(DIAGRAM_MODEL_INTERNALS);
+    expect(renderedCharts).toContain(DIAGRAM_SECURITY_SAFETY);
+    expect(renderedCharts).toContain(DIAGRAM_PART5_CHAIN);
+    expect(renderedCharts).toContain(DIAGRAM_SIX_PREDICTIONS);
+    expect(renderedCharts).toContain(DIAGRAM_MVP_QUALITY);
+
     expect(DIAGRAM_ROADMAP).toContain('flowchart TD');
     expect(DIAGRAM_ROADMAP).toContain('読者はどの役割に近いか');
   });
 });
 
 describe('Testing AI Confidence Engineering Guide - Category 2 (Step 0 & Step 1)', () => {
-  it('renders Section: #step0 (なぜ「AIのテスト」は別物なのか) with confidence loop diagram', () => {
+  it('renders Section: #step0 (なぜ「AIのテスト」は別物なのか) with confidence loop diagram', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#step0');
     expect(sec).toBeDefined();
@@ -224,19 +241,23 @@ describe('Testing AI Confidence Engineering Guide - Category 2 (Step 0 & Step 1)
     expect(diagramWrap).toBeDefined();
     expect(sec?.querySelector('.diagram-caption')?.textContent).toContain('図2　Confidence Engineeringのコアループ');
 
-    expect(DIAGRAM_CONFIDENCE_LOOP).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_CONFIDENCE_LOOP);
+    });
     expect(DIAGRAM_CONFIDENCE_LOOP).toContain('flowchart LR');
     expect(DIAGRAM_CONFIDENCE_LOOP).toContain('AIが出力を生成する');
   });
 
-  it('renders Section: #step1 (第I部 — AI品質の新しいかたち) with chapters 1 to 5', () => {
+  it('renders Section: #step1 (第I部 — AI品質の新しいかたち) with chapters 1 to 5', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#step1');
     expect(sec).toBeDefined();
     expect(sec?.querySelector('h2')?.textContent).toContain('Step 1：第I部 — AI品質の新しいかたち（第1〜5章）');
 
     // Diagram 3: old-vs-new
-    expect(DIAGRAM_OLD_VS_NEW).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_OLD_VS_NEW);
+    });
     expect(DIAGRAM_OLD_VS_NEW).toContain('flowchart TD');
     expect(DIAGRAM_OLD_VS_NEW).toContain('従来の考え方');
     expect(sec?.textContent).toContain('図3　ワンショットテストから分布ベースの評価への転換');
@@ -266,14 +287,16 @@ describe('Testing AI Confidence Engineering Guide - Category 2 (Step 0 & Step 1)
     expect(h3s?.[4]?.textContent).toBe('第5章　判定者、人間、そして意見の不一致');
     expect(sec?.textContent).toContain('LLMを「判定者（ジャッジ）」として自動化する前に');
     expect(sec?.textContent).toContain('図4　LLM判定者の運用フロー');
-    expect(DIAGRAM_LLM_JUDGE).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_LLM_JUDGE);
+    });
     expect(DIAGRAM_LLM_JUDGE).toContain('flowchart TD');
     expect(DIAGRAM_LLM_JUDGE).toContain('LLM判定者がスコアリングする');
   });
 });
 
 describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)', () => {
-  it('renders Section: #step2 (第II部 — エビデンス、Eval、本番運用) with chapters 6 to 8', () => {
+  it('renders Section: #step2 (第II部 — エビデンス、Eval、本番運用) with chapters 6 to 8', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#step2');
     expect(sec).toBeDefined();
@@ -285,7 +308,9 @@ describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)
     // Chapter 6 & Diagram 5: eval-steps
     expect(h3s?.[0]?.textContent).toBe('第6章　意味のあるEvalの構築');
     expect(sec?.textContent).toContain('図5　意味のあるEvalを構築するステップ');
-    expect(DIAGRAM_EVAL_STEPS).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_EVAL_STEPS);
+    });
     expect(DIAGRAM_EVAL_STEPS).toContain('flowchart TD');
     expect(DIAGRAM_EVAL_STEPS).toContain('何を測定するか');
 
@@ -296,12 +321,14 @@ describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)
     // Chapter 8 & Diagram 6: release-gate
     expect(h3s?.[2]?.textContent).toBe('第8章　AIの運用：可観測性、関連性、経済性');
     expect(sec?.textContent).toContain('図6　リリースゲートとCanary Shadow Rollbackの流れ');
-    expect(DIAGRAM_RELEASE_GATE).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_RELEASE_GATE);
+    });
     expect(DIAGRAM_RELEASE_GATE).toContain('flowchart LR');
     expect(DIAGRAM_RELEASE_GATE).toContain('新しいバージョンを用意する');
   });
 
-  it('renders Section: #step3 (第III部 — AI生成コードとConfidence Engineering) with chapters 9 to 11', () => {
+  it('renders Section: #step3 (第III部 — AI生成コードとConfidence Engineering) with chapters 9 to 11', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#step3');
     expect(sec).toBeDefined();
@@ -313,7 +340,9 @@ describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)
     // Chapter 9 & Diagram 7: gencode-pipeline
     expect(h3s?.[0]?.textContent).toBe('第9章　生成コードが仕事を変える');
     expect(sec?.textContent).toContain('図7　AI生成コードの検証パイプライン');
-    expect(DIAGRAM_GENCODE_PIPELINE).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_GENCODE_PIPELINE);
+    });
     expect(DIAGRAM_GENCODE_PIPELINE).toContain('flowchart TD');
     expect(DIAGRAM_GENCODE_PIPELINE).toContain('AIがコードを生成する');
 
@@ -331,14 +360,16 @@ describe('Testing AI Confidence Engineering Guide - Category 3 (Step 2 & Step 3)
     // Chapter 11 & Diagram 8: confidence-engineer
     expect(h3s?.[2]?.textContent).toBe('第11章　Confidence Engineerという役割');
     expect(sec?.textContent).toContain('図8　Confidence Engineerの役割');
-    expect(DIAGRAM_CONFIDENCE_ENGINEER).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_CONFIDENCE_ENGINEER);
+    });
     expect(DIAGRAM_CONFIDENCE_ENGINEER).toContain('flowchart TD');
     expect(DIAGRAM_CONFIDENCE_ENGINEER).toContain('Confidence Engineer');
   });
 });
 
 describe('Testing AI Confidence Engineering Guide - Category 4 (Step 4 & Step 5)', () => {
-  it('renders Section: #step4 (第IV部 — データ・セキュリティ・安全性・モデル内部) with chapters 12 to 16', () => {
+  it('renders Section: #step4 (第IV部 — データ・セキュリティ・安全性・モデル内部) with chapters 12 to 16', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#step4');
     expect(sec).toBeDefined();
@@ -366,17 +397,21 @@ describe('Testing AI Confidence Engineering Guide - Category 4 (Step 4 & Step 5)
     // Chapter 16 & Diagram 9: model-internals, Diagram 10: security-safety
     expect(h3s?.[4]?.textContent).toBe('第16章　内省：ホワイトボックスでネットワークをテストする');
     expect(sec?.textContent).toContain('図9　モデル内部を理解するテスト観点');
-    expect(DIAGRAM_MODEL_INTERNALS).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_MODEL_INTERNALS);
+    });
     expect(DIAGRAM_MODEL_INTERNALS).toContain('flowchart TD');
     expect(DIAGRAM_MODEL_INTERNALS).toContain('トークン化と入力の扱い');
 
     expect(sec?.textContent).toContain('図10　AIセキュリティの脅威モデルと安全性の階層');
-    expect(DIAGRAM_SECURITY_SAFETY).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_SECURITY_SAFETY);
+    });
     expect(DIAGRAM_SECURITY_SAFETY).toContain('flowchart TD');
     expect(DIAGRAM_SECURITY_SAFETY).toContain('信頼できない入力チャネル');
   });
 
-  it('renders Section: #step5 (第V部 — 未来のシステムと実践プレイブック) with chapters 17 to 21', () => {
+  it('renders Section: #step5 (第V部 — 未来のシステムと実践プレイブック) with chapters 17 to 21', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#step5');
     expect(sec).toBeDefined();
@@ -384,7 +419,9 @@ describe('Testing AI Confidence Engineering Guide - Category 4 (Step 4 & Step 5)
 
     // Diagram 11: part5-chain
     expect(sec?.textContent).toContain('図11　第V部　パーソナライズ・身体性AI・ガバナンスのテスト範囲');
-    expect(DIAGRAM_PART5_CHAIN).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_PART5_CHAIN);
+    });
     expect(DIAGRAM_PART5_CHAIN).toContain('flowchart TD');
     expect(DIAGRAM_PART5_CHAIN).toContain('第17章');
 
@@ -410,14 +447,16 @@ describe('Testing AI Confidence Engineering Guide - Category 4 (Step 4 & Step 5)
     // Chapter 21 & Diagram 12: six-predictions
     expect(h3s?.[4]?.textContent).toBe('第21章　トークン化されたプロダクトの未来への予測');
     expect(sec?.textContent).toContain('図12　トークン化プロダクトの未来への6つの予測');
-    expect(DIAGRAM_SIX_PREDICTIONS).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_SIX_PREDICTIONS);
+    });
     expect(DIAGRAM_SIX_PREDICTIONS).toContain('flowchart LR');
     expect(DIAGRAM_SIX_PREDICTIONS).toContain('トークン化プロダクトの未来への6つの予測');
   });
 });
 
 describe('Testing AI Confidence Engineering Guide - Category 5 (Practice, Glossary, Voices, Checklist, References)', () => {
-  it('renders Section: #practice (実践ワーク) with MVP Quality diagram', () => {
+  it('renders Section: #practice (実践ワーク) with MVP Quality diagram', async () => {
     const { container } = render(<TestingAiConfidenceGuidePage />);
     const sec = container.querySelector('#practice');
     expect(sec).toBeDefined();
@@ -433,7 +472,9 @@ describe('Testing AI Confidence Engineering Guide - Category 5 (Practice, Glossa
     expect(listItems?.[5]?.textContent).toContain('ハードブロッカーを明確に定義しておく');
 
     expect(sec?.textContent).toContain('図13　最小限のAI品質システム');
-    expect(DIAGRAM_MVP_QUALITY).toBeDefined();
+    await waitFor(() => {
+      expect(renderedCharts).toContain(DIAGRAM_MVP_QUALITY);
+    });
     expect(DIAGRAM_MVP_QUALITY).toContain('flowchart LR');
     expect(DIAGRAM_MVP_QUALITY).toContain('本番相当のケースを約50件用意する');
   });

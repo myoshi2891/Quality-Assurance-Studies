@@ -1,10 +1,15 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import AppiumGuidePage, {
   DIAGRAM_ARCH,
   DIAGRAM_VERSION,
+  DIAGRAM_SETUP,
+  DIAGRAM_LOCATOR,
+  DIAGRAM_POM,
+  DIAGRAM_WAIT,
+  DIAGRAM_CICD,
 } from '../../app/appium-essentials-guide/page';
 import NavBar, { NAV_LINKS } from '../../app/appium-essentials-guide/NavBar';
 
@@ -101,7 +106,7 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
     expect(rows?.length).toBe(5);
   });
 
-  it('renders Section 3: #architecture (アーキテクチャ) with diagram-arch', () => {
+  it('renders Section 3: #architecture (アーキテクチャ) with diagram-arch', async () => {
     const { container } = render(<AppiumGuidePage />);
     const sec = container.querySelector('#architecture');
     expect(sec).toBeDefined();
@@ -110,12 +115,19 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
     const figCaption = sec?.querySelector('.fig-caption');
     expect(figCaption?.textContent).toBe('図1: Appiumのクライアント・サーバーアーキテクチャ');
 
-    expect(DIAGRAM_ARCH).toContain('UiAutomator2ドライバー');
-    expect(DIAGRAM_ARCH).toContain('HTTPリクエスト');
-    expect(DIAGRAM_ARCH).toContain('W3C WebDriverプロトコル');
+    await waitFor(() => {
+      expect(renderedCharts.length).toBe(7);
+    });
+    expect(renderedCharts).toContain(DIAGRAM_ARCH);
+    expect(renderedCharts).toContain(DIAGRAM_VERSION);
+    expect(renderedCharts).toContain(DIAGRAM_SETUP);
+    expect(renderedCharts).toContain(DIAGRAM_LOCATOR);
+    expect(renderedCharts).toContain(DIAGRAM_POM);
+    expect(renderedCharts).toContain(DIAGRAM_WAIT);
+    expect(renderedCharts).toContain(DIAGRAM_CICD);
   });
 
-  it('renders Section 4: #version-history (バージョンの歴史と現在地) with diagram and table', () => {
+  it('renders Section 4: #version-history (バージョンの歴史と現在地) with diagram and table', async () => {
     const { container } = render(<AppiumGuidePage />);
     const sec = container.querySelector('#version-history');
     expect(sec).toBeDefined();
@@ -124,10 +136,15 @@ describe('Appium Essentials Guide - Category 1 (Foundation & Architecture)', () 
     const figCaption = sec?.querySelector('.fig-caption');
     expect(figCaption?.textContent).toBe('図2: Appiumバージョンの変遷');
 
+    await waitFor(() => {
+      expect(renderedCharts.length).toBe(7);
+    });
+    const versionChart = renderedCharts.find((chart) => chart === DIAGRAM_VERSION);
+    expect(versionChart).toBeDefined();
     // Diagram should NOT contain full-width wave dash 〜 (replaced with から)
-    expect(DIAGRAM_VERSION).not.toContain('〜');
-    expect(DIAGRAM_VERSION).toContain('2013年から');
-    expect(DIAGRAM_VERSION).toContain('Appium 3.x');
+    expect(versionChart).not.toContain('〜');
+    expect(versionChart).toContain('2013年から');
+    expect(versionChart).toContain('Appium 3.x');
 
     const table = sec?.querySelector('table');
     expect(table).toBeDefined();
