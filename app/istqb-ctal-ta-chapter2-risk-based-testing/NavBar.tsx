@@ -58,16 +58,26 @@ export default function NavBar() {
             'sec10',
         ];
 
+        // entries は「交差状態が変化した要素」だけを含むため、変化しなかった可視要素が
+        // 判定から漏れる。各要素の最新の交差状態を保持し、毎回そこから判定する
+        const visibility = new Map<Element, boolean>();
+
         const observer = new IntersectionObserver(
             (entries) => {
-                const visibleEntries = entries.filter((e) => e.isIntersecting);
-                if (visibleEntries.length > 0) {
-                    const sorted = visibleEntries.sort(
-                        (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-                    );
-                    const topMost = sorted[0];
-                    if (topMost) setActiveId(topMost.target.id);
-                }
+                entries.forEach((entry) => {
+                    visibility.set(entry.target, entry.isIntersecting);
+                });
+
+                const visible = Array.from(visibility.entries())
+                    .filter(([, isVisible]) => isVisible)
+                    .map(([el]) => el);
+                if (!visible.length) return;
+
+                // 交差中の要素のうち、実測で最も上にあるものをアクティブにする
+                const topMost = visible.reduce((a, b) =>
+                    a.getBoundingClientRect().top <= b.getBoundingClientRect().top ? a : b
+                );
+                setActiveId(topMost.id);
             },
             {
                 rootMargin: '-80px 0px -60% 0px',

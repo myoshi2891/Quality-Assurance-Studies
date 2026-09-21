@@ -21,20 +21,34 @@ export default function NavBar() {
             const targets = Array.from(map.keys());
             if (!targets.length) return;
 
+            // entries は「交差状態が変化した要素」だけを含むスナップショットではないため、
+            // 各要素の最新の交差状態を保持し、毎回そこから判定する
+            const visibility = new Map<HTMLElement, boolean>();
+
             const observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        const link = map.get(entry.target as HTMLElement);
-                        if (!link) return;
-                        if (entry.isIntersecting) {
-                            navLinks.forEach((l) => {
-                                l.classList.remove('active');
-                                l.removeAttribute('aria-current');
-                            });
-                            link.classList.add('active');
-                            link.setAttribute('aria-current', 'location');
-                        }
+                        visibility.set(entry.target as HTMLElement, entry.isIntersecting);
                     });
+
+                    const visible = Array.from(visibility.entries())
+                        .filter(([, isVisible]) => isVisible)
+                        .map(([el]) => el);
+                    if (!visible.length) return;
+
+                    // 交差中の要素のうち、実測で最も上にあるものをアクティブにする
+                    const topMost = visible.reduce((a, b) =>
+                        a.getBoundingClientRect().top <= b.getBoundingClientRect().top ? a : b
+                    );
+                    const link = map.get(topMost);
+                    if (!link) return;
+
+                    navLinks.forEach((l) => {
+                        l.classList.remove('active');
+                        l.removeAttribute('aria-current');
+                    });
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'location');
                 },
                 { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
             );

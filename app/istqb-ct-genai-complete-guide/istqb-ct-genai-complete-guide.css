@@ -92,7 +92,7 @@
             /* ============================
    LAYOUT
    ============================ */
-            .page-wrapper {
+            &.page-wrapper {
                 position: relative;
                 z-index: 1;
                 max-width: 960px;
@@ -251,6 +251,9 @@
                 font-size: 1.8rem;
                 font-weight: 700;
                 letter-spacing: -0.01em;
+                /* flex アイテムの min-width:auto（＝min-content）で狭幅時に横へはみ出すのを防ぐ */
+                min-width: 0;
+                overflow-wrap: anywhere;
             }
             .k-level {
                 font-family: var(--font-mono, 'Space Mono', monospace);
@@ -1249,7 +1252,7 @@
                 }
             }
             @media (max-width: 600px) {
-                .page-wrapper {
+                &.page-wrapper {
                     padding: 0 1rem 3rem;
                 }
                 .meta-grid {
