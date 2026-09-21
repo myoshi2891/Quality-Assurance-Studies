@@ -201,7 +201,7 @@ mermaid.initialize({
 **この既存バグが疑われる場合の機械的な検知方法**（ブラウザなしで確認できる）:
 
 ```bash
-grep -n "fontFamily.*'" app/*/page.tsx
+rg -n "fontFamily.*'" --glob "app/**/page.tsx"
 ```
 
 1件でもヒットしたら、そのページの Mermaid 図はテーマ上書きが機能しておらず共通ダークテーマの
@@ -312,7 +312,19 @@ rm -rf .next
 # 2. dev サーバーはフォアグラウンドだと後続コマンドをブロックするため、別ターミナルで
 #    `bun run dev` を実行するか、下記のようにバックグラウンド起動して応答を待ってから次へ進む
 bun run dev &
-until curl -sf -o /dev/null http://127.0.0.1:3000/; do sleep 2; done
+dev_pid=$!
+# 起動待ちは「そのプロセスが生きている間」かつ「有限のタイムアウト内」に限る
+# （dev サーバーが即死した場合に無限ループへ陥らないため）
+for _ in $(seq 1 60); do
+  curl -sf -o /dev/null http://127.0.0.1:3000/ && break
+  kill -0 "$dev_pid" 2>/dev/null || { echo "dev server exited" >&2; wait "$dev_pid"; exit 1; }
+  sleep 2
+done
+if ! curl -sf -o /dev/null http://127.0.0.1:3000/; then
+  echo "dev server did not become ready within 120s" >&2
+  kill "$dev_pid" 2>/dev/null
+  exit 1
+fi
 
 # 3. 自分の変更が実際にコンパイル済み出力へ含まれているかを確認する（ブラウザを開く前に）
 grep -n "border-right\|edgeLabel" .next/dev/server/chunks/ssr/*.js 2>/dev/null | grep -v node_modules

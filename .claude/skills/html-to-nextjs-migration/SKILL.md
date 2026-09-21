@@ -78,7 +78,9 @@ Before writing any code, read the source HTML thoroughly and create a **Componen
 （dev サーバー起動状態で。警告があれば終了コード 1）:
 
 ```bash
-bun scripts/check-globals-interference.mjs /<page-slug>
+# カード型ヒーロー（原本 HTML が height を指定していないヒーロー）のページは --card-hero を付ける。
+# 付けないと .hero の 100vh / flex 中央寄せ判定が info 扱いで見逃される。
+bun scripts/check-globals-interference.mjs /<page-slug> --card-hero
 ```
 
 検出する干渉:

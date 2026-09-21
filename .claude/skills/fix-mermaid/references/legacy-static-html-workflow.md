@@ -121,7 +121,9 @@ const viewBoxStr = svgEl.getAttribute('viewBox');
 if (viewBoxStr) {
     const parts = viewBoxStr.split(' ').map(Number);
     if (parts.length === 4) {
-        const isSequenceOrState = src.trim().startsWith('sequenceDiagram') || src.trim().startsWith('stateDiagram');
+        // %%{init}%% ディレクティブが先頭にあると図種判定が常に外れるため、先に除去してから判定する
+        const diagramSrc = src.replace(/^\s*%%\{[\s\S]*?\}%%\s*/, '').trim();
+        const isSequenceOrState = diagramSrc.startsWith('sequenceDiagram') || diagramSrc.startsWith('stateDiagram');
         // mirrorActors: true（上下両方のアクターボックス表示）の場合は縦幅が大きく伸びるため余裕を持たせる
         const extraHeight = isSequenceOrState ? 110 : 15;
         svgEl.setAttribute('viewBox', `${parts[0]} ${parts[1]} ${parts[2]} ${parts[3] + extraHeight}`);
