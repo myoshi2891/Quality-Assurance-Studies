@@ -232,7 +232,7 @@
     margin-top: 56px;
     padding-top: 10px;
     border-top: 1px solid var(--border);
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
 .ctal-ta-ch1-page section:first-of-type h2 {
@@ -245,10 +245,20 @@
     font-size: 1.22rem;
     color: var(--accent-dark) !important;
     margin-top: 36px;
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
 .ctal-ta-ch1-page h4 {
+    font-size: 1.02rem;
+    color: var(--text) !important;
+    margin-top: 26px;
+    font-weight: 700;
+}
+
+/* 見出しレベルの飛び（h2 -> h4）を避けつつ、原本 HTML の h4 の見た目を保つためのクラス。
+   h3 ルールより後ろ・より高い詳細度で定義する。 */
+.ctal-ta-ch1-page h3.h4-visual {
+    font-family: var(--font-body);
     font-size: 1.02rem;
     color: var(--text) !important;
     margin-top: 26px;

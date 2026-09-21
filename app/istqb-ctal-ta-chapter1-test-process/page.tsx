@@ -334,17 +334,17 @@ export default function Page() {
                         <span className="badge-k">K2</span>
                     </h2>
 
-                    <h4>定義</h4>
+                    <h3 className="h4-visual">定義</h3>
                     <p>
                         SDLC(ソフトウェア開発ライフサイクル)の型によって、開発活動の組み立て方が異なるため、<strong>TAがテストプロセスの中でいつ・何を担当するかも変化します</strong>。CTAL-TAでは、SDLCを大きく3種類に分類し、それぞれにおけるTAの関わり方を整理しています。
                     </p>
 
-                    <h4>なぜ重要か(理由)</h4>
+                    <h3 className="h4-visual">なぜ重要か(理由)</h3>
                     <p>
                         同じ「テスト分析」というタスクでも、ウォーターフォール型では一度きりの大きな塊として発生するのに対し、アジャイル型では毎スプリント短いサイクルで繰り返し発生します。この違いを理解していないと、プロジェクトに応じた適切なテスト計画・見積もり・体制を提案できません。
                     </p>
 
-                    <h4>3つのSDLCモデルの比較</h4>
+                    <h3 className="h4-visual">3つのSDLCモデルの比較</h3>
                     <div className="mermaid-wrap">
                         <Mermaid chart={DIAGRAM_SDLC} />
                     </div>

@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
+    const toggleRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         try {
@@ -28,8 +29,10 @@ export default function NavBar() {
                         if (entry.isIntersecting) {
                             navLinks.forEach((l) => {
                                 l.classList.remove('active');
+                                l.removeAttribute('aria-current');
                             });
                             link.classList.add('active');
+                            link.setAttribute('aria-current', 'location');
                         }
                     });
                 },
@@ -49,7 +52,10 @@ export default function NavBar() {
     }, []);
 
     const handleLinkClick = () => {
-        if (typeof window !== 'undefined' && window.innerWidth <= 900) {
+        if (typeof window !== 'undefined' && window.innerWidth <= 900 && isOpen) {
+            // 閉じる前に可視のトグルへフォーカスを戻す
+            // （閉じるとリンク自体が画面外へ出てフォーカスが失われるため）
+            toggleRef.current?.focus();
             setIsOpen(false);
         }
     };
@@ -57,6 +63,7 @@ export default function NavBar() {
     return (
         <>
             <button
+                ref={toggleRef}
                 className="sidebar-toggle"
                 id="sidebarToggle"
                 aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
