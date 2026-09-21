@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page, {
@@ -46,6 +46,27 @@ beforeAll(() => {
 afterAll(() => {
     mermaid.render = originalMermaidRender;
     window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('CTAL-TA v4.0 Chapter 2 - Mermaid rendering', () => {
+    it('renders all 5 diagrams exactly once through the shared Mermaid component', async () => {
+        render(<Page />);
+        await waitFor(() => {
+            expect(renderedCharts.length).toBe(5);
+        });
+
+        // 定数を import して assert するだけでは、JSX から <Mermaid> が消えても検出できない。
+        const expectedDiagrams = [
+            DIAGRAM_CHAPTER_POSITION,
+            DIAGRAM_RBT_CYCLE,
+            DIAGRAM_RISK_FACTORS,
+            DIAGRAM_REGRESSION_SELECTION,
+            DIAGRAM_IMPACT_ANALYSIS_STEPS,
+        ];
+        expectedDiagrams.forEach((diagram) => {
+            expect(renderedCharts.filter((chart) => chart === diagram).length).toBe(1);
+        });
+    });
 });
 
 describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, Intro, NavBar)', () => {

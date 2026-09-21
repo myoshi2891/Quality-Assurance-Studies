@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import { readFileSync } from 'fs';
 import path from 'path';
 import mermaid from 'mermaid';
@@ -54,6 +54,34 @@ beforeAll(() => {
 afterAll(() => {
     mermaid.render = originalMermaidRender;
     window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('CTAL-TA v4.0 Chapter 1 - Mermaid rendering', () => {
+    it('renders all 11 diagrams exactly once through the shared Mermaid component', async () => {
+        render(<Page />);
+        await waitFor(() => {
+            expect(renderedCharts.length).toBe(11);
+        });
+
+        // 定数を import して assert するだけでは、JSX から <Mermaid> が消えても検出できない。
+        // 実際に mermaid.render へ渡された図を数え、各図がちょうど1回描画されたことを確認する。
+        const expectedDiagrams = [
+            DIAGRAM_OVERVIEW,
+            DIAGRAM_SDLC,
+            DIAGRAM_PROCESS,
+            DIAGRAM_ENTRY,
+            DIAGRAM_ANALYSIS_FLOW,
+            DIAGRAM_ENV3,
+            DIAGRAM_HLLL,
+            DIAGRAM_ENVREQ,
+            DIAGRAM_ORACLE,
+            DIAGRAM_KEYWORD,
+            DIAGRAM_TOOLS,
+        ];
+        expectedDiagrams.forEach((diagram) => {
+            expect(renderedCharts.filter((chart) => chart === diagram).length).toBe(1);
+        });
+    });
 });
 
 describe('CTAL-TA v4.0 Chapter 1 - Category 1: Hero & Section 0 (Overview, Keywords, LO)', () => {
@@ -113,6 +141,24 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 1: Hero & Section 0 (Overview, Keywo
             '#checklist',
             '#references',
         ]);
+
+        // モバイルトグル: 初期状態の aria 属性 → 開く → 閉じる
+        const toggleBtn = container.querySelector('.sidebar-toggle');
+        if (!(toggleBtn instanceof HTMLElement)) {
+            throw new Error('.sidebar-toggle が描画されていません');
+        }
+        const sidebar = container.querySelector('.sidebar');
+        expect(toggleBtn.getAttribute('aria-controls')).toBe('sidebar');
+        expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
+        expect(sidebar?.classList.contains('open')).toBe(false);
+
+        fireEvent.click(toggleBtn);
+        expect(sidebar?.classList.contains('open')).toBe(true);
+        expect(toggleBtn.getAttribute('aria-expanded')).toBe('true');
+
+        fireEvent.click(toggleBtn);
+        expect(sidebar?.classList.contains('open')).toBe(false);
+        expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
     });
 
     it('renders Section 0: overview, Mermaid mmd-overview, keywords, LO table, and callouts', () => {
