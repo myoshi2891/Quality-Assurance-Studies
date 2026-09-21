@@ -708,12 +708,16 @@
 @media (max-width: 900px) {
     .ctal-ta-ch2-page .sidebar {
         transform: translateX(-100%);
+        /* 画面外のリンクをキーボードのフォーカス順から外す（transform だけでは focus 可能なまま残る） */
+        visibility: hidden;
+        transition: transform 0.25s ease, visibility 0.25s ease;
         width: 82vw;
         max-width: 320px;
         box-shadow: var(--shadow-md);
     }
     .ctal-ta-ch2-page .sidebar.open {
         transform: translateX(0);
+        visibility: visible;
     }
     .ctal-ta-ch2-page .sidebar-overlay.open {
         display: block;
