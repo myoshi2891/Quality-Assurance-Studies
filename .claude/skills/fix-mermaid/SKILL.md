@@ -40,6 +40,9 @@ bun test tests/lib/mermaid-theme-contract.test.ts
 | `prefixes every DIAGRAM_* constant with the shared config` | 一部の図だけ設定が抜けている |
 | `resets the global dark .mermaid-wrapper card` / `releases the 760px max-width` | ライト配色ページなのに globals のダークカード既定を打ち消していない＝「暗い箱の中の縮小された読めない図」 |
 
+関連して `bun test tests/lib/mermaid-init-directive.test.ts` は、`%%{init}%%` の
+シングルクォート問題そのものを実際の mermaid で再現・固定している（前提が変わればここが落ちる）。
+
 **新しいページで Mermaid を使ったら、このテストが通ることを確認してからコミットする。**
 落ちている間は、ブラウザでの見た目調整を始めてはならない（無駄な「もぐら叩き」になる）。
 
@@ -64,7 +67,12 @@ bun scripts/check-globals-interference.mjs /<page-slug>
    再実行されない。CSS・テーマ関連の修正がブラウザに反映されないときは、実装を疑う前に必ず:
 
    ```bash
-   kill $(lsof -ti:3000) 2>/dev/null; rm -rf .next; bun run dev
+   # ポート 3000 の LISTEN プロセスだけを特定し、Next.js dev サーバーであることを確認してから停止する
+   # （lsof の出力を検証せず kill に渡さない）
+   pid=$(lsof -nP -tiTCP:3000 -sTCP:LISTEN | head -1)
+   if [ -n "$pid" ] && ps -o command= -p "$pid" | grep -q "next"; then kill "$pid"; fi
+   rm -rf .next
+   bun run dev
    ```
 
    を実行し、**コンパイル済みチャンク**（`.next/dev/server/chunks/ssr/...` や `/_next/static/chunks/...css`）
@@ -206,6 +214,10 @@ grep -n "fontFamily.*'" app/*/page.tsx
 > `software-test-design` / `testing-ai-confidence-engineering`）が壊れたまま残っていた。
 > **文書に書くだけでは再発は止まらない**という教訓から、この検査は
 > `tests/lib/mermaid-theme-contract.test.ts` に移して `bun test` で強制するようにした。
+>
+> この「シングルクォートがあるとエラーを出さずにグローバルのダークテーマへフォールバックする」挙動そのものは、
+> 同梱の mermaid（11.16.0）で `tests/lib/mermaid-init-directive.test.ts` が実際にレンダリングして固定している。
+> mermaid 側の実装が変わってこの前提が崩れたら、このテストが落ちて本節の記述を見直せる。
 
 **クォートを外すときの注意（数字を含むフォント名）**: CSS の無クォートのファミリー名は識別子の
 連なりでなければならないため、`Source Sans 3` や `Source Serif 4` のように**数字で始まる語を含む
@@ -292,9 +304,17 @@ CSS やテーマの修正をコードに入れたのにブラウザで反映さ�
 
 ```bash
 # 1. dev サーバーを完全に再起動する（HMR では mermaid.initialize の再実行も CSS の完全反映もされない）
-kill $(lsof -ti:3000) 2>/dev/null; rm -rf .next; bun run dev
+#    lsof の出力は検証してから kill に渡す
+pid=$(lsof -nP -tiTCP:3000 -sTCP:LISTEN | head -1)
+if [ -n "$pid" ] && ps -o command= -p "$pid" | grep -q "next"; then kill "$pid"; fi
+rm -rf .next
 
-# 2. 自分の変更が実際にコンパイル済み出力へ含まれているかを確認する（ブラウザを開く前に）
+# 2. dev サーバーはフォアグラウンドだと後続コマンドをブロックするため、別ターミナルで
+#    `bun run dev` を実行するか、下記のようにバックグラウンド起動して応答を待ってから次へ進む
+bun run dev &
+until curl -sf -o /dev/null http://127.0.0.1:3000/; do sleep 2; done
+
+# 3. 自分の変更が実際にコンパイル済み出力へ含まれているかを確認する（ブラウザを開く前に）
 grep -n "border-right\|edgeLabel" .next/dev/server/chunks/ssr/*.js 2>/dev/null | grep -v node_modules
 ```
 

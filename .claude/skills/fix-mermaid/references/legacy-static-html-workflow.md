@@ -13,7 +13,9 @@
 ## 対象
 
 - `.html` ファイル内の `<div class="mermaid">` ブロック（`archive/html-archive/` 配下のみ）
-- `.md` ファイル内の ` ```mermaid ` ブロック
+- `.md` ファイル内の ` ```mermaid ` ブロック（`archive/md-archive/` 配下、および GitHub / VS Code の
+  Markdown プレビューなど「mermaid ブロックをそのまま描画するレンダラー」向けの素の Markdown のみ。
+  Next.js ページの `.tsx` 内テンプレートリテラルは対象外 — SKILL.md 本文を参照）
 
 ## よくある破壊パターン（フォーマッタ由来）
 
@@ -82,9 +84,16 @@ Mermaid は SVG 要素に絶対ピクセル値の `width`/`height` 属性を付�
 ```js
 svgEl.removeAttribute('width');
 svgEl.removeAttribute('height');
-svgEl.style.width    = `${w}px`;   // viewBox 由来の自然 px 幅 + maxWidth:100% の新ルールに準拠
 svgEl.style.maxWidth = '100%';
-svgEl.style.height   = 'auto';
+svgEl.style.height = 'auto';
+
+// 幅は viewBox の第3要素（自然 px 幅）から取得する。viewBox が無い/壊れている場合は幅を設定しない
+// （width を付けないまま maxWidth:100% + height:auto で描画させる）。
+const viewBox = svgEl.getAttribute('viewBox');
+const parts = viewBox ? viewBox.split(/\s+/).map(Number) : [];
+if (parts.length === 4 && Number.isFinite(parts[2])) {
+    svgEl.style.width = `${parts[2]}px`; // viewBox 由来の自然 px 幅 + maxWidth:100% の新ルールに準拠
+}
 ```
 
 CSS にもフォールバックを追加する:
