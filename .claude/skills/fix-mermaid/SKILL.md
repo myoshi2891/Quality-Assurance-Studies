@@ -23,6 +23,37 @@ Mermaid 図はすべて `components/Mermaid.tsx`（`'use client'`、mermaid v11�
 静的 HTML 時代のスクリプトベース手順は `references/legacy-static-html-workflow.md` に退避した
 （`archive/html-archive/` 配下の凍結ファイルを直接編集する稀なケースのみ参照）。
 
+## 0. 最初に必ず実行する（コードを読む前）
+
+このスキルで扱う不具合の大半は、**ブラウザを開かずに機械的に検知できる**。まず契約テストを実行する:
+
+```bash
+bun test tests/lib/mermaid-theme-contract.test.ts
+```
+
+このテストが守らせている契約は4つ。落ちたテスト名がそのまま原因を指す。
+
+| テスト名 | 落ちたときの意味 |
+| --- | --- |
+| `never uses !important in layered .mermaid-wrapper rules` | `app/globals.css` の `@layer` 内に `!important` が復活した。ページ固有 CSS から**永久に上書き不能**になる（下記「レイヤー逆転」） |
+| `keeps the %%{init}%% directive free of single quotes` | そのページの図は**テーマ上書きが効かずダークのまま**描画されている |
+| `prefixes every DIAGRAM_* constant with the shared config` | 一部の図だけ設定が抜けている |
+| `resets the global dark .mermaid-wrapper card` / `releases the 760px max-width` | ライト配色ページなのに globals のダークカード既定を打ち消していない＝「暗い箱の中の縮小された読めない図」 |
+
+**新しいページで Mermaid を使ったら、このテストが通ることを確認してからコミットする。**
+落ちている間は、ブラウザでの見た目調整を始めてはならない（無駄な「もぐら叩き」になる）。
+
+静的検査を通ったら、描画結果そのものを実測する（dev サーバー起動状態で）:
+
+```bash
+bun scripts/check-globals-interference.mjs /<page-slug>
+```
+
+ダークカード残存・760px 制限・**横スクロール時の左端切れ**（overflow コンテナ内で中央寄せした図が
+コンテナより広いと、はみ出した左側はスクロール原点より手前になり永久に到達できない）を検出する。
+本番ビルドでの網羅チェックは `bun run e2e`（`e2e/mermaid-layout.e2e.ts`）が全 Mermaid ページに対して
+同じ判定を行う。
+
 ## 詰まったら最初に確認する3点（順序厳守）
 
 見た目の修正が「効いていないように見える」場合、実装ミスではなく以下が原因であることが非常に多い。
@@ -55,6 +86,8 @@ SVG 文字列を `dangerouslySetInnerHTML` で注入し、ページ固有スタ�
 | 文字が低コントラストで読みづらい（エッジラベル・subgraph 見出し・シーケンス図 Note） | `theme:'base'` が明色背景を算出し、そこへ明色文字を当てると明×明で読めない | `theme:'dark'` + ソリッド濃色の `themeVariables` を明示（下記） |
 | **ページだけライト/独自テーマにしたいのに、共通コンポーネントのダークテーマが効いてしまう** | `mermaid.initialize()` はモジュール最上位でアプリ全体に対して一度だけ実行される（1ページのために変更すると他30+ページが壊れる） | **`components/Mermaid.tsx` は変更しない**。ページ側で `%%{init}%%` ディレクティブを図の先頭に付与する（下記「ページ固有テーマの上書き」） |
 | エッジラベル（分岐の「はい/いいえ」「継続的に関与」等）の背景が黒/濃紺の四角に潰れて文字が読めない | 共通コンポーネントの `edgeLabelBackground`（ダーク色）がページのライト配色と衝突。または CSS セレクタが mermaid 11.x の SVG 構造（`.edgeLabel p`, `foreignObject`, `.edgeLabels .label` 等）を網羅していない | `%%{init}%%` でページ単位に `edgeLabelBackground` を上書き **かつ** CSS 側にも `.edgeLabel`/`.edgeLabel span`/`.edgeLabel p`/`.edgeLabel text`/`.edgeLabels .label` と `.edgeLabels rect`/`.edgeLabel rect` の両方をセーフティネットとして定義する（片方だけでは mermaid のバージョン内の構造差異で漏れることがある） |
+| **図だけが暗い箱に入り、760px に縮小されて文字が読めない**（ページ本体はライト配色なのに） | `app/globals.css` の `@layer components` にある `.mermaid-wrapper` 既定（`background: var(--color-bg-card)` = `#131929` / `max-width: 760px`）を、ページ固有 CSS が打ち消していない | ページ固有 CSS に**必須リセットブロック**を書く（下記「globals のダークカード既定を必ず打ち消す」） |
+| ページ固有 CSS に `!important` を付けたのに globals の値が勝つ | **CSS カスケードのレイヤー逆転**。`!important` 宣言に限りレイヤー順が反転し、`@layer` 内 > レイヤー外（＝ページ固有 CSS）になる | `globals.css` 側の `!important` を外す。ページ側で `!important` を増やしても永久に勝てない |
 | ノード内の文字が下端で切れる | 採寸と実描画の数 px 差で SVG `viewBox` 下端が見切れる | 描画後に `viewBox` の高さを拡張（flowchart `+15` / sequence・state `+110`）+ `overflow:visible`（`components/Mermaid.tsx` の `applySvgFixups` が既に対応済み） |
 | ノード文字が右端で切れる（emoji を含む図のみ） | `<foreignObject>` は SVG 仕様上 `overflow:hidden` がデフォルト。emoji は採寸時に「豆腐」幅で測られ実描画で広がる | CSS で `.mermaid-wrapper foreignObject { overflow: visible; }` |
 | 日本語ラベルの幅不足による軽微な切れ | Web フォント（Noto Sans JP）読込前に採寸 | `mermaid.render()` 直前に `await document.fonts.ready`（`components/Mermaid.tsx` は対応済み） |
@@ -80,6 +113,57 @@ mermaid.initialize({
 
 > **この設定はアプリ全体の既定値。個別ページの都合で書き換えてはならない。** ライト/独自テーマのページは
 > 次項の `%%{init}%%` ディレクティブでページ単位に上書きする。
+
+### globals のダークカード既定を必ず打ち消す【ライト配色ページの必須作業】
+
+`components/Mermaid.tsx` が出力する `<div class="mermaid-wrapper">` には、`app/globals.css` の
+`@layer components` で**ダークカードの既定**が当たっている:
+
+```css
+/* app/globals.css（@layer components 内・アプリ全体の既定） */
+.mermaid-wrapper {
+    background: var(--color-bg-card, #131929);  /* ← 暗い箱の正体 */
+    border: 1px solid var(--color-border, ...);
+    box-shadow: ...;
+    width: 100%;
+    max-width: 760px;                            /* ← 図が縮小して文字が読めなくなる正体 */
+}
+```
+
+ダーク配色のページはこの既定に乗ればよい。**`%%{init}%%` でライトテーマにしたページは、
+テーマ変数だけ直しても「暗い箱の中の縮小された図」のままになる**ので、必ずページ固有 CSS で
+打ち消す（`.mermaid-wrap` など自前のラッパーではなく、**`.mermaid-wrapper` 自体**を指定すること）:
+
+```css
+.my-page .mermaid-wrapper {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: none;   /* 760px の枷を外す。外側の .mermaid-wrap に overflow-x:auto を付けて横スクロールさせる */
+}
+```
+
+> `max-width: none` にすると図は自然幅で描画され、はみ出す分は外側ラッパーの横スクロールになる。
+> `max-width: 100%` のままだと図全体が縮小され、**文字だけが小さくなって読めなくなる**（原本 HTML との
+> 見た目差として報告される典型例）。どちらを選ぶかは意図的に決めること。
+
+#### ⚠️ `!important` のレイヤー逆転（何度直しても効かない現象の正体）
+
+`globals.css` は `@layer` の中にある。CSS 仕様では通常の宣言はレイヤー外が強いが、
+**`!important` 宣言だけはレイヤー順が反転し、`@layer` 内が最強になる**。つまり:
+
+| 宣言 | 勝敗 |
+| --- | --- |
+| `@layer components` 内の `.mermaid-wrapper svg { max-width: 100% !important }` | **勝つ** |
+| ページ固有 CSS（レイヤー外）の `.my-page .mermaid-wrap svg { max-width: none !important }` | 負ける（セレクタがどれだけ具体的でも） |
+
+したがって **`globals.css` の Mermaid 関連ルールに `!important` を書いてはならない**。
+2026-09-21 にこの `!important` が原因で「ページ側の修正が何度やっても反映されない」状態が続いたため、
+`tests/lib/mermaid-theme-contract.test.ts` が globals 側の `!important` を機械的に禁止している。
 
 ### ページ固有テーマの上書き（`%%{init}%%` ディレクティブ）【最重要・頻出パターン】
 
@@ -115,6 +199,18 @@ grep -n "fontFamily.*'" app/*/page.tsx
 1件でもヒットしたら、そのページの Mermaid 図はテーマ上書きが機能しておらず共通ダークテーマの
 ままレンダリングされている可能性が高い。**該当ページを開いて目視で確認するまでもなく、
 このコマンドだけで疑わしい箇所を特定できる。**
+
+> **2026-09-21 の実測**: 上記の警告は以前から本ファイルに書かれていたが、**実際には 9 ページ**
+> （`agile-testing-practical` / `ai-driven-software-testing` / `appium-essentials` /
+> `art-of-software-testing` / `clean-code-cookbook` / `explore-it` / `perfect-software` /
+> `software-test-design` / `testing-ai-confidence-engineering`）が壊れたまま残っていた。
+> **文書に書くだけでは再発は止まらない**という教訓から、この検査は
+> `tests/lib/mermaid-theme-contract.test.ts` に移して `bun test` で強制するようにした。
+
+**クォートを外すときの注意（数字を含むフォント名）**: CSS の無クォートのファミリー名は識別子の
+連なりでなければならないため、`Source Sans 3` や `Source Serif 4` のように**数字で始まる語を含む
+名前はクォートを外すと宣言ごと無効**になる。この場合はクォートを外すのではなく、
+**そのファミリーをリストから削除**して次点（`Noto Sans JP` 等）を先頭に繰り上げる。
 
 **さらに確実な検証方法**（ブラウザなしで実際に mermaid を実行し、生成される SVG のスタイルを見る）:
 

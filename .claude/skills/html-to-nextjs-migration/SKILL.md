@@ -72,6 +72,38 @@ Before writing any code, read the source HTML thoroughly and create a **Componen
 
 サイドバーナビ＋メインコンテンツのレイアウトを持つページは、`globals.css` の汎用セレクター（レイアウト余白・テーブル・文字色）が深刻な干渉を引き起こす。**`references/globals-css-reset-template.md` の完全なリセットテンプレートとサイドバー sticky 計算をそのまま適用すること。**
 
+#### 実測で確認する（目視に頼らない）
+
+リセット漏れは「原本と微妙に違う」形で現れ、目視レビューをすり抜ける。移行後は必ず次を実行する
+（dev サーバー起動状態で。警告があれば終了コード 1）:
+
+```bash
+bun scripts/check-globals-interference.mjs /<page-slug>
+```
+
+検出する干渉:
+
+| 検出項目 | 症状 |
+| --- | --- |
+| `.hero { min-height: 100vh }` / `display:flex` / `justify-content:center` | ヒーローが画面高いっぱいに伸び、中身が上下中央へ押し下げられる（**2026-09-21 に ctal-ta-ch2 で 906px まで膨張**） |
+| `section { padding-top: 5rem }` | 各セクション先頭に 80px の余白 |
+| `section + section { border-top }` | ライト配色ページにダーク用の区切り線が入る |
+| `main { max-width: 1100px }` | 本文幅が勝手に制限される |
+| `.mermaid-wrapper` のダークカード / `max-width: 760px` | 図だけ暗い箱に入り縮小される |
+| 図の左端が overflow コンテナの外 | 横スクロールしても左端に到達できない |
+
+**カード型ヒーロー（原本 HTML が `height` を指定していないヒーロー）を移行したときは、
+必ずページ固有 CSS に次を書く**（`.hero` を再スタイルするだけでは globals の 100vh は消えない）:
+
+```css
+.my-page .hero {
+    min-height: 0;
+    display: block;
+    overflow: visible;
+    /* 以下、原本の背景・角丸・padding */
+}
+```
+
 ### Phase 4: Convert HTML to TSX
 
 1. **Remove** `<html>`, `<head>`, `<body>`, `<style>`, `<script>` — handled by `layout.tsx`
