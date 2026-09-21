@@ -35,7 +35,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全10セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch2-page` スコープ、globals.css干渉リセット）、NavBarを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter2-risk-based-testing`（CTAL-TA 2章 リスクベースドテスト）を追加（全76件）。
-- `tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全5Mermaid図、全14テーブル、全コールアウト、実践演習、全問題集5問、全参考文献12件の存在を検証する厳格なテストスイートを実装して全パス（9 pass / 209 expect()）。
+- `tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全5Mermaid図、全14テーブル、全コールアウト、実践演習、全問題集5問、全参考文献12件の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 215 expect()）。
 - `Ctal-ta-v4.0-ch2.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4.0-ch2.md` は `archive/md-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 76 ページ体制に同期。
 
@@ -57,7 +57,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter1-test-process/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch1-page` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter1-test-process`（CTAL-TA 1章 テストプロセス）を追加（全75件）。
-- `tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx`: TDD 必須サイクルに従い、全19セクションアンカー、全11Mermaid図、全12テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（14 pass / 123 expect()）。
+- `tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx`: TDD 必須サイクルに従い、全19セクションアンカー、全11Mermaid図、全12テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（15 pass / 193 expect()）。
 - `Ctal-ta-v4.0-ch1.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4.0-ch1.md` は `archive/md-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 75 ページ体制に同期。
 
