@@ -3,7 +3,37 @@ import NavBar from './NavBar';
 import { Checklist } from './Checklist';
 import Mermaid from '../../components/Mermaid';
 
-export const DIAGRAM_OVERVIEW = `flowchart LR
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#eff6ff",
+    "primaryBorderColor": "#2563eb",
+    "primaryTextColor": "#1e293b",
+    "lineColor": "#94a3b8",
+    "secondaryColor": "#f1f5f9",
+    "secondaryTextColor": "#1e293b",
+    "tertiaryColor": "#f8fafc",
+    "tertiaryTextColor": "#1e293b",
+    "mainBkg": "#eff6ff",
+    "nodeBorder": "#2563eb",
+    "nodeTextColor": "#1e293b",
+    "textColor": "#1e293b",
+    "titleColor": "#1e40af",
+    "edgeLabelBackground": "#ffffff",
+    "clusterBkg": "#f8fafc",
+    "clusterBorder": "#e2e8f0",
+    "fontFamily": "'Noto Sans JP', sans-serif",
+    "fontSize": "14px"
+  },
+  "flowchart": {
+    "curve": "basis",
+    "htmlLabels": true
+  }
+}}%%`;
+
+export const DIAGRAM_OVERVIEW = `${MERMAID_CONFIG}
+flowchart LR
     subgraph CH1["第1章の3本柱"]
         direction TB
         P1["1.1 SDLCにおけるテスト<br/>開発モデルごとの関わり方"]
@@ -15,7 +45,8 @@ export const DIAGRAM_OVERVIEW = `flowchart LR
     classDef pillar fill:#dbeafe,stroke:#2563eb,color:#1e3a5f,stroke-width:2px
     class P1,P2,P3 pillar`;
 
-export const DIAGRAM_SDLC = `flowchart TB
+export const DIAGRAM_SDLC = `${MERMAID_CONFIG}
+flowchart TB
     subgraph SEQ["① 順次開発モデル(ウォーターフォール型)"]
         direction LR
         S1["初期フェーズ:<br/>テスト計画を支援"] --> S2["テストベース確定時:<br/>テスト分析を開始"]
@@ -40,7 +71,8 @@ export const DIAGRAM_SDLC = `flowchart TB
     class I1,I2,I3 incFill
     class T1,T2,T3 iteFill`;
 
-export const DIAGRAM_PROCESS = `flowchart LR
+export const DIAGRAM_PROCESS = `${MERMAID_CONFIG}
+flowchart LR
     TP["テスト計画"] --> A["テスト分析<br/>(1.2.1)"]
     A --> D["テスト設計<br/>(1.2.2)"]
     D --> I["テスト実装<br/>(1.2.3)"]
@@ -56,7 +88,8 @@ export const DIAGRAM_PROCESS = `flowchart LR
     class A,D,I,E taFocus
     class TP,TC,MC other`;
 
-export const DIAGRAM_ENTRY = `flowchart TD
+export const DIAGRAM_ENTRY = `${MERMAID_CONFIG}
+flowchart TD
     Entry{"テスト分析のエントリ基準"} --> C1["✔ テスト計画が完了し、<br/>スコープ・目的・アプローチが明確"]
     Entry --> C2["✔ テストベースが定義済み"]
     Entry --> C3["✔ 既知のプロダクトリスクが<br/>評価・文書化済み"]
@@ -64,7 +97,8 @@ export const DIAGRAM_ENTRY = `flowchart TD
     classDef cond fill:#eff6ff,stroke:#2563eb,color:#1e3a5f
     class C1,C2,C3 cond`;
 
-export const DIAGRAM_ANALYSIS_FLOW = `flowchart TD
+export const DIAGRAM_ANALYSIS_FLOW = `${MERMAID_CONFIG}
+flowchart TD
     Eval["テストベースを評価し<br/>欠陥を検出・テスト容易性を評価"] --> Model["必要に応じてシステム挙動をモデル化<br/>+ レビュー技法を適用"]
     Model --> Oracle["テストオラクルを決定<br/>(→1.3.4)"]
     Model --> Cond["テスト条件を定義・優先順位付け<br/>(プロダクトリスクを考慮)"]
@@ -75,13 +109,15 @@ export const DIAGRAM_ANALYSIS_FLOW = `flowchart TD
     classDef step fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
     class Eval,Model,Oracle,Cond,Stage1,Stage2,Review step`;
 
-export const DIAGRAM_ENV3 = `flowchart LR
+export const DIAGRAM_ENV3 = `${MERMAID_CONFIG}
+flowchart LR
     E1["① テスト対象の欠陥を<br/>正しく検出できる"] --- E2["② 障害が無いときは<br/>正常に動作する"] --- E3["③ 必要に応じて本番/<br/>エンドユーザー環境を<br/>十分に模倣する"]
 
     classDef envFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
     class E1,E2,E3 envFill`;
 
-export const DIAGRAM_HLLL = `flowchart TD
+export const DIAGRAM_HLLL = `${MERMAID_CONFIG}
+flowchart TD
     HL["ハイレベルテストケース<br/>(抽象的)<br/>1冊以上の注文で割引を適用"] --> LL1["ローレベル①<br/>B1($10)+B2($20)=$30<br/>→10%割引、合計$27"]
     HL --> LL2["ローレベル②<br/>C1($5)+C2($5)=$10<br/>→10%割引、合計$9"]
     HL --> LL3["ローレベル③<br/>…(他のデータパターン)"]
@@ -91,7 +127,8 @@ export const DIAGRAM_HLLL = `flowchart TD
     class HL hlFill
     class LL1,LL2,LL3 llFill`;
 
-export const DIAGRAM_ENVREQ = `flowchart TD
+export const DIAGRAM_ENVREQ = `${MERMAID_CONFIG}
+flowchart TD
     A1["テスト条件・テストケース・<br/>テストデータ要件の分析<br/>→環境構築・維持に必要な条件を導出"]
     A2["テストレベル・テストタイプの分析<br/>→柔軟性 と 本番類似度 のトレードオフを決定"]
     A3["コンポーネント/システムの<br/>可用性・独立性の分析<br/>→テストダブル(スタブ/ドライバ)の要否を判断"]
@@ -99,7 +136,8 @@ export const DIAGRAM_ENVREQ = `flowchart TD
     classDef anaFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
     class A1,A2,A3 anaFill`;
 
-export const DIAGRAM_ORACLE = `flowchart TD
+export const DIAGRAM_ORACLE = `${MERMAID_CONFIG}
+flowchart TD
     Problem(["テストオラクル問題<br/>費用対効果の高いオラクルが<br/>得られない状況"]) --> Cause1["データに関する複雑性"]
     Problem --> Cause2["非決定性<br/>(例:AIベースシステム)"]
     Problem --> Cause3["確率的な振る舞い"]
@@ -108,7 +146,8 @@ export const DIAGRAM_ORACLE = `flowchart TD
     classDef causeFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
     class Cause1,Cause2,Cause3,Cause4 causeFill`;
 
-export const DIAGRAM_KEYWORD = `flowchart TD
+export const DIAGRAM_KEYWORD = `${MERMAID_CONFIG}
+flowchart TD
     UserStory["ユーザーストーリー例:<br/>「会員として認証し、施設にアクセスしたい」<br/>受け入れ基準:「有効な会員カードで認証可能」"] --> Domain["ドメイン層キーワード<br/>ビジネス用語を反映、技術詳細から独立"]
     Domain --> DK1["Authenticate Member<br/>(アクションキーワード)<br/>パラメータ:会員カード"]
     Domain --> DK2["Verify Access<br/>(検証キーワード)"]
@@ -121,7 +160,8 @@ export const DIAGRAM_KEYWORD = `flowchart TD
     class Domain,DK1,DK2 domainFill
     class Interface ifFill`;
 
-export const DIAGRAM_TOOLS = `flowchart TD
+export const DIAGRAM_TOOLS = `${MERMAID_CONFIG}
+flowchart TD
     TA(("テストアナリスト")) --> T1["テスト管理ツール<br/>条件/ケース/スクリプト/<br/>スイート/実行結果のリポジトリ<br/>トレーサビリティマトリクス"]
     TA --> T2["欠陥管理ツール<br/>記録・優先順位付け・<br/>解決プロセスの監視"]
     TA --> T3["テストデータ管理ツール<br/>機密データの保護含む"]
@@ -376,7 +416,7 @@ export default function Page() {
 
                 {/* 1.2 テスト活動への関与 */}
                 <section id="sec12">
-                    <h2>1.2 テスト活動への関与 <span class="badge-k">K2</span></h2>
+                    <h2>1.2 テスト活動への関与 <span className="badge-k">K2</span></h2>
                     <p>
                         Foundation Levelでは7つのテスト活動が定義されていますが、TAは主に<strong>テスト分析・テスト設計・テスト実装・テスト実行</strong>の4つに集中して関与します。
                     </p>
@@ -706,7 +746,7 @@ export default function Page() {
                     </div>
 
                     <h3 id="sec132">
-                        1.3.2 テストケースの品質基準 <span class="badge-k">K2</span>
+                        1.3.2 テストケースの品質基準 <span className="badge-k">K2</span>
                     </h3>
                     <p>
                         テストケースの品質を軽視すると、高い保守コスト・理解しづらさ・実行遅延を招きます。以下の9つの基準が「保守しやすいテストケース」への第一歩です。
@@ -815,7 +855,7 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <h3 id="sec133">1.3.3 テスト環境要件 <span class="badge-k">K2</span></h3>
+                    <h3 id="sec133">1.3.3 テスト環境要件 <span className="badge-k">K2</span></h3>
                     <p>
                         <strong>なぜ重要か:</strong>
                         テスト環境の実装品質は、テスト容易性・欠陥検出力・総テストコスト・<strong>テスト結果の信頼性</strong>に直接影響します。理想的なテスト環境は「テスト環境で合格/不合格になった結果が本番でも同じ結果になる」ことを目指す理想像であり、実際にはテストレベル・テストタイプごとに本番環境との類似度と柔軟性のトレードオフを分析し、各テスト環境項目の忠実度と残存する差異を管理していくことが求められます。
@@ -878,7 +918,7 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <h3 id="sec134">1.3.4 テストオラクルの決定 <span class="badge-k">K2</span></h3>
+                    <h3 id="sec134">1.3.4 テストオラクルの決定 <span className="badge-k">K2</span></h3>
                     <p>
                         <strong>定義:</strong>
                         テストオラクルとは、動的テストにおいて「期待結果を判定するための拠り所」です。理想的にはテストベース自体(仕様書等)がオラクルを提供しますが、それが難しい場合は他の手段が必要になります。
@@ -960,7 +1000,7 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <h3 id="sec135">1.3.5 テストデータ要件 <span class="badge-k">K2</span></h3>
+                    <h3 id="sec135">1.3.5 テストデータ要件 <span className="badge-k">K2</span></h3>
                     <p>
                         <strong>定義:</strong>
                         テスト設計時にTAが特定・要求するデータで、その目的・形式・利用文脈まで考慮する必要があります(ISO/IEC/IEEE 29119-3, 8.5節も参照)。
@@ -1181,7 +1221,7 @@ export default function Page() {
                     </div>
 
                     <h3 id="sec137">
-                        1.3.7 テストウェア管理に使うツール <span class="badge-k">K2</span>
+                        1.3.7 テストウェア管理に使うツール <span className="badge-k">K2</span>
                     </h3>
                     <div className="mermaid-wrap">
                         <Mermaid chart={DIAGRAM_TOOLS} />

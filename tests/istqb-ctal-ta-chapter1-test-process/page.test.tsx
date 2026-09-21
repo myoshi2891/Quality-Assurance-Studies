@@ -1,5 +1,7 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
 import { render, cleanup, fireEvent } from '@testing-library/react';
+import { readFileSync } from 'fs';
+import path from 'path';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page, {
@@ -370,6 +372,68 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 4: Checklist and References', () => 
         const footerNote = refSec?.querySelector('.footer-note');
         expect(footerNote?.textContent).toContain('免責事項:');
         expect(footerNote?.textContent).toContain('International Software Testing Qualifications Board');
+    });
+});
+
+describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border contrast, mermaid edge labels', () => {
+    it('uses className (not the invalid DOM prop `class`) for all K2 badge spans', () => {
+        const pageSrc = readFileSync(
+            path.join(process.cwd(), 'app/istqb-ctal-ta-chapter1-test-process/page.tsx'),
+            'utf-8',
+        );
+        // JSX must never use the raw HTML `class` attribute — React warns
+        // "Invalid DOM property `class`. Did you mean `className`?" for it.
+        expect(pageSrc).not.toMatch(/<span class="badge-k">/);
+        const classNameBadgeCount = (pageSrc.match(/<span className="badge-k">/g) ?? []).length;
+        expect(classNameBadgeCount).toBe(10);
+    });
+
+    it('gives the sidebar a visibly contrasted right border instead of the low-contrast --border token', () => {
+        const cssSrc = readFileSync(
+            path.join(
+                process.cwd(),
+                'app/istqb-ctal-ta-chapter1-test-process/istqb-ctal-ta-chapter1-test-process.css',
+            ),
+            'utf-8',
+        );
+        const sidebarBlock = cssSrc.match(/\.ctal-ta-ch1-page \.sidebar \{[^}]*\}/)?.[0];
+        expect(sidebarBlock).toBeDefined();
+        expect(sidebarBlock).not.toMatch(/border-right:\s*1px solid var\(--border\)/);
+        expect(sidebarBlock).toMatch(/border-right:\s*2px solid var\(--border-strong\)/);
+    });
+
+    it('prefixes all 11 mermaid diagrams with a light "base" theme init directive so edge labels stay white', () => {
+        const diagrams = [
+            DIAGRAM_OVERVIEW,
+            DIAGRAM_SDLC,
+            DIAGRAM_PROCESS,
+            DIAGRAM_ENTRY,
+            DIAGRAM_ANALYSIS_FLOW,
+            DIAGRAM_ENV3,
+            DIAGRAM_HLLL,
+            DIAGRAM_ENVREQ,
+            DIAGRAM_ORACLE,
+            DIAGRAM_KEYWORD,
+            DIAGRAM_TOOLS,
+        ];
+        for (const diagram of diagrams) {
+            expect(diagram.trimStart()).toMatch(/^%%\{init:/);
+            expect(diagram).toContain('"theme": "base"');
+            expect(diagram).toContain('"edgeLabelBackground": "#ffffff"');
+        }
+    });
+
+    it('protects mermaid edge labels from a black background via CSS safety-net selectors', () => {
+        const cssSrc = readFileSync(
+            path.join(
+                process.cwd(),
+                'app/istqb-ctal-ta-chapter1-test-process/istqb-ctal-ta-chapter1-test-process.css',
+            ),
+            'utf-8',
+        );
+        expect(cssSrc).toContain('.edgeLabel p');
+        expect(cssSrc).toContain('.edgeLabels .label');
+        expect(cssSrc).toMatch(/\.edgeLabel rect[^{]*\{[^}]*fill:\s*#ffffff/);
     });
 });
 
