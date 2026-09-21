@@ -50,32 +50,33 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
         const { container } = render(<Page />);
         const eyebrow = container.querySelector('.eyebrow');
         expect(eyebrow).toBeDefined();
-        expect(eyebrow?.textContent).toContain('ISTQB CTAL-TA v4.0 完全学習ガイド');
+        expect(eyebrow?.textContent).toContain('ISTQB® Certified Tester Advanced Level Test Analyst');
 
         const h1 = container.querySelector('h1');
         expect(h1).toBeDefined();
         expect(h1?.textContent).toBe('第2章：リスクベースドテストにおけるテストアナリストの役割');
 
         const heroDesc = container.querySelector('.hero-desc');
-        expect(heroDesc?.textContent).toContain('JSTQB / ISTQB Certified Tester Advanced Level Test Analyst (CTAL-TA) シラバス v4.0 に完全準拠した学習ガイドです。');
+        expect(heroDesc?.textContent).toContain('初学者〜中級QAエンジニア向け。図解・具体例・ベストプラクティス付きで、ステップバイステップに解説します。');
 
         const pills = container.querySelectorAll('.hero-pills .pill');
-        expect(pills.length).toBe(4);
-        expect(pills[0]?.textContent).toBe('⏱ 学習時間目安: 90分');
-        expect(pills[1]?.textContent).toBe('🎯 対象K-Level: K2 / K4');
+        expect(pills.length).toBe(5);
+        expect(pills[0]?.textContent).toBe('⏱ 学習時間 90分 / 全1215分');
+        expect(pills[1]?.textContent).toBe('🎯 学習目標 2件（K2・K4）');
         expect(pills[2]?.textContent).toBe('🖼 Mermaid図解 5点');
-        expect(pills[3]?.textContent).toBe('📚 対象シラバス: CTAL-TA v4.0');
+        expect(pills[3]?.textContent).toBe('🔗 参考文献 12件');
+        expect(pills[4]?.textContent).toBe('🚫 ASCIIアート不使用');
 
         const metaItems = container.querySelectorAll('.meta-grid .meta-item');
         expect(metaItems.length).toBe(4);
-        expect(metaItems[0]?.textContent).toContain('対象読者');
-        expect(metaItems[0]?.textContent).toContain('CTAL-TA受験者');
-        expect(metaItems[1]?.textContent).toContain('前提知識');
-        expect(metaItems[1]?.textContent).toContain('CTFL v4.0合格レベル');
-        expect(metaItems[2]?.textContent).toContain('本章の最重要ポイント');
-        expect(metaItems[2]?.textContent).toContain('TAはリスク分析の「意思決定者」ではなく「貢献者」であること');
-        expect(metaItems[3]?.textContent).toContain('推奨学習法');
-        expect(metaItems[3]?.textContent).toContain('5章の実践演習でインパクト分析の判断プロセスを追体験する');
+        expect(metaItems[0]?.textContent).toContain('対象範囲');
+        expect(metaItems[0]?.textContent).toContain('Chapter 2');
+        expect(metaItems[1]?.textContent).toContain('前提資格');
+        expect(metaItems[1]?.textContent).toContain('ISTQB® Foundation Level');
+        expect(metaItems[2]?.textContent).toContain('想定読者');
+        expect(metaItems[2]?.textContent).toContain('ソフトウェアテスト初学者〜中級のQAエンジニア');
+        expect(metaItems[3]?.textContent).toContain('本ガイドの立ち位置');
+        expect(metaItems[3]?.textContent).toContain('公式シラバスv4.0 PDF');
     });
 
     it('renders sidebar navigation with all 17 anchor links and handles mobile toggle', () => {
@@ -209,7 +210,8 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
 
         // Scenario Callout
         const scenario = sec2?.querySelector('.scenario');
-        expect(scenario?.textContent).toContain('本ガイドの統一シナリオ');
-        expect(scenario?.textContent).toContain('ECサイト クーポン二重適用バグ修正');
+        expect(scenario?.textContent).toContain('シナリオ：');
+        expect(scenario?.textContent).toContain('あなたはECサイトのカート・決済機能を担当するテストアナリストです');
+        expect(scenario?.textContent).toContain('割引金額の自動計算ロジック');
     });
 });
