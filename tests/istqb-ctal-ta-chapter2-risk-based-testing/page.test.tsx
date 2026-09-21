@@ -5,6 +5,7 @@ import React from 'react';
 import Page, {
     DIAGRAM_CHAPTER_POSITION,
     DIAGRAM_RBT_CYCLE,
+    DIAGRAM_RISK_FACTORS,
 } from '../../app/istqb-ctal-ta-chapter2-risk-based-testing/page';
 import NavBar from '../../app/istqb-ctal-ta-chapter2-risk-based-testing/NavBar';
 
@@ -213,5 +214,70 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
         expect(scenario?.textContent).toContain('シナリオ：');
         expect(scenario?.textContent).toContain('あなたはECサイトのカート・決済機能を担当するテストアナリストです');
         expect(scenario?.textContent).toContain('割引金額の自動計算ロジック');
+    });
+
+    it('renders Section 3: Risk Analysis (Identification & Assessment)', () => {
+        const { container } = render(<Page />);
+        const sec3 = container.querySelector('#sec3');
+        expect(sec3).toBeDefined();
+
+        const h2 = sec3?.querySelector('h2');
+        expect(h2?.textContent).toContain('3. 2.1 リスク分析（Risk Analysis）');
+        expect(h2?.querySelector('.klevel.k2')?.textContent).toBe('K2');
+
+        const loBox = sec3?.querySelector('.lo-box');
+        expect(loBox?.textContent).toContain('TA-2.1.1 (K2)');
+        expect(loBox?.textContent).toContain('テストアナリストのプロダクトリスク分析への貢献を要約できる');
+
+        const h3s = Array.from(sec3?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3s).toContain('3.1 リスク識別（Risk Identification）');
+        expect(h3s).toContain('3.2 リスクアセスメント（Risk Assessment）');
+
+        // Check 4 Tables in Section 3
+        const tables = sec3?.querySelectorAll('table');
+        expect(tables?.length).toBe(4);
+
+        // Table 6: TA contribution activities (5 rows)
+        const t6Rows = tables?.[0]?.querySelectorAll('tbody tr');
+        expect(t6Rows?.length).toBe(5);
+        expect(t6Rows?.[0]?.textContent).toContain('レトロスペクティブ');
+        expect(t6Rows?.[4]?.textContent).toContain('ステークホルダーへのインタビュー');
+
+        // Table 7: 5 Risk factors (5 rows)
+        const t7Rows = tables?.[1]?.querySelectorAll('tbody tr');
+        expect(t7Rows?.length).toBe(5);
+        expect(t7Rows?.[0]?.textContent).toContain('機能の使用頻度・重要度');
+        expect(t7Rows?.[4]?.textContent).toContain('法的・安全上の要求');
+
+        // Diagram 3: Risk Factors to Test Activities
+        expect(DIAGRAM_RISK_FACTORS).toBeDefined();
+        expect(DIAGRAM_RISK_FACTORS).toContain('flowchart TD');
+        expect(DIAGRAM_RISK_FACTORS).toContain('リスクレベルを判定');
+        expect(DIAGRAM_RISK_FACTORS).toContain('高リスク');
+        expect(DIAGRAM_RISK_FACTORS).toContain('中リスク');
+        expect(DIAGRAM_RISK_FACTORS).toContain('低リスク');
+
+        // Table 8: Risk ID R-01 to R-03 level determination (3 rows)
+        const t8Rows = tables?.[2]?.querySelectorAll('tbody tr');
+        expect(t8Rows?.length).toBe(3);
+        expect(t8Rows?.[0]?.textContent).toContain('R-01');
+        expect(t8Rows?.[0]?.querySelector('.risk-high')?.textContent).toBe('高');
+        expect(t8Rows?.[1]?.textContent).toContain('R-02');
+        expect(t8Rows?.[1]?.querySelector('.risk-mid')?.textContent).toBe('中');
+        expect(t8Rows?.[2]?.textContent).toContain('R-03');
+        expect(t8Rows?.[2]?.querySelector('.risk-low')?.textContent).toBe('低');
+
+        // Table 9: Risk ID to Proposed test activities (3 rows)
+        const t9Rows = tables?.[3]?.querySelectorAll('tbody tr');
+        expect(t9Rows?.length).toBe(3);
+        expect(t9Rows?.[0]?.textContent).toContain('決定テーブル');
+        expect(t9Rows?.[1]?.textContent).toContain('シナリオベーステスト');
+        expect(t9Rows?.[2]?.textContent).toContain('探索的テスト');
+
+        // Practices (2 callouts in Section 3)
+        const practices = sec3?.querySelectorAll('.callout-practice');
+        expect(practices?.length).toBe(2);
+        expect(practices?.[0]?.textContent).toContain('受け身にならず、自ら発言する');
+        expect(practices?.[1]?.textContent).toContain('リスクを均一に扱わない');
     });
 });
