@@ -149,10 +149,14 @@
         max-width: 760px;
     }
     /* SVG サイズは applySvgFixups（JS）が width:${w}px + maxWidth:100% で制御する。
-       CSS は「JS より広い場合に縮小」するフォールバックのみ（width は !important なし）。 */
+       CSS は「JS より広い場合に縮小」するフォールバックのみ。
+       ⚠️ ここで !important を使ってはならない。globals.css は @layer の中にあり、
+       CSS の仕様上 !important 宣言だけはレイヤー順が逆転する（レイヤー内 > レイヤー外）。
+       ページ固有 CSS はレイヤー外に書かれるため、ここに !important を付けると
+       ページ側が `max-width: none !important` と書いても永久に上書きできなくなる。 */
     .mermaid-wrapper svg {
-        max-width: 100% !important;
-        height: auto !important;
+        max-width: 100%;
+        height: auto;
         display: block;
         margin: 0 auto;
     }
