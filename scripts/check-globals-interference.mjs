@@ -94,13 +94,18 @@ try {
             }
         }
 
+        // 先頭2つだけでは、途中のセクションだけリセットが漏れているケースを取りこぼす
         const sections = [...document.querySelectorAll('section')];
-        if (sections[0] && getComputedStyle(sections[0]).paddingTop === '80px') {
-            push('warn', 'section padding-top:5rem', 'globals の section { padding-top: 5rem } が残存');
-        }
-        if (sections[1] && parseFloat(getComputedStyle(sections[1]).borderTopWidth) > 0) {
-            push('info', 'section + section border-top', 'globals の区切り線が残存（ライト配色ページでは浮くことが多い）');
-        }
+        sections.forEach((section, index) => {
+            const cs = getComputedStyle(section);
+            if (cs.paddingTop === '80px') {
+                push('warn', `section[${index}] padding-top:5rem`, 'globals の section { padding-top: 5rem } が残存');
+            }
+            // border-top は section + section セレクタ由来なので2つ目以降のみ対象
+            if (index > 0 && parseFloat(cs.borderTopWidth) > 0) {
+                push('info', `section[${index}] + section border-top`, 'globals の区切り線が残存（ライト配色ページでは浮くことが多い）');
+            }
+        });
 
         const main = document.querySelector('main');
         if (main && getComputedStyle(main).maxWidth === '1100px') {
