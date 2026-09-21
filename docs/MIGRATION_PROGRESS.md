@@ -21,11 +21,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/21: ISTQB CTAL-TA v4.0 第2章（リスクベースドテストにおけるテストアナリストの役割）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のテーマ（`--bg: #07131e`、`--bg-card: #0d1e30`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--text: #1e293b` 等）を忠実に復元。
+  - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #f1f5f9`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--accent-soft: #eff6ff`、`--text: #1e293b`、`--text-dim: #5b6b81` 等）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: #ffffff !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.qa-card`、`.table-wrap`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
   - スティッキーナビ（`NavBar.tsx`、全10セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch2-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
-  - 全5図解（全体マップ `DIAGRAM_CHAPTER_MAP`、RBTサイクル `DIAGRAM_RBT_CYCLE`、リスク分析ステップ `DIAGRAM_RISK_ANALYSIS_STEPS`、テスト技法選定と有効性評価サイクル `DIAGRAM_TECHNIQUE_SELECTION_CYCLE`、変更影響分析の8ステップ `DIAGRAM_IMPACT_ANALYSIS_STEPS`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - 全5図解（章の位置づけ `DIAGRAM_CHAPTER_POSITION`、RBTサイクル `DIAGRAM_RBT_CYCLE`、リスクレベル判定要因 `DIAGRAM_RISK_FACTORS`、回帰テスト技法の選択 `DIAGRAM_REGRESSION_SELECTION`、変更影響分析の8ステップ `DIAGRAM_IMPACT_ANALYSIS_STEPS`）を共通 `<Mermaid>` コンポーネントへ移植。
   - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
 - **テーブル & 実践演習・問題集**:
   - 全14テーブル（リスク定義比較、製品リスク11分類、プロジェクトリスク8分類、TA/TTA分担、チェックリスト5分類、定量的vs定性的、リスクマトリクス、ステークホルダー、軽減策4分類、残留リスク3分類、適用タイミング、品質特性6分類、技法組合せ、影響分析8ステップ）を完全移植。
@@ -42,7 +42,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/21: ISTQB CTAL-TA v4.0 第1章（テストプロセスにおけるテストアナリストのタスク）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のテーマ（`--bg: #07131e`、`--bg-card: #0d1e30`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--text: #1e293b` 等）を忠実に復元。
+  - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #ffffff`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--text: #1e293b` 等）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: var(--bg-card) !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card` 装飾、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
   - スティッキーナビ（`NavBar.tsx`、全16セクションアンカー、スクロールスパイ、モバイルトグル対応）とメイン領域（`.ctal-ta-ch1-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
@@ -50,7 +50,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **コードブロック & インラインコード**:
   - キーワード駆動テストのアンチパターン（`<code>ClickButton3</code>`）および各項目のインラインコード装飾を正確に移植。
 - **テーブル & インタラクティブチェックリスト**:
-  - 全9テーブル（SDLC 3モデル比較、テスト設計タスク、テスト実行追加タスク、ハイ/ローレベル比較、品質基準9項目、テスト環境5属性、オラクル5解決策、テストデータ10考慮事項、キーワード駆動2分類、キーワード6条件、管理ツール5種、規格・関連文書表）を完全移植。
+  - 全12テーブル（SDLC 3モデル比較、テスト設計タスク、テスト実行追加タスク、ハイ/ローレベル比較、品質基準9項目、テスト環境5属性、オラクル5解決策、テストデータ10考慮事項、キーワード駆動2分類、キーワード6条件、管理ツール5種、規格・関連文書表）を完全移植。
   - 章末チェックリスト（`Checklist.tsx`、全11項目動的カウンター `0 / 11 完了`・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 公式一次情報4件（公式試験ページ、シラバスPDF全77ページ、用語集、FAQ）および規格関連文書表、免責事項を完全移植。
