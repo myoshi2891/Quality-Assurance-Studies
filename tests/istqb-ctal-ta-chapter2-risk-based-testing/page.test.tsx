@@ -6,6 +6,7 @@ import Page, {
     DIAGRAM_CHAPTER_POSITION,
     DIAGRAM_RBT_CYCLE,
     DIAGRAM_RISK_FACTORS,
+    DIAGRAM_REGRESSION_SELECTION,
 } from '../../app/istqb-ctal-ta-chapter2-risk-based-testing/page';
 import NavBar from '../../app/istqb-ctal-ta-chapter2-risk-based-testing/NavBar';
 
@@ -279,5 +280,64 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
         expect(practices?.length).toBe(2);
         expect(practices?.[0]?.textContent).toContain('受け身にならず、自ら発言する');
         expect(practices?.[1]?.textContent).toContain('リスクを均一に扱わない');
+    });
+
+    it('renders Section 4: Risk Control & Regression Test Selection Techniques (K4)', () => {
+        const { container } = render(<Page />);
+        const sec4 = container.querySelector('#sec4');
+        expect(sec4).toBeDefined();
+
+        const h2 = sec4?.querySelector('h2');
+        expect(h2?.textContent).toContain('4. 2.2 リスクコントロール（Risk Control）');
+        expect(h2?.querySelector('.klevel.k4')?.textContent).toBe('K4');
+
+        const loBox = sec4?.querySelector('.lo-box');
+        expect(loBox?.textContent).toContain('TA-2.2.1 (K4)');
+        expect(loBox?.textContent).toContain('変更の影響を分析し、回帰テストの対象範囲を決定できる');
+
+        const h3s = Array.from(sec4?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3s).toContain('4.1 リスク軽減（Risk Mitigation）を構成する4つのアクション');
+        expect(h3s).toContain('4.2 回帰テスト（Regression Testing）の目的と現実的な制約');
+        expect(h3s).toContain('4.3 回帰テスト選択技法：6つのアプローチを徹底解説');
+        expect(h3s).toContain('4.4 複数技法の組み合わせと継続的な改善');
+        expect(h3s).toContain('4.5 リスクモニタリング（Risk Monitoring）');
+
+        // Check 2 Tables in Section 4
+        const tables = sec4?.querySelectorAll('table');
+        expect(tables?.length).toBe(2);
+
+        // Table 10: 4 Risk mitigation actions (4 rows)
+        const t10Rows = tables?.[0]?.querySelectorAll('tbody tr');
+        expect(t10Rows?.length).toBe(4);
+        expect(t10Rows?.[0]?.textContent).toContain('レビューの実施');
+        expect(t10Rows?.[3]?.textContent).toContain('回帰テストの実施');
+
+        // Check 6 techniques under 4.3
+        const h4s = Array.from(sec4?.querySelectorAll('h4') || []).map((h) => h.textContent);
+        expect(h4s).toContain('技法①：インパクト分析（Impact Analysis）');
+        expect(h4s).toContain('技法②：リスクベース選択（Risk-Based Test Selection）');
+        expect(h4s).toContain('技法③：履歴ベーステスト（History-Based Testing）');
+        expect(h4s).toContain('技法④：カバレッジベーステスト（Coverage-Based Testing）');
+        expect(h4s).toContain('技法⑤：要求トレーサビリティマトリクス（Requirement Traceability Matrix）');
+        expect(h4s).toContain('技法⑥：運用プロファイルベーステスト（Testing Based on Operational Profiles）');
+        expect(h4s).toContain('6技法の比較表');
+
+        // Table 11: 6 techniques comparison (6 rows)
+        const t11Rows = tables?.[1]?.querySelectorAll('tbody tr');
+        expect(t11Rows?.length).toBe(6);
+        expect(t11Rows?.[0]?.textContent).toContain('インパクト分析');
+        expect(t11Rows?.[5]?.textContent).toContain('運用プロファイルベーステスト');
+
+        // Diagram 4: Regression Selection and Evaluation
+        expect(DIAGRAM_REGRESSION_SELECTION).toBeDefined();
+        expect(DIAGRAM_REGRESSION_SELECTION).toContain('flowchart TD');
+        expect(DIAGRAM_REGRESSION_SELECTION).toContain('テスト実行方式は？');
+        expect(DIAGRAM_REGRESSION_SELECTION).toContain('インパクト分析');
+        expect(DIAGRAM_REGRESSION_SELECTION).toContain('回帰テストスイートの確定');
+
+        // Practice callout
+        const practice = sec4?.querySelector('.callout-practice');
+        expect(practice?.textContent).toContain('リスクレジスタを"生きたドキュメント"として扱う');
+        expect(practice?.textContent).toContain('技法の組み合わせを前提にする');
     });
 });
