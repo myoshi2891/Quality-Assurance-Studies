@@ -9,6 +9,11 @@ import Page, {
     DIAGRAM_ENTRY,
     DIAGRAM_ANALYSIS_FLOW,
     DIAGRAM_ENV3,
+    DIAGRAM_HLLL,
+    DIAGRAM_ENVREQ,
+    DIAGRAM_ORACLE,
+    DIAGRAM_KEYWORD,
+    DIAGRAM_TOOLS,
 } from '../../app/istqb-ctal-ta-chapter1-test-process/page';
 import NavBar from '../../app/istqb-ctal-ta-chapter1-test-process/NavBar';
 
@@ -199,8 +204,6 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 2: Section 1.1 (SDLC) & Section 1.2 
         // 1.2.2 Test Design
         const sec122 = container.querySelector('#sec122');
         expect(sec122?.textContent).toContain('1.2.2 テスト設計');
-        const designTable = sec122?.nextElementSibling?.nextElementSibling; // table scroll
-        expect(sec122).toBeDefined();
 
         // 1.2.3 Test Implementation
         const sec123 = container.querySelector('#sec123');
@@ -214,11 +217,99 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 2: Section 1.1 (SDLC) & Section 1.2 
         const sec124 = container.querySelector('#sec124');
         expect(sec124?.textContent).toContain('1.2.4 テスト実行');
         const execTable = sec12?.querySelectorAll('table');
-        // Total tables in sec12: design table (7 rows) + exec table (6 rows) = 2 tables
         expect(execTable?.length).toBe(2);
         const execRows = execTable?.[1]?.querySelectorAll('tbody tr');
         expect(execRows?.length).toBe(6);
         expect(execRows?.[0]?.textContent).toContain('欠陥クラスタの認識');
         expect(execRows?.[1]?.textContent).toContain('失敗した自動テストの手動再実行');
+    });
+});
+
+describe('CTAL-TA v4.0 Chapter 1 - Category 3: Section 1.3 (Work Products Tasks 1.3.1 - 1.3.7)', () => {
+    it('renders Section 1.3: high/low test cases, quality criteria, environment, oracle, data, keywords, tools', () => {
+        const { container } = render(<Page />);
+        const sec13 = container.querySelector('#sec13');
+        expect(sec13).toBeDefined();
+
+        const h2 = sec13?.querySelector('h2');
+        expect(h2?.textContent).toContain('1.3 成果物(work products)に関するタスク');
+        expect(h2?.textContent).toContain('K2 / K3');
+
+        // 1.3.1 High/Low level test cases
+        const sec131 = container.querySelector('#sec131');
+        expect(sec131?.textContent).toContain('1.3.1 ハイレベルテストケースとローレベルテストケース');
+        expect(DIAGRAM_HLLL).toBeDefined();
+        expect(DIAGRAM_HLLL).toContain('ハイレベルテストケース');
+        expect(DIAGRAM_HLLL).toContain('ローレベル①');
+
+        // 1.3.2 Quality criteria
+        const sec132 = container.querySelector('#sec132');
+        expect(sec132?.textContent).toContain('1.3.2 テストケースの品質基準');
+
+        // 1.3.3 Environment requirements
+        const sec133 = container.querySelector('#sec133');
+        expect(sec133?.textContent).toContain('1.3.3 テスト環境要件');
+        expect(DIAGRAM_ENVREQ).toBeDefined();
+        expect(DIAGRAM_ENVREQ).toContain('テスト条件・テストケース・');
+
+        // 1.3.4 Test oracle
+        const sec134 = container.querySelector('#sec134');
+        expect(sec134?.textContent).toContain('1.3.4 テストオラクルの決定');
+        expect(DIAGRAM_ORACLE).toBeDefined();
+        expect(DIAGRAM_ORACLE).toContain('テストオラクル問題');
+
+        // 1.3.5 Test data
+        const sec135 = container.querySelector('#sec135');
+        expect(sec135?.textContent).toContain('1.3.5 テストデータ要件');
+
+        // 1.3.6 Keyword-driven testing
+        const sec136 = container.querySelector('#sec136');
+        expect(sec136?.textContent).toContain('1.3.6 キーワード駆動テストによるテストスクリプト開発');
+        expect(sec136?.querySelector('.badge-k')?.textContent).toBe('K3');
+        expect(DIAGRAM_KEYWORD).toBeDefined();
+        expect(DIAGRAM_KEYWORD).toContain('ドメイン層キーワード');
+        expect(DIAGRAM_KEYWORD).toContain('テストインタフェース層キーワード');
+
+        // Inline code ClickButton3 anti-pattern
+        const codeSnippet = sec13?.querySelector('code');
+        expect(codeSnippet?.textContent).toBe('ClickButton3');
+
+        // 1.3.7 Management tools
+        const sec137 = container.querySelector('#sec137');
+        expect(sec137?.textContent).toContain('1.3.7 テストウェア管理に使うツール');
+        expect(DIAGRAM_TOOLS).toBeDefined();
+        expect(DIAGRAM_TOOLS).toContain('テスト管理ツール');
+        expect(DIAGRAM_TOOLS).toContain('欠陥管理ツール');
+        expect(DIAGRAM_TOOLS).toContain('要件管理ツール');
+
+        // Verify total tables in Section 1.3 (7 tables)
+        const tables = sec13?.querySelectorAll('table');
+        expect(tables?.length).toBe(7);
+
+        // Quality criteria table (9 criteria)
+        const qcRows = tables?.[1]?.querySelectorAll('tbody tr');
+        expect(qcRows?.length).toBe(9);
+        expect(qcRows?.[0]?.textContent).toContain('正確性 (Correctness)');
+        expect(qcRows?.[8]?.textContent).toContain('簡潔性 (Conciseness)');
+
+        // Env 5 attributes table
+        const envRows = tables?.[2]?.querySelectorAll('tbody tr');
+        expect(envRows?.length).toBe(5);
+
+        // Oracle 5 solutions table
+        const oracleRows = tables?.[3]?.querySelectorAll('tbody tr');
+        expect(oracleRows?.length).toBe(5);
+
+        // Test data 10 considerations table
+        const dataRows = tables?.[4]?.querySelectorAll('tbody tr');
+        expect(dataRows?.length).toBe(10);
+
+        // Keyword 2 classifications table
+        const kwTypeRows = tables?.[5]?.querySelectorAll('tbody tr');
+        expect(kwTypeRows?.length).toBe(2);
+
+        // Keyword 6 conditions table
+        const kwCondRows = tables?.[6]?.querySelectorAll('tbody tr');
+        expect(kwCondRows?.length).toBe(6);
     });
 });
