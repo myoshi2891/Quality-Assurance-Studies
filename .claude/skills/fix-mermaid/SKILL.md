@@ -201,7 +201,7 @@ mermaid.initialize({
 **この既存バグが疑われる場合の機械的な検知方法**（ブラウザなしで確認できる）:
 
 ```bash
-rg -n "fontFamily.*'" --glob "app/**/page.tsx"
+rg -n --glob 'page.tsx' "fontFamily.*'" app
 ```
 
 1件でもヒットしたら、そのページの Mermaid 図はテーマ上書きが機能しておらず共通ダークテーマの
@@ -288,8 +288,7 @@ flowchart LR
 5. **`MERMAID_CONFIG` 内にシングルクォートが無いことを確認する**（上記の致命的バグの再確認）:
 
    ```bash
-   grep -n "'" app/<page-slug>/page.tsx | grep -A0 -B0 MERMAID_CONFIG
-   # または MERMAID_CONFIG 定義ブロックだけを取り出して確認する
+   # MERMAID_CONFIG 定義ブロックだけを取り出してシングルクォートを探す
    sed -n '/const MERMAID_CONFIG = `/,/`;/p' app/<page-slug>/page.tsx | grep "'"
    ```
 
