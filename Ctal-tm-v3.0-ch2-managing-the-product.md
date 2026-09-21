@@ -2,7 +2,7 @@
 
 > ISTQB® Certified Tester Advanced Level Test Management（CTAL-TM）v3.0 の **第2章 Managing the Product（JSTQB日本語版の章題：プロダクトのマネジメント、390分）** を、初学者向けに「なぜ → 何を → どうやって → 落とし穴」の順で解説します。
 > 各項目に **ベストプラクティス** と **出典（URL・シラバス該当ページ）** を付けています。
-> 参照日：2026-09-21 ／ 根拠：ISTQB 英語版シラバス v3.0（2024/05/03 発行）と JSTQB 日本語版 Version3.0.J01（2025/07/08）
+> 参照日：2026-09-21 ／ 根拠：ISTQB 英語版シラバス v3.0（2024/05/03 発行）と JSTQB 日本語版 Version3.0.J04（2026/06 掲載）
 
 ---
 
@@ -29,7 +29,7 @@
 | JSTQB（日本語版シラバス） | 第2章：プロダクトのマネジメント |
 | 学習時間（認定トレーニングの最低時間） | 390分（全体 1,365分＝22.75時間の約29％） |
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) の 0.10 節（p.14〜15）、第2章冒頭（p.49）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) の 0.10 節（p.14〜15）、第2章冒頭（p.49）
 
 ### 1.2 第2章で学ぶ3つのテーマ
 
@@ -73,7 +73,7 @@ flowchart LR
 | TM-2.3.5 | 欠陥マネジメントで収集すべきデータと分類情報を利用する | **K3** | 手順を適用できるか |
 | TM-2.3.6 | 欠陥レポートの統計情報がプロセス改善の考案にどう使えるか説明する | K2 | 説明できるか |
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 第2章「第2章の学習の目的」（p.49）、付録A（p.78〜80）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 第2章「第2章の学習の目的」（p.49）、付録A（p.78〜80）
 
 ### 1.4 K1 として暗記するキーワード
 
@@ -92,7 +92,7 @@ flowchart LR
 | | 三点見積り | three-point estimation |
 | | ワイドバンドデルファイ | wideband Delphi |
 
-> 💡 **学習のヒント**：「不正 → 故障 → 欠陥」の関係を最初に押さえると2.3が楽になります。テスト担当者が観察した「期待結果と実際の結果の食い違い」が**不正**、欠陥が動的テストで表面化したものが**故障**、原因となる作業成果物の誤りが**欠陥**です（この段階ではまだ欠陥かどうか分からないため、不正と呼んで区別します）。
+> 💡 **学習のヒント**：「欠陥 → 故障 → 不正」の因果関係を最初に押さえると2.3が楽になります。作業成果物に混入した誤りが**欠陥**、その欠陥が動的テストで表面化したものが**故障**、そしてテスト担当者が観察する「期待結果と実際の結果の食い違い」が**不正**です。つまり原因が欠陥、結果が故障、観測されるものが不正という順に並びます（観測した時点ではまだ欠陥に起因するかどうか分からないため、不正と呼んで区別します）。
 
 ### 1.5 試験の基本情報（ISTQB公式ページより）
 
@@ -101,7 +101,7 @@ flowchart LR
 | 問題数 | 50問 |
 | 合格点 | 58点（満点 88点） |
 | 試験時間 | 120分（英語以外が母語の受験者は +25％） |
-| 前提資格 | Foundation Level（CTFL）の保有 |
+| 前提資格 | Foundation Level（CTFL v4.0 または旧版）の保有に加え、十分な実務経験。具体的な実務経験の基準は Member Board / Exam Provider に確認すること |
 
 出典：[ISTQB CTAL-TM v3.0 認定ページ](https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/)（Exam Structure）
 
@@ -177,7 +177,7 @@ flowchart TD
 
 補足：テストの有効性をモニタリングするメトリクスとして**欠陥検出率**（DDP：Defect Detection Percentage）もあります。DDP は Expert Level（テストプロセス改善）で詳しく扱われる範囲です。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.1 導入・2.1.1（p.50〜51）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.1 節（p.48〜49）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.1 導入・2.1.1（p.50〜51）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.1 節（p.48〜49）
 
 > 💡 **ベストプラクティス**（実務補足）
 > - メトリクスごとに「**計画値・目標値・測定方法・報告頻度・責任者**」を1行で定義した一覧（メトリクス定義表）を、テスト計画書に入れる。
@@ -215,7 +215,7 @@ flowchart LR
     MON -->|"終了基準を満たした"| CMPL["テスト完了<br/>完了レポート・教訓・テストウェア"]
 ```
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.1.2（p.51〜52）、1.1.2 テストモニタリングとコントロールの活動（p.20）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.1.2（p.51〜52）、1.1.2 テストモニタリングとコントロールの活動（p.20）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.1.2 ＋ 実務補足）
 > - モニタリング（見る）とコントロール（動く）を**セットで運用**する。「見るだけ」のダッシュボードは是正措置につながらない。
@@ -299,13 +299,13 @@ flowchart TD
 
 1. リスクの30％で不合格、15％が未完了なので、**終了基準（例：重大リスクは全件合格）を満たしていない**。
 2. 未解決の重要度「高」3件が決済機能に集中している → 事業影響が大きい領域で**残存リスクが高い**。
-3. 工数超過は7.5％で、**許容範囲内**と思われる。
+3. 工数超過は7.5％。ただし**この数値だけでは許容可否を判断できない**。テストコントロールは実績を計画と比較して是正処置を取るものであり（2.1.2、日本語版 p.51〜52）、シラバスは「何％までなら許容」という数値基準を定めていない。判断するには、**合意済みの許容差（変動幅）・予算の予備費（コンティンジェンシー）・ステークホルダーが承認した判断基準**のいずれかが前提として必要であり、それが無い場合は「許容範囲内」と結論づけず、超過の事実と判断材料をステークホルダーに提示して判断を仰ぐ。
 
 **報告の結論の例**：「決済機能の重要度『高』3件が未解決のため、現時点でのリリースは推奨しません。（案A）1週間テストを延長し、修正と再テストを実施する。（案B）リスクを受容してリリースし、決済は暫定的に機能を無効化する。リスクの最終判断をお願いします。」
 
 このように、**数字を並べるだけでなくリスクに翻訳し、判断の選択肢まで示す**のが K4 レベルの「意思決定に役立つレポート」です。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.1.3（p.52〜53）、1.3.4 適切なテストによる品質リスク軽減（p.31〜32：残存リスクレベルによる報告）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.1.3（p.52〜53）、1.3.4 適切なテストによる品質リスク軽減（p.31〜32：残存リスクレベルによる報告）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.1.3 ＋ 実務補足）
 > - **リスクの言葉で報告する**：テスト結果を、ステークホルダーが理解できる方法で「リスクの観点」から報告する（1.3.4 節）。
@@ -383,7 +383,7 @@ flowchart LR
 
 例：納期（時間）を短縮したいのにテスト範囲（品質）を維持するなら、人員追加（コスト）が必要になります。コストも時間も固定なら、テスト範囲やレベル（品質側）の見直しが必要です。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.2 導入・2.2.1（p.54）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.2 節（p.52）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.2 導入・2.2.1（p.54）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.2 節（p.52）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.2.1 ＋ 実務補足）
 > - **工数・期間・コストを分けて**見積る。特に期間は、稼働率・休暇・並行作業を考慮してカレンダー日数に換算する。
@@ -410,7 +410,7 @@ flowchart LR
 - 要件が頻繁に変わる → テストケースの修正が増える（工数↑）
 - 欠陥が多く見つかる → 確認テスト・リグレッションテストが増える（工数↑）
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.2.2（p.55〜56）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.2.2（p.55〜56）
 
 > 💡 **ベストプラクティス**（実務補足）
 > - 見積りシートに、5区分（プロダクト・開発プロセス・人・テスト結果・テストコンテキスト）のチェックリストを用意し、**リスク要因を漏れなく洗い出す**。
@@ -504,7 +504,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日
 - 理想的には、最終的なテスト見積りは、**品質・スケジュール・予算・機能**の領域で、組織のゴールとプロジェクトのゴールの**可能な限り最良のバランス**を表します。
 - 見積りは**作成時点で有効な情報**に基づきます。プロジェクトの初期は情報が限られ、時間とともに情報が変わるため、**新しい情報が出たら更新**して正確さを保ちます。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.2.3（p.56〜57）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.2.3（p.53〜54）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.2.3（p.56〜57）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.2.3（p.53〜54）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.2.3 ＋ 実務補足）
 > - **前提条件を必ず文書化**し、見積りとセットで提出する。前提が崩れたら再見積りのトリガーにする。
@@ -550,7 +550,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日
 
 テストマネージャーは、**欠陥マネジメントプロセスと選択したツールの両方が適切に使われるよう推進**する役割を持ちます。また、テストマネージャーとテスト担当者（アジャイルではチーム全体）は、**どのデータを取得することが重要か**を熟知していなければなりません。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3 導入（p.58）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3 導入（p.58）
 
 ### ステップ1（TM-2.3.1・K3）：欠陥のライフサイクルと欠陥ワークフロー
 
@@ -645,7 +645,7 @@ flowchart TD
     H --> B
 ```
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3.1（p.58〜60）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.3.1（p.55〜57）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3.1（p.58〜60）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.3.1（p.55〜57）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.3.1）
 > - ワークフローは**シンプルに始め**、必要になった状態だけ追加する。
@@ -706,7 +706,7 @@ flowchart TD
 | 明確に定義された欠陥ワークフロー | 欠陥レポートの属性を含む |
 | 欠陥マネジメントチームの積極的な関与 | 委員会・担当者の関与 |
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3.2（p.60）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3.2（p.60）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.3.2 ＋ 実務補足）
 > - トリアージミーティングの**事前に**、重複の整理・再現性の確認・影響範囲の下調べを済ませる（実務補足）。ミーティングは判断に集中する。
@@ -757,7 +757,7 @@ flowchart TD
 
 **アジャイルチームによる欠陥マネジメントの最終決定は、常に文書化**すべきです（例：ナレッジマネジメントツールのガイドラインに記載）。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3.3（p.60〜61）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3.3（p.60〜61）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.3.3 ＋ 実務補足）
 > - 「どんなときに欠陥レポートを作るか」を**チームの作業合意（ワーキングアグリーメント）に明記**する。
@@ -789,7 +789,7 @@ flowchart LR
     MTG --> DEC["少数の意思決定者が<br/>欠陥の優先順位を最終判断"]
 ```
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3.4（p.61〜62）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3.4（p.61〜62）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.3.4 ＋ 実務補足）
 > - ツールが複数ある場合は、**共通の必須属性（ID・タイトル・重要度・優先度・ステータス・所有者）を最初に合意**し、ステータス名の対応表を作る（実務補足）。
@@ -876,7 +876,7 @@ flowchart TD
 | 欠陥の種類・混入した作業成果物（判明後に追記） | 制御の抜け（二重送信対策）／画面詳細設計書 |
 | 混入・検出フェーズ（判明後に追記） | 混入：詳細設計、検出：システムテスト |
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3.5（p.62〜63）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.3.5（p.59）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3.5（p.62〜63）、[ISTQB英語版シラバス（PDF）](https://istqb.org/?sdm_process_download=1&download_id=3445) 2.3.5（p.59）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.3.5 ＋ 実務補足）
 > - **再現手順・期待結果・実際の結果**を、他人が読んで再現できる粒度で書く。
@@ -934,7 +934,7 @@ flowchart LR
 
 補足：テストプロセスの**有効性と効率性**をアセスメントするメトリクスの使い方は、ISTQB Expert Level の Improving the Test Process シラバスで説明されています。また、品質コストの考え方（欠陥予防・評定・内部失敗・外部失敗の4カテゴリ）は第3章 3.2.1 節にあり、2.3.6 の改善提案と密接に関連します。
 
-出典：[JSTQB日本語版シラバス（PDF）](https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf) 2.3.6（p.63〜64）、3.2.1 品質コスト（p.72）
+出典：[JSTQB日本語版シラバス（PDF）](https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf) 2.3.6（p.63〜64）、3.2.1 品質コスト（p.72）
 
 > 💡 **ベストプラクティス**（シラバス根拠：2.3.6 ＋ 実務補足）
 > - 欠陥レポートに**混入・検出・除去フェーズ**と**根本原因**を必ず残し、ふりかえりで定期的に集計する。
@@ -1053,7 +1053,7 @@ flowchart LR
 |---|---|---|
 | ISTQB CTAL-TM v3.0 認定ページ | https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ | 試験構成（50問、合格点58／88点、120分）、ビジネス成果、教材ダウンロード |
 | ISTQB CTAL-TM シラバス v3.0（英語版PDF） | https://istqb.org/?sdm_process_download=1&download_id=3445 | 第2章の原文（英語版 p.47〜61） |
-| JSTQB 日本語版シラバス CTAL-TM Version3.0.J01（PDF） | https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf | 第2章の日本語版（p.49〜64）、用語 |
+| JSTQB 日本語版シラバス CTAL-TM Version3.0.J04（PDF） | https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf | 第2章の日本語版（p.49〜64）、用語 |
 | JSTQB シラバス（学習事項）・用語集ページ | https://jstqb.jp/syllabus.html | 最新の日本語版シラバス（改訂版）を確認する入口 |
 | JSTQB プレスリリース（Advanced Level テストマネジメント V3.0 公開） | https://prtimes.jp/main/html/rd/p/000000044.000054604.html | シラバス公開経緯、章構成の変更点、試験開始時期 |
 | ISTQB 用語集 | https://glossary.istqb.org/en_US/search?term= | 用語の公式定義（英語） |
@@ -1084,4 +1084,4 @@ flowchart LR
 | Foundation Level v4 の知識に基づく | 三点見積りの式、見積り技法の分類（メトリクスベース／エキスパートベース） |
 | **原文で要確認** | ①表2（2.1.1）で各メトリクスの○が付く列位置（本ガイドでは3つのみ確定、他5つは目安）、②図2（2.3.1）の矢印の向き（本ガイドは本文の説明に沿った典型形） |
 
-> ⚠️ **バージョンに関する注意**：本ガイドは、英語版 v3.0（2024/05/03 発行）と JSTQB 日本語版 Version3.0.J01（2025/07/08）を読んで作成しました。日本語版にはその後の改訂版（J02）が公開されている可能性があるため、受験前に上記 JSTQB シラバスページで**最新版の版数と変更点**を確認してください。
+> ⚠️ **バージョンに関する注意**：本ガイドが参照する日本語版シラバスは Version3.0.J04（2026/06 掲載）です。ただし本文中のページ番号は旧版（Version3.0.J01）の PDF をもとに記載しており、J04 では改訂に伴ってページがずれている可能性があります。ページ番号は J04 の PDF で確認し、受験前には上記 JSTQB シラバスページで**最新版の版数と変更点**もあわせて確認してください。
