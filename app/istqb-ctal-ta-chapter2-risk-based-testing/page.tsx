@@ -102,6 +102,17 @@ flowchart TD
     Exec --> Eval["有効性を分析"]
     Eval -.->|"有効な技法は継続/非有効な技法は入替"| Combo`;
 
+export const DIAGRAM_IMPACT_ANALYSIS_STEPS = `${MERMAID_CONFIG}
+flowchart TD
+    S1["1.変更要求を受領<br/>クーポン同時使用数を1から2に変更"] --> S2["2.変更対象の構成管理項目を特定<br/>DiscountCalculatorモジュール/決定テーブル"]
+    S2 --> S3["3.影響を受ける機能・コンポーネントを分析"]
+    S3 --> S4["4.トレーサビリティマトリクスで関連テストを抽出"]
+    S4 --> S5["5.リスクレジスタと照合し優先度を再評価"]
+    S5 --> S6["6.回帰テストの対象範囲を確定"]
+    S6 --> S7["7.回帰テストを実行"]
+    S7 --> S8["8.結果を分析し選定技法の有効性を評価"]
+    S8 -.->|"次回サイクルへフィードバック"| S2`;
+
 export default function CtalTaChapter2Page() {
     return (
         <div className="ctal-ta-ch2-page">
@@ -1047,12 +1058,445 @@ export default function CtalTaChapter2Page() {
                             </ul>
                         </div>
                     </section>
-                    <section id="sec5"></section>
-                    <section id="sec6"></section>
-                    <section id="sec7"></section>
-                    <section id="sec8"></section>
-                    <section id="sec9"></section>
-                    <section id="sec10"></section>
+                    {/* ============ SECTION 5 ============ */}
+                    <section id="sec5">
+                        <h2>5. 実践演習：インパクト分析をステップバイステップで行う</h2>
+                        <p>
+                            TA-2.2.1（K4：分析）の学習目標を体感するために、統一シナリオを使った実践演習を行います。
+                        </p>
+
+                        <div className="scenario">
+                            <strong>状況設定</strong>：クーポン割引機能の仕様変更が決定しました。「同時に適用できるクーポンの数を、これまでの<strong>最大1枚</strong>から<strong>最大2枚</strong>に緩和する」という変更です。この変更に対して、TAとしてどのように回帰テストの対象範囲を決定すればよいでしょうか。
+                        </div>
+
+                        <div className="mermaid-card">
+                            <div className="mermaid-wrap">
+                                <Mermaid chart={DIAGRAM_IMPACT_ANALYSIS_STEPS} />
+                            </div>
+                        </div>
+
+                        <h3>ステップ①：変更要求を受領する</h3>
+                        <p>
+                            「クーポン同時使用数を1→2枚に変更」という要求内容を正確に把握します。この時点でTAは、単に「言われた通りにテストする」のではなく、<strong>この変更がどこまで波及しうるか</strong>を意識し始めます。
+                        </p>
+
+                        <h3>ステップ②：変更対象の構成管理項目を特定する</h3>
+                        <p>開発者と連携し、実際にコード変更が入る構成アイテムを特定します。</p>
+                        <ul>
+                            <li>
+                                <code>DiscountCalculator</code>モジュール（割引金額の計算ロジック本体）
+                            </li>
+                            <li>
+                                「割引ルール」決定テーブル（クーポン種別×会員ランク×数量の組み合わせルール）
+                            </li>
+                            <li>カートUIのクーポン入力欄（2枚目の入力欄追加が必要な場合）</li>
+                        </ul>
+
+                        <h3>ステップ③：影響を受ける機能・コンポーネントを分析する</h3>
+                        <p>
+                            直接変更されたモジュールだけでなく、<strong>間接的に影響を受けうる機能</strong>まで視野を広げます。
+                        </p>
+                        <ul>
+                            <li>
+                                送料無料判定ロジック（割引後の合計金額を参照している場合、影響を受ける可能性がある）
+                            </li>
+                            <li>
+                                ポイント付与ロジック（割引後金額を基準にポイントを計算している場合、影響を受ける可能性がある）
+                            </li>
+                            <li>注文確認メールに表示される割引内訳の表示ロジック</li>
+                        </ul>
+
+                        <h3>ステップ④：トレーサビリティマトリクスで関連テストを抽出する</h3>
+                        <p>
+                            要求トレーサビリティマトリクス（技法⑤）を使い、「クーポン適用」「送料無料判定」「ポイント付与」といった要求・機能に紐づく既存のテストケース群を洗い出します。
+                        </p>
+
+                        <h3>ステップ⑤：リスクレジスタと照合し優先度を再評価する</h3>
+                        <p>
+                            洗い出されたテストケースを、<a href="#sec3-2">2.1で作成したリスクレベル表</a>と突き合わせます。「過剰値引き（R-01：高リスク）」に直結する決定テーブルテストとコンビナトリアルテストは最優先、UIの表記レベルのテスト（R-03：低リスク）は優先度を下げる、といった判断を行います。
+                        </p>
+
+                        <h3>ステップ⑥：回帰テストの対象範囲を確定する</h3>
+                        <p>
+                            ここまでの分析結果を統合し、複数の技法を組み合わせて最終的な回帰テストスイートを決定します。
+                        </p>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>選定技法</th>
+                                        <th>この変更における適用例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>インパクト分析</td>
+                                        <td>
+                                            <code>DiscountCalculator</code>と決定テーブルを経由する既存の自動テストを機械的に抽出
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>リスクベース選択</td>
+                                        <td>R-01（高リスク）に紐づくテストを最優先</td>
+                                    </tr>
+                                    <tr>
+                                        <td>要求トレーサビリティマトリクス</td>
+                                        <td>送料無料判定・ポイント付与への間接影響テストを追加</td>
+                                    </tr>
+                                    <tr>
+                                        <td>運用プロファイルベーステスト</td>
+                                        <td>
+                                            「クーポン2枚適用→注文確定」という新しい主要利用パターンをE2Eで1本追加
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>ステップ⑦・⑧：実行と振り返り</h3>
+                        <p>
+                            回帰テストを実行し、結果を記録します。テスト実行後は、「今回選んだテストの中で実際に欠陥を検出できたものはどれか」を分析し（5.3.1の欠陥分析手法と連動）、次回同様の変更が入った際の選定精度向上につなげます。
+                        </p>
+
+                        <div className="tip">
+                            💡 <strong>学習ポイント</strong>：このように、インパクト分析は「1つの技法」であると同時に、<strong>複数の選択技法を組み合わせるプロセス全体の起点</strong>にもなります。K4レベルの試験問題では、こうした「複数ステップを順序立てて分析し、根拠を持って回帰範囲を決定する」思考プロセスそのものが問われると考えられます。
+                        </div>
+                    </section>
+
+                    {/* ============ SECTION 6 ============ */}
+                    <section id="sec6">
+                        <h2>6. ベストプラクティス総まとめ（✅/❌）</h2>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>✅ 良いプラクティス</th>
+                                        <th>❌ 避けるべきアンチパターン</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>リスク識別</td>
+                                        <td>
+                                            複数のステークホルダー（開発・ビジネス・運用）を巻き込み、経験に基づく知見を積極的に提案する
+                                        </td>
+                                        <td>一人のTAの主観だけでリスク一覧を確定させる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>リスクの粒度</td>
+                                        <td>
+                                            リスクが均一に分布しないことを前提に、テスト対象をテストアイテム単位に分解して評価する
+                                        </td>
+                                        <td>システム全体を1つの塊として単一のリスクレベルで扱う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テスト活動の選定</td>
+                                        <td>
+                                            シフトレフトを意識し、可能な限り早い工程（レビュー等）でリスクを軽減する方法を検討する
+                                        </td>
+                                        <td>実装が終わってから初めてテスト計画を考え始める</td>
+                                    </tr>
+                                    <tr>
+                                        <td>回帰テスト選定</td>
+                                        <td>
+                                            複数の選択技法（インパクト分析・リスクベース・履歴ベース等）を状況に応じて組み合わせる
+                                        </td>
+                                        <td>
+                                            常に「全件再実行」または「毎回同じ固定セット」で済ませる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>リスクモニタリング</td>
+                                        <td>
+                                            変更のたびにリスクレジスタを更新し、軽減アクションを見直す「生きた運用」にする
+                                        </td>
+                                        <td>
+                                            プロジェクト開始時に一度リスクを決めたら、以後見直さない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>継続的改善</td>
+                                        <td>
+                                            各テストサイクル後に選定技法の有効性（欠陥検出につながったか）を振り返り、次回に活かす
+                                        </td>
+                                        <td>テスト結果を分析せず、同じ方法をただ繰り返す</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {/* ============ SECTION 7 ============ */}
+                    <section id="sec7">
+                        <h2>7. 第2章のまとめ表</h2>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>セクション</th>
+                                        <th>K-Level</th>
+                                        <th>一言まとめ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2.1 リスク分析（リスク識別）</td>
+                                        <td className="center"><span className="klevel k2">K2</span></td>
+                                        <td>
+                                            TAは経験と知識を武器に、ワークショップ・インタビュー等を通じてリスク識別に積極的に貢献する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1 リスク分析（リスクアセスメント）</td>
+                                        <td className="center"><span className="klevel k2">K2</span></td>
+                                        <td>
+                                            使用頻度・重要度・損害規模・テストベースの品質・法的要求などからリスクレベルを判定し、品質特性で分類し、テスト活動を提案する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2 リスクコントロール（リスク軽減）</td>
+                                        <td className="center">—</td>
+                                        <td>
+                                            レビュー、テスト技法・カバレッジの選定、テストタイプの選定、回帰テストという4つのアクションでリスクを低減する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2 リスクコントロール（回帰テスト選択）</td>
+                                        <td className="center"><span className="klevel k4">K4</span></td>
+                                        <td>
+                                            インパクト分析・リスクベース選択・履歴ベース・カバレッジベース・トレーサビリティマトリクス・運用プロファイルの6技法を、状況に応じて組み合わせて回帰テストの範囲を分析・決定する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2 リスクコントロール（リスクモニタリング）</td>
+                                        <td className="center">—</td>
+                                        <td>
+                                            リスクは変化し続けるものとして、継続的にリスクレジスタを更新し軽減策を調整する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {/* ============ SECTION 8 ============ */}
+                    <section id="sec8">
+                        <h2>8. 理解度チェック問題</h2>
+                        <p>
+                            以下の問題で、本章の理解度を確認しましょう（クリックで解答・解説が開きます）。
+                        </p>
+
+                        <details>
+                            <summary>
+                                Q1. リスクベースドテストのアプローチを「採用するかどうか」を決定するのは誰の役割か。
+                            </summary>
+                            <div className="q-answer">
+                                <strong>解答</strong>：テストマネージャ（TM）。テストアナリスト（TA）は、その方針のもとで実際にリスク分析・リスクコントロールを実行する役割を担う。
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>
+                                Q2. リスクアセスメントにおいて、リスクレベルを見積もる際に考慮すべき要因を3つ以上挙げよ。
+                            </summary>
+                            <div className="q-answer">
+                                <strong>解答例</strong>：機能の使用頻度・重要度／ビジネス目標への影響度／金銭的・環境的・信用面の損害／テストベースの品質／法的・安全上の要求（このうち3つ以上を挙げられればOK）
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>
+                                Q3. 「変更が入った構成アイテムを構成管理ツールで自動追跡し、それに紐づくテストのみを機械的に選定する」回帰テスト選択技法の名称は何か。
+                            </summary>
+                            <div className="q-answer">
+                                <strong>解答</strong>：インパクト分析（Impact Analysis）。自動テストの選定において最も信頼性が高いとされる技法。
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>
+                                Q4. 手動実行の回帰テストにおいて、「唯一絶対に優れている」選択技法は存在するか。
+                            </summary>
+                            <div className="q-answer">
+                                <strong>解答</strong>：存在しない。結果は様々な要因に依存するため、TAは状況に応じてどの技法を使うかを判断し、多くの場合は複数の技法を組み合わせる必要がある。
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>
+                                Q5. リスクモニタリングの頻度は、開発ライフサイクルによってどう異なるか。
+                            </summary>
+                            <div className="q-answer">
+                                <strong>解答</strong>：反復型（イテレーティブ）開発では、チームが決めた頻度（多くの場合イテレーションごとに1回）で実施される。それ以外の開発モデルでは、プロダクトリスク管理の責任者（多くの場合テストマネージャ）が設定する頻度に従う。
+                            </div>
+                        </details>
+                    </section>
+
+                    {/* ============ SECTION 9 ============ */}
+                    <section id="sec9">
+                        <h2>9. 参考文献</h2>
+                        <div className="ref-grid">
+                            <div className="ref-card">
+                                <h4>公式ISTQBシラバス・認定情報</h4>
+                                <ul>
+                                    <li>
+                                        ISTQB®. <em>Certified Tester Advanced Level Test Analyst（CTAL-TA）v4.0</em> 認定ページ<br />
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb.org/certifications/certified-tester-advanced-level-test-analyst
+                                        </a>
+                                    </li>
+                                    <li>
+                                        ISTQB®. <em>Certified Tester Advanced Level Test Analyst（CTAL-TA）Syllabus v4.0</em>（2025年5月2日 GA版）Chapter 2「The Tasks of the Test Analyst in Risk-Based Testing」<br />
+                                        <a
+                                            href="https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb.org – CTAL-TA Syllabus v4.0 PDF
+                                        </a>
+                                    </li>
+                                    <li>
+                                        ISTQB®. <em>Certified Tester Foundation Level（CTFL）Syllabus v4.0.1</em>（Section 5.2「リスクベースドテスト」— CTAL-TA第2章の基礎となる章）<br />
+                                        <a
+                                            href="https://astqb.org/assets/documents/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            astqb.org – CTFL Syllabus v4.0.1 PDF
+                                        </a>
+                                    </li>
+                                    <li>
+                                        ISTQB®. <em>Certified Tester Advanced Level Test Management（CTAL-TM）v3.0</em> 認定ページ（リスクベースドテストのより詳細な内容を扱う）<br />
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb.org – CTAL-TM v3.0
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="ref-card">
+                                <h4>ISTQB用語集（Glossary）</h4>
+                                <ul>
+                                    <li>
+                                        ISTQB® Glossary（公式）<br />
+                                        <a
+                                            href="https://glossary.istqb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            glossary.istqb.org
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Risk-Based Testing —{' '}
+                                        <a
+                                            href="https://istqb-glossary.page/risk-based-testing/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb-glossary.page/risk-based-testing
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Risk Analysis —{' '}
+                                        <a
+                                            href="https://istqb-glossary.page/risk-analysis/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb-glossary.page/risk-analysis
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Risk Assessment —{' '}
+                                        <a
+                                            href="https://istqb-glossary.page/risk-assessment/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb-glossary.page/risk-assessment
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Risk Mitigation —{' '}
+                                        <a
+                                            href="https://istqb-glossary.page/risk-mitigation/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb-glossary.page/risk-mitigation
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Product Risk —{' '}
+                                        <a
+                                            href="https://istqb-glossary.page/product-risk/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb-glossary.page/product-risk
+                                        </a>
+                                    </li>
+                                    <li>
+                                        Risk Management —{' '}
+                                        <a
+                                            href="https://istqb-glossary.page/risk-management/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            istqb-glossary.page/risk-management
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="ref-card">
+                                <h4>関連国際規格</h4>
+                                <ul>
+                                    <li>
+                                        ISO/IEC 25010:2023. <em>Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model</em>（リスクを品質特性で分類する際の参照モデル）<br />
+                                        <a
+                                            href="https://www.iso.org/standard/78176.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            iso.org/standard/78176.html
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ============ SECTION 10 ============ */}
+                    <section id="sec10">
+                        <h2>10. 次のステップ</h2>
+                        <div className="next-box">
+                            <p>
+                                第2章で学んだ「リスクに基づいて優先順位をつける」という考え方は、次の<strong>第3章「テスト分析とテスト設計」</strong>、特に<strong>3.5.1「プロダクトリスクを緩和するテスト技法の選定」</strong>で直接活用されます。データベース技法・振る舞いベース技法・ルールベース技法・経験ベース技法という具体的な武器を学ぶ前に、本章の内容（特にリスクレベルとテスト活動のマッピング、回帰テスト選択技法の使い分け）を確実に自分の言葉で説明できる状態にしておくことを推奨します。
+                            </p>
+                            <p style={{ marginBottom: 0 }}>
+                                また、リスクベースドテストをより実務的・戦略的なレベル（プロジェクト全体のリスク管理体制の構築など）で深めたい場合は、<a
+                                    href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    ISTQB® Advanced Level Test Management（CTAL-TM）v3.0
+                                </a>の学習もあわせて推奨します。
+                            </p>
+                        </div>
+                    </section>
+
+                    <footer>
+                        本ガイドはISTQB®公式シラバス・認定情報をもとに作成した学習補助教材です。試験の正答・最新情報は必ず公式シラバス（istqb.org）をご確認ください。
+                    </footer>
                 </div>
             </main>
         </div>
