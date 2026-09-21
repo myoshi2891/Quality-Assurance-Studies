@@ -59,6 +59,26 @@ flowchart LR
     class RI,RA analysisNode
     class RM,RMo controlNode`;
 
+export const DIAGRAM_RISK_FACTORS = `${MERMAID_CONFIG}
+flowchart TD
+    A1["機能の使用頻度・重要度"] --> F{"リスクレベルを判定<br/>発生可能性 x 影響度"}
+    A2["ビジネス目標への影響度"] --> F
+    A3["金銭的・環境的・信用面の損害"] --> F
+    A4["テストベースの品質"] --> F
+    A5["法的・安全上の要求"] --> F
+
+    F -- "高リスク" --> G1["厳密なテスト<br/>複数テストレベル/高い独立性/網羅的な技法"]
+    F -- "中リスク" --> G2["標準的なテスト<br/>標準的な技法とカバレッジ"]
+    F -- "低リスク" --> G3["軽量なテスト<br/>探索的テスト/経験ベーステスト"]
+
+    classDef high fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
+    classDef mid fill:#fef3c7,stroke:#b45309,color:#78350f
+    classDef low fill:#dcfce7,stroke:#15803d,color:#14532d
+
+    class G1 high
+    class G2 mid
+    class G3 low`;
+
 export default function CtalTaChapter2Page() {
     return (
         <div className="ctal-ta-ch2-page">
@@ -437,8 +457,296 @@ export default function CtalTaChapter2Page() {
                         </div>
                     </section>
 
-                    {/* Section 3〜10 は後続カテゴリで順次実装 */}
-                    <section id="sec3"></section>
+                    {/* ============ SECTION 3 ============ */}
+                    <section id="sec3">
+                        <h2 id="sec3-h">
+                            3. 2.1 リスク分析（Risk Analysis）<span className="klevel k2">K2</span>
+                        </h2>
+
+                        <div className="lo-box">
+                            <strong>学習目標</strong>：TA-2.1.1 (K2)
+                            テストアナリストのプロダクトリスク分析への貢献を要約できる
+                        </div>
+
+                        <p>
+                            リスク分析は「<strong>リスク識別</strong>」と「<strong>リスクアセスメント</strong>」の2つの活動から構成されます。ここでのポイントは、<strong>リスク分析の「意思決定」自体はTAの役割ではなく、TAは自分の持つ深い技術知識・経験を武器に、他のステークホルダーと協働してリスク分析に「貢献」する</strong>という立ち位置です。
+                        </p>
+
+                        <h3 id="sec3-1">3.1 リスク識別（Risk Identification）</h3>
+
+                        <h4>定義</h4>
+                        <p>
+                            システムやプロジェクトにどのようなプロダクトリスクが存在するかを洗い出すプロセスです。
+                        </p>
+
+                        <h4>なぜTAが重要な貢献者になれるのか（理由）</h4>
+                        <p>
+                            TAは通常、システムに関する深い知識に加えて、「過去にどこでよく問題が起きるか」「その問題がどんな影響を及ぼすか」についての経験と直感を持っています。これは机上の仕様書だけでは得られない、実務経験に裏打ちされた情報であり、プロダクトリスク分析において非常に価値の高いインプットになります。
+                        </p>
+
+                        <h4>TAが参加する具体的な活動</h4>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>活動</th>
+                                        <th>TAの貢献の仕方</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>レトロスペクティブ（振り返り会）</strong></td>
+                                        <td>過去のイテレーションで発生した不具合傾向を共有する</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>リスクワークショップ</strong></td>
+                                        <td>
+                                            自分の経験・知識をもとに、想定されるリスクをその場で提案する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ブレインストーミング</strong></td>
+                                        <td>
+                                            制約を設けずに「何が起こりうるか」を自由に発想して出し合う
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>チェックリストの作成</strong></td>
+                                        <td>
+                                            過去の欠陥パターンをチェックリスト化し、リスクの洗い出し漏れを防ぐ（詳細は第3章 3.4.2）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ステークホルダーへのインタビュー</strong></td>
+                                        <td>
+                                            開発者・プロダクトオーナー・ビジネス側それぞれの視点から「最も重大だと考えるリスク」を聞き出す
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>具体例（シナリオ適用）</h4>
+                        <p>クーポン割引機能について、TAは以下のようにリスク識別に貢献します。</p>
+                        <ul>
+                            <li>
+                                過去のレトロスペクティブから「割引ロジックの改修は過去にも計算誤りのバグが多かった」という傾向を共有する
+                            </li>
+                            <li>
+                                プロダクトオーナーへのインタビューで「値引きしすぎて赤字になること」と「割引が適用されず顧客からクレームが来ること」の両方が重大リスクと判明する
+                            </li>
+                            <li>
+                                開発者へのインタビューで「クーポンの組み合わせパターンが将来的に増える設計になっており、テストの組み合わせ爆発が起きやすい」という技術的リスクが判明する
+                            </li>
+                        </ul>
+
+                        <div className="callout-practice">
+                            <div className="practice-label">✅ ベストプラクティス</div>
+                            <ul>
+                                <li>
+                                    <span className="tag-good">✅ 受け身にならず、自ら発言する</span>：TAは「リスクを教えてもらう側」ではなく「リスクを提案する側」として積極的にワークショップに参加する
+                                </li>
+                                <li>
+                                    <span className="tag-good">✅ 定量的な過去データと定性的な経験の両方を使う</span>：過去の欠陥密度データだけでなく、「あの機能はいつも危ない」という現場感覚も貴重な情報として提示する
+                                </li>
+                                <li>
+                                    <span className="tag-good">✅ 多様なステークホルダーの視点を集める</span>：ビジネス側・開発側・運用側など、視点が異なる人にインタビューすることで見落としを減らす
+                                </li>
+                                <li>
+                                    <span className="tag-bad">❌ 避けるべきこと</span>：一人のTAの主観だけでリスクを確定させてしまうこと。リスク識別は必ず複数のステークホルダーとの協働で行う
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 id="sec3-2">3.2 リスクアセスメント（Risk Assessment）</h3>
+
+                        <h4>定義</h4>
+                        <p>
+                            識別されたリスクについて、<strong>発生可能性（Likelihood）</strong>と<strong>影響度（Impact）</strong>を見積もり、総合的な<strong>リスクレベル</strong>を判定するプロセスです。TAは他のステークホルダーと共同でこの判定に貢献します。
+                        </p>
+
+                        <h4>リスクレベルを判定するための5つの評価要因</h4>
+                        <p>
+                            シラバスでは、リスクレベルを見積もる際に考慮すべき要因として次を挙げています。
+                        </p>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>評価要因</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="center">1</td>
+                                        <td><strong>機能の使用頻度・重要度</strong></td>
+                                        <td>
+                                            その機能がどれだけ頻繁に使われ、業務上どれだけ重要か
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="center">2</td>
+                                        <td><strong>ビジネス目標への影響度</strong></td>
+                                        <td>
+                                            不具合が発生した場合、会社の目標達成にどれだけ悪影響を与えるか
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="center">3</td>
+                                        <td><strong>金銭的・環境的・信用面の損害</strong></td>
+                                        <td>
+                                            不具合による直接的な金銭損失、環境影響、ブランドイメージの毀損
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="center">4</td>
+                                        <td><strong>テストベース（仕様書等）の品質</strong></td>
+                                        <td>
+                                            仕様があいまい・不完全であるほど実装ミスの可能性が高まる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="center">5</td>
+                                        <td><strong>法的・安全上の要求</strong></td>
+                                        <td>法規制や安全基準への抵触リスク</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="tip">
+                            上記に加えて、TAは<strong>ISO/IEC 25010の品質特性モデル</strong>などを用いて、リスクが「どの品質特性（機能適合性、セキュリティ、信頼性など）に影響するか」で分類することにも貢献します。分類しておくことで、後の第4章（品質特性テスト）でどのテストタイプを重点的に行うべきかの判断材料になります。
+                        </div>
+
+                        <h4>具体例：発生可能性 × 影響度によるリスクレベルの判定（シナリオ適用）</h4>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>リスクID</th>
+                                        <th>リスクの内容</th>
+                                        <th>発生可能性</th>
+                                        <th>影響度</th>
+                                        <th>リスクレベル</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>R-01</td>
+                                        <td>クーポン併用時の割引額計算ミスによる過剰値引き</td>
+                                        <td className="center">高</td>
+                                        <td className="center">高</td>
+                                        <td className="center risk-high">高</td>
+                                    </tr>
+                                    <tr>
+                                        <td>R-02</td>
+                                        <td>
+                                            クーポン併用時に割引が正しく適用されず顧客がクレーム
+                                        </td>
+                                        <td className="center">中</td>
+                                        <td className="center">中</td>
+                                        <td className="center risk-mid">中</td>
+                                    </tr>
+                                    <tr>
+                                        <td>R-03</td>
+                                        <td>クーポン入力欄のUIラベルの表記ゆれ</td>
+                                        <td className="center">低</td>
+                                        <td className="center">低</td>
+                                        <td className="center risk-low">低</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            このように、リスクを一覧化して優先順位を可視化することで、後述するテスト活動の濃淡（どこに厚く、どこに薄くテストを配分するか）の根拠が明確になります。
+                        </p>
+
+                        <h4>リスクレベルとテスト活動の対応関係</h4>
+                        <div className="mermaid-card">
+                            <div className="mermaid-wrap">
+                                <Mermaid chart={DIAGRAM_RISK_FACTORS} />
+                            </div>
+                        </div>
+
+                        <p>
+                            リスクレベルが決まったら、TAは<strong>そのリスクを軽減する具体的なテスト活動</strong>を提案します。考慮すべき観点は以下の通りです。
+                        </p>
+                        <ul>
+                            <li>
+                                どの<strong>テストレベル</strong>（コンポーネント/統合/システム/受け入れ）で対応すべきか
+                            </li>
+                            <li>どの<strong>テストタイプ</strong>（機能/非機能）で対応すべきか</li>
+                            <li>
+                                どの<strong>テスト技法</strong>（第3章で扱うデータベース・振る舞いベース・ルールベース・経験ベース技法）が適切か
+                            </li>
+                            <li>
+                                どの程度の<strong>テストの独立性</strong>（別チームによるレビューが必要か等）が必要か
+                            </li>
+                            <li>どの程度の<strong>テストの網羅性（厳密さ）</strong>が必要か</li>
+                        </ul>
+
+                        <h4>シフトレフトの原則</h4>
+                        <p>
+                            TAは、<strong>できるだけ早い段階でリスクを軽減できるテスト活動</strong>を提案することが推奨されています（シフトレフトの精神）。例えば、コードが書かれる前の仕様レビューの段階で欠陥を発見できれば、実装後にテストで発見するよりもはるかに低コストで修正できます。
+                        </p>
+
+                        <h4>具体例（シナリオ適用）</h4>
+                        <p>先ほどのリスク一覧に対して、TAは次のようなテスト活動を提案します。</p>
+                        <div className="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>リスクID</th>
+                                        <th>リスクレベル</th>
+                                        <th>提案するテスト活動</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>R-01（過剰値引き）</td>
+                                        <td className="center risk-high">高</td>
+                                        <td>
+                                            実装前に決定テーブルのレビュー（静的テスト）を実施。実装後は決定テーブルテストとコンビナトリアルテスト（第3章）で組み合わせを網羅的に検証。テスト実行はレビュー担当者以外の高い独立性を持つTAが担当
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>R-02（割引未適用）</td>
+                                        <td className="center risk-mid">中</td>
+                                        <td>
+                                            シナリオベーステストでチェックアウトの代表的なユースケースを検証。標準的なEP/BVAで境界値も確認
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>R-03（UI表記ゆれ）</td>
+                                        <td className="center risk-low">低</td>
+                                        <td>
+                                            探索的テストの中で軽くチェック。専用のテストケースは作成しない
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="callout-practice">
+                            <div className="practice-label">✅ ベストプラクティス</div>
+                            <ul>
+                                <li>
+                                    <span className="tag-good">✅ リスクを均一に扱わない</span>：テスト対象全体を1つのリスクとして扱うのではなく、コンポーネント・インターフェース・機能単位（テストアイテム）に分解し、それぞれ個別にリスクレベルを評価する
+                                </li>
+                                <li>
+                                    <span className="tag-good">✅ 品質特性で分類する</span>：ISO/IEC 25010のような標準的なモデルを使ってリスクを分類し、テストタイプの選定（第4章）につなげる
+                                </li>
+                                <li>
+                                    <span className="tag-good">✅ シフトレフトを意識する</span>：可能な限り早い工程（レビュー等の静的テスト）でリスクを低減できないか検討する
+                                </li>
+                                <li>
+                                    <span className="tag-bad">❌ 避けるべきこと</span>：仕様書の記載の有無だけでリスクレベルを判断すること。仕様が書かれていても「その仕様自体があいまいで解釈が割れる」場合はテストベースの品質という観点でリスクが上がる点を見落とさない
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
                     <section id="sec4"></section>
                     <section id="sec5"></section>
                     <section id="sec6"></section>
