@@ -227,7 +227,7 @@ rg -n --glob 'page.tsx' "fontFamily.*'" app
 **さらに確実な検証方法**（ブラウザなしで実際に mermaid を実行し、生成される SVG のスタイルを見る）:
 
 ```bash
-bun run -e '
+bun -e '
 import("@happy-dom/global-registrator").then(async ({ GlobalRegistrator }) => {
   GlobalRegistrator.register();
   const mermaid = (await import("mermaid")).default;
