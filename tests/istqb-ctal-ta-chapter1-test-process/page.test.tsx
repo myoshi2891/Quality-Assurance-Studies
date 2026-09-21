@@ -4,6 +4,11 @@ import mermaid from 'mermaid';
 import React from 'react';
 import Page, {
     DIAGRAM_OVERVIEW,
+    DIAGRAM_SDLC,
+    DIAGRAM_PROCESS,
+    DIAGRAM_ENTRY,
+    DIAGRAM_ANALYSIS_FLOW,
+    DIAGRAM_ENV3,
 } from '../../app/istqb-ctal-ta-chapter1-test-process/page';
 import NavBar from '../../app/istqb-ctal-ta-chapter1-test-process/NavBar';
 
@@ -131,5 +136,89 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 1: Hero & Section 0 (Overview, Keywo
         const calloutPractice = overviewSec?.querySelector('.callout-practice');
         expect(calloutPractice?.textContent).toContain('ベストプラクティス');
         expect(calloutPractice?.textContent).toContain('ISTQB® Glossary');
+    });
+});
+
+describe('CTAL-TA v4.0 Chapter 1 - Category 2: Section 1.1 (SDLC) & Section 1.2 (Test Activities)', () => {
+    it('renders Section 1.1: SDLC models, Mermaid mmd-sdlc, comparison table, and callouts', () => {
+        const { container } = render(<Page />);
+        const sec11 = container.querySelector('#sec11');
+        expect(sec11).toBeDefined();
+
+        const h2 = sec11?.querySelector('h2');
+        expect(h2?.textContent).toContain('1.1 ソフトウェア開発ライフサイクル(SDLC)におけるテスト');
+        expect(h2?.querySelector('.badge-k')?.textContent).toBe('K2');
+
+        // Mermaid mmd-sdlc
+        expect(DIAGRAM_SDLC).toBeDefined();
+        expect(DIAGRAM_SDLC).toContain('flowchart TB');
+        expect(DIAGRAM_SDLC).toContain('順次開発モデル(ウォーターフォール型)');
+        expect(DIAGRAM_SDLC).toContain('インクリメンタル開発モデル');
+        expect(DIAGRAM_SDLC).toContain('イテレーティブ開発モデル');
+
+        // Table
+        const table = sec11?.querySelector('table');
+        expect(table).toBeDefined();
+        const rows = table?.querySelectorAll('tbody tr');
+        expect(rows?.length).toBe(3);
+        expect(rows?.[0]?.textContent).toContain('順次(ウォーターフォール型)');
+        expect(rows?.[1]?.textContent).toContain('インクリメンタル');
+        expect(rows?.[2]?.textContent).toContain('イテレーティブ');
+
+        // Callouts (practice & anti)
+        const practice = sec11?.querySelector('.callout-practice');
+        expect(practice?.textContent).toContain('SDLCの初期段階から関与する');
+        const anti = sec11?.querySelector('.callout-anti');
+        expect(anti?.textContent).toContain('テストは実装が終わってから');
+    });
+
+    it('renders Section 1.2: process Mermaid, 1.2.1-1.2.4 subsections, tables, and callouts', () => {
+        const { container } = render(<Page />);
+        const sec12 = container.querySelector('#sec12');
+        expect(sec12).toBeDefined();
+
+        const h2 = sec12?.querySelector('h2');
+        expect(h2?.textContent).toContain('1.2 テスト活動への関与');
+
+        // Mermaid mmd-process
+        expect(DIAGRAM_PROCESS).toBeDefined();
+        expect(DIAGRAM_PROCESS).toContain('flowchart LR');
+        expect(DIAGRAM_PROCESS).toContain('テスト分析');
+        expect(DIAGRAM_PROCESS).toContain('テスト設計');
+        expect(DIAGRAM_PROCESS).toContain('テスト実装');
+        expect(DIAGRAM_PROCESS).toContain('テスト実行');
+
+        // 1.2.1 Test Analysis
+        const sec121 = container.querySelector('#sec121');
+        expect(sec121?.textContent).toContain('1.2.1 テスト分析');
+        expect(DIAGRAM_ENTRY).toBeDefined();
+        expect(DIAGRAM_ENTRY).toContain('テスト分析のエントリ基準');
+        expect(DIAGRAM_ANALYSIS_FLOW).toBeDefined();
+        expect(DIAGRAM_ANALYSIS_FLOW).toContain('テストベースを評価し');
+
+        // 1.2.2 Test Design
+        const sec122 = container.querySelector('#sec122');
+        expect(sec122?.textContent).toContain('1.2.2 テスト設計');
+        const designTable = sec122?.nextElementSibling?.nextElementSibling; // table scroll
+        expect(sec122).toBeDefined();
+
+        // 1.2.3 Test Implementation
+        const sec123 = container.querySelector('#sec123');
+        expect(sec123?.textContent).toContain('1.2.3 テスト実装');
+        expect(DIAGRAM_ENV3).toBeDefined();
+        expect(DIAGRAM_ENV3).toContain('テスト対象の欠陥を');
+        expect(DIAGRAM_ENV3).toContain('障害が無いときは');
+        expect(DIAGRAM_ENV3).toContain('十分に模倣する');
+
+        // 1.2.4 Test Execution
+        const sec124 = container.querySelector('#sec124');
+        expect(sec124?.textContent).toContain('1.2.4 テスト実行');
+        const execTable = sec12?.querySelectorAll('table');
+        // Total tables in sec12: design table (7 rows) + exec table (6 rows) = 2 tables
+        expect(execTable?.length).toBe(2);
+        const execRows = execTable?.[1]?.querySelectorAll('tbody tr');
+        expect(execRows?.length).toBe(6);
+        expect(execRows?.[0]?.textContent).toContain('欠陥クラスタの認識');
+        expect(execRows?.[1]?.textContent).toContain('失敗した自動テストの手動再実行');
     });
 });
