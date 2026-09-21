@@ -114,12 +114,16 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
 
         // Test mobile toggle
         const toggleBtn = container.querySelector('.sidebar-toggle');
-        expect(toggleBtn).toBeDefined();
+        // toBeDefined() は null でも通ってしまうため、要素であることを確定させる
+        expect(toggleBtn).not.toBeNull();
+        if (!(toggleBtn instanceof HTMLElement)) {
+            throw new Error('.sidebar-toggle が描画されていません');
+        }
         const sidebar = container.querySelector('.sidebar');
         const overlay = container.querySelector('.sidebar-overlay');
 
         expect(sidebar?.classList.contains('open')).toBe(false);
-        if (toggleBtn) {
+        {
             fireEvent.click(toggleBtn);
             expect(sidebar?.classList.contains('open')).toBe(true);
             expect(overlay?.classList.contains('open')).toBe(true);

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const NAV_ITEMS = [
     { href: '#sec1', label: '1. ガイドの使い方と全体像' },
@@ -34,6 +34,7 @@ const NAV_ITEMS = [
 
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
+    const toggleRef = useRef<HTMLButtonElement>(null);
     const [activeId, setActiveId] = useState('sec1');
 
     useEffect(() => {
@@ -64,7 +65,8 @@ export default function NavBar() {
                     const sorted = visibleEntries.sort(
                         (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
                     );
-                    setActiveId(sorted[0].target.id);
+                    const topMost = sorted[0];
+                    if (topMost) setActiveId(topMost.target.id);
                 }
             },
             {
@@ -82,12 +84,18 @@ export default function NavBar() {
     }, []);
 
     const handleLinkClick = () => {
+        // デスクトップではサイドバーが常時表示なので何もしない。
+        // モバイルで開いている場合のみ、閉じる前に可視のトグルへフォーカスを戻す
+        // （閉じるとリンク自体が画面外へ出てフォーカスが失われるため）。
+        if (!isOpen) return;
+        toggleRef.current?.focus();
         setIsOpen(false);
     };
 
     return (
         <>
             <button
+                ref={toggleRef}
                 className="sidebar-toggle"
                 id="sidebarToggle"
                 aria-label="メニューを開閉"
@@ -109,6 +117,7 @@ export default function NavBar() {
                             <a
                                 href={item.href}
                                 className={activeId === item.href.slice(1) ? 'active' : ''}
+                                aria-current={activeId === item.href.slice(1) ? 'location' : undefined}
                                 onClick={handleLinkClick}
                             >
                                 {item.label}
@@ -120,6 +129,9 @@ export default function NavBar() {
                                             <a
                                                 href={subItem.href}
                                                 className={activeId === subItem.href.slice(1) ? 'active' : ''}
+                                                aria-current={
+                                                    activeId === subItem.href.slice(1) ? 'location' : undefined
+                                                }
                                                 onClick={handleLinkClick}
                                             >
                                                 {subItem.label}
