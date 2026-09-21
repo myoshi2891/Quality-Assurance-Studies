@@ -423,6 +423,23 @@ describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border con
         }
     });
 
+    it('keeps the %%{init}%% directive JSON free of nested single quotes (breaks mermaid directive parsing)', () => {
+        // Regression test: a single quote nested inside a double-quoted JSON value
+        // (e.g. "fontFamily": "'Noto Sans JP', sans-serif") silently breaks mermaid's
+        // %%{init}%% directive parser. Mermaid then falls back to the shared
+        // components/Mermaid.tsx global DARK theme for every diagram on this page,
+        // which is exactly how the black/dark cluster boxes and edge labels reappeared
+        // even though the directive text looked correct.
+        const pageSrc = readFileSync(
+            path.join(process.cwd(), 'app/istqb-ctal-ta-chapter1-test-process/page.tsx'),
+            'utf-8',
+        );
+        const configMatch = pageSrc.match(/const MERMAID_CONFIG = `([\s\S]*?)`;/);
+        expect(configMatch).toBeDefined();
+        const configBody = configMatch![1];
+        expect(configBody).not.toContain("'");
+    });
+
     it('protects mermaid edge labels from a black background via CSS safety-net selectors', () => {
         const cssSrc = readFileSync(
             path.join(
