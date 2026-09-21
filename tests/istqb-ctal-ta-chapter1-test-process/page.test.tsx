@@ -388,11 +388,15 @@ describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border con
         expect(classNameBadgeCount).toBe(10);
     });
 
-    it('keeps the sidebar right border faithful to the original HTML (1px solid var(--border))', () => {
-        // archive/html-archive/ctal/Ctal-ta-v4.0-ch1.html:74 uses the exact same
-        // declaration. An earlier session speculatively "strengthened" this to
-        // var(--border-strong) at 2px, which drifted from faithful migration and
-        // was reported as an unwanted thick/dark line — restored to match source.
+    it('has no sidebar right border/divider at all (removed at explicit user request)', () => {
+        // The source HTML (archive/html-archive/ctal/Ctal-ta-v4.0-ch1.html:74) used
+        // `border-right: 1px solid var(--border)`, which faithful migration first
+        // reproduced. The user reported that same line — at every width/color tried
+        // (1px var(--border), 1px/2px var(--border-strong)) — as an unwanted thick
+        // black divider between the sidebar and main content, across several rounds
+        // of screenshots. Per explicit instruction, the divider is removed entirely
+        // rather than re-tuned again. User-reported visual preference overrides
+        // source fidelity here.
         const cssSrc = readFileSync(
             path.join(
                 process.cwd(),
@@ -402,8 +406,7 @@ describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border con
         );
         const sidebarBlock = cssSrc.match(/\.ctal-ta-ch1-page \.sidebar \{[^}]*\}/)?.[0];
         expect(sidebarBlock).toBeDefined();
-        expect(sidebarBlock).toMatch(/border-right:\s*1px solid var\(--border\)\s*;/);
-        expect(sidebarBlock).not.toMatch(/border-right:\s*(2px|1px solid var\(--border-strong\))/);
+        expect(sidebarBlock).not.toMatch(/border-right/);
     });
 
     it('prefixes all 11 mermaid diagrams with a light "base" theme init directive so edge labels stay white', () => {
