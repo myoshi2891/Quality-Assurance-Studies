@@ -67,6 +67,8 @@ export default function NavBar() {
                 className="sidebar-toggle"
                 id="sidebarToggle"
                 aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+                aria-expanded={isOpen}
+                aria-controls="sidebar"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? '✕' : '☰'}

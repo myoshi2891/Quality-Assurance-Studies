@@ -89,7 +89,7 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 1: Hero & Section 0 (Overview, Keywo
         expect(sub?.textContent).toContain('第1章:テストプロセスにおける');
 
         const navLinks = container.querySelectorAll('.sidebar a');
-        expect(navLinks.length).toBeGreaterThanOrEqual(16);
+        expect(navLinks.length).toBe(19);
 
         const hrefs = Array.from(navLinks).map((a) => a.getAttribute('href'));
         expect(hrefs).toContain('#overview');
