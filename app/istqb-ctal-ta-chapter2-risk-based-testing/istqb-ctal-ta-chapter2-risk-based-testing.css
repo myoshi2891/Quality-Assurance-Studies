@@ -186,6 +186,13 @@
 
 /* ---------- Hero ---------- */
 .ctal-ta-ch2-page .hero {
+    /* globals の .hero { min-height: 100vh; display: flex; justify-content: center;
+       padding-top: 60px; overflow: hidden } をリセットする。
+       これを怠るとヒーローカードが画面高いっぱいに伸び、中身が上下中央へ押し下げられて
+       原本 HTML と見た目が食い違う（2026-09-21 に実測 906px まで膨張していた）。 */
+    min-height: 0;
+    display: block;
+    overflow: visible;
     background: linear-gradient(135deg, var(--accent-soft) 0%, #ffffff 70%);
     border: 1px solid var(--accent-border);
     border-radius: 16px;
@@ -264,7 +271,14 @@
 .ctal-ta-ch2-page section {
     margin-bottom: 52px;
     scroll-margin-top: 80px;
+    /* globals の section { padding-top: 5rem } をリセット */
     padding-top: 0;
+}
+
+/* globals の section + section { border-top: 1px solid var(--color-border) } をリセット。
+   ダーク配色向けのボーダー色がライトページに紛れ込むため、原本 HTML どおり区切り線なしにする。 */
+.ctal-ta-ch2-page section + section {
+    border-top: none;
 }
 
 .ctal-ta-ch2-page h2 {
@@ -526,9 +540,53 @@
 
 .ctal-ta-ch2-page .mermaid-wrap {
     width: 100%;
-    display: flex;
-    justify-content: safe center;
+    /* 横スクロールの担当はこの要素だけ。内側で flex 中央寄せを重ねると
+       コンテナより広い図の「左側」がスクロール範囲外に出て永久に見えなくなる。 */
+    display: block;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
+}
+
+/* ライトカード上のスクロールバーを明色にする（globals の ::-webkit-scrollbar は
+   トラックが --color-bg-primary（濃紺）のため、白いカードの下に黒帯が出る）。 */
+.ctal-ta-ch2-page .mermaid-wrap {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap::-webkit-scrollbar {
+    height: 10px;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap::-webkit-scrollbar-track {
+    background-color: #f1f5f9;
+    border-radius: 6px;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 6px;
+}
+
+/* components/Mermaid.tsx が出力する .mermaid-wrapper には globals.css の
+   @layer components でダークカード（background:#131929 / max-width:760px）が
+   既定値として当たっている。ライト配色の本ページでは必ず打ち消すこと。
+   打ち消さないと「図だけ暗い箱に入り、760px に縮小されて文字が読めない」状態になる。 */
+.ctal-ta-ch2-page .mermaid-wrap .mermaid-wrapper {
+    /* width:max-content + min-width:100% で「図より狭いときは中央寄せ・
+       図が広いときはスクロール領域いっぱい」を両立させる。
+       flex の justify-content:center を使うと左端が切れる。 */
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
 }
 
 .ctal-ta-ch2-page .mermaid-wrap svg {

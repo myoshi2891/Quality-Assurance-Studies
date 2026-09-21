@@ -11,11 +11,24 @@ const MERMAID_CONFIG = `%%{init: {
     "primaryBorderColor": "#2563eb",
     "primaryTextColor": "#1e293b",
     "lineColor": "#94a3b8",
+    "mainBkg": "#eff6ff",
+    "nodeBorder": "#2563eb",
+    "secondaryColor": "#f1f5f9",
+    "tertiaryColor": "#ffffff",
+    "clusterBkg": "#f8fafc",
+    "clusterBorder": "#cbd5e1",
     "edgeLabelBackground": "#ffffff",
     "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "14px"
   },
-  "flowchart": { "curve": "basis", "htmlLabels": true }
+  "flowchart": {
+    "curve": "basis",
+    "htmlLabels": true,
+    "useMaxWidth": false,
+    "nodeSpacing": 60,
+    "rankSpacing": 70,
+    "subGraphTitleMargin": { "top": 12, "bottom": 18 }
+  }
 }}%%`;
 
 export const DIAGRAM_CHAPTER_POSITION = `${MERMAID_CONFIG}
@@ -39,18 +52,18 @@ flowchart LR
     classDef analysisNode fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
     classDef controlNode fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
 
-    subgraph SG1["2.1 リスク分析 Risk Analysis"]
-        direction LR
-        RI["リスク識別<br/>Risk Identification"]
-        RA["リスクアセスメント<br/>Risk Assessment"]
-        RI --> RA
-    end
-
     subgraph SG2["2.2 リスクコントロール Risk Control"]
         direction LR
         RM["リスク軽減<br/>Risk Mitigation"]
         RMo["リスクモニタリング<br/>Risk Monitoring"]
         RM --> RMo
+    end
+
+    subgraph SG1["2.1 リスク分析 Risk Analysis"]
+        direction LR
+        RI["リスク識別<br/>Risk Identification"]
+        RA["リスクアセスメント<br/>Risk Assessment"]
+        RI --> RA
     end
 
     RA -- "軽減策を提案" --> RM
