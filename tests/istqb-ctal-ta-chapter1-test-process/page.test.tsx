@@ -409,6 +409,27 @@ describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border con
         expect(sidebarBlock).not.toMatch(/border-right/);
     });
 
+    it('overrides the sidebar scrollbar track so it does not inherit the global dark theme track color', () => {
+        // Root cause of the persistent "thick black vertical line" the user kept
+        // reporting even after border-right was removed entirely: app/globals.css
+        // defines ::-webkit-scrollbar-track { background-color: var(--color-bg-primary) }
+        // (#0a0e1a) globally. .sidebar has overflow-y: auto and >20 nav links, so it
+        // overflows and shows its own scrollbar — which inherited that dark global
+        // track color, completely independent of any border-right edit. This mirrors
+        // the pattern already used in app/explore-it-guide/explore-it-guide.css.
+        const cssSrc = readFileSync(
+            path.join(
+                process.cwd(),
+                'app/istqb-ctal-ta-chapter1-test-process/istqb-ctal-ta-chapter1-test-process.css',
+            ),
+            'utf-8',
+        );
+        expect(cssSrc).toMatch(
+            /\.ctal-ta-ch1-page \.sidebar::-webkit-scrollbar-track\s*\{[^}]*background:\s*transparent\s*!important/,
+        );
+        expect(cssSrc).toContain('.ctal-ta-ch1-page .sidebar::-webkit-scrollbar-thumb');
+    });
+
     it('prefixes all 11 mermaid diagrams with a light "base" theme init directive so edge labels stay white', () => {
         const diagrams = [
             DIAGRAM_OVERVIEW,

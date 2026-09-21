@@ -80,6 +80,28 @@
     z-index: 40;
 }
 
+/* globals.css の ::-webkit-scrollbar-track { background-color: var(--color-bg-primary) }
+   （#0a0e1a、サイト全体のダークテーマ既定値）が、overflow-y:auto を持つこのライトテーマの
+   サイドバーにもそのまま適用され、太い黒色のスクロールバートラックとして表示されてしまう。
+   このページ固有のライトな配色で明示的に上書きする（サイドバー/メインの境界線ではなく
+   スクロールバーが黒く見えていた実例: 2026-09） */
+.ctal-ta-ch1-page .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ctal-ta-ch1-page .sidebar::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ctal-ta-ch1-page .sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-strong) !important;
+    border-radius: 3px;
+}
+
+.ctal-ta-ch1-page .sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--accent) !important;
+}
+
 .ctal-ta-ch1-page .sidebar-brand {
     font-family: var(--font-heading);
     font-weight: 800;
