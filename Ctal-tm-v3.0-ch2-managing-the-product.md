@@ -1068,7 +1068,7 @@ flowchart LR
 | ISTQB CTAL-TM v3.0 認定ページ | <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> | 試験構成（50問、合格点58／88点、120分）、ビジネス成果、教材ダウンロード |
 | ISTQB CTAL-TM シラバス v3.0（英語版PDF） | <https://istqb.org/?sdm_process_download=1&download_id=3445> | 第2章の原文（英語版 p.47〜61） |
 | JSTQB 日本語版シラバス CTAL-TM Version3.0.J04（PDF） | <https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf> | 第2章の日本語版（p.49〜64）、用語 |
-| JSTQB シラバス（学習事項）・用語集ページ | <https://jstqb.jp/syllabus.html> | 最新の日本語版シラバス（改訂版）を確認する入口 |
+| JSTQB シラバス（学習事項）・用語集ページ | <https://www.jstqb.jp/syllabus/> | 最新の日本語版シラバス（改訂版）を確認する入口 |
 | JSTQB プレスリリース（Advanced Level テストマネジメント V3.0 公開） | <https://prtimes.jp/main/html/rd/p/000000044.000054604.html> | シラバス公開経緯、章構成の変更点、試験開始時期 |
 | ISTQB 用語集 | <https://glossary.istqb.org/en_US/search?term=> | 用語の公式定義（英語） |
 

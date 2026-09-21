@@ -650,7 +650,7 @@ flowchart TD
 | JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version 3.0.J04（主参照・最新版） | <https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf> | 第3章（p.65〜74）の日本語訳の確認 |
 | JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version 3.0.J02 | <https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J02.pdf> | 旧版（差分確認用） |
 | JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version 3.0.J01 | <https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf> | 旧版（差分確認用） |
-| JSTQB：シラバス・用語集一覧 | <https://jstqb.jp/syllabus.html> | 最新版の入手先 |
+| JSTQB：シラバス・用語集一覧 | <https://www.jstqb.jp/syllabus/> | 最新版の入手先 |
 | JSTQB 日本語版 v3.0 公開のプレスリリース（2025 年 8 月 4 日公開） | <https://prtimes.jp/main/html/rd/p/000000044.000054604.html> | 3章構成への再編、試験問題数の変更などの背景 |
 
 ### 9.3 発展学習
