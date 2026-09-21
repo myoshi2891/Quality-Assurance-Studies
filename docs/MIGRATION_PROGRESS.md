@@ -44,7 +44,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **デザイン忠実再現 & Scoped CSS**:
   - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #ffffff`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--text: #1e293b` 等）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: var(--bg-card) !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card` 装飾、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
-  - スティッキーナビ（`NavBar.tsx`、全16セクションアンカー、スクロールスパイ、モバイルトグル対応）とメイン領域（`.ctal-ta-ch1-page`）。
+  - スティッキーナビ（`NavBar.tsx`、全19セクションアンカー、スクロールスパイ、モバイルトグル対応）とメイン領域（`.ctal-ta-ch1-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
   - 全11図解（第1章の3本柱 `DIAGRAM_OVERVIEW`、3つのSDLCモデル `DIAGRAM_SDLC`、4つの活動関与 `DIAGRAM_PROCESS`、テスト分析エントリ基準 `DIAGRAM_ENTRY`、テスト分析フロー `DIAGRAM_ANALYSIS_FLOW`、テスト環境3要件 `DIAGRAM_ENV3`、ハイ/ローレベルテストケース `DIAGRAM_HLLL`、テスト環境要件の作成フロー `DIAGRAM_ENVREQ`、テストオラクル問題の解決アプローチ `DIAGRAM_ORACLE`、キーワード駆動の層構造 `DIAGRAM_KEYWORD`、テストウェア管理ツール連携 `DIAGRAM_TOOLS`）を共通 `<Mermaid>` コンポーネントへ移植。
 - **コードブロック & インラインコード**:
@@ -54,10 +54,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 章末チェックリスト（`Checklist.tsx`、全11項目動的カウンター `0 / 11 完了`・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 公式一次情報4件（公式試験ページ、シラバスPDF全77ページ、用語集、FAQ）および規格関連文書表、免責事項を完全移植。
-- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全16セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter1-test-process/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch1-page` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter1-test-process`（CTAL-TA 1章 テストプロセス）を追加（全75件）。
-- `tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx`: TDD 必須サイクルに従い、全16セクション、全11Mermaid図、全9テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（8 pass / 123 expect()）。
+- `tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx`: TDD 必須サイクルに従い、全16セクション、全11Mermaid図、全12テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（14 pass / 123 expect()）。
 - `Ctal-ta-v4.0-ch1.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4.0-ch1.md` は `archive/md-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 75 ページ体制に同期。
 
