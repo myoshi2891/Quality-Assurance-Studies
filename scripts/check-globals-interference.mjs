@@ -21,9 +21,13 @@ import { chromium } from '@playwright/test';
 const DEFAULT_ORIGIN = 'http://127.0.0.1:3000';
 const GLOBAL_DARK_CARD_BG = 'rgb(19, 25, 41)'; // globals の --color-bg-card
 
-const target = process.argv[2];
+const args = process.argv.slice(2);
+// 100vh ヒーローを意図しているページ（ダーク系ランディング風）が大半なので、
+// 「カード型ヒーローのはずなのに 100vh になっている」判定は明示的なオプトイン時のみ警告する。
+const cardHeroMode = args.includes('--card-hero');
+const target = args.find((arg) => !arg.startsWith('--'));
 if (!target) {
-    console.error('usage: bun scripts/check-globals-interference.mjs <path-or-url>');
+    console.error('usage: bun scripts/check-globals-interference.mjs <path-or-url> [--card-hero]');
     process.exit(2);
 }
 const url = target.startsWith('http') ? target : `${DEFAULT_ORIGIN}${target}`;
@@ -60,7 +64,7 @@ try {
     }
     await page.waitForLoadState('networkidle').catch(() => {});
 
-    const findings = await page.evaluate((darkCardBg) => {
+    const findings = await page.evaluate(({ darkCardBg, cardHero }) => {
         const results = [];
         const push = (level, rule, detail) => results.push({ level, rule, detail });
 
@@ -69,15 +73,21 @@ try {
             const cs = getComputedStyle(hero);
             const viewportHeight = window.innerHeight;
             const heroHeight = Math.round(hero.getBoundingClientRect().height);
-            if (Math.abs(heroHeight - viewportHeight) <= 2 || cs.minHeight === `${viewportHeight}px`) {
+            const stretched =
+                Math.abs(heroHeight - viewportHeight) <= 2 || cs.minHeight === `${viewportHeight}px`;
+            if (stretched) {
                 push(
-                    'warn',
+                    cardHero ? 'warn' : 'info',
                     '.hero min-height:100vh',
-                    `ヒーローがビューポート高（${viewportHeight}px）まで伸びている。カード型ヒーローなら min-height:0 / display:block を指定する`
+                    `ヒーローがビューポート高（${viewportHeight}px）まで伸びている。全画面ヒーローなら意図どおり。カード型なら min-height:0 / display:block を指定する（--card-hero で警告に昇格）`
                 );
             }
             if (cs.display === 'flex' && cs.justifyContent === 'center') {
-                push('warn', '.hero flex centering', 'globals の display:flex + justify-content:center が残存（中身が上下中央に押し下げられる）');
+                push(
+                    cardHero ? 'warn' : 'info',
+                    '.hero flex centering',
+                    'globals の display:flex + justify-content:center が有効（中身が上下中央に寄る。カード型ヒーローなら要リセット）'
+                );
             }
             if (cs.overflow === 'hidden') {
                 push('info', '.hero overflow:hidden', 'globals の overflow:hidden が残存（影やはみ出し要素が切れる）');
@@ -132,7 +142,7 @@ try {
         });
 
         return results;
-    }, GLOBAL_DARK_CARD_BG);
+    }, { darkCardBg: GLOBAL_DARK_CARD_BG, cardHero: cardHeroMode });
 
     const warnings = findings.filter((f) => f.level === 'warn');
     console.log(`\n${url}`);
