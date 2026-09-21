@@ -236,7 +236,7 @@ export default function Page() {
 
                     <h3 id="lo">0.2 学習目標(Learning Objectives)と認知レベル</h3>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="lo">
                             <thead>
                                 <tr>
                                     <th>コード</th>
@@ -344,13 +344,13 @@ export default function Page() {
                         同じ「テスト分析」というタスクでも、ウォーターフォール型では一度きりの大きな塊として発生するのに対し、アジャイル型では毎スプリント短いサイクルで繰り返し発生します。この違いを理解していないと、プロジェクトに応じた適切なテスト計画・見積もり・体制を提案できません。
                     </p>
 
-                    <h3 className="h4-visual">3つのSDLCモデルの比較</h3>
+                    <h3 className="h4-visual" id="sdlc-comparison">3つのSDLCモデルの比較</h3>
                     <div className="mermaid-wrap">
                         <Mermaid chart={DIAGRAM_SDLC} />
                     </div>
 
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sdlc-comparison">
                             <thead>
                                 <tr>
                                     <th>SDLCモデル</th>
@@ -474,7 +474,7 @@ export default function Page() {
 
                     <p><strong>主なタスク:</strong></p>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec122">
                             <thead>
                                 <tr>
                                     <th>タスク</th>
@@ -608,7 +608,7 @@ export default function Page() {
 
                     <p><strong>テスト結果評価における追加タスク:</strong></p>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec124">
                             <thead>
                                 <tr>
                                     <th>タスク</th>
@@ -676,7 +676,7 @@ export default function Page() {
                         <span className="badge-k">K2</span>
                     </h3>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec131">
                             <thead>
                                 <tr>
                                     <th>項目</th>
@@ -753,7 +753,7 @@ export default function Page() {
                     </p>
 
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec132">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -875,7 +875,7 @@ export default function Page() {
                         <strong>各テスト環境項目が満たすべき5属性(ISO/IEC/IEEE 29119-3準拠):</strong>
                     </p>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec133">
                             <thead>
                                 <tr>
                                     <th>属性</th>
@@ -934,7 +934,7 @@ export default function Page() {
 
                     <p><strong>5つの解決策:</strong></p>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec134">
                             <thead>
                                 <tr>
                                     <th>解決策</th>
@@ -1007,7 +1007,7 @@ export default function Page() {
                     </p>
 
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="sec135">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -1119,9 +1119,9 @@ export default function Page() {
                         キーワード駆動テストでは、TAが<strong>キーワード</strong>を用いてテストスクリプトを作成します(実装自体はTTA・TAE・開発者の役割)。
                     </p>
 
-                    <p><strong>キーワードの2分類:</strong></p>
+                    <p id="keyword-categories"><strong>キーワードの2分類:</strong></p>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="keyword-categories">
                             <thead>
                                 <tr>
                                     <th>種別</th>
@@ -1169,9 +1169,9 @@ export default function Page() {
                         <li>失敗したキーワードテストケースの原因分析</li>
                     </ol>
 
-                    <p><strong>良いキーワードの6条件:</strong></p>
+                    <p id="keyword-criteria"><strong>良いキーワードの6条件:</strong></p>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="keyword-criteria">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -1303,9 +1303,9 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <h3>シラバス内で参照されている規格・関連文書</h3>
+                    <h3 id="referenced-standards">シラバス内で参照されている規格・関連文書</h3>
                     <div className="table-scroll">
-                        <table>
+                        <table aria-labelledby="referenced-standards">
                             <thead>
                                 <tr>
                                     <th>規格/文書</th>

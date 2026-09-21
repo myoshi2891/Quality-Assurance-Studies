@@ -121,19 +121,18 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
         }
         const sidebar = container.querySelector('.sidebar');
         const overlay = container.querySelector('.sidebar-overlay');
+        if (!(overlay instanceof HTMLElement)) {
+            throw new Error('.sidebar-overlay が描画されていません');
+        }
 
         expect(sidebar?.classList.contains('open')).toBe(false);
-        {
-            fireEvent.click(toggleBtn);
-            expect(sidebar?.classList.contains('open')).toBe(true);
-            expect(overlay?.classList.contains('open')).toBe(true);
+        fireEvent.click(toggleBtn);
+        expect(sidebar?.classList.contains('open')).toBe(true);
+        expect(overlay.classList.contains('open')).toBe(true);
 
-            if (overlay) {
-                fireEvent.click(overlay);
-                expect(sidebar?.classList.contains('open')).toBe(false);
-                expect(overlay?.classList.contains('open')).toBe(false);
-            }
-        }
+        fireEvent.click(overlay);
+        expect(sidebar?.classList.contains('open')).toBe(false);
+        expect(overlay.classList.contains('open')).toBe(false);
     });
 
     it('renders Section 1: Guide overview, tables, LO, and keywords', () => {

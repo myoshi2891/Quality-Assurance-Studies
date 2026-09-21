@@ -92,14 +92,27 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 1: Hero & Section 0 (Overview, Keywo
         expect(navLinks.length).toBe(19);
 
         const hrefs = Array.from(navLinks).map((a) => a.getAttribute('href'));
-        expect(hrefs).toContain('#overview');
-        expect(hrefs).toContain('#keywords');
-        expect(hrefs).toContain('#lo');
-        expect(hrefs).toContain('#sec11');
-        expect(hrefs).toContain('#sec12');
-        expect(hrefs).toContain('#sec13');
-        expect(hrefs).toContain('#checklist');
-        expect(hrefs).toContain('#references');
+        expect(hrefs).toEqual([
+            '#overview',
+            '#keywords',
+            '#lo',
+            '#sec11',
+            '#sec12',
+            '#sec121',
+            '#sec122',
+            '#sec123',
+            '#sec124',
+            '#sec13',
+            '#sec131',
+            '#sec132',
+            '#sec133',
+            '#sec134',
+            '#sec135',
+            '#sec136',
+            '#sec137',
+            '#checklist',
+            '#references',
+        ]);
     });
 
     it('renders Section 0: overview, Mermaid mmd-overview, keywords, LO table, and callouts', () => {
