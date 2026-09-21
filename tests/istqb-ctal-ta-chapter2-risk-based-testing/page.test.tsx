@@ -7,6 +7,7 @@ import Page, {
     DIAGRAM_RBT_CYCLE,
     DIAGRAM_RISK_FACTORS,
     DIAGRAM_REGRESSION_SELECTION,
+    DIAGRAM_IMPACT_ANALYSIS_STEPS,
 } from '../../app/istqb-ctal-ta-chapter2-risk-based-testing/page';
 import NavBar from '../../app/istqb-ctal-ta-chapter2-risk-based-testing/NavBar';
 
@@ -339,5 +340,115 @@ describe('CTAL-TA v4.0 Chapter 2 - Category 1: Hero & Sections 1-2 (Overview, In
         const practice = sec4?.querySelector('.callout-practice');
         expect(practice?.textContent).toContain('リスクレジスタを"生きたドキュメント"として扱う');
         expect(practice?.textContent).toContain('技法の組み合わせを前提にする');
+    });
+
+    it('renders Section 5: Step-by-Step Practice of Impact Analysis', () => {
+        const { container } = render(<Page />);
+        const sec5 = container.querySelector('#sec5');
+        expect(sec5).toBeDefined();
+
+        const h2 = sec5?.querySelector('h2');
+        expect(h2?.textContent).toBe('5. 実践演習：インパクト分析をステップバイステップで行う');
+
+        // Scenario
+        const scenario = sec5?.querySelector('.scenario');
+        expect(scenario?.textContent).toContain('状況設定');
+        expect(scenario?.textContent).toContain('同時に適用できるクーポンの数を');
+
+        // Diagram 5: Impact analysis steps
+        expect(DIAGRAM_IMPACT_ANALYSIS_STEPS).toBeDefined();
+        expect(DIAGRAM_IMPACT_ANALYSIS_STEPS).toContain('flowchart TD');
+        expect(DIAGRAM_IMPACT_ANALYSIS_STEPS).toContain('1.変更要求を受領');
+        expect(DIAGRAM_IMPACT_ANALYSIS_STEPS).toContain('8.結果を分析し選定技法の有効性を評価');
+
+        // H3 steps
+        const h3s = Array.from(sec5?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3s).toContain('ステップ①：変更要求を受領する');
+        expect(h3s).toContain('ステップ②：変更対象の構成管理項目を特定する');
+        expect(h3s).toContain('ステップ③：影響を受ける機能・コンポーネントを分析する');
+        expect(h3s).toContain('ステップ④：トレーサビリティマトリクスで関連テストを抽出する');
+        expect(h3s).toContain('ステップ⑤：リスクレジスタと照合し優先度を再評価する');
+        expect(h3s).toContain('ステップ⑥：回帰テストの対象範囲を確定する');
+        expect(h3s).toContain('ステップ⑦・⑧：実行と振り返り');
+
+        // Table 12: Applied techniques example (4 rows)
+        const tables = sec5?.querySelectorAll('table');
+        expect(tables?.length).toBe(1);
+        const t12Rows = tables?.[0]?.querySelectorAll('tbody tr');
+        expect(t12Rows?.length).toBe(4);
+        expect(t12Rows?.[0]?.textContent).toContain('インパクト分析');
+        expect(t12Rows?.[1]?.textContent).toContain('リスクベース選択');
+        expect(t12Rows?.[2]?.textContent).toContain('要求トレーサビリティマトリクス');
+        expect(t12Rows?.[3]?.textContent).toContain('運用プロファイルベーステスト');
+
+        // Tip callout
+        const tip = sec5?.querySelector('.tip');
+        expect(tip?.textContent).toContain('学習ポイント');
+        expect(tip?.textContent).toContain('インパクト分析は「1つの技法」であると同時に');
+    });
+
+    it('renders Section 6 & 7: Best Practices & Chapter 2 Summary Tables', () => {
+        const { container } = render(<Page />);
+
+        // Section 6
+        const sec6 = container.querySelector('#sec6');
+        expect(sec6).toBeDefined();
+        expect(sec6?.querySelector('h2')?.textContent).toBe('6. ベストプラクティス総まとめ（✅/❌）');
+        const t13Rows = sec6?.querySelectorAll('table tbody tr');
+        expect(t13Rows?.length).toBe(6);
+        expect(t13Rows?.[0]?.textContent).toContain('リスク識別');
+        expect(t13Rows?.[5]?.textContent).toContain('継続的改善');
+
+        // Section 7
+        const sec7 = container.querySelector('#sec7');
+        expect(sec7).toBeDefined();
+        expect(sec7?.querySelector('h2')?.textContent).toBe('7. 第2章のまとめ表');
+        const t14Rows = sec7?.querySelectorAll('table tbody tr');
+        expect(t14Rows?.length).toBe(5);
+        expect(t14Rows?.[0]?.textContent).toContain('2.1 リスク分析（リスク識別）');
+        expect(t14Rows?.[0]?.querySelector('.klevel.k2')?.textContent).toBe('K2');
+        expect(t14Rows?.[3]?.textContent).toContain('2.2 リスクコントロール（回帰テスト選択）');
+        expect(t14Rows?.[3]?.querySelector('.klevel.k4')?.textContent).toBe('K4');
+    });
+
+    it('renders Section 8, 9 & 10: Quiz Q&A, References, and Next Steps', () => {
+        const { container } = render(<Page />);
+
+        // Section 8: Quiz Details
+        const sec8 = container.querySelector('#sec8');
+        expect(sec8).toBeDefined();
+        expect(sec8?.querySelector('h2')?.textContent).toBe('8. 理解度チェック問題');
+        const details = sec8?.querySelectorAll('details');
+        expect(details?.length).toBe(5);
+        expect(details?.[0]?.querySelector('summary')?.textContent).toContain('Q1.');
+        expect(details?.[0]?.querySelector('.q-answer')?.textContent).toContain('テストマネージャ（TM）');
+        expect(details?.[4]?.querySelector('summary')?.textContent).toContain('Q5.');
+        expect(details?.[4]?.querySelector('.q-answer')?.textContent).toContain('反復型（イテレーティブ）開発では');
+
+        // Section 9: References
+        const sec9 = container.querySelector('#sec9');
+        expect(sec9).toBeDefined();
+        expect(sec9?.querySelector('h2')?.textContent).toBe('9. 参考文献');
+        const refCards = sec9?.querySelectorAll('.ref-card');
+        expect(refCards?.length).toBe(3);
+        expect(refCards?.[0]?.querySelector('h4')?.textContent).toBe('公式ISTQBシラバス・認定情報');
+        expect(refCards?.[1]?.querySelector('h4')?.textContent).toBe('ISTQB用語集（Glossary）');
+        expect(refCards?.[2]?.querySelector('h4')?.textContent).toBe('関連国際規格');
+
+        const refLinks = sec9?.querySelectorAll('a');
+        expect(refLinks?.length).toBe(12);
+        refLinks?.forEach((a) => {
+            expect(a.getAttribute('target')).toBe('_blank');
+            expect(a.getAttribute('rel')).toContain('noopener');
+        });
+
+        // Section 10: Next Steps & Footer
+        const sec10 = container.querySelector('#sec10');
+        expect(sec10).toBeDefined();
+        expect(sec10?.querySelector('h2')?.textContent).toBe('10. 次のステップ');
+        expect(sec10?.querySelector('.next-box')?.textContent).toContain('第3章「テスト分析とテスト設計」');
+
+        const footer = container.querySelector('footer');
+        expect(footer?.textContent).toContain('本ガイドはISTQB®公式シラバス・認定情報をもとに作成した学習補助教材です');
     });
 });
