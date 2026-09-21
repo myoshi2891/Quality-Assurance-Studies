@@ -388,7 +388,11 @@ describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border con
         expect(classNameBadgeCount).toBe(10);
     });
 
-    it('gives the sidebar a visibly contrasted right border instead of the low-contrast --border token', () => {
+    it('keeps the sidebar right border faithful to the original HTML (1px solid var(--border))', () => {
+        // archive/html-archive/ctal/Ctal-ta-v4.0-ch1.html:74 uses the exact same
+        // declaration. An earlier session speculatively "strengthened" this to
+        // var(--border-strong) at 2px, which drifted from faithful migration and
+        // was reported as an unwanted thick/dark line — restored to match source.
         const cssSrc = readFileSync(
             path.join(
                 process.cwd(),
@@ -398,8 +402,8 @@ describe('CTAL-TA v4.0 Chapter 1 - Bug fixes: JSX class prop, sidebar border con
         );
         const sidebarBlock = cssSrc.match(/\.ctal-ta-ch1-page \.sidebar \{[^}]*\}/)?.[0];
         expect(sidebarBlock).toBeDefined();
-        expect(sidebarBlock).not.toMatch(/border-right:\s*1px solid var\(--border\)\s*;/);
-        expect(sidebarBlock).toMatch(/border-right:\s*1px solid var\(--border-strong\)/);
+        expect(sidebarBlock).toMatch(/border-right:\s*1px solid var\(--border\)\s*;/);
+        expect(sidebarBlock).not.toMatch(/border-right:\s*(2px|1px solid var\(--border-strong\))/);
     });
 
     it('prefixes all 11 mermaid diagrams with a light "base" theme init directive so edge labels stay white', () => {

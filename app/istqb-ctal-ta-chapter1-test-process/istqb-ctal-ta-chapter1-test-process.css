@@ -76,7 +76,7 @@
     height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     overflow-y: auto;
     background: var(--bg-soft);
-    border-right: 1px solid var(--border-strong);
+    border-right: 1px solid var(--border);
     padding: 26px 18px 70px;
     z-index: 40;
 }
