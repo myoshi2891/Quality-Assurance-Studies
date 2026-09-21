@@ -72,10 +72,12 @@ bun scripts/check-globals-interference.mjs /<page-slug>
    pid=$(lsof -nP -tiTCP:3000 -sTCP:LISTEN | head -1)
    if [ -n "$pid" ] && ps -o command= -p "$pid" | grep -q "next"; then kill "$pid"; fi
    rm -rf .next
-   bun run dev
    ```
 
-   を実行し、**コンパイル済みチャンク**（`.next/dev/server/chunks/ssr/...` や `/_next/static/chunks/...css`）
+   を実行してキャッシュを捨てる。**dev サーバーをフォアグラウンドで起動してはならない**
+   （後続コマンドがブロックされ、検証がそこで止まる）。再起動と起動待ちは下記
+   「`.next` キャッシュ確認手順」のバックグラウンド起動手順に従うこと。
+   その後 **コンパイル済みチャンク**（`.next/dev/server/chunks/ssr/...` や `/_next/static/chunks/...css`）
    を `grep` して自分の変更が実際に含まれているかを機械的に確認してから、ブラウザ側の確認へ進む。
    詳細は `.claude/rules/css-cache-reset.md`。
 2. **ブラウザのハードリロード**（⌘+Shift+R）。通常リロードでは古い SVG/CSS がブラウザキャッシュに残る。
