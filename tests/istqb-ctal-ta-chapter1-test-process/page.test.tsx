@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page, {
@@ -313,3 +313,63 @@ describe('CTAL-TA v4.0 Chapter 1 - Category 3: Section 1.3 (Work Products Tasks 
         expect(kwCondRows?.length).toBe(6);
     });
 });
+
+describe('CTAL-TA v4.0 Chapter 1 - Category 4: Checklist and References', () => {
+    it('renders Checklist with 11 items and updates count on click', () => {
+        const { container } = render(<Page />);
+        const checklistSec = container.querySelector('#checklist');
+        expect(checklistSec).toBeDefined();
+
+        const countSpan = checklistSec?.querySelector('#checklistCount');
+        expect(countSpan?.textContent).toBe('0 / 11 完了');
+
+        const checkboxes = checklistSec?.querySelectorAll('input[type="checkbox"]');
+        expect(checkboxes?.length).toBe(11);
+
+        // Click first checkbox
+        const firstCheckbox = checkboxes?.[0] as HTMLInputElement;
+        expect(firstCheckbox.checked).toBe(false);
+        fireEvent.click(firstCheckbox);
+        expect(firstCheckbox.checked).toBe(true);
+        expect(countSpan?.textContent).toBe('1 / 11 完了');
+
+        // Click second checkbox
+        const secondCheckbox = checkboxes?.[1] as HTMLInputElement;
+        fireEvent.click(secondCheckbox);
+        expect(countSpan?.textContent).toBe('2 / 11 完了');
+
+        // Unclick first checkbox
+        fireEvent.click(firstCheckbox);
+        expect(countSpan?.textContent).toBe('1 / 11 完了');
+    });
+
+    it('renders References section: 4 official primary sources, 4 standards, and footer note', () => {
+        const { container } = render(<Page />);
+        const refSec = container.querySelector('#references');
+        expect(refSec).toBeDefined();
+
+        // 4 primary source cards
+        const refCards = refSec?.querySelectorAll('.ref-card');
+        expect(refCards?.length).toBe(4);
+        expect(refCards?.[0]?.textContent).toContain('公式試験ページ');
+        expect(refCards?.[1]?.textContent).toContain('シラバス本体');
+        expect(refCards?.[2]?.textContent).toContain('用語集');
+        expect(refCards?.[3]?.textContent).toContain('よくある質問');
+
+        // Standards table
+        const stdTable = refSec?.querySelector('table');
+        expect(stdTable).toBeDefined();
+        const stdRows = stdTable?.querySelectorAll('tbody tr');
+        expect(stdRows?.length).toBe(4);
+        expect(stdRows?.[0]?.textContent).toContain('ISO/IEC/IEEE 29119-3:2021');
+        expect(stdRows?.[1]?.textContent).toContain('ISTQB® Foundation Level Syllabus v4.0.1');
+        expect(stdRows?.[2]?.textContent).toContain('GDPR');
+        expect(stdRows?.[3]?.textContent).toContain('HIPAA');
+
+        // Footer note
+        const footerNote = refSec?.querySelector('.footer-note');
+        expect(footerNote?.textContent).toContain('免責事項:');
+        expect(footerNote?.textContent).toContain('International Software Testing Qualifications Board');
+    });
+});
+

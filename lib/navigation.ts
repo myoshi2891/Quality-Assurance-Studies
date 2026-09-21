@@ -68,6 +68,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
 
   { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', description: 'テスト自動化アーキテクチャの設計・実装・保守と投資対効果。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', description: 'ビジネス視点のテスト分析・設計と品質特性の評価。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-ta-chapter1-test-process', label: 'CTAL-TA 1章 テストプロセス', description: 'SDLCにおけるTAのタスク、テスト活動への関与、テスト成果物管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tm-complete-guide', label: 'テスト管理(CTAL-TM)ガイド', description: 'テスト戦略・見積り・リスク管理・欠陥マネジメントの実務。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tta-complete-guide', label: 'テクニカルテストアナリスト(CTAL-TTA)ガイド', description: '構造テスト技法、静的/動的解析、非機能品質特性の技術的検証。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-att-complete-guide', label: 'アジャイル(CTAL-ATT)ガイド', description: 'Agile Technical Tester としての自動化とCIへの組み込み。', category: 'istqb-advanced' },

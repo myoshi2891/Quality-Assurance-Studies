@@ -1,5 +1,6 @@
 import './istqb-ctal-ta-chapter1-test-process.css';
 import NavBar from './NavBar';
+import { Checklist } from './Checklist';
 import Mermaid from '../../components/Mermaid';
 
 export const DIAGRAM_OVERVIEW = `flowchart LR
@@ -1209,6 +1210,98 @@ export default function Page() {
                         <p>
                             テスト管理ツールの構造は「機能別」と「技術別」のどちらか一方に固定せず、プロジェクトの性質に応じて選択・併用する。陳腐化したテストケースを定期的に棚卸しし、構成管理の一部として除外/更新する仕組みを運用に組み込む。
                         </p>
+                    </div>
+                </section>
+
+                {/* 章末チェックリスト */}
+                <section id="checklist">
+                    <h2>章末チェックリスト</h2>
+                    <Checklist />
+                </section>
+
+                {/* 参考文献・出典 */}
+                <section id="references">
+                    <h2>参考文献・出典(References)</h2>
+
+                    <h3 style={{ marginTop: '20px' }}>公式一次情報</h3>
+                    <div className="ref-grid">
+                        <div className="ref-card">
+                            <div className="ref-cat">公式試験ページ</div>
+                            <a
+                                href="https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                ISTQB&reg; Certified Tester Advanced Level &ndash; Test Analyst (CTAL-TA) v4.0
+                            </a>
+                        </div>
+                        <div className="ref-card">
+                            <div className="ref-cat">シラバス本体(第1章の一次ソース)</div>
+                            <a
+                                href="https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                ISTQB&reg; CTAL-TA Syllabus v4.0(PDF、全77ページ)
+                            </a>
+                        </div>
+                        <div className="ref-card">
+                            <div className="ref-cat">用語集</div>
+                            <a href="https://glossary.istqb.org/" target="_blank" rel="noopener noreferrer">
+                                ISTQB&reg; Glossary(公式オンライン用語集)
+                            </a>
+                        </div>
+                        <div className="ref-card">
+                            <div className="ref-cat">よくある質問</div>
+                            <a
+                                href="https://istqb.org/help/test-analyst/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Advanced Level Test Analyst v4.0 &mdash; 移行に関するFAQ
+                            </a>
+                        </div>
+                    </div>
+
+                    <h3>シラバス内で参照されている規格・関連文書</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>規格/文書</th>
+                                    <th>関連箇所</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ISO/IEC/IEEE 29119-3:2021(テストドキュメンテーション)</td>
+                                    <td>
+                                        1.3.2(テストケース属性)、1.3.3(テスト環境要件)、1.3.5(テストデータ要件)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ISTQB&reg; Foundation Level Syllabus v4.0.1 (ISTQB-CTFL)</td>
+                                    <td>
+                                        1.2(7つのテスト活動の定義の前提)、2.1/2.2(リスクベーステストの前提)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>GDPR(EU一般データ保護規則, 2016)</td>
+                                    <td>1.3.5(機密データの取り扱い)</td>
+                                </tr>
+                                <tr>
+                                    <td>HIPAA(米国医療保険の携行性と責任に関する法律)</td>
+                                    <td>1.3.5(機密データの取り扱い、米国基準)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="footer-note">
+                        <strong>免責事項:</strong> 本ガイドはISTQB&reg; CTAL-TA
+                        v4.0シラバスの内容を、学習者の理解を助ける目的で独自に要約・再構成・翻訳し、図解(Mermaid)や表形式を追加したものです。正確な出題範囲・正式な定義は必ず上記の公式シラバスPDFおよびISTQB&reg;
+                        Glossaryで確認してください。シラバスの著作権は International Software Testing
+                        Qualifications Board (ISTQB&reg;) に帰属します。
                     </div>
                 </section>
             </main>

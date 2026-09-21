@@ -36,6 +36,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-atlas-complete-guide', h1: /CT-ATLaS/ },
   { path: '/istqb-ctal-att-complete-guide', h1: /CTAL-ATT.*Agile Technical Tester/s },
   { path: '/istqb-ctal-ta-complete-guide', h1: /CTAL-TA.*完全学習ガイド/s },
+  { path: '/istqb-ctal-ta-chapter1-test-process', h1: /テストプロセスにおけるテストアナリストのタスク/ },
   { path: '/istqb-ctal-tae-complete-guide', h1: /テスト自動化.*完全ガイド/s },
   { path: '/istqb-ctal-tm-complete-guide', h1: /CTAL-TM v3\.0/ },
   { path: '/istqb-ctal-tta-complete-guide', h1: /Technical Test Analyst/ },
@@ -89,5 +90,5 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 74;
+export const EXPECTED_PAGE_COUNT = 75;
 
