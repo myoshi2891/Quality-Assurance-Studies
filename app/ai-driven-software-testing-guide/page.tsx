@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
-    "fontFamily": "-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic UI', Meiryo, sans-serif",
+    "fontFamily": "-apple-system, BlinkMacSystemFont, Hiragino Sans, Yu Gothic UI, Meiryo, sans-serif",
     "fontSize": "16px",
     "primaryColor": "#ffffff",
     "primaryTextColor": "#26221c",

@@ -37,7 +37,7 @@ const MERMAID_CONFIG = `%%{init: {
     "labelColor": "#241f1a",
     "mainBkg": "#fffdf8",
     "nodeBorder": "#34408f",
-    "fontFamily": "'Inter', -apple-system, sans-serif",
+    "fontFamily": "Inter, -apple-system, sans-serif",
     "fontSize": "15px"
   },
   "flowchart": {

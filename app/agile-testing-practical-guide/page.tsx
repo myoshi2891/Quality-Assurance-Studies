@@ -31,7 +31,7 @@ const MERMAID_CONFIG = `%%{init: {
     "nodeBorder": "#4c3fae",
     "clusterBkg": "#faf6ee",
     "clusterBorder": "#8a7a5c",
-    "fontFamily": "'Source Sans 3', 'Noto Sans JP', sans-serif",
+    "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "16px"
   },
   "flowchart": {

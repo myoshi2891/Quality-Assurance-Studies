@@ -25,7 +25,7 @@ const MERMAID_CONFIG = `%%{init: {
     "tertiaryBorderColor": "#86efc9",
     "edgeLabelBackground": "#0d1b2f",
     "fontSize": "15px",
-    "fontFamily": "Inter, 'Noto Sans JP', sans-serif"
+    "fontFamily": "Inter, Noto Sans JP, sans-serif"
   },
   "flowchart": { "htmlLabels": true, "curve": "basis" }
 }}%%
