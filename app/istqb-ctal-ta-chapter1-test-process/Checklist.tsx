@@ -71,7 +71,13 @@ export const Checklist: React.FC = () => {
         <div className="checklist-card">
             <div className="checklist-header">
                 <h3 style={{ margin: 0 }}>理解度セルフチェック</h3>
-                <span className="count" id="checklistCount">
+                <span
+                    className="count"
+                    id="checklistCount"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
                     {completedCount} / {totalCount} 完了
                 </span>
             </div>
