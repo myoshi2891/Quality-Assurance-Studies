@@ -253,4 +253,31 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('クラウドテスト');
         expect(container.textContent).toContain('多様なテスト環境');
     });
+
+    it('renders Section 6: Applying the Most Appropriate Test Techniques (Technique Selection K4, Design Automation K2)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 6 H2 & H3s
+        const sec6 = container.querySelector('[id="6-35-最適なテスト技法の適用applying-the-most-appropriate-test-techniques"]');
+        expect(sec6).toBeTruthy();
+        expect(sec6?.textContent).toContain('6. 3.5 最適なテスト技法の適用');
+
+        const sec61 = container.querySelector('[id="61-351-製品リスクを軽減する技法の選定-k4-分析"]');
+        expect(sec61).toBeTruthy();
+        expect(sec61?.textContent).toContain('6.1 3.5.1 製品リスクを軽減する技法の選定');
+
+        const sec62 = container.querySelector('[id="62-352-テスト設計自動化の利点とリスク-k2-理解"]');
+        expect(sec62).toBeTruthy();
+        expect(sec62?.textContent).toContain('6.2 3.5.2 テスト設計自動化の利点とリスク');
+
+        // Check Technique Selection factors & terms
+        expect(container.textContent).toContain('製品リスクを軽減する適切なテスト技法を選択できる');
+        expect(container.textContent).toContain('テストベース');
+        expect(container.textContent).toContain('既知の欠陥傾向');
+
+        // Check Test Design Automation terms
+        expect(container.textContent).toContain('テスト設計自動化');
+        expect(container.textContent).toContain('テストモデルを作成し');
+        expect(container.textContent).toContain('シングルソース');
+    });
 });
