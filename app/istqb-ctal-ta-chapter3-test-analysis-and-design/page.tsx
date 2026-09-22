@@ -109,6 +109,53 @@ flowchart LR
     class BASE baseFill
     class V1,V2,V3,V4 varFill`;
 
+export const DIAGRAM_CRUD_APPROACH = `${MERMAID_CONFIG}
+flowchart TD
+    A["CRUDマトリクスの作成<br/>(機能 × エンティティ)"] --> B["網羅性テスト<br/>(Completeness Testing / 静的テスト)"]
+    A --> C["一貫性テスト<br/>(Consistency Testing / 動的テスト)"]
+    B --> B1["各エンティティについて<br/>C・R・U・Dの全操作が<br/>実装されているかを確認"]
+    C --> C1["エンティティのライフサイクル全体を<br/>通して機能同士の連携を実行し<br/>整合性を確認"]
+    C --> C2["異常系も含める<br/>(例: 未作成のデータをRead/Update/Deleteしようとする)"]
+
+    classDef staticFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef dynamicFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class B,B1 staticFill
+    class C,C1,C2 dynamicFill`;
+
+export const DIAGRAM_STATE_ORDER = `${MERMAID_CONFIG}
+stateDiagram-v2
+    direction LR
+    [*] --> 下書き
+    下書き --> 提出済み : 注文確定
+    提出済み --> 審査中 : 審査開始
+    審査中 --> 差し戻し中 : 不備あり
+    差し戻し中 --> 審査中 : 再提出
+    審査中 --> 承認済み : 承認
+    審査中 --> 却下 : 却下
+    承認済み --> 出荷済み : 出荷
+    出荷済み --> 完了 : 受領確認
+    却下 --> [*]
+    完了 --> [*]`;
+
+export const DIAGRAM_SCENARIO_LOGIN = `${MERMAID_CONFIG}
+flowchart TD
+    START(["開始: ログイン画面表示"]) --> INPUT["ID・パスワードを入力"]
+    INPUT --> CHECK{"認証結果は?"}
+    CHECK -->|"メインシナリオ<br/>(ハッピーパス)"| SUCCESS["ホーム画面へ遷移"]
+    CHECK -->|"拡張シナリオ<br/>パスワード忘れ"| RESET["パスワード再設定フローへ"]
+    RESET --> RETRY["再設定後に再ログイン"]
+    RETRY --> CHECK
+    CHECK -->|"例外シナリオ<br/>連続失敗でロック"| LOCK["アカウントロック画面を表示"]
+    SUCCESS --> ENDNODE(["終了"])
+    LOCK --> ENDNODE
+
+    classDef mainFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef altFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef excFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class SUCCESS mainFill
+    class RESET,RETRY altFill
+    class LOCK excFill`;
+
 export default function CtalTaChapter3Page() {
     return (
         <div className="ctal-ta-ch3-page">
@@ -756,6 +803,377 @@ export default function CtalTaChapter3Page() {
                                 </li>
                                 <li>
                                     探索的テストや他の系統的技法と組み合わせることで、「見落としがちな領域」を補完する位置づけで使うと効果的。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 3: 3.2 ビヘイビアベーステスト技法 */}
+                    <h2 id="3-32-ビヘイビアベーステスト技法behavior-based-test-techniques">
+                        3. 3.2 ビヘイビアベーステスト技法(Behavior-Based Test Techniques)
+                    </h2>
+                    <p>
+                        ビヘイビアベーステスト技法は、テスト対象の<strong>動的(状態依存的)な振る舞いの仕様</strong>からテストケースを導出する技法群です。Foundation Levelで学んだ状態遷移テストをさらに深掘りするとともに、CRUDテストやシナリオベーステストといった実務で極めて有用な技法を学びます。
+                    </p>
+
+                    {/* 3.1 CRUDテスト */}
+                    <h3 id="31-321-crudテストcrud-testing-k2-理解">
+                        3.1 3.2.1 CRUDテスト(CRUD Testing) <code>K2: 理解</code>
+                    </h3>
+
+                    <h4 id="定義-3">定義</h4>
+                    <p>
+                        CRUDテストは、テスト対象が処理する<strong>データエンティティのライフサイクル</strong>を検証する技法です。Create(作成)、Read(参照)、Update(更新)、Delete(削除)の4つの基本操作が正しく機能するかを評価します。
+                    </p>
+
+                    <h4 id="なぜ必要か-2">なぜ必要か</h4>
+                    <p>
+                        多くの業務システムは「会員」「注文」「商品」のようなエンティティを中心に構築されています。機能単体では正しく動いても、ライフサイクルの順序(例: 削除された会員へのメール送信、注文確定後の在庫未更新など)に不整合が生じる欠陥は後を絶ちません。CRUDテストはこうしたライフサイクルの不整合や欠落を網羅的に暴くために不可欠です。
+                    </p>
+
+                    <h4 id="crudマトリクスの作成">CRUDマトリクスの作成</h4>
+                    <p>
+                        行に機能、列にエンティティを配置し、各機能がどのエンティティに対してどの操作を行うかを整理した表(CRUDマトリクス)を作成します。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>機能</th>
+                                    <th>会員</th>
+                                    <th>注文</th>
+                                    <th>商品</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>会員登録</td>
+                                    <td><strong>C</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>会員情報照会</td>
+                                    <td><strong>R</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>会員情報変更</td>
+                                    <td><strong>U</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>会員退会</td>
+                                    <td><strong>D</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>注文作成</td>
+                                    <td>R</td>
+                                    <td><strong>C</strong></td>
+                                    <td>R</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>注文照会</td>
+                                    <td></td>
+                                    <td><strong>R</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>注文キャンセル</td>
+                                    <td></td>
+                                    <td><strong>U</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>商品登録</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>C</strong></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>在庫更新</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>U</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>商品削除</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>D</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="callout callout-note">
+                        <div className="callout-head">
+                            <span className="callout-icon">📝</span><span className="callout-title">注記</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                特に<strong>Read操作</strong>は、C・U・D操作に暗黙的に付随することが多いため(例:注文作成時に商品情報をReadする)、見落としがちです。マトリクス作成時は必ず明示的に確認しましょう。
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 id="網羅性テストと一貫性テスト">網羅性テストと一貫性テスト</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CRUD_APPROACH} />
+                    </div>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テストの種類</th>
+                                    <th>分類</th>
+                                    <th>目的</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>網羅性テスト</strong>(Completeness testing)</td>
+                                    <td>静的テスト</td>
+                                    <td>
+                                        すべてのエンティティに対してC・R・U・Dの全操作が実装されているか(ライフサイクル全体が実装されているか)を確認。操作の欠落は要調査の異常
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>一貫性テスト</strong>(Consistency testing)</td>
+                                    <td>動的テスト</td>
+                                    <td>
+                                        複数機能を組み合わせて実際にエンティティのライフサイクルを通し、機能間の連携の整合性を検証。「未作成のデータを参照する」などの異常系も含める
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        CRUDカバレッジは、CRUDマトリクス上の「エンティティ×C/R/U/D」の組み合わせ(カバレッジ項目)のうち、テストスイートで<strong>少なくとも1回実行して網羅したユニークな項目数</strong>を、マトリクス全体のユニークな項目数で割ることで測定します(同じRead操作などを複数回実行しても重複してカウントしません)。より厳密には「更新(U)の後に、想定されるすべての参照(R)が実行されているか」のように、特定の操作の組み合わせをカバレッジ項目とすることも可能です。CRUDテストは主にシステムレベルで用いられ、ライフサイクルの網羅性・操作の一貫性・データ整合性違反といった欠陥の検出に強みがあります。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    CRUDマトリクスは、機能一覧・エンティティ一覧が確定した段階で早期に作成し、<strong>実装前のレビュー資料</strong>として使うと、そもそもの設計漏れ(Read操作の実装忘れなど)を上流で防げる。
+                                </li>
+                                <li>
+                                    一貫性テストでは、正常なライフサイクル順序だけでなく、<strong>順序違反</strong>(例: 削除済みエンティティへのUpdate)を意図的にテストケース化する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* 3.2 状態遷移テスト */}
+                    <h3 id="32-322-状態遷移テストstate-transition-testing-k3-適用">
+                        3.2 3.2.2 状態遷移テスト(State Transition Testing) <code>K3: 適用</code>
+                    </h3>
+
+                    <h4 id="定義-4">定義</h4>
+                    <p>
+                        多くの複雑なシステムは「ステートフル」、つまり現在の状態によってイベントへの反応が異なります。状態遷移テストは、システムが取りうる<strong>状態</strong>、状態間を移動させる<strong>遷移(イベント＋ガード条件)</strong>、および遷移時に発生する<strong>アクション</strong>をモデル化してテストする技法です。
+                    </p>
+
+                    <h4 id="具体例注文の状態遷移モデル">具体例:注文の状態遷移モデル</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_STATE_ORDER} />
+                    </div>
+
+                    <h4 id="追加のカバレッジ基準">追加のカバレッジ基準</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>カバレッジ基準</th>
+                                    <th>説明</th>
+                                    <th>適用場面</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>0-switchカバレッジ(全遷移カバレッジ)</strong></td>
+                                    <td>すべての単一遷移(長さ1の遷移シーケンス)を少なくとも1回実行する</td>
+                                    <td>標準的な品質レベルのシステムテスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>1-switchカバレッジ</strong></td>
+                                    <td>すべての連続する2つの遷移シーケンス(長さ2)を少なくとも1回実行する</td>
+                                    <td>状態依存性が強い中リスク機能</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>N-switchカバレッジ</strong></td>
+                                    <td>すべての連続するN+1個の遷移シーケンス(長さN+1)を実行する</td>
+                                    <td>高信頼性が要求されるミッションクリティカル領域</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>ラウンドトリップカバレッジ</strong></td>
+                                    <td>ある状態から出発し、1つ以上の遷移を経て再び元の状態に戻るループ遷移シーケンスをすべて実行する</td>
+                                    <td>業務プロセスやセッション管理などの循環型ライフサイクル</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        状態遷移モデルにはガード条件やアクションを含めることができ、拡張有限状態機械・Harelステートチャート・UMLステートマシン図などが用いられます。単一のテストケースで複数のカバレッジ項目を同時に達成できる場合があり、テストスイートの最小化を図ることもテストアナリストの腕の見せ所です。無効な遷移(ある状態では発生してはならないイベント)をテストする「無効遷移テスト」も堅牢性検証として極めて重要です。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    状態遷移表(State Table)を作成すると、状態遷移図では見落としがちな「未定義の遷移・無効な遷移」を網羅的に洗い出すことができる。
+                                </li>
+                                <li>
+                                    1-switchカバレッジは0-switchに比べてテストケース数が跳ね上がるため、リスクベースで「どの状態の組み合わせが重要か」を絞り込んで適用する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="compare-grid">
+                        <div className="compare-item compare-good">
+                            <h4><span className="compare-icon">✅</span>良い例</h4>
+                            <div className="compare-text">
+                                有効な遷移だけでなく、「審査中の注文を再度提出しようとする」などの無効遷移テストを意図的に含める
+                            </div>
+                        </div>
+                        <div className="compare-item compare-bad">
+                            <h4><span className="compare-icon">❌</span>悪い例</h4>
+                            <div className="compare-text">
+                                ハッピーパス(正常な完了フロー)の遷移のみをテストし、異常なイベントや順序不正時のエラーハンドリングを放置する
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* 3.3 シナリオベーステスト */}
+                    <h3 id="33-323-シナリオベーステストscenario-based-testing-k3-適用">
+                        3.3 3.2.3 シナリオベーステスト(Scenario-Based Testing) <code>K3: 適用</code>
+                    </h3>
+
+                    <h4 id="定義-5">定義</h4>
+                    <p>
+                        シナリオベーステストは、<strong>現実的なシナリオ(利用者が実際にたどるであろう一連の操作の流れ)</strong>でテスト対象の振る舞いを評価する技法です。ユーザーリサーチ、ユーザーストーリー、ユースケース、業務フロー図、アクティビティ図などをテストベースとしてモデルを構築します。
+                    </p>
+
+                    <h4 id="アクティビティ図とユースケース">アクティビティ図とユースケース</h4>
+                    <ul>
+                        <li>
+                            <strong>アクティビティ図</strong>: システム内のワークフローを表現する図。開始/終了ノード、アクション、遷移、判断ノード、マージノード、フォークノード、ジョインノード、スイムレーンなどで構成され、フローチャートを拡張して並行処理も表現できる。
+                        </li>
+                        <li>
+                            <strong>ユースケース</strong>: ユーザーとシステム(またはシステム同士)の相互作用をテキストまたは図で記述したもの。以下の3種類のシナリオに分類される。
+                        </li>
+                    </ul>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>シナリオ種別</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>メインシナリオ(ハッピーパス)</strong></td>
+                                    <td>
+                                        ユーザー視点で目標を達成する典型的・期待通りの一連の行動。1つのユースケースにつき<strong>必ず1つだけ</strong>存在する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>拡張シナリオ(代替シナリオ)</strong></td>
+                                    <td>
+                                        メインシナリオとは異なる経路をたどるが、最終的には同じ目標を達成する一連の行動
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>例外シナリオ</strong></td>
+                                    <td>
+                                        予期しない事象(異常な使い方や無効な入力など)により、目標を達成できない一連の行動
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="具体例ログイン機能のシナリオモデル">具体例:ログイン機能のシナリオモデル</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_SCENARIO_LOGIN} />
+                    </div>
+
+                    <h4 id="カバレッジ">カバレッジ</h4>
+                    <p>
+                        ループを含まないシナリオモデルであれば、それぞれのシナリオを個別のテストケースでカバーできます(すべてのシナリオ=パスをテストスイートで網羅可能)。しかし上図の「再設定後に再ログイン」のようにループがあると、理論上パスの数が無限になり得ます。この場合は<strong>単純ループカバレッジ(simple loop coverage)</strong>を適用し、以下の4パターンをテストします。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>パターン</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>0回(スキップ)</td>
+                                    <td>ループを一度も実行しない</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1回</td>
+                                    <td>ループをちょうど1回実行する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>複数回(典型的な回数)</td>
+                                    <td>ループを2回以上、一般的な回数だけ実行する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>最大回数</td>
+                                    <td>可能であれば、ループの上限回数まで実行する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        シナリオベースカバレッジは「実行したシナリオ数 ÷ 識別された全シナリオ数」で測定します。1つのシナリオに対して、さらにEP/BVAのような追加カバレッジが必要になる場合、1シナリオを複数のテストケースに分けて実装することもあります。
+                    </p>
+                    <p>
+                        主にシステムテストや受け入れテストでエンドツーエンドテストとして使われますが、コンポーネント統合テスト(インターフェースの相互作用プロトコルに基づく)やコンポーネントテスト(ステートフルなオブジェクト指向クラスのメソッド呼び出し)、さらには非機能テスト(信頼性・柔軟性・互換性テストにおける運用プロファイルの構成要素として)にも応用できます。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    シナリオはリスクベースで優先順位付けする(ビジネス上重要な、または利用頻度の高いシナリオから着手する)。
+                                </li>
+                                <li>
+                                    ループを含むシナリオでは、単純ループカバレッジの4パターン(0回・1回・複数回・最大回数)を意識的にテストケース化しないと、「2回目のリトライで状態が壊れる」といった欠陥を見逃しやすい。
+                                </li>
+                                <li>
+                                    デシジョンカバレッジ(ホワイトボックス技法)やラウンドトリップカバレッジと組み合わせることで、業務プロセス内の分岐や周期的な処理のリスクをより厳密にカバーできる。
                                 </li>
                             </ul>
                         </div>
