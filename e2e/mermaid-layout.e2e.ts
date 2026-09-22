@@ -52,9 +52,12 @@ test.describe('mermaid: rendered layout and theme', () => {
             const response = await page.goto(route.path);
             expect(response?.status(), `HTTP status for ${route.path}`).toBe(200);
 
-            // 図はクライアント描画なので、最初の SVG が出るまで待つ
+            // 図はクライアント描画なので、全 wrapper に SVG が出そろうまで待つ
             await page.waitForFunction(
-                () => document.querySelectorAll('.mermaid-wrapper svg').length > 0,
+                () => {
+                    const wrappers = [...document.querySelectorAll('.mermaid-wrapper')];
+                    return wrappers.length > 0 && wrappers.every((w) => w.querySelector('svg') !== null);
+                },
                 undefined,
                 { timeout: 20_000 }
             );
