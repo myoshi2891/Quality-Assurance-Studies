@@ -156,6 +156,34 @@ flowchart TD
     class RESET,RETRY altFill
     class LOCK excFill`;
 
+export const DIAGRAM_DECISION_STEPS = `${MERMAID_CONFIG}
+flowchart TD
+    A["① フル・デシジョンテーブルの作成<br/>(条件の全組み合わせを列挙)"] --> B["② 実行不可能なルールの除外<br/>(発生しえない組み合わせを削除)"]
+    B --> C["③ ドントケア(–)を使った<br/>アクション等価ルールの併合(最小化)"]
+    C --> D["④ レビュー<br/>一貫性・実行可能性・網羅性・正しさ"]
+    D --> E["⑤ チェックサム手続きで<br/>過不足(重複・漏れ)を検証"]
+    E --> F["⑥ テストケースへ変換<br/>(–の値を具体的なデータに落とし込む)"]
+
+    classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    class A,B,C,D,E,F stepFill`;
+
+export const DIAGRAM_METAMORPHIC_CONCEPT = `${MERMAID_CONFIG}
+flowchart LR
+    SRC["ソーステストケース<br/>入力: [3, 5, 7]<br/>期待結果: 平均 = 5"] -->|"MR適用:<br/>並び替えても平均は不変"| FUP["フォローアップテストケース<br/>入力: [7, 3, 5]<br/>期待結果: 平均 = 5"]
+    SRC --> EXEC1["実行"]
+    FUP --> EXEC2["実行"]
+    EXEC1 --> COMPARE{"MR(メタモルフィック関係)を<br/>満たしているか?"}
+    EXEC2 --> COMPARE
+    COMPARE -->|"満たす"| PASS["合格"]
+    COMPARE -->|"満たさない"| FAIL["不合格<br/>(どちらかのテストケースに欠陥がある可能性)"]
+
+    classDef srcFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef passFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef failFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class SRC,FUP srcFill
+    class PASS passFill
+    class FAIL failFill`;
+
 export default function CtalTaChapter3Page() {
     return (
         <div className="ctal-ta-ch3-page">
@@ -1174,6 +1202,329 @@ export default function CtalTaChapter3Page() {
                                 </li>
                                 <li>
                                     デシジョンカバレッジ(ホワイトボックス技法)やラウンドトリップカバレッジと組み合わせることで、業務プロセス内の分岐や周期的な処理のリスクをより厳密にカバーできる。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 4: 3.3 ルールベーステスト技法 */}
+                    <h2 id="4-33-ルールベーステスト技法rule-based-test-techniques">
+                        4. 3.3 ルールベーステスト技法(Rule-Based Test Techniques)
+                    </h2>
+                    <p>
+                        ルールベーステスト技法は、<strong>状態に依存しない静的な振る舞いのルール</strong>(ビジネスルールなど)の実装を検証します。
+                    </p>
+
+                    <h3 id="41-331-デシジョンテーブルテストdecision-table-testing-k3-適用">
+                        4.1 3.3.1 デシジョンテーブルテスト(Decision Table Testing) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-6">定義</h4>
+                    <p>
+                        デシジョンテーブルテストは、Foundation Levelの基礎を発展させ、より高度なトピック(最小化・レビュー基準・チェックサム手続き)を扱います。表記法はOMG® DMN(Decision Model and Notation)標準に準拠します。
+                    </p>
+
+                    <h4 id="フルデシジョンテーブルと最小化">フル・デシジョンテーブルと最小化</h4>
+                    <p>
+                        フル・デシジョンテーブルのルール数は「各条件の値の数の積」で決まり、条件や値が増えると指数的に増加します。このため、実務では<strong>最小化(minimization)</strong>が不可欠です。最小化は、同じアクションを持つルール同士を「ドントケア演算子(<code>–</code>)」でマージすることで行います。
+                    </p>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_DECISION_STEPS} />
+                    </div>
+
+                    <h4 id="具体例-1">具体例</h4>
+                    <p>
+                        条件: プレミアム会員か(C1)、注文金額が10,000円以上か(C2)、送料無料キャンペーン中か(C3)。ただし割引率は<strong>C1とC2のみ</strong>で決まり、C3には依存しない、という仕様だとします。
+                    </p>
+
+                    <p><strong>フル・デシジョンテーブル(全8ルール)</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ルール</th>
+                                    <th>C1: プレミアム会員</th>
+                                    <th>C2: 金額≥10,000円</th>
+                                    <th>C3: キャンペーン中</th>
+                                    <th>割引率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>R1</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R2</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R3</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R4</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R5</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>5%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R6</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>5%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R7</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>0%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R8</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p><strong>最小化後のデシジョンテーブル(4ルール)</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ルール</th>
+                                    <th>C1: プレミアム会員</th>
+                                    <th>C2: 金額≥10,000円</th>
+                                    <th>C3: キャンペーン中</th>
+                                    <th>割引率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>M1</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td><strong>–</strong></td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M2</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td><strong>–</strong></td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>M3</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td><strong>–</strong></td>
+                                    <td>5%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M4</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td><strong>–</strong></td>
+                                    <td>0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="チェックサム手続きによる検証">チェックサム手続きによる検証</h4>
+                    <p>
+                        各ルールのスコアは「<code>–</code>が付いた条件ごとに、その条件が取りうる値の数を掛け合わせる」ことで計算します(値を1つも持たないルール=<code>–</code>が1つもないルールはスコア1)。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ルール</th>
+                                    <th>計算式</th>
+                                    <th>スコア</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>M1(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M2(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>M3(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M4(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>チェックサム合計</strong></td>
+                                    <td></td>
+                                    <td><strong>8</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        元のフル・デシジョンテーブルはルール数がそのままチェックサム(各ルールスコア1×8ルール=8)になるため、<strong>最小化後のチェックサム(8)と一致</strong>しています。チェックサムの一致は「ルールの漏れや重複がない」ことの<strong>必要条件</strong>を確認するものであり、それ自体が証明にはなりません。最小化後のテーブルが元のテーブルと論理的に完全に等価であることを示すには、各最小化ルールが元のフルテーブルのどの組み合わせに対応するかを1つずつ突き合わせる、あるいは最小化後のルール群が(1)互いに重複しない(非重複)かつ(2)入力ドメイン全体を尽くす(網羅的)分割になっていることを別途検証する必要があります。
+                    </p>
+
+                    <h4 id="レビュー観点">レビュー観点</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>一貫性(consistency)</td>
+                                    <td>
+                                        同じ条件値の組み合わせに複数のルールが適用される場合、それらはアクションが等価であること
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>実行可能性(feasibility)</td>
+                                    <td>
+                                        実行不可能なルール(絶対に発生し得ない組み合わせ)が含まれていないこと
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>網羅性(completeness)</td>
+                                    <td>実行可能な組み合わせに漏れがないこと</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>正しさ(correctness)</td>
+                                    <td>
+                                        ルールがシステムの意図した振る舞いを正しくモデル化していること
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        デシジョンテーブルカバレッジは「実行した列数 ÷ 実行可能な全列数」で測定します。テストケース化の際、<code>–</code>の値をどう具体化するかはテストアナリストの判断ですが、<strong>リスクが高いデシジョンテーブルでは最小化を避け、フルテーブルの実行可能な列でカバレッジを測定すべき</strong>とされています。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    最小化アルゴリズムの結果は列を処理する順序に依存し、必ずしも最適(最小)にならない。最小化後も<strong>さらに縮約できないか手動で確認</strong>する。
+                                </li>
+                                <li>
+                                    高リスクな判定ロジック(与信判定、医療機器の投薬量計算など)では、最小化によるテストケース削減よりも網羅性を優先し、フルテーブルでのカバレッジを検討する。
+                                </li>
+                                <li>
+                                    デシジョンテーブルはビジネスルールの「生きた仕様書」としてステークホルダーとレビューする場に使うと、要件の曖昧さそのものを早期に発見できる。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="42-332-メタモルフィックテストmetamorphic-testing-k3-適用">
+                        4.2 3.3.2 メタモルフィックテスト(Metamorphic Testing) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-7">定義</h4>
+                    <p>
+                        メタモルフィックテスト(MT)は、<strong>既存のソーステストケースを基に、メタモルフィック関係(MR)に従ってフォローアップテストケースを生成</strong>する技法です。MRは、テスト対象の性質(プロパティ)を定義し、「入力をこう変化させたら、期待結果はこう変化するはずだ」という関係を記述します。
+                    </p>
+
+                    <h4 id="なぜ必要か-3">なぜ必要か</h4>
+                    <p>
+                        多くのシステム(特にAIベースのシステムや、複雑な計算を行うシステム)では、個々の入力に対する「正解」を事前に用意すること自体が困難、あるいは非常に高コストです(<strong>テストオラクル問題</strong>、Section 5参照)。メタモルフィックテストは、個々の絶対的な正解が分からなくても、<strong>入力同士・出力同士の相対的な関係</strong>さえ定義できればテストが成立するという発想の転換によって、この問題を回避します。
+                    </p>
+
+                    <h4 id="具体例-2">具体例</h4>
+                    <p>「数値の系列の平均を求める関数」を例にとります。</p>
+                    <ol>
+                        <li>
+                            <strong>ソーステストケース</strong>: 入力 <code>[3, 5, 7]</code> → 期待結果「平均 = 5」(実行して合格を確認済み)
+                        </li>
+                        <li>
+                            <strong>メタモルフィック関係(MR)①</strong>: 「系列の順序をどう並び替えても、平均は変わらない」
+                        </li>
+                        <li>
+                            <strong>フォローアップテストケース</strong>: 入力 <code>[7, 3, 5]</code> → 期待結果は同じく「平均 = 5」
+                        </li>
+                    </ol>
+                    <p>
+                        別のMRとして「系列の各値をすべて<code>x</code>倍すると、期待結果(平均)も<code>x</code>倍になる」を使えば、<code>x</code>の値を変えるだけで無数のフォローアップテストケースを自動生成できます。2つ以上のMRを組み合わせる(並び替え+2倍する、など)ことも可能です。
+                    </p>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_METAMORPHIC_CONCEPT} />
+                    </div>
+
+                    <p>
+                        テストオラクル問題が存在する状況(例: 喫煙本数から死亡予測年齢を算出するAIベースの保険数理プログラム)では、「他の危険因子を固定した場合、喫煙本数が増えるほど予測死亡年齢は下がる(または同等以下になる)はずだ」という単調性のMRが有効な場合があります。ただしこのMRは、モデルが喫煙本数以外の変数を固定した比較を前提としていること、対象母集団が想定する分布から外れていないこと、「予測死亡年齢」が一貫した基準で定義された出力であることなど、成立条件が保証される場合に限り適用できます。これらの前提を保証できない場合は、MR違反を直ちに欠陥と断定せず、モデルの入出力契約から確実に保証できる不変条件を用いた検証に置き換えるべきです。
+                    </p>
+
+                    <h4 id="カバレッジ-1">カバレッジ</h4>
+                    <p>
+                        現時点でMTには認められたカバレッジ尺度がなく、各MRを1回カバーするだけでは検証が部分的にとどまるため不十分とされています。テストアナリストは、しばしば<strong>ランダムテストと組み合わせて</strong>、同一のMRに対して大量のソース/フォローアップテストケースのペアを自動生成する手法を取ります。
+                    </p>
+                    <p>
+                        MTはほぼすべてのテスト対象に適用可能で、機能テストだけでなく非機能テスト(負荷生成にMRを使う負荷テスト、複数のインストール順序を試すインストール性テストなど)にも使えます。特に<strong>AIベースシステムのテスト</strong>では推奨される技法の一つです。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    まず「この関数・機能にはどんな不変の性質(対称性、単調性、可換性など)があるか」を洗い出すところから始めると、有効なMRを見つけやすい。
+                                </li>
+                                <li>
+                                    テストが失敗した場合、ソースとフォローアップのどちらに欠陥があるかは追加のデバッグが必要になる点を事前にチーム内で共有しておく。
+                                </li>
+                                <li>
+                                    テストオラクル問題を抱える機能(AI予測、非決定的な処理)を優先的にメタモルフィックテストの対象候補とする。
                                 </li>
                             </ul>
                         </div>
