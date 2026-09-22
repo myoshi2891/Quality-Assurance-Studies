@@ -242,7 +242,7 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
 
         // Check Test Charter terms & format
         expect(container.textContent).toContain('Explore [対象] With [リソース] To discover [発見したい情報]');
-        expect(container.textContent).toContain('タイムボックス化された');
+        expect(container.textContent).toContain('ミッション(使命)');
         expect(container.textContent).toContain('セッションシート');
 
         // Check Checklist terms

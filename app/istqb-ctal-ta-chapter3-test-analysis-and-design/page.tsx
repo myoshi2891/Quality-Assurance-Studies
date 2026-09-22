@@ -184,6 +184,28 @@ flowchart LR
     class PASS passFill
     class FAIL failFill`;
 
+export const DIAGRAM_CHARTER_CYCLE = `${MERMAID_CONFIG}
+flowchart LR
+    A["① テストチャーター作成<br/>(Explore/With/To形式)"] --> B["② タイムボックス化された<br/>テストセッションを実行"]
+    B --> C["③ セッションシートに<br/>ログ・観察・疑問点を記録"]
+    C --> D["④ デブリーフィング<br/>(振り返り・次の計画)"]
+    D -.->|"次のセッションへ反映"| A
+
+    classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    class A,B,C,D stepFill`;
+
+export const DIAGRAM_CHECKLIST_STEPS = `${MERMAID_CONFIG}
+flowchart TD
+    A["① スコープ・目的・形式を決定<br/>(Read-do型 / Do-confirm型)"] --> B["② 情報収集<br/>経験者の知見・欠陥分類/欠陥タクソノミー・<br/>関連文書・過去のリスクや事例の分析"]
+    B --> C["③ チェックリスト項目の作成<br/>(明確・具体的・曖昧さがない・<br/>Yes/No/N.A.で答えられる形式)"]
+    C --> D["④ 優先度の付与<br/>(重要度・影響度・リスクレベル)"]
+    D --> E["⑤ カテゴリ別に構造化<br/>(機能領域・ユーザーロール・テストレベルなど)"]
+    E --> F["⑥ 継続的なレビュー・改訂"]
+    F -.->|"新しい知見・変化した優先度を反映"| C
+
+    classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    class A,B,C,D,E,F stepFill`;
+
 export default function CtalTaChapter3Page() {
     return (
         <div className="ctal-ta-ch3-page">
@@ -1525,6 +1547,292 @@ export default function CtalTaChapter3Page() {
                                 </li>
                                 <li>
                                     テストオラクル問題を抱える機能(AI予測、非決定的な処理)を優先的にメタモルフィックテストの対象候補とする。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 5: 3.4 経験ベーステスト */}
+                    <h2 id="5-34-経験ベーステストexperience-based-testing">
+                        5. 3.4 経験ベーステスト(Experience-Based Testing)
+                    </h2>
+                    <p>
+                        経験ベーステストは、テストアナリスト自身の<strong>専門知識と過去の経験</strong>を活用してテストを導く手法です。
+                    </p>
+
+                    <h3 id="51-341-テストチャーターtest-charters-supporting-session-based-testing-k3-適用">
+                        5.1 3.4.1 テストチャーター(Test Charters Supporting Session-Based Testing) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-8">定義</h4>
+                    <p>
+                        探索的テストにおいて、<strong>テストチャーター</strong>はテストセッションの「ミッション(使命)」を定義するものです。スコープ・目的に加え、制約・タイムライン・リスクなどの情報を含み、セッションの羅針盤として機能します。ただし、チャーターはセッション中に実行する具体的なテストスイートまでは規定しません。
+                    </p>
+
+                    <h4 id="ミッションの記述形式">ミッションの記述形式</h4>
+                    <p>軽量なミッション記述として、以下のフォーマットが広く使われます。</p>
+
+                    <div className="callout callout-note">
+                        <div className="callout-head"><span className="callout-icon">📝</span></div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>Explore [対象] With [リソース] To discover [発見したい情報]</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>具体例</strong>:「Explore 決済画面のクレジットカード入力フォーム With 無効なカード番号・期限切れカード・複数ブラウザ To discover 入力検証の欠陥やエラーメッセージの不備」
+                    </p>
+
+                    <h4 id="テストチャーターに含める情報">テストチャーターに含める情報</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>情報カテゴリ</th>
+                                    <th>内容の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>組織情報</td>
+                                    <td>セッションの所要時間、開始日時、担当者名</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テスト目的</td>
+                                    <td>テストの動機、チャーターのミッション</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テストスコープ</td>
+                                    <td>
+                                        対象領域、テストレベル、使用する技法、テストアイデア、終了基準、優先度、対象外の範囲
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>開始基準</td>
+                                    <td>セッション開始に必要な前提条件</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>製品関連情報</td>
+                                    <td>
+                                        コンポーネント間の定義・データ・ワークフロー、システムアーキテクチャ
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>制限事項</td>
+                                    <td>「製品が絶対にしてはいけないこと」</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テスト環境の説明</td>
+                                    <td>使用する環境の情報</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>既存のリソース</td>
+                                    <td>既存のデータソース、製品情報、テストツール</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>過去の情報</td>
+                                    <td>
+                                        過去に発見された欠陥(互換性・相互運用性欠陥など)、未解決の疑問点、過去の障害パターン
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>制約・リスク</td>
+                                    <td>規制、ルール、標準</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="セッションの流れ">セッションの流れ</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CHARTER_CYCLE} />
+                    </div>
+
+                    <p>
+                        チャーターに含める情報の粒度は、テストアナリストに与える自由度をコントロールします。目的だけを大まかに定義すれば探索の余地は広がり、逆に使用すべき技法まで指定すればより制約された(しかし予測可能な)テストになります。「製品が絶対にしてはいけないこと」のような情報を加えると、誤検知(false-positive)の報告を減らす効果もあります。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    チャーターの粒度は、テスト対象の成熟度や担当者の経験レベルに応じて調整する(新人には制約多めのチャーター、熟練者には自由度の高いチャーターが向く)。
+                                </li>
+                                <li>
+                                    セッションシートへの記録は「テスト結果」だけでなく「疑問点」「次に試したいアイデア」も残し、デブリーフィングと次セッションの計画に活かす。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="52-342-チェックリストベーステストchecklists-supporting-experience-based-test-techniques-k3-適用">
+                        5.2 3.4.2 チェックリストベーステスト(Checklists Supporting Experience-Based Test Techniques) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-9">定義</h4>
+                    <p>
+                        チェックリストベーステストは、適応性・シンプルさ・有効性から広く使われる技法です。チェックリストを使うことで、テスト対象の<strong>既知の重要な観点を漏れなくカバー</strong>し、過去の失敗や欠陥の経験を再利用できます。
+                    </p>
+
+                    <h4 id="2種類のチェックリスト">2種類のチェックリスト</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>種別</th>
+                                    <th>特徴</th>
+                                    <th>具体例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>Read-doチェックリスト</strong></td>
+                                    <td>
+                                        あるプロセスで考慮すべき具体的な項目(入力データなど)を列挙する
+                                    </td>
+                                    <td>
+                                        「入力フィールドに全角文字を入力する」「255文字を超える文字列を入力する」
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Do-confirmチェックリスト</strong></td>
+                                    <td>探索を深めるための「観点・問い」を提示し、思考を促す</td>
+                                    <td>
+                                        「検索結果は入力条件と関連性があるか?」「エラーメッセージは利用者にとって分かりやすいか?」
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="チェックリスト作成の手順">チェックリスト作成の手順</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CHECKLIST_STEPS} />
+                    </div>
+
+                    <p>
+                        チェックリスト項目は、明確・具体的・曖昧さがなく・一貫性があり・関連性があり・保守可能で・実行可能で・測定可能であるべきとされ、「Yes/No/該当なし」で答えられる問いの形式で書くことが推奨されます。チェックリストは網羅的な手順書ではなく、<strong>熟練者向けの手早い思考の補助ツール</strong>である点を忘れないでください。既存のテンプレートや業界標準に沿った定義済みチェックリストを再利用できる場合は、それを活用することで作成コストを削減できます。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    チェックリストは「完成」することがない、生きたドキュメントとして扱い、新しい欠陥や振り返りから得た教訓を反映し続ける。
+                                </li>
+                                <li>
+                                    長いチェックリストは機能領域・ユーザーロール・テストレベルなどでカテゴリ分けし、実行時に迷わないようにする。
+                                </li>
+                                <li>
+                                    チームでチェックリストを共有することで、テストアナリスト間の一貫性を高め、重点領域についての共通理解を促進する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="53-343-クラウドテストcrowd-testing-k2-理解">
+                        5.3 3.4.3 クラウドテスト(Crowd Testing) <code>K2: 理解</code>
+                    </h3>
+                    <h4 id="定義-10">定義</h4>
+                    <p>
+                        クラウドテストは、多様な背景・所在地を持つ社内外のテスト担当者グループにテストを分散させる手法です。機能テストと非機能テストの両方、特にユーザビリティの妥当性確認をコスト効率よく行う手段として用いられます。
+                    </p>
+
+                    <h4 id="利点と限界-1">利点と限界</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>利点</th>
+                                    <th>限界</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>多様なテスト環境</strong>:
+                                        様々な地域・デバイス・ブラウザ・ネットワーク条件でテストできる
+                                    </td>
+                                    <td>
+                                        <strong>テスト品質のばらつき</strong>:
+                                        担当者のスキルによって品質が変動する(ただしUX重視の目的では大きな問題にならないこともある)
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>柔軟性</strong>: 短期間に多数のテストをスケール可能</td>
+                                    <td>
+                                        <strong>コミュニケーションの課題</strong>:
+                                        多くの担当者・複数のタイムゾーン・文化・言語の違いによる調整の難しさ
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>コスト効率</strong>:
+                                        大規模な社内チームや外部委託より安価な場合が多い
+                                    </td>
+                                    <td>
+                                        <strong>セキュリティ</strong>:
+                                        社外テスト担当者にソフトウェアを共有することによるデータセキュリティ・機密性のリスク
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        <strong>迅速なフィードバック</strong>:
+                                        早期に欠陥を発見・修正できる
+                                    </td>
+                                    <td>
+                                        <strong>ドキュメント・報告の管理</strong>:
+                                        大人数から寄せられる大量の報告(重複や誤検知を含む)の管理が煩雑になりやすい
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>実際の利用者視点</strong>:
+                                        実ユーザーによるUX上の知見が得られる(受け入れテストで特に有用)
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        <strong>多様性(バラつき)</strong>:
+                                        実行の再現性は低いが、その分カバレッジが広がり欠陥発見の可能性が高まる
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        クラウドテストは、テストアナリストが体系的なテスト技法を適用することの<strong>代替にはならず</strong>、あくまで多様なテスト環境のカバレッジを底上げする補完的アプローチである点に注意してください。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    機密性の高い機能や未公開情報を含む場合は、NDAの締結や機能の一部マスキングなど、事前のセキュリティ対策を徹底する。
+                                </li>
+                                <li>
+                                    重複報告や誤検知の仕分けルール(トリアージ基準)を事前に定義し、大量の報告に対応できる体制を整える。
+                                </li>
+                                <li>
+                                    「多様な実環境でのカバレッジ拡大」という強みを活かし、社内テストで手薄になりがちな互換性・ユーザビリティの検証に重点的に活用する。
                                 </li>
                             </ul>
                         </div>
