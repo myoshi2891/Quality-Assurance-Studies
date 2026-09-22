@@ -191,4 +191,32 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('例外シナリオ');
         expect(container.textContent).toContain('単純ループカバレッジ');
     });
+
+    it('renders Section 4: Rule-Based Test Techniques (Decision Table, Metamorphic Testing)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 4 H2 & H3s
+        const sec4 = container.querySelector('[id="4-33-ルールベーステスト技法rule-based-test-techniques"]');
+        expect(sec4).toBeTruthy();
+        expect(sec4?.textContent).toContain('4. 3.3 ルールベーステスト技法');
+
+        const sec41 = container.querySelector('[id="41-331-デシジョンテーブルテストdecision-table-testing-k3-適用"]');
+        expect(sec41).toBeTruthy();
+        expect(sec41?.textContent).toContain('4.1 3.3.1 デシジョンテーブルテスト');
+
+        const sec42 = container.querySelector('[id="42-332-メタモルフィックテストmetamorphic-testing-k3-適用"]');
+        expect(sec42).toBeTruthy();
+        expect(sec42?.textContent).toContain('4.2 3.3.2 メタモルフィックテスト');
+
+        // Check Decision Table terms & Table 17-19
+        expect(container.textContent).toContain('フル・デシジョンテーブル');
+        expect(container.textContent).toContain('チェックサム手続き');
+        expect(container.textContent).toContain('ドントケア');
+
+        // Check Metamorphic Testing terms
+        expect(container.textContent).toContain('テストオラクル問題');
+        expect(container.textContent).toContain('ソーステストケース');
+        expect(container.textContent).toContain('フォローアップテストケース');
+        expect(container.textContent).toContain('メタモルフィック関係');
+    });
 });
