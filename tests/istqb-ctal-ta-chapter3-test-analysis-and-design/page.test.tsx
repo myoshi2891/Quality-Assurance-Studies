@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { describe, it, expect } from 'bun:test';
-import CtalTaChapter3Page from '@/app/istqb-ctal-ta-chapter3-test-analysis-and-design/page';
+import CtalTaChapter3Page from '../../app/istqb-ctal-ta-chapter3-test-analysis-and-design/page';
 
 describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overview', () => {
     it('renders the page container and main structure with ctal-ta-ch3-page class', () => {
