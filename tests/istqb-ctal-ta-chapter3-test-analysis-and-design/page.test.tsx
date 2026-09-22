@@ -153,4 +153,42 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('ガイドなしランダムテスト');
         expect(container.textContent).toContain('ガイド付きランダムテスト');
     });
+
+    it('renders Section 3: Behavior-Based Test Techniques (CRUD, State Transition, Scenario-Based)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 3 H2 & H3s
+        const sec3 = container.querySelector('[id="3-32-ビヘイビアベーステスト技法behavior-based-test-techniques"]');
+        expect(sec3).toBeTruthy();
+        expect(sec3?.textContent).toContain('3. 3.2 ビヘイビアベーステスト技法');
+
+        const sec31 = container.querySelector('[id="31-321-crudテストcrud-testing-k2-理解"]');
+        expect(sec31).toBeTruthy();
+        expect(sec31?.textContent).toContain('3.1 3.2.1 CRUDテスト');
+
+        const sec32 = container.querySelector('[id="32-322-状態遷移テストstate-transition-testing-k3-適用"]');
+        expect(sec32).toBeTruthy();
+        expect(sec32?.textContent).toContain('3.2 3.2.2 状態遷移テスト');
+
+        const sec33 = container.querySelector('[id="33-323-シナリオベーステストscenario-based-testing-k3-適用"]');
+        expect(sec33).toBeTruthy();
+        expect(sec33?.textContent).toContain('3.3 3.2.3 シナリオベーステスト');
+
+        // Check CRUD terms & Table 12
+        expect(container.textContent).toContain('CRUDマトリクス');
+        expect(container.textContent).toContain('網羅性テスト');
+        expect(container.textContent).toContain('一貫性テスト');
+
+        // Check State transition terms & Table 14
+        expect(container.textContent).toContain('0-switchカバレッジ');
+        expect(container.textContent).toContain('1-switchカバレッジ');
+        expect(container.textContent).toContain('N-switchカバレッジ');
+        expect(container.textContent).toContain('ラウンドトリップカバレッジ');
+
+        // Check Scenario terms & Table 15/16
+        expect(container.textContent).toContain('メインシナリオ');
+        expect(container.textContent).toContain('拡張シナリオ');
+        expect(container.textContent).toContain('例外シナリオ');
+        expect(container.textContent).toContain('単純ループカバレッジ');
+    });
 });
