@@ -219,4 +219,38 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('フォローアップテストケース');
         expect(container.textContent).toContain('メタモルフィック関係');
     });
+
+    it('renders Section 5: Experience-Based Test Techniques (Test Charters, Checklists, Crowd Testing)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 5 H2 & H3s
+        const sec5 = container.querySelector('[id="5-34-経験ベーステストexperience-based-testing"]');
+        expect(sec5).toBeTruthy();
+        expect(sec5?.textContent).toContain('5. 3.4 経験ベーステスト');
+
+        const sec51 = container.querySelector('[id="51-341-テストチャーターtest-charters-supporting-session-based-testing-k3-適用"]');
+        expect(sec51).toBeTruthy();
+        expect(sec51?.textContent).toContain('5.1 3.4.1 テストチャーター');
+
+        const sec52 = container.querySelector('[id="52-342-チェックリストベーステストchecklists-supporting-experience-based-test-techniques-k3-適用"]');
+        expect(sec52).toBeTruthy();
+        expect(sec52?.textContent).toContain('5.2 3.4.2 チェックリストベーステスト');
+
+        const sec53 = container.querySelector('[id="53-343-クラウドテストcrowd-testing-k2-理解"]');
+        expect(sec53).toBeTruthy();
+        expect(sec53?.textContent).toContain('5.3 3.4.3 クラウドテスト');
+
+        // Check Test Charter terms & format
+        expect(container.textContent).toContain('Explore [対象] With [リソース] To discover [発見したい情報]');
+        expect(container.textContent).toContain('タイムボックス化された');
+        expect(container.textContent).toContain('セッションシート');
+
+        // Check Checklist terms
+        expect(container.textContent).toContain('Read-doチェックリスト');
+        expect(container.textContent).toContain('Do-confirmチェックリスト');
+
+        // Check Crowd Testing terms
+        expect(container.textContent).toContain('クラウドテスト');
+        expect(container.textContent).toContain('多様なテスト環境');
+    });
 });
