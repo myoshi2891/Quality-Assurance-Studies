@@ -108,9 +108,9 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('ベストプラクティス — 分類の軸を覚える');
 
         // Table 4: Glossary keywords
-        expect(container.textContent).toContain('ベースチョイスカバレッジ');
-        expect(container.textContent).toContain('Base Choice Coverage');
+        expect(container.textContent).toContain('組み合わせテスト');
+        expect(container.textContent).toContain('combinatorial testing');
         expect(container.textContent).toContain('メタモルフィック関係');
-        expect(container.textContent).toContain('Metamorphic Relation (MR)');
+        expect(container.textContent).toContain('metamorphic relation');
     });
 });
