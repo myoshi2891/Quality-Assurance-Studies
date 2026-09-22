@@ -150,7 +150,7 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('相互作用障害');
 
         // Check random testing terms
-        expect(container.textContent).toContain('一様ランダムテスト');
-        expect(container.textContent).toContain('重み付きランダムテスト');
+        expect(container.textContent).toContain('ガイドなしランダムテスト');
+        expect(container.textContent).toContain('ガイド付きランダムテスト');
     });
 });
