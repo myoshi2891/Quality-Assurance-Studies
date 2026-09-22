@@ -113,4 +113,44 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('メタモルフィック関係');
         expect(container.textContent).toContain('metamorphic relation');
     });
+
+    it('renders Section 2: Data-Based Test Techniques (Domain, Combinatorial, Random)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 2 H2 & H3s
+        const sec2 = container.querySelector('[id="2-31-データベースドテスト技法data-based-test-techniques"]');
+        expect(sec2).toBeTruthy();
+        expect(sec2?.textContent).toContain('2. 3.1 データベースドテスト技法');
+
+        const sec21 = container.querySelector('[id="21-311-ドメインテストdomain-testing-k3-適用"]');
+        expect(sec21).toBeTruthy();
+        expect(sec21?.textContent).toContain('2.1 3.1.1 ドメインテスト');
+
+        const sec22 = container.querySelector('[id="22-312-組み合わせテストcombinatorial-testing-k3-適用"]');
+        expect(sec22).toBeTruthy();
+        expect(sec22?.textContent).toContain('2.2 3.1.2 組み合わせテスト');
+
+        const sec23 = container.querySelector('[id="23-313-ランダムテストrandom-testing-k2-理解"]');
+        expect(sec23).toBeTruthy();
+        expect(sec23?.textContent).toContain('2.3 3.1.3 ランダムテスト');
+
+        // Check key domain testing terms (ON/OFF/IN/OUT, coverage)
+        expect(container.textContent).toContain('閉じた境界');
+        expect(container.textContent).toContain('開いた境界');
+        expect(container.textContent).toContain('ON点');
+        expect(container.textContent).toContain('OFF点');
+        expect(container.textContent).toContain('IN点');
+        expect(container.textContent).toContain('OUT点');
+        expect(container.textContent).toContain('簡略化ドメインカバレッジ');
+        expect(container.textContent).toContain('信頼性ドメインカバレッジ');
+
+        // Check combinatorial testing terms
+        expect(container.textContent).toContain('ペアワイズカバレッジ');
+        expect(container.textContent).toContain('ベースチョイスカバレッジ');
+        expect(container.textContent).toContain('相互作用障害');
+
+        // Check random testing terms
+        expect(container.textContent).toContain('一様ランダムテスト');
+        expect(container.textContent).toContain('重み付きランダムテスト');
+    });
 });
