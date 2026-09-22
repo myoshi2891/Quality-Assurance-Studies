@@ -58,4 +58,59 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         });
         expect(links.length).toBe(33);
     });
+
+    it('renders Hero and Section 0 (Why Chapter 3 matters, Exam overview, How to read, K-levels)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 0
+        const sec0 = container.querySelector('[id="0-このガイドについて"]');
+        expect(sec0).toBeTruthy();
+        expect(sec0?.textContent).toContain('0. このガイドについて');
+
+        const sec01 = container.querySelector('[id="01-なぜ第3章が重要なのか"]');
+        expect(sec01).toBeTruthy();
+        expect(sec01?.textContent).toContain('0.1 なぜ第3章が重要なのか');
+
+        const sec02 = container.querySelector('[id="02-試験の全体像"]');
+        expect(sec02).toBeTruthy();
+        expect(sec02?.textContent).toContain('0.2 試験の全体像');
+
+        const sec03 = container.querySelector('[id="03-本ガイドの読み方"]');
+        expect(sec03).toBeTruthy();
+        expect(sec03?.textContent).toContain('0.3 本ガイドの読み方');
+
+        const sec04 = container.querySelector('[id="04-kレベル認知レベルバッジの見方"]');
+        expect(sec04).toBeTruthy();
+        expect(sec04?.textContent).toContain('0.4 Kレベル(認知レベル)バッジの見方');
+
+        // Check tables in Sec 0 (Tables 1, 2, 3)
+        const tables = container.querySelectorAll('table');
+        expect(tables.length).toBeGreaterThanOrEqual(3);
+        expect(container.textContent).toContain('テスト分析・設計');
+        expect(container.textContent).toContain('615分');
+        expect(container.textContent).toContain('40問');
+        expect(container.textContent).toContain('K4: 分析');
+    });
+
+    it('renders Section 1 (Overall Structure & Glossary K1)', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 1
+        const sec1 = container.querySelector('[id="1-第3章の全体構造--4分類のテスト技法"]');
+        expect(sec1).toBeTruthy();
+        expect(sec1?.textContent).toContain('1. 第3章の全体構造 — 4分類のテスト技法');
+
+        const sec11 = container.querySelector('[id="11-用語集キーワードk1レベル"]');
+        expect(sec11).toBeTruthy();
+        expect(sec11?.textContent).toContain('1.1 用語集(キーワード・K1レベル)');
+
+        // Callout 1
+        expect(container.textContent).toContain('ベストプラクティス — 分類の軸を覚える');
+
+        // Table 4: Glossary keywords
+        expect(container.textContent).toContain('ベースチョイスカバレッジ');
+        expect(container.textContent).toContain('Base Choice Coverage');
+        expect(container.textContent).toContain('メタモルフィック関係');
+        expect(container.textContent).toContain('Metamorphic Relation (MR)');
+    });
 });
