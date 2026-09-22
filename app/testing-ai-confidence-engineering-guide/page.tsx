@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
-    "fontFamily": "'Source Serif 4', 'Noto Serif JP', Georgia, serif",
+    "fontFamily": "Noto Serif JP, Georgia, serif",
     "fontSize": "15px",
     "primaryColor": "#efeaf9",
     "primaryTextColor": "#221f2e",

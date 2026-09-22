@@ -1,0 +1,738 @@
+/* ============================================================
+   ISTQB CTAL-TA v4.0 第2章 専用スタイルシート
+   (globals.css 干渉リセット + テーブル文字色完全保護 + 独自デザイン忠実再現)
+   ============================================================ */
+
+.ctal-ta-ch2-page {
+    --bg: #ffffff;
+    --bg-alt: #f8fafc;
+    --bg-card: #f1f5f9;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --text: #1e293b;
+    --text-dim: #5b6b81;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --accent-soft: #eff6ff;
+    --accent-border: #bfdbfe;
+    --success: #15803d;
+    --success-soft: #f0fdf4;
+    --success-border: #86efac;
+    --danger: #b91c1c;
+    --danger-soft: #fef2f2;
+    --danger-border: #fca5a5;
+    --warning: #b45309;
+    --warning-soft: #fffbeb;
+    --warning-border: #fcd34d;
+    --sidebar-w: 300px;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    min-height: 100vh;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ctal-ta-ch2-page * {
+    box-sizing: border-box;
+}
+
+.ctal-ta-ch2-page a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.ctal-ta-ch2-page a:hover {
+    text-decoration: underline;
+}
+
+.ctal-ta-ch2-page .layout {
+    display: block;
+}
+
+/* ---------- Sidebar ---------- */
+.ctal-ta-ch2-page .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    background: var(--bg-alt);
+    border-right: 1px solid var(--border);
+    padding: 22px 14px 70px;
+    z-index: 40;
+    transition: transform 0.25s ease;
+}
+
+.ctal-ta-ch2-page .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ctal-ta-ch2-page .sidebar::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ctal-ta-ch2-page .sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-strong) !important;
+    border-radius: 3px;
+}
+
+.ctal-ta-ch2-page .sidebar-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    padding: 0 10px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+}
+
+.ctal-ta-ch2-page .nav-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ctal-ta-ch2-page .nav-list a {
+    display: block;
+    padding: 9px 10px;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: background 0.15s, color 0.15s;
+}
+
+.ctal-ta-ch2-page .nav-list a:hover {
+    background: var(--bg-card);
+    text-decoration: none;
+}
+
+.ctal-ta-ch2-page .nav-list a.active {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    font-weight: 700;
+}
+
+.ctal-ta-ch2-page .nav-sub {
+    list-style: none !important;
+    margin: 2px 0 6px 0 !important;
+    padding: 0 0 0 14px !important;
+    border-left: 2px solid var(--border);
+}
+
+.ctal-ta-ch2-page .nav-sub a {
+    font-size: 13px;
+    font-weight: 400;
+    padding: 6px 10px;
+    color: var(--text-dim);
+}
+
+.ctal-ta-ch2-page .nav-sub a.active {
+    color: var(--accent-dark);
+    font-weight: 600;
+    background: var(--accent-soft);
+}
+
+.ctal-ta-ch2-page .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: calc(74px + var(--disclaimer-height, 0px));
+    left: 14px;
+    z-index: 50;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+    box-shadow: var(--shadow-md);
+    font-size: 18px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.ctal-ta-ch2-page .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.35);
+    z-index: 35;
+}
+
+/* ---------- Main Content ---------- */
+.ctal-ta-ch2-page .main {
+    margin-left: var(--sidebar-w);
+    padding: 48px 32px 100px;
+    max-width: none !important;
+    width: auto !important;
+}
+
+.ctal-ta-ch2-page .main-inner {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+/* ---------- Hero ---------- */
+.ctal-ta-ch2-page .hero {
+    /* globals の .hero { min-height: 100vh; display: flex; justify-content: center;
+       padding-top: 60px; overflow: hidden } をリセットする。
+       これを怠るとヒーローカードが画面高いっぱいに伸び、中身が上下中央へ押し下げられて
+       原本 HTML と見た目が食い違う（2026-09-21 に実測 906px まで膨張していた）。 */
+    min-height: 0;
+    display: block;
+    overflow: visible;
+    background: linear-gradient(135deg, var(--accent-soft) 0%, #ffffff 70%);
+    border: 1px solid var(--accent-border);
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-bottom: 36px;
+}
+
+.ctal-ta-ch2-page .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    letter-spacing: 0.03em;
+    margin: 0 0 10px;
+}
+
+.ctal-ta-ch2-page .hero h1 {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.4;
+    margin: 0 0 14px;
+    color: #0f172a;
+    font-weight: 800;
+}
+
+.ctal-ta-ch2-page .hero-desc {
+    color: var(--text-dim);
+    margin: 0 0 20px;
+    font-size: 15px;
+}
+
+.ctal-ta-ch2-page .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.ctal-ta-ch2-page .pill {
+    background: #ffffff;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    box-shadow: var(--shadow);
+}
+
+.ctal-ta-ch2-page .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.ctal-ta-ch2-page .meta-item {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.ctal-ta-ch2-page .meta-item .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.ctal-ta-ch2-page .meta-item .value {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.7;
+}
+
+/* ---------- Sections & Typography ---------- */
+.ctal-ta-ch2-page section {
+    margin-bottom: 52px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+    /* globals の section { padding-top: 5rem } をリセット */
+    padding-top: 0;
+}
+
+/* globals の section + section { border-top: 1px solid var(--color-border) } をリセット。
+   ダーク配色向けのボーダー色がライトページに紛れ込むため、原本 HTML どおり区切り線なしにする。 */
+.ctal-ta-ch2-page section + section {
+    border-top: none;
+}
+
+.ctal-ta-ch2-page h2 {
+    font-size: 1.5rem;
+    color: #0f172a;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 10px;
+    margin: 0 0 22px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+    font-weight: 700;
+}
+
+.ctal-ta-ch2-page h3 {
+    font-size: 1.2rem;
+    color: #0f172a;
+    margin: 32px 0 14px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+    font-weight: 700;
+}
+
+.ctal-ta-ch2-page h4 {
+    font-size: 1.02rem;
+    color: var(--accent-dark);
+    margin: 22px 0 10px;
+    font-weight: 700;
+}
+
+.ctal-ta-ch2-page p {
+    margin: 0 0 14px;
+    color: var(--text);
+}
+
+/* Tailwind Preflight リストマーカー復元 */
+.ctal-ta-ch2-page ul:not(.nav-list):not(.nav-sub) {
+    margin: 0 0 16px !important;
+    padding-left: 1.4em !important;
+    list-style-type: disc !important;
+}
+
+.ctal-ta-ch2-page ol {
+    margin: 0 0 16px !important;
+    padding-left: 1.4em !important;
+    list-style-type: decimal !important;
+}
+
+.ctal-ta-ch2-page li {
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.ctal-ta-ch2-page strong {
+    color: #0f172a;
+}
+
+.ctal-ta-ch2-page code {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 0.9em;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    word-break: break-word;
+    color: var(--text);
+}
+
+/* K-level badge */
+.ctal-ta-ch2-page .klevel {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.ctal-ta-ch2-page .klevel.k2 {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    border: 1px solid var(--accent-border);
+}
+
+.ctal-ta-ch2-page .klevel.k4 {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+}
+
+/* Learning objective box */
+.ctal-ta-ch2-page .lo-box {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    border-left: 5px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 20px;
+    margin: 0 0 22px;
+    font-size: 14.5px;
+    color: var(--text);
+}
+
+/* Scenario quote */
+.ctal-ta-ch2-page .scenario {
+    background: var(--bg-card);
+    border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    color: var(--text);
+}
+
+.ctal-ta-ch2-page .scenario strong {
+    color: var(--accent-dark);
+}
+
+/* Tip / point callout */
+.ctal-ta-ch2-page .tip {
+    background: var(--warning-soft);
+    border: 1px solid var(--warning-border);
+    border-left: 5px solid var(--warning);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 20px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    color: var(--text);
+}
+
+/* Practice callout */
+.ctal-ta-ch2-page .callout-practice {
+    background: var(--success-soft);
+    border: 1px solid var(--success-border);
+    border-left: 5px solid var(--success);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 20px 0;
+    color: var(--text);
+}
+
+.ctal-ta-ch2-page .callout-practice .practice-label {
+    font-weight: 800;
+    color: var(--success);
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ctal-ta-ch2-page .callout-practice ul {
+    margin-bottom: 0 !important;
+}
+
+.ctal-ta-ch2-page .callout-practice li {
+    font-size: 14.5px;
+}
+
+.ctal-ta-ch2-page li.good {
+    color: var(--text);
+}
+
+.ctal-ta-ch2-page li.good b,
+.ctal-ta-ch2-page li.bad b {
+    color: inherit;
+}
+
+.ctal-ta-ch2-page .tag-good {
+    color: var(--success);
+    font-weight: 800;
+}
+
+.ctal-ta-ch2-page .tag-bad {
+    color: var(--danger);
+    font-weight: 800;
+}
+
+/* ---------- Tables (globals.css 完全リセット) ---------- */
+.ctal-ta-ch2-page .table-scroll {
+    overflow-x: auto;
+    margin: 18px 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    background: #fff;
+}
+
+.ctal-ta-ch2-page table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-size: 14px;
+    background: #fff !important;
+}
+
+.ctal-ta-ch2-page thead th {
+    background: #0f172a !important;
+    color: #fff !important;
+    text-align: left;
+    padding: 11px 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    border: none;
+}
+
+.ctal-ta-ch2-page tbody td,
+.ctal-ta-ch2-page td {
+    padding: 11px 14px;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text) !important;
+    font-size: 14px !important;
+    line-height: 1.6;
+}
+
+.ctal-ta-ch2-page td strong {
+    color: #0f172a !important;
+}
+
+.ctal-ta-ch2-page tbody tr:nth-child(odd) {
+    background: #fbfcfe !important;
+}
+
+.ctal-ta-ch2-page tbody tr:nth-child(even) {
+    background: #ffffff !important;
+}
+
+.ctal-ta-ch2-page tbody tr:hover {
+    background: var(--accent-soft) !important;
+}
+
+.ctal-ta-ch2-page td.center {
+    text-align: center;
+    font-weight: 700;
+}
+
+.ctal-ta-ch2-page td.risk-high {
+    color: var(--danger) !important;
+    font-weight: 800;
+}
+
+.ctal-ta-ch2-page td.risk-mid {
+    color: var(--warning) !important;
+    font-weight: 800;
+}
+
+.ctal-ta-ch2-page td.risk-low {
+    color: var(--success) !important;
+    font-weight: 800;
+}
+
+/* ---------- Mermaid ---------- */
+.ctal-ta-ch2-page .mermaid-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 16px 10px;
+    margin: 22px 0;
+    box-shadow: var(--shadow);
+}
+
+.ctal-ta-ch2-page .mermaid-wrap {
+    width: 100%;
+    /* 横スクロールの担当はこの要素だけ。内側で flex 中央寄せを重ねると
+       コンテナより広い図の「左側」がスクロール範囲外に出て永久に見えなくなる。 */
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+}
+
+/* ライトカード上のスクロールバーを明色にする（globals の ::-webkit-scrollbar は
+   トラックが --color-bg-primary（濃紺）のため、白いカードの下に黒帯が出る）。 */
+.ctal-ta-ch2-page .mermaid-wrap {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap::-webkit-scrollbar {
+    height: 10px;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap::-webkit-scrollbar-track {
+    background-color: #f1f5f9;
+    border-radius: 6px;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 6px;
+}
+
+/* components/Mermaid.tsx が出力する .mermaid-wrapper には globals.css の
+   @layer components でダークカード（background:#131929 / max-width:760px）が
+   既定値として当たっている。ライト配色の本ページでは必ず打ち消すこと。
+   打ち消さないと「図だけ暗い箱に入り、760px に縮小されて文字が読めない」状態になる。 */
+.ctal-ta-ch2-page .mermaid-wrap .mermaid-wrapper {
+    /* width:max-content + min-width:100% で「図より狭いときは中央寄せ・
+       図が広いときはスクロール領域いっぱい」を両立させる。
+       flex の justify-content:center を使うと左端が切れる。 */
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.ctal-ta-ch2-page .mermaid-wrap svg {
+    flex-shrink: 0;
+    max-width: none !important;
+}
+
+/* edgeLabel 完全保護 */
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabels rect,
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabel,
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabel span,
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabel p,
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabel text,
+.ctal-ta-ch2-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    fill: #1e293b !important;
+    font-weight: 700 !important;
+}
+
+/* ---------- Details / Q&A ---------- */
+.ctal-ta-ch2-page details {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+}
+
+.ctal-ta-ch2-page details summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--accent-dark);
+    list-style: none;
+}
+
+.ctal-ta-ch2-page details summary::-webkit-details-marker {
+    display: none;
+}
+
+.ctal-ta-ch2-page details summary::before {
+    content: '▶ ';
+    font-size: 11px;
+    color: var(--accent);
+}
+
+.ctal-ta-ch2-page details[open] summary::before {
+    content: '▼ ';
+}
+
+.ctal-ta-ch2-page details .q-answer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-strong);
+    font-size: 14.5px;
+    color: var(--text);
+}
+
+/* ---------- References ---------- */
+.ctal-ta-ch2-page .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+}
+
+.ctal-ta-ch2-page .ref-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
+}
+
+.ctal-ta-ch2-page .ref-card h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #0f172a;
+}
+
+.ctal-ta-ch2-page .ref-card ul {
+    margin: 0 !important;
+    padding-left: 1.1em !important;
+    font-size: 13.5px;
+}
+
+.ctal-ta-ch2-page .ref-card li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* ---------- Next Box & Footer ---------- */
+.ctal-ta-ch2-page .next-box {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    color: var(--text);
+}
+
+.ctal-ta-ch2-page footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12.5px;
+    padding: 30px 0 10px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .ctal-ta-ch2-page .sidebar {
+        transform: translateX(-100%);
+        /* 画面外のリンクをキーボードのフォーカス順から外す（transform だけでは focus 可能なまま残る） */
+        visibility: hidden;
+        transition: transform 0.25s ease, visibility 0.25s ease;
+        width: 82vw;
+        max-width: 320px;
+        box-shadow: var(--shadow-md);
+    }
+    .ctal-ta-ch2-page .sidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+    .ctal-ta-ch2-page .sidebar-overlay.open {
+        display: block;
+    }
+    .ctal-ta-ch2-page .sidebar-toggle {
+        display: flex;
+    }
+    .ctal-ta-ch2-page .main {
+        margin-left: 0;
+        padding: 80px 20px 80px;
+    }
+    .ctal-ta-ch2-page .hero {
+        padding: 26px 22px;
+    }
+    .ctal-ta-ch2-page .meta-grid {
+        grid-template-columns: 1fr;
+    }
+}

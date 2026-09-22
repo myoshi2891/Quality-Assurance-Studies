@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 74 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(74);
+  it('contains 76 entries (home + 9 foundation + 11 fdn-ext + 8 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(76);
   });
 
   it('every item has a unique href', () => {
@@ -339,6 +339,8 @@ describe('groupByCategory', () => {
     expect(advanced?.items.map((i) => i.href)).toEqual([
       '/istqb-ctal-tae-complete-guide',
       '/istqb-ctal-ta-complete-guide',
+      '/istqb-ctal-ta-chapter1-test-process',
+      '/istqb-ctal-ta-chapter2-risk-based-testing',
       '/istqb-ctal-tm-complete-guide',
       '/istqb-ctal-tta-complete-guide',
       '/istqb-ctal-att-complete-guide',

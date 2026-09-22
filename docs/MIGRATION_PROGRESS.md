@@ -1,22 +1,65 @@
 # Migration Progress
 
-Updated 2026-09-20
+Updated 2026-09-21
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 74 ルート = ガイドライブラリ index + 73 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 76 ルート = ガイドライブラリ index + 75 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 20 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `6f17a77` |
-| 最新コミット内容 | `chore(archive): move Testing-ai-confidence-engineering-guide html/md to archive` |
+| 最新 HEAD | `25b7032` |
+| 最新コミット内容 | `feat(nav): register istqb-ctal-ta-chapter2-risk-based-testing route and archive sources` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/21: ISTQB CTAL-TA v4.0 第2章（リスクベースドテストにおけるテストアナリストの役割）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #f1f5f9`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--accent-soft: #eff6ff`、`--text: #1e293b`、`--text-dim: #5b6b81` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: #ffffff !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.qa-card`、`.table-wrap`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全10セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch2-page`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全5図解（章の位置づけ `DIAGRAM_CHAPTER_POSITION`、RBTサイクル `DIAGRAM_RBT_CYCLE`、リスクレベル判定要因 `DIAGRAM_RISK_FACTORS`、回帰テスト技法の選択 `DIAGRAM_REGRESSION_SELECTION`、変更影響分析の8ステップ `DIAGRAM_IMPACT_ANALYSIS_STEPS`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
+- **テーブル & 実践演習・問題集**:
+  - 全14テーブル（リスク定義比較、製品リスク11分類、プロジェクトリスク8分類、TA/TTA分担、チェックリスト5分類、定量的vs定性的、リスクマトリクス、ステークホルダー、軽減策4分類、残留リスク3分類、適用タイミング、品質特性6分類、技法組合せ、影響分析8ステップ）を完全移植。
+  - 実践演習（ECクーポン変更影響分析）および章末問題集5問（アコーディオン式トグル・詳細解説付き）を完全移植。
+- **参考文献 & 外部リンク**:
+  - 公式一次情報および規格関連文書12件（ISTQBシラバス、ISO/IEC/IEEE 29119-2、Rex Black書籍等）を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全10セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/istqb-ctal-ta-chapter2-risk-based-testing/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch2-page` スコープ、globals.css干渉リセット）、NavBarを実装。
+- `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter2-risk-based-testing`（CTAL-TA 2章 リスクベースドテスト）を追加（全76件）。
+- `tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全5Mermaid図、全14テーブル、全コールアウト、実践演習、全問題集5問、全参考文献12件の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 215 expect()）。
+- `Ctal-ta-v4.0-ch2.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4.0-ch2.md` は `archive/md-archive/ctal/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 76 ページ体制に同期。
+
+## 2026/09/21: ISTQB CTAL-TA v4.0 第1章（テストプロセスにおけるテストアナリストのタスク）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #ffffff`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--text: #1e293b` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: var(--bg-card) !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card` 装飾、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全19セクションアンカー、スクロールスパイ、モバイルトグル対応）とメイン領域（`.ctal-ta-ch1-page`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全11図解（第1章の3本柱 `DIAGRAM_OVERVIEW`、3つのSDLCモデル `DIAGRAM_SDLC`、4つの活動関与 `DIAGRAM_PROCESS`、テスト分析エントリ基準 `DIAGRAM_ENTRY`、テスト分析フロー `DIAGRAM_ANALYSIS_FLOW`、テスト環境3要件 `DIAGRAM_ENV3`、ハイ/ローレベルテストケース `DIAGRAM_HLLL`、テスト環境要件の作成フロー `DIAGRAM_ENVREQ`、テストオラクル問題の解決アプローチ `DIAGRAM_ORACLE`、キーワード駆動の層構造 `DIAGRAM_KEYWORD`、テストウェア管理ツール連携 `DIAGRAM_TOOLS`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック & インラインコード**:
+  - キーワード駆動テストのアンチパターン（`<code>ClickButton3</code>`）および各項目のインラインコード装飾を正確に移植。
+- **テーブル & インタラクティブチェックリスト**:
+  - 全12テーブル（SDLC 3モデル比較、テスト設計タスク、テスト実行追加タスク、ハイ/ローレベル比較、品質基準9項目、テスト環境5属性、オラクル5解決策、テストデータ10考慮事項、キーワード駆動2分類、キーワード6条件、管理ツール5種、規格・関連文書表）を完全移植。
+  - 章末チェックリスト（`Checklist.tsx`、全11項目動的カウンター `0 / 11 完了`・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 公式一次情報4件（公式試験ページ、シラバスPDF全77ページ、用語集、FAQ）および規格関連文書表、免責事項を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/istqb-ctal-ta-chapter1-test-process/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch1-page` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter1-test-process`（CTAL-TA 1章 テストプロセス）を追加（全75件）。
+- `tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx`: TDD 必須サイクルに従い、全19セクションアンカー、全11Mermaid図、全12テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（15 pass / 193 expect()）。
+- `Ctal-ta-v4.0-ch1.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4.0-ch1.md` は `archive/md-archive/ctal/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 75 ページ体制に同期。
 
 ## 2026/09/20: Jason Arbon『Testing AI: Engineering Confidence in Non-Deterministic Systems』完全ガイドのNext.js完全移行
 
@@ -970,10 +1013,12 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ai-driven-software-testing-guide.html` | `/ai-driven-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 20 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 18 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -982,7 +1027,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（5 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4.0-ch1.md` / `Ctal-ta-v4.0-ch2.md` / `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（3 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -995,8 +1040,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 74 ルート（ガイドライブラリ index + 73 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 20 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 5 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 76 ルート（ガイドライブラリ index + 75 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

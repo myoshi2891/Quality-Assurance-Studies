@@ -51,7 +51,9 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
     if (parts.length !== 4 || !parts.every((n) => Number.isFinite(n))) return;
 
     const [x, y, w, h] = parts as [number, number, number, number];
-    const trimmed = chart.trim();
+    // %%{init}%% ディレクティブ付きの図は先頭が図種キーワードにならないため、
+    // 除去してから判定する（除去しないと sequence/state でも +15 になり下部が見切れる）
+    const trimmed = chart.replace(/^\s*%%\{[\s\S]*?\}%%\s*/, '').trim();
     const isSequenceOrState =
         trimmed.startsWith('sequenceDiagram') || trimmed.startsWith('stateDiagram');
     const extraHeight = isSequenceOrState ? 110 : 15;

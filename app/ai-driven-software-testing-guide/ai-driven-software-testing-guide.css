@@ -27,6 +27,8 @@
   --sidebar-w: 300px;
   --font-display: 'Source Serif 4', 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --font-body: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic UI', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
+  /* .mobile-bar の実高さ（padding 0.8rem*2 + button 2.4rem + border-bottom 1px） */
+  --mobile-bar-height: calc(4rem + 1px);
 
   background: var(--paper);
   color: var(--ink);
@@ -277,6 +279,7 @@
 .ai-driven-test-layout .section {
   padding: 2.6rem 0;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .ai-driven-test-layout .section:last-of-type {
@@ -867,6 +870,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.8rem 1rem;
+  min-height: var(--mobile-bar-height);
 }
 
 .ai-driven-test-layout .mobile-bar .brand {
@@ -932,6 +936,11 @@
 
   .ai-driven-test-layout .mobile-bar {
     display: flex;
+  }
+
+  /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+  .ai-driven-test-layout .section {
+    scroll-margin-top: calc(60px + var(--mobile-bar-height) + var(--disclaimer-height, 0px));
   }
 
   .ai-driven-test-layout .hero {

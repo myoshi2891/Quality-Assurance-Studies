@@ -223,6 +223,7 @@
 .appium-guide-layout .section {
     padding: 44px 0 !important;
     border-top: 1px solid var(--border);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .appium-guide-layout .section:first-of-type {
@@ -689,5 +690,9 @@
     }
     .appium-guide-layout .section h2 {
         font-size: 1.35rem;
+    }
+    /* 固定表示の .nav-toggle（top:72px 〜 116px）と見出しの重なりを防ぐ */
+    .appium-guide-layout .section {
+        scroll-margin-top: calc(116px + var(--disclaimer-height, 0px));
     }
 }

@@ -30,7 +30,7 @@ const MERMAID_CONFIG = `%%{init: {
     "edgeLabelBackground": "#faf7f0",
     "clusterBkg": "#f6ecd9",
     "clusterBorder": "#c9b09a",
-    "fontFamily": "Inter, 'Noto Sans JP', sans-serif",
+    "fontFamily": "Inter, Noto Sans JP, sans-serif",
     "fontSize": "16px"
   },
   "flowchart": {
