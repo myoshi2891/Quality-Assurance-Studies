@@ -64,6 +64,13 @@
     border-bottom: 1px solid var(--line);
 }
 
+/* メインコンテンツ全幅展開（globals.css の main { max-width: 1100px; margin: 0 auto; } をリセット） */
+.ctal-ta-ch4-page .main {
+    max-width: none !important;
+    width: auto !important;
+    margin-right: 0 !important;
+}
+
 /* テーブル文字色・背景・レイアウトの完全リセット */
 .ctal-ta-ch4-page table {
     border-collapse: collapse;
@@ -312,7 +319,10 @@
 
 .ctal-ta-ch4-page .main {
     margin-left: var(--side-w);
+    margin-right: 0 !important;
     padding: 0 56px 96px;
+    max-width: none !important;
+    width: auto !important;
 }
 
 .ctal-ta-ch4-page .hero .eyebrow {
@@ -743,7 +753,10 @@
 
     .ctal-ta-ch4-page .main {
         margin-left: 0;
+        margin-right: 0 !important;
         padding: 0 16px 72px;
+        max-width: none !important;
+        width: 100% !important;
     }
 
     .ctal-ta-ch4-page .hero {
