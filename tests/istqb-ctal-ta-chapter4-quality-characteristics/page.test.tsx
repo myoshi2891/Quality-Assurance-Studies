@@ -268,4 +268,38 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.querySelector('#mermaid-diagram-12')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-13')).toBeTruthy();
     });
+
+    it('renders Section 4 (4.3 Flexibility Testing TA-4.3.1 K2, Adaptability, Installability, Q36)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 4 headings
+        const sec4 = container.querySelector('[id="4-43-フレキシビリティテストta-431k2"]');
+        expect(sec4).toBeTruthy();
+        expect(sec4?.textContent).toContain('4. 4.3 フレキシビリティテスト（TA-4.3.1・K2）');
+
+        expect(container.querySelector('[id="41-フレキシビリティ柔軟性とは"]')).toBeTruthy();
+        expect(container.querySelector('[id="42-適応性adaptabilityテスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="43-インストール性installabilityテスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="44-ベストプラクティスフレキシビリティテスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="45--対比"]')).toBeTruthy();
+        expect(container.querySelector('[id="46-公式サンプル試験-q36-の考え方"]')).toBeTruthy();
+        expect(container.querySelector('[id="47-43-のまとめ"]')).toBeTruthy();
+
+        // 7 Tables in Section 4
+        expect(container.textContent).toContain('フレキシビリティ（柔軟性）とは');
+        expect(container.textContent).toContain('適応性（Adaptability）テスト');
+        expect(container.textContent).toContain('インストール性（Installability）テスト');
+        expect(container.textContent).toContain('公式サンプル試験 Q36 の考え方');
+
+        // Code block check (GitHub Actions matrix)
+        const codeBlock = container.querySelector('pre.code-block');
+        expect(codeBlock).toBeTruthy();
+        expect(codeBlock?.textContent).toContain('runs-on: ${{ matrix.os }}');
+        expect(codeBlock?.textContent).toContain('ubuntu-latest, windows-latest, macos-latest');
+
+        // Mermaid diagrams 14 to 16
+        expect(container.querySelector('#mermaid-diagram-14')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-15')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-16')).toBeTruthy();
+    });
 });

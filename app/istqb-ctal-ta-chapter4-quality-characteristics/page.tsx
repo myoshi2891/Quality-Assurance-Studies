@@ -254,6 +254,50 @@ flowchart TD
   class U1,U2,U3,U4,U5,U6 step
   class U7 last`;
 
+export const DIAGRAM_14 = `${MERMAID_CONFIG}
+flowchart LR
+  FX["Flexibility<br/>柔軟性"]
+  FX --> F1["Adaptability<br/>適応性"]
+  FX --> F2["Installability<br/>インストール性"]
+  FX --> F3["Scalability<br/>拡張性"]
+  FX --> F4["Replaceability<br/>置換性"]
+  F1 --> TA1["第4章の LO 対象"]
+  F2 --> TA1
+  F3 --> OT1["負荷・性能の観点<br/>第4章の LO の対象外"]
+  F4 --> OT2["第4章の LO の対象外"]
+  classDef head fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef ta fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  classDef out fill:#f1f2f5,stroke:#8a8f9c,color:#2b2b33
+  class FX head
+  class F1,F2,TA1 ta
+  class F3,F4,OT1,OT2 out`;
+
+export const DIAGRAM_15 = `${MERMAID_CONFIG}
+flowchart TD
+  A1["1 対象環境を特定<br/>OS・ブラウザ・端末・DB・クラウド・バージョン"] --> A2["2 パラメータと値の表を作る"]
+  A2 --> A3["3 実在しない組み合わせを除く<br/>制約の整理"]
+  A3 --> A4["4 組み合わせ技法を選ぶ<br/>ペアワイズまたは基本選択"]
+  A4 --> A5["5 各構成で同じテストを実行"]
+  A5 --> A6["6 環境ごとの差異を分析<br/>環境固有の不具合か共通の不具合か"]
+  A6 --> A7["7 結果を記録し優先度を更新"]
+  classDef step fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef last fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class A1,A2,A3,A4,A5,A6 step
+  class A7 last`;
+
+export const DIAGRAM_16 = `${MERMAID_CONFIG}
+stateDiagram-v2
+  direction LR
+  state "未インストール" as NotInstalled
+  state "インストール済み" as Installed
+  state "アップグレード済み" as Upgraded
+  [*] --> NotInstalled
+  NotInstalled --> Installed : install
+  Installed --> Upgraded : upgrade
+  Upgraded --> Installed : rollback
+  Installed --> NotInstalled : uninstall
+  Upgraded --> NotInstalled : uninstall`;
+
 
 
 export default function CtalTaChapter4Page() {
@@ -2319,6 +2363,557 @@ export default function CtalTaChapter4Page() {
                         深い専門技法は専門資格（CT-UT）に任せ、Advanced TA
                         では<strong>貢献の仕方</strong>を説明できればよい（<span className="chip chip-o" title="公式根拠">📘</span>
                         LO 比較表）。
+                    </li>
+                </ul>
+
+                {/* ===== セクション 4: 4.3 フレキシビリティテスト ===== */}
+                <h2 id="4-43-フレキシビリティテストta-431k2">
+                    4. 4.3 フレキシビリティテスト（TA-4.3.1・K2）
+                </h2>
+                <div className="callout callout-lo">
+                    <span className="lbl">学習目標</span>
+                    <p>
+                        <strong>LO TA-4.3.1（K2）</strong>：テストアナリストが<strong>適応性（adaptability）とインストール性（installability）のテストにどう貢献するか</strong>を説明できる（Explain）
+                    </p>
+                </div>
+                <h3 id="41-フレキシビリティ柔軟性とは">4.1 フレキシビリティ（柔軟性）とは</h3>
+                <ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> ISO/IEC 25010:2023 では、旧 <strong>Portability（移植性）が Flexibility（柔軟性）に置き換わりました</strong>。LO 比較表も「ISO 25010 (2023) に合わせて名称変更」と説明しています。
+                    </li>
+                    <li>
+                        <span className="chip chip-t" title="実務補足">💡</span> ISO の考え方：異なる、または変化していくハードウェア・ソフトウェア・その他の運用環境や利用環境に、製品が適応できる度合い。
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> サブ特性には Scalability（拡張性）が新たに追加されました。
+                    </li>
+                </ul>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-14">
+                        <Mermaid chart={DIAGRAM_14} />
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> サンプル試験 Q36 の解説は、<strong>負荷テスト・スケーラビリティテスト</strong>を適応性テストとは別のものとして扱っています。適応性は「システムが環境に合わせる」ことで、「利用者がシステムに合わせる」ことではありません。
+                    </li>
+                </ul>
+                <div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=6363">LO 新旧比較表</a> ／ <a href="https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf">ISO/IEC 25010:2023 前文</a> ／ <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q36</a>
+                    </p>
+                </div>
+
+                <h3 id="42-適応性adaptabilityテスト">4.2 適応性（Adaptability）テスト</h3>
+                <p>
+                    <strong>定義（<span className="chip chip-o" title="公式根拠">📘</span>・旧版の用語集に基づく）</strong>：<strong>異なる指定環境に、そのために用意された手段以外の操作を加えずに適応できる</strong>能力（ISO 9126 に由来する定義。<span className="chip chip-w" title="要確認">⚠</span> v4.0 の用語集で最新の文言を確認）。
+                </p>
+                <p>
+                    <strong>なぜ重要か（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：利用者の環境は多様です。OS・ブラウザ・端末・DB・クラウド基盤の組み合わせによって、同じ機能でも動作が変わることがあります。
+                </p>
+                <p>
+                    <strong>TA の貢献（<span className="chip chip-o" title="公式根拠">📘</span> サンプル試験 Q36 の解説）</strong>：
+                </p>
+                <div className="callout callout-quote">
+                    <p>
+                        TA は、<strong>意図した対象環境を特定</strong>し、<strong>それらの環境の組み合わせを網羅するテストを設計</strong>することで、適応性テストを支援する。
+                    </p>
+                </div>
+                <p>
+                    例：解説は「<strong>さまざまなクラウドサービス基盤への適応</strong>」を適応性テストの例として挙げています。
+                </p>
+                <p>
+                    <strong>具体例（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：業務システムを Windows／macOS／Linux、DB を PostgreSQL／MySQL／Oracle、クラウドを AWS／Azure／GCP に展開する場合
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>特徴</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>組み合わせの総数</td>
+                                <td>3 × 3 × 3 = <strong>27 通り</strong></td>
+                            </tr>
+                            <tr className="even">
+                                <td>目的</td>
+                                <td>
+                                    どの環境でも<strong>同じ機能が同じ結果</strong>を返すことを確認する
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>課題</td>
+                                <td>すべてを試すのは非現実的 → 組み合わせを減らす技法を使う</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 id="421-適応性テストの手順">4.2.1 適応性テストの手順</h4>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-15">
+                        <Mermaid chart={DIAGRAM_15} />
+                    </div>
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>Step</th>
+                                <th>やること</th>
+                                <th>根拠・補足</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    利用者・運用者にとって<strong>実際に対象となる環境</strong>を特定する。利用統計や契約条件から優先度を決める
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> Q36 の解説（環境の特定）、<span className="chip chip-t" title="実務補足">💡</span> 優先度づけ
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>
+                                    環境を「パラメータ（OS、DB…）」と「値（Windows、macOS…）」で整理する
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.1.2（構成パラメータの組み合わせ）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>存在しない組み合わせや、サポート対象外の組み合わせを除く</td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.1.2（パラメータ値ペア間の制約、無効・実行不可能な組み合わせ）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>
+                                    <strong>ペアワイズ</strong>または<strong>基本選択（base choice）</strong>で組み合わせを減らす。重要度が高い場合は全組み合わせ
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.1.2、3.5.1
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>
+                                    各構成で<strong>同じテストケース</strong>を実行する（構成パラメータの組み合わせは同じテストケースで確認できる）
+                                </td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 3.1.2</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>
+                                    失敗した環境に共通点がないか分析する。テスト環境の問題か、製品の問題かを切り分ける
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 1.2.4（異常の原因分析）、1.3.3（環境の忠実度）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>結果を記録し、環境ごとのリスクを更新する</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 1.2.4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 id="422-組み合わせの削減27-通りを-9-通りに">
+                    4.2.2 組み合わせの削減：27 通りを 9 通りに
+                </h4>
+                <p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> ペアワイズカバレッジは、<strong>任意の 2 つのパラメータの値の組み合わせをすべてカバー</strong>します。3.1.2 は、失敗の大半が 1〜2 個の条件の相互作用で起きるという<strong>限定的な研究</strong>（約 97%）を引用しています。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>OS</th>
+                                <th>DB</th>
+                                <th>クラウド</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>Windows</td>
+                                <td>PostgreSQL</td>
+                                <td>AWS</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>Windows</td>
+                                <td>MySQL</td>
+                                <td>Azure</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>Windows</td>
+                                <td>Oracle</td>
+                                <td>GCP</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>macOS</td>
+                                <td>PostgreSQL</td>
+                                <td>Azure</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>macOS</td>
+                                <td>MySQL</td>
+                                <td>GCP</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>macOS</td>
+                                <td>Oracle</td>
+                                <td>AWS</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>Linux</td>
+                                <td>PostgreSQL</td>
+                                <td>GCP</td>
+                            </tr>
+                            <tr className="even">
+                                <td>8</td>
+                                <td>Linux</td>
+                                <td>MySQL</td>
+                                <td>AWS</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>9</td>
+                                <td>Linux</td>
+                                <td>Oracle</td>
+                                <td>Azure</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <span className="chip chip-t" title="実務補足">💡</span> この 9 行で、OS×DB の 9 組、OS×クラウドの 9 組、DB×クラウドの 9 組が<strong>すべて 1 回以上</strong>現れます（27 通り → 9 通り）。実際にはツールで生成し、制約（実在しない組み合わせ）も反映します。
+                </p>
+                <p>
+                    <strong>基本選択（base choice）カバレッジ</strong>（<span className="chip chip-o" title="公式根拠">📘</span> 3.1.2）：最も重要な値の組み合わせを基準に、<strong>1 つのパラメータずつ他の値に置き換える</strong>方法です。上の例で基準を「Windows／PostgreSQL／AWS」とすれば、1 + 2 + 2 + 2 = <strong>7 通り</strong>になります（<span className="chip chip-t" title="実務補足">💡</span> 計算例）。
+                </p>
+
+                <h4 id="423-サービスツール活用">4.2.3 サービス・ツール活用</h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>場面</th>
+                                <th>使えるサービス・機能</th>
+                                <th>注意点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>CI で OS やランタイムの組み合わせを自動テスト</td>
+                                <td>
+                                    GitHub Actions の <strong>matrix</strong>（<code>strategy.matrix</code>）。<code>include</code>／<code>exclude</code> で組み合わせを追加・除外、<code>max-parallel</code> で同時実行数を制限 <span className="chip chip-o" title="公式根拠">📘</span>
+                                </td>
+                                <td>
+                                    matrix は<strong>指定した値の全組み合わせ</strong>を実行する（ペアワイズではない）。ペアワイズ生成ツールの出力を <code>include</code> に渡す運用も可能（<span className="chip chip-t" title="実務補足">💡</span>）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>端末・ブラウザの多様性</td>
+                                <td>実機・仮想化サービス、コンテナ、VM、スナップショット</td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span> 環境の忠実度（本番との近さ）を明記する（<span className="chip chip-o" title="公式根拠">📘</span> 1.3.3）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>多様な利用者環境の検証</td>
+                                <td>クラウドテスト</td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.4.3（多様な端末・ブラウザ・ネットワーク条件）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <pre className="code-block"><code>{`jobs:
+  compat:
+    runs-on: \${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [18, 20, 22]
+        exclude:
+          - os: macos-latest
+            node: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: \${{ matrix.node }}
+      - run: npm test`}</code></pre>
+                <p>
+                    <span className="chip chip-t" title="実務補足">💡</span> 上記は matrix の書式を示す例です（3 × 3 = 9 通りから、除外指定の 1 通りを引いた 8 ジョブ）。
+                </p>
+                <div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs">GitHub Docs：Using a matrix for your jobs</a> ／ <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745">シラバス 3.1.2、3.4.3</a>
+                    </p>
+                </div>
+
+                <h3 id="43-インストール性installabilityテスト">
+                    4.3 インストール性（Installability）テスト
+                </h3>
+                <p>
+                    <strong>定義（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：指定された環境に、製品を<strong>インストールおよびアンインストールできる</strong>ことの度合い（<span className="chip chip-w" title="要確認">⚠</span> 用語集で確認）。
+                </p>
+                <p>
+                    <strong>なぜ重要か（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：インストールできなければ、機能に問題がなくても利用が始まりません。最初に触れる部分なので、印象と信頼にも直結します。
+                </p>
+                <p>
+                    <strong>具体例（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：業務用デスクトップアプリ、モバイルアプリ、オンプレミス製品のセットアップ、SaaS の初期設定
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>テスト観点</th>
+                                <th>確認内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>新規インストール</td>
+                                <td>手順書どおりに完了し、起動できる</td>
+                            </tr>
+                            <tr className="even">
+                                <td>前提条件</td>
+                                <td>
+                                    必要な OS バージョン・空き容量・権限が<strong>不足</strong>しているとき、分かるエラーで止まる
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>設定パラメータ</td>
+                                <td>
+                                    インストール時に選べる設定（言語・保存先・コンポーネント）が正しく反映される
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>中断・失敗</td>
+                                <td>
+                                    途中で中断・失敗した場合に、環境が壊れず<strong>再実行できる</strong>
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>アップグレード</td>
+                                <td>
+                                    旧バージョンから更新でき、<strong>既存データが保持される</strong>
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>ロールバック</td>
+                                <td>更新に失敗したとき、元の状態に戻せる</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>アンインストール</td>
+                                <td>
+                                    残骸（ファイル・設定・サービス）が残らない、または仕様どおりに残る
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>インストール後の確認</td>
+                                <td>スモークテストで、主要機能が動作する</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>文書</td>
+                                <td>手順書・メッセージが正確で理解できる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>製品のライフサイクルを状態で見る</strong>（<span className="chip chip-t" title="実務補足">💡</span>）：
+                </p>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-16">
+                        <Mermaid chart={DIAGRAM_16} />
+                    </div>
+                </div>
+                <p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> 状態遷移テストの<strong>ラウンドトリップカバレッジ</strong>（3.2.2）は、開始と終了が同じ状態のループ（ただし途中で同じ状態を 2 回通らない）をカバー対象とします。上の図では「インストール済み → アップグレード済み → インストール済み（rollback）」が1つのラウンドトリップです。
+                </p>
+                <p>
+                    <strong>メタモルフィックテストとの関係（<span className="chip chip-o" title="公式根拠">📘</span> 3.3.2）</strong>：シラバスは、メタモルフィックテストの適用例として「<strong>さまざまなインストールパラメータを、複数の順序で選択するインストール性テスト</strong>」を挙げています。
+                </p>
+                <p>
+                    <strong>TA の貢献（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：
+                </p>
+                <ul>
+                    <li>
+                        <strong>利用者の視点</strong>で、手順書どおりにインストール・アンインストールを行い、誤解しやすい手順・メッセージを指摘する
+                    </li>
+                    <li>
+                        対象環境と<strong>インストール構成</strong>（新規・更新・パラメータ）の組み合わせを整理する
+                    </li>
+                    <li>
+                        テスト環境の<strong>要件</strong>（クリーンな環境、旧バージョンが入った環境、権限）を定義する（<span className="chip chip-o" title="公式根拠">📘</span> 1.3.3）
+                    </li>
+                    <li>
+                        実行後の<strong>環境の初期化手順</strong>を決める（<span className="chip chip-o" title="公式根拠">📘</span> 1.2.3：リセット手順）
+                    </li>
+                </ul>
+                <div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745">シラバス 1.2.3、1.3.3、3.2.2、3.3.2</a>
+                    </p>
+                </div>
+
+                <h3 id="44-ベストプラクティスフレキシビリティテスト">
+                    4.4 ベストプラクティス（フレキシビリティテスト）
+                </h3>
+                <div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス</span>
+                    <ul>
+                        <li>
+                            <strong>対象環境を要件として明文化</strong>する：サポート対象の OS・ブラウザ・DB・クラウドを一覧にしないと、テスト範囲を決められません（<span className="chip chip-t" title="実務補足">💡</span>。<span className="chip chip-o" title="公式根拠">📘</span> Q36 の解説は環境の特定を TA の貢献としている）。
+                        </li>
+                        <li>
+                            <strong>利用実態で優先度づけ</strong>する：利用者の多い環境から厚くテストする（<span className="chip chip-t" title="実務補足">💡</span>。<span className="chip chip-o" title="公式根拠">📘</span> 3.2.3 は運用プロファイルを柔軟性・互換性テストにも使えると述べる）。
+                        </li>
+                        <li>
+                            <strong>組み合わせ技法を使い分ける</strong>：通常はペアワイズ、リスクが高い組み合わせは全組み合わせ、基準構成が明確なら基本選択（<span className="chip chip-o" title="公式根拠">📘</span> 3.1.2、3.5.1）。
+                        </li>
+                        <li>
+                            <strong>クリーンな環境を再現可能にする</strong>：インストール性テストは環境の初期状態が結果を左右する。スナップショットやコンテナで<strong>毎回同じ状態から始める</strong>（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>アンインストールとアップグレードを必ず含める</strong>：新規インストールだけでは不十分（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>環境の忠実度を記録する</strong>：本番との差（ネットワーク、データ量、権限）を明記する（<span className="chip chip-o" title="公式根拠">📘</span> 1.3.3：忠実度 fidelity）。
+                        </li>
+                        <li>
+                            <strong>環境の準備が整っているかをスモークテストで確認</strong>する（<span className="chip chip-o" title="公式根拠">📘</span> 1.2.3）。
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 id="45--対比">4.5 ✅／❌ 対比</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>観点</th>
+                                <th className="bad-col">❌ 悪い例</th>
+                                <th className="good-col">✅ 良い例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>対象環境</td>
+                                <td className="bad-col">開発者の手元の環境だけで確認する</td>
+                                <td className="good-col">
+                                    サポート対象環境を一覧化し、優先度をつけて確認する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>組み合わせ</td>
+                                <td className="bad-col">思いつく環境だけを試す</td>
+                                <td className="good-col">
+                                    パラメータと値の表を作り、ペアワイズなどで系統的に選ぶ
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>インストール</td>
+                                <td className="bad-col">新規インストールだけ確認する</td>
+                                <td className="good-col">
+                                    アップグレード・失敗・中断・アンインストールも確認する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>環境の初期状態</td>
+                                <td className="bad-col">前回の残骸が残った環境で再テストする</td>
+                                <td className="good-col">
+                                    スナップショットなどで毎回クリーンな状態に戻す
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>記録</td>
+                                <td className="bad-col">「動いた」とだけ記録する</td>
+                                <td className="good-col">環境の構成と結果を組み合わせで記録する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="46-公式サンプル試験-q36-の考え方">4.6 公式サンプル試験 Q36 の考え方</h3>
+                <p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> Q36（LO：TA-4.3.1・K2）は、<strong>どの活動が適応性テストの支援になるか</strong>を選ぶ問題です。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>解説から読み取れる選択肢の内容</th>
+                                <th>解説が示す分類</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>利用者がシステムに慣れるよう支援する活動</td>
+                                <td>
+                                    <strong>アクセシビリティ</strong>のテストの支援（適応性ではない）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>他システムとのデータ交換の確認</td>
+                                <td><strong>相互運用性</strong>のテストの支援</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>大量の利用者による負荷の確認</td>
+                                <td><strong>負荷テスト・スケーラビリティテスト</strong>の支援</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    <strong>さまざまなクラウド基盤への適応を確認する</strong>（正解）
+                                </td>
+                                <td>対象環境を特定し、組み合わせを網羅するテストを設計する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>解き方</strong>：適応性は「<strong>システムが環境に合わせる</strong>」。利用者が慣れる話（アクセシビリティ）や、他システムとのやりとり（相互運用性）、負荷（拡張性）とは別物です。
+                </p>
+                <div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q36</a>
+                    </p>
+                </div>
+
+                <h3 id="47-43-のまとめ">4.7 4.3 のまとめ</h3>
+                <ul>
+                    <li>Portability → <strong>Flexibility</strong> への名称変更を覚える。</li>
+                    <li>
+                        LO の対象は<strong>適応性</strong>と<strong>インストール性</strong>。拡張性（負荷）や置換性は対象外。
+                    </li>
+                    <li>
+                        適応性は「<strong>対象環境を特定し、組み合わせを網羅するテストを設計する</strong>」が TA の貢献の核。
+                    </li>
+                    <li>
+                        組み合わせの削減は第3章の<strong>組み合わせテスト</strong>（ペアワイズ・基本選択）と直結する。
+                    </li>
+                    <li>
+                        インストール性は、新規だけでなく<strong>アップグレード・ロールバック・アンインストール</strong>まで見る。
                     </li>
                 </ul>
                 </main>
