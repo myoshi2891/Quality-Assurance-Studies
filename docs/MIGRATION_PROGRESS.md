@@ -5,7 +5,7 @@ Updated 2026-09-23
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 77 ルート = ガイドライブラリ index + 76 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 78 ルート = ガイドライブラリ index + 77 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,33 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `44b614d` |
-| 最新コミット内容 | `feat(ctal-ta-ch3): implement Category 7 sections 7-10 learning objectives, interactive checklist, and references` |
+| 最新 HEAD | `0819f1a` |
+| 最新コミット内容 | `feat(ctal-ta-ch4): implement Category 7 references, appendices, and navigation integration` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/23: ISTQB CTAL-TA v4.0 第4章（品質特性のテスト）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のダークテーマ（`--bg: #0f172a`、`--surface: #1e293b`、`--accent: #38bdf8`、`--accent-purple: #a855f7`、`--accent-green: #34d399`、`--text: #f8fafc`、`--text-dim: #94a3b8` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.cp-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全72セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch4-page`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全20図解（全体像・ISO/IEC 25010マッピング、機能テスト、ユーザビリティテスト、フレキシビリティテスト、互換性テスト、適用早見表等）を共通 `<Mermaid>` コンポーネントへ移植。
+  - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
+- **コードブロック & インタラクティブチェックリスト**:
+  - GitHub Actions matrix、インラインコード装飾を正確に移植。
+  - 動的進捗バー・チェックボックス状態管理コンポーネント（`ChecklistCard.tsx`、全5領域カード）を完全実装。
+- **テーブル & 実践演習・問題集**:
+  - 全テーブル（品質特性マッピング、Q34〜Q37問題解説、適用早見表、参考文献など）を完全移植。
+- **参考文献 & 外部リンク**:
+  - 公式一次情報、ISO/IEC規格群、ユーザビリティ規格、CI環境、二次情報テーブル、付録A（根拠対応表）、付録B（英和用語表）を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全72セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch4-page` スコープ、globals.css干渉リセット）、NavBar、ChecklistCardを実装。
+- `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter4-quality-characteristics`（CTAL-TA 4章 品質特性のテスト）を追加（全78件）。
+- `tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx`: TDD 必須サイクルに従い、全セクション、全20Mermaid図、全テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（12 pass / 266 expect()）。
+- `Ctal-ta-v4-ch4-quality-characteristics-guide.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4-ch4-quality-characteristics-guide.md` は `archive/md-archive/ctal/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 78 ページ体制に同期。
 
 ## 2026/09/23: ISTQB CTAL-TA v4.0 第3章（テスト分析・設計）完全ガイドのNext.js完全移行
 
@@ -1037,6 +1060,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-ch4-quality-characteristics-guide.html` | `/istqb-ctal-ta-chapter4-quality-characteristics` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1062,7 +1086,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 76 ルート（ガイドライブラリ index + 75 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 78 ルート（ガイドライブラリ index + 77 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
