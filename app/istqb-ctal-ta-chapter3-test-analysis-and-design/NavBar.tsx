@@ -203,6 +203,7 @@ export default function NavBar() {
                                 <a
                                     href={item.href}
                                     className={`nav-h2 ${isActive ? 'active' : ''}`}
+                                    aria-current={isActive ? 'location' : undefined}
                                     onClick={handleLinkClick}
                                 >
                                     {item.label}
@@ -217,6 +218,7 @@ export default function NavBar() {
                                                     <a
                                                         href={subItem.href}
                                                         className={isSubActive ? 'active' : ''}
+                                                        aria-current={isSubActive ? 'location' : undefined}
                                                         onClick={handleLinkClick}
                                                     >
                                                         {subItem.label}

@@ -1,7 +1,11 @@
 import React, { act } from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect } from 'bun:test';
+import { render, fireEvent, cleanup } from '@testing-library/react';
+import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTaChapter3Page from '../../app/istqb-ctal-ta-chapter3-test-analysis-and-design/page';
+
+// Bun はテストファイル間で happy-dom のグローバル DOM を共有するため、
+// 描画結果を毎回破棄しないと後続ファイルのクエリ（h1 の一意性など）が汚染される
+afterEach(() => cleanup());
 
 describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overview', () => {
     it('renders the page container and main structure with ctal-ta-ch3-page class', () => {
@@ -110,9 +114,9 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(sec04).toBeTruthy();
         expect(sec04?.textContent).toContain('0.4 Kレベル(認知レベル)バッジの見方');
 
-        // Check tables in Sec 0 (Tables 1, 2, 3)
+        // ページ全体のテーブル件数を厳密一致で検証（欠落・余剰の両方を検出）
         const tables = container.querySelectorAll('table');
-        expect(tables.length).toBeGreaterThanOrEqual(3);
+        expect(tables.length).toBe(31);
         expect(container.textContent).toContain('テスト分析・設計');
         expect(container.textContent).toContain('615分');
         expect(container.textContent).toContain('40問');
@@ -346,5 +350,45 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         // Footer & Disclaimer
         expect(container.querySelector('.page-footer')).toBeTruthy();
         expect(container.querySelector('.page-footer')?.textContent).toContain('本ガイドはISTQB® CTAL-TA Syllabus v4.0の内容を');
+    });
+});
+
+// Mermaid 図解インベントリ（出現順）。各図には ID・キャプションがないため、
+// 直前の見出し ID を図の識別子として 1 対 1 で照合する。
+const EXPECTED_DIAGRAM_SECTIONS: readonly string[] = [
+    '03-本ガイドの読み方',
+    '1-第3章の全体構造--4分類のテスト技法',
+    '4種類の点onoffinout',
+    'カバレッジ基準-1',
+    '網羅性テストと一貫性テスト',
+    '具体例注文の状態遷移モデル',
+    '具体例ログイン機能のシナリオモデル',
+    'フルデシジョンテーブルと最小化',
+    '具体例-2',
+    'セッションの流れ',
+    'チェックリスト作成の手順',
+    '技法選定の考え方実践的な整理図',
+];
+
+describe('CTAL-TA v4.0 Chapter 3 - Mermaid Diagram Inventory', () => {
+    it('renders exactly 12 Mermaid diagrams, each under its expected heading in order', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // 見出しと図コンテナを文書順で走査し、各図の直前の見出し ID を収集する
+        const nodes = container.querySelectorAll('h2[id], h3[id], h4[id], .mermaid-container');
+        const actualSections: string[] = [];
+        let currentHeadingId = '';
+        nodes.forEach((node) => {
+            if (node.classList.contains('mermaid-container')) {
+                actualSections.push(currentHeadingId);
+                return;
+            }
+            currentHeadingId = node.id;
+        });
+
+        expect(actualSections).toEqual([...EXPECTED_DIAGRAM_SECTIONS]);
+        container.querySelectorAll('.mermaid-container').forEach((diagram) => {
+            expect(diagram.querySelector('.mermaid-wrapper')).toBeTruthy();
+        });
     });
 });
