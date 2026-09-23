@@ -119,6 +119,6 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 # 2. JSX の class 属性漏れ検査
 grep -n 'class="' app/<page-slug>/page.tsx
 
-# 3. PII 検査（絶対パス混入の完全防止）
-git diff --cached | grep -E '^\+[^+]' | grep -E '(/Users/|/home/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' && echo "PII detected" || echo "PII check passed"
+# 3. PII 検査（絶対パス混入の完全防止）: staged + unstaged（git diff HEAD）と未追跡ファイルを走査
+{ git diff HEAD; git ls-files --others --exclude-standard -z | xargs -0 cat -- | sed 's/^/+/'; } | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' && echo "PII detected" || echo "PII check passed"
 ```

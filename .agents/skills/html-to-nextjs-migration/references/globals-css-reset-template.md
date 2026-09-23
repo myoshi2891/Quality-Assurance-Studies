@@ -38,6 +38,7 @@
     padding-top: 0;
 }
 
+.my-page-layout main,
 .my-page-layout .main,
 .my-page-layout .content {
     flex: 1 1 auto;

@@ -17,6 +17,8 @@ description: >
 
 # QA_Studies 仕様書同期スキル
 
+(最終更新日: 2026-09-23)
+
 ## Goal
 
 `CLAUDE.md` / `GEMINI.md` / `README.md` / `docs/MIGRATION_PROGRESS.md` / `docs/REUSABLE_PROMPTS.md` / `docs/coverage-dashboard.html` / 各種個別スキル・ルールの全仕様書を、常にプロジェクトの最新状況（実装、テスト、構成）と乖離させず、漏れなく最新に保つ。
@@ -95,15 +97,15 @@ Event5[E. セッション終了] --> |ゲート条件| DocM[MIGRATION_PROGRESS.m
 git log --oneline -5
 git rev-parse --short HEAD
 
-# B. 現在のNext.jsルート一覧 of 取得
-ls app/*/page.tsx 2>/dev/null | sed 's|app/||' | sed 's|/page.tsx||'
+# B. 現在のNext.jsルート一覧の取得（app/page.tsx とネストしたページを含む）
+find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||; s|^$|/|' | sort
 
 # C. テストファイル実数の取得 (Bunユニットテスト)
 find tests/ -name "*.test.ts" -o -name "*.test.tsx" 2>/dev/null | sort
 
-# D. テスト実行結果の取得
-bun test 2>&1 | tail -5
-bun run lint 2>&1 | tail -5
+# D. テスト実行結果の取得（pipefail で bun の終了コードを tail に握りつぶさせない）
+(set -o pipefail; bun test 2>&1 | tail -5)
+(set -o pipefail; bun run lint 2>&1 | tail -5)
 ```
 
 ### 2. 監査チェックリスト
@@ -149,7 +151,7 @@ bun run lint 2>&1 | tail -5
 仕様書のみの同期更新のコミットには**ソースコードの変更を一切含めない**でください（TDD コミット分割ルール）。
 
 ```bash
-git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/
+git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
 git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
 ```
 

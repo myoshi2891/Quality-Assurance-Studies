@@ -14,7 +14,7 @@
 | Undefined CSS vars | `var(--r)` | `var(--radius-DEFAULT, 12px)` |
 | Vendor scrollbar only | `::-webkit-scrollbar` (WebKit) | Add `scrollbar-width: none` (Firefox) |
 | `.code-block` 内の改行 | `<span>line1</span>{"\n"}<span>line2</span>` | 各行を `<div className="code-line"><span>line1</span></div>` でラップ |
-| page-sticky nav の top | `position: sticky; top: 0;` | `top: 60px`（グローバル Header の高さ分オフセット） |
+| page-sticky nav の top | `position: sticky; top: 0;` | `top: calc(60px + var(--disclaimer-height, 0px))`（グローバル Header + DisclaimerBanner の高さ分オフセット） |
 | アニメーションの消失 | `max-width: 0` のまま固定され見えなくなる | `@media (prefers-reduced-motion: reduce)` 内で `max-width: 100% !important;` を指定 |
 | 背景クリック妨害 | `::before` に `z-index` 指定なし | `pointer-events: none;` と `z-index: 0`（または負の値）を指定 |
 | ヘッダーオフセット二重カウント | `.page-layout { margin-top: 60px; }` | 削除。`layout-content` が既に `padding-top: 60px` を持つため不要。60px の余白が二重になる |
