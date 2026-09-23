@@ -298,6 +298,63 @@ stateDiagram-v2
   Installed --> NotInstalled : uninstall
   Upgraded --> NotInstalled : uninstall`;
 
+export const DIAGRAM_17 = `${MERMAID_CONFIG}
+flowchart TD
+  CP["Compatibility<br/>互換性"]
+  CP --> CO["Co-existence<br/>共存性<br/>同じ環境を共有しても邪魔しない"]
+  CP --> IO["Interoperability<br/>相互運用性<br/>情報を交換して使い合える"]
+  IO --> LO["TA-4.4.1 の対象"]
+  CO --> OUT["第4章の LO の対象外"]
+  classDef head fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef ta fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  classDef out fill:#f1f2f5,stroke:#8a8f9c,color:#2b2b33
+  class CP head
+  class IO,LO ta
+  class CO,OUT out`;
+
+export const DIAGRAM_18 = `${MERMAID_CONFIG}
+flowchart TD
+  I1["1 連携するシステムと<br/>インタフェースを洗い出す"] --> I2["2 交換される情報を整理<br/>形式・意味・頻度・方向"]
+  I2 --> I3["3 テストシナリオを設計<br/>正常・代替・例外"]
+  I3 --> I4["4 テストデータを用意<br/>本番相当と異常値"]
+  I4 --> I5{"相手システムを<br/>テストで使える?"}
+  I5 -->|使える| I6a["実システムまたは<br/>検証環境で接続"]
+  I5 -->|使えない| I6b["スタブやサービス仮想化で<br/>相手を模擬"]
+  I6a --> I7["5 実行して送信内容と<br/>受信後の状態を両側で確認"]
+  I6b --> I7
+  I7 --> I8["6 差異を分析し記録"]
+  classDef step fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef dec fill:#f1f2f5,stroke:#8a8f9c,color:#2b2b33
+  classDef last fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class I1,I2,I3,I4,I6a,I6b,I7 step
+  class I5 dec
+  class I8 last`;
+
+export const DIAGRAM_19 = `${MERMAID_CONFIG}
+sequenceDiagram
+  participant EC as ECサイト
+  participant PAY as 決済サービス
+  participant INV as 在庫システム
+  EC->>PAY: 決済リクエスト 注文ID 金額 通貨
+  PAY-->>EC: 決済結果 成功または失敗
+  EC->>INV: 在庫引当 商品ID 数量
+  INV-->>EC: 引当結果
+  Note over EC,INV: 各連携で情報が正しく受け渡され、受け側が正しく使えるかを確認する`;
+
+export const DIAGRAM_20 = `${MERMAID_CONFIG}
+flowchart TD
+  Z1["テスト対象の機能・サービス"] --> Z2{"何を確かめたい?"}
+  Z2 -->|結果の正しさ・抜け・有用性| Z3["4.1 機能テスト"]
+  Z2 -->|利用者の使いやすさ| Z4["4.2 ユーザビリティ"]
+  Z2 -->|環境・インストール| Z5["4.3 フレキシビリティ"]
+  Z2 -->|他システムとの情報交換| Z6["4.4 互換性 相互運用性"]
+  classDef start fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef dec fill:#f1f2f5,stroke:#8a8f9c,color:#2b2b33
+  classDef res fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class Z1 start
+  class Z2 dec
+  class Z3,Z4,Z5,Z6 res`;
+
 
 
 export default function CtalTaChapter4Page() {
@@ -2916,6 +2973,575 @@ export default function CtalTaChapter4Page() {
                         インストール性は、新規だけでなく<strong>アップグレード・ロールバック・アンインストール</strong>まで見る。
                     </li>
                 </ul>
+
+                {/* ===== セクション 5: 4.4 互換性テスト ===== */}
+                <h2 id="5-44-互換性テストta-441k2">5. 4.4 互換性テスト（TA-4.4.1・K2）</h2>
+                <div className="callout callout-lo">
+                    <span className="lbl">学習目標</span>
+                    <p>
+                        <strong>LO TA-4.4.1（K2）</strong>：テストアナリストが<strong>相互運用性（interoperability）のテストにどう貢献するか</strong>を説明できる（Explain）
+                    </p>
+                </div>
+                <h3 id="51-互換性compatibilityとは">5.1 互換性（Compatibility）とは</h3>
+                <p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> ISO/IEC 25010:2023 の定義：<strong>他の製品と情報を交換する</strong>、および／または、<strong>共通の環境や資源を共有しながら</strong>必要な機能を果たす能力。サブ特性は次の2つです。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>サブ特性</th>
+                                <th>意味</th>
+                                <th>第4章での扱い</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td><strong>Co-existence（共存性）</strong></td>
+                                <td>
+                                    同じ環境・資源を共有する他の製品に<strong>悪影響を与えず</strong>、必要な機能を効率的に果たす
+                                </td>
+                                <td>
+                                    LO の対象外 <span className="chip chip-w" title="要確認">⚠</span>（旧 v3.1 では TTA の領域として整理されていた）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>Interoperability（相互運用性）</strong></td>
+                                <td>
+                                    他の製品と情報を<strong>交換し、その情報を相互に利用</strong>できる
+                                </td>
+                                <td><strong>LO TA-4.4.1 の対象</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-17">
+                        <Mermaid chart={DIAGRAM_17} />
+                    </div>
+                </div>
+                <div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf">ISO/IEC 25010:2023 プレビュー（3.3、3.3.1、3.3.2）</a> ／ <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=6363">LO 新旧比較表（TA-4.4.1 の LO）</a>
+                    </p>
+                </div>
+
+                <h3 id="52-相互運用性interoperabilityの定義">
+                    5.2 相互運用性（Interoperability）の定義
+                </h3>
+                <ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> ISO：他の製品と情報を交換し、<strong>交換された情報を相互に使う</strong>能力。注記：ここでいう「情報」とは<strong>意味のあるデータ</strong>であり、情報の交換には<strong>交換のためのデータ変換</strong>も含まれる。
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> サンプル試験 Q37 の解説：2つ以上のコンポーネントまたはシステムが<strong>情報を交換し、交換された情報を使える</strong>度合い。
+                    </li>
+                </ul>
+                <p>
+                    <strong>ポイント（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：「データが<strong>届いた</strong>」だけでは不十分です。受け取った側が<strong>意味を理解して正しく使える</strong>（型・単位・文字コード・意味の解釈が合う）ことが相互運用性です。
+                </p>
+
+                <h3 id="53-ta-は相互運用性テストにどう貢献するか">
+                    5.3 TA は相互運用性テストにどう貢献するか
+                </h3>
+                <p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> シラバスの関連記述から、TA の貢献は次のように整理できます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>TA の貢献</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    テストベースを分析するとき、<strong>テスト対象と環境（利用者・他システム・機器）の相互作用</strong>を洗い出す
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 1.3.6（キーワード駆動テストの説明の中で、TA が相互作用を探すと記述）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>
+                                    交換される<strong>データの形式</strong>（CSV・JSON・XML・データベース）を整理し、テストデータを用意する
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 1.3.5（データ形式の項目）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>
+                                    相手システムがテスト時に使えない場合、<strong>テストダブル（スタブ・ドライバ）</strong>や<strong>サービス仮想化</strong>で補う
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 1.3.3、1.3.5
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>
+                                    <strong>システム間のシナリオ</strong>を設計する（エンドツーエンド）。運用プロファイルから互換性テストのシナリオ要素を作る
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.2.3（シナリオが柔軟性・互換性テストの運用プロファイルの要素になりうる）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>
+                                    過去に見つかった<strong>互換性・相互運用性の欠陥</strong>を、チャーターの履歴情報に活かす
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.4.1（チャーターの履歴情報の例に、互換性・相互運用性の欠陥が挙がる）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <span className="chip chip-t" title="実務補足">💡</span> 実務では、TA が<strong>業務データの意味</strong>を理解していることが最大の強みです。「この項目は税込か税抜か」「この日付はどのタイムゾーンか」といった<strong>意味の食い違い</strong>を見つけられるのは、業務を知る TA です。
+                </p>
+
+                <h3 id="54-テスト観点">5.4 テスト観点</h3>
+                <p>
+                    相互運用性の不具合は、次のどこで起きるかを分けて考えると設計しやすくなります（<span className="chip chip-t" title="実務補足">💡</span>）。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>観点</th>
+                                <th>何を確認するか</th>
+                                <th>不具合の例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>形式・構造</td>
+                                <td>必須項目、型、桁数、区切り、スキーマ</td>
+                                <td>必須項目が欠けて受信側がエラー</td>
+                            </tr>
+                            <tr className="even">
+                                <td>意味・単位</td>
+                                <td>単位、通貨、税込・税抜、コード値の意味</td>
+                                <td>金額の単位が円と銭で解釈が食い違う</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>文字・日時</td>
+                                <td>文字コード、改行、タイムゾーン、日付形式</td>
+                                <td>UTF-8 と Shift_JIS で文字化け</td>
+                            </tr>
+                            <tr className="even">
+                                <td>データ変換</td>
+                                <td>変換ルール、丸め、null と空文字の扱い</td>
+                                <td>小数の丸めで 1 円のずれ</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>プロトコル・バージョン</td>
+                                <td>API のバージョン、認証方式、必須ヘッダ</td>
+                                <td>旧バージョンの項目が新 API で無視される</td>
+                            </tr>
+                            <tr className="even">
+                                <td>タイミング・順序</td>
+                                <td>応答時間、タイムアウト、リトライ、順序保証</td>
+                                <td>二重送信で二重登録</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>エラー処理</td>
+                                <td>相手側の失敗・遅延・不正応答への対応</td>
+                                <td>相手が失敗を返しても成功扱いにする</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="55-相互運用性テストの進め方">5.5 相互運用性テストの進め方</h3>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-18">
+                        <Mermaid chart={DIAGRAM_18} />
+                    </div>
+                </div>
+
+                <h3 id="56-具体例ecサイトと決済サービス在庫システム">
+                    5.6 具体例：ECサイトと決済サービス・在庫システム
+                </h3>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-19">
+                        <Mermaid chart={DIAGRAM_19} />
+                    </div>
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>確認する内容</th>
+                                <th>期待する結果</th>
+                                <th>観点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>金額 1,980 円の注文を送る</td>
+                                <td>決済サービス側でも 1,980 円として処理される</td>
+                                <td>意味・単位</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>商品名に全角文字・絵文字・改行を含める</td>
+                                <td>文字化けせず、相手側でも同じ内容で保持される</td>
+                                <td>文字・日時</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>注文日時をタイムゾーン違いで送る</td>
+                                <td>相手側の日付が仕様どおり（日跨ぎでずれない）</td>
+                                <td>文字・日時</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>決済サービスが「失敗」を返す</td>
+                                <td>EC は注文を確定せず、在庫を引き当てない</td>
+                                <td>エラー処理</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>決済サービスの応答が遅延・タイムアウトする</td>
+                                <td>二重決済せず、状態が整合する</td>
+                                <td>タイミング・順序</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>相手 API のバージョンが上がり、項目が追加される</td>
+                                <td>既存の項目は従来どおり処理される</td>
+                                <td>プロトコル・バージョン</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <span className="chip chip-t" title="実務補足">💡</span> これらは<strong>振る舞い（シナリオ）</strong>として設計でき、第3章のシナリオベーステスト（主シナリオ・拡張・例外）と組み合わせられます。
+                </p>
+
+                <h3 id="57-テストダブルサービス仮想化契約テスト">
+                    5.7 テストダブル・サービス仮想化・契約テスト
+                </h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>手法</th>
+                                <th>内容</th>
+                                <th>使いどころ</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テストダブル（スタブ・ドライバ）</td>
+                                <td>相手システムを模擬する部品</td>
+                                <td>相手が未完成、またはテストで使えない</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 1.3.3</td>
+                            </tr>
+                            <tr className="even">
+                                <td>サービス仮想化</td>
+                                <td>
+                                    不在・アクセス不能な外部サービスを<strong>シミュレート</strong>する
+                                </td>
+                                <td>外部サービスがテスト用に用意されない、課金がある、不安定</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 1.3.5</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>契約テスト（consumer-driven contract testing など）</td>
+                                <td>
+                                    送り手と受け手が、インタフェースの<strong>期待を契約として共有</strong>し、それぞれ独立に検証する
+                                </td>
+                                <td>複数チームが独立して開発・リリースするマイクロサービス</td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span> 実務手法
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>疑似オラクル</td>
+                                <td>同じ仕様を満たす別系統のシステムを期待結果の基準にする</td>
+                                <td>旧システムの置き換え時など</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 1.3.4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス</span>
+                    <ul>
+                        <li>
+                            <strong>仮想化した結果と実システムの差</strong>を必ず記録する：仮想化は速く安定するが、実システム固有の挙動は見えない（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>本番に近い検証環境</strong>での<strong>最終確認</strong>を必ず残す（<span className="chip chip-o" title="公式根拠">📘</span> 1.3.3：本番と同じ結果になる環境が理想）。
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 id="58-ベストプラクティス相互運用性テスト">
+                    5.8 ベストプラクティス（相互運用性テスト）
+                </h3>
+                <div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス</span>
+                    <ul>
+                        <li>
+                            <strong>インタフェース一覧（連携マップ）を作る</strong>：送り手・受け手・方向・形式・頻度を一覧にすると、テストの網羅と漏れの確認ができます（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>データの意味を確認する</strong>：項目の型だけでなく、単位・コード値・null の扱い・日時の基準を、<strong>仕様と実データの両方</strong>で確認する（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>正常だけでなく例外を設計する</strong>：相手の失敗・遅延・不正応答を、<strong>シナリオの例外</strong>として設計する（<span className="chip chip-o" title="公式根拠">📘</span> 3.2.3）。
+                        </li>
+                        <li>
+                            <strong>両側の状態を確認する</strong>：送信側の画面だけでなく、<strong>受信側に届いたデータと状態</strong>も確認する（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>テストデータを機密面で保護する</strong>：本番データを使う場合は、仮名化・匿名化を検討する（<span className="chip chip-o" title="公式根拠">📘</span> 1.3.5）。
+                        </li>
+                        <li>
+                            <strong>バージョン変更の影響を調べる</strong>：相手システムが変更されたときに影響を受ける回帰テストを、インパクト分析で選ぶ（<span className="chip chip-o" title="公式根拠">📘</span> 2.2）。
+                        </li>
+                        <li>
+                            <strong>過去の互換性の欠陥を記録して活かす</strong>：チャーターやチェックリストに反映する（<span className="chip chip-o" title="公式根拠">📘</span> 3.4.1、3.4.2）。
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 id="59--対比">5.9 ✅／❌ 対比</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>観点</th>
+                                <th className="bad-col">❌ 悪い例</th>
+                                <th className="good-col">✅ 良い例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>確認範囲</td>
+                                <td className="bad-col">送信側の画面表示だけを確認する</td>
+                                <td className="good-col">
+                                    受信側の保存内容と後続処理の結果まで確認する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>データ</td>
+                                <td className="bad-col">正常な短い半角データだけを使う</td>
+                                <td className="good-col">全角・長文・特殊文字・境界値・欠損を含める</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>例外</td>
+                                <td className="bad-col">成功だけを確認する</td>
+                                <td className="good-col">
+                                    相手の失敗・タイムアウト・不正応答も確認する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>相手システム</td>
+                                <td className="bad-col">使えないのでテストしない</td>
+                                <td className="good-col">
+                                    スタブやサービス仮想化で模擬し、最終確認は実環境で行う
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>仕様</td>
+                                <td className="bad-col">「連携できた」で終わる</td>
+                                <td className="good-col">
+                                    項目ごとの意味・単位・変換ルールを仕様と照合する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="510-公式サンプル試験-q37-の考え方">5.10 公式サンプル試験 Q37 の考え方</h3>
+                <p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> Q37（LO：TA-4.4.1・K2）は、<strong>相互運用性テストの例</strong>を選ぶ問題です。解説の要点は次のとおりです。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>選択肢の内容（解説から読み取れる分類）</th>
+                                <th>分類</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>環境への適応を確認するテスト（4.3.1 と用語集を参照）</td>
+                                <td><strong>適応性</strong>テスト</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    2つ以上のコンポーネント・システムが情報を交換し、その情報を使えるかを確認する（正解）
+                                </td>
+                                <td><strong>相互運用性</strong>テスト</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>利用者の使いやすさを確認するテスト（4.2.1 を参照）</td>
+                                <td><strong>ユーザビリティ</strong>テスト</td>
+                            </tr>
+                            <tr className="even">
+                                <td>精度に焦点を当てた結果の正しさの確認（4.1 を参照）</td>
+                                <td><strong>機能正確性</strong>テスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>解き方</strong>：<strong>「情報の交換」</strong>が出てきたら相互運用性。「環境」なら適応性、「使いやすさ」ならユーザビリティ、「結果の正しさ・精度」なら正確性です。
+                </p>
+                <div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q37</a>
+                    </p>
+                </div>
+
+                <h3 id="511-44-のまとめ">5.11 4.4 のまとめ</h3>
+                <ul>
+                    <li>
+                        Compatibility ＝ 共存性＋相互運用性。<strong>LO の対象は相互運用性</strong>。
+                    </li>
+                    <li>
+                        相互運用性 ＝ 情報を<strong>交換</strong>し、<strong>交換した情報を使える</strong>。届くだけでなく、<strong>意味が合う</strong>ことが重要。
+                    </li>
+                    <li>
+                        TA の貢献は、<strong>連携する相手・情報・シナリオを洗い出して設計する</strong>こと。業務データの意味を知る TA の強みが生きる。
+                    </li>
+                    <li>
+                        相手が使えないときは<strong>テストダブル／サービス仮想化</strong>、最終確認は本番に近い環境で。
+                    </li>
+                </ul>
+
+                {/* ===== セクション 6: 機能・サービス別 適用早見表 ===== */}
+                <h2 id="6-機能サービス別-適用早見表">6. 機能・サービス別 適用早見表</h2>
+                <p>
+                    現場では「この機能・サービスに、どの特性のテストを当てるか」を迷います。次の表は、代表的な機能・サービスに対する<strong>観点の割り当て例</strong>です（<span className="chip chip-t" title="実務補足">💡</span> 実務の整理。第4章の LO を実務に落とし込むための目安です）。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>機能・サービス</th>
+                                <th>主に見る特性</th>
+                                <th>重点となる観点</th>
+                                <th>有効な技法・手法</th>
+                                <th>参照節</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>ログイン・会員登録</td>
+                                <td>正確性・完全性・ユーザビリティ</td>
+                                <td>
+                                    認証結果の正しさ、パスワード再設定などの機能の抜け、エラーからの回復のしやすさ
+                                </td>
+                                <td>状態遷移、デシジョンテーブル、CRUD 完全性、利用者テスト</td>
+                                <td>2、3</td>
+                            </tr>
+                            <tr className="even">
+                                <td>検索・絞り込み</td>
+                                <td>正確性・適切性</td>
+                                <td>条件どおりの結果、結果の並び順・カテゴリの有用性</td>
+                                <td>
+                                    同値分割・ドメインテスト、メタモルフィック（検索条件の変更に対する結果の関係）、クラウドテスト
+                                </td>
+                                <td>2</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>カート・決済</td>
+                                <td>正確性・完全性・相互運用性</td>
+                                <td>
+                                    金額・税・送料、決済失敗時の整合性、決済サービスとのデータ交換
+                                </td>
+                                <td>デシジョンテーブル、シナリオベース、スタブ／サービス仮想化</td>
+                                <td>2、5</td>
+                            </tr>
+                            <tr className="even">
+                                <td>帳票・PDF・CSV 出力</td>
+                                <td>正確性・相互運用性</td>
+                                <td>桁・丸め・文字コード、受け取る側での取り込み</td>
+                                <td>ドメインテスト、実データでの取り込み確認</td>
+                                <td>2、5</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>外部 API 連携</td>
+                                <td>相互運用性</td>
+                                <td>形式・意味・バージョン・エラー・タイムアウト</td>
+                                <td>シナリオベース（例外を含む）、契約テスト、サービス仮想化</td>
+                                <td>5</td>
+                            </tr>
+                            <tr className="even">
+                                <td>データ管理（登録・更新・削除）</td>
+                                <td>完全性・正確性</td>
+                                <td>操作の抜け（削除できない）、更新後の整合性</td>
+                                <td>CRUD テスト（完全性テストと整合性テスト）</td>
+                                <td>2</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>インストーラ・モバイルアプリ</td>
+                                <td>インストール性・適応性</td>
+                                <td>新規・更新・アンインストール、端末や OS の組み合わせ</td>
+                                <td>状態遷移（ラウンドトリップ）、ペアワイズ、クラウドテスト</td>
+                                <td>4</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Web アプリ（ブラウザ対応）</td>
+                                <td>適応性・ユーザビリティ</td>
+                                <td>ブラウザ×OS×画面サイズ、文字サイズや操作方法の違い</td>
+                                <td>ペアワイズ、CI の matrix、チェックリスト</td>
+                                <td>3、4</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>SaaS の管理画面</td>
+                                <td>適切性・ユーザビリティ</td>
+                                <td>管理者の業務手順の必要十分さ、誤操作の防止</td>
+                                <td>シナリオベース、ヒューリスティクス評価、利用者テスト</td>
+                                <td>2、3</td>
+                            </tr>
+                            <tr className="even">
+                                <td>データ移行・バッチ</td>
+                                <td>正確性・完全性・相互運用性</td>
+                                <td>件数・金額の一致、欠損、変換ルール</td>
+                                <td>疑似オラクル（旧システム）、ドメインテスト</td>
+                                <td>2、5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-20">
+                        <Mermaid chart={DIAGRAM_20} />
+                    </div>
+                </div>
+                <div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス（特性の割り当て）</span>
+                    <ul>
+                        <li>
+                            1つの機能に<strong>複数の特性</strong>が該当することは普通です。特性ごとに<strong>テスト条件を分けて</strong>書きます。
+                        </li>
+                        <li>
+                            どの特性を厚くするかは、<strong>リスクの大きさ</strong>で決めます（<span className="chip chip-o" title="公式根拠">📘</span> 2.1：TA は品質特性の観点でリスクを分類し、各リスクに対するテスト活動を提案する）。
+                        </li>
+                        <li>
+                            優先度が低い特性は、<strong>チェックリストや探索的テスト</strong>で軽く見る（<span className="chip chip-o" title="公式根拠">📘</span> 3.5.1：リスクが低い・スケジュールが厳しいときは経験ベース）。
+                        </li>
+                    </ul>
+                </div>
                 </main>
             </div>
         </div>

@@ -302,4 +302,44 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.querySelector('#mermaid-diagram-15')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-16')).toBeTruthy();
     });
+
+    it('renders Section 5 (4.4 Compatibility Testing TA-4.4.1 K2, Interoperability, Q37) and Section 6 (Application Matrix)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 5 headings
+        const sec5 = container.querySelector('[id="5-44-互換性テストta-441k2"]');
+        expect(sec5).toBeTruthy();
+        expect(sec5?.textContent).toContain('5. 4.4 互換性テスト（TA-4.4.1・K2）');
+
+        expect(container.querySelector('[id="51-互換性compatibilityとは"]')).toBeTruthy();
+        expect(container.querySelector('[id="52-相互運用性interoperabilityの定義"]')).toBeTruthy();
+        expect(container.querySelector('[id="53-ta-は相互運用性テストにどう貢献するか"]')).toBeTruthy();
+        expect(container.querySelector('[id="54-テスト観点"]')).toBeTruthy();
+        expect(container.querySelector('[id="55-相互運用性テストの進め方"]')).toBeTruthy();
+        expect(container.querySelector('[id="56-具体例ecサイトと決済サービス在庫システム"]')).toBeTruthy();
+        expect(container.querySelector('[id="57-テストダブルサービス仮想化契約テスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="58-ベストプラクティス相互運用性テスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="59--対比"]')).toBeTruthy();
+        expect(container.querySelector('[id="510-公式サンプル試験-q37-の考え方"]')).toBeTruthy();
+        expect(container.querySelector('[id="511-44-のまとめ"]')).toBeTruthy();
+
+        // Section 6 heading
+        const sec6 = container.querySelector('[id="6-機能サービス別-適用早見表"]');
+        expect(sec6).toBeTruthy();
+        expect(sec6?.textContent).toContain('6. 機能・サービス別 適用早見表');
+
+        // Content & Tables verification
+        expect(container.textContent).toContain('Co-existence（共存性）');
+        expect(container.textContent).toContain('Interoperability（相互運用性）');
+        expect(container.textContent).toContain('公式サンプル試験 Q37 の考え方');
+        expect(container.textContent).toContain('ログイン・会員登録');
+        expect(container.textContent).toContain('カート・決済');
+        expect(container.textContent).toContain('SaaS の管理画面');
+
+        // Mermaid diagrams 17 to 20
+        expect(container.querySelector('#mermaid-diagram-17')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-18')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-19')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-20')).toBeTruthy();
+    });
 });
