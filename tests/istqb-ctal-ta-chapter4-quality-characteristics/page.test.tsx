@@ -194,4 +194,42 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.querySelector('#mermaid-diagram-4')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-5')).toBeTruthy();
     });
+
+    it('renders Section 2 (4.1 Functional Testing TA-4.1.1 K2, 3 Sub-characteristics, Q34)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 2 headings
+        const sec2 = container.querySelector('[id="2-41-機能テストta-411k2"]');
+        expect(sec2).toBeTruthy();
+        expect(sec2?.textContent).toContain('2. 4.1 機能テスト（TA-4.1.1・K2）');
+
+        expect(container.querySelector('[id="21-まず結論3つの違いを一枚で"]')).toBeTruthy();
+        expect(container.querySelector('[id="22-機能適合性functional-suitabilityとは"]')).toBeTruthy();
+        expect(container.querySelector('[id="23-3つのサブ特性を詳しく"]')).toBeTruthy();
+        expect(container.querySelector('[id="24-見分け方どの特性の問題か迷ったとき"]')).toBeTruthy();
+        expect(container.querySelector('[id="25-機能テストの進め方ステップバイステップ"]')).toBeTruthy();
+        expect(container.querySelector('[id="26-特性ごとの技法の選び方"]')).toBeTruthy();
+        expect(container.querySelector('[id="27-いつどのレベルでテストするか"]')).toBeTruthy();
+        expect(container.querySelector('[id="28-ベストプラクティス機能テスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="29--対比"]')).toBeTruthy();
+        expect(container.querySelector('[id="210-公式サンプル試験-q34-の考え方"]')).toBeTruthy();
+        expect(container.querySelector('[id="211-41-のまとめ"]')).toBeTruthy();
+
+        // 6 Tables in Section 2
+        expect(container.textContent).toContain('機能正確性Functional correctness');
+        expect(container.textContent).toContain('機能適切性Functional appropriateness');
+        expect(container.textContent).toContain('機能完全性Functional completeness');
+        expect(container.textContent).toContain('迷う例');
+        expect(container.textContent).toContain('正しい分類');
+        expect(container.textContent).toContain('機能テストの進め方（ステップバイステップ）');
+        expect(container.textContent).toContain('特性ごとの技法の選び方');
+        expect(container.textContent).toContain('公式サンプル試験 Q34 の考え方');
+
+        // Mermaid diagrams 6 to 10
+        expect(container.querySelector('#mermaid-diagram-6')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-7')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-8')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-9')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-10')).toBeTruthy();
+    });
 });

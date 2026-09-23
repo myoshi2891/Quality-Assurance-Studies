@@ -137,6 +137,84 @@ flowchart LR
   classDef mem fill:#e8efff,stroke:#4f6fd6,color:#14213d
   class K1,K2,K3 mem`;
 
+export const DIAGRAM_6 = `${MERMAID_CONFIG}
+flowchart TD
+  FS["機能適合性<br/>Functional suitability"]
+  C1["機能完全性<br/>必要な機能が揃っている"]
+  C2["機能正確性<br/>結果が正確"]
+  C3["機能適切性<br/>タスクに役立つ"]
+  FS --> C1
+  FS --> C2
+  FS --> C3
+  C1 --> Q1["問い：抜けはないか"]
+  C2 --> Q2["問い：間違いはないか"]
+  C3 --> Q3["問い：役に立つか"]
+  classDef core fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef sub fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  classDef q fill:#f1f2f5,stroke:#8a8f9c,color:#2b2b33
+  class FS core
+  class C1,C2,C3 sub
+  class Q1,Q2,Q3 q`;
+
+export const DIAGRAM_7 = `${MERMAID_CONFIG}
+flowchart TD
+  S["不具合の疑いや<br/>テスト観点を見つけた"] --> Q1{"必要な機能やデータ操作<br/>そのものが存在しない?"}
+  Q1 -->|はい| T1["機能完全性 Completeness<br/>の問題"]
+  Q1 -->|いいえ| Q2{"結果や出力が<br/>仕様や期待と違う?"}
+  Q2 -->|はい| T2["機能正確性 Correctness<br/>の問題"]
+  Q2 -->|いいえ| Q3{"機能はあるが、タスク達成に<br/>不要な手順や役に立たない<br/>要素がある?"}
+  Q3 -->|はい| T3["機能適切性 Appropriateness<br/>の問題"]
+  Q3 -->|いいえ| T4["別の特性を検討<br/>使いやすさ・互換性・適応性など"]
+  classDef start fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef dec fill:#f1f2f5,stroke:#8a8f9c,color:#2b2b33
+  classDef res fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  classDef other fill:#fff4dc,stroke:#d9a441,color:#5a3d0a
+  class S start
+  class Q1,Q2,Q3 dec
+  class T1,T2,T3 res
+  class T4 other`;
+
+export const DIAGRAM_8 = `${MERMAID_CONFIG}
+flowchart TD
+  P1["1 テストベースを集める<br/>要件・ユーザーストーリー・暗黙のニーズ"] --> P2["2 テスト条件を定義<br/>高レベルから詳細へ"]
+  P2 --> P3["3 特性に振り分ける<br/>正確性・適切性・完全性"]
+  P3 --> P4["4 技法を選ぶ<br/>第3章の技法"]
+  P4 --> P5["5 テストケースとデータを設計"]
+  P5 --> P6["6 実行し結果を評価"]
+  P6 --> P7["7 トレーサビリティと<br/>リスク情報を更新"]
+  classDef step fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef last fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class P1,P2,P3,P4,P5,P6 step
+  class P7 last`;
+
+export const DIAGRAM_9 = `${MERMAID_CONFIG}
+flowchart LR
+  A["機能正確性<br/>結果は正しいか"] --> A1["同値分割・境界値分析<br/>ドメインテスト"]
+  A --> A2["デシジョンテーブルテスト"]
+  A --> A3["状態遷移テスト"]
+  A --> A4["メタモルフィックテスト<br/>オラクルが弱いとき"]
+  B["機能完全性<br/>抜けはないか"] --> B1["CRUD テスト<br/>完全性テストは静的"]
+  B --> B2["要件とのトレーサビリティ確認"]
+  B --> B3["シナリオベーステスト<br/>ユースケースの網羅"]
+  C["機能適切性<br/>役に立つか"] --> C1["シナリオベーステスト<br/>実利用者の目的から"]
+  C --> C2["経験ベース<br/>チャーター・チェックリスト"]
+  C --> C3["クラウドテスト<br/>実利用者の視点"]
+  classDef head fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef tech fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class A,B,C head
+  class A1,A2,A3,A4,B1,B2,B3,C1,C2,C3 tech`;
+
+export const DIAGRAM_10 = `${MERMAID_CONFIG}
+flowchart TD
+  L1["要件・ユーザーストーリーの段階"] --> L1a["完全性：レビューで機能の抜けを見つける<br/>静的テスト"]
+  L2["設計・実装の段階"] --> L2a["正確性：コンポーネントレベルの確認<br/>主に開発者・TTA"]
+  L3["システム・受け入れテストの段階"] --> L3a["正確性・適切性・完全性を利用者視点で確認<br/>TA の主戦場"]
+  classDef stage fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef act fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class L1,L2,L3 stage
+  class L1a,L2a,L3a act`;
+
+
 export default function CtalTaChapter4Page() {
     return (
         <div className="ctal-ta-ch4-page">
@@ -912,6 +990,616 @@ export default function CtalTaChapter4Page() {
 <div className="mermaid-container">
                     <div className="mermaid-target" id="mermaid-diagram-5"><Mermaid chart={DIAGRAM_5} /></div>
                 </div>
+                <h2 id="2-41-機能テストta-411k2">2. 4.1 機能テスト（TA-4.1.1・K2）</h2>
+<div className="callout callout-lo">
+                    <span className="lbl">学習目標</span>
+                    <p>
+                        <strong>LO TA-4.1.1（K2）</strong>：機能正確性・機能適切性・機能完全性のテストを<strong>区別できる</strong>（Differentiate）
+                    </p>
+                </div>
+<h3 id="21-まず結論3つの違いを一枚で">2.1 まず結論：3つの違いを一枚で</h3>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th></th>
+                                <th>機能正確性<br />Functional correctness</th>
+                                <th>機能適切性<br />Functional appropriateness</th>
+                                <th>機能完全性<br />Functional completeness</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>一言で</td>
+                                <td><strong>正しく</strong>動くか</td>
+                                <td>タスクの達成に<strong>役立つ</strong>か</td>
+                                <td>必要な機能が<strong>漏れなく</strong>あるか</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    ISO 25010:2023 の定義
+                                    <span className="chip chip-o" title="公式根拠">📘</span>
+                                </td>
+                                <td>
+                                    利用者が使ったとき<strong>正確な結果</strong>を返す能力（精度も含む）
+                                </td>
+                                <td>
+                                    指定されたタスクや目的の達成を<strong>促進する</strong>機能を提供する能力
+                                </td>
+                                <td>
+                                    特定されたタスクと利用者の目的を<strong>すべてカバーする</strong>機能を提供する能力
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>確かめる問い</td>
+                                <td>出力・計算・状態遷移は期待どおりか</td>
+                                <td>手順は必要十分か。不要な手順や役に立たない選択肢はないか</td>
+                                <td>要件・利用者の目的に対して、機能の抜けはないか</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    典型的な不具合
+                                    <span className="chip chip-t" title="実務補足">💡</span>
+                                </td>
+                                <td>計算ミス、絞り込み条件の誤り、境界値の誤判定</td>
+                                <td>意味の薄い選択肢、余計な確認画面、タスクに不要な入力</td>
+                                <td>要件にある機能が未実装、データの更新はできるが削除できない</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>主な検証の視点</td>
+                                <td>仕様との<strong>一致</strong></td>
+                                <td>利用者の<strong>目的への適合</strong></td>
+                                <td>要求に対する<strong>網羅</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<div className="callout callout-source">
+                    <p>
+                        出典：<span className="chip chip-o" title="公式根拠">📘</span>
+                        <a href="https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf">ISO/IEC 25010:2023 3.1〜3.1.3</a>（定義・注記・例）／
+                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q34</a>
+                    </p>
+                </div>
+<p>
+                    ISO
+                    の注記には、機能適合性は「機能が<strong>明示・暗黙のニーズ</strong>を満たすか」だけでなく「<strong>機能仕様</strong>を満たすか」にも関わる、とあります。つまり「仕様どおりか」と「ニーズに合うか」の<strong>両方</strong>を見る特性です。
+                </p>
+<h3 id="22-機能適合性functional-suitabilityとは">
+                    2.2 機能適合性（Functional suitability）とは
+                </h3>
+<ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> ISO/IEC
+                        25010:2023：指定された条件で使用したとき、<strong>明示された、および暗黙のニーズ</strong>を満たす機能を提供する製品の能力。
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> 第1章の導入：TA
+                        は品質特性のうち、まず<strong>機能適合性</strong>に専門性を持ちます。TA
+                        が主に担当するテストレベルは、システムテスト・受け入れテスト・システム統合テストです。
+                    </li>
+                    <li>
+                        <span className="chip chip-t" title="実務補足">💡</span>
+                        機能テストは「ボタンを押して画面が変わるか」だけではありません。<strong>要件に書かれていない暗黙のニーズ</strong>（たとえば「検索結果は関連度順に並ぶはず」）も対象になります。
+                    </li>
+                </ul>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-6"><Mermaid chart={DIAGRAM_6} /></div>
+                </div>
+<h3 id="23-3つのサブ特性を詳しく">2.3 3つのサブ特性を詳しく</h3>
+<h4 id="231-機能正確性functional-correctness">
+                    2.3.1 機能正確性（Functional correctness）
+                </h4>
+<p>
+                    <strong>定義</strong>：<span className="chip chip-o" title="公式根拠">📘</span>
+                    利用者が使用したとき、<strong>正確な結果</strong>を提供できる能力。精度（precision）は正確性の属性の一つで、科学計算ソフトのように高い精度が必要な製品では、必要な桁数まで正確であることが求められます。
+                </p>
+<p>
+                    <strong>なぜ重要か</strong>：<span className="chip chip-t" title="実務補足">💡</span>
+                    結果が間違っていると、利用者は誤った判断・誤った金額・誤ったデータを受け取ります。金融・医療・会計のように、誤りがそのまま損害に直結する領域ではもっとも優先度が高い特性です。
+                </p>
+<p><strong>具体例（ECサイト）</strong></p>
+<ul>
+                    <li>
+                        送料無料の判定：合計 5,000 円以上で無料 → 4,999 円と 5,000 円で判定が変わる
+                    </li>
+                    <li>消費税の計算：端数処理（切り捨て・四捨五入）が仕様どおりか</li>
+                    <li>
+                        絞り込み検索：「価格 1,000 円以上 3,000
+                        円以下」で結果が条件どおりか（サンプル試験 Q34
+                        が「絞り込み機能の正しさ」を正確性の例として挙げている
+                        <span className="chip chip-o" title="公式根拠">📘</span>）
+                    </li>
+                </ul>
+<p>
+                    <strong>ポイント</strong>：仕様（期待結果＝テストオラクル）と<strong>実際の結果を比べる</strong>ことが基本です。オラクルが作りにくい場合の対策は第1章
+                    1.3.4 にあります（疑似オラクル、メタモルフィックテストなど
+                    <span className="chip chip-o" title="公式根拠">📘</span>）。
+                </p>
+<h4 id="232-機能適切性functional-appropriateness">
+                    2.3.2 機能適切性（Functional appropriateness）
+                </h4>
+<p>
+                    <strong>定義</strong>：<span className="chip chip-o" title="公式根拠">📘</span>
+                    指定されたタスクや目的の<strong>達成を促進する</strong>機能を提供できる能力。ISO
+                    の例では「<strong>必要十分なステップ</strong>を提供し、不要なステップを含まない」ことが挙げられています。ISO
+                    9241-110 の「タスクへの適合性（suitability for the task）」に相当します。
+                </p>
+<p>
+                    <strong>なぜ重要か</strong>：<span className="chip chip-t" title="実務補足">💡</span>
+                    仕様どおりに正しく動いていても、利用者の目的に対して<strong>遠回り</strong>だったり<strong>役に立たなかったり</strong>すれば、製品としての価値が下がります。仕様の妥当性そのものを疑う観点で、レビューや利用者の声から見つかることが多い特性です。
+                </p>
+<p><strong>具体例（ECサイト）</strong></p>
+<ul>
+                    <li>
+                        商品カテゴリの一覧が、利用者にとって探しやすい分類になっているか（サンプル試験
+                        Q34 が<strong>適切性の例</strong>として挙げている
+                        <span className="chip chip-o" title="公式根拠">📘</span>）
+                    </li>
+                    <li>購入完了までに、目的に不要な入力項目や確認画面がないか</li>
+                    <li>「注文履歴」を見たい利用者が、ログイン後に何ステップで到達できるか</li>
+                </ul>
+<p>
+                    <strong>正確性との違い</strong>：<span className="chip chip-t" title="実務補足">💡</span>
+                    正確性は「間違っていないか」、適切性は「<strong>間違っていなくても、役に立つか</strong>」です。仕様どおりなのに使えない場合は、適切性の問題である可能性が高いです。
+                </p>
+<h4 id="233-機能完全性functional-completeness">
+                    2.3.3 機能完全性（Functional completeness）
+                </h4>
+<p>
+                    <strong>定義</strong>：<span className="chip chip-o" title="公式根拠">📘</span>
+                    特定されたタスクと利用者の目的を<strong>すべてカバー</strong>する機能一式を提供できる能力。
+                </p>
+<p>
+                    <strong>なぜ重要か</strong>：<span className="chip chip-t" title="実務補足">💡</span>
+                    機能が<strong>存在しない</strong>ことは、テストを実行しても見つかりません（実行するものがないため）。要件・ユースケース・データのライフサイクルと突き合わせる<strong>網羅の確認</strong>が必要です。
+                </p>
+<p><strong>具体例（ECサイト）</strong></p>
+<ul>
+                    <li>要件に「領収書の発行」があるのに、画面から発行できない</li>
+                    <li>
+                        住所を「登録」「参照」「更新」できるのに、「削除」できない（CRUD の欠落）
+                    </li>
+                    <li>返品の申請はできるが、返品状況を確認する機能がない</li>
+                </ul>
+<p>
+                    <strong>第3章との接続 <span className="chip chip-o" title="公式根拠">📘</span></strong>：CRUD テストの<strong>完全性テスト（completeness testing）<strong>は静的テストで、すべてのエンティティに C・R・U・D
+                            の全操作が存在するかを確認し、<strong>操作の欠落は調査が必要な異常</strong>とされます（シラバス
+                            3.2.1）。また第3章 3.5.1 は、振る舞いベースの技法が</strong>機能の欠落</strong>（missing features）のような欠陥を見つけやすいと述べています。
+                </p>
+<h3 id="24-見分け方どの特性の問題か迷ったとき">
+                    2.4 見分け方：どの特性の問題か迷ったとき
+                </h3>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-7"><Mermaid chart={DIAGRAM_7} /></div>
+                </div>
+<p>
+                    <strong>間違えやすいペア（<span className="chip chip-t" title="実務補足">💡</span>）</strong>
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>迷う例</th>
+                                <th>正しい分類</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>送料の計算結果が 1 円ずれる</td>
+                                <td>正確性</td>
+                                <td>結果が間違っている</td>
+                            </tr>
+                            <tr className="even">
+                                <td>「削除」ボタン自体がない</td>
+                                <td>完全性</td>
+                                <td>機能が存在しない</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>削除の前に確認画面が3回出る</td>
+                                <td>適切性（または使いやすさ）</td>
+                                <td>
+                                    不要なステップが多い。ステップの分かりにくさや操作感が主なら 4.2
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>ボタンの文言が分かりにくい</td>
+                                <td>使いやすさ（4.2）</td>
+                                <td>機能の有無・結果ではなく、認識・操作の問題</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>他システムに注文データが渡らない</td>
+                                <td>相互運用性（4.4）</td>
+                                <td>機能単体ではなく、システム間の情報交換の問題</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<h3 id="25-機能テストの進め方ステップバイステップ">
+                    2.5 機能テストの進め方（ステップバイステップ）
+                </h3>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-8"><Mermaid chart={DIAGRAM_8} /></div>
+                </div>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>Step</th>
+                                <th>やること</th>
+                                <th>根拠・補足</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    テストベース（要件、ユーザーストーリー、受け入れ基準、有識者の知識）を集める。会話で得た情報も含める
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> シラバス
+                                    1.2.1（口頭情報もテストベースに含める）。<span className="chip chip-t" title="実務補足">💡</span>
+                                    暗黙のニーズは有識者へのヒアリングで補う
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>
+                                    テスト条件を、まず「画面 x
+                                    の機能」のような<strong>高レベル</strong>で、次に「画面 x は 1
+                                    桁足りない口座番号を拒否する」のように<strong>詳細</strong>に定義する
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> シラバス
+                                    1.2.1。アジャイルでは受け入れ基準として表現できる
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>
+                                    各テスト条件を、正確性・適切性・完全性のどれを確かめるものか<strong>振り分ける</strong>（複数に該当してよい）
+                                </td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span> 実務補足
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>特性ごとに適切な技法を選ぶ（2.6 節）</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 第3章</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>
+                                    高レベルテストケースから低レベルへ具体化し、テストデータを用意。<strong>ロジックとデータを分離</strong>する
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> シラバス
+                                    1.3.1、1.3.5
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>
+                                    実行して実際の結果と期待結果を比較し、異常の原因を分析する（テストスクリプトや環境の欠陥、仕様の誤解の可能性も）
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> シラバス
+                                    1.2.4
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>
+                                    テストベースとのトレーサビリティを更新し、結果をリスクやカバレッジの情報に変換する
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> シラバス
+                                    1.2.4
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<h3 id="26-特性ごとの技法の選び方">2.6 特性ごとの技法の選び方</h3>
+<p>
+                    第3章は「<strong>どの欠陥を狙うか</strong>でテスト技法を選ぶ」考え方を示しています。
+                </p>
+<ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span>
+                        データベースの技法：データ処理・ドメイン実装・UI・計算・パラメータの組み合わせの欠陥
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span>
+                        振る舞いベースの技法：機能の欠落・コミュニケーション・処理の欠陥
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span>
+                        ルールベースの技法：ロジックと制御フローの欠陥
+                    </li>
+                </ul>
+<p>
+                    これを 4.1 の3特性に当てはめると、次のようになります（<span className="chip chip-t" title="実務補足">💡</span>
+                    対応づけは実務的な整理）。
+                </p>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-9"><Mermaid chart={DIAGRAM_9} /></div>
+                </div>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>特性</th>
+                                <th>主な技法（第3章）</th>
+                                <th>何を確かめるか</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>正確性</td>
+                                <td>
+                                    同値分割・境界値分析・ドメインテスト（3.1.1）、デシジョンテーブル（3.3.1）、状態遷移（3.2.2）、メタモルフィック（3.3.2）
+                                </td>
+                                <td>計算・判定・状態ごとの結果・ルールの正しさ</td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span>
+                                    技法の説明は第3章。特性との対応づけは
+                                    <span className="chip chip-t" title="実務補足">💡</span>
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>完全性</td>
+                                <td>
+                                    CRUD
+                                    テストの完全性テスト（3.2.1）、シナリオベース（3.2.3）、要件・ユースケースとのトレーサビリティ
+                                </td>
+                                <td>機能・操作・シナリオの抜け</td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span>
+                                    3.2.1、3.5.1。トレーサビリティの位置づけは 1.2.2
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>適切性</td>
+                                <td>
+                                    シナリオベース（3.2.3）、セッションベース（3.4.1）、チェックリスト（3.4.2）、クラウドテスト（3.4.3）
+                                </td>
+                                <td>実利用者の目的に対する有用性、手順の必要十分さ</td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> 3.2.3
+                                    は「システムの機能適合性を利用者の視点で見るエンドツーエンドテスト」と説明。3.4.3
+                                    は「実利用者の視点」を利点に挙げる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<p>
+                    <strong>この節のポイント</strong>：<span className="chip chip-o" title="公式根拠">📘</span>
+                    第3章 3.2.3
+                    は、シナリオベーステストを「<strong>機能適合性（第4.1節参照）を、利用者の視点から見るエンドツーエンドのテスト</strong>」と説明しています。4.1
+                    と 3.2.3 は<strong>つながっている</strong>ので、セットで理解しましょう。
+                </p>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745">シラバス 3.1〜3.5</a>
+                    </p>
+                </div>
+<h3 id="27-いつどのレベルでテストするか">2.7 いつ・どのレベルでテストするか</h3>
+<ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> TA
+                        が主に担当するのは、<strong>システムテスト、受け入れテスト、システム統合テスト</strong>です（シラバス
+                        1 章の導入）。
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span>
+                        アジャイルでは、テスト条件を<strong>受け入れ基準</strong>として表現できます（1.2.1）。
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span>
+                        <strong>シフトレフト</strong>の考え方で、リスク軽減に最も早く効くテスト活動（レビューなどの静的テスト）を示します（2.1）。<strong>完全性の欠落は、要件やユースケースのレビューで最も早く見つけられます</strong>（<span className="chip chip-t" title="実務補足">💡</span>）。
+                    </li>
+                </ul>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-10"><Mermaid chart={DIAGRAM_10} /></div>
+                </div>
+<h3 id="28-ベストプラクティス機能テスト">2.8 ベストプラクティス（機能テスト）</h3>
+<div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス（全体）</span>
+                    <ul>
+                        <li>
+                            <strong>トレーサビリティを保つ</strong>：要件 → テスト条件 →
+                            テストケース →
+                            結果をたどれるようにします。完全性の確認（要件に対する網羅）はこれが前提です（<span className="chip chip-o" title="公式根拠">📘</span>
+                            シラバス 1.2.2、1.2.4）。
+                        </li>
+                        <li>
+                            <strong>仕様の適合とニーズの適合を分けて記録する</strong>：正確性の欠陥は「仕様との差」、適切性・完全性の欠陥は「ニーズや目的との差」であることが多く、修正の相談先（開発者か、プロダクトオーナーか）が変わります（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>暗黙のニーズを言語化する</strong>：「当然こうなるはず」という期待を、有識者へのインタビューやペルソナから拾い、テスト条件にします（<span className="chip chip-t" title="実務補足">💡</span>。ペルソナの活用は
+                            <span className="chip chip-o" title="公式根拠">📘</span> 1.3.5
+                            のテストデータの説明にも登場）。
+                        </li>
+                        <li>
+                            <strong>リスクに応じて厚みを変える</strong>：重要度が高い機能ほど厳密なカバレッジ（例：ペアワイズよりすべての組み合わせ）、低い場合は経験ベースで軽く（<span className="chip chip-o" title="公式根拠">📘</span>
+                            シラバス 3.5.1）。
+                        </li>
+                    </ul>
+                </div>
+<div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス（正確性）</span>
+                    <ul>
+                        <li>
+                            期待結果（テストオラクル）を<strong>独立して</strong>用意する：仕様書、レガシーシステム（疑似オラクル）、メタモルフィック関係など（<span className="chip chip-o" title="公式根拠">📘</span>
+                            1.3.4）。
+                        </li>
+                        <li>
+                            精度が要件になる機能では、<strong>許容誤差と桁数</strong>をテスト条件に含める（<span className="chip chip-o" title="公式根拠">📘</span>
+                            ISO の注記で精度は正確性の属性）。
+                        </li>
+                        <li>
+                            境界値は
+                            <strong>ON／OFF／IN／OUT 点</strong>の考え方で漏れなく選ぶ（<span className="chip chip-o" title="公式根拠">📘</span>
+                            3.1.1 ドメインテスト）。
+                        </li>
+                    </ul>
+                </div>
+<div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス（適切性）</span>
+                    <ul>
+                        <li>
+                            実利用者の<strong>操作パターン（オペレーショナルプロファイル）とペルソナ</strong>からシナリオを作る（<span className="chip chip-o" title="公式根拠">📘</span>
+                            サンプル試験 Q35 の解説が使用を示唆。3.2.3
+                            も、ユーザー調査・ペルソナ・ジャーニーマップを挙げる）。
+                        </li>
+                        <li>
+                            手順数を<strong>測る</strong>：目的達成までのクリック数・画面数を記録し、要件やベースラインと比べる（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            客観的な判断が難しいため、<strong>複数の利用者視点</strong>（クラウドテスト、受け入れテスト）を組み合わせる（<span className="chip chip-o" title="公式根拠">📘</span>
+                            3.4.3）。
+                        </li>
+                    </ul>
+                </div>
+<div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス（完全性）</span>
+                    <ul>
+                        <li>
+                            <strong>CRUD マトリクス</strong>を作り、エンティティごとに C・R・U・D
+                            の欠落を静的に確認する（<span className="chip chip-o" title="公式根拠">📘</span>
+                            3.2.1）。
+                        </li>
+                        <li>
+                            ユースケースの<strong>主シナリオ・拡張・例外</strong>がすべて実装されているか確認する（<span className="chip chip-o" title="公式根拠">📘</span>
+                            3.2.3）。
+                        </li>
+                        <li>
+                            要件レビューの段階で、「この目的を達成するために足りない機能はないか」を<strong>利用者の目的</strong>から逆算して確認する（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                    </ul>
+                </div>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745">シラバス 1.2、1.3、3.1、3.2、3.5</a>
+                    </p>
+                </div>
+<h3 id="29--対比">2.9 ✅／❌ 対比</h3>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>観点</th>
+                                <th className="bad-col">❌ 悪い例</th>
+                                <th className="good-col">✅ 良い例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>特性の切り分け</td>
+                                <td className="bad-col">「不具合＝正確性」とだけ分類する</td>
+                                <td className="good-col">
+                                    正確性・適切性・完全性のどれかを明示して記録する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>期待結果</td>
+                                <td className="bad-col">開発者が書いた実装を見て期待結果を決める</td>
+                                <td className="good-col">仕様・有識者・独立したオラクルから決める</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>完全性</td>
+                                <td className="bad-col">実装済みの機能だけをテストする</td>
+                                <td className="good-col">
+                                    要件・ユースケース・CRUD
+                                    と突き合わせて<strong>抜け</strong>を探す
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>適切性</td>
+                                <td className="bad-col">
+                                    テスト担当者の感覚だけで「使いにくい」と報告する
+                                </td>
+                                <td className="good-col">
+                                    ペルソナ・実利用者の観察・手順数などの根拠を添える
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テストケース</td>
+                                <td className="bad-col">期待結果が「正しく動く」だけ</td>
+                                <td className="good-col">
+                                    具体的な値・状態を期待結果に書く（<span className="chip chip-o" title="公式根拠">📘</span>
+                                    1.3.2 の「正確さ・完全性」基準）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<h3 id="210-公式サンプル試験-q34-の考え方">2.10 公式サンプル試験 Q34 の考え方</h3>
+<p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> 公式サンプル試験 v4.1 の
+                    Q34（LO：TA-4.1.1・K2）は、次のような<strong>具体的なテスト活動がどの種類のテストか</strong>を選ばせる問題です。解説文の要点は次のとおりです（設問の全文は公式資料で確認してください）。
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>解説から読み取れる選択肢の内容</th>
+                                <th>解説が示す分類</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>分類のカテゴリが利用者にとって役立つかを確認する</td>
+                                <td><strong>機能適切性</strong>のテスト</td>
+                            </tr>
+                            <tr className="even">
+                                <td>フィルタ機能の正しさを確認する</td>
+                                <td><strong>機能正確性</strong>のテスト（正解）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>2つのシステム間のやりとりを確認する</td>
+                                <td><strong>相互運用性</strong>のテスト</td>
+                            </tr>
+                            <tr className="even">
+                                <td>インタフェースの学習しやすさや見た目を確認する</td>
+                                <td><strong>ユーザビリティ</strong>のテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<p>
+                    <strong>解き方</strong>：活動の<strong>目的語</strong>を見ます。「役に立つか」なら適切性、「正しいか」なら正確性、「システム間」なら相互運用性、「学習しやすさ・見た目」ならユーザビリティです。
+                </p>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q34</a>
+                    </p>
+                </div>
+<h3 id="211-41-のまとめ">2.11 4.1 のまとめ</h3>
+<ul>
+                    <li>
+                        機能適合性 ＝ 完全性（漏れなく）＋正確性（正しく）＋適切性（役に立つ）。
+                    </li>
+                    <li>
+                        3つは<strong>確かめる問いが違う</strong>：抜けはないか／間違いはないか／役に立つか。
+                    </li>
+                    <li>
+                        完全性は<strong>存在しないものを探す</strong>ので、静的なレビュー・CRUD
+                        マトリクス・トレーサビリティが有効。
+                    </li>
+                    <li>
+                        適切性は<strong>利用者の目的</strong>が基準なので、シナリオ・ペルソナ・実利用者が有効。
+                    </li>
+                    <li>
+                        第3章の技法（特にシナリオベースと
+                        CRUD）と<strong>つなげて</strong>理解する。
+                    </li>
+                </ul>
                 </main>
             </div>
         </div>
