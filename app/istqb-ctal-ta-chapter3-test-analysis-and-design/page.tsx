@@ -206,6 +206,22 @@ flowchart TD
     classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
     class A,B,C,D,E,F stepFill`;
 
+export const DIAGRAM_TECHNIQUE_SELECTION = `${MERMAID_CONFIG}
+flowchart TD
+    A["テスト対象の特性・<br/>テストベースを分析"] --> B{"どんな性質が<br/>支配的か?"}
+    B -->|"状態遷移モデルがある<br/>(ステートフルな振る舞い)"| C["ビヘイビアベーステスト技法<br/>(状態遷移テスト/シナリオベーステスト)"]
+    B -->|"ビジネスルール・条件分岐が中心"| D["ルールベーステスト技法<br/>(デシジョンテーブルテスト)"]
+    B -->|"複数パラメータ・データ領域が中心"| E["データベースドテスト技法<br/>(ドメインテスト/組み合わせテスト)"]
+    B -->|"テストオラクルの取得が困難<br/>(AIベース・非決定的な処理)"| F["メタモルフィックテスト"]
+    B -->|"仕様が曖昧・時間が限られる・<br/>網羅基準の定義が難しい"| G["経験ベーステスト<br/>(探索的テスト/チェックリスト)"]
+
+    classDef startFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef decisionFill fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef techFill fill:#f8fafc,stroke:#64748b,color:#1e293b
+    class A startFill
+    class B decisionFill
+    class C,D,E,F,G techFill`;
+
 export default function CtalTaChapter3Page() {
     return (
         <div className="ctal-ta-ch3-page">
@@ -1833,6 +1849,274 @@ export default function CtalTaChapter3Page() {
                                 </li>
                                 <li>
                                     「多様な実環境でのカバレッジ拡大」という強みを活かし、社内テストで手薄になりがちな互換性・ユーザビリティの検証に重点的に活用する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 6: 3.5 最適なテスト技法の適用 */}
+                    <h2 id="6-35-最適なテスト技法の適用applying-the-most-appropriate-test-techniques">
+                        6. 3.5 最適なテスト技法の適用(Applying the Most Appropriate Test Techniques)
+                    </h2>
+                    <h3 id="61-351-製品リスクを軽減する技法の選定-k4-分析">
+                        6.1 3.5.1 製品リスクを軽減する技法の選定 <code>K4: 分析</code>
+                    </h3>
+                    <h4 id="定義-11">定義</h4>
+                    <p>
+                        テストマネージャーを支援し、状況に応じて最も効果的・効率的なテスト技法を選定することは、テストアナリストの重要な役割です。これは第3章の中でも唯一<code>K4(分析)</code>レベルが設定されている学習目標であり、試験では「与えられたシナリオに最も適した技法を選ばせる」形式で出題されます。
+                    </p>
+
+                    <h4 id="技法カテゴリと検出しやすい欠陥の対応">
+                        技法カテゴリと検出しやすい欠陥の対応
+                    </h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テスト技法カテゴリ</th>
+                                    <th>検出しやすい欠陥の種類</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>データベースドテスト技法</td>
+                                    <td>
+                                        データ処理、ドメイン実装、ユーザーインターフェース、計算、パラメータの組み合わせに関する欠陥
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ビヘイビアベーステスト技法</td>
+                                    <td>
+                                        ユーザー要件の欠陥(機能の欠落、コミュニケーション不足、処理誤り)
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ルールベーステスト技法</td>
+                                    <td>ロジック・制御フローに関する欠陥</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>経験ベーステスト</td>
+                                    <td>
+                                        網羅基準を定義しづらい領域、過去の類似欠陥、暗黙知に基づく欠陥
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="技法選定に影響する要因">技法選定に影響する要因</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>要因</th>
+                                    <th>選定への影響</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>テスト目的</strong></td>
+                                    <td>
+                                        システムの種類によって適した技法が異なる(例: 数値計算にはドメインテスト、与信管理にはデシジョンテーブルテスト)
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>製品リスク</strong></td>
+                                    <td>
+                                        リスクレベルが高いほど、より厳密なカバレッジ基準(例: ペアワイズではなく全組み合わせ)を要求する。ただし網羅の強度とテスト工数のトレードオフを常に意識する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>リスクが低い/スケジュールが厳しい場合</strong></td>
+                                    <td>経験ベーステストが有効な選択肢になる</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>テストベース</strong></td>
+                                    <td>
+                                        仕様がモデルで記述されていればそのモデルに基づく技法が使える。テストオラクルの導出が困難ならメタモルフィックテストや経験ベーステストを検討する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>既知の欠陥傾向</strong></td>
+                                    <td>
+                                        繰り返し発生する欠陥パターンには、それを検出しやすい技法(チェックリストベーステストなど)を選ぶ
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>テストアナリストの知識・経験</strong></td>
+                                    <td>
+                                        不慣れな技法をクリティカルな案件でいきなり使うのは推奨されない。ドメイン知識が乏しい場合、探索的テストは効果が薄れる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>SDLC(開発ライフサイクル)</strong></td>
+                                    <td>
+                                        逐次型モデルは形式的な技法向き、反復型モデルは軽量な技法(経験ベーステスト)やテスト設計自動化向き
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>顧客・契約要件</strong></td>
+                                    <td>
+                                        契約でシナリオベーステストなど特定の技法・テストレベルが求められる場合がある
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>規制要件</strong></td>
+                                    <td>
+                                        業界標準(例: 自動車のISO 26262)がASIL(自動車安全度水準)に応じて特定の技法を要求することがある
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>プロジェクト制約</strong></td>
+                                    <td>
+                                        時間・予算が、時間のかかる技法や高価なリソースを要する技法の採用可否を左右する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="技法選定の考え方実践的な整理図">技法選定の考え方(実践的な整理図)</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_TECHNIQUE_SELECTION} />
+                    </div>
+
+                    <h4 id="技法の組み合わせ例">技法の組み合わせ例</h4>
+                    <p>複数の技法を組み合わせることで、欠陥検出の効率と効果をさらに高められます。</p>
+                    <ul>
+                        <li>
+                            境界値分析(BVA)を、状態遷移テストの<strong>ガード条件</strong>の検証に使う
+                        </li>
+                        <li>
+                            ドメインテストを、シナリオベーステストや<strong>デシジョンテーブルの条件値</strong>の決定に使う
+                        </li>
+                        <li>
+                            シナリオベーステストを、ホワイトボックス技法の<strong>デシジョンカバレッジ</strong>と組み合わせ、業務プロセス内の分岐を厳密に網羅する
+                        </li>
+                        <li>
+                            シナリオベーステストを<strong>ラウンドトリップカバレッジ</strong>と組み合わせ、周期的な業務プロセスのリスクに対応する
+                        </li>
+                    </ul>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    技法選定は一度きりの意思決定ではなく、プロジェクトの進行やリスクの変化に応じて<strong>継続的に見直す</strong>。
+                                </li>
+                                <li>
+                                    「使い慣れているから」という理由だけで技法を選ばず、対象の性質(データ・状態・ルール・探索の必要性)に立ち返って選定する。
+                                </li>
+                                <li>
+                                    複数技法の併用は効果的だが、テストケース数の増大にもつながるため、リスクベースの優先順位付けとセットで運用する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="62-352-テスト設計自動化の利点とリスク-k2-理解">
+                        6.2 3.5.2 テスト設計自動化の利点とリスク <code>K2: 理解</code>
+                    </h3>
+                    <h4 id="定義-12">定義</h4>
+                    <p>
+                        テストアナリストは、特にブラックボックステスト技法の適用にツールを活用できます。テスト設計を自動化する場合、テストモデルを作成し、そのモデルから自動的にテストウェアを生成します(例: 状態遷移モデルを作成し、モデルベーステストツールにラウンドトリップカバレッジのテストケースを生成させる)。
+                    </p>
+
+                    <h4 id="利点">利点</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>利点</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>欠陥予防</td>
+                                    <td>モデリング自体がテストベースの品質評価として機能する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>適用範囲の拡大</td>
+                                    <td>
+                                        組み合わせテスト・ランダムテスト・N-switchカバレッジなど複雑な技法を適用しやすくなり、テスト漏れのリスクを低減する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>理解しやすさの向上</td>
+                                    <td>
+                                        ツールで指定したテスト選択基準は、テスト条件との対応関係が明確で、生成されたカバレッジの根拠を説明しやすい
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>反復作業の削減</td>
+                                    <td>
+                                        テストモデルからテストウェアを生成するため、手作業でのテスト仕様作成が減る
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>保守コストの低減</td>
+                                    <td>
+                                        テストモデルを唯一の真実の情報源(シングルソース)として管理することで、モデル変更時に生成されるテストウェアを個別に手作業で保守する範囲が減る
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テストウェアの品質向上</td>
+                                    <td>
+                                        手作業に伴うミスが減り、生成されたテストウェアの品質と一貫性が高まる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>チーム協働の促進</td>
+                                    <td>
+                                        ステークホルダーがテストモデルをレビューすることで、欠陥の早期発見や理解の共有につながる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>トレーサビリティの向上</td>
+                                    <td>
+                                        テストケースそのものよりも、テストモデルの要素とテスト条件を紐づけるほうが容易であり、生成されたテストケースにもその追跡可能性が引き継がれる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>出力形式の多様性</td>
+                                    <td>
+                                        他のツールや後続作業に必要な様々な形式でテストウェアを出力できる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="リスク">リスク</h4>
+                    <ul>
+                        <li>モデルに現れない<strong>テスト条件を見落とす</strong>リスク</li>
+                        <li>テストモデル自体の<strong>保守コストを過小評価</strong>するリスク</li>
+                        <li>ステークホルダーが<strong>モデルを理解しにくい</strong>リスク</li>
+                        <li>テスト自動化一般に共通するリスク(Foundation Levelシラバス参照)</li>
+                    </ul>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    テスト設計自動化を導入する際は、「モデルの保守」自体が新たな作業コストになることをプロジェクト計画に織り込む。
+                                </li>
+                                <li>
+                                    モデルをステークホルダー(開発者・ビジネスアナリストなど)とレビューする機会を意図的に設け、モデルの理解しやすさとテストベースの品質を同時に高める。
+                                </li>
+                                <li>
+                                    すべてのテスト条件をモデル化できるとは限らないため、<strong>モデル化されない条件を補完する手動テスト・経験ベーステストを併用</strong>する。
                                 </li>
                             </ul>
                         </div>

@@ -271,7 +271,7 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(sec62?.textContent).toContain('6.2 3.5.2 テスト設計自動化の利点とリスク');
 
         // Check Technique Selection factors & terms
-        expect(container.textContent).toContain('製品リスクを軽減する適切なテスト技法を選択できる');
+        expect(container.textContent).toContain('製品リスクを軽減する技法の選定');
         expect(container.textContent).toContain('テストベース');
         expect(container.textContent).toContain('既知の欠陥傾向');
 
