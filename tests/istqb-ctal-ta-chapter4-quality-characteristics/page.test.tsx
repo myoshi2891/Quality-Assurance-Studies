@@ -232,4 +232,40 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.querySelector('#mermaid-diagram-9')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-10')).toBeTruthy();
     });
+
+    it('renders Section 3 (4.2 Usability Testing TA-4.2.1 K2, 8 Sub-characteristics, Q35)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 3 headings
+        const sec3 = container.querySelector('[id="3-42-ユーザビリティテストta-421k2"]');
+        expect(sec3).toBeTruthy();
+        expect(sec3?.textContent).toContain('3. 4.2 ユーザビリティテスト（TA-4.2.1・K2）');
+
+        expect(container.querySelector('[id="31-用語の整理usabilityinteraction-capabilityux"]')).toBeTruthy();
+        expect(container.querySelector('[id="32-インタラクション能力の8つのサブ特性"]')).toBeTruthy();
+        expect(container.querySelector('[id="33-ta-はユーザビリティテストにどう貢献するか"]')).toBeTruthy();
+        expect(container.querySelector('[id="34-ユーザビリティテスト利用者テストの進め方"]')).toBeTruthy();
+        expect(container.querySelector('[id="35-具体例ecサイトの初回購入"]')).toBeTruthy();
+        expect(container.querySelector('[id="36-評価手法の使い分け"]')).toBeTruthy();
+        expect(container.querySelector('[id="37-アクセシビリティ包括性ユーザー支援の扱い"]')).toBeTruthy();
+        expect(container.querySelector('[id="38-ベストプラクティスユーザビリティテスト"]')).toBeTruthy();
+        expect(container.querySelector('[id="39--対比"]')).toBeTruthy();
+        expect(container.querySelector('[id="310-公式サンプル試験-q35-の考え方"]')).toBeTruthy();
+        expect(container.querySelector('[id="311-42-のまとめ"]')).toBeTruthy();
+
+        // 9 Tables in Section 3
+        expect(container.textContent).toContain('用語の整理：usability・interaction capability・UX');
+        expect(container.textContent).toContain('インタラクション能力の8つのサブ特性');
+        expect(container.textContent).toContain('TA はユーザビリティテストにどう貢献するか');
+        expect(container.textContent).toContain('ユーザビリティテスト（利用者テスト）の進め方');
+        expect(container.textContent).toContain('具体例：ECサイトの「初回購入」');
+        expect(container.textContent).toContain('評価手法の使い分け');
+        expect(container.textContent).toContain('アクセシビリティ（包括性・ユーザー支援）の扱い');
+        expect(container.textContent).toContain('公式サンプル試験 Q35 の考え方');
+
+        // Mermaid diagrams 11 to 13
+        expect(container.querySelector('#mermaid-diagram-11')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-12')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-13')).toBeTruthy();
+    });
 });

@@ -214,6 +214,47 @@ flowchart TD
   class L1,L2,L3 stage
   class L1a,L2a,L3a act`;
 
+export const DIAGRAM_11 = `${MERMAID_CONFIG}
+flowchart LR
+  UA["製品の品質<br/>Interaction capability<br/>操作しやすい作り"] --> UB["利用の結果<br/>Usability<br/>効果・効率・満足"]
+  UB --> UC["全体的な受け止め方<br/>User experience"]
+  classDef prod fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef use fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  classDef ux fill:#fff4dc,stroke:#d9a441,color:#5a3d0a
+  class UA prod
+  class UB use
+  class UC ux`;
+
+export const DIAGRAM_12 = `${MERMAID_CONFIG}
+flowchart LR
+  IC["Interaction capability<br/>インタラクション能力"]
+  IC --> U1["適切性の認識"]
+  IC --> U2["学習性"]
+  IC --> U3["操作性"]
+  IC --> U4["ユーザーエラー防止"]
+  IC --> U5["ユーザーエンゲージメント"]
+  IC --> U6["包括性"]
+  IC --> U7["ユーザー支援"]
+  IC --> U8["自己記述性"]
+  classDef head fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef sub fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class IC head
+  class U1,U2,U3,U4,U5,U6,U7,U8 sub`;
+
+export const DIAGRAM_13 = `${MERMAID_CONFIG}
+flowchart TD
+  U1["1 目的と対象利用者を決める"] --> U2["2 ペルソナと利用パターンから<br/>タスクシナリオを作る"]
+  U2 --> U3["3 成功の基準と指標を決める<br/>成功率・時間・エラー・満足度"]
+  U3 --> U4["4 対象グループを代表する<br/>実利用者を募集"]
+  U4 --> U5["5 セッションを実施<br/>助けず観察して記録"]
+  U5 --> U6["6 問題を分類し優先度をつける"]
+  U6 --> U7["7 報告し、修正後に再テスト"]
+  classDef step fill:#e8efff,stroke:#4f6fd6,color:#14213d
+  classDef last fill:#e3f6ec,stroke:#2f9e62,color:#0f3a2e
+  class U1,U2,U3,U4,U5,U6 step
+  class U7 last`;
+
+
 
 export default function CtalTaChapter4Page() {
     return (
@@ -1598,6 +1639,686 @@ export default function CtalTaChapter4Page() {
                     <li>
                         第3章の技法（特にシナリオベースと
                         CRUD）と<strong>つなげて</strong>理解する。
+                    </li>
+                </ul>
+                <h2 id="3-42-ユーザビリティテストta-421k2">
+                    3. 4.2 ユーザビリティテスト（TA-4.2.1・K2）
+                </h2>
+<div className="callout callout-lo">
+                    <span className="lbl">学習目標</span>
+                    <p>
+                        <strong>LO TA-4.2.1（K2）</strong>：テストアナリストが<strong>ユーザビリティテストにどう貢献するか</strong>を説明できる（Explain）
+                    </p>
+                </div>
+<h3 id="31-用語の整理usabilityinteraction-capabilityux">
+                    3.1 用語の整理：usability・interaction capability・UX
+                </h3>
+<p>
+                    第4章のキーワードには、<strong>usability・interaction capability・user experience</strong>
+                    の3語が並びます。混同しやすいので、まず関係を整理します。
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>用語</th>
+                                <th>何を指すか</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>
+                                    <strong>Interaction capability</strong>（インタラクション能力）
+                                </td>
+                                <td>
+                                    製品が、利用者と UI
+                                    を介して情報をやりとりし、意図したタスクを完了できる<strong>製品側の能力</strong>。旧
+                                    Usability を置き換えた特性名
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> ISO/IEC
+                                    25010:2023 3.4
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>Usability</strong>（ユーザビリティ）</td>
+                                <td>
+                                    利用の<strong>結果</strong>として、利用者が目標を効果的・効率的・満足して達成できたか（quality-in-use
+                                    モデル：ISO/IEC 25019）
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> ISO 3.4
+                                    の注記
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>User experience</strong>（UX）</td>
+                                <td>製品の利用（や利用の予期）によって生じる、人の知覚や反応</td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span> 用語集／ISO
+                                    9241-210 で確認（<span className="chip chip-w" title="要確認">⚠</span>）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<p>
+                    ISO
+                    の注記には、「<strong>インタラクション能力はユーザビリティの前提条件</strong>」とあります。つまり、製品側がインタラクション能力を備えていて、はじめて利用の結果としてのユーザビリティが得られます。
+                </p>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-11"><Mermaid chart={DIAGRAM_11} /></div>
+                </div>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf">ISO/IEC 25010:2023 プレビュー（3.4 と注記）</a>
+                    </p>
+                </div>
+<h3 id="32-インタラクション能力の8つのサブ特性">
+                    3.2 インタラクション能力の8つのサブ特性
+                </h3>
+<p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> ISO/IEC 25010:2023
+                    のサブ特性名は arc42 の一覧と ISO
+                    前文で確認できます。定義文は、下表の上から4つ（★）を ISO
+                    の本文で確認しました。残り4つは
+                    <span className="chip chip-t" title="実務補足">💡</span>
+                    平易な言い換えです（原典で確認してください）。
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>サブ特性（英語）</th>
+                                <th>日本語（仮訳）</th>
+                                <th>意味</th>
+                                <th>
+                                    テスト観点の例（<span className="chip chip-t" title="実務補足">💡</span>）
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>Appropriateness recognizability ★</td>
+                                <td>適切性の認識</td>
+                                <td>
+                                    利用者が、その製品が自分のニーズに合うと<strong>認識できる</strong>（初期の印象・説明・ホームページなどから）
+                                </td>
+                                <td>トップ画面やデモで「何ができる製品か」が伝わるか</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>Learnability ★</td>
+                                <td>学習性</td>
+                                <td>
+                                    指定された利用者が、<strong>指定の時間内</strong>に機能の使い方を学べる
+                                </td>
+                                <td>初回利用者が説明なしで主要タスクを完了できるまでの時間</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>Operability ★</td>
+                                <td>操作性</td>
+                                <td>
+                                    機能や属性が<strong>操作・制御しやすい</strong>（制御のしやすさ、期待との一致、マウスやペンなどの入力装置の効率にも関係）
+                                </td>
+                                <td>キーボード操作、戻る・取り消し、操作の一貫性</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>User error protection ★</td>
+                                <td>ユーザーエラー防止</td>
+                                <td><strong>操作ミスを防ぐ</strong></td>
+                                <td>
+                                    入力チェック、確認ダイアログ、取り消し（Undo）、危険操作の誤クリック防止
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>User engagement</td>
+                                <td>ユーザーエンゲージメント</td>
+                                <td>
+                                    魅力的で、継続して使いたくなる提示（旧 UI aesthetics に相当）
+                                </td>
+                                <td>視覚デザインの一貫性、快適さ</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>Inclusivity</td>
+                                <td>包括性</td>
+                                <td>多様な背景（言語・文化・年齢・能力など）の人が使える</td>
+                                <td>多言語、文字サイズ、色覚への配慮</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>User assistance</td>
+                                <td>ユーザー支援</td>
+                                <td>
+                                    幅広い能力の人が使えるようにする支援（旧 accessibility の一部）
+                                </td>
+                                <td>スクリーンリーダー対応、キーボードのみでの操作</td>
+                            </tr>
+                            <tr className="even">
+                                <td>8</td>
+                                <td>Self-descriptiveness</td>
+                                <td>自己記述性</td>
+                                <td>
+                                    説明書に頼らずとも、必要なときに必要な情報が提示され、使い方が分かる
+                                </td>
+                                <td>ラベル、ヘルプ、エラーメッセージの分かりやすさ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-12"><Mermaid chart={DIAGRAM_12} /></div>
+                </div>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf">ISO/IEC 25010:2023 プレビュー</a>（★の定義）／
+                        <a href="https://quality.arc42.org/standards/iso-25010">arc42：ISO 25010 の特性一覧</a>（サブ特性名）／
+                        <a href="https://quality.arc42.org/articles/iso-25010-update-2023">arc42：2023 版の変更点</a>
+                    </p>
+                </div>
+<h3 id="33-ta-はユーザビリティテストにどう貢献するか">
+                    3.3 TA はユーザビリティテストにどう貢献するか
+                </h3>
+<p>
+                    <span className="chip chip-o" title="公式根拠">📘</span> LO 比較表は、この LO
+                    を「<strong>言い換えて簡素化し、専門資格 CT-UT との重複を減らした</strong>」と説明しています。つまり Advanced Level TA
+                    では、ユーザビリティの<strong>深い専門技法</strong>ではなく、<strong>TA の強み（業務知識・機能知識・シナリオ設計）を使った貢献</strong>が問われます。
+                </p>
+<p>
+                    公式サンプル試験 Q35 の解説から、TA の貢献として次の点が読み取れます（<span className="chip chip-o" title="公式根拠">📘</span>）。
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>TA の貢献</th>
+                                <th>根拠となる解説の要点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    <strong>オペレーショナルプロファイル（利用パターン）とペルソナ</strong>を使い、実際の利用を反映した<strong>シナリオ</strong>を作る
+                                </td>
+                                <td>正解の選択肢の内容</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>
+                                    セッションの参加者は、<strong>対象となる利用者グループの特性</strong>を代表する実利用者にする（最も経験豊富な人ばかりを選ばない）
+                                </td>
+                                <td>誤答 a の否定理由</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>
+                                    参加者を TA
+                                    自身で代用しない。<strong>組織の利用者</strong>が参加する
+                                </td>
+                                <td>誤答 b の否定理由</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>
+                                    参加者を<strong>訂正・誘導せず、観察</strong>する（助けると、実際の利用での効率や有効性を正しく評価できない）
+                                </td>
+                                <td>誤答 c の否定理由</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<p>
+                    <span className="chip chip-t" title="実務補足">💡</span> さらに、TA
+                    が日常的に行える貢献を実務として補足します。
+                </p>
+<ul>
+                    <li>
+                        要件や UI
+                        設計を<strong>レビュー</strong>して、学習性・操作性・エラー防止の問題を早期に指摘する（静的テスト）
+                    </li>
+                    <li>
+                        機能テストの結果や不具合の傾向から、使いにくい箇所（誤操作が多い画面）を指摘する
+                    </li>
+                    <li>
+                        ヒューリスティクスやチェックリストを使った<strong>専門家評価</strong>を行う（3.6
+                        節）
+                    </li>
+                    <li>
+                        利用者テストの<strong>タスク設計・データ準備・実施・記録</strong>を支える
+                    </li>
+                </ul>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q35</a>
+                        ／
+                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=6363">LO 新旧比較表</a>
+                    </p>
+                </div>
+<h3 id="34-ユーザビリティテスト利用者テストの進め方">
+                    3.4 ユーザビリティテスト（利用者テスト）の進め方
+                </h3>
+<div className="mermaid-container">
+                    <div className="mermaid-target" id="mermaid-diagram-13"><Mermaid chart={DIAGRAM_13} /></div>
+                </div>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>Step</th>
+                                <th>やること</th>
+                                <th>補足</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    何を判断するための調査か（新規機能の受容性、フロー改善など）と、対象利用者を決める
+                                </td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span>
+                                    目的が曖昧だと結果が使えない
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>
+                                    ペルソナとオペレーショナルプロファイルから、現実的なタスクシナリオを作る
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> Q35 の解説
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>
+                                    指標を事前に決める：<strong>タスク成功率、所要時間、エラー数、主観的満足度</strong>
+                                </td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span>
+                                    効果（成功率）・効率（時間）・満足（アンケート）に対応
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>
+                                    対象利用者グループの<strong>属性</strong>（経験、年齢、環境など）で参加者を選ぶ
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> Q35 の解説
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>
+                                    参加者に<strong>タスクを与え、観察</strong>する。声かけで誘導しない
+                                </td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span> Q35 の解説
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>
+                                    見つかった問題を、影響（タスク失敗か遅延か）と頻度で優先度づけ
+                                </td>
+                                <td><span className="chip chip-t" title="実務補足">💡</span></td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>
+                                    修正案とともに報告し、修正後に<strong>再テスト</strong>して改善を確認
+                                </td>
+                                <td><span className="chip chip-t" title="実務補足">💡</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<h3 id="35-具体例ecサイトの初回購入">3.5 具体例：ECサイトの「初回購入」</h3>
+<p>
+                    <strong>ペルソナ（<span className="chip chip-t" title="実務補足">💡</span> 例）</strong>：田中さん（50 代・スマートフォンで初めてネットショッピングをする）／
+                    佐藤さん（30 代・PC で日常的に購入する）
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>タスク</th>
+                                <th>成功基準</th>
+                                <th>指標</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>会員登録して、商品を 1 つカートに入れる</td>
+                                <td>説明なしで完了</td>
+                                <td>完了率、所要時間、つまずいた画面</td>
+                            </tr>
+                            <tr className="even">
+                                <td>クーポンコードを入力して注文を確定する</td>
+                                <td>割引が適用されて確定</td>
+                                <td>入力エラー回数、ヘルプ参照の有無</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>誤って入れた商品をカートから取り除く</td>
+                                <td>操作 3 回以内に完了</td>
+                                <td>迷いの回数、取り消しの発見のしやすさ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<p>
+                    <strong>チャーターの書き方（<span className="chip chip-o" title="公式根拠">📘</span>
+                        3.4.1 の形式）</strong>：
+                </p>
+<ul>
+                    <li>形式：「Explore [対象] With [資源] To discover [情報]」</li>
+                    <li>
+                        例：<strong>Explore 会員登録から初回購入までのフロー With 上記 2
+                            つのペルソナとスマートフォン実機 To discover
+                            学習しにくい箇所と、入力エラーから回復しにくい箇所</strong>
+                    </li>
+                </ul>
+<h3 id="36-評価手法の使い分け">3.6 評価手法の使い分け</h3>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>手法</th>
+                                <th>内容</th>
+                                <th>向く場面</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>利用者テスト</td>
+                                <td>実利用者に代表タスクをやってもらい観察</td>
+                                <td>学習性・操作性を実際の行動で確認</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> Q35</td>
+                            </tr>
+                            <tr className="even">
+                                <td>チェックリストベース</td>
+                                <td>ヒューリスティクスなどをチェックリスト化して確認</td>
+                                <td>短時間で広く網羅、専門家評価</td>
+                                <td>
+                                    <span className="chip chip-o" title="公式根拠">📘</span>
+                                    3.4.2、<span className="chip chip-t" title="実務補足">💡</span>
+                                    ヒューリスティクス
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>セッションベース（探索的）</td>
+                                <td>チャーターで範囲と目的を決めて探索</td>
+                                <td>新機能の UX 検証、仕様が固まっていない段階</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 3.4.1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>クラウドテスト</td>
+                                <td>多様な実利用者に分散して実施</td>
+                                <td>多様な端末・環境・利用者の意見を集める</td>
+                                <td><span className="chip chip-o" title="公式根拠">📘</span> 3.4.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>アンケート型指標</td>
+                                <td>利用後に満足度を尺度で測る</td>
+                                <td>主観的満足の定量化</td>
+                                <td>
+                                    <span className="chip chip-t" title="実務補足">💡</span> SUS
+                                    など。<span className="chip chip-w" title="要確認">⚠</span> v3.1
+                                    では SUMI／WAMMI が例示されていた（ANZTB の資料）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<p>
+                    <strong>ヒューリスティクス評価に使えるチェックリスト（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：Jakob Nielsen の「ユーザーインターフェース設計の 10
+                    ヒューリスティクス」は、次のような観点を挙げています。
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>観点</th>
+                                <th>意味</th>
+                                <th>
+                                    対応するサブ特性（<span className="chip chip-t" title="実務補足">💡</span>）
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>システム状態の可視性</td>
+                                <td>適切なフィードバックを合理的な時間内に返す</td>
+                                <td>自己記述性</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>システムと実世界の一致</td>
+                                <td>利用者の言葉・概念で話す</td>
+                                <td>適切性の認識・学習性</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>ユーザーの制御と自由</td>
+                                <td>間違えたときの「非常口」、Undo／Redo</td>
+                                <td>ユーザーエラー防止・操作性</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>一貫性と標準</td>
+                                <td>同じ意味は同じ表現、慣習に従う</td>
+                                <td>操作性・学習性</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>エラーの防止</td>
+                                <td>問題が起きる前に防ぐ、確認を挟む</td>
+                                <td>ユーザーエラー防止</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>再生より再認</td>
+                                <td>記憶に頼らず、選択肢を見えるように</td>
+                                <td>操作性</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>柔軟性と効率</td>
+                                <td>初心者にも熟練者にも合う近道</td>
+                                <td>操作性</td>
+                            </tr>
+                            <tr className="even">
+                                <td>8〜10</td>
+                                <td>
+                                    ミニマルなデザイン／エラーの認識・診断・回復／ヘルプとドキュメント
+                                </td>
+                                <td>情報の取捨、分かるエラー、必要な支援</td>
+                                <td>自己記述性・ユーザー支援</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://nngroup.com/articles/ten-usability-heuristics/">Nielsen Norman Group：10 Usability Heuristics</a>
+                    </p>
+                </div>
+<h3 id="37-アクセシビリティ包括性ユーザー支援の扱い">
+                    3.7 アクセシビリティ（包括性・ユーザー支援）の扱い
+                </h3>
+<ul>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span> ISO/IEC 25010:2023
+                        は、旧 accessibility を<strong>包括性（Inclusivity）とユーザー支援（User assistance）に分割</strong>しました。
+                    </li>
+                    <li>
+                        <span className="chip chip-o" title="公式根拠">📘</span>
+                        シラバス第3章のサンプル問題（Q29）は、ゲームの<strong>アクセシビリティ</strong>（読字に困難がある人、視覚障害のある人）を確認するチェックリスト項目を作らせる問題で、<strong>「はい／いいえ／該当なし」で答えられる項目</strong>にする点が重要とされています。
+                    </li>
+                    <li>
+                        <span className="chip chip-t" title="実務補足">💡</span> 実務では、W3C の
+                        WCAG（Web Content Accessibility Guidelines）が、Web
+                        の達成基準の代表的な参照先です（<span className="chip chip-w" title="要確認">⚠</span>
+                        本ガイドでは原典を再取得していません）。
+                    </li>
+                </ul>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q29</a>
+                        ／ <a href="https://www.w3.org/TR/WCAG22/">W3C：WCAG 2.2</a>
+                    </p>
+                </div>
+<h3 id="38-ベストプラクティスユーザビリティテスト">
+                    3.8 ベストプラクティス（ユーザビリティテスト）
+                </h3>
+<div className="callout callout-practice">
+                    <span className="lbl">ベストプラクティス</span>
+                    <ul>
+                        <li>
+                            <strong>実利用者を代表する参加者</strong>を選ぶ：TA
+                            自身や開発者では代用しない（<span className="chip chip-o" title="公式根拠">📘</span>
+                            Q35）。
+                        </li>
+                        <li>
+                            <strong>観察に徹する</strong>：参加者がつまずいても助けない。助けが必要だった事実を記録する（<span className="chip chip-o" title="公式根拠">📘</span>
+                            Q35）。
+                        </li>
+                        <li>
+                            <strong>タスクは目的で書く</strong>：「ボタン A
+                            を押す」ではなく「クーポンを使って注文する」のように、利用者の目的で書く（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>成功基準を事前に決める</strong>：完了率、時間、エラー数などを、テスト前に定義する（<span className="chip chip-t" title="実務補足">💡</span>）。
+                        </li>
+                        <li>
+                            <strong>早い段階から</strong>：完成後だけでなく、ワイヤーフレームやプロトタイプの段階で試す（<span className="chip chip-t" title="実務補足">💡</span>
+                            シフトレフト。<span className="chip chip-o" title="公式根拠">📘</span> 2.1
+                            のシフトレフトの考え方）。
+                        </li>
+                        <li>
+                            <strong>チェックリストを育てる</strong>：見つかった問題をチェックリストに追加して再利用する（<span className="chip chip-o" title="公式根拠">📘</span>
+                            3.4.2）。
+                        </li>
+                        <li>
+                            <strong>多様性を確保する</strong>：クラウドテストで、端末・環境・利用者のバリエーションを補う（<span className="chip chip-o" title="公式根拠">📘</span>
+                            3.4.3）。
+                        </li>
+                    </ul>
+                </div>
+<h3 id="39--対比">3.9 ✅／❌ 対比</h3>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>観点</th>
+                                <th className="bad-col">❌ 悪い例</th>
+                                <th className="good-col">✅ 良い例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>参加者</td>
+                                <td className="bad-col">開発チームの詳しい人だけで確認する</td>
+                                <td className="good-col">対象利用者グループの属性を代表する人を選ぶ</td>
+                            </tr>
+                            <tr className="even">
+                                <td>実施中</td>
+                                <td className="bad-col">迷っている参加者に操作方法を教える</td>
+                                <td className="good-col">黙って観察し、どこで迷ったかを記録する</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>シナリオ</td>
+                                <td className="bad-col">機能一覧を順番に押させる</td>
+                                <td className="good-col">
+                                    ペルソナの目的から実際の利用パターンを再現する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>指標</td>
+                                <td className="bad-col">「使いやすいと思う」の感想のみ</td>
+                                <td className="good-col">完了率・時間・エラー数と感想を併用する</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>範囲</td>
+                                <td className="bad-col">画面の見た目だけを見る</td>
+                                <td className="good-col">
+                                    学習性・操作性・エラー防止・包括性まで観点を広げる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<h3 id="310-公式サンプル試験-q35-の考え方">3.10 公式サンプル試験 Q35 の考え方</h3>
+<p>
+                    <span className="chip chip-o" title="公式根拠">📘</span>
+                    Q35（LO：TA-4.2.1・K2）は、<strong>TA がユーザビリティテストのセッションを準備するときの正しい進め方</strong>を選ぶ問題です。
+                </p>
+<div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>誤答のパターン</th>
+                                <th>否定される理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>最も経験豊富な利用者だけを選ぶ</td>
+                                <td>対象利用者グループの特性を考慮していない</td>
+                            </tr>
+                            <tr className="even">
+                                <td>参加者を TA にする</td>
+                                <td>参加者は組織の<strong>利用者</strong>であるべき</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>誤りを訂正し、誘導する</td>
+                                <td>実際の有効性・効率を評価できなくなる</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    <strong>利用パターンとペルソナからシナリオを作る</strong>（正解）
+                                </td>
+                                <td>実際の利用を反映できる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<div className="callout callout-source">
+                    <p>
+                        出典：<a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">公式サンプル試験 解答 v4.1 Q35</a>
+                    </p>
+                </div>
+<h3 id="311-42-のまとめ">3.11 4.2 のまとめ</h3>
+<ul>
+                    <li>
+                        Interaction capability（製品側の能力）→ Usability（利用の結果）→
+                        UX（受け止め方）。
+                    </li>
+                    <li>
+                        8つのサブ特性のうち、ISO
+                        本文で確認した4つ（適切性の認識・学習性・操作性・ユーザーエラー防止）は定義を押さえる。
+                    </li>
+                    <li>
+                        TA
+                        の貢献の核は、<strong>ペルソナと利用パターンからシナリオを作る／実利用者を代表として選ぶ／観察に徹する</strong>。
+                    </li>
+                    <li>
+                        深い専門技法は専門資格（CT-UT）に任せ、Advanced TA
+                        では<strong>貢献の仕方</strong>を説明できればよい（<span className="chip chip-o" title="公式根拠">📘</span>
+                        LO 比較表）。
                     </li>
                 </ul>
                 </main>
