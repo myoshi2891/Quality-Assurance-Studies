@@ -281,7 +281,7 @@ export default function IstqbCtAutCompleteGuide() {
                     自動車プロジェクトは互いに相反する目標を同時に達成しなければなりません。テスト計画立案時にこのトレードオフを理解することが重要です。
                 </p>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-1'] || ''} />
 
                 <h4>テスターへの実践的影響</h4>
                 <ul>
@@ -352,7 +352,7 @@ export default function IstqbCtAutCompleteGuide() {
                 {/* 1.4 システムライフサイクル */}
                 <h3>1.4 システムライフサイクルの6フェーズ <span className="klevel">K2</span></h3>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-2'] || ''} />
 
                 <div className="arch-layers">
                     <div className="arch-layer green">
@@ -567,7 +567,7 @@ export default function IstqbCtAutCompleteGuide() {
                     ASPICEのプライマリライフサイクルプロセスは、<strong>SYS（システム）</strong>と<strong>SWE（ソフトウェアエンジニアリング）</strong>の2グループに大別されます。テスターは主にSWE.4〜SWE.6を担当します。
                 </p>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-3'] || ''} />
 
                 <div className="callout warning">
                     <div className="callout-title">
@@ -821,7 +821,7 @@ export default function IstqbCtAutCompleteGuide() {
                     </table>
                 </div>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-4'] || ''} />
 
                 {/* メソッドテーブル */}
                 <h3>
@@ -1109,7 +1109,7 @@ export default function IstqbCtAutCompleteGuide() {
                     </div>
                 </div>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-5'] || ''} />
 
                 <h3>2.3.3 MISRA-Cコーディング規約<span className="klevel">K1/K2</span></h3>
                 <div className="callout warning">
@@ -1386,7 +1386,7 @@ export default function IstqbCtAutCompleteGuide() {
                 </div>
 
                 <h3>3.2 XiL全体像：開発ステージとテスト環境の対応</h3>
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-6'] || ''} />
 
                 {/* XiL比較カード */}
                 <div className="xil-grid">
@@ -1575,7 +1575,7 @@ export default function IstqbCtAutCompleteGuide() {
                     実際のECU（本物のマイコン・基板）をリアルタイムシミュレーターに接続し、ECUは「本物の車両と接続されている」と錯覚しながら動作します。車両側の挙動（センサー信号・アクチュエーターフィードバック）をシミュレーターが<strong>電気信号レベル</strong>でリアルタイムに模倣します。
                 </div>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-7'] || ''} />
 
                 <div className="table-wrap">
                     <table>
@@ -1641,7 +1641,7 @@ export default function IstqbCtAutCompleteGuide() {
                     26262でASIL C（推奨+）、<strong>ASIL D（強く推奨++）</strong>。
                 </div>
 
-                <Mermaid chart={DIAGRAMS[""] || ""} />
+                <Mermaid chart={DIAGRAMS['diag-8'] || ''} />
 
                 <div className="table-wrap">
                     <table>
