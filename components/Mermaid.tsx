@@ -52,11 +52,11 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
 
     const [x, y, w, h] = parts as [number, number, number, number];
     // %%{init}%% ディレクティブ付きの図は先頭が図種キーワードにならないため、
-    // 除去してから判定する（除去しないと sequence/state でも +15 になり下部が見切れる）
+    // 除去してから判定する。下部アクター枠線や見切れを防ぎつつ、過剰な空白が生じない適正値（flowchart: +15, sequence/state: +25）を設定。
     const trimmed = chart.replace(/^\s*%%\{[\s\S]*?\}%%\s*/, '').trim();
     const isSequenceOrState =
         trimmed.startsWith('sequenceDiagram') || trimmed.startsWith('stateDiagram');
-    const extraHeight = isSequenceOrState ? 110 : 15;
+    const extraHeight = isSequenceOrState ? 25 : 15;
 
     // ⚠️ SVG 幅の鉄則:
     //   viewBox 由来の自然 px 幅 + maxWidth:100% を使う。

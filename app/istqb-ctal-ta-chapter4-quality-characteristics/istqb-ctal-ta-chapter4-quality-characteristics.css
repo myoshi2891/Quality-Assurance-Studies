@@ -381,7 +381,7 @@
     border-left: 6px solid var(--accent);
     background: linear-gradient(90deg, var(--accent-soft), transparent 70%);
     border-radius: 0 10px 10px 0;
-    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 20px);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
     color: var(--ink);
 }
 
@@ -391,7 +391,7 @@
     margin: 40px 0 12px;
     padding-bottom: 6px;
     border-bottom: 2px solid var(--line);
-    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 20px);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
     color: var(--ink);
 }
 
@@ -399,7 +399,7 @@
     font-size: 1.02rem;
     margin: 28px 0 8px;
     color: var(--accent);
-    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 20px);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
 }
 
 .ctal-ta-ch4-page .main p {
@@ -558,8 +558,8 @@
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 22px 18px;
-    margin: 24px 0;
+    padding: 20px 18px 14px;
+    margin: 20px 0;
     scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 20px);
     box-shadow: 0 1px 3px rgba(20, 33, 61, 0.05);
     scrollbar-width: thin;
