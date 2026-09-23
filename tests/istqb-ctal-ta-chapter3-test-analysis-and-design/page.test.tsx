@@ -280,4 +280,44 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(container.textContent).toContain('テストモデルを作成し');
         expect(container.textContent).toContain('シングルソース');
     });
+
+    it('renders Section 7 to 10: Learning Objectives, Checklist, Version Changes, References and Footer', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Section 7: Learning Objectives (Table 27)
+        const sec7 = container.querySelector('[id="7-学習目標learning-objectives一覧表"]');
+        expect(sec7).toBeTruthy();
+        expect(sec7?.textContent).toContain('7. 学習目標(Learning Objectives)一覧表');
+        expect(container.textContent).toContain('TA-3.1.1');
+        expect(container.textContent).toContain('TA-3.5.2');
+        expect(container.textContent).toContain('ドメインテストを適用できる');
+        expect(container.textContent).toContain('テスト設計自動化の利点とリスクを説明できる');
+
+        // Section 8: Checklist
+        const sec8 = container.querySelector('[id="8-章末チェックリスト自己診断用"]');
+        expect(sec8).toBeTruthy();
+        expect(sec8?.textContent).toContain('8. 章末チェックリスト(自己診断用)');
+        expect(container.textContent).toContain('0 / 15 完了');
+        expect(container.textContent).toContain('ON点・OFF点・IN点・OUT点の違い');
+        expect(container.textContent).toContain('学習のヒント');
+
+        // Section 9: Version Changes
+        const sec9 = container.querySelector('[id="9-v31からv40への主な変更点参考"]');
+        expect(sec9).toBeTruthy();
+        expect(sec9?.textContent).toContain('9. v3.1からv4.0への主な変更点(参考)');
+        expect(container.textContent).toContain('データベースド」「ビヘイビアベースド」「ルールベースド');
+
+        // Section 10: References (Table 28 - 31)
+        const sec10 = container.querySelector('[id="10-参考文献出典url"]');
+        expect(sec10).toBeTruthy();
+        expect(sec10?.textContent).toContain('10. 参考文献・出典URL');
+        expect(container.querySelector('[id="公式istqb資料"]')).toBeTruthy();
+        expect(container.querySelector('[id="国際規格標準"]')).toBeTruthy();
+        expect(container.querySelector('[id="学術文献技術資料本文中で言及されたもの"]')).toBeTruthy();
+        expect(container.querySelector('[id="非公式ながら参考になる解説記事数値見解は公式シラバスで必ず裏取りしてください"]')).toBeTruthy();
+
+        // Footer & Disclaimer
+        expect(container.querySelector('.page-footer')).toBeTruthy();
+        expect(container.querySelector('.page-footer')?.textContent).toContain('本ガイドはISTQB® CTAL-TA Syllabus v4.0の内容を');
+    });
 });
