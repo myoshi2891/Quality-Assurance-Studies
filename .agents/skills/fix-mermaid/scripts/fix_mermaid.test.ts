@@ -34,7 +34,7 @@ describe("fixHtmlMermaid", () => {
     expect(fixed).toContain("      Grandchild1");
     expect(fixed).toContain("    Child2");
     expect(fixed).not.toContain("root((Title))Child1");
-    expect(report).toEqual([]);
+    expect(report).toEqual(["[mindmap]: 5 line(s) modified"]);
   });
 
   test("class 属性に追加トークンがあってもブロックが検出・処理される", () => {
@@ -63,6 +63,28 @@ Other text here.`;
     expect(fixed).toContain("graph TD\nA --> B");
     expect(fixed).not.toContain("  graph TD");
     expect(report.length).toBe(1);
+  });
+
+  test("開始フェンスより長い閉じフェンスで閉じ、末尾に文字がある ``` 行では閉じない", () => {
+    const md = [
+      "````mermaid",
+      "  graph TD",
+      "  ```not-a-close",
+      "    A --> B",
+      "`````",
+      "  indented text after block",
+    ].join("\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toContain("graph TD\n```not-a-close\nA --> B\n`````");
+    // ブロック外の行は変更しない
+    expect(fixed).toContain("\n  indented text after block");
+    expect(report).toEqual(["[graph]: 3 line(s) modified"]);
+  });
+
+  test("開始フェンスより短い閉じフェンスではブロックを閉じない", () => {
+    const md = ["````mermaid", "  graph TD", "```", "  A --> B", "````"].join("\n");
+    const { fixed } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(["````mermaid", "graph TD", "```", "A --> B", "````"].join("\n"));
   });
 });
 
@@ -97,5 +119,16 @@ export default function Page() {
     const { fixed, report } = fixTsxMermaid(tsx);
     expect(fixed).toContain("graph TD\nA --> B\nB --> C");
     expect(report.length).toBe(1);
+  });
+
+  test("ラベル内のエスケープされたバッククォートで途中終了せず、ブロック全体が処理される", () => {
+    const tsx = `<Mermaid chart={\`graph TD
+      A["\\\`code\\\`"] --> B
+      B --> C
+    \`} />`;
+    const { fixed, report } = fixTsxMermaid(tsx);
+    expect(fixed).toContain('graph TD\nA["\\`code\\`"] --> B\nB --> C');
+    expect(fixed).not.toContain("      B --> C");
+    expect(report).toEqual(["[graph]: 2 line(s) modified"]);
   });
 });

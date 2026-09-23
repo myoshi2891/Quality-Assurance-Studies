@@ -63,12 +63,13 @@ const MERMAID_CONFIG = `%%{init: {
     "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "14px"
   },
-  "flowchart": { "curve": "basis", "htmlLabels": true }
+  "htmlLabels": true,
+  "flowchart": { "curve": "basis" }
 }}%%`;
 
 export const DIAGRAM_EXAMPLE = `${MERMAID_CONFIG}
 flowchart LR
-    A["ノードA"] --> B["ノードB"]`;
+A["ノードA"] --> B["ノードB"]`;
 ```
 
 ## 2. globals.css ダークカード既定の打ち消し（必須リセット CSS）

@@ -146,14 +146,45 @@ export function fixHtmlMermaid(html: string): { fixed: string; report: string[] 
  */
 export function fixMarkdownMermaid(markdown: string): { fixed: string; report: string[] } {
   const report: string[] = [];
-  const pattern = /(```mermaid\r?\n)([\s\S]*?)(\r?\n```)/gi;
+  // 行単位で走査し、開始フェンスの文字と長さを保持する（CommonMark のフェンス規則に準拠）
+  const lines = markdown.split('\n');
+  const out: string[] = [];
+  const openRe = /^ {0,3}(`{3,}|~{3,})\s*mermaid\b.*$/i;
 
-  const fixed = markdown.replace(pattern, (match, openTag, inner, closeTag) => {
-    const { fixedContent } = fixMermaidContent(inner, report);
-    return openTag + fixedContent + closeTag;
-  });
+  let i = 0;
+  while (i < lines.length) {
+    const openMatch = openRe.exec(lines[i].replace(/\r$/, ''));
+    if (!openMatch) {
+      out.push(lines[i]);
+      i++;
+      continue;
+    }
 
-  return { fixed, report };
+    const fence = openMatch[1];
+    // 閉じフェンス: 同じ文字で開始フェンス以上の長さ、後続は空白のみ
+    const closeRe = new RegExp(`^ {0,3}${fence[0] === '`' ? '`' : '~'}{${fence.length},}\\s*$`);
+    let end = i + 1;
+    while (end < lines.length && !closeRe.test(lines[end].replace(/\r$/, ''))) {
+      end++;
+    }
+    if (end >= lines.length) {
+      // 閉じフェンスがないブロックは変更しない
+      out.push(...lines.slice(i));
+      break;
+    }
+
+    const bodyLines = lines.slice(i + 1, end);
+    const hasCr = bodyLines.some(line => line.endsWith('\r'));
+    const { fixedContent } = fixMermaidContent(bodyLines.join('\n'), report);
+    out.push(lines[i]);
+    if (bodyLines.length > 0) {
+      out.push(...fixedContent.split('\n').map(line => (hasCr ? line + '\r' : line)));
+    }
+    out.push(lines[end]);
+    i = end + 1;
+  }
+
+  return { fixed: out.join('\n'), report };
 }
 
 /**
@@ -171,7 +202,8 @@ export function fixTsxMermaid(content: string): { fixed: string; report: string[
   const report: string[] = [];
   // バッククォート ` で囲まれたテンプレートリテラルで、
   // 内部が graph/flowchart/sequenceDiagram/mindmap で始まるものを検出
-  const pattern = /`(\s*(?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)[\s\S]*?)`/gi;
+  // エスケープされたバッククォート（\`）は内容として扱い、未エスケープの ` でのみ閉じる
+  const pattern = /`(\s*(?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)(?:[^`\\]|\\[\s\S])*)`/gi;
 
   const fixed = content.replace(pattern, (match, inner) => {
     const { fixedContent } = fixMermaidContent(inner, report);
