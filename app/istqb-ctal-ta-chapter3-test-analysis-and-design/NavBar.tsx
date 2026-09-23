@@ -156,13 +156,27 @@ export default function NavBar() {
         <>
             <button
                 ref={toggleRef}
-                className="sidebar-toggle"
+                className={`sidebar-toggle ${isOpen ? 'active' : ''}`}
                 aria-label={isOpen ? '目次を閉じる' : '目次を開く'}
                 aria-expanded={isOpen}
                 aria-controls="chapter3-sidebar"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                ☰ 目次
+                <span className="toggle-icon" aria-hidden="true">
+                    {isOpen ? (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    ) : (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    )}
+                </span>
+                <span className="toggle-label">{isOpen ? '閉じる' : '目次'}</span>
             </button>
 
             <div

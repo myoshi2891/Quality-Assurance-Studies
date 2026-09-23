@@ -1,5 +1,5 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React, { act } from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'bun:test';
 import CtalTaChapter3Page from '../../app/istqb-ctal-ta-chapter3-test-analysis-and-design/page';
 
@@ -10,6 +10,33 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(pageLayout).toBeTruthy();
         expect(container.querySelector('nav')).toBeTruthy();
         expect(container.querySelector('main')).toBeTruthy();
+    });
+
+    it('renders sidebar toggle button with proper a11y attributes and toggles on click', () => {
+        const { container } = render(<CtalTaChapter3Page />);
+        const toggleBtn = container.querySelector('.sidebar-toggle') as HTMLButtonElement | null;
+        expect(toggleBtn).toBeTruthy();
+        expect(toggleBtn?.getAttribute('aria-expanded')).toBe('false');
+        expect(toggleBtn?.getAttribute('aria-label')).toBe('目次を開く');
+        expect(toggleBtn?.textContent).toContain('目次');
+
+        // Click to open
+        act(() => {
+            fireEvent.click(toggleBtn!);
+        });
+        expect(toggleBtn?.getAttribute('aria-expanded')).toBe('true');
+        expect(toggleBtn?.getAttribute('aria-label')).toBe('目次を閉じる');
+        expect(toggleBtn?.textContent).toContain('閉じる');
+        expect(toggleBtn?.classList.contains('active')).toBe(true);
+
+        // Click to close
+        act(() => {
+            fireEvent.click(toggleBtn!);
+        });
+        expect(toggleBtn?.getAttribute('aria-expanded')).toBe('false');
+        expect(toggleBtn?.getAttribute('aria-label')).toBe('目次を開く');
+        expect(toggleBtn?.textContent).toContain('目次');
+        expect(toggleBtn?.classList.contains('active')).toBe(false);
     });
 
     it('renders the 33 sidebar navigation links with exact targets', () => {
