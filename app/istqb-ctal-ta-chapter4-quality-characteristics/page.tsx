@@ -1,8 +1,220 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import ChecklistCard from './ChecklistCard';
 import Mermaid from '../../components/Mermaid';
 import './istqb-ctal-ta-chapter4-quality-characteristics.css';
+
+const SYLLABUS_CHECKLIST_ITEMS = [
+    {
+        id: 'syl-1',
+        label: (
+            <>
+                4.1：3特性それぞれの<strong>定義文</strong>、テスト時期・テストレベルの記述、典型的な欠陥・使う技法の記述（本ガイドの 2.6 節と比較）
+            </>
+        ),
+    },
+    {
+        id: 'syl-2',
+        label: (
+            <>
+                4.2：TA の貢献として<strong>列挙された項目</strong>が、本ガイドの 3.3 節と一致するか。ユーザビリティ指標や評価手法の例示があるか
+            </>
+        ),
+    },
+    {
+        id: 'syl-3',
+        label: (
+            <>
+                4.3：適応性・インストール性の<strong>定義</strong>と、TA の貢献の<strong>具体的な列挙</strong>（4.2、4.3 節と比較）
+            </>
+        ),
+    },
+    {
+        id: 'syl-4',
+        label: (
+            <>
+                4.4：相互運用性の<strong>定義</strong>と、TA の貢献の具体例。共存性の扱い
+            </>
+        ),
+    },
+    {
+        id: 'syl-5',
+        label: <>キーワード13語が、本文中でどう定義・使用されているか</>,
+    },
+    {
+        id: 'syl-6',
+        label: <>図・表・例に書かれた固有の用語（試験で問われやすい）</>,
+    },
+];
+
+const FUNCTIONAL_CHECKLIST_ITEMS = [
+    {
+        id: 'func-1',
+        label: (
+            <>
+                テスト条件を、正確性・適切性・完全性のどれに関するものかで<strong>分類した</strong>
+            </>
+        ),
+    },
+    {
+        id: 'func-2',
+        label: (
+            <>
+                要件・ユーザーストーリー・ユースケースと<strong>トレーサビリティ</strong>が取れている
+            </>
+        ),
+    },
+    {
+        id: 'func-3',
+        label: (
+            <>
+                CRUD マトリクスで、各エンティティの操作の<strong>欠落</strong>を確認した
+            </>
+        ),
+    },
+    {
+        id: 'func-4',
+        label: (
+            <>
+                期待結果を<strong>独立したオラクル</strong>から決めた（実装を見て決めていない）
+            </>
+        ),
+    },
+    {
+        id: 'func-5',
+        label: <>主要シナリオを、ペルソナ・利用パターンから作った</>,
+    },
+];
+
+const USABILITY_CHECKLIST_ITEMS = [
+    {
+        id: 'use-1',
+        label: (
+            <>
+                対象利用者グループと<strong>代表する参加者</strong>を定義した
+            </>
+        ),
+    },
+    {
+        id: 'use-2',
+        label: (
+            <>
+                タスクを<strong>利用者の目的</strong>で書き、成功基準と指標を決めた
+            </>
+        ),
+    },
+    {
+        id: 'use-3',
+        label: (
+            <>
+                セッションでは<strong>観察に徹する</strong>手順を関係者と合意した
+            </>
+        ),
+    },
+    {
+        id: 'use-4',
+        label: (
+            <>
+                学習性・操作性・エラー防止・包括性までの<strong>観点</strong>をチェックリスト化した
+            </>
+        ),
+    },
+    {
+        id: 'use-5',
+        label: (
+            <>
+                問題を<strong>影響と頻度</strong>で優先度づけし、再テスト計画を立てた
+            </>
+        ),
+    },
+];
+
+const FLEXIBILITY_CHECKLIST_ITEMS = [
+    {
+        id: 'flex-1',
+        label: (
+            <>
+                サポート対象環境（OS・ブラウザ・DB・クラウドなど）を<strong>一覧化</strong>した
+            </>
+        ),
+    },
+    {
+        id: 'flex-2',
+        label: (
+            <>
+                環境をパラメータと値で整理し、<strong>制約</strong>を反映した
+            </>
+        ),
+    },
+    {
+        id: 'flex-3',
+        label: (
+            <>
+                組み合わせ技法（ペアワイズ・基本選択・全組み合わせ）を<strong>リスクに応じて</strong>選んだ
+            </>
+        ),
+    },
+    {
+        id: 'flex-4',
+        label: (
+            <>
+                インストール性で、<strong>新規・更新・失敗・ロールバック・アンインストール</strong>を確認した
+            </>
+        ),
+    },
+    {
+        id: 'flex-5',
+        label: (
+            <>
+                テスト環境の<strong>初期状態と初期化手順</strong>、本番との忠実度を記録した
+            </>
+        ),
+    },
+];
+
+const COMPATIBILITY_CHECKLIST_ITEMS = [
+    {
+        id: 'comp-1',
+        label: (
+            <>
+                連携する<strong>システムとインタフェース</strong>を一覧化した
+            </>
+        ),
+    },
+    {
+        id: 'comp-2',
+        label: (
+            <>
+                交換される情報の<strong>形式・意味・単位・文字コード・日時</strong>を確認した
+            </>
+        ),
+    },
+    {
+        id: 'comp-3',
+        label: (
+            <>
+                <strong>正常・代替・例外</strong>のシナリオを設計した
+            </>
+        ),
+    },
+    {
+        id: 'comp-4',
+        label: (
+            <>
+                相手が使えない部分は、テストダブルやサービス仮想化で補い、<strong>最終確認は実環境で</strong>行った
+            </>
+        ),
+    },
+    {
+        id: 'comp-5',
+        label: (
+            <>
+                <strong>両側</strong>（送信側・受信側）の状態を確認した
+            </>
+        ),
+    },
+];
 
 export const metadata: Metadata = {
     title: 'CTAL-TA v4.0 第4章「品質特性のテスト」完全ガイド（初学者向け） | QA Studies',
@@ -3542,6 +3754,283 @@ export default function CtalTaChapter4Page() {
                         </li>
                     </ul>
                 </div>
+
+                {/* ===== セクション 7: 試験対策 ===== */}
+                <h2 id="7-試験対策">7. 試験対策</h2>
+                <h3 id="71-混同しやすい概念の比較">7.1 混同しやすい概念の比較</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th></th>
+                                <th>確かめる問い</th>
+                                <th>キーワード</th>
+                                <th>例</th>
+                                <th>該当節</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>機能正確性</td>
+                                <td>結果は正しいか</td>
+                                <td>精度・計算・判定</td>
+                                <td>送料の判定が仕様どおり</td>
+                                <td>4.1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>機能適切性</td>
+                                <td>タスクに役立つか</td>
+                                <td>必要十分・不要なステップなし</td>
+                                <td>カテゴリが利用者に有用</td>
+                                <td>4.1</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>機能完全性</td>
+                                <td>必要な機能が揃っているか</td>
+                                <td>抜け・網羅・CRUD</td>
+                                <td>削除機能がない</td>
+                                <td>4.1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>ユーザビリティ（インタラクション能力）</td>
+                                <td>学びやすく、操作しやすく、誤りを防げるか</td>
+                                <td>ペルソナ・観察・実利用者</td>
+                                <td>初回利用者が説明なしで購入できる</td>
+                                <td>4.2</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>適応性</td>
+                                <td>異なる環境で同じように動くか</td>
+                                <td>環境の特定・組み合わせ</td>
+                                <td>複数のクラウド基盤で動作する</td>
+                                <td>4.3</td>
+                            </tr>
+                            <tr className="even">
+                                <td>インストール性</td>
+                                <td>インストール・アンインストールできるか</td>
+                                <td>新規・更新・アンインストール</td>
+                                <td>更新に失敗しても元に戻せる</td>
+                                <td>4.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>相互運用性</td>
+                                <td>情報を交換し、使い合えるか</td>
+                                <td>連携・データ形式・意味</td>
+                                <td>EC と決済サービスの連携</td>
+                                <td>4.4</td>
+                            </tr>
+                            <tr className="even">
+                                <td>（参考）アクセシビリティ</td>
+                                <td>幅広い人が使えるか</td>
+                                <td>包括性・ユーザー支援</td>
+                                <td>スクリーンリーダー対応</td>
+                                <td>4.2（ISO では分割）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>（参考）負荷・拡張性</td>
+                                <td>大量の利用に耐えるか</td>
+                                <td>負荷・スケーラビリティ</td>
+                                <td>同時 1 万人のアクセス</td>
+                                <td>第4章 LO の対象外</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="72-lo-ごとのこれだけは説明できるポイント">
+                    7.2 LO ごとの「これだけは説明できる」ポイント
+                </h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>LO</th>
+                                <th>答えられるべき問い</th>
+                                <th>模範的な要点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>TA-4.1.1</td>
+                                <td>3特性はどう違う？</td>
+                                <td>
+                                    正確性＝結果が正確／適切性＝タスクに役立つ・必要十分／完全性＝必要な機能・目的がすべて揃っている
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>TA-4.2.1</td>
+                                <td>TA はどう貢献する？</td>
+                                <td>
+                                    ペルソナ・利用パターンからシナリオを作る／対象グループを代表する実利用者を選ぶ／誘導せず観察する
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>TA-4.3.1</td>
+                                <td>TA はどう貢献する？</td>
+                                <td>
+                                    対象環境を特定し、その組み合わせを網羅するテストを設計する（適応性）／インストール手順・構成を利用者視点で確認する（インストール性）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>TA-4.4.1</td>
+                                <td>TA はどう貢献する？</td>
+                                <td>
+                                    連携する相手・交換される情報を洗い出し、システム間のシナリオとデータを設計する。相手が使えないときはテストダブルなどで補う
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="73-公式サンプル試験の第4章q34q37一覧">
+                    7.3 公式サンプル試験の第4章（Q34〜Q37）一覧
+                </h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>Q</th>
+                                <th>LO</th>
+                                <th>問われていること</th>
+                                <th>正解の考え方</th>
+                                <th>点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>34</td>
+                                <td>TA-4.1.1（K2）</td>
+                                <td>具体的なテスト活動がどの特性のテストか</td>
+                                <td>「フィルタの正しさ」→ 機能正確性</td>
+                                <td>1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>35</td>
+                                <td>TA-4.2.1（K2）</td>
+                                <td>ユーザビリティテストの準備で TA がすべきこと</td>
+                                <td>利用パターンとペルソナからシナリオを作る</td>
+                                <td>1</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>36</td>
+                                <td>TA-4.3.1（K2）</td>
+                                <td>適応性テストの支援になる活動</td>
+                                <td>
+                                    対象環境（クラウド基盤）を特定し、組み合わせを網羅するテストを設計する
+                                </td>
+                                <td>1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>37</td>
+                                <td>TA-4.4.1（K2）</td>
+                                <td>相互運用性テストの例</td>
+                                <td>情報の交換とその利用の確認</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="74-自己診断ミニクイズ-筆者作成公式問題ではありません">
+                    7.4 自己診断ミニクイズ（💡 筆者作成・公式問題ではありません）
+                </h3>
+                <p>以下は K2 の理解を確認するための練習問題です。答えは最後にあります。</p>
+                <ol type="1">
+                    <li>
+                        要件に「領収書の発行」があるのに、画面のどこにも発行機能がない。どの特性の問題か。
+                    </li>
+                    <li>
+                        合計 5,000 円以上で送料無料の仕様で、ちょうど 5,000 円のとき送料が加算された。どの特性の問題か。
+                    </li>
+                    <li>
+                        購入完了までに、目的に不要な確認画面が 5 つ表示される。仕様どおりに実装されている。最も近い特性はどれか（機能面から見る場合）。
+                    </li>
+                    <li>ユーザビリティテストの参加者を選ぶとき、TA が最も重視すべきことは何か。</li>
+                    <li>TA が適応性テストで行う中心的な貢献は何か。</li>
+                    <li>ISO/IEC 25010:2023 で、旧 Portability に置き換わった特性名は何か。</li>
+                    <li>Interaction capability と Usability の関係を一言で説明せよ。</li>
+                    <li>
+                        パラメータ 3 つ・各 3 値のとき、ペアワイズの最小テスト数と、全組み合わせの数はいくつか。
+                    </li>
+                    <li>CRUD テストの「完全性テスト」は静的テストか動的テストか。</li>
+                    <li>
+                        「EC サイトが送った注文データを、在庫システムが正しく解釈して使えるか」は、どの種類のテストか。
+                    </li>
+                </ol>
+                <p>
+                    <strong>答え（<span className="chip chip-t" title="実務補足">💡</span>）</strong>：
+                </p>
+                <ol type="1">
+                    <li>
+                        機能完全性　2. 機能正確性（境界値の誤り）　3. 機能適切性（手順が必要十分でない）　4. 対象利用者グループの特性を代表する実利用者を選ぶ　5. 対象環境を特定し、その組み合わせを網羅するテストを設計する　6. Flexibility（柔軟性）　7. Interaction capability は Usability の前提条件（製品側の能力と、利用の結果の関係）　8. 9 通り（全組み合わせは 27 通り）　9. 静的テスト　10. 相互運用性テスト
+                    </li>
+                </ol>
+
+                <h3 id="75-学習プラン-目安">7.5 学習プラン（💡 目安）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>ステップ</th>
+                                <th>内容</th>
+                                <th>所要</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    第0〜1章：限界の確認、ISO 25010:2023 マップ、キーワード 13 語
+                                </td>
+                                <td>30 分</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>第2〜5章：各 LO を「説明できる」まで音読・書き出し</td>
+                                <td>60 分</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>公式サンプル試験 Q34〜Q37 を解き、解説を読む</td>
+                                <td>15 分</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>
+                                    <strong>公式シラバス PDF の 44〜47 ページを通読し、本ガイドとの差異を確認</strong>
+                                </td>
+                                <td>30 分</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>第7章の比較表と、自己診断クイズを復習</td>
+                                <td>15 分</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="76-公式シラバス4447-ページ通読時のチェックポイント">
+                    7.6 公式シラバス（44〜47 ページ）通読時のチェックポイント
+                </h3>
+                <p>
+                    本ガイドは第4章の本文を全文確認できていません（0.3 節）。通読するときは、次を確認してください。
+                </p>
+                <ChecklistCard items={SYLLABUS_CHECKLIST_ITEMS} />
+
+                {/* ===== セクション 8: 実務チェックリスト ===== */}
+                <h2 id="8-実務チェックリスト">8. 実務チェックリスト</h2>
+                <p><strong>機能テスト（4.1）</strong></p>
+                <ChecklistCard items={FUNCTIONAL_CHECKLIST_ITEMS} />
+
+                <p><strong>ユーザビリティテスト（4.2）</strong></p>
+                <ChecklistCard items={USABILITY_CHECKLIST_ITEMS} />
+
+                <p><strong>フレキシビリティテスト（4.3）</strong></p>
+                <ChecklistCard items={FLEXIBILITY_CHECKLIST_ITEMS} />
+
+                <p><strong>互換性テスト（4.4）</strong></p>
+                <ChecklistCard items={COMPATIBILITY_CHECKLIST_ITEMS} />
                 </main>
             </div>
         </div>

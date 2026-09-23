@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'bun:test';
 import CtalTaChapter4Page from '../../app/istqb-ctal-ta-chapter4-quality-characteristics/page';
 
@@ -341,5 +341,58 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.querySelector('#mermaid-diagram-18')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-19')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-20')).toBeTruthy();
+    });
+
+    it('renders Section 7 (Exam Prep, Q34-Q37 summary, Quiz) and Section 8 (Checklists with dynamic progress)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 7 headings
+        const sec7 = container.querySelector('[id="7-試験対策"]');
+        expect(sec7).toBeTruthy();
+        expect(sec7?.textContent).toContain('7. 試験対策');
+
+        expect(container.querySelector('[id="71-混同しやすい概念の比較"]')).toBeTruthy();
+        expect(container.querySelector('[id="72-lo-ごとのこれだけは説明できるポイント"]')).toBeTruthy();
+        expect(container.querySelector('[id="73-公式サンプル試験の第4章q34q37一覧"]')).toBeTruthy();
+        expect(container.querySelector('[id="74-自己診断ミニクイズ-筆者作成公式問題ではありません"]')).toBeTruthy();
+        expect(container.querySelector('[id="75-学習プラン-目安"]')).toBeTruthy();
+        expect(container.querySelector('[id="76-公式シラバス4447-ページ通読時のチェックポイント"]')).toBeTruthy();
+
+        // Section 8 heading
+        const sec8 = container.querySelector('[id="8-実務チェックリスト"]');
+        expect(sec8).toBeTruthy();
+        expect(sec8?.textContent).toContain('8. 実務チェックリスト');
+
+        // Checklists count: 1 in Section 7 + 4 in Section 8 = 5 cards
+        const checklistCards = container.querySelectorAll('.checklist-card');
+        expect(checklistCards.length).toBe(5);
+
+        // Verify dynamic progress update on checklist
+        const firstCard = checklistCards[0];
+        const countSpan = firstCard.querySelector('.cp-count');
+        const fillBar = firstCard.querySelector('.cp-bar-fill') as HTMLElement;
+        const checkboxes = firstCard.querySelectorAll('input[type="checkbox"]');
+
+        expect(countSpan?.textContent).toBe(`0 / ${checkboxes.length} 完了`);
+        expect(fillBar?.style.width).toBe('0%');
+
+        // Check first item
+        fireEvent.click(checkboxes[0]);
+        expect(countSpan?.textContent).toBe(`1 / ${checkboxes.length} 完了`);
+        expect(parseFloat(fillBar?.style.width || '0')).toBeCloseTo(100 / checkboxes.length);
+
+        // Uncheck first item
+        fireEvent.click(checkboxes[0]);
+        expect(countSpan?.textContent).toBe(`0 / ${checkboxes.length} 完了`);
+        expect(fillBar?.style.width).toBe('0%');
+
+        // Content verification
+        expect(container.textContent).toContain('混同しやすい概念の比較');
+        expect(container.textContent).toContain('公式サンプル試験の第4章（Q34〜Q37）一覧');
+        expect(container.textContent).toContain('自己診断ミニクイズ');
+        expect(container.textContent).toContain('機能テスト（4.1）');
+        expect(container.textContent).toContain('ユーザビリティテスト（4.2）');
+        expect(container.textContent).toContain('フレキシビリティテスト（4.3）');
+        expect(container.textContent).toContain('互換性テスト（4.4）');
     });
 });
