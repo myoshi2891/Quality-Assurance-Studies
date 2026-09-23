@@ -127,4 +127,71 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(table?.textContent).toContain('学習目標（LO）');
         expect(table?.textContent).toContain('TA-4.1.1 ／ TA-4.2.1 ／ TA-4.3.1 ／ TA-4.4.1');
     });
+
+    it('renders Section 0 (How to read this guide, LOs, tags, caveats, versions)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 0 headings
+        const sec0 = container.querySelector('[id="0-このガイドの読み方"]');
+        expect(sec0).toBeTruthy();
+        expect(sec0?.textContent).toContain('0. このガイドの読み方');
+
+        expect(container.querySelector('[id="01-ゴールと学習の進め方"]')).toBeTruthy();
+        expect(container.querySelector('[id="02-信頼度タグの見方"]')).toBeTruthy();
+        expect(container.querySelector('[id="03--このガイドの限界必ず読んでください"]')).toBeTruthy();
+        expect(container.querySelector('[id="04-バージョン情報受験前に確認"]')).toBeTruthy();
+
+        // Tables in Section 0
+        expect(container.textContent).toContain('学習時間の目安（LO 比較表）');
+        expect(container.textContent).toContain('機能正確性・機能適切性・機能完全性');
+        expect(container.textContent).toContain('信頼度タグの見方');
+        expect(container.textContent).toContain('ISTQB 公式文書（シラバスの取得できた範囲');
+        expect(container.textContent).toContain('バージョン情報（受験前に確認）');
+
+        // Callouts in Sec 0
+        expect(container.textContent).toContain('このガイドの限界（必ず読んでください）');
+        expect(container.textContent).toContain('公式シラバスの 44〜47 ページ');
+
+        // Mermaid diagrams 1 & 2
+        const diagrams = container.querySelectorAll('.mermaid-target');
+        expect(diagrams.length).toBeGreaterThanOrEqual(2);
+        expect(container.querySelector('#mermaid-diagram-1')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-2')).toBeTruthy();
+    });
+
+    it('renders Section 1 (Chapter 4 Overview, ISO 25010:2023, TA role, v3.1 vs v4.0, 13 Keywords)', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 1 headings
+        const sec1 = container.querySelector('[id="1-第4章の全体像"]');
+        expect(sec1).toBeTruthy();
+        expect(sec1?.textContent).toContain('1. 第4章の全体像');
+
+        expect(container.querySelector('[id="11-章の位置づけ"]')).toBeTruthy();
+        expect(container.querySelector('[id="12-なぜ-ta-が品質特性のテストを扱うのか"]')).toBeTruthy();
+        expect(container.querySelector('[id="13-isoiec-250102023-との対応"]')).toBeTruthy();
+        expect(container.querySelector('[id="14-v31-から-v40-への用語構成の変更点"]')).toBeTruthy();
+        expect(container.querySelector('[id="15-キーワード13語k1定義を思い出せること"]')).toBeTruthy();
+
+        // Tables in Section 1
+        expect(container.textContent).toContain('第4章の基本情報');
+        expect(container.textContent).toContain('ISO/IEC 25010:2023 は 9つの品質特性を定義しています');
+        expect(container.textContent).toContain('v3.1 から v4.0 への用語・構成の変更点');
+        expect(container.textContent).toContain('キーワード13語（K1：定義を思い出せること）');
+
+        // Keywords check
+        expect(container.textContent).toContain('functional suitability');
+        expect(container.textContent).toContain('機能適合性');
+        expect(container.textContent).toContain('functional correctness');
+        expect(container.textContent).toContain('機能正確性');
+        expect(container.textContent).toContain('interaction capability');
+        expect(container.textContent).toContain('インタラクション能力');
+        expect(container.textContent).toContain('interoperability');
+        expect(container.textContent).toContain('相互運用性');
+
+        // Mermaid diagrams 3, 4, 5
+        expect(container.querySelector('#mermaid-diagram-3')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-4')).toBeTruthy();
+        expect(container.querySelector('#mermaid-diagram-5')).toBeTruthy();
+    });
 });
