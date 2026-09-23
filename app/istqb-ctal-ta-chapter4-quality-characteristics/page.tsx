@@ -224,6 +224,7 @@ export const metadata: Metadata = {
 export const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
+    "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "16px",
     "background": "#ffffff",
     "primaryColor": "#e8efff",
@@ -268,9 +269,10 @@ export const MERMAID_CONFIG = `%%{init: {
     "useMaxWidth": false,
     "htmlLabels": true,
     "curve": "basis",
-    "nodeSpacing": 50,
-    "rankSpacing": 55,
-    "padding": 12
+    "nodeSpacing": 60,
+    "rankSpacing": 65,
+    "padding": 18,
+    "subGraphTitleMargin": { "top": 12, "bottom": 18 }
   },
   "sequence": { "useMaxWidth": false, "wrap": false, "mirrorActors": false },
   "state": { "useMaxWidth": false }
