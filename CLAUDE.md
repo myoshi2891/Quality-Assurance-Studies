@@ -141,6 +141,10 @@ Next.js App Router 構成:
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/istqb-ctal-ta-chapter2-risk-based-testing.css` — CTAL-TA 第2章ガイド固有スタイル
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/page.tsx` — CTAL-TA 第2章ガイドページ
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/NavBar.tsx` — CTAL-TA 第2章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/istqb-ctal-ta-chapter3-test-analysis-and-design.css` — CTAL-TA 第3章ガイド固有スタイル
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/page.tsx` — CTAL-TA 第3章ガイドページ
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/NavBar.tsx` — CTAL-TA 第3章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/Checklist.tsx` — CTAL-TA 第3章チェックリスト（`'use client'`）
 - `app/istqb-ctal-tm-complete-guide/istqb-ctal-tm-complete-guide.css` — テスト管理(CTAL-TM)ガイド固有スタイル
 - `app/istqb-ctal-tm-complete-guide/page.tsx` — テスト管理(CTAL-TM)ガイドページ
 - `app/istqb-ctal-tm-complete-guide/NavBar.tsx` — CTAL-TM ページ固有スティッキーナビ
@@ -639,6 +643,7 @@ bun test        # ユニットテスト成功
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -662,7 +667,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 76 ルート（ガイドライブラリ index + 75 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 77 ルート（ガイドライブラリ index + 76 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。

@@ -1,22 +1,43 @@
 # Migration Progress
 
-Updated 2026-09-21
+Updated 2026-09-23
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 76 ルート = ガイドライブラリ index + 75 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 77 ルート = ガイドライブラリ index + 76 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `25b7032` |
-| 最新コミット内容 | `feat(nav): register istqb-ctal-ta-chapter2-risk-based-testing route and archive sources` |
+| 最新 HEAD | `44b614d` |
+| 最新コミット内容 | `feat(ctal-ta-ch3): implement Category 7 sections 7-10 learning objectives, interactive checklist, and references` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/23: ISTQB CTAL-TA v4.0 第3章（テスト分析・設計）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #f8fafc`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--accent-soft: #eff6ff`、`--text: #1e293b`、`--text-dim: #64748b` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: #ffffff !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全10セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch3-page`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全12図解（学習ステップ `DIAGRAM_GUIDE_STEPS`、第3章構造 `DIAGRAM_CHAPTER_STRUCTURE`、ドメインテスト境界点 `DIAGRAM_DOMAIN_POINTS`、ベースチョイス概念 `DIAGRAM_BASE_CHOICE`、CRUDマトリクスアプローチ `DIAGRAM_CRUD_APPROACH`、状態遷移注文 `DIAGRAM_STATE_ORDER`、シナリオテストログイン `DIAGRAM_SCENARIO_LOGIN`、デシジョンテーブル導出ステップ `DIAGRAM_DECISION_STEPS`、メタモルフィックテスト概念 `DIAGRAM_METAMORPHIC_CONCEPT`、テストチャーターサイクル `DIAGRAM_CHARTER_CYCLE`、チェックリスト作成ステップ `DIAGRAM_CHECKLIST_STEPS`、技法選定要因 `DIAGRAM_TECHNIQUE_SELECTION`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
+- **テーブル & インタラクティブチェックリスト**:
+  - 全31テーブル（用語集18語、ドメインテスト、組み合わせ、CRUD、状態遷移、シナリオ、デシジョンテーブル、メタモルフィック、経験ベース、技法選定、テスト設計自動化、学習目標一覧、参考文献など）を完全移植。
+  - 章末チェックリスト（`Checklist.tsx`、全15項目動的カウンター `0 / 15 完了`・トグル対応）を完全実装。
+- **参考文献 & 外部リンク**:
+  - 公式一次情報および規格関連文書・学術資料・解説記事（ISTQBシラバス、ISO/IEC 25010、ISO/IEC/IEEE 29119-4、DMN、NIST資料等）を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全10セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch3-page` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
+- `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter3-test-analysis-and-design`（CTAL-TA 3章 テスト分析・設計）を追加（全77件）。
+- `tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全12Mermaid図、全31テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 164 expect()）。
+- `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` は `archive/html-archive/ctal/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 77 ページ体制に同期。
 
 ## 2026/09/21: ISTQB CTAL-TA v4.0 第2章（リスクベースドテストにおけるテストアナリストの役割）完全ガイドのNext.js完全移行
 
@@ -1015,6 +1036,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
