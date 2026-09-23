@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
 import './istqb-ctal-ta-chapter3-test-analysis-and-design.css';
 
 export const metadata: Metadata = {
@@ -2123,6 +2124,366 @@ export default function CtalTaChapter3Page() {
                     </div>
 
                     <hr />
+
+                    {/* Section 7: 学習目標(Learning Objectives)一覧表 */}
+                    <h2 id="7-学習目標learning-objectives一覧表">
+                        7. 学習目標(Learning Objectives)一覧表
+                    </h2>
+                    <p>
+                        試験対策として、第3章の学習目標とKレベルを一覧表にまとめます。<code>K3</code>・<code>K4</code>の項目は、定義の暗記だけでなく<strong>実際に手を動かして導出する練習</strong>を重点的に行ってください。
+                    </p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>コード</th>
+                                    <th>学習目標</th>
+                                    <th>Kレベル</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>TA-3.1.1</td>
+                                    <td>ドメインテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.1.2</td>
+                                    <td>組み合わせテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.1.3</td>
+                                    <td>ランダムテストの利点と限界を要約できる</td>
+                                    <td>K2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.2.1</td>
+                                    <td>CRUDテストを説明できる</td>
+                                    <td>K2</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.2.2</td>
+                                    <td>状態遷移テストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.2.3</td>
+                                    <td>シナリオベーステストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.3.1</td>
+                                    <td>デシジョンテーブルテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.3.2</td>
+                                    <td>メタモルフィックテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.4.1</td>
+                                    <td>セッションベーステストのためのテストチャーターを準備できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.4.2</td>
+                                    <td>経験ベーステストを支援するチェックリストを準備できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.4.3</td>
+                                    <td>クラウドテストの利点と限界の例を挙げられる</td>
+                                    <td>K2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.5.1</td>
+                                    <td>
+                                        特定の状況において、製品リスクを軽減する適切なテスト技法を選択できる
+                                    </td>
+                                    <td>K4</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.5.2</td>
+                                    <td>テスト設計自動化の利点とリスクを説明できる</td>
+                                    <td>K2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>出典: ISTQB® CTAL-TA Syllabus v4.0, “Learning Objectives for Chapter 3”</p>
+
+                    <hr />
+
+                    {/* Section 8: 章末チェックリスト(自己診断用) */}
+                    <h2 id="8-章末チェックリスト自己診断用">8. 章末チェックリスト(自己診断用)</h2>
+                    <p>
+                        学習の総仕上げとして、以下の問いにすべて自分の言葉で説明できるかセルフチェックしてください。
+                    </p>
+
+                    <Checklist />
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">学習のヒント</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                第3章は<code>K3</code>(適用)・<code>K4</code>(分析)の学習目標が集中する章です。定義の暗記だけで終わらせず、公式サンプル問題の演習(特に第3章の実践的な演習)に取り組んだうえで、本ガイドの具体例をノートに写経し、<strong>自分の担当プロダクトの実データに置き換えて再度導出してみる</strong>ことを強く推奨します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 9: v3.1からv4.0への主な変更点(参考) */}
+                    <h2 id="9-v31からv40への主な変更点参考">9. v3.1からv4.0への主な変更点(参考)</h2>
+                    <p>
+                        CTAL-TAは2025年5月2日にv4.0が正式リリースされました。v3.1は英語版が2026年5月16日にサンセット(廃止)済みで、非英語版は2026年11月16日まで有効です。第3章に関する主な変更点は以下の通りです。
+                    </p>
+                    <ul>
+                        <li>
+                            ブラックボックステスト技法の分類が、v3.1の分類から「<strong>データベースド」「ビヘイビアベースド」「ルールベースド</strong>」という新しい3分類に整理された
+                        </li>
+                        <li>
+                            <strong>メタモルフィックテスト</strong>、<strong>CRUDテスト</strong>、<strong>クラウドテスト</strong>がv4.0で新たに体系立てて追加された
+                        </li>
+                        <li>
+                            状態遷移テストに<strong>N-switchカバレッジ</strong>・<strong>ラウンドトリップカバレッジ</strong>という2つの追加カバレッジ基準が導入された
+                        </li>
+                    </ul>
+                    <p>
+                        出典: trendig.com「New Version Released: ISTQB Certified Tester Advanced Level - Test Analyst v4」(非公式の解説記事)
+                    </p>
+
+                    <hr />
+
+                    {/* Section 10: 参考文献・出典URL */}
+                    <h2 id="10-参考文献出典url">10. 参考文献・出典URL</h2>
+                    <h3 id="公式istqb資料">公式ISTQB®資料</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料名</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>CTAL-TA v4.0 認定ページ(公式)</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>CTAL-TA Syllabus v4.0(PDF・ISTQB公式ダウンロード)</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=5745
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CTAL-TA Syllabus v4.0(PDF・ASTQBミラー)</td>
+                                    <td>
+                                        <a
+                                            href="https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISTQB® Glossary(用語集)</td>
+                                    <td>
+                                        <a
+                                            href="https://glossary.istqb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://glossary.istqb.org/
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB® 本部サイト</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="国際規格標準">国際規格・標準</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>規格名</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ISO/IEC 25010:2023(品質特性モデル)</td>
+                                    <td>
+                                        <a
+                                            href="https://www.iso.org/standard/78176.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.iso.org/standard/78176.html
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISO/IEC/IEEE 29119-4:2021(テスト技法)</td>
+                                    <td>
+                                        <a
+                                            href="https://www.iso.org/standard/79430.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.iso.org/standard/79430.html
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>OMG® DMN(Decision Model and Notation)</td>
+                                    <td>
+                                        <a
+                                            href="https://www.omg.org/dmn/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.omg.org/dmn/
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="学術文献技術資料本文中で言及されたもの">
+                        学術文献・技術資料(本文中で言及されたもの)
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>文献</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        Kuhn, D.R. et al.「Software Fault Interactions and Implications for Software Testing」の背景研究解説(NIST)
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software/combinatorial-methods-in-testing/interactions-involved-in-software-failures"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software/combinatorial-methods-in-testing/interactions-involved-in-software-failures
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>NIST SP 800-142「Practical Combinatorial Testing」</td>
+                                    <td>
+                                        <a
+                                            href="https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-142.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-142.pdf
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        Kuhn &amp; Kacker (2013)「Introduction to Combinatorial Testing」関連資料(NIST)
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.nist.gov/publications/introduction-combinatorial-testing-preface-appendix-mathematics-review-and-appendix-b"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.nist.gov/publications/introduction-combinatorial-testing-preface-appendix-mathematics-review-and-appendix-b
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="非公式ながら参考になる解説記事数値見解は公式シラバスで必ず裏取りしてください">
+                        非公式ながら参考になる解説記事(数値・見解は公式シラバスで必ず裏取りしてください)
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>記事</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        trendig.com「New Version Released: ISTQB® CTAL-TA v4」(v3.1→v4.0の変更点解説)
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr />
+
+                    <p>
+                        <em>
+                            本ガイドはISTQB® CTAL-TA Syllabus v4.0の内容を、初学者向けに図解・具体例を交えて再構成した非公式の学習補助資料です。試験対策の最終確認には、必ず上記の公式シラバスおよび公式サンプル問題をご参照ください。
+                        </em>
+                    </p>
+
+                    <footer className="page-footer">
+                        <p>
+                            本ガイドはISTQB® CTAL-TA Syllabus v4.0の内容を、初学者向けに図解・具体例を交えて再構成した非公式の学習補助資料です。試験対策の最終確認には、必ず公式シラバスおよび公式サンプル問題をご参照ください。
+                        </p>
+                    </footer>
                 </main>
             </div>
         </div>
