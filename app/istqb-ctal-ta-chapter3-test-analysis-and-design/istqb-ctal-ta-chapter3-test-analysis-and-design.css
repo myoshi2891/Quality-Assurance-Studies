@@ -49,6 +49,26 @@
 .ctal-ta-ch3-page a { color: var(--accent); text-decoration: none; }
 .ctal-ta-ch3-page a:hover { color: var(--accent-strong); text-decoration: underline; }
 
+/* スクロールバー: globals.css のダークトラック干渉を完全リセット */
+.ctal-ta-ch3-page {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+}
+.ctal-ta-ch3-page ::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+}
+.ctal-ta-ch3-page ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.ctal-ta-ch3-page ::-webkit-scrollbar-thumb {
+    background: var(--border-strong) !important;
+    border-radius: 4px;
+}
+.ctal-ta-ch3-page ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-faint) !important;
+}
+
 /* Layout */
 .ctal-ta-ch3-page .layout { display: flex; min-height: calc(100vh - 60px); }
 .ctal-ta-ch3-page .sidebar {
@@ -56,9 +76,13 @@
     width: var(--sidebar-w); height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     overflow-y: auto; background: var(--surface); border-right: 1px solid var(--border);
     padding: 24px 0 80px; z-index: 40; transition: transform 0.25s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
 }
 .ctal-ta-ch3-page .sidebar::-webkit-scrollbar { width: 6px; }
-.ctal-ta-ch3-page .sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+.ctal-ta-ch3-page .sidebar::-webkit-scrollbar-track { background: transparent !important; }
+.ctal-ta-ch3-page .sidebar::-webkit-scrollbar-thumb { background: var(--border-strong) !important; border-radius: 3px; }
+.ctal-ta-ch3-page .sidebar::-webkit-scrollbar-thumb:hover { background: var(--text-faint) !important; }
 .ctal-ta-ch3-page .sidebar-brand { padding: 0 24px 20px; margin-bottom: 8px; border-bottom: 1px solid var(--border); }
 .ctal-ta-ch3-page .sidebar-brand .kicker {
     display: block; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--accent);
@@ -170,6 +194,22 @@
     overflow-x: auto; margin: 0 0 24px;
     border: 1px solid var(--border); border-radius: var(--radius);
     box-shadow: var(--shadow-sm); background: var(--surface);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+.ctal-ta-ch3-page .table-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+.ctal-ta-ch3-page .table-scroll::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+    border-radius: 4px;
+}
+.ctal-ta-ch3-page .table-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 4px;
+}
+.ctal-ta-ch3-page .table-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
 }
 .ctal-ta-ch3-page table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
 .ctal-ta-ch3-page thead tr.header th,
@@ -237,24 +277,166 @@
 
 /* Mermaid */
 .ctal-ta-ch3-page .mermaid-container {
-    width: 100%; display: flex; justify-content: safe center; overflow-x: auto;
-    margin: 28px 0; padding: 20px; background: var(--surface);
-    border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    margin: 28px 0;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
 }
-.ctal-ta-ch3-page .mermaid-wrapper {
-    background: transparent !important; border: none !important; border-radius: 0 !important;
-    box-shadow: none !important; margin: 0 !important; padding: 0 !important;
-    width: 100% !important; max-width: none !important;
+.ctal-ta-ch3-page .mermaid-container::-webkit-scrollbar {
+    height: 8px;
 }
+.ctal-ta-ch3-page .mermaid-container::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+    border-radius: 4px;
+}
+.ctal-ta-ch3-page .mermaid-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 4px;
+}
+.ctal-ta-ch3-page .mermaid-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
+
+/* Mermaid Wrapper: globals.css のダークカード(background:#131929)と強制縮小を打ち消す */
+.ctal-ta-ch3-page .mermaid-container .mermaid-wrapper {
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+/* SVG の縮小防止と中央寄せ */
+.ctal-ta-ch3-page .mermaid-container svg {
+    display: block;
+    margin: 0 auto;
+    flex-shrink: 0;
+    max-width: none !important;
+    height: auto !important;
+}
+
+/* ノード内テキストのフォントと行間、文字切れ防止 */
+.ctal-ta-ch3-page .mermaid-wrapper .node foreignObject {
+    overflow: visible !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .node .label,
+.ctal-ta-ch3-page .mermaid-wrapper .node .nodeLabel {
+    line-height: 1.4 !important;
+    overflow: visible !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .node p {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    color: inherit !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .node span {
+    line-height: 1.4 !important;
+}
+
+/* Mermaid エッジラベル背景・テキスト保護 */
 .ctal-ta-ch3-page .mermaid-wrapper .edgeLabels rect,
-.ctal-ta-ch3-page .mermaid-wrapper .edgeLabel rect { fill: #ffffff !important; stroke: none !important; }
+.ctal-ta-ch3-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
 .ctal-ta-ch3-page .mermaid-wrapper .edgeLabel,
 .ctal-ta-ch3-page .mermaid-wrapper .edgeLabel span,
 .ctal-ta-ch3-page .mermaid-wrapper .edgeLabel p,
 .ctal-ta-ch3-page .mermaid-wrapper .edgeLabel text,
 .ctal-ta-ch3-page .mermaid-wrapper .edgeLabels .label {
-    background-color: #ffffff !important; color: #1e293b !important;
-    fill: #1e293b !important; font-weight: 700 !important;
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    fill: #1e293b !important;
+    font-weight: 700 !important;
+}
+
+/* デフォルトノード（クラス定義なし）のライト配色保証 */
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) rect,
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) circle,
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) polygon,
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) path {
+    fill: #eff6ff;
+    stroke: #2563eb;
+    stroke-width: 1.5px;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) .nodeLabel,
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) span,
+.ctal-ta-ch3-page .mermaid-wrapper .node:not([class*="Fill"]) p {
+    color: #1e293b !important;
+    fill: #1e293b !important;
+}
+
+/* stateDiagram-v2 スタイル保証（ステートボックスを淡い青背景・青枠線・黒文字に） */
+.ctal-ta-ch3-page .mermaid-wrapper g.stateGroup rect.state,
+.ctal-ta-ch3-page .mermaid-wrapper .statediagram-state rect,
+.ctal-ta-ch3-page .mermaid-wrapper .state-title rect,
+.ctal-ta-ch3-page .mermaid-wrapper rect.basic.state {
+    fill: #eff6ff !important;
+    stroke: #2563eb !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper g.stateGroup text,
+.ctal-ta-ch3-page .mermaid-wrapper .statediagram-state text,
+.ctal-ta-ch3-page .mermaid-wrapper .state-title text,
+.ctal-ta-ch3-page .mermaid-wrapper text.state-title {
+    fill: #1e293b !important;
+    color: #1e293b !important;
+    font-weight: 600 !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .stateGroup .start-state,
+.ctal-ta-ch3-page .mermaid-wrapper .stateGroup .end-state-inner,
+.ctal-ta-ch3-page .mermaid-wrapper circle.start-state,
+.ctal-ta-ch3-page .mermaid-wrapper circle.end-state-inner {
+    fill: #64748b !important;
+    stroke: #334155 !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper circle.end-state-outer {
+    stroke: #334155 !important;
+    fill: #ffffff !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .transition,
+.ctal-ta-ch3-page .mermaid-wrapper path.transition {
+    stroke: #64748b !important;
+    stroke-width: 1.5px !important;
+    fill: none !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper marker[id*="transition"] path {
+    fill: #64748b !important;
+    stroke: #64748b !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .stateLabel,
+.ctal-ta-ch3-page .mermaid-wrapper .stateLabel text,
+.ctal-ta-ch3-page .mermaid-wrapper .stateGroup .label text {
+    fill: #1e293b !important;
+    color: #1e293b !important;
+}
+
+/* cluster / subgraph */
+.ctal-ta-ch3-page .mermaid-wrapper .cluster rect {
+    fill: #f8fafc !important;
+    stroke: #cbd5e1 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-ta-ch3-page .mermaid-wrapper .cluster text,
+.ctal-ta-ch3-page .mermaid-wrapper .cluster span {
+    fill: #475569 !important;
+    color: #475569 !important;
+    font-weight: 700 !important;
 }
 
 /* Checklist */

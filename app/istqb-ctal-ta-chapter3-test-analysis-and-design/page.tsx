@@ -13,16 +13,41 @@ export const metadata: Metadata = {
 const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
+    "fontSize": "16px",
     "background": "#ffffff",
     "primaryColor": "#eff6ff",
-    "primaryBorderColor": "#2563eb",
     "primaryTextColor": "#1e293b",
-    "lineColor": "#94a3b8",
+    "primaryBorderColor": "#2563eb",
+    "secondaryColor": "#f1f5f9",
+    "secondaryTextColor": "#1e293b",
+    "secondaryBorderColor": "#94a3b8",
+    "tertiaryColor": "#ffffff",
+    "tertiaryTextColor": "#1e293b",
+    "tertiaryBorderColor": "#cbd5e1",
+    "mainBkg": "#eff6ff",
+    "nodeBorder": "#2563eb",
+    "nodeTextColor": "#1e293b",
+    "lineColor": "#64748b",
+    "textColor": "#1e293b",
+    "titleColor": "#0f172a",
     "edgeLabelBackground": "#ffffff",
-    "fontFamily": "Noto Sans JP, sans-serif",
-    "fontSize": "14px"
+    "clusterBkg": "#f8fafc",
+    "clusterBorder": "#cbd5e1",
+    "labelBackground": "#ffffff",
+    "labelTextColor": "#1e293b",
+    "stateLabelColor": "#1e293b",
+    "stateBkg": "#eff6ff",
+    "stateBorder": "#2563eb"
   },
-  "flowchart": { "curve": "basis", "htmlLabels": true }
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true,
+    "curve": "basis",
+    "nodeSpacing": 60,
+    "rankSpacing": 70,
+    "subGraphTitleMargin": { "top": 12, "bottom": 18 }
+  },
+  "state": { "useMaxWidth": false }
 }}%%`;
 
 export const DIAGRAM_GUIDE_STEPS = `${MERMAID_CONFIG}
@@ -50,39 +75,35 @@ flowchart TD
     BB --> BB2["3.2.2 状態遷移テスト<br/>[K3]"]
     BB --> BB3["3.2.3 シナリオベーステスト<br/>[K3]"]
 
-    RB --> RB1["3.3.1 デシジョンテーブル<br/>[K3]"]
-    RB --> RB2["3.3.2 メタモルフィック<br/>[K3]"]
+    RB --> RB1["3.3.1 デシジョンテーブルテスト<br/>[K3]"]
+    RB --> RB2["3.3.2 メタモルフィックテスト<br/>[K3]"]
 
-    EB --> EB1["3.4.1 テストチャーター<br/>[K3]"]
+    EB --> EB1["3.4.1 テストチャーター<br/>(セッションベーステスト)[K3]"]
     EB --> EB2["3.4.2 チェックリスト<br/>[K3]"]
     EB --> EB3["3.4.3 クラウドテスト<br/>[K2]"]
 
-    AP --> AP1["3.5.1 リスク軽減選定<br/>[K4]"]
-    AP --> AP2["3.5.2 設計自動化<br/>[K2]"]
+    AP --> AP1["3.5.1 製品リスクを軽減する<br/>技法選定 [K4]"]
+    AP --> AP2["3.5.2 テスト設計自動化の<br/>利点とリスク [K2]"]
 
-    classDef rootFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a,stroke-width:2px
-    classDef catFill fill:#f8fafc,stroke:#64748b,color:#1e293b
-    classDef k2Fill fill:#f0fdf4,stroke:#16a34a,color:#14532d
-    classDef k3Fill fill:#fffbeb,stroke:#d97706,color:#78350f
-    classDef k4Fill fill:#fef2f2,stroke:#dc2626,color:#7f1d1d
+    classDef dataFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef behaviorFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef ruleFill fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef expFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
+    classDef applyFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
 
-    class ROOT rootFill
-    class DB,BB,RB,EB,AP catFill
-    class DB3,BB1,EB3,AP2 k2Fill
-    class DB1,DB2,BB2,BB3,RB1,RB2,EB1,EB2 k3Fill
-    class AP1 k4Fill`;
+    class DB,DB1,DB2,DB3 dataFill
+    class BB,BB1,BB2,BB3 behaviorFill
+    class RB,RB1,RB2 ruleFill
+    class EB,EB1,EB2,EB3 expFill
+    class AP,AP1,AP2 applyFill`;
 
 export const DIAGRAM_DOMAIN_POINTS = `${MERMAID_CONFIG}
 flowchart LR
     subgraph OUTSIDE["同値パーティションの外側"]
         OUT["OUT点<br/>境界から十分離れた外側の点"]
-        OFF["OFF点<br/>境界に最も近い外側の点(閉じた境界)"]
+        OFF["OFF点<br/>境界に最も近い外側の点"]
     end
-
-    subgraph BORDER["境界線 (Border)"]
-        B_LINE["境界値"]
-    end
-
+    BORDER{{"境界<br/>例: 合計金額 ≥ 10000円"}}
     subgraph INSIDE["同値パーティションの内側"]
         ON["ON点<br/>境界そのものの点(閉じた境界)"]
         IN["IN点<br/>境界から十分離れた内側の点"]
@@ -165,7 +186,7 @@ flowchart TD
     D --> E["⑤ チェックサム手続きで<br/>過不足(重複・漏れ)を検証"]
     E --> F["⑥ テストケースへ変換<br/>(–の値を具体的なデータに落とし込む)"]
 
-    classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef stepFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
     class A,B,C,D,E,F stepFill`;
 
 export const DIAGRAM_METAMORPHIC_CONCEPT = `${MERMAID_CONFIG}
@@ -178,7 +199,7 @@ flowchart LR
     COMPARE -->|"満たす"| PASS["合格"]
     COMPARE -->|"満たさない"| FAIL["不合格<br/>(どちらかのテストケースに欠陥がある可能性)"]
 
-    classDef srcFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef srcFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
     classDef passFill fill:#dcfce7,stroke:#16a34a,color:#14532d
     classDef failFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
     class SRC,FUP srcFill
@@ -192,7 +213,7 @@ flowchart LR
     C --> D["④ デブリーフィング<br/>(振り返り・次の計画)"]
     D -.->|"次のセッションへ反映"| A
 
-    classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef stepFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
     class A,B,C,D stepFill`;
 
 export const DIAGRAM_CHECKLIST_STEPS = `${MERMAID_CONFIG}
@@ -204,7 +225,7 @@ flowchart TD
     E --> F["⑥ 継続的なレビュー・改訂"]
     F -.->|"新しい知見・変化した優先度を反映"| C
 
-    classDef stepFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef stepFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
     class A,B,C,D,E,F stepFill`;
 
 export const DIAGRAM_TECHNIQUE_SELECTION = `${MERMAID_CONFIG}
@@ -216,12 +237,17 @@ flowchart TD
     B -->|"テストオラクルの取得が困難<br/>(AIベース・非決定的な処理)"| F["メタモルフィックテスト"]
     B -->|"仕様が曖昧・時間が限られる・<br/>網羅基準の定義が難しい"| G["経験ベーステスト<br/>(探索的テスト/チェックリスト)"]
 
-    classDef startFill fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
-    classDef decisionFill fill:#fef3c7,stroke:#d97706,color:#78350f
-    classDef techFill fill:#f8fafc,stroke:#64748b,color:#1e293b
-    class A startFill
-    class B decisionFill
-    class C,D,E,F,G techFill`;
+    classDef dataFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef behaviorFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef ruleFill fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef mtFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
+    classDef expFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+
+    class E dataFill
+    class C behaviorFill
+    class D ruleFill
+    class F mtFill
+    class G expFill`;
 
 export default function CtalTaChapter3Page() {
     return (
