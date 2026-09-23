@@ -13,15 +13,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `0819f1a` |
-| 最新コミット内容 | `feat(ctal-ta-ch4): implement Category 7 references, appendices, and navigation integration` |
+| 最新 HEAD | `2cdb203` |
+| 最新コミット内容 | `chore(skills): sync docs-sync, markdown-formatter, and migration skills` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
 ## 2026/09/23: ISTQB CTAL-TA v4.0 第4章（品質特性のテスト）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のダークテーマ（`--bg: #0f172a`、`--surface: #1e293b`、`--accent: #38bdf8`、`--accent-purple: #a855f7`、`--accent-green: #34d399`、`--text: #f8fafc`、`--text-dim: #94a3b8` 等）を忠実に復元。
+  - 原著HTML固有のライトテーマ（`--bg: #f5f7fb`、`--card: #ffffff`、`--ink: #1b2333`、`--ink2: #4a5670`、`--line: #dfe5f1`、`--accent: #3b5bdb`、`--accent-soft: #eef2ff`、`--green: #2f9e62`、`--amber: #d9822b`、`--red: #c92a2a` 等）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.cp-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
   - スティッキーナビ（`NavBar.tsx`、全72セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch4-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
@@ -44,9 +44,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/23: ISTQB CTAL-TA v4.0 第3章（テスト分析・設計）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #f8fafc`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--accent-soft: #eff6ff`、`--text: #1e293b`、`--text-dim: #64748b` 等）を忠実に復元。
-  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: #ffffff !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
-  - スティッキーナビ（`NavBar.tsx`、全10セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch3-page`）。
+  - 原著HTML固有のライトテーマ（`--bg: #f6f8fb`、`--surface: #ffffff`、`--surface-alt: #f1f5f9`、`--accent: #2563eb`、`--accent-strong: #1d4ed8`、`--accent-bg: #eff6ff`、`--text: #1e293b`、`--text-dim: #55627a` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: var(--surface) !important`（偶数行 `var(--surface-alt)`）、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全33セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch3-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
   - 全12図解（学習ステップ `DIAGRAM_GUIDE_STEPS`、第3章構造 `DIAGRAM_CHAPTER_STRUCTURE`、ドメインテスト境界点 `DIAGRAM_DOMAIN_POINTS`、ベースチョイス概念 `DIAGRAM_BASE_CHOICE`、CRUDマトリクスアプローチ `DIAGRAM_CRUD_APPROACH`、状態遷移注文 `DIAGRAM_STATE_ORDER`、シナリオテストログイン `DIAGRAM_SCENARIO_LOGIN`、デシジョンテーブル導出ステップ `DIAGRAM_DECISION_STEPS`、メタモルフィックテスト概念 `DIAGRAM_METAMORPHIC_CONCEPT`、テストチャーターサイクル `DIAGRAM_CHARTER_CYCLE`、チェックリスト作成ステップ `DIAGRAM_CHECKLIST_STEPS`、技法選定要因 `DIAGRAM_TECHNIQUE_SELECTION`）を共通 `<Mermaid>` コンポーネントへ移植。
   - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
@@ -55,10 +55,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 章末チェックリスト（`Checklist.tsx`、全15項目動的カウンター `0 / 15 完了`・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 公式一次情報および規格関連文書・学術資料・解説記事（ISTQBシラバス、ISO/IEC 25010、ISO/IEC/IEEE 29119-4、DMN、NIST資料等）を完全移植。
-- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全10セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全33セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch3-page` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter3-test-analysis-and-design`（CTAL-TA 3章 テスト分析・設計）を追加（全77件）。
-- `tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全12Mermaid図、全31テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 164 expect()）。
+- `tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、全セクション見出し、全31テーブル（件数の厳密一致）、全12Mermaid図（直前見出しとの出現順 1 対 1 照合）、チェックリスト、参考文献を検証するテストスイートを実装して全パス（12 pass）。
 - `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` は `archive/html-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 77 ページ体制に同期。
 
@@ -66,8 +66,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - **デザイン忠実再現 & Scoped CSS**:
   - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #f1f5f9`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--accent-soft: #eff6ff`、`--text: #1e293b`、`--text-dim: #5b6b81` 等）を忠実に復元。
-  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: #ffffff !important`、Tailwindリストマーカー `list-style-type: disc !important`、`.qa-card`、`.table-wrap`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
-  - スティッキーナビ（`NavBar.tsx`、全10セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch2-page`）。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: var(--surface) !important`（偶数行 `var(--surface-alt)`）、Tailwindリストマーカー `list-style-type: disc !important`、`.qa-card`、`.table-wrap`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全33セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch2-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
   - 全5図解（章の位置づけ `DIAGRAM_CHAPTER_POSITION`、RBTサイクル `DIAGRAM_RBT_CYCLE`、リスクレベル判定要因 `DIAGRAM_RISK_FACTORS`、回帰テスト技法の選択 `DIAGRAM_REGRESSION_SELECTION`、変更影響分析の8ステップ `DIAGRAM_IMPACT_ANALYSIS_STEPS`）を共通 `<Mermaid>` コンポーネントへ移植。
   - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
@@ -76,7 +76,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 実践演習（ECクーポン変更影響分析）および章末問題集5問（アコーディオン式トグル・詳細解説付き）を完全移植。
 - **参考文献 & 外部リンク**:
   - 公式一次情報および規格関連文書12件（ISTQBシラバス、ISO/IEC/IEEE 29119-2、Rex Black書籍等）を完全移植。
-- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全10セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全33セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch2-page` スコープ、globals.css干渉リセット）、NavBarを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter2-risk-based-testing`（CTAL-TA 2章 リスクベースドテスト）を追加（全76件）。
 - `tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全5Mermaid図、全14テーブル、全コールアウト、実践演習、全問題集5問、全参考文献12件の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 215 expect()）。
