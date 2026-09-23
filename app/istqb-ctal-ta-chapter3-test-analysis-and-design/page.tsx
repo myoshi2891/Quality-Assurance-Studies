@@ -231,16 +231,32 @@ export default function CtalTaChapter3Page() {
                 <main className="main" id="main-content">
                     {/* Hero Header */}
                     <header className="hero">
-                        <span className="eyebrow">ISTQB Advanced Level Test Analyst v4.0</span>
+                        <span className="eyebrow">CTAL-TA v4.0 · Chapter 3</span>
                         <h1>CTAL-TA v4.0 学習ガイド — 第3章「テスト分析・設計(Test Analysis and Test Design)」</h1>
                         <p className="subtitle">
-                            テストアナリストの中核スキルである4分類のテスト技法（データ／ビヘイビア／ルール／経験ベース）を完全網羅。境界値・ドメイン・組み合わせ・CRUD・状態遷移・シナリオ・デシジョンテーブル・メタモルフィック・チャーター・チェックリスト・クラウド・自動化まで、実践例と図解で徹底解説します。
+                            ISTQB® Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0 シラバス第3章の完全解説 対象読者: CTFL(Foundation Level)取得済みで、Advanced Level Test Analystを目指す初学者〜中級者のQAエンジニア
                         </p>
                         <div className="pill-row">
-                            <span className="pill"><span className="pill-label">所要時間:</span><span className="pill-value">615分 (約10.25時間)</span></span>
-                            <span className="pill"><span className="pill-label">配分:</span><span className="pill-value">全体の約50.6%</span></span>
-                            <span className="pill"><span className="pill-label">対象Kレベル:</span><span className="pill-value">K1 / K2 / K3 / K4</span></span>
-                            <span className="pill"><span className="pill-label">シラバス:</span><span className="pill-value">v4.0 (2024年リリース)</span></span>
+                            <div className="pill">
+                                <span className="pill-value">615分</span>
+                                <span className="pill-label">学習時間(全体の約50.6%)</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">45問 / 78点</span>
+                                <span className="pill-label">試験問題数・配点</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">51点</span>
+                                <span className="pill-label">合格ライン(約65%)</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">12件</span>
+                                <span className="pill-label">Mermaid図解</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">12件</span>
+                                <span className="pill-label">参考文献URL</span>
+                            </div>
                         </div>
                     </header>
 
@@ -700,14 +716,16 @@ export default function CtalTaChapter3Page() {
 
                     <div className="compare-grid">
                         <div className="compare-item compare-good">
-                            <h4><span className="compare-icon">✅</span>良い例</h4>
+                            <span className="compare-icon">✅</span>
                             <div className="compare-text">
+                                <strong>良い例</strong>:
                                 「<code>≥</code>と<code>&gt;</code>を混同していないか」を検証するため、ON点とOFF点を必ずペアで用意する
                             </div>
                         </div>
                         <div className="compare-item compare-bad">
-                            <h4><span className="compare-icon">❌</span>悪い例</h4>
+                            <span className="compare-icon">❌</span>
                             <div className="compare-text">
+                                <strong>悪い例</strong>:
                                 IN点だけをテストし、境界そのもの(ON点)をテストしない → 演算子の実装ミスを見逃す典型的な失敗パターン
                             </div>
                         </div>
@@ -1116,18 +1134,21 @@ export default function CtalTaChapter3Page() {
 
                     <div className="compare-grid">
                         <div className="compare-item compare-good">
-                            <h4><span className="compare-icon">✅</span>良い例</h4>
+                            <span className="compare-icon">✅</span>
                             <div className="compare-text">
+                                <strong>良い例</strong>:
                                 有効な遷移だけでなく、「審査中の注文を再度提出しようとする」などの無効遷移テストを意図的に含める
                             </div>
                         </div>
                         <div className="compare-item compare-bad">
-                            <h4><span className="compare-icon">❌</span>悪い例</h4>
+                            <span className="compare-icon">❌</span>
                             <div className="compare-text">
+                                <strong>悪い例</strong>:
                                 ハッピーパス(正常な完了フロー)の遷移のみをテストし、異常なイベントや順序不正時のエラーハンドリングを放置する
                             </div>
                         </div>
                     </div>
+
 
                     <hr />
 
