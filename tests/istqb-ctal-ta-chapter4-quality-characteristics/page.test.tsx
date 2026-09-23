@@ -395,4 +395,40 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.textContent).toContain('フレキシビリティテスト（4.3）');
         expect(container.textContent).toContain('互換性テスト（4.4）');
     });
+
+    it('renders Section 9 (References) and Appendices A & B', () => {
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Section 9 headings
+        const sec9 = container.querySelector('[id="9-参考文献根拠ソースの-url"]');
+        expect(sec9).toBeTruthy();
+        expect(sec9?.textContent).toContain('9. 参考文献（根拠ソースの URL）');
+
+        expect(container.querySelector('[id="91-istqb-公式一次情報"]')).toBeTruthy();
+        expect(container.querySelector('[id="92-iso-規格"]')).toBeTruthy();
+        expect(container.querySelector('[id="93-ユーザビリティアクセシビリティ"]')).toBeTruthy();
+        expect(container.querySelector('[id="94-環境ci用語補足"]')).toBeTruthy();
+        expect(container.querySelector('[id="95-二次情報学習の補助"]')).toBeTruthy();
+
+        // Appendix headings
+        const appA = container.querySelector('[id="付録-aこのガイドの記述と根拠の対応要点"]');
+        expect(appA).toBeTruthy();
+        expect(appA?.textContent).toContain('付録 A：このガイドの記述と根拠の対応（要点）');
+
+        const appB = container.querySelector('[id="付録-b用語の対応表日本語英語"]');
+        expect(appB).toBeTruthy();
+        expect(appB?.textContent).toContain('付録 B：用語の対応表（日本語・英語）');
+
+        // Reference tables content
+        expect(container.textContent).toContain('ISTQB CTAL-TA v4.0 認定ページ');
+        expect(container.textContent).toContain('CTAL-TA v4.0 シラバス（PDF）');
+        expect(container.textContent).toContain('ISO/IEC 25010:2023 製品品質モデル');
+        expect(container.textContent).toContain('Nielsen Norman Group：10 Usability Heuristics');
+
+        // Appendix B English translations
+        expect(container.textContent).toContain('Functional suitability');
+        expect(container.textContent).toContain('Interaction capability');
+        expect(container.textContent).toContain('Interoperability');
+        expect(container.textContent).toContain('Service virtualization');
+    });
 });

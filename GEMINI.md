@@ -111,6 +111,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-ta-chapter1-test-process/page.tsx` (CTAL-TA 第1章 テストプロセス、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/page.tsx` (CTAL-TA 第2章 リスクベースドテスト、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/page.tsx` (CTAL-TA 第3章 テスト分析とテスト設計、`NavBar.tsx` 付き)
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/page.tsx` (CTAL-TA 第4章 品質特性のテスト、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tta-complete-guide/page.tsx` (テクニカルテストアナリスト(CTAL-TTA)完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-att-complete-guide/page.tsx` (アジャイルテスト担当者 CTAL-ATT 完全ガイド、`NavBar.tsx` 付き)
@@ -313,6 +314,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-ch4-quality-characteristics-guide.html` | `/istqb-ctal-ta-chapter4-quality-characteristics` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 

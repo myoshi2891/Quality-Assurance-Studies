@@ -145,6 +145,10 @@ Next.js App Router 構成:
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/page.tsx` — CTAL-TA 第3章ガイドページ
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/NavBar.tsx` — CTAL-TA 第3章ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/Checklist.tsx` — CTAL-TA 第3章チェックリスト（`'use client'`）
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/istqb-ctal-ta-chapter4-quality-characteristics.css` — CTAL-TA 第4章ガイド固有スタイル
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/page.tsx` — CTAL-TA 第4章ガイドページ
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/NavBar.tsx` — CTAL-TA 第4章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/ChecklistCard.tsx` — CTAL-TA 第4章チェックリストカード（`'use client'`）
 - `app/istqb-ctal-tm-complete-guide/istqb-ctal-tm-complete-guide.css` — テスト管理(CTAL-TM)ガイド固有スタイル
 - `app/istqb-ctal-tm-complete-guide/page.tsx` — テスト管理(CTAL-TM)ガイドページ
 - `app/istqb-ctal-tm-complete-guide/NavBar.tsx` — CTAL-TM ページ固有スティッキーナビ
@@ -644,6 +648,7 @@ bun test        # ユニットテスト成功
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-ch4-quality-characteristics-guide.html` | `/istqb-ctal-ta-chapter4-quality-characteristics` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 

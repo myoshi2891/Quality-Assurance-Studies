@@ -4031,6 +4031,415 @@ export default function CtalTaChapter4Page() {
 
                 <p><strong>互換性テスト（4.4）</strong></p>
                 <ChecklistCard items={COMPATIBILITY_CHECKLIST_ITEMS} />
+
+                {/* ===== セクション 9: 参考文献 ===== */}
+                <h2 id="9-参考文献根拠ソースの-url">9. 参考文献（根拠ソースの URL）</h2>
+                <p>
+                    「確認状況」は、このガイドの作成時にどこまで実際に内容を確認できたかを示します。
+                </p>
+                <h3 id="91-istqb-公式一次情報">9.1 ISTQB 公式（一次情報）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>確認状況</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    ISTQB CTAL-TA v4.0 認定ページ（試験構成、失効日、ダウンロード）
+                                </td>
+                                <td>
+                                    <a href="https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/">https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/</a>
+                                </td>
+                                <td>取得して確認</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>CTAL-TA v4.0 シラバス（PDF）</td>
+                                <td>
+                                    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745">https://istqb.org/?sdm_process_download=1&amp;download_id=5745</a>
+                                </td>
+                                <td>
+                                    1〜43 ページと第4章冒頭（キーワード・LO）まで確認。<strong>44〜47 ページの本文は未確認</strong>
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>シラバスの別配布元（ASTQB）</td>
+                                <td>
+                                    <a href="https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf">https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf</a>
+                                </td>
+                                <td>検索結果で存在を確認（内容は同一の版と思われるが未取得）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>CTAL-TA v4.0 公式サンプル試験 解答 v4.1（Q34〜Q37 の解説）</td>
+                                <td>
+                                    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759">https://istqb.org/?sdm_process_download=1&amp;download_id=5759</a>
+                                </td>
+                                <td>取得して確認</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>CTAL-TA v4.0 公式サンプル試験 問題 v4.1</td>
+                                <td>
+                                    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5749">https://istqb.org/?sdm_process_download=1&amp;download_id=5749</a>
+                                </td>
+                                <td>未取得（解答側で内容を確認）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>LO 新旧比較表（v3.1 と v4.0 の対応）</td>
+                                <td>
+                                    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=6363">https://istqb.org/?sdm_process_download=1&amp;download_id=6363</a>
+                                </td>
+                                <td>取得して確認</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>CTAL-TA v4.0 リリースノート</td>
+                                <td>
+                                    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5762">https://istqb.org/?sdm_process_download=1&amp;download_id=5762</a>
+                                </td>
+                                <td>取得して確認</td>
+                            </tr>
+                            <tr className="even">
+                                <td>8</td>
+                                <td>ISTQB Glossary（用語集）</td>
+                                <td>
+                                    <a href="https://glossary.istqb.org/">https://glossary.istqb.org/</a>
+                                </td>
+                                <td>未取得（キーワードの正式定義の確認先）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>9</td>
+                                <td>v4.0 リリースのプレスリリース</td>
+                                <td>
+                                    <a href="https://istqb.org/istqb-certified-tester-advanced-level-test-analyst-ctal-ta-v4-0-press-release/">https://istqb.org/istqb-certified-tester-advanced-level-test-analyst-ctal-ta-v4-0-press-release/</a>
+                                </td>
+                                <td>検索結果で確認</td>
+                            </tr>
+                            <tr className="even">
+                                <td>10</td>
+                                <td>（旧版）CTAL-TA シラバス v3.1.0</td>
+                                <td>
+                                    <a href="https://www.gtb.de/wp-content/uploads/2023/10/ISTQB_CTAL-TA_Syllabus_v3.1.0_EN.pdf">https://www.gtb.de/wp-content/uploads/2023/10/ISTQB_CTAL-TA_Syllabus_v3.1.0_EN.pdf</a>
+                                </td>
+                                <td>検索結果（目次）で確認。旧版との比較用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="92-iso-規格">9.2 ISO 規格</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>確認状況</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>11</td>
+                                <td>ISO/IEC 25010:2023 製品品質モデル（規格ページ）</td>
+                                <td>
+                                    <a href="https://www.iso.org/standard/78176.html">https://www.iso.org/standard/78176.html</a>
+                                </td>
+                                <td>検索結果で確認</td>
+                            </tr>
+                            <tr className="even">
+                                <td>12</td>
+                                <td>
+                                    ISO/IEC 25010:2023 プレビュー PDF（定義 3.1〜3.4.4、前文の変更点）
+                                </td>
+                                <td>
+                                    <a href="https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf">https://cdn.standards.iteh.ai/samples/78176/13ff8ea97048443f99318920757df124/ISO-IEC-25010-2023.pdf</a>
+                                </td>
+                                <td>取得して確認（柔軟性の定義以降は未確認）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>13</td>
+                                <td>arc42 Quality Model：ISO/IEC 25010 の特性・サブ特性一覧</td>
+                                <td>
+                                    <a href="https://quality.arc42.org/standards/iso-25010">https://quality.arc42.org/standards/iso-25010</a>
+                                </td>
+                                <td>取得して確認（二次情報）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>14</td>
+                                <td>arc42：ISO 25010 2023 版の変更点</td>
+                                <td>
+                                    <a href="https://quality.arc42.org/articles/iso-25010-update-2023">https://quality.arc42.org/articles/iso-25010-update-2023</a>
+                                </td>
+                                <td>検索結果で確認（二次情報）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="93-ユーザビリティアクセシビリティ">9.3 ユーザビリティ・アクセシビリティ</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>確認状況</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>15</td>
+                                <td>Nielsen Norman Group：10 Usability Heuristics</td>
+                                <td>
+                                    <a href="https://nngroup.com/articles/ten-usability-heuristics/">https://nngroup.com/articles/ten-usability-heuristics/</a>
+                                </td>
+                                <td>検索結果で URL と内容（ミラーを含む）を確認</td>
+                            </tr>
+                            <tr className="even">
+                                <td>16</td>
+                                <td>W3C：WCAG 2.2</td>
+                                <td>
+                                    <a href="https://www.w3.org/TR/WCAG22/">https://www.w3.org/TR/WCAG22/</a>
+                                </td>
+                                <td>未取得（一般に知られる標準の URL）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="94-環境ci用語補足">9.4 環境・CI・用語（補足）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>確認状況</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>17</td>
+                                <td>GitHub Docs：Using a matrix for your jobs</td>
+                                <td>
+                                    <a href="https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs">https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs</a>
+                                </td>
+                                <td>検索結果で確認（matrix、include／exclude）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>18</td>
+                                <td>QA 用語集（適応性の旧定義 ISO 9126 の引用）</td>
+                                <td>
+                                    <a href="https://aspiritech.org/news/quality-assurance-definitions-and-software-testing-industry-terms/">https://aspiritech.org/news/quality-assurance-definitions-and-software-testing-industry-terms/</a>
+                                </td>
+                                <td>検索結果で確認（二次情報）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="95-二次情報学習の補助">9.5 二次情報（学習の補助）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>#</th>
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>確認状況</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>19</td>
+                                <td>ISTQB.com（非公式）CTAL-TA v4.0 ガイド</td>
+                                <td>
+                                    <a href="https://www.istqb.com/ctal-ta-v4-0/">https://www.istqb.com/ctal-ta-v4-0/</a>
+                                </td>
+                                <td>
+                                    取得して確認（民間サイト。ISTQB 公式ではない。第4章の記述は要約であり、シラバスと照合が必要）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>20</td>
+                                <td>Trendig：CTAL-TA v4.0 の概要</td>
+                                <td>
+                                    <a href="https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/">https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/</a>
+                                </td>
+                                <td>検索結果で確認（民間）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>21</td>
+                                <td>ANZTB：CTAL-TA ページ</td>
+                                <td>
+                                    <a href="https://www.anztb.org/certification/ctal-ta/">https://www.anztb.org/certification/ctal-ta/</a>
+                                </td>
+                                <td>検索結果で確認（旧版の学習目標の記述が混在しうる）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* ===== 付録 A ===== */}
+                <h2 id="付録-aこのガイドの記述と根拠の対応要点">
+                    付録 A：このガイドの記述と根拠の対応（要点）
+                </h2>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>記述</th>
+                                <th>主な根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>第4章は 60 分・4 節・LO 4 本（すべて K2）・キーワード 13 語</td>
+                                <td>シラバス（目次・第4章冒頭）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>各 LO は 15 分、v3.1 から「簡素化・言い換え」</td>
+                                <td>LO 新旧比較表</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>サンプル試験の第4章は Q34〜Q37 の 4 問（各 1 点）</td>
+                                <td>公式サンプル試験 解答 v4.1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    機能適合性の3サブ特性の定義、互換性・相互運用性・インタラクション能力の定義
+                                </td>
+                                <td>ISO/IEC 25010:2023（プレビュー PDF）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    Usability → Interaction capability、Portability → Flexibility
+                                </td>
+                                <td>ISO 25010:2023 前文、LO 新旧比較表</td>
+                            </tr>
+                            <tr className="even">
+                                <td>TA の貢献（ユーザビリティ、適応性、相互運用性）の具体点</td>
+                                <td>サンプル試験 Q35〜Q37 の解説、シラバス第0〜3章の関連記述</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    「典型的な不具合」「手順の細目」「実務のベストプラクティス」
+                                </td>
+                                <td>
+                                    筆者の実務補足（<span className="chip chip-t" title="実務補足">💡</span>）。公式本文との照合が必要
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* ===== 付録 B ===== */}
+                <h2 id="付録-b用語の対応表日本語英語">付録 B：用語の対応表（日本語・英語）</h2>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>日本語（仮訳）</th>
+                                <th>English</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>機能適合性</td>
+                                <td>Functional suitability</td>
+                            </tr>
+                            <tr className="even">
+                                <td>機能完全性</td>
+                                <td>Functional completeness</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>機能正確性</td>
+                                <td>Functional correctness</td>
+                            </tr>
+                            <tr className="even">
+                                <td>機能適切性</td>
+                                <td>Functional appropriateness</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>機能テスト</td>
+                                <td>Functional testing</td>
+                            </tr>
+                            <tr className="even">
+                                <td>インタラクション能力</td>
+                                <td>Interaction capability</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>ユーザビリティ（使用性）</td>
+                                <td>Usability</td>
+                            </tr>
+                            <tr className="even">
+                                <td>ユーザーエクスペリエンス</td>
+                                <td>User experience</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>柔軟性</td>
+                                <td>Flexibility</td>
+                            </tr>
+                            <tr className="even">
+                                <td>適応性</td>
+                                <td>Adaptability</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>インストール性</td>
+                                <td>Installability</td>
+                            </tr>
+                            <tr className="even">
+                                <td>拡張性</td>
+                                <td>Scalability</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>置換性</td>
+                                <td>Replaceability</td>
+                            </tr>
+                            <tr className="even">
+                                <td>互換性</td>
+                                <td>Compatibility</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>共存性</td>
+                                <td>Co-existence</td>
+                            </tr>
+                            <tr className="even">
+                                <td>相互運用性</td>
+                                <td>Interoperability</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テストダブル</td>
+                                <td>Test double</td>
+                            </tr>
+                            <tr className="even">
+                                <td>サービス仮想化</td>
+                                <td>Service virtualization</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>ペルソナ</td>
+                                <td>Persona</td>
+                            </tr>
+                            <tr className="even">
+                                <td>オペレーショナルプロファイル（運用プロファイル）</td>
+                                <td>Operational profile</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 </main>
             </div>
         </div>

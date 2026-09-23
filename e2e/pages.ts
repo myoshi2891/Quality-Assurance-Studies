@@ -39,6 +39,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-ta-chapter1-test-process', h1: /テストプロセスにおけるテストアナリストのタスク/ },
   { path: '/istqb-ctal-ta-chapter2-risk-based-testing', h1: /第2章.*リスクベースドテスト/ },
   { path: '/istqb-ctal-ta-chapter3-test-analysis-and-design', h1: /第3章.*テスト分析・設計/ },
+  { path: '/istqb-ctal-ta-chapter4-quality-characteristics', h1: /第4章.*品質特性のテスト/ },
   { path: '/istqb-ctal-tae-complete-guide', h1: /テスト自動化.*完全ガイド/s },
   { path: '/istqb-ctal-tm-complete-guide', h1: /CTAL-TM v3\.0/ },
   { path: '/istqb-ctal-tta-complete-guide', h1: /Technical Test Analyst/ },
@@ -92,6 +93,6 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 77;
+export const EXPECTED_PAGE_COUNT = 78;
 
 
