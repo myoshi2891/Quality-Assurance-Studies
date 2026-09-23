@@ -1,0 +1,2709 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>CTAL-TM v3.0 第3章「チームの管理」｜初学者向け解説ガイド</title>
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>"
+        />
+        <style>
+            :root {
+                --bg: #07111e;
+                --bg-elevated: #0c1b2e;
+                --bg-card: #0e2036;
+                --border: #1c3350;
+                --border-soft: #17293f;
+                --text: #e6edf6;
+                --text-dim: #9fb1c9;
+                --text-faint: #6f829c;
+                --accent: #7c9eff;
+                --accent-soft: #2a3f66;
+                --accent-glow: rgba(124, 158, 255, 0.15);
+                --green: #34d399;
+                --yellow: #fbbf24;
+                --red: #f87171;
+                --sidebar-width: 300px;
+                --radius: 10px;
+                --font-jp:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+                    'Noto Sans JP', 'Yu Gothic UI', Meiryo, sans-serif;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 24px;
+            }
+
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font-jp);
+                line-height: 1.85;
+                font-size: 16px;
+                overflow-x: hidden;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-width);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--bg-elevated);
+                border-right: 1px solid var(--border-soft);
+                padding: 28px 0 40px;
+                z-index: 40;
+            }
+
+            .sidebar-brand {
+                padding: 0 24px 20px;
+                border-bottom: 1px solid var(--border-soft);
+                margin-bottom: 12px;
+            }
+
+            .brand-mark {
+                display: block;
+                font-size: 13px;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                color: var(--accent);
+            }
+
+            .brand-sub {
+                display: block;
+                margin-top: 4px;
+                font-size: 13px;
+                color: var(--text-dim);
+            }
+
+            .nav-list,
+            .nav-sublist {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-item {
+                margin: 2px 0;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 9px 24px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 14.5px;
+                font-weight: 600;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+
+            .nav-link:hover {
+                background: var(--accent-glow);
+                color: var(--text);
+            }
+
+            .nav-link.active {
+                color: var(--accent);
+                border-left-color: var(--accent);
+                background: var(--accent-glow);
+            }
+
+            .nav-sublist {
+                margin: 2px 0 6px;
+            }
+
+            .nav-sublink {
+                display: block;
+                padding: 6px 24px 6px 40px;
+                color: var(--text-faint);
+                text-decoration: none;
+                font-size: 13px;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+
+            .nav-sublink:hover {
+                background: var(--accent-glow);
+                color: var(--text-dim);
+            }
+
+            .nav-sublink.active {
+                color: var(--accent);
+                border-left-color: var(--accent);
+                background: var(--accent-glow);
+            }
+
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                z-index: 60;
+                width: 44px;
+                height: 44px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--bg-card);
+                color: var(--text);
+                font-size: 20px;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.55);
+                z-index: 39;
+            }
+
+            /* ---------- Main ---------- */
+            .main {
+                margin-left: var(--sidebar-width);
+                padding: 56px 64px 120px;
+            }
+
+            .hero {
+                border-bottom: 1px solid var(--border-soft);
+                padding-bottom: 32px;
+                margin-bottom: 40px;
+            }
+
+            .hero-eyebrow {
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.14em;
+                color: var(--accent);
+                background: var(--accent-glow);
+                border: 1px solid var(--accent-soft);
+                border-radius: 999px;
+                padding: 5px 14px;
+                margin-bottom: 18px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+                line-height: 1.4;
+                margin: 0 0 16px;
+                font-weight: 800;
+                letter-spacing: -0.01em;
+            }
+
+            .hero p {
+                font-size: 15.5px;
+                color: var(--text-dim);
+                max-width: 860px;
+                margin: 0;
+            }
+
+            .main h2 {
+                font-size: 25px;
+                font-weight: 800;
+                margin: 64px 0 20px;
+                padding-top: 8px;
+                border-top: 1px solid var(--border-soft);
+                scroll-margin-top: 24px;
+            }
+
+            .main h2:first-of-type {
+                border-top: none;
+                margin-top: 0;
+            }
+
+            .main h3 {
+                font-size: 19px;
+                font-weight: 700;
+                margin: 40px 0 14px;
+                color: var(--text);
+                scroll-margin-top: 24px;
+            }
+
+            .main h4 {
+                font-size: 16px;
+                font-weight: 700;
+                margin: 28px 0 10px;
+                color: var(--accent);
+                scroll-margin-top: 24px;
+            }
+
+            .main p {
+                margin: 0 0 16px;
+                color: var(--text);
+            }
+
+            .main ul,
+            .main ol {
+                margin: 0 0 16px;
+                padding-left: 26px;
+            }
+
+            .main li {
+                margin: 6px 0;
+                color: var(--text);
+            }
+
+            .main a {
+                color: var(--accent);
+                text-decoration: underline;
+                text-decoration-color: var(--accent-soft);
+            }
+            .main a:hover {
+                text-decoration-color: var(--accent);
+            }
+
+            .main strong {
+                color: #ffffff;
+                font-weight: 700;
+            }
+
+            .main hr {
+                border: none;
+                border-top: 1px solid var(--border-soft);
+                margin: 48px 0;
+            }
+
+            .main blockquote {
+                margin: 0 0 20px;
+                padding: 14px 20px;
+                border-left: 3px solid var(--border);
+                background: var(--bg-elevated);
+                border-radius: 0 8px 8px 0;
+                color: var(--text-dim);
+            }
+
+            .main blockquote p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* ---------- Tables ---------- */
+            .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 24px;
+                border: 1px solid var(--border-soft);
+                border-radius: var(--radius);
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 560px;
+                font-size: 14.5px;
+            }
+
+            thead tr {
+                background: var(--bg-elevated);
+            }
+
+            th {
+                text-align: left;
+                padding: 12px 16px;
+                font-weight: 700;
+                color: var(--accent);
+                border-bottom: 1px solid var(--border);
+                white-space: nowrap;
+            }
+
+            td {
+                padding: 11px 16px;
+                border-bottom: 1px solid var(--border-soft);
+                color: var(--text);
+                vertical-align: top;
+            }
+
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: rgba(124, 158, 255, 0.05);
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout-practice,
+            .callout-warning {
+                border-radius: var(--radius);
+                padding: 18px 22px 20px;
+                margin: 0 0 24px;
+                border: 1px solid var(--border);
+            }
+
+            .callout-practice {
+                background: linear-gradient(
+                    180deg,
+                    rgba(52, 211, 153, 0.08),
+                    rgba(52, 211, 153, 0.02)
+                );
+                border-color: rgba(52, 211, 153, 0.35);
+            }
+
+            .callout-warning {
+                background: linear-gradient(
+                    180deg,
+                    rgba(251, 191, 36, 0.1),
+                    rgba(251, 191, 36, 0.02)
+                );
+                border-color: rgba(251, 191, 36, 0.4);
+            }
+
+            .practice-label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 800;
+                font-size: 14.5px;
+                margin-bottom: 10px;
+            }
+
+            .callout-practice .practice-label {
+                color: var(--green);
+            }
+            .callout-warning .practice-label {
+                color: var(--yellow);
+            }
+
+            .practice-icon {
+                font-size: 16px;
+            }
+
+            .practice-body p,
+            .practice-body li {
+                color: var(--text-dim);
+            }
+            .practice-body > p:last-child,
+            .practice-body > ul:last-child {
+                margin-bottom: 0;
+            }
+            .practice-body ul {
+                padding-left: 22px;
+            }
+
+            /* ---------- Checklist ---------- */
+            .checklist-card {
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 20px 22px 18px;
+                background: var(--bg-card);
+                margin: 0 0 24px;
+            }
+
+            .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+
+            .cp-label {
+                font-size: 13px;
+                color: var(--text-dim);
+                white-space: nowrap;
+            }
+
+            .cp-bar {
+                flex: 1;
+                height: 8px;
+                background: var(--border-soft);
+                border-radius: 999px;
+                overflow: hidden;
+            }
+
+            .cp-bar-fill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, var(--accent), var(--green));
+                transition: width 0.25s ease;
+            }
+
+            .cp-count {
+                font-size: 13px;
+                color: var(--text-dim);
+                white-space: nowrap;
+                min-width: 74px;
+                text-align: right;
+            }
+
+            .checklist-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .checklist-card li {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 7px 0;
+                border-bottom: 1px solid var(--border-soft);
+            }
+
+            .checklist-card li:last-child {
+                border-bottom: none;
+            }
+
+            .checklist-card input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                flex: none;
+                width: 19px;
+                height: 19px;
+                margin-top: 2px;
+                border: 1.5px solid var(--border);
+                border-radius: 5px;
+                background: var(--bg-elevated);
+                position: relative;
+                cursor: pointer;
+            }
+
+            .checklist-card input[type='checkbox']:checked {
+                background: var(--green);
+                border-color: var(--green);
+            }
+
+            .checklist-card input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 6px;
+                top: 2px;
+                width: 5px;
+                height: 10px;
+                border: solid #06251a;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+
+            .checklist-card li:has(input:checked) span {
+                text-decoration: line-through;
+                color: var(--text-faint);
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-container {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 0 0 28px;
+                padding: 20px;
+                background: var(--bg-elevated);
+                border: 1px solid var(--border-soft);
+                border-radius: var(--radius);
+            }
+
+            .mermaid-container svg {
+                flex-shrink: 0;
+            }
+
+            .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+
+            .mermaid-error {
+                color: var(--red);
+                font-size: 13px;
+                font-family: monospace;
+                padding: 12px;
+                white-space: pre-wrap;
+            }
+
+            /* ---------- Responsive ---------- */
+            @media (max-width: 980px) {
+                .sidebar-nav {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+                }
+
+                .sidebar-nav.open {
+                    transform: translateX(0);
+                }
+
+                .sidebar-toggle {
+                    display: flex;
+                }
+
+                .sidebar-overlay.open {
+                    display: block;
+                }
+
+                .main {
+                    margin-left: 0;
+                    padding: 88px 20px 80px;
+                }
+
+                .hero h1 {
+                    font-size: 26px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="メニューを開く">☰</button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <nav class="sidebar-nav" id="sidebarNav">
+            <div class="sidebar-brand">
+                <span class="brand-mark">CTAL-TM</span>
+                <span class="brand-sub">第3章 チームの管理</span>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a
+                        href="#0-この文書の読み方と根拠の確度"
+                        class="nav-link"
+                        data-target="0-この文書の読み方と根拠の確度"
+                        >0. この文書の読み方と「根拠の確度」</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a href="#1-第3章の全体像" class="nav-link" data-target="1-第3章の全体像"
+                        >1. 第3章の全体像</a
+                    >
+                    <ul class="nav-sublist">
+                        <li>
+                            <a
+                                href="#11-章の基本情報"
+                                class="nav-sublink"
+                                data-target="11-章の基本情報"
+                                >1.1 章の基本情報（🟢）</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#12-全体マップ" class="nav-sublink" data-target="12-全体マップ"
+                                >1.2 全体マップ</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#13-学習の進め方ステップバイステップ"
+                                class="nav-sublink"
+                                data-target="13-学習の進め方ステップバイステップ"
+                                >1.3 学習の進め方（ステップバイステップ）</a
+                            >
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="#2-31-テストチームthe-test-team"
+                        class="nav-link"
+                        data-target="2-31-テストチームthe-test-team"
+                        >2. 3.1 テストチーム（The Test Team）</a
+                    >
+                    <ul class="nav-sublist">
+                        <li>
+                            <a
+                                href="#20-前提となる用語"
+                                class="nav-sublink"
+                                data-target="20-前提となる用語"
+                                >2.0 前提となる用語（🟢）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#21-311-4つの能力領域における典型的なスキル"
+                                class="nav-sublink"
+                                data-target="21-311-4つの能力領域における典型的なスキル"
+                                >2.1 3.1.1 4つの能力領域における典型的なスキル（🟡）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#22-312-必要なテストチームメンバーのスキルの分析"
+                                class="nav-sublink"
+                                data-target="22-312-必要なテストチームメンバーのスキルの分析"
+                                >2.2 3.1.2 必要なテストチームメンバーのスキルの分析（🟡＋🟢）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#23-313-テストチームメンバーのスキルの評価"
+                                class="nav-sublink"
+                                data-target="23-313-テストチームメンバーのスキルの評価"
+                                >2.3 3.1.3 テストチームメンバーのスキルの評価（🟡）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#24-314-テストチームメンバーのスキルの育成"
+                                class="nav-sublink"
+                                data-target="24-314-テストチームメンバーのスキルの育成"
+                                >2.4 3.1.4 テストチームメンバーのスキルの育成（🟡）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#25-315-テストチームの管理に必要なマネジメントスキル"
+                                class="nav-sublink"
+                                data-target="25-315-テストチームの管理に必要なマネジメントスキル"
+                                >2.5 3.1.5 テストチームの管理に必要なマネジメントスキル（🟡）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#26-316-特定の状況におけるテストチームの動機付け要因と意欲低下要因"
+                                class="nav-sublink"
+                                data-target="26-316-特定の状況におけるテストチームの動機付け要因と意欲低下要因"
+                                >2.6 3.1.6
+                                特定の状況におけるテストチームの動機付け要因と意欲低下要因（🟡）</a
+                            >
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="#3-32-ステークホルダーとの関係stakeholder-relationships"
+                        class="nav-link"
+                        data-target="3-32-ステークホルダーとの関係stakeholder-relationships"
+                        >3. 3.2 ステークホルダーとの関係（Stakeholder Relationships）</a
+                    >
+                    <ul class="nav-sublist">
+                        <li>
+                            <a
+                                href="#31-321-品質コストcost-of-quality用語は-istqb-用語集に準拠"
+                                class="nav-sublink"
+                                data-target="31-321-品質コストcost-of-quality用語は-istqb-用語集に準拠"
+                                >3.1 3.2.1 品質コスト（Cost of Quality）（🟡、用語は ISTQB
+                                用語集に準拠）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#32-322-テストの費用対効果の関係cost-benefit-relationship-of-testing"
+                                class="nav-sublink"
+                                data-target="32-322-テストの費用対効果の関係cost-benefit-relationship-of-testing"
+                                >3.2 3.2.2 テストの費用対効果の関係（Cost-benefit Relationship of
+                                Testing）（🟡）</a
+                            >
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="#4-第1章第2章とのつながり"
+                        class="nav-link"
+                        data-target="4-第1章第2章とのつながり"
+                        >4. 第1章・第2章とのつながり（🟢）</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a href="#5-試験対策" class="nav-link" data-target="5-試験対策">5. 試験対策</a>
+                    <ul class="nav-sublist">
+                        <li>
+                            <a
+                                href="#51-押さえるべきポイント"
+                                class="nav-sublink"
+                                data-target="51-押さえるべきポイント"
+                                >5.1 押さえるべきポイント</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#52-想定問題本ガイド作成者による練習問題"
+                                class="nav-sublink"
+                                data-target="52-想定問題本ガイド作成者による練習問題"
+                                >5.2 想定問題（本ガイド作成者による練習問題）</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#53-覚え方" class="nav-sublink" data-target="53-覚え方"
+                                >5.3 覚え方</a
+                            >
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="#6-ベストプラクティス総まとめ"
+                        class="nav-link"
+                        data-target="6-ベストプラクティス総まとめ"
+                        >6. ベストプラクティス総まとめ</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a href="#7-アンチパターン集" class="nav-link" data-target="7-アンチパターン集"
+                        >7. アンチパターン集</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        href="#8-学習チェックリスト"
+                        class="nav-link"
+                        data-target="8-学習チェックリスト"
+                        >8. 学習チェックリスト</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a href="#9-出典" class="nav-link" data-target="9-出典">9. 出典</a>
+                    <ul class="nav-sublist">
+                        <li>
+                            <a
+                                href="#91-公式一次情報"
+                                class="nav-sublink"
+                                data-target="91-公式一次情報"
+                                >9.1 公式（一次情報）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#92-日本語版jstqb"
+                                class="nav-sublink"
+                                data-target="92-日本語版jstqb"
+                                >9.2 日本語版（JSTQB）</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#93-発展学習" class="nav-sublink" data-target="93-発展学習"
+                                >9.3 発展学習</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#94-本ガイドの根拠の限界再掲"
+                                class="nav-sublink"
+                                data-target="94-本ガイドの根拠の限界再掲"
+                                >9.4 本ガイドの根拠の限界（再掲）</a
+                            >
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="main">
+            <div class="hero">
+                <span class="hero-eyebrow">ISTQB® CTAL-TM v3.0 ・ Chapter 3</span>
+                <h1>CTAL-TM v3.0 第3章「チームの管理」</h1>
+                <p>
+                    初学者向け解説ガイド — ISTQB® Certified Tester Advanced Level Test Management
+                    (CTAL-TM) v3.0 / Chapter 3: Managing the Team（学習時間 225 分）
+                </p>
+            </div>
+
+            <h2 id="0-この文書の読み方と根拠の確度">0. この文書の読み方と「根拠の確度」</h2>
+            <p>この文書では、内容ごとに根拠の確度を次の記号で示します。</p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>記号</th>
+                            <th>意味</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>🟢</td>
+                            <td>
+                                ISTQB 公式ページ／公式シラバス PDF
+                                の原文で直接確認できた内容（目次・章の概要・他章の記述など）
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>🟡</td>
+                            <td>
+                                一般的な実務知識・ISTQB
+                                用語集・二次情報で補足した内容。第3章の本文（シラバス
+                                p.65〜74）で表現や範囲を必ず確認してください
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout-warning">
+                <div class="practice-label">
+                    <span class="practice-icon">⚠️</span><span>重要な注意</span>
+                </div>
+                <div class="practice-body">
+                    <p>
+                        本ガイドの作成時、公式シラバス PDF の取得が第1章の途中（p.45
+                        付近）で打ち切られたため、第3章の本文（p.65〜74）そのものは原文で確認できていませんでした。
+                    </p>
+                    <p>
+                        その後 Version 3.0.J04
+                        で、3.1.1（4つの能力領域）・3.1.6（動機付け要因と衛生要因）・3.2.1（品質コストの4カテゴリーと「評定コスト」の用語）を原文と突き合わせ済みです。それ以外の節は引き続き
+                        🟡 を含みます。
+                    </p>
+                    <p>
+                        第3章の節構成・学習時間・章の狙い・第1章からの参照は 🟢
+                        ですが、各節の詳細説明は 🟡 を含みます。
+                    </p>
+                    <p>
+                        試験対策として使う前に、日本語版シラバス（JSTQB 版 Version
+                        3.0.J04：最新版）の第3章（p.65〜74）と突き合わせてください。このページ範囲は
+                        Version 3.0.J04 の目次で確認済みです（3.1 は p.66、3.1.6 は p.70、3.2 は
+                        p.72、3.2.1 品質コストは p.72、3.2.2 は p.73〜74。p.75 から「4
+                        参考文献」）。Version 3.0.J02 / J01
+                        は旧版で、差分確認用として参照してください。URL は「9. 出典」にあります。
+                    </p>
+                </div>
+            </div>
+
+            <h2 id="1-第3章の全体像">1. 第3章の全体像</h2>
+            <h3 id="11-章の基本情報">1.1 章の基本情報（🟢）</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>項目</th>
+                            <th>内容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>章タイトル</td>
+                            <td>Managing the Team（チームの管理）</td>
+                        </tr>
+                        <tr class="even">
+                            <td>最低学習時間</td>
+                            <td>
+                                225 分（第1章 750 分、第2章 390 分、第3章 225 分の合計 1,365 分）
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>節構成</td>
+                            <td>3.1 The Test Team ／ 3.2 Stakeholder Relationships</td>
+                        </tr>
+                        <tr class="even">
+                            <td>対応するビジネスアウトカム</td>
+                            <td>
+                                TM_07（必要なスキルを特定し、チーム内で育成する）、TM_08（テストのビジネスケースを、コストと期待される便益とともに準備・提示する）
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>試験の形式</td>
+                            <td>50 問、120 分（非母語は +25%）、満点 88 点、合格 58 点</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>シラバスの序論は、第3章で学ぶことを次の3点にまとめています（🟢）。</p>
+            <ol type="1">
+                <li>プロジェクトのコンテキストを分析し、テストチームに必要なスキルを特定する</li>
+                <li>ホールチームアプローチ（whole team approach）に沿ってチームを管理する</li>
+                <li>プロジェクトにおけるテスト活動のビジネスケースを定義する</li>
+            </ol>
+            <h3 id="12-全体マップ">1.2 全体マップ</h3>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-1"></div>
+            </div>
+            <h3 id="13-学習の進め方ステップバイステップ">
+                1.3 学習の進め方（ステップバイステップ）
+            </h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>ステップ</th>
+                            <th>やること</th>
+                            <th>目安</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>1</td>
+                            <td>3.1.1 で「4つの能力領域」を覚える</td>
+                            <td>30 分</td>
+                        </tr>
+                        <tr class="even">
+                            <td>2</td>
+                            <td>3.1.2〜3.1.4 を「分析 → 評価 → 育成」の1本の流れとして理解する</td>
+                            <td>60 分</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>3</td>
+                            <td>3.1.5〜3.1.6 で、マネージャーとして何をするかを整理する</td>
+                            <td>40 分</td>
+                        </tr>
+                        <tr class="even">
+                            <td>4</td>
+                            <td>3.2.1〜3.2.2 で品質コストの4分類と計算手順を身に付ける</td>
+                            <td>60 分</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>5</td>
+                            <td>「5.2 想定問題」で確認する</td>
+                            <td>35 分</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 id="2-31-テストチームthe-test-team">2. 3.1 テストチーム（The Test Team）</h2>
+            <h3 id="20-前提となる用語">2.0 前提となる用語（🟢）</h3>
+            <p>
+                シラバスは「テストチームメンバー（test team
+                member）」を、組織のコンテキストや他の役割に関係なく、テストマネジメントまたはテストをする役割でテストを実施するすべての人と定義しています（Version
+                3.0.J04 p.15 の用語説明で確認）。
+            </p>
+            <ul>
+                <li>テストチームは、さまざまなスキルと能力を持つ個人で構成されます</li>
+                <li>メンバーの経験や資格（Foundation／Advanced／Expert）も異なります</li>
+                <li>
+                    使うテストアプローチやプロセスモデル（アジャイルテスト、モデルベースドテスト、リスクベースドテストなど）によって、役割と責任も変わります
+                </li>
+            </ul>
+            <p>
+                第1章の役割比較表（Table
+                1）には、シーケンシャル開発ではテストマネージャーが意思決定とチーム管理を担い、スクラムのようなイテレーティブ開発では役割が統合され、ファシリテーターやコーチが従来のテストマネージャーの代わりになる、という趣旨の記述があります（🟢）。
+            </p>
+            <p>
+                つまり、第3章の「チームの管理」は、テストマネージャーという肩書きの人だけの話ではなく、テストチーム全体を良い状態にするための考え方だと捉えると理解しやすくなります。
+            </p>
+            <h3 id="21-311-4つの能力領域における典型的なスキル">
+                2.1 3.1.1 4つの能力領域における典型的なスキル（🟡）
+            </h3>
+            <h4 id="ステップ14つの領域を知る">ステップ1：4つの領域を知る</h4>
+            <p>
+                チームメンバーのスキルは、次の4つの能力領域（areas of
+                competence）に分けて整理します。
+            </p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>能力領域</th>
+                            <th>英語</th>
+                            <th>一言でいうと</th>
+                            <th>テストにおける具体例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>専門的能力</td>
+                            <td>Professional competence</td>
+                            <td>専門的な業務を遂行するためのスキル</td>
+                            <td>
+                                テスト技法のスキル、アプリケーション領域における技術的専門知識、ビジネス専門知識、プロジェクトマネジメントスキル
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>方法論的能力</td>
+                            <td>Methodological competence</td>
+                            <td>
+                                ある領域で独自に使用でき、複雑度または新規性の高い課題を独自に遂行できる一般的な能力
+                            </td>
+                            <td>分析力、概念力、判断力</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>社会的能力</td>
+                            <td>Social competence</td>
+                            <td>他者とどう関わるか（対人）</td>
+                            <td>
+                                コミュニケーション、チームワーク、交渉、対立の解消、共感、フィードバックの授受、ステークホルダーへの説明
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>個人的能力</td>
+                            <td>Personal competence</td>
+                            <td>自分をどう律するか（自己）</td>
+                            <td>
+                                自信を持って行動する力、レジリエンス、自己管理、主体性、学習意欲、ストレス耐性
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <blockquote>
+                <p>
+                    🟡
+                    補足：試験対策向けの二次資料でも「自信を持って行動する能力」は個人的能力に分類される、という趣旨の出題例が確認できました。ただし正式な分類語彙は日本語版シラバスの訳語で確認してください。
+                </p>
+            </blockquote>
+            <h4 id="ステップ2見分け方のコツ">ステップ2：見分け方のコツ</h4>
+            <p>迷ったときは、次の質問で判定します。</p>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-2"></div>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>例</th>
+                            <th>領域</th>
+                            <th>理由</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>医療機器の薬事規制に詳しい</td>
+                            <td>専門的能力</td>
+                            <td>ドメイン知識</td>
+                        </tr>
+                        <tr class="even">
+                            <td>同値分割と境界値分析を使い分けられる</td>
+                            <td>専門的能力</td>
+                            <td>テスト技法のスキル</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>前例のない新機能に対してテストアプローチを自分で組み立てられる</td>
+                            <td>方法論的能力</td>
+                            <td>分析力・概念力・判断力</td>
+                        </tr>
+                        <tr class="even">
+                            <td>開発者と対立せずに欠陥の重要度を交渉できる</td>
+                            <td>社会的能力</td>
+                            <td>他者との関係の築き方</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>締切前でも落ち着いて自分のタスクを管理できる</td>
+                            <td>個人的能力</td>
+                            <td>自己管理・レジリエンス</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <p>
+                        採用・育成・アサインの議論で「あの人はスキルが高い」と曖昧に言わず、4領域のどこが強くどこが弱いかを分けて話します。専門（テスト技法やドメイン知識）は強いが方法論（新規課題を自力で組み立てる力）が弱い、といった具体的な処方に直結します。
+                    </p>
+                </div>
+            </div>
+            <h3 id="22-312-必要なテストチームメンバーのスキルの分析">
+                2.2 3.1.2 必要なテストチームメンバーのスキルの分析（🟡＋🟢）
+            </h3>
+            <h4 id="ステップ1なぜ分析が必要か">ステップ1：なぜ分析が必要か</h4>
+            <p>
+                第1章の 1.4.2
+                は、テストアプローチを選ぶために分析すべき要素として「テストリソース（テストツール、インフラ、利用可能なテスト担当者とそのスキル）」を挙げ、詳細を
+                3.1 に参照させています（🟢）。例として次のような記述があります。
+            </p>
+            <ul>
+                <li>経験ベースドテストには、ドメイン知識の豊富なテスト担当者が必要</li>
+                <li>モバイルアプリのテストには限られた数の実機が必要</li>
+                <li>ツールの利用はライセンス数に制約される</li>
+            </ul>
+            <p>
+                さらに 1.3.3
+                では、品質リスクの発生可能性を高める要因として、スキル・可用性・モチベーション・自律的な働き方、使用中の
+                SDLC
+                に関する知識の問題、チーム内の対立、地理的に分散したチームなどが挙げられています（🟢）。1.3.4
+                では「最もリスクの高いテストアイテムは、最も適任の人がテストすべき」とされています（🟢）。
+            </p>
+            <p>つまり、必要なスキルはプロジェクトの文脈から逆算して決めます。</p>
+            <h4 id="ステップ2分析の流れ">ステップ2：分析の流れ</h4>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-3"></div>
+            </div>
+            <h4 id="ステップ3コンテキストと必要スキルの対応表">
+                ステップ3：コンテキストと必要スキルの対応表
+            </h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>コンテキスト要因（第1章 1.4.2 の観点）</th>
+                            <th>必要になりやすいスキル</th>
+                            <th>主な領域</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>ドメイン（医療・金融・保険など）</td>
+                            <td>ドメイン知識、規制・標準の理解、文書化の厳密さ</td>
+                            <td>専門</td>
+                        </tr>
+                        <tr class="even">
+                            <td>組織の目標（自動化率向上、テスト成熟度向上）</td>
+                            <td>自動化ツール、CI/CD、メトリクス分析</td>
+                            <td>方法論・専門</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>プロジェクト目標とタイプ（受託か製品開発か）</td>
+                            <td>契約上の受入基準の読解、交渉</td>
+                            <td>専門・社会</td>
+                        </tr>
+                        <tr class="even">
+                            <td>テストリソース（ツール、環境、要員）</td>
+                            <td>ツール操作、環境構築、見積り</td>
+                            <td>方法論・専門</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>SDLC（シーケンシャル／アジャイル／ハイブリッド）</td>
+                            <td>アジャイルの作法、開発者との協働、継続的テスト</td>
+                            <td>方法論・社会</td>
+                        </tr>
+                        <tr class="even">
+                            <td>他システムとのインタフェース</td>
+                            <td>統合テストの設計、他チームとの調整</td>
+                            <td>方法論・社会</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>テストデータの可用性</td>
+                            <td>匿名化、データ生成、データ検証</td>
+                            <td>専門・方法論</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 id="ステップ4具体例架空">ステップ4：具体例（架空）</h4>
+            <blockquote>
+                <p>
+                    状況：医療系データ管理 Web アプリ。要件は規制対応が必須。スクラムで開発し、CI
+                    で回帰テストを自動実行したい。
+                </p>
+            </blockquote>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>必要な活動</th>
+                            <th>必要スキル</th>
+                            <th>領域</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>患者安全リスクに基づくテスト設計</td>
+                            <td>リスク分析、ドメイン知識</td>
+                            <td>方法論・専門</td>
+                        </tr>
+                        <tr class="even">
+                            <td>スプリント内でのテスト</td>
+                            <td>開発者とのペア作業、迅速なフィードバック</td>
+                            <td>社会・方法論</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>回帰テストの自動化</td>
+                            <td>自動化ツールとパイプラインの理解</td>
+                            <td>方法論・専門</td>
+                        </tr>
+                        <tr class="even">
+                            <td>規制当局向けの証跡整備</td>
+                            <td>文書化、トレーサビリティ</td>
+                            <td>専門・方法論</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>逼迫時の判断</td>
+                            <td>冷静さ、優先順位付け</td>
+                            <td>個人</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <ul>
+                        <li>スキルの要件は「人の名前」からでなく「活動」から導出する</li>
+                        <li>必須スキルと歓迎スキルを分ける</li>
+                        <li>単一人物への依存（バス係数 1）になっているスキルを必ず洗い出す</li>
+                        <li>
+                            ハイブリッド開発では、構造化プロセスとアジャイルの柔軟性の両方をこなせるかを評価する（1.2.3
+                            🟢）
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h3 id="23-313-テストチームメンバーのスキルの評価">
+                2.3 3.1.3 テストチームメンバーのスキルの評価（🟡）
+            </h3>
+            <h4 id="ステップ1評価の目的">ステップ1：評価の目的</h4>
+            <p>
+                評価の目的は、優劣をつけることではなく、必要スキルと現有スキルのギャップを見える化して、育成やアサインの判断材料にすることです。
+            </p>
+            <h4 id="ステップ2主な評価方法">ステップ2：主な評価方法</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>方法</th>
+                            <th>内容</th>
+                            <th>長所</th>
+                            <th>注意点</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>自己評価</td>
+                            <td>本人がスキルの習熟度を申告する</td>
+                            <td>手軽、本人の納得感</td>
+                            <td>過大・過小評価が起きる</td>
+                        </tr>
+                        <tr class="even">
+                            <td>マネージャー評価</td>
+                            <td>上長が観察に基づき評価</td>
+                            <td>一貫した基準</td>
+                            <td>観察できていない領域は評価できない</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ピア評価・360度評価</td>
+                            <td>同僚や関係者から評価</td>
+                            <td>社会的能力の把握に有効</td>
+                            <td>心理的安全性が前提</td>
+                        </tr>
+                        <tr class="even">
+                            <td>実務成果のレビュー</td>
+                            <td>テストケース、欠陥報告書、レポートを確認</td>
+                            <td>客観的</td>
+                            <td>時間がかかる</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>面談・インタビュー</td>
+                            <td>経験と考え方を対話で確認</td>
+                            <td>個人的能力を把握しやすい</td>
+                            <td>面談者の力量に依存</td>
+                        </tr>
+                        <tr class="even">
+                            <td>認定資格・研修履歴</td>
+                            <td>ISTQB などの資格や研修の受講記録</td>
+                            <td>定量的で比較しやすい</td>
+                            <td>資格は実務能力の一部のみを示す</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 id="ステップ3スキルマトリクスskills-matrixの例">
+                ステップ3：スキルマトリクス（skills matrix）の例
+            </h4>
+            <p>
+                習熟度を 0〜3 で表します。0 は未経験、1 は指導が必要、2 は自立して実施可能、3
+                は他者を指導できる、という定義です。
+            </p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>メンバー</th>
+                            <th>ドメイン知識（専門）</th>
+                            <th>テスト技法（専門）</th>
+                            <th>自動化（方法論）</th>
+                            <th>交渉・調整（社会）</th>
+                            <th>自己管理（個人）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>A さん</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                        </tr>
+                        <tr class="even">
+                            <td>B さん</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>2</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>C さん</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td>2</td>
+                        </tr>
+                        <tr class="even">
+                            <td>必要水準</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>読み取り例は次のとおりです。</p>
+            <ul>
+                <li>自動化は、B さんだけが必要水準を満たす。B さんへの依存リスクがある</li>
+                <li>C さんは自動化が未経験。育成対象の候補</li>
+                <li>B さんは交渉・調整が弱く、ステークホルダー対応は他のメンバーが補う</li>
+            </ul>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-4"></div>
+            </div>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <ul>
+                        <li>評価基準（習熟度の定義）を事前に合意し、全員に公開する</li>
+                        <li>評価は個人攻撃ではなく育成のために行うと明言する</li>
+                        <li>定期的に再評価し、マトリクスを更新し続ける</li>
+                        <li>資格や研修履歴だけでなく、実務成果も見る</li>
+                    </ul>
+                </div>
+            </div>
+            <h3 id="24-314-テストチームメンバーのスキルの育成">
+                2.4 3.1.4 テストチームメンバーのスキルの育成（🟡）
+            </h3>
+            <h4 id="ステップ1育成手段の選択肢">ステップ1：育成手段の選択肢</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>手段</th>
+                            <th>内容</th>
+                            <th>向いているスキル</th>
+                            <th>注意点</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>公式トレーニング</td>
+                            <td>認定トレーニングプロバイダーの講座</td>
+                            <td>体系的な知識、資格取得</td>
+                            <td>コストと時間が必要</td>
+                        </tr>
+                        <tr class="even">
+                            <td>自己学習</td>
+                            <td>書籍・動画・シラバスでの学習</td>
+                            <td>専門知識の補強</td>
+                            <td>定着確認が別途必要</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>OJT（実務を通じた学習）</td>
+                            <td>実プロジェクトで経験する</td>
+                            <td>方法論、専門</td>
+                            <td>失敗のコストを許容する範囲を設計する</td>
+                        </tr>
+                        <tr class="even">
+                            <td>メンタリング／コーチング</td>
+                            <td>経験者が伴走する</td>
+                            <td>社会的・個人的能力</td>
+                            <td>指導者の時間確保が必要</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ペアワーク／モブワーク</td>
+                            <td>二人以上で同時に作業</td>
+                            <td>技法、ツール、ドメイン</td>
+                            <td>相性と役割の設計</td>
+                        </tr>
+                        <tr class="even">
+                            <td>ジョブローテーション／クロストレーニング</td>
+                            <td>別の役割・領域を経験</td>
+                            <td>属人化の解消</td>
+                            <td>短期的な生産性は下がる</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>勉強会・実践コミュニティ</td>
+                            <td>社内で知識共有</td>
+                            <td>全般</td>
+                            <td>継続の仕組み化が必要</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                第1章の
+                1.6.1（🟢）では、ツール導入のベストプラクティスとして「ツール利用者へのトレーニング・コーチング・メンタリングを提供する」「ツールの所有者を定義する」が挙げられています。これは、育成をツール導入計画の一部として計画に組み込むべきだという実例です。
+            </p>
+            <h4 id="ステップ3育成計画の立て方">ステップ3：育成計画の立て方</h4>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-5"></div>
+            </div>
+            <p>
+                第1章の 1.4.3（🟢）にある
+                S.M.A.R.T.（Specific、Measurable、Achievable、Relevant、Timely）は、テスト目的や終了基準だけでなく、育成目標にも同じ考え方で適用できます（🟡）。
+            </p>
+            <blockquote>
+                <p>
+                    例：悪い目標「自動化を頑張る」／良い目標「3か月以内に、C
+                    さんが回帰テスト10件を自動化し、レビューで指摘ゼロで承認される」
+                </p>
+            </blockquote>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <ul>
+                        <li>研修だけで終わらせず、学んだことを実務で使う機会を必ず設計する</li>
+                        <li>高リスク領域のスキルほど早く、厚く育成する</li>
+                        <li>
+                            育成の時間をプロジェクト計画（見積り）に最初から組み込む。第1章 1.6.3
+                            が指摘する機会コスト（学習や導入に費やす時間はテスト作業に使えない時間）と同じ考え方
+                        </li>
+                        <li>育成の成果をレトロスペクティブで振り返る</li>
+                    </ul>
+                </div>
+            </div>
+            <h3 id="25-315-テストチームの管理に必要なマネジメントスキル">
+                2.5 3.1.5 テストチームの管理に必要なマネジメントスキル（🟡）
+            </h3>
+            <h4 id="ステップ1ホールチームアプローチ">
+                ステップ1：ホールチームアプローチ（🟢＋🟡）
+            </h4>
+            <p>
+                シラバスは、第3章で「ホールチームアプローチに沿ってチームを管理する」ことを学ぶと述べています（🟢）。1.5.4
+                では、レトロスペクティブはチーム全員で実施され、ホールチームアプローチを支え、継続的改善を促す、と書かれています（🟢）。
+            </p>
+            <p>
+                一般にホールチームアプローチとは、品質に関する責任をテスト担当者だけに負わせず、開発者・プロダクトオーナー・運用担当などチーム全員で共有する考え方です（🟡、ISTQB
+                Foundation Level v4.0 の用語）。1.3.2
+                にも「品質はみんなの関心事であることを明確にする」というテストマネージャーの役割の記述があります（🟢）。
+            </p>
+            <h4 id="ステップ2必要なマネジメントスキル">ステップ2：必要なマネジメントスキル</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>スキル</th>
+                            <th>具体的にやること</th>
+                            <th>主な領域</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>リーダーシップ</td>
+                            <td>目標とビジョンを示し、意思決定の方針を明確にする</td>
+                            <td>社会・個人</td>
+                        </tr>
+                        <tr class="even">
+                            <td>コミュニケーション</td>
+                            <td>
+                                状況を相手に合わせて伝える。テスト結果を「リスクの言葉」で説明する（1.3.4
+                                🟢）
+                            </td>
+                            <td>社会</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>交渉・対立解消</td>
+                            <td>開発者やプロジェクトマネージャーとの合意形成</td>
+                            <td>社会</td>
+                        </tr>
+                        <tr class="even">
+                            <td>委任と権限移譲</td>
+                            <td>適切な人に適切なタスクと責任を任せる</td>
+                            <td>方法論・社会</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>動機付け</td>
+                            <td>3.1.6 を参照</td>
+                            <td>社会・個人</td>
+                        </tr>
+                        <tr class="even">
+                            <td>計画・優先順位付け</td>
+                            <td>リソース制約下でのスコープと優先度の決定</td>
+                            <td>方法論</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>分散チームの調整</td>
+                            <td>
+                                オンサイト／オフサイトなど、同期とコミュニケーション規約の整備（1.2.7
+                                🟢）
+                            </td>
+                            <td>社会・方法論</td>
+                        </tr>
+                        <tr class="even">
+                            <td>変化への対応</td>
+                            <td>組織変更、ハイブリッド開発への移行時のチームの支援（1.2.3 🟢）</td>
+                            <td>社会・個人</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 id="ステップ3状況別の使い分け">ステップ3：状況別の使い分け</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>状況</th>
+                            <th>推奨されるマネジメントの重心</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>新人が多い</td>
+                            <td>指示を具体的にし、レビューと伴走を厚くする</td>
+                        </tr>
+                        <tr class="even">
+                            <td>熟練者が多い</td>
+                            <td>目的と制約を伝え、やり方は任せる</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>分散チーム</td>
+                            <td>通信規約、共通ツール、定例の同期を整える</td>
+                        </tr>
+                        <tr class="even">
+                            <td>アジャイル</td>
+                            <td>促進型（ファシリテーター／コーチ）、自己組織化の支援</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>規制の厳しい領域</td>
+                            <td>手順と証跡を明確にし、逸脱を早期に検知する</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <ul>
+                        <li>品質を「テストチームの仕事」に閉じ込めず、チーム全体の目標にする</li>
+                        <li>意思決定の理由を透明にする</li>
+                        <li>問題は早期に、責める口調でなく事実とデータで扱う</li>
+                    </ul>
+                </div>
+            </div>
+            <h3 id="26-316-特定の状況におけるテストチームの動機付け要因と意欲低下要因">
+                2.6 3.1.6 特定の状況におけるテストチームの動機付け要因と意欲低下要因（🟡）
+            </h3>
+            <h4 id="ステップ1考え方">ステップ1：考え方</h4>
+            <p>
+                同じ施策でも、状況が違えばチームのやる気を高めることも下げることもあります。マネージャーは、状況ごとに何が効いて何が逆効果かを見分ける必要があります。
+            </p>
+            <h4 id="ステップ2要因の一覧">ステップ2：要因の一覧</h4>
+            <p>
+                シラバスは<strong>動機付け衛生理論</strong>に基づき、「モチベーションを上げる要因（動機付け要因）」と「衛生要因」を区別しています。
+                衛生要因は<strong>満たしても自動的に満足度が上がるわけではないが、欠けているとモチベーションが下がる</strong>点が動機付け要因との決定的な違いです。
+            </p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>種類</th>
+                            <th>性質</th>
+                            <th>要因の例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>動機付け要因</td>
+                            <td>意識的に認識され、成長と満足感につながる</td>
+                            <td>
+                                仕事の達成に対する承認と評価（インセンティブ、個別アプローチ）、責任と自律性の向上（テストチーム内でのテストプロセスの定義）、達成可能かつ努力する価値がある興味深く有意義でやりがいのあるタスク（テスト自動化の新ツールの選定と導入）、プロフェッショナルとしての昇進と成長
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>衛生要因</td>
+                            <td>
+                                通常は当然のものと見なされる。満たしても満足度は自動的には上がらないが、欠けるとモチベーションが下がる
+                            </td>
+                            <td>
+                                適切な報酬（市場に見合った給与、時間外手当、社会保障）、評価される人事方針とマネジメントスタイル（現実的な目標、外部干渉や過負荷からの保護）、快適な労働条件（曖昧でない仕様、成熟したテスト対象、適切に修正された欠陥、安定したテスト環境）、最低限必要な安全性、良好な対人関係
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>意欲低下要因</td>
+                            <td>上記を踏まえた一般的な整理（🟡）</td>
+                            <td>
+                                目標や優先順位の頻繁な変更、テストが軽視される文化、過度な残業と締切圧力、成果に見合わない評価、不明確な役割、頻繁なやり直し、スキルの停滞、批判的で心理的安全性のない雰囲気
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                テストマネジメントは、<strong>モチベーションを下げる要因を継続的に排除しつつ、モチベーションを上げる要因を作り出し強化する</strong>ことが求められます。
+            </p>
+            <h4 id="ステップ3状況別の対処例">ステップ3：状況別の対処例</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>状況</th>
+                            <th>起こりやすい意欲低下</th>
+                            <th>マネージャーの対応例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>納期直前に大量の欠陥が見つかる</td>
+                            <td>疲弊、責任の押し付け合い</td>
+                            <td>
+                                優先順位を絞り、残業の上限を設け、進捗を可視化してリスクベースで判断する
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>上流工程の遅れでテスト期間が圧縮される</td>
+                            <td>「テストが最後のしわ寄せ」という不満</td>
+                            <td>
+                                圧縮の影響をリスクとして経営層に報告し、スコープの再交渉をする（1.3.4
+                                の「延長するか残存リスクを受け入れるか」の根拠づくり 🟢）
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>手作業の反復が続く</td>
+                            <td>単調さによる意欲低下</td>
+                            <td>自動化を推進し、探索的テストなど創造的な作業を組み込む</td>
+                        </tr>
+                        <tr class="even">
+                            <td>オフサイト／分散チーム</td>
+                            <td>孤立感、情報格差</td>
+                            <td>定例の同期、共通ツール、対面や交流の機会を設ける</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ハイブリッド開発への移行</td>
+                            <td>不安、やり方の混乱</td>
+                            <td>期待を明確にし、役割の変化を説明し、育成機会を提供する</td>
+                        </tr>
+                        <tr class="even">
+                            <td>手厚いレビューで欠陥が減った</td>
+                            <td>「テストが不要では」という誤解による軽視感</td>
+                            <td>品質コストの観点（3.2）で、予防・検出の価値を示す</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <ul>
+                        <li>
+                            個別に話を聞く場と、チーム全体で話す場（レトロスペクティブ）の両方を持つ
+                        </li>
+                        <li>成果は公に称え、問題は個別に丁寧に伝える</li>
+                        <li>
+                            「動機付け」を気合いの問題にせず、環境・目標・成長・公正さの設計の問題として扱う
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <h2 id="3-32-ステークホルダーとの関係stakeholder-relationships">
+                3. 3.2 ステークホルダーとの関係（Stakeholder Relationships）
+            </h2>
+            <h3 id="31-321-品質コストcost-of-quality用語は-istqb-用語集に準拠">
+                3.1 3.2.1 品質コスト（Cost of Quality）（🟡、用語は ISTQB 用語集に準拠）
+            </h3>
+            <h4 id="ステップ1定義">ステップ1：定義</h4>
+            <p>
+                ISTQB 用語集では、品質コスト（cost of
+                quality）を、品質に関する活動や問題に費やした総コストであり、多くの場合、予防コスト、評定（アプレイザル）コスト、内部失敗コスト、外部失敗コストに分けられるもの、と定義しています。
+            </p>
+            <h4 id="ステップ24分類">ステップ2：4分類</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>分類</th>
+                            <th>英語</th>
+                            <th>内容</th>
+                            <th>具体例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>予防コスト</td>
+                            <td>Prevention cost</td>
+                            <td>欠陥を作らないための活動</td>
+                            <td>
+                                研修、標準やチェックリストの整備、要件レビュー、プロセス改善、静的解析の導入
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>評定（アプレイザル）コスト</td>
+                            <td>Appraisal cost</td>
+                            <td>欠陥検出を目的とした活動</td>
+                            <td>テストの設計と実行、レビュー、テスト環境・テストツールの費用</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>内部失敗コスト</td>
+                            <td>Internal failure cost</td>
+                            <td>リリース前に見つかった欠陥の対応</td>
+                            <td>欠陥の修正、再テスト、手戻り、スケジュール遅延</td>
+                        </tr>
+                        <tr class="even">
+                            <td>外部失敗コスト</td>
+                            <td>External failure cost</td>
+                            <td>リリース後に見つかった欠陥の対応</td>
+                            <td>障害対応、返金、保証、ペナルティ、評判の低下、緊急パッチ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-6"></div>
+            </div>
+            <p>
+                第1章
+                1.3.4（🟢）にも、すべてのテストアイテムをできるだけ早くテストすることで、ライフサイクル後半で重大な欠陥を見つけて内部失敗コストと遅延が大きくなるリスクを軽減できる、という趣旨の記述があります。
+            </p>
+            <h4 id="ステップ3基本の考え方">ステップ3：基本の考え方</h4>
+            <ul>
+                <li>欠陥は、見つかるのが遅いほど直すコストが大きくなる傾向がある</li>
+                <li>予防や早期検出に投資すると、外部失敗コストを下げられる</li>
+                <li>予防と検出に投資しすぎると、投資対効果が下がる。バランスが重要</li>
+            </ul>
+            <h3 id="32-322-テストの費用対効果の関係cost-benefit-relationship-of-testing">
+                3.2 3.2.2 テストの費用対効果の関係（Cost-benefit Relationship of Testing）（🟡）
+            </h3>
+            <h4 id="ステップ1目的">ステップ1：目的</h4>
+            <p>
+                第3章の狙いの一つは、テスト活動のビジネスケースを定義することです（🟢）。ビジネスケースとは、経営層などに対して「テストにこれだけ投資する価値がある」ことを、コストと期待される便益で示す説明資料です。TM_08
+                の「コストと期待される便益を示すビジネスケースを準備し提示する」に対応します（🟢）。
+            </p>
+            <h4 id="ステップ2計算の基本式">ステップ2：計算の基本式</h4>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>項目</th>
+                            <th>式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>回避できる外部失敗コスト（便益）</td>
+                            <td>想定欠陥数 × 1件あたりの外部失敗コスト</td>
+                        </tr>
+                        <tr class="even">
+                            <td>リリース前コスト（投資）</td>
+                            <td>予防コスト ＋ 評定コスト ＋ 内部失敗コスト</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>正味便益</td>
+                            <td>便益 − 投資</td>
+                        </tr>
+                        <tr class="even">
+                            <td>費用対効果（ROI）</td>
+                            <td>正味便益 ÷ 投資</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                第1章 1.6.3
+                でも、ツール導入では「繰り返し発生するコストと一度だけ発生するコスト」「機会コスト」「リスクと便益」を分けて
+                ROI
+                を評価することが説明されています（🟢）。テスト全体のビジネスケースでも、同じ考え方で漏れなくコストを洗い出します。
+            </p>
+            <h4 id="ステップ3計算例架空の数値">ステップ3：計算例（架空の数値）</h4>
+            <p>条件：テストで見つかると想定される欠陥数は 100 件。</p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>項目</th>
+                            <th>金額</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>予防コスト（固定）</td>
+                            <td>500,000 円</td>
+                        </tr>
+                        <tr class="even">
+                            <td>評定コスト（1件あたり）</td>
+                            <td>20,000 円</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>内部失敗コスト（1件あたり）</td>
+                            <td>30,000 円</td>
+                        </tr>
+                        <tr class="even">
+                            <td>外部失敗コスト（1件あたり、リリース後に見つかった場合）</td>
+                            <td>300,000 円</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>計算は次のとおりです。</p>
+            <ol type="1">
+                <li>回避できる外部失敗コスト = 100 件 × 300,000 円 = 30,000,000 円</li>
+                <li>
+                    リリース前コスト = 500,000 円 + 100 件 × (20,000 円 + 30,000 円) = 5,500,000 円
+                </li>
+                <li>正味便益 = 30,000,000 円 − 5,500,000 円 = 24,500,000 円</li>
+                <li>ROI = 24,500,000 円 ÷ 5,500,000 円 ≒ 4.45（約 445%）</li>
+            </ol>
+            <div class="callout-warning">
+                <div class="practice-label">
+                    <span class="practice-icon">⚠️</span><span>注意</span>
+                </div>
+                <div class="practice-body">
+                    <p>
+                        この計算は「テストで見つけた欠陥のすべてが、テストがなければ本番で見つかっていた」と仮定した単純化です。実務では、実際に本番に流出する確率や、流出しても影響が小さい欠陥の割合で便益を割り引きます。経営層への説明では前提条件を必ず併記します。
+                    </p>
+                </div>
+            </div>
+            <h4 id="ステップ4欠陥検出率ddpによる補足">
+                ステップ4：欠陥検出率（DDP）による補足（🟡）
+            </h4>
+            <p>欠陥検出率（Defect Detection Percentage）は、テストの効果を測る指標の一つです。</p>
+            <ul>
+                <li>
+                    DDP = リリース前に見つけた欠陥数 ÷（リリース前に見つけた欠陥数 ＋
+                    リリース後に見つかった欠陥数）
+                </li>
+                <li>例：リリース前 200 件、リリース後 100 件の場合、DDP = 200 ÷ 300 ≒ 66.7%</li>
+            </ul>
+            <p>
+                DDP
+                が低い場合は「テストが足りなかった」だけでなく、「予防・要件レビューなど上流の対策が弱い」可能性も検討します。
+            </p>
+            <h4 id="ステップ5ビジネスケース作成の手順">ステップ5：ビジネスケース作成の手順</h4>
+            <div class="mermaid-container">
+                <div class="mermaid-target" id="mermaid-diagram-7"></div>
+            </div>
+            <h4 id="ステップ6ステークホルダーに合わせた伝え方">
+                ステップ6：ステークホルダーに合わせた伝え方
+            </h4>
+            <p>
+                第1章
+                1.2.2（🟢）のステークホルダーマトリクス（パワー／関心マトリクス）は、ビジネスケースの提示先を決めるときにも使えます。
+            </p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>区分（原文の呼称）</th>
+                            <th>影響力</th>
+                            <th>関心</th>
+                            <th>ビジネスケース提示での重点</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>Promoters（推進者）</td>
+                            <td>高</td>
+                            <td>高</td>
+                            <td>詳細な数値と前提を共有し、意思決定に巻き込む</td>
+                        </tr>
+                        <tr class="even">
+                            <td>Latents（潜在的）</td>
+                            <td>高</td>
+                            <td>低</td>
+                            <td>結論とリスク、必要な意思決定に絞って簡潔に伝える</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>Defenders（擁護者）</td>
+                            <td>低</td>
+                            <td>高</td>
+                            <td>定期的に更新し、現場の声を吸い上げる</td>
+                        </tr>
+                        <tr class="even">
+                            <td>Apathetics（無関心）</td>
+                            <td>低</td>
+                            <td>低</td>
+                            <td>大きなマイルストーンのときだけ更新する</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout-practice">
+                <div class="practice-label">
+                    <span class="practice-icon">💡</span><span>ベストプラクティス</span>
+                </div>
+                <div class="practice-body">
+                    <ul>
+                        <li>
+                            過去プロジェクトの実績データ（欠陥数、修正時間、障害コスト）を継続的に蓄積する
+                        </li>
+                        <li>便益は保守的に見積り、前提を明記する</li>
+                        <li>金額に換算しにくい便益（信頼、規制適合、患者安全）も併記する</li>
+                        <li>
+                            予算削減の議論では、「テストを減らした場合に増える外部失敗コスト」を試算して示す
+                        </li>
+                        <li>結果を計測し、次回のビジネスケースの精度を上げる</li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <h2 id="4-第1章第2章とのつながり">4. 第1章・第2章とのつながり（🟢）</h2>
+            <p>
+                第3章は単独ではなく、他章と結び付けて出題されます（シラバスも、試験の解答は複数の節の内容を必要とする場合がある、と述べています）。
+            </p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>第3章の内容</th>
+                            <th>つながる箇所</th>
+                            <th>つながり方</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>3.1.2 必要スキルの分析</td>
+                            <td>1.4.2 テストアプローチの選定</td>
+                            <td>テストリソースの制約（要員とスキル）を 3.1 に参照している</td>
+                        </tr>
+                        <tr class="even">
+                            <td>3.1.2 必要スキルの分析</td>
+                            <td>1.3.3 品質リスクの評価</td>
+                            <td>
+                                スキル不足・チーム内の対立・分散チームなどは発生可能性を高める要因
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>3.1.2 必要スキルの分析</td>
+                            <td>1.3.4 リスクの軽減</td>
+                            <td>最も適任の人が最もリスクの高いテストアイテムをテストする</td>
+                        </tr>
+                        <tr class="even">
+                            <td>3.1.4 スキルの育成</td>
+                            <td>1.6.1 ツール導入のグッドプラクティス</td>
+                            <td>トレーニング、コーチング、メンタリング、ツール所有者の定義</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>3.1.5 マネジメントスキル</td>
+                            <td>1.5.4 レトロスペクティブ</td>
+                            <td>ホールチームアプローチを支え、継続的改善を促す</td>
+                        </tr>
+                        <tr class="even">
+                            <td>3.1.5 マネジメントスキル</td>
+                            <td>1.2.4 SDLC 別のテストマネジメント</td>
+                            <td>役割がテストマネージャーからファシリテーター／コーチに変わる</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>3.2 ビジネスケース</td>
+                            <td>1.6.3 ROI の評価</td>
+                            <td>繰り返し／一度だけのコスト、機会コスト、便益とリスク</td>
+                        </tr>
+                        <tr class="even">
+                            <td>3.2 ビジネスケース</td>
+                            <td>1.2.2 ステークホルダーマトリクス</td>
+                            <td>提示先ごとに伝え方を変える</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>3.2 ビジネスケース</td>
+                            <td>第2章 テストメトリクス（2.1）</td>
+                            <td>費用対効果の実績を測る根拠データ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 id="5-試験対策">5. 試験対策</h2>
+            <h3 id="51-押さえるべきポイント">5.1 押さえるべきポイント</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>優先度</th>
+                            <th>ポイント</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>高</td>
+                            <td>
+                                4つの能力領域の分類（専門・方法論・社会・個人）と具体例の振り分け
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>高</td>
+                            <td>
+                                品質コスト4分類の区別（特に、内部失敗と外部失敗の境目はリリース時点）
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>高</td>
+                            <td>
+                                費用対効果の計算（回避できる外部失敗コストとリリース前コストの比較）
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>中</td>
+                            <td>スキルの分析 → 評価 → 育成の流れ、スキルマトリクスの読み取り</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>中</td>
+                            <td>ホールチームアプローチとテストマネージャー／コーチの役割</td>
+                        </tr>
+                        <tr class="even">
+                            <td>中</td>
+                            <td>状況に応じた動機付け・意欲低下要因への対応</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 id="52-想定問題本ガイド作成者による練習問題">
+                5.2 想定問題（本ガイド作成者による練習問題）
+            </h3>
+            <blockquote>
+                <p>
+                    以下は理解確認用に作成した練習問題であり、公式サンプル問題ではありません。公式のサンプル試験は「9.
+                    出典」のリンクから入手できます。
+                </p>
+            </blockquote>
+            <p><strong>問1</strong> 「自信を持って行動できる」はどの能力領域か。</p>
+            <ul>
+                <li>A. 専門的能力</li>
+                <li>B. 方法論的能力</li>
+                <li>C. 社会的能力</li>
+                <li>D. 個人的能力</li>
+            </ul>
+            <blockquote>
+                <p>答え：D。自分自身の姿勢・行動に関するスキルは個人的能力です。</p>
+            </blockquote>
+            <p>
+                <strong>問2</strong>
+                リリース後に見つかった欠陥の緊急パッチ対応費用は、品質コストのどの分類か。
+            </p>
+            <ul>
+                <li>A. 予防コスト</li>
+                <li>B. 評定コスト</li>
+                <li>C. 内部失敗コスト</li>
+                <li>D. 外部失敗コスト</li>
+            </ul>
+            <blockquote>
+                <p>答え：D。リリース後に見つかった欠陥への対応は外部失敗コストです。</p>
+            </blockquote>
+            <p>
+                <strong>問3</strong> 予防コスト 100 万円、想定欠陥 40 件、評定コスト 1 件 2
+                万円、内部失敗コスト 1 件 3 万円、外部失敗コスト 1 件 30
+                万円の場合、正味便益はいくらか（テストで見つかる欠陥はすべて、テストがなければ本番で見つかると仮定する）。
+            </p>
+            <blockquote>
+                <p>
+                    答え：便益 = 40 × 30 万円 = 1,200 万円。投資 = 100 万円 + 40 × (2 万円 + 3 万円)
+                    = 300 万円。正味便益 = 1,200 万円 − 300 万円 = 900 万円。
+                </p>
+            </blockquote>
+            <p>
+                <strong>問4</strong> 自動化スキルを持つのが 1
+                人だけで、その人が長期休暇に入る。最初にすべきことは何か。
+            </p>
+            <blockquote>
+                <p>
+                    答え：スキルマトリクスでその依存リスクを可視化し、他のメンバーへの育成（ペアワークやメンタリング）と、当面の代替策（外部調達や作業の優先順位の見直し）を計画する。
+                </p>
+            </blockquote>
+            <h3 id="53-覚え方">5.3 覚え方</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>テーマ</th>
+                            <th>覚え方</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>4つの能力領域</td>
+                            <td>
+                                「知識と技法（専門）・自力で考え抜く力（方法論）・人づきあい（社会）・自分の律し方（個人）」
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>品質コスト4分類</td>
+                            <td>
+                                「防ぐ・見つける・社内で直す・お客様の前で直す」（前の3つはリリース前、最後だけリリース後）
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>費用対効果</td>
+                            <td>「防げた失敗の損失 − 事前にかけたコスト」</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 id="6-ベストプラクティス総まとめ">6. ベストプラクティス総まとめ</h2>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>項目</th>
+                            <th>ベストプラクティス</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>4領域の把握</td>
+                            <td>スキルは4領域に分けて語り、強み・弱みを具体的にする</td>
+                        </tr>
+                        <tr class="even">
+                            <td>必要スキルの分析</td>
+                            <td>コンテキストとリスクから逆算し、必須と歓迎を区別する</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>評価</td>
+                            <td>
+                                基準を事前に合意し、複数の方法を組み合わせ、育成目的であることを明示する
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>育成</td>
+                            <td>
+                                学びを実務で使う機会を設計し、高リスク領域を優先し、育成時間を計画に含める
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>チーム管理</td>
+                            <td>品質をチーム全体の責任にし、意思決定の理由を透明にする</td>
+                        </tr>
+                        <tr class="even">
+                            <td>動機付け</td>
+                            <td>目標・成長・裁量・公正さを設計し、状況ごとに施策を変える</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>品質コスト</td>
+                            <td>4分類で漏れなく整理し、予防と検出のバランスを取る</td>
+                        </tr>
+                        <tr class="even">
+                            <td>ビジネスケース</td>
+                            <td>実績データに基づき、前提を明記し、聞き手に合わせて伝える</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>改善の循環</td>
+                            <td>
+                                レトロスペクティブで振り返り、スキルマトリクスとビジネスケースを更新し続ける
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 id="7-アンチパターン集">7. アンチパターン集</h2>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>アンチパターン</th>
+                            <th>何が問題か</th>
+                            <th>対処</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>資格の有無だけでスキルを判断する</td>
+                            <td>実務能力の一部しか見えない</td>
+                            <td>実務成果、面談、ピア評価を併用する</td>
+                        </tr>
+                        <tr class="even">
+                            <td>特定の 1 人に重要スキルが集中している</td>
+                            <td>休暇・離職で品質リスクが急上昇する</td>
+                            <td>クロストレーニング、ペア作業、ドキュメント化</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>研修を受けさせただけで終わる</td>
+                            <td>学びが定着せず、現場で使われない</td>
+                            <td>OJT とレビューをセットにする</td>
+                        </tr>
+                        <tr class="even">
+                            <td>評価を人事評価と混同して伝える</td>
+                            <td>自己申告が歪み、ギャップが見えなくなる</td>
+                            <td>育成目的であることを明示し、安心して話せる場にする</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>締切前の長時間労働を常態化する</td>
+                            <td>意欲低下、ミス増加、離職</td>
+                            <td>優先順位付けとスコープ再交渉で負荷を制御する</td>
+                        </tr>
+                        <tr class="even">
+                            <td>テスト費用だけを提示して「高い」と言われる</td>
+                            <td>便益（回避できる失敗）が見えない</td>
+                            <td>品質コストとビジネスケースで説明する</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>楽観的な前提で ROI を算出する</td>
+                            <td>後で信頼を失う</td>
+                            <td>保守的な前提と不確実性を併記する</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 id="8-学習チェックリスト">8. 学習チェックリスト</h2>
+            <div class="checklist-card">
+                <div class="checklist-progress">
+                    <span class="cp-label">学習の進み具合</span>
+                    <div class="cp-bar"><div class="cp-bar-fill"></div></div>
+                    <span class="cp-count">0 / 11 完了</span>
+                </div>
+                <ul class="task-list">
+                    <li>
+                        <label><input type="checkbox" />第3章の3つの学習ポイントを説明できる</label>
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />4つの能力領域を挙げ、具体例を正しく振り分けられる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />コンテキストから必要スキルを導出する手順を説明できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />スキルマトリクスを読み取り、ギャップと依存リスクを指摘できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input type="checkbox" />スキルの育成手段を 5
+                            つ以上挙げ、使い分けを説明できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />ホールチームアプローチの考え方を説明できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />状況別に動機付け要因・意欲低下要因への対応を挙げられる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />品質コスト4分類を、リリース前後の区別とともに説明できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />回避できる外部失敗コストとリリース前コストから正味便益を計算できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input
+                                type="checkbox"
+                            />ステークホルダーの種類に応じたビジネスケースの伝え方を説明できる</label
+                        >
+                    </li>
+                    <li>
+                        <label
+                            ><input type="checkbox" />日本語版シラバスの p.65〜74 と本ガイドの 🟡
+                            部分を突き合わせた</label
+                        >
+                    </li>
+                </ul>
+            </div>
+            <hr />
+            <h2 id="9-出典">9. 出典</h2>
+            <h3 id="91-公式一次情報">9.1 公式（一次情報）</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>資料</th>
+                            <th>URL</th>
+                            <th>本ガイドでの用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>ISTQB：CTAL-TM v3.0 認定ページ</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                                    >https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/</a
+                                >
+                            </td>
+                            <td>
+                                章構成（The Test Team、Stakeholder
+                                Relationship）、試験構成、ビジネスアウトカム
+                            </td>
+                        </tr>
+                        <tr class="even">
+                            <td>ISTQB：CTAL-TM シラバス v3.0（英語 PDF、ダウンロードリンク）</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                                    >https://istqb.org/?sdm_process_download=1&amp;download_id=3445</a
+                                >
+                            </td>
+                            <td>
+                                序論、第1章・第2章の記述、目次（第3章の節構成 3.1.1〜3.2.2、225 分）
+                            </td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ISTQB：シラバスのダウンロードページ</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/"
+                                    >https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/</a
+                                >
+                            </td>
+                            <td>シラバスの入手先</td>
+                        </tr>
+                        <tr class="even">
+                            <td>ISTQB：サンプル試験 A 問題</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/?sdm_process_download=1&amp;download_id=3449"
+                                    >https://istqb.org/?sdm_process_download=1&amp;download_id=3449</a
+                                >
+                            </td>
+                            <td>公式の出題形式の確認</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ISTQB：サンプル試験 A 解答</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/?sdm_process_download=1&amp;download_id=3451"
+                                    >https://istqb.org/?sdm_process_download=1&amp;download_id=3451</a
+                                >
+                            </td>
+                            <td>解答と根拠の確認</td>
+                        </tr>
+                        <tr class="even">
+                            <td>ISTQB：サンプル試験 B 問題</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/?sdm_process_download=1&amp;download_id=9612"
+                                    >https://istqb.org/?sdm_process_download=1&amp;download_id=9612</a
+                                >
+                            </td>
+                            <td>追加の演習</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ISTQB：サンプル試験 B 解答</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/?sdm_process_download=1&amp;download_id=9614"
+                                    >https://istqb.org/?sdm_process_download=1&amp;download_id=9614</a
+                                >
+                            </td>
+                            <td>解答と根拠の確認</td>
+                        </tr>
+                        <tr class="even">
+                            <td>ISTQB：用語集（品質コスト、テストチーム関連の用語）</td>
+                            <td>
+                                <a href="https://glossary.istqb.org/"
+                                    >https://glossary.istqb.org/</a
+                                >
+                            </td>
+                            <td>品質コストの定義（cost of quality を検索）</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>ISTQB：試験構成とルール</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/?sdm_process_download=1&amp;download_id=3829"
+                                    >https://istqb.org/?sdm_process_download=1&amp;download_id=3829</a
+                                >
+                            </td>
+                            <td>試験形式・ルールの確認</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 id="92-日本語版jstqb">9.2 日本語版（JSTQB）</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>資料</th>
+                            <th>URL</th>
+                            <th>用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>
+                                JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version
+                                3.0.J04（主参照・最新版）
+                            </td>
+                            <td>
+                                <a
+                                    href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                                    >https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf</a
+                                >
+                            </td>
+                            <td>第3章（p.65〜74）の日本語訳の確認</td>
+                        </tr>
+                        <tr class="even">
+                            <td>
+                                JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version
+                                3.0.J02
+                            </td>
+                            <td>
+                                <a
+                                    href="https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J02.pdf"
+                                    >https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J02.pdf</a
+                                >
+                            </td>
+                            <td>旧版（差分確認用）</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>
+                                JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version
+                                3.0.J01
+                            </td>
+                            <td>
+                                <a
+                                    href="https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf"
+                                    >https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf</a
+                                >
+                            </td>
+                            <td>旧版（差分確認用）</td>
+                        </tr>
+                        <tr class="even">
+                            <td>JSTQB：シラバス・用語集一覧</td>
+                            <td>
+                                <a href="https://www.jstqb.jp/syllabus/"
+                                    >https://www.jstqb.jp/syllabus/</a
+                                >
+                            </td>
+                            <td>最新版の入手先</td>
+                        </tr>
+                        <tr class="odd">
+                            <td>
+                                JSTQB 日本語版 v3.0 公開のプレスリリース（2025 年 8 月 4 日公開）
+                            </td>
+                            <td>
+                                <a href="https://prtimes.jp/main/html/rd/p/000000044.000054604.html"
+                                    >https://prtimes.jp/main/html/rd/p/000000044.000054604.html</a
+                                >
+                            </td>
+                            <td>3章構成への再編、試験問題数の変更などの背景</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 id="93-発展学習">9.3 発展学習</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr class="header">
+                            <th>資料</th>
+                            <th>URL</th>
+                            <th>用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td>ISTQB：Expert Level Managing the Test Team (CTEL-TM-MTT)</td>
+                            <td>
+                                <a
+                                    href="https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/"
+                                    >https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/</a
+                                >
+                            </td>
+                            <td>
+                                採用、目標設定、評価、動機付け、分散チームなど、チーム管理の発展的内容
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 id="94-本ガイドの根拠の限界再掲">9.4 本ガイドの根拠の限界（再掲）</h3>
+            <ul>
+                <li>
+                    🟢 の内容は、上記 ISTQB 公式ページと公式シラバス PDF
+                    の原文（序論、第1章の記述、目次、章の概要）で確認しました
+                </li>
+                <li>
+                    🟡 の内容は、ISTQB
+                    用語集と一般的な実務知識に基づく補足です。第3章本文（p.65〜74）の表現・粒度と異なる可能性があります
+                </li>
+                <li>計算例と練習問題は、理解のために本ガイドで作成した架空の例です</li>
+            </ul>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            const MERMAID_DIAGRAMS = {
+                'mermaid-diagram-1':
+                    'flowchart LR\n    C3["第3章 チームの管理<br/>225分"]\n    S31["3.1 テストチーム"]\n    S32["3.2 ステークホルダーとの関係"]\n    A1["3.1.1 4つの能力領域のスキル"]\n    A2["3.1.2 必要スキルの分析"]\n    A3["3.1.3 スキルの評価"]\n    A4["3.1.4 スキルの育成"]\n    A5["3.1.5 チーム管理に必要な<br/>マネジメントスキル"]\n    A6["3.1.6 動機付け要因と<br/>意欲低下要因"]\n    B1["3.2.1 品質コスト"]\n    B2["3.2.2 テストの費用対効果"]\n    C3 --> S31\n    C3 --> S32\n    S31 --> A1 --> A2 --> A3 --> A4\n    S31 --> A5\n    S31 --> A6\n    S32 --> B1 --> B2\n    classDef chapter fill:#1e3a8a,stroke:#1e3a8a,color:#ffffff\n    classDef section fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    classDef leaf fill:#f8fafc,stroke:#64748b,color:#111827\n    class C3 chapter\n    class S31,S32 section\n    class A1,A2,A3,A4,A5,A6,B1,B2 leaf',
+                'mermaid-diagram-2':
+                    'flowchart TD\n    Q["そのスキルは何に関するもの？"]\n    Q -->|"知識・ドメイン・技術・テスト技法やツールの使い方"| P["専門的能力"]\n    Q -->|"複雑・新規の課題を自力で分析し組み立てる力"| M["方法論的能力"]\n    Q -->|"他者との関係・やり取り"| S["社会的能力"]\n    Q -->|"自分自身の姿勢・行動の仕方"| PE["個人的能力"]\n    classDef ans fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    class P,M,S,PE ans',
+                'mermaid-diagram-3':
+                    'flowchart TD\n    S1["1. プロジェクトの<br/>コンテキストを把握"]\n    S2["2. テストアプローチと<br/>リスクから必要な活動を洗い出す"]\n    S3["3. 活動ごとに必要な<br/>スキルを4領域で列挙"]\n    S4["4. 必要な習熟度と<br/>人数を決める"]\n    S5["5. 現有スキルと比較して<br/>ギャップを特定"]\n    S6["6. 埋め方を選ぶ<br/>育成・採用・外部調達"]\n    S1 --> S2 --> S3 --> S4 --> S5 --> S6\n    classDef step fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    class S1,S2,S3,S4,S5,S6 step',
+                'mermaid-diagram-4':
+                    'flowchart LR\n    GR["必要スキル<br/>3.1.2"]\n    GC["現有スキル<br/>3.1.3 評価"]\n    GG["ギャップ"]\n    GD["育成計画<br/>3.1.4"]\n    GR --> GG\n    GC --> GG\n    GG --> GD\n    GD -->|"再評価"| GC\n    classDef n fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    class GR,GC,GG,GD n',
+                'mermaid-diagram-5':
+                    'flowchart TD\n    T1["ギャップの優先順位付け<br/>リスクとプロジェクト目標に基づく"]\n    T2["個人ごとの目標設定<br/>SMARTで具体化"]\n    T3["手段の選択<br/>研修・OJT・メンタリングなど"]\n    T4["時間と予算の確保"]\n    T5["実施"]\n    T6["効果の確認と再評価"]\n    T1 --> T2 --> T3 --> T4 --> T5 --> T6\n    T6 -->|"必要なら"| T1\n    classDef n fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    class T1,T2,T3,T4,T5,T6 n',
+                'mermaid-diagram-6':
+                    'flowchart LR\n    subgraph QPRE["リリース前に発生"]\n        QP["予防コスト"]\n        QA["評定 アプレイザル コスト"]\n        QI["内部失敗コスト"]\n    end\n    subgraph QPOST["リリース後に発生"]\n        QE["外部失敗コスト"]\n    end\n    QP -->|"欠陥の作り込みを減らす"| QA\n    QA -->|"欠陥を見つける"| QI\n    QA -.->|"見逃すと"| QE\n    classDef pre fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    classDef post fill:#fee2e2,stroke:#b91c1c,color:#111827\n    class QP,QA,QI pre\n    class QE post',
+                'mermaid-diagram-7':
+                    'flowchart TD\n    U1["1. 目的と対象を明確化<br/>誰に何を判断してほしいか"]\n    U2["2. 過去データを集める<br/>欠陥数・修正コスト・障害コスト"]\n    U3["3. 品質コスト4分類で<br/>コストを漏れなく整理"]\n    U4["4. 便益を見積る<br/>回避できる失敗コストなど"]\n    U5["5. 正味便益と ROI を計算<br/>前提と不確実性を明記"]\n    U6["6. 聞き手に合わせて提示<br/>経営層は金額、現場は作業負荷"]\n    U7["7. 実績を測り、結果を次に活かす"]\n    U1 --> U2 --> U3 --> U4 --> U5 --> U6 --> U7\n    classDef n fill:#dbeafe,stroke:#1e3a8a,color:#111827\n    class U1,U2,U3,U4,U5,U6,U7 n',
+            };
+        </script>
+        <script>
+            (function () {
+                // ---------- Sidebar mobile toggle ----------
+                var toggleBtn = document.getElementById('sidebarToggle');
+                var sidebar = document.getElementById('sidebarNav');
+                var overlay = document.getElementById('sidebarOverlay');
+
+                function closeSidebar() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('open');
+                }
+                function openSidebar() {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('open');
+                }
+                if (toggleBtn) {
+                    toggleBtn.addEventListener('click', function () {
+                        if (sidebar.classList.contains('open')) closeSidebar();
+                        else openSidebar();
+                    });
+                }
+                if (overlay) overlay.addEventListener('click', closeSidebar);
+
+                document.querySelectorAll('.nav-link, .nav-sublink').forEach(function (a) {
+                    a.addEventListener('click', function () {
+                        if (window.matchMedia('(max-width: 980px)').matches) closeSidebar();
+                    });
+                });
+
+                // ---------- Scroll-spy ----------
+                var links = Array.prototype.slice.call(
+                    document.querySelectorAll('.nav-link, .nav-sublink'),
+                );
+                var linkByTarget = {};
+                links.forEach(function (l) {
+                    linkByTarget[l.getAttribute('data-target')] = l;
+                });
+
+                var headings = Object.keys(linkByTarget)
+                    .map(function (id) {
+                        return document.getElementById(id);
+                    })
+                    .filter(Boolean);
+
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            var id = entry.target.id;
+                            var link = linkByTarget[id];
+                            if (!link) return;
+                            if (entry.isIntersecting) {
+                                links.forEach(function (l) {
+                                    l.classList.remove('active');
+                                });
+                                link.classList.add('active');
+                            }
+                        });
+                    },
+                    { rootMargin: '-15% 0px -75% 0px', threshold: 0 },
+                );
+
+                headings.forEach(function (h) {
+                    observer.observe(h);
+                });
+
+                // ---------- Checklist progress ----------
+                document.querySelectorAll('.checklist-card').forEach(function (card) {
+                    var boxes = card.querySelectorAll('input[type="checkbox"]');
+                    var fill = card.querySelector('.cp-bar-fill');
+                    var count = card.querySelector('.cp-count');
+                    function update() {
+                        var total = boxes.length;
+                        var done = 0;
+                        boxes.forEach(function (b) {
+                            if (b.checked) done++;
+                        });
+                        var pct = total ? Math.round((done / total) * 100) : 0;
+                        if (fill) fill.style.width = pct + '%';
+                        if (count) count.textContent = done + ' / ' + total + ' 完了';
+                    }
+                    boxes.forEach(function (b) {
+                        b.addEventListener('change', update);
+                    });
+                    update();
+                });
+
+                // ---------- Mermaid (JS template-literal method) ----------
+                function renderMermaid() {
+                    if (typeof mermaid === 'undefined') {
+                        console.error('mermaid library failed to load');
+                        return;
+                    }
+                    try {
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            theme: 'base',
+                            securityLevel: 'loose',
+                            fontFamily:
+                                '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif',
+                            themeVariables: {
+                                background: '#0c1b2e',
+                                primaryColor: '#13273f',
+                                primaryTextColor: '#e6edf6',
+                                primaryBorderColor: '#2a3f66',
+                                lineColor: '#4c6d9c',
+                                secondaryColor: '#0e2036',
+                                tertiaryColor: '#0e2036',
+                                fontSize: '16px',
+                                clusterBkg: '#0e2036',
+                                clusterBorder: '#2a3f66',
+                                edgeLabelBackground: '#0c1b2e',
+                            },
+                            flowchart: {
+                                useMaxWidth: false,
+                                htmlLabels: true,
+                                subGraphTitleMargin: { top: 12, bottom: 18 },
+                                nodeSpacing: 60,
+                                rankSpacing: 60,
+                            },
+                        });
+                    } catch (e) {
+                        console.error('mermaid.initialize failed', e);
+                        return;
+                    }
+
+                    Object.keys(MERMAID_DIAGRAMS).forEach(function (id) {
+                        var container = document.getElementById(id);
+                        if (!container) return;
+                        var source = MERMAID_DIAGRAMS[id];
+                        try {
+                            mermaid
+                                .render(id + '-svg', source)
+                                .then(function (result) {
+                                    container.innerHTML = result.svg;
+                                })
+                                .catch(function (err) {
+                                    container.innerHTML =
+                                        '<div class="mermaid-error">図の描画に失敗しました: ' +
+                                        (err && err.message ? err.message : err) +
+                                        '</div>';
+                                });
+                        } catch (err) {
+                            container.innerHTML =
+                                '<div class="mermaid-error">図の描画に失敗しました: ' +
+                                (err && err.message ? err.message : err) +
+                                '</div>';
+                        }
+                    });
+                }
+
+                if (typeof mermaid !== 'undefined') {
+                    renderMermaid();
+                } else {
+                    window.addEventListener('load', renderMermaid);
+                }
+            })();
+        </script>
+    </body>
+</html>
