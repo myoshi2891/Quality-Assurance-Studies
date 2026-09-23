@@ -269,12 +269,12 @@ export const MERMAID_CONFIG = `%%{init: {
     "useMaxWidth": false,
     "htmlLabels": true,
     "curve": "basis",
-    "nodeSpacing": 60,
-    "rankSpacing": 65,
-    "padding": 18,
+    "nodeSpacing": 45,
+    "rankSpacing": 45,
+    "padding": 16,
     "subGraphTitleMargin": { "top": 12, "bottom": 18 }
   },
-  "sequence": { "useMaxWidth": false, "wrap": false, "mirrorActors": false },
+  "sequence": { "useMaxWidth": false, "wrap": false, "mirrorActors": true },
   "state": { "useMaxWidth": false }
 }}%%`;
 
