@@ -794,12 +794,12 @@
         width: min(86vw, 320px);
     }
 
-    .ctal-ta-ch4-page.nav-open .sidebar {
+    .ctal-ta-ch4-page .sidebar.open {
         transform: none;
         box-shadow: 0 0 40px rgba(20, 33, 61, 0.25);
     }
 
-    .ctal-ta-ch4-page.nav-open .sb-scrim {
+    .ctal-ta-ch4-page .sb-scrim.open {
         display: block;
         position: fixed;
         inset: 0;

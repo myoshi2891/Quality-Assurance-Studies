@@ -1,7 +1,12 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect } from 'bun:test';
+import { readFileSync } from 'fs';
+import { render, fireEvent, cleanup } from '@testing-library/react';
+import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTaChapter4Page from '../../app/istqb-ctal-ta-chapter4-quality-characteristics/page';
+
+// Bun はテストファイル間で happy-dom のグローバル DOM を共有するため、
+// 描画結果を毎回破棄しないと後続ファイルのクエリ（h1 の一意性など）が汚染される
+afterEach(() => cleanup());
 
 describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overview', () => {
     it('renders the page container and main structure with ctal-ta-ch4-page class', () => {
@@ -375,15 +380,22 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
 
         expect(countSpan?.textContent).toBe(`0 / ${checkboxes.length} 完了`);
         expect(fillBar?.style.width).toBe('0%');
+        // 進捗の変化をスクリーンリーダーへ通知する
+        expect(countSpan?.getAttribute('role')).toBe('status');
+        expect(countSpan?.getAttribute('aria-live')).toBe('polite');
 
         // Check first item
+        const firstItem = checkboxes[0].closest('li');
         fireEvent.click(checkboxes[0]);
         expect(countSpan?.textContent).toBe(`1 / ${checkboxes.length} 完了`);
         expect(parseFloat(fillBar?.style.width || '0')).toBeCloseTo(100 / checkboxes.length);
+        // li.checked の打消し線スタイルが適用される
+        expect(firstItem?.classList.contains('checked')).toBe(true);
 
         // Uncheck first item
         fireEvent.click(checkboxes[0]);
         expect(countSpan?.textContent).toBe(`0 / ${checkboxes.length} 完了`);
+        expect(firstItem?.classList.contains('checked')).toBe(false);
         expect(fillBar?.style.width).toBe('0%');
 
         // Content verification
@@ -430,5 +442,48 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.textContent).toContain('Interaction capability');
         expect(container.textContent).toContain('Interoperability');
         expect(container.textContent).toContain('Service virtualization');
+    });
+});
+
+describe('CTAL-TA v4.0 Chapter 4 - Mobile Navigation Toggle', () => {
+    it('toggles the open class on sidebar and scrim with synced ARIA state', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter4Page />);
+        const toggle = container.querySelector('#sbToggle') as HTMLButtonElement;
+        const sidebar = container.querySelector('#sidebar');
+        const scrim = container.querySelector('#sbScrim');
+        expect(toggle.getAttribute('aria-controls')).toBe('sidebar');
+        expect(toggle.getAttribute('aria-expanded')).toBe('false');
+        expect(toggle.getAttribute('aria-label')).toBe('目次を開く');
+        expect(scrim?.getAttribute('aria-hidden')).toBe('true');
+        expect(sidebar?.classList.contains('open')).toBe(false);
+        expect(scrim?.classList.contains('open')).toBe(false);
+
+        // Act: 開く
+        fireEvent.click(toggle);
+
+        // Assert: CSS の .sidebar.open / .sb-scrim.open セレクタと一致するクラスが付く
+        expect(toggle.getAttribute('aria-expanded')).toBe('true');
+        expect(toggle.getAttribute('aria-label')).toBe('目次を閉じる');
+        expect(sidebar?.classList.contains('open')).toBe(true);
+        expect(scrim?.classList.contains('open')).toBe(true);
+
+        // Act: scrim クリックで閉じる
+        fireEvent.click(scrim as Element);
+
+        // Assert
+        expect(toggle.getAttribute('aria-expanded')).toBe('false');
+        expect(sidebar?.classList.contains('open')).toBe(false);
+        expect(scrim?.classList.contains('open')).toBe(false);
+    });
+
+    it('targets the open classes in the page CSS (not an unused nav-open root class)', () => {
+        const css = readFileSync(
+            'app/istqb-ctal-ta-chapter4-quality-characteristics/istqb-ctal-ta-chapter4-quality-characteristics.css',
+            'utf8',
+        );
+        expect(css).toContain('.ctal-ta-ch4-page .sidebar.open');
+        expect(css).toContain('.ctal-ta-ch4-page .sb-scrim.open');
+        expect(css).not.toContain('.nav-open');
     });
 });

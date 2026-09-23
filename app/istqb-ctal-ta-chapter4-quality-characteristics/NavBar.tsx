@@ -205,12 +205,19 @@ export default function NavBar() {
                 className="sb-toggle"
                 id="sbToggle"
                 type="button"
-                aria-label="目次を開く"
+                aria-label={navOpen ? '目次を閉じる' : '目次を開く'}
+                aria-expanded={navOpen}
+                aria-controls="sidebar"
                 onClick={toggleNav}
             >
                 目次
             </button>
-            {navOpen && <div className="sb-scrim" id="sbScrim" onClick={closeNav} />}
+            <div
+                className={`sb-scrim ${navOpen ? 'open' : ''}`}
+                id="sbScrim"
+                aria-hidden="true"
+                onClick={closeNav}
+            />
             <aside className={`sidebar ${navOpen ? 'open' : ''}`} id="sidebar" aria-label="目次">
                 <div className="sb-brand">ISTQB CTAL-TA v4.0</div>
                 <div className="sb-title">第4章 品質特性のテスト</div>
@@ -228,6 +235,7 @@ export default function NavBar() {
                                         href={`#${sec.id}`}
                                         data-target={sec.id}
                                         className={isH2Active ? 'active' : ''}
+                                        aria-current={isH2Active ? 'location' : undefined}
                                         onClick={() => {
                                             setOpenH2(sec.id);
                                             closeNav();
@@ -245,6 +253,7 @@ export default function NavBar() {
                                                             href={`#${sub.id}`}
                                                             data-target={sub.id}
                                                             className={isH3Active ? 'active' : ''}
+                                                            aria-current={isH3Active ? 'location' : undefined}
                                                             onClick={closeNav}
                                                         >
                                                             {sub.title}

@@ -32,13 +32,13 @@ export default function ChecklistCard({ items }: ChecklistCardProps) {
                 <span className="cp-bar">
                     <span className="cp-bar-fill" style={{ width: `${progressPercent}%` }}></span>
                 </span>
-                <span className="cp-count">{`${completedCount} / ${total} 完了`}</span>
+                <span className="cp-count" role="status" aria-live="polite">{`${completedCount} / ${total} 完了`}</span>
             </div>
             <ul className="task-list">
                 {items.map((item) => {
                     const isChecked = !!checkedItems[item.id];
                     return (
-                        <li key={item.id}>
+                        <li key={item.id} className={isChecked ? 'checked' : undefined}>
                             <label>
                                 <input
                                     type="checkbox"
