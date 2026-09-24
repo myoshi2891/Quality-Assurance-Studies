@@ -329,7 +329,27 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(sec8).toBeTruthy();
         expect(sec8?.textContent).toContain('8. 章末チェックリスト(自己診断用)');
         expect(container.textContent).toContain('0 / 15 完了');
-        expect(container.textContent).toContain('ON点・OFF点・IN点・OUT点の違い');
+        // 15 項目のラベルを出現順で 1 対 1 照合し、欠落・重複・順序違いを検出する
+        const checklistLabels = Array.from(container.querySelectorAll('.checklist-card li')).map((li) =>
+            li.textContent?.trim()
+        );
+        expect(checklistLabels).toEqual([
+            'ON点・OFF点・IN点・OUT点の違いを、閉じた境界と開いた境界それぞれについて説明できる',
+            '簡略化ドメインカバレッジと信頼性ドメインカバレッジの違いを説明できる',
+            'ベースチョイスカバレッジとペアワイズカバレッジの違いを説明できる',
+            'なぜペアワイズテストが効果的とされるのか(相互作用障害の統計的傾向)を説明できる',
+            'CRUDマトリクスを実際に作成し、網羅性テストと一貫性テストの違いを説明できる',
+            '0-switch・1-switch・N-switch・ラウンドトリップカバレッジをそれぞれ図で示せる',
+            'メインシナリオ・拡張シナリオ・例外シナリオの違いを具体例で説明できる',
+            '単純ループカバレッジの4パターンを説明できる',
+            'デシジョンテーブルの最小化とチェックサム手続きを、実際の数値例で計算できる',
+            'メタモルフィック関係(MR)を使ったテストケースを、テストオラクル問題と絡めて説明できる',
+            'テストチャーターの「Explore/With/To」形式で、自分の担当システムの例を1つ作れる',
+            'Read-doチェックリストとDo-confirmチェックリストの違いを具体例で説明できる',
+            'クラウドテストの利点・限界を、体系的テスト技法との使い分けの観点で説明できる',
+            '与えられたシナリオに対し、どの技法カテゴリ(データ/ビヘイビア/ルール/経験ベース)が適切かを判断できる',
+            'テスト設計自動化の利点とリスクを、自分のプロジェクトに当てはめて具体的に語れる',
+        ]);
         expect(container.textContent).toContain('学習のヒント');
 
         // Section 9: Version Changes
