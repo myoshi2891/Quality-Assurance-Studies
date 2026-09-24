@@ -3,6 +3,7 @@ import * as path from 'path';
 
 const newStmtRe = /^(?:\w+\s*-[->.>)x]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|loop\b|rect\b|par\b|and\b|critical\b|break\b|box\b|create\b|destroy\b|autonumber\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/i;
 const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|actor\b|alt\b|loop\b|rect\b)/i;
+const INDENT_SENSITIVE_TYPES = ['mindmap', 'kanban', 'treemap-beta', 'treemap'];
 
 /**
  * Split a leading Mermaid v11 YAML frontmatter block (`---` ... `---`) from the diagram body.
@@ -49,7 +50,7 @@ function getDiagramType(inner: string): string {
 /**
  * Fixes indentation and broken statement lines inside a Mermaid diagram block.
  *
- * Normalizes newlines, repairs mindmap indentation or merges incorrectly broken lines
+ * Normalizes newlines, repairs mindmap/kanban/treemap indentation or merges incorrectly broken lines
  * for other diagram types, and returns the corrected content along with a count
  * of modified lines.
  *
@@ -68,7 +69,9 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
   // frontmatter を除いた最初の非空・非ディレクティブ行でダイアグラム種別を判定
   const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
   const diagramType = diagramTypeLine.trim();
-  const isMindmap = diagramType.toLowerCase().startsWith('mindmap');
+  // mindmap / kanban / treemap はインデントが階層そのものなので、共通インデントの除去のみ行う
+  const diagramKeyword = diagramType.split(/\s+/)[0]?.toLowerCase() ?? '';
+  const preservesIndent = INDENT_SENSITIVE_TYPES.includes(diagramKeyword);
 
   const fixed: string[] = [...fixedFrontmatter];
   let fixedCount = fixedFrontmatter.filter((line, idx) => line !== frontmatter[idx]).length;
@@ -79,7 +82,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
     const stripped = ln.trimStart();
     const leading = ln.length - stripped.length;
 
-    if (isMindmap) {
+    if (preservesIndent) {
       let commonIndent = Infinity;
       for (let j = i; j < rawLines.length; j++) {
         const line = rawLines[j];

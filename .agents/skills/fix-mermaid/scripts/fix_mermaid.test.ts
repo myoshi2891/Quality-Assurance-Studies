@@ -37,6 +37,25 @@ describe("fixHtmlMermaid", () => {
     expect(report).toEqual(["[mindmap]: 5 line(s) modified"]);
   });
 
+  test("kanban の列とカードの階層インデントが保持され、不正な結合が起きない", () => {
+    const html = `<div class="mermaid">
+    kanban
+      Todo
+        [Write docs]
+        id2[Review PR]
+      Done
+        [Ship]
+</div>`;
+    const { fixed, report } = fixHtmlMermaid(html);
+    expect(fixed).toMatch(/^kanban$/m);
+    expect(fixed).toMatch(/^  Todo$/m);
+    expect(fixed).toMatch(/^    \[Write docs\]$/m);
+    expect(fixed).toMatch(/^    id2\[Review PR\]$/m);
+    expect(fixed).toMatch(/^  Done$/m);
+    expect(fixed).toMatch(/^    \[Ship\]$/m);
+    expect(report).toEqual(["[kanban]: 6 line(s) modified"]);
+  });
+
   test("class 属性に追加トークンがあってもブロックが検出・処理される", () => {
     const html = `<div class="foo mermaid bar">
     graph TD
