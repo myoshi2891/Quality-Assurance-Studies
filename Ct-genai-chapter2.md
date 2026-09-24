@@ -4,10 +4,10 @@
 
 > 本ガイドは、ISTQB®（International Software Testing Qualifications Board）が公開している **Certified Tester – Testing with Generative AI（CT-GenAI）** シラバスの **第2章** を、初学者向けにステップバイステップで解説するものです。
 >
-> - 認定試験ページ：https://istqb.org/certifications/gen-ai/
-> - シラバス本体（公式ダウンロード, v1.1）：https://istqb.org/?sdm_process_download=1&download_id=6295
-> - シラバス本文（本ガイド執筆にあたり全文を直接参照したミラー, v1.0）：https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf
-> - v1.1 リリースノート（v1.0→v1.1の変更点）：https://istqb.org/wp-content/uploads/2026/05/ISTQB-CT-GenAI_v1.1_Release_Notes.pdf
+> - 認定試験ページ：<https://istqb.org/certifications/gen-ai/>
+> - シラバス本体（公式ダウンロード, v1.1）：<https://istqb.org/?sdm_process_download=1&download_id=6295>
+> - シラバス本文（本ガイド執筆にあたり全文を直接参照したミラー, v1.0）：<https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf>
+> - v1.1 リリースノート（v1.0→v1.1の変更点）：<https://istqb.org/wp-content/uploads/2026/05/ISTQB-CT-GenAI_v1.1_Release_Notes.pdf>
 >
 > **バージョンについての注記**：現行の最新シラバスは **v1.1（2026年4月27日リリース）** です。v1.1は v1.0 に対する **マイナーアップデート**（章立て・学習目標・出題範囲は変更なし）であり、用語の一部修正や説明文の微調整が中心です。本ガイドは章の内容を v1.0 の全文（英語原文）に基づいて詳細に解説し、v1.1 で変更された箇所は本文中および第7章に明記しています。正確な最終文言は必ず上記の公式シラバスでご確認ください。
 
@@ -508,15 +508,15 @@ v1.1（2026年4月27日リリース）は構造・学習目標・出題範囲を
 
 ### ISTQB公式資料
 
-- ISTQB® CT-GenAI 認定試験ページ（概要・出題範囲・ダウンロードリンク）：https://istqb.org/certifications/gen-ai/
-- CT-GenAI シラバス v1.1（公式ダウンロードリンク）：https://istqb.org/?sdm_process_download=1&download_id=6295
-- CT-GenAI シラバス v1.0 全文（本ガイドの本文解説で直接参照したミラー。v1.1は構造・LOに変更のないマイナーアップデートのため、詳細な章立て・本文理解にはv1.0全文を使用）：https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf
-- CT-GenAI v1.1 リリースノート（v1.0→v1.1の全変更点）：https://istqb.org/wp-content/uploads/2026/05/ISTQB-CT-GenAI_v1.1_Release_Notes.pdf
-- ISTQB® Glossary（用語集）：https://glossary.istqb.org/en_US/search?term=
+- ISTQB® CT-GenAI 認定試験ページ（概要・出題範囲・ダウンロードリンク）：<https://istqb.org/certifications/gen-ai/>
+- CT-GenAI シラバス v1.1（公式ダウンロードリンク）：<https://istqb.org/?sdm_process_download=1&download_id=6295>
+- CT-GenAI シラバス v1.0 全文（本ガイドの本文解説で直接参照したミラー。v1.1は構造・LOに変更のないマイナーアップデートのため、詳細な章立て・本文理解にはv1.0全文を使用）：<https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf>
+- CT-GenAI v1.1 リリースノート（v1.0→v1.1の全変更点）：<https://istqb.org/wp-content/uploads/2026/05/ISTQB-CT-GenAI_v1.1_Release_Notes.pdf>
+- ISTQB® Glossary（用語集）：<https://glossary.istqb.org/en_US/search?term=>
 
 ### シラバス内で引用されている学術文献（第2章関連）
 
-- Schulhoff, S., Ilie, M., Balepur, N., et al. (2024). *The Prompt Report: A Systematic Survey of Prompting Techniques*. arXiv:2406.06608. https://arxiv.org/abs/2406.06608 （2.1.2「コアプロンプティング技法」の出典）
+- Schulhoff, S., Ilie, M., Balepur, N., et al. (2024). *The Prompt Report: A Systematic Survey of Prompting Techniques*. arXiv:2406.06608. <https://arxiv.org/abs/2406.06608> （2.1.2「コアプロンプティング技法」の出典）
 - Li, Y., Liu, P., Wang, H., Chu, J., & Wong, W. E. (2025). *Evaluating large language models for software testing*. Computer Standards & Interfaces, 93, 103942. <https://doi.org/10.1016/j.csi.2024.103942> （2024年オンライン公開。2.3「GenAI結果の評価」で引用されるシラバス中の "Li 2024" に対応）
 
 > 📌 **注記**：シラバス本文中の引用表記（例："(Schulhoff 2024)"、"(Li 2024)"）は著者名と年のみが示され、完全な書誌情報はシラバス第6章「References」に一覧化されています。本ガイドでは主要な引用について検索により該当論文を特定し掲載していますが、シラバスの正式な参考文献リストと完全に一致することを保証するものではないため、正確な書誌情報は公式シラバスの「6 References」セクションをご確認ください。

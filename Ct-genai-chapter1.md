@@ -312,14 +312,14 @@ flowchart TB
 本ガイドの作成にあたり、以下のISTQB®公式情報を直接確認しました。
 
 1. **ISTQB® 公式 CT-GenAI認定ページ**（起点として指定されたURL）
-   https://istqb.org/certifications/gen-ai/
+   <https://istqb.org/certifications/gen-ai/>
 2. **CT-GenAI Syllabus v1.1**（公式ダウンロードリンク、2026年4月27日改訂版）
-   https://istqb.org/?sdm_process_download=1&download_id=6295
+   <https://istqb.org/?sdm_process_download=1&download_id=6295>
 3. **CT-GenAI Syllabus v1.0 全文**（章立て・学習目標・詳細内容の確認に使用。v1.1でも第1章の構成・学習目標は実質的に変更されていないことを公式ページで確認済み）
-   https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf
+   <https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf>
 4. **ISTQB® v1.1リリースに関する公式アナウンス**（v1.0からv1.1への変更点の確認）
-   https://istqb.org/istqb-announces-minor-update-to-certified-tester-testing-with-generative-ai-ct-genai/
+   <https://istqb.org/istqb-announces-minor-update-to-certified-tester-testing-with-generative-ai-ct-genai/>
 5. **ISTQB® Glossary**（用語の正式な定義を確認する際に活用）
-   https://glossary.istqb.org/en_US/search?term=
+   <https://glossary.istqb.org/en_US/search?term=>
 
 > 📌 **補足**：v1.1では「few-shot」から「one-shot」への用語更新など、主に第2〜4章に関わる用語・記述の明確化が行われましたが、公式ページに掲載されている第1章の目次構成（1.1 生成AIの基礎と主要概念 / 1.2 ソフトウェアテストにおける生成AI活用の原則）自体に変更はありません。試験直前には、必ず最新版シラバス原文（出典2）で細部の文言を確認してください。

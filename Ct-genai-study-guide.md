@@ -719,7 +719,7 @@ flowchart LR
 - **実践コミュニティ（community of practice）の形成**による経験・プロンプトライブラリの共有
 - **メンタリング・ペアリング**（メタプロンプティングにおける「AIとのペアリング」的発想をチーム内の人同士の学び合いにも応用）
 
-#### 5.2.3 AI対応テスト組織におけるテストプロセスの進化（K2）
+#### 5.2.3 AI対応テスト組織におけるテストプロセスの進化（K1）
 
 生成AIの導入は、単にツールを追加するだけでなく、テストプロセス・役割そのものの再設計を伴います。
 
@@ -759,17 +759,17 @@ flowchart TD
 
 | 資料名 | URL |
 |---|---|
-| ISTQB CT-GenAI 公式認定ページ | https://istqb.org/certifications/gen-ai/ |
-| CT-GenAI Syllabus v1.1（本ガイドの一次情報源） | https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf |
-| CT-GenAI Syllabus v1.0（比較参照用） | https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf |
-| CT-GenAI Sample Exam A（問題） | https://istqb.org/?sdm_process_download=1&download_id=6309 |
-| CT-GenAI Sample Exam A（解答） | https://istqb.org/?sdm_process_download=1&download_id=6301 |
-| ISTQB Exam Structures and Rules | https://istqb.org/?sdm_process_download=1&download_id=3829 |
-| ISO/IEC 42001:2023（AIマネジメントシステム） | https://www.iso.org/standard/81230.html |
-| ISO/IEC 23053:2022（機械学習AIシステムの枠組み） | https://www.iso.org/standard/74438.html |
-| EU AI Act（Regulation (EU) 2024/1689） | https://eur-lex.europa.eu/eli/reg/2024/1689/oj |
-| NIST AI Risk Management Framework 1.0 | https://www.nist.gov/itl/ai-risk-management-framework |
-| GDPR（Regulation (EU) 2016/679） | https://eur-lex.europa.eu/eli/reg/2016/679/oj |
-| 第5章ロードマップの理解を補助する二次資料 | https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4 |
+| ISTQB CT-GenAI 公式認定ページ | <https://istqb.org/certifications/gen-ai/> |
+| CT-GenAI Syllabus v1.1（本ガイドの一次情報源） | <https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf> |
+| CT-GenAI Syllabus v1.0（比較参照用） | <https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf> |
+| CT-GenAI Sample Exam A（問題） | <https://istqb.org/?sdm_process_download=1&download_id=6309> |
+| CT-GenAI Sample Exam A（解答） | <https://istqb.org/?sdm_process_download=1&download_id=6301> |
+| ISTQB Exam Structures and Rules | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| ISO/IEC 42001:2023（AIマネジメントシステム） | <https://www.iso.org/standard/81230.html> |
+| ISO/IEC 23053:2022（機械学習AIシステムの枠組み） | <https://www.iso.org/standard/74438.html> |
+| EU AI Act（Regulation (EU) 2024/1689） | <https://eur-lex.europa.eu/eli/reg/2024/1689/oj> |
+| NIST AI Risk Management Framework 1.0 | <https://www.nist.gov/itl/ai-risk-management-framework> |
+| GDPR（Regulation (EU) 2016/679） | <https://eur-lex.europa.eu/eli/reg/2016/679/oj> |
+| 第5章ロードマップの理解を補助する二次資料 | <https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4> |
 
 > 注：シラバス本文では上記に加え、プロンプト技法（Schulhoff 2024）、LLMバイアス（Gallegos 2024）、非決定性（Shuyin 2023）、RAG（Zhao 2024）、LLM搭載エージェント（Wang 2024）、LLMOps（Mailach 2024）、ファインチューニング（Parthasarathy 2024）、環境影響（Luccioni 2024a/2024b, Heikkilä 2023, Berthelot 2024）などの学術文献・調査記事が参考文献として引用されています（詳細な書誌情報は公式シラバス第6章「References」を参照してください）。
