@@ -112,8 +112,9 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
       const prev = fixed.length > 0 ? fixed[fixed.length - 1].trimEnd() : '';
       const fragMatch = seqFragRe.test(prev);
       const isIncompleteFrag = fragMatch && !/:\s*\S/.test(prev);
-      // `Note over/left of/right of ...:` の直後はメッセージ本文の続きなので、キーワードで始まっても結合する
-      const isNoteAwaitingText = /^Note\s+(?:over|left\s+of|right\s+of)\b/i.test(prev) && prev.endsWith(':');
+      // `Note over/left of/right of ...:` の直後はメッセージ本文の続きなので、キーワードで始まっても結合する。
+      // 区切りのコロンの後に本文がある Note（本文自体がコロンで終わる場合を含む）は完結しているため対象外
+      const isNoteAwaitingText = /^Note\s+(?:over|left\s+of|right\s+of)\b[^:]*:\s*$/i.test(prev);
       const isCont = isNoteAwaitingText || ((prev.endsWith(':') || isIncompleteFrag) && !newStmtRe.test(stripped));
 
       let changed = false;

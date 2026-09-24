@@ -175,6 +175,17 @@ describe("Note の継続行", () => {
       expect(fixed).toContain(`${note} end of session\nand retry\nA->>B: hi`);
     }
   );
+
+  test("本文がコロンで終わる Note の直後のメッセージは結合されず別行のまま残る", () => {
+    // Arrange
+    const html = `<div class="mermaid">\nsequenceDiagram\nNote over A: 注意:\n    A->>B: hi\n</div>`;
+
+    // Act
+    const { fixed } = fixHtmlMermaid(html);
+
+    // Assert
+    expect(fixed).toContain("Note over A: 注意:\nA->>B: hi");
+  });
 });
 
 describe("fixTsxMermaid", () => {
