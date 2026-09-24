@@ -66,8 +66,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - **デザイン忠実再現 & Scoped CSS**:
   - 原著HTML固有のライトテーマ（`--bg: #ffffff`、`--bg-card: #f1f5f9`、`--accent: #2563eb`、`--accent-dark: #1d4ed8`、`--accent-soft: #eff6ff`、`--text: #1e293b`、`--text-dim: #5b6b81` 等）を忠実に復元。
-  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、セル背景 `background: var(--surface) !important`（偶数行 `var(--surface-alt)`）、Tailwindリストマーカー `list-style-type: disc !important`、`.qa-card`、`.table-wrap`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
-  - スティッキーナビ（`NavBar.tsx`、全33セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch2-page`）。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--text) !important`、行背景 `background: #fbfcfe !important`（奇数行）／`#ffffff !important`（偶数行）、Tailwindリストマーカー `list-style-type: disc !important`、`.qa-card`、`.table-wrap`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、トップレベル10件 + サブ項目7件の計17アンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch2-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
   - 全5図解（章の位置づけ `DIAGRAM_CHAPTER_POSITION`、RBTサイクル `DIAGRAM_RBT_CYCLE`、リスクレベル判定要因 `DIAGRAM_RISK_FACTORS`、回帰テスト技法の選択 `DIAGRAM_REGRESSION_SELECTION`、変更影響分析の8ステップ `DIAGRAM_IMPACT_ANALYSIS_STEPS`）を共通 `<Mermaid>` コンポーネントへ移植。
   - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
@@ -76,7 +76,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 実践演習（ECクーポン変更影響分析）および章末問題集5問（アコーディオン式トグル・詳細解説付き）を完全移植。
 - **参考文献 & 外部リンク**:
   - 公式一次情報および規格関連文書12件（ISTQBシラバス、ISO/IEC/IEEE 29119-2、Rex Black書籍等）を完全移植。
-- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全33セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、トップレベル10件 + サブ項目7件の計17アンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch2-page` スコープ、globals.css干渉リセット）、NavBarを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter2-risk-based-testing`（CTAL-TA 2章 リスクベースドテスト）を追加（全76件）。
 - `tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx`: TDD 必須サイクルに従い、全10セクション、全5Mermaid図、全14テーブル、全コールアウト、実践演習、全問題集5問、全参考文献12件の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 215 expect()）。
