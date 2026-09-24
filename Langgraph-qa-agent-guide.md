@@ -94,7 +94,7 @@ flowchart TD
     SE --> T2C["text_to_cypher<br/>自然言語からCypherへ変換"]
     T2C --> EX["execute_query<br/>クエリ実行"]
     EX -.->|"エラー かつ retries < 3"| T2C
-    EX -->|"成功 かつ output_type = table"| END1(["END（テーブル表示）"])
+    EX -.->|"成功 かつ output_type = table"| END1(["END（テーブル表示）"])
     EX -.->|"成功 かつ output_type = graph または map"| SUM["summarize<br/>要約生成"]
     SUM --> END2(["END（要約つきで表示）"])
     EX -.->|"エラー かつ retries >= 3"| END3(["END（エラー表示）"])
@@ -145,6 +145,7 @@ class AgentState(TypedDict, total=False):
     # execute_query の出力
     # チェックポイントに保存されるため、出力形式によらずシリアライズ可能なレコードのリストで持つ
     results: Optional[list[dict[str, Any]]]
+    results_truncated: bool              # MAX_RESULT_ROWS を超えて切り捨てたか
     results_error: Optional[str]
     retries: int
 
@@ -159,7 +160,7 @@ class AgentState(TypedDict, total=False):
 | `output_type` / `intent_reasoning` | 結果をテーブル・グラフ・地図のどれで見せるかの判定結果と、その理由 |
 | `llm_schema` | Neo4jスキーマをLLM向けに整形した文字列（後述） |
 | `cypher_query` / `cypher_reasoning` / `raw_llm_response` | 生成されたCypher、生成理由、デバッグ用の生レスポンス |
-| `results` / `results_error` / `retries` | 実行結果、エラー内容、リトライ回数 |
+| `results` / `results_truncated` / `results_error` / `retries` | 実行結果、上限件数での切り捨て有無、エラー内容、リトライ回数 |
 | `summary` / `needs_analysis` | 最終的な要約テキストと、追加の分析が必要かどうかのフラグ |
 
 ポイントは、**各ノードが自分の担当範囲だけを読み書きし、State全体を経由して他のノードと疎結合につながる**ことです。ノード同士が直接関数を呼び合わないため、単体テストや途中差し替えがしやすくなります。
@@ -305,11 +306,31 @@ WRITE_CLAUSE_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Cypher を字句として先頭から走査し、文字列リテラル・コメント・バッククォート識別子を区別する。
+# 交互パターンは最左一致で消費されるため、文字列内の // やコメント内の引用符を誤って境界と見なさない
+CYPHER_LEXEME_RE = re.compile(
+    r"'(?:[^'\\]|\\.)*'"      # 単引用符の文字列リテラル
+    r'|"(?:[^"\\]|\\.)*"'     # 二重引用符の文字列リテラル
+    r"|`((?:[^`]|``)*)`"      # バッククォート識別子（中身はグループ 1）
+    r"|//[^\n]*"              # 行コメント
+    r"|/\*.*?\*/",            # ブロックコメント
+    re.DOTALL,
+)
+
+def strip_non_clause_text(cypher: str) -> str:
+    # 文字列とコメントは句になり得ないので空白へ置き換える。
+    # バッククォート識別子は `apoc`.load のように手続き名を分割できるため、消さずに中身を残す（誤検出側に倒す）
+    return CYPHER_LEXEME_RE.sub(
+        lambda m: m.group(1).replace("``", "`") if m.group(1) is not None else " ",
+        cypher,
+    )
+
 class CypherValidationError(Exception):
     pass
 
 def ensure_read_only(cypher: str) -> None:
-    if WRITE_CLAUSE_RE.search(cypher):
+    # 未終端の文字列・コメントはどの字句にも一致せず走査対象に残るため、判定は拒否側に倒れる
+    if WRITE_CLAUSE_RE.search(strip_non_clause_text(cypher)):
         raise CypherValidationError("書き込み操作を含む Cypher は実行できません")
 
 def to_dto(value: Any) -> Any:
@@ -349,9 +370,12 @@ def to_dto(value: Any) -> Any:
     return value
 
 @unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
-def run_read_query(tx, cypher: str) -> list[dict]:
-    # fetch は上限件数までしか取り出さないため、大規模な結果をすべてメモリへ読み込まない
-    return [{key: to_dto(value) for key, value in r.items()} for r in tx.run(cypher).fetch(MAX_RESULT_ROWS)]
+def run_read_query(tx, cypher: str) -> tuple[list[dict], bool]:
+    # fetch は指定件数までしか取り出さないため、大規模な結果をすべてメモリへ読み込まない。
+    # 上限より 1 件多く取り出し、超過の有無で「上限ちょうど」と「切り捨て」を区別する
+    records = tx.run(cypher).fetch(MAX_RESULT_ROWS + 1)
+    rows = [{key: to_dto(value) for key, value in r.items()} for r in records[:MAX_RESULT_ROWS]]
+    return rows, len(records) > MAX_RESULT_ROWS
 
 def execute_query(state: AgentState) -> dict:
     retries = state.get("retries", 0)
@@ -360,13 +384,13 @@ def execute_query(state: AgentState) -> dict:
         with driver.session() as session:
             # execute_read は読み取りモードのトランザクションを選ぶ（クラスタでは読み取りレプリカへ振り分ける）だけで、
             # 書き込みを防ぐ境界ではない。書き込みの最終的な防止は、下記の reader ロールのみを持つユーザーで担保する
-            records = session.execute_read(run_read_query, state["cypher_query"])
+            records, truncated = session.execute_read(run_read_query, state["cypher_query"])
     except (CypherValidationError, ClientError) as exc:
         # Cypher 自体の誤り（構文・意味・書き込み拒否）は、エラー内容を渡して LLM に再生成させる
         return {"results_error": str(exc), "retries": retries + 1}
     # ServiceUnavailable や TransientError などの一時障害は捕捉せず、Step 10 の RetryPolicy に再試行させる
 
-    return {"results": records, "results_error": None}
+    return {"results": records, "results_truncated": truncated, "results_error": None}
 ```
 
 `driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。書き込みを実際に止める境界はこの DB 側の権限です。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
@@ -389,7 +413,7 @@ driver = GraphDatabase.driver(
 
 State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。`Record.data()` はノードをプロパティの辞書に変換する際にラベルや `element_id` を捨ててしまい、リレーションシップも始点・終点が分からなくなります。そのため `to_dto()` でノードのラベルと `element_id`、リレーションシップの型・始点・終点を明示的に保持してから State に入れます。`Result.graph()` からグラフ表示用のデータを組み立てる場合も、neo4j ドライバのオブジェクトをそのまま State に置かず、checkpoint 保存前に同じ形の辞書へ変換してください。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
 
-`QUERY_TIMEOUT_SECONDS` を超えたクエリはサーバー側で打ち切られ、`ClientError` として LLM に再生成させる対象になります。`MAX_RESULT_ROWS` を超える行は返さないため、可視化や要約に渡すデータ量も上限内に収まります。
+`QUERY_TIMEOUT_SECONDS` を超えたクエリはサーバー側で打ち切られ、`ClientError` として LLM に再生成させる対象になります。`MAX_RESULT_ROWS` を超える行は返さないため、可視化や要約に渡すデータ量も上限内に収まります。ただし黙って切り捨てると、利用者は一部の結果を全件と誤解します。そこで上限より 1 件多く取得して超過を `results_truncated` に記録し、要約プロンプト（Step 9）と画面表示（Step 11）の両方で切り捨てを明示します。
 
 ### Step 8. 条件分岐ルーティング — リトライ・要約・終了を切り替える
 
@@ -424,6 +448,8 @@ def summarize(state: AgentState) -> dict:
         "summarize.jinja2",
         question=state["question"],
         results=state["results"],
+        # True なら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示する
+        results_truncated=state.get("results_truncated", False),
         needs_analysis=state.get("needs_analysis", False),
     )
     response = llm.invoke(prompt)
@@ -514,13 +540,22 @@ from typing import Any
 
 from langgraph.types import Command
 
-def process_question(question: str, selection: dict | None, config: dict, resume: Any | None = None):
-    # 中断中のスレッドは Command(resume=...) で同じ config のまま再開し、それ以外は新しい質問として開始する
-    graph_input = (
-        Command(resume=resume)
-        if resume is not None
-        else {"question": question, "user_selection": selection, "retries": 0}
-    )
+def process_question(
+    question: str,
+    selection: dict | None,
+    config: dict,
+    resume: Any | None = None,
+    retry_from_checkpoint: bool = False,
+):
+    if retry_from_checkpoint:
+        # 一時障害で止まったスレッドは入力に None を渡し、最後に保存された checkpoint から続きを実行する
+        # （新しい入力辞書を渡すと、途中まで進んだ状態に入力が上書きされ最初からやり直しになる）
+        graph_input = None
+    elif resume is not None:
+        # interrupt() で中断中のスレッドは Command(resume=...) で同じ config のまま再開する
+        graph_input = Command(resume=resume)
+    else:
+        graph_input = {"question": question, "user_selection": selection, "retries": 0}
     for event in app.stream(graph_input, config, stream_mode="updates"):
         node_name, update = next(iter(event.items()))
         if node_name == "__interrupt__":
@@ -538,6 +573,10 @@ import uuid
 
 import pandas as pd
 import streamlit as st
+from neo4j.exceptions import ServiceUnavailable, SessionExpired, TransientError
+
+# RetryPolicy を使い切っても解消しなかった一時障害。checkpoint から再開できるので UI で再実行を提示する
+TRANSIENT_ERRORS = (ServiceUnavailable, SessionExpired, TransientError)
 
 # チェックポインタは thread_id 単位で状態を保存する。interrupt() からの再開を含め、1つの質問が
 # 完了するまでは同じ thread_id を使い続ける。Streamlit は操作のたびにスクリプトを再実行するため session_state に保持する
@@ -548,14 +587,26 @@ config = {"configurable": {"thread_id": st.session_state.thread_id}}
 def close_thread() -> None:
     # 完了またはキャンセルした時点でだけ checkpoint を削除し、次の質問では新しい thread_id を使う
     app.checkpointer.delete_thread(st.session_state.thread_id)
-    for key in ("thread_id", "pending_interrupt"):
+    for key in ("thread_id", "pending_interrupt", "failed_transient"):
         st.session_state.pop(key, None)
 
 resume = None
+retry_from_checkpoint = False
+if st.session_state.get("failed_transient"):
+    # 一時障害で中断したスレッド。checkpoint は残っているので、同じ config で入力なしの再開を選べる
+    st.error("一時的な障害で処理が中断しました。途中から再実行できます。")
+    if st.button("キャンセル", key="cancel_failed"):
+        close_thread()
+        st.rerun()
+    if not st.button("再実行"):
+        st.stop()
+    st.session_state.pop("failed_transient")
+    retry_from_checkpoint = True
+
 pending = st.session_state.get("pending_interrupt")
 if pending is not None:
     st.warning(pending[0].value)   # interrupt() に渡した確認内容
-    if st.button("キャンセル"):
+    if st.button("キャンセル", key="cancel_interrupt"):
         close_thread()
         st.rerun()
     answer = st.text_input("確認事項への回答")
@@ -565,23 +616,34 @@ if pending is not None:
     resume = answer
 
 placeholder = st.empty()
-for event in process_question(question, selection, config, resume=resume):
-    if event["type"] == "update":
-        placeholder.info(f"処理中: {event['node']}")
-    elif event["type"] == "interrupt":
-        # 一時停止中は checkpoint を削除せず、ユーザーの回答後に同じ config で再開する
-        st.session_state.pending_interrupt = event["payload"]
-        st.rerun()
-    elif event["type"] == "result":
-        payload = event["payload"]
-        # State にはレコードのリストを保存し、table 表示用の DataFrame はグラフの外で作る
-        if payload.get("output_type") == "table" and payload.get("results") is not None:
-            payload = {**payload, "results": pd.DataFrame(payload["results"])}
-        render_result(payload)   # graph / map / table を描画
-        close_thread()
+events = process_question(
+    question, selection, config, resume=resume, retry_from_checkpoint=retry_from_checkpoint
+)
+try:
+    for event in events:
+        if event["type"] == "update":
+            placeholder.info(f"処理中: {event['node']}")
+        elif event["type"] == "interrupt":
+            # 一時停止中は checkpoint を削除せず、ユーザーの回答後に同じ config で再開する
+            st.session_state.pending_interrupt = event["payload"]
+            st.rerun()
+        elif event["type"] == "result":
+            payload = event["payload"]
+            if payload.get("results_truncated"):
+                # 部分結果を全件と誤解させないよう、描画前に切り捨てを通知する
+                st.warning(f"結果が上限の {MAX_RESULT_ROWS} 件を超えたため、先頭 {MAX_RESULT_ROWS} 件のみ表示しています。")
+            # State にはレコードのリストを保存し、table 表示用の DataFrame はグラフの外で作る
+            if payload.get("output_type") == "table" and payload.get("results") is not None:
+                payload = {**payload, "results": pd.DataFrame(payload["results"])}
+            render_result(payload)   # graph / map / table を描画（results_truncated もペイロードに含まれる）
+            close_thread()
+except TRANSIENT_ERRORS:
+    # checkpoint は削除せず残し、次回の再実行で入力なしの app.stream(None, config) として再開する
+    st.session_state.failed_transient = True
+    st.rerun()
 ```
 
-途中で例外が発生した場合も checkpoint は削除しません。一時障害であれば、同じ `config` で `app.stream(None, config)` を呼ぶと最後に保存された checkpoint から処理を続けられます。再開を諦める場合は「キャンセル」で `close_thread()` を呼び、スレッドを明示的に破棄します。
+途中で例外が発生した場合も checkpoint は削除しません。`RetryPolicy` を使い切っても解消しなかった一時障害（`TRANSIENT_ERRORS`）では、「再実行」ボタンを表示します。押されたら `retry_from_checkpoint=True` で `process_question` を呼び、同じ `config` のまま `app.stream(None, config)` を実行して、最後に保存された checkpoint から処理を続けます。新しい入力辞書を渡さないことが要点です。渡すと State が上書きされ、最初からやり直しになります。想定外のバグ（それ以外の例外）はそのまま送出し、デバッグに回します。再開を諦める場合は「キャンセル」で `close_thread()` を呼び、スレッドを明示的に破棄します。
 
 > **2026年の更新点**：ここで使っている `stream_mode="updates"` は安定版の API です。Python の `stream_events()` は、`version="v1"` / `"v2"` ではイベント辞書（`StreamEvent`）を順に返すイテレータで、呼び出し側がイベント種別で分岐して組み立て直す必要があります。LangGraph v1.2 で追加された `stream_events(version="v3")` は、代わりに `GraphRunStream`（非同期版は `AsyncGraphRunStream`）というハンドルを返します。このハンドルの `run.values`（スーパーステップごとの状態スナップショット）や `run.messages`（メッセージ）などの型付き projection（射影）を個別に反復でき、実行後は `run.output`（最終状態）や `run.interrupted` / `run.interrupts`（human-in-the-loop の一時停止）を参照できます。ただし v3 は **experimental** と明記されており、仕様が変わる可能性があります。本番用途では、当面は本ガイドの `stream()` を使い、v3 は API が安定してから採用を検討するのが安全です。
 
