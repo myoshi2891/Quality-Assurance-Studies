@@ -183,6 +183,23 @@ class ConfigurationProvider:
         return template.render(**kwargs)
 ```
 
+各ノードが共有するプロンプト提供者と LLM クライアントは、モジュール読み込み時に1度だけ初期化します。Step 11 の Streamlit 側では LangGraph の実行設定を `config` という名前で扱うため、プロンプト提供者は `prompt_config` と名付けて衝突を避けます。
+
+```python
+import os
+
+from langchain_openai import ChatOpenAI
+
+# prompts/ 配下に intent_detection.jinja2 / text_to_cypher.jinja2 / summarize.jinja2 を置く
+prompt_config = ConfigurationProvider("prompts")
+
+# モデル名と API キーは環境変数から読み込み、コードに直接書かない（ChatOpenAI は OPENAI_API_KEY を自動で参照する）。
+# Cypher 生成と意図判定は再現性を優先し、temperature=0 にする
+llm = ChatOpenAI(model=os.environ["OPENAI_MODEL"], temperature=0)
+```
+
+以降のノードでは、LLM の応答を JSON で返すようテンプレート側で指示し、コード側でその形式を検証してから State に入れます。
+
 こうしておくことで、プロンプトのチューニングとアプリケーションコードの変更を分離でき、プロンプトエンジニアリングの試行錯誤を安全に繰り返せます。
 
 ### Step 4. Schema Provider — Neo4jのスキーマをLLM向けに変換する
@@ -245,8 +262,31 @@ def schema_extraction(state: AgentState) -> dict:
 最初のノードは、ユーザーの質問が「表で見たいのか」「グラフで見たいのか」「地図で見たいのか」を判定します。
 
 ```python
+import json
+
+OUTPUT_TYPES = ("table", "graph", "map")
+
+def parse_json_object(text: str) -> dict:
+    # intent_detection.jinja2 / text_to_cypher.jinja2 では JSON オブジェクトだけを返すよう指示する。
+    # コードフェンス付きで返された場合に備え、最初の { から最後の } までを取り出して解析する
+    start, end = text.find("{"), text.rfind("}")
+    if start < 0 or end < start:
+        raise ValueError(f"LLM の応答に JSON オブジェクトがありません: {text[:200]}")
+    data = json.loads(text[start : end + 1])
+    if not isinstance(data, dict):
+        raise ValueError("LLM の応答が JSON オブジェクトではありません")
+    return data
+
+def parse_intent_response(text: str) -> tuple[str, str]:
+    # 期待する形式: {"output_type": "table" | "graph" | "map", "reasoning": "..."}
+    data = parse_json_object(text)
+    output_type = data.get("output_type")
+    if output_type not in OUTPUT_TYPES:
+        raise ValueError(f"未知の output_type です: {output_type!r}")
+    return output_type, str(data.get("reasoning", ""))
+
 def intent_detection(state: AgentState) -> dict:
-    prompt = config.render(
+    prompt = prompt_config.render(
         "intent_detection.jinja2",
         question=state["question"],
     )
@@ -263,8 +303,16 @@ def intent_detection(state: AgentState) -> dict:
 ### Step 6. Text-to-Cypher ノード — 自然言語をCypherに変換する
 
 ```python
+def parse_cypher_response(text: str) -> tuple[str, str]:
+    # 期待する形式: {"cypher": "MATCH ...", "reasoning": "..."}（parse_json_object は Step 5 で定義）
+    data = parse_json_object(text)
+    query = data.get("cypher")
+    if not isinstance(query, str) or not query.strip():
+        raise ValueError("LLM の応答に cypher がありません")
+    return query.strip(), str(data.get("reasoning", ""))
+
 def text_to_cypher(state: AgentState) -> dict:
-    prompt = config.render(
+    prompt = prompt_config.render(
         "text_to_cypher.jinja2",
         question=state["question"],
         schema=state["llm_schema"],
@@ -301,8 +349,12 @@ MAX_RESULT_ROWS = 1000
 
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
-    r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b"
-    r"|\bCALL\s+(dbms\.|db\.create|apoc\.(create|merge|refactor|periodic|load))",
+    r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b",
+    re.IGNORECASE,
+)
+# プロシージャ名は `apoc`.`load` のようにバッククォートで分割して書けるため、句の検査とは別の字句解析結果で検査する
+WRITE_PROCEDURE_RE = re.compile(
+    r"\bCALL\s+(dbms\s*\.|db\s*\.\s*create|apoc\s*\.\s*(create|merge|refactor|periodic|load))",
     re.IGNORECASE,
 )
 
@@ -319,7 +371,15 @@ CYPHER_LEXEME_RE = re.compile(
 
 def strip_non_clause_text(cypher: str) -> str:
     # 文字列とコメントは句になり得ないので空白へ置き換える。
-    # バッククォート識別子は `apoc`.load のように手続き名を分割できるため、消さずに中身を残す（誤検出側に倒す）
+    # バッククォート識別子（`Create` のようなラベル名など）も句にはならないため、中身を残さず中立なプレースホルダーへ置き換える
+    return CYPHER_LEXEME_RE.sub(
+        lambda m: "_ident_" if m.group(1) is not None else " ",
+        cypher,
+    )
+
+def unquote_identifiers(cypher: str) -> str:
+    # プロシージャ名の検査用。文字列とコメントは空白へ置き換え、バッククォート識別子は中身を展開して
+    # `apoc`.`load`.json のように分割された名前も apoc.load.json として検査できるようにする
     return CYPHER_LEXEME_RE.sub(
         lambda m: m.group(1).replace("``", "`") if m.group(1) is not None else " ",
         cypher,
@@ -330,7 +390,9 @@ class CypherValidationError(Exception):
 
 def ensure_read_only(cypher: str) -> None:
     # 未終端の文字列・コメントはどの字句にも一致せず走査対象に残るため、判定は拒否側に倒れる
-    if WRITE_CLAUSE_RE.search(strip_non_clause_text(cypher)):
+    if WRITE_CLAUSE_RE.search(strip_non_clause_text(cypher)) or WRITE_PROCEDURE_RE.search(
+        unquote_identifiers(cypher)
+    ):
         raise CypherValidationError("書き込み操作を含む Cypher は実行できません")
 
 def to_dto(value: Any) -> Any:
@@ -409,6 +471,8 @@ driver = GraphDatabase.driver(
 )
 ```
 
+この共有 `driver` 構成は**単一テナント前提**です。全利用者が同じ読み取り専用ユーザーの権限でクエリを実行するため、同じデータベース内の全データを参照できる利用者だけが使う環境に限ってください。利用者や組織ごとに参照範囲が異なる（マルチテナントの）場合は、認証済みの利用者・テナント情報を `question` とは別の経路で `AgentState` と `process_question` に渡し、生成された Cypher の内容に依存しない形で Neo4j 側に認可を強制します。たとえば `driver.session(impersonated_user=...)` で利用者ごとの Neo4j ユーザーに切り替え、ロールベースの細粒度アクセス制御で参照範囲を絞ります。「テナント ID で絞り込む WHERE 句を付けて」とプロンプトで LLM に指示するだけでは、生成結果に左右されるため認可の境界になりません。
+
 `apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.*`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
 
 State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。`Record.data()` はノードをプロパティの辞書に変換する際にラベルや `element_id` を捨ててしまい、リレーションシップも始点・終点が分からなくなります。そのため `to_dto()` でノードのラベルと `element_id`、リレーションシップの型・始点・終点を明示的に保持してから State に入れます。`Result.graph()` からグラフ表示用のデータを組み立てる場合も、neo4j ドライバのオブジェクトをそのまま State に置かず、checkpoint 保存前に同じ形の辞書へ変換してください。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
@@ -444,7 +508,7 @@ def route_after_execution(state: AgentState) -> Literal["retry", "summarize", "e
 
 ```python
 def summarize(state: AgentState) -> dict:
-    prompt = config.render(
+    prompt = prompt_config.render(
         "summarize.jinja2",
         question=state["question"],
         results=state["results"],
@@ -586,6 +650,23 @@ from neo4j.exceptions import ServiceUnavailable, SessionExpired, TransientError
 
 # RetryPolicy を使い切っても解消しなかった一時障害。checkpoint から再開できるので UI で再実行を提示する
 TRANSIENT_ERRORS = (ServiceUnavailable, SessionExpired, TransientError)
+
+def render_result(payload: dict) -> None:
+    # 最終 State（results は table なら DataFrame、それ以外は to_dto() 形式のレコードのリスト）を描画する。
+    # graph / map の本格的な描画は外部の可視化コンポーネントに委ねる。差し替える場合も
+    # 「to_dto() 形式のレコードのリストを受け取り、node / relationship / path / point を描く」というインターフェースを守る
+    if payload.get("results_error"):
+        # リトライ上限に達しても解消しなかった Cypher エラー。再質問を促す
+        st.error(f"クエリを生成できませんでした。質問を言い換えてください。（{payload['results_error']}）")
+        return
+    if payload.get("summary"):
+        st.markdown(payload["summary"])
+    output_type = payload.get("output_type")
+    if output_type == "table":
+        st.dataframe(payload["results"])
+    elif output_type in ("graph", "map"):
+        # 最小実装: 可視化コンポーネントを組み込むまでは、構造を確認できるよう JSON として表示する
+        st.json(payload.get("results") or [])
 
 # チェックポインタは thread_id 単位で状態を保存する。interrupt() からの再開を含め、1つの質問が
 # 完了するまでは同じ thread_id を使い続ける。Streamlit は操作のたびにスクリプトを再実行するため session_state に保持する
