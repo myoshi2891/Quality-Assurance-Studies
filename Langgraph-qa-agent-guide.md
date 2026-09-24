@@ -125,9 +125,7 @@ Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core の
 State はパイプライン全体で共有される「記憶」です。ここに何を持たせるかが設計の要になります。
 
 ```python
-from typing import TypedDict, Literal, Optional, Any, Union
-
-import pandas as pd
+from typing import TypedDict, Literal, Optional, Any
 
 class AgentState(TypedDict, total=False):
     # 入力
@@ -147,8 +145,8 @@ class AgentState(TypedDict, total=False):
     raw_llm_response: str
 
     # execute_query の出力
-    # table は DataFrame、graph / map はレコードのリスト（Step 7 の整形と一致させる）
-    results: Optional[Union[pd.DataFrame, list[dict[str, Any]]]]
+    # チェックポイントに保存されるため、出力形式によらずシリアライズ可能なレコードのリストで持つ
+    results: Optional[list[dict[str, Any]]]
     results_error: Optional[str]
     retries: int
 
@@ -287,8 +285,12 @@ def text_to_cypher(state: AgentState) -> dict:
 ```python
 import re
 
-import pandas as pd
+from neo4j import unit_of_work
 from neo4j.exceptions import ClientError
+
+# プロンプトの指示に頼らず、実行時間と返却件数をコード側で強制的に制限する
+QUERY_TIMEOUT_SECONDS = 10
+MAX_RESULT_ROWS = 1000
 
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
@@ -304,29 +306,34 @@ def ensure_read_only(cypher: str) -> None:
     if WRITE_CLAUSE_RE.search(cypher):
         raise CypherValidationError("書き込み操作を含む Cypher は実行できません")
 
+@unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
+def run_read_query(tx, cypher: str) -> list[dict]:
+    # fetch は上限件数までしか取り出さないため、大規模な結果をすべてメモリへ読み込まない
+    return [r.data() for r in tx.run(cypher).fetch(MAX_RESULT_ROWS)]
+
 def execute_query(state: AgentState) -> dict:
     retries = state.get("retries", 0)
     try:
         ensure_read_only(state["cypher_query"])
         with driver.session() as session:
-            # 読み取りトランザクションで実行し、検証をすり抜けた書き込みもサーバー側で拒否させる
-            records = session.execute_read(
-                lambda tx: [r.data() for r in tx.run(state["cypher_query"])]
-            )
+            # execute_read は読み取りモードのトランザクションを選ぶ（クラスタでは読み取りレプリカへ振り分ける）だけで、
+            # 書き込みを防ぐ境界ではない。書き込みの最終的な防止は、下記の reader ロールのみを持つユーザーで担保する
+            records = session.execute_read(run_read_query, state["cypher_query"])
     except (CypherValidationError, ClientError) as exc:
         # Cypher 自体の誤り（構文・意味・書き込み拒否）は、エラー内容を渡して LLM に再生成させる
         return {"results_error": str(exc), "retries": retries + 1}
     # ServiceUnavailable や TransientError などの一時障害は捕捉せず、Step 10 の RetryPolicy に再試行させる
 
-    results = pd.DataFrame(records) if state["output_type"] == "table" else records
-    return {"results": results, "results_error": None}
+    return {"results": records, "results_error": None}
 ```
 
-`driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
+`driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。書き込みを実際に止める境界はこの DB 側の権限です。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
 
 `apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.*`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
 
-出力形式（`output_type`）によって、テーブル用には DataFrame、グラフ／地図用にはレコードのリストという **異なる整形** を行っている点も実務上のポイントです。可視化コンポーネントが期待するデータ構造に合わせて、この段階で変換しておきます。
+State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
+
+`QUERY_TIMEOUT_SECONDS` を超えたクエリはサーバー側で打ち切られ、`ClientError` として LLM に再生成させる対象になります。`MAX_RESULT_ROWS` を超える行は返さないため、可視化や要約に渡すデータ量も上限内に収まります。
 
 ### Step 8. 条件分岐ルーティング — リトライ・要約・終了を切り替える
 
@@ -460,16 +467,26 @@ def process_question(question: str, selection: dict | None, config: dict):
 ```python
 import uuid
 
+import pandas as pd
 import streamlit as st
 
 # チェックポインタは thread_id 単位で状態を保存する。前回の質問の状態が混ざらないよう、質問ごとに新しい thread_id を使う
-config = {"configurable": {"thread_id": str(uuid.uuid4())}}
+thread_id = str(uuid.uuid4())
+config = {"configurable": {"thread_id": thread_id}}
 placeholder = st.empty()
-for event in process_question(question, selection, config):
-    if event["type"] == "update":
-        placeholder.info(f"処理中: {event['node']}")
-    elif event["type"] == "result":
-        render_result(event["payload"])   # graph / map / table を描画
+try:
+    for event in process_question(question, selection, config):
+        if event["type"] == "update":
+            placeholder.info(f"処理中: {event['node']}")
+        elif event["type"] == "result":
+            payload = event["payload"]
+            # State にはレコードのリストを保存し、table 表示用の DataFrame はグラフの外で作る
+            if payload.get("output_type") == "table" and payload.get("results") is not None:
+                payload = {**payload, "results": pd.DataFrame(payload["results"])}
+            render_result(payload)   # graph / map / table を描画
+finally:
+    # 質問ごとの状態が InMemorySaver に蓄積しないよう、結果の取得後（失敗時も）に checkpoint を削除する
+    app.checkpointer.delete_thread(thread_id)
 ```
 
 > **2026年の更新点**：ここで使っている `stream_mode="updates"` は従来からある低レベルAPIです。LangGraph v1.2 以降では、これを一段抽象化した **Event Streaming API**（`stream_events()` / `graph.streamEvents()`）が「新規アプリケーションで推奨される標準的なストリーミング方式」として案内されています。Event Streaming API では `stream.messages`（トークン単位のメッセージ）、`stream.values`（状態スナップショット）、`stream.output`（最終結果）、`stream.interrupts`（human-in-the-loopの一時停止）などを独立した projection（射影）として同時に購読できるため、進捗表示・最終結果表示・人間の介入待ちを別々のロジックで素直に書けるようになりました。新規に構築する場合はこちらのAPIを優先的に検討するとよいでしょう。
@@ -539,28 +556,28 @@ LangGraph の本質は、「複雑な処理を1つの巨大なプロンプトに
 
 ## 参考文献・情報源
 
-- LangGraph 公式ドキュメント（概要） — https://docs.langchain.com/oss/python/langgraph/overview
-- LangGraph 公式ドキュメント（Graph API） — https://docs.langchain.com/oss/python/langgraph/graph-api
-- StateGraph APIリファレンス — https://reference.langchain.com/python/langgraph/graph/state/StateGraph
-- `add_conditional_edges` APIリファレンス — https://reference.langchain.com/python/langgraph/graph/state/StateGraph/add_conditional_edges
-- LangGraph ストリーミング（`stream_mode`）公式ドキュメント — https://docs.langchain.com/oss/python/langgraph/streaming
-- LangGraph Event Streaming（v1.2〜、推奨API）公式ドキュメント — https://docs.langchain.com/oss/python/langgraph/event-streaming
-- LangGraph の Conditional Edge / Retry のトレース解説（futureagi.com, 2026年8月） — https://futureagi.com/blog/langgraph-state-graph-tracing-nodes-edges-retries/
-- LangGraph 本番運用ガイド（Reactify Solutions, 2026年6月） — https://www.reactify-solutions.com/articles/langgraph-production-agents-2026
-- LangGraph 2026年版 実践ガイド（AI with Aish, Substack） — https://aishwaryasrinivasan.substack.com/p/the-complete-guide-for-langchain
-- LangGraphでのAIエージェント構築 2026年版（Lore Van Oudenhove, AI Advances） — https://ai.gopubby.com/building-ai-agents-with-langgraph-2026-edition-a-step-by-step-guide-494d36e801f9
-- LangGraph の State管理とLangChain「State of AI Agents」調査結果の紹介（eastondev.com, 2026年4月） — https://eastondev.com/blog/en/posts/ai/20260424-langgraph-agent-architecture/
-- LangChain「State of AI Agents」2026年レポートの要点まとめ（Lyzr, harness engineering記事） — https://www.lyzr.ai/blog/harness-engineering-for-ai-agents/
-- Tomaz Bratanic（Neo4j, Graph ML & GenAI Research）「Implementing GraphReader with Neo4j and LangGraph」 — https://medium.com/data-science/implementing-graphreader-with-neo4j-and-langgraph-e4c73826a8b7
-- Tomaz Bratanic「Introducing Neo4j Agent Skills」（Neo4j Developer Blog, 2026年5月） — https://medium.com/neo4j/introducing-neo4j-agent-skills-e69958c38dea
-- Neo4j公式「Text2Cypher guide」（Neo4j Graph Database & Analytics, 2026年） — https://neo4j.com/blog/genai/text2cypher-guide/
-- `apoc.meta.schema` APOC Core公式ドキュメント — https://neo4j.com/docs/apoc/current/overview/apoc.meta/apoc.meta.schema/
-- CyVerACT: An Agentic Cypher Translation Workflow over Knowledge Graphs（ScienceDirect, 2026年4月） — https://www.sciencedirect.com/science/article/pii/S030645732600227X
-- Prompting LLMs based on semantic schema for text-to-Cypher（T2CSS, ScienceDirect） — https://www.sciencedirect.com/science/article/pii/S016792362500154X
-- Enhancing Text2Cypher with Schema Filtering（Makbule Gulcin Ozsoy, Neo4j, arXiv） — https://arxiv.org/html/2505.05118v1
-- Knowledge Graphs and LLMs in Action（書籍本体, Manning） — https://www.manning.com/books/knowledge-graphs-and-llms-in-action
-- 第15章プレビュー（Manning） — https://www.manning.com/preview/knowledge-graphs-and-llms-in-action/chapter-15
-- 書籍サンプルコードリポジトリ（GitHub） — https://github.com/alenegro81/knowledge-graphs-and-llms-in-action
+- LangGraph 公式ドキュメント（概要） — <https://docs.langchain.com/oss/python/langgraph/overview>
+- LangGraph 公式ドキュメント（Graph API） — <https://docs.langchain.com/oss/python/langgraph/graph-api>
+- StateGraph APIリファレンス — <https://reference.langchain.com/python/langgraph/graph/state/StateGraph>
+- `add_conditional_edges` APIリファレンス — <https://reference.langchain.com/python/langgraph/graph/state/StateGraph/add_conditional_edges>
+- LangGraph ストリーミング（`stream_mode`）公式ドキュメント — <https://docs.langchain.com/oss/python/langgraph/streaming>
+- LangGraph Event Streaming（v1.2〜、推奨API）公式ドキュメント — <https://docs.langchain.com/oss/python/langgraph/event-streaming>
+- LangGraph の Conditional Edge / Retry のトレース解説（futureagi.com, 2026年8月） — <https://futureagi.com/blog/langgraph-state-graph-tracing-nodes-edges-retries/>
+- LangGraph 本番運用ガイド（Reactify Solutions, 2026年6月） — <https://www.reactify-solutions.com/articles/langgraph-production-agents-2026>
+- LangGraph 2026年版 実践ガイド（AI with Aish, Substack） — <https://aishwaryasrinivasan.substack.com/p/the-complete-guide-for-langchain>
+- LangGraphでのAIエージェント構築 2026年版（Lore Van Oudenhove, AI Advances） — <https://ai.gopubby.com/building-ai-agents-with-langgraph-2026-edition-a-step-by-step-guide-494d36e801f9>
+- LangGraph の State管理とLangChain「State of AI Agents」調査結果の紹介（eastondev.com, 2026年4月） — <https://eastondev.com/blog/en/posts/ai/20260424-langgraph-agent-architecture/>
+- LangChain「State of AI Agents」2026年レポートの要点まとめ（Lyzr, harness engineering記事） — <https://www.lyzr.ai/blog/harness-engineering-for-ai-agents/>
+- Tomaz Bratanic（Neo4j, Graph ML & GenAI Research）「Implementing GraphReader with Neo4j and LangGraph」 — <https://medium.com/data-science/implementing-graphreader-with-neo4j-and-langgraph-e4c73826a8b7>
+- Tomaz Bratanic「Introducing Neo4j Agent Skills」（Neo4j Developer Blog, 2026年5月） — <https://medium.com/neo4j/introducing-neo4j-agent-skills-e69958c38dea>
+- Neo4j公式「Text2Cypher guide」（Neo4j Graph Database & Analytics, 2026年） — <https://neo4j.com/blog/genai/text2cypher-guide/>
+- `apoc.meta.schema` APOC Core公式ドキュメント — <https://neo4j.com/docs/apoc/current/overview/apoc.meta/apoc.meta.schema/>
+- CyVerACT: An Agentic Cypher Translation Workflow over Knowledge Graphs（ScienceDirect, 2026年4月） — <https://www.sciencedirect.com/science/article/pii/S030645732600227X>
+- Prompting LLMs based on semantic schema for text-to-Cypher（T2CSS, ScienceDirect） — <https://www.sciencedirect.com/science/article/pii/S016792362500154X>
+- Enhancing Text2Cypher with Schema Filtering（Makbule Gulcin Ozsoy, Neo4j, arXiv） — <https://arxiv.org/html/2505.05118v1>
+- Knowledge Graphs and LLMs in Action（書籍本体, Manning） — <https://www.manning.com/books/knowledge-graphs-and-llms-in-action>
+- 第15章プレビュー（Manning） — <https://www.manning.com/preview/knowledge-graphs-and-llms-in-action/chapter-15>
+- 書籍サンプルコードリポジトリ（GitHub） — <https://github.com/alenegro81/knowledge-graphs-and-llms-in-action>
 
 ---
 
