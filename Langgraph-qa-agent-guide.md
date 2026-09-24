@@ -291,6 +291,8 @@ from typing import Any
 from neo4j import unit_of_work
 from neo4j.exceptions import ClientError
 from neo4j.graph import Node, Path, Relationship
+from neo4j.spatial import Point
+from neo4j.time import Date, DateTime, Duration, Time
 
 # プロンプトの指示に頼らず、実行時間と返却件数をコード側で強制的に制限する
 QUERY_TIMEOUT_SECONDS = 10
@@ -317,7 +319,7 @@ def to_dto(value: Any) -> Any:
             "kind": "node",
             "element_id": value.element_id,
             "labels": sorted(value.labels),
-            "properties": dict(value),
+            "properties": to_dto(dict(value)),
         }
     if isinstance(value, Relationship):
         return {
@@ -326,7 +328,7 @@ def to_dto(value: Any) -> Any:
             "type": value.type,
             "start": value.start_node.element_id if value.start_node else None,
             "end": value.end_node.element_id if value.end_node else None,
-            "properties": dict(value),
+            "properties": to_dto(dict(value)),
         }
     if isinstance(value, Path):
         return {
@@ -334,6 +336,12 @@ def to_dto(value: Any) -> Any:
             "nodes": [to_dto(n) for n in value.nodes],
             "relationships": [to_dto(r) for r in value.relationships],
         }
+    # neo4j の時間型・空間型はチェックポイントのシリアライザが扱えないため、ISO 8601 文字列と座標の辞書へ変換する
+    if isinstance(value, (DateTime, Date, Time, Duration)):
+        return value.iso_format()
+    # Point は tuple のサブクラスなので、list 判定より前に処理して SRID を失わないようにする
+    if isinstance(value, Point):
+        return {"kind": "point", "srid": value.srid, "coordinates": list(value)}
     if isinstance(value, list):
         return [to_dto(v) for v in value]
     if isinstance(value, dict):
