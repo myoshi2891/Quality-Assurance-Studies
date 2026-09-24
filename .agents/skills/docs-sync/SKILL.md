@@ -98,8 +98,26 @@ git log --oneline -5
 git rev-parse --short HEAD
 
 # B. 現在のNext.jsルート一覧の取得（app/page.tsx とネストしたページを含む）
-# インターセプトマーカー (.) (..) (...) は先頭の / を残して除去し、その後でルートグループ (group) と並列ルートのスロット @slot を除去する（いずれも URL に現れない）
-find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||; s|/(\(\.{1,3}\))+|/|g; s|/\([^/]*\)||g; s|/@[^/]*||g; s|^$|/|' | sort -u
+# ルートグループ (group) と並列ルートのスロット @slot は URL に現れないため除去し、階層数にも数えない。
+# インターセプトマーカーは階層として解決する: (.) は同階層、(..) は 1 つ前のセグメントを取り除き（(..)(..) は 2 つ）、(...) はルートへ戻る
+find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||' | awk -F/ '{
+  n = 0
+  for (i = 2; i <= NF; i++) {
+    s = $i
+    if (s ~ /^@/) continue
+    while (1) {
+      if (substr(s, 1, 5) == "(...)") { n = 0; s = substr(s, 6) }
+      else if (substr(s, 1, 4) == "(..)") { if (n > 0) n--; s = substr(s, 5) }
+      else if (substr(s, 1, 3) == "(.)") { s = substr(s, 4) }
+      else break
+    }
+    if (s == "" || s ~ /^\(.*\)$/) continue
+    seg[++n] = s
+  }
+  out = ""
+  for (j = 1; j <= n; j++) out = out "/" seg[j]
+  print (out == "" ? "/" : out)
+}' | sort -u
 
 # C. テストファイル実数の取得 (Bunユニットテスト)
 find tests/ -name "*.test.ts" -o -name "*.test.tsx" 2>/dev/null | sort
@@ -156,7 +174,7 @@ test_rc=0; lint_rc=0
 ```bash
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
 # 許可されたドキュメントパス以外がステージされていたらコミットを中止する
-if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+'; then
+if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$'; then
   echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2
   false
 else

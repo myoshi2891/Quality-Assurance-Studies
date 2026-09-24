@@ -131,6 +131,10 @@ if ! BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main H
 elif ! DIFF=$(git diff "$BASE"); then
   echo "❌ git diff に失敗したため PII 検査を中止します" >&2; false
 else
-  { printf '%s\n' "$DIFF" | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed 's/^+//'; git ls-files --others --exclude-standard -z | xargs -0 cat --; } | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' && echo "PII detected" || echo "PII check passed"
+  if { printf '%s\n' "$DIFF" | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed 's/^+//'; git ls-files --others --exclude-standard -z | xargs -0 cat --; } | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+    echo "❌ PII detected" >&2; false
+  else
+    echo "PII check passed"
+  fi
 fi
 ```
