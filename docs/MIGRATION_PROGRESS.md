@@ -37,7 +37,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全72セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter4-quality-characteristics/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch4-page` スコープ、globals.css干渉リセット）、NavBar、ChecklistCardを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter4-quality-characteristics`（CTAL-TA 4章 品質特性のテスト）を追加（全78件）。
-- `tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx`: TDD 必須サイクルに従い、全セクション、全20Mermaid図、全テーブル、全コールアウト、全チェックリスト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（12 pass / 266 expect()）。
+- `tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx`: TDD 必須サイクルに従い、全セクション、全20Mermaid図、全テーブル、全コールアウト、全チェックリスト、全参考文献の存在に加え、モバイルナビのフォーカス制御（目次リンク選択時の見出しへのフォーカス移動、スクリム閉鎖時のトグルへのフォーカス復帰）を検証する厳格なテストスイートを実装して全パス（16 pass / 295 expect()）。
 - `Ctal-ta-v4-ch4-quality-characteristics-guide.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4-ch4-quality-characteristics-guide.md` は `archive/md-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 78 ページ体制に同期。
 
