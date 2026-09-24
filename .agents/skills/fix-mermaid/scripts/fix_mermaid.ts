@@ -212,8 +212,10 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
       continue;
     }
 
-    const bodyLines = lines.slice(i + 1, end);
-    const hasCr = bodyLines.some(line => line.endsWith('\r'));
+    const rawBodyLines = lines.slice(i + 1, end);
+    const hasCr = rawBodyLines.some(line => line.endsWith('\r'));
+    // 末尾の \r を残したまま結合すると、最終行の \r が改行に正規化されて空行が 1 行増える
+    const bodyLines = rawBodyLines.map(line => line.replace(/\r$/, ''));
     const { fixedContent } = fixMermaidContent(bodyLines.join('\n'), report);
     out.push(lines[i]);
     if (bodyLines.length > 0) {

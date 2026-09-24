@@ -137,6 +137,13 @@ Other text here.`;
     const { fixed } = fixMarkdownMermaid(md);
     expect(fixed).toBe(["```a`b", "```mermaid", "graph TD", "```"].join("\n"));
   });
+
+  test("CRLF の Markdown でも行数を増やさず、各行の CRLF を保持する", () => {
+    const md = ["```mermaid", "  graph TD", "    A --> B", "```", ""].join("\r\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(["```mermaid", "graph TD", "A --> B", "```", ""].join("\r\n"));
+    expect(report).toEqual(["[graph]: 2 line(s) modified"]);
+  });
 });
 
 describe("sequenceDiagram の文開始判定", () => {
