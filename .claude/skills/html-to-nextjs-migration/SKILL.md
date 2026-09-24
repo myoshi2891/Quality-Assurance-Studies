@@ -20,6 +20,7 @@ description: >
 ### Phase 1: 構成要素インベントリ & Red テストスイート（必須 Gate Condition）
 
 移行漏れを未然に防ぐため、元 HTML を精読して構成要素インベントリを作成し、`tests/<page-slug>/page.test.tsx` に網羅的テストスイートを作成して失敗（Red）させます。
+以下 7 種の各インベントリ項目（個々の見出し・図・表・コードブロック・コールアウト・参考文献・ナビ要素）ごとに独立したアサーションを 1 つずつ書き、インベントリとアサーションを 1 対 1 で対応させます（複数項目を 1 アサーションにまとめない）。
 
 1. 見出し（H1〜H4、セクション ID）および目次リンク
 2. Mermaid 図解（FIG 番号、図種別）
@@ -45,6 +46,7 @@ description: >
     min-height: 0 !important;
     display: block !important;
     overflow: visible !important;
+    padding-top: 0 !important; /* globals の .hero { padding-top: 60px } を打ち消す */
 }
 
 /* セクション余白・区切り線リセット */
@@ -55,9 +57,11 @@ description: >
     border-top: none !important;
 }
 
-/* 本文幅リセット */
+/* 本文幅リセット（globals の main { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem } を明示的に上書き） */
 .my-page main {
     max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* テーブル文字色・余白リセット（薄青灰色干渉防止） */
@@ -126,16 +130,25 @@ grep -n 'class="' app/<page-slug>/page.tsx
 
 # 3. PII 検査（絶対パス混入の完全防止）: PR ベースからの全差分（コミット済み + staged + unstaged）と未追跡ファイルを走査
 # 未追跡のシンボリックリンクは cat でリンク先を辿らず、readlink でリンク先パス自体を検査する
-# ベースまたは差分を取得できない場合は、走査対象が空のまま「passed」にならないよう検査自体を中止する
-if ! BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD); then
-  echo "❌ merge-base を取得できないため PII 検査を中止します" >&2; false
-elif ! DIFF=$(git diff "$BASE"); then
-  echo "❌ git diff に失敗したため PII 検査を中止します" >&2; false
-else
-  if { printf '%s\n' "$DIFF" | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed 's/^+//'; git ls-files --others --exclude-standard -z | while IFS= read -r -d '' f; do if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi; done; } | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
-    echo "❌ PII detected" >&2; false
-  else
-    echo "PII check passed"
-  fi
-fi
+# 収集（ベース・差分・未追跡ファイル）と走査を分離し、各コマンドの終了ステータスを個別に確認する。
+# どれか 1 つでも失敗したら、走査対象が欠けたまま「passed」にならないよう検査自体を中止する（fail closed）
+(
+  abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
+  UNTRACKED=$(mktemp) && SCAN=$(mktemp) || abort "一時ファイルを作成できない"
+  trap 'rm -f "$UNTRACKED" "$SCAN"' EXIT
+  BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD) || abort "merge-base を取得できない"
+  DIFF=$(git diff "$BASE") || abort "git diff に失敗した"
+  printf '%s\n' "$DIFF" | sed -nE '/^\+\+\+ (b\/|\/dev\/null)/d; s/^\+//p' > "$SCAN" || abort "差分の抽出に失敗した"
+  git ls-files --others --exclude-standard -z > "$UNTRACKED" || abort "未追跡ファイルを収集できない"
+  while IFS= read -r -d '' f; do
+    if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi || abort "$f を読み取れない"
+  done < "$UNTRACKED" >> "$SCAN"
+  # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
+  grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' "$SCAN"
+  case $? in
+    0) echo "❌ PII detected" >&2; exit 1 ;;
+    1) echo "PII check passed" ;;
+    *) abort "grep による走査に失敗した" ;;
+  esac
+)
 ```

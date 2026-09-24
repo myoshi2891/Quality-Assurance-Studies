@@ -175,7 +175,8 @@ bun x markdownlint-cli <file_path>
 
 ```bash
 # 許可されたプレースホルダー（johndoe）の一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
-git diff --cached | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed -E 's#(/Users/johndoe/|/home/johndoe/|C:\\Users\\johndoe\\)##g' | grep -E '(/Users/|/home/|C:\\Users\\)'
+# パターンは [e] / [m] で分割し、このコマンド自体が差分に含まれても自己一致しないようにする
+git diff --cached | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|C:\\Us[e]rs\\johndoe\\)##g' | grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)'
 ```
 
 検証が成功（何も検出されない）したことを確認してから、コミットを適用してください。
