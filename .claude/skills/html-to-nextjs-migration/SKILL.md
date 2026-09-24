@@ -125,13 +125,14 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 grep -n 'class="' app/<page-slug>/page.tsx
 
 # 3. PII 検査（絶対パス混入の完全防止）: PR ベースからの全差分（コミット済み + staged + unstaged）と未追跡ファイルを走査
+# 未追跡のシンボリックリンクは cat でリンク先を辿らず、readlink でリンク先パス自体を検査する
 # ベースまたは差分を取得できない場合は、走査対象が空のまま「passed」にならないよう検査自体を中止する
 if ! BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD); then
   echo "❌ merge-base を取得できないため PII 検査を中止します" >&2; false
 elif ! DIFF=$(git diff "$BASE"); then
   echo "❌ git diff に失敗したため PII 検査を中止します" >&2; false
 else
-  if { printf '%s\n' "$DIFF" | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed 's/^+//'; git ls-files --others --exclude-standard -z | xargs -0 cat --; } | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+  if { printf '%s\n' "$DIFF" | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed 's/^+//'; git ls-files --others --exclude-standard -z | while IFS= read -r -d '' f; do if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi; done; } | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
     echo "❌ PII detected" >&2; false
   else
     echo "PII check passed"
