@@ -159,6 +159,17 @@ describe("sequenceDiagram の文開始判定", () => {
   });
 });
 
+describe("Note の継続行", () => {
+  test.each(["Note over A,B:", "Note left of A:", "Note right of A:"])(
+    "%s の直後でキーワードから始まる継続行はノートに結合される",
+    (note) => {
+      const html = `<div class="mermaid">\nsequenceDiagram\n${note}\n    end of session\n    and retry\nA->>B: hi\n</div>`;
+      const { fixed } = fixHtmlMermaid(html);
+      expect(fixed).toContain(`${note} end of session\nand retry\nA->>B: hi`);
+    }
+  );
+});
+
 describe("fixTsxMermaid", () => {
   test("TSX 内のテンプレートリテラルの Mermaid コードのインデントが正規化される", () => {
     const tsx = `import Mermaid from '../../components/Mermaid';
