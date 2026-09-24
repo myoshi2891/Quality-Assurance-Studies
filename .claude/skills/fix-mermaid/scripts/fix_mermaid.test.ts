@@ -205,6 +205,17 @@ describe("Note の継続行", () => {
     // Assert
     expect(fixed).toContain("Note over A: 注意:\nA->>B: hi");
   });
+
+  test("stateDiagram-v2 の複数行ノートは sequenceDiagram の継続行として結合されない", () => {
+    // Arrange
+    const html = `<div class="mermaid">\nstateDiagram-v2\nnote right of S1\n    first line\n    second line\nend note\n</div>`;
+
+    // Act
+    const { fixed } = fixHtmlMermaid(html);
+
+    // Assert
+    expect(fixed).toContain("note right of S1\nfirst line\nsecond line\nend note");
+  });
 });
 
 describe("fixTsxMermaid", () => {

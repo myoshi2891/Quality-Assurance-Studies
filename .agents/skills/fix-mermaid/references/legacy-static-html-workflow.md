@@ -88,10 +88,13 @@ svgEl.style.maxWidth = '100%';
 svgEl.style.height = 'auto';
 
 // 幅は viewBox の第3要素（自然 px 幅）から取得する。viewBox が無い/壊れている場合
-// （4 値でない・有限数でない値を含む・幅または高さが 0 以下）は幅を設定しない
+// （4 値でない・SVG の数値構文でない値を含む・幅または高さが 0 以下）は幅を設定しない
 // （width を付けないまま maxWidth:100% + height:auto で描画させる）。
+// Number() は '0x1f4' や 'Infinity' も受理するため、SVG の数値・区切り構文で先に検証する
+const SVG_NUMBER = String.raw`[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?`;
+const VIEWBOX_RE = new RegExp(`^\\s*${SVG_NUMBER}(?:(?:\\s+,?\\s*|,\\s*)${SVG_NUMBER}){3}\\s*$`);
 const viewBox = svgEl.getAttribute('viewBox');
-const parts = viewBox ? viewBox.trim().split(/[\s,]+/).map(Number) : [];
+const parts = viewBox && VIEWBOX_RE.test(viewBox) ? viewBox.trim().split(/\s*,\s*|\s+/).map(Number) : [];
 if (parts.length === 4 && parts.every(Number.isFinite) && parts[2] > 0 && parts[3] > 0) {
     svgEl.style.width = `${parts[2]}px`; // viewBox 由来の自然 px 幅 + maxWidth:100% の新ルールに準拠
 }

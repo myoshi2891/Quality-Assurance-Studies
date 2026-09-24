@@ -118,7 +118,10 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
       // `Note over/left of/right of ...:` の直後はメッセージ本文の続きなので、キーワードで始まっても結合する。
       // 区切りのコロンの後に本文がある Note（本文自体がコロンで終わる場合を含む）は完結しているため対象外
       const isNoteAwaitingText = /^Note\s+(?:over|left\s+of|right\s+of)\b[^:]*:\s*$/i.test(prev);
-      const isCont = isNoteAwaitingText || ((prev.endsWith(':') || isIncompleteFrag) && !newStmtRe.test(stripped));
+      // 継続行の結合は sequenceDiagram 固有の修復。stateDiagram の複数行 note 等を誤結合しないよう限定する
+      const isCont =
+        diagramKeyword === 'sequencediagram' &&
+        (isNoteAwaitingText || ((prev.endsWith(':') || isIncompleteFrag) && !newStmtRe.test(stripped)));
 
       let changed = false;
       if (isCont && fixed.length > 0) {
