@@ -436,6 +436,7 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
 
         // Verify dynamic progress update on checklist
         const firstCard = checklistCards[0];
+        if (!firstCard) throw new Error('checklist card not found');
         const countSpan = firstCard.querySelector('.cp-count');
         const fillBar = firstCard.querySelector('.cp-bar-fill') as HTMLElement;
         const checkboxes = firstCard.querySelectorAll('input[type="checkbox"]');
@@ -447,15 +448,17 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(countSpan?.getAttribute('aria-live')).toBe('polite');
 
         // Check first item
-        const firstItem = checkboxes[0].closest('li');
-        fireEvent.click(checkboxes[0]);
+        const firstCheckbox = checkboxes[0];
+        if (!firstCheckbox) throw new Error('checkbox not found');
+        const firstItem = firstCheckbox.closest('li');
+        fireEvent.click(firstCheckbox);
         expect(countSpan?.textContent).toBe(`1 / ${checkboxes.length} 完了`);
         expect(parseFloat(fillBar?.style.width || '0')).toBeCloseTo(100 / checkboxes.length);
         // li.checked の打消し線スタイルが適用される
         expect(firstItem?.classList.contains('checked')).toBe(true);
 
         // Uncheck first item
-        fireEvent.click(checkboxes[0]);
+        fireEvent.click(firstCheckbox);
         expect(countSpan?.textContent).toBe(`0 / ${checkboxes.length} 完了`);
         expect(firstItem?.classList.contains('checked')).toBe(false);
         expect(fillBar?.style.width).toBe('0%');
