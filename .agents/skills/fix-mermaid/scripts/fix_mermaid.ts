@@ -34,17 +34,51 @@ function stripCommonIndent(lines: string[]): string[] {
 }
 
 /**
+ * Find the line that declares the diagram type.
+ *
+ * Skips blank lines, `%%` comments and `%%{ ... }%%` directives, including multiline directives
+ * whose inner configuration lines (e.g. `"theme": "base",`) do not start with `%%`.
+ *
+ * @param lines - Mermaid content split into lines (frontmatter already removed)
+ * @returns The diagram declaration line, or an empty string if none is found
+ */
+function findDiagramTypeLine(lines: string[]): string {
+  let inDirective = false;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (inDirective) {
+      // 複数行ディレクティブは閉じの }%% を含む行まで読み飛ばす
+      if (trimmed.includes('}%%')) {
+        inDirective = false;
+      }
+      continue;
+    }
+    if (!trimmed) {
+      continue;
+    }
+    if (trimmed.startsWith('%%{')) {
+      inDirective = !trimmed.includes('}%%', 3);
+      continue;
+    }
+    if (trimmed.startsWith('%%')) {
+      continue;
+    }
+    return line;
+  }
+  return '';
+}
+
+/**
  * Determine the diagram type from a block of Mermaid content.
  *
- * Scans the content for the first non-empty line that does not start with `%%` and returns its first whitespace-delimited token.
+ * Returns the first whitespace-delimited token of the diagram declaration line (see `findDiagramTypeLine`).
  *
  * @param inner - Mermaid diagram content
  * @returns The diagram type token (e.g., `graph`, `sequenceDiagram`, `mindmap`), or `"unknown"` if no suitable line is found
  */
 function getDiagramType(inner: string): string {
   const { body: rawLines } = splitFrontmatter(inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n'));
-  const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
-  return diagramTypeLine.trim().split(/\s+/)[0] || 'unknown';
+  return findDiagramTypeLine(rawLines).trim().split(/\s+/)[0] || 'unknown';
 }
 
 /**
@@ -66,9 +100,8 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
   );
   const fixedFrontmatter = stripCommonIndent(frontmatter);
 
-  // frontmatter を除いた最初の非空・非ディレクティブ行でダイアグラム種別を判定
-  const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
-  const diagramType = diagramTypeLine.trim();
+  // frontmatter と %%{init}%% ディレクティブ（複数行を含む）を除いた最初の宣言行でダイアグラム種別を判定
+  const diagramType = findDiagramTypeLine(rawLines).trim();
   // mindmap / kanban / treemap はインデントが階層そのものなので、共通インデントの除去のみ行う
   const diagramKeyword = diagramType.split(/\s+/)[0]?.toLowerCase() ?? '';
   const preservesIndent = INDENT_SENSITIVE_TYPES.includes(diagramKeyword);
@@ -163,7 +196,8 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
  */
 export function fixHtmlMermaid(html: string): { fixed: string; report: string[] } {
   const report: string[] = [];
-  const pattern = /(<div\b[^>]*\bclass\s*=\s*(?:"[^"]*(?<![\w-])mermaid(?![\w-])[^"]*"|'[^']*(?<![\w-])mermaid(?![\w-])[^']*'|[^\s>]*(?<![\w-])mermaid(?![\w-])[^\s>]*)[^>]*>)([\s\S]*?)(<\/div>)/gi;
+  // class は独立した属性としてのみ認識する（\b だと data-class の "-class" にも一致するため、直前に空白を要求する）
+  const pattern = /(<div\b[^>]*\sclass\s*=\s*(?:"[^"]*(?<![\w-])mermaid(?![\w-])[^"]*"|'[^']*(?<![\w-])mermaid(?![\w-])[^']*'|[^\s>]*(?<![\w-])mermaid(?![\w-])[^\s>]*)[^>]*>)([\s\S]*?)(<\/div>)/gi;
 
   const fixed = html.replace(pattern, (match, openTag, inner, closeTag) => {
     const { fixedContent } = fixMermaidContent(inner, report);

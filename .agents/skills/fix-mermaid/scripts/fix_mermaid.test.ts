@@ -77,6 +77,39 @@ describe("fixHtmlMermaid のクラストークン判定", () => {
     expect(fixed).toBe(html);
     expect(report).toEqual([]);
   });
+
+  test("data-class 属性の mermaid は class 属性として扱わない", () => {
+    const html = `<div data-class="mermaid">\n    graph TD\n    A --> B\n</div>`;
+    const { fixed, report } = fixHtmlMermaid(html);
+    expect(fixed).toBe(html);
+    expect(report).toEqual([]);
+  });
+
+  test("他の属性に続く class 属性の mermaid は Mermaid ブロックとして扱う", () => {
+    const html = `<div id="fig1" class="mermaid">\n    graph TD\n    A --> B\n</div>`;
+    const { fixed } = fixHtmlMermaid(html);
+    expect(fixed).toBe(`<div id="fig1" class="mermaid">\ngraph TD\nA --> B\n</div>`);
+  });
+});
+
+describe("複数行の %%{init}%% ディレクティブ", () => {
+  test("ディレクティブ内の設定行を種別と誤判定せず、mindmap の階層インデントを保持する", () => {
+    const md = [
+      "```mermaid",
+      "  %%{init: {",
+      '    "theme": "base"',
+      "  }}%%",
+      "  mindmap",
+      "    root",
+      "      child",
+      "```",
+    ].join("\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(
+      ["```mermaid", "%%{init: {", '  "theme": "base"', "}}%%", "mindmap", "  root", "    child", "```"].join("\n")
+    );
+    expect(report).toEqual(["[mindmap]: 6 line(s) modified"]);
+  });
 });
 
 describe("YAML frontmatter", () => {
