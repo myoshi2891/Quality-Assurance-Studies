@@ -243,7 +243,7 @@
 .ctal-ta-ch3-page .callout-body { font-size: 0.96rem; line-height: 1.75; }
 .ctal-ta-ch3-page .callout-body p { margin: 0 0 10px; }
 .ctal-ta-ch3-page .callout-body p:last-child { margin-bottom: 0; }
-.ctal-ta-ch3-page .callout-body ul { margin: 0 !important; padding-left: 22px !important; }
+.ctal-ta-ch3-page .callout-body ul:not(.nav-list):not(.nav-sub):not(.checklist) { margin: 0 !important; padding-left: 22px !important; }
 .ctal-ta-ch3-page .callout-body li { margin-bottom: 7px; }
 .ctal-ta-ch3-page .callout-body li:last-child { margin-bottom: 0; }
 .ctal-ta-ch3-page .callout-practice { background: var(--success-bg); border-color: var(--success-border); }
