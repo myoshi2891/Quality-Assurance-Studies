@@ -463,6 +463,7 @@ def summarize(state: AgentState) -> dict:
 すべてのノードを `StateGraph` に登録し、Edge と Conditional Edge を接続します。
 
 ```python
+import streamlit as st
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import RetryPolicy
@@ -495,8 +496,16 @@ graph.add_conditional_edges(
 )
 graph.add_edge("summarize", END)
 
-# Step 11 の get_state で最終状態を取得するため、チェックポインタを付けてコンパイルする
-app = graph.compile(checkpointer=InMemorySaver())
+# Step 11 の get_state で最終状態を取得するため、チェックポインタを付けてコンパイルする。
+# Streamlit は操作のたびにスクリプト全体を再実行するため、ここで毎回 InMemorySaver() を作ると
+# 保存済みの checkpoint が失われ、同じ thread_id でも interrupt / 一時障害からの再開ができない。
+# st.cache_resource でコンパイル済み app（とチェックポインタ）をプロセス内で1つだけ保持する。
+# 複数プロセス構成や再起動をまたぐ場合は、SqliteSaver / PostgresSaver などの永続チェックポインタを使う
+@st.cache_resource
+def get_app():
+    return graph.compile(checkpointer=InMemorySaver())
+
+app = get_app()
 ```
 
 `RetryPolicy` は LangGraph が提供する**ノード単位の自動リトライ機構**です。ここでの `execute_query` に対する `retry_policy` は、Neo4j接続の一時的な切断のような**予期しない例外**に対する保険であり、Step 8 で組んだ `route_after_execution` による**業務ロジック上の再試行**（Cypherの構文ミスなどをLLMに直してもらう）とは目的が異なります。両者を混同しないことが実務上の注意点です。LangGraph の `RetryPolicy` は既定で `max_attempts=3`、`initial_interval=0.5`秒、`backoff_factor=2.0` の指数バックオフが設定されており、`ValueError` や `TypeError` などの一部の例外を除き、ほとんどの例外を自動的にリトライ対象とします。
@@ -614,6 +623,18 @@ if pending is not None:
         st.stop()   # 回答を待つ間も checkpoint は残しておく
     st.session_state.pop("pending_interrupt")
     resume = answer
+
+if resume is None and not retry_from_checkpoint:
+    # 新しい質問は UI から受け取る。st.chat_input は送信した回の再実行でだけ値を返すため、
+    # 結果表示後の再実行で同じ質問が二重に処理されない
+    question = st.chat_input("質問を入力してください")
+    if not question:
+        st.stop()
+else:
+    # 再開時は checkpoint の State を使うため、新しい質問は graph_input に使われない
+    question = ""
+# グラフ上で選択中のノード。可視化コンポーネントが選択時に session_state へ保存する想定（未選択なら None）
+selection = st.session_state.get("selection")
 
 placeholder = st.empty()
 events = process_question(
