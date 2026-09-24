@@ -179,7 +179,7 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
 
         // Mermaid diagrams 1 & 2
         const diagrams = container.querySelectorAll('.mermaid-target');
-        expect(diagrams.length).toBeGreaterThanOrEqual(2);
+        expect(diagrams.length).toBe(20);
         expect(container.querySelector('#mermaid-diagram-1')).toBeTruthy();
         expect(container.querySelector('#mermaid-diagram-2')).toBeTruthy();
     });
