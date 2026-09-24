@@ -26,6 +26,17 @@ bun test tests/lib/mermaid-theme-contract.test.ts
 | `prefixes every DIAGRAM_* constant with the shared config` | 一部の図で `MERMAID_CONFIG` の付与が漏れている |
 | `resets the global dark .mermaid-wrapper card` | ページ固有 CSS で globals のダークカード既定を打ち消していない |
 
+契約テストが通ったら、本番ビルドでの網羅チェックとして E2E を実行します。
+`e2e/mermaid-layout.e2e.ts` が全 Mermaid ページに対し、ダークカード残存・760px 制限・横スクロール時の左端切れを検出します。
+
+```bash
+bun run e2e
+```
+
+> [!IMPORTANT]
+> `bun run e2e` は `webServer` 経由で本番ビルドを起動するため、サンドボックス環境ではエージェントが自律実行せずユーザーに実行を依頼すること。
+> また E2E は文字の見切れを検査しない。関連 CSS（特に §5 の `foreignObject` 周り）を変更した場合は、ブラウザで `foreignObject` 内テキストの描画を目視確認すること。
+
 ## 1. ページ固有テーマの上書き（ライト配色ページの必須パターン）
 
 `components/Mermaid.tsx` はアプリ共通コンポーネントのため**直接変更してはなりません**。

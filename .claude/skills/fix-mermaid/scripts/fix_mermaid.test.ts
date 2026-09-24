@@ -86,6 +86,39 @@ Other text here.`;
     const { fixed } = fixMarkdownMermaid(md);
     expect(fixed).toBe(["````mermaid", "graph TD", "```", "A --> B", "````"].join("\n"));
   });
+
+  test("mermaid 以外のフェンス内にある ```mermaid 例は変更しない", () => {
+    const md = ["````markdown", "```mermaid", "  graph TD", "```", "````"].join("\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(md);
+    expect(report).toEqual([]);
+  });
+
+  test("info 文字列にバッククォートを含む行はフェンスとして扱わない", () => {
+    const md = ["```a`b", "```mermaid", "  graph TD", "```"].join("\n");
+    const { fixed } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(["```a`b", "```mermaid", "graph TD", "```"].join("\n"));
+  });
+});
+
+describe("sequenceDiagram の文開始判定", () => {
+  test.each([
+    "A-)B: async",
+    "A--)B: async",
+    "A-xB: lost",
+    "A--xB: lost",
+    "autonumber",
+    "break when failed",
+    "critical section",
+    "and branch",
+    "box Group",
+    "create participant C",
+    "destroy C",
+  ])("不完全なフラグメント直後の %s は前行に結合されない", (stmt) => {
+    const html = `<div class="mermaid">\nsequenceDiagram\nparticipant A\n    ${stmt}\n</div>`;
+    const { fixed } = fixHtmlMermaid(html);
+    expect(fixed).toContain(`participant A\n${stmt}`);
+  });
 });
 
 describe("fixTsxMermaid", () => {

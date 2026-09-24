@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const newStmtRe = /^(?:\w+\s*-[->.>]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|loop\b|rect\b|par\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/i;
+const newStmtRe = /^(?:\w+\s*-[->.>)x]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|loop\b|rect\b|par\b|and\b|critical\b|break\b|box\b|create\b|destroy\b|autonumber\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/i;
 const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|actor\b|alt\b|loop\b|rect\b)/i;
 
 /**
@@ -149,18 +149,22 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
   // 行単位で走査し、開始フェンスの文字と長さを保持する（CommonMark のフェンス規則に準拠）
   const lines = markdown.split('\n');
   const out: string[] = [];
-  const openRe = /^ {0,3}(`{3,}|~{3,})\s*mermaid\b.*$/i;
+  // mermaid 以外のフェンスも追跡し、その内側にある ```mermaid 風の行を誤検出しない
+  const openRe = /^ {0,3}(`{3,}|~{3,})(.*)$/;
 
   let i = 0;
   while (i < lines.length) {
     const openMatch = openRe.exec(lines[i].replace(/\r$/, ''));
-    if (!openMatch) {
+    const fence = openMatch?.[1] ?? '';
+    const info = openMatch?.[2] ?? '';
+    // バッククォートフェンスの info 文字列にバッククォートは含められない（CommonMark）
+    if (!openMatch || (fence[0] === '`' && info.includes('`'))) {
       out.push(lines[i]);
       i++;
       continue;
     }
 
-    const fence = openMatch[1];
+    const isMermaid = /^\s*mermaid\b/i.test(info);
     // 閉じフェンス: 同じ文字で開始フェンス以上の長さ、後続は空白のみ
     const closeRe = new RegExp(`^ {0,3}${fence[0] === '`' ? '`' : '~'}{${fence.length},}\\s*$`);
     let end = i + 1;
@@ -171,6 +175,13 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
       // 閉じフェンスがないブロックは変更しない
       out.push(...lines.slice(i));
       break;
+    }
+
+    if (!isMermaid) {
+      // mermaid 以外のブロックは閉じフェンスまでそのまま出力する
+      out.push(...lines.slice(i, end + 1));
+      i = end + 1;
+      continue;
     }
 
     const bodyLines = lines.slice(i + 1, end);
