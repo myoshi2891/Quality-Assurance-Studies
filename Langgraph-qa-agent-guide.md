@@ -59,9 +59,7 @@ flowchart TD
 
 LangChain が「Chain」（決まった順序で処理を直列につなぐ仕組み）を中心に据えていたのに対して、LangGraph はその名の通り「Graph」（グラフ構造）を中心に据えています。2024年に LangGraph が登場した背景には、「実際の業務プロセスは一直線には進まない」という現実があります。ユーザーは質問の途中で割り込んだり、確認を求めたり、話題を変えたりします。単純な直列パイプラインではこうした分岐や後戻り（サイクル）を表現できません。
 
-海外の開発者コミュニティでは、この移行を次のように総括しています。
-
-> 「2024年がRAGの年、2025年がエージェントの年だったなら、2026年は "Stateful Orchestration"（状態を持つオーケストレーション）の年である」
+筆者の見立てでは、この流れは「2024年がRAG、2025年がエージェントに注目が集まった年だとすれば、2026年は "Stateful Orchestration"（状態を持つオーケストレーション）が主題になる年」と整理できます。
 
 ### 1-2. LangGraphの3要素：State / Node / Edge
 
@@ -116,7 +114,7 @@ flowchart TD
 pip install langgraph langchain langchain-neo4j langchain-openai neo4j streamlit jinja2
 ```
 
-2026年時点でLangGraphは Python 3.10〜3.14 に対応しており、3.11 または 3.12 の利用が推奨されています（3.9系は LangGraph 1.1 でサポートが終了しました）。
+2026年時点でLangGraphが公式に対応を明示している Python は 3.10〜3.13 で、3.11 または 3.12 の利用が推奨されています（3.9系は LangGraph 1.1 でサポートが終了しました）。
 
 Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core のプロシージャです。オンプレミスの Neo4j では、APOC Core の jar を `plugins` ディレクトリへ導入したうえで、`neo4j.conf` の `dbms.security.procedures.allowlist`（必要に応じて `dbms.security.procedures.unrestricted`）に `apoc.meta.*` を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura では APOC Core が標準で利用可能です）。
 
@@ -205,7 +203,8 @@ def to_llm_friendly_schema(
 ) -> str:
     lines: list[str] = []
     for label, meta in raw_schema.items():
-        if label in skip_labels:
+        # apoc.meta.schema() はリレーションシップ型も同じマップに返すため、ノードのエントリだけを扱う
+        if meta.get("type") != "node" or label in skip_labels:
             continue
         note = business_notes.get(label, "")
         lines.append(f"- {label}: {note}")
@@ -213,9 +212,11 @@ def to_llm_friendly_schema(
             lines.append(f"    - {prop} ({prop_meta.get('type')})")
         # リレーションシップの向きと接続先ラベルも渡し、LLM がパターンの向きを誤らないようにする
         for rel_type, rel_meta in meta.get("relationships", {}).items():
+            # ラベルと同名の型には " (RELATIONSHIP)" が付くため、Cypher で使える型名に戻す
+            rel_name = rel_type.removesuffix(" (RELATIONSHIP)")
             arrow = "->" if rel_meta.get("direction") == "out" else "<-"
             targets = ", ".join(rel_meta.get("labels", []))
-            lines.append(f"    - {arrow} [:{rel_type}] {targets}")
+            lines.append(f"    - {arrow} [:{rel_name}] {targets}")
     return "\n".join(lines)
 ```
 
@@ -285,8 +286,11 @@ def text_to_cypher(state: AgentState) -> dict:
 ```python
 import re
 
+from typing import Any
+
 from neo4j import unit_of_work
 from neo4j.exceptions import ClientError
+from neo4j.graph import Node, Path, Relationship
 
 # プロンプトの指示に頼らず、実行時間と返却件数をコード側で強制的に制限する
 QUERY_TIMEOUT_SECONDS = 10
@@ -306,10 +310,40 @@ def ensure_read_only(cypher: str) -> None:
     if WRITE_CLAUSE_RE.search(cypher):
         raise CypherValidationError("書き込み操作を含む Cypher は実行できません")
 
+def to_dto(value: Any) -> Any:
+    # Record.data() はノードをプロパティの辞書に潰してラベルや ID を失うため、グラフ描画に必要な情報を明示的に残す
+    if isinstance(value, Node):
+        return {
+            "kind": "node",
+            "element_id": value.element_id,
+            "labels": sorted(value.labels),
+            "properties": dict(value),
+        }
+    if isinstance(value, Relationship):
+        return {
+            "kind": "relationship",
+            "element_id": value.element_id,
+            "type": value.type,
+            "start": value.start_node.element_id if value.start_node else None,
+            "end": value.end_node.element_id if value.end_node else None,
+            "properties": dict(value),
+        }
+    if isinstance(value, Path):
+        return {
+            "kind": "path",
+            "nodes": [to_dto(n) for n in value.nodes],
+            "relationships": [to_dto(r) for r in value.relationships],
+        }
+    if isinstance(value, list):
+        return [to_dto(v) for v in value]
+    if isinstance(value, dict):
+        return {k: to_dto(v) for k, v in value.items()}
+    return value
+
 @unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
 def run_read_query(tx, cypher: str) -> list[dict]:
     # fetch は上限件数までしか取り出さないため、大規模な結果をすべてメモリへ読み込まない
-    return [r.data() for r in tx.run(cypher).fetch(MAX_RESULT_ROWS)]
+    return [{key: to_dto(value) for key, value in r.items()} for r in tx.run(cypher).fetch(MAX_RESULT_ROWS)]
 
 def execute_query(state: AgentState) -> dict:
     retries = state.get("retries", 0)
@@ -329,9 +363,23 @@ def execute_query(state: AgentState) -> dict:
 
 `driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。書き込みを実際に止める境界はこの DB 側の権限です。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
 
+接続経路は TLS で暗号化し、サーバー証明書の検証を必須にしてください。URI には `neo4j+s://`（TLS + 証明書検証あり）を使い、暗号化しない `neo4j://` / `bolt://` や、証明書を検証しない `neo4j+ssc://` / `bolt+ssc://` は使いません。認証情報とクエリ結果（捜査情報のような機微なデータを含む）が平文でネットワークに流れるのを防ぐためです。自己署名の社内 CA を使う場合も検証は省略せず、その CA 証明書を信頼ストアに追加します。
+
+```python
+import os
+
+from neo4j import GraphDatabase
+
+# neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない
+driver = GraphDatabase.driver(
+    os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io
+    auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),
+)
+```
+
 `apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.*`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
 
-State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
+State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。`Record.data()` はノードをプロパティの辞書に変換する際にラベルや `element_id` を捨ててしまい、リレーションシップも始点・終点が分からなくなります。そのため `to_dto()` でノードのラベルと `element_id`、リレーションシップの型・始点・終点を明示的に保持してから State に入れます。`Result.graph()` からグラフ表示用のデータを組み立てる場合も、neo4j ドライバのオブジェクトをそのまま State に置かず、checkpoint 保存前に同じ形の辞書へ変換してください。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
 
 `QUERY_TIMEOUT_SECONDS` を超えたクエリはサーバー側で打ち切られ、`ClientError` として LLM に再生成させる対象になります。`MAX_RESULT_ROWS` を超える行は返さないため、可視化や要約に渡すデータ量も上限内に収まります。
 
@@ -454,10 +502,23 @@ sequenceDiagram
 Python側の実装イメージは次のとおりです。
 
 ```python
-def process_question(question: str, selection: dict | None, config: dict):
-    initial_state = {"question": question, "user_selection": selection, "retries": 0}
-    for event in app.stream(initial_state, config, stream_mode="updates"):
+from typing import Any
+
+from langgraph.types import Command
+
+def process_question(question: str, selection: dict | None, config: dict, resume: Any | None = None):
+    # 中断中のスレッドは Command(resume=...) で同じ config のまま再開し、それ以外は新しい質問として開始する
+    graph_input = (
+        Command(resume=resume)
+        if resume is not None
+        else {"question": question, "user_selection": selection, "retries": 0}
+    )
+    for event in app.stream(graph_input, config, stream_mode="updates"):
         node_name, update = next(iter(event.items()))
+        if node_name == "__interrupt__":
+            # interrupt() で一時停止した。checkpoint は再開に必要なので残したまま呼び出し側へ返す
+            yield {"type": "interrupt", "payload": update}
+            return
         yield {"type": "update", "node": node_name, "payload": update}
 
     final_state = app.get_state(config).values
@@ -470,26 +531,51 @@ import uuid
 import pandas as pd
 import streamlit as st
 
-# チェックポインタは thread_id 単位で状態を保存する。前回の質問の状態が混ざらないよう、質問ごとに新しい thread_id を使う
-thread_id = str(uuid.uuid4())
-config = {"configurable": {"thread_id": thread_id}}
+# チェックポインタは thread_id 単位で状態を保存する。interrupt() からの再開を含め、1つの質問が
+# 完了するまでは同じ thread_id を使い続ける。Streamlit は操作のたびにスクリプトを再実行するため session_state に保持する
+if "thread_id" not in st.session_state:
+    st.session_state.thread_id = str(uuid.uuid4())
+config = {"configurable": {"thread_id": st.session_state.thread_id}}
+
+def close_thread() -> None:
+    # 完了またはキャンセルした時点でだけ checkpoint を削除し、次の質問では新しい thread_id を使う
+    app.checkpointer.delete_thread(st.session_state.thread_id)
+    for key in ("thread_id", "pending_interrupt"):
+        st.session_state.pop(key, None)
+
+resume = None
+pending = st.session_state.get("pending_interrupt")
+if pending is not None:
+    st.warning(pending[0].value)   # interrupt() に渡した確認内容
+    if st.button("キャンセル"):
+        close_thread()
+        st.rerun()
+    answer = st.text_input("確認事項への回答")
+    if not answer:
+        st.stop()   # 回答を待つ間も checkpoint は残しておく
+    st.session_state.pop("pending_interrupt")
+    resume = answer
+
 placeholder = st.empty()
-try:
-    for event in process_question(question, selection, config):
-        if event["type"] == "update":
-            placeholder.info(f"処理中: {event['node']}")
-        elif event["type"] == "result":
-            payload = event["payload"]
-            # State にはレコードのリストを保存し、table 表示用の DataFrame はグラフの外で作る
-            if payload.get("output_type") == "table" and payload.get("results") is not None:
-                payload = {**payload, "results": pd.DataFrame(payload["results"])}
-            render_result(payload)   # graph / map / table を描画
-finally:
-    # 質問ごとの状態が InMemorySaver に蓄積しないよう、結果の取得後（失敗時も）に checkpoint を削除する
-    app.checkpointer.delete_thread(thread_id)
+for event in process_question(question, selection, config, resume=resume):
+    if event["type"] == "update":
+        placeholder.info(f"処理中: {event['node']}")
+    elif event["type"] == "interrupt":
+        # 一時停止中は checkpoint を削除せず、ユーザーの回答後に同じ config で再開する
+        st.session_state.pending_interrupt = event["payload"]
+        st.rerun()
+    elif event["type"] == "result":
+        payload = event["payload"]
+        # State にはレコードのリストを保存し、table 表示用の DataFrame はグラフの外で作る
+        if payload.get("output_type") == "table" and payload.get("results") is not None:
+            payload = {**payload, "results": pd.DataFrame(payload["results"])}
+        render_result(payload)   # graph / map / table を描画
+        close_thread()
 ```
 
-> **2026年の更新点**：ここで使っている `stream_mode="updates"` は従来からある低レベルAPIです。LangGraph v1.2 以降では、これを一段抽象化した **Event Streaming API**（`stream_events()` / `graph.streamEvents()`）が「新規アプリケーションで推奨される標準的なストリーミング方式」として案内されています。Event Streaming API では `stream.messages`（トークン単位のメッセージ）、`stream.values`（状態スナップショット）、`stream.output`（最終結果）、`stream.interrupts`（human-in-the-loopの一時停止）などを独立した projection（射影）として同時に購読できるため、進捗表示・最終結果表示・人間の介入待ちを別々のロジックで素直に書けるようになりました。新規に構築する場合はこちらのAPIを優先的に検討するとよいでしょう。
+途中で例外が発生した場合も checkpoint は削除しません。一時障害であれば、同じ `config` で `app.stream(None, config)` を呼ぶと最後に保存された checkpoint から処理を続けられます。再開を諦める場合は「キャンセル」で `close_thread()` を呼び、スレッドを明示的に破棄します。
+
+> **2026年の更新点**：ここで使っている `stream_mode="updates"` は安定版の API です。Python の `stream_events()` は、`version="v1"` / `"v2"` ではイベント辞書（`StreamEvent`）を順に返すイテレータで、呼び出し側がイベント種別で分岐して組み立て直す必要があります。LangGraph v1.2 で追加された `stream_events(version="v3")` は、代わりに `GraphRunStream`（非同期版は `AsyncGraphRunStream`）というハンドルを返します。このハンドルの `run.values`（スーパーステップごとの状態スナップショット）や `run.messages`（メッセージ）などの型付き projection（射影）を個別に反復でき、実行後は `run.output`（最終状態）や `run.interrupted` / `run.interrupts`（human-in-the-loop の一時停止）を参照できます。ただし v3 は **experimental** と明記されており、仕様が変わる可能性があります。本番用途では、当面は本ガイドの `stream()` を使い、v3 は API が安定してから採用を検討するのが安全です。
 
 ---
 
