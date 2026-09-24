@@ -174,9 +174,27 @@ bun x markdownlint-cli <file_path>
 変更したファイルを Git にステージング（`git add`）した後、リポジトリのセキュリティ規則（`no-absolute-paths.md`）に基づき、絶対パスや PII が含まれていないか必ず検証します。
 
 ```bash
-# 許可されたプレースホルダー（johndoe）の一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
 # パターンは [e] / [m] で分割し、このコマンド自体が差分に含まれても自己一致しないようにする
-git diff --cached | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|C:\\Us[e]rs\\johndoe\\)##g' | grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)'
+# 各段の失敗は検査中止（exit 2）とし、grep の「該当なし（終了コード 1）」だけを成功として扱う
+(
+  abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
+  SCAN=$(mktemp) && STRIPPED=$(mktemp) || abort "一時ファイルを作成できない"
+  trap 'rm -f "$SCAN" "$STRIPPED"' EXIT
+  DIFF=$(git diff --cached) || abort "git diff --cached に失敗した"
+  # 追加行だけを抽出する（+++ ヘッダーは除外）
+  printf '%s\n' "$DIFF" | sed -nE '/^\+\+\+ (b\/|\/dev\/null)/d; s/^\+//p' > "$SCAN" || abort "差分の抽出に失敗した"
+  # プレースホルダー（johndoe）の後に .. セグメントが続くパスは、接頭辞の除去で実パスが隠れるため除去前に拒否する
+  grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|C:\\Us[e]rs\\johndoe)[^[:space:]]*[/\\]\.\.([/\\]|$)' "$SCAN"
+  TRAVERSAL=$?
+  # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
+  sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|C:\\Us[e]rs\\johndoe\\)##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
+  grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)' "$STRIPPED"
+  ABSOLUTE=$?
+  # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
+  [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
+  if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi
+  echo "PII check passed"
+)
 ```
 
-検証が成功（何も検出されない）したことを確認してから、コミットを適用してください。
+`PII check passed` が表示された（終了コード 0）ことを確認してから、コミットを適用してください。終了コード 1（検出）は該当箇所を修正し、2（検査中止）は原因を解消して再実行します。
