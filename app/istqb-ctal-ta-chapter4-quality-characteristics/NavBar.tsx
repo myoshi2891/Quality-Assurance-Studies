@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface NavItem {
     id: string;
@@ -196,14 +196,34 @@ export default function NavBar() {
         };
     }, []);
 
+    const toggleRef = useRef<HTMLButtonElement>(null);
+
     const toggleNav = () => setNavOpen(!navOpen);
-    const closeNav = () => setNavOpen(false);
+    // 閉じたサイドバーは画面外へ移動するため、フォーカスを可視のトグルへ戻す
+    const closeNav = () => {
+        setNavOpen(false);
+        toggleRef.current?.focus();
+    };
+    // モバイルで目次リンクを選んだら、閉じたうえでフォーカスを遷移先の見出しへ移す
+    // （デスクトップではサイドバーが常時表示のため既定動作のままにする）
+    const handleLinkSelect = (targetId: string) => {
+        if (!navOpen) return;
+        setNavOpen(false);
+        const heading = document.getElementById(targetId);
+        if (!heading) {
+            toggleRef.current?.focus();
+            return;
+        }
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+    };
 
     return (
         <>
             <button
                 className="sb-toggle"
                 id="sbToggle"
+                ref={toggleRef}
                 type="button"
                 aria-label={navOpen ? '目次を閉じる' : '目次を開く'}
                 aria-expanded={navOpen}
@@ -238,7 +258,7 @@ export default function NavBar() {
                                         aria-current={isH2Active ? 'location' : undefined}
                                         onClick={() => {
                                             setOpenH2(sec.id);
-                                            closeNav();
+                                            handleLinkSelect(sec.id);
                                         }}
                                     >
                                         {sec.title}
@@ -254,7 +274,7 @@ export default function NavBar() {
                                                             data-target={sub.id}
                                                             className={isH3Active ? 'active' : ''}
                                                             aria-current={isH3Active ? 'location' : undefined}
-                                                            onClick={closeNav}
+                                                            onClick={() => handleLinkSelect(sub.id)}
                                                         >
                                                             {sub.title}
                                                         </a>

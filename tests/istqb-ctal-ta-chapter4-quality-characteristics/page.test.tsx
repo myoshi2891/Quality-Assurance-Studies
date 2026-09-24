@@ -497,6 +497,36 @@ describe('CTAL-TA v4.0 Chapter 4 - Mobile Navigation Toggle', () => {
         expect(scrim?.classList.contains('open')).toBe(false);
     });
 
+    it('moves focus to the destination heading when a TOC link is selected on mobile', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter4Page />);
+        const toggle = container.querySelector('#sbToggle') as HTMLButtonElement;
+        fireEvent.click(toggle);
+        const link = container.querySelector('#sidebar a[href="#02-信頼度タグの見方"]') as HTMLAnchorElement;
+
+        // Act
+        fireEvent.click(link);
+
+        // Assert: 閉じたうえで、画面外のリンクではなく見出しにフォーカスがある
+        const heading = container.querySelector('[id="02-信頼度タグの見方"]');
+        expect(toggle.getAttribute('aria-expanded')).toBe('false');
+        expect(heading?.getAttribute('tabindex')).toBe('-1');
+        expect(document.activeElement).toBe(heading);
+    });
+
+    it('returns focus to the visible toggle when the scrim closes the sidebar', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter4Page />);
+        const toggle = container.querySelector('#sbToggle') as HTMLButtonElement;
+        fireEvent.click(toggle);
+
+        // Act
+        fireEvent.click(container.querySelector('#sbScrim') as Element);
+
+        // Assert
+        expect(document.activeElement).toBe(toggle);
+    });
+
     it('targets the open classes in the page CSS (not an unused nav-open root class)', () => {
         const css = readFileSync(
             'app/istqb-ctal-ta-chapter4-quality-characteristics/istqb-ctal-ta-chapter4-quality-characteristics.css',
