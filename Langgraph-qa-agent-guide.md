@@ -1,5 +1,6 @@
 # LangGraphによるQAエージェント構築ガイド
-### ナレッジグラフに自然言語で質問できるシステムを、ゼロから理解する
+
+## ナレッジグラフに自然言語で質問できるシステムを、ゼロから理解する
 
 > 本ガイドは *Knowledge Graphs and LLMs in Action*（Alessandro Negro 他, Manning, 2025）第15章「Building a QA agent with LangGraph」の構成をベースに、2026年9月時点の公式ドキュメントおよび著名な開発者の技術記事を調査してまとめた、初学者向けの解説ガイドです。書籍本文の引用ではなく、独自の言葉で概念とコード例を再構成しています。
 
@@ -62,8 +63,6 @@ LangChain が「Chain」（決まった順序で処理を直列につなぐ仕�
 
 > 「2024年がRAGの年、2025年がエージェントの年だったなら、2026年は "Stateful Orchestration"（状態を持つオーケストレーション）の年である」
 
-これは実際に、LangChain 公式ブログでも「70%以上の本番稼働エージェントが、単純な直列Chainではなく何らかのグラフ構造（DAGまたは状態機械）を採用している」という調査結果として裏付けられています。
-
 ### 1-2. LangGraphの3要素：State / Node / Edge
 
 LangGraph を理解するために必要な概念はシンプルです。
@@ -119,12 +118,16 @@ pip install langgraph langchain langchain-neo4j langchain-openai neo4j streamlit
 
 2026年時点でLangGraphは Python 3.10〜3.14 に対応しており、3.11 または 3.12 の利用が推奨されています（3.9系は LangGraph 1.1 でサポートが終了しました）。
 
+Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core のプロシージャです。オンプレミスの Neo4j では、APOC Core の jar を `plugins` ディレクトリへ導入したうえで、`neo4j.conf` の `dbms.security.procedures.allowlist`（必要に応じて `dbms.security.procedures.unrestricted`）に `apoc.meta.*` を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura では APOC Core が標準で利用可能です）。
+
 ### Step 2. AgentState（共有状態）を設計する
 
 State はパイプライン全体で共有される「記憶」です。ここに何を持たせるかが設計の要になります。
 
 ```python
-from typing import TypedDict, Literal, Optional, Any
+from typing import TypedDict, Literal, Optional, Any, Union
+
+import pandas as pd
 
 class AgentState(TypedDict, total=False):
     # 入力
@@ -144,7 +147,8 @@ class AgentState(TypedDict, total=False):
     raw_llm_response: str
 
     # execute_query の出力
-    results: Optional[list[dict[str, Any]]]
+    # table は DataFrame、graph / map はレコードのリスト（Step 7 の整形と一致させる）
+    results: Optional[Union[pd.DataFrame, list[dict[str, Any]]]]
     results_error: Optional[str]
     retries: int
 
@@ -164,7 +168,7 @@ class AgentState(TypedDict, total=False):
 
 ポイントは、**各ノードが自分の担当範囲だけを読み書きし、State全体を経由して他のノードと疎結合につながる**ことです。ノード同士が直接関数を呼び合わないため、単体テストや途中差し替えがしやすくなります。
 
-> 2026年の実務では、State定義に Pydantic v3 を使い、実行時バリデーションとIDE補完を効かせる構成も広く採用されています。TypedDict はシンプルさ重視、Pydanticモデルは型安全性重視という使い分けが一般的です。
+> 2026年の実務では、State定義に Pydantic v2 を使い、実行時バリデーションとIDE補完を効かせる構成も広く採用されています。TypedDict はシンプルさ重視、Pydanticモデルは型安全性重視という使い分けが一般的です。
 
 ### Step 3. Configuration Provider — プロンプトを一元管理する
 
@@ -209,6 +213,11 @@ def to_llm_friendly_schema(
         lines.append(f"- {label}: {note}")
         for prop, prop_meta in meta.get("properties", {}).items():
             lines.append(f"    - {prop} ({prop_meta.get('type')})")
+        # リレーションシップの向きと接続先ラベルも渡し、LLM がパターンの向きを誤らないようにする
+        for rel_type, rel_meta in meta.get("relationships", {}).items():
+            arrow = "->" if rel_meta.get("direction") == "out" else "<-"
+            targets = ", ".join(rel_meta.get("labels", []))
+            lines.append(f"    - {arrow} [:{rel_type}] {targets}")
     return "\n".join(lines)
 ```
 
@@ -264,24 +273,44 @@ def text_to_cypher(state: AgentState) -> dict:
 ### Step 7. Query Execution ノード — 実行してエラーを捕捉する
 
 ```python
+import re
+
 import pandas as pd
+from neo4j.exceptions import ClientError
+
+# LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
+WRITE_CLAUSE_RE = re.compile(
+    r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b"
+    r"|\bCALL\s+(dbms\.|db\.create|apoc\.(create|merge|refactor|periodic))",
+    re.IGNORECASE,
+)
+
+class CypherValidationError(Exception):
+    pass
+
+def ensure_read_only(cypher: str) -> None:
+    if WRITE_CLAUSE_RE.search(cypher):
+        raise CypherValidationError("書き込み操作を含む Cypher は実行できません")
 
 def execute_query(state: AgentState) -> dict:
     retries = state.get("retries", 0)
     try:
+        ensure_read_only(state["cypher_query"])
         with driver.session() as session:
-            records = list(session.run(state["cypher_query"]))
-        if state["output_type"] == "table":
-            results = pd.DataFrame([r.data() for r in records])
-        else:
-            results = [r.data() for r in records]
-        return {"results": results, "results_error": None}
-    except Exception as exc:
-        return {
-            "results_error": str(exc),
-            "retries": retries + 1,
-        }
+            # 読み取りトランザクションで実行し、検証をすり抜けた書き込みもサーバー側で拒否させる
+            records = session.execute_read(
+                lambda tx: [r.data() for r in tx.run(state["cypher_query"])]
+            )
+    except (CypherValidationError, ClientError) as exc:
+        # Cypher 自体の誤り（構文・意味・書き込み拒否）は、エラー内容を渡して LLM に再生成させる
+        return {"results_error": str(exc), "retries": retries + 1}
+    # ServiceUnavailable や TransientError などの一時障害は捕捉せず、Step 10 の RetryPolicy に再試行させる
+
+    results = pd.DataFrame(records) if state["output_type"] == "table" else records
+    return {"results": results, "results_error": None}
 ```
+
+`driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
 
 出力形式（`output_type`）によって、テーブル用には DataFrame、グラフ／地図用にはレコードのリストという **異なる整形** を行っている点も実務上のポイントです。可視化コンポーネントが期待するデータ構造に合わせて、この段階で変換しておきます。
 
@@ -293,8 +322,9 @@ from typing import Literal
 MAX_RETRIES = 3
 
 def route_after_execution(state: AgentState) -> Literal["retry", "summarize", "end"]:
-    if state.get("results_error") and state.get("retries", 0) < MAX_RETRIES:
-        return "retry"
+    if state.get("results_error"):
+        # 上限未満なら再生成、上限に達したらエラーのまま終了（要約には進ませない）
+        return "retry" if state.get("retries", 0) < MAX_RETRIES else "end"
     if state.get("output_type") in ("graph", "map"):
         return "summarize"
     return "end"
@@ -330,6 +360,7 @@ def summarize(state: AgentState) -> dict:
 すべてのノードを `StateGraph` に登録し、Edge と Conditional Edge を接続します。
 
 ```python
+from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import RetryPolicy
 
@@ -361,7 +392,8 @@ graph.add_conditional_edges(
 )
 graph.add_edge("summarize", END)
 
-app = graph.compile()
+# Step 11 の get_state で最終状態を取得するため、チェックポインタを付けてコンパイルする
+app = graph.compile(checkpointer=InMemorySaver())
 ```
 
 `RetryPolicy` は LangGraph が提供する**ノード単位の自動リトライ機構**です。ここでの `execute_query` に対する `retry_policy` は、Neo4j接続の一時的な切断のような**予期しない例外**に対する保険であり、Step 8 で組んだ `route_after_execution` による**業務ロジック上の再試行**（Cypherの構文ミスなどをLLMに直してもらう）とは目的が異なります。両者を混同しないことが実務上の注意点です。LangGraph の `RetryPolicy` は既定で `max_attempts=3`、`initial_interval=0.5`秒、`backoff_factor=2.0` の指数バックオフが設定されており、`ValueError` や `TypeError` などの一部の例外を除き、ほとんどの例外を自動的にリトライ対象とします。
@@ -412,8 +444,12 @@ def process_question(question: str, selection: dict | None, config: dict):
 ```
 
 ```python
+import uuid
+
 import streamlit as st
 
+# チェックポインタは thread_id 単位で状態を保存する。前回の質問の状態が混ざらないよう、質問ごとに新しい thread_id を使う
+config = {"configurable": {"thread_id": str(uuid.uuid4())}}
 placeholder = st.empty()
 for event in process_question(question, selection, config):
     if event["type"] == "update":
@@ -454,7 +490,7 @@ Step 10 で触れた通り、LangGraphの `RetryPolicy`（インフラ的な一�
 
 ### 5-3. Human-in-the-Loop を要所に入れる
 
-LangChainの2026年の調査では、本番稼働しているエージェントシステムの60%が何らかの「人間による確認ポイント」を組み込んでいると報告されています。エージェントが完全自動で最後まで突き進むのではなく、重要な判断の直前で一時停止し、人間の承認を待つ設計です。LangGraph の `interrupt()` API を使うと、グラフの実行を任意のノードで一時停止し、人間の入力を受け取ってから再開できます。捜査支援のような高リスクな領域では、Cypher実行前や、前科情報のような機微なデータを提示する前に確認ステップを挟む設計が現実的です。
+LangChainの2026年の調査（State of Agent Engineering）では、エージェントの評価手法として人手によるレビューを用いている割合が59.8%と報告されており、人間の判断は依然として品質保証の中心にあります。実行時の設計としても、エージェントが完全自動で最後まで突き進むのではなく、重要な判断の直前で一時停止し、人間の承認を待つ構成が有効です。LangGraph の `interrupt()` API を使うと、グラフの実行を任意のノードで一時停止し、人間の入力を受け取ってから再開できます。捜査支援のような高リスクな領域では、Cypher実行前や、前科情報のような機微なデータを提示する前に確認ステップを挟む設計が現実的です。
 
 ### 5-4. トレース可能性を最初から組み込む
 
