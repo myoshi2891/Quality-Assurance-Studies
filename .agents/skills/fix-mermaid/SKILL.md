@@ -27,7 +27,7 @@ bun test tests/lib/mermaid-theme-contract.test.ts
 | `resets the global dark .mermaid-wrapper card` | ページ固有 CSS で globals のダークカード既定を打ち消していない |
 
 契約テストが通ったら、本番ビルドでの網羅チェックとして E2E を実行します。
-`e2e/mermaid-layout.e2e.ts` が全 Mermaid ページに対し、ダークカード残存・760px 制限・横スクロール時の左端切れを検出します。
+`e2e/mermaid-layout.e2e.ts` が全 Mermaid ページに対し、描画エラー・横スクロール時の左端切れと右端の到達不能を検出し、ライト配色ページではダークテーマへのフォールバックとダークカード残存も検出します。
 
 ```bash
 bun run e2e

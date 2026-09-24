@@ -5,6 +5,34 @@ const newStmtRe = /^(?:\w+\s*-[->.>)x]|Note\b|participant\b|actor\b|alt\b|else\b
 const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|actor\b|alt\b|loop\b|rect\b)/i;
 
 /**
+ * Split a leading Mermaid v11 YAML frontmatter block (`---` ... `---`) from the diagram body.
+ *
+ * @param lines - Mermaid content split into lines
+ * @returns `frontmatter` (leading blank lines through the closing `---`, empty if absent) and the remaining `body`
+ */
+function splitFrontmatter(lines: string[]): { frontmatter: string[]; body: string[] } {
+  const start = lines.findIndex(line => line.trim());
+  if (start < 0 || lines[start]?.trim() !== '---') {
+    return { frontmatter: [], body: lines };
+  }
+  const closeOffset = lines.slice(start + 1).findIndex(line => line.trim() === '---');
+  if (closeOffset < 0) {
+    return { frontmatter: [], body: lines };
+  }
+  const end = start + 1 + closeOffset;
+  return { frontmatter: lines.slice(0, end + 1), body: lines.slice(end + 1) };
+}
+
+/**
+ * Remove the indentation shared by all non-empty lines, keeping relative (nested) indentation.
+ */
+function stripCommonIndent(lines: string[]): string[] {
+  const indents = lines.filter(line => line.trim()).map(line => line.length - line.trimStart().length);
+  const commonIndent = indents.length > 0 ? Math.min(...indents) : 0;
+  return lines.map(line => line.slice(commonIndent));
+}
+
+/**
  * Determine the diagram type from a block of Mermaid content.
  *
  * Scans the content for the first non-empty line that does not start with `%%` and returns its first whitespace-delimited token.
@@ -13,7 +41,7 @@ const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|acto
  * @returns The diagram type token (e.g., `graph`, `sequenceDiagram`, `mindmap`), or `"unknown"` if no suitable line is found
  */
 function getDiagramType(inner: string): string {
-  const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  const { body: rawLines } = splitFrontmatter(inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n'));
   const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
   return diagramTypeLine.trim().split(/\s+/)[0] || 'unknown';
 }
@@ -31,15 +59,19 @@ function getDiagramType(inner: string): string {
  * @returns An object containing `fixedContent` (the corrected diagram text) and `fixedCount` (the number of lines modified)
  */
 export function fixMermaidContent(inner: string, report?: string[]): { fixedContent: string; fixedCount: number } {
-  const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  // YAML frontmatter は入れ子のインデントを保ったまま共通インデントのみ除去し、本文とは別に扱う
+  const { frontmatter, body: rawLines } = splitFrontmatter(
+    inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n')
+  );
+  const fixedFrontmatter = stripCommonIndent(frontmatter);
 
-  // 最初の非空・非ディレクティブ行でダイアグラム種別を判定
+  // frontmatter を除いた最初の非空・非ディレクティブ行でダイアグラム種別を判定
   const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
   const diagramType = diagramTypeLine.trim();
   const isMindmap = diagramType.toLowerCase().startsWith('mindmap');
 
-  const fixed: string[] = [];
-  let fixedCount = 0;
+  const fixed: string[] = [...fixedFrontmatter];
+  let fixedCount = fixedFrontmatter.filter((line, idx) => line !== frontmatter[idx]).length;
 
   let i = 0;
   while (i < rawLines.length) {
@@ -71,13 +103,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
         }
         fixed.push(sliced);
       }
-      if (localFixedCount > 0) {
-        fixedCount += localFixedCount;
-        if (report) {
-          const diagramType = getDiagramType(inner);
-          report.push(`[${diagramType}]: ${localFixedCount} line(s) modified`);
-        }
-      }
+      fixedCount += localFixedCount;
       i = rawLines.length;
       break;
     }
@@ -105,7 +131,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
     i++;
   }
 
-  if (fixedCount > 0 && report && !isMindmap) {
+  if (fixedCount > 0 && report) {
     const diagramType = getDiagramType(inner);
     report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
   }
@@ -128,7 +154,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
  */
 export function fixHtmlMermaid(html: string): { fixed: string; report: string[] } {
   const report: string[] = [];
-  const pattern = /(<div\b[^>]*\bclass\s*=\s*(?:"[^"]*\bmermaid\b[^"]*"|'[^']*\bmermaid\b[^']*'|[^\s>]*\bmermaid\b[^\s>]*)[^>]*>)([\s\S]*?)(<\/div>)/gi;
+  const pattern = /(<div\b[^>]*\bclass\s*=\s*(?:"[^"]*(?<![\w-])mermaid(?![\w-])[^"]*"|'[^']*(?<![\w-])mermaid(?![\w-])[^']*'|[^\s>]*(?<![\w-])mermaid(?![\w-])[^\s>]*)[^>]*>)([\s\S]*?)(<\/div>)/gi;
 
   const fixed = html.replace(pattern, (match, openTag, inner, closeTag) => {
     const { fixedContent } = fixMermaidContent(inner, report);

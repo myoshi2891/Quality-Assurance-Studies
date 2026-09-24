@@ -51,6 +51,44 @@ describe("fixHtmlMermaid", () => {
   });
 });
 
+describe("fixHtmlMermaid のクラストークン判定", () => {
+  test.each(["mermaid-wrapper", "my-mermaid", "mermaid_box"])("class=\"%s\" は Mermaid ブロックとして扱わない", (cls) => {
+    const html = `<div class="${cls}">\n    graph TD\n    A --> B\n</div>`;
+    const { fixed, report } = fixHtmlMermaid(html);
+    expect(fixed).toBe(html);
+    expect(report).toEqual([]);
+  });
+});
+
+describe("YAML frontmatter", () => {
+  test("入れ子の config を持つ mindmap で frontmatter の階層と mindmap のインデントを保持する", () => {
+    const html = [
+      '<div class="mermaid">',
+      "    ---",
+      "    config:",
+      "      mindmap:",
+      "        padding: 10",
+      "    ---",
+      "    mindmap",
+      "      root((Title))",
+      "        Child",
+      "</div>",
+    ].join("\n");
+    const { fixed, report } = fixHtmlMermaid(html);
+    expect(fixed).toContain(
+      ["---", "config:", "  mindmap:", "    padding: 10", "---", "mindmap", "  root((Title))", "    Child"].join("\n")
+    );
+    expect(report).toEqual(["[mindmap]: 8 line(s) modified"]);
+  });
+
+  test("Markdown の frontmatter 付き flowchart で config の入れ子を崩さない", () => {
+    const md = ["```mermaid", "  ---", "  config:", "    theme: base", "  ---", "  flowchart TD", "  A --> B", "```"].join("\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(["```mermaid", "---", "config:", "  theme: base", "---", "flowchart TD", "A --> B", "```"].join("\n"));
+    expect(report).toEqual(["[flowchart]: 6 line(s) modified"]);
+  });
+});
+
 describe("fixMarkdownMermaid", () => {
   test("Markdown 内の ```mermaid ブロックのインデントが正規化される", () => {
     const md = `Some text here.
