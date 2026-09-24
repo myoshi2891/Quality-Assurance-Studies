@@ -1,6 +1,6 @@
 import React from 'react';
 import { readFileSync } from 'fs';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, screen, within, fireEvent, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTaChapter4Page from '../../app/istqb-ctal-ta-chapter4-quality-characteristics/page';
 
@@ -13,8 +13,8 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         const { container } = render(<CtalTaChapter4Page />);
         const pageLayout = container.querySelector('.ctal-ta-ch4-page');
         expect(pageLayout).toBeTruthy();
-        expect(container.querySelector('nav')).toBeTruthy();
-        expect(container.querySelector('main')).toBeTruthy();
+        expect(screen.getByRole('navigation')).toBeTruthy();
+        expect(screen.getByRole('main')).toBeTruthy();
     });
 
     it('renders the 72 sidebar navigation links with exact targets', () => {
@@ -146,12 +146,32 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         expect(container.querySelector('[id="03--このガイドの限界必ず読んでください"]')).toBeTruthy();
         expect(container.querySelector('[id="04-バージョン情報受験前に確認"]')).toBeTruthy();
 
-        // Tables in Section 0
-        expect(container.textContent).toContain('学習時間の目安（LO 比較表）');
-        expect(container.textContent).toContain('機能正確性・機能適切性・機能完全性');
-        expect(container.textContent).toContain('信頼度タグの見方');
-        expect(container.textContent).toContain('ISTQB 公式文書（シラバスの取得できた範囲');
-        expect(container.textContent).toContain('バージョン情報（受験前に確認）');
+        // Tables in Section 0: 表単位の 1:1 インベントリ（index 0 はヒーローの概要表）
+        const tables = screen.getAllByRole('table');
+        expect(tables).toHaveLength(49);
+        const headersOf = (table: HTMLElement) =>
+            within(table).getAllByRole('columnheader').map((th) => th.textContent?.trim());
+        const tableAt = (index: number): HTMLElement => {
+            const table = tables[index];
+            if (!table) throw new Error(`table[${index}] が見つかりません`);
+            return table;
+        };
+        const loTable = tableAt(1);
+        const tagTable = tableAt(2);
+        const versionTable = tableAt(3);
+
+        expect(headersOf(loTable)).toEqual(['LO', 'レベル', '学習時間の目安（LO 比較表）', '説明できるようになること']);
+        expect(loTable.textContent).toContain('機能正確性・機能適切性・機能完全性');
+
+        expect(headersOf(tagTable)).toEqual(['タグ', '意味', '扱い方']);
+        expect(tagTable.textContent).toContain('ISTQB 公式文書（シラバスの取得できた範囲');
+
+        expect(headersOf(versionTable)).toEqual(['項目', '内容', '根拠']);
+        expect(versionTable.textContent).toContain('45 問・合計 78 点・合格 51 点・120 分');
+
+        // 表の直前にある見出し
+        expect(screen.getByRole('heading', { name: '0.2 信頼度タグの見方' })).toBeTruthy();
+        expect(screen.getByRole('heading', { name: '0.4 バージョン情報（受験前に確認）' })).toBeTruthy();
 
         // Callouts in Sec 0
         expect(container.textContent).toContain('このガイドの限界（必ず読んでください）');
