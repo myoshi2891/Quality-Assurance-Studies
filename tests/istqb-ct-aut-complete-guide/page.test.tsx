@@ -57,7 +57,10 @@ describe('ISTQB CT-AuT Complete Guide Page', () => {
         );
 
         const definedKeys = [...source.matchAll(/^\s*'(diag-\d+)':\s*`/gm)].map((m) => m[1]);
-        const usedKeys = [...source.matchAll(/DIAGRAMS\[['"]([^'"]*)['"]\]/g)].map((m) => m[1]);
+        // コメント内の DIAGRAMS[...] を数えないよう、<Mermaid で始まる実際の呼び出し行だけを対象にする
+        const usedKeys = [
+            ...source.matchAll(/^\s*<Mermaid\b[^\n]*?\bchart=\{DIAGRAMS\[['"]([^'"]*)['"]\]/gm),
+        ].map((m) => m[1]);
 
         expect(definedKeys.length).toBeGreaterThan(0);
         expect(usedKeys.length).toBe(definedKeys.length);
