@@ -766,6 +766,7 @@ flowchart TD
 | CT-GenAI Sample Exam A（問題） | <https://istqb.org/?sdm_process_download=1&download_id=6309> |
 | CT-GenAI Sample Exam A（解答） | <https://istqb.org/?sdm_process_download=1&download_id=6301> |
 | ISTQB Exam Structures and Rules | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| ISTQB Exam Structure Tables（章別の出題数・配点） | <https://istqb.org/sdm_downloads/istqb_exam-structure-tables_v1-9-1b-master/> |
 | ISO/IEC 42001:2023（AIマネジメントシステム） | <https://www.iso.org/standard/81230.html> |
 | ISO/IEC 23053:2022（機械学習AIシステムの枠組み） | <https://www.iso.org/standard/74438.html> |
 | EU AI Act（Regulation (EU) 2024/1689） | <https://eur-lex.europa.eu/eli/reg/2024/1689/oj> |
