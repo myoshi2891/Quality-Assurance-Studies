@@ -81,7 +81,7 @@ LangGraph 公式ドキュメントは、LangGraph を次のように位置づけ
 
 ### 1-4. 2026年時点の採用状況
 
-2026年に入り、LangGraph は単なる実験的フレームワークから本番運用の標準的選択肢へと位置づけを変えています。LangChain が2026年に実施した1,300人超のエンジニア・プロダクトマネージャー・経営層を対象にした調査（"State of AI Agents" レポート）では、57%の組織がすでに何らかのエージェントを本番稼働させている一方、デプロイの最大の障壁として「品質」を挙げた回答が32%を占めたと報告されています。つまり、動くものを作ること自体は簡単になった一方、**信頼できる形で本番運用する難しさ**が2026年の主要な論点になっているということです。本ガイドで扱うエラーハンドリングやリトライ設計は、まさにこの「品質」の壁に対応するための実践的な工夫です。
+2026年に入り、LangGraph は単なる実験的フレームワークから本番運用の標準的選択肢へと位置づけを変えています。LangChain が2025年11月18日〜12月2日に1,300人超のエンジニア・プロダクトマネージャー・経営層を対象に実施し、2026年6月12日に公開した調査（"State of Agent Engineering" レポート）では、57%の組織がすでに何らかのエージェントを本番稼働させている一方、デプロイの最大の障壁として「品質」を挙げた回答が32%を占めたと報告されています。つまり、動くものを作ること自体は簡単になった一方、**信頼できる形で本番運用する難しさ**が2026年の主要な論点になっているということです。本ガイドで扱うエラーハンドリングやリトライ設計は、まさにこの「品質」の壁に対応するための実践的な工夫です。
 
 ---
 
@@ -228,6 +228,18 @@ def to_llm_friendly_schema(
 
 この「スキーマフィルタリング」の効果は学術研究でも裏付けられています。2026年に発表された **CyVerACT**（Cypher検証を組み込んだエージェント型ワークフロー）の研究では、スキーマフィルタリングとエラー駆動の反復修正を組み合わせることで、構文妥当性で最大52.7%、完全一致精度で13.5%の改善が報告されています。また、スキーマ情報を意味的にフィルタリングして渡す **T2CSS** という手法では、GPT-4を用いた実験でCypher生成の正解率が86%に達したという結果も報告されています。
 
+これらを組み合わせて、グラフに登録する `schema_extraction` ノードを定義します。スキーマはグラフ全体で変わらないため、実運用ではキャッシュしておくと毎回の `apoc.meta.schema()` 呼び出しを避けられます。
+
+```python
+SKIP_LABELS = {"_Migration", "_Bloom_Perspective_"}  # 内部管理用ラベルの例
+BUSINESS_NOTES = {"ANPRCamera": "自動車のナンバープレートを自動認識するカメラ"}
+
+def schema_extraction(state: AgentState) -> dict:
+    raw_schema = extract_raw_schema(driver)
+    llm_schema = to_llm_friendly_schema(raw_schema, SKIP_LABELS, BUSINESS_NOTES)
+    return {"llm_schema": llm_schema}
+```
+
 ### Step 5. Intent Detection ノード — 質問の意図を判定する
 
 最初のノードは、ユーザーの質問が「表で見たいのか」「グラフで見たいのか」「地図で見たいのか」を判定します。
@@ -281,7 +293,7 @@ from neo4j.exceptions import ClientError
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
     r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b"
-    r"|\bCALL\s+(dbms\.|db\.create|apoc\.(create|merge|refactor|periodic))",
+    r"|\bCALL\s+(dbms\.|db\.create|apoc\.(create|merge|refactor|periodic|load))",
     re.IGNORECASE,
 )
 
@@ -311,6 +323,8 @@ def execute_query(state: AgentState) -> dict:
 ```
 
 `driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
+
+`apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.*`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
 
 出力形式（`output_type`）によって、テーブル用には DataFrame、グラフ／地図用にはレコードのリストという **異なる整形** を行っている点も実務上のポイントです。可視化コンポーネントが期待するデータ構造に合わせて、この段階で変換しておきます。
 
