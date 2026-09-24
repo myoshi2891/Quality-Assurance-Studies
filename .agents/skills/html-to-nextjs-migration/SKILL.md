@@ -143,8 +143,12 @@ grep -n 'class="' app/<page-slug>/page.tsx
   while IFS= read -r -d '' f; do
     if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi || abort "$f を読み取れない"
   done < "$UNTRACKED" >> "$SCAN"
+  # ホーム以外（/workspace/<user>/ や D:\work\<user>\ 等）の絶対パスも検出するため、
+  # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
+  PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
+  PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
-  grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' "$SCAN"
+  grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$))" "$SCAN"
   case $? in
     0) echo "❌ PII detected" >&2; exit 1 ;;
     1) echo "PII check passed" ;;
