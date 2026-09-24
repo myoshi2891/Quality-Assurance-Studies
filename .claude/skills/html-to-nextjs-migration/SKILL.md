@@ -95,7 +95,7 @@ description: >
 ### Phase 4: HTML から TSX への変換（Green フェーズ）
 
 1. `<html>`, `<head>`, `<body>`, `<style>`, `<script>` を除去
-2. グローバルナビは除去し、ページ固有目次ナビは `NavBar.tsx`（`'use client'`）へ移行
+2. グローバルナビは除去し、ページ固有目次ナビは `NavBar.tsx`（`'use client'`）へ移行。スクロールスパイの `IntersectionObserver` は `useEffect` 内で設定し、クリーンアップで `obs.disconnect()` する
 3. 属性変換: `class` → `className`, `for` → `htmlFor`, 自己終了タグ閉じ（`<br />`, `<hr />`）
 4. `.code-block` 内の改行: `{"\n"}` は使わず `<div className="code-line">` で各行をラップ
 5. Mermaid 図解: `components/Mermaid.tsx` を使用し、`.claude/skills/fix-mermaid/SKILL.md` に従って `MERMAID_CONFIG` を適用
@@ -105,6 +105,7 @@ description: >
 1. `lib/navigation.ts` の `NAV_ITEMS` に新規ページを追加（80文字以内の `description` 必須）
 2. `tests/lib/navigation.test.ts` と `e2e/pages.ts`（`PAGES` 配列および `EXPECTED_PAGE_COUNT`）を同期
 3. 元 HTML を `archive/html-archive/` へ移動
+4. `docs/MIGRATION_PROGRESS.md` の移行テーブル・現在地を更新し、進捗記録としてコミットする（`.claude/rules/migration-progress-sync.md` 参照）
 
 ### Phase 6: 検証 & PII 検査（Gate Condition）
 
@@ -120,5 +121,5 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 grep -n 'class="' app/<page-slug>/page.tsx
 
 # 3. PII 検査（絶対パス混入の完全防止）: staged + unstaged（git diff HEAD）と未追跡ファイルを走査
-{ git diff HEAD; git ls-files --others --exclude-standard -z | xargs -0 cat -- | sed 's/^/+/'; } | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' && echo "PII detected" || echo "PII check passed"
+{ git diff HEAD | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed 's/^+//'; git ls-files --others --exclude-standard -z | xargs -0 cat --; } | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)' && echo "PII detected" || echo "PII check passed"
 ```

@@ -12,7 +12,7 @@
 | `.layout-content { padding-top: 60px }` | layout-content がヘッダー分下にずれる | 意図通りのためそのまま活用（ラッパーに `margin-top: 60px` を付けない） |
 | `section { padding-top: 5rem }` | 全 `<section>` に 80px の上余白が付く → ヒーロー等がずれる | `.my-page-layout section { padding-top: 0; }` |
 | `.hero { min-height: 100vh; display: flex; }` | ヒーローが全画面高さになりコンテンツが押し下がる | `.my-page-layout .hero { min-height: 0; display: block; padding-top: 0; }` |
-| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 要素の幅が 1100px に制限・中央寄せになる | `.my-page-layout .main { flex: 1 1 auto; max-width: none !important; width: 100% !important; margin: 0 !important; }` |
+| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 要素の幅が 1100px に制限・中央寄せになる | `.my-page-layout main, .my-page-layout .main { flex: 1 1 auto; max-width: none !important; width: 100% !important; margin: 0 !important; }` |
 | **`td { color: var(--color-text-secondary); }`** | **全テーブルの文字色が薄い青灰色（`#8ea3c3`）になり、白背景で視認性が崩壊する** | **`.my-page-layout tbody td, .my-page-layout td { color: var(--ink) !important; font-size: 1rem !important; }`** |
 | **`th { white-space: nowrap; color: var(--color-accent-blue); }`** | **表頭テキストが折り返されず横にはみ出る、青文字になる** | **`.my-page-layout thead th { background: var(--navy) !important; color: #eaf4fb !important; white-space: normal !important; }`** |
 | **`tr:hover td { background: rgba(99, 179, 237, 0.03); }`** | **テーブルホバー時に青灰色のオーバーレイが重なる** | **`.my-page-layout tbody tr:hover td { background: #fafbf8 !important; }`** |

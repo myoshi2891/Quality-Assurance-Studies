@@ -103,9 +103,11 @@ find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||; s|^$|/|' | sort
 # C. テストファイル実数の取得 (Bunユニットテスト)
 find tests/ -name "*.test.ts" -o -name "*.test.tsx" 2>/dev/null | sort
 
-# D. テスト実行結果の取得（pipefail で bun の終了コードを tail に握りつぶさせない）
-(set -o pipefail; bun test 2>&1 | tail -5)
-(set -o pipefail; bun run lint 2>&1 | tail -5)
+# D. テスト実行結果の取得（pipefail で bun の終了コードを tail に握りつぶさせず、両方の結果を集約する）
+test_rc=0; lint_rc=0
+(set -o pipefail; bun test 2>&1 | tail -5) || test_rc=$?
+(set -o pipefail; bun run lint 2>&1 | tail -5) || lint_rc=$?
+[ "$test_rc" -eq 0 ] && [ "$lint_rc" -eq 0 ]
 ```
 
 ### 2. 監査チェックリスト
@@ -152,7 +154,12 @@ find tests/ -name "*.test.ts" -o -name "*.test.tsx" 2>/dev/null | sort
 
 ```bash
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
-git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
+# 許可されたドキュメントパス以外がステージされていたらコミットを中止する
+if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html|\.claude/skills/|\.gemini/skills/|\.agents/skills/)'; then
+  echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します"
+else
+  git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
+fi
 ```
 
 ---
