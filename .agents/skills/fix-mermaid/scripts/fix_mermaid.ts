@@ -222,11 +222,21 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
     const rawBodyLines = lines.slice(i + 1, end);
     const hasCr = rawBodyLines.some(line => line.endsWith('\r'));
     // 末尾の \r を残したまま結合すると、最終行の \r が改行に正規化されて空行が 1 行増える
-    const bodyLines = rawBodyLines.map(line => line.replace(/\r$/, ''));
+    // リスト項目内など開始フェンスがインデントされている場合、本文もそのインデントでコンテナに属する。
+    // CommonMark に従い本文から最大その桁数だけ除去して修正し、出力時に非空行へ付け直す
+    const fenceIndent = lines[i].length - lines[i].trimStart().length;
+    const indentRe = new RegExp(`^ {0,${fenceIndent}}`);
+    const indentPrefix = ' '.repeat(fenceIndent);
+    const bodyLines = rawBodyLines.map(line => line.replace(/\r$/, '').replace(indentRe, ''));
     const { fixedContent } = fixMermaidContent(bodyLines.join('\n'), report);
     out.push(lines[i]);
     if (bodyLines.length > 0) {
-      out.push(...fixedContent.split('\n').map(line => (hasCr ? line + '\r' : line)));
+      out.push(
+        ...fixedContent
+          .split('\n')
+          .map(line => (line.trim() ? indentPrefix + line : line))
+          .map(line => (hasCr ? line + '\r' : line))
+      );
     }
     out.push(lines[end]);
     i = end + 1;

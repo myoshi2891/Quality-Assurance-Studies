@@ -163,6 +163,13 @@ Other text here.`;
     expect(fixed).toBe(["```mermaid", "graph TD", "A --> B", "```", ""].join("\r\n"));
     expect(report).toEqual(["[graph]: 2 line(s) modified"]);
   });
+
+  test("リスト項目内の mermaid ブロックは開始フェンスのインデントを保持する", () => {
+    const md = ["- 手順", "  ```mermaid", "  graph TD", "      A --> B", "", "  ```", "- 次の項目"].join("\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(["- 手順", "  ```mermaid", "  graph TD", "  A --> B", "", "  ```", "- 次の項目"].join("\n"));
+    expect(report).toEqual(["[graph]: 1 line(s) modified"]);
+  });
 });
 
 describe("sequenceDiagram の文開始判定", () => {
