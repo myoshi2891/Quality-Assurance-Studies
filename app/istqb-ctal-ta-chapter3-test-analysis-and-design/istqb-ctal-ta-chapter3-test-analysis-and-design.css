@@ -555,3 +555,21 @@
     .ctal-ta-ch3-page .hero { padding-top: 36px; }
     .ctal-ta-ch3-page .compare-grid { grid-template-columns: 1fr; }
 }
+
+@media print {
+    .ctal-ta-ch3-page .sidebar,
+    .ctal-ta-ch3-page .sidebar-toggle,
+    .ctal-ta-ch3-page .sidebar-scrim {
+        display: none !important;
+    }
+
+    .ctal-ta-ch3-page .main {
+        margin: 0;
+        max-width: none;
+        padding: 0 8px;
+    }
+
+    .ctal-ta-ch3-page .hero {
+        margin: 0 0 20px;
+    }
+}
