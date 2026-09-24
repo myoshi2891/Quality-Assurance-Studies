@@ -11,7 +11,7 @@
     --border-strong: #cbd5e1;
     --text: #1e293b;
     --text-dim: #55627a;
-    --text-faint: #8592a8;
+    --text-faint: #5c6a82;
     --accent: #2563eb;
     --accent-strong: #1d4ed8;
     --accent-bg: #eff6ff;
@@ -477,7 +477,7 @@
     .ctal-ta-ch3-page .sidebar {
         transform: translateX(-100%);
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-md);
         width: min(320px, 85vw);
         z-index: 46;
     }

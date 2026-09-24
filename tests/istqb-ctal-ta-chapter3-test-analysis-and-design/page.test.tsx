@@ -1,5 +1,5 @@
 import React, { act } from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTaChapter3Page from '../../app/istqb-ctal-ta-chapter3-test-analysis-and-design/page';
 
@@ -12,8 +12,8 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         const { container } = render(<CtalTaChapter3Page />);
         const pageLayout = container.querySelector('.ctal-ta-ch3-page');
         expect(pageLayout).toBeTruthy();
-        expect(container.querySelector('nav')).toBeTruthy();
-        expect(container.querySelector('main')).toBeTruthy();
+        expect(screen.getByRole('navigation')).toBeTruthy();
+        expect(screen.getByRole('main')).toBeTruthy();
     });
 
     it('renders sidebar toggle button with proper a11y attributes and toggles on click', () => {
