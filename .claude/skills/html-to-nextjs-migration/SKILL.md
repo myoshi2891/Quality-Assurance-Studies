@@ -70,6 +70,10 @@ description: >
     color: var(--text, #1e293b) !important;
     font-size: 0.95rem !important;
 }
+/* globals の td strong（薄い白水色）で強調文字が消えるのを防ぐ */
+.my-page td strong {
+    color: var(--text, #0f172a) !important;
+}
 .my-page thead th {
     color: var(--text, #0f172a) !important;
     white-space: normal !important;

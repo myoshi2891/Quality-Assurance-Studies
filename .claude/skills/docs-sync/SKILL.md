@@ -98,7 +98,8 @@ git log --oneline -5
 git rev-parse --short HEAD
 
 # B. 現在のNext.jsルート一覧の取得（app/page.tsx とネストしたページを含む）
-find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||; s|^$|/|' | sort
+# ルートグループ (group) と並列ルートのスロット @slot は URL に現れないため除去する
+find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||; s|/\([^/]*\)||g; s|/@[^/]*||g; s|^$|/|' | sort -u
 
 # C. テストファイル実数の取得 (Bunユニットテスト)
 find tests/ -name "*.test.ts" -o -name "*.test.tsx" 2>/dev/null | sort
@@ -156,7 +157,8 @@ test_rc=0; lint_rc=0
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
 # 許可されたドキュメントパス以外がステージされていたらコミットを中止する
 if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html|\.claude/skills/|\.gemini/skills/|\.agents/skills/)'; then
-  echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します"
+  echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2
+  false
 else
   git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
 fi

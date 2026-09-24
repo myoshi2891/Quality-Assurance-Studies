@@ -172,7 +172,8 @@ bun x markdownlint-cli <file_path>
 変更したファイルを Git にステージング（`git add`）した後、リポジトリのセキュリティ規則（`no-absolute-paths.md`）に基づき、絶対パスや PII が含まれていないか必ず検証します。
 
 ```bash
-git diff --cached | grep -E '^\+[^+]' | grep -E '(/Users/|/home/|C:\\Users\\)' | grep -vE '(/Users/johndoe/|/home/johndoe/|C:\\Users\\johndoe\\)'
+# 許可されたプレースホルダー（johndoe）の一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
+git diff --cached | grep -E '^\+' | grep -vE '^\+\+\+ (b/|/dev/null)' | sed -E 's#(/Users/johndoe/|/home/johndoe/|C:\\Users\\johndoe\\)##g' | grep -E '(/Users/|/home/|C:\\Users\\)'
 ```
 
 検証が成功（何も検出されない）したことを確認してから、コミットを適用してください。
