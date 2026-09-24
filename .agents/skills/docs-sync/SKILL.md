@@ -156,7 +156,7 @@ test_rc=0; lint_rc=0
 ```bash
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
 # 許可されたドキュメントパス以外がステージされていたらコミットを中止する
-if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html|\.claude/skills/|\.gemini/skills/|\.agents/skills/)'; then
+if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+'; then
   echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2
   false
 else
