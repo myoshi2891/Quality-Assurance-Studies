@@ -197,7 +197,10 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
 export function fixHtmlMermaid(html: string): { fixed: string; report: string[] } {
   const report: string[] = [];
   // class は独立した属性としてのみ認識する（\b だと data-class の "-class" にも一致するため、直前に空白を要求する）
-  const pattern = /(<div\b[^>]*\sclass\s*=\s*(?:"[^"]*(?<![\w-])mermaid(?![\w-])[^"]*"|'[^']*(?<![\w-])mermaid(?![\w-])[^']*'|[^\s>]*(?<![\w-])mermaid(?![\w-])[^\s>]*)[^>]*>)([\s\S]*?)(<\/div>)/gi;
+  // 属性を「名前 + 引用符付き／なしの値」単位で読み進め、引用符内の文字列（data-x=" class=mermaid" 等）を属性と誤認しない
+  const attr = String.raw`\s+[^\s"'>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'>]+))?`;
+  const mermaidClass = String.raw`\s+class\s*=\s*(?:"[^"]*(?<![\w-])mermaid(?![\w-])[^"]*"|'[^']*(?<![\w-])mermaid(?![\w-])[^']*'|[^\s"'>]*(?<![\w-])mermaid(?![\w-])[^\s"'>]*)`;
+  const pattern = new RegExp(`(<div(?:${attr})*?${mermaidClass}(?:${attr})*\\s*\\/?>)([\\s\\S]*?)(<\\/div>)`, 'gi');
 
   const fixed = html.replace(pattern, (match, openTag, inner, closeTag) => {
     const { fixedContent } = fixMermaidContent(inner, report);
@@ -219,11 +222,31 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
   const lines = markdown.split('\n');
   const out: string[] = [];
   // mermaid 以外のフェンスも追跡し、その内側にある ```mermaid 風の行を誤検出しない
-  const openRe = /^ {0,3}(`{3,}|~{3,})(.*)$/;
+  // リスト項目内のフェンスは「コンテナの内容開始桁 + 0〜3」までインデントできる（CommonMark）。
+  // 各リスト項目の内容開始桁をスタックで追跡し、開始・閉じフェンスの許容インデントに加算する
+  const listItemRe = /^( *)(?:[-*+]|\d{1,9}[.)])( +)\S/;
+  const containers: number[] = [];
 
   let i = 0;
   while (i < lines.length) {
-    const openMatch = openRe.exec(lines[i].replace(/\r$/, ''));
+    const line = lines[i].replace(/\r$/, '');
+    const lineIndent = line.length - line.trimStart().length;
+    const listMatch = listItemRe.exec(line);
+    if (listMatch) {
+      // 同じ深さ以上の兄弟・子リストを閉じてから、この項目の内容開始桁を積む
+      while (containers.length > 0 && (containers.at(-1) ?? 0) > listMatch[1].length) {
+        containers.pop();
+      }
+      containers.push(listMatch[0].length - 1);
+    } else if (line.trim()) {
+      // 内容開始桁より浅い非空行はそのコンテナの外側
+      while (containers.length > 0 && (containers.at(-1) ?? 0) > lineIndent) {
+        containers.pop();
+      }
+    }
+    const maxFenceIndent = (containers.at(-1) ?? 0) + 3;
+    const openRe = new RegExp(`^ {0,${maxFenceIndent}}(\`{3,}|~{3,})(.*)$`);
+    const openMatch = openRe.exec(line);
     const fence = openMatch?.[1] ?? '';
     const info = openMatch?.[2] ?? '';
     // バッククォートフェンスの info 文字列にバッククォートは含められない（CommonMark）
@@ -235,7 +258,7 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
 
     const isMermaid = /^\s*mermaid\b/i.test(info);
     // 閉じフェンス: 同じ文字で開始フェンス以上の長さ、後続は空白のみ
-    const closeRe = new RegExp(`^ {0,3}${fence[0] === '`' ? '`' : '~'}{${fence.length},}\\s*$`);
+    const closeRe = new RegExp(`^ {0,${maxFenceIndent}}${fence[0] === '`' ? '`' : '~'}{${fence.length},}\\s*$`);
     let end = i + 1;
     while (end < lines.length && !closeRe.test(lines[end].replace(/\r$/, ''))) {
       end++;
@@ -283,7 +306,8 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
  * Fixes Mermaid diagram code contained in template literals within TS/TSX source text.
  *
  * Scans the provided file content for backtick-delimited template literals whose inner text begins with
- * `graph <word>`, `flowchart <word>`, `sequenceDiagram`, or `mindmap`, repairs malformed Mermaid blocks,
+ * `graph <word>`, `flowchart <word>`, `sequenceDiagram`, or `mindmap` (optionally preceded by a YAML frontmatter
+ * block and/or `%%{init}%%` directives), repairs malformed Mermaid blocks,
  * and returns the updated source and a list of modification summaries.
  *
  * @param content - The TS/TSX source text to scan and fix
@@ -295,7 +319,8 @@ export function fixTsxMermaid(content: string): { fixed: string; report: string[
   // バッククォート ` で囲まれたテンプレートリテラルで、
   // 内部が graph/flowchart/sequenceDiagram/mindmap で始まるものを検出
   // エスケープされたバッククォート（\`）は内容として扱い、未エスケープの ` でのみ閉じる
-  const pattern = /`(\s*(?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)(?:[^`\\]|\\[\s\S])*)`/gi;
+  // 先頭の YAML frontmatter（--- ... ---）と %%{init}%% ディレクティブ（複数行を含む）は読み飛ばしてから種別を判定する
+  const pattern = /`(\s*(?:---[^\S\n]*\n(?:[^`\\]|\\[\s\S])*?\n[^\S\n]*---[^\S\n]*\n\s*)?(?:%%\{(?:[^`\\]|\\[\s\S])*?\}%%\s*)*(?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)(?:[^`\\]|\\[\s\S])*)`/gi;
 
   const fixed = content.replace(pattern, (match, inner) => {
     const { fixedContent } = fixMermaidContent(inner, report);
