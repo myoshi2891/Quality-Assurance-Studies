@@ -476,9 +476,10 @@
 @media (max-width: 980px) {
     .ctal-ta-ch3-page .sidebar {
         transform: translateX(-100%);
-        /* 閉じた状態ではフォーカス対象から外す。visibility はスライドアウト完了後に切り替える */
+        /* 閉じた状態ではフォーカス対象から外す。
+           スライドアウト中に Tab フォーカスが入らないよう、visibility は閉じた瞬間に切り替える */
         visibility: hidden;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.25s;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0s;
         box-shadow: var(--shadow-md);
         width: min(320px, 85vw);
         z-index: 46;
