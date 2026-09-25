@@ -22,7 +22,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - **デザイン忠実再現 & Scoped CSS**:
   - 原著HTML固有のライトテーマ（`--bg: #f5f7fb`、`--card: #ffffff`、`--ink: #1b2333`、`--ink2: #4a5670`、`--line: #dfe5f1`、`--accent: #3b5bdb`、`--accent-soft: #eef2ff`、`--green: #2f9e62`、`--amber: #d9822b`、`--red: #c92a2a` 等）を忠実に復元。
-  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.cp-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
   - スティッキーナビ（`NavBar.tsx`、全72セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-ta-ch4-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
   - 全20図解（全体像・ISO/IEC 25010マッピング、機能テスト、ユーザビリティテスト、フレキシビリティテスト、互換性テスト、適用早見表等）を共通 `<Mermaid>` コンポーネントへ移植。
@@ -37,7 +37,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全72セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter4-quality-characteristics/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch4-page` スコープ、globals.css干渉リセット）、NavBar、ChecklistCardを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter4-quality-characteristics`（CTAL-TA 4章 品質特性のテスト）を追加（全78件）。
-- `tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx`: TDD 必須サイクルに従い、全セクション、全20Mermaid図、全テーブル、全コールアウト、全チェックリスト、全参考文献の存在に加え、モバイルナビのフォーカス制御（目次リンク選択時の見出しへのフォーカス移動、スクリム閉鎖時のトグルへのフォーカス復帰）を検証する厳格なテストスイートを実装して全パス（16 pass / 295 expect()）。
+- `tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx`: TDD 必須サイクルに従い、全セクション、全20Mermaid図、全49テーブル（直前見出し・列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト、全チェックリスト、全参考文献の存在に加え、モバイルナビのフォーカス制御（目次リンク選択時の見出しへのフォーカス移動、スクリム閉鎖時のトグルへのフォーカス復帰）を検証する厳格なテストスイートを実装して全パス（17 pass / 296 expect()）。
 - `Ctal-ta-v4-ch4-quality-characteristics-guide.html` は `archive/html-archive/ctal/`、`Ctal-ta-v4-ch4-quality-characteristics-guide.md` は `archive/md-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 78 ページ体制に同期。
 
@@ -58,7 +58,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全33セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/`: ページコンポーネント、専用スタイル（`.ctal-ta-ch3-page` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-ta-chapter3-test-analysis-and-design`（CTAL-TA 3章 テスト分析・設計）を追加（全77件）。
-- `tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、全セクション見出し、全31テーブル（件数の厳密一致）、全12Mermaid図（直前見出しとの出現順 1 対 1 照合）、チェックリスト、参考文献を検証するテストスイートを実装して全パス（12 pass）。
+- `tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、全セクション見出し、全31テーブル（件数の厳密一致に加え、直前見出し・列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全12Mermaid図（直前見出しとの出現順 1 対 1 照合）、チェックリスト、参考文献を検証するテストスイートを実装して全パス（13 pass）。
 - `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` は `archive/html-archive/ctal/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 77 ページ体制に同期。
 
