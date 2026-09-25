@@ -154,29 +154,44 @@ export default function NavBar() {
 
         window.addEventListener('scroll', handleScroll, { passive: true });
 
+        // 見出し ID を文書順に並べた一覧（離脱時に残存見出しから現在位置を再計算するため）
+        const orderedIds = NAV_STRUCTURE.flatMap((sec) => [sec.id, ...(sec.items?.map((item) => item.id) ?? [])]);
+
+        const activate = (id: string) => {
+            setActiveTarget(id);
+
+            // Find parent H2 for this target
+            for (const sec of NAV_STRUCTURE) {
+                if (sec.id === id) {
+                    setOpenH2(sec.id);
+                    break;
+                }
+                if (sec.items?.some((item) => item.id === id)) {
+                    setOpenH2(sec.id);
+                    break;
+                }
+            }
+        };
+
         const observer = new IntersectionObserver(
             (entries) => {
+                let entered = false;
+                let left = false;
                 for (const entry of entries) {
                     if (!entry.isIntersecting) {
                         visibleIds.delete(entry.target.id);
+                        left = true;
                     }
                     if (entry.isIntersecting) {
                         visibleIds.add(entry.target.id);
-                        const id = entry.target.id;
-                        setActiveTarget(id);
-
-                        // Find parent H2 for this target
-                        for (const sec of NAV_STRUCTURE) {
-                            if (sec.id === id) {
-                                setOpenH2(sec.id);
-                                break;
-                            }
-                            if (sec.items?.some((item) => item.id === id)) {
-                                setOpenH2(sec.id);
-                                break;
-                            }
-                        }
+                        entered = true;
+                        activate(entry.target.id);
                     }
+                }
+                // 進入がなく離脱のみの場合は、領域内に残る見出しのうち文書順で最初のものを現在位置とする
+                if (!entered && left) {
+                    const current = orderedIds.find((id) => visibleIds.has(id));
+                    if (current) activate(current);
                 }
             },
             { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
