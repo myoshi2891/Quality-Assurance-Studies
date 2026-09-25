@@ -182,7 +182,8 @@ bun x markdownlint-cli <file_path>
   abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
   SCAN=$(mktemp) && STRIPPED=$(mktemp) || abort "一時ファイルを作成できない"
   trap 'rm -f "$SCAN" "$STRIPPED"' EXIT
-  DIFF=$(git diff --cached) || abort "git diff --cached に失敗した"
+  # --text でバイナリファイルも内容を差分として出力させる（既定の "Binary files differ" では中身が走査されない）
+  DIFF=$(git diff --cached --text --no-color) || abort "git diff --cached に失敗した"
   # 追加行だけを抽出する。diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、"++" で始まる追加行は取りこぼさない
   printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
   # プレースホルダー（johndoe）の後に .. セグメントが続くパスは、接頭辞の除去で実パスが隠れるため除去前に拒否する

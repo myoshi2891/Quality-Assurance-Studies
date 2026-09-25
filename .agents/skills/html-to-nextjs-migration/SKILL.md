@@ -40,6 +40,9 @@ description: >
 `app/<page-slug>/<page-slug>.css` を作成し、ページ固有クラス（例: `.my-page`）でスコープします。
 `globals.css` の汎用セレクタ干渉を必ずリセットします。
 
+- [references/globals-css-reset-template.md](references/globals-css-reset-template.md): サイドバー付き 2 カラムレイアウトや、紙背景・インク文字などの独自テーマを持つページでは、下記の最小リセットに加えてこのテンプレートの干渉一覧とリセットを適用します。
+- [references/css-pitfalls.md](references/css-pitfalls.md): ページ固有 CSS を書き終えた時点と、表示崩れ（テーブル文字色の消失・sticky ナビの位置ずれ・余白の二重化など）を調査する時点で、このチェックリストと突き合わせます。
+
 ```css
 /* ヒーロー高さリセット（100vh 膨張防止） */
 .my-page .hero {
@@ -129,12 +132,15 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 
 # 2. JSX の class 属性漏れ検査（grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 読み取り失敗）
 # 未検出（1）を失敗扱いにせず、後続の PII 検査まで進めるよう終了コードで分岐する
-grep -n 'class="' app/<page-slug>/page.tsx
-case $? in
-  0) echo "❌ class 属性が残っています（className へ変換してください）" >&2 ;;
-  1) echo "class 属性漏れなし" ;;
-  *) echo "❌ page.tsx を読み取れません" >&2 ;;
-esac
+# サブシェル内で exit し、対話シェルを終了させずに検査結果を終了コード（1 = 検出 / 2 = 読み取り失敗）で返す
+(
+  grep -n 'class="' app/<page-slug>/page.tsx
+  case $? in
+    0) echo "❌ class 属性が残っています（className へ変換してください）" >&2; exit 1 ;;
+    1) echo "class 属性漏れなし" ;;
+    *) echo "❌ page.tsx を読み取れません" >&2; exit 2 ;;
+  esac
+)
 
 # 3. PII 検査（絶対パス混入の完全防止）: PR ベースからの全差分（コミット済み + staged + unstaged）と未追跡ファイルを走査
 # 未追跡のシンボリックリンクは cat でリンク先を辿らず、readlink でリンク先パス自体を検査する
