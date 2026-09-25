@@ -12,8 +12,6 @@ description: >
 
 This skill provides rules and best practices to ensure all Markdown documents (`.md` files) in the QA_Studies repository comply with the project's strict `.markdownlint.json` rules, preventing CI/CD build breakages due to markdown lint errors.
 
-<!-- markdownlint-disable MD031 MD022 MD032 -->
-
 ## 頻発する Markdown Lint エラーと修正パターン
 
 ### 1. MD031: blanks-around-fences (コードブロック前後の空行)
@@ -21,25 +19,27 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 **問題**: ``` で囲まれたコードブロックの直前または直後に空行（改行）がない。特にリストの直下にネストされているコードブロックで多発します。
 
 #### ❌ 違反例
-```markdown
+
+````markdown
 - **tests/lib/navigation.test.ts**:
   - `NAV_ITEMS` の総数を検証します。
   ```typescript
   expect(NAV_ITEMS).toHaveLength(25);
   ```
-```
+````
 
 #### ✅ 修正例
+
 リストのネスト内であっても、コードブロックの前後に**インデントされた空行**を挿入します。
 
-```markdown
+````markdown
 - **tests/lib/navigation.test.ts**:
   - `NAV_ITEMS` の総数を検証します。
 
   ```typescript
   expect(NAV_ITEMS).toHaveLength(25);
   ```
-```
+````
 
 ---
 
@@ -48,12 +48,14 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 **問題**: 見出し（`#`, `##`, `###` など）の直前または直後に空行がない。
 
 #### ❌ 違反例
+
 ```markdown
 ## セクションタイトル
 本文テキストがすぐに始まります。
 ```
 
 #### ✅ 修正例
+
 見出しの上下には必ず1行の空行を挟んでください。
 
 ```markdown
@@ -69,6 +71,7 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 **問題**: 箇条書きリスト（`-`, `*`, `1.` など）の直前または直後に空行がなく、通常のパラグラフテキストと連結している。
 
 #### ❌ 違反例
+
 ```markdown
 以下の手順に従ってください。
 - ステップ 1
@@ -77,6 +80,7 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 ```
 
 #### ✅ 修正例
+
 リストブロックの前後には必ず空行を挟んでください。
 
 ```markdown
@@ -95,11 +99,13 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 **問題**: ファイルの最終行の末尾に改行文字（LF）がない。
 
 #### ❌ 違反例
+
 ```markdown
 ...最後の行の文章（ファイルの末尾に改行がない状態）[EOF]
 ```
 
 #### ✅ 修正例
+
 ファイルの最後は必ず1行の空行（改行で終わる状態）にしてください。
 
 ```markdown
@@ -114,6 +120,7 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 **問題**: 2行以上の連続した空行が記述されている。
 
 #### ❌ 違反例
+
 ```markdown
 パラグラフ1
 
@@ -122,6 +129,7 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 ```
 
 #### ✅ 修正例
+
 空行は常に「最大1行」としてください。
 
 ```markdown
@@ -141,22 +149,16 @@ This skill provides rules and best practices to ensure all Markdown documents (`
 
 ---
 
-<!-- markdownlint-enable MD031 MD022 MD032 -->
-
 ## ワークフロー (検証と修正の手順)
 
 AI エージェントは Markdown ファイルを新規作成・修正した際、コミットする前に必ず以下の手順を実行しなければなりません。
 
-### Step 1: 自動整形スクリプトの実行（初期修正）
+### Step 1: 該当構造の手動修正
 
-プロジェクトに用意されている自動フォーマットスクリプトを実行し、基本的な見出し前後の空行や末尾改行などを自動的に一括修正します。
-
-```bash
-bun scripts/format-markdown.mjs <file_path>
-```
+上記の修正パターンに従い、見出し前後の空行・コードブロック前後の空行・末尾改行などを該当箇所ごとに手動で修正します。
 
 > [!CAUTION]
-> **手動優先ルール**: 自動整形スクリプトは便利ですが、リスト内のネストされたコードブロックなど複雑な構造で意図しない崩れを起こす可能性があります。自動整形を実行した後は、必ず `git diff` で意図しない変更が加えられていないかを確認し、必要に応じて手動で微調整を行ってください。
+> **手動修正ルール**: 自動整形スクリプトは、リスト内のネストされたコードブロックなど複雑な構造で意図しない崩れを起こす可能性があるため使用しません。修正後は `git diff` で意図した箇所だけが変更されていることを確認してください。
 
 ### Step 2: Linter による検証
 
@@ -181,10 +183,11 @@ bun x markdownlint-cli <file_path>
   SCAN=$(mktemp) && STRIPPED=$(mktemp) || abort "一時ファイルを作成できない"
   trap 'rm -f "$SCAN" "$STRIPPED"' EXIT
   DIFF=$(git diff --cached) || abort "git diff --cached に失敗した"
-  # 追加行だけを抽出する（+++ ヘッダーは除外）
-  printf '%s\n' "$DIFF" | sed -nE '/^\+\+\+ (b\/|\/dev\/null)/d; s/^\+//p' > "$SCAN" || abort "差分の抽出に失敗した"
+  # 追加行だけを抽出する。diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、"++" で始まる追加行は取りこぼさない
+  printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
   # プレースホルダー（johndoe）の後に .. セグメントが続くパスは、接頭辞の除去で実パスが隠れるため除去前に拒否する
-  grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|C:\\Us[e]rs\\johndoe)[^[:space:]]*[/\\]\.\.([/\\]|$)' "$SCAN"
+  # パスに空白が含まれても検出できるよう、同じ行の残り全体を .. セグメントの探索対象にする（誤検出は安全側に倒す）
+  grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|C:\\Us[e]rs\\johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"
   TRAVERSAL=$?
   # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
   sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|C:\\Us[e]rs\\johndoe\\)##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
