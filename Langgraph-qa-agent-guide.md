@@ -145,6 +145,7 @@ class AgentState(TypedDict, total=False):
     # execute_query の出力
     # チェックポイントに保存されるため、出力形式によらずシリアライズ可能なレコードのリストで持つ
     results: Optional[list[dict[str, Any]]]
+    summary_results: Optional[list[dict[str, Any]]]  # 要約 LLM へ渡す、機微な値を伏せた結果
     results_truncated: bool              # MAX_RESULT_ROWS を超えて切り捨てたか
     results_error: Optional[str]
     retries: int
@@ -160,7 +161,7 @@ class AgentState(TypedDict, total=False):
 | `output_type` / `intent_reasoning` | 結果をテーブル・グラフ・地図のどれで見せるかの判定結果と、その理由 |
 | `llm_schema` | Neo4jスキーマをLLM向けに整形した文字列（後述） |
 | `cypher_query` / `cypher_reasoning` / `raw_llm_response` | 生成されたCypher、生成理由、デバッグ用の生レスポンス |
-| `results` / `results_truncated` / `results_error` / `retries` | 実行結果、上限件数での切り捨て有無、エラー内容、リトライ回数 |
+| `results` / `summary_results` / `results_truncated` / `results_error` / `retries` | 実行結果、要約用に機微な値を伏せた実行結果、上限件数での切り捨て有無、エラー内容、リトライ回数 |
 | `summary` / `needs_analysis` | 最終的な要約テキストと、追加の分析が必要かどうかのフラグ |
 
 ポイントは、**各ノードが自分の担当範囲だけを読み書きし、State全体を経由して他のノードと疎結合につながる**ことです。ノード同士が直接関数を呼び合わないため、単体テストや途中差し替えがしやすくなります。
@@ -352,9 +353,11 @@ WRITE_CLAUSE_RE = re.compile(
     r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b",
     re.IGNORECASE,
 )
-# プロシージャ名は `apoc`.`load` のようにバッククォートで分割して書けるため、句の検査とは別の字句解析結果で検査する
+# プロシージャ名は `apoc`.`load` のようにバッククォートで分割して書けるため、句の検査とは別の字句解析結果で検査する。
+# apoc.cypher.* は文字列リテラルとして渡した Cypher を実行するため、字句検査で空白化される文字列の中に
+# 書き込みや外部アクセスを隠せる。読み取り専用の run を含め、名前空間ごと拒否する
 WRITE_PROCEDURE_RE = re.compile(
-    r"\bCALL\s+(dbms\s*\.|db\s*\.\s*create|apoc\s*\.\s*(create|merge|refactor|periodic|load))",
+    r"\bCALL\s+(dbms\s*\.|db\s*\.\s*create|apoc\s*\.\s*(create|merge|refactor|periodic|load|cypher))",
     re.IGNORECASE,
 )
 
@@ -437,13 +440,46 @@ def to_dto(value: Any) -> Any:
         return {k: to_dto(v) for k, v in value.items()}
     return value
 
+# 要約に不要な機微プロパティ。データモデルに合わせて定義し、スキーマ変更時に見直す
+SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
+REDACTED = "[REDACTED]"
+
+def to_summary_dto(value: Any) -> Any:
+    # 要約 LLM へ渡す値を、DTO ではなくドライバが返した実際の型から作る。
+    # 列名やマップのキーは Cypher の AS やマップ射影（RETURN p.name AS suspect など）で自由に付け替えられ、
+    # {kind: 'node', ...} のようなマップで DTO の形も偽装できるため、キー名によるマスキングの根拠にしない
+    if isinstance(value, (Node, Relationship)):
+        # ノード・リレーションシップのプロパティ名だけはスキーマ由来で付け替えられないため、SENSITIVE_KEYS で判定する
+        props = {k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v) for k, v in dict(value).items()}
+        if isinstance(value, Node):
+            return {"kind": "node", "labels": sorted(value.labels), "properties": props}
+        return {"kind": "relationship", "type": value.type, "properties": props}
+    if isinstance(value, Path):
+        return {
+            "kind": "path",
+            "nodes": [to_summary_dto(n) for n in value.nodes],
+            "relationships": [to_summary_dto(r) for r in value.relationships],
+        }
+    # 真偽値・数値（件数などの集計値）と null だけを残す。
+    # 文字列・時間型・空間型はエイリアス経由で機微なプロパティが投影され得るため、キー名によらず伏せる
+    if value is None or isinstance(value, (bool, int, float)):
+        return value
+    if isinstance(value, list):
+        return [to_summary_dto(v) for v in value]
+    if isinstance(value, dict):
+        return {k: to_summary_dto(v) for k, v in value.items()}
+    return REDACTED
+
 @unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
-def run_read_query(tx, cypher: str) -> tuple[list[dict], bool]:
+def run_read_query(tx, cypher: str) -> tuple[list[dict], list[dict], bool]:
     # fetch は指定件数までしか取り出さないため、大規模な結果をすべてメモリへ読み込まない。
     # 上限より 1 件多く取り出し、超過の有無で「上限ちょうど」と「切り捨て」を区別する
     records = tx.run(cypher).fetch(MAX_RESULT_ROWS + 1)
-    rows = [{key: to_dto(value) for key, value in r.items()} for r in records[:MAX_RESULT_ROWS]]
-    return rows, len(records) > MAX_RESULT_ROWS
+    kept = records[:MAX_RESULT_ROWS]
+    rows = [{key: to_dto(value) for key, value in r.items()} for r in kept]
+    # 列名はエイリアスで付け替えられるため、列の値ごとに実際の型から要約用の値を作る
+    summary_rows = [{key: to_summary_dto(value) for key, value in r.items()} for r in kept]
+    return rows, summary_rows, len(records) > MAX_RESULT_ROWS
 
 def execute_query(state: AgentState) -> dict:
     retries = state.get("retries", 0)
@@ -452,7 +488,7 @@ def execute_query(state: AgentState) -> dict:
         with driver.session() as session:
             # execute_read は読み取りモードのトランザクションを選ぶ（クラスタでは読み取りレプリカへ振り分ける）だけで、
             # 書き込みを防ぐ境界ではない。書き込みの最終的な防止は、下記の reader ロールのみを持つユーザーで担保する
-            records, truncated = session.execute_read(run_read_query, state["cypher_query"])
+            records, summary_records, truncated = session.execute_read(run_read_query, state["cypher_query"])
     except CypherValidationError as exc:
         # アプリ側の検証で拒否した書き込み操作は、エラー内容を渡して LLM に再生成させる
         return {"results_error": str(exc), "retries": retries + 1}
@@ -464,7 +500,12 @@ def execute_query(state: AgentState) -> dict:
         return {"results_error": str(exc), "retries": retries + 1}
     # ServiceUnavailable や TransientError などの一時障害は捕捉せず、Step 10 の RetryPolicy に再試行させる
 
-    return {"results": records, "results_truncated": truncated, "results_error": None}
+    return {
+        "results": records,
+        "summary_results": summary_records,
+        "results_truncated": truncated,
+        "results_error": None,
+    }
 ```
 
 `driver` には、`reader` ロールのみを付与した**読み取り専用ユーザー**の認証情報を使ってください。書き込みを実際に止める境界はこの DB 側の権限です。アプリ側の検証とDB側の権限の二重防御にしておけば、プロンプトインジェクションなどで書き込みを含む Cypher が生成されても、データは改変されません。
@@ -532,21 +573,10 @@ def route_after_execution(state: AgentState) -> Literal["retry", "summarize", "e
 
 ```python
 import os
-from typing import Any
 
 # 承認済みエンドポイント・保持設定・テナントのデータ処理ポリシーはコードから検証できない。
 # 下記の運用上の前提条件を確認した環境でだけ、明示的に "true" を設定して外部 LLM への送信を許可する
 SUMMARY_LLM_TRANSFER_APPROVED = os.environ.get("SUMMARY_LLM_TRANSFER_APPROVED") == "true"
-# 要約に不要な機微プロパティ。データモデルに合わせて定義し、スキーマ変更時に見直す
-SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
-
-def redact(value: Any) -> Any:
-    # to_dto の出力（ノードの properties を含む入れ子の辞書・リスト）を再帰的にたどり、機微なキーの値を伏せる
-    if isinstance(value, list):
-        return [redact(v) for v in value]
-    if isinstance(value, dict):
-        return {k: "[REDACTED]" if k in SENSITIVE_KEYS else redact(v) for k, v in value.items()}
-    return value
 
 def summarize(state: AgentState) -> dict:
     if not SUMMARY_LLM_TRANSFER_APPROVED:
@@ -555,8 +585,8 @@ def summarize(state: AgentState) -> dict:
     prompt = prompt_config.render(
         "summarize.jinja2",
         question=state["question"],
-        # マスキング済みの結果だけをプロンプトに含める
-        results=redact(state["results"]),
+        # Step 7 の to_summary_dto で伏せた結果だけをプロンプトに含め、表示用の results は渡さない
+        results=state.get("summary_results") or [],
         # True なら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示する
         results_truncated=state.get("results_truncated", False),
         needs_analysis=state.get("needs_analysis", False),
@@ -569,7 +599,7 @@ def summarize(state: AgentState) -> dict:
 
 | 条件 | 担保の方法 |
 |---|---|
-| 機微な項目をマスキングする | `redact()` で `SENSITIVE_KEYS` の値を伏せてからプロンプトに含める（コード） |
+| 機微な項目をマスキングする | Step 7 の `to_summary_dto()` が、ノード・リレーションシップの `SENSITIVE_KEYS` の値と、エイリアスで付け替え得る列・マップの文字列／時間／空間型の値を伏せた `summary_results` だけをプロンプトに含める（コード） |
 | 条件を満たさない環境では送信しない | `SUMMARY_LLM_TRANSFER_APPROVED` が `"true"` でなければ LLM を呼ばない（コード） |
 | 承認済みのモデルエンドポイントだけを使う | 組織が契約・承認したエンドポイント（`base_url` を含む）以外に向けない（運用） |
 | 入力データを保持・学習に使わせない | ゼロデータ保持などの保持設定を契約とアカウント設定で確認する（運用） |
