@@ -218,6 +218,10 @@ describe("sequenceDiagram の文開始判定", () => {
     "box Group",
     "create participant C",
     "destroy C",
+    "ユーザー->>C: 日本語の参加者 ID",
+    "A<<->>B: bidirectional",
+    "A<<-->>B: bidirectional dotted",
+    "option retry",
   ])("不完全なフラグメント直後の %s は前行に結合されない", (stmt) => {
     const html = `<div class="mermaid">\nsequenceDiagram\nparticipant A\n    ${stmt}\n</div>`;
     const { fixed } = fixHtmlMermaid(html);
@@ -300,5 +304,29 @@ export default function Page() {
     expect(fixed).toContain('graph TD\nA["\\`code\\`"] --> B\nB --> C');
     expect(fixed).not.toContain("      B --> C");
     expect(report).toEqual(["[graph]: 2 line(s) modified"]);
+  });
+
+  test("${MERMAID_CONFIG} 接頭辞付きの sequenceDiagram は補間を保持したまま種別を判定して修正される", () => {
+    // Arrange
+    const tsx = "const D = `${MERMAID_CONFIG}\nsequenceDiagram\nNote over A,B:\n    end of session\n    A->>B: hi\n`;";
+
+    // Act
+    const { fixed, report } = fixTsxMermaid(tsx);
+
+    // Assert
+    expect(fixed).toBe("const D = `${MERMAID_CONFIG}\nsequenceDiagram\nNote over A,B: end of session\nA->>B: hi\n`;");
+    expect(report).toEqual(["[sequenceDiagram]: 2 line(s) modified"]);
+  });
+
+  test("${MERMAID_CONFIG} 以外の補間で始まるテンプレートは Mermaid として扱わない", () => {
+    // Arrange
+    const tsx = "const D = `${OTHER_CONFIG}\ngraph TD\n    A --> B\n`;";
+
+    // Act
+    const { fixed, report } = fixTsxMermaid(tsx);
+
+    // Assert
+    expect(fixed).toBe(tsx);
+    expect(report).toEqual([]);
   });
 });
