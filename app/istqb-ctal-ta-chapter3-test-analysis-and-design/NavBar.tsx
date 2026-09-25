@@ -181,7 +181,10 @@ export default function NavBar() {
 
             <div
                 className={`sidebar-scrim ${isOpen ? 'active' : ''}`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                    setIsOpen(false);
+                    toggleRef.current?.focus();
+                }}
                 aria-hidden="true"
             />
 
