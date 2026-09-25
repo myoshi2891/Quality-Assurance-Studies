@@ -140,14 +140,18 @@ mermaid 11.x の SVG 構造ゆれに対応するため、以下セレクタを�
 ## 4. ステート図（stateDiagram-v2）の黒潰れ防止 CSS
 
 ステート図の背景矩形や境界線が黒潰れすることを防ぎます。
+mermaid v11 の状態ノードは `g.statediagram-state` として出力されます（旧来の `g.stateGroup` には一致しません）。
 
 ```css
-.my-page-layout .mermaid-wrapper g.stateGroup rect {
+.my-page-layout .mermaid-wrapper .statediagram-state rect.basic,
+.my-page-layout .mermaid-wrapper .statediagram-state rect {
     fill: #eff6ff !important;
     stroke: #2563eb !important;
 }
 
-.my-page-layout .mermaid-wrapper g.stateGroup text {
+.my-page-layout .mermaid-wrapper .statediagram-state .nodeLabel,
+.my-page-layout .mermaid-wrapper .statediagram-state text {
+    color: #1e293b !important;
     fill: #1e293b !important;
 }
 

@@ -3,25 +3,99 @@ import * as path from 'path';
 
 const newStmtRe = /^(?:\w+\s*-[->.>]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|loop\b|rect\b|par\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/i;
 const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|actor\b|alt\b|loop\b|rect\b)/i;
+const INDENT_SENSITIVE_TYPES = ['mindmap', 'kanban', 'treemap-beta', 'treemap'];
+// TSX のテンプレートリテラル先頭で共通設定を差し込む補間（この完全一致のみ接頭辞として扱う）
+const MERMAID_CONFIG_PREFIX = '${MERMAID_CONFIG}';
+
+/**
+ * Split a leading Mermaid v11 YAML frontmatter block (`---` ... `---`) from the diagram body.
+ *
+ * @param lines - Mermaid content split into lines
+ * @returns `frontmatter` (leading blank lines through the closing `---`, empty if absent) and the remaining `body`
+ */
+function splitFrontmatter(lines: string[]): { frontmatter: string[]; body: string[] } {
+  const start = lines.findIndex(line => line.trim());
+  if (start < 0 || lines[start]?.trim() !== '---') {
+    return { frontmatter: [], body: lines };
+  }
+  const closeOffset = lines.slice(start + 1).findIndex(line => line.trim() === '---');
+  if (closeOffset < 0) {
+    return { frontmatter: [], body: lines };
+  }
+  const end = start + 1 + closeOffset;
+  return { frontmatter: lines.slice(0, end + 1), body: lines.slice(end + 1) };
+}
+
+/**
+ * Remove the indentation shared by all non-empty lines, keeping relative (nested) indentation.
+ */
+function stripCommonIndent(lines: string[]): string[] {
+  const indents = lines.filter(line => line.trim()).map(line => line.length - line.trimStart().length);
+  const commonIndent = indents.length > 0 ? Math.min(...indents) : 0;
+  return lines.map(line => line.slice(commonIndent));
+}
+
+/**
+ * Find the line that declares the diagram type.
+ *
+ * Skips blank lines, `%%` comments and `%%{ ... }%%` directives, including multiline directives
+ * whose inner configuration lines (e.g. `"theme": "base",`) do not start with `%%`.
+ *
+ * @param lines - Mermaid content split into lines (frontmatter already removed)
+ * @returns The diagram declaration line, or an empty string if none is found
+ */
+function findDiagramTypeLine(lines: string[]): string {
+  let inDirective = false;
+  let seenContent = false;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    // 先頭の非空行が ${MERMAID_CONFIG} 補間そのものである場合に限り、設定の接頭辞として読み飛ばす
+    const isConfigPrefix = !seenContent && trimmed === MERMAID_CONFIG_PREFIX;
+    if (trimmed) {
+      seenContent = true;
+    }
+    if (isConfigPrefix) {
+      continue;
+    }
+    if (inDirective) {
+      // 複数行ディレクティブは閉じの }%% を含む行まで読み飛ばす
+      if (trimmed.includes('}%%')) {
+        inDirective = false;
+      }
+      continue;
+    }
+    if (!trimmed) {
+      continue;
+    }
+    if (trimmed.startsWith('%%{')) {
+      inDirective = !trimmed.includes('}%%', 3);
+      continue;
+    }
+    if (trimmed.startsWith('%%')) {
+      continue;
+    }
+    return line;
+  }
+  return '';
+}
 
 /**
  * Determine the diagram type from a block of Mermaid content.
  *
- * Scans the content for the first non-empty line that does not start with `%%` and returns its first whitespace-delimited token.
+ * Returns the first whitespace-delimited token of the diagram declaration line (see `findDiagramTypeLine`).
  *
  * @param inner - Mermaid diagram content
  * @returns The diagram type token (e.g., `graph`, `sequenceDiagram`, `mindmap`), or `"unknown"` if no suitable line is found
  */
 function getDiagramType(inner: string): string {
-  const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
-  const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
-  return diagramTypeLine.trim().split(/\s+/)[0] || 'unknown';
+  const { body: rawLines } = splitFrontmatter(inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n'));
+  return findDiagramTypeLine(rawLines).trim().split(/\s+/)[0] || 'unknown';
 }
 
 /**
  * Fixes indentation and broken statement lines inside a Mermaid diagram block.
  *
- * Normalizes newlines, repairs mindmap indentation or merges incorrectly broken lines
+ * Normalizes newlines, repairs mindmap/kanban/treemap indentation or merges incorrectly broken lines
  * for other diagram types, and returns the corrected content along with a count
  * of modified lines.
  *
@@ -31,14 +105,21 @@ function getDiagramType(inner: string): string {
  * @returns An object containing `fixedContent` (the corrected diagram text) and `fixedCount` (the number of lines modified)
  */
 export function fixMermaidContent(inner: string, report?: string[]): { fixedContent: string; fixedCount: number } {
-  const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  // YAML frontmatter は入れ子のインデントを保ったまま共通インデントのみ除去し、本文とは別に扱う
+  const { frontmatter, body: rawLines } = splitFrontmatter(
+    inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n')
+  );
+  const fixedFrontmatter = stripCommonIndent(frontmatter);
 
-  // ダイアグラム種別をキャッシュ（getDiagramType は最初のトークンを返す）
-  const diagramType = getDiagramType(inner);
-  const isMindmap = diagramType.toLowerCase().startsWith('mindmap');
+  // frontmatter と %%{init}%% ディレクティブ（複数行を含む）を除いた最初の宣言行でダイアグラム種別を判定
+  const diagramKeyword = findDiagramTypeLine(rawLines).trim().split(/\s+/)[0]?.toLowerCase() ?? '';
+  // mindmap / kanban / treemap はインデントが階層そのものなので、共通インデントの除去のみ行う
+  const preservesIndent = INDENT_SENSITIVE_TYPES.includes(diagramKeyword);
+  // stateDiagram の複数行 note は本文をそのまま保つため、継続行の結合を行わない
+  const isStateDiagram = diagramKeyword.startsWith('statediagram');
 
-  const fixed: string[] = [];
-  let fixedCount = 0;
+  const fixed: string[] = [...fixedFrontmatter];
+  let fixedCount = fixedFrontmatter.filter((line, idx) => line !== frontmatter[idx]).length;
 
   let i = 0;
   while (i < rawLines.length) {
@@ -46,7 +127,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
     const stripped = ln.trimStart();
     const leading = ln.length - stripped.length;
 
-    if (isMindmap) {
+    if (preservesIndent) {
       let commonIndent = Infinity;
       for (let j = i; j < rawLines.length; j++) {
         const line = rawLines[j];
@@ -70,12 +151,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
         }
         fixed.push(sliced);
       }
-      if (localFixedCount > 0) {
-        fixedCount += localFixedCount;
-        if (report) {
-          report.push(`[${diagramType}]: ${localFixedCount} line(s) modified`);
-        }
-      }
+      fixedCount += localFixedCount;
       i = rawLines.length;
       break;
     }
@@ -84,7 +160,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
       const prev = fixed.length > 0 ? fixed[fixed.length - 1].trimEnd() : '';
       const fragMatch = seqFragRe.test(prev);
       const isIncompleteFrag = fragMatch && !/:\s*\S/.test(prev);
-      const isCont = (prev.endsWith(':') || isIncompleteFrag) && !newStmtRe.test(stripped);
+      const isCont = !isStateDiagram && (prev.endsWith(':') || isIncompleteFrag) && !newStmtRe.test(stripped);
 
       if (isCont && fixed.length > 0) {
         fixed[fixed.length - 1] = prev + ' ' + stripped;
@@ -99,8 +175,8 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
     i++;
   }
 
-  if (fixedCount > 0 && report && !isMindmap) {
-    report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
+  if (fixedCount > 0 && report) {
+    report.push(`[${getDiagramType(inner)}]: ${fixedCount} line(s) modified`);
   }
 
   return {

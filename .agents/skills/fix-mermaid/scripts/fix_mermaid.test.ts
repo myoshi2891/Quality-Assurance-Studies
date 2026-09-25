@@ -221,6 +221,8 @@ describe("sequenceDiagram の文開始判定", () => {
     "ユーザー->>C: 日本語の参加者 ID",
     "A<<->>B: bidirectional",
     "A<<-->>B: bidirectional dotted",
+    "api-gateway->>DB: ハイフンを含む参加者 ID",
+    "svc.v2->>DB: ドットを含む参加者 ID",
     "option retry",
   ])("不完全なフラグメント直後の %s は前行に結合されない", (stmt) => {
     const html = `<div class="mermaid">\nsequenceDiagram\nparticipant A\n    ${stmt}\n</div>`;

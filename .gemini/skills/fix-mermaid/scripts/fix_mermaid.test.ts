@@ -100,3 +100,39 @@ export default function Page() {
     expect(report.length).toBe(1);
   });
 });
+
+describe("fixMermaidContent の図種別ごとの挙動", () => {
+  test("YAML frontmatter の入れ子インデントを保持し、本文のインデントのみ正規化する", () => {
+    // Arrange
+    const html = `<div class="mermaid">\n    ---\n    config:\n      theme: base\n    ---\n    graph TD\n    A --> B\n</div>`;
+
+    // Act
+    const { fixed } = fixHtmlMermaid(html);
+
+    // Assert
+    expect(fixed).toContain("---\nconfig:\n  theme: base\n---\ngraph TD\nA --> B");
+  });
+
+  test("kanban の列とカードの階層インデントが保持される", () => {
+    // Arrange
+    const html = `<div class="mermaid">\n    kanban\n      Todo\n        [Write docs]\n</div>`;
+
+    // Act
+    const { fixed, report } = fixHtmlMermaid(html);
+
+    // Assert
+    expect(fixed).toContain("kanban\n  Todo\n    [Write docs]");
+    expect(report).toEqual(["[kanban]: 3 line(s) modified"]);
+  });
+
+  test("stateDiagram-v2 の複数行ノートは前行に結合されない", () => {
+    // Arrange
+    const html = `<div class="mermaid">\nstateDiagram-v2\nnote right of S1\n    first line\n    second line\nend note\n</div>`;
+
+    // Act
+    const { fixed } = fixHtmlMermaid(html);
+
+    // Assert
+    expect(fixed).toContain("note right of S1\nfirst line\nsecond line\nend note");
+  });
+});

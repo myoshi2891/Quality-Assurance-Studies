@@ -2,7 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // 参加者 ID は日本語などの非 ASCII 文字も許容し、双方向矢印（<<->> / <<-->>）も文の開始として扱う
-const newStmtRe = /^(?:[\p{L}\p{N}_]+\s*(?:<<)?-[->.>)x]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|option\b|loop\b|rect\b|par\b|and\b|critical\b|break\b|box\b|create\b|destroy\b|autonumber\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/iu;
+// ID 中間のハイフン・ドット（api-gw / svc.v2）も許容する。先頭・末尾は英数字に限定し、`---` 等を ID と誤認しない
+const newStmtRe = /^(?:[\p{L}\p{N}_](?:[\p{L}\p{N}_.-]*[\p{L}\p{N}_])?\s*(?:<<)?-[->.>)x]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|option\b|loop\b|rect\b|par\b|and\b|critical\b|break\b|box\b|create\b|destroy\b|autonumber\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/iu;
 const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|actor\b|alt\b|loop\b|rect\b)/i;
 const INDENT_SENSITIVE_TYPES = ['mindmap', 'kanban', 'treemap-beta', 'treemap'];
 // TSX のテンプレートリテラル先頭で共通設定を差し込む補間（この完全一致のみ接頭辞として扱う）
