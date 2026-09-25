@@ -329,6 +329,23 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(sec8).toBeTruthy();
         expect(sec8?.textContent).toContain('8. 章末チェックリスト(自己診断用)');
         expect(container.textContent).toContain('0 / 15 完了');
+        // チェックのトグルに応じて完了数と進捗バー幅が増減することを検証する
+        const barFill = container.querySelector<HTMLElement>('.cp-bar-fill');
+        const firstCheckbox = container.querySelector<HTMLInputElement>('.checklist-checkbox');
+        expect(barFill).toBeTruthy();
+        expect(firstCheckbox).toBeTruthy();
+        expect(barFill?.style.width).toBe('0%');
+        if (!firstCheckbox) return;
+        act(() => {
+            fireEvent.click(firstCheckbox);
+        });
+        expect(container.textContent).toContain('1 / 15 完了');
+        expect(barFill?.style.width).toBe('7%');
+        act(() => {
+            fireEvent.click(firstCheckbox);
+        });
+        expect(container.textContent).toContain('0 / 15 完了');
+        expect(barFill?.style.width).toBe('0%');
         // 15 項目のラベルを出現順で 1 対 1 照合し、欠落・重複・順序違いを検出する
         const checklistLabels = Array.from(container.querySelectorAll('.checklist-card li')).map((li) =>
             li.textContent?.trim()
