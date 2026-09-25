@@ -269,7 +269,8 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
       continue;
     }
 
-    const isMermaid = /^\s*mermaid\b/i.test(info);
+    // 先頭の空白区切りの語が mermaid と完全一致する場合のみ対象（\b だと mermaid-example 等のハイフン付きにも一致する）
+    const isMermaid = /^\s*mermaid(?:\s|$)/i.test(info);
     // 閉じフェンス: 同じ文字で開始フェンス以上の長さ、後続は空白のみ
     const closeRe = new RegExp(`^ {0,${maxFenceIndent}}${fence[0] === '`' ? '`' : '~'}{${fence.length},}\\s*$`);
     let end = i + 1;

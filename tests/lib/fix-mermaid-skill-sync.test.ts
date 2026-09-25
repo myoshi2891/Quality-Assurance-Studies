@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'bun:test';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+// 正本のテストスイートを取り込み、通常の `bun test` でも fixer の回帰テストを実行する
+import '../../.agents/skills/fix-mermaid/scripts/fix_mermaid.test';
 
 /**
  * fix-mermaid スキルは .agents（正）/ .claude / .gemini に同一の実装とテストを複製している。

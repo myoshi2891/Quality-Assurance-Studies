@@ -184,6 +184,19 @@ Other text here.`;
     expect(report).toEqual([]);
   });
 
+  test("info 文字列の先頭語が mermaid と完全一致しないフェンス（mermaid-example 等）は変更しない", () => {
+    const md = ["```mermaid-example", "  graph TD", "```", "```mermaid-js", "  graph TD", "```"].join("\n");
+    const { fixed, report } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(md);
+    expect(report).toEqual([]);
+  });
+
+  test("先頭語が mermaid なら前後の空白・大文字小文字・後続の属性があっても修正する", () => {
+    const md = ["``` MerMaid {title=x}", "  graph TD", "```"].join("\n");
+    const { fixed } = fixMarkdownMermaid(md);
+    expect(fixed).toBe(["``` MerMaid {title=x}", "graph TD", "```"].join("\n"));
+  });
+
   test("info 文字列にバッククォートを含む行はフェンスとして扱わない", () => {
     const md = ["```a`b", "```mermaid", "  graph TD", "```"].join("\n");
     const { fixed } = fixMarkdownMermaid(md);

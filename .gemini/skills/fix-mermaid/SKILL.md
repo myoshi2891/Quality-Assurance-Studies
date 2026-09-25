@@ -83,7 +83,7 @@ style A fill:#fff
 | `sequenceDiagram` | `Note over A,B:` は1行に収める |
 | `mindmap` | 内部インデント保持（唯一の例外） |
 | `block-beta` | **使用禁止**（全体クラッシュ） |
-| `htmlLabels: true` 環境 | `<` → `&lt;`、`>` → `&gt;` に変換 |
+| `htmlLabels: true` 環境 | `<` → `#lt;`、`>` → `#gt;` に変換（Mermaid のハッシュ形式エンティティ） |
 
 ## 実地検証済み：ブラウザレンダラー固有の問題（2026年3月）
 

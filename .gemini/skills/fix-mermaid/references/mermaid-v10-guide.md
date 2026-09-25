@@ -127,20 +127,20 @@ style A fill:#1c2a1c,stroke:#3fb950
 
 ### htmlLabels: true 環境での `<` `>` 文字
 
-`mermaid.initialize({ flowchart: { htmlLabels: true } })` 環境では、ノードラベル内の `<` と `>` が HTML タグとして解釈される。HTML エンティティに変換すること。
+`mermaid.initialize({ flowchart: { htmlLabels: true } })` 環境では、ノードラベル内の `<` と `>` が HTML タグとして解釈される。Mermaid のハッシュ形式エンティティ（`#lt;` `#gt;`）に変換すること。`&lt;` などの HTML エンティティは、`<div class="mermaid">` の中ではブラウザの HTML パーサーが Mermaid に渡す前に `<` へ戻してしまうため効果がない。
 
 | 文字 | 変換後 |
 | ------ | -------- |
-| `<` | `&lt;` |
-| `>` | `&gt;` |
-| `>=` | `&gt;=` |
+| `<` | `#lt;` |
+| `>` | `#gt;` |
+| `>=` | `#gt;=` |
 
 ```html
 <!-- ❌ htmlLabels:true 環境でエラー -->
 A["< 10行"]
 
-<!-- ✅ エンティティ化 -->
-A["&lt; 10行"]
+<!-- ✅ Mermaid のハッシュ形式エンティティ -->
+A["#lt; 10行"]
 ```
 
 ---
