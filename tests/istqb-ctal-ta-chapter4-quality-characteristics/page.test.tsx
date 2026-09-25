@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { render, screen, within, fireEvent, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTaChapter4Page from '../../app/istqb-ctal-ta-chapter4-quality-characteristics/page';
+import { collectTableInventory, type TableSpec } from '../helpers/table-inventory';
 
 // Bun はテストファイル間で happy-dom のグローバル DOM を共有するため、
 // 描画結果を毎回破棄しないと後続ファイルのクエリ（h1 の一意性など）が汚染される
@@ -580,5 +581,71 @@ describe('CTAL-TA v4.0 Chapter 4 - Mobile Navigation Toggle', () => {
         expect(css).toContain('.ctal-ta-ch4-page .sidebar.open');
         expect(css).toContain('.ctal-ta-ch4-page .sb-scrim.open');
         expect(css).not.toContain('.nav-open');
+    });
+});
+
+describe('CTAL-TA v4.0 Chapter 4 - Table inventory (1:1)', () => {
+    // 元 HTML（archive/html-archive/ctal/Ctal-ta-v4-ch4-quality-characteristics-guide.html）から棚卸しした全テーブル。index は文書順
+    const TABLE_INVENTORY: readonly TableSpec[] = [
+    /*  0 */ { heading: 'CTAL-TA v4.0 第4章「品質特性のテスト」完全ガイド（初学者向け）', headers: ['項目', '内容'], rows: 6, cols: 2, sample: '対象シラバス' },
+    /*  1 */ { heading: '0.1 ゴールと学習の進め方', headers: ['LO', 'レベル', '学習時間の目安（LO 比較表）', '説明できるようになること'], rows: 4, cols: 4, sample: 'TA-4.1.1' },
+    /*  2 */ { heading: '0.2 信頼度タグの見方', headers: ['タグ', '意味', '扱い方'], rows: 3, cols: 3, sample: '📘 公式根拠' },
+    /*  3 */ { heading: '0.4 バージョン情報（受験前に確認）', headers: ['項目', '内容', '根拠'], rows: 4, cols: 3, sample: '試験構成' },
+    /*  4 */ { heading: '1.1 章の位置づけ', headers: ['項目', '内容'], rows: 5, cols: 2, sample: '章タイトル' },
+    /*  5 */ { heading: '1.3 ISO/IEC 25010:2023 との対応', headers: ['#', '特性（英語）', '日本語（仮訳）', 'サブ特性', '第4章'], rows: 9, cols: 5, sample: '1' },
+    /*  6 */ { heading: '1.4 v3.1 から v4.0 への用語・構成の変更点', headers: ['観点', '旧（ISO 25010:2011／CTAL-TA v3.1）', '新（ISO 25010:2023／CTAL-TA v4.0）', '根拠'], rows: 9, cols: 4, sample: 'ユーザビリティの特性名' },
+    /*  7 */ { heading: '1.5 キーワード13語（K1：定義を思い出せること）', headers: ['#', 'キーワード', '日本語（仮訳）', '一言でいうと', '定義の根拠'], rows: 13, cols: 5, sample: '1' },
+    /*  8 */ { heading: '2.1 まず結論：3つの違いを一枚で', headers: ['', '機能正確性Functional correctness', '機能適切性Functional appropriateness', '機能完全性Functional completeness'], rows: 5, cols: 4, sample: '一言で' },
+    /*  9 */ { heading: '2.4 見分け方：どの特性の問題か迷ったとき', headers: ['迷う例', '正しい分類', '理由'], rows: 5, cols: 3, sample: '送料の計算結果が 1 円ずれる' },
+    /* 10 */ { heading: '2.5 機能テストの進め方（ステップバイステップ）', headers: ['Step', 'やること', '根拠・補足'], rows: 7, cols: 3, sample: '1' },
+    /* 11 */ { heading: '2.6 特性ごとの技法の選び方', headers: ['特性', '主な技法（第3章）', '何を確かめるか', '根拠'], rows: 3, cols: 4, sample: '正確性' },
+    /* 12 */ { heading: '2.9 ✅／❌ 対比', headers: ['観点', '❌ 悪い例', '✅ 良い例'], rows: 5, cols: 3, sample: '特性の切り分け' },
+    /* 13 */ { heading: '2.10 公式サンプル試験 Q34 の考え方', headers: ['解説から読み取れる選択肢の内容', '解説が示す分類'], rows: 4, cols: 2, sample: '分類のカテゴリが利用者にとって役立つかを確認する' },
+    /* 14 */ { heading: '3.1 用語の整理：usability・interaction capability・UX', headers: ['用語', '何を指すか', '根拠'], rows: 3, cols: 3, sample: 'Interaction capability（インタラクション能力）' },
+    /* 15 */ { heading: '3.2 インタラクション能力の8つのサブ特性', headers: ['#', 'サブ特性（英語）', '日本語（仮訳）', '意味', 'テスト観点の例（💡）'], rows: 8, cols: 5, sample: '1' },
+    /* 16 */ { heading: '3.3 TA はユーザビリティテストにどう貢献するか', headers: ['#', 'TA の貢献', '根拠となる解説の要点'], rows: 4, cols: 3, sample: '1' },
+    /* 17 */ { heading: '3.4 ユーザビリティテスト（利用者テスト）の進め方', headers: ['Step', 'やること', '補足'], rows: 7, cols: 3, sample: '1' },
+    /* 18 */ { heading: '3.5 具体例：ECサイトの「初回購入」', headers: ['タスク', '成功基準', '指標'], rows: 3, cols: 3, sample: '会員登録して、商品を 1 つカートに入れる' },
+    /* 19 */ { heading: '3.6 評価手法の使い分け', headers: ['手法', '内容', '向く場面', '根拠'], rows: 5, cols: 4, sample: '利用者テスト' },
+    /* 20 */ { heading: '3.6 評価手法の使い分け', headers: ['#', '観点', '意味', '対応するサブ特性（💡）'], rows: 8, cols: 4, sample: '1' },
+    /* 21 */ { heading: '3.9 ✅／❌ 対比', headers: ['観点', '❌ 悪い例', '✅ 良い例'], rows: 5, cols: 3, sample: '参加者' },
+    /* 22 */ { heading: '3.10 公式サンプル試験 Q35 の考え方', headers: ['誤答のパターン', '否定される理由'], rows: 4, cols: 2, sample: '最も経験豊富な利用者だけを選ぶ' },
+    /* 23 */ { heading: '4.2 適応性（Adaptability）テスト', headers: ['特徴', '内容'], rows: 3, cols: 2, sample: '組み合わせの総数' },
+    /* 24 */ { heading: '4.2.1 適応性テストの手順', headers: ['Step', 'やること', '根拠・補足'], rows: 7, cols: 3, sample: '1' },
+    /* 25 */ { heading: '4.2.2 組み合わせの削減：27 通りを 9 通りに', headers: ['#', 'OS', 'DB', 'クラウド'], rows: 9, cols: 4, sample: '1' },
+    /* 26 */ { heading: '4.2.3 サービス・ツール活用', headers: ['場面', '使えるサービス・機能', '注意点'], rows: 3, cols: 3, sample: 'CI で OS やランタイムの組み合わせを自動テスト' },
+    /* 27 */ { heading: '4.3 インストール性（Installability）テスト', headers: ['テスト観点', '確認内容'], rows: 9, cols: 2, sample: '新規インストール' },
+    /* 28 */ { heading: '4.5 ✅／❌ 対比', headers: ['観点', '❌ 悪い例', '✅ 良い例'], rows: 5, cols: 3, sample: '対象環境' },
+    /* 29 */ { heading: '4.6 公式サンプル試験 Q36 の考え方', headers: ['解説から読み取れる選択肢の内容', '解説が示す分類'], rows: 4, cols: 2, sample: '利用者がシステムに慣れるよう支援する活動' },
+    /* 30 */ { heading: '5.1 互換性（Compatibility）とは', headers: ['サブ特性', '意味', '第4章での扱い'], rows: 2, cols: 3, sample: 'Co-existence（共存性）' },
+    /* 31 */ { heading: '5.3 TA は相互運用性テストにどう貢献するか', headers: ['#', 'TA の貢献', '根拠'], rows: 5, cols: 3, sample: '1' },
+    /* 32 */ { heading: '5.4 テスト観点', headers: ['観点', '何を確認するか', '不具合の例'], rows: 7, cols: 3, sample: '形式・構造' },
+    /* 33 */ { heading: '5.6 具体例：ECサイトと決済サービス・在庫システム', headers: ['#', '確認する内容', '期待する結果', '観点'], rows: 6, cols: 4, sample: '1' },
+    /* 34 */ { heading: '5.7 テストダブル・サービス仮想化・契約テスト', headers: ['手法', '内容', '使いどころ', '根拠'], rows: 4, cols: 4, sample: 'テストダブル（スタブ・ドライバ）' },
+    /* 35 */ { heading: '5.9 ✅／❌ 対比', headers: ['観点', '❌ 悪い例', '✅ 良い例'], rows: 5, cols: 3, sample: '確認範囲' },
+    /* 36 */ { heading: '5.10 公式サンプル試験 Q37 の考え方', headers: ['選択肢の内容（解説から読み取れる分類）', '分類'], rows: 4, cols: 2, sample: '環境への適応を確認するテスト（4.3.1 と用語集を参照）' },
+    /* 37 */ { heading: '6. 機能・サービス別 適用早見表', headers: ['機能・サービス', '主に見る特性', '重点となる観点', '有効な技法・手法', '参照節'], rows: 10, cols: 5, sample: 'ログイン・会員登録' },
+    /* 38 */ { heading: '7.1 混同しやすい概念の比較', headers: ['', '確かめる問い', 'キーワード', '例', '該当節'], rows: 9, cols: 5, sample: '機能正確性' },
+    /* 39 */ { heading: '7.2 LO ごとの「これだけは説明できる」ポイント', headers: ['LO', '答えられるべき問い', '模範的な要点'], rows: 4, cols: 3, sample: 'TA-4.1.1' },
+    /* 40 */ { heading: '7.3 公式サンプル試験の第4章（Q34〜Q37）一覧', headers: ['Q', 'LO', '問われていること', '正解の考え方', '点'], rows: 4, cols: 5, sample: '34' },
+    /* 41 */ { heading: '7.5 学習プラン（💡 目安）', headers: ['ステップ', '内容', '所要'], rows: 5, cols: 3, sample: '1' },
+    /* 42 */ { heading: '9.1 ISTQB 公式（一次情報）', headers: ['#', '資料', 'URL', '確認状況'], rows: 10, cols: 4, sample: '1' },
+    /* 43 */ { heading: '9.2 ISO 規格', headers: ['#', '資料', 'URL', '確認状況'], rows: 4, cols: 4, sample: '11' },
+    /* 44 */ { heading: '9.3 ユーザビリティ・アクセシビリティ', headers: ['#', '資料', 'URL', '確認状況'], rows: 2, cols: 4, sample: '15' },
+    /* 45 */ { heading: '9.4 環境・CI・用語（補足）', headers: ['#', '資料', 'URL', '確認状況'], rows: 2, cols: 4, sample: '17' },
+    /* 46 */ { heading: '9.5 二次情報（学習の補助）', headers: ['#', '資料', 'URL', '確認状況'], rows: 3, cols: 4, sample: '19' },
+    /* 47 */ { heading: '付録 A：このガイドの記述と根拠の対応（要点）', headers: ['記述', '主な根拠'], rows: 7, cols: 2, sample: '第4章は 60 分・4 節・LO 4 本（すべて K2）・キーワード 13 語' },
+    /* 48 */ { heading: '付録 B：用語の対応表（日本語・英語）', headers: ['日本語（仮訳）', 'English'], rows: 20, cols: 2, sample: '機能適合性' },
+    ];
+
+    it('renders every inventoried table with its heading, header cells, shape and representative cell', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter4Page />);
+
+        // Act
+        const actual = collectTableInventory(container);
+
+        // Assert: index を含めて比較し、失敗時にどの表が欠落・置換されたかを特定できるようにする
+        expect(actual).toEqual(TABLE_INVENTORY.map((spec, index) => ({ index, ...spec })));
     });
 });

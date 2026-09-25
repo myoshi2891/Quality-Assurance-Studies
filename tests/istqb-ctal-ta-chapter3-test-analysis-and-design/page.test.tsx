@@ -2,6 +2,7 @@ import React, { act } from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTaChapter3Page from '../../app/istqb-ctal-ta-chapter3-test-analysis-and-design/page';
+import { collectTableInventory, type TableSpec } from '../helpers/table-inventory';
 
 // Bun はテストファイル間で happy-dom のグローバル DOM を共有するため、
 // 描画結果を毎回破棄しないと後続ファイルのクエリ（h1 の一意性など）が汚染される
@@ -427,5 +428,53 @@ describe('CTAL-TA v4.0 Chapter 3 - Mermaid Diagram Inventory', () => {
         container.querySelectorAll('.mermaid-container').forEach((diagram) => {
             expect(diagram.querySelector('.mermaid-wrapper')).toBeTruthy();
         });
+    });
+});
+
+describe('CTAL-TA v4.0 Chapter 3 - Table inventory (1:1)', () => {
+    // 元 HTML（archive/html-archive/ctal/Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html）から棚卸しした全テーブル。index は文書順
+    const TABLE_INVENTORY: readonly TableSpec[] = [
+    /*  0 */ { heading: '0.1 なぜ第3章が重要なのか', headers: ['章', 'タイトル', '学習時間', '全体に占める割合'], rows: 6, cols: 4, sample: '第1章' },
+    /*  1 */ { heading: '0.2 試験の全体像', headers: ['項目', '内容'], rows: 5, cols: 2, sample: '問題数' },
+    /*  2 */ { heading: '0.4 Kレベル(認知レベル)バッジの見方', headers: ['バッジ', '意味', '試験での出され方'], rows: 3, cols: 3, sample: 'K2: 理解' },
+    /*  3 */ { heading: '1.1 用語集(キーワード・K1レベル)', headers: ['英語キーワード', '日本語訳'], rows: 18, cols: 2, sample: 'checklist-based testing' },
+    /*  4 */ { heading: '定義', headers: ['境界の種類', '演算子', '例'], rows: 2, cols: 3, sample: '閉じた境界(Closed border)' },
+    /*  5 */ { heading: '4種類の点:ON・OFF・IN・OUT', headers: ['点の種類', '閉じた境界の場合', '開いた境界の場合'], rows: 4, cols: 3, sample: 'ON点' },
+    /*  6 */ { heading: '具体例', headers: ['境界', 'ON点', 'OFF点', 'IN点', 'OUT点'], rows: 2, cols: 5, sample: '数量 ≥ 5(閉)' },
+    /*  7 */ { heading: 'カバレッジ基準', headers: ['基準', '必要なカバレッジ項目', '特徴'], rows: 2, cols: 3, sample: '簡略化ドメインカバレッジ(Simplified domain coverage)' },
+    /*  8 */ { heading: 'カバレッジ基準', headers: ['カバレッジ基準', '説明'], rows: 4, cols: 2, sample: '全組み合わせカバレッジ(All-combinations coverage)' },
+    /*  9 */ { heading: '定義', headers: ['種類', '説明'], rows: 2, cols: 2, sample: 'ガイドなしランダムテスト' },
+    /* 10 */ { heading: '利点と限界', headers: ['利点', '限界'], rows: 4, cols: 2, sample: 'ドメイン知識が少なくても実施できる' },
+    /* 11 */ { heading: 'CRUDマトリクスの作成', headers: ['機能', '会員', '注文', '商品'], rows: 10, cols: 4, sample: '会員登録' },
+    /* 12 */ { heading: '網羅性テストと一貫性テスト', headers: ['テストの種類', '分類', '目的'], rows: 2, cols: 3, sample: '網羅性テスト(Completeness testing)' },
+    /* 13 */ { heading: '追加のカバレッジ基準', headers: ['カバレッジ基準', '説明', '適用場面'], rows: 4, cols: 3, sample: '0-switchカバレッジ(全遷移カバレッジ)' },
+    /* 14 */ { heading: 'アクティビティ図とユースケース', headers: ['シナリオ種別', '説明'], rows: 3, cols: 2, sample: 'メインシナリオ(ハッピーパス)' },
+    /* 15 */ { heading: 'カバレッジ', headers: ['パターン', '説明'], rows: 4, cols: 2, sample: '0回(スキップ)' },
+    /* 16 */ { heading: '具体例', headers: ['ルール', 'C1: プレミアム会員', 'C2: 金額≥10,000円', 'C3: キャンペーン中', '割引率'], rows: 8, cols: 5, sample: 'R1' },
+    /* 17 */ { heading: '具体例', headers: ['ルール', 'C1: プレミアム会員', 'C2: 金額≥10,000円', 'C3: キャンペーン中', '割引率'], rows: 4, cols: 5, sample: 'M1' },
+    /* 18 */ { heading: 'チェックサム手続きによる検証', headers: ['ルール', '計算式', 'スコア'], rows: 5, cols: 3, sample: 'M1(C3が–、2値)' },
+    /* 19 */ { heading: 'レビュー観点', headers: ['観点', '内容'], rows: 4, cols: 2, sample: '一貫性(consistency)' },
+    /* 20 */ { heading: 'テストチャーターに含める情報', headers: ['情報カテゴリ', '内容の例'], rows: 10, cols: 2, sample: '組織情報' },
+    /* 21 */ { heading: '2種類のチェックリスト', headers: ['種別', '特徴', '具体例'], rows: 2, cols: 3, sample: 'Read-doチェックリスト' },
+    /* 22 */ { heading: '利点と限界', headers: ['利点', '限界'], rows: 6, cols: 2, sample: '多様なテスト環境: 様々な地域・デバイス・ブラウザ・ネットワーク条件でテストできる' },
+    /* 23 */ { heading: '技法カテゴリと検出しやすい欠陥の対応', headers: ['テスト技法カテゴリ', '検出しやすい欠陥の種類'], rows: 4, cols: 2, sample: 'データベースドテスト技法' },
+    /* 24 */ { heading: '技法選定に影響する要因', headers: ['要因', '選定への影響'], rows: 10, cols: 2, sample: 'テスト目的' },
+    /* 25 */ { heading: '利点', headers: ['利点', '説明'], rows: 9, cols: 2, sample: '欠陥予防' },
+    /* 26 */ { heading: '7. 学習目標(Learning Objectives)一覧表', headers: ['コード', '学習目標', 'Kレベル'], rows: 13, cols: 3, sample: 'TA-3.1.1' },
+    /* 27 */ { heading: '公式ISTQB®資料', headers: ['資料名', 'URL'], rows: 5, cols: 2, sample: 'CTAL-TA v4.0 認定ページ(公式)' },
+    /* 28 */ { heading: '国際規格・標準', headers: ['規格名', 'URL'], rows: 3, cols: 2, sample: 'ISO/IEC 25010:2023(品質特性モデル)' },
+    /* 29 */ { heading: '学術文献・技術資料(本文中で言及されたもの)', headers: ['文献', 'URL'], rows: 3, cols: 2, sample: 'Kuhn, D.R. et al.「Software Fault Interactions and Implications for Software Testing」の背景研究解説(NIST)' },
+    /* 30 */ { heading: '非公式ながら参考になる解説記事(数値・見解は公式シラバスで必ず裏取りしてください)', headers: ['記事', 'URL'], rows: 1, cols: 2, sample: 'trendig.com「New Version Released: ISTQB® CTAL-TA v4」(v3.1→v4.0の変更点解説)' },
+    ];
+
+    it('renders every inventoried table with its heading, header cells, shape and representative cell', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter3Page />);
+
+        // Act
+        const actual = collectTableInventory(container);
+
+        // Assert: index を含めて比較し、失敗時にどの表が欠落・置換されたかを特定できるようにする
+        expect(actual).toEqual(TABLE_INVENTORY.map((spec, index) => ({ index, ...spec })));
     });
 });
