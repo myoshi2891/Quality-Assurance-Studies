@@ -79,7 +79,7 @@ LangGraph 公式ドキュメントは、LangGraph を次のように位置づけ
 
 ### 1-4. 2026年時点の採用状況
 
-2026年に入り、LangGraph は単なる実験的フレームワークから本番運用の標準的選択肢へと位置づけを変えています。LangChain が2025年11月18日〜12月2日に1,300人超のエンジニア・プロダクトマネージャー・経営層を対象に実施し、2026年6月12日に公開した調査（"State of Agent Engineering" レポート）では、57%の組織がすでに何らかのエージェントを本番稼働させている一方、デプロイの最大の障壁として「品質」を挙げた回答が32%を占めたと報告されています。つまり、動くものを作ること自体は簡単になった一方、**信頼できる形で本番運用する難しさ**が2026年の主要な論点になっているということです。本ガイドで扱うエラーハンドリングやリトライ設計は、まさにこの「品質」の壁に対応するための実践的な工夫です。
+2026年に入り、LLM エージェントを本番運用する動きが広がっています。LangChain が2025年11月18日〜12月2日に1,300人超のエンジニア・プロダクトマネージャー・経営層を対象に実施し、2026年6月12日に公開した調査（"State of Agent Engineering" レポート）では、回答者の57%が「本番稼働中のエージェントがある」と回答した一方（組織単位の割合でも、LangGraph 固有の採用率でもない点に注意）、デプロイの最大の障壁として「品質」を挙げた回答が32%を占めたと報告されています。つまり、動くものを作ること自体は簡単になった一方、**信頼できる形で本番運用する難しさ**が2026年の主要な論点になっているということです。本ガイドで扱うエラーハンドリングやリトライ設計は、まさにこの「品質」の壁に対応するための実践的な工夫です。
 
 ---
 
@@ -409,8 +409,8 @@ def to_dto(value: Any) -> Any:
             "kind": "relationship",
             "element_id": value.element_id,
             "type": value.type,
-            "start": value.start_node.element_id if value.start_node else None,
-            "end": value.end_node.element_id if value.end_node else None,
+            "start": value.start_node.element_id if value.start_node is not None else None,
+            "end": value.end_node.element_id if value.end_node is not None else None,
             "properties": to_dto(dict(value)),
         }
     if isinstance(value, Path):
