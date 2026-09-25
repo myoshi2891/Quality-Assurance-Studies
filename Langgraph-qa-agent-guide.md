@@ -460,15 +460,27 @@ def execute_query(state: AgentState) -> dict:
 接続経路は TLS で暗号化し、サーバー証明書の検証を必須にしてください。URI には `neo4j+s://`（TLS + 証明書検証あり）を使い、暗号化しない `neo4j://` / `bolt://` や、証明書を検証しない `neo4j+ssc://` / `bolt+ssc://` は使いません。認証情報とクエリ結果（捜査情報のような機微なデータを含む）が平文でネットワークに流れるのを防ぐためです。自己署名の社内 CA を使う場合も検証は省略せず、その CA 証明書を信頼ストアに追加します。
 
 ```python
+import atexit
 import os
 
+import streamlit as st
 from neo4j import GraphDatabase
 
+
+# Streamlit は操作のたびにスクリプトを再実行するため、st.cache_resource で Driver をプロセス内で1つだけ保持する。
 # neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない
-driver = GraphDatabase.driver(
-    os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io
-    auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),
-)
+@st.cache_resource
+def get_driver():
+    driver = GraphDatabase.driver(
+        os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io
+        auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),
+    )
+    # プロセス終了時に共有 Driver の接続プールを明示的に閉じる
+    atexit.register(driver.close)
+    return driver
+
+
+driver = get_driver()
 ```
 
 この共有 `driver` 構成は**単一テナント前提**です。全利用者が同じ読み取り専用ユーザーの権限でクエリを実行するため、同じデータベース内の全データを参照できる利用者だけが使う環境に限ってください。利用者や組織ごとに参照範囲が異なる（マルチテナントの）場合は、認証済みの利用者・テナント情報を `question` とは別の経路で `AgentState` と `process_question` に渡し、生成された Cypher の内容に依存しない形で Neo4j 側に認可を強制します。たとえば `driver.session(impersonated_user=...)` で利用者ごとの Neo4j ユーザーに切り替え、ロールベースの細粒度アクセス制御で参照範囲を絞ります。「テナント ID で絞り込む WHERE 句を付けて」とプロンプトで LLM に指示するだけでは、生成結果に左右されるため認可の境界になりません。
