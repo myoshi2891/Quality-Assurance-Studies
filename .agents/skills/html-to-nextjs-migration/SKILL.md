@@ -137,7 +137,7 @@ grep -n 'class="' app/<page-slug>/page.tsx
   UNTRACKED=$(mktemp) && SCAN=$(mktemp) || abort "一時ファイルを作成できない"
   trap 'rm -f "$UNTRACKED" "$SCAN"' EXIT
   BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD) || abort "merge-base を取得できない"
-  DIFF=$(git diff "$BASE") || abort "git diff に失敗した"
+  DIFF=$(git diff --no-color "$BASE") || abort "git diff に失敗した"
   # diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、ハンク内の追加行は "++" で始まる内容でも取りこぼさない
   printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
   git ls-files --others --exclude-standard -z > "$UNTRACKED" || abort "未追跡ファイルを収集できない"

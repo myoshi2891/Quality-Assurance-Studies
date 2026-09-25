@@ -187,11 +187,11 @@ bun x markdownlint-cli <file_path>
   printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
   # プレースホルダー（johndoe）の後に .. セグメントが続くパスは、接頭辞の除去で実パスが隠れるため除去前に拒否する
   # パスに空白が含まれても検出できるよう、同じ行の残り全体を .. セグメントの探索対象にする（誤検出は安全側に倒す）
-  grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|C:\\Us[e]rs\\johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"
+  grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"
   TRAVERSAL=$?
   # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
-  sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|C:\\Us[e]rs\\johndoe\\)##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
-  grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)' "$STRIPPED"
+  sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
+  grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/])' "$STRIPPED"
   ABSOLUTE=$?
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
