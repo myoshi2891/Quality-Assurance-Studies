@@ -141,8 +141,12 @@ export default function NavBar() {
     const [openH2, setOpenH2] = useState<string>('');
 
     useEffect(() => {
+        // 監視領域内に現在入っている見出しの ID。スクロール位置だけで判定すると、
+        // ページ上部でも見出しが領域内にある間に選択状態が消えてしまうため、実際の交差状態で判定する
+        const visibleIds = new Set<string>();
+
         const handleScroll = () => {
-            if (window.scrollY < 220) {
+            if (window.scrollY < 220 && visibleIds.size === 0) {
                 setActiveTarget('');
                 setOpenH2('');
             }
@@ -153,7 +157,11 @@ export default function NavBar() {
         const observer = new IntersectionObserver(
             (entries) => {
                 for (const entry of entries) {
+                    if (!entry.isIntersecting) {
+                        visibleIds.delete(entry.target.id);
+                    }
                     if (entry.isIntersecting) {
+                        visibleIds.add(entry.target.id);
                         const id = entry.target.id;
                         setActiveTarget(id);
 
