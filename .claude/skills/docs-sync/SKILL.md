@@ -176,11 +176,17 @@ test_rc=0; lint_rc=0
 ```bash
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
 # 許可されたドキュメントパス以外がステージされていたらコミットを中止する
-if git diff --cached --name-only | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$'; then
-  echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2
+# git diff の失敗や grep の走査エラー（終了コード 2 以上）でもコミットへ進まないよう fail closed にする
+if ! staged=$(git diff --cached --name-only); then
+  echo "❌ ステージ済みパスを取得できません。コミットを中止します" >&2
   false
 else
-  git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
+  printf '%s' "$staged" | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$'
+  case $? in
+    1) git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>" ;;
+    0) echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2; false ;;
+    *) echo "❌ grep による検査に失敗しました。コミットを中止します" >&2; false ;;
+  esac
 fi
 ```
 
