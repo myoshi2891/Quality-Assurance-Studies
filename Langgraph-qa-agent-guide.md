@@ -388,6 +388,12 @@ def unquote_identifiers(cypher: str) -> str:
 class CypherValidationError(Exception):
     pass
 
+# LLM が Cypher を書き直せば解消し得る ClientError のコード接頭辞（構文・意味の誤りと実行タイムアウト）
+REPAIRABLE_ERROR_PREFIXES = (
+    "Neo.ClientError.Statement.",
+    "Neo.ClientError.Transaction.TransactionTimedOut",
+)
+
 def ensure_read_only(cypher: str) -> None:
     # 未終端の文字列・コメントはどの字句にも一致せず走査対象に残るため、判定は拒否側に倒れる
     if WRITE_CLAUSE_RE.search(strip_non_clause_text(cypher)) or WRITE_PROCEDURE_RE.search(
@@ -447,8 +453,14 @@ def execute_query(state: AgentState) -> dict:
             # execute_read は読み取りモードのトランザクションを選ぶ（クラスタでは読み取りレプリカへ振り分ける）だけで、
             # 書き込みを防ぐ境界ではない。書き込みの最終的な防止は、下記の reader ロールのみを持つユーザーで担保する
             records, truncated = session.execute_read(run_read_query, state["cypher_query"])
-    except (CypherValidationError, ClientError) as exc:
-        # Cypher 自体の誤り（構文・意味・書き込み拒否）は、エラー内容を渡して LLM に再生成させる
+    except CypherValidationError as exc:
+        # アプリ側の検証で拒否した書き込み操作は、エラー内容を渡して LLM に再生成させる
+        return {"results_error": str(exc), "retries": retries + 1}
+    except ClientError as exc:
+        # 認証・権限（Neo.ClientError.Security.*）などは Cypher を直しても解消しないため、再生成させずに送出する
+        if not (exc.code or "").startswith(REPAIRABLE_ERROR_PREFIXES):
+            raise
+        # Cypher 自体の誤り（構文・意味）とタイムアウトは、エラー内容を渡して LLM に再生成させる
         return {"results_error": str(exc), "retries": retries + 1}
     # ServiceUnavailable や TransientError などの一時障害は捕捉せず、Step 10 の RetryPolicy に再試行させる
 
@@ -519,11 +531,32 @@ def route_after_execution(state: AgentState) -> Literal["retry", "summarize", "e
 ### Step 9. Summarization ノード — 結果を人間向けの文章にする
 
 ```python
+import os
+from typing import Any
+
+# 承認済みエンドポイント・保持設定・テナントのデータ処理ポリシーはコードから検証できない。
+# 下記の運用上の前提条件を確認した環境でだけ、明示的に "true" を設定して外部 LLM への送信を許可する
+SUMMARY_LLM_TRANSFER_APPROVED = os.environ.get("SUMMARY_LLM_TRANSFER_APPROVED") == "true"
+# 要約に不要な機微プロパティ。データモデルに合わせて定義し、スキーマ変更時に見直す
+SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
+
+def redact(value: Any) -> Any:
+    # to_dto の出力（ノードの properties を含む入れ子の辞書・リスト）を再帰的にたどり、機微なキーの値を伏せる
+    if isinstance(value, list):
+        return [redact(v) for v in value]
+    if isinstance(value, dict):
+        return {k: "[REDACTED]" if k in SENSITIVE_KEYS else redact(v) for k, v in value.items()}
+    return value
+
 def summarize(state: AgentState) -> dict:
+    if not SUMMARY_LLM_TRANSFER_APPROVED:
+        # 送信条件を満たさない環境ではクエリ結果を LLM へ送らない。要約は空のまま終え、表・グラフ・地図の表示だけを行う
+        return {"summary": ""}
     prompt = prompt_config.render(
         "summarize.jinja2",
         question=state["question"],
-        results=state["results"],
+        # マスキング済みの結果だけをプロンプトに含める
+        results=redact(state["results"]),
         # True なら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示する
         results_truncated=state.get("results_truncated", False),
         needs_analysis=state.get("needs_analysis", False),
@@ -531,6 +564,18 @@ def summarize(state: AgentState) -> dict:
     response = llm.invoke(prompt)
     return {"summary": response.content}
 ```
+
+クエリ結果には捜査情報のような機微なデータが含まれ得るため、要約のために外部の LLM へ送る前に次の条件をすべて満たす必要があります。コードで担保するのは機微なキーのマスキングと、許可のない環境での送信拒否だけです。残りの条件はコードからは検証できないため、`SUMMARY_LLM_TRANSFER_APPROVED` を有効にする前に満たしておくべき**運用上の前提条件**として扱います。
+
+| 条件 | 担保の方法 |
+|---|---|
+| 機微な項目をマスキングする | `redact()` で `SENSITIVE_KEYS` の値を伏せてからプロンプトに含める（コード） |
+| 条件を満たさない環境では送信しない | `SUMMARY_LLM_TRANSFER_APPROVED` が `"true"` でなければ LLM を呼ばない（コード） |
+| 承認済みのモデルエンドポイントだけを使う | 組織が契約・承認したエンドポイント（`base_url` を含む）以外に向けない（運用） |
+| 入力データを保持・学習に使わせない | ゼロデータ保持などの保持設定を契約とアカウント設定で確認する（運用） |
+| テナントのデータ処理ポリシーで送信が許可されている | データの分類と送信先の地域・事業者がポリシーに適合することを確認する（運用） |
+
+`summary` が空の場合、Step 11 の画面は要約を表示せず、可視化結果だけを表示します。
 
 書籍の事例では、同じ車両検出データであっても「捜査上の文脈」が追加されるだけで、要約が単なる事実列挙から「不審な時間パターンを指摘する分析」へと質が変わる様子が示されています。これは、要約プロンプトに **ドメイン知識と追加コンテキストを注入できる設計** にしておくことの価値を示す好例です。
 
@@ -543,6 +588,7 @@ import streamlit as st
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import RetryPolicy
+from neo4j.exceptions import ServiceUnavailable, SessionExpired, TransientError
 
 graph = StateGraph(AgentState)
 
@@ -552,7 +598,13 @@ graph.add_node("text_to_cypher", text_to_cypher)
 graph.add_node(
     "execute_query",
     execute_query,
-    retry_policy=RetryPolicy(max_attempts=3, initial_interval=0.5, backoff_factor=2.0),
+    # 再試行は Neo4j の一時障害に限定する。認証・権限エラーや想定外のバグまで再試行すると、失敗の表面化が遅れる
+    retry_policy=RetryPolicy(
+        max_attempts=3,
+        initial_interval=0.5,
+        backoff_factor=2.0,
+        retry_on=(ServiceUnavailable, SessionExpired, TransientError),
+    ),
 )
 graph.add_node("summarize", summarize)
 
@@ -584,7 +636,7 @@ def get_app():
 app = get_app()
 ```
 
-`RetryPolicy` は LangGraph が提供する**ノード単位の自動リトライ機構**です。ここでの `execute_query` に対する `retry_policy` は、Neo4j接続の一時的な切断のような**予期しない例外**に対する保険であり、Step 8 で組んだ `route_after_execution` による**業務ロジック上の再試行**（Cypherの構文ミスなどをLLMに直してもらう）とは目的が異なります。両者を混同しないことが実務上の注意点です。LangGraph の `RetryPolicy` は既定で `max_attempts=3`、`initial_interval=0.5`秒、`backoff_factor=2.0` の指数バックオフが設定されており、`ValueError` や `TypeError` などの一部の例外を除き、ほとんどの例外を自動的にリトライ対象とします。
+`RetryPolicy` は LangGraph が提供する**ノード単位の自動リトライ機構**です。ここでの `execute_query` に対する `retry_policy` は、Neo4j接続の一時的な切断のような**予期しない例外**に対する保険であり、Step 8 で組んだ `route_after_execution` による**業務ロジック上の再試行**（Cypherの構文ミスなどをLLMに直してもらう）とは目的が異なります。両者を混同しないことが実務上の注意点です。LangGraph の `RetryPolicy` は既定で `max_attempts=3`、`initial_interval=0.5`秒、`backoff_factor=2.0` の指数バックオフが設定されており、`ValueError` や `TypeError` などの一部の例外を除き、ほとんどの例外を自動的にリトライ対象とします。そのため上記では `retry_on` に Neo4j の一時障害（`ServiceUnavailable` / `SessionExpired` / `TransientError`）だけを指定し、それ以外の例外は再試行せずに即座に送出させています。
 
 | エラーの種類 | 対応方針 |
 |---|---|
