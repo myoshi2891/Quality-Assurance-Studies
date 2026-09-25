@@ -192,8 +192,12 @@ bun x markdownlint-cli <file_path>
   if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
   # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
   sed -E 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
+  # 既知の接頭辞以外（/workspace/<ユーザー名>/ 等）の独自 POSIX 絶対パスも検出するため、
+  # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
+  PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
+  PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # macOS は大文字小文字を区別しないため、Users ディレクトリの小文字表記など大小文字違いの POSIX パスも検出する
-  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/])' "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
+  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
   if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi

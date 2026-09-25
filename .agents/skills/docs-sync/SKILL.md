@@ -102,7 +102,8 @@ git rev-parse --short HEAD
 # B. 現在のNext.jsルート一覧の取得（app/page.tsx とネストしたページを含む）
 # ルートグループ (group) と並列ルートのスロット @slot は URL に現れないため除去し、階層数にも数えない。
 # インターセプトマーカーは階層として解決する: (.) は同階層、(..) は 1 つ前のセグメントを取り除き（(..)(..) は 2 つ）、(...) はルートへ戻る
-find app -name page.tsx | sed -E 's|^app||; s|/page\.tsx$||' | awk -F/ '{
+# `_` で始まるプライベートフォルダはルーティング対象外のため、配下ごと探索から除外する
+find app -type d -name '_*' -prune -o -name page.tsx -print | sed -E 's|^app||; s|/page\.tsx$||' | awk -F/ '{
   n = 0
   for (i = 2; i <= NF; i++) {
     s = $i

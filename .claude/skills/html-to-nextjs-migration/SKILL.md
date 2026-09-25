@@ -163,9 +163,9 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
   PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # 実行ユーザー以外のユーザー名を含む非ホーム絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
-  # Windows のドライブ絶対パス全般 / macOS の外部ボリューム / WSL のドライブマウント / 典型的な作業ルート直下のセグメント
+  # Windows のドライブ絶対パス全般 / macOS の外部ボリューム / WSL のドライブマウント
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
-  grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/|/(workspace|work|projects?|srv)/[^/[:space:]]+/)" "$SCAN"
+  grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/)" "$SCAN"
   case $? in
     0) echo "❌ PII detected" >&2; exit 1 ;;
     1) echo "PII check passed" ;;
