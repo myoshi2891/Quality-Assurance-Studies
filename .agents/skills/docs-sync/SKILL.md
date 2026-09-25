@@ -183,12 +183,17 @@ if ! staged=$(git diff --cached --name-only); then
 else
   printf '%s' "$staged" | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$'
   case $? in
-    1) git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>" ;;
+    1)
+      # コミット直前に markdown-formatter スキル Step 3 の PII・ローカル絶対パス検査（staged diff 対象）を実行し、
+      # `PII check passed`（終了コード 0）を確認できない場合はコミットしない
+      git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>" ;;
     0) echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2; false ;;
     *) echo "❌ grep による検査に失敗しました。コミットを中止します" >&2; false ;;
   esac
 fi
 ```
+
+コミット前には必ず staged diff に対する PII・ローカル絶対パス検査（`markdown-formatter/SKILL.md` Step 3、`.claude/rules/no-absolute-paths.md`）を実行し、検出（終了コード 1）または検査中止（終了コード 2）の場合はコミットしないでください。
 
 ---
 

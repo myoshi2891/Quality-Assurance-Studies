@@ -127,8 +127,14 @@ main.my-page {
 bun test tests/<page-slug>/page.test.tsx
 bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 
-# 2. JSX の class 属性漏れ検査
+# 2. JSX の class 属性漏れ検査（grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 読み取り失敗）
+# 未検出（1）を失敗扱いにせず、後続の PII 検査まで進めるよう終了コードで分岐する
 grep -n 'class="' app/<page-slug>/page.tsx
+case $? in
+  0) echo "❌ class 属性が残っています（className へ変換してください）" >&2 ;;
+  1) echo "class 属性漏れなし" ;;
+  *) echo "❌ page.tsx を読み取れません" >&2 ;;
+esac
 
 # 3. PII 検査（絶対パス混入の完全防止）: PR ベースからの全差分（コミット済み + staged + unstaged）と未追跡ファイルを走査
 # 未追跡のシンボリックリンクは cat でリンク先を辿らず、readlink でリンク先パス自体を検査する
