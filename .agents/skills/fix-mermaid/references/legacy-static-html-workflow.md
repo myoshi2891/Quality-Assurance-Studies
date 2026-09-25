@@ -58,7 +58,7 @@ mermaid.initialize({ startOnLoad: false });
 インデント汚染・行分断のみを機械修正したい場合は既存スクリプトを使う:
 
 ```bash
-bun run .claude/skills/fix-mermaid/scripts/fix_mermaid.ts <file>
+bun run .claude/skills/fix-mermaid/scripts/fix_mermaid.ts path/to/file.html
 ```
 
 ## ブラウザレンダラーで Syntax Error を起こす文字・構文

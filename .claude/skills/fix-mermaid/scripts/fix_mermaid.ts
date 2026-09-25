@@ -124,14 +124,14 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
 
   let i = 0;
   while (i < rawLines.length) {
-    const ln = rawLines[i];
+    const ln = rawLines[i] ?? '';
     const stripped = ln.trimStart();
     const leading = ln.length - stripped.length;
 
     if (preservesIndent) {
       let commonIndent = Infinity;
       for (let j = i; j < rawLines.length; j++) {
-        const line = rawLines[j];
+        const line = rawLines[j] ?? '';
         if (line.trim()) {
           const indent = line.length - line.trimStart().length;
           if (indent < commonIndent) {
@@ -145,7 +145,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
 
       let localFixedCount = 0;
       for (let j = i; j < rawLines.length; j++) {
-        const line = rawLines[j];
+        const line = rawLines[j] ?? '';
         const sliced = line.slice(commonIndent);
         if (sliced !== line) {
           localFixedCount++;
@@ -158,7 +158,7 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
     }
 
     if (leading > 0 && stripped) {
-      const prev = fixed.length > 0 ? fixed[fixed.length - 1].trimEnd() : '';
+      const prev = (fixed.at(-1) ?? '').trimEnd();
       const fragMatch = seqFragRe.test(prev);
       const isIncompleteFrag = fragMatch && !/:\s*\S/.test(prev);
       // `Note over/left of/right of ...:` の直後はメッセージ本文の続きなので、キーワードで始まっても結合する。
@@ -242,12 +242,12 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
 
   let i = 0;
   while (i < lines.length) {
-    const line = lines[i].replace(/\r$/, '');
+    const line = (lines[i] ?? '').replace(/\r$/, '');
     const lineIndent = line.length - line.trimStart().length;
     const listMatch = listItemRe.exec(line);
     if (listMatch) {
       // 同じ深さ以上の兄弟・子リストを閉じてから、この項目の内容開始桁を積む
-      while (containers.length > 0 && (containers.at(-1) ?? 0) > listMatch[1].length) {
+      while (containers.length > 0 && (containers.at(-1) ?? 0) > (listMatch[1] ?? '').length) {
         containers.pop();
       }
       containers.push(listMatch[0].length - 1);
@@ -264,7 +264,7 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
     const info = openMatch?.[2] ?? '';
     // バッククォートフェンスの info 文字列にバッククォートは含められない（CommonMark）
     if (!openMatch || (fence[0] === '`' && info.includes('`'))) {
-      out.push(lines[i]);
+      out.push(lines[i] ?? '');
       i++;
       continue;
     }
@@ -274,7 +274,7 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
     // 閉じフェンス: 同じ文字で開始フェンス以上の長さ、後続は空白のみ
     const closeRe = new RegExp(`^ {0,${maxFenceIndent}}${fence[0] === '`' ? '`' : '~'}{${fence.length},}\\s*$`);
     let end = i + 1;
-    while (end < lines.length && !closeRe.test(lines[end].replace(/\r$/, ''))) {
+    while (end < lines.length && !closeRe.test((lines[end] ?? '').replace(/\r$/, ''))) {
       end++;
     }
     if (end >= lines.length) {
@@ -295,12 +295,13 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
     // 末尾の \r を残したまま結合すると、最終行の \r が改行に正規化されて空行が 1 行増える
     // リスト項目内など開始フェンスがインデントされている場合、本文もそのインデントでコンテナに属する。
     // CommonMark に従い本文から最大その桁数だけ除去して修正し、出力時に非空行へ付け直す
-    const fenceIndent = lines[i].length - lines[i].trimStart().length;
+    const fenceLine = lines[i] ?? '';
+    const fenceIndent = fenceLine.length - fenceLine.trimStart().length;
     const indentRe = new RegExp(`^ {0,${fenceIndent}}`);
     const indentPrefix = ' '.repeat(fenceIndent);
     const bodyLines = rawBodyLines.map(line => line.replace(/\r$/, '').replace(indentRe, ''));
     const { fixedContent } = fixMermaidContent(bodyLines.join('\n'), report);
-    out.push(lines[i]);
+    out.push(fenceLine);
     if (bodyLines.length > 0) {
       out.push(
         ...fixedContent
@@ -309,7 +310,7 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
           .map(line => (hasCr ? line + '\r' : line))
       );
     }
-    out.push(lines[end]);
+    out.push(lines[end] ?? '');
     i = end + 1;
   }
 
@@ -348,12 +349,12 @@ export function fixTsxMermaid(content: string): { fixed: string; report: string[
 // Bun/Node 環境での直接実行エントリポイント
 if (typeof require !== 'undefined' && require.main === module) {
   const args = process.argv.slice(2);
-  if (args.length < 1) {
+  const filePath = args[0];
+  if (filePath === undefined) {
     console.log("Usage: bun run fix_mermaid.ts <file-path>");
     process.exit(1);
   }
 
-  const filePath = args[0];
   try {
     const absolutePath = path.resolve(filePath);
     if (!fs.existsSync(absolutePath)) {
