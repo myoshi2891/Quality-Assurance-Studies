@@ -15,7 +15,8 @@ export default function ChecklistCard({ items }: ChecklistCardProps) {
     const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
     const total = items.length;
-    const completedCount = Object.values(checkedItems).filter(Boolean).length;
+    // items から外れた ID が checkedItems に残っていても件数に含めない
+    const completedCount = items.filter((item) => checkedItems[item.id]).length;
     const progressPercent = total > 0 ? (completedCount / total) * 100 : 0;
 
     const toggleItem = (id: string) => {
