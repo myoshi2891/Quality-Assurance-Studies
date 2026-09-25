@@ -44,6 +44,44 @@ describe('CTAL-TA v4.0 Chapter 3 - Category 0 & 1: Scaffolding, NavBar & Overvie
         expect(toggleBtn?.classList.contains('active')).toBe(false);
     });
 
+    it('closes the open menu and moves focus to the destination heading on TOC link click', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter3Page />);
+        const toggleBtn = container.querySelector('.sidebar-toggle') as HTMLButtonElement;
+        act(() => {
+            fireEvent.click(toggleBtn);
+        });
+        const link = container.querySelector('.sidebar a[href="#01-なぜ第3章が重要なのか"]') as HTMLAnchorElement;
+
+        // Act
+        act(() => {
+            fireEvent.click(link);
+        });
+
+        // Assert
+        const heading = document.getElementById('01-なぜ第3章が重要なのか');
+        expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
+        expect(document.activeElement).toBe(heading);
+        expect(document.activeElement).not.toBe(toggleBtn);
+        expect(heading?.getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('keeps focus unchanged on TOC link click when the menu is closed', () => {
+        // Arrange
+        const { container } = render(<CtalTaChapter3Page />);
+        const link = container.querySelector('.sidebar a[href="#02-試験の全体像"]') as HTMLAnchorElement;
+        link.focus();
+
+        // Act
+        act(() => {
+            fireEvent.click(link);
+        });
+
+        // Assert
+        expect(document.activeElement).toBe(link);
+        expect(document.getElementById('02-試験の全体像')?.hasAttribute('tabindex')).toBe(false);
+    });
+
     it('renders the 33 sidebar navigation links with exact targets', () => {
         const { container } = render(<CtalTaChapter3Page />);
         const expectedHrefs = [

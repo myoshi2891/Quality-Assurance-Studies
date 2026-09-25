@@ -144,12 +144,18 @@ export default function NavBar() {
         return () => observer.disconnect();
     }, []);
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (!isOpen) return;
         setIsOpen(false);
-        if (toggleRef.current) {
-            toggleRef.current.focus();
-        }
+        // 目次を選んだ後は読み進める位置へフォーカスを移す（トグルへ戻すと遷移先と読み上げ位置がずれる）
+        const href = event.currentTarget.getAttribute('href');
+        if (!href?.startsWith('#')) return;
+        const heading = document.getElementById(href.slice(1));
+        if (!heading) return;
+        // 見出しは既定でフォーカス不可のため、Tab 順に加えずプログラムからのみフォーカス可能にする
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        // スクロールはアンカーのネイティブ遷移に任せ、focus による二重スクロールを避ける
+        heading.focus({ preventScroll: true });
     };
 
     return (
