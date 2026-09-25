@@ -81,7 +81,7 @@ main.my-page {
     color: var(--text, #0f172a) !important;
 }
 .my-page thead th {
-    color: var(--text, #0f172a) !important;
+    color: var(--text, var(--color-text-primary, #0f172a)) !important;
     white-space: normal !important;
 }
 

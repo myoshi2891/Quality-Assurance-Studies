@@ -187,13 +187,12 @@ bun x markdownlint-cli <file_path>
   printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
   # プレースホルダー（johndoe）の後に .. セグメントが続くパスは、接頭辞の除去で実パスが隠れるため除去前に拒否する
   # パスに空白が含まれても検出できるよう、同じ行の残り全体を .. セグメントの探索対象にする（誤検出は安全側に倒す）
-  grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"
-  TRAVERSAL=$?
+  # grep を if の条件にし、set -e 下でも「該当なし（終了コード 1）」で検査が中断されないようにする
+  if grep -E '(/Us[e]rs/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
   # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
   sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
   # macOS は大文字小文字を区別しないため、Users ディレクトリの小文字表記など大小文字違いの POSIX パスも検出する
-  grep -E '(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/])' "$STRIPPED"
-  ABSOLUTE=$?
+  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/])' "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
   if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi
