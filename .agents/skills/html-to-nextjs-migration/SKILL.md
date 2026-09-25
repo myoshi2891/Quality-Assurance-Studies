@@ -58,7 +58,9 @@ description: >
 }
 
 /* 本文幅リセット（globals の main { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem } を明示的に上書き） */
-.my-page main {
+/* ページクラスを main 自体に付ける場合（<main className="my-page">）も対象にする */
+.my-page main,
+main.my-page {
     max-width: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -144,14 +146,14 @@ grep -n 'class="' app/<page-slug>/page.tsx
   while IFS= read -r -d '' f; do
     if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi || abort "$f を読み取れない"
   done < "$UNTRACKED" >> "$SCAN"
-  # ホーム以外（/workspace/<user>/ や D:\work\<user>\ 等）の絶対パスも検出するため、
+  # ホーム以外（作業ルート直下のユーザー名ディレクトリや D ドライブ配下等）の絶対パスも検出するため、
   # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
   PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # 実行ユーザー以外のユーザー名を含む非ホーム絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
   # Windows のドライブ絶対パス全般 / macOS の外部ボリューム / WSL のドライブマウント / 典型的な作業ルート直下のセグメント
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
-  grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volumes/[^/[:space:]]+/|/mnt/[a-z]/|/(workspace|work|projects?|srv)/[^/[:space:]]+/)" "$SCAN"
+  grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/|/(workspace|work|projects?|srv)/[^/[:space:]]+/)" "$SCAN"
   case $? in
     0) echo "❌ PII detected" >&2; exit 1 ;;
     1) echo "PII check passed" ;;

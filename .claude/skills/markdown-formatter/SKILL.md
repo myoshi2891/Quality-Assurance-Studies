@@ -191,7 +191,8 @@ bun x markdownlint-cli <file_path>
   TRAVERSAL=$?
   # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
   sed -E 's#(/Us[e]rs/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
-  grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/])' "$STRIPPED"
+  # macOS は大文字小文字を区別しないため、Users ディレクトリの小文字表記など大小文字違いの POSIX パスも検出する
+  grep -E '(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/])' "$STRIPPED"
   ABSOLUTE=$?
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
