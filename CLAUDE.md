@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-09-11
+Updated 2026-09-23
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -25,7 +25,7 @@ bun test             # ユニットテスト (bun test, 336 specs)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 61 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 78 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -141,6 +141,14 @@ Next.js App Router 構成:
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/istqb-ctal-ta-chapter2-risk-based-testing.css` — CTAL-TA 第2章ガイド固有スタイル
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/page.tsx` — CTAL-TA 第2章ガイドページ
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/NavBar.tsx` — CTAL-TA 第2章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/istqb-ctal-ta-chapter3-test-analysis-and-design.css` — CTAL-TA 第3章ガイド固有スタイル
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/page.tsx` — CTAL-TA 第3章ガイドページ
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/NavBar.tsx` — CTAL-TA 第3章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctal-ta-chapter3-test-analysis-and-design/Checklist.tsx` — CTAL-TA 第3章チェックリスト（`'use client'`）
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/istqb-ctal-ta-chapter4-quality-characteristics.css` — CTAL-TA 第4章ガイド固有スタイル
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/page.tsx` — CTAL-TA 第4章ガイドページ
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/NavBar.tsx` — CTAL-TA 第4章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctal-ta-chapter4-quality-characteristics/ChecklistCard.tsx` — CTAL-TA 第4章チェックリストカード（`'use client'`）
 - `app/istqb-ctal-tm-complete-guide/istqb-ctal-tm-complete-guide.css` — テスト管理(CTAL-TM)ガイド固有スタイル
 - `app/istqb-ctal-tm-complete-guide/page.tsx` — テスト管理(CTAL-TM)ガイドページ
 - `app/istqb-ctal-tm-complete-guide/NavBar.tsx` — CTAL-TM ページ固有スティッキーナビ
@@ -313,7 +321,7 @@ Next.js App Router 構成:
 - `app/testing-ai-confidence-engineering-guide/Checklist.tsx` — Testing AI 完全ガイド用インタラクティブチェックリスト（`'use client'`）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
 - `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。playwright-intermediate-advanced / sonarqube-intermediate / cucumber / cypress / selenium / clean-code-cookbook / the-way-of-the-web-tester / testing-web-apis / software-test-design / secure-by-design / how-google-tests-software / agile-testing-practical の各 NavBar が共用する
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 76 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 78 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -639,6 +647,8 @@ bun test        # ユニットテスト成功
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-ta-v4-ch4-quality-characteristics-guide.html` | `/istqb-ctal-ta-chapter4-quality-characteristics` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -662,7 +672,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 76 ルート（ガイドライブラリ index + 75 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 78 ルート（ガイドライブラリ index + 77 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。

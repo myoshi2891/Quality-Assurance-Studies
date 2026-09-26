@@ -1,0 +1,2538 @@
+import React from 'react';
+import type { Metadata } from 'next';
+import NavBar from './NavBar';
+import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
+import './istqb-ctal-ta-chapter3-test-analysis-and-design.css';
+
+export const metadata: Metadata = {
+    title: 'CTAL-TA v4.0 学習ガイド — 第3章「テスト分析・設計」 | QA Studies',
+    description: 'ISTQB Advanced Level Test Analyst (CTAL-TA) v4.0 シラバス第3章「テスト分析・設計」の完全解説。データベースド、ビヘイビアベース、ルールベース、経験ベースの4大テスト技法から技法選定・自動化まで網羅。',
+};
+
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontSize": "16px",
+    "background": "#ffffff",
+    "primaryColor": "#eff6ff",
+    "primaryTextColor": "#1e293b",
+    "primaryBorderColor": "#2563eb",
+    "secondaryColor": "#f1f5f9",
+    "secondaryTextColor": "#1e293b",
+    "secondaryBorderColor": "#94a3b8",
+    "tertiaryColor": "#ffffff",
+    "tertiaryTextColor": "#1e293b",
+    "tertiaryBorderColor": "#cbd5e1",
+    "mainBkg": "#eff6ff",
+    "nodeBorder": "#2563eb",
+    "nodeTextColor": "#1e293b",
+    "lineColor": "#64748b",
+    "textColor": "#1e293b",
+    "titleColor": "#0f172a",
+    "edgeLabelBackground": "#ffffff",
+    "clusterBkg": "#f8fafc",
+    "clusterBorder": "#cbd5e1",
+    "labelBackground": "#ffffff",
+    "labelTextColor": "#1e293b",
+    "stateLabelColor": "#1e293b",
+    "stateBkg": "#eff6ff",
+    "stateBorder": "#2563eb"
+  },
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true,
+    "curve": "basis",
+    "nodeSpacing": 60,
+    "rankSpacing": 70,
+    "subGraphTitleMargin": { "top": 12, "bottom": 18 }
+  },
+  "state": { "useMaxWidth": false }
+}}%%`;
+
+export const DIAGRAM_GUIDE_STEPS = `${MERMAID_CONFIG}
+flowchart LR
+    A["① 定義<br/>(この技法は何か)"] --> B["② なぜ必要か<br/>(どんな欠陥を防ぐか)"]
+    B --> C["③ 具体例<br/>(実際のデータで手を動かす)"]
+    C --> D["④ 図解・表<br/>(視覚的に整理)"]
+    D --> E["⑤ ベストプラクティス<br/>(現場での注意点)"]`;
+
+export const DIAGRAM_CHAPTER_STRUCTURE = `${MERMAID_CONFIG}
+flowchart TD
+    ROOT["第3章: テスト分析・設計<br/>(615分/全体の約50.6%)"]
+
+    ROOT --> DB["3.1 データベースド<br/>テスト技法"]
+    ROOT --> BB["3.2 ビヘイビアベース<br/>テスト技法"]
+    ROOT --> RB["3.3 ルールベース<br/>テスト技法"]
+    ROOT --> EB["3.4 経験ベーステスト"]
+    ROOT --> AP["3.5 最適な技法の適用"]
+
+    DB --> DB1["3.1.1 ドメインテスト<br/>[K3]"]
+    DB --> DB2["3.1.2 組み合わせテスト<br/>[K3]"]
+    DB --> DB3["3.1.3 ランダムテスト<br/>[K2]"]
+
+    BB --> BB1["3.2.1 CRUDテスト<br/>[K2]"]
+    BB --> BB2["3.2.2 状態遷移テスト<br/>[K3]"]
+    BB --> BB3["3.2.3 シナリオベーステスト<br/>[K3]"]
+
+    RB --> RB1["3.3.1 デシジョンテーブルテスト<br/>[K3]"]
+    RB --> RB2["3.3.2 メタモルフィックテスト<br/>[K3]"]
+
+    EB --> EB1["3.4.1 テストチャーター<br/>(セッションベーステスト)[K3]"]
+    EB --> EB2["3.4.2 チェックリスト<br/>[K3]"]
+    EB --> EB3["3.4.3 クラウドテスト<br/>[K2]"]
+
+    AP --> AP1["3.5.1 製品リスクを軽減する<br/>技法選定 [K4]"]
+    AP --> AP2["3.5.2 テスト設計自動化の<br/>利点とリスク [K2]"]
+
+    classDef dataFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef behaviorFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef ruleFill fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef expFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
+    classDef applyFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+
+    class DB,DB1,DB2,DB3 dataFill
+    class BB,BB1,BB2,BB3 behaviorFill
+    class RB,RB1,RB2 ruleFill
+    class EB,EB1,EB2,EB3 expFill
+    class AP,AP1,AP2 applyFill`;
+
+export const DIAGRAM_DOMAIN_POINTS = `${MERMAID_CONFIG}
+flowchart LR
+    subgraph OUTSIDE["同値パーティションの外側"]
+        OUT["OUT点<br/>境界から十分離れた外側の点"]
+        OFF["OFF点<br/>境界に最も近い外側の点"]
+    end
+    BORDER{{"境界<br/>例: 合計金額 ≥ 10000円"}}
+    subgraph INSIDE["同値パーティションの内側"]
+        ON["ON点<br/>境界そのものの点(閉じた境界)"]
+        IN["IN点<br/>境界から十分離れた内側の点"]
+    end
+
+    OUT --> OFF --> BORDER --> ON --> IN
+
+    classDef outsideFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    classDef insideFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef borderFill fill:#fef3c7,stroke:#d97706,color:#78350f
+
+    class OUT,OFF outsideFill
+    class ON,IN insideFill
+    class BORDER borderFill`;
+
+export const DIAGRAM_BASE_CHOICE = `${MERMAID_CONFIG}
+flowchart LR
+    BASE["基準カバレッジ項目<br/>色=赤 / サイズ=M / 会員=一般"] --> V1["色だけ変更<br/>色=青 / サイズ=M / 会員=一般"]
+    BASE --> V2["色だけ変更<br/>色=緑 / サイズ=M / 会員=一般"]
+    BASE --> V3["サイズだけ変更<br/>色=赤 / サイズ=L / 会員=一般"]
+    BASE --> V4["会員種別だけ変更<br/>色=赤 / サイズ=M / 会員=プレミアム"]
+
+    classDef baseFill fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef varFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    class BASE baseFill
+    class V1,V2,V3,V4 varFill`;
+
+export const DIAGRAM_CRUD_APPROACH = `${MERMAID_CONFIG}
+flowchart TD
+    A["CRUDマトリクスの作成<br/>(機能 × エンティティ)"] --> B["網羅性テスト<br/>(Completeness Testing / 静的テスト)"]
+    A --> C["一貫性テスト<br/>(Consistency Testing / 動的テスト)"]
+    B --> B1["各エンティティについて<br/>C・R・U・Dの全操作が<br/>実装されているかを確認"]
+    C --> C1["エンティティのライフサイクル全体を<br/>通して機能同士の連携を実行し<br/>整合性を確認"]
+    C --> C2["異常系も含める<br/>(例: 未作成のデータをRead/Update/Deleteしようとする)"]
+
+    classDef staticFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef dynamicFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class B,B1 staticFill
+    class C,C1,C2 dynamicFill`;
+
+export const DIAGRAM_STATE_ORDER = `${MERMAID_CONFIG}
+stateDiagram-v2
+    direction LR
+    [*] --> 下書き
+    下書き --> 提出済み : 注文確定
+    提出済み --> 審査中 : 審査開始
+    審査中 --> 差し戻し中 : 不備あり
+    差し戻し中 --> 審査中 : 再提出
+    審査中 --> 承認済み : 承認
+    審査中 --> 却下 : 却下
+    承認済み --> 出荷済み : 出荷
+    出荷済み --> 完了 : 受領確認
+    却下 --> [*]
+    完了 --> [*]`;
+
+export const DIAGRAM_SCENARIO_LOGIN = `${MERMAID_CONFIG}
+flowchart TD
+    START(["開始: ログイン画面表示"]) --> INPUT["ID・パスワードを入力"]
+    INPUT --> CHECK{"認証結果は?"}
+    CHECK -->|"メインシナリオ<br/>(ハッピーパス)"| SUCCESS["ホーム画面へ遷移"]
+    CHECK -->|"拡張シナリオ<br/>パスワード忘れ"| RESET["パスワード再設定フローへ"]
+    RESET --> RETRY["再設定後に再ログイン"]
+    RETRY --> CHECK
+    CHECK -->|"例外シナリオ<br/>連続失敗でロック"| LOCK["アカウントロック画面を表示"]
+    SUCCESS --> ENDNODE(["終了"])
+    LOCK --> ENDNODE
+
+    classDef mainFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef altFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef excFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class SUCCESS mainFill
+    class RESET,RETRY altFill
+    class LOCK excFill`;
+
+export const DIAGRAM_DECISION_STEPS = `${MERMAID_CONFIG}
+flowchart TD
+    A["① フル・デシジョンテーブルの作成<br/>(条件の全組み合わせを列挙)"] --> B["② 実行不可能なルールの除外<br/>(発生しえない組み合わせを削除)"]
+    B --> C["③ ドントケア(–)を使った<br/>アクション等価ルールの併合(最小化)"]
+    C --> D["④ レビュー<br/>一貫性・実行可能性・網羅性・正しさ"]
+    D --> E["⑤ チェックサム手続きで<br/>過不足(重複・漏れ)を検証"]
+    E --> F["⑥ テストケースへ変換<br/>(–の値を具体的なデータに落とし込む)"]
+
+    classDef stepFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    class A,B,C,D,E,F stepFill`;
+
+export const DIAGRAM_METAMORPHIC_CONCEPT = `${MERMAID_CONFIG}
+flowchart LR
+    SRC["ソーステストケース<br/>入力: [3, 5, 7]<br/>期待結果: 平均 = 5"] -->|"MR適用:<br/>並び替えても平均は不変"| FUP["フォローアップテストケース<br/>入力: [7, 3, 5]<br/>期待結果: 平均 = 5"]
+    SRC --> EXEC1["実行"]
+    FUP --> EXEC2["実行"]
+    EXEC1 --> COMPARE{"MR(メタモルフィック関係)を<br/>満たしているか?"}
+    EXEC2 --> COMPARE
+    COMPARE -->|"満たす"| PASS["合格"]
+    COMPARE -->|"満たさない"| FAIL["不合格<br/>(どちらかのテストケースに欠陥がある可能性)"]
+
+    classDef srcFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef passFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef failFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class SRC,FUP srcFill
+    class PASS passFill
+    class FAIL failFill`;
+
+export const DIAGRAM_CHARTER_CYCLE = `${MERMAID_CONFIG}
+flowchart LR
+    A["① テストチャーター作成<br/>(Explore/With/To形式)"] --> B["② タイムボックス化された<br/>テストセッションを実行"]
+    B --> C["③ セッションシートに<br/>ログ・観察・疑問点を記録"]
+    C --> D["④ デブリーフィング<br/>(振り返り・次の計画)"]
+    D -.->|"次のセッションへ反映"| A
+
+    classDef stepFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
+    class A,B,C,D stepFill`;
+
+export const DIAGRAM_CHECKLIST_STEPS = `${MERMAID_CONFIG}
+flowchart TD
+    A["① スコープ・目的・形式を決定<br/>(Read-do型 / Do-confirm型)"] --> B["② 情報収集<br/>経験者の知見・欠陥分類/欠陥タクソノミー・<br/>関連文書・過去のリスクや事例の分析"]
+    B --> C["③ チェックリスト項目の作成<br/>(明確・具体的・曖昧さがない・<br/>Yes/No/N.A.で答えられる形式)"]
+    C --> D["④ 優先度の付与<br/>(重要度・影響度・リスクレベル)"]
+    D --> E["⑤ カテゴリ別に構造化<br/>(機能領域・ユーザーロール・テストレベルなど)"]
+    E --> F["⑥ 継続的なレビュー・改訂"]
+    F -.->|"新しい知見・変化した優先度を反映"| C
+
+    classDef stepFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
+    class A,B,C,D,E,F stepFill`;
+
+export const DIAGRAM_TECHNIQUE_SELECTION = `${MERMAID_CONFIG}
+flowchart TD
+    A["テスト対象の特性・<br/>テストベースを分析"] --> B{"どんな性質が<br/>支配的か?"}
+    B -->|"状態遷移モデルがある<br/>(ステートフルな振る舞い)"| C["ビヘイビアベーステスト技法<br/>(状態遷移テスト/シナリオベーステスト)"]
+    B -->|"ビジネスルール・条件分岐が中心"| D["ルールベーステスト技法<br/>(デシジョンテーブルテスト)"]
+    B -->|"複数パラメータ・データ領域が中心"| E["データベースドテスト技法<br/>(ドメインテスト/組み合わせテスト)"]
+    B -->|"テストオラクルの取得が困難<br/>(AIベース・非決定的な処理)"| F["メタモルフィックテスト"]
+    B -->|"仕様が曖昧・時間が限られる・<br/>網羅基準の定義が難しい"| G["経験ベーステスト<br/>(探索的テスト/チェックリスト)"]
+
+    classDef dataFill fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef behaviorFill fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef ruleFill fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef mtFill fill:#f3e8ff,stroke:#9333ea,color:#581c87
+    classDef expFill fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+
+    class E dataFill
+    class C behaviorFill
+    class D ruleFill
+    class F mtFill
+    class G expFill`;
+
+export default function CtalTaChapter3Page() {
+    return (
+        <div className="ctal-ta-ch3-page">
+            <div className="layout">
+                <NavBar />
+                <main className="main" id="main-content">
+                    {/* Hero Header */}
+                    <header className="hero">
+                        <span className="eyebrow">CTAL-TA v4.0 · Chapter 3</span>
+                        <h1>CTAL-TA v4.0 学習ガイド — 第3章「テスト分析・設計(Test Analysis and Test Design)」</h1>
+                        <p className="subtitle">
+                            ISTQB® Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0 シラバス第3章の完全解説 対象読者: CTFL(Foundation Level)取得済みで、Advanced Level Test Analystを目指す初学者〜中級者のQAエンジニア
+                        </p>
+                        <div className="pill-row">
+                            <div className="pill">
+                                <span className="pill-value">615分</span>
+                                <span className="pill-label">学習時間(全体の約50.6%)</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">45問 / 78点</span>
+                                <span className="pill-label">試験問題数・配点</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">51点</span>
+                                <span className="pill-label">合格ライン(約65%)</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">12件</span>
+                                <span className="pill-label">Mermaid図解</span>
+                            </div>
+                            <div className="pill">
+                                <span className="pill-value">12件</span>
+                                <span className="pill-label">参考文献URL</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Section 0: このガイドについて */}
+                    <h2 id="0-このガイドについて">0. このガイドについて</h2>
+
+                    <h3 id="01-なぜ第3章が重要なのか">0.1 なぜ第3章が重要なのか</h3>
+                    <p>
+                        CTAL-TA v4.0シラバスは全5章・合計1,215分(20.25時間)の学習時間で構成されていますが、<strong>第3章「テスト分析・設計」だけで615分(全体の約50.6%)</strong>を占めています。CTAL-TA合格の鍵は第3章の理解度にあると言っても過言ではありません。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>章</th>
+                                    <th>タイトル</th>
+                                    <th>学習時間</th>
+                                    <th>全体に占める割合</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>第1章</td>
+                                    <td>テストプロセスにおけるテストアナリストのタスク</td>
+                                    <td>225分</td>
+                                    <td>約18.5%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>第2章</td>
+                                    <td>リスクベーステストにおけるテストアナリストのタスク</td>
+                                    <td>90分</td>
+                                    <td>約7.4%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>第3章</strong></td>
+                                    <td><strong>テスト分析・設計</strong></td>
+                                    <td><strong>615分</strong></td>
+                                    <td><strong>約50.6%</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>第4章</td>
+                                    <td>品質特性のテスト</td>
+                                    <td>60分</td>
+                                    <td>約4.9%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>第5章</td>
+                                    <td>ソフトウェア欠陥予防</td>
+                                    <td>225分</td>
+                                    <td>約18.5%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>合計</td>
+                                    <td>—</td>
+                                    <td>1,215分</td>
+                                    <td>100%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        出典: ISTQB® CTAL-TA Syllabus v4.0, Section 0.10「How this Syllabus is Organized」
+                    </p>
+
+                    <h3 id="02-試験の全体像">0.2 試験の全体像</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>問題数</td>
+                                    <td>40問</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>配点合計</td>
+                                    <td>78点</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>合格ライン</td>
+                                    <td>51点(約65%)</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>試験時間</td>
+                                    <td>120分(母国語以外で受験する場合は+25%)</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>前提資格</td>
+                                    <td>ISTQB® Certified Tester Foundation Level(CTFL)必須</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>出典: ISTQB®公式サイト CTAL-TA v4.0 認定ページ「Exam Structure」</p>
+
+                    <h3 id="03-本ガイドの読み方">0.3 本ガイドの読み方</h3>
+                    <p>
+                        第3章の各テスト技法は、以下の一貫した流れで解説します。初学者がつまずきやすい「用語は知っているが使い方が分からない」という状態を避けるため、必ず<strong>具体例</strong>と<strong>図解</strong>をセットで提示します。
+                    </p>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_GUIDE_STEPS} />
+                    </div>
+
+                    <h3 id="04-kレベル認知レベルバッジの見方">0.4 Kレベル(認知レベル)バッジの見方</h3>
+                    <p>
+                        CTAL-TA シラバスの学習目標には、以下の3段階の認知レベル(Bloom&apos;s Taxonomyに基づく)が付与されています。試験問題の難易度に直結するため、各節の冒頭で必ず確認してください。
+                    </p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>バッジ</th>
+                                    <th>意味</th>
+                                    <th>試験での出され方</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><code>K2: 理解</code></td>
+                                    <td>概念を要約・説明できる</td>
+                                    <td>定義や特徴を問う選択式問題</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><code>K3: 適用</code></td>
+                                    <td>与えられた状況に技法を適用できる</td>
+                                    <td>シナリオに基づき、テストケースやカバレッジ項目を実際に導出させる問題</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><code>K4: 分析</code></td>
+                                    <td>状況を分析し、最適な選択をくだせる</td>
+                                    <td>複数の技法・アプローチから、状況に最も適したものを選ばせる問題</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        第3章は特に<code>K3</code>と<code>K4</code>の学習目標が多く、<strong>「知っている」だけでは合格できない章</strong>です。手を動かしてカバレッジ項目やテストケースを実際に導出する演習が不可欠です。
+                    </p>
+
+                    <hr />
+
+                    {/* Section 1: 第3章の全体構造 */}
+                    <h2 id="1-第3章の全体構造--4分類のテスト技法">1. 第3章の全体構造 — 4分類のテスト技法</h2>
+                    <p>
+                        CTAL-TAシラバスは、ブラックボックステスト技法を「<strong>何をモデル化するか</strong>」という観点で3つに分類し、これに経験ベーステストを加えた4系統で第3章を構成しています。
+                    </p>
+                    <ul>
+                        <li><strong>データベースド(data-based)</strong>: データの要素をモデル化する</li>
+                        <li><strong>ビヘイビアベースド(behavior-based)</strong>: 動的な振る舞いの要素をモデル化する</li>
+                        <li><strong>ルールベースド(rule-based)</strong>: 静的な振る舞いのルール(ビジネスルールなど)をモデル化する</li>
+                        <li><strong>経験ベースド(experience-based)</strong>: テスト担当者の経験・知識を活用する</li>
+                    </ul>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CHAPTER_STRUCTURE} />
+                    </div>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス — 分類の軸を覚える</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                試験では「この技法はどのカテゴリに属するか」を問う問題が頻出します。迷ったら次の質問で切り分けましょう。
+                            </p>
+                            <ul>
+                                <li>データの「値」に注目している → <strong>データベースド</strong></li>
+                                <li>システムの「状態遷移」や「時間の流れ」に注目している → <strong>ビヘイビアベースド</strong></li>
+                                <li>状態に依存しない「条件と結果のルール」に注目している → <strong>ルールベースド</strong></li>
+                                <li>明文化された網羅基準がなく、担当者の経験や探索に頼る → <strong>経験ベースド</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 id="11-用語集キーワードk1レベル">1.1 用語集(キーワード・K1レベル)</h3>
+                    <p>
+                        シラバスの章見出し直下に列挙されている用語は、明示的な学習目標がなくても定義を暗記すべき<code>K1</code>レベルの必須キーワードです。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>英語キーワード</th>
+                                    <th>日本語訳</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>checklist-based testing</td>
+                                    <td>チェックリストベーステスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>behavior-based test technique</td>
+                                    <td>ビヘイビアベーステスト技法</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>combinatorial testing</td>
+                                    <td>組み合わせテスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>crowd testing</td>
+                                    <td>クラウドテスト</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CRUD testing</td>
+                                    <td>CRUDテスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>data-based test technique</td>
+                                    <td>データベースドテスト技法</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>decision table testing</td>
+                                    <td>デシジョンテーブルテスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>domain testing</td>
+                                    <td>ドメインテスト</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>equivalence partition</td>
+                                    <td>同値パーティション</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>experience-based testing</td>
+                                    <td>経験ベーステスト</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>metamorphic relation</td>
+                                    <td>メタモルフィック関係</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>metamorphic testing</td>
+                                    <td>メタモルフィックテスト</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>random testing</td>
+                                    <td>ランダムテスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>rule-based test technique</td>
+                                    <td>ルールベーステスト技法</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>scenario-based testing</td>
+                                    <td>シナリオベーステスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>session-based testing</td>
+                                    <td>セッションベーステスト</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>state transition testing</td>
+                                    <td>状態遷移テスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>test charter</td>
+                                    <td>テストチャーター</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>出典: ISTQB® CTAL-TA Syllabus v4.0, Chapter 3 “Keywords”</p>
+
+                    <hr />
+
+                    {/* Section 2: 3.1 データベースドテスト技法 */}
+                    <h2 id="2-31-データベースドテスト技法data-based-test-techniques">
+                        2. 3.1 データベースドテスト技法(Data-Based Test Techniques)
+                    </h2>
+                    <p>
+                        Foundation Levelで学んだ<strong>同値分割法(EP)</strong>や<strong>境界値分析(BVA)</strong>を基礎としつつ、Advanced Levelではより複雑・高度な3つのデータベースド技法を習得します。
+                    </p>
+                    <ul>
+                        <li><strong>ドメインテスト</strong> — EP/BVAを複数変数の関係性・相互作用へ拡張し、幾何学的な境界線(border)として捉える技法</li>
+                        <li><strong>組み合わせテスト</strong> — パラメータ間の相互作用を直交表やペアワイズ法などで効率的に絞り込む技法</li>
+                        <li><strong>ランダムテスト</strong> — 確率分布に従ってランダムに入力値を生成・投入し、想定外の欠陥や回復性を探る技法</li>
+                    </ul>
+
+                    {/* 2.1 ドメインテスト */}
+                    <h3 id="21-311-ドメインテストdomain-testing-k3-適用">
+                        2.1 3.1.1 ドメインテスト(Domain Testing) <code>K3: 適用</code>
+                    </h3>
+
+                    <h4 id="定義">定義</h4>
+                    <p>
+                        ドメインテストとは、テスト対象が同値パーティションの<strong>境界(border)</strong>付近でどのように振る舞うかを評価する技法です。境界値分析(BVA)を<strong>2つ以上の入力パラメータが相互に関連するドメイン(領域)</strong>へと拡張した概念と位置づけられます。
+                    </p>
+                    <p>境界には2種類あります。</p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>境界の種類</th>
+                                    <th>演算子</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>閉じた境界(Closed border)</strong></td>
+                                    <td><code>≤</code> <code>≥</code> <code>=</code></td>
+                                    <td>「年齢が18歳以上」(18歳はそのパーティションに含まれる)</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>開いた境界(Open border)</strong></td>
+                                    <td><code>&lt;</code> <code>&gt;</code> <code>≠</code></td>
+                                    <td>「年齢が18歳未満」(18歳はそのパーティションに含まれない)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="なぜ必要か">なぜ必要か</h4>
+                    <p>
+                        同値分割やBVAは1つの変数を前提としていますが、実務のシステムでは「複数の入力パラメータの組み合わせによって境界線が斜めや曲線になる」「条件同士が排他・従属している」といった複雑なドメイン境界が頻出します。これらを幾何学的な領域(ドメイン)として捉え、境界の歪みや誤った不等号の適用による欠陥を確実に検出するためにドメインテストが必要です。
+                    </p>
+
+                    <h4 id="4種類の点onoffinout">4種類の点:ON・OFF・IN・OUT</h4>
+                    <p>境界に対して、テストデータは以下の4種類に分類されます。</p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>点の種類</th>
+                                    <th>閉じた境界の場合</th>
+                                    <th>開いた境界の場合</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>ON点</strong></td>
+                                    <td>境界線上の点(パーティション<strong>内側</strong>)</td>
+                                    <td>境界線に最も近い、パーティション<strong>内側</strong>の点</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>OFF点</strong></td>
+                                    <td>境界に最も近い、パーティション<strong>外側</strong>の点</td>
+                                    <td>境界線上の点(パーティション<strong>外側</strong>)</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>IN点</strong></td>
+                                    <td>パーティションに属し、ON点ではない点</td>
+                                    <td>パーティションに属し、ON点ではない点</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>OUT点</strong></td>
+                                    <td>パーティションに属さず、OFF点ではない点</td>
+                                    <td>パーティションに属さず、OFF点ではない点</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_DOMAIN_POINTS} />
+                    </div>
+
+                    <h4 id="具体例">具体例</h4>
+                    <p>条件: 「注文数量が5個以上、かつ、合計金額が10,000円を超える場合に送料無料」</p>
+                    <ul>
+                        <li>数量条件: <code>数量 ≥ 5</code>(閉じた境界)</li>
+                        <li>金額条件: <code>合計金額 &gt; 10000</code>(開いた境界)</li>
+                    </ul>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>境界</th>
+                                    <th>ON点</th>
+                                    <th>OFF点</th>
+                                    <th>IN点</th>
+                                    <th>OUT点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><code>数量 ≥ 5</code>(閉)</td>
+                                    <td>数量=5</td>
+                                    <td>数量=4</td>
+                                    <td>数量=10</td>
+                                    <td>数量=1</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><code>合計金額 &gt; 10000</code>(開)</td>
+                                    <td>合計金額=10001</td>
+                                    <td>合計金額=10000</td>
+                                    <td>合計金額=50000</td>
+                                    <td>合計金額=3000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="カバレッジ基準">カバレッジ基準</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>基準</th>
+                                    <th>必要なカバレッジ項目</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>簡略化ドメインカバレッジ</strong><br />(Simplified domain coverage)
+                                    </td>
+                                    <td>
+                                        各境界(<code>&lt;</code> <code>≤</code> <code>&gt;</code> <code>≥</code>)につきON点1つ+OFF点1つ。<code>=</code>演算子の境界はON点1つ+反対側のOFF点2つ。<code>≠</code>演算子の境界はOFF点1つ+反対側のON点2つ
+                                    </td>
+                                    <td>
+                                        項目数が少なく効率的。1つのIN/OUT点を複数の境界で使い回すなど最適化も可能
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        <strong>信頼性ドメインカバレッジ</strong><br />(Reliable domain coverage)
+                                    </td>
+                                    <td>上記に加え、各境界についてIN点・OUT点も追加で取得</td>
+                                    <td>
+                                        項目数はやや増えるが、検出できるドメイン欠陥の数は大きく向上する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    境界が多いドメインでは、1つのON/OFF点のペアを隣接するパーティションのOFF/ON点として<strong>使い回す</strong>ことで、テストケース数を最適化できます。
+                                </li>
+                                <li>
+                                    リスクが高い機能(決済金額の計算など)には信頼性ドメインカバレッジを、リスクが低い補助的な入力には簡略化ドメインカバレッジを、というように<strong>リスクベースでカバレッジ基準を使い分ける</strong>のが実務的です。
+                                </li>
+                                <li>
+                                    境界条件は要件定義書の「以上・より・未満・以下」といった表現の揺れが原因で誤って実装されやすいため、<strong>要件レビューの段階で境界の演算子を明示的に確認する</strong>ことが上流での欠陥予防につながります。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="compare-grid">
+                        <div className="compare-item compare-good">
+                            <span className="compare-icon">✅</span>
+                            <div className="compare-text">
+                                <strong>良い例</strong>:
+                                「<code>≥</code>と<code>&gt;</code>を混同していないか」を検証するため、ON点とOFF点を必ずペアで用意する
+                            </div>
+                        </div>
+                        <div className="compare-item compare-bad">
+                            <span className="compare-icon">❌</span>
+                            <div className="compare-text">
+                                <strong>悪い例</strong>:
+                                IN点だけをテストし、境界そのもの(ON点)をテストしない → 演算子の実装ミスを見逃す典型的な失敗パターン
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* 2.2 組み合わせテスト */}
+                    <h3 id="22-312-組み合わせテストcombinatorial-testing-k3-適用">
+                        2.2 3.1.2 組み合わせテスト(Combinatorial Testing) <code>K3: 適用</code>
+                    </h3>
+
+                    <h4 id="定義-1">定義</h4>
+                    <p>
+                        組み合わせテストは、複数のパラメータの値が組み合わさったときにのみ発生する不具合(相互作用障害)を効率的に検出するための技法です。
+                    </p>
+
+                    <h4 id="なぜ必要か-1">なぜ必要か</h4>
+                    <p>
+                        すべてのパラメータの全組み合わせをテストするのは、パラメータ数が増えると指数関数的に爆発し現実的ではありません(組み合わせ爆発)。米国国立標準技術研究所(NIST)の研究によると、<strong>ソフトウェア障害の約70%〜90%以上は、2つ以下のパラメータの相互作用によって引き起こされる</strong>と報告されています。したがって、全組み合わせを網羅しなくても、2因子(ペアワイズ)の相互作用を網羅するだけで大半の不具合を発見できます。
+                    </p>
+
+                    <h4 id="カバレッジ基準-1">カバレッジ基準</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>カバレッジ基準</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>全組み合わせカバレッジ(All-combinations coverage)</strong></td>
+                                    <td>全パラメータのすべての組み合わせを網羅する。テストケース数が爆発するため小規模・高リスク領域に限定される</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>各チョイスカバレッジ(Each choice coverage / 1-wise)</strong></td>
+                                    <td>すべてのパラメータの各値が、少なくとも1つのテストケースで出現することを保証する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>ペアワイズカバレッジ(Pairwise coverage / 2-wise)</strong></td>
+                                    <td>任意の2つのパラメータの値のすべての組み合わせが、少なくとも1つのテストケースで出現することを保証する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>ベースチョイスカバレッジ(Base choice coverage)</strong></td>
+                                    <td>「最も一般的・代表的な値の組み合わせ(ベースチョイス)」を1つ定義し、他のパラメータの値を1つずつ変化させたテストケースを網羅する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_BASE_CHOICE} />
+                    </div>
+
+                    <h4 id="具体例ペアワイズカバレッジ">具体例(ペアワイズカバレッジ)</h4>
+                    <p>
+                        3つのパラメータ「OS(Windows/Mac/Linux)」「ブラウザ(Chrome/Firefox/Safari)」「言語(日本語/英語)」を全組み合わせでテストすると
+                        <code>3 × 3 × 2 = 18</code>
+                        パターンになりますが、ペアワイズ法を使えばそれぞれのペア(OS×ブラウザ、OS×言語、ブラウザ×言語)をすべて1回以上カバーする<strong>わずか数パターン</strong>まで削減できます。パラメータの値が多い場合は、先に同値分割で値の数自体を絞り込み、分類ツリーやフィーチャーモデルで整理してから組み合わせを生成すると効率的です。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    パラメータ数が多い場合は、専用ツールでペアワイズの組み合わせを自動生成する(手作業での最小集合の算出は一般に困難)。
+                                </li>
+                                <li>
+                                    「無効な組み合わせ」(例: OSがiOSなのにブラウザがInternet Explorer)は制約条件として除外し、実行不可能な組み合わせを生成しないようにする。
+                                </li>
+                                <li>
+                                    リスクが非常に高い機能には、ペアワイズではなく<strong>全組み合わせ</strong>、あるいは3パラメータ以上の相互作用も見るn-wiseテストを検討する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* 2.3 ランダムテスト */}
+                    <h3 id="23-313-ランダムテストrandom-testing-k2-理解">
+                        2.3 3.1.3 ランダムテスト(Random Testing) <code>K2: 理解</code>
+                    </h3>
+
+                    <h4 id="定義-2">定義</h4>
+                    <p>
+                        ランダムテストは、<strong>指定された確率分布に基づき、入力ドメインからテストデータをランダムに選択する</strong>技法です。ガイド付き(guided)とガイドなし(unguided)の2種類があります。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>種類</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ガイドなしランダムテスト</td>
+                                    <td>確率分布はプロセス全体を通じて固定(一様分布など)</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ガイド付きランダムテスト(例: 適応的ランダムテスト)</td>
+                                    <td>過去に選択した値に基づいて分布を調整し、ドメイン全体をより効果的にカバーしようとする</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="利点と限界">利点と限界</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>利点</th>
+                                    <th>限界</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ドメイン知識が少なくても実施できる</td>
+                                    <td>データの意味(セマンティクス)を考慮しないため、意味に関連する欠陥を見逃す可能性がある</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>大量のテストデータが必要な場合にコスト効率が良い</td>
+                                    <td>冗長なテストが生成されやすい</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テスト対象の信頼性を確率論的に把握できる</td>
+                                    <td>自動テストオラクルへの依存度が高い</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>人手によるテストで生じがちな「思い込みによる見落とし」を回避できる</td>
+                                    <td>出力自体がランダムなため、テスト結果の一貫性が損なわれることがある</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        ランダムテストには決まったカバレッジ基準がないため、終了基準は「実行したテスト数」や「テスト時間」など、完了度合いを示す代替指標に頼らざるを得ません。近年の実証研究では、条件が整えば他のデータベースドテスト技法よりも効果的・効率的な場合があることも分かってきています。<strong>ファジング</strong>はこのランダムテストに関連する手法の一つです。一方、<strong>カオスエンジニアリング</strong>はランダムテストの応用形ではなく、本番環境やそれに近い環境へ制御された障害(サーバー停止・レイテンシ注入など)を意図的に注入し、システムの回復性(レジリエンス)を検証する別のテスト手法です。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    妥当性確認(validation)目的では実際の使われ方に基づく分布(運用プロファイル)を、検証(verification)目的では使用状況に偏らない分布を選ぶ。
+                                </li>
+                                <li>
+                                    自動化された結果比較(自動テストオラクル)を用意できない場合、ランダムテストの効果は大きく制限されるため、事前にオラクルの確保を検討する。
+                                </li>
+                                <li>
+                                    探索的テストや他の系統的技法と組み合わせることで、「見落としがちな領域」を補完する位置づけで使うと効果的。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 3: 3.2 ビヘイビアベーステスト技法 */}
+                    <h2 id="3-32-ビヘイビアベーステスト技法behavior-based-test-techniques">
+                        3. 3.2 ビヘイビアベーステスト技法(Behavior-Based Test Techniques)
+                    </h2>
+                    <p>
+                        ビヘイビアベーステスト技法は、テスト対象の<strong>動的(状態依存的)な振る舞いの仕様</strong>からテストケースを導出する技法群です。Foundation Levelで学んだ状態遷移テストをさらに深掘りするとともに、CRUDテストやシナリオベーステストといった実務で極めて有用な技法を学びます。
+                    </p>
+
+                    {/* 3.1 CRUDテスト */}
+                    <h3 id="31-321-crudテストcrud-testing-k2-理解">
+                        3.1 3.2.1 CRUDテスト(CRUD Testing) <code>K2: 理解</code>
+                    </h3>
+
+                    <h4 id="定義-3">定義</h4>
+                    <p>
+                        CRUDテストは、テスト対象が処理する<strong>データエンティティのライフサイクル</strong>を検証する技法です。Create(作成)、Read(参照)、Update(更新)、Delete(削除)の4つの基本操作が正しく機能するかを評価します。
+                    </p>
+
+                    <h4 id="なぜ必要か-2">なぜ必要か</h4>
+                    <p>
+                        多くの業務システムは「会員」「注文」「商品」のようなエンティティを中心に構築されています。機能単体では正しく動いても、ライフサイクルの順序(例: 削除された会員へのメール送信、注文確定後の在庫未更新など)に不整合が生じる欠陥は後を絶ちません。CRUDテストはこうしたライフサイクルの不整合や欠落を網羅的に暴くために不可欠です。
+                    </p>
+
+                    <h4 id="crudマトリクスの作成">CRUDマトリクスの作成</h4>
+                    <p>
+                        行に機能、列にエンティティを配置し、各機能がどのエンティティに対してどの操作を行うかを整理した表(CRUDマトリクス)を作成します。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>機能</th>
+                                    <th>会員</th>
+                                    <th>注文</th>
+                                    <th>商品</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>会員登録</td>
+                                    <td><strong>C</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>会員情報照会</td>
+                                    <td><strong>R</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>会員情報変更</td>
+                                    <td><strong>U</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>会員退会</td>
+                                    <td><strong>D</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>注文作成</td>
+                                    <td>R</td>
+                                    <td><strong>C</strong></td>
+                                    <td>R</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>注文照会</td>
+                                    <td></td>
+                                    <td><strong>R</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>注文キャンセル</td>
+                                    <td></td>
+                                    <td><strong>U</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>商品登録</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>C</strong></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>在庫更新</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>U</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>商品削除</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>D</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="callout callout-note">
+                        <div className="callout-head">
+                            <span className="callout-icon">📝</span><span className="callout-title">注記</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                特に<strong>Read操作</strong>は、C・U・D操作に暗黙的に付随することが多いため(例:注文作成時に商品情報をReadする)、見落としがちです。マトリクス作成時は必ず明示的に確認しましょう。
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 id="網羅性テストと一貫性テスト">網羅性テストと一貫性テスト</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CRUD_APPROACH} />
+                    </div>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テストの種類</th>
+                                    <th>分類</th>
+                                    <th>目的</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>網羅性テスト</strong>(Completeness testing)</td>
+                                    <td>静的テスト</td>
+                                    <td>
+                                        すべてのエンティティに対してC・R・U・Dの全操作が実装されているか(ライフサイクル全体が実装されているか)を確認。操作の欠落は要調査の異常
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>一貫性テスト</strong>(Consistency testing)</td>
+                                    <td>動的テスト</td>
+                                    <td>
+                                        複数機能を組み合わせて実際にエンティティのライフサイクルを通し、機能間の連携の整合性を検証。「未作成のデータを参照する」などの異常系も含める
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        CRUDカバレッジは、CRUDマトリクス上の「エンティティ×C/R/U/D」の組み合わせ(カバレッジ項目)のうち、テストスイートで<strong>少なくとも1回実行して網羅したユニークな項目数</strong>を、マトリクス全体のユニークな項目数で割ることで測定します(同じRead操作などを複数回実行しても重複してカウントしません)。より厳密には「更新(U)の後に、想定されるすべての参照(R)が実行されているか」のように、特定の操作の組み合わせをカバレッジ項目とすることも可能です。CRUDテストは主にシステムレベルで用いられ、ライフサイクルの網羅性・操作の一貫性・データ整合性違反といった欠陥の検出に強みがあります。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    CRUDマトリクスは、機能一覧・エンティティ一覧が確定した段階で早期に作成し、<strong>実装前のレビュー資料</strong>として使うと、そもそもの設計漏れ(Read操作の実装忘れなど)を上流で防げる。
+                                </li>
+                                <li>
+                                    一貫性テストでは、正常なライフサイクル順序だけでなく、<strong>順序違反</strong>(例: 削除済みエンティティへのUpdate)を意図的にテストケース化する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* 3.2 状態遷移テスト */}
+                    <h3 id="32-322-状態遷移テストstate-transition-testing-k3-適用">
+                        3.2 3.2.2 状態遷移テスト(State Transition Testing) <code>K3: 適用</code>
+                    </h3>
+
+                    <h4 id="定義-4">定義</h4>
+                    <p>
+                        多くの複雑なシステムは「ステートフル」、つまり現在の状態によってイベントへの反応が異なります。状態遷移テストは、システムが取りうる<strong>状態</strong>、状態間を移動させる<strong>遷移(イベント＋ガード条件)</strong>、および遷移時に発生する<strong>アクション</strong>をモデル化してテストする技法です。
+                    </p>
+
+                    <h4 id="具体例注文の状態遷移モデル">具体例:注文の状態遷移モデル</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_STATE_ORDER} />
+                    </div>
+
+                    <h4 id="追加のカバレッジ基準">追加のカバレッジ基準</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>カバレッジ基準</th>
+                                    <th>説明</th>
+                                    <th>適用場面</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>0-switchカバレッジ(全遷移カバレッジ)</strong></td>
+                                    <td>すべての単一遷移(長さ1の遷移シーケンス)を少なくとも1回実行する</td>
+                                    <td>標準的な品質レベルのシステムテスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>1-switchカバレッジ</strong></td>
+                                    <td>すべての連続する2つの遷移シーケンス(長さ2)を少なくとも1回実行する</td>
+                                    <td>状態依存性が強い中リスク機能</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>N-switchカバレッジ</strong></td>
+                                    <td>すべての連続するN+1個の遷移シーケンス(長さN+1)を実行する</td>
+                                    <td>高信頼性が要求されるミッションクリティカル領域</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>ラウンドトリップカバレッジ</strong></td>
+                                    <td>ある状態から出発し、1つ以上の遷移を経て再び元の状態に戻るループ遷移シーケンスをすべて実行する</td>
+                                    <td>業務プロセスやセッション管理などの循環型ライフサイクル</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        状態遷移モデルにはガード条件やアクションを含めることができ、拡張有限状態機械・Harelステートチャート・UMLステートマシン図などが用いられます。単一のテストケースで複数のカバレッジ項目を同時に達成できる場合があり、テストスイートの最小化を図ることもテストアナリストの腕の見せ所です。無効な遷移(ある状態では発生してはならないイベント)をテストする「無効遷移テスト」も堅牢性検証として極めて重要です。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    状態遷移表(State Table)を作成すると、状態遷移図では見落としがちな「未定義の遷移・無効な遷移」を網羅的に洗い出すことができる。
+                                </li>
+                                <li>
+                                    1-switchカバレッジは0-switchに比べてテストケース数が跳ね上がるため、リスクベースで「どの状態の組み合わせが重要か」を絞り込んで適用する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="compare-grid">
+                        <div className="compare-item compare-good">
+                            <span className="compare-icon">✅</span>
+                            <div className="compare-text">
+                                <strong>良い例</strong>:
+                                有効な遷移だけでなく、「審査中の注文を再度提出しようとする」などの無効遷移テストを意図的に含める
+                            </div>
+                        </div>
+                        <div className="compare-item compare-bad">
+                            <span className="compare-icon">❌</span>
+                            <div className="compare-text">
+                                <strong>悪い例</strong>:
+                                ハッピーパス(正常な完了フロー)の遷移のみをテストし、異常なイベントや順序不正時のエラーハンドリングを放置する
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <hr />
+
+                    {/* 3.3 シナリオベーステスト */}
+                    <h3 id="33-323-シナリオベーステストscenario-based-testing-k3-適用">
+                        3.3 3.2.3 シナリオベーステスト(Scenario-Based Testing) <code>K3: 適用</code>
+                    </h3>
+
+                    <h4 id="定義-5">定義</h4>
+                    <p>
+                        シナリオベーステストは、<strong>現実的なシナリオ(利用者が実際にたどるであろう一連の操作の流れ)</strong>でテスト対象の振る舞いを評価する技法です。ユーザーリサーチ、ユーザーストーリー、ユースケース、業務フロー図、アクティビティ図などをテストベースとしてモデルを構築します。
+                    </p>
+
+                    <h4 id="アクティビティ図とユースケース">アクティビティ図とユースケース</h4>
+                    <ul>
+                        <li>
+                            <strong>アクティビティ図</strong>: システム内のワークフローを表現する図。開始/終了ノード、アクション、遷移、判断ノード、マージノード、フォークノード、ジョインノード、スイムレーンなどで構成され、フローチャートを拡張して並行処理も表現できる。
+                        </li>
+                        <li>
+                            <strong>ユースケース</strong>: ユーザーとシステム(またはシステム同士)の相互作用をテキストまたは図で記述したもの。以下の3種類のシナリオに分類される。
+                        </li>
+                    </ul>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>シナリオ種別</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>メインシナリオ(ハッピーパス)</strong></td>
+                                    <td>
+                                        ユーザー視点で目標を達成する典型的・期待通りの一連の行動。1つのユースケースにつき<strong>必ず1つだけ</strong>存在する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>拡張シナリオ(代替シナリオ)</strong></td>
+                                    <td>
+                                        メインシナリオとは異なる経路をたどるが、最終的には同じ目標を達成する一連の行動
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>例外シナリオ</strong></td>
+                                    <td>
+                                        予期しない事象(異常な使い方や無効な入力など)により、目標を達成できない一連の行動
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="具体例ログイン機能のシナリオモデル">具体例:ログイン機能のシナリオモデル</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_SCENARIO_LOGIN} />
+                    </div>
+
+                    <h4 id="カバレッジ">カバレッジ</h4>
+                    <p>
+                        ループを含まないシナリオモデルであれば、それぞれのシナリオを個別のテストケースでカバーできます(すべてのシナリオ=パスをテストスイートで網羅可能)。しかし上図の「再設定後に再ログイン」のようにループがあると、理論上パスの数が無限になり得ます。この場合は<strong>単純ループカバレッジ(simple loop coverage)</strong>を適用し、以下の4パターンをテストします。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>パターン</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>0回(スキップ)</td>
+                                    <td>ループを一度も実行しない</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1回</td>
+                                    <td>ループをちょうど1回実行する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>複数回(典型的な回数)</td>
+                                    <td>ループを2回以上、一般的な回数だけ実行する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>最大回数</td>
+                                    <td>可能であれば、ループの上限回数まで実行する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        シナリオベースカバレッジは「実行したシナリオ数 ÷ 識別された全シナリオ数」で測定します。1つのシナリオに対して、さらにEP/BVAのような追加カバレッジが必要になる場合、1シナリオを複数のテストケースに分けて実装することもあります。
+                    </p>
+                    <p>
+                        主にシステムテストや受け入れテストでエンドツーエンドテストとして使われますが、コンポーネント統合テスト(インターフェースの相互作用プロトコルに基づく)やコンポーネントテスト(ステートフルなオブジェクト指向クラスのメソッド呼び出し)、さらには非機能テスト(信頼性・柔軟性・互換性テストにおける運用プロファイルの構成要素として)にも応用できます。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    シナリオはリスクベースで優先順位付けする(ビジネス上重要な、または利用頻度の高いシナリオから着手する)。
+                                </li>
+                                <li>
+                                    ループを含むシナリオでは、単純ループカバレッジの4パターン(0回・1回・複数回・最大回数)を意識的にテストケース化しないと、「2回目のリトライで状態が壊れる」といった欠陥を見逃しやすい。
+                                </li>
+                                <li>
+                                    デシジョンカバレッジ(ホワイトボックス技法)やラウンドトリップカバレッジと組み合わせることで、業務プロセス内の分岐や周期的な処理のリスクをより厳密にカバーできる。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 4: 3.3 ルールベーステスト技法 */}
+                    <h2 id="4-33-ルールベーステスト技法rule-based-test-techniques">
+                        4. 3.3 ルールベーステスト技法(Rule-Based Test Techniques)
+                    </h2>
+                    <p>
+                        ルールベーステスト技法は、<strong>状態に依存しない静的な振る舞いのルール</strong>(ビジネスルールなど)の実装を検証します。
+                    </p>
+
+                    <h3 id="41-331-デシジョンテーブルテストdecision-table-testing-k3-適用">
+                        4.1 3.3.1 デシジョンテーブルテスト(Decision Table Testing) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-6">定義</h4>
+                    <p>
+                        デシジョンテーブルテストは、Foundation Levelの基礎を発展させ、より高度なトピック(最小化・レビュー基準・チェックサム手続き)を扱います。表記法はOMG® DMN(Decision Model and Notation)標準に準拠します。
+                    </p>
+
+                    <h4 id="フルデシジョンテーブルと最小化">フル・デシジョンテーブルと最小化</h4>
+                    <p>
+                        フル・デシジョンテーブルのルール数は「各条件の値の数の積」で決まり、条件や値が増えると指数的に増加します。このため、実務では<strong>最小化(minimization)</strong>が不可欠です。最小化は、同じアクションを持つルール同士を「ドントケア演算子(<code>–</code>)」でマージすることで行います。
+                    </p>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_DECISION_STEPS} />
+                    </div>
+
+                    <h4 id="具体例-1">具体例</h4>
+                    <p>
+                        条件: プレミアム会員か(C1)、注文金額が10,000円以上か(C2)、送料無料キャンペーン中か(C3)。ただし割引率は<strong>C1とC2のみ</strong>で決まり、C3には依存しない、という仕様だとします。
+                    </p>
+
+                    <p><strong>フル・デシジョンテーブル(全8ルール)</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ルール</th>
+                                    <th>C1: プレミアム会員</th>
+                                    <th>C2: 金額≥10,000円</th>
+                                    <th>C3: キャンペーン中</th>
+                                    <th>割引率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>R1</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R2</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R3</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R4</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R5</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td>5%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R6</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>5%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R7</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td>0%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R8</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p><strong>最小化後のデシジョンテーブル(4ルール)</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ルール</th>
+                                    <th>C1: プレミアム会員</th>
+                                    <th>C2: 金額≥10,000円</th>
+                                    <th>C3: キャンペーン中</th>
+                                    <th>割引率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>M1</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                    <td><strong>–</strong></td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M2</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td><strong>–</strong></td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>M3</td>
+                                    <td>N</td>
+                                    <td>Y</td>
+                                    <td><strong>–</strong></td>
+                                    <td>5%</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M4</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td><strong>–</strong></td>
+                                    <td>0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="チェックサム手続きによる検証">チェックサム手続きによる検証</h4>
+                    <p>
+                        各ルールのスコアは「<code>–</code>が付いた条件ごとに、その条件が取りうる値の数を掛け合わせる」ことで計算します(値を1つも持たないルール=<code>–</code>が1つもないルールはスコア1)。
+                    </p>
+
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ルール</th>
+                                    <th>計算式</th>
+                                    <th>スコア</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>M1(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M2(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>M3(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>M4(C3が<code>–</code>、2値)</td>
+                                    <td>1 × 1 × 2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>チェックサム合計</strong></td>
+                                    <td></td>
+                                    <td><strong>8</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        元のフル・デシジョンテーブルはルール数がそのままチェックサム(各ルールスコア1×8ルール=8)になるため、<strong>最小化後のチェックサム(8)と一致</strong>しています。チェックサムの一致は「ルールの漏れや重複がない」ことの<strong>必要条件</strong>を確認するものであり、それ自体が証明にはなりません。最小化後のテーブルが元のテーブルと論理的に完全に等価であることを示すには、各最小化ルールが元のフルテーブルのどの組み合わせに対応するかを1つずつ突き合わせる、あるいは最小化後のルール群が(1)互いに重複しない(非重複)かつ(2)入力ドメイン全体を尽くす(網羅的)分割になっていることを別途検証する必要があります。
+                    </p>
+
+                    <h4 id="レビュー観点">レビュー観点</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>一貫性(consistency)</td>
+                                    <td>
+                                        同じ条件値の組み合わせに複数のルールが適用される場合、それらはアクションが等価であること
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>実行可能性(feasibility)</td>
+                                    <td>
+                                        実行不可能なルール(絶対に発生し得ない組み合わせ)が含まれていないこと
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>網羅性(completeness)</td>
+                                    <td>実行可能な組み合わせに漏れがないこと</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>正しさ(correctness)</td>
+                                    <td>
+                                        ルールがシステムの意図した振る舞いを正しくモデル化していること
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        デシジョンテーブルカバレッジは「実行した列数 ÷ 実行可能な全列数」で測定します。テストケース化の際、<code>–</code>の値をどう具体化するかはテストアナリストの判断ですが、<strong>リスクが高いデシジョンテーブルでは最小化を避け、フルテーブルの実行可能な列でカバレッジを測定すべき</strong>とされています。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    最小化アルゴリズムの結果は列を処理する順序に依存し、必ずしも最適(最小)にならない。最小化後も<strong>さらに縮約できないか手動で確認</strong>する。
+                                </li>
+                                <li>
+                                    高リスクな判定ロジック(与信判定、医療機器の投薬量計算など)では、最小化によるテストケース削減よりも網羅性を優先し、フルテーブルでのカバレッジを検討する。
+                                </li>
+                                <li>
+                                    デシジョンテーブルはビジネスルールの「生きた仕様書」としてステークホルダーとレビューする場に使うと、要件の曖昧さそのものを早期に発見できる。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="42-332-メタモルフィックテストmetamorphic-testing-k3-適用">
+                        4.2 3.3.2 メタモルフィックテスト(Metamorphic Testing) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-7">定義</h4>
+                    <p>
+                        メタモルフィックテスト(MT)は、<strong>既存のソーステストケースを基に、メタモルフィック関係(MR)に従ってフォローアップテストケースを生成</strong>する技法です。MRは、テスト対象の性質(プロパティ)を定義し、「入力をこう変化させたら、期待結果はこう変化するはずだ」という関係を記述します。
+                    </p>
+
+                    <h4 id="なぜ必要か-3">なぜ必要か</h4>
+                    <p>
+                        多くのシステム(特にAIベースのシステムや、複雑な計算を行うシステム)では、個々の入力に対する「正解」を事前に用意すること自体が困難、あるいは非常に高コストです(<strong>テストオラクル問題</strong>、Section 5参照)。メタモルフィックテストは、個々の絶対的な正解が分からなくても、<strong>入力同士・出力同士の相対的な関係</strong>さえ定義できればテストが成立するという発想の転換によって、この問題を回避します。
+                    </p>
+
+                    <h4 id="具体例-2">具体例</h4>
+                    <p>「数値の系列の平均を求める関数」を例にとります。</p>
+                    <ol>
+                        <li>
+                            <strong>ソーステストケース</strong>: 入力 <code>[3, 5, 7]</code> → 期待結果「平均 = 5」(実行して合格を確認済み)
+                        </li>
+                        <li>
+                            <strong>メタモルフィック関係(MR)①</strong>: 「系列の順序をどう並び替えても、平均は変わらない」
+                        </li>
+                        <li>
+                            <strong>フォローアップテストケース</strong>: 入力 <code>[7, 3, 5]</code> → 期待結果は同じく「平均 = 5」
+                        </li>
+                    </ol>
+                    <p>
+                        別のMRとして「系列の各値をすべて<code>x</code>倍すると、期待結果(平均)も<code>x</code>倍になる」を使えば、<code>x</code>の値を変えるだけで無数のフォローアップテストケースを自動生成できます。2つ以上のMRを組み合わせる(並び替え+2倍する、など)ことも可能です。
+                    </p>
+
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_METAMORPHIC_CONCEPT} />
+                    </div>
+
+                    <p>
+                        テストオラクル問題が存在する状況(例: 喫煙本数から死亡予測年齢を算出するAIベースの保険数理プログラム)では、「他の危険因子を固定した場合、喫煙本数が増えるほど予測死亡年齢は下がる(または同等以下になる)はずだ」という単調性のMRが有効な場合があります。ただしこのMRは、モデルが喫煙本数以外の変数を固定した比較を前提としていること、対象母集団が想定する分布から外れていないこと、「予測死亡年齢」が一貫した基準で定義された出力であることなど、成立条件が保証される場合に限り適用できます。これらの前提を保証できない場合は、MR違反を直ちに欠陥と断定せず、モデルの入出力契約から確実に保証できる不変条件を用いた検証に置き換えるべきです。
+                    </p>
+
+                    <h4 id="カバレッジ-1">カバレッジ</h4>
+                    <p>
+                        現時点でMTには認められたカバレッジ尺度がなく、各MRを1回カバーするだけでは検証が部分的にとどまるため不十分とされています。テストアナリストは、しばしば<strong>ランダムテストと組み合わせて</strong>、同一のMRに対して大量のソース/フォローアップテストケースのペアを自動生成する手法を取ります。
+                    </p>
+                    <p>
+                        MTはほぼすべてのテスト対象に適用可能で、機能テストだけでなく非機能テスト(負荷生成にMRを使う負荷テスト、複数のインストール順序を試すインストール性テストなど)にも使えます。特に<strong>AIベースシステムのテスト</strong>では推奨される技法の一つです。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    まず「この関数・機能にはどんな不変の性質(対称性、単調性、可換性など)があるか」を洗い出すところから始めると、有効なMRを見つけやすい。
+                                </li>
+                                <li>
+                                    テストが失敗した場合、ソースとフォローアップのどちらに欠陥があるかは追加のデバッグが必要になる点を事前にチーム内で共有しておく。
+                                </li>
+                                <li>
+                                    テストオラクル問題を抱える機能(AI予測、非決定的な処理)を優先的にメタモルフィックテストの対象候補とする。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 5: 3.4 経験ベーステスト */}
+                    <h2 id="5-34-経験ベーステストexperience-based-testing">
+                        5. 3.4 経験ベーステスト(Experience-Based Testing)
+                    </h2>
+                    <p>
+                        経験ベーステストは、テストアナリスト自身の<strong>専門知識と過去の経験</strong>を活用してテストを導く手法です。
+                    </p>
+
+                    <h3 id="51-341-テストチャーターtest-charters-supporting-session-based-testing-k3-適用">
+                        5.1 3.4.1 テストチャーター(Test Charters Supporting Session-Based Testing) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-8">定義</h4>
+                    <p>
+                        探索的テストにおいて、<strong>テストチャーター</strong>はテストセッションの「ミッション(使命)」を定義するものです。スコープ・目的に加え、制約・タイムライン・リスクなどの情報を含み、セッションの羅針盤として機能します。ただし、チャーターはセッション中に実行する具体的なテストスイートまでは規定しません。
+                    </p>
+
+                    <h4 id="ミッションの記述形式">ミッションの記述形式</h4>
+                    <p>軽量なミッション記述として、以下のフォーマットが広く使われます。</p>
+
+                    <div className="callout callout-note">
+                        <div className="callout-head"><span className="callout-icon">📝</span></div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>Explore [対象] With [リソース] To discover [発見したい情報]</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>具体例</strong>:「Explore 決済画面のクレジットカード入力フォーム With 無効なカード番号・期限切れカード・複数ブラウザ To discover 入力検証の欠陥やエラーメッセージの不備」
+                    </p>
+
+                    <h4 id="テストチャーターに含める情報">テストチャーターに含める情報</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>情報カテゴリ</th>
+                                    <th>内容の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>組織情報</td>
+                                    <td>セッションの所要時間、開始日時、担当者名</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テスト目的</td>
+                                    <td>テストの動機、チャーターのミッション</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テストスコープ</td>
+                                    <td>
+                                        対象領域、テストレベル、使用する技法、テストアイデア、終了基準、優先度、対象外の範囲
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>開始基準</td>
+                                    <td>セッション開始に必要な前提条件</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>製品関連情報</td>
+                                    <td>
+                                        コンポーネント間の定義・データ・ワークフロー、システムアーキテクチャ
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>制限事項</td>
+                                    <td>「製品が絶対にしてはいけないこと」</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テスト環境の説明</td>
+                                    <td>使用する環境の情報</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>既存のリソース</td>
+                                    <td>既存のデータソース、製品情報、テストツール</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>過去の情報</td>
+                                    <td>
+                                        過去に発見された欠陥(互換性・相互運用性欠陥など)、未解決の疑問点、過去の障害パターン
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>制約・リスク</td>
+                                    <td>規制、ルール、標準</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="セッションの流れ">セッションの流れ</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CHARTER_CYCLE} />
+                    </div>
+
+                    <p>
+                        チャーターに含める情報の粒度は、テストアナリストに与える自由度をコントロールします。目的だけを大まかに定義すれば探索の余地は広がり、逆に使用すべき技法まで指定すればより制約された(しかし予測可能な)テストになります。「製品が絶対にしてはいけないこと」のような情報を加えると、誤検知(false-positive)の報告を減らす効果もあります。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    チャーターの粒度は、テスト対象の成熟度や担当者の経験レベルに応じて調整する(新人には制約多めのチャーター、熟練者には自由度の高いチャーターが向く)。
+                                </li>
+                                <li>
+                                    セッションシートへの記録は「テスト結果」だけでなく「疑問点」「次に試したいアイデア」も残し、デブリーフィングと次セッションの計画に活かす。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="52-342-チェックリストベーステストchecklists-supporting-experience-based-test-techniques-k3-適用">
+                        5.2 3.4.2 チェックリストベーステスト(Checklists Supporting Experience-Based Test Techniques) <code>K3: 適用</code>
+                    </h3>
+                    <h4 id="定義-9">定義</h4>
+                    <p>
+                        チェックリストベーステストは、適応性・シンプルさ・有効性から広く使われる技法です。チェックリストを使うことで、テスト対象の<strong>既知の重要な観点を漏れなくカバー</strong>し、過去の失敗や欠陥の経験を再利用できます。
+                    </p>
+
+                    <h4 id="2種類のチェックリスト">2種類のチェックリスト</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>種別</th>
+                                    <th>特徴</th>
+                                    <th>具体例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>Read-doチェックリスト</strong></td>
+                                    <td>
+                                        あるプロセスで考慮すべき具体的な項目(入力データなど)を列挙する
+                                    </td>
+                                    <td>
+                                        「入力フィールドに全角文字を入力する」「255文字を超える文字列を入力する」
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Do-confirmチェックリスト</strong></td>
+                                    <td>探索を深めるための「観点・問い」を提示し、思考を促す</td>
+                                    <td>
+                                        「検索結果は入力条件と関連性があるか?」「エラーメッセージは利用者にとって分かりやすいか?」
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="チェックリスト作成の手順">チェックリスト作成の手順</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CHECKLIST_STEPS} />
+                    </div>
+
+                    <p>
+                        チェックリスト項目は、明確・具体的・曖昧さがなく・一貫性があり・関連性があり・保守可能で・実行可能で・測定可能であるべきとされ、「Yes/No/該当なし」で答えられる問いの形式で書くことが推奨されます。チェックリストは網羅的な手順書ではなく、<strong>熟練者向けの手早い思考の補助ツール</strong>である点を忘れないでください。既存のテンプレートや業界標準に沿った定義済みチェックリストを再利用できる場合は、それを活用することで作成コストを削減できます。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    チェックリストは「完成」することがない、生きたドキュメントとして扱い、新しい欠陥や振り返りから得た教訓を反映し続ける。
+                                </li>
+                                <li>
+                                    長いチェックリストは機能領域・ユーザーロール・テストレベルなどでカテゴリ分けし、実行時に迷わないようにする。
+                                </li>
+                                <li>
+                                    チームでチェックリストを共有することで、テストアナリスト間の一貫性を高め、重点領域についての共通理解を促進する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="53-343-クラウドテストcrowd-testing-k2-理解">
+                        5.3 3.4.3 クラウドテスト(Crowd Testing) <code>K2: 理解</code>
+                    </h3>
+                    <h4 id="定義-10">定義</h4>
+                    <p>
+                        クラウドテストは、多様な背景・所在地を持つ社内外のテスト担当者グループにテストを分散させる手法です。機能テストと非機能テストの両方、特にユーザビリティの妥当性確認をコスト効率よく行う手段として用いられます。
+                    </p>
+
+                    <h4 id="利点と限界-1">利点と限界</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>利点</th>
+                                    <th>限界</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>多様なテスト環境</strong>:
+                                        様々な地域・デバイス・ブラウザ・ネットワーク条件でテストできる
+                                    </td>
+                                    <td>
+                                        <strong>テスト品質のばらつき</strong>:
+                                        担当者のスキルによって品質が変動する(ただしUX重視の目的では大きな問題にならないこともある)
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>柔軟性</strong>: 短期間に多数のテストをスケール可能</td>
+                                    <td>
+                                        <strong>コミュニケーションの課題</strong>:
+                                        多くの担当者・複数のタイムゾーン・文化・言語の違いによる調整の難しさ
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>コスト効率</strong>:
+                                        大規模な社内チームや外部委託より安価な場合が多い
+                                    </td>
+                                    <td>
+                                        <strong>セキュリティ</strong>:
+                                        社外テスト担当者にソフトウェアを共有することによるデータセキュリティ・機密性のリスク
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        <strong>迅速なフィードバック</strong>:
+                                        早期に欠陥を発見・修正できる
+                                    </td>
+                                    <td>
+                                        <strong>ドキュメント・報告の管理</strong>:
+                                        大人数から寄せられる大量の報告(重複や誤検知を含む)の管理が煩雑になりやすい
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        <strong>実際の利用者視点</strong>:
+                                        実ユーザーによるUX上の知見が得られる(受け入れテストで特に有用)
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        <strong>多様性(バラつき)</strong>:
+                                        実行の再現性は低いが、その分カバレッジが広がり欠陥発見の可能性が高まる
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        クラウドテストは、テストアナリストが体系的なテスト技法を適用することの<strong>代替にはならず</strong>、あくまで多様なテスト環境のカバレッジを底上げする補完的アプローチである点に注意してください。
+                    </p>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    機密性の高い機能や未公開情報を含む場合は、NDAの締結や機能の一部マスキングなど、事前のセキュリティ対策を徹底する。
+                                </li>
+                                <li>
+                                    重複報告や誤検知の仕分けルール(トリアージ基準)を事前に定義し、大量の報告に対応できる体制を整える。
+                                </li>
+                                <li>
+                                    「多様な実環境でのカバレッジ拡大」という強みを活かし、社内テストで手薄になりがちな互換性・ユーザビリティの検証に重点的に活用する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 6: 3.5 最適なテスト技法の適用 */}
+                    <h2 id="6-35-最適なテスト技法の適用applying-the-most-appropriate-test-techniques">
+                        6. 3.5 最適なテスト技法の適用(Applying the Most Appropriate Test Techniques)
+                    </h2>
+                    <h3 id="61-351-製品リスクを軽減する技法の選定-k4-分析">
+                        6.1 3.5.1 製品リスクを軽減する技法の選定 <code>K4: 分析</code>
+                    </h3>
+                    <h4 id="定義-11">定義</h4>
+                    <p>
+                        テストマネージャーを支援し、状況に応じて最も効果的・効率的なテスト技法を選定することは、テストアナリストの重要な役割です。これは第3章の中でも唯一<code>K4(分析)</code>レベルが設定されている学習目標であり、試験では「与えられたシナリオに最も適した技法を選ばせる」形式で出題されます。
+                    </p>
+
+                    <h4 id="技法カテゴリと検出しやすい欠陥の対応">
+                        技法カテゴリと検出しやすい欠陥の対応
+                    </h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テスト技法カテゴリ</th>
+                                    <th>検出しやすい欠陥の種類</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>データベースドテスト技法</td>
+                                    <td>
+                                        データ処理、ドメイン実装、ユーザーインターフェース、計算、パラメータの組み合わせに関する欠陥
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ビヘイビアベーステスト技法</td>
+                                    <td>
+                                        ユーザー要件の欠陥(機能の欠落、コミュニケーション不足、処理誤り)
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ルールベーステスト技法</td>
+                                    <td>ロジック・制御フローに関する欠陥</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>経験ベーステスト</td>
+                                    <td>
+                                        網羅基準を定義しづらい領域、過去の類似欠陥、暗黙知に基づく欠陥
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="技法選定に影響する要因">技法選定に影響する要因</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>要因</th>
+                                    <th>選定への影響</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>テスト目的</strong></td>
+                                    <td>
+                                        システムの種類によって適した技法が異なる(例: 数値計算にはドメインテスト、与信管理にはデシジョンテーブルテスト)
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>製品リスク</strong></td>
+                                    <td>
+                                        リスクレベルが高いほど、より厳密なカバレッジ基準(例: ペアワイズではなく全組み合わせ)を要求する。ただし網羅の強度とテスト工数のトレードオフを常に意識する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>リスクが低い/スケジュールが厳しい場合</strong></td>
+                                    <td>経験ベーステストが有効な選択肢になる</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>テストベース</strong></td>
+                                    <td>
+                                        仕様がモデルで記述されていればそのモデルに基づく技法が使える。テストオラクルの導出が困難ならメタモルフィックテストや経験ベーステストを検討する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>既知の欠陥傾向</strong></td>
+                                    <td>
+                                        繰り返し発生する欠陥パターンには、それを検出しやすい技法(チェックリストベーステストなど)を選ぶ
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>テストアナリストの知識・経験</strong></td>
+                                    <td>
+                                        不慣れな技法をクリティカルな案件でいきなり使うのは推奨されない。ドメイン知識が乏しい場合、探索的テストは効果が薄れる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>SDLC(開発ライフサイクル)</strong></td>
+                                    <td>
+                                        逐次型モデルは形式的な技法向き、反復型モデルは軽量な技法(経験ベーステスト)やテスト設計自動化向き
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>顧客・契約要件</strong></td>
+                                    <td>
+                                        契約でシナリオベーステストなど特定の技法・テストレベルが求められる場合がある
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>規制要件</strong></td>
+                                    <td>
+                                        業界標準(例: 自動車のISO 26262)がASIL(自動車安全度水準)に応じて特定の技法を要求することがある
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>プロジェクト制約</strong></td>
+                                    <td>
+                                        時間・予算が、時間のかかる技法や高価なリソースを要する技法の採用可否を左右する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="技法選定の考え方実践的な整理図">技法選定の考え方(実践的な整理図)</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_TECHNIQUE_SELECTION} />
+                    </div>
+
+                    <h4 id="技法の組み合わせ例">技法の組み合わせ例</h4>
+                    <p>複数の技法を組み合わせることで、欠陥検出の効率と効果をさらに高められます。</p>
+                    <ul>
+                        <li>
+                            境界値分析(BVA)を、状態遷移テストの<strong>ガード条件</strong>の検証に使う
+                        </li>
+                        <li>
+                            ドメインテストを、シナリオベーステストや<strong>デシジョンテーブルの条件値</strong>の決定に使う
+                        </li>
+                        <li>
+                            シナリオベーステストを、ホワイトボックス技法の<strong>デシジョンカバレッジ</strong>と組み合わせ、業務プロセス内の分岐を厳密に網羅する
+                        </li>
+                        <li>
+                            シナリオベーステストを<strong>ラウンドトリップカバレッジ</strong>と組み合わせ、周期的な業務プロセスのリスクに対応する
+                        </li>
+                    </ul>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    技法選定は一度きりの意思決定ではなく、プロジェクトの進行やリスクの変化に応じて<strong>継続的に見直す</strong>。
+                                </li>
+                                <li>
+                                    「使い慣れているから」という理由だけで技法を選ばず、対象の性質(データ・状態・ルール・探索の必要性)に立ち返って選定する。
+                                </li>
+                                <li>
+                                    複数技法の併用は効果的だが、テストケース数の増大にもつながるため、リスクベースの優先順位付けとセットで運用する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h3 id="62-352-テスト設計自動化の利点とリスク-k2-理解">
+                        6.2 3.5.2 テスト設計自動化の利点とリスク <code>K2: 理解</code>
+                    </h3>
+                    <h4 id="定義-12">定義</h4>
+                    <p>
+                        テストアナリストは、特にブラックボックステスト技法の適用にツールを活用できます。テスト設計を自動化する場合、テストモデルを作成し、そのモデルから自動的にテストウェアを生成します(例: 状態遷移モデルを作成し、モデルベーステストツールにラウンドトリップカバレッジのテストケースを生成させる)。
+                    </p>
+
+                    <h4 id="利点">利点</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>利点</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>欠陥予防</td>
+                                    <td>モデリング自体がテストベースの品質評価として機能する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>適用範囲の拡大</td>
+                                    <td>
+                                        組み合わせテスト・ランダムテスト・N-switchカバレッジなど複雑な技法を適用しやすくなり、テスト漏れのリスクを低減する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>理解しやすさの向上</td>
+                                    <td>
+                                        ツールで指定したテスト選択基準は、テスト条件との対応関係が明確で、生成されたカバレッジの根拠を説明しやすい
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>反復作業の削減</td>
+                                    <td>
+                                        テストモデルからテストウェアを生成するため、手作業でのテスト仕様作成が減る
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>保守コストの低減</td>
+                                    <td>
+                                        テストモデルを唯一の真実の情報源(シングルソース)として管理することで、モデル変更時に生成されるテストウェアを個別に手作業で保守する範囲が減る
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テストウェアの品質向上</td>
+                                    <td>
+                                        手作業に伴うミスが減り、生成されたテストウェアの品質と一貫性が高まる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>チーム協働の促進</td>
+                                    <td>
+                                        ステークホルダーがテストモデルをレビューすることで、欠陥の早期発見や理解の共有につながる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>トレーサビリティの向上</td>
+                                    <td>
+                                        テストケースそのものよりも、テストモデルの要素とテスト条件を紐づけるほうが容易であり、生成されたテストケースにもその追跡可能性が引き継がれる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>出力形式の多様性</td>
+                                    <td>
+                                        他のツールや後続作業に必要な様々な形式でテストウェアを出力できる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="リスク">リスク</h4>
+                    <ul>
+                        <li>モデルに現れない<strong>テスト条件を見落とす</strong>リスク</li>
+                        <li>テストモデル自体の<strong>保守コストを過小評価</strong>するリスク</li>
+                        <li>ステークホルダーが<strong>モデルを理解しにくい</strong>リスク</li>
+                        <li>テスト自動化一般に共通するリスク(Foundation Levelシラバス参照)</li>
+                    </ul>
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">ベストプラクティス</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    テスト設計自動化を導入する際は、「モデルの保守」自体が新たな作業コストになることをプロジェクト計画に織り込む。
+                                </li>
+                                <li>
+                                    モデルをステークホルダー(開発者・ビジネスアナリストなど)とレビューする機会を意図的に設け、モデルの理解しやすさとテストベースの品質を同時に高める。
+                                </li>
+                                <li>
+                                    すべてのテスト条件をモデル化できるとは限らないため、<strong>モデル化されない条件を補完する手動テスト・経験ベーステストを併用</strong>する。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 7: 学習目標(Learning Objectives)一覧表 */}
+                    <h2 id="7-学習目標learning-objectives一覧表">
+                        7. 学習目標(Learning Objectives)一覧表
+                    </h2>
+                    <p>
+                        試験対策として、第3章の学習目標とKレベルを一覧表にまとめます。<code>K3</code>・<code>K4</code>の項目は、定義の暗記だけでなく<strong>実際に手を動かして導出する練習</strong>を重点的に行ってください。
+                    </p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>コード</th>
+                                    <th>学習目標</th>
+                                    <th>Kレベル</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>TA-3.1.1</td>
+                                    <td>ドメインテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.1.2</td>
+                                    <td>組み合わせテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.1.3</td>
+                                    <td>ランダムテストの利点と限界を要約できる</td>
+                                    <td>K2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.2.1</td>
+                                    <td>CRUDテストを説明できる</td>
+                                    <td>K2</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.2.2</td>
+                                    <td>状態遷移テストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.2.3</td>
+                                    <td>シナリオベーステストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.3.1</td>
+                                    <td>デシジョンテーブルテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.3.2</td>
+                                    <td>メタモルフィックテストを適用できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.4.1</td>
+                                    <td>セッションベーステストのためのテストチャーターを準備できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.4.2</td>
+                                    <td>経験ベーステストを支援するチェックリストを準備できる</td>
+                                    <td>K3</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.4.3</td>
+                                    <td>クラウドテストの利点と限界の例を挙げられる</td>
+                                    <td>K2</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TA-3.5.1</td>
+                                    <td>
+                                        特定の状況において、製品リスクを軽減する適切なテスト技法を選択できる
+                                    </td>
+                                    <td>K4</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>TA-3.5.2</td>
+                                    <td>テスト設計自動化の利点とリスクを説明できる</td>
+                                    <td>K2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>出典: ISTQB® CTAL-TA Syllabus v4.0, “Learning Objectives for Chapter 3”</p>
+
+                    <hr />
+
+                    {/* Section 8: 章末チェックリスト(自己診断用) */}
+                    <h2 id="8-章末チェックリスト自己診断用">8. 章末チェックリスト(自己診断用)</h2>
+                    <p>
+                        学習の総仕上げとして、以下の問いにすべて自分の言葉で説明できるかセルフチェックしてください。
+                    </p>
+
+                    <Checklist />
+
+                    <div className="callout callout-practice">
+                        <div className="callout-head">
+                            <span className="callout-icon">💡</span><span className="callout-title">学習のヒント</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                第3章は<code>K3</code>(適用)・<code>K4</code>(分析)の学習目標が集中する章です。定義の暗記だけで終わらせず、公式サンプル問題の演習(特に第3章の実践的な演習)に取り組んだうえで、本ガイドの具体例をノートに写経し、<strong>自分の担当プロダクトの実データに置き換えて再度導出してみる</strong>ことを強く推奨します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    {/* Section 9: v3.1からv4.0への主な変更点(参考) */}
+                    <h2 id="9-v31からv40への主な変更点参考">9. v3.1からv4.0への主な変更点(参考)</h2>
+                    <p>
+                        CTAL-TAは2025年5月2日にv4.0が正式リリースされました。v3.1は英語版が2026年5月16日にサンセット(廃止)済みで、非英語版は2026年11月16日まで有効です。第3章に関する主な変更点は以下の通りです。
+                    </p>
+                    <ul>
+                        <li>
+                            ブラックボックステスト技法の分類が、v3.1の分類から「<strong>データベースド」「ビヘイビアベースド」「ルールベースド</strong>」という新しい3分類に整理された
+                        </li>
+                        <li>
+                            <strong>メタモルフィックテスト</strong>、<strong>CRUDテスト</strong>、<strong>クラウドテスト</strong>がv4.0で新たに体系立てて追加された
+                        </li>
+                        <li>
+                            状態遷移テストに<strong>N-switchカバレッジ</strong>・<strong>ラウンドトリップカバレッジ</strong>という2つの追加カバレッジ基準が導入された
+                        </li>
+                    </ul>
+                    <p>
+                        出典: trendig.com「New Version Released: ISTQB Certified Tester Advanced Level - Test Analyst v4」(非公式の解説記事)
+                    </p>
+
+                    <hr />
+
+                    {/* Section 10: 参考文献・出典URL */}
+                    <h2 id="10-参考文献出典url">10. 参考文献・出典URL</h2>
+                    <h3 id="公式istqb資料">公式ISTQB®資料</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料名</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>CTAL-TA v4.0 認定ページ(公式)</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>CTAL-TA Syllabus v4.0(PDF・ISTQB公式ダウンロード)</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=5745
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CTAL-TA Syllabus v4.0(PDF・ASTQBミラー)</td>
+                                    <td>
+                                        <a
+                                            href="https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISTQB® Glossary(用語集)</td>
+                                    <td>
+                                        <a
+                                            href="https://glossary.istqb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://glossary.istqb.org/
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB® 本部サイト</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="国際規格標準">国際規格・標準</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>規格名</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ISO/IEC 25010:2023(品質特性モデル)</td>
+                                    <td>
+                                        <a
+                                            href="https://www.iso.org/standard/78176.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.iso.org/standard/78176.html
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISO/IEC/IEEE 29119-4:2021(テスト技法)</td>
+                                    <td>
+                                        <a
+                                            href="https://www.iso.org/standard/79430.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.iso.org/standard/79430.html
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>OMG® DMN(Decision Model and Notation)</td>
+                                    <td>
+                                        <a
+                                            href="https://www.omg.org/dmn/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.omg.org/dmn/
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="学術文献技術資料本文中で言及されたもの">
+                        学術文献・技術資料(本文中で言及されたもの)
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>文献</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        Kuhn, D.R. et al.「Software Fault Interactions and Implications for Software Testing」の背景研究解説(NIST)
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software/combinatorial-methods-in-testing/interactions-involved-in-software-failures"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software/combinatorial-methods-in-testing/interactions-involved-in-software-failures
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>NIST SP 800-142「Practical Combinatorial Testing」</td>
+                                    <td>
+                                        <a
+                                            href="https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-142.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-142.pdf
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        Kuhn &amp; Kacker (2013)「Introduction to Combinatorial Testing」関連資料(NIST)
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.nist.gov/publications/introduction-combinatorial-testing-preface-appendix-mathematics-review-and-appendix-b"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.nist.gov/publications/introduction-combinatorial-testing-preface-appendix-mathematics-review-and-appendix-b
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="非公式ながら参考になる解説記事数値見解は公式シラバスで必ず裏取りしてください">
+                        非公式ながら参考になる解説記事(数値・見解は公式シラバスで必ず裏取りしてください)
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>記事</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        trendig.com「New Version Released: ISTQB® CTAL-TA v4」(v3.1→v4.0の変更点解説)
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr />
+
+                    <p>
+                        <em>
+                            本ガイドはISTQB® CTAL-TA Syllabus v4.0の内容を、初学者向けに図解・具体例を交えて再構成した非公式の学習補助資料です。試験対策の最終確認には、必ず上記の公式シラバスおよび公式サンプル問題をご参照ください。
+                        </em>
+                    </p>
+
+                    <footer className="page-footer">
+                        <p>
+                            本ガイドはISTQB® CTAL-TA Syllabus v4.0の内容を、初学者向けに図解・具体例を交えて再構成した非公式の学習補助資料です。試験対策の最終確認には、必ず公式シラバスおよび公式サンプル問題をご参照ください。
+                        </p>
+                    </footer>
+                </main>
+            </div>
+        </div>
+    );
+}

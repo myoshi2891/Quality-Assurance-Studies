@@ -52,12 +52,29 @@ test.describe('mermaid: rendered layout and theme', () => {
             const response = await page.goto(route.path);
             expect(response?.status(), `HTTP status for ${route.path}`).toBe(200);
 
-            // 図はクライアント描画なので、最初の SVG が出るまで待つ
-            await page.waitForFunction(
-                () => document.querySelectorAll('.mermaid-wrapper svg').length > 0,
-                undefined,
-                { timeout: 20_000 }
-            );
+            // 図はクライアント描画なので、全 wrapper が SVG かエラー表示に確定するまで待つ。
+            // エラー表示も終了条件に含めないと、描画失敗したページが SVG を待ち続けて
+            // 原因不明のタイムアウトになる。
+            // タイムアウト自体は握り潰して後段へ進める。chart 未指定の wrapper は SVG も
+            // エラーも出ない（Mermaid が早期 return する）ため、ここで投げるより下の
+            // 図ごとの検証に「どの図か」を報告させたほうが原因に辿り着ける。
+            await page
+                .waitForFunction(
+                    () => {
+                        const wrappers = [...document.querySelectorAll('.mermaid-wrapper')];
+                        return (
+                            wrappers.length > 0 &&
+                            wrappers.every(
+                                (w) =>
+                                    w.querySelector('svg') !== null ||
+                                    (w.textContent?.includes('図表の描画に失敗しました') ?? false)
+                            )
+                        );
+                    },
+                    undefined,
+                    { timeout: 20_000 }
+                )
+                .catch(() => undefined);
             await page.waitForLoadState('networkidle');
 
             const diagrams = await page.evaluate(() => {

@@ -1,0 +1,857 @@
+/* ============================================================
+   ISTQB CTAL-TA v4.0 第4章「品質特性のテスト」専用スタイルシート
+   原本 HTML の CSS を忠実に再現（globals.css 干渉リセット込み）
+   ============================================================ */
+
+.ctal-ta-ch4-page {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --ink: #1b2333;
+    --ink2: #4a5670;
+    --ink3: #6b7790;
+    --line: #dfe5f1;
+    --line2: #c9d3e6;
+    --accent: #3b5bdb;
+    --accent-soft: #eef2ff;
+    --green: #2f9e62;
+    --green-soft: #e9f7ef;
+    --amber: #d9822b;
+    --amber-soft: #fff4e5;
+    --red: #c92a2a;
+    --red-soft: #fdeeee;
+    --side-w: 310px;
+    --font: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+        'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Noto Sans Mono CJK JP', monospace;
+
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.85;
+    min-height: 100vh;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ctal-ta-ch4-page * {
+    box-sizing: border-box;
+}
+
+.ctal-ta-ch4-page a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(59, 91, 219, 0.28);
+    overflow-wrap: anywhere;
+}
+
+.ctal-ta-ch4-page a:hover {
+    border-bottom-color: var(--accent);
+}
+
+/* ============================================================
+   globals.css 干渉リセット (CRITICAL)
+   ============================================================ */
+
+/* ヒーロー膨張防止 */
+.ctal-ta-ch4-page .hero {
+    min-height: 0;
+    display: block;
+    overflow: visible;
+    margin: 0 -56px 36px;
+    padding: 56px 56px 40px;
+    background: linear-gradient(135deg, #eef2ff 0%, #f7f9ff 55%, #e9f7ef 130%);
+    border-bottom: 1px solid var(--line);
+}
+
+/* メインコンテンツ全幅展開（globals.css の main { max-width: 1100px; margin: 0 auto; } をリセット） */
+.ctal-ta-ch4-page .main {
+    max-width: none !important;
+    width: auto !important;
+    margin-right: 0 !important;
+}
+
+/* テーブル文字色・背景・レイアウトの完全リセット */
+.ctal-ta-ch4-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    background: var(--card) !important;
+}
+
+.ctal-ta-ch4-page thead th {
+    background: #eef2ff !important;
+    color: #1e2d5a !important;
+    text-align: left;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--line2) !important;
+    white-space: normal !important;
+    vertical-align: bottom;
+    font-size: 0.9rem !important;
+}
+
+.ctal-ta-ch4-page tbody td,
+.ctal-ta-ch4-page td {
+    color: var(--ink) !important;
+    padding: 10px 14px;
+    border-top: 1px solid var(--line) !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    font-size: 0.9rem !important;
+    background: transparent;
+}
+
+.ctal-ta-ch4-page tbody tr:nth-child(even) td {
+    background: #fafbfe !important;
+}
+
+.ctal-ta-ch4-page tbody tr:hover td {
+    background: #f2f5ff !important;
+}
+
+.ctal-ta-ch4-page tbody tr td.bad-col {
+    background: var(--red-soft) !important;
+}
+
+.ctal-ta-ch4-page th.bad-col {
+    background: #fbdcdc !important;
+    color: #8f1d1d !important;
+}
+
+.ctal-ta-ch4-page tbody tr td.good-col {
+    background: var(--green-soft) !important;
+}
+
+.ctal-ta-ch4-page th.good-col {
+    background: #d3f0e0 !important;
+    color: #14603a !important;
+}
+
+.ctal-ta-ch4-page td strong {
+    color: #0f1a30 !important;
+}
+
+.ctal-ta-ch4-page td code {
+    background: #edf0f7 !important;
+    color: var(--ink) !important;
+    border: 1px solid #dde3f0;
+}
+
+/* リストマーカーの復元 */
+.ctal-ta-ch4-page .main ul {
+    list-style-type: disc !important;
+    padding-left: 1.6em !important;
+    margin: 10px 0 !important;
+}
+
+.ctal-ta-ch4-page .main ol {
+    list-style-type: decimal !important;
+    padding-left: 1.6em !important;
+    margin: 10px 0 !important;
+}
+
+.ctal-ta-ch4-page .main li {
+    margin: 5px 0 !important;
+}
+
+/* スクロールバー: globals.css のダークトラック干渉を完全リセット */
+.ctal-ta-ch4-page {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line2) transparent;
+}
+
+.ctal-ta-ch4-page ::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+}
+
+.ctal-ta-ch4-page ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ctal-ta-ch4-page ::-webkit-scrollbar-thumb {
+    background: var(--line2) !important;
+    border-radius: 4px;
+}
+
+.ctal-ta-ch4-page ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink3) !important;
+}
+
+/* ============================================================
+   Layout & Sidebar
+   ============================================================ */
+
+.ctal-ta-ch4-page .layout {
+    display: block;
+}
+
+.ctal-ta-ch4-page .sidebar {
+    position: fixed;
+    left: 0;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    bottom: 0;
+    width: var(--side-w);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    background: #fff;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 22px 16px 80px;
+    z-index: 40;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line2) transparent;
+}
+
+.ctal-ta-ch4-page .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ctal-ta-ch4-page .sidebar::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ctal-ta-ch4-page .sidebar::-webkit-scrollbar-thumb {
+    background: var(--line2) !important;
+    border-radius: 3px;
+}
+
+.ctal-ta-ch4-page .sb-brand {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink3);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.ctal-ta-ch4-page .sb-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    color: var(--ink);
+}
+
+.ctal-ta-ch4-page .sidebar ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ctal-ta-ch4-page .sidebar li {
+    margin: 0 !important;
+}
+
+.ctal-ta-ch4-page .sidebar a {
+    display: block;
+    border-bottom: none;
+    color: var(--ink2);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.ctal-ta-ch4-page .sidebar a:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+.ctal-ta-ch4-page .sidebar a.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.ctal-ta-ch4-page .nav-h2 > a {
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 6px;
+}
+
+.ctal-ta-ch4-page .nav-h2 > ul {
+    display: none;
+    margin: 2px 0 6px 10px !important;
+    padding-left: 8px !important;
+    border-left: 2px solid var(--line);
+}
+
+.ctal-ta-ch4-page .nav-h2.open > ul {
+    display: block;
+}
+
+.ctal-ta-ch4-page .nav-h3 a {
+    font-size: 0.78rem;
+    padding: 4px 8px;
+}
+
+.ctal-ta-ch4-page .sb-toggle {
+    display: none;
+    position: fixed;
+    top: calc(72px + var(--disclaimer-height, 0px));
+    left: 12px;
+    z-index: 50;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 14px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(59, 91, 219, 0.35);
+    cursor: pointer;
+}
+
+.ctal-ta-ch4-page .sb-scrim {
+    display: none;
+}
+
+/* ============================================================
+   Main Content
+   ============================================================ */
+
+.ctal-ta-ch4-page .main {
+    margin-left: var(--side-w);
+    margin-right: 0 !important;
+    padding: 0 56px 96px;
+    max-width: none !important;
+    width: auto !important;
+}
+
+.ctal-ta-ch4-page .hero .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: #fff;
+    border: 1px solid var(--line2);
+    border-radius: 999px;
+    padding: 4px 12px;
+}
+
+.ctal-ta-ch4-page .hero h1 {
+    text-wrap: balance;
+    margin: 14px 0 10px;
+    font-size: 2rem;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+}
+
+.ctal-ta-ch4-page .hero .sub {
+    margin: 2px 0;
+    color: var(--ink2);
+    font-size: 0.95rem;
+}
+
+.ctal-ta-ch4-page .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.ctal-ta-ch4-page .pill {
+    background: #fff;
+    border: 1px solid var(--line2);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink2);
+}
+
+.ctal-ta-ch4-page .pill b {
+    color: var(--accent);
+}
+
+.ctal-ta-ch4-page .main h2 {
+    font-size: 1.55rem;
+    line-height: 1.4;
+    margin: 64px 0 18px;
+    padding: 12px 0 12px 16px;
+    border-left: 6px solid var(--accent);
+    background: linear-gradient(90deg, var(--accent-soft), transparent 70%);
+    border-radius: 0 10px 10px 0;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+    color: var(--ink);
+}
+
+.ctal-ta-ch4-page .main h3 {
+    font-size: 1.2rem;
+    line-height: 1.45;
+    margin: 40px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+    color: var(--ink);
+}
+
+.ctal-ta-ch4-page .main h4 {
+    font-size: 1.02rem;
+    margin: 28px 0 8px;
+    color: var(--accent);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+}
+
+.ctal-ta-ch4-page .main p {
+    margin: 12px 0;
+    line-height: 1.85;
+}
+
+.ctal-ta-ch4-page .main strong {
+    color: #0f1a30;
+}
+
+.ctal-ta-ch4-page code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: #edf0f7;
+    border: 1px solid #dde3f0;
+    border-radius: 5px;
+    padding: 1px 6px;
+    overflow-wrap: anywhere;
+}
+
+.ctal-ta-ch4-page pre {
+    font-family: var(--mono);
+}
+
+.ctal-ta-ch4-page pre.code-block {
+    background: #f0f3fa;
+    border: 1px solid var(--line2);
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 16px 0;
+    white-space: pre;
+    color: var(--ink);
+}
+
+.ctal-ta-ch4-page pre.code-block code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    overflow-wrap: normal;
+}
+
+/* ============================================================
+   Tables
+   ============================================================ */
+
+.ctal-ta-ch4-page .table-scroll {
+    overflow-x: auto;
+    margin: 16px 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(20, 33, 61, 0.05);
+}
+
+/* ============================================================
+   Chips & Callouts
+   ============================================================ */
+
+.ctal-ta-ch4-page .chip {
+    font-style: normal;
+    cursor: help;
+}
+
+.ctal-ta-ch4-page .callout {
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    border: 1px solid var(--line);
+    border-left-width: 6px;
+}
+
+.ctal-ta-ch4-page .callout > :first-child {
+    margin-top: 0;
+}
+
+.ctal-ta-ch4-page .callout > :last-child {
+    margin-bottom: 0;
+}
+
+.ctal-ta-ch4-page .callout .lbl {
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.ctal-ta-ch4-page .callout-practice {
+    background: var(--green-soft);
+    border-color: #bfe6cf;
+    border-left-color: var(--green);
+}
+
+.ctal-ta-ch4-page .callout-practice .lbl {
+    color: #14603a;
+}
+
+.ctal-ta-ch4-page .callout-practice .lbl::before {
+    content: '★ ';
+}
+
+.ctal-ta-ch4-page .callout-source {
+    background: #f3f6fc;
+    border-color: var(--line);
+    border-left: 4px solid #8ea2dd;
+    border-left-width: 4px;
+    font-size: 0.84rem;
+    line-height: 1.7;
+    padding: 9px 14px;
+    color: var(--ink2);
+}
+
+.ctal-ta-ch4-page .callout-source p {
+    margin: 0;
+}
+
+.ctal-ta-ch4-page .callout-lo {
+    background: var(--accent-soft);
+    border-color: #c5d0fb;
+    border-left-color: var(--accent);
+}
+
+.ctal-ta-ch4-page .callout-lo .lbl {
+    color: #2a3fa8;
+}
+
+.ctal-ta-ch4-page .callout-warn {
+    background: var(--amber-soft);
+    border-color: #f6d3a6;
+    border-left-color: var(--amber);
+}
+
+.ctal-ta-ch4-page .callout-warn .lbl {
+    color: #9a4b07;
+}
+
+.ctal-ta-ch4-page .callout-quote {
+    background: #f6f7fb;
+    border-color: var(--line);
+    border-left-color: #8a94b3;
+}
+
+/* ============================================================
+   Mermaid Diagrams & Reset
+   ============================================================ */
+
+.ctal-ta-ch4-page .mermaid-container {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 18px 14px;
+    margin: 20px 0;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 20px);
+    box-shadow: 0 1px 3px rgba(20, 33, 61, 0.05);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.ctal-ta-ch4-page .mermaid-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.ctal-ta-ch4-page .mermaid-container::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+    border-radius: 4px;
+}
+
+.ctal-ta-ch4-page .mermaid-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 4px;
+}
+
+.ctal-ta-ch4-page .mermaid-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
+
+.ctal-ta-ch4-page .mermaid-container .mermaid-wrapper {
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+.ctal-ta-ch4-page .mermaid-target {
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ctal-ta-ch4-page .mermaid-container svg {
+    display: block;
+    margin: 0 auto;
+    flex-shrink: 0;
+    max-width: none !important;
+    height: auto !important;
+}
+
+.ctal-ta-ch4-page .mermaid-target p {
+    color: inherit;
+    margin: 0;
+}
+
+/* ノード内テキストのフォントと行間、文字切れ・クリッピング防止 (CRITICAL) */
+.ctal-ta-ch4-page .mermaid-wrapper .node foreignObject {
+    overflow: visible !important;
+}
+
+.ctal-ta-ch4-page .mermaid-wrapper .node .label,
+.ctal-ta-ch4-page .mermaid-wrapper .node .nodeLabel {
+    line-height: 1.4 !important;
+    overflow: visible !important;
+}
+
+.ctal-ta-ch4-page .mermaid-wrapper .node p {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    color: inherit !important;
+}
+
+.ctal-ta-ch4-page .mermaid-wrapper .node span {
+    line-height: 1.4 !important;
+}
+
+.ctal-ta-ch4-page .mermaid-wrapper .node div {
+    line-height: 1.4 !important;
+    overflow: visible !important;
+}
+
+.ctal-ta-ch4-page .mermaid-wrapper text {
+    font-family: var(--font) !important;
+}
+
+/* edgeLabel の完全保護（黒潰れ・白抜け防止） */
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabels rect,
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabel,
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabel span,
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabel p,
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabel text,
+.ctal-ta-ch4-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #14213d !important;
+    fill: #14213d !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   Checklist Cards
+   ============================================================ */
+
+.ctal-ta-ch4-page .checklist-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin: 16px 0;
+    overflow: hidden;
+}
+
+.ctal-ta-ch4-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #2a3fa8;
+}
+
+.ctal-ta-ch4-page .cp-bar {
+    flex: 1;
+    height: 8px;
+    background: #dbe3fb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ctal-ta-ch4-page .cp-bar-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.25s;
+}
+
+.ctal-ta-ch4-page .cp-count {
+    white-space: nowrap;
+}
+
+.ctal-ta-ch4-page .checklist-card ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 6px 8px 10px !important;
+}
+
+.ctal-ta-ch4-page .checklist-card li {
+    margin: 0 !important;
+    padding: 6px 10px !important;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.ctal-ta-ch4-page .checklist-card li:hover {
+    background: #f5f7ff;
+}
+
+.ctal-ta-ch4-page .checklist-card label {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.ctal-ta-ch4-page .cl-text {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.6;
+}
+
+.ctal-ta-ch4-page .checklist-card input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    border: 2px solid #9aa9d6;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    position: relative;
+}
+
+.ctal-ta-ch4-page .checklist-card input[type='checkbox']:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.ctal-ta-ch4-page .checklist-card input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ctal-ta-ch4-page .checklist-card li.checked .cl-text {
+    color: var(--ink3);
+    text-decoration: line-through;
+}
+
+/* ============================================================
+   Responsive (Mobile & Print)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .ctal-ta-ch4-page .sb-toggle {
+        display: block;
+    }
+
+    .ctal-ta-ch4-page .sidebar {
+        transform: translateX(-100%);
+        /* 閉じた状態ではフォーカス対象から外す。スライドアウト中の 250ms も目次リンクに
+           Tab フォーカスが入らないよう、visibility は閉じた瞬間に切り替える */
+        visibility: hidden;
+        transition: transform 0.25s ease, visibility 0s linear 0s;
+        box-shadow: none;
+        width: min(86vw, 320px);
+    }
+
+    .ctal-ta-ch4-page .sidebar.open {
+        transform: none;
+        box-shadow: 0 0 40px rgba(20, 33, 61, 0.25);
+        /* 開くときは visibility を即時に切り替える */
+        visibility: visible;
+        transition: transform 0.25s ease, visibility 0s linear 0s;
+    }
+
+    .ctal-ta-ch4-page .sb-scrim.open {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 33, 61, 0.35);
+        z-index: 35;
+    }
+
+    .ctal-ta-ch4-page .main {
+        margin-left: 0;
+        margin-right: 0 !important;
+        padding: 0 16px 72px;
+        max-width: none !important;
+        width: 100% !important;
+    }
+
+    .ctal-ta-ch4-page .hero {
+        margin: 0 -16px 28px;
+        padding: 64px 16px 30px;
+    }
+
+    .ctal-ta-ch4-page .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .ctal-ta-ch4-page .main h2 {
+        font-size: 1.3rem;
+    }
+
+    .ctal-ta-ch4-page .mermaid-container {
+        padding: 14px 8px;
+    }
+}
+
+@media print {
+    .ctal-ta-ch4-page .sidebar,
+    .ctal-ta-ch4-page .sb-toggle,
+    .ctal-ta-ch4-page .sb-scrim {
+        display: none !important;
+    }
+
+    .ctal-ta-ch4-page .main {
+        margin: 0;
+        padding: 0 8px;
+    }
+
+    .ctal-ta-ch4-page .hero {
+        margin: 0 0 20px;
+    }
+}
