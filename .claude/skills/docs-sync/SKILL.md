@@ -176,6 +176,23 @@ test_rc=0; lint_rc=0
 
 ```bash
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
+# markdown-formatter/SKILL.md Step 3 と同一の PII・ローカル絶対パス検査（staged diff 対象）。
+# Step 3 を変更した場合はここも同期する
+pii_check() (
+  abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
+  SCAN=$(mktemp) && STRIPPED=$(mktemp) || abort "一時ファイルを作成できない"
+  trap 'rm -f "$SCAN" "$STRIPPED"' EXIT
+  DIFF=$(git diff --cached --text --no-color) || abort "git diff --cached に失敗した"
+  printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
+  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
+  sed -E 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
+  PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
+  PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
+  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
+  [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
+  if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi
+  echo "PII check passed"
+)
 # 許可されたドキュメントパス以外がステージされていたらコミットを中止する
 # git diff の失敗や grep の走査エラー（終了コード 2 以上）でもコミットへ進まないよう fail closed にする
 if ! staged=$(git diff --cached --name-only); then
@@ -185,9 +202,13 @@ else
   printf '%s' "$staged" | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$'
   case $? in
     1)
-      # コミット直前に markdown-formatter スキル Step 3 の PII・ローカル絶対パス検査（staged diff 対象）を実行し、
-      # `PII check passed`（終了コード 0）を確認できない場合はコミットしない
-      git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>" ;;
+      # PII 検査が終了コード 0 かつ最終行 `PII check passed` の場合だけコミットする（検出・中止時はコミットしない）
+      if pii_out=$(pii_check) && [ "$(printf '%s\n' "$pii_out" | tail -n 1)" = "PII check passed" ]; then
+        git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
+      else
+        printf '%s\n' "$pii_out" >&2
+        echo "❌ PII 検査に合格しなかったため、コミットを中止します" >&2; false
+      fi ;;
     0) echo "❌ ドキュメント以外のパスがステージされています。コミットを中止します" >&2; false ;;
     *) echo "❌ grep による検査に失敗しました。コミットを中止します" >&2; false ;;
   esac
