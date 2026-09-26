@@ -189,15 +189,19 @@ bun x markdownlint-cli <file_path>
   # プレースホルダー（johndoe）の後に .. セグメントが続くパスは、接頭辞の除去で実パスが隠れるため除去前に拒否する
   # パスに空白が含まれても検出できるよう、同じ行の残り全体を .. セグメントの探索対象にする（誤検出は安全側に倒す）
   # grep を if の条件にし、set -e 下でも「該当なし（終了コード 1）」で検査が中断されないようにする
-  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
+  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe|/ho[m]e/runner/work|/[Uu][Ss][Ee][Rr][Ss]/runner/work|/ho[m]e/circleci/project|/githu[b]/workspace).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
   # 許可されたプレースホルダーの一致部分だけを除去し、同じ行にある他の絶対パスは検出し続ける
-  sed -E 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
+  # 既知の非個人 CI 作業ルート（GitHub Actions の Linux / macOS ランナー、コンテナアクション、CircleCI）も
+  # パスの先頭にある場合だけ除去し、通常のワークスペースパスを誤検出しない（.. が続く場合は上の TRAVERSAL で拒否）
+  sed -E -e 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' -e 's#(^|[^A-Za-z0-9._~/-])(/ho[m]e/runner/work/|/[Uu][Ss][Ee][Rr][Ss]/runner/work/|/ho[m]e/circleci/project/|/githu[b]/workspace/)#\1#g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
   # 既知の接頭辞以外（/workspace/<ユーザー名>/ 等）の独自 POSIX 絶対パスも検出するため、
   # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
   PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # macOS は大文字小文字を区別しないため、Users ディレクトリの小文字表記など大小文字違いの POSIX パスも検出する
-  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
+  # 実行ユーザー以外のユーザー名を含む POSIX 絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
+  # root のホーム / Linux のリムーバブルメディア / ユーザーごとのランタイムディレクトリ / macOS の外部ボリューム
+  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/[:space:]]+/))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
   if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi

@@ -189,11 +189,11 @@ pii_check() (
   trap 'rm -f "$SCAN" "$STRIPPED"' EXIT
   DIFF=$(git diff --cached --text --no-color) || abort "git diff --cached に失敗した"
   printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
-  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
-  sed -E 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
+  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe|/ho[m]e/runner/work|/[Uu][Ss][Ee][Rr][Ss]/runner/work|/ho[m]e/circleci/project|/githu[b]/workspace).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
+  sed -E -e 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' -e 's#(^|[^A-Za-z0-9._~/-])(/ho[m]e/runner/work/|/[Uu][Ss][Ee][Rr][Ss]/runner/work/|/ho[m]e/circleci/project/|/githu[b]/workspace/)#\1#g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
   PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
-  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
+  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/[:space:]]+/))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
   if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi
   echo "PII check passed"

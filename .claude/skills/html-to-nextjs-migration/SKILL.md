@@ -38,6 +38,7 @@ description: >
 ### Phase 3: ページ固有 CSS & globals.css 干渉リセット（最重要）
 
 `app/<page-slug>/<page-slug>.css` を作成し、ページ固有クラス（例: `.my-page`）でスコープします。
+作成した CSS は同じディレクトリの `app/<page-slug>/page.tsx` 先頭で `import './<page-slug>.css';` として読み込みます（import しないとスコープ済みスタイルと下記リセットが適用されません）。Phase 4〜6 で作成・検証するページにも同じ import を必ず含め、ルート要素にはページ固有クラスを付けてスコープを維持します。
 `globals.css` の汎用セレクタ干渉を必ずリセットします。
 
 - [references/globals-css-reset-template.md](references/globals-css-reset-template.md): サイドバー付き 2 カラムレイアウトや、紙背景・インク文字などの独自テーマを持つページでは、下記の最小リセットに加えてこのテンプレートの干渉一覧とリセットを適用します。
@@ -131,46 +132,52 @@ bun test tests/<page-slug>/page.test.tsx
 bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 
 # 2. JSX の class 属性漏れ検査（grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 読み取り失敗）
-# 未検出（1）を失敗扱いにせず、後続の PII 検査まで進めるよう終了コードで分岐する
+# grep を if の条件にし、set -e 下でも未検出（1）で case 判定前にサブシェルが終了しないようにする
 # サブシェル内で exit し、対話シェルを終了させずに検査結果を終了コード（1 = 検出 / 2 = 読み取り失敗）で返す
+# 呼び出し元でサブシェルの終了コードを捕捉し、失敗時は後続の PII 検査へ進まない
+class_rc=0
 (
-  grep -n 'class="' app/<page-slug>/page.tsx
-  case $? in
+  if grep -n 'class="' app/<page-slug>/page.tsx; then grep_rc=0; else grep_rc=$?; fi
+  case $grep_rc in
     0) echo "❌ class 属性が残っています（className へ変換してください）" >&2; exit 1 ;;
     1) echo "class 属性漏れなし" ;;
     *) echo "❌ page.tsx を読み取れません" >&2; exit 2 ;;
   esac
-)
+) || class_rc=$?
+if [ "$class_rc" -ne 0 ]; then
+  echo "❌ class 属性検査に合格しなかったため、PII 検査を実行せず中止します" >&2; false
+else
 
-# 3. PII 検査（絶対パス混入の完全防止）: PR ベースからの全差分（コミット済み + staged + unstaged）と未追跡ファイルを走査
-# 未追跡のシンボリックリンクは cat でリンク先を辿らず、readlink でリンク先パス自体を検査する
-# 収集（ベース・差分・未追跡ファイル）と走査を分離し、各コマンドの終了ステータスを個別に確認する。
-# どれか 1 つでも失敗したら、走査対象が欠けたまま「passed」にならないよう検査自体を中止する（fail closed）
-(
-  abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
-  UNTRACKED=$(mktemp) && SCAN=$(mktemp) || abort "一時ファイルを作成できない"
-  trap 'rm -f "$UNTRACKED" "$SCAN"' EXIT
-  BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD) || abort "merge-base を取得できない"
-  # --text でバイナリファイルも内容を差分として出力させる（既定の "Binary files differ" では中身が走査されない）
-  DIFF=$(git diff --text --no-color "$BASE") || abort "git diff に失敗した"
-  # diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、ハンク内の追加行は "++" で始まる内容でも取りこぼさない
-  printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
-  git ls-files --others --exclude-standard -z > "$UNTRACKED" || abort "未追跡ファイルを収集できない"
-  while IFS= read -r -d '' f; do
-    if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi || abort "$f を読み取れない"
-  done < "$UNTRACKED" >> "$SCAN"
-  # ホーム以外（作業ルート直下のユーザー名ディレクトリや D ドライブ配下等）の絶対パスも検出するため、
-  # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
-  PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
-  PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
-  # 実行ユーザー以外のユーザー名を含む非ホーム絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
-  # Windows のドライブ絶対パス全般 / macOS の外部ボリューム / WSL のドライブマウント
-  # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
-  grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/)" "$SCAN"
-  case $? in
-    0) echo "❌ PII detected" >&2; exit 1 ;;
-    1) echo "PII check passed" ;;
-    *) abort "grep による走査に失敗した" ;;
-  esac
-)
+  # 3. PII 検査（絶対パス混入の完全防止）: PR ベースからの全差分（コミット済み + staged + unstaged）と未追跡ファイルを走査
+  # 未追跡のシンボリックリンクは cat でリンク先を辿らず、readlink でリンク先パス自体を検査する
+  # 収集（ベース・差分・未追跡ファイル）と走査を分離し、各コマンドの終了ステータスを個別に確認する。
+  # どれか 1 つでも失敗したら、走査対象が欠けたまま「passed」にならないよう検査自体を中止する（fail closed）
+  (
+    abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
+    UNTRACKED=$(mktemp) && SCAN=$(mktemp) || abort "一時ファイルを作成できない"
+    trap 'rm -f "$UNTRACKED" "$SCAN"' EXIT
+    BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD) || abort "merge-base を取得できない"
+    # --text でバイナリファイルも内容を差分として出力させる（既定の "Binary files differ" では中身が走査されない）
+    DIFF=$(git diff --text --no-color "$BASE") || abort "git diff に失敗した"
+    # diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、ハンク内の追加行は "++" で始まる内容でも取りこぼさない
+    printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
+    git ls-files --others --exclude-standard -z > "$UNTRACKED" || abort "未追跡ファイルを収集できない"
+    while IFS= read -r -d '' f; do
+      if [ -L "$f" ]; then readlink -- "$f"; elif [ -f "$f" ]; then cat -- "$f"; fi || abort "$f を読み取れない"
+    done < "$UNTRACKED" >> "$SCAN"
+    # ホーム以外（作業ルート直下のユーザー名ディレクトリや D ドライブ配下等）の絶対パスも検出するため、
+    # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
+    PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
+    PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
+    # 実行ユーザー以外のユーザー名を含む非ホーム絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
+    # Windows のドライブ絶対パス全般 / macOS の外部ボリューム / WSL のドライブマウント
+    # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
+    grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/)" "$SCAN"
+    case $? in
+      0) echo "❌ PII detected" >&2; exit 1 ;;
+      1) echo "PII check passed" ;;
+      *) abort "grep による走査に失敗した" ;;
+    esac
+  )
+fi
 ```
