@@ -28,7 +28,7 @@ CT-GenAI は ISTQB® が提供する **Specialist Level**（専門レベル）�
 | 出題数 | 40問 |
 | 配点 | 46点 |
 | 合格基準 | 30点（約65%） |
-| 試験時間 | 60分（非母語受験者は+25%＝75分） |
+| 試験時間 | 60分（試験言語が受験者の第一言語でない場合は、申請により25%延長の75分） |
 | 前提資格 | ISTQB® Certified Tester Foundation Level（CTFL）の取得が必須 |
 | 出題形式 | 多肢選択式（1つの正解を選ぶ問題と、複数の正解を選ぶ問題を含む）・シナリオベース問題（K1/K2/K3の認知レベルにマッピング） |
 | 次のステップ | Core Advanced Level（Test Analyst、Technical Test Analyst、Test Manager、Test Engineering）、その後 Expert Level |

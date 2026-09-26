@@ -350,7 +350,8 @@ MAX_RESULT_ROWS = 1000
 
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
-    r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b",
+    # INSERT は Cypher 25 で CREATE と同義の書き込み句
+    r"\b(CREATE|INSERT|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV)\b",
     re.IGNORECASE,
 )
 # プロシージャ名は `apoc`.`load` のようにバッククォートで分割して書けるため、句の検査とは別の字句解析結果で検査する。
@@ -444,13 +445,17 @@ def to_dto(value: Any) -> Any:
 SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
 REDACTED = "[REDACTED]"
 
-def to_summary_dto(value: Any) -> Any:
+def to_summary_dto(value: Any, *, trusted_origin: bool = False) -> Any:
     # 要約 LLM へ渡す値を、DTO ではなくドライバが返した実際の型から作る。
     # 列名やマップのキーは Cypher の AS やマップ射影（RETURN p.name AS suspect など）で自由に付け替えられ、
-    # {kind: 'node', ...} のようなマップで DTO の形も偽装できるため、キー名によるマスキングの根拠にしない
+    # {kind: 'node', ...} のようなマップで DTO の形も偽装できるため、キー名によるマスキングの根拠にしない。
+    # trusted_origin は「値がノード・リレーションシップの機微でないプロパティ由来である」ことが分かっている場合だけ True になる
     if isinstance(value, (Node, Relationship)):
         # ノード・リレーションシップのプロパティ名だけはスキーマ由来で付け替えられないため、SENSITIVE_KEYS で判定する
-        props = {k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v) for k, v in dict(value).items()}
+        props = {
+            k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v, trusted_origin=True)
+            for k, v in dict(value).items()
+        }
         if isinstance(value, Node):
             return {"kind": "node", "labels": sorted(value.labels), "properties": props}
         return {"kind": "relationship", "type": value.type, "properties": props}
@@ -460,15 +465,20 @@ def to_summary_dto(value: Any) -> Any:
             "nodes": [to_summary_dto(n) for n in value.nodes],
             "relationships": [to_summary_dto(r) for r in value.relationships],
         }
-    # 真偽値・数値（件数などの集計値）と null だけを残す。
-    # 文字列・時間型・空間型はエイリアス経由で機微なプロパティが投影され得るため、キー名によらず伏せる
-    if value is None or isinstance(value, (bool, int, float)):
+    # 真偽値と null は残す（bool は int のサブクラスなので数値判定より前に処理する）
+    if value is None or isinstance(value, bool):
         return value
+    # 数値は出所が分かる場合だけ残す。列やマップの値として返った数値は、RETURN p.phone AS n のように
+    # 数値型の機微なプロパティがエイリアス経由で投影されたものか、count(*) などの集計値かを区別できないため、
+    # 件数などの集計値も含めて要約ペイロードから除外する（表示用の results には残る）
+    if isinstance(value, (int, float)):
+        return value if trusted_origin else REDACTED
+    # 文字列・時間型・空間型はエイリアス経由で機微なプロパティが投影され得るため、キー名によらず伏せる
     if isinstance(value, list):
-        return [to_summary_dto(v) for v in value]
+        return [to_summary_dto(v, trusted_origin=trusted_origin) for v in value]
     if isinstance(value, dict):
-        # マップ射影（RETURN p {.phone} など）は元のプロパティ名をキーに保つため、
-        # 数値型の機微値が上の分岐を素通りしないよう、多層防御として SENSITIVE_KEYS でも伏せる
+        # マップのキーはマップ射影（p {n: p.phone} など）で付け替えられるため出所の根拠にせず、値は常に未信頼として扱う。
+        # 元のプロパティ名を保つ射影（p {.phone}）への多層防御として SENSITIVE_KEYS でも伏せる
         return {k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v) for k, v in value.items()}
     return REDACTED
 
