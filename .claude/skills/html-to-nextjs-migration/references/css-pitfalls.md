@@ -20,7 +20,7 @@
 | ヘッダーオフセット二重カウント | `.page-layout { margin-top: 60px; }` | 削除。`layout-content` が既に `padding-top: 60px` を持つため不要。60px の余白が二重になる |
 | globals `section` 干渉 | ページ固有 section に余分な `padding-top: 5rem`(80px) が付く | `.page-layout section { padding-top: 0; }` でリセット |
 | globals `.hero` 干渉 | `.hero { min-height: 100vh; }` でヒーローが全画面高さになりコンテンツが押し下がる | `.page-layout .hero { min-height: 0; display: block; padding-top: 0; }` でリセット |
-| globals `main` 干渉 | `main { max-width: 1100px; margin: 0 auto; }` で幅が制限・中央寄せになる | `.page-layout .main { flex: 1 1 auto; max-width: none !important; width: 100% !important; margin: 0 !important; }` で画面いっぱいに広げる |
+| globals `main` 干渉 | `main { max-width: 1100px; margin: 0 auto; }` で幅が制限・中央寄せになる | `.page-layout main, .page-layout .main { flex: 1 1 auto; max-width: none !important; width: 100% !important; margin: 0 !important; }` で画面いっぱいに広げる |
 | Mermaid 図の表示圧縮 | ページ固有 Flexbox と `globals.css` の `.mermaid-wrapper` (max-width) が競合し、図が極端に縮小される | ページ固有 CSS で `.mermaid-wrapper` の `max-width: 100% !important` 化と背景・ボーダーの透明化リセットを適用 |
 | Mermaid エッジラベルの黒潰れ/色崩れ | `Mermaid.tsx` のグローバルダークテーマ設定や SVG 内部構造（`foreignObject`, `rect`）と競合し、分岐テキスト（はい/いいえ）が黒四角に潰れる | `.claude/skills/fix-mermaid/SKILL.md` の「ページ固有テーマの上書き」節（`%%{init}%%` ディレクティブ + CSS セーフティネット）を適用する |
 | リストの点（マーカー）消失 | Tailwind Preflight が `ul`, `ol` を `list-style: none` にリセットし、箇条書きの点（•）が消える | ページ固有 CSS で `.page-layout ul.plain` 等のリスト**コンテナ**に `list-style-type: disc !important;`（順序付きは `decimal !important;`）を指定して復元する |

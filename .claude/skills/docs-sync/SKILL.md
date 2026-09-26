@@ -103,7 +103,8 @@ git rev-parse --short HEAD
 # ルートグループ (group) と並列ルートのスロット @slot は URL に現れないため除去し、階層数にも数えない。
 # インターセプトマーカーは階層として解決する: (.) は同階層、(..) は 1 つ前のセグメントを取り除き（(..)(..) は 2 つ）、(...) はルートへ戻る
 # `_` で始まるプライベートフォルダはルーティング対象外のため、配下ごと探索から除外する
-find app -type d -name '_*' -prune -o -name page.tsx -print | sed -E 's|^app||; s|/page\.tsx$||' | awk -F/ '{
+# pipefail で find を含むどの段の失敗も検出し、部分的な一覧を出力せずに中止する
+if routes=$(set -o pipefail; find app -type d -name '_*' -prune -o -name page.tsx -print | sed -E 's|^app||; s|/page\.tsx$||' | awk -F/ '{
   n = 0
   for (i = 2; i <= NF; i++) {
     s = $i
@@ -120,7 +121,11 @@ find app -type d -name '_*' -prune -o -name page.tsx -print | sed -E 's|^app||; 
   out = ""
   for (j = 1; j <= n; j++) out = out "/" seg[j]
   print (out == "" ? "/" : out)
-}' | sort -u
+}' | sort -u); then
+  printf '%s\n' "$routes"
+else
+  echo "❌ ルート一覧の取得に失敗しました。部分的な一覧は使用しません" >&2; false
+fi
 
 # C. テストファイル実数の取得 (Bunユニットテスト)
 find tests/ -name "*.test.ts" -o -name "*.test.tsx" 2>/dev/null | sort
@@ -175,7 +180,7 @@ test_rc=0; lint_rc=0
 仕様書のみの同期更新のコミットには**ソースコードの変更を一切含めない**でください（TDD コミット分割ルール）。
 
 ```bash
-git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/
+git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/ .claude/rules/ .gemini/rules/
 # markdown-formatter/SKILL.md Step 3 と同一の PII・ローカル絶対パス検査（staged diff 対象）。
 # Step 3 を変更した場合はここも同期する
 pii_check() (
@@ -199,7 +204,7 @@ if ! staged=$(git diff --cached --name-only); then
   echo "❌ ステージ済みパスを取得できません。コミットを中止します" >&2
   false
 else
-  printf '%s' "$staged" | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$'
+  printf '%s' "$staged" | grep -vE '^(CLAUDE\.md|GEMINI\.md|README\.md|docs/MIGRATION_PROGRESS\.md|docs/REUSABLE_PROMPTS\.md|docs/coverage-dashboard\.html)$|^(\.claude|\.gemini|\.agents)/skills/.+\.md$|^(\.claude|\.gemini)/rules/.+\.md$'
   case $? in
     1)
       # PII 検査が終了コード 0 かつ最終行 `PII check passed` の場合だけコミットする（検出・中止時はコミットしない）

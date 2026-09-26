@@ -151,7 +151,8 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
   UNTRACKED=$(mktemp) && SCAN=$(mktemp) || abort "一時ファイルを作成できない"
   trap 'rm -f "$UNTRACKED" "$SCAN"' EXIT
   BASE=$(git merge-base origin/main HEAD 2>/dev/null || git merge-base main HEAD) || abort "merge-base を取得できない"
-  DIFF=$(git diff --no-color "$BASE") || abort "git diff に失敗した"
+  # --text でバイナリファイルも内容を差分として出力させる（既定の "Binary files differ" では中身が走査されない）
+  DIFF=$(git diff --text --no-color "$BASE") || abort "git diff に失敗した"
   # diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、ハンク内の追加行は "++" で始まる内容でも取りこぼさない
   printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
   git ls-files --others --exclude-standard -z > "$UNTRACKED" || abort "未追跡ファイルを収集できない"
