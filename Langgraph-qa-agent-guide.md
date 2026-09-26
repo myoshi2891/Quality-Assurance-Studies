@@ -370,6 +370,8 @@ def text_to_cypher(state: AgentState) -> dict:
 ```python
 import re
 
+from collections.abc import Iterator
+from itertools import chain
 from typing import Any
 
 from neo4j import unit_of_work
@@ -434,25 +436,39 @@ class ResultTooLargeError(CypherValidationError):
     # LIMIT や collect(x)[..100] のように結果を絞れば解消するため、LLM に再生成させる対象として扱う
     pass
 
+_EXHAUSTED = object()
+
 def ensure_payload_within_limits(records: list) -> None:
-    # to_dto() の再帰変換より前に、明示的なスタックで結果全体を 1 回だけ走査して上限を強制する
+    # to_dto() の再帰変換より前に、明示的なスタックで結果全体を 1 回だけ走査して上限を強制する。
+    # コンテナの中身は一括でリスト化せず反復子として積み、1 要素ずつ取り出すため、
+    # 巨大な collect() 結果でも上限を超えた時点で走査を打ち切り、中身の複製を確保しない。
+    # 列名・マップのキー・ラベル・型名・element_id も to_dto() の出力に残るため、値と同じく文字数に数える
     elements = 0
     text_chars = 0
-    stack: list[Any] = [value for r in records for value in r.values()]
+    stack: list[Iterator[Any]] = [
+        chain.from_iterable(chain.from_iterable(r.items()) for r in records)
+    ]
     while stack:
-        value = stack.pop()
+        value = next(stack[-1], _EXHAUSTED)
+        if value is _EXHAUSTED:
+            stack.pop()
+            continue
         elements += 1
         if isinstance(value, str):
             text_chars += len(value)
         elif isinstance(value, Path):
-            stack.extend(value.nodes)
-            stack.extend(value.relationships)
-        elif isinstance(value, (Node, Relationship)):
-            stack.extend(dict(value).values())
+            stack.append(chain(value.nodes, value.relationships))
+        elif isinstance(value, Node):
+            stack.append(chain([value.element_id], value.labels, chain.from_iterable(value.items())))
+        elif isinstance(value, Relationship):
+            endpoints = [n.element_id for n in (value.start_node, value.end_node) if n is not None]
+            stack.append(
+                chain([value.element_id, value.type], endpoints, chain.from_iterable(value.items()))
+            )
         elif isinstance(value, (list, tuple)):
-            stack.extend(value)
+            stack.append(iter(value))
         elif isinstance(value, dict):
-            stack.extend(value.values())
+            stack.append(chain.from_iterable(value.items()))
         if elements > MAX_RESULT_ELEMENTS or text_chars > MAX_RESULT_TEXT_CHARS:
             raise ResultTooLargeError(
                 "クエリ結果が大きすぎます。LIMIT を付けるか、collect() の結果を collect(x)[..100] のようにスライスして件数を絞ってください"
