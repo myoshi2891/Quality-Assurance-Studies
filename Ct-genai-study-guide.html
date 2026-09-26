@@ -1,0 +1,2694 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            ISTQB® Certified Tester – Testing with Generative AI（CT-GenAI）完全学習ガイド
+        </title>
+        <style>
+            :root {
+                --bg: #f8fafc;
+                --bg-elevated: #ffffff;
+                --card: #f1f5f9;
+                --card-border: #e2e8f0;
+                --text: #0f172a;
+                --text-faint: #64748b;
+                --accent: #2563eb;
+                --accent-strong: #1d4ed8;
+                --success: #15803d;
+                --success-bg: #f0fdf4;
+                --success-border: #bbf7d0;
+                --warn: #b45309;
+                --warn-bg: #fffbeb;
+                --note-bg: #eff6ff;
+                --note-border: #bfdbfe;
+                --code-bg: #f1f5f9;
+                --sidebar-width: 300px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+                    'Segoe UI', sans-serif;
+                line-height: 1.85;
+                overflow-x: hidden;
+            }
+            a {
+                color: var(--accent);
+            }
+            .layout {
+                display: block;
+                min-height: 100vh;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-width);
+                overflow-y: auto;
+                background: var(--bg-elevated);
+                border-right: 1px solid var(--card-border);
+                padding: 24px 18px 60px;
+                z-index: 50;
+            }
+            .sidebar-title {
+                font-size: 0.85rem;
+                color: var(--text-faint);
+                letter-spacing: 0.05em;
+                margin-bottom: 14px;
+                text-transform: uppercase;
+            }
+            .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar > ul > li {
+                margin-bottom: 4px;
+            }
+            .nav-h2,
+            .nav-h3 {
+                display: block;
+                padding: 7px 10px;
+                border-radius: 6px;
+                text-decoration: none;
+                color: var(--text);
+                font-size: 0.92rem;
+                line-height: 1.4;
+            }
+            .nav-h2 {
+                font-weight: 600;
+            }
+            .nav-h3 {
+                font-weight: 400;
+                font-size: 0.85rem;
+                color: var(--text-faint);
+                padding-left: 20px;
+            }
+            .nav-h2:hover,
+            .nav-h3:hover {
+                background: rgba(37, 99, 235, 0.08);
+                color: var(--accent-strong);
+            }
+            .nav-h2.active,
+            .nav-h3.active {
+                background: rgba(37, 99, 235, 0.12);
+                color: var(--accent-strong);
+            }
+            .nav-sub {
+                margin-bottom: 6px;
+            }
+            .main {
+                margin-left: var(--sidebar-width);
+                padding: 48px 56px 100px;
+            }
+            .hero {
+                border-bottom: 1px solid var(--card-border);
+                padding-bottom: 28px;
+                margin-bottom: 36px;
+            }
+            .hero h1 {
+                font-size: 1.9rem;
+                margin: 0 0 14px;
+                color: var(--text);
+                line-height: 1.4;
+            }
+            .hero p {
+                color: var(--text-faint);
+                font-size: 1rem;
+                margin: 0;
+            }
+            .main h2 {
+                font-size: 1.5rem;
+                color: var(--text);
+                margin-top: 56px;
+                padding-top: 12px;
+                border-top: 1px solid var(--card-border);
+            }
+            .main h2:first-of-type {
+                border-top: none;
+                margin-top: 0;
+            }
+            .main h3 {
+                font-size: 1.2rem;
+                color: var(--accent-strong);
+                margin-top: 40px;
+            }
+            .main h4 {
+                font-size: 1.05rem;
+                color: var(--text);
+                margin-top: 30px;
+            }
+            .main p,
+            .main ul,
+            .main ol {
+                font-size: 0.98rem;
+                color: var(--text);
+            }
+            .main ul,
+            .main ol {
+                padding-left: 1.4em;
+            }
+            .main li {
+                margin-bottom: 4px;
+            }
+            .main strong {
+                color: var(--text);
+            }
+            .table-scroll {
+                overflow-x: auto;
+                margin: 18px 0 28px;
+                border: 1px solid var(--card-border);
+                border-radius: 10px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 0.9rem;
+                background: var(--bg-elevated);
+            }
+            th,
+            td {
+                padding: 10px 14px;
+                text-align: left;
+                border-bottom: 1px solid var(--card-border);
+                vertical-align: top;
+            }
+            tr.row-header th {
+                background: var(--card);
+                color: var(--accent-strong);
+                font-weight: 600;
+            }
+            tr.row-odd td {
+                background: rgba(15, 23, 42, 0.015);
+            }
+            tr.row-even td {
+                background: transparent;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .callout {
+                border-radius: 12px;
+                padding: 16px 20px;
+                margin: 20px 0;
+                border: 1px solid var(--card-border);
+            }
+            .callout-head {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+            .callout-icon {
+                font-size: 1.1rem;
+            }
+            .callout-practice {
+                background: var(--success-bg);
+                border-color: var(--success-border);
+            }
+            .callout-practice .callout-title {
+                color: var(--success);
+            }
+            .callout-note {
+                background: var(--note-bg);
+                border-color: var(--note-border);
+            }
+            .callout-note .callout-title {
+                color: var(--accent-strong);
+            }
+            .callout-body p {
+                margin: 6px 0;
+            }
+            .callout-body ul {
+                margin: 6px 0;
+            }
+            p.callout-source {
+                font-size: 0.85rem;
+                color: var(--text-faint);
+                border-left: 3px solid var(--card-border);
+                padding-left: 12px;
+                margin: 18px 0;
+            }
+            p.callout-source a {
+                color: var(--accent);
+            }
+            .mermaid-container {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 24px 0;
+                padding: 12px 0;
+            }
+            .mermaid-container svg {
+                flex-shrink: 0;
+            }
+            .mermaid-target p {
+                color: inherit;
+                margin: 0;
+            }
+            .mermaid-error {
+                color: var(--warn);
+                background: var(--warn-bg);
+                border: 1px dashed var(--warn);
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            hr {
+                border: none;
+                border-top: 1px solid var(--card-border);
+                margin: 40px 0;
+            }
+            .mobile-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 100;
+                background: var(--accent);
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+            @media (max-width: 880px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    width: 82vw;
+                    max-width: 320px;
+                    box-shadow: 2px 0 16px rgba(15, 23, 42, 0.15);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 80px 20px 80px;
+                }
+                .mobile-toggle {
+                    display: block;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="mobile-toggle" id="sidebarToggle" aria-label="メニューを開閉">☰</button>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-title">CT-GenAI 完全学習ガイド</div>
+                <ul>
+                    <li>
+                        <a class="nav-h2" data-target="0-資格の概要" href="#0-資格の概要"
+                            >0. 資格の概要</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a class="nav-h3" data-target="01-試験概要" href="#01-試験概要"
+                                    >0.1 試験概要</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="02-ビジネスアウトカム合格者が到達すべき状態"
+                                    href="#02-ビジネスアウトカム合格者が到達すべき状態"
+                                    >0.2 ビジネスアウトカム（合格者が到達すべき状態）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="03-認知レベルk-レベル"
+                                    href="#03-認知レベルk-レベル"
+                                    >0.3 認知レベル（K-レベル）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="04-章構成と学習時間"
+                                    href="#04-章構成と学習時間"
+                                    >0.4 章構成と学習時間</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            class="nav-h2"
+                            data-target="第1章-ソフトウェアテストにおける生成ai入門100分"
+                            href="#第1章-ソフトウェアテストにおける生成ai入門100分"
+                            >第1章 ソフトウェアテストにおける生成AI入門（100分）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="11-生成aiの基礎と主要概念"
+                                    href="#11-生成aiの基礎と主要概念"
+                                    >1.1 生成AIの基礎と主要概念</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="12-ソフトウェアテストにおける生成ai活用の基本原則"
+                                    href="#12-ソフトウェアテストにおける生成ai活用の基本原則"
+                                    >1.2 ソフトウェアテストにおける生成AI活用の基本原則</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            class="nav-h2"
+                            data-target="第2章-効果的なソフトウェアテストのためのプロンプトエンジニアリング365分"
+                            href="#第2章-効果的なソフトウェアテストのためのプロンプトエンジニアリング365分"
+                            >第2章
+                            効果的なソフトウェアテストのためのプロンプトエンジニアリング（365分）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="21-効果的なプロンプト開発"
+                                    href="#21-効果的なプロンプト開発"
+                                    >2.1 効果的なプロンプト開発</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="22-プロンプトエンジニアリング技法の適用k3"
+                                    href="#22-プロンプトエンジニアリング技法の適用k3"
+                                    >2.2 プロンプトエンジニアリング技法の適用（K3）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="23-生成ai結果の評価とプロンプトの改善"
+                                    href="#23-生成ai結果の評価とプロンプトの改善"
+                                    >2.3 生成AI結果の評価とプロンプトの改善</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            class="nav-h2"
+                            data-target="第3章-ソフトウェアテストにおける生成aiのリスク管理160分"
+                            href="#第3章-ソフトウェアテストにおける生成aiのリスク管理160分"
+                            >第3章 ソフトウェアテストにおける生成AIのリスク管理（160分）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="31-ハルシネーション推論エラーバイアス"
+                                    href="#31-ハルシネーション推論エラーバイアス"
+                                    >3.1 ハルシネーション・推論エラー・バイアス</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="32-データプライバシーとセキュリティリスク"
+                                    href="#32-データプライバシーとセキュリティリスク"
+                                    >3.2 データプライバシーとセキュリティリスク</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="33-エネルギー消費と環境影響"
+                                    href="#33-エネルギー消費と環境影響"
+                                    >3.3 エネルギー消費と環境影響</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="34-ai規制標準ベストプラクティスフレームワークk1"
+                                    href="#34-ai規制標準ベストプラクティスフレームワークk1"
+                                    >3.4 AI規制・標準・ベストプラクティスフレームワーク（K1）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            class="nav-h2"
+                            data-target="第4章-ソフトウェアテストのためのllm搭載テストインフラ110分"
+                            href="#第4章-ソフトウェアテストのためのllm搭載テストインフラ110分"
+                            >第4章 ソフトウェアテストのためのLLM搭載テストインフラ（110分）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="41-llm搭載テストインフラのアーキテクチャアプローチ"
+                                    href="#41-llm搭載テストインフラのアーキテクチャアプローチ"
+                                    >4.1 LLM搭載テストインフラのアーキテクチャアプローチ</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="42-ファインチューニングとllmops"
+                                    href="#42-ファインチューニングとllmops"
+                                    >4.2 ファインチューニングとLLMOps</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            class="nav-h2"
+                            data-target="第5章-テスト組織における生成aiの導入と統合80分"
+                            href="#第5章-テスト組織における生成aiの導入と統合80分"
+                            >第5章 テスト組織における生成AIの導入と統合（80分）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="51-生成ai導入のロードマップ"
+                                    href="#51-生成ai導入のロードマップ"
+                                    >5.1 生成AI導入のロードマップ</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="nav-h3"
+                                    data-target="52-生成ai導入における変更管理"
+                                    href="#52-生成ai導入における変更管理"
+                                    >5.2 生成AI導入における変更管理</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            class="nav-h2"
+                            data-target="学習ロードマップと試験対策のポイント"
+                            href="#学習ロードマップと試験対策のポイント"
+                            >学習ロードマップと試験対策のポイント</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-h2" data-target="出典参考資料" href="#出典参考資料"
+                            >出典・参考資料</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+            <main class="main">
+                <div class="hero">
+                    <h1>
+                        ISTQB® Certified Tester – Testing with Generative
+                        AI（CT-GenAI）完全学習ガイド
+                    </h1>
+                    <p>
+                        本ガイドは ISTQB®（International Software Testing Qualifications
+                        Board）が公開している CT-GenAI Syllabus v1.1
+                        （2026年4月27日改訂）の出題範囲に沿って、初学者にもわかりやすいようにステップバイステップで解説したものです。各項目末尾に根拠となる出典URLを付記しています。
+                    </p>
+                </div>
+
+                <h2 id="0-資格の概要">0. 資格の概要</h2>
+                <p>
+                    CT-GenAI は ISTQB® が提供する
+                    <strong>Specialist Level</strong
+                    >（専門レベル）の資格で、テスター・テストアナリスト・テスト自動化エンジニア・テストマネージャー・UAT担当者・開発者など、ソフトウェアテストに生成AIを活用するすべての人を対象としています。
+                </p>
+                <h3 id="01-試験概要">0.1 試験概要</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>項目</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>出題数</td>
+                                <td>40問</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>配点</td>
+                                <td>46点</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>合格基準</td>
+                                <td>30点（約65%）</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>試験時間</td>
+                                <td>60分（非母語受験者は+25%＝75分）</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>前提資格</td>
+                                <td>
+                                    ISTQB® Certified Tester Foundation Level（CTFL）の取得が必須
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>出題形式</td>
+                                <td>
+                                    多肢選択式（1つの正解を選ぶ問題と、複数の正解を選ぶ問題を含む）・シナリオベース問題（K1/K2/K3の認知レベルにマッピング）
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>次のステップ</td>
+                                <td>
+                                    Core Advanced Level（Test Analyst、Technical Test Analyst、Test
+                                    Manager、Test Engineering）、その後 Expert Level
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="02-ビジネスアウトカム合格者が到達すべき状態">
+                    0.2 ビジネスアウトカム（合格者が到達すべき状態）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>ID</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>GenAI-BO1</td>
+                                <td>生成AIの基本概念・能力・限界を理解する</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>GenAI-BO2</td>
+                                <td>
+                                    ソフトウェアテストのために大規模言語モデル（LLM）へプロンプトを与える実践スキルを身につける
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>GenAI-BO3</td>
+                                <td>
+                                    ソフトウェアテストで生成AIを使う際のリスクと緩和策への洞察を得る
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>GenAI-BO4</td>
+                                <td>
+                                    ソフトウェアテスト向け生成AIソリューションの応用への洞察を得る
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>GenAI-BO5</td>
+                                <td>
+                                    組織における生成AI戦略・ロードマップの策定と実装に効果的に貢献する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="03-認知レベルk-レベル">0.3 認知レベル（K-レベル）</h3>
+                <p>
+                    シラバスの内容は
+                    <strong>序章・ハンズオン目標・付録を除き</strong
+                    >、すべて試験範囲です。なお、参照されている標準・書籍・記事の内容は、シラバス本文での要約を超える部分は出題対象外です。学習目標（Learning
+                    Objective, LO）は次の3段階で示されます。
+                </p>
+                <ul>
+                    <li><strong>K1（記憶）</strong>：用語や事実を思い出せる</li>
+                    <li><strong>K2（理解）</strong>：概念を説明・比較・要約できる</li>
+                    <li><strong>K3（適用）</strong>：与えられたテストタスクに技法を適用できる</li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                各章冒頭に列挙される「キーワード」は、学習目標に明記されていなくても
+                                K1
+                                として暗記が必須です。見出し直下のキーワード一覧を軽視しないこと。
+                            </li>
+                            <li>
+                                <strong
+                                    >第2章（プロンプトエンジニアリング、365分）は学習時間が最も長い章</strong
+                                >のため優先的に学習してください。章ごとの出題数・配点は学習時間から推定せず、公式の試験構成で確認してください。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="04-章構成と学習時間">0.4 章構成と学習時間</h3>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-1"></div>
+                </div>
+                <p>合計学習時間は約13.6時間（815分）が推奨されています。</p>
+                <p class="callout-source">
+                    出典：<a href="https://istqb.org/certifications/gen-ai/"
+                        >ISTQB CT-GenAI 公式ページ</a
+                    >、<a
+                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                        >CT-GenAI Syllabus v1.1</a
+                    >
+                </p>
+                <h2 id="第1章-ソフトウェアテストにおける生成ai入門100分">
+                    第1章 ソフトウェアテストにおける生成AI入門（100分）
+                </h2>
+                <p>
+                    <strong>キーワード（GenAI固有）</strong
+                    >：AIチャットボット、コンテキストウィンドウ、深層学習、埋め込み（embedding）、特徴量、基盤LLM、生成AI、生成事前学習済みトランスフォーマー、指示チューニング済みLLM、大規模言語モデル、機械学習、マルチモーダルモデル、推論LLM、記号的AI、トークン化、トランスフォーマー
+                </p>
+                <h3 id="11-生成aiの基礎と主要概念">1.1 生成AIの基礎と主要概念</h3>
+                <h4 id="111-aiスペクトラム記号的ai古典的機械学習深層学習生成aik1">
+                    1.1.1 AIスペクトラム：記号的AI／古典的機械学習／深層学習／生成AI（K1）
+                </h4>
+                <p>
+                    AI技術は単一の手法ではなく、以下のようなスペクトラムとして理解すると整理しやすくなります。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-2"></div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>種類</th>
+                                <th>特徴</th>
+                                <th>テストでの用途例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>記号的AI</td>
+                                <td>記号と論理ルールで知識を表現</td>
+                                <td>ルールベースの検証エンジン</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>古典的機械学習</td>
+                                <td>データ駆動、特徴量選択とモデル学習が必要</td>
+                                <td>欠陥分類、不具合予測</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>深層学習</td>
+                                <td>
+                                    ニューラルネットワークで特徴を自動抽出（データアノテーション等は人手が残る）
+                                </td>
+                                <td>画像・音声・テキストの大規模パターン認識</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>生成AI</td>
+                                <td>
+                                    深層学習で学習データのパターンを模倣し、新しいコンテンツ（文章・画像・コード）を生成
+                                </td>
+                                <td>テストケース生成、コード生成、推論の模擬</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    生成AI最大の利点は、<strong>追加の学習フェーズなしに事前学習済みモデルをそのままテストタスクへ適用できる</strong>点ですが、これには一定のリスク（第3章参照）が伴います。
+                </p>
+                <h4 id="112-生成aiとllmの基礎k2">1.1.2 生成AIとLLMの基礎（K2）</h4>
+                <p>
+                    LLM（大規模言語モデル）はトランスフォーマーなどの深層学習アーキテクチャをベースとするモデルで（「生成事前学習済みトランスフォーマー（GPT）」はその代表例）、書籍・記事・Webサイトなど極めて大規模なデータセットで学習されます。<strong>SLM（小規模言語モデル</strong>）はパラメータ数を抑えた軽量版で、特定用途に特化した使い方に向きます。
+                </p>
+                <p>LLMが言語を処理・生成するための2つの中核概念：</p>
+                <ul>
+                    <li>
+                        <strong>トークン化（tokenization）</strong
+                        >：文章をトークン（文字・サブワード・単語などの単位）に分割する処理。
+                    </li>
+                    <li>
+                        <strong>埋め込み（embedding）</strong
+                        >：各トークンを高次元ベクトル空間上の数値表現に変換する処理。意味的に近いトークンは空間上でも近い位置に配置され、これによりLLMは文脈理解や一貫した応答生成が可能になります。
+                    </li>
+                </ul>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-3"></div>
+                </div>
+                <p>
+                    LLMはトランスフォーマーというニューラルネットワーク構造を用い、推論時には「次に来る可能性の高いトークン」を統計的に予測して文章を生成します。ここで重要なのは、<strong>生成される文章は「統計的にもっともらしい」だけであり、必ずしも正しいとは限らない</strong>という点です。また、推論の確率的性質・ハイパーパラメータ設定に起因して、同じ入力でも実行のたびに異なる出力になる<strong>非決定的な挙動</strong>を示します。
+                </p>
+                <p>
+                    <strong>コンテキストウィンドウ</strong
+                    >は、モデルが応答生成時に考慮できる直前テキストの量（トークン数）を指します。ウィンドウが大きいほど長い文脈（大量のテストログなど）を一貫して扱えますが、その分計算コストと処理時間が増加します。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                大きなテストログや長い要件文書をLLMに渡す前に、トークン数を見積もり、コンテキストウィンドウの上限に収まるよう要約・分割すること。
+                            </li>
+                            <li>
+                                「もっともらしいが誤り」という性質を前提に、生成結果は必ず人間または自動検証で裏取りする運用を組み込むこと（第3章参照）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 id="113-基盤llm指示チューニング済みllm推論llmk2">
+                    1.1.3 基盤LLM／指示チューニング済みLLM／推論LLM（K2）
+                </h4>
+                <p>LLMは段階的な学習プロセスを経て、以下の3カテゴリに分類されます。</p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-4"></div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>種類</th>
+                                <th>特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>基盤LLM</td>
+                                <td>
+                                    テキスト・コード・画像など多様なモダリティの大規模データで学習された汎用モデル。柔軟だが特定タスクへの追加適応が必要
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>指示チューニング済みLLM</td>
+                                <td>
+                                    基盤モデルをプロンプトと期待応答のペアで微調整し、指示追従性・応答の一貫性を高めたもの
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>推論LLM</td>
+                                <td>
+                                    指示チューニング済みモデルをさらに拡張し、論理的推論・多段階の問題解決・思考の連鎖（Chain-of-Thought）を強化したもの。認知負荷の高いタスクに適する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            テスト設計のような複雑な多段階推論を要するタスク（優先順位付け、依存関係分析など）には推論LLMを、定型的な文章生成や単純な変換タスクには指示チューニング済み（非推論）LLMを使い分けることでコストと精度のバランスを最適化する。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="114-マルチモーダルllmとvision-languageモデルk2">
+                    1.1.4 マルチモーダルLLMとVision-Languageモデル（K2）
+                </h4>
+                <p>
+                    マルチモーダルLLMはテキストに加えて画像・音声・動画など複数のモダリティを扱えるようトランスフォーマーを拡張したモデルです。画像はVision-Languageモデルによって埋め込みへ変換されたうえでトランスフォーマーに入力されます。
+                </p>
+                <p>テストにおける主な活用：</p>
+                <ul>
+                    <li>
+                        スクリーンショットやGUIワイヤーフレームと、テキスト（ユーザーストーリー・欠陥報告）を組み合わせて解析し、期待結果と実際の画面表示の差異を検出する
+                    </li>
+                    <li>
+                        テキストと視覚情報の両方を組み込んだ、より現実的で網羅性の高いテストケースを生成する
+                    </li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            ワイヤーフレーム画像から受け入れ基準を生成する際は、画像だけでなく入力フィールドの制約やビジネスルールをテキストで補足することで、生成結果の精度が大きく向上する。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="12-ソフトウェアテストにおける生成ai活用の基本原則">
+                    1.2 ソフトウェアテストにおける生成AI活用の基本原則
+                </h3>
+                <h4 id="121-テストタスクにおけるllmの主要な能力k2">
+                    1.2.1 テストタスクにおけるLLMの主要な能力（K2）
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>能力</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>要件分析・改善</td>
+                                <td>
+                                    曖昧さ・矛盾・欠落情報を特定し、ステークホルダーへの確認質問を生成
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テストケース作成支援</td>
+                                <td>要件・ユーザーストーリーからテストケース／テスト目的を生成</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>テストオラクル生成</td>
+                                <td>期待結果の生成を支援</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テストデータ生成</td>
+                                <td>データセット生成、境界値設定、多様なデータ組み合わせの作成</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>テスト自動化支援</td>
+                                <td>
+                                    テストケース記述からのスクリプト生成、既存スクリプトの改善提案・適切な技法の特定
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テスト結果分析</td>
+                                <td>結果の要約作成、重大度・優先度に基づく異常分類</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>テストウェア作成</td>
+                                <td>テスト計画・テストレポート・欠陥報告などの文書作成・更新</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="122-aiチャットボット-vs-llm搭載テストアプリケーションk2">
+                    1.2.2 AIチャットボット vs LLM搭載テストアプリケーション（K2）
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>観点</th>
+                                <th>AIチャットボット</th>
+                                <th>LLM搭載テストアプリケーション</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>インターフェース</td>
+                                <td>会話型・自然言語での直接対話</td>
+                                <td>APIを介した組み込み型（テストツール内に統合）</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>柔軟性</td>
+                                <td>
+                                    探索的・即興的な利用に強い（プロンプトチェイニング等で反復改善）
+                                </td>
+                                <td>定型・自動化されたタスク向けにカスタマイズ・スケール可能</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>想定ユーザー</td>
+                                <td>
+                                    非技術者を含む幅広い利用者、新任テスターのオンボーディングにも有用
+                                </td>
+                                <td>
+                                    組織・ツールベンダーが既存フレームワークにGenAIを組み込む場合
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>発展形</td>
+                                <td>—</td>
+                                <td>特定のテスト役割を担うAIエージェントの構築（第4章）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            どちらの方式でも、出力の正確性・関連性・テスト目的との整合性を高める鍵は<strong>プロンプトエンジニアリング</strong>（第2章）です。チャットボットでの試行錯誤で有効だったプロンプトパターンを、LLM搭載アプリケーションのテンプレートへ昇華させると再現性が上がる。
+                        </p>
+                    </div>
+                </div>
+                <p class="callout-source">
+                    出典：<a
+                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                        >CT-GenAI Syllabus v1.1 第1章</a
+                    >
+                </p>
+                <h2 id="第2章-効果的なソフトウェアテストのためのプロンプトエンジニアリング365分">
+                    第2章 効果的なソフトウェアテストのためのプロンプトエンジニアリング（365分）
+                </h2>
+                <p>
+                    <strong>キーワード</strong
+                    >：受け入れ基準、テストスクリプト、テストケース、テスト条件、テストデータ、テスト設計、テストレポート
+                    <strong>キーワード（GenAI固有）</strong
+                    >：few-shotプロンプティング、メタプロンプティング、自然言語処理、one-shotプロンプティング、プロンプト、プロンプトチェイニング、プロンプトエンジニアリング、システムプロンプト、ユーザープロンプト、zero-shotプロンプティング
+                </p>
+                <h3 id="21-効果的なプロンプト開発">2.1 効果的なプロンプト開発</h3>
+                <h4 id="211-プロンプトの6要素構造k2">2.1.1 プロンプトの6要素構造（K2）</h4>
+                <p>構造化プロンプトは次の6つの要素で構成されます。</p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-5"></div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>要素</th>
+                                <th>役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>Role</td>
+                                <td>
+                                    「テスター」「テストマネージャー」「テスト自動化エンジニア」など、LLMに取らせる視点・トーンを指定
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Context</td>
+                                <td>テスト対象、対象機能、関連する背景情報を提供</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>Instruction</td>
+                                <td>実行すべきタスクを明確・命令形・簡潔に指示</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Input data</td>
+                                <td>
+                                    ユーザーストーリー、受け入れ基準、スクリーンショット、コード、既存テストケース、出力例など
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>Constraints</td>
+                                <td>遵守すべき制約・特別な考慮事項</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Output format</td>
+                                <td>期待する応答の形式・構造・特性</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            6要素はテンプレート化して再利用すること。特に Output format
+                            を明示しないと、後段の自動処理（パース・テスト管理ツールへの取り込み）が壊れやすくなるため必ず指定する。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="212-コアプロンプト技法k2">2.1.2 コアプロンプト技法（K2）</h4>
+                <p>テストタスクで一般的に使われる3つのコア技法です。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>技法</th>
+                                <th>概要</th>
+                                <th>向いているケース</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>プロンプトチェイニング</td>
+                                <td>
+                                    タスクを複数の中間ステップ（複数プロンプト）に分解し、各ステップの結果を人手または自動で検証してから次へ進める
+                                </td>
+                                <td>
+                                    複雑なタスクで、サブタスクへの分解と中間出力の系統的チェックが必要な場合
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Few-shotプロンプティング</td>
+                                <td>
+                                    プロンプト内に例を提示する。例なし＝zero-shot、例1つ＝one-shot、複数例＝few-shot
+                                </td>
+                                <td>
+                                    出力形式が決まった反復的タスク（Gherkin形式のテストケース生成など）
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>メタプロンプティング</td>
+                                <td>LLM自身にプロンプトを生成・改善させる反復サイクル</td>
+                                <td>
+                                    新しいタスク向けにプロンプトを設計する効率化、テスターとLLMの協働（ペアリング）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-6"></div>
+                </div>
+                <p>
+                    上記はプロンプトチェイニングの典型的な流れです。3つの技法は組み合わせて使うこともでき、例えば「メタプロンプティングで初期プロンプトを作成
+                    → few-shotの例を追加して精緻化 →
+                    プロンプトチェイニングでサブタスクに分割し中間検証を行う」という多層的な適用が可能です。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                出力が不安定・不正確な場合、まずプロンプトチェイニングでタスクを分割し、どのステップで精度が落ちるかを切り分ける。
+                            </li>
+                            <li>
+                                Few-shotの例は3〜5件程度から始め、モデルの応答パターンを見ながら例の質と数を調整する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 id="213-システムプロンプトとユーザープロンプトk2">
+                    2.1.3 システムプロンプトとユーザープロンプト（K2）
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>種別</th>
+                                <th>定義者</th>
+                                <th>可視性</th>
+                                <th>役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>システムプロンプト</td>
+                                <td>開発者・テスター</td>
+                                <td>多くのインターフェースでユーザーには非表示</td>
+                                <td>
+                                    会話全体を通じてLLMの振る舞い・トーン・ドメインルールを規定する。Role/Context/Constraintsを含むことが多い
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ユーザープロンプト</td>
+                                <td>チャットボット利用者</td>
+                                <td>常に可視</td>
+                                <td>各やり取りごとに変化する実際の入力・質問・タスク指示</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>例：</p>
+                <ul>
+                    <li>
+                        システムプロンプト：「あなたはプロフェッショナルなソフトウェアテスト支援アシスタントです。常に明確に、フォーマルな言葉で回答し、ISTQBに準拠したプラクティスに焦点を当ててください。推測は避け、関連するテスト原則を引用してください。」
+                    </li>
+                    <li>
+                        ユーザープロンプト：「ブラックボックステストとホワイトボックステストの違いを例とともに挙げてください。」
+                    </li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            チーム共通のシステムプロンプトを整備し、役割・出力フォーマット・禁止事項をあらかじめ固定しておくことで、個々のユーザープロンプトを簡潔に保ちつつ組織全体で一貫した品質を維持できる。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="22-プロンプトエンジニアリング技法の適用k3">
+                    2.2 プロンプトエンジニアリング技法の適用（K3）
+                </h3>
+                <h4 id="221-テスト分析">2.2.1 テスト分析</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>タスク</th>
+                                <th>GenAIの役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>テストベースの潜在的欠陥特定</td>
+                                <td>
+                                    要件パターンの比較や過去の欠陥報告の知見を用い、矛盾・曖昧さ・不完全な情報を検出
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テスト条件の生成</td>
+                                <td>
+                                    要件・ユーザーストーリーを自然言語処理で解釈し、テスト可能な条件に分解
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>リスクベースの優先順位付け</td>
+                                <td>
+                                    リスク発生可能性・影響度、規制遵守、履歴データを踏まえて優先度を提案
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>カバレッジ分析支援</td>
+                                <td>要件とテスト条件の対応関係をマッピングし、抜け漏れを検出</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>テスト技法の提案</td>
+                                <td>要件の性質に応じて境界値分析・同値分割などの技法を提案</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="222-テスト設計実装">2.2.2 テスト設計・実装</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>タスク</th>
+                                <th>GenAIの役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>テストケース生成</td>
+                                <td>
+                                    機能／非機能要件からドラフトのテストケース（前提条件・入力・期待結果・カバレッジ基準）を生成
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テストデータ合成</td>
+                                <td>プライバシーを保持した現実的な合成テストデータを生成</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>自動テストスクリプト生成</td>
+                                <td>
+                                    構造化されたテストケースからテスト自動化フレームワーク向けのスクリプトを生成
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テスト実行スケジューリング・優先順位付け</td>
+                                <td>優先度・リスク・リソース可用性に基づき実行順序を最適化</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="223-自動回帰テスト">2.2.3 自動回帰テスト</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>タスク</th>
+                                <th>GenAIの役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>キーワード駆動自動化</td>
+                                <td>
+                                    定義済みキーワードを具体的なテストケースにマッピングしスクリプト生成
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>影響分析・テスト最適化</td>
+                                <td>コード変更の影響範囲を分析し回帰テスト対象を絞り込み</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>セルフヒーリング／適応型テスト</td>
+                                <td>
+                                    UI/API の軽微な変更にスクリプトを自動追従させ、不要な失敗を防止
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>自動テストレポート・洞察</td>
+                                <td>
+                                    成功率・失敗・重要な知見を含むレポート生成、傾向のダッシュボード化
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>欠陥報告・根本原因分析の強化</td>
+                                <td>
+                                    ログ・スクリーンショット・環境情報を含む詳細な欠陥報告を自動作成
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    CI/CD
+                    パイプラインのように実行頻度が高い回帰テストほど自動化の恩恵が大きく、GUIテストでは動的ロケータへの適応、APIテストではリクエスト／レスポンス仕様の変化への追従にGenAIが有効です。
+                </p>
+                <h4 id="224-テストモニタリングコントロール">
+                    2.2.4 テストモニタリング・コントロール
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>タスク</th>
+                                <th>GenAIの役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>モニタリング・メトリクス分析</td>
+                                <td>傾向分析による潜在リスクの予測、計画からの逸脱アラート</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テストコントロール</td>
+                                <td>再優先順位付け・スケジュール調整・リソース再配分の提案</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>完了時の知見・継続学習</td>
+                                <td>テスト完了報告書の生成、成功要因・教訓の抽出</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>メトリクス可視化・報告強化</td>
+                                <td>動的ダッシュボードと自然言語要約の生成</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="225-プロンプト技法の使い分け公式シラバス掲載表">
+                    2.2.5 プロンプト技法の使い分け（公式シラバス掲載表）
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>プロンプト技法</th>
+                                <th>推奨ユースケース</th>
+                                <th>主な特徴・用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>プロンプトチェイニング</td>
+                                <td>各ステップでの人手検証を伴う高精度が必要な複雑タスク</td>
+                                <td>
+                                    タスクを小ステップに分解。テスト分析・テスト設計・テスト自動化で、各ステップの機能的正確性をチェックする用途に有用
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Few-shotプロンプティング</td>
+                                <td>反復的または特定・制約された出力形式が求められるタスク</td>
+                                <td>
+                                    特定パターンでの反復生成に例を提示。Gherkin形式のテストケース、キーワード駆動テスト、特定形式のテストレポート等
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>メタプロンプティング</td>
+                                <td>柔軟・動的なタスク、新しいタスク向けプロンプト作成に有用</td>
+                                <td>
+                                    目的とタスクの概要を与え、LLM自身にプロンプト作成を促す。テストレポート分析や異常検知など複雑タスク全般に有用
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            単一の技法に固執せず、「メタプロンプティングで骨格を作る →
+                            few-shotで型を固める →
+                            プロンプトチェイニングで検証点を挟む」という組み合わせを標準ワークフローとして定着させる。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="23-生成ai結果の評価とプロンプトの改善">
+                    2.3 生成AI結果の評価とプロンプトの改善
+                </h3>
+                <h4 id="231-評価メトリクスk2">2.3.1 評価メトリクス（K2）</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>メトリクス</th>
+                                <th>説明</th>
+                                <th>例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>Accuracy（正確性）</td>
+                                <td>専門家が作成したテストケース・要件等との全体的な正しさ</td>
+                                <td>生成されたテストケースが全要求事項を網羅している度合い</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Precision（適合率）</td>
+                                <td>特定の目的に対する生成出力の正確さ</td>
+                                <td>生成されたテストケースが異常を正しく識別する度合い</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>Recall（再現率）</td>
+                                <td>データセット内の関連インスタンスをすべて識別できる能力</td>
+                                <td>有効・無効な同値クラスの網羅度合い</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Relevance and Contextual Fit（関連性・文脈適合性）</td>
+                                <td>出力が文脈に適切かどうか</td>
+                                <td>テストベース・ドメイン固有要件との整合性</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>Diversity（多様性）</td>
+                                <td>幅広い入力・シナリオを重複なくカバーできるか</td>
+                                <td>様々なユーザー行動やエッジケースの網羅度</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Execution Success Rate（実行成功率）</td>
+                                <td>生成されたテスト成果物がそのまま実行可能な割合</td>
+                                <td>構文エラーや形式問題なく実行できるスクリプトの割合</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>Time Efficiency（時間効率）</td>
+                                <td>手動作業と比較した時間節約効果</td>
+                                <td>人手作成に比べたAI生成の所要時間</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    生成AIは非決定的な性質を持つため、評価は<strong>統計的に妥当なデータ（十分なサンプル数のデータ</strong>）に基づく必要があります。単発の出力だけで判断しないこと。
+                </p>
+                <h4 id="232-プロンプトの評価改善技法k2">2.3.2 プロンプトの評価・改善技法（K2）</h4>
+                <ul>
+                    <li>
+                        <strong>反復的プロンプト修正</strong
+                        >：ベースプロンプトから出発し、結果を見ながら文脈追加や用語調整を段階的に行う
+                    </li>
+                    <li>
+                        <strong>A/Bテスト</strong
+                        >：複数バージョンのプロンプトを作成し、事前定義メトリクスで比較する
+                    </li>
+                    <li>
+                        <strong>出力分析</strong
+                        >：AI生成出力の不正確さ・不整合を分析し、将来の欠陥を防ぐ知見を得る
+                    </li>
+                    <li>
+                        <strong>ユーザーフィードバックの統合</strong
+                        >：テスターからの有用性・明確さに関するフィードバックを反映
+                    </li>
+                    <li>
+                        <strong>プロンプトの長さ・具体性の調整</strong
+                        >：文脈追加が有効な場合もあれば、短いプロンプトの方が汎化性能が高い場合もある
+                    </li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            チームでプロンプトライブラリを共有し、評価済みの高品質プロンプトをテンプレート化する。属人化を防ぎ、プロンプト設計のばらつきによる品質低下を抑制できる。
+                        </p>
+                    </div>
+                </div>
+                <p class="callout-source">
+                    出典：<a
+                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                        >CT-GenAI Syllabus v1.1 第2章</a
+                    >
+                </p>
+                <h2 id="第3章-ソフトウェアテストにおける生成aiのリスク管理160分">
+                    第3章 ソフトウェアテストにおける生成AIのリスク管理（160分）
+                </h2>
+                <p>
+                    <strong>キーワード</strong>：セキュリティ、脆弱性、データプライバシー
+                    <strong>キーワード（GenAI固有）</strong
+                    >：ハルシネーション、温度（temperature）、推論エラー、バイアス、コンテキスト操作
+                </p>
+                <h3 id="31-ハルシネーション推論エラーバイアス">
+                    3.1 ハルシネーション・推論エラー・バイアス
+                </h3>
+                <h4 id="311-定義k1">3.1.1 定義（K1）</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>種類</th>
+                                <th>定義</th>
+                                <th>テストでの現れ方</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>ハルシネーション</td>
+                                <td>LLMが事実に反する、またはタスクと無関係な出力を生成する現象</td>
+                                <td>
+                                    架空・無関係なテストケースの生成、動作しないテストスクリプト、存在しない受け入れ基準の検証を提案
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>推論エラー</td>
+                                <td>
+                                    因果関係・条件論理・段階的問題解決などの論理構造をLLMが誤って解釈する現象。LLMは真の論理推論ではなくパターンマッチングに依存するため発生
+                                </td>
+                                <td>
+                                    テスト計画（工数見積り、テストケース優先順位付け）など論理推論を要するタスクで顕著
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>バイアス</td>
+                                <td>
+                                    学習データに由来する偏り。特定の情報・アプローチ・前提を過度に優先する
+                                </td>
+                                <td>
+                                    英語データ中心の学習による非英語圏視点の過小評価、テストデータ生成や受け入れ基準の偏り
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    LLMの非決定的な挙動（1.1.2参照）により、これらの欠陥は「一度直ったように見えても、別の会話で再発する」ことがある点に注意が必要です。
+                </p>
+                <h4 id="312-検出方法k3">3.1.2 検出方法（K3）</h4>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-7"></div>
+                </div>
+                <p>
+                    検出方法の実際の適用度合いは、そのテストタスクにおけるハルシネーション・推論エラー・バイアスの推定リスクレベルに応じて調整します。
+                </p>
+                <h4 id="313-緩和技法k2">3.1.3 緩和技法（K2）</h4>
+                <ul>
+                    <li>
+                        <strong>完全な文脈の提供</strong
+                        >：プロンプトに関連情報を漏れなく含める（2.1.1参照）
+                    </li>
+                    <li>
+                        <strong>プロンプトの分割</strong
+                        >：プロンプトチェイニングで複雑なプロンプトを管理可能な単位に分割し、各出力を段階的に検証する
+                    </li>
+                    <li>
+                        <strong>明確で解釈可能なデータ形式の使用</strong
+                        >：曖昧・解釈が難しい形式を避け、構造化された明快なフォーマットを用いる
+                    </li>
+                    <li>
+                        <strong>タスクに適したモデルの選定</strong
+                        >：そのタスク向けに特化して学習されたLLMを使用する（5.1.3参照）
+                    </li>
+                    <li>
+                        <strong>複数モデルでの結果比較</strong
+                        >：複数のLLMで同じプロンプトを評価し、出力誤りの検出と信頼できる結果の選定に役立てる
+                    </li>
+                </ul>
+                <p>
+                    さらに第4章で扱う <strong>Retrieval-Augmented Generation（RAG）</strong> と
+                    <strong>ファインチューニング</strong>
+                    は、LLM出力の質を改善する補完的技法として位置づけられています。
+                </p>
+                <h4 id="314-非決定的挙動の緩和k1">3.1.4 非決定的挙動の緩和（K1）</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>手法</th>
+                                <th>内容</th>
+                                <th>トレードオフ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>温度（temperature）パラメータの調整</td>
+                                <td>
+                                    推論時の温度を下げることで確率分布を狭め、ランダム性を低減し、より一貫した出力を得る
+                                </td>
+                                <td>
+                                    創造性・応答の多様性が低下し、出力が反復的・過度に決定論的になりうる
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ランダムシードの設定</td>
+                                <td>
+                                    一部のLLM実装では乱数生成器のシード値を固定でき、同じ疑似ランダム系列を再現できる
+                                </td>
+                                <td>完全な再現性は保証されない</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            完全な再現性は保証できないという前提に立ち、出力検証の一部を自動化して構造化・一貫した評価プロセスを組み込むことで、非決定性に起因するハルシネーション・推論エラーのリスクを実務的に低減する。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="32-データプライバシーとセキュリティリスク">
+                    3.2 データプライバシーとセキュリティリスク
+                </h3>
+                <h4 id="321-主なリスクk2">3.2.1 主なリスク（K2）</h4>
+                <ul>
+                    <li>
+                        <strong>意図しないデータ露出</strong
+                        >：モデルが機密情報を偶発的に開示する出力を生成
+                    </li>
+                    <li>
+                        <strong>データ利用の管理欠如</strong
+                        >：明示的な同意・管理なくツールが機微データを保存・処理する
+                    </li>
+                    <li>
+                        <strong>コンプライアンスリスク</strong
+                        >：GDPR（EU一般データ保護規則、Regulation (EU)
+                        2016/679）などのデータ保護規制への非準拠が法的紛争を招く
+                    </li>
+                </ul>
+                <p>
+                    加えて、LLM搭載テストインフラ自体がデータ侵害・不正アクセスなどの攻撃対象になりうること、悪意ある入力データによってLLMの精度・セキュリティが損なわれうることにも留意が必要です。
+                </p>
+                <h4 id="322-攻撃ベクトルの例k2">3.2.2 攻撃ベクトルの例（K2）</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>攻撃ベクトル</th>
+                                <th>説明</th>
+                                <th>具体例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>コンテキスト操作</td>
+                                <td>機密の学習データを引き出すよう設計されたリクエストの送信</td>
+                                <td>
+                                    長大なプロンプトでコンテキストウィンドウを超過させ、モデルに学習データの断片を漏出させる
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>リクエスト操作</td>
+                                <td>AIの出力を混乱させるデータの投入</td>
+                                <td>
+                                    画像でAIを別の文脈に誘導し、受け入れ基準等でハルシネーションを誘発
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>データポイズニング</td>
+                                <td>学習データの改ざん</td>
+                                <td>AI生成テストレポートの評価に偽の評価を与える</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>悪意あるコード生成</td>
+                                <td>
+                                    使用中にバックドア（外部コマンド呼び出し等）を生成するようLLMを操作
+                                </td>
+                                <td>特定の悪意あるIPと通信するコードの生成</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="323-緩和戦略k2">3.2.3 緩和戦略（K2）</h4>
+                <ul>
+                    <li>
+                        <strong>データ最小化</strong
+                        >：法的に許容される範囲のみ機微データを処理し、非機微データの利用に留める
+                    </li>
+                    <li>
+                        <strong>匿名化</strong
+                        >：追加情報を用いても特定の個人を識別できない状態へデータを加工する
+                    </li>
+                    <li>
+                        <strong>仮名化</strong
+                        >：追加情報（対応表など）と照合しない限り特定の個人を識別できない状態へデータを加工する。追加情報があれば再識別できるため、仮名化しただけでは個人データに該当しなくなるわけではない（引き続き個人データとして保護が必要）
+                    </li>
+                    <li>
+                        <strong>安全なデータ保存・伝送</strong>：強固な暗号化とアクセス制御を実装
+                    </li>
+                    <li>
+                        <strong>リソーストレーニング</strong
+                        >：責任あるGenAI利用のための明確な教育プログラムとポリシーを策定
+                    </li>
+                    <li>
+                        <strong>生成出力の体系的レビュー</strong
+                        >：人手による評価で品質・正確性を担保
+                    </li>
+                    <li><strong>他モデルとの比較評価</strong>：複数LLMで出力を比較検証</li>
+                    <li>
+                        <strong>セキュアな運用環境の選択</strong
+                        >：機密性の要求水準に応じ、商用の安全なLLMサービス、セキュアなクラウド、または自組織インフラへのLLM設置を選択
+                    </li>
+                    <li><strong>定期的なセキュリティ監査・脆弱性評価</strong>の実施</li>
+                    <li><strong>最新のセキュリティベストプラクティスへの追随</strong></li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            これらの戦略は互いに補完的であり、単独では不十分。組織内にセキュリティエンジニア・法務・CTO・CISOが在籍する場合は、GenAI導入の初期段階から関与させることが強く推奨される。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="33-エネルギー消費と環境影響">3.3 エネルギー消費と環境影響</h3>
+                <p>
+                    生成AIの学習・推論には大量の専用計算資源が必要であり、Web経由の利用増加はデバイス・ネットワーク・データセンターの負荷、ひいてはエネルギー消費とCO₂排出量の増加につながります。タスクの複雑性・利用モデルによって消費エネルギーは変動し、正確な環境影響データの取得は依然として困難ですが、単発の利用では僅かでも、世界規模での累積利用は無視できない環境負荷となります。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            不要なモデル呼び出しを制限する（例：同一タスクを何度も再実行しない、キャッシュを活用する）ことが、環境影響を抑える現実的な第一歩となる。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="34-ai規制標準ベストプラクティスフレームワークk1">
+                    3.4 AI規制・標準・ベストプラクティスフレームワーク（K1）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>名称／種別</th>
+                                <th>概要</th>
+                                <th>ソフトウェアテストへの適用</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>ISO/IEC 42001:2023（標準）</td>
+                                <td>
+                                    組織内のAIシステム管理システム（AIMS）に関する要求事項を規定
+                                </td>
+                                <td>GenAIテストが推奨プラクティスに準拠し、一貫性・信頼性を促進</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ISO/IEC 23053:2022（標準）</td>
+                                <td>
+                                    機械学習を用いるAIシステムのライフサイクルプロセスの枠組み。安全性・透明性を重視
+                                </td>
+                                <td>GenAIテストにおけるデータ品質・透明性・安全性の枠組みを提供</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>EU AI Act（規制）</td>
+                                <td>
+                                    AIリスクに対処する法的枠組みを確立し、リスクレベルに応じてアプリケーションを分類
+                                </td>
+                                <td>
+                                    テストで使用するGenAIに課される透明性・説明責任・バイアス緩和などの義務は、システムの分類（リスク区分）と、組織の役割（提供者／導入者）に応じて異なる
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>
+                                    NIST AI Risk Management Framework 1.0（フレームワーク・米国）
+                                </td>
+                                <td>公平性・透明性・セキュリティに焦点を当てたAIリスク管理指針</td>
+                                <td>GenAIの公平性を支え、偏ったテスト結果のリスクを緩和</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            規制・標準は継続的に更新されるため、テスト組織は定期的な情報収集の仕組み（法務・コンプライアンス部門との連携、業界動向のウォッチ）を制度化しておく。
+                        </p>
+                    </div>
+                </div>
+                <p class="callout-source">
+                    出典：<a
+                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                        >CT-GenAI Syllabus v1.1 第3章</a
+                    >、<a href="https://www.iso.org/standard/81230.html">ISO/IEC 42001:2023</a>、<a
+                        href="https://www.iso.org/standard/74438.html"
+                        >ISO/IEC 23053:2022</a
+                    >、<a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+                        >EU AI Act（Regulation (EU) 2024/1689）</a
+                    >、<a href="https://www.nist.gov/itl/ai-risk-management-framework"
+                        >NIST AI Risk Management Framework</a
+                    >、<a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+                        >GDPR（Regulation (EU) 2016/679）</a
+                    >
+                </p>
+                <h2 id="第4章-ソフトウェアテストのためのllm搭載テストインフラ110分">
+                    第4章 ソフトウェアテストのためのLLM搭載テストインフラ（110分）
+                </h2>
+                <p>
+                    <strong>キーワード</strong>：テストインフラ
+                    <strong>キーワード（GenAI固有）</strong
+                    >：ファインチューニング、LLM搭載エージェント、大規模言語モデルオペレーション（LLMOps）、Retrieval-Augmented
+                    Generation、ベクトルデータベース
+                </p>
+                <h3 id="41-llm搭載テストインフラのアーキテクチャアプローチ">
+                    4.1 LLM搭載テストインフラのアーキテクチャアプローチ
+                </h3>
+                <h4 id="411-主要アーキテクチャコンポーネントk2">
+                    4.1.1 主要アーキテクチャコンポーネント（K2）
+                </h4>
+                <p>
+                    LLM搭載テストインフラとは、LLMをテストプロセスに統合し、自動化・推論・意思決定を強化するシステムです。単なる会話型チャットボットと異なり、テスト関連クエリの処理・要件分析・テストケース生成・出力評価を行うよう設計されています。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-8"></div>
+                </div>
+                <p>
+                    このアーキテクチャは従来のクライアント・サーバーモデルを超えて、次のような知的処理を組み込みます。
+                </p>
+                <ol type="1">
+                    <li>
+                        LLMは単なるサーバーではなく、テストウェアに基づいて解釈・推論する「賢い処理コンポーネント」である
+                    </li>
+                    <li>
+                        ルールベースのチャットボットと異なり、要件・コード・テスト結果といった文脈から動的にテストの洞察を生成する
+                    </li>
+                    <li>
+                        バックエンドは複数のデータソース（構造化データ用のリレーショナルDB、埋め込みによる意味検索用のベクトルDB）を統合する
+                    </li>
+                    <li>
+                        バックエンドはLLMの生の出力を後処理し、フロントエンドに提示する前にテストプロセスの条件と整合させる
+                    </li>
+                </ol>
+                <h4 id="412-retrieval-augmented-generationragk2">
+                    4.1.2 Retrieval-Augmented Generation（RAG）（K2）
+                </h4>
+                <p>
+                    RAGは、追加のデータソースを応答生成プロセスに組み込むことでLLMの出力の関連性・正確性を高める技法です。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-9"></div>
+                </div>
+                <p>処理は大きく2段階です。</p>
+                <ol type="1">
+                    <li>
+                        <strong>検索（Retrieval）</strong
+                        >：ユーザークエリに基づき、事前に作成済みのベクトルデータベースから、プロンプトの埋め込みとチャンクの埋め込みとの意味的類似度により関連情報を取得
+                    </li>
+                    <li>
+                        <strong>生成（Generation）</strong
+                        >：取得情報をLLMに与え、既存の知識と新規取得データを組み合わせたより正確で文脈に即した出力を生成
+                    </li>
+                </ol>
+                <p>
+                    ソフトウェアテストにおいてRAGは、LLM搭載テストインフラが企業内のデータベース・ドキュメント・リポジトリへリアルタイムにアクセスすることを可能にし、テスト分析やテスト設計が最新の仕様・要件・既存テストデータと整合するようにします。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            チャンクサイズ（256〜512トークン程度）はモデルのコンテキストウィンドウとの兼ね合いで調整し、大きすぎて検索精度が落ちない・小さすぎて文脈が失われないバランスを検証しながら決める。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="413-llm搭載エージェントの役割k2">4.1.3 LLM搭載エージェントの役割（K2）</h4>
+                <p>
+                    LLM搭載エージェントは、LLMを核とした半自律的・自律的なタスク処理を目的とした特化型GenAIアプリケーションです。「ツール」と呼ばれる事前定義済み関数群を呼び出すことでシステムに作用し、外部システムとの連携・操作が可能です。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-10"></div>
+                </div>
+                <p>
+                    現代のテストツールでは、これらのエージェントがAIアシスタントとしてワークフローに組み込まれ、ユーザーストーリーや要件をテスト成果物へ変換しながら、テスト分析・設計・実装・実行・レポーティングまでを半自律的に自動化する、継続的でエンドツーエンドなワークフローを実現しています。これはスクリプトベースの実行から、目標駆動・エージェントベースの自動化へのシフトを意味します。
+                </p>
+                <p>
+                    ただし、これらのエージェントもLLM由来のハルシネーション・推論エラー・バイアス（3.1参照）を抱える点は変わりません。自動検証手続きの実装や、重要タスクでは半自律型エージェントの採用によってリスクを緩和できます。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            エージェントに与える「ツール」は最小権限の原則で設計し、重大な判断（本番環境への反映など）が必要なタスクには必ず人手承認のステップ（半自律動作）を残す。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="42-ファインチューニングとllmops">4.2 ファインチューニングとLLMOps</h3>
+                <h4 id="421-ファインチューニングk2">4.2.1 ファインチューニング（K2）</h4>
+                <p>
+                    ファインチューニングとは、事前学習済みの言語モデル（LLMまたはSLM）を、対象データセットでさらに学習させることで特定タスクやドメインに適応させる手法です。これにより、モデルはドメイン固有の知識・語彙を学習し、対象用途での性能・関連性が向上します。
+                </p>
+                <ul>
+                    <li>汎用LLMに特定ドメインの専門的な推論能力や独自語彙を持たせる用途に適する</li>
+                    <li>
+                        計算負荷を抑えたいときはSLMをファインチューニングすることで、LLMと比べ少ない計算リソースで高い性能を狙える
+                    </li>
+                    <li>
+                        例：組織固有のユーザーストーリーとそれに対応するテストケースで学習させ、その組織のテストプロセス・用語に沿った形式でテストケースを生成できるようにする
+                    </li>
+                </ul>
+                <p>
+                    ファインチューニングの課題としては、高品質でタスク特化型の学習データセットを用いて偏りや不正確さを避けることなどが挙げられます。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            ファインチューニングはRAG（4.1.2）と競合する手段ではなく補完関係にある。「知識の更新頻度が高い」場合はRAG、「振る舞い・出力形式・語彙をドメインに合わせて恒久的に変えたい」場合はファインチューニング、と使い分けの軸を持つとよい。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="422-llmops生成aiの運用化k2">4.2.2 LLMOps：生成AIの運用化（K2）</h4>
+                <p>
+                    LLMOpsとは、テスト業務でLLMを運用に乗せる際の一連の実践であり、MLOps（機械学習の運用）の考え方をLLM特有の課題（プロンプト管理・非決定性・大規模推論コスト・継続的な品質劣化の監視など）に適用したものです。ファインチューニング（4.2.1）と並び、LLM搭載テストインフラを実運用へ乗せるための中核的な実践に位置づけられます。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-11"></div>
+                </div>
+                <p>テスト現場でLLMOpsが対象とする主な活動：</p>
+                <ul>
+                    <li>
+                        <strong>プロンプト・モデルのバージョン管理</strong
+                        >：プロンプトテンプレートやファインチューニング済みモデルを、コードと同様に変更履歴・レビューの対象として管理する
+                    </li>
+                    <li>
+                        <strong>継続的な評価</strong
+                        >：新しいプロンプト・モデルをリリースする前に、2.3.1で紹介した指標（正確性・実行成功率など）による回帰評価を自動実行する
+                    </li>
+                    <li>
+                        <strong>デプロイと統合</strong
+                        >：テスト管理ツールやCI/CDパイプラインへLLM機能を組み込む
+                    </li>
+                    <li>
+                        <strong>本番モニタリング</strong
+                        >：出力品質の劣化、応答レイテンシ、API利用コスト、非決定的挙動による逸脱を継続的に監視する
+                    </li>
+                    <li>
+                        <strong>フィードバックループ</strong
+                        >：モニタリング結果やテスターからのフィードバックを、プロンプト・モデルの改善サイクルへ還元する
+                    </li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            プロンプトの変更は通常のソースコード変更と同様に扱い、レビュー・自動評価・段階的ロールアウトを経てから全面展開する運用を確立する。これにより、非決定性に由来する品質のばらつきを本番投入前に検出しやすくなる。
+                        </p>
+                    </div>
+                </div>
+                <p class="callout-source">
+                    出典：<a
+                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                        >CT-GenAI Syllabus v1.1 第4章</a
+                    >
+                </p>
+                <h2 id="第5章-テスト組織における生成aiの導入と統合80分">
+                    第5章 テスト組織における生成AIの導入と統合（80分）
+                </h2>
+                <p>
+                    <strong>キーワード</strong
+                    >：なし（本章の一般キーワードはシラバス上明記されていません）
+                </p>
+                <p><strong>GenAI固有キーワード</strong>：Shadow AI</p>
+                <h3 id="51-生成ai導入のロードマップ">5.1 生成AI導入のロードマップ</h3>
+                <h4 id="511-shadow-aiのリスクk1">5.1.1 Shadow AIのリスク（K1）</h4>
+                <p>
+                    <strong>Shadow AI</strong>
+                    とは、組織内で正式承認を得ていないAIツールが利用される状態を指します。セキュリティ・コンプライアンス・データプライバシーに関する重大なリスクを伴います。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>リスク領域</th>
+                                <th>内容</th>
+                                <th>例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>情報セキュリティ・データプライバシーの弱点</td>
+                                <td>
+                                    個人利用のAIツールは機微データ保護に必要な堅牢なセキュリティ対策を欠くことが多く、データ漏えいにつながりうる
+                                </td>
+                                <td>
+                                    テスターが未承認のAIチャットボットに顧客情報を含むテストデータを入力し、顧客データ露出のリスクが生じる
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>コンプライアンス・規制上の問題</td>
+                                <td>
+                                    コンプライアンス検証を経ていないAIツールの利用が業界標準・規制への違反を招く
+                                </td>
+                                <td>
+                                    GDPR未対応のAIツールを金融アプリのテストに使用し、規制義務に違反する
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>知的財産の不明確さ</td>
+                                <td>
+                                    ライセンス条件が不明確なAIツールが知的財産紛争のリスクを生む
+                                </td>
+                                <td>
+                                    生成AIが著作権のある学習データを再利用したテストスクリプトを生成し、ライセンス問題を引き起こす
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            Shadow
+                            AIを「取り締まる」だけでなく、承認済みツールへのアクセスを容易にし、明確な利用ガイドラインを周知することで、テスターが未承認ツールに頼る動機自体を減らす。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="512-生成ai戦略の主要側面k2">5.1.2 生成AI戦略の主要側面（K2）</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>側面</th>
+                                <th>内容</th>
+                                <th>例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>測定可能なテスト目標の設定</td>
+                                <td>
+                                    GenAIで達成したいことをSMART（具体的・測定可能・達成可能・関連性・期限付き）な目標として定義
+                                </td>
+                                <td>回帰テスト時間を50%削減する</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>テスト目標とインフラ互換性に合ったLLM選定</td>
+                                <td>
+                                    対象テストタスクに適し、既存インフラとシームレスに統合できるLLMを選ぶ
+                                </td>
+                                <td>—</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>高品質かつ安全でサニタイズされた入力データの確保</td>
+                                <td>入力データが正確・完全・機微情報を含まないことを保証する</td>
+                                <td>—</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>技術的利用法・倫理基準に関する教育の提供</td>
+                                <td>
+                                    チームがGenAIを効果的かつ倫理的に使うための知識・スキルを身につける
+                                </td>
+                                <td>—</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>生成AI出力品質の評価指標の確立</td>
+                                <td>正確性・関連性など出力品質を測る指標を定義（2.3.1参照）</td>
+                                <td>正確性、関連性</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>
+                                    データ利用・透明性・出力レビューに関するプロセスガイドラインの策定
+                                </td>
+                                <td>
+                                    データ利用、透明性、生成出力のレビューに関する明確な指針を確立
+                                </td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="513-テストタスク向けllmslm選定基準k2">
+                    5.1.3 テストタスク向けLLM/SLM選定基準（K2）
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>基準</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>モデル性能</td>
+                                <td>標準ベンチマークを用いて対象テストタスクにおける性能を評価</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ファインチューニング能力</td>
+                                <td>ドメイン固有データでのファインチューニングのしやすさを評価</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>継続コスト</td>
+                                <td>ライセンス費用・APIトークン利用に伴う継続的コストを考慮</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ドキュメント・コミュニティサポートの充実度</td>
+                                <td>十分なドキュメントとコミュニティサポートが存在するか確認</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    例：あるチームがGPT-4・Claude・オープンソースのLLaMA-3をプロンプトによるテスト生成タスクで比較し、予算と結果品質に基づいて最適なモデルを選定する。
+                </p>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            入出力のトークン使用量とタスク実行頻度をベンダー料金と掛け合わせ、継続コストを事前に見積もるハンズオン演習を選定プロセスに組み込むと、導入後の想定外のコスト増を防げる。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="514-生成ai導入のフェーズk1">5.1.4 生成AI導入のフェーズ（K1）</h4>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-12"></div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>フェーズ</th>
+                                <th>内容</th>
+                                <th>例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>Discovery（発見）</td>
+                                <td>
+                                    認知向上・ツールへのアクセス提供・試行的ユースケースの探索に注力
+                                </td>
+                                <td>受け入れ基準生成のサンプルプロンプトを実行してみる</td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>Initiation and Usage Definition（開始と利用定義）</td>
+                                <td>
+                                    具体的なユースケースの特定、テストインフラの評価、目標の整合
+                                </td>
+                                <td>テスト自動化と欠陥トリアージをパイロット領域として選定</td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>Utilization and Iteration（活用と反復）</td>
+                                <td>既存プロセスへのGenAI統合、メトリクスの監視、実装のスケール</td>
+                                <td>CI/CDパイプラインへGenAIを組み込みダッシュボードを整備</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            異なるユースケースはこれらのフェーズを独立して進行しうる点に注意する。あるユースケースがUtilization and Iterationに達していても、別のユースケースはまだDiscoveryかもしれない。また、雇用不安などチームの懸念には早期から向き合い、士気を維持することが導入の成否を左右する。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="52-生成ai導入における変更管理">5.2 生成AI導入における変更管理</h3>
+                <h4 id="521-必要なスキルと知識k2">5.2.1 必要なスキルと知識（K2）</h4>
+                <p>
+                    テスターが生成AIをテストプロセスで効果的に活用するために必要とされる主なスキル領域：
+                </p>
+                <ul>
+                    <li>
+                        <strong>プロンプトエンジニアリングの実践力</strong
+                        >：第2章で扱う6要素構造とコア技法を実務で使いこなす力
+                    </li>
+                    <li>
+                        <strong>出力の批判的評価力</strong
+                        >：生成結果を鵜呑みにせず、ハルシネーション・推論エラー・バイアスを見抜き検証する力（第3章）
+                    </li>
+                    <li>
+                        <strong>AI／データリテラシー</strong
+                        >：LLMの仕組み・限界・非決定性についての基礎理解
+                    </li>
+                    <li>
+                        <strong>テストドメインの専門知識</strong
+                        >：GenAIの出力がテスト目的・品質基準に合致しているかを判断できるドメイン知識
+                    </li>
+                    <li>
+                        <strong>データプライバシー・セキュリティ意識</strong
+                        >：機微データの扱いに関するリスク認識（3.2参照）
+                    </li>
+                </ul>
+                <h4 id="522-テストチームにおける生成ai能力の構築k1">
+                    5.2.2 テストチームにおける生成AI能力の構築（K1）
+                </h4>
+                <ul>
+                    <li>
+                        <strong>技術的利用法・倫理基準に関する教育プログラム</strong
+                        >の整備（5.1.2の戦略要素と連動）
+                    </li>
+                    <li>
+                        <strong
+                            >推進役（チャンピオン）や卓越性センター（Center of
+                            Excellence）の設置</strong
+                        >による知見の集約と横展開
+                    </li>
+                    <li>
+                        <strong>実践コミュニティ（community of practice）の形成</strong
+                        >による経験・プロンプトライブラリの共有
+                    </li>
+                    <li>
+                        <strong>メンタリング・ペアリング</strong
+                        >（メタプロンプティングにおける「AIとのペアリング」的発想をチーム内の人同士の学び合いにも応用）
+                    </li>
+                </ul>
+                <h4 id="523-ai対応テスト組織におけるテストプロセスの進化k1">
+                    5.2.3 AI対応テスト組織におけるテストプロセスの進化（K1）
+                </h4>
+                <p>
+                    生成AIの導入は、単にツールを追加するだけでなく、テストプロセス・役割そのものの再設計を伴います。
+                </p>
+                <ul>
+                    <li>
+                        手動でのテスト実行中心のプロセスから、AIが生成した成果物を<strong>人間が監督・検証する</strong>プロセスへの重心移動
+                    </li>
+                    <li>
+                        スクリプトベースの自動化から、目標駆動・エージェントベースの自動化（第4章）へのシフトに伴う、テスト自動化エンジニアの役割変化
+                    </li>
+                    <li>
+                        プロンプトエンジニアリングやAI出力レビューといった新しいスキルセットの、既存のテスト役割への統合
+                    </li>
+                    <li>
+                        LLMOps（4.2.2）やモデル選定（5.1.3）など、これまでテストチームが直接関与してこなかった運用上の意思決定への関与拡大
+                    </li>
+                </ul>
+                <div class="callout callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            変更管理を「一度きりの研修」で終わらせず、Discovery→Initiation and Usage Definition→Utilization and Iterationの各フェーズに対応した継続的な学習機会と、成功事例の可視化（例：削減できた工数の定量提示）をセットで提供することで、組織全体の定着率を高める。
+                        </p>
+                    </div>
+                </div>
+                <p class="callout-source">
+                    出典：<a
+                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                        >CT-GenAI Syllabus v1.1 第5章</a
+                    >、<a
+                        href="https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4"
+                        >CT-GenAI公式ページ（第5章要約に基づく二次資料）</a
+                    >
+                </p>
+                <h2 id="学習ロードマップと試験対策のポイント">
+                    学習ロードマップと試験対策のポイント
+                </h2>
+                <div class="mermaid-container">
+                    <div class="mermaid-target" id="mermaid-diagram-13"></div>
+                </div>
+                <ul>
+                    <li>
+                        <strong>配点の重心</strong
+                        >：40問46点のうち、プロンプトエンジニアリング（第2章）とリスク管理（第3章）に関連する出題が多くを占めます。特に
+                        K3（適用）レベルの問題は主に第2章の「2.2
+                        プロンプトエンジニアリング技法の適用」に集中しているため、単なる暗記でなく実際にプロンプトを書いて試す学習が有効です。
+                    </li>
+                    <li>
+                        <strong>キーワードの暗記を軽視しない</strong
+                        >：各章冒頭の「GenAI固有キーワード」は学習目標に明記されていなくてもK1（記憶）として出題されます。
+                    </li>
+                    <li>
+                        <strong>表形式の内容は対応関係で覚える</strong
+                        >：プロンプト技法の使い分け（2.2.5）、評価指標（2.3.1）、攻撃ベクトル（3.2.2）、規制・標準（3.4）などの対応表は、単語単位でなく「状況→技法／リスク→対策」という関係性で覚えると応用問題に強くなります。
+                    </li>
+                    <li>
+                        <strong>前提資格を忘れずに</strong>：CT-GenAI受験にはISTQB® CTFL（Foundation
+                        Level）の取得が必須です。
+                    </li>
+                    <li>
+                        <strong>公式サンプル試験の活用</strong
+                        >：公式サイトで配布されているサンプル試験A（問題・解答）で出題形式に慣れておくことを推奨します。
+                    </li>
+                </ul>
+                <h2 id="出典参考資料">出典・参考資料</h2>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header row-header">
+                                <th>資料名</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd row-odd">
+                                <td>ISTQB CT-GenAI 公式認定ページ</td>
+                                <td>
+                                    <a href="https://istqb.org/certifications/gen-ai/"
+                                        >https://istqb.org/certifications/gen-ai/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>CT-GenAI Syllabus v1.1（本ガイドの一次情報源）</td>
+                                <td>
+                                    <a
+                                        href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf"
+                                        >https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>CT-GenAI Syllabus v1.0（比較参照用）</td>
+                                <td>
+                                    <a
+                                        href="https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf"
+                                        >https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>CT-GenAI Sample Exam A（問題）</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=6309"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=6309</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>CT-GenAI Sample Exam A（解答）</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=6301"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=6301</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ISTQB Exam Structures and Rules</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3829"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=3829</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>ISO/IEC 42001:2023（AIマネジメントシステム）</td>
+                                <td>
+                                    <a href="https://www.iso.org/standard/81230.html"
+                                        >https://www.iso.org/standard/81230.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>ISO/IEC 23053:2022（機械学習AIシステムの枠組み）</td>
+                                <td>
+                                    <a href="https://www.iso.org/standard/74438.html"
+                                        >https://www.iso.org/standard/74438.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>EU AI Act（Regulation (EU) 2024/1689）</td>
+                                <td>
+                                    <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+                                        >https://eur-lex.europa.eu/eli/reg/2024/1689/oj</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>NIST AI Risk Management Framework 1.0</td>
+                                <td>
+                                    <a href="https://www.nist.gov/itl/ai-risk-management-framework"
+                                        >https://www.nist.gov/itl/ai-risk-management-framework</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd row-odd">
+                                <td>GDPR（Regulation (EU) 2016/679）</td>
+                                <td>
+                                    <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+                                        >https://eur-lex.europa.eu/eli/reg/2016/679/oj</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even row-even">
+                                <td>第5章ロードマップの理解を補助する二次資料</td>
+                                <td>
+                                    <a
+                                        href="https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4"
+                                        >https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">📝</span><span class="callout-title">注記</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            注：シラバス本文では上記に加え、プロンプト技法（Schulhoff
+                            2024）、LLMバイアス（Gallegos 2024）、非決定性（Shuyin 2023）、RAG（Zhao
+                            2024）、LLM搭載エージェント（Wang 2024）、LLMOps（Mailach
+                            2024）、ファインチューニング（Parthasarathy 2024）、環境影響（Luccioni
+                            2024a/2024b, Heikkilä 2023, Berthelot
+                            2024）などの学術文献・調査記事が参考文献として引用されています（詳細な書誌情報は公式シラバス第6章「References」を参照してください）。
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            (function () {
+                var MERMAID_DIAGRAMS = {
+                    'mermaid-diagram-1': `flowchart LR
+    C1["第1章<br/>生成AI入門<br/>100分"] --> C2["第2章<br/>プロンプト<br/>エンジニアリング<br/>365分"]
+    C2 --> C3["第3章<br/>リスク管理<br/>160分"]
+    C3 --> C4["第4章<br/>LLM搭載<br/>テストインフラ<br/>110分"]
+    C4 --> C5["第5章<br/>導入と統合<br/>80分"]
+
+    classDef ch fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class C1,C2,C3,C4,C5 ch`,
+                    'mermaid-diagram-2': `flowchart TD
+    SP_AI["人工知能（AI）"] --> SP_SYM["記号的AI<br/>ルールベースで人間の意思決定を模倣"]
+    SP_AI --> SP_ML["古典的機械学習<br/>データ準備・特徴量選択・モデル学習が必要"]
+    SP_AI --> SP_DL["深層学習<br/>ニューラルネットワークで特徴量を自動学習"]
+    SP_DL --> SP_GEN["生成AI<br/>深層学習を用いて新しいコンテンツを生成"]
+
+    classDef box fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class SP_SYM,SP_ML,SP_DL,SP_GEN box`,
+                    'mermaid-diagram-3': `flowchart LR
+    TK_IN["入力テキスト"] --> TK_TOK["トークン化<br/>（文字/サブワード単位に分割）"]
+    TK_TOK --> TK_EMB["埋め込み<br/>（高次元ベクトルへ変換）"]
+    TK_EMB --> TK_TRANS["トランスフォーマー<br/>（文脈内のトークン関係を学習）"]
+    TK_TRANS --> TK_OUT["次トークン予測 → 応答生成"]
+
+    classDef step fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class TK_TOK,TK_EMB,TK_TRANS step`,
+                    'mermaid-diagram-4': `flowchart LR
+    LT_F["基盤LLM<br/>（Foundation）<br/>汎用的な事前学習のみ"] --> LT_I["指示チューニング済みLLM<br/>（Instruction-tuned）<br/>指示追従性を強化"]
+    LT_I --> LT_R["推論LLM<br/>（Reasoning）<br/>多段階推論・思考の連鎖を強化"]
+
+    classDef stage fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class LT_F,LT_I,LT_R stage`,
+                    'mermaid-diagram-5': `flowchart TD
+    PS_P["構造化プロンプト"] --> PS_ROLE["Role（役割）<br/>LLMに取らせる視点・ペルソナ"]
+    PS_P --> PS_CTX["Context（文脈）<br/>テスト対象・機能の背景情報"]
+    PS_P --> PS_INS["Instruction（指示）<br/>実行すべき具体的タスク"]
+    PS_P --> PS_DATA["Input data（入力データ）<br/>ユーザーストーリー・画面・コード等"]
+    PS_P --> PS_CON["Constraints（制約）<br/>遵守すべき制限事項"]
+    PS_P --> PS_FMT["Output format（出力形式）<br/>期待する応答の形式・構造"]
+
+    classDef el fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class PS_ROLE,PS_CTX,PS_INS,PS_DATA,PS_CON,PS_FMT el`,
+                    'mermaid-diagram-6': `flowchart LR
+    PC_S1["ステップ1のプロンプト"] --> PC_V1{人手/自動<br/>で検証}
+    PC_V1 -->|OK| PC_S2["ステップ2のプロンプト<br/>（前段の結果を利用）"]
+    PC_V1 -->|NG| PC_S1
+    PC_S2 --> PC_V2{検証}
+    PC_V2 -->|OK| PC_S3["ステップ3のプロンプト"]
+    PC_V2 -->|NG| PC_S2
+
+    classDef step fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    classDef gate fill:#fef3c7,stroke:#b45309,color:#0f172a
+    class PC_S1,PC_S2,PC_S3 step
+    class PC_V1,PC_V2 gate`,
+                    'mermaid-diagram-7': `flowchart TD
+    RK_OUT["LLM出力"] --> RK_HD["ハルシネーション検出"]
+    RK_OUT --> RK_RD["推論エラー検出"]
+    RK_OUT --> RK_BD["バイアス検出"]
+
+    RK_HD --> RK_HD1["クロス検証：既存文書・既知の挙動と照合"]
+    RK_HD --> RK_HD2["ドメイン専門家によるレビュー"]
+    RK_HD --> RK_HD3["一貫性チェック：出力同士の整合性確認"]
+
+    RK_RD --> RK_RD1["論理検証：一貫性・論理構造のレビュー"]
+    RK_RD --> RK_RD2["出力テスト：生成物を実際に実行して結果確認"]
+
+    RK_BD --> RK_BD1["生成テストウェアが定義済みのテスト戦略・カバレッジ要件を公平に反映しているか確認"]
+    RK_BD --> RK_BD2["非機能テストの過小生成など、テスト種別の偏りを評価"]
+
+    classDef cat fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    classDef method fill:#f1f5f9,stroke:#334155,color:#0f172a
+    class RK_HD,RK_RD,RK_BD cat
+    class RK_HD1,RK_HD2,RK_HD3,RK_RD1,RK_RD2,RK_BD1,RK_BD2 method`,
+                    'mermaid-diagram-8': `flowchart LR
+    subgraph AR_FE["フロントエンド"]
+        AR_UI["テスターが<br/>クエリ/コマンドを入力"]
+    end
+
+    subgraph AR_BE["バックエンド"]
+        AR_AUTH["認証"]
+        AR_RET["データ取得"]
+        AR_PREP["プロンプト準備"]
+        AR_POST["後処理<br/>（テスト条件との整合確認）"]
+    end
+
+    subgraph AR_DATA["データソース"]
+        AR_RDB["リレーショナルDB<br/>（テストケース等の構造化データ）"]
+        AR_VDB["ベクトルDB<br/>（埋め込みによる意味検索）"]
+    end
+
+    AR_LLM["LLM<br/>（サードパーティAPI／自社ホスト）"]
+
+    AR_UI --> AR_AUTH --> AR_RET --> AR_PREP --> AR_LLM
+    AR_RET <--> AR_RDB
+    AR_RET <--> AR_VDB
+    AR_LLM --> AR_POST --> AR_UI
+
+    classDef fe fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    classDef be fill:#f1f5f9,stroke:#334155,color:#0f172a
+    classDef data fill:#fef3c7,stroke:#b45309,color:#0f172a
+    classDef llm fill:#dcfce7,stroke:#15803d,color:#0f172a
+    class AR_UI fe
+    class AR_AUTH,AR_RET,AR_PREP,AR_POST be
+    class AR_RDB,AR_VDB data
+    class AR_LLM llm`,
+                    'mermaid-diagram-9': `flowchart TD
+    RAG_DOC["大規模文書"] --> RAG_CHUNK["チャンク分割<br/>（例：256〜512トークン）"]
+    RAG_CHUNK --> RAG_ENC["埋め込みへエンコード"]
+    RAG_ENC --> RAG_VDB[("ベクトルデータベース")]
+
+    RAG_Q["ユーザークエリ"] --> RAG_QENC["クエリを埋め込みへエンコード"]
+    RAG_QENC --> RAG_SEARCH["意味的類似度に基づく検索"]
+    RAG_VDB --> RAG_SEARCH
+    RAG_SEARCH --> RAG_CTX["関連チャンクを文脈として取得"]
+    RAG_CTX --> RAG_GEN["LLMによる根拠に基づく応答生成"]
+
+    classDef prep fill:#f1f5f9,stroke:#334155,color:#0f172a
+    classDef runtime fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class RAG_DOC,RAG_CHUNK,RAG_ENC prep
+    class RAG_Q,RAG_QENC,RAG_SEARCH,RAG_CTX,RAG_GEN runtime`,
+                    'mermaid-diagram-10': `flowchart LR
+    AG_A["LLM搭載エージェント"] --> AG_AUT["自律型エージェント<br/>最小限の人手介入で独立動作<br/>（ルール・強化学習・適応フィードバック）"]
+    AG_A --> AG_SEMI["半自律型エージェント<br/>定期的な人手監視のもとで動作"]
+    AG_AUT --> AG_MULTI["マルチエージェント構成<br/>複数の専門化されたエージェントが<br/>連携・協調（オーケストレーション）"]
+    AG_SEMI --> AG_MULTI
+
+    classDef box fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class AG_AUT,AG_SEMI,AG_MULTI box`,
+                    'mermaid-diagram-11': `flowchart LR
+    OP_DEV["プロンプト/モデルの<br/>開発・改善"] --> OP_VER["バージョン管理<br/>（プロンプト・モデル・評価データセット）"]
+    OP_VER --> OP_EVAL["自動評価<br/>（2.3.1の指標で品質ゲート）"]
+    OP_EVAL --> OP_DEPLOY["デプロイ<br/>（テストツールへの組み込み）"]
+    OP_DEPLOY --> OP_MON["本番モニタリング<br/>（出力品質・コスト・レイテンシ・逸脱検知）"]
+    OP_MON --> OP_DEV
+
+    classDef step fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class OP_DEV,OP_VER,OP_EVAL,OP_DEPLOY,OP_MON step`,
+                    'mermaid-diagram-12': `flowchart LR
+    PH_D["Discovery<br/>（発見）<br/>認知向上・ツールへの<br/>アクセス提供・試行"] --> PH_I["Initiation and Usage Definition<br/>（開始と利用定義）<br/>ユースケース特定・<br/>テストインフラ評価・目標整合"]
+    PH_I --> PH_U["Utilization and Iteration<br/>（活用と反復）<br/>既存プロセスへの統合・<br/>メトリクス監視・スケール"]
+
+    classDef phase fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class PH_D,PH_I,PH_U phase`,
+                    'mermaid-diagram-13': `flowchart TD
+    RM_W1["Week 1<br/>第1章・第4章<br/>（基礎概念・K1/K2中心）"] --> RM_W2["Week 2<br/>第2章<br/>（プロンプト技法・K3の実践演習）"]
+    RM_W2 --> RM_W3["Week 3<br/>第3章・第5章<br/>（リスクと組織導入・K1/K2）"]
+    RM_W3 --> RM_MOCK["模擬試験<br/>サンプル試験Aで実力確認"]
+
+    classDef wk fill:#eaf1ff,stroke:#1a56db,color:#0f172a
+    class RM_W1,RM_W2,RM_W3,RM_MOCK wk`,
+                };
+
+                function initMermaidDiagrams() {
+                    if (typeof mermaid === 'undefined') {
+                        return;
+                    }
+                    try {
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            theme: 'base',
+                            securityLevel: 'loose',
+                            flowchart: {
+                                useMaxWidth: false,
+                                htmlLabels: true,
+                                subGraphTitleMargin: { top: 12, bottom: 18 },
+                                nodeSpacing: 60,
+                                rankSpacing: 60,
+                            },
+                            themeVariables: {
+                                fontSize: '16px',
+                                fontFamily:
+                                    '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                                primaryColor: '#eff6ff',
+                                primaryTextColor: '#0f172a',
+                                primaryBorderColor: '#2563eb',
+                                lineColor: '#94a3b8',
+                                secondaryColor: '#f1f5f9',
+                                tertiaryColor: '#f1f5f9',
+                                background: '#ffffff',
+                                mainBkg: '#eff6ff',
+                                clusterBkg: '#f1f5f9',
+                                clusterBorder: '#cbd5e1',
+                                edgeLabelBackground: '#ffffff',
+                            },
+                        });
+                    } catch (e) {
+                        console.error('mermaid.initialize failed', e);
+                        return;
+                    }
+
+                    Object.keys(MERMAID_DIAGRAMS).forEach(function (id) {
+                        var target = document.getElementById(id);
+                        if (!target) return;
+                        var source = MERMAID_DIAGRAMS[id];
+                        try {
+                            mermaid
+                                .render(id + '-svg', source)
+                                .then(function (result) {
+                                    target.innerHTML = result.svg;
+                                })
+                                .catch(function (err) {
+                                    target.innerHTML =
+                                        '<div class="mermaid-error">図の描画に失敗しました: ' +
+                                        (err && err.message ? err.message : err) +
+                                        '</div>';
+                                    console.error('mermaid render failed for', id, err);
+                                });
+                        } catch (err) {
+                            target.innerHTML =
+                                '<div class="mermaid-error">図の描画に失敗しました: ' +
+                                (err && err.message ? err.message : err) +
+                                '</div>';
+                            console.error('mermaid render threw for', id, err);
+                        }
+                    });
+                }
+
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(initMermaidDiagrams).catch(initMermaidDiagrams);
+                } else {
+                    initMermaidDiagrams();
+                }
+            })();
+        </script>
+        <script>
+            (function () {
+                var toggle = document.getElementById('sidebarToggle');
+                var sidebar = document.getElementById('sidebar');
+                if (toggle && sidebar) {
+                    toggle.addEventListener('click', function () {
+                        sidebar.classList.toggle('open');
+                    });
+                    sidebar.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' && window.innerWidth <= 880) {
+                            sidebar.classList.remove('open');
+                        }
+                    });
+                }
+
+                var links = Array.prototype.slice.call(
+                    document.querySelectorAll('.nav-h2, .nav-h3'),
+                );
+                var headingIds = [
+                    '0-資格の概要',
+                    '01-試験概要',
+                    '02-ビジネスアウトカム合格者が到達すべき状態',
+                    '03-認知レベルk-レベル',
+                    '04-章構成と学習時間',
+                    '第1章-ソフトウェアテストにおける生成ai入門100分',
+                    '11-生成aiの基礎と主要概念',
+                    '12-ソフトウェアテストにおける生成ai活用の基本原則',
+                    '第2章-効果的なソフトウェアテストのためのプロンプトエンジニアリング365分',
+                    '21-効果的なプロンプト開発',
+                    '22-プロンプトエンジニアリング技法の適用k3',
+                    '23-生成ai結果の評価とプロンプトの改善',
+                    '第3章-ソフトウェアテストにおける生成aiのリスク管理160分',
+                    '31-ハルシネーション推論エラーバイアス',
+                    '32-データプライバシーとセキュリティリスク',
+                    '33-エネルギー消費と環境影響',
+                    '34-ai規制標準ベストプラクティスフレームワークk1',
+                    '第4章-ソフトウェアテストのためのllm搭載テストインフラ110分',
+                    '41-llm搭載テストインフラのアーキテクチャアプローチ',
+                    '42-ファインチューニングとllmops',
+                    '第5章-テスト組織における生成aiの導入と統合80分',
+                    '51-生成ai導入のロードマップ',
+                    '52-生成ai導入における変更管理',
+                    '学習ロードマップと試験対策のポイント',
+                    '出典参考資料',
+                ];
+                var headings = headingIds
+                    .map(function (id) {
+                        return document.getElementById(id);
+                    })
+                    .filter(Boolean);
+
+                function setActive(id) {
+                    links.forEach(function (a) {
+                        a.classList.toggle('active', a.getAttribute('data-target') === id);
+                    });
+                }
+
+                if ('IntersectionObserver' in window && headings.length) {
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                if (entry.isIntersecting) {
+                                    setActive(entry.target.id);
+                                }
+                            });
+                        },
+                        { rootMargin: '-15% 0px -75% 0px', threshold: 0 },
+                    );
+                    headings.forEach(function (h) {
+                        observer.observe(h);
+                    });
+                }
+            })();
+        </script>
+    </body>
+</html>

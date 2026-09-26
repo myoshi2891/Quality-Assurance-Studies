@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド</title>
+        <style>
+            :root {
+                --bg: #f8fafc;
+                --card: #ffffff;
+                --card2: #f1f5f9;
+                --border: #e2e8f0;
+                --text: #0f172a;
+                --text-dim: #475569;
+                --accent: #2563eb;
+                --accent-dark: #1d4ed8;
+                --success: #15803d;
+                --success-bg: #f0fdf4;
+                --warning: #b45309;
+                --warning-bg: #fffbeb;
+                --note-bg: #eff6ff;
+                --sidebar-w: 300px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+                    'Noto Sans JP', 'Yu Gothic', sans-serif;
+                line-height: 1.85;
+                font-size: 16px;
+            }
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-w);
+                background: var(--card);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 28px 0 40px;
+                z-index: 50;
+            }
+            .sidebar-header {
+                padding: 0 24px 20px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 12px;
+            }
+            .sidebar-header .badge {
+                display: inline-block;
+                background: var(--note-bg);
+                color: var(--accent-dark);
+                font-size: 12px;
+                font-weight: 700;
+                padding: 3px 10px;
+                border-radius: 999px;
+                margin-bottom: 8px;
+            }
+            .sidebar-header h2 {
+                font-size: 15px;
+                margin: 0;
+                color: var(--text);
+                line-height: 1.5;
+            }
+            .nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0 12px;
+            }
+            .nav-list li {
+                margin: 0;
+            }
+            .nav-list a {
+                display: block;
+                color: var(--text-dim);
+                text-decoration: none;
+                padding: 8px 12px;
+                border-radius: 8px;
+                font-size: 14px;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .nav-list .nav-h3 a {
+                padding-left: 26px;
+                font-size: 13px;
+            }
+            .nav-list a:hover {
+                background: var(--card2);
+                color: var(--text);
+            }
+            .nav-list a.active {
+                background: var(--note-bg);
+                color: var(--accent-dark);
+                border-left-color: var(--accent);
+                font-weight: 600;
+            }
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 100;
+                background: var(--accent);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            }
+            .main {
+                margin-left: var(--sidebar-w);
+                padding: 56px 64px 120px;
+            }
+            .hero {
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 32px;
+                margin-bottom: 40px;
+            }
+            .hero .badge {
+                display: inline-block;
+                background: var(--note-bg);
+                color: var(--accent-dark);
+                font-size: 13px;
+                font-weight: 700;
+                padding: 4px 12px;
+                border-radius: 999px;
+                margin-bottom: 16px;
+            }
+            .hero h1 {
+                font-size: 34px;
+                line-height: 1.4;
+                margin: 0 0 16px;
+                color: var(--text);
+            }
+            .hero p {
+                font-size: 16px;
+                color: var(--text-dim);
+                margin: 0;
+                max-width: 900px;
+            }
+            h2 {
+                font-size: 26px;
+                margin: 56px 0 20px;
+                padding-top: 8px;
+                color: var(--text);
+                border-bottom: 2px solid var(--border);
+                padding-bottom: 12px;
+            }
+            h3 {
+                font-size: 20px;
+                margin: 40px 0 16px;
+                color: var(--accent-dark);
+            }
+            h4 {
+                font-size: 16px;
+                margin: 28px 0 12px;
+                color: var(--text);
+            }
+            .main p,
+            .main ul,
+            .main ol {
+                color: var(--text);
+            }
+            .main ul,
+            .main ol {
+                padding-left: 1.4em;
+            }
+            .main li {
+                margin: 6px 0;
+            }
+            strong {
+                color: var(--text);
+                font-weight: 700;
+            }
+            a {
+                color: var(--accent);
+            }
+            a:hover {
+                color: var(--accent-dark);
+            }
+
+            .table-scroll {
+                overflow-x: auto;
+                margin: 20px 0 28px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 520px;
+                font-size: 14.5px;
+            }
+            table thead tr {
+                background: var(--card2);
+            }
+            table th {
+                text-align: left;
+                padding: 12px 16px;
+                font-weight: 700;
+                color: var(--text);
+                border-bottom: 2px solid var(--border);
+                white-space: nowrap;
+            }
+            table td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            table tr.odd td {
+                background: var(--card);
+            }
+            table tr.even td {
+                background: var(--card2);
+            }
+
+            .callout-practice,
+            .callout-note {
+                border-radius: 12px;
+                padding: 20px 24px;
+                margin: 24px 0;
+                border: 1px solid var(--border);
+            }
+            .callout-practice {
+                background: var(--success-bg);
+                border-color: #bbf7d0;
+            }
+            .callout-note {
+                background: var(--note-bg);
+                border-color: #bfdbfe;
+            }
+            .callout-label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 700;
+                margin-bottom: 10px;
+                font-size: 15px;
+            }
+            .callout-practice .callout-label {
+                color: var(--success);
+            }
+            .callout-note .callout-label {
+                color: var(--accent-dark);
+            }
+            .callout-icon {
+                font-size: 18px;
+            }
+            .callout-body ul {
+                margin: 6px 0 0;
+                padding-left: 1.3em;
+            }
+            .callout-body p {
+                margin: 0;
+            }
+            .callout-body li {
+                margin: 6px 0;
+                color: var(--text);
+            }
+
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+                margin: 20px 0;
+            }
+            .ref-card {
+                display: flex;
+                gap: 14px;
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 16px 18px;
+                min-width: 0;
+            }
+            .ref-badge {
+                flex-shrink: 0;
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: var(--accent);
+                color: #fff;
+                font-size: 13px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .ref-content {
+                font-size: 14px;
+                color: var(--text-dim);
+                min-width: 0;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+            .ref-content strong {
+                display: block;
+                color: var(--text);
+                margin-bottom: 4px;
+            }
+            .ref-content a {
+                display: inline-block;
+                margin-top: 4px;
+                font-size: 13.5px;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+
+            .mermaid-container {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 28px 0;
+                padding: 12px 0;
+            }
+            .mermaid-container svg {
+                flex-shrink: 0;
+            }
+            .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            .mermaid-error {
+                color: #b91c1c;
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 13px;
+                font-family: monospace;
+            }
+
+            code:not(pre code) {
+                background: var(--card2);
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 14px;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+
+            hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 40px 0;
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    width: 82vw;
+                    max-width: 320px;
+                    box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .sidebar-toggle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 80px 22px 100px;
+                }
+                .hero h1 {
+                    font-size: 26px;
+                }
+                .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            html,
+            body {
+                overflow-x: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="メニューを開く">☰</button>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <span class="badge">CT-GenAI</span>
+                    <h2>第1章：生成AI入門</h2>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-h2">
+                        <a href="#この章の位置づけと全体像" data-target="この章の位置づけと全体像"
+                            >この章の位置づけと全体像</a
+                        >
+                    </li>
+                    <li class="nav-h2">
+                        <a href="#学習目標一覧" data-target="学習目標一覧">学習目標一覧</a>
+                    </li>
+                    <li class="nav-h2">
+                        <a href="#重要キーワード一覧" data-target="重要キーワード一覧"
+                            >重要キーワード一覧</a
+                        >
+                    </li>
+                    <li class="nav-h2">
+                        <a href="#11-生成aiの基礎と主要概念" data-target="11-生成aiの基礎と主要概念"
+                            >1.1 生成AIの基礎と主要概念</a
+                        >
+                    </li>
+                    <li class="nav-h3">
+                        <a
+                            href="#111-aiの系譜記号的ai古典的機械学習深層学習生成ai"
+                            data-target="111-aiの系譜記号的ai古典的機械学習深層学習生成ai"
+                            >1.1.1 AIの系譜：記号的AI・古典的機械学習・深層学習・生成AI</a
+                        >
+                    </li>
+                    <li class="nav-h3">
+                        <a href="#112-生成aiとllmの基礎" data-target="112-生成aiとllmの基礎"
+                            >1.1.2 生成AIとLLMの基礎</a
+                        >
+                    </li>
+                    <li class="nav-h3">
+                        <a
+                            href="#113-基盤llm指示チューニング済みllm推論llm"
+                            data-target="113-基盤llm指示チューニング済みllm推論llm"
+                            >1.1.3 基盤LLM・指示チューニング済みLLM・推論LLM</a
+                        >
+                    </li>
+                    <li class="nav-h3">
+                        <a
+                            href="#114-マルチモーダルllmとvision-language-model"
+                            data-target="114-マルチモーダルllmとvision-language-model"
+                            >1.1.4 マルチモーダルLLMとVision-Language Model</a
+                        >
+                    </li>
+                    <li class="nav-h2">
+                        <a
+                            href="#12-ソフトウェアテストにおける生成ai活用の原則"
+                            data-target="12-ソフトウェアテストにおける生成ai活用の原則"
+                            >1.2 ソフトウェアテストにおける生成AI活用の原則</a
+                        >
+                    </li>
+                    <li class="nav-h3">
+                        <a
+                            href="#121-テストタスクにおけるllmの主要能力"
+                            data-target="121-テストタスクにおけるllmの主要能力"
+                            >1.2.1 テストタスクにおけるLLMの主要能力</a
+                        >
+                    </li>
+                    <li class="nav-h3">
+                        <a
+                            href="#122-aiチャットボットとllm搭載テストアプリケーション"
+                            data-target="122-aiチャットボットとllm搭載テストアプリケーション"
+                            >1.2.2 AIチャットボットとLLM搭載テストアプリケーション</a
+                        >
+                    </li>
+                    <li class="nav-h2">
+                        <a href="#章のまとめ" data-target="章のまとめ">章のまとめ</a>
+                    </li>
+                    <li class="nav-h2">
+                        <a href="#出典参考文献" data-target="出典参考文献">出典・参考文献</a>
+                    </li>
+                </ul>
+            </nav>
+            <main class="main">
+                <div class="hero">
+                    <span class="badge">ISTQB® Certified Tester – Testing with Generative AI</span>
+                    <h1>CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド</h1>
+                    <p>
+                        本ガイドは ISTQB® Certified Tester – Testing with Generative
+                        AI（CT-GenAI）シラバスの 第1章「Introduction to Generative AI for Software
+                        Testing
+                        」を、初学者向けに独自の言葉で解説したものです。シラバス原文の逐語的な引用ではなく、内容を咀嚼した解説となっています。試験対策には必ず巻末の出典に記載した公式シラバス原文も併せてご確認ください。
+                    </p>
+                </div>
+
+                <h2 id="この章の位置づけと全体像">この章の位置づけと全体像</h2>
+                <p>
+                    CT-GenAI試験は、ISTQB® Certified Tester Foundation
+                    Level（CTFL）取得を前提資格とするスペシャリストレベルの認定です。試験は<strong>40問・合計46点・合格ライン30点（65%）・制限時間60分</strong>（非母語受験者は+25%）で構成されており、全5章のうち、この第1章はシラバス全体（約13.6時間）の中で<strong>100分</strong>が割り当てられた「導入」にあたる章です。
+                </p>
+                <p>第1章は大きく2つの節から構成されています。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>節</th>
+                                <th>タイトル</th>
+                                <th>内容の要旨</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1.1</td>
+                                <td>生成AIの基礎と主要概念</td>
+                                <td>
+                                    AIの分類、LLMの仕組み（トークン化・埋め込み・Transformer）、LLMの種類、マルチモーダルLLM
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>1.2</td>
+                                <td>ソフトウェアテストにおける生成AI活用の原則</td>
+                                <td>
+                                    テストタスクにおけるLLMの能力、AIチャットボットとLLM搭載アプリケーションの違い
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    この章を理解することは、第2章（プロンプトエンジニアリング）、第3章（リスク管理）、第4章（LLM搭載テスト基盤）を学ぶための土台になります。特に「トークン化」「コンテキストウィンドウ」「非決定性」といった概念は、後続の章で繰り返し登場する重要な基礎知識です。
+                </p>
+                <h2 id="学習目標一覧">学習目標一覧</h2>
+                <p>
+                    CT-GenAI試験では、各学習目標（Learning
+                    Objective）に認知レベル（K1〜K3）が付与されています。K1は「記憶」、K2は「理解」、K3は「応用」を意味します。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>認知レベル</th>
+                                <th>学習目標の要旨</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>GenAI-1.1.1</td>
+                                <td>K1（記憶）</td>
+                                <td>
+                                    記号的AI・古典的機械学習・深層学習・生成AIという異なるAIの種類を思い出せる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>GenAI-1.1.2</td>
+                                <td>K2（理解）</td>
+                                <td>生成AIと大規模言語モデル（LLM）の基礎を説明できる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>HO-1.1.2</td>
+                                <td>H1（実践演習）</td>
+                                <td>LLM使用時のトークン化とトークン数評価を実践する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>GenAI-1.1.3</td>
+                                <td>K2（理解）</td>
+                                <td>基盤LLM・指示チューニング済みLLM・推論LLMを区別できる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>GenAI-1.1.4</td>
+                                <td>K2（理解）</td>
+                                <td>
+                                    テストタスクに対応する所与のプロンプトを、マルチモーダルLLMを用いて作成・実行できる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>HO-1.1.4</td>
+                                <td>H1（実践演習）</td>
+                                <td>
+                                    テキストと画像入力を用いたマルチモーダルLLM向けプロンプトを作成・実行する
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>GenAI-1.2.1</td>
+                                <td>K2（理解）</td>
+                                <td>テストタスクにおけるLLMの主要な能力の例を挙げられる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>GenAI-1.2.2</td>
+                                <td>K2（理解）</td>
+                                <td>
+                                    ソフトウェアテストで生成AIを利用する際の対話モデル（チャットボット/アプリケーション）を比較できる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span
+                        ><span>ベストプラクティス（学習の進め方）</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                K1項目（1.1.1）は用語と分類の暗記が中心なので、まず分類の観点（ルールベースか／データ駆動か／自動特徴抽出か）を整理してから覚えると定着しやすい。
+                            </li>
+                            <li>
+                                K2項目が大半を占めるため、単純暗記よりも「なぜその概念が必要か」「テスト業務のどの場面で使われるか」をセットで理解することが得点に直結する。
+                            </li>
+                            <li>
+                                HO（ハンズオン）項目は本番の試験には直接出題されないが、実際に無料のトークナイザーやチャットボットを触っておくと、K2レベルの理解が格段に深まる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h2 id="重要キーワード一覧">重要キーワード一覧</h2>
+                <p>
+                    シラバスでは、章の冒頭に記載された「Generative AI Specific
+                    Keywords」はK1レベルで暗記すべき用語とされています。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>英語用語</th>
+                                <th>日本語</th>
+                                <th>簡単な説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>generative AI</td>
+                                <td>生成AI</td>
+                                <td>
+                                    学習データのパターンを模倣し、新しいテキスト・画像・コードなどを生成するAI技術
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>large language model (LLM)</td>
+                                <td>大規模言語モデル</td>
+                                <td>大量のテキストデータで事前学習された生成AIモデル</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>machine learning</td>
+                                <td>機械学習</td>
+                                <td>データからパターンを学習する技術全般</td>
+                            </tr>
+                            <tr class="even">
+                                <td>deep learning</td>
+                                <td>深層学習</td>
+                                <td>
+                                    ニューラルネットワークを用いて特徴量を自動的に学習する機械学習の一種
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>symbolic AI</td>
+                                <td>記号的AI</td>
+                                <td>記号と論理規則を用いて知識を表現するルールベースのAI</td>
+                            </tr>
+                            <tr class="even">
+                                <td>feature</td>
+                                <td>特徴量</td>
+                                <td>機械学習モデルが学習に用いるデータの特性・変数</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>generative pre-trained transformer</td>
+                                <td>生成的事前学習済みTransformer</td>
+                                <td>
+                                    LLMの基盤となるTransformerアーキテクチャに基づく事前学習モデル
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>foundation LLM</td>
+                                <td>基盤LLM</td>
+                                <td>多様な大規模データで事前学習された汎用モデル</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>instruction-tuned LLM</td>
+                                <td>指示チューニング済みLLM</td>
+                                <td>指示に従うよう追加調整された基盤LLM</td>
+                            </tr>
+                            <tr class="even">
+                                <td>reasoning LLM</td>
+                                <td>推論LLM</td>
+                                <td>多段階の論理的推論に特化したLLM</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>multimodal model</td>
+                                <td>マルチモーダルモデル</td>
+                                <td>テキスト・画像・音声など複数種類のデータを扱えるモデル</td>
+                            </tr>
+                            <tr class="even">
+                                <td>tokenization</td>
+                                <td>トークン化</td>
+                                <td>テキストをトークンという単位に分割する処理</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>embedding</td>
+                                <td>埋め込み</td>
+                                <td>トークンを意味的関係を表す数値ベクトルに変換したもの</td>
+                            </tr>
+                            <tr class="even">
+                                <td>transformer</td>
+                                <td>Transformer</td>
+                                <td>
+                                    注意機構によりトークン間の関係を学習するニューラルネットワーク構造
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>context window</td>
+                                <td>コンテキストウィンドウ</td>
+                                <td>モデルが一度に考慮できる入力・出力トークンの範囲</td>
+                            </tr>
+                            <tr class="even">
+                                <td>AI chatbot</td>
+                                <td>AIチャットボット</td>
+                                <td>対話形式でLLMとやり取りするインターフェース</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="11-生成aiの基礎と主要概念">1.1 生成AIの基礎と主要概念</h2>
+                <h3 id="111-aiの系譜記号的ai古典的機械学習深層学習生成ai">
+                    1.1.1 AIの系譜：記号的AI・古典的機械学習・深層学習・生成AI
+                </h3>
+                <p>
+                    AI（人工知能）は単一の技術ではなく、問題解決アプローチの異なる複数の技術群の総称です。CT-GenAIシラバスでは、この系譜を4つの段階に整理しています。
+                </p>
+                <ul>
+                    <li>
+                        <strong>記号的AI（Symbolic AI）</strong
+                        >：人間の意思決定を模倣するルールベースのシステムです。知識を記号と論理規則で表現します。IF-THENルールで動作する古典的な専門家システムをイメージすると分かりやすいでしょう。
+                    </li>
+                    <li>
+                        <strong>古典的機械学習（Classical Machine Learning）</strong
+                        >：データ駆動型のアプローチで、データ準備・特徴量選択・モデル学習という工程が必要です。不具合の分類やソフトウェア障害の予測などに使われます。
+                    </li>
+                    <li>
+                        <strong>深層学習（Deep Learning）</strong
+                        >：ニューラルネットワークという構造を用いて、データから特徴量を自動的に学習します。画像・音声・テキストといった大規模で複雑なデータの中からパターンを発見できますが、実務ではデータのアノテーションやモデル調整、結果検証といった人間の関与が依然として必要です。
+                    </li>
+                    <li>
+                        <strong>生成AI（Generative AI）</strong
+                        >：深層学習の技術を応用し、学習データのパターンを模倣・学習することで、テキスト・画像・コードといった<strong>新しいコンテンツ</strong>を生み出します。LLMはこの生成AIの代表例です。
+                    </li>
+                </ul>
+                <p>
+                    これら4つは新しい技術が古い技術を置き換えるものではなく、それぞれ異なる強みと限界を持つ並存的な技術群です。生成AIの最大の利点は、適したテストタスクであれば追加の学習フェーズを経ずに事前学習済みのモデルを適用できる点にあります（ドメイン固有の用途などでは、タスクに応じてファインチューニング等の追加調整が必要になる場合もあります）が、これには相応のリスクも伴います（リスクの詳細は第3章で扱います）。
+                </p>
+                <div class="mermaid-container" id="mermaid-diagram-1"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>種類</th>
+                                <th>アプローチ</th>
+                                <th>必要な工程</th>
+                                <th>ソフトウェアテストでの活用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>記号的AI</td>
+                                <td>ルールベース</td>
+                                <td>論理規則の設計</td>
+                                <td>決定表・状態遷移に基づくルール判定</td>
+                            </tr>
+                            <tr class="even">
+                                <td>古典的機械学習</td>
+                                <td>データ駆動</td>
+                                <td>データ準備・特徴量選択・モデル学習</td>
+                                <td>不具合分類、障害発生確率の予測</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>深層学習</td>
+                                <td>ニューラルネットワーク</td>
+                                <td>大量データでの学習（特徴量は自動抽出）</td>
+                                <td>画像・ログのパターン認識</td>
+                            </tr>
+                            <tr class="even">
+                                <td>生成AI</td>
+                                <td>深層学習の応用</td>
+                                <td>
+                                    事前学習済みモデルの活用（適したタスクでは追加学習なしで適用可。追加調整の要否はタスクに応じる）
+                                </td>
+                                <td>テストケース・スクリプト・レポートの自動生成</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                「なぜ生成AIがテスト業務に向いているか」を説明する際は、<strong>適したタスクでは追加の学習フェーズが不要</strong>という利点を軸に説明すると、他の機械学習手法との違いが明確になる。
+                            </li>
+                            <li>
+                                一方で、事前学習モデルをそのまま使うことは「学習データに起因するリスク（ハルシネーション・バイアスなど）」と表裏一体であることを、活用前に必ずチームで共有しておく。
+                            </li>
+                            <li>
+                                不具合予測や分類のように、明確な正解ラベル付きデータが大量にある場合は、生成AIより古典的機械学習の方が適していることもあるため、タスクの性質を見極めてから技術を選定する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="112-生成aiとllmの基礎">1.1.2 生成AIとLLMの基礎</h3>
+                <p>
+                    大規模言語モデル（LLM）は、書籍・記事・Webサイトなど非常に大規模な言語データで学習されたモデルの総称です。代表例の
+                    Generative Pre-trained
+                    Transformer（GPT）は、トランスフォーマーを基盤とする深層学習モデルの一種です。パラメータ数を絞り、軽量かつ特定用途に特化させたモデルは<strong>小規模言語モデル（SLM</strong>）と呼ばれます。
+                </p>
+                <p>
+                    LLMが言語のニュアンスを扱い、一貫した文章を生成できるのは、<strong>トークン化</strong>と<strong>埋め込み</strong>という2つの仕組みのおかげです。
+                </p>
+                <ul>
+                    <li>
+                        <strong>トークン化（Tokenization）</strong
+                        >：テキストを「トークン」という小さな単位に分解する処理です。トークンは1文字程度の場合もあれば、単語やサブワード単位になることもあります。LLMは入力文をまずトークン化し、全体の文脈を保ちながら各トークンを処理します。
+                    </li>
+                    <li>
+                        <strong>埋め込み（Embedding）</strong
+                        >：トークンを、意味的・構文的・文脈的な関係を表す数値ベクトルに変換したものです。似た意味や役割を持つトークンは、高次元空間上で近い位置に配置されます。これによりLLMは単語同士の関係性を理解し、文脈を保持し、一貫性のある応答を生成できます。
+                    </li>
+                </ul>
+                <p>
+                    LLMは<strong>Transformer</strong>というニューラルネットワーク構造を利用しています。Transformerは長いテキスト列の文脈を処理し、トークン同士の関係を学習することに優れています。推論時にはこの学習済みの関係性を活用し、統計的にもっともらしい次のトークンを予測して文章を生成します。ここで重要なのは、<strong>「統計的にもっともらしい」ことは「正しい」ことを意味しない</strong>という点です。
+                </p>
+                <p>
+                    また、LLMは推論の確率的な性質やハイパーパラメータの設定に起因して<strong>非決定的（non-deterministic</strong>）に振る舞います。つまり、まったく同じ入力を与えても、出力が毎回変わることがあります。
+                </p>
+                <p>
+                    <strong>コンテキストウィンドウ（Context Window</strong
+                    >）とは、LLMが応答生成時に考慮できる、直前のテキスト量（トークン数）の範囲を指します。コンテキストウィンドウが大きいほど、長いテストログの分析のように長い文章の一貫性を保てますが、その分、計算負荷と処理時間も増加します。
+                </p>
+                <div class="mermaid-container" id="mermaid-diagram-2"></div>
+                <h4 id="ハンズオン演習ho-112の狙い">ハンズオン演習（HO-1.1.2）の狙い</h4>
+                <p>
+                    シラバスが推奨する演習は、①テキストを実際にトークナイザーにかけてトークンの区切られ方を観察すること、②異なる長さ・構造の入力文のトークン数を計測し、コンテキストウィンドウの制限や処理効率にどう影響するかを分析すること、の2部構成です。この演習を通じて、入力文の構造や長さがLLMとのやり取りにどう影響するかを体感的に理解できます。
+                </p>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                長いテストログや大量の要件文書をLLMに入力する前に、<strong>概算のトークン数</strong>を確認する習慣をつける。コンテキストウィンドウの上限に近づくほど、処理の一貫性や精度が落ちるリスクがある。
+                            </li>
+                            <li>
+                                日本語は英語に比べて1文字あたりのトークン消費量が多くなりがちなので、日本語プロンプトを設計する際はこの点を考慮し、余裕を持ったトークン見積もりを行う。
+                            </li>
+                            <li>
+                                出力の<strong>非決定性</strong>を前提に、重要なテスト成果物（テストケースやテストオラクルなど）は必ず人手でレビューするプロセスを組み込む。同じプロンプトでも実行のたびに結果が変わり得ることをチームで共有しておく。
+                            </li>
+                            <li>
+                                大量のテキストを一度に処理させるのではなく、コンテキストウィンドウに収まる単位に分割して段階的に処理させることで、精度と再現性を高められる（この考え方は第2章の「プロンプトチェイニング」に発展する）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="113-基盤llm指示チューニング済みllm推論llm">
+                    1.1.3 基盤LLM・指示チューニング済みLLM・推論LLM
+                </h3>
+                <p>
+                    LLMは、段階的に専門性を高める学習プロセスを経て開発されます。この段階に応じて、大きく3つのカテゴリに分類されます。
+                </p>
+                <ul>
+                    <li>
+                        <strong>基盤LLM（Foundation LLM）</strong
+                        >：幅広いテキストデータで事前学習された汎用モデルです。要約・翻訳・質問応答など多様な言語タスクに対応できる柔軟性を持ちますが、強力である一方、特定タスクに適用するにはさらなる調整が必要になることが一般的です（「基盤」は事前学習という開発段階による分類であり、1.1.4
+                        で扱う「マルチモーダル」は入出力のモダリティによる分類です。両者は別の軸なので、画像や音声を扱う基盤LLMも存在します）。
+                    </li>
+                    <li>
+                        <strong>指示チューニング済みLLM（Instruction-tuned LLM）</strong
+                        >：基盤モデルから派生し、「プロンプトと期待される応答」のペアのデータセットで追加調整（ファインチューニング）されたモデルです。これにより人間の指示への追従性が高まり、実世界での使いやすさが向上します。
+                    </li>
+                    <li>
+                        <strong>推論LLM（Reasoning LLM）</strong
+                        >：指示チューニング済みモデルをさらに拡張し、論理的推論・多段階の問題解決・Chain-of-Thought（思考の連鎖）といった構造化された認知能力を強化したモデルです。文脈理解や中間推論ステップ、複雑な情報の統合が求められる高負荷なタスクに適しています。
+                    </li>
+                </ul>
+                <p>
+                    ソフトウェアテストの現場では、指示チューニング済みLLM（「非推論型」と呼ばれることもあります）と推論LLMの両方が利用されており、<strong>タスクの複雑さと推論の必要性に応じて使い分ける</strong>ことが重要です。
+                </p>
+                <div class="mermaid-container" id="mermaid-diagram-3"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>種類</th>
+                                <th>学習方法</th>
+                                <th>強み</th>
+                                <th>テストでの適用イメージ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>基盤LLM</td>
+                                <td>多様な大規模データで事前学習のみ</td>
+                                <td>汎用性が高く多様なタスクに対応できる。特定タスクには追加調整が必要な場合がある</td>
+                                <td>汎用的な文章要約・下書き作成</td>
+                            </tr>
+                            <tr class="even">
+                                <td>指示チューニング済みLLM</td>
+                                <td>プロンプトと期待応答のペアで追加学習</td>
+                                <td>人間の指示に忠実に従う</td>
+                                <td>日常的なテスト業務のチャットボット支援</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>推論LLM</td>
+                                <td>論理推論に特化した追加学習</td>
+                                <td>多段階推論・複数基準の判断が得意</td>
+                                <td>依存関係を考慮したテストケースの優先順位付け</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                単純な文章生成や要約であれば指示チューニング済みLLMで十分なことが多く、推論LLMは計算コストが高い傾向があるため、<strong>タスクの複雑さに見合ったモデルを選ぶ</strong>ことがコストと精度のバランスを取る鍵になる。
+                            </li>
+                            <li>
+                                テスト計画やテストケースの優先順位付けのように、複数のリスク要因や依存関係を同時に考慮する必要があるタスクには推論LLMの活用を検討する。
+                            </li>
+                            <li>
+                                モデルの世代・種類は日々更新されるため、自組織で利用するLLMがどのカテゴリに属するか（あるいはハイブリッドか）を定期的に確認し、選定基準をドキュメント化しておく。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="114-マルチモーダルllmとvision-language-model">
+                    1.1.4 マルチモーダルLLMとVision-Language Model
+                </h3>
+                <p>
+                    マルチモーダルLLMは、従来のTransformerモデルを拡張し、テキストだけでなく画像・音声・動画など複数の種類のデータを処理できるようにしたモデルです。多様なモダリティ間の関係性を学習できるよう、大規模かつ多様なデータセットで学習されています。データ種別ごとにトークン化の方法が異なり、例えば画像はVision-Language
+                    Modelを用いて埋め込みに変換されたうえでTransformerに入力されます。
+                </p>
+                <p>
+                    <strong>Vision-Language Model（VLM</strong
+                    >）はマルチモーダルLLMの一種で、視覚情報とテキスト情報を統合し、画像キャプション生成・視覚的質問応答・テキストと画像の整合性分析といったタスクを実行します。
+                </p>
+                <p>
+                    ソフトウェアテストにおいて、マルチモーダルLLM（特にVLMを組み込んだLLM）は大きな可能性を秘めています。スクリーンショットやGUIワイヤーフレームといった視覚要素を、不具合報告やユーザーストーリーなどの関連するテキスト情報と合わせて分析できるため、<strong>期待結果と実際の画面表示との齟齬をテスターが特定する</strong>ことを支援します。さらに、テキストデータと視覚的な手がかりの両方を組み込んだ、より豊かで現実的なテストケースの生成にも活用でき、全体的なカバレッジの向上につながります。
+                </p>
+                <div class="mermaid-container" id="mermaid-diagram-4"></div>
+                <h4 id="ハンズオン演習ho-114の狙い">ハンズオン演習（HO-1.1.4）の狙い</h4>
+                <p>
+                    シラバスの演習では、与えられた課題に対してテキストと画像の両方を入力とするプロンプトを自分で作成し、実際にマルチモーダルLLMで実行して結果を検証する、という2ステップを踏みます。これにより、テキストと画像を組み合わせたテストタスクにおけるマルチモーダルLLM活用の利点と課題の両方を体感できます。
+                </p>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                GUIのスクリーンショットをLLMに渡す際は、画面キャプチャだけでなく「期待される仕様（テキスト）」もセットで提供すると、差分検出の精度が大きく向上する。
+                            </li>
+                            <li>
+                                個人情報や機密情報が映り込んだスクリーンショットを外部LLMサービスに送信しないよう、事前にマスキング・モザイク処理を行う運用ルールを整備する（データプライバシーの詳細は第3章）。
+                            </li>
+                            <li>
+                                マルチモーダルプロンプトの結果は、テキストのみのプロンプトよりも検証コストが高くなりがちなので、まずは小規模な画面や単純なUIコンポーネントから試し、段階的に対象範囲を広げる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h2 id="12-ソフトウェアテストにおける生成ai活用の原則">
+                    1.2 ソフトウェアテストにおける生成AI活用の原則
+                </h2>
+                <p>
+                    生成AIは、自然言語やコードの処理、一貫した文章・コードの生成、質問応答、情報要約、翻訳、マルチモーダル文脈での画像分析など、テストのさまざまな活動において変革的な能力を提供します。あらゆる役割のテスト専門家は、<strong>AIチャットボット</strong>（即時応答を返す対話型ツール）と、<strong>LLM搭載アプリケーション</strong>（テストツールに統合された仕組み）という2つの補完的な方法で生成AIを活用できます。
+                </p>
+                <h3 id="121-テストタスクにおけるllmの主要能力">
+                    1.2.1 テストタスクにおけるLLMの主要能力
+                </h3>
+                <p>
+                    LLMは要件・仕様書・スクリーンショット・コード・テストケース・不具合報告書といった様々な情報を解釈できるため、テストプロセス全体を通じて情報の理解・明確化やテストウェアの生成を支援するツールとなります。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>LLMの能力</th>
+                                <th>概要</th>
+                                <th>具体例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>要件分析・改善支援</td>
+                                <td>要件やテストベースの曖昧さ・矛盾・不足情報を特定する</td>
+                                <td>ステークホルダーとの議論に向けた確認質問の生成</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストケース作成支援</td>
+                                <td>
+                                    システム要件やユーザーストーリーからテストケース・テスト目的を提案する
+                                </td>
+                                <td>要件に基づくテストケース案の生成</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テストオラクル生成</td>
+                                <td>期待結果の生成を支援する</td>
+                                <td>特定の入力に対する期待される出力の提示</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストデータ生成</td>
+                                <td>
+                                    データセットの生成、境界値の設定、多様なテストデータの組み合わせ作成
+                                </td>
+                                <td>合成テストデータの生成</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト自動化支援</td>
+                                <td>
+                                    テストケース記述からのスクリプト生成、既存スクリプトの改善提案
+                                </td>
+                                <td>適切なテスト技法の提案を含むスクリプト改良</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト結果分析</td>
+                                <td>テスト結果の要約作成、重大度・優先度に基づく異常の分類</td>
+                                <td>実行結果サマリーの自動生成</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テストウェア作成</td>
+                                <td>
+                                    テスト計画書・テストレポート・不具合報告書などの作成と、プロジェクト進行に応じた更新
+                                </td>
+                                <td>プロジェクトの進捗に合わせた文書の自動更新</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    これらの能力はテストプロセス全体（要件分析からテスト完了報告まで）に及ぶ点が重要です。特定の工程だけでなく、複数の工程で組み合わせて活用することで、より大きな効果を発揮します。
+                </p>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                LLMを使ったテストケース生成は「たたき台の作成」として位置づけ、必ず人間のテスターがレビュー・修正してから正式なテストケースとして採用する運用フローを確立する。
+                            </li>
+                            <li>
+                                テストオラクル生成やテストデータ生成のように誤りが後工程に伝播しやすいタスクほど、生成結果を既存の仕様書やテストベースと突き合わせる検証ステップを設ける。
+                            </li>
+                            <li>
+                                各能力（要件分析、テストケース作成、テストデータ生成など）ごとに、自組織でどのLLM能力をどの工程に導入するかをロードマップとして整理しておくと、次章以降のプロンプトエンジニアリングの学習をスムーズに実務へ接続できる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="122-aiチャットボットとllm搭載テストアプリケーション">
+                    1.2.2 AIチャットボットとLLM搭載テストアプリケーション
+                </h3>
+                <p>
+                    AIチャットボットとLLM搭載テストアプリケーションは、どちらもテスターを支援しますが、機能性・柔軟性・統合方法において異なります。
+                </p>
+                <p>
+                    <strong>AIチャットボット</strong
+                    >は、テスターがLLMと直接コミュニケーションを取れる、使いやすい対話型インターフェースを提供します。テスターは質問・コマンド・プロンプトを自然言語で入力し、即座に文脈を踏まえた応答を受け取れます。プロンプトチェイニングのような手法を使えば、テスターは出力を反復的に洗練させることができ、定型的なタスクや探索的テスト、さらには新しいテスターへのオンボーディング（テストの知識・実践への素早いアクセス提供）にも効果的です。直感的なインターフェースは、非技術者を含む幅広い利用者にとってアクセスしやすいという利点もあります。
+                </p>
+                <p>
+                    <strong>LLM搭載テストアプリケーション</strong
+                    >は対照的に、APIを介してLLMの能力を統合し、明確に定義された自動化テストタスクを実行します。これらのアプリケーションはより高いカスタマイズ性とスケーラビリティを備え、組織やツールベンダーが既存のテストフレームワークに生成AIを組み込むことを可能にします。これにより、テストケース生成・不具合分析・テストデータ合成といった、反復的または複雑なタスクの自動化が実現します。より発展した実装では、特定のテスト業務を遂行するために設計されたAIエージェントを組織が構築することもあります（AIエージェントの詳細は第4章）。
+                </p>
+                <p>
+                    テスターがチャットボットを使うか、統合されたLLM搭載アプリケーションを使うかにかかわらず、生成AIをテストにうまく取り入れるには<strong>強力なプロンプトエンジニアリング</strong>が欠かせません。丁寧に設計されたプロンプトと明確で具体的な指示は、LLMが生成する出力の正確性・関連性・テスト目的への適合性を高めます。ただしプロンプト設計だけで出力の正しさが保証されるわけではないため、生成された出力は別途検証が必要です。
+                </p>
+                <div class="mermaid-container" id="mermaid-diagram-5"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>AIチャットボット</th>
+                                <th>LLM搭載テストアプリケーション</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>インターフェース</td>
+                                <td>自然言語による対話形式</td>
+                                <td>API経由の統合・テストフレームワークへの組み込み</td>
+                            </tr>
+                            <tr class="even">
+                                <td>柔軟性</td>
+                                <td>探索的・即興的な利用に強い</td>
+                                <td>定型化・自動化されたタスクに強い</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>対象ユーザー</td>
+                                <td>非技術者でも利用しやすい</td>
+                                <td>開発者・自動化エンジニア向け</td>
+                            </tr>
+                            <tr class="even">
+                                <td>得意な用途</td>
+                                <td>日常的な質問対応、テスト概念の確認、新人のオンボーディング</td>
+                                <td>反復的・定型的なテストタスクの自動化</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>発展の方向性</td>
+                                <td>プロンプトチェイニングによる対話的な出力改善</td>
+                                <td>AIエージェントによる自律的なタスク実行（第4章）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-practice">
+                    <div class="callout-label">
+                        <span class="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                探索的な確認作業や学習目的にはAIチャットボット、CI/CDに組み込むような反復実行が前提の作業にはLLM搭載アプリケーション、というように<strong>タスクの性質に応じて使い分ける</strong>基準をチーム内で明文化する。
+                            </li>
+                            <li>
+                                どちらの方式を使う場合でも、出力品質はプロンプトの設計品質に大きく依存するため、チャットボット利用者にも最低限のプロンプト構造（役割・文脈・指示・入力データ・制約・出力形式）の知識を共有する（第2章で詳説）。
+                            </li>
+                            <li>
+                                LLM搭載アプリケーションを本番のテスト基盤に組み込む際は、API呼び出しのコスト・レイテンシ・可用性も考慮し、チャットボットでの試験運用を経てから段階的に自動化範囲を広げる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h2 id="章のまとめ">章のまとめ</h2>
+                <p>第1章では、生成AIとLLMを理解するための土台となる概念を学びました。</p>
+                <ul>
+                    <li>
+                        AIには記号的AI・古典的機械学習・深層学習・生成AIという異なるアプローチがあり、生成AIは深層学習を応用して新しいコンテンツを作り出す技術である。
+                    </li>
+                    <li>
+                        LLMはトークン化と埋め込みによってテキストを数値表現に変換し、Transformer構造によって文脈を踏まえた応答を生成する。ただし出力は非決定的であり、「もっともらしい」ことと「正しい」ことは異なる。
+                    </li>
+                    <li>
+                        LLMは基盤LLM・指示チューニング済みLLM・推論LLMという段階的な専門化のカテゴリに分類され、タスクの複雑さに応じて使い分けるべきである。
+                    </li>
+                    <li>
+                        マルチモーダルLLM・Vision-Language
+                        Modelはテキストと画像を組み合わせて処理でき、GUIのスクリーンショット分析など、テストにおける新しい可能性を開く。
+                    </li>
+                    <li>
+                        LLMは要件分析からテストウェア作成まで、テストプロセス全体を通じて多様な能力を発揮できる。
+                    </li>
+                    <li>
+                        AIチャットボットとLLM搭載テストアプリケーションはどちらも有効な活用形態であり、それぞれの強みを理解して使い分けることが重要である。いずれの場合も、成果を最大化する鍵はプロンプトエンジニアリング（第2章）にある。
+                    </li>
+                </ul>
+                <h2 id="出典参考文献">出典・参考文献</h2>
+                <p>本ガイドの作成にあたり、以下のISTQB®公式情報を直接確認しました。</p>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <span class="ref-badge">1</span>
+                        <div class="ref-content">
+                            <strong>ISTQB® 公式 CT-GenAI認定ページ</strong
+                            >（起点として指定されたURL）
+                            <a href="https://istqb.org/certifications/gen-ai/"
+                                >istqb.org/certifications/gen-ai</a
+                            >
+                        </div>
+                    </div>
+                    <div class="ref-card">
+                        <span class="ref-badge">2</span>
+                        <div class="ref-content">
+                            <strong>CT-GenAI Syllabus v1.1</strong
+                            >（公式ダウンロードリンク、2026年4月27日改訂版）
+                            <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=6295"
+                                >istqb.org（ダウンロード）</a
+                            >
+                        </div>
+                    </div>
+                    <div class="ref-card">
+                        <span class="ref-badge">3</span>
+                        <div class="ref-content">
+                            <strong>CT-GenAI Syllabus v1.0 全文</strong
+                            >（章立て・学習目標・詳細内容の確認に使用。v1.1でも第1章の構成・学習目標は実質的に変更されていないことを公式ページで確認済み）
+                            <a href="https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf"
+                                >atsqa.org（PDF）</a
+                            >
+                        </div>
+                    </div>
+                    <div class="ref-card">
+                        <span class="ref-badge">4</span>
+                        <div class="ref-content">
+                            <strong>ISTQB® v1.1リリースに関する公式アナウンス</strong
+                            >（v1.0からv1.1への変更点の確認）
+                            <a
+                                href="https://istqb.org/istqb-announces-minor-update-to-certified-tester-testing-with-generative-ai-ct-genai/"
+                                >istqb.org（お知らせ）</a
+                            >
+                        </div>
+                    </div>
+                    <div class="ref-card">
+                        <span class="ref-badge">5</span>
+                        <div class="ref-content">
+                            <strong>ISTQB® Glossary</strong>（用語の正式な定義を確認する際に活用）
+                            <a href="https://glossary.istqb.org/en_US/search?term="
+                                >glossary.istqb.org</a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="callout-note">
+                    <div class="callout-label">
+                        <span class="callout-icon">📌</span><span>補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            v1.1では「few-shot」から「one-shot」への用語更新など、主に第2〜4章に関わる用語・記述の明確化が行われましたが、公式ページに掲載されている第1章の目次構成（1.1
+                            生成AIの基礎と主要概念 / 1.2
+                            ソフトウェアテストにおける生成AI活用の原則）自体に変更はありません。試験直前には、必ず最新版シラバス原文（出典2）で細部の文言を確認してください。
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script id="mermaid-data" type="application/json">
+            {
+                "mermaid-diagram-1": "flowchart TB\n    A1[\"記号的AI<br/>Symbolic AI<br/>ルールベース・記号と論理で<br/>知識を表現\"]\n    A2[\"古典的機械学習<br/>Classical ML<br/>データ準備・特徴量選択・<br/>モデル学習が必要\"]\n    A3[\"深層学習<br/>Deep Learning<br/>ニューラルネットワークで<br/>特徴量を自動抽出\"]\n    A4[\"生成AI<br/>Generative AI<br/>深層学習を応用し<br/>新規コンテンツを生成\"]\n    A1 --> A2 --> A3 --> A4\n    classDef highlight fill:#7c9eff,stroke:#33415c,color:#000,stroke-width:2px\n    class A4 highlight",
+                "mermaid-diagram-2": "flowchart LR\n    B1[\"入力テキスト<br/>(プロンプト)\"] --> B2[\"トークン化<br/>Tokenization\"]\n    B2 --> B3[\"埋め込み<br/>Embedding<br/>(ベクトル化)\"]\n    B3 --> B4[\"Transformer<br/>(注意機構で<br/>トークン間の関係を学習)\"]\n    B4 --> B5[\"次トークン予測<br/>(確率的サンプリング)\"]\n    B5 --> B6[\"生成された<br/>出力テキスト\"]\n    classDef proc fill:#e8f0ff,stroke:#3355aa,color:#000\n    class B2,B3,B4,B5 proc",
+                "mermaid-diagram-3": "flowchart LR\n    C1[\"基盤LLM<br/>Foundation LLM<br/>多様な大規模データで<br/>事前学習された汎用モデル\"]\n    C2[\"指示チューニング済みLLM<br/>Instruction-tuned LLM<br/>指示への追従性を<br/>高める追加学習\"]\n    C3[\"推論LLM<br/>Reasoning LLM<br/>多段階推論・Chain-of-Thought<br/>に特化した追加学習\"]\n    C1 -->|指示データで調整| C2 -->|推論タスクに特化| C3\n    classDef stage1 fill:#fff2cc,stroke:#b38600,color:#000\n    classDef stage2 fill:#d9ead3,stroke:#38761d,color:#000\n    classDef stage3 fill:#cfe2f3,stroke:#1155cc,color:#000\n    class C1 stage1\n    class C2 stage2\n    class C3 stage3",
+                "mermaid-diagram-4": "flowchart TB\n    D1[\"テキスト入力<br/>(要件・不具合報告など)\"] --> D3[\"テキストトークナイザー\"]\n    D2[\"画像入力<br/>(スクリーンショット・<br/>GUIワイヤーフレーム)\"] --> D4[\"Vision-Language Model<br/>による画像エンコード\"]\n    D3 --> D5[\"統合された埋め込み空間\"]\n    D4 --> D5\n    D5 --> D6[\"Transformer<br/>(マルチモーダル処理)\"]\n    D6 --> D7[\"テスト成果物<br/>(差分検出・テストケース生成など)\"]\n    classDef input fill:#f4cccc,stroke:#990000,color:#000\n    class D1,D2 input",
+                "mermaid-diagram-5": "flowchart TB\n    subgraph SG1[\"AIチャットボット型\"]\n        E1[\"テスター\"] --> E2[\"対話型チャットUI\"]\n        E2 --> E3[\"LLM\"]\n        E3 --> E2\n    end\n    subgraph SG2[\"LLM搭載テストアプリケーション型\"]\n        E4[\"テストツール/フレームワーク\"] --> E5[\"API経由の呼び出し\"]\n        E5 --> E6[\"LLM\"]\n        E6 --> E7[\"後処理された<br/>自動化テスト成果物\"]\n    end\n    SG1 ~~~ SG2"
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            (function () {
+                'use strict';
+
+                // ---- sidebar mobile toggle ----
+                var toggle = document.getElementById('sidebarToggle');
+                var sidebar = document.getElementById('sidebar');
+                if (toggle && sidebar) {
+                    toggle.addEventListener('click', function () {
+                        sidebar.classList.toggle('open');
+                    });
+                    sidebar.querySelectorAll('a').forEach(function (a) {
+                        a.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                        });
+                    });
+                }
+
+                // ---- smooth scroll via getElementById (ids may start with a digit / contain
+                //      characters invalid as a bare CSS id-selector, so never use querySelector) ----
+                document.querySelectorAll('.nav-list a').forEach(function (a) {
+                    a.addEventListener('click', function (ev) {
+                        var id = a.getAttribute('data-target');
+                        var target = document.getElementById(id);
+                        if (target) {
+                            ev.preventDefault();
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                });
+
+                // ---- scroll-spy via IntersectionObserver ----
+                try {
+                    var links = Array.prototype.slice.call(
+                        document.querySelectorAll('.nav-list a'),
+                    );
+                    var headings = links
+                        .map(function (a) {
+                            return document.getElementById(a.getAttribute('data-target'));
+                        })
+                        .filter(Boolean);
+
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                if (entry.isIntersecting) {
+                                    var id = entry.target.id;
+                                    links.forEach(function (a) {
+                                        a.classList.remove('active');
+                                    });
+                                    var match = links.find(function (a) {
+                                        return a.getAttribute('data-target') === id;
+                                    });
+                                    if (match) match.classList.add('active');
+                                }
+                            });
+                        },
+                        { rootMargin: '-15% 0px -75% 0px', threshold: 0 },
+                    );
+
+                    headings.forEach(function (h) {
+                        observer.observe(h);
+                    });
+                } catch (e) {
+                    console.error('scroll-spy init failed', e);
+                }
+
+                // ---- mermaid rendering: JS template-literal source, never DOM textContent ----
+                try {
+                    if (typeof mermaid !== 'undefined') {
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            useMaxWidth: false,
+                            theme: 'base',
+                            themeVariables: {
+                                fontSize: '16px',
+                                fontFamily:
+                                    "-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif",
+                                primaryColor: '#eff6ff',
+                                primaryBorderColor: '#93c5fd',
+                                primaryTextColor: '#0f172a',
+                                lineColor: '#94a3b8',
+                                secondaryColor: '#f1f5f9',
+                                tertiaryColor: '#ffffff',
+                                background: '#ffffff',
+                                mainBkg: '#eff6ff',
+                                nodeBorder: '#93c5fd',
+                                clusterBkg: '#f8fafc',
+                                clusterBorder: '#e2e8f0',
+                                edgeLabelBackground: '#ffffff',
+                            },
+                            flowchart: {
+                                useMaxWidth: false,
+                                htmlLabels: true,
+                                subGraphTitleMargin: { top: 12, bottom: 18 },
+                                nodeSpacing: 60,
+                                rankSpacing: 70,
+                            },
+                        });
+
+                        var dataEl = document.getElementById('mermaid-data');
+                        var sources = JSON.parse(dataEl.textContent);
+
+                        Object.keys(sources).forEach(function (id) {
+                            var container = document.getElementById(id);
+                            if (!container) return;
+                            var src = sources[id];
+                            try {
+                                mermaid
+                                    .render(id + '-svg', src)
+                                    .then(function (result) {
+                                        container.innerHTML = result.svg;
+                                    })
+                                    .catch(function (err) {
+                                        container.innerHTML =
+                                            '<div class="mermaid-error">図表の描画に失敗しました: ' +
+                                            (err && err.message ? err.message : err) +
+                                            '</div>';
+                                        console.error('mermaid render error for ' + id, err);
+                                    });
+                            } catch (err) {
+                                container.innerHTML =
+                                    '<div class="mermaid-error">図表の描画に失敗しました: ' +
+                                    (err && err.message ? err.message : err) +
+                                    '</div>';
+                                console.error('mermaid render error for ' + id, err);
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error('mermaid init failed', e);
+                }
+            })();
+        </script>
+    </body>
+</html>

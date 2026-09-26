@@ -194,14 +194,15 @@ bun x markdownlint-cli <file_path>
   # 既知の非個人 CI 作業ルート（GitHub Actions の Linux / macOS ランナー、コンテナアクション、CircleCI）も
   # パスの先頭にある場合だけ除去し、通常のワークスペースパスを誤検出しない（.. が続く場合は上の TRAVERSAL で拒否）
   sed -E -e 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' -e 's#(^|[^A-Za-z0-9._~/-])(/ho[m]e/runner/work/|/[Uu][Ss][Ee][Rr][Ss]/runner/work/|/ho[m]e/circleci/project/|/githu[b]/workspace/)#\1#g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
-  # 既知の接頭辞以外（/workspace/<ユーザー名>/ 等）の独自 POSIX 絶対パスも検出するため、
+  # 既知の接頭辞以外（workspace 直下のユーザー名ディレクトリ等）の独自 POSIX 絶対パスも検出するため、
   # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
   PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # macOS は大文字小文字を区別しないため、Users ディレクトリの小文字表記など大小文字違いの POSIX パスも検出する
   # 実行ユーザー以外のユーザー名を含む POSIX 絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
-  # root のホーム / Linux のリムーバブルメディア / ユーザーごとのランタイムディレクトリ / macOS の外部ボリューム
-  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/]+/|/workspac[e]/[^/[:space:]]+/))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
+  # root のホーム / Linux のリムーバブルメディア / ユーザーごとのランタイムディレクトリ / macOS の外部ボリューム /
+  # ユーザー名ディレクトリを置きがちな非ホームのルート（opt・srv・workspace 直下の任意の名前のディレクトリ）
+  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/]+/|/op[t]/[^/[:space:]\"']+([/\"']|\$)|/sr[v]/[^/[:space:]\"']+([/\"']|\$)|/workspac[e]/[^/[:space:]\"']+([/\"']|\$)))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
   if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi

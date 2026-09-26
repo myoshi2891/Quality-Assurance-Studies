@@ -689,8 +689,8 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    D["Discovery<br/>（発見）<br/>認知向上・ツールへの<br/>アクセス提供・試行"] --> I["Initiation<br/>（開始）<br/>ユースケース特定・<br/>テストインフラ評価・目標整合"]
-    I --> U["Utilization<br/>（活用）<br/>既存プロセスへの統合・<br/>メトリクス監視・スケール"]
+    D["Discovery<br/>（発見）<br/>認知向上・ツールへの<br/>アクセス提供・試行"] --> I["Initiation and Usage Definition<br/>（開始と利用定義）<br/>ユースケース特定・<br/>テストインフラ評価・目標整合"]
+    I --> U["Utilization and Iteration<br/>（活用と反復）<br/>既存プロセスへの統合・<br/>メトリクス監視・スケール"]
 
     classDef phase fill:#eaf1ff,stroke:#1a56db,color:#0f172a
     class D,I,U phase
@@ -699,11 +699,11 @@ flowchart LR
 | フェーズ | 内容 | 例 |
 |---|---|---|
 | Discovery（発見） | 認知向上・ツールへのアクセス提供・試行的ユースケースの探索に注力 | 受け入れ基準生成のサンプルプロンプトを実行してみる |
-| Initiation（開始） | 具体的なユースケースの特定、テストインフラの評価、目標の整合 | テスト自動化と欠陥トリアージをパイロット領域として選定 |
-| Utilization（活用） | 既存プロセスへのGenAI統合、メトリクスの監視、実装のスケール | CI/CDパイプラインへGenAIを組み込みダッシュボードを整備 |
+| Initiation and Usage Definition（開始と利用定義） | 具体的なユースケースの特定、テストインフラの評価、目標の整合 | テスト自動化と欠陥トリアージをパイロット領域として選定 |
+| Utilization and Iteration（活用と反復） | 既存プロセスへのGenAI統合、メトリクスの監視、実装のスケール | CI/CDパイプラインへGenAIを組み込みダッシュボードを整備 |
 
 > 💡 **ベストプラクティス**
-> 異なるユースケースはこれらのフェーズを独立して進行しうる点に注意する。あるユースケースがUtilizationに達していても、別のユースケースはまだDiscoveryかもしれない。また、雇用不安などチームの懸念には早期から向き合い、士気を維持することが導入の成否を左右する。
+> 異なるユースケースはこれらのフェーズを独立して進行しうる点に注意する。あるユースケースがUtilization and Iterationに達していても、別のユースケースはまだDiscoveryかもしれない。また、雇用不安などチームの懸念には早期から向き合い、士気を維持することが導入の成否を左右する。
 
 ### 5.2 生成AI導入における変更管理
 
@@ -734,7 +734,7 @@ flowchart LR
 - LLMOps（4.2.2）やモデル選定（5.1.3）など、これまでテストチームが直接関与してこなかった運用上の意思決定への関与拡大
 
 > 💡 **ベストプラクティス**
-> 変更管理を「一度きりの研修」で終わらせず、Discovery→Initiation→Utilizationの各フェーズに対応した継続的な学習機会と、成功事例の可視化（例：削減できた工数の定量提示）をセットで提供することで、組織全体の定着率を高める。
+> 変更管理を「一度きりの研修」で終わらせず、Discovery→Initiation and Usage Definition→Utilization and Iterationの各フェーズに対応した継続的な学習機会と、成功事例の可視化（例：削減できた工数の定量提示）をセットで提供することで、組織全体の定着率を高める。
 
 出典：[CT-GenAI Syllabus v1.1 第5章](https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf)、[CT-GenAI公式ページ（第5章要約に基づく二次資料）](https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4)
 
