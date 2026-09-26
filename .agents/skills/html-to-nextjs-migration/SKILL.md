@@ -137,11 +137,13 @@ bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 # 呼び出し元でサブシェルの終了コードを捕捉し、失敗時は後続の PII 検査へ進まない
 class_rc=0
 (
-  if grep -n 'class="' app/<page-slug>/page.tsx; then grep_rc=0; else grep_rc=$?; fi
+  # page.tsx だけでなく NavBar.tsx 等を含むページ配下の全 TSX を対象にし、= 前後の空白と単・二重引用符の両方を検出する
+  # 直前を属性名の構成文字以外に限定し、className や data-class を誤検出しない
+  if grep -rnE --include='*.tsx' "(^|[^A-Za-z0-9_-])class[[:space:]]*=[[:space:]]*[\"']" app/<page-slug>; then grep_rc=0; else grep_rc=$?; fi
   case $grep_rc in
     0) echo "❌ class 属性が残っています（className へ変換してください）" >&2; exit 1 ;;
     1) echo "class 属性漏れなし" ;;
-    *) echo "❌ page.tsx を読み取れません" >&2; exit 2 ;;
+    *) echo "❌ app/<page-slug> 配下の TSX を読み取れません" >&2; exit 2 ;;
   esac
 ) || class_rc=$?
 if [ "$class_rc" -ne 0 ]; then
