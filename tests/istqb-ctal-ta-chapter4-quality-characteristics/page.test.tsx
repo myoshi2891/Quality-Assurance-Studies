@@ -98,9 +98,7 @@ describe('CTAL-TA v4.0 Chapter 4 - Category 0: Scaffolding, NavBar & Hero Overvi
         const nav = container.querySelector('nav');
         expect(nav).toBeTruthy();
         const links = nav ? Array.from(nav.querySelectorAll('a')).map((a) => a.getAttribute('href')) : [];
-        expectedHrefs.forEach((href) => {
-            expect(links).toContain(href);
-        });
+        expect(links).toEqual(expectedHrefs);
         expect(links.length).toBe(72);
     });
 
