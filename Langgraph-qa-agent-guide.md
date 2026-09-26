@@ -93,11 +93,11 @@ flowchart TD
     ID --> SE["schema_extraction<br/>スキーマ抽出"]
     SE --> T2C["text_to_cypher<br/>自然言語からCypherへ変換"]
     T2C --> EX["execute_query<br/>クエリ実行"]
-    EX -.->|"エラー かつ retries < 3"| T2C
+    EX -.->|"エラー かつ retries <= 3"| T2C
     EX -.->|"成功 かつ output_type = table"| END1(["END（テーブル表示）"])
     EX -.->|"成功 かつ output_type = graph または map"| SUM["summarize<br/>要約生成"]
     SUM --> END2(["END（要約つきで表示）"])
-    EX -.->|"エラー かつ retries >= 3"| END3(["END（エラー表示）"])
+    EX -.->|"エラー かつ retries > 3"| END3(["END（エラー表示）"])
 ```
 
 実線は「必ずこの順で進む」通常の Edge、点線は「実行結果に応じて動的に切り替わる」Conditional Edge を表しています。このように、正常系だけでなく **失敗した場合にどこへ戻るか** をグラフの構造そのもので表現できることが、LangGraph を使う最大のメリットです。ロジックがコードの奥深くに隠れず、グラフを一目見れば全体の制御フローが把握できます。
@@ -312,6 +312,30 @@ def parse_cypher_response(text: str) -> tuple[str, str]:
         raise ValueError("LLM の応答に cypher がありません")
     return query.strip(), str(data.get("reasoning", ""))
 
+def fetch_selected_node(tx, element_id: str):
+    # element_id はパラメータとして渡し、Cypher 文字列に埋め込まない
+    record = tx.run("MATCH (n) WHERE elementId(n) = $element_id RETURN n", element_id=element_id).single()
+    return record["n"] if record is not None else None
+
+def build_selection_context(selection: dict) -> dict:
+    # UI から届く辞書はクライアント側で書き換えられるため、kind・labels・properties の値を文脈に使わない。
+    # 参照として element_id だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる
+    element_id = selection.get("element_id")
+    if selection.get("kind") != "node" or not isinstance(element_id, str) or not element_id:
+        raise ValueError("選択中のノードの参照が不正です")
+    # driver は Step 7 で定義する読み取り専用ユーザーの共有ドライバ
+    with driver.session() as session:
+        node = session.execute_read(fetch_selected_node, element_id)
+    if node is None:
+        raise ValueError("選択中のノードが見つかりません")
+    # 許可する構造情報は kind・labels・element_id のみ。プロパティは Step 7 の to_summary_dto で SENSITIVE_KEYS の値を伏せる
+    return {
+        "kind": "node",
+        "labels": sorted(node.labels),
+        "element_id": node.element_id,
+        "properties": to_summary_dto(node)["properties"],
+    }
+
 def text_to_cypher(state: AgentState) -> dict:
     selection = state.get("user_selection")
     if selection is not None:
@@ -319,8 +343,8 @@ def text_to_cypher(state: AgentState) -> dict:
         # SUMMARY_LLM_TRANSFER_APPROVED（Step 9）が無効な環境では LLM を呼ばずに送信を拒否する
         if not SUMMARY_LLM_TRANSFER_APPROVED:
             raise PermissionError("外部 LLM への送信が承認されていないため、選択中のノードを含む質問は処理できません")
-        # Step 7 の to_summary_dto で許可された値だけを残し、機微な値を伏せてからプロンプトに含める
-        selection = to_summary_dto(selection)
+        # クライアントの辞書ではなく、Neo4j の実ノードからサーバー側で組み立てた文脈だけをプロンプトに含める
+        selection = build_selection_context(selection)
     prompt = prompt_config.render(
         "text_to_cypher.jinja2",
         question=state["question"],
@@ -339,7 +363,7 @@ def text_to_cypher(state: AgentState) -> dict:
 
 このノードが「選択中のノード」（`user_selection`）と「前回のエラー内容」（`previous_error`）の両方を State から読み取っている点に注目してください。これにより、ユーザーが「選択中の事件に関連する車両を教えて」のような **文脈参照を含む質問** をしても正しくCypherを組み立てられますし、リトライ時には前回の失敗理由をプロンプトに含めて再生成の精度を上げられます。
 
-ただし `user_selection` はグラフ DB から取り出したノードそのものなので、Step 9 のクエリ結果と同じく機微なデータを含み得ます。そのため `to_summary_dto()` で伏せた値だけをプロンプトに渡し、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では LLM を呼ばずに `PermissionError` で処理を止めます。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
+ただし `user_selection` は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した `element_id` だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた `kind`・`labels`・`element_id` と、`to_summary_dto()` で `SENSITIVE_KEYS` の値を伏せたプロパティだけです。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では LLM を呼ばずに `PermissionError` で処理を止めます。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
 
 ### Step 7. Query Execution ノード — 実行してエラーを捕捉する
 
@@ -575,8 +599,8 @@ MAX_RETRIES = 3
 
 def route_after_execution(state: AgentState) -> Literal["retry", "summarize", "end"]:
     if state.get("results_error"):
-        # 上限未満なら再生成、上限に達したらエラーのまま終了（要約には進ませない）
-        return "retry" if state.get("retries", 0) < MAX_RETRIES else "end"
+        # retries は失敗のたびに加算されるため、初回失敗後に MAX_RETRIES 回まで再生成し、超えたらエラーのまま終了（要約には進ませない）
+        return "retry" if state.get("retries", 0) <= MAX_RETRIES else "end"
     if state.get("output_type") in ("graph", "map"):
         return "summarize"
     return "end"
@@ -586,7 +610,7 @@ def route_after_execution(state: AgentState) -> Literal["retry", "summarize", "e
 
 | 条件 | 遷移先 | 意味 |
 |---|---|---|
-| エラーあり かつ リトライ回数 < 3 | `text_to_cypher` へ戻る | エラー内容をプロンプトに含めて再生成を試みる |
+| エラーあり かつ 失敗回数 <= 3（初回失敗後に最大 3 回再試行） | `text_to_cypher` へ戻る | エラー内容をプロンプトに含めて再生成を試みる |
 | 成功 かつ `output_type` が graph／map | `summarize` へ進む | 可視化結果を人間向けの文章に要約する |
 | 成功 かつ `output_type` が table | 終了 | 表はそのまま表示すれば十分なので要約をスキップ |
 | エラーが解消せずリトライ上限に到達 | 終了（エラー表示） | ユーザーに再質問を促す |
