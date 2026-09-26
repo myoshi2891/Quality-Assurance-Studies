@@ -703,7 +703,7 @@ flowchart LR
 | Utilization and Iteration（活用と反復） | 既存プロセスへのGenAI統合、メトリクスの監視、実装のスケール | CI/CDパイプラインへGenAIを組み込みダッシュボードを整備 |
 
 > 💡 **ベストプラクティス**
-> 異なるユースケースはこれらのフェーズを独立して進行しうる点に注意する。あるユースケースがUtilizationに達していても、別のユースケースはまだDiscoveryかもしれない。また、雇用不安などチームの懸念には早期から向き合い、士気を維持することが導入の成否を左右する。
+> 異なるユースケースはこれらのフェーズを独立して進行しうる点に注意する。あるユースケースがUtilization and Iterationに達していても、別のユースケースはまだDiscoveryかもしれない。また、雇用不安などチームの懸念には早期から向き合い、士気を維持することが導入の成否を左右する。
 
 ### 5.2 生成AI導入における変更管理
 
@@ -734,7 +734,7 @@ flowchart LR
 - LLMOps（4.2.2）やモデル選定（5.1.3）など、これまでテストチームが直接関与してこなかった運用上の意思決定への関与拡大
 
 > 💡 **ベストプラクティス**
-> 変更管理を「一度きりの研修」で終わらせず、Discovery→Initiation→Utilizationの各フェーズに対応した継続的な学習機会と、成功事例の可視化（例：削減できた工数の定量提示）をセットで提供することで、組織全体の定着率を高める。
+> 変更管理を「一度きりの研修」で終わらせず、Discovery→Initiation and Usage Definition→Utilization and Iterationの各フェーズに対応した継続的な学習機会と、成功事例の可視化（例：削減できた工数の定量提示）をセットで提供することで、組織全体の定着率を高める。
 
 出典：[CT-GenAI Syllabus v1.1 第5章](https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf)、[CT-GenAI公式ページ（第5章要約に基づく二次資料）](https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4)
 
