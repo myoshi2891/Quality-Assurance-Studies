@@ -175,24 +175,17 @@ export default function NavBar() {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                let entered = false;
-                let left = false;
+                // 通知をすべて反映してから現在位置を 1 回だけ決める（通知順で最後の見出しが勝つのを防ぐ）
                 for (const entry of entries) {
-                    if (!entry.isIntersecting) {
-                        visibleIds.delete(entry.target.id);
-                        left = true;
-                    }
                     if (entry.isIntersecting) {
                         visibleIds.add(entry.target.id);
-                        entered = true;
-                        activate(entry.target.id);
+                    } else {
+                        visibleIds.delete(entry.target.id);
                     }
                 }
-                // 進入がなく離脱のみの場合は、領域内に残る見出しのうち文書順で最初のものを現在位置とする
-                if (!entered && left) {
-                    const current = orderedIds.find((id) => visibleIds.has(id));
-                    if (current) activate(current);
-                }
+                // 領域内に残る見出しのうち文書順で最初のものを現在位置とする。領域が空なら直前の選択を保つ
+                const current = orderedIds.find((id) => visibleIds.has(id));
+                if (current) activate(current);
             },
             { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
         );
