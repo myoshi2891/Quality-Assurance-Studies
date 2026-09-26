@@ -313,11 +313,19 @@ def parse_cypher_response(text: str) -> tuple[str, str]:
     return query.strip(), str(data.get("reasoning", ""))
 
 def text_to_cypher(state: AgentState) -> dict:
+    selection = state.get("user_selection")
+    if selection is not None:
+        # 選択中のノードはグラフ DB 由来の値を含むため、クエリ結果と同じ送信条件を適用する。
+        # SUMMARY_LLM_TRANSFER_APPROVED（Step 9）が無効な環境では LLM を呼ばずに送信を拒否する
+        if not SUMMARY_LLM_TRANSFER_APPROVED:
+            raise PermissionError("外部 LLM への送信が承認されていないため、選択中のノードを含む質問は処理できません")
+        # Step 7 の to_summary_dto で許可された値だけを残し、機微な値を伏せてからプロンプトに含める
+        selection = to_summary_dto(selection)
     prompt = prompt_config.render(
         "text_to_cypher.jinja2",
         question=state["question"],
         schema=state["llm_schema"],
-        selection=state.get("user_selection"),
+        selection=selection,
         previous_error=state.get("results_error"),
     )
     response = llm.invoke(prompt)
@@ -330,6 +338,8 @@ def text_to_cypher(state: AgentState) -> dict:
 ```
 
 このノードが「選択中のノード」（`user_selection`）と「前回のエラー内容」（`previous_error`）の両方を State から読み取っている点に注目してください。これにより、ユーザーが「選択中の事件に関連する車両を教えて」のような **文脈参照を含む質問** をしても正しくCypherを組み立てられますし、リトライ時には前回の失敗理由をプロンプトに含めて再生成の精度を上げられます。
+
+ただし `user_selection` はグラフ DB から取り出したノードそのものなので、Step 9 のクエリ結果と同じく機微なデータを含み得ます。そのため `to_summary_dto()` で伏せた値だけをプロンプトに渡し、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では LLM を呼ばずに `PermissionError` で処理を止めます。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
 
 ### Step 7. Query Execution ノード — 実行してエラーを捕捉する
 
