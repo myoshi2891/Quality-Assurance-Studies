@@ -1,7 +1,7 @@
 # CTAL-TAE v2.0 Chapter 2「Preparing for Test Automation（テスト自動化の準備）」初学者向け解説ガイド
 
 > 対象試験：ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0
-> 本章の試験時間配分：180分／認知レベル：K4（分析）
+> 本章の章別指導時間：180分／認知レベル：K4（分析）
 > 本ガイドは公式シラバスに基づいて作成した学習用の要約・解説であり、公式教材の代替ではありません。
 
 ---

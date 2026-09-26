@@ -1,7 +1,7 @@
 # CTAL-TAE v2.0 Chapter 1「Introduction and Objectives for Test Automation」初学者向け解説ガイド
 
 > 対象試験：ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0
-> 対象章：Chapter 1 - Introduction and Objectives for Test Automation（試験時間配分：45分、認知レベル K2）
+> 対象章：Chapter 1 - Introduction and Objectives for Test Automation（章別指導時間：45分、認知レベル K2）
 > 本ガイドの目的：初学者が Chapter 1 の出題範囲を体系的に理解し、実務で使えるベストプラクティスまで押さえられるようにすること
 
 ---
