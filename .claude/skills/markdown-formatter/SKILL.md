@@ -194,7 +194,7 @@ bun x markdownlint-cli <file_path>
   # 既知の非個人 CI 作業ルート（GitHub Actions の Linux / macOS ランナー、コンテナアクション、CircleCI）も
   # パスの先頭にある場合だけ除去し、通常のワークスペースパスを誤検出しない（.. が続く場合は上の TRAVERSAL で拒否）
   sed -E -e 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' -e 's#(^|[^A-Za-z0-9._~/-])(/ho[m]e/runner/work/|/[Uu][Ss][Ee][Rr][Ss]/runner/work/|/ho[m]e/circleci/project/|/githu[b]/workspace/)#\1#g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
-  # 既知の接頭辞以外（/workspace/<ユーザー名>/ 等）の独自 POSIX 絶対パスも検出するため、
+  # 既知の接頭辞以外（workspace 直下のユーザー名ディレクトリ等）の独自 POSIX 絶対パスも検出するため、
   # 実行ユーザー名をパス区切りで挟んだセグメントも検査する（ユーザー名は ERE 用にエスケープ）
   PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
