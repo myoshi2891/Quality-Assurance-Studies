@@ -185,7 +185,12 @@ export default function NavBar() {
                 }
                 // 領域内に残る見出しのうち文書順で最初のものを現在位置とする。領域が空なら直前の選択を保つ
                 const current = orderedIds.find((id) => visibleIds.has(id));
-                if (current) activate(current);
+                if (current) {
+                    activate(current);
+                } else {
+                    // スクロールイベントより後に交差通知が届いても、ページ最上部なら選択を解除する
+                    handleScroll();
+                }
             },
             { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
         );
