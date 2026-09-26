@@ -203,10 +203,11 @@
             }
 
             .hero-meta {
-                background: var(--card);
-                border: 1px solid var(--border);
-                border-radius: 12px;
-                padding: 18px 22px;
+                background: transparent;
+                border: none;
+                border-top: 1px solid var(--border);
+                padding: 20px 0 0;
+                margin-top: 4px;
                 font-size: 14px;
             }
 
@@ -325,7 +326,11 @@
             }
 
             /* ---------- Callouts ---------- */
-            [class^='callout-'] {
+            .callout-practice,
+            .callout-handson,
+            .callout-warning,
+            .callout-note,
+            .callout-generic {
                 border-radius: 12px;
                 padding: 16px 20px;
                 margin: 0 0 20px;
@@ -343,6 +348,7 @@
 
             .callout-icon {
                 font-size: 16px;
+                line-height: 1;
             }
 
             .callout-body p:last-child,
@@ -2109,14 +2115,6 @@
                         Rules：試験の形式（問題数40問、合格点30/46点＝65%、試験時間60分）の詳細。
                     </li>
                 </ul>
-                <hr />
-                <p>
-                    <em
-                        >本ガイドは学習補助を目的とした要約・解説であり、ISTQB®公式シラバスの著作権はInternational
-                        Software Testing Qualifications
-                        Board（ISTQB®）に帰属します。試験対策の最終判断には、必ず上記リンクから最新の公式シラバス原文をご確認ください。</em
-                    >
-                </p>
 
                 <footer class="page-footer">
                     <p>
