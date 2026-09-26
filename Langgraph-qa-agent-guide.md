@@ -381,6 +381,10 @@ from neo4j.time import Date, DateTime, Duration, Time
 # プロンプトの指示に頼らず、実行時間と返却件数をコード側で強制的に制限する
 QUERY_TIMEOUT_SECONDS = 10
 MAX_RESULT_ROWS = 1000
+# 行数の上限だけでは collect() などの集計が 1 行に巨大なリストを詰めた結果を防げないため、
+# 行の中身（リスト・マップ・プロパティの要素数と文字列の長さ）の合計にも上限を設ける
+MAX_RESULT_ELEMENTS = 50_000
+MAX_RESULT_TEXT_CHARS = 2_000_000
 
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
@@ -425,6 +429,34 @@ def unquote_identifiers(cypher: str) -> str:
 
 class CypherValidationError(Exception):
     pass
+
+class ResultTooLargeError(CypherValidationError):
+    # LIMIT や collect(x)[..100] のように結果を絞れば解消するため、LLM に再生成させる対象として扱う
+    pass
+
+def ensure_payload_within_limits(records: list) -> None:
+    # to_dto() の再帰変換より前に、明示的なスタックで結果全体を 1 回だけ走査して上限を強制する
+    elements = 0
+    text_chars = 0
+    stack: list[Any] = [value for r in records for value in r.values()]
+    while stack:
+        value = stack.pop()
+        elements += 1
+        if isinstance(value, str):
+            text_chars += len(value)
+        elif isinstance(value, Path):
+            stack.extend(value.nodes)
+            stack.extend(value.relationships)
+        elif isinstance(value, (Node, Relationship)):
+            stack.extend(dict(value).values())
+        elif isinstance(value, (list, tuple)):
+            stack.extend(value)
+        elif isinstance(value, dict):
+            stack.extend(value.values())
+        if elements > MAX_RESULT_ELEMENTS or text_chars > MAX_RESULT_TEXT_CHARS:
+            raise ResultTooLargeError(
+                "クエリ結果が大きすぎます。LIMIT を付けるか、collect() の結果を collect(x)[..100] のようにスライスして件数を絞ってください"
+            )
 
 # LLM が Cypher を書き直せば解消し得る ClientError のコード接頭辞（構文・意味の誤りと実行タイムアウト）
 REPAIRABLE_ERROR_PREFIXES = (
@@ -522,6 +554,8 @@ def run_read_query(tx, cypher: str) -> tuple[list[dict], list[dict], bool]:
     # 上限より 1 件多く取り出し、超過の有無で「上限ちょうど」と「切り捨て」を区別する
     records = tx.run(cypher).fetch(MAX_RESULT_ROWS + 1)
     kept = records[:MAX_RESULT_ROWS]
+    # 行数の上限内でも、集計値の中身が大きすぎる結果は変換・State 保存・LLM 送信の前に拒否する
+    ensure_payload_within_limits(kept)
     rows = [{key: to_dto(value) for key, value in r.items()} for r in kept]
     # 列名はエイリアスで付け替えられるため、列の値ごとに実際の型から要約用の値を作る
     summary_rows = [{key: to_summary_dto(value) for key, value in r.items()} for r in kept]
@@ -589,6 +623,8 @@ driver = get_driver()
 State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。`Record.data()` はノードをプロパティの辞書に変換する際にラベルや `element_id` を捨ててしまい、リレーションシップも始点・終点が分からなくなります。そのため `to_dto()` でノードのラベルと `element_id`、リレーションシップの型・始点・終点を明示的に保持してから State に入れます。`Result.graph()` からグラフ表示用のデータを組み立てる場合も、neo4j ドライバのオブジェクトをそのまま State に置かず、checkpoint 保存前に同じ形の辞書へ変換してください。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
 
 `QUERY_TIMEOUT_SECONDS` を超えたクエリはサーバー側で打ち切られ、`ClientError` として LLM に再生成させる対象になります。`MAX_RESULT_ROWS` を超える行は返さないため、可視化や要約に渡すデータ量も上限内に収まります。ただし黙って切り捨てると、利用者は一部の結果を全件と誤解します。そこで上限より 1 件多く取得して超過を `results_truncated` に記録し、要約プロンプト（Step 9）と画面表示（Step 11）の両方で切り捨てを明示します。
+
+行数の上限は外側のレコード数しか制限しません。`RETURN collect(p)` のような集計は 1 行に任意の件数の要素を詰められるため、`ensure_payload_within_limits()` で行の中身の要素数（`MAX_RESULT_ELEMENTS`）と文字列の合計長（`MAX_RESULT_TEXT_CHARS`）も検査し、超過した結果は `to_dto()` で変換する前に `ResultTooLargeError` として拒否します。`CypherValidationError` のサブクラスなので、既存の分岐でエラー内容が LLM に渡り、`LIMIT` や `collect(x)[..100]` で絞った Cypher に再生成されます。なお、この検査はドライバがレコードを受信した後に行うため、State・チェックポイント・LLM に渡すペイロードは制限できますが、受信時のメモリ使用量までは制限しません。受信量そのものを抑えるには、上記のクエリタイムアウトに加えて、DB 側でトランザクションごとのメモリ上限（`db.memory.transaction.max`）を設定してください。
 
 ### Step 8. 条件分岐ルーティング — リトライ・要約・終了を切り替える
 
