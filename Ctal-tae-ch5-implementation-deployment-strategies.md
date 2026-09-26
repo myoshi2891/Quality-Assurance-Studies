@@ -136,7 +136,8 @@ flowchart TB
 #### ① テスト環境設定（Test Environment Configuration）
 
 - パイプライン上の各テスト環境は、URL や認証情報などの**異なる構成**を持つことが多い。
-- 通常、この設定はテストウェアと一緒に保存される。
+- 通常、この設定（URL などの非機密の構成値）はテストウェアと一緒に保存される。
+- ただし、**認証情報の実値はテストウェアや共有リポジトリに保存しない**。設定には参照名（キー）だけを置き、実値は承認済みのシークレット管理機構（CI/CD のシークレットストアや Vault など）から実行時に注入する。
 - ただし、複数プロジェクトや複数の TAF（Test Automation Framework）で共有される場合は、**共通のコアライブラリ**や**共有リポジトリ**の一部として管理することもある。
 
 #### ② テストデータ（Test Data）
@@ -244,7 +245,7 @@ flowchart TB
     Gate1 -->|"Yes"| Deploy["デプロイフェーズ"]
 
     Deploy --> CFG["構成管理から<br/>環境設定・テストデータ<br/>を取得"]
-    CFG --> SysT["システムテスト /<br/>システム統合テスト<br/>（アプローチ①：<br/>デプロイフェーズ内 or<br/>アプローチ②：独立パイプライン）"]
+    CFG --> SysT["システムテスト /<br/>システム統合テスト<br/>（アプローチ①：<br/>デプロイフェーズ内で実行）"]
 
     SysT --> API["APIレベルでは<br/>コントラクトテストで<br/>サービス間整合性を検証"]
 
@@ -252,12 +253,15 @@ flowchart TB
     Gate2 -->|"No"| Fail2["ロールバック<br/>（自動 or 手動）"]
     Gate2 -->|"Yes"| Release["リリース確定"]
 
+    Deploy -->|"デプロイ成功後に起動"| Sep["システムテスト /<br/>システム統合テスト<br/>（アプローチ②：<br/>独立パイプラインで実行）"]
+    Sep --> SepResult["テスト結果を報告<br/>（デプロイの品質ゲート・<br/>ロールバック・リリース判定<br/>には関与しない）"]
+
     classDef processStyle fill:#1e3a5f,stroke:#7c9eff,color:#ffffff
     classDef gateStyle fill:#4a3c1e,stroke:#ffa726,color:#ffffff
     classDef failStyle fill:#4a1e1e,stroke:#ff6b6b,color:#ffffff
     classDef successStyle fill:#1e4620,stroke:#4caf50,color:#ffffff
 
-    class Start,Build,CT,CompT,CIT,Deploy,CFG,SysT,API processStyle
+    class Start,Build,CT,CompT,CIT,Deploy,CFG,SysT,API,Sep,SepResult processStyle
     class Gate1,Gate2 gateStyle
     class Fail1,Fail2 failStyle
     class Release successStyle

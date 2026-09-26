@@ -104,13 +104,13 @@ flowchart TD
     PLAN --> PROTO["複数の初期プロトタイプを作成し比較"]
     PROTO --> TIMELINE["タイムラインを設定し
     定期的に進捗をチェック"]
-    TIMELINE --> RISKCHECK{"リスクは
+    TIMELINE --> CICD["CI/CDへの統合を試みる
+    （問題を早期に発見するため）"]
+    CICD --> RISKCHECK{"リスクは
     発生しているか？"}
     RISKCHECK -->|Yes| MITIGATE["リスクを識別し緩和策を実施"]
     MITIGATE --> TIMELINE
-    RISKCHECK -->|No| CICD["CI/CDへの統合を試みる
-    （問題を早期に発見するため）"]
-    CICD --> NONTECH["非技術面を評価：
+    RISKCHECK -->|No| NONTECH["非技術面を評価：
     チームの知識・経験／
     チーム体制／ライセンスと組織ルール／
     対象テストレベル"]

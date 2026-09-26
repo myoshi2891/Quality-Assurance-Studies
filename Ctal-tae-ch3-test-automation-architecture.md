@@ -2,7 +2,7 @@
 
 > 対象試験：ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0
 > 章の配分時間：210分（学習目標レベル：K3＝適用）
-> 本章はCTAL-TAE試験の中で最も配点比重が高く、実務でも中核となる章です。
+> 本章の試験配点は10点（全66点中）で、実務でも中核となる章です。
 
 ---
 
@@ -83,10 +83,10 @@ flowchart TB
 
     SUT["SUT<br/>(System Under Test)"]
 
-    PM -. プロジェクト管理IF .-> GTAA
-    TM -. テスト管理IF .-> DEF
-    CM -. 構成管理IF .-> EXE
-    ADA -- SUTインターフェース --> SUT
+    PM <-. プロジェクト管理IF .-> GTAA
+    TM <-. テスト管理IF .-> DEF
+    CM <-. 構成管理IF .-> EXE
+    ADA <-- SUTインターフェース --> SUT
 
     classDef ext fill:#f1f5f9,stroke:#64748b,color:#1e293b;
     classDef core fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;
