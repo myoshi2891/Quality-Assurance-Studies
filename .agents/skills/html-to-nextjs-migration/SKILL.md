@@ -177,8 +177,9 @@ else
     # Windows のドライブ絶対パス全般 / macOS の外部ボリューム / WSL のドライブマウント /
     # ユーザー名ディレクトリを置きがちな非ホームのルート（opt・srv・workspace 直下の任意の名前のディレクトリ）
     # 後者はパスの先頭にある場合だけ対象にし、/usr/local 配下の opt 等は誤検出しない（homebrew 等の共有ディレクトリも検出されるため、該当時は目視で判断する）
+# ディレクトリ名の直後で終わるパス（例: "/opt/alice"）も検出するため、終端は / に加えて引用符・行末も境界として扱う
     # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
-    grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/|(^|[^A-Za-z0-9._~/-])/(op[t]|sr[v]|workspac[e])/[^/[:space:]]+/)" "$SCAN"
+    grep -iE "(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\\\[Uu][Ss][Ee][Rr][Ss]\\\\|[/\\\\]${PII_USER_RE}([/\\\\]|\$)|(^|[^A-Za-z0-9])[A-Za-z]:\\\\[^\\\\[:space:]]+\\\\|/Volume[s]/[^/[:space:]]+/|/mnt/[a-z]/|(^|[^A-Za-z0-9._~/-])/(op[t]|sr[v]|workspac[e])/[^/[:space:]\"']+([/\"']|\$))" "$SCAN"
     case $? in
       0) echo "❌ PII detected" >&2; exit 1 ;;
       1) echo "PII check passed" ;;

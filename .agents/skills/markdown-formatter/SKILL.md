@@ -200,8 +200,9 @@ bun x markdownlint-cli <file_path>
   PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
   # macOS は大文字小文字を区別しないため、Users ディレクトリの小文字表記など大小文字違いの POSIX パスも検出する
   # 実行ユーザー以外のユーザー名を含む POSIX 絶対パスも検出するため、ユーザー名に依存しない規則も併用する:
-  # root のホーム / Linux のリムーバブルメディア / ユーザーごとのランタイムディレクトリ / macOS の外部ボリューム
-  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/]+/|/workspac[e]/[^/[:space:]]+/))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
+  # root のホーム / Linux のリムーバブルメディア / ユーザーごとのランタイムディレクトリ / macOS の外部ボリューム /
+  # ユーザー名ディレクトリを置きがちな非ホームのルート（opt・srv・workspace 直下の任意の名前のディレクトリ）
+  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/][Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/]+/|/op[t]/[^/[:space:]]+/|/sr[v]/[^/[:space:]]+/|/workspac[e]/[^/[:space:]]+/))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
   # grep の終了コード: 0 = 検出 / 1 = 未検出 / 2 以上 = 走査自体の失敗
   [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
   if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi
