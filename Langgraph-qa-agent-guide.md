@@ -467,7 +467,9 @@ def to_summary_dto(value: Any) -> Any:
     if isinstance(value, list):
         return [to_summary_dto(v) for v in value]
     if isinstance(value, dict):
-        return {k: to_summary_dto(v) for k, v in value.items()}
+        # マップ射影（RETURN p {.phone} など）は元のプロパティ名をキーに保つため、
+        # 数値型の機微値が上の分岐を素通りしないよう、多層防御として SENSITIVE_KEYS でも伏せる
+        return {k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v) for k, v in value.items()}
     return REDACTED
 
 @unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
@@ -599,7 +601,7 @@ def summarize(state: AgentState) -> dict:
 
 | 条件 | 担保の方法 |
 |---|---|
-| 機微な項目をマスキングする | Step 7 の `to_summary_dto()` が、ノード・リレーションシップの `SENSITIVE_KEYS` の値と、エイリアスで付け替え得る列・マップの文字列／時間／空間型の値を伏せた `summary_results` だけをプロンプトに含める（コード） |
+| 機微な項目をマスキングする | Step 7 の `to_summary_dto()` が、ノード・リレーションシップ・マップの `SENSITIVE_KEYS` の値と、エイリアスで付け替え得る列・マップの文字列／時間／空間型の値を伏せた `summary_results` だけをプロンプトに含める（コード） |
 | 条件を満たさない環境では送信しない | `SUMMARY_LLM_TRANSFER_APPROVED` が `"true"` でなければ LLM を呼ばない（コード） |
 | 承認済みのモデルエンドポイントだけを使う | 組織が契約・承認したエンドポイント（`base_url` を含む）以外に向けない（運用） |
 | 入力データを保持・学習に使わせない | ゼロデータ保持などの保持設定を契約とアカウント設定で確認する（運用） |
@@ -855,7 +857,7 @@ except TRANSIENT_ERRORS:
 4. **文脈を加えた再要約**：ユーザーが「捜査上の観点で見て、不審な点は？」と追加の文脈を与えると、同じデータに対して `summarize` ノードが再実行され、単なる事実の列挙ではなく「特定の時間帯に同一車両が繰り返し検出されている」といった分析的な要約が生成されます。
 5. **前科への遡及**：最後に「この車両の所有者に前科は？」と質問すると、`Vehicle` から `Person`、さらに過去の `Crime` へとグラフをたどるクエリが生成され、空間・時間・履歴という3種類のシグナルが1つの捜査ストーリーとして統合されます。
 
-この一連の流れは、**同じ5ノードのパイプラインが、質問ごとに異なるCypherを生成しながら繰り返し使われている**ことを示しています。ノードの構造自体を変えずに、State に積み上がっていく文脈（`user_selection` や会話履歴）だけで挙動が変化する——これが状態駆動型パイプラインの強みです。
+この一連の流れは、**同じ5ノードのパイプラインが、質問ごとに異なるCypherを生成しながら繰り返し使われている**ことを示しています。各質問は新しい `thread_id` で実行され、`AgentState` に会話履歴のフィールドはないため、State が質問をまたいで積み上がることはありません。ノードの構造自体を変えずに、その質問に渡された文脈（`user_selection` など）だけで挙動が変化する——これが状態駆動型パイプラインの強みです。
 
 ---
 
