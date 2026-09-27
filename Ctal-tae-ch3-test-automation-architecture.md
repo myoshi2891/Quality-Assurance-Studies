@@ -356,10 +356,10 @@ flowchart TB
     Q1 -->|No| A1["gTAAの機能マッピングを行う"] --> Q1
     Q2 -->|Yes| Q3{"チームのスキルとSUTの<br/>変化頻度に見合った<br/>自動化アプローチを選んだか？"}
     Q2 -->|No| A2["レイヤーを再設計し、<br/>依存方向を一方向に統一する"] --> Q2
-    Q3 -->|Yes| Q4{"OOP原則・SOLID・<br/>Facade/Singleton/POM/Flow Model<br/>を適用したか？"}
+    Q3 -->|Yes| Q4{"要件に適した設計原則・<br/>デザインパターンを選定・<br/>適用したか？"}
     Q3 -->|No| A3["Capture/Playback〜BDDの<br/>比較表から適切な手法を選定する"] --> Q3
     Q4 -->|Yes| DONE(["保守性の高いTAAが完成"])
-    Q4 -->|No| A4["デザインパターンを適用し、<br/>保守コストを下げる"] --> Q4
+    Q4 -->|No| A4["要件（重複・変更頻度・並列実行等）に<br/>照らして原則・パターンを選び直す<br/>（Flow Modelは操作の重複が出てから）"] --> Q4
 
     classDef q fill:#fef3c7,stroke:#d97706,color:#1e293b;
     classDef a fill:#fee2e2,stroke:#dc2626,color:#1e293b;
