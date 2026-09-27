@@ -366,13 +366,17 @@
             @media (max-width: 900px) {
                 .sidebar {
                     transform: translateX(-100%);
-                    transition: transform 0.2s ease;
+                    visibility: hidden;
+                    transition:
+                        transform 0.2s ease,
+                        visibility 0.2s;
                     width: 82vw;
                     max-width: 320px;
                     box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
                 }
                 .sidebar.open {
                     transform: translateX(0);
+                    visibility: visible;
                 }
                 .sidebar-toggle {
                     display: flex;
@@ -1263,6 +1267,8 @@
                         if (target) {
                             ev.preventDefault();
                             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            // preventDefault で止まる URL フラグメント更新を補い、見出しへのリンクを共有可能にする
+                            history.pushState(null, '', '#' + encodeURIComponent(target.id));
                         }
                     });
                 });
