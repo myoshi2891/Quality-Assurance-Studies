@@ -456,6 +456,9 @@ def ensure_payload_within_limits(records: list) -> None:
         elements += 1
         if isinstance(value, str):
             text_chars += len(value)
+        elif isinstance(value, (bytes, bytearray)):
+            # バイト列も to_dto() の出力サイズに効くため、長さを文字数の上限に合算する
+            text_chars += len(value)
         elif isinstance(value, Path):
             stack.append(chain(value.nodes, value.relationships))
         elif isinstance(value, Node):
