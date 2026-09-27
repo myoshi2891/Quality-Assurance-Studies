@@ -52,7 +52,7 @@ AI エージェントは、`git commit` などのコミットを行う前に、�
 ```bash
 # コミット対象の差分にローカル絶対パス（Users/ や home/）が含まれていないかチェック
 # プレースホルダー（johndoe）を除く絶対パスが検出された場合はコミットを中止する
-git diff --cached | grep -E '^\+[^+]' | grep -E '(/Users/|/home/|C:\\Users\\)' | grep -vE 'johndoe'
+git diff --cached | grep -E '^\+[^+]' | grep -E '(/Users/|/home/|C:\\Users\\|/op[t]/|/sr[v]/|/workspac[e]/)' | grep -vE 'johndoe'
 ```
 
 このチェックで結果（追加行）が出力された場合は、該当箇所を削除または相対パスに変更し、クリーンであることを確認した上でコミットを実行してください。

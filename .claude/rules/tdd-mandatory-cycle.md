@@ -29,7 +29,7 @@ Red / Green / Refactor / Docs Sync のいずれのコミットであっても、
 検出時は終了コード 1 で失敗させ、コミットを中止すること（grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）。
 
 ```bash
-if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
   echo "PII detected — abort commit" >&2
   exit 1
 fi

@@ -60,7 +60,7 @@ bun run lint
 # 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
 #    検出時は終了コード 1 で失敗させ、コミットを中止して相対パスへ修正する
 #    （grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）
-if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
   echo "PII detected — abort commit" >&2
   exit 1
 fi
@@ -102,7 +102,7 @@ git diff --cached --name-only   # docs/MIGRATION_PROGRESS.md のみであるこ�
 
 # ステージ済み差分の PII / ローカル絶対パス走査【必須 Gate Condition】
 # 検出時はコミットを中止し、相対パス（または ~/ 形式）へ修正してからやり直す
-if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
   echo "PII detected — abort commit" >&2
   exit 1
 fi
