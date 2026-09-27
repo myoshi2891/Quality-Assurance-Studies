@@ -60,8 +60,19 @@ bun run lint
 # 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
 #    検出時は終了コード 1 で失敗させ、コミットを中止して相対パスへ修正する
 #    （grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）
-if git diff --cached | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
+# 各段階の失敗を「該当なし」と区別する: git / awk の失敗は pipefail で検出し、grep は 1（該当なし）のみを正常とみなす
+if ! added=$(set -o pipefail; git diff --cached | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+  echo "diff extraction failed — abort commit" >&2
+  exit 1
+fi
+printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'
+rc=$?
+if [ "$rc" -eq 0 ]; then
   echo "PII detected — abort commit" >&2
+  exit 1
+fi
+if [ "$rc" -ne 1 ]; then
+  echo "grep failed (exit $rc) — abort commit" >&2
   exit 1
 fi
 echo "PII check passed"
@@ -102,8 +113,19 @@ git diff --cached --name-only   # docs/MIGRATION_PROGRESS.md のみであるこ�
 
 # ステージ済み差分の PII / ローカル絶対パス走査【必須 Gate Condition】
 # 検出時はコミットを中止し、相対パス（または ~/ 形式）へ修正してからやり直す
-if git diff --cached | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
+# 各段階の失敗を「該当なし」と区別する: git / awk の失敗は pipefail で検出し、grep は 1（該当なし）のみを正常とみなす
+if ! added=$(set -o pipefail; git diff --cached | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+  echo "diff extraction failed — abort commit" >&2
+  exit 1
+fi
+printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'
+rc=$?
+if [ "$rc" -eq 0 ]; then
   echo "PII detected — abort commit" >&2
+  exit 1
+fi
+if [ "$rc" -ne 1 ]; then
+  echo "grep failed (exit $rc) — abort commit" >&2
   exit 1
 fi
 echo "PII check passed"
