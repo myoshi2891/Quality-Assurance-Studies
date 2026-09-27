@@ -255,7 +255,7 @@ flowchart TB
     Gate2 -->|"Yes"| Release["リリース確定"]
 
     Deploy -->|"デプロイ成功後に起動"| Sep["システムテスト /<br/>システム統合テスト<br/>（アプローチ②：<br/>独立パイプラインで実行）"]
-    Sep --> SepResult["テスト結果を報告<br/>（デプロイの品質ゲート・<br/>ロールバック・リリース判定<br/>には関与しない）"]
+    Sep --> SepResult["テスト結果を報告<br/>（デプロイの品質ゲートには<br/>ならない。失敗時は結果を報告し、<br/>通常は手動でロールバック）"]
 
     classDef processStyle fill:#1e3a5f,stroke:#7c9eff,color:#ffffff
     classDef gateStyle fill:#4a3c1e,stroke:#ffa726,color:#ffffff
