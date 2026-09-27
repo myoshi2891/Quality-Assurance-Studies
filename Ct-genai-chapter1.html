@@ -1307,6 +1307,18 @@
                     headings.forEach(function (h) {
                         observer.observe(h);
                     });
+
+                    // ページ最上部へ戻ったときは観測帯に見出しが入らないため、前回のアクティブ状態を明示的に解除する
+                    window.addEventListener(
+                        'scroll',
+                        function () {
+                            if (window.scrollY > 0) return;
+                            links.forEach(function (a) {
+                                a.classList.remove('active');
+                            });
+                        },
+                        { passive: true },
+                    );
                 } catch (e) {
                     console.error('scroll-spy init failed', e);
                 }
