@@ -54,8 +54,8 @@ AI エージェントは、`git commit` などのコミットを行う前に、�
 # 追加行から絶対パス部分だけを抽出してから、ホーム直下のユーザー名が johndoe であるもの（プレースホルダー）だけを除外する
 # （行単位で除外すると、同じ行にある他の実パスまで見逃すため）
 git diff --cached | grep -E '^\+[^+]' \
-  | grep -oE '(/Users/|/home/|C:\\Users\\|/op[t]/|/sr[v]/|/workspac[e]/)[^[:space:]"'\''`]*' \
-  | grep -vE '^(/Users/|/home/|C:\\Users\\)johndoe([/\\]|$)'
+  | grep -oE '(/User[s]/|/hom[e]/|C:\\User[s]\\|/op[t]/|/sr[v]/|/workspac[e]/)[^[:space:]"'\''`]*' \
+  | grep -vE '^(/User[s]/|/hom[e]/|C:\\User[s]\\)johndoe([/\\]|$)'
 ```
 
 このチェックで結果（追加行）が出力された場合は、該当箇所を削除または相対パスに変更し、クリーンであることを確認した上でコミットを実行してください。
