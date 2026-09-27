@@ -1,7 +1,7 @@
 # ISTQB CT-GenAI 第4章 ソフトウェアテストのためのLLM搭載テストインフラ 完全ガイド（初学者向け）
 
 > 対象試験：ISTQB® Certified Tester Specialist Level – Testing with Generative AI（CT-GenAI）
-> 対象章：第4章（v1.0 の章題は「LLM-Powered Test Infrastructure for Software Testing」、v1.1 の章題は「LLM-Powered Solutions for Software Testing」）
+> 対象章：第4章「LLM-Powered Test Infrastructure for Software Testing」（公式シラバス v1.1 PDF の見出し。v1.0 も同じ章題。ISTQB 資格ページでは別名「LLM-Powered Solutions for Software Testing」と表示される）
 > 学習時間の目安：シラバス上の配分は 110 分（試験全体 40 問・60 分・合格ライン 30/46 点＝65%）
 > 想定読者：CTFL 取得済みで、RAG・エージェント・ファインチューニング・LLMOps を初めて体系的に学ぶテスター、テスト自動化エンジニア、テストマネージャ
 
@@ -20,11 +20,11 @@
 
 ### 0.2 バージョンについての重要な注意
 
-- ISTQB 公式ページによると、CT-GenAI シラバスは v1.0（2025-07-25 公開）から v1.1 に更新されています。v1.1 の第4章の章題は「LLM-Powered Solutions for Software Testing」で、内部は「4.1 アーキテクチャ的アプローチ」「4.2 ファインチューニングと LLMOps」の 2 節構成です。
+- ISTQB 公式ページによると、CT-GenAI シラバスは v1.0（2025-07-25 公開）から v1.1 に更新されています。v1.1 公式シラバス PDF（2026-04-27 版）の第4章の見出しは v1.0 と同じ「LLM-Powered Test Infrastructure for Software Testing」で、本ガイドはこれを正本の章題とします（ISTQB 資格ページに表示される「LLM-Powered Solutions for Software Testing」は同じ章の別名です）。内部は「4.1 アーキテクチャ的アプローチ」「4.2 ファインチューニングと LLMOps」の 2 節構成です。
 - 本ガイドは次の 2 種類の一次・準一次資料を突き合わせて作成しました。
   1. v1.0 シラバス PDF（ISTQB 公式の配布物）の第4章原文
   2. v1.1 準拠を明記した Exactpro 社の第4章教材（Reading Materials）
-- v1.1 のシラバス PDF そのものは、本ガイド作成時に本文を機械的に取得できませんでした。v1.0 と v1.1 で大きな構造差はありませんが、受験前には必ず最新の公式 PDF で用語と記述を照合してください（URL は末尾の「参考文献」を参照）。
+- 章題は v1.1 公式 PDF の見出しで確認済みですが、本文の記述は上記 2 資料に基づいています（本ガイド作成時は v1.1 PDF の本文を機械的に取得できませんでした）。v1.0 と v1.1 で大きな構造差はありませんが、受験前には必ず最新の公式 PDF で用語と記述を照合してください（URL は末尾の「参考文献」を参照）。
 
 ### 0.3 試験で問われる「型」
 
