@@ -174,7 +174,8 @@ bun x markdownlint-cli <file_path>
 ```bash
 # 追加行から絶対パス部分だけを抽出してから、ホーム直下のユーザー名が johndoe であるもの（プレースホルダー）だけを除外する
 # （行単位で除外すると、同じ行にある他の実パスまで見逃すため）
-git diff --cached | grep -E '^\+[^+]' \
+# 追加行の抽出は diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、先頭の + を 1 文字だけ外す（"+" で始まる追加内容も走査対象に残す）
+git diff --cached | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' \
   | grep -oE '(/User[s]/|/hom[e]/|C:\\User[s]\\|/op[t]/|/sr[v]/|/workspac[e]/)[^[:space:]"'\''`]*' \
   | grep -vE '^(/User[s]/|/hom[e]/|C:\\User[s]\\)johndoe([/\\]|$)'
 ```
