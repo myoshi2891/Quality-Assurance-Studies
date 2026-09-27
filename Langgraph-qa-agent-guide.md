@@ -461,6 +461,10 @@ def ensure_payload_within_limits(records: list) -> None:
             text_chars += len(value)
         elif isinstance(value, Path):
             stack.append(chain(value.nodes, value.relationships))
+        elif isinstance(value, (DateTime, Date, Time, Duration)):
+            # to_dto() は時間型を ISO 8601 文字列へ変換するため、その長さを文字数に数える。
+            # Duration は tuple のサブクラスなので、tuple 判定より前に処理する
+            text_chars += len(value.iso_format())
         elif isinstance(value, Node):
             stack.append(chain([value.element_id], value.labels, chain.from_iterable(value.items())))
         elif isinstance(value, Relationship):
