@@ -401,7 +401,7 @@
         </style>
     </head>
     <body>
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="メニューを開く">☰</button>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false">☰</button>
         <div class="layout">
             <nav class="sidebar" id="sidebar">
                 <div class="sidebar-header">
@@ -1249,11 +1249,13 @@
                 var sidebar = document.getElementById('sidebar');
                 if (toggle && sidebar) {
                     toggle.addEventListener('click', function () {
-                        sidebar.classList.toggle('open');
+                        var isOpen = sidebar.classList.toggle('open');
+                        toggle.setAttribute('aria-expanded', String(isOpen));
                     });
                     sidebar.querySelectorAll('a').forEach(function (a) {
                         a.addEventListener('click', function () {
                             sidebar.classList.remove('open');
+                            toggle.setAttribute('aria-expanded', 'false');
                         });
                     });
                 }
@@ -1310,8 +1312,42 @@
                 }
 
                 // ---- mermaid rendering: JS template-literal source, never DOM textContent ----
+                // Mermaid を読み込めない場合（CDN 遮断・オフライン等）は、理由と図のソースを代替表示する
+                function renderMermaidFallback(reason) {
+                    var dataEl = document.getElementById('mermaid-data');
+                    var sources = {};
+                    try {
+                        sources = JSON.parse(dataEl ? dataEl.textContent : '{}');
+                    } catch (err) {
+                        console.error('mermaid-data parse failed', err);
+                    }
+                    Object.keys(sources).forEach(function (id) {
+                        var container = document.getElementById(id);
+                        if (!container) return;
+                        var msg = document.createElement('div');
+                        msg.className = 'mermaid-error';
+                        msg.textContent =
+                            '図表を表示できません（' +
+                            reason +
+                            '）。下の「図のソースを表示」から図の内容をテキストで確認できます。ソースを https://mermaid.live に貼り付けると図として表示できます。';
+                        var details = document.createElement('details');
+                        var summary = document.createElement('summary');
+                        summary.textContent = '図のソースを表示（' + id + '）';
+                        var pre = document.createElement('pre');
+                        pre.textContent = sources[id];
+                        details.appendChild(summary);
+                        details.appendChild(pre);
+                        var wrap = document.createElement('div');
+                        wrap.appendChild(msg);
+                        wrap.appendChild(details);
+                        container.replaceChildren(wrap);
+                    });
+                }
+
                 try {
-                    if (typeof mermaid !== 'undefined') {
+                    if (typeof mermaid === 'undefined') {
+                        renderMermaidFallback('Mermaid ライブラリを読み込めませんでした');
+                    } else {
                         mermaid.initialize({
                             startOnLoad: false,
                             useMaxWidth: false,
@@ -1373,6 +1409,7 @@
                     }
                 } catch (e) {
                     console.error('mermaid init failed', e);
+                    renderMermaidFallback('Mermaid の初期化に失敗しました');
                 }
             })();
         </script>
