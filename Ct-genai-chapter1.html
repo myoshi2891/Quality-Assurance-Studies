@@ -1268,6 +1268,11 @@
                         var target = document.getElementById(id);
                         if (target) {
                             ev.preventDefault();
+                            // preventDefault で既定のフォーカス移動も止まるため、キーボード・支援技術の操作位置を見出しへ移す
+                            if (!target.hasAttribute('tabindex')) {
+                                target.setAttribute('tabindex', '-1');
+                            }
+                            target.focus({ preventScroll: true });
                             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             // preventDefault で止まる URL フラグメント更新を補い、見出しへのリンクを共有可能にする
                             history.pushState(null, '', '#' + encodeURIComponent(target.id));
