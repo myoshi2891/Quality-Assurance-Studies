@@ -30,7 +30,7 @@ Red / Green / Refactor / Docs Sync のいずれのコミットであっても、
 
 ```bash
 # 各段階の失敗を「該当なし」と区別する: git / awk の失敗は pipefail で検出し、grep は 1（該当なし）のみを正常とみなす
-if ! added=$(set -o pipefail; git diff --cached | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+if ! added=$(set -o pipefail; git diff --cached --text | tr '\000' ' ' | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
   echo "diff extraction failed — abort commit" >&2
   exit 1
 fi
