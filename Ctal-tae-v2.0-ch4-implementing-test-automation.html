@@ -1720,8 +1720,17 @@ flowchart TD
         ></script>
         <script>
             // ---- Mermaid init (defensive) ----
+            // ライブラリ未読み込み・初期化失敗のどちらでも、静的な代替表示に切り替える
+            function showDiagramFallback() {
+                document.querySelectorAll('.diagram-fallback').forEach(function (el) {
+                    el.style.display = 'block';
+                });
+            }
             try {
-                if (window.mermaid) {
+                if (!window.mermaid) {
+                    showDiagramFallback();
+                    console.error('mermaid is not loaded');
+                } else {
                     mermaid.initialize({
                         startOnLoad: true,
                         theme: 'base',
@@ -1744,9 +1753,7 @@ flowchart TD
                     });
                 }
             } catch (e) {
-                document.querySelectorAll('.diagram-fallback').forEach(function (el) {
-                    el.style.display = 'block';
-                });
+                showDiagramFallback();
                 console.error('mermaid init failed', e);
             }
 
@@ -1780,7 +1787,7 @@ flowchart TD
 
             // ---- Scroll-position active TOC highlighting ----
             var sections = Array.prototype.slice.call(
-                document.querySelectorAll('section.block[id], h3[id], h4[id]'),
+                document.querySelectorAll('section.block[id], h3[id], h4[id], .practice-card[id]'),
             );
             var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
             function onScroll() {
