@@ -387,6 +387,8 @@ MAX_RESULT_ROWS = 1000
 # 行の中身（リスト・マップ・プロパティの要素数と文字列の長さ）の合計にも上限を設ける
 MAX_RESULT_ELEMENTS = 50_000
 MAX_RESULT_TEXT_CHARS = 2_000_000
+# to_dto() は入れ子 1 段ごとに数フレーム再帰するため、Python の再帰上限（既定 1000）より十分小さい深さで拒否する
+MAX_RESULT_DEPTH = 100
 
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
@@ -476,6 +478,11 @@ def ensure_payload_within_limits(records: list) -> None:
             stack.append(iter(value))
         elif isinstance(value, dict):
             stack.append(chain.from_iterable(value.items()))
+        # 先頭の反復子（行の集合）を除いたスタックの長さが、現在の値の入れ子の深さに等しい
+        if len(stack) - 1 > MAX_RESULT_DEPTH:
+            raise ResultTooLargeError(
+                "クエリ結果の入れ子が深すぎます。リストやマップを入れ子にせず、平坦な形で返すよう Cypher を書き直してください"
+            )
         if elements > MAX_RESULT_ELEMENTS or text_chars > MAX_RESULT_TEXT_CHARS:
             raise ResultTooLargeError(
                 "クエリ結果が大きすぎます。LIMIT を付けるか、collect() の結果を collect(x)[..100] のようにスライスして件数を絞ってください"
@@ -649,7 +656,7 @@ State はチェックポインタに保存されるため、`results` には出�
 
 `QUERY_TIMEOUT_SECONDS` を超えたクエリはサーバー側で打ち切られ、`ClientError` として LLM に再生成させる対象になります。`MAX_RESULT_ROWS` を超える行は返さないため、可視化や要約に渡すデータ量も上限内に収まります。ただし黙って切り捨てると、利用者は一部の結果を全件と誤解します。そこで上限より 1 件多く取得して超過を `results_truncated` に記録し、要約プロンプト（Step 9）と画面表示（Step 11）の両方で切り捨てを明示します。
 
-行数の上限は外側のレコード数しか制限しません。`RETURN collect(p)` のような集計は 1 行に任意の件数の要素を詰められるため、`ensure_payload_within_limits()` で行の中身の要素数（`MAX_RESULT_ELEMENTS`）とテキストの合計長（`MAX_RESULT_TEXT_CHARS`。文字列・バイト列の長さと、時間型の ISO 8601 表現の長さを数える）も検査します。検査は 2 回行います。まず `to_dto()` の前に取得した値を検査し、変換後の出力サイズを見積もって明らかな超過を変換前に拒否します。続いて変換後の行（State に保存する実際のペイロード）を再検査し、ここで超過が見つかった場合は変換後の時点で拒否します。どちらの場合も `ResultTooLargeError` を送出します。`CypherValidationError` のサブクラスなので、既存の分岐でエラー内容が LLM に渡り、`LIMIT` や `collect(x)[..100]` で絞った Cypher に再生成されます。なお、この検査はドライバがレコードを受信した後に行うため、State・チェックポイント・LLM に渡すペイロードは制限できますが、受信時のメモリ使用量までは制限しません。受信量そのものを抑えるには、上記のクエリタイムアウトに加えて、DB 側でトランザクションごとのメモリ上限（`db.memory.transaction.max`）を設定してください。
+行数の上限は外側のレコード数しか制限しません。`RETURN collect(p)` のような集計は 1 行に任意の件数の要素を詰められるため、`ensure_payload_within_limits()` で行の中身の要素数（`MAX_RESULT_ELEMENTS`）とテキストの合計長（`MAX_RESULT_TEXT_CHARS`。文字列・バイト列の長さと、時間型の ISO 8601 表現の長さを数える）も検査します。あわせて、`to_dto()` が再帰で変換する入れ子の深さ（`MAX_RESULT_DEPTH`）も同じ走査で検査し、`RecursionError` になる前に拒否します。検査は 2 回行います。まず `to_dto()` の前に取得した値を検査し、変換後の出力サイズを見積もって明らかな超過を変換前に拒否します。続いて変換後の行（State に保存する実際のペイロード）を再検査し、ここで超過が見つかった場合は変換後の時点で拒否します。どちらの場合も `ResultTooLargeError` を送出します。`CypherValidationError` のサブクラスなので、既存の分岐でエラー内容が LLM に渡り、`LIMIT` や `collect(x)[..100]` で絞った Cypher に再生成されます。なお、この検査はドライバがレコードを受信した後に行うため、State・チェックポイント・LLM に渡すペイロードは制限できますが、受信時のメモリ使用量までは制限しません。受信量そのものを抑えるには、上記のクエリタイムアウトに加えて、DB 側でトランザクションごとのメモリ上限（`db.memory.transaction.max`）を設定してください。
 
 ### Step 8. 条件分岐ルーティング — リトライ・要約・終了を切り替える
 
