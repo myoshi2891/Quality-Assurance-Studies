@@ -65,8 +65,12 @@ if ! added=$(set -o pipefail; git diff --cached | awk '/^diff --/{h=1; next} /^@
   echo "diff extraction failed — abort commit" >&2
   exit 1
 fi
-printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'
-rc=$?
+# grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
+if printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
+  rc=0
+else
+  rc=$?
+fi
 if [ "$rc" -eq 0 ]; then
   echo "PII detected — abort commit" >&2
   exit 1
@@ -118,8 +122,12 @@ if ! added=$(set -o pipefail; git diff --cached | awk '/^diff --/{h=1; next} /^@
   echo "diff extraction failed — abort commit" >&2
   exit 1
 fi
-printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'
-rc=$?
+# grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
+if printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|/op[t]/|/sr[v]/|/workspac[e]/)'; then
+  rc=0
+else
+  rc=$?
+fi
 if [ "$rc" -eq 0 ]; then
   echo "PII detected — abort commit" >&2
   exit 1
