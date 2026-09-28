@@ -1,0 +1,3094 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light" />
+        <title>
+            CTAL-TAE v2.0 第6章「Test Automation Reporting and Metrics」初学者向け解説ガイド
+        </title>
+        <style>
+            :root {
+                --bg: #f6f8fc;
+                --card: #fff;
+                --text: #1e293b;
+                --dim: #64748b;
+                --line: #e2e8f0;
+                --accent: #2563eb;
+                --accent-soft: #eff6ff;
+                --sb: 280px;
+                --green: #15803d;
+                --green-bg: #f0fdf4;
+                --amber: #b45309;
+                --amber-bg: #fffbeb;
+                --blue: #1d4ed8;
+                --blue-bg: #eff6ff;
+                --font:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+                    'Yu Gothic', Meiryo, sans-serif;
+                --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+                color-scheme: light;
+            }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font);
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+            }
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: var(--sb);
+                background: #fff;
+                border-right: 1px solid var(--line);
+                overflow-y: auto;
+                padding: 22px 16px 32px;
+                z-index: 20;
+            }
+            .sb-title {
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                color: var(--dim);
+                margin: 0 0 12px 8px;
+            }
+            .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar li ul {
+                margin: 2px 0 6px 10px;
+                border-left: 1px solid var(--line);
+            }
+            .sidebar a {
+                display: block;
+                padding: 5px 10px;
+                border-radius: 6px;
+                color: #334155;
+                text-decoration: none;
+                font-size: 13.5px;
+                line-height: 1.5;
+            }
+            .sidebar li ul a {
+                font-size: 12.5px;
+                color: var(--dim);
+            }
+            .sidebar a:hover {
+                background: var(--accent-soft);
+                color: var(--accent);
+            }
+            .sidebar a.active {
+                background: var(--accent-soft);
+                color: var(--accent);
+                font-weight: 700;
+            }
+            .sb-toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 30;
+                border: 1px solid var(--line);
+                background: #fff;
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 14px;
+                cursor: pointer;
+                box-shadow: 0 1px 4px rgba(15, 23, 42, 0.1);
+            }
+            .main {
+                margin-left: var(--sb);
+                padding: 32px 48px 64px;
+            }
+            .hero {
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(135deg, #fff 0%, #eef4ff 100%);
+                border: 1px solid var(--line);
+                border-radius: 16px;
+                padding: 36px 40px;
+                margin-bottom: 36px;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: -80px;
+                right: -60px;
+                width: 320px;
+                height: 320px;
+                background: radial-gradient(circle, rgba(37, 99, 235, 0.16), transparent 70%);
+                pointer-events: none;
+            }
+            .eyebrow {
+                display: inline-block;
+                background: var(--accent-soft);
+                color: var(--accent);
+                border: 1px solid #bfdbfe;
+                border-radius: 999px;
+                padding: 3px 14px;
+                font-size: 12.5px;
+                font-weight: 700;
+                margin-bottom: 14px;
+            }
+            .hero-title {
+                position: relative;
+                font-size: 28px;
+                line-height: 1.4;
+                font-weight: 800;
+                margin: 0 0 22px;
+                color: #0f172a;
+            }
+            .hero-meta {
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                border-top: 1px solid var(--line);
+                padding-top: 16px;
+            }
+            .meta-item {
+                padding: 0 24px;
+                border-right: 1px solid var(--line);
+            }
+            .hero-meta {
+                gap: 14px 0;
+            }
+            .meta-item:first-child {
+                flex: 0 0 100%;
+                border-right: none;
+                padding: 0;
+            }
+            .meta-item:nth-child(2) {
+                padding-left: 0;
+            }
+            .meta-item:last-child {
+                border-right: none;
+            }
+            .meta-label {
+                font-size: 11px;
+                letter-spacing: 0.06em;
+                color: var(--dim);
+                font-weight: 700;
+            }
+            .meta-value {
+                font-size: 14.5px;
+                font-weight: 600;
+                line-height: 1.6;
+            }
+            .main h2 {
+                font-size: 24px;
+                margin: 56px 0 18px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid var(--accent);
+                scroll-margin-top: 20px;
+            }
+            .main h3 {
+                font-size: 19px;
+                margin: 36px 0 12px;
+                padding-left: 12px;
+                border-left: 4px solid var(--accent);
+                scroll-margin-top: 20px;
+            }
+            .main h4 {
+                font-size: 16.5px;
+                margin: 26px 0 8px;
+                color: #0f172a;
+            }
+            .main p {
+                margin: 0 0 14px;
+            }
+            .main ul,
+            .main ol {
+                padding-left: 1.6em;
+                margin: 0 0 16px;
+            }
+            .main li {
+                margin: 4px 0;
+            }
+            .main hr {
+                border: none;
+                border-top: 1px solid var(--line);
+                margin: 40px 0;
+            }
+            .main a {
+                color: var(--accent);
+                word-break: break-word;
+            }
+            .main code:not(pre code) {
+                font-family: var(--mono);
+                font-size: 0.88em;
+                background: #eef2f7;
+                border: 1px solid var(--line);
+                border-radius: 5px;
+                padding: 1px 6px;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+            .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 22px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+            }
+            th {
+                background: #f1f5f9;
+                text-align: left;
+                font-weight: 700;
+                color: #0f172a;
+            }
+            th,
+            td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--line);
+                vertical-align: top;
+                line-height: 1.7;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:nth-child(even) td {
+                background: #fafcff;
+            }
+            .code-card {
+                margin: 0 0 22px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+                overflow: hidden;
+            }
+            .code-lang {
+                background: #f1f5f9;
+                border-bottom: 1px solid var(--line);
+                padding: 5px 14px;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--dim);
+                font-family: var(--mono);
+            }
+            .code-card pre {
+                margin: 0;
+                padding: 14px 16px;
+                overflow-x: auto;
+                background: #fbfcfe;
+                font-size: 13.5px;
+                line-height: 1.65;
+            }
+            .code-card pre code {
+                font-family: var(--mono);
+                color: #1e293b;
+            }
+            .mermaid-container {
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 8px 0 26px;
+                padding: 18px;
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+            }
+            .mermaid-container svg {
+                flex-shrink: 0;
+            }
+            .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            .callout-practice,
+            .callout-warning,
+            .callout-note {
+                border-radius: 10px;
+                border: 1px solid;
+                border-left-width: 5px;
+                padding: 14px 18px;
+                margin: 0 0 22px;
+            }
+            .callout-practice {
+                background: var(--green-bg);
+                border-color: #bbf7d0;
+                border-left-color: var(--green);
+            }
+            .callout-warning {
+                background: var(--amber-bg);
+                border-color: #fde68a;
+                border-left-color: var(--amber);
+            }
+            .callout-note {
+                background: var(--blue-bg);
+                border-color: #bfdbfe;
+                border-left-color: var(--blue);
+            }
+            .callout-head {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 6px;
+                font-weight: 800;
+            }
+            .callout-practice .callout-title {
+                color: var(--green);
+            }
+            .callout-warning .callout-title {
+                color: var(--amber);
+            }
+            .callout-note .callout-title {
+                color: var(--blue);
+            }
+            .callout-body > *:last-child {
+                margin-bottom: 0;
+            }
+            .callout-body p,
+            .callout-body ul,
+            .callout-body ol {
+                margin-bottom: 8px;
+            }
+            details.answer {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+                padding: 10px 16px;
+                margin: 0 0 22px;
+            }
+            details.answer summary {
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--accent);
+            }
+            details.answer[open] summary {
+                margin-bottom: 8px;
+            }
+            .checklist-card {
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 18px 22px;
+                margin: 0 0 22px;
+            }
+            .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 14px;
+                flex-wrap: wrap;
+            }
+            .cp-label {
+                font-weight: 700;
+                font-size: 14px;
+            }
+            .cp-bar {
+                flex: 1;
+                min-width: 120px;
+                height: 10px;
+                background: #e2e8f0;
+                border-radius: 999px;
+                overflow: hidden;
+            }
+            .cp-bar-fill {
+                height: 100%;
+                width: 0;
+                background: var(--accent);
+                transition: width 0.25s;
+            }
+            .cp-count {
+                font-size: 13.5px;
+                color: var(--dim);
+                font-weight: 600;
+            }
+            .checklist-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .checklist-card li {
+                padding: 6px 0;
+                border-bottom: 1px dashed var(--line);
+                margin: 0;
+            }
+            .checklist-card label {
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                cursor: pointer;
+                width: 100%;
+            }
+            .checklist-card li:last-child {
+                border-bottom: none;
+            }
+            .checklist-card input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                flex: none;
+                width: 20px;
+                height: 20px;
+                margin: calc((1.85em - 20px) / 2) 0 0;
+                font-size: inherit;
+                border: 2px solid #94a3b8;
+                border-radius: 5px;
+                background: #fff;
+                cursor: pointer;
+                position: relative;
+            }
+            .checklist-card input[type='checkbox']:checked {
+                background: var(--accent);
+                border-color: var(--accent);
+            }
+            .checklist-card input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 10px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .checklist-card li:has(input:checked) {
+                color: var(--dim);
+                text-decoration: line-through;
+            }
+            .page-footer {
+                margin-top: 56px;
+                padding-top: 18px;
+                border-top: 1px solid var(--line);
+                font-size: 13px;
+                color: var(--dim);
+                line-height: 1.8;
+            }
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s;
+                    box-shadow: 2px 0 12px rgba(15, 23, 42, 0.15);
+                }
+                .sidebar.open {
+                    transform: none;
+                }
+                .sb-toggle {
+                    display: block;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 64px 16px 48px;
+                }
+                .hero {
+                    padding: 24px 20px;
+                }
+                .hero-title {
+                    font-size: 22px;
+                }
+                .hero-meta {
+                    display: block;
+                }
+                .meta-item {
+                    padding: 8px 0;
+                    border-right: none;
+                    border-bottom: 1px solid var(--line);
+                }
+                .meta-item:last-child {
+                    border-bottom: none;
+                }
+            }
+            pre {
+                line-height: 125%;
+            }
+            td.linenos .normal {
+                color: inherit;
+                background-color: transparent;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            span.linenos {
+                color: inherit;
+                background-color: transparent;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            td.linenos .special {
+                color: #000000;
+                background-color: #ffffc0;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            span.linenos.special {
+                color: #000000;
+                background-color: #ffffc0;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .code-card pre code .hll {
+                background-color: #ffffcc;
+            }
+            .code-card pre code .c {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment */
+            .code-card pre code .err {
+                border: 1px solid #f00;
+            } /* Error */
+            .code-card pre code .k {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword */
+            .code-card pre code .o {
+                color: #666;
+            } /* Operator */
+            .code-card pre code .ch {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Hashbang */
+            .code-card pre code .cm {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Multiline */
+            .code-card pre code .cp {
+                color: #9c6500;
+            } /* Comment.Preproc */
+            .code-card pre code .cpf {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.PreprocFile */
+            .code-card pre code .c1 {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Single */
+            .code-card pre code .cs {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Special */
+            .code-card pre code .gd {
+                color: #a00000;
+            } /* Generic.Deleted */
+            .code-card pre code .ge {
+                font-style: italic;
+            } /* Generic.Emph */
+            .code-card pre code .ges {
+                font-weight: bold;
+                font-style: italic;
+            } /* Generic.EmphStrong */
+            .code-card pre code .gr {
+                color: #e40000;
+            } /* Generic.Error */
+            .code-card pre code .gh {
+                color: #000080;
+                font-weight: bold;
+            } /* Generic.Heading */
+            .code-card pre code .gi {
+                color: #008400;
+            } /* Generic.Inserted */
+            .code-card pre code .go {
+                color: #717171;
+            } /* Generic.Output */
+            .code-card pre code .gp {
+                color: #000080;
+                font-weight: bold;
+            } /* Generic.Prompt */
+            .code-card pre code .gs {
+                font-weight: bold;
+            } /* Generic.Strong */
+            .code-card pre code .gu {
+                color: #800080;
+                font-weight: bold;
+            } /* Generic.Subheading */
+            .code-card pre code .gt {
+                color: #04d;
+            } /* Generic.Traceback */
+            .code-card pre code .kc {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Constant */
+            .code-card pre code .kd {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Declaration */
+            .code-card pre code .kn {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Namespace */
+            .code-card pre code .kp {
+                color: #008000;
+            } /* Keyword.Pseudo */
+            .code-card pre code .kr {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Reserved */
+            .code-card pre code .kt {
+                color: #b00040;
+            } /* Keyword.Type */
+            .code-card pre code .m {
+                color: #666;
+            } /* Literal.Number */
+            .code-card pre code .s {
+                color: #ba2121;
+            } /* Literal.String */
+            .code-card pre code .na {
+                color: #687822;
+            } /* Name.Attribute */
+            .code-card pre code .nb {
+                color: #008000;
+            } /* Name.Builtin */
+            .code-card pre code .nc {
+                color: #00f;
+                font-weight: bold;
+            } /* Name.Class */
+            .code-card pre code .no {
+                color: #800;
+            } /* Name.Constant */
+            .code-card pre code .nd {
+                color: #a2f;
+            } /* Name.Decorator */
+            .code-card pre code .ni {
+                color: #717171;
+                font-weight: bold;
+            } /* Name.Entity */
+            .code-card pre code .ne {
+                color: #cb3f38;
+                font-weight: bold;
+            } /* Name.Exception */
+            .code-card pre code .nf {
+                color: #00f;
+            } /* Name.Function */
+            .code-card pre code .nl {
+                color: #767600;
+            } /* Name.Label */
+            .code-card pre code .nn {
+                color: #00f;
+                font-weight: bold;
+            } /* Name.Namespace */
+            .code-card pre code .nt {
+                color: #008000;
+                font-weight: bold;
+            } /* Name.Tag */
+            .code-card pre code .nv {
+                color: #19177c;
+            } /* Name.Variable */
+            .code-card pre code .ow {
+                color: #a2f;
+                font-weight: bold;
+            } /* Operator.Word */
+            .code-card pre code .w {
+                color: #bbb;
+            } /* Text.Whitespace */
+            .code-card pre code .mb {
+                color: #666;
+            } /* Literal.Number.Bin */
+            .code-card pre code .mf {
+                color: #666;
+            } /* Literal.Number.Float */
+            .code-card pre code .mh {
+                color: #666;
+            } /* Literal.Number.Hex */
+            .code-card pre code .mi {
+                color: #666;
+            } /* Literal.Number.Integer */
+            .code-card pre code .mo {
+                color: #666;
+            } /* Literal.Number.Oct */
+            .code-card pre code .sa {
+                color: #ba2121;
+            } /* Literal.String.Affix */
+            .code-card pre code .sb {
+                color: #ba2121;
+            } /* Literal.String.Backtick */
+            .code-card pre code .sc {
+                color: #ba2121;
+            } /* Literal.String.Char */
+            .code-card pre code .dl {
+                color: #ba2121;
+            } /* Literal.String.Delimiter */
+            .code-card pre code .sd {
+                color: #ba2121;
+                font-style: italic;
+            } /* Literal.String.Doc */
+            .code-card pre code .s2 {
+                color: #ba2121;
+            } /* Literal.String.Double */
+            .code-card pre code .se {
+                color: #aa5d1f;
+                font-weight: bold;
+            } /* Literal.String.Escape */
+            .code-card pre code .sh {
+                color: #ba2121;
+            } /* Literal.String.Heredoc */
+            .code-card pre code .si {
+                color: #a45a77;
+                font-weight: bold;
+            } /* Literal.String.Interpol */
+            .code-card pre code .sx {
+                color: #008000;
+            } /* Literal.String.Other */
+            .code-card pre code .sr {
+                color: #a45a77;
+            } /* Literal.String.Regex */
+            .code-card pre code .s1 {
+                color: #ba2121;
+            } /* Literal.String.Single */
+            .code-card pre code .ss {
+                color: #19177c;
+            } /* Literal.String.Symbol */
+            .code-card pre code .bp {
+                color: #008000;
+            } /* Name.Builtin.Pseudo */
+            .code-card pre code .fm {
+                color: #00f;
+            } /* Name.Function.Magic */
+            .code-card pre code .vc {
+                color: #19177c;
+            } /* Name.Variable.Class */
+            .code-card pre code .vg {
+                color: #19177c;
+            } /* Name.Variable.Global */
+            .code-card pre code .vi {
+                color: #19177c;
+            } /* Name.Variable.Instance */
+            .code-card pre code .vm {
+                color: #19177c;
+            } /* Name.Variable.Magic */
+            .code-card pre code .il {
+                color: #666;
+            } /* Literal.Number.Integer.Long */
+        </style>
+    </head>
+    <body>
+        <button class="sb-toggle" id="sbToggle" aria-label="目次を開閉">☰ 目次</button>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <p class="sb-title">CONTENTS</p>
+                <ul>
+                    <li>
+                        <a href="#0-この章の全体像" data-target="0-この章の全体像"
+                            >0. この章の全体像</a
+                        >
+                        <ul>
+                            <li>
+                                <a
+                                    href="#01-学習目標learning-objectives"
+                                    data-target="01-学習目標learning-objectives"
+                                    >0.1 学習目標（Learning Objectives）</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#02-章の流れ3ステップ" data-target="02-章の流れ3ステップ"
+                                    >0.2 章の流れ（3ステップ）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#03-データの流れ全体マップ"
+                                    data-target="03-データの流れ全体マップ"
+                                    >0.3 データの流れ（全体マップ）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#1-最初に押さえる用語" data-target="1-最初に押さえる用語"
+                            >1. 最初に押さえる用語</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#2-611-データ収集方法の適用k3"
+                            data-target="2-611-データ収集方法の適用k3"
+                            >2. 6.1.1 データ収集方法の適用（K3）</a
+                        >
+                        <ul>
+                            <li>
+                                <a
+                                    href="#21-ステップ1データ源を知る"
+                                    data-target="21-ステップ1データ源を知る"
+                                    >2.1 ステップ1：データ源を知る</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#22-ステップ2テストウェアに記録機能を組み込む"
+                                    data-target="22-ステップ2テストウェアに記録機能を組み込む"
+                                    >2.2 ステップ2：テストウェアに記録機能を組み込む</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#23-ステップ3測定とレポート生成を支える機能を使う"
+                                    data-target="23-ステップ3測定とレポート生成を支える機能を使う"
+                                    >2.3 ステップ3：測定とレポート生成を支える機能を使う</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#24-ステップ4テストロギングの設計"
+                                    data-target="24-ステップ4テストロギングの設計"
+                                    >2.4 ステップ4：テストロギングの設計</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#25-ステップ5サードパーティツールとの連携と可視化"
+                                    data-target="25-ステップ5サードパーティツールとの連携と可視化"
+                                    >2.5 ステップ5：サードパーティツールとの連携と可視化</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#26-実践例コードで見る収集設定"
+                                    data-target="26-実践例コードで見る収集設定"
+                                    >2.6 実践例：コードで見る収集設定</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#27-この節のベストプラクティスまとめ"
+                                    data-target="27-この節のベストプラクティスまとめ"
+                                    >2.7 この節のベストプラクティス（まとめ）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#3-612-データ分析による結果理解k4"
+                            data-target="3-612-データ分析による結果理解k4"
+                            >3. 6.1.2 データ分析による結果理解（K4）</a
+                        >
+                        <ul>
+                            <li>
+                                <a
+                                    href="#31-一次データと二次データ"
+                                    data-target="31-一次データと二次データ"
+                                    >3.1 一次データと二次データ</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#32-分析で見るもの" data-target="32-分析で見るもの"
+                                    >3.2 分析で見るもの</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#33-テスト実行失敗の分析手順5ステップ"
+                                    data-target="33-テスト実行失敗の分析手順5ステップ"
+                                    >3.3 テスト実行失敗の分析手順（5ステップ）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#34-失敗したのに原因が見当たらないケース"
+                                    data-target="34-失敗したのに原因が見当たらないケース"
+                                    >3.4 「失敗したのに原因が見当たらない」ケース</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#35-相関-idトレース-idによる追跡"
+                                    data-target="35-相関-idトレース-idによる追跡"
+                                    >3.5 相関 ID（トレース ID）による追跡</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#36-原因の切り分け整理表実務上の整理"
+                                    data-target="36-原因の切り分け整理表実務上の整理"
+                                    >3.6 原因の切り分け整理表（実務上の整理）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#37-この節のベストプラクティス"
+                                    data-target="37-この節のベストプラクティス"
+                                    >3.7 この節のベストプラクティス</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#4-613-テスト進捗レポートの作成と公開k2"
+                            data-target="4-613-テスト進捗レポートの作成と公開k2"
+                            >4. 6.1.3 テスト進捗レポートの作成と公開（K2）</a
+                        >
+                        <ul>
+                            <li>
+                                <a
+                                    href="#41-なぜログだけでは足りないのか"
+                                    data-target="41-なぜログだけでは足りないのか"
+                                    >4.1 なぜログだけでは足りないのか</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#42-レポートの内容" data-target="42-レポートの内容"
+                                    >4.2 レポートの内容</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#43-レポートの作成から公開までの流れ"
+                                    data-target="43-レポートの作成から公開までの流れ"
+                                    >4.3 レポートの作成から公開までの流れ</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#44-関係者ごとの関心" data-target="44-関係者ごとの関心"
+                                    >4.4 関係者ごとの関心</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#45-ダッシュボード" data-target="45-ダッシュボード"
+                                    >4.5 ダッシュボード</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#46-ai機械学習によるテストログ分析"
+                                    data-target="46-ai機械学習によるテストログ分析"
+                                    >4.6 AI／機械学習によるテストログ分析</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#47-メトリクスの例実務上の整理"
+                                    data-target="47-メトリクスの例実務上の整理"
+                                    >4.7 メトリクスの例（実務上の整理）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#48-この節のベストプラクティス"
+                                    data-target="48-この節のベストプラクティス"
+                                    >4.8 この節のベストプラクティス</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#5-項目別ベストプラクティス総まとめ"
+                            data-target="5-項目別ベストプラクティス総まとめ"
+                            >5. 項目別ベストプラクティス総まとめ</a
+                        >
+                        <ul>
+                            <li>
+                                <a
+                                    href="#51-サービス機能別の使い分け例"
+                                    data-target="51-サービス機能別の使い分け例"
+                                    >5.1 サービス・機能別の使い分け（例）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#52-611613-横断のチェックリスト"
+                                    data-target="52-611613-横断のチェックリスト"
+                                    >5.2 6.1.1〜6.1.3 横断のチェックリスト</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#53-他の章との関係" data-target="53-他の章との関係"
+                                    >5.3 他の章との関係</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#6-試験対策ポイントと確認問題"
+                            data-target="6-試験対策ポイントと確認問題"
+                            >6. 試験対策ポイントと確認問題</a
+                        >
+                        <ul>
+                            <li>
+                                <a
+                                    href="#61-k-レベル別の出題イメージ"
+                                    data-target="61-k-レベル別の出題イメージ"
+                                    >6.1 K レベル別の出題イメージ</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#62-覚えておくべき要点" data-target="62-覚えておくべき要点"
+                                    >6.2 覚えておくべき要点</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#63-確認問題" data-target="63-確認問題">6.3 確認問題</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#7-学習チェックリスト" data-target="7-学習チェックリスト"
+                            >7. 学習チェックリスト</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#8-参考文献ソース-url" data-target="8-参考文献ソース-url"
+                            >8. 参考文献・ソース URL</a
+                        >
+                        <ul>
+                            <li>
+                                <a href="#81-一次情報試験の根拠" data-target="81-一次情報試験の根拠"
+                                    >8.1 一次情報（試験の根拠）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#82-シラバスが参照する関連シラバス章内の言及"
+                                    data-target="82-シラバスが参照する関連シラバス章内の言及"
+                                    >8.2 シラバスが参照する関連シラバス（章内の言及）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#83-補足資料実務の例に関する参考情報試験範囲外"
+                                    data-target="83-補足資料実務の例に関する参考情報試験範囲外"
+                                    >8.3 補足資料（実務の例に関する参考情報。試験範囲外）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <main class="main">
+                <header class="hero">
+                    <span class="eyebrow">ISTQB CTAL-TAE v2.0 ・ Chapter 6</span>
+                    <h1 class="hero-title">
+                        CTAL-TAE v2.0 第6章「Test Automation Reporting and
+                        Metrics」初学者向け解説ガイド
+                    </h1>
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">対象試験</div>
+                            <div class="meta-value">
+                                ISTQB® Certified Tester Advanced Level Test Automation
+                                Engineering（CTAL-TAE）v2.0
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">対象シラバス</div>
+                            <div class="meta-value">
+                                Syllabus Version 2.0（2024/05/03 リリース）第6章（シラバス
+                                p.37〜p.42）
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">学習時間の目安</div>
+                            <div class="meta-value">150分（認知レベル K4）</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">作成日</div>
+                            <div class="meta-value">2026-09-28</div>
+                        </div>
+                    </div>
+                </header>
+                <h2 id="0-この章の全体像">0. この章の全体像</h2>
+                <p>
+                    第6章は、<strong>自動テストが「動いた」だけで終わらせず、結果を集め、原因を読み解き、関係者に伝える</strong>ところまでを扱います。
+                </p>
+                <h3 id="01-学習目標learning-objectives">0.1 学習目標（Learning Objectives）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>LO 番号</th>
+                                <th>認知レベル</th>
+                                <th>内容</th>
+                                <th>本ガイドの節</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>TAE-6.1.1</td>
+                                <td>K3（適用）</td>
+                                <td>TAS と SUT からのデータ収集方法を適用する</td>
+                                <td>第2章</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAE-6.1.2</td>
+                                <td>K4（分析）</td>
+                                <td>TAS と SUT のデータを分析して結果をより良く理解する</td>
+                                <td>第3章</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAE-6.1.3</td>
+                                <td>K2（理解）</td>
+                                <td>テスト進捗レポートがどう作られ公開されるかを説明する</td>
+                                <td>第4章</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>キーワード（暗記対象）</strong
+                    >：measurement（測定）、metric（メトリクス）、test log（テストログ）、test
+                    progress report（テスト進捗レポート）、test step（テストステップ）
+                </p>
+                <div class="callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">学習のヒント</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            シラバスでは「キーワードは学習目標に明記されていなくても覚えておくこと」とされています。上の5語は必ず自分の言葉で説明できるようにしましょう。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="02-章の流れ3ステップ">0.2 章の流れ（3ステップ）</h3>
+                <div class="mermaid-container" id="mermaid-diagram-1"></div>
+                <h3 id="03-データの流れ全体マップ">0.3 データの流れ（全体マップ）</h3>
+                <div class="mermaid-container" id="mermaid-diagram-2"></div>
+                <hr />
+                <h2 id="1-最初に押さえる用語">1. 最初に押さえる用語</h2>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>用語</th>
+                                <th>意味（やさしい言い換え）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>SUT（System Under Test）</td>
+                                <td>テスト対象のシステム</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS（Test Automation Solution）</td>
+                                <td>
+                                    自動テストの仕組み全体（ツール、ライブラリ、スクリプト、環境など）
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAF（Test Automation Framework）</td>
+                                <td>
+                                    TAS
+                                    の土台。テストハーネス（テストランナー）、ライブラリ、スクリプト、スイートを含む
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAE（Test Automation Engineer）</td>
+                                <td>自動テストを設計・実装・保守する人</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テストログ（test log）</td>
+                                <td>テスト実行中の出来事の記録。欠陥分析の主要な情報源</td>
+                            </tr>
+                            <tr class="even">
+                                <td>測定（measurement）／メトリクス（metric）</td>
+                                <td>数値で捉えること／その指標（合格率、実行時間など）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト進捗レポート</td>
+                                <td>実行後に作る簡潔な要約。結果・SUT 情報・環境情報を含む</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストステップ（test step）</td>
+                                <td>テストケースを構成する個々の操作と確認</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>アサーション（assertion）</td>
+                                <td>実際の結果と期待結果を自動で比較する仕組み</td>
+                            </tr>
+                            <tr class="even">
+                                <td>相関 ID／トレース ID</td>
+                                <td>
+                                    1つのリクエストを複数システムにまたがって追跡するための一意の ID
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">ℹ️</span><span class="callout-title">補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            SUT や TAF
+                            など第1〜5章で登場した用語は、本章でも前提知識として使われます。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+                <h2 id="2-611-データ収集方法の適用k3">2. 6.1.1 データ収集方法の適用（K3）</h2>
+                <p>
+                    <strong>この節のゴール</strong
+                    >：どこから、どのようにデータを集めればよいかを、状況に合わせて選べるようになること。
+                </p>
+                <h3 id="21-ステップ1データ源を知る">2.1 ステップ1：データ源を知る</h3>
+                <p>シラバスが挙げるデータ源は次のとおりです。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>データ源</th>
+                                <th>具体例</th>
+                                <th>主な使いどころ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>SUT ログ</td>
+                                <td>
+                                    Web／モバイル UI、API、アプリケーション、Web サーバー、DB
+                                    サーバーのログ
+                                </td>
+                                <td>SUT 側の欠陥の原因調査</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAF ログ</td>
+                                <td>TAF が出力する実行記録</td>
+                                <td>監査証跡（audit trail）として利用</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>ビルドログ</td>
+                                <td>ビルド工程の出力</td>
+                                <td>ビルド失敗と自動テスト失敗の切り分け</td>
+                            </tr>
+                            <tr class="even">
+                                <td>デプロイログ</td>
+                                <td>デプロイ工程の出力</td>
+                                <td>デプロイ起因の不具合の切り分け</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>本番ログ・監視データ</td>
+                                <td>
+                                    本番のパフォーマンス監視、性能テスト環境の負荷・ストレス・スパイクテストログ
+                                </td>
+                                <td>傾向分析（trend analysis）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>スクリーンショット・画面録画</td>
+                                <td>ツール標準機能、または第三者ツール</td>
+                                <td>失敗時の SUT の状態確認</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container" id="mermaid-diagram-3"></div>
+                <div class="callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス：データ源の選び方</span>
+                    </div>
+                    <div class="callout-body">
+                        <ol type="1">
+                            <li>
+                                まず TAF
+                                ログ（一次情報）で「どのテストのどのステップで失敗したか」を特定する。
+                            </li>
+                            <li>
+                                次に SUT ログ・スクリーンショットで「そのとき SUT
+                                がどんな状態だったか」を確認する。
+                            </li>
+                            <li>
+                                環境全体が怪しいときだけ、ビルド・デプロイログや監視データまで広げる。
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <h3 id="22-ステップ2テストウェアに記録機能を組み込む">
+                    2.2 ステップ2：テストウェアに記録機能を組み込む
+                </h3>
+                <p>
+                    TAS
+                    の中心は自動化されたテストウェア（テストスクリプトやライブラリ）です。そのため、<strong
+                        >下位のテストウェアに記録機能を足すと、上位の全テストスクリプトがその恩恵を受けます。</strong
+                    >
+                </p>
+                <p>
+                    シラバスの例：下位のテストウェアに「テストの開始・終了時刻の記録」を追加すれば、ほとんどすべてのテストに効果があります。
+                </p>
+                <div class="mermaid-container" id="mermaid-diagram-4"></div>
+                <div class="callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                ログ出力はテストスクリプトごとに書かず、<strong>共通フック（setup／teardown、フィクスチャ、リスナー）に1回だけ実装</strong>する。
+                            </li>
+                            <li>
+                                記録項目を増やしたいときも下位層を直せば全テストに反映される。第3章の「レイヤー化」「Facade
+                                パターン」の考え方と同じです。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="23-ステップ3測定とレポート生成を支える機能を使う">
+                    2.3 ステップ3：測定とレポート生成を支える機能を使う
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>機能</th>
+                                <th>内容</th>
+                                <th>覚えるポイント</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>実行前・中・後の記録</td>
+                                <td>
+                                    多くのテストツールのスクリプト言語には、個別テストやスイート全体の前後で情報を記録する機能がある
+                                </td>
+                                <td>測定・レポートの土台</td>
+                            </tr>
+                            <tr class="even">
+                                <td>過去実行との比較分析</td>
+                                <td>複数回の実行結果を踏まえ、成功率の変化などの傾向を示す</td>
+                                <td>「1回の結果」ではなく「推移」を見る</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>アサーションによる比較</td>
+                                <td>
+                                    実際の結果と期待結果の比較はツールのアサーションで行うのが最適
+                                </td>
+                                <td>合否（passed／failed）を正しく判定する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>失敗時の追加情報</td>
+                                <td>
+                                    failed
+                                    のときは原因把握のための情報（例：スクリーンショット）が必要
+                                </td>
+                                <td>合否だけでは調査できない</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>期待される差異の無視</td>
+                                <td>
+                                    日付・時刻など、毎回変わって当然の差異は比較から除外し、想定外の差異だけを目立たせる
+                                </td>
+                                <td>誤検知（偽の失敗）を減らす</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-warning">
+                    <div class="callout-head">
+                        <span class="callout-icon">⚠️</span><span class="callout-title">注意</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            テスト状況（合否）が正しく判定されないと、以降のレポートやメトリクスはすべて信頼できなくなります。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="24-ステップ4テストロギングの設計">2.4 ステップ4：テストロギングの設計</h3>
+                <h4 id="241-ログレベル第4章の復習">2.4.1 ログレベル（第4章の復習）</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>レベル</th>
+                                <th>用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>Fatal</td>
+                                <td>テスト実行の中断につながりうるエラー</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Error</td>
+                                <td>条件や操作が失敗し、テストケースも失敗になる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Warn</td>
+                                <td>想定外の状況が起きたが、テストの流れは止まらない</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Info</td>
+                                <td>テストケースと実行中の基本情報</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Debug</td>
+                                <td>通常は不要だが、失敗調査に役立つ実行時の詳細</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Trace</td>
+                                <td>Debug よりさらに詳細</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="242-tas-ロギングで記録すべき内容">2.4.2 TAS ロギングで記録すべき内容</h4>
+                <p>シラバスが挙げる項目を、目的別に整理しました。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>分類</th>
+                                <th>記録する内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>実行の特定</td>
+                                <td>実行中のテストケース、開始・終了時刻</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ステータス</td>
+                                <td>
+                                    passed／failed／<strong>TAS failure</strong>（欠陥が SUT
+                                    ではない場合）。inconclusive（結論不能）になることもあるため、組織で明確に定義する
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>詳細</td>
+                                <td>重要なテストステップと時間情報</td>
+                            </tr>
+                            <tr class="even">
+                                <td>SUT の動的情報</td>
+                                <td>
+                                    サードパーティツールで検出したメモリリークなど。失敗は実行していたスイートと共に記録
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>反復</td>
+                                <td>信頼性テスト・ストレステストでは実行回数のカウンタ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ランダム要素</td>
+                                <td>ランダムなパラメータや選択があるときは、その値・選択を記録</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>再現性</td>
+                                <td>
+                                    すべての操作を、同じステップ・同じタイミングで再生できる形で記録
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>証拠</td>
+                                <td>スクリーンショット、クラッシュダンプ、スタックトレース</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>上書き対策</td>
+                                <td>
+                                    循環バッファなど上書きされうるログは、失敗時に別の場所へ退避
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>見やすさ</td>
+                                <td>色分け（例：欠陥は赤、進捗は緑）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container" id="mermaid-diagram-5"></div>
+                <div class="callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title">ベストプラクティス：ステータス定義</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                「passed／failed」だけでなく
+                                <strong>TAS failure</strong> を分けて集計する。分けないと「SUT
+                                の品質が悪い」のか「テストが壊れている」のかが混ざり、メトリクスが誤解を生みます。
+                            </li>
+                            <li>
+                                inconclusive
+                                の扱い（再実行するか、欠陥扱いにするか）を、チームで文書化しておく。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 id="243-sut-ロギングで押さえること">2.4.3 SUT ロギングで押さえること</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>欠陥情報</td>
+                                <td>日時、欠陥の発生箇所（ソース位置）、エラーメッセージ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>起動時の構成情報</td>
+                                <td>
+                                    ソフトウェア／ファームウェアのバージョン、SUT の構成、OS
+                                    の構成をファイルに記録
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>検索性と同期</td>
+                                <td>
+                                    TAS のテストログで見つけた失敗を SUT
+                                    ログで簡単に探せる（逆も同様）ように、<strong>タイムスタンプで各ログを同期</strong>する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container" id="mermaid-diagram-6"></div>
+                <h3 id="25-ステップ5サードパーティツールとの連携と可視化">
+                    2.5 ステップ5：サードパーティツールとの連携と可視化
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>内容</th>
+                                <th>ベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>他ツール連携</td>
+                                <td>
+                                    表計算、XML、ドキュメント、DB、レポートツールなどで追跡・報告できる形式で結果を出力する（例：トレーサビリティ情報の更新）。ツール標準のエクスポート形式か、カスタムレポートで実現
+                                </td>
+                                <td>
+                                    標準的な形式（例：JUnit 形式の XML）で出力しておくと、多くの
+                                    CI/CD やレポートツールが読み取れる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>結果の可視化</td>
+                                <td>
+                                    グラフで表現。信号機のような色付きアイコンで全体状態を示すと、判断しやすい。管理者は視覚的な要約を好み、必要ならドリルダウンで詳細へ
+                                </td>
+                                <td>最上段に全体状態、そこから詳細へ掘り下げられる構成にする</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="26-実践例コードで見る収集設定">2.6 実践例：コードで見る収集設定</h3>
+                <div class="callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">ℹ️</span><span class="callout-title">補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            以下は<strong>理解を助けるための一例</strong>で、シラバスの内容ではありません。ツールの詳細は各公式ドキュメントで確認してください。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="例1playwright-でレポートとトレースを収集する設定">
+                    例1：Playwright でレポートとトレースを収集する設定
+                </h4>
+                <div class="code-card">
+                    <div class="code-lang">typescript</div>
+                    <pre class="typescript"><code><span class="c1">// playwright.config.ts</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@playwright/test'</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineConfig</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">reporter</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">'list'</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">'html'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">open</span><span class="o">:</span><span class="w"> </span><span class="s1">'never'</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">'junit'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">outputFile</span><span class="o">:</span><span class="w"> </span><span class="s1">'results/junit.xml'</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">'json'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">outputFile</span><span class="o">:</span><span class="w"> </span><span class="s1">'results/results.json'</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">trace</span><span class="o">:</span><span class="w"> </span><span class="s1">'retain-on-failure'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">screenshot</span><span class="o">:</span><span class="w"> </span><span class="s1">'only-on-failure'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">video</span><span class="o">:</span><span class="w"> </span><span class="s1">'retain-on-failure'</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">});</span>
+</code></pre>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>設定</th>
+                                <th>役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>html／junit／json</td>
+                                <td>人が読む形と、他ツールが読む形の両方を出力</td>
+                            </tr>
+                            <tr class="even">
+                                <td>trace／screenshot／video</td>
+                                <td>失敗時だけ証拠を残す（容量と調査効率のバランス）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="例2相関-id-を付与して-taf-ログに残すpython">
+                    例2：相関 ID を付与して TAF ログに残す（Python）
+                </h4>
+                <div class="code-card">
+                    <div class="code-lang">python</div>
+                    <pre
+                        class="python"
+                    ><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlsplit</span><span class="p">,</span> <span class="n">urlunsplit</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"taf"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">call_api</span><span class="p">(</span><span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">test_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+    <span class="n">trace_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>                      <span class="c1"># 32桁の16進数</span>
+    <span class="n">span_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>                  <span class="c1"># 16桁の16進数</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"traceparent"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"00-</span><span class="si">{</span><span class="n">trace_id</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">span_id</span><span class="si">}</span><span class="s2">-01"</span><span class="p">}</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base_url</span><span class="si">}{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># 認証情報が平文で流れないよう、HTTPS 以外は送信前に拒否する</span>
+    <span class="k">if</span> <span class="n">parts</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="s2">"https"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"base_url は https:// で始まる必要があります"</span><span class="p">)</span>
+
+    <span class="c1"># userinfo（user:password@）・クエリ・フラグメントには秘密情報が含まれうるため、ログには載せない</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">hostname</span> <span class="ow">or</span> <span class="s2">""</span>
+    <span class="n">netloc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">parts</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">parts</span><span class="o">.</span><span class="n">port</span> <span class="k">else</span> <span class="n">host</span>
+    <span class="n">logged_url</span> <span class="o">=</span> <span class="n">urlunsplit</span><span class="p">((</span><span class="n">parts</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">netloc</span><span class="p">,</span> <span class="n">parts</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
+
+    <span class="c1"># time.time() はシステム時刻の補正で巻き戻りうるため、経過時間は単調増加の perf_counter() で測る</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># リダイレクトは追従しない（HTTP など想定外の送信先へ認証情報が渡るのを防ぐ）</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="c1"># 失敗時も相関 ID を残し、SUT ログと突き合わせられるようにしてから再送出する</span>
+        <span class="c1"># 例外メッセージには URL（認証情報・トークンを含みうる）が入るため、型名だけを記録する</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+            <span class="s2">"test_id"</span><span class="p">:</span> <span class="n">test_id</span><span class="p">,</span>
+            <span class="s2">"trace_id"</span><span class="p">:</span> <span class="n">trace_id</span><span class="p">,</span>
+            <span class="s2">"url"</span><span class="p">:</span> <span class="n">logged_url</span><span class="p">,</span>
+            <span class="s2">"error"</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s2">"elapsed_ms"</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">started</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">),</span>
+        <span class="p">}))</span>
+        <span class="k">raise</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+        <span class="s2">"test_id"</span><span class="p">:</span> <span class="n">test_id</span><span class="p">,</span>
+        <span class="s2">"trace_id"</span><span class="p">:</span> <span class="n">trace_id</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="n">logged_url</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span>
+        <span class="s2">"elapsed_ms"</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">started</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="p">}))</span>
+    <span class="k">return</span> <span class="n">response</span>
+</code></pre>
+                </div>
+                <p>
+                    <code>traceparent</code> は W3C Trace Context
+                    で定められたヘッダーです（形式の詳細は<a href="#8-参考文献ソース-url"
+                        >参考文献</a
+                    >を参照）。SUT 側もこの ID をログに出す構成であれば、TAF ログと SUT ログを ID
+                    で突き合わせられます。
+                </p>
+                <h3 id="27-この節のベストプラクティスまとめ">
+                    2.7 この節のベストプラクティス（まとめ）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>対象</th>
+                                <th>ベストプラクティス</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ログ出力の実装場所</td>
+                                <td>下位のテストウェア（共通層）に実装し全テストへ波及させる</td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ステータス</td>
+                                <td>passed／failed／TAS failure を区別し、定義を組織で統一</td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>失敗時の証拠</td>
+                                <td>
+                                    スクリーンショット、スタックトレース、クラッシュダンプを保存
+                                </td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ログの寿命</td>
+                                <td>上書きされるログは失敗時に退避</td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>再現性</td>
+                                <td>操作を再生できる粒度で記録。ランダム値も記録</td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ログ間の対応付け</td>
+                                <td>時刻同期と相関 ID</td>
+                                <td>シラバス 6.1.1、6.1.2</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>比較の精度</td>
+                                <td>日時など期待される差異は無視し、想定外の差異だけ強調</td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                            <tr class="even">
+                                <td>連携</td>
+                                <td>標準的なエクスポート形式で出力</td>
+                                <td>シラバス 6.1.1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <h2 id="3-612-データ分析による結果理解k4">
+                    3. 6.1.2 データ分析による結果理解（K4）
+                </h2>
+                <p>
+                    <strong>この節のゴール</strong>：失敗の原因が
+                    SUT・TAS・環境のどこにあるかを、ログから筋道立てて切り分けられること。
+                </p>
+                <h3 id="31-一次データと二次データ">3.1 一次データと二次データ</h3>
+                <blockquote>
+                    <p>
+                        <strong
+                            >分析では、TAS から集めたデータが一次（primary）、SUT
+                            から集めたデータが二次（secondary）です。</strong
+                        >
+                    </p>
+                </blockquote>
+                <div class="mermaid-container" id="mermaid-diagram-7"></div>
+                <h3 id="32-分析で見るもの">3.2 分析で見るもの</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>具体例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テスト環境データ</td>
+                                <td>
+                                    クラスタやリソース（CPU、RAM）。クラウド上での自動テストの適正な規模の判断に使う。単一ブラウザか複数ブラウザ（クロスブラウザ）かも含む
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>過去の実行との比較</td>
+                                <td>結果の推移、同じ失敗が過去にもあったか</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Web ログの活用</td>
+                                <td>ソフトウェアの利用状況の監視方法を決める</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="33-テスト実行失敗の分析手順5ステップ">
+                    3.3 テスト実行失敗の分析手順（5ステップ）
+                </h3>
+                <div class="mermaid-container" id="mermaid-diagram-8"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>手順</th>
+                                <th>やること</th>
+                                <th>使う情報</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>
+                                    過去の実行で同じ失敗がなかったか確認する。既知の欠陥（SUT または
+                                    TAS）の可能性がある。TAS
+                                    に過去のテスト結果を記録させておくと分析しやすい
+                                </td>
+                                <td>履歴ログ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>
+                                    既知でなければ、失敗したテストケースと確認内容を特定する。テスト管理システム上の
+                                    ID がログに出ていれば探しやすい
+                                </td>
+                                <td>テスト ID</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>テストケースのどのテストステップで失敗したかを特定する</td>
+                                <td>TAS ログ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>ログの情報から SUT の状態が期待結果と合うかを分析する</td>
+                                <td>スクリーンショット、API ログ、ネットワークログなど</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>
+                                    SUT
+                                    の状態が期待と異なれば、欠陥管理システムに起票する。欠陥だと言える根拠となるログを添える
+                                </td>
+                                <td>欠陥情報とログ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="34-失敗したのに原因が見当たらないケース">
+                    3.4 「失敗したのに原因が見当たらない」ケース
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>ケース</th>
+                                <th>起きていること</th>
+                                <th>対処の方向性</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>実際の結果と期待結果が一致しているのに失敗</td>
+                                <td>
+                                    多くの場合、<strong>TAS 側に欠陥</strong
+                                    >がある。または目に見えない不一致が存在する
+                                </td>
+                                <td>TAS（テストコードや比較ロジック）を修正する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト環境が使えない、または一部だけ使えない</td>
+                                <td>
+                                    全テストが同じ理由で失敗する。一部が落ちているだけなら、本物の失敗に見える失敗も出る
+                                </td>
+                                <td>
+                                    SUT ログを分析し、テスト実行時刻に環境の停止がなかったか確認する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="35-相関-idトレース-idによる追跡">3.5 相関 ID（トレース ID）による追跡</h3>
+                <p>
+                    SUT がユーザー操作（UI セッションや API
+                    呼び出し）の<strong>監査ログ</strong>を出している場合、結果の分析が容易になります。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>仕組み</td>
+                                <td>
+                                    操作に一意の ID を付け、その後の呼び出しや連携でも同じ ID を使う
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>呼び名</td>
+                                <td>相関 ID（correlation ID）またはトレース ID（trace ID）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>効果</td>
+                                <td>ID を知っていれば、システムの挙動を追跡してさかのぼれる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS でやること</td>
+                                <td>この ID を TAS もログに残し、テスト結果の分析に使う</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="36-原因の切り分け整理表実務上の整理">
+                    3.6 原因の切り分け整理表（実務上の整理）
+                </h3>
+                <div class="callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">ℹ️</span><span class="callout-title">補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            以下はシラバスの記述を初学者向けに整理した<strong>実務上のまとめ</strong>です。分類名そのものは試験の暗記対象ではありません。
+                        </p>
+                    </div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>原因の所在</th>
+                                <th>典型的な兆候</th>
+                                <th>確認するデータ</th>
+                                <th>次のアクション</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>SUT の欠陥</td>
+                                <td>SUT の状態が期待と異なる</td>
+                                <td>SUT ログ、スクリーンショット、API ログ</td>
+                                <td>欠陥として起票</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS の欠陥</td>
+                                <td>
+                                    実際の結果と期待結果が一致しているのに失敗、または壊れたロケーター
+                                </td>
+                                <td>TAF ログ、比較ロジック</td>
+                                <td>テストコード・ライブラリを修正</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト環境</td>
+                                <td>大量のテストが同時に同じ理由で失敗</td>
+                                <td>SUT ログ、監視データ、環境のリソースデータ</td>
+                                <td>環境を復旧し再実行</td>
+                            </tr>
+                            <tr class="even">
+                                <td>既知の問題</td>
+                                <td>過去の実行でも同じ失敗</td>
+                                <td>テスト結果の履歴</td>
+                                <td>既存の欠陥や課題に紐づける</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="37-この節のベストプラクティス">3.7 この節のベストプラクティス</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>対象</th>
+                                <th>ベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>分析の順序</td>
+                                <td>
+                                    TAS のデータ（一次）から始め、SUT のデータ（二次）で裏付ける
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>履歴</td>
+                                <td>TAS にテスト結果の履歴を記録させ、既知の失敗を素早く判別</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト ID</td>
+                                <td>テスト管理システムの ID をログに出力する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>欠陥起票</td>
+                                <td>必要な欠陥情報と、欠陥だと示すログをそろえて起票</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>環境停止の疑い</td>
+                                <td>大量失敗のときは、まず環境停止を疑い SUT ログで確認</td>
+                            </tr>
+                            <tr class="even">
+                                <td>相関 ID</td>
+                                <td>TAS が相関 ID を記録し、SUT の監査ログと突き合わせ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>リソース分析</td>
+                                <td>
+                                    CPU・RAM
+                                    などの利用状況から、自動テストの規模（クラウド上のサイジング）を決める
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <h2 id="4-613-テスト進捗レポートの作成と公開k2">
+                    4. 6.1.3 テスト進捗レポートの作成と公開（K2）
+                </h2>
+                <p>
+                    <strong>この節のゴール</strong
+                    >：レポートに何を載せ、誰に、どう届けるかを説明できること。
+                </p>
+                <h3 id="41-なぜログだけでは足りないのか">4.1 なぜログだけでは足りないのか</h3>
+                <ul>
+                    <li>
+                        テストログは、テストステップ・操作・期待される応答といった<strong>詳細</strong>を与えてくれる。
+                    </li>
+                    <li>しかし、ログだけでは<strong>全体の結果の概観</strong>は得られない。</li>
+                    <li>
+                        そこで、テストスイートの実行後に<strong>簡潔なテスト進捗レポート</strong>を作成し、公開する。レポートジェネレーターを使うことができる。
+                    </li>
+                </ul>
+                <h3 id="42-レポートの内容">4.2 レポートの内容</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>必須の内容</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テスト結果</td>
+                                <td>どのテストが失敗し、その理由は何か</td>
+                            </tr>
+                            <tr class="even">
+                                <td>SUT 情報</td>
+                                <td>どのバージョン・構成の SUT をテストしたか</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト環境の記録</td>
+                                <td>どの環境でテストを実行したか</td>
+                            </tr>
+                            <tr class="even">
+                                <td>実行履歴と担当者</td>
+                                <td>
+                                    一般に、そのテストを作成または最後に更新した人。原因調査、欠陥起票、修正のフォローアップ、修正確認を担当
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAF 構成要素の診断</td>
+                                <td>レポートは TAF 自体の不具合の診断にも使う</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container" id="mermaid-diagram-9"></div>
+                <h3 id="43-レポートの作成から公開までの流れ">
+                    4.3 レポートの作成から公開までの流れ
+                </h3>
+                <div class="mermaid-container" id="mermaid-diagram-10"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>公開の選択肢</th>
+                                <th>補足</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>Web サイトへのアップロード</td>
+                                <td>クラウド上でもオンプレミスでもよい</td>
+                            </tr>
+                            <tr class="even">
+                                <td>メーリングリストへの送信</td>
+                                <td>購読者にメールで届く</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>他ツールへのアップロード</td>
+                                <td>テスト管理ツールなど</td>
+                            </tr>
+                            <tr class="even">
+                                <td>チャットへの投稿</td>
+                                <td>
+                                    チャットボットによるメッセージ投稿。購読すれば、レポートがレビュー・分析される可能性が高まる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>履歴の活用</strong>：SUT
+                    の問題のある部分を特定し、テストレポートの履歴を保管すると、頻繁に回帰（リグレッション）するテストケースやテストスイートの統計を集めて<strong>傾向分析</strong>ができます。
+                </p>
+                <h3 id="44-関係者ごとの関心">4.4 関係者ごとの関心</h3>
+                <p>シラバスは報告先を3種類に分けています。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>区分</th>
+                                <th>典型的な役割</th>
+                                <th>主な関心</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>管理層（Management）</td>
+                                <td>
+                                    ソリューション／エンタープライズアーキテクト、プロジェクト／デリバリーマネージャー、プログラムマネージャー、テストマネージャー、テストディレクター
+                                </td>
+                                <td>
+                                    <strong>傾向</strong
+                                    >：前回実行からの追加テストケース数、合否比率の変化、TAS と SUT
+                                    の信頼性
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>運用層（Operational）</td>
+                                <td>
+                                    プロダクトオーナー／マネージャー、ビジネス担当者、ビジネスアナリスト
+                                </td>
+                                <td><strong>製品の利用に関連するメトリクス</strong></td>
+                            </tr>
+                            <tr class="odd">
+                                <td>技術層（Technical）</td>
+                                <td>
+                                    チームリーダー、スクラムマスター、Web 管理者、DB
+                                    開発者／管理者、テストリーダー、TAE、テスター、開発者
+                                </td>
+                                <td><strong>低レベルの詳細</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container" id="mermaid-diagram-11"></div>
+                <div class="callout-practice">
+                    <div class="callout-head">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-title"
+                            >ベストプラクティス：受け手に合わせた出し分け</span
+                        >
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                元になるデータは1つにして、<strong>見せ方を受け手ごとに変える</strong>（データの二重管理を避ける）。
+                            </li>
+                            <li>
+                                管理層向けは「信号機＋傾向グラフ」、技術層向けは「失敗テストの一覧＋ログ・スクリーンショットへのリンク」のように構成する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="45-ダッシュボード">4.5 ダッシュボード</h3>
+                <p>
+                    最新のレポートツールは、ダッシュボード、カラフルなグラフ、詳細なログの収集、テストログの自動分析などを提供します。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>集約できるデータ源</td>
+                                <td>
+                                    パイプライン実行のテストログ、プロジェクト管理ツール、コードリポジトリなど
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>見えるようになる傾向</td>
+                                <td>
+                                    欠陥のクラスター、特定のテスト環境への欠陥の伝播の増減、SUT
+                                    の性能劣化、ビルドの信頼性
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>効果</td>
+                                <td>関係者が傾向を見て判断できる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="46-ai機械学習によるテストログ分析">4.6 AI／機械学習によるテストログ分析</h3>
+                <p>
+                    近年、機械学習（ML）アルゴリズムを含む、またはそれに基づくテスト自動化ツールがあります。大量のテストログの自動分析は、TAE
+                    の次の作業時間を減らします。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>AI／ML が支援すること</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>壊れたロケーターの検出</td>
+                                <td>探す時間の削減</td>
+                            </tr>
+                            <tr class="even">
+                                <td>失敗原因の分析</td>
+                                <td>SUT の欠陥か TAS の欠陥かの判別</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>共通の欠陥のグルーピング</td>
+                                <td>テストレポート用の集約</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-warning">
+                    <div class="callout-head">
+                        <span class="callout-icon">⚠️</span><span class="callout-title">注意</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            AI の分析結果は「候補」として扱い、最終判断は TAE
+                            が根拠ログで確認する運用が安全です。（これは実務上の推奨であり、シラバスの記述ではありません。）
+                        </p>
+                    </div>
+                </div>
+                <h3 id="47-メトリクスの例実務上の整理">4.7 メトリクスの例（実務上の整理）</h3>
+                <div class="callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">ℹ️</span><span class="callout-title">補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            シラバス第6章は具体的なメトリクス一覧を規定していません。以下は、シラバスの記述（合否比率、追加テストケース数、信頼性、性能劣化など）に沿った<strong>実務上の例</strong>です。
+                        </p>
+                    </div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>メトリクスの例</th>
+                                <th>何がわかるか</th>
+                                <th>主な受け手</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>合格率（pass rate）の推移</td>
+                                <td>品質と変更の影響の傾向</td>
+                                <td>管理層</td>
+                            </tr>
+                            <tr class="even">
+                                <td>前回実行からの追加テストケース数</td>
+                                <td>自動化の進み具合</td>
+                                <td>管理層</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAS failure の割合</td>
+                                <td>TAS の信頼性</td>
+                                <td>管理層、技術層</td>
+                            </tr>
+                            <tr class="even">
+                                <td>実行時間</td>
+                                <td>自動テストの効率、規模の適正</td>
+                                <td>技術層</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>頻繁に失敗するテスト（回帰の多いテスト）</td>
+                                <td>問題のある SUT 領域、またはテストの脆さ</td>
+                                <td>技術層</td>
+                            </tr>
+                            <tr class="even">
+                                <td>欠陥のクラスター</td>
+                                <td>欠陥が集中している領域</td>
+                                <td>運用層、技術層</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="48-この節のベストプラクティス">4.8 この節のベストプラクティス</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>対象</th>
+                                <th>ベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>レポートの構成</td>
+                                <td>結果、SUT 情報、環境情報を必ず含める</td>
+                            </tr>
+                            <tr class="even">
+                                <td>担当者</td>
+                                <td>
+                                    各失敗の担当者を明確にし、起票から修正確認までのフォローを任せる
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>公開</td>
+                                <td>購読可能な形（メール、チャット、テスト管理ツール）で届ける</td>
+                            </tr>
+                            <tr class="even">
+                                <td>履歴</td>
+                                <td>レポート履歴を保管し、傾向分析に使う</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>出し分け</td>
+                                <td>管理層は傾向、運用層は利用メトリクス、技術層は詳細</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ダッシュボード</td>
+                                <td>複数のデータ源を集約して傾向を可視化</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>AI／ML</td>
+                                <td>ロケーター破損の検出や失敗のグルーピングに活用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <h2 id="5-項目別ベストプラクティス総まとめ">5. 項目別ベストプラクティス総まとめ</h2>
+                <h3 id="51-サービス機能別の使い分け例">5.1 サービス・機能別の使い分け（例）</h3>
+                <div class="callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">ℹ️</span><span class="callout-title">補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            以下のツール名は代表例です。試験ではツール名は問われません。導入前に各公式ドキュメントで最新の機能を確認してください。
+                        </p>
+                    </div>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>目的</th>
+                                <th>機能・ツールの例</th>
+                                <th>使いどころ</th>
+                                <th>注意点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テスト結果レポート（HTML）</td>
+                                <td>Playwright の HTML レポーター、Allure Report</td>
+                                <td>人が読む詳細レポート</td>
+                                <td>保管先と公開方法を決める</td>
+                            </tr>
+                            <tr class="even">
+                                <td>CI 連携用の結果出力</td>
+                                <td>JUnit 形式の XML、JSON</td>
+                                <td>CI/CD やテスト管理ツールへの取り込み</td>
+                                <td>ツールが読める形式を事前確認</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>失敗時の証拠</td>
+                                <td>スクリーンショット、動画、トレース</td>
+                                <td>失敗の再現と原因分析</td>
+                                <td>失敗時のみ保存にして容量を抑える</td>
+                            </tr>
+                            <tr class="even">
+                                <td>失敗分析の補助（AI／ML）</td>
+                                <td>ReportPortal など</td>
+                                <td>大量ログの分類、失敗傾向の把握</td>
+                                <td>判定は根拠ログで検証する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>ダッシュボード</td>
+                                <td>Grafana など</td>
+                                <td>傾向の可視化</td>
+                                <td>データ源と更新頻度を明確にする</td>
+                            </tr>
+                            <tr class="even">
+                                <td>分散追跡</td>
+                                <td>
+                                    W3C Trace Context に沿った
+                                    <code>traceparent</code> ヘッダー、OpenTelemetry
+                                </td>
+                                <td>TAS ログと SUT ログの突き合わせ</td>
+                                <td>SUT 側も ID をログに出す必要がある</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="52-611613-横断のチェックリスト">5.2 6.1.1〜6.1.3 横断のチェックリスト</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>フェーズ</th>
+                                <th>確認事項</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>収集</td>
+                                <td>ログ、証拠、時刻、ID が失敗調査に十分か</td>
+                            </tr>
+                            <tr class="even">
+                                <td>分析</td>
+                                <td>
+                                    一次データ→二次データの順で、SUT・TAS・環境を切り分けられるか
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>報告</td>
+                                <td>受け手に合った粒度か。履歴は保管されているか</td>
+                            </tr>
+                            <tr class="even">
+                                <td>自動化の信頼性</td>
+                                <td>
+                                    TAS failure を分けて集計しているか。結果の合否判定は正しいか
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="53-他の章との関係">5.3 他の章との関係</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>関連する章</th>
+                                <th>関係</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>第3章 アーキテクチャ</td>
+                                <td>
+                                    レイヤー構造に記録機能を組み込む（gTAA
+                                    のテスト実行にロギング・レポート機能が含まれる）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>第4章 実装</td>
+                                <td>ログレベル、テスト構造化（フィクスチャ）、パッケージング</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>第5章 CI/CD</td>
+                                <td>
+                                    パイプラインのビルドログ・デプロイログ、パイプライン内のテスト結果
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>第7章 TAS の検証</td>
+                                <td>ログやレポートが正確な情報を出しているかの検証</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>第8章 継続的改善</td>
+                                <td>収集データを基にした改善（テストヒストグラム等）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <h2 id="6-試験対策ポイントと確認問題">6. 試験対策ポイントと確認問題</h2>
+                <h3 id="61-k-レベル別の出題イメージ">6.1 K レベル別の出題イメージ</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>LO</th>
+                                <th>K レベル</th>
+                                <th>問われ方のイメージ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>6.1.1</td>
+                                <td>K3（適用）</td>
+                                <td>
+                                    シナリオを与えられ、「どのデータ源から」「どの情報をログに記録するか」を選ぶ
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.1.2</td>
+                                <td>K4（分析）</td>
+                                <td>
+                                    ログや状況から、原因が SUT・TAS・環境のどこにあるかを推論する
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>6.1.3</td>
+                                <td>K2（理解）</td>
+                                <td>レポートの内容、受け手ごとの関心、公開方法を説明できるか</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="62-覚えておくべき要点">6.2 覚えておくべき要点</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>要点</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>一次と二次</td>
+                                <td>TAS のデータが一次、SUT のデータが二次</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS failure</td>
+                                <td>欠陥が SUT にない状況に付けるステータス</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>期待と実際が一致して失敗</td>
+                                <td>多くは TAS の欠陥</td>
+                            </tr>
+                            <tr class="even">
+                                <td>全テスト失敗</td>
+                                <td>環境停止を疑い、SUT ログで確認</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>相関 ID／トレース ID</td>
+                                <td>操作を追跡してさかのぼるための一意の ID</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ログの同期</td>
+                                <td>タイムスタンプで各ログを同期</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>レポートの受け手</td>
+                                <td>管理層（傾向）、運用層（利用メトリクス）、技術層（詳細）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="63-確認問題">6.3 確認問題</h3>
+                <p>
+                    <strong>問1</strong
+                    >：あるテスト実行で、ほぼすべてのテストが同じ時間帯から一斉に失敗した。最初に確認すべきものとして最も適切なものはどれか。
+                </p>
+                <ul>
+                    <li>A. 各テストのアサーションをすべて書き直す</li>
+                    <li>B. SUT ログで、その時間帯にテスト環境の停止がなかったか確認する</li>
+                    <li>C. すべてのテストを欠陥として起票する</li>
+                    <li>D. レポートの色を変更する</li>
+                </ul>
+                <details class="answer">
+                    <summary>解答と解説</summary>
+                    <p>
+                        <strong>正解：B</strong
+                        >。テスト環境が使えない（または一部だけ使えない）と、すべてのテストが失敗しうるとシラバスに記載があります。SUT
+                        ログで環境停止の有無を確認します。
+                    </p>
+                </details>
+                <p>
+                    <strong>問2</strong
+                    >：テスト失敗の分析で、実際の結果と期待結果が一致しているにもかかわらずテストが失敗していた。最も可能性が高い原因はどれか。
+                </p>
+                <ul>
+                    <li>A. SUT の欠陥</li>
+                    <li>B. TAS の欠陥、または見えない不一致</li>
+                    <li>C. ネットワークの遅延のみ</li>
+                    <li>D. レポートの公開先の誤り</li>
+                </ul>
+                <details class="answer">
+                    <summary>解答と解説</summary>
+                    <p>
+                        <strong>正解：B</strong
+                        >。この場合、多くはテスト自動化ソリューション側に欠陥があるとされています。
+                    </p>
+                </details>
+                <p>
+                    <strong>問3</strong
+                    >：管理層のステークホルダーが特に関心を持つ情報として、シラバスの記述に最も合うものはどれか。
+                </p>
+                <ul>
+                    <li>A. 個々のテストステップの低レベルな実行ログ</li>
+                    <li>
+                        B. 前回実行からの追加テストケース数、合否比率の変化、TAS と SUT
+                        の信頼性といった傾向
+                    </li>
+                    <li>C. データベースのスキーマ定義</li>
+                    <li>D. IDE の設定ファイル</li>
+                </ul>
+                <details class="answer">
+                    <summary>解答と解説</summary>
+                    <p>
+                        <strong>正解：B</strong
+                        >。管理層は傾向に注目します。詳細（A）は技術層の関心です。
+                    </p>
+                </details>
+                <p>
+                    <strong>問4</strong>：失敗を SUT ログと TAS
+                    のテストログで簡単に突き合わせるために、シラバスが挙げる方法はどれか。
+                </p>
+                <ul>
+                    <li>A. ログを手作業で印刷して照合する</li>
+                    <li>B. 各テストログのタイムスタンプを同期する</li>
+                    <li>C. すべてのログを1つのファイルに手で統合する</li>
+                    <li>D. Debug レベルのログを無効にする</li>
+                </ul>
+                <details class="answer">
+                    <summary>解答と解説</summary>
+                    <p>
+                        <strong>正解：B</strong
+                        >。タイムスタンプでテストログを同期すると、失敗の報告時に何が起きたかを対応付けやすくなります。
+                    </p>
+                </details>
+                <p>
+                    <strong>問5</strong
+                    >：テスト進捗レポートが必ず含むべき内容の組み合わせとして正しいものはどれか。
+                </p>
+                <ul>
+                    <li>A. テスト結果、SUT 情報、テスト環境の記録</li>
+                    <li>B. ソースコード全体、ライセンス契約、給与情報</li>
+                    <li>C. 使用した IDE の一覧のみ</li>
+                    <li>D. テストケースの作成者の履歴書</li>
+                </ul>
+                <details class="answer">
+                    <summary>解答と解説</summary>
+                    <p>
+                        <strong>正解：A</strong>。シラバスは、テスト結果、SUT
+                        情報、テストを実行した環境の記録を、各関係者に適した形式で含めるとしています。
+                    </p>
+                </details>
+                <hr />
+                <h2 id="7-学習チェックリスト">7. 学習チェックリスト</h2>
+                <div class="checklist-card">
+                    <div class="checklist-progress">
+                        <span class="cp-label">学習の進捗</span>
+                        <div class="cp-bar"><div class="cp-bar-fill"></div></div>
+                        <span class="cp-count">0 / 13 完了</span>
+                    </div>
+                    <ul class="task-list">
+                        <li>
+                            <label
+                                ><input
+                                    type="checkbox"
+                                />第6章のキーワード5語（measurement、metric、test log、test progress
+                                report、test step）を説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" />SUT ログ、TAF
+                                ログ、ビルドログ、デプロイログ、本番ログ、スクリーンショットの違いを説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input
+                                    type="checkbox"
+                                />下位のテストウェアに記録機能を組み込む利点を説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" />passed／failed／TAS failure／inconclusive
+                                の違いを説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" />TAS
+                                ロギングで記録する内容を挙げられる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" />SUT
+                                ロギングで押さえる内容とタイムスタンプ同期の意義を説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input
+                                    type="checkbox"
+                                />一次データ（TAS）と二次データ（SUT）の違いを説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label><input type="checkbox" />失敗分析の5ステップを順に言える</label>
+                        </li>
+                        <li>
+                            <label
+                                ><input
+                                    type="checkbox"
+                                />「期待と実際が一致しているのに失敗」「全テスト失敗」の原因を説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" />相関 ID（トレース
+                                ID）の役割を説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input
+                                    type="checkbox"
+                                />テスト進捗レポートの必須内容と公開方法を説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input
+                                    type="checkbox"
+                                />管理層・運用層・技術層の関心の違いを説明できる</label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" />ダッシュボードと AI／ML
+                                分析の役割を説明できる</label
+                            >
+                        </li>
+                    </ul>
+                </div>
+                <hr />
+                <h2 id="8-参考文献ソース-url">8. 参考文献・ソース URL</h2>
+                <h3 id="81-一次情報試験の根拠">8.1 一次情報（試験の根拠）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>備考</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ISTQB CTAL-TAE v2.0 認定ページ</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/</a
+                                    >
+                                </td>
+                                <td>試験の公式ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ISTQB CTAL-TAE Syllabus v2.0（PDF）</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf</a
+                                    >
+                                </td>
+                                <td>第6章は p.37〜p.42。本ガイドの根拠</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>ISTQB Glossary</td>
+                                <td>
+                                    <a
+                                        href="https://glossary.istqb.org/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://glossary.istqb.org/</a
+                                    >
+                                </td>
+                                <td>用語の公式定義の確認用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="82-シラバスが参照する関連シラバス章内の言及">
+                    8.2 シラバスが参照する関連シラバス（章内の言及）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>関連シラバス</th>
+                                <th>言及箇所</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>CT-PT（Performance Testing）</td>
+                                <td>6.1.1 本番でのパフォーマンス監視</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://istqb.org/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>CT-AI（AI Testing）</td>
+                                <td>6.1.3 AI／ML によるテストログ分析</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://istqb.org/</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout-note">
+                    <div class="callout-head">
+                        <span class="callout-icon">ℹ️</span><span class="callout-title">補足</span>
+                    </div>
+                    <div class="callout-body">
+                        <p>
+                            上記2つは、ISTQB
+                            公式サイトのトップから該当シラバスを検索して確認してください。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="83-補足資料実務の例に関する参考情報試験範囲外">
+                    8.3 補足資料（実務の例に関する参考情報。試験範囲外）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>資料</th>
+                                <th>URL</th>
+                                <th>本ガイドでの用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>W3C Trace Context</td>
+                                <td>
+                                    <a
+                                        href="https://www.w3.org/TR/trace-context/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://www.w3.org/TR/trace-context/</a
+                                    >
+                                </td>
+                                <td><code>traceparent</code> ヘッダーの形式</td>
+                            </tr>
+                            <tr class="even">
+                                <td>OpenTelemetry ドキュメント</td>
+                                <td>
+                                    <a
+                                        href="https://opentelemetry.io/docs/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://opentelemetry.io/docs/</a
+                                    >
+                                </td>
+                                <td>分散トレースの一般情報</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Playwright Test Reporters</td>
+                                <td>
+                                    <a
+                                        href="https://playwright.dev/docs/test-reporters"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://playwright.dev/docs/test-reporters</a
+                                    >
+                                </td>
+                                <td>レポーター設定の例</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Playwright Trace Viewer</td>
+                                <td>
+                                    <a
+                                        href="https://playwright.dev/docs/trace-viewer"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://playwright.dev/docs/trace-viewer</a
+                                    >
+                                </td>
+                                <td>失敗時のトレース収集の例</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Allure Report ドキュメント</td>
+                                <td>
+                                    <a
+                                        href="https://allurereport.org/docs/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://allurereport.org/docs/</a
+                                    >
+                                </td>
+                                <td>HTML レポートツールの例</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ReportPortal</td>
+                                <td>
+                                    <a
+                                        href="https://reportportal.io/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://reportportal.io/</a
+                                    >
+                                </td>
+                                <td>AI／ML を活用した結果分析ツールの例</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Grafana ドキュメント</td>
+                                <td>
+                                    <a
+                                        href="https://grafana.com/docs/"
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                        >https://grafana.com/docs/</a
+                                    >
+                                </td>
+                                <td>ダッシュボードツールの例</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <footer class="page-footer">
+                    本ガイドは、ISTQB® CTAL-TAE v2.0
+                    シラバス第6章の内容を初学者向けに整理した学習補助資料です。ISTQB® は
+                    International Software Testing Qualifications Board
+                    の登録商標です。試験の出題範囲・正式な定義は、必ず公式シラバスで確認してください。実務上の整理や外部ツールの例は、シラバスの記述ではない旨を各所に明記しています。
+                </footer>
+            </main>
+        </div>
+        <script type="application/json" id="mermaid-src">
+            {
+                "mermaid-diagram-1": "flowchart LR\n    S1[\"ステップ1<br/>集める<br/>6.1.1 データ収集\"]\n    S2[\"ステップ2<br/>読み解く<br/>6.1.2 データ分析\"]\n    S3[\"ステップ3<br/>伝える<br/>6.1.3 レポートと公開\"]\n    S1 --> S2 --> S3\n    S3 -. \"改善のヒント\" .-> S1\n\n    classDef step fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    class S1,S2,S3 step",
+                "mermaid-diagram-2": "flowchart TB\n    subgraph SRC[\"データ源\"]\n        D1[\"SUT ログ\"]\n        D2[\"TAF ログ\"]\n        D3[\"ビルド・デプロイログ\"]\n        D4[\"本番ログ・監視データ\"]\n        D5[\"スクリーンショット・録画\"]\n    end\n    subgraph PROC[\"処理\"]\n        P1[\"収集と保存\"]\n        P2[\"分析と原因切り分け\"]\n    end\n    subgraph OUT[\"出力\"]\n        O1[\"テスト進捗レポート\"]\n        O2[\"ダッシュボード\"]\n    end\n    SRC --> P1 --> P2 --> O1\n    P2 --> O2\n\n    classDef src fill:#fef3c7,stroke:#b45309,color:#0f172a\n    classDef proc fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef out fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class D1,D2,D3,D4,D5 src\n    class P1,P2 proc\n    class O1,O2 out",
+                "mermaid-diagram-3": "flowchart LR\n    DS_T[\"自動テスト実行\"] --> DS_A[\"TAF ログ\"]\n    DS_T --> DS_B[\"スクリーンショット・録画\"]\n    DS_C[\"SUT\"] --> DS_E[\"SUT ログ<br/>UI・API・Web・DB\"]\n    DS_F[\"CI/CD\"] --> DS_G[\"ビルドログ<br/>デプロイログ\"]\n    DS_H[\"本番・性能環境\"] --> DS_I[\"監視データ<br/>性能テストログ\"]\n    DS_A --> DS_R[\"分析へ\"]\n    DS_B --> DS_R\n    DS_E --> DS_R\n    DS_G --> DS_R\n    DS_I --> DS_R\n\n    classDef a fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef b fill:#fef3c7,stroke:#b45309,color:#0f172a\n    class DS_T,DS_A,DS_B,DS_R a\n    class DS_C,DS_E,DS_F,DS_G,DS_H,DS_I b",
+                "mermaid-diagram-4": "flowchart TB\n    TS[\"上位：テストスクリプト群\"] --> BL[\"中位：ビジネスロジック層\"]\n    BL --> CL[\"下位：コアライブラリ<br/>ここに記録機能を追加\"]\n    CL --> LOG[\"開始・終了時刻<br/>ステータス<br/>ステップ情報\"]\n\n    classDef upper fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef core fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class TS,BL upper\n    class CL,LOG core",
+                "mermaid-diagram-5": "stateDiagram-v2\n    direction LR\n    [*] --> Running\n    Running --> Passed: 期待結果と一致\n    Running --> Failed: SUT の欠陥の疑い\n    Running --> TasFailure: SUT ではなく TAS 側の問題\n    Running --> Inconclusive: 判定できない\n    Passed --> [*]\n    Failed --> [*]\n    TasFailure --> [*]\n    Inconclusive --> [*]",
+                "mermaid-diagram-6": "sequenceDiagram\n    participant TAS as TAS\n    participant SUT as SUT\n    participant SLOG as SUT ログ\n    TAS->>SUT: リクエスト送信 (相関 ID を付与)\n    SUT->>SLOG: 処理内容を記録 (同じ相関 ID)\n    SUT-->>TAS: レスポンス\n    TAS->>TAS: TAF ログに相関 ID と結果を記録\n    Note over TAS,SLOG: 失敗時は相関 ID とタイムスタンプで両ログを突き合わせる",
+                "mermaid-diagram-7": "flowchart LR\n    AN_P[\"一次データ<br/>TAS のデータ<br/>TAF ログ・テスト結果\"] --> AN_A[\"結果の分析\"]\n    AN_Q[\"二次データ<br/>SUT のデータ<br/>SUT ログ・監視データ\"] --> AN_A\n    AN_A --> AN_R[\"原因の特定\"]\n\n    classDef prim fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef sec fill:#fef3c7,stroke:#b45309,color:#0f172a\n    classDef res fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class AN_P prim\n    class AN_Q sec\n    class AN_A,AN_R res",
+                "mermaid-diagram-8": "flowchart TB\n    F0[\"テストが失敗した\"] --> F1{\"手順1<br/>過去の実行でも<br/>同じ失敗があったか\"}\n    F1 -- \"はい\" --> F1Y[\"既知の欠陥の可能性<br/>SUT か TAS かを確認\"]\n    F1 -- \"いいえ\" --> F2[\"手順2<br/>どのテストケースが<br/>何を確認していたか特定\"]\n    F2 --> F3[\"手順3<br/>どのテストステップで<br/>失敗したか特定\"]\n    F3 --> F4[\"手順4<br/>SUT の状態を確認<br/>スクリーンショット・API ログ・<br/>ネットワークログ\"]\n    F4 --> F5{\"手順5<br/>SUT の状態は<br/>期待どおりか\"}\n    F5 -- \"期待どおりではない\" --> F5A[\"欠陥管理システムに起票<br/>正当性を示すログを添付\"]\n    F5 -- \"期待どおり\" --> F5B[\"TAS の欠陥<br/>または見えない不一致\"]\n\n    classDef start fill:#fee2e2,stroke:#b91c1c,color:#0f172a\n    classDef step fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef dec fill:#fef3c7,stroke:#b45309,color:#0f172a\n    classDef res fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class F0 start\n    class F2,F3,F4,F1Y step\n    class F1,F5 dec\n    class F5A,F5B res",
+                "mermaid-diagram-9": "flowchart TB\n    RC_R[\"テスト進捗レポート\"] --> RC_R1[\"テスト結果\"]\n    RC_R --> RC_R2[\"SUT 情報\"]\n    RC_R --> RC_R3[\"テスト環境の記録\"]\n    RC_R --> RC_R4[\"失敗の理由\"]\n    RC_R --> RC_R5[\"実行履歴と担当者\"]\n\n    classDef root fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef leaf fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class RC_R root\n    class RC_R1,RC_R2,RC_R3,RC_R4,RC_R5 leaf",
+                "mermaid-diagram-10": "flowchart LR\n    E1[\"テストスイート実行\"] --> E2[\"ログ・結果の収集\"]\n    E2 --> E3[\"レポートジェネレーター<br/>で要約を生成\"]\n    E3 --> E4[\"公開<br/>Web・クラウド・オンプレミス<br/>メーリングリスト・テスト管理ツール\"]\n    E4 --> E5[\"通知<br/>メール・チャットボット\"]\n    E4 --> E6[\"履歴を保管<br/>傾向分析\"]\n\n    classDef a fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef b fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class E1,E2,E3 a\n    class E4,E5,E6 b",
+                "mermaid-diagram-11": "flowchart TB\n    ST_RPT[\"同じテスト結果データ\"] --> ST_M[\"管理層向け<br/>傾向・合否比率・信頼性\"]\n    ST_RPT --> ST_O[\"運用層向け<br/>製品の利用に関するメトリクス\"]\n    ST_RPT --> ST_T[\"技術層向け<br/>失敗の詳細・ログ・実行履歴\"]\n\n    classDef root fill:#dbeafe,stroke:#1d4ed8,color:#0f172a\n    classDef m fill:#fef3c7,stroke:#b45309,color:#0f172a\n    classDef o fill:#fce7f3,stroke:#be185d,color:#0f172a\n    classDef t fill:#dcfce7,stroke:#15803d,color:#0f172a\n    class ST_RPT root\n    class ST_M m\n    class ST_O o\n    class ST_T t"
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            (function () {
+                function renderDiagrams() {
+                    var el = document.getElementById('mermaid-src');
+                    var data = JSON.parse(el.textContent);
+                    if (typeof mermaid === 'undefined') {
+                        Object.keys(data).forEach(function (id) {
+                            var c = document.getElementById(id);
+                            if (c)
+                                c.textContent =
+                                    'Mermaid ライブラリを読み込めませんでした。ネットワーク接続を確認してください。';
+                        });
+                        return;
+                    }
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        securityLevel: 'strict',
+                        themeVariables: {
+                            fontSize: '16px',
+                            fontFamily:
+                                '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                            primaryColor: '#dbeafe',
+                            primaryTextColor: '#0f172a',
+                            primaryBorderColor: '#1d4ed8',
+                            lineColor: '#475569',
+                            secondaryColor: '#fef3c7',
+                            tertiaryColor: '#f1f5f9',
+                            noteBkgColor: '#fef9c3',
+                            noteTextColor: '#0f172a',
+                            actorBkg: '#dbeafe',
+                            actorBorder: '#1d4ed8',
+                            actorTextColor: '#0f172a',
+                            signalColor: '#334155',
+                            signalTextColor: '#0f172a',
+                        },
+                        flowchart: {
+                            useMaxWidth: false,
+                            htmlLabels: true,
+                            nodeSpacing: 70,
+                            rankSpacing: 60,
+                            subGraphTitleMargin: { top: 12, bottom: 18 },
+                        },
+                        sequence: { useMaxWidth: false },
+                        state: { useMaxWidth: false },
+                    });
+                    Object.keys(data).forEach(function (id, i) {
+                        var c = document.getElementById(id);
+                        try {
+                            mermaid
+                                .render('mmd-svg-' + (i + 1), data[id])
+                                .then(function (r) {
+                                    c.innerHTML = r.svg;
+                                })
+                                .catch(function (e) {
+                                    c.textContent =
+                                        '図の描画に失敗しました：' +
+                                        (e && e.message ? e.message : e);
+                                });
+                        } catch (e) {
+                            c.textContent = '図の描画に失敗しました：' + e.message;
+                        }
+                    });
+                }
+                try {
+                    renderDiagrams();
+                } catch (e) {
+                    console.error(e);
+                }
+            })();
+            (function () {
+                var sb = document.getElementById('sidebar');
+                document.getElementById('sbToggle').addEventListener('click', function () {
+                    sb.classList.toggle('open');
+                });
+                sb.addEventListener('click', function (e) {
+                    if (e.target.tagName === 'A') sb.classList.remove('open');
+                });
+                var links = {};
+                sb.querySelectorAll('a[data-target]').forEach(function (a) {
+                    links[a.dataset.target] = a;
+                });
+                var cur = null;
+                var io = new IntersectionObserver(
+                    function (es) {
+                        es.forEach(function (en) {
+                            if (en.isIntersecting) {
+                                var a = links[en.target.id];
+                                if (a) {
+                                    if (cur) cur.classList.remove('active');
+                                    a.classList.add('active');
+                                    cur = a;
+                                }
+                            }
+                        });
+                    },
+                    { rootMargin: '-15% 0px -75% 0px' },
+                );
+                Object.keys(links).forEach(function (id) {
+                    var h = document.getElementById(id);
+                    if (h) io.observe(h);
+                });
+                document.querySelectorAll('.checklist-card').forEach(function (card) {
+                    var boxes = card.querySelectorAll('input[type=checkbox]');
+                    var fill = card.querySelector('.cp-bar-fill'),
+                        cnt = card.querySelector('.cp-count');
+                    function upd() {
+                        var n = 0;
+                        boxes.forEach(function (b) {
+                            if (b.checked) n++;
+                        });
+                        fill.style.width = (n / boxes.length) * 100 + '%';
+                        cnt.textContent = n + ' / ' + boxes.length + ' 完了';
+                    }
+                    boxes.forEach(function (b) {
+                        b.addEventListener('change', upd);
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>
