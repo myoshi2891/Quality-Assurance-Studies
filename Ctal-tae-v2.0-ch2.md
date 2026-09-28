@@ -267,10 +267,10 @@ mindmap
 本ガイドは、以下の公式情報源の内容に基づいて作成しています。
 
 - ISTQB® CTAL-TAE v2.0 認定ページ
-  https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/
+  [CTAL-TAE v2.0 認定ページを開く](https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/)
 - ISTQB® CTAL-TAE v2.0 シラバス（PDF、Chapter 2「Preparing for Test Automation」pp.17–21）
-  https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf
+  [CTAL-TAE Syllabus v2.0（PDF）を開く](https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf)
 - ISTQB® 公式サイト（用語集・関連資料へのリンク）
-  https://www.istqb.org/
+  [ISTQB® 公式サイトを開く](https://www.istqb.org/)
 
 > 注：本シラバスが参照するISO/IEC 25010（品質特性）などの外部標準規格は、シラバス内で要約されている範囲のみが出題対象であり、規格文書そのものは試験範囲外です（シラバス 0.8節「Handling of Standards」参照）。

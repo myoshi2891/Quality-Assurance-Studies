@@ -294,7 +294,7 @@ flowchart TD
 
 | 資料名 | URL |
 |---|---|
-| ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0 認定ページ | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| ISTQB® CTAL-TAE Syllabus v2.0（本ガイドの一次情報源、Chapter 1: pp.14-16） | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf |
+| ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0 認定ページ | [CTAL-TAE v2.0 認定ページ](https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/) |
+| ISTQB® CTAL-TAE Syllabus v2.0（本ガイドの一次情報源、Chapter 1: pp.14-16） | [CTAL-TAE Syllabus v2.0（PDF）](https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf) |
 
-> 本ガイドは上記シラバス（2024年5月3日 GA Release, v2.0）の Chapter 1 の内容を初学者向けに要約・図解したものです。本文中で言及されている関連シラバス（ISTQB CT-TAS：Test Automation Strategy 等）については、必要に応じて ISTQB® 公式サイト（https://istqb.org ）で最新情報をご確認ください。試験の正式な出題範囲は必ず原文シラバスでご確認ください。
+> 本ガイドは上記シラバス（2024年5月3日 GA Release, v2.0）の Chapter 1 の内容を初学者向けに要約・図解したものです。本文中で言及されている関連シラバス（ISTQB CT-TAS：Test Automation Strategy 等）については、必要に応じて [ISTQB® 公式サイト](https://istqb.org)で最新情報をご確認ください。試験の正式な出題範囲は必ず原文シラバスでご確認ください。

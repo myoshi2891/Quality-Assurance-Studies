@@ -262,15 +262,18 @@ def preflight_check():
     for name in ("SUT_BASE_URL", "TEST_USER", "TEST_PASSWORD"):
         assert os.environ.get(name), f"環境変数 {name} が未設定です"
     base_url = os.environ["SUT_BASE_URL"]           # 環境ごとに切り替える
+    #    Basic 認証は資格情報を平文（Base64）で送るため、最初のリクエストより前に URL を検証する
+    parsed = urlsplit(base_url)
+    if parsed.scheme != "https":
+        pytest.fail("SUT_BASE_URL は https:// で指定してください（資格情報を平文で送らないため）")
+    if parsed.username is not None or parsed.password is not None:
+        pytest.fail("SUT_BASE_URL に資格情報（user:pass@）を含めないでください")
 
     # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）
     res = requests.get(f"{base_url}/health", timeout=10)
     assert res.status_code == 200, "SUT に到達できません"
 
     # 3. 認証の確認（認証が必要な API へ最小限のリクエストを送る。/api/me は想定のエンドポイント）
-    #    Basic 認証は資格情報を平文（Base64）で送るため、HTTPS 以外の URL には送信しない
-    if urlsplit(base_url).scheme != "https":
-        pytest.fail("SUT_BASE_URL は https:// で指定してください（資格情報を平文で送らないため）")
     auth = (os.environ["TEST_USER"], os.environ["TEST_PASSWORD"])
     #    リダイレクトを追跡すると、認証情報が意図しない送信先へ渡るおそれがあるため無効にする
     res = requests.get(f"{base_url}/api/me", auth=auth, timeout=10, allow_redirects=False)
