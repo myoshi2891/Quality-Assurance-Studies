@@ -1,0 +1,2590 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>ISO/IEC/IEEE 29119-3:2021 初学者向け解説ガイド</title>
+        <style>
+            :root {
+                --bg: #07111e;
+                --panel: #0d1b2e;
+                --panel2: #12233b;
+                --text: #dbe5f7;
+                --dim: #8ea2c4;
+                --accent: #7c9eff;
+                --border: #1f3354;
+                --sb: 280px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                overflow-x: hidden;
+            }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font:
+                    16px/1.85 -apple-system,
+                    BlinkMacSystemFont,
+                    'Hiragino Kaku Gothic ProN',
+                    'Noto Sans JP',
+                    'Yu Gothic',
+                    sans-serif;
+            }
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: var(--sb);
+                background: var(--panel);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 22px 14px;
+                z-index: 20;
+            }
+            .sidebar .brand {
+                font-size: 12px;
+                letter-spacing: 0.08em;
+                color: var(--accent);
+                font-weight: 700;
+                margin: 0 8px 14px;
+            }
+            .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar a {
+                display: block;
+                padding: 7px 10px;
+                border-radius: 8px;
+                color: var(--dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                line-height: 1.5;
+            }
+            .sidebar a:hover {
+                background: var(--panel2);
+                color: #fff;
+            }
+            .sidebar a.active {
+                background: rgba(124, 158, 255, 0.15);
+                color: #fff;
+                box-shadow: inset 3px 0 0 var(--accent);
+            }
+            .main {
+                margin-left: var(--sb);
+                padding: 32px 44px 80px;
+            }
+            .hero {
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(135deg, #0d1b2e, #101f38);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                padding: 34px 38px;
+                margin-bottom: 34px;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                right: -80px;
+                top: -80px;
+                width: 320px;
+                height: 320px;
+                background: radial-gradient(circle, rgba(124, 158, 255, 0.22), transparent 70%);
+            }
+            .eyebrow {
+                display: inline-block;
+                background: rgba(124, 158, 255, 0.14);
+                border: 1px solid rgba(124, 158, 255, 0.4);
+                color: var(--accent);
+                border-radius: 999px;
+                padding: 4px 14px;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+            }
+            .hero-title {
+                font-size: 28px;
+                font-weight: 800;
+                color: #fff;
+                line-height: 1.4;
+                margin: 16px 0 8px;
+            }
+            .hero-sub {
+                color: var(--dim);
+                margin: 0 0 20px;
+                position: relative;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                border-top: 1px solid var(--border);
+                padding-top: 16px;
+                position: relative;
+            }
+            .hero-meta div {
+                padding: 0 26px;
+                border-right: 1px solid var(--border);
+            }
+            .hero-meta div:first-child {
+                padding-left: 0;
+            }
+            .hero-meta div:last-child {
+                border-right: 0;
+            }
+            .hero-meta small {
+                display: block;
+                font-size: 11px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--dim);
+            }
+            .hero-meta span {
+                font-size: 14.5px;
+                color: #fff;
+            }
+            h2 {
+                font-size: 24px;
+                color: #fff;
+                margin: 56px 0 18px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--border);
+                scroll-margin-top: 16px;
+            }
+            h3 {
+                font-size: 19px;
+                color: var(--accent);
+                margin: 34px 0 12px;
+                scroll-margin-top: 16px;
+            }
+            a {
+                color: var(--accent);
+            }
+            code {
+                background: var(--panel2);
+                padding: 1px 6px;
+                border-radius: 5px;
+                font-size: 0.9em;
+                overflow-wrap: break-word;
+            }
+            blockquote {
+                margin: 18px 0;
+                padding: 12px 18px;
+                background: var(--panel);
+                border-left: 4px solid var(--accent);
+                border-radius: 0 10px 10px 0;
+                color: var(--text);
+            }
+            blockquote p {
+                margin: 6px 0;
+            }
+            .table-scroll {
+                overflow-x: auto;
+                margin: 16px 0;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+            }
+            th,
+            td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+            }
+            th {
+                background: var(--panel2);
+                color: #fff;
+                white-space: nowrap;
+            }
+            tr:last-child td {
+                border-bottom: 0;
+            }
+            tbody tr:hover {
+                background: rgba(124, 158, 255, 0.05);
+            }
+            .mermaid-container {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 20px;
+                margin: 20px 0;
+            }
+            .mermaid-container svg {
+                flex-shrink: 0;
+            }
+            .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            details {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 10px 16px;
+                margin: 6px 0 18px;
+            }
+            summary {
+                cursor: pointer;
+                color: var(--accent);
+                font-weight: 600;
+            }
+            .toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 30;
+                background: var(--accent);
+                color: #07111e;
+                border: 0;
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-weight: 700;
+            }
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: 0.2s;
+                }
+                .sidebar.open {
+                    transform: none;
+                }
+                .toggle {
+                    display: block;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 60px 16px 60px;
+                }
+                .hero {
+                    padding: 24px 20px;
+                }
+                .hero-meta div {
+                    border-right: 0;
+                    border-bottom: 1px solid var(--border);
+                    padding: 8px 0;
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="toggle" aria-label="メニュー">☰ 目次</button>
+        <div class="layout">
+            <nav class="sidebar">
+                <div class="brand">ISO/IEC/IEEE 29119-3:2021 GUIDE</div>
+                <ul>
+                    <li>
+                        <a
+                            href="#step-0-まず全体像をつかむ30秒サマリー"
+                            data-target="step-0-まず全体像をつかむ30秒サマリー"
+                            >Step 0: まず全体像をつかむ（30秒サマリー）</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#step-1-規格の基本情報" data-target="step-1-規格の基本情報"
+                            >Step 1: 規格の基本情報</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-2-29119-シリーズ内での位置づけ"
+                            data-target="step-2-29119-シリーズ内での位置づけ"
+                            >Step 2: 29119 シリーズ内での位置づけ</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-3-規格の構成章附属書を読む地図"
+                            data-target="step-3-規格の構成章附属書を読む地図"
+                            >Step 3: 規格の構成（章・附属書）を読む地図</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-4-適合conformanceの考え方"
+                            data-target="step-4-適合conformanceの考え方"
+                            >Step 4: 適合（Conformance）の考え方</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-5-すべての文書に共通する情報項目"
+                            data-target="step-5-すべての文書に共通する情報項目"
+                            >Step 5: すべての文書に共通する情報項目</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-6-組織レベルの文書clause-6"
+                            data-target="step-6-組織レベルの文書clause-6"
+                            >Step 6: 組織レベルの文書（Clause 6）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-7-テストマネジメントの文書clause-7"
+                            data-target="step-7-テストマネジメントの文書clause-7"
+                            >Step 7: テストマネジメントの文書（Clause 7）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-8-動的テストの文書clause-8"
+                            data-target="step-8-動的テストの文書clause-8"
+                            >Step 8: 動的テストの文書（Clause 8）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-9-2021年版の最大の変更点テストモデル"
+                            data-target="step-9-2021年版の最大の変更点テストモデル"
+                            >Step 9: 2021年版の最大の変更点「テストモデル」</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-10-文書どうしのつながりトレーサビリティ"
+                            data-target="step-10-文書どうしのつながりトレーサビリティ"
+                            >Step 10: 文書どうしのつながり（トレーサビリティ）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-11-アジャイルdevops-での使い方テーラリング"
+                            data-target="step-11-アジャイルdevops-での使い方テーラリング"
+                            >Step 11: アジャイル／DevOps での使い方（テーラリング）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-12-実践ミニ例ログイン機能"
+                            data-target="step-12-実践ミニ例ログイン機能"
+                            >Step 12: 実践ミニ例（ログイン機能）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-13-よくある誤解と批判的視点"
+                            data-target="step-13-よくある誤解と批判的視点"
+                            >Step 13: よくある誤解と批判的視点</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#step-14-学習ロードマップと理解度チェック"
+                            data-target="step-14-学習ロードマップと理解度チェック"
+                            >Step 14: 学習ロードマップと理解度チェック</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#参考ソース一覧url" data-target="参考ソース一覧url"
+                            >参考ソース一覧（URL）</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+            <main class="main">
+                <header class="hero">
+                    <span class="eyebrow">TEST DOCUMENTATION STANDARD</span>
+                    <h1 class="hero-title">ISO/IEC/IEEE 29119-3:2021 初学者向け解説ガイド</h1>
+                    <p class="hero-sub">
+                        テスト文書化標準をステップバイステップで理解する初学者向けガイド
+                    </p>
+                    <div class="hero-meta">
+                        <div><small>対象規格</small><span>ISO/IEC/IEEE 29119-3:2021</span></div>
+                        <div><small>作成基準日</small><span>2026年9月28日</span></div>
+                        <div><small>対象読者</small><span>テスト・QA 初学者、開発者、PM</span></div>
+                    </div>
+                </header>
+
+                <blockquote>
+                    <p>
+                        <strong
+                            >ソフトウェアテスト文書化標準（Test
+                            documentation）をステップバイステップで理解する</strong
+                        >
+                    </p>
+                    <ul>
+                        <li>作成基準日: 2026年9月28日</li>
+                        <li>
+                            対象読者: テスト・QA
+                            の初学者、開発者、テストマネージャ、プロジェクトマネージャ
+                        </li>
+                        <li>
+                            本ガイドは公開情報（規格の公式ページ、規格の目次・前付けサンプル、規格策定関係者・実務家の公開資料）をもとにした<strong>学習用の要約</strong>です。規格本文の複製ではありません。要求事項の最終確認は必ず規格本体で行ってください。
+                        </li>
+                    </ul>
+                </blockquote>
+
+                <h2 id="step-0-まず全体像をつかむ30秒サマリー">
+                    Step 0: まず全体像をつかむ（30秒サマリー）
+                </h2>
+                <p>
+                    <strong
+                        >ISO/IEC/IEEE 29119-3
+                        は「テストで作る文書のひな形（テンプレート）集」です。</strong
+                    >
+                </p>
+                <ul>
+                    <li>
+                        「何をどうテストするか（プロセス）」を定めるのは <strong>Part 2</strong>。
+                    </li>
+                    <li>
+                        その各プロセスの<strong>成果物（アウトプット）として、どんな情報を文書に書くか</strong>を定めるのが
+                        <strong>Part 3</strong>。
+                    </li>
+                    <li>
+                        文書は紙でも、テスト管理ツールの記録、スプレッドシート、マインドマップ、ホワイトボード写真でもよい、とされています。
+                    </li>
+                    <li>
+                        すべてを作る必要はなく、**プロジェクトに合わせて選んで使う（テーラリング）**ことが前提です。
+                    </li>
+                </ul>
+                <div class="mermaid-container" data-key="mm1" id="mermaid-diagram-1"></div>
+                <h3 id="用語の最低限セット">用語の最低限セット</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>用語</th>
+                                <th>ひとことで言うと</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テストポリシー</td>
+                                <td>組織がテストで何を目指すかを示す経営層向けの方針文書</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト計画（テストプラン）</td>
+                                <td>
+                                    目的・進め方・スケジュールをまとめた計画書。テスト戦略を含む
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テストモデル</td>
+                                <td>
+                                    テスト対象をテストしやすい形で表現したもの（状態遷移図、デシジョンテーブル等）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストケース仕様</td>
+                                <td>テストケースの集まりを記述した文書</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト手順仕様</td>
+                                <td>
+                                    テストケースを実行する順序・手順を記述した文書（テストスクリプトとも）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>インシデント</td>
+                                <td>テスト実行中などに起きた「調査が必要な、予期しない出来事」</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-1-規格の基本情報">Step 1: 規格の基本情報</h2>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>内容</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>正式名称</td>
+                                <td>
+                                    Software and systems engineering — Software testing — Part 3:
+                                    Test documentation
+                                </td>
+                                <td>ISO ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>版</td>
+                                <td>第2版（Edition 2）</td>
+                                <td>ISO ページ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>発行日</td>
+                                <td>2021年10月28日（ISO ステージ 60.60: 発行済み）</td>
+                                <td>ISO ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ページ数</td>
+                                <td>84ページ</td>
+                                <td>ISO ページ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>策定組織</td>
+                                <td>
+                                    ISO/IEC JTC 1/SC 7（ソフトウェア及びシステムエンジニアリング）＋
+                                    IEEE Computer Society（C/S2ESC）
+                                </td>
+                                <td>ISO / IEEE ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>IEEE 側の名称</td>
+                                <td>IEEE/ISO/IEC 29119-3-2021（ステータス: Active Standard）</td>
+                                <td>IEEE ページ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>IEEE 標準委員会承認</td>
+                                <td>2021年9月23日</td>
+                                <td>IEEE ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>前の版</td>
+                                <td>ISO/IEC/IEEE 29119-3:2013（置き換え済み）</td>
+                                <td>ISO / IEEE ページ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>ワーキンググループ議長（IEEE 側の記載）</td>
+                                <td>Jon Hagar</td>
+                                <td>IEEE ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>対象</td>
+                                <td>
+                                    あらゆる組織・プロジェクト・テスト活動、あらゆるライフサイクルモデル
+                                </td>
+                                <td>ISO ページ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>想定読者</td>
+                                <td>
+                                    テスター、テストマネージャ、開発者、プロジェクトマネージャ（特にテストの統制・管理・実施の責任者）
+                                </td>
+                                <td>ISO ページ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="版の変遷">版の変遷</h3>
+                <div class="mermaid-container" data-key="mm2" id="mermaid-diagram-2"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>時期</th>
+                                <th>出来事</th>
+                                <th>意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>2013年</td>
+                                <td>第1版 発行</td>
+                                <td>シリーズ初のテスト文書化標準（IEEE 829 の後継的位置づけ）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2019年</td>
+                                <td>IEEE PAR 承認</td>
+                                <td>IEEE 側で改訂作業が正式に始まる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>2020年</td>
+                                <td>ISO で改訂プロジェクト承認、DIS 投票</td>
+                                <td>ISO 側で改訂案の国際投票が行われる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2021年9月23日</td>
+                                <td>IEEE 標準委員会承認</td>
+                                <td>IEEE 側の承認完了</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>2021年10月28日</td>
+                                <td>第2版 発行</td>
+                                <td>現行版。テスト条件の概念がテストモデルに置き換わる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p>
+                        補足: 2013年版から2021年版へのおもな変更は「<strong
+                            >テスト条件（test condition）の概念をテストモデル（test
+                            model）に置き換えた</strong
+                        >」ことと、規格の前付けに明記されています。詳しくは
+                        <a href="#step-9-2021年版の最大の変更点テストモデル">Step 9</a>
+                        で解説します。
+                    </p>
+                </blockquote>
+
+                <h2 id="step-2-29119-シリーズ内での位置づけ">
+                    Step 2: 29119 シリーズ内での位置づけ
+                </h2>
+                <h3 id="各パートの役割">各パートの役割</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>パート</th>
+                                <th>内容</th>
+                                <th>状況（IEEE SA ページの記載に基づく）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>Part 1</td>
+                                <td>一般概念</td>
+                                <td>
+                                    ISO/IEC/IEEE 29119-1:2022（第2版。IEEE SA 上の表記は
+                                    29119-1-2021）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>Part 2</td>
+                                <td>テストプロセス</td>
+                                <td>29119-2-2021</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>Part 3</strong></td>
+                                <td><strong>テスト文書化（本ガイドの対象）</strong></td>
+                                <td><strong>29119-3-2021（Active）</strong></td>
+                            </tr>
+                            <tr class="even">
+                                <td>Part 4</td>
+                                <td>テスト技法</td>
+                                <td>29119-4-2021</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Part 5</td>
+                                <td>キーワード駆動テスト</td>
+                                <td>29119-5-2024</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Part 8</td>
+                                <td>モデルベーステスト</td>
+                                <td>ドラフト（P29119-8）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Part 14</td>
+                                <td>データ移行テスト</td>
+                                <td>ドラフト（P29119-14）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p>
+                        関連: IEEE SA の同ワーキンググループのページには、インシデント管理の標準
+                        <strong>23612-2026</strong> も掲載されています（別規格）。
+                    </p>
+                </blockquote>
+                <div class="mermaid-container" data-key="mm3" id="mermaid-diagram-3"></div>
+                <h3 id="part-2-と-part-3-の対応重要">Part 2 と Part 3 の対応（重要）</h3>
+                <p>
+                    Part 3 の文書は、<strong>Part 2 の3つのプロセス階層</strong
+                    >に沿って並んでいます。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>Part 2 のプロセス階層</th>
+                                <th>Part 3 の章</th>
+                                <th>主な文書</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>組織テストプロセス</td>
+                                <td>Clause 6</td>
+                                <td>テストポリシー、組織テストプラクティス</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストマネジメントプロセス</td>
+                                <td>Clause 7</td>
+                                <td>テスト計画、テストステータスレポート、テスト完了報告書</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>動的テストプロセス</td>
+                                <td>Clause 8</td>
+                                <td>テストモデル仕様、テストケース仕様、テスト手順仕様 ほか</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-3-規格の構成章附属書を読む地図">
+                    Step 3: 規格の構成（章・附属書）を読む地図
+                </h2>
+                <p>規格の目次（前付けサンプル）から、章構成を整理します。</p>
+                <h3 id="本編">本編</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>章</th>
+                                <th>タイトル</th>
+                                <th>何が書いてあるか</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>Scope</td>
+                                <td>適用範囲</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>Normative references</td>
+                                <td>引用規格（この文書には<strong>なし</strong>）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>Terms and definitions</td>
+                                <td>用語定義（実際のテスト文書に関する用語が中心）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>Conformance</td>
+                                <td>適合の主張方法（full / tailored）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>Common information</td>
+                                <td>全文書に共通の情報項目</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6</td>
+                                <td>Organizational test process documentation</td>
+                                <td>組織レベルの文書</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7</td>
+                                <td>Test management processes documentation</td>
+                                <td>計画・報告の文書</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8</td>
+                                <td>Dynamic test processes documentation</td>
+                                <td>設計・実行・インシデントの文書</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="附属書">附属書</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>附属書</th>
+                                <th>種別</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>Annex A</td>
+                                <td>規定（normative）</td>
+                                <td>
+                                    各情報項目の要求・推奨・許可（shall / should / may）の一覧と
+                                    Part 2 との対応
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>Annex B</td>
+                                <td>参考（informative）</td>
+                                <td>例の概要</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Annex C〜R</td>
+                                <td>参考</td>
+                                <td>
+                                    各文書の記入例（テストポリシー、テスト計画、ステータスレポート、完了報告書、テストモデル仕様、テストケース仕様、テスト手順仕様、データ／環境要求、各種レディネスレポート、実際の結果、テスト結果、実行ログ、インシデントレポート）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>Annex S</td>
+                                <td>参考</td>
+                                <td>IEEE 829:2008（置き換え済み）との対応表</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Annex T</td>
+                                <td>参考</td>
+                                <td>テストモデルの説明（なぜテスト条件をやめたのか）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p>
+                        読み方のコツ:
+                        <strong>Annex A は規定（normative）附属書</strong>です。要求事項は Clause
+                        4〜8 と Annex A に記載されています。Annex B〜T
+                        の例や対応表は参考情報で、「例に書いてあるから必須」ではありません。
+                    </p>
+                </blockquote>
+
+                <h2 id="step-4-適合conformanceの考え方">Step 4: 適合（Conformance）の考え方</h2>
+                <h3 id="4-1-動詞の意味">4-1. 動詞の意味</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>動詞</th>
+                                <th>意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>shall</td>
+                                <td>要求</td>
+                            </tr>
+                            <tr class="even">
+                                <td>should</td>
+                                <td>推奨</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>may</td>
+                                <td>許可</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="4-2-2つの適合方法">4-2. 2つの適合方法</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>方法</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>Full conformance（完全適合）</strong></td>
+                                <td>
+                                    Clause 5〜8 と Annex A
+                                    のすべての要求（shall）を満たした証拠を示す
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Tailored conformance（テーラード適合）</strong></td>
+                                <td>
+                                    使う文書のサブセットを記録し、そのサブセットの shall
+                                    をすべて満たす。<strong
+                                        >要求を外す場合は理由（正当化）の提示が必要</strong
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>さらに重要な点:</p>
+                <ul>
+                    <li>
+                        組織は<strong>完全適合とテーラード適合のどちらを主張するかを明言する</strong>（shall）。
+                    </li>
+                    <li>
+                        文書名・見出し・レイアウトは<strong>変更してよい</strong>（追加、統合、名称変更など）。この規格の呼び名の使用は必須ではありません。
+                    </li>
+                    <li>電子データ、複数文書への分割、他文書との統合でも適合と見なされます。</li>
+                    <li>
+                        発注者と供給者の契約に使う場合は、規格への適合ではなく<strong>契約への準拠</strong>を主張するほうが適切、という注記があります。
+                    </li>
+                </ul>
+                <div class="mermaid-container" data-key="mm4" id="mermaid-diagram-4"></div>
+
+                <h2 id="step-5-すべての文書に共通する情報項目">
+                    Step 5: すべての文書に共通する情報項目
+                </h2>
+                <p>
+                    Clause 5
+                    は、<strong>どの文書にも入れるべき共通のヘッダー的情報</strong>を定めています。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>意味（初学者向けの言い換え）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>5.2.1</td>
+                                <td>Unique identifier</td>
+                                <td>文書を一意に識別する ID</td>
+                            </tr>
+                            <tr class="even">
+                                <td>5.2.2</td>
+                                <td>Issuing organization</td>
+                                <td>文書を発行した組織</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5.2.3</td>
+                                <td>Approval authority</td>
+                                <td>承認者・承認権限</td>
+                            </tr>
+                            <tr class="even">
+                                <td>5.2.4</td>
+                                <td>Change history</td>
+                                <td>変更履歴</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5.2.5</td>
+                                <td>Status</td>
+                                <td>文書のステータス（ドラフト、承認済み等）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>5.2.6</td>
+                                <td>Introduction</td>
+                                <td>導入（この文書の目的）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5.2.7</td>
+                                <td>Scope</td>
+                                <td>対象範囲</td>
+                            </tr>
+                            <tr class="even">
+                                <td>5.2.8</td>
+                                <td>References</td>
+                                <td>参照文書</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5.2.9</td>
+                                <td>Glossary</td>
+                                <td>用語集</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p>
+                        実務のヒント: Confluence・Notion・Git 管理の Markdown などでは、<strong
+                            >ページ ID、承認者、履歴、ステータス</strong
+                        >をツール標準機能で満たせる場合があります。ただし「Issuing
+                        organization（発行組織）」は個人の作成者とは別の項目です。ツールの作成者欄が発行組織を記録している場合に限りこの項目を満たすと考え、そうでなければ組織名を別途記載してください。
+                    </p>
+                </blockquote>
+
+                <h2 id="step-6-組織レベルの文書clause-6">Step 6: 組織レベルの文書（Clause 6）</h2>
+                <p>「プロジェクトを超えて、組織全体に共通する」文書です。</p>
+                <div class="mermaid-container" data-key="mm5" id="mermaid-diagram-5"></div>
+                <h3 id="6-1-テストポリシーtest-policy-62">
+                    6-1. テストポリシー（Test policy, 6.2）
+                </h3>
+                <p>
+                    **経営層向けの「テストの憲法」**です。「何を達成したいか」を書き、「どうやるか」は書きません。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>何を書くか</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>6.2.2</td>
+                                <td>Objectives of testing</td>
+                                <td>テストの目的</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.2.3</td>
+                                <td>Test process</td>
+                                <td>採用するテストプロセス</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>6.2.4</td>
+                                <td>Test organization structure</td>
+                                <td>テスト組織の構造</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.2.5</td>
+                                <td>Tester training</td>
+                                <td>テスターの教育</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>6.2.6</td>
+                                <td>Tester ethics</td>
+                                <td>テスターの倫理</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.2.7</td>
+                                <td>Standards</td>
+                                <td>準拠する標準</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>6.2.8</td>
+                                <td>Other relevant policies</td>
+                                <td>関連する他の方針</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.2.9</td>
+                                <td>Measuring the value of testing</td>
+                                <td>テストの価値の測り方</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>6.2.10</td>
+                                <td>Test asset archiving and reuse</td>
+                                <td>テスト資産の保管と再利用</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.2.11</td>
+                                <td>Test process improvement</td>
+                                <td>テストプロセス改善</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="6-2-組織テストプラクティスorganizational-test-practices-63">
+                    6-2. 組織テストプラクティス（Organizational test practices, 6.3）
+                </h3>
+                <p>**ポリシーに沿った「具体的な進め方」**を書きます。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>6.3.2</td>
+                                <td>Organization-level test practice statements</td>
+                                <td>組織全体で共通のプラクティス</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6.3.3</td>
+                                <td>Test level/type-specific practice statements</td>
+                                <td>テストレベル・テストタイプごとの固有プラクティス</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>用語定義には、次のような補足があります（要旨）。</p>
+                <ul>
+                    <li>
+                        複数のプラクティス文書を持ってよい（例:
+                        モバイルアプリ用と安全重要システム用）。
+                    </li>
+                    <li>
+                        別立てのポリシーがない場合は、プラクティス文書にポリシーの内容を含めてよい。
+                    </li>
+                </ul>
+                <h3 id="ポリシーとプラクティスの違い">ポリシーとプラクティスの違い</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>テストポリシー</th>
+                                <th>組織テストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>主な読者</td>
+                                <td>経営層</td>
+                                <td>テストの実施者・管理者</td>
+                            </tr>
+                            <tr class="even">
+                                <td>書く内容</td>
+                                <td>目的、原則、範囲（What / Why）</td>
+                                <td>推奨する手法（How）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>更新頻度</td>
+                                <td>低い</td>
+                                <td>中程度</td>
+                            </tr>
+                            <tr class="even">
+                                <td>例</td>
+                                <td>「品質リスクに応じてテストを優先する」</td>
+                                <td>「回帰テストは自動化を原則とする」</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-7-テストマネジメントの文書clause-7">
+                    Step 7: テストマネジメントの文書（Clause 7）
+                </h2>
+                <p>プロジェクトの<strong>計画 → 進捗報告 → 完了報告</strong>を担います。</p>
+                <div class="mermaid-container" data-key="mm6" id="mermaid-diagram-6"></div>
+                <h3 id="7-1-テスト計画test-plan-72">7-1. テスト計画（Test plan, 7.2）</h3>
+                <p>
+                    **「何を、どこまで、どの方針で、誰が、いつまでにテストするか」**をまとめる中心文書です。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>何を書くか（要点）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>7.2.2</td>
+                                <td>Context of testing</td>
+                                <td>テストの背景・前提</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.2.3</td>
+                                <td>Assumptions and constraints</td>
+                                <td>前提条件と制約</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.2.4</td>
+                                <td>Stakeholders</td>
+                                <td>ステークホルダー</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.2.5</td>
+                                <td>Testing communication</td>
+                                <td>関係者との連絡方法</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.2.6</td>
+                                <td>Risk register</td>
+                                <td>リスク登録簿</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.2.7</td>
+                                <td>Test strategy</td>
+                                <td>テスト戦略（下記参照）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.2.8</td>
+                                <td>Testing activities and estimates</td>
+                                <td>作業項目と見積り</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.2.9</td>
+                                <td>Staffing</td>
+                                <td>要員計画</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.2.10</td>
+                                <td>Schedule</td>
+                                <td>スケジュール</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>テスト戦略はテスト計画の一部</strong
+                    >です（別の独立文書ではありません）。用語定義の注記によると、戦略には通常、次のような内容が含まれます。
+                </p>
+                <ul>
+                    <li>実施するテストレベルとテストタイプ</li>
+                    <li>再テストと回帰テストの方針</li>
+                    <li>使うテスト設計技法と、対応する完了基準</li>
+                    <li>テストデータ、テスト環境、ツールの要求</li>
+                    <li>成果物に対する期待</li>
+                </ul>
+                <p>また、次のような注記があります（要旨）。</p>
+                <ul>
+                    <li>
+                        プロジェクトには<strong>複数のテスト計画</strong>があってよい（全体を包括するマスターテスト計画と、システムテスト計画・性能テスト計画などの個別計画）。
+                    </li>
+                    <li>
+                        テスト計画は保守テストなど、<strong>プロジェクト以外の活動</strong>にも書ける。
+                    </li>
+                </ul>
+                <h3 id="7-2-テストステータスレポートtest-status-report-73">
+                    7-2. テストステータスレポート（Test status report, 7.3）
+                </h3>
+                <p>**指定した報告期間の「いまの状況」**を伝える文書です。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>何を書くか</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>7.3.2</td>
+                                <td>Test status</td>
+                                <td>現在のステータス</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.3.3</td>
+                                <td>Reporting period</td>
+                                <td>報告期間</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.3.4</td>
+                                <td>Progress against test plan</td>
+                                <td>計画に対する進捗</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.3.5</td>
+                                <td>Factors blocking progress</td>
+                                <td>進捗を妨げている要因</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.3.6</td>
+                                <td>Test measures</td>
+                                <td>テストの測定値</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.3.7</td>
+                                <td>New and changed risks</td>
+                                <td>新規・変更されたリスク</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.3.8</td>
+                                <td>Planned testing</td>
+                                <td>次に予定しているテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="7-3-テスト完了報告書test-completion-report-74">
+                    7-3. テスト完了報告書（Test completion report, 7.4）
+                </h3>
+                <p><strong>テスト活動の総括</strong>です（別名: テストサマリーレポート）。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>何を書くか</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>7.4.2</td>
+                                <td>Summary of testing performed</td>
+                                <td>実施したテストの要約</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.4.3</td>
+                                <td>Deviations from planned testing</td>
+                                <td>計画からの逸脱</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.4.4</td>
+                                <td>Test completion evaluation</td>
+                                <td>完了基準に照らした評価</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.4.5</td>
+                                <td>Factors that blocked progress</td>
+                                <td>進捗を妨げた要因</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.4.6</td>
+                                <td>Test measures</td>
+                                <td>テストの測定値</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.4.7</td>
+                                <td>Residual risks</td>
+                                <td>残留リスク</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.4.8</td>
+                                <td>Test deliverables</td>
+                                <td>テスト成果物</td>
+                            </tr>
+                            <tr class="even">
+                                <td>7.4.9</td>
+                                <td>Reusable test assets</td>
+                                <td>再利用できるテスト資産</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7.4.10</td>
+                                <td>Lessons learned</td>
+                                <td>教訓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="ステータスレポートと完了報告書の比較">
+                    ステータスレポートと完了報告書の比較
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>ステータスレポート</th>
+                                <th>完了報告書</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>タイミング</td>
+                                <td>期間ごとに繰り返し</td>
+                                <td>テスト終了時</td>
+                            </tr>
+                            <tr class="even">
+                                <td>視点</td>
+                                <td>現在と次の一歩</td>
+                                <td>全体の総括と振り返り</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>固有項目</td>
+                                <td>Planned testing（今後の予定）</td>
+                                <td>Residual risks、Reusable test assets、Lessons learned</td>
+                            </tr>
+                            <tr class="even">
+                                <td>共通項目</td>
+                                <td>Test measures、進捗を妨げた要因</td>
+                                <td>Test measures、進捗を妨げた要因</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-8-動的テストの文書clause-8">Step 8: 動的テストの文書（Clause 8）</h2>
+                <p>
+                    実際のテストの<strong>設計 → 準備 → 実行 → 問題報告</strong
+                    >で作られる文書群です。11種類の項目があり、初学者は最初に全体の流れをつかむと整理しやすくなります。
+                </p>
+                <div class="mermaid-container" data-key="mm7" id="mermaid-diagram-7"></div>
+                <h3 id="8-1-テストモデル仕様82">8-1. テストモデル仕様（8.2）</h3>
+                <p>テストの設計の出発点となる文書です（2021年版の新しい中心概念）。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>8.2.2</td>
+                                <td>Unique identifier</td>
+                                <td>ID</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.2.3</td>
+                                <td>Objective</td>
+                                <td>目的</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.2.4</td>
+                                <td>Priority</td>
+                                <td>優先度</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.2.5</td>
+                                <td>Test strategy extract</td>
+                                <td>テスト戦略からの抜粋（このモデルに関係する部分）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.2.6</td>
+                                <td>Test model</td>
+                                <td>テストモデルそのもの</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.2.7</td>
+                                <td>Traceability</td>
+                                <td>追跡可能性</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="8-2-テストケース仕様83">8-2. テストケース仕様（8.3）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>8.3.2</td>
+                                <td>Test coverage items</td>
+                                <td>テストカバレッジアイテム（何を網羅するかの単位）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.3.3</td>
+                                <td>Test cases</td>
+                                <td>テストケース</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="8-3-テスト手順仕様84">8-3. テスト手順仕様（8.4）</h3>
+                <p>
+                    テストケースを<strong>どの順番で、どう準備して、どう終えるか</strong>を書きます。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>8.4.2</td>
+                                <td>Unique identifier</td>
+                                <td>ID</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.4.3</td>
+                                <td>Objective</td>
+                                <td>目的</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.4.4</td>
+                                <td>Priority</td>
+                                <td>優先度</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.4.5</td>
+                                <td>Start up</td>
+                                <td>開始時の準備</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.4.6</td>
+                                <td>Ordered test cases</td>
+                                <td>順序付けられたテストケース</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.4.7</td>
+                                <td>Relationship to other procedures</td>
+                                <td>他の手順との関係</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.4.8</td>
+                                <td>Stop and wrap up</td>
+                                <td>終了と後片付け</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p>
+                        用語補足: 「テスト仕様（test
+                        specification）」とは、<strong>テスト設計・テストケース・テスト手順をまとめた総称</strong>です。1つの文書でも、複数文書でも、文書とデータベース項目の混在でもかまいません。
+                    </p>
+                </blockquote>
+                <h3 id="8-4-テストデータ要求85とテスト環境要求86">
+                    8-4. テストデータ要求（8.5）とテスト環境要求（8.6）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>文書</th>
+                                <th>項目</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テストデータ要求（8.5）</td>
+                                <td>
+                                    ID、Description（内容）、Responsibility（責任者）、Period
+                                    needed（必要期間）、Resetting needs（リセット要否）、Archiving
+                                    or disposal（保管・廃棄）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト環境要求（8.6）</td>
+                                <td>
+                                    ID、Test environment
+                                    item（環境の構成要素）、Description、Responsibility、Period
+                                    needed
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    テスト環境の構成要素とは、ハードウェア、ソフトウェア、インターフェース、周辺機器、ツールなど、<strong>他の部分と切り離して扱える要素</strong>です。
+                </p>
+                <h3 id="8-5-レディネスレポート8788">8-5. レディネスレポート（8.7、8.8）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>文書</th>
+                                <th>目的</th>
+                                <th>主な項目</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テストデータレディネスレポート</td>
+                                <td>各テストデータ要求の<strong>準備状況</strong>を伝える</td>
+                                <td>ID、Description of status</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト環境レディネスレポート</td>
+                                <td>各テスト環境要求の<strong>準備状況</strong>を伝える</td>
+                                <td>ID、Description of status</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="8-6-実際の結果とテスト結果89">8-6. 実際の結果とテスト結果（8.9）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>用語</th>
+                                <th>意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>期待結果（expected results）</td>
+                                <td>仕様など根拠に基づく、観察可能な予測動作</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>実際の結果（actual results）</strong></td>
+                                <td>
+                                    テスト実行で<strong>実際に観察された</strong>振る舞い・状態（画面出力、データ変更、送信メッセージなど）
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>テスト結果（test result）</strong></td>
+                                <td>
+                                    実際の結果が期待結果と一致したか（<strong>合格/不合格</strong>）を示す判定
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="8-7-テスト実行ログ810">8-7. テスト実行ログ（8.10）</h3>
+                <p><strong>1つ以上のテスト手順を実行した記録</strong>です。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>8.10.2</td>
+                                <td>Unique identifier</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.10.3</td>
+                                <td>Date/time</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.10.4</td>
+                                <td>Description</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.10.5</td>
+                                <td>Impact</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="8-8-テストインシデントレポート811">
+                    8-8. テストインシデントレポート（8.11）
+                </h3>
+                <p>
+                    テスト中に<strong>調査が必要な出来事</strong>が起きたときの報告書です。バグ票・不具合票・課題票など、さまざまな名前で呼ばれるものの総称として扱われています。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項番</th>
+                                <th>項目</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>8.11.2</td>
+                                <td>Timing information</td>
+                                <td>いつ起きたか</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.11.3</td>
+                                <td>Originator</td>
+                                <td>報告者</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.11.4</td>
+                                <td>Context</td>
+                                <td>発生時の状況</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.11.5</td>
+                                <td>Description of the incident</td>
+                                <td>事象の説明</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.11.6</td>
+                                <td>Originator's assessment of severity</td>
+                                <td>報告者の判断による深刻度</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.11.7</td>
+                                <td>Originator's assessment of priority</td>
+                                <td>報告者の判断による優先度</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>8.11.8</td>
+                                <td>Risk</td>
+                                <td>リスク</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8.11.9</td>
+                                <td>Status of the incident</td>
+                                <td>インシデントの状態</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container" data-key="mm8" id="mermaid-diagram-8"></div>
+
+                <h2 id="step-9-2021年版の最大の変更点テストモデル">
+                    Step 9: 2021年版の最大の変更点「テストモデル」
+                </h2>
+                <h3 id="9-1-何が変わったのか">9-1. 何が変わったのか</h3>
+                <p>規格の前付けには、2013年版からのおもな変更点として次の趣旨が書かれています。</p>
+                <blockquote>
+                    <p>
+                        <strong>「テスト条件」の概念を「テストモデル」に置き換えた。</strong> 理由:
+                        旧版へのフィードバックで、テスト条件の意味と、そこからテストケースを導く方法が利用者にわかりにくいという問題が指摘されたため。
+                    </p>
+                </blockquote>
+                <div class="mermaid-container" data-key="mm9" id="mermaid-diagram-9"></div>
+                <h3 id="9-2-テストモデルとは">9-2. テストモデルとは</h3>
+                <p>
+                    <strong
+                        >テスト対象を、特定の性質や品質特性に焦点を当ててテストできるように表現したもの</strong
+                    >です。規格が挙げる例は次のとおりです。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>例</th>
+                                <th>関連するテスト設計の発想</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>要求記述</td>
+                                <td>要求ベースのテスト</td>
+                            </tr>
+                            <tr class="even">
+                                <td>同値分割</td>
+                                <td>同値分割法</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>状態遷移図</td>
+                                <td>状態遷移テスト</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ユースケース記述</td>
+                                <td>ユースケーステスト</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>デシジョンテーブル</td>
+                                <td>デシジョンテーブルテスト</td>
+                            </tr>
+                            <tr class="even">
+                                <td>入力構文</td>
+                                <td>構文テスト</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>ソースコード</td>
+                                <td>構造ベースのテスト</td>
+                            </tr>
+                            <tr class="even">
+                                <td>制御フローグラフ</td>
+                                <td>分岐・パスの網羅</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>パラメータと値</td>
+                                <td>組合せテスト</td>
+                            </tr>
+                            <tr class="even">
+                                <td>分類ツリー</td>
+                                <td>分類木法</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>自然言語</td>
+                                <td>記述ベースの設計</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>規格の注記から押さえておきたいポイント:</p>
+                <ul>
+                    <li>
+                        テストモデルと「必要なカバレッジ」から、<strong>テストカバレッジアイテム</strong>を特定する。
+                    </li>
+                    <li>
+                        完了基準に含まれるカバレッジの種類ごとに、<strong>別々のテストモデルが必要になる場合がある</strong>。
+                    </li>
+                    <li>
+                        テストモデルは<strong>1つ以上のテスト条件を含みうる</strong>（テスト条件の概念が完全に消えたわけではない）。
+                    </li>
+                    <li>
+                        テストモデルは主にテスト設計を支える（Part 4
+                        の技法、モデルベーステスト）。ほかにも、テスト環境モデルやテスト成熟度モデルなど別種のモデルがある。
+                    </li>
+                </ul>
+                <h3 id="9-3-テストベース--テストモデル--テストケースの具体例">
+                    9-3. 「テストベース → テストモデル → テストケース」の具体例
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>ステップ</th>
+                                <th>成果物</th>
+                                <th>例（パスワード入力欄「8〜16文字」）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>① テストベース</td>
+                                <td>要求・仕様</td>
+                                <td>「パスワードは8文字以上16文字以下」</td>
+                            </tr>
+                            <tr class="even">
+                                <td>② テストモデル</td>
+                                <td>同値分割</td>
+                                <td>
+                                    分割: 7文字以下（無効）／8〜16文字（有効）／17文字以上（無効）
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>③ カバレッジアイテム</td>
+                                <td>各分割</td>
+                                <td>3つの分割それぞれ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>④ テストケース</td>
+                                <td>具体的入力と期待結果</td>
+                                <td>5文字→エラー、10文字→成功、20文字→エラー</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-10-文書どうしのつながりトレーサビリティ">
+                    Step 10: 文書どうしのつながり（トレーサビリティ）
+                </h2>
+                <h3 id="10-1-全体の依存関係">10-1. 全体の依存関係</h3>
+                <div class="mermaid-container" data-key="mm10" id="mermaid-diagram-10"></div>
+                <h3 id="10-2-テストトレーサビリティマトリクス">
+                    10-2. テストトレーサビリティマトリクス
+                </h3>
+                <p>
+                    規格の用語定義では、<strong>要求とそれに対応するテストなど、文書とソフトウェアの関連する項目を結びつける文書・スプレッドシート・ツール</strong>を「テストトレーサビリティマトリクス」と呼んでいます（別名:
+                    検証相互参照マトリクス、要求テストマトリクス、要求検証表）。形式や詳細度は用途によって異なってよい、とされています。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>追跡の方向</th>
+                                <th>何がわかるか</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>要求 → テストモデル → テストケース</td>
+                                <td>要求がテストされているか（抜け漏れ）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストケース → 実行結果 → インシデント</td>
+                                <td>不合格の影響範囲</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>インシデント → 要求</td>
+                                <td>不具合がどの要求に関わるか</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-11-アジャイルdevops-での使い方テーラリング">
+                    Step 11: アジャイル／DevOps での使い方（テーラリング）
+                </h2>
+                <p>規格自体が、次のような柔軟な使い方を前提にしています。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>規格の記載（要旨）</th>
+                                <th>実務での意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>
+                                    任意のライフサイクル（ウォーターフォール、反復、アジャイル、DevOps）で採用できる
+                                </td>
+                                <td>開発手法を理由に対象外とはならない</td>
+                            </tr>
+                            <tr class="even">
+                                <td>
+                                    文書は紙でも電子でもよい（ツール記録、スプレッドシート、マインドマップ、ホワイトボード写真）
+                                </td>
+                                <td>軽量な形式で満たせる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>見出しや名称は変更・統合してよい</td>
+                                <td>既存のテンプレートに合わせられる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>「プロジェクト」を「プロダクト」に読み替えてよい</td>
+                                <td>長期のプロダクトチームでも使える</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>使う文書を選び、外した理由を示す（テーラード適合）</td>
+                                <td>必要最小限の運用ができる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="文書を選ぶ判断フロー筆者の実務向け提案">
+                    文書を選ぶ判断フロー（筆者の実務向け提案）
+                </h3>
+                <div class="mermaid-container" data-key="mm11" id="mermaid-diagram-11"></div>
+                <h3 id="既存ツールへの当てはめ例筆者の提案規格の要求ではありません">
+                    既存ツールへの当てはめ例（筆者の提案・規格の要求ではありません）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>規格の文書</th>
+                                <th>当てはめ先の例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テスト計画</td>
+                                <td>Wiki のテスト計画ページ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テストケース仕様</td>
+                                <td>テスト管理ツールのケース一覧、スプレッドシート</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト手順仕様</td>
+                                <td>自動テストコード、手動実行手順の Markdown</td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト実行ログ</td>
+                                <td>CI の実行履歴、テスト管理ツールの実行記録</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>インシデントレポート</td>
+                                <td>課題管理ツールのチケット</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ステータスレポート</td>
+                                <td>週次の Slack 投稿、ダッシュボード</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>完了報告書</td>
+                                <td>リリース判定会議の資料</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-12-実践ミニ例ログイン機能">Step 12: 実践ミニ例（ログイン機能）</h2>
+                <blockquote>
+                    <p>
+                        ここに示す内容は<strong>架空の学習用サンプル</strong>で、規格の Annex
+                        の例とは異なります。項目の並びは Part 3 の考え方に沿っています。
+                    </p>
+                </blockquote>
+                <h3 id="12-1-テスト計画抜粋">12-1. テスト計画（抜粋）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>記入例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ID / 発行者 / 承認者</td>
+                                <td>TP-LOGIN-001 / QAチーム / プロダクトオーナー</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Context of testing</td>
+                                <td>新規会員向けログイン機能のシステムテスト</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Assumptions and constraints</td>
+                                <td>認証基盤は既存を利用。テスト環境は共有</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Stakeholders</td>
+                                <td>PO、開発リード、QA、セキュリティ担当</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Risk register</td>
+                                <td>不正ログイン（高）、セッション管理不備（中）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Test strategy</td>
+                                <td>
+                                    同値分割・状態遷移で設計、回帰は自動化、完了基準は主要カバレッジ100％
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Testing activities and estimates</td>
+                                <td>設計3日、実行4日、再テスト2日</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Schedule</td>
+                                <td>2週間</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="12-2-テストモデル--テストケース">12-2. テストモデル → テストケース</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>テストモデル</th>
+                                <th>カバレッジアイテム</th>
+                                <th>テストケース例</th>
+                                <th>期待結果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>状態遷移図（未ログイン→ログイン中→ロック）</td>
+                                <td>遷移「認証失敗が5回」</td>
+                                <td>誤パスワードを5回入力</td>
+                                <td>アカウントがロックされる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>同値分割（パスワード長）</td>
+                                <td>8〜16文字（有効）</td>
+                                <td>10文字で登録</td>
+                                <td>登録成功</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>同値分割（パスワード長）</td>
+                                <td>7文字以下（無効）</td>
+                                <td>5文字で登録</td>
+                                <td>エラー表示</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="12-3-インシデントレポート抜粋">12-3. インシデントレポート（抜粋）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>項目</th>
+                                <th>記入例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>Timing information</td>
+                                <td>2026-09-28 14:30</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Originator</td>
+                                <td>QA担当</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Context</td>
+                                <td>TC-LOGIN-014 実行中、ステージング環境</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Description of the incident</td>
+                                <td>誤パスワード5回でロックされず、6回目も認証を試行できた</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Severity（報告者評価）</td>
+                                <td>高</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Priority（報告者評価）</td>
+                                <td>高</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Risk</td>
+                                <td>総当たり攻撃への耐性不足</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Status</td>
+                                <td>新規（調査待ち）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 id="step-13-よくある誤解と批判的視点">Step 13: よくある誤解と批判的視点</h2>
+                <h3 id="13-1-よくある誤解">13-1. よくある誤解</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>誤解</th>
+                                <th>実際</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>すべての文書を作らないといけない</td>
+                                <td>文書は選んで使う。テーラード適合と理由の記録が前提</td>
+                            </tr>
+                            <tr class="even">
+                                <td>文書名や見出しは規格どおりでなければならない</td>
+                                <td>変更・統合・名称変更してよい</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>紙かWord文書が必須</td>
+                                <td>ツール記録、スプレッドシートなど電子形式でも適合し得る</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Part 3 だけ読めばテストのやり方がわかる</td>
+                                <td>
+                                    プロセスは Part 2、技法は Part 4。Part 3 は「書く内容」の規格
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Annex の例は必須</td>
+                                <td>Annex B〜T は参考情報（Annex A が規定）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>アジャイルには使えない</td>
+                                <td>規格はアジャイル／DevOps でも採用可能と明記</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="13-2-標準化をめぐる議論背景知識">13-2. 標準化をめぐる議論（背景知識）</h3>
+                <p>
+                    29119
+                    シリーズは、策定期（特に2013〜2014年）に<strong>テスト実務家コミュニティの中で賛否が分かれました</strong>。両側の主張を知っておくと、規格を客観的に評価できます。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>立場</th>
+                                <th>代表的な発言者</th>
+                                <th>主張の要旨</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>推進・擁護</td>
+                                <td>Stuart Reid（ISO ソフトウェアテスト WG の召集者）</td>
+                                <td>
+                                    標準は必須ではなくガイドライン。規格はテスターの進め方を縛らない。リスクベースドテストを求めるが、その実施方法は制限しない。文書の重さは誤解であり、テーラリングできる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>批判</td>
+                                <td>
+                                    James Bach、Michael Bolton
+                                    ほか（コンテキスト駆動テスト派、ISST）
+                                </td>
+                                <td>
+                                    標準は過度に構造化された文書中心のプロセスで、テスターの技能や思考が軽視される。策定過程が十分に開かれていない。反対署名活動（Stop
+                                    29119）も行われた
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>内部からの改善</td>
+                                <td>
+                                    Jon Hagar（規格の共同エディタ、コンテキスト駆動の立場も持つ）
+                                </td>
+                                <td>
+                                    外から批判するだけでなく、規格の中から改善する立場を取ったと、批判側のコメント欄にも記されている
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p>
+                        注意:
+                        これらの議論は主に<strong>2013年版の時期</strong>のものです。2021年版で議論が解消したかどうかを示す一次資料は、今回の調査では確認できていません。学習者としては、次の姿勢が現実的です。
+                    </p>
+                    <ol type="1">
+                        <li>規格を<strong>チェックリスト兼語彙集</strong>として使う。</li>
+                        <li>文書化の量は<strong>リスクと契約・規制要件</strong>で決める。</li>
+                        <li>文書がテストの質を保証するわけではない、という批判点も忘れない。</li>
+                    </ol>
+                </blockquote>
+
+                <h2 id="step-14-学習ロードマップと理解度チェック">
+                    Step 14: 学習ロードマップと理解度チェック
+                </h2>
+                <h3 id="14-1-学習ロードマップ">14-1. 学習ロードマップ</h3>
+                <div class="mermaid-container" data-key="mm12" id="mermaid-diagram-12"></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>段階</th>
+                                <th>ゴール</th>
+                                <th>次にやること</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>Part 1〜4 の役割を説明できる</td>
+                                <td>Part 2 のプロセス図と Part 3 の文書を対応づける</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>適合の2種類と shall/should/may を説明できる</td>
+                                <td>自組織の文書を Annex A と照らす</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>各文書の目的を1行で言える</td>
+                                <td>自プロジェクトの既存成果物とマッピングする</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>
+                                    テストモデルからカバレッジアイテム、テストケースまでを説明できる
+                                </td>
+                                <td>Part 4 の技法を1つ選んで例を作る</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>トレーサビリティの取り方を設計できる</td>
+                                <td>ツールのリンク機能で追跡を試す</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="14-2-理解度チェック">14-2. 理解度チェック</h3>
+                <p><strong>Q1.</strong> Part 3 は何を定めた規格ですか？</p>
+                <details>
+                    <summary>答え</summary>
+                    テストプロセス（Part
+                    2）の成果物として作るテスト文書のテンプレート（記載すべき情報）です。
+                </details>
+                <p><strong>Q2.</strong> 2021年版で「テスト条件」に代わって導入された概念は？</p>
+                <details>
+                    <summary>答え</summary>
+                    テストモデル（test model）です。
+                </details>
+                <p><strong>Q3.</strong> 完全適合とテーラード適合の違いは？</p>
+                <details>
+                    <summary>答え</summary>
+                    完全適合はすべての shall
+                    を満たす。テーラード適合は使う文書のサブセットを記録し、そのサブセットの shall
+                    を満たす。要求を外す場合は理由が必要です。
+                </details>
+                <p><strong>Q4.</strong> テスト戦略は独立した文書ですか？</p>
+                <details>
+                    <summary>答え</summary>
+                    いいえ。テスト計画の一部です。
+                </details>
+                <p><strong>Q5.</strong> 「実際の結果」と「テスト結果」の違いは？</p>
+                <details>
+                    <summary>答え</summary>
+                    実際の結果は実行で観察された内容。テスト結果は、それが期待結果と一致したかどうか（合格/不合格）の判定です。
+                </details>
+                <p><strong>Q6.</strong> ステータスレポートにあって完了報告書にない項目は？</p>
+                <details>
+                    <summary>答え</summary>
+                    Planned testing（今後の予定のテスト）。逆に、Residual risks・Reusable test
+                    assets・Lessons learned などは完了報告書側の項目です。
+                </details>
+                <p><strong>Q7.</strong> 文書は紙や Word でなければ適合できませんか？</p>
+                <details>
+                    <summary>答え</summary>
+                    いいえ。テスト管理ツールの記録やスプレッドシートなど電子形式、他文書との統合でも構いません。
+                </details>
+                <p><strong>Q8.</strong> Annex A と Annex C〜R の位置づけの違いは？</p>
+                <details>
+                    <summary>答え</summary>
+                    Annex A は規定（要求・推奨・許可の一覧）。Annex C〜R は参考の記入例です。
+                </details>
+
+                <h2 id="参考ソース一覧url">参考ソース一覧（URL）</h2>
+                <h3 id="一次情報規格の発行元">一次情報（規格の発行元）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ソース</th>
+                                <th>使った情報</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>ISO — ISO/IEC/IEEE 29119-3:2021</td>
+                                <td>
+                                    版、発行日、ページ数、ステージ、範囲、対象読者、旧版との関係
+                                </td>
+                                <td>
+                                    <a href="https://www.iso.org/standard/79429.html"
+                                        >https://www.iso.org/standard/79429.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>IEEE SA — IEEE/ISO/IEC 29119-3-2021</td>
+                                <td>
+                                    ステータス、承認日、WG
+                                    議長、附属書構成の概要、シリーズ各パートの状況
+                                </td>
+                                <td>
+                                    <a href="https://standards.ieee.org/ieee/29119-3/7499/"
+                                        >https://standards.ieee.org/ieee/29119-3/7499/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>IEEE Xplore — 29119-3-2021（抄録）</td>
+                                <td>附属書構成、テンプレートの並びの説明</td>
+                                <td>
+                                    <a href="https://ieeexplore.ieee.org/document/9687477"
+                                        >https://ieeexplore.ieee.org/document/9687477</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>規格の前付け・目次サンプル（iTeh Standards の公開サンプル）</td>
+                                <td>章・節構成、用語定義、適合、前付けの変更点、序文</td>
+                                <td>
+                                    <a
+                                        href="https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
+                                        >https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="規格策定関係者国際的な実務家の情報">
+                    規格策定関係者・国際的な実務家の情報
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ソース</th>
+                                <th>発信者</th>
+                                <th>使った情報</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>ISO 29119 Testing Standards（ホワイトペーパー）</td>
+                                <td>Stuart Reid</td>
+                                <td>シリーズの概要と策定の背景</td>
+                                <td>
+                                    <a
+                                        href="https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
+                                        >https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>6</td>
+                                <td>ISO 29119 Software Testing Standards（ワークショップ案内）</td>
+                                <td>Stuart Reid</td>
+                                <td>リスクベース、ライフサイクル別のテーラリング</td>
+                                <td>
+                                    <a
+                                        href="https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
+                                        >https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7</td>
+                                <td>ISO 29119: Current Status &amp; Future Plans（スライド）</td>
+                                <td>Stuart Reid</td>
+                                <td>標準の位置づけ（ガイドライン、合意）</td>
+                                <td>
+                                    <a
+                                        href="https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
+                                        >https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>8</td>
+                                <td>The software testing schism（SD Times）</td>
+                                <td>報道（Reid・Bach ほかの発言を収録）</td>
+                                <td>2014年の賛否両論</td>
+                                <td>
+                                    <a href="https://sdtimes.com/applause/software-testing-schism/"
+                                        >https://sdtimes.com/applause/software-testing-schism/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>9</td>
+                                <td>How Not to Standardize Testing</td>
+                                <td>James Bach</td>
+                                <td>批判側の主張</td>
+                                <td>
+                                    <a href="https://www.satisfice.com/blog/archives/1464"
+                                        >https://www.satisfice.com/blog/archives/1464</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>10</td>
+                                <td>Frequently-Asked Questions About the 29119 Controversy</td>
+                                <td>Michael Bolton（DevelopSense）</td>
+                                <td>批判側の主張の整理</td>
+                                <td>
+                                    <a
+                                        href="https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
+                                        >https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>11</td>
+                                <td>Please sign the Petition to Stop ISO 29119</td>
+                                <td>Context-Driven Testing コミュニティ</td>
+                                <td>反対署名活動の経緯</td>
+                                <td>
+                                    <a
+                                        href="https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
+                                        >https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>12</td>
+                                <td>ISO/IEC 29119（Wikipedia）</td>
+                                <td>百科事典項目（Reid の文献を引用）</td>
+                                <td>シリーズ全体の経緯（2013年版の文書一覧など）</td>
+                                <td>
+                                    <a href="https://en.wikipedia.org/wiki/ISO/IEC_29119"
+                                        >https://en.wikipedia.org/wiki/ISO/IEC_29119</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="参考にした旧版資料">参考にした旧版資料</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ソース</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>13</td>
+                                <td>ISO/IEC/IEEE 29119-3:2013</td>
+                                <td>
+                                    <a href="https://www.iso.org/standard/56737.html"
+                                        >https://www.iso.org/standard/56737.html</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <p><strong>利用上の注意</strong></p>
+                    <ul>
+                        <li>
+                            規格本体は有償です（ISO ストアでは PDF+ePub が CHF 227
+                            と表示、2026年9月28日時点）。
+                        </li>
+                        <li>
+                            ISO のサイトには、コンテンツの AI
+                            利用に関する著作権上の注意書きがあります。本ガイドは要点のみを言い換えた要約であり、規格の本文は転載していません。
+                        </li>
+                        <li>
+                            実際の適合主張・監査・契約での引用には、規格の正式版（Annex A
+                            を含む）を必ずご確認ください。
+                        </li>
+                        <li>
+                            第三者（Bach、Bolton
+                            ら）の意見は個人・コミュニティの見解であり、規格の公式見解ではありません。
+                        </li>
+                    </ul>
+                </blockquote>
+            </main>
+        </div>
+        <script id="mm-data" type="application/json">
+            {
+                "mm1": "flowchart LR\n    A[\"Part 2<br/>テストプロセス<br/>何をするか\"] -->|\"成果物として\"| B[\"Part 3<br/>テスト文書<br/>何を書くか\"]\n    C[\"Part 4<br/>テスト技法<br/>どう設計するか\"] -->|\"設計の中で使う\"| A\n    D[\"Part 1<br/>概念と用語\"] -.->|\"共通の前提\"| A\n    D -.-> B\n    D -.-> C",
+                "mm2": "flowchart LR\n    Y1[\"<b>2013<\/b><br/>第1版 発行<br/>IEEE 829 の後継的位置づけ\"]:::old\n    Y2[\"<b>2019<\/b><br/>IEEE PAR 承認<br/>改訂の開始\"]:::rev\n    Y3[\"<b>2020<\/b><br/>ISO で改訂プロジェクト承認<br/>DIS 投票\"]:::rev\n    Y4[\"<b>2021年9月<\/b><br/>IEEE 標準委員会承認\"]:::rev\n    Y5[\"<b>2021年10月<\/b><br/>第2版 発行<br/>テスト条件からテストモデルへ\"]:::now\n    Y1 --> Y2 --> Y3 --> Y4 --> Y5\n    classDef old fill:#1c2f57,stroke:#7c9eff,color:#ffffff,stroke-width:2px\n    classDef rev fill:#12233b,stroke:#5b7bbf,color:#dbe5f7\n    classDef now fill:#1d5c55,stroke:#4fd1b5,color:#ffffff,stroke-width:3px",
+                "mm3": "flowchart TB\n    subgraph SERIES[\"ISO/IEC/IEEE 29119 シリーズ\"]\n        P1[\"Part 1<br/>概念と用語\"]\n        P2[\"Part 2<br/>テストプロセス\"]\n        P3[\"Part 3<br/>テスト文書化\"]\n        P4[\"Part 4<br/>テスト技法\"]\n        P5[\"Part 5<br/>キーワード駆動テスト\"]\n        P8[\"Part 8<br/>モデルベーステスト（ドラフト）\"]\n        P14[\"Part 14<br/>データ移行テスト（ドラフト）\"]\n    end\n    P1 --> P2\n    P2 --> P3\n    P2 --> P4\n    P2 --> P5\n    P2 --> P8\n    P2 --> P14\n    P4 --> P3",
+                "mm4": "flowchart TD\n    S[\"29119-3 を採用したい\"] --> Q1{\"すべての文書と<br/>すべての shall を<br/>満たせるか？\"}\n    Q1 -->|\"はい\"| F[\"Full conformance を主張<br/>証拠を用意\"]\n    Q1 -->|\"いいえ\"| Q2{\"使う文書の<br/>サブセットを<br/>決められるか？\"}\n    Q2 -->|\"はい\"| T[\"Tailored conformance を主張<br/>サブセットを記録<br/>外した要求の理由を記載\"]\n    Q2 -->|\"いいえ\"| N[\"適合は主張せず<br/>参考として活用\"]\n    F --> M[\"どちらを主張するか<br/>組織として明言する\"]\n    T --> M",
+                "mm5": "flowchart TD\n    POL[\"テストポリシー<br/>なぜ・何のためにテストするか\"] --> PRAC[\"組織テストプラクティス<br/>どのようにテストするか\"]\n    PRAC --> PLAN[\"各プロジェクトのテスト計画へ\"]",
+                "mm6": "flowchart LR\n    PL[\"テスト計画<br/>Test plan\"] --> ST[\"テストステータスレポート<br/>Test status report<br/>（期間ごとに繰り返し）\"]\n    ST --> ST\n    ST --> CP[\"テスト完了報告書<br/>Test completion report\"]\n    CP -.->|\"教訓・再利用資産\"| PRAC[\"組織テストプラクティスへ<br/>フィードバック\"]",
+                "mm7": "flowchart TD\n    subgraph DESIGN[\"設計と実装\"]\n        TM[\"8.2 テストモデル仕様\"] --> TC[\"8.3 テストケース仕様\"]\n        TC --> TP[\"8.4 テスト手順仕様\"]\n    end\n    subgraph PREP[\"環境とデータの準備\"]\n        TDR[\"8.5 テストデータ要求\"] --> TDRR[\"8.7 テストデータレディネスレポート\"]\n        TER[\"8.6 テスト環境要求\"] --> TERR[\"8.8 テスト環境レディネスレポート\"]\n    end\n    subgraph EXEC[\"実行\"]\n        AR[\"8.9 実際の結果とテスト結果\"]\n        LOG[\"8.10 テスト実行ログ\"]\n    end\n    subgraph INC[\"問題の報告\"]\n        IR[\"8.11 テストインシデントレポート\"]\n    end\n    TP --> EXEC\n    TDRR --> EXEC\n    TERR --> EXEC\n    EXEC -->|\"期待と異なる結果\"| IR",
+                "mm8": "flowchart LR\n    A[\"テスト実行\"] --> B{\"実際の結果 と<br/>期待結果 は一致？\"}\n    B -->|\"一致\"| C[\"テスト結果: 合格<br/>実行ログに記録\"]\n    B -->|\"不一致・予期せぬ事象\"| D[\"テストインシデントを起票\"]\n    D --> E[\"深刻度・優先度を<br/>報告者が評価\"]\n    E --> F[\"調査と対応<br/>ステータス更新\"]\n    F --> G[\"必要なら再テスト\"]\n    G --> A",
+                "mm9": "flowchart LR\n    subgraph OLD[\"2013年版\"]\n        O1[\"テストベース\"] --> O2[\"テスト条件\"] --> O3[\"テストケース\"]\n    end\n    subgraph NEW[\"2021年版\"]\n        N1[\"テストベース\"] --> N2[\"テストモデル<br/>＋ 必要なカバレッジ\"] --> N3[\"テストカバレッジアイテム\"] --> N4[\"テストケース\"]\n    end\n    OLD -->|\"置き換え\"| NEW",
+                "mm10": "flowchart TD\n    POL[\"テストポリシー\"] --> PRAC[\"組織テストプラクティス\"]\n    PRAC --> PLAN[\"テスト計画<br/>（テスト戦略を含む）\"]\n    PLAN --> TMS[\"テストモデル仕様\"]\n    TMS --> TCS[\"テストケース仕様\"]\n    TCS --> TPS[\"テスト手順仕様\"]\n    PLAN --> TDREQ[\"テストデータ要求\"]\n    PLAN --> TEREQ[\"テスト環境要求\"]\n    TDREQ --> TDRDY[\"データレディネスレポート\"]\n    TEREQ --> TERDY[\"環境レディネスレポート\"]\n    TPS --> LOG[\"テスト実行ログ\"]\n    TDRDY --> LOG\n    TERDY --> LOG\n    LOG --> RES[\"実際の結果・テスト結果\"]\n    RES --> INC[\"インシデントレポート\"]\n    RES --> STAT[\"テストステータスレポート\"]\n    INC --> STAT\n    STAT --> COMP[\"テスト完了報告書\"]",
+                "mm11": "flowchart TD\n    START[\"テスト活動を開始\"] --> Q1{\"規制・契約・監査で<br/>文書の提出が必要か？\"}\n    Q1 -->|\"はい\"| FULL[\"必要な文書を洗い出し<br/>Annex A で shall を確認\"]\n    Q1 -->|\"いいえ\"| Q2{\"複数チーム・長期<br/>プロダクトか？\"}\n    Q2 -->|\"はい\"| MID[\"ポリシー・プラクティス・<br/>テスト計画・完了報告を優先\"]\n    Q2 -->|\"いいえ\"| LIGHT[\"テスト計画（軽量）と<br/>テストケース・インシデントに絞る\"]\n    FULL --> TAILOR[\"テーラリングの理由を記録\"]\n    MID --> TAILOR\n    LIGHT --> TAILOR",
+                "mm12": "flowchart LR\n    S1[\"1 用語と全体像<br/>Step 0-2\"] --> S2[\"2 構成と適合<br/>Step 3-4\"]\n    S2 --> S3[\"3 3階層の文書<br/>Step 5-8\"]\n    S3 --> S4[\"4 テストモデル<br/>Step 9\"]\n    S4 --> S5[\"5 追跡と運用<br/>Step 10-11\"]\n    S5 --> S6[\"6 実践と批判的視点<br/>Step 12-13\"]\n    S6 --> S7[\"7 Part 2 と Part 4 へ\"]"
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            const DIAGRAMS = JSON.parse(document.getElementById('mm-data').textContent);
+            async function renderAll() {
+                if (typeof mermaid === 'undefined') {
+                    document
+                        .querySelectorAll('.mermaid-container')
+                        .forEach(
+                            (c) =>
+                                (c.textContent =
+                                    'Mermaid の読み込みに失敗しました（ネットワークを確認してください）'),
+                        );
+                    return;
+                }
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    securityLevel: 'loose',
+                    themeVariables: {
+                        fontSize: '16px',
+                        fontFamily:
+                            '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                        background: '#0d1b2e',
+                        primaryColor: '#16294a',
+                        primaryTextColor: '#e8eefc',
+                        primaryBorderColor: '#7c9eff',
+                        secondaryColor: '#12233b',
+                        tertiaryColor: '#0d1b2e',
+                        lineColor: '#9db6ff',
+                        textColor: '#dbe5f7',
+                        mainBkg: '#16294a',
+                        nodeBorder: '#7c9eff',
+                        clusterBkg: '#0f1f38',
+                        clusterBorder: '#3b5a94',
+                        titleColor: '#ffffff',
+                        edgeLabelBackground: '#0d1b2e',
+                        cScale0: '#2a3f7a',
+                        cScale1: '#2b5d7a',
+                        cScale2: '#3a5f8f',
+                        cScale3: '#4a4f9a',
+                        cScale4: '#2f6b6b',
+                        cScaleLabel0: '#fff',
+                        cScaleLabel1: '#fff',
+                        cScaleLabel2: '#fff',
+                        cScaleLabel3: '#fff',
+                        cScaleLabel4: '#fff',
+                    },
+                    flowchart: {
+                        useMaxWidth: false,
+                        htmlLabels: true,
+                        nodeSpacing: 70,
+                        rankSpacing: 60,
+                        subGraphTitleMargin: { top: 12, bottom: 18 },
+                    },
+                    timeline: { useMaxWidth: false },
+                });
+                for (const c of document.querySelectorAll('.mermaid-container')) {
+                    const key = c.dataset.key;
+                    try {
+                        const r = await mermaid.render('svg-' + key, DIAGRAMS[key]);
+                        c.innerHTML = r.svg;
+                        c.querySelectorAll('[id]').forEach((e) => {
+                            if (!e.id.startsWith('svg-' + key)) e.id = key + '-' + e.id;
+                        });
+                    } catch (err) {
+                        c.textContent = '図の描画に失敗: ' + err.message;
+                    }
+                }
+            }
+            function setupNav() {
+                const links = [...document.querySelectorAll('.sidebar a[data-target]')];
+                const io = new IntersectionObserver(
+                    (es) =>
+                        es.forEach((e) => {
+                            if (e.isIntersecting) {
+                                links.forEach((l) =>
+                                    l.classList.toggle('active', l.dataset.target === e.target.id),
+                                );
+                            }
+                        }),
+                    { rootMargin: '-15% 0px -75% 0px' },
+                );
+                links.forEach((l) => {
+                    const h = document.getElementById(l.dataset.target);
+                    if (h) io.observe(h);
+                    l.addEventListener('click', () =>
+                        document.querySelector('.sidebar').classList.remove('open'),
+                    );
+                });
+                document
+                    .querySelector('.toggle')
+                    .addEventListener('click', () =>
+                        document.querySelector('.sidebar').classList.toggle('open'),
+                    );
+            }
+            setupNav();
+            renderAll();
+        </script>
+    </body>
+</html>
