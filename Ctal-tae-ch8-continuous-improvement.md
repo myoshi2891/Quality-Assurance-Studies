@@ -1,7 +1,7 @@
 # CTAL-TAE v2.0 第8章「Continuous Improvement（継続的改善）」初学者向け完全ガイド
 
 > **対象試験**：ISTQB Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0
-> **対象章**：Chapter 8 Continuous Improvement（配点時間 210 分 / 最高認知レベル K4）
+> **対象章**：Chapter 8 Continuous Improvement（章別指導時間 210 分 / 最高認知レベル K4）
 > **想定読者**：テスト自動化の基礎（第1〜7章）を一通り学んだ初学者
 > **記載ルール**：図解は Mermaid と Markdown のみ（ASCII アートは使用しない）。出典 URL は末尾にまとめています。
 

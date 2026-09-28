@@ -255,7 +255,7 @@ flowchart TD
     Type --> Cost["コストを考慮した<br/>選択肢の絞り込み<br/>（COTS or OSSベースの自作）"]
     Cost --> Skill{"チームのプログラミング<br/>経験は？"}
     Skill -- 少ない/なし --> LowCode["ローコード／ノーコード<br/>ツールを検討"]
-    Skill -- 十分にある --> LangMatch["SUTと同じ言語の<br/>ツールを選定"]
+    Skill -- 十分にある --> LangMatch["SUTと同じ言語の<br/>ツールも検討"]
     LangMatch --> Benefit["開発者との協働・<br/>デバッグ効率が向上<br/>チーム間の相互トレーニングが容易"]
 
     classDef step fill:#364fc7,stroke:#91a7ff,color:#fff

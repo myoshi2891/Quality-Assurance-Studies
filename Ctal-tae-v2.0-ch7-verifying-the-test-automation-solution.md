@@ -246,6 +246,7 @@ sequenceDiagram
 # conftest.py — 本実行の前に一度だけ実行する事前チェックの例
 import os
 import pathlib
+import tempfile
 import pytest
 import requests
 
@@ -256,7 +257,7 @@ REPORT_DIR = pathlib.Path(os.environ.get("REPORT_DIR", "reports"))
 def preflight_check():
     """接続性と権限を確認し、失敗したら本実行を中止する。"""
     # 1. 必須の環境変数（未設定でも import 時に KeyError にならないよう、ここで確認してから読む）
-    for name in ("SUT_BASE_URL", "TEST_USER"):
+    for name in ("SUT_BASE_URL", "TEST_USER", "TEST_PASSWORD"):
         assert os.environ.get(name), f"環境変数 {name} が未設定です"
     base_url = os.environ["SUT_BASE_URL"]           # 環境ごとに切り替える
 
@@ -264,11 +265,16 @@ def preflight_check():
     res = requests.get(f"{base_url}/health", timeout=10)
     assert res.status_code == 200, "SUT に到達できません"
 
-    # 3. ログ・レポートの書き込み権限
+    # 3. 認証の確認（認証が必要な API へ最小限のリクエストを送る。/api/me は想定のエンドポイント）
+    auth = (os.environ["TEST_USER"], os.environ["TEST_PASSWORD"])
+    res = requests.get(f"{base_url}/api/me", auth=auth, timeout=10)
+    assert res.status_code == 200, f"TEST_USER で認証できません（status={res.status_code}）"
+
+    # 4. ログ・レポートの書き込み権限（一意な一時ファイルを使い、既存ファイルを上書き・削除しない）
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    probe = REPORT_DIR / ".write_probe"
-    probe.write_text("ok")
-    probe.unlink()
+    with tempfile.NamedTemporaryFile(dir=REPORT_DIR, prefix=".write_probe_") as probe:
+        probe.write(b"ok")
+        probe.flush()
 ```
 
 事前チェックが失敗したときに、個々のテストが大量に失敗する状況を避けられます。これは第6章で学んだ「テスト環境が利用できないと、すべてのテストが同じ原因で失敗する、または一部が本物の失敗のように見える」問題への対策にもなります。
