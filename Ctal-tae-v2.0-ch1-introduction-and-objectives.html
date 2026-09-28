@@ -1600,8 +1600,15 @@
                 }
 
                 function renderDiagrams() {
-                    if (!mermaidReady) return;
                     var targets = document.querySelectorAll('[data-diagram]');
+                    if (!mermaidReady) {
+                        // Mermaid が読み込めなかった場合は、空の図領域を残さず代替表示を出す
+                        targets.forEach(function (el) {
+                            el.innerHTML =
+                                '<p style="color:#b23b3b;font-size:1rem">Mermaid を読み込めなかったため、図を描画できませんでした。</p>';
+                        });
+                        return;
+                    }
                     targets.forEach(function (el, idx) {
                         var key = el.getAttribute('data-diagram');
                         var src = DIAGRAMS[key];
@@ -1680,6 +1687,11 @@
                 if (menuBtn && sidebar) {
                     menuBtn.addEventListener('click', function () {
                         sidebar.classList.toggle('open');
+                    });
+                    document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                            sidebar.classList.remove('open');
+                        }
                     });
                     navLinks.forEach(function (a) {
                         a.addEventListener('click', function () {

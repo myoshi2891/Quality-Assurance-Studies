@@ -489,6 +489,12 @@
                 padding: 6px 0;
                 margin: 0;
             }
+            .checklist-card label {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                cursor: pointer;
+            }
             .checklist-card input[type='checkbox'] {
                 appearance: none;
                 -webkit-appearance: none;
@@ -1255,39 +1261,39 @@
                     <h3>学習到達度チェックリスト</h3>
                     <ul class="checklist-card" id="checklistCard">
                         <li>
-                            <input type="checkbox" /><span
-                                >Observability・Controllability・Architecture
-                                Transparencyの3つを、それぞれ自分の言葉で説明できる</span
+                            <label
+                                ><input type="checkbox" /><span>Observability・Controllability・Architecture
+                                Transparencyの3つを、それぞれ自分の言葉で説明できる</span></label
                             >
                         </li>
                         <li>
-                            <input type="checkbox" /><span
-                                >アクセシビリティ識別子・システム環境変数・デプロイ変数の違いと設定方法を説明できる</span
+                            <label
+                                ><input type="checkbox" /><span>アクセシビリティ識別子・システム環境変数・デプロイ変数の違いと設定方法を説明できる</span></label
                             >
                         </li>
                         <li>
-                            <input type="checkbox" /><span
-                                >代表的な5つの環境例（ローカル開発／ビルド／統合／プレプロダクション／本番）の目的と、それぞれで実施される代表的なテストを言える</span
+                            <label
+                                ><input type="checkbox" /><span>代表的な5つの環境例（ローカル開発／ビルド／統合／プレプロダクション／本番）の目的と、それぞれで実施される代表的なテストを言える</span></label
                             >
                         </li>
                         <li>
-                            <input type="checkbox" /><span
-                                >監視（モニタリング）が最初に導入される環境がどこかを説明できる</span
+                            <label
+                                ><input type="checkbox" /><span>監視（モニタリング）が最初に導入される環境がどこかを説明できる</span></label
                             >
                         </li>
                         <li>
-                            <input type="checkbox" /><span
-                                >SUT分析で検討すべき8つの観点を挙げられる</span
+                            <label
+                                ><input type="checkbox" /><span>SUT分析で検討すべき8つの観点を挙げられる</span></label
                             >
                         </li>
                         <li>
-                            <input type="checkbox" /><span
-                                >ツール比較表の作り方（列＝ツール、行＝要件）と、評価すべき7つの技術要件を説明できる</span
+                            <label
+                                ><input type="checkbox" /><span>ツール比較表の作り方（列＝ツール、行＝要件）と、評価すべき7つの技術要件を説明できる</span></label
                             >
                         </li>
                         <li>
-                            <input type="checkbox" /><span
-                                >「単一のツールがすべての要件を満たすとは限らない」という前提を踏まえた提案の進め方を説明できる</span
+                            <label
+                                ><input type="checkbox" /><span>「単一のツールがすべての要件を満たすとは限らない」という前提を踏まえた提案の進め方を説明できる</span></label
                             >
                         </li>
                     </ul>

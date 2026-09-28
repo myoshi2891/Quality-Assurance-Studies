@@ -415,6 +415,16 @@
             .mermaid-diagram svg {
                 overflow: visible;
             }
+            .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .mermaid-diagram .cluster-label div,
+            .mermaid-diagram .cluster-label span,
+            .mermaid-diagram .edgeLabel div,
+            .mermaid-diagram .edgeLabel span {
+                max-width: none !important;
+                white-space: nowrap !important;
+            }
             .diagram-loading {
                 font-size: 16px;
                 color: var(--color-ink-tertiary);
@@ -1479,20 +1489,37 @@
                     ].join('\n'),
                 };
 
-                mermaid.initialize({
+                // Mermaid の CDN 読み込みに失敗した場合、図は代替表示にして後続のナビ初期化は継続する
+                var mermaidAvailable = typeof window.mermaid !== 'undefined';
+                if (!mermaidAvailable) {
+                    document
+                        .querySelectorAll('.mermaid-diagram[data-diagram]')
+                        .forEach(function (el) {
+                            el.innerHTML =
+                                '<p style="color:#8C3A5C;font-size:16px;">Mermaid を読み込めなかったため、図を描画できませんでした。</p>';
+                        });
+                    console.error('mermaid is not loaded; diagrams skipped');
+                }
+
+                if (mermaidAvailable) mermaid.initialize({
                     startOnLoad: false,
                     theme: 'base',
                     securityLevel: 'loose',
-                    fontFamily: "'Noto Sans JP', sans-serif",
+                    fontFamily:
+                        "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif",
                     flowchart: {
                         useMaxWidth: false,
                         htmlLabels: true,
                         curve: 'basis',
                         nodeSpacing: 45,
                         rankSpacing: 55,
+                        wrappingWidth: 1200,
+                        padding: 16,
+                        subGraphTitleMargin: { top: 10, bottom: 14 },
                     },
                     themeVariables: {
-                        fontFamily: "'Noto Sans JP', sans-serif",
+                        fontFamily:
+                            "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif",
                         fontSize: '16px',
                         primaryColor: '#EEF1F8',
                         primaryTextColor: '#161B26',
@@ -1515,12 +1542,26 @@
                     },
                 });
 
-                async function renderAll() {
-                    if (document.fonts && document.fonts.ready) {
-                        try {
-                            await document.fonts.ready;
-                        } catch (e) {}
-                    }
+                var FONT_STACK =
+                    "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+                async function preloadFonts() {
+                    if (!document.fonts || !document.fonts.load) return;
+                    var sample = Object.keys(DIAGRAMS)
+                        .map(function (k) {
+                            return DIAGRAMS[k];
+                        })
+                        .join('');
+                    try {
+                        await Promise.all([
+                            document.fonts.load('400 16px "Noto Sans JP"', sample),
+                            document.fonts.load('500 16px "Noto Sans JP"', sample),
+                        ]);
+                        await document.fonts.ready;
+                    } catch (e) {}
+                }
+
+                async function drawDiagrams(pass) {
                     var targets = document.querySelectorAll('.mermaid-diagram[data-diagram]');
                     for (var i = 0; i < targets.length; i++) {
                         var target = targets[i];
@@ -1528,7 +1569,7 @@
                         var src = DIAGRAMS[key];
                         if (!src) continue;
                         try {
-                            var result = await mermaid.render('mmd-' + key, src);
+                            var result = await mermaid.render('mmd-' + key + '-' + pass, src);
                             target.innerHTML = result.svg;
                             var svgEl = target.querySelector('svg');
                             if (svgEl) {
@@ -1556,7 +1597,26 @@
                         }
                     }
                 }
-                renderAll();
+
+                var pass = 0,
+                    redraws = 0,
+                    redrawTimer = null;
+                async function renderAll() {
+                    await preloadFonts();
+                    await drawDiagrams(pass++);
+                    // Safety net: if a web font finishes loading after the first measurement, redraw so box sizes match the final glyphs.
+                    if (document.fonts && document.fonts.addEventListener) {
+                        document.fonts.addEventListener('loadingdone', function () {
+                            if (redraws >= 2) return;
+                            clearTimeout(redrawTimer);
+                            redrawTimer = setTimeout(function () {
+                                redraws++;
+                                drawDiagrams(pass++);
+                            }, 150);
+                        });
+                    }
+                }
+                if (mermaidAvailable) renderAll();
 
                 var navLinks = document.querySelectorAll('.nav-link');
                 var sections = [];
