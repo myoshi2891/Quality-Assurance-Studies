@@ -1,7 +1,7 @@
 # CTAL-TAE v2.0 第7章「Verifying the Test Automation Solution」初学者向けガイド
 
 > **対象試験**：ISTQB Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0
-> **対象シラバス**：Syllabus Version 2.0（2024/05/03 リリース）第7章（135分・K3）
+> **対象シラバス**：Syllabus Version 2.0（PDF 版の日付：2024/05/03）第7章（135分・K3）
 > **作成日**：2026-09-28
 > **読者**：テスト自動化の経験が浅い方、初めて Advanced Level を受験する方
 
@@ -268,6 +268,8 @@ def preflight_check():
         pytest.fail("SUT_BASE_URL は https:// で指定してください（資格情報を平文で送らないため）")
     if parsed.username is not None or parsed.password is not None:
         pytest.fail("SUT_BASE_URL に資格情報（user:pass@）を含めないでください")
+    #    末尾のスラッシュを除去し、各エンドポイントとの境界がスラッシュ1つになるようにする
+    base_url = base_url.rstrip("/")
 
     # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）
     res = requests.get(f"{base_url}/health", timeout=10)
