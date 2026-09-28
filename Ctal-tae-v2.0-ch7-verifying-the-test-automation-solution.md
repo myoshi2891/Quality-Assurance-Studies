@@ -247,6 +247,8 @@ sequenceDiagram
 import os
 import pathlib
 import tempfile
+from urllib.parse import urlsplit
+
 import pytest
 import requests
 
@@ -266,8 +268,12 @@ def preflight_check():
     assert res.status_code == 200, "SUT に到達できません"
 
     # 3. 認証の確認（認証が必要な API へ最小限のリクエストを送る。/api/me は想定のエンドポイント）
+    #    Basic 認証は資格情報を平文（Base64）で送るため、HTTPS 以外の URL には送信しない
+    if urlsplit(base_url).scheme != "https":
+        pytest.fail("SUT_BASE_URL は https:// で指定してください（資格情報を平文で送らないため）")
     auth = (os.environ["TEST_USER"], os.environ["TEST_PASSWORD"])
-    res = requests.get(f"{base_url}/api/me", auth=auth, timeout=10)
+    #    リダイレクトを追跡すると、認証情報が意図しない送信先へ渡るおそれがあるため無効にする
+    res = requests.get(f"{base_url}/api/me", auth=auth, timeout=10, allow_redirects=False)
     assert res.status_code == 200, f"TEST_USER で認証できません（status={res.status_code}）"
 
     # 4. ログ・レポートの書き込み権限（一意な一時ファイルを使い、既存ファイルを上書き・削除しない）
