@@ -1,4 +1,5 @@
 # ISO/IEC/IEEE 29119-5:2024 初学者向け完全ガイド
+
 ## Keyword-driven testing（キーワード駆動テスト）をステップバイステップで理解する
 
 > **対象読者**: ソフトウェアテストを学び始めたQAエンジニア／開発者／テスト自動化に関わる方
@@ -484,6 +485,12 @@ Test Teardown     Close All Browsers
 Registered User Can Log In
     User Logs In    alice    ${VALID_PASSWORD}
     Dashboard Is Displayed
+```
+
+`${VALID_PASSWORD}` はファイル内で定義していないため、実行時に `--variable` で渡します。パスワードをファイルに直書きせず、環境変数（CI ではシークレット）から渡してください。
+
+```bash
+robot --variable "VALID_PASSWORD:$TEST_PASSWORD" login.robot
 ```
 
 ### 11-3. 規格の概念との対応
