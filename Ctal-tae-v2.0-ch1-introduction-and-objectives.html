@@ -195,6 +195,9 @@
             .mobile-bar button {
                 font-size: 1rem;
             }
+            .sidebar-close {
+                display: none;
+            }
 
             /* ===== Hero ===== */
             .hero {
@@ -693,6 +696,20 @@
                     line-height: 1;
                     cursor: pointer;
                 }
+                .sidebar-close {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: auto;
+                    background: var(--indigo-soft);
+                    border: 1px solid var(--border);
+                    color: var(--indigo-dark);
+                    border-radius: 8px;
+                    padding: 8px 10px;
+                    font-size: 1rem;
+                    line-height: 1;
+                    cursor: pointer;
+                }
                 .mobile-bar .mb-title {
                     font-weight: 700;
                     font-size: 1rem;
@@ -733,6 +750,14 @@
                         CTAL-TAE v2.0
                         <small>第1章 解説ガイド</small>
                     </div>
+                    <button
+                        type="button"
+                        class="sidebar-close"
+                        id="sidebarClose"
+                        aria-label="メニューを閉じる"
+                    >
+                        <i class="ti ti-x"></i>
+                    </button>
                 </div>
                 <div class="side-group-title">はじめに</div>
                 <ul class="side-nav">
@@ -1694,6 +1719,20 @@
                         var isOpen = sidebar.classList.toggle('open');
                         // 開いたら最初のナビリンクへフォーカスを移す
                         if (isOpen && navLinks.length) navLinks[0].focus();
+                    });
+                    // 開いたサイドバーが #menuBtn を覆うため、サイドバー内の閉じるボタンで閉じられるようにする
+                    var sidebarClose = document.getElementById('sidebarClose');
+                    if (sidebarClose) {
+                        sidebarClose.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                            menuBtn.focus();
+                        });
+                    }
+                    // サイドバー外のタップでも閉じる（#menuBtn 自身のクリックはトグル処理に任せる）
+                    document.addEventListener('click', function (e) {
+                        if (!sidebar.classList.contains('open')) return;
+                        if (sidebar.contains(e.target) || menuBtn.contains(e.target)) return;
+                        sidebar.classList.remove('open');
                     });
                     document.addEventListener('keydown', function (e) {
                         if (e.key === 'Escape' && sidebar.classList.contains('open')) {
