@@ -461,7 +461,7 @@ Open Login Page
 Enter Credentials
     [Arguments]    ${user}    ${password}
     Input Data    id=username    ${user}
-    # パスワードはログに値を出力しない SeleniumLibrary の Input Password で入力する
+    # Input Password は INFO レベルでは値を記録しないが、TRACE レベルでは引数として記録されうる
     Input Password    id=password    ${password}
 
 # ---- 高レベル（業務）キーワード ----
@@ -488,7 +488,7 @@ Registered User Can Log In
     Dashboard Is Displayed
 ```
 
-パスワードはファイルに直書きせず、Robot Framework の環境変数構文 `%{TEST_PASSWORD}` でテスト内から読み取ります。環境変数 `TEST_PASSWORD` には、CI ではシークレットを設定します。`--variable "NAME:$TEST_PASSWORD"` のようにコマンドライン引数へ展開すると、パスワードがプロセス一覧（`ps` 等）やシェル履歴から見えるため避けます。また、ログ（`log.html`）への平文出力を防ぐため、パスワード欄の入力には SeleniumLibrary の `Input Password` を使います。
+パスワードはファイルに直書きせず、Robot Framework の環境変数構文 `%{TEST_PASSWORD}` でテスト内から読み取ります。環境変数 `TEST_PASSWORD` には、CI ではシークレットを設定します。`--variable "NAME:$TEST_PASSWORD"` のようにコマンドライン引数へ展開すると、パスワードがプロセス一覧（`ps` 等）やシェル履歴から見えるため避けます。また、パスワード欄の入力には SeleniumLibrary の `Input Password` を使います。`Input Password` は INFO レベルではパスワードの値をログ（`log.html`）に記録しませんが、Robot Framework はキーワードの引数を TRACE レベルで記録するため、`--loglevel TRACE` で実行すると値が記録される可能性があります。TRACE 対策として、Robot Framework 7.4 以降では環境変数の値を `Secret` 型の変数（例：`*** Variables ***` セクションの `${TEST_PASSWORD: Secret}    %{TEST_PASSWORD}`）に設定して渡します。Robot Framework 7.4 未満では `Secret` 型を使えないため、TRACE レベルで実行しないでください。
 
 ```bash
 # TEST_PASSWORD は CI のシークレット等で環境変数として設定済みであることが前提
