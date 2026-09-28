@@ -2,8 +2,8 @@
 
 > 対象試験：ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) v2.0
 > 対象章：Chapter 4 – Implementing Test Automation（学習時間目安：150分、認知レベル：K4）
-> 公式ページ：https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/
-> シラバスPDF：https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf
+> 公式ページ：<https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/>
+> シラバスPDF：<https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf>
 
 ---
 
@@ -36,7 +36,7 @@ flowchart LR
 第3章で決めた**アーキテクチャ**を、実際に「小さく試してみる（パイロット）」→「そのときに起きるリスクを洗い出し、対策する」→「長期的に保守できる形にする」という**時間軸に沿った実装の流れ**を扱うのが第4章だと理解すると全体像がつかみやすくなります。
 
 > 出典：ISTQB CTAL-TAE Syllabus v2.0, Section 0.11「How this Syllabus is Organized」（p.12）
-> https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf
+> <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf>
 
 ---
 
@@ -58,7 +58,7 @@ flowchart LR
 | 4.3 テスト自動化ソリューションの保守性 | TAE-4.3.1 | K2（理解） | テスト自動化ソリューションの保守性を支え、また影響を与える要因を説明する |
 
 > 出典：ISTQB CTAL-TAE Syllabus v2.0, Chapter 4 冒頭（p.29）
-> https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf
+> <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf>
 
 ---
 
@@ -122,6 +122,7 @@ flowchart TD
 ### 3.5 ベストプラクティス（4.1）
 
 > 💡 パイロット計画のベストプラクティス
+>
 > - パイロットの**スコープと評価範囲を最初に明文化**し、目的を関係者間で合意する
 > - タイムラインを設定し、**定期的な進捗チェックポイント**を設けてリスクを早期に発見する
 > - 可能な限り早い段階でCI/CDパイプラインへ組み込み、統合上の問題を先に洗い出す
@@ -161,7 +162,7 @@ flowchart TB
 ```
 
 > 出典：ISTQB CTAL-TAE Syllabus v2.0, Section 4.2.1（p.30-32）
-> https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf
+> <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf>
 
 これらのリスクはテスト自動化に固有のものだけではありませんが、TAEは「信頼できる有益な品質ゲートを提供するために、これらの条件がすべて満たされていることを確認する責任」を負う、とシラバスは強調しています。たとえばモバイル実機を使ったテスト自動化では、実機の電源投入・十分なバッテリー残量・ネットワーク接続・SUTへのアクセス確保といった一見テストと直接関係なさそうな条件も、リスクとして事前に管理する対象になります。
 
@@ -225,6 +226,7 @@ flowchart LR
 ### 4.2.4 ベストプラクティス（4.2）
 
 > 💡 デプロイリスク対応のベストプラクティス
+>
 > - テストウェアはSUTと同様に**バージョン管理**の対象とする。組織内で共有する場合は、リポジトリへ登録して共有できる状態にしておく
 > - ログレベル（Fatal〜Trace）を**用途に応じて正しく使い分け**、後から原因調査しやすい粒度で記録する
 > - テストフィクスチャを設計する際は「**反復可能性**」と「**独立性（アトミック性）**」を必ず担保する
@@ -286,6 +288,7 @@ flowchart LR
 ### 5.6 ベストプラクティス（4.3）
 
 > 💡 保守性向上のベストプラクティス
+>
 > - Robert C. Martinのクリーンコード原則（8項目）を**チームの共通ルールとして明文化**し、コードレビューの観点に組み込む
 > - 変数・メソッド名は**役割が一目でわかる命名**にし、命名規則をドキュメント化してチーム全体で共有する
 > - 頻繁に変化する値は**データ駆動テスト**で外部化し、変化しない値のみ定数として管理する
@@ -317,8 +320,8 @@ flowchart TD
 
 | 資料名 | URL |
 |---|---|
-| CTAL-TAE v2.0 認定ページ（ISTQB公式） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| CTAL-TAE v2.0 シラバス（PDF、本記事の一次情報源） | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf |
+| CTAL-TAE v2.0 認定ページ（ISTQB公式） | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
+| CTAL-TAE v2.0 シラバス（PDF、本記事の一次情報源） | <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf> |
 | Robert C. Martin, *Clean Code: A Handbook of Agile Software Craftsmanship* (2008)（4.3節のクリーンコード原則の原典としてシラバスが引用） | シラバス本文 Section 4.3.1 に書誌情報あり（上記シラバスPDFを参照） |
 
 > 本ガイドはISTQB® CTAL-TAE v2.0シラバス（Copyright © International Software Testing Qualifications Board, 2024）の内容を要約・翻訳し、初学者向けに再構成したものです。試験対策としてご利用の際は、必ず上記の公式シラバスPDFの該当章（Chapter 4, p.29-32）とあわせてご確認ください。

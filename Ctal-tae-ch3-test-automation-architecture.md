@@ -97,6 +97,7 @@ flowchart TB
 ```
 
 > 💡 **ベストプラクティス**
+>
 > - gTAAはあくまで「参照モデル」であり、すべてのプロジェクトが4機能すべてを実装する必要はない。特にTest Generation（モデルベースのテスト生成）は多くの現場で任意扱いになる。
 > - ツール選定・アーキテクチャ設計を始める前に、まず「自分たちのTASはgTAAのどの機能を、どのツール／コンポーネントで担うのか」をマッピングしておくと、後工程での抜け漏れ（例：レポーティング機能の欠落）を防げる。
 > - Test Adaptation層を意識的に独立させておくと、SUTのAPIやUI構造が変わってもTest Definition層（テストケースそのもの）への影響を最小化できる（後述3.1.5のFacadeパターンとも直結する）。
@@ -134,6 +135,7 @@ flowchart LR
 | バージョン管理・リポジトリ | Git等でのテストウェアのバージョン管理 |
 
 > 💡 **ベストプラクティス**
+>
 > - TAA設計は「SUTの要件理解」から始める。ツール選定を先に決めてしまう（ツールありきの設計）は、後々の接続性・拡張性の問題につながりやすい。
 > - モック/スタブや外部依存のエミュレーション方法を早期に検討することで、外部システム側の制約（サードパーティAPIのレート制限など）に自動化がブロックされるリスクを減らせる。
 
@@ -216,6 +218,7 @@ flowchart TB
 ```
 
 > 💡 **ベストプラクティス**
+>
 > - レイヤー間の依存方向は必ず「Test Scripts → Business Logic → Core Libraries」の一方向に保つ。Test ScriptsからCore Librariesへの直接呼び出しを許すと、SUT固有のロジックが混入し、Core Librariesの再利用性が崩れる。
 > - Core Librariesに「SUT固有の情報」を一切含めないことを設計ルールとして明文化する。含めてしまうと、他プロジェクトへの再利用時に予期しない副作用が発生する。
 > - 複数プロジェクトでCore Librariesを共有する場合は、バージョニング（後述8章の内容とも関連）と後方互換性の方針を先に決めておく。
@@ -275,6 +278,7 @@ flowchart LR
 ```
 
 > 💡 **ベストプラクティス**
+>
 > - チームの技術レベルとSUTの変化頻度に応じてアプローチを選ぶ。プログラミング未経験者が多い場合はCapture/Playback系のノーコード/ローコードツールから始め、成熟に応じてStructured Scripting以降へ移行するのが現実的。
 > - DDT・KDTを導入する際は「誰が何を担当するか」（技術者がキーワード実装、非技術者がデータ・キーワード列を記述）を明確にし、テストデータ管理の仕組み（バージョン管理・命名規則）を最初に整備する。
 > - BDDを導入する際は「自然言語で書くこと」自体を目的化しない。ビジネス担当者・開発者・テスト担当者が三者で仕様策定に参加する（Three Amigos的な進め方）ことがBDD本来の価値を引き出す条件である。
@@ -340,6 +344,7 @@ flowchart TB
 | **Flow Modelパターン** | POMをさらに拡張し、Page Objectの上にもう1つのFacade（ユーザーアクションの集合）を重ねる「二重Facade」構造 | テストステップを複数のテストスクリプトで再利用でき、抽象度・保守性がさらに向上する |
 
 > 💡 **ベストプラクティス**
+>
 > - Page Object Modelを導入する際は「ロケータ（要素特定情報）」と「操作（クリック・入力など）」を明確に分離し、ロケータの変更が起きても操作メソッドのシグネチャは変えずに済むよう設計する。
 > - Flow Modelパターンは、テストケース数が増え「同じユーザー操作の組み合わせ」が複数のテストで重複し始めたタイミングで導入を検討するとよい。導入が早すぎると過剰設計（over-engineering）になりやすい。
 > - SOLID原則の中でも特に**単一責任の原則**と**依存性逆転の原則**は、Core Libraries／Business Logic／Test Scriptsのレイヤー分離（3.1.3参照）と直接結びつく。レイヤー設計そのものがSOLID原則の実践例になっていることを意識すると理解が深まる。
@@ -375,12 +380,12 @@ flowchart TB
 
 | 資料名 | URL |
 |---|---|
-| ISTQB CTAL-TAE v2.0 認定試験ページ（公式） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture, p.22-28 が本ガイドの主な出典） | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf |
-| Robert C. Martin, *Clean Code: A Handbook of Agile Software Craftsmanship*（クリーンコード原則の引用元としてシラバス内で言及） | https://www.oreilly.com/library/view/clean-code-a/9780136083238/ |
-| ISO/IEC/IEEE 29119-5:2024（キーワード駆動テストに関する標準の2024年版。シラバス内で参照） | https://www.iso.org/standard/87233.html |
-| ISTQB Certified Tester Model-Based Testing (CT-MBT) Syllabus（テスト生成・モデルベーステストの詳細） | https://istqb.org/certifications/model-based-tester/ |
-| ISTQB Glossary（gTAA・TAF・TAS等の用語定義の一次情報） | https://glossary.istqb.org/ |
+| ISTQB CTAL-TAE v2.0 認定試験ページ（公式） | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
+| ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture, p.22-28 が本ガイドの主な出典） | <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf> |
+| Robert C. Martin, *Clean Code: A Handbook of Agile Software Craftsmanship*（クリーンコード原則の引用元としてシラバス内で言及） | <https://www.oreilly.com/library/view/clean-code-a/9780136083238/> |
+| ISO/IEC/IEEE 29119-5:2024（キーワード駆動テストに関する標準の2024年版。シラバス内で参照） | <https://www.iso.org/standard/87233.html> |
+| ISTQB Certified Tester Model-Based Testing (CT-MBT) Syllabus（テスト生成・モデルベーステストの詳細） | <https://istqb.org/certifications/model-based-tester/> |
+| ISTQB Glossary（gTAA・TAF・TAS等の用語定義の一次情報） | <https://glossary.istqb.org/> |
 
 ---
 
