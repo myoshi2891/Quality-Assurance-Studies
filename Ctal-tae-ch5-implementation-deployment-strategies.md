@@ -287,8 +287,8 @@ flowchart TB
 
 | 資料名 | URL |
 |---|---|
-| CTAL-TAE v2.0 認定ページ（公式） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| CTAL-TAE v2.0 シラバス（PDF、Chapter 5: pp.33-36） | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf |
-| ISTQB® 公式サイト（トップ） | https://istqb.org/ |
+| CTAL-TAE v2.0 認定ページ（公式） | [CTAL-TAE v2.0 認定ページ](https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/) |
+| CTAL-TAE v2.0 シラバス（PDF、Chapter 5: pp.33-36） | [CTAL-TAE Syllabus v2.0（PDF）](https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf) |
+| ISTQB® 公式サイト（トップ） | [ISTQB® 公式サイト](https://istqb.org/) |
 
 > ⚠️ 本ガイドは学習補助を目的とした要約・解説であり、シラバス原文の著作権は ISTQB®（International Software Testing Qualifications Board）に帰属します。正式な試験対策には必ず上記の公式シラバスを直接参照してください。
