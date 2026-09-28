@@ -303,21 +303,29 @@ def call_api(base_url: str, path: str, test_id: str) -> requests.Response:
     headers = {"traceparent": f"00-{trace_id}-{span_id}-01"}
 
     url = f"{base_url}{path}"
-    # クエリやフラグメントにはトークンなどの秘密情報が含まれうるため、ログには載せない
     parts = urlsplit(url)
-    logged_url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
+    # 認証情報が平文で流れないよう、HTTPS 以外は送信前に拒否する
+    if parts.scheme != "https":
+        raise ValueError("base_url は https:// で始まる必要があります")
+
+    # userinfo（user:password@）・クエリ・フラグメントには秘密情報が含まれうるため、ログには載せない
+    host = parts.hostname or ""
+    netloc = f"{host}:{parts.port}" if parts.port else host
+    logged_url = urlunsplit((parts.scheme, netloc, parts.path, "", ""))
 
     # time.time() はシステム時刻の補正で巻き戻りうるため、経過時間は単調増加の perf_counter() で測る
     started = time.perf_counter()
     try:
-        response = requests.get(url, headers=headers, timeout=10)
+        # リダイレクトは追従しない（HTTP など想定外の送信先へ認証情報が渡るのを防ぐ）
+        response = requests.get(url, headers=headers, timeout=10, allow_redirects=False)
     except requests.RequestException as exc:
         # 失敗時も相関 ID を残し、SUT ログと突き合わせられるようにしてから再送出する
+        # 例外メッセージには URL（認証情報・トークンを含みうる）が入るため、型名だけを記録する
         logger.error(json.dumps({
             "test_id": test_id,
             "trace_id": trace_id,
             "url": logged_url,
-            "error": f"{type(exc).__name__}: {exc}",
+            "error": type(exc).__name__,
             "elapsed_ms": int((time.perf_counter() - started) * 1000),
         }))
         raise

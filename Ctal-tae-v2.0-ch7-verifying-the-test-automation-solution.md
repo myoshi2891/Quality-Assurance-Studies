@@ -249,20 +249,20 @@ import pathlib
 import pytest
 import requests
 
-BASE_URL = os.environ["SUT_BASE_URL"]           # 環境ごとに切り替える
 REPORT_DIR = pathlib.Path(os.environ.get("REPORT_DIR", "reports"))
 
 
 @pytest.fixture(scope="session", autouse=True)
 def preflight_check():
     """接続性と権限を確認し、失敗したら本実行を中止する。"""
-    # 1. SUT への到達性（ヘルスチェック用エンドポイントを想定）
-    res = requests.get(f"{BASE_URL}/health", timeout=10)
-    assert res.status_code == 200, "SUT に到達できません"
-
-    # 2. 必須の環境変数
+    # 1. 必須の環境変数（未設定でも import 時に KeyError にならないよう、ここで確認してから読む）
     for name in ("SUT_BASE_URL", "TEST_USER"):
         assert os.environ.get(name), f"環境変数 {name} が未設定です"
+    base_url = os.environ["SUT_BASE_URL"]           # 環境ごとに切り替える
+
+    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）
+    res = requests.get(f"{base_url}/health", timeout=10)
+    assert res.status_code == 200, "SUT に到達できません"
 
     # 3. ログ・レポートの書き込み権限
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
@@ -428,7 +428,7 @@ pytest -m quarantine --count=20   # 繰り返し実行するプラグインが�
 ```
 
 > 注意：リトライで「たまたま成功すれば合格」にしてしまうと、不安定さの原因を隠すことになります。リトライを使う場合も、リトライが発生した事実をレポートに残しましょう。
-
+>
 > 💡 **ベストプラクティス（再現性）**
 > - 不安定なテストは放置せず、隔離して原因を調査し、直したらスイートに戻す
 > - 隔離の理由・担当者・期限を記録し、隔離したまま忘れない
@@ -460,7 +460,7 @@ flowchart LR
 | 詳細すぎるログを常時出力する | I/O 負荷で性能が変わる | ログレベルを調整する（Debug、Trace は調査時のみ） |
 
 > 補足：ログレベル（Fatal、Error、Warn、Info、Debug、Trace）は第4章で学んだ内容です。
-
+>
 > 💡 **ベストプラクティス（侵入性）**
 > - TAS を SUT から分離できるなら分離し、侵入の度合いを意識して設計する
 > - 自動テストで見つけた失敗は、可能なら手動でも再現できるか確認してから報告する

@@ -409,7 +409,8 @@
             .mermaid-diagram {
                 width: 100%;
                 display: flex;
-                justify-content: center;
+                /* 幅に収まる図は中央寄せ、はみ出す図は左端から横スクロールできるようにする */
+                justify-content: safe center;
                 overflow-x: auto;
             }
             .mermaid-diagram svg {
@@ -1584,7 +1585,9 @@
                                         svgEl.style.width = parts[2] + 'px';
                                     }
                                 }
-                                svgEl.style.maxWidth = '100%';
+                                // 縮小せず原寸で表示し、はみ出す分は .mermaid-diagram の横スクロールで見せる
+                                svgEl.style.maxWidth = 'none';
+                                svgEl.style.flexShrink = '0';
                                 svgEl.style.height = 'auto';
                                 svgEl.style.overflow = 'visible';
                             }
