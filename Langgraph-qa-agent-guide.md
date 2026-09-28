@@ -591,6 +591,8 @@ def run_read_query(tx, cypher: str) -> tuple[list[dict], list[dict], bool]:
     ensure_payload_within_limits(rows)
     # 列名はエイリアスで付け替えられるため、列の値ごとに実際の型から要約用の値を作る
     summary_rows = [{key: to_summary_dto(value) for key, value in r.items()} for r in kept]
+    # 要約用の値も State 保存・LLM 送信の対象になるため、変換後の実際のペイロードで上限を確認する
+    ensure_payload_within_limits(summary_rows)
     return rows, summary_rows, len(records) > MAX_RESULT_ROWS
 
 def execute_query(state: AgentState) -> dict:
