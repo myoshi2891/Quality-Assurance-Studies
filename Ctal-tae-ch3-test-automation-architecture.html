@@ -1,0 +1,1596 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CTAL-TAE v2.0 第3章：Test Automation Architecture 徹底解説</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #f7f8fb;
+                --bg-elevated: #ffffff;
+                --bg-sidebar: #ffffff;
+                --border: #e2e6ee;
+                --border-strong: #cbd3e1;
+                --text: #1e2430;
+                --text-dim: #5b6472;
+                --text-faint: #8890a0;
+                --accent: #2f5fe0;
+                --accent-dark: #1d3fae;
+                --accent-tint: #eaf0ff;
+                --accent-tint-border: #c9d9ff;
+                --green: #16a34a;
+                --green-tint: #e8f8ee;
+                --amber: #d97706;
+                --amber-tint: #fff6e6;
+                --red: #dc2626;
+                --red-tint: #fdecec;
+                --code-bg: #f1f3f8;
+                --shadow: 0 1px 3px rgba(30, 36, 48, 0.06), 0 1px 2px rgba(30, 36, 48, 0.04);
+                --shadow-lg: 0 8px 24px rgba(30, 36, 48, 0.08);
+                --sidebar-width: 296px;
+                --radius: 14px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                background: var(--bg);
+                color: var(--text);
+                overflow-x: hidden;
+            }
+            body {
+                font-family:
+                    'Noto Sans JP',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    'Hiragino Kaku Gothic ProN',
+                    sans-serif;
+                font-size: 15.5px;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+            }
+            code,
+            pre,
+            .mono {
+                font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            }
+
+            /* ---------- Layout ---------- */
+            .layout {
+                display: block;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-width);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--bg-sidebar);
+                border-right: 1px solid var(--border);
+                padding: 28px 20px 40px;
+                z-index: 40;
+            }
+            .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 22px;
+                padding-bottom: 18px;
+                border-bottom: 1px solid var(--border);
+            }
+            .sidebar-brand .badge-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--accent), #6fa0ff);
+                flex-shrink: 0;
+            }
+            .sidebar-brand-text {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--text);
+                line-height: 1.35;
+            }
+            .sidebar-brand-text small {
+                display: block;
+                font-weight: 500;
+                color: var(--text-faint);
+                font-size: 11px;
+                margin-top: 2px;
+            }
+
+            .sidebar-title {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                color: var(--text-faint);
+                text-transform: uppercase;
+                margin: 0 0 10px 2px;
+            }
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0 0 8px 0;
+                padding: 0;
+            }
+            .sidebar nav li {
+                margin: 2px 0;
+            }
+            .sidebar nav a {
+                display: block;
+                padding: 9px 12px;
+                border-radius: 9px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                font-weight: 500;
+                line-height: 1.5;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s ease,
+                    color 0.15s ease,
+                    border-color 0.15s ease;
+            }
+            .sidebar nav a:hover {
+                background: var(--accent-tint);
+                color: var(--accent-dark);
+            }
+            .sidebar nav a.active {
+                background: var(--accent-tint);
+                color: var(--accent-dark);
+                border-left-color: var(--accent);
+                font-weight: 700;
+            }
+
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 60;
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                border: 1px solid var(--border-strong);
+                background: var(--bg-elevated);
+                box-shadow: var(--shadow);
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            .sidebar-toggle span,
+            .sidebar-toggle span::before,
+            .sidebar-toggle span::after {
+                content: '';
+                display: block;
+                width: 18px;
+                height: 2px;
+                background: var(--text);
+                border-radius: 2px;
+                position: relative;
+                transition:
+                    transform 0.2s ease,
+                    opacity 0.2s ease;
+            }
+            .sidebar-toggle span::before {
+                position: absolute;
+                top: -6px;
+            }
+            .sidebar-toggle span::after {
+                position: absolute;
+                top: 6px;
+            }
+            .sidebar-backdrop {
+                display: none;
+            }
+
+            .main {
+                margin-left: var(--sidebar-width);
+                padding: 48px 56px 90px;
+            }
+
+            /* ---------- Hero ---------- */
+            .hero {
+                position: relative;
+                background: linear-gradient(155deg, #ffffff 0%, #f3f6ff 100%);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 40px 44px 32px;
+                margin-bottom: 44px;
+                overflow: hidden;
+                box-shadow: var(--shadow);
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: -60px;
+                right: -60px;
+                width: 260px;
+                height: 260px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(47, 95, 224, 0.14) 0%,
+                    rgba(47, 95, 224, 0) 70%
+                );
+                pointer-events: none;
+            }
+            .hero-eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: var(--accent-tint);
+                border: 1px solid var(--accent-tint-border);
+                color: var(--accent-dark);
+                font-size: 12.5px;
+                font-weight: 700;
+                padding: 6px 14px;
+                border-radius: 999px;
+                margin-bottom: 18px;
+            }
+            .hero-title {
+                font-size: 30px;
+                font-weight: 800;
+                color: var(--text);
+                margin: 0 0 8px 0;
+                line-height: 1.4;
+                letter-spacing: -0.01em;
+            }
+            .hero-title .accent {
+                color: var(--accent);
+            }
+            .hero-subtitle {
+                font-size: 15px;
+                color: var(--text-dim);
+                margin: 0 0 26px 0;
+                max-width: 720px;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0;
+                padding-top: 20px;
+                border-top: 1px solid var(--border);
+            }
+            .hero-meta-item {
+                padding: 0 26px 0 0;
+                margin-right: 26px;
+                border-right: 1px solid var(--border);
+            }
+            .hero-meta-item:last-child {
+                border-right: none;
+                margin-right: 0;
+                padding-right: 0;
+            }
+            .hero-meta-label {
+                font-size: 10.5px;
+                font-weight: 700;
+                letter-spacing: 0.07em;
+                text-transform: uppercase;
+                color: var(--text-faint);
+                margin-bottom: 4px;
+            }
+            .hero-meta-value {
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--text);
+            }
+
+            @media (max-width: 720px) {
+                .hero-meta {
+                    flex-direction: column;
+                    gap: 14px;
+                }
+                .hero-meta-item {
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                    padding: 0 0 14px 0;
+                    margin-right: 0;
+                }
+                .hero-meta-item:last-child {
+                    border-bottom: none;
+                    padding-bottom: 0;
+                }
+            }
+
+            /* ---------- Typography ---------- */
+            .main h2 {
+                font-size: 22px;
+                font-weight: 800;
+                color: var(--text);
+                margin: 56px 0 20px;
+                padding-top: 6px;
+                scroll-margin-top: 24px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .main h2::before {
+                content: '';
+                width: 5px;
+                height: 22px;
+                border-radius: 3px;
+                background: linear-gradient(180deg, var(--accent), #6fa0ff);
+                flex-shrink: 0;
+            }
+            .main h3 {
+                font-size: 17.5px;
+                font-weight: 700;
+                color: var(--text);
+                margin: 34px 0 14px;
+                scroll-margin-top: 24px;
+            }
+            .main h4 {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--accent-dark);
+                margin: 24px 0 10px;
+            }
+            .main p,
+            .main ul,
+            .main ol {
+                color: var(--text);
+                margin: 0 0 16px 0;
+            }
+            .main ul,
+            .main ol {
+                padding-left: 1.4em;
+            }
+            .main li {
+                margin-bottom: 6px;
+            }
+            .main strong {
+                color: var(--text);
+                font-weight: 700;
+            }
+            .main a {
+                color: var(--accent);
+                text-decoration: none;
+                border-bottom: 1px solid var(--accent-tint-border);
+            }
+            .main a:hover {
+                border-bottom-color: var(--accent);
+            }
+            .main hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 40px 0;
+            }
+            code:not(pre code) {
+                background: var(--code-bg);
+                color: var(--accent-dark);
+                padding: 2px 6px;
+                border-radius: 5px;
+                font-size: 13.5px;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+
+            /* ---------- Tables ---------- */
+            .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 22px 0;
+                border-radius: 12px;
+                border: 1px solid var(--border);
+            }
+            table.data-table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 560px;
+                font-size: 13.8px;
+                background: var(--bg-elevated);
+            }
+            table.data-table th {
+                background: #f1f4fb;
+                color: var(--text);
+                font-weight: 700;
+                text-align: left;
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border-strong);
+                white-space: nowrap;
+            }
+            table.data-table td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border);
+                color: var(--text-dim);
+                vertical-align: top;
+                line-height: 1.7;
+            }
+            table.data-table tr:last-child td {
+                border-bottom: none;
+            }
+            table.data-table tr:hover td {
+                background: #fafbfd;
+            }
+            table.data-table td strong {
+                color: var(--text);
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-container {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 24px 0 28px;
+                padding: 20px 8px;
+                background: var(--bg-elevated);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+            }
+            .mermaid-container svg {
+                flex-shrink: 0;
+                max-width: none;
+            }
+            .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            .mermaid-render-target {
+                min-height: 40px;
+            }
+            .mermaid-error {
+                font-size: 13px;
+                color: var(--red);
+                font-family: 'JetBrains Mono', monospace;
+                padding: 12px;
+                background: var(--red-tint);
+                border-radius: 8px;
+                white-space: pre-wrap;
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout {
+                border-radius: var(--radius);
+                padding: 20px 24px 18px;
+                margin: 24px 0 28px;
+                border: 1px solid var(--border);
+            }
+            .callout-practice {
+                background: var(--accent-tint);
+                border-color: var(--accent-tint-border);
+            }
+            .callout-header {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                margin-bottom: 10px;
+            }
+            .callout-icon {
+                font-size: 17px;
+                line-height: 1;
+            }
+            .callout-label {
+                font-size: 14.5px;
+                font-weight: 800;
+                color: var(--accent-dark);
+            }
+            .callout-body {
+                color: var(--text);
+            }
+            .callout-body ul {
+                margin-bottom: 0;
+                padding-left: 1.3em;
+            }
+            .callout-body li {
+                margin-bottom: 8px;
+            }
+            .callout-body li:last-child {
+                margin-bottom: 0;
+            }
+            .callout-body p {
+                margin-bottom: 10px;
+            }
+            .callout-body p:last-child {
+                margin-bottom: 0;
+            }
+            .callout-body strong {
+                color: var(--accent-dark);
+            }
+
+            /* ---------- Footer ---------- */
+            .page-footer {
+                margin-top: 60px;
+                padding-top: 24px;
+                border-top: 1px solid var(--border);
+                font-size: 13px;
+                color: var(--text-faint);
+                font-style: italic;
+                line-height: 1.8;
+            }
+
+            /* ---------- Responsive ---------- */
+            @media (max-width: 980px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    /* 閉じた状態では画面外のリンクにフォーカスが移らないよう visibility も切り替える */
+                    visibility: hidden;
+                    transition:
+                        transform 0.25s ease,
+                        visibility 0s linear 0.25s;
+                    box-shadow: var(--shadow-lg);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                    visibility: visible;
+                    transition:
+                        transform 0.25s ease,
+                        visibility 0s linear 0s;
+                }
+                .sidebar-toggle {
+                    display: flex;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 84px 20px 70px;
+                }
+                .hero {
+                    padding: 30px 22px 26px;
+                }
+                .hero-title {
+                    font-size: 23px;
+                }
+                .sidebar-backdrop {
+                    display: none;
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(20, 24, 32, 0.35);
+                    z-index: 39;
+                }
+                .sidebar-backdrop.open {
+                    display: block;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <button
+                type="button"
+                class="sidebar-toggle"
+                id="sidebarToggle"
+                aria-label="メニューを開閉"
+                aria-controls="sidebar"
+                aria-expanded="false"
+            >
+                <span></span>
+            </button>
+            <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-brand">
+                    <div class="badge-dot"></div>
+                    <div class="sidebar-brand-text">
+                        CTAL-TAE v2.0<small>Test Automation Engineering</small>
+                    </div>
+                </div>
+                <p class="sidebar-title">第3章 目次</p>
+                <nav>
+                    <ul>
+                        <li>
+                            <a
+                                href="#0-この章の全体像"
+                                data-target="0-この章の全体像"
+                                class="nav-link"
+                                >0. この章の全体像</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#1-tae-311テスト自動化アーキテクチャにおける主要な機能gtaa"
+                                data-target="1-tae-311テスト自動化アーキテクチャにおける主要な機能gtaa"
+                                class="nav-link"
+                                >1.
+                                TAE-3.1.1：テスト自動化アーキテクチャにおける主要な機能（gTAA）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#2-tae-312テスト自動化ソリューションtasの設計方法"
+                                data-target="2-tae-312テスト自動化ソリューションtasの設計方法"
+                                class="nav-link"
+                                >2. TAE-3.1.2：テスト自動化ソリューション（TAS）の設計方法</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#3-tae-313テスト自動化フレームワークtafのレイヤー化"
+                                data-target="3-tae-313テスト自動化フレームワークtafのレイヤー化"
+                                class="nav-link"
+                                >3. TAE-3.1.3：テスト自動化フレームワーク（TAF）のレイヤー化</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#4-tae-314テストケース自動化のさまざまなアプローチ"
+                                data-target="4-tae-314テストケース自動化のさまざまなアプローチ"
+                                class="nav-link"
+                                >4. TAE-3.1.4：テストケース自動化のさまざまなアプローチ</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#5-tae-315テスト自動化における設計原則とデザインパターン"
+                                data-target="5-tae-315テスト自動化における設計原則とデザインパターン"
+                                class="nav-link"
+                                >5. TAE-3.1.5：テスト自動化における設計原則とデザインパターン</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#6-章全体のまとめtaaを設計する際のチェックリスト"
+                                data-target="6-章全体のまとめtaaを設計する際のチェックリスト"
+                                class="nav-link"
+                                >6. 章全体のまとめ：TAAを設計する際のチェックリスト</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#7-出典参考ソース"
+                                data-target="7-出典参考ソース"
+                                class="nav-link"
+                                >7. 出典・参考ソース</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="main">
+                <div class="hero">
+                    <div class="hero-eyebrow">📘 CTAL-TAE v2.0 ・ 第3章</div>
+                    <h1 class="hero-title">
+                        <span class="accent">Test Automation Architecture</span
+                        ><br />（テスト自動化アーキテクチャ）徹底解説
+                    </h1>
+                    <p class="hero-subtitle">
+                        gTAA・TAFレイヤー化・7つの自動化アプローチ・設計原則とデザインパターンまで、テスト自動化アーキテクチャの中核を初学者向けにステップバイステップで解説します。
+                    </p>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item">
+                            <div class="hero-meta-label">対象試験</div>
+                            <div class="hero-meta-value">
+                                ISTQB® Certified Tester Advanced Level Test Automation Engineering
+                                (CTAL-TAE) v2.0
+                            </div>
+                        </div>
+                        <div class="hero-meta-item">
+                            <div class="hero-meta-label">配分時間</div>
+                            <div class="hero-meta-value">210分（学習目標レベル：K3＝適用）</div>
+                        </div>
+                        <div class="hero-meta-item">
+                            <div class="hero-meta-label">試験配点</div>
+                            <div class="hero-meta-value">10点（全66点中）</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="0-この章の全体像">0. この章の全体像</h2>
+                <p>
+                    第3章は「テスト自動化ソリューション（TAS: Test Automation
+                    Solution）をどう設計するか」を扱う、CTAL-TAEのコア中のコアです。以下の5つの学習目標（Learning
+                    Objectives）から構成されています。
+                </p>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>LO番号</th>
+                                <th>認知レベル</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>TAE-3.1.1</td>
+                                <td>K2（理解）</td>
+                                <td>テスト自動化アーキテクチャにおける主要な機能を説明できる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAE-3.1.2</td>
+                                <td>K2（理解）</td>
+                                <td>テスト自動化ソリューションの設計方法を説明できる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAE-3.1.3</td>
+                                <td>K3（適用）</td>
+                                <td>テスト自動化フレームワークのレイヤー化を適用できる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAE-3.1.4</td>
+                                <td>K3（適用）</td>
+                                <td>テストケース自動化のさまざまなアプローチを適用できる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAE-3.1.5</td>
+                                <td>K3（適用）</td>
+                                <td>テスト自動化における設計原則・デザインパターンを適用できる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>必須キーワード（試験で暗記必須）</strong>： behavior-driven
+                    development（BDD）, capture/playback, data-driven testing（DDT）, generic test
+                    automation architecture（gTAA）, keyword-driven testing（KDT）, linear
+                    scripting, model-based testing（MBT）, structured scripting, test adaptation
+                    layer, test automation framework（TAF）, test automation solution（TAS）, test
+                    harness, test script, testware, test step, test-driven development（TDD）
+                </p>
+                <p>この章の骨格を図にすると、以下のような流れで理解が積み上がっていきます。</p>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-1"></div>
+                </div>
+                <hr />
+                <h2 id="1-tae-311テスト自動化アーキテクチャにおける主要な機能gtaa">
+                    1. TAE-3.1.1：テスト自動化アーキテクチャにおける主要な機能（gTAA）
+                </h2>
+                <h3 id="11-gtaageneric-test-automation-architectureとは">
+                    1.1 gTAA（Generic Test Automation Architecture）とは
+                </h3>
+                <p>
+                    <strong>gTAA（汎用テスト自動化アーキテクチャ）</strong
+                    >は、テスト自動化の「参照モデル」です。個別の製品や実装方法に依存せず、テスト自動化ソリューション（TAS）が持つべき機能・コンポーネント・インターフェースを抽象的に定義したものです。
+                </p>
+                <p>
+                    gTAAは、次の4つの外部システムとテスト自動化がどう連携するかをインターフェースとして定義します。
+                </p>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>インターフェース</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>SUTインターフェース</strong></td>
+                                <td>
+                                    SUT（System Under
+                                    Test：テスト対象システム）とTAF（テスト自動化フレームワーク）間の接続を表す
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>プロジェクト管理インターフェース</strong></td>
+                                <td>テスト自動化の開発進捗を表す</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>テスト管理インターフェース</strong></td>
+                                <td>
+                                    テストケース定義と自動化されたテストケースのマッピングを表す
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>構成管理インターフェース</strong></td>
+                                <td>CI/CDパイプライン、環境、テストウェアを表す</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>gTAAが定義する4つのコア機能（ケーパビリティ）は次の通りです。</p>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>機能</th>
+                                <th>役割</th>
+                                <th>補足</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>Test Generation（テスト生成）</strong></td>
+                                <td>テストモデルに基づき自動的にテストケースを設計する</td>
+                                <td>
+                                    モデルベーステスト（MBT）ツールが活用できる。<strong>任意（オプション）</strong>の機能
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Test Definition（テスト定義）</strong></td>
+                                <td>テストケース／テストスイートの定義と実装を支援する</td>
+                                <td>
+                                    テストモデルから導出できる場合もある。テスト定義をSUT・テストツールから分離する
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>Test Execution（テスト実行）</strong></td>
+                                <td>テスト実行とテストログ記録を支援する</td>
+                                <td>
+                                    選択したテストを自動実行するツール、およびログ・レポートのコンポーネントを持つ
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Test Adaptation（テスト適応）</strong></td>
+                                <td>
+                                    自動化されたテストをSUTの各種コンポーネント/インターフェースに適応させる機能を提供する
+                                </td>
+                                <td>
+                                    API・プロトコル・サービスへ接続するための各種アダプタを提供する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>これらの関係を図解すると以下のようになります。</p>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-2"></div>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-header">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                gTAAはあくまで「参照モデル」であり、すべてのプロジェクトが4機能すべてを実装する必要はない。特にTest
+                                Generation（モデルベースのテスト生成）は多くの現場で任意扱いになる。
+                            </li>
+                            <li>
+                                ツール選定・アーキテクチャ設計を始める前に、まず「自分たちのTASはgTAAのどの機能を、どのツール／コンポーネントで担うのか」をマッピングしておくと、後工程での抜け漏れ（例：レポーティング機能の欠落）を防げる。
+                            </li>
+                            <li>
+                                Test
+                                Adaptation層を意識的に独立させておくと、SUTのAPIやUI構造が変わってもTest
+                                Definition層（テストケースそのもの）への影響を最小化できる（後述3.1.5のFacadeパターンとも直結する）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <h2 id="2-tae-312テスト自動化ソリューションtasの設計方法">
+                    2. TAE-3.1.2：テスト自動化ソリューション（TAS）の設計方法
+                </h2>
+                <h3 id="21-tasとtaaの関係">2.1 TASとTAAの関係</h3>
+                <ul>
+                    <li>
+                        <strong>TAS（Test Automation Solution）</strong
+                        >：SUTの機能要件・非機能要件・技術要件の理解に基づいて定義される、実際に稼働する自動化の仕組み全体。商用ツールやOSSツールで実装され、必要に応じてSUT固有のアダプタが追加される。
+                    </li>
+                    <li>
+                        <strong>TAA（Test Automation Architecture）</strong
+                        >：TAS全体の技術設計そのものを指す。
+                    </li>
+                </ul>
+                <p>TAAを設計する際に検討すべき事項は以下の通りです。</p>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-3"></div>
+                </div>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>検討項目</th>
+                                <th>具体例・観点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ツール・ライブラリ選定</td>
+                                <td>ツール固有のライブラリ、言語との整合性</td>
+                            </tr>
+                            <tr class="even">
+                                <td>プラグイン／コンポーネント開発</td>
+                                <td>SUT固有のアダプタ、カスタム拡張</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>接続性・インターフェース要件</td>
+                                <td>
+                                    ファイアウォール、DB接続、URL、モック/スタブ、メッセージキュー、プロトコル
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト管理・欠陥管理ツール連携</td>
+                                <td>JiraやXray等、レポート・トレーサビリティの自動連携</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>バージョン管理・リポジトリ</td>
+                                <td>Git等でのテストウェアのバージョン管理</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-header">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                TAA設計は「SUTの要件理解」から始める。ツール選定を先に決めてしまう（ツールありきの設計）は、後々の接続性・拡張性の問題につながりやすい。
+                            </li>
+                            <li>
+                                モック/スタブや外部依存のエミュレーション方法を早期に検討することで、外部システム側の制約（サードパーティAPIのレート制限など）に自動化がブロックされるリスクを減らせる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <h2 id="3-tae-313テスト自動化フレームワークtafのレイヤー化">
+                    3. TAE-3.1.3：テスト自動化フレームワーク（TAF）のレイヤー化
+                </h2>
+                <h3 id="31-tafとは">3.1 TAFとは</h3>
+                <p>
+                    <strong>TAF（Test Automation Framework）</strong
+                    >はTASの土台（基盤）です。一般的に以下を含みます。
+                </p>
+                <ul>
+                    <li>
+                        <strong>テストハーネス（テストランナー）</strong>：テストを実行する仕組み
+                    </li>
+                    <li><strong>テストライブラリ</strong></li>
+                    <li><strong>テストスクリプト</strong></li>
+                    <li><strong>テストスイート</strong></li>
+                </ul>
+                <h3 id="32-tafレイヤーの設計原則">3.2 TAFレイヤーの設計原則</h3>
+                <p>
+                    TAFレイヤーとは、目的が似ているクラス群（テストケース、テストレポーティング、テストロギング、暗号化、テストハーネスなど）を明確に分離する境界のことです。
+                </p>
+                <p>
+                    <strong
+                        >重要な原則：レイヤーは1目的につき1つ導入できるが、増やしすぎると設計が複雑になるため、レイヤー数はできるだけ少なく保つことが推奨される。</strong
+                    >
+                </p>
+                <p>代表的な3層構造は以下の通りです。</p>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-4"></div>
+                </div>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>層</th>
+                                <th>役割</th>
+                                <th>重要な制約</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>Test Scripts（テストスクリプト層）</strong></td>
+                                <td>
+                                    SUTのテストケースリポジトリ、テストスイートのアノテーションを提供。ビジネスロジック層のサービス（テストステップ、ユーザーフロー、API呼び出し）を呼び出す
+                                </td>
+                                <td>
+                                    <strong>Core Librariesへの直接呼び出しは禁止</strong
+                                    >（必ずBusiness Logic層を経由する）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Business Logic（ビジネスロジック層）</strong></td>
+                                <td>
+                                    SUTに依存するすべてのライブラリを格納。Core
+                                    Librariesのクラスファイルを継承する、またはCore
+                                    Librariesが提供するFacadeを利用する。TAFをSUTに対して実行するためのセットアップや追加設定を担う
+                                </td>
+                                <td>Core Librariesとの結合点。SUTごとに実装が変わる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>Core Libraries（コアライブラリ層）</strong></td>
+                                <td>SUTに依存しないすべてのライブラリを格納</td>
+                                <td>
+                                    同一の開発スタックであれば、<strong
+                                        >あらゆる種類のプロジェクトで再利用可能</strong
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="33-テスト自動化のスケーリング複数プロジェクトへの拡張">
+                    3.3 テスト自動化のスケーリング（複数プロジェクトへの拡張）
+                </h3>
+                <p>
+                    Core
+                    Librariesを複数のTAF・複数プロジェクトで再利用することで、組織全体のテスト自動化をスケールできます。シラバスの例（Figure
+                    3）は以下のような構成です。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-5"></div>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-header">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                レイヤー間の依存方向は必ず「Test Scripts → Business Logic → Core
+                                Libraries」の一方向に保つ。Test ScriptsからCore
+                                Librariesへの直接呼び出しを許すと、SUT固有のロジックが混入し、Core
+                                Librariesの再利用性が崩れる。
+                            </li>
+                            <li>
+                                Core
+                                Librariesに「SUT固有の情報」を一切含めないことを設計ルールとして明文化する。含めてしまうと、他プロジェクトへの再利用時に予期しない副作用が発生する。
+                            </li>
+                            <li>
+                                複数プロジェクトでCore
+                                Librariesを共有する場合は、バージョニング（後述8章の内容とも関連）と後方互換性の方針を先に決めておく。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <h2 id="4-tae-314テストケース自動化のさまざまなアプローチ">
+                    4. TAE-3.1.4：テストケース自動化のさまざまなアプローチ
+                </h2>
+                <p>
+                    シラバスでは7つのアプローチが紹介されています。これらは優劣の順位ではなく、<strong>前の手法を土台に積み上がる関係</strong>として理解すると覚えやすいです。たとえば
+                    DDT は Structured Scripting を基礎とし、KDT は DDT
+                    を基礎とする場合が多い、という具合です。どれを採用するかは、SUT
+                    の安定性、テストデータの量、テスト作成者のスキル、保守にかけられる工数などの状況に応じて選びます。後段の手法ほど準備・設計のコストも増えるため、常に後段が優れているわけではありません（TDD/BDDは開発方法論ですが、正しく実践すれば自動化テストケースの生成につながります）。
+                </p>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-6"></div>
+                </div>
+                <h3 id="41-比較表メリットデメリット向いている場面">
+                    4.1 比較表（メリット・デメリット・向いている場面）
+                </h3>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>アプローチ</th>
+                                <th>概要</th>
+                                <th>メリット</th>
+                                <th>デメリット</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>Capture/Playback（録画・再生）</strong></td>
+                                <td>
+                                    手動操作をツールが記録し、テストスクリプトを自動生成する。コードを公開しないものは<strong>ノーコード</strong>、コードを公開するものは<strong>ローコード</strong>と呼ばれる
+                                </td>
+                                <td>初期セットアップと利用が容易</td>
+                                <td>
+                                    保守・拡張が困難／SUTが可用である必要がある／小規模かつ変化の少ないSUT向け／SUTバージョンへの依存度が高い／再利用より個別録画になりがちで工数がかかる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Linear Scripting（線形スクリプティング）</strong></td>
+                                <td>
+                                    カスタムライブラリを使わずにテストスクリプトを記述・実行するプログラミング手法。Capture/Playbackで録画したスクリプトを流用・修正することも可能
+                                </td>
+                                <td>
+                                    セットアップと記述開始が容易／Capture/Playbackより修正しやすい
+                                </td>
+                                <td>
+                                    保守・拡張が困難／SUTが可用である必要がある／小規模向け／多少のプログラミング知識が必要
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>
+                                    <strong>Structured Scripting（構造化スクリプティング）</strong>
+                                </td>
+                                <td>
+                                    再利用可能な要素（テストステップ、ユーザージャーニー）を持つテストライブラリを導入する
+                                </td>
+                                <td>
+                                    保守・拡張・移植性が高い／ビジネスロジックとテストスクリプトを分離できる
+                                </td>
+                                <td>
+                                    プログラミング知識が必要／TAF開発とテストウェア定義に初期投資が必要
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Test-Driven Development（TDD）</strong></td>
+                                <td>
+                                    新機能実装前にテストケースを定義する。<strong>Red→Green→Refactor</strong>のサイクルで進める
+                                </td>
+                                <td>
+                                    コンポーネントレベルのテストケース開発が単純化／コード品質・構造の向上／テスタビリティの向上／コードカバレッジ達成が容易／上位テストレベルへの欠陥伝播を削減／開発者・ビジネス担当者・テスト担当者間のコミュニケーション改善
+                                </td>
+                                <td>
+                                    最初は習得に時間がかかる／正しく実践しないとコード品質への過信につながる
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>Data-Driven Testing（DDT）</strong></td>
+                                <td>
+                                    構造化スクリプティングを発展させ、テストスクリプトにテストデータ（CSV、Excel、DBダンプ等）を与える。同じスクリプトを異なるデータで繰り返し実行できる
+                                </td>
+                                <td>
+                                    データ投入だけでテストケースを迅速に拡張できる／新規テスト追加コストを大幅削減／テストアナリストがデータファイル作成だけでテストを指定でき、技術的なテスト自動化エンジニアへの依存を減らせる
+                                </td>
+                                <td>適切なテストデータ管理が必要</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Keyword-Driven Testing（KDT）</strong></td>
+                                <td>
+                                    ユーザー視点で定義された「キーワード」とそれが操作するテストデータからなる、テストステップのリスト/表。多くはDDTの上に構築される
+                                </td>
+                                <td>
+                                    テストアナリストやビジネスアナリストがテストケース作成に参加できる／手動テストにも応用可能（ISO/IEC/IEEE
+                                    29119-5参照）
+                                </td>
+                                <td>
+                                    キーワードの実装・保守が複雑／スコープが拡大すると困難／小規模システムには過剰な労力になる
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>Behavior-Driven Development（BDD）</strong></td>
+                                <td>
+                                    Given-When-Thenという自然言語形式で受け入れ基準を記述し、フィーチャーファイルとして保存。BDDツールがこれを解釈・実行する
+                                </td>
+                                <td>
+                                    開発者・ビジネス担当者・テスト担当者間のコミュニケーション改善／自動化されたシナリオが仕様のカバレッジを保証／テストピラミッドの複数レベルで活用可能
+                                </td>
+                                <td>
+                                    ネガティブ条件・エッジケースは別途定義が必要（通常テストアナリストやTAEが担当）／自然言語記述だけがBDDだと誤解され、ビジネス担当者・開発者を巻き込めていないチームが多い／自然言語テストステップの実装・保守が複雑／ステップが過度に複雑だとデバッグが困難でコストがかかる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="42-tddのred-green-refactorサイクル">4.2 TDDのRed-Green-Refactorサイクル</h3>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-7"></div>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-header">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                チームの技術レベルとSUTの変化頻度に応じてアプローチを選ぶ。プログラミング未経験者が多い場合はCapture/Playback系のノーコード/ローコードツールから始め、成熟に応じてStructured
+                                Scripting以降へ移行するのが現実的。
+                            </li>
+                            <li>
+                                DDT・KDTを導入する際は「誰が何を担当するか」（技術者がキーワード実装、非技術者がデータ・キーワード列を記述）を明確にし、テストデータ管理の仕組み（バージョン管理・命名規則）を最初に整備する。
+                            </li>
+                            <li>
+                                BDDを導入する際は「自然言語で書くこと」自体を目的化しない。ビジネス担当者・開発者・テスト担当者が三者で仕様策定に参加する（Three
+                                Amigos的な進め方）ことがBDD本来の価値を引き出す条件である。
+                            </li>
+                            <li>
+                                TDDは「テストファースト」を徹底しないと効果が出ない。テストを後付けする「TDDもどき」は品質への過信（false
+                                confidence）を生むため注意する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <h2 id="5-tae-315テスト自動化における設計原則とデザインパターン">
+                    5. TAE-3.1.5：テスト自動化における設計原則とデザインパターン
+                </h2>
+                <p>
+                    テスト自動化はソフトウェア開発活動そのものであるため、TAEにもソフトウェア開発者と同様に<strong>設計原則</strong>と<strong>デザインパターン</strong>の適用が求められます。
+                </p>
+                <h3 id="51-オブジェクト指向プログラミングの4原則">
+                    5.1 オブジェクト指向プログラミングの4原則
+                </h3>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>原則</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>カプセル化（Encapsulation）</strong></td>
+                                <td>データと処理を1つの単位にまとめ、内部実装を隠蔽する</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>抽象化（Abstraction）</strong></td>
+                                <td>本質的な部分だけを見せ、複雑な詳細を隠す</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>継承（Inheritance）</strong></td>
+                                <td>既存クラスの性質を引き継いで新しいクラスを作る</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>ポリモーフィズム（Polymorphism）</strong></td>
+                                <td>同じインターフェースで異なる実装を扱えるようにする</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="52-solid原則">5.2 SOLID原則</h3>
+                <p>
+                    <strong>SOLID</strong
+                    >は以下5つの原則の頭文字です。コードの可読性・保守性・拡張性を高めます。
+                </p>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>頭文字</th>
+                                <th>原則名</th>
+                                <th>意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>S</strong></td>
+                                <td>単一責任の原則（Single Responsibility）</td>
+                                <td>1つのクラスは1つの責任のみを持つ</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>O</strong></td>
+                                <td>オープン・クローズドの原則（Open-Closed）</td>
+                                <td>拡張に対して開いており、修正に対して閉じている</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>L</strong></td>
+                                <td>リスコフの置換原則（Liskov Substitution）</td>
+                                <td>サブクラスは親クラスと置換可能でなければならない</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>I</strong></td>
+                                <td>インターフェース分離の原則（Interface Segregation）</td>
+                                <td>クライアントが使わないインターフェースへの依存を強制しない</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>D</strong></td>
+                                <td>依存性逆転の原則（Dependency Inversion）</td>
+                                <td>上位モジュールは下位モジュールの具象ではなく抽象に依存する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="53-テスト自動化における主なデザインパターン">
+                    5.3 テスト自動化における主なデザインパターン
+                </h3>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-8"></div>
+                </div>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>パターン</th>
+                                <th>説明</th>
+                                <th>得られる効果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><strong>Facadeパターン</strong></td>
+                                <td>実装の詳細を隠し、テスターが必要とする操作だけを公開する</td>
+                                <td>テストケース作成者が内部実装を意識せずに済む</td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Singletonパターン</strong></td>
+                                <td>
+                                    SUTと通信するドライバのインスタンスが1つだけであることを保証する
+                                </td>
+                                <td>ドライバの重複生成による競合・リソース浪費を防ぐ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td><strong>Page Object Model（POM）</strong></td>
+                                <td>
+                                    画面ごとに「ページモデル」というクラスファイルを作成し、ロケータ（要素の場所）をそこに集約する
+                                </td>
+                                <td>
+                                    SUTの構造が変わっても、修正箇所はページモデル内の1箇所のみで済む（各テストケースを個別修正する必要がない）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><strong>Flow Modelパターン</strong></td>
+                                <td>
+                                    POMをさらに拡張し、Page
+                                    Objectの上にもう1つのFacade（ユーザーアクションの集合）を重ねる「二重Facade」構造
+                                </td>
+                                <td>
+                                    テストステップを複数のテストスクリプトで再利用でき、抽象度・保守性がさらに向上する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-practice">
+                    <div class="callout-header">
+                        <span class="callout-icon">💡</span
+                        ><span class="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>
+                                Page Object
+                                Modelを導入する際は「ロケータ（要素特定情報）」と「操作（クリック・入力など）」を明確に分離し、ロケータの変更が起きても操作メソッドのシグネチャは変えずに済むよう設計する。
+                            </li>
+                            <li>
+                                Flow
+                                Modelパターンは、テストケース数が増え「同じユーザー操作の組み合わせ」が複数のテストで重複し始めたタイミングで導入を検討するとよい。導入が早すぎると過剰設計（over-engineering）になりやすい。
+                            </li>
+                            <li>
+                                SOLID原則の中でも特に<strong>単一責任の原則</strong>と<strong>依存性逆転の原則</strong>は、Core
+                                Libraries／Business Logic／Test
+                                Scriptsのレイヤー分離（3.1.3参照）と直接結びつく。レイヤー設計そのものがSOLID原則の実践例になっていることを意識すると理解が深まる。
+                            </li>
+                            <li>
+                                Singletonパターンを使う際は、並列実行（並列テスト）環境でのスレッドセーフ性に注意する。単純なSingleton実装は並列実行時にドライバの共有・競合を引き起こすことがある。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <h2 id="6-章全体のまとめtaaを設計する際のチェックリスト">
+                    6. 章全体のまとめ：TAAを設計する際のチェックリスト
+                </h2>
+                <div class="mermaid-container">
+                    <div class="mermaid-render-target" id="mermaid-diagram-9"></div>
+                </div>
+                <hr />
+                <h2 id="7-出典参考ソース">7. 出典・参考ソース</h2>
+                <div class="table-scroll">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="header">
+                                <th>資料名</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ISTQB CTAL-TAE v2.0 認定試験ページ（公式）</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                        >https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>
+                                    ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation
+                                    Architecture, p.22-28 が本ガイドの主な出典）
+                                </td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                                        >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>
+                                    Robert C. Martin,
+                                    <em>Clean Code: A Handbook of Agile Software Craftsmanship</em
+                                    >（クリーンコード原則の引用元としてシラバス内で言及）
+                                </td>
+                                <td>
+                                    <a
+                                        href="https://www.oreilly.com/library/view/clean-code-a/9780136083238/"
+                                        >https://www.oreilly.com/library/view/clean-code-a/9780136083238/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>
+                                    ISO/IEC/IEEE
+                                    29119-5:2024（キーワード駆動テストに関する標準の2024年版。シラバス内で参照）
+                                </td>
+                                <td>
+                                    <a href="https://www.iso.org/standard/87233.html"
+                                        >https://www.iso.org/standard/87233.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>
+                                    ISTQB Certified Tester Model-Based Testing (CT-MBT)
+                                    Syllabus（テスト生成・モデルベーステストの詳細）
+                                </td>
+                                <td>
+                                    <a href="https://istqb.org/certifications/model-based-tester/"
+                                        >https://istqb.org/certifications/model-based-tester/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>ISTQB Glossary（gTAA・TAF・TAS等の用語定義の一次情報）</td>
+                                <td>
+                                    <a href="https://glossary.istqb.org/"
+                                        >https://glossary.istqb.org/</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="page-footer">
+                    本ガイドはISTQB® CTAL-TAE
+                    v2.0シラバスに基づく初学者向け解説であり、公式教材ではありません。試験対策には必ず公式シラバスもあわせてご参照ください。
+                </div>
+            </main>
+        </div>
+
+        <script id="mermaid-data" type="application/json">
+            {
+                "mermaid-diagram-1": "flowchart TB\n    OV1[\"3.1.1 gTAA<br/>抽象的な参照モデルを理解する\"] --> OV2[\"3.1.2 TAS設計<br/>要件からTAAを具体化する\"]\n    OV2 --> OV3[\"3.1.3 TAFレイヤー化<br/>Test Scripts / Business Logic / Core Librariesに分割する\"]\n    OV3 --> OV4[\"3.1.4 自動化アプローチ<br/>Capture/Playback〜BDDまで7手法を使い分ける\"]\n    OV4 --> OV5[\"3.1.5 設計原則とパターン<br/>OOP・SOLID・Facade・POM・Flow Modelで保守性を高める\"]\n\n    classDef step fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;\n    class OV1,OV2,OV3,OV4,OV5 step",
+                "mermaid-diagram-2": "flowchart TB\n    subgraph EXT[\"外部システム\"]\n        PM[\"プロジェクト管理\"]\n        TM[\"テスト管理\"]\n        CM[\"構成管理<br/>(CI/CD, 環境, テストウェア)\"]\n    end\n\n    subgraph GTAA[\"gTAA (Generic Test Automation Architecture)\"]\n        GEN[\"Test Generation<br/>テスト生成（任意）\"]\n        DEF[\"Test Definition<br/>テスト定義\"]\n        EXE[\"Test Execution<br/>テスト実行 / ログ / レポート\"]\n        ADA[\"Test Adaptation<br/>テスト適応（アダプタ層）\"]\n\n        GEN --> DEF --> EXE\n        DEF --> ADA\n        EXE --> ADA\n    end\n\n    SUT[\"SUT<br/>(System Under Test)\"]\n\n    PM <-. プロジェクト管理IF .-> GTAA\n    TM <-. テスト管理IF .-> DEF\n    CM <-. 構成管理IF .-> EXE\n    ADA <-- SUTインターフェース --> SUT\n\n    classDef ext fill:#f1f5f9,stroke:#64748b,color:#1e293b;\n    classDef core fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;\n    classDef sut fill:#fee2e2,stroke:#dc2626,color:#1e293b;\n    class PM,TM,CM ext\n    class GEN,DEF,EXE,ADA core\n    class SUT sut",
+                "mermaid-diagram-3": "flowchart LR\n    TAA[\"TAA設計で検討すべき事項\"]\n    TAA --> T1[\"テスト自動化ツール・<br/>専用ライブラリの選定\"]\n    TAA --> T2[\"プラグイン／<br/>コンポーネントの開発\"]\n    TAA --> T3[\"接続性・IF要件の特定<br/>(FW, DB, URL/接続,<br/>モック/スタブ, MQ, プロトコル)\"]\n    TAA --> T4[\"テスト管理・<br/>欠陥管理ツールとの連携\"]\n    TAA --> T5[\"バージョン管理システム・<br/>リポジトリの活用\"]\n\n    classDef item fill:#eef2ff,stroke:#4f46e5,color:#1e293b;\n    class T1,T2,T3,T4,T5 item",
+                "mermaid-diagram-4": "flowchart TB\n    subgraph L1[\"① Test Scripts層\"]\n        TS[\"テストケースのリポジトリ<br/>テストスイートのアノテーション<br/>（テストステップ／ユーザーフロー／API呼び出しを呼び出す）\"]\n    end\n    subgraph L2[\"② Business Logic層\"]\n        BL[\"SUT依存のライブラリ<br/>Core Librariesのクラスを継承 or<br/>Facade経由で利用<br/>TAFをSUTに合わせてセットアップ\"]\n    end\n    subgraph L3[\"③ Core Libraries層\"]\n        CL[\"SUTに依存しない共通ライブラリ<br/>同じ開発スタックの<br/>他プロジェクトでも再利用可能\"]\n    end\n\n    TS -- \"呼び出す\" --> BL\n    BL -- \"継承 / Facade利用\" --> CL\n    TS -. \"直接呼び出し禁止\" .-> CL\n\n    classDef l1 fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;\n    classDef l2 fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    classDef l3 fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    class TS l1\n    class BL l2\n    class CL l3",
+                "mermaid-diagram-5": "flowchart TB\n    CORE[\"Core Libraries<br/>（全プロジェクト共通・再利用可能）\"]\n\n    subgraph P1[\"プロジェクト #1（TAE Aが担当）\"]\n        TAF1[\"TAF for App #1\"]\n        TAF2[\"TAF for App #2\"]\n    end\n\n    subgraph P2[\"プロジェクト #2（TAE Bが担当）\"]\n        TAF3[\"TAF for App #3\"]\n    end\n\n    CORE --> TAF1\n    CORE --> TAF2\n    CORE --> TAF3\n\n    classDef core fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    classDef taf fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;\n    class CORE core\n    class TAF1,TAF2,TAF3 taf",
+                "mermaid-diagram-6": "flowchart LR\n    AP1[\"Capture/Playback<br/>録画型\"] --> AP2[\"Linear Scripting<br/>線形スクリプティング\"]\n    AP2 --> AP3[\"Structured Scripting<br/>構造化スクリプティング\"]\n    AP3 --> AP4[\"Data-Driven Testing<br/>データ駆動テスト\"]\n    AP4 --> AP5[\"Keyword-Driven Testing<br/>キーワード駆動テスト\"]\n\n    AP6[\"Test-Driven Development<br/>テスト駆動開発\"]\n    AP7[\"Behavior-Driven Development<br/>振る舞い駆動開発\"]\n\n    classDef basic fill:#fee2e2,stroke:#dc2626,color:#1e293b;\n    classDef mid fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    classDef adv fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    classDef method fill:#e0e7ff,stroke:#4338ca,color:#1e293b;\n    class AP1,AP2 basic\n    class AP3 mid\n    class AP4,AP5 adv\n    class AP6,AP7 method",
+                "mermaid-diagram-7": "flowchart LR\n    RED[\"🔴 Red<br/>失敗するテストを1つ作成する\"] --> GRN[\"🟢 Green<br/>テストを満たす<br/>最小限の実装を行う\"]\n    GRN --> REF[\"🔵 Refactor<br/>クリーンコード原則に沿って<br/>コードを最適化する\"]\n    REF -.次のテスト.-> RED\n\n    classDef red fill:#fee2e2,stroke:#dc2626,color:#1e293b;\n    classDef green fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    classDef blue fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;\n    class RED red\n    class GRN green\n    class REF blue",
+                "mermaid-diagram-8": "flowchart TB\n    subgraph FM[\"Flow Modelパターン（二重Facade）\"]\n        direction LR\n        FLOW[\"Flowクラス<br/>（ユーザーアクションの集合）\"]\n        POM1[\"Page Object<br/>ログイン画面\"]\n        POM2[\"Page Object<br/>検索画面\"]\n        POM3[\"Page Object<br/>注文画面\"]\n        FLOW --> POM1\n        FLOW --> POM2\n        FLOW --> POM3\n    end\n\n    TESTCASE[\"テストケース\"] --> FLOW\n\n    classDef flow fill:#dbeafe,stroke:#1d4ed8,color:#1e293b;\n    classDef page fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    classDef tc fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    class FLOW flow\n    class POM1,POM2,POM3 page\n    class TESTCASE tc",
+                "mermaid-diagram-9": "flowchart TB\n    START([\"TAA設計を始める\"]) --> Q1{\"gTAAの4機能<br/>（生成・定義・実行・適応）を<br/>どのツールが担うか整理したか？\"}\n    Q1 -->|Yes| Q2{\"TAF内のレイヤー構成<br/>（Test Scripts / Business Logic /<br/>Core Libraries）は明確か？\"}\n    Q1 -->|No| A1[\"gTAAの機能マッピングを行う\"] --> Q1\n    Q2 -->|Yes| Q3{\"チームのスキルとSUTの<br/>変化頻度に見合った<br/>自動化アプローチを選んだか？\"}\n    Q2 -->|No| A2[\"レイヤーを再設計し、<br/>依存方向を一方向に統一する\"] --> Q2\n    Q3 -->|Yes| Q4{\"要件に適した設計原則・<br/>デザインパターンを選定・<br/>適用したか？\"}\n    Q3 -->|No| A3[\"Capture/Playback〜BDDの<br/>比較表から適切な手法を選定する\"] --> Q3\n    Q4 -->|Yes| DONE([\"保守性の高いTAAが完成\"])\n    Q4 -->|No| A4[\"要件（重複・変更頻度・並列実行等）に<br/>照らして原則・パターンを選び直す<br/>（Flow Modelは操作の重複が出てから）\"] --> Q4\n\n    classDef q fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    classDef a fill:#fee2e2,stroke:#dc2626,color:#1e293b;\n    classDef s fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    class Q1,Q2,Q3,Q4 q\n    class A1,A2,A3,A4 a\n    class START,DONE s"
+            }
+        </script>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"
+            integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww=="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            (function () {
+                'use strict';
+
+                /* ---------------- Sidebar toggle (mobile) ---------------- */
+                var toggle = document.getElementById('sidebarToggle');
+                var sidebar = document.getElementById('sidebar');
+                var backdrop = document.getElementById('sidebarBackdrop');
+                function openSidebar() {
+                    sidebar.classList.add('open');
+                    backdrop.classList.add('open');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+                }
+                function closeSidebar() {
+                    sidebar.classList.remove('open');
+                    backdrop.classList.remove('open');
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                }
+                if (toggle) {
+                    toggle.addEventListener('click', function () {
+                        if (sidebar.classList.contains('open')) closeSidebar();
+                        else openSidebar();
+                    });
+                }
+                if (backdrop) backdrop.addEventListener('click', closeSidebar);
+                document.querySelectorAll('.sidebar nav a').forEach(function (a) {
+                    a.addEventListener('click', function () {
+                        closeSidebar();
+                    });
+                });
+
+                /* ---------------- Scroll-spy ---------------- */
+                var navLinks = Array.prototype.slice.call(
+                    document.querySelectorAll('.sidebar nav a[data-target]'),
+                );
+                var headingMap = {};
+                navLinks.forEach(function (a) {
+                    var id = a.getAttribute('data-target');
+                    var heading = document.getElementById(id);
+                    if (heading) headingMap[id] = { link: a, heading: heading };
+                });
+
+                function setActive(id) {
+                    navLinks.forEach(function (a) {
+                        a.classList.remove('active');
+                    });
+                    var entry = headingMap[id];
+                    if (entry) entry.link.classList.add('active');
+                }
+
+                if ('IntersectionObserver' in window) {
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                if (entry.isIntersecting) setActive(entry.target.id);
+                            });
+                        },
+                        { rootMargin: '-15% 0px -75% 0px', threshold: 0 },
+                    );
+                    Object.keys(headingMap).forEach(function (id) {
+                        observer.observe(headingMap[id].heading);
+                    });
+                }
+
+                /* ---------------- Mermaid render (JS template literal method) ---------------- */
+                function renderMermaidDiagrams() {
+                    if (typeof mermaid === 'undefined') {
+                        console.error('mermaid library failed to load');
+                        document.querySelectorAll('.mermaid-render-target').forEach(function (el) {
+                            el.innerHTML =
+                                '<div class="mermaid-error">図の読み込みに失敗しました（ライブラリ未ロード）</div>';
+                        });
+                        return;
+                    }
+                    try {
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            theme: 'base',
+                            securityLevel: 'loose',
+                            fontFamily:
+                                '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                            themeVariables: {
+                                fontSize: '16px',
+                                primaryColor: '#eaf0ff',
+                                primaryTextColor: '#1e2430',
+                                primaryBorderColor: '#2f5fe0',
+                                lineColor: '#8890a0',
+                                secondaryColor: '#f1f4fb',
+                                tertiaryColor: '#ffffff',
+                                background: '#ffffff',
+                                mainBkg: '#eaf0ff',
+                                nodeTextColor: '#1e2430',
+                                clusterBkg: '#f7f8fb',
+                                clusterBorder: '#cbd3e1',
+                                edgeLabelBackground: '#ffffff',
+                            },
+                            flowchart: {
+                                useMaxWidth: false,
+                                htmlLabels: true,
+                                subGraphTitleMargin: { top: 12, bottom: 18 },
+                                nodeSpacing: 60,
+                                rankSpacing: 60,
+                            },
+                        });
+                    } catch (e) {
+                        console.error('mermaid.initialize failed', e);
+                        return;
+                    }
+
+                    var dataEl = document.getElementById('mermaid-data');
+                    var sources = {};
+                    try {
+                        sources = JSON.parse(dataEl.textContent);
+                    } catch (e) {
+                        console.error('mermaid source JSON parse failed', e);
+                    }
+
+                    var ids = Object.keys(sources);
+                    var i = 0;
+                    function renderNext() {
+                        if (i >= ids.length) return;
+                        var id = ids[i];
+                        var container = document.getElementById(id);
+                        var source = sources[id];
+                        i += 1;
+                        if (!container) {
+                            renderNext();
+                            return;
+                        }
+                        try {
+                            mermaid
+                                .render(id + '-svg', source)
+                                .then(function (result) {
+                                    container.innerHTML = result.svg;
+                                    renderNext();
+                                })
+                                .catch(function (err) {
+                                    container.innerHTML =
+                                        '<div class="mermaid-error">図の描画エラー: ' +
+                                        (err && err.message ? err.message : err) +
+                                        '</div>';
+                                    renderNext();
+                                });
+                        } catch (err) {
+                            container.innerHTML =
+                                '<div class="mermaid-error">図の描画エラー: ' +
+                                (err && err.message ? err.message : err) +
+                                '</div>';
+                            renderNext();
+                        }
+                    }
+                    renderNext();
+                }
+
+                renderMermaidDiagrams();
+            })();
+        </script>
+    </body>
+</html>

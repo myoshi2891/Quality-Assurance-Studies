@@ -1,0 +1,1779 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>CTAL-TAE v2.0 第1章「テスト自動化の導入と目的」初学者向け解説ガイド</title>
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@500;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.48.0/dist/tabler-icons.min.css"
+            integrity="sha384-vLTRpuTnY1DxbKXUegP6YfVJo5azL+nO4yWUyJjWFDChoMy9oUTnSmIZhMWjI5qs"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
+        <style>
+            :root {
+                --paper: #faf7f2;
+                --paper-alt: #f3ede2;
+                --paper-card: #ffffff;
+                --ink: #2b2620;
+                --ink-faint: #726858;
+                --indigo: #3538a6;
+                --indigo-dark: #22246b;
+                --indigo-soft: #e0e3fa;
+                --gold: #7d5c14;
+                --gold-soft: #f5ead0;
+                --forest: #1f6b3f;
+                --forest-soft: #dcf3e3;
+                --plum: #6b2f63;
+                --plum-soft: #f1e0ee;
+                --border: #e4dbc9;
+                --shadow: 0 4px 16px rgba(43, 38, 32, 0.08);
+                --shadow-lg: 0 10px 32px rgba(43, 38, 32, 0.12);
+                --font-display: 'Source Serif 4', 'Noto Serif JP', serif;
+                --font-body:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+                    'Yu Gothic', sans-serif;
+                --sidebar-w: 280px;
+            }
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 24px;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: var(--font-body);
+                font-size: 1rem;
+                line-height: 1.85;
+                overflow-wrap: break-word;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: var(--font-display);
+                color: var(--ink);
+                line-height: 1.4;
+                margin: 0 0 0.6em;
+            }
+            p {
+                margin: 0 0 1em;
+            }
+            ul,
+            ol {
+                margin: 0 0 1em;
+                padding-left: 1.4em;
+            }
+            li {
+                margin-bottom: 0.5em;
+            }
+            a {
+                color: var(--indigo);
+            }
+            a:hover {
+                color: var(--indigo-dark);
+            }
+            img,
+            svg {
+                max-width: 100%;
+            }
+
+            /* ===== Layout ===== */
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-w);
+                background: var(--paper-card);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 28px 0 40px;
+                z-index: 50;
+            }
+            .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 0.7em;
+                padding: 0 24px 20px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 14px;
+            }
+            .sidebar-brand .ti {
+                font-size: 1.6rem;
+                color: var(--indigo);
+            }
+            .sidebar-brand-text {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+            .sidebar-brand-text small {
+                display: block;
+                font-family: var(--font-body);
+                font-weight: 400;
+                font-size: 1em;
+                color: var(--ink-faint);
+                margin-top: 0.2em;
+            }
+            .side-group-title {
+                font-size: 1rem;
+                letter-spacing: 0.06em;
+                color: var(--ink-faint);
+                text-transform: uppercase;
+                padding: 14px 24px 6px;
+                font-weight: 600;
+            }
+            .side-nav {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .side-nav li {
+                margin: 0;
+            }
+            .side-nav a {
+                display: flex;
+                align-items: center;
+                gap: 0.7em;
+                padding: 9px 24px;
+                color: var(--ink-faint);
+                text-decoration: none;
+                font-size: 1rem;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+            .side-nav a .ti {
+                font-size: 1.1rem;
+                flex-shrink: 0;
+            }
+            .side-nav a:hover {
+                background: var(--paper-alt);
+                color: var(--ink);
+            }
+            .side-nav a.active {
+                color: var(--indigo);
+                border-left-color: var(--indigo);
+                background: var(--indigo-soft);
+                font-weight: 600;
+            }
+
+            .main {
+                margin-left: var(--sidebar-w);
+            }
+            .mobile-bar {
+                display: none;
+            }
+            .mobile-bar button {
+                font-size: 1rem;
+            }
+            .sidebar-close {
+                display: none;
+            }
+
+            /* ===== Hero ===== */
+            .hero {
+                background: linear-gradient(135deg, #1c1f5c, #3538a6 55%, #5a5ec9);
+                color: #f3f1ff;
+                padding: 64px 56px 56px;
+                border-bottom: 1px solid var(--border);
+            }
+            .hero-eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5em;
+                font-size: 1rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: #c9cdfb;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                padding: 6px 14px;
+                border-radius: 999px;
+                margin-bottom: 20px;
+                font-weight: 600;
+            }
+            .hero h1 {
+                color: #fff;
+                font-size: 2rem;
+                max-width: 900px;
+                margin-bottom: 0.5em;
+            }
+            .hero-lead {
+                color: #e3e1ff;
+                font-size: 1.05rem;
+                max-width: 760px;
+                margin-bottom: 24px;
+            }
+            .hero-badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5em;
+                background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.28);
+                color: #fff;
+                padding: 7px 14px;
+                border-radius: 10px;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+            .hero-badge .ti {
+                font-size: 1rem;
+                color: #e7c96b;
+            }
+
+            /* ===== Sections ===== */
+            .section {
+                padding: 48px 56px;
+            }
+            .section-head {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                margin-bottom: 22px;
+            }
+            .section-icon {
+                flex-shrink: 0;
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                background: var(--indigo-soft);
+                color: var(--indigo-dark);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.3rem;
+            }
+            .eyebrow {
+                display: block;
+                font-size: 1rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--ink-faint);
+                font-weight: 600;
+                margin-bottom: 0.3em;
+            }
+            .section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0;
+            }
+            .section h3 {
+                font-size: 1.2rem;
+                margin-top: 1.6em;
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+            }
+            .section h3 .ti {
+                color: var(--indigo);
+                font-size: 1.05em;
+            }
+            .section-note {
+                color: var(--ink-faint);
+                font-size: 1rem;
+                margin-top: -0.6em;
+                margin-bottom: 1.2em;
+            }
+
+            /* ===== Table ===== */
+            .table-wrap {
+                overflow-x: auto;
+                border-radius: 14px;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                margin: 0 0 1.4em;
+                background: var(--paper-card);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 420px;
+            }
+            .kv-table {
+                min-width: 0;
+            }
+            thead th {
+                background: var(--indigo);
+                color: #fff;
+                text-align: left;
+                font-weight: 600;
+                padding: 12px 16px;
+                font-size: 1rem;
+                white-space: nowrap;
+            }
+            tbody td,
+            tbody th {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border);
+                font-size: 1rem;
+                vertical-align: top;
+                overflow-wrap: anywhere;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: var(--paper-alt);
+            }
+            tbody th {
+                font-weight: 600;
+                color: var(--ink);
+                white-space: nowrap;
+            }
+            td.centered {
+                text-align: center;
+            }
+
+            /* ===== Diagram card ===== */
+            .diagram-card {
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                box-shadow: var(--shadow);
+                padding: 28px 20px;
+                margin: 0 0 1.4em;
+            }
+            .diagram-card .cap {
+                text-align: center;
+                font-size: 1rem;
+                color: var(--ink-faint);
+                margin-top: 14px;
+                margin-bottom: 0;
+            }
+            .diagram-wrap {
+                width: 100%;
+                overflow-x: auto;
+                display: flex;
+                justify-content: safe center;
+                min-width: 0;
+            }
+            .diagram-wrap > * {
+                min-width: 0;
+            }
+            .diagram-wrap svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+                overflow: visible;
+            }
+
+            /* ===== Callouts / best-practice cards ===== */
+            .callout {
+                display: flex;
+                gap: 14px;
+                background: var(--forest-soft);
+                border: 1px solid #b9e2c8;
+                border-radius: 14px;
+                padding: 18px 20px;
+                margin: 0 0 1.4em;
+            }
+            .callout .ti {
+                flex-shrink: 0;
+                font-size: 1.3rem;
+                color: var(--forest);
+                margin-top: 0.1em;
+            }
+            .callout-body {
+                flex: 1;
+                min-width: 0;
+            }
+            .callout-body p {
+                margin-bottom: 0;
+            }
+            .callout-title {
+                font-weight: 700;
+                color: var(--forest);
+                margin-bottom: 0.4em;
+                font-size: 1rem;
+            }
+            .callout.note {
+                background: var(--indigo-soft);
+                border-color: #c3c8f2;
+            }
+            .callout.note .ti {
+                color: var(--indigo);
+            }
+            .callout.note .callout-title {
+                color: var(--indigo-dark);
+            }
+            .callout.warn {
+                background: var(--gold-soft);
+                border-color: #e6d29e;
+            }
+            .callout.warn .ti {
+                color: var(--gold);
+            }
+            .callout.warn .callout-title {
+                color: var(--gold);
+            }
+
+            /* practice-card: list of best practices, one outer card */
+            .practice-card {
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                box-shadow: var(--shadow);
+                padding: 6px 22px;
+                margin: 0 0 1.4em;
+            }
+            .practice-card-head {
+                display: flex;
+                align-items: center;
+                gap: 0.6em;
+                padding: 16px 0 12px;
+                border-bottom: 1px solid var(--border);
+            }
+            .practice-card-head .ti {
+                color: var(--plum);
+                font-size: 1.2rem;
+            }
+            .practice-card-head span {
+                font-weight: 700;
+                font-family: var(--font-display);
+                font-size: 1.05rem;
+                color: var(--plum);
+            }
+            .practice-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .practice-list li {
+                padding: 16px 0;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 0;
+                display: flex;
+                gap: 12px;
+            }
+            .practice-list li:last-child {
+                border-bottom: none;
+            }
+            .practice-list .p-num {
+                flex-shrink: 0;
+                min-width: 28px;
+                border-radius: 999px;
+                background: var(--plum-soft);
+                color: var(--plum);
+                font-weight: 700;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 8px;
+                white-space: nowrap;
+                line-height: 1;
+            }
+            .practice-list .p-body {
+                flex: 1;
+                min-width: 0;
+            }
+            .practice-list strong {
+                color: var(--ink);
+            }
+
+            /* ===== Keyword / objective cards ===== */
+            .tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4em;
+                background: var(--paper-alt);
+                border: 1px solid var(--border);
+                color: var(--ink);
+                border-radius: 999px;
+                padding: 4px 12px;
+                font-size: 1rem;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            .tag.cog {
+                background: var(--gold-soft);
+                border-color: #e6d29e;
+                color: var(--gold);
+            }
+
+            /* ===== Checklist ===== */
+            .check-progress-wrap {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 18px;
+            }
+            .check-progress-bar {
+                flex: 1;
+                height: 10px;
+                background: var(--paper-alt);
+                border-radius: 999px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+            }
+            .check-progress-fill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, var(--indigo), var(--forest));
+                transition: width 0.25s;
+            }
+            .check-progress-label {
+                font-size: 1rem;
+                color: var(--ink-faint);
+                white-space: nowrap;
+                font-weight: 600;
+            }
+            .check-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .check-list li {
+                border-bottom: 1px solid var(--border);
+                padding: 2px 0;
+                margin-bottom: 0;
+            }
+            .check-list li:last-child {
+                border-bottom: none;
+            }
+            .check-list label {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 4px;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+            .check-list input[type='checkbox'] {
+                appearance: none;
+                flex-shrink: 0;
+                width: 22px;
+                height: 22px;
+                border-radius: 6px;
+                border: 2px solid var(--border);
+                background: var(--paper-card);
+                position: relative;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+            .check-list input[type='checkbox']:checked {
+                background: var(--forest);
+                border-color: var(--forest);
+            }
+            .check-list input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 6px;
+                top: 2px;
+                width: 6px;
+                height: 11px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(40deg);
+            }
+            .check-list label span.txt {
+                flex: 1;
+                min-width: 0;
+                transition: color 0.15s;
+            }
+            .check-list li.done label span.txt {
+                color: var(--ink-faint);
+                text-decoration: line-through;
+            }
+
+            /* ===== References ===== */
+            .ref-group {
+                margin-bottom: 1.4em;
+            }
+            .ref-group h4 {
+                font-size: 1rem;
+                color: var(--ink-faint);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                margin-bottom: 0.8em;
+            }
+            .ref-card {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 14px 16px;
+                margin-bottom: 10px;
+                box-shadow: var(--shadow);
+            }
+            .ref-card .ti {
+                color: var(--indigo);
+                font-size: 1.2rem;
+                margin-top: 0.15em;
+                flex-shrink: 0;
+            }
+            .ref-card-body {
+                flex: 1;
+                min-width: 0;
+            }
+            .ref-card-title {
+                font-weight: 600;
+                margin-bottom: 0.25em;
+            }
+            .ref-card a {
+                word-break: break-all;
+                font-size: 1rem;
+            }
+
+            footer.site-footer {
+                padding: 40px 56px 60px;
+                color: var(--ink-faint);
+                font-size: 1rem;
+                border-top: 1px solid var(--border);
+            }
+
+            /* ===== Mobile ===== */
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    /* 閉じている間は visibility: hidden でリンクを Tab 移動の対象から外す */
+                    visibility: hidden;
+                    transition:
+                        transform 0.25s,
+                        visibility 0.25s;
+                    box-shadow: var(--shadow-lg);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                    visibility: visible;
+                }
+                .main {
+                    margin-left: 0;
+                }
+                .mobile-bar {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: sticky;
+                    top: 0;
+                    z-index: 40;
+                    background: var(--paper-card);
+                    border-bottom: 1px solid var(--border);
+                    padding: 14px 18px;
+                }
+                .mobile-bar button {
+                    background: var(--indigo-soft);
+                    border: 1px solid var(--border);
+                    color: var(--indigo-dark);
+                    border-radius: 8px;
+                    padding: 8px 10px;
+                    font-size: 1rem;
+                    line-height: 1;
+                    cursor: pointer;
+                }
+                .sidebar-close {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: auto;
+                    background: var(--indigo-soft);
+                    border: 1px solid var(--border);
+                    color: var(--indigo-dark);
+                    border-radius: 8px;
+                    padding: 8px 10px;
+                    font-size: 1rem;
+                    line-height: 1;
+                    cursor: pointer;
+                }
+                .mobile-bar .mb-title {
+                    font-weight: 700;
+                    font-size: 1rem;
+                    font-family: var(--font-display);
+                }
+                .hero {
+                    padding: 36px 22px 32px;
+                }
+                .hero h1 {
+                    font-size: 1.4rem;
+                }
+                .section {
+                    padding: 32px 22px;
+                }
+                .section-icon {
+                    width: 38px;
+                    height: 38px;
+                    font-size: 1.1rem;
+                }
+                footer.site-footer {
+                    padding: 32px 22px 48px;
+                }
+                .mermaidTooltip {
+                    font-size: 1rem !important;
+                }
+            }
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-brand">
+                    <i class="ti ti-route"></i>
+                    <div class="sidebar-brand-text">
+                        CTAL-TAE v2.0
+                        <small>第1章 解説ガイド</small>
+                    </div>
+                    <button
+                        type="button"
+                        class="sidebar-close"
+                        id="sidebarClose"
+                        aria-label="メニューを閉じる"
+                    >
+                        <i class="ti ti-x"></i>
+                    </button>
+                </div>
+                <div class="side-group-title">はじめに</div>
+                <ul class="side-nav">
+                    <li>
+                        <a href="#s0" data-nav><i class="ti ti-home"></i>Chapter 1の位置づけ</a>
+                    </li>
+                    <li>
+                        <a href="#s1" data-nav><i class="ti ti-key"></i>キーワードと学習目標</a>
+                    </li>
+                </ul>
+                <div class="side-group-title">1.1 テスト自動化の目的</div>
+                <ul class="side-nav">
+                    <li>
+                        <a href="#s2" data-nav
+                            ><i class="ti ti-target-arrow"></i>目的・メリット・デメリット</a
+                        >
+                    </li>
+                </ul>
+                <div class="side-group-title">1.2 SDLCと自動化</div>
+                <ul class="side-nav">
+                    <li>
+                        <a href="#s3" data-nav
+                            ><i class="ti ti-git-branch"></i>SDLCモデル別の適用</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#s4" data-nav><i class="ti ti-tools"></i>ツール選定プロセス</a>
+                    </li>
+                </ul>
+                <div class="side-group-title">まとめ</div>
+                <ul class="side-nav">
+                    <li>
+                        <a href="#s5" data-nav><i class="ti ti-checklist"></i>章末チェックリスト</a>
+                    </li>
+                    <li>
+                        <a href="#s6" data-nav><i class="ti ti-books"></i>参考文献・出典</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main">
+                <div class="mobile-bar">
+                    <button id="menuBtn" aria-label="メニューを開く">
+                        <i class="ti ti-menu-2"></i>
+                    </button>
+                    <span class="mb-title">CTAL-TAE 第1章ガイド</span>
+                </div>
+
+                <header class="hero">
+                    <span class="hero-eyebrow"
+                        ><i class="ti ti-certificate"></i>ISTQB® CTAL-TAE v2.0</span
+                    >
+                    <h1>第1章「テスト自動化の導入と目的」<br />初学者向け解説ガイド</h1>
+                    <p class="hero-lead">
+                        Introduction and Objectives for Test Automation ―
+                        なぜテスト自動化を行うのか、SDLCの中でどう位置づけられるのかという、後続の全章の土台となる考え方をステップバイステップで整理します。
+                    </p>
+                    <div class="hero-badges">
+                        <span class="hero-badge"
+                            ><i class="ti ti-clock-hour-3"></i>指導時間 45分</span
+                        >
+                        <span class="hero-badge"><i class="ti ti-stack-2"></i>認知レベル K2</span>
+                        <span class="hero-badge"
+                            ><i class="ti ti-list-numbers"></i>全8章中の第1章</span
+                        >
+                        <span class="hero-badge"><i class="ti ti-target"></i>学習目標 3項目</span>
+                    </div>
+                </header>
+                <section class="section" id="s0">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-route"></i></div>
+                        <div>
+                            <span class="eyebrow">Chapter 1 の位置づけと全体像</span>
+                            <h2>なぜこの章から学ぶのか</h2>
+                        </div>
+                    </div>
+
+                    <p>
+                        CTAL-TAE v2.0
+                        のシラバスは全8章構成で、認定トレーニングコースには最低21時間の講習時間が求められています。第1章はその導入部にあたり、「なぜテスト自動化を行うのか」「テスト自動化はソフトウェア開発ライフサイクル（SDLC）の中でどう位置づけられるのか」という、以降のアーキテクチャ設計・実装・CI/CD統合・レポーティング・検証・継続的改善の各章を学ぶための土台をつくる章です。
+                    </p>
+
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="roadmap"></div>
+                        <p class="cap">
+                            第1章はシラバス全体の導入にあたり、以降の全章が積み上がっていく土台となる
+                        </p>
+                    </div>
+
+                    <p>
+                        第1章は認知レベルが<strong>K2（理解する）</strong>のみで構成されており、第2章以降のK3（適用する）・K4（分析する）に比べると、求められるのは概念を理解する能力（K2）です。Kレベルは試験の回答形式ではなく、問われる認知能力を示します。ただし、シラバスの序章と付録を除く全章が試験範囲となるため、第1章の内容も油断せず押さえておく必要があります。
+                    </p>
+
+                    <div class="callout note">
+                        <i class="ti ti-info-circle"></i>
+                        <div class="callout-body">
+                            <div class="callout-title">試験の前提条件</div>
+                            <p>
+                                CTAL-TAE試験を受験するには、ISTQB® Foundation
+                                Level認定を先に取得している必要があります。また、ソフトウェアテストまたは開発の実務経験（目安6か月程度）があることが推奨されています。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="section" id="s1">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-key"></i></div>
+                        <div>
+                            <span class="eyebrow">キーワードと学習目標</span>
+                            <h2>まず押さえるべき前提知識</h2>
+                        </div>
+                    </div>
+
+                    <h3><i class="ti ti-tag"></i>キーワード</h3>
+                    <p class="section-note">
+                        シラバスの見出し直下に記載されているキーワードは、学習目標に明示されていなくても暗記が必須とされています。
+                    </p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>キーワード（英語）</th>
+                                    <th>日本語訳</th>
+                                    <th>本ガイドでの主な解説箇所</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>system under test（SUT）</td>
+                                    <td>テスト対象システム</td>
+                                    <td>1.1、1.2.2</td>
+                                </tr>
+                                <tr>
+                                    <td>test automation</td>
+                                    <td>テスト自動化</td>
+                                    <td>1.1 全体</td>
+                                </tr>
+                                <tr>
+                                    <td>test automation engineer（TAE）</td>
+                                    <td>テスト自動化エンジニア</td>
+                                    <td>1.1、1.2.2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3><i class="ti ti-target"></i>学習目標（Learning Objectives）一覧</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>番号</th>
+                                    <th>学習目標</th>
+                                    <th>認知レベル</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TAE-1.1.1</td>
+                                    <td>テスト自動化のメリット・デメリットを説明できる</td>
+                                    <td><span class="tag cog">K2</span></td>
+                                </tr>
+                                <tr>
+                                    <td>TAE-1.2.1</td>
+                                    <td>
+                                        異なるソフトウェア開発ライフサイクルモデルにおいて、テスト自動化がどのように適用されるかを説明できる
+                                    </td>
+                                    <td><span class="tag cog">K2</span></td>
+                                </tr>
+                                <tr>
+                                    <td>TAE-1.2.2</td>
+                                    <td>
+                                        与えられたテスト対象システム（SUT）に適したテスト自動化ツールを選定できる
+                                    </td>
+                                    <td><span class="tag cog">K2</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="practice-card">
+                        <div class="practice-card-head">
+                            <i class="ti ti-bulb"></i><span>ベストプラクティス：学習の進め方</span>
+                        </div>
+                        <ul class="practice-list">
+                            <li>
+                                <span class="p-num">1</span>
+                                <div class="p-body">
+                                    <strong>「暗記」ではなく「説明できる」を目指す。</strong
+                                    >K2レベルの章は、人に説明できるレベルまで理解することが得点につながります。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">2</span>
+                                <div class="p-body">
+                                    <strong>学習目標の動詞に着目する。</strong
+                                    >学習目標の動詞（Explain／Select）は、求められる認知能力を示します。「Explain」は概念（メリット・デメリットやSDLCごとの適用など）を説明する能力、「Select」はSUTの特徴を踏まえて適したテスト自動化ツールを選択する能力を指します。
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="section" id="s2">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-target-arrow"></i></div>
+                        <div>
+                            <span class="eyebrow"
+                                >1.1 テスト自動化の目的（Purpose of Test Automation）</span
+                            >
+                            <h2>テスト自動化は何のために行うのか</h2>
+                        </div>
+                    </div>
+
+                    <h3><i class="ti ti-info-circle"></i>テスト自動化とは何か</h3>
+                    <p>
+                        シラバスでは、テスト自動化（自動テスト実行とテストレポーティングを含む）を、以下のいずれか、または複数の活動と定義しています。
+                    </p>
+                    <ul>
+                        <li>
+                            専用のソフトウェアツールを使ってテストスイートの制御・セットアップを行うこと
+                        </li>
+                        <li>テストを自動的な方法で実行すること</li>
+                        <li>
+                            実際の結果（actual results）と期待される結果（expected
+                            results）を比較すること
+                        </li>
+                    </ul>
+                    <p>
+                        テスト自動化はテスト対象システム（SUT）と相互作用する重要な機能・能力を提供します。対象範囲も幅広く、UIのあるSUT、UIのないSUT、モバイルアプリケーション、ネットワークプロトコル・接続など、多様なソフトウェアをカバーできます。
+                    </p>
+
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="purpose3"></div>
+                        <p class="cap">テスト自動化を構成する3つの活動と、それらが対象とするSUT</p>
+                    </div>
+
+                    <h3><i class="ti ti-thumb-up"></i>テスト自動化のメリット（Advantages）</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>メリット</th>
+                                    <th>解説</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="centered">1</td>
+                                    <td>ビルドあたりの実行テスト数増加</td>
+                                    <td>手動テストより多くのテストを1ビルドで実行できる</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">2</td>
+                                    <td>手動では不可能なテストの実現</td>
+                                    <td>
+                                        リアルタイム応答、リモートテスト、並行（並列）テストなど
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">3</td>
+                                    <td>より複雑なテストの実行</td>
+                                    <td>手動より複雑な条件・シナリオを扱える</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">4</td>
+                                    <td>実行速度の向上</td>
+                                    <td>手動テストより高速に実行できる</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">5</td>
+                                    <td>ヒューマンエラーの低減</td>
+                                    <td>人為的ミスの影響を受けにくい</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">6</td>
+                                    <td>テストリソースの効率的活用</td>
+                                    <td>人的リソースをより効果的・効率的に使える</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">7</td>
+                                    <td>迅速なフィードバック</td>
+                                    <td>SUTの品質について早期にフィードバックが得られる</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">8</td>
+                                    <td>システム信頼性の向上支援</td>
+                                    <td>
+                                        可用性・回復性（availability,
+                                        recoverability）などの向上に貢献
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">9</td>
+                                    <td>テスト実行の一貫性向上</td>
+                                    <td>テストサイクルをまたいで一貫した実行結果が得られる</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>
+                        <i class="ti ti-thumb-down"></i>テスト自動化のデメリット（Disadvantages）
+                    </h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>デメリット</th>
+                                    <th>解説</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="centered">1</td>
+                                    <td>追加コストの発生</td>
+                                    <td>
+                                        TAE（テスト自動化エンジニア）の採用、新規ハードウェア購入、トレーニング費用など
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">2</td>
+                                    <td>初期投資の必要性</td>
+                                    <td>テスト自動化ソリューション構築のための初期投資が必要</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">3</td>
+                                    <td>開発・保守にかかる時間</td>
+                                    <td>
+                                        ソリューションの開発と継続的なメンテナンスに時間がかかる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">4</td>
+                                    <td>明確な目的設定の必要性</td>
+                                    <td>成功のためには明確なテスト自動化の目的定義が不可欠</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">5</td>
+                                    <td>テストの硬直性</td>
+                                    <td>SUTの変更に対する適応力が手動テストより低い場合がある</td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">6</td>
+                                    <td>新たな欠陥混入のリスク</td>
+                                    <td>テスト自動化自体が新たな欠陥を持ち込む可能性がある</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3><i class="ti ti-alert-triangle"></i>テスト自動化の限界（Limitations）</h3>
+                    <p class="section-note">
+                        デメリットとは別に、シラバスでは「テスト自動化そのものが持つ限界」も明示しています。試験では「デメリット」と「限界」の区別を問われることがあるため注意しましょう。
+                    </p>
+                    <ul>
+                        <li>すべての手動テストが自動化できるわけではない</li>
+                        <li>自動化されたテストは、プログラムされた内容しか検証できない</li>
+                        <li>
+                            テスト自動化は機械で解釈可能な結果しか確認できないため、品質特性の一部は自動化で検証できない場合がある
+                        </li>
+                        <li>
+                            テスト自動化は、自動化されたテストオラクル（test
+                            oracle）で検証可能な結果しか確認できない
+                        </li>
+                    </ul>
+
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="decision"></div>
+                        <p class="cap">
+                            自動化するかどうかを判断する際の考え方（限界①③・限界④との対応）
+                        </p>
+                    </div>
+
+                    <div class="practice-card">
+                        <div class="practice-card-head">
+                            <i class="ti ti-bulb"></i
+                            ><span>ベストプラクティス：1.1 テスト自動化の目的</span>
+                        </div>
+                        <ul class="practice-list">
+                            <li>
+                                <span class="p-num">1</span>
+                                <div class="p-body">
+                                    <strong>メリット・デメリット・限界を分けて整理する。</strong
+                                    >面接や社内提案の場でも「デメリット（コストや保守負荷）」と「限界（手動テストの一部を自動化できないことや、プログラムされた内容しか検証できないことを含む自動化固有の制約・適用範囲）」を混同すると誤解を招くため、常に分離して説明できるようにしておく。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">2</span>
+                                <div class="p-body">
+                                    <strong>自動化の目的を最初に定義する。</strong
+                                    >デメリットの1つである「明確な目的設定の必要性」に対応するため、自動化プロジェクトの開始前に「何を、どのレベルで、なぜ自動化するのか」を明文化する。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">3</span>
+                                <div class="p-body">
+                                    <strong>テストオラクルの実現可能性を事前検証する。</strong
+                                    >機械判定できない品質特性（UIの見た目の美しさなど）は自動化の対象から除外するか、探索的テストなど別の検証手段と組み合わせる。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">4</span>
+                                <div class="p-body">
+                                    <strong>ROI（投資対効果）を継続的に可視化する。</strong
+                                    >初期投資と保守コストがかかる特性を踏まえ、自動化によるコスト削減・品質向上の効果を定量的に追跡し、経営層への説明材料とする。
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="section" id="s3">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-git-branch"></i></div>
+                        <div>
+                            <span class="eyebrow"
+                                >1.2 ソフトウェア開発ライフサイクルにおけるテスト自動化</span
+                            >
+                            <h2>SDLCモデルごとの適用のされ方（1.2.1）</h2>
+                        </div>
+                    </div>
+
+                    <h3><i class="ti ti-stairs"></i>ウォーターフォールモデル（Waterfall）</h3>
+                    <p>
+                        線形かつ逐次的なSDLCモデルで、要件定義・設計・実装・検証・保守という明確なフェーズを持ち、各フェーズは通常、承認が必要なドキュメント作成で終わります。テスト自動化の実装は、実装フェーズと並行して、または実装フェーズの後に行われるのが一般的です。ソフトウェアコンポーネントがテスト可能になるのが検証フェーズであるため、テスト実行も通常このフェーズで行われます。
+                    </p>
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="waterfall"></div>
+                        <p class="cap">
+                            ウォーターフォールモデルにおける自動化構築と実行のタイミング
+                        </p>
+                    </div>
+
+                    <h3><i class="ti ti-git-merge"></i>Vモデル（V-model）</h3>
+                    <p>
+                        Vモデルも逐次的に実行されるSDLCモデルですが、プロジェクトが高レベル要件から低レベル要件へと定義されるのに対応して、それぞれのテスト・統合活動が定義される点が特徴です。ここから、CTFLセクション2.2で説明されている伝統的なテストレベル（コンポーネント、コンポーネント統合、システム、システム統合、受け入れ）が導き出されます。<strong
+                            >各テストレベルごとにテスト自動化フレームワーク（TAF）を用意することが可能であり、推奨されています。</strong
+                        >
+                    </p>
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="vmodel"></div>
+                        <p class="cap">
+                            開発側の各フェーズ（左）と、それぞれに対応するテストレベル・TAF（右）
+                        </p>
+                    </div>
+
+                    <h3><i class="ti ti-recycle"></i>アジャイルソフトウェア開発（Agile）</h3>
+                    <p>
+                        アジャイル開発では、テスト自動化の可能性が非常に多岐にわたります。ウォーターフォールやVモデルと異なり、TAE（テスト自動化エンジニア）とビジネス側の代表者が、ロードマップやタイムライン、計画されたテストの提供時期を共同で決定できます。この方法では、コードレビュー、ペアプログラミング、頻繁な自動テスト実行といったベストプラクティスが存在します。開発者・テスター・その他ステークホルダー間のサイロ（分断）を排除することで、チームはすべてのテストレベルを適切な量・深さの自動化でカバーでき、<strong
+                            >「スプリント内自動化（in-sprint automation）」</strong
+                        >と呼ばれる目標を達成できます。
+                    </p>
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="agile"></div>
+                        <p class="cap">
+                            アジャイル開発における自動化の進め方と「スプリント内自動化」
+                        </p>
+                    </div>
+                    <p class="section-note">
+                        詳細はISTQB CT-TAS（Test Automation Strategy）シラバス
+                        セクション3.2に記載されています。
+                    </p>
+
+                    <h3><i class="ti ti-table"></i>SDLCモデル比較表</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>ウォーターフォール</th>
+                                    <th>Vモデル</th>
+                                    <th>アジャイル</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>プロセスの流れ</th>
+                                    <td>線形・逐次</td>
+                                    <td>逐次（開発と対応するテストを対で定義）</td>
+                                    <td>反復・漸進的</td>
+                                </tr>
+                                <tr>
+                                    <th>自動化構築のタイミング</th>
+                                    <td>実装フェーズと並行 or 実装後</td>
+                                    <td>各テストレベルの定義に合わせて計画的に構築</td>
+                                    <td>スプリントごとに継続的に構築・拡張</td>
+                                </tr>
+                                <tr>
+                                    <th>テスト実行のタイミング</th>
+                                    <td>検証フェーズ</td>
+                                    <td>各テストレベル（コンポーネント〜受け入れ）ごと</td>
+                                    <td>スプリント内で継続的（in-sprint automation）</td>
+                                </tr>
+                                <tr>
+                                    <th>推奨されるTAF構成</th>
+                                    <td>特に規定なし</td>
+                                    <td>テストレベルごとにTAFを用意することを推奨</td>
+                                    <td>チーム横断で協働しつつ全レベルをカバー</td>
+                                </tr>
+                                <tr>
+                                    <th>意思決定の主体</th>
+                                    <td>フェーズごとの承認プロセス</td>
+                                    <td>要件定義側とテスト側の対応関係</td>
+                                    <td>TAEとビジネス代表者が共同決定</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="practice-card">
+                        <div class="practice-card-head">
+                            <i class="ti ti-bulb"></i
+                            ><span>ベストプラクティス：SDLCモデルとテスト自動化</span>
+                        </div>
+                        <ul class="practice-list">
+                            <li>
+                                <span class="p-num">1</span>
+                                <div class="p-body">
+                                    <strong>モデルに応じて自動化の着手タイミングを設計する。</strong
+                                    >ウォーターフォールでは実装フェーズの終盤から自動化スクリプトの並行開発を始め、検証フェーズでボトルネックにならないよう準備する。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">2</span>
+                                <div class="p-body">
+                                    <strong
+                                        >Vモデルではテストレベルごとに責任分界を明確にする。</strong
+                                    >コンポーネントレベルは開発者、システム統合・受け入れレベルはTAE/テストチームというように、各レベルのTAFの所有者を明確にする。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">3</span>
+                                <div class="p-body">
+                                    <strong>アジャイルではサイロを解消する仕組みを作る。</strong
+                                    >デイリースクラムやペアプログラミングに自動化の話題を組み込み、開発者とTAEが同じ定義（Definition
+                                    of Done）を共有する。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">4</span>
+                                <div class="p-body">
+                                    <strong>in-sprint automationを目標に段階的に導入する。</strong
+                                    >いきなり全テストレベルの自動化を目指すのではなく、まずスモークテストレベルから自動化し、スプリントごとにカバレッジを拡大する。
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="section" id="s4">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-tools"></i></div>
+                        <div>
+                            <span class="eyebrow"
+                                >1.2.2 与えられたSUTに適したテスト自動化ツールの選定</span
+                            >
+                            <h2>ツールはどう選ぶべきか</h2>
+                        </div>
+                    </div>
+
+                    <p>
+                        適切なテストツールを識別するには、まず<strong>SUTを分析すること</strong>が出発点になります。TAEは、ツール選定のベースラインとなるプロジェクト要件を特定する必要があります。
+                    </p>
+                    <p>
+                        異なるテスト自動化ツールの機能は、UIソフトウェアとWebサービスなどでは異なるため、プロジェクトが長期的に何を達成したいのかを理解することが重要です。使用・選定できるテスト自動化ツールや機能の数に上限はありませんが、<strong>コストは常に考慮する必要があります</strong>。商用パッケージ製品（COTS）を使うか、オープンソース技術に基づくカスタムソリューションを実装するかは、いずれも複雑なプロセスになり得ます。
+                    </p>
+                    <p>
+                        次に評価すべき点は、<strong>チームのテスト自動化における構成と経験</strong>です。テスターがプログラミング経験をほとんど、あるいは全く持たない場合は、ローコード／ノーコードのソリューションが有効な選択肢となり得ます。
+                    </p>
+                    <p>
+                        プログラミング知識を持つ技術系テスターに対しては、<strong>SUTの言語と一致する言語のツールを選ぶこと</strong>が有用です。これにより、開発者とテスト自動化の欠陥をより効率的にデバッグできる、チーム間でメンバーを相互トレーニングしやすい、といった利点が得られます。
+                    </p>
+
+                    <div class="diagram-card">
+                        <div class="diagram-wrap" data-diagram="toolselect"></div>
+                        <p class="cap">SUTの分析からツール選定に至るまでの検討フロー</p>
+                    </div>
+
+                    <div class="practice-card">
+                        <div class="practice-card-head">
+                            <i class="ti ti-bulb"></i
+                            ><span>ベストプラクティス：ツール選定プロセス</span>
+                        </div>
+                        <ul class="practice-list">
+                            <li>
+                                <span class="p-num">1</span>
+                                <div class="p-body">
+                                    <strong>要件定義をツール選定より優先する。</strong
+                                    >ツールありきで進めるのではなく、SUTの技術特性（UI/API/モバイル/ネットワーク）とプロジェクトの長期ゴールを先に明文化する。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">2</span>
+                                <div class="p-body">
+                                    <strong>コストは「ライセンス費用」だけで判断しない。</strong
+                                    >教育コスト、保守コスト、拡張性（将来的なSUTの変化への追従コスト）まで含めたトータルコストで比較する。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">3</span>
+                                <div class="p-body">
+                                    <strong>チームのスキルセットを正直に評価する。</strong
+                                    >プログラミング経験が乏しいチームに高度なコードベースのフレームワークを導入すると保守が属人化・停滞するリスクが高いため、ローコード／ノーコードの選択肢も候補から外さない。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">4</span>
+                                <div class="p-body">
+                                    <strong>SUTと自動化ツールの言語親和性を重視する。</strong
+                                    >同一言語であれば開発者とテスターの相互レビューやペアデバッグが容易になり、結果的に欠陥の早期発見・修正につながる。
+                                </div>
+                            </li>
+                            <li>
+                                <span class="p-num">5</span>
+                                <div class="p-body">
+                                    <strong>PoC（概念実証）で複数候補を比較する。</strong
+                                    >本番導入前に小規模なパイロットで複数ツールを試し、実際のSUTに対する適合度を確認してから本格導入する。この評価プロセスの詳細は第2章で扱われます。
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="section" id="s5">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-checklist"></i></div>
+                        <div>
+                            <span class="eyebrow">章末チェックリストと試験対策のポイント</span>
+                            <h2>理解度セルフチェック</h2>
+                        </div>
+                    </div>
+
+                    <div class="check-progress-wrap">
+                        <div class="check-progress-bar">
+                            <div class="check-progress-fill" id="checkFill"></div>
+                        </div>
+                        <div class="check-progress-label" id="checkLabel">0 / 7 完了</div>
+                    </div>
+
+                    <ul class="check-list" id="checkList">
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >テスト自動化の定義（3つの活動）を自分の言葉で説明できる</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >メリット9項目・デメリット6項目・限界4項目を区別して説明できる</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >ウォーターフォール・Vモデル・アジャイルそれぞれで、自動化の「構築タイミング」と「実行タイミング」の違いを説明できる</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >Vモデルにおいて「テストレベルごとにTAFを用意することが推奨される」という記述を覚えている</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >アジャイルにおける「in-sprint
+                                    automation」という用語とその意味を説明できる</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >ツール選定において、SUTの分析→要件特定→コスト検討→チームスキル評価→言語親和性、という流れを説明できる</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label
+                                ><input type="checkbox" /><span class="txt"
+                                    >キーワード（system under test, test automation, test automation
+                                    engineer）を正確に説明できる</span
+                                ></label
+                            >
+                        </li>
+                    </ul>
+
+                    <div class="callout warn">
+                        <i class="ti ti-alert-triangle"></i>
+                        <div class="callout-body">
+                            <div class="callout-title">ベストプラクティス（試験対策）</div>
+                            <p>
+                                第1章はK2レベルのため、選択肢問題では「一見正しそうだが微妙にニュアンスが異なる」ダミー選択肢（例：デメリットと限界の入れ替え）が出やすい傾向があります。表形式で整理した項目を「デメリットか限界か」を即座に判別できるレベルまで整理しておきましょう。
+                            </p>
+                            <p>
+                                シラバス本文の因果関係（例：「プログラミング経験が少ない→ローコード/ノーコードが有効」）はシナリオ問題として出題されやすいため、単なる暗記でなく「なぜその選択が妥当なのか」を説明できるようにしておくことが重要です。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="section" id="s6">
+                    <div class="section-head">
+                        <div class="section-icon"><i class="ti ti-books"></i></div>
+                        <div>
+                            <span class="eyebrow">参考文献・出典</span>
+                            <h2>一次情報源</h2>
+                        </div>
+                    </div>
+
+                    <div class="ref-group">
+                        <h4>ISTQB® 公式資料</h4>
+                        <div class="ref-card">
+                            <i class="ti ti-certificate"></i>
+                            <div class="ref-card-body">
+                                <div class="ref-card-title">
+                                    ISTQB® Certified Tester Advanced Level Test Automation
+                                    Engineering（CTAL-TAE）v2.0 認定ページ
+                                </div>
+                                <a
+                                    href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/</a
+                                >
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <i class="ti ti-file-text"></i>
+                            <div class="ref-card-body">
+                                <div class="ref-card-title">
+                                    ISTQB® CTAL-TAE Syllabus
+                                    v2.0（本ガイドの一次情報源、第1章：pp.14-16）
+                                </div>
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="section-note">
+                        本ガイドは上記シラバス（2024年5月3日 GA Release,
+                        v2.0）の第1章の内容を初学者向けに要約・図解したものです。本文中で言及されている関連シラバス（ISTQB
+                        CT-TAS：Test Automation Strategy 等）については、必要に応じてISTQB®
+                        公式サイト（<a href="https://istqb.org" target="_blank" rel="noopener"
+                            >istqb.org</a
+                        >）で最新情報をご確認ください。試験の正式な出題範囲は必ず原文シラバスでご確認ください。
+                    </p>
+                </section>
+
+                <footer class="site-footer">
+                    <p>
+                        CTAL-TAE v2.0 第1章「Introduction and Objectives for Test
+                        Automation」初学者向け解説ガイド ― ISTQB® CTAL-TAE Syllabus v2.0
+                        をもとに作成。
+                    </p>
+                </footer>
+            </div>
+        </div>
+        <script>
+            (function () {
+                'use strict';
+
+                // ---------- Mermaid diagram sources (JS template literals — never raw <div class="mermaid">) ----------
+                var DIAGRAMS = {
+                    roadmap:
+                        'flowchart TD\n' +
+                        '    C1["第1章　導入と目的　45分"]:::box\n' +
+                        '    C2["第2章　準備　180分"]\n' +
+                        '    C3["第3章　アーキテクチャ　210分"]\n' +
+                        '    C4["第4章　実装　150分"]\n' +
+                        '    C5["第5章　CI・CD統合　90分"]\n' +
+                        '    C6["第6章　レポーティング　150分"]\n' +
+                        '    C7["第7章　検証　135分"]\n' +
+                        '    C8["第8章　継続的改善　210分"]\n' +
+                        '    C1 --> C2 --> C3 --> C4 --> C5 --> C6 --> C7 --> C8\n',
+
+                    purpose3:
+                        'flowchart TB\n' +
+                        '    A1["①テストスイートの制御・セットアップ"]:::box\n' +
+                        '    A2["②テストの自動実行"]:::hub\n' +
+                        '    A3["③実際の結果と期待結果の比較"]:::done\n' +
+                        '    A1 --> SUT\n' +
+                        '    A2 --> SUT\n' +
+                        '    A3 --> SUT\n' +
+                        '    SUT["SUT　テスト対象システム"]\n',
+
+                    decision:
+                        'flowchart TD\n' +
+                        '    Q["自動化するかどうかの判断"]:::hub --> D1{"結果は機械で判定可能か"}\n' +
+                        '    D1 -- はい --> D2{"テストオラクルを実装できるか"}\n' +
+                        '    D1 -- いいえ --> M["手動テストが必要　限界①③に該当"]:::box\n' +
+                        '    D2 -- はい --> AUTO["自動化に適する"]:::done\n' +
+                        '    D2 -- いいえ --> M2["手動テストが必要　限界④に該当"]:::box\n',
+
+                    waterfall:
+                        'flowchart TB\n' +
+                        '    R["要件定義"] --> D["設計"]\n' +
+                        '    D --> I["実装　自動化構築が並行・後追いで進む"]:::hub\n' +
+                        '    I --> V["検証　テスト実行はここで実施"]:::box\n' +
+                        '    V --> M["保守"]\n',
+
+                    vmodel:
+                        'flowchart TB\n' +
+                        '    L1["要件定義"]:::hub --> L2["方式設計"]\n' +
+                        '    L2 --> L3["詳細設計"]\n' +
+                        '    L3 --> L4["実装"]\n' +
+                        '    R5["コンポーネントテスト　TAF"] --> R4["コンポーネント統合テスト　TAF"]\n' +
+                        '    R4 --> R3["システムテスト　TAF"]\n' +
+                        '    R3 --> R2["システム統合テスト　TAF"]\n' +
+                        '    R2 --> R1["受け入れテスト　TAF"]:::done\n' +
+                        '    L1 -.->|"対応"| R1\n' +
+                        '    L2 -.->|"対応"| R2\n' +
+                        '    L2 -.->|"対応"| R3\n' +
+                        '    L3 -.->|"対応"| R4\n' +
+                        '    L4 --> R5\n',
+
+                    agile:
+                        'flowchart TB\n' +
+                        '    S["スプリント計画　TAEとビジネス代表が共同でロードマップ決定"]:::hub --> P["ペアプログラミング・コードレビュー"]\n' +
+                        '    P --> A["頻繁な自動テスト実行"]\n' +
+                        '    A --> G["サイロの排除　開発者・テスター・ステークホルダーが協働"]\n' +
+                        '    G --> IS["スプリント内自動化　in-sprint automation"]:::done\n',
+
+                    toolselect:
+                        'flowchart TD\n' +
+                        '    Start["SUTの分析開始"]:::hub --> Req["プロジェクト要件の特定　ツール選定のベースライン"]\n' +
+                        '    Req --> Type["SUTの種類は　UIあり・なし　Web・モバイル等"]\n' +
+                        '    Type --> Cost["コストを考慮した選択肢の絞り込み　COTSまたはOSSベースの自作"]\n' +
+                        '    Cost --> Skill{"チームのプログラミング経験は"}\n' +
+                        '    Skill -- 少ない・なし --> LowCode["ローコード・ノーコードツールを検討"]\n' +
+                        '    Skill -- 十分にある --> LangMatch["SUTと同じ言語のツールも検討"]\n' +
+                        '    LangMatch --> Benefit["開発者との協働・デバッグ効率が向上　チーム間の相互トレーニングが容易"]:::done\n',
+                };
+
+                var CLASSDEFS =
+                    '\n    classDef box fill:#f5ead0,stroke:#8a6a1f,color:#5c4310\n' +
+                    '    classDef hub fill:#e0e3fa,stroke:#3538a6,color:#22246b\n' +
+                    '    classDef done fill:#dcf3e3,stroke:#1f6b3f,color:#154d2c\n';
+
+                var mermaidReady = false;
+                try {
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        securityLevel: 'loose',
+                        themeVariables: {
+                            primaryColor: '#fffdf8',
+                            primaryTextColor: '#2b2620',
+                            primaryBorderColor: '#c9bfa8',
+                            lineColor: '#8a7f68',
+                            secondaryColor: '#f3ede2',
+                            tertiaryColor: '#faf7f2',
+                            fontFamily:
+                                '-apple-system,BlinkMacSystemFont,Hiragino Kaku Gothic ProN,Hiragino Sans,Yu Gothic,sans-serif',
+                            fontSize: '16px',
+                        },
+                    });
+                    mermaidReady = true;
+                } catch (e) {
+                    console.error('mermaid init failed', e);
+                }
+
+                function renderDiagrams() {
+                    var targets = document.querySelectorAll('[data-diagram]');
+                    if (!mermaidReady) {
+                        // Mermaid が読み込めなかった場合は、空の図領域を残さず代替表示を出す
+                        targets.forEach(function (el) {
+                            el.innerHTML =
+                                '<p style="color:#b23b3b;font-size:1rem">Mermaid を読み込めなかったため、図を描画できませんでした。</p>';
+                        });
+                        return;
+                    }
+                    targets.forEach(function (el, idx) {
+                        var key = el.getAttribute('data-diagram');
+                        var src = DIAGRAMS[key];
+                        if (!src) return;
+                        var full = src + CLASSDEFS;
+                        var id = 'mmd-' + key + '-' + idx;
+                        mermaid
+                            .render(id, full)
+                            .then(function (res) {
+                                el.innerHTML = res.svg;
+                                var svg = el.querySelector('svg');
+                                if (svg) {
+                                    var vb = svg.getAttribute('viewBox');
+                                    if (vb) {
+                                        var parts = vb.split(/\s+/);
+                                        var w = parseFloat(parts[2]);
+                                        if (w) svg.style.width = w + 'px';
+                                    }
+                                    svg.removeAttribute('width');
+                                    svg.removeAttribute('height');
+                                    svg.style.maxWidth = 'none';
+                                    svg.style.height = 'auto';
+                                    svg.style.overflow = 'visible';
+                                    svg.style.flexShrink = '0';
+                                }
+                            })
+                            .catch(function (err) {
+                                el.innerHTML =
+                                    '<p style="color:#b23b3b;font-size:1rem">図の描画に失敗しました。</p>';
+                                console.error('mermaid render failed for ' + key, err);
+                            });
+                    });
+                }
+                renderDiagrams();
+
+                // ---------- Sidebar scroll-position highlighting (line-crossing, not IntersectionObserver) ----------
+                var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+                var navTargets = navLinks
+                    .map(function (a) {
+                        return { link: a, el: document.querySelector(a.getAttribute('href')) };
+                    })
+                    .filter(function (t) {
+                        return t.el;
+                    });
+
+                var ticking = false;
+                function updateActiveNav() {
+                    ticking = false;
+                    var thresholdY = window.innerHeight * 0.25;
+                    var active = null;
+                    for (var i = 0; i < navTargets.length; i++) {
+                        var rect = navTargets[i].el.getBoundingClientRect();
+                        if (rect.top <= thresholdY) active = navTargets[i];
+                    }
+                    if (!active) active = navTargets[0];
+                    navLinks.forEach(function (a) {
+                        a.classList.remove('active');
+                    });
+                    if (active) active.link.classList.add('active');
+                }
+                window.addEventListener(
+                    'scroll',
+                    function () {
+                        if (!ticking) {
+                            window.requestAnimationFrame(updateActiveNav);
+                            ticking = true;
+                        }
+                    },
+                    { passive: true },
+                );
+                updateActiveNav();
+
+                // ---------- Mobile menu ----------
+                var menuBtn = document.getElementById('menuBtn');
+                var sidebar = document.getElementById('sidebar');
+                if (menuBtn && sidebar) {
+                    menuBtn.addEventListener('click', function () {
+                        var isOpen = sidebar.classList.toggle('open');
+                        // 開いたら最初のナビリンクへフォーカスを移す
+                        if (isOpen && navLinks.length) navLinks[0].focus();
+                    });
+                    // 開いたサイドバーが #menuBtn を覆うため、サイドバー内の閉じるボタンで閉じられるようにする
+                    var sidebarClose = document.getElementById('sidebarClose');
+                    if (sidebarClose) {
+                        sidebarClose.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                            menuBtn.focus();
+                        });
+                    }
+                    // サイドバー外のタップでも閉じる（#menuBtn 自身のクリックはトグル処理に任せる）
+                    document.addEventListener('click', function (e) {
+                        if (!sidebar.classList.contains('open')) return;
+                        if (sidebar.contains(e.target) || menuBtn.contains(e.target)) return;
+                        sidebar.classList.remove('open');
+                    });
+                    document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                            sidebar.classList.remove('open');
+                            // 閉じたら開いたボタンへフォーカスを戻す
+                            menuBtn.focus();
+                        }
+                    });
+                    navLinks.forEach(function (a) {
+                        a.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                        });
+                    });
+                }
+
+                // ---------- Checklist counter ----------
+                var checkList = document.getElementById('checkList');
+                var checkFill = document.getElementById('checkFill');
+                var checkLabel = document.getElementById('checkLabel');
+                if (checkList && checkFill && checkLabel) {
+                    var boxes = Array.prototype.slice.call(
+                        checkList.querySelectorAll('input[type=checkbox]'),
+                    );
+                    function updateChecklist() {
+                        var done = boxes.filter(function (b) {
+                            return b.checked;
+                        }).length;
+                        var total = boxes.length;
+                        checkFill.style.width = (total ? (done / total) * 100 : 0) + '%';
+                        checkLabel.textContent = done + ' / ' + total + ' 完了';
+                        boxes.forEach(function (b) {
+                            var li = b.closest('li');
+                            if (li) li.classList.toggle('done', b.checked);
+                        });
+                    }
+                    boxes.forEach(function (b) {
+                        b.addEventListener('change', updateChecklist);
+                    });
+                    updateChecklist();
+                }
+            })();
+        </script>
+    </body>
+</html>

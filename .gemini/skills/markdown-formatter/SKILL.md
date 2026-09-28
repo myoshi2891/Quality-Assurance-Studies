@@ -171,11 +171,40 @@ bun x markdownlint-cli <file_path>
 
 変更したファイルを Git にステージング（`git add`）した後、リポジトリのセキュリティ規則（`no-absolute-paths.md`）に基づき、絶対パスや PII が含まれていないか必ず検証します。
 
-> [!IMPORTANT]
-> 以下のコマンド例に含まれる `-vE 'johndoe'` は、ドキュメント用の例示（プレースホルダー除外）であり、実際の検証ではすべての絶対パスを検出するため、この除外フィルタを使用しないでください。
-
 ```bash
-git diff --cached | grep -E '^\+[^+]' | grep -E '(/Users/|/home/|C:\\Users\\)' | grep -vE 'johndoe'
+# 追加行から絶対パス部分だけを抽出してから、ホーム直下のユーザー名が johndoe であるもの（プレースホルダー）だけを除外する
+# （行単位で除外すると、同じ行にある他の実パスまで見逃すため）
+# ただし johndoe/../ のように ".." セグメントで別ユーザーのディレクトリへ抜けるパスは除外しない
+# 追加行の抽出は diff ヘッダー（diff --git 〜 最初の @@）だけを除外し、先頭の + を 1 文字だけ外す（"+" で始まる追加内容も走査対象に残す）
+# 各段階の失敗を「該当なし」と区別する: git / awk の失敗は pipefail で検出し、grep は 1（該当なし）のみを正常とみなす
+# --text でバイナリ扱いのファイルも中身を差分に含め、NUL は空白に置き換えて awk が行を途中で打ち切らないようにする（走査から漏らさない）
+if ! added=$(set -o pipefail; git diff --cached --text | tr '\000' ' ' | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+  echo "diff extraction failed — abort commit" >&2
+  exit 1
+fi
+# grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
+if paths=$(printf '%s\n' "$added" | grep -oE '(/User[s]/|/hom[e]/|C:\\User[s]\\|(^|[^A-Za-z0-9._~/-])/(op[t]|sr[v]|workspac[e])/)[^[:space:]"'\''`]*'); then
+  rc=0
+else
+  rc=$?
+fi
+if [ "$rc" -gt 1 ]; then
+  echo "grep failed (exit $rc) — abort commit" >&2
+  exit 1
+fi
+if [ "$rc" -eq 0 ]; then
+  if ! hits=$(printf '%s\n' "$paths" | awk '/(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
+         !/^(\/User[s]\/|\/hom[e]\/|C:\\User[s]\\)johndoe([\/\\]|$)/'); then
+    echo "placeholder filter failed — abort commit" >&2
+    exit 1
+  fi
+  if [ -n "$hits" ]; then
+    printf '%s\n' "$hits"
+    echo "PII detected — abort commit" >&2
+    exit 1
+  fi
+fi
+echo "PII check passed"
 ```
 
 検証が成功（何も検出されない）したことを確認してから、コミットを適用してください。

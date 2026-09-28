@@ -123,7 +123,11 @@ export default function NavBar() {
                 const visible = Array.from(visibility.entries())
                     .filter(([, isVisible]) => isVisible)
                     .map(([el]) => el);
-                if (!visible.length) return;
+                if (!visible.length) {
+                    // ページ最上部で監視中の見出しがどれも領域内にない場合は、直前の選択を残さず解除する
+                    if (window.scrollY < 220) setActiveId('');
+                    return;
+                }
 
                 const topMost = visible.reduce((a, b) =>
                     a.getBoundingClientRect().top <= b.getBoundingClientRect().top ? a : b

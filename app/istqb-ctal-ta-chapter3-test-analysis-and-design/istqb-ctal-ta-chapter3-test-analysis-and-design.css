@@ -219,7 +219,7 @@
 .ctal-ta-ch3-page td {
     color: var(--text) !important; background: var(--surface) !important;
     padding: 11px 16px; border-top: 1px solid var(--border);
-    vertical-align: top; font-size: 0.92rem !important; line-height: 1.65;
+    vertical-align: top; font-size: 1rem !important; line-height: 1.65;
 }
 .ctal-ta-ch3-page tbody tr.odd td,
 .ctal-ta-ch3-page tbody tr:nth-child(odd) td { background: var(--surface) !important; }

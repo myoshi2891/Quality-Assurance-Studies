@@ -1,0 +1,1655 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            CTAL-TAE v2.0 Ch.5 解説ガイド | Implementation and Deployment Strategies for Test
+            Automation
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --color-paper: #f6f7f9;
+                --color-card: #ffffff;
+                --color-ink: #161b26;
+                --color-ink-secondary: #454e60;
+                --color-ink-tertiary: #6b7488;
+                --color-indigo: #2e3f72;
+                --color-indigo-tint: #eef1f8;
+                --color-gold: #b8802a;
+                --color-gold-tint: #faf1df;
+                --color-forest: #1b6e6a;
+                --color-forest-tint: #eaf4ec;
+                --color-plum: #8c3a5c;
+                --color-plum-tint: #f7eaf0;
+                --color-border: #e3e6ec;
+                --color-border-strong: #c7cdd9;
+                --radius-md: 8px;
+                --radius-lg: 12px;
+                --radius-xl: 16px;
+                --font-serif: 'Source Serif 4', serif;
+                --font-sans:
+                    'Noto Sans JP', 'Hiragino Kaku Gothic ProN', system-ui, -apple-system,
+                    sans-serif;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--color-paper);
+                color: var(--color-ink-secondary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                -webkit-font-smoothing: antialiased;
+            }
+            .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 288px;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--color-card);
+                border-right: 1px solid var(--color-border);
+                padding: 32px 22px 40px;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding-bottom: 22px;
+                margin-bottom: 22px;
+                border-bottom: 1px solid var(--color-border);
+            }
+            .brand-seal {
+                width: 46px;
+                height: 46px;
+                flex-shrink: 0;
+            }
+            .brand-text .brand-title {
+                font-family: var(--font-serif);
+                font-size: 17px;
+                font-weight: 700;
+                color: var(--color-indigo);
+                line-height: 1.35;
+            }
+            .brand-text .brand-subtitle {
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+                margin-top: 3px;
+            }
+            .nav {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .nav-link {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 10px;
+                border-radius: var(--radius-md);
+                text-decoration: none;
+                color: var(--color-ink-secondary);
+                font-size: 16px;
+                line-height: 1.35;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+            .nav-link:hover {
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+            }
+            .nav-link.active {
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+                border-left-color: var(--color-indigo);
+                font-weight: 600;
+            }
+            .nav-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 26px;
+                height: 26px;
+                border-radius: 999px;
+                background: var(--color-paper);
+                border: 1px solid var(--color-border-strong);
+                color: var(--color-ink-tertiary);
+                font-size: 16px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .nav-link.active .nav-badge {
+                background: var(--color-indigo);
+                border-color: var(--color-indigo);
+                color: #fff;
+            }
+            .sidebar-foot {
+                margin-top: 26px;
+                padding-top: 18px;
+                border-top: 1px solid var(--color-border);
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+            }
+            .sidebar-foot a {
+                color: var(--color-indigo);
+            }
+
+            /* ---------- Main content ---------- */
+            .main-content {
+                margin-left: 288px;
+                padding: 56px 64px 100px;
+            }
+
+            .hero {
+                padding-bottom: 36px;
+                border-bottom: 1px solid var(--color-border);
+                margin-bottom: 12px;
+            }
+            .hero-label {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--color-gold);
+                letter-spacing: 0.03em;
+                margin-bottom: 14px;
+            }
+            .hero h1 {
+                font-family: var(--font-serif);
+                font-size: 34px;
+                font-weight: 700;
+                color: var(--color-ink);
+                line-height: 1.45;
+                margin: 0 0 20px;
+            }
+            .meta-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 8px 16px;
+                border-radius: 999px;
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .chip.chip-accent {
+                background: var(--color-plum-tint);
+                color: var(--color-plum);
+            }
+            .chip i {
+                font-size: 16px;
+            }
+
+            .section-head {
+                display: flex;
+                align-items: baseline;
+                gap: 16px;
+                margin: 60px 0 22px;
+                padding-bottom: 14px;
+                border-bottom: 2px solid var(--color-border);
+            }
+            section:first-of-type .section-head {
+                margin-top: 36px;
+            }
+            .section-num {
+                font-family: var(--font-serif);
+                font-size: 38px;
+                font-weight: 700;
+                color: var(--color-gold);
+                line-height: 1;
+            }
+            .section-head h2 {
+                font-family: var(--font-serif);
+                font-size: 25px;
+                font-weight: 700;
+                color: var(--color-indigo);
+                margin: 0;
+                line-height: 1.4;
+            }
+
+            h3 {
+                font-family: var(--font-serif);
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--color-ink);
+                margin: 38px 0 14px;
+            }
+            h4 {
+                font-family: var(--font-serif);
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--color-indigo);
+                margin: 28px 0 12px;
+            }
+
+            .prose p {
+                font-size: 16px;
+                line-height: 1.85;
+                color: var(--color-ink-secondary);
+                margin: 16px 0;
+            }
+            .prose strong {
+                color: var(--color-ink);
+                font-weight: 700;
+            }
+            .prose ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 16px 0;
+            }
+            .prose ul li {
+                position: relative;
+                padding-left: 22px;
+                margin-bottom: 10px;
+                font-size: 16px;
+                line-height: 1.8;
+                color: var(--color-ink-secondary);
+            }
+            .prose ul li::before {
+                content: '';
+                position: absolute;
+                left: 4px;
+                top: 11px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--color-indigo);
+            }
+            .prose ul li strong {
+                color: var(--color-ink);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 22px 0;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--color-card);
+            }
+            thead th {
+                background: var(--color-indigo);
+                color: #fff;
+                font-size: 16px;
+                font-weight: 600;
+                text-align: left;
+                padding: 13px 18px;
+                white-space: nowrap;
+            }
+            tbody td {
+                font-size: 16px;
+                padding: 13px 18px;
+                border-top: 1px solid var(--color-border);
+                vertical-align: top;
+                line-height: 1.75;
+                color: var(--color-ink-secondary);
+            }
+            tbody td strong {
+                color: var(--color-ink);
+            }
+            tbody tr:nth-child(even) {
+                background: #fbfbfd;
+            }
+            tbody td:first-child {
+                color: var(--color-ink);
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            /* ---------- Callouts (exactly 3 types) ---------- */
+            .callout {
+                border: 1px solid;
+                border-radius: var(--radius-lg);
+                padding: 20px 24px;
+                margin: 28px 0;
+                background: var(--color-card);
+            }
+            .callout-head {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                font-weight: 700;
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            .callout-head i {
+                font-size: 18px;
+            }
+            .callout p {
+                font-size: 16px;
+                line-height: 1.8;
+                color: var(--color-ink-secondary);
+                margin: 0;
+            }
+            .callout ul {
+                padding-left: 22px;
+                margin: 0;
+            }
+            .callout li {
+                font-size: 16px;
+                line-height: 1.8;
+                color: var(--color-ink-secondary);
+                margin-bottom: 8px;
+            }
+            .callout li:last-child {
+                margin-bottom: 0;
+            }
+            .callout li strong {
+                color: var(--color-ink);
+            }
+            .callout.practice {
+                border-color: var(--color-gold);
+                background: var(--color-gold-tint);
+            }
+            .callout.practice .callout-head {
+                color: var(--color-gold);
+            }
+            .callout.source {
+                border-color: var(--color-forest);
+                background: var(--color-forest-tint);
+            }
+            .callout.source .callout-head {
+                color: var(--color-forest);
+            }
+            .callout.note {
+                border-color: var(--color-plum);
+                background: var(--color-plum-tint);
+            }
+            .callout.note .callout-head {
+                color: var(--color-plum);
+            }
+
+            /* ---------- Mermaid diagrams ---------- */
+            .diagram-card {
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-card);
+                padding: 28px;
+                margin: 30px 0;
+            }
+            .diagram-caption {
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+                margin-bottom: 6px;
+                font-weight: 600;
+            }
+            .mermaid-diagram {
+                width: 100%;
+                display: flex;
+                /* 幅に収まる図は中央寄せ、はみ出す図は左端から横スクロールできるようにする */
+                justify-content: safe center;
+                overflow-x: auto;
+            }
+            .mermaid-diagram svg {
+                overflow: visible;
+            }
+            .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .mermaid-diagram .cluster-label div,
+            .mermaid-diagram .cluster-label span,
+            .mermaid-diagram .edgeLabel div,
+            .mermaid-diagram .edgeLabel span {
+                max-width: none !important;
+                white-space: nowrap !important;
+            }
+            .diagram-loading {
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+                padding: 40px 0;
+                text-align: center;
+            }
+
+            /* ---------- Checklist ---------- */
+            .checklist {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin: 24px 0;
+            }
+            .checklist-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 16px 18px;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-card);
+                cursor: pointer;
+                transition:
+                    background 0.15s,
+                    border-color 0.15s;
+            }
+            .checklist-item:hover {
+                border-color: var(--color-border-strong);
+            }
+            .checklist-item input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+                margin-top: 2px;
+                border: 2px solid var(--color-border-strong);
+                border-radius: 6px;
+                background: #fff;
+                cursor: pointer;
+                position: relative;
+            }
+            .checklist-item input[type='checkbox']:checked {
+                background: var(--color-forest);
+                border-color: var(--color-forest);
+            }
+            .checklist-item input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 7px;
+                top: 3px;
+                width: 6px;
+                height: 12px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(40deg);
+            }
+            .checklist-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 30px;
+                height: 30px;
+                padding: 0 6px;
+                border-radius: 999px;
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+                font-size: 16px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .checklist-text {
+                font-size: 16px;
+                line-height: 1.75;
+                color: var(--color-ink);
+                padding-top: 2px;
+            }
+            .checklist-item:has(input:checked) {
+                background: var(--color-forest-tint);
+                border-color: var(--color-forest);
+            }
+            .checklist-item:has(input:checked) .checklist-text {
+                text-decoration: line-through;
+                color: var(--color-ink-tertiary);
+            }
+            .checklist-item:has(input:checked) .checklist-badge {
+                background: var(--color-forest);
+                color: #fff;
+            }
+
+            /* ---------- Reference cards ---------- */
+            .ref-list {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                margin: 24px 0;
+            }
+            .ref-card {
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+                padding: 18px 20px;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-card);
+            }
+            .ref-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                flex-shrink: 0;
+                border-radius: 999px;
+                background: var(--color-gold);
+                color: #fff;
+                font-size: 16px;
+                font-weight: 700;
+            }
+            .ref-body {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .ref-title {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--color-ink);
+                line-height: 1.6;
+            }
+            .ref-url {
+                font-size: 16px;
+                color: var(--color-indigo);
+                word-break: break-all;
+                text-decoration: none;
+            }
+            .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            footer {
+                margin-top: 60px;
+                padding-top: 24px;
+                border-top: 1px solid var(--color-border);
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+            }
+
+            @media (max-width: 860px) {
+                .sidebar {
+                    position: static;
+                    width: 100%;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid var(--color-border);
+                }
+                .main-content {
+                    margin-left: 0;
+                    padding: 36px 22px 64px;
+                }
+                .section-num {
+                    font-size: 30px;
+                }
+                .hero h1 {
+                    font-size: 27px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <aside class="sidebar">
+                <div class="brand">
+                    <svg
+                        class="brand-seal"
+                        viewBox="0 0 48 48"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <circle
+                            cx="24"
+                            cy="24"
+                            r="22"
+                            fill="none"
+                            stroke="#2E3F72"
+                            stroke-width="2"
+                        ></circle>
+                        <circle
+                            cx="24"
+                            cy="24"
+                            r="17"
+                            fill="#EEF1F8"
+                            stroke="#B8802A"
+                            stroke-width="1.5"
+                        ></circle>
+                        <text
+                            x="24"
+                            y="21"
+                            text-anchor="middle"
+                            font-family="'Source Serif 4', serif"
+                            font-size="9.5"
+                            font-weight="700"
+                            fill="#2E3F72"
+                        >
+                            CTAL
+                        </text>
+                        <text
+                            x="24"
+                            y="33"
+                            text-anchor="middle"
+                            font-family="'Source Serif 4', serif"
+                            font-size="9.5"
+                            font-weight="700"
+                            fill="#B8802A"
+                        >
+                            TAE
+                        </text>
+                    </svg>
+                    <div class="brand-text">
+                        <div class="brand-title">CTAL&#8209;TAE v2.0</div>
+                        <div class="brand-subtitle">Chapter 5 解説ガイド</div>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a class="nav-link" href="#sec-0" data-target="sec-0"
+                        ><span class="nav-badge">0</span><span>この章で学ぶこと</span></a
+                    >
+                    <a class="nav-link" href="#sec-1" data-target="sec-1"
+                        ><span class="nav-badge">1</span><span>5.1.1 テストレベルの適用</span></a
+                    >
+                    <a class="nav-link" href="#sec-2" data-target="sec-2"
+                        ><span class="nav-badge">2</span><span>5.1.2 構成管理</span></a
+                    >
+                    <a class="nav-link" href="#sec-3" data-target="sec-3"
+                        ><span class="nav-badge">3</span
+                        ><span>5.1.3 APIとコントラクトテスト</span></a
+                    >
+                    <a class="nav-link" href="#sec-4" data-target="sec-4"
+                        ><span class="nav-badge">4</span><span>統合フロー図</span></a
+                    >
+                    <a class="nav-link" href="#sec-5" data-target="sec-5"
+                        ><span class="nav-badge">5</span><span>学習目標チェックリスト</span></a
+                    >
+                    <a class="nav-link" href="#sec-6" data-target="sec-6"
+                        ><span class="nav-badge">6</span><span>参考・出典</span></a
+                    >
+                </nav>
+                <div class="sidebar-foot">
+                    ISTQB® CTAL&#8209;TAE v2.0<br />
+                    <a
+                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                        target="_blank"
+                        rel="noopener"
+                        >公式シラバス（PDF）</a
+                    >
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <div class="hero">
+                    <div class="hero-label">ISTQB® CERTIFIED TESTER ADVANCED LEVEL</div>
+                    <h1>
+                        CTAL&#8209;TAE v2.0 Ch.5「Implementation and Deployment Strategies for Test
+                        Automation」<br />初学者向け解説ガイド
+                    </h1>
+                    <div class="meta-row">
+                        <span class="chip"
+                            ><i class="ti ti-certificate"></i>対象試験：CTAL&#8209;TAE v2.0</span
+                        >
+                        <span class="chip"
+                            ><i class="ti ti-clock-hour-4"></i>90分 ・ 認知レベル K3（Apply）</span
+                        >
+                        <span class="chip chip-accent"
+                            ><i class="ti ti-key"></i>キーワード：contract
+                            testing（コントラクトテスト）</span
+                        >
+                    </div>
+                </div>
+
+                <!-- ============ 0. Overview ============ -->
+                <section id="sec-0">
+                    <div class="section-head">
+                        <span class="section-num">0</span>
+                        <h2>この章で学ぶこと（全体像）</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            Chapter 5 は、これまでの章（Ch.1〜Ch.4
+                            でテスト自動化の目的・準備・アーキテクチャ・実装方法を学んだ）の集大成として、<strong
+                                >実装したテスト自動化ソリューション（TAS）を実際の CI/CD
+                                パイプラインにどう組み込み、どう運用・維持していくか</strong
+                            >を扱います。
+                        </p>
+                        <p>学習目標（Learning Objectives）は次の3つです。</p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>認知レベル</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TAE&#8209;5.1.1</td>
+                                    <td>K3（Apply）</td>
+                                    <td>
+                                        パイプライン内の異なるテストレベルにテスト自動化を適用する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TAE&#8209;5.1.2</td>
+                                    <td>K2（Understand）</td>
+                                    <td>
+                                        テストウェアの構成管理（Configuration Management）を説明する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TAE&#8209;5.1.3</td>
+                                    <td>K2（Understand）</td>
+                                    <td>
+                                        API
+                                        インフラストラクチャに対するテスト自動化の依存関係を説明する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            この章は大きく1つの節「5.1 Integration to CI/CD
+                            Pipelines（CI/CDパイプラインへの統合）」で構成されており、その中に上記3つのサブテーマが含まれます。
+                        </p>
+                    </div>
+                    <div class="diagram-card">
+                        <div class="diagram-caption">図0：Chapter 5 の全体構成</div>
+                        <div class="mermaid-diagram" data-diagram="overview">
+                            <div class="diagram-loading">図を描画しています…</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ 1. 5.1.1 ============ -->
+                <section id="sec-1">
+                    <div class="section-head">
+                        <span class="section-num">1</span>
+                        <h2>5.1.1 パイプライン内の異なるテストレベルへのテスト自動化の適用</h2>
+                    </div>
+
+                    <h3>1.1 なぜテスト自動化とパイプラインの相性が良いのか</h3>
+                    <div class="prose">
+                        <p>
+                            テスト自動化の最大の利点の一つは、<strong>人手を介さず（unattended）に実行できる</strong>ことです。この特性により、自動化されたテストは
+                            CI/CD
+                            パイプラインや定期実行パイプラインに組み込む理想的な候補になります。
+                        </p>
+                    </div>
+
+                    <h3>1.2 テストレベルごとのパイプライン統合パターン</h3>
+                    <div class="prose">
+                        <p>
+                            シラバスでは、伝統的なテストレベル（コンポーネントテスト、コンポーネント統合テスト、システムテスト、システム統合テスト）がパイプラインの中でどう位置づけられるかを説明しています。
+                        </p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>テストレベル</th>
+                                    <th>パイプライン上の位置づけ</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>コンフィギュレーションテスト（TAF/TAS）</td>
+                                    <td>ビルド時</td>
+                                    <td>
+                                        コンポーネントテストの一種とみなせる。テストスクリプトが使用するファイルへのパスが正しいか、ファイルが実際に指定場所に存在するかを確認する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>コンポーネントテスト</td>
+                                    <td>ビルドステップの一部</td>
+                                    <td>
+                                        ライブラリクラスや Web
+                                        コンポーネントなど個々のコンポーネントに対して実行。継続的インテグレーション（CI）パイプラインの<strong>品質ゲート</strong>として重要な役割を持つ
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>コンポーネント統合テスト</td>
+                                    <td>CIパイプラインの一部</td>
+                                    <td>
+                                        低レベルコンポーネントや SUT
+                                        を対象とする場合、コンポーネントテストと合わせて実行される
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>システムテスト</td>
+                                    <td>継続的デプロイメント（CD）パイプライン</td>
+                                    <td>
+                                        提供される SUT
+                                        に対する<strong>最後の品質ゲート</strong>として機能することが多い
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>システム統合テスト</td>
+                                    <td>継続的デリバリーパイプライン</td>
+                                    <td>
+                                        個別に開発されたシステムコンポーネント同士が正しく連携して動作することを保証する品質ゲート
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="callout note">
+                        <div class="callout-head">
+                            <i class="ti ti-info-circle"></i><span>補足</span>
+                        </div>
+                        <p>
+                            多くの最新のCIシステムは、継続的デリバリーパイプラインを「ビルドフェーズ」と「デプロイフェーズ」に分けて考えます。この場合、コンポーネントテスト・コンポーネント統合テストは最初のビルドフェーズに属し、これが成功した場合にのみ、コンポーネント／SUT
+                            がデプロイされます。
+                        </p>
+                    </div>
+
+                    <h3>
+                        1.3
+                        システム統合テスト・システムテスト・受け入れテストをパイプラインに組み込む2つのアプローチ
+                    </h3>
+                    <div class="prose">
+                        <p>
+                            システム統合テスト、システムテスト、受け入れテストをパイプラインに統合する方法には、主に<strong>2つのアプローチ</strong>があります。これは
+                            K3（Apply）レベルの学習目標に対応する、この章で最も実践的に理解すべきポイントです。
+                        </p>
+                    </div>
+                    <div class="diagram-card">
+                        <div class="diagram-caption">図1：パイプライン統合の2つのアプローチ</div>
+                        <div class="mermaid-diagram" data-diagram="approaches">
+                            <div class="diagram-loading">図を描画しています…</div>
+                        </div>
+                    </div>
+
+                    <h4>アプローチ①：デプロイフェーズ内でテストを実行する</h4>
+                    <div class="prose">
+                        <ul>
+                            <li>
+                                コンポーネントのデプロイ<strong>後</strong>にテストケースを実行する。
+                            </li>
+                            <li>
+                                <strong>メリット</strong
+                                >：テスト結果に基づいてデプロイを失敗させたり、ロールバックしたりできる（＝品質ゲートとして機能する）。
+                            </li>
+                            <li>
+                                <strong>デメリット</strong
+                                >：テストを再実行したい場合、<strong>再デプロイが必要</strong>になる。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h4>アプローチ②：独立したパイプラインとしてテストを実行する</h4>
+                    <div class="prose">
+                        <ul>
+                            <li>
+                                デプロイ成功をトリガーとして、テスト専用の別パイプラインを起動する。
+                            </li>
+                            <li>
+                                <strong>メリット</strong
+                                >：デプロイのたびに異なるテストスイートや自動化コードを実行したい場合に有効。
+                            </li>
+                            <li>
+                                <strong>デメリット</strong
+                                >：テストが品質ゲートとして機能しないため、デプロイに問題があった場合は<strong>通常は手動での</strong>ロールバック等の対応が必要。
+                            </li>
+                            <li>
+                                この場合、SUT
+                                が正しくデプロイされたことだけを確認する<strong>簡易な自動テストスクリプト（デプロイメントチェック）</strong>を使うことがあるが、これは広範な機能適合性を検証するものではない。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3>1.4 パイプラインのその他の活用方法</h3>
+                    <div class="prose">
+                        <p>
+                            テスト自動化とパイプラインの組み合わせは、通常のテストレベルの実行以外にも応用できます。
+                        </p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>用途</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>定期的なテストスイート実行</td>
+                                    <td>
+                                        回帰テストスイートを毎晩実行する（＝ナイトリーリグレッション）。特に実行時間が長いテストスイートに有効で、朝にはチーム全員が
+                                        SUT の品質状況を把握できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>非機能テストの実行</td>
+                                    <td>
+                                        継続的デプロイメントパイプラインの一部として、あるいは独立して、パフォーマンス効率などの非機能品質特性を定期的にモニタリングする
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout practice">
+                        <div class="callout-head">
+                            <i class="ti ti-bulb"></i><span>ベストプラクティス（5.1.1）</span>
+                        </div>
+                        <ul>
+                            <li>
+                                コンポーネントテスト・コンポーネント統合テストは<strong>ビルドフェーズの品質ゲート</strong>として位置づけ、失敗時は早期にビルドを止める。
+                            </li>
+                            <li>
+                                システムテスト・システム統合テストをパイプラインに組み込む際は、「デプロイフェーズ内で実行して品質ゲートにする」か「独立パイプラインで実行して柔軟性を確保する」かを、<strong>再実行コスト</strong>と<strong>ロールバック運用</strong>の観点から意識的に選択する。
+                            </li>
+                            <li>
+                                実行時間の長い回帰テストは<strong>ナイトリーリグレッション</strong>として定期実行し、朝までに結果を確認できる体制を作る。
+                            </li>
+                            <li>
+                                非機能テスト（パフォーマンス効率など）も継続的にモニタリングできるようパイプラインに組み込む。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ============ 2. 5.1.2 ============ -->
+                <section id="sec-2">
+                    <div class="section-head">
+                        <span class="section-num">2</span>
+                        <h2>5.1.2 テストウェアの構成管理（Configuration Management）</h2>
+                    </div>
+
+                    <h3>2.1 なぜ構成管理が必要か</h3>
+                    <div class="prose">
+                        <p>
+                            テスト自動化は、<strong>複数のテスト環境</strong>や<strong
+                                >複数バージョンの SUT</strong
+                            >
+                            に対して実行されることが多いため、構成管理（Configuration
+                            Management）はテスト自動化における不可欠な要素です。
+                        </p>
+                        <p>
+                            シラバスでは、テスト自動化における構成管理の対象を次の3つに整理しています。
+                        </p>
+                    </div>
+                    <div class="diagram-card">
+                        <div class="diagram-caption">図2：テストウェアの構成管理の3つの対象</div>
+                        <div class="mermaid-diagram" data-diagram="configmgmt">
+                            <div class="diagram-loading">図を描画しています…</div>
+                        </div>
+                    </div>
+
+                    <h4>① テスト環境設定（Test Environment Configuration）</h4>
+                    <div class="prose">
+                        <ul>
+                            <li>
+                                パイプライン上の各テスト環境は、URL
+                                や認証情報などの<strong>異なる構成</strong>を持つことが多い。
+                            </li>
+                            <li>
+                                通常、この設定（URL
+                                などの非機密の構成値）はテストウェアと一緒に保存される。
+                            </li>
+                            <li>
+                                ただし、<strong>認証情報の実値はテストウェアや共有リポジトリに保存しない</strong>。設定には参照名（キー）だけを置き、実値は承認済みのシークレット管理機構（CI/CD
+                                のシークレットストアや Vault など）から実行時に注入する。
+                            </li>
+                            <li>
+                                ただし、複数プロジェクトや複数の TAF（Test Automation
+                                Framework）で共有される場合は、<strong>共通のコアライブラリ</strong>や<strong>共有リポジトリ</strong>の一部として管理することもある。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h4>② テストデータ（Test Data）</h4>
+                    <div class="prose">
+                        <ul>
+                            <li>
+                                テスト環境固有、あるいは SUT のリリース・機能セット固有になり得る。
+                            </li>
+                            <li>
+                                テスト環境設定と同様、通常は小規模な TAF
+                                と一緒に保存されるが、<strong>テストデータ管理システム</strong>を利用することもある。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h4>③ テストスイート／テストケース</h4>
+                    <div class="prose">
+                        <ul>
+                            <li>
+                                目的（スモークテスト、回帰テストなど）に応じて異なるテストスイートを構成するのが一般的な慣行。
+                            </li>
+                            <li>
+                                これらは異なるテストレベル・異なるパイプライン・異なるテスト環境で個別に実行されることが多い。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3>2.2 SUT のリリースと機能セットへの対応方法</h3>
+                    <div class="prose">
+                        <p>
+                            SUT の各リリースは特定の「機能セット（feature
+                            set）」を持ち、それに対応するテストケース・テストスイートで品質を評価します。テストウェアがこれにどう追従するかには、<strong>2つの選択肢</strong>があります。
+                        </p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>方式</th>
+                                    <th>内容</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>フィーチャートグル方式</td>
+                                    <td>
+                                        リリースまたはテスト環境ごとにフィーチャートグル設定を定義。各フィーチャーに対応するテストケース・スイートを用意し、トグルでどのスイートを実行するか制御する
+                                    </td>
+                                    <td>
+                                        1つのテストウェアで複数のリリース・環境を柔軟に切り替えられる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>バージョン一致方式</td>
+                                    <td>
+                                        テストウェア自体を SUT
+                                        と<strong>同じリリースバージョンで</strong>リリースする
+                                    </td>
+                                    <td>
+                                        SUT
+                                        のバージョンとテストウェアの間に<strong>厳密な対応関係</strong>が生まれる。通常はタグやブランチを使った構成管理システムで実現する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout practice">
+                        <div class="callout-head">
+                            <i class="ti ti-bulb"></i><span>ベストプラクティス（5.1.2）</span>
+                        </div>
+                        <ul>
+                            <li>
+                                テスト環境設定・テストデータ・テストスイートの3つを分けて考え、<strong>どのレベルで共有すべきか</strong>（プロジェクト固有
+                                vs. 共有コアライブラリ）を判断する。
+                            </li>
+                            <li>
+                                複数の TAF
+                                や複数プロジェクトで共通する設定は、<strong>共有リポジトリやコアライブラリ層</strong>に集約し、個別プロジェクトでの重複管理を避ける。
+                            </li>
+                            <li>
+                                機能セットの管理には、要件に応じて「フィーチャートグル方式」と「バージョン一致（タグ／ブランチ）方式」を使い分ける。柔軟な切り替えが必要ならトグル方式、SUTとテストウェアの厳密な対応が必要ならバージョン一致方式を選ぶ。
+                            </li>
+                            <li>
+                                テストスイートは目的別（スモーク／回帰など）に整理し、適切なテストレベル・パイプライン・環境に紐づける。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ============ 3. 5.1.3 ============ -->
+                <section id="sec-3">
+                    <div class="section-head">
+                        <span class="section-num">3</span>
+                        <h2>5.1.3 API インフラストラクチャに対するテスト自動化の依存関係</h2>
+                    </div>
+
+                    <h3>3.1 API テスト自動化に必要な2つの前提情報</h3>
+                    <div class="prose">
+                        <p>
+                            API
+                            のテスト自動化を行う際、適切な戦略を構築するために次の情報が不可欠です。
+                        </p>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>必要情報</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>API 接続関係（API connections）</td>
+                                    <td>
+                                        自動的にテストできるビジネスロジックと、API
+                                        同士の関係性を理解すること
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>API ドキュメント（API documentation）</td>
+                                    <td>
+                                        パラメータ、ヘッダー、リクエスト／レスポンスオブジェクトの型など、テスト自動化のベースラインとなる情報一式
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            統合された自動 API テストは、開発者・TAE
+                            のどちらが担当することもありますが、<strong>シフトレフト</strong>の考え方に基づき、複数のテストレベルで分担することが推奨されます。ISTQB
+                            CTFL
+                            シラバスで説明されているコンポーネント統合テストやシステム統合テストは、<strong
+                                >コントラクトテスト（contract testing）</strong
+                            >というベストプラクティスによって拡張できます。
+                        </p>
+                    </div>
+
+                    <h3>3.2 コントラクトテスト（Contract Testing）とは</h3>
+                    <div class="prose">
+                        <p>
+                            <strong>コントラクトテスト</strong
+                            >は、サービス同士が正しく通信できること、および共有されるデータが規定されたルール一式と整合していることを検証する、<strong>統合テストの一種</strong>です。
+                        </p>
+                        <ul>
+                            <li>
+                                2つの独立したシステム（例：2つのマイクロサービス）間の互換性を担保する。
+                            </li>
+                            <li>
+                                単なるスキーマ検証にとどまらず、<strong>双方が許容される相互作用の集合について合意（consensus）</strong>しつつ、時間の経過に伴う進化（evolution）にも対応できる。
+                            </li>
+                            <li>
+                                サービス間でやり取りされる相互作用を「コントラクト」として記録し、両者がそのコントラクトに準拠しているかを検証するために使用する。
+                            </li>
+                            <li>
+                                <strong>主な利点</strong
+                                >：基盤サービスに起因する欠陥をソフトウェア開発ライフサイクル（SDLC）の早期段階で発見でき、欠陥の発生源をより容易に特定できる。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3>3.3 コンシューマー駆動型 vs. プロバイダー駆動型</h3>
+                    <div class="prose">
+                        <p>コントラクトテストには2つのアプローチがあります。</p>
+                    </div>
+                    <div class="diagram-card">
+                        <div class="diagram-caption">
+                            図3：コンシューマー駆動型とプロバイダー駆動型
+                        </div>
+                        <div class="mermaid-diagram" data-diagram="consumerprovider">
+                            <div class="diagram-loading">図を描画しています…</div>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>アプローチ</th>
+                                    <th>コントラクトを作成する側</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>コンシューマー駆動型</td>
+                                    <td>コンシューマー（利用する側）</td>
+                                    <td>
+                                        コンシューマーが「プロバイダーが自分のリクエストにどう応答すべきか」という期待値を設定する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>プロバイダー駆動型</td>
+                                    <td>プロバイダー（提供する側）</td>
+                                    <td>
+                                        プロバイダーが自らのサービスがどのように動作するかを示すコントラクトを作成する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout practice">
+                        <div class="callout-head">
+                            <i class="ti ti-bulb"></i><span>ベストプラクティス（5.1.3）</span>
+                        </div>
+                        <ul>
+                            <li>
+                                API テスト自動化の戦略を立てる前に、<strong
+                                    >API 接続関係の理解</strong
+                                >と<strong>最新の API ドキュメント整備</strong
+                                >の両方を必須条件とする。
+                            </li>
+                            <li>
+                                シフトレフトの原則に従い、API
+                                テストをコンポーネント統合テスト・システム統合テストなど<strong>複数のテストレベルに分担</strong>させる。
+                            </li>
+                            <li>
+                                マイクロサービス間の連携を検証する際は、スキーマ検証だけに頼らず、<strong>コントラクトテスト</strong>を導入して双方の合意事項を明文化・自動検証する。
+                            </li>
+                            <li>
+                                チームの構成（コンシューマー側が主導権を持つか、プロバイダー側が主導権を持つか）に応じて、コンシューマー駆動型／プロバイダー駆動型のいずれかを選択する。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ============ 4. Integrated flow ============ -->
+                <section id="sec-4">
+                    <div class="section-head">
+                        <span class="section-num">4</span>
+                        <h2>章全体の理解を助ける統合フロー図</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            以下は、Chapter 5
+                            の3つのサブトピックが実際の開発プロセスの中でどのようにつながっているかを示した統合図です。
+                        </p>
+                    </div>
+                    <div class="diagram-card">
+                        <div class="diagram-caption">図4：コミットからリリースまでの統合フロー</div>
+                        <div class="mermaid-diagram" data-diagram="integrated">
+                            <div class="diagram-loading">図を描画しています…</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ 5. Checklist ============ -->
+                <section id="sec-5">
+                    <div class="section-head">
+                        <span class="section-num">5</span>
+                        <h2>学習目標との対応チェックリスト</h2>
+                    </div>
+                    <div class="checklist">
+                        <label class="checklist-item"
+                            ><input type="checkbox" /><span class="checklist-badge">1</span
+                            ><span class="checklist-text"
+                                >TAE&#8209;5.1.1：コンポーネントテスト・コンポーネント統合テスト・システムテスト・システム統合テストが、パイプラインのどのフェーズ（ビルド／デプロイ）に位置づけられるかを説明できる</span
+                            ></label
+                        >
+                        <label class="checklist-item"
+                            ><input type="checkbox" /><span class="checklist-badge">2</span
+                            ><span class="checklist-text"
+                                >TAE&#8209;5.1.1：システム統合テスト等をパイプラインに組み込む2つのアプローチ（デプロイフェーズ内実行
+                                vs. 独立パイプライン実行）のメリット・デメリットを説明できる</span
+                            ></label
+                        >
+                        <label class="checklist-item"
+                            ><input type="checkbox" /><span class="checklist-badge">3</span
+                            ><span class="checklist-text"
+                                >TAE&#8209;5.1.2：テストウェアの構成管理の3つの対象（テスト環境設定・テストデータ・テストスイート/テストケース）を説明できる</span
+                            ></label
+                        >
+                        <label class="checklist-item"
+                            ><input type="checkbox" /><span class="checklist-badge">4</span
+                            ><span class="checklist-text"
+                                >TAE&#8209;5.1.2：フィーチャートグル方式とバージョン一致方式の違いを説明できる</span
+                            ></label
+                        >
+                        <label class="checklist-item"
+                            ><input type="checkbox" /><span class="checklist-badge">5</span
+                            ><span class="checklist-text"
+                                >TAE&#8209;5.1.3：API
+                                テスト自動化戦略に必要な2つの前提情報（API接続関係・APIドキュメント）を説明できる</span
+                            ></label
+                        >
+                        <label class="checklist-item"
+                            ><input type="checkbox" /><span class="checklist-badge">6</span
+                            ><span class="checklist-text"
+                                >TAE&#8209;5.1.3：コントラクトテストの定義と、コンシューマー駆動型／プロバイダー駆動型の違いを説明できる</span
+                            ></label
+                        >
+                    </div>
+                </section>
+
+                <!-- ============ 6. References ============ -->
+                <section id="sec-6">
+                    <div class="section-head">
+                        <span class="section-num">6</span>
+                        <h2>参考・出典（Sources）</h2>
+                    </div>
+                    <div class="prose">
+                        <p>本ガイドの内容は、以下の ISTQB® 公式資料に基づいて作成しています。</p>
+                    </div>
+                    <div class="ref-list">
+                        <div class="ref-card">
+                            <span class="ref-badge">1</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CTAL&#8209;TAE v2.0 認定ページ（公式）</div>
+                                <a
+                                    class="ref-url"
+                                    href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/</a
+                                >
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-badge">2</span>
+                            <div class="ref-body">
+                                <div class="ref-title">
+                                    CTAL&#8209;TAE v2.0 シラバス（PDF、Chapter 5: pp.33&#8211;36）
+                                </div>
+                                <a
+                                    class="ref-url"
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf</a
+                                >
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-badge">3</span>
+                            <div class="ref-body">
+                                <div class="ref-title">ISTQB® 公式サイト（トップ）</div>
+                                <a
+                                    class="ref-url"
+                                    href="https://istqb.org/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="callout note">
+                        <div class="callout-head">
+                            <i class="ti ti-info-circle"></i><span>補足</span>
+                        </div>
+                        <p>
+                            本ガイドは学習補助を目的とした要約・解説であり、シラバス原文の著作権は
+                            ISTQB®（International Software Testing Qualifications
+                            Board）に帰属します。正式な試験対策には必ず上記の公式シラバスを直接参照してください。
+                        </p>
+                    </div>
+                </section>
+
+                <footer>
+                    CTAL&#8209;TAE v2.0 Chapter 5 初学者向け解説ガイド ・ ISTQB® is a registered
+                    trademark of the International Software Testing Qualifications Board.
+                </footer>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            (function () {
+                var DIAGRAMS = {
+                    overview: [
+                        'flowchart TB',
+                        '    A["5.1 CI/CDパイプラインへの統合"] --> B["5.1.1<br/>パイプライン内の<br/>テストレベル適用"]',
+                        '    A --> C["5.1.2<br/>テストウェアの<br/>構成管理"]',
+                        '    A --> D["5.1.3<br/>APIインフラの<br/>依存関係とコントラクトテスト"]',
+                        '',
+                        '    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26',
+                        '    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26',
+                        '    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26',
+                        '    class A hub',
+                        '    class B,C,D box',
+                    ].join('\n'),
+
+                    approaches: [
+                        'flowchart LR',
+                        '    subgraph AP1["アプローチ①：デプロイフェーズの一部として実行"]',
+                        '        direction TB',
+                        '        A1["コンポーネント<br/>デプロイ完了"] --> A2["テストケース実行"]',
+                        '        A2 -->|失敗| A3["デプロイを失敗/<br/>ロールバック"]',
+                        '        A2 -->|成功| A4["デプロイ確定"]',
+                        '    end',
+                        '',
+                        '    subgraph AP2["アプローチ②：独立したパイプラインとして実行"]',
+                        '        direction TB',
+                        '        B1["デプロイ成功を<br/>トリガーに起動"] --> B2["別パイプラインで<br/>テストスイート実行"]',
+                        '        B2 --> B3["品質ゲートとしては<br/>機能しない"]',
+                        '        B3 --> B4["問題発生時は<br/>手動でロールバック"]',
+                        '    end',
+                        '',
+                        '    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26',
+                        '    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26',
+                        '    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26',
+                        '    class A1,A2,A3,A4 done',
+                        '    class B1,B2,B3,B4 hub',
+                    ].join('\n'),
+
+                    configmgmt: [
+                        'flowchart TB',
+                        '    CM["テストウェアの構成管理"] --> E["テスト環境設定<br/>（Test Environment Configuration）"]',
+                        '    CM --> D["テストデータ<br/>（Test Data）"]',
+                        '    CM --> S["テストスイート／<br/>テストケース"]',
+                        '',
+                        '    E --> E1["URLや認証情報など<br/>環境ごとの差異"]',
+                        '    D --> D1["環境・リリース・<br/>機能セットごとの差異"]',
+                        '    S --> S1["目的別のスイート編成<br/>（スモーク・回帰など）"]',
+                        '',
+                        '    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26',
+                        '    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26',
+                        '    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26',
+                        '    class CM hub',
+                        '    class E,D,S,E1,D1,S1 box',
+                    ].join('\n'),
+
+                    consumerprovider: [
+                        'flowchart TB',
+                        '    subgraph CD["コンシューマー駆動型（Consumer-Driven）"]',
+                        '        direction LR',
+                        '        C1["コンシューマー<br/>（利用する側）"] -->|"期待値を設定<br/>このリクエストには<br/>こう応答してほしい"| C2["プロバイダー<br/>（提供する側）"]',
+                        '    end',
+                        '',
+                        '    subgraph PD["プロバイダー駆動型（Provider-Driven）"]',
+                        '        direction LR',
+                        '        P1["プロバイダー<br/>（提供する側）"] -->|"自らのサービスの<br/>動作を示す<br/>コントラクトを作成"| P2["コンシューマー<br/>（利用する側）"]',
+                        '    end',
+                        '',
+                        '    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26',
+                        '    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26',
+                        '    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26',
+                        '    class C1,C2 box',
+                        '    class P1,P2 hub',
+                    ].join('\n'),
+
+                    integrated: [
+                        'flowchart TB',
+                        '    Start["コード変更をコミット"] --> Build["ビルドフェーズ"]',
+                        '    Build --> CT["コンフィギュレーションテスト<br/>（TAF/TAS）"]',
+                        '    Build --> CompT["コンポーネントテスト"]',
+                        '    Build --> CIT["コンポーネント統合テスト"]',
+                        '',
+                        '    CT --> Gate1{"品質ゲート<br/>通過？"}',
+                        '    CompT --> Gate1',
+                        '    CIT --> Gate1',
+                        '',
+                        '    Gate1 -->|"No"| Fail1["ビルド失敗を通知"]',
+                        '    Gate1 -->|"Yes"| Deploy["デプロイフェーズ"]',
+                        '',
+                        '    Deploy --> CFG["構成管理から<br/>環境設定・テストデータ<br/>を取得"]',
+                        '    CFG --> SysT["システムテスト /<br/>システム統合テスト<br/>アプローチ①：<br/>デプロイフェーズ内で実行"]',
+                        '',
+                        '    CIT -.- API["APIレベルでは<br/>コントラクトテストで<br/>サービス間整合性を検証<br/>コンポーネント統合テスト /<br/>システム統合テストの一部"]',
+                        '    SysT -.- API',
+                        '',
+                        '    SysT --> Gate2{"品質ゲート<br/>通過？"}',
+                        '    Gate2 -->|"No"| Fail2["ロールバック<br/>（自動 or 手動）"]',
+                        '    Gate2 -->|"Yes"| Release["リリース確定"]',
+                        '',
+                        '    Deploy -->|"デプロイ成功後に起動"| Sep["システムテスト /<br/>システム統合テスト<br/>アプローチ②：<br/>独立パイプラインで実行"]',
+                        '    Sep --> SepResult["テスト結果を報告<br/>デプロイの品質ゲートには<br/>ならない。失敗時は結果を報告し、<br/>通常は手動でロールバック"]',
+                        '',
+                        '    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26',
+                        '    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26',
+                        '    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26',
+                        '    class Start,Build,CT,CompT,CIT,Deploy,CFG,SysT,API,Sep,SepResult box',
+                        '    class Gate1,Gate2 hub',
+                        '    class Release done',
+                    ].join('\n'),
+                };
+
+                // Mermaid の CDN 読み込みに失敗した場合、図は代替表示にして後続のナビ初期化は継続する
+                var mermaidAvailable = typeof window.mermaid !== 'undefined';
+                if (!mermaidAvailable) {
+                    document
+                        .querySelectorAll('.mermaid-diagram[data-diagram]')
+                        .forEach(function (el) {
+                            el.innerHTML =
+                                '<p style="color:#8C3A5C;font-size:16px;">Mermaid を読み込めなかったため、図を描画できませんでした。</p>';
+                        });
+                    console.error('mermaid is not loaded; diagrams skipped');
+                }
+
+                if (mermaidAvailable) mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    securityLevel: 'loose',
+                    fontFamily:
+                        "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif",
+                    flowchart: {
+                        useMaxWidth: false,
+                        htmlLabels: true,
+                        curve: 'basis',
+                        nodeSpacing: 45,
+                        rankSpacing: 55,
+                        wrappingWidth: 1200,
+                        padding: 16,
+                        subGraphTitleMargin: { top: 10, bottom: 14 },
+                    },
+                    themeVariables: {
+                        fontFamily:
+                            "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif",
+                        fontSize: '16px',
+                        primaryColor: '#EEF1F8',
+                        primaryTextColor: '#161B26',
+                        primaryBorderColor: '#2E3F72',
+                        secondaryColor: '#FAF1DF',
+                        secondaryBorderColor: '#B8802A',
+                        secondaryTextColor: '#161B26',
+                        tertiaryColor: '#EAF4EC',
+                        tertiaryBorderColor: '#2F6B3D',
+                        tertiaryTextColor: '#161B26',
+                        lineColor: '#454E60',
+                        textColor: '#161B26',
+                        edgeLabelBackground: '#FFFFFF',
+                        clusterBkg: '#FFFFFF',
+                        clusterBorder: '#C7CDD9',
+                        titleColor: '#161B26',
+                        nodeBorder: '#2E3F72',
+                        mainBkg: '#EEF1F8',
+                        background: '#F6F7F9',
+                    },
+                });
+
+                var FONT_STACK =
+                    "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+                async function preloadFonts() {
+                    if (!document.fonts || !document.fonts.load) return;
+                    var sample = Object.keys(DIAGRAMS)
+                        .map(function (k) {
+                            return DIAGRAMS[k];
+                        })
+                        .join('');
+                    try {
+                        await Promise.all([
+                            document.fonts.load('400 16px "Noto Sans JP"', sample),
+                            document.fonts.load('500 16px "Noto Sans JP"', sample),
+                        ]);
+                        await document.fonts.ready;
+                    } catch (e) {}
+                }
+
+                async function drawDiagrams(pass) {
+                    var targets = document.querySelectorAll('.mermaid-diagram[data-diagram]');
+                    for (var i = 0; i < targets.length; i++) {
+                        var target = targets[i];
+                        var key = target.getAttribute('data-diagram');
+                        var src = DIAGRAMS[key];
+                        if (!src) continue;
+                        try {
+                            var result = await mermaid.render('mmd-' + key + '-' + pass, src);
+                            target.innerHTML = result.svg;
+                            var svgEl = target.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('height');
+                                svgEl.removeAttribute('width');
+                                var vb = svgEl.getAttribute('viewBox');
+                                if (vb) {
+                                    var parts = vb.split(/\s+/).map(Number);
+                                    if (parts.length === 4) {
+                                        parts[3] = parts[3] + 15;
+                                        svgEl.setAttribute('viewBox', parts.join(' '));
+                                        svgEl.style.width = parts[2] + 'px';
+                                    }
+                                }
+                                // 縮小せず原寸で表示し、はみ出す分は .mermaid-diagram の横スクロールで見せる
+                                svgEl.style.maxWidth = 'none';
+                                svgEl.style.flexShrink = '0';
+                                svgEl.style.height = 'auto';
+                                svgEl.style.overflow = 'visible';
+                            }
+                        } catch (err) {
+                            target.innerHTML =
+                                '<p style="color:#8C3A5C;font-size:16px;">図の描画に失敗しました（' +
+                                key +
+                                '）。</p>';
+                            console.error('mermaid render error:', key, err);
+                        }
+                    }
+                }
+
+                var pass = 0,
+                    redraws = 0,
+                    redrawTimer = null;
+                async function renderAll() {
+                    await preloadFonts();
+                    await drawDiagrams(pass++);
+                    // Safety net: if a web font finishes loading after the first measurement, redraw so box sizes match the final glyphs.
+                    if (document.fonts && document.fonts.addEventListener) {
+                        document.fonts.addEventListener('loadingdone', function () {
+                            if (redraws >= 2) return;
+                            clearTimeout(redrawTimer);
+                            redrawTimer = setTimeout(function () {
+                                redraws++;
+                                drawDiagrams(pass++);
+                            }, 150);
+                        });
+                    }
+                }
+                if (mermaidAvailable) renderAll();
+
+                var navLinks = document.querySelectorAll('.nav-link');
+                var sections = [];
+                navLinks.forEach(function (link) {
+                    var el = document.getElementById(link.getAttribute('data-target'));
+                    if (el) sections.push(el);
+                });
+                if ('IntersectionObserver' in window && sections.length) {
+                    var io = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                var link = document.querySelector(
+                                    '.nav-link[data-target="' + entry.target.id + '"]',
+                                );
+                                if (!link) return;
+                                if (entry.isIntersecting) {
+                                    navLinks.forEach(function (l) {
+                                        l.classList.remove('active');
+                                    });
+                                    link.classList.add('active');
+                                }
+                            });
+                        },
+                        { rootMargin: '-20% 0px -70% 0px' },
+                    );
+                    sections.forEach(function (s) {
+                        io.observe(s);
+                    });
+                }
+            })();
+        </script>
+    </body>
+</html>

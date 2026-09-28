@@ -29,8 +29,23 @@ Red / Green / Refactor / Docs Sync のいずれのコミットであっても、
 検出時は終了コード 1 で失敗させ、コミットを中止すること（grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）。
 
 ```bash
-if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+# 各段階の失敗を「該当なし」と区別する: git / awk の失敗は pipefail で検出し、grep は 1（該当なし）のみを正常とみなす
+if ! added=$(set -o pipefail; git diff --cached --text | tr '\000' ' ' | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+  echo "diff extraction failed — abort commit" >&2
+  exit 1
+fi
+# grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
+if printf '%s\n' "$added" | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\|(^|[^A-Za-z0-9._~/-])/(op[t]|sr[v]|workspac[e])/)'; then
+  rc=0
+else
+  rc=$?
+fi
+if [ "$rc" -eq 0 ]; then
   echo "PII detected — abort commit" >&2
+  exit 1
+fi
+if [ "$rc" -ne 1 ]; then
+  echo "grep failed (exit $rc) — abort commit" >&2
   exit 1
 fi
 echo "PII check passed"
