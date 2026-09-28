@@ -461,7 +461,8 @@ Open Login Page
 Enter Credentials
     [Arguments]    ${user}    ${password}
     Input Data    id=username    ${user}
-    Input Data    id=password    ${password}
+    # パスワードはログに値を出力しない SeleniumLibrary の Input Password で入力する
+    Input Password    id=password    ${password}
 
 # ---- 高レベル（業務）キーワード ----
 User Logs In
@@ -483,14 +484,15 @@ Test Teardown     Close All Browsers
 
 *** Test Cases ***
 Registered User Can Log In
-    User Logs In    alice    ${VALID_PASSWORD}
+    User Logs In    alice    %{TEST_PASSWORD}
     Dashboard Is Displayed
 ```
 
-`${VALID_PASSWORD}` はファイル内で定義していないため、実行時に `--variable` で渡します。パスワードをファイルに直書きせず、環境変数（CI ではシークレット）から渡してください。
+パスワードはファイルに直書きせず、Robot Framework の環境変数構文 `%{TEST_PASSWORD}` でテスト内から読み取ります。環境変数 `TEST_PASSWORD` には、CI ではシークレットを設定します。`--variable "NAME:$TEST_PASSWORD"` のようにコマンドライン引数へ展開すると、パスワードがプロセス一覧（`ps` 等）やシェル履歴から見えるため避けます。また、ログ（`log.html`）への平文出力を防ぐため、パスワード欄の入力には SeleniumLibrary の `Input Password` を使います。
 
 ```bash
-robot --variable "VALID_PASSWORD:$TEST_PASSWORD" login.robot
+# TEST_PASSWORD は CI のシークレット等で環境変数として設定済みであることが前提
+robot login.robot
 ```
 
 ### 11-3. 規格の概念との対応
