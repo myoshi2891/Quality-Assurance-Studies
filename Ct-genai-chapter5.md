@@ -722,7 +722,7 @@ flowchart LR
 
 | 元のデータ（例） 🟨 | サニタイズ後（例） 🟨 | 方法 |
 |---|---|---|
-| `山田太郎 taro.yamada@example.com` | `【氏名A】 user_001@example.test` | 仮名化（架空値へ置換） |
+| `山田太郎 taro.yamada@example.com` | `【氏名A】 user_001@example.test` | 識別子の置換（架空値へ置換）。元の値との対応表を別に保管する場合に限り仮名化にあたる |
 | `顧客: 株式会社ABC商事、契約額 1,200万円` | `顧客: 【顧客X】、契約額: 【金額】` | マスキング（プレースホルダー） |
 | `Authorization: Bearer eyJhbGciOi...` | （行ごと除去） | 除去（そもそも送らない） |
 
