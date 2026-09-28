@@ -1,0 +1,1584 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CTAL-TAE v2.0 Ch.2 テスト自動化の準備 | 初学者向け解説ガイド</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <style>
+            :root {
+                --bg: #f6f7fb;
+                --surface: #ffffff;
+                --surface-alt: #eef1f8;
+                --border: #e0e4ee;
+                --text: #1b2333;
+                --text-dim: #5b6478;
+                --text-faint: #8891a3;
+                --accent: #2f5fdc;
+                --accent-dark: #1e3fa0;
+                --accent-soft: #e8eefd;
+                --accent-soft-border: #c7d7fb;
+                --practice: #1a8a5f;
+                --practice-soft: #e6f7ef;
+                --practice-border: #b9e8d2;
+                --shadow: 0 1px 2px rgba(20, 30, 60, 0.04), 0 8px 24px rgba(20, 30, 60, 0.06);
+                --radius: 14px;
+                --sidebar-w: 280px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    'Inter',
+                    'Noto Sans JP',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                line-height: 1.85;
+                font-size: 16px;
+            }
+            .layout {
+                display: block;
+                position: relative;
+                min-height: 100vh;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--surface);
+                border-right: 1px solid var(--border);
+                padding: 28px 20px 40px;
+                z-index: 50;
+            }
+            .sidebar-brand {
+                font-size: 13px;
+                font-weight: 800;
+                letter-spacing: 0.04em;
+                color: var(--accent);
+                text-transform: uppercase;
+                margin-bottom: 4px;
+            }
+            .sidebar-sub {
+                font-size: 12.5px;
+                color: var(--text-faint);
+                margin-bottom: 24px;
+            }
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar nav ul ul {
+                margin-left: 14px;
+                margin-top: 2px;
+                margin-bottom: 6px;
+            }
+            .sidebar nav li {
+                margin: 2px 0;
+            }
+            .sidebar nav a {
+                display: block;
+                padding: 7px 10px;
+                border-radius: 8px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                font-weight: 500;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+            .sidebar nav a:hover {
+                background: var(--surface-alt);
+                color: var(--text);
+            }
+            .sidebar nav a.active {
+                background: var(--accent-soft);
+                color: var(--accent-dark);
+                border-left-color: var(--accent);
+                font-weight: 700;
+            }
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 60;
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--surface);
+                box-shadow: var(--shadow);
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            /* ---------- Main ---------- */
+            .main {
+                margin-left: var(--sidebar-w);
+                padding: 48px 56px 80px;
+            }
+            .main p,
+            .main ul,
+            .main ol {
+                max-width: none;
+            }
+            .main p {
+                margin: 0 0 16px;
+                color: var(--text);
+            }
+            .main ul,
+            .main ol {
+                margin: 0 0 18px;
+                padding-left: 24px;
+            }
+            .main li {
+                margin-bottom: 6px;
+            }
+            .main a {
+                color: var(--accent);
+                text-decoration: none;
+                border-bottom: 1px solid var(--accent-soft-border);
+            }
+            .main a:hover {
+                border-bottom-color: var(--accent);
+            }
+            .main strong {
+                color: var(--text);
+                font-weight: 700;
+            }
+            .main blockquote {
+                margin: 0 0 20px;
+                padding: 14px 18px;
+                background: var(--accent-soft);
+                border-left: 4px solid var(--accent);
+                border-radius: 8px;
+                color: var(--text-dim);
+            }
+            .main blockquote p {
+                margin: 0;
+            }
+            .main hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 44px 0;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Inter', 'Noto Sans JP', sans-serif;
+                font-weight: 800;
+                color: var(--text);
+                line-height: 1.4;
+            }
+            h2 {
+                font-size: 24px;
+                margin: 0 0 18px;
+                padding-top: 8px;
+                scroll-margin-top: 24px;
+            }
+            h3 {
+                font-size: 19px;
+                margin: 36px 0 14px;
+                scroll-margin-top: 24px;
+            }
+            h4 {
+                font-size: 16px;
+                margin: 24px 0 10px;
+                scroll-margin-top: 24px;
+            }
+
+            /* ---------- Hero ---------- */
+            .hero {
+                position: relative;
+                background: linear-gradient(135deg, #eef3ff 0%, #f7f9ff 60%, #ffffff 100%);
+                border: 1px solid var(--accent-soft-border);
+                border-radius: 20px;
+                padding: 40px 44px;
+                margin-bottom: 44px;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: -60px;
+                right: -60px;
+                width: 260px;
+                height: 260px;
+                background: radial-gradient(circle, rgba(47, 95, 220, 0.16), transparent 70%);
+                pointer-events: none;
+            }
+            .hero-eyebrow {
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                color: var(--accent-dark);
+                background: #ffffff;
+                border: 1px solid var(--accent-soft-border);
+                padding: 6px 14px;
+                border-radius: 999px;
+                margin-bottom: 16px;
+            }
+            .hero-title {
+                font-size: 30px;
+                margin: 0 0 10px;
+                color: var(--text);
+                position: relative;
+            }
+            .hero-subtitle {
+                font-size: 15px;
+                color: var(--text-dim);
+                margin: 0 0 24px;
+                max-width: 720px;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0;
+                border-top: 1px solid var(--accent-soft-border);
+                padding-top: 18px;
+            }
+            .hero-meta-item {
+                padding: 0 24px 0 0;
+                margin-right: 24px;
+                border-right: 1px solid var(--accent-soft-border);
+            }
+            .hero-meta-item:last-child {
+                border-right: none;
+                margin-right: 0;
+                padding-right: 0;
+            }
+            .hero-meta-label {
+                display: block;
+                font-size: 10.5px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--text-faint);
+                margin-bottom: 4px;
+            }
+            .hero-meta-value {
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--text);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 22px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 560px;
+                background: var(--surface);
+            }
+            thead th {
+                background: var(--surface-alt);
+                text-align: left;
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--text);
+                padding: 11px 14px;
+                border-bottom: 1px solid var(--border);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 11px 14px;
+                font-size: 13.5px;
+                color: var(--text-dim);
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: #fafbfe;
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-container {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 22px 18px;
+                margin: 0 0 26px;
+            }
+            pre.mermaid {
+                width: 100%;
+                margin: 0;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+            }
+            pre.mermaid svg {
+                flex-shrink: 0;
+            }
+            .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            .mermaid-error {
+                font-size: 13px;
+                color: #b5473a;
+                background: #fdecea;
+                border: 1px solid #f5c6c0;
+                padding: 12px 16px;
+                border-radius: 10px;
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout-practice {
+                background: var(--practice-soft);
+                border: 1px solid var(--practice-border);
+                border-left: 4px solid var(--practice);
+                border-radius: 12px;
+                padding: 18px 20px;
+                margin: 0 0 22px;
+            }
+            .callout-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+            .callout-icon {
+                font-size: 16px;
+            }
+            .callout-label {
+                font-size: 14px;
+                font-weight: 800;
+                color: var(--practice);
+            }
+            .callout-practice ul {
+                margin: 0;
+                padding-left: 20px;
+            }
+            .callout-practice li {
+                color: var(--text);
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            .callout-practice li:last-child {
+                margin-bottom: 0;
+            }
+
+            .callout-source {
+                font-size: 13px;
+                color: var(--text-faint);
+                padding: 8px 0 0;
+                margin: 0 0 18px;
+            }
+
+            /* ---------- Legend / note ---------- */
+            .legend-note {
+                font-size: 13px;
+                color: var(--text-faint);
+                margin: -8px 0 22px;
+            }
+
+            /* ---------- Reference cards ---------- */
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 16px;
+                margin: 0 0 20px;
+            }
+            .ref-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 16px 18px;
+                min-width: 0;
+            }
+            .ref-card-title {
+                font-size: 13.5px;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 6px;
+            }
+            .ref-card a {
+                font-size: 12.5px;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            .ref-note {
+                font-size: 13px;
+                color: var(--text-dim);
+                background: var(--surface-alt);
+                border-radius: 10px;
+                padding: 14px 16px;
+            }
+
+            /* ---------- Checklist ---------- */
+            .checklist-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 20px 22px 22px;
+                margin: 0 0 22px;
+                list-style: none;
+            }
+            .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 16px;
+            }
+            .cp-label {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--text-dim);
+                white-space: nowrap;
+            }
+            .cp-bar {
+                flex: 1;
+                height: 8px;
+                border-radius: 999px;
+                background: var(--surface-alt);
+                overflow: hidden;
+            }
+            .cp-bar-fill {
+                height: 100%;
+                width: 0%;
+                background: var(--accent);
+                transition: width 0.2s;
+            }
+            .cp-count {
+                font-size: 12.5px;
+                font-weight: 700;
+                color: var(--accent-dark);
+                white-space: nowrap;
+            }
+            .checklist-card li {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                font-size: 14.5px;
+                color: var(--text);
+                padding: 6px 0;
+                margin: 0;
+            }
+            .checklist-card input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 19px;
+                height: 19px;
+                flex: none;
+                margin-top: 2px;
+                border: 2px solid var(--border);
+                border-radius: 6px;
+                position: relative;
+                cursor: pointer;
+                background: var(--surface);
+            }
+            .checklist-card input[type='checkbox']:checked {
+                background: var(--accent);
+                border-color: var(--accent);
+            }
+            .checklist-card input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 10px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .checklist-card li:has(input:checked) span {
+                text-decoration: line-through;
+                color: var(--text-faint);
+            }
+
+            /* ---------- Footer ---------- */
+            .page-footer {
+                margin-top: 52px;
+                padding-top: 22px;
+                border-top: 1px solid var(--border);
+                font-size: 12.5px;
+                color: var(--text-faint);
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s;
+                    box-shadow: var(--shadow);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .sidebar-toggle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 80px 20px 60px;
+                }
+                .hero {
+                    padding: 28px 22px;
+                }
+                .hero-title {
+                    font-size: 24px;
+                }
+                .hero-meta {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .hero-meta-item {
+                    border-right: none;
+                    border-bottom: 1px solid var(--accent-soft-border);
+                    padding: 0 0 10px;
+                    margin-right: 0;
+                }
+                .hero-meta-item:last-child {
+                    border-bottom: none;
+                    padding-bottom: 0;
+                }
+                .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="メニュー">☰</button>
+
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-brand">CTAL-TAE v2.0</div>
+                <div class="sidebar-sub">Chapter 2：テスト自動化の準備</div>
+                <nav>
+                    <ul>
+                        <li><a href="#sec-0" data-target="sec-0">0. この章の位置づけ</a></li>
+                        <li>
+                            <a href="#sec-1" data-target="sec-1">1. インフラ構成の理解</a>
+                            <ul>
+                                <li>
+                                    <a href="#sec-1-1" data-target="sec-1-1"
+                                        >1.1 テスト容易性とは</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#sec-1-2" data-target="sec-1-2">1.2 3つの設計側面</a>
+                                </li>
+                                <li><a href="#sec-1-3" data-target="sec-1-3">1.3 構成要素</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#sec-2" data-target="sec-2">2. さまざまな環境での活用</a>
+                            <ul>
+                                <li>
+                                    <a href="#sec-2-1" data-target="sec-2-1">2.1 各環境の特徴</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#sec-3" data-target="sec-3">3. ツール・戦略の評価プロセス</a>
+                            <ul>
+                                <li><a href="#sec-3-1" data-target="sec-3-1">3.1 SUTの分析</a></li>
+                                <li>
+                                    <a href="#sec-3-2" data-target="sec-3-2"
+                                        >3.2 ツール評価の図示</a
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#sec-4" data-target="sec-4">4. まとめとチェックリスト</a></li>
+                        <li><a href="#sec-5" data-target="sec-5">5. 参考文献・情報源</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="main">
+                <header class="hero">
+                    <span class="hero-eyebrow">ISTQB® CTAL-TAE v2.0 ／ Chapter 2</span>
+                    <h1 class="hero-title">
+                        Preparing for Test Automation<br />テスト自動化の準備
+                    </h1>
+                    <p class="hero-subtitle">
+                        本ガイドは公式シラバスの内容に基づいて作成した学習用の要約・解説であり、公式教材の代替ではありません。
+                    </p>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-label">対象試験</span>
+                            <span class="hero-meta-value"
+                                >CTAL Test Automation Engineering v2.0</span
+                            >
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-label">本章の指導時間</span>
+                            <span class="hero-meta-value">180分</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-label">最高認知レベル</span>
+                            <span class="hero-meta-value">K4（分析）</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section id="sec-0">
+                    <h2>0. この章の位置づけ</h2>
+                    <p>
+                        Chapter 1では「なぜテスト自動化を行うのか」を学びました。Chapter
+                        2では、実際にテスト自動化を始める<strong>前段階</strong>として、以下の2つの大きなテーマを扱います。
+                    </p>
+                    <ol>
+                        <li>
+                            <strong>インフラ構成の理解</strong>：SUT（System Under
+                            Test：テスト対象システム）がテスト可能（testable）であるために、どのようなインフラ・環境設計が必要か
+                        </li>
+                        <li>
+                            <strong>ツール・戦略の評価プロセス</strong
+                            >：SUTを分析し、適切な自動化ソリューションとツールをどう選び、どう関係者に説明するか
+                        </li>
+                    </ol>
+
+                    <div class="mermaid-container">
+                        <pre class="mermaid" id="mermaid-diagram-position"></pre>
+                    </div>
+
+                    <h3>学習目標（Learning Objectives）</h3>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>認知レベル</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TAE-2.1.1</td>
+                                    <td>K2（理解）</td>
+                                    <td>
+                                        テスト自動化の実装を可能にするインフラの構成ニーズを記述できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TAE-2.1.2</td>
+                                    <td>K2（理解）</td>
+                                    <td>
+                                        テスト自動化が異なる環境内でどのように活用されるかを説明できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TAE-2.2.1</td>
+                                    <td>K4（分析）</td>
+                                    <td>
+                                        SUTを分析し、適切なテスト自動化ソリューションを判断できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TAE-2.2.2</td>
+                                    <td>K4（分析）</td>
+                                    <td>ツール評価の技術的所見を図示（整理・提示）できる</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>キーワード（覚えておくべき用語）</h3>
+                    <ul>
+                        <li><strong>API testing</strong>（APIテスト）</li>
+                        <li><strong>GUI testing</strong>（GUIテスト）</li>
+                        <li><strong>testability</strong>（テスト容易性）</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section id="sec-1">
+                    <h2>1. 2.1 テスト自動化を可能にするインフラの構成の理解</h2>
+
+                    <h3 id="sec-1-1">1.1 テスト容易性（Testability）とは何か</h3>
+                    <p>
+                        テスト自動化を成功させる大前提は、<strong>SUT自体が「テストしやすい」ように設計されていること</strong>です。これを<strong>テスト容易性（testability）</strong>と呼びます。
+                    </p>
+                    <blockquote>
+                        <p>
+                            テスト容易性とは、SUTの制御（controllability）と観測（observability）を可能にするソフトウェアインターフェースが用意されている度合いのことです。
+                        </p>
+                    </blockquote>
+                    <p>
+                        重要なのは、テスト容易性は<strong>後付けで足すものではなく、SUTの他の機能設計と並行して、ソフトウェアアーキテクトが設計・実装すべき非機能要件</strong>だという点です。実務では、TAE（Test
+                        Automation
+                        Engineer）がアーキテクトと協働し、「どこを改善すればテストしやすくなるか」を具体的に特定する役割を担います。
+                    </p>
+
+                    <div class="mermaid-container">
+                        <pre class="mermaid" id="mermaid-diagram-testability"></pre>
+                    </div>
+
+                    <h3 id="sec-1-2">1.2 テスト容易性を支える3つの設計側面</h3>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>側面</th>
+                                    <th>説明</th>
+                                    <th>具体例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Observability（観測可能性）</strong></td>
+                                    <td>
+                                        SUTの内部状態を外部から把握できるインターフェースを提供すること。テストケースはこのインターフェースを使い、実際の結果が期待結果と一致するかを判定する
+                                    </td>
+                                    <td>ログ出力、ステータスAPI、監視エンドポイント</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Controllability（制御可能性）</strong></td>
+                                    <td>
+                                        SUTに対してアクションを実行できるインターフェースを提供すること
+                                    </td>
+                                    <td>
+                                        UI要素、関数呼び出し、TCP/IPやUSBなどの通信要素、物理/論理スイッチへの電子信号
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong
+                                            >Architecture
+                                            Transparency（アーキテクチャの透明性）</strong
+                                        >
+                                    </td>
+                                    <td>
+                                        アーキテクチャのドキュメントが、各テストレベルで観測性・制御性を確保できるよう、コンポーネントとインターフェースを明確かつ理解しやすい形で示していること
+                                    </td>
+                                    <td>
+                                        明確なAPI仕様書、コンポーネント図、インターフェース定義書
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout-practice">
+                        <div class="callout-header">
+                            <span class="callout-icon">💡</span
+                            ><span class="callout-label">ベストプラクティス</span>
+                        </div>
+                        <ul>
+                            <li>
+                                テスト容易性の議論は、要件定義・アーキテクチャ設計の初期段階からTAEを巻き込んで行う（後工程で追加しようとすると改修コストが跳ね上がる）。
+                            </li>
+                            <li>
+                                Observability（見える化）とControllability（操作性）は必ずセットで検討する。見えるだけ・操作できるだけでは自動テストは成立しない。
+                            </li>
+                            <li>
+                                アーキテクチャドキュメントは「テストの立場から読んでも、どこにどう介入・観測できるか分かる」レベルの粒度で整備する。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 id="sec-1-3">1.3 テスト容易性を実現するための構成要素</h3>
+                    <p>
+                        テスト容易性を高めるための代表的な仕組みと、それぞれの設定方法（構成ニーズ）は以下の通りです。
+                    </p>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>構成要素</th>
+                                    <th>概要</th>
+                                    <th>設定方法</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>アクセシビリティ識別子</strong><br />（Accessibility
+                                        identifiers）
+                                    </td>
+                                    <td>UI要素などを一意に特定するための識別子</td>
+                                    <td>
+                                        開発フレームワークが自動生成する場合と、開発者が手動で設定する場合がある
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>システム環境変数</strong><br />（System environment
+                                        variables）
+                                    </td>
+                                    <td>アプリケーションの挙動を変更するパラメータ</td>
+                                    <td>
+                                        管理者権限などを通じて、テストしやすいように動的に変更できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>デプロイ変数</strong><br />（Deployment variables）
+                                    </td>
+                                    <td>
+                                        システム環境変数と似ているが、デプロイ開始前に設定される
+                                    </td>
+                                    <td>デプロイパイプラインの設定ファイルなどで事前定義する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout-practice">
+                        <div class="callout-header">
+                            <span class="callout-icon">💡</span
+                            ><span class="callout-label">ベストプラクティス</span>
+                        </div>
+                        <ul>
+                            <li>
+                                アクセシビリティ識別子は「開発者が機能を作った後に付け足す」のではなく、コンポーネント設計時に命名規則を決めて自動生成される仕組みを整える。
+                            </li>
+                            <li>
+                                環境変数・デプロイ変数は、テスト環境ごとに値が変わることを前提に、TAF（Test
+                                Automation
+                                Framework）側の設定ファイルやシークレット管理の仕組みと連携させる。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr />
+
+                <section id="sec-2">
+                    <h2>2. さまざまな環境でのテスト自動化の活用（2.1.2）</h2>
+                    <p>
+                        同じ自動テストスイートでも、<strong>どの環境で実行するか</strong>によって目的・実施可能なテストタイプ・監視の有無が異なります。シラバスでは代表的な5つの環境を、開発からリリースまでの典型的な流れに沿った<strong>例</strong>として紹介しています。これらは必ず5段階すべてを順番に経由しなければならない必須のステージではなく、<strong>実際の環境構成や順序はプロジェクトごとに異なります</strong>（環境を統合・省略する場合や、別の環境を追加する場合もあります）。
+                    </p>
+
+                    <div class="mermaid-container">
+                        <pre class="mermaid" id="mermaid-diagram-envs"></pre>
+                    </div>
+                    <p class="legend-note">
+                        ※上図は典型的な構成例です。環境の構成・順序はプロジェクトにより異なります。
+                    </p>
+
+                    <h3 id="sec-2-1">2.1 各環境の特徴と自動化の役割</h3>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>環境</th>
+                                    <th>主な目的</th>
+                                    <th>実施されるテスト</th>
+                                    <th>特記事項</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>ローカル開発環境</strong></td>
+                                    <td>
+                                        ソフトウェアの初期作成、コンポーネント単位での機能適合性の検証
+                                    </td>
+                                    <td>コンポーネントテスト、GUIテスト、APIテスト</td>
+                                    <td>
+                                        IDEを使うことで、白箱テストにより早期にコード品質・設計の問題を発見できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ビルド環境</strong></td>
+                                    <td>ソフトウェアをビルドし、ビルド結果の正しさを検証する</td>
+                                    <td>
+                                        コンポーネントテスト、コンポーネント統合テスト、静的解析
+                                    </td>
+                                    <td>
+                                        ローカル開発環境そのもの、またはCI/CDエージェント上で実行され、他環境へのデプロイは行わない
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>統合環境</strong></td>
+                                    <td>完全に統合されたリリース候補を対象に検証する</td>
+                                    <td>
+                                        UIテストまたはAPIテストによる自動テストスイート（黒箱テストのみ）
+                                    </td>
+                                    <td>
+                                        <strong>監視（モニタリング）が導入される最初の環境</strong
+                                        >。障害調査を効率的に行うための基盤となる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>プレプロダクション環境</strong></td>
+                                    <td>非機能品質特性（性能効率性など）を評価する</td>
+                                    <td>
+                                        既存の自動テストスイートの再実行、ビジネス関係者によるUAT（受入テスト）
+                                    </td>
+                                    <td>
+                                        本番に最も近い構成のため重点的に利用される。監視も継続される
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>本番/運用環境</strong></td>
+                                    <td>実際のユーザー利用下で機能・非機能品質特性を評価する</td>
+                                    <td>監視をベースとしたテスト</td>
+                                    <td>
+                                        カナリアリリース、ブルー/グリーンデプロイ、A/Bテストなどのベストプラクティスと組み合わせる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout-practice">
+                        <div class="callout-header">
+                            <span class="callout-icon">💡</span
+                            ><span class="callout-label">ベストプラクティス</span>
+                        </div>
+                        <ul>
+                            <li>
+                                環境が下流（本番側）に進むほど、<strong>ホワイトボックス視点からブラックボックス視点へ移行する</strong>ことを意識してテスト設計を分ける。統合環境以降はブラックボックステストが中心になる。
+                            </li>
+                            <li>
+                                統合環境より先の環境では必ず監視（モニタリング）を組み込み、テスト失敗時に「どこで何が起きたか」を追跡できるようにする。
+                            </li>
+                            <li>
+                                コンテナや仮想化技術を使えば、環境ごとの差異を減らし、同一のテスト自動化ソリューションを複数環境で再利用しやすくなる。
+                            </li>
+                            <li>
+                                本番環境でのテストは、カナリアリリースやブルー/グリーンデプロイなど、<strong>利用者への影響を最小化する手法とセット</strong>で導入する。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr />
+
+                <section id="sec-3">
+                    <h2>3. 2.2 適切なツール・戦略を選定するための評価プロセス</h2>
+
+                    <h3 id="sec-3-1">3.1 SUTの分析（2.2.1）</h3>
+                    <p>
+                        自動化ソリューションを決める前に、まず対象となるSUTを分析し、<strong>要件を集める</strong>必要があります。SUTの種類（Webサービス、モバイル、Webアプリなど）によって、技術的に必要な自動化アプローチは異なります。
+                    </p>
+                    <blockquote>
+                        <p>
+                            この調査は、手動テスト担当者、ビジネス関係者、ビジネスアナリストなど、<strong>他のステークホルダーと協働して行うことが推奨されています</strong>。これにより、リスクとその緩和策をできるだけ多く洗い出し、将来にわたって有益な自動化ソリューションにつなげることができます。
+                        </p>
+                    </blockquote>
+
+                    <div class="mermaid-container">
+                        <pre class="mermaid" id="mermaid-diagram-sut"></pre>
+                    </div>
+
+                    <h4>分析で検討すべき8つの観点</h4>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>観点</th>
+                                    <th>具体的な問い</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>テストプロセス活動</td>
+                                    <td>
+                                        テスト管理・テスト設計・テスト生成・テスト実行のどれを自動化するか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>テストレベル</td>
+                                    <td>
+                                        コンポーネント／統合／システム／受入のどのレベルを対象とするか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>テストタイプ</td>
+                                    <td>
+                                        機能テスト、性能テスト、セキュリティテストなど、どのタイプを対象とするか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>役割・スキルセット</td>
+                                    <td>
+                                        どの役割（テスト分析者、TAEなど）がどのスキルで関与するか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>対象製品・製品ライン</td>
+                                    <td>ソリューションの適用範囲・寿命をどう定義するか</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>SUTとの互換性</td>
+                                    <td>対象となるSUTの技術スタックとの互換性</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>テストデータ</td>
+                                    <td>テストデータの入手可能性と品質</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>到達困難なケースのエミュレーション</td>
+                                    <td>
+                                        サードパーティ連携など、直接テストできない部分をどう模倣するか
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout-practice">
+                        <div class="callout-header">
+                            <span class="callout-icon">💡</span
+                            ><span class="callout-label">ベストプラクティス</span>
+                        </div>
+                        <ul>
+                            <li>
+                                「自動化ありき」で進めず、必ずSUTの技術的特性（UIの有無、プロトコル、モバイル/Web/APIなど）を先に把握してから要件を定義する。
+                            </li>
+                            <li>
+                                要件収集は一人で行わず、テスト分析者・ビジネスアナリスト・ビジネス関係者を巻き込み、<strong>リスクの見落としを減らす</strong>。
+                            </li>
+                            <li>
+                                8つの観点はチェックリストとして使い、抜け漏れなく初期要件をドキュメント化しておくと、後のツール比較（2.2.2）で判断がぶれない。
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 id="sec-3-2">3.2 ツール評価の技術的所見の図示（2.2.2）</h3>
+                    <p>
+                        SUTの分析と要件収集が終わったら、次に候補となるテストツールを比較します。シラバスは「<strong>単一のツールでは全要件を満たせない場合がある</strong>」と明言しており、ステークホルダーもその前提を理解しておく必要があります。
+                    </p>
+
+                    <h4>比較表（Comparison Table）の作り方</h4>
+                    <p>
+                        推奨されるのは、ツールを列に、要件を行にした<strong>比較表</strong>を作ることです。各セルには、そのツールがその要件をどの程度満たすか（および優先度）を記載します。
+                    </p>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>要件 ＼ ツール</th>
+                                    <th>ツールA</th>
+                                    <th>ツールB</th>
+                                    <th>ツールC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>対応言語／技術・IDE</td>
+                                    <td>◎</td>
+                                    <td>○</td>
+                                    <td>△</td>
+                                </tr>
+                                <tr>
+                                    <td>環境設定の柔軟性（動的/静的値）</td>
+                                    <td>○</td>
+                                    <td>◎</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>テストデータ管理（バージョン管理連携）</td>
+                                    <td>△</td>
+                                    <td>◎</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>対応テストタイプ</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                    <td>◎</td>
+                                </tr>
+                                <tr>
+                                    <td>レポーティング機能</td>
+                                    <td>◎</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>他ツール連携（CI/CD、タスク管理、テスト管理）</td>
+                                    <td>○</td>
+                                    <td>◎</td>
+                                    <td>△</td>
+                                </tr>
+                                <tr>
+                                    <td>拡張性・保守性・変更容易性・互換性・信頼性</td>
+                                    <td>○</td>
+                                    <td>◎</td>
+                                    <td>○</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="legend-note">
+                        凡例：◎＝十分に満たす／○＝ある程度満たす／△＝要追加検討・優先度が低い
+                    </p>
+
+                    <h4>評価すべき7つの技術要件</h4>
+                    <div class="mermaid-container">
+                        <pre class="mermaid" id="mermaid-diagram-tools"></pre>
+                    </div>
+
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>要件</th>
+                                    <th>確認ポイント</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>言語／技術／IDE</td>
+                                    <td>
+                                        ツールの実装言語・対応IDEはSUTやチームのスキルセットと合っているか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>環境設定の柔軟性</td>
+                                    <td>
+                                        複数の実行環境・実行構成に対応でき、動的/静的な設定値を扱えるか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>テストデータ管理</td>
+                                    <td>
+                                        ツール内でテストデータを管理できるか。中央リポジトリでのバージョン管理と統合できるか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>対応テストタイプ</td>
+                                    <td>
+                                        テストタイプごとに異なるツールが必要になる場合がある点を考慮しているか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>レポーティング機能</td>
+                                    <td>プロジェクトのテストレポーティング要件と整合しているか</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>他ツールとの連携</td>
+                                    <td>
+                                        CI/CD、タスク管理、テスト管理、レポーティングなど組織内の既存ツール群と統合できるか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>アーキテクチャ拡張性</td>
+                                    <td>
+                                        スケーラビリティ・保守性・変更容易性・互換性・信頼性の観点で将来の拡張に耐えられるか
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout-practice">
+                        <div class="callout-header">
+                            <span class="callout-icon">💡</span
+                            ><span class="callout-label">ベストプラクティス</span>
+                        </div>
+                        <ul>
+                            <li>
+                                比較表は「ツールの機能一覧」ではなく、<strong>2.2.1で洗い出した要件に対する適合度</strong>を軸に作る。要件起点で評価することが重要。
+                            </li>
+                            <li>
+                                唯一絶対のツールは存在しない前提で、<strong>複数ツールの組み合わせ（ツールセット）</strong>を選択肢として提示する。
+                            </li>
+                            <li>
+                                最終判断のプロセス（誰がどう決めるか）はプロジェクトごとに異なってよいが、<strong>必ず提案内容をステークホルダーに提示し承認を得るステップを設ける</strong>。
+                            </li>
+                            <li>
+                                コスト（ライセンス費用、学習コスト、保守コスト）も比較軸に含め、機能面だけで判断しない。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr />
+
+                <section id="sec-4">
+                    <h2>4. 章のまとめとチェックリスト</h2>
+
+                    <div class="mermaid-container">
+                        <pre class="mermaid" id="mermaid-diagram-summary"></pre>
+                    </div>
+
+                    <h3>学習到達度チェックリスト</h3>
+                    <ul class="checklist-card" id="checklistCard">
+                        <li>
+                            <input type="checkbox" /><span
+                                >Observability・Controllability・Architecture
+                                Transparencyの3つを、それぞれ自分の言葉で説明できる</span
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" /><span
+                                >アクセシビリティ識別子・システム環境変数・デプロイ変数の違いと設定方法を説明できる</span
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" /><span
+                                >代表的な5つの環境例（ローカル開発／ビルド／統合／プレプロダクション／本番）の目的と、それぞれで実施される代表的なテストを言える</span
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" /><span
+                                >監視（モニタリング）が最初に導入される環境がどこかを説明できる</span
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" /><span
+                                >SUT分析で検討すべき8つの観点を挙げられる</span
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" /><span
+                                >ツール比較表の作り方（列＝ツール、行＝要件）と、評価すべき7つの技術要件を説明できる</span
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" /><span
+                                >「単一のツールがすべての要件を満たすとは限らない」という前提を踏まえた提案の進め方を説明できる</span
+                            >
+                        </li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section id="sec-5">
+                    <h2>5. 参考文献・情報源（URL）</h2>
+                    <p>本ガイドは、以下の公式情報源の内容に基づいて作成しています。</p>
+                    <div class="ref-grid">
+                        <div class="ref-card">
+                            <div class="ref-card-title">ISTQB® CTAL-TAE v2.0 認定ページ</div>
+                            <a
+                                href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                target="_blank"
+                                rel="noopener"
+                                >istqb.org/certifications/.../ctal-tae-v2-0/</a
+                            >
+                        </div>
+                        <div class="ref-card">
+                            <div class="ref-card-title">
+                                ISTQB® CTAL-TAE v2.0 シラバス（PDF）<br />Chapter 2「Preparing for
+                                Test Automation」pp.17–21
+                            </div>
+                            <a
+                                href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                                target="_blank"
+                                rel="noopener"
+                                >istqb.org/.../ISTQB_CTAL-TAE_Syllabus_v2.0.pdf</a
+                            >
+                        </div>
+                        <div class="ref-card">
+                            <div class="ref-card-title">ISTQB® 公式サイト（用語集・関連資料）</div>
+                            <a href="https://www.istqb.org/" target="_blank" rel="noopener"
+                                >www.istqb.org</a
+                            >
+                        </div>
+                    </div>
+                    <p class="ref-note">
+                        注：本シラバスが参照するISO/IEC
+                        25010（品質特性）などの外部標準規格は、シラバス内で要約されている範囲のみが出題対象であり、規格文書そのものは試験範囲外です（シラバス
+                        0.8節「Handling of Standards」参照）。
+                    </p>
+                </section>
+
+                <footer class="page-footer">
+                    <p>
+                        本ガイドは公式シラバスに基づいて作成した学習用の要約・解説であり、公式教材の代替ではありません。
+                    </p>
+                </footer>
+            </main>
+        </div>
+
+        <script>
+            (function () {
+                'use strict';
+
+                /* ---------- Mermaid diagram sources (JS template literal method) ---------- */
+                var MERMAID_DIAGRAMS = {
+                    'mermaid-diagram-position': `flowchart LR
+    P1[Ch.1 自動化の目的を理解する] --> P2[Ch.2 自動化の準備をする]
+    P2 --> P3[Ch.3 自動化アーキテクチャを設計する]
+    P2 --> P4[2.1 インフラ構成の理解]
+    P2 --> P5[2.2 ツール・戦略の評価プロセス]
+    classDef current fill:#e8eefd,stroke:#2f5fdc,stroke-width:2px,color:#1b2333;
+    classDef sub fill:#eef1f8,stroke:#c7d0e0,stroke-width:1px,color:#1b2333;
+    class P2 current;
+    class P1,P3 sub;
+    class P4,P5 sub;`,
+
+                    'mermaid-diagram-testability': `flowchart TD
+    subgraph TBD["SUT設計フェーズ"]
+        TB_F1[機能要件の設計]
+        TB_F2[非機能要件の設計]
+        TB_F2 --> TB_T[テスト容易性の設計]
+    end
+    TB_T --> TB_O["Observability<br>観測可能性"]
+    TB_T --> TB_C["Controllability<br>制御可能性"]
+    TB_T --> TB_A["Architecture Transparency<br>アーキテクチャの透明性"]
+    TB_O --> TB_R[TAEが効率よく<br>自動テストを実装できる]
+    TB_C --> TB_R
+    TB_A --> TB_R
+    classDef aspect fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
+    classDef result fill:#e6f7ef,stroke:#1a8a5f,stroke-width:1.5px,color:#1b2333;
+    class TB_O,TB_C,TB_A aspect;
+    class TB_R result;`,
+
+                    'mermaid-diagram-envs': `flowchart LR
+    V_A["ローカル開発環境<br>白箱テスト・<br>コンポーネントテスト"] -.-> V_B["ビルド環境<br>静的解析・<br>低レベルテスト"]
+    V_B -.-> V_C["統合環境<br>黒箱テスト<br>(UI/APIテスト)"]
+    V_C -.-> V_D["プレプロダクション環境<br>非機能テスト・UAT"]
+    V_D -.-> V_E["本番/運用環境<br>カナリア/Blue-Green・<br>A/Bテスト"]
+    classDef env fill:#eef1f8,stroke:#8891a3,stroke-width:1px,color:#1b2333;
+    classDef monitored fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
+    class V_A,V_B env;
+    class V_C,V_D,V_E monitored;`,
+
+                    'mermaid-diagram-sut': `flowchart TD
+    S_Start(["SUT分析の開始"]) --> S_Q1{"どのテストプロセス活動<br>を自動化するか?"}
+    S_Start --> S_Q2{"どのテストレベルを<br>サポートするか?"}
+    S_Start --> S_Q3{"どのテストタイプを<br>サポートするか?"}
+    S_Start --> S_Q4{"どの役割・スキルセット<br>を想定するか?"}
+    S_Start --> S_Q5{"どの製品/製品群を<br>サポートするか?"}
+    S_Start --> S_Q6{"どんなSUTと<br>互換性が必要か?"}
+    S_Start --> S_Q7{"テストデータの<br>可用性・品質は?"}
+    S_Start --> S_Q8{"到達困難なケースを<br>どうエミュレートするか?"}
+    S_Q1 & S_Q2 & S_Q3 & S_Q4 & S_Q5 & S_Q6 & S_Q7 & S_Q8 --> S_Req["自動化アプローチ/<br>アーキテクチャの要件定義"]
+    classDef q fill:#eef1f8,stroke:#8891a3,stroke-width:1px,color:#1b2333;
+    classDef req fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
+    class S_Q1,S_Q2,S_Q3,S_Q4,S_Q5,S_Q6,S_Q7,S_Q8 q;
+    class S_Req req;`,
+
+                    'mermaid-diagram-tools': `flowchart LR
+    R_Tool[候補ツール] --> R_R1["言語/技術・IDE対応"]
+    R_Tool --> R_R2["環境設定の柔軟性"]
+    R_Tool --> R_R3["テストデータ管理"]
+    R_Tool --> R_R4["対応テストタイプ"]
+    R_Tool --> R_R5["レポーティング機能"]
+    R_Tool --> R_R6["他ツールとの連携性"]
+    R_Tool --> R_R7["拡張性・保守性・<br>変更容易性・互換性・信頼性"]
+    R_R1 & R_R2 & R_R3 & R_R4 & R_R5 & R_R6 & R_R7 --> R_Decision["比較表を基に<br>ツール/ツールセットを提案"]
+    R_Decision --> R_Approval["ステークホルダーへの<br>提示・承認"]
+    classDef req fill:#eef1f8,stroke:#8891a3,stroke-width:1px,color:#1b2333;
+    classDef decide fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
+    class R_R1,R_R2,R_R3,R_R4,R_R5,R_R6,R_R7 req;
+    class R_Decision,R_Approval decide;`,
+
+                    'mermaid-diagram-summary': `flowchart TD
+    M_Root["Ch.2 テスト自動化の準備"] --> M_Infra
+    M_Root --> M_Eval
+    subgraph M_Infra["インフラ構成の理解"]
+        M_Test["テスト容易性<br>Observability・Controllability・<br>Architecture Transparency"]
+        M_Config["構成要素<br>識別子・環境変数・デプロイ変数"]
+        M_Env["環境の種類<br>ローカル〜本番の5例"]
+    end
+    subgraph M_Eval["評価プロセス"]
+        M_Sut["SUT分析<br>8つの検討観点"]
+        M_ToolEval["ツール評価<br>比較表・7つの技術要件"]
+    end
+    classDef root fill:#2f5fdc,stroke:#1e3fa0,stroke-width:1.5px,color:#ffffff;
+    classDef leaf fill:#ffffff,stroke:#c7d0e0,stroke-width:1px,color:#1b2333;
+    class M_Root root;
+    class M_Test,M_Config,M_Env,M_Sut,M_ToolEval leaf;`,
+                };
+
+                /* ---------- Mermaid init + render ---------- */
+                function initMermaid() {
+                    if (typeof mermaid === 'undefined') {
+                        Object.keys(MERMAID_DIAGRAMS).forEach(function (id) {
+                            var el = document.getElementById(id);
+                            if (el) {
+                                el.outerHTML =
+                                    '<div class="mermaid-error">図を読み込めませんでした（ライブラリ未読み込み）</div>';
+                            }
+                        });
+                        return;
+                    }
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        themeVariables: {
+                            fontSize: '16px',
+                            fontFamily:
+                                '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                            primaryColor: '#e8eefd',
+                            primaryBorderColor: '#2f5fdc',
+                            primaryTextColor: '#1b2333',
+                            lineColor: '#8891a3',
+                            secondaryColor: '#eef1f8',
+                            tertiaryColor: '#ffffff',
+                            clusterBkg: '#f6f7fb',
+                            clusterBorder: '#c7d0e0',
+                        },
+                        flowchart: {
+                            useMaxWidth: false,
+                            htmlLabels: true,
+                            subGraphTitleMargin: { top: 12, bottom: 18 },
+                            nodeSpacing: 60,
+                            rankSpacing: 70,
+                        },
+                        securityLevel: 'loose',
+                    });
+
+                    var ids = Object.keys(MERMAID_DIAGRAMS);
+                    ids.forEach(function (id, idx) {
+                        var container = document.getElementById(id);
+                        if (!container) return;
+                        var source = MERMAID_DIAGRAMS[id];
+                        try {
+                            mermaid
+                                .render('svg-' + id + '-' + idx, source)
+                                .then(function (result) {
+                                    container.innerHTML = result.svg;
+                                })
+                                .catch(function (err) {
+                                    container.outerHTML =
+                                        '<div class="mermaid-error">図の描画に失敗しました: ' +
+                                        (err && err.message ? err.message : 'unknown error') +
+                                        '</div>';
+                                });
+                        } catch (err) {
+                            container.outerHTML =
+                                '<div class="mermaid-error">図の描画に失敗しました: ' +
+                                (err && err.message ? err.message : 'unknown error') +
+                                '</div>';
+                        }
+                    });
+                }
+
+                /* ---------- Sidebar toggle (mobile) ---------- */
+                function initSidebarToggle() {
+                    var btn = document.getElementById('sidebarToggle');
+                    var sidebar = document.getElementById('sidebar');
+                    if (!btn || !sidebar) return;
+                    btn.addEventListener('click', function () {
+                        sidebar.classList.toggle('open');
+                    });
+                    sidebar.querySelectorAll('a').forEach(function (a) {
+                        a.addEventListener('click', function () {
+                            if (window.innerWidth <= 900) {
+                                sidebar.classList.remove('open');
+                            }
+                        });
+                    });
+                }
+
+                /* ---------- Scroll-spy ---------- */
+                function initScrollSpy() {
+                    var links = Array.prototype.slice.call(
+                        document.querySelectorAll('.sidebar nav a[data-target]'),
+                    );
+                    if (!links.length) return;
+                    var map = {};
+                    links.forEach(function (a) {
+                        var id = a.getAttribute('data-target');
+                        var heading = document.getElementById(id);
+                        if (heading) {
+                            map[id] = a;
+                        }
+                    });
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                var id = entry.target.id;
+                                var link = map[id];
+                                if (!link) return;
+                                if (entry.isIntersecting) {
+                                    links.forEach(function (a) {
+                                        a.classList.remove('active');
+                                    });
+                                    link.classList.add('active');
+                                }
+                            });
+                        },
+                        { rootMargin: '-15% 0px -75% 0px', threshold: 0 },
+                    );
+                    Object.keys(map).forEach(function (id) {
+                        observer.observe(document.getElementById(id));
+                    });
+                }
+
+                /* ---------- Checklist progress ---------- */
+                function initChecklist() {
+                    var card = document.getElementById('checklistCard');
+                    if (!card) return;
+                    var progress = document.createElement('div');
+                    progress.className = 'checklist-progress';
+                    progress.innerHTML =
+                        '<span class="cp-label">学習到達度</span>' +
+                        '<div class="cp-bar"><div class="cp-bar-fill" id="cpBarFill"></div></div>' +
+                        '<span class="cp-count" id="cpCount">0 / 0 完了</span>';
+                    card.parentNode.insertBefore(progress, card);
+
+                    var boxes = card.querySelectorAll('input[type="checkbox"]');
+                    var total = boxes.length;
+                    var fill = document.getElementById('cpBarFill');
+                    var count = document.getElementById('cpCount');
+
+                    function update() {
+                        var checked = card.querySelectorAll(
+                            'input[type="checkbox"]:checked',
+                        ).length;
+                        var pct = total ? Math.round((checked / total) * 100) : 0;
+                        fill.style.width = pct + '%';
+                        count.textContent = checked + ' / ' + total + ' 完了';
+                    }
+                    boxes.forEach(function (b) {
+                        b.addEventListener('change', update);
+                    });
+                    update();
+                }
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    initMermaid();
+                    initSidebarToggle();
+                    initScrollSpy();
+                    initChecklist();
+                });
+            })();
+        </script>
+    </body>
+</html>
