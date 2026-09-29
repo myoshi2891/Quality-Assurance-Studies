@@ -1120,12 +1120,21 @@ def to_dto(value: Any) -&gt; Any:
     return value
 
 @unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
-def run_read_query(tx, cypher: str) -&gt; tuple[list[dict], bool]:
+def run_read_query(tx, cypher: str) -&gt; tuple[list[dict], list[dict], bool]:
     # fetch は指定件数までしか取り出さないため、大規模な結果をすべてメモリへ読み込まない。
     # 上限より 1 件多く取り出し、超過の有無で「上限ちょうど」と「切り捨て」を区別する
     records = tx.run(cypher).fetch(MAX_RESULT_ROWS + 1)
-    rows = [{key: to_dto(value) for key, value in r.items()} for r in records[:MAX_RESULT_ROWS]]
-    return rows, len(records) &gt; MAX_RESULT_ROWS
+    kept = records[:MAX_RESULT_ROWS]
+    # 行数の上限内でも、集計値の中身が大きすぎる結果は変換・State 保存・LLM 送信の前に拒否する
+    ensure_payload_within_limits(kept)
+    rows = [{key: to_dto(value) for key, value in r.items()} for r in kept]
+    # 変換前の検査は to_dto() の出力サイズの見積もりのため、State に保存する実際のペイロードでも上限を確認する
+    ensure_payload_within_limits(rows)
+    # 列名はエイリアスで付け替えられるため、列の値ごとに実際の型から要約用の値を作る
+    summary_rows = [{key: to_summary_dto(value) for key, value in r.items()} for r in kept]
+    # 要約用の値も State 保存・LLM 送信の対象になるため、変換後の実際のペイロードで上限を確認する
+    ensure_payload_within_limits(summary_rows)
+    return rows, summary_rows, len(records) &gt; MAX_RESULT_ROWS
 
 def execute_query(state: AgentState) -&gt; dict:
     retries = state.get("retries", 0)
@@ -1134,13 +1143,24 @@ def execute_query(state: AgentState) -&gt; dict:
         with driver.session() as session:
             # execute_read は読み取りモードのトランザクションを選ぶ（クラスタでは読み取りレプリカへ振り分ける）だけで、
             # 書き込みを防ぐ境界ではない。書き込みの最終的な防止は、下記の reader ロールのみを持つユーザーで担保する
-            records, truncated = session.execute_read(run_read_query, state["cypher_query"])
-    except (CypherValidationError, ClientError) as exc:
-        # Cypher 自体の誤り（構文・意味・書き込み拒否）は、エラー内容を渡して LLM に再生成させる
+            records, summary_records, truncated = session.execute_read(run_read_query, state["cypher_query"])
+    except CypherValidationError as exc:
+        # アプリ側の検証で拒否した書き込み操作は、エラー内容を渡して LLM に再生成させる
+        return {"results_error": str(exc), "retries": retries + 1}
+    except ClientError as exc:
+        # 認証・権限（Neo.ClientError.Security.*）などは Cypher を直しても解消しないため、再生成させずに送出する
+        if not (exc.code or "").startswith(REPAIRABLE_ERROR_PREFIXES):
+            raise
+        # Cypher 自体の誤り（構文・意味）とタイムアウトは、エラー内容を渡して LLM に再生成させる
         return {"results_error": str(exc), "retries": retries + 1}
     # ServiceUnavailable や TransientError などの一時障害は捕捉せず、Step 10 の RetryPolicy に再試行させる
 
-    return {"results": records, "results_truncated": truncated, "results_error": None}</code></pre>
+    return {
+        "results": records,
+        "summary_results": summary_records,
+        "results_truncated": truncated,
+        "results_error": None,
+    }</code></pre>
                     <p>
                         <code>driver</code> には、<code>reader</code>
                         ロールのみを付与した<strong>読み取り専用ユーザー</strong>の認証情報を使ってください。書き込みを実際に止める境界はこの
@@ -1220,6 +1240,9 @@ driver = GraphDatabase.driver(
                         <code>results_truncated</code> に記録し、要約プロンプト（Step
                         9）と画面表示（Step 11）の両方で切り捨てを明示します。
                     </p>
+                    <p>
+                        行数の上限は外側のレコード数しか制限しません。<code>RETURN collect(p)</code> のような集計は 1 行に任意の件数の要素を詰められるため、<code>ensure_payload_within_limits()</code> で行の中身の要素数（<code>MAX_RESULT_ELEMENTS</code>）とテキストの合計長（<code>MAX_RESULT_TEXT_CHARS</code>）も検査します。検査は 3 回行い、対象は <code>kept</code>・<code>rows</code>・<code>summary_rows</code> です。まず <code>to_dto()</code> の前に取得した値（<code>kept</code>）を検査し、変換後の出力サイズを見積もって明らかな超過を変換前に拒否します。続いて <code>to_dto()</code> で変換した行（<code>rows</code>。State に保存する実際のペイロード）を再検査します。最後に <code>to_summary_dto()</code> で作った要約用の行（<code>summary_rows</code>。State 保存と LLM 送信の対象）も検査します。変換後の 2 回の検査で超過が見つかった場合は、その時点で拒否します。いずれの場合も <code>ResultTooLargeError</code> を送出します。<code>CypherValidationError</code> のサブクラスなので、既存の分岐でエラー内容が LLM に渡り、<code>LIMIT</code> や <code>collect(x)[..100]</code> で絞った Cypher に再生成されます。
+                    </p>
                     <p>ここまでの安全対策をまとめると、次の観点をカバーしていることになります。</p>
                     <div class="table-wrap">
                         <table>
@@ -1287,7 +1310,9 @@ driver = GraphDatabase.driver(
                                     <td>
                                         <code>QUERY_TIMEOUT_SECONDS</code> と
                                         <code>MAX_RESULT_ROWS</code> をコード側で強制し、超過分は
-                                        <code>results_truncated</code> で明示する
+                                        <code>results_truncated</code> で明示する。行数の上限内でも集計値の中身が大きすぎる場合は
+                                        <code>ensure_payload_within_limits()</code> が <code>ResultTooLargeError</code>
+                                        を送出し、LLM に <code>LIMIT</code> や <code>collect(x)[..100]</code> で絞った Cypher を再生成させる
                                     </td>
                                 </tr>
                             </tbody>
