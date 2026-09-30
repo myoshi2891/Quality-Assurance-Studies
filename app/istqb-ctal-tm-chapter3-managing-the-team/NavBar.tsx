@@ -115,6 +115,7 @@ export default function NavBar() {
                                 href={`#${group.parent.id}`}
                                 className={`nav-link ${activeId === group.parent.id ? 'active' : ''}`}
                                 data-target={group.parent.id}
+                                aria-current={activeId === group.parent.id ? 'location' : undefined}
                                 onClick={closeSidebar}
                             >
                                 {group.parent.text}
@@ -127,6 +128,7 @@ export default function NavBar() {
                                                 href={`#${child.id}`}
                                                 className={`nav-sublink ${activeId === child.id ? 'active' : ''}`}
                                                 data-target={child.id}
+                                                aria-current={activeId === child.id ? 'location' : undefined}
                                                 onClick={closeSidebar}
                                             >
                                                 {child.text}

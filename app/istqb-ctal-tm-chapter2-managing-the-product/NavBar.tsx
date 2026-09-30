@@ -107,6 +107,7 @@ export default function NavBar() {
                 className="sidebar-toggle"
                 id="sidebarToggle"
                 aria-label="目次を開閉"
+                aria-expanded={isOpen}
                 onClick={toggleSidebar}
             >
                 ☰
