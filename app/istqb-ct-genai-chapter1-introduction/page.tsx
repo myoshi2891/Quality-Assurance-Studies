@@ -2,7 +2,12 @@ import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_AI_GENEALOGY, DIAGRAM_LLM_TEXT_GENERATION } from './diagrams';
+import {
+    DIAGRAM_AI_GENEALOGY,
+    DIAGRAM_LLM_TEXT_GENERATION,
+    DIAGRAM_LLM_CATEGORIES,
+    DIAGRAM_MULTIMODAL_PROCESSING,
+} from './diagrams';
 import './istqb-ct-genai-chapter1-introduction.css';
 
 export const metadata: Metadata = {
@@ -388,8 +393,123 @@ export default function CtGenAiChapter1Page() {
                         </ul>
                     </div>
                 </div>
+
+                <h3 id="113-基盤llm指示チューニング済みllm推論llm">
+                    1.1.3 基盤LLM・指示チューニング済みLLM・推論LLM
+                </h3>
+                <p>
+                    LLMは、段階的に専門性を高める学習プロセスを経て開発されます。この段階に応じて、大きく3つのカテゴリに分類されます。
+                </p>
+                <ul>
+                    <li>
+                        <strong>基盤LLM（Foundation LLM）</strong>：幅広いテキストデータで事前学習された汎用モデルです。要約・翻訳・質問応答など多様な言語タスクに対応できる柔軟性を持ちますが、強力である一方、特定タスクに適用するにはさらなる調整が必要になることが一般的です（「基盤」は事前学習という開発段階による分類であり、1.1.4 で扱う「マルチモーダル」は入出力のモダリティによる分類です。両者は別の軸なので、画像や音声を扱う基盤LLMも存在します）。
+                    </li>
+                    <li>
+                        <strong>指示チューニング済みLLM（Instruction-tuned LLM）</strong>：基盤モデルから派生し、「プロンプトと期待される応答」のペアのデータセットで追加調整（ファインチューニング）されたモデルです。これにより人間の指示への追従性が高まり、実世界での使いやすさが向上します。
+                    </li>
+                    <li>
+                        <strong>推論LLM（Reasoning LLM）</strong>：指示チューニング済みモデルをさらに拡張し、論理的推論・多段階の問題解決・Chain-of-Thought（思考の連鎖）といった構造化された認知能力を強化したモデルです。文脈理解や中間推論ステップ、複雑な情報の統合が求められる高負荷なタスクに適しています。
+                    </li>
+                </ul>
+                <p>
+                    ソフトウェアテストの現場では、指示チューニング済みLLM（「非推論型」と呼ばれることもあります）と推論LLMの両方が利用されており、<strong>タスクの複雑さと推論の必要性に応じて使い分ける</strong>ことが重要です。
+                </p>
+                <div className="mermaid-container" id="mermaid-diagram-3">
+                    <Mermaid chart={DIAGRAM_LLM_CATEGORIES} />
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>種類</th>
+                                <th>学習方法</th>
+                                <th>強み</th>
+                                <th>テストでの適用イメージ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>基盤LLM</td>
+                                <td>多様な大規模データで事前学習のみ</td>
+                                <td>汎用性が高く多様なタスクに対応できる。特定タスクには追加調整が必要な場合がある</td>
+                                <td>汎用的な文章要約・下書き作成</td>
+                            </tr>
+                            <tr className="even">
+                                <td>指示チューニング済みLLM</td>
+                                <td>プロンプトと期待応答のペアで追加学習</td>
+                                <td>人間の指示に忠実に従う</td>
+                                <td>日常的なテスト業務のチャットボット支援</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>推論LLM</td>
+                                <td>論理推論に特化した追加学習</td>
+                                <td>多段階推論・複数基準の判断が得意</td>
+                                <td>依存関係を考慮したテストケースの優先順位付け</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-label">
+                        <span className="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                単純な文章生成や要約であれば指示チューニング済みLLMで十分なことが多く、推論LLMは計算コストが高い傾向があるため、<strong>タスクの複雑さに見合ったモデルを選ぶ</strong>ことがコストと精度のバランスを取る鍵になる。
+                            </li>
+                            <li>
+                                テスト計画やテストケースの優先順位付けのように、複数のリスク要因や依存関係を同時に考慮する必要があるタスクには推論LLMの活用を検討する。
+                            </li>
+                            <li>
+                                モデルの世代・種類は日々更新されるため、自組織で利用するLLMがどのカテゴリに属するか（あるいはハイブリッドか）を定期的に確認し、選定基準をドキュメント化しておく。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 id="114-マルチモーダルllmとvision-language-model">
+                    1.1.4 マルチモーダルLLMとVision-Language Model
+                </h3>
+                <p>
+                    マルチモーダルLLMは、従来のTransformerモデルを拡張し、テキストだけでなく画像・音声・動画など複数の種類のデータを処理できるようにしたモデルです。多様なモダリティ間の関係性を学習できるよう、大規模かつ多様なデータセットで学習されています。データ種別ごとにトークン化の方法が異なり、例えば画像は視覚エンコーダ（Vision Encoder）で特徴量（埋め込み）に変換され、その表現が言語モデル側の埋め込み空間へ接続されたうえでTransformerに入力されます。
+                </p>
+                <p>
+                    <strong>Vision-Language Model（VLM）</strong>はマルチモーダルLLMの一種で、視覚エンコーダが作った画像の表現を言語モデルへ接続することで視覚情報とテキスト情報を統合し、画像キャプション生成・視覚的質問応答・テキストと画像の整合性分析といったタスクを実行します。
+                </p>
+                <p>
+                    ソフトウェアテストにおいて、マルチモーダルLLM（特にVLMを組み込んだLLM）は大きな可能性を秘めています。スクリーンショットやGUIワイヤーフレームといった視覚要素を、不具合報告やユーザーストーリーなどの関連するテキスト情報と合わせて分析できるため、<strong>期待結果と実際の画面表示との齟齬をテスターが特定する</strong>ことを支援します。さらに、テキストデータと視覚的な手がかりの両方を組み込んだ、より豊かで現実的なテストケースの生成にも活用でき、全体的なカバレッジの向上につながります。
+                </p>
+                <div className="mermaid-container" id="mermaid-diagram-4">
+                    <Mermaid chart={DIAGRAM_MULTIMODAL_PROCESSING} />
+                </div>
+                <h4 id="ハンズオン演習ho-114の狙い">ハンズオン演習（HO-1.1.4）の狙い</h4>
+                <p>
+                    シラバスの演習では、(1) 与えられたテストタスク用に提供されたプロンプトと入力データ（テキスト・画像）をレビューし、(2) それをマルチモーダルLLMで実行して応答を確認・検証する、という2ステップを踏みます。プロンプトを自分で一から作成するのは、追加の発展演習という位置づけです。これにより、テキストと画像を組み合わせたテストタスクにおけるマルチモーダルLLM活用の利点と課題の両方を体感できます。
+                </p>
+                <div className="callout-practice">
+                    <div className="callout-label">
+                        <span className="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                GUIのスクリーンショットをLLMに渡す際は、画面キャプチャだけでなく「期待される仕様（テキスト）」もセットで提供すると、差分検出の精度が大きく向上する。
+                            </li>
+                            <li>
+                                個人情報や機密情報が映り込んだスクリーンショットを外部LLMサービスに送信しないよう、事前にマスキング・モザイク処理を行う運用ルールを整備する（データプライバシーの詳細は第3章）。
+                            </li>
+                            <li>
+                                マルチモーダルプロンプトの結果は、テキストのみのプロンプトよりも検証コストが高くなりがちなので、まずは小規模な画面や単純なUIコンポーネントから試し、段階的に対象範囲を広げる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </main>
         </div>
     );
 }
+
 
