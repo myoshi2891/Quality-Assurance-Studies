@@ -252,13 +252,19 @@
 .ctal-tm-ch1-page .hero h1 {
     margin: 0 0 22px;
     color: var(--head);
-    font-size: clamp(26px, 3.4vw, 40px);
+    font-size: clamp(22px, 2.2vw, 36px);
     line-height: 1.45;
     font-weight: 800;
     letter-spacing: 0.01em;
     border-left: 6px solid var(--accent);
     padding-left: 20px;
-    text-wrap: balance;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+.ctal-tm-ch1-page .hero-title-part {
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .ctal-tm-ch1-page .hero-meta {

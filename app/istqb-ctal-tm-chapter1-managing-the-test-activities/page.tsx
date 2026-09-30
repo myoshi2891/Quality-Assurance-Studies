@@ -18,7 +18,11 @@ export default function CtalTmChapter1Page() {
         <NavBar />
         <main className="main" role="main">
           <header className="hero">
-                    <h1>ISTQB CTAL-TM v3.0 Chapter 1「テスト活動の管理」初学者向け完全ガイド</h1>
+                    <h1>
+                        <span className="hero-title-part">ISTQB CTAL-TM v3.0 Chapter 1</span>{" "}
+                        <span className="hero-title-part">「テスト活動の管理」</span>{" "}
+                        <span className="hero-title-part">初学者向け完全ガイド</span>
+                    </h1>
                     <dl className="hero-meta">
                         <div className="hero-row">
                             <dt>対象資格</dt>

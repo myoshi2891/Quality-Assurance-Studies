@@ -40,12 +40,26 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 1: Scaffolding, NavBar, Hero & sec-1
     it('renders hero title and metadata correctly', () => {
         render(<CtalTmChapter1Page />);
         const h1 = screen.getByRole('heading', { level: 1 });
-        expect(h1.textContent).toContain('ISTQB CTAL-TM v3.0 Chapter 1「テスト活動の管理」初学者向け完全ガイド');
+        expect(h1.textContent).toContain('ISTQB CTAL-TM v3.0 Chapter 1');
+        expect(h1.textContent).toContain('「テスト活動の管理」');
+        expect(h1.textContent).toContain('初学者向け完全ガイド');
 
         const pills = document.querySelector('.pills');
         expect(pills).toBeTruthy();
         expect(pills?.textContent).toContain('学習時間');
         expect(pills?.textContent).toContain('750 分');
+    });
+
+    it('ensures hero title uses inline-block parts to prevent awkward line breaks', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const h1 = container.querySelector('.hero h1');
+        expect(h1).toBeTruthy();
+        const parts = h1?.querySelectorAll('.hero-title-part');
+        expect(parts?.length).toBeGreaterThanOrEqual(2);
+
+        const cssPath = join(__dirname, '../../app/istqb-ctal-tm-chapter1-managing-the-test-activities/istqb-ctal-tm-chapter1-managing-the-test-activities.css');
+        const css = readFileSync(cssPath, 'utf8');
+        expect(css).toMatch(/\.ctal-tm-ch1-page\s+\.hero-title-part\s*\{[^}]*display:\s*inline-block/);
     });
 
     it('renders sec-1 headings and sections', () => {
