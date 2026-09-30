@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4 } from './diagrams';
+import { DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5, DIAGRAM_6, DIAGRAM_7 } from './diagrams';
 import './istqb-ctal-tm-chapter2-managing-the-product.css';
 
 export const metadata: Metadata = {
@@ -1030,7 +1030,520 @@ export default function CtalTmChapter2Page() {
                         </table>
                     </div>
                     <hr />
-                </main>
+                <h2 id="3-シラバス22テスト見積り">3. 【シラバス2.2】テスト見積り</h2>
+                <div className="callout callout-note">
+                    <div className="callout-body">
+                        <p>学習の目的：TM-2.2.1（K2）／TM-2.2.2（K2）／TM-2.2.3（K4）</p>
+                    </div>
+                </div>
+                <h3 id="ステップ1tm-221テスト見積りとは何を見積ることか">
+                    ステップ1（TM-2.2.1）：テスト見積りとは何を見積ることか
+                </h3>
+                <p>
+                    <strong>テスト見積り</strong
+                    >とは、テストマネジメントの活動のひとつで、「あるタスクを完了するまでに、どれだけの<strong>時間・工数・コスト</strong>がかかるか」を予測することです。シラバスは、テストマネジメントにおける<strong>主要かつ重要なタスク</strong>と位置付けています。
+                </p>
+                <p>
+                    システム／ソフトウェアエンジニアリング全般に見積りのよい実践例があり、テスト見積りは、それらを<strong>テストの活動に適用</strong>したものです。
+                </p>
+                <h4 id="3つの軸工数時間コスト">3つの軸：工数・時間・コスト</h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>軸</th>
+                                <th>意味</th>
+                                <th>問い</th>
+                                <th>ポイント</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>工数（effort）</td>
+                                <td>
+                                    タスクを完了するのに必要な労力。人時（人日）やストーリーポイントで表す
+                                </td>
+                                <td>何人時かかるか</td>
+                                <td>
+                                    テスト工数と<strong>テスト期間（経過時間）は異なる</strong>ことが多い
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>時間（duration）</td>
+                                <td>プロジェクトを完了するのに必要な時間</td>
+                                <td>どれくらいで終わるか</td>
+                                <td>
+                                    テスト計画では、工数を<strong>カレンダー日数と稼働日数</strong>に換算する。すべてのプロジェクトにはマイルストーンと納期がある
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>コスト</td>
+                                <td>
+                                    プロジェクトの予算。テストリソース、ツール、インフラの費用を含む
+                                </td>
+                                <td>いくらかかるか</td>
+                                <td>テストプロジェクトにはどれくらいの費用が必要か</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>具体例（架空）</strong
+                    >：テスト実行に60人日の工数が必要で、テスト担当者が3人、各自がテストに使える時間が稼働時間の80％だとします。
+                </p>
+                <pre
+                    className="text"
+                ><code>期間（稼働日）＝ 60人日 ÷ （3人 × 0.8）＝ 25稼働日</code></pre>
+                <p>
+                    工数は60人日ですが、期間は25稼働日（約5週間）です。工数と期間を混同すると、納期の計画が大きくずれます。
+                </p>
+                <h4 id="見積りの進め方">見積りの進め方</h4>
+                <p>
+                    テストは、（大規模な）プロジェクトの<strong>サブプロジェクト</strong>であることが多く、複数のテスト拠点（テストセンターなど）に分散していることもあります。
+                </p>
+                <div className="mermaid-container" id="container-mmd-5">
+<div className="mermaid-target" id="mmd-5">
+<Mermaid chart={DIAGRAM_5} id="diagram-5" />
+</div>
+</div>
+                <p>
+                    <strong>アジャイルの場合</strong
+                    >：テスト活動は開発作業の中で見積もることが多く、テストだけを個別の値として見積ることはしません。
+                </p>
+                <h4 id="時間コスト品質の三角形">時間・コスト・品質の三角形</h4>
+                <p>
+                    テストはプロジェクトのサブプロジェクトなので、見積りには常に<strong>プロジェクト制約</strong>が影響し、<strong>妥協</strong>が必要になります。時間・コスト・品質は互いに影響し合う3つの値で、<strong>どれかを恣意的に動かすことはできません</strong>（品質マネジメントで知られる「時間-コスト-品質の三角形」）。
+                </p>
+                <div className="mermaid-container" id="container-mmd-6">
+<div className="mermaid-target" id="mmd-6">
+<Mermaid chart={DIAGRAM_6} id="diagram-6" />
+</div>
+</div>
+                <p>
+                    例：納期（時間）を短縮したいのにテスト範囲（品質）を維持するなら、人員追加（コスト）が必要になります。コストも時間も固定なら、テスト範囲やレベル（品質側）の見直しが必要です。
+                </p>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.2 導入・2.2.1（p.54）、<a
+                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                        >ISTQB英語版シラバス（PDF）</a
+                    >
+                    2.2 節（p.52）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.2.1 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                <strong>工数・期間・コストを分けて</strong
+                                >見積る。特に期間は、稼働率・休暇・並行作業を考慮してカレンダー日数に換算する。
+                            </li>
+                            <li>
+                                見積りの粒度は、テストレベル → 活動 →
+                                タスクの順に分解する（分解が粗いと誤差が大きくなる）。
+                            </li>
+                            <li>
+                                「品質を下げずに納期だけ縮める」といった依頼には、三角形を示して<strong>トレードオフを可視化</strong>し、ステークホルダーに選択してもらう。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="ステップ2tm-222テスト工数に影響を与える要因">
+                    ステップ2（TM-2.2.2）：テスト工数に影響を与える要因
+                </h3>
+                <p>
+                    テスト工数の見積りは、特定のプロジェクト、リリース、イテレーションの<strong>テスト目的を達成するために必要な作業量を予測する</strong>ことです。工数に影響する要因を、シラバスは5つの区分で整理しています。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>区分</th>
+                                <th>具体的な要因</th>
+                                <th>影響のしかた（考え方）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>プロダクト</td>
+                                <td>
+                                    テストベースの品質、テスト対象の大きさ、プロダクトドメインの複雑度（環境・インフラ・歴史など）、品質特性（セキュリティや信頼性など）をテストする要件
+                                </td>
+                                <td>
+                                    仕様があいまいだったり規模が大きいほど、分析・設計・実行が増える
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>開発プロセス</td>
+                                <td>
+                                    組織の開発プロセスの安定性と成熟度、使用する開発モデル（アジャイル／イテレーティブ／ハイブリッドなど）、物理的な要因（テスト自動化、ツール、テスト環境の可用性）
+                                </td>
+                                <td>
+                                    プロセスが不安定なら手戻りや待ちが増える。環境が使えなければ実行できない
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>人</td>
+                                <td>
+                                    人々の満足度（祝祭日、休暇、その他の期待する福利厚生など）、関与する人のスキル・経験（特に類似のプロジェクトやプロダクトの経験、ドメイン知識）
+                                </td>
+                                <td>
+                                    人は最も必要なリソースであり、不安定な状況は見積りに反映が必要（3.1
+                                    節も参照）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>テスト結果</td>
+                                <td>テスト実行中に発見された欠陥の数と重要度、必要な再作業の量</td>
+                                <td>欠陥が多いほど、再テスト・確認テスト・再作業が増える</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テストコンテキスト</td>
+                                <td>
+                                    複数の組織にわたるテストの分散、チームの構成と所在地、プロジェクトの複雑度（複数のサブシステムなど）、働き方（バーチャルかオンサイトか）
+                                </td>
+                                <td>分散・複雑なほど調整コストが増える（1.2 節も参照）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>過去の統計は見積りの助けになります</strong
+                    >。「テスト結果」に関する要因を過去データとして持っていれば、より正確な値で見積りができます。
+                </p>
+                <p><strong>具体例（架空）</strong>：「テストベースの品質が低い」場合の影響</p>
+                <ul>
+                    <li>要件があいまい → テスト分析で疑問点の確認に時間がかかる（工数↑）</li>
+                    <li>要件が頻繁に変わる → テストケースの修正が増える（工数↑）</li>
+                    <li>欠陥が多く見つかる → 確認テスト・リグレッションテストが増える（工数↑）</li>
+                </ul>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.2.2（p.55〜56）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（実務補足）</p>
+                        <ul>
+                            <li>
+                                見積りシートに、5区分（プロダクト・開発プロセス・人・テスト結果・テストコンテキスト）のチェックリストを用意し、<strong>リスク要因を漏れなく洗い出す</strong>。
+                            </li>
+                            <li>
+                                「テスト結果」に関わる係数（欠陥の再テスト率など）は、過去プロジェクトの実績から<strong>自組織のデータ</strong>を蓄積して使う。
+                            </li>
+                            <li>
+                                見積りの前提となった要因（例：テスト環境は第2週から利用可）を<strong>前提条件として明記</strong>し、変化が起きたら再見積りする。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="ステップ3tm-223k4適切なテスト見積り技法を選ぶ">
+                    ステップ3（TM-2.2.3・K4）：適切なテスト見積り技法を選ぶ
+                </h3>
+                <h4 id="見積りで最初に決めるべき考え方">見積りで最初に決めるべき考え方</h4>
+                <ul>
+                    <li>
+                        テスト見積りは、<strong>テストプロセスに関わるすべての活動</strong>を対象にすべきです。
+                    </li>
+                    <li>
+                        中でも、<strong>テスト実行のコスト、工数、特に期間</strong>の見積りは、テストマネジメントに最も影響が大きいことが多いです。
+                    </li>
+                    <li>
+                        ただし、ソフトウェアの品質が低い、または品質が不明な場合は、テスト実行の見積りが<strong>難しくなる</strong>傾向があります。また、そのプロダクトに慣れている経験も見積りの質に影響します。
+                    </li>
+                    <li>
+                        一般的な実践例は、<strong>テストベース（要件・ユーザーストーリーなど）から導いたテストケースの数を見積る</strong>ことです。
+                    </li>
+                    <li>
+                        見積りの<strong>前提条件は、常に見積りの一部として文書化</strong>します。
+                    </li>
+                </ul>
+                <h4 id="技法の分類">技法の分類</h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>分類</th>
+                                <th>考え方</th>
+                                <th>
+                                    代表的な技法（Foundation Level v4 の 5.1.4
+                                    で説明されているもの）
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>メトリクスベース</td>
+                                <td>
+                                    過去データや現在の実測値などの<strong>数値</strong>から計算する
+                                </td>
+                                <td>比率による見積り、外挿</td>
+                            </tr>
+                            <tr className="even">
+                                <td>エキスパートベース</td>
+                                <td>
+                                    経験のある<strong>専門家・チームメンバーの知識と判断</strong>を集約する
+                                </td>
+                                <td>ワイドバンドデルファイ、プランニングポーカー、三点見積り</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout callout-warning">
+                    <div className="callout-head">
+                        <span className="callout-icon">⚠️</span><span className="callout-label">注意</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            上の「代表的な技法」の分類・説明は、CTAL-TM シラバスが参照している
+                            Foundation Level v4（5.1.4）に基づいて筆者が整理したものです。CTAL-TM
+                            シラバス自体は、技法の詳細を FL v4
+                            に委ねています。三点見積りは、「見積り誤差（標準偏差）」を計算できる技法として本シラバスでも言及されます。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="技法の選択に影響する5つの要因シラバス">
+                    技法の選択に影響する5つの要因（シラバス）
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>要因</th>
+                                <th>意味</th>
+                                <th>例（シラバスの記述）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>見積り誤差</td>
+                                <td>見積りの不確実性やばらつき（標準偏差）を把握できるか</td>
+                                <td>
+                                    三点見積りは、楽観的・悲観的・最も可能性の高い推定値から、期待値と標準偏差を計算する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>データの可用性</td>
+                                <td>
+                                    過去プロジェクトや類似プロジェクトの<strong>履歴データ</strong>が入手でき、信頼できるか
+                                </td>
+                                <td>
+                                    比率による見積りや外挿は、過去データから比率や傾向を導くため、データがないと使いにくい
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>専門家の可用性</td>
+                                <td>
+                                    正確で現実的な見積りができる知識・経験をもつ<strong>専門家</strong>が参加できるか
+                                </td>
+                                <td>
+                                    デルファイ法やプランニングポーカーは、専門家やチームメンバーの意見・判断に依存する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>モデリングの知識</td>
+                                <td>数学的モデルや数式を扱うスキルがあるか</td>
+                                <td>外挿や三点見積りは、数式で期待値と標準偏差を導く</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>時間的制約</td>
+                                <td>見積りにかけられる時間・労力</td>
+                                <td>
+                                    プランニングポーカーは簡単にできるが、外挿は難しいかもしれない
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>技法の選択はテストのコンテキスト</strong
+                    >（SDLC、ステークホルダー、テストレベル・テストタイプ）<strong>に大きく依存します</strong>。また、組織をまたぐ1つのプロジェクトで異なるSDLCが混在する場合には、テストマネージャーは技法を<strong>調整して適用できる</strong>必要があります。
+                </p>
+                <h4 id="シラバスが挙げる選択の目安">シラバスが挙げる選択の目安</h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>状況</th>
+                                <th>適した技法の例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>対象の複雑度が<strong>低い</strong></td>
+                                <td>メトリクスベースの技法</td>
+                            </tr>
+                            <tr className="even">
+                                <td>対象の複雑度が<strong>高い</strong></td>
+                                <td>エキスパートベースの技法</td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>シーケンシャル</strong>開発モデル</td>
+                                <td>ワイドバンドデルファイ</td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>アジャイル</strong>ソフトウェア開発モデル</td>
+                                <td>プランニングポーカー</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mermaid-container" id="container-mmd-7">
+<div className="mermaid-target" id="mmd-7">
+<Mermaid chart={DIAGRAM_7} id="diagram-7" />
+</div>
+</div>
+                <div className="callout callout-warning">
+                    <div className="callout-head">
+                        <span className="callout-icon">⚠️</span
+                        ><span className="callout-label">筆者による補足</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            上の図のうち、A から D・E・F
+                            までの分岐はシラバスの例示に沿った内容です。G（過去データの有無による分岐）は、「データの可用性」の要因を考慮するためのです。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="計算例架空三点見積り">計算例（架空）：三点見積り</h4>
+                <p>三点見積りでは、次の3つの推定値を使います（Foundation Level v4 の式）。</p>
+                <ul>
+                    <li>a：楽観的推定値（うまくいった場合）</li>
+                    <li>m：最も可能性の高い推定値</li>
+                    <li>b：悲観的推定値（うまくいかなかった場合）</li>
+                </ul>
+                <pre className="text"><code>期待値 E ＝ （a ＋ 4m ＋ b） ÷ 6
+標準偏差 SD ＝ （b － a） ÷ 6</code></pre>
+                <p>たとえば、あるテスト実行タスクで a＝10人日、m＝16人日、b＝40人日とします。</p>
+                <pre className="text"><code>E  ＝ （10 ＋ 4×16 ＋ 40） ÷ 6 ＝ 114 ÷ 6 ＝ 19人日
+SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
+                <p>
+                    期待値は19人日、標準偏差は5人日と説明できます。なお「19 ±
+                    5人日（14〜24人日）」は期待値 ±
+                    1標準偏差の幅を示すもので、この幅にどの程度の確率で収まるかは、分布の仮定（正規分布とみなすなど）を置かない限り決まりません。確率つきの区間として示す場合は、前提とする分布とカバー率（例：正規分布を仮定して約68％）を明記してください。いずれにせよ、悲観的推定値が大きく離れているため標準偏差が大きく、<strong>不確実性が高いタスク</strong>であることが読み取れます。
+                </p>
+                <h4 id="計算例架空比率による見積り">計算例（架空）：比率による見積り</h4>
+                <p>
+                    過去の類似プロジェクトで「開発工数：テスト工数 ＝
+                    3：2」だったとします。今回の開発工数が300人日と見積られているなら、テスト工数の目安は
+                    300 × 2/3 ＝
+                    200人日です。ただし、<strong>今回のプロダクトの複雑度や品質要件が過去と大きく異なる場合は、比率をそのまま使えません</strong>（この点が、データの可用性と、コンテキストの類似性を確認する理由です）。
+                </p>
+                <h4 id="見積りは一度作って終わりではない">見積りは「一度作って終わり」ではない</h4>
+                <ul>
+                    <li>
+                        一度作った見積りは、<strong>正当な理由とともにプロジェクトマネジメントに提出</strong>します。
+                    </li>
+                    <li>
+                        テストスコープなどの入力パラメーターが変わるため、見積りは<strong>調整されることが頻繁にあります</strong>。
+                    </li>
+                    <li>
+                        理想的には、最終的なテスト見積りは、<strong>品質・スケジュール・予算・機能</strong>の領域で、組織のゴールとプロジェクトのゴールの<strong>可能な限り最良のバランス</strong>を表します。
+                    </li>
+                    <li>
+                        見積りは<strong>作成時点で有効な情報</strong>に基づきます。プロジェクトの初期は情報が限られ、時間とともに情報が変わるため、<strong>新しい情報が出たら更新</strong>して正確さを保ちます。
+                    </li>
+                </ul>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.2.3（p.56〜57）、<a
+                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                        >ISTQB英語版シラバス（PDF）</a
+                    >
+                    2.2.3（p.53〜54）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.2.3 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                <strong>前提条件を必ず文書化</strong
+                                >し、見積りとセットで提出する。前提が崩れたら再見積りのトリガーにする。
+                            </li>
+                            <li>
+                                <strong>複数の技法を併用</strong
+                                >して結果を突き合わせる（例：比率による見積りとプランニングポーカー）。大きく食い違う場合は前提の見落としを疑う（実務補足）。
+                            </li>
+                            <li>
+                                見積りは<strong>レンジ（幅）で示す</strong>。三点見積りの標準偏差のように、不確実性を数字で伝える。
+                            </li>
+                            <li>
+                                過去プロジェクトの<strong>実績データ</strong>（工数、欠陥数、再テスト率）を蓄積し、次の見積りの精度向上に活用する。
+                            </li>
+                            <li>
+                                複数チーム・複数SDLCが混在するときは、チームごとに適した技法を使い、<strong>全体のプロジェクト計画に統合</strong>する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 id="22-節でよくある間違い試験の引っかけ">
+                    2.2 節でよくある間違い（試験の引っかけ）
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>誤解</th>
+                                <th>正しい理解</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>工数と期間は同じ</td>
+                                <td>
+                                    <strong>異なる</strong
+                                    >ことが多い。工数（人時）を稼働日数に換算して期間を見積る
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>見積りは最初に1回作れば十分</td>
+                                <td>新しい情報や変更に合わせて<strong>更新</strong>する</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>見積りの前提は口頭共有でよい</td>
+                                <td><strong>文書化</strong>が必要</td>
+                            </tr>
+                            <tr className="even">
+                                <td>履歴データがなくても比率・外挿は使える</td>
+                                <td>履歴データが必要。なければエキスパートベースを検討</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>アジャイルでもテスト工数は独立した項目として見積る</td>
+                                <td>開発作業の中で見積り、個別の値としては見積らないことが多い</td>
+                            </tr>
+                            <tr className="even">
+                                <td>複雑度が高い対象にはメトリクスベースが向いている</td>
+                                <td>
+                                    複雑度が高い場合は<strong>エキスパートベース</strong>の例が示されている
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                
+</main>
             </div>
         </div>
     );
