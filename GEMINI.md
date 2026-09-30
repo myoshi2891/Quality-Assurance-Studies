@@ -115,6 +115,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-ta-chapter5-defect-prevention/page.tsx` (CTAL-TA 第5章 ソフトウェア欠陥防止、TOCナビ付き)
 - `app/istqb-ctal-tm-chapter1-managing-the-test-activities/page.tsx` (CTAL-TM 第1章 テスト活動の管理、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-chapter2-managing-the-product/page.tsx` (CTAL-TM 第2章 プロダクトのマネジメント、`NavBar.tsx` 付き)
+- `app/istqb-ctal-tm-chapter3-managing-the-team/page.tsx` (CTAL-TM 第3章 チームの管理、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tta-complete-guide/page.tsx` (テクニカルテストアナリスト(CTAL-TTA)完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-att-complete-guide/page.tsx` (アジャイルテスト担当者 CTAL-ATT 完全ガイド、`NavBar.tsx` 付き)
@@ -191,7 +192,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（81 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（82 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -319,6 +320,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-ch4-quality-characteristics-guide.html` | `/istqb-ctal-ta-chapter4-quality-characteristics` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-tm-v3.0-ch1-managing-the-test-activities.html` | `/istqb-ctal-tm-chapter1-managing-the-test-activities` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-tm-v3.0-ch2-managing-the-product.html` | `/istqb-ctal-tm-chapter2-managing-the-product` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-tm-v3-ch3-managing-the-team-guide.html` | `/istqb-ctal-tm-chapter3-managing-the-team` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-ch5-software-defect-prevention.html` | `/istqb-ctal-ta-chapter5-defect-prevention` | ✅ スティッキーTOCナビ + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
@@ -345,7 +348,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 81 ルート（ガイドライブラリ index + 80 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 82 ルート（ガイドライブラリ index + 81 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 1 ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 

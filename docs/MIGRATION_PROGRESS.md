@@ -5,7 +5,7 @@ Updated 2026-09-30
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 81 ルート = ガイドライブラリ index + 80 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 82 ルート = ガイドライブラリ index + 81 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,32 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `095abf7` |
-| 最新コミット内容 | `feat(ctal-tm-ch2): implement category 5 (summary, quiz, references)` |
+| 最新 HEAD | `cdb96cc` |
+| 最新コミット内容 | `feat(ctal-tm-ch3): implement category 5 (exam preparation, best practices, checklist, references)` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（全 1091 テスト / 100 files pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `npm test`（全テスト pass）、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/30: ISTQB CTAL-TM v3.0 第3章（チームの管理）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のダークテーマ（`--bg: #0c1b2e`、`--panel: #13273f`、`--panel-alt: #0e2036`、`--ink: #e6edf6`、`--ink-secondary: #8ea3c3`、`--accent: #60a5fa`、`--green: #4ade80`、`--amber: #fbbf24`、`--red: #f87171` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全29セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-tm-ch3-page`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全7図解（第3章全体像、4つの能力領域判別フロー、スキル導出ステップ、スキルギャップ分析、育成計画フロー、品質コスト境界、ビジネスケース手順）を共通 `<Mermaid>` コンポーネントへ移植。
+  - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
+- **計算式 & テーブル**:
+  - 品質コスト4分類（予防、評定、内部失敗、外部失敗）および正味便益・ROI 計算式コードブロックを完全移植。
+  - 全26テーブル（確度マーク、基本情報、学習進め方、能力領域一覧、コンテキスト別スキル、評価手法、スキルマトリクス、育成手段、マネジメントスキル、動機付け要因、品質コスト4分類、ROI計算式、ステークホルダー別提示法、他章連携、試験対策ポイント、覚え方、ベストプラクティス、アンチパターン、公式一次情報、JSTQB資料、発展学習など）を完全移植。
+- **インタラクティブUI**:
+  - 全11項目の学習チェックリストコンポーネント（`ChecklistCard.tsx`）を実装（動的プログレスバー、完了カウント表示、アクセシビリティ対応）。
+- **参考文献 & 外部リンク**:
+  - 全20箇所以上の外部リンクに `target="_blank" rel="noopener noreferrer"` を適用し安全性を確保。
+- `app/istqb-ctal-tm-chapter3-managing-the-team/`: ページコンポーネント、専用スタイル（`.ctal-tm-ch3-page` スコープ、globals.css干渉リセット）、NavBar、ChecklistCard、diagrams.tsを実装。
+- `lib/navigation.ts`: `istqb-advanced` カテゴリに `/istqb-ctal-tm-chapter3-managing-the-team`（CTAL-TM 3章 チームの管理）を追加（全82件）。
+- `tests/istqb-ctal-tm-chapter3-managing-the-team/page.test.tsx`: TDD 必須サイクルに従い、全見出し、全29TOCリンク、全7Mermaid図、全26テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト、全計算式、ChecklistCard（11項目）の存在を検証する厳格なテストスイートを実装して全パス（27 pass / 275 expect()）。
+- `Ctal-tm-v3-ch3-managing-the-team-guide.html` は `archive/html-archive/ctal/`、`Ctal-tm-v3-ch3-managing-the-team-guide.md` は `archive/md-archive/ctal/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 82 ページ体制に同期。
 
 ## 2026/09/30: ISTQB CTAL-TM v3.0 第2章（プロダクトのマネジメント）完全ガイドのNext.js完全移行
 
@@ -1125,6 +1147,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tm-v3.0-ch1-managing-the-test-activities.html` | `/istqb-ctal-tm-chapter1-managing-the-test-activities` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-tm-v3.0-ch2-managing-the-product.html` | `/istqb-ctal-tm-chapter2-managing-the-product` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-ch5-software-defect-prevention.html` | `/istqb-ctal-ta-chapter5-defect-prevention` | ✅ スティッキーTOCナビ + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-tm-v3-ch3-managing-the-team-guide.html` | `/istqb-ctal-tm-chapter3-managing-the-team` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1150,7 +1173,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 81 ルート（ガイドライブラリ index + 80 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 82 ルート（ガイドライブラリ index + 81 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 1 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
