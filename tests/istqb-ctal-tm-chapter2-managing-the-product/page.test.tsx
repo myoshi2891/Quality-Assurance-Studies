@@ -172,14 +172,14 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
         headers: ['メトリクス', '何を見るか', '使いどころ'],
         rows: 8,
         cols: 3,
-        sample: '計画と実績の差異',
+        sample: '要件カバレッジ',
     },
     {
         heading: 'ステップ4（TM-2.1.2）：モニタリング・コントロール・完了の違い',
         headers: ['用語', '定義（やさしく言うと）', '具体例'],
         rows: 4,
         cols: 3,
-        sample: 'テストモニタリング',
+        sample: 'テストメトリクス',
     },
     {
         heading: 'テストレベルによって「使えるメトリクス」が違う',
@@ -193,21 +193,21 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
         headers: ['目的', 'メトリクス', '何が分かるか'],
         rows: 10,
         cols: 3,
-        sample: 'リスク',
+        sample: 'プロダクトリスク',
     },
     {
         heading: '具体例（架空のデータ）：リリース判定会議向けのテストレポート',
         headers: ['区分', '指標', '値'],
         rows: 7,
         cols: 3,
-        sample: 'スコープ・進捗',
+        sample: 'プロダクトリスク（全20件）',
     },
     {
         heading: '2.1 節でよくある間違い（試験の引っかけ）',
         headers: ['誤解', '正しい理解'],
         rows: 5,
         cols: 2,
-        sample: '「メトリクスはテスト実行中だけに集める」',
+        sample: 'テストモニタリングとテスト完了のメトリクスは同じでなければならない',
     },
 ];
 
