@@ -57,6 +57,18 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT2,
+    {
+        heading: '1.1.3 基盤LLM・指示チューニング済みLLM・推論LLM',
+        headers: ['種類', '学習方法', '強み', 'テストでの適用イメージ'],
+        rows: 3,
+        cols: 4,
+        sample: '基盤LLM',
+    },
+];
+
+
 
 describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 1: 導入部基盤)', () => {
     it('ヒーロー領域（H1、バッジ、リード文）が正しくレンダリングされること', () => {
@@ -246,4 +258,78 @@ describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガ
         expect(items[3]?.textContent).toContain('プロンプトチェイニング');
     });
 });
+
+describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 3: セクション1.1後半)', () => {
+    it('1.1.3節の見出し、本文、リスト、Mermaid図解3、Table 5、コールアウトがレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h3_3 = container.querySelector('h3#113-基盤llm指示チューニング済みllm推論llm');
+        expect(h3_3).not.toBeNull();
+        expect(h3_3?.textContent?.trim()).toBe('1.1.3 基盤LLM・指示チューニング済みLLM・推論LLM');
+
+        const text = container.textContent ?? '';
+        expect(text).toContain('基盤LLM（Foundation LLM）');
+        expect(text).toContain('指示チューニング済みLLM（Instruction-tuned LLM）');
+        expect(text).toContain('推論LLM（Reasoning LLM）');
+        expect(text).toContain('Chain-of-Thought（思考の連鎖）');
+        expect(text).toContain('タスクの複雑さと推論の必要性に応じて使い分ける');
+
+        // Mermaid Diagram 3
+        const diagram3 = container.querySelector('#mermaid-diagram-3, [data-diagram-id="mermaid-diagram-3"]');
+        expect(diagram3).not.toBeNull();
+
+        // Table 5
+        const inventory = collectTableInventory(container);
+        expect(inventory.length).toBeGreaterThanOrEqual(5);
+        const t5 = inventory[4];
+        expect(t5.heading).toBe('1.1.3 基盤LLM・指示チューニング済みLLM・推論LLM');
+        expect(t5.headers).toEqual(['種類', '学習方法', '強み', 'テストでの適用イメージ']);
+        expect(t5.rows).toBe(3);
+        expect(t5.cols).toBe(4);
+        expect(t5.sample).toBe('基盤LLM');
+
+        // Callout 4
+        const callouts = container.querySelectorAll('.callout-practice');
+        expect(callouts.length).toBeGreaterThanOrEqual(4);
+        const callout4 = callouts[3];
+        expect(callout4.querySelector('.callout-label')?.textContent).toContain('ベストプラクティス');
+        const items = callout4.querySelectorAll('li');
+        expect(items.length).toBe(3);
+        expect(items[0]?.textContent).toContain('タスクの複雑さに見合ったモデルを選ぶ');
+        expect(items[1]?.textContent).toContain('複数のリスク要因や依存関係を同時に考慮する必要があるタスクには推論LLM');
+        expect(items[2]?.textContent).toContain('自組織で利用するLLMがどのカテゴリに属するか');
+    });
+
+    it('1.1.4節の見出し、本文、Mermaid図解4、HO-1.1.4見出し、コールアウトがレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h3_4 = container.querySelector('h3#114-マルチモーダルllmとvision-language-model');
+        expect(h3_4).not.toBeNull();
+        expect(h3_4?.textContent?.trim()).toBe('1.1.4 マルチモーダルLLMとVision-Language Model');
+
+        const text = container.textContent ?? '';
+        expect(text).toContain('視覚エンコーダ（Vision Encoder）');
+        expect(text).toContain('Vision-Language Model（VLM）');
+        expect(text).toContain('期待結果と実際の画面表示との齟齬をテスターが特定する');
+
+        // Mermaid Diagram 4
+        const diagram4 = container.querySelector('#mermaid-diagram-4, [data-diagram-id="mermaid-diagram-4"]');
+        expect(diagram4).not.toBeNull();
+
+        // H4
+        const h4 = container.querySelector('h4#ハンズオン演習ho-114の狙い');
+        expect(h4).not.toBeNull();
+        expect(h4?.textContent?.trim()).toBe('ハンズオン演習（HO-1.1.4）の狙い');
+
+        // Callout 5
+        const callouts = container.querySelectorAll('.callout-practice');
+        expect(callouts.length).toBeGreaterThanOrEqual(5);
+        const callout5 = callouts[4];
+        expect(callout5.querySelector('.callout-label')?.textContent).toContain('ベストプラクティス');
+        const items = callout5.querySelectorAll('li');
+        expect(items.length).toBe(3);
+        expect(items[0]?.textContent).toContain('期待される仕様（テキスト）');
+        expect(items[1]?.textContent).toContain('個人情報や機密情報が映り込んだスクリーンショット');
+        expect(items[2]?.textContent).toContain('まずは小規模な画面や単純なUIコンポーネントから試し');
+    });
+});
+
 
