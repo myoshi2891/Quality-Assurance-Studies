@@ -68,6 +68,25 @@ export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT3,
+    {
+        heading: '1.2.1 テストタスクにおけるLLMの主要能力',
+        headers: ['LLMの能力', '概要', '具体例'],
+        rows: 7,
+        cols: 3,
+        sample: '要件分析・改善支援',
+    },
+    {
+        heading: '1.2.2 AIチャットボットとLLM搭載テストアプリケーション',
+        headers: ['観点', 'AIチャットボット', 'LLM搭載テストアプリケーション'],
+        rows: 5,
+        cols: 3,
+        sample: 'インターフェース',
+    },
+];
+
+
 
 
 describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 1: 導入部基盤)', () => {
@@ -331,5 +350,88 @@ describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガ
         expect(items[2]?.textContent).toContain('まずは小規模な画面や単純なUIコンポーネントから試し');
     });
 });
+
+describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 4: セクション1.2活用原則)', () => {
+    it('1.2節および1.2.1節の見出し、本文、Table 6、コールアウトがレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h2 = container.querySelector('h2#12-ソフトウェアテストにおける生成ai活用の原則');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent?.trim()).toBe('1.2 ソフトウェアテストにおける生成AI活用の原則');
+
+        const h3_1 = container.querySelector('h3#121-テストタスクにおけるllmの主要能力');
+        expect(h3_1).not.toBeNull();
+        expect(h3_1?.textContent?.trim()).toBe('1.2.1 テストタスクにおけるLLMの主要能力');
+
+        const text = container.textContent ?? '';
+        expect(text).toContain('テストプロセス全体を通じて情報の理解・明確化やテストウェアの生成を支援するツール');
+        expect(text).toContain('要件分析・改善支援');
+        expect(text).toContain('テストオラクル生成');
+        expect(text).toContain('合成テストデータの生成');
+        expect(text).toContain('テスト自動化支援');
+        expect(text).toContain('テスト結果分析');
+        expect(text).toContain('テストウェア作成');
+        expect(text).toContain('テストプロセス全体（要件分析からテスト完了報告まで）に及ぶ点が重要');
+
+        // Table 6
+        const inventory = collectTableInventory(container);
+        expect(inventory.length).toBeGreaterThanOrEqual(6);
+        const t6 = inventory[5];
+        expect(t6.heading).toBe('1.2.1 テストタスクにおけるLLMの主要能力');
+        expect(t6.headers).toEqual(['LLMの能力', '概要', '具体例']);
+        expect(t6.rows).toBe(7);
+        expect(t6.cols).toBe(3);
+        expect(t6.sample).toBe('要件分析・改善支援');
+
+        // Callout 6
+        const callouts = container.querySelectorAll('.callout-practice');
+        expect(callouts.length).toBeGreaterThanOrEqual(6);
+        const callout6 = callouts[5];
+        expect(callout6.querySelector('.callout-label')?.textContent).toContain('ベストプラクティス');
+        const items = callout6.querySelectorAll('li');
+        expect(items.length).toBe(3);
+        expect(items[0]?.textContent).toContain('LLMを使ったテストケース生成は「たたき台の作成」として位置づけ');
+        expect(items[1]?.textContent).toContain('テストオラクル生成やテストデータ生成のように誤りが後工程に伝播しやすいタスク');
+        expect(items[2]?.textContent).toContain('自組織でどのLLM能力をどの工程に導入するかをロードマップとして整理');
+    });
+
+    it('1.2.2節の見出し、本文、Mermaid図解5、Table 7、コールアウトがレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h3_2 = container.querySelector('h3#122-aiチャットボットとllm搭載テストアプリケーション');
+        expect(h3_2).not.toBeNull();
+        expect(h3_2?.textContent?.trim()).toBe('1.2.2 AIチャットボットとLLM搭載テストアプリケーション');
+
+        const text = container.textContent ?? '';
+        expect(text).toContain('AIチャットボット');
+        expect(text).toContain('LLM搭載テストアプリケーション');
+        expect(text).toContain('強力なプロンプトエンジニアリング');
+        expect(text).toContain('AIエージェントによる自律的なタスク実行');
+
+        // Mermaid Diagram 5
+        const diagram5 = container.querySelector('#mermaid-diagram-5, [data-diagram-id="mermaid-diagram-5"]');
+        expect(diagram5).not.toBeNull();
+
+        // Table 7
+        const inventory = collectTableInventory(container);
+        expect(inventory.length).toBeGreaterThanOrEqual(7);
+        const t7 = inventory[6];
+        expect(t7.heading).toBe('1.2.2 AIチャットボットとLLM搭載テストアプリケーション');
+        expect(t7.headers).toEqual(['観点', 'AIチャットボット', 'LLM搭載テストアプリケーション']);
+        expect(t7.rows).toBe(5);
+        expect(t7.cols).toBe(3);
+        expect(t7.sample).toBe('インターフェース');
+
+        // Callout 7
+        const callouts = container.querySelectorAll('.callout-practice');
+        expect(callouts.length).toBeGreaterThanOrEqual(7);
+        const callout7 = callouts[6];
+        expect(callout7.querySelector('.callout-label')?.textContent).toContain('ベストプラクティス');
+        const items = callout7.querySelectorAll('li');
+        expect(items.length).toBe(3);
+        expect(items[0]?.textContent).toContain('タスクの性質に応じて使い分ける');
+        expect(items[1]?.textContent).toContain('プロンプトの設計品質に大きく依存するため');
+        expect(items[2]?.textContent).toContain('API呼び出しのコスト・レイテンシ・可用性も考慮し');
+    });
+});
+
 
 
