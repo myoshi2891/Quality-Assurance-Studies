@@ -392,30 +392,63 @@ main.ct-genai-ch1-page,
     word-break: break-word;
 }
 
-/* Mermaid 共通カード打ち消し & エッジラベル保護 */
-.ct-genai-ch1-page .mermaid-wrapper {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-}
-
+/* Mermaid 共通カード打ち消し & スクロール左端切れ防止 */
 .ct-genai-ch1-page .mermaid-container,
 .ct-genai-ch1-page .mermaid-wrap {
     width: 100% !important;
     max-width: 100% !important;
-    display: flex;
-    justify-content: safe center;
+    /* 横スクロールの担当はこの要素だけ。flex の justify-content:center / safe center を使うと
+       コンテナより広い図の「左側」がスクロール範囲外に出て永久に見えなくなるため display: block を指定 */
+    display: block !important;
     overflow-x: auto !important;
+    overscroll-behavior-x: contain;
     margin: 28px 0;
-    padding: 12px 0;
+    padding: 16px 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.ct-genai-ch1-page .mermaid-container::-webkit-scrollbar,
+.ct-genai-ch1-page .mermaid-wrap::-webkit-scrollbar {
+    height: 8px;
+}
+
+.ct-genai-ch1-page .mermaid-container::-webkit-scrollbar-track,
+.ct-genai-ch1-page .mermaid-wrap::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+    border-radius: 4px;
+}
+
+.ct-genai-ch1-page .mermaid-container::-webkit-scrollbar-thumb,
+.ct-genai-ch1-page .mermaid-wrap::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 4px;
+}
+
+.ct-genai-ch1-page .mermaid-container::-webkit-scrollbar-thumb:hover,
+.ct-genai-ch1-page .mermaid-wrap::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
+
+.ct-genai-ch1-page .mermaid-wrapper {
+    /* width:max-content + min-width:100% で「図が狭いときは中央寄せ・図が広いときはスクロール領域いっぱい」を両立。
+       コンテナ幅より広い図でもラッパーが図と同じ幅に広がるため、svg の margin: 0 auto による左端のマイナス食い込みを防ぐ */
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
 }
 
 .ct-genai-ch1-page .mermaid-wrapper svg {
+    display: block !important;
+    margin: 0 auto !important;
     flex-shrink: 0;
     max-width: none !important;
     height: auto !important;

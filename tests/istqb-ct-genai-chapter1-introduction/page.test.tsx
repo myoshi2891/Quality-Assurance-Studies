@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import CtGenAiChapter1Page from '../../app/istqb-ct-genai-chapter1-introduction/page';
 import { collectTableInventory, type TableSpec } from '../helpers/table-inventory';
 
@@ -491,6 +493,37 @@ describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガ
         expect(calloutNote).not.toBeNull();
         expect(calloutNote?.querySelector('.callout-label')?.textContent).toContain('補足');
         expect(calloutNote?.querySelector('.callout-body')?.textContent).toContain('v1.1では「few-shot」から「one-shot」への用語更新など');
+    });
+});
+
+describe('CT-GenAI Ch1 Mermaid スクロールレイアウト仕様 (左端切れ防止)', () => {
+    const cssPath = join(process.cwd(), 'app/istqb-ct-genai-chapter1-introduction/istqb-ct-genai-chapter1-introduction.css');
+    const rawCss = readFileSync(cssPath, 'utf8');
+    const css = rawCss.replace(/\/\*[\s\S]*?\*\//g, '');
+
+    it('.mermaid-container は flex / safe center による左端切れを防ぐため display: block と overflow-x: auto を指定していること', () => {
+        const containerRules = css.match(/\.ct-genai-ch1-page\s+\.mermaid-container[^{]*\{([^}]+)\}/);
+        expect(containerRules).not.toBeNull();
+        const body = containerRules![1];
+        expect(body).toContain('display: block');
+        expect(body).not.toContain('justify-content');
+        expect(body).toContain('overflow-x: auto');
+    });
+
+    it('.mermaid-wrapper は width: max-content と min-width: 100% を指定して SVG の左端切れを防いでいること', () => {
+        const wrapperRules = css.match(/\.ct-genai-ch1-page\s+\.mermaid-wrapper[^{]*\{([^}]+)\}/);
+        expect(wrapperRules).not.toBeNull();
+        const body = wrapperRules![1];
+        expect(body).toContain('width: max-content');
+        expect(body).toContain('min-width: 100%');
+    });
+
+    it('.mermaid-wrapper svg は display: block と margin: 0 auto を指定していること', () => {
+        const svgRules = css.match(/\.ct-genai-ch1-page\s+\.mermaid-wrapper\s+svg[^{]*\{([^}]+)\}/);
+        expect(svgRules).not.toBeNull();
+        const body = svgRules![1];
+        expect(body).toContain('display: block');
+        expect(body).toContain('margin: 0 auto');
     });
 });
 
