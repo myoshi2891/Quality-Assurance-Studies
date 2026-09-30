@@ -72,6 +72,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-ta-chapter2-risk-based-testing', label: 'CTAL-TA 2章 リスクベースドテスト', description: 'リスクベースドテストにおけるTAの役割、リスク識別・評価・軽減活動。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter3-test-analysis-and-design', label: 'CTAL-TA 3章 テスト分析・設計', description: 'ドメイン・組み合わせ・CRUD・状態遷移・シナリオ・デシジョンテーブル・メタモルフィック・経験ベース技法。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter4-quality-characteristics', label: 'CTAL-TA 4章 品質特性のテスト', description: '機能適合性・ユーザビリティ・柔軟性・相互運用性のテスト設計と評価。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-ta-chapter5-defect-prevention', label: 'CTAL-TA 5章 欠陥防止', description: 'ISTQB CTAL-TA v4.0 第5章 ソフトウェア欠陥防止の完全学習ガイド。フェーズ封じ込め・DDP/PCE・モデル化・レビュー・再発緩和を網羅。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tm-complete-guide', label: 'テスト管理(CTAL-TM)ガイド', description: 'テスト戦略・見積り・リスク管理・欠陥マネジメントの実務。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tm-chapter1-managing-the-test-activities', label: 'CTAL-TM 1章 テスト活動の管理', description: 'テストプロセス・コンテキスト・RBT・テスト戦略・プロセス改善・ツール管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tta-complete-guide', label: 'テクニカルテストアナリスト(CTAL-TTA)ガイド', description: '構造テスト技法、静的/動的解析、非機能品質特性の技術的検証。', category: 'istqb-advanced' },
