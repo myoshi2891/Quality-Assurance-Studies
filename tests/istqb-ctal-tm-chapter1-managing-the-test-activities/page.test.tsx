@@ -785,3 +785,128 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 4: テストプロセスの改善 (s
         expect(callouts.length).toBeGreaterThanOrEqual(26);
     });
 });
+
+describe('CTAL-TM v3.0 Chapter 1 - Category 5: 総括・試験対策 (sec-8), 参考文献 (sec-9) & 全体整合性', () => {
+    it('renders sec-8 and sec-9 headings and subheadings', () => {
+        render(<CtalTmChapter1Page />);
+        expect(document.getElementById('sec-8')?.textContent).toContain('7. Chapter 1 のまとめと試験対策');
+        expect(document.getElementById('sec-9')?.textContent).toContain('8. 参考ソース（URL）');
+
+        const sec8Subs = ['sec-8-1', 'sec-8-2', 'sec-8-3', 'sec-8-4'];
+        for (const id of sec8Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+
+        const sec9Subs = ['sec-9-1', 'sec-9-2', 'sec-9-3', 'sec-9-4'];
+        for (const id of sec9Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+    });
+
+    it('renders the interactive checklist with 18 items and progress counter in sec-8-4', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const checklistCard = container.querySelector('.checklist-card');
+        expect(checklistCard).toBeTruthy();
+
+        const checkboxes = checklistCard?.querySelectorAll('input[type="checkbox"]');
+        expect(checkboxes?.length).toBe(18);
+
+        const cpCount = checklistCard?.querySelector('.cp-count');
+        expect(cpCount).toBeTruthy();
+        expect(cpCount?.textContent).toContain('0 / 18 完了');
+    });
+
+    it('renders all 79 tables across the entire page with exact inventory specifications', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBe(79);
+
+        const expectedCat5Tables: TableSpec[] = [
+            {
+                heading: '7.1 学習目標と要点の一覧',
+                headers: ['学習目標', 'K', '一言まとめ'],
+                rows: 28,
+                cols: 3,
+                sample: '1.1.1 テスト計画',
+            },
+            {
+                heading: '7.2 混同しやすいポイント',
+                headers: ['混同しやすい点', '整理'],
+                rows: 10,
+                cols: 2,
+                sample: 'テスト戦略とテストアプローチ',
+            },
+            {
+                heading: '解答と解説',
+                headers: ['問', '正解', '解説'],
+                rows: 8,
+                cols: 3,
+                sample: 'Q1',
+            },
+            {
+                heading: '8.1 一次情報（公式）',
+                headers: ['資料', 'URL', '備考'],
+                rows: 11,
+                cols: 3,
+                sample: 'ISTQB 公式ページ：CTAL-TM v3.0',
+            },
+            {
+                heading: '8.2 シラバスが参照している外部情報',
+                headers: ['資料', 'URL', '備考'],
+                rows: 3,
+                cols: 3,
+                sample: 'TMMi Foundation',
+            },
+            {
+                heading: '8.3 本ガイドと出典の対応',
+                headers: ['本ガイドの節', 'シラバスの節', 'ページ'],
+                rows: 6,
+                cols: 3,
+                sample: '1. テストプロセス',
+            },
+        ];
+
+        for (let i = 0; i < expectedCat5Tables.length; i++) {
+            const exp = expectedCat5Tables[i];
+            const actual = tables[i + 73];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(exp.heading);
+            expect(actual.headers).toEqual(exp.headers as string[]);
+            expect(actual.rows).toBe(exp.rows);
+            expect(actual.cols).toBe(exp.cols);
+            expect(actual.sample).toBe(exp.sample);
+        }
+    });
+
+    it('renders all 23 Mermaid diagrams across the page', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        for (let i = 1; i <= 23; i++) {
+            const diag = container.querySelector(`#mermaid-diagram-${i}`);
+            expect(diag).toBeTruthy();
+        }
+    });
+
+    it('renders all 27 callout blocks across the page', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const callouts = container.querySelectorAll('.callout');
+        expect(callouts.length).toBe(27);
+    });
+
+    it('renders external links with target="_blank" and rel="noopener noreferrer"', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const externalLinks = container.querySelectorAll('a[href^="http"]');
+        expect(externalLinks.length).toBeGreaterThanOrEqual(14);
+        externalLinks.forEach((link) => {
+            expect(link.getAttribute('target')).toBe('_blank');
+            expect(link.getAttribute('rel')).toContain('noopener');
+            expect(link.getAttribute('rel')).toContain('noreferrer');
+        });
+    });
+
+    it('renders page footer', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const footer = container.querySelector('.page-footer');
+        expect(footer).toBeTruthy();
+        expect(footer?.textContent).toContain('CTAL-TM v3.0');
+    });
+});
