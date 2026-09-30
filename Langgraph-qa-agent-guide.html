@@ -769,7 +769,8 @@ class AgentState(TypedDict, total=False):
     # execute_query の出力
     # チェックポイントに保存されるため、出力形式によらずシリアライズ可能なレコードのリストで持つ
     results: Optional[list[dict[str, Any]]]
-    results_truncated: bool              # MAX_RESULT_ROWS を超えて切り捨てたか
+    summary_results: Optional[list[dict[str, Any]]]  # 要約 LLM へ渡す、機微な値を伏せた結果
+    results_truncated: bool             # MAX_RESULT_ROWS を超えて切り捨てたか
     results_error: Optional[str]
     retries: int
 
@@ -813,11 +814,11 @@ class AgentState(TypedDict, total=False):
                                 </tr>
                                 <tr>
                                     <td>
-                                        <code>results</code> / <code>results_truncated</code> /
+                                        <code>results</code> / <code>summary_results</code> / <code>results_truncated</code> /
                                         <code>results_error</code> / <code>retries</code>
                                     </td>
                                     <td>
-                                        実行結果、上限件数での切り捨て有無、エラー内容、リトライ回数
+                                        実行結果、要約用に機微な値を伏せた実行結果、上限件数での切り捨て有無、エラー内容、リトライ回数
                                     </td>
                                 </tr>
                                 <tr>
@@ -1023,6 +1024,8 @@ def text_to_cypher(state: AgentState) -&gt; dict:
                     <div class="code-tag">python</div>
                     <pre><code class="language-python">import re
 
+from collections.abc import Iterator
+from itertools import chain
 from typing import Any
 
 from neo4j import unit_of_work
@@ -1034,6 +1037,12 @@ from neo4j.time import Date, DateTime, Duration, Time
 # プロンプトの指示に頼らず、実行時間と返却件数をコード側で強制的に制限する
 QUERY_TIMEOUT_SECONDS = 10
 MAX_RESULT_ROWS = 1000
+# 行数の上限だけでは collect() などの集計が 1 行に巨大なリストを詰めた結果を防げないため、
+# 行の中身（リスト・マップ・プロパティの要素数と文字列の長さ）の合計にも上限を設ける
+MAX_RESULT_ELEMENTS = 50_000
+MAX_RESULT_TEXT_CHARS = 2_000_000
+# to_dto() は入れ子 1 段ごとに数フレーム再帰するため、Python の再帰上限（既定 1000）より十分小さい深さで拒否する
+MAX_RESULT_DEPTH = 100
 
 # LLM が生成した Cypher は信頼できない入力として扱い、書き込み操作を実行前に拒否する
 WRITE_CLAUSE_RE = re.compile(
@@ -1075,6 +1084,66 @@ def unquote_identifiers(cypher: str) -&gt; str:
 
 class CypherValidationError(Exception):
     pass
+
+class ResultTooLargeError(CypherValidationError):
+    # LIMIT や collect(x)[..100] のように結果を絞れば解消するため、LLM に再生成させる対象として扱う
+    pass
+
+_EXHAUSTED = object()
+
+def ensure_payload_within_limits(records: list) -&gt; None:
+    # to_dto() の再帰変換より前に、明示的なスタックで結果全体を 1 回だけ走査して上限を強制する。
+    # コンテナの中身は一括でリスト化せず反復子として積み、1 要素ずつ取り出すため、
+    # 巨大な collect() 結果でも上限を超えた時点で走査を打ち切り、中身の複製を確保しない。
+    # 列名・マップのキー・ラベル・型名・element_id も to_dto() の出力に残るため、値と同じく文字数に数える
+    elements = 0
+    text_chars = 0
+    stack: list[Iterator[Any]] = [
+        chain.from_iterable(chain.from_iterable(r.items()) for r in records)
+    ]
+    while stack:
+        value = next(stack[-1], _EXHAUSTED)
+        if value is _EXHAUSTED:
+            stack.pop()
+            continue
+        elements += 1
+        if isinstance(value, str):
+            text_chars += len(value)
+        elif isinstance(value, (bytes, bytearray)):
+            # バイト列も to_dto() の出力サイズに効くため、長さを文字数の上限に合算する
+            text_chars += len(value)
+        elif isinstance(value, Path):
+            stack.append(chain(value.nodes, value.relationships))
+        elif isinstance(value, (DateTime, Date, Time, Duration)):
+            # to_dto() は時間型を ISO 8601 文字列へ変換するため、その長さを文字数に数える。
+            # Duration は tuple のサブクラスなので、tuple 判定より前に処理する
+            text_chars += len(value.iso_format())
+        elif isinstance(value, Node):
+            stack.append(chain([value.element_id], value.labels, chain.from_iterable(value.items())))
+        elif isinstance(value, Relationship):
+            endpoints = [n.element_id for n in (value.start_node, value.end_node) if n is not None]
+            stack.append(
+                chain([value.element_id, value.type], endpoints, chain.from_iterable(value.items()))
+            )
+        elif isinstance(value, (list, tuple)):
+            stack.append(iter(value))
+        elif isinstance(value, dict):
+            stack.append(chain.from_iterable(value.items()))
+        # 先頭の反復子（行の集合）を除いたスタックの長さが、現在の値の入れ子の深さに等しい
+        if len(stack) - 1 &gt; MAX_RESULT_DEPTH:
+            raise ResultTooLargeError(
+                "クエリ結果の入れ子が深すぎます。リストやマップを入れ子にせず、平坦な形で返すよう Cypher を書き直してください"
+            )
+        if elements &gt; MAX_RESULT_ELEMENTS or text_chars &gt; MAX_RESULT_TEXT_CHARS:
+            raise ResultTooLargeError(
+                "クエリ結果が大きすぎます。LIMIT を付けるか、collect() の結果を collect(x)[..100] のようにスライスして件数を絞ってください"
+            )
+
+# LLM が Cypher を書き直せば解消し得る ClientError のコード接頭辞（構文・意味の誤りと実行タイムアウト）
+REPAIRABLE_ERROR_PREFIXES = (
+    "Neo.ClientError.Statement.",
+    "Neo.ClientError.Transaction.TransactionTimedOut",
+)
 
 def ensure_read_only(cypher: str) -&gt; None:
     # 未終端の文字列・コメントはどの字句にも一致せず走査対象に残るため、判定は拒否側に倒れる
@@ -1118,6 +1187,47 @@ def to_dto(value: Any) -&gt; Any:
     if isinstance(value, dict):
         return {k: to_dto(v) for k, v in value.items()}
     return value
+
+# 要約に不要な機微プロパティ。データモデルに合わせて定義し、スキーマ変更時に見直す
+SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
+REDACTED = "[REDACTED]"
+
+def to_summary_dto(value: Any, *, trusted_origin: bool = False) -&gt; Any:
+    # 要約 LLM へ渡す値を、DTO ではなくドライバが返した実際の型から作る。
+    # 列名やマップのキーは Cypher の AS やマップ射影（RETURN p.name AS suspect など）で自由に付け替えられ、
+    # {kind: 'node', ...} のようなマップで DTO の形も偽装できるため、キー名によるマスキングの根拠にしない。
+    # trusted_origin は「値がノード・リレーションシップの機微でないプロパティ由来である」ことが分かっている場合だけ True になる
+    if isinstance(value, (Node, Relationship)):
+        # ノード・リレーションシップのプロパティ名だけはスキーマ由来で付け替えられないため、SENSITIVE_KEYS で判定する
+        props = {
+            k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v, trusted_origin=True)
+            for k, v in dict(value).items()
+        }
+        if isinstance(value, Node):
+            return {"kind": "node", "labels": sorted(value.labels), "properties": props}
+        return {"kind": "relationship", "type": value.type, "properties": props}
+    if isinstance(value, Path):
+        return {
+            "kind": "path",
+            "nodes": [to_summary_dto(n) for n in value.nodes],
+            "relationships": [to_summary_dto(r) for r in value.relationships],
+        }
+    # 真偽値と null は残す（bool は int のサブクラスなので数値判定より前に処理する）
+    if value is None or isinstance(value, bool):
+        return value
+    # 数値は出所が分かる場合だけ残す。列やマップの値として返った数値は、RETURN p.phone AS n のように
+    # 数値型の機微なプロパティがエイリアス経由で投影されたものか、count(*) などの集計値かを区別できないため、
+    # 件数などの集計値も含めて要約ペイロードから除外する（表示用の results には残る）
+    if isinstance(value, (int, float)):
+        return value if trusted_origin else REDACTED
+    # 文字列・時間型・空間型はエイリアス経由で機微なプロパティが投影され得るため、キー名によらず伏せる
+    if isinstance(value, list):
+        return [to_summary_dto(v, trusted_origin=trusted_origin) for v in value]
+    if isinstance(value, dict):
+        # マップのキーはマップ射影（p {n: p.phone} など）で付け替えられるため出所の根拠にせず、値は常に未信頼として扱う。
+        # 元のプロパティ名を保つ射影（p {.phone}）への多層防御として SENSITIVE_KEYS でも伏せる
+        return {k: REDACTED if k in SENSITIVE_KEYS else to_summary_dto(v) for k, v in value.items()}
+    return REDACTED
 
 @unit_of_work(timeout=QUERY_TIMEOUT_SECONDS)
 def run_read_query(tx, cypher: str) -&gt; tuple[list[dict], list[dict], bool]:
@@ -1241,7 +1351,7 @@ driver = GraphDatabase.driver(
                         9）と画面表示（Step 11）の両方で切り捨てを明示します。
                     </p>
                     <p>
-                        行数の上限は外側のレコード数しか制限しません。<code>RETURN collect(p)</code> のような集計は 1 行に任意の件数の要素を詰められるため、<code>ensure_payload_within_limits()</code> で行の中身の要素数（<code>MAX_RESULT_ELEMENTS</code>）とテキストの合計長（<code>MAX_RESULT_TEXT_CHARS</code>）も検査します。検査は 3 回行い、対象は <code>kept</code>・<code>rows</code>・<code>summary_rows</code> です。まず <code>to_dto()</code> の前に取得した値（<code>kept</code>）を検査し、変換後の出力サイズを見積もって明らかな超過を変換前に拒否します。続いて <code>to_dto()</code> で変換した行（<code>rows</code>。State に保存する実際のペイロード）を再検査します。最後に <code>to_summary_dto()</code> で作った要約用の行（<code>summary_rows</code>。State 保存と LLM 送信の対象）も検査します。変換後の 2 回の検査で超過が見つかった場合は、その時点で拒否します。いずれの場合も <code>ResultTooLargeError</code> を送出します。<code>CypherValidationError</code> のサブクラスなので、既存の分岐でエラー内容が LLM に渡り、<code>LIMIT</code> や <code>collect(x)[..100]</code> で絞った Cypher に再生成されます。
+                        行数の上限は外側のレコード数しか制限しません。<code>RETURN collect(p)</code> のような集計は 1 行に任意の件数の要素を詰められるため、<code>ensure_payload_within_limits()</code> で行の中身の要素数（<code>MAX_RESULT_ELEMENTS</code>）とテキストの合計長（<code>MAX_RESULT_TEXT_CHARS</code>。文字列・バイト列の長さと、時間型の ISO 8601 表現の長さを数える）も検査します。あわせて、<code>to_dto()</code> が再帰で変換する入れ子の深さ（<code>MAX_RESULT_DEPTH</code>）も同じ走査で検査し、<code>RecursionError</code> になる前に拒否します。検査は 3 回行い、対象は <code>kept</code>・<code>rows</code>・<code>summary_rows</code> です。まず <code>to_dto()</code> の前に取得した値（<code>kept</code>）を検査し、変換後の出力サイズを見積もって明らかな超過を変換前に拒否します。続いて <code>to_dto()</code> で変換した行（<code>rows</code>。State に保存する実際のペイロード）を再検査します。最後に <code>to_summary_dto()</code> で作った要約用の行（<code>summary_rows</code>。State 保存と LLM 送信の対象）も検査します。変換後の 2 回の検査で超過が見つかった場合は、その時点で拒否します。いずれの場合も <code>ResultTooLargeError</code> を送出します。<code>CypherValidationError</code> のサブクラスなので、既存の分岐でエラー内容が LLM に渡り、<code>LIMIT</code> や <code>collect(x)[..100]</code> で絞った Cypher に再生成されます。なお、この検査はドライバがレコードを受信した後に行うため、State・チェックポイント・LLM に渡すペイロードは制限できますが、受信時のメモリ使用量までは制限しません。受信量そのものを抑えるには、上記のクエリタイムアウトに加えて、DB 側でトランザクションごとのメモリ上限（<code>db.memory.transaction.max</code>）を設定してください。
                     </p>
                     <p>ここまでの安全対策をまとめると、次の観点をカバーしていることになります。</p>
                     <div class="table-wrap">
@@ -1373,7 +1483,8 @@ def route_after_execution(state: AgentState) -&gt; Literal["retry", "summarize",
     prompt = prompt_config.render(
         "summarize.jinja2",
         question=state["question"],
-        results=state["results"],
+        # Step 7 の to_summary_dto で伏せた結果だけをプロンプトに含め、表示用の results は渡さない
+        results=state.get("summary_results") or [],
         # True なら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示する
         results_truncated=state.get("results_truncated", False),
         needs_analysis=state.get("needs_analysis", False),
