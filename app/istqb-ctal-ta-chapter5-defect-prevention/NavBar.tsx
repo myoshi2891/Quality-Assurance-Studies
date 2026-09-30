@@ -148,15 +148,24 @@ export default function NavBar({ children }: { children?: React.ReactNode }) {
             part.subs.forEach((sub) => targetIds.push(sub.id));
         });
 
+        // コールバックには状態が変化した要素しか渡されないため、交差中の見出しを通知をまたいで保持する
+        const intersecting = new Set<Element>();
+
         const observer = new IntersectionObserver(
             (entries) => {
-                const visibleEntries = entries.filter((e) => e.isIntersecting);
-                if (visibleEntries.length > 0) {
-                    const topEntry = visibleEntries.reduce((prev, curr) =>
-                        prev.boundingClientRect.top < curr.boundingClientRect.top ? prev : curr
-                    );
-                    setActiveId(topEntry.target.id);
-                }
+                entries.forEach((e) => {
+                    if (e.isIntersecting) {
+                        intersecting.add(e.target);
+                    } else {
+                        intersecting.delete(e.target);
+                    }
+                });
+                if (intersecting.size === 0) return;
+
+                const topEl = Array.from(intersecting).reduce((prev, curr) =>
+                    prev.getBoundingClientRect().top <= curr.getBoundingClientRect().top ? prev : curr
+                );
+                setActiveId(topEl.id);
             },
             {
                 rootMargin: '-80px 0px -60% 0px',

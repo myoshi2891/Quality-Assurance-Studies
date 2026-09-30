@@ -777,7 +777,8 @@ main.ctal-ta-ch5-page {
         position: fixed;
         left: 0.7rem;
         top: calc(60px + var(--disclaimer-height, 0px) + 0.7rem);
-        z-index: 70;
+        /* 開いた .toc（z-index: 80）より前面に出し、再クリックで閉じられるようにする */
+        z-index: 90;
         padding: 0.45rem 0.8rem;
         background: var(--sheet);
         border: 1px solid var(--rule2);
