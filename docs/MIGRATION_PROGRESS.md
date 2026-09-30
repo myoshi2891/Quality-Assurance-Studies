@@ -13,10 +13,25 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `c65224d` |
-| 最新コミット内容 | `fix(mermaid): fix node/cluster blackout in ct-genai-ch1 by adding mainBkg, exact original themeVariables, and CSS node-color resets` |
+| 最新 HEAD | `acdde76` |
+| 最新コミット内容 | `fix(mermaid): prevent left-edge clipping on horizontal scrolling in ct-genai-ch1` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `bun test`: 1165 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `bun test`: 1168 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+
+## 2026/10/01: CT-GenAI 第1章 Mermaid 横スクロール時の左端切れ修正
+
+- **根本原因**:
+  - `.ct-genai-ch1-page .mermaid-container` に `display: flex; justify-content: safe center;`、子要素 `.mermaid-wrapper` に `width: 100% !important;` が指定されていた。
+  - Flexbox のアライメントは直下の子要素（`.mermaid-wrapper`）にのみ適用され、`.mermaid-wrapper` 自体は親幅と同じ（100%）のため溢れず、`safe` による start フォールバックが発動しなかった。
+  - さらに、孫の `<svg>` に `applySvgFixups` によるインラインスタイル `margin: 0 auto;` が適用されていたため、親ラッパー（例: 800px）より幅広の図（例: 1100px）において、左右マージンが負の値（`-150px`）となり、`<svg>` が左側（負の座標）へ突き出して配置された。
+  - ブラウザのスクロールコンテナ（`overflow-x: auto`）は原点 `0` 未満の負の領域へスクロールできないため、スクロールバーを最左端まで戻しても、左端のノード（「入力テキスト」の「入」など）が見えない障害が発生していた。
+- **修正内容**:
+  - `app/istqb-ct-genai-chapter1-introduction/istqb-ct-genai-chapter1-introduction.css`:
+    - `.mermaid-container` / `.mermaid-wrap`: `display: block !important`、`overflow-x: auto !important`、`overscroll-behavior-x: contain` に変更し、Flexbox による中央揃えを排除。ライトカード用の明色スクロールバーを定義。
+    - `.mermaid-wrapper`: `display: block !important`、`width: max-content !important`、`min-width: 100% !important` を指定。図がコンテナより広い場合はラッパー自体が図の自然幅まで拡張されるため、`<svg>` の `margin: 0 auto` による負のマージン発生を完全に防止（原点0から整列）。図がコンテナより狭い場合は `min-width: 100%` により美しく中央揃えされるベストプラクティスを適用。
+    - `.mermaid-wrapper svg`: `display: block !important`、`margin: 0 auto !important`、`flex-shrink: 0` を指定。
+  - `tests/istqb-ct-genai-chapter1-introduction/page.test.tsx`: TDD に基づき、`.mermaid-container` の `display: block` / `overflow-x: auto`、`.mermaid-wrapper` の `width: max-content` / `min-width: 100%`、`svg` のスタイルを検証する契約テスト3件を追加。
+- **テスト**: `bun test tests/istqb-ct-genai-chapter1-introduction/page.test.tsx`（17 pass / 0 fail）、`bun test tests/lib/mermaid-theme-contract.test.ts`（79 pass / 0 fail）を確認。
 
 ## 2026/10/01: CT-GenAI 第1章 Mermaid 図解黒潰れ修正
 
