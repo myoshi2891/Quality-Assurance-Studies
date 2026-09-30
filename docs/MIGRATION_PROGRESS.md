@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f111eec` |
-| 最新コミット内容 | `feat(ctal-tm-ch1): implement Category 5, checklist, and navigation integration` |
+| 最新 HEAD | `2f35821` |
+| 最新コミット内容 | `chore(docs): archive Ctal-tm-ch1 sources and sync migration docs` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全 1042 テスト / 98 files pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
