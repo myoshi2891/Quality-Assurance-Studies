@@ -13,10 +13,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `cdb96cc` |
-| 最新コミット内容 | `feat(ctal-tm-ch3): implement category 5 (exam preparation, best practices, checklist, references)` |
+| 最新 HEAD | `7de5251` |
+| 最新コミット内容 | `docs(langgraph): refine payload summary redaction logic for temporal and spatial values` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `npm test`（全テスト pass）、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | `bun test`: 1118 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち。直前のユーザー実行では ch2 `page.tsx` の `Mermaid` への `id` 渡しで型エラー → 修正済み） |
 
 ## 2026/09/30: ISTQB CTAL-TM v3.0 第3章（チームの管理）完全ガイドのNext.js完全移行
 
@@ -1151,7 +1151,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 16 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 18 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -1174,7 +1174,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 82 ルート（ガイドライブラリ index + 81 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 1 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
