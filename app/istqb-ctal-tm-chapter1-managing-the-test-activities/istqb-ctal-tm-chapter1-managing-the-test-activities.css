@@ -1,0 +1,640 @@
+/* ==========================================================================
+   ISTQB CTAL-TM v3.0 Chapter 1 専用スタイル
+   スコープ: .ctal-tm-ch1-page
+   ========================================================================== */
+
+.ctal-tm-ch1-page {
+    --bg: #07111e;
+    --bg2: #0b1728;
+    --panel: #0e1c31;
+    --panel2: #12233c;
+    --line: #1f3357;
+    --line2: #2b4170;
+    --text: #dfe8f8;
+    --muted: #93a4c4;
+    --head: #f2f6ff;
+    --accent: #7c9eff;
+    --accent2: #4ade80;
+    --warn: #f5b942;
+    --sidebar-w: 312px;
+    --font: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+        'Noto Sans JP', 'Yu Gothic UI', Meiryo, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Noto Sans Mono CJK JP', monospace;
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.9;
+    min-height: 100vh;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.ctal-tm-ch1-page main,
+main.ctal-tm-ch1-page {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ctal-tm-ch1-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    padding: 32px 0 24px !important;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 12px;
+}
+
+.ctal-tm-ch1-page section {
+    padding-top: 0 !important;
+}
+
+.ctal-tm-ch1-page section + section {
+    border-top: none !important;
+}
+
+/* テーブル干渉リセット（薄青灰色干渉・文字消え完全防止） */
+.ctal-tm-ch1-page .table-scroll table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    min-width: 520px;
+    font-size: 14.5px !important;
+    line-height: 1.7;
+}
+
+.ctal-tm-ch1-page .table-scroll tbody td,
+.ctal-tm-ch1-page .table-scroll td {
+    color: var(--text) !important;
+    font-size: 14.5px !important;
+    padding: 10px 14px;
+    border-top: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.ctal-tm-ch1-page .table-scroll td strong {
+    color: #ffffff !important;
+}
+
+.ctal-tm-ch1-page .table-scroll thead th,
+.ctal-tm-ch1-page .table-scroll th {
+    background: var(--panel2) !important;
+    color: var(--head) !important;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--line2);
+    white-space: nowrap;
+    vertical-align: bottom;
+    text-align: left;
+}
+
+.ctal-tm-ch1-page .table-scroll tbody tr:nth-child(even) {
+    background: rgba(124, 158, 255, 0.04) !important;
+}
+
+.ctal-tm-ch1-page .table-scroll tbody tr:hover {
+    background: rgba(124, 158, 255, 0.09) !important;
+}
+
+.ctal-tm-ch1-page .table-scroll td:first-child {
+    color: #dbe6ff !important;
+}
+
+.ctal-tm-ch1-page .table-scroll td a {
+    word-break: break-all;
+    color: var(--accent);
+}
+
+/* リストマーカー（Tailwind リセット打ち消し） */
+.ctal-tm-ch1-page .content ul {
+    list-style-type: disc !important;
+    margin: 0 0 1.2em !important;
+    padding-left: 1.5em !important;
+}
+
+.ctal-tm-ch1-page .content ol {
+    list-style-type: decimal !important;
+    margin: 0 0 1.2em !important;
+    padding-left: 1.5em !important;
+}
+
+.ctal-tm-ch1-page .content li {
+    margin: 0.3em 0 !important;
+}
+
+.ctal-tm-ch1-page .content li > p {
+    margin: 0 !important;
+}
+
+/* ---------- レイアウト & サイドバー ---------- */
+.ctal-tm-ch1-page .layout {
+    display: block;
+}
+
+.ctal-tm-ch1-page .sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 22px 0 40px;
+    z-index: 40;
+}
+
+.ctal-tm-ch1-page .sidebar-brand {
+    padding: 0 22px 16px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 12px;
+}
+
+.ctal-tm-ch1-page .sidebar-brand b {
+    display: block;
+    color: var(--head);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.ctal-tm-ch1-page .sidebar-brand small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.ctal-tm-ch1-page .nav-root,
+.ctal-tm-ch1-page .nav-sub {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ctal-tm-ch1-page .nav-h2 {
+    display: block;
+    padding: 8px 22px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+}
+
+.ctal-tm-ch1-page .nav-h2:hover {
+    background: var(--panel);
+    text-decoration: none;
+}
+
+.ctal-tm-ch1-page .nav-h3 {
+    display: block;
+    padding: 5px 22px 5px 38px;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.55;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+}
+
+.ctal-tm-ch1-page .nav-h3:hover {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.ctal-tm-ch1-page .nav-sub {
+    display: none;
+    padding-bottom: 6px;
+}
+
+.ctal-tm-ch1-page .nav-group.open > .nav-sub {
+    display: block;
+}
+
+.ctal-tm-ch1-page .nav-h2.active {
+    border-left-color: var(--accent);
+    color: var(--head);
+    background: var(--panel);
+}
+
+.ctal-tm-ch1-page .nav-h3.active {
+    border-left-color: var(--accent);
+    color: var(--accent);
+    background: var(--panel);
+}
+
+.ctal-tm-ch1-page .main {
+    margin-left: var(--sidebar-w);
+    padding: 0 56px 96px;
+    min-width: 0;
+}
+
+.ctal-tm-ch1-page .nav-toggle {
+    display: none;
+    position: fixed;
+    top: 72px;
+    left: 12px;
+    z-index: 60;
+    background: var(--panel2);
+    color: var(--head);
+    border: 1px solid var(--line2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font: 600 14px var(--font);
+    cursor: pointer;
+}
+
+.ctal-tm-ch1-page .scrim {
+    display: none;
+}
+
+/* ---------- Hero ---------- */
+.ctal-tm-ch1-page .hero h1 {
+    margin: 0 0 22px;
+    color: var(--head);
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.45;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    border-left: 6px solid var(--accent);
+    padding-left: 20px;
+    text-wrap: balance;
+}
+
+.ctal-tm-ch1-page .hero-meta {
+    margin: 0 0 20px;
+    display: grid;
+    gap: 6px;
+}
+
+.ctal-tm-ch1-page .hero-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.ctal-tm-ch1-page .hero-row dt {
+    min-width: 6.5em;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ctal-tm-ch1-page .hero-row dd {
+    margin: 0;
+    color: var(--text);
+    font-size: 15px;
+}
+
+.ctal-tm-ch1-page .pills {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ctal-tm-ch1-page .pills li {
+    background: var(--panel);
+    border: 1px solid var(--line2);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 13.5px;
+    color: var(--text);
+}
+
+.ctal-tm-ch1-page .pills li span {
+    color: var(--muted);
+    margin-right: 8px;
+}
+
+/* ---------- Typography ---------- */
+.ctal-tm-ch1-page .content h2 {
+    margin: 64px 0 20px;
+    padding: 0 0 12px;
+    color: var(--head);
+    font-size: 28px;
+    line-height: 1.45;
+    border-bottom: 2px solid var(--line2);
+    text-wrap: balance;
+}
+
+.ctal-tm-ch1-page .content h3 {
+    margin: 44px 0 14px;
+    color: var(--head);
+    font-size: 21px;
+    line-height: 1.5;
+    padding-left: 14px;
+    border-left: 4px solid var(--accent);
+    text-wrap: balance;
+}
+
+.ctal-tm-ch1-page .content h4 {
+    margin: 30px 0 10px;
+    color: #cddcff;
+    font-size: 17px;
+    line-height: 1.55;
+}
+
+.ctal-tm-ch1-page .content p {
+    margin: 0 0 1.1em;
+}
+
+.ctal-tm-ch1-page .content strong {
+    color: #fff;
+    font-weight: 700;
+}
+
+.ctal-tm-ch1-page .content code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 0.1em 0.4em;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- Tables Container ---------- */
+.ctal-tm-ch1-page .table-scroll {
+    overflow-x: auto;
+    margin: 1.3em 0 1.6em;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel);
+}
+
+/* ---------- Callouts ---------- */
+.ctal-tm-ch1-page .callout {
+    margin: 1.5em 0;
+    border-radius: 10px;
+    border: 1px solid var(--line2);
+    background: var(--panel);
+    padding: 14px 18px;
+}
+
+.ctal-tm-ch1-page .callout-body > *:last-child {
+    margin-bottom: 0;
+}
+
+.ctal-tm-ch1-page .callout-body p {
+    margin: 0 0 0.7em;
+}
+
+.ctal-tm-ch1-page .callout-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--head);
+    font-size: 15px;
+}
+
+.ctal-tm-ch1-page .callout-practice {
+    border-left: 5px solid var(--accent2);
+    background: rgba(74, 222, 128, 0.06);
+    border-color: rgba(74, 222, 128, 0.35);
+}
+
+.ctal-tm-ch1-page .callout-practice .callout-label {
+    color: var(--accent2);
+}
+
+.ctal-tm-ch1-page .callout-warn {
+    border-left: 5px solid var(--warn);
+    background: rgba(245, 185, 66, 0.07);
+    border-color: rgba(245, 185, 66, 0.4);
+}
+
+.ctal-tm-ch1-page .callout-warn .callout-label {
+    color: var(--warn);
+}
+
+.ctal-tm-ch1-page .callout-note {
+    border-left: 4px solid var(--accent);
+    background: rgba(124, 158, 255, 0.06);
+    border-color: var(--line2);
+    color: #cfd9ee;
+    font-size: 15px;
+}
+
+.ctal-tm-ch1-page .callout-note p {
+    margin: 0 0 0.5em;
+}
+
+.ctal-tm-ch1-page .callout-note p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- Diagrams & Mermaid ---------- */
+.ctal-tm-ch1-page .diagram-card {
+    margin: 1.6em 0 2em;
+    padding: 18px 2px 8px;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.ctal-tm-ch1-page .diagram-card figcaption {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12.5px;
+    padding: 4px 0 8px;
+}
+
+.ctal-tm-ch1-page .mermaid-container {
+    width: 100%;
+    display: flex;
+    justify-content: safe center;
+    overflow-x: auto;
+    padding: 6px 0;
+    min-height: 60px;
+}
+
+/* globals.css の .mermaid-wrapper ダークカード打ち消し */
+.ctal-tm-ch1-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.ctal-tm-ch1-page .mermaid-wrapper svg {
+    flex-shrink: 0;
+    max-width: none !important;
+    height: auto !important;
+}
+
+.ctal-tm-ch1-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ctal-tm-ch1-page .mermaid-wrapper foreignObject p,
+.ctal-tm-ch1-page .mermaid-wrapper foreignObject span,
+.ctal-tm-ch1-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+
+/* ---------- Checklist ---------- */
+.ctal-tm-ch1-page .checklist-card {
+    border: 1px solid var(--line2);
+    border-radius: 12px;
+    background: var(--panel);
+    margin: 1.4em 0 2em;
+    overflow: hidden;
+}
+
+.ctal-tm-ch1-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel2);
+}
+
+.ctal-tm-ch1-page .cp-label {
+    font-weight: 700;
+    color: var(--head);
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.ctal-tm-ch1-page .cp-bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--line);
+    overflow: hidden;
+}
+
+.ctal-tm-ch1-page .cp-bar-fill {
+    height: 100%;
+    width: 0;
+    background: var(--accent2);
+    transition: width 0.2s;
+}
+
+.ctal-tm-ch1-page .cp-count {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.ctal-tm-ch1-page .checklist-card ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+    gap: 2px 12px;
+}
+
+.ctal-tm-ch1-page .checklist-card li {
+    margin: 0 !important;
+}
+
+.ctal-tm-ch1-page .checklist-card label {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14.5px;
+    line-height: 1.65;
+}
+
+.ctal-tm-ch1-page .checklist-card label:hover {
+    background: rgba(124, 158, 255, 0.08);
+}
+
+.ctal-tm-ch1-page .checklist-card input {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    border: 2px solid var(--line2);
+    border-radius: 5px;
+    background: var(--bg);
+    cursor: pointer;
+    position: relative;
+}
+
+.ctal-tm-ch1-page .checklist-card input:checked {
+    background: var(--accent2);
+    border-color: var(--accent2);
+}
+
+.ctal-tm-ch1-page .checklist-card input:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #07111e;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.ctal-tm-ch1-page .checklist-card li:has(input:checked) span {
+    color: var(--muted);
+    text-decoration: line-through;
+}
+
+.ctal-tm-ch1-page .page-footer {
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13.5px;
+}
+
+/* ---------- モバイルレスポンシブ ---------- */
+@media (max-width: 960px) {
+    .ctal-tm-ch1-page .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s;
+        width: min(86vw, 340px);
+        top: 60px;
+    }
+    .ctal-tm-ch1-page .sidebar.open {
+        transform: none;
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.55);
+    }
+    .ctal-tm-ch1-page .main {
+        margin-left: 0;
+        padding: 0 18px 72px;
+    }
+    .ctal-tm-ch1-page .nav-toggle {
+        display: block;
+    }
+    .ctal-tm-ch1-page .scrim {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 35;
+    }
+    .ctal-tm-ch1-page .hero {
+        padding-top: 48px !important;
+    }
+    .ctal-tm-ch1-page .content h2 {
+        font-size: 23px;
+    }
+    .ctal-tm-ch1-page .content h3 {
+        font-size: 19px;
+    }
+    .ctal-tm-ch1-page .hero-row dt {
+        min-width: 100%;
+    }
+}

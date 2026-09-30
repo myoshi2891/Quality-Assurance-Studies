@@ -43,7 +43,7 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 1: Scaffolding, NavBar, Hero & sec-1
         const pills = document.querySelector('.pills');
         expect(pills).toBeTruthy();
         expect(pills?.textContent).toContain('学習時間');
-        expect(pills?.textContent).toContain('525 分');
+        expect(pills?.textContent).toContain('750 分');
     });
 
     it('renders sec-1 headings and sections', () => {
