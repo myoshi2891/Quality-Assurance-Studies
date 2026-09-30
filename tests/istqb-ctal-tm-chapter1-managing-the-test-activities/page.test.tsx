@@ -128,3 +128,194 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 1: Scaffolding, NavBar, Hero & sec-1
         expect(practiceCallout?.textContent).toContain('つまずきやすい点');
     });
 });
+
+describe('CTAL-TM v3.0 Chapter 1 - Category 2: テストプロセス (sec-2) & テストのコンテキスト (sec-3)', () => {
+    it('renders sec-2 and sec-3 headings and subheadings', () => {
+        render(<CtalTmChapter1Page />);
+        expect(document.getElementById('sec-2')?.textContent).toContain('1. テストプロセス');
+        expect(document.getElementById('sec-3')?.textContent).toContain('2. テストのコンテキスト');
+
+        const sec2Subs = ['sec-2-1', 'sec-2-2', 'sec-2-3', 'sec-2-4'];
+        for (const id of sec2Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+
+        const sec3Subs = ['sec-3-1', 'sec-3-2', 'sec-3-3', 'sec-3-4', 'sec-3-5', 'sec-3-6', 'sec-3-7', 'sec-3-8'];
+        for (const id of sec3Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+    });
+
+    it('renders all 19 tables in sec-2 and sec-3 with exact specifications', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(23); // 4 + 19
+
+        const expectedCat2Tables: TableSpec[] = [
+            {
+                heading: '1.2.1 何をするのか',
+                headers: ['計画のスコープ', '例'],
+                rows: 4,
+                cols: 2,
+                sample: 'プロジェクト全体',
+            },
+            {
+                heading: '1.2.3 テスト計画の 5 つのタスク',
+                headers: ['#', 'タスク', '内容（要点）', 'ベストプラクティス'],
+                rows: 5,
+                cols: 4,
+                sample: '1',
+            },
+            {
+                heading: '1.2.4 試験でよく問われるポイント',
+                headers: ['論点', '正しい理解'],
+                rows: 4,
+                cols: 2,
+                sample: '計画はいつ行うか',
+            },
+            {
+                heading: '1.3.1 モニタリングとコントロールの違い',
+                headers: ['活動', '目的', '主な内容'],
+                rows: 2,
+                cols: 3,
+                sample: 'モニタリング（監視）',
+            },
+            {
+                heading: '1.3.3 コントロールの 5 つの活動',
+                headers: ['#', '活動', '説明'],
+                rows: 5,
+                cols: 3,
+                sample: '1',
+            },
+            {
+                heading: '1.3.4 ベストプラクティス',
+                headers: ['観点', 'ベストプラクティス'],
+                rows: 5,
+                cols: 2,
+                sample: '指標の設計',
+            },
+            {
+                heading: '1.4.2 テスト完了の 5 つのタスク',
+                headers: ['#', 'タスク', '内容（要点）', 'ベストプラクティス'],
+                rows: 5,
+                cols: 4,
+                sample: '1',
+            },
+            {
+                heading: '1.4.3 3 活動の比較（試験直前の整理用）',
+                headers: ['観点', '計画', 'モニタリング／コントロール', '完了'],
+                rows: 4,
+                cols: 4,
+                sample: '時期',
+            },
+            {
+                heading: '2.1 テストのステークホルダー（TM-1.2.1）',
+                headers: ['ステークホルダー', 'テストへの関心・関わり'],
+                rows: 5,
+                cols: 2,
+                sample: '開発者、開発リード、開発マネージャー',
+            },
+            {
+                heading: '2.2.1 ステークホルダーマトリクス（パワー／関心マトリクス）',
+                headers: ['象限', '影響力', '関心', 'シラバスの説明（要約）', '関わり方の例'],
+                rows: 4,
+                cols: 5,
+                sample: 'Promoters',
+            },
+            {
+                heading: '2.3.2 ハイブリッドが使われる主な理由',
+                headers: ['理由', '説明'],
+                rows: 2,
+                cols: 2,
+                sample: 'アジャイルへの移行手段',
+            },
+            {
+                heading: '2.3.3 ハイブリッド環境でのテスト管理活動',
+                headers: ['活動', 'ベストプラクティス'],
+                rows: 4,
+                cols: 2,
+                sample: '能力評価',
+            },
+            {
+                heading: '2.4 SDLC モデルごとのテスト管理活動（TM-1.2.4）',
+                headers: ['観点', '逐次型（例：V モデル）', '反復型（例：スクラム）'],
+                rows: 8,
+                cols: 3,
+                sample: '見積り',
+            },
+            {
+                heading: '2.5 テストレベルごとのテスト管理活動（TM-1.2.5）',
+                headers: ['テストレベル', 'テスト管理活動（要点）', 'ベストプラクティス'],
+                rows: 5,
+                cols: 3,
+                sample: 'コンポーネントテスト（単体テスト）',
+            },
+            {
+                heading: '2.6 テストタイプごとのテスト管理活動（TM-1.2.6）',
+                headers: ['テストタイプ', '管理の焦点', '主な活動'],
+                rows: 4,
+                cols: 3,
+                sample: '機能テスト',
+            },
+            {
+                heading: '2.7.1 シラバスが示す 3 領域の活動',
+                headers: ['活動', '内容（要点）'],
+                rows: 3,
+                cols: 2,
+                sample: '包括的なスコープ定義',
+            },
+            {
+                heading: '2.7.1 シラバスが示す 3 領域の活動',
+                headers: ['活動', '内容（要点）'],
+                rows: 3,
+                cols: 2,
+                sample: '実行の監督',
+            },
+            {
+                heading: '2.7.1 シラバスが示す 3 領域の活動',
+                headers: ['活動', '内容（要点）'],
+                rows: 2,
+                cols: 2,
+                sample: '適応的なプロセス管理',
+            },
+            {
+                heading: '2.7.3 状況とマネジメント活動の対応（考え方の例）',
+                headers: ['状況の手がかり', '強調すべき活動', '理由・具体策'],
+                rows: 5,
+                cols: 3,
+                sample: '要件変更が頻繁で反復開発',
+            },
+        ];
+
+        for (let i = 0; i < expectedCat2Tables.length; i++) {
+            const exp = expectedCat2Tables[i];
+            const actual = tables[i + 4];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(exp.heading);
+            expect(actual.headers).toEqual(exp.headers as string[]);
+            expect(actual.rows).toBe(exp.rows);
+            expect(actual.cols).toBe(exp.cols);
+            expect(actual.sample).toBe(exp.sample);
+        }
+    });
+
+    it('renders Mermaid diagrams 3 to 10 in sec-2 and sec-3', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        for (let i = 3; i <= 10; i++) {
+            const diag = container.querySelector(`#mermaid-diagram-${i}`);
+            expect(diag).toBeTruthy();
+        }
+    });
+
+    it('renders callout blocks in sec-2 and sec-3', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const sec2 = container.querySelector('#sec-2');
+        expect(sec2).toBeTruthy();
+        const sec3 = container.querySelector('#sec-3');
+        expect(sec3).toBeTruthy();
+
+        // 3 in sec-1 + 2 in sec-2 + 8 in sec-3 = 13
+        const callouts = container.querySelectorAll('.callout');
+        expect(callouts.length).toBeGreaterThanOrEqual(13);
+    });
+});
