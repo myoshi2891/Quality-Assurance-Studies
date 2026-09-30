@@ -21,7 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/30: ISTQB CTAL-TM v3.0 第3章（チームの管理）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のダークテーマ（`--bg: #0c1b2e`、`--panel: #13273f`、`--panel-alt: #0e2036`、`--ink: #e6edf6`、`--ink-secondary: #8ea3c3`、`--accent: #60a5fa`、`--green: #4ade80`、`--amber: #fbbf24`、`--red: #f87171` 等）を忠実に復元。
+  - 原著HTML固有のダークテーマ（`--bg: #07111e`、`--bg-elevated: #0c1b2e`、`--bg-card: #0e2036`、`--accent: #7c9eff`、`--accent-soft: #2a3f66`、`--accent-glow: rgba(124, 158, 255, 0.15)`、`--green: #34d399`、`--red: #f87171` 等）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
   - スティッキーナビ（`NavBar.tsx`、全29セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-tm-ch3-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
@@ -43,7 +43,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/30: ISTQB CTAL-TM v3.0 第2章（プロダクトのマネジメント）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のダークテーマ（`--bg: #0d1117`、`--panel: #161b22`、`--panel-alt: #1c2128`、`--ink: #e6edf3`、`--ink-secondary: #8b949e`、`--accent: #58a6ff`、`--green: #3fb950`、`--amber: #d29922`、`--red: #f85149`、`--purple: #bc8cff` 等）を忠実に復元。
+  - 原著HTML固有のダークテーマ（`--bg: #07111e`、`--bg-elev: #0c1a2c`、`--bg-elev2: #102138`、`--accent: #7c9eff`、`--accent-soft: #28345a`、`--accent-strong: #a9c1ff` 等）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.callout`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
   - スティッキーナビ（`NavBar.tsx`、全36セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ctal-tm-ch2-page`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
