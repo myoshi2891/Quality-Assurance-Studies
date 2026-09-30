@@ -532,7 +532,7 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 4: 欠陥マネジメント (Section
         const { container } = render(<CtalTmChapter2Page />);
         const expectedSubheadingIds = [
             '導入欠陥マネジメントとは',
-            '1-1-用語の違いシラバスの記述',
+            '1-1-欠陥は早く見つけて同じフェーズで取り除くほど安い',
             'ステップ1tm-231k3欠陥のライフサイクルと欠陥ワークフロー',
             '1-2-不正が観察されてから欠陥レポートまで',
             '1-3-単純な欠陥ワークフロー',

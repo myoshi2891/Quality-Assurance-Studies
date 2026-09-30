@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5, DIAGRAM_6, DIAGRAM_7 } from './diagrams';
+import { DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5, DIAGRAM_6, DIAGRAM_7, DIAGRAM_8, DIAGRAM_9, DIAGRAM_10, DIAGRAM_11, DIAGRAM_12, DIAGRAM_13, DIAGRAM_14, DIAGRAM_15 } from './diagrams';
 import './istqb-ctal-tm-chapter2-managing-the-product.css';
 
 export const metadata: Metadata = {
@@ -1536,6 +1536,1265 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                                 <td>複雑度が高い対象にはメトリクスベースが向いている</td>
                                 <td>
                                     複雑度が高い場合は<strong>エキスパートベース</strong>の例が示されている
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                
+<h2 id="4-シラバス23欠陥マネジメント">4. 【シラバス2.3】欠陥マネジメント</h2>
+                <div className="callout callout-note">
+                    <div className="callout-body">
+                        <p>
+                            学習の目的：TM-2.3.1（K3）／TM-2.3.2（K2）／TM-2.3.3（K2）／TM-2.3.4（K2）／TM-2.3.5（K3）／TM-2.3.6（K2）
+                        </p>
+                    </div>
+                </div>
+                <h3 id="導入欠陥マネジメントとは">導入：欠陥マネジメントとは</h3>
+                <p>
+                    期待結果と異なる実際の結果を<strong>観察した後</strong>に始まる一連の活動を、本シラバスは<strong>欠陥マネジメント</strong>と呼びます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>用語の違い</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>欠陥マネジメント</td>
+                                <td>本シラバスでの呼び方</td>
+                            </tr>
+                            <tr className="even">
+                                <td>インシデントマネジメント</td>
+                                <td>ISO/IEC/IEEE 29119-3 標準の用語</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>不正マネジメント</td>
+                                <td>TMAP の用語</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    「インシデント」や「不正」という言葉を使う標準がある理由は、<strong>プロセスの初期段階では、その食い違いが作業成果物の欠陥によるものか、他の原因</strong>（例：自動テストの故障、テスト担当者の要件の誤解）<strong>によるものか分からない</strong>からです。
+                </p>
+                <p>効果的な欠陥マネジメントの価値は次のとおりです。</p>
+                <ul>
+                    <li>
+                        テストチームと他のステークホルダーが、SDLC全体を通して<strong>プロジェクトの状態を把握</strong>できる
+                    </li>
+                    <li>
+                        <strong>どの欠陥を修正するかを決定</strong
+                        >するために重要（欠陥修正への労力を適切に配分できる）
+                    </li>
+                    <li>
+                        欠陥データを長期にわたって収集・分析すると、テストと他のプロセス（例：アーキテクチャ・技術設計の改善による<strong>欠陥予防</strong>）の<strong>改善領域</strong>が見えてくる
+                    </li>
+                </ul>
+                <p>
+                    テストマネージャーは、<strong>欠陥マネジメントプロセスと選択したツールの両方が適切に使われるよう推進</strong>する役割を持ちます。また、テストマネージャーとテスト担当者（アジャイルではチーム全体）は、<strong>どのデータを取得することが重要か</strong>を熟知していなければなりません。
+                </p>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3 導入（p.58）
+                </p>
+                <h3 id="ステップ1tm-231k3欠陥のライフサイクルと欠陥ワークフロー">
+                    ステップ1（TM-2.3.1・K3）：欠陥のライフサイクルと欠陥ワークフロー
+                </h3>
+                <h4 id="1-1-欠陥は早く見つけて同じフェーズで取り除くほど安い">
+                    1-1 欠陥は「早く見つけて、同じフェーズで取り除く」ほど安い
+                </h4>
+                <ul>
+                    <li>
+                        SDLC
+                        の<strong>各フェーズ</strong>には、潜在的な欠陥を検出し取り除く活動を入れるべきです。たとえば、設計仕様書・要件仕様書・コードに対して、<strong>後続の活動に渡す前に</strong>静的テスト技法（レビュー、静的解析）を使えます。
+                    </li>
+                    <li>
+                        <strong>各欠陥を早期に検出して取り除く</strong
+                        >ほど、プロダクトの全体的な<strong>品質コスト</strong>は下がります。
+                    </li>
+                    <li>
+                        欠陥が<strong>混入したのと同じフェーズ内で取り除ける</strong>（フェーズ内封じ込めが完全に達成される）とき、品質コストは<strong>最小化</strong>されます。
+                    </li>
+                </ul>
+                <h4 id="1-2-不正が観察されてから欠陥レポートまで">
+                    1-2 不正が観察されてから欠陥レポートまで
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>段階</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>静的テスト</td>
+                                <td>欠陥そのものを<strong>探す</strong></td>
+                            </tr>
+                            <tr className="even">
+                                <td>動的テスト</td>
+                                <td>
+                                    欠陥が<strong>故障</strong>を引き起こしたときに、欠陥の存在が明らかになる
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>不正</td>
+                                <td>実際のテスト結果と期待するテスト結果の<strong>違い</strong></td>
+                            </tr>
+                            <tr className="even">
+                                <td>偽陰性</td>
+                                <td>不正が観測されなかった（見落とした）場合の結果</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>調査</td>
+                                <td>
+                                    不正を観察したら<strong>さらに調査</strong>する。通常は、定義された<strong>テスト／欠陥マネジメントプロセスにしたがって欠陥レポートを作成</strong>することから始まる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>テストが不合格でも、欠陥レポートを作るとは限りません</strong
+                    >。たとえばテスト駆動開発（TDD）では、自動化されたコンポーネントテストが「実行可能な設計仕様書」として使われます。コンポーネントの開発が完了するまでは、最初はテストの一部または全部が不合格でなければなりません。このような不合格は必ずしも欠陥が原因ではなく、通常は<strong>欠陥レポートで追跡されません</strong>。
+                </p>
+                <h4 id="1-3-単純な欠陥ワークフロー">1-3 単純な欠陥ワークフロー</h4>
+                <p>
+                    欠陥レポートは<strong>ワークフロー</strong>（多くの欠陥マネジメントツールと合わせるため、シラバスは「欠陥ワークフロー」と呼びます）に沿って進み、一連の<strong>状態</strong>を通過します。ほとんどの状態では、<strong>1人が欠陥レポートを所有</strong>し、分析・欠陥除去・確認テストなどのタスクを担当します。
+                </p>
+                <div className="mermaid-container" id="container-mmd-8">
+                    <div className="mermaid-target" id="mmd-8">
+<Mermaid chart={DIAGRAM_8} id="diagram-8" />
+</div>
+                </div>
+                <div className="callout callout-warning">
+                    <div className="callout-head">
+                        <span className="callout-icon">⚠️</span
+                        ><span className="callout-label">本文の説明に沿った典型形</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            原文の図2は矢印の向きが画像で示されており、私が参照した本文抽出では、矢印の向きまでは確認できませんでした。上の図はです。試験対策では、原文の図2（英語版
+                            p.56、日本語版 p.59〜60）で矢印の向きを確認してください。
+                        </p>
+                    </div>
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>状態</th>
+                                <th>意味（シラバス）</th>
+                                <th>典型的な所有者・担当（組織によって異なる）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>オープン（新規）</td>
+                                <td>欠陥レポートが作成されたときの<strong>初期状態</strong></td>
+                                <td>起票者／トリアージ担当</td>
+                            </tr>
+                            <tr className="even">
+                                <td>進行中</td>
+                                <td>
+                                    チームが欠陥レポートの<strong>分析や修正</strong>に取り組んでいる
+                                </td>
+                                <td>開発者・アナリスト</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>却下</td>
+                                <td>
+                                    処理した人（通常は開発者やアナリスト）が<strong>却下</strong>した。理由（無効な情報、誤ったテスト、重複など）を欠陥レポートに追記する
+                                </td>
+                                <td>却下した開発者・アナリスト</td>
+                            </tr>
+                            <tr className="even">
+                                <td>解決（修正済み／再テスト待ち）</td>
+                                <td>
+                                    テスト担当者が、欠陥レポートの<strong>再現手順</strong>にしたがって<strong>確認テスト</strong>を行い、修正で本当に解決したかを判断する
+                                </td>
+                                <td>テスト担当者</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>クローズ</td>
+                                <td>
+                                    <strong>終端状態</strong
+                                    >。これ以上の作業予定はない。確認テストが成功した後、または却下を受け入れたときにテスト担当者が遷移させる
+                                </td>
+                                <td>テスト担当者</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    単純なワークフローは多くの組織で使われ、コンテキストに応じて<strong>他の状態</strong>（再オープン、受け入れ、明確化、見送りなど）で<strong>拡張</strong>されます。次の図は、拡張の<strong>一例</strong>です（シラバスが示す状態名を使った筆者の例示）。
+                </p>
+                <div className="mermaid-container" id="container-mmd-9">
+                    <div className="mermaid-target" id="mmd-9">
+<Mermaid chart={DIAGRAM_9} id="diagram-9" />
+</div>
+                </div>
+                <p>
+                    <strong>ワークフローは組織ごとに異なってよい</strong
+                    >部分があります：状態の名称、状態間の遷移ルール、特定の状態のタスクに責任を持つ役割。<strong>アジャイルでは、欠陥ワークフローはシーケンシャル開発モデルより単純</strong>なことが多く、<strong>与えられたコンテキストに適応させる</strong>べきです。
+                </p>
+                <h4 id="1-4-欠陥ワークフロー設計のよい実践シラバスの7項目">
+                    1-4 欠陥ワークフロー設計のよい実践（シラバスの7項目）
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>No.</th>
+                                <th>ルール</th>
+                                <th>理由・狙い（考え方）</th>
+                                <th>ルールを破ったときの例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>
+                                    可能なら<strong>組織全体で</strong>定義し、全プロジェクトで統一する
+                                </td>
+                                <td>
+                                    統一された欠陥マネジメントで、プロジェクト間の比較・集計ができる
+                                </td>
+                                <td>プロジェクトごとに状態名が違い、全社集計ができない</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td>
+                                    重複欠陥・偽陽性欠陥は、<strong>別のステータス</strong>、または<strong>却下理由の選択＋却下ステータス</strong>で表す
+                                </td>
+                                <td>テストプロセス改善のための欠陥分析に役立つ</td>
+                                <td>「クローズ」に混ぜてしまい、レポート品質の分析ができない</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>
+                                    <strong>終端ステータスは1つ</strong
+                                    >（例：クローズ）にし、遷移時に<strong>終結の理由</strong>を選択させる
+                                </td>
+                                <td>プロセスアセスメントや改善活動に役立つ</td>
+                                <td>「クローズ」「完了」「無効」が乱立し、集計が複雑になる</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>
+                                    ステータス名は、他のエンティティ（ユーザーストーリー、テストタスクなど）の<strong>類似ステータスと同じ名前</strong>にする
+                                </td>
+                                <td>作業を簡単にし、混乱を防ぐ</td>
+                                <td>同じ意味の状態が別名で管理され、伝達ミスが起きる</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td>
+                                    <strong>連続する欠陥ステータスは異なる責任を持つ役割</strong
+                                    >に割り当てる。同じ役割に連続で割り当てる場合は<strong>正当な理由</strong>を持つ（例：ステータスに費やした時間を測定するため）
+                                </td>
+                                <td>責任が交代する点で状態を区切る</td>
+                                <td>同じ人が3つの連続状態を持ち、状態遷移が形骸化する</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td>
+                                    <strong>終端ステータスを除く各ステータス</strong
+                                    >に<strong>1つ以上の遷移先</strong>を持たせる。例外は正当化する
+                                </td>
+                                <td>次のステップの責任を持つ役割を判断できるようにする</td>
+                                <td>行き止まりの状態があり、欠陥が放置される</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>
+                                    ステータス遷移時に<strong>入力を要求する属性</strong>は、欠陥マネジメントに<strong>実質的な価値を与えるもの</strong>に限る
+                                </td>
+                                <td>入力の手間で現場が疲弊するのを避ける</td>
+                                <td>遷移のたびに20項目を必須にして、入力が雑になる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="1-5-手順欠陥マネジメントプロセスを実装するtm-231k3">
+                    1-5 手順：欠陥マネジメントプロセスを実装する（TM-2.3.1・K3）
+                </h4>
+                <div className="callout callout-note">
+                    <div className="callout-body">
+                        <p>
+                            この手順は、シラバスの要素（組織標準、ワークフロー設計のよい実践、委員会、必須項目など）を、実装の順序として筆者が整理したものです。
+                        </p>
+                    </div>
+                </div>
+                <div className="mermaid-container" id="container-mmd-10">
+                    <div className="mermaid-target" id="mmd-10">
+<Mermaid chart={DIAGRAM_10} id="diagram-10" />
+</div>
+                </div>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3.1（p.58〜60）、<a
+                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                        >ISTQB英語版シラバス（PDF）</a
+                    >
+                    2.3.1（p.55〜57）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.3.1）</p>
+                        <ul>
+                            <li>
+                                ワークフローは<strong>シンプルに始め</strong>、必要になった状態だけ追加する。
+                            </li>
+                            <li>状態遷移のたびに必要となる入力項目は最小限にする。</li>
+                            <li>
+                                重複・却下・偽陽性の<strong>理由を構造化して記録</strong>する。あとでレポート品質の分析（2.3.6）に使える。
+                            </li>
+                            <li>
+                                SDLC
+                                の各フェーズに、欠陥を検出し取り除く活動（レビュー、静的解析、テスト）を<strong>最初から計画に組み込む</strong>。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="ステップ2tm-232k2機能横断的な欠陥マネジメント">
+                    ステップ2（TM-2.3.2・K2）：機能横断的な欠陥マネジメント
+                </h3>
+                <h4 id="誰がどのプロセスで欠陥を扱うか">誰が、どのプロセスで欠陥を扱うか</h4>
+                <ul>
+                    <li>
+                        テスト組織とテストマネージャーは、<strong>全体的な欠陥マネジメントプロセスとツール</strong>を所有していることが多いです。
+                    </li>
+                    <li>
+                        ただし、特定のプロジェクトの欠陥マネジメントは、通常<strong>機能横断的なチーム</strong>が担当します。このチームを<strong>欠陥マネジメント委員会</strong>と呼ぶことがあります。
+                    </li>
+                </ul>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>委員会の構成メンバー（シラバスの例）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テストマネージャー</td>
+                            </tr>
+                            <tr className="even">
+                                <td>開発の代表者</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>サプライヤー</td>
+                            </tr>
+                            <tr className="even">
+                                <td>プロジェクトマネジメント</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>プロダクトマネジメント</td>
+                            </tr>
+                            <tr className="even">
+                                <td>プロダクトオーナー</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    テスト対象ソフトウェアに関心のあるその他のステークホルダーの代表者
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="委員会トリアージミーティングが行うこと">
+                    委員会（トリアージミーティング）が行うこと
+                </h4>
+                <div className="mermaid-container" id="container-mmd-11">
+                    <div className="mermaid-target" id="mmd-11">
+<Mermaid chart={DIAGRAM_11} id="diagram-11" />
+</div>
+                </div>
+                <ul>
+                    <li>各欠陥レポートが<strong>有効な欠陥か</strong>を判断する</li>
+                    <li>
+                        有効な欠陥を<strong>修正すべきか、却下すべきか、延期すべきか</strong>を決める（複数の開発チームが関与する場合は、<strong>どのチームが修正するか</strong>も決める）
+                    </li>
+                    <li>
+                        判断には、修正に関連する<strong>利点・リスク・コスト</strong>を検討する（ミーティング＝<strong>トリアージミーティング</strong>で議論すると有益）
+                    </li>
+                    <li>修正する場合は、<strong>他のタスクに対する優先度</strong>を設定する</li>
+                    <li>
+                        欠陥の<strong>相対的な重要性</strong>は、テストマネージャーとテストチームに相談し、<strong>有効な客観的情報</strong>を提供してもらう
+                    </li>
+                </ul>
+                <h4 id="専任の欠陥マネージャー">専任の欠陥マネージャー</h4>
+                <p>
+                    <strong>非常に大規模なプロジェクト</strong
+                    >では、委員会での意思決定の準備・フォローに必要な労力を考えると、<strong>専任の欠陥マネージャー</strong>を任命するのが適切なことがあります。少なくとも、テストが最も集中的に行われる
+                    SDLC
+                    フェーズには必要になるかもしれません。他の状況では、複数の大規模プロジェクトで欠陥マネージャーを<strong>共有</strong>することもあります。
+                </p>
+                <h4 id="ツールと委員会はコミュニケーションの代用ではない">
+                    ツールと委員会は「コミュニケーションの代用」ではない
+                </h4>
+                <ul>
+                    <li>
+                        欠陥マネジメントツールを、<strong>優れたコミュニケーションの代用</strong>として使ってはいけません。
+                    </li>
+                    <li>
+                        欠陥マネジメント委員会も、<strong>優れた欠陥マネジメントツールを効果的に使うことの代用</strong>にはなりません。
+                    </li>
+                    <li>
+                        効果的で効率的な欠陥マネジメントには、次の<strong>4つすべて</strong>が必要です。
+                    </li>
+                </ul>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>必要な要素</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>コミュニケーション</td>
+                                <td>対話・共有</td>
+                            </tr>
+                            <tr className="even">
+                                <td>適切なツールサポート</td>
+                                <td>欠陥マネジメントツール</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>明確に定義された欠陥ワークフロー</td>
+                                <td>欠陥レポートの属性を含む</td>
+                            </tr>
+                            <tr className="even">
+                                <td>欠陥マネジメントチームの積極的な関与</td>
+                                <td>委員会・担当者の関与</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3.2（p.60）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.3.2 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                トリアージミーティングの<strong>事前に</strong>、重複の整理・再現性の確認・影響範囲の下調べを済ませる（実務補足）。ミーティングは判断に集中する。
+                            </li>
+                            <li>
+                                判断結果（修正する・却下・延期）と<strong>その理由</strong>を、必ず欠陥レポートに記録する。
+                            </li>
+                            <li>
+                                大規模プロジェクトでは、意思決定の準備・フォローを担う<strong>欠陥マネージャー</strong>の任命を検討する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="ステップ3tm-233k2アジャイルチームにおける欠陥マネジメントの特徴">
+                    ステップ3（TM-2.3.3・K2）：アジャイルチームにおける欠陥マネジメントの特徴
+                </h3>
+                <h4 id="基本方針軽量でよいが必要なときはレポートを作る">
+                    基本方針：軽量でよいが、必要なときはレポートを作る
+                </h4>
+                <p>
+                    アジャイルでは、欠陥マネジメントは<strong>シーケンシャル開発モデルより軽量的で、形式的でない</strong>ことが多いです。同じ場所で働く、またはコミュニケーション手段が十分に確立されているチームでは、<strong>形式的な欠陥レポートがなくても</strong>、テスト担当者・顧客担当者・開発者の間で欠陥や故障の情報が交換されます。
+                </p>
+                <p>しかし、次の場合には<strong>欠陥レポートを作成すべき</strong>です。</p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>欠陥レポートを作成すべき場合</th>
+                                <th>理由（考え方）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>
+                                    他のスプリント活動（開発・テスト・その他）を<strong>ブロック</strong>し、チーム内ですぐに修正できない
+                                </td>
+                                <td>全員に見える形で管理する必要がある</td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>同じイテレーション内で解決できない</strong></td>
+                                <td>
+                                    未解決を追跡する必要がある。チームによっては「故障を発見した<strong>その日のうちに</strong>解決できないならレポートを作る」というルールにしている
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    複合チーム組織で、<strong>他のチームによって（または協力して）解決</strong>しなければならない
+                                </td>
+                                <td>チーム間の受け渡しと追跡が必要</td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>サプライヤー</strong>が解決しなければならない</td>
+                                <td>外部とのやりとりの記録・証跡が必要</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    欠陥レポートが<strong>明示的に求められている</strong>（例：開発者がすぐに修正に取りかかれない）
+                                </td>
+                                <td>依頼者の要求に応じる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mermaid-container" id="container-mmd-12">
+                    <div className="mermaid-target" id="mmd-12">
+<Mermaid chart={DIAGRAM_12} id="diagram-12" />
+</div>
+                </div>
+                <p>
+                    <strong>一般的な実践</strong
+                    >：同じイテレーション内で解決できない欠陥は、<strong>プロダクトバックログ</strong>に追加し、後のイテレーションのために、他の欠陥やユーザーストーリーの中で<strong>優先順位を付けられる</strong>ようにします。
+                </p>
+                <h4 id="形式化のレベルを決める7つの要素">形式化のレベルを決める7つの要素</h4>
+                <p>
+                    欠陥マネジメントの基本は<strong>組織的テスト戦略で定める</strong>べきですが、形式化のレベル、レポート作成のトリガー、取り込む属性などは、<strong>アジャイルチームの合意</strong>に委ねられます。次の要素を反映して決めます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>反映すべき要素</th>
+                                <th>例（考え方）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>チームメンバーの共通の作業場所</td>
+                                <td>同室ならその場で共有できる。離れているほど記録が必要</td>
+                            </tr>
+                            <tr className="even">
+                                <td>時間帯を超えたチームメンバーの配置</td>
+                                <td>時差があるほど非同期で読める記録が必要</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>プロダクト開発に参画するチームの数</td>
+                                <td>チームが多いほど、共通の形式が必要</td>
+                            </tr>
+                            <tr className="even">
+                                <td>チームの成熟性</td>
+                                <td>成熟したチームは軽量な運用に耐えられる</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>チームの規模</td>
+                                <td>大きいほど形式化が必要</td>
+                            </tr>
+                            <tr className="even">
+                                <td>プロダクトに関するリスク</td>
+                                <td>リスクが高いほど記録を厳密にする</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>規制・契約・その他の要件（該当する場合）</td>
+                                <td>証跡が必要な場合は形式化が必須</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <strong>アジャイルチームによる欠陥マネジメントの最終決定は、常に文書化</strong
+                    >すべきです（例：ナレッジマネジメントツールのガイドラインに記載）。
+                </p>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3.3（p.60〜61）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.3.3 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                「どんなときに欠陥レポートを作るか」を<strong>チームの作業合意（ワーキングアグリーメント）に明記</strong>する。
+                            </li>
+                            <li>
+                                未解決で残る欠陥は<strong>プロダクトバックログに集約</strong>し、ユーザーストーリーと同じ土俵で優先順位を付ける。
+                            </li>
+                            <li>
+                                形式化のレベルは、チームの成熟・規模・リスク・規制などの変化に合わせて<strong>ふりかえりで見直す</strong>（実務補足）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3
+                    id="ステップ4tm-234k2ハイブリッドソフトウェア開発における欠陥マネジメントの課題"
+                >
+                    ステップ4（TM-2.3.4・K2）：ハイブリッドソフトウェア開発における欠陥マネジメントの課題
+                </h3>
+                <p>
+                    実際のプロジェクトでは、<strong>複数のチームが協業</strong>してシステム（またはシステムオブシステムズ）を開発・提供することが多く、次のような<strong>ハイブリッド</strong>状況が生まれます。
+                </p>
+                <ul>
+                    <li>
+                        <strong>顧客がアジャイル</strong
+                        >、サプライヤーの1つが<strong>シーケンシャル開発モデル</strong>を使っている
+                    </li>
+                    <li>
+                        <strong>シーケンシャル開発モデルの組織</strong
+                        >が、<strong>アジャイルチーム</strong>からサブシステムの提供を受ける
+                    </li>
+                </ul>
+                <p>このような複合チーム環境では、次の3つの課題が発生します。</p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>課題</th>
+                                <th>何が問題か</th>
+                                <th>対応の方向性（シラバス）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>
+                                    ①欠陥の属性と欠陥マネジメントツールの<strong>整合性</strong>
+                                </td>
+                                <td>
+                                    理想は全チームが<strong>1つのツール</strong>を使うことだが、実際には各チームが別のツールを使うのが一般的（特に複数のサプライヤーが貢献する場合）
+                                </td>
+                                <td>
+                                    ツール間の<strong>同期</strong>を確立する（できれば<strong>自動</strong>で）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>②欠陥の<strong>優先順位付け</strong></td>
+                                <td>
+                                    開発の速さがチームごとに異なり、優先順位の判断が遅れる／ずれる
+                                </td>
+                                <td>
+                                    <strong>プロダクトオーナー</strong
+                                    >が欠陥マネジメントミーティングに関与し、欠陥の結果とリスクの情報を<strong>積極的に求める</strong>。アジャイルの速さに合わせ、ミーティングを<strong>頻繁に</strong>（ただし<strong>短く</strong>）開催する。<strong>少数のステークホルダーが最終判断</strong>を下すことも有益
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    ③<strong
+                                        >新規開発と欠陥修正のテスト計画書の整合性と透明性</strong
+                                    >
+                                </td>
+                                <td>
+                                    チームごとに計画がばらばらだと、欠陥修正が全体計画に乗らない
+                                </td>
+                                <td>
+                                    すべてのチームの仕事（<strong>欠陥修正を含む</strong>）を<strong>同じプロジェクト計画書</strong>に合わせる。全チームのメンバーが計画プロセスに<strong>積極的に参加</strong>する（例：シーケンシャルのチームがアジャイルのミーティングに参加して欠陥を議論・優先順位付け）。計画の<strong>透明性</strong>は、ダッシュボードやプロダクトバックログを介して共有して高める
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mermaid-container" id="container-mmd-13">
+                    <div className="mermaid-target" id="mmd-13">
+<Mermaid chart={DIAGRAM_13} id="diagram-13" />
+</div>
+                </div>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3.4（p.61〜62）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.3.4 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                ツールが複数ある場合は、<strong>共通の必須属性（ID・タイトル・重要度・優先度・ステータス・所有者）を最初に合意</strong>し、ステータス名の対応表を作る（実務補足）。
+                            </li>
+                            <li>
+                                優先順位の最終判断者は<strong>少数</strong>にし、判断の場は<strong>短く頻繁に</strong>回す。
+                            </li>
+                            <li>
+                                <strong>1つの計画・1つの見える化</strong
+                                >（ダッシュボードやバックログ）を全チームで共有し、欠陥修正も同じ計画に載せる。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="ステップ5tm-235k3欠陥レポートに記載する情報とその使い方">
+                    ステップ5（TM-2.3.5・K3）：欠陥レポートに記載する情報と、その使い方
+                </h3>
+                <h4 id="欠陥レポート情報の4つの目的">欠陥レポート情報の4つの目的</h4>
+                <p>
+                    欠陥レポートに書く情報は、次の目的に<strong>十分</strong>でなければなりません。
+                </p>
+                <ol type="1">
+                    <li>欠陥のライフサイクルを通じた<strong>欠陥レポートのマネジメント</strong></li>
+                    <li>
+                        <strong>プロジェクト全体の状況</strong
+                        >（特にプロダクト品質やテスト進捗）のアセスメント
+                    </li>
+                    <li>
+                        プロダクト品質の観点から、<strong>プロダクトインクリメントの状況</strong>のアセスメント
+                    </li>
+                    <li><strong>プロセス能力</strong>のアセスメント</li>
+                </ol>
+                <h4 id="収集する情報の考え方">収集する情報の考え方</h4>
+                <ul>
+                    <li>
+                        必要な情報は、欠陥が<strong>SDLCのどの時点で検出されたか</strong>によって変わります。
+                    </li>
+                    <li>
+                        <strong>非機能品質特性</strong
+                        >に関する欠陥レポートは、より多くの情報が必要なことがあります（例：性能課題の<strong>負荷条件</strong>）。
+                    </li>
+                    <li>
+                        ただし、<strong>核となる情報は、SDLC全体で、理想的には組織内のすべてのプロジェクトで一貫</strong>しているべきです。
+                    </li>
+                    <li>
+                        項目を増やすたびに、レポート作成の時間が長くなり、入力者が<strong>混乱</strong>する可能性があります。<strong>特定のコンテキストの欠陥マネジメントに必要なデータ、またはプロセス改善に使うデータのみを収集</strong>します。
+                    </li>
+                </ul>
+                <h4 id="必須の項目とツールが自動で作る項目">
+                    必須の項目と、ツールが自動で作る項目
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>区分</th>
+                                <th>項目</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>ほとんどの環境で<strong>必須</strong></td>
+                                <td>①欠陥のタイトルと不正の<strong>簡単な概要</strong></td>
+                            </tr>
+                            <tr className="even">
+                                <td></td>
+                                <td>
+                                    ②故障を再現する手順を含む、不正の<strong>詳細な説明</strong>
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td></td>
+                                <td>
+                                    ③テスト対象システム／プロダクトの<strong
+                                        >ステークホルダーへの影響の重要度</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td></td>
+                                <td>④不正を修正する<strong>優先度</strong></td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>ツールが作成</strong>することが多い</td>
+                                <td>欠陥レポートの一意な<strong>識別子</strong></td>
+                            </tr>
+                            <tr className="even">
+                                <td></td>
+                                <td>欠陥レポートの<strong>作成日時</strong></td>
+                            </tr>
+                            <tr className="odd">
+                                <td></td>
+                                <td>不正を<strong>発見・報告した人</strong>の名前</td>
+                            </tr>
+                            <tr className="even">
+                                <td></td>
+                                <td>不正が発見された<strong>プロジェクトとSDLCフェーズ</strong></td>
+                            </tr>
+                            <tr className="odd">
+                                <td></td>
+                                <td>欠陥レポートの<strong>ステータス</strong></td>
+                            </tr>
+                            <tr className="even">
+                                <td></td>
+                                <td>現在の<strong>所有者</strong></td>
+                            </tr>
+                            <tr className="odd">
+                                <td></td>
+                                <td>
+                                    変更履歴（切り分け・修正・修正確認のために行ったアクションと日時）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td></td>
+                                <td><strong>参照</strong>（テストケースや関連する欠陥など）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span><span className="callout-label">重要</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            ：<strong>重要度</strong>（ステークホルダーへの影響の大きさ）と<strong>優先度</strong>（修正する順序・緊急度）は<strong>別の項目</strong>です。影響が大きい欠陥でも、回避策があれば優先度を下げる判断があり得ます。逆に、影響は小さくても、リリース直前にお客様が必ず目にする表示の誤りなら優先度が高いことがあります。
+                        </p>
+                    </div>
+                </div>
+                <h4 id="目的別にグループ化した追加情報">目的別にグループ化した追加情報</h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>目的</th>
+                                <th>追加する情報（シラバスの例）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>欠陥解決に役立てる</td>
+                                <td>
+                                    欠陥が存在する<strong>サブシステム／コンポーネント</strong>、不正が観察された<strong>テストアイテムとリリース番号</strong>、欠陥が観察された<strong
+                                        >テスト環境</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>プロジェクト全体の状況をアセスメントする</td>
+                                <td>
+                                    欠陥を<strong>修正する／修正しない</strong>ことに関連する<strong>リスク・コスト・機会・利益</strong>、取り得る<strong>回避策</strong>の説明、欠陥によって<strong
+                                        >影響を受ける要件</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    プロダクトインクリメントの状態を品質の観点からアセスメントする
+                                </td>
+                                <td>
+                                    欠陥の<strong>種類</strong>（通常は欠陥分類法に対応）、欠陥が<strong>混入した作業成果物</strong>、影響を受けた<strong
+                                        >品質特性／副特性</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>プロセス能力をアセスメントする</td>
+                                <td>
+                                    欠陥または欠陥の根本原因に対する、<strong
+                                        >混入・検出・除去のSDLCフェーズ</strong
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    コンテキストによっては、トレーサビリティなど、さらに情報を収集する場合もあります（詳細は
+                    ISO/IEC/IEEE 29119-3 を参照）。
+                </p>
+                <h4 id="手順欠陥レポート項目を決めて使うk3">
+                    手順：欠陥レポート項目を決めて使う（K3）
+                </h4>
+                <div className="mermaid-container" id="container-mmd-14">
+                    <div className="mermaid-target" id="mmd-14">
+<Mermaid chart={DIAGRAM_14} id="diagram-14" />
+</div>
+                </div>
+                <h4 id="具体例架空欠陥レポートのサンプル">
+                    具体例（架空）：欠陥レポートのサンプル
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>項目</th>
+                                <th>記入例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>識別子（ツールが自動付与）</td>
+                                <td>DEF-1024</td>
+                            </tr>
+                            <tr className="even">
+                                <td>タイトル</td>
+                                <td>「注文確定」ボタンを2回押すと注文が二重登録される</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>概要</td>
+                                <td>
+                                    ネットワークが遅い状態で、注文確定ボタンを連続で押すと、同一内容の注文が2件作成される
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>詳細な説明（再現手順）</td>
+                                <td>
+                                    1．カートに商品Aを1点入れる　2．「注文確定」を素早く2回押す　3．注文履歴を開く　→　期待結果：注文が1件。実際の結果：同一注文が2件
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>重要度</td>
+                                <td>高（誤課金につながる）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>優先度</td>
+                                <td>高（次回リリース前に修正）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>ステータス／所有者（ツール）</td>
+                                <td>オープン／（未割り当て）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>発見者・発見日時（ツール）</td>
+                                <td>テスト担当者A／2026-09-21 10:30</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>プロジェクト・SDLCフェーズ（ツール）</td>
+                                <td>ECサイト刷新・システムテスト</td>
+                            </tr>
+                            <tr className="even">
+                                <td>テスト環境・リリース番号</td>
+                                <td>ステージング環境／build 2026.09.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>影響を受ける要件</td>
+                                <td>REQ-ORDER-012（注文の重複防止）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>参照</td>
+                                <td>テストケース TC-ORD-045</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>欠陥の種類・混入した作業成果物（判明後に追記）</td>
+                                <td>制御の抜け（二重送信対策）／画面詳細設計書</td>
+                            </tr>
+                            <tr className="even">
+                                <td>混入・検出フェーズ（判明後に追記）</td>
+                                <td>混入：詳細設計、検出：システムテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3.5（p.62〜63）、<a
+                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                        >ISTQB英語版シラバス（PDF）</a
+                    >
+                    2.3.5（p.59）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.3.5 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                <strong>再現手順・期待結果・実際の結果</strong
+                                >を、他人が読んで再現できる粒度で書く。
+                            </li>
+                            <li>
+                                <strong>重要度と優先度を分けて</strong
+                                >入力させる。重要度は影響の大きさ、優先度は修正の緊急度。
+                            </li>
+                            <li>
+                                核となる情報は組織内の全プロジェクトで一貫させ、非機能欠陥のような<strong>特別な条件（負荷条件など）だけを追加項目</strong>にする。
+                            </li>
+                            <li>
+                                混入フェーズ・根本原因などは、<strong>欠陥が解決してから追記</strong>する項目として設計し、起票時の入力負担を増やさない（実務補足）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 id="ステップ6tm-236k2欠陥レポート情報からプロセス改善アクションを導く">
+                    ステップ6（TM-2.3.6・K2）：欠陥レポート情報からプロセス改善アクションを導く
+                </h3>
+                <p>
+                    欠陥レポートは、プロジェクトの状況の<strong>モニタリングと報告</strong>に役立つだけでなく、ふりかえりで議論する<strong>プロセス改善</strong>の材料になります。テストマネージャーは、欠陥レポートが<strong>開発とテストのプロセス能力のアセスメント</strong>にどんな意味を持つかを認識しておくべきです。
+                </p>
+                <h4 id="欠陥情報--改善のヒントシラバスの7つの例">
+                    欠陥情報 → 改善のヒント（シラバスの7つの例）
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>No.</th>
+                                <th>使う欠陥情報</th>
+                                <th>分析の内容</th>
+                                <th>導ける改善</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>1</td>
+                                <td>欠陥の<strong>混入・検出・除去のフェーズ</strong></td>
+                                <td>
+                                    <strong>フェーズ内封じ込め</strong>のアセスメント、<strong
+                                        >品質コスト分析</strong
+                                    >
+                                </td>
+                                <td>各フェーズの欠陥検出効果を上げ、欠陥関連コストを最小化する</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2</td>
+                                <td><strong>混入フェーズ</strong>の情報</td>
+                                <td>欠陥が最も多く混入するフェーズを分析</td>
+                                <td>欠陥予防のための<strong>的を絞った改善</strong></td>
+                            </tr>
+                            <tr className="odd">
+                                <td>3</td>
+                                <td>欠陥の<strong>根本原因</strong></td>
+                                <td>根本原因の集計・分析</td>
+                                <td>欠陥の総数を減らすプロセス改善</td>
+                            </tr>
+                            <tr className="even">
+                                <td>4</td>
+                                <td>欠陥の<strong>発生箇所</strong></td>
+                                <td>欠陥の<strong>クラスター分析</strong></td>
+                                <td>
+                                    技術的リスクの理解（リスクベースドテストへ活用）、問題のあるコンポーネントの<strong
+                                        >リファクタリング</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>5</td>
+                                <td><strong>再オープンした欠陥</strong></td>
+                                <td>デバッグ時の<strong>実装の品質</strong>をアセスメント</td>
+                                <td>修正作業の質の改善</td>
+                            </tr>
+                            <tr className="even">
+                                <td>6</td>
+                                <td><strong>重複した欠陥・却下した欠陥</strong></td>
+                                <td><strong>欠陥レポート作成の品質</strong>をアセスメント</td>
+                                <td>レポートの書き方・ガイドの改善</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>7</td>
+                                <td>エラーを未然に防ぐ積極的な手段を導入</td>
+                                <td>欠陥の総数を減らす</td>
+                                <td>予防的なプロセス改善（例：チェックリスト、ペアレビュー）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mermaid-container" id="container-mmd-15">
+                    <div className="mermaid-target" id="mmd-15">
+<Mermaid chart={DIAGRAM_15} id="diagram-15" />
+</div>
+                </div>
+                <h4
+                    id="具体例架空混入フェーズ検出フェーズのマトリクスでフェーズ内封じ込めを評価する"
+                >
+                    具体例（架空）：混入フェーズ×検出フェーズのマトリクスで「フェーズ内封じ込め」を評価する
+                </h4>
+                <p>
+                    欠陥200件を、<strong>混入フェーズ</strong>（どこで作り込まれたか）と<strong>検出フェーズ</strong>（どこで見つかったか）で集計したとします。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>混入フェーズ＼検出フェーズ</th>
+                                <th>要件レビュー</th>
+                                <th>設計レビュー</th>
+                                <th>コード／コンポーネントテスト</th>
+                                <th>システムテスト</th>
+                                <th>本番</th>
+                                <th>合計</th>
+                                <th>同じフェーズで検出できた割合</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>要件定義</td>
+                                <td>12</td>
+                                <td>6</td>
+                                <td>2</td>
+                                <td>14</td>
+                                <td>6</td>
+                                <td>40</td>
+                                <td>30％（12÷40）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>設計</td>
+                                <td>—</td>
+                                <td>20</td>
+                                <td>8</td>
+                                <td>17</td>
+                                <td>5</td>
+                                <td>50</td>
+                                <td>40％（20÷50）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>コーディング</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>55</td>
+                                <td>45</td>
+                                <td>10</td>
+                                <td>110</td>
+                                <td>50％（55÷110）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>合計</td>
+                                <td>12</td>
+                                <td>26</td>
+                                <td>65</td>
+                                <td>76</td>
+                                <td>21</td>
+                                <td>200</td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>読み取り（分析→改善案）</strong></p>
+                <ol type="1">
+                    <li>
+                        要件定義で混入した欠陥は、同じフェーズで見つかった割合が30％と最も低く、<strong>6件が本番まで流出</strong>している
+                        →
+                        <strong>要件レビューの強化</strong
+                        >（観点の追加、ステークホルダーの参加）が最も効果的そう。
+                    </li>
+                    <li>
+                        本番流出は全体で21件（約10.5％）。外部失敗コストは高いため、<strong>品質コスト</strong>の観点でも優先度が高い。
+                    </li>
+                    <li>
+                        コーディングで混入した欠陥は、50％が同一フェーズで検出されており、<strong>コードレビューや静的解析の追加</strong>で、さらに前倒しできる余地がある。
+                    </li>
+                </ol>
+                <p>
+                    これは「欠陥が最も多く混入するフェーズはどこか」「フェーズ内封じ込めはどの程度達成できているか」を判断する典型的な使い方です。
+                </p>
+                <h4 id="欠陥を追跡しないことのリスク">欠陥を追跡しないことのリスク</h4>
+                <p>
+                    チームが、<strong>効率性の名の下に、またはプロセスのオーバーヘッドを減らすため</strong>に、SDLCの一部または全部のフェーズで発見された欠陥を<strong>追跡しない</strong>と決めることがあります。しかし、これは<strong>ソフトウェア開発とテストのプロセス能力の可視性を大幅に低下</strong>させます。信頼できるデータが不足し、上記の改善を実施することが<strong>難しくなります</strong>。
+                </p>
+                <p>
+                    補足：テストプロセスの<strong>有効性と効率性</strong>をアセスメントするメトリクスの使い方は、ISTQB
+                    Expert Level の Improving the Test Process
+                    シラバスで説明されています。また、品質コストの考え方（欠陥予防・評定・内部失敗・外部失敗の4カテゴリ）は第3章
+                    3.2.1 節にあり、2.3.6 の改善提案と密接に関連します。
+                </p>
+                <p className="callout-source">
+                    出典：<a
+                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                        >JSTQB日本語版シラバス（PDF）</a
+                    >
+                    2.3.6（p.63〜64）、3.2.1 品質コスト（p.72）
+                </p>
+                <div className="callout callout-practice">
+                    <div className="callout-head">
+                        <span className="callout-icon">💡</span
+                        ><span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>（シラバス根拠：2.3.6 ＋ 実務補足）</p>
+                        <ul>
+                            <li>
+                                欠陥レポートに<strong>混入・検出・除去フェーズ</strong>と<strong>根本原因</strong>を必ず残し、ふりかえりで定期的に集計する。
+                            </li>
+                            <li>
+                                欠陥のクラスター（集中箇所）は、リスクベースドテストの<strong>リスク見直し</strong>とリファクタリングの判断材料にする。
+                            </li>
+                            <li>
+                                重複・却下・再オープンの割合を、<strong>欠陥レポートの品質・修正の品質のモニタリング指標</strong>として使う。
+                            </li>
+                            <li>
+                                オーバーヘッドを減らすために欠陥追跡を止めるのではなく、<strong>入力項目を絞って</strong>続ける。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 id="23-節でよくある間違い試験の引っかけ">
+                    2.3 節でよくある間違い（試験の引っかけ）
+                </h4>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>誤解</th>
+                                <th>正しい理解</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テストが不合格なら必ず欠陥レポートを作る</td>
+                                <td>
+                                    TDDなどでは、不合格が想定内で、<strong>欠陥レポートで追跡しない</strong>場合がある
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>終端ステータスは複数あるほうが分析しやすい</td>
+                                <td>
+                                    <strong>1つの終端ステータス</strong
+                                    >（＋終結理由の選択）が推奨される
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>アジャイルでは欠陥レポートは一切不要</td>
+                                <td>
+                                    ブロック・同一イテレーションで解決不可・他チーム／サプライヤー対応などでは<strong
+                                        >作成すべき</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>欠陥ツールがあれば委員会やコミュニケーションは不要</td>
+                                <td>
+                                    ツール・委員会は<strong>コミュニケーションの代用にならない</strong>（4要素すべてが必要）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>重要度と優先度は同じ意味</td>
+                                <td>
+                                    重要度は<strong>影響の大きさ</strong>、優先度は<strong
+                                        >修正の緊急度・順序</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>ハイブリッドでは欠陥ツールを1つに統一しなければならない</td>
+                                <td>
+                                    理想は1つだが、実際は複数。<strong>同期</strong>（できれば自動）を確立する
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    効率化のために、一部フェーズの欠陥追跡をやめてもプロセス改善に影響しない
+                                </td>
+                                <td>
+                                    <strong>プロセス能力の可視性が下がり</strong>、改善が難しくなる
                                 </td>
                             </tr>
                         </tbody>
