@@ -1103,7 +1103,7 @@ export default function CtalTmChapter2Page() {
                 </p>
                 <div className="mermaid-container" id="container-mmd-5">
 <div className="mermaid-target" id="mmd-5">
-<Mermaid chart={DIAGRAM_5} id="diagram-5" />
+<Mermaid chart={DIAGRAM_5} />
 </div>
 </div>
                 <p>
@@ -1116,7 +1116,7 @@ export default function CtalTmChapter2Page() {
                 </p>
                 <div className="mermaid-container" id="container-mmd-6">
 <div className="mermaid-target" id="mmd-6">
-<Mermaid chart={DIAGRAM_6} id="diagram-6" />
+<Mermaid chart={DIAGRAM_6} />
 </div>
 </div>
                 <p>
@@ -1404,7 +1404,7 @@ export default function CtalTmChapter2Page() {
                 </div>
                 <div className="mermaid-container" id="container-mmd-7">
 <div className="mermaid-target" id="mmd-7">
-<Mermaid chart={DIAGRAM_7} id="diagram-7" />
+<Mermaid chart={DIAGRAM_7} />
 </div>
 </div>
                 <div className="callout callout-warning">
@@ -1673,7 +1673,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </p>
                 <div className="mermaid-container" id="container-mmd-8">
                     <div className="mermaid-target" id="mmd-8">
-<Mermaid chart={DIAGRAM_8} id="diagram-8" />
+<Mermaid chart={DIAGRAM_8} />
 </div>
                 </div>
                 <div className="callout callout-warning">
@@ -1740,7 +1740,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </p>
                 <div className="mermaid-container" id="container-mmd-9">
                     <div className="mermaid-target" id="mmd-9">
-<Mermaid chart={DIAGRAM_9} id="diagram-9" />
+<Mermaid chart={DIAGRAM_9} />
 </div>
                 </div>
                 <p>
@@ -1837,7 +1837,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </div>
                 <div className="mermaid-container" id="container-mmd-10">
                     <div className="mermaid-target" id="mmd-10">
-<Mermaid chart={DIAGRAM_10} id="diagram-10" />
+<Mermaid chart={DIAGRAM_10} />
 </div>
                 </div>
                 <p className="callout-source">
@@ -1924,7 +1924,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </h4>
                 <div className="mermaid-container" id="container-mmd-11">
                     <div className="mermaid-target" id="mmd-11">
-<Mermaid chart={DIAGRAM_11} id="diagram-11" />
+<Mermaid chart={DIAGRAM_11} />
 </div>
                 </div>
                 <ul>
@@ -2068,7 +2068,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </div>
                 <div className="mermaid-container" id="container-mmd-12">
                     <div className="mermaid-target" id="mmd-12">
-<Mermaid chart={DIAGRAM_12} id="diagram-12" />
+<Mermaid chart={DIAGRAM_12} />
 </div>
                 </div>
                 <p>
@@ -2218,7 +2218,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </div>
                 <div className="mermaid-container" id="container-mmd-13">
                     <div className="mermaid-target" id="mmd-13">
-<Mermaid chart={DIAGRAM_13} id="diagram-13" />
+<Mermaid chart={DIAGRAM_13} />
 </div>
                 </div>
                 <p className="callout-source">
@@ -2420,7 +2420,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </h4>
                 <div className="mermaid-container" id="container-mmd-14">
                     <div className="mermaid-target" id="mmd-14">
-<Mermaid chart={DIAGRAM_14} id="diagram-14" />
+<Mermaid chart={DIAGRAM_14} />
 </div>
                 </div>
                 <h4 id="具体例架空欠陥レポートのサンプル">
@@ -2609,7 +2609,7 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </div>
                 <div className="mermaid-container" id="container-mmd-15">
                     <div className="mermaid-target" id="mmd-15">
-<Mermaid chart={DIAGRAM_15} id="diagram-15" />
+<Mermaid chart={DIAGRAM_15} />
 </div>
                 </div>
                 <h4
