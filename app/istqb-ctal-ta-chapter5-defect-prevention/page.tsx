@@ -9,6 +9,7 @@ const MERMAID_CONFIG = `%%{init: {
   "themeVariables": {
     "background": "#ffffff",
     "primaryColor": "#e7eefa",
+    "mainBkg": "#e7eefa",
     "primaryBorderColor": "#1f4e9e",
     "primaryTextColor": "#152238",
     "lineColor": "#41506a",
@@ -143,9 +144,7 @@ export const metadata: Metadata = {
 export default function CtalTaChapter5Page() {
     return (
         <div className="ctal-ta-ch5-page">
-            <div className="shell">
-                <NavBar />
-
+            <NavBar>
                 <main className="doc" id="main">
                     {/* HERO */}
                     <header className="hero" id="top">
@@ -4000,7 +3999,7 @@ export default function CtalTaChapter5Page() {
                         で描画します（インターネット接続が必要）。確認日はすべて 2026-09-20。
                     </p>
                 </main>
-            </div>
+            </NavBar>
         </div>
     );
 }
