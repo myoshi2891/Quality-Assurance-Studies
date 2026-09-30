@@ -402,3 +402,212 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 3: テスト見積り (Section 2.2)'
         expect(hasFormula3).toBe(true);
     });
 });
+
+export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
+    {
+        heading: '導入：欠陥マネジメントとは',
+        headers: ['用語の違い', '説明'],
+        rows: 3,
+        cols: 2,
+        sample: '欠陥マネジメント',
+    },
+    {
+        heading: '1-2 不正が観察されてから欠陥レポートまで',
+        headers: ['段階', '内容'],
+        rows: 5,
+        cols: 2,
+        sample: '静的テスト',
+    },
+    {
+        heading: '1-3 単純な欠陥ワークフロー',
+        headers: ['状態', '意味（シラバス）', '典型的な所有者・担当（組織によって異なる）'],
+        rows: 5,
+        cols: 3,
+        sample: 'オープン（新規）',
+    },
+    {
+        heading: '1-4 欠陥ワークフロー設計のよい実践（シラバスの7項目）',
+        headers: ['No.', 'ルール', '理由・狙い（考え方）', 'ルールを破ったときの例'],
+        rows: 7,
+        cols: 4,
+        sample: '1',
+    },
+    {
+        heading: '誰が、どのプロセスで欠陥を扱うか',
+        headers: ['委員会の構成メンバー（シラバスの例）'],
+        rows: 7,
+        cols: 1,
+        sample: 'テストマネージャー',
+    },
+    {
+        heading: 'ツールと委員会は「コミュニケーションの代用」ではない',
+        headers: ['必要な要素', '内容'],
+        rows: 4,
+        cols: 2,
+        sample: 'コミュニケーション',
+    },
+    {
+        heading: '基本方針：軽量でよいが、必要なときはレポートを作る',
+        headers: ['欠陥レポートを作成すべき場合', '理由（考え方）'],
+        rows: 5,
+        cols: 2,
+        sample: '他のスプリント活動（開発・テスト・その他）をブロックし、チーム内ですぐに修正できない',
+    },
+    {
+        heading: '形式化のレベルを決める7つの要素',
+        headers: ['反映すべき要素', '例（考え方）'],
+        rows: 7,
+        cols: 2,
+        sample: 'チームメンバーの共通の作業場所',
+    },
+    {
+        heading: 'ステップ4（TM-2.3.4・K2）：ハイブリッドソフトウェア開発における欠陥マネジメントの課題',
+        headers: ['課題', '何が問題か', '対応の方向性（シラバス）'],
+        rows: 3,
+        cols: 3,
+        sample: '①欠陥の属性と欠陥マネジメントツールの整合性',
+    },
+    {
+        heading: '必須の項目と、ツールが自動で作る項目',
+        headers: ['区分', '項目'],
+        rows: 12,
+        cols: 2,
+        sample: 'ほとんどの環境で必須',
+    },
+    {
+        heading: '目的別にグループ化した追加情報',
+        headers: ['目的', '追加する情報（シラバスの例）'],
+        rows: 4,
+        cols: 2,
+        sample: '欠陥解決に役立てる',
+    },
+    {
+        heading: '具体例（架空）：欠陥レポートのサンプル',
+        headers: ['項目', '記入例'],
+        rows: 14,
+        cols: 2,
+        sample: '識別子（ツールが自動付与）',
+    },
+    {
+        heading: '欠陥情報 → 改善のヒント（シラバスの7つの例）',
+        headers: ['No.', '使う欠陥情報', '分析の内容', '導ける改善'],
+        rows: 7,
+        cols: 4,
+        sample: '1',
+    },
+    {
+        heading: '具体例（架空）：混入フェーズ×検出フェーズのマトリクスで「フェーズ内封じ込め」を評価する',
+        headers: [
+            '混入フェーズ＼検出フェーズ',
+            '要件レビュー',
+            '設計レビュー',
+            'コード／コンポーネントテスト',
+            'システムテスト',
+            '本番',
+            '合計',
+            '同じフェーズで検出できた割合',
+        ],
+        rows: 4,
+        cols: 8,
+        sample: '要件定義',
+    },
+    {
+        heading: '2.3 節でよくある間違い（試験の引っかけ）',
+        headers: ['誤解', '正しい理解'],
+        rows: 7,
+        cols: 2,
+        sample: 'テストが不合格なら必ず欠陥レポートを作る',
+    },
+];
+
+describe('CTAL-TM v3.0 Chapter 2 - Category 4: 欠陥マネジメント (Section 2.3)', () => {
+    it('renders section 2.3 heading and learning objectives note', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const h2 = container.querySelector('[id="4-シラバス23欠陥マネジメント"]');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toBe('4. 【シラバス2.3】欠陥マネジメント');
+    });
+
+    it('renders all section 2.3 H3 and H4 subheadings', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const expectedSubheadingIds = [
+            '導入欠陥マネジメントとは',
+            '1-1-用語の違いシラバスの記述',
+            'ステップ1tm-231k3欠陥のライフサイクルと欠陥ワークフロー',
+            '1-2-不正が観察されてから欠陥レポートまで',
+            '1-3-単純な欠陥ワークフロー',
+            '1-4-欠陥ワークフロー設計のよい実践シラバスの7項目',
+            '1-5-手順欠陥マネジメントプロセスを実装するtm-231k3',
+            'ステップ2tm-232k2機能横断的な欠陥マネジメント',
+            '誰がどのプロセスで欠陥を扱うか',
+            '委員会トリアージミーティングが行うこと',
+            '専任の欠陥マネージャー',
+            'ツールと委員会はコミュニケーションの代用ではない',
+            'ステップ3tm-233k2アジャイルチームにおける欠陥マネジメントの特徴',
+            '基本方針軽量でよいが必要なときはレポートを作る',
+            '形式化のレベルを決める7つの要素',
+            'ステップ4tm-234k2ハイブリッドソフトウェア開発における欠陥マネジメントの課題',
+            'ステップ5tm-235k3欠陥レポートに記載する情報とその使い方',
+            '欠陥レポート情報の4つの目的',
+            '収集する情報の考え方',
+            '必須の項目とツールが自動で作る項目',
+            '目的別にグループ化した追加情報',
+            '手順欠陥レポート項目を決めて使うk3',
+            '具体例架空欠陥レポートのサンプル',
+            'ステップ6tm-236k2欠陥レポート情報からプロセス改善アクションを導く',
+            '欠陥情報--改善のヒントシラバスの7つの例',
+            '具体例架空混入フェーズ検出フェーズのマトリクスでフェーズ内封じ込めを評価する',
+            '欠陥を追跡しないことのリスク',
+            '23-節でよくある間違い試験の引っかけ',
+        ];
+
+        expectedSubheadingIds.forEach((id) => {
+            const el = container.querySelector(`[id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid DIAGRAM_8 through DIAGRAM_15', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const mmdIds = [
+            'mmd-8',
+            'mmd-9',
+            'mmd-10',
+            'mmd-11',
+            'mmd-12',
+            'mmd-13',
+            'mmd-14',
+            'mmd-15',
+        ];
+        mmdIds.forEach((id) => {
+            const target = container.querySelector(`[id="${id}"]`);
+            expect(target).not.toBeNull();
+            const parent = container.querySelector(`[id="container-${id}"]`);
+            expect(parent).not.toBeNull();
+        });
+    });
+
+    it('renders Category 4 tables (Tables 20-34) matching specifications', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(34);
+
+        EXPECTED_TABLE_SPECS_CAT4.forEach((spec, i) => {
+            const actual = tables[19 + i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual(spec.headers as string[]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+
+    it('renders all callouts in Category 4', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const callouts = container.querySelectorAll('.callout');
+        // Category 1: 1, Category 2: 7, Category 3: 6, Category 4: 10 -> at least 24
+        expect(callouts.length).toBeGreaterThanOrEqual(24);
+    });
+});
+
