@@ -5,7 +5,9 @@ import Mermaid from "../../components/Mermaid";
 import {
   DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5,
   DIAGRAM_6, DIAGRAM_7, DIAGRAM_8, DIAGRAM_9, DIAGRAM_10,
-  DIAGRAM_11, DIAGRAM_12, DIAGRAM_13, DIAGRAM_14
+  DIAGRAM_11, DIAGRAM_12, DIAGRAM_13, DIAGRAM_14, DIAGRAM_15,
+  DIAGRAM_16, DIAGRAM_17, DIAGRAM_18, DIAGRAM_19, DIAGRAM_20,
+  DIAGRAM_21, DIAGRAM_22, DIAGRAM_23
 } from "./diagrams";
 import "./istqb-ctal-tm-chapter1-managing-the-test-activities.css";
 
@@ -2816,6 +2818,1070 @@ export default function CtalTmChapter1Page() {
                             </tbody>
                         </table>
                     </div>
+            <h2 id="sec-6">5. テストプロセスの改善（Section 1.5）</h2>
+<p>
+                        <strong>学習目標</strong>：TM-1.5.1〜1.5.3（K2）、<strong>TM-1.5.4（K3）</strong>
+                    </p>
+<h3 id="sec-6-1">5.0 なぜテストプロセスを改善するのか</h3>
+<ul>
+                        <li>
+                            テストはソフトウェア開発の重要な部分で、<strong>総プロジェクトコストの少なくとも 30〜40%</strong>
+                            を占めることが多い
+                        </li>
+                        <li>
+                            複雑さ・規模の増大、新技術、多様なデバイス・OS、セキュリティ脆弱性など、技術的課題が増えており、テストの<strong>有効性と効率</strong>を高める必要がある
+                        </li>
+                        <li>
+                            既存のベストプラクティスや<strong>自分たちの過ちから学ぶ</strong>ことで、プロセスを改善できる
+                        </li>
+                    </ul>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>改善のきっかけ（例）</td>
+                                    <td>
+                                        現在のテスト結果への不満、予期せぬ欠陥、状況の変化、ベンチマーク結果、コミュニケーション不足
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>組織レベルとプロジェクトレベル</td>
+                                    <td>
+                                        組織レベルの改善のほうが通常有用。ただし、<strong>プロジェクト／チームレベルでも可能で有益</strong>（ニーズに合わせて調整する）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>適用範囲</td>
+                                    <td>
+                                        本節の技法は<strong>逐次型・アジャイル／増分型</strong>のどちらにも適用できる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>深掘り</td>
+                                    <td>
+                                        ISTQB Expert Level「Improving the Test
+                                        Process」シラバスが詳しい
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-15">
+            <Mermaid chart={DIAGRAM_15} />
+          </div>
+          <figcaption>図 15</figcaption>
+        </figure>
+      
+<h3 id="sec-6-2">5.1 IDEAL モデル（TM-1.5.1）</h3>
+<p>
+                        IDEAL は、よく知られた
+                        <strong>PDCA サイクル</strong>と似た考え方に基づく、改善実施のためのモデルです。頭文字は次のとおりです。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>文字</th>
+                                    <th>英語</th>
+                                    <th>日本語</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>I</strong></td>
+                                    <td>Initiating</td>
+                                    <td>開始</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>D</strong></td>
+                                    <td>Diagnosing</td>
+                                    <td>診断</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>E</strong></td>
+                                    <td>Establishing</td>
+                                    <td>確立</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>A</strong></td>
+                                    <td>Acting</td>
+                                    <td>実行</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>L</strong></td>
+                                    <td>Learning</td>
+                                    <td>学習</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-16">
+            <Mermaid chart={DIAGRAM_16} />
+          </div>
+          <figcaption>図 16</figcaption>
+        </figure>
+      
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>フェーズ</th>
+                                    <th>内容（要点）</th>
+                                    <th>ベストプラクティス</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>Initiating</strong></td>
+                                    <td>
+                                        改善プロセスの開始時に、改善の<strong>目的とスコープ</strong>をステークホルダーが合意する
+                                    </td>
+                                    <td>
+                                        プロジェクトレベルでは規模が<strong>はるかに小さい</strong>。関係者が少ないので短時間で合意する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Diagnosing</strong></td>
+                                    <td>
+                                        現在のテストプロセスを評価して、改善可能な点を特定する。<strong>モデルベース</strong>（標準フレームワークに照らす）か、<strong>分析ベース</strong>（特定メトリクスの分析）で行う
+                                    </td>
+                                    <td>
+                                        プロジェクトレベルでは、<strong>レトロスペクティブ</strong>で診断することが多く、規模も小さい
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>Establishing</strong></td>
+                                    <td>
+                                        <strong>テストプロセス改善計画</strong>を作る。正式な文書のことも、非常に軽量で非公式なこともある。改善候補の一覧は<strong>優先順位付け</strong>する（基準：<strong>ROI</strong>、リスク、プロジェクト／チーム戦略との整合、測定可能な定量的・定性的な便益）
+                                    </td>
+                                    <td>
+                                        一度に多くの改善を抱え込まず、<strong>優先順位の高いものから</strong>着手する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Acting</strong></td>
+                                    <td>
+                                        計画を実行する。<strong>研修</strong>、変更プロセスの<strong>パイロット</strong>、プロジェクト／チームへの<strong>全面展開</strong>を含むことが多い
+                                    </td>
+                                    <td>まず小さく試して（パイロット）から展開する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>Learning</strong></td>
+                                    <td>
+                                        全面展開後、計画された便益・予期せぬ便益を<strong>検証</strong>する。うまくいったこと・いかなかったことから学び、その情報に基づき行動し、<strong>その後に次の改善サイクル</strong>が始まる
+                                    </td>
+                                    <td>便益の検証を省略しない。「やりっぱなし」にしない</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        <strong>プロジェクトレベルでの IDEAL の適用</strong> IDEAL
+                        はもともと<strong>組織レベル</strong>の改善を支援するために定義されましたが、<strong>プロジェクトやアジャイルチームのレベル</strong>でも適用できます。主な違いは
+                        <strong>Initiating フェーズが大幅に小さい</strong>ことです。診断（レトロスペクティブ経由）と計画確立も小規模になりますが、<strong>Acting と Learning は同様に重要</strong>です。
+                    </p>
+<h3 id="sec-6-3">5.2 モデルベースのテストプロセス改善（TM-1.5.2）</h3>
+<h4 id="sub-49">5.2.1 基本的な考え方</h4>
+<p>
+                        モデルベース改善とアナリティカル改善はいずれも、「<strong>製品品質は、使用・適用されるプロセスの品質に大きく左右される</strong>」という前提に立ちます。モデルベースでは<strong>テスト改善モデル</strong>を使います。これらのモデルは<strong>テストのベストプラクティス</strong>に基づき、テスト改善を<strong>段階的に</strong>整理します。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>代表的モデル</td>
+                                    <td>
+                                        <strong>TMMi®</strong>（Test Maturity Model integration）と
+                                        <strong>TPI NEXT®</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>プロジェクトレベルでの適用</td>
+                                    <td>
+                                        モデルの中で<strong>プロジェクトレベルの活動</strong>（例：テスト計画、テスト設計）に関わるプロセス領域・キーエリアに焦点を当て、<strong>組織レベルの領域</strong>（例：テストポリシー、テスト組織）はほぼ省略する。あるいは、組織レベルの実践を<strong>プロジェクトの文脈に合わせて調整</strong>して適用する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>深掘り</td>
+                                    <td>
+                                        ISTQB Expert Level「Improving the Test Process」シラバス
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-50">5.2.2 TMMi® と TPI NEXT® の比較</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>TMMi®</th>
+                                    <th>TPI NEXT®</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>構造</td>
+                                    <td>
+                                        <strong>5 つの成熟度レベル</strong>。レベル 1
+                                        を除く各レベルにテストプロセス領域と改善目標がある
+                                    </td>
+                                    <td>
+                                        <strong>16 のキーエリア</strong>（例：テスト戦略、テストメトリクス、テストツール、テスト環境）。各キーエリアに
+                                        <strong>4 つの成熟度レベル</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>支援要素</td>
+                                    <td>実装を支援するプラクティス、サブプラクティス、事例</td>
+                                    <td>
+                                        各キーエリアの各成熟度レベルを評価する<strong>具体的なチェックポイント</strong>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>結果の可視化</td>
+                                    <td>成熟度レベルごとの達成状況</td>
+                                    <td>
+                                        評価結果を、全キーエリアをカバーする<strong>成熟度マトリクス</strong>で要約・可視化
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>補足</td>
+                                    <td>
+                                        当初は
+                                        <strong>CMMI</strong> を補完する目的で開発されたが、現在は
+                                        CMMI
+                                        と<strong>独立して広く</strong>使われる。アジャイル開発向けに<strong>専用ガイドライン</strong>も存在する
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>参考 URL</td>
+                                    <td>
+                                        <a href="http://www.tmmi.org" rel="noopener noreferrer" target="_blank">www.tmmi.org</a>
+                                    </td>
+                                    <td>
+                                        <a href="http://www.tmap.net" rel="noopener noreferrer" target="_blank">www.tmap.net</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-practice">
+                        <div className="callout-label">
+                            <span aria-hidden="true" className="callout-icon">💡</span><span>モデルベースの特徴</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                プロジェクトやチームのテストアプローチを、<strong>外部のベストプラクティスと比較</strong>して改善を導入します。
+                            </p>
+                        </div>
+                    </aside>
+<h3 id="sec-6-4">5.3 分析ベースのテストプロセス改善（TM-1.5.3）</h3>
+<h4 id="sub-51">5.3.1 モデルベースとの違い</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>アプローチ</th>
+                                    <th>問題の見つけ方</th>
+                                    <th>データ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>モデルベース</td>
+                                    <td>外部のベストプラクティスとの<strong>比較</strong></td>
+                                    <td>モデルの基準</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>分析ベース</strong></td>
+                                    <td>
+                                        <strong>プロジェクトやチーム自身のデータ</strong>から問題を特定
+                                    </td>
+                                    <td>定量的データと定性的データ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<ul>
+                        <li>
+                            分析ベースは、モデルベースと<strong>併用</strong>して、結果の検証と多様性の確保に使える
+                        </li>
+                        <li>
+                            本節（1.5.3）は主に、テストプロセスと<strong>欠陥データ</strong>の<strong>定量的データ</strong>を使う手法を紹介する。<strong>定性的データ</strong>を扱うのは
+                            1.5.4 のレトロスペクティブ
+                        </li>
+                        <li>
+                            データ分析は、<strong>客観的な</strong>プロセス改善に重要。純粋に定性的な評価は、データに裏付けられない<strong>不正確な提言</strong>につながり得る
+                        </li>
+                    </ul>
+<h4 id="sub-52">5.3.2 代表的な 3 つの分析アプローチ</h4>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-17">
+            <Mermaid chart={DIAGRAM_17} />
+          </div>
+          <figcaption>図 17</figcaption>
+        </figure>
+      
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>アプローチ</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>根本原因分析（RCA）</strong></td>
+                                    <td>
+                                        問題の<strong>根本原因</strong>を特定する研究。目先の症状だけに対処するのではなく、<strong>原因を取り除く</strong>解決策を特定できる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>メジャー・メトリクス・指標</strong></td>
+                                    <td>
+                                        テストプロセスがどの程度うまく実行されているかを<strong>定量的</strong>に評価する。考慮すべき主要属性は<strong>有効性・効率・予測可能性</strong>。属性ごとに
+                                        1
+                                        つ以上のメトリクスを選び、データを収集・分析して改善が必要な領域を特定する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>GQM（Goal-Question-Metric）</strong></td>
+                                    <td>
+                                        ステークホルダーの<strong>情報ニーズ</strong>に合わせたメトリクスを定義・分析するためのフレームワーク
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-53">5.3.3 根本原因分析の手順</h4>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-18">
+            <Mermaid chart={DIAGRAM_18} />
+          </div>
+          <figcaption>図 18</figcaption>
+        </figure>
+      
+<h4 id="sub-54">5.3.4 GQM の流れ</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ステップ</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>Goal（目標）</strong></td>
+                                    <td>
+                                        特定の目的・視点・状況で測定すべき<strong>品質の側面</strong>を定義する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Question（質問）</strong></td>
+                                    <td>
+                                        目標を、ステークホルダーの視点から品質の側面を定義する<strong>質問に洗練</strong>する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>Metric（メトリクス）</strong></td>
+                                    <td>
+                                        質問に答えるために必要な情報を提供する<strong>メトリクスを選定</strong>する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評価</td>
+                                    <td>
+                                        収集したデータが質問に答え、測定目標を評価し、ステークホルダーの情報ニーズを満たす
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-19">
+            <Mermaid chart={DIAGRAM_19} />
+          </div>
+          <figcaption>図 19</figcaption>
+        </figure>
+      
+<aside className="callout callout-note">
+                        <p>上の GQM は<strong>説明用の例</strong>です。</p>
+                    </aside>
+<h3 id="sec-6-5">5.4 レトロスペクティブ（TM-1.5.4、K3）</h3>
+<h4 id="sub-55">5.4.1 定義と位置づけ</h4>
+<p>
+                        レトロスペクティブは、チームが<strong>方法と協力体制を見直し</strong>、良い点・悪い点の<strong>教訓を捉え</strong>、改善のための<strong>変更とアクションを決める</strong>会議です（テストに関する課題と、それ以外の課題の<strong>両方</strong>が対象）。扱うテーマは、プロセス、人、組織、協働、ツールなどです。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>逐次型</th>
+                                    <th>アジャイル</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>位置づけ</td>
+                                    <td><strong>テスト完了の一部</strong></td>
+                                    <td>通常、<strong>各反復の終わり</strong>に実施</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>目的</td>
+                                    <td>
+                                        将来のプロジェクトをより良く管理するための<strong>教訓を生み出す</strong>
+                                    </td>
+                                    <td>
+                                        何が成功し、何を改善すべきか、その改善を<strong>次の反復にどう取り込むか</strong>を議論する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>文書化</td>
+                                    <td>
+                                        発見事項・結論・提言を、組織のメンバーに<strong>理解しやすい形で配布・伝達</strong>
+                                    </td>
+                                    <td>
+                                        問題とアクションを文書化し、<strong>次の反復で</strong>アクションとその影響を<strong>確認できる</strong>ようにする
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<ul>
+                        <li>
+                            レトロスペクティブは<strong>チーム全体</strong>で実施し、<strong>ホールチームアプローチ</strong>を支え、継続的改善を促進する
+                        </li>
+                        <li>
+                            <strong>テスト課題に特化した</strong>専用のレトロスペクティブが必要なこともある
+                        </li>
+                        <li>
+                            テスターはチームの一員として、<strong>独自の視点</strong>でテスト関連（およびその他）の問題を提起し、改善を促せる
+                        </li>
+                    </ul>
+<h4 id="sub-56">5.4.2 典型的な 5 ステップ</h4>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-20">
+            <Mermaid chart={DIAGRAM_20} />
+          </div>
+          <figcaption>図 20</figcaption>
+        </figure>
+      
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>#</th>
+                                    <th>ステップ</th>
+                                    <th>内容</th>
+                                    <th>ベストプラクティス</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>1</td>
+                                    <td><strong>導入</strong></td>
+                                    <td>
+                                        目的とアジェンダを確認し、<strong>非難や判断なしに</strong>問題を議論できる、<strong>相互信頼の雰囲気</strong>をつくる
+                                    </td>
+                                    <td>冒頭で「人ではなくプロセスを見る」ルールを明示する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>2</td>
+                                    <td><strong>データ収集</strong></td>
+                                    <td>
+                                        反復・プロジェクトで起きたことのデータを集める。<strong>定性的</strong>（主要イベントの時系列、各メンバーの感じ方など）と、<strong>定量的</strong>（テスト進捗、欠陥検出、テストの有効性・効率、予測可能性など）の両方
+                                    </td>
+                                    <td>
+                                        感覚だけでなく、<strong>メトリクスを併用</strong>して客観性を確保する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3</td>
+                                    <td><strong>改善案の導出</strong></td>
+                                    <td>
+                                        データを分析して現状を理解し、改善アイデアを生む。例：<strong>根本原因分析</strong>で根本原因を特定し、<strong>ブレインストーミング</strong>で解決アイデアを出す
+                                    </td>
+                                    <td>症状ではなく<strong>原因</strong>に対する案を出す</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>4</td>
+                                    <td><strong>改善アクションの決定</strong></td>
+                                    <td>
+                                        アイデアを実行するアクションを導き、<strong>優先順位付け</strong>する。改善計画と責任者を定義。アクションの効果を評価するための目標とメトリクスも定義できる
+                                    </td>
+                                    <td>
+                                        <strong>一度に多くを実施しない</strong>（検証可能なステップで管理しにくくなる）。担当者と期限を決める
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>5</td>
+                                    <td><strong>終了</strong></td>
+                                    <td>
+                                        レトロスペクティブ自体を振り返り、良い点と改善点を確認する。<strong>定期的</strong>に実施し（特にアジャイル）、レトロスペクティブ自体にも継続的改善を適用する
+                                    </td>
+                                    <td>次回の運営改善（時間配分、進行方法）を記録する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-note">
+                        <p>
+                            K3（適用）の問題では、<strong>状況文の内容が 5 ステップのどこに当たるか</strong>、または<strong>ステップの順序や内容が適切か</strong>を問われる形が想定されます。
+                        </p>
+                    </aside>
+            <h2 id="sec-7">6. テストツール（Section 1.6）</h2>
+<p>
+                        <strong>学習目標</strong>：TM-1.6.1、1.6.2、1.6.4、1.6.5（K2）、<strong>TM-1.6.3（K4）</strong>
+                    </p>
+<h3 id="sec-7-1">6.0 導入：ツールの 2 つの見方</h3>
+<p>
+                        シラバスは、<strong>ビジネスツール</strong>の 3
+                        つのタイプと、<strong>技術ツール</strong>（テスト自動化ツール、テスト管理ツールなど）に言及しています。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ビジネスツールのタイプ</th>
+                                    <th>特徴（1.6.2 の記述に基づく）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>商用ツール</strong></td>
+                                    <td>
+                                        規制・セキュリティ要件のある組織では、必要な標準を満たす・認証を持つ傾向があり、選ばれやすい。<strong>一括購入価格</strong>と<strong>継続的なライセンス費用</strong>がかかる場合がある
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>オープンソースツール</strong></td>
+                                    <td>
+                                        通常、<strong>初期コストが低い</strong>（コミュニティの支援・開発による）。すべての要件を詳細に満たすとは限らない
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>カスタムツール</strong></td>
+                                    <td>
+                                        初期コストの<strong>見積りが難しい</strong>（要件と開発段階に依存）。個別要件をすべて満たすのに最適な選択となり得る。<strong>他に必要な機能を持つツールがない</strong>場合にも有効
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        ビジネスツールを選ぶときは、<strong>組織とステークホルダーの要件および規制</strong>をすべて考慮する必要があります。
+                    </p>
+<h3 id="sec-7-2">6.1 ツール導入のグッドプラクティス（TM-1.6.1）</h3>
+<p>
+                        テストマネージャーは、ツール導入に<strong>関与</strong>するか、導入プロセスを<strong>促進・支援</strong>することがあります。通常、専用のテストツール、または要件管理・欠陥管理・モニタリングなど<strong>テストに関連するツール</strong>の責任を持ちます。
+                    </p>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-21">
+            <Mermaid chart={DIAGRAM_21} />
+          </div>
+          <figcaption>図 21</figcaption>
+        </figure>
+      
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>段階</th>
+                                    <th>グッドプラクティス（シラバス）</th>
+                                    <th>補足・ベストプラクティス</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>評価・選定</td>
+                                    <td>
+                                        プロセス改善の機会を、適切なツールの支援とともに特定する
+                                    </td>
+                                    <td>「ツールありき」でなく、<strong>課題起点</strong>で選ぶ</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評価・選定</td>
+                                    <td>組織で使われる技術を理解し、互換性のあるツールを選ぶ</td>
+                                    <td>
+                                        既存ツールとの<strong>連携（API／統合</strong>）を確認する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>評価・選定</td>
+                                    <td>
+                                        ツールが SDLC
+                                        に<strong>技術的・組織的にどう統合</strong>されるかを理解する
+                                    </td>
+                                    <td>CI/CD などとの接続、運用フローへの影響を確認する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評価・選定</td>
+                                    <td>
+                                        <strong>明確な要件と客観的な基準</strong>でツールを評価する
+                                    </td>
+                                    <td>評価基準の一覧（必須／推奨）を事前に作る</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>評価・選定</td>
+                                    <td>
+                                        商用ツールなら<strong>ベンダーを評価</strong>し、非商用（OSS
+                                        など）なら<strong>サポート</strong>を評価する
+                                    </td>
+                                    <td>OSS は、コミュニティの活発さやサポート体制を確認する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評価・選定</td>
+                                    <td>
+                                        ツール利用のための<strong>研修・コーチング・メンタリング</strong>の内部要件を特定する
+                                    </td>
+                                    <td>学習時間を<strong>コストとして見積る</strong></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>評価・選定</td>
+                                    <td>各種<strong>ライセンスモデル</strong>の長短を検討する</td>
+                                    <td>ライセンス数がボトルネックにならないか確認する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評価・選定</td>
+                                    <td>
+                                        <strong>最終ステップ</strong>として、<strong>概念実証（PoC</strong>）を実施する
+                                    </td>
+                                    <td>PoC の成功基準を事前に決める</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>導入・展開</td>
+                                    <td>
+                                        <strong>パイロットプロジェクト</strong>を実行し、選定基準と要件を検証し、既存のプロセス・慣行との適合を評価する
+                                    </td>
+                                    <td>影響範囲の小さいプロジェクトで試す</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>導入・展開</td>
+                                    <td>
+                                        ツールの使用に合わせて<strong>プロセスを適応・改善</strong>する。必要に応じて、既存のプロセスに合わせて<strong>ツールを調整</strong>する
+                                    </td>
+                                    <td>双方向の調整</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>導入・展開</td>
+                                    <td>ツール使用の<strong>ガイドライン</strong>を定義する</td>
+                                    <td>命名規則、運用ルールなど</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>導入・展開</td>
+                                    <td>
+                                        ユーザーへの<strong>研修、コーチング、メンタリング</strong>
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>導入・展開</td>
+                                    <td>組織へ<strong>段階的に</strong>展開する</td>
+                                    <td>一斉展開を避ける</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>導入・展開</td>
+                                    <td>
+                                        実際の使用から情報を収集し、<strong>さらなる改善</strong>に生かす仕組みを作る
+                                    </td>
+                                    <td>定期的なフィードバック会</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>導入・展開</td>
+                                    <td>
+                                        ツールの<strong>所有者（オーナーシップ</strong>）を定義する
+                                    </td>
+                                    <td>誰が管理・更新・問い合わせ窓口かを明確にする</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-7-3">6.2 ツール決定に関する技術面・ビジネス面（TM-1.6.2）</h3>
+<p>
+                        ツールの導入・使用の決定には多くの要因が影響します。テストマネージャーはこれらを<strong>理解し、対処する</strong>必要があります。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>要因</th>
+                                    <th>内容（シラバス）</th>
+                                    <th>影響の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>規制とセキュリティ</strong></td>
+                                    <td>
+                                        安全重要・ミッションクリティカルなソフトウェアを開発する組織、または規制順守が必要な組織は、必要な標準を満たし適切な認証を持つことが多い<strong>商用ツール</strong>を好む場合がある
+                                    </td>
+                                    <td>認証済みツールの要求 → 商用ツール優先</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>財務面</strong></td>
+                                    <td>
+                                        OSS
+                                        は通常、初期コストが低い。商用ツールは一括購入価格に加え継続的ライセンス費用が発生し得る。カスタムツールの初期コストは見積りが困難。<strong>初期コスト以外に、ツールの生涯にわたる研修と保守のコスト</strong>も計算・考慮する。<strong>どのツールも保守・サポートコストが高くなる可能性</strong>がある
+                                    </td>
+                                    <td>総所有コストで判断する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>ステークホルダーの要件</strong></td>
+                                    <td>
+                                        <strong>すべてのステークホルダー</strong>から要件を収集し、最適なツールを評価・特定することが重要。商用・OSS
+                                        は詳細な要件をすべて満たすとは限らない。カスタムツールは、個別要件をすべて満たすのに最善の選択となり得る
+                                    </td>
+                                    <td>要件の充足度を比較表で確認</td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>既存のソフトウェア環境とツール戦略</strong></td>
+                                    <td>
+                                        既存のツール構成（ソフトウェアランドスケープ）とツール戦略を評価する。優先ベンダーや<strong>ロックイン</strong>、他製品への依存を持つ統合システム、規制のある<strong>フルサービスサポートモデル</strong>があり得る
+                                    </td>
+                                    <td>既存の統合基盤との整合</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-7-4">6.3 選定プロセスの考慮事項と ROI 評価（TM-1.6.3、K4）</h3>
+<p>
+                        テストツールは、<strong>長期的な投資</strong>になり得ます（単一プロジェクトの複数反復にわたる、あるいは多数のプロジェクトに適用される）。したがって、候補のツールは<strong>さまざまな観点</strong>から検討する必要があります。
+                    </p>
+<h4 id="sub-57">6.3.1 立場ごとの観点</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>立場</th>
+                                    <th>重視すること</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>経営層</strong></td>
+                                    <td><strong>プラスの ROI</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>サポート・運用チーム</strong></td>
+                                    <td>
+                                        組織全体で使うツールが<strong>限られた必要数</strong>であること。ツールの数、ライセンス管理、ツールスタック管理に<strong>コストや時間がかからない</strong>こと
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>プロジェクトリーダー</strong></td>
+                                    <td>
+                                        プロジェクトや組織に<strong>測定可能な価値</strong>を加えること
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>ツールの利用者</strong></td>
+                                    <td>
+                                        <strong>使いやすさ</strong>（タスクの支援、学習しやすさ、操作性）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>運用要員</strong></td>
+                                    <td><strong>保守性</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        機能は、ビジネスと技術の各ツールタイプごとに分析します。分析の観点には、<strong>テストマネジメント、（技術的）テスト分析、テスト自動化、開発</strong>などがあります。<strong>ツールの責任者（ツールオーナー</strong>）が、この分析の実施と、上記の観点の考慮を確実にします。
+                    </p>
+<h4 id="sub-58">6.3.2 ROI と費用便益分析</h4>
+<ul>
+                        <li>
+                            テストプロセスに導入するすべてのツールは、組織に<strong>プラスの ROI</strong>
+                            をもたらす必要がある
+                        </li>
+                        <li>
+                            ROI
+                            の計算とさらなる評価は<strong>テストマネージャーの責任</strong>（アジャイルでは<strong>開発チーム全体</strong>の責任になり得る）
+                        </li>
+                        <li>
+                            ツールの取得・構築の前に、<strong>費用便益分析</strong>を行い、<strong>繰り返し発生するコスト</strong>と<strong>一度だけのコスト</strong>の両方を考慮する
+                        </li>
+                    </ul>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>区分</th>
+                                    <th>内容（シラバス）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>一度だけ発生する活動とコスト（非反復）</strong></td>
+                                    <td>
+                                        ツール要件の定義と決定／ツールとベンダーの評価・選定と
+                                        PoC／初期利用のためのツールの購入・調整・開発／利用ガイドラインの定義／初期研修／既存ツール環境への統合／ツールを支えるハードウェア・ソフトウェアの調達
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>継続的に発生する活動とコスト（反復）</strong></td>
+                                    <td>
+                                        継続的なライセンス・サポート費用／保守コスト／継続的な研修コスト／別環境へのツールの移植
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>機会費用</strong></td>
+                                    <td>
+                                        ツールの評価、管理、研修、使用に費やした時間は、<strong>実際のテスト作業</strong>に使えた可能性がある。ツールを意図した活動に使えるようになるまで、<strong>より多くのテストリソース</strong>が必要になることがある
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p><strong>ROI に関するリスク</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>リスク</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>組織の未成熟</td>
+                                    <td>ツールの<strong>非効率な使用</strong>につながる</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ベンダーの保守ポリシーの変更</td>
+                                    <td><strong>作業負荷が増える</strong></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>想定以上のコスト</td>
+                                    <td>予算超過</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>想定以下の便益</td>
+                                    <td>期待した効果が出ない</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p><strong>テストツールの便益</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>便益</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>手作業の反復の削減</td>
+                                    <td>回帰テスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テストサイクル時間の短縮</td>
+                                    <td>自動化による高速化</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テスト実行コストの節約</td>
+                                    <td>手作業の減少による</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>カバレッジの向上</td>
+                                    <td>ツールが支援する特定のテストタイプ</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>人的エラーの削減</td>
+                                    <td>手作業が減るため</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-59">6.3.3 K4 問題の解き方（ツール選定計画の作成）</h4>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-22">
+            <Mermaid chart={DIAGRAM_22} />
+          </div>
+          <figcaption>図 22</figcaption>
+        </figure>
+      
+<p><strong>ROI の計算例（説明用の単純化した例）</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>金額（年間）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>便益：手動回帰テストの工数削減（400 時間 × 5,000 円）</td>
+                                    <td>200 万円</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>コスト：ライセンス費用</td>
+                                    <td>60 万円</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>コスト：保守・運用</td>
+                                    <td>40 万円</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>コスト：継続的な研修</td>
+                                    <td>20 万円</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>年間の純便益</strong></td>
+                                    <td><strong>80 万円</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-note">
+                        <p>
+                            初年度は、<strong>一度だけのコスト</strong>（要件定義、PoC、初期研修、統合など）も加えて評価します。これは<strong>説明用の数値例</strong>で、ROI
+                            の算出式自体はシラバスで規定されていません。
+                        </p>
+                    </aside>
+<h3 id="sec-7-5">6.4 ツールのライフサイクル（TM-1.6.4）</h3>
+<aside className="callout callout-warn">
+                        <div className="callout-label">
+                            <span aria-hidden="true" className="callout-icon">⚠</span><span>確認をお願いする箇所</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                本ガイド作成時、公式シラバス PDF の取得が
+                                <strong>1.6.3 の途中（p.45）で途切れました</strong>。1.6.4 と 1.6.5
+                                は、シラバス原文を確認できていません。以下は、目次と学習目標、旧版（2012）シラバスで使われた一般的な整理に基づく<strong>補足</strong>です。<strong>試験前に、シラバス p.45–46
+                                    の原文で必ず確認してください。</strong>
+                            </p>
+                        </div>
+                    </aside>
+<p>
+                        学習目標は「ツールのライフサイクルの<strong>段階を区別する</strong>」（K2）です。一般的には、次の流れで整理されます。
+                    </p>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-23">
+            <Mermaid chart={DIAGRAM_23} />
+          </div>
+          <figcaption>図 23</figcaption>
+        </figure>
+      
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>段階（一般的な整理）</th>
+                                    <th>内容の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>取得</td>
+                                    <td>要件定義、評価・選定、PoC、購入または開発、導入</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>サポートと保守</td>
+                                    <td>日常の運用、ライセンス管理、不具合対応、利用者の支援</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>進化</td>
+                                    <td>
+                                        環境やニーズの変化に伴う、バージョンアップ、機能追加、他ツールとの統合の見直し
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>廃止</td>
+                                    <td>
+                                        代替ツールへの移行、データの引き継ぎ・アーカイブ、契約終了
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-7-6">6.5 ツールメトリクス（TM-1.6.5）</h3>
+<aside className="callout callout-warn">
+                        <div className="callout-label">
+                            <span aria-hidden="true" className="callout-icon">⚠</span><span>注意</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                6.4
+                                と同様に、原文を未確認です。学習目標は「<strong>ツールを使ったメトリクスの収集と評価の例</strong>を挙げる」（K2）です。
+                            </p>
+                        </div>
+                    </aside>
+<p>
+                        ツールは、テストマネジメントのためのメトリクスを<strong>自動的に収集・集計</strong>するために使われます。一般的な例は次のとおりです。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ツールの種類</th>
+                                    <th>収集できるメトリクスの例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>テスト管理ツール</td>
+                                    <td>テストケース数、実行数、合格・不合格数、進捗率</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>欠陥管理ツール</td>
+                                    <td>欠陥数（重大度別、状態別、機能別）、欠陥の経過期間</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>要件管理ツール</td>
+                                    <td>要件とテストのトレーサビリティ、要件カバレッジ</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テスト自動化ツール</td>
+                                    <td>自動化率、自動テストの実行結果、実行時間</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CI/CD ツール</td>
+                                    <td>ビルド成功率、デプロイの頻度</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>コードカバレッジ／静的解析ツール</td>
+                                    <td>コードカバレッジ、静的解析の指摘件数</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-note">
+                        <p>Chapter 2「Test Metrics」で、メトリクスの詳細を扱います。</p>
+                    </aside>
           </article>
         </main>
       </div>
