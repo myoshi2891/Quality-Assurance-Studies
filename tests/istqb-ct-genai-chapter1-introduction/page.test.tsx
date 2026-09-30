@@ -46,6 +46,18 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT1,
+    {
+        heading: '1.1.1 AIの系譜：記号的AI・古典的機械学習・深層学習・生成AI',
+        headers: ['種類', 'アプローチ', '必要な工程', 'ソフトウェアテストでの活用例'],
+        rows: 4,
+        cols: 4,
+        sample: '記号的AI',
+    },
+];
+
+
 describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 1: 導入部基盤)', () => {
     it('ヒーロー領域（H1、バッジ、リード文）が正しくレンダリングされること', () => {
         const { container } = render(<CtGenAiChapter1Page />);
@@ -152,3 +164,86 @@ describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガ
         expect(mainText).toContain('AI chatbot');
     });
 });
+
+describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 2: セクション1.1前半)', () => {
+    it('1.1節の見出し、1.1.1節の本文、リスト、Mermaid図解、Table 4、コールアウトがレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h2 = container.querySelector('h2#11-生成aiの基礎と主要概念');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent?.trim()).toBe('1.1 生成AIの基礎と主要概念');
+
+        const h3_1 = container.querySelector('h3#111-aiの系譜記号的ai古典的機械学習深層学習生成ai');
+        expect(h3_1).not.toBeNull();
+        expect(h3_1?.textContent?.trim()).toBe('1.1.1 AIの系譜：記号的AI・古典的機械学習・深層学習・生成AI');
+
+        const text = container.textContent ?? '';
+        expect(text).toContain('記号的AI（Symbolic AI）');
+        expect(text).toContain('古典的機械学習（Classical Machine Learning）');
+        expect(text).toContain('深層学習（Deep Learning）');
+        expect(text).toContain('生成AI（Generative AI）');
+        expect(text).toContain('適したテストタスクであれば追加の学習フェーズを経ずに事前学習済みのモデルを適用できる点');
+
+        // Mermaid Diagram 1
+        const diagram1 = container.querySelector('#mermaid-diagram-1, [data-diagram-id="mermaid-diagram-1"]');
+        expect(diagram1).not.toBeNull();
+
+        // Table 4
+        const inventory = collectTableInventory(container);
+        expect(inventory.length).toBeGreaterThanOrEqual(4);
+        const t4 = inventory[3];
+        expect(t4.heading).toBe('1.1.1 AIの系譜：記号的AI・古典的機械学習・深層学習・生成AI');
+        expect(t4.headers).toEqual(['種類', 'アプローチ', '必要な工程', 'ソフトウェアテストでの活用例']);
+        expect(t4.rows).toBe(4);
+        expect(t4.cols).toBe(4);
+        expect(t4.sample).toBe('記号的AI');
+
+        // Callout 2
+        const callouts = container.querySelectorAll('.callout-practice');
+        expect(callouts.length).toBeGreaterThanOrEqual(2);
+        const callout2 = callouts[1];
+        expect(callout2.querySelector('.callout-label')?.textContent).toContain('ベストプラクティス');
+        const items = callout2.querySelectorAll('li');
+        expect(items.length).toBe(3);
+        expect(items[0]?.textContent).toContain('適したタスクでは追加の学習フェーズが不要');
+        expect(items[1]?.textContent).toContain('ハルシネーション・バイアスなど');
+        expect(items[2]?.textContent).toContain('古典的機械学習の方が適していることもある');
+    });
+
+    it('1.1.2節の本文、リスト、Mermaid図解、HO-1.1.2見出し、コールアウトがレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h3_2 = container.querySelector('h3#112-生成aiとllmの基礎');
+        expect(h3_2).not.toBeNull();
+        expect(h3_2?.textContent?.trim()).toBe('1.1.2 生成AIとLLMの基礎');
+
+        const text = container.textContent ?? '';
+        expect(text).toContain('小規模言語モデル（SLM）');
+        expect(text).toContain('トークン化（Tokenization）');
+        expect(text).toContain('埋め込み（Embedding）');
+        expect(text).toContain('Transformer');
+        expect(text).toContain('非決定的（non-deterministic）');
+        expect(text).toContain('コンテキストウィンドウ（Context Window）');
+        expect(text).toContain('「統計的にもっともらしい」ことは「正しい」ことを意味しない');
+
+        // Mermaid Diagram 2
+        const diagram2 = container.querySelector('#mermaid-diagram-2, [data-diagram-id="mermaid-diagram-2"]');
+        expect(diagram2).not.toBeNull();
+
+        // H4
+        const h4 = container.querySelector('h4#ハンズオン演習ho-112の狙い');
+        expect(h4).not.toBeNull();
+        expect(h4?.textContent?.trim()).toBe('ハンズオン演習（HO-1.1.2）の狙い');
+
+        // Callout 3
+        const callouts = container.querySelectorAll('.callout-practice');
+        expect(callouts.length).toBeGreaterThanOrEqual(3);
+        const callout3 = callouts[2];
+        expect(callout3.querySelector('.callout-label')?.textContent).toContain('ベストプラクティス');
+        const items = callout3.querySelectorAll('li');
+        expect(items.length).toBe(4);
+        expect(items[0]?.textContent).toContain('概算のトークン数を確認する習慣をつける');
+        expect(items[1]?.textContent).toContain('日本語は英語に比べて1文字あたりのトークン消費量が多くなりがち');
+        expect(items[2]?.textContent).toContain('出力の非決定性を前提に');
+        expect(items[3]?.textContent).toContain('プロンプトチェイニング');
+    });
+});
+
