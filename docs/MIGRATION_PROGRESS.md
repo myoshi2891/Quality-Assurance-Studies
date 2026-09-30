@@ -13,10 +13,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `825a88d` |
-| 最新コミット内容 | `test(header): update expected specialist guide count to 15` |
+| 最新 HEAD | `f6e383a` |
+| 最新コミット内容 | `fix(navigation): improve label and description for CT-GenAI Chapter 1 to enhance searchability` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `bun test`: 1164 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `bun test`: 1165 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
 ## 2026/10/01: ISTQB CT-GenAI 第1章（生成AIソフトウェアテスト入門）完全ガイドのNext.js完全移行
 
@@ -33,7 +33,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **参考文献 & 外部リンク**:
   - ISTQB公式認定ページ、CT-GenAIシラバス v1.1、v1.0全文PDF、v1.1リリースノート、用語集への外部リンク全5件に `target="_blank" rel="noopener noreferrer"` を適用し安全性を確保。
 - `app/istqb-ct-genai-chapter1-introduction/`: ページコンポーネント、専用スタイル（`.ct-genai-ch1-page` スコープ、globals.css干渉リセット）、NavBar、diagrams.tsを実装。
-- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter1-introduction`（CT-GenAI 1章 入門）を追加（全83件）。
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter1-introduction`（CT-GenAI 第1章 生成AIテスト入門）を追加（全83件）。
 - `tests/istqb-ct-genai-chapter1-introduction/page.test.tsx`: TDD 必須サイクルに従い、全見出し、全8TOCリンク、全5Mermaid図、全7テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（14 pass / 228 expect()）。
 - `Ct-genai-chapter1.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter1.md` は `archive/md-archive/ct-specialist/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 83 ページ体制に同期。
