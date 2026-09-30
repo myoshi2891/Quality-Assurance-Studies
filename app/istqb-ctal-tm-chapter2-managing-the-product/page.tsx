@@ -2802,6 +2802,620 @@ SD ＝ （40 － 10） ÷ 6 ＝ 5人日</code></pre>
                 </div>
                 <hr />
                 
+<h2 id="5-章全体のまとめ">5. 章全体のまとめ</h2>
+                <h3 id="51-第2章の要点1ページまとめ">5.1 第2章の要点（1ページまとめ）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>節</th>
+                                <th>最重要ポイント</th>
+                                <th>覚え方</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>2.1 テストメトリクス</td>
+                                <td>
+                                    メトリクスは<strong>テスト目的</strong>から導く。プロジェクト／プロダクト／プロセスの3分類。モニタリングは「見る」、コントロールは「動く」。上位レベルは要件・リスクでカバレッジを測る。<strong
+                                        >構造カバレッジ100％でも上位テストは必要</strong
+                                    >
+                                </td>
+                                <td>「目的→終了基準→メトリクス」</td>
+                            </tr>
+                            <tr className="even">
+                                <td>2.2 テスト見積り</td>
+                                <td>
+                                    工数・時間・コスト。工数≠期間。影響要因は5区分。技法は<strong>メトリクスベース</strong>と<strong>エキスパートベース</strong>。選択の要因は<strong>誤差・データ・専門家・モデリング・時間</strong>。前提は文書化し、更新し続ける
+                                </td>
+                                <td>
+                                    見積り誤差・データ・専門家・モデリング・時間（頭文字で「誤・デ・専・モ・時」）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>2.3 欠陥マネジメント</td>
+                                <td>
+                                    不正→調査→欠陥レポート→ワークフロー。<strong>単純な5状態</strong>（オープン・進行中・却下・解決・クローズ）。委員会とトリアージ。アジャイルは軽量だが5条件で作成。ハイブリッドの課題は<strong>ツール・優先順位・計画の整合性</strong>。必須項目は4つ。フェーズ内封じ込めと根本原因で改善
+                                </td>
+                                <td>「欠陥は早く・同じフェーズで・記録して学ぶ」</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="52-他の章とのつながり">5.2 他の章とのつながり</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>第2章の内容</th>
+                                <th>つながる箇所</th>
+                                <th>どうつながるか</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>メトリクスの元になる<strong>テスト目的・終了基準</strong></td>
+                                <td>第1章 1.4.3 スマートの法則</td>
+                                <td>測定可能な目的があって初めてメトリクスを決められる</td>
+                            </tr>
+                            <tr className="even">
+                                <td>リスクカバレッジ・残存リスク</td>
+                                <td>第1章 1.3 リスクベースドテスト</td>
+                                <td>リスクの観点で報告する</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>ツールで得るメトリクス</td>
+                                <td>第1章 1.6.5 ツールメトリクス</td>
+                                <td>収集の自動化</td>
+                            </tr>
+                            <tr className="even">
+                                <td>テスト見積りの要因（人・スキル）</td>
+                                <td>第3章 3.1 テストチーム</td>
+                                <td>スキル・経験が工数に影響</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>欠陥情報によるプロセス改善</td>
+                                <td>第1章 1.5（IDEAL・根本原因分析・ふりかえり）</td>
+                                <td>欠陥データが分析の材料になる</td>
+                            </tr>
+                            <tr className="even">
+                                <td>欠陥のフェーズ内封じ込め</td>
+                                <td>第3章 3.2.1 品質コスト</td>
+                                <td>早期検出ほど品質コストが下がる</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>欠陥マネジメントとツール</td>
+                                <td>第1章 1.6 テストツール</td>
+                                <td>ツール選定・導入・運用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="53-用語対訳表日本語英語">5.3 用語対訳表（日本語・英語）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>日本語</th>
+                                <th>英語</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テストメトリクス</td>
+                                <td>test metric</td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    プロジェクトメトリクス／プロダクトメトリクス／プロセスメトリクス
+                                </td>
+                                <td>project metric／product metric／process metric</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テストモニタリング／テストコントロール／テスト完了</td>
+                                <td>test monitoring／test control／test completion</td>
+                            </tr>
+                            <tr className="even">
+                                <td>テスト進捗レポート／テスト完了レポート</td>
+                                <td>test progress report／test completion report</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    要件カバレッジ／プロダクトリスクカバレッジ／コードカバレッジ
+                                </td>
+                                <td>requirements coverage／product risk coverage／code coverage</td>
+                            </tr>
+                            <tr className="even">
+                                <td>欠陥検出率（DDP）</td>
+                                <td>defect detection percentage</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テスト見積り</td>
+                                <td>test estimation</td>
+                            </tr>
+                            <tr className="even">
+                                <td>メトリクスベース／エキスパートベース</td>
+                                <td>metrics-based／expert-based</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>三点見積り／ワイドバンドデルファイ／プランニングポーカー</td>
+                                <td>three-point estimation／wideband Delphi／planning poker</td>
+                            </tr>
+                            <tr className="even">
+                                <td>不正</td>
+                                <td>anomaly</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>故障／欠陥</td>
+                                <td>failure／defect</td>
+                            </tr>
+                            <tr className="even">
+                                <td>欠陥レポート／欠陥ワークフロー</td>
+                                <td>defect report／defect workflow</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>欠陥マネジメント委員会</td>
+                                <td>defect management committee</td>
+                            </tr>
+                            <tr className="even">
+                                <td>フェーズ内封じ込め</td>
+                                <td>phase containment</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>確認テスト</td>
+                                <td>confirmation testing</td>
+                            </tr>
+                            <tr className="even">
+                                <td>偽陰性</td>
+                                <td>false negative</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>品質コスト</td>
+                                <td>cost of quality</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="54-試験対策のコツk-レベル別">5.4 試験対策のコツ（K レベル別）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>K レベル</th>
+                                <th>該当LO</th>
+                                <th>問われ方</th>
+                                <th>対策</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>K2（理解）</td>
+                                <td>2.1.1、2.1.2、2.2.1、2.2.2、2.3.2、2.3.3、2.3.4、2.3.6</td>
+                                <td>例を挙げる・説明する・比較する</td>
+                                <td>
+                                    「表の項目（要因の5区分、ワークフローの7ルール、アジャイル5条件など）」を自分の言葉で説明できるようにする
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>K3（適用）</td>
+                                <td>2.3.1、2.3.5</td>
+                                <td>手順・技法を与えられた状況に適用する</td>
+                                <td>
+                                    欠陥ワークフローの設計、欠陥レポート項目の選定を<strong
+                                        >自分で作ってみる</strong
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>K4（分析）</td>
+                                <td>2.1.3、2.2.3</td>
+                                <td>状況を分析して選ぶ・優先付けする</td>
+                                <td>
+                                    「読み手は誰か・どの判断をするか」「複雑度・データ・専門家・時間」といった<strong>判断軸で消去法</strong>を使う
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>K1（記憶）</td>
+                                <td>キーワード全般</td>
+                                <td>用語の想起・認識</td>
+                                <td>1.4 節のキーワード表を暗記する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <h2 id="6-確認問題筆者作成10問">6. 確認問題（筆者作成・10問）</h2>
+                <div className="callout callout-note">
+                    <div className="callout-body">
+                        <p>
+                            ISTQB公式のサンプル問題ではありません。第2章の理解確認用に、シラバスの記述をもとに筆者が作成しました。公式のサンプル問題は、7章の参考資料に載せたリンク（Sample
+                            Exam
+                            A・B）から入手できます。まず自力で答えてから、後ろの解答表で確認してください。
+                        </p>
+                    </div>
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>No.</th>
+                                <th>問題</th>
+                                <th>関連LO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>Q1</td>
+                                <td>
+                                    「テストプロセスの能力とテストの有効性を測る」メトリクスは、プロジェクト・プロダクト・プロセスのどれか
+                                </td>
+                                <td>TM-2.1.1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q2</td>
+                                <td>
+                                    コンポーネントテストで構造カバレッジ100％を達成した。上位のテストレベルで欠陥と品質リスクへの対処は不要になるか
+                                </td>
+                                <td>TM-2.1.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q3</td>
+                                <td>テストコントロールの具体例を2つ挙げよ</td>
+                                <td>TM-2.1.2</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q4</td>
+                                <td>
+                                    テスト実行の工数が60人日、テスト担当者が4人で、各自がテストに使える時間が稼働時間の75％。期間は何稼働日か
+                                </td>
+                                <td>TM-2.2.1</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q5</td>
+                                <td>
+                                    三点見積りで a＝6、m＝12、b＝30（人日）のとき、期待値 E
+                                    と標準偏差 SD を求めよ
+                                </td>
+                                <td>TM-2.2.3</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q6</td>
+                                <td>
+                                    複雑度が高く、シーケンシャル開発モデルのプロジェクトで、シラバスが例示する見積り技法は何か
+                                </td>
+                                <td>TM-2.2.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q7</td>
+                                <td>
+                                    欠陥ワークフローの終端ステータスは、いくつが推奨されるか。また、その遷移時に何を選択させると有用か
+                                </td>
+                                <td>TM-2.3.1</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q8</td>
+                                <td>アジャイルチームが欠陥レポートを作成すべき場合を3つ挙げよ</td>
+                                <td>TM-2.3.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q9</td>
+                                <td>
+                                    ハイブリッド開発で、チームごとに欠陥マネジメントツールが異なるとき、望ましい対応は何か
+                                </td>
+                                <td>TM-2.3.4</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q10</td>
+                                <td>
+                                    再オープンした欠陥に関する情報から、何をアセスメントできるか
+                                </td>
+                                <td>TM-2.3.6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="解答と根拠">解答と根拠</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>No.</th>
+                                <th>解答</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>Q1</td>
+                                <td><strong>プロセスメトリクス</strong></td>
+                                <td>2.1 導入</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q2</td>
+                                <td>
+                                    <strong>不要にならない</strong
+                                    >。構造カバレッジ100％でも、欠陥と品質リスクは上位のテストレベルで対処する必要が残る
+                                </td>
+                                <td>2.1.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q3</td>
+                                <td>
+                                    例：識別したリスクが課題事項になった場合のテストの<strong>再優先順位付け</strong>、テスト環境の提供遅れを考慮した<strong>スケジュール調整</strong>、手戻りによる開始／終了基準の<strong>再評価</strong>、新しい<strong>リソースの追加</strong>（この4つから任意の2つ）
+                                </td>
+                                <td>2.1.2</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q4</td>
+                                <td>60 ÷ （4 × 0.75）＝ <strong>20稼働日</strong></td>
+                                <td>2.2.1（工数と期間は異なる）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q5</td>
+                                <td>
+                                    E ＝ （6 ＋ 4×12 ＋ 30） ÷ 6 ＝ 84 ÷ 6 ＝
+                                    <strong>14人日</strong>。SD ＝ （30 － 6） ÷ 6 ＝
+                                    <strong>4人日</strong>
+                                </td>
+                                <td>2.2.3（FL v4 の三点見積り）</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q6</td>
+                                <td>
+                                    エキスパートベースの技法のうち、シーケンシャルでは<strong
+                                        >ワイドバンドデルファイ</strong
+                                    >
+                                </td>
+                                <td>2.2.3 の例示</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q7</td>
+                                <td>
+                                    <strong>1つ</strong
+                                    >（例：クローズ）。遷移時に<strong>終結の理由</strong>を選択させると、プロセスアセスメント・改善に有用
+                                </td>
+                                <td>2.3.1 のよい実践</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q8</td>
+                                <td>
+                                    例：他のスプリント活動を<strong>ブロック</strong>して即時に直せない／<strong>同じイテレーション内で解決できない</strong>／<strong>他チーム</strong>が対応する／<strong>サプライヤー</strong>が対応する／レポートが<strong>明示的に求められている</strong>（この5つから任意の3つ）
+                                </td>
+                                <td>2.3.3</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Q9</td>
+                                <td>
+                                    欠陥マネジメントツール間の<strong>同期を確立</strong>する（できれば自動で）
+                                </td>
+                                <td>2.3.4</td>
+                            </tr>
+                            <tr className="even">
+                                <td>Q10</td>
+                                <td>デバッグ時の<strong>実装の品質</strong></td>
+                                <td>2.3.6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+                <h2 id="7-参考資料出典一覧">7. 参考資料・出典一覧</h2>
+                <h3 id="71-一次情報試験の根拠">7.1 一次情報（試験の根拠）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>資料名</th>
+                                <th>URL</th>
+                                <th>用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>ISTQB CTAL-TM v3.0 認定ページ</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                                        >https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/</a
+                                    >
+                                </td>
+                                <td>
+                                    試験構成（50問、合格点58／88点、120分）、ビジネス成果、教材ダウンロード
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>ISTQB CTAL-TM シラバス v3.0（英語版PDF）</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=3445</a
+                                    >
+                                </td>
+                                <td>第2章の原文（英語版 p.47〜61）</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>JSTQB 日本語版シラバス CTAL-TM Version3.0.J04（PDF）</td>
+                                <td>
+                                    <a
+                                        href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                                        >https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf</a
+                                    >
+                                </td>
+                                <td>第2章の日本語版（p.49〜64）、用語</td>
+                            </tr>
+                            <tr className="even">
+                                <td>JSTQB シラバス（学習事項）・用語集ページ</td>
+                                <td>
+                                    <a href="https://www.jstqb.jp/syllabus/"
+                                        >https://www.jstqb.jp/syllabus/</a
+                                    >
+                                </td>
+                                <td>最新の日本語版シラバス（改訂版）を確認する入口</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    JSTQB プレスリリース（Advanced Level テストマネジメント V3.0
+                                    公開）
+                                </td>
+                                <td>
+                                    <a
+                                        href="https://prtimes.jp/main/html/rd/p/000000044.000054604.html"
+                                        >https://prtimes.jp/main/html/rd/p/000000044.000054604.html</a
+                                    >
+                                </td>
+                                <td>シラバス公開経緯、章構成の変更点、試験開始時期</td>
+                            </tr>
+                            <tr className="even">
+                                <td>ISTQB 用語集</td>
+                                <td>
+                                    <a href="https://glossary.istqb.org/en_US/search?term="
+                                        >https://glossary.istqb.org/en_US/search?term=</a
+                                    >
+                                </td>
+                                <td>用語の公式定義（英語）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="72-サンプル試験istqb公式">7.2 サンプル試験（ISTQB公式）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>資料名</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>CTAL-TM Sample Exam A – Questions</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3449"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=3449</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>CTAL-TM Sample Exam A – Answers</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=3451"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=3451</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>CTAL-TM Sample Exam B – Questions</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=9612"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=9612</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>CTAL-TM Sample Exam B – Answers</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&amp;download_id=9614"
+                                        >https://istqb.org/?sdm_process_download=1&amp;download_id=9614</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="73-シラバスが参照する標準関連シラバス試験範囲外だが理解の助け">
+                    7.3 シラバスが参照する標準・関連シラバス（試験範囲外だが理解の助け）
+                </h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>資料</th>
+                                <th>備考</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>
+                                    ISO/IEC/IEEE
+                                    29119-2（テストプロセス）、29119-3（テストドキュメント）
+                                </td>
+                                <td>
+                                    標準の内容そのものは試験対象外（シラバスの要約部分のみ対象）。URLは未確認のため書名のみ記載
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>ISTQB Foundation Level Syllabus v4.0</td>
+                                <td>
+                                    見積り技法（比率・外挿・ワイドバンドデルファイ・三点見積り）、確認テスト等の基礎。JSTQB
+                                    日本語版は上記の JSTQB シラバスページから入手可能
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    ISTQB Expert Level Test Management／Improving the Test
+                                    Process（2011）
+                                </td>
+                                <td>プロダクト・プロセスメトリクス、DDP 等の詳細</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="74-本ガイドの根拠の区分と確認が必要な箇所">
+                    7.4 本ガイドの根拠の区分と、確認が必要な箇所
+                </h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>区分</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>シラバスの記述に基づく</td>
+                                <td>各節の定義、表、リスト、よい実践、LO、キーワード、試験構成</td>
+                            </tr>
+                            <tr className="even">
+                                <td>筆者による整理・補足（「実務補足」「筆者整理」と明記）</td>
+                                <td>
+                                    テストレポート作成手順、欠陥マネジメント実装手順、ベストプラクティスのうちシラバス根拠のないもの、架空の計算例・サンプル、確認問題
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Foundation Level v4 の知識に基づく</td>
+                                <td>
+                                    三点見積りの式、見積り技法の分類（メトリクスベース／エキスパートベース）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>原文で要確認</strong></td>
+                                <td>
+                                    ①表2（2.1.1）で各メトリクスの○が付く列位置（本ガイドでは3つのみ確定、他5つは目安）、②図2（2.3.1）の矢印の向き（本ガイドは本文の説明に沿った典型形）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout callout-warning">
+                    <div className="callout-head">
+                        <span className="callout-icon">⚠️</span
+                        ><span className="callout-label">バージョンに関する注意</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            ：本ガイドが参照する日本語版シラバスは Version3.0.J04（2026/06
+                            掲載）であり、本文中のページ番号も Version3.0.J04（全 91
+                            ページ）の目次で確認済みです。受験前には上記 JSTQB
+                            シラバスページで<strong>最新版の版数と変更点</strong>を確認してください。
+                        </p>
+                    </div>
+                </div>
+            
 </main>
             </div>
         </div>
