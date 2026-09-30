@@ -13,10 +13,22 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `536cedd` |
-| 最新コミット内容 | `docs(migration): sync MIGRATION_PROGRESS.md with latest commit and label` |
+| 最新 HEAD | `c65224d` |
+| 最新コミット内容 | `fix(mermaid): fix node/cluster blackout in ct-genai-ch1 by adding mainBkg, exact original themeVariables, and CSS node-color resets` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | `bun test`: 1165 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+
+## 2026/10/01: CT-GenAI 第1章 Mermaid 図解黒潰れ修正
+
+- **根本原因**:
+  - `diagrams.ts` の `MERMAID_CONFIG` から `mainBkg` が欠落していた。mermaid v11 では `%%{init}%%` ディレクティブを使っても `mainBkg` が未指定だと、グローバル `mermaid.initialize({ theme: 'dark' })` の `mainBkg`（暗い色）がノード背景に適用され、ノードが黒い箱になる。
+  - `primaryBorderColor`・`primaryTextColor`・`nodeBorder` の値が原著 HTML のmermaid 初期化設定とずれていた。
+  - `flowchart.nodeSpacing`・`flowchart.rankSpacing` が未設定で、ノード間隔が原著と異なっていた。
+  - CSS にフローチャートノード（`.node rect`）およびサブグラフクラスター（`.cluster rect`）の黒潰れ防止フォールバック CSS がなかった。
+- **修正内容**:
+  - `app/istqb-ct-genai-chapter1-introduction/diagrams.ts`: `MERMAID_CONFIG` に `mainBkg: "#eff6ff"` を追加。`primaryBorderColor`・`nodeBorder` を `"#93c5fd"`、`primaryTextColor` を `"#0f172a"` に修正。`flowchart.nodeSpacing: 60`・`flowchart.rankSpacing: 70` を追加。
+  - `app/istqb-ct-genai-chapter1-introduction/istqb-ct-genai-chapter1-introduction.css`: `fix-mermaid` スキル §4 を拡張した flowchart ノード黒潰れ防止 CSS（`.node:not([class*=...]) rect`・`.nodeLabel`・`.cluster rect`）を追加。classDef 個別色（highlight, proc, stage1-3, input）は `:not()` セレクタで保護。
+- **テスト**: `bun test` 全 1165 pass / 0 fail、`bun test tests/lib/mermaid-theme-contract.test.ts` 全 93 pass / 0 fail を確認。
 
 ## 2026/10/01: ISTQB CT-GenAI 第1章（生成AIソフトウェアテスト入門）完全ガイドのNext.js完全移行
 
