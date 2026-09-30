@@ -52,6 +52,14 @@ main.ctal-tm-ch2-page,
     padding-bottom: 32px !important;
     border-bottom: 1px solid var(--border);
     margin-bottom: 40px;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.ctal-tm-ch2-page .hero-sub {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
 .ctal-tm-ch2-page section {
@@ -314,6 +322,9 @@ main.ctal-tm-ch2-page,
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 18px 22px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
 }
 
 .ctal-tm-ch2-page .hero-sub strong {
