@@ -114,6 +114,37 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
+    {
+        heading: 'ステップ2：必要なマネジメントスキル',
+        headers: ['スキル', '具体的にやること', '主な領域'],
+        rows: 8,
+        cols: 3,
+        sample: 'リーダーシップ',
+    },
+    {
+        heading: 'ステップ3：状況別の使い分け',
+        headers: ['状況', '推奨されるマネジメントの重心'],
+        rows: 5,
+        cols: 2,
+        sample: '新人が多い',
+    },
+    {
+        heading: 'ステップ2：要因の一覧',
+        headers: ['種類', '性質', '要因の例'],
+        rows: 3,
+        cols: 3,
+        sample: '動機付け要因',
+    },
+    {
+        heading: 'ステップ3：状況別の対処例',
+        headers: ['状況', '起こりやすい意欲低下', 'マネージャーの対応例'],
+        rows: 6,
+        cols: 3,
+        sample: '納期直前に大量の欠陥が見つかる',
+    },
+];
+
 describe('CTAL-TM v3.0 Chapter 3 - Category 1: 基盤 & 全体像', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtalTmChapter3Page />);
@@ -278,6 +309,56 @@ describe('CTAL-TM v3.0 Chapter 3 - Category 2: 3.1 テストチーム スキル�
 
         EXPECTED_TABLE_SPECS_CAT2.forEach((expected, i) => {
             const actual = cat2Tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual(expected.headers as string[]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toBe(expected.sample);
+        });
+    });
+});
+
+describe('CTAL-TM v3.0 Chapter 3 - Category 3: 3.1 テストチーム マネジメント編', () => {
+    it('renders section 2.5 management skills with tables and callout', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec25 = container.querySelector('[id="25-315-テストチームの管理に必要なマネジメントスキル"]');
+        expect(sec25).not.toBeNull();
+        expect(sec25?.textContent).toContain('2.5 3.1.5 テストチームの管理に必要なマネジメントスキル（🟡）');
+
+        const step1 = container.querySelector('[id="ステップ1ホールチームアプローチ"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ2必要なマネジメントスキル"]');
+        expect(step2).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3状況別の使い分け"]');
+        expect(step3).not.toBeNull();
+    });
+
+    it('renders section 2.6 motivation factors and demotivators with Herzberg two-factor theory', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec26 = container.querySelector('[id="26-316-特定の状況におけるテストチームの動機付け要因と意欲低下要因"]');
+        expect(sec26).not.toBeNull();
+        expect(sec26?.textContent).toContain('2.6 3.1.6 特定の状況におけるテストチームの動機付け要因と意欲低下要因（🟡）');
+
+        const step1 = container.querySelector('[id="ステップ1考え方"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ2要因の一覧"]');
+        expect(step2).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3状況別の対処例"]');
+        expect(step3).not.toBeNull();
+    });
+
+    it('matches Category 3 table inventory precisely (4 tables)', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const allTables = collectTableInventory(container);
+        const cat3Tables = allTables.slice(10, 14);
+        expect(cat3Tables.length).toBe(4);
+
+        EXPECTED_TABLE_SPECS_CAT3.forEach((expected, i) => {
+            const actual = cat3Tables[i];
             expect(actual.heading).toBe(expected.heading);
             expect(actual.headers).toEqual(expected.headers as string[]);
             expect(actual.rows).toBe(expected.rows);
