@@ -611,3 +611,130 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 4: 欠陥マネジメント (Section
     });
 });
 
+export const EXPECTED_TABLE_SPECS_CAT5: TableSpec[] = [
+    {
+        heading: '5.1 第2章の要点（1ページまとめ）',
+        headers: ['節', '最重要ポイント', '覚え方'],
+        rows: 3,
+        cols: 3,
+        sample: '2.1 テストメトリクス',
+    },
+    {
+        heading: '5.2 他の章とのつながり',
+        headers: ['第2章の内容', 'つながる箇所', 'どうつながるか'],
+        rows: 7,
+        cols: 3,
+        sample: 'メトリクスの元になるテスト目的・終了基準',
+    },
+    {
+        heading: '5.3 用語対訳表（日本語・英語）',
+        headers: ['日本語', '英語'],
+        rows: 17,
+        cols: 2,
+        sample: 'テストメトリクス',
+    },
+    {
+        heading: '5.4 試験対策のコツ（K レベル別）',
+        headers: ['K レベル', '該当LO', '問われ方', '対策'],
+        rows: 4,
+        cols: 4,
+        sample: 'K2（理解）',
+    },
+    {
+        heading: '6. 確認問題（筆者作成・10問）',
+        headers: ['No.', '問題', '関連LO'],
+        rows: 10,
+        cols: 3,
+        sample: 'Q1',
+    },
+    {
+        heading: '解答と根拠',
+        headers: ['No.', '解答', '根拠'],
+        rows: 10,
+        cols: 3,
+        sample: 'Q1',
+    },
+    {
+        heading: '7.1 一次情報（試験の根拠）',
+        headers: ['資料名', 'URL', '用途'],
+        rows: 6,
+        cols: 3,
+        sample: 'ISTQB CTAL-TM v3.0 認定ページ',
+    },
+    {
+        heading: '7.2 サンプル試験（ISTQB公式）',
+        headers: ['資料名', 'URL'],
+        rows: 4,
+        cols: 2,
+        sample: 'CTAL-TM Sample Exam A – Questions',
+    },
+    {
+        heading: '7.3 シラバスが参照する標準・関連シラバス（試験範囲外だが理解の助け）',
+        headers: ['資料', '備考'],
+        rows: 3,
+        cols: 2,
+        sample: 'ISO/IEC/IEEE 29119-2（テストプロセス）、29119-3（テストドキュメント）',
+    },
+    {
+        heading: '7.4 本ガイドの根拠の区分と、確認が必要な箇所',
+        headers: ['区分', '内容'],
+        rows: 4,
+        cols: 2,
+        sample: 'シラバスの記述に基づく',
+    },
+];
+
+describe('CTAL-TM v3.0 Chapter 2 - Category 5: まとめ・確認問題・出典 (Sections 5-7)', () => {
+    it('renders Section 5, 6, and 7 main headings', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        ['5-章全体のまとめ', '6-確認問題筆者作成10問', '7-参考資料出典一覧'].forEach((id) => {
+            const h2 = container.querySelector(`[id="${id}"]`);
+            expect(h2).not.toBeNull();
+        });
+    });
+
+    it('renders all section 5-7 subheadings', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const expectedSubheadingIds = [
+            '51-第2章の要点1ページまとめ',
+            '52-他の章とのつながり',
+            '53-用語対訳表日本語英語',
+            '54-試験対策のコツk-レベル別',
+            '解答と根拠',
+            '71-一次情報試験の根拠',
+            '72-サンプル試験istqb公式',
+            '73-シラバスが参照する標準関連シラバス試験範囲外だが理解の助け',
+            '74-本ガイドの根拠の区分と確認が必要な箇所',
+        ];
+
+        expectedSubheadingIds.forEach((id) => {
+            const el = container.querySelector(`[id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('renders Category 5 tables (Tables 35-44) matching specifications', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBe(44);
+
+        EXPECTED_TABLE_SPECS_CAT5.forEach((spec, i) => {
+            const actual = tables[34 + i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual(spec.headers as string[]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+
+    it('renders all callouts across the page (total 26)', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const callouts = container.querySelectorAll('.callout');
+        // Total across entire guide: 26 callouts
+        expect(callouts.length).toBe(26);
+    });
+});
+
+
