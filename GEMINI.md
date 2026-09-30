@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-09-23
+Updated 2026-09-30
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -112,6 +112,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/page.tsx` (CTAL-TA 第2章 リスクベースドテスト、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter3-test-analysis-and-design/page.tsx` (CTAL-TA 第3章 テスト分析とテスト設計、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter4-quality-characteristics/page.tsx` (CTAL-TA 第4章 品質特性のテスト、`NavBar.tsx` 付き)
+- `app/istqb-ctal-tm-chapter1-managing-the-test-activities/page.tsx` (CTAL-TM 第1章 テスト活動の管理、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tta-complete-guide/page.tsx` (テクニカルテストアナリスト(CTAL-TTA)完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-att-complete-guide/page.tsx` (アジャイルテスト担当者 CTAL-ATT 完全ガイド、`NavBar.tsx` 付き)
@@ -188,7 +189,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（78 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（79 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -315,6 +316,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-ch4-quality-characteristics-guide.html` | `/istqb-ctal-ta-chapter4-quality-characteristics` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ctal-tm-v3.0-ch1-managing-the-test-activities.html` | `/istqb-ctal-tm-chapter1-managing-the-test-activities` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
