@@ -47,20 +47,21 @@ export default function NavBar() {
     useEffect(() => {
         const handleScroll = () => {
             const headingElements = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
-                Boolean,
-            ) as HTMLElement[];
+                (el): el is HTMLElement => el !== null,
+            );
 
             const scrollPosition = window.scrollY + 100;
 
             for (let i = headingElements.length - 1; i >= 0; i--) {
                 const el = headingElements[i];
-                if (el.offsetTop <= scrollPosition) {
+                if (el && el.offsetTop <= scrollPosition) {
                     setActiveId(el.id);
                     return;
                 }
             }
-            if (headingElements.length > 0 && window.scrollY < headingElements[0].offsetTop) {
-                setActiveId(headingElements[0].id);
+            const first = headingElements[0];
+            if (first && window.scrollY < first.offsetTop) {
+                setActiveId(first.id);
             }
         };
 

@@ -762,12 +762,15 @@ main.ctal-ta-ch5-page {
         width: min(20rem, 86vw);
         height: calc(100vh - 60px - var(--disclaimer-height, 0px));
         transform: translateX(-102%);
-        transition: transform 0.2s ease;
+        /* 閉じた TOC 内のリンクへキーボードフォーカスが移らないよう非表示にする */
+        visibility: hidden;
+        transition: transform 0.2s ease, visibility 0.2s;
         z-index: 80;
         box-shadow: 2px 0 14px rgba(21, 34, 56, 0.18);
     }
     .ctal-ta-ch5-page .toc.show {
         transform: none;
+        visibility: visible;
     }
     .ctal-ta-ch5-page .toc-btn {
         display: block;

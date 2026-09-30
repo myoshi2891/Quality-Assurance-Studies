@@ -617,13 +617,16 @@
 @media (max-width: 960px) {
     .ctal-tm-ch1-page .sidebar {
         transform: translateX(-100%);
-        transition: transform 0.2s;
+        /* 閉じたサイドバー内のリンクへキーボードフォーカスが移らないよう非表示にする */
+        visibility: hidden;
+        transition: transform 0.2s, visibility 0.2s;
         width: min(86vw, 340px);
         top: calc(60px + var(--disclaimer-height, 0px));
         height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     }
     .ctal-tm-ch1-page .sidebar.open {
         transform: none;
+        visibility: visible;
         box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.55);
     }
     .ctal-tm-ch1-page .main {

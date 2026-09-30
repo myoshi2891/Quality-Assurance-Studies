@@ -582,12 +582,15 @@ main.ctal-tm-ch3-page,
 @media (max-width: 980px) {
     .ctal-tm-ch3-page .sidebar-nav {
         transform: translateX(-100%);
-        transition: transform 0.2s ease;
+        /* 閉じたサイドバー内のリンクへキーボードフォーカスが移らないよう非表示にする */
+        visibility: hidden;
+        transition: transform 0.2s ease, visibility 0.2s;
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
     }
 
     .ctal-tm-ch3-page .sidebar-nav.open {
         transform: translateX(0);
+        visibility: visible;
     }
 
     .ctal-tm-ch3-page .sidebar-toggle {
