@@ -183,6 +183,58 @@ export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT5: TableSpec[] = [
+    {
+        heading: '5.1 押さえるべきポイント',
+        headers: ['優先度', 'ポイント'],
+        rows: 6,
+        cols: 2,
+        sample: '高',
+    },
+    {
+        heading: '5.3 覚え方',
+        headers: ['テーマ', '覚え方'],
+        rows: 3,
+        cols: 2,
+        sample: '4つの能力領域',
+    },
+    {
+        heading: '6. ベストプラクティス総まとめ',
+        headers: ['項目', 'ベストプラクティス'],
+        rows: 9,
+        cols: 2,
+        sample: '4領域の把握',
+    },
+    {
+        heading: '7. アンチパターン集',
+        headers: ['アンチパターン', '何が問題か', '対処'],
+        rows: 7,
+        cols: 3,
+        sample: '資格の有無だけでスキルを判断する',
+    },
+    {
+        heading: '9.1 公式（一次情報）',
+        headers: ['資料', 'URL', '本ガイドでの用途'],
+        rows: 9,
+        cols: 3,
+        sample: 'ISTQB：CTAL-TM v3.0 認定ページ',
+    },
+    {
+        heading: '9.2 日本語版（JSTQB）',
+        headers: ['資料', 'URL', '用途'],
+        rows: 5,
+        cols: 3,
+        sample: 'JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version 3.0.J04（主参照・最新版）',
+    },
+    {
+        heading: '9.3 発展学習',
+        headers: ['資料', 'URL', '用途'],
+        rows: 1,
+        cols: 3,
+        sample: 'ISTQB：Expert Level Managing the Test Team (CTEL-TM-MTT)',
+    },
+];
+
 describe('CTAL-TM v3.0 Chapter 3 - Category 1: 基盤 & 全体像', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtalTmChapter3Page />);
@@ -473,3 +525,106 @@ describe('CTAL-TM v3.0 Chapter 3 - Category 4: 3.2 ステークホルダー & �
         });
     });
 });
+
+describe('CTAL-TM v3.0 Chapter 3 - Category 5: 試験対策・実践まとめ・チェックリスト・出典', () => {
+    it('renders section 5 exam preparation with points, questions, and memorization tips', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec5 = container.querySelector('[id="5-試験対策"]');
+        expect(sec5).not.toBeNull();
+        expect(sec5?.textContent).toContain('5. 試験対策');
+
+        const sec51 = container.querySelector('[id="51-押さえるべきポイント"]');
+        expect(sec51).not.toBeNull();
+
+        const sec52 = container.querySelector('[id="52-想定問題本ガイド作成者による練習問題"]');
+        expect(sec52).not.toBeNull();
+        expect(container.textContent).toContain('問1');
+        expect(container.textContent).toContain('問2');
+        expect(container.textContent).toContain('問3');
+        expect(container.textContent).toContain('問4');
+
+        const sec53 = container.querySelector('[id="53-覚え方"]');
+        expect(sec53).not.toBeNull();
+    });
+
+    it('renders section 6 best practices summary table', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec6 = container.querySelector('[id="6-ベストプラクティス総まとめ"]');
+        expect(sec6).not.toBeNull();
+        expect(sec6?.textContent).toContain('6. ベストプラクティス総まとめ');
+    });
+
+    it('renders section 7 anti-patterns table', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec7 = container.querySelector('[id="7-アンチパターン集"]');
+        expect(sec7).not.toBeNull();
+        expect(sec7?.textContent).toContain('7. アンチパターン集');
+    });
+
+    it('renders section 8 checklist with interactive ChecklistCard (11 tasks)', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec8 = container.querySelector('[id="8-学習チェックリスト"]');
+        expect(sec8).not.toBeNull();
+        expect(sec8?.textContent).toContain('8. 学習チェックリスト');
+
+        const checklistCard = container.querySelector('.checklist-card');
+        expect(checklistCard).not.toBeNull();
+
+        const checkboxes = container.querySelectorAll('.checklist-card input[type="checkbox"]');
+        expect(checkboxes.length).toBe(11);
+
+        const progressLabel = container.querySelector('.cp-count');
+        expect(progressLabel?.textContent).toContain('0 / 11 完了');
+    });
+
+    it('renders section 9 references with official, JSTQB, and advanced learning tables and external links', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec9 = container.querySelector('[id="9-出典"]');
+        expect(sec9).not.toBeNull();
+        expect(sec9?.textContent).toContain('9. 出典');
+
+        const sec91 = container.querySelector('[id="91-公式一次情報"]');
+        expect(sec91).not.toBeNull();
+
+        const sec92 = container.querySelector('[id="92-日本語版jstqb"]');
+        expect(sec92).not.toBeNull();
+
+        const sec93 = container.querySelector('[id="93-発展学習"]');
+        expect(sec93).not.toBeNull();
+
+        const sec94 = container.querySelector('[id="94-本ガイドの根拠の限界再掲"]');
+        expect(sec94).not.toBeNull();
+
+        // Verify external links security
+        const extLinks = container.querySelectorAll('a[href^="http"]');
+        expect(extLinks.length).toBeGreaterThan(0);
+        extLinks.forEach((link) => {
+            expect(link.getAttribute('target')).toBe('_blank');
+            expect(link.getAttribute('rel')).toContain('noopener');
+            expect(link.getAttribute('rel')).toContain('noreferrer');
+        });
+    });
+
+    it('matches Category 5 table inventory precisely (7 tables)', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const allTables = collectTableInventory(container);
+        const cat5Tables = allTables.slice(19, 26);
+        expect(cat5Tables.length).toBe(7);
+
+        EXPECTED_TABLE_SPECS_CAT5.forEach((expected, i) => {
+            const actual = cat5Tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual(expected.headers as string[]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toBe(expected.sample);
+        });
+    });
+
+    it('matches complete page table inventory precisely (26 tables)', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const allTables = collectTableInventory(container);
+        expect(allTables.length).toBe(26);
+    });
+});
+

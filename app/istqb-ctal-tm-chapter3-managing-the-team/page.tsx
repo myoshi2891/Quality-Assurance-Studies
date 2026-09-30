@@ -10,6 +10,7 @@ import {
     DIAGRAM_CH3_COQ_BOUNDARY,
     DIAGRAM_CH3_BUSINESS_CASE,
 } from './diagrams';
+import ChecklistCard from './ChecklistCard';
 import './istqb-ctal-tm-chapter3-managing-the-team.css';
 
 export const metadata = {
@@ -1273,6 +1274,528 @@ export default function CtalTmChapter3Page() {
                             </tbody>
                         </table>
                     </div>
+                </section>
+                <hr />
+                <section>
+                    <h2 id="5-試験対策">5. 試験対策</h2>
+                    <h3 id="51-押さえるべきポイント">5.1 押さえるべきポイント</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>優先度</th>
+                                    <th>ポイント</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>高</td>
+                                    <td>
+                                        4つの能力領域の分類（専門・方法論・社会・個人）と具体例の振り分け
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>高</td>
+                                    <td>
+                                        品質コスト4分類の区別（特に、内部失敗と外部失敗の境目はリリース時点）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>高</td>
+                                    <td>
+                                        費用対効果の計算（回避できる外部失敗コストとリリース前コストの比較）
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>中</td>
+                                    <td>スキルの分析 → 評価 → 育成の流れ、スキルマトリクスの読み取り</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>中</td>
+                                    <td>ホールチームアプローチとテストマネージャー／コーチの役割</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>中</td>
+                                    <td>状況に応じた動機付け・意欲低下要因への対応</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="52-想定問題本ガイド作成者による練習問題">
+                        5.2 想定問題（本ガイド作成者による練習問題）
+                    </h3>
+                    <blockquote>
+                        <p>
+                            以下は理解確認用に作成した練習問題であり、公式サンプル問題ではありません。公式のサンプル試験は「9.
+                            出典」のリンクから入手できます。
+                        </p>
+                    </blockquote>
+                    <p><strong>問1</strong> 「自信を持って行動できる」はどの能力領域か。</p>
+                    <ul>
+                        <li>A. 専門的能力</li>
+                        <li>B. 方法論的能力</li>
+                        <li>C. 社会的能力</li>
+                        <li>D. 個人的能力</li>
+                    </ul>
+                    <blockquote>
+                        <p>答え：D。自分自身の姿勢・行動に関するスキルは個人的能力です。</p>
+                    </blockquote>
+
+                    <p>
+                        <strong>問2</strong>
+                        リリース後に見つかった欠陥の緊急パッチ対応費用は、品質コストのどの分類か。
+                    </p>
+                    <ul>
+                        <li>A. 予防コスト</li>
+                        <li>B. 評定コスト</li>
+                        <li>C. 内部失敗コスト</li>
+                        <li>D. 外部失敗コスト</li>
+                    </ul>
+                    <blockquote>
+                        <p>答え：D。リリース後に見つかった欠陥への対応は外部失敗コストです。</p>
+                    </blockquote>
+
+                    <p>
+                        <strong>問3</strong> 予防コスト 100 万円、想定欠陥 40 件、評定コスト 1 件 2
+                        万円、内部失敗コスト 1 件 3 万円、外部失敗コスト 1 件 30
+                        万円の場合、正味便益はいくらか（テストで見つかる欠陥はすべて、テストがなければ本番で見つかると仮定する）。
+                    </p>
+                    <blockquote>
+                        <p>
+                            答え：便益 = 40 × 30 万円 = 1,200 万円。投資 = 100 万円 + 40 × (2 万円 + 3 万円)
+                            = 300 万円。正味便益 = 1,200 万円 − 300 万円 = 900 万円。
+                        </p>
+                    </blockquote>
+
+                    <p>
+                        <strong>問4</strong> 自動化スキルを持つのが 1
+                        人だけで、その人が長期休暇に入る。最初にすべきことは何か。
+                    </p>
+                    <blockquote>
+                        <p>
+                            答え：スキルマトリクスでその依存リスクを可視化し、他のメンバーへの育成（ペアワークやメンタリング）と、当面の代替策（外部調達や作業の優先順位の見直し）を計画する。
+                        </p>
+                    </blockquote>
+
+                    <h3 id="53-覚え方">5.3 覚え方</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テーマ</th>
+                                    <th>覚え方</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>4つの能力領域</td>
+                                    <td>
+                                        「知識と技法（専門）・自力で考え抜く力（方法論）・人づきあい（社会）・自分の律し方（個人）」
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>品質コスト4分類</td>
+                                    <td>
+                                        「防ぐ・見つける・社内で直す・お客様の前で直す」（前の3つはリリース前、最後だけリリース後）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>費用対効果</td>
+                                    <td>「防げた失敗の損失 − 事前にかけたコスト」</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <hr />
+                <section>
+                    <h2 id="6-ベストプラクティス総まとめ">6. ベストプラクティス総まとめ</h2>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>ベストプラクティス</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>4領域の把握</td>
+                                    <td>スキルは4領域に分けて語り、強み・弱みを具体的にする</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>必要スキルの分析</td>
+                                    <td>コンテキストとリスクから逆算し、必須と歓迎を区別する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>評価</td>
+                                    <td>
+                                        基準を事前に合意し、複数の方法を組み合わせ、育成目的であることを明示する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>育成</td>
+                                    <td>
+                                        学びを実務で使う機会を設計し、高リスク領域を優先し、育成時間を計画に含める
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>チーム管理</td>
+                                    <td>品質をチーム全体の責任にし、意思決定の理由を透明にする</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>動機付け</td>
+                                    <td>目標・成長・裁量・公正さを設計し、状況ごとに施策を変える</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>品質コスト</td>
+                                    <td>4分類で漏れなく整理し、予防と検出のバランスを取る</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ビジネスケース</td>
+                                    <td>実績データに基づき、前提を明記し、聞き手に合わせて伝える</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>改善の循環</td>
+                                    <td>
+                                        レトロスペクティブで振り返り、スキルマトリクスとビジネスケースを更新し続ける
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <hr />
+                <section>
+                    <h2 id="7-アンチパターン集">7. アンチパターン集</h2>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>アンチパターン</th>
+                                    <th>何が問題か</th>
+                                    <th>対処</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>資格の有無だけでスキルを判断する</td>
+                                    <td>実務能力の一部しか見えない</td>
+                                    <td>実務成果、面談、ピア評価を併用する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>特定の 1 人に重要スキルが集中している</td>
+                                    <td>休暇・離職で品質リスクが急上昇する</td>
+                                    <td>クロストレーニング、ペア作業、ドキュメント化</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>研修を受けさせただけで終わる</td>
+                                    <td>学びが定着せず、現場で使われない</td>
+                                    <td>OJT とレビューをセットにする</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評価を人事評価と混同して伝える</td>
+                                    <td>自己申告が歪み、ギャップが見えなくなる</td>
+                                    <td>育成目的であることを明示し、安心して話せる場にする</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>締切前の長時間労働を常態化する</td>
+                                    <td>意欲低下、ミス増加、離職</td>
+                                    <td>優先順位付けとスコープ再交渉で負荷を制御する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テスト費用だけを提示して「高い」と言われる</td>
+                                    <td>便益（回避できる失敗）が見えない</td>
+                                    <td>品質コストとビジネスケースで説明する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>楽観的な前提で ROI を算出する</td>
+                                    <td>後で信頼を失う</td>
+                                    <td>保守的な前提と不確実性を併記する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <hr />
+                <section>
+                    <h2 id="8-学習チェックリスト">8. 学習チェックリスト</h2>
+                    <ChecklistCard />
+                </section>
+                <hr />
+                <section>
+                    <h2 id="9-出典">9. 出典</h2>
+                    <h3 id="91-公式一次情報">9.1 公式（一次情報）</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料</th>
+                                    <th>URL</th>
+                                    <th>本ガイドでの用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ISTQB：CTAL-TM v3.0 認定ページ</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        章構成（The Test Team、Stakeholder
+                                        Relationship）、試験構成、ビジネスアウトカム
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISTQB：CTAL-TM シラバス v3.0（英語 PDF、ダウンロードリンク）</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3445
+                                        </a>
+                                    </td>
+                                    <td>
+                                        序論、第1章・第2章の記述、目次（第3章の節構成 3.1.1〜3.2.2、225 分）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB：シラバスのダウンロードページ</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/
+                                        </a>
+                                    </td>
+                                    <td>シラバスの入手先</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISTQB：サンプル試験 A 問題</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=3449"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3449
+                                        </a>
+                                    </td>
+                                    <td>公式の出題形式の確認</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB：サンプル試験 A 解答</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=3451"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3451
+                                        </a>
+                                    </td>
+                                    <td>解答と根拠の確認</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISTQB：サンプル試験 B 問題</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=9612"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=9612
+                                        </a>
+                                    </td>
+                                    <td>追加の演習</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB：サンプル試験 B 解答</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=9614"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=9614
+                                        </a>
+                                    </td>
+                                    <td>解答と根拠の確認</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ISTQB：用語集（品質コスト、テストチーム関連の用語）</td>
+                                    <td>
+                                        <a
+                                            href="https://glossary.istqb.org/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://glossary.istqb.org/
+                                        </a>
+                                    </td>
+                                    <td>品質コストの定義（cost of quality を検索）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB：試験構成とルール</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=3829"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3829
+                                        </a>
+                                    </td>
+                                    <td>試験形式・ルールの確認</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="92-日本語版jstqb">9.2 日本語版（JSTQB）</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料</th>
+                                    <th>URL</th>
+                                    <th>用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>
+                                        JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version
+                                        3.0.J04（主参照・最新版）
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.jstqb.jp/wordpress/wp-content/uploads/2026/06/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J04.pdf
+                                        </a>
+                                    </td>
+                                    <td>第3章（p.65〜74）の日本語訳の確認</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version
+                                        3.0.J02
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J02.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV3.0.J02.pdf
+                                        </a>
+                                    </td>
+                                    <td>旧版（差分確認用）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        JSTQB：Advanced Level シラバス日本語版 テストマネジメント Version
+                                        3.0.J01
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://jstqb.jp/dl/JSTQB-Syllabus.Advanced_TM_VersionV30.J01.pdf
+                                        </a>
+                                    </td>
+                                    <td>旧版（差分確認用）</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>JSTQB：シラバス・用語集一覧</td>
+                                    <td>
+                                        <a
+                                            href="https://www.jstqb.jp/syllabus/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://www.jstqb.jp/syllabus/
+                                        </a>
+                                    </td>
+                                    <td>最新版の入手先</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>
+                                        JSTQB 日本語版 v3.0 公開のプレスリリース（2025 年 8 月 4 日公開）
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://prtimes.jp/main/html/rd/p/000000044.000054604.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://prtimes.jp/main/html/rd/p/000000044.000054604.html
+                                        </a>
+                                    </td>
+                                    <td>3章構成への再編、試験問題数の変更などの背景</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="93-発展学習">9.3 発展学習</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料</th>
+                                    <th>URL</th>
+                                    <th>用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ISTQB：Expert Level Managing the Test Team (CTEL-TM-MTT)</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        採用、目標設定、評価、動機付け、分散チームなど、チーム管理の発展的内容
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="94-本ガイドの根拠の限界再掲">9.4 本ガイドの根拠の限界（再掲）</h3>
+                    <ul>
+                        <li>
+                            🟢 の内容は、上記 ISTQB 公式ページと公式シラバス PDF
+                            の原文（序論、第1章の記述、目次、章の概要）で確認しました
+                        </li>
+                        <li>
+                            🟡 の内容は、ISTQB
+                            用語集と一般的な実務知識に基づく補足です。第3章本文（p.65〜74）の表現・粒度と異なる可能性があります
+                        </li>
+                        <li>計算例と練習問題は、理解のために本ガイドで作成した架空の例です</li>
+                    </ul>
                 </section>
             </main>
         </div>
