@@ -92,6 +92,20 @@ flowchart LR
     S -->|コイン投入 合計に加算 Req243| S
     S -->|取消し Req237| E`;
 
+export const DIAGRAM_REVIEW_FLOW = `${MERMAID_CONFIG}
+flowchart TD
+    Start["レビュー対象のテストベース"] --> Q1{"業務フローやユースケースが文書化されているか"}
+    Q1 -->|はい| A["シナリオベースレビュー"]
+    Q1 -->|いいえ| Q2{"役割ごとに期待や権限が異なるか"}
+    Q2 -->|はい| B["ロールベースレビュー"]
+    Q2 -->|いいえ| Q3{"過去の欠陥傾向や標準の観点があるか"}
+    Q3 -->|はい| C["チェックリストベースレビュー"]
+    Q3 -->|いいえ| D["アドホックレビュー 重複報告に注意"]
+    A --> E["必要なら他の技法を追加"]
+    B --> E
+    C --> E
+    D --> E`;
+
 export const metadata: Metadata = {
     title: 'CTAL-TA v4.0 第5章 ソフトウェア欠陥防止｜初学者向けガイド',
     description: 'ISTQB Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0 第5章 ソフトウェア欠陥防止の初学者向け完全学習ガイド。',
@@ -1832,6 +1846,560 @@ export default function CtalTaChapter5Page() {
                             </li>
                             <li>CRUD：Create（作成）・Read（参照）・Update（更新）・Delete（削除）</li>
                             <li>アノマリー：期待と違う、調べるべき状態や異常</li>
+                        </ul>
+                    </details>
+
+                    {/* パート4 */}
+                    <h2 id="part-4">
+                        <span className="part-no">パート4</span>
+                        <span className="part-title">5.2.2 レビュー技法の適用（TA-5.2.2 / K3）</span>
+                    </h2>
+                    <p className="lead">
+                        <span className="lead-ico" aria-hidden="true">
+                            💡
+                        </span>
+                        このパートでは、テストベース（要件・ユーザーストーリーなど）にレビュー技法を適用して欠陥を見つける方法を説明します。パート3のモデル化が「矛盾や抜け」に強いのに対し、レビューは「言葉の曖昧さや利用者視点の問題」にも強いので、両方を使い分けられるようになることが目標です。
+                    </p>
+                    <h3 id="sec-16">4.1 なぜレビュー技法を学ぶのか</h3>
+                    <p>
+                        なぜ先に理由を示すのか：テストベースは文章で書かれているため、人が読んで確認しないと見つからない欠陥が多く残ります。レビューは動くソフトウェアが無い段階で実施できるので、欠陥防止の中心的な手段です。
+                    </p>
+                    <p>
+                        LO 対応表（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>
+                        ）によると、v3.1 では「要件」「ユーザーストーリー」ごとに別々の LO
+                        があり、どちらもチェックリストが前提でした。v4.0
+                        では2つを1つにまとめ、対象を「テストベース」に一般化し、手法も
+                        <strong>チェックリストベースだけでなく、さまざまなレビュー技法</strong>へ広げています。
+                    </p>
+                    <h3 id="sec-17">
+                        4.2 4つのレビュー技法【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #42】
+                    </h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>技法</th>
+                                    <th>進め方</th>
+                                    <th>
+                                        向く場面【
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                        】
+                                    </th>
+                                    <th>
+                                        注意点【
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                        】
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>シナリオベースレビュー</td>
+                                    <td>
+                                        ユースケースやアクティビティ図を使い、処理を頭の中で「ドライラン」（＝通しで実行）する。文書に書かれたシナリオの外も探索してよい
+                                    </td>
+                                    <td>業務フローに抜けや矛盾が無いかを見たいとき</td>
+                                    <td>元のシナリオの質に左右される</td>
+                                </tr>
+                                <tr>
+                                    <td>ロールベースレビュー</td>
+                                    <td>
+                                        架空のペルソナ（管理者、一般利用者など）を使い、特定の役割の立場から読む
+                                    </td>
+                                    <td>役割ごとに権限や画面、期待が違うとき</td>
+                                    <td>ペルソナが現実の利用者とずれると外れる</td>
+                                </tr>
+                                <tr>
+                                    <td>チェックリストベースレビュー</td>
+                                    <td>
+                                        事前に用意した質問リストに沿って読む。リストに無い項目も探索してよい
+                                    </td>
+                                    <td>過去に起きた種類の欠陥を見逃したくないとき</td>
+                                    <td>リストの項目だけを見て満足してしまう</td>
+                                </tr>
+                                <tr>
+                                    <td>アドホックレビュー</td>
+                                    <td>決まった手順や観点を持たずに読む</td>
+                                    <td>時間が無いとき、初期の粗い確認</td>
+                                    <td>複数の人が同じ欠陥を報告し、重複が増える</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        たとえ話：新築の内覧で、シナリオ＝「朝起きてから出勤するまでの動線を歩く」、ロール＝「車いすの家族の目線で見る」、チェックリスト＝「水回り・電気・鍵の点検表で確認する」、アドホック＝「気になるところを自由に見て回る」です。
+                    </p>
+                    <h4>
+                        選び方の流れ【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>{' '}
+                        学習用の目安】
+                    </h4>
+                    <p>
+                        実際のレビューは技法を組み合わせるのが普通です。この図は、最初にどの技法から始めるかを決める目安です。上から下へ読み進めてください。
+                    </p>
+                    <figure className="diagram">
+                        <Mermaid chart={DIAGRAM_REVIEW_FLOW} />
+                        <figcaption className="fallback">
+                            図の描画にはインターネット接続が必要です。接続できない場合は上の Mermaid ソースがそのまま表示されます。
+                        </figcaption>
+                    </figure>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>「シナリオベースレビュー」：処理の流れを追って抜けを探す技法</li>
+                        <li>「ロールベースレビュー」：役割の立場に立って読む技法</li>
+                        <li>「チェックリストベースレビュー」：質問リストを使う技法</li>
+                        <li>
+                            「アドホックレビュー」：観点を決めずに読む技法。使う場合は、複数人で担当範囲を分けて重複を減らす
+                        </li>
+                    </ul>
+                    <h3 id="sec-18">
+                        4.3 レビューの進め方【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>{' '}
+                        一般的な手順】
+                    </h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>手順</th>
+                                    <th>やること</th>
+                                    <th>なぜ必要か</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1. 観点を決める</td>
+                                    <td>
+                                        使う技法と、確認する品質（正しさ、完全性、テスト容易性など）を決める
+                                    </td>
+                                    <td>観点が無いと重複と見落としが増える</td>
+                                </tr>
+                                <tr>
+                                    <td>2. 版を固定する</td>
+                                    <td>レビューする文書の版（バージョン）を関係者と合わせる</td>
+                                    <td>版が違うと指摘が噛み合わない</td>
+                                </tr>
+                                <tr>
+                                    <td>3. 個別に読む</td>
+                                    <td>各自が観点に沿って読み、指摘をためる</td>
+                                    <td>会議の前に十分な指摘を集めるため</td>
+                                </tr>
+                                <tr>
+                                    <td>4. 指摘を記録する</td>
+                                    <td>場所、内容、理由（根拠）を残す</td>
+                                    <td>後で分類や分析に使うため</td>
+                                </tr>
+                                <tr>
+                                    <td>5. 集約して確認する</td>
+                                    <td>重複を除き、「本当に欠陥か」を関係者と確認する</td>
+                                    <td>偽陽性（＝欠陥でないものを欠陥と報告すること）を減らすため</td>
+                                </tr>
+                                <tr>
+                                    <td>6. 修正を確認する</td>
+                                    <td>直った内容が正しいか、テスト条件へ反映されたかを確認する</td>
+                                    <td>修正による新たな欠陥を防ぐため</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        シラバス第1章（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        1.2.1）は、テスト分析でテスト条件を関係者とレビューして、テストベースが正しく理解されているかを確かめるように述べています。
+                    </p>
+                    <h3 id="sec-19">
+                        4.4 実例：シナリオベースレビューと偽陽性【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #41 を題材に再構成】
+                    </h3>
+                    <p>
+                        なぜこの例か：レビューで出した指摘の中に「欠陥ではない指摘（偽陽性）」が混ざる状況を体験し、判断の軸を持てるようにするためです。
+                    </p>
+                    <p>
+                        設定：オンラインショップに「新規顧客向けガイド」を追加します。ユースケースの流れは次のとおりです。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ textAlign: 'center' }}>番号</th>
+                                    <th>主体</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>1</td>
+                                    <td>利用者</td>
+                                    <td>サイトを訪れる</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>システム</td>
+                                    <td>ガイドを案内するバナーを表示する</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>3</td>
+                                    <td>利用者</td>
+                                    <td>案内をクリックする</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>4</td>
+                                    <td>システム</td>
+                                    <td>ガイドを開く</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>5</td>
+                                    <td>利用者</td>
+                                    <td>ガイドの導入部を読み、サイトの機能や構成を知る</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>6</td>
+                                    <td>利用者</td>
+                                    <td>ガイドの指示に従って購入を完了する</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>7</td>
+                                    <td>システム</td>
+                                    <td>購入の完了を表示する</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>8</td>
+                                    <td>利用者</td>
+                                    <td>ガイドを閉じる</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>9</td>
+                                    <td>システム</td>
+                                    <td>ガイドを終了する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>レビュー担当者が出した4件の指摘と、判断の理由：</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>指摘</th>
+                                    <th style={{ textAlign: 'center' }}>判断</th>
+                                    <th>理由</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        a. 経験のある利用者が、ガイドを恒久的に非表示にできる選択肢が必要
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>妥当</td>
+                                    <td>経験者に毎回ガイドを見せると邪魔になる</td>
+                                </tr>
+                                <tr>
+                                    <td>b. 手順4で、利用者が応答したらバナーを隠すべき</td>
+                                    <td style={{ textAlign: 'center' }}>妥当</td>
+                                    <td>応答後にバナーが残ると、ガイドに集中できない</td>
+                                </tr>
+                                <tr>
+                                    <td>c. ガイドを、好きなときに再表示できる選択肢が必要</td>
+                                    <td style={{ textAlign: 'center' }}>妥当</td>
+                                    <td>後から必要になったときに情報へ戻れる</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        d. 手順5の後、ガイドが不要とみなして<strong>自動で閉じる</strong>べき
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <strong>偽陽性</strong>
+                                    </td>
+                                    <td>
+                                        利用者の同意なく閉じるのは、利用者の制御を奪う。後で必要になるかもしれない
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        正解は d の指摘が偽陽性（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #41 の正解 d）です。判断の軸は「利用者の視点で、その指摘は本当に問題の解決になっているか」です。
+                    </p>
+                    <h3 id="sec-20">4.5 チェックリストの作り方と例</h3>
+                    <p>
+                        シラバス（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        3.4.2）は、チェックリストの項目を「はい・いいえ・該当なし」で答えられる質問にし、具体的・曖昧さがない・実行可能・測定可能にして、優先度をつけ、グループに分けるよう述べています。また、チェックリストは完成させず、新しい発見やフィードバックで見直し続けるとされています。以下の項目は、この作り方に沿って本ガイドが用意した
+                        <strong>
+                            例【
+                            <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                △
+                            </span>
+                            】
+                        </strong>
+                        です。
+                    </p>
+                    <h4>要件仕様書のチェックリスト例</h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>質問（はい／いいえ／該当なしで答える）</th>
+                                    <th style={{ textAlign: 'center' }}>優先度</th>
+                                    <th>見つかる欠陥</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>REQ-01</td>
+                                    <td>各要件は「誰が・何を・どの条件で」を特定できるか</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>曖昧、不完全</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-02</td>
+                                    <td>
+                                        「適切な」「必要に応じて」「いくつか」のような曖昧な語を使っていないか
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>曖昧（解釈が複数）</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-03</td>
+                                    <td>
+                                        数値の範囲や境界が、以上・超えるなどを含めて明記されているか
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>境界の誤り</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-04</td>
+                                    <td>入力が不正・空のときの振る舞いが書かれているか</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>抜け</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-05</td>
+                                    <td>要件同士が矛盾していないか</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>不整合</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-06</td>
+                                    <td>各要件に、合否を判定できる期待結果があるか</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>テスト不能</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-07</td>
+                                    <td>同じ用語が、常に同じ意味で使われているか</td>
+                                    <td style={{ textAlign: 'center' }}>中</td>
+                                    <td>用語のずれ</td>
+                                </tr>
+                                <tr>
+                                    <td>REQ-08</td>
+                                    <td>エラーや例外のときの振る舞いが書かれているか</td>
+                                    <td style={{ textAlign: 'center' }}>中</td>
+                                    <td>抜け</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        「曖昧な語を避ける」観点は、シラバス 1.3.2
+                        が、テストケースの精密さの基準として「適切な」「必要に応じて」「いくつか」などの語を避けるよう述べていることに対応します（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>
+                        ）。
+                    </p>
+                    <h4>ユーザーストーリーのチェックリスト例</h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>質問</th>
+                                    <th style={{ textAlign: 'center' }}>優先度</th>
+                                    <th>見つかる欠陥</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>US-01</td>
+                                    <td>誰として・何をしたい・なぜ、の3点が書かれているか</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>目的の欠落</td>
+                                </tr>
+                                <tr>
+                                    <td>US-02</td>
+                                    <td>受け入れ基準は、テストで合否を判定できる形か</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>テスト不能</td>
+                                </tr>
+                                <tr>
+                                    <td>US-03</td>
+                                    <td>受け入れ基準に、異常系や境界の条件が含まれているか</td>
+                                    <td style={{ textAlign: 'center' }}>高</td>
+                                    <td>抜け</td>
+                                </tr>
+                                <tr>
+                                    <td>US-04</td>
+                                    <td>1回の反復（イテレーション）で終えられる大きさか</td>
+                                    <td style={{ textAlign: 'center' }}>中</td>
+                                    <td>大きすぎる</td>
+                                </tr>
+                                <tr>
+                                    <td>US-05</td>
+                                    <td>他のストーリーや外部システムへの依存が書かれているか</td>
+                                    <td style={{ textAlign: 'center' }}>中</td>
+                                    <td>依存の見落とし</td>
+                                </tr>
+                                <tr>
+                                    <td>US-06</td>
+                                    <td>必要な非機能の期待（応答時間など）が書かれているか</td>
+                                    <td style={{ textAlign: 'center' }}>中</td>
+                                    <td>非機能の抜け</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 id="sec-21">4.6 ベストプラクティス</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>推奨すること</th>
+                                    <th>避けたいこと</th>
+                                    <th style={{ textAlign: 'center' }}>根拠</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>技法の選択</td>
+                                    <td>対象と目的に合わせて、複数の技法を組み合わせる</td>
+                                    <td>1つの技法だけで完了とする</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        /{' '}
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>チェックリスト</td>
+                                    <td>過去の欠陥から項目を育て、定期的に見直す</td>
+                                    <td>一度作って放置する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.4.2
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>チェックリストの外</td>
+                                    <td>項目に無い箇所も探索するよう促す</td>
+                                    <td>項目を機械的に消化する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #42
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>アドホックレビュー</td>
+                                    <td>担当範囲を分けて重複を減らす</td>
+                                    <td>全員が同じ箇所を読む</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #42
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>指摘の確認</td>
+                                    <td>「利用者や業務の視点で本当に欠陥か」を関係者と確かめる</td>
+                                    <td>個人の好みを欠陥として報告する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #41
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>記録</td>
+                                    <td>指摘の場所・内容・理由を残し、混入フェーズや分類も付ける</td>
+                                    <td>口頭で伝えて終える</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>関係者の参加</td>
+                                    <td>テスト条件やモデルを、関係者と一緒にレビューする</td>
+                                    <td>TA だけで完結する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        1.2.1 / 3.3.1
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <details className="glossary">
+                        <summary>
+                            <span className="g-ico">📖</span>このパートで登場した用語
+                            <span className="g-n">10語</span>
+                        </summary>
+                        <ul>
+                            <li>
+                                レビュー技法：文書などを人が読んで欠陥を探すための、観点や進め方の型
+                            </li>
+                            <li>シナリオベースレビュー：ユースケースなどの流れを追いながら読む技法</li>
+                            <li>ロールベースレビュー：ペルソナ（役割）の立場に立って読む技法</li>
+                            <li>チェックリストベースレビュー：質問リストに沿って読む技法</li>
+                            <li>アドホックレビュー：決まった観点を持たずに読む技法</li>
+                            <li>ペルソナ：典型的な利用者を、人物像として具体的に描いたもの</li>
+                            <li>
+                                ドライラン：実際には動かさず、手順を頭の中や紙の上で通して確認すること
+                            </li>
+                            <li>偽陽性：欠陥でないものを欠陥として報告してしまうこと</li>
+                            <li>ユースケース：利用者とシステムのやり取りを、目的ごとにまとめた記述</li>
+                            <li>受け入れ基準：ユーザーストーリーが完成したと認める条件</li>
                         </ul>
                     </details>
                 </main>

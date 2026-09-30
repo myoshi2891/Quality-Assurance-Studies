@@ -439,6 +439,22 @@ describe('CTAL-TA v4.0 Chapter 5 - Comprehensive Structural Verification', () =>
         });
     });
 
+    describe('Category 3: Part 4 (Review Techniques TA-5.2.2 / K3)', () => {
+        it('renders part-4 section with sec-16 through sec-21 and review flowchart diagram', () => {
+            const { container } = render(<CtalTaChapter5Page />);
+            expect(container.querySelector('#part-4')).toBeTruthy();
+            expect(container.querySelector('#sec-16')).toBeTruthy();
+            expect(container.querySelector('#sec-17')).toBeTruthy();
+            expect(container.querySelector('#sec-18')).toBeTruthy();
+            expect(container.querySelector('#sec-19')).toBeTruthy();
+            expect(container.querySelector('#sec-20')).toBeTruthy();
+            expect(container.querySelector('#sec-21')).toBeTruthy();
+
+            const diagrams = container.querySelectorAll('figure.diagram');
+            expect(diagrams.length).toBeGreaterThanOrEqual(6);
+        });
+    });
+
     describe('Inventory Verification: Headings, Diagrams, Tables, and UI Components', () => {
         it('renders all 9 H2 headings with expected ids', () => {
             const { container } = render(<CtalTaChapter5Page />);
