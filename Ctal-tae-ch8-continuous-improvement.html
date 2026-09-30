@@ -1,0 +1,3272 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>CTAL-TAE v2.0 第8章 Continuous Improvement 初学者向け完全ガイド</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <style>
+            :root {
+                --bg: #f5f7fb;
+                --bg-elevated: #ffffff;
+                --card: #ffffff;
+                --border: rgba(30, 41, 59, 0.1);
+                --border-strong: rgba(37, 99, 235, 0.28);
+                --text: #1b2537;
+                --text-dim: #4b5670;
+                --text-faint: #8592ab;
+                --accent: #2f5fe0;
+                --accent-soft: rgba(47, 95, 224, 0.08);
+                --accent-strong: #1d4ed8;
+                --green: #158a54;
+                --green-soft: rgba(21, 138, 84, 0.08);
+                --yellow: #a8620a;
+                --sidebar-width: 300px;
+                --shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                background: var(--bg);
+                color: var(--text);
+                margin: 0;
+                padding: 0;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+                    'Noto Sans JP', Meiryo, sans-serif;
+                line-height: 1.85;
+                font-size: 16px;
+                overflow-x: hidden;
+                padding-top: env(safe-area-inset-top, 0px);
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+            }
+            ::selection {
+                background: var(--accent);
+                color: #fff;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-width);
+                background: var(--bg-elevated);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 28px 0 60px;
+                z-index: 50;
+                padding-top: calc(28px + env(safe-area-inset-top, 0px));
+            }
+            .sidebar-title {
+                padding: 0 22px 18px;
+                font-size: 13px;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                color: var(--accent-strong);
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 10px;
+            }
+            .sidebar-title small {
+                display: block;
+                font-weight: 400;
+                color: var(--text-faint);
+                margin-top: 4px;
+                font-size: 11.5px;
+            }
+
+            ul.nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0 10px;
+            }
+            ul.nav-list > li {
+                margin-bottom: 2px;
+            }
+            ul.nav-sub {
+                list-style: none;
+                margin: 2px 0 6px 0;
+                padding: 0 0 0 14px;
+                border-left: 1px solid var(--border);
+            }
+            .nav-list a {
+                display: block;
+                padding: 8px 12px;
+                border-radius: 8px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .nav-h2 {
+                font-weight: 700;
+                color: var(--text) !important;
+                font-size: 14px !important;
+                margin-top: 8px;
+            }
+            .nav-h3 {
+                font-size: 13px;
+            }
+            .nav-h4 {
+                font-size: 12.3px;
+                color: var(--text-faint) !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
+            }
+            .nav-list a:hover {
+                background: var(--accent-soft);
+                color: var(--accent-strong);
+            }
+            .nav-list a.active {
+                background: var(--accent-soft);
+                color: var(--accent-strong);
+                font-weight: 600;
+            }
+
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 60;
+                background: var(--card);
+                border: 1px solid var(--border-strong);
+                color: var(--text);
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                font-size: 18px;
+                cursor: pointer;
+                box-shadow: var(--shadow);
+                top: calc(14px + env(safe-area-inset-top, 0px));
+            }
+
+            .main {
+                margin-left: var(--sidebar-width);
+                padding: 56px 64px 100px;
+            }
+
+            .hero {
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(155deg, #eef3ff 0%, #ffffff 100%);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 40px 44px;
+                margin-bottom: 48px;
+                box-shadow: var(--shadow);
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: -120px;
+                right: -120px;
+                width: 360px;
+                height: 360px;
+                background: radial-gradient(
+                    circle,
+                    rgba(47, 95, 224, 0.14) 0%,
+                    rgba(47, 95, 224, 0) 70%
+                );
+                pointer-events: none;
+            }
+            .hero-eyebrow {
+                display: inline-block;
+                padding: 6px 16px;
+                border-radius: 999px;
+                background: var(--accent-soft);
+                border: 1px solid var(--border-strong);
+                color: var(--accent-strong);
+                font-size: 12.5px;
+                font-weight: 700;
+                letter-spacing: 0.03em;
+                margin-bottom: 18px;
+            }
+            .hero-title {
+                font-size: 28px;
+                font-weight: 800;
+                color: #0f1a2e;
+                margin: 0 0 10px;
+                line-height: 1.45;
+            }
+            .hero-subtitle {
+                font-size: 15.5px;
+                color: var(--text-dim);
+                margin: 0 0 26px;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0;
+                padding-top: 22px;
+                border-top: 1px solid var(--border);
+            }
+            .meta-field {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                padding: 0 28px 0 0;
+                margin-right: 28px;
+                border-right: 1px solid var(--border);
+            }
+            .meta-field:last-child {
+                border-right: none;
+                margin-right: 0;
+            }
+            .meta-label {
+                font-size: 10.5px;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--text-faint);
+            }
+            .meta-value {
+                font-size: 14px;
+                color: var(--text);
+            }
+
+            .main h2 {
+                font-size: 24px;
+                font-weight: 800;
+                color: #0f1a2e;
+                margin: 56px 0 20px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid var(--border);
+                scroll-margin-top: 24px;
+            }
+            .main h2:first-of-type {
+                margin-top: 0;
+            }
+            .main h3 {
+                font-size: 19px;
+                font-weight: 700;
+                color: var(--accent-strong);
+                margin: 38px 0 14px;
+                scroll-margin-top: 24px;
+            }
+            .main h4 {
+                font-size: 15.5px;
+                font-weight: 700;
+                color: var(--text);
+                margin: 28px 0 12px;
+                scroll-margin-top: 24px;
+            }
+            .main p {
+                margin: 0 0 16px;
+                color: var(--text);
+            }
+            .main ul,
+            .main ol {
+                margin: 0 0 18px;
+                padding-left: 1.5em;
+                color: var(--text);
+            }
+            .main li {
+                margin-bottom: 6px;
+            }
+            .main strong {
+                color: #0f1a2e;
+                font-weight: 700;
+            }
+            .main a {
+                color: var(--accent);
+                text-decoration: underline;
+                text-decoration-color: rgba(47, 95, 224, 0.35);
+            }
+            .main a:hover {
+                text-decoration-color: var(--accent);
+            }
+            .main hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 40px 0;
+            }
+            .main code:not(pre code) {
+                background: var(--accent-soft);
+                color: var(--accent-strong);
+                padding: 2px 7px;
+                border-radius: 5px;
+                font-size: 0.9em;
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+
+            .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 26px;
+                border-radius: 12px;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 480px;
+                font-size: 14.5px;
+                background: #fff;
+            }
+            thead th {
+                background: var(--bg-elevated);
+                color: var(--accent-strong);
+                text-align: left;
+                padding: 12px 16px;
+                font-weight: 700;
+                border-bottom: 1px solid var(--border-strong);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+                color: var(--text-dim);
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover td {
+                background: rgba(47, 95, 224, 0.03);
+            }
+            tbody td strong {
+                color: var(--text);
+            }
+
+            .code-block {
+                margin: 0 0 22px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+            .code-block pre {
+                margin: 0;
+                padding: 18px 20px;
+                overflow-x: auto;
+                background: #fafbfd !important;
+                font-size: 13.5px;
+                line-height: 1.7;
+            }
+            .code-block code {
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                background: transparent !important;
+            }
+
+            .mermaid-container {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+                margin: 24px 0 30px;
+                padding: 20px 10px;
+                background: var(--bg-elevated);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                box-shadow: var(--shadow);
+            }
+            .mermaid-container svg {
+                flex-shrink: 0;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .mermaid-diagram {
+                min-height: 40px;
+                width: 100%;
+                display: flex;
+            }
+            .mermaid-diagram .render-error {
+                color: #b45309;
+                font-size: 13px;
+                padding: 10px;
+                font-family: monospace;
+            }
+
+            blockquote {
+                margin: 0 0 22px;
+                border-radius: 12px;
+                padding: 18px 20px;
+                border: 1px solid var(--border);
+            }
+            blockquote p {
+                margin: 0;
+                color: var(--text-dim);
+            }
+            blockquote p:not(:last-child) {
+                margin-bottom: 8px;
+            }
+            .callout-note {
+                background: var(--accent-soft);
+                border-color: var(--border-strong);
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+            }
+            .callout-note .callout-icon {
+                font-size: 18px;
+                flex-shrink: 0;
+                line-height: 1.6;
+            }
+            .callout-answer {
+                background: var(--green-soft);
+                border-color: rgba(21, 138, 84, 0.3);
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+            }
+            .callout-answer .callout-icon {
+                font-size: 16px;
+                flex-shrink: 0;
+                line-height: 1.7;
+            }
+            .callout-answer p {
+                color: var(--text);
+            }
+
+            .qa-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 22px 24px;
+                margin: 0 0 20px;
+                box-shadow: var(--shadow);
+            }
+            .qa-card .qa-question {
+                color: var(--accent-strong);
+                font-weight: 700;
+                margin-bottom: 14px;
+            }
+            .qa-card blockquote {
+                margin-bottom: 0;
+            }
+
+            .page-footer {
+                margin-left: var(--sidebar-width);
+                padding: 32px 64px 60px;
+                color: var(--text-faint);
+                font-size: 13px;
+                border-top: 1px solid var(--border);
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    width: 82vw;
+                    max-width: 320px;
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                    box-shadow: 0 0 40px rgba(15, 23, 42, 0.18);
+                }
+                .sidebar-toggle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 88px 20px 70px;
+                }
+                .page-footer {
+                    margin-left: 0;
+                    padding: 24px 20px 50px;
+                }
+                .hero {
+                    padding: 28px 22px;
+                }
+                .hero-title {
+                    font-size: 22px;
+                }
+                .hero-meta {
+                    flex-direction: column;
+                    gap: 14px;
+                }
+                .meta-field {
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                    padding: 0 0 14px;
+                    margin-right: 0;
+                }
+                .meta-field:last-child {
+                    border-bottom: none;
+                    padding-bottom: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="目次を開く">☰</button>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-title">目次<small>CTAL-TAE v2.0 第8章</small></div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#1-この章の全体像" data-target="1-この章の全体像" class="nav-h2"
+                            >1. この章の全体像</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    href="#11-一言でいうと"
+                                    data-target="11-一言でいうと"
+                                    class="nav-h3"
+                                    >1.1 一言でいうと</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#12-学習目標learning-objectives"
+                                    data-target="12-学習目標learning-objectives"
+                                    class="nav-h3"
+                                    >1.2 学習目標（Learning Objectives）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#13-試験で必ず覚えるキーワードこの章"
+                                    data-target="13-試験で必ず覚えるキーワードこの章"
+                                    class="nav-h3"
+                                    >1.3 試験で必ず覚えるキーワード（この章）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#14-略語の早見表"
+                                    data-target="14-略語の早見表"
+                                    class="nav-h3"
+                                    >1.4 略語の早見表</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#15-第8章の構造"
+                                    data-target="15-第8章の構造"
+                                    class="nav-h3"
+                                    >1.5 第8章の構造</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#16-改善サイクルのイメージ"
+                                    data-target="16-改善サイクルのイメージ"
+                                    class="nav-h3"
+                                    >1.6 改善サイクルのイメージ</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#2-811-データ収集と分析でテストケースを改善するk3"
+                            data-target="2-811-データ収集と分析でテストケースを改善するk3"
+                            class="nav-h2"
+                            >2. 8.1.1 データ収集と分析でテストケースを改善する（K3）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    href="#21-test-histogramテストヒストグラム"
+                                    data-target="21-test-histogramテストヒストグラム"
+                                    class="nav-h3"
+                                    >2.1 Test histogram（テストヒストグラム）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#211-何のためのものか"
+                                    data-target="211-何のためのものか"
+                                    class="nav-h4"
+                                    >2.1.1 何のためのものか</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#212-具体例イメージをつかむための例"
+                                    data-target="212-具体例イメージをつかむための例"
+                                    class="nav-h4"
+                                    >2.1.2 具体例（イメージをつかむための例）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#213-分析の手順ステップバイステップ"
+                                    data-target="213-分析の手順ステップバイステップ"
+                                    class="nav-h4"
+                                    >2.1.3 分析の手順（ステップバイステップ）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#214-ベストプラクティス"
+                                    data-target="214-ベストプラクティス"
+                                    class="nav-h4"
+                                    >2.1.4 ベストプラクティス</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#22-artificial-intelligenceaiの活用"
+                                    data-target="22-artificial-intelligenceaiの活用"
+                                    class="nav-h3"
+                                    >2.2 Artificial Intelligence（AI）の活用</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#221-何ができるか"
+                                    data-target="221-何ができるか"
+                                    class="nav-h4"
+                                    >2.2.1 何ができるか</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#222-自己修復の流れ"
+                                    data-target="222-自己修復の流れ"
+                                    class="nav-h4"
+                                    >2.2.2 自己修復の流れ</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#223-ベストプラクティスと注意点"
+                                    data-target="223-ベストプラクティスと注意点"
+                                    class="nav-h4"
+                                    >2.2.3 ベストプラクティスと注意点</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#23-schema-validationスキーマ検証"
+                                    data-target="23-schema-validationスキーマ検証"
+                                    class="nav-h3"
+                                    >2.3 Schema validation（スキーマ検証）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#231-何ができるか"
+                                    data-target="231-何ができるか"
+                                    class="nav-h4"
+                                    >2.3.1 何ができるか</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#232-シラバスの例をコードで理解する"
+                                    data-target="232-シラバスの例をコードで理解する"
+                                    class="nav-h4"
+                                    >2.3.2 シラバスの例をコードで理解する</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#233-使いどころの整理"
+                                    data-target="233-使いどころの整理"
+                                    class="nav-h4"
+                                    >2.3.3 使いどころの整理</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#234-スキーマ検証と契約テスト第5章の違い"
+                                    data-target="234-スキーマ検証と契約テスト第5章の違い"
+                                    class="nav-h4"
+                                    >2.3.4 スキーマ検証と契約テスト（第5章）の違い</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#235-ベストプラクティス"
+                                    data-target="235-ベストプラクティス"
+                                    class="nav-h4"
+                                    >2.3.5 ベストプラクティス</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#3-812-導入済み-tas-の技術的側面を分析し改善を提案するk4"
+                            data-target="3-812-導入済み-tas-の技術的側面を分析し改善を提案するk4"
+                            class="nav-h2"
+                            >3. 8.1.2 導入済み TAS の技術的側面を分析し改善を提案する（K4）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    href="#31-まず押さえる考え方"
+                                    data-target="31-まず押さえる考え方"
+                                    class="nav-h3"
+                                    >3.1 まず押さえる考え方</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#32-改善を検討する-9-つの領域"
+                                    data-target="32-改善を検討する-9-つの領域"
+                                    class="nav-h3"
+                                    >3.2 改善を検討する 9 つの領域</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#33-領域①-scriptingスクリプティング"
+                                    data-target="33-領域①-scriptingスクリプティング"
+                                    class="nav-h3"
+                                    >3.3 領域① Scripting（スクリプティング）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#331-スクリプト手法をアップグレードする"
+                                    data-target="331-スクリプト手法をアップグレードする"
+                                    class="nav-h4"
+                                    >3.3.1 スクリプト手法をアップグレードする</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#332-実装面の改善3つの例"
+                                    data-target="332-実装面の改善3つの例"
+                                    class="nav-h4"
+                                    >3.3.2 実装面の改善（3つの例）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#34-領域②-test-executionテスト実行"
+                                    data-target="34-領域②-test-executionテスト実行"
+                                    class="nav-h3"
+                                    >3.4 領域② Test execution（テスト実行）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#341-課題リグレッションが時間内に終わらない"
+                                    data-target="341-課題リグレッションが時間内に終わらない"
+                                    class="nav-h4"
+                                    >3.4.1 課題：リグレッションが時間内に終わらない</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#342-github-actions-での実装例考え方の理解用"
+                                    data-target="342-github-actions-での実装例考え方の理解用"
+                                    class="nav-h4"
+                                    >3.4.2 GitHub Actions での実装例（考え方の理解用）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#343-ベストプラクティス"
+                                    data-target="343-ベストプラクティス"
+                                    class="nav-h4"
+                                    >3.4.3 ベストプラクティス</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#35-領域③-verification検証"
+                                    data-target="35-領域③-verification検証"
+                                    class="nav-h3"
+                                    >3.5 領域③ Verification（検証）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#36-領域④-taaテスト自動化アーキテクチャ"
+                                    data-target="36-領域④-taaテスト自動化アーキテクチャ"
+                                    class="nav-h3"
+                                    >3.6 領域④ TAA（テスト自動化アーキテクチャ）</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#361-内容" data-target="361-内容" class="nav-h4"
+                                    >3.6.1 内容</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#362-重要ポイント"
+                                    data-target="362-重要ポイント"
+                                    class="nav-h4"
+                                    >3.6.2 重要ポイント</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#37-領域⑤-tafコアライブラリのバージョンアップ"
+                                    data-target="37-領域⑤-tafコアライブラリのバージョンアップ"
+                                    class="nav-h3"
+                                    >3.7 領域⑤ TAF（コアライブラリのバージョンアップ）</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#371-課題" data-target="371-課題" class="nav-h4"
+                                    >3.7.1 課題</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#372-推奨する進め方"
+                                    data-target="372-推奨する進め方"
+                                    class="nav-h4"
+                                    >3.7.2 推奨する進め方</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#38-領域⑥-setup-and-teardownセットアップとティアダウン"
+                                    data-target="38-領域⑥-setup-and-teardownセットアップとティアダウン"
+                                    class="nav-h3"
+                                    >3.8 領域⑥ Setup and teardown（セットアップとティアダウン）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#39-領域⑦-documentationドキュメント"
+                                    data-target="39-領域⑦-documentationドキュメント"
+                                    class="nav-h3"
+                                    >3.9 領域⑦ Documentation（ドキュメント）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#310-領域⑧-tas-featurestas-の機能"
+                                    data-target="310-領域⑧-tas-featurestas-の機能"
+                                    class="nav-h3"
+                                    >3.10 領域⑧ TAS features（TAS の機能）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#311-領域⑨-taf-updates-and-upgradestaf-の更新アップグレード"
+                                    data-target="311-領域⑨-taf-updates-and-upgradestaf-の更新アップグレード"
+                                    class="nav-h3"
+                                    >3.11 領域⑨ TAF updates and upgrades（TAF
+                                    の更新・アップグレード）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#4-813-sut-の更新に合わせてテストウェアを再構成するk3"
+                            data-target="4-813-sut-の更新に合わせてテストウェアを再構成するk3"
+                            class="nav-h2"
+                            >4. 8.1.3 SUT の更新に合わせてテストウェアを再構成する（K3）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="#41-前提" data-target="41-前提" class="nav-h3">4.1 前提</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#42-進め方テスト環境コンポーネントの変更への対応"
+                                    data-target="42-進め方テスト環境コンポーネントの変更への対応"
+                                    class="nav-h3"
+                                    >4.2 進め方（テスト環境コンポーネントの変更への対応）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#43-具体的な再構成項目"
+                                    data-target="43-具体的な再構成項目"
+                                    class="nav-h3"
+                                    >4.3 具体的な再構成項目</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#①-コア-tas-関数ライブラリの効率と効果を高める"
+                                    data-target="①-コア-tas-関数ライブラリの効率と効果を高める"
+                                    class="nav-h4"
+                                    >① コア TAS 関数ライブラリの効率と効果を高める</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#②-同じコントロール種別に作用する複数関数を統合する"
+                                    data-target="②-同じコントロール種別に作用する複数関数を統合する"
+                                    class="nav-h4"
+                                    >② 同じコントロール種別に作用する複数関数を統合する</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#③-sut-の変更に対応して-taa-をリファクタリングする"
+                                    data-target="③-sut-の変更に対応して-taa-をリファクタリングする"
+                                    class="nav-h4"
+                                    >③ SUT の変更に対応して TAA をリファクタリングする</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#④-命名規則と標準化"
+                                    data-target="④-命名規則と標準化"
+                                    class="nav-h4"
+                                    >④ 命名規則と標準化</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#⑤-既存テストスクリプトの見直し廃止の評価"
+                                    data-target="⑤-既存テストスクリプトの見直し廃止の評価"
+                                    class="nav-h4"
+                                    >⑤ 既存テストスクリプトの見直し・廃止の評価</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#5-814-テスト自動化ツールの活用機会k2"
+                            data-target="5-814-テスト自動化ツールの活用機会k2"
+                            class="nav-h2"
+                            >5. 8.1.4 テスト自動化ツールの活用機会（K2）</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="#51-考え方" data-target="51-考え方" class="nav-h3"
+                                    >5.1 考え方</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#52-環境のセットアップと制御environment-setup-and-control"
+                                    data-target="52-環境のセットアップと制御environment-setup-and-control"
+                                    class="nav-h3"
+                                    >5.2 環境のセットアップと制御（Environment setup and
+                                    control）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#53-データエイジングdata-aging"
+                                    data-target="53-データエイジングdata-aging"
+                                    class="nav-h3"
+                                    >5.3 データエイジング（Data aging）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#54-スクリーンショットと動画の生成screenshot-and-video-generation"
+                                    data-target="54-スクリーンショットと動画の生成screenshot-and-video-generation"
+                                    class="nav-h3"
+                                    >5.4 スクリーンショットと動画の生成（Screenshot and video
+                                    generation）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#55-ベストプラクティス"
+                                    data-target="55-ベストプラクティス"
+                                    class="nav-h3"
+                                    >5.5 ベストプラクティス</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#6-試験対策ひっかけポイントと確認問題"
+                            data-target="6-試験対策ひっかけポイントと確認問題"
+                            class="nav-h2"
+                            >6. 試験対策：ひっかけポイントと確認問題</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    href="#61-ひっかけポイント表"
+                                    data-target="61-ひっかけポイント表"
+                                    class="nav-h3"
+                                    >6.1 ひっかけポイント表</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#62-確認問題自己チェック"
+                                    data-target="62-確認問題自己チェック"
+                                    class="nav-h3"
+                                    >6.2 確認問題（自己チェック）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#7-ベストプラクティス総まとめ"
+                            data-target="7-ベストプラクティス総まとめ"
+                            class="nav-h2"
+                            >7. ベストプラクティス総まとめ</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="#71-項目別" data-target="71-項目別" class="nav-h3"
+                                    >7.1 項目別</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#72-改善提案を書くときの型k4-対策"
+                                    data-target="72-改善提案を書くときの型k4-対策"
+                                    class="nav-h3"
+                                    >7.2 改善提案を書くときの型（K4 対策）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#8-用語集" data-target="8-用語集" class="nav-h2">8. 用語集</a></li>
+                    <li>
+                        <a href="#9-出典ソースurl" data-target="9-出典ソースurl" class="nav-h2"
+                            >9. 出典（ソース）URL</a
+                        >
+                        <ul class="nav-sub">
+                            <li>
+                                <a
+                                    href="#91-一次情報本ガイドの根拠"
+                                    data-target="91-一次情報本ガイドの根拠"
+                                    class="nav-h3"
+                                    >9.1 一次情報（本ガイドの根拠）</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#92-補足資料コード例実装の理解用"
+                                    data-target="92-補足資料コード例実装の理解用"
+                                    class="nav-h3"
+                                    >9.2 補足資料（コード例・実装の理解用）</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href="#10-本ガイドに関する注記"
+                            data-target="10-本ガイドに関する注記"
+                            class="nav-h2"
+                            >10. 本ガイドに関する注記</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+            <main class="main">
+                <div class="hero">
+                    <div class="hero-eyebrow">ISTQB CTAL-TAE v2.0 &middot; Chapter 8</div>
+                    <h1 class="hero-title">
+                        CTAL-TAE v2.0 第8章「Continuous
+                        Improvement（継続的改善）」初学者向け完全ガイド
+                    </h1>
+                    <p class="hero-subtitle">
+                        出題内容の詳細解説とベストプラクティス、根拠となる公式ソースをまとめた初学者向けガイドです。
+                    </p>
+                    <div class="hero-meta">
+                        <div class="meta-field">
+                            <span class="meta-label">対象試験</span>
+                            <span class="meta-value"
+                                >ISTQB Certified Tester Advanced Level Test Automation Engineering
+                                (CTAL-TAE) v2.0</span
+                            >
+                        </div>
+                        <div class="meta-field">
+                            <span class="meta-label">対象章</span>
+                            <span class="meta-value"
+                                >Chapter 8 Continuous Improvement（章別指導時間 210 分 /
+                                最高認知レベル K4）</span
+                            >
+                        </div>
+                        <div class="meta-field">
+                            <span class="meta-label">想定読者</span>
+                            <span class="meta-value"
+                                >テスト自動化の基礎（第1〜7章）を一通り学んだ初学者</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="1-この章の全体像">1. この章の全体像</h2>
+                <h3 id="11-一言でいうと">1.1 一言でいうと</h3>
+                <p>
+                    「作って終わり」ではなく、動かしながら集めたデータをもとに、テスト自動化の仕組み（TAS）を育て続けるための章です。
+                </p>
+                <h3 id="12-学習目標learning-objectives">1.2 学習目標（Learning Objectives）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>LO 番号</th>
+                                <th>認知レベル</th>
+                                <th>内容（要約）</th>
+                                <th>本ガイドの節</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>TAE-8.1.1</td>
+                                <td>K3（適用）</td>
+                                <td>データ収集・分析を通じてテストケース改善の機会を見つける</td>
+                                <td>2</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAE-8.1.2</td>
+                                <td>K4（分析）</td>
+                                <td>導入済み TAS の技術面を分析し、改善を推奨する</td>
+                                <td>3</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAE-8.1.3</td>
+                                <td>K3（適用）</td>
+                                <td>SUT の更新に合わせてテストウェアを再構成する</td>
+                                <td>4</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAE-8.1.4</td>
+                                <td>K2（理解）</td>
+                                <td>テスト以外の活動でのテスト自動化ツール活用機会をまとめる</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        K レベルの読み方：K2 = 理解 / K3 = 適用（手順を当てはめる）/ K4 =
+                        分析（状況を分解して判断・提案する）。8.1.2 は K4
+                        なので「なぜその改善が必要か」「どの改善を優先するか」まで問われます。
+                    </p>
+                </blockquote>
+                <h3 id="13-試験で必ず覚えるキーワードこの章">
+                    1.3 試験で必ず覚えるキーワード（この章）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>キーワード</th>
+                                <th>ひとことで</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>test histogram（テストヒストグラム）</td>
+                                <td>
+                                    テストデータの傾向を視覚化したレポート。壊れやすい（fragile）テストの発見に使う
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>schema validation（スキーマ検証）</td>
+                                <td>
+                                    API レスポンスや DB
+                                    のデータ型・必須項目などを、スキーマ定義に基づいてまとめて検証する方法
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="14-略語の早見表">1.4 略語の早見表</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>略語</th>
+                                <th>正式名称</th>
+                                <th>意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>SUT</td>
+                                <td>System Under Test</td>
+                                <td>テスト対象システム</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS</td>
+                                <td>Test Automation Solution</td>
+                                <td>テスト自動化ソリューション全体</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAF</td>
+                                <td>Test Automation Framework</td>
+                                <td>テスト自動化フレームワーク（TAS の土台）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAA</td>
+                                <td>Test Automation Architecture</td>
+                                <td>テスト自動化アーキテクチャ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAE</td>
+                                <td>Test Automation Engineer</td>
+                                <td>テスト自動化エンジニア</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="15-第8章の構造">1.5 第8章の構造</h3>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-1"></div></div>
+                <h3 id="16-改善サイクルのイメージ">1.6 改善サイクルのイメージ</h3>
+                <p>改善は一度きりではなく、測る → 分析する → 直す → 確かめるの繰り返しです。</p>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-2"></div></div>
+                <h2 id="2-811-データ収集と分析でテストケースを改善するk3">
+                    2. 8.1.1 データ収集と分析でテストケースを改善する（K3）
+                </h2>
+                <p>
+                    第6章で学んだ「ログやレポートの収集」を土台に、そのデータを使ってテストケース自体を良くするための3つの切り口が示されています。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>切り口</th>
+                                <th>何をするか</th>
+                                <th>得られる効果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>Test histogram</td>
+                                <td>テスト結果データの傾向を可視化</td>
+                                <td>壊れやすいテストの特定・リファクタ対象の選定</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Artificial Intelligence</td>
+                                <td>ロケータ変更の検知と自己修復など</td>
+                                <td>メンテナンス工数の削減</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Schema validation</td>
+                                <td>API・DB の構造をスキーマで一括検証</td>
+                                <td>テストコードの短縮と欠陥検出効率の向上</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="21-test-histogramテストヒストグラム">
+                    2.1 Test histogram（テストヒストグラム）
+                </h3>
+                <h4 id="211-何のためのものか">2.1.1 何のためのものか</h4>
+                <ul>
+                    <li>
+                        CI/CD
+                        ツールやテストレポートツールは、テスト結果と付随データ（例外ログ、エラーメッセージ、スクリーンショットなど）を表示できます。
+                    </li>
+                    <li>
+                        それらをヒストグラム（度数分布）などの視覚レポートにすると、テストケースごとのデータ傾向が一目で分かります。
+                    </li>
+                    <li>
+                        目的は、壊れやすい（fragile）テストケースを見つけ、追加の改善や実装の考え直しでリファクタすることです。
+                    </li>
+                </ul>
+                <h4 id="212-具体例イメージをつかむための例">
+                    2.1.2 具体例（イメージをつかむための例）
+                </h4>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        以下の数値は説明用の架空データです。シラバスが指定した形式ではなく、考え方を示す例です。
+                    </p>
+                </blockquote>
+                <p>直近 30 回の CI 実行で、テストケースごとの「失敗回数」を集計したとします。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>テストケース</th>
+                                <th>失敗回数（30 回中）</th>
+                                <th>主なエラーメッセージ</th>
+                                <th>判断</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>TC-001 ログイン成功</td>
+                                <td>0</td>
+                                <td>なし</td>
+                                <td>安定</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TC-014 カート追加</td>
+                                <td>2</td>
+                                <td>要素が見つからない</td>
+                                <td>経過観察</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TC-027 注文確定</td>
+                                <td>11</td>
+                                <td>Timeout waiting for element</td>
+                                <td>fragile：待機方法を見直す</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TC-033 検索結果表示</td>
+                                <td>9</td>
+                                <td>Stale element reference</td>
+                                <td>fragile：ロケータ／再取得を見直す</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-3"></div></div>
+                <h4 id="213-分析の手順ステップバイステップ">
+                    2.1.3 分析の手順（ステップバイステップ）
+                </h4>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-4"></div></div>
+                <h4 id="214-ベストプラクティス">2.1.4 ベストプラクティス</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ベストプラクティス</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>
+                                    失敗の回数だけでなく原因の種類（例外・エラーメッセージ・スクリーンショット）も併せて見る
+                                </td>
+                                <td>同じ失敗回数でも原因が SUT かテストかで打ち手が変わる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>実行履歴を継続的に蓄積する</td>
+                                <td>傾向は 1 回の実行では見えない</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>
+                                    fragile
+                                    なテストは通常の実行から切り離して原因を調べる（第7章の再現性の考え方と一致）
+                                </td>
+                                <td>不安定なテストが全体の信頼性を下げるのを防ぐ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>直したら同じ指標で再測定する</td>
+                                <td>改善効果を客観的に示せる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="22-artificial-intelligenceaiの活用">
+                    2.2 Artificial Intelligence（AI）の活用
+                </h3>
+                <h4 id="221-何ができるか">2.2.1 何ができるか</h4>
+                <ul>
+                    <li>
+                        UI テストでは、ロケータ値（要素を特定するための ID・XPath・CSS
+                        セレクタなど）も「データ」として扱えます。
+                    </li>
+                    <li>
+                        最近のツールには、ロケータが変わったことを検知し、機械学習や画像認識で新しいセレクタを特定して、自己修復（self-healing）アルゴリズムでテストケースを直すものがあります。
+                    </li>
+                    <li>
+                        変更されたロケータはテストレポートにも記録され、その後のバージョン管理への反映やコードメンテナンスを速められます。
+                    </li>
+                </ul>
+                <h4 id="222-自己修復の流れ">2.2.2 自己修復の流れ</h4>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-5"></div></div>
+                <h4 id="223-ベストプラクティスと注意点">2.2.3 ベストプラクティスと注意点</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>推奨</th>
+                                <th>補足</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>修復結果の扱い</td>
+                                <td>
+                                    自動修復を鵜呑みにせず、レポートで確認して恒久的にコードへ反映する
+                                </td>
+                                <td>
+                                    修復内容はレポートに記録されるので、確認とバージョン管理の材料になる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>期待する効果</td>
+                                <td>「壊れたロケータ探し」の時間を減らす</td>
+                                <td>設計の悪さ（例：不安定なロケータ設計）までは解決しない</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>併用すべき設計</td>
+                                <td>Page Object Model などでロケータを 1 か所に集約</td>
+                                <td>第3章の設計パターンと併用するとメンテナンスが楽になる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>失敗原因の切り分け</td>
+                                <td>SUT の欠陥か TAS の欠陥かの判別支援にも使える</td>
+                                <td>第6章の AI/ML ログ分析と関連</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="23-schema-validationスキーマ検証">2.3 Schema validation（スキーマ検証）</h3>
+                <h4 id="231-何ができるか">2.3.1 何ができるか</h4>
+                <ul>
+                    <li>
+                        API のデータ分析（エンドポイントが返すプロパティなど）と
+                        データベースの分析（フィールドの許容データ型・値の範囲などの検証ルール）に使います。
+                    </li>
+                    <li>
+                        レスポンスが実際のビジネス仕様に合っているかを確認できます。
+                        <ul>
+                            <li>必須要素が含まれているか</li>
+                            <li>各要素のオブジェクト型がスキーマ定義と一致するか</li>
+                        </ul>
+                    </li>
+                    <li>
+                        スキーマが崩れたときは、どの検証で失敗したかが返るため、原因特定に役立ちます。
+                    </li>
+                </ul>
+                <h4 id="232-シラバスの例をコードで理解する">
+                    2.3.2 シラバスの例をコードで理解する
+                </h4>
+                <p>
+                    シラバスの例：「API に必須のレスポンス要素が 6
+                    つあり、すべて文字列であるべき」。 スキーマ検証ツールを使うと、6
+                    要素それぞれに型チェック・null チェックの assertion
+                    を書かなくてよいため、テストコードが短くなり、バックエンドサービスの欠陥検出効率も上がります。
+                </p>
+                <p><strong>Before：個別の assertion を並べる場合</strong></p>
+                <div class="code-block">
+                    <pre><code class="language-python"># 要素ごとに手書きで検証（増えるほど長く、抜け漏れも起きやすい）
+body = response.json()
+assert isinstance(body["id"], str) and body["id"] is not None
+assert isinstance(body["name"], str) and body["name"] is not None
+assert isinstance(body["email"], str) and body["email"] is not None
+assert isinstance(body["status"], str) and body["status"] is not None
+assert isinstance(body["role"], str) and body["role"] is not None
+assert isinstance(body["createdAt"], str) and body["createdAt"] is not None</code></pre>
+                </div>
+                <p>
+                    <strong
+                        >After：スキーマ検証を使う場合（JSON Schema と Python の jsonschema
+                        の例）</strong
+                    >
+                </p>
+                <div class="code-block">
+                    <pre><code class="language-python">from jsonschema import validate
+
+user_schema = {
+    "type": "object",
+    "required": ["id", "name", "email", "status", "role", "createdAt"],
+    "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "email": {"type": "string"},
+        "status": {"type": "string"},
+        "role": {"type": "string"},
+        "createdAt": {"type": "string"},
+    },
+}
+
+validate(instance=response.json(), schema=user_schema)  # 違反があれば具体的な理由付きで例外</code></pre>
+                </div>
+                <h4 id="233-使いどころの整理">2.3.3 使いどころの整理</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>対象</th>
+                                <th>検証できること（例）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>REST API のレスポンス</td>
+                                <td>必須プロパティの有無、型、null 不可</td>
+                            </tr>
+                            <tr class="even">
+                                <td>データベース</td>
+                                <td>フィールドの型、値の範囲、必須項目</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>メッセージ／イベント</td>
+                                <td>ペイロードの構造</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="234-スキーマ検証と契約テスト第5章の違い">
+                    2.3.4 スキーマ検証と契約テスト（第5章）の違い
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>スキーマ検証</th>
+                                <th>契約テスト（Contract testing）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>主な目的</td>
+                                <td>レスポンス／データが仕様の構造に合っているか</td>
+                                <td>サービス同士が合意したやり取りを守っているか</td>
+                            </tr>
+                            <tr class="even">
+                                <td>合意の有無</td>
+                                <td>定義済みスキーマとの照合</td>
+                                <td>
+                                    提供側と利用側が許容される相互作用に合意し、契約として保存して双方が検証
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>範囲</td>
+                                <td>データの形</td>
+                                <td>やり取りの内容全体（進化への対応も含む）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>関係</td>
+                                <td>契約テストはスキーマ検証を超えるもの（第5章より）</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="235-ベストプラクティス">2.3.5 ベストプラクティス</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>
+                                    スキーマは手書きの assertion
+                                    より先に検討し、テストコードを短く保つ
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>
+                                    スキーマ定義は仕様書（API ドキュメント）と同期させる（第5章：API
+                                    ドキュメントはテスト自動化の基準）
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>
+                                    型・必須チェックはスキーマに任せ、ビジネスルールの検証だけを個別
+                                    assertion にする
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>
+                                    スキーマ違反時のメッセージをログ・レポートに残す（原因特定に直結する）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="3-812-導入済み-tas-の技術的側面を分析し改善を提案するk4">
+                    3. 8.1.2 導入済み TAS の技術的側面を分析し改善を提案する（K4）
+                </h2>
+                <h3 id="31-まず押さえる考え方">3.1 まず押さえる考え方</h3>
+                <ul>
+                    <li>
+                        日々のメンテナンス（SUT の変更に TAS を追従させる作業）とは別に、TAS
+                        には改善の余地がたくさんあります。
+                    </li>
+                    <li>
+                        改善の目的は、効率（手作業の削減）、使いやすさ、機能追加、テスト支援の向上など。
+                    </li>
+                    <li>
+                        どの改善を行うかは、「プロジェクトにとって最も価値の高い機能は何か」で決めます。
+                    </li>
+                </ul>
+                <h3 id="32-改善を検討する-9-つの領域">3.2 改善を検討する 9 つの領域</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>領域</th>
+                                <th>一言でいうと</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>Scripting</td>
+                                <td>スクリプト手法の見直しと実装の改善</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>Test execution</td>
+                                <td>実行時間の短縮・並列化・スケジューリング</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>Verification</td>
+                                <td>検証（assertion）処理の標準化</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>TAA</td>
+                                <td>SUT のテスト容易性向上に合わせたアーキテクチャ変更</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>TAF</td>
+                                <td>コアライブラリのバージョンアップ管理</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6</td>
+                                <td>Setup and teardown</td>
+                                <td>繰り返し処理の集約</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7</td>
+                                <td>Documentation</td>
+                                <td>自動化コード・TAS 利用者向け・レポート／ログの文書</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8</td>
+                                <td>TAS features</td>
+                                <td>使われる機能だけを追加</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>9</td>
+                                <td>TAF updates and upgrades</td>
+                                <td>ツールの更新前にサンプルテストで確認</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-6"></div></div>
+                <h3 id="33-領域①-scriptingスクリプティング">
+                    3.3 領域① Scripting（スクリプティング）
+                </h3>
+                <h4 id="331-スクリプト手法をアップグレードする">
+                    3.3.1 スクリプト手法をアップグレードする
+                </h4>
+                <p>第3章で学んだ手法の進化の方向です。</p>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-7"></div></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>選択肢</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>新規テストのみ新手法にする</td>
+                                <td>移行コストを抑えられる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>既存テストにも新手法を適用する（後付け）</td>
+                                <td>
+                                    全部が難しければ、保守工数が最も大きいテストだけでも対象にする
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="332-実装面の改善3つの例">3.3.2 実装面の改善（3つの例）</h4>
+                <p><strong>（1）テストスクリプト／ケース／ステップの重複を統合する</strong></p>
+                <ul>
+                    <li>似た操作の並びを何度も実装しない。</li>
+                    <li>
+                        共通のステップを関数化してライブラリに追加し、複数のテストで再利用する。
+                    </li>
+                    <li>
+                        同一ではなく「似ている」場合はパラメータ化する（キーワード駆動テストでよく使う考え方）。
+                    </li>
+                </ul>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>Before</th>
+                                <th>After</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ログイン手順を 30 本のテストに個別コピー</td>
+                                <td>
+                                    <code>login(user, password)</code> を 1 か所に定義し、30
+                                    本から呼ぶ
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>「一般ユーザー用」「管理者用」で別関数</td>
+                                <td>
+                                    <code>login(user, password)</code> に引数でユーザー種別を渡す
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>（2）失敗からの復旧手順（failure recovery）を用意する</strong></p>
+                <ul>
+                    <li>
+                        スイート実行中に失敗しても、TAS が復旧して次のテストを続けられるようにする。
+                    </li>
+                    <li>
+                        SUT 側の失敗では、可能かつ現実的なら SUT の復旧操作（例：再起動）を TAS
+                        が行う。
+                    </li>
+                </ul>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-8"></div></div>
+                <p><strong>（3）待機方式（wait mechanism）を見直す</strong></p>
+                <p>3つの方式を比較します。試験頻出です。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>方式</th>
+                                <th>内容</th>
+                                <th>長所</th>
+                                <th>短所・注意</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>① 固定待機（hard coded wait）</td>
+                                <td>決まったミリ秒だけ待つ</td>
+                                <td>実装が簡単</td>
+                                <td>
+                                    ソフトウェアの応答時間は予測しにくく、自動化の欠陥の原因になりやすい
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>② ポーリングによる動的待機</td>
+                                <td>状態変化や動作の完了を繰り返し確認する</td>
+                                <td>
+                                    必要な時間だけ待つので時間の無駄がない。想定より遅くても条件成立まで待てる
+                                </td>
+                                <td>タイムアウト必須（欠陥があると永遠に待つため）</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>③ イベント購読</td>
+                                <td>SUT のイベント機構を購読する</td>
+                                <td>①②より信頼性が高い</td>
+                                <td>
+                                    スクリプト言語がイベント購読に対応し、SUT
+                                    がイベントを提供する必要あり。タイムアウト必須
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>コード例（Selenium の明示的待機。ポーリングの考え方）</p>
+                <div class="code-block">
+                    <pre><code class="language-python">from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+# ダメな例：固定待機
+# time.sleep(5)
+
+# 良い例：条件が成立するまで待つ（最大 10 秒＝タイムアウト付き）
+button = WebDriverWait(driver, timeout=10).until(
+    EC.element_to_be_clickable((By.ID, "submit"))
+)
+button.click()</code></pre>
+                </div>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        覚え方：信頼性は「固定待機 &lt; ポーリング &lt;
+                        イベント購読」。ただし②③は必ずタイムアウトを付ける。
+                    </p>
+                </blockquote>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-9"></div></div>
+                <h3 id="34-領域②-test-executionテスト実行">
+                    3.4 領域② Test execution（テスト実行）
+                </h3>
+                <h4 id="341-課題リグレッションが時間内に終わらない">
+                    3.4.1 課題：リグレッションが時間内に終わらない
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>対策</th>
+                                <th>内容</th>
+                                <th>制約・注意</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>複数環境で並行実行</td>
+                                <td>別々のテスト環境で同時にテストする</td>
+                                <td>可能な場合のみ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>スイートの分割</td>
+                                <td>一定時間内（例：一晩）に収まるよう複数部分に分割</td>
+                                <td>
+                                    高価なシステムを使い、単一ターゲットでしか実行できない場合に有効
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>重複の排除</td>
+                                <td>自動化カバレッジを分析して重複を見つけ、除く</td>
+                                <td>実行時間の短縮とさらなる効率化につながる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>CI/CD でバッチジョブを並列実行</td>
+                                <td>実行時間を最適化</td>
+                                <td>良い実践として示されている</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>パイプラインのスケジュール実行</td>
+                                <td>例：毎朝決まった時刻に実行</td>
+                                <td>手作業とやり取りを減らし、開発を速める</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="342-github-actions-での実装例考え方の理解用">
+                    3.4.2 GitHub Actions での実装例（考え方の理解用）
+                </h4>
+                <div class="code-block">
+                    <pre><code class="language-yaml">name: regression
+on:
+  schedule:
+    - cron: "0 17 * * *"   # 毎日定時に実行（UTC 基準）
+  workflow_dispatch:        # 手動実行も可能
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        suite: [smoke, api, ui-part1, ui-part2]   # スイートを分割して並列実行
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./run-tests.sh ${{ matrix.suite }}</code></pre>
+                </div>
+                <h4 id="343-ベストプラクティス">3.4.3 ベストプラクティス</h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>まず重複の排除から着手する（並列化の前に総量を減らす）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>分割後も各部分の実行時間を計測して偏りを直す</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>
+                                    並列化するテストは相互に独立させる（共有データに依存しない）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>
+                                    朝に結果が見えるよう夜間実行にする（第5章の nightly regression
+                                    と連動）
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="35-領域③-verification検証">3.5 領域③ Verification（検証）</h3>
+                <ul>
+                    <li>
+                        新しい検証関数を作る前に、全テストで使う標準の検証方法のセットを採用する。
+                    </li>
+                    <li>これにより、複数テストで検証処理の再実装を避けられる。</li>
+                    <li>
+                        検証方法が「同一ではないが似ている」場合は、パラメータ化で1つの関数を複数種類のオブジェクトに使えるようにする。
+                    </li>
+                </ul>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>Before</th>
+                                <th>After</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テストごとに独自の「表示確認」処理</td>
+                                <td>
+                                    標準の <code>verify_visible(element)</code> を全テストで共通利用
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>入力欄用・ドロップダウン用・ボタン用で別々の検証関数</td>
+                                <td>対象タイプを引数にした共通検証関数</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="36-領域④-taaテスト自動化アーキテクチャ">
+                    3.6 領域④ TAA（テスト自動化アーキテクチャ）
+                </h3>
+                <h4 id="361-内容">3.6.1 内容</h4>
+                <ul>
+                    <li>
+                        SUT のテスト容易性（testability）を高めるために、SUT のアーキテクチャと TAS
+                        の TAA の両方を変える場合がある。
+                    </li>
+                    <li>大きな改善につながるが、SUT／TAS への大きな変更と投資が必要になりうる。</li>
+                    <li>
+                        例：SUT がテスト用の API を提供するように変わるなら、TAS
+                        もそれに合わせてリファクタリングする。
+                    </li>
+                </ul>
+                <h4 id="362-重要ポイント">3.6.2 重要ポイント</h4>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        後から追加すると高くつく。テスト容易性の機能は、テスト自動化の開始時点、および
+                        SUT の SDLC の早い段階から考えるのがはるかに良い。
+                    </p>
+                </blockquote>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-10"></div></div>
+                <p>
+                    関連：第2章の「観測可能性（Observability）」「制御可能性（Controllability）」「アーキテクチャの透明性」。
+                </p>
+                <h3 id="37-領域⑤-tafコアライブラリのバージョンアップ">
+                    3.7 領域⑤ TAF（コアライブラリのバージョンアップ）
+                </h3>
+                <p>
+                    第3章のレイヤー構成（テストスクリプト層 / ビジネスロジック層 /
+                    コアライブラリ層）が前提です。
+                </p>
+                <h4 id="371-課題">3.7.1 課題</h4>
+                <p>
+                    コアライブラリにメジャーアップデートが出ても、最新版をすぐに TAF
+                    の依存関係に指定すると、多くのチームのテストが壊れるおそれがあります。
+                </p>
+                <h4 id="372-推奨する進め方">3.7.2 推奨する進め方</h4>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-11"></div></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>方法</th>
+                                <th>内容</th>
+                                <th>向いている状況</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>同時採用</td>
+                                <td>
+                                    コアライブラリ層のビルドファイルの依存関係を更新し、全チームが同時に新版へ
+                                </td>
+                                <td>チーム間の足並みを揃えやすいとき</td>
+                            </tr>
+                            <tr class="even">
+                                <td>個別採用</td>
+                                <td>各チームがビジネスロジック層で更新時期を決める</td>
+                                <td>
+                                    チームごとに事情が違うとき。最終的に全チーム準備完了後、コアライブラリ層を更新
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="38-領域⑥-setup-and-teardownセットアップとティアダウン">
+                    3.8 領域⑥ Setup and teardown（セットアップとティアダウン）
+                </h3>
+                <ul>
+                    <li>
+                        各テストスクリプトやテストスイートの前後で繰り返される操作・設定は、setup／teardown
+                        メソッドに移す。
+                    </li>
+                    <li>変更があっても1 か所の修正で済むため、保守工数が減る。</li>
+                    <li>
+                        例：UI テストの前提条件・後始末に Web
+                        サービス呼び出しを使う（ユーザー登録、ユーザー削除、プロフィール設定など）。
+                    </li>
+                </ul>
+                <p><strong>pytest のフィクスチャの例</strong></p>
+                <div class="code-block">
+                    <pre><code class="language-python">import pytest
+
+@pytest.fixture
+def registered_user(api_client):
+    # setup：UI を操作せず API でユーザーを作成（速く安定する）
+    user = api_client.post("/users", json={"name": "tester"}).json()
+    yield user
+    # teardown：テスト後に API で後始末
+    api_client.delete(f"/users/{user['id']}")
+
+def test_login_ui(browser, registered_user):
+    browser.login(registered_user["name"])
+    assert browser.is_logged_in()</code></pre>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>ベストプラクティス</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>前提条件は API で作る（可能な場合）</td>
+                                <td>UI 操作より速く、UI 変更の影響も受けにくい</td>
+                            </tr>
+                            <tr class="even">
+                                <td>teardown はテストが失敗しても必ず実行される仕組みにする</td>
+                                <td>データが残ると次のテストに影響する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>setup／teardown の処理は 1 か所に集約</td>
+                                <td>変更箇所を最小にできる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="39-領域⑦-documentationドキュメント">
+                    3.9 領域⑦ Documentation（ドキュメント）
+                </h3>
+                <p>対象は次のすべてです。</p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>種類</th>
+                                <th>内容の例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>自動化コードの文書</td>
+                                <td>コードが何をするか、どう使うか</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS の利用者向け文書</td>
+                                <td>TAS を使う人のためのガイド</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テストレポート・テストログ</td>
+                                <td>TAS が出力するもの</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        改善の観点：文書が古くなっていないか、新メンバーが読んで使い始められるか、レポート・ログが分析に十分な情報を含んでいるか。
+                    </p>
+                </blockquote>
+                <h3 id="310-領域⑧-tas-featurestas-の機能">3.10 領域⑧ TAS features（TAS の機能）</h3>
+                <ul>
+                    <li>追加候補：詳細なテストレポート、テストログ、他システムとの連携など。</li>
+                    <li>使われる機能だけを追加する。</li>
+                    <li>使われない機能を増やすと、複雑さが増し、信頼性と保守性が下がる。</li>
+                </ul>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>追加してよい機能</th>
+                                <th>追加を控えるべき機能</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>利用者・ステークホルダーが実際に使う</td>
+                                <td>「あったら便利かも」という想定だけ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>課題（例：原因調査に時間がかかる）を解決する</td>
+                                <td>誰も使わないダッシュボード</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="311-領域⑨-taf-updates-and-upgradestaf-の更新アップグレード">
+                    3.11 領域⑨ TAF updates and upgrades（TAF の更新・アップグレード）
+                </h3>
+                <ul>
+                    <li>新バージョンで新機能が使える、または不具合が修正される利点がある。</li>
+                    <li>
+                        リスク：既存ツールのアップグレードや新ツールの導入が、既存テストに悪影響を与える可能性がある。
+                    </li>
+                    <li>対策：本番展開の前に、最新版ツールでサンプルテストを実行する。</li>
+                    <li>サンプルテストは、次を代表するものにする。</li>
+                </ul>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>サンプルテストが代表すべき対象</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>異なる SUT</td>
+                            </tr>
+                            <tr class="even">
+                                <td>異なるテストタイプ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>（適切なら）異なるテスト環境</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-12"></div></div>
+                <h2 id="4-813-sut-の更新に合わせてテストウェアを再構成するk3">
+                    4. 8.1.3 SUT の更新に合わせてテストウェアを再構成する（K3）
+                </h2>
+                <h3 id="41-前提">4.1 前提</h3>
+                <ul>
+                    <li>
+                        SUT が変更されると、TAF とコンポーネントライブラリを含む TAS
+                        の更新が必要になる。
+                    </li>
+                    <li>
+                        どんなに些細な変更でも、TAS
+                        の信頼性・性能に広範囲の悪影響を及ぼす可能性がある。
+                    </li>
+                </ul>
+                <h3 id="42-進め方テスト環境コンポーネントの変更への対応">
+                    4.2 進め方（テスト環境コンポーネントの変更への対応）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>ステップ</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>
+                                    どの変更・改善が必要かを評価（テストウェア／カスタム関数ライブラリ／OS
+                                    のどれに影響するか）
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>
+                                    段階的に変更する（MVP
+                                    の考え方で、まず限定したテストスクリプトで影響を測る）
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>副作用がないと確認できたら、変更を全面適用する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>完全なリグレッション実行で最終確認する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>
+                                    失敗が出たら、レポート・ログ・テストデータ分析で根本原因を特定し、改善作業が原因でないか確かめる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-13"></div></div>
+                <h3 id="43-具体的な再構成項目">4.3 具体的な再構成項目</h3>
+                <h4 id="①-コア-tas-関数ライブラリの効率と効果を高める">
+                    ① コア TAS 関数ライブラリの効率と効果を高める
+                </h4>
+                <ul>
+                    <li>TAS が成熟すると、作業をより効率的に行う新しい方法が見つかる。</li>
+                    <li>例：関数内のコード最適化、より新しい OS ライブラリの利用。</li>
+                    <li>
+                        こうした新技術は、現行プロジェクトと今後のプロジェクトが使うコア関数ライブラリに取り込む。
+                    </li>
+                </ul>
+                <h4 id="②-同じコントロール種別に作用する複数関数を統合する">
+                    ② 同じコントロール種別に作用する複数関数を統合する
+                </h4>
+                <p>
+                    自動テストの大部分は、GUI
+                    コントロールの状態確認（表示／非表示、有効／無効、サイズ、データなど）です。
+                </p>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>状況</th>
+                                <th>改善</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ドロップダウン専用など、専門化した関数が多数ある</td>
+                                <td>関数を引数で指定して汎用的に扱える少数の関数に統合する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>結果</td>
+                                <td>同じ結果を得ながらメンテナンスを最小化</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-block">
+                    <pre><code class="language-python"># Before：種類ごとに別関数
+def select_dropdown(el, value): ...
+def type_into_field(el, value): ...
+def read_field(el): ...
+
+# After：操作を引数にした共通関数（考え方の例）
+def act_on_control(el, action, value=None):
+    if action == "select": ...
+    elif action == "type": ...
+    elif action == "read": ...</code></pre>
+                </div>
+                <h4 id="③-sut-の変更に対応して-taa-をリファクタリングする">
+                    ③ SUT の変更に対応して TAA をリファクタリングする
+                </h4>
+                <ul>
+                    <li>SUT が進化・成熟するにつれ、土台となる TAA も進化させる。</li>
+                    <li>機能拡張は「継ぎ足し（bolt-on）」で実装しない。TAA で分析し、変更する。</li>
+                    <li>
+                        これにより、新しい SUT
+                        機能に必要な新しいテストスクリプトを、互換性のあるコンポーネントで受け止められる。
+                    </li>
+                </ul>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>継ぎ足し（避ける）</th>
+                                <th>TAA の見直し（推奨）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>目先の機能だけ追加する</td>
+                                <td>分析し、アーキテクチャの中に位置づける</td>
+                            </tr>
+                            <tr class="even">
+                                <td>将来のテスト追加時に再び継ぎ足しが必要</td>
+                                <td>新しいテストを受け入れる土台がすでにある</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 id="④-命名規則と標準化">④ 命名規則と標準化</h4>
+                <ul>
+                    <li>
+                        変更時に新しい自動化コード・関数ライブラリの命名規則を、既存の標準（4.3.1
+                        節）と一貫させる。
+                    </li>
+                    <li>
+                        例：<code>loginButton</code>、<code>resetPasswordButton</code>
+                        のように対象が分かる名前（第4章）。
+                    </li>
+                </ul>
+                <h4 id="⑤-既存テストスクリプトの見直し廃止の評価">
+                    ⑤ 既存テストスクリプトの見直し・廃止の評価
+                </h4>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>状況</th>
+                                <th>対応</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>複雑で実行に時間がかかるテスト</td>
+                                <td>より小さなテストに分解するほうが有効で効率的な場合がある</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ほとんど、あるいはまったく実行されないテスト</td>
+                                <td>
+                                    廃止の対象にして TAS
+                                    の複雑さを減らし、保守すべき対象を明確にする
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-14"></div></div>
+                <h2 id="5-814-テスト自動化ツールの活用機会k2">
+                    5. 8.1.4 テスト自動化ツールの活用機会（K2）
+                </h2>
+                <h3 id="51-考え方">5.1 考え方</h3>
+                <p>
+                    テスト自動化ツールは「テストそのものの実行」以外の、テスト関連の付随活動も助けられます。
+                </p>
+                <h3 id="52-環境のセットアップと制御environment-setup-and-control">
+                    5.2 環境のセットアップと制御（Environment setup and control）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>テストデータの作成</td>
+                                <td>
+                                    テストデータを作るスクリプトを、setup
+                                    メソッドに組み込み、新しいテスト環境に多様なテストデータを作成できる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>複数プロフィールのユーザー作成</td>
+                                <td>
+                                    異なるデータ入力に基づく複数プロフィールのユーザーが必要なとき、Web
+                                    サービスのエンドポイントを呼び出してユーザーを登録する自動テストスクリプトを使える
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>インフラのセットアップ制御</td>
+                                <td>
+                                    テストスクリプトでテストインフラのセットアップを制御し、後片付け（クリーンアップ）にも利用できる
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>効果</td>
+                                <td>
+                                    時間を節約し、新しいテスト環境ごとに適切なユーザーが確実に存在するようにできる。例：テストログなどのテストウェアをテスト環境から自動で削除し、環境の整理（ハウスキーピング）と利用を効率化する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-15"></div></div>
+                <h3 id="53-データエイジングdata-aging">5.3 データエイジング（Data aging）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>何をするか</td>
+                                <td>テスト自動化を使って、テスト環境内のテストデータを操作する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>シラバスの例</td>
+                                <td>
+                                    データベースの日付フィールドを確認・制御し、年単位で見て最新の状態に保つ
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        補足（説明用の例）：「有効期限が今日から 1
+                        年以内の会員」を前提にしたテストデータは、時間の経過とともに期限切れになり、テストが意図せず失敗するようになります。日付を定期的に更新するスクリプトを用意しておくと、テストデータを「古びない」状態に保てます。
+                    </p>
+                </blockquote>
+                <h3 id="54-スクリーンショットと動画の生成screenshot-and-video-generation">
+                    5.4 スクリーンショットと動画の生成（Screenshot and video generation）
+                </h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観点</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>ツールの機能</td>
+                                <td>
+                                    最近の UI
+                                    テスト自動化ツールの多くは、特定の条件でスクリーンショットや動画を作成・保存する機能を標準で備えている
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>テスト以外での活用</td>
+                                <td>
+                                    チームはこれらのツールを使い、ソフトウェアのリリース文書やマーケティング向けに、実際の利用画面のスクリーンショットや動画を作成してビジネス側を支援できる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="55-ベストプラクティス">5.5 ベストプラクティス</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>ベストプラクティス</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>環境準備は手作業ではなくスクリプト化する</td>
+                                <td>再現性が上がり、準備時間が減る</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>準備と後片付けをセットで自動化する</td>
+                                <td>前回のデータが次回に影響するのを防ぐ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>環境準備のスクリプトもバージョン管理する</td>
+                                <td>第5章のテストウェアの構成管理の考え方と同じ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>接続や権限は事前にチェックする</td>
+                                <td>第7章：TAS 導入後の前提条件確認の考え方と一致</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>
+                                    日付に依存するテストデータはエイジング用スクリプトで定期的に更新する
+                                </td>
+                                <td>時間の経過による意図しない失敗を防ぐ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6</td>
+                                <td>
+                                    リリース文書用の画面は、既存の UI
+                                    自動テストのスクリーンショット・動画機能で作る
+                                </td>
+                                <td>
+                                    手作業のキャプチャより再現性が高く、画面変更にも追従しやすい
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        補足：8.1.4
+                        は「実際のテスト以外の、特定されないテスト活動」の例として、環境のセットアップと制御、データエイジング、スクリーンショットと動画の生成の3つを挙げています（公式シラバス
+                        PDF の 52〜53 ページ）。
+                    </p>
+                </blockquote>
+                <h2 id="6-試験対策ひっかけポイントと確認問題">
+                    6. 試験対策：ひっかけポイントと確認問題
+                </h2>
+                <h3 id="61-ひっかけポイント表">6.1 ひっかけポイント表</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>論点</th>
+                                <th>正しい理解</th>
+                                <th>ありがちな誤解</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>test histogram の目的</td>
+                                <td>fragile なテストを特定しリファクタする</td>
+                                <td>実行時間の短縮だけが目的</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>自己修復</td>
+                                <td>
+                                    変更ロケータはレポートに記録され、後続のバージョン管理・保守を速める
+                                </td>
+                                <td>人の確認が一切不要になる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>schema validation</td>
+                                <td>個別 assertion を書かずに型・必須要素をまとめて検証できる</td>
+                                <td>ビジネスロジックまですべて検証できる</td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>待機方式の信頼性</td>
+                                <td>固定待機 &lt; ポーリング &lt; イベント購読</td>
+                                <td>ポーリングが最も信頼できる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>タイムアウト</td>
+                                <td>ポーリングとイベント購読の両方で必要</td>
+                                <td>ポーリングだけで必要</td>
+                            </tr>
+                            <tr class="even">
+                                <td>6</td>
+                                <td>固定待機</td>
+                                <td>応答時間が予測できず自動化の欠陥の原因になりやすい</td>
+                                <td>最も確実な方法</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7</td>
+                                <td>TAA の変更</td>
+                                <td>後から加えると高コスト。早期から検討すべき</td>
+                                <td>後半に対応すればよい</td>
+                            </tr>
+                            <tr class="even">
+                                <td>8</td>
+                                <td>コアライブラリの更新</td>
+                                <td>まずパイロットと影響分析、その後に導入計画</td>
+                                <td>最新版を即時に依存関係へ反映する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>9</td>
+                                <td>TAS 機能の追加</td>
+                                <td>使われる機能だけ追加する</td>
+                                <td>多いほど良い</td>
+                            </tr>
+                            <tr class="even">
+                                <td>10</td>
+                                <td>ツールのアップグレード</td>
+                                <td>代表的なサンプルテストで事前確認</td>
+                                <td>全テストを一度に本番で試す</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>11</td>
+                                <td>SUT 変更への対応</td>
+                                <td>段階的（MVP）に変更し、最後に完全リグレッション</td>
+                                <td>最初から全面適用する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>12</td>
+                                <td>機能の実装</td>
+                                <td>継ぎ足し（bolt-on）ではなく TAA を分析・変更して実装</td>
+                                <td>目先の機能を継ぎ足す</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>13</td>
+                                <td>実行されないテスト</td>
+                                <td>廃止を検討して TAS を簡素化</td>
+                                <td>すべて保持する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>14</td>
+                                <td>複雑で長いテスト</td>
+                                <td>小さなテストに分解する場合がある</td>
+                                <td>1 本のまま維持する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="62-確認問題自己チェック">6.2 確認問題（自己チェック）</h3>
+                <div class="qa-card">
+                    <p class="qa-question">
+                        <strong>Q1.</strong> API のレスポンスに 6
+                        つの必須文字列要素があります。個別の assertion を 6
+                        本書く代わりに、テストコードを短くしつつ型と必須要素を確認できる方法は？
+                    </p>
+                    <blockquote class="callout-answer">
+                        <div class="callout-icon">✅</div>
+                        <p>
+                            答え：Schema
+                            validation（スキーマ検証）。スキーマ違反時は実際の検証結果が返るため、原因特定にも役立つ。
+                        </p>
+                    </blockquote>
+                </div>
+
+                <div class="qa-card">
+                    <p class="qa-question">
+                        <strong>Q2.</strong>
+                        「固定待機」「ポーリング」「イベント購読」のうち、最も信頼性が高いのはどれ？
+                        その条件は？
+                    </p>
+                    <blockquote class="callout-answer">
+                        <div class="callout-icon">✅</div>
+                        <p>
+                            答え：イベント購読。ただし、テストスクリプト言語がイベント購読に対応し、SUT
+                            がイベントを TAS に提供する必要がある。タイムアウト機構も必要。
+                        </p>
+                    </blockquote>
+                </div>
+
+                <div class="qa-card">
+                    <p class="qa-question">
+                        <strong>Q3.</strong>
+                        コアライブラリのメジャーアップデートが出ました。どう進めるのが適切？
+                    </p>
+                    <blockquote class="callout-answer">
+                        <div class="callout-icon">✅</div>
+                        <p>
+                            答え：まずパイロットと影響分析を行い、導入計画を作る。全チーム同時採用（コアライブラリ層のビルドファイルで依存関係を更新）か、各チームが個別に更新（ビジネスロジック層）し、最終的に全チームの準備が整ってからコアライブラリ層を更新する。
+                        </p>
+                    </blockquote>
+                </div>
+
+                <div class="qa-card">
+                    <p class="qa-question">
+                        <strong>Q4.</strong> SUT
+                        が更新されました。テストウェアの変更を安全に進める最終確認の手段は？
+                    </p>
+                    <blockquote class="callout-answer">
+                        <div class="callout-icon">✅</div>
+                        <p>
+                            答え：まず限定したテストスクリプトで副作用がないことを確認して変更を全面適用し、最後に完全なリグレッション実行で確認する。失敗が出たら、その原因が改善作業によるものでないかをログ・レポート・データ分析で確認する。
+                        </p>
+                    </blockquote>
+                </div>
+
+                <div class="qa-card">
+                    <p class="qa-question">
+                        <strong>Q5.</strong>
+                        「テストにあったら便利そう」という理由で、誰も使わないレポート機能を TAS
+                        に追加する提案がありました。適切な判断は？
+                    </p>
+                    <blockquote class="callout-answer">
+                        <div class="callout-icon">✅</div>
+                        <p>
+                            答え：追加しない。使われない機能は複雑さを増し、信頼性と保守性を下げる。使われる機能だけを追加する。
+                        </p>
+                    </blockquote>
+                </div>
+
+                <div class="qa-card">
+                    <p class="qa-question">
+                        <strong>Q6.</strong>
+                        何か月も実行されていない複雑なテストスクリプトがあります。どう対処する？
+                    </p>
+                    <blockquote class="callout-answer">
+                        <div class="callout-icon">✅</div>
+                        <p>
+                            答え：廃止の対象として評価する。TAS
+                            の複雑さを減らし、何を保守すべきかが明確になる。複雑で長いだけのテストなら、小さなテストへの分解も検討する。
+                        </p>
+                    </blockquote>
+                </div>
+
+                <h2 id="7-ベストプラクティス総まとめ">7. ベストプラクティス総まとめ</h2>
+                <h3 id="71-項目別">7.1 項目別</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>領域</th>
+                                <th>ベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>データ分析</td>
+                                <td>
+                                    履歴を蓄積し、ヒストグラムで fragile
+                                    なテストを見つけ、改善後に再測定する
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>AI・自己修復</td>
+                                <td>修復結果はレポートで確認し、恒久的にコードへ反映する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>スキーマ検証</td>
+                                <td>
+                                    型・必須チェックはスキーマに任せ、ビジネスルールだけ個別に検証する
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>スクリプト</td>
+                                <td>重複はライブラリ関数化し、似た処理はパラメータ化する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>失敗復旧</td>
+                                <td>
+                                    失敗後も次のテストへ継続できる復旧手順を TAS と SUT
+                                    の両方に用意する
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>待機</td>
+                                <td>
+                                    固定待機を避け、ポーリングまたはイベント購読に。必ずタイムアウトを付ける
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>実行</td>
+                                <td>重複排除 → 並列化・分割 → スケジュール実行の順に検討する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>検証</td>
+                                <td>
+                                    全テスト共通の標準検証メソッドを用意し、似た検証はパラメータ化する
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAA</td>
+                                <td>テスト容易性は SDLC の早期に設計し、後付けを避ける</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAF</td>
+                                <td>コアライブラリ更新は、パイロット → 影響分析 → 導入計画</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>setup/teardown</td>
+                                <td>繰り返し処理を集約し、前提条件には API を活用する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ドキュメント</td>
+                                <td>自動化コード・TAS 利用者向け・レポート／ログを最新に保つ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAS 機能</td>
+                                <td>使われる機能だけ追加する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>ツール更新</td>
+                                <td>代表的なサンプルテストで事前に確認してから展開する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>SUT 更新対応</td>
+                                <td>段階的に変更 → 副作用確認 → 全面適用 → 完全リグレッション</td>
+                            </tr>
+                            <tr class="even">
+                                <td>関数統合</td>
+                                <td>同じコントロール種別に作用する関数は少数に統合する</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>拡張</td>
+                                <td>継ぎ足しでなく、TAA を分析して変更する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>命名</td>
+                                <td>既存の命名規則・標準に合わせる</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>テスト棚卸し</td>
+                                <td>長大なテストは分解、実行されないテストは廃止を検討する</td>
+                            </tr>
+                            <tr class="even">
+                                <td>環境準備</td>
+                                <td>スクリプト化し、準備と後片付けをセットにする</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>データエイジング</td>
+                                <td>日付に依存するテストデータを自動で最新に保つ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>画面キャプチャ</td>
+                                <td>
+                                    UI
+                                    自動テストのスクリーンショット・動画をリリース文書やマーケティングにも活用する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="72-改善提案を書くときの型k4-対策">7.2 改善提案を書くときの型（K4 対策）</h3>
+                <p>
+                    K4 問題では「状況の分析 → 原因の特定 →
+                    推奨」の流れで考えると整理しやすくなります。
+                </p>
+                <div class="mermaid-container"><div class="mermaid-diagram" id="mmd-16"></div></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>観察された状況</th>
+                                <th>分析</th>
+                                <th>推奨される改善</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>特定のテストだけ Timeout で頻繁に失敗</td>
+                                <td>固定待機が原因の可能性</td>
+                                <td>ポーリングまたはイベント購読に変更（タイムアウト付き）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>同じログイン手順が数十本に重複</td>
+                                <td>保守性の問題</td>
+                                <td>ライブラリ関数化・パラメータ化</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>夜間に終わらないリグレッション</td>
+                                <td>実行時間の問題</td>
+                                <td>重複排除、並列実行、スイート分割</td>
+                            </tr>
+                            <tr class="even">
+                                <td>コアライブラリ更新で他チームのテストが壊れた</td>
+                                <td>導入手順の問題</td>
+                                <td>パイロット、影響分析、導入計画</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>UI 変更のたびにロケータ修正</td>
+                                <td>ロケータ管理の問題</td>
+                                <td>自己修復ツールの活用に加え、ロケータの集約</td>
+                            </tr>
+                            <tr class="even">
+                                <td>API のレスポンス検証コードが長大</td>
+                                <td>assertion の冗長さ</td>
+                                <td>スキーマ検証の導入</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="8-用語集">8. 用語集</h2>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>用語</th>
+                                <th>意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>test histogram</td>
+                                <td>
+                                    テストデータの傾向を示す視覚レポート。fragile
+                                    なテストの特定に使う
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>schema validation</td>
+                                <td>
+                                    データ構造の定義（スキーマ）に基づき、型・必須要素などを検証すること
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>fragile test</td>
+                                <td>壊れやすい（不安定な）テスト</td>
+                            </tr>
+                            <tr class="even">
+                                <td>self-healing</td>
+                                <td>ロケータ変更などを検知し、テストを自動で修復する仕組み</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>wait mechanism</td>
+                                <td>待機方式（固定待機・ポーリング・イベント購読）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>polling</td>
+                                <td>条件が成立したかを繰り返し確認する方式</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>timeout</td>
+                                <td>待機の上限時間。無限待機を防ぐ</td>
+                            </tr>
+                            <tr class="even">
+                                <td>failure recovery</td>
+                                <td>失敗後に TAS／SUT を復旧し、テストを継続する仕組み</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>setup / teardown</td>
+                                <td>テストの前提条件を整える処理 / 後始末をする処理</td>
+                            </tr>
+                            <tr class="even">
+                                <td>bolt-on</td>
+                                <td>
+                                    既存の設計を見直さず継ぎ足して機能を追加すること（避けるべき）
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>MVP mindset</td>
+                                <td>最小限の変更から始めて影響を測る考え方</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAA</td>
+                                <td>テスト自動化アーキテクチャ</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>TAF</td>
+                                <td>テスト自動化フレームワーク</td>
+                            </tr>
+                            <tr class="even">
+                                <td>TAS</td>
+                                <td>テスト自動化ソリューション</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>core libraries</td>
+                                <td>SUT に依存しない共通ライブラリの層（第3章）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>business logic layer</td>
+                                <td>SUT 依存のライブラリを置く層（第3章）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 id="9-出典ソースurl">9. 出典（ソース）URL</h2>
+                <h3 id="91-一次情報本ガイドの根拠">9.1 一次情報（本ガイドの根拠）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>出典</th>
+                                <th>URL</th>
+                                <th>根拠にした箇所</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
+                                <td>ISTQB CTAL-TAE v2.0 認定ページ</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                        >https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/</a
+                                    >
+                                </td>
+                                <td>試験の位置づけ・公式資料の入口</td>
+                            </tr>
+                            <tr class="even">
+                                <td>2</td>
+                                <td>ISTQB CTAL-TAE Syllabus v2.0（PDF）</td>
+                                <td>
+                                    <a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+                                        >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf</a
+                                    >
+                                </td>
+                                <td>
+                                    第8章 8.1.1〜8.1.4（47〜53 ページ）。第3・4・5・6・7章の関連記述
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 id="92-補足資料コード例実装の理解用">9.2 補足資料（コード例・実装の理解用）</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>テーマ</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>3</td>
+                                <td>待機（Selenium）</td>
+                                <td>
+                                    <a
+                                        href="https://www.selenium.dev/documentation/webdriver/waits/"
+                                        >https://www.selenium.dev/documentation/webdriver/waits/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>4</td>
+                                <td>自動待機（Playwright）</td>
+                                <td>
+                                    <a href="https://playwright.dev/docs/actionability"
+                                        >https://playwright.dev/docs/actionability</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>5</td>
+                                <td>JSON Schema</td>
+                                <td>
+                                    <a href="https://json-schema.org/">https://json-schema.org/</a>
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>6</td>
+                                <td>契約テスト（Pact）</td>
+                                <td><a href="https://docs.pact.io/">https://docs.pact.io/</a></td>
+                            </tr>
+                            <tr class="odd">
+                                <td>7</td>
+                                <td>フィクスチャ（pytest）</td>
+                                <td>
+                                    <a href="https://docs.pytest.org/en/stable/how-to/fixtures.html"
+                                        >https://docs.pytest.org/en/stable/how-to/fixtures.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>8</td>
+                                <td>不安定なテスト（Martin Fowler）</td>
+                                <td>
+                                    <a href="https://martinfowler.com/articles/nonDeterminism.html"
+                                        >https://martinfowler.com/articles/nonDeterminism.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>9</td>
+                                <td>Page Object（Martin Fowler）</td>
+                                <td>
+                                    <a href="https://martinfowler.com/bliki/PageObject.html"
+                                        >https://martinfowler.com/bliki/PageObject.html</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>10</td>
+                                <td>GitHub Actions のマトリクス戦略</td>
+                                <td>
+                                    <a
+                                        href="https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs"
+                                        >https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>11</td>
+                                <td>GitHub Actions のスケジュール実行</td>
+                                <td>
+                                    <a
+                                        href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule"
+                                        >https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>12</td>
+                                <td>セマンティックバージョニング</td>
+                                <td><a href="https://semver.org/">https://semver.org/</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote class="callout-note">
+                    <div class="callout-icon">💡</div>
+                    <p>
+                        補足資料（#3〜#12）は、シラバスの内容を実装レベルで理解するための一般的な技術資料です。試験範囲の根拠は
+                        #2
+                        のシラバスです（シラバスの引用元として挙げられた標準・書籍は試験範囲外で、シラバスに要約された内容のみが対象）。
+                    </p>
+                </blockquote>
+                <h2 id="10-本ガイドに関する注記">10. 本ガイドに関する注記</h2>
+                <ol type="1">
+                    <li>
+                        シラバス原文の確認範囲：8.1.1〜8.1.4 は、公式 PDF（47〜53
+                        ページ）の原文を確認して記述しています。8.1.4
+                        の3項目（環境のセットアップと制御、データエイジング、スクリーンショットと動画の生成）もすべて原文に基づきます。
+                    </li>
+                    <li>
+                        例・数値・コードについて：ヒストグラムの数値、Python／YAML
+                        のコード、Before／After
+                        の対比は、理解を助けるために本ガイドが作成した説明用の例です。シラバスの記載ではありません。
+                    </li>
+                    <li>
+                        試験範囲：ISTQB
+                        の規定により、シラバス内で参照されている標準・書籍の内容は、シラバスに要約されている範囲を除いて試験範囲外です。
+                    </li>
+                    <li>
+                        最新情報：シラバスや試験構成は改訂される可能性があります。受験前に必ず
+                        <a
+                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                            >ISTQB 公式ページ</a
+                        >
+                        で最新情報を確認してください。
+                    </li>
+                </ol>
+                <p>
+                    <em
+                        >本ガイドは学習支援を目的とした二次的な解説資料です。試験の公式な範囲・根拠は必ず
+                        ISTQB 公式シラバスでご確認ください。</em
+                    >
+                </p>
+            </main>
+        </div>
+        <footer class="page-footer">
+            <p>
+                本ガイドは学習支援を目的とした二次的な解説資料です。試験の公式な範囲・根拠は必ず
+                ISTQB 公式シラバスでご確認ください。
+            </p>
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+        <script type="application/json" id="mermaid-sources">
+            {
+                "mmd-1": "flowchart TD\n    N1_A[\"第8章 Continuous Improvement\"] --> N1_B[\"8.1.1 データ分析で<br/>テストケースを改善\"]\n    N1_A --> N1_C[\"8.1.2 導入済み TAS の<br/>技術面を分析し改善提案\"]\n    N1_A --> N1_D[\"8.1.3 SUT 更新に合わせて<br/>テストウェアを再構成\"]\n    N1_A --> N1_E[\"8.1.4 テスト自動化ツールの<br/>活用機会\"]\n    N1_B --> N1_B1[\"Test histogram\"]\n    N1_B --> N1_B2[\"AI / 自己修復\"]\n    N1_B --> N1_B3[\"Schema validation\"]\n    N1_C --> N1_C1[\"Scripting\"]\n    N1_C --> N1_C2[\"Test execution\"]\n    N1_C --> N1_C3[\"Verification\"]\n    N1_C --> N1_C4[\"TAA / TAF\"]\n    N1_C --> N1_C5[\"Setup / Teardown\"]\n    N1_C --> N1_C6[\"Documentation / Features / Updates\"]\n    N1_D --> N1_D1[\"変更の影響を段階的に確認\"]\n    N1_D --> N1_D2[\"コアライブラリの効率化\"]\n    N1_D --> N1_D3[\"関数の統合と TAA のリファクタ\"]\n    N1_D --> N1_D4[\"不要テストの見直し\"]\n    N1_E --> N1_E1[\"環境のセットアップと制御\"]\n    N1_E --> N1_E2[\"データエイジング\"]\n    N1_E --> N1_E3[\"スクリーンショット・動画の生成\"]",
+                "mmd-2": "flowchart LR\n    N2_M[\"測る<br/>ログ・履歴・レポート\"] --> N2_N[\"分析する<br/>ヒストグラム・スキーマ・AI\"]\n    N2_N --> N2_O[\"直す<br/>スクリプト・実行・TAA・TAF\"]\n    N2_O --> N2_P[\"確かめる<br/>限定実行 → 全体リグレッション\"]\n    N2_P --> N2_M",
+                "mmd-3": "xychart-beta\n    title \"テストケース別 失敗回数（架空データ）\"\n    x-axis [\"TC-001\", \"TC-014\", \"TC-027\", \"TC-033\"]\n    y-axis \"失敗回数\" 0 --> 12\n    bar [0, 2, 11, 9]",
+                "mmd-4": "flowchart TD\n    N4_S1[\"Step1 CI/レポートツールから<br/>実行履歴を集める\"] --> N4_S2[\"Step2 テストケース別に<br/>失敗回数・実行時間・エラー種別を集計\"]\n    N4_S2 --> N4_S3[\"Step3 ヒストグラムで<br/>偏りのあるテストを特定\"]\n    N4_S3 --> N4_S4{\"失敗の原因は？\"}\n    N4_S4 -->|\"SUT の欠陥\"| N4_S5[\"欠陥として起票\"]\n    N4_S4 -->|\"テスト側の問題<br/>待機・ロケータ・データ\"| N4_S6[\"テストをリファクタ<br/>または設計を見直す\"]\n    N4_S4 -->|\"環境の問題\"| N4_S7[\"環境・インフラを改善\"]\n    N4_S6 --> N4_S8[\"修正後に再測定して効果を確認\"]\n    N4_S7 --> N4_S8",
+                "mmd-5": "sequenceDiagram\n    participant N5_T as 自動テスト\n    participant N5_AI as 自己修復機能\n    participant N5_R as テストレポート\n    participant N5_E as TAE\n    N5_T->>N5_T: 既存ロケータで要素を探す\n    N5_T-->>N5_AI: 要素が見つからない\n    N5_AI->>N5_AI: 画面構造・属性・画像から候補を推定\n    N5_AI-->>N5_T: 新しいセレクタで実行を継続\n    N5_AI->>N5_R: 変更前後のロケータを記録\n    N5_R-->>N5_E: 修復内容を通知\n    N5_E->>N5_E: 妥当性を確認してコードへ反映",
+                "mmd-6": "flowchart TD\n    N6_A[\"導入済み TAS\"] --> N6_B[\"現状の分析<br/>ログ・履歴・実行時間・保守工数\"]\n    N6_B --> N6_C[\"改善候補を洗い出す<br/>9 つの領域から\"]\n    N6_C --> N6_D{\"プロジェクトにとって<br/>価値が高いか？\"}\n    N6_D -->|\"高い\"| N6_E[\"改善を実施\"]\n    N6_D -->|\"低い\"| N6_F[\"見送る<br/>不要な機能は増やさない\"]\n    N6_E --> N6_G[\"効果を測定\"]\n    N6_G --> N6_B",
+                "mmd-7": "flowchart LR\n    N7_L[\"Linear scripting<br/>線形スクリプト\"] --> N7_D[\"Data-driven testing<br/>データ駆動\"] --> N7_K[\"Keyword-driven testing<br/>キーワード駆動\"]",
+                "mmd-8": "flowchart TD\n    N8_A[\"テスト実行中に失敗\"] --> N8_B{\"どこの失敗か\"}\n    N8_B -->|\"TAS 側\"| N8_C[\"TAS の状態をリセット\"]\n    N8_B -->|\"SUT 側\"| N8_D[\"SUT の復旧操作<br/>可能で現実的なら再起動など\"]\n    N8_C --> N8_E[\"ログ・スクリーンショット・ダンプを保存\"]\n    N8_D --> N8_E\n    N8_E --> N8_F[\"次のテストへ継続\"]",
+                "mmd-9": "flowchart LR\n    N9_W1[\"固定待機<br/>信頼性: 低\"] --> N9_W2[\"ポーリング<br/>信頼性: 中〜高<br/>タイムアウト必須\"] --> N9_W3[\"イベント購読<br/>信頼性: 最も高い<br/>タイムアウト必須\"]",
+                "mmd-10": "flowchart LR\n    N10_A[\"SDLC 初期に<br/>テスト容易性を設計\"] --> N10_B[\"低コスト\"]\n    N10_C[\"SDLC 後半に<br/>後付けで追加\"] --> N10_D[\"高コスト<br/>SUT と TAS の両方を変更\"]",
+                "mmd-11": "flowchart TD\n    N11_A[\"コアライブラリの新バージョン\"] --> N11_B[\"パイロット実施\"]\n    N11_B --> N11_C[\"影響分析\"]\n    N11_C --> N11_D[\"導入計画を作成\"]\n    N11_D --> N11_E{\"導入方法を選択\"}\n    N11_E -->|\"方法1\"| N11_F[\"全チームが同時に採用<br/>コアライブラリ層のビルドファイルで<br/>依存関係を更新\"]\n    N11_E -->|\"方法2\"| N11_G[\"各チームが自分のタイミングで更新<br/>ビジネスロジック層で指定\"]\n    N11_G --> N11_H[\"全チームの準備ができたら<br/>コアライブラリ層の依存関係を更新\"]\n    N11_F --> N11_I[\"完了\"]\n    N11_H --> N11_I",
+                "mmd-12": "flowchart TD\n    N12_A[\"新バージョンのツール\"] --> N12_B[\"代表的なサンプルテストを選定<br/>SUT・テストタイプ・環境を網羅\"]\n    N12_B --> N12_C[\"新バージョンで実行\"]\n    N12_C --> N12_D{\"問題なし？\"}\n    N12_D -->|\"はい\"| N12_E[\"段階的に展開\"]\n    N12_D -->|\"いいえ\"| N12_F[\"原因分析・対応策の検討<br/>展開は保留\"]",
+                "mmd-13": "flowchart TD\n    N13_A[\"SUT の更新を把握\"] --> N13_B[\"影響範囲を評価<br/>テストウェア・関数ライブラリ・OS\"]\n    N13_B --> N13_C[\"最小単位で変更<br/>MVP の考え方\"]\n    N13_C --> N13_D[\"限定したスクリプトで実行\"]\n    N13_D --> N13_E{\"副作用なし？\"}\n    N13_E -->|\"いいえ\"| N13_F[\"原因を分析して修正\"]\n    N13_F --> N13_C\n    N13_E -->|\"はい\"| N13_G[\"変更を全面適用\"]\n    N13_G --> N13_H[\"完全なリグレッション実行\"]\n    N13_H --> N13_I{\"失敗あり？\"}\n    N13_I -->|\"はい\"| N13_J[\"ログ・レポート・データで根本原因を特定<br/>改善作業が原因ではないか確認\"]\n    N13_J --> N13_F\n    N13_I -->|\"いいえ\"| N13_K[\"完了\"]",
+                "mmd-14": "flowchart TD\n    N14_A[\"既存テストの棚卸し\"] --> N14_B{\"状態は？\"}\n    N14_B -->|\"複雑で実行が長い\"| N14_C[\"小さなテストに分解\"]\n    N14_B -->|\"ほぼ実行されない\"| N14_D[\"廃止を検討\"]\n    N14_B -->|\"価値があり適切\"| N14_E[\"維持\"]\n    N14_C --> N14_F[\"TAS の複雑さを低減\"]\n    N14_D --> N14_F",
+                "mmd-15": "flowchart TD\n    N15_A[\"新しいテスト環境\"] --> N15_B[\"自動スクリプトを実行\"]\n    N15_B --> N15_C[\"Web サービスを呼び出して<br/>ユーザーを登録\"]\n    N15_B --> N15_D[\"多様なテストデータを作成\"]\n    N15_B --> N15_E[\"テストインフラのセットアップを制御\"]\n    N15_C --> N15_F[\"テスト準備完了\"]\n    N15_D --> N15_F\n    N15_E --> N15_F\n    N15_F --> N15_G[\"テスト実行\"]\n    N15_G --> N15_H[\"同じ仕組みで後片付け\"]",
+                "mmd-16": "flowchart LR\n    N16_A[\"観察<br/>何が起きているか\"] --> N16_B[\"分析<br/>原因は何か<br/>SUT・TAS・環境のどれか\"]\n    N16_B --> N16_C[\"選択肢<br/>改善の候補\"]\n    N16_C --> N16_D[\"推奨<br/>プロジェクトにとって<br/>価値が高いものを選ぶ\"]\n    N16_D --> N16_E[\"検証<br/>限定実行 → 全体確認\"]"
+            }
+        </script>
+        <script>
+            (function () {
+                // ---- Sidebar toggle (mobile) ----
+                var sidebar = document.getElementById('sidebar');
+                var toggle = document.getElementById('sidebarToggle');
+                toggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('open');
+                });
+                document.querySelectorAll('.nav-list a').forEach(function (a) {
+                    a.addEventListener('click', function () {
+                        sidebar.classList.remove('open');
+                    });
+                });
+
+                // ---- Highlight.js ----
+                if (window.hljs) {
+                    try {
+                        hljs.highlightAll();
+                    } catch (e) {
+                        console.error('hljs error', e);
+                    }
+                }
+
+                // ---- Mermaid rendering (JS template-literal / JSON payload pattern) ----
+                try {
+                    if (window.mermaid) {
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            theme: 'base',
+                            securityLevel: 'loose',
+                            fontFamily:
+                                '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                            themeVariables: {
+                                fontSize: '16px',
+                                primaryColor: '#eef3ff',
+                                primaryTextColor: '#1b2537',
+                                primaryBorderColor: '#2f5fe0',
+                                lineColor: '#2f5fe0',
+                                secondaryColor: '#ffffff',
+                                tertiaryColor: '#f5f7fb',
+                                background: '#ffffff',
+                                mainBkg: '#eef3ff',
+                                nodeTextColor: '#1b2537',
+                                clusterBkg: '#f5f7fb',
+                                clusterBorder: '#2f5fe0',
+                                edgeLabelBackground: '#ffffff',
+                                actorBkg: '#eef3ff',
+                                actorBorder: '#2f5fe0',
+                                actorTextColor: '#1b2537',
+                                signalColor: '#2f5fe0',
+                                signalTextColor: '#1b2537',
+                            },
+                            flowchart: {
+                                useMaxWidth: false,
+                                htmlLabels: true,
+                                nodeSpacing: 60,
+                                rankSpacing: 65,
+                            },
+                            sequence: { useMaxWidth: false },
+                            xyChart: {
+                                useMaxWidth: false,
+                                width: 800,
+                                height: 450,
+                                titleFontSize: 22,
+                                xAxis: { labelFontSize: 16, titleFontSize: 18 },
+                                yAxis: { labelFontSize: 16, titleFontSize: 18 },
+                            },
+                        });
+                        var raw = document.getElementById('mermaid-sources').textContent;
+                        var diagrams = JSON.parse(raw);
+                        var ids = Object.keys(diagrams);
+                        var i = 0;
+                        function renderNext() {
+                            if (i >= ids.length) return;
+                            var id = ids[i];
+                            i++;
+                            var container = document.getElementById(id);
+                            if (!container) {
+                                renderNext();
+                                return;
+                            }
+                            var svgId = 'svg-' + id;
+                            mermaid
+                                .render(svgId, diagrams[id])
+                                .then(function (result) {
+                                    container.innerHTML = result.svg;
+                                })
+                                .catch(function (err) {
+                                    container.innerHTML =
+                                        '<div class="render-error">diagram error: ' +
+                                        (err && err.message ? err.message : err) +
+                                        '</div>';
+                                    console.error('mermaid render error', id, err);
+                                })
+                                .finally(function () {
+                                    renderNext();
+                                });
+                        }
+                        renderNext();
+                    }
+                } catch (e) {
+                    console.error('mermaid init error', e);
+                }
+
+                // ---- Scroll-spy ----
+                var links = Array.prototype.slice.call(
+                    document.querySelectorAll('.nav-list a[data-target]'),
+                );
+                var map = {};
+                links.forEach(function (a) {
+                    map[a.getAttribute('data-target')] = a;
+                });
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            var link = map[entry.target.id];
+                            if (!link) return;
+                            if (entry.isIntersecting) {
+                                links.forEach(function (l) {
+                                    l.classList.remove('active');
+                                });
+                                link.classList.add('active');
+                            }
+                        });
+                    },
+                    { rootMargin: '-15% 0px -75% 0px', threshold: 0 },
+                );
+                Object.keys(map).forEach(function (id) {
+                    var el = document.getElementById(id);
+                    if (el) observer.observe(el);
+                });
+            })();
+        </script>
+    </body>
+</html>
