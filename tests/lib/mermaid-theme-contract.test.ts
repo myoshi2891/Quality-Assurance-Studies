@@ -42,8 +42,13 @@ function mermaidPages(): MermaidPage[] {
     for (const dir of pageDirs()) {
         const pagePath = join(APP_DIR, dir, 'page.tsx');
         if (!existsSync(pagePath)) continue;
-        const source = readFileSync(pagePath, 'utf8');
+        let source = readFileSync(pagePath, 'utf8');
         if (!source.includes('components/Mermaid')) continue;
+
+        const diagramsPath = join(APP_DIR, dir, 'diagrams.ts');
+        if (existsSync(diagramsPath)) {
+            source += '\n' + readFileSync(diagramsPath, 'utf8');
+        }
 
         const cssFiles = readdirSync(join(APP_DIR, dir))
             .filter((name) => name.endsWith('.css'))
