@@ -423,6 +423,22 @@ describe('CTAL-TA v4.0 Chapter 5 - Comprehensive Structural Verification', () =>
         });
     });
 
+    describe('Category 2: Part 3 (Phase Containment & Modeling TA-5.2.1 / K3)', () => {
+        it('renders part-3 section with sec-13, sec-14, sec-15, 3 diagrams, and 2 formulas', () => {
+            const { container } = render(<CtalTaChapter5Page />);
+            expect(container.querySelector('#part-3')).toBeTruthy();
+            expect(container.querySelector('#sec-13')).toBeTruthy();
+            expect(container.querySelector('#sec-14')).toBeTruthy();
+            expect(container.querySelector('#sec-15')).toBeTruthy();
+
+            const diagrams = container.querySelectorAll('figure.diagram');
+            expect(diagrams.length).toBeGreaterThanOrEqual(5);
+
+            const formulas = container.querySelectorAll('.formula');
+            expect(formulas.length).toBe(2);
+        });
+    });
+
     describe('Inventory Verification: Headings, Diagrams, Tables, and UI Components', () => {
         it('renders all 9 H2 headings with expected ids', () => {
             const { container } = render(<CtalTaChapter5Page />);

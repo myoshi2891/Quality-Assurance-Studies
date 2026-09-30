@@ -58,6 +58,40 @@ flowchart TD
     H --> G
     G --> I["テスト設計へ"]`;
 
+export const DIAGRAM_PHASE_CONTAINMENT = `${MERMAID_CONFIG}
+flowchart TD
+    Start["要件定義で欠陥が混入"] --> G1{"要件レビューとモデル化で検出できたか"}
+    G1 -->|はい| Cont["同じフェーズ内で修正 封じ込め成功"]
+    G1 -->|いいえ| Esc1["設計フェーズへ流出"]
+    Esc1 --> G2{"設計レビューで検出できたか"}
+    G2 -->|はい| Fix2["設計まで戻って修正"]
+    G2 -->|いいえ| Esc2["実装フェーズへ流出"]
+    Esc2 --> G3{"静的解析と単体テストで検出できたか"}
+    G3 -->|はい| Fix3["要件と設計まで戻って修正"]
+    G3 -->|いいえ| Esc3["テストフェーズやリリース後へ流出"]`;
+
+export const DIAGRAM_MODEL_SELECTION = `${MERMAID_CONFIG}
+flowchart TD
+    S["仕様の一部を対象にする"] --> Q1{"状態によって反応が変わるか"}
+    Q1 -->|はい| M1["状態遷移モデル"]
+    Q1 -->|いいえ| Q2{"条件の組合せで結果が決まるルールか"}
+    Q2 -->|はい| M2["決定表"]
+    Q2 -->|いいえ| Q3{"データの作成から削除までの流れが重要か"}
+    Q3 -->|はい| M3["CRUDマトリクス"]
+    Q3 -->|いいえ| Q4{"利用者の一連の操作が主題か"}
+    Q4 -->|はい| M4["ユースケースやアクティビティ図"]
+    Q4 -->|いいえ| M5["他のテスト技法のモデルを検討"]`;
+
+export const DIAGRAM_STATE_TRANSITION = `${MERMAID_CONFIG}
+flowchart LR
+    E["空"] -->|コイン投入 金額不足| P["一部投入"]
+    P -->|コイン投入 なお不足 Req253| P
+    P -->|コイン投入 十分な額に到達 Req236| S["十分"]
+    P -->|取消し Req237| E
+    S -->|コイン投入 すぐに返却 Req215| S
+    S -->|コイン投入 合計に加算 Req243| S
+    S -->|取消し Req237| E`;
+
 export const metadata: Metadata = {
     title: 'CTAL-TA v4.0 第5章 ソフトウェア欠陥防止｜初学者向けガイド',
     description: 'ISTQB Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0 第5章 ソフトウェア欠陥防止の初学者向け完全学習ガイド。',
@@ -875,6 +909,929 @@ export default function CtalTaChapter5Page() {
                             </li>
                             <li>レトロスペクティブ：反復や期間の終わりに行う振り返り会</li>
                             <li>テスト容易性：仕様がテストしやすい書き方になっている度合い</li>
+                        </ul>
+                    </details>
+
+                    {/* パート3 */}
+                    <h2 id="part-3">
+                        <span className="part-no">パート3</span>
+                        <span className="part-title">
+                            5.2 フェーズ封じ込めの支援（前半：考え方・指標・TA-5.2.1 / K3）
+                        </span>
+                    </h2>
+                    <p className="lead">
+                        <span className="lead-ico" aria-hidden="true">
+                            💡
+                        </span>
+                        このパートでは、欠陥を「混入したフェーズの中で止める」考え方（フェーズ封じ込め）と、その指標（DDP・PCE）、および手段の1つであるモデル化（5.2.1）を説明します。もう1つの手段であるレビュー（5.2.2）は次のパート4で扱います。K3（適用）の範囲なので、計算や当てはめを自分で手を動かして練習してください。
+                    </p>
+                    <h3 id="sec-13">
+                        3.1 フェーズ封じ込めとは【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>
+                        ／<span className="mk mk-c" title="業界一般の補足（要照合）">△</span>】
+                    </h3>
+                    <p>
+                        なぜ重要か：後の工程へ流れた欠陥ほど、直すときに戻る範囲が広がり、手戻りが大きくなるためです。
+                    </p>
+                    <p>
+                        たとえ話：川の上流で汚れを止めれば、下流の浄水場の負担は小さくなります。要件定義という上流で混入した欠陥を、要件の段階で止めるイメージです。
+                    </p>
+                    <p>
+                        この図は、要件定義で混入した欠陥が、検出の網をすり抜けるたびに後工程へ流れていく様子を表しています。上から下へ読み進めてください。
+                    </p>
+                    <figure className="diagram">
+                        <Mermaid chart={DIAGRAM_PHASE_CONTAINMENT} />
+                        <figcaption className="fallback">
+                            図の描画にはインターネット接続が必要です。接続できない場合は上の Mermaid ソースがそのまま表示されます。
+                        </figcaption>
+                    </figure>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「同じフェーズ内で修正 封じ込め成功」：混入したフェーズの中で欠陥が見つかった状態（最も手戻りが小さい）
+                        </li>
+                        <li>
+                            「流出」：混入したフェーズの検出活動で見つからず、次のフェーズへ持ち越された状態
+                        </li>
+                        <li>
+                            「…まで戻って修正」：見つかったフェーズが遅いほど、戻って直す範囲が広がる
+                        </li>
+                    </ul>
+                    <h3 id="sec-14">3.2 封じ込めの効き目を数字で見る：DDP と PCE</h3>
+                    <p>
+                        なぜ数字で見るのか：「どのフェーズの検出活動が弱いか」を感覚ではなく数字で示せば、改善の優先順位を関係者と合意しやすくなるためです。
+                    </p>
+                    <h4>
+                        (1) 再構成した件数表【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>
+                        ：公式解説に基づく再構成】
+                    </h4>
+                    <p>
+                        サンプル試験 #43 の解答解説の数式から復元した、欠陥の「混入フェーズ × 検出フェーズ」の件数表です（元の設問にある表の画像は取得できなかったため、解説の計算式と矛盾しないように再構成しています）。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>欠陥の種類</th>
+                                    <th style={{ textAlign: 'center' }}>要件レビューで検出</th>
+                                    <th style={{ textAlign: 'center' }}>アーキテクチャ設計レビューで検出</th>
+                                    <th style={{ textAlign: 'center' }}>実装前（静的テスト）で検出</th>
+                                    <th style={{ textAlign: 'center' }}>単体テスト以降で検出</th>
+                                    <th style={{ textAlign: 'center' }}>合計</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>要件の欠陥</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>40</td>
+                                    <td style={{ textAlign: 'center' }}>20</td>
+                                    <td style={{ textAlign: 'center' }}>80</td>
+                                </tr>
+                                <tr>
+                                    <td>設計</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>90</td>
+                                    <td style={{ textAlign: 'center' }}>30</td>
+                                    <td style={{ textAlign: 'center' }}>130</td>
+                                </tr>
+                                <tr>
+                                    <td>実装</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>90</td>
+                                    <td style={{ textAlign: 'center' }}>100</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>0</td>
+                                    <td style={{ textAlign: 'center' }}>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul>
+                        <li>
+                            設問の前提：4フェーズすべての検出活動を通過し、リリース後に顧客からの欠陥報告はゼロでした。
+                        </li>
+                        <li>
+                            各フェーズの検出活動は、要件＝モデル化とレビュー、設計＝モデル化とレビュー、実装＝静的解析と単体テスト（コンポーネントテスト）、テスト＝システムテストと受入テストです。
+                        </li>
+                    </ul>
+                    <h4>
+                        (2) 封じ込め率の計算
+                    </h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>フェーズ</th>
+                                    <th style={{ textAlign: 'center' }}>混入した欠陥</th>
+                                    <th style={{ textAlign: 'center' }}>そのフェーズで検出</th>
+                                    <th style={{ textAlign: 'center' }}>封じ込め率（PCE）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>要件</td>
+                                    <td style={{ textAlign: 'center' }}>80</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>12.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>設計</td>
+                                    <td style={{ textAlign: 'center' }}>130</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>約 7.7%</td>
+                                </tr>
+                                <tr>
+                                    <td>実装</td>
+                                    <td style={{ textAlign: 'center' }}>100</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>10%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>
+                        (3) 公式解説と照合した正誤判定
+                    </h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>選択肢</th>
+                                    <th>主張</th>
+                                    <th style={{ textAlign: 'center' }}>正誤</th>
+                                    <th>根拠</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A</td>
+                                    <td>要件フェーズが最も封じ込めに成功している</td>
+                                    <td style={{ textAlign: 'center' }}>誤り</td>
+                                    <td>封じ込め率12.5%だが流出70件</td>
+                                </tr>
+                                <tr>
+                                    <td>B</td>
+                                    <td>設計フェーズのDDPが最も低く、改善の優先度が高い</td>
+                                    <td style={{ textAlign: 'center' }}>正しい</td>
+                                    <td>DDP 10%で最低</td>
+                                </tr>
+                                <tr>
+                                    <td>C</td>
+                                    <td>単体テスト以降のテストで大半の欠陥が防げている</td>
+                                    <td style={{ textAlign: 'center' }}>誤り</td>
+                                    <td>動的テストは防止ではなく検出</td>
+                                </tr>
+                                <tr>
+                                    <td>D</td>
+                                    <td>全体で欠陥の混入が最も多いのは実装である</td>
+                                    <td style={{ textAlign: 'center' }}>誤り</td>
+                                    <td>設計が130件で最多</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>
+                        (2) DDP（欠陥検出率）【◎ 5.3.1 / K4】
+                    </h4>
+                    <p>DDP（Defect Detection Percentage）は、次の式で求めます。</p>
+                    <div className="formula" role="math" aria-label="DDP イコール D 割る D プラス E">
+                        <span className="f-name">DDP</span>
+                        <span className="f-eq">＝</span>
+                        <span className="frac">
+                            <span className="num">D</span>
+                            <span className="den">D ＋ E</span>
+                        </span>
+                    </div>
+                    <p>
+                        意味：「そのフェーズの検出活動が見つけた欠陥数 D」を、「D と、そのフェーズを通過して後で見つかった欠陥数 E の合計」で割った値です。網にたとえると、「網の前にいた魚のうち、その網で捕れた割合」です。
+                    </p>
+                    <p>計算の手順（トレース）：</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>DDP（欠陥検出率）</th>
+                                    <th>PCE（フェーズ封じ込め有効性）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>日本語</td>
+                                    <td>欠陥検出率</td>
+                                    <td>フェーズ封じ込め有効性</td>
+                                </tr>
+                                <tr>
+                                    <td>分母</td>
+                                    <td>そのフェーズの開始時に存在していた全欠陥</td>
+                                    <td>そのフェーズで混入した欠陥</td>
+                                </tr>
+                                <tr>
+                                    <td>分子</td>
+                                    <td>そのフェーズで検出した欠陥</td>
+                                    <td>そのフェーズで混入し同フェーズで検出した欠陥</td>
+                                </tr>
+                                <tr>
+                                    <td>用途</td>
+                                    <td>検出活動の強さを比較する</td>
+                                    <td>フェーズ自身の品質・自浄力を比較する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul>
+                        <li>
+                            設計フェーズの D に含まれる「10 + 10」は、要件由来の 10 件と設計由来の 10 件です。
+                        </li>
+                        <li>
+                            4フェーズの中で DDP が最も低いのは設計（10%）です。限られた資源で1か所だけ改善するなら、設計のモデル化とレビューを強化する、という結論になります（
+                            <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                ○
+                            </span>{' '}
+                            #43 の正解 b）。
+                        </li>
+                    </ul>
+                    <p>
+                        読み取りのコツ：最終のテストフェーズは DDP が 100% でも、それは「最後の網で全部止められた」だけです。上流の DDP が低いことが、後工程での大きな手戻りとして隠れています（
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>{' '}
+                        読み取りの目安）。
+                    </p>
+                    <h4>
+                        (3) PCE（フェーズ封じ込め有効性）【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】
+                    </h4>
+                    <p>
+                        PCE（Phase Containment Effectiveness）は業界でよく使われる指標で、次の式で表されます。
+                    </p>
+                    <div
+                        className="formula"
+                        role="math"
+                        aria-label="PCE イコール そのフェーズで混入しそのフェーズ内で検出した欠陥数 割る そのフェーズで混入した欠陥の総数"
+                    >
+                        <span className="f-name">PCE</span>
+                        <span className="f-eq">＝</span>
+                        <span className="frac">
+                            <span className="num">
+                                そのフェーズで混入し、そのフェーズ内で検出した欠陥数
+                            </span>
+                            <span className="den">そのフェーズで混入した欠陥の総数</span>
+                        </span>
+                    </div>
+                    <p>
+                        意味：「作り込んだフェーズの中で、どれだけ自分で見つけて止められたか」です。上の表から計算すると次のとおりです。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>フェーズ</th>
+                                    <th style={{ textAlign: 'center' }}>混入数</th>
+                                    <th style={{ textAlign: 'center' }}>そのフェーズで検出した数</th>
+                                    <th style={{ textAlign: 'center' }}>PCE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>要件</td>
+                                    <td style={{ textAlign: 'center' }}>80</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>12.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>設計</td>
+                                    <td style={{ textAlign: 'center' }}>130</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>約 7.7%</td>
+                                </tr>
+                                <tr>
+                                    <td>実装</td>
+                                    <td style={{ textAlign: 'center' }}>100</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>10%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>DDP と PCE の違い：</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>DDP</th>
+                                    <th>PCE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>見ているもの</td>
+                                    <td>
+                                        フェーズの検出活動が、その時点で存在する欠陥をどれだけ捕まえたか
+                                    </td>
+                                    <td>フェーズが、自分で混入した欠陥をどれだけ自分で捕まえたか</td>
+                                </tr>
+                                <tr>
+                                    <td>分母</td>
+                                    <td>その時点で残っている欠陥（前フェーズ由来を含む）</td>
+                                    <td>そのフェーズが混入した欠陥だけ</td>
+                                </tr>
+                                <tr>
+                                    <td>必要なデータ</td>
+                                    <td>検出フェーズ</td>
+                                    <td>混入フェーズ と 検出フェーズ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        注意：PCE の式はシラバス第5章の本文で確認できていません。試験対策では DDP（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>
+                        ）を確実に計算できることを優先してください。ただし、PCE を求めるには
+                        <strong>欠陥の混入フェーズを記録している</strong>ことが前提になります。これは 5.3.2 の欠陥分類につながります。
+                    </p>
+                    <h3 id="sec-15">3.3 5.2.1 モデルで欠陥を検出する（TA-5.2.1 / K3）</h3>
+                    <p>
+                        なぜモデルを使うのか：文章の仕様は、読み手が頭の中で補ってしまうため、矛盾や抜けに気づきにくい性質があります。たとえ話：建築の図面を描くと、「この扉を開けると壁にぶつかる」と工事の前に気づけます。仕様を図や表（モデル）にすると、同じように文章では隠れていた欠陥が見えてきます。
+                    </p>
+                    <p>
+                        シラバスの根拠：状態遷移テストは「モデル化の過程で仕様の欠陥を見つけるので、欠陥防止に貢献する」と書かれています（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        3.2.2）。テスト設計の自動化の利点の1つも「テストのためのモデル化が、テストベースの品質を評価する有効な方法」であることです（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        3.5.2）。
+                    </p>
+                    <h4>(1) 仕様の種類とモデルの選び方</h4>
+                    <p>
+                        この図は、仕様の性質からどのモデルを使うかを決める流れを表しています。上から下へ読み進めてください。
+                    </p>
+                    <figure className="diagram">
+                        <Mermaid chart={DIAGRAM_MODEL_SELECTION} />
+                        <figcaption className="fallback">
+                            図の描画にはインターネット接続が必要です。接続できない場合は上の Mermaid ソースがそのまま表示されます。
+                        </figcaption>
+                    </figure>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>「状態遷移モデル」：状態を丸、遷移（＝状態が変わること）を矢印で表す</li>
+                        <li>「決定表」：条件の組合せ（ルール）と結果（アクション）を表にする</li>
+                        <li>
+                            「CRUD マトリクス」：機能とデータの対応を、作成・参照・更新・削除の頭文字で示す
+                        </li>
+                        <li>
+                            「ユースケースやアクティビティ図」：利用者とシステムのやり取りを、正常系・代替・例外の流れとして描く
+                        </li>
+                    </ul>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仕様の性質</th>
+                                    <th>モデル</th>
+                                    <th>見つかりやすい欠陥</th>
+                                    <th style={{ textAlign: 'center' }}>根拠</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>状態に依存しないビジネスルール</td>
+                                    <td>決定表</td>
+                                    <td>不整合、不完全、実現不能なルール、重複</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.3.1 /{' '}
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #39
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>状態に依存する振る舞い</td>
+                                    <td>状態遷移モデル</td>
+                                    <td>同じ状態・同じイベントで結果が複数ある曖昧さ、未定義の遷移</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.2.2 /{' '}
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #40
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>データのライフサイクル</td>
+                                    <td>CRUD マトリクス</td>
+                                    <td>欠けている操作（完全性テストは静的テスト）</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.2.1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>業務フロー</td>
+                                    <td>ユースケース、アクティビティ図</td>
+                                    <td>抜けている代替フローや例外フロー</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.2.3
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>
+                        (2) 決定表のレビュー基準【
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        3.3.1】
+                    </h4>
+                    <p>シラバスは、決定表を関係者とレビューする際の基準として次の4つを挙げています。</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>基準</th>
+                                    <th>意味</th>
+                                    <th>問題があるとどうなるか</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>一貫性（consistency）</td>
+                                    <td>
+                                        同じ条件の組合せに複数のルールが当てはまるなら、結果が同じである
+                                    </td>
+                                    <td>矛盾する結果が仕様に書かれている</td>
+                                </tr>
+                                <tr>
+                                    <td>実現可能性（feasibility）</td>
+                                    <td>現実に起こり得ない条件の組合せのルールを含まない</td>
+                                    <td>意味のないルールが混ざる</td>
+                                </tr>
+                                <tr>
+                                    <td>完全性（completeness）</td>
+                                    <td>起こり得る条件の組合せが漏れなく含まれる</td>
+                                    <td>仕様に無い振る舞いが生まれる</td>
+                                </tr>
+                                <tr>
+                                    <td>正しさ（correctness）</td>
+                                    <td>ルールが意図した振る舞いを表している</td>
+                                    <td>意図と違う仕様になる</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        チェックサム手順（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>
+                        ）：最小化した決定表の各ルールが「元の完全な決定表の何個のルールを表すか」を数え、その合計を元の表のルール数と比べます。合計が少なければ不完全、多ければルールの重なり（または余分なルール）があると分かります。合計が等しくても、元の表と同等だと保証されるわけではありません。
+                    </p>
+                    <h4>
+                        (3) 実例A：決定表で矛盾を見つける【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #39 を題材に再構成】
+                    </h4>
+                    <p>
+                        なぜこの例か：要件の文章だけでは気づきにくい矛盾が、決定表にすると表の中で見えるようになる、という流れを体験できるからです。
+                    </p>
+                    <p>設定（ある割引システムの仕様）：</p>
+                    <ul>
+                        <li>
+                            仕様1：ロイヤルティカードを持つ顧客、または直近の購入額が 1,000 ドル以上の顧客は 10% 割引。それ以外でニュースレター購読者は 5% 割引。
+                        </li>
+                        <li>仕様2：ニュースレター未登録の顧客は割引なし。</li>
+                    </ul>
+                    <p>
+                        手順1：条件を3つに分け、値を「はい／いいえ」にする。完全な決定表は 2 × 2 × 2 = 8 通りです。
+                    </p>
+                    <p>手順2：仕様を4つのルールにする。</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ルール</th>
+                                    <th style={{ textAlign: 'center' }}>ロイヤルティカード</th>
+                                    <th style={{ textAlign: 'center' }}>購入額 1,000 ドル以上</th>
+                                    <th style={{ textAlign: 'center' }}>ニュースレター購読</th>
+                                    <th style={{ textAlign: 'center' }}>割引</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>R1</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>10%</td>
+                                </tr>
+                                <tr>
+                                    <td>R2</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>10%</td>
+                                </tr>
+                                <tr>
+                                    <td>R3</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>5%</td>
+                                </tr>
+                                <tr>
+                                    <td>R4</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>（「－」は、その条件の値を問わない、という意味です。）</p>
+                    <p>
+                        手順3：チェックサムを求める。R1 は 4 通り、R2 は 4 通り、R3 は 1 通り、R4 は 4 通りを表すので、合計は 4 + 4 + 1 + 4 = <strong>13</strong> です。元の表は 8 通りなので 13 は多く、<strong>ルールの重なりがある</strong>と分かります。
+                    </p>
+                    <p>手順4：8 通りの組合せそれぞれに、どのルールが当てはまるかを調べる。</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ textAlign: 'center' }}>番号</th>
+                                    <th style={{ textAlign: 'center' }}>ロイヤルティ</th>
+                                    <th style={{ textAlign: 'center' }}>購入額</th>
+                                    <th style={{ textAlign: 'center' }}>ニュースレター</th>
+                                    <th>当てはまるルール</th>
+                                    <th>割引の結果</th>
+                                    <th style={{ textAlign: 'center' }}>判定</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>1</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td>R1、R2</td>
+                                    <td>10%、10%</td>
+                                    <td style={{ textAlign: 'center' }}>重なりだが結果は同じ</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td>R1、R2、R4</td>
+                                    <td>10%、10%、0%</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <strong>矛盾</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>3</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td>R1</td>
+                                    <td>10%</td>
+                                    <td style={{ textAlign: 'center' }}>問題なし</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>4</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td>R1、R4</td>
+                                    <td>10%、0%</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <strong>矛盾</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>5</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td>R2</td>
+                                    <td>10%</td>
+                                    <td style={{ textAlign: 'center' }}>問題なし</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>6</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td>R2、R4</td>
+                                    <td>10%、0%</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <strong>矛盾</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>7</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td>R3</td>
+                                    <td>5%</td>
+                                    <td style={{ textAlign: 'center' }}>問題なし</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>8</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td style={{ textAlign: 'center' }}>いいえ</td>
+                                    <td>R4</td>
+                                    <td>0%</td>
+                                    <td style={{ textAlign: 'center' }}>問題なし</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        結論：番号 2・4・6 で、同じ組合せに異なる結果が指定されています。これは<strong>不整合</strong>（＝矛盾）という要件の欠陥です（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #39 の正解 a）。R1 と R2 のように「重なっているが結果が同じ」なものは、それだけでは欠陥ではありません。
+                    </p>
+                    <p>
+                        TA の次の行動：ロイヤルティ会員がニュースレター未登録のとき 10% と 0% のどちらを優先するのかを、プロダクトオーナーなどの関係者に確認します。TA が自分の解釈で決めてはいけません（
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        ）。
+                    </p>
+                    <h4>
+                        (4) 実例B：状態遷移モデルで曖昧さを見つける【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #40 を題材に再構成】
+                    </h4>
+                    <p>
+                        設定：飲料の自動販売機のコインコントローラー。要件から次の情報を読み取り、状態遷移モデルにします。
+                    </p>
+                    <ul>
+                        <li>状態は「空」「一部投入」「十分」の3つ。</li>
+                        <li>Req253：足りないコインを入れると「一部投入」のまま、金額を加算する。</li>
+                        <li>Req236：十分な額になったら「十分」へ変わる。</li>
+                        <li>
+                            Req215：「十分」のとき、さらにコインを入れたら<strong>すぐに返却</strong>する。
+                        </li>
+                        <li>
+                            Req243：「十分」のとき、さらにコインを入れたら<strong>合計に加算</strong>して表示する。
+                        </li>
+                        <li>Req237：取消しを選ぶとコインを返却し、コントローラーは空になる。</li>
+                    </ul>
+                    <p>
+                        この図は、上の要件から作った状態遷移モデルを、フローチャートの形で表しています。矢印のラベルが「イベントと要件番号」です。
+                    </p>
+                    <figure className="diagram">
+                        <Mermaid chart={DIAGRAM_STATE_TRANSITION} />
+                        <figcaption className="fallback">
+                            図の描画にはインターネット接続が必要です。接続できない場合は上の Mermaid ソースがそのまま表示されます。
+                        </figcaption>
+                    </figure>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「十分」から「十分」へ戻る矢印が2本あり、どちらも<strong>同じ状態・同じイベント（コイン投入）</strong>なのに、結果が「返却」と「加算」で食い違っています。これが曖昧さ（同じ条件で結果が決まらない＝非決定的な振る舞い）です。
+                        </li>
+                        <li>
+                            状態遷移モデルは「状態とイベントの組合せごとに結果は1つ」という形式なので、この食い違いがモデル化の途中で見つかります（
+                            <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                ○
+                            </span>{' '}
+                            #40 の正解 d）。
+                        </li>
+                    </ul>
+                    <p>
+                        もう1つの学び：Req236 にある「十分なコイン」という言葉の曖昧さは、状態遷移モデルでは<strong>見つかりません</strong>（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #40 の選択肢 a の解説）。モデルが得意な欠陥（矛盾・未定義の遷移）と、苦手な欠陥（言葉の曖昧さ）があるため、レビューと組み合わせるのが安全です。
+                    </p>
+                    <h4>
+                        (5) 実例C：CRUD マトリクスで抜けを見つける【
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        3.2.1 を題材に再構成】
+                    </h4>
+                    <p>
+                        CRUD マトリクスは、行に機能、列にデータ（エンティティ）を置き、機能がデータに行う操作を C（作成）、R（参照）、U（更新）、D（削除）で記入した表です。「完全性テスト」は、この表を使って<strong>すべてのエンティティに 4 つの操作がそろっているか</strong>を確認する静的テストです。操作が無いのは、調査が必要な異常（アノマリー）とされます（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>
+                        ）。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>機能 ＼ データ</th>
+                                    <th style={{ textAlign: 'center' }}>会員</th>
+                                    <th style={{ textAlign: 'center' }}>注文</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>会員登録</td>
+                                    <td style={{ textAlign: 'center' }}>C</td>
+                                    <td style={{ textAlign: 'center' }}></td>
+                                </tr>
+                                <tr>
+                                    <td>会員情報の変更</td>
+                                    <td style={{ textAlign: 'center' }}>R U</td>
+                                    <td style={{ textAlign: 'center' }}></td>
+                                </tr>
+                                <tr>
+                                    <td>退会</td>
+                                    <td style={{ textAlign: 'center' }}>D</td>
+                                    <td style={{ textAlign: 'center' }}></td>
+                                </tr>
+                                <tr>
+                                    <td>注文する</td>
+                                    <td style={{ textAlign: 'center' }}>R</td>
+                                    <td style={{ textAlign: 'center' }}>C</td>
+                                </tr>
+                                <tr>
+                                    <td>注文履歴の表示</td>
+                                    <td style={{ textAlign: 'center' }}>R</td>
+                                    <td style={{ textAlign: 'center' }}>R</td>
+                                </tr>
+                                <tr>
+                                    <td>注文内容の変更</td>
+                                    <td style={{ textAlign: 'center' }}></td>
+                                    <td style={{ textAlign: 'center' }}>U</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        読み取り：「注文」の列には C・R・U はありますが
+                        <strong>D（削除）がありません</strong>。注文の取消し機能が仕様から漏れているのか、意図して削除させないのかを確認する必要があります。「会員」の列は C・R・U・D がそろっています。
+                    </p>
+                    <h4>(6) モデル化のベストプラクティス</h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>推奨すること</th>
+                                    <th>避けたいこと</th>
+                                    <th style={{ textAlign: 'center' }}>根拠</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>モデルの詳細度</td>
+                                    <td>テストに必要な粒度に合わせる</td>
+                                    <td>詳細すぎて保守できない</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.2.2
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>既存モデルの利用</td>
+                                    <td>
+                                        テストベースにモデルがあれば、テスト条件が入っているかを確認し、足りなければ調整する
+                                    </td>
+                                    <td>そのまま鵜呑みにする</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.2.2
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>決定表の高リスク部分</td>
+                                    <td>リスクが高いときは最小化せず、完全な決定表で確認する</td>
+                                    <td>高リスクなのに「－」で圧縮する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.3.1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>発見した矛盾</td>
+                                    <td>関係者と一緒に決定表やモデルをレビューして解決する</td>
+                                    <td>TA が単独で結論を出す</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.3.1 /{' '}
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>モデルの限界の認識</td>
+                                    <td>言葉の曖昧さなどはレビューで補う</td>
+                                    <td>モデルを作れば全ての欠陥が見つかると考える</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #40
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>モデルの保守</td>
+                                    <td>モデルを唯一の情報源とし、保守の負荷を見積もる</td>
+                                    <td>モデルを作りっぱなしにする</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.5.2
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <details className="glossary">
+                        <summary>
+                            <span className="g-ico">📖</span>このパートで登場した用語
+                            <span className="g-n">11語</span>
+                        </summary>
+                        <ul>
+                            <li>
+                                フェーズ封じ込め：欠陥を、それが混入したフェーズの中で見つけて止めること
+                            </li>
+                            <li>
+                                DDP（欠陥検出率）：D ÷ (D + E)。そのフェーズが、その時点の欠陥のうち何割を見つけたか
+                            </li>
+                            <li>
+                                PCE：混入したフェーズの中で検出できた割合（
+                                <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                    △
+                                </span>
+                                ）
+                            </li>
+                            <li>
+                                流出：欠陥が混入したフェーズで見つからず、次のフェーズへ持ち越されること
+                            </li>
+                            <li>モデル：仕様の一部を図や表で表現したもの（決定表、状態遷移図など）</li>
+                            <li>
+                                状態遷移：イベントをきっかけに、システムの状態が別の状態へ変わること
+                            </li>
+                            <li>決定表：条件の組合せとその結果（アクション）を表にしたもの</li>
+                            <li>不整合：同じ条件の組合せに、異なる結果が指定されていること</li>
+                            <li>
+                                チェックサム（決定表）：最小化した表の各ルールが表す組合せ数の合計。元の表と比べて抜けや重なりを見つける
+                            </li>
+                            <li>CRUD：Create（作成）・Read（参照）・Update（更新）・Delete（削除）</li>
+                            <li>アノマリー：期待と違う、調べるべき状態や異常</li>
                         </ul>
                     </details>
                 </main>
