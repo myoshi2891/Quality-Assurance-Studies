@@ -40,8 +40,12 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-ta-chapter2-risk-based-testing', h1: /第2章.*リスクベースドテスト/ },
   { path: '/istqb-ctal-ta-chapter3-test-analysis-and-design', h1: /第3章.*テスト分析・設計/ },
   { path: '/istqb-ctal-ta-chapter4-quality-characteristics', h1: /第4章.*品質特性のテスト/ },
+  { path: '/istqb-ctal-ta-chapter5-defect-prevention', h1: /第5章.*ソフトウェア欠陥防止/ },
   { path: '/istqb-ctal-tae-complete-guide', h1: /テスト自動化.*完全ガイド/s },
   { path: '/istqb-ctal-tm-complete-guide', h1: /CTAL-TM v3\.0/ },
+  { path: '/istqb-ctal-tm-chapter1-managing-the-test-activities', h1: /テスト活動の管理.*完全ガイド/s },
+  { path: '/istqb-ctal-tm-chapter2-managing-the-product', h1: /プロダクトのマネジメント/ },
+  { path: '/istqb-ctal-tm-chapter3-managing-the-team', h1: /チームの管理/ },
   { path: '/istqb-ctal-tta-complete-guide', h1: /Technical Test Analyst/ },
   { path: '/istqb-ctfl-at-complete-guide', h1: /Foundation Level Agile Tester/ },
   { path: '/istqb-ctfl-at-chapter1-agile-software-development', h1: /アジャイルソフトウェア開発/ },
@@ -93,6 +97,6 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 78;
+export const EXPECTED_PAGE_COUNT = 82;
 
 
