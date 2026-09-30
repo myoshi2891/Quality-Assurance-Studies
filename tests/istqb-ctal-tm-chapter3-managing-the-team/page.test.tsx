@@ -62,6 +62,58 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
+    {
+        heading: 'ステップ1：4つの領域を知る',
+        headers: ['能力領域', '英語', '一言でいうと', 'テストにおける具体例'],
+        rows: 4,
+        cols: 4,
+        sample: '専門的能力',
+    },
+    {
+        heading: 'ステップ2：見分け方のコツ',
+        headers: ['例', '領域', '理由'],
+        rows: 5,
+        cols: 3,
+        sample: '医療機器の薬事規制に詳しい',
+    },
+    {
+        heading: 'ステップ3：コンテキストと必要スキルの対応表',
+        headers: ['コンテキスト要因（第1章 1.4.2 の観点）', '必要になりやすいスキル', '主な領域'],
+        rows: 7,
+        cols: 3,
+        sample: 'ドメイン（医療・金融・保険など）',
+    },
+    {
+        heading: 'ステップ4：具体例（架空）',
+        headers: ['必要な活動', '必要スキル', '領域'],
+        rows: 5,
+        cols: 3,
+        sample: '患者安全リスクに基づくテスト設計',
+    },
+    {
+        heading: 'ステップ2：主な評価方法',
+        headers: ['方法', '内容', '長所', '注意点'],
+        rows: 6,
+        cols: 4,
+        sample: '自己評価',
+    },
+    {
+        heading: 'ステップ3：スキルマトリクス（skills matrix）の例',
+        headers: ['メンバー', 'ドメイン知識（専門）', 'テスト技法（専門）', '自動化（方法論）', '交渉・調整（社会）', '自己管理（個人）'],
+        rows: 4,
+        cols: 6,
+        sample: 'A さん',
+    },
+    {
+        heading: 'ステップ1：育成手段の選択肢',
+        headers: ['手段', '内容', '向いているスキル', '注意点'],
+        rows: 7,
+        cols: 4,
+        sample: '公式トレーニング',
+    },
+];
+
 describe('CTAL-TM v3.0 Chapter 3 - Category 1: 基盤 & 全体像', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtalTmChapter3Page />);
@@ -136,6 +188,96 @@ describe('CTAL-TM v3.0 Chapter 3 - Category 1: 基盤 & 全体像', () => {
 
         EXPECTED_TABLE_SPECS_CAT1.forEach((expected, i) => {
             const actual = cat1Tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual(expected.headers as string[]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toBe(expected.sample);
+        });
+    });
+});
+
+describe('CTAL-TM v3.0 Chapter 3 - Category 2: 3.1 テストチーム スキル編', () => {
+    it('renders section 2 and 2.0 prerequisite terms', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec2 = container.querySelector('[id="2-31-テストチームthe-test-team"]');
+        expect(sec2).not.toBeNull();
+        expect(sec2?.textContent).toContain('2. 3.1 テストチーム（The Test Team）');
+
+        const sec20 = container.querySelector('[id="20-前提となる用語"]');
+        expect(sec20).not.toBeNull();
+        expect(sec20?.textContent).toContain('2.0 前提となる用語（🟢）');
+    });
+
+    it('renders section 2.1 4 areas of competence with Mermaid diagram and practice callout', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec21 = container.querySelector('[id="21-311-4つの能力領域における典型的なスキル"]');
+        expect(sec21).not.toBeNull();
+        expect(sec21?.textContent).toContain('2.1 3.1.1 4つの能力領域における典型的なスキル（🟡）');
+
+        const step1 = container.querySelector('[id="ステップ14つの領域を知る"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ2見分け方のコツ"]');
+        expect(step2).not.toBeNull();
+    });
+
+    it('renders section 2.2 skills analysis with context and derivation Mermaid diagram', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec22 = container.querySelector('[id="22-312-必要なテストチームメンバーのスキルの分析"]');
+        expect(sec22).not.toBeNull();
+        expect(sec22?.textContent).toContain('2.2 3.1.2 必要なテストチームメンバーのスキルの分析（🟡＋🟢）');
+
+        const step1 = container.querySelector('[id="ステップ1なぜ分析が必要か"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ2分析の流れ"]');
+        expect(step2).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3コンテキストと必要スキルの対応表"]');
+        expect(step3).not.toBeNull();
+
+        const step4 = container.querySelector('[id="ステップ4具体例架空"]');
+        expect(step4).not.toBeNull();
+    });
+
+    it('renders section 2.3 skills assessment with skills matrix and gap Mermaid diagram', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec23 = container.querySelector('[id="23-313-テストチームメンバーのスキルの評価"]');
+        expect(sec23).not.toBeNull();
+        expect(sec23?.textContent).toContain('2.3 3.1.3 テストチームメンバーのスキルの評価（🟡）');
+
+        const step1 = container.querySelector('[id="ステップ1評価の目的"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ2主な評価方法"]');
+        expect(step2).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3スキルマトリクスskills-matrixの例"]');
+        expect(step3).not.toBeNull();
+    });
+
+    it('renders section 2.4 skills development with training plan Mermaid diagram and callout', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec24 = container.querySelector('[id="24-314-テストチームメンバーのスキルの育成"]');
+        expect(sec24).not.toBeNull();
+        expect(sec24?.textContent).toContain('2.4 3.1.4 テストチームメンバーのスキルの育成（🟡）');
+
+        const step1 = container.querySelector('[id="ステップ1育成手段の選択肢"]');
+        expect(step1).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3育成計画の立て方"]');
+        expect(step3).not.toBeNull();
+    });
+
+    it('matches Category 2 table inventory precisely (7 tables)', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const allTables = collectTableInventory(container);
+        const cat2Tables = allTables.slice(3, 10);
+        expect(cat2Tables.length).toBe(7);
+
+        EXPECTED_TABLE_SPECS_CAT2.forEach((expected, i) => {
+            const actual = cat2Tables[i];
             expect(actual.heading).toBe(expected.heading);
             expect(actual.headers).toEqual(expected.headers as string[]);
             expect(actual.rows).toBe(expected.rows);
