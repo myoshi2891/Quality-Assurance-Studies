@@ -1,4 +1,6 @@
 import React from 'react';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { render, screen, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTmChapter1Page from '../../app/istqb-ctal-tm-chapter1-managing-the-test-activities/page';
@@ -126,6 +128,21 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 1: Scaffolding, NavBar, Hero & sec-1
         const practiceCallout = container.querySelector('.callout-practice');
         expect(practiceCallout).toBeTruthy();
         expect(practiceCallout?.textContent).toContain('つまずきやすい点');
+    });
+
+    it('ensures CSS maintains sidebar offset on .main and avoids overriding margin-left with margin: 0', () => {
+        const cssPath = join(__dirname, '../../app/istqb-ctal-tm-chapter1-managing-the-test-activities/istqb-ctal-tm-chapter1-managing-the-test-activities.css');
+        const css = readFileSync(cssPath, 'utf8');
+
+        // .main must have margin-left: var(--sidebar-w)
+        expect(css).toMatch(/\.ctal-tm-ch1-page\s+\.main\s*\{[^}]*margin-left:\s*var\(--sidebar-w\)/);
+
+        // .ctal-tm-ch1-page main or main.ctal-tm-ch1-page must NOT have margin: 0 !important (which destroys margin-left)
+        expect(css).not.toMatch(/\.ctal-tm-ch1-page\s+main[^{]*\{[^}]*margin:\s*0\s*!important/);
+        expect(css).not.toMatch(/main\.ctal-tm-ch1-page[^{]*\{[^}]*margin:\s*0\s*!important/);
+
+        // sidebar top should accommodate disclaimer banner
+        expect(css).toMatch(/\.ctal-tm-ch1-page\s+\.sidebar\s*\{[^}]*top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height/);
     });
 });
 

@@ -30,11 +30,12 @@
 }
 
 /* ---------- globals.css 干渉リセット ---------- */
-.ctal-tm-ch1-page main,
-main.ctal-tm-ch1-page {
+.ctal-tm-ch1-page .main {
     max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    width: auto !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .ctal-tm-ch1-page .hero {
@@ -134,9 +135,10 @@ main.ctal-tm-ch1-page {
 .ctal-tm-ch1-page .sidebar {
     position: fixed;
     left: 0;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     bottom: 0;
     width: var(--sidebar-w);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     background: var(--bg2);
     border-right: 1px solid var(--line);
     overflow-y: auto;
@@ -222,7 +224,7 @@ main.ctal-tm-ch1-page {
 }
 
 .ctal-tm-ch1-page .main {
-    margin-left: var(--sidebar-w);
+    margin-left: var(--sidebar-w) !important;
     padding: 0 56px 96px;
     min-width: 0;
 }
@@ -230,7 +232,7 @@ main.ctal-tm-ch1-page {
 .ctal-tm-ch1-page .nav-toggle {
     display: none;
     position: fixed;
-    top: 72px;
+    top: calc(72px + var(--disclaimer-height, 0px));
     left: 12px;
     z-index: 60;
     background: var(--panel2);
@@ -316,6 +318,7 @@ main.ctal-tm-ch1-page {
     line-height: 1.45;
     border-bottom: 2px solid var(--line2);
     text-wrap: balance;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 24px);
 }
 
 .ctal-tm-ch1-page .content h3 {
@@ -326,6 +329,7 @@ main.ctal-tm-ch1-page {
     padding-left: 14px;
     border-left: 4px solid var(--accent);
     text-wrap: balance;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 24px);
 }
 
 .ctal-tm-ch1-page .content h4 {
@@ -333,6 +337,7 @@ main.ctal-tm-ch1-page {
     color: #cddcff;
     font-size: 17px;
     line-height: 1.55;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 24px);
 }
 
 .ctal-tm-ch1-page .content p {
@@ -605,14 +610,15 @@ main.ctal-tm-ch1-page {
         transform: translateX(-100%);
         transition: transform 0.2s;
         width: min(86vw, 340px);
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
+        height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     }
     .ctal-tm-ch1-page .sidebar.open {
         transform: none;
         box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.55);
     }
     .ctal-tm-ch1-page .main {
-        margin-left: 0;
+        margin-left: 0 !important;
         padding: 0 18px 72px;
     }
     .ctal-tm-ch1-page .nav-toggle {
