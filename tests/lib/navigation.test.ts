@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 78 entries (home + 9 foundation + 11 fdn-ext + 10 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(78);
+  it('contains 79 entries (home + 9 foundation + 11 fdn-ext + 11 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(79);
   });
 
   it('every item has a unique href', () => {
@@ -344,6 +344,7 @@ describe('groupByCategory', () => {
       '/istqb-ctal-ta-chapter3-test-analysis-and-design',
       '/istqb-ctal-ta-chapter4-quality-characteristics',
       '/istqb-ctal-tm-complete-guide',
+      '/istqb-ctal-tm-chapter1-managing-the-test-activities',
       '/istqb-ctal-tta-complete-guide',
       '/istqb-ctal-att-complete-guide',
       '/istqb-ctal-atlas-complete-guide',

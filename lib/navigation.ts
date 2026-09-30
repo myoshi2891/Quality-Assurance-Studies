@@ -73,6 +73,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-ta-chapter3-test-analysis-and-design', label: 'CTAL-TA 3章 テスト分析・設計', description: 'ドメイン・組み合わせ・CRUD・状態遷移・シナリオ・デシジョンテーブル・メタモルフィック・経験ベース技法。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter4-quality-characteristics', label: 'CTAL-TA 4章 品質特性のテスト', description: '機能適合性・ユーザビリティ・柔軟性・相互運用性のテスト設計と評価。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tm-complete-guide', label: 'テスト管理(CTAL-TM)ガイド', description: 'テスト戦略・見積り・リスク管理・欠陥マネジメントの実務。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tm-chapter1-managing-the-test-activities', label: 'CTAL-TM 1章 テスト活動の管理', description: 'テストプロセス・コンテキスト・RBT・テスト戦略・プロセス改善・ツール管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tta-complete-guide', label: 'テクニカルテストアナリスト(CTAL-TTA)ガイド', description: '構造テスト技法、静的/動的解析、非機能品質特性の技術的検証。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-att-complete-guide', label: 'アジャイル(CTAL-ATT)ガイド', description: 'Agile Technical Tester としての自動化とCIへの組み込み。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-atlas-complete-guide', label: 'アジャイル(CT-ATLaS)ガイド', description: '大規模スケールドアジャイルにおけるテスト戦略と協働。', category: 'istqb-advanced' },

@@ -1,14 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import NavBar from "./NavBar";
+import ChecklistCard from "./ChecklistCard";
 import Mermaid from "../../components/Mermaid";
-import {
-  DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5,
-  DIAGRAM_6, DIAGRAM_7, DIAGRAM_8, DIAGRAM_9, DIAGRAM_10,
-  DIAGRAM_11, DIAGRAM_12, DIAGRAM_13, DIAGRAM_14, DIAGRAM_15,
-  DIAGRAM_16, DIAGRAM_17, DIAGRAM_18, DIAGRAM_19, DIAGRAM_20,
-  DIAGRAM_21, DIAGRAM_22, DIAGRAM_23
-} from "./diagrams";
+import { DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5, DIAGRAM_6, DIAGRAM_7, DIAGRAM_8, DIAGRAM_9, DIAGRAM_10, DIAGRAM_11, DIAGRAM_12, DIAGRAM_13, DIAGRAM_14, DIAGRAM_15, DIAGRAM_16, DIAGRAM_17, DIAGRAM_18, DIAGRAM_19, DIAGRAM_20, DIAGRAM_21, DIAGRAM_22, DIAGRAM_23 } from "./diagrams";
 import "./istqb-ctal-tm-chapter1-managing-the-test-activities.css";
 
 export const metadata: Metadata = {
@@ -3075,10 +3070,10 @@ export default function CtalTmChapter1Page() {
                                 <tr className="odd">
                                     <td>参考 URL</td>
                                     <td>
-                                        <a href="http://www.tmmi.org" rel="noopener noreferrer" target="_blank">www.tmmi.org</a>
+                                        <a href="http://www.tmmi.org" target="_blank" rel="noopener noreferrer" >www.tmmi.org</a>
                                     </td>
                                     <td>
-                                        <a href="http://www.tmap.net" rel="noopener noreferrer" target="_blank">www.tmap.net</a>
+                                        <a href="http://www.tmap.net" target="_blank" rel="noopener noreferrer" >www.tmap.net</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -3882,7 +3877,609 @@ export default function CtalTmChapter1Page() {
 <aside className="callout callout-note">
                         <p>Chapter 2「Test Metrics」で、メトリクスの詳細を扱います。</p>
                     </aside>
+            <h2 id="sec-8">7. Chapter 1 のまとめと試験対策</h2>
+<h3 id="sec-8-1">7.1 学習目標と要点の一覧</h3>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>学習目標</th>
+                                    <th>K</th>
+                                    <th>一言まとめ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>1.1.1 テスト計画</td>
+                                    <td>K2</td>
+                                    <td>
+                                        5 タスク：コンテキスト理解 → リスク分析 → リスク対応 →
+                                        アプローチ・リソース → 計画確立
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.1.2 モニタリング／コントロール</td>
+                                    <td>K2</td>
+                                    <td>監視で状況を把握し、コントロールで是正。継続的に実施</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.1.3 テスト完了</td>
+                                    <td>K2</td>
+                                    <td>報告書、アーカイブ、引き渡し、環境復元、教訓の 5 タスク</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.2.1 ステークホルダー</td>
+                                    <td>K2</td>
+                                    <td>関心事は立場で異なる。分析はテスト戦略・計画作成の一環</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.2.2 ステークホルダーの知識</td>
+                                    <td>K2</td>
+                                    <td>
+                                        影響力／関心の 4 象限（Promoters, Latents, Defenders,
+                                        Apathetics）
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.2.3 ハイブリッド</td>
+                                    <td>K2</td>
+                                    <td>
+                                        移行手段、または fit for
+                                        purpose。能力評価・協働・スクラム・オブ・スクラム
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.2.4 SDLC 別活動</td>
+                                    <td>K2</td>
+                                    <td>逐次型と反復型を、見積り・役割・ツール・報告などで対比</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.2.5 テストレベル別</td>
+                                    <td>K2</td>
+                                    <td>5 レベルごとの管理活動</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.2.6 テストタイプ別</td>
+                                    <td>K2</td>
+                                    <td>機能／非機能／ブラックボックス／ホワイトボックス</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.2.7 計画・監視・統制</td>
+                                    <td><strong>K4</strong></td>
+                                    <td>状況を分析して強調する活動を選ぶ。品質ゲートに注意</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.3.1 RBT の対応策</td>
+                                    <td>K2</td>
+                                    <td>リスク分析（特定・評価）とリスク制御（監視・軽減）</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.3.2 リスク特定</td>
+                                    <td>K2</td>
+                                    <td>7 つの技法。ステークホルダーを網羅</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.3.3 リスクレベル要因</td>
+                                    <td>K2</td>
+                                    <td>発生可能性の要因と影響の要因。定量／定性</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.3.4 軽減活動の選択</td>
+                                    <td><strong>K4</strong></td>
+                                    <td>6 つのコンテキスト要因。深さ優先／幅優先</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.3.5 重量級／軽量級</td>
+                                    <td>K2</td>
+                                    <td>FMEA・FTA 等 vs SST・PRAM・PRISMA</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.3.6 成功メトリクスと困難</td>
+                                    <td>K2</td>
+                                    <td>6 つの問い。5 つの困難と解決策</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.4.1 テストアプローチ</td>
+                                    <td>K2</td>
+                                    <td>レベル・タイプ・技法・実践の選択と組み合わせ</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.4.2 戦略の分析</td>
+                                    <td><strong>K4</strong></td>
+                                    <td>7 つの要因（ドメイン〜テストデータ）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.4.3 S.M.A.R.T.</td>
+                                    <td><strong>K3</strong></td>
+                                    <td>目的と終了基準を測定可能に定義</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.5.1 IDEAL</td>
+                                    <td>K2</td>
+                                    <td>
+                                        Initiating → Diagnosing → Establishing → Acting → Learning
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.5.2 モデルベース</td>
+                                    <td>K2</td>
+                                    <td>TMMi、TPI NEXT</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.5.3 分析ベース</td>
+                                    <td>K2</td>
+                                    <td>RCA、メトリクス、GQM</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.5.4 レトロスペクティブ</td>
+                                    <td><strong>K3</strong></td>
+                                    <td>5 ステップ。過剰な改善を同時に実施しない</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.6.1 ツール導入</td>
+                                    <td>K2</td>
+                                    <td>評価（PoC まで）→ パイロット → 段階展開</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.6.2 ツール決定の要因</td>
+                                    <td>K2</td>
+                                    <td>規制・財務・要件・既存環境</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.6.3 選定計画と ROI</td>
+                                    <td><strong>K4</strong></td>
+                                    <td>立場別観点、一度／継続／機会費用、便益とリスク</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>1.6.4 ツールライフサイクル</td>
+                                    <td>K2</td>
+                                    <td>⚠ 原文確認が必要</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>1.6.5 ツールメトリクス</td>
+                                    <td>K2</td>
+                                    <td>⚠ 原文確認が必要</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-8-2">7.2 混同しやすいポイント</h3>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>混同しやすい点</th>
+                                    <th>整理</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>テスト戦略とテストアプローチ</td>
+                                    <td>
+                                        戦略＝<strong>どうテストするかの説明</strong>。アプローチ＝<strong>テストレベル・タイプ・技法などの選択と組み合わせ</strong>で、戦略を形成する重要な決定
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>組織のテスト戦略とプロジェクトテスト戦略</td>
+                                    <td>
+                                        前者は<strong>与えられる</strong>、後者は<strong>テスト計画の主要な成果</strong>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>モニタリングとコントロール</td>
+                                    <td>
+                                        監視＝<strong>把握</strong>、統制＝<strong>是正措置</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>プロダクトリスクとプロジェクトリスク</td>
+                                    <td>
+                                        RBT
+                                        の焦点は<strong>品質リスク（プロダクトリスク）</strong>。プロジェクトリスクは副産物として見つかる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>深さ優先と幅優先</td>
+                                    <td>
+                                        深さ優先＝<strong>高リスクから徹底</strong>。幅優先＝<strong>各リスクに最低 1 つずつ</strong>先にテスト
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>重量級と軽量級</td>
+                                    <td>
+                                        重量級＝形式的・広範・数式（<strong>安全重要</strong>）。軽量級＝順序尺度・少ない労力
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>モデルベースと分析ベース</td>
+                                    <td>
+                                        前者＝<strong>外部のベストプラクティスと比較</strong>。後者＝<strong>自分たちのデータで問題特定</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>IDEAL の適用レベル</td>
+                                    <td>
+                                        元は組織レベル向けだが、プロジェクト・チームでも適用でき、<strong>Initiating が小さくなる</strong>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>定量評価と定性評価</td>
+                                    <td>
+                                        定量＝<strong>統計的に妥当なデータ</strong>が必要で、<strong>積</strong>で算出。定性＝<strong>順序尺度</strong>とマトリクス
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ツールの ROI の責任者</td>
+                                    <td>
+                                        <strong>テストマネージャー</strong>。アジャイルでは<strong>開発チーム全体</strong>の場合もある
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-8-3">
+                        7.3
+                        練習問題（本ガイド作成者による<strong>オリジナル</strong>問題、公式問題ではありません）
+                    </h3>
+<p>
+                        <strong>Q1（K2）</strong>
+                        テスト完了活動に<strong>含まれない</strong>ものはどれか。
+                    </p>
+<ul>
+                        <li>A. テスト完了報告書の作成と承認</li>
+                        <li>B. テストウェアのアーカイブ</li>
+                        <li>C. テスト環境を所定の状態に復元</li>
+                        <li>D. テストアプローチの初期定義</li>
+                    </ul>
+<p>
+                        <strong>Q2（K2）</strong>
+                        ステークホルダーマトリクスで、<strong>影響力が高く関心が低い</strong>ステークホルダーは何と呼ばれるか。
+                    </p>
+<ul>
+                        <li>A. Promoters</li>
+                        <li>B. Latents</li>
+                        <li>C. Defenders</li>
+                        <li>D. Apathetics</li>
+                    </ul>
+<p>
+                        <strong>Q3（K2）</strong>
+                        リスクベースドテストで、最高レベルのリスクを<strong>できるだけ早く</strong>軽減することが重要なときに適する優先順位付けの方法はどれか。
+                    </p>
+<ul>
+                        <li>A. 幅優先</li>
+                        <li>B. 深さ優先</li>
+                        <li>C. ランダム</li>
+                        <li>D. 実行しやすい順</li>
+                    </ul>
+<p>
+                        <strong>Q4（K2）</strong>
+                        <strong>重量級</strong>のリスクベースドテスト技法はどれか。
+                    </p>
+<ul>
+                        <li>A. PRAM</li>
+                        <li>B. PRISMA</li>
+                        <li>C. FMEA</li>
+                        <li>D. SST</li>
+                    </ul>
+<p>
+                        <strong>Q5（K3）</strong>
+                        あるチームが、テスト目的を「品質を十分に高める」とした。S.M.A.R.T.
+                        のどの要素が<strong>最も欠けている</strong>か。
+                    </p>
+<ul>
+                        <li>A. Specific と Measurable</li>
+                        <li>B. Achievable と Relevant</li>
+                        <li>C. Timely のみ</li>
+                        <li>D. Relevant のみ</li>
+                    </ul>
+<p>
+                        <strong>Q6（K4）</strong> 開発が 2
+                        つの拠点に分散し、要件が頻繁に変わる反復開発のプロジェクトで、テストマネージャーが<strong>特に強調すべき</strong>活動の組み合わせはどれか。
+                    </p>
+<ul>
+                        <li>
+                            A.
+                            計画時の役割・コミュニケーションの明確化と、継続的なモニタリング・優先度調整
+                        </li>
+                        <li>B. 完了時の詳細な文書化のみ</li>
+                        <li>C. 一度作った計画を変更しない厳格な運用</li>
+                        <li>D. テストを最終フェーズに集約</li>
+                    </ul>
+<p>
+                        <strong>Q7（K3）</strong>
+                        レトロスペクティブの手順として<strong>正しい順序</strong>はどれか。
+                    </p>
+<ul>
+                        <li>A. データ収集 → 導入 → 改善案の導出 → アクション決定 → 終了</li>
+                        <li>B. 導入 → データ収集 → 改善案の導出 → アクション決定 → 終了</li>
+                        <li>C. 導入 → 改善案の導出 → データ収集 → 終了 → アクション決定</li>
+                        <li>D. 終了 → 導入 → データ収集 → 改善案の導出 → アクション決定</li>
+                    </ul>
+<p>
+                        <strong>Q8（K2）</strong>
+                        ツール導入で、評価・選定の<strong>最終ステップ</strong>として推奨されるのはどれか。
+                    </p>
+<ul>
+                        <li>A. ライセンスモデルの比較</li>
+                        <li>B. 概念実証（PoC）の実施</li>
+                        <li>C. 全社への一斉展開</li>
+                        <li>D. ツールオーナーの任命</li>
+                    </ul>
+<h4 id="sub-60">解答と解説</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>問</th>
+                                    <th>正解</th>
+                                    <th>解説</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>Q1</td>
+                                    <td>D</td>
+                                    <td>
+                                        アプローチの定義は<strong>計画</strong>の活動（1.1.1
+                                        のタスク
+                                        4）。完了は、報告書、アーカイブ、引き渡し、環境復元、教訓
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Q2</td>
+                                    <td>B</td>
+                                    <td>
+                                        高影響・低関心が <strong>Latents</strong>。Promoters
+                                        は高影響・高関心、Defenders は低影響・高関心、Apathetics
+                                        は低影響・低関心
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>Q3</td>
+                                    <td>B</td>
+                                    <td>
+                                        <strong>深さ優先</strong>はリスクレベルが高い順に厳密にテストする。幅優先は全体像を早く得たい場合
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Q4</td>
+                                    <td>C</td>
+                                    <td>
+                                        <strong>FMEA</strong> は重量級。PRAM、PRISMA、SST は軽量級
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>Q5</td>
+                                    <td>A</td>
+                                    <td>
+                                        「十分に高める」は具体的でなく、測定もできない。<strong>S と M</strong>
+                                        が欠けている
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Q6</td>
+                                    <td>A</td>
+                                    <td>
+                                        分散→役割・コミュニケーションの計画、頻繁な変更→継続的な監視と優先度調整（コントロール）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>Q7</td>
+                                    <td>B</td>
+                                    <td>
+                                        導入 → データ収集 → 改善案の導出 → アクションの決定 → 終了
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Q8</td>
+                                    <td>B</td>
+                                    <td>
+                                        評価・選定の<strong>最終ステップは PoC</strong>。展開・オーナーの定義は導入・展開の段階
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-note">
+                        <p>公式の練習問題は、次節のサンプル試験で確認してください。</p>
+                    </aside>
+<h3 id="sec-8-4">7.4 学習チェックリスト</h3>
+<ChecklistCard />
+            <h2 id="sec-9">8. 参考ソース（URL）</h2>
+<h3 id="sec-9-1">8.1 一次情報（公式）</h3>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料</th>
+                                    <th>URL</th>
+                                    <th>備考</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>ISTQB 公式ページ：CTAL-TM v3.0</td>
+                                    <td>
+                                        <a href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/" target="_blank" rel="noopener noreferrer" >https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/</a>
+                                    </td>
+                                    <td>
+                                        試験構成（50 問／88 点／合格 58 点／120
+                                        分）、ビジネスアウトカム、教材ダウンロード
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>CTAL-TM v3.0 シラバス（PDF・ISTQB）</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=3445" target="_blank" rel="noopener noreferrer" >https://istqb.org/?sdm_process_download=1&amp;download_id=3445</a>
+                                    </td>
+                                    <td>本ガイドの根拠。Chapter 1 は p.16〜46</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CTAL-TM v3.0 シラバス（PDF・実体 URL）</td>
+                                    <td>
+                                        <a href="https://istqb.org/wp-content/uploads/2026/08/ISTQB_CTAL-TM_Syllabus_v3.0.pdf" target="_blank" rel="noopener noreferrer" >https://istqb.org/wp-content/uploads/2026/08/ISTQB_CTAL-TM_Syllabus_v3.0.pdf</a>
+                                    </td>
+                                    <td>上記ダウンロードのリダイレクト先</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>CTAL-TM v3.0 シラバス（PDF・ASTQB ミラー）</td>
+                                    <td>
+                                        <a href="https://astqb.org/assets/documents/ISTQB_CTAL-TM_Syllabus_v3.0.pdf" target="_blank" rel="noopener noreferrer" >https://astqb.org/assets/documents/ISTQB_CTAL-TM_Syllabus_v3.0.pdf</a>
+                                    </td>
+                                    <td>同一内容（2024/05/03 版）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CTAL-TM シラバス ダウンロードページ</td>
+                                    <td>
+                                        <a href="https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/" target="_blank" rel="noopener noreferrer" >https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/</a>
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>サンプル試験 A（問題）</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=3449" target="_blank" rel="noopener noreferrer" >https://istqb.org/?sdm_process_download=1&amp;download_id=3449</a>
+                                    </td>
+                                    <td>公式サンプル</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>サンプル試験 A（解答）</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=3451" target="_blank" rel="noopener noreferrer" >https://istqb.org/?sdm_process_download=1&amp;download_id=3451</a>
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>サンプル試験 B（問題）</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=9612" target="_blank" rel="noopener noreferrer" >https://istqb.org/?sdm_process_download=1&amp;download_id=9612</a>
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>サンプル試験 B（解答）</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=9614" target="_blank" rel="noopener noreferrer" >https://istqb.org/?sdm_process_download=1&amp;download_id=9614</a>
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>試験構成と規則</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=3829" target="_blank" rel="noopener noreferrer" >https://istqb.org/?sdm_process_download=1&amp;download_id=3829</a>
+                                    </td>
+                                    <td>Exam Structures and Rules</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISTQB 用語集</td>
+                                    <td>
+                                        <a href="https://glossary.istqb.org/en_US/search?term=" target="_blank" rel="noopener noreferrer" >https://glossary.istqb.org/en_US/search?term=</a>
+                                    </td>
+                                    <td>用語の定義確認</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-9-2">8.2 シラバスが参照している外部情報</h3>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>資料</th>
+                                    <th>URL</th>
+                                    <th>備考</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>TMMi Foundation</td>
+                                    <td>
+                                        <a href="http://www.tmmi.org" target="_blank" rel="noopener noreferrer" >www.tmmi.org</a>
+                                    </td>
+                                    <td>TMMi の情報（シラバスの記載）</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>TMap / TPI NEXT</td>
+                                    <td>
+                                        <a href="http://www.tmap.net" target="_blank" rel="noopener noreferrer" >www.tmap.net</a>
+                                    </td>
+                                    <td>TPI NEXT の情報（シラバスの記載）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ISO/IEC/IEEE 29119（Part 2, Part 3）</td>
+                                    <td>（有償の国際標準）</td>
+                                    <td>シラバスが参照。<strong>試験範囲外</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-9-3">8.3 本ガイドと出典の対応</h3>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>本ガイドの節</th>
+                                    <th>シラバスの節</th>
+                                    <th>ページ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>1. テストプロセス</td>
+                                    <td>1.1</td>
+                                    <td>p.18–20</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>2. テストのコンテキスト</td>
+                                    <td>1.2</td>
+                                    <td>p.21–27</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3. リスクベースドテスト</td>
+                                    <td>1.3</td>
+                                    <td>p.28–33</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>4. プロジェクトテスト戦略</td>
+                                    <td>1.4</td>
+                                    <td>p.34–37</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>5. テストプロセスの改善</td>
+                                    <td>1.5</td>
+                                    <td>p.38–41</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>6. テストツール</td>
+                                    <td>1.6</td>
+                                    <td>p.42–46（1.6.4・1.6.5 は原文未確認）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-9-4">8.4 注意事項</h3>
+<ul>
+                        <li>
+                            本ガイドは、ISTQB 公式シラバス v3.0
+                            の内容を<strong>日本語で要約・再構成</strong>した学習資料で、原文の全訳ではありません。<strong>試験の準拠先は、常にシラバス原文</strong>です。
+                        </li>
+                        <li>
+                            「説明用」「考え方の例」「オリジナル問題」と明記した表・例・数値は、理解のために作成者が作った<strong>補足</strong>で、シラバスに記載された内容ではありません。
+                        </li>
+                        <li>
+                            シラバスは著作権で保護されています。引用・再利用の条件は、シラバス冒頭の
+                            <strong>Copyright Notice</strong> を確認してください。
+                        </li>
+                        <li>
+                            日本語版シラバスの有無や、日本での受験方法は、日本の ISTQB Member
+                            Board（JSTQB）に確認してください。
+                        </li>
+                    </ul>
           </article>
+          <footer className="page-footer">
+                    作成日：2026 年 9 月 21 日 ／ 対象：ISTQB CTAL-TM v3.0（2024/05/03
+                    リリース版シラバス）Chapter 1
+                </footer>
         </main>
       </div>
     </div>

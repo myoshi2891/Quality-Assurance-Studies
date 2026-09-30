@@ -42,6 +42,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-ta-chapter4-quality-characteristics', h1: /第4章.*品質特性のテスト/ },
   { path: '/istqb-ctal-tae-complete-guide', h1: /テスト自動化.*完全ガイド/s },
   { path: '/istqb-ctal-tm-complete-guide', h1: /CTAL-TM v3\.0/ },
+  { path: '/istqb-ctal-tm-chapter1-managing-the-test-activities', h1: /テスト活動の管理.*完全ガイド/s },
   { path: '/istqb-ctal-tta-complete-guide', h1: /Technical Test Analyst/ },
   { path: '/istqb-ctfl-at-complete-guide', h1: /Foundation Level Agile Tester/ },
   { path: '/istqb-ctfl-at-chapter1-agile-software-development', h1: /アジャイルソフトウェア開発/ },
@@ -93,6 +94,6 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 78;
+export const EXPECTED_PAGE_COUNT = 79;
 
 
