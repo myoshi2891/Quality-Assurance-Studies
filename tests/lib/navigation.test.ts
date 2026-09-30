@@ -451,4 +451,12 @@ describe('matchesQuery', () => {
       expect(hit.href).toContain('ctfl-v4');
     }
   });
+
+  it('matches CT-GenAI Chapter 1 with queries "生成AI", "第1章", and "CT-GenAI"', () => {
+    const ch1 = NAV_ITEMS.find((i) => i.href === '/istqb-ct-genai-chapter1-introduction');
+    expect(ch1).toBeDefined();
+    expect(matchesQuery(ch1!, '生成AI')).toBe(true);
+    expect(matchesQuery(ch1!, '第1章')).toBe(true);
+    expect(matchesQuery(ch1!, 'CT-GenAI')).toBe(true);
+  });
 });
