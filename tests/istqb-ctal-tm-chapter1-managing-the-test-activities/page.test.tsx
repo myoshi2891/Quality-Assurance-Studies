@@ -587,3 +587,201 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 3: リスクベースドテスト (s
         expect(callouts.length).toBeGreaterThanOrEqual(19);
     });
 });
+
+describe('CTAL-TM v3.0 Chapter 1 - Category 4: テストプロセスの改善 (sec-6) & テストツール (sec-7)', () => {
+    it('renders sec-6 and sec-7 headings and subheadings', () => {
+        render(<CtalTmChapter1Page />);
+        expect(document.getElementById('sec-6')?.textContent).toContain('5. テストプロセスの改善');
+        expect(document.getElementById('sec-7')?.textContent).toContain('6. テストツール');
+
+        const sec6Subs = ['sec-6-1', 'sec-6-2', 'sec-6-3', 'sec-6-4', 'sec-6-5'];
+        for (const id of sec6Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+
+        const sec7Subs = ['sec-7-1', 'sec-7-2', 'sec-7-3', 'sec-7-4', 'sec-7-5', 'sec-7-6'];
+        for (const id of sec7Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+    });
+
+    it('renders all 20 tables in sec-6 and sec-7 with exact specifications', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(73); // 53 + 20
+
+        const expectedCat4Tables: TableSpec[] = [
+            {
+                heading: '5.0 なぜテストプロセスを改善するのか',
+                headers: ['観点', '内容'],
+                rows: 4,
+                cols: 2,
+                sample: '改善のきっかけ（例）',
+            },
+            {
+                heading: '5.1 IDEAL モデル（TM-1.5.1）',
+                headers: ['文字', '英語', '日本語'],
+                rows: 5,
+                cols: 3,
+                sample: 'I',
+            },
+            {
+                heading: '5.1 IDEAL モデル（TM-1.5.1）',
+                headers: ['フェーズ', '内容（要点）', 'ベストプラクティス'],
+                rows: 5,
+                cols: 3,
+                sample: 'Initiating',
+            },
+            {
+                heading: '5.2.1 基本的な考え方',
+                headers: ['項目', '内容'],
+                rows: 3,
+                cols: 2,
+                sample: '代表的モデル',
+            },
+            {
+                heading: '5.2.2 TMMi® と TPI NEXT® の比較',
+                headers: ['観点', 'TMMi®', 'TPI NEXT®'],
+                rows: 5,
+                cols: 3,
+                sample: '構造',
+            },
+            {
+                heading: '5.3.1 モデルベースとの違い',
+                headers: ['アプローチ', '問題の見つけ方', 'データ'],
+                rows: 2,
+                cols: 3,
+                sample: 'モデルベース',
+            },
+            {
+                heading: '5.3.2 代表的な 3 つの分析アプローチ',
+                headers: ['アプローチ', '内容'],
+                rows: 3,
+                cols: 2,
+                sample: '根本原因分析（RCA）',
+            },
+            {
+                heading: '5.3.4 GQM の流れ',
+                headers: ['ステップ', '内容'],
+                rows: 4,
+                cols: 2,
+                sample: 'Goal（目標）',
+            },
+            {
+                heading: '5.4.1 定義と位置づけ',
+                headers: ['観点', '逐次型', 'アジャイル'],
+                rows: 3,
+                cols: 3,
+                sample: '位置づけ',
+            },
+            {
+                heading: '5.4.2 典型的な 5 ステップ',
+                headers: ['#', 'ステップ', '内容', 'ベストプラクティス'],
+                rows: 5,
+                cols: 4,
+                sample: '1',
+            },
+            {
+                heading: '6.0 導入：ツールの 2 つの見方',
+                headers: ['ビジネスツールのタイプ', '特徴（1.6.2 の記述に基づく）'],
+                rows: 3,
+                cols: 2,
+                sample: '商用ツール',
+            },
+            {
+                heading: '6.1 ツール導入のグッドプラクティス（TM-1.6.1）',
+                headers: ['段階', 'グッドプラクティス（シラバス）', '補足・ベストプラクティス'],
+                rows: 15,
+                cols: 3,
+                sample: '評価・選定',
+            },
+            {
+                heading: '6.2 ツール決定に関する技術面・ビジネス面（TM-1.6.2）',
+                headers: ['要因', '内容（シラバス）', '影響の例'],
+                rows: 4,
+                cols: 3,
+                sample: '規制とセキュリティ',
+            },
+            {
+                heading: '6.3.1 立場ごとの観点',
+                headers: ['立場', '重視すること'],
+                rows: 5,
+                cols: 2,
+                sample: '経営層',
+            },
+            {
+                heading: '6.3.2 ROI と費用便益分析',
+                headers: ['区分', '内容（シラバス）'],
+                rows: 3,
+                cols: 2,
+                sample: '一度だけ発生する活動とコスト（非反復）',
+            },
+            {
+                heading: '6.3.2 ROI と費用便益分析',
+                headers: ['リスク', '内容'],
+                rows: 4,
+                cols: 2,
+                sample: '組織の未成熟',
+            },
+            {
+                heading: '6.3.2 ROI と費用便益分析',
+                headers: ['便益', '例'],
+                rows: 5,
+                cols: 2,
+                sample: '手作業の反復の削減',
+            },
+            {
+                heading: '6.3.3 K4 問題の解き方（ツール選定計画の作成）',
+                headers: ['項目', '金額（年間）'],
+                rows: 5,
+                cols: 2,
+                sample: '便益：手動回帰テストの工数削減（400 時間 × 5,000 円）',
+            },
+            {
+                heading: '6.4 ツールのライフサイクル（TM-1.6.4）',
+                headers: ['段階（一般的な整理）', '内容の例'],
+                rows: 4,
+                cols: 2,
+                sample: '取得',
+            },
+            {
+                heading: '6.5 ツールメトリクス（TM-1.6.5）',
+                headers: ['ツールの種類', '収集できるメトリクスの例'],
+                rows: 6,
+                cols: 2,
+                sample: 'テスト管理ツール',
+            },
+        ];
+
+        for (let i = 0; i < expectedCat4Tables.length; i++) {
+            const exp = expectedCat4Tables[i];
+            const actual = tables[i + 53];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(exp.heading);
+            expect(actual.headers).toEqual(exp.headers as string[]);
+            expect(actual.rows).toBe(exp.rows);
+            expect(actual.cols).toBe(exp.cols);
+            expect(actual.sample).toBe(exp.sample);
+        }
+    });
+
+    it('renders Mermaid diagrams 15 to 23 in sec-6 and sec-7', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        for (let i = 15; i <= 23; i++) {
+            const diag = container.querySelector(`#mermaid-diagram-${i}`);
+            expect(diag).toBeTruthy();
+        }
+    });
+
+    it('renders callout blocks in sec-6 and sec-7', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const sec6 = container.querySelector('#sec-6');
+        expect(sec6).toBeTruthy();
+        const sec7 = container.querySelector('#sec-7');
+        expect(sec7).toBeTruthy();
+
+        // 19 + 3 in sec-6 + 4 in sec-7 = 26
+        const callouts = container.querySelectorAll('.callout');
+        expect(callouts.length).toBeGreaterThanOrEqual(26);
+    });
+});
