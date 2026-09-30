@@ -1,10 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
 import NavBar from "./NavBar";
-import Mermaid from '../../components/Mermaid';
+import Mermaid from "../../components/Mermaid";
 import {
   DIAGRAM_1, DIAGRAM_2, DIAGRAM_3, DIAGRAM_4, DIAGRAM_5,
-  DIAGRAM_6, DIAGRAM_7, DIAGRAM_8, DIAGRAM_9, DIAGRAM_10
+  DIAGRAM_6, DIAGRAM_7, DIAGRAM_8, DIAGRAM_9, DIAGRAM_10,
+  DIAGRAM_11, DIAGRAM_12, DIAGRAM_13, DIAGRAM_14
 } from "./diagrams";
 import "./istqb-ctal-tm-chapter1-managing-the-test-activities.css";
 
@@ -1377,6 +1378,1440 @@ export default function CtalTmChapter1Page() {
                                     <td>新機能の追加で不確実性が高い</td>
                                     <td>計画（スコープとリスク）</td>
                                     <td>スコープ定義とリスク軽減計画を先に固める</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            <h2 id="sec-4">3. リスクベースドテスト（Section 1.3）</h2>
+<p>
+                        <strong>学習目標</strong>：TM-1.3.1〜1.3.3、1.3.5、1.3.6（K2）、<strong>TM-1.3.4（K4）</strong>
+                    </p>
+<h3 id="sec-4-1">3.0 リスクベースドテスト（RBT）とは</h3>
+<p>
+                        リスクの<strong>特定・評価・監視・軽減</strong>によってテストを<strong>駆動する</strong>考え方です。リスクは多様なステークホルダーが特定し、テストの<strong>選択と優先順位付け</strong>に使います。
+                    </p>
+<aside className="callout callout-note">
+                        <p>
+                            原則：<strong>リスクレベルが高いほど、テストは早く始め、より強く、より長く行う。</strong>
+                        </p>
+                    </aside>
+<h3 id="sec-4-2">3.1 リスク軽減活動としてのテスト（TM-1.3.1）</h3>
+<h4 id="sub-21">3.1.1 テストがリスクを軽減する仕組み</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テスト結果</th>
+                                    <th>リスクに対する意味</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>欠陥が見つかった</td>
+                                    <td>
+                                        欠陥の存在を認識でき、<strong>リリース前に対処する機会</strong>が得られる
+                                        → プロダクトリスクの軽減に貢献
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>欠陥が見つからなかった</td>
+                                    <td>
+                                        プロダクトリスクのレベルが<strong>想定より低い</strong>ことを示す
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        テストマネージャーは、製品品質について<strong>正確で信頼できる評価</strong>を提供する責任があります。そのため、<strong>品質保証に関連するプロジェクトリスク</strong>（例：あいまいな要件が後工程の検証で大問題になる、テスト環境の不足でテスト実行が妨げられる）のリスク管理にも積極的に関与する必要があります。
+                    </p>
+<h4 id="sub-22">3.1.2 リスクマネジメントの一般プロセス</h4>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-11">
+            <Mermaid chart={DIAGRAM_11} />
+          </div>
+          <figcaption>図 11</figcaption>
+        </figure>
+      
+<p>
+                        これらの活動は論理的には順に並びますが、<strong>重なり合うこと</strong>があります。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>活動</th>
+                                    <th>分類</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>Risk identification</td>
+                                    <td>リスク分析</td>
+                                    <td>リスクを見つける</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Risk assessment</td>
+                                    <td>リスク分析</td>
+                                    <td>発生可能性と影響を評価する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>Risk monitoring</td>
+                                    <td>リスク制御</td>
+                                    <td>リスクの変化を監視する（テストモニタリングに含める）</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Risk mitigation</td>
+                                    <td>リスク制御</td>
+                                    <td>リスクを下げる対策を行う</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-23">3.1.3 テストマネージャーの役割</h4>
+<ul>
+                        <li>
+                            品質リスク分析の<strong>主要なステークホルダー</strong>として、活動を理解・監視し、<strong>進行役（モデレーター</strong>）を務める
+                        </li>
+                        <li>
+                            テストモニタリングに<strong>リスク監視を含める</strong>（既知リスクの推移、新しい品質リスクの分析、<strong>リスク台帳の調整</strong>）
+                        </li>
+                        <li>
+                            リスク軽減を推進する<strong>複数人のうちの 1 人</strong>（軽減は複数のテスト活動に分散する）
+                        </li>
+                    </ul>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>テスト活動</th>
+                                    <th>リスク結果の使われ方</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>テスト計画</td>
+                                    <td>適切な領域に、適切な技法でテストを集中させる</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テスト分析</td>
+                                    <td>
+                                        リスクレベルが、カバーすべき<strong>テスト条件の選択</strong>を導く
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テスト実行</td>
+                                    <td>
+                                        リスクに基づく優先順位が<strong>実行順序</strong>を決める
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-4-3">3.2 品質リスクの特定（TM-1.3.2）</h3>
+<p>
+                        テストマネージャーの仕事は、<strong>ステークホルダーからリスクを集める</strong>ことです。
+                    </p>
+<h4 id="sub-24">3.2.1 リスク特定の技法（シラバスの 7 つ）</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>技法</th>
+                                    <th>概要</th>
+                                    <th>向いている場面</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>専門家インタビュー</td>
+                                    <td>有識者に個別にヒアリングする</td>
+                                    <td>特定領域の深い知見が必要なとき</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>独立した評価</td>
+                                    <td>第三者が評価する</td>
+                                    <td>客観性を確保したいとき</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>レトロスペクティブ</td>
+                                    <td>過去の振り返りからリスクを洗い出す</td>
+                                    <td>反復型／過去プロジェクトの知見が豊富なとき</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>リスクワークショップ</td>
+                                    <td>関係者が集まって議論する</td>
+                                    <td>多様な視点を短時間で集めたいとき</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ブレインストーミング</td>
+                                    <td>自由に案を出し合う</td>
+                                    <td>想定外のリスクを広く拾いたいとき</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>チェックリスト</td>
+                                    <td>既存の項目一覧を使う</td>
+                                    <td>抜け漏れを防ぎたいとき</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>過去の経験の参照</td>
+                                    <td>過去の事例を参照する</td>
+                                    <td>類似プロジェクトの経験があるとき</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-25">3.2.2 ベストプラクティス</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>ポイント</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>関係者の網羅</strong></td>
+                                    <td>
+                                        できるだけ広範なステークホルダーを巻き込むと、重要なプロダクトリスクの多くが特定できる。参加者リストは網羅的にし、<strong>プロジェクトマネージャーと合意</strong>する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>欠席者への配慮</td>
+                                    <td>
+                                        参加できない場合でも、<strong>参加の機会</strong>または<strong>代理を立てる機会</strong>を保証する。重要な関係者が抜けていないかは、<strong>キックオフミーティング</strong>で確認できる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>リスクの偏り</td>
+                                    <td>
+                                        リスクはテスト対象の中で<strong>均一ではない</strong>。例：セルフサービスアプリの顧客向け部分と管理部分ではユーザビリティリスクが異なる。テストアイテムごとに特定する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>副産物の活用</td>
+                                    <td>
+                                        リスク特定では、プロダクトリスク以外（製品・プロジェクトへの一般的な疑問、要件や設計書の問題）も<strong>副産物</strong>として見つかる。プロジェクトリスクも見つかるが、<strong>RBT の焦点ではない</strong>。テストマネージャーは、副産物を明示して「品質は全員の関心事」と示す役割を担える
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>要件の不備</td>
+                                    <td>
+                                        要件が乏しい・欠けている状態は、計画・準備段階のより根本的な問題の兆候であることが多い
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-4-4">3.3 品質リスクの評価（TM-1.3.3）</h3>
+<h4 id="sub-26">3.3.1 評価の基本</h4>
+<p>
+                        リスク評価では、まず<strong>分類</strong>（プロダクトリスクか、プロジェクトリスクか。影響を受ける品質特性は何か）を行い、各リスク項目について次の
+                        2 つを評価します。
+                    </p>
+<ul>
+                        <li><strong>リスクの発生可能性（Likelihood）</strong>：発生する見込み</li>
+                        <li><strong>リスクの影響（Impact）</strong>：発生した場合の影響</li>
+                    </ul>
+<aside className="callout callout-note">
+                        <p><strong>リスクレベル = 発生可能性 と 影響 の組み合わせ</strong></p>
+                    </aside>
+<h4 id="sub-27">3.3.2 発生可能性に影響する要因</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>カテゴリ</th>
+                                    <th>要因（シラバス記載）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>技術・複雑性</td>
+                                    <td>
+                                        技術、ツール、システムアーキテクチャの<strong>複雑さ</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>組織</td>
+                                    <td>
+                                        組織の<strong>成熟度</strong>／マネジメントや技術リーダーシップの<strong>弱さ</strong>／時間・リソース・予算・経営陣の<strong>プレッシャー</strong>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>人・チーム</td>
+                                    <td>
+                                        スキル、可用性、モチベーション、自律的な働き方、使用中の
+                                        SDLC
+                                        に関する知識などの<strong>人的な課題</strong>／チーム内の<strong>対立</strong>／<strong>地理的に分散</strong>したチーム
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>外部</td>
+                                    <td>供給業者との<strong>契約上の問題</strong></td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>プロセス</td>
+                                    <td><strong>早期の品質保証活動の不足</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>変化</td>
+                                    <td>
+                                        テストベース、製品、または要員の<strong>変更率が高い</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-28">3.3.3 影響に影響する要因</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>カテゴリ</th>
+                                    <th>要因（シラバス記載）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>機能・利用</td>
+                                    <td>
+                                        影響を受ける機能の<strong>使用頻度</strong>／<strong>重要度</strong>／影響を受けるビジネス目標の<strong>重要度</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>信用・経済</td>
+                                    <td>
+                                        <strong>評判</strong>への損害／<strong>事業収入</strong>の損失／財務的、生態的、社会的損失、または責任
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>法的</td>
+                                    <td>民事または刑事の<strong>法的制裁</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>技術</td>
+                                    <td><strong>インタフェースと統合</strong>の問題</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>回避可能性</td>
+                                    <td>妥当な<strong>回避策がない</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td>安全</td>
+                                    <td><strong>安全上</strong>の必要性</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-29">3.3.4 定量評価と定性評価</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>方式</th>
+                                    <th>条件</th>
+                                    <th>計算・表現</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>定量評価</strong></td>
+                                    <td>広範で統計的に妥当なリスクデータがある</td>
+                                    <td>
+                                        発生可能性を<strong>確率（%）</strong>、影響を<strong>金額</strong>で表し、<strong>積</strong>でリスクレベルを算出
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>定性評価</strong>（典型）</td>
+                                    <td>データが不十分</td>
+                                    <td>
+                                        「非常に高い・高い・中・低・非常に低い」のような<strong>順序尺度</strong>で評価し、<strong>リスクマトリクス</strong>で総合リスクレベルを得る
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-warn">
+                        <div className="callout-label">
+                            <span aria-hidden="true" className="callout-icon">⚠</span><span>注意</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                定性評価の総合リスクレベルは、<strong>順序尺度上の相対的な評価</strong>として解釈します。統計的に妥当なデータに基づかない限り、リスク分析は<strong>ステークホルダーの主観的な認識</strong>に基づきます。
+                            </p>
+                        </div>
+                    </aside>
+<p><strong>リスクマトリクスの例（説明用の 3×3 の例）</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>影響＼発生可能性</th>
+                                    <th>低</th>
+                                    <th>中</th>
+                                    <th>高</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>高</strong></td>
+                                    <td>中</td>
+                                    <td>高</td>
+                                    <td><strong>非常に高</strong></td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>中</strong></td>
+                                    <td>低</td>
+                                    <td>中</td>
+                                    <td>高</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>低</strong></td>
+                                    <td>非常に低</td>
+                                    <td>低</td>
+                                    <td>中</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p><strong>定量評価の計算例（説明用）</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>リスク項目</th>
+                                    <th>発生可能性</th>
+                                    <th>影響（損失額）</th>
+                                    <th>リスクレベル（積）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>決済処理の不具合</td>
+                                    <td>10%</td>
+                                    <td>5,000 万円</td>
+                                    <td>500 万円</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>管理画面の表示崩れ</td>
+                                    <td>30%</td>
+                                    <td>100 万円</td>
+                                    <td>30 万円</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-4-5">3.4 適切なテストによる品質リスクの軽減（TM-1.3.4、K4）</h3>
+<h4 id="sub-30">3.4.1 テスト以外の軽減策</h4>
+<p>
+                        ソフトウェア開発では<strong>テストが最も重要な軽減活動</strong>で、故障の可能性を下げます。その他の軽減策は次のとおりです。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>軽減策</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>コンティンジェンシープラン</td>
+                                    <td>回避策の提供</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>リスク移転</td>
+                                    <td>コンポーネントのベンダーなど第三者への移転</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>リスク受容</td>
+                                    <td>残存リスクを受け入れる</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-31">3.4.2 リスクレベルに比例した労力</h4>
+<ul>
+                        <li>
+                            <strong>高リスク</strong>：テストを<strong>早く開始</strong>し、<strong>より厳格な技法</strong>を使う
+                        </li>
+                        <li>
+                            <strong>低リスク</strong>：<strong>遅く開始</strong>してもよく、<strong>厳格さの低い技法</strong>でよい
+                        </li>
+                    </ul>
+<h4 id="sub-32">3.4.3 テストアプローチを選ぶための 6 つのコンテキスト要因</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>要因</th>
+                                    <th>考慮内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>テストアイテム</strong></td>
+                                    <td>
+                                        同じリスクタイプでも、アイテムごとにレベルが違う。テスト対象を<strong>均一な厳格さでテストする必要はない</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>品質特性</strong></td>
+                                    <td>
+                                        特定の品質特性のリスクは、それに対応するテストタイプで軽減し、<strong>専用の工数・環境・スキル</strong>が必要
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>テストレベルとテストタイプ</strong></td>
+                                    <td>
+                                        特定レベルでの動的テストでのみ検出可能なもの、静的テスト（静的解析、保守性のコードレビュー）が向くもの、両方の組み合わせが必要なもの（例：アーキテクチャレビュー＋統合システムでのセキュリティ脆弱性の動的テスト）がある。<strong>可能な限り早期にテスト</strong>すると、後工程での重大欠陥発見による内部失敗コストと遅延を避けられる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>SDLC</strong></td>
+                                    <td>
+                                        テスト活動には固有の開始基準があり、SDLC
+                                        によって満たされる時期が異なる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>テストチーム</strong></td>
+                                    <td>
+                                        <strong>最も熟練した人</strong>を、<strong>最も高リスクのアイテム</strong>のテストに充てる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>規制要件</strong></td>
+                                    <td>
+                                        安全関連の標準（例：IEC
+                                        61508）は、<strong>完全性レベルに応じて</strong>テスト技法と必要なカバレッジを規定する。テストマネージャーは遵守を確保する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        さらに、リスクレベルは次のような<strong>品質管理上の判断</strong>にも影響します。
+                    </p>
+<ul>
+                        <li>テストケースなどの成果物に対する<strong>レビューの実施</strong></li>
+                        <li>開発からの<strong>テストの独立性</strong>のレベル</li>
+                        <li><strong>回帰テストの範囲</strong></li>
+                    </ul>
+<h4 id="sub-33">3.4.4 リスクレベル別の対応（K4 の考え方の例）</h4>
+<aside className="callout callout-note">
+                        <p>
+                            以下は K4
+                            問題で「リスクレベルに応じて適切な活動を選ぶ」際の<strong>整理の例</strong>（シラバスの原則を表にしたもの）です。
+                        </p>
+                    </aside>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>高リスク</th>
+                                    <th>低リスク</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>開始時期</td>
+                                    <td>早期</td>
+                                    <td>後でもよい</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テスト技法</td>
+                                    <td>より厳格・体系的</td>
+                                    <td>軽量・簡易</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>担当者</td>
+                                    <td>最も熟練した人</td>
+                                    <td>経験が浅い人でもよい（ただし支援体制を確保）</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>レビュー</td>
+                                    <td>テストケースをレビュー</td>
+                                    <td>省略または簡易</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>独立性</td>
+                                    <td>高いテストの独立性</td>
+                                    <td>低くてもよい</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>回帰テスト</td>
+                                    <td>範囲を広く</td>
+                                    <td>範囲を絞る</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-34">3.4.5 リスクに基づく進捗報告</h4>
+<p>
+                        テストのモニタリングとコントロールの間、RBT
+                        では<strong>残存リスクレベル</strong>で進捗を報告できます。これにより、開発チームとステークホルダーは、残存リスクレベルに基づいて<strong>リリース判断</strong>などを行えます。ただし、<strong>ステークホルダーが理解できる形</strong>でテスト結果をリスクの観点から報告する必要があります。
+                    </p>
+<h4 id="sub-35">3.4.6 リスクに基づくテストの優先順位付け：深さ優先と幅優先</h4>
+<p>
+                        テスト実装の間、優先順位付けは<strong>リスクレベルに基づく</strong>ことで、テスト実行中に最も重要な領域を早くカバーし、最高レベルのリスクを軽減します。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>方式</th>
+                                    <th>内容</th>
+                                    <th>適する状況</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>深さ優先（depth-first）</strong></td>
+                                    <td>
+                                        カバーするリスクレベルが<strong>高い順に厳密に</strong>テストを実行する
+                                    </td>
+                                    <td>
+                                        最高レベルのリスクを<strong>できるだけ早く</strong>軽減することが重要な場合
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>幅優先（breadth-first）</strong></td>
+                                    <td>
+                                        <strong>各リスクに対して少なくとも 1 つのテスト</strong>を最高優先度にする。残りは、カバーするリスクレベルに基づいて優先順位を付ける
+                                    </td>
+                                    <td>
+                                        ステークホルダーが<strong>製品品質の全体像をできるだけ早く</strong>知りたい場合
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        実務では、テストは深さ優先で始まり、時間が限られてくると幅優先に切り替え、<strong>残りのすべてのリスク項目を少なくとも 1 回はテスト</strong>することが多いです。
+                    </p>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-12">
+            <Mermaid chart={DIAGRAM_12} />
+          </div>
+          <figcaption>図 12</figcaption>
+        </figure>
+      
+<p><strong>実行順序の例（説明用）</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>リスク項目</th>
+                                    <th>リスクレベル</th>
+                                    <th>テスト</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>R1 決済</td>
+                                    <td>非常に高</td>
+                                    <td>T1, T2, T3</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R2 認証</td>
+                                    <td>高</td>
+                                    <td>T4, T5</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>R3 検索</td>
+                                    <td>中</td>
+                                    <td>T6</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>R4 ヘルプ表示</td>
+                                    <td>低</td>
+                                    <td>T7</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>方式</th>
+                                    <th>実行順序</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>深さ優先</td>
+                                    <td>T1 → T2 → T3 → T4 → T5 → T6 → T7</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>幅優先</td>
+                                    <td>
+                                        <strong>T1 → T4 → T6 → T7</strong>（各リスクに 1 つずつ）→
+                                        T2 → T3 → T5
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-note">
+                        <p>
+                            深さ優先でも幅優先でも、テスト時間が<strong>すべての計画テストを実行する前に尽きる</strong>ことがあります。このとき
+                            RBT
+                            は、<strong>テストを延長するか、残存リスクを受容するか</strong>について根拠のある提言をマネジメントに行うことを可能にします。
+                        </p>
+                    </aside>
+<h3 id="sec-4-6">3.5 リスクベースドテストの技法（TM-1.3.5）</h3>
+<p>
+                        技法には形式度合いが異なる 2
+                        つの基本タイプ（<strong>重量級／軽量級</strong>）があります。適切さは、プロジェクト・プロセス・製品の状況で決まります。<strong>安全重要システム</strong>では重量級が多く、<strong>非安全重要</strong>では軽量級が通常使われます。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>重量級（Heavyweight）</th>
+                                    <th>軽量級（Lightweight）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>形式度</td>
+                                    <td><strong>形式的</strong>。定められた手順と詳細な文書</td>
+                                    <td>
+                                        網羅性は低く、テストチームとステークホルダーの<strong>労力が少ない</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ステークホルダー</td>
+                                    <td><strong>広範なグループ</strong>が関与</td>
+                                    <td>範囲が広くないことがある</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>リスク評価</td>
+                                    <td>
+                                        発生可能性と影響を詳細な要因に分解し、<strong>数式</strong>で算出
+                                    </td>
+                                    <td>
+                                        リスク要因は通常、<strong>順序尺度の影響と発生可能性</strong>に集約
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>代表例</td>
+                                    <td>
+                                        ハザード分析、Cost of exposure、FMEA
+                                        とその派生、フォールトツリー解析
+                                    </td>
+                                    <td>SST、PRAM、PRISMA</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>適する対象</td>
+                                    <td>安全重要システム</td>
+                                    <td>非安全重要アプリケーション</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-36">3.5.1 重量級技法の 4 例</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>技法</th>
+                                    <th>概要</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>ハザード分析（Hazard analysis）</strong></td>
+                                    <td>
+                                        分析プロセスを上流に拡張し、<strong>各リスクの根底にあるハザード</strong>を特定しようとする
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Cost of exposure</strong></td>
+                                    <td>
+                                        各品質リスク項目について、<strong>故障の可能性</strong>、<strong>典型的な故障による損失コスト</strong>、<strong>その故障に対するテストのコスト</strong>を決定する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>FMEA（故障モード影響解析）とその派生</strong></td>
+                                    <td>
+                                        品質リスク、その<strong>潜在的な原因</strong>、<strong>予想される影響</strong>を特定し、<strong>重大度・優先度・検出率</strong>を割り当てる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>フォールトツリー解析（FTA）</strong></td>
+                                    <td>
+                                        潜在的な故障を、それを引き起こし得る<strong>欠陥</strong>に関連づけ、さらにその欠陥を引き起こす<strong>エラー</strong>へと、<strong>根本原因</strong>が特定されるまで遡る
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-37">3.5.2 軽量級技法の 3 例</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>技法</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>SST（Systematic Software Testing）</strong></td>
+                                    <td>
+                                        <strong>要件仕様が提供される場合にのみ</strong>使用できる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>
+                                        <strong>PRAM（Pragmatic Risk Analysis and Management）</strong>
+                                    </td>
+                                    <td>
+                                        要件やその他の仕様を入力に使うが、<strong>ステークホルダーの入力のみで機能</strong>できる
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>PRISMA（Product Risk Management）</strong></td>
+                                    <td>
+                                        PRAM
+                                        と同様に、仕様を入力に使うが、<strong>ステークホルダーの入力のみで機能</strong>できる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-4-7">3.6 RBT の成功メトリクスと課題（TM-1.3.6）</h3>
+<h4 id="sub-38">3.6.1 成功の確認（レトロスペクティブでの 6 つの問い）</h4>
+<p>
+                        レトロスペクティブで、RBT
+                        の効果をどの程度実現できたかを、<strong>メトリクスと関係者との協議</strong>で確認します。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>#</th>
+                                    <th>問い</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>1</td>
+                                    <td>
+                                        関連するステークホルダーは、リスク分析に<strong>関与または代表</strong>されていたか
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>2</td>
+                                    <td>
+                                        リスク分析へのステークホルダーの<strong>関与は適切</strong>だったか
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3</td>
+                                    <td>
+                                        重大な欠陥が<strong>本番に流出</strong>した事象がある場合、それらは<strong>解決</strong>されたか
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>4</td>
+                                    <td>
+                                        優先度の高い欠陥の<strong>大半が、テスト実行の早期</strong>に見つかったか
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>5</td>
+                                    <td>
+                                        テストチームは、テスト結果を<strong>リスクの観点でステークホルダーに説明</strong>できたか
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>6</td>
+                                    <td>
+                                        <strong>スキップされたテスト</strong>は、実行されたテストよりも<strong>関連するリスクレベルが低かった</strong>か
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        成功した RBT
+                        では、通常これらすべてに肯定的に答えられます。長期的には、成功メトリクスの<strong>プロセス改善目標</strong>を設定し、リスク分析の効率を高める努力が必要です。
+                    </p>
+<h4 id="sub-39">3.6.2 よくある困難とその解決策（シラバスの 5 項目）</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>困難</th>
+                                    <th>内容</th>
+                                    <th>解決策</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>リスクレベル評価の難しさ</strong></td>
+                                    <td>影響と発生可能性の見積りが非常に難しい</td>
+                                    <td>
+                                        <strong>過去データ</strong>を使い、主要なプロジェクトステークホルダーに評価を依頼する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>Keen beginnings（熱意ある開始）</strong></td>
+                                    <td>
+                                        短期的な成功へのプレッシャーの中で、RBT
+                                        の確立と維持がおろそかになりがち
+                                    </td>
+                                    <td>
+                                        リスクを<strong>定期的に監視し、ステークホルダーに報告</strong>する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>Déjà vu（既視感）</strong></td>
+                                    <td>
+                                        毎回同じリスクが挙がり、リスクに対して<strong>慢心</strong>が生まれる
+                                    </td>
+                                    <td>
+                                        リスク特定に<strong>適切な人を関与</strong>させ、重要と判断されたリスクだけを軽減する
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>重要なリスクの見落とし</strong></td>
+                                    <td>経験の浅い人や不適切な人の関与が根本原因になりやすい</td>
+                                    <td><strong>適切な人を関与させ、訓練</strong>する</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>ステークホルダーの入れ替わり</strong></td>
+                                    <td>ステークホルダーは変わり、新しいリスクも出てくる</td>
+                                    <td>
+                                        リスク分析は<strong>継続的・反復的</strong>に行い、最初の 1
+                                        回で終わらせない
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            <h2 id="sec-5">4. プロジェクトテスト戦略（Section 1.4）</h2>
+<p>
+                        <strong>学習目標</strong>：TM-1.4.1（K2）、<strong>TM-1.4.2（K4）</strong>、<strong>TM-1.4.3（K3）</strong>
+                    </p>
+<h3 id="sec-5-1">4.0 前提：3 つの文書・概念の関係</h3>
+<ul>
+                        <li>
+                            <strong>組織のテスト戦略</strong>は、本シラバスでは<strong>与えられたもの</strong>として扱います（策定・維持は
+                            ISO/IEC/IEEE 29119-3、Expert Level Test Management、Agile Test
+                            Leadership at Scale の範囲）
+                        </li>
+                        <li>
+                            組織のテスト戦略が<strong>存在しない</strong>、または必要な観点を<strong>カバーしていない</strong>場合、テストマネジメントは、欠けている詳細を関連ステークホルダーと<strong>明確化する</strong>必要がある
+                        </li>
+                        <li>
+                            <strong>プロジェクトテスト戦略</strong>は、プロジェクト・リリース・製品などの詳細なテスト戦略の例で、<strong>特定の文脈で組織の目標（特に製品品質とテスト活動に関するもの）を達成するためのアプローチ</strong>を示す
+                        </li>
+                        <li>
+                            プロジェクトテスト戦略は<strong>テスト計画の主要な成果</strong>で、通常はテスト計画書、または他の文書の一部として記述される
+                        </li>
+                    </ul>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-13">
+            <Mermaid chart={DIAGRAM_13} />
+          </div>
+          <figcaption>図 13</figcaption>
+        </figure>
+      
+<p><strong>文書化のガイドライン</strong></p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>観点</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>推奨</td>
+                                    <td>
+                                        戦略の<strong>文書化は推奨</strong>されるが、必ずしも正式なテスト計画書の形式である必要はない
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>判断基準</td>
+                                    <td>
+                                        文書化の必要性は<strong>テストのコンテキスト</strong>（Section
+                                        1.2）に依存する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>逐次型</td>
+                                    <td>
+                                        プロジェクトテスト戦略は通常文書化される。<strong>テスト計画書に記述するのが望ましい</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>外部要求</td>
+                                    <td>
+                                        契約、合意、規制当局、法律により文書化が求められることも多い
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-5-2">4.1 テストアプローチの選択（TM-1.4.1）</h3>
+<p>
+                        プロジェクトテスト戦略は、プロジェクト内のすべてのテスト活動を導き、<strong>目的、リソース、スケジュール、責任</strong>を詳述します。プロジェクト固有の要件に合わせて調整する必要があります。
+                    </p>
+<h4 id="sub-40">4.1.1 主要な意思決定</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>選択項目</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>テストレベル</td>
+                                    <td>コンポーネント／統合／システム／受け入れ</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テストタイプ</td>
+                                    <td>機能／非機能 など</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>テスト技法</td>
+                                    <td>静的テスト／動的テスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>その他のテスト実践</td>
+                                    <td>
+                                        スクリプト化テスト、手動テスト、バックツーバックテスト など
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h4 id="sub-41">4.1.2 理論と実務のギャップ</h4>
+<ul>
+                        <li>
+                            理論上は、<strong>どのテストタイプも、どのテストレベルでも</strong>実施でき、<strong>どのテスト技法も</strong>任意のテストレベルの任意のテストタイプに適用できる
+                        </li>
+                        <li>
+                            実務では、これらの<strong>選択と組み合わせが、テストの有効性と効率に大きく影響する</strong>
+                        </li>
+                    </ul>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>評価したいこと</th>
+                                    <th>より効果的・効率的な選択の例（シラバス）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>コードの保守性</td>
+                                    <td><strong>静的コード解析</strong>やコードレビュー</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>性能効率性</td>
+                                    <td>
+                                        内部コンポーネントの相互作用があるため、<strong>スクリプト化されたシステムテスト</strong>
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>機能の有用性</td>
+                                    <td>
+                                        ユーザーと<strong>協働で作成した手動の受け入れテスト</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-5-3">
+                        4.2
+                        組織のテスト戦略、プロジェクトのコンテキスト、その他の側面の分析（TM-1.4.2、K4）
+                    </h3>
+<p>
+                        適切なテストアプローチを選ぶために、通常次の
+                        <strong>7 つの要因</strong>を分析します。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>#</th>
+                                    <th>要因</th>
+                                    <th>内容</th>
+                                    <th>シラバスの例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>1</td>
+                                    <td><strong>ドメイン</strong></td>
+                                    <td>
+                                        製品が作成・変更される領域。ドメイン固有の規制・標準・慣行により、テストの厳格さ、必要な文書、詳細度が変わる
+                                    </td>
+                                    <td>
+                                        製薬・医療では、<strong>患者の健康リスク</strong>に焦点を当てた集中的な
+                                        UAT
+                                        を機能ユーザー要件に基づくテストケースで実施することが多い。一方、Web
+                                        の保険アプリでは、ユーザビリティや
+                                        <strong>A/B テスト</strong>による契約増加に焦点を当てることがある
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>2</td>
+                                    <td><strong>組織の目標と全体的な品質特性</strong></td>
+                                    <td>
+                                        テストの価値を示す必要性、テスト自動化の程度の向上、テストプロセスの成熟度、欠陥検出の効率など。実施すべきテストレベル・テストタイプを左右し得る
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3</td>
+                                    <td><strong>プロジェクトの目標とプロジェクトの種類</strong></td>
+                                    <td>
+                                        予算・時間・品質の目標、顧客固有開発か市場向け製品開発か。制約・リスク・機会を含む
+                                    </td>
+                                    <td>
+                                        予算と時間が厳しい場合は<strong>リスクベースドテストを徹底</strong>してテストケースを優先度付けする。顧客向け開発では<strong>契約上の受け入れ基準</strong>を網羅するテストが必要になる
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>4</td>
+                                    <td><strong>テストリソース</strong></td>
+                                    <td>
+                                        ツール、インフラ、技術、開発環境、要員とスキル（Section 3.1
+                                        参照）
+                                    </td>
+                                    <td>
+                                        <strong>経験ベースドテスト</strong>にはドメイン知識のあるテスターが必要。モバイルアプリでは限られた<strong>デバイス</strong>でのテストになる。ツールは<strong>ライセンス数</strong>に制限される
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>5</td>
+                                    <td><strong>SDLC モデル</strong></td>
+                                    <td>
+                                        テストレベル、工数、開始基準・終了基準を決める（FL v4.0 の
+                                        2.2 と 5.1 参照）
+                                    </td>
+                                    <td>
+                                        <strong>継続的インテグレーション</strong>を伴うライフサイクルは、ウォーターフォールの一回限りの開発より<strong>自動テストが多く必要</strong>
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>6</td>
+                                    <td><strong>他システムとのインタフェース</strong></td>
+                                    <td>
+                                        システム・オブ・システムズでは、他のチームやプロジェクトとの整合とテストレベル選択（特にシステム統合テスト）が不可欠
+                                    </td>
+                                    <td>
+                                        <strong>RBT</strong>
+                                        はシステム統合テストの優先順位付けと規模調整に役立つ
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>7</td>
+                                    <td><strong>テストデータの可用性</strong></td>
+                                    <td>
+                                        本番から<strong>匿名化</strong>したテストデータが必要、特定のテストデータの作成・検証が難しい（例：AI
+                                        テストのデータ）などの制約
+                                    </td>
+                                    <td>
+                                        <strong>モデルベースドテスト</strong>はテストデータの作成・管理を支援できる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        <strong>結論：</strong>
+                        テストマネージャーは、組織のテスト戦略、プロジェクトのコンテキスト、その他の制約を満たす<strong>最適なアプローチとして、テスト技法・テストレベル・テストタイプの組み合わせを決定</strong>します。
+                    </p>
+<h4 id="sub-42">4.2.1 K4 問題の解き方（分析フロー）</h4>
+
+        <figure className="diagram-card">
+          <div className="mermaid-container" id="mermaid-diagram-14">
+            <Mermaid chart={DIAGRAM_14} />
+          </div>
+          <figcaption>図 14</figcaption>
+        </figure>
+      
+<h4 id="sub-43">4.2.2 状況から選択するアプローチ（考え方の例）</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>状況の手がかり</th>
+                                    <th>選択の例</th>
+                                    <th>根拠となる要因</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>医薬品の業務システムで規制が厳しい</td>
+                                    <td>
+                                        患者リスクに焦点を当てた詳細な UAT と、要件に基づく文書化
+                                    </td>
+                                    <td>ドメイン</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>期限と予算が非常に厳しい</td>
+                                    <td>RBT による優先度付け</td>
+                                    <td>プロジェクトの目標</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>CI/CD を運用している</td>
+                                    <td>自動回帰テストを中核に据える</td>
+                                    <td>SDLC モデル</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>外部システムと多数連携している</td>
+                                    <td>RBT で統合テストの優先順位と規模を調整</td>
+                                    <td>インタフェース</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>実データを使えない</td>
+                                    <td>匿名化データの整備やモデルベースドテストの活用</td>
+                                    <td>テストデータ</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>ドメイン知識のある要員が少ない</td>
+                                    <td>経験ベースドテストへの依存を抑える</td>
+                                    <td>テストリソース</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<h3 id="sec-5-4">4.3 テスト目的の定義（TM-1.4.3、K3）</h3>
+<h4 id="sub-44">4.3.1 テスト計画に含めるもの</h4>
+<p>
+                        テスト計画は各テストプロジェクトで定義し、<strong>テストスコープ、テスト目的、終了基準</strong>などを含めます。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>計画の種類</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>プロジェクトテスト計画（マスターテスト計画）</td>
+                                    <td>リリースレベルで設定できる</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>テストレベル計画</td>
+                                    <td>必要に応じて、異なるテストレベルごとに定義</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>品質特性別テスト計画</td>
+                                    <td>セキュリティテスト計画、性能テスト計画など</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>反復テスト計画</td>
+                                    <td>
+                                        <strong>アジャイル</strong>および<strong>ハイブリッド</strong>のプロジェクトで合意できる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        各リリース・反復で、提供される<strong>機能の範囲とその非機能特性</strong>をテスト計画で定義し、ステークホルダーが合意します。
+                    </p>
+<h4 id="sub-45">4.3.2 S.M.A.R.T. 目標設定法</h4>
+<p>
+                        プロジェクトのテスト目的と終了基準は、<strong>S.M.A.R.T.</strong>
+                        で定義できます。
+                    </p>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>文字</th>
+                                    <th>意味</th>
+                                    <th>内容</th>
+                                    <th>悪い例 → 良い例（説明用）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td><strong>S</strong></td>
+                                    <td>Specific（具体的）</td>
+                                    <td>明確で曖昧さがない</td>
+                                    <td>
+                                        「品質を高める」→「重大度が高の未解決欠陥を 0 件にする」
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>M</strong></td>
+                                    <td>Measurable（測定可能）</td>
+                                    <td>定量化でき、達成の判断基準がある</td>
+                                    <td>「十分にテストする」→「要件カバレッジ 95% 以上」</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>A</strong></td>
+                                    <td>Achievable（達成可能）</td>
+                                    <td>利用可能なリソース、期間、能力を考慮して実現可能</td>
+                                    <td>
+                                        「2 日で全機能の性能テストを完了」→「主要 3
+                                        機能の性能テストを 5 日で完了」
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td><strong>R</strong></td>
+                                    <td>Relevant（関連性がある）</td>
+                                    <td>プロジェクト全体の目的と整合している</td>
+                                    <td>
+                                        「使わない機能のカバレッジ
+                                        100%」→「主要業務フローのカバレッジ 100%」
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td><strong>T</strong></td>
+                                    <td>Timely（期限がある）</td>
+                                    <td>具体的な期間と完了期限がある</td>
+                                    <td>
+                                        「いつか自動化率を上げる」→「リリース 2
+                                        までに回帰テストの自動化率を 60% にする」
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<aside className="callout callout-note">
+                        <p>
+                            目的は、<strong>測定可能または評価可能</strong>である限り、品質と量の<strong>対象となるすべての側面</strong>に対応する必要があります。
+                        </p>
+                    </aside>
+<h4 id="sub-46">4.3.3 プロジェクトテスト目的の例（シラバス）</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>目的の種類</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>終了基準の達成</td>
+                                    <td>定義された期間内に、指定された終了基準を達成する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>組織の品質目標</td>
+                                    <td>例：製品に関する顧客クレーム件数を KPI として測定</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>規制・法令遵守</td>
+                                    <td>業界固有の規則と規制を遵守する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>アクセス制御</td>
+                                    <td>
+                                        データが<strong>認可されたユーザーのみ</strong>に利用可能であること（アクセス権限など）
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>データ移行</td>
+                                    <td>
+                                        データ移行の機能完全性、機能正確性、性能効率性、移植性、セキュリティを確認
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>自動化</td>
+                                    <td>
+                                        回帰テストや性能テストの自動化レベルを、<strong>定義した割合</strong>で強化する
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>リファクタリング</td>
+                                    <td>
+                                        技術的負債を減らしながら既存機能を維持し、<strong>回帰テスト</strong>で新たな欠陥が入っていないことを示す
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>インタフェースのセキュリティ</td>
+                                    <td>
+                                        XML メッセージを <strong>XSD</strong>（XML Schema
+                                        Definition）に照らして検証し、悪意あるデータが拒否されることを確認
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>ユーザビリティ</td>
+                                    <td>
+                                        オンラインショップでの<strong>特定タスクの所要時間</strong>を測定するなどして、副特性の達成度を確認
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<p>
+                        数値による測定に加えて、<strong>ドメインの専門家やステークホルダーによる品質レベルの評価</strong>も検討します。
+                    </p>
+<h4 id="sub-47">4.3.4 テスト環境に関する注意</h4>
+<ul>
+                        <li>
+                            プロジェクトの状況とテスト目的によっては、利用可能なリソースやツールを備えた<strong>複数のテスト環境</strong>が必要になる
+                        </li>
+                        <li>テスト環境が<strong>同時に利用できない</strong>こともある</li>
+                        <li>達成可能な目的と終了基準を定式化する際に、これを考慮する必要がある</li>
+                    </ul>
+<h4 id="sub-48">4.3.5 S.M.A.R.T. の適用例（説明用）</h4>
+<div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>目的</td>
+                                    <td>決済機能のリリース判定の品質基準を定義する</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>終了基準 1</td>
+                                    <td>重大度 1・2 の未解決欠陥が 0 件（S・M）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>終了基準 2</td>
+                                    <td>
+                                        決済関連の要件に対するテスト実行率 100%、合格率 98%
+                                        以上（M・R）
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>終了基準 3</td>
+                                    <td>性能テストで、ピーク時の応答時間が目標値以内（M・A）</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>期限</td>
+                                    <td>2026 年 11 月 30 日のリリース判定会議までに達成（T）</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>補足</td>
+                                    <td>
+                                        テスト環境が 2 面のみのため、性能テストは 11 月 15
+                                        日までに完了（A）
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
