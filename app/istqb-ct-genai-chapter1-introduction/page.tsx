@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_AI_GENEALOGY, DIAGRAM_LLM_TEXT_GENERATION } from './diagrams';
 import './istqb-ct-genai-chapter1-introduction.css';
 
 export const metadata: Metadata = {
@@ -247,7 +249,147 @@ export default function CtGenAiChapter1Page() {
                         </tbody>
                     </table>
                 </div>
+
+                <h2 id="11-生成aiの基礎と主要概念">1.1 生成AIの基礎と主要概念</h2>
+                <h3 id="111-aiの系譜記号的ai古典的機械学習深層学習生成ai">
+                    1.1.1 AIの系譜：記号的AI・古典的機械学習・深層学習・生成AI
+                </h3>
+                <p>
+                    AI（人工知能）は単一の技術ではなく、問題解決アプローチの異なる複数の技術群の総称です。CT-GenAIシラバスでは、この系譜を4つの段階に整理しています。
+                </p>
+                <ul>
+                    <li>
+                        <strong>記号的AI（Symbolic AI）</strong>：人間の意思決定を模倣するルールベースのシステムです。知識を記号と論理規則で表現します。IF-THENルールで動作する古典的な専門家システムをイメージすると分かりやすいでしょう。
+                    </li>
+                    <li>
+                        <strong>古典的機械学習（Classical Machine Learning）</strong>：データ駆動型のアプローチで、データ準備・特徴量選択・モデル学習という工程が必要です。不具合の分類やソフトウェア障害の予測などに使われます。
+                    </li>
+                    <li>
+                        <strong>深層学習（Deep Learning）</strong>：ニューラルネットワークという構造を用いて、データから特徴量を自動的に学習します。画像・音声・テキストといった大規模で複雑なデータの中からパターンを発見できますが、実務ではデータのアノテーションやモデル調整、結果検証といった人間の関与が依然として必要です。
+                    </li>
+                    <li>
+                        <strong>生成AI（Generative AI）</strong>：深層学習の技術を応用し、学習データのパターンを模倣・学習することで、テキスト・画像・コードといった<strong>新しいコンテンツ</strong>を生み出します。LLMはこの生成AIの代表例です。
+                    </li>
+                </ul>
+                <p>
+                    これら4つは新しい技術が古い技術を置き換えるものではなく、それぞれ異なる強みと限界を持つ並存的な技術群です。生成AIの最大の利点は、適したテストタスクであれば追加の学習フェーズを経ずに事前学習済みのモデルを適用できる点にあります（ドメイン固有の用途などでは、タスクに応じてファインチューニング等の追加調整が必要になる場合もあります）が、これには相応のリスクも伴います（リスクの詳細は第3章で扱います）。
+                </p>
+                <div className="mermaid-container" id="mermaid-diagram-1">
+                    <Mermaid chart={DIAGRAM_AI_GENEALOGY} />
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>種類</th>
+                                <th>アプローチ</th>
+                                <th>必要な工程</th>
+                                <th>ソフトウェアテストでの活用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>記号的AI</td>
+                                <td>ルールベース</td>
+                                <td>論理規則の設計</td>
+                                <td>決定表・状態遷移に基づくルール判定</td>
+                            </tr>
+                            <tr className="even">
+                                <td>古典的機械学習</td>
+                                <td>データ駆動</td>
+                                <td>データ準備・特徴量選択・モデル学習</td>
+                                <td>不具合分類、障害発生確率の予測</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>深層学習</td>
+                                <td>ニューラルネットワーク</td>
+                                <td>大量データでの学習（特徴量は自動抽出）</td>
+                                <td>画像・ログのパターン認識</td>
+                            </tr>
+                            <tr className="even">
+                                <td>生成AI</td>
+                                <td>深層学習の応用</td>
+                                <td>
+                                    事前学習済みモデルの活用（適したタスクでは追加学習なしで適用可。追加調整の要否はタスクに応じる）
+                                </td>
+                                <td>テストケース・スクリプト・レポートの自動生成</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-label">
+                        <span className="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                「なぜ生成AIがテスト業務に向いているか」を説明する際は、<strong>適したタスクでは追加の学習フェーズが不要</strong>という利点を軸に説明すると、他の機械学習手法との違いが明確になる。
+                            </li>
+                            <li>
+                                一方で、事前学習モデルをそのまま使うことは「学習データに起因するリスク（ハルシネーション・バイアスなど）」と表裏一体であることを、活用前に必ずチームで共有しておく。
+                            </li>
+                            <li>
+                                不具合予測や分類のように、明確な正解ラベル付きデータが大量にある場合は、生成AIより古典的機械学習の方が適していることもあるため、タスクの性質を見極めてから技術を選定する。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 id="112-生成aiとllmの基礎">1.1.2 生成AIとLLMの基礎</h3>
+                <p>
+                    大規模言語モデル（LLM）は、書籍・記事・Webサイトなど非常に大規模な言語データで学習されたモデルの総称です。代表例の Generative Pre-trained Transformer（GPT）は、トランスフォーマーを基盤とする深層学習モデルの一種です。パラメータ数を絞り、軽量かつ特定用途に特化させたモデルは<strong>小規模言語モデル（SLM）</strong>と呼ばれます。
+                </p>
+                <p>
+                    LLMが言語のニュアンスを扱い、一貫した文章を生成できるのは、<strong>トークン化</strong>と<strong>埋め込み</strong>という2つの仕組みのおかげです。
+                </p>
+                <ul>
+                    <li>
+                        <strong>トークン化（Tokenization）</strong>：テキストを「トークン」という小さな単位に分解する処理です。トークンは1文字程度の場合もあれば、単語やサブワード単位になることもあります。LLMは入力文をまずトークン化し、全体の文脈を保ちながら各トークンを処理します。
+                    </li>
+                    <li>
+                        <strong>埋め込み（Embedding）</strong>：トークンを、意味的・構文的・文脈的な関係を表す数値ベクトルに変換したものです。似た意味や役割を持つトークンは、高次元空間上で近い位置に配置されます。これによりLLMは単語同士の関係性を理解し、文脈を保持し、一貫性のある応答を生成できます。
+                    </li>
+                </ul>
+                <p>
+                    LLMは<strong>Transformer</strong>というニューラルネットワーク構造を利用しています。Transformerは長いテキスト列の文脈を処理し、トークン同士の関係を学習することに優れています。推論時にはこの学習済みの関係性を活用し、統計的にもっともらしい次のトークンを予測して文章を生成します。ここで重要なのは、<strong>「統計的にもっともらしい」ことは「正しい」ことを意味しない</strong>という点です。
+                </p>
+                <p>
+                    また、LLMは推論の確率的な性質やハイパーパラメータの設定に起因して<strong>非決定的（non-deterministic）</strong>に振る舞います。つまり、まったく同じ入力を与えても、出力が毎回変わることがあります。
+                </p>
+                <p>
+                    <strong>コンテキストウィンドウ（Context Window）</strong>とは、LLMが応答生成時に考慮できる、直前のテキスト量（トークン数）の範囲を指します。コンテキストウィンドウが大きいほど、長いテストログの分析のように長い文章の一貫性を保てますが、その分、計算負荷と処理時間も増加します。
+                </p>
+                <div className="mermaid-container" id="mermaid-diagram-2">
+                    <Mermaid chart={DIAGRAM_LLM_TEXT_GENERATION} />
+                </div>
+                <h4 id="ハンズオン演習ho-112の狙い">ハンズオン演習（HO-1.1.2）の狙い</h4>
+                <p>
+                    シラバスが推奨する演習は、①テキストを実際にトークナイザーにかけてトークンの区切られ方を観察すること、②異なる長さ・構造の入力文のトークン数を計測し、コンテキストウィンドウの制限や処理効率にどう影響するかを分析すること、の2部構成です。この演習を通じて、入力文の構造や長さがLLMとのやり取りにどう影響するかを体感的に理解できます。
+                </p>
+                <div className="callout-practice">
+                    <div className="callout-label">
+                        <span className="callout-icon">💡</span><span>ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                長いテストログや大量の要件文書をLLMに入力する前に、<strong>概算のトークン数</strong>を確認する習慣をつける。コンテキストウィンドウの上限に近づくほど、処理の一貫性や精度が落ちるリスクがある。
+                            </li>
+                            <li>
+                                日本語は英語に比べて1文字あたりのトークン消費量が多くなりがちなので、日本語プロンプトを設計する際はこの点を考慮し、余裕を持ったトークン見積もりを行う。
+                            </li>
+                            <li>
+                                出力の<strong>非決定性</strong>を前提に、重要なテスト成果物（テストケースやテストオラクルなど）は必ず人手でレビューするプロセスを組み込む。同じプロンプトでも実行のたびに結果が変わり得ることをチームで共有しておく。
+                            </li>
+                            <li>
+                                大量のテキストを一度に処理させるのではなく、コンテキストウィンドウに収まる単位に分割して段階的に処理させることで、精度と再現性を高められる（この考え方は第2章の「プロンプトチェイニング」に発展する）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </main>
         </div>
     );
 }
+
