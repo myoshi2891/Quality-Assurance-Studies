@@ -110,7 +110,7 @@ const TOC_DATA: TocPartItem[] = [
     },
 ];
 
-export default function NavBar() {
+export default function NavBar({ children }: { children?: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
     const [activeId, setActiveId] = useState<string>('part-0');
     const [openParts, setOpenParts] = useState<Record<string, boolean>>({
@@ -195,64 +195,67 @@ export default function NavBar() {
             >
                 目次
             </button>
-            <nav className={`toc ${isOpen ? 'show' : ''}`} id="toc" aria-label="目次">
-                <p className="toc-head">第5章 ソフトウェア欠陥防止</p>
-                <p className="toc-cap">CTAL-TA v4.0 初学者向けガイド</p>
-                <ul>
-                    {TOC_DATA.map((part) => {
-                        const isPartOpen = !!openParts[part.id];
-                        const isPartActive = activeId === part.id;
-                        return (
-                            <li
-                                key={part.id}
-                                className={`toc-part ${isPartOpen ? 'open' : ''}`}
-                                data-part={part.id}
-                            >
-                                <a
-                                    href={`#${part.id}`}
-                                    aria-current={isPartActive ? 'true' : undefined}
-                                    onClick={() => {
-                                        setIsOpen(false);
-                                        if (!isPartOpen) togglePart(part.id);
-                                    }}
+            <div className="shell">
+                <nav className={`toc ${isOpen ? 'show' : ''}`} id="toc" aria-label="目次">
+                    <p className="toc-head">第5章 ソフトウェア欠陥防止</p>
+                    <p className="toc-cap">CTAL-TA v4.0 初学者向けガイド</p>
+                    <ul>
+                        {TOC_DATA.map((part) => {
+                            const isPartOpen = !!openParts[part.id];
+                            const isPartActive = activeId === part.id;
+                            return (
+                                <li
+                                    key={part.id}
+                                    className={`toc-part ${isPartOpen ? 'open' : ''}`}
+                                    data-part={part.id}
                                 >
-                                    <span className="tn">{part.tn}</span>
-                                    <span className="tt">{part.title}</span>
-                                </a>
-                                {part.subs.length > 0 && (
-                                    <ul className="toc-sub">
-                                        {part.subs.map((sub) => {
-                                            const isSubActive = activeId === sub.id;
-                                            return (
-                                                <li key={sub.id}>
-                                                    <a
-                                                        href={`#${sub.id}`}
-                                                        aria-current={isSubActive ? 'true' : undefined}
-                                                        onClick={() => setIsOpen(false)}
-                                                    >
-                                                        {sub.title}
-                                                    </a>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                )}
-                            </li>
-                        );
-                    })}
-                </ul>
-                <div className="legend">
-                    <p>
-                        <span className="mk mk-a">◎</span>公式シラバスで確認
-                    </p>
-                    <p>
-                        <span className="mk mk-b">○</span>サンプル試験・LO対応表で確認
-                    </p>
-                    <p>
-                        <span className="mk mk-c">△</span>業界一般の補足（要照合）
-                    </p>
-                </div>
-            </nav>
+                                    <a
+                                        href={`#${part.id}`}
+                                        aria-current={isPartActive ? 'true' : undefined}
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            if (!isPartOpen) togglePart(part.id);
+                                        }}
+                                    >
+                                        <span className="tn">{part.tn}</span>
+                                        <span className="tt">{part.title}</span>
+                                    </a>
+                                    {part.subs.length > 0 && (
+                                        <ul className="toc-sub">
+                                            {part.subs.map((sub) => {
+                                                const isSubActive = activeId === sub.id;
+                                                return (
+                                                    <li key={sub.id}>
+                                                        <a
+                                                            href={`#${sub.id}`}
+                                                            aria-current={isSubActive ? 'true' : undefined}
+                                                            onClick={() => setIsOpen(false)}
+                                                        >
+                                                            {sub.title}
+                                                        </a>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <div className="legend">
+                        <p>
+                            <span className="mk mk-a">◎</span>公式シラバスで確認
+                        </p>
+                        <p>
+                            <span className="mk mk-b">○</span>サンプル試験・LO対応表で確認
+                        </p>
+                        <p>
+                            <span className="mk mk-c">△</span>業界一般の補足（要照合）
+                        </p>
+                    </div>
+                </nav>
+                {children}
+            </div>
         </>
     );
 }
