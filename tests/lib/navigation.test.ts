@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 80 entries (home + 9 foundation + 11 fdn-ext + 12 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(80);
+  it('contains 81 entries (home + 9 foundation + 11 fdn-ext + 13 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(81);
   });
 
   it('every item has a unique href', () => {
@@ -346,6 +346,7 @@ describe('groupByCategory', () => {
       '/istqb-ctal-ta-chapter5-defect-prevention',
       '/istqb-ctal-tm-complete-guide',
       '/istqb-ctal-tm-chapter1-managing-the-test-activities',
+      '/istqb-ctal-tm-chapter2-managing-the-product',
       '/istqb-ctal-tta-complete-guide',
       '/istqb-ctal-att-complete-guide',
       '/istqb-ctal-atlas-complete-guide',
