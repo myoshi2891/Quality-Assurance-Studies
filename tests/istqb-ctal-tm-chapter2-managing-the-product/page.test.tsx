@@ -278,3 +278,127 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 2: テストメトリクス (Section
     });
 });
 
+export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
+    {
+        heading: '3つの軸：工数・時間・コスト',
+        headers: ['軸', '意味', '問い', 'ポイント'],
+        rows: 4,
+        cols: 4,
+        sample: '工数（effort）',
+    },
+    {
+        heading: 'ステップ2（TM-2.2.2）：テスト工数に影響を与える要因',
+        headers: ['区分', '具体的な要因', '影響のしかた（考え方）'],
+        rows: 6,
+        cols: 3,
+        sample: 'プロダクト',
+    },
+    {
+        heading: '技法の分類',
+        headers: ['分類', '考え方', '代表的な技法（Foundation Level v4 の 5.1.4 で説明されているもの）'],
+        rows: 3,
+        cols: 3,
+        sample: 'メトリクスベース',
+    },
+    {
+        heading: '技法の選択に影響する5つの要因（シラバス）',
+        headers: ['要因', '意味', '例（シラバスの記述）'],
+        rows: 6,
+        cols: 3,
+        sample: '見積り誤差',
+    },
+    {
+        heading: 'シラバスが挙げる選択の目安',
+        headers: ['状況', '適した技法の例'],
+        rows: 5,
+        cols: 2,
+        sample: '対象の複雑度が低い',
+    },
+    {
+        heading: '2.2 節でよくある間違い（試験の引っかけ）',
+        headers: ['誤解', '正しい理解'],
+        rows: 7,
+        cols: 2,
+        sample: '工数と期間は同じ',
+    },
+];
+
+describe('CTAL-TM v3.0 Chapter 2 - Category 3: テスト見積り (Section 2.2)', () => {
+    it('renders section 2.2 heading and learning objectives note', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const h2 = container.querySelector('[id="3-シラバス22テスト見積り"]');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toBe('3. 【シラバス2.2】テスト見積り');
+        expect(container.textContent).toContain('学習の目的：TM-2.2.1（K2）／TM-2.2.2（K2）／TM-2.2.3（K4）');
+    });
+
+    it('renders all section 2.2 H3 and H4 subheadings', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const expectedSubheadingIds = [
+            'ステップ1tm-221テスト見積りとは何を見積ることか',
+            '3つの軸工数時間コスト',
+            '見積りの進め方',
+            '時間コスト品質の三角形',
+            'ステップ2tm-222テスト工数に影響を与える要因',
+            'ステップ3tm-223k4適切なテスト見積り技法を選ぶ',
+            '見積りで最初に決めるべき考え方',
+            '技法の分類',
+            '技法の選択に影響する5つの要因シラバス',
+            'シラバスが挙げる選択の目安',
+            '計算例架空三点見積り',
+            '計算例架空比率による見積り',
+            '見積りは一度作って終わりではない',
+            '22-節でよくある間違い試験の引っかけ',
+        ];
+
+        expectedSubheadingIds.forEach((id) => {
+            const el = container.querySelector(`[id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid DIAGRAM_5, DIAGRAM_6, and DIAGRAM_7', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        ['mmd-5', 'mmd-6', 'mmd-7'].forEach((id) => {
+            const target = container.querySelector(`[id="${id}"]`);
+            expect(target).not.toBeNull();
+            const parent = container.querySelector(`[id="container-${id}"]`);
+            expect(parent).not.toBeNull();
+        });
+    });
+
+    it('renders Category 3 tables (Tables 14-19) matching specifications', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(19);
+
+        EXPECTED_TABLE_SPECS_CAT3.forEach((spec, i) => {
+            const actual = tables[13 + i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual(spec.headers as string[]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+
+    it('renders all callouts in Category 3', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const callouts = container.querySelectorAll('.callout');
+        // Category 1: 1, Category 2: 7, Category 3: 6 -> at least 14
+        expect(callouts.length).toBeGreaterThanOrEqual(14);
+    });
+
+    it('renders calculation pre blocks in Category 3', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const preBlocks = container.querySelectorAll('pre');
+        const preTexts = Array.from(preBlocks).map((p) => p.textContent || '');
+        const hasFormula1 = preTexts.some((t) => t.includes('期間（稼働日）＝ 60人日 ÷ （3人 × 0.8）＝ 25稼働日'));
+        const hasFormula2 = preTexts.some((t) => t.includes('期待値 E ＝ （a ＋ 4m ＋ b） ÷ 6'));
+        const hasFormula3 = preTexts.some((t) => t.includes('E  ＝ （10 ＋ 4×16 ＋ 40） ÷ 6'));
+        expect(hasFormula1).toBe(true);
+        expect(hasFormula2).toBe(true);
+        expect(hasFormula3).toBe(true);
+    });
+});
