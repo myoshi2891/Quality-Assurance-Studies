@@ -151,3 +151,130 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 1: 基盤 & 全体像', () => {
         expect(callout?.textContent).toContain('学習のヒント');
     });
 });
+
+export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
+    {
+        heading: 'ステップ2：メトリクスを3つに分類する',
+        headers: ['分類', '何を測るか', '例', '答える問い'],
+        rows: 3,
+        cols: 4,
+        sample: 'プロジェクトメトリクス',
+    },
+    {
+        heading: 'ステップ3（TM-2.1.1）：テストマネジメント活動ごとのメトリクスの例',
+        headers: ['活動', 'メトリクスの役割'],
+        rows: 3,
+        cols: 2,
+        sample: 'テスト計画',
+    },
+    {
+        heading: 'ステップ3（TM-2.1.1）：テストマネジメント活動ごとのメトリクスの例',
+        headers: ['メトリクス', '何を見るか', '使いどころ'],
+        rows: 8,
+        cols: 3,
+        sample: '計画と実績の差異',
+    },
+    {
+        heading: 'ステップ4（TM-2.1.2）：モニタリング・コントロール・完了の違い',
+        headers: ['用語', '定義（やさしく言うと）', '具体例'],
+        rows: 4,
+        cols: 3,
+        sample: 'テストモニタリング',
+    },
+    {
+        heading: 'テストレベルによって「使えるメトリクス」が違う',
+        headers: ['テストレベル', '主なテストベース', '適したカバレッジ・メトリクスの例'],
+        rows: 3,
+        cols: 3,
+        sample: 'コンポーネントテスト',
+    },
+    {
+        heading: '目的別メトリクスの一覧',
+        headers: ['目的', 'メトリクス', '何が分かるか'],
+        rows: 10,
+        cols: 3,
+        sample: 'リスク',
+    },
+    {
+        heading: '具体例（架空のデータ）：リリース判定会議向けのテストレポート',
+        headers: ['区分', '指標', '値'],
+        rows: 7,
+        cols: 3,
+        sample: 'スコープ・進捗',
+    },
+    {
+        heading: '2.1 節でよくある間違い（試験の引っかけ）',
+        headers: ['誤解', '正しい理解'],
+        rows: 5,
+        cols: 2,
+        sample: '「メトリクスはテスト実行中だけに集める」',
+    },
+];
+
+describe('CTAL-TM v3.0 Chapter 2 - Category 2: テストメトリクス (Section 2.1)', () => {
+    it('renders section 2.1 heading and learning objectives note', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const h2 = container.querySelector('[id="2-シラバス21テストメトリクス"]');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toBe('2. 【シラバス2.1】テストメトリクス');
+    });
+
+    it('renders all section 2.1 H3 and H4 subheadings', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const expectedSubheadingIds = [
+            'ステップ1なぜテストにメトリクスが必要なのか',
+            'ステップ2メトリクスを3つに分類する',
+            'ステップ3tm-211テストマネジメント活動ごとのメトリクスの例',
+            'ステップ4tm-212モニタリングコントロール完了の違い',
+            'ステップ5tm-213k4テストレポートを作るために結果を分析する',
+            'テストレベルによって使えるメトリクスが違う',
+            '報告の形式スナップショットとトレンド',
+            '目的別メトリクスの一覧',
+            '手順意思決定に役立つテストレポートの作り方ステップバイステップ',
+            '具体例架空のデータリリース判定会議向けのテストレポート',
+            '21-節でよくある間違い試験の引っかけ',
+        ];
+
+        expectedSubheadingIds.forEach((id) => {
+            const el = container.querySelector(`[id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid DIAGRAM_2, DIAGRAM_3, and DIAGRAM_4', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        ['mmd-2', 'mmd-3', 'mmd-4'].forEach((id) => {
+            const target = container.querySelector(`[id="${id}"]`);
+            expect(target).not.toBeNull();
+            const parent = container.querySelector(`[id="container-${id}"]`);
+            expect(parent).not.toBeNull();
+        });
+    });
+
+    it('renders Category 2 tables (Tables 6-13) matching specifications', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(13);
+
+        EXPECTED_TABLE_SPECS_CAT2.forEach((spec, i) => {
+            const actual = tables[5 + i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual(spec.headers as string[]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+
+    it('renders all callouts in Category 2', () => {
+        const { container } = render(<CtalTmChapter2Page />);
+        const sec2 = container.querySelector('[id="2-シラバス21テストメトリクス"]');
+        expect(sec2).not.toBeNull();
+        // Section 2.1 contains 7 callouts
+        const callouts = container.querySelectorAll('.callout');
+        // Category 1 had 1 callout, so total should be at least 8
+        expect(callouts.length).toBeGreaterThanOrEqual(8);
+    });
+});
+
