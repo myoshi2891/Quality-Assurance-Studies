@@ -106,6 +106,35 @@ flowchart TD
     C --> E
     D --> E`;
 
+export const DIAGRAM_ANALYSIS_CYCLE = `${MERMAID_CONFIG}
+flowchart TD
+    A["テストを実行し結果を記録"] --> B["欠陥データを集計"]
+    B --> C["DDPなどの指標を計算"]
+    B --> D["予測と実績を比べ欠陥クラスターを探す"]
+    C --> E{"検出が弱いフェーズはあるか"}
+    D --> F{"予測を大きく超える箇所はあるか"}
+    E -->|はい| G["そのフェーズの検出活動を強化"]
+    F -->|はい| H["その箇所のテストとレビューを追加"]
+    E -->|いいえ| I["現状の活動を維持"]
+    F -->|いいえ| I
+    G --> J["次のサイクルで効果を確認"]
+    H --> J
+    I --> J
+    J --> A`;
+
+export const DIAGRAM_RCA_FLOW = `${MERMAID_CONFIG}
+flowchart TD
+    A["欠陥報告"] --> B["分類項目を付ける"]
+    B --> C["分類ごとに件数を集計"]
+    C --> D["件数の多い分類を特定"]
+    D --> E["その分類について根本原因分析"]
+    E --> F["根本原因を特定"]
+    F --> G["再発防止策を決めて実行"]
+    G --> H["次のサイクルで同じ分類の件数を確認"]
+    H --> I{"件数は減ったか"}
+    I -->|はい| J["防止策を標準に取り込む"]
+    I -->|いいえ| E`;
+
 export const metadata: Metadata = {
     title: 'CTAL-TA v4.0 第5章 ソフトウェア欠陥防止｜初学者向けガイド',
     description: 'ISTQB Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0 第5章 ソフトウェア欠陥防止の初学者向け完全学習ガイド。',
@@ -2400,6 +2429,775 @@ export default function CtalTaChapter5Page() {
                             <li>偽陽性：欠陥でないものを欠陥として報告してしまうこと</li>
                             <li>ユースケース：利用者とシステムのやり取りを、目的ごとにまとめた記述</li>
                             <li>受け入れ基準：ユーザーストーリーが完成したと認める条件</li>
+                        </ul>
+                    </details>
+
+                    {/* パート5 */}
+                    <h2 id="part-5">
+                        <span className="part-no">パート5</span>
+                        <span className="part-title">
+                            5.3 欠陥の再発緩和（TA-5.3.1 / K4・TA-5.3.2 / K2）
+                        </span>
+                    </h2>
+                    <p className="lead">
+                        <span className="lead-ico" aria-hidden="true">
+                            💡
+                        </span>
+                        このパートでは、テスト結果を分析して検出の弱い点を見つける方法（5.3.1）と、欠陥を分類して根本原因分析（RCA）を効率よく行う方法（5.3.2）を説明します。同じ欠陥を繰り返さないための「学習のしくみ」が主題です。
+                    </p>
+                    <h3 id="sec-22">
+                        A. TA-5.3.1 テスト結果を分析して検出の改善点を特定する（K4）
+                    </h3>
+                    <p>
+                        なぜ K4（分析）なのか：与えられた数字から自分で原因や改善点を導く力が求められるためです。試験では表のデータを見て、計算し、どこを改善すべきかを選ぶ形式（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #43、#44）が出ます。
+                    </p>
+                    <p>
+                        シラバスの根拠（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>
+                        ）：
+                    </p>
+                    <ul>
+                        <li>
+                            1.2.4：TA はテスト結果を評価し、
+                            <strong>欠陥クラスター（欠陥が集中している箇所）</strong>
+                            を認識して、その部分にさらにテストが必要かを判断する。
+                        </li>
+                        <li>
+                            2.2：各テストサイクルの後に、回帰テスト選択技法の効果をテスト結果から分析し、効果のあった技法を残し、効果の無かった技法を置き換える。
+                        </li>
+                    </ul>
+                    <h4>分析のサイクル</h4>
+                    <p>
+                        この図は、テスト結果の分析から次のサイクルの改善までの流れを表しています。上から下へ読み進めてください。
+                    </p>
+                    <figure className="diagram">
+                        <Mermaid chart={DIAGRAM_ANALYSIS_CYCLE} />
+                        <figcaption className="fallback">
+                            図の描画にはインターネット接続が必要です。接続できない場合は上の Mermaid ソースがそのまま表示されます。
+                        </figcaption>
+                    </figure>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「DDP などの指標を計算」：フェーズごとの検出の強さを数字にする（パート3.2）
+                        </li>
+                        <li>
+                            「予測と実績を比べ…」：欠陥の予測モデルと実績のずれから、欠陥が集中する箇所を探す
+                        </li>
+                        <li>
+                            「次のサイクルで効果を確認」：改善が効いたかどうかを、次のデータで確かめる
+                        </li>
+                    </ul>
+                    <h4>技法1：DDP による検出の弱いフェーズの特定</h4>
+                    <p>計算の手順と結果はパート3.2にあります。要点だけ再掲します。</p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>手順</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>混入フェーズと検出フェーズの件数表を作る</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        フェーズごとに D（そこで検出）と E（後工程へ逃げた）を数える
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>D ÷ (D + E) を計算する</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        最も低いフェーズを、改善の第一候補にする（資源が1か所分だけなら、そこを選ぶ）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>
+                        技法2：欠陥クラスター分析【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #44 を題材に再構成】
+                    </h4>
+                    <p>
+                        なぜこの技法か：欠陥は特定の場所に集まる傾向があるため（欠陥の集中の原則）、集中している箇所を追加で調べると、残っている欠陥を効率よく見つけられるからです。
+                    </p>
+                    <p>
+                        設定：ホームセキュリティシステムは4つの部品でできています。類似プロジェクトでは、部品の大きさと欠陥数に強い相関があり、
+                        <strong>平均で 50 行あたり 1 件</strong>
+                        の欠陥が見つかっていました。これを予測モデル（予測件数 ＝ 行数 ÷ 50）として使います。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>部品</th>
+                                    <th style={{ textAlign: 'center' }}>行数</th>
+                                    <th style={{ textAlign: 'center' }}>予測件数（行数 ÷ 50）</th>
+                                    <th style={{ textAlign: 'center' }}>実績件数</th>
+                                    <th style={{ textAlign: 'center' }}>実績 ÷ 予測</th>
+                                    <th>判定</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>制御パネル</td>
+                                    <td style={{ textAlign: 'center' }}>600</td>
+                                    <td style={{ textAlign: 'center' }}>12</td>
+                                    <td style={{ textAlign: 'center' }}>14</td>
+                                    <td style={{ textAlign: 'center' }}>約 1.17</td>
+                                    <td>予測どおり</td>
+                                </tr>
+                                <tr>
+                                    <td>ユーザーインターフェース</td>
+                                    <td style={{ textAlign: 'center' }}>2,000</td>
+                                    <td style={{ textAlign: 'center' }}>40</td>
+                                    <td style={{ textAlign: 'center' }}>45</td>
+                                    <td style={{ textAlign: 'center' }}>約 1.13</td>
+                                    <td>予測どおり</td>
+                                </tr>
+                                <tr>
+                                    <td>バックエンド</td>
+                                    <td style={{ textAlign: 'center' }}>400</td>
+                                    <td style={{ textAlign: 'center' }}>8</td>
+                                    <td style={{ textAlign: 'center' }}>17</td>
+                                    <td style={{ textAlign: 'center' }}>約 2.13</td>
+                                    <td>
+                                        <strong>予測の2倍超 → 欠陥が集中</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>イベント処理エンジン</td>
+                                    <td style={{ textAlign: 'center' }}>500</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>8</td>
+                                    <td style={{ textAlign: 'center' }}>0.8</td>
+                                    <td>予測より少ない</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        結論：さらに厳しくテストすれば欠陥が見つかりそうなのは
+                        <strong>バックエンド</strong>です（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>{' '}
+                        #44 の正解 c）。
+                    </p>
+                    <p>見落としやすい点：</p>
+                    <ul>
+                        <li>
+                            実績の<strong>絶対数</strong>が最も多いのはユーザーインターフェースの 45
+                            件ですが、部品が最も大きいので、この件数は予測とほぼ一致します。「多い」ではなく「予測より多い」に注目します。
+                        </li>
+                        <li>
+                            「予測の2倍超」を集中の目印として読み取っているのは、この問題の解説です。実務での閾値は、組織の過去データで決めます（
+                            <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                △
+                            </span>
+                            ）。
+                        </li>
+                    </ul>
+                    <h4>
+                        技法3：回帰テスト選択の効果の検証【
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>{' '}
+                        2.2】
+                    </h4>
+                    <p>
+                        シラバスは、回帰テストの選択技法（リスクベース、履歴ベース、カバレッジベース、要件トレーサビリティマトリクス、運用プロファイル、影響分析）を挙げたうえで、サイクルごとに効果を分析して見直すよう述べています。たとえば、各技法で選んだテストがそのサイクルで見つけた欠陥の数を比べ、効果の低い技法を別の技法へ置き換えます（
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>{' '}
+                        進め方の例）。
+                    </p>
+                    <h4>
+                        分析結果から改善アクションへ【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】
+                    </h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>分析でわかったこと</th>
+                                    <th>考えられる改善アクション</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>設計フェーズの DDP が低い</td>
+                                    <td>
+                                        設計のモデル化を増やす、設計レビューのチェックリストを強化する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>要件由来の欠陥が下流で多く見つかる</td>
+                                    <td>要件レビューに、シナリオベースやロールベースを追加する</td>
+                                </tr>
+                                <tr>
+                                    <td>特定の部品に欠陥が集中している</td>
+                                    <td>その部品のテストを追加し、レビューの観点も増やす</td>
+                                </tr>
+                                <tr>
+                                    <td>同じ種類の欠陥が繰り返される</td>
+                                    <td>欠陥を分類して RCA を行う（次の B）</td>
+                                </tr>
+                                <tr>
+                                    <td>回帰テストの選択が空振りしている</td>
+                                    <td>選択技法を見直す</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>
+                        K4 問題の解き方【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>{' '}
+                        学習法】
+                    </h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>手順</th>
+                                    <th>やること</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>表の意味（行と列、何を数えているか）を確認する</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>設問が求める指標（DDP、予測との比、など）を式にして計算する</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>計算結果を並べて、最低または最大の乖離を見つける</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>設問の制約（例：資源の都合で1か所だけ）に合う選択肢を選ぶ</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        理由を1文で言えるか確かめる（「設計の DDP が 10% で最低だから」など）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 id="sec-23">B. TA-5.3.2 欠陥分類が根本原因分析をどう支えるか（K2）</h3>
+                    <p>
+                        なぜ分類が必要なのか：欠陥は数が多く、1件ずつ根本原因を調べて対策を立てるのは時間がかかりすぎます。たとえ話：散らかった部屋を片付けるとき、1個ずつ考えるより、「衣類」「書類」「食器」に仕分けてから収納方法を決めるほうが早く終わります。欠陥も、似た特徴ごとに仕分けしてから原因を調べると効率が上がります。
+                    </p>
+                    <p>
+                        サンプル試験 #45（
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>
+                        ）の正解と理由：
+                        <strong>
+                            「欠陥の個々ではなく、似た特徴を持つ欠陥のグループを対象に分析できるので、RCA が効率的になる」
+                        </strong>
+                        。他の選択肢が誤りである理由も、理解の助けになります。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>誤った説明</th>
+                                    <th>
+                                        なぜ誤りか（
+                                        <span
+                                            className="mk mk-b"
+                                            title="公式サンプル試験・LO対応表で確認"
+                                        >
+                                            ○
+                                        </span>{' '}
+                                        #45 の解説）
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        分類すれば、静的・動的テストの前に、抽象的なカテゴリだけで RCA ができる
+                                    </td>
+                                    <td>
+                                        RCA は具体的な欠陥や故障が存在して初めて行える。先にテストが必要
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        分類はテスト技法と同じ開発ライフサイクルモデルを使うので、RCA をテスト技法と組み合わせられる
+                                    </td>
+                                    <td>RCA とテスト技法に、そのような共通点は無い</td>
+                                </tr>
+                                <tr>
+                                    <td>分類で欠陥をより深く分析でき、より多くの根本原因が見つかる</td>
+                                    <td>
+                                        分類は問題をより一般的な高い視点へ引き上げるので、詳細な分析の手段ではない
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>分類から再発防止までの流れ</h4>
+                    <p>
+                        この図は、欠陥報告から再発防止策の効果確認までの流れを表しています。上から下へ読み進めてください。
+                    </p>
+                    <figure className="diagram">
+                        <Mermaid chart={DIAGRAM_RCA_FLOW} />
+                        <figcaption className="fallback">
+                            図の描画にはインターネット接続が必要です。接続できない場合は上の Mermaid ソースがそのまま表示されます。
+                        </figcaption>
+                    </figure>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>「分類項目を付ける」：欠陥報告に、あらかじめ決めた分類を記録する</li>
+                        <li>
+                            「件数の多い分類を特定」：どのグループに集中して対策すると効果が大きいかを選ぶ
+                        </li>
+                        <li>「根本原因分析」：選んだグループについて、なぜ起きたかをさかのぼる</li>
+                        <li>
+                            「件数は減ったか」（ひし形）：対策が効いたかを、次のサイクルの分類別件数で確認する
+                        </li>
+                    </ul>
+                    <h4>
+                        分類の軸の例【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】
+                    </h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>分類の軸</th>
+                                    <th>例</th>
+                                    <th>何に使うか</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>混入フェーズ</td>
+                                    <td>要件、設計、実装、テストウェア</td>
+                                    <td>PCE の計算、上流の弱点の特定</td>
+                                </tr>
+                                <tr>
+                                    <td>検出フェーズ</td>
+                                    <td>レビュー、単体テスト、システムテスト、本番</td>
+                                    <td>DDP の計算</td>
+                                </tr>
+                                <tr>
+                                    <td>欠陥タイプ</td>
+                                    <td>曖昧な要件、境界の誤り、状態管理、データ、環境</td>
+                                    <td>再発しやすい種類の特定</td>
+                                </tr>
+                                <tr>
+                                    <td>原因カテゴリ</td>
+                                    <td>知識不足、レビュー漏れ、ツール、コミュニケーション</td>
+                                    <td>RCA の入口</td>
+                                </tr>
+                                <tr>
+                                    <td>影響度</td>
+                                    <td>重大、高、中、低</td>
+                                    <td>対策の優先順位</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        既存の分類体系として、シラバス 3.4.2 は、欠陥のライブラリや分類（Beizer、Kaner ら）をチェックリスト作りの情報源に挙げています（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>
+                        ）。組織では、これらを参考に自社の分類項目を決めます（IEEE 1044 や ODC など、他の体系もあります【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】）。
+                    </p>
+                    <h4>
+                        根本原因分析の例：5 Whys【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】
+                    </h4>
+                    <p>
+                        5 Whys（＝「なぜ」を5回ほど繰り返して原因をさかのぼる手法）の例です。サンプル試験 #11 の状況（銀行口座番号の検証不足で、決済が拒否された）を題材に、本ガイドが作った
+                        <strong>説明用の例</strong>です。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ textAlign: 'center' }}>段階</th>
+                                    <th>問い</th>
+                                    <th>答え</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>1</td>
+                                    <td>なぜ決済が拒否されたか</td>
+                                    <td>不正な口座番号が送られた</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>なぜ不正な番号が送られたか</td>
+                                    <td>モバイルアプリで口座番号の検証をしていなかった</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>3</td>
+                                    <td>なぜ検証をしていなかったか</td>
+                                    <td>要件に、入力検証の仕様が書かれていなかった</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>4</td>
+                                    <td>なぜ要件に無かったか</td>
+                                    <td>要件レビューのチェックリストに、入力検証の観点が無かった</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>5</td>
+                                    <td>なぜ観点が無かったか</td>
+                                    <td>過去の欠陥をチェックリストへ反映する決まりが無かった</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        対策の例：チェックリストに入力検証の観点（REQ-03、REQ-04）を追加する、欠陥を分類して定期的にチェックリストへ反映する、ドメインテストで境界を確認する。
+                    </p>
+                    <h4>
+                        分類の落とし穴【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】
+                    </h4>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>落とし穴</th>
+                                    <th>対策</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>分類が細かすぎて、選ぶのに迷う</td>
+                                    <td>項目を絞り、選択基準を用語集にする</td>
+                                </tr>
+                                <tr>
+                                    <td>「その他」が増える</td>
+                                    <td>「その他」が一定割合を超えたら、項目を見直す</td>
+                                </tr>
+                                <tr>
+                                    <td>人によって付け方が違う</td>
+                                    <td>判断例を共有し、定期的にそろえる</td>
+                                </tr>
+                                <tr>
+                                    <td>分類を付けるだけで分析しない</td>
+                                    <td>集計と RCA の担当と頻度を決める</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 id="sec-24">C. ベストプラクティス</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>推奨すること</th>
+                                    <th>避けたいこと</th>
+                                    <th style={{ textAlign: 'center' }}>根拠</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テスト結果の評価</td>
+                                    <td>サイクルごとに欠陥クラスターを確認する</td>
+                                    <td>件数の多い少ないだけで判断する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        1.2.4 /{' '}
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #44
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>指標の使い方</td>
+                                    <td>DDP を、フェーズ間で比べて改善先を決める</td>
+                                    <td>最終テストの DDP だけを見て安心する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #43 /{' '}
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>予測との比較</td>
+                                    <td>大きさなどで正規化した予測と実績を比べる</td>
+                                    <td>絶対数だけで判断する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #44
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>回帰テスト選択</td>
+                                    <td>サイクルごとに技法の効果を見直す</td>
+                                    <td>選択技法を固定し続ける</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        2.2
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>欠陥分類</td>
+                                    <td>混入フェーズと検出フェーズを必ず記録する</td>
+                                    <td>修正内容だけを記録する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RCA</td>
+                                    <td>分類で集計し、件数の多いグループから行う</td>
+                                    <td>全件を1つずつ分析する</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #45
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>防止策の確認</td>
+                                    <td>次のサイクルで同じ分類の件数が減ったかを確かめる</td>
+                                    <td>対策を実施して終わりにする</td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <details className="glossary">
+                        <summary>
+                            <span className="g-ico">📖</span>このパートで登場した用語
+                            <span className="g-n">9語</span>
+                        </summary>
+                        <ul>
+                            <li>欠陥クラスター：欠陥が特定の部品や機能に集中している状態</li>
+                            <li>
+                                欠陥の集中の原則：欠陥は一部のモジュールに集中する傾向があるという考え方
+                            </li>
+                            <li>
+                                予測モデル：過去のデータから、欠陥件数などを見積もる式（例：行数 ÷ 50）
+                            </li>
+                            <li>
+                                正規化：大きさの違いを取り除いて比べられるようにすること（例：行数あたりの欠陥数）
+                            </li>
+                            <li>
+                                欠陥分類：欠陥を、種類や混入フェーズなどの特徴でグループに分けること
+                            </li>
+                            <li>根本原因：欠陥を引き起こした、最も深いところにある原因</li>
+                            <li>5 Whys：「なぜ」を繰り返して根本原因へ近づく手法</li>
+                            <li>
+                                回帰テスト：変更によって、既存の機能が壊れていないかを確かめるテスト
+                            </li>
+                            <li>影響分析：変更の影響が及ぶ範囲（部品やテスト）を調べること</li>
+                        </ul>
+                    </details>
+
+                    {/* パート6 */}
+                    <h2 id="part-6">
+                        <span className="part-no">パート6</span>
+                        <span className="part-title">ツール・機能別のベストプラクティス</span>
+                    </h2>
+                    <p className="lead">
+                        <span className="lead-ico" aria-hidden="true">
+                            💡
+                        </span>
+                        このパートでは、欠陥防止と再発緩和を支える各種ツール（機能）を、どう使い、どう設定するとよいかを整理します。パート3〜5の手法を、日々の運用へ落とし込むための章です。
+                    </p>
+                    <p>
+                        なぜツールを取り上げるのか：DDP の計算やクラスター分析、分類別の集計は、欠陥データが整っていないと実行できません。ツールの項目設計が、防止活動の土台になるためです。
+                    </p>
+                    <p>
+                        シラバス 1.3.7（
+                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                            ◎
+                        </span>
+                        ）は、テストウェアの管理に使うツールの種類として、テスト管理、欠陥管理、テストデータ管理、構成管理、要件管理の各ツールを挙げています。次の表は、その種類ごとに、防止・再発緩和での使い方を本ガイドがまとめたものです。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ツールの種類</th>
+                                    <th>
+                                        シラバスでの位置づけ【
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>
+                                        】
+                                    </th>
+                                    <th>
+                                        防止・再発緩和での使い方【
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                        】
+                                    </th>
+                                    <th>
+                                        設定・運用のベストプラクティス【
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                        】
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>欠陥管理ツール</td>
+                                    <td>欠陥の記録・優先度づけ・解決状況の追跡</td>
+                                    <td>
+                                        混入フェーズ、検出フェーズ、分類を項目にして、DDP・クラスター・RCA の元データにする
+                                    </td>
+                                    <td>
+                                        分類は選択式にする。必須項目にして記入漏れを防ぐ。分類の意味を用語集にする
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>テスト管理ツール</td>
+                                    <td>
+                                        テスト条件・テストケース・実行結果などの保管庫。トレーサビリティ（追跡性）の確保、進捗と品質の報告
+                                    </td>
+                                    <td>
+                                        欠陥が出た要件から、関連するテストや影響範囲をたどる。欠陥の集中を機能別に集計する
+                                    </td>
+                                    <td>
+                                        要件・テスト条件・テスト・実行・欠陥をつなぐ。テストケースにメタデータを付ける
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>要件管理ツール</td>
+                                    <td>要件の保持、版管理、ライフサイクル全体での追跡</td>
+                                    <td>
+                                        レビューの対象版を固定する。要件変更の影響を、関連するテストへ伝える
+                                    </td>
+                                    <td>レビューした版を記録する。変更履歴を残す</td>
+                                </tr>
+                                <tr>
+                                    <td>構成管理ツール</td>
+                                    <td>
+                                        開発・リリース・運用に関わるテスト活動、テスト環境の構成と可用性の管理
+                                    </td>
+                                    <td>
+                                        変更された構成項目から、影響を受けるテストを選ぶ（影響分析）。古くなったテストケースを見つける
+                                    </td>
+                                    <td>
+                                        版とテスト対象の版を対応づける（
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        1.3.7）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>モデルベーステスト・テスト設計自動化のツール</td>
+                                    <td>
+                                        モデルからテストウェアを生成。利点：欠陥防止、追跡性、保守の軽さ、関係者との協働（
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.5.2）
+                                    </td>
+                                    <td>
+                                        状態遷移モデルなどをレビューして仕様の欠陥を見つける。モデルを唯一の情報源にする
+                                    </td>
+                                    <td>
+                                        リスクにも注意する：モデルに無い条件の見落とし、モデル保守の見積もり不足、関係者にとって分かりにくいモデル（
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>{' '}
+                                        3.5.2）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>テキストで書ける作図ツール（例：Mermaid）</td>
+                                    <td>（シラバスの記述なし）</td>
+                                    <td>
+                                        フローチャートや状態遷移を文書内に書き、版管理とレビューの対象にする
+                                    </td>
+                                    <td>図もテキストとして版管理し、レビュー時の差分を確認する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <details className="glossary">
+                        <summary>
+                            <span className="g-ico">📖</span>このパートで登場した用語
+                            <span className="g-n">5語</span>
+                        </summary>
+                        <ul>
+                            <li>
+                                トレーサビリティ（追跡性）：要件・テスト条件・テストケース・欠陥などの関係をたどれること
+                            </li>
+                            <li>
+                                メタデータ：テストケースに付ける付随情報（実行の工数、必要な環境など）
+                            </li>
+                            <li>構成管理：成果物の版や構成を管理し、変更を追跡できるようにすること</li>
+                            <li>モデルベーステスト：モデルからテストを導く（または生成する）方法</li>
+                            <li>版管理：文書やコードの変更履歴を管理すること</li>
                         </ul>
                     </details>
                 </main>

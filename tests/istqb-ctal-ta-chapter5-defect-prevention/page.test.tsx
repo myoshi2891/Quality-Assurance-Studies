@@ -455,6 +455,21 @@ describe('CTAL-TA v4.0 Chapter 5 - Comprehensive Structural Verification', () =>
         });
     });
 
+    describe('Category 4: Part 5 (Recurrence Mitigation TA-5.3.1/TA-5.3.2) & Part 6 (Tools)', () => {
+        it('renders part-5 (sec-22..24) and part-6 with all 8 Mermaid diagrams', () => {
+            const { container } = render(<CtalTaChapter5Page />);
+            expect(container.querySelector('#part-5')).toBeTruthy();
+            expect(container.querySelector('#sec-22')).toBeTruthy();
+            expect(container.querySelector('#sec-23')).toBeTruthy();
+            expect(container.querySelector('#sec-24')).toBeTruthy();
+
+            expect(container.querySelector('#part-6')).toBeTruthy();
+
+            const diagrams = container.querySelectorAll('figure.diagram');
+            expect(diagrams.length).toBe(8);
+        });
+    });
+
     describe('Inventory Verification: Headings, Diagrams, Tables, and UI Components', () => {
         it('renders all 9 H2 headings with expected ids', () => {
             const { container } = render(<CtalTaChapter5Page />);
