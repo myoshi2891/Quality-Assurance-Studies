@@ -450,6 +450,32 @@ main.ct-genai-ch1-page,
     word-break: break-word !important;
 }
 
+/* フローチャートノード黒潰れ防止 (mermaid v11 / globals.css ダークテーマ干渉対策)
+   classDef で個別着色されたノード（highlight, proc, stage1-3, input 等）は除外する */
+.ct-genai-ch1-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) rect,
+.ct-genai-ch1-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) circle,
+.ct-genai-ch1-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) ellipse {
+    fill: #eff6ff !important;
+    stroke: #93c5fd !important;
+}
+
+.ct-genai-ch1-page .mermaid-wrapper .nodeLabel {
+    color: #0f172a !important;
+    fill: #0f172a !important;
+}
+
+/* サブグラフ（cluster）黒潰れ防止 */
+.ct-genai-ch1-page .mermaid-wrapper .cluster rect {
+    fill: #f8fafc !important;
+    stroke: #e2e8f0 !important;
+}
+
+.ct-genai-ch1-page .mermaid-wrapper .cluster .nodeLabel,
+.ct-genai-ch1-page .mermaid-wrapper .cluster span {
+    color: #0f172a !important;
+    fill: #0f172a !important;
+}
+
 /* スクロールバー globals 干渉リセット */
 .ct-genai-ch1-page *::-webkit-scrollbar {
     width: 6px;

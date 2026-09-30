@@ -2,21 +2,26 @@ export const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
     "background": "#ffffff",
+    "mainBkg": "#eff6ff",
     "primaryColor": "#eff6ff",
-    "primaryBorderColor": "#2563eb",
-    "primaryTextColor": "#1e293b",
-    "lineColor": "#64748b",
-    "secondaryColor": "#f8fafc",
-    "tertiaryColor": "#f1f5f9",
-    "nodeBorder": "#2563eb",
+    "primaryBorderColor": "#93c5fd",
+    "primaryTextColor": "#0f172a",
+    "lineColor": "#94a3b8",
+    "secondaryColor": "#f1f5f9",
+    "tertiaryColor": "#ffffff",
+    "nodeBorder": "#93c5fd",
     "clusterBkg": "#f8fafc",
-    "clusterBorder": "#cbd5e1",
+    "clusterBorder": "#e2e8f0",
     "edgeLabelBackground": "#ffffff",
     "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "14px"
   },
   "htmlLabels": true,
-  "flowchart": { "curve": "basis" }
+  "flowchart": {
+    "curve": "basis",
+    "nodeSpacing": 60,
+    "rankSpacing": 70
+  }
 }}%%`;
 
 export const DIAGRAM_AI_GENEALOGY = `${MERMAID_CONFIG}
@@ -76,13 +81,13 @@ flowchart TB
 accTitle: AIチャットボット型とLLM搭載テストアプリケーション型の比較
 accDescr: テスターが対話型チャットUIを通じてLLMと往復でやり取りするチャットボット型と、テストツールがAPI経由でLLMを呼び出し後処理された自動化テスト成果物を得るアプリケーション型を並べて比較した図
 subgraph SG1["AIチャットボット型"]
-    E1["テスター"] --> E2["対話型チャットUI"]
-    E2 --> E3["LLM"]
-    E3 --> E2
+E1["テスター"] --> E2["対話型チャットUI"]
+E2 --> E3["LLM"]
+E3 --> E2
 end
 subgraph SG2["LLM搭載テストアプリケーション型"]
-    E4["テストツール/フレームワーク"] --> E5["API経由の呼び出し"]
-    E5 --> E6["LLM"]
-    E6 --> E7["後処理された<br/>自動化テスト成果物"]
+E4["テストツール/フレームワーク"] --> E5["API経由の呼び出し"]
+E5 --> E6["LLM"]
+E6 --> E7["後処理された<br/>自動化テスト成果物"]
 end
 SG1 ~~~ SG2`;
