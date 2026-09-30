@@ -433,5 +433,66 @@ describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガ
     });
 });
 
+describe('CT-GenAI 第1章：生成AIソフトウェアテスト入門 完全ガイド (Category 5: まとめ・出典・参考文献)', () => {
+    it('「章のまとめ」セクションが6つの要点を含めて正しくレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h2 = container.querySelector('h2#章のまとめ');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent?.trim()).toBe('章のまとめ');
+
+        const summaryList = h2?.nextElementSibling?.nextElementSibling;
+        expect(summaryList?.tagName.toLowerCase()).toBe('ul');
+        const items = summaryList?.querySelectorAll('li');
+        expect(items?.length).toBe(6);
+
+        expect(items?.[0]?.textContent).toContain('記号的AI・古典的機械学習・深層学習・生成AI');
+        expect(items?.[1]?.textContent).toContain('トークン化と埋め込みによってテキストを数値表現に変換');
+        expect(items?.[2]?.textContent).toContain('基盤LLM・指示チューニング済みLLM・推論LLM');
+        expect(items?.[3]?.textContent).toContain('Vision-Language Model');
+        expect(items?.[4]?.textContent).toContain('テストプロセス全体を通じて多様な能力を発揮できる');
+        expect(items?.[5]?.textContent).toContain('AIチャットボットとLLM搭載テストアプリケーション');
+    });
+
+    it('「出典・参考文献」セクションが5件のRef-Card、外部リンク、補足コールアウトを含めて正しくレンダリングされること', () => {
+        const { container } = render(<CtGenAiChapter1Page />);
+        const h2 = container.querySelector('h2#出典参考文献');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent?.trim()).toBe('出典・参考文献');
+
+        const refCards = container.querySelectorAll('.ref-grid .ref-card');
+        expect(refCards.length).toBe(5);
+
+        const card1 = refCards[0];
+        expect(card1.querySelector('.ref-badge')?.textContent).toBe('1');
+        expect(card1.textContent).toContain('ISTQB® 公式 CT-GenAI認定ページ');
+        const link1 = card1.querySelector('a');
+        expect(link1?.getAttribute('href')).toBe('https://istqb.org/certifications/gen-ai/');
+        expect(link1?.getAttribute('target')).toBe('_blank');
+        expect(link1?.getAttribute('rel')).toContain('noopener');
+
+        const card2 = refCards[1];
+        expect(card2.querySelector('.ref-badge')?.textContent).toBe('2');
+        expect(card2.textContent).toContain('CT-GenAI Syllabus v1.1');
+
+        const card3 = refCards[2];
+        expect(card3.querySelector('.ref-badge')?.textContent).toBe('3');
+        expect(card3.textContent).toContain('CT-GenAI Syllabus v1.0 全文');
+
+        const card4 = refCards[3];
+        expect(card4.querySelector('.ref-badge')?.textContent).toBe('4');
+        expect(card4.textContent).toContain('ISTQB® v1.1リリースに関する公式アナウンス');
+
+        const card5 = refCards[4];
+        expect(card5.querySelector('.ref-badge')?.textContent).toBe('5');
+        expect(card5.textContent).toContain('ISTQB® Glossary');
+
+        // Callout note
+        const calloutNote = container.querySelector('.callout-note');
+        expect(calloutNote).not.toBeNull();
+        expect(calloutNote?.querySelector('.callout-label')?.textContent).toContain('補足');
+        expect(calloutNote?.querySelector('.callout-body')?.textContent).toContain('v1.1では「few-shot」から「one-shot」への用語更新など');
+    });
+});
+
 
 
