@@ -675,6 +675,109 @@ export default function CtGenAiChapter1Page() {
                         </ul>
                     </div>
                 </div>
+
+                <h2 id="章のまとめ">章のまとめ</h2>
+                <p>第1章では、生成AIとLLMを理解するための土台となる概念を学びました。</p>
+                <ul>
+                    <li>
+                        AIには記号的AI・古典的機械学習・深層学習・生成AIという異なるアプローチがあり、生成AIは深層学習を応用して新しいコンテンツを作り出す技術である。
+                    </li>
+                    <li>
+                        LLMはトークン化と埋め込みによってテキストを数値表現に変換し、Transformer構造によって文脈を踏まえた応答を生成する。ただし出力は非決定的であり、「もっともらしい」ことと「正しい」ことは異なる。
+                    </li>
+                    <li>
+                        LLMは基盤LLM・指示チューニング済みLLM・推論LLMという段階的な専門化のカテゴリに分類され、タスクの複雑さに応じて使い分けるべきである。
+                    </li>
+                    <li>
+                        マルチモーダルLLM・Vision-Language Modelはテキストと画像を組み合わせて処理でき、GUIのスクリーンショット分析など、テストにおける新しい可能性を開く。
+                    </li>
+                    <li>
+                        LLMは要件分析からテストウェア作成まで、テストプロセス全体を通じて多様な能力を発揮できる。
+                    </li>
+                    <li>
+                        AIチャットボットとLLM搭載テストアプリケーションはどちらも有効な活用形態であり、それぞれの強みを理解して使い分けることが重要である。いずれの場合も、成果を最大化する鍵はプロンプトエンジニアリング（第2章）にある。
+                    </li>
+                </ul>
+
+                <h2 id="出典参考文献">出典・参考文献</h2>
+                <p>本ガイドの作成にあたり、以下のISTQB®公式情報を直接確認しました。</p>
+                <div className="ref-grid">
+                    <div className="ref-card">
+                        <span className="ref-badge">1</span>
+                        <div className="ref-content">
+                            <strong>ISTQB® 公式 CT-GenAI認定ページ</strong>（起点として指定されたURL）
+                            <a
+                                href="https://istqb.org/certifications/gen-ai/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                istqb.org/certifications/gen-ai
+                            </a>
+                        </div>
+                    </div>
+                    <div className="ref-card">
+                        <span className="ref-badge">2</span>
+                        <div className="ref-content">
+                            <strong>CT-GenAI Syllabus v1.1</strong>（公式ダウンロードリンク、2026年4月27日改訂版）
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&amp;download_id=6295"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                istqb.org（ダウンロード）
+                            </a>
+                        </div>
+                    </div>
+                    <div className="ref-card">
+                        <span className="ref-badge">3</span>
+                        <div className="ref-content">
+                            <strong>CT-GenAI Syllabus v1.0 全文</strong>（章立て・学習目標・詳細内容の確認に使用。v1.1でも第1章の構成・学習目標は実質的に変更されていないことを公式ページで確認済み）
+                            <a
+                                href="https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                atsqa.org（PDF）
+                            </a>
+                        </div>
+                    </div>
+                    <div className="ref-card">
+                        <span className="ref-badge">4</span>
+                        <div className="ref-content">
+                            <strong>ISTQB® v1.1リリースに関する公式アナウンス</strong>（v1.0からv1.1への変更点の確認）
+                            <a
+                                href="https://istqb.org/istqb-announces-minor-update-to-certified-tester-testing-with-generative-ai-ct-genai/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                istqb.org（お知らせ）
+                            </a>
+                        </div>
+                    </div>
+                    <div className="ref-card">
+                        <span className="ref-badge">5</span>
+                        <div className="ref-content">
+                            <strong>ISTQB® Glossary</strong>（用語の正式な定義を確認する際に活用）
+                            <a
+                                href="https://glossary.istqb.org/en_US/search?term="
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                glossary.istqb.org
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div className="callout-note">
+                    <div className="callout-label">
+                        <span className="callout-icon">📌</span><span>補足</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            v1.1では「few-shot」から「one-shot」への用語更新など、主に第2〜4章に関わる用語・記述の明確化が行われましたが、公式ページに掲載されている第1章の目次構成（1.1 生成AIの基礎と主要概念 / 1.2 ソフトウェアテストにおける生成AI活用の原則）自体に変更はありません。試験直前には、必ず最新版シラバス原文（出典2）で細部の文言を確認してください。
+                        </p>
+                    </div>
+                </div>
             </main>
         </div>
     );
