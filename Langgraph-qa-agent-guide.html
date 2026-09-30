@@ -1220,7 +1220,10 @@ def to_summary_dto(value: Any, *, trusted_origin: bool = False) -&gt; Any:
     # 件数などの集計値も含めて要約ペイロードから除外する（表示用の results には残る）
     if isinstance(value, (int, float)):
         return value if trusted_origin else REDACTED
-    # 文字列・時間型・空間型はエイリアス経由で機微なプロパティが投影され得るため、キー名によらず伏せる
+    # 文字列・時間型・空間型はエイリアス経由で機微なプロパティが投影され得るため、出所が分からなければキー名によらず伏せる。
+    # 機微でないプロパティ由来と分かっている場合だけ、to_dto で ISO 8601 文字列や座標の辞書へ変換して残す
+    if isinstance(value, (str, DateTime, Date, Time, Duration, Point)):
+        return to_dto(value) if trusted_origin else REDACTED
     if isinstance(value, list):
         return [to_summary_dto(v, trusted_origin=trusted_origin) for v in value]
     if isinstance(value, dict):
