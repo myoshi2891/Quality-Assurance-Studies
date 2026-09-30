@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `2f35821` |
-| 最新コミット内容 | `chore(docs): archive Ctal-tm-ch1 sources and sync migration docs` |
+| 最新 HEAD | `b381858` |
+| 最新コミット内容 | `fix(ctal-tm-ch1): prevent globals reset from overriding main margin-left and adjust sidebar top with disclaimer` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全 1042 テスト / 98 files pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
