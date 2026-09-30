@@ -319,3 +319,271 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 2: テストプロセス (sec-2) & �
         expect(callouts.length).toBeGreaterThanOrEqual(13);
     });
 });
+
+describe('CTAL-TM v3.0 Chapter 1 - Category 3: リスクベースドテスト (sec-4) & プロジェクトテスト戦略 (sec-5)', () => {
+    it('renders sec-4 and sec-5 headings and subheadings', () => {
+        render(<CtalTmChapter1Page />);
+        expect(document.getElementById('sec-4')?.textContent).toContain('3. リスクベースドテスト');
+        expect(document.getElementById('sec-5')?.textContent).toContain('4. プロジェクトテスト戦略');
+
+        const sec4Subs = ['sec-4-1', 'sec-4-2', 'sec-4-3', 'sec-4-4', 'sec-4-5', 'sec-4-6', 'sec-4-7'];
+        for (const id of sec4Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+
+        const sec5Subs = ['sec-5-1', 'sec-5-2', 'sec-5-3', 'sec-5-4'];
+        for (const id of sec5Subs) {
+            expect(document.getElementById(id)).toBeTruthy();
+        }
+    });
+
+    it('renders all 30 tables in sec-4 and sec-5 with exact specifications', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(53); // 23 + 30
+
+        const expectedCat3Tables: TableSpec[] = [
+            {
+                heading: '3.1.1 テストがリスクを軽減する仕組み',
+                headers: ['テスト結果', 'リスクに対する意味'],
+                rows: 2,
+                cols: 2,
+                sample: '欠陥が見つかった',
+            },
+            {
+                heading: '3.1.2 リスクマネジメントの一般プロセス',
+                headers: ['活動', '分類', '内容'],
+                rows: 4,
+                cols: 3,
+                sample: 'Risk identification',
+            },
+            {
+                heading: '3.1.3 テストマネージャーの役割',
+                headers: ['テスト活動', 'リスク結果の使われ方'],
+                rows: 3,
+                cols: 2,
+                sample: 'テスト計画',
+            },
+            {
+                heading: '3.2.1 リスク特定の技法（シラバスの 7 つ）',
+                headers: ['技法', '概要', '向いている場面'],
+                rows: 7,
+                cols: 3,
+                sample: '専門家インタビュー',
+            },
+            {
+                heading: '3.2.2 ベストプラクティス',
+                headers: ['ポイント', '内容'],
+                rows: 5,
+                cols: 2,
+                sample: '関係者の網羅',
+            },
+            {
+                heading: '3.3.2 発生可能性に影響する要因',
+                headers: ['カテゴリ', '要因（シラバス記載）'],
+                rows: 6,
+                cols: 2,
+                sample: '技術・複雑性',
+            },
+            {
+                heading: '3.3.3 影響に影響する要因',
+                headers: ['カテゴリ', '要因（シラバス記載）'],
+                rows: 6,
+                cols: 2,
+                sample: '機能・利用',
+            },
+            {
+                heading: '3.3.4 定量評価と定性評価',
+                headers: ['方式', '条件', '計算・表現'],
+                rows: 2,
+                cols: 3,
+                sample: '定量評価',
+            },
+            {
+                heading: '3.3.4 定量評価と定性評価',
+                headers: ['影響＼発生可能性', '低', '中', '高'],
+                rows: 3,
+                cols: 4,
+                sample: '高',
+            },
+            {
+                heading: '3.3.4 定量評価と定性評価',
+                headers: ['リスク項目', '発生可能性', '影響（損失額）', 'リスクレベル（積）'],
+                rows: 2,
+                cols: 4,
+                sample: '決済処理の不具合',
+            },
+            {
+                heading: '3.4.1 テスト以外の軽減策',
+                headers: ['軽減策', '例'],
+                rows: 3,
+                cols: 2,
+                sample: 'コンティンジェンシープラン',
+            },
+            {
+                heading: '3.4.3 テストアプローチを選ぶための 6 つのコンテキスト要因',
+                headers: ['要因', '考慮内容'],
+                rows: 6,
+                cols: 2,
+                sample: 'テストアイテム',
+            },
+            {
+                heading: '3.4.4 リスクレベル別の対応（K4 の考え方の例）',
+                headers: ['観点', '高リスク', '低リスク'],
+                rows: 6,
+                cols: 3,
+                sample: '開始時期',
+            },
+            {
+                heading: '3.4.6 リスクに基づくテストの優先順位付け：深さ優先と幅優先',
+                headers: ['方式', '内容', '適する状況'],
+                rows: 2,
+                cols: 3,
+                sample: '深さ優先（depth-first）',
+            },
+            {
+                heading: '3.4.6 リスクに基づくテストの優先順位付け：深さ優先と幅優先',
+                headers: ['リスク項目', 'リスクレベル', 'テスト'],
+                rows: 4,
+                cols: 3,
+                sample: 'R1 決済',
+            },
+            {
+                heading: '3.4.6 リスクに基づくテストの優先順位付け：深さ優先と幅優先',
+                headers: ['方式', '実行順序'],
+                rows: 2,
+                cols: 2,
+                sample: '深さ優先',
+            },
+            {
+                heading: '3.5 リスクベースドテストの技法（TM-1.3.5）',
+                headers: ['観点', '重量級（Heavyweight）', '軽量級（Lightweight）'],
+                rows: 5,
+                cols: 3,
+                sample: '形式度',
+            },
+            {
+                heading: '3.5.1 重量級技法の 4 例',
+                headers: ['技法', '概要'],
+                rows: 4,
+                cols: 2,
+                sample: 'ハザード分析（Hazard analysis）',
+            },
+            {
+                heading: '3.5.2 軽量級技法の 3 例',
+                headers: ['技法', '特徴'],
+                rows: 3,
+                cols: 2,
+                sample: 'SST（Systematic Software Testing）',
+            },
+            {
+                heading: '3.6.1 成功の確認（レトロスペクティブでの 6 つの問い）',
+                headers: ['#', '問い'],
+                rows: 6,
+                cols: 2,
+                sample: '1',
+            },
+            {
+                heading: '3.6.2 よくある困難とその解決策（シラバスの 5 項目）',
+                headers: ['困難', '内容', '解決策'],
+                rows: 5,
+                cols: 3,
+                sample: 'リスクレベル評価の難しさ',
+            },
+            {
+                heading: '4.0 前提：3 つの文書・概念の関係',
+                headers: ['観点', '内容'],
+                rows: 4,
+                cols: 2,
+                sample: '推奨',
+            },
+            {
+                heading: '4.1.1 主要な意思決定',
+                headers: ['選択項目', '例'],
+                rows: 4,
+                cols: 2,
+                sample: 'テストレベル',
+            },
+            {
+                heading: '4.1.2 理論と実務のギャップ',
+                headers: ['評価したいこと', 'より効果的・効率的な選択の例（シラバス）'],
+                rows: 3,
+                cols: 2,
+                sample: 'コードの保守性',
+            },
+            {
+                heading: '4.2 組織のテスト戦略、プロジェクトのコンテキスト、その他の側面の分析（TM-1.4.2、K4）',
+                headers: ['#', '要因', '内容', 'シラバスの例'],
+                rows: 7,
+                cols: 4,
+                sample: '1',
+            },
+            {
+                heading: '4.2.2 状況から選択するアプローチ（考え方の例）',
+                headers: ['状況の手がかり', '選択の例', '根拠となる要因'],
+                rows: 6,
+                cols: 3,
+                sample: '医薬品の業務システムで規制が厳しい',
+            },
+            {
+                heading: '4.3.1 テスト計画に含めるもの',
+                headers: ['計画の種類', '説明'],
+                rows: 4,
+                cols: 2,
+                sample: 'プロジェクトテスト計画（マスターテスト計画）',
+            },
+            {
+                heading: '4.3.2 S.M.A.R.T. 目標設定法',
+                headers: ['文字', '意味', '内容', '悪い例 → 良い例（説明用）'],
+                rows: 5,
+                cols: 4,
+                sample: 'S',
+            },
+            {
+                heading: '4.3.3 プロジェクトテスト目的の例（シラバス）',
+                headers: ['目的の種類', '例'],
+                rows: 9,
+                cols: 2,
+                sample: '終了基準の達成',
+            },
+            {
+                heading: '4.3.5 S.M.A.R.T. の適用例（説明用）',
+                headers: ['項目', '内容'],
+                rows: 6,
+                cols: 2,
+                sample: '目的',
+            },
+        ];
+
+        for (let i = 0; i < expectedCat3Tables.length; i++) {
+            const exp = expectedCat3Tables[i];
+            const actual = tables[i + 23];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(exp.heading);
+            expect(actual.headers).toEqual(exp.headers as string[]);
+            expect(actual.rows).toBe(exp.rows);
+            expect(actual.cols).toBe(exp.cols);
+            expect(actual.sample).toBe(exp.sample);
+        }
+    });
+
+    it('renders Mermaid diagrams 11 to 14 in sec-4 and sec-5', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        for (let i = 11; i <= 14; i++) {
+            const diag = container.querySelector(`#mermaid-diagram-${i}`);
+            expect(diag).toBeTruthy();
+        }
+    });
+
+    it('renders callout blocks in sec-4 and sec-5', () => {
+        const { container } = render(<CtalTmChapter1Page />);
+        const sec4 = container.querySelector('#sec-4');
+        expect(sec4).toBeTruthy();
+        const sec5 = container.querySelector('#sec-5');
+        expect(sec5).toBeTruthy();
+
+        // 13 + 5 in sec-4 + 1 in sec-5 = 19
+        const callouts = container.querySelectorAll('.callout');
+        expect(callouts.length).toBeGreaterThanOrEqual(19);
+    });
+});
