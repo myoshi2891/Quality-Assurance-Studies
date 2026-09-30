@@ -401,6 +401,28 @@ describe('CTAL-TA v4.0 Chapter 5 - Comprehensive Structural Verification', () =>
         });
     });
 
+    describe('Category 1: Part 1 (Overview) & Part 2 (Defect Prevention Practice)', () => {
+        it('renders part-1 and part-2 headings, diagrams, and section anchors', () => {
+            const { container } = render(<CtalTaChapter5Page />);
+            expect(container.querySelector('#part-1')).toBeTruthy();
+            expect(container.querySelector('#sec-3')).toBeTruthy();
+            expect(container.querySelector('#sec-4')).toBeTruthy();
+            expect(container.querySelector('#sec-5')).toBeTruthy();
+            expect(container.querySelector('#sec-6')).toBeTruthy();
+            expect(container.querySelector('#sec-7')).toBeTruthy();
+
+            expect(container.querySelector('#part-2')).toBeTruthy();
+            expect(container.querySelector('#sec-8')).toBeTruthy();
+            expect(container.querySelector('#sec-9')).toBeTruthy();
+            expect(container.querySelector('#sec-10')).toBeTruthy();
+            expect(container.querySelector('#sec-11')).toBeTruthy();
+            expect(container.querySelector('#sec-12')).toBeTruthy();
+
+            const diagrams = container.querySelectorAll('figure.diagram');
+            expect(diagrams.length).toBeGreaterThanOrEqual(2);
+        });
+    });
+
     describe('Inventory Verification: Headings, Diagrams, Tables, and UI Components', () => {
         it('renders all 9 H2 headings with expected ids', () => {
             const { container } = render(<CtalTaChapter5Page />);
