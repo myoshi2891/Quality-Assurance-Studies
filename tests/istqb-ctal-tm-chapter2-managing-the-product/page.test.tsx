@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtalTmChapter2Page from '../../app/istqb-ctal-tm-chapter2-managing-the-product/page';
 import { collectTableInventory, type TableSpec } from '../helpers/table-inventory';
@@ -51,7 +51,7 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
         headers: ['呼び方', '内容'],
         rows: 4,
         cols: 2,
-        sample: '本ガイドのタイトル',
+        sample: 'ご依頼の表記',
     },
     {
         heading: '1.2 第2章で学ぶ3つのテーマ',
@@ -72,7 +72,7 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
         headers: ['区分', '日本語', '英語'],
         rows: 12,
         cols: 3,
-        sample: 'シラバスのキーワード',
+        sample: 'キーワード',
     },
     {
         heading: '1.5 試験の基本情報（ISTQB公式ページより）',
@@ -102,7 +102,7 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 1: 基盤 & 全体像', () => {
 
     it('renders Category 1 section 1 headings correctly', () => {
         const { container } = render(<CtalTmChapter2Page />);
-        const h2 = container.querySelector('#1-本ガイドの読み方と第2章の全体像');
+        const h2 = container.querySelector('[id="1-本ガイドの読み方と第2章の全体像"]');
         expect(h2).not.toBeNull();
         expect(h2?.textContent).toBe('1. 本ガイドの読み方と第2章の全体像');
 
@@ -115,7 +115,7 @@ describe('CTAL-TM v3.0 Chapter 2 - Category 1: 基盤 & 全体像', () => {
         ];
 
         expectedH3Ids.forEach((id) => {
-            const h3 = container.querySelector(`#${id}`);
+            const h3 = container.querySelector(`[id="${id}"]`);
             expect(h3).not.toBeNull();
         });
     });
