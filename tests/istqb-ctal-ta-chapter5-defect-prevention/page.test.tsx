@@ -1,10 +1,38 @@
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
-import CtalTaChapter5Page from '../../app/istqb-ctal-ta-chapter5-defect-prevention/page';
+import CtalTaChapter5Page, {
+    DIAGRAM_ANALYSIS_CYCLE,
+    DIAGRAM_MODEL_SELECTION,
+    DIAGRAM_PHASE_CONTAINMENT,
+    DIAGRAM_PREVENTION_FLOW,
+    DIAGRAM_RCA_FLOW,
+    DIAGRAM_REVIEW_FLOW,
+    DIAGRAM_STATE_TRANSITION,
+    DIAGRAM_STRUCTURE,
+} from '../../app/istqb-ctal-ta-chapter5-defect-prevention/page';
 import { collectTableInventory, type TableSpec } from '../helpers/table-inventory';
 
 afterEach(() => cleanup());
+
+interface DiagramSpec {
+    chart: string;
+    type: string;
+    nodes: string[];
+    sectionId: string;
+}
+
+// 元 HTML の図 8 点を出現順に固定する（内容の代表ノードと所属 h3）
+const EXPECTED_DIAGRAMS: DiagramSpec[] = [
+    { chart: DIAGRAM_STRUCTURE, type: 'flowchart TD', nodes: ['第5章 ソフトウェア欠陥防止', '5.1 欠陥防止の実践', '5.3.2 欠陥分類とRCA'], sectionId: 'sec-4' },
+    { chart: DIAGRAM_PREVENTION_FLOW, type: 'flowchart TD', nodes: ['テストベースを受け取る', '完全性とテスト容易性を確認', 'テスト設計へ'], sectionId: 'sec-10' },
+    { chart: DIAGRAM_PHASE_CONTAINMENT, type: 'flowchart TD', nodes: ['要件定義で欠陥が混入', '同じフェーズ内で修正 封じ込め成功', 'テストフェーズやリリース後へ流出'], sectionId: 'sec-13' },
+    { chart: DIAGRAM_MODEL_SELECTION, type: 'flowchart TD', nodes: ['状態遷移モデル', '決定表', 'CRUDマトリクス'], sectionId: 'sec-15' },
+    { chart: DIAGRAM_STATE_TRANSITION, type: 'flowchart LR', nodes: ['一部投入', '十分', 'Req253', 'Req215', 'Req243'], sectionId: 'sec-15' },
+    { chart: DIAGRAM_REVIEW_FLOW, type: 'flowchart TD', nodes: ['シナリオベースレビュー', 'ロールベースレビュー', 'チェックリストベースレビュー', 'アドホックレビュー'], sectionId: 'sec-17' },
+    { chart: DIAGRAM_ANALYSIS_CYCLE, type: 'flowchart TD', nodes: ['DDPなどの指標を計算', '予測と実績を比べ欠陥クラスターを探す', '次のサイクルで効果を確認'], sectionId: 'sec-22' },
+    { chart: DIAGRAM_RCA_FLOW, type: 'flowchart TD', nodes: ['欠陥報告', 'その分類について根本原因分析', '防止策を標準に取り込む'], sectionId: 'sec-23' },
+];
 
 const EXPECTED_TOC_HREFS = [
     '#part-0',
@@ -515,7 +543,36 @@ describe('CTAL-TA v4.0 Chapter 5 - Comprehensive Structural Verification', () =>
         it('renders all 8 Mermaid diagram containers', () => {
             const { container } = render(<CtalTaChapter5Page />);
             const diagrams = container.querySelectorAll('figure.diagram');
-            expect(diagrams.length).toBe(8);
+            expect(diagrams.length).toBe(EXPECTED_DIAGRAMS.length);
+        });
+
+        EXPECTED_DIAGRAMS.forEach((expected, i) => {
+            it(`diagram ${i + 1} has its expected content`, () => {
+                // Arrange / Act: Mermaid はテスト環境で SVG を出力しないため、定義文字列で内容を照合する
+                const lines = expected.chart.split('\n');
+
+                // Assert
+                expect(lines.some((l) => l.trim() === expected.type)).toBe(true);
+                expected.nodes.forEach((node) => expect(expected.chart).toContain(node));
+            });
+
+            it(`diagram ${i + 1} is placed under #${expected.sectionId}`, () => {
+                // Arrange
+                const { container } = render(<CtalTaChapter5Page />);
+                const figures = Array.from(container.querySelectorAll('figure.diagram'));
+                const h3s = Array.from(container.querySelectorAll('h3'));
+
+                // Act: 図より文書順で前にある最後の h3 を所属セクションとみなす
+                const figure = figures[i];
+                if (!figure) throw new Error(`figure.diagram #${i + 1} が見つからない`);
+                const owner = h3s
+                    .filter((h) => h.compareDocumentPosition(figure) & Node.DOCUMENT_POSITION_FOLLOWING)
+                    .at(-1);
+
+                // Assert
+                expect(owner?.id).toBe(expected.sectionId);
+                expect(figure.querySelector('.mermaid-wrapper')).toBeTruthy();
+            });
         });
 
         it('renders all 43 tables matching the exact inventory specifications', () => {
