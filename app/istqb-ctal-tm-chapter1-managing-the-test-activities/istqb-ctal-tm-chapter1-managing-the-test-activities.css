@@ -455,26 +455,29 @@
 
 .ctal-tm-ch1-page .mermaid-container {
     width: 100%;
-    display: flex;
-    justify-content: safe center;
+    display: block;
     overflow-x: auto;
-    padding: 6px 0;
+    padding: 12px 16px;
     min-height: 60px;
 }
 
-/* globals.css の .mermaid-wrapper ダークカード打ち消し */
+/* globals.css の .mermaid-wrapper ダークカード打ち消し & 幅・横スクロール対応 */
 .ctal-tm-ch1-page .mermaid-wrapper {
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
 }
 
 .ctal-tm-ch1-page .mermaid-wrapper svg {
+    display: block !important;
+    margin: 0 auto !important;
     flex-shrink: 0;
     max-width: none !important;
     height: auto !important;

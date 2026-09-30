@@ -158,6 +158,18 @@ describe('CTAL-TM v3.0 Chapter 1 - Category 1: Scaffolding, NavBar, Hero & sec-1
         // sidebar top should accommodate disclaimer banner
         expect(css).toMatch(/\.ctal-tm-ch1-page\s+\.sidebar\s*\{[^}]*top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height/);
     });
+
+    it('ensures Mermaid container and wrapper avoid flex centering overflow bug and support horizontal scrolling', () => {
+        const cssPath = join(__dirname, '../../app/istqb-ctal-tm-chapter1-managing-the-test-activities/istqb-ctal-tm-chapter1-managing-the-test-activities.css');
+        const css = readFileSync(cssPath, 'utf8');
+
+        // .mermaid-container must NOT use flex with justify-content (safe )?center (which causes left-side truncation)
+        expect(css).not.toMatch(/\.ctal-tm-ch1-page\s+\.mermaid-container\s*\{[^}]*justify-content:\s*(?:safe\s+)?center/);
+
+        // .mermaid-wrapper must have width: max-content to accommodate wide diagrams without left-side clipping
+        expect(css).toMatch(/\.ctal-tm-ch1-page\s+\.mermaid-wrapper\s*\{[^}]*width:\s*max-content/);
+        expect(css).toMatch(/\.ctal-tm-ch1-page\s+\.mermaid-wrapper\s*\{[^}]*min-width:\s*100%/);
+    });
 });
 
 describe('CTAL-TM v3.0 Chapter 1 - Category 2: テストプロセス (sec-2) & テストのコンテキスト (sec-3)', () => {
