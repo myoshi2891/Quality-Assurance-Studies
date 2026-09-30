@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f6e383a` |
-| 最新コミット内容 | `fix(navigation): improve label and description for CT-GenAI Chapter 1 to enhance searchability` |
+| 最新 HEAD | `536cedd` |
+| 最新コミット内容 | `docs(migration): sync MIGRATION_PROGRESS.md with latest commit and label` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | `bun test`: 1165 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
