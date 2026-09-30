@@ -145,6 +145,44 @@ export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
+    {
+        heading: 'ステップ2：4分類',
+        headers: ['分類', '英語', '内容', '具体例'],
+        rows: 4,
+        cols: 4,
+        sample: '予防コスト',
+    },
+    {
+        heading: 'ステップ2：計算の基本式',
+        headers: ['項目', '式'],
+        rows: 4,
+        cols: 2,
+        sample: '回避できる外部失敗コスト（便益）',
+    },
+    {
+        heading: 'ステップ3：計算例（架空の数値）',
+        headers: ['項目', '金額'],
+        rows: 4,
+        cols: 2,
+        sample: '予防コスト（固定）',
+    },
+    {
+        heading: 'ステップ6：ステークホルダーに合わせた伝え方',
+        headers: ['区分（原文の呼称）', '影響力', '関心', 'ビジネスケース提示での重点'],
+        rows: 4,
+        cols: 4,
+        sample: 'Promoters（推進者）',
+    },
+    {
+        heading: '4. 第1章・第2章とのつながり（🟢）',
+        headers: ['第3章の内容', 'つながる箇所', 'つながり方'],
+        rows: 9,
+        cols: 3,
+        sample: '3.1.2 必要スキルの分析',
+    },
+];
+
 describe('CTAL-TM v3.0 Chapter 3 - Category 1: 基盤 & 全体像', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtalTmChapter3Page />);
@@ -359,6 +397,74 @@ describe('CTAL-TM v3.0 Chapter 3 - Category 3: 3.1 テストチーム マネジ�
 
         EXPECTED_TABLE_SPECS_CAT3.forEach((expected, i) => {
             const actual = cat3Tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual(expected.headers as string[]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toBe(expected.sample);
+        });
+    });
+});
+
+describe('CTAL-TM v3.0 Chapter 3 - Category 4: 3.2 ステークホルダー & 他章連携', () => {
+    it('renders section 3 and 3.1 cost of quality with Mermaid 6 and callout', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec3 = container.querySelector('[id="3-32-ステークホルダーとの関係stakeholder-relationships"]');
+        expect(sec3).not.toBeNull();
+        expect(sec3?.textContent).toContain('3. 3.2 ステークホルダーとの関係（Stakeholder Relationships）');
+
+        const sec31 = container.querySelector('[id="31-321-品質コストcost-of-quality用語は-istqb-用語集に準拠"]');
+        expect(sec31).not.toBeNull();
+
+        const step1 = container.querySelector('[id="ステップ1定義"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ24分類"]');
+        expect(step2).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3基本の考え方"]');
+        expect(step3).not.toBeNull();
+    });
+
+    it('renders section 3.2 cost-benefit relationship with Mermaid 7, formula, and callouts', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec32 = container.querySelector('[id="32-322-テストの費用対効果の関係cost-benefit-relationship-of-testing"]');
+        expect(sec32).not.toBeNull();
+
+        const step1 = container.querySelector('[id="ステップ1目的"]');
+        expect(step1).not.toBeNull();
+
+        const step2 = container.querySelector('[id="ステップ2計算の基本式"]');
+        expect(step2).not.toBeNull();
+
+        const step3 = container.querySelector('[id="ステップ3計算例架空の数値"]');
+        expect(step3).not.toBeNull();
+
+        const step4 = container.querySelector('[id="ステップ4欠陥検出率ddpによる補足"]');
+        expect(step4).not.toBeNull();
+
+        const step5 = container.querySelector('[id="ステップ5ビジネスケース作成の手順"]');
+        expect(step5).not.toBeNull();
+
+        const step6 = container.querySelector('[id="ステップ6ステークホルダーに合わせた伝え方"]');
+        expect(step6).not.toBeNull();
+    });
+
+    it('renders section 4 connections with chapters 1 and 2', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const sec4 = container.querySelector('[id="4-第1章第2章とのつながり"]');
+        expect(sec4).not.toBeNull();
+        expect(sec4?.textContent).toContain('4. 第1章・第2章とのつながり（🟢）');
+    });
+
+    it('matches Category 4 table inventory precisely (5 tables)', () => {
+        const { container } = render(<CtalTmChapter3Page />);
+        const allTables = collectTableInventory(container);
+        const cat4Tables = allTables.slice(14, 19);
+        expect(cat4Tables.length).toBe(5);
+
+        EXPECTED_TABLE_SPECS_CAT4.forEach((expected, i) => {
+            const actual = cat4Tables[i];
             expect(actual.heading).toBe(expected.heading);
             expect(actual.headers).toEqual(expected.headers as string[]);
             expect(actual.rows).toBe(expected.rows);

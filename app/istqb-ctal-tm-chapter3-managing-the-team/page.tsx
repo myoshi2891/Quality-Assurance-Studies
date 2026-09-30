@@ -7,6 +7,8 @@ import {
     DIAGRAM_CH3_SKILL_DERIVATION,
     DIAGRAM_CH3_SKILL_GAP,
     DIAGRAM_CH3_TRAINING_FLOW,
+    DIAGRAM_CH3_COQ_BOUNDARY,
+    DIAGRAM_CH3_BUSINESS_CASE,
 } from './diagrams';
 import './istqb-ctal-tm-chapter3-managing-the-team.css';
 
@@ -952,6 +954,324 @@ export default function CtalTmChapter3Page() {
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </section>
+
+                <hr />
+
+                {/* 3. 3.2 ステークホルダーとの関係 */}
+                <section>
+                    <h2 id="3-32-ステークホルダーとの関係stakeholder-relationships">
+                        3. 3.2 ステークホルダーとの関係（Stakeholder Relationships）
+                    </h2>
+                    <h3 id="31-321-品質コストcost-of-quality用語は-istqb-用語集に準拠">
+                        3.1 3.2.1 品質コスト（Cost of Quality）（🟡、用語は ISTQB 用語集に準拠）
+                    </h3>
+                    <h4 id="ステップ1定義">ステップ1：定義</h4>
+                    <p>
+                        ISTQB 用語集では、品質コスト（cost of
+                        quality）を、品質に関する活動や問題に費やした総コストであり、多くの場合、予防コスト、評定（アプレイザル）コスト、内部失敗コスト、外部失敗コストに分けられるもの、と定義しています。
+                    </p>
+                    <h4 id="ステップ24分類">ステップ2：4分類</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>分類</th>
+                                    <th>英語</th>
+                                    <th>内容</th>
+                                    <th>具体例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>予防コスト</td>
+                                    <td>Prevention cost</td>
+                                    <td>欠陥を作らないための活動</td>
+                                    <td>
+                                        研修、標準やチェックリストの整備、要件レビュー、プロセス改善、静的解析の導入
+                                    </td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評定（アプレイザル）コスト</td>
+                                    <td>Appraisal cost</td>
+                                    <td>欠陥検出を目的とした活動</td>
+                                    <td>テストの設計と実行、レビュー、テスト環境・テストツールの費用</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>内部失敗コスト</td>
+                                    <td>Internal failure cost</td>
+                                    <td>リリース前に見つかった欠陥の対応</td>
+                                    <td>欠陥の修正、再テスト、手戻り、スケジュール遅延</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>外部失敗コスト</td>
+                                    <td>External failure cost</td>
+                                    <td>リリース後に見つかった欠陥の対応</td>
+                                    <td>障害対応、返金、保証、ペナルティ、評判の低下、緊急パッチ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CH3_COQ_BOUNDARY} />
+                    </div>
+                    <p>
+                        第1章
+                        1.3.4（🟢）にも、すべてのテストアイテムをできるだけ早くテストすることで、ライフサイクル後半で重大な欠陥を見つけて内部失敗コストと遅延が大きくなるリスクを軽減できる、という趣旨の記述があります。
+                    </p>
+                    <h4 id="ステップ3基本の考え方">ステップ3：基本の考え方</h4>
+                    <ul>
+                        <li>欠陥は、見つかるのが遅いほど直すコストが大きくなる傾向がある</li>
+                        <li>予防や早期検出に投資すると、外部失敗コストを下げられる</li>
+                        <li>予防と検出に投資しすぎると、投資対効果が下がる。バランスが重要</li>
+                    </ul>
+
+                    <h3 id="32-322-テストの費用対効果の関係cost-benefit-relationship-of-testing">
+                        3.2 3.2.2 テストの費用対効果の関係（Cost-benefit Relationship of Testing）（🟡）
+                    </h3>
+                    <h4 id="ステップ1目的">ステップ1：目的</h4>
+                    <p>
+                        第3章の狙いの一つは、テスト活動のビジネスケースを定義することです（🟢）。ビジネスケースとは、経営層などに対して「テストにこれだけ投資する価値がある」ことを、コストと期待される便益で示す説明資料です。TM_08
+                        の「コストと期待される便益を示すビジネスケースを準備し提示する」に対応します（🟢）。
+                    </p>
+                    <h4 id="ステップ2計算の基本式">ステップ2：計算の基本式</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>式</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>回避できる外部失敗コスト（便益）</td>
+                                    <td>想定欠陥数 × 1件あたりの外部失敗コスト</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>リリース前コスト（投資）</td>
+                                    <td>予防コスト ＋ 評定コスト ＋ 内部失敗コスト</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>正味便益</td>
+                                    <td>便益 − 投資</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>費用対効果（ROI）</td>
+                                    <td>正味便益 ÷ 投資</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        第1章 1.6.3
+                        でも、ツール導入では「繰り返し発生するコストと一度だけ発生するコスト」「機会コスト」「リスクと便益」を分けて
+                        ROI
+                        を評価することが説明されています（🟢）。テスト全体のビジネスケースでも、同じ考え方で漏れなくコストを洗い出します。
+                    </p>
+                    <h4 id="ステップ3計算例架空の数値">ステップ3：計算例（架空の数値）</h4>
+                    <p>条件：テストで見つかると想定される欠陥数は 100 件。</p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>項目</th>
+                                    <th>金額</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>予防コスト（固定）</td>
+                                    <td>500,000 円</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>評定コスト（1件あたり）</td>
+                                    <td>20,000 円</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>内部失敗コスト（1件あたり）</td>
+                                    <td>30,000 円</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>外部失敗コスト（1件あたり、リリース後に見つかった場合）</td>
+                                    <td>300,000 円</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>計算は次のとおりです。</p>
+                    <ol>
+                        <li>回避できる外部失敗コスト = 100 件 × 300,000 円 = 30,000,000 円</li>
+                        <li>
+                            リリース前コスト = 500,000 円 + 100 件 × (20,000 円 + 30,000 円) = 5,500,000 円
+                        </li>
+                        <li>正味便益 = 30,000,000 円 − 5,500,000 円 = 24,500,000 円</li>
+                        <li>ROI = 24,500,000 円 ÷ 5,500,000 円 ≒ 4.45（約 445%）</li>
+                    </ol>
+                    <div className="callout-warning">
+                        <div className="practice-label">
+                            <span className="practice-icon">⚠️</span>
+                            <span>注意</span>
+                        </div>
+                        <div className="practice-body">
+                            <p>
+                                この計算は「テストで見つけた欠陥のすべてが、テストがなければ本番で見つかっていた」と仮定した単純化です。実務では、実際に本番に流出する確率や、流出しても影響が小さい欠陥の割合で便益を割り引きます。経営層への説明では前提条件を必ず併記します。
+                            </p>
+                        </div>
+                    </div>
+                    <h4 id="ステップ4欠陥検出率ddpによる補足">
+                        ステップ4：欠陥検出率（DDP）による補足（🟡）
+                    </h4>
+                    <p>欠陥検出率（Defect Detection Percentage）は、テストの効果を測る指標の一つです。</p>
+                    <ul>
+                        <li>
+                            DDP = リリース前に見つけた欠陥数 ÷（リリース前に見つけた欠陥数 ＋
+                            リリース後に見つかった欠陥数）
+                        </li>
+                        <li>例：リリース前 200 件、リリース後 100 件の場合、DDP = 200 ÷ 300 ≒ 66.7%</li>
+                    </ul>
+                    <p>
+                        DDP
+                        が低い場合は「テストが足りなかった」だけでなく、「予防・要件レビューなど上流の対策が弱い」可能性も検討します。
+                    </p>
+                    <h4 id="ステップ5ビジネスケース作成の手順">ステップ5：ビジネスケース作成の手順</h4>
+                    <div className="mermaid-container">
+                        <Mermaid chart={DIAGRAM_CH3_BUSINESS_CASE} />
+                    </div>
+                    <h4 id="ステップ6ステークホルダーに合わせた伝え方">
+                        ステップ6：ステークホルダーに合わせた伝え方
+                    </h4>
+                    <p>
+                        第1章
+                        1.2.2（🟢）のステークホルダーマトリクス（パワー／関心マトリクス）は、ビジネスケースの提示先を決めるときにも使えます。
+                    </p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>区分（原文の呼称）</th>
+                                    <th>影響力</th>
+                                    <th>関心</th>
+                                    <th>ビジネスケース提示での重点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>Promoters（推進者）</td>
+                                    <td>高</td>
+                                    <td>高</td>
+                                    <td>詳細な数値と前提を共有し、意思決定に巻き込む</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Latents（潜在的）</td>
+                                    <td>高</td>
+                                    <td>低</td>
+                                    <td>結論とリスク、必要な意思決定に絞って簡潔に伝える</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>Defenders（擁護者）</td>
+                                    <td>低</td>
+                                    <td>高</td>
+                                    <td>定期的に更新し、現場の声を吸い上げる</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>Apathetics（無関心）</td>
+                                    <td>低</td>
+                                    <td>低</td>
+                                    <td>大きなマイルストーンのときだけ更新する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="callout-practice">
+                        <div className="practice-label">
+                            <span className="practice-icon">💡</span>
+                            <span>ベストプラクティス</span>
+                        </div>
+                        <div className="practice-body">
+                            <ul>
+                                <li>
+                                    過去プロジェクトの実績データ（欠陥数、修正時間、障害コスト）を継続的に蓄積する
+                                </li>
+                                <li>便益は保守的に見積り、前提を明記する</li>
+                                <li>金額に換算しにくい便益（信頼、規制適合、患者安全）も併記する</li>
+                                <li>
+                                    予算削減の議論では、「テストを減らした場合に増える外部失敗コスト」を試算して示す
+                                </li>
+                                <li>結果を計測し、次回のビジネスケースの精度を上げる</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <hr />
+
+                {/* 4. 第1章・第2章とのつながり */}
+                <section>
+                    <h2 id="4-第1章第2章とのつながり">4. 第1章・第2章とのつながり（🟢）</h2>
+                    <p>
+                        第3章は単独ではなく、他章と結び付けて出題されます（シラバスも、試験の解答は複数の節の内容を必要とする場合がある、と述べています）。
+                    </p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="header">
+                                    <th>第3章の内容</th>
+                                    <th>つながる箇所</th>
+                                    <th>つながり方</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="odd">
+                                    <td>3.1.2 必要スキルの分析</td>
+                                    <td>1.4.2 テストアプローチの選定</td>
+                                    <td>テストリソースの制約（要員とスキル）を 3.1 に参照している</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>3.1.2 必要スキルの分析</td>
+                                    <td>1.3.3 品質リスクの評価</td>
+                                    <td>
+                                        スキル不足・チーム内の対立・分散チームなどは発生可能性を高める要因
+                                    </td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3.1.2 必要スキルの分析</td>
+                                    <td>1.3.4 リスクの軽減</td>
+                                    <td>最も適任の人が最もリスクの高いテストアイテムをテストする</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>3.1.4 スキルの育成</td>
+                                    <td>1.6.1 ツール導入のグッドプラクティス</td>
+                                    <td>トレーニング、コーチング、メンタリング、ツール所有者の定義</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3.1.5 マネジメントスキル</td>
+                                    <td>1.5.4 レトロスペクティブ</td>
+                                    <td>ホールチームアプローチを支え、継続的改善を促す</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>3.1.5 マネジメントスキル</td>
+                                    <td>1.2.4 SDLC 別のテストマネジメント</td>
+                                    <td>役割がテストマネージャーからファシリテーター／コーチに変わる</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3.2 ビジネスケース</td>
+                                    <td>1.6.3 ROI の評価</td>
+                                    <td>繰り返し／一度だけのコスト、機会コスト、便益とリスク</td>
+                                </tr>
+                                <tr className="even">
+                                    <td>3.2 ビジネスケース</td>
+                                    <td>1.2.2 ステークホルダーマトリクス</td>
+                                    <td>提示先ごとに伝え方を変える</td>
+                                </tr>
+                                <tr className="odd">
+                                    <td>3.2 ビジネスケース</td>
+                                    <td>第2章 テストメトリクス（2.1）</td>
+                                    <td>費用対効果の実績を測る根拠データ</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </main>
