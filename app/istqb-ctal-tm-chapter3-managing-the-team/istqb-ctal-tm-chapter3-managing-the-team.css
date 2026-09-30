@@ -1,0 +1,611 @@
+/* ==========================================================================
+   ISTQB CTAL-TM v3.0 Chapter 3 専用スタイル
+   スコープ: .ctal-tm-ch3-page
+   ========================================================================== */
+
+.ctal-tm-ch3-page {
+    --bg: #07111e;
+    --bg-elevated: #0c1b2e;
+    --bg-card: #0e2036;
+    --border: #1c3350;
+    --border-soft: #17293f;
+    --text: #e6edf6;
+    --text-dim: #9fb1c9;
+    --text-faint: #6f829c;
+    --accent: #7c9eff;
+    --accent-soft: #2a3f66;
+    --accent-glow: rgba(124, 158, 255, 0.15);
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --red: #f87171;
+    --sidebar-width: 300px;
+    --radius: 10px;
+    --font-jp:
+        -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+        'Noto Sans JP', 'Yu Gothic UI', Meiryo, sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-jp);
+    line-height: 1.85;
+    font-size: 16px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.ctal-tm-ch3-page main,
+main.ctal-tm-ch3-page,
+.ctal-tm-ch3-page .main {
+    max-width: none !important;
+    margin: 0 0 0 var(--sidebar-width) !important;
+    padding: 56px 64px 120px !important;
+}
+
+.ctal-tm-ch3-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
+    padding-bottom: 32px !important;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 40px;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.ctal-tm-ch3-page section {
+    padding-top: 0 !important;
+}
+
+.ctal-tm-ch3-page section + section {
+    border-top: none !important;
+}
+
+/* リストマーカーの強制復元（Tailwind の list-style: none 打ち消し） */
+.ctal-tm-ch3-page .main ul:not(.nav-list):not(.nav-sublist):not(.task-list) {
+    list-style-type: disc !important;
+    padding-left: 26px !important;
+    margin: 0 0 16px !important;
+}
+
+.ctal-tm-ch3-page .main ol {
+    list-style-type: decimal !important;
+    padding-left: 26px !important;
+    margin: 0 0 16px !important;
+}
+
+.ctal-tm-ch3-page .main li {
+    margin: 6px 0;
+    color: var(--text);
+}
+
+.ctal-tm-ch3-page .main p {
+    margin: 0 0 16px;
+    color: var(--text);
+}
+
+.ctal-tm-ch3-page .main a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-soft);
+}
+
+.ctal-tm-ch3-page .main a:hover {
+    text-decoration-color: var(--accent);
+}
+
+.ctal-tm-ch3-page .main strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.ctal-tm-ch3-page .main hr {
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    margin: 48px 0;
+}
+
+.ctal-tm-ch3-page .main blockquote {
+    margin: 0 0 20px;
+    padding: 14px 20px;
+    border-left: 3px solid var(--border);
+    background: var(--bg-elevated);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-dim);
+}
+
+.ctal-tm-ch3-page .main blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* タイポグラフィ */
+.ctal-tm-ch3-page .hero-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid var(--accent-soft);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin-bottom: 18px;
+}
+
+.ctal-tm-ch3-page .hero h1 {
+    font-size: 34px;
+    line-height: 1.4;
+    margin: 0 0 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+}
+
+.ctal-tm-ch3-page .hero p {
+    font-size: 15.5px;
+    color: var(--text-dim);
+    max-width: 860px;
+    margin: 0;
+}
+
+.ctal-tm-ch3-page .main h2 {
+    font-size: 25px;
+    font-weight: 800;
+    margin: 64px 0 20px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-soft);
+    scroll-margin-top: 24px;
+    color: #ffffff;
+}
+
+.ctal-tm-ch3-page .main h2:first-of-type {
+    border-top: none;
+    margin-top: 0;
+}
+
+.ctal-tm-ch3-page .main h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 40px 0 14px;
+    color: var(--text);
+    scroll-margin-top: 24px;
+}
+
+.ctal-tm-ch3-page .main h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 28px 0 10px;
+    color: var(--accent);
+    scroll-margin-top: 24px;
+}
+
+/* ---------- Tables ---------- */
+.ctal-tm-ch3-page .table-scroll {
+    overflow-x: auto;
+    margin: 0 0 24px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+}
+
+.ctal-tm-ch3-page table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    min-width: 560px;
+    font-size: 14.5px !important;
+}
+
+.ctal-tm-ch3-page thead tr {
+    background: var(--bg-elevated);
+}
+
+.ctal-tm-ch3-page th,
+.ctal-tm-ch3-page thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 700;
+    color: var(--accent) !important;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap !important;
+}
+
+.ctal-tm-ch3-page td,
+.ctal-tm-ch3-page tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text) !important;
+    vertical-align: top;
+}
+
+.ctal-tm-ch3-page td strong {
+    color: #ffffff !important;
+}
+
+.ctal-tm-ch3-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ctal-tm-ch3-page tbody tr:hover td {
+    background: rgba(124, 158, 255, 0.05);
+}
+
+/* ---------- Callouts ---------- */
+.ctal-tm-ch3-page .callout-practice,
+.ctal-tm-ch3-page .callout-warning {
+    border-radius: var(--radius);
+    padding: 18px 22px 20px;
+    margin: 0 0 24px;
+    border: 1px solid var(--border);
+}
+
+.ctal-tm-ch3-page .callout-practice {
+    background: linear-gradient(
+        180deg,
+        rgba(52, 211, 153, 0.08),
+        rgba(52, 211, 153, 0.02)
+    );
+    border-color: rgba(52, 211, 153, 0.35);
+}
+
+.ctal-tm-ch3-page .callout-warning {
+    background: linear-gradient(
+        180deg,
+        rgba(251, 191, 36, 0.1),
+        rgba(251, 191, 36, 0.02)
+    );
+    border-color: rgba(251, 191, 36, 0.4);
+}
+
+.ctal-tm-ch3-page .practice-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 14.5px;
+    margin-bottom: 10px;
+}
+
+.ctal-tm-ch3-page .callout-practice .practice-label {
+    color: var(--green);
+}
+
+.ctal-tm-ch3-page .callout-warning .practice-label {
+    color: var(--yellow);
+}
+
+.ctal-tm-ch3-page .practice-icon {
+    font-size: 16px;
+}
+
+.ctal-tm-ch3-page .practice-body p,
+.ctal-tm-ch3-page .practice-body li {
+    color: var(--text-dim);
+}
+
+.ctal-tm-ch3-page .practice-body > p:last-child,
+.ctal-tm-ch3-page .practice-body > ul:last-child {
+    margin-bottom: 0;
+}
+
+.ctal-tm-ch3-page .practice-body ul {
+    padding-left: 22px;
+}
+
+/* ---------- Checklist ---------- */
+.ctal-tm-ch3-page .checklist-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px 18px;
+    background: var(--bg-card);
+    margin: 0 0 24px;
+}
+
+.ctal-tm-ch3-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.ctal-tm-ch3-page .cp-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+
+.ctal-tm-ch3-page .cp-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ctal-tm-ch3-page .cp-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    transition: width 0.25s ease;
+}
+
+.ctal-tm-ch3-page .cp-count {
+    font-size: 13px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    min-width: 74px;
+    text-align: right;
+}
+
+.ctal-tm-ch3-page .checklist-card ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.ctal-tm-ch3-page .checklist-card li {
+    margin: 0 !important;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+}
+
+.ctal-tm-ch3-page .checklist-card li:last-child {
+    border-bottom: none;
+}
+
+.ctal-tm-ch3-page .checklist-card label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14.5px;
+    color: var(--text);
+    width: 100%;
+}
+
+.ctal-tm-ch3-page .checklist-card input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--accent);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+    margin: 0;
+}
+
+.ctal-tm-ch3-page .checklist-card input[type='checkbox']:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.ctal-tm-ch3-page .checklist-card input[type='checkbox']:checked::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid #07111e;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.ctal-tm-ch3-page .checklist-card li:has(input:checked) label {
+    color: var(--text-faint);
+    text-decoration: line-through;
+}
+
+/* ---------- Mermaid ---------- */
+.ctal-tm-ch3-page .mermaid-container {
+    width: 100%;
+    display: flex;
+    justify-content: safe center;
+    overflow-x: auto;
+    margin: 0 0 28px;
+    padding: 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+}
+
+.ctal-tm-ch3-page .mermaid-container .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.ctal-tm-ch3-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+}
+
+.ctal-tm-ch3-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ctal-tm-ch3-page .mermaid-wrapper foreignObject p,
+.ctal-tm-ch3-page .mermaid-wrapper foreignObject span,
+.ctal-tm-ch3-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+
+/* Mermaid エッジラベル背景保護 */
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabel,
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabel span,
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabel p,
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabel text,
+.ctal-tm-ch3-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    fill: #1e293b !important;
+    font-weight: 700 !important;
+}
+
+/* ---------- Sidebar Nav ---------- */
+.ctal-tm-ch3-page .sidebar-nav {
+    position: fixed;
+    top: 60px; /* Header の高さ */
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background: var(--bg-elevated);
+    border-right: 1px solid var(--border-soft);
+    padding: 24px 0 40px;
+    z-index: 40;
+}
+
+.ctal-tm-ch3-page .sidebar-brand {
+    padding: 0 24px 20px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 12px;
+}
+
+.ctal-tm-ch3-page .brand-mark {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+.ctal-tm-ch3-page .brand-sub {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.ctal-tm-ch3-page .nav-list,
+.ctal-tm-ch3-page .nav-sublist {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ctal-tm-ch3-page .nav-item {
+    margin: 2px 0;
+}
+
+.ctal-tm-ch3-page .nav-link {
+    display: block;
+    padding: 9px 24px;
+    color: var(--text-dim);
+    text-decoration: none !important;
+    font-size: 14.5px;
+    font-weight: 600;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ctal-tm-ch3-page .nav-link:hover {
+    background: var(--accent-glow);
+    color: var(--text);
+}
+
+.ctal-tm-ch3-page .nav-link.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-glow);
+}
+
+.ctal-tm-ch3-page .nav-sublist {
+    margin: 2px 0 6px !important;
+}
+
+.ctal-tm-ch3-page .nav-sublink {
+    display: block;
+    padding: 6px 24px 6px 40px;
+    color: var(--text-faint);
+    text-decoration: none !important;
+    font-size: 13px;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ctal-tm-ch3-page .nav-sublink:hover {
+    background: var(--accent-glow);
+    color: var(--text-dim);
+}
+
+.ctal-tm-ch3-page .nav-sublink.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-glow);
+}
+
+.ctal-tm-ch3-page .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 76px;
+    left: 16px;
+    z-index: 60;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ctal-tm-ch3-page .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 39;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+    .ctal-tm-ch3-page .sidebar-nav {
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .ctal-tm-ch3-page .sidebar-nav.open {
+        transform: translateX(0);
+    }
+
+    .ctal-tm-ch3-page .sidebar-toggle {
+        display: flex;
+    }
+
+    .ctal-tm-ch3-page .sidebar-overlay.open {
+        display: block;
+    }
+
+    .ctal-tm-ch3-page main,
+    main.ctal-tm-ch3-page,
+    .ctal-tm-ch3-page .main {
+        margin-left: 0 !important;
+        padding: 88px 20px 80px !important;
+    }
+
+    .ctal-tm-ch3-page .hero h1 {
+        font-size: 26px;
+    }
+}
