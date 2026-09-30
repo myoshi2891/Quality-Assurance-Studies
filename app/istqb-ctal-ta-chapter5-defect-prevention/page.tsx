@@ -3200,6 +3200,805 @@ export default function CtalTaChapter5Page() {
                             <li>版管理：文書やコードの変更履歴を管理すること</li>
                         </ul>
                     </details>
+
+                    {/* パート7 */}
+                    <h2 id="part-7">
+                        <span className="part-no">パート7</span>
+                        <span className="part-title">試験対策</span>
+                    </h2>
+                    <p className="lead">
+                        <span className="lead-ico" aria-hidden="true">
+                            💡
+                        </span>
+                        このパートでは、公式サンプル試験の第5章関連問題を整理し、混同しやすい概念を比べ、自作の練習問題で手を動かします。試験の直前にここだけ見返しても使えるようにまとめています。
+                    </p>
+                    <h3 id="sec-25">
+                        7.1 公式サンプル試験 #38〜#45 の整理【
+                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                            ○
+                        </span>
+                        】
+                    </h3>
+                    <p>
+                        設問文は原文を写さず、要点を言い換えています。実際の設問は公式のサンプル試験（パート8）で確認してください。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ textAlign: 'center' }}>問</th>
+                                    <th>LO</th>
+                                    <th style={{ textAlign: 'center' }}>K</th>
+                                    <th style={{ textAlign: 'center' }}>点</th>
+                                    <th>論点</th>
+                                    <th style={{ textAlign: 'center' }}>正解（原本の記号）</th>
+                                    <th>根拠の要点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#38</td>
+                                    <td>TA-5.1.1</td>
+                                    <td style={{ textAlign: 'center' }}>K2</td>
+                                    <td style={{ textAlign: 'center' }}>1</td>
+                                    <td>欠陥防止に最も効果が低い活動</td>
+                                    <td style={{ textAlign: 'center' }}>a（動的テスト）</td>
+                                    <td>既存の欠陥を検出する活動で、作り込みは防げない</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#39</td>
+                                    <td>TA-5.2.1</td>
+                                    <td style={{ textAlign: 'center' }}>K3</td>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>決定表の分析で見つかる要件の問題</td>
+                                    <td style={{ textAlign: 'center' }}>a（不整合）</td>
+                                    <td>同じ組合せに、異なる割引が指定されている</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#40</td>
+                                    <td>TA-5.2.1</td>
+                                    <td style={{ textAlign: 'center' }}>K3</td>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>状態機械でのモデル化で見つかりやすい異常</td>
+                                    <td style={{ textAlign: 'center' }}>d</td>
+                                    <td>同じ状態・同じイベントに、競合する結果が2つある曖昧さ</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#41</td>
+                                    <td>TA-5.2.2</td>
+                                    <td style={{ textAlign: 'center' }}>K3</td>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>シナリオベースレビューでの偽陽性の指摘</td>
+                                    <td style={{ textAlign: 'center' }}>d</td>
+                                    <td>
+                                        利用者の同意なくガイドを自動で閉じる提案は、問題の解決になっていない
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#42</td>
+                                    <td>TA-5.2.2</td>
+                                    <td style={{ textAlign: 'center' }}>K3</td>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>レビュー技法の説明と名称の対応</td>
+                                    <td style={{ textAlign: 'center' }}>c（1-C、2-D、3-A、4-B）</td>
+                                    <td>
+                                        シナリオ＝ドライラン、ロール＝ペルソナ、アドホック＝無構造、チェックリスト＝事前の質問リスト
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#43</td>
+                                    <td>TA-5.3.1</td>
+                                    <td style={{ textAlign: 'center' }}>K4</td>
+                                    <td style={{ textAlign: 'center' }}>3</td>
+                                    <td>DDP で改善すべきフェーズ</td>
+                                    <td style={{ textAlign: 'center' }}>b（設計）</td>
+                                    <td>設計の DDP が 10% で最低</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#44</td>
+                                    <td>TA-5.3.1</td>
+                                    <td style={{ textAlign: 'center' }}>K4</td>
+                                    <td style={{ textAlign: 'center' }}>3</td>
+                                    <td>欠陥クラスターの特定</td>
+                                    <td style={{ textAlign: 'center' }}>c（バックエンド）</td>
+                                    <td>実績が予測の2倍超</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>#45</td>
+                                    <td>TA-5.3.2</td>
+                                    <td style={{ textAlign: 'center' }}>K2</td>
+                                    <td style={{ textAlign: 'center' }}>1</td>
+                                    <td>分類が RCA を支える理由</td>
+                                    <td style={{ textAlign: 'center' }}>c</td>
+                                    <td>個別ではなくグループで分析でき、効率的</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 id="sec-26">7.2 混同しやすい概念の比較</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>比べるもの</th>
+                                    <th>違い</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>欠陥防止 と 欠陥検出</td>
+                                    <td>
+                                        防止は作り込みや流出を減らす活動。検出は存在する欠陥を見つける活動。上流での検出・修正は防止に寄与する（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>
+                                        ）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DDP と PCE</td>
+                                    <td>
+                                        DDP はその時点で残る欠陥のうち何割を見つけたか。PCE
+                                        は自分で混入した欠陥のうち何割を自分で見つけたか（PCE は
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                        ）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>不整合・不完全・重複（決定表）</td>
+                                    <td>
+                                        不整合＝同じ組合せに異なる結果。不完全＝起こり得る組合せに結果が無い。重複＝複数のルールが同じ組合せに当てはまる（結果が同じなら欠陥とは限らない）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>モデルが得意な欠陥 と レビューが得意な欠陥</td>
+                                    <td>
+                                        モデルは矛盾・未定義の遷移・抜けに強い。言葉の曖昧さはモデルでは見つからない（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #40）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4つのレビュー技法</td>
+                                    <td>
+                                        シナリオ＝流れを追う、ロール＝役割の目線、チェックリスト＝質問リスト（リスト外も探索）、アドホック＝無構造（重複に注意）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>欠陥の多さ と 欠陥の集中</td>
+                                    <td>
+                                        多さは絶対数。集中は予測（大きさなどから見積もった件数）との比較で判断する（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #44）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>欠陥分類 と RCA</td>
+                                    <td>
+                                        分類は仕分け。RCA
+                                        は原因をさかのぼる分析。分類で件数の多いグループを選び、そこで
+                                        RCA を行う（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>{' '}
+                                        #45）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 id="sec-27">7.3 この章の暗記ポイント</h3>
+                    <ul>
+                        <li>
+                            LO と K レベル：5.1.1＝K2、5.2.1＝K3、5.2.2＝K3、5.3.1＝K4、5.3.2＝K2（
+                            <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                ○
+                            </span>
+                            ）
+                        </li>
+                        <li>
+                            DDP ＝ D ÷ (D + E)（
+                            <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                ○
+                            </span>
+                            ）
+                        </li>
+                        <li>
+                            決定表のレビュー基準：一貫性、実現可能性、完全性、正しさ（
+                            <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                ◎
+                            </span>{' '}
+                            3.3.1）
+                        </li>
+                        <li>
+                            欠陥防止に最も効果が低い活動は動的テスト（
+                            <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                ○
+                            </span>{' '}
+                            #38）
+                        </li>
+                        <li>
+                            分類が RCA を効率的にする理由は、グループ単位で分析できること（
+                            <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                ○
+                            </span>{' '}
+                            #45）
+                        </li>
+                        <li>
+                            K1 で暗記が必要な
+                            <strong>
+                                キーワード一覧は、シラバス第5章の冒頭（48
+                                ページ付近）で確認してください
+                            </strong>
+                            （本ガイドでは未確認）
+                        </li>
+                    </ul>
+                    <h3 id="sec-28">7.4 練習問題（本ガイドのオリジナル）</h3>
+                    <h4>問1（K2）</h4>
+                    <p>テストアナリストの活動のうち、欠陥防止への貢献として最も適切なものはどれか。</p>
+                    <p>
+                        a) 完成したシステムのシステムテストで、欠陥を報告する
+                        <br />
+                        b) 要件レビューで曖昧な表現を指摘し、関係者に確認する
+                        <br />
+                        c) 自動テストの実行回数を増やす
+                        <br />
+                        d) 修正された欠陥の再テストを行う
+                    </p>
+                    <h4>問2（K3）</h4>
+                    <p>
+                        設計フェーズの検出活動で 30
+                        件の欠陥を見つけました。設計フェーズを通過して、後のフェーズで見つかった欠陥は 90
+                        件でした。設計フェーズの DDP を求めなさい。
+                    </p>
+                    <h4>問3（K3）</h4>
+                    <p>
+                        次の決定表について、問題点を2つ挙げなさい。条件は「会員か」「クーポンがあるか」で、値はどちらも「はい／いいえ」です。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ルール</th>
+                                    <th style={{ textAlign: 'center' }}>会員</th>
+                                    <th style={{ textAlign: 'center' }}>クーポン</th>
+                                    <th style={{ textAlign: 'center' }}>割引</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>R1</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>10%</td>
+                                </tr>
+                                <tr>
+                                    <td>R2</td>
+                                    <td style={{ textAlign: 'center' }}>－</td>
+                                    <td style={{ textAlign: 'center' }}>はい</td>
+                                    <td style={{ textAlign: 'center' }}>20%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>問4（K4）</h4>
+                    <p>
+                        4つの部品で、予測件数（行数から見積もった値）と実績件数を比べました。追加のテストとレビューを最も優先すべき部品はどれか。理由もあわせて答えなさい。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>部品</th>
+                                    <th style={{ textAlign: 'center' }}>予測件数</th>
+                                    <th style={{ textAlign: 'center' }}>実績件数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A</td>
+                                    <td style={{ textAlign: 'center' }}>10</td>
+                                    <td style={{ textAlign: 'center' }}>11</td>
+                                </tr>
+                                <tr>
+                                    <td>B</td>
+                                    <td style={{ textAlign: 'center' }}>20</td>
+                                    <td style={{ textAlign: 'center' }}>45</td>
+                                </tr>
+                                <tr>
+                                    <td>C</td>
+                                    <td style={{ textAlign: 'center' }}>30</td>
+                                    <td style={{ textAlign: 'center' }}>28</td>
+                                </tr>
+                                <tr>
+                                    <td>D</td>
+                                    <td style={{ textAlign: 'center' }}>5</td>
+                                    <td style={{ textAlign: 'center' }}>6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>問5（K2）</h4>
+                    <p>欠陥分類が根本原因分析（RCA）を支える理由を、1文で説明しなさい。</p>
+                    <h4>問6（K3）</h4>
+                    <p>次の説明と、レビュー技法の名称を対応づけなさい。</p>
+                    <ol>
+                        <li>管理者と一般利用者のような、架空の役割の立場から読む</li>
+                        <li>観点を決めず、自由に読む</li>
+                        <li>事前に用意した質問リストに沿って読み、リストに無い箇所も探索する</li>
+                        <li>ユースケースを頭の中で通して確認する</li>
+                    </ol>
+                    <details className="answers">
+                        <summary>解答と解説を表示</summary>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style={{ textAlign: 'center' }}>問</th>
+                                        <th>解答</th>
+                                        <th>解説</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style={{ textAlign: 'center' }}>1</td>
+                                        <td>b</td>
+                                        <td>
+                                            上流の成果物で欠陥や曖昧さを止めるのが防止。a・c・d
+                                            は既存の欠陥の検出や確認の活動
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign: 'center' }}>2</td>
+                                        <td>25%</td>
+                                        <td>30 ÷ (30 + 90) ＝ 30 ÷ 120 ＝ 0.25</td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign: 'center' }}>3</td>
+                                        <td>
+                                            ①不整合：会員かつクーポンありの組合せに、10% と 20%
+                                            の2つが指定されている　②不完全：会員でなく、クーポンも無い組合せにルールが無い
+                                        </td>
+                                        <td>
+                                            元の表は 2 × 2 ＝ 4 通り。R1 は 2 通り、R2 は 2
+                                            通りを表し、チェックサムは 4
+                                            で元と等しい。しかし、重なりが1通りと、抜けが1通りあり、
+                                            <strong>チェックサムが等しくても正しいとは限らない</strong>
+                                            （
+                                            <span
+                                                className="mk mk-a"
+                                                title="公式シラバスの本文で確認"
+                                            >
+                                                ◎
+                                            </span>{' '}
+                                            3.3.1）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign: 'center' }}>4</td>
+                                        <td>B</td>
+                                        <td>
+                                            実績 ÷ 予測は、A＝1.1、B＝2.25、C＝約 0.93、D＝1.2。B
+                                            だけが予測を大きく超え、欠陥が集中していると考えられる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign: 'center' }}>5</td>
+                                        <td>
+                                            欠陥を似た特徴のグループにまとめるので、個々ではなくグループ単位で原因を分析でき、RCA
+                                            が効率的になる
+                                        </td>
+                                        <td>
+                                            <span
+                                                className="mk mk-b"
+                                                title="公式サンプル試験・LO対応表で確認"
+                                            >
+                                                ○
+                                            </span>{' '}
+                                            #45 の趣旨
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{ textAlign: 'center' }}>6</td>
+                                        <td>
+                                            1＝ロールベース、2＝アドホック、3＝チェックリストベース、4＝シナリオベース
+                                        </td>
+                                        <td>
+                                            <span
+                                                className="mk mk-b"
+                                                title="公式サンプル試験・LO対応表で確認"
+                                            >
+                                                ○
+                                            </span>{' '}
+                                            #42 の対応と同じ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <h3 id="sec-29">
+                        7.5 学習計画の例【
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        】
+                    </h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ textAlign: 'center' }}>順</th>
+                                    <th>内容</th>
+                                    <th>目安</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>1</td>
+                                    <td>パート1〜2 を通読し、防止の全体像を理解する</td>
+                                    <td>30 分</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>2</td>
+                                    <td>パート3 の DDP と決定表を、自分で紙に書いて計算する</td>
+                                    <td>60 分</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>3</td>
+                                    <td>パート4 の 4 技法と偽陽性の判断を、自分の言葉で説明する</td>
+                                    <td>45 分</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>4</td>
+                                    <td>
+                                        パート5 の DDP とクラスター分析の計算を、データを変えて繰り返す
+                                    </td>
+                                    <td>60 分</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>5</td>
+                                    <td>公式サンプル試験の #38〜#45 を、解説を見ずに解く</td>
+                                    <td>30 分</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ textAlign: 'center' }}>6</td>
+                                    <td>
+                                        公式シラバス 48〜54 ページを読み、本ガイドの
+                                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                            △
+                                        </span>
+                                        の記述を照合する
+                                    </td>
+                                    <td>60 分</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <details className="glossary">
+                        <summary>
+                            <span className="g-ico">📖</span>このパートで登場した用語
+                            <span className="g-n">4語</span>
+                        </summary>
+                        <ul>
+                            <li>
+                                サンプル試験：ISTQB
+                                が公開している、練習用の試験問題と解答解説。実際の試験そのものではない
+                            </li>
+                            <li>
+                                混同しやすい概念：似ているために取り違えやすい用語や手法。比較表で違いを整理して覚える
+                            </li>
+                            <li>
+                                オリジナル練習問題：本ガイドが学習用に作った問題。ISTQB
+                                の公式問題ではない
+                            </li>
+                            <li>照合：本ガイドの記述を、公式資料の原文と突き合わせて確かめること</li>
+                        </ul>
+                    </details>
+
+                    {/* パート8 */}
+                    <h2 id="part-8">
+                        <span className="part-no">パート8</span>
+                        <span className="part-title">根拠となるソース（URL）</span>
+                    </h2>
+                    <p className="lead">
+                        <span className="lead-ico" aria-hidden="true">
+                            💡
+                        </span>
+                        このパートでは、本ガイドの根拠になった資料の URL
+                        と、何に使ったかを示します。試験の根拠は公式資料が最優先なので、迷ったらここへ戻って原文を確認してください。確認日はすべて
+                        2026-09-20 です。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>資料</th>
+                                    <th>URL</th>
+                                    <th>本ガイドでの使い方</th>
+                                    <th>取得状況</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CTAL-TA 公式ページ</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        目次、試験構造（45 問・78 点・合格 51 点・120
+                                        分）、ビジネスアウトカム、旧版の試験終了日
+                                    </td>
+                                    <td>本文を取得</td>
+                                </tr>
+                                <tr>
+                                    <td>CTAL-TA シラバス v4.0（公式ダウンロード）</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=5745"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=5745
+                                        </a>
+                                    </td>
+                                    <td>
+                                        第1〜3章の本文（
+                                        <span className="mk mk-a" title="公式シラバスの本文で確認">
+                                            ◎
+                                        </span>
+                                        ）、第4章の表題・キーワード・学習目標冒頭、目次、章別時間
+                                    </td>
+                                    <td>
+                                        第4章冒頭まで取得。<strong>第5章本文は未取得</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>同シラバスの公式サイト内保管先</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf
+                                        </a>
+                                    </td>
+                                    <td>第5章本文の照合先（48〜54 ページ）</td>
+                                    <td>検索結果で存在を確認。本文は未取得</td>
+                                </tr>
+                                <tr>
+                                    <td>サンプル試験 問題 v4.1</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=5749"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=5749
+                                        </a>
+                                    </td>
+                                    <td>
+                                        第5章関連 #38〜#45 の設問（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>
+                                        ）
+                                    </td>
+                                    <td>全文を取得</td>
+                                </tr>
+                                <tr>
+                                    <td>サンプル試験 解答 v4.1</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=5759"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=5759
+                                        </a>
+                                    </td>
+                                    <td>
+                                        正解、LO、K レベル、各選択肢の解説（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>
+                                        ）
+                                    </td>
+                                    <td>全文を取得</td>
+                                </tr>
+                                <tr>
+                                    <td>LO 新旧対応表（v4.0 と v3.1）</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=6363"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=6363
+                                        </a>
+                                    </td>
+                                    <td>
+                                        第5章の LO、時間、変更理由（
+                                        <span className="mk mk-b" title="公式サンプル試験・LO対応表で確認">
+                                            ○
+                                        </span>
+                                        ）
+                                    </td>
+                                    <td>全文を取得</td>
+                                </tr>
+                                <tr>
+                                    <td>リリースノート v4.0</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=5762"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=5762
+                                        </a>
+                                    </td>
+                                    <td>改訂の位置づけ、移行期限の確認</td>
+                                    <td>全文を取得</td>
+                                </tr>
+                                <tr>
+                                    <td>試験の構造とルール</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=3829"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3829
+                                        </a>
+                                    </td>
+                                    <td>実際の配点構成の確認先</td>
+                                    <td>未取得（公式ページ記載の URL）</td>
+                                </tr>
+                                <tr>
+                                    <td>試験の構造とルール（一覧表）</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&amp;download_id=3832"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3832
+                                        </a>
+                                    </td>
+                                    <td>同上</td>
+                                    <td>未取得（公式ページ記載の URL）</td>
+                                </tr>
+                                <tr>
+                                    <td>ISTQB 用語集</td>
+                                    <td>
+                                        <a
+                                            href="https://glossary.istqb.org/en_US/search?term="
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://glossary.istqb.org/en_US/search?term=
+                                        </a>
+                                    </td>
+                                    <td>K1 の用語の定義確認先</td>
+                                    <td>未取得</td>
+                                </tr>
+                                <tr>
+                                    <td>v4.0 リリースのプレスリリース</td>
+                                    <td>
+                                        <a
+                                            href="https://istqb.org/istqb-certified-tester-advanced-level-test-analyst-ctal-ta-v4-0-press-release/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://istqb.org/istqb-certified-tester-advanced-level-test-analyst-ctal-ta-v4-0-press-release/
+                                        </a>
+                                    </td>
+                                    <td>改訂の背景（参考）</td>
+                                    <td>検索結果の抜粋のみ</td>
+                                </tr>
+                                <tr>
+                                    <td>第三者による v4.0 解説（Trendig）</td>
+                                    <td>
+                                        <a
+                                            href="https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://trendig.com/en/blog/new-version-released-istqb-certified-tester-advanced-level-test-analyst-v4/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        「欠陥防止」が独立した新章になった旨の参考。公式ではない
+                                    </td>
+                                    <td>検索結果の抜粋のみ</td>
+                                </tr>
+                                <tr>
+                                    <td>JSTQB（日本の加盟団体）</td>
+                                    <td>
+                                        <a
+                                            href="https://jstqb.jp/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            https://jstqb.jp/
+                                        </a>
+                                    </td>
+                                    <td>日本語版シラバス・試験の提供状況の確認先</td>
+                                    <td>未取得</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 id="sec-30">8.1 公式シラバス 48〜54 ページで照合すべき項目</h3>
+                    <p>
+                        本ガイドの
+                        <span className="mk mk-c" title="業界一般の補足（要照合）">
+                            △
+                        </span>
+                        の記述と、未確認の項目を、次の順に照合してください。
+                    </p>
+                    <ol>
+                        <li>第5章冒頭のキーワード一覧（K1 で暗記する用語）</li>
+                        <li>5.1：欠陥防止の実践として挙げられている項目と、その説明の文言</li>
+                        <li>5.2.1：モデルの例と、モデルで検出できる欠陥の種類</li>
+                        <li>5.2.2：各レビュー技法の定義文と、チェックリストの例</li>
+                        <li>5.3.1：分析の指標の名前と式（DDP 以外の指標の有無）</li>
+                        <li>5.3.2：欠陥分類の例と、RCA の説明</li>
+                    </ol>
+                    <h3 id="sec-31">8.2 このガイドの限界</h3>
+                    <ul>
+                        <li>
+                            第5章の本文は未取得のため、5.1 の「TA
+                            の貢献」の一覧は、第1〜3章の記述とサンプル試験から再構成したものです。シラバスの列挙とは異なる可能性があります。
+                        </li>
+                        <li>
+                            PCE の式、レビューの手順、5
+                            Whys、分類の軸、各種チェックリスト、学習計画は、業界一般の知識に基づく補足（
+                            <span className="mk mk-c" title="業界一般の補足（要照合）">
+                                △
+                            </span>
+                            ）です。試験の出題根拠としては、必ず公式資料で確認してください。
+                        </li>
+                        <li>
+                            実例A・B・C
+                            とレビューの実例は、公式サンプル試験や本ガイドの説明用の設定を、学習用に再構成したものです。
+                        </li>
+                    </ul>
+                    <details className="glossary">
+                        <summary>
+                            <span className="g-ico">📖</span>このパートで登場した用語
+                            <span className="g-n">3語</span>
+                        </summary>
+                        <ul>
+                            <li>
+                                取得状況：本ガイドの作成時に、その資料の本文を実際に読めたかどうか
+                            </li>
+                            <li>
+                                公式資料：ISTQB が発行した文書（シラバス、サンプル試験、用語集など）
+                            </li>
+                            <li>
+                                第三者による解説：ISTQB
+                                以外の組織が書いた解説。参考にはなるが、試験の根拠にはならない
+                            </li>
+                        </ul>
+                    </details>
+                    <p className="foot">
+                        Mermaid 図 8 点。図は Mermaid 10.9.8
+                        で描画します（インターネット接続が必要）。確認日はすべて 2026-09-20。
+                    </p>
                 </main>
             </div>
         </div>

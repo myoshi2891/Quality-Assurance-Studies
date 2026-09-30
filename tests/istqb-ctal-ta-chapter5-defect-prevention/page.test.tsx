@@ -52,14 +52,14 @@ const EXPECTED_TOC_HREFS = [
 const EXPECTED_TABLE_SPECS: TableSpec[] = [
     {
         heading: '第5章 ソフトウェア欠陥防止',
-        headers: ['LO', '学習目標の要点', 'Kレベル', 'シラバスの推奨学習時間'],
+        headers: ['LO', 'K', '内容', '学習時間'],
         rows: 5,
         cols: 4,
         sample: 'TA-5.1.1',
     },
     {
         heading: '0.1 情報源の確度マーク',
-        headers: ['マーク', '意味', 'このガイドでの扱い方'],
+        headers: ['マーク', '意味', '例'],
         rows: 3,
         cols: 3,
         sample: '◎',
@@ -467,6 +467,24 @@ describe('CTAL-TA v4.0 Chapter 5 - Comprehensive Structural Verification', () =>
 
             const diagrams = container.querySelectorAll('figure.diagram');
             expect(diagrams.length).toBe(8);
+        });
+    });
+
+    describe('Category 5: Part 7 (Exam Preparation) & Part 8 (References)', () => {
+        it('renders part-7 (sec-25..29) and part-8 (sec-30..31) with answers accordion', () => {
+            const { container } = render(<CtalTaChapter5Page />);
+            expect(container.querySelector('#part-7')).toBeTruthy();
+            expect(container.querySelector('#sec-25')).toBeTruthy();
+            expect(container.querySelector('#sec-26')).toBeTruthy();
+            expect(container.querySelector('#sec-27')).toBeTruthy();
+            expect(container.querySelector('#sec-28')).toBeTruthy();
+            expect(container.querySelector('#sec-29')).toBeTruthy();
+
+            expect(container.querySelector('#part-8')).toBeTruthy();
+            expect(container.querySelector('#sec-30')).toBeTruthy();
+            expect(container.querySelector('#sec-31')).toBeTruthy();
+
+            expect(container.querySelector('details.answers')).toBeTruthy();
         });
     });
 
