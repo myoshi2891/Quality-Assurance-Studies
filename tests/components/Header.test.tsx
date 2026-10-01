@@ -130,7 +130,7 @@ describe('Header drawer accordion', () => {
     const dialog = openDrawer();
     const summary = within(dialog).getByRole('heading', { level: 2, name: 'ISTQB Specialist' })
       .closest('summary');
-    expect(summary?.getAttribute('data-count')).toBe('16');
+    expect(summary?.getAttribute('data-count')).toBe('17');
   });
 });
 
