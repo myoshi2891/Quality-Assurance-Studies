@@ -129,7 +129,9 @@ main.ct-genai-ch2-page {
     margin-right: 0 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
-    padding: 48px 64px 96px;
+    /* overflow-x:hidden で子要素（mermaid-container）の overflow-x:auto が正しく機能する */
+    overflow-x: hidden;
+    padding: 48px 72px 96px 56px;
     box-sizing: border-box;
 }
 
