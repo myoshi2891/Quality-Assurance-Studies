@@ -200,6 +200,101 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT2,
+    {
+        heading: '8.2 必要なスキル一覧',
+        headers: ['#', 'スキル領域', '中身（要約）', '関連する章'],
+        rows: 7,
+        cols: 4,
+        sample: '①',
+    },
+    {
+        heading: 'ステップ1：送信前に「含まれていないか」を確認する',
+        headers: ['種類', '例'],
+        rows: 3,
+        cols: 2,
+        sample: '個人を特定できる情報',
+    },
+    {
+        heading: 'ステップ2：マスキング／除去／置換を行う',
+        headers: ['元のデータ（例）', 'サニタイズ後（例）', '方法'],
+        rows: 3,
+        cols: 3,
+        sample: '例 山田太郎 taro.yamada@example.com',
+    },
+    {
+        heading: '8.5 「右サイズ」モデルとコスト・エネルギーの考え方',
+        headers: ['タスクの性質（例）', '適したモデルの方向性（例）', '理由'],
+        rows: 3,
+        cols: 3,
+        sample: 'ログの要約、定型的な分類',
+    },
+    {
+        heading: 'シラバス準拠',
+        headers: ['施策', 'ねらい', '根拠'],
+        rows: 3,
+        cols: 3,
+        sample: 'スキルマトリクス（役割別に必要なAIスキルと現在レベル）を作る',
+    },
+    {
+        heading: '9.1 基本の考え方',
+        headers: ['必要なもの', '内容'],
+        rows: 3,
+        cols: 2,
+        sample: '実践的な体験',
+    },
+    {
+        heading: '9.3 重要キーワードの解説',
+        headers: ['用語', '意味', 'ポイント'],
+        rows: 4,
+        cols: 3,
+        sample: 'プロンプトパターン（Prompt patterns）',
+    },
+    {
+        heading: 'ステップ2：メタ情報を付ける（ライブラリ登録フォーマット例）',
+        headers: ['項目', '記入例'],
+        rows: 9,
+        cols: 2,
+        sample: 'プロンプトID／名前',
+    },
+    {
+        heading: 'シラバス準拠',
+        headers: ['施策', 'ねらい', '根拠'],
+        rows: 4,
+        cols: 3,
+        sample: 'プロンプトをコード成果物として扱う（バージョン管理、レビュー）',
+    },
+    {
+        heading: '10.2 テスターの役割の変化',
+        headers: ['従来の責任', 'AI支援後に加わる／重みが増す責任'],
+        rows: 6,
+        cols: 2,
+        sample: 'テストケースの作成・テストの実行が中心',
+    },
+    {
+        heading: '10.3 テストマネージャーの役割の変化',
+        headers: ['責任領域', '内容（要約）'],
+        rows: 9,
+        cols: 2,
+        sample: 'AIベースのテスト戦略の策定',
+    },
+    {
+        heading: '10.4 役割の変化と責任分担のイメージ（責任分担表の例）',
+        headers: ['活動', 'テスター', 'テストマネージャー', '承認者・関係部門（例）'],
+        rows: 6,
+        cols: 4,
+        sample: 'プロンプトの作成・改善',
+    },
+    {
+        heading: 'シラバス準拠',
+        headers: ['施策', 'ねらい', '根拠'],
+        rows: 3,
+        cols: 3,
+        sample: '役割記述書・評価項目を更新し、AIレビュー、プロンプトライブラリ保守などを明記する',
+    },
+];
+
 describe('CT-GenAI Chapter 5 Page (Cat 1: s1-s3)', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtGenAiChapter5Page />);
@@ -342,6 +437,89 @@ describe('CT-GenAI Chapter 5 Page (Cat 2: s4-s6)', () => {
         const c6 = container.querySelector('#s6 .callout.practice');
         expect(c6).not.toBeNull();
         expect(c6?.textContent).toContain('サンドボックス環境');
+    });
+});
+
+describe('CT-GenAI Chapter 5 Page (Cat 3: s7-s10)', () => {
+    it('renders section s7 (5.2 変革管理概要) with d10 diagram', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s7 = container.querySelector('#s7');
+        expect(s7).not.toBeNull();
+        expect(s7?.textContent).toContain('7. 5.2 変革管理（チェンジマネジメント）（概要）');
+        expect(s7?.textContent).toContain('7.1 なぜ変革管理が必要なのか');
+        expect(s7?.textContent).toContain('7.2 5.2の全体像（図解）');
+        expect(s7?.querySelector('[data-diagram="d10"]')).not.toBeNull();
+    });
+
+    it('renders section s8 (5.2.1 必要なスキルと知識) with d11 and d12 diagrams and prompt-block', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s8 = container.querySelector('#s8');
+        expect(s8).not.toBeNull();
+        expect(s8?.textContent).toContain('8. 5.2.1 生成AIを使ったテストに必要なスキルと知識');
+        expect(s8?.textContent).toContain('8.1 考え方');
+        expect(s8?.textContent).toContain('8.2 必要なスキル一覧');
+        expect(s8?.textContent).toContain('8.3 スキルの全体像（図解）');
+        expect(s8?.textContent).toContain('8.4 データサニタイズをステップバイステップで理解する');
+        expect(s8?.textContent).toContain('8.5 「右サイズ」モデルとコスト・エネルギーの考え方');
+        expect(s8?.querySelector('[data-diagram="d11"]')).not.toBeNull();
+        expect(s8?.querySelector('[data-diagram="d12"]')).not.toBeNull();
+        const pb = s8?.querySelector('.prompt-block');
+        expect(pb).not.toBeNull();
+        expect(pb?.textContent).toContain('プライバシー保護型プロンプト');
+    });
+
+    it('renders section s9 (5.2.2 チーム能力の構築) with d13 diagram', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s9 = container.querySelector('#s9');
+        expect(s9).not.toBeNull();
+        expect(s9?.textContent).toContain('9. 5.2.2 テストチームの生成AI能力の構築');
+        expect(s9?.textContent).toContain('9.1 基本の考え方');
+        expect(s9?.textContent).toContain('9.2 能力の成長ステップ（図解）');
+        expect(s9?.textContent).toContain('9.3 重要キーワードの解説');
+        expect(s9?.textContent).toContain('9.4 プロンプトライブラリの作り方');
+        expect(s9?.querySelector('[data-diagram="d13"]')).not.toBeNull();
+    });
+
+    it('renders section s10 (5.2.3 テストプロセスの進化) with d14 diagram', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s10 = container.querySelector('#s10');
+        expect(s10).not.toBeNull();
+        expect(s10?.textContent).toContain('10. 5.2.3 AI対応テスト組織におけるテストプロセスの進化');
+        expect(s10?.textContent).toContain('10.1 全体像');
+        expect(s10?.textContent).toContain('10.2 テスターの役割の変化');
+        expect(s10?.textContent).toContain('10.3 テストマネージャーの役割の変化');
+        expect(s10?.textContent).toContain('10.4 役割の変化と責任分担のイメージ');
+        expect(s10?.querySelector('[data-diagram="d14"]')).not.toBeNull();
+    });
+
+    it('matches Category 3 table inventory (cumulative 37 tables)', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT3.length);
+        EXPECTED_TABLE_SPECS_CAT3.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+
+    it('renders callouts in s8, s9, and s10', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const c8 = container.querySelector('#s8 .callout.practice');
+        expect(c8).not.toBeNull();
+        expect(c8?.textContent).toContain('スキルマトリクス');
+
+        const c9 = container.querySelector('#s9 .callout.practice');
+        expect(c9).not.toBeNull();
+        expect(c9?.textContent).toContain('コード成果物として扱う');
+
+        const c10 = container.querySelector('#s10 .callout.practice');
+        expect(c10).not.toBeNull();
+        expect(c10?.textContent).toContain('役割記述書・評価項目を更新');
     });
 });
 
