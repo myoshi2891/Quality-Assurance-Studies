@@ -128,3 +128,104 @@ flowchart TD
     class Q1,Q2,Q3,Q4 hub;
     class OK,MASK done;
     class NG1,NG2 box;`;
+
+export const DIAGRAM_D5 = `${MERMAID_CONFIG}
+flowchart TD
+    OBJ["① 測定可能な目標"]
+    MODEL["② LLM/SLM選定"]
+    DATA["③ データ品質・セキュリティ"]
+    TRAIN["④ 教育・トレーニング"]
+    METRIC["⑤ 効果測定の指標"]
+    GUIDE["⑥ プロセスガイドライン<br/>（機密データ・透明性・品質ゲート）"]
+    OUT["パイロットから<br/>再現可能で統制された<br/>テストプロセスへ"]
+    OBJ --> MODEL
+    OBJ --> METRIC
+    DATA --> OUT
+    MODEL --> OUT
+    TRAIN --> OUT
+    METRIC --> OUT
+    GUIDE --> OUT
+    METRIC -. "結果に基づき見直し" .-> OBJ
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class OBJ hub;
+    class MODEL,DATA,TRAIN,METRIC,GUIDE box;
+    class OUT done;`;
+
+export const DIAGRAM_D6 = `${MERMAID_CONFIG}
+flowchart TD
+    G1["GenAIがテストウェアを生成<br/>（テストケース／スクリプト／データ等）"]
+    G2["AI生成であることをラベル付け<br/>（透明性）"]
+    G3{"人によるレビュー<br/>（品質ゲート）"}
+    G4["修正・再プロンプト<br/>（反復的な改善）"]
+    G5["受け入れ<br/>テスト管理ツールに登録"]
+    G6["却下・破棄"]
+    G1 --> G2
+    G2 --> G3
+    G3 -- "問題あり（修正可能）" --> G4
+    G4 --> G1
+    G3 -- "問題なし" --> G5
+    G3 -- "信頼できない" --> G6
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class G1,G2,G4,G6 box;
+    class G3 hub;
+    class G5 done;`;
+
+export const DIAGRAM_D7 = `${MERMAID_CONFIG}
+flowchart TD
+    S1["ステップ1：対象テストタスクと<br/>成功基準を明確にする"]
+    S2["ステップ2：機能・技術・ライセンスで<br/>候補モデルを絞る"]
+    S3["ステップ3：自組織の評価セットで<br/>性能を測る（複数回・統計的に）"]
+    S4["ステップ4：ファインチューニングの<br/>可能性と効果を確認"]
+    S5["ステップ5：継続的コストを試算"]
+    S6["ステップ6：コミュニティ・<br/>ドキュメント・サポートを確認"]
+    S7["ステップ7：データ機密性と<br/>コンプライアンスの適合を確認"]
+    S8["ステップ8：パイロットで検証して選定<br/>（定期的に見直し）"]
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8
+    S8 -. "結果・要件の変化に応じて再評価" .-> S2
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class S1 hub;
+    class S2,S3,S4,S5,S6,S7 box;
+    class S8 done;`;
+
+export const DIAGRAM_D8 = `${MERMAID_CONFIG}
+flowchart LR
+    P1["フェーズ1<br/>Discovery（発見）<br/>体験・学習・低リスクな試行"]
+    P2["フェーズ2<br/>Initiation and usage definition<br/>ユースケース特定・評価・優先順位付け"]
+    P3["フェーズ3<br/>Utilization and iteration<br/>統合・監視・測定・改善・展開"]
+    P1 --> P2 --> P3
+    P3 -. "経験を反映して見直し" .-> P2
+    P2 -. "新しい疑問・課題" .-> P1
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class P1 box;
+    class P2 hub;
+    class P3 done;`;
+
+export const DIAGRAM_D9 = `${MERMAID_CONFIG}
+flowchart TD
+    subgraph UC1["ユースケースA：テストレポート分析"]
+        A1["発見"] --> A2["利用方法の定義"] --> A3["活用と反復（現在地）"]
+    end
+    subgraph UC2["ユースケースB：テストケース生成"]
+        B1["発見"] --> B2["利用方法の定義（現在地）"] --> B3["活用と反復"]
+    end
+    subgraph UC3["ユースケースC：自動テスト生成"]
+        C1["発見（現在地）"] --> C2["利用方法の定義"] --> C3["活用と反復"]
+    end
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class A1,A2 box;
+    class A3 done;
+    class B1,B3 box;
+    class B2 hub;
+    class C2,C3 box;
+    class C1 hub;`;
+
