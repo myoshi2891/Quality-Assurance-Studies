@@ -169,4 +169,40 @@ describe('CT-GenAI Chapter 4 Page - Category 1 (Architecture & Overview)', () =>
         const critique = s3?.querySelector('.critique-card');
         expect(critique).not.toBeNull();
     });
+
+    it('renders Section 4: 4.1.3 LLM搭載エージェント with Mermaid d5/d6, tables, and critique card', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s4 = container.querySelector('#s4');
+        expect(s4).not.toBeNull();
+        expect(s4?.querySelector('h2')?.textContent).toContain('4.1.3');
+        expect(s4?.querySelector('h2')?.textContent).toContain('テストプロセス自動化におけるLLM搭載エージェントの役割');
+
+        const h3List = Array.from(s4?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3List).toContain('4.1 LLM搭載エージェントとは');
+        expect(h3List).toContain('4.2 チャットボット・RAG・エージェントの違い');
+        expect(h3List).toContain('4.3 エージェントの動作イメージ');
+        expect(h3List).toContain('4.4 エージェントが呼び出せる「ツール」の例');
+        expect(h3List).toContain('4.5 自律度の違い');
+        expect(h3List).toContain('4.6 マルチエージェントとオーケストレーション');
+        expect(h3List).toContain('4.7 エージェントが担えるテスト作業');
+        expect(h3List).toContain('4.8 エージェントのリスクと対策');
+        expect(h3List).toContain('4.9 ハンズオン目標 HO-4.1.3（H0）：エージェントの実演を観察する');
+
+        const h4 = s4?.querySelector('h4');
+        expect(h4?.textContent).toContain('4.10 この節の試験ポイント');
+
+        // Mermaid d5 & d6
+        const diagramCards = s4?.querySelectorAll('.diagram-card');
+        expect(diagramCards?.length).toBeGreaterThanOrEqual(2);
+        expect(diagramCards?.[0].textContent).toContain('図5');
+        expect(diagramCards?.[1].textContent).toContain('図6');
+
+        // テーブル群（比較、ツール、自律度、マルチ、作業、リスク、観察ポイント）
+        const tables = s4?.querySelectorAll('table');
+        expect(tables?.length).toBeGreaterThanOrEqual(6);
+
+        // 試験ポイント
+        const critique = s4?.querySelector('.critique-card');
+        expect(critique).not.toBeNull();
+    });
 });
