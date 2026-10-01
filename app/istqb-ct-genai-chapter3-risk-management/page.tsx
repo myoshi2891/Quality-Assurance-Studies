@@ -1104,34 +1104,34 @@ export default function CtGenAiChapter3Page() {
                             <p>
                                 <strong>Before（情報不足で、ハルシネーションが起きやすい依頼）</strong>
                             </p>
-                            <pre>
+                            <pre className="code-block">
                                 <code className="language-text">
                                     <div className="code-line">ログイン機能のテストケースを作ってください。</div>
                                 </code>
                             </pre>
                             <p><strong>After（技法1・3を適用した依頼。6要素を含める）</strong></p>
-                            <pre>
+                            <pre className="code-block">
                                 <code className="language-text">
-                                    <div className="code-line"># 役割</div>
+                                    <div className="code-line"><span className="code-keyword"># 役割</span></div>
                                     <div className="code-line">あなたは ISTQB の考え方に沿ってテスト設計をするテストアナリストです。</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"># コンテキスト</div>
+                                    <div className="code-line"><span className="code-keyword"># コンテキスト</span></div>
                                     <div className="code-line">対象は Web アプリのログイン画面です。ユーザーはメールアドレスとパスワードで認証します。</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"># 指示</div>
+                                    <div className="code-line"><span className="code-keyword"># 指示</span></div>
                                     <div className="code-line">下の受け入れ基準だけを根拠に、機能テストケースを作成してください。</div>
                                     <div className="code-line">各テストケースには、根拠となる受け入れ基準の ID を必ず書いてください。</div>
                                     <div className="code-line">受け入れ基準に無い内容は作らず、不明点は最後に「質問」として列挙してください。</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"># 入力データ</div>
-                                    <div className="code-line">AC-1：正しいメールアドレスとパスワードでログインできる</div>
-                                    <div className="code-line">AC-2：パスワードを5回連続で間違えると、アカウントが30分間ロックされる</div>
+                                    <div className="code-line"><span className="code-keyword"># 入力データ</span></div>
+                                    <div className="code-line"><span className="code-func">AC-1</span>：正しいメールアドレスとパスワードでログインできる</div>
+                                    <div className="code-line"><span className="code-func">AC-2</span>：パスワードを5回連続で間違えると、アカウントが30分間ロックされる</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"># 制約</div>
+                                    <div className="code-line"><span className="code-keyword"># 制約</span></div>
                                     <div className="code-line">- 2段階認証やソーシャルログインなど、上記に無い機能は含めない</div>
                                     <div className="code-line">- 境界値分析を使い、4回・5回・6回の失敗を検証する</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"># 出力形式</div>
+                                    <div className="code-line"><span className="code-keyword"># 出力形式</span></div>
                                     <div className="code-line">表形式（列：TC-ID、根拠AC、前提条件、手順、期待結果）</div>
                                 </code>
                             </pre>
@@ -1349,35 +1349,35 @@ export default function CtGenAiChapter3Page() {
                             <p>
                                 OpenAI の公式ドキュメントでは、<code>seed</code> を指定すると「<strong>ベストエフォート（できる限り）</strong>でも決定的にサンプリングする」と説明され、<strong>決定性は保証されない</strong>ことが明記されています。また、バックエンドの構成が変わったかを知るため、応答の <code>system_fingerprint</code> を確認するよう案内されています。
                             </p>
-                            <pre>
+                            <pre className="code-block">
                                 <code className="language-python">
-                                    <div className="code-line">from openai import OpenAI  # OpenAI 公式 SDK。他社の API でも考え方は同じ</div>
+                                    <div className="code-line"><span className="code-keyword">from</span> openai <span className="code-keyword">import</span> OpenAI  <span className="code-comment"># OpenAI 公式 SDK。他社の API でも考え方は同じ</span></div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"># API キーは環境変数から自動で読み込まれる。</div>
-                                    <div className="code-line"># コードに直接書くと、リポジトリ経由で漏えいする恐れがあるため。</div>
-                                    <div className="code-line">client = OpenAI()</div>
+                                    <div className="code-line"><span className="code-comment"># API キーは環境変数から自動で読み込まれる。</span></div>
+                                    <div className="code-line"><span className="code-comment"># コードに直接書くと、リポジトリ経由で漏えいする恐れがあるため。</span></div>
+                                    <div className="code-line">client = <span className="code-func">OpenAI</span>()</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">PROMPT = &quot;受け入れ基準 AC-2 から、境界値のテストケースを3つ、表形式で作成してください。&quot;</div>
-                                    <div className="code-line">RUNS = 5  # 1回だけでは偶然か傾向か判別できないため、複数回実行して傾向を見る</div>
+                                    <div className="code-line">PROMPT = <span className="code-string">&quot;受け入れ基準 AC-2 から、境界値のテストケースを3つ、表形式で作成してください。&quot;</span></div>
+                                    <div className="code-line">RUNS = <span className="code-number">5</span>  <span className="code-comment"># 1回だけでは偶然か傾向か判別できないため、複数回実行して傾向を見る</span></div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">def run_once(seed: int):</div>
-                                    <div className="code-line">    response = client.chat.completions.create(</div>
-                                    <div className="code-line">        model=&quot;YOUR_MODEL_NAME&quot;,   # 利用するモデル名に置き換える</div>
-                                    <div className="code-line">        messages=[&#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: PROMPT&#125;],</div>
-                                    <div className="code-line">        temperature=0.0,           # ランダム性を最小にするため。ただし多様性は下がる</div>
-                                    <div className="code-line">        seed=seed,                 # 同じ seed を使い、再現性を高めるため</div>
+                                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">run_once</span>(seed: <span className="code-type">int</span>):</div>
+                                    <div className="code-line">    response = client.chat.completions.<span className="code-func">create</span>(</div>
+                                    <div className="code-line">        model=<span className="code-string">&quot;YOUR_MODEL_NAME&quot;</span>,   <span className="code-comment"># 利用するモデル名に置き換える</span></div>
+                                    <div className="code-line">        messages=[&#123;<span className="code-string">&quot;role&quot;</span>: <span className="code-string">&quot;user&quot;</span>, <span className="code-string">&quot;content&quot;</span>: PROMPT&#125;],</div>
+                                    <div className="code-line">        temperature=<span className="code-number">0.0</span>,           <span className="code-comment"># ランダム性を最小にするため。ただし多様性は下がる</span></div>
+                                    <div className="code-line">        seed=seed,                 <span className="code-comment"># 同じ seed を使い、再現性を高めるため</span></div>
                                     <div className="code-line">    )</div>
-                                    <div className="code-line">    # system_fingerprint：サーバー側の構成を表す識別子。</div>
-                                    <div className="code-line">    # これが変わると、同じ seed でも結果が変わりうるため一緒に記録する。</div>
-                                    <div className="code-line">    return response.choices[0].message.content, response.system_fingerprint</div>
+                                    <div className="code-line">    <span className="code-comment"># system_fingerprint：サーバー側の構成を表す識別子。</span></div>
+                                    <div className="code-line">    <span className="code-comment"># これが変わると、同じ seed でも結果が変わりうるため一緒に記録する。</span></div>
+                                    <div className="code-line">    <span className="code-keyword">return</span> response.choices[<span className="code-number">0</span>].message.content, response.system_fingerprint</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">results = [run_once(seed=42) for _ in range(RUNS)]</div>
+                                    <div className="code-line">results = [<span className="code-func">run_once</span>(seed=<span className="code-number">42</span>) <span className="code-keyword">for</span> _ <span className="code-keyword">in</span> <span className="code-func">range</span>(RUNS)]</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">unique_outputs = &#123;text for text, _ in results&#125;    # 重複を除いて、出力が何種類できたかを数える</div>
-                                    <div className="code-line">fingerprints = &#123;fp for _, fp in results&#125;          # 構成が途中で変わっていないかを確認する</div>
+                                    <div className="code-line">unique_outputs = &#123;text <span className="code-keyword">for</span> text, _ <span className="code-keyword">in</span> results&#125;    <span className="code-comment"># 重複を除いて、出力が何種類できたかを数える</span></div>
+                                    <div className="code-line">fingerprints = &#123;fp <span className="code-keyword">for</span> _, fp <span className="code-keyword">in</span> results&#125;          <span className="code-comment"># 構成が途中で変わっていないかを確認する</span></div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">print(f&quot;出力の種類数：&#123;len(unique_outputs)&#125; / &#123;RUNS&#125;&quot;)</div>
-                                    <div className="code-line">print(f&quot;system_fingerprint の種類数：&#123;len(fingerprints)&#125;&quot;)</div>
+                                    <div className="code-line"><span className="code-func">print</span>(f<span className="code-string">&quot;出力の種類数：&#123;len(unique_outputs)&#125; / &#123;RUNS&#125;&quot;</span>)</div>
+                                    <div className="code-line"><span className="code-func">print</span>(f<span className="code-string">&quot;system_fingerprint の種類数：&#123;len(fingerprints)&#125;&quot;</span>)</div>
                                 </code>
                             </pre>
                             <p><strong>コードを読むときのポイント</strong>：</p>
@@ -2130,37 +2130,37 @@ export default function CtGenAiChapter3Page() {
                                     <div className="code-line"></div>
                                     <div className="code-line"><span className="code-comment"># メールアドレスと、日本の一般的な電話番号（ハイフン区切り）を探すパターン。</span></div>
                                     <div className="code-line"><span className="code-comment"># 完全ではないため、実務では専用ツール（例：Microsoft Presidio）の利用も検討する。</span></div>
-                                    <div className="code-line">EMAIL_PATTERN = re.compile(<span className="code-string">r&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]&#123;2,&#125;&quot;</span>)</div>
-                                    <div className="code-line">PHONE_PATTERN = re.compile(<span className="code-string">r&quot;0\d&#123;1,4&#125;-\d&#123;1,4&#125;-\d&#123;4&#125;&quot;</span>)</div>
+                                    <div className="code-line">EMAIL_PATTERN = re.<span className="code-func">compile</span>(<span className="code-string">r&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]&#123;2,&#125;&quot;</span>)</div>
+                                    <div className="code-line">PHONE_PATTERN = re.<span className="code-func">compile</span>(<span className="code-string">r&quot;0\d&#123;1,4&#125;-\d&#123;1,4&#125;-\d&#123;4&#125;&quot;</span>)</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">pseudonymize</span>(text: str):</div>
+                                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">pseudonymize</span>(text: <span className="code-type">str</span>):</div>
                                     <div className="code-line">    <span className="code-string">&quot;&quot;&quot;個人情報を仮の識別子に置き換え、元に戻すための対応表も返す。&quot;&quot;&quot;</span></div>
                                     <div className="code-line">    mapping = &#123;&#125;  <span className="code-comment"># 対応表。AI には送らず、自分たちの環境だけで保管するため</span></div>
                                     <div className="code-line"></div>
                                     <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">replace</span>(pattern, label, source):</div>
-                                    <div className="code-line">        counter = 0</div>
+                                    <div className="code-line">        counter = <span className="code-number">0</span></div>
                                     <div className="code-line"></div>
                                     <div className="code-line">        <span className="code-keyword">def</span> <span className="code-func">_sub</span>(match):</div>
                                     <div className="code-line">            <span className="code-keyword">nonlocal</span> counter</div>
-                                    <div className="code-line">            original = match.group(0)</div>
+                                    <div className="code-line">            original = match.<span className="code-func">group</span>(<span className="code-number">0</span>)</div>
                                     <div className="code-line">            <span className="code-comment"># 同じ値には同じ識別子を割り当てる。</span></div>
                                     <div className="code-line">            <span className="code-comment"># 別の識別子にすると、「同一人物のエラー」という手がかりが失われるため。</span></div>
-                                    <div className="code-line">            <span className="code-keyword">for</span> key, value <span className="code-keyword">in</span> mapping.items():</div>
+                                    <div className="code-line">            <span className="code-keyword">for</span> key, value <span className="code-keyword">in</span> mapping.<span className="code-func">items</span>():</div>
                                     <div className="code-line">                <span className="code-keyword">if</span> value == original:</div>
                                     <div className="code-line">                    <span className="code-keyword">return</span> key</div>
-                                    <div className="code-line">            counter += 1</div>
-                                    <div className="code-line">            token = f&quot;[&#123;label&#125;_&#123;counter&#125;]&quot;</div>
+                                    <div className="code-line">            counter += <span className="code-number">1</span></div>
+                                    <div className="code-line">            token = f<span className="code-string">&quot;[&#123;label&#125;_&#123;counter&#125;]&quot;</span></div>
                                     <div className="code-line">            mapping[token] = original</div>
                                     <div className="code-line">            <span className="code-keyword">return</span> token</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">        <span className="code-keyword">return</span> pattern.sub(_sub, source)</div>
+                                    <div className="code-line">        <span className="code-keyword">return</span> pattern.<span className="code-func">sub</span>(_sub, source)</div>
                                     <div className="code-line"></div>
-                                    <div className="code-line">    text = replace(EMAIL_PATTERN, <span className="code-string">&quot;EMAIL&quot;</span>, text)</div>
-                                    <div className="code-line">    text = replace(PHONE_PATTERN, <span className="code-string">&quot;PHONE&quot;</span>, text)</div>
+                                    <div className="code-line">    text = <span className="code-func">replace</span>(EMAIL_PATTERN, <span className="code-string">&quot;EMAIL&quot;</span>, text)</div>
+                                    <div className="code-line">    text = <span className="code-func">replace</span>(PHONE_PATTERN, <span className="code-string">&quot;PHONE&quot;</span>, text)</div>
                                     <div className="code-line">    <span className="code-keyword">return</span> text, mapping</div>
                                     <div className="code-line"></div>
                                     <div className="code-line">raw_log = <span className="code-string">&quot;ERROR pay failed user=taro@example.com tel=03-1234-5678 retry user=taro@example.com&quot;</span></div>
-                                    <div className="code-line">safe_log, table = pseudonymize(raw_log)</div>
+                                    <div className="code-line">safe_log, table = <span className="code-func">pseudonymize</span>(raw_log)</div>
                                     <div className="code-line"></div>
                                     <div className="code-line"><span className="code-func">print</span>(safe_log)   <span className="code-comment"># AI に渡してよい形（個人情報を置換済み）</span></div>
                                     <div className="code-line"><span className="code-func">print</span>(table)      <span className="code-comment"># 手元にだけ残す対応表（AI には渡さない）</span></div>

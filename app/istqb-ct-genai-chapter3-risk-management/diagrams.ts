@@ -12,21 +12,26 @@ export const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
     "background": "#ffffff",
+    "mainBkg": "#eff6ff",
     "primaryColor": "#eff6ff",
-    "primaryBorderColor": "#3457d5",
-    "primaryTextColor": "#1c2536",
-    "lineColor": "#64748b",
-    "secondaryColor": "#f8faff",
-    "tertiaryColor": "#eef1f8",
-    "nodeBorder": "#3457d5",
-    "clusterBkg": "#f8faff",
-    "clusterBorder": "#dde3ee",
+    "primaryBorderColor": "#93c5fd",
+    "primaryTextColor": "#0f172a",
+    "lineColor": "#94a3b8",
+    "secondaryColor": "#f1f5f9",
+    "tertiaryColor": "#ffffff",
+    "nodeBorder": "#93c5fd",
+    "clusterBkg": "#f8fafc",
+    "clusterBorder": "#e2e8f0",
     "edgeLabelBackground": "#ffffff",
-    "fontFamily": "Hiragino Kaku Gothic ProN, Noto Sans JP, Segoe UI, sans-serif",
+    "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "14px"
   },
   "htmlLabels": true,
-  "flowchart": { "curve": "basis" }
+  "flowchart": {
+    "curve": "basis",
+    "nodeSpacing": 60,
+    "rankSpacing": 70
+  }
 }}%%`;
 
 // 図0: 第3章の全体マップ (1.3)

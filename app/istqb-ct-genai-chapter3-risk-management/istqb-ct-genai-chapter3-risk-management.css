@@ -52,8 +52,6 @@
 .ct-genai-chapter3-page main,
 main.ct-genai-chapter3-page {
     max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 .ct-genai-chapter3-page table {
@@ -177,8 +175,15 @@ main.ct-genai-chapter3-page {
 
 /* ---------- Main content ---------- */
 .ct-genai-chapter3-page .main {
-    margin-left: var(--sidebar-width);
-    padding: 48px 56px 80px;
+    max-width: none !important;
+    margin-left: var(--sidebar-width) !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    /* overflow-x:hidden で子要素（mermaid-container）の overflow-x:auto が正しく機能する */
+    overflow-x: hidden;
+    padding: 48px 72px 96px 56px;
+    box-sizing: border-box;
 }
 
 .ct-genai-chapter3-page .main p,
@@ -351,12 +356,13 @@ main.ct-genai-chapter3-page {
 }
 
 .ct-genai-chapter3-page pre:not(.mermaid) {
-    background: var(--card2);
-    border: 1px solid var(--border);
+    background: #0f172a;
+    border: 1px solid #1e293b;
     border-radius: var(--radius);
     padding: 18px 20px;
     overflow-x: auto;
-    margin: 0 0 20px;
+    margin: 16px 0 24px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
 .ct-genai-chapter3-page pre:not(.mermaid) code {
@@ -365,14 +371,28 @@ main.ct-genai-chapter3-page {
     padding: 0;
     font-size: 13.5px;
     line-height: 1.7;
-    color: #1c2536;
+    color: #e2e8f0;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .ct-genai-chapter3-page .code-line {
     white-space: pre;
     min-height: 1.5em;
+    color: #e2e8f0;
 }
+
+/* Syntax Highlighting Colors */
+.ct-genai-chapter3-page .code-comment { color: #8b949e !important; font-style: italic; }
+.ct-genai-chapter3-page .code-keyword { color: #ff7b72 !important; font-weight: 600; }
+.ct-genai-chapter3-page .code-string { color: #a5d6ff !important; }
+.ct-genai-chapter3-page .code-number { color: #79c0ff !important; }
+.ct-genai-chapter3-page .code-func { color: #d2a8ff !important; }
+.ct-genai-chapter3-page .code-type { color: #ffa657 !important; }
+.ct-genai-chapter3-page .code-cyan { color: #7ee787 !important; font-weight: 600; }
+.ct-genai-chapter3-page .code-green { color: #7ee787 !important; font-weight: 600; }
+.ct-genai-chapter3-page .code-amber { color: #d2a8ff !important; font-weight: 600; }
+.ct-genai-chapter3-page .code-variable { color: #e6edf3 !important; }
+.ct-genai-chapter3-page .code-op { color: #ff7b72 !important; }
 
 /* ---------- Tables ---------- */
 .ct-genai-chapter3-page .table-scroll {
@@ -677,30 +697,42 @@ main.ct-genai-chapter3-page {
     font-size: 14.5px;
 }
 
-/* ---------- Mermaid ---------- */
-.ct-genai-chapter3-page .mermaid-container {
-    width: 100%;
-    display: flex;
-    justify-content: safe center;
-    overflow-x: auto;
-    margin: 0 0 28px;
-    flex-shrink: 0;
-}
-
+/* ---------- Mermaid 修正スキル規約リセット (CRITICAL) ---------- */
 .ct-genai-chapter3-page .mermaid-wrapper {
+    /* width:max-content + min-width:100% で「図が狭い→中央寄せ・広い→スクロール領域いっぱい」を両立 */
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    overflow: visible !important;
+}
+
+.ct-genai-chapter3-page .mermaid-container,
+.ct-genai-chapter3-page .mermaid-wrap {
+    /* display:block で横スクロール担当（flex だと左端がクリップされる） */
+    display: block !important;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+    max-width: 100% !important;
     width: 100% !important;
-    max-width: none !important;
+    margin: 24px 0 28px;
+    padding: 16px 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 .ct-genai-chapter3-page .mermaid-wrapper svg {
+    display: block !important;
+    margin: 0 auto !important;
     max-width: none !important;
     height: auto !important;
+    flex-shrink: 0;
 }
 
 .ct-genai-chapter3-page .mermaid-wrapper foreignObject {
@@ -732,6 +764,33 @@ main.ct-genai-chapter3-page {
     font-weight: 700 !important;
 }
 
+/* フローチャートノード黒潰れ防止 (mermaid v11 / globals.css ダークテーマ干渉対策)
+   classDef で個別着色されたノード（highlight, proc, stage1-3, input 等）は除外する */
+.ct-genai-chapter3-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) rect,
+.ct-genai-chapter3-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) circle,
+.ct-genai-chapter3-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) ellipse,
+.ct-genai-chapter3-page .mermaid-wrapper .node:not([class*="highlight"]):not([class*="proc"]):not([class*="stage"]):not([class*="input"]) polygon {
+    fill: #eff6ff !important;
+    stroke: #93c5fd !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper .nodeLabel {
+    color: #0f172a !important;
+    fill: #0f172a !important;
+}
+
+/* サブグラフ（cluster）黒潰れ防止 */
+.ct-genai-chapter3-page .mermaid-wrapper .cluster rect {
+    fill: #f8fafc !important;
+    stroke: #e2e8f0 !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper .cluster .nodeLabel,
+.ct-genai-chapter3-page .mermaid-wrapper .cluster span {
+    color: #0f172a !important;
+    fill: #0f172a !important;
+}
+
 /* ---------- Page footer ---------- */
 .ct-genai-chapter3-page .page-footer {
     margin-top: 60px;
@@ -758,7 +817,7 @@ main.ct-genai-chapter3-page {
     }
 
     .ct-genai-chapter3-page .main {
-        margin-left: 0;
+        margin-left: 0 !important;
         padding: 76px 20px 60px;
     }
 
@@ -806,4 +865,28 @@ main.ct-genai-chapter3-page {
         padding-bottom: 0;
         margin-bottom: 0;
     }
+}
+
+/* スクロールバー globals 干渉リセット */
+.ct-genai-chapter3-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim) !important;
+}
+
+.ct-genai-chapter3-page .sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
 }

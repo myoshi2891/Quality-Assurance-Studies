@@ -796,5 +796,24 @@ describe('CT-GenAI Chapter 3 Page (Cat 7: 7. 参考URL & フッター)', () => {
             expect(actual.sample).toContain(expected.sample);
         });
     });
+
+    it('renders code blocks with syntax highlighting tokens', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const codeBlocks = container.querySelectorAll('pre.code-block');
+        expect(codeBlocks.length).toBeGreaterThanOrEqual(3);
+
+        const keywords = container.querySelectorAll('.code-keyword');
+        expect(keywords.length).toBeGreaterThanOrEqual(5);
+
+        const funcs = container.querySelectorAll('.code-func');
+        expect(funcs.length).toBeGreaterThanOrEqual(5);
+
+        const comments = container.querySelectorAll('.code-comment');
+        expect(comments.length).toBeGreaterThanOrEqual(5);
+
+        const strings = container.querySelectorAll('.code-string');
+        expect(strings.length).toBeGreaterThanOrEqual(5);
+    });
 });
+
 
