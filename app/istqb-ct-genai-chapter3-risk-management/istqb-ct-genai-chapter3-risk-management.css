@@ -1,0 +1,809 @@
+/**
+ * CT-GenAI 第3章：ソフトウェアテストにおける生成AIのリスク管理
+ * ページ固有スタイルシート
+ */
+
+.ct-genai-chapter3-page {
+    --bg: #f6f8fc;
+    --card: #ffffff;
+    --card2: #eef1f8;
+    --border: #dde3ee;
+    --text: #1c2536;
+    --text-dim: #64748b;
+    --accent: #3457d5;
+    --accent-dark: #263f9e;
+    --success: #15803d;
+    --success-bg: rgba(21, 128, 61, 0.07);
+    --warning: #b45309;
+    --warning-bg: rgba(217, 119, 6, 0.09);
+    --note-bg: rgba(52, 87, 213, 0.06);
+    --trace: #0e7490;
+    --trace-bg: rgba(14, 116, 144, 0.08);
+    --glossary: #475569;
+    --glossary-bg: rgba(71, 85, 105, 0.06);
+    --checkmark: #ffffff;
+    --sidebar-width: 300px;
+    --radius: 12px;
+
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 16px;
+    min-height: 100vh;
+    display: block;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.ct-genai-chapter3-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
+}
+
+.ct-genai-chapter3-page section {
+    padding-top: 0 !important;
+}
+
+.ct-genai-chapter3-page section + section {
+    border-top: none !important;
+}
+
+.ct-genai-chapter3-page main,
+main.ct-genai-chapter3-page {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ct-genai-chapter3-page table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.ct-genai-chapter3-page tbody td,
+.ct-genai-chapter3-page td {
+    color: var(--text) !important;
+    font-size: 14px !important;
+}
+
+.ct-genai-chapter3-page td strong {
+    color: #0f172a !important;
+}
+
+.ct-genai-chapter3-page thead th {
+    color: var(--accent) !important;
+    white-space: nowrap !important;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 3px;
+}
+
+.ct-genai-chapter3-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim) !important;
+}
+
+/* ---------- Sidebar ---------- */
+.ct-genai-chapter3-page .sidebar {
+    position: fixed;
+    top: 60px; /* Header の高さ */
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background: #ffffff;
+    border-right: 1px solid var(--border);
+    padding: 24px 0 40px;
+    z-index: 40;
+}
+
+.ct-genai-chapter3-page .sidebar-brand {
+    padding: 0 20px 16px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+}
+
+.ct-genai-chapter3-page .sidebar-brand small {
+    display: block;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.ct-genai-chapter3-page .nav-root,
+.ct-genai-chapter3-page .nav-h3-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ct-genai-chapter3-page .nav-h2 > a {
+    display: block;
+    padding: 9px 20px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.ct-genai-chapter3-page .nav-h3-list {
+    padding-left: 0;
+}
+
+.ct-genai-chapter3-page .nav-h3 > a {
+    display: block;
+    padding: 6px 20px 6px 34px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 12.5px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.ct-genai-chapter3-page .nav-h2 > a:hover,
+.ct-genai-chapter3-page .nav-h3 > a:hover {
+    background: rgba(52, 87, 213, 0.06);
+    color: var(--accent);
+}
+
+.ct-genai-chapter3-page .nav-h2 > a.active,
+.ct-genai-chapter3-page .nav-h3 > a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: rgba(52, 87, 213, 0.09);
+    font-weight: 700;
+}
+
+.ct-genai-chapter3-page .sidebar-toggle {
+    display: none;
+}
+
+/* ---------- Main content ---------- */
+.ct-genai-chapter3-page .main {
+    margin-left: var(--sidebar-width);
+    padding: 48px 56px 80px;
+}
+
+.ct-genai-chapter3-page .main p,
+.ct-genai-chapter3-page .main ul,
+.ct-genai-chapter3-page .main ol {
+    max-width: none;
+}
+
+.ct-genai-chapter3-page .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 44px 48px;
+    margin-bottom: 44px;
+}
+
+.ct-genai-chapter3-page .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -10%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(
+        circle,
+        rgba(52, 87, 213, 0.12) 0%,
+        rgba(52, 87, 213, 0) 70%
+    );
+    pointer-events: none;
+}
+
+.ct-genai-chapter3-page .hero-eyebrow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(52, 87, 213, 0.08);
+    border: 1px solid rgba(52, 87, 213, 0.3);
+    color: var(--accent);
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+}
+
+.ct-genai-chapter3-page .hero-title {
+    position: relative;
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 32px;
+    color: #0f172a;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+    max-width: 900px;
+}
+
+.ct-genai-chapter3-page .hero-meta-row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+}
+
+.ct-genai-chapter3-page .hero-meta-item {
+    flex: 1 1 220px;
+    padding-right: 28px;
+    margin-right: 28px;
+    border-right: 1px solid var(--border);
+}
+
+.ct-genai-chapter3-page .hero-meta-item:last-child {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.ct-genai-chapter3-page .hmi-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 7px;
+}
+
+.ct-genai-chapter3-page .hmi-value {
+    display: block;
+    font-size: 14.5px;
+    color: var(--text);
+    line-height: 1.65;
+}
+
+.ct-genai-chapter3-page h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 56px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    scroll-margin-top: 80px;
+}
+
+.ct-genai-chapter3-page h2:first-of-type {
+    margin-top: 0;
+}
+
+.ct-genai-chapter3-page h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 40px 0 16px;
+    scroll-margin-top: 80px;
+}
+
+.ct-genai-chapter3-page h4 {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 28px 0 12px;
+    scroll-margin-top: 80px;
+}
+
+.ct-genai-chapter3-page p {
+    margin: 0 0 16px;
+    color: var(--text);
+}
+
+.ct-genai-chapter3-page a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ct-genai-chapter3-page strong {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.ct-genai-chapter3-page hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+}
+
+.ct-genai-chapter3-page ul,
+.ct-genai-chapter3-page ol {
+    padding-left: 26px;
+    margin: 0 0 16px;
+}
+
+.ct-genai-chapter3-page li {
+    margin-bottom: 6px;
+}
+
+.ct-genai-chapter3-page code:not(pre code) {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+    color: #2a3652;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.ct-genai-chapter3-page pre:not(.mermaid) {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    overflow-x: auto;
+    margin: 0 0 20px;
+}
+
+.ct-genai-chapter3-page pre:not(.mermaid) code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #1c2536;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.ct-genai-chapter3-page .code-line {
+    white-space: pre;
+    min-height: 1.5em;
+}
+
+/* ---------- Tables ---------- */
+.ct-genai-chapter3-page .table-scroll {
+    overflow-x: auto;
+    margin: 0 0 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+}
+
+.ct-genai-chapter3-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    min-width: 480px;
+}
+
+.ct-genai-chapter3-page th,
+.ct-genai-chapter3-page td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.ct-genai-chapter3-page th {
+    background: var(--card2);
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.ct-genai-chapter3-page tr.row-odd {
+    background: var(--card);
+}
+
+.ct-genai-chapter3-page tr.row-even {
+    background: #f8faff;
+}
+
+.ct-genai-chapter3-page tr:last-child td {
+    border-bottom: none;
+}
+
+.ct-genai-chapter3-page td code {
+    white-space: normal;
+}
+
+/* ---------- Callouts ---------- */
+.ct-genai-chapter3-page .callout-note,
+.ct-genai-chapter3-page .callout-warning,
+.ct-genai-chapter3-page .callout-practice,
+.ct-genai-chapter3-page .callout-trace,
+.ct-genai-chapter3-page .callout-glossary {
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 0 0 20px;
+    border: 1px solid var(--border);
+}
+
+.ct-genai-chapter3-page .callout-note {
+    background: var(--note-bg);
+    border-color: rgba(52, 87, 213, 0.25);
+}
+
+.ct-genai-chapter3-page .callout-warning {
+    background: var(--warning-bg);
+    border-color: rgba(217, 119, 6, 0.3);
+}
+
+.ct-genai-chapter3-page .callout-practice {
+    background: var(--success-bg);
+    border-color: rgba(21, 128, 61, 0.25);
+}
+
+.ct-genai-chapter3-page .callout-trace {
+    background: var(--trace-bg);
+    border-color: rgba(14, 116, 144, 0.25);
+}
+
+.ct-genai-chapter3-page .callout-glossary {
+    background: var(--glossary-bg);
+    border-color: rgba(71, 85, 105, 0.2);
+}
+
+.ct-genai-chapter3-page .callout-block {
+    padding: 20px 24px 4px;
+}
+
+.ct-genai-chapter3-page .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.ct-genai-chapter3-page .callout-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.ct-genai-chapter3-page .callout-label {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: #0f172a;
+}
+
+.ct-genai-chapter3-page .callout-note .callout-label {
+    color: var(--accent);
+}
+
+.ct-genai-chapter3-page .callout-warning .callout-label {
+    color: var(--warning);
+}
+
+.ct-genai-chapter3-page .callout-practice .callout-label {
+    color: var(--success);
+}
+
+.ct-genai-chapter3-page .callout-trace .callout-label {
+    color: var(--trace);
+}
+
+.ct-genai-chapter3-page .callout-glossary .callout-label {
+    color: var(--glossary);
+}
+
+.ct-genai-chapter3-page .callout-body {
+    font-size: 14.5px;
+    color: var(--text);
+}
+
+.ct-genai-chapter3-page .callout-body > *:last-child {
+    margin-bottom: 0;
+}
+
+.ct-genai-chapter3-page .callout-body .table-scroll {
+    margin-bottom: 16px;
+}
+
+.ct-genai-chapter3-page .callout-body ul {
+    margin-bottom: 0;
+}
+
+.ct-genai-chapter3-page .callout-body li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.ct-genai-chapter3-page .callout-body li::marker {
+    color: var(--text-dim);
+}
+
+.ct-genai-chapter3-page blockquote.inline-note {
+    margin: 0 0 16px;
+    padding: 8px 16px;
+    border-left: 3px solid var(--border);
+    color: var(--text-dim);
+    font-size: 13.5px;
+}
+
+.ct-genai-chapter3-page blockquote.inline-note p {
+    margin: 0;
+    color: var(--text-dim);
+}
+
+.ct-genai-chapter3-page blockquote.inline-note strong {
+    color: var(--text-dim);
+}
+
+/* ---------- Checklist ---------- */
+.ct-genai-chapter3-page .checklist-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 22px 20px;
+    margin: 0 0 24px;
+}
+
+.ct-genai-chapter3-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.ct-genai-chapter3-page .cp-label {
+    font-weight: 700;
+    font-size: 14px;
+    color: #0f172a;
+    flex: 1 1 auto;
+}
+
+.ct-genai-chapter3-page .cp-bar {
+    flex: 1 1 160px;
+    max-width: 200px;
+    height: 8px;
+    background: var(--card2);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ct-genai-chapter3-page .cp-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.25s ease;
+}
+
+.ct-genai-chapter3-page .cp-count {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+
+.ct-genai-chapter3-page .checklist-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ct-genai-chapter3-page .checklist-card li {
+    margin-bottom: 10px;
+}
+
+.ct-genai-chapter3-page .checklist-card li label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14.5px;
+}
+
+.ct-genai-chapter3-page .checklist-card input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #c7d0e0;
+    border-radius: 5px;
+    background: var(--card2);
+    flex-shrink: 0;
+    margin-top: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.ct-genai-chapter3-page .checklist-card input[type='checkbox']:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.ct-genai-chapter3-page .checklist-card input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--checkmark);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ct-genai-chapter3-page .checklist-card li:has(input:checked) label,
+.ct-genai-chapter3-page .checklist-card li.checked label {
+    color: var(--text-dim);
+    text-decoration: line-through;
+}
+
+/* ---------- Details / practice question answers ---------- */
+.ct-genai-chapter3-page details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin: 10px 0 22px;
+}
+
+.ct-genai-chapter3-page details summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 14px;
+    list-style: none;
+}
+
+.ct-genai-chapter3-page details summary::-webkit-details-marker {
+    display: none;
+}
+
+.ct-genai-chapter3-page details summary::before {
+    content: '▶ ';
+    font-size: 11px;
+}
+
+.ct-genai-chapter3-page details[open] summary::before {
+    content: '▼ ';
+}
+
+.ct-genai-chapter3-page details p {
+    margin: 12px 0 0;
+    font-size: 14.5px;
+}
+
+/* ---------- Mermaid ---------- */
+.ct-genai-chapter3-page .mermaid-container {
+    width: 100%;
+    display: flex;
+    justify-content: safe center;
+    overflow-x: auto;
+    margin: 0 0 28px;
+    flex-shrink: 0;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper foreignObject p,
+.ct-genai-chapter3-page .mermaid-wrapper foreignObject span,
+.ct-genai-chapter3-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabels rect,
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabel,
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabel span,
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabel p,
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabel text,
+.ct-genai-chapter3-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    fill: #1e293b !important;
+    font-weight: 700 !important;
+}
+
+/* ---------- Page footer ---------- */
+.ct-genai-chapter3-page .page-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+    .ct-genai-chapter3-page .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        width: 82vw;
+        max-width: 320px;
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+
+    .ct-genai-chapter3-page .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .ct-genai-chapter3-page .main {
+        margin-left: 0;
+        padding: 76px 20px 60px;
+    }
+
+    .ct-genai-chapter3-page .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 74px; /* fixed header 60px 下 */
+        left: 14px;
+        width: 42px;
+        height: 42px;
+        background: var(--card2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        z-index: 100;
+        color: var(--text);
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+    }
+
+    .ct-genai-chapter3-page .hero {
+        padding: 28px 22px;
+    }
+
+    .ct-genai-chapter3-page .hero-title {
+        font-size: 22px;
+        margin-bottom: 24px;
+    }
+
+    .ct-genai-chapter3-page .hero-meta-row {
+        flex-direction: column;
+    }
+
+    .ct-genai-chapter3-page .hero-meta-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0 0 14px;
+        margin: 0 0 14px;
+    }
+
+    .ct-genai-chapter3-page .hero-meta-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
