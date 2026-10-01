@@ -652,7 +652,7 @@ export const EXPECTED_TABLE_SPECS_CAT5: TableSpec[] = [
         headers: ['問', '正解', '解説'],
         rows: 12,
         cols: 3,
-        sample: 'DはシャドーAIの3リスク',
+        sample: '1',
     },
     {
         heading: '16.1 出典の信頼度と、このガイドの検証状況（重要）',

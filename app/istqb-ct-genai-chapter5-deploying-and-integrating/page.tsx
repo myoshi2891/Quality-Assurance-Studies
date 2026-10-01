@@ -19,7 +19,102 @@ import {
     DIAGRAM_D15,
     DIAGRAM_D16,
 } from './diagrams';
+import ChecklistCard, { ChecklistGroup } from './ChecklistCard';
 import './istqb-ct-genai-chapter5-deploying-and-integrating.css';
+
+const CHECKLIST_GROUPS: ChecklistGroup[] = [
+    {
+        title: '5.1 ロードマップ',
+        items: [
+            {
+                id: 'c1',
+                text: 'シャドーAIの定義を、自分の言葉で説明できる',
+            },
+            {
+                id: 'c2',
+                text: 'シャドーAIの3つのリスク（セキュリティ・プライバシー／コンプライアンス／IP）を挙げられる',
+            },
+            {
+                id: 'c3',
+                text: '生成AI戦略の6つの観点（目標／モデル選定／データ品質／教育／指標／ガイドライン）を言える',
+            },
+            {
+                id: 'c4',
+                text: '「透明性」と「品質ゲート」の意味を説明できる',
+            },
+            {
+                id: 'c5',
+                text: 'モデル選定の4基準（性能／ファインチューニング可能性／継続的コスト／コミュニティとサポート）を言える',
+            },
+            {
+                id: 'c6',
+                text: 'テスト特化ベンチマークが少ないため、自組織で評価する必要があると説明できる',
+            },
+            {
+                id: 'c7',
+                text: '導入の3フェーズの名称・順序・目的を言える',
+            },
+            {
+                id: 'c8',
+                text: 'フェーズが「重なり合う」とはどういうことか、例を挙げられる',
+            },
+            {
+                id: 'c9',
+                text: '人的要因（雇用不安）を早期に扱う理由を説明できる',
+            },
+        ],
+    },
+    {
+        title: '5.2 変革管理',
+        items: [
+            {
+                id: 'c10',
+                text: '変革管理が必要な理由を説明できる',
+            },
+            {
+                id: 'c11',
+                text: '必要なスキル（プロンプト、コンテキストウィンドウ、評価、リスク認識、サニタイズ、右サイズ）を挙げられる',
+            },
+            {
+                id: 'c12',
+                text: 'データサニタイズの具体例を示せる',
+            },
+            {
+                id: 'c13',
+                text: 'プロンプトパターンの定義を言える',
+            },
+            {
+                id: 'c14',
+                text: 'コミュニティ・オブ・プラクティスの役割を説明できる',
+            },
+            {
+                id: 'c15',
+                text: 'テスターとテストマネージャーの役割の変化を、それぞれ説明できる',
+            },
+            {
+                id: 'c16',
+                text: '「人間の判断はより重要になる」の意味を説明できる',
+            },
+        ],
+    },
+    {
+        title: '全体',
+        items: [
+            {
+                id: 'c17',
+                text: '第2章（評価指標）、第3章（リスク）、第4章（インフラ）との関連を説明できる',
+            },
+            {
+                id: 'c18',
+                text: '確認問題12問に、根拠を添えて解答できた',
+            },
+            {
+                id: 'c19',
+                text: '公式シラバスv1.1の第5章を、原文で最終確認した',
+            },
+        ],
+    },
+];
 
 export default function CtGenAiChapter5Page() {
     return (
@@ -2798,8 +2893,881 @@ export default function CtGenAiChapter5Page() {
                             </table>
                         </div>
                     </section>
+
+                    <section className="doc-section" id="s14">
+                        <h1 className="doc-h1">14. 確認問題（オリジナル練習問題）</h1>
+                        <div className="callout note">
+                            <div className="callout-icon"><i className="ti ti-info-circle"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">補足</div>
+                                <p>
+                                    以下は本ガイド用に作成した<strong>オリジナル問題</strong>です。実際の試験問題や公式サンプル問題ではありません。公式サンプル問題は<a
+                                        href="https://istqb.org/certifications/gen-ai/"
+                                        target="_blank"
+                                        rel="noopener"
+                                    >ISTQB公式ページ</a>からダウンロードできます。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問1（5.1.1／K1）
+                                シャドーAIのリスクとして<strong>適切でないもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. 個人用AIツールにより、機密情報が漏れる可能性がある</li>
+                                <li>
+                                    B. 未承認ツールの利用により、規制・コンプライアンス上の問題が生じる可能性がある
+                                </li>
+                                <li>
+                                    C. ライセンスが不明確なツールにより、知的財産の紛争リスクが生じる可能性がある
+                                </li>
+                                <li>
+                                    D. 承認済みのLLMのコンテキストウィンドウが大きいため、処理時間が長くなる
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問2（5.1.1／K1）
+                                組織がシャドーAIのリスクを避けるうえで、シラバスが示す方向性に<strong>最も近いもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. すべての生成AIツールの利用を一律に禁止する</li>
+                                <li>
+                                    B. 明確な生成AI戦略、統制された導入ステップ、ガバナンス、承認済みツールを組み合わせる
+                                </li>
+                                <li>C. 各個人の判断に任せ、問題が起きたら対応する</li>
+                                <li>D. 最も高性能なモデルを全員に開放する</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問3（5.1.2／K2）
+                                生成AI戦略の「品質ゲート」の説明として<strong>最も適切なもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. モデルの学習データを一定の品質まで絞り込むこと</li>
+                                <li>
+                                    B. 生成されたテストウェアを、受け入れる前にレビューすることを求めるプロセス上の関門
+                                </li>
+                                <li>C. AIが自動的にテストケースの合否を判定する仕組み</li>
+                                <li>D. LLMへのアクセス回数を制限する仕組み</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問4（5.1.2／K2）
+                                生成AI戦略において、<strong>透明性</strong>を確保する施策として最も適切なものはどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. 生成AIの利用を社外に公表しない</li>
+                                <li>B. GenAIで作成した成果物であることを記録・明記する</li>
+                                <li>C. すべてのプロンプトを社外に公開する</li>
+                                <li>D. AI生成物のレビューを省略する</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問5（5.1.3／K2）
+                                あるチームは、自社独自のテストケース形式と専門用語に合わせて、テストケースを生成したい。モデル選定で<strong>特に重視すべき基準</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. ファインチューニングの可能性</li>
+                                <li>B. モデルを提供する企業の知名度</li>
+                                <li>C. モデルのパラメータ数の大きさだけ</li>
+                                <li>D. 一般的なNLPベンチマークの順位だけ</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問6（5.1.3／K2）
+                                ソフトウェアテスト向けのLLM/SLM選定について、<strong>正しい記述</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>
+                                    A. テスト特化のベンチマークは豊富にあるため、それだけで選定できる
+                                </li>
+                                <li>
+                                    B. テスト特化のベンチマークは少ないため、自組織のベンチマークと指標でテストタスクの性能を評価する
+                                </li>
+                                <li>C. 継続的コストは選定基準に含めない</li>
+                                <li>D. 商用モデルのみが選定対象である</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問7（5.1.4／K1）
+                                ある組織では、テストレポート分析はすでに日常業務に組み込まれ効果を測っているが、自動テスト生成はまだ試行段階である。この状況が示すこととして<strong>最も適切なもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. 導入フェーズは必ず順番どおりに全社で一斉に進む</li>
+                                <li>
+                                    B. 導入フェーズは重なり合い、ユースケースごとに成熟速度が異なる
+                                </li>
+                                <li>C. 導入に失敗している</li>
+                                <li>D. 自動テスト生成はフェーズ3を飛ばしてよい</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問8（5.1.4／K1）
+                                フェーズ1（Discovery：発見）の目的として<strong>最も適切なもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. 全テストの完全自動化を達成する</li>
+                                <li>
+                                    B. 簡単で低リスクなユースケースで試し、強みと限界を学び、不確実性を減らす
+                                </li>
+                                <li>C. 導入効果を全社に展開する</li>
+                                <li>D. AI関連の規制を作成する</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問9（5.2.1／K2）
+                                テスト成果物をLLMへ送る前に行う<strong>データサニタイズ</strong>として最も適切なものはどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. 個人情報や機密情報を、マスキングまたは除去する</li>
+                                <li>B. LLMの温度パラメータを下げる</li>
+                                <li>C. 出力を別のLLMで比較する</li>
+                                <li>D. 入力を長くして情報を増やす</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問10（5.2.2／K1）
+                                「プロンプトパターン」の説明として<strong>最も適切なもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. モデルの内部構造を表す設計図</li>
+                                <li>
+                                    B. 一貫した信頼できる結果を得るために設計された、再利用可能なプロンプトのテンプレート
+                                </li>
+                                <li>C. AIが生成するテストデータの形式</li>
+                                <li>D. プロンプトに含めてはならない禁止語のリスト</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問11（5.2.3／K1）
+                                AI対応のテスト組織で、<strong>テストマネージャー</strong>の責任として<strong>最も適切なもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. AI生成のテストケースを一切レビューせずに承認する</li>
+                                <li>
+                                    B. AIベースのテスト戦略、AIを意識したリスク管理、AI支援テストプロセスの監視・統制、ガバナンスの枠組みの定義を担う
+                                </li>
+                                <li>C. 人間のテスターをすべてAIに置き換える</li>
+                                <li>D. プロンプトの作成だけを行う</li>
+                            </ul>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                問12（5.2／K2）
+                                生成AI導入に<strong>構造化された変革管理</strong>が必要な理由として<strong>最も適切なもの</strong>はどれか。
+                            </div>
+                            <ul className="quiz-opts">
+                                <li>A. 変革管理があれば、モデルの精度が自動的に上がるため</li>
+                                <li>
+                                    B. 変革管理がないと、優れたAIツールでも、使われない・誤用される・抵抗される恐れがあるため
+                                </li>
+                                <li>C. 変革管理は、規制上の必須要件であるため</li>
+                                <li>D. 変革管理は、ツールの購入費用を減らすため</li>
+                            </ul>
+                        </div>
+
+                        <h2 className="doc-h2">解答と解説</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>問</th>
+                                        <th>正解</th>
+                                        <th>解説</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><strong>D</strong></td>
+                                        <td>
+                                            DはシャドーAIの3リスク（セキュリティ・プライバシー／コンプライアンス／IP）に含まれない。A・B・Cが3リスクに対応。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            教材では、明確な戦略・統制された導入ステップ・ガバナンス・承認済みツールの組み合わせがシャドーAI回避に有効とされる。一律禁止は挙げられていない。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            品質ゲート＝生成テストウェアを受け入れる前にレビューを必須にするプロセスガイドライン。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            透明性の例として「どの成果物がGenAI由来かを明記する」が挙げられている。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td><strong>A</strong></td>
+                                        <td>
+                                            組織固有の形式・用語に合わせるには、ファインチューニングの可能性が重要（第4章4.2.1の例と整合）。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            テスト特化のベンチマークは少ない。だから自組織のベンチマークと（2.3.1のような）指標で評価する。継続的コストも基準に含まれる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            フェーズは重なり合い、ユースケースごとに成熟速度が違う（教材の例そのもの）。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            フェーズ1の目的は、完全自動化ではなく、学習と不確実性の低減。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td><strong>A</strong></td>
+                                        <td>
+                                            データサニタイズ＝機微・個人・機密情報のマスキングまたは除去。Bは非決定性の軽減（第3章）、Cは別LLMによる評価（第3章）。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            プロンプトパターン＝再利用可能なプロンプトのテンプレート。組織の知識が詰まる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            マネージャーは、AI戦略・AIリスク管理・監視統制・ガバナンスを担い、人の説明責任のもとで品質を守る。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td><strong>B</strong></td>
+                                        <td>
+                                            教材は、変革管理がなければAIツールが使われない・誤用される・積極的に抵抗されるリスクがあると述べている。
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section className="doc-section" id="s15">
+                        <h1 className="doc-h1">15. 学習チェックリスト</h1>
+                        <ChecklistCard groups={CHECKLIST_GROUPS} />
+                    </section>
+
+                    <section className="doc-section" id="s16">
+                        <h1 className="doc-h1">16. 参考文献・出典URL</h1>
+
+                        <h2 className="doc-h2">16.1 出典の信頼度と、このガイドの検証状況（重要）</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>区分</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>A（一次情報）</strong></td>
+                                        <td>ISTQB公式ページ、公式シラバス、公式サンプル試験</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>B（準一次情報）</strong></td>
+                                        <td>
+                                            ISTQBのシラバスに準拠して作られた、トレーニング提供会社の教材
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>C（外部標準・ガイドライン）</strong></td>
+                                        <td>
+                                            NIST、ISO、OWASP、EU法令など（実務ベストプラクティスの根拠）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>D（第三者の解説）</strong></td>
+                                        <td>
+                                            個人・企業のブログ、学習サイトなど（補足のみ。公式ではない）
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout note">
+                            <div className="callout-icon"><i className="ti ti-info-circle"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">検証状況の正直な報告</div>
+                                <ul className="doc-list" style={{ marginBottom: 0 }}>
+                                    <li>
+                                        公式ページは直接確認できました（試験構成、章立て、前提条件、ダウンロード資料の一覧）。
+                                    </li>
+                                    <li>
+                                        <strong>シラバスv1.1のPDF</strong>は、テキスト抽出できない場合があります。
+                                    </li>
+                                    <li>
+                                        そのため、5.1〜5.2の各項目の詳細は、<strong>シラバスv1.1に準拠したExactproの第5章教材（B）</strong>（学習目標のKレベル、各項の本文を確認）と、<strong>シラバスv1.0の目次・第1〜4章本文（A）</strong>を突き合わせて作成しました。
+                                    </li>
+                                    <li>
+                                        章の想定配点（7問／K1が4問・K2が3問）は<strong>第三者の学習サイト（D）</strong>の情報です。
+                                    </li>
+                                    <li>
+                                        <strong>試験前には、公式シラバスv1.1の第5章を必ず原文で確認</strong>してください。
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">16.2 A：公式（ISTQB）</h2>
+                        <div className="ref-list">
+                            <div className="ref-item">
+                                <div className="ref-num">1</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">CT-GenAI 認定ページ（出発点）</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://istqb.org/certifications/gen-ai/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://istqb.org/certifications/gen-ai/</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        試験構成（40問／46点／65%／60分）、章立て、前提条件（CTFL）、資料一覧
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">2</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        CT-GenAI シラバス v1.1（公式ダウンロード）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&download_id=6295"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://istqb.org/?sdm_process_download=1&download_id=6295</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        第5章の学習目標・本文（原文で最終確認）
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">3</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">CT-GenAI サンプル試験A 問題 v1.1</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&download_id=6309"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://istqb.org/?sdm_process_download=1&download_id=6309</a>
+                                    </div>
+                                    <div className="ref-use">出題形式の確認</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">4</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">CT-GenAI サンプル試験A 解答 v1.1</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&download_id=6301"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://istqb.org/?sdm_process_download=1&download_id=6301</a>
+                                    </div>
+                                    <div className="ref-use">解答と解説の確認</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">5</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">CT-GenAI リリースノート v1.1</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&download_id=9550"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://istqb.org/?sdm_process_download=1&download_id=9550</a>
+                                    </div>
+                                    <div className="ref-use">v1.0からの変更点の確認</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">6</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">ISTQB 試験構成とルール v1.2</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://istqb.org/?sdm_process_download=1&download_id=3829"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://istqb.org/?sdm_process_download=1&download_id=3829</a>
+                                    </div>
+                                    <div className="ref-use">試験のルール</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">7</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">ISTQB 用語集</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://glossary.istqb.org/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://glossary.istqb.org/</a>
+                                    </div>
+                                    <div className="ref-use">用語の確認</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">8</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        CT-GenAI シラバス v1.0（ASTQBミラー）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        第1〜4章の本文、第3章3.4.1の規制一覧、第5章の目次・学習目標構成
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">9</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        CT-GenAI シラバス v1.0（ISQI ミラー）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf</a>
+                                    </div>
+                                    <div className="ref-use">第5章の目次（5.1.1〜5.2.3）の確認</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">16.3 B：シラバス準拠の解説教材</h2>
+                        <div className="ref-list">
+                            <div className="ref-item">
+                                <div className="ref-num">10</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Exactpro「Chapter 5 – Deploying and Integrating Generative AI in Test Organisations（v1.1）Reading Materials」
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://speakerdeck.com/exactpro/chapter-5-deploying-and-integrating-generative-ai-in-test-organisations-istqbr-ct-genai-v1-dot-1-reading-materials"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://speakerdeck.com/exactpro/chapter-5-deploying-and-integrating-generative-ai-in-test-organisations-istqbr-ct-genai-v1-dot-1-reading-materials</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        <strong>5.1〜5.2の各項の詳細</strong>（3つのリスク、戦略の観点、4つの選定基準、3フェーズ、スキル、プロンプトパターン、役割の進化）、各項のKレベル
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">11</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">同 PDF</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://files.speakerdeck.com/presentations/5c4e688bcd4a452193aecb648a10b6dd/Reading_ISTQB_CT-GenAI_Chapter_5.pdf"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://files.speakerdeck.com/presentations/5c4e688bcd4a452193aecb648a10b6dd/Reading_ISTQB_CT-GenAI_Chapter_5.pdf</a>
+                                    </div>
+                                    <div className="ref-use">同上（PDF版）</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">12</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Exactpro「Chapter 5 …（v1.1）Slides」
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://speakerdeck.com/exactpro/chapter-5-deploying-and-integrating-generative-ai-in-test-organisations-istqbr-ct-genai-v1-dot-1-slides"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://speakerdeck.com/exactpro/chapter-5-deploying-and-integrating-generative-ai-in-test-organisations-istqbr-ct-genai-v1-dot-1-slides</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        3フェーズの補足（例：ロードマップのマイルストーン、フィードバック）
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">
+                            16.4 C：外部の標準・フレームワーク・ガイドライン（実務ベストプラクティスの根拠）
+                        </h2>
+                        <div className="ref-list">
+                            <div className="ref-item">
+                                <div className="ref-num">13</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        NIST AI Risk Management Framework（AI RMF）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://www.nist.gov/itl/ai-risk-management-framework"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://www.nist.gov/itl/ai-risk-management-framework</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        Govern／Map／Measure／Manage の4機能。戦略・ガバナンスの整理
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">14</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">NIST AI 600-1 生成AIプロファイル</div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf</a>（DOI:
+                                        <a
+                                            href="https://doi.org/10.6028/NIST.AI.600-1"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >10.6028/NIST.AI.600-1</a>）
+                                    </div>
+                                    <div className="ref-use">
+                                        生成AI固有のリスク（データプライバシー、情報セキュリティ等）と推奨アクション
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">15</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        OWASP Top 10 for LLM Applications 2025
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        LLM01（プロンプトインジェクション）、LLM02（機微情報の漏えい）など
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">16</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        OWASP LLM02:2025 機微情報の漏えい（ページ）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://genai.owasp.org/llmrisk/llm02-insecure-output-handling/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://genai.owasp.org/llmrisk/llm02-insecure-output-handling/</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        機微情報の漏えいリスクと対策（URLのスラッグは旧称ですが、表示内容はLLM02:2025）
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">17</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        ISO/IEC 42001:2023（AIマネジメントシステム）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://www.iso.org/standard/42001"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://www.iso.org/standard/42001</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        AIマネジメントシステムの位置づけ（有償規格。概要ページ）
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">18</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        EU AI Act（Regulation (EU) 2024/1689）公式条文
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://eur-lex.europa.eu/eli/reg/2024/1689/oj</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        第4条（AIリテラシー）等。<strong>最新の改正状況は公式で確認</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">19</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Digital Omnibus on AI（Regulation (EU) 2026/1744）公式条文
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://eur-lex.europa.eu/eli/reg/2026/1744/oj</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        第4条（AIリテラシー）の改正（2026年7月27日施行）
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">20</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        AWS Prescriptive Guidance「Agentic AI security」（OWASPとの対応）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-security/owasp-top-ten.md"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-security/owasp-top-ten.md</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        「プロンプトをコード成果物として扱う」等の実務指針への入口
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">21</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        TestEval：テストケース生成向けLLMのベンチマーク（arXiv:2406.04531）
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://arxiv.org/abs/2406.04531"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://arxiv.org/abs/2406.04531</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        「テスト特化ベンチマークは少ない」という点の背景（Exactpro教材の参考文献より）
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">16.5 D：第三者の解説（補足。公式ではない）</h2>
+                        <div className="ref-list">
+                            <div className="ref-item">
+                                <div className="ref-num">22</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Mock Exam Network「CT-GenAI v1.1 学習ガイド」
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://mockexamnetwork.com/guides/how-to-pass-istqb-ct-genai/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://mockexamnetwork.com/guides/how-to-pass-istqb-ct-genai/</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        第5章の想定配点（7問／K1:4・K2:3）、LO番号とKレベルの対応（<strong>公式数値ではない</strong>）
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">23</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Elevate Consult「What is shadow AI: risks and governance」
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://elevateconsult.com/insights/what-is-shadow-ai-risks-and-governance/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://elevateconsult.com/insights/what-is-shadow-ai-risks-and-governance/</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        シャドーAIの具体例（機密文書の貼り付け、未承認の文字起こし等）と、「禁止だけでは解決しにくい」という指摘
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">24</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Adaptive Security「Shadow AI Risks」
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://www.adaptivesecurity.com/blog/shadow-ai-risks-2026"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://www.adaptivesecurity.com/blog/shadow-ai-risks-2026</a>
+                                    </div>
+                                    <div className="ref-use">シャドーAIの事例・リスクの整理</div>
+                                </div>
+                            </div>
+                            <div className="ref-item">
+                                <div className="ref-num">25</div>
+                                <div className="ref-body">
+                                    <div className="ref-title">
+                                        Gradually「AI Literacy under Article 4 of the EU AI Act」
+                                    </div>
+                                    <div className="ref-url">
+                                        <a
+                                            href="https://www.gradually.ai/en/ai-literacy-eu-ai-act/"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >https://www.gradually.ai/en/ai-literacy-eu-ai-act/</a>
+                                    </div>
+                                    <div className="ref-use">
+                                        第4条の改正に関する解説（<strong>公式条文での確認が必要</strong>）
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">16.6 このガイドの各節と出典の対応</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>節</th>
+                                        <th>主な出典</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1（全体像・LO）</td>
+                                        <td>16.2 公式ページ、16.3 Exactpro教材、16.2 v1.0の目次</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2（ロードマップ概要）</td>
+                                        <td>16.3 Exactpro教材（5.1の導入部）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3（5.1.1 シャドーAI）</td>
+                                        <td>
+                                            16.3 Exactpro教材、16.2 v1.0第3章3.2.3、16.4 NIST／OWASP、16.5 補足
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4（5.1.2 戦略の観点）</td>
+                                        <td>16.3 Exactpro教材、16.2 v1.0第2章2.3.1（指標）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5（5.1.3 モデル選定）</td>
+                                        <td>
+                                            16.3 Exactpro教材、16.4 TestEval、16.2 v1.0第1章・第3章・第4章
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6（5.1.4 フェーズ）</td>
+                                        <td>16.3 Exactpro教材</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7〜10（5.2 変革管理）</td>
+                                        <td>16.3 Exactpro教材、16.2 v1.0第2章2.3.2・第3章</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11（導入形態別）</td>
+                                        <td>
+                                            16.2 v1.0第1章1.2.2・第3章3.2.3・第4章、16.4（実務）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>12（規制・標準）</td>
+                                        <td>16.2 v1.0第3章3.4.1、16.4 NIST／ISO／EU</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14（確認問題）</td>
+                                        <td>本ガイド独自（オリジナル）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
+                <footer className="footer">
+                    本ガイドはISTQB® CT-GenAIシラバスv1.1に準拠した学習補助教材であり、公式教材ではありません。試験直前には必ず<a
+                        href="https://istqb.org/certifications/gen-ai/"
+                        target="_blank"
+                        rel="noopener"
+                    >ISTQB公式ページ</a>および公式シラバス原文で最終確認してください。最終更新：2026-09-24
+                </footer>
             </main>
         </div>
     );
 }
+
