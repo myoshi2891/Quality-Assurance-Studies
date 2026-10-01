@@ -2754,6 +2754,426 @@ export default function CtGenAiChapter3Page() {
                         </div>
                     </div>
                     <hr />
+
+                    <h2 id="5-34-ai規制標準ベストプラクティスフレームワーク">
+                        5. 3.4 AI規制・標準・ベストプラクティスフレームワーク
+                    </h2>
+                    <p>
+                        💡 この章では、3.1〜3.3 のリスクに対処するときに<strong>拠りどころになる4つのルールブック</strong>（標準2つ、規制1つ、フレームワーク1つ）を説明します。K1（思い出せる）レベルなので、<strong>名称・種類・ひとことの内容</strong>を正確に覚えることが目標です。
+                    </p>
+                    <h3 id="50-なぜこの節が必要なのか">5.0 なぜこの節が必要なのか</h3>
+                    <p>
+                        📌 <strong>シラバス記載</strong>：GenAI はテストを変革しますが、推論エラー、データプライバシー、脆弱性、環境影響といった<strong>重大なリスク</strong>も伴います。これらに対処するには、<strong>AI に関する一般的な規制・標準・ベストプラクティスフレームワーク</strong>を考慮する必要があります。
+                    </p>
+                    <h3 id="51-genai-341--k14つの例">5.1 【GenAI-3.4.1 / K1】4つの例</h3>
+                    <h4 id="3種類のルールの違い">3種類のルールの違い</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>種類</th>
+                                    <th>意味</th>
+                                    <th>守らないと</th>
+                                    <th>例え話</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td><strong>規制</strong>（Regulation）</td>
+                                    <td><strong>法律</strong>としての決まり</td>
+                                    <td>罰則や法的責任が生じうる</td>
+                                    <td>交通法規</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td><strong>標準</strong>（Standard）</td>
+                                    <td>国際規格。組織が<strong>満たす要件</strong>や進め方を定める</td>
+                                    <td>認証や取引で不利になりうる</td>
+                                    <td>品質管理の国際規格（ISO 認証）</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td><strong>フレームワーク</strong>（Framework）</td>
+                                    <td>推奨される<strong>指針・進め方の枠組み</strong></td>
+                                    <td>直接の罰則は無いが、ベストプラクティスから外れる</td>
+                                    <td>業界のガイドブック</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="シラバスの4つの例">シラバスの4つの例</h4>
+                    <p>📌 <strong>シラバス記載</strong>（表の意味を日本語にしています）</p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>名称</th>
+                                    <th>種類</th>
+                                    <th>概要</th>
+                                    <th>テストでの適用</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>
+                                        <strong>ISO/IEC 42001:2023</strong> Information technology – Artificial intelligence – Management system
+                                    </td>
+                                    <td><strong>標準</strong></td>
+                                    <td>
+                                        組織内で<strong>AI システムを管理するための要件</strong>を定める
+                                    </td>
+                                    <td>
+                                        テストでの GenAI 利用が、<strong>推奨される実践に沿う</strong>ようにし、<strong>一貫性と信頼性</strong>を高める
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>
+                                        <strong>ISO/IEC 23053:2022</strong> Framework for Artificial Intelligence (AI) Systems Using Machine Learning
+                                    </td>
+                                    <td><strong>標準</strong></td>
+                                    <td>
+                                        <strong>AI のライフサイクル（開発から運用まで）の各プロセス</strong>の枠組みを示し、<strong>安全性と透明性</strong>を重視する
+                                    </td>
+                                    <td>
+                                        GenAI をテストに使うときの<strong>データ品質・透明性・安全性</strong>の枠組みになる
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td><strong>EU AI Act</strong>（欧州の AI 規則）</td>
+                                    <td><strong>規制</strong></td>
+                                    <td>
+                                        AI のリスクに対処する<strong>法的枠組み</strong>。用途を<strong>リスクレベル別に分類</strong>する
+                                    </td>
+                                    <td>
+                                        テストで使う GenAI に対しても、<strong>透明性・説明責任・バイアス緩和</strong>への準拠が求められる
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>
+                                        <strong>NIST AI Risk Management Framework</strong>（米国、AI RMF 1.0）
+                                    </td>
+                                    <td><strong>フレームワーク</strong></td>
+                                    <td>
+                                        AI のリスクを管理するための指針。<strong>公平性・透明性・セキュリティ</strong>を重視する
+                                    </td>
+                                    <td>
+                                        GenAI の<strong>公平性を支え</strong>、<strong>偏ったテスト結果を防ぐ</strong>ためのリスクを軽減する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>試験での覚え方（3種類 × 4件）</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>種類</th>
+                                    <th>名称</th>
+                                    <th>覚えるキーワード</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>標準</td>
+                                    <td>ISO/IEC 42001</td>
+                                    <td><strong>管理システム</strong>（組織で AI を管理）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>標準</td>
+                                    <td>ISO/IEC 23053</td>
+                                    <td>
+                                        <strong>ML を使う AI システムの枠組み</strong>（ライフサイクル、安全性・透明性）
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>規制</td>
+                                    <td>EU AI Act</td>
+                                    <td><strong>リスクレベル別の分類</strong>（法律）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>フレームワーク</td>
+                                    <td>NIST AI RMF</td>
+                                    <td><strong>公平性・透明性・セキュリティ</strong>（米国の指針）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="callout-note">
+                        <div className="callout-header">
+                            <span className="callout-icon">📌</span>
+                            <span className="callout-label">シラバスの補足</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>ひっかけに注意</strong>：「EU AI Act は標準である」「NIST AI RMF は規制である」といった<strong>種類の取り違え</strong>が誤りの選択肢になりやすい部分です。<strong>規制はEU AI Act 1つだけ</strong>と覚えましょう。
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 id="リスクと4つのルールブックの対応図">リスクと4つのルールブックの対応図</h4>
+                    <p>
+                        この図は、第3章の3つのリスクと、4つのルールブックが<strong>どの領域を支えるか</strong>を表しています。左から右へ読み進めてください。
+                    </p>
+                    <div className="mermaid-container" data-diagram-id="mermaid-diagram-9">
+                        <Mermaid chart={DIAGRAM_REGULATIONS_MAP} />
+                    </div>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>「3.1／3.2／3.3」：第3章の3つのリスク領域。</li>
+                        <li>
+                            4つのルールブック：<strong>シラバスが述べる「テストでの適用」</strong>に沿って、関係の深いリスクと結びつけた図です。
+                        </li>
+                        <li>
+                            「ISO IEC 42001」が3つのリスクすべてに結びつくのは、これが<strong>組織の AI 管理全体</strong>を扱う標準だからです。
+                        </li>
+                    </ul>
+                    <div className="callout-note">
+                        <div className="callout-header">
+                            <span className="callout-icon">📌</span>
+                            <span className="callout-label">シラバスの補足</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                この対応は、シラバスの「テストでの適用」欄をもとにした<strong>学習のための整理</strong>です。シラバスが各ルールブックとリスクの1対1の対応を定めているわけではありません。
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 id="変化に追いつくこと">変化に追いつくこと</h4>
+                    <p>
+                        📌 <strong>シラバス記載</strong>：AI 技術と規制の状況は<strong>変わり続けるため</strong>、テスト組織は、<strong>規制・標準・国内法・ベストプラクティスフレームワーク</strong>の<strong>最新の動向を把握し続ける</strong>ことが必須です。
+                    </p>
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">
+                                補足：2026年9月時点の EU AI Act の動き（試験範囲外）
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                EU AI Act の適用時期は、2026年に変更がありました。以下は検索で確認できた情報です（<strong>今後さらに変わる可能性があります</strong>。最新は公式情報を確認してください）。
+                            </p>
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>項目</th>
+                                            <th>内容</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td>Digital Omnibus on AI</td>
+                                            <td>
+                                                <strong>Regulation (EU) 2026/1744</strong>。2026/07/24 に EU 官報で公表され、<strong>2026/07/27 に施行</strong>
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>高リスク AI（Annex III の独立したシステム）の適用</td>
+                                            <td>
+                                                当初の 2026/08/02 から<strong>2027/12/02</strong> へ延期
+                                            </td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>製品に組み込まれる高リスク AI（Annex I）</td>
+                                            <td><strong>2028/08/02</strong> へ延期</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>Article 50 の透明性義務</td>
+                                            <td>
+                                                <strong>2026/08/02</strong> から適用（AI と対話していることの開示、AI 生成コンテンツの表示など）。既存システムの電子透かしについては 2026/12/02 まで猶予
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <blockquote className="inline-note">
+                                <p>
+                                    <strong>注意</strong>：EU AI Act がテスト作業での GenAI 利用にどの程度関係するかは、<strong>用途・立場（提供者か利用者か）・対象システム</strong>によって異なります。<strong>自社への適用の判断は、法務担当や専門家に確認</strong>してください（本文書は法的助言ではありません）。シラバスの試験では、<strong>「EU AI Act は AI をリスクレベル別に分類する規制である」</strong>ことを思い出せれば十分です。
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">
+                                補足：あわせて知っておくと役立つ関連文書（試験範囲外）
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>文書</th>
+                                            <th>概要</th>
+                                            <th>使いどころ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td>
+                                                <strong>NIST AI 600-1</strong>（生成AIプロファイル）
+                                            </td>
+                                            <td>NIST AI RMF を生成AIに合わせて具体化した文書</td>
+                                            <td>生成AI固有のリスクを整理するとき</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>
+                                                <strong>OWASP Top 10 for LLM Applications 2025</strong>
+                                            </td>
+                                            <td>LLM を使うアプリの主なセキュリティリスク10種</td>
+                                            <td>3.2 節の攻撃ベクトルを実務で点検するとき</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>
+                                                <strong>AI事業者ガイドライン（第1.1版、2025/03/28）</strong>（総務省・経済産業省）
+                                            </td>
+                                            <td>
+                                                日本の AI の開発・提供・利用に関する指針。AI ガバナンスの基本の考え方を示す
+                                            </td>
+                                            <td>
+                                                日本の組織で、社内ルールを作るとき（<strong>最新版の有無を公式ページで確認</strong>）
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>GDPR（Regulation (EU) 2016/679）</strong></td>
+                                            <td>EU の個人データ保護規則。3.2 節で触れられている</td>
+                                            <td>EU 居住者のデータを扱う場合</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">
+                                補足：サービス・機能別ベストプラクティス
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>使っているもの</th>
+                                            <th>押さえたいルールブック</th>
+                                            <th>ベストプラクティス</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td><strong>組織としての GenAI 導入全体</strong></td>
+                                            <td>ISO/IEC 42001</td>
+                                            <td>
+                                                AI 利用の<strong>方針・責任者・手順・記録</strong>を組織として定める（管理システムの発想）
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>テスト用データの品質と透明性</strong></td>
+                                            <td>ISO/IEC 23053</td>
+                                            <td>
+                                                <strong>どのデータで、どのモデルを、どう使ったか</strong>を記録し、説明できる状態にする
+                                            </td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td><strong>EU 市場に関わる利用</strong></td>
+                                            <td>EU AI Act</td>
+                                            <td>
+                                                自社の用途が<strong>どのリスク分類に当たるか</strong>を<strong>法務と確認</strong>する。透明性の要件を確認する
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>公平性・リスク管理の運用</strong></td>
+                                            <td>NIST AI RMF</td>
+                                            <td>
+                                                テスト結果の<strong>偏りの確認</strong>を、リスク管理のプロセスに組み込む
+                                            </td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td><strong>全体</strong></td>
+                                            <td>すべて</td>
+                                            <td>
+                                                <strong>最新動向を定期的に確認</strong>する担当者・頻度を決める
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 id="34-節の試験ポイントまとめ">3.4 節の試験ポイントまとめ</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>観点</th>
+                                    <th>覚えること</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>4つの例（K1）</td>
+                                    <td>
+                                        ISO/IEC 42001（標準・管理システム）／ISO/IEC 23053（標準・ML の枠組み）／EU AI Act（規制・リスク分類）／NIST AI RMF（フレームワーク・米国）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>前提</td>
+                                    <td>
+                                        規制や標準は変わり続けるため、<strong>最新を把握し続ける</strong>
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>出題形式（K1）</td>
+                                    <td>
+                                        名称と種類、および「どんな内容か」の<strong>組み合わせ</strong>を選ぶ形式が想定される
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="callout-glossary">
+                        <div className="callout-header">
+                            <span className="callout-icon">📖</span>
+                            <span className="callout-label">このセクションで登場した用語</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    <strong>規制</strong>：法律としての決まり。守らないと罰則や責任が生じうる
+                                </li>
+                                <li>
+                                    <strong>標準</strong>：国際機関などが定める規格。組織が満たす要件や進め方を示す
+                                </li>
+                                <li><strong>フレームワーク</strong>：推奨される指針や進め方の枠組み</li>
+                                <li>
+                                    <strong>ISO / IEC</strong>：国際標準化機構 / 国際電気標準会議。国際規格を作る組織
+                                </li>
+                                <li>
+                                    <strong>管理システム</strong>：方針・目標・手順・責任を定めて組織的に運用する仕組み
+                                </li>
+                                <li>
+                                    <strong>EU AI Act</strong>：欧州連合の AI に関する法律。リスクの大きさに応じて義務を変える
+                                </li>
+                                <li><strong>NIST</strong>：米国国立標準技術研究所</li>
+                                <li>
+                                    <strong>透明性</strong>：AI がどう動き、どのデータを使い、どんな結果を出したかを説明できること
+                                </li>
+                                <li>
+                                    <strong>説明責任</strong>：AI の利用の結果について、責任を持って説明できること
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
                 </main>
             </div>
         </div>
