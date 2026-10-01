@@ -283,3 +283,66 @@ describe('CT-GenAI Chapter 4 Page - Category 4 (Finetuning & LLMOps)', () => {
         expect(critique).not.toBeNull();
     });
 });
+
+describe('CT-GenAI Chapter 4 Page - Category 5 (Comparison, Glossary, Objectives)', () => {
+    it('renders Section 7: 手法の使い分け with Mermaid d10 and comparison table', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s7 = container.querySelector('#s7');
+        expect(s7).not.toBeNull();
+        expect(s7?.querySelector('h2')?.textContent).toContain('手法の使い分け');
+
+        const h3List = Array.from(s7?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3List).toContain('7.1 判断フロー');
+        expect(h3List).toContain('7.2 比較表');
+
+        // Mermaid d10
+        const diagramCard = s7?.querySelector('.diagram-card');
+        expect(diagramCard).not.toBeNull();
+        expect(diagramCard?.textContent).toContain('図10：手法選択の判断フロー');
+
+        // 比較テーブル
+        const table = s7?.querySelector('table');
+        expect(table).not.toBeNull();
+        const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+        expect(headers).toEqual(['手法', '変えるもの', '得意なこと', '主なコスト', '主なリスク']);
+        const rows = s7?.querySelectorAll('tbody tr');
+        expect(rows?.length).toBe(5);
+    });
+
+    it('renders Section 8: 用語集 with 16 glossary items', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s8 = container.querySelector('#s8');
+        expect(s8).not.toBeNull();
+        expect(s8?.querySelector('h2')?.textContent).toContain('第4章　用語集（キーワード）');
+
+        const items = s8?.querySelectorAll('.gloss-item');
+        expect(items?.length).toBe(16);
+
+        const terms = Array.from(s8?.querySelectorAll('.gloss-term') || []).map((t) => t.textContent?.trim());
+        expect(terms).toContain('テストインフラ（test infrastructure）');
+        expect(terms).toContain('RAG（Retrieval-Augmented Generation）');
+        expect(terms).toContain('LLM搭載エージェント（LLM-powered agent）');
+        expect(terms).toContain('ファインチューニング');
+        expect(terms).toContain('LLMOps');
+    });
+
+    it('renders Section 9: 学習目標とハンズオン目標の対応表 with syllabus mapping table', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s9 = container.querySelector('#s9');
+        expect(s9).not.toBeNull();
+        expect(s9?.querySelector('h2')?.textContent).toContain('学習目標とハンズオン目標の対応表');
+
+        const table = s9?.querySelector('table');
+        expect(table).not.toBeNull();
+        const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+        expect(headers).toEqual(['ID', 'レベル', '内容', '本ガイドの節']);
+
+        const rows = s9?.querySelectorAll('tbody tr');
+        expect(rows?.length).toBe(8);
+
+        const ids = Array.from(s9?.querySelectorAll('tbody tr td:first-child') || []).map((td) => td.textContent?.trim());
+        expect(ids).toContain('GenAI-4.1.1');
+        expect(ids).toContain('HO-4.1.2');
+        expect(ids).toContain('GenAI-4.2.2');
+    });
+});
