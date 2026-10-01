@@ -242,6 +242,45 @@ export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT3,
+    {
+        heading: 'シラバスが述べているポイント',
+        headers: ['#', 'ポイント', '内容'],
+        rows: 6,
+        cols: 3,
+        sample: '1',
+    },
+    {
+        heading: '消費量を左右する要因（整理）',
+        headers: ['要因', '消費量への影響', '区分'],
+        rows: 8,
+        cols: 3,
+        sample: 'タスクの種類（テキスト／画像／マルチモーダル）',
+    },
+    {
+        heading: '動作トレース：エネルギーと CO₂ を概算する（HO-3.3.1 の考え方）',
+        headers: ['ケース', '1回あたり（仮）', '回数', '消費電力量', 'CO₂ 排出量（仮）', '読み取れること'],
+        rows: 4,
+        cols: 6,
+        sample: 'A：ベースライン',
+    },
+    {
+        heading: '補足：サービス・機能別ベストプラクティス',
+        headers: ['使っているもの', '主な環境リスク', 'ベストプラクティス', '根拠'],
+        rows: 6,
+        cols: 4,
+        sample: 'AI チャットボット',
+    },
+    {
+        heading: '3.3 節の試験ポイントまとめ',
+        headers: ['観点', '覚えること'],
+        rows: 5,
+        cols: 2,
+        sample: '影響する要因（K2）',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -451,6 +490,45 @@ describe('CT-GenAI Chapter 3 Page (Cat 3: 3. 3.2 データプライバシーと�
         const { container } = render(<CtGenAiChapter3Page />);
         const pres = Array.from(container.querySelectorAll('pre:not(.mermaid)'));
         expect(pres.length).toBeGreaterThanOrEqual(4);
+    });
+});
+
+describe('CT-GenAI Chapter 3 Page (Cat 4: 4. 3.3 エネルギー消費と環境への影響)', () => {
+    it('renders Cat 4 headings correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#4-33-エネルギー消費と環境への影響');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('4. 3.3 エネルギー消費と環境への影響');
+
+        const h3Ids = [
+            '40-なぜこの節が必要なのか',
+            '41-genai-331--k2タスクの特徴とモデルの使い方が消費量に与える影響',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid diagram 8 correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const el = container.querySelector('[data-diagram-id="mermaid-diagram-8"]');
+        expect(el).not.toBeNull();
+    });
+
+    it('matches table inventory through Cat 4', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT4.length);
+
+        EXPECTED_TABLE_SPECS_CAT4.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
     });
 });
 
