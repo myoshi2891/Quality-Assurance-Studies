@@ -87,6 +87,87 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT1,
+    {
+        heading: '2.1 【GenAI-3.1.1 / K1】3つの「間違い」の定義',
+        headers: ['用語', '定義（シラバスの意味）', '日常の例え', 'テスト現場での具体例'],
+        rows: 3,
+        cols: 4,
+        sample: 'ハルシネーション（hallucination＝幻覚）',
+    },
+    {
+        heading: '試験で問われやすいポイント（K1）',
+        headers: ['出題パターン', '正解の考え方'],
+        rows: 4,
+        cols: 2,
+        sample: '「存在しない受け入れ基準を検証するテストケースを生成した」',
+    },
+    {
+        heading: '検出方法の一覧',
+        headers: ['対象', '検出方法', '内容', '例え話'],
+        rows: 7,
+        cols: 4,
+        sample: 'ハルシネーション',
+    },
+    {
+        heading: '検出の判断フロー',
+        headers: ['手順', 'LLM の出力内容', '判定', '見つけた方法', '対処'],
+        rows: 6,
+        cols: 5,
+        sample: '1',
+    },
+    {
+        heading: 'ハンズオン目標の追体験（HO-3.1.2a / HO-3.1.2b：H1）',
+        headers: ['HO', 'ねらい', '進め方'],
+        rows: 2,
+        cols: 3,
+        sample: 'HO-3.1.2a（ハルシネーションの実験）',
+    },
+    {
+        heading: 'ハンズオン目標の追体験（HO-3.1.2a / HO-3.1.2b：H1）',
+        headers: ['場面', 'ベストプラクティス', '理由'],
+        rows: 5,
+        cols: 3,
+        sample: 'チャットボットで単発にテストケースを作る',
+    },
+    {
+        heading: '5つの軽減技法',
+        headers: ['#', '技法', '内容', '例え話', '関連する章'],
+        rows: 5,
+        cols: 5,
+        sample: '1',
+    },
+    {
+        heading: '2つの軽減策',
+        headers: ['設定', '何をするか', '効果', '注意点（トレードオフ）', '例え話'],
+        rows: 2,
+        cols: 5,
+        sample: 'temperature（温度）を下げる',
+    },
+    {
+        heading: 'temperature の効果の図',
+        headers: ['設定', '1回目', '2回目', '3回目', '4回目', '5回目', '出力の種類数', '読み取れること'],
+        rows: 3,
+        cols: 8,
+        sample: 'temperature 高め、seed なし',
+    },
+    {
+        heading: 'temperature の効果の図',
+        headers: ['使っているもの', '主なリスク', 'ベストプラクティス', '根拠'],
+        rows: 6,
+        cols: 4,
+        sample: 'AI チャットボット（ブラウザ上で対話する形式）',
+    },
+    {
+        heading: '3.1 節の試験ポイントまとめ',
+        headers: ['観点', '覚えること'],
+        rows: 5,
+        cols: 2,
+        sample: '定義（K1）',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -199,4 +280,55 @@ describe('CT-GenAI Chapter 3 Page (Cat 1: 1. 第3章の全体像)', () => {
         expect(practice?.textContent).toContain('満点が 46 点で問題数が 40 問なのは');
     });
 });
+
+describe('CT-GenAI Chapter 3 Page (Cat 2: 2. 3.1 ハルシネーション・推論エラー・バイアス)', () => {
+    it('renders Cat 2 headings correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#2-31-ハルシネーション推論エラーバイアス');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('2. 3.1 ハルシネーション・推論エラー・バイアス');
+
+        const h3Ids = [
+            '20-なぜこの節が必要なのか',
+            '21-genai-311--k13つの間違いの定義',
+            '22-genai-312--k3llm-の出力から3つの間違いを見つける',
+            '23-genai-313--k2ハルシネーション推論エラーバイアスの軽減方法',
+            '24-genai-314--k1非決定的な振る舞いnon-deterministic-behaviorへの対処',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid diagrams 1, 2, 3, 4 correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        ['mermaid-diagram-1', 'mermaid-diagram-2', 'mermaid-diagram-3', 'mermaid-diagram-4'].forEach((id) => {
+            const el = container.querySelector(`[data-diagram-id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('matches table inventory through Cat 2', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT2.length);
+
+        EXPECTED_TABLE_SPECS_CAT2.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+
+    it('renders code blocks in Cat 2', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const pres = Array.from(container.querySelectorAll('pre:not(.mermaid)'));
+        expect(pres.length).toBeGreaterThanOrEqual(3);
+    });
+});
+
 
