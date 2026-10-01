@@ -8,6 +8,11 @@ import {
     DIAGRAM_DETECTION_FLOW,
     DIAGRAM_MITIGATION_FLOW,
     DIAGRAM_TEMPERATURE_EFFECT,
+    DIAGRAM_PRIVACY_SECURITY_MAP,
+    DIAGRAM_ATTACK_VECTORS,
+    DIAGRAM_ENVIRONMENT_SELECTION_FLOW,
+    DIAGRAM_ENERGY_CONSUMPTION,
+    DIAGRAM_REGULATIONS_MAP,
 } from './diagrams';
 import './istqb-ct-genai-chapter3-risk-management.css';
 
@@ -1497,6 +1502,845 @@ export default function CtGenAiChapter3Page() {
                                 </li>
                                 <li>
                                     <strong>ベストエフォート</strong>：できる限り努力するが、結果を保証しないこと
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <h2 id="3-32-データプライバシーとセキュリティのリスク">
+                        3. 3.2 データプライバシーとセキュリティのリスク
+                    </h2>
+                    <p>
+                        💡 この章では、生成AIをテストに使うときの<strong>情報漏えい（プライバシー</strong>）と<strong>攻撃（セキュリティ</strong>）のリスクを3段階（リスクの種類 → 攻撃の具体例 → 緩和策）で説明します。3.1 が「答えの質」の話だったのに対し、ここは「データと守り」の話です。
+                    </p>
+                    <h3 id="30-なぜこの節が必要なのか">3.0 なぜこの節が必要なのか</h3>
+                    <p>
+                        📌 <strong>シラバス記載</strong>：生成AIは大量のデータを処理し、その中には<strong>機密情報や個人を特定できる情報（PII＝Personally Identifiable Information</strong>）が含まれる場合があります。また、LLM を組み込んだテスト基盤は、<strong>攻撃の入り口</strong>にもなります。データ保護が弱いと、情報漏えい・不正アクセス・機密データの露出につながります。
+                    </p>
+                    <p>
+                        テストの現場では、本番データのコピー、不具合の再現ログ、顧客情報を含む画面キャプチャなどを、つい AI に貼り付けたくなる場面があります。<strong>「便利だから貼る」が、最も起きやすい情報漏えいの入口</strong>です。
+                    </p>
+                    <hr />
+
+                    <h3 id="31-genai-321--k2データプライバシーとセキュリティの主なリスク">
+                        3.1 【GenAI-3.2.1 / K2】データプライバシーとセキュリティの主なリスク
+                    </h3>
+                    <p>📌 <strong>シラバス記載</strong></p>
+                    <h4 id="プライバシーの3つの懸念">プライバシーの3つの懸念</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>懸念</th>
+                                    <th>内容</th>
+                                    <th>テスト現場の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>1</td>
+                                    <td>
+                                        <strong>意図しないデータの露出</strong>（Unintentional data exposure）
+                                    </td>
+                                    <td>
+                                        GenAI が出力の中に、<strong>うっかり機密情報を含めて</strong>しまう
+                                    </td>
+                                    <td>
+                                        AI が生成したテストデータに、実在する顧客のメールアドレスが混ざる
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>2</td>
+                                    <td>
+                                        <strong>データ利用の制御不能</strong>（Lack of control over data usage）
+                                    </td>
+                                    <td>
+                                        GenAI ツールが、利用者の<strong>明確な同意や制御なしに</strong>機密データを保存・処理し、不正利用や不正アクセスにつながりうる
+                                    </td>
+                                    <td>
+                                        本番ログを貼った内容が、提供元でどう保存・利用されるか分からない
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3</td>
+                                    <td><strong>コンプライアンスリスク</strong>（Compliance risks）</td>
+                                    <td>
+                                        <strong>GDPR（一般データ保護規則：Regulation (EU) 2016/679</strong>）などのデータ保護規則を守らずに GenAI ツールを使うと、法的な紛争になりうる
+                                    </td>
+                                    <td>
+                                        EU 居住者の個人データを、必要な根拠なく外部の AI サービスに送る
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="セキュリティの3つのリスク">セキュリティの3つのリスク</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>リスク</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>1</td>
+                                    <td><strong>テスト基盤への攻撃</strong></td>
+                                    <td>
+                                        LLM を使ったテスト基盤が、データ侵害や不正アクセスなどの攻撃を受けやすい
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>2</td>
+                                    <td><strong>LLM の脆弱性の悪用</strong></td>
+                                    <td>
+                                        悪意のある人が LLM の弱点（後述の「操作型攻撃」）を悪用して、振る舞いを変えたり、機密情報を引き出したりする
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3</td>
+                                    <td><strong>悪意ある入力データ</strong></td>
+                                    <td>
+                                        攻撃者が意図的に有害な入力データを与え、LLM を誤誘導して、<strong>正確性やセキュリティを損なわせる</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="プライバシーとセキュリティの整理図">プライバシーとセキュリティの整理図</h4>
+                    <p>
+                        この図は、テストで生成AIを使うときの「データの流れ」と、リスクが発生する場所を表しています。左から右へ読み進めてください。
+                    </p>
+                    <div className="mermaid-container" data-diagram-id="mermaid-diagram-5">
+                        <Mermaid chart={DIAGRAM_PRIVACY_SECURITY_MAP} />
+                    </div>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「テスター」「フロントエンド」「バックエンド」「LLM」「データ源」：LLM を組み込んだテスト基盤の<strong>基本構成</strong>（シラバス 4.1.1 節の構成）。
+                        </li>
+                        <li>
+                            点線の矢印（リスク1〜4）：<strong>どの場所でどのリスクが発生するか</strong>を表しています。人による入力（リスク1）、外部サービスの扱い（リスク2）、基盤への侵入（リスク3）、悪意ある入力（リスク4）です。
+                        </li>
+                    </ul>
+                    <div className="callout-glossary">
+                        <div className="callout-header">
+                            <span className="callout-icon">📖</span>
+                            <span className="callout-label">このセクションで登場した用語</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    <strong>PII（個人を特定できる情報）</strong>：氏名、メールアドレス、電話番号、住所など、個人を識別できる情報
+                                </li>
+                                <li>
+                                    <strong>GDPR</strong>：EU の個人データ保護に関する規則。個人データの処理に、適法性や目的の限定などのルールを定める
+                                </li>
+                                <li>
+                                    <strong>コンプライアンス</strong>：法律や社内ルール、契約を守ること
+                                </li>
+                                <li>
+                                    <strong>データ侵害</strong>：データが外部の第三者に不正に見られたり持ち出されたりすること
+                                </li>
+                                <li>
+                                    <strong>セキュリティ（security）</strong>：不正アクセスや攻撃から、システムやデータを守ること
+                                </li>
+                                <li>
+                                    <strong>脆弱性（vulnerability）</strong>：攻撃に悪用されうるシステムの弱点
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <h3 id="32-genai-322--k2データプライバシーと脆弱性の例攻撃ベクトル4種">
+                        3.2 【GenAI-3.2.2 / K2】データプライバシーと脆弱性の例：攻撃ベクトル4種
+                    </h3>
+                    <p>
+                        💡 この章では、シラバスの表にある<strong>4種類の攻撃ベクトル（attack vector＝攻撃の入り口・経路</strong>）を説明します。表の名称と例は、そのまま試験で問われやすい部分です。
+                    </p>
+                    <h4 id="4つの攻撃ベクトル">4つの攻撃ベクトル</h4>
+                    <p>📌 <strong>シラバス記載</strong>（原文の表の意味を日本語にしています）</p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>攻撃ベクトル</th>
+                                    <th>内容</th>
+                                    <th>シラバスの例</th>
+                                    <th>例え話</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td><strong>コンテキスト操作</strong>（Context Manipulation）</td>
+                                    <td>
+                                        機密の学習データを<strong>引き出そうとするリクエスト</strong>を送る
+                                    </td>
+                                    <td>
+                                        LLM のコンテキストウィンドウ（一度に扱える量）を超える<strong>長いプロンプト</strong>で AI の記憶を過負荷にし、学習データの断片を<strong>うっかり漏らさせる</strong>。機密情報の露出につながる可能性がある
+                                    </td>
+                                    <td>長い雑談で相手を疲れさせ、ぽろっと秘密を話させる</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td><strong>リクエスト操作</strong>（Request manipulation）</td>
+                                    <td>AI の出力を<strong>乱すデータ</strong>を混入させる</td>
+                                    <td>
+                                        画像を使って AI を<strong>別の文脈に誘導</strong>し、受け入れ基準について<strong>ハルシネーションを引き起こす</strong>
+                                    </td>
+                                    <td>道案内の看板をすり替えて、道に迷わせる</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td><strong>データポイズニング</strong>（Data poisoning）</td>
+                                    <td><strong>学習データを操作</strong>する（毒を混ぜる）</td>
+                                    <td>
+                                        AI が作ったテストレポートを評価する際に、<strong>偽の評価</strong>を与える
+                                    </td>
+                                    <td>レシピ本に、間違ったレシピをこっそり紛れ込ませる</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>
+                                        <strong>悪意のあるコード生成</strong>（Malicious code generation）
+                                    </td>
+                                    <td>
+                                        LLM を操作して、使用中に<strong>バックドア</strong>（外部コマンド呼び出しなど）を生成させる
+                                    </td>
+                                    <td>
+                                        特定の<strong>悪意のある IP アドレス</strong>と通信経路を開くコードを生成させる
+                                    </td>
+                                    <td>頼んだ設計図に、こっそり秘密の裏口を書き足される</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="攻撃ベクトルがどこに入り込むかの図">攻撃ベクトルがどこに入り込むかの図</h4>
+                    <p>
+                        この図は、4つの攻撃ベクトルが、テストの作業の流れのどこに入り込むかを表しています。上から下へ読み進めてください。
+                    </p>
+                    <div className="mermaid-container" data-diagram-id="mermaid-diagram-6">
+                        <Mermaid chart={DIAGRAM_ATTACK_VECTORS} />
+                    </div>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「入力段階」「処理段階」「出力段階」「評価段階」：テストで生成AIを使うときの<strong>作業の流れ</strong>。
+                        </li>
+                        <li>
+                            左側の4つの攻撃：<strong>それぞれの段階に入り込みやすい攻撃</strong>。ただし、実際の攻撃は複数の段階にまたがることもあります。この割り当ては覚えやすさのための整理です。
+                        </li>
+                    </ul>
+                    <div className="callout-warning">
+                        <div className="callout-header">
+                            <span className="callout-icon">⚠️</span>
+                            <span className="callout-label">重要な注意</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>暗記のコツ</strong>：「<strong>コ</strong>ンテキスト＝<strong>引き出す</strong>」「<strong>リ</strong>クエスト＝<strong>乱す</strong>（誤誘導）」「<strong>デ</strong>ータポイズニング＝<strong>汚す</strong>（学習・評価）」「<strong>悪</strong>意コード＝<strong>裏口</strong>」と、動詞1つで覚えると混同しにくくなります。
+                            </p>
+                        </div>
+                    </div>
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">
+                                補足：OWASP Top 10 for LLM Applications との対応
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                シラバスの4種類は代表例です。実務では、OWASP（Open Worldwide Application Security Project）が公開する「<strong>OWASP Top 10 for LLM Applications 2025</strong>」が、より網羅的な整理として広く参照されます（<strong>試験範囲外</strong>）。
+                            </p>
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>シラバスの攻撃ベクトル</th>
+                                            <th>OWASP LLM Top 10（2025）で近いもの</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td>コンテキスト操作</td>
+                                            <td>
+                                                LLM02 機密情報の漏えい（Sensitive Information Disclosure）、LLM07 システムプロンプトの漏えい
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>リクエスト操作</td>
+                                            <td>
+                                                LLM01 プロンプトインジェクション（Prompt Injection）
+                                            </td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>データポイズニング</td>
+                                            <td>
+                                                LLM04 データとモデルのポイズニング（Data and Model Poisoning）
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>悪意のあるコード生成</td>
+                                            <td>
+                                                LLM05 不適切な出力の扱い（Improper Output Handling）、LLM06 過剰な権限付与（Excessive Agency）
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <blockquote className="inline-note">
+                                <p>
+                                    この対応は<strong>学習のための目安</strong>です。攻撃の分類は、資料により切り口が異なります。
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div className="callout-glossary">
+                        <div className="callout-header">
+                            <span className="callout-icon">📖</span>
+                            <span className="callout-label">このセクションで登場した用語</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    <strong>攻撃ベクトル</strong>：攻撃者がシステムに入り込む経路や手段
+                                </li>
+                                <li>
+                                    <strong>コンテキストウィンドウ</strong>：LLM が一度に扱える情報量の上限（トークン数で表す）
+                                </li>
+                                <li>
+                                    <strong>データポイズニング</strong>：学習データや評価データに悪意あるデータを混ぜて、AI の振る舞いを歪めること
+                                </li>
+                                <li>
+                                    <strong>バックドア</strong>：正規の認証を通らずに侵入できる、不正な裏口
+                                </li>
+                                <li>
+                                    <strong>プロンプトインジェクション</strong>：入力文に命令を紛れ込ませて、AI の指示を上書きしようとする攻撃（OWASP の用語）
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <h3 id="33-genai-323--k2プライバシー保護とセキュリティ強化の緩和策">
+                        3.3 【GenAI-3.2.3 / K2】プライバシー保護とセキュリティ強化の緩和策
+                    </h3>
+                    <p>
+                        💡 この章では、リスクを減らすための<strong>基本のデータ保護策 4つ</strong>と、<strong>追加の緩和策 5つ</strong>を説明します。組み合わせて使うのが前提です。
+                    </p>
+                    <h4 id="前提規制は-genai-を禁止しているわけではない">
+                        前提：規制は GenAI を「禁止」しているわけではない
+                    </h4>
+                    <p>
+                        📌 <strong>シラバス記載</strong>：GDPR のようなデータ保護規則は、GenAI の利用を<strong>明示的に制限してはいません</strong>が、データを集める・処理する・保存する際の<strong>適法性</strong>や<strong>目的の制限</strong>といった<strong>安全策（セーフガード</strong>）を定めており、それが「できること」を制限することがあります。
+                    </p>
+
+                    <h4 id="基本のデータ保護策4つ">基本のデータ保護策（4つ）</h4>
+                    <p>📌 <strong>シラバス記載</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>対策</th>
+                                    <th>内容</th>
+                                    <th>例え話</th>
+                                    <th>テスト現場の実践例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>1</td>
+                                    <td><strong>データ最小化</strong>（Data minimization）</td>
+                                    <td>
+                                        法的に許される場合を除き<strong>機密データを処理しない</strong>。必要最小限の<strong>機密でないデータ</strong>だけを使う
+                                    </td>
+                                    <td>旅行には必要な荷物だけ持っていく</td>
+                                    <td>ログ全体ではなく、不具合の再現に必要な数行だけを渡す</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>2</td>
+                                    <td>
+                                        <strong>匿名化・仮名化</strong>（Anonymization / Pseudonymization）
+                                    </td>
+                                    <td>
+                                        機密情報を、<strong>個人を特定できないデータ</strong>で<strong>隠す・置き換える</strong>
+                                    </td>
+                                    <td>名札を外す（匿名化）／あだ名に替える（仮名化）</td>
+                                    <td>氏名・メール・電話番号を、ダミー値やトークンに置換</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3</td>
+                                    <td>
+                                        <strong>安全なデータ保存と通信</strong>（Secure data storage and transmission）
+                                    </td>
+                                    <td>
+                                        強力な<strong>暗号化</strong>と<strong>アクセス制御</strong>を実装する
+                                    </td>
+                                    <td>金庫に保管し、鍵を持つ人だけが開けられる</td>
+                                    <td>送信は暗号化通信、保存先は権限を絞る</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>4</td>
+                                    <td><strong>教育・方針</strong>（Resources training）</td>
+                                    <td>
+                                        GenAI を責任を持って使うための<strong>研修プログラムとポリシー</strong>を整え、倫理的な実践を促し、リスクを減らす
+                                    </td>
+                                    <td>入社時の安全教育</td>
+                                    <td>「入力してよいデータ・いけないデータ」を一覧にして周知</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="callout-note">
+                        <div className="callout-header">
+                            <span className="callout-icon">📌</span>
+                            <span className="callout-label">シラバスの補足</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>匿名化と仮名化の違い</strong>（シラバスは「機密情報を、個人を特定できないデータで隠す・置き換える」と述べています）：
+                            </p>
+                            <ul>
+                                <li>
+                                    <strong>匿名化</strong>：元に戻せない形にする（例：<code>山田太郎</code> → <code>[名前]</code>）。
+                                </li>
+                                <li>
+                                    <strong>仮名化</strong>：別の識別子に置き換えるが、対応表があれば元に戻せる（例：<code>山田太郎</code> → <code>USER_001</code>、対応表は別管理）。
+                                    　この区別は一般的な定義です。シラバスは両者をまとめて「隠す・置き換える」と述べており、試験では「<strong>機密情報をそのまま渡さず、置き換える」という理解</strong>があれば十分です。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4 id="追加の緩和策5つ">追加の緩和策（5つ）</h4>
+                    <p>📌 <strong>シラバス記載</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>対策</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>1</td>
+                                    <td><strong>生成物の体系的なレビュー</strong></td>
+                                    <td>
+                                        <strong>人による評価</strong>が、GenAI が作るテスト作業の品質と正確性に欠かせない
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>2</td>
+                                    <td><strong>別の LLM との比較による評価</strong></td>
+                                    <td>複数の LLM に同じ作業をさせ、回答を比べて評価する</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3</td>
+                                    <td><strong>安全な運用環境の選択</strong></td>
+                                    <td>
+                                        機密度に応じて選ぶ：<strong>LLM 提供元の商用の安全なサービスを使う</strong>／<strong>安全なクラウドで LLM を動かす</strong>／<strong>自社のインフラに LLM をインストールする</strong>
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>4</td>
+                                    <td><strong>定期的なセキュリティ監査と脆弱性評価</strong></td>
+                                    <td>GenAI システムの弱点を見つけて対処する</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>5</td>
+                                    <td>
+                                        <strong>最新のセキュリティのベストプラクティスの把握</strong>
+                                    </td>
+                                    <td>最新のガイドラインや技術に追いつく</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        <strong>組み合わせが前提</strong>：📌 シラバスは「これらの策は互いに補完的であり、データを守るには<strong>組み合わせが必要</strong>」と述べ、さらに、<strong>上級セキュリティエンジニア、法務担当、CTO、CISO（最高情報セキュリティ責任者）</strong>が組織にいる場合は、彼らを<strong>巻き込むことを強く推奨</strong>しています。
+                    </p>
+
+                    <h4 id="運用環境の選択フロー">運用環境の選択フロー</h4>
+                    <p>
+                        この図は、扱うデータの機密度に応じて、どの環境で LLM を動かすかを考えるときの判断の流れを表しています。上から下へ読み進めてください。
+                    </p>
+                    <div className="mermaid-container" data-diagram-id="mermaid-diagram-7">
+                        <Mermaid chart={DIAGRAM_ENVIRONMENT_SELECTION_FLOW} />
+                    </div>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「機密情報や個人情報を含むか」（ひし形）：<strong>最初の分岐</strong>。含まないなら悪影響が小さい一方、含むなら以降の判断に進みます。
+                        </li>
+                        <li>
+                            「匿名化や仮名化で不要にできるか」：データ最小化・匿名化で、リスクそのものを<strong>取り除けないか</strong>を先に検討します。
+                        </li>
+                        <li>
+                            「商用の安全なサービス／安全なクラウド／自社インフラ」：シラバスの<strong>3つの選択肢</strong>。右に行くほどコストと運用負担は大きくなりますが、管理は強くなります（💡 一般的な傾向）。
+                        </li>
+                        <li>
+                            「人によるレビューと定期監査」：どの環境でも<strong>最終的に必要</strong>な共通の対策です。
+                        </li>
+                    </ul>
+                    <div className="callout-practice">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">補足</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                この図の分岐条件は、<strong>学習のための整理</strong>です。実際の判断は、社内のセキュリティ方針や契約、各国の法律に従い、セキュリティ担当・法務担当と決めてください。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="callout-trace callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">🧪</span>
+                            <span className="callout-label">
+                                動作トレース：本番ログを AI に貼り付けたい場面
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>題材</strong>：本番環境で起きた「支払い画面のエラー」の原因を、LLM に調べてもらいたい場面です。
+                            </p>
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>手順</th>
+                                            <th>行うこと</th>
+                                            <th>対応する対策</th>
+                                            <th>理由</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td>1</td>
+                                            <td>
+                                                まず、社内の<strong>入力ルール</strong>を確認する。本番ログの外部サービス送信が許可されているか調べる
+                                            </td>
+                                            <td>教育・方針</td>
+                                            <td>個人判断で送ると、ルール違反や規則違反になりうる</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>2</td>
+                                            <td>
+                                                ログ全体ではなく、<strong>エラーが起きた前後の数行だけ</strong>を抜き出す
+                                            </td>
+                                            <td>データ最小化</td>
+                                            <td>渡す情報が少ないほど、漏えい時の被害が小さい</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>3</td>
+                                            <td>
+                                                氏名・メール・電話番号・カード番号などを<strong>置換</strong>する（下のコード例）
+                                            </td>
+                                            <td>匿名化・仮名化</td>
+                                            <td>個人を特定できる情報を AI に渡さないため</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>4</td>
+                                            <td>
+                                                機密度が高ければ、<strong>商用の安全なサービス／安全なクラウド／自社環境</strong>から選ぶ
+                                            </td>
+                                            <td>安全な運用環境の選択</td>
+                                            <td>データの扱われ方を、自分たちで制御しやすくするため</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>5</td>
+                                            <td>
+                                                AI の回答（原因の推測）を、<strong>実際のログや仕様と突き合わせて検証</strong>する
+                                            </td>
+                                            <td>生成物のレビュー</td>
+                                            <td>ハルシネーションの可能性があるため（3.1 節と連動）</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>6</td>
+                                            <td>
+                                                提案された修正コードを<strong>そのまま本番に入れず</strong>、レビューとテストを経る
+                                            </td>
+                                            <td>レビュー／セキュリティ監査</td>
+                                            <td>悪意のあるコード生成のリスクに備えるため</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">補足：仮名化のサンプルコード（Python）</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>なぜこのコードを示すのか</strong>：「データを渡す前に置き換える」という緩和策を、具体的な手順としてイメージできるようにするためです。<strong>簡易的な例</strong>であり、実務ではこの正規表現だけでは不十分です（氏名・住所などは検出できません）。
+                            </p>
+                            <pre className="code-block">
+                                <code className="language-python">
+                                    <div className="code-line"><span className="code-keyword">import</span> re</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line"><span className="code-comment"># メールアドレスと、日本の一般的な電話番号（ハイフン区切り）を探すパターン。</span></div>
+                                    <div className="code-line"><span className="code-comment"># 完全ではないため、実務では専用ツール（例：Microsoft Presidio）の利用も検討する。</span></div>
+                                    <div className="code-line">EMAIL_PATTERN = re.compile(<span className="code-string">r&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]&#123;2,&#125;&quot;</span>)</div>
+                                    <div className="code-line">PHONE_PATTERN = re.compile(<span className="code-string">r&quot;0\d&#123;1,4&#125;-\d&#123;1,4&#125;-\d&#123;4&#125;&quot;</span>)</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">pseudonymize</span>(text: str):</div>
+                                    <div className="code-line">    <span className="code-string">&quot;&quot;&quot;個人情報を仮の識別子に置き換え、元に戻すための対応表も返す。&quot;&quot;&quot;</span></div>
+                                    <div className="code-line">    mapping = &#123;&#125;  <span className="code-comment"># 対応表。AI には送らず、自分たちの環境だけで保管するため</span></div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">replace</span>(pattern, label, source):</div>
+                                    <div className="code-line">        counter = 0</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line">        <span className="code-keyword">def</span> <span className="code-func">_sub</span>(match):</div>
+                                    <div className="code-line">            <span className="code-keyword">nonlocal</span> counter</div>
+                                    <div className="code-line">            original = match.group(0)</div>
+                                    <div className="code-line">            <span className="code-comment"># 同じ値には同じ識別子を割り当てる。</span></div>
+                                    <div className="code-line">            <span className="code-comment"># 別の識別子にすると、「同一人物のエラー」という手がかりが失われるため。</span></div>
+                                    <div className="code-line">            <span className="code-keyword">for</span> key, value <span className="code-keyword">in</span> mapping.items():</div>
+                                    <div className="code-line">                <span className="code-keyword">if</span> value == original:</div>
+                                    <div className="code-line">                    <span className="code-keyword">return</span> key</div>
+                                    <div className="code-line">            counter += 1</div>
+                                    <div className="code-line">            token = f&quot;[&#123;label&#125;_&#123;counter&#125;]&quot;</div>
+                                    <div className="code-line">            mapping[token] = original</div>
+                                    <div className="code-line">            <span className="code-keyword">return</span> token</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line">        <span className="code-keyword">return</span> pattern.sub(_sub, source)</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line">    text = replace(EMAIL_PATTERN, <span className="code-string">&quot;EMAIL&quot;</span>, text)</div>
+                                    <div className="code-line">    text = replace(PHONE_PATTERN, <span className="code-string">&quot;PHONE&quot;</span>, text)</div>
+                                    <div className="code-line">    <span className="code-keyword">return</span> text, mapping</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line">raw_log = <span className="code-string">&quot;ERROR pay failed user=taro@example.com tel=03-1234-5678 retry user=taro@example.com&quot;</span></div>
+                                    <div className="code-line">safe_log, table = pseudonymize(raw_log)</div>
+                                    <div className="code-line"></div>
+                                    <div className="code-line"><span className="code-func">print</span>(safe_log)   <span className="code-comment"># AI に渡してよい形（個人情報を置換済み）</span></div>
+                                    <div className="code-line"><span className="code-func">print</span>(table)      <span className="code-comment"># 手元にだけ残す対応表（AI には渡さない）</span></div>
+                                </code>
+                            </pre>
+                            <p><strong>実行結果のイメージ</strong>：</p>
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>変数</th>
+                                            <th>内容</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td><code>safe_log</code></td>
+                                            <td>
+                                                <code>
+                                                    ERROR pay failed user=[EMAIL_1] tel=[PHONE_1] retry user=[EMAIL_1]
+                                                </code>
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><code>table</code></td>
+                                            <td>
+                                                <code>[EMAIL_1]</code> → <code>taro@example.com</code>、<code>[PHONE_1]</code> → <code>03-1234-5678</code>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>
+                                同じメールアドレスには同じ <code>[EMAIL_1]</code> が割り当てられるため、AI は「同じユーザーで再試行が起きた」という<strong>手がかりは保ったまま</strong>、個人情報だけを見ずに分析できます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">
+                                補足：3.2 全体のサービス・機能別ベストプラクティス
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>使っているもの</th>
+                                            <th>主なリスク</th>
+                                            <th>ベストプラクティス</th>
+                                            <th>根拠</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td>
+                                                <strong>AI チャットボット</strong>（利用者が直接入力）
+                                            </td>
+                                            <td>個人情報・機密の貼り付け</td>
+                                            <td>
+                                                入力してよいデータの<strong>ルールを周知</strong>する／<strong>データ最小化と置換</strong>をしてから貼る／提供元の<strong>データ利用条件を確認</strong>する
+                                            </td>
+                                            <td>シラバス 3.2.3</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>LLM 搭載テストツール</strong>（API 連携）</td>
+                                            <td>基盤への不正アクセス、通信内容の漏えい</td>
+                                            <td>
+                                                <strong>認証・アクセス制御</strong>、<strong>暗号化</strong>、<strong>ログ管理</strong>。定期的な<strong>セキュリティ監査と脆弱性評価</strong>
+                                            </td>
+                                            <td>シラバス 3.2.3</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td><strong>テストデータ生成</strong></td>
+                                            <td>本番データの混入、実在の個人情報の再現</td>
+                                            <td>
+                                                本番データを元にせず<strong>合成データ</strong>を使う。生成結果に実在データが混ざっていないか確認する
+                                            </td>
+                                            <td>
+                                                シラバス 2.2.2（合成テストデータはプライバシーを守れる）、3.2.1
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>コード・スクリプト生成</strong></td>
+                                            <td>バックドア入りコード</td>
+                                            <td>
+                                                生成コードを<strong>コードレビューと静的解析</strong>にかけ、<strong>隔離した環境で実行</strong>してから使う
+                                            </td>
+                                            <td>シラバス 3.2.2（悪意のあるコード生成）、3.2.3</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td><strong>RAG（社内文書の検索）</strong>（第4章）</td>
+                                            <td>権限のない情報が検索結果に混ざる</td>
+                                            <td>
+                                                検索対象文書の<strong>アクセス権限を尊重</strong>し、<strong>データ源の信頼性</strong>を確認する。悪意ある文書の混入に注意
+                                            </td>
+                                            <td>
+                                                💡 OWASP LLM Top 10（Vector and Embedding Weaknesses 等）
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>
+                                                <strong>エージェント</strong>（自律的に動く AI）（第4章）
+                                            </td>
+                                            <td>過剰な権限、意図しない操作</td>
+                                            <td>
+                                                <strong>最小権限</strong>にする／重要な操作は<strong>人の承認</strong>を必須にする（半自律型）
+                                            </td>
+                                            <td>シラバス 4.1.3、💡 OWASP LLM06</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>
+                                                <strong>個人利用のAIサービス（無断利用）</strong>（Shadow AI・第5章）
+                                            </td>
+                                            <td>組織が把握していない情報流出</td>
+                                            <td>
+                                                承認された安全な選択肢を用意し、<strong>利用ルールと研修</strong>を整備する
+                                            </td>
+                                            <td>シラバス 3.2.3（研修）、5.1.1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 id="32-節の試験ポイントまとめ">3.2 節の試験ポイントまとめ</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>観点</th>
+                                    <th>覚えること</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>プライバシーの懸念（K2）</td>
+                                    <td>
+                                        意図しない露出／データ利用の制御不能／コンプライアンス（GDPR 等）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>セキュリティのリスク（K2）</td>
+                                    <td>基盤への攻撃／LLM の脆弱性の悪用／悪意ある入力</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>攻撃ベクトル4種（K2）</td>
+                                    <td>
+                                        コンテキスト操作・リクエスト操作・データポイズニング・悪意のあるコード生成（<strong>それぞれの例も</strong>）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>基本の保護策4つ（K2）</td>
+                                    <td>データ最小化・匿名化／仮名化・安全な保存と通信・教育／方針</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>追加の緩和策5つ（K2）</td>
+                                    <td>
+                                        生成物レビュー・別 LLM との比較・安全な運用環境の選択・定期監査・最新の把握
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>環境の選択肢3つ</td>
+                                    <td>商用の安全なサービス／安全なクラウド／自社インフラ</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>関与させる人</td>
+                                    <td>上級セキュリティエンジニア、法務、CTO、CISO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="callout-glossary">
+                        <div className="callout-header">
+                            <span className="callout-icon">📖</span>
+                            <span className="callout-label">このセクションで登場した用語</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    <strong>データ最小化</strong>：目的に必要な最小限のデータだけを使うこと
+                                </li>
+                                <li>
+                                    <strong>匿名化</strong>：個人を特定できない形に変え、元に戻せなくすること
+                                </li>
+                                <li>
+                                    <strong>仮名化</strong>：別の識別子に置き換え、対応表があれば元に戻せる形にすること
+                                </li>
+                                <li>
+                                    <strong>暗号化</strong>：データを、鍵を持つ人だけが読める形に変換すること
+                                </li>
+                                <li>
+                                    <strong>アクセス制御</strong>：誰がどのデータを見たり変更したりできるかを制限すること
+                                </li>
+                                <li>
+                                    <strong>CISO</strong>：最高情報セキュリティ責任者。組織の情報セキュリティの責任者
+                                </li>
+                                <li><strong>CTO</strong>：最高技術責任者</li>
+                                <li>
+                                    <strong>セキュリティ監査</strong>：システムの安全性を、第三者や専門家が点検すること
+                                </li>
+                                <li>
+                                    <strong>脆弱性評価</strong>：システムの弱点を洗い出し、深刻度を評価すること
+                                </li>
+                                <li>
+                                    <strong>Shadow AI（シャドウAI）</strong>：組織が承認していない、個人の判断で使う AI サービス
+                                </li>
+                                <li>
+                                    <strong>静的解析</strong>：コードを実行せずに、書かれた内容から問題を検出する手法
+                                </li>
+                                <li>
+                                    <strong>最小権限</strong>：作業に必要な最低限の権限だけを与える原則
                                 </li>
                             </ul>
                         </div>
