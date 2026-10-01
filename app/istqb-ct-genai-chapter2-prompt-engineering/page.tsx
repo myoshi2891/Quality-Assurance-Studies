@@ -11,6 +11,7 @@ import {
     DIAGRAM_SYSTEM_USER_PROMPT,
     DIAGRAM_TEST_ACTIVITIES_FLOW,
     DIAGRAM_TECHNIQUE_DECISION_TREE,
+    DIAGRAM_PROMPT_EVAL_CYCLE,
 } from './diagrams';
 import './istqb-ct-genai-chapter2-prompt-engineering.css';
 
@@ -896,6 +897,204 @@ export default function CtGenAiChapter2Page() {
                     <div className="callout-body">
                         <p>
                             様々な課題を持つ複数のテストタスクが与えられ、各タスクについて「精度が必要か」「反復的な構造が必要か」といった性質を評価し、そのタスクの文脈と具体的なニーズに最も適した技法を提案してグループで議論します。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h2 id="3-23-genaiの結果評価とプロンプトの改善">
+                    3. 2.3 GenAIの結果評価とプロンプトの改善
+                </h2>
+                <p>
+                    ソフトウェアテストにおけるGenAIのパフォーマンス評価には、生成された出力の品質・関連性・有効性を評価するための明確な指標セットが必要です（出典：Li et al., 2024の評価指標研究を参照。詳細は本ガイド末尾）。これらの指標は、一般的なものであれタスク固有のものであれ、LLMプロンプティングの最適化に役立ちます。
+                </p>
+                <h3 id="31-評価指標231">3.1 評価指標（2.3.1）</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>指標</th>
+                                <th>説明</th>
+                                <th>例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td><strong>正確性（Accuracy）</strong></td>
+                                <td>
+                                    生成された出力全体の正しさを、専門家が作成したテストケース・要件・その他の基準と比較して測定する
+                                </td>
+                                <td>
+                                    生成されたテストケースが、指定されたすべての要件をどの程度カバーしているか
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>適合率（Precision）</strong></td>
+                                <td>特定の目的に関して、生成された出力の正しさを評価する</td>
+                                <td>生成されたテストケースが異常を正しく識別している度合い</td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>再現率（Recall）</strong></td>
+                                <td>
+                                    データセット内の関連するすべてのインスタンスをモデルが識別できる能力を測定する
+                                </td>
+                                <td>
+                                    生成されたテストケースがデータクラスの有効・無効な同値クラスをどの程度カバーしているか
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    <strong>関連性と文脈適合性（Relevance and Contextual Fit）</strong>
+                                </td>
+                                <td>
+                                    生成された出力が特定の文脈に対して適用可能かつ適切であるかを判定する
+                                </td>
+                                <td>
+                                    生成されたテストケースがテストベースと整合し、ドメイン固有の要件を統合している度合い
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>多様性（Diversity）</strong></td>
+                                <td>
+                                    幅広い入力とシナリオがカバーされ、反復を回避できているかを保証する
+                                </td>
+                                <td>
+                                    生成されたテストケースが多様なユーザー行動をカバーし、エッジケースを探索している度合い
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td><strong>実行成功率（Execution Success Rate）</strong></td>
+                                <td>
+                                    生成されたテスト成果物のうち、テスト環境でそのまま実行できるものの割合を測定する
+                                </td>
+                                <td>
+                                    稼働しているテスト環境で、構文エラーや出力形式の問題なく実行できる生成テストスクリプトの数
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>時間効率（Time Efficiency）</strong></td>
+                                <td>手動テスト作業と比較して節約された時間を評価する</td>
+                                <td>
+                                    AIがテストケースを生成するのに要する時間と、人間が同等のテストを手動作成する時間との比較
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    これらの一般的な指標に加え、特定のテスト活動をどれだけうまく支援できているかを評価するための<strong>タスク固有の指標</strong>をカスタマイズすることも可能です。これらの指標を効果的に評価するために、テスターは手動レビューを行うか、あらかじめ定めた参照結果とLLM出力を比較するなどして自動化することができます。
+                </p>
+                <div className="callout-warning">
+                    <div className="callout-header">
+                        <span className="callout-icon">⚠️</span>
+                        <span className="callout-label">重要な前提</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            GenAIの<strong>非決定的な性質（non-deterministic nature）</strong>を踏まえ、これらの指標は<strong>統計的に妥当なデータ（statistically relevant data）</strong>に基づいて評価される必要があります。1回の出力結果だけで「このプロンプトは良い／悪い」と判断するのではなく、複数回の試行結果を集計して評価することが重要です。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-warning">
+                    <div className="callout-header">
+                        <span className="callout-icon">⚠️</span>
+                        <span className="callout-label">v1.1での変更に関する注記</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            v1.1のリリースノートによれば、上表の「実行成功率（Execution Success Rate）」の説明文はv1.0から改訂されています。上表はv1.0の原文に基づく訳出です。正確な最新の文言は公式シラバスをご確認ください。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標 HO-2.3.1 (H0)</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            あるテストタスクについてのデモの中で、GenAI結果を評価するためのタスクに適応された指標が示され、そのタスクでLLMから得られた結果への具体的な適用例が提示されます。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="32-プロンプト評価改善技法232">3.2 プロンプト評価・改善技法（2.3.2）</h3>
+                <p>
+                    前項の評価指標を土台として、AIの結果を改善するための具体的なプロンプト評価・改善技法が使われます。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-8">
+                    <Mermaid chart={DIAGRAM_PROMPT_EVAL_CYCLE} />
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>技法</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>
+                                    <strong>反復的なプロンプト修正（Iterative prompt modification）</strong>
+                                </td>
+                                <td>
+                                    ベースとなるプロンプトから始め、観察された結果に基づいて段階的に修正する。文脈を追加したり、用語などの表現を調整したりして、具体性と関連性を高めていく
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    <strong>プロンプトのA/Bテスト（A/B testing of prompts）</strong>
+                                </td>
+                                <td>
+                                    プロンプトの複数バージョンを作成し、事前に定義した指標に基づいてどちらがより良い結果を生むかを評価する。どのようなフレーズや構造がより正確で関連性の高い結果を生むかを判断する助けとなる
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td><strong>出力分析（Output analysis）</strong></td>
+                                <td>
+                                    テストベースなどとの整合性の観点から、AIが生成した出力の不正確さや矛盾を検証する。エラーや矛盾のタイプを理解することで、将来の反復での同様の欠陥を回避するプロンプト改善につなげる
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>
+                                    <strong>利用者フィードバックの統合（Integrate user feedback）</strong>
+                                </td>
+                                <td>
+                                    生成された出力の有用性や明確さ（生成テストの詳細レベルなど）についてテスターからの意見を収集し、その洞察を分析して、現実のテストニーズに合うようプロンプトを改善する
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>
+                                    <strong>プロンプトの長さと具体性の調整（Adjust prompt length and specificity）</strong>
+                                </td>
+                                <td>
+                                    異なるプロンプトの長さ・詳細レベルで実験する。文脈を追加することで応答品質が向上する場合もあれば、短いプロンプトの方がより良い汎化を生む場合もある
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-header">
+                        <span className="callout-icon">💡</span>
+                        <span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            これらの技法を使って、テストチームは<strong>プロンプト評価・最適化セッション</strong>を組織的に運営し、GenAIプロンプトの継続的改善を確保することができます。テストチームやテスト組織全体で実践を共有することは、プロンプト技法の標準化と一貫した品質の維持に役立つだけでなく、学習と反復的改善の文化を促進します。この協調的アプローチは、テストチームが集合的な知見を積み上げ、繰り返しの誤りを避け、GenAIツールの活用をより効果的に洗練させることを可能にします（例：プロンプトライブラリの共有）。<strong>個人のノウハウに留めず、チームの資産としてプロンプトを管理する</strong>ことが、組織的なGenAI活用の成熟度を高める鍵となります。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標 HO-2.3.2 (H1)</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            与えられたテストタスクにプロンプト最適化技法を適用する演習です。初期プロンプトから始め、AI生成結果を改善するために反復的に洗練していきます。A/Bテストや人による検証などの技法を使って、プロンプトの品質を評価・改善します。演習の終わりまでに、複数回のプロンプト改善サイクルを経験し、AI出力品質を高めるために議論した指標を使って各反復を評価します。
                         </p>
                     </div>
                 </div>
