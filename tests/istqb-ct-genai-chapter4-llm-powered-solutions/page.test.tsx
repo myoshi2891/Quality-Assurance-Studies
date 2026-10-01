@@ -206,3 +206,80 @@ describe('CT-GenAI Chapter 4 Page - Category 1 (Architecture & Overview)', () =>
         expect(critique).not.toBeNull();
     });
 });
+
+describe('CT-GenAI Chapter 4 Page - Category 4 (Finetuning & LLMOps)', () => {
+    it('renders Section 5: 4.2.1 ファインチューニング with Mermaid d7, tables, and best practices', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s5 = container.querySelector('#s5');
+        expect(s5).not.toBeNull();
+        expect(s5?.querySelector('h2')?.textContent).toContain('4.2.1');
+        expect(s5?.querySelector('h2')?.textContent).toContain('テストタスクのためのLLMファインチューニング');
+
+        const h3List = Array.from(s5?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3List).toContain('5.1 ファインチューニングとは');
+        expect(h3List).toContain('5.2 LLMとSLM');
+        expect(h3List).toContain('5.3 どんなときにファインチューニングが有効か');
+        expect(h3List).toContain('5.4 テストでの具体例');
+        expect(h3List).toContain('5.5 ファインチューニングの手順（一般的な流れ）');
+        expect(h3List).toContain('5.6 ファインチューニングの課題（試験頻出）');
+        expect(h3List).toContain('5.7 ファインチューニングと「プロンプトエンジニアリング」「RAG」の使い分け');
+        expect(h3List).toContain('5.8 ハンズオン目標 HO-4.2.1（H0）：ファインチューニングの実演を観察する');
+
+        const h4 = s5?.querySelector('h4');
+        expect(h4?.textContent).toContain('5.9 この節の試験ポイント');
+
+        // Mermaid d7
+        const diagramCard = s5?.querySelector('.diagram-card');
+        expect(diagramCard).not.toBeNull();
+        expect(diagramCard?.textContent).toContain('図7：ファインチューニングの一般的な手順');
+
+        // テーブル群（LLM/SLM定義、LLM vs SLM比較、有効場面、ペア例、課題、手法使い分け）
+        const tables = s5?.querySelectorAll('table');
+        expect(tables?.length).toBeGreaterThanOrEqual(6);
+
+        // コールアウト群
+        const callouts = s5?.querySelectorAll('.callout');
+        expect(callouts?.length).toBeGreaterThanOrEqual(3);
+
+        // 試験ポイント
+        const critique = s5?.querySelector('.critique-card');
+        expect(critique).not.toBeNull();
+    });
+
+    it('renders Section 6: 4.2.2 LLMOps with Mermaid d8/d9, tables, and best practices', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s6 = container.querySelector('#s6');
+        expect(s6).not.toBeNull();
+        expect(s6?.querySelector('h2')?.textContent).toContain('4.2.2');
+        expect(s6?.querySelector('h2')?.textContent).toContain('LLMOps：テスト用LLMのデプロイと運用管理');
+
+        const h3List = Array.from(s6?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3List).toContain('6.1 LLMOpsとは');
+        expect(h3List).toContain('6.2 LLMOpsのライフサイクル');
+        expect(h3List).toContain('6.3 GenAIをテストプロセスに導入する3つのアプローチ');
+        expect(h3List).toContain('6.4 アプローチ選択の考え方');
+        expect(h3List).toContain('6.5 データの機密度に応じた環境の選択');
+        expect(h3List).toContain('6.6 LLMOpsで監視・管理すべき項目');
+
+        const h4 = s6?.querySelector('h4');
+        expect(h4?.textContent).toContain('6.7 この節の試験ポイント');
+
+        // Mermaid d8 & d9
+        const diagramCards = s6?.querySelectorAll('.diagram-card');
+        expect(diagramCards?.length).toBeGreaterThanOrEqual(2);
+        expect(diagramCards?.[0].textContent).toContain('図8：LLMOpsのライフサイクル');
+        expect(diagramCards?.[1].textContent).toContain('図9：GenAI導入アプローチの選択フロー');
+
+        // テーブル群（目標、3つのアプローチ、機密度と環境、7領域の監視項目）
+        const tables = s6?.querySelectorAll('table');
+        expect(tables?.length).toBeGreaterThanOrEqual(4);
+
+        // コールアウト群
+        const callouts = s6?.querySelectorAll('.callout');
+        expect(callouts?.length).toBeGreaterThanOrEqual(3);
+
+        // 試験ポイント
+        const critique = s6?.querySelector('.critique-card');
+        expect(critique).not.toBeNull();
+    });
+});
