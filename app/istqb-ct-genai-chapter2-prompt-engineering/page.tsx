@@ -9,6 +9,8 @@ import {
     DIAGRAM_PROMPT_CHAINING,
     DIAGRAM_META_PROMPTING,
     DIAGRAM_SYSTEM_USER_PROMPT,
+    DIAGRAM_TEST_ACTIVITIES_FLOW,
+    DIAGRAM_TECHNIQUE_DECISION_TREE,
 } from './diagrams';
 import './istqb-ct-genai-chapter2-prompt-engineering.css';
 
@@ -527,6 +529,373 @@ export default function CtGenAiChapter2Page() {
                     <div className="callout-body">
                         <p>
                             効果的な運用のために、システムプロンプトは<strong>LLMの役割と制約について明確かつ具体的</strong>であるべきです。また、期待される出力に関する文脈や一般的な指示を含めても構いません。一方、ユーザープロンプトは<strong>焦点を絞り、明確な指示・関連する追加の文脈・出力形式の指定</strong>を含む、構造化されたものにする必要があります。組織内で共通のシステムプロンプト（例：「ISTQB用語に準拠する」「日本語で応答する」等）をテンプレート化しておくと、チーム全体でのプロンプト品質のばらつきを抑えられます。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h2 id="2-22-テスト業務へのプロンプトエンジニアリング技法の適用">
+                    2. 2.2 テスト業務へのプロンプトエンジニアリング技法の適用
+                </h2>
+                <p>
+                    前節で学んだ6要素構造と3つのコア技法を、実際のテストプロセスの各局面に適用していきます。プロンプトチェイニング・Few-shotプロンプティング・メタプロンプティングを組み合わせることで、チームはテスト目的に合わせてAIプロンプトを調整し、より正確で関連性が高く効果的な出力を得ることができます。<strong>高品質な入力（Input Data）が、意味のあるAI結果を得るために不可欠</strong>である点は、全ての局面に共通する重要な前提です。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-6">
+                    <Mermaid chart={DIAGRAM_TEST_ACTIVITIES_FLOW} />
+                </div>
+
+                <h3 id="21-テスト分析221">2.1 テスト分析（2.2.1）</h3>
+                <p>
+                    GenAIは、テスト条件の生成・優先順位付け、テストベース（要件・ユーザーストーリー等）における欠陥の特定、カバレッジ分析など、テスト分析業務を支援できます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>典型タスク</th>
+                                <th>GenAIによる支援内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テストベース内の潜在的欠陥の特定</td>
+                                <td>
+                                    類似の要件パターンの比較や過去の欠陥報告の知識を活用し、矛盾・曖昧さ・情報不足を検出して改善を提案する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>テストベースに基づくテスト条件の生成</td>
+                                <td>
+                                    自然言語処理を用いて要件・ユーザーストーリーの意味を解釈し、測定可能でテスト可能なステートメントに分解する
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>リスクレベルに基づくテスト条件の優先順位付け</td>
+                                <td>
+                                    各テスト条件のリスク発生可能性・影響度の情報をもとに、規制遵守やユーザー向け機能（ログイン、決済処理等）、過去の欠陥データを考慮して優先度を推奨する
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>カバレッジ分析の支援</td>
+                                <td>
+                                    要件・ユーザーストーリーをテスト条件にマッピングし、テストベースの全側面がカバーされているかを判定する
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テスト技法の提案</td>
+                                <td>
+                                    要件・ユーザーストーリーの種類に応じて、境界値分析や同値分割など適切なテスト技法を提案する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-header">
+                        <span className="callout-icon">💡</span>
+                        <span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            テスト分析でGenAIを使う際は、入力データの質がそのまま出力の精度に直結します。要件やユーザーストーリーだけでなく、<strong>GUIワイヤーフレームなどのマルチモーダル情報も併せて与える</strong>ことで、テキストだけでは伝わりにくい制約（画面上のレイアウトや入力フィールドの制限など）まで反映した、より高品質な受け入れ基準やテスト条件を得やすくなります。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標</span>
+                    </div>
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                <strong>HO-2.2.1a (H2)</strong>：テキストとGUIワイヤーフレーム画像の両方を入力に用いた構造化マルチモーダルプロンプトを作成し、ユーザーストーリーから高品質な受け入れ基準を生成する演習を行います。構造化プロンプトの各要素（役割・文脈・指示・テキストと画像の入力データ・制約条件・出力形式）の異なる書き方による結果を比較します。
+                            </li>
+                            <li>
+                                <strong>HO-2.2.1b (H2)</strong>：プロンプトチェイニングと人による検証を用いて、あるユーザーストーリーを段階的に分析し受け入れ基準を洗練する演習を行います。まず曖昧さの特定、次にテスト可能性の評価、最後に完全性の評価という3段階で進め、各段階でLLMの出力を人手で確認・修正します。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="22-テスト設計テスト実装222">2.2 テスト設計・テスト実装（2.2.2）</h3>
+                <p>
+                    テスト設計はテスト条件を精緻化・洗練しテストケース等のテストウェアへ変換する工程、テスト実装はテストの実施に必要なテストウェアを作成・取得する工程です（詳細はISTQB Foundation Levelシラバス [ISTQB_CTFL_SYL] を参照）。GenAIは、手動テストと自動テストスクリプトの両方の作成・優先順位付け・実行スケジュールへの組み込みを支援できます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>典型タスク</th>
+                                <th>GenAIによる支援内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テストケース生成</td>
+                                <td>
+                                    自然言語処理により機能要件・非機能要件からテストケースのドラフトを作成。前提条件・入力・期待結果・カバレッジ基準を提案し、基本的な機能検証から複雑なエンドツーエンドテストまで対応
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>テストデータの合成</td>
+                                <td>
+                                    プライバシーに配慮した、本番データに類似する代表的な合成テストデータを生成。極端なケースや多様なテスト条件をカバーし、現実的なシナリオをシミュレート。合成データは本番データの直接利用に比べてプライバシーリスクを低減できるが、機微な情報の再現・混入がないことや妥当性は生成後に検証する必要がある
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>自動テストスクリプトの生成</td>
+                                <td>
+                                    構造化されたテストケースから手動手順や自動テストスクリプトを生成し、様々なテスト自動化フレームワークに対応するコードへ変換。新要件に応じた更新・拡張も可能
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>テスト実行のスケジューリングと優先順位付け</td>
+                                <td>
+                                    テストケースとその相互依存関係を分析し、優先度・関連リスク・リソースの可用性・テスト目的に基づいて実行スケジュールを最適化
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標</span>
+                    </div>
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                <strong>HO-2.2.2a (H2)</strong>：プロンプトチェイニング・構造化プロンプト・メタプロンプティングを使い、ユーザーストーリーから機能テストケースを生成します。①受け入れ基準から特定の出力形式で機能テストケースを生成するプロンプトを作成→②各受け入れ基準がカバーされているかを表形式で要約させて完全性を検証→③エンドツーエンドのテスト手順作成を支援するメタプロンプトを作成、という3ステップで進めます。
+                            </li>
+                            <li>
+                                <strong>HO-2.2.2b (H2)</strong>：Few-shotプロンプティング技法を用いて、与えられたユーザーストーリーからGherkinスタイルのテスト条件・テストケースを生成します。まず事前定義された例とGherkin構文を確認し、n個の例（ユーザーストーリー・テスト条件・Given-When-Then形式の期待テストケース）を選んでプロンプトに含め、新しいユーザーストーリーに適用します。
+                            </li>
+                            <li>
+                                <strong>HO-2.2.2c (H2)</strong>：プロンプトチェイニングを使い、リスク分析や依存関係を考慮しながら、与えられたテストスイート内のテストケースを優先順位付けします。リスクベース・カバレッジベース・要件ベースなど異なるテストアプローチの概要を確認したうえで、優先順位付け計画を生成するプロンプトを作成し、結果を人手で検証します。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-header">
+                        <span className="callout-icon">💡</span>
+                        <span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            Few-shotプロンプティングでGherkinスタイルのテストケースを生成する場合、<strong>例の数（n）を増やしすぎない</strong>ことが重要です。例が多すぎるとコンテキストウィンドウを圧迫し処理効率が下がる一方、少なすぎると期待するパターンが安定しません。まず2〜3例から始め、結果が不安定な場合に例を追加する、という段階的なアプローチが実務的です。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="23-自動リグレッションテスト223">2.3 自動リグレッションテスト（2.2.3）</h3>
+                <p>
+                    新しいイテレーションやリリースのたびにリグレッションテストケースの数は増加する傾向にあり、特に実行頻度の高いCI/CD（継続的インテグレーション／継続的デリバリー）パイプラインにおいては自動化の理想的な対象となります。GenAIは、コードベースの変更に動的に適応し影響分析を行うことで、リグレッションテストの効率化を支援します。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>典型タスク</th>
+                                <th>GenAIによる支援内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>キーワード駆動自動化によるテストスクリプト実装</td>
+                                <td>
+                                    事前定義されたキーワードが共通のテストステップを表すキーワード駆動テスト自動化フレームワークに基づき、キーワードを特定のテストケースにマッピングしてテストスクリプトを生成
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>影響分析とテストの最適化</td>
+                                <td>
+                                    コード変更を分析して高リスク領域を特定し、最も必要な箇所にリグレッションテストを絞り込む
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>セルフヒーリング・アダプティブテスト</td>
+                                <td>
+                                    軽微なUIやAPIの変更に自動的にテストスクリプトを適応させ、不要な失敗を防ぎテストスイートの安定性を維持
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>自動テストレポーティングとインサイト</td>
+                                <td>
+                                    成功率指標・失敗・主要な洞察を含む詳細なテストレポートを生成し、トレンドや潜在的な失敗ポイントを予測するダッシュボードを提供
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>欠陥報告と根本原因分析の強化</td>
+                                <td>
+                                    テストログ・スクリーンショット・テスト環境データを含む包括的な欠陥報告の自動作成を支援
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>GUIテストとAPIテストでは課題の性質が異なります。</p>
+                <ul>
+                    <li>
+                        <strong>GUIテスト</strong>：UIの頻繁な変更により不安定になりやすい。GenAIは動的ロケータや変更されたインタラクションなど変化に自動的に適応させ、手動介入を削減できる。
+                    </li>
+                    <li>
+                        <strong>APIテスト</strong>：リクエスト／レスポンス形式、エンドポイント、認証の変化が課題。GenAIは進化するAPI仕様にスクリプトを自動適応させ、多様なテストデータを生成してカバレッジを維持できる。
+                    </li>
+                </ul>
+                <div className="callout-warning">
+                    <div className="callout-header">
+                        <span className="callout-icon">⚠️</span>
+                        <span className="callout-label">注意点</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            これらの活動は機能・非機能の様々なリグレッションテストに適用できますが、<strong>GenAIは誤りを犯す可能性がある</strong>ことをテスターは認識しておく必要があります。生成された出力は、関連するリスクに応じて注意深くチェックされなければなりません（リスクの詳細は第3章「GenAIのリスク管理」で扱います）。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標</span>
+                    </div>
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                <strong>HO-2.2.3a (H2)</strong>：GUIテスト自動化フレームワークを用いた、あるWebアプリケーション向けのテストスクリプトの開発・自動化を演習します。前半はキーワードライブラリのドキュメント作成・初期スクリプト生成・AIによる検証・カバレッジ拡張、後半はシステムプロンプトを用いてテストスクリプトのチェック・修正を行うAIアシスタントの作成に重点を置きます。
+                            </li>
+                            <li>
+                                <strong>HO-2.2.3b (H2)</strong>：構造化プロンプトを用いてリグレッションテストレポートを分析する演習です。テスト結果の分析とテスト仕様との比較から始め、類似欠陥のクラスタリング、既知の異常リストの維持、結果のクロスチェックへと段階的に進めます（各ステップは1つのLLM対話の中でつながっています）。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="24-テスト監視テストコントロール224">
+                    2.4 テスト監視・テストコントロール（2.2.4）
+                </h3>
+                <p>
+                    テスト監視業務では、しばしばテスト管理ツールに既に存在する大量の（時には非構造化な）データの取得が必要であり、GenAIはこれらのデータの分析・統合を支援できます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>典型タスク</th>
+                                <th>GenAIによる支援内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>テスト監視とメトリクス分析</td>
+                                <td>
+                                    テスト監視の自動化や、潜在リスクを予測するためのトレンド分析、計画からの逸脱をチームに警告
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>テストコントロール</td>
+                                <td>
+                                    テストの再優先順位付け、スケジュール調整、リソースの再配分に関する洞察を提供し、テストを高優先度領域に柔軟に集中させる
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>テスト完了に関するインサイトと継続的学習</td>
+                                <td>
+                                    テスト完了報告書を生成し、成功点や教訓を強調。チームが将来のテストプロセスを改善する材料を提供
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>高度化されたテストメトリクスの可視化とレポーティング</td>
+                                <td>
+                                    動的なダッシュボードや自然言語での要約を作成し、全ステークホルダーが関連メトリクスにアクセスできるようにする
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標 HO-2.2.4 (H0)</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            テストツールから抽出されたテストデータをLLMが処理し、テスト進捗・欠陥トレンド・カバレッジなどの主要メトリクスと潜在リスクを生成する様子をデモとして観察します。生成されたメトリクスはダッシュボードに表示され、全ステークホルダー向けに自然言語で要約されます。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-warning">
+                    <div className="callout-header">
+                        <span className="callout-icon">⚠️</span>
+                        <span className="callout-label">v1.1での学習目標の文言変更</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            v1.0では「GenAI-2.2.4 (K3) Apply generative AI to <strong>test control and monitoring</strong> tasks」でしたが、v1.1では「Apply generative AI to <strong>test monitoring and control</strong> task」と、監視とコントロールの語順および単複表現が微調整されています（内容・出題範囲に変更はありません）。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="25-状況に応じた技法選択225">2.5 状況に応じた技法選択（2.2.5）</h3>
+                <p>
+                    2.1.2で紹介した3つのコア技法（プロンプトチェイニング／Few-shotプロンプティング／メタプロンプティング）を、テストタスクの特性に応じてどう選ぶべきかをまとめます。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>プロンプティング技法</th>
+                                <th>推奨されるユースケース</th>
+                                <th>主な特徴・適用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>プロンプトチェイニング</td>
+                                <td>各ステップで人による検証を伴う精度が求められる複雑なタスク</td>
+                                <td>
+                                    タスクを小さなステップに分解。テスト分析・テスト設計・テスト自動化など、各テストステップの正確性がチェックされる場面で有用
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>Few-shotプロンプティング</td>
+                                <td>反復的、または特定・制約のある出力形式が求められるタスク</td>
+                                <td>
+                                    特定パターンでの反復生成のための例を提供。Gherkin形式のテストケース（シナリオベース）、キーワード駆動テスト、特定形式のテストレポートなど
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>メタプロンプティング</td>
+                                <td>柔軟で動的なタスク。新しいタスク向けのプロンプト作成に有用</td>
+                                <td>
+                                    達成すべき目的とタスクの一般的な説明を与えることで、LLMのプロンプト作成を誘導。テストレポート分析や異常検知などあらゆる複雑なタスクに有用
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    以下は、テストタスクの性質から技法を選択するための意思決定フローの一例です（シラバスの説明を図式化したものです）。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-7">
+                    <Mermaid chart={DIAGRAM_TECHNIQUE_DECISION_TREE} />
+                </div>
+                <p>
+                    シラバスが強調する通り、<strong>1つのユースケースに複数の技法を使うことも可能</strong>です。例えば、メタプロンプティングで初期プロンプトを作成し、そのプロンプトに含まれる例をFew-shotプロンプティングで調整・強化し、さらにタスクをプロンプトチェイニングで小さなサブタスクに分割して中間ステップの検証を可能にする、という組み合わせが典型例です。
+                </p>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標 HO-2.2.5 (H1)</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            様々な課題を持つ複数のテストタスクが与えられ、各タスクについて「精度が必要か」「反復的な構造が必要か」といった性質を評価し、そのタスクの文脈と具体的なニーズに最も適した技法を提案してグループで議論します。
                         </p>
                     </div>
                 </div>
