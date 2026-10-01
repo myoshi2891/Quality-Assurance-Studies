@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import './istqb-ct-genai-chapter4-llm-powered-solutions.css';
 import NavBar from './NavBar';
+import ChecklistCard from './ChecklistCard';
 import Mermaid from '../../components/Mermaid';
 import {
     DIAGRAM_D1,
@@ -2459,7 +2460,627 @@ export default function CtGenAiChapter4Page() {
                             </a>
                         </div>
                     </section>
+
+                    <section className="section" id="s10">
+                        <div className="eyebrow">
+                            <i className="ti ti-help-circle"></i>10. 確認問題（自己採点用）
+                        </div>
+                        <h2>確認問題（自己採点用）</h2>
+                        <div className="callout plum">
+                            <i className="ti ti-info-circle"></i>
+                            <div className="callout-body">
+                                <p>
+                                    以下は本ガイド独自の練習問題です。公式サンプル試験ではありません。公式サンプル試験は末尾の参考文献から入手できます。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問1</span>
+                                LLM搭載テストインフラで、認証・アクセス制御、プロンプトの前処理、関連データの検索、LLMとの通信を担う要素はどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. フロントエンド</li>
+                                <li>B. バックエンド</li>
+                                <li>C. LLM</li>
+                                <li>D. ベクトルデータベース</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        これらはバックエンドの責務です。フロントエンドはUI、LLMは応答生成、ベクトルデータベースは意味検索のためのデータ保存先です。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問2</span>
+                                RAGの実行時の処理順序として正しいものはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 生成→検索</li>
+                                <li>B. 検索→生成</li>
+                                <li>C. チャンク分割→生成</li>
+                                <li>D. ファインチューニング→検索</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        ユーザークエリを埋め込みに変換して関連チャンクを検索し、その結果をコンテキストとしてLLMに渡して生成します。チャンク分割は事前処理（インデックス作成）の段階です。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問3</span>
+                                RAGが、LLM単体の利用と比べてテストタスクで特に有効な点はどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. モデルの重みを直接更新できる</li>
+                                <li>
+                                    B.
+                                    最新の社内仕様・要件・既存テストデータに根拠づけた出力が得られる
+                                </li>
+                                <li>C. ハルシネーションを完全になくせる</li>
+                                <li>D. 人間のレビューが不要になる</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        RAGは最新の社内データを実行時に取得して根拠づけます。Aはファインチューニングの説明、CとDは誤りです（RAGでもハルシネーションは残るため、レビューや検証が必要です）。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問4</span>
+                                チャットボットとLLM搭載エージェントの最も本質的な違いはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 大規模言語モデルを使うかどうか</li>
+                                <li>B. 日本語に対応しているかどうか</li>
+                                <li>
+                                    C.
+                                    事前定義されたツールを呼び出して外部システムに働きかけられるか
+                                </li>
+                                <li>D. ベクトルデータベースを使うかどうか</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：C</span>
+                                    <p>
+                                        エージェントは「ツール」と呼ばれる関数を呼び出して行動できる点が特徴です。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問5</span>
+                                安全性が重要なテストタスクで、LLM搭載エージェントのリスクを緩和するために最も適切なのはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 自律型エージェントを使い、人間の関与を減らす</li>
+                                <li>
+                                    B.
+                                    半自律型エージェントを使い、人間の監督と自動検証を組み合わせる
+                                </li>
+                                <li>C. 温度を最大に設定する</li>
+                                <li>D. すべての出力を検証せずに採用する</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        シラバスは、自動検証手順の導入と、重要なタスクでの半自律型エージェントの利用を緩和策として挙げています。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問6</span>
+                                ファインチューニングに関する記述として最も適切なものはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 実行時に外部データを検索して回答に付け加える手法である</li>
+                                <li>
+                                    B.
+                                    事前学習済みモデルを、特定タスク向けのデータセットで追加学習する手法である
+                                </li>
+                                <li>C. モデルを毎回ゼロから学習する手法である</li>
+                                <li>D. プロンプトの書き方だけを工夫する手法である</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        AはRAG、Dはプロンプトエンジニアリングの説明です。ファインチューニングは、ゼロからの学習ではなく追加学習です。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問7</span>
+                                ファインチューニングの課題として、シラバスの趣旨に当てはまらないものはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 学習データの品質に依存し、偏りや誤りが反映される</li>
+                                <li>B. 過学習により未知のシナリオで性能が落ちる</li>
+                                <li>C. 推論の根拠が不透明になりやすい</li>
+                                <li>D. 学習データが一切不要である</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：D</span>
+                                    <p>
+                                        ファインチューニングには高品質な対象データが不可欠です。A、B、Cは課題として挙げられている内容です。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問8</span>
+                                運用コストを抑えつつ、狭く明確に定義されたテストタスクに特化させたい場合の選択肢として、最も適切なのはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 大規模LLMをゼロから事前学習する</li>
+                                <li>B. ファインチューニングしたSLMを使う</li>
+                                <li>C. エージェントをすべて自律型にする</li>
+                                <li>D. RAGのチャンクを最大にする</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        SLMは軽量で、ファインチューニングすると狭いタスクで高い性能を低コストで得られます。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問9</span>
+                                LLMOpsの説明として最も適切なものはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>A. 新しいLLMを研究開発するための学術的な枠組み</li>
+                                <li>
+                                    B.
+                                    本番環境でLLMをデプロイ・監視・保守・統制するための手法・ツール・プロセス
+                                </li>
+                                <li>C. テストケースを自動生成するプロンプトの書式</li>
+                                <li>D. ベクトルデータベースの一種</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>LLMOpsは運用ライフサイクル全体の管理を指します。</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <p className="quiz-q">
+                                <span className="qnum">問10</span>
+                                GenAIのテストプロセスへの導入アプローチに関する記述として正しいものはどれか。
+                            </p>
+                            <ul className="quiz-options">
+                                <li>
+                                    A.
+                                    3つのアプローチ（チャットボット、内蔵ツール、社内開発）は同時に併用できない
+                                </li>
+                                <li>B. 社内開発は制御度が最も高いが、運用責任も最も大きい</li>
+                                <li>
+                                    C.
+                                    AIチャットボットの利用では、データプライバシーを考慮する必要がない
+                                </li>
+                                <li>D. RAGやファインチューニングは、社内開発でしか使えない</li>
+                            </ul>
+                            <details>
+                                <summary className="quiz-toggle">
+                                    <i className="ti ti-chevron-right"></i>答えと解説を見る
+                                </summary>
+                                <div className="quiz-answer">
+                                    <span className="ans-badge">正解：B</span>
+                                    <p>
+                                        3つのアプローチは併用可能で、RAGやファインチューニングはどのアプローチにも組み込めます。チャットボットでもデータプライバシーとセキュリティの評価が必要です。
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+
+                    <section className="section" id="s11">
+                        <div className="eyebrow">
+                            <i className="ti ti-checklist"></i>11. 試験直前チェックリスト
+                        </div>
+                        <h2>試験直前チェックリスト</h2>
+                        <ChecklistCard />
+                    </section>
+
+                    <section className="section" id="s12">
+                        <div className="eyebrow">
+                            <i className="ti ti-link"></i>12. 参考文献（根拠となるソースURL）
+                        </div>
+                        <h2>参考文献（根拠となるソースURL）</h2>
+
+                        <div className="ref-group">
+                            <h4>12.1 ISTQB公式・公式準拠資料（試験範囲の根拠）</h4>
+                            <div className="ref-grid">
+                                <div className="ref-card">
+                                    <i className="ti ti-certificate"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            ISTQB
+                                            CT-GenAI認定ページ（シラバスv1.1、サンプル試験、Exam
+                                            Structuresのダウンロード）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://istqb.org/certifications/gen-ai/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                https://istqb.org/certifications/gen-ai/
+                                            </a>
+                                        </div>
+                                        <p>
+                                            章構成、試験形式（40問、合格30/46点、60分）、最新資料の入手
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-file-text"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            CT-GenAI Syllabus v1.1（公式PDFダウンロード）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://istqb.org/?sdm_process_download=1&download_id=6295"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                istqb.org（download_id=6295）
+                                            </a>
+                                        </div>
+                                        <p>
+                                            受験前の最終確認（本ガイド作成時は本文を取得できなかった）
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-file-text"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            CT-GenAI Syllabus v1.0（PDF、第4章の原文を確認）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf
+                                            </a>
+                                        </div>
+                                        <p>4.1.1〜4.1.3、4.2.1の原文</p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-clipboard-list"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            CT-GenAI Sample Exam A Questions v1.1
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://istqb.org/?sdm_process_download=1&download_id=6309"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                istqb.org（download_id=6309）
+                                            </a>
+                                        </div>
+                                        <p>出題形式の確認</p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-clipboard-check"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            CT-GenAI Sample Exam A Answers v1.1
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://istqb.org/?sdm_process_download=1&download_id=6301"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                istqb.org（download_id=6301）
+                                            </a>
+                                        </div>
+                                        <p>解答と解説の確認</p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-abc"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">ISTQB Glossary</div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://glossary.istqb.org/en_US/search?term="
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                https://glossary.istqb.org/en_US/search?term=
+                                            </a>
+                                        </div>
+                                        <p>用語の公式定義</p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-presentation"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Exactpro：Chapter 4 Reading Materials（v1.1準拠）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://speakerdeck.com/exactpro/chapter-4-llm-powered-testformat-reading-materials-self-study-or-guided-reading"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                speakerdeck.com/exactpro（Chapter 4 Reading Materials）
+                                            </a>
+                                        </div>
+                                        <p>
+                                            v1.1準拠の詳細解説（4.1.1の構成要素、4.2.1の課題、4.2.2のLLMOpsと3アプローチ）
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-presentation"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Exactpro：Chapter 4 Slides（v1.1準拠）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://speakerdeck.com/exactpro/chapter-4-llm-powered-test-slides"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                speakerdeck.com/exactpro（Chapter 4 Slides）
+                                            </a>
+                                        </div>
+                                        <p>上記のスライド版</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="ref-group">
+                            <h4>12.2 ベストプラクティスの補足ソース（試験範囲外・実務の参考）</h4>
+                            <div className="ref-grid">
+                                <div className="ref-card">
+                                    <i className="ti ti-database-search"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Microsoft
+                                            Learn：RAGの情報検索（インデックス設定、ハイブリッド検索、リランキング）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://learn.microsoft.com/en-us/Azure/architecture/ai-ml/guide/rag/rag-information-retrieval"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                learn.microsoft.com（RAG information retrieval）
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-file-description"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Lewisら「Retrieval-Augmented Generation for
+                                            Knowledge-Intensive NLP Tasks」（原論文）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://arxiv.org/abs/2005.11401"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                arxiv.org/abs/2005.11401
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-robot"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Anthropic「Building effective agents」
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://www.anthropic.com/engineering/building-effective-agents"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                anthropic.com/engineering/building-effective-agents
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-shield-check"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            OWASP Top 10 for LLM
+                                            Applications（プロンプトインジェクション、過剰なエージェンシー、不適切な出力処理など）
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://genai.owasp.org/llm-top-10/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                genai.owasp.org/llm-top-10/
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-file-description"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Huら「LoRA: Low-Rank Adaptation of Large Language
+                                            Models」
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://arxiv.org/abs/2106.09685"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                arxiv.org/abs/2106.09685
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-cloud"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">
+                                            Google Cloud「What is LLMOps?」
+                                        </div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://cloud.google.com/discover/what-is-llmops"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                cloud.google.com/discover/what-is-llmops
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ref-card">
+                                    <i className="ti ti-brand-ibm"></i>
+                                    <div className="ref-body">
+                                        <div className="ref-title">IBM「What is LLMOps?」</div>
+                                        <div className="ref-url">
+                                            <a
+                                                href="https://ibm.com/think/topics/llmops"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                ibm.com/think/topics/llmops
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>12.3 出典に関する注意</h3>
+                        <div className="critique-card">
+                            <ul>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        【シラバス】と表記した内容は、上記12.1の資料に基づいています。v1.0の原文とv1.1準拠の教材の間で、表現が異なる箇所はv1.1準拠の教材の表現を優先しつつ、意味が一致することを確認しています。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        【補足】と表記した内容は、12.2の資料と一般的な業界知見に基づく参考情報で、試験の出題範囲であるとは限りません。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        Exactproの教材は、ISTQB®
+                                        CT-GenAIシラバスv1.1に準拠した非公式の教材（Speaker
+                                        Deck上の公開資料）です。公式の試験範囲は、必ずISTQB公式のシラバスで確認してください。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        標準・規制（ISO/IEC 42001、EU AI Act、NIST AI
+                                        RMFなど）は第3章で扱われるトピックで、本章ではLLMOpsのガバナンスの文脈で関連します。
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
                 </div>
+
+                <footer className="footer">
+                    <p>
+                        本ガイドはISTQB® Certified Tester Specialist Level – Testing with
+                        Generative AI（CT-GenAI）シラバス第4章の学習支援を目的とした非公式の教材です。試験の正式な出題範囲は、必ず
+                        <a
+                            href="https://istqb.org/certifications/gen-ai/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ISTQB公式ページ
+                        </a>
+                        および最新の公式シラバスでご確認ください。
+                    </p>
+                </footer>
             </main>
         </div>
     );
