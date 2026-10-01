@@ -55,6 +55,38 @@ export const EXPECTED_TABLE_SPECS_CAT0: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT0,
+    {
+        heading: '1.1 この章は一言で言うと',
+        headers: ['新人アシスタントの例え', '対応する節'],
+        rows: 4,
+        cols: 2,
+        sample: '自信満々に間違ったことを言う',
+    },
+    {
+        heading: '1.2 学習目標（Learning Objectives）一覧',
+        headers: ['ID', 'レベル', '学習目標', '本文書の場所'],
+        rows: 9,
+        cols: 4,
+        sample: 'GenAI-3.1.1',
+    },
+    {
+        heading: '1.2 学習目標（Learning Objectives）一覧',
+        headers: ['種類', 'キーワード'],
+        rows: 2,
+        cols: 2,
+        sample: '一般キーワード',
+    },
+    {
+        heading: '1.4 試験の基本情報',
+        headers: ['項目', '内容'],
+        rows: 5,
+        cols: 2,
+        sample: '問題数',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -112,3 +144,60 @@ describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
         });
     });
 });
+
+describe('CT-GenAI Chapter 3 Page (Cat 1: 1. 第3章の全体像)', () => {
+    it('renders all Cat 1 headings and paragraphs correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#1-第3章の全体像');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('1. 第3章の全体像');
+
+        const h3Ids = [
+            '11-この章は一言で言うと',
+            '12-学習目標learning-objectives一覧',
+            '13-第3章の全体マップ',
+            '14-試験の基本情報',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid diagram 0 container correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const mermaidContainer = container.querySelector('.mermaid-container');
+        expect(mermaidContainer).not.toBeNull();
+        expect(mermaidContainer?.textContent).toContain('OV_Root');
+    });
+
+    it('matches table inventory through Cat 1', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT1.length);
+
+        EXPECTED_TABLE_SPECS_CAT1.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+
+    it('renders glossary and practice callouts in Cat 1', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const glossary = container.querySelector('.callout-glossary');
+        expect(glossary).not.toBeNull();
+        expect(glossary?.textContent).toContain('GenAI（生成AI）');
+        expect(glossary?.textContent).toContain('LLM（大規模言語モデル）');
+        expect(glossary?.textContent).toContain('テストウェア');
+        expect(glossary?.textContent).toContain('K レベル');
+
+        const practice = container.querySelector('.callout-practice');
+        expect(practice).not.toBeNull();
+        expect(practice?.textContent).toContain('満点が 46 点で問題数が 40 問なのは');
+    });
+});
+
