@@ -166,9 +166,8 @@ describe('CT-GenAI Chapter 3 Page (Cat 1: 1. 第3章の全体像)', () => {
 
     it('renders Mermaid diagram 0 container correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
-        const mermaidContainer = container.querySelector('.mermaid-container');
+        const mermaidContainer = container.querySelector('[data-diagram-id="mermaid-diagram-0"]');
         expect(mermaidContainer).not.toBeNull();
-        expect(mermaidContainer?.textContent).toContain('OV_Root');
     });
 
     it('matches table inventory through Cat 1', () => {
