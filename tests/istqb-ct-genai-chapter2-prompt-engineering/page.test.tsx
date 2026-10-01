@@ -99,7 +99,7 @@ describe('CT-GenAI 第2章 完全解説ガイド (Category 0: 基盤セットア
     it('セクション0の構成要素（見出し、Mermaid図0、表1・2、キーワード、コールアウト）が存在すること', () => {
         const { container } = render(<CtGenAiChapter2Page />);
 
-        const sec0 = container.querySelector('#0-第2章の全体像と学習目標');
+        const sec0 = container.querySelector('[id="0-第2章の全体像と学習目標"]');
         expect(sec0).not.toBeNull();
         expect(sec0?.tagName).toBe('H2');
 

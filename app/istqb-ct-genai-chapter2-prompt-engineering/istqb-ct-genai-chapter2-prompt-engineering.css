@@ -1,0 +1,617 @@
+.ct-genai-ch2-page {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --card2: #f1f5f9;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --text-faint: #64748b;
+    --text-dim: #475569;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --accent-bg: #eff6ff;
+    --success: #15803d;
+    --success-bg: #f0fdf4;
+    --warn: #b45309;
+    --warn-bg: #fffbeb;
+    --note-bg: #eff6ff;
+    --sidebar-w: 300px;
+    --font-jp: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-jp);
+    line-height: 1.85;
+    font-size: 16px;
+    min-height: 100vh;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* globals.css 干渉リセット */
+.ct-genai-ch2-page main,
+main.ct-genai-ch2-page,
+.ct-genai-ch2-page .main {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ct-genai-ch2-page section {
+    padding-top: 0 !important;
+}
+
+.ct-genai-ch2-page section + section {
+    border-top: none !important;
+}
+
+.ct-genai-ch2-page .layout {
+    display: block;
+}
+
+/* ヒーロー領域 */
+.ct-genai-ch2-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
+    background: linear-gradient(135deg, var(--accent-bg) 0%, var(--card) 60%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+}
+
+.ct-genai-ch2-page .hero-kicker {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.ct-genai-ch2-page .hero h1 {
+    font-size: 30px;
+    line-height: 1.4;
+    margin: 0 0 10px;
+    color: var(--text);
+    font-weight: 800;
+}
+
+.ct-genai-ch2-page .hero .hero-subtitle {
+    font-size: 16px;
+    color: var(--text-faint);
+    margin: 0 0 20px;
+    font-weight: 600;
+}
+
+.ct-genai-ch2-page .hero-meta {
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--border);
+    padding: 20px 0 0;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.ct-genai-ch2-page .hero-meta p {
+    margin: 0 0 10px;
+}
+
+.ct-genai-ch2-page .hero-meta ul {
+    margin: 0 0 10px;
+    padding-left: 20px;
+}
+
+.ct-genai-ch2-page .hero-meta li {
+    margin: 4px 0;
+}
+
+.ct-genai-ch2-page .hero-meta a {
+    color: var(--accent-dark);
+    word-break: break-all;
+}
+
+/* メインコンテンツ領域 */
+.ct-genai-ch2-page .main {
+    margin-left: var(--sidebar-w);
+    padding: 48px 56px 96px;
+}
+
+.ct-genai-ch2-page .main h2 {
+    font-size: 23px;
+    margin: 56px 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    color: var(--text);
+    scroll-margin-top: 80px;
+    font-weight: 700;
+}
+
+.ct-genai-ch2-page .main h2:first-of-type {
+    margin-top: 0;
+}
+
+.ct-genai-ch2-page .main h3 {
+    font-size: 19px;
+    margin: 36px 0 14px;
+    color: var(--text);
+    scroll-margin-top: 80px;
+    font-weight: 700;
+}
+
+.ct-genai-ch2-page .main h4 {
+    font-size: 16px;
+    margin: 26px 0 10px;
+    color: var(--accent-dark);
+    scroll-margin-top: 80px;
+    font-weight: 700;
+}
+
+.ct-genai-ch2-page .main p,
+.ct-genai-ch2-page .main ul,
+.ct-genai-ch2-page .main ol {
+    margin: 0 0 16px;
+    color: var(--text);
+}
+
+.ct-genai-ch2-page .main ul {
+    list-style-type: disc;
+    padding-left: 26px;
+}
+
+.ct-genai-ch2-page .main ol {
+    list-style-type: decimal;
+    padding-left: 26px;
+}
+
+.ct-genai-ch2-page .main li {
+    margin: 4px 0;
+}
+
+.ct-genai-ch2-page .main a {
+    color: var(--accent-dark);
+}
+
+.ct-genai-ch2-page .main strong {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.ct-genai-ch2-page hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+}
+
+/* テーブルスタイル & globals干渉リセット */
+.ct-genai-ch2-page .table-scroll {
+    overflow-x: auto;
+    margin: 0 0 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.ct-genai-ch2-page table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    font-size: 14px;
+    min-width: 480px;
+}
+
+.ct-genai-ch2-page table th,
+.ct-genai-ch2-page table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.ct-genai-ch2-page thead th,
+.ct-genai-ch2-page tr.header th {
+    background: var(--card2) !important;
+    font-weight: 700 !important;
+    color: var(--text) !important;
+    white-space: normal !important;
+}
+
+.ct-genai-ch2-page tbody td,
+.ct-genai-ch2-page td {
+    color: var(--text) !important;
+    font-size: 14px !important;
+}
+
+.ct-genai-ch2-page tr.odd td {
+    background: var(--card) !important;
+}
+
+.ct-genai-ch2-page tr.even td {
+    background: var(--card2) !important;
+}
+
+.ct-genai-ch2-page td strong {
+    color: var(--text) !important;
+}
+
+.ct-genai-ch2-page table code {
+    background: var(--card2);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* コールアウト */
+.ct-genai-ch2-page .callout-practice,
+.ct-genai-ch2-page .callout-handson,
+.ct-genai-ch2-page .callout-warning,
+.ct-genai-ch2-page .callout-note,
+.ct-genai-ch2-page .callout-generic {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 0 0 20px;
+    border: 1px solid var(--border);
+}
+
+.ct-genai-ch2-page .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.ct-genai-ch2-page .callout-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.ct-genai-ch2-page .callout-body p:last-child,
+.ct-genai-ch2-page .callout-body ul:last-child {
+    margin-bottom: 0;
+}
+
+.ct-genai-ch2-page .callout-practice {
+    background: var(--success-bg);
+    border-color: #bbf7d0;
+}
+.ct-genai-ch2-page .callout-practice .callout-label {
+    color: var(--success);
+}
+
+.ct-genai-ch2-page .callout-handson {
+    background: var(--accent-bg);
+    border-color: #bfdbfe;
+}
+.ct-genai-ch2-page .callout-handson .callout-label {
+    color: var(--accent-dark);
+}
+
+.ct-genai-ch2-page .callout-warning {
+    background: var(--warn-bg);
+    border-color: #fde68a;
+}
+.ct-genai-ch2-page .callout-warning .callout-label {
+    color: var(--warn);
+}
+
+.ct-genai-ch2-page .callout-note {
+    background: var(--note-bg);
+    border-color: #bfdbfe;
+}
+.ct-genai-ch2-page .callout-note .callout-label {
+    color: var(--accent-dark);
+}
+
+.ct-genai-ch2-page .callout-generic {
+    background: var(--card2);
+    border-color: var(--border);
+    color: var(--text-faint);
+    font-size: 14px;
+}
+.ct-genai-ch2-page .callout-generic p:last-child {
+    margin-bottom: 0;
+}
+
+/* チェックリスト */
+.ct-genai-ch2-page .checklist-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+
+.ct-genai-ch2-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ct-genai-ch2-page .cp-label {
+    color: var(--text-faint);
+    white-space: nowrap;
+}
+
+.ct-genai-ch2-page .cp-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--card2);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ct-genai-ch2-page .cp-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.25s ease;
+}
+
+.ct-genai-ch2-page .cp-count {
+    color: var(--accent-dark);
+    white-space: nowrap;
+}
+
+.ct-genai-ch2-page ul.task-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+
+.ct-genai-ch2-page ul.task-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.ct-genai-ch2-page ul.task-list li:last-child {
+    border-bottom: none;
+}
+
+.ct-genai-ch2-page ul.task-list input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    background: var(--card);
+}
+
+.ct-genai-ch2-page ul.task-list input[type='checkbox']:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.ct-genai-ch2-page ul.task-list input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ct-genai-ch2-page ul.task-list li.completed {
+    text-decoration: line-through;
+    color: var(--text-faint);
+}
+
+/* フッター */
+.ct-genai-ch2-page .page-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-faint);
+}
+
+/* サイドバー */
+.ct-genai-ch2-page .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    overflow-y: auto;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    padding: 24px 0 40px;
+    z-index: 40;
+    transition: transform 0.2s ease;
+}
+
+.ct-genai-ch2-page .sidebar-brand {
+    padding: 0 20px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+}
+
+.ct-genai-ch2-page .sidebar-brand .brand-kicker {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.ct-genai-ch2-page .sidebar-brand .brand-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 4px;
+    color: var(--text);
+}
+
+.ct-genai-ch2-page ul.side-nav,
+.ct-genai-ch2-page ul.side-nav-sub {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ct-genai-ch2-page ul.side-nav > li {
+    margin: 0;
+}
+
+.ct-genai-ch2-page ul.side-nav > li > a {
+    display: block;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ct-genai-ch2-page ul.side-nav-sub {
+    padding-left: 0 !important;
+}
+
+.ct-genai-ch2-page ul.side-nav-sub > li > a {
+    display: block;
+    padding: 7px 20px 7px 34px;
+    font-size: 13px;
+    color: var(--text-faint);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ct-genai-ch2-page ul.side-nav a:hover {
+    background: var(--card2);
+    color: var(--accent-dark);
+}
+
+.ct-genai-ch2-page ul.side-nav a.active {
+    background: var(--accent-bg);
+    color: var(--accent-dark);
+    border-left-color: var(--accent);
+}
+
+.ct-genai-ch2-page .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 74px;
+    left: 14px;
+    z-index: 50;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.ct-genai-ch2-page .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    z-index: 35;
+}
+
+/* ---------- Mermaid 修正スキル規約リセット (CRITICAL) ---------- */
+.ct-genai-ch2-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.ct-genai-ch2-page .mermaid-container,
+.ct-genai-ch2-page .mermaid-wrap {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: safe center;
+    margin: 24px 0 28px;
+    padding: 8px 0;
+}
+
+.ct-genai-ch2-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+    flex-shrink: 0;
+}
+
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabels rect,
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabel,
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabel span,
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabel p,
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabel text,
+.ct-genai-ch2-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    fill: #1e293b !important;
+    font-weight: 700 !important;
+}
+
+.ct-genai-ch2-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ct-genai-ch2-page .mermaid-wrapper foreignObject p,
+.ct-genai-ch2-page .mermaid-wrapper foreignObject span,
+.ct-genai-ch2-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 900px) {
+    .ct-genai-ch2-page .sidebar {
+        transform: translateX(-100%);
+        box-shadow: 2px 0 16px rgba(15, 23, 42, 0.15);
+    }
+    .ct-genai-ch2-page .sidebar.open {
+        transform: translateX(0);
+    }
+    .ct-genai-ch2-page .sidebar-toggle {
+        display: flex;
+    }
+    .ct-genai-ch2-page .sidebar-overlay.open {
+        display: block;
+    }
+    .ct-genai-ch2-page .main {
+        margin-left: 0;
+        padding: 60px 20px 64px;
+    }
+    .ct-genai-ch2-page .hero {
+        padding: 24px 22px;
+    }
+    .ct-genai-ch2-page .hero h1 {
+        font-size: 22px;
+    }
+    .ct-genai-ch2-page table {
+        min-width: 420px;
+    }
+}
