@@ -13,7 +13,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `c9ac425` |
+| 最新 HEAD | `620eebb` |
 | 最新コミット内容 | `feat(ct-genai-ch3): implement cat 7 (references & footer)` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | `npm test`: 全テスト通過、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
