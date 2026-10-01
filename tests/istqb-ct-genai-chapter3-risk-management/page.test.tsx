@@ -168,6 +168,80 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT2,
+    {
+        heading: 'プライバシーの3つの懸念',
+        headers: ['#', '懸念', '内容', 'テスト現場の例'],
+        rows: 3,
+        cols: 4,
+        sample: '1',
+    },
+    {
+        heading: 'セキュリティの3つのリスク',
+        headers: ['#', 'リスク', '内容'],
+        rows: 3,
+        cols: 3,
+        sample: '1',
+    },
+    {
+        heading: '4つの攻撃ベクトル',
+        headers: ['攻撃ベクトル', '内容', 'シラバスの例', '例え話'],
+        rows: 4,
+        cols: 4,
+        sample: 'コンテキスト操作（Context Manipulation）',
+    },
+    {
+        heading: '攻撃ベクトルがどこに入り込むかの図',
+        headers: ['シラバスの攻撃ベクトル', 'OWASP LLM Top 10（2025）で近いもの'],
+        rows: 4,
+        cols: 2,
+        sample: 'コンテキスト操作',
+    },
+    {
+        heading: '基本のデータ保護策（4つ）',
+        headers: ['#', '対策', '内容', '例え話', 'テスト現場の実践例'],
+        rows: 4,
+        cols: 5,
+        sample: '1',
+    },
+    {
+        heading: '追加の緩和策（5つ）',
+        headers: ['#', '対策', '内容'],
+        rows: 5,
+        cols: 3,
+        sample: '1',
+    },
+    {
+        heading: '運用環境の選択フロー',
+        headers: ['手順', '行うこと', '対応する対策', '理由'],
+        rows: 6,
+        cols: 4,
+        sample: '1',
+    },
+    {
+        heading: '運用環境の選択フロー',
+        headers: ['変数', '内容'],
+        rows: 2,
+        cols: 2,
+        sample: 'safe_log',
+    },
+    {
+        heading: '運用環境の選択フロー',
+        headers: ['使っているもの', '主なリスク', 'ベストプラクティス', '根拠'],
+        rows: 7,
+        cols: 4,
+        sample: 'AI チャットボット（利用者が直接入力）',
+    },
+    {
+        heading: '3.2 節の試験ポイントまとめ',
+        headers: ['観点', '覚えること'],
+        rows: 7,
+        cols: 2,
+        sample: 'プライバシーの懸念（K2）',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -330,5 +404,55 @@ describe('CT-GenAI Chapter 3 Page (Cat 2: 2. 3.1 ハルシネーション・推�
         expect(pres.length).toBeGreaterThanOrEqual(3);
     });
 });
+
+describe('CT-GenAI Chapter 3 Page (Cat 3: 3. 3.2 データプライバシーとセキュリティのリスク)', () => {
+    it('renders Cat 3 headings correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#3-32-データプライバシーとセキュリティのリスク');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('3. 3.2 データプライバシーとセキュリティのリスク');
+
+        const h3Ids = [
+            '30-なぜこの節が必要なのか',
+            '31-genai-321--k2データプライバシーとセキュリティの主なリスク',
+            '32-genai-322--k2データプライバシーと脆弱性の例攻撃ベクトル4種',
+            '33-genai-323--k2プライバシー保護とセキュリティ強化の緩和策',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid diagrams 5, 6, 7 correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        ['mermaid-diagram-5', 'mermaid-diagram-6', 'mermaid-diagram-7'].forEach((id) => {
+            const el = container.querySelector(`[data-diagram-id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('matches table inventory through Cat 3', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT3.length);
+
+        EXPECTED_TABLE_SPECS_CAT3.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+
+    it('renders code block in Cat 3', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const pres = Array.from(container.querySelectorAll('pre:not(.mermaid)'));
+        expect(pres.length).toBeGreaterThanOrEqual(4);
+    });
+});
+
 
 
