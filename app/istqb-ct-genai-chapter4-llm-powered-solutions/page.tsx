@@ -3,7 +3,17 @@ import type { Metadata } from 'next';
 import './istqb-ct-genai-chapter4-llm-powered-solutions.css';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_D1, DIAGRAM_D2, DIAGRAM_D3, DIAGRAM_D4, DIAGRAM_D5, DIAGRAM_D6 } from './diagrams';
+import {
+    DIAGRAM_D1,
+    DIAGRAM_D2,
+    DIAGRAM_D3,
+    DIAGRAM_D4,
+    DIAGRAM_D5,
+    DIAGRAM_D6,
+    DIAGRAM_D7,
+    DIAGRAM_D8,
+    DIAGRAM_D9,
+} from './diagrams';
 
 export const metadata: Metadata = {
     title: 'ISTQB CT-GenAI 第4章 完全ガイド｜LLM搭載テストインフラ（初学者向け）',
@@ -1464,6 +1474,716 @@ export default function CtGenAiChapter4Page() {
                                     <i className="ti ti-point"></i>
                                     <div className="item-body">
                                         エージェントにもLLMと同じリスク（ハルシネーション・推論エラー・バイアス）があり、自動検証や人間の監督で緩和する。
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section className="section" id="s5">
+                        <div className="eyebrow">
+                            <i className="ti ti-adjustments"></i>5. 4.2.1
+                            テストタスクのためのLLMファインチューニング　<span className="tag k2">K2</span>
+                        </div>
+                        <h2>4.2.1　テストタスクのためのLLMファインチューニング</h2>
+
+                        <h3>5.1 ファインチューニングとは</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    ファインチューニングは、<strong>事前学習済みの言語モデル（LLMまたはSLM）を、特定のタスクやドメインに合わせて適応させる</strong>ことです。ゼロから学習するのではなく、対象を絞ったデータセットで追加学習を行い、ドメイン固有の知識やニュアンスを学ばせます。
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            たとえるなら、一般的な教育を終えた新入社員（事前学習済みモデル）に、自社のテストの進め方や書式を教える社内研修（ファインチューニング）を行うイメージです。
+                        </p>
+
+                        <h3>5.2 LLMとSLM</h3>
+                        <p><span className="tag syllabus">シラバス（第1章1.1.2）</span></p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LLM（Large Language Model）</td>
+                                        <td>
+                                            大規模データで学習した大規模モデル。幅広い推論能力を持つ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SLM（Small Language Model）</td>
+                                        <td>
+                                            パラメータ数の少ないコンパクトなモデル。軽量で、特定用途に絞ったGenAIソリューション向け
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>LLMのファインチューニング</th>
+                                        <th>SLMのファインチューニング</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>得意なこと</td>
+                                        <td>広い推論・言語カバレッジが必要なタスク</td>
+                                        <td>狭く明確に定義されたタスク</td>
+                                    </tr>
+                                    <tr>
+                                        <td>計算資源</td>
+                                        <td>高性能GPUやAIアクセラレータ、大容量ストレージが必要</td>
+                                        <td>少なくて済む（速度・コスト面で有利）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>運用コスト</td>
+                                        <td>高い</td>
+                                        <td>低い</td>
+                                    </tr>
+                                    <tr>
+                                        <td>適した場面</td>
+                                        <td>複雑な推論・多目的</td>
+                                        <td>速度、コスト効率、ドメイン特化が重要な運用環境</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>5.3 どんなときにファインチューニングが有効か</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス（v1.1教材）</span>
+                            汎用LLMが次のような状況のときに特に有効です。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>状況</th>
+                                        <th>ファインチューニングで得られる効果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>組織固有の語彙を理解しない</td>
+                                        <td>社内テスト用語や略語を使えるようになる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>出力形式が期待と違う</td>
+                                        <td>社内のテストケーステンプレートに従う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ドメイン特有の推論パターンが不足している</td>
+                                        <td>金融・医療・自動車などのドメインルールに沿う</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>5.4 テストでの具体例</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    ファインチューニングにより、LLMまたはSLMが、組織のコンテキストに特有の出力形式で、<strong>ユーザーストーリーからテストケースを生成</strong>できるようになります。組織の実際のユーザーストーリーと、それに対応する<strong>承認済みのテストケースのペア</strong>で学習させることで、モデルは組織固有のテストプロセスと用語に整合します。
+                                </p>
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>入力（学習データの左側）</th>
+                                        <th>出力（学習データの右側）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>実際のユーザーストーリー</td>
+                                        <td>承認済みのテストケース（社内書式）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>5.5 ファインチューニングの手順（一般的な流れ）</h3>
+                        <p>
+                            <span className="tag note">補足</span>
+                            シラバスは手順の詳細を規定していませんが、実務では次の流れが一般的です（HO-4.2.1のデモ観察の理解にも役立ちます）。
+                        </p>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図7：ファインチューニングの一般的な手順
+                            </p>
+                            <div className="diagram-wrap">
+                                <Mermaid chart={DIAGRAM_D7} id="d7" />
+                            </div>
+                        </div>
+
+                        <h3>5.6 ファインチューニングの課題（試験頻出）</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>ファインチューニングには次の課題があります。</p>
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>課題</th>
+                                        <th>内容</th>
+                                        <th>対策</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>バイアスや不正確な結果</td>
+                                        <td>
+                                            学習データの質がそのままモデルの質になる（garbage-in,
+                                            garbage-out）。誤り・古い慣行・偏りがあると、モデルがそれを再現する
+                                        </td>
+                                        <td>高品質でタスクに特化した学習データセットを使う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>過学習（overfitting）</td>
+                                        <td>
+                                            モデルが学習データに特化しすぎ、新しい未知のシナリオでうまく動作しなくなる
+                                        </td>
+                                        <td>汎化性能を評価し、学習データの多様性を確保する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>推論の不透明性</td>
+                                        <td>
+                                            LLMはブラックボックス的で、なぜそのテストケースを生成したかを説明しにくい。デバッグ、規制環境での検証、ステークホルダーの信頼獲得が難しくなる
+                                        </td>
+                                        <td>出力のレビュー、評価指標の継続的な確認、記録と追跡</td>
+                                    </tr>
+                                    <tr>
+                                        <td>計算資源の要求（LLMの場合）</td>
+                                        <td>
+                                            高性能GPUやAIアクセラレータ、大量のストレージ、実験管理、多額の費用が必要
+                                        </td>
+                                        <td>
+                                            運用環境では、ファインチューニングしたSLMを使う選択肢を検討する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout note">
+                            <i className="ti ti-note"></i>
+                            <div className="callout-body">
+                                <p>
+                                    補足：v1.0のシラバスPDFは「Mitigating overfitting」の途中までしか取得できなかったため、課題3と4の記述はv1.1準拠のExactpro教材に基づいています。受験前に公式PDFで表現を確認してください。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>
+                            5.7 ファインチューニングと「プロンプトエンジニアリング」「RAG」の使い分け
+                        </h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>やりたいこと</th>
+                                        <th>第一候補</th>
+                                        <th>理由</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>出力形式を指定したい（まず試す）</td>
+                                        <td>プロンプト（ロール・制約・出力形式、few-shot）</td>
+                                        <td>学習不要で最も安価・高速</td>
+                                    </tr>
+                                    <tr>
+                                        <td>最新の社内文書に基づいて答えさせたい</td>
+                                        <td>RAG</td>
+                                        <td>知識の更新が容易で出典を示せる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>社内独自の用語・書式・推論の型を定着させたい</td>
+                                        <td>ファインチューニング</td>
+                                        <td>プロンプトに毎回書かずに済み、出力が安定する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>特定の狭いタスクを低コスト・高速に大量処理したい</td>
+                                        <td>ファインチューニングしたSLM</td>
+                                        <td>運用コストが低い</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="callout gold">
+                            <i className="ti ti-bulb"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    💡 ベストプラクティス（ファインチューニング）
+                                </p>
+                                <ol>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        まずプロンプトエンジニアリングとRAGで目的が達成できないかを試す。それで足りない場合にのみ、ファインチューニングを検討する（コストと運用負荷が大きく上がるため）。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        学習データは、内容を精査した<strong>高品質で承認済みのペア</strong>だけを使う。古い書式・誤ったテストケース・偏った例を混入させない。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠（第3章）</span>
+                                        学習データから個人情報・機密情報を除去（匿名化・仮名化）し、データ最小化を守る。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        過学習を防ぐため、学習に使っていない未知のデータ（別のアプリ、別の要件スタイル）で評価する。評価指標は第2章2.3.1の指標（正確性、適合率、再現率、関連性、多様性、実行成功率など）が使える。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        運用環境では、狭いタスクならLLMではなく<strong>ファインチューニングしたSLM</strong>を優先して検討する（コスト・速度・計算資源）。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        パラメータ効率の良い手法（たとえばLoRA）を使うと、全パラメータを更新するより計算資源を抑えられる（詳細は試験範囲外）。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        学習データの版、学習設定、評価結果を実験管理として記録する。再現性と規制環境での説明責任（不透明性への対処）に役立つ。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        新しいモデルが出たときにやり直せるよう、学習データ資産とパイプラインを維持する（LLMOpsとつなげる）。
+                                    </li>
+                                </ol>
+                                <div className="callout-source">
+                                    出典：<a
+                                        href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        CT-GenAI Syllabus v1.0（PDF）
+                                    </a>
+                                    、<a
+                                        href="https://speakerdeck.com/exactpro/chapter-4-llm-powered-testformat-reading-materials-self-study-or-guided-reading"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Exactpro Chapter 4 Reading Materials（v1.1）
+                                    </a>
+                                    、<a
+                                        href="https://arxiv.org/abs/2106.09685"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Huら「LoRA: Low-Rank Adaptation of Large Language Models」
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>
+                            5.8 ハンズオン目標 HO-4.2.1（H0）：ファインチューニングの実演を観察する
+                        </h3>
+                        <p>
+                            <span className="tag syllabus">シラバス</span>
+                            与えられたテストタスクと言語モデルについて、ファインチューニングの実例を観察します。観察の際は「どんな学習データを使うか」「学習前後で出力がどう変わるか」「未知の入力でどうなるか」に注目してください。
+                        </p>
+
+                        <h4>5.9 この節の試験ポイント</h4>
+                        <div className="critique-card">
+                            <ul>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        ファインチューニングの定義（事前学習済みモデルを対象データで追加学習）。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        LLMとSLMの使い分け（広い推論はLLM、速度・コスト・ドメイン特化はSLM）。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        4つの課題（データ品質とバイアス、過学習、不透明性、計算資源）。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        テストでの例（ユーザーストーリーとテストケースのペアで学習）。
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section className="section" id="s6">
+                        <div className="eyebrow">
+                            <i className="ti ti-settings-cog"></i>6. 4.2.2
+                            LLMOps：テスト用LLMのデプロイと運用管理　<span className="tag k2">K2</span>
+                        </div>
+                        <h2>4.2.2　LLMOps：テスト用LLMのデプロイと運用管理</h2>
+
+                        <h3>6.1 LLMOpsとは</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス（v1.1教材）</span>
+                                </p>
+                                <p>
+                                    LLMOps（Large Language Model
+                                    Operations）とは、<strong>本番環境でLLMの開発・デプロイ・監視・保守を管理するための、構造化された手法・ツール・プロセスの集まり</strong>です。テストにおいては、GenAIソリューションが次の状態を保てるようにします。
+                                </p>
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>目標</th>
+                                        <th>意味</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>運用上の安定</td>
+                                        <td>止まらず、性能が劣化しない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>セキュアでコンプライアンス準拠</td>
+                                        <td>データ保護と規制の遵守</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コスト管理</td>
+                                        <td>利用量とコストを監視・制御できる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>継続的な監視</td>
+                                        <td>品質とリスクを見続ける</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            LLMOpsがないと、GenAIの利用は実験的で信頼性の低い状態にとどまり、企業レベルのテストプロセスに統合するには不適切になります。
+                        </p>
+                        <div className="callout note">
+                            <i className="ti ti-note"></i>
+                            <div className="callout-body">
+                                <p>
+                                    <span className="tag note">補足</span>
+                                    LLMOpsは、MLOps（機械学習の運用）やDevOpsの考え方をLLM特有の課題（プロンプト管理、幻覚の監視、トークンコストなど）に合わせたものと説明されるのが一般的です。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>6.2 LLMOpsのライフサイクル</h3>
+                        <p>
+                            <span className="tag note">補足</span>
+                            一般的なLLMOpsのサイクルを、テストの文脈で整理した図です。シラバスの記述は「開発・デプロイ・監視・保守」ですが、下の図は理解のための概念図です。
+                        </p>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図8：LLMOpsのライフサイクル
+                            </p>
+                            <div className="diagram-wrap">
+                                <Mermaid chart={DIAGRAM_D8} id="d8" />
+                            </div>
+                        </div>
+
+                        <h3>6.3 GenAIをテストプロセスに導入する3つのアプローチ</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス（v1.1教材）</span>
+                            組織は、次の3つの実装アプローチでテストプロセスにGenAIを導入できます。アプローチごとに、LLMOps上の判断（ガバナンス、リスク、コスト、技術管理）が変わります。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>アプローチ</th>
+                                        <th>主なLLMOps上の考慮点</th>
+                                        <th>典型的な用途</th>
+                                        <th>制御度／運用責任</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>AIチャットボットの利用</td>
+                                        <td>
+                                            データプライバシーとセキュリティ、コスト最適化。LLM-as-a-Service（サードパーティがホスト）か、オープンソースLLMの社内デプロイかを選ぶ。ベンダーの保証、または社内のセキュリティ能力を厳格に評価する
+                                        </td>
+                                        <td>
+                                            要件分析、テストアイデア生成、探索的テストの支援などアドホックな支援
+                                        </td>
+                                        <td>低／小さい</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>GenAI機能を内蔵したテストツールの利用</td>
+                                        <td>
+                                            チャットボットと同様の考慮点（プライバシー、セキュリティ、インフラの信頼性、運用コスト）に加え、ベンダーのデータ保護保証、AI機能の性能と可用性、既存のテストプロセス・ツールチェーンとの統合品質を評価する。費用対効果分析とリスク評価も必要
+                                        </td>
+                                        <td>
+                                            既存のテストワークフローの拡張（日々のテスト実行など）
+                                        </td>
+                                        <td>中／中</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>GenAIベースのテストツールの社内開発</td>
+                                        <td>
+                                            データプライバシー・セキュリティの完全な制御、計算資源・データストレージ・モデル保守・スタッフのトレーニングなどAIリソース利用の計画、GenAIコンポーネントを検証・監視・保守する正式なプロセスの確立。MLインフラ、セキュアなモデルデプロイ、プロンプトエンジニアリングとファインチューニング、LLM搭載テストインフラ設計の高い専門性が必要
+                                        </td>
+                                        <td>
+                                            機密性要件が高い、または専門的なテストニーズのある大規模組織
+                                        </td>
+                                        <td>高／大きい</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    これら3つは<strong>排他的ではありません</strong>。たとえば探索的分析にはチャットボット、日々のテスト実行には市販のGenAI対応テストツール、機密性の高い・ビジネスクリティカルなシステムには社内開発ツール、という組み合わせも可能です。さらに、どのアプローチもRAGや、LLM／SLMのファインチューニングといった技術を併用して、精度・適応性・関連性を高められます。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>6.4 アプローチ選択の考え方</h3>
+                        <p>
+                            <span className="tag note">補足</span>
+                            下のフローは、判断の順序を整理するための例です。実際には組織のポリシーや規制に従ってください。
+                        </p>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図9：GenAI導入アプローチの選択フロー
+                            </p>
+                            <div className="diagram-wrap">
+                                <Mermaid chart={DIAGRAM_D9} id="d9" />
+                            </div>
+                        </div>
+
+                        <h3>6.5 データの機密度に応じた環境の選択</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス（第3章3.2.3）</span>
+                            機密性のレベルに応じて、次のような安全な運用環境を選べます。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>選択肢</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LLMプロバイダーの商用セキュア提供</td>
+                                        <td>ベンダーの契約・保証に依存する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>セキュアなクラウドでのLLM運用</td>
+                                        <td>自組織のクラウド環境内でモデルを動かす</td>
+                                    </tr>
+                                    <tr>
+                                        <td>組織のインフラへのLLMインストール</td>
+                                        <td>最も制御度が高いが、運用責任も最大</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>6.6 LLMOpsで監視・管理すべき項目</h3>
+                        <p>
+                            <span className="tag note">補足</span>
+                            シラバスはLLMOpsの役割を包括的に述べていますが、具体的な運用項目は次のように整理できます。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>領域</th>
+                                        <th>監視・管理する内容</th>
+                                        <th>テストでの例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>品質</td>
+                                        <td>
+                                            出力の正確性、ハルシネーション率、実行成功率（第2章の指標）
+                                        </td>
+                                        <td>生成テストスクリプトの実行成功率を毎週計測</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コスト</td>
+                                        <td>トークン使用量、API費用、GPU費用</td>
+                                        <td>プロジェクトごとの利用量を集計し上限を設定</td>
+                                    </tr>
+                                    <tr>
+                                        <td>セキュリティ</td>
+                                        <td>
+                                            アクセス制御、個人情報の混入、プロンプトインジェクション
+                                        </td>
+                                        <td>入力のサニタイズと出力のフィルタリングの確認</td>
+                                    </tr>
+                                    <tr>
+                                        <td>性能</td>
+                                        <td>応答時間、可用性</td>
+                                        <td>CI/CDでの待ち時間の悪化を検知</td>
+                                    </tr>
+                                    <tr>
+                                        <td>変更管理</td>
+                                        <td>
+                                            プロンプト、モデル、RAGの文書、ファインチューニング版のバージョン
+                                        </td>
+                                        <td>モデル更新前後で回帰評価セットを実行</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ガバナンス</td>
+                                        <td>
+                                            利用ポリシー、規制・標準への準拠（ISO/IEC 42001、EU AI
+                                            Act、NIST AI RMFなど）
+                                        </td>
+                                        <td>利用ログの保管と監査への対応</td>
+                                    </tr>
+                                    <tr>
+                                        <td>環境</td>
+                                        <td>不要なモデル呼び出しの削減（第3章3.3）</td>
+                                        <td>小さなモデルで足りるタスクは小型モデルに振り分ける</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="callout gold">
+                            <i className="ti ti-bulb"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">💡 ベストプラクティス（LLMOps）</p>
+                                <ol>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        導入アプローチ（チャットボット／内蔵ツール／社内開発）ごとに、データプライバシー、セキュリティ、コスト、運用責任を評価してから選ぶ。ベンダーのデータ保護保証を必ず確認する。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        ツール導入前に、費用対効果分析とリスク評価を行い、GenAIが実際の運用価値を生むか確認する。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        プロンプト、システムプロンプト、RAGの文書、モデルのバージョンをコードと同様に版管理し、変更のたびに回帰評価セットで品質を確認する（第2章2.3のA/Bテストや指標を運用に組み込む）。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        品質・コスト・セキュリティのメトリクスを継続的に監視し、閾値を超えたらアラートを出す。ドリフト（入力データや外部環境の変化による性能低下）を見逃さない。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        利用者からのフィードバックを収集して改善に反映する。第2章のプロンプト改善サイクルと接続する。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        モデルの入れ替えを前提に設計する（LLM呼び出しの抽象化層を設ける）。ベンダー依存とモデル更新のリスクを下げる。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠（第5章）・補足</span>
+                                        GenAIを非公式に使う「シャドーAI」を防ぐため、承認された環境と利用ガイドラインを整備する。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        社内開発する場合は、MLインフラ、セキュアなデプロイ、プロンプトエンジニアリング、ファインチューニングの専門人材と、教育計画を確保する。
+                                    </li>
+                                </ol>
+                                <div className="callout-source">
+                                    出典：<a
+                                        href="https://speakerdeck.com/exactpro/chapter-4-llm-powered-testformat-reading-materials-self-study-or-guided-reading"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Exactpro Chapter 4 Reading Materials（v1.1）
+                                    </a>
+                                    、<a
+                                        href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        CT-GenAI Syllabus v1.0（PDF）
+                                    </a>
+                                    、<a
+                                        href="https://cloud.google.com/discover/what-is-llmops"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Google Cloud「What is LLMOps?」
+                                    </a>
+                                    、<a
+                                        href="https://ibm.com/think/topics/llmops"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        IBM「What is LLMOps?」
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>6.7 この節の試験ポイント</h4>
+                        <div className="critique-card">
+                            <ul>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        LLMOpsの定義（本番環境でのLLMのデプロイ・監視・保守・ガバナンス）と目的（安定・セキュア・コスト管理・継続的な品質監視）。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        3つの導入アプローチと、それぞれの主な考慮点の違い。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        3つのアプローチは<strong>排他的ではなく併用できる</strong>こと。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        どのアプローチでもRAGやファインチューニングを併用できること。
                                     </div>
                                 </li>
                             </ul>
