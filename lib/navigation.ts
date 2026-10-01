@@ -86,6 +86,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-genai-chapter1-introduction', label: 'CT-GenAI 第1章 生成AIテスト入門', description: '生成AIの系譜、LLMの基礎、主要能力と対話モデルのテスト入門。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter2-prompt-engineering', label: 'CT-GenAI 第2章 プロンプトエンジニアリング', description: 'プロンプト6要素構造、コア3技法、テスト業務適用と結果評価・改善。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter3-risk-management', label: 'CT-GenAI 第3章 生成AIのリスク管理', description: 'ハルシネーション・推論エラー・バイアス・プライバシー・セキュリティ・環境・規制の管理。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter4-llm-powered-solutions', label: 'CT-GenAI 第4章 LLM搭載テストインフラ', description: 'アーキテクチャ、RAG、エージェント、ファインチューニング、LLMOpsを体系的に解説。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter5-deploying-and-integrating', label: 'CT-GenAI 第5章 生成AIの導入と統合', description: 'シャドーAI回避、戦略策定、モデル選定、導入フェーズ、変革管理、テストプロセスの進化を体系的に解説。', category: 'istqb-specialist' },
   { href: '/istqb-ct-mbt-complete-guide', label: 'モデルベーステスト(CT-MBT)ガイド', description: 'モデルからテストケースを自動生成するMBTの設計と運用。', category: 'istqb-specialist' },
   { href: '/istqb-ct-aut-complete-guide', label: '自動車ソフトウェアテスター(CT-AuT)ガイド', description: 'ISO 26262・ASPICE に沿った車載ソフトウェアのテスト。', category: 'istqb-specialist' },
