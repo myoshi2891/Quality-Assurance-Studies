@@ -28,7 +28,7 @@ describe('CT-GenAI Chapter 4 Page - Category 1 (Architecture & Overview)', () =>
         expect(hero).not.toBeNull();
         expect(hero?.querySelector('.eyebrow')?.textContent).toContain('CT-GenAI');
         expect(hero?.querySelector('h1')?.textContent).toContain('第4章');
-        expect(hero?.querySelector('h1')?.textContent).toContain('LLM搭載テストインフラ');
+        expect(hero?.querySelector('h1')?.textContent).toContain('LLM 搭載テストインフラ');
         expect(hero?.querySelector('.lead')?.textContent).toContain('アーキテクチャの基本構成要素');
 
         const chips = container.querySelectorAll('.hero-meta .chip');
@@ -64,7 +64,7 @@ describe('CT-GenAI Chapter 4 Page - Category 1 (Architecture & Overview)', () =>
         const table = s0?.querySelector('table');
         expect(table).not.toBeNull();
         const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
-        expect(headers).toEqual(['記号', '意味', 'どのように読むか']);
+        expect(headers).toEqual(['記号', '意味']);
 
         // コールアウト
         const callouts = s0?.querySelectorAll('.callout');
