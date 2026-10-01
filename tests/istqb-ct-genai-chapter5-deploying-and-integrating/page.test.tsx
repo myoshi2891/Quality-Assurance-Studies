@@ -77,6 +77,129 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT1,
+    {
+        heading: '4.1 学ぶこと',
+        headers: ['#', '観点', '一言でいうと', '中身（要約）'],
+        rows: 6,
+        cols: 4,
+        sample: '①',
+    },
+    {
+        heading: 'ステップ1：測定可能な目標を決める（観点①）',
+        headers: ['ダメな目標', '良い目標の例', '対応する目標カテゴリ'],
+        rows: 3,
+        cols: 3,
+        sample: '例 AIでテストを効率化する',
+    },
+    {
+        heading: 'ステップ3：データ品質とセキュリティを確保する（観点③）',
+        headers: ['データ品質の観点', 'チェックの例'],
+        rows: 4,
+        cols: 2,
+        sample: '正確性',
+    },
+    {
+        heading: 'ステップ5：効果測定の指標を先に決める（観点⑤）',
+        headers: ['指標（第2章2.3.1）', '意味', '導入評価での使い方の例'],
+        rows: 7,
+        cols: 3,
+        sample: '正確性（Accuracy）',
+    },
+    {
+        heading: 'ステップ6：プロセスガイドラインを定める（観点⑥）',
+        headers: ['ガイドライン', '内容', '例'],
+        rows: 3,
+        cols: 3,
+        sample: '機密データの取り扱い',
+    },
+    {
+        heading: 'シラバス準拠',
+        headers: ['施策', 'ねらい', '根拠'],
+        rows: 4,
+        cols: 3,
+        sample: '導入前のベースライン計測（現状の工数・欠陥・リードタイム）',
+    },
+    {
+        heading: '5.1 背景',
+        headers: ['違いの軸', '例'],
+        rows: 3,
+        cols: 2,
+        sample: '機能面',
+    },
+    {
+        heading: '5.2 シラバスの4つの選定基準',
+        headers: ['#', '基準', '何を見るか', '評価のヒント'],
+        rows: 4,
+        cols: 4,
+        sample: '①',
+    },
+    {
+        heading: '5.4 選定スコアカード（テンプレート例）',
+        headers: ['評価軸（シラバスの4基準ベース）', '重み（例）', '候補A', '候補B', '候補C（SLM）', '確認方法の例'],
+        rows: 5,
+        cols: 6,
+        sample: 'モデル性能（対象テストタスク）',
+    },
+    {
+        heading: 'シラバス準拠',
+        headers: ['施策', 'ねらい', '根拠'],
+        rows: 4,
+        cols: 3,
+        sample: '自組織専用の評価セット（ゴールデンセット）を作る：実際の要件・既存のテストケース・過去の欠陥を使う',
+    },
+    {
+        heading: '6.1 基本の考え方',
+        headers: ['フェーズ', '英語名', '一言でいうと'],
+        rows: 3,
+        cols: 3,
+        sample: 'フェーズ1',
+    },
+    {
+        heading: 'フェーズ1：Discovery（発見）',
+        headers: ['目的', '基本的な認識と自信をつくる'],
+        rows: 3,
+        cols: 2,
+        sample: '主な活動',
+    },
+    {
+        heading: 'フェーズ2：Initiation and usage definition（開始と利用方法の定義）',
+        headers: ['目的', '実験から戦略へ焦点を移す'],
+        rows: 3,
+        cols: 2,
+        sample: '主な活動',
+    },
+    {
+        heading: 'フェーズ3：Utilization and iteration（活用と反復）',
+        headers: ['目的', 'GenAIを「目新しいもの」からテストプロセスの統合された一部にする'],
+        rows: 3,
+        cols: 2,
+        sample: '主な活動',
+    },
+    {
+        heading: '6.4 「重なり合う」とはどういうことか（具体例）',
+        headers: ['ユースケース（例）', '現在のフェーズ（例）', 'この時に取るべき行動の例'],
+        rows: 3,
+        cols: 3,
+        sample: 'テストレポート分析',
+    },
+    {
+        heading: '6.5 人的要因を「早期に」扱う',
+        headers: ['人的要因', '起こり得ること', '対応の例'],
+        rows: 3,
+        cols: 3,
+        sample: '雇用不安',
+    },
+    {
+        heading: 'シラバス準拠',
+        headers: ['フェーズ', '施策', 'ねらい', '根拠'],
+        rows: 5,
+        cols: 4,
+        sample: '1',
+    },
+];
+
 describe('CT-GenAI Chapter 5 Page (Cat 1: s1-s3)', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtGenAiChapter5Page />);
@@ -155,3 +278,70 @@ describe('CT-GenAI Chapter 5 Page (Cat 1: s1-s3)', () => {
         expect(practiceCallout?.textContent).toContain('実務ベストプラクティス（試験範囲外）');
     });
 });
+
+describe('CT-GenAI Chapter 5 Page (Cat 2: s4-s6)', () => {
+    it('renders section s4 (5.1.2 生成AI戦略の主要な観点) with d5 and d6 diagrams', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s4 = container.querySelector('#s4');
+        expect(s4).not.toBeNull();
+        expect(s4?.textContent).toContain('4. 5.1.2 生成AI戦略の主要な観点');
+        expect(s4?.textContent).toContain('4.1 学ぶこと');
+        expect(s4?.textContent).toContain('4.2 観点どうしの関係（図解）');
+        expect(s4?.textContent).toContain('4.3 各観点を初学者向けにステップバイステップで理解する');
+        expect(s4?.querySelector('[data-diagram="d5"]')).not.toBeNull();
+        expect(s4?.querySelector('[data-diagram="d6"]')).not.toBeNull();
+    });
+
+    it('renders section s5 (5.1.3 テストタスク向けLLM/SLMの選定) with d7 diagram', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s5 = container.querySelector('#s5');
+        expect(s5).not.toBeNull();
+        expect(s5?.textContent).toContain('5. 5.1.3 テストタスク向けLLM/SLMの選定');
+        expect(s5?.textContent).toContain('5.1 背景');
+        expect(s5?.textContent).toContain('5.2 シラバスの4つの選定基準');
+        expect(s5?.querySelector('[data-diagram="d7"]')).not.toBeNull();
+    });
+
+    it('renders section s6 (5.1.4 生成AI導入のフェーズ) with d8 and d9 diagrams', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s6 = container.querySelector('#s6');
+        expect(s6).not.toBeNull();
+        expect(s6?.textContent).toContain('6. 5.1.4 生成AI導入のフェーズ');
+        expect(s6?.textContent).toContain('6.1 基本の考え方');
+        expect(s6?.textContent).toContain('6.2 3フェーズの流れ（図解）');
+        expect(s6?.textContent).toContain('6.4 「重なり合う」とはどういうことか');
+        expect(s6?.querySelector('[data-diagram="d8"]')).not.toBeNull();
+        expect(s6?.querySelector('[data-diagram="d9"]')).not.toBeNull();
+    });
+
+    it('matches Category 2 table inventory (cumulative 24 tables)', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT2.length);
+        EXPECTED_TABLE_SPECS_CAT2.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+
+    it('renders callouts in s4, s5, and s6', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const c4 = container.querySelector('#s4 .callout.practice');
+        expect(c4).not.toBeNull();
+        expect(c4?.textContent).toContain('導入前のベースライン計測');
+
+        const c5 = container.querySelector('#s5 .callout.practice');
+        expect(c5).not.toBeNull();
+        expect(c5?.textContent).toContain('自組織専用の評価セット');
+
+        const c6 = container.querySelector('#s6 .callout.practice');
+        expect(c6).not.toBeNull();
+        expect(c6?.textContent).toContain('サンドボックス環境');
+    });
+});
+
