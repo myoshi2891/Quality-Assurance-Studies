@@ -2346,6 +2346,414 @@ export default function CtGenAiChapter3Page() {
                         </div>
                     </div>
                     <hr />
+
+                    <h2 id="4-33-エネルギー消費と環境への影響">4. 3.3 エネルギー消費と環境への影響</h2>
+                    <p>
+                        💡 この章では、生成AIを使うと<strong>電力を消費し CO₂ が出る</strong>という環境面のリスクと、テスト作業でそれを減らす考え方を説明します。K2（説明できる）レベルなので、<strong>「何が消費量を増やすのか」を理由つきで説明できる</strong>ことが目標です。
+                    </p>
+                    <h3 id="40-なぜこの節が必要なのか">4.0 なぜこの節が必要なのか</h3>
+                    <p>
+                        📌 <strong>シラバス記載</strong>：LLM の<strong>学習</strong>にも<strong>処理（利用</strong>）にも、大量の専用計算資源が必要です。LLM は Web サービスとして提供されるため、利用が増えるほど、<strong>端末・ネットワーク・データセンターへの負荷</strong>が増え、エネルギー消費が高まります。
+                    </p>
+                    <p>
+                        たとえるなら、<strong>車で遠くまで出かけるほどガソリンを使う</strong>のと同じです。1回の運転は小さな消費でも、多くの人が何度も運転すれば、全体では大きな環境負荷になります。
+                    </p>
+                    <hr />
+
+                    <h3 id="41-genai-331--k2タスクの特徴とモデルの使い方が消費量に与える影響">
+                        4.1 【GenAI-3.3.1 / K2】タスクの特徴とモデルの使い方が消費量に与える影響
+                    </h3>
+                    <h4 id="シラバスが述べているポイント">シラバスが述べているポイント</h4>
+                    <p>📌 <strong>シラバス記載</strong></p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ポイント</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>1</td>
+                                    <td>環境への影響を軽視してはならない</td>
+                                    <td>
+                                        利用が増えるほど、エネルギー消費は<strong>急激に増える</strong>
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>2</td>
+                                    <td>
+                                        <strong>タスクの複雑さ</strong>と<strong>必要な計算資源</strong>が消費量に影響する
+                                    </td>
+                                    <td>同じ「1回の依頼」でも、内容によって消費量は大きく違う</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3</td>
+                                    <td>
+                                        <strong>画像生成</strong>は消費が大きく、<strong>テキスト生成</strong>は小さい
+                                    </td>
+                                    <td>
+                                        強力な AI モデルで<strong>画像を1枚生成</strong>すると、<strong>スマートフォン1台をフル充電するほど</strong>のエネルギーを消費しうる。<strong>テキスト生成</strong>は、充電量の<strong>ごく一部</strong>で済む（Heikkilä 2023 を引用）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>4</td>
+                                    <td>正確なデータを得ることは難しい</td>
+                                    <td>環境影響の正確な数値は入手しづらい（Luccioni 2024b）</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>5</td>
+                                    <td><strong>累積の影響</strong>が大きい</td>
+                                    <td>
+                                        1回の検索やテキスト生成は無視できるほど小さく見えても、<strong>世界中の何百万人分</strong>が積み重なると、大きな環境負荷になる（CO₂ 排出、Berthelot 2024）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>6</td>
+                                    <td><strong>ベストプラクティス</strong></td>
+                                    <td>
+                                        <strong>不要なモデルとのやり取りを減らす</strong>ことが、環境リスクを減らすうえで重要
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="callout-practice">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">補足</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                <strong>補足（出典の確認済みの数値）</strong>：シラバスが引用した MIT Technology Review の記事（2023/12/01、Melissa Heikkilä 著）は、Hugging Face と Carnegie Mellon 大学の研究者らによる研究を紹介しています。記事によれば、<strong>画像生成1枚がスマートフォンのフル充電1回分</strong>に相当し、<strong>テキスト生成を1,000回行っても充電量の 16%</strong>にとどまるとされています。なお、この記事の時点では、その研究は<strong>査読前</strong>でした。数値は<strong>モデルや条件によって大きく変わる</strong>ため、「傾向」として理解してください。
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 id="消費量を左右する要因整理">消費量を左右する要因（整理）</h4>
+                    <p>
+                        📌 は<strong>シラバスの記述</strong>、💡 は<strong>一般的な補足</strong>です。
+                    </p>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>要因</th>
+                                    <th>消費量への影響</th>
+                                    <th>区分</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>
+                                        <strong>タスクの種類</strong>（テキスト／画像／マルチモーダル）
+                                    </td>
+                                    <td>画像生成はテキスト生成より<strong>大幅に大きい</strong></td>
+                                    <td>📌</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td><strong>タスクの複雑さと必要な計算資源</strong></td>
+                                    <td>複雑で大きな計算が必要なほど大きい</td>
+                                    <td>📌</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td><strong>利用の回数・規模</strong></td>
+                                    <td>使う回数が多いほど<strong>累積で増える</strong></td>
+                                    <td>📌</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td><strong>不要なやり取り</strong></td>
+                                    <td>減らすことが推奨されるベストプラクティス</td>
+                                    <td>📌</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td><strong>コンテキストウィンドウの長さ</strong></td>
+                                    <td>
+                                        入力トークンが増えるほど計算量と処理時間が増える（シラバス 1.1.2 節）
+                                    </td>
+                                    <td>📌（1.1.2 節）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td><strong>モデルの大きさ</strong>（LLM と SLM）</td>
+                                    <td>
+                                        一般に大きいモデルほど計算量が大きい。タスクに見合った大きさのモデルを選ぶ
+                                    </td>
+                                    <td>💡</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td><strong>出力の長さ</strong></td>
+                                    <td>長い出力ほど計算が多い</td>
+                                    <td>💡</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td><strong>推論モデルの利用</strong></td>
+                                    <td>内部で多くの中間トークンを生成するため計算が増える傾向</td>
+                                    <td>💡</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 id="エネルギー消費が増える仕組みの図">エネルギー消費が増える仕組みの図</h4>
+                    <p>
+                        この図は、テスト作業での利用のしかたが、エネルギー消費と CO₂ にどう結びつくかを表しています。左から右へ読み進めてください。
+                    </p>
+                    <div className="mermaid-container" data-diagram-id="mermaid-diagram-8">
+                        <Mermaid chart={DIAGRAM_ENERGY_CONSUMPTION} />
+                    </div>
+                    <p>各ノードの意味：</p>
+                    <ul>
+                        <li>
+                            「タスクの特徴」「モデルの使い方」：<strong>利用者が変えられる2つの要因</strong>。シラバスの学習目標（GenAI-3.3.1）の言い回しどおりです。
+                        </li>
+                        <li>
+                            「必要な計算資源が増える」→「電力消費が増える」→「CO2 排出が増える」：<strong>原因から結果への連鎖</strong>です。
+                        </li>
+                        <li>
+                            「対策」（点線）：利用のしかたを見直すことで、この連鎖の<strong>入口</strong>を小さくできます。
+                        </li>
+                    </ul>
+
+                    <div className="callout-trace callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">🧪</span>
+                            <span className="callout-label">
+                                動作トレース：エネルギーと CO₂ を概算する（HO-3.3.1 の考え方）
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                📌 <strong>シラバス記載（HO-3.3.1：H1）</strong>：シミュレータを使って、テスト作業ごとのエネルギー消費と CO₂ 排出量を計算し、<strong>タスクの特徴とモデルの使い方がどう影響するか</strong>を観察します。
+                            </p>
+                            <blockquote className="inline-note">
+                                <p>
+                                    <strong>重要な注意</strong>：下の数値は、<strong>計算の考え方を学ぶための「仮の数値</strong>」です。実際の LLM の消費量ではありません。実測には、Code Carbon などの計測ツールや、シラバスの HO で使うシミュレータを使ってください。
+                                </p>
+                            </blockquote>
+                            <p><strong>基本の式</strong>：</p>
+                            <ul>
+                                <li>消費電力量（Wh）＝ 1回あたりの消費電力量 × 実行回数</li>
+                                <li>CO₂ 排出量 ＝ 消費電力量（kWh）× 排出係数（kg-CO₂ / kWh）</li>
+                            </ul>
+                            <p>
+                                <strong>仮の前提</strong>：1回の生成で 0.3 Wh、排出係数 0.45 kg-CO₂/kWh、1日 200 回 × 20 日 ＝ 4,000 回
+                            </p>
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>ケース</th>
+                                            <th>1回あたり（仮）</th>
+                                            <th>回数</th>
+                                            <th>消費電力量</th>
+                                            <th>CO₂ 排出量（仮）</th>
+                                            <th>読み取れること</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td>A：ベースライン</td>
+                                            <td>0.3 Wh</td>
+                                            <td>4,000 回</td>
+                                            <td>1,200 Wh ＝ 1.2 kWh</td>
+                                            <td>0.54 kg</td>
+                                            <td>基準となる値</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>
+                                                B：プロンプトを5ステップに分割（プロンプトチェイニング）
+                                            </td>
+                                            <td>0.3 Wh</td>
+                                            <td>20,000 回</td>
+                                            <td>6,000 Wh ＝ 6.0 kWh</td>
+                                            <td>2.70 kg</td>
+                                            <td>
+                                                回数が5倍なので<strong>消費も5倍</strong>。ただし、品質向上の効果もある
+                                            </td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>C：同じ依頼を「試し打ち」で無駄に10回繰り返す習慣</td>
+                                            <td>0.3 Wh</td>
+                                            <td>40,000 回</td>
+                                            <td>12,000 Wh ＝ 12.0 kWh</td>
+                                            <td>5.40 kg</td>
+                                            <td>
+                                                <strong>不要なやり取り</strong>は、そのまま消費の増加になる
+                                            </td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td>
+                                                D：軽いタスクを小さいモデルに切り替え（1回 0.1 Wh と仮定）
+                                            </td>
+                                            <td>0.1 Wh</td>
+                                            <td>4,000 回</td>
+                                            <td>400 Wh ＝ 0.4 kWh</td>
+                                            <td>0.18 kg</td>
+                                            <td><strong>モデルの大きさ</strong>を見直すと減らせる</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p><strong>このトレースから分かること</strong>：</p>
+                            <ol type="1">
+                                <li>
+                                    <strong>回数</strong>と<strong>1回あたりの大きさ</strong>の掛け算が、消費量を決めます。
+                                </li>
+                                <li>
+                                    プロンプトチェイニング（3.1 節の推奨策）は<strong>品質を上げる一方、回数が増える</strong>ため、環境面ではトレードオフです（💡 補足）。<strong>品質のための検証ステップを削るのではなく、「無駄な試行」を減らす</strong>方向で調整します。
+                                </li>
+                                <li>
+                                    「不要なやり取りを減らす」というシラバスの推奨は、ケース C → A の改善に相当します。
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div className="callout-practice callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">💡</span>
+                            <span className="callout-label">
+                                補足：サービス・機能別ベストプラクティス
+                            </span>
+                        </div>
+                        <div className="callout-body">
+                            <div className="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr className="row-header">
+                                            <th>使っているもの</th>
+                                            <th>主な環境リスク</th>
+                                            <th>ベストプラクティス</th>
+                                            <th>根拠</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="row-even">
+                                            <td><strong>AI チャットボット</strong></td>
+                                            <td>「とりあえず試す」の繰り返し</td>
+                                            <td>
+                                                依頼を<strong>事前に整理して</strong>から送る／良いプロンプトを<strong>再利用</strong>（プロンプトライブラリを共有）
+                                            </td>
+                                            <td>シラバス 3.3.1、2.3.2</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>画像・マルチモーダル入力</strong></td>
+                                            <td>画像生成や画像入力は計算が大きい</td>
+                                            <td>
+                                                テキストで足りる作業は<strong>テキストで行う</strong>。画像が必要な場合に限定する
+                                            </td>
+                                            <td>シラバス 3.3.1</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td>
+                                                <strong>LLM 搭載テストツール（自動実行）</strong>
+                                            </td>
+                                            <td>CI で毎回・大量に自動実行される</td>
+                                            <td>
+                                                変更のあった箇所だけを対象にする（<strong>影響分析</strong>）／同じ入力の結果を<strong>再利用</strong>する
+                                            </td>
+                                            <td>シラバス 2.2.3、3.3.1</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>モデル選択</strong></td>
+                                            <td>大きなモデルを常用</td>
+                                            <td>
+                                                軽いタスクは<strong>小さなモデル（SLM）</strong>、重い推論だけ大きなモデルというように<strong>使い分ける</strong>
+                                            </td>
+                                            <td>シラバス 1.1.2、3.1.3、5.1.3</td>
+                                        </tr>
+                                        <tr className="row-even">
+                                            <td><strong>利用状況の把握</strong></td>
+                                            <td>実態が見えない</td>
+                                            <td>
+                                                利用回数やトークン量を<strong>記録</strong>し、必要に応じて<strong>計測ツール</strong>で概算する
+                                            </td>
+                                            <td>💡 一般的な実践</td>
+                                        </tr>
+                                        <tr className="row-odd">
+                                            <td><strong>品質とのバランス</strong></td>
+                                            <td>削りすぎて品質が下がる</td>
+                                            <td>
+                                                環境負荷を下げるために<strong>検証ステップ自体を省かない</strong>（ハルシネーション対策が優先）
+                                            </td>
+                                            <td>シラバス 3.1 と 3.3 の両立</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 id="33-節の試験ポイントまとめ">3.3 節の試験ポイントまとめ</h4>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>観点</th>
+                                    <th>覚えること</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>影響する要因（K2）</td>
+                                    <td>
+                                        <strong>タスクの特徴</strong>（複雑さ・計算資源・画像かテキストか）と<strong>モデルの使い方</strong>（回数・規模）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>具体例</td>
+                                    <td>
+                                        画像1枚 ≒ スマートフォンのフル充電／テキスト生成は充電量の一部
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>累積の考え方</td>
+                                    <td>1回は小さくても、世界規模では大きい</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>ベストプラクティス</td>
+                                    <td><strong>不要なモデルとのやり取りを制限する</strong></td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>正確な数値</td>
+                                    <td>得るのは難しい（Luccioni 2024b）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="callout-glossary">
+                        <div className="callout-header">
+                            <span className="callout-icon">📖</span>
+                            <span className="callout-label">このセクションで登場した用語</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    <strong>エネルギー消費</strong>：AI を動かすために使う電力の量
+                                </li>
+                                <li>
+                                    <strong>CO₂（二酸化炭素）排出</strong>：発電などで生じる温室効果ガス。使った電力が多いほど増えやすい
+                                </li>
+                                <li>
+                                    <strong>データセンター</strong>：多数のサーバーを集めて運用する施設。Web サービスとして提供される LLM が動く場所
+                                </li>
+                                <li>
+                                    <strong>排出係数</strong>：電力 1 kWh を作る際に出る CO₂ の量。国や年、電力会社で変わる
+                                </li>
+                                <li><strong>Wh / kWh</strong>：電力量の単位。1 kWh ＝ 1,000 Wh</li>
+                                <li>
+                                    <strong>累積の影響</strong>：1回は小さくても、多数回・多人数で積み重なって大きくなること
+                                </li>
+                                <li>
+                                    <strong>Code Carbon</strong>：機械学習の実行による電力消費と CO₂ 排出を推定するオープンソースの計測ツール
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
                 </main>
             </div>
         </div>
