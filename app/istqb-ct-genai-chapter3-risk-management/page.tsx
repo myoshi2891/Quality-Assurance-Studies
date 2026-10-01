@@ -3605,6 +3605,500 @@ export default function CtGenAiChapter3Page() {
                     </div>
 
                     <hr />
+
+                    {/* 7. 参考URL（根拠ソース一覧） */}
+                    <h2 id="7-参考url根拠ソース一覧">7. 参考URL（根拠ソース一覧）</h2>
+                    <p>
+                        💡 この章では、本文書の各内容の<strong>根拠となるソース</strong>を、種類別にまとめます。試験の出題範囲は<strong>公式シラバス</strong>であり、それ以外のソースは理解を深めるための<strong>補足</strong>です。
+                    </p>
+
+                    <h3 id="71-最重要istqb-公式一次ソース">7.1 【最重要】ISTQB 公式（一次ソース）</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                    <th>本文書での根拠となる内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>1</td>
+                                    <td>
+                                        ISTQB 公式ページ：Certified Tester – Testing with Generative AI (CT-GenAI)
+                                    </td>
+                                    <td>
+                                        <a href="https://istqb.org/certifications/gen-ai/" target="_blank" rel="noopener noreferrer">
+                                            https://istqb.org/certifications/gen-ai/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        認定の概要、シラバス構成、試験構成（40問／合格 30点／60分）、前提条件（CTFL）、ダウンロード資料
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>2</td>
+                                    <td>CT-GenAI Syllabus v1.1（ISTQB 公式ダウンロード）</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&download_id=6295" target="_blank" rel="noopener noreferrer">
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=6295
+                                        </a>
+                                    </td>
+                                    <td>
+                                        第3章（3.1〜3.4）の全内容：学習目標、キーワード、定義、検出方法、軽減技法、攻撃ベクトル表、緩和策、エネルギー、規制・標準の表
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3</td>
+                                    <td>
+                                        CT-GenAI Syllabus v1.1（ISQI 掲載の同一PDF。本文書作成時に全文を確認したもの）
+                                    </td>
+                                    <td>
+                                        <a href="https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf" target="_blank" rel="noopener noreferrer">
+                                            https://isqi.org/media/b9/8c/34/1777291646/ISTQB-CT-GenAI%20-%20Syllabus%20v1.1.pdf
+                                        </a>
+                                    </td>
+                                    <td>同上（2026/04/27 版、71ページ）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>4</td>
+                                    <td>CT-GenAI Sample Exam A Questions v1.1</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&download_id=6309" target="_blank" rel="noopener noreferrer">
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=6309
+                                        </a>
+                                    </td>
+                                    <td>公式サンプル問題（練習用。本文書では内容未確認）</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>5</td>
+                                    <td>CT-GenAI Sample Exam A Answers v1.1</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&download_id=6301" target="_blank" rel="noopener noreferrer">
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=6301
+                                        </a>
+                                    </td>
+                                    <td>公式サンプル問題の解答（本文書では内容未確認）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>6</td>
+                                    <td>CT-GenAI Release Notes v1.1</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&download_id=9550" target="_blank" rel="noopener noreferrer">
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=9550
+                                        </a>
+                                    </td>
+                                    <td>v1.0 から v1.1 の変更点</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>7</td>
+                                    <td>ISTQB Exam Structures and Rules v1.2</td>
+                                    <td>
+                                        <a href="https://istqb.org/?sdm_process_download=1&download_id=3829" target="_blank" rel="noopener noreferrer">
+                                            https://istqb.org/?sdm_process_download=1&amp;download_id=3829
+                                        </a>
+                                    </td>
+                                    <td>試験の構造とルール（配点の詳細など）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="72-学習の補助資料二次ソース">7.2 学習の補助資料（二次ソース）</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>8</td>
+                                    <td>
+                                        Exactpro：Chapter 3 – Managing Risks of Generative AI in Software Testing（v1.1）Slides
+                                    </td>
+                                    <td>
+                                        <a href="https://speakerdeck.com/exactpro/chapter-3-managing-risks-of-generative-ai-in-software-testing-istqb-ct-genai-v1-dot-1-slides" target="_blank" rel="noopener noreferrer">
+                                            https://speakerdeck.com/exactpro/chapter-3-managing-risks-of-generative-ai-in-software-testing-istqb-ct-genai-v1-dot-1-slides
+                                        </a>
+                                    </td>
+                                    <td>第3章の学習目標と構成の確認（160分の学習活動として整理）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>9</td>
+                                    <td>Exactpro：同 Reading Materials</td>
+                                    <td>
+                                        <a href="https://speakerdeck.com/exactpro/chapter-3-managing-risks-of-generative-ai-in-software-testing-istqb-ct-genai-v1-dot-1-reading" target="_blank" rel="noopener noreferrer">
+                                            https://speakerdeck.com/exactpro/chapter-3-managing-risks-of-generative-ai-in-software-testing-istqb-ct-genai-v1-dot-1-reading
+                                        </a>
+                                    </td>
+                                    <td>同上（読み物形式）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="73-31-節非決定性temperatureseedの補足">
+                        7.3 3.1 節（非決定性・temperature・seed）の補足
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>10</td>
+                                    <td>
+                                        OpenAI Cookbook：How to make your completions outputs reproducible with the new seed parameter
+                                    </td>
+                                    <td>
+                                        <a href="https://cookbook.openai.com/examples/reproducible_outputs_with_the_seed_parameter" target="_blank" rel="noopener noreferrer">
+                                            https://cookbook.openai.com/examples/reproducible_outputs_with_the_seed_parameter
+                                        </a>
+                                    </td>
+                                    <td>
+                                        seed は<strong>ベストエフォート</strong>で決定性は<strong>保証されない</strong>こと、<code>system_fingerprint</code> の意味
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>11</td>
+                                    <td>Microsoft Learn：Azure OpenAI reproducible output</td>
+                                    <td>
+                                        <a href="https://learn.microsoft.com/azure/ai-services/openai/how-to/reproducible-output" target="_blank" rel="noopener noreferrer">
+                                            https://learn.microsoft.com/azure/ai-services/openai/how-to/reproducible-output
+                                        </a>
+                                    </td>
+                                    <td>
+                                        同様の説明。seed と <code>system_fingerprint</code> が同じでも変動が残りうること
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>12</td>
+                                    <td>Mirzadeh et al. 2024（GSM-Symbolic）※シラバス引用文献</td>
+                                    <td>
+                                        <a href="https://arxiv.org/abs/2410.05229" target="_blank" rel="noopener noreferrer">
+                                            https://arxiv.org/abs/2410.05229
+                                        </a>
+                                    </td>
+                                    <td>LLM の数学的推論の限界（推論エラーの背景）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>13</td>
+                                    <td>
+                                        Gallegos et al. 2024（Bias and Fairness in LLMs: A Survey）※シラバス引用文献
+                                    </td>
+                                    <td>
+                                        <a href="https://arxiv.org/abs/2309.00770" target="_blank" rel="noopener noreferrer">
+                                            https://arxiv.org/abs/2309.00770
+                                        </a>
+                                    </td>
+                                    <td>LLM のバイアスに関する調査</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="74-32-節プライバシーセキュリティの補足">
+                        7.4 3.2 節（プライバシー・セキュリティ）の補足
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>14</td>
+                                    <td>OWASP Top 10 for LLM Applications 2025</td>
+                                    <td>
+                                        <a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">
+                                            https://genai.owasp.org/llm-top-10/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        LLM アプリの10種のリスク（プロンプトインジェクション、機密情報漏えい、データ・モデルポイズニング、過剰な権限付与など）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>15</td>
+                                    <td>GDPR：Regulation (EU) 2016/679（EUR-Lex）</td>
+                                    <td>
+                                        <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer">
+                                            https://eur-lex.europa.eu/eli/reg/2016/679/oj
+                                        </a>
+                                    </td>
+                                    <td>EU の個人データ保護規則の原文</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>16</td>
+                                    <td>Microsoft Presidio</td>
+                                    <td>
+                                        <a href="https://microsoft.github.io/presidio/" target="_blank" rel="noopener noreferrer">
+                                            https://microsoft.github.io/presidio/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        個人情報の検出・匿名化のためのオープンソースツール（本文書の仮名化コード例の実務代替）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="75-33-節エネルギーの補足">7.5 3.3 節（エネルギー）の補足</h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>17</td>
+                                    <td>
+                                        MIT Technology Review（Heikkilä, 2023/12/01）Making an image with generative AI uses as much energy as charging your phone ※シラバス引用文献
+                                    </td>
+                                    <td>
+                                        <a href="https://www.technologyreview.com/2023/12/01/1084189/making-an-image-with-generative-ai-uses-as-much-energy-as-charging-your-phone/" target="_blank" rel="noopener noreferrer">
+                                            https://www.technologyreview.com/2023/12/01/1084189/making-an-image-with-generative-ai-uses-as-much-energy-as-charging-your-phone/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        画像1枚≒スマートフォン1回のフル充電、テキスト1,000回で充電の16%
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>18</td>
+                                    <td>
+                                        Luccioni et al. 2024（Power Hungry Processing）※シラバス引用文献
+                                    </td>
+                                    <td>
+                                        <a href="https://arxiv.org/abs/2311.16863" target="_blank" rel="noopener noreferrer">
+                                            https://arxiv.org/abs/2311.16863
+                                        </a>
+                                    </td>
+                                    <td>タスク別のエネルギー消費を測定した研究</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>19</td>
+                                    <td>Code Carbon</td>
+                                    <td>
+                                        <a href="https://codecarbon.io/" target="_blank" rel="noopener noreferrer">
+                                            https://codecarbon.io/
+                                        </a>
+                                    </td>
+                                    <td>実行時の電力消費と CO₂ 排出を推定する計測ツール</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="76-34-節規制標準フレームワークの補足">
+                        7.6 3.4 節（規制・標準・フレームワーク）の補足
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>#</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>20</td>
+                                    <td>EU AI Act：Regulation (EU) 2024/1689（EUR-Lex）</td>
+                                    <td>
+                                        <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener noreferrer">
+                                            https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+                                        </a>
+                                    </td>
+                                    <td>EU AI Act の原文</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>21</td>
+                                    <td>
+                                        EU 理事会プレスリリース（2026/06/29）：Digital Omnibus on AI の最終承認
+                                    </td>
+                                    <td>
+                                        <a href="https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/artificial-intelligence-council-gives-final-green-light-to-simplify-and-streamline-rules/" target="_blank" rel="noopener noreferrer">
+                                            https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/artificial-intelligence-council-gives-final-green-light-to-simplify-and-streamline-rules/
+                                        </a>
+                                    </td>
+                                    <td>高リスク AI の新しい適用日（2027/12/02、2028/08/02）</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>22</td>
+                                    <td>
+                                        Cloud Security Alliance Lab：EU AI Act’s High-Risk Deadline: Deferred, Not Cancelled
+                                    </td>
+                                    <td>
+                                        <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-eu-ai-act-high-risk-deadline-omnibus-20260/" target="_blank" rel="noopener noreferrer">
+                                            https://labs.cloudsecurityalliance.org/research/csa-research-note-eu-ai-act-high-risk-deadline-omnibus-20260/
+                                        </a>
+                                    </td>
+                                    <td>
+                                        Regulation (EU) 2026/1744 の官報公表・施行日、Article 50 の適用
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>23</td>
+                                    <td>Gibson Dunn：EU AI Act Omnibus Agreement</td>
+                                    <td>
+                                        <a href="https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/" target="_blank" rel="noopener noreferrer">
+                                            https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/
+                                        </a>
+                                    </td>
+                                    <td>延期の合意内容の解説</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>24</td>
+                                    <td>NIST AI Risk Management Framework</td>
+                                    <td>
+                                        <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">
+                                            https://www.nist.gov/itl/ai-risk-management-framework
+                                        </a>
+                                    </td>
+                                    <td>NIST AI RMF の公式ページ</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>25</td>
+                                    <td>NIST AI RMF 1.0（NIST AI 100-1）PDF</td>
+                                    <td>
+                                        <a href="https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf" target="_blank" rel="noopener noreferrer">
+                                            https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+                                        </a>
+                                    </td>
+                                    <td>AI RMF 1.0 の本文</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>26</td>
+                                    <td>NIST AI 600-1（Generative AI Profile）PDF</td>
+                                    <td>
+                                        <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" target="_blank" rel="noopener noreferrer">
+                                            https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf
+                                        </a>
+                                    </td>
+                                    <td>生成AI向けプロファイル</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>27</td>
+                                    <td>ISO/IEC 42001:2023（ISO 公式）</td>
+                                    <td>
+                                        <a href="https://www.iso.org/standard/81230.html" target="_blank" rel="noopener noreferrer">
+                                            https://www.iso.org/standard/81230.html
+                                        </a>
+                                    </td>
+                                    <td>AI マネジメントシステム規格の概要</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>28</td>
+                                    <td>ISO/IEC 23053:2022（ISO 公式）</td>
+                                    <td>
+                                        <a href="https://www.iso.org/standard/74438.html" target="_blank" rel="noopener noreferrer">
+                                            https://www.iso.org/standard/74438.html
+                                        </a>
+                                    </td>
+                                    <td>ML を使う AI システムの枠組み規格の概要</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>29</td>
+                                    <td>
+                                        AI事業者ガイドライン（第1.1版）概要（総務省・経済産業省、令和7年3月28日）
+                                    </td>
+                                    <td>
+                                        <a href="https://www.soumu.go.jp/main_content/001000989.pdf" target="_blank" rel="noopener noreferrer">
+                                            https://www.soumu.go.jp/main_content/001000989.pdf
+                                        </a>
+                                    </td>
+                                    <td>日本の AI ガバナンスの指針（最新版は公式ページで要確認）</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>30</td>
+                                    <td>経済産業省：AI事業者ガイドライン（第1.0版）公表</td>
+                                    <td>
+                                        <a href="https://www.meti.go.jp/press/2024/04/20240419004/20240419004.html" target="_blank" rel="noopener noreferrer">
+                                            https://www.meti.go.jp/press/2024/04/20240419004/20240419004.html
+                                        </a>
+                                    </td>
+                                    <td>ガイドラインの位置づけと公表の経緯</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="77-本文書の情報の確からしさについて">
+                        7.7 本文書の情報の確からしさについて
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>区分</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>✅ 直接確認したもの</td>
+                                    <td>
+                                        公式シラバス v1.1 の第3章全文（ISQI 掲載 PDF）、ISTQB 公式ページ、MIT Technology Review の記事の内容、OpenAI／Microsoft の seed に関する説明、EU AI Act の 2026 年の日程に関する複数の解説
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>⚠️ 直接確認できていないもの</td>
+                                    <td>
+                                        公式サンプル試験 A の問題・解答（PDF のため取得できず）、ISO の各規格の本文（有料）、各 URL の最新の状態
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>📝 本文書独自の整理</td>
+                                    <td>
+                                        覚え方、図解、動作トレース、仮の数値による概算、OWASP との対応、練習問題（学習を助けるための作成物）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="callout-note callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">📌</span>
+                            <span className="callout-label">シラバスの補足</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                規制・標準・ツールの仕様は<strong>変わり続けます</strong>。実務で使う前に、必ず公式ページで最新の情報を確認してください。本文書は法的助言ではありません。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="page-footer">
+                        本ガイドは学習補助を目的とした要約・解説であり、ISTQB公式シラバスの正式な代替とはなりません。試験前には必ず公式シラバスとサンプル試験をご確認ください。
+                    </div>
                 </main>
             </div>
         </div>
