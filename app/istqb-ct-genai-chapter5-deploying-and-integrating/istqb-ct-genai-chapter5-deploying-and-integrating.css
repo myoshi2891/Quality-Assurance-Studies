@@ -1,0 +1,791 @@
+/**
+ * ISTQB CT-GenAI 第5章：テスト組織における生成AIの導入と統合
+ * ページ固有スタイルシート（エディトリアル紙テーマ & globals.css 干渉リセット）
+ */
+
+.ct-genai-chapter5-page {
+    --color-paper: #f6f7f9;
+    --color-paper-alt: #ffffff;
+    --color-ink: #161b26;
+    --color-ink-soft: #4b5468;
+    --color-ink-faint: #8891a3;
+    --color-indigo: #2e3f72;
+    --color-indigo-tint: #eef1f8;
+    --color-gold: #b8802a;
+    --color-gold-tint: #faf1df;
+    --color-forest: #1b6e6a;
+    --color-forest-tint: #eaf4ec;
+    --color-plum: #8c3a5c;
+    --color-plum-tint: #f7eaf0;
+    --color-border: #e1e5ec;
+    --color-border-strong: #c7cedb;
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --sidebar-width: 288px;
+
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: block;
+    box-sizing: border-box;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.ct-genai-chapter5-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
+}
+
+.ct-genai-chapter5-page section {
+    padding-top: 0 !important;
+}
+
+.ct-genai-chapter5-page section + section {
+    border-top: none !important;
+}
+
+.ct-genai-chapter5-page main,
+main.ct-genai-chapter5-page {
+    max-width: none !important;
+}
+
+/* サイドバー被り防止とメイン余白（第3章ベストプラクティス準拠） */
+.ct-genai-chapter5-page .main {
+    margin-left: var(--sidebar-width) !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    min-height: 100vh;
+}
+
+/* テーブル文字色・背景リセット（globals の #8ea3c3 干渉防止） */
+.ct-genai-chapter5-page table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.ct-genai-chapter5-page tbody td,
+.ct-genai-chapter5-page td {
+    color: var(--color-ink) !important;
+    font-size: 14.5px !important;
+    background: transparent;
+}
+
+.ct-genai-chapter5-page td strong {
+    color: var(--color-ink) !important;
+}
+
+.ct-genai-chapter5-page thead th {
+    background: var(--color-indigo) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    white-space: normal !important;
+}
+
+/* リストマーカー保護（Tailwind preflight打ち消し） */
+.ct-genai-chapter5-page ul.doc-list {
+    list-style-type: disc !important;
+    margin: 0 0 14px !important;
+    padding-left: 22px !important;
+}
+
+.ct-genai-chapter5-page ol.doc-list {
+    list-style-type: decimal !important;
+    margin: 0 0 14px !important;
+    padding-left: 22px !important;
+}
+
+.ct-genai-chapter5-page ul.doc-list li,
+.ct-genai-chapter5-page ol.doc-list li {
+    margin-bottom: 6px !important;
+}
+
+/* スクロールバーリセット */
+.ct-genai-chapter5-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.ct-genai-chapter5-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ct-genai-chapter5-page *::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong) !important;
+    border-radius: 3px;
+}
+
+.ct-genai-chapter5-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-faint) !important;
+}
+
+/* ---------- ヒーローセクション ---------- */
+.ct-genai-chapter5-page .hero {
+    padding: 56px 56px 40px;
+    border-bottom: 1px solid var(--color-border);
+    background: linear-gradient(180deg, var(--color-paper-alt) 0%, var(--color-paper) 100%);
+}
+
+.ct-genai-chapter5-page .hero-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--color-indigo);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.ct-genai-chapter5-page .hero h1 {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 16px;
+    color: var(--color-ink);
+}
+
+.ct-genai-chapter5-page .hero p {
+    font-size: 16px;
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: none;
+    line-height: 1.8;
+}
+
+.ct-genai-chapter5-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.ct-genai-chapter5-page .hero-meta span {
+    font-size: 13px;
+    background: var(--color-indigo-tint);
+    color: var(--color-indigo);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+/* ---------- コンテンツ・タイポグラフィ ---------- */
+.ct-genai-chapter5-page .content {
+    padding: 8px 56px 40px;
+}
+
+.ct-genai-chapter5-page section.doc-section {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.ct-genai-chapter5-page section.doc-section:last-of-type {
+    border-bottom: none;
+}
+
+.ct-genai-chapter5-page h1.doc-h1 {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--color-ink);
+    margin: 0 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--color-indigo);
+}
+
+.ct-genai-chapter5-page h2.doc-h2 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 34px 0 14px;
+}
+
+.ct-genai-chapter5-page h3.doc-h3 {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 26px 0 12px;
+}
+
+.ct-genai-chapter5-page h4.doc-h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-indigo);
+    margin: 20px 0 10px;
+}
+
+.ct-genai-chapter5-page p {
+    margin: 0 0 14px;
+    color: var(--color-ink);
+}
+
+.ct-genai-chapter5-page strong {
+    font-weight: 600;
+    color: var(--color-ink);
+}
+
+.ct-genai-chapter5-page a {
+    color: var(--color-indigo);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ct-genai-chapter5-page a:hover {
+    color: var(--color-forest);
+}
+
+.ct-genai-chapter5-page blockquote.doc-quote {
+    border-left: 3px solid var(--color-border-strong);
+    margin: 16px 0;
+    padding: 10px 18px;
+    color: var(--color-ink-soft);
+    font-size: 14.5px;
+    background: var(--color-paper-alt);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* ---------- バッジ・タグ ---------- */
+.ct-genai-chapter5-page .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.ct-genai-chapter5-page .tag-b {
+    background: var(--color-indigo-tint);
+    color: var(--color-indigo);
+}
+
+.ct-genai-chapter5-page .tag-g {
+    background: var(--color-forest-tint);
+    color: var(--color-forest);
+}
+
+.ct-genai-chapter5-page .tag-y {
+    background: var(--color-gold-tint);
+    color: var(--color-gold);
+}
+
+.ct-genai-chapter5-page .tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.ct-genai-chapter5-page .k-badge {
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background: var(--color-plum-tint);
+    color: var(--color-plum);
+}
+
+.ct-genai-chapter5-page .toc-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    background: var(--color-indigo);
+    color: #fff;
+    border-radius: 5px;
+    padding: 1px 7px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* ---------- テーブル ---------- */
+.ct-genai-chapter5-page .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0 22px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--color-paper-alt);
+    box-shadow: 0 1px 2px rgba(22, 27, 38, 0.04);
+}
+
+.ct-genai-chapter5-page table.doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 520px;
+    background: var(--color-paper-alt);
+}
+
+.ct-genai-chapter5-page table.doc-table thead th {
+    background: var(--color-indigo) !important;
+    color: #fff !important;
+    text-align: left;
+    font-weight: 600;
+    padding: 11px 14px;
+    font-size: 13.5px;
+    letter-spacing: 0.01em;
+}
+
+.ct-genai-chapter5-page table.doc-table tbody td,
+.ct-genai-chapter5-page table.doc-table tbody th {
+    padding: 10px 14px;
+    border-top: 1px solid var(--color-border);
+    vertical-align: top;
+}
+
+.ct-genai-chapter5-page table.doc-table tbody th {
+    text-align: left;
+    background: #eef1f7;
+    font-weight: 600;
+    color: var(--color-indigo) !important;
+    white-space: nowrap;
+}
+
+.ct-genai-chapter5-page table.doc-table tbody tr:nth-child(even) {
+    background: #f6f8fb;
+}
+
+/* コールアウト内のテーブル */
+.ct-genai-chapter5-page .callout .table-wrap {
+    border-color: transparent;
+    box-shadow: none;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.ct-genai-chapter5-page .callout table.doc-table tbody tr:nth-child(even) {
+    background: #f6f8fb;
+}
+
+/* ---------- コールアウト ---------- */
+.ct-genai-chapter5-page .callout {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: var(--radius-lg);
+    margin: 18px 0;
+    border: 1px solid transparent;
+}
+
+.ct-genai-chapter5-page .callout .callout-icon {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.ct-genai-chapter5-page .callout .callout-label {
+    font-weight: 700;
+    font-size: 13.5px;
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+}
+
+.ct-genai-chapter5-page .callout .callout-body :last-child {
+    margin-bottom: 0;
+}
+
+.ct-genai-chapter5-page .callout.practice {
+    background: var(--color-gold-tint);
+    border-color: #e9d3a6;
+}
+
+.ct-genai-chapter5-page .callout.practice .callout-icon {
+    background: var(--color-gold);
+    color: #fff;
+}
+
+.ct-genai-chapter5-page .callout.practice .callout-label {
+    color: var(--color-gold);
+}
+
+.ct-genai-chapter5-page .callout.source {
+    background: var(--color-forest-tint);
+    border-color: #a9d4cf;
+}
+
+.ct-genai-chapter5-page .callout.source .callout-icon {
+    background: var(--color-forest);
+    color: #fff;
+}
+
+.ct-genai-chapter5-page .callout.source .callout-label {
+    color: var(--color-forest);
+}
+
+.ct-genai-chapter5-page .callout.note {
+    background: var(--color-plum-tint);
+    border-color: #e3c0d0;
+}
+
+.ct-genai-chapter5-page .callout.note .callout-icon {
+    background: var(--color-plum);
+    color: #fff;
+}
+
+.ct-genai-chapter5-page .callout.note .callout-label {
+    color: var(--color-plum);
+}
+
+/* ---------- 仕様ブロック & 語呂合わせ ---------- */
+.ct-genai-chapter5-page .spec-block {
+    border-left: 3px solid var(--color-indigo);
+    background: var(--color-indigo-tint);
+    padding: 14px 18px;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: 16px 0;
+}
+
+.ct-genai-chapter5-page .spec-block .spec-label {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--color-indigo);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+}
+
+.ct-genai-chapter5-page .spec-block :last-child {
+    margin-bottom: 0;
+}
+
+.ct-genai-chapter5-page .mnemonic {
+    background: var(--color-paper-alt);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    font-size: 14.5px;
+    color: var(--color-ink-soft);
+    margin: 14px 0;
+}
+
+.ct-genai-chapter5-page .mnemonic strong {
+    color: var(--color-indigo);
+}
+
+/* ---------- Mermaid ダイアグラム ---------- */
+.ct-genai-chapter5-page .diagram-card {
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 20px 0;
+    overflow-x: auto !important;
+}
+
+.ct-genai-chapter5-page .diagram-caption {
+    font-size: 13px;
+    color: var(--color-ink-faint);
+    text-align: center;
+    margin-top: 14px;
+}
+
+.ct-genai-chapter5-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+}
+
+.ct-genai-chapter5-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+/* Mermaid エッジラベル保護 */
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabels rect,
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabel,
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabel span,
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabel p,
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabel text,
+.ct-genai-chapter5-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #161b26 !important;
+    fill: #161b26 !important;
+    font-weight: 700 !important;
+}
+
+/* Mermaid foreignObject 下部見切れ防止 */
+.ct-genai-chapter5-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ct-genai-chapter5-page .mermaid-wrapper foreignObject p,
+.ct-genai-chapter5-page .mermaid-wrapper foreignObject span,
+.ct-genai-chapter5-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+
+/* ---------- プロンプトブロック ---------- */
+.ct-genai-chapter5-page .prompt-block {
+    background: var(--color-paper-alt);
+    color: var(--color-ink);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin: 16px 0;
+}
+
+.ct-genai-chapter5-page .prompt-block .pb-head {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: #eef1f7;
+    border-bottom: 1px solid var(--color-border-strong);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--color-indigo);
+    letter-spacing: 0.02em;
+}
+
+.ct-genai-chapter5-page .prompt-block code {
+    display: block;
+    padding: 16px 18px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 13.5px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    color: var(--color-ink);
+    background: none;
+}
+
+.ct-genai-chapter5-page .prompt-block code .ph {
+    color: var(--color-indigo);
+    font-weight: 700;
+}
+
+.ct-genai-chapter5-page .prompt-block code .pv {
+    color: var(--color-forest);
+    font-weight: 600;
+}
+
+/* ---------- クイズ・確認問題 ---------- */
+.ct-genai-chapter5-page .quiz-card {
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    margin: 16px 0;
+}
+
+.ct-genai-chapter5-page .quiz-q {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.ct-genai-chapter5-page .quiz-opts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ct-genai-chapter5-page .quiz-opts li {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 14.5px;
+    background: var(--color-paper);
+}
+
+/* ---------- 参考文献リスト ---------- */
+.ct-genai-chapter5-page .ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.ct-genai-chapter5-page .ref-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+}
+
+.ct-genai-chapter5-page .ref-num {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-indigo);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-genai-chapter5-page .ref-body {
+    font-size: 14.5px;
+}
+
+.ct-genai-chapter5-page .ref-title {
+    font-weight: 600;
+    color: var(--color-ink);
+}
+
+.ct-genai-chapter5-page .ref-url {
+    word-break: break-all;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.ct-genai-chapter5-page .ref-use {
+    color: var(--color-ink-soft);
+    font-size: 13.5px;
+    margin-top: 3px;
+}
+
+/* ---------- チェックリストカード ---------- */
+.ct-genai-chapter5-page .checklist-card {
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin: 18px 0;
+}
+
+.ct-genai-chapter5-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.ct-genai-chapter5-page .cp-label {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-indigo);
+}
+
+.ct-genai-chapter5-page .cp-bar {
+    flex: 1;
+    min-width: 120px;
+    height: 8px;
+    background: var(--color-indigo-tint);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ct-genai-chapter5-page .cp-bar-fill {
+    height: 100%;
+    background: var(--color-forest);
+    transition: width 0.3s ease;
+}
+
+.ct-genai-chapter5-page .cp-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+}
+
+.ct-genai-chapter5-page .task-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ct-genai-chapter5-page .task-list li {
+    background: var(--color-paper);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.ct-genai-chapter5-page .task-list li.checked {
+    background: var(--color-forest-tint);
+    border-color: #a9d4cf;
+}
+
+.ct-genai-chapter5-page .task-list label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-size: 14.5px;
+}
+
+.ct-genai-chapter5-page .task-list input[type='checkbox'] {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ct-genai-chapter5-page .task-list li.checked .cl-text {
+    color: var(--color-ink-soft);
+    text-decoration: line-through;
+}
+
+.ct-genai-chapter5-page .check-group-title {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--color-indigo);
+    margin: 22px 0 8px;
+}
+
+/* ---------- フッター ---------- */
+.ct-genai-chapter5-page .footer {
+    padding: 34px 56px 50px;
+    color: var(--color-ink-faint);
+    font-size: 13px;
+    border-top: 1px solid var(--color-border);
+    line-height: 1.8;
+}
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 900px) {
+    .ct-genai-chapter5-page .main {
+        margin-left: 0 !important;
+    }
+
+    .ct-genai-chapter5-page .hero,
+    .ct-genai-chapter5-page .content,
+    .ct-genai-chapter5-page .footer {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+}

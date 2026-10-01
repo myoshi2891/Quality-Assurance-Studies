@@ -69,7 +69,7 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
         sample: '明確な生成AI戦略',
     },
     {
-        heading: '実務ベストプラクティス（試験範囲外）',
+        heading: 'シラバス準拠のベストプラクティス',
         headers: ['実務施策', 'ねらい', '根拠'],
         rows: 5,
         cols: 3,
