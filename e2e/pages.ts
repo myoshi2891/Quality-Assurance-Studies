@@ -28,6 +28,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ct-genai-complete-guide', h1: /Testing with Generative AI/ },
   { path: '/istqb-ct-genai-chapter1-introduction', h1: /CT-GenAI 第1章.*生成AIソフトウェアテスト入門/ },
   { path: '/istqb-ct-genai-chapter2-prompt-engineering', h1: /CT-GenAI 第2章.*完全解説ガイド/ },
+  { path: '/istqb-ct-genai-chapter3-risk-management', h1: /CT-GenAI 第3章.*リスク管理/ },
   { path: '/istqb-ct-mat-complete-guide', h1: /Mobile Application.*Testing/s },
   { path: '/istqb-ct-mbt-complete-guide', h1: /CT-MBT.*モデルベーステスト/s },
   { path: '/istqb-ct-pt-complete-guide', h1: /Performance.*Testing/s },
@@ -99,6 +100,6 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 84;
+export const EXPECTED_PAGE_COUNT = 85;
 
 

@@ -188,6 +188,11 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-chapter2-prompt-engineering/NavBar.tsx` — CT-GenAI 第2章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ct-genai-chapter2-prompt-engineering/ChecklistCard.tsx` — CT-GenAI 第2章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
 - `app/istqb-ct-genai-chapter2-prompt-engineering/diagrams.ts` — CT-GenAI 第2章 Mermaid 図解定義（fix-mermaid 準拠、全9図）
+- `app/istqb-ct-genai-chapter3-risk-management/istqb-ct-genai-chapter3-risk-management.css` — CT-GenAI 第3章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter3-risk-management/page.tsx` — CT-GenAI 第3章ガイドページ
+- `app/istqb-ct-genai-chapter3-risk-management/NavBar.tsx` — CT-GenAI 第3章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter3-risk-management/ChecklistCard.tsx` — CT-GenAI 第3章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
+- `app/istqb-ct-genai-chapter3-risk-management/diagrams.ts` — CT-GenAI 第3章 Mermaid 図解定義（fix-mermaid 準拠、全10図）
 - `app/istqb-ct-mbt-complete-guide/istqb-ct-mbt-complete-guide.css` — モデルベーステスト(CT-MBT)ガイド固有スタイル
 - `app/istqb-ct-mbt-complete-guide/page.tsx` — モデルベーステスト(CT-MBT)ガイドページ
 - `app/istqb-ct-mbt-complete-guide/NavBar.tsx` — CT-MBT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -679,6 +684,7 @@ bun test        # ユニットテスト成功
 | `Ctal-ta-v4-ch5-software-defect-prevention.html` | `/istqb-ctal-ta-chapter5-defect-prevention` | ✅ スティッキーTOCナビ + aria-current あり (archive/html-archive/ctal/) |
 | `Ct-genai-chapter1.html` | `/istqb-ct-genai-chapter1-introduction` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter2.html` | `/istqb-ct-genai-chapter2-prompt-engineering` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 
 ### 未移行（プロジェクトルートに残存）
 

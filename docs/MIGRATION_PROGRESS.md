@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-10-01
+Updated 2026-10-02
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 84 ルート = ガイドライブラリ index + 83 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 85 ルート = ガイドライブラリ index + 84 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,30 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e59eb39` |
-| 最新コミット内容 | `feat(ct-genai-ch2): implement sections 4 to 7 checklist and sync global navigation` |
+| 最新 HEAD | `c9ac425` |
+| 最新コミット内容 | `feat(ct-genai-ch3): implement cat 7 (references & footer)` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | `npm test`: 全テスト通過、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+
+## 2026/10/02: ISTQB CT-GenAI 第3章（生成AIのリスク管理）完全解説ガイドのNext.js完全移行
+
+- **移行先**: `/istqb-ct-genai-chapter3-risk-management`
+- **移行内容**:
+  - `Ct-genai-chapter3.html` / `Ct-genai-chapter3.md` を Next.js App Router へ完全移行。
+  - スティッキーナビ（`NavBar.tsx`、全28セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-chapter3-page`）。
+  - 全10点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
+  - ハルシネーション・推論エラー・バイアスの検出と軽減技法、非決定性の軽減（temperature / seed）、プライバシー・セキュリティリスク（攻撃ベクトル4種、緩和策、運用環境3択）、エネルギー消費と環境影響、AI規制・標準・フレームワーク（ISO/IEC 42001, ISO/IEC 23053, EU AI Act, NIST AI RMF）、総まとめ表、よくある間違い11点、実務導入チェックリスト4基（`ChecklistCard.tsx`）、オリジナル練習問題12問を完全網羅。
+  - 全47テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト（190件）、全30件以上の外部リンク（`target="_blank" rel="noopener noreferrer"`）の存在を検証。
+- **ファイル構成**:
+  - `app/istqb-ct-genai-chapter3-risk-management/page.tsx`
+  - `app/istqb-ct-genai-chapter3-risk-management/NavBar.tsx`
+  - `app/istqb-ct-genai-chapter3-risk-management/ChecklistCard.tsx`
+  - `app/istqb-ct-genai-chapter3-risk-management/diagrams.ts`
+  - `app/istqb-ct-genai-chapter3-risk-management/istqb-ct-genai-chapter3-risk-management.css`
+  - `tests/istqb-ct-genai-chapter3-risk-management/page.test.tsx`（30 tests / 1241 expect() calls）
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter3-risk-management`（CT-GenAI 第3章 生成AIのリスク管理）を追加（全85件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 84 → 85 に同期。
+- `Ct-genai-chapter3.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter3.md` は `archive/md-archive/ct-specialist/` へ移動完了。
 
 ## 2026/10/01: ISTQB CT-GenAI 第2章（プロンプトエンジニアリング）完全ガイドのNext.js完全移行
 
@@ -1212,6 +1232,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tm-v3-ch3-managing-the-team-guide.html` | `/istqb-ctal-tm-chapter3-managing-the-team` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ct-genai-chapter1.html` | `/istqb-ct-genai-chapter1-introduction` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter2.html` | `/istqb-ct-genai-chapter2-prompt-engineering` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 
 ### 未移行（プロジェクトルートに残存）
 
