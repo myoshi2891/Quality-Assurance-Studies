@@ -295,6 +295,66 @@ export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT3,
+    {
+        heading: '11.1 導入形態の全体像',
+        headers: ['導入形態', '概要', '参照章'],
+        rows: 6,
+        cols: 3,
+        sample: 'AIチャットボット',
+    },
+    {
+        heading: '11.2 導入形態別ベストプラクティス表',
+        headers: ['導入形態', '向いている用途', 'シラバス準拠のポイント', '実務ベストプラクティス', '導入の目安フェーズ（5.1.4）'],
+        rows: 6,
+        cols: 5,
+        sample: 'AIチャットボット',
+    },
+    {
+        heading: '11.3 ホスティング（配置）の選び方',
+        headers: ['配置', 'メリット（一般論）', '注意点（一般論）'],
+        rows: 3,
+        cols: 3,
+        sample: '商用のセキュアな提供プラン',
+    },
+    {
+        heading: '11.4 テスト活動別：導入の始め方と品質ゲート',
+        headers: ['テスト活動', 'GenAIの支援例', '導入の始め方（低リスクから）', '品質ゲートの例'],
+        rows: 4,
+        cols: 4,
+        sample: 'テスト分析',
+    },
+    {
+        heading: '12.1 シラバス（第3章3.4.1）に挙げられているもの',
+        headers: ['名称', '種別', '概要（要約）', 'テストでの適用（要約）'],
+        rows: 4,
+        cols: 4,
+        sample: 'ISO/IEC 42001:2023',
+    },
+    {
+        heading: '12.2 第5章の各項目との対応',
+        headers: ['第5章の項目', '関連する規制・標準（例）', 'どう役立つか'],
+        rows: 5,
+        cols: 3,
+        sample: '5.1.1 シャドーAI',
+    },
+    {
+        heading: '13.2 暗記表（K1問題の対策）',
+        headers: ['項目', '暗記内容', '覚え方'],
+        rows: 10,
+        cols: 3,
+        sample: 'シャドーAIとは',
+    },
+    {
+        heading: '13.3 重要用語集（日本語／英語）',
+        headers: ['日本語', '英語', '説明'],
+        rows: 20,
+        cols: 3,
+        sample: 'シャドーAI',
+    },
+];
+
 describe('CT-GenAI Chapter 5 Page (Cat 1: s1-s3)', () => {
     it('renders hero title and meta information', () => {
         const { container } = render(<CtGenAiChapter5Page />);
@@ -521,6 +581,67 @@ describe('CT-GenAI Chapter 5 Page (Cat 3: s7-s10)', () => {
         const c10 = container.querySelector('#s10 .callout.practice');
         expect(c10).not.toBeNull();
         expect(c10?.textContent).toContain('役割記述書・評価項目を更新');
+    });
+});
+
+describe('CT-GenAI Chapter 5 Page (Cat 4: s11-s13)', () => {
+    it('renders section s11 (導入形態別ベストプラクティス) with d15 diagram', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s11 = container.querySelector('#s11');
+        expect(s11).not.toBeNull();
+        expect(s11?.textContent).toContain('11. 導入形態ごとのベストプラクティス（サービス・機能別）');
+        expect(s11?.textContent).toContain('11.1 導入形態の全体像');
+        expect(s11?.textContent).toContain('11.2 導入形態別ベストプラクティス表');
+        expect(s11?.textContent).toContain('11.3 ホスティング（配置）の選び方');
+        expect(s11?.textContent).toContain('11.4 テスト活動別：導入の始め方と品質ゲート');
+        expect(s11?.querySelector('[data-diagram="d15"]')).not.toBeNull();
+    });
+
+    it('renders section s12 (関連する規制・標準・フレームワーク)', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s12 = container.querySelector('#s12');
+        expect(s12).not.toBeNull();
+        expect(s12?.textContent).toContain('12. 関連する規制・標準・フレームワーク（第3章との接続）');
+        expect(s12?.textContent).toContain('12.1 シラバス（第3章3.4.1）に挙げられているもの');
+        expect(s12?.textContent).toContain('12.2 第5章の各項目との対応');
+        expect(s12?.textContent).toContain('12.3 補足：EU AI Act第4条（AIリテラシー）に関する注意');
+    });
+
+    it('renders section s13 (章のまとめ・重要用語・暗記表) with d16 diagram', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s13 = container.querySelector('#s13');
+        expect(s13).not.toBeNull();
+        expect(s13?.textContent).toContain('13. 章のまとめ・重要用語・暗記表');
+        expect(s13?.textContent).toContain('13.1 第5章の全体フロー（総まとめの図解）');
+        expect(s13?.textContent).toContain('13.2 暗記表（K1問題の対策）');
+        expect(s13?.textContent).toContain('13.3 重要用語集（日本語／英語）');
+        expect(s13?.querySelector('[data-diagram="d16"]')).not.toBeNull();
+    });
+
+    it('matches Category 4 table inventory (cumulative 45 tables)', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT4.length);
+        EXPECTED_TABLE_SPECS_CAT4.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+
+    it('renders callouts in s11 and s12', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const c11 = container.querySelector('#s11 .callout.source');
+        expect(c11).not.toBeNull();
+        expect(c11?.textContent).toContain('セキュリティエンジニア、法務、CTO、CISO');
+
+        const c12 = container.querySelector('#s12 .callout.note');
+        expect(c12).not.toBeNull();
+        expect(c12?.textContent).toContain('Digital Omnibus on AI');
     });
 });
 
