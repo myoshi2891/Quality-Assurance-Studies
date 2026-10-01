@@ -121,6 +121,24 @@ export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT2,
+    {
+        heading: '3.1 評価指標（2.3.1）',
+        headers: ['指標', '説明', '例'],
+        rows: 7,
+        cols: 3,
+        sample: '正確性（Accuracy）',
+    },
+    {
+        heading: '3.2 プロンプト評価・改善技法（2.3.2）',
+        headers: ['技法', '内容'],
+        rows: 5,
+        cols: 2,
+        sample: '反復的なプロンプト修正（Iterative prompt modification）',
+    },
+];
+
 describe('CT-GenAI 第2章 完全解説ガイド (Category 0: 基盤セットアップ & ナビゲーション & セクション0)', () => {
     it('ヒーロー領域（H1、キッカー、サブタイトル、メタ情報リンク）が正しくレンダリングされること', () => {
         const { container } = render(<CtGenAiChapter2Page />);
@@ -355,6 +373,68 @@ describe('CT-GenAI 第2章 完全解説ガイド (Category 2: セクション2 �
         expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT2.length);
 
         EXPECTED_TABLE_SPECS_CAT2.forEach((spec, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual([...spec.headers]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+});
+
+describe('CT-GenAI 第2章 完全解説ガイド (Category 3: セクション3 GenAIの結果評価とプロンプトの改善)', () => {
+    it('セクション3の見出し（H2、H3）が正しく配置されていること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const h2 = container.querySelector('[id="3-23-genaiの結果評価とプロンプトの改善"]');
+        expect(h2).not.toBeNull();
+        expect(h2?.tagName).toBe('H2');
+
+        const h3List = [
+            '31-評価指標231',
+            '32-プロンプト評価改善技法232',
+        ];
+        h3List.forEach((id) => {
+            const h3 = container.querySelector(`[id="${id}"]`);
+            expect(h3).not.toBeNull();
+            expect(h3?.tagName).toBe('H3');
+        });
+    });
+
+    it('セクション3のMermaid図（図8）が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const el = container.querySelector('[data-diagram-id="mermaid-diagram-8"]');
+        expect(el).not.toBeNull();
+    });
+
+    it('セクション3のコールアウト（ハンズオン2件、ベストプラクティス1件、警告2件）が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        // ハンズオン
+        const handson = Array.from(container.querySelectorAll('.callout-handson'));
+        expect(handson.length).toBeGreaterThanOrEqual(9); // Cat1(2) + Cat2(5) + Cat3(2) = 9
+        expect(handson.some((el) => el.textContent?.includes('HO-2.3.1'))).toBe(true);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.3.2'))).toBe(true);
+
+        // ベストプラクティス
+        const practices = Array.from(container.querySelectorAll('.callout-practice'));
+        expect(practices.length).toBeGreaterThanOrEqual(6); // Cat1(3) + Cat2(2) + Cat3(1) = 6
+
+        // 警告・注意
+        const warnings = Array.from(container.querySelectorAll('.callout-warning'));
+        expect(warnings.length).toBeGreaterThanOrEqual(5); // Cat1(1) + Cat2(2) + Cat3(2) = 5
+        expect(warnings.some((el) => el.textContent?.includes('非決定的な性質'))).toBe(true);
+    });
+
+    it('セクション3内のテーブルがインベントリ定義と一致すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+        const tables = collectTableInventory(container);
+
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT3.length);
+
+        EXPECTED_TABLE_SPECS_CAT3.forEach((spec, i) => {
             const actual = tables[i];
             expect(actual.heading).toBe(spec.heading);
             expect(actual.headers).toEqual([...spec.headers]);
