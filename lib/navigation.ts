@@ -84,6 +84,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-ai-complete-guide', label: 'AIテスト(CT-AI)ガイド', description: '機械学習システムの品質特性・テストデータ・メトリクスの扱い。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-complete-guide', label: '生成AIテスト(CT-GenAI)ガイド', description: 'LLM・生成AIのハルシネーションや評価手法に対するテスト。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter1-introduction', label: 'CT-GenAI 第1章 生成AIテスト入門', description: '生成AIの系譜、LLMの基礎、主要能力と対話モデルのテスト入門。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter2-prompt-engineering', label: 'CT-GenAI 第2章 プロンプトエンジニアリング', description: 'プロンプト6要素構造、コア3技法、テスト業務適用と結果評価・改善。', category: 'istqb-specialist' },
   { href: '/istqb-ct-mbt-complete-guide', label: 'モデルベーステスト(CT-MBT)ガイド', description: 'モデルからテストケースを自動生成するMBTの設計と運用。', category: 'istqb-specialist' },
   { href: '/istqb-ct-aut-complete-guide', label: '自動車ソフトウェアテスター(CT-AuT)ガイド', description: 'ISO 26262・ASPICE に沿った車載ソフトウェアのテスト。', category: 'istqb-specialist' },
   { href: '/istqb-ct-act-complete-guide', label: '受入テスト(CT-AcT)ガイド', description: 'ビジネス要求とユーザー受入の合意形成に特化したテスト。', category: 'istqb-specialist' },

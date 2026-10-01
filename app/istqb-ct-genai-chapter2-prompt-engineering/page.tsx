@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import ChecklistCard, { type ChecklistItem } from './ChecklistCard';
 import Mermaid from '../../components/Mermaid';
 import {
     DIAGRAM_CH2_OVERVIEW,
@@ -19,6 +20,49 @@ export const metadata: Metadata = {
     title: 'ISTQB® CT-GenAI 第2章 完全解説ガイド | 効果的なソフトウェアテストのためのプロンプトエンジニアリング',
     description: 'ISTQB CT-GenAI シラバス第2章（365分）の完全解説。プロンプトの6要素構造、コア3技法、テスト業務への適用、結果評価とプロンプト改善を網羅。',
 };
+
+const CHECKLIST_ITEMS: ChecklistItem[] = [
+    {
+        id: 'lo-2-1-1',
+        label: 'GenAI-2.1.1 (K2)：ソフトウェアテストにおけるGenAI向けプロンプトの構造（6要素）の例を挙げられる',
+    },
+    {
+        id: 'lo-2-1-2',
+        label: 'GenAI-2.1.2 (K2)：ソフトウェアテスト向けのコアプロンプティング技法（プロンプトチェイニング／Few-shot／メタプロンプティング）を区別できる',
+    },
+    {
+        id: 'lo-2-1-3',
+        label: 'GenAI-2.1.3 (K2)：システムプロンプトとユーザープロンプトを区別できる',
+    },
+    {
+        id: 'lo-2-2-1',
+        label: 'GenAI-2.2.1 (K3)：GenAIをテスト分析タスクに適用できる',
+    },
+    {
+        id: 'lo-2-2-2',
+        label: 'GenAI-2.2.2 (K3)：GenAIをテスト設計・テスト実装タスクに適用できる',
+    },
+    {
+        id: 'lo-2-2-3',
+        label: 'GenAI-2.2.3 (K3)：GenAIを自動リグレッションテストに適用できる',
+    },
+    {
+        id: 'lo-2-2-4',
+        label: 'GenAI-2.2.4 (K3)：GenAIをテストコントロール・監視タスクに適用できる',
+    },
+    {
+        id: 'lo-2-2-5',
+        label: 'GenAI-2.2.5 (K3)：与えられた文脈とテストタスクに対して適切なプロンプティング技法を選択・適用できる',
+    },
+    {
+        id: 'lo-2-3-1',
+        label: 'GenAI-2.3.1 (K2)：テストタスクにおけるGenAI結果の評価指標を理解している',
+    },
+    {
+        id: 'lo-2-3-2',
+        label: 'GenAI-2.3.2 (K2)：プロンプトを評価し反復的に改善する技法の例を挙げられる',
+    },
+];
 
 export default function CtGenAiChapter2Page() {
     return (
@@ -1099,6 +1143,215 @@ export default function CtGenAiChapter2Page() {
                     </div>
                 </div>
                 <hr />
+
+                <h2 id="4-章末チェックリスト学習目標一覧">4. 章末チェックリスト（学習目標一覧）</h2>
+                <p>
+                    以下は第2章の全学習目標をK-レベル付きでチェックリスト化したものです。試験前の最終確認にご活用ください。
+                </p>
+                <ChecklistCard items={CHECKLIST_ITEMS} />
+                <hr />
+
+                <h2 id="5-ベストプラクティス総集編">5. ベストプラクティス総集編</h2>
+                <p>
+                    本章全体を通じて登場したベストプラクティスを、実務での参照用に一箇所にまとめます。
+                </p>
+                <ol>
+                    <li>
+                        <strong>
+                            6要素すべてを毎回書く必要はないが、Instruction（指示）とOutput Format（出力形式）は省略しない。
+                        </strong>
+                        曖昧な指示・出力形式は、十分な文脈があっても期待とズレた結果を招きやすい。
+                    </li>
+                    <li>
+                        <strong>
+                            プロンプト構造（2.1.1）を土台に、タスクに合ったコア技法（2.1.2）を選ぶ。
+                        </strong>
+                        構造化したプロンプトに、タスクとモデルの特性に適した技法を適用することで、安定した高品質な出力を得やすくなる。
+                    </li>
+                    <li>
+                        <strong>
+                            コア技法はタスクとモデルに応じて選択し、必要な場合に組み合わせる。
+                        </strong>
+                        単一の技法で十分なら単独で使う。単独では不十分な場合の選択肢として、メタプロンプティングで初期プロンプトを作り、Few-shotで例を強化し、プロンプトチェイニングでサブタスクに分解する、という組み合わせパターンを押さえておく。
+                    </li>
+                    <li>
+                        <strong>Few-shotの例の数は少数から始めて段階的に増やす。</strong>
+                        例が多すぎるとコンテキストウィンドウを圧迫し、効率が低下する。
+                    </li>
+                    <li>
+                        <strong>システムプロンプトは組織でテンプレート化する。</strong>
+                        役割・トーン・制約条件・出力言語などをチーム共通のシステムプロンプトとして定義しておくことで、個人差によるアウトプット品質のばらつきを抑えられる。
+                    </li>
+                    <li>
+                        <strong>マルチモーダル入力（テキスト＋画像）を積極的に活用する。</strong>
+                        特にテスト分析局面では、GUIワイヤーフレームなど画像情報を併用することで、テキストだけでは伝わらない制約を反映できる。
+                    </li>
+                    <li>
+                        <strong>GenAIの出力は必ずリスクに応じて人がチェックする。</strong>
+                        特に自動リグレッションテストや本番影響のあるタスクでは、生成結果をそのまま採用せず、関連するリスクレベルに応じた検証プロセスを設ける。
+                    </li>
+                    <li>
+                        <strong>GenAIの非決定性を前提に、評価は統計的に行う。</strong>
+                        単発の出力結果だけで技法やプロンプトの良否を判断せず、複数回の試行を集計して評価指標を算出する。
+                    </li>
+                    <li>
+                        <strong>
+                            プロンプト評価・改善は個人ではなくチームの活動として運営する。
+                        </strong>
+                        プロンプトライブラリの共有やA/Bテストのナレッジ化により、組織全体のGenAI活用成熟度を高める。
+                    </li>
+                    <li>
+                        <strong>入力データの質が出力の質を決める。</strong>
+                        どの局面においても「高品質な入力（Input Data）が意味のあるAI結果の前提条件である」という原則を忘れない。
+                    </li>
+                </ol>
+                <hr />
+
+                <h2 id="6-v10v11-変更点第2章に関わる箇所">
+                    6. v1.0→v1.1 変更点（第2章に関わる箇所）
+                </h2>
+                <p>
+                    v1.1（2026年4月27日リリース）は構造・学習目標・出題範囲を変更しない<strong>マイナーアップデート</strong>ですが、第2章に関わる変更点として以下がリリースノートに明記されています。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>箇所</th>
+                                <th>v1.0</th>
+                                <th>v1.1での変更内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>HO-2.1.2b (H1) の本文表記</td>
+                                <td>本文中に &quot;few-shot&quot; という表記を含む記述</td>
+                                <td>
+                                    &quot;few-shot&quot; の一部表記が &quot;one-shot&quot; に修正（正確な文言は公式リリースノート参照）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>2.3.1 表内「Execution Success Rate（実行成功率）」の説明文</td>
+                                <td>本ガイド3.1節の表に記載の通り</td>
+                                <td>
+                                    説明文の文言が改訂（詳細は公式シラバス・リリースノート参照）
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>GenAI-2.2.4 の学習目標文言</td>
+                                <td>
+                                    &quot;Apply generative AI to <strong>test control and monitoring</strong> tasks&quot;
+                                </td>
+                                <td>
+                                    &quot;Apply generative AI to <strong>test monitoring and control</strong> task&quot; に微調整（語順・単複表現の変更のみ、範囲に変更なし）
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>ハンズオン目標のタイトル表記</td>
+                                <td>章TOCとハンズオン見出しの表記に一部揺れあり</td>
+                                <td>各章の目次（TOC）の見出しに整合するようタイトルを統一</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>全体</td>
+                                <td>—</td>
+                                <td>誤字脱字の修正、謝辞（Acknowledgements）への貢献者名の追加</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-generic">
+                    <p>
+                        なお、第3章に関わる変更（例：3.2.2節の攻撃ベクトル名称「Data exfiltration」→「Context Manipulation」への変更など）は本ガイドの対象範囲外のため割愛しています。第3章の学習時には必ず最新のv1.1シラバス原文をご確認ください。
+                    </p>
+                </div>
+                <hr />
+
+                <h2 id="7-参考文献出典">7. 参考文献・出典</h2>
+                <p>本ガイドの作成にあたり、以下の一次情報源を直接参照しました。</p>
+                <h3 id="istqb公式資料">ISTQB公式資料</h3>
+                <ul>
+                    <li>
+                        ISTQB® CT-GenAI 認定試験ページ（概要・出題範囲・ダウンロードリンク）：
+                        <a href="https://istqb.org/certifications/gen-ai/" target="_blank" rel="noopener noreferrer">
+                            https://istqb.org/certifications/gen-ai/
+                        </a>
+                    </li>
+                    <li>
+                        CT-GenAI シラバス v1.1（公式ダウンロードリンク）：
+                        <a href="https://istqb.org/?sdm_process_download=1&download_id=6295" target="_blank" rel="noopener noreferrer">
+                            https://istqb.org/?sdm_process_download=1&download_id=6295
+                        </a>
+                    </li>
+                    <li>
+                        CT-GenAI シラバス v1.0 全文（本ガイドの本文解説で直接参照したミラー。v1.1は構造・LOに変更のないマイナーアップデートのため、詳細な章立て・本文理解にはv1.0全文を使用）：
+                        <a href="https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf" target="_blank" rel="noopener noreferrer">
+                            https://atsqa.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf
+                        </a>
+                    </li>
+                    <li>
+                        CT-GenAI v1.1 リリースノート（v1.0→v1.1の全変更点）：
+                        <a href="https://istqb.org/wp-content/uploads/2026/05/ISTQB-CT-GenAI_v1.1_Release_Notes.pdf" target="_blank" rel="noopener noreferrer">
+                            https://istqb.org/wp-content/uploads/2026/05/ISTQB-CT-GenAI_v1.1_Release_Notes.pdf
+                        </a>
+                    </li>
+                    <li>
+                        ISTQB® Glossary（用語集）：
+                        <a href="https://glossary.istqb.org/en_US/search?term=" target="_blank" rel="noopener noreferrer">
+                            https://glossary.istqb.org/en_US/search?term=
+                        </a>
+                    </li>
+                </ul>
+                <h3 id="シラバス内で引用されている学術文献第2章関連">
+                    シラバス内で引用されている学術文献（第2章関連）
+                </h3>
+                <ul>
+                    <li>
+                        Schulhoff, S., Ilie, M., Balepur, N., et al. (2024).{' '}
+                        <em>The Prompt Report: A Systematic Survey of Prompting Techniques</em>.{' '}
+                        arXiv:2406.06608.{' '}
+                        <a href="https://arxiv.org/abs/2406.06608" target="_blank" rel="noopener noreferrer">
+                            https://arxiv.org/abs/2406.06608
+                        </a>{' '}
+                        （2.1.2「コアプロンプティング技法」の出典）
+                    </li>
+                    <li>
+                        Li, Y., Liu, P., Wang, H., Chu, J., &amp; Wong, W. E. (2025).{' '}
+                        <em>Evaluating large language models for software testing</em>.{' '}
+                        Computer Standards &amp; Interfaces, 93, 103942.{' '}
+                        <a href="https://doi.org/10.1016/j.csi.2024.103942" target="_blank" rel="noopener noreferrer">
+                            https://doi.org/10.1016/j.csi.2024.103942
+                        </a>{' '}
+                        （2024年オンライン公開。2.3「GenAI結果の評価」で引用されるシラバス中の &quot;Li 2024&quot; に対応）
+                    </li>
+                </ul>
+                <div className="callout-note">
+                    <div className="callout-header">
+                        <span className="callout-icon">📌</span>
+                        <span className="callout-label">注記</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            シラバス本文中の引用表記（例：&quot;(Schulhoff 2024)&quot;、&quot;(Li 2024)&quot;）は著者名と年のみが示され、完全な書誌情報はシラバス第6章「References」に一覧化されています。本ガイドでは主要な引用について検索により該当論文を特定し掲載していますが、シラバスの正式な参考文献リストと完全に一致することを保証するものではないため、正確な書誌情報は公式シラバスの「6 References」セクションをご確認ください。
+                        </p>
+                    </div>
+                </div>
+                <h3 id="関連する公式ドキュメント学習の前提次のステップ">
+                    関連する公式ドキュメント（学習の前提・次のステップ）
+                </h3>
+                <ul>
+                    <li>
+                        [ISTQB_CTFL_SYL]（ISTQB Foundation Level シラバス）：CT-GenAI受験の前提資格。2.2.2節「テスト設計・テスト実装」の定義はこのシラバスに準拠しています。
+                    </li>
+                    <li>
+                        CT-GenAI Exam Structures and Rules：試験の形式（問題数40問、合格点30/46点＝65%、試験時間60分）の詳細。
+                    </li>
+                </ul>
+
+                <footer className="page-footer">
+                    <p>
+                        本ガイドは学習補助を目的とした要約・解説であり、ISTQB®公式シラバスの著作権はInternational Software Testing Qualifications Board（ISTQB®）に帰属します。試験対策の最終判断には、必ず公式シラバス原文をご確認ください。
+                    </p>
+                </footer>
             </main>
         </div>
     );
