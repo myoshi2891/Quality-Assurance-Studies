@@ -28,9 +28,9 @@
 }
 
 /* globals.css 干渉リセット */
+/* .main は margin-left でサイドバー幅を確保するため別途定義 */
 .ct-genai-ch2-page main,
-main.ct-genai-ch2-page,
-.ct-genai-ch2-page .main {
+main.ct-genai-ch2-page {
     max-width: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -113,8 +113,13 @@ main.ct-genai-ch2-page,
 
 /* メインコンテンツ領域 */
 .ct-genai-ch2-page .main {
-    margin-left: var(--sidebar-w);
+    max-width: none !important;
+    margin-left: var(--sidebar-w) !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     padding: 48px 56px 96px;
+    box-sizing: border-box;
 }
 
 .ct-genai-ch2-page .main h2 {
@@ -614,4 +619,34 @@ main.ct-genai-ch2-page,
     .ct-genai-ch2-page table {
         min-width: 420px;
     }
+}
+
+/* スクロールバー globals 干渉リセット */
+.ct-genai-ch2-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.ct-genai-ch2-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.ct-genai-ch2-page *::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px;
+}
+
+.ct-genai-ch2-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim) !important;
+}
+
+.ct-genai-ch2-page .sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.ct-genai-ch2-page .mermaid-container,
+.ct-genai-ch2-page .mermaid-wrap {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
 }
