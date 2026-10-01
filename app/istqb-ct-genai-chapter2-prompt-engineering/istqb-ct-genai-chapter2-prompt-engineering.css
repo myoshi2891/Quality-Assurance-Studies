@@ -48,17 +48,28 @@ main.ct-genai-ch2-page {
     display: block;
 }
 
-/* ヒーロー領域 */
+/* ヒーロー領域 — globals.css の .hero (min-height:100vh / flex / overflow:hidden) を完全リセット */
 .ct-genai-ch2-page .hero {
     min-height: 0 !important;
+    height: auto !important;
     display: block !important;
+    flex-direction: unset !important;
+    justify-content: unset !important;
+    align-items: unset !important;
     overflow: visible !important;
-    padding-top: 0 !important;
-    background: linear-gradient(135deg, var(--accent-bg) 0%, var(--card) 60%);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px 40px;
-    margin-bottom: 40px;
+    position: static !important;
+    background: linear-gradient(135deg, var(--accent-bg) 0%, var(--card) 60%) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 16px !important;
+    padding: 36px 40px !important;
+    margin-bottom: 40px !important;
+    box-sizing: border-box;
+}
+
+/* globals.css の .hero::after (absolute 装飾) を打ち消し */
+.ct-genai-ch2-page .hero::after {
+    display: none !important;
+    content: none !important;
 }
 
 .ct-genai-ch2-page .hero-kicker {
@@ -118,7 +129,7 @@ main.ct-genai-ch2-page {
     margin-right: 0 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
-    padding: 48px 56px 96px;
+    padding: 48px 64px 96px;
     box-sizing: border-box;
 }
 
@@ -535,28 +546,37 @@ main.ct-genai-ch2-page {
 
 /* ---------- Mermaid 修正スキル規約リセット (CRITICAL) ---------- */
 .ct-genai-ch2-page .mermaid-wrapper {
+    /* width:max-content + min-width:100% で「図が狭い→中央寄せ・広い→スクロール領域いっぱい」を両立 */
+    display: block !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
+    overflow: visible !important;
 }
 
 .ct-genai-ch2-page .mermaid-container,
 .ct-genai-ch2-page .mermaid-wrap {
+    /* display:block で横スクロール担当（flex だと左端がクリップされる） */
+    display: block !important;
     overflow-x: auto !important;
+    overscroll-behavior-x: contain;
     max-width: 100% !important;
     width: 100% !important;
-    display: flex;
-    justify-content: safe center;
     margin: 24px 0 28px;
-    padding: 8px 0;
+    padding: 16px 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 .ct-genai-ch2-page .mermaid-wrapper svg {
+    display: block !important;
+    margin: 0 auto !important;
     max-width: none !important;
     height: auto !important;
     flex-shrink: 0;
