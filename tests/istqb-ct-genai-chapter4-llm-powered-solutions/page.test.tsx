@@ -346,3 +346,52 @@ describe('CT-GenAI Chapter 4 Page - Category 5 (Comparison, Glossary, Objectives
         expect(ids).toContain('GenAI-4.2.2');
     });
 });
+
+describe('CT-GenAI Chapter 4 Page - Category 6 (Quizzes, Checklist, References)', () => {
+    it('renders Section 10: 確認問題 with 10 interactive quiz cards and details', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s10 = container.querySelector('#s10');
+        expect(s10).not.toBeNull();
+        expect(s10?.querySelector('h2')?.textContent).toContain('確認問題（自己採点用）');
+
+        const quizCards = s10?.querySelectorAll('.quiz-card');
+        expect(quizCards?.length).toBe(10);
+
+        quizCards?.forEach((card, idx) => {
+            expect(card.querySelector('.quiz-q')?.textContent).toContain(`問${idx + 1}`);
+            expect(card.querySelectorAll('.quiz-options li').length).toBe(4);
+            expect(card.querySelector('details summary')?.textContent).toContain('答えと解説を見る');
+            expect(card.querySelector('.quiz-answer')?.textContent).toContain('正解：');
+        });
+    });
+
+    it('renders Section 11: 試験直前チェックリスト with 16 interactive checklist items', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s11 = container.querySelector('#s11');
+        expect(s11).not.toBeNull();
+        expect(s11?.querySelector('h2')?.textContent).toContain('試験直前チェックリスト');
+
+        const countEl = s11?.querySelector('#checklistCount');
+        expect(countEl?.textContent).toBe('0 / 16 完了');
+
+        const checkboxes = s11?.querySelectorAll('ul.checklist input[type="checkbox"]');
+        expect(checkboxes?.length).toBe(16);
+    });
+
+    it('renders Section 12: 参考文献 with official and supplementary reference cards and footer', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s12 = container.querySelector('#s12');
+        expect(s12).not.toBeNull();
+        expect(s12?.querySelector('h2')?.textContent).toContain('参考文献（根拠となるソースURL）');
+
+        const refGroups = s12?.querySelectorAll('.ref-group');
+        expect(refGroups?.length).toBe(2);
+
+        const refCards = s12?.querySelectorAll('.ref-card');
+        expect(refCards?.length).toBe(15);
+
+        const footer = container.querySelector('footer.footer');
+        expect(footer).not.toBeNull();
+        expect(footer?.textContent).toContain('ISTQB® Certified Tester Specialist Level');
+    });
+});
