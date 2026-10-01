@@ -352,6 +352,59 @@ export const EXPECTED_TABLE_SPECS_CAT6: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT7: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT6,
+    {
+        heading: '7.1 【最重要】ISTQB 公式（一次ソース）',
+        headers: ['#', 'ソース', 'URL', '本文書での根拠となる内容'],
+        rows: 7,
+        cols: 4,
+        sample: 'Certified Tester – Testing with Generative AI',
+    },
+    {
+        heading: '7.2 学習の補助資料（二次ソース）',
+        headers: ['#', 'ソース', 'URL', '内容'],
+        rows: 2,
+        cols: 4,
+        sample: 'Chapter 3 – Managing Risks of Generative AI',
+    },
+    {
+        heading: '7.3 3.1 節（非決定性・temperature・seed）の補足',
+        headers: ['#', 'ソース', 'URL', '内容'],
+        rows: 4,
+        cols: 4,
+        sample: 'How to make your completions outputs reproducible',
+    },
+    {
+        heading: '7.4 3.2 節（プライバシー・セキュリティ）の補足',
+        headers: ['#', 'ソース', 'URL', '内容'],
+        rows: 3,
+        cols: 4,
+        sample: 'OWASP Top 10 for LLM Applications 2025',
+    },
+    {
+        heading: '7.5 3.3 節（エネルギー）の補足',
+        headers: ['#', 'ソース', 'URL', '内容'],
+        rows: 3,
+        cols: 4,
+        sample: 'Making an image with generative AI uses as much energy',
+    },
+    {
+        heading: '7.6 3.4 節（規制・標準・フレームワーク）の補足',
+        headers: ['#', 'ソース', 'URL', '内容'],
+        rows: 11,
+        cols: 4,
+        sample: 'EU AI Act：Regulation (EU) 2024/1689',
+    },
+    {
+        heading: '7.7 本文書の情報の確からしさについて',
+        headers: ['区分', '内容'],
+        rows: 3,
+        cols: 2,
+        sample: '公式シラバス v1.1 の第3章全文',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -689,7 +742,59 @@ describe('CT-GenAI Chapter 3 Page (Cat 6: 6. 試験対策：まとめ・チェ�
     });
 });
 
+describe('CT-GenAI Chapter 3 Page (Cat 7: 7. 参考URL & フッター)', () => {
+    it('renders Cat 7 headings correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#7-参考url根拠ソース一覧');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('7. 参考URL（根拠ソース一覧）');
 
+        const h3Ids = [
+            '71-最重要istqb-公式一次ソース',
+            '72-学習の補助資料二次ソース',
+            '73-31-節非決定性temperatureseedの補足',
+            '74-32-節プライバシーセキュリティの補足',
+            '75-33-節エネルギーの補足',
+            '76-34-節規制標準フレームワークの補足',
+            '77-本文書の情報の確からしさについて',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
 
+    it('renders all external links with target="_blank" and rel="noopener noreferrer"', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const extLinks = Array.from(container.querySelectorAll('a[href^="http"]'));
+        expect(extLinks.length).toBeGreaterThanOrEqual(30);
+        extLinks.forEach((link) => {
+            expect(link.getAttribute('target')).toBe('_blank');
+            expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+        });
+    });
 
+    it('renders page footer correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const footer = container.querySelector('.page-footer');
+        expect(footer).not.toBeNull();
+        expect(footer?.textContent).toContain('本ガイドは学習補助を目的とした要約・解説であり');
+    });
+
+    it('matches total table inventory (all 47 tables)', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBe(EXPECTED_TABLE_SPECS_CAT7.length);
+        expect(tables.length).toBe(47);
+
+        EXPECTED_TABLE_SPECS_CAT7.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+});
 
