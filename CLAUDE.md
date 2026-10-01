@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-01
+Updated 2026-10-02
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -193,6 +193,11 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-chapter3-risk-management/NavBar.tsx` — CT-GenAI 第3章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ct-genai-chapter3-risk-management/ChecklistCard.tsx` — CT-GenAI 第3章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
 - `app/istqb-ct-genai-chapter3-risk-management/diagrams.ts` — CT-GenAI 第3章 Mermaid 図解定義（fix-mermaid 準拠、全10図）
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/istqb-ct-genai-chapter5-deploying-and-integrating.css` — CT-GenAI 第5章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/page.tsx` — CT-GenAI 第5章ガイドページ
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/NavBar.tsx` — CT-GenAI 第5章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/ChecklistCard.tsx` — CT-GenAI 第5章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/diagrams.ts` — CT-GenAI 第5章 Mermaid 図解定義（fix-mermaid 準拠、全16図）
 - `app/istqb-ct-mbt-complete-guide/istqb-ct-mbt-complete-guide.css` — モデルベーステスト(CT-MBT)ガイド固有スタイル
 - `app/istqb-ct-mbt-complete-guide/page.tsx` — モデルベーステスト(CT-MBT)ガイドページ
 - `app/istqb-ct-mbt-complete-guide/NavBar.tsx` — CT-MBT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -685,6 +690,7 @@ bun test        # ユニットテスト成功
 | `Ct-genai-chapter1.html` | `/istqb-ct-genai-chapter1-introduction` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter2.html` | `/istqb-ct-genai-chapter2-prompt-engineering` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -708,7 +714,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 84 ルート（ガイドライブラリ index + 83 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 86 ルート（ガイドライブラリ index + 85 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。

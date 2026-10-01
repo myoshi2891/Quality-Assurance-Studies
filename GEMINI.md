@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-01
+Updated 2026-10-02
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -125,6 +125,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-genai-chapter1-introduction/page.tsx` (CT-GenAI 第1章 生成AIソフトウェアテスト入門完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-genai-chapter2-prompt-engineering/page.tsx` (CT-GenAI 第2章 プロンプトエンジニアリング完全解説ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-genai-chapter3-risk-management/page.tsx` (CT-GenAI 第3章 生成AIのリスク管理完全解説ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/page.tsx` (CT-GenAI 第5章 テスト組織における生成AIの導入と統合完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-mbt-complete-guide/page.tsx` (モデルベーステスト CT-MBT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-act-complete-guide/page.tsx` (受入テスト CT-AcT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-aut-complete-guide/page.tsx` (自動車ソフトウェアテスター CT-AuT 完全ガイド、`NavBar.tsx` 付き)
