@@ -82,6 +82,45 @@ export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT2: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT1,
+    {
+        heading: '2.1 テスト分析（2.2.1）',
+        headers: ['典型タスク', 'GenAIによる支援内容'],
+        rows: 5,
+        cols: 2,
+        sample: 'テストベース内の潜在的欠陥の特定',
+    },
+    {
+        heading: '2.2 テスト設計・テスト実装（2.2.2）',
+        headers: ['典型タスク', 'GenAIによる支援内容'],
+        rows: 4,
+        cols: 2,
+        sample: 'テストケース生成',
+    },
+    {
+        heading: '2.3 自動リグレッションテスト（2.2.3）',
+        headers: ['典型タスク', 'GenAIによる支援内容'],
+        rows: 5,
+        cols: 2,
+        sample: 'キーワード駆動自動化によるテストスクリプト実装',
+    },
+    {
+        heading: '2.4 テスト監視・テストコントロール（2.2.4）',
+        headers: ['典型タスク', 'GenAIによる支援内容'],
+        rows: 4,
+        cols: 2,
+        sample: 'テスト監視とメトリクス分析',
+    },
+    {
+        heading: '2.5 状況に応じた技法選択（2.2.5）',
+        headers: ['プロンプティング技法', '推奨されるユースケース', '主な特徴・適用例'],
+        rows: 3,
+        cols: 3,
+        sample: 'プロンプトチェイニング',
+    },
+];
+
 describe('CT-GenAI 第2章 完全解説ガイド (Category 0: 基盤セットアップ & ナビゲーション & セクション0)', () => {
     it('ヒーロー領域（H1、キッカー、サブタイトル、メタ情報リンク）が正しくレンダリングされること', () => {
         const { container } = render(<CtGenAiChapter2Page />);
@@ -255,3 +294,74 @@ describe('CT-GenAI 第2章 完全解説ガイド (Category 1: セクション1 �
         });
     });
 });
+
+describe('CT-GenAI 第2章 完全解説ガイド (Category 2: セクション2 テスト業務への適用)', () => {
+    it('セクション2の見出し（H2、H3）が正しく配置されていること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const h2 = container.querySelector('[id="2-22-テスト業務へのプロンプトエンジニアリング技法の適用"]');
+        expect(h2).not.toBeNull();
+        expect(h2?.tagName).toBe('H2');
+
+        const h3List = [
+            '21-テスト分析221',
+            '22-テスト設計テスト実装222',
+            '23-自動リグレッションテスト223',
+            '24-テスト監視テストコントロール224',
+            '25-状況に応じた技法選択225',
+        ];
+        h3List.forEach((id) => {
+            const h3 = container.querySelector(`[id="${id}"]`);
+            expect(h3).not.toBeNull();
+            expect(h3?.tagName).toBe('H3');
+        });
+    });
+
+    it('セクション2のMermaid図（図6、図7）が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const diagramIds = ['mermaid-diagram-6', 'mermaid-diagram-7'];
+        diagramIds.forEach((id) => {
+            const el = container.querySelector(`[data-diagram-id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('セクション2のコールアウト（ハンズオン5件、ベストプラクティス2件、警告2件）が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        // ハンズオン
+        const handson = Array.from(container.querySelectorAll('.callout-handson'));
+        expect(handson.length).toBeGreaterThanOrEqual(7); // Cat1(2) + Cat2(5) = 7
+        expect(handson.some((el) => el.textContent?.includes('HO-2.2.1a'))).toBe(true);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.2.2a'))).toBe(true);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.2.3a'))).toBe(true);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.2.4'))).toBe(true);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.2.5'))).toBe(true);
+
+        // ベストプラクティス
+        const practices = Array.from(container.querySelectorAll('.callout-practice'));
+        expect(practices.length).toBeGreaterThanOrEqual(5); // Cat1(3) + Cat2(2) = 5
+
+        // 警告・注意
+        const warnings = Array.from(container.querySelectorAll('.callout-warning'));
+        expect(warnings.length).toBeGreaterThanOrEqual(3); // Cat1(1) + Cat2(2) = 3
+    });
+
+    it('セクション2内のテーブルがインベントリ定義と一致すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+        const tables = collectTableInventory(container);
+
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT2.length);
+
+        EXPECTED_TABLE_SPECS_CAT2.forEach((spec, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual([...spec.headers]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+});
+
