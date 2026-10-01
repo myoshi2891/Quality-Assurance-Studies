@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './istqb-ct-genai-chapter4-llm-powered-solutions.css';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_D1, DIAGRAM_D2 } from './diagrams';
+import { DIAGRAM_D1, DIAGRAM_D2, DIAGRAM_D3, DIAGRAM_D4 } from './diagrams';
 
 export const metadata: Metadata = {
     title: 'ISTQB CT-GenAI 第4章 完全ガイド｜LLM搭載テストインフラ（初学者向け）',
@@ -555,6 +555,471 @@ export default function CtGenAiChapter4Page() {
                                     <i className="ti ti-point"></i>
                                     <div className="item-body">
                                         「後処理」がなぜ必要か（出力を組織のテスト条件・形式に整合させるため）を説明できること。
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    {/* ========== Section 3: 4.1.2 RAG ========== */}
+                    <section className="section" id="s3">
+                        <div className="eyebrow">
+                            <i className="ti ti-database-search"></i>3. 4.1.2 Retrieval-Augmented Generation（RAG）　<span className="tag k2">K2</span>
+                        </div>
+                        <h2>4.1.2　Retrieval-Augmented Generation（RAG）</h2>
+
+                        <h3>3.1 RAGとは何か</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>RAGの定義
+                                </p>
+                                <p>
+                                    RAGは、<strong>外部のデータソースを回答生成プロセスに取り込むことで、LLMの出力の関連性と正確性を高める</strong>手法です。検索システムと言語モデルを組み合わせ、文脈に沿った（grounded な）応答を生成します。
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            初学者向けに言い換えると、LLMに「事前学習で覚えた知識だけで答えさせる」のではなく、「質問に関係する社内資料を先に探して、それを読ませてから答えさせる」仕組みです。
+                        </p>
+
+                        <h3>3.2 なぜテストでRAGが必要か</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>LLM単体の弱点</th>
+                                        <th>RAGによる改善</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>事前学習後の最新仕様・最新の要件を知らない</td>
+                                        <td>最新の要件書・仕様書を実行時に検索して参照する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>自社固有のテスト資産（既存テストケース、欠陥履歴）を知らない</td>
+                                        <td>社内データベースやリポジトリから関連情報を取得する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>根拠のない出力（ハルシネーション）をしやすい</td>
+                                        <td>取得した信頼できるデータに根拠づけて生成する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コンテキストウィンドウに全資料は入らない</td>
+                                        <td>関連する断片だけを選んで入れる</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    テストにおけるRAGは、LLM搭載テストインフラが<strong>企業のデータソース（データベース、ドキュメント、リポジトリ）にリアルタイムでアクセス</strong>し、テスト分析・テスト設計などが最新の仕様・要件・既存テストデータと整合するようにします。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>3.3 RAGの仕組み：2つのフェーズ</h3>
+                        <p>
+                            RAGは「事前準備（インデックス作成）」と「実行時（問い合わせ処理）」の2フェーズで動きます。
+                        </p>
+
+                        <h4>フェーズ1：事前処理（前処理・インデックス作成）</h4>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図3：RAGの事前処理（インデックス作成）
+                            </p>
+                            <div className="diagram-wrap">
+                                <div className="mermaid-container">
+                                    <Mermaid chart={DIAGRAM_D3} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ステップ</th>
+                                        <th>内容（シラバス記述）</th>
+                                        <th>補足</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>チャンク分割</td>
+                                        <td>
+                                            大きな文書を小さな断片（例：256〜512トークン）に分割し、検索を絞り込み、モデルのコンテキストウィンドウに収まるようにする
+                                        </td>
+                                        <td>
+                                            チャンクが大きすぎると無関係な内容が混ざり、小さすぎると文脈が失われる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>クリーニング</td>
+                                        <td>各チャンクをクリーニング・処理する</td>
+                                        <td>不要な書式、ヘッダー・フッター、重複などを除去</td>
+                                    </tr>
+                                    <tr>
+                                        <td>埋め込み化</td>
+                                        <td>
+                                            事前学習済みモデルで高次元ベクトル（埋め込み）にエンコードする
+                                        </td>
+                                        <td>意味が近い文章は、ベクトル空間でも近くに配置される</td>
+                                    </tr>
+                                    <tr>
+                                        <td>保存</td>
+                                        <td>埋め込みをベクトルデータベースに格納</td>
+                                        <td>実行時に類似度ベースの効率的な検索が可能になる</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>フェーズ2：実行時（ユーザープロンプト処理）</h4>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図4：RAGの実行時処理（検索から生成まで）
+                            </p>
+                            <div className="diagram-wrap">
+                                <div className="mermaid-container">
+                                    <Mermaid chart={DIAGRAM_D4} />
+                                </div>
+                            </div>
+                            <p className="diagram-note">
+                                テスターの質問がバックエンド経由でベクトルDBの検索へ渡り、取得した関連チャンクとともにLLMへ送られ、後処理を経て回答が返る一連の流れ。
+                            </p>
+                        </div>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>実行時の2ステップ
+                                </p>
+                                <div className="table-wrap">
+                                    <table className="kv-table">
+                                        <tbody>
+                                            <tr>
+                                                <td style={{ whiteSpace: 'nowrap', fontWeight: 700 }}>
+                                                    1. 検索（Retrieval）
+                                                </td>
+                                                <td>
+                                                    ユーザーのクエリをエンコードし、以前に作成したベクトルデータベースから関連情報を検索する。検索は通常、プロンプトの埋め込みとチャンクの埋め込みの<strong>意味的類似度</strong>に基づく
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ whiteSpace: 'nowrap', fontWeight: 700 }}>
+                                                    2. 生成（Generation）
+                                                </td>
+                                                <td>
+                                                    取得した情報をLLMに渡し、LLMが既存の知識と新たに得たデータを組み合わせて応答を生成する
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>3.4 「関連性のある応答（relevant response）」とは</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    関連性のある応答とは、検索プロセスで収集された<strong>関連性が高く、正確で、文脈に適した情報に深く根ざしたLLMの出力</strong>のことです。モデルの事前学習だけに基づくのではなく、プロンプトに関する正確なデータで補強されているため、信頼性と有用性が高まります。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>3.5 キーワード検索とベクトル検索の違い</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>キーワード検索</th>
+                                        <th>ベクトル（意味）検索</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>一致の基準</td>
+                                        <td>文字列の一致</td>
+                                        <td>意味の近さ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>「ログインできない」で検索したとき</td>
+                                        <td>「ログインできない」を含む文書のみ</td>
+                                        <td>「認証に失敗する」「サインイン不可」なども見つかる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>弱点</td>
+                                        <td>言い換えに弱い</td>
+                                        <td>型番・略語・エラーコードなど固有名詞の完全一致に弱い場合がある</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout note">
+                            <i className="ti ti-note"></i>
+                            <div className="callout-body">
+                                <p>
+                                    <span className="tag note">補足</span>
+                                    実務では、キーワード検索とベクトル検索を組み合わせた「ハイブリッド検索」や、検索結果を再評価して並べ替える「リランキング」が使われます（下のベストプラクティス参照）。シラバス本文には登場しないので、暗記は不要です。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>3.6 RAGを使ったテスト業務の例</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>テスト活動</th>
+                                        <th>RAGで参照させるデータ</th>
+                                        <th>得られる効果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>テスト分析</td>
+                                        <td>最新の要件書、ユーザーストーリー、リリースノート</td>
+                                        <td>古い仕様に基づく誤ったテスト条件を防ぐ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テスト設計</td>
+                                        <td>既存のテストケース、テスト設計標準</td>
+                                        <td>重複を避け、組織のテストケース様式に合わせる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>欠陥分析</td>
+                                        <td>過去の欠陥データベース、障害報告</td>
+                                        <td>類似欠陥の再発パターンを見つける</td>
+                                    </tr>
+                                    <tr>
+                                        <td>カバレッジ評価</td>
+                                        <td>要件とテストケースの対応表</td>
+                                        <td>抜け漏れの検出</td>
+                                    </tr>
+                                    <tr>
+                                        <td>APIテスト</td>
+                                        <td>APIドキュメント、OpenAPI仕様</td>
+                                        <td>仕様変更に追随したテスト生成</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>3.7 RAGとファインチューニングの違い（比較）</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>RAG</th>
+                                        <th>ファインチューニング（4.2.1）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>何を変えるか</td>
+                                        <td>モデルは変えず、渡す情報を変える</td>
+                                        <td>モデルの重み（パラメータ）を追加学習で変える</td>
+                                    </tr>
+                                    <tr>
+                                        <td>知識の更新</td>
+                                        <td>文書を更新・再インデックスすれば即反映</td>
+                                        <td>再学習が必要で、時間とコストがかかる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>主な得意分野</td>
+                                        <td>最新かつ自社固有の事実知識への根拠づけ</td>
+                                        <td>用語、出力形式、推論の型、口調の定着</td>
+                                    </tr>
+                                    <tr>
+                                        <td>根拠の追跡</td>
+                                        <td>取得したチャンクを提示でき、出典を示しやすい</td>
+                                        <td>学習済み知識のため、根拠の追跡が難しい</td>
+                                    </tr>
+                                    <tr>
+                                        <td>初期コスト</td>
+                                        <td>比較的低い（インデックス基盤が必要）</td>
+                                        <td>高い（学習データ準備・GPUなど）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            第3章のまとめとして、シラバスは「RAGとファインチューニングはLLMの結果を改善する<strong>補完的な</strong>技術」と位置づけています。どちらか一方を選ぶのではなく、組み合わせることも多いです。
+                        </p>
+
+                        <h3>3.8 RAGのリスクと限界</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>課題</th>
+                                        <th>内容</th>
+                                        <th>対策の方向性</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>検索の質に依存</td>
+                                        <td>関連しないチャンクが取得されると、誤った根拠で回答してしまう</td>
+                                        <td>チャンク設計の見直し、検索方式の改善、評価データセットでの検証</td>
+                                    </tr>
+                                    <tr>
+                                        <td>古い・矛盾した文書</td>
+                                        <td>インデックスに古い文書が残ると、古い仕様で回答する</td>
+                                        <td>文書の更新フローと再インデックスの自動化</td>
+                                    </tr>
+                                    <tr>
+                                        <td>機密情報の混入</td>
+                                        <td>インデックスに個人情報や機密情報が入ると漏えいリスク</td>
+                                        <td>アクセス制御、匿名化・マスキング（第3章3.2.3）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ハルシネーションは残る</td>
+                                        <td>RAGで「減る」が「ゼロにはならない」</td>
+                                        <td>人間によるレビュー、自動検証（第3章3.1.3）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="callout gold">
+                            <i className="ti ti-bulb"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">💡 ベストプラクティス（RAG）</p>
+                                <ol>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        文書は256〜512トークン程度のチャンクに分割し、クリーニングしてから埋め込む。クエリにも、チャンクと同じクリーニング処理を適用する（<span className="tag note">補足</span>Microsoftのアーキテクチャガイドが同様の注意を示している）。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        チャンクサイズは文書の構造（見出し・表・コード）に合わせて調整する。チャンクごとに出典メタデータ（文書名、版、更新日、ID）を保存して、回答に出典を付けられるようにする。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        ベクトル検索のみに頼らず、キーワード検索との「ハイブリッド検索」と、検索後のリランキングを検討する。型番・エラーコード・略語の検索精度が上がる。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        検索（Retrieval）と生成（Generation）を分けて評価する。検索で正しい文書が取れているか、生成が取得内容に忠実か、をそれぞれ確認する。まず実際のテスト質問で小さな評価セットを作ってから、プロンプトを調整する。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        失敗ケースを意図的にテストする（古い文書、重複チャンク、矛盾する資料、インデックスに答えがない質問）。「答えがない」場合に、推測せず「わからない」と返せるかを見る。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠（第3章）</span>
+                                        機密情報は最小化し、匿名化・アクセス制御を行う。RAGの検索対象に入れてよいデータの範囲を、公開前に決める。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        文書の更新に合わせて再インデックスする仕組み（CI/CD連携など）を用意する。RAGの利点である「最新性」は運用しないと失われる。
+                                    </li>
+                                </ol>
+                                <div className="callout-source">
+                                    出典：
+                                    <a
+                                        href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        CT-GenAI Syllabus v1.0（PDF）
+                                    </a>
+                                    、
+                                    <a
+                                        href="https://speakerdeck.com/exactpro/chapter-4-llm-powered-testformat-reading-materials-self-study-or-guided-reading"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Exactpro Chapter 4 Reading Materials（v1.1）
+                                    </a>
+                                    、
+                                    <a
+                                        href="https://learn.microsoft.com/en-us/Azure/architecture/ai-ml/guide/rag/rag-information-retrieval"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Microsoft Learn：RAGの情報検索
+                                    </a>
+                                    、
+                                    <a
+                                        href="https://arxiv.org/abs/2005.11401"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Lewisら「Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks」
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>3.9 ハンズオン目標 HO-4.1.2（H1）：RAGを試す</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス</span>
+                            与えられたテストタスクについてRAGシステムに文書を取り込み、複雑な情報に基づく回答の正確さがどう変わるかを観察します。<strong>RAGあり・なしの出力を比較</strong>し、テストタスクの種類ごとの強みと限界を把握します。ハンズオンは試験範囲外ですが、次の手順で自習できます。
+                        </p>
+                        <ol className="step-list">
+                            <li>
+                                <p className="step-title">要件書と固有ルールの質問を用意する</p>
+                                <p>小さな要件書（数ページ）と、そこにしか書かれていない固有ルールを含む質問を3〜5個用意する</p>
+                            </li>
+                            <li>
+                                <p className="step-title">RAGなしで質問する</p>
+                                <p>RAGなし（LLM単体）で質問し、回答を記録する</p>
+                            </li>
+                            <li>
+                                <p className="step-title">RAGありで同じ質問をする</p>
+                                <p>要件書をRAGに取り込んで同じ質問をし、回答と「取得されたチャンク」を記録する</p>
+                            </li>
+                            <li>
+                                <p className="step-title">比較する</p>
+                                <p>正確さ・出典の妥当性・「わからない」と答えるべき質問での挙動を比較する</p>
+                            </li>
+                            <li>
+                                <p className="step-title">切り分ける</p>
+                                <p>間違えた質問について、取得チャンクが悪かったのか、生成が悪かったのかを切り分ける</p>
+                            </li>
+                        </ol>
+
+                        <h4>3.10 この節の試験ポイント</h4>
+                        <div className="critique-card">
+                            <ul>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        RAGの2ステップ（検索→生成）と、事前準備（チャンク分割→埋め込み→ベクトルDB保存）の流れ。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        チャンクサイズの目安（256〜512トークン）。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        「意味的類似度で検索する」こと。キーワード一致ではない。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        RAGの利点は、<strong>最新の社内データに基づく根拠づけ</strong>と、それによる精度・関連性の向上。
                                     </div>
                                 </li>
                             </ul>
