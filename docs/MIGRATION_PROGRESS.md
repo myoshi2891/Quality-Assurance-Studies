@@ -5,7 +5,7 @@ Updated 2026-10-02
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 86 ルート = ガイドライブラリ index + 85 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 87 ルート = ガイドライブラリ index + 86 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,31 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `713315a` |
-| 最新コミット内容 | `chore(ct-genai-ch5): register navigation, archive source files, and sync docs` |
+| 最新 HEAD | `43bf66c` |
+| 最新コミット内容 | `test(nav): update Header drawer count and index ladder test for 19 specialist items` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `npm test`: 全テスト通過（1260 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `npm test`: 全テスト通過（1279 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+
+## 2026/10/02: ISTQB CT-GenAI 第4章（LLM搭載テストインフラ）完全ガイドのNext.js完全移行
+
+- **移行先**: `/istqb-ct-genai-chapter4-llm-powered-solutions`
+- **移行内容**:
+  - `Ctgenai-ch4-llm-powered-solutions-guide.html` / `Ctgenai-ch4-llm-powered-solutions-guide.md` を Next.js App Router へ完全移行。
+  - TDD 必須サイクル（Red → Green）を厳格に適用し、全6カテゴリーに分割して段階的にコミット。
+  - スティッキーナビ（`NavBar.tsx`、全13セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-chapter4-page`）。
+  - 全10点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
+  - 基本アーキテクチャ3層（フロントエンド・バックエンド・LLM/DB）、RAGの2フェーズ（事前処理・実行時）とベクトル検索、LLM搭載エージェントの動作・ツール呼び出し・自律度・マルチエージェントオーケストレーション、ファインチューニングとLLM/SLM使い分け・4大課題、LLMOpsのライフサイクルと3つの導入アプローチ・7領域の監視項目、手法の使い分け判断フロー、第4章用語集（16語）、学習目標対応表（8項目）、確認問題10問（詳細解説付き）、試験直前チェックリスト16項目（`ChecklistCard.tsx`）、参考文献15件を完全網羅。
+  - 全テーブル（20以上）、全コールアウト、全外部リンク（`target="_blank" rel="noopener noreferrer"`）の存在を検証。
+- **ファイル構成**:
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/page.tsx`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/NavBar.tsx`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/ChecklistCard.tsx`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/diagrams.ts`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/istqb-ct-genai-chapter4-llm-powered-solutions.css`
+  - `tests/istqb-ct-genai-chapter4-llm-powered-solutions/page.test.tsx`（15 tests / 220 expect() calls）
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter4-llm-powered-solutions`（CT-GenAI 第4章 LLM搭載テストインフラ）を追加（全87件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 86 → 87 に同期。
+- `Ctgenai-ch4-llm-powered-solutions-guide.html` は `archive/html-archive/ct-specialist/`、`Ctgenai-ch4-llm-powered-solutions-guide.md` は `archive/md-archive/ct-specialist/` へ移動完了。
 
 ## 2026/10/02: ISTQB CT-GenAI 第5章（テスト組織における生成AIの導入と統合）完全ガイドのNext.js完全移行
 
@@ -1258,6 +1279,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ct-genai-chapter1.html` | `/istqb-ct-genai-chapter1-introduction` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter2.html` | `/istqb-ct-genai-chapter2-prompt-engineering` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ctgenai-ch4-llm-powered-solutions-guide.html` | `/istqb-ct-genai-chapter4-llm-powered-solutions` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 
 ### 未移行（プロジェクトルートに残存）
@@ -1284,7 +1306,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 86 ルート（ガイドライブラリ index + 85 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 87 ルート（ガイドライブラリ index + 86 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
