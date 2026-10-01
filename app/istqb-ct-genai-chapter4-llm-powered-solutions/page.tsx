@@ -13,6 +13,7 @@ import {
     DIAGRAM_D7,
     DIAGRAM_D8,
     DIAGRAM_D9,
+    DIAGRAM_D10,
 } from './diagrams';
 
 export const metadata: Metadata = {
@@ -2187,6 +2188,275 @@ export default function CtGenAiChapter4Page() {
                                     </div>
                                 </li>
                             </ul>
+                        </div>
+                    </section>
+
+                    <section className="section" id="s7">
+                        <div className="eyebrow">
+                            <i className="ti ti-git-branch"></i>7.
+                            手法の使い分け（プロンプト・RAG・ファインチューニング・エージェント）
+                        </div>
+                        <h2>
+                            手法の使い分け（プロンプト・RAG・ファインチューニング・エージェント）
+                        </h2>
+
+                        <h3>7.1 判断フロー</h3>
+                        <p>
+                            <span className="tag note">補足</span>
+                            試験対策というより、実務で「何を使うか」を判断するための整理です。
+                        </p>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図10：手法選択の判断フロー
+                            </p>
+                            <div className="diagram-wrap">
+                                <Mermaid chart={DIAGRAM_D10} id="d10" />
+                            </div>
+                        </div>
+
+                        <h3>7.2 比較表</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>手法</th>
+                                        <th>変えるもの</th>
+                                        <th>得意なこと</th>
+                                        <th>主なコスト</th>
+                                        <th>主なリスク</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>プロンプトエンジニアリング</td>
+                                        <td>入力の書き方</td>
+                                        <td>形式・役割・例による誘導</td>
+                                        <td>低い</td>
+                                        <td>非決定性、プロンプトの肥大化</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RAG</td>
+                                        <td>渡す文脈</td>
+                                        <td>最新・自社固有の知識への根拠づけ</td>
+                                        <td>中（検索基盤）</td>
+                                        <td>検索品質、機密情報の混入</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ファインチューニング</td>
+                                        <td>モデルの重み</td>
+                                        <td>用語・形式・推論パターンの定着</td>
+                                        <td>高い（特にLLM）</td>
+                                        <td>過学習、バイアス、不透明性</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LLM搭載エージェント</td>
+                                        <td>行動の自動化</td>
+                                        <td>ツールを使う複数ステップの作業</td>
+                                        <td>中〜高（設計・監視）</td>
+                                        <td>誤りの連鎖、過剰な権限</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LLMOps</td>
+                                        <td>運用の仕組み</td>
+                                        <td>上記すべての継続的な運用と統制</td>
+                                        <td>中〜高（組織的投資）</td>
+                                        <td>形骸化、監視の欠如</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section className="section" id="s8">
+                        <div className="eyebrow">
+                            <i className="ti ti-book-2"></i>8. 第4章 用語集（キーワード）
+                        </div>
+                        <h2>第4章　用語集（キーワード）</h2>
+                        <div className="glossary-grid">
+                            <div className="gloss-item">
+                                <div className="gloss-term">テストインフラ（test infrastructure）</div>
+                                <div className="gloss-def">
+                                    テスト活動を支える環境・ツール・仕組みの総称。ここではLLMを組み込んだもの
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">フロントエンド</div>
+                                <div className="gloss-def">利用者が操作するUI</div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">バックエンド</div>
+                                <div className="gloss-def">
+                                    認証、プロンプト準備、データ検索、LLM連携、後処理などを担う中間層
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">LLM／SLM</div>
+                                <div className="gloss-def">大規模言語モデル／小規模言語モデル</div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">埋め込み（embedding）</div>
+                                <div className="gloss-def">
+                                    文章などを意味を反映した数値ベクトルに変換したもの
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">
+                                    ベクトルデータベース（vector database）
+                                </div>
+                                <div className="gloss-def">
+                                    埋め込みを保存し、類似度で検索できるデータベース
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">チャンク</div>
+                                <div className="gloss-def">
+                                    RAGで文書を分割した小さな断片（目安256〜512トークン）
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">RAG（Retrieval-Augmented Generation）</div>
+                                <div className="gloss-def">
+                                    検索で得た情報をLLMの入力に加え、根拠づけた応答を生成する手法
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">
+                                    LLM搭載エージェント（LLM-powered agent）
+                                </div>
+                                <div className="gloss-def">
+                                    LLMを中核に、ツールを呼び出して半自律・自律的にタスクを実行するアプリケーション
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">自律型／半自律型エージェント</div>
+                                <div className="gloss-def">
+                                    人間の介入が最小限／定期的な人間の監督つき
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">マルチエージェント</div>
+                                <div className="gloss-def">
+                                    専門役割を持つ複数エージェントの協調システム
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">オーケストレーション</div>
+                                <div className="gloss-def">複数エージェントの調整・協調</div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">ファインチューニング</div>
+                                <div className="gloss-def">
+                                    事前学習済みモデルを対象データで追加学習し、特定のタスクやドメインに適応させること
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">過学習（overfitting）</div>
+                                <div className="gloss-def">
+                                    学習データに特化しすぎて、未知のデータで性能が落ちること
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">LLMOps</div>
+                                <div className="gloss-def">
+                                    LLMの開発・デプロイ・監視・保守を本番環境で管理する手法・ツール・プロセス
+                                </div>
+                            </div>
+                            <div className="gloss-item">
+                                <div className="gloss-term">後処理（post-processing）</div>
+                                <div className="gloss-def">
+                                    LLMの生の出力を、形式・整合性・組織ルールに合わせて整える処理
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="section" id="s9">
+                        <div className="eyebrow">
+                            <i className="ti ti-table"></i>9. 学習目標とハンズオン目標の対応表
+                        </div>
+                        <h2>学習目標とハンズオン目標の対応表</h2>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>レベル</th>
+                                        <th>内容</th>
+                                        <th>本ガイドの節</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GenAI-4.1.1</td>
+                                        <td>K2</td>
+                                        <td>
+                                            LLM搭載テストインフラの主要なアーキテクチャ構成要素と概念を説明する
+                                        </td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GenAI-4.1.2</td>
+                                        <td>K2</td>
+                                        <td>RAGを要約する</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HO-4.1.2</td>
+                                        <td>H1</td>
+                                        <td>与えられたテストタスクでRAGを試す</td>
+                                        <td>3.9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GenAI-4.1.3</td>
+                                        <td>K2</td>
+                                        <td>
+                                            テストプロセスの自動化におけるLLM搭載エージェントの役割と適用を説明する
+                                        </td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HO-4.1.3</td>
+                                        <td>H0</td>
+                                        <td>
+                                            反復的なテストタスクをLLM搭載エージェントが支援する様子を観察する
+                                        </td>
+                                        <td>4.9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GenAI-4.2.1</td>
+                                        <td>K2</td>
+                                        <td>
+                                            特定のテストタスクのための言語モデルのファインチューニングを説明する
+                                        </td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HO-4.2.1</td>
+                                        <td>H0</td>
+                                        <td>
+                                            与えられたテストタスクと言語モデルのファインチューニングの例を観察する
+                                        </td>
+                                        <td>5.8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GenAI-4.2.2</td>
+                                        <td>K2</td>
+                                        <td>
+                                            LLMOpsと、テストタスク用LLMのデプロイ・管理における役割を説明する
+                                        </td>
+                                        <td>6</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout-source">
+                            出典：<a
+                                href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                CT-GenAI Syllabus v1.0（PDF）
+                            </a>
                         </div>
                     </section>
                 </div>
