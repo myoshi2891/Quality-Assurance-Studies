@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './istqb-ct-genai-chapter4-llm-powered-solutions.css';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_D1, DIAGRAM_D2, DIAGRAM_D3, DIAGRAM_D4 } from './diagrams';
+import { DIAGRAM_D1, DIAGRAM_D2, DIAGRAM_D3, DIAGRAM_D4, DIAGRAM_D5, DIAGRAM_D6 } from './diagrams';
 
 export const metadata: Metadata = {
     title: 'ISTQB CT-GenAI 第4章 完全ガイド｜LLM搭載テストインフラ（初学者向け）',
@@ -1020,6 +1020,450 @@ export default function CtGenAiChapter4Page() {
                                     <i className="ti ti-point"></i>
                                     <div className="item-body">
                                         RAGの利点は、<strong>最新の社内データに基づく根拠づけ</strong>と、それによる精度・関連性の向上。
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    {/* ========== Section 4: 4.1.3 LLM搭載エージェント ========== */}
+                    <section className="section" id="s4">
+                        <div className="eyebrow">
+                            <i className="ti ti-robot"></i>4. 4.1.3 テストプロセス自動化におけるLLM搭載エージェントの役割　<span className="tag k2">K2</span>
+                        </div>
+                        <h2>4.1.3　テストプロセス自動化におけるLLM搭載エージェントの役割</h2>
+
+                        <h3>4.1 LLM搭載エージェントとは</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    LLM搭載エージェントとは、LLMを中核にした、<strong>定義されたタスクの半自律的または自律的な処理</strong>を行う専門的なGenAIアプリケーションです。自然言語の理解・生成にLLMを使い、さらに指示の処理、コンテキストの取得、知的な行動を行えます。
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            従来のチャットボットが「質問に答える」だけなのに対し、エージェントは「<strong>ツール（あらかじめ定義された関数）を呼び出して外部システムに働きかける</strong>」ことができます。ここが最大の違いです。
+                        </p>
+
+                        <h3>4.2 チャットボット・RAG・エージェントの違い</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>チャットボット</th>
+                                        <th>RAG搭載システム</th>
+                                        <th>LLM搭載エージェント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>主な動作</td>
+                                        <td>質問に応答</td>
+                                        <td>検索して根拠づけた応答を生成</td>
+                                        <td>推論し、ツールを使って行動する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>外部システムへの操作</td>
+                                        <td>できない</td>
+                                        <td>読み取りのみ（検索）</td>
+                                        <td>
+                                            実行可能（テスト管理ツールAPI、CI/CD、ファイル操作など）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>複数ステップの作業</td>
+                                        <td>人が指示を繰り返す</td>
+                                        <td>基本は1回の検索と生成</td>
+                                        <td>計画して連続的に実行できる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>人間の関与</td>
+                                        <td>毎回</td>
+                                        <td>毎回</td>
+                                        <td>自律度に応じて変わる</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            <span className="tag syllabus">シラバス（v1.1教材）</span>
+                            エージェントは、LLMの能力（言語理解・推論・生成）、コンテキスト取得（RAG、データベース、APIから）、機能実行（ツール呼び出し）の3つを組み合わせたものです。
+                        </p>
+
+                        <h3>4.3 エージェントの動作イメージ</h3>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図5：LLM搭載エージェントの動作イメージ
+                            </p>
+                            <div className="diagram-wrap">
+                                <div className="mermaid-container">
+                                    <Mermaid chart={DIAGRAM_D5} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>4.4 エージェントが呼び出せる「ツール」の例</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス（v1.1教材）</span>
+                            エージェントは、次のような事前定義済みツールを呼び出せます。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ツールの種類</th>
+                                        <th>できること（例）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>テスト管理システムのAPI</td>
+                                        <td>
+                                            テストケースの作成、テスト結果の更新、レポートの更新
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ファイルの読み書き</td>
+                                        <td>要件書やログの読み込み、生成物の保存</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コード実行ツール</td>
+                                        <td>スクリプトの実行、簡易な検証</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CI/CDパイプラインのコマンド</td>
+                                        <td>ビルド・テストの実行、結果の取得</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テスト自動化フレームワーク</td>
+                                        <td>自動テストの実行</td>
+                                    </tr>
+                                    <tr>
+                                        <td>データ検索関数</td>
+                                        <td>RAG、データベース、APIによる情報取得</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>4.5 自律度の違い</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス</span>
+                            エージェントの自律度は用途とリスクに応じて異なります。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>特徴</th>
+                                        <th>向いているテスト作業</th>
+                                        <th>リスク</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>自律型エージェント</td>
+                                        <td>
+                                            人間の介入を最小限にして独立に動く。あらかじめ定義されたルール、強化学習、適応的なフィードバックループなどを使う
+                                        </td>
+                                        <td>
+                                            テスト結果の継続的な監視、テスト実行のトリガー、テストスイートの保守など、繰り返しの多い作業
+                                        </td>
+                                        <td>誤りが人間に気付かれないまま連鎖・拡大する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>半自律型エージェント</td>
+                                        <td>
+                                            定期的な人間の監督（チェックポイント）のもとで動き、出力がユーザー定義の目標に合うことを確認する
+                                        </td>
+                                        <td>
+                                            重要度の高いタスク、誤りの影響が大きい作業（テスト自動化コードの生成、欠陥分析の結論など）
+                                        </td>
+                                        <td>人間の確認負荷が発生する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>4.6 マルチエージェントとオーケストレーション</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    <strong>マルチエージェントアーキテクチャ</strong>は、専門的な役割を持つ複数のエージェントが通信・調整して複雑な問題を解決する協調システムです。この協調のことを<strong>オーケストレーション</strong>と呼びます。
+                                </p>
+                            </div>
+                        </div>
+                        <div className="diagram-card">
+                            <p className="diagram-title">
+                                <i className="ti ti-sitemap"></i>図6：マルチエージェントアーキテクチャとオーケストレーション
+                            </p>
+                            <div className="diagram-wrap">
+                                <div className="mermaid-container">
+                                    <Mermaid chart={DIAGRAM_D6} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>単一エージェント</th>
+                                        <th>マルチエージェント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1つのエージェントに全役割を持たせる</td>
+                                        <td>役割ごとに専門化したエージェントが情報を渡し合う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>構成がシンプル</td>
+                                        <td>設計・監視・デバッグが複雑になる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>大きなタスクで文脈が膨らみ精度が落ちやすい</td>
+                                        <td>
+                                            役割ごとに文脈を絞れるので、効率と信頼性が上がる場合がある
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>4.7 エージェントが担えるテスト作業</h3>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>テスト作業</th>
+                                        <th>エージェントの動き</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>要件分析</td>
+                                        <td>要件のギャップを検出し、質問を生成する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テスト設計</td>
+                                        <td>テスト条件・テストケースを生成する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テスト自動化</td>
+                                        <td>自動化スクリプトを作成・更新する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>回帰テスト</td>
+                                        <td>回帰テストを実行し、結果を集める</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ログ分析</td>
+                                        <td>ログやエラーメッセージを評価する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>レポート</td>
+                                        <td>構造化されたレポートを作成する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            <span className="tag syllabus">シラバス（v1.1教材）</span>
+                            これらにより、テスト自動化は「スクリプトベースの実行」から「<strong>目標駆動型のエージェントベース自動化</strong>」に移行していきます。
+                        </p>
+
+                        <h3>4.8 エージェントのリスクと対策</h3>
+                        <div className="callout">
+                            <i className="ti ti-quote"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">
+                                    <span className="tag syllabus">シラバス</span>
+                                </p>
+                                <p>
+                                    エージェントもLLMと同じ問題（ハルシネーション、推論エラー、バイアス、非決定的な挙動）を抱えます。誤った・誤解を招く結果を出し、自動化されたテストプロセスの信頼性を損なう恐れがあります。
+                                </p>
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>リスク</th>
+                                        <th>テストでの具体例</th>
+                                        <th>対策（シラバス記載）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ハルシネーション</td>
+                                        <td>存在しない受け入れ基準を検証するテストを作る</td>
+                                        <td>
+                                            自動検証手順（構文チェッカー、テストランナー、一貫性チェック）で出力を検証する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>推論エラー</td>
+                                        <td>リスクを誤って計算し、優先度を誤る</td>
+                                        <td>
+                                            高リスク・安全性が重要なタスクでは<strong>半自律型エージェント</strong>を使い、人間が監督する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>バイアス</td>
+                                        <td>
+                                            特定の種類のテストばかり生成し、非機能テストが不足する
+                                        </td>
+                                        <td>出力のレビュー、複数モデルでの比較</td>
+                                    </tr>
+                                    <tr>
+                                        <td>非決定的な挙動</td>
+                                        <td>同じ入力でも実行ごとに結果が変わる</td>
+                                        <td>自動検証、温度設定の調整（第3章3.1.4）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="callout gold">
+                            <i className="ti ti-bulb"></i>
+                            <div className="callout-body">
+                                <p className="callout-title">💡 ベストプラクティス（エージェント）</p>
+                                <ol>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        重要・高リスクなタスクは半自律型にし、人間のチェックポイントを設ける。低リスクで繰り返し多い作業から自律化を始める。
+                                    </li>
+                                    <li>
+                                        <span className="tag syllabus">シラバス根拠</span>
+                                        エージェントの出力は、構文チェック・テスト実行・一貫性チェックなどで<strong>自動検証</strong>する。「エージェントが正しいと言ったから正しい」としない。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        Anthropicの解説では、まず最も単純な解決策を探し、必要なときだけ複雑さを増すことが推奨されている。固定手順の「ワークフロー」で足りるタスクにエージェントを使うと、遅延・コスト・誤りの連鎖が増える。手順が予測できるなら、ワークフロー（あらかじめ決めたコード経路でLLMとツールを組み合わせる方式）を優先する。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        ツールは最小権限にする。読み取り専用で足りる作業に、書き込み・削除・本番環境の権限を与えない。OWASPは「過剰なエージェンシー（Excessive Agency）」をLLMアプリの主要リスクとして挙げている。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        外部から取り込む文書（Web、チケット、ログ）に、エージェントへの命令が混入するリスク（プロンプトインジェクション）を想定する。外部コンテンツは信頼できないデータとして扱い、破壊的な操作の前に確認を挟む。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        サンドボックス環境で先に試し、停止条件（最大ステップ数、最大コスト、タイムアウト）を決めてから本番に導入する。
+                                    </li>
+                                    <li>
+                                        <span className="tag note">補足</span>
+                                        エージェントの行動ログ（どのツールをどの引数で呼んだか）を記録し、後から監査・再現できるようにする。
+                                    </li>
+                                </ol>
+                                <div className="callout-source">
+                                    出典：
+                                    <a
+                                        href="https://isqi.org/media/3d/d9/7e/1762964279/CT-GenAI-Syllabus-v1.0_EN_.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        CT-GenAI Syllabus v1.0（PDF）
+                                    </a>
+                                    、
+                                    <a
+                                        href="https://speakerdeck.com/exactpro/chapter-4-llm-powered-testformat-reading-materials-self-study-or-guided-reading"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Exactpro Chapter 4 Reading Materials（v1.1）
+                                    </a>
+                                    、
+                                    <a
+                                        href="https://www.anthropic.com/engineering/building-effective-agents"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Anthropic「Building effective agents」
+                                    </a>
+                                    、
+                                    <a
+                                        href="https://genai.owasp.org/llm-top-10/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        OWASP Top 10 for LLM Applications
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>4.9 ハンズオン目標 HO-4.1.3（H0）：エージェントの実演を観察する</h3>
+                        <p>
+                            <span className="tag syllabus">シラバス</span>
+                            反復的なテストタスクをLLM搭載エージェントが実行するデモを観察します。エージェントに渡される入力データ、その挙動、行動の結果を見ることで、エージェントベースのソリューションをテストプロセスに統合する際の論点を理解します。観察時は次の点に注目すると理解が深まります。
+                        </p>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観察ポイント</th>
+                                        <th>見るべき内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>入力</td>
+                                        <td>エージェントに渡された目標・コンテキスト・権限</td>
+                                    </tr>
+                                    <tr>
+                                        <td>判断</td>
+                                        <td>どのツールを、なぜ選んだか</td>
+                                    </tr>
+                                    <tr>
+                                        <td>検証</td>
+                                        <td>出力をどう確認しているか（人間か自動か）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>失敗時</td>
+                                        <td>間違えたとき、誰がどう気付くか</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>4.10 この節の試験ポイント</h4>
+                        <div className="critique-card">
+                            <ul>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        エージェントとチャットボットの違いは、<strong>ツール（関数）を呼び出して行動できること</strong>。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        自律型と半自律型の違い、および高リスクなタスクには半自律型が向く理由。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        マルチエージェントとオーケストレーションの定義。
+                                    </div>
+                                </li>
+                                <li>
+                                    <i className="ti ti-point"></i>
+                                    <div className="item-body">
+                                        エージェントにもLLMと同じリスク（ハルシネーション・推論エラー・バイアス）があり、自動検証や人間の監督で緩和する。
                                     </div>
                                 </li>
                             </ul>
