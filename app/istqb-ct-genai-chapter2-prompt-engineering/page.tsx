@@ -2,7 +2,14 @@ import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_CH2_OVERVIEW } from './diagrams';
+import {
+    DIAGRAM_CH2_OVERVIEW,
+    DIAGRAM_PROMPT_6_ELEMENTS,
+    DIAGRAM_SHOT_COMPARISON,
+    DIAGRAM_PROMPT_CHAINING,
+    DIAGRAM_META_PROMPTING,
+    DIAGRAM_SYSTEM_USER_PROMPT,
+} from './diagrams';
 import './istqb-ct-genai-chapter2-prompt-engineering.css';
 
 export const metadata: Metadata = {
@@ -199,6 +206,329 @@ export default function CtGenAiChapter2Page() {
                     <p>
                         K1=記憶（Remember）、K2=理解（Understand）、K3=適用（Apply）。第2章はK3（適用）レベルの学習目標が多く、単なる知識暗記ではなく「実際にプロンプトを設計・適用できる」ことが問われる点が特徴です。
                     </p>
+                </div>
+                <hr />
+
+                <h2 id="1-21-効果的なプロンプト開発">1. 2.1 効果的なプロンプト開発</h2>
+                <h3 id="11-プロンプトの6要素構造211">1.1 プロンプトの6要素構造（2.1.1）</h3>
+                <p>
+                    シラバスでは、ソフトウェアテスト向けの<strong>構造化プロンプト（structured prompt）</strong>は、次の<strong>6つの構成要素</strong>から成るとされています。この構造を守ることで、LLMに対して明確・正確に要求事項と期待値を伝えることができます。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-1">
+                    <Mermaid chart={DIAGRAM_PROMPT_6_ELEMENTS} />
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>要素</th>
+                                <th>説明</th>
+                                <th>ソフトウェアテストでの例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>① Role（役割）</td>
+                                <td>
+                                    GenAIモデルが応答生成時にとるべき視点・ペルソナを定義する。役割を指定することで、LLMは自身の責務や適切なトーン・アプローチを判断しやすくなる。
+                                </td>
+                                <td>
+                                    「あなたは経験豊富なテストアナリストです」「テスト自動化エンジニアとして振る舞ってください」
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>② Context（文脈）</td>
+                                <td>
+                                    GenAIがテスト条件を判断するために必要な背景情報。テスト対象、テストすべき具体的な機能、その他関連する文脈情報を含む。
+                                </td>
+                                <td>
+                                    「対象システムはECサイトの決済機能で、クレジットカード決済とコンビニ決済に対応しています」
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>③ Instruction（指示）</td>
+                                <td>
+                                    実行すべき具体的なタスクを示す指令。明確・命令形・簡潔であり、タスクの説明と関連要件を含む。
+                                </td>
+                                <td>
+                                    「以下のユーザーストーリーから機能テストケースを生成してください」
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>④ Input Data（入力データ）</td>
+                                <td>
+                                    タスク遂行に必要な情報。ユーザーストーリー、受け入れ基準、スクリーンショット、コード、既存のテストケース、出力例など。詳細で構造化された入力データはより正確で文脈に即した結果につながる。
+                                </td>
+                                <td>
+                                    ユーザーストーリー本文、GUIワイヤーフレーム画像、既存のテストケース一覧
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>⑤ Constraints（制約条件）</td>
+                                <td>
+                                    LLMが遵守すべき制限や特別な考慮事項。指示を入力データにどう適用すべきかを指定する。
+                                </td>
+                                <td>
+                                    「境界値分析の手法を使うこと」「出力は日本語で。テストケース数は10件以内」
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>⑥ Output Format（出力形式）</td>
+                                <td>
+                                    期待される応答の形式・構造・特性を示す指標。LLMの出力を望む形に整える役割を持つ。
+                                </td>
+                                <td>
+                                    「Markdownの表形式で、列は『前提条件／手順／期待結果』とすること」
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-header">
+                        <span className="callout-icon">💡</span>
+                        <span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            6要素すべてを毎回フルに書く必要はありませんが、<strong>Instruction（指示）とOutput Format（出力形式）は省略しないこと</strong>が推奨されます。指示と出力形式が曖昧なままだと、たとえ十分な文脈や入力データを与えても、期待と異なる形式・粒度の出力になりやすいためです。また、この6要素構造は次項で解説する「コアプロンプティング技法」と組み合わせて使うことで真価を発揮します（2.1.1と2.1.2は独立した知識ではなく、常にセットで運用するものと理解しましょう）。
+                        </p>
+                    </div>
+                </div>
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標 HO-2.1.1 (H0)</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            AIチャットボット上でいくつかの構造化プロンプトのデモを観察し、役割・文脈・指示・入力データ・制約条件・出力形式という6つの構成要素が、それぞれどのようにLLMからの正確で関連性が高く実用的な洞察の提供に寄与しているかを分析します。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="12-コアプロンプティング技法212">1.2 コアプロンプティング技法（2.1.2）</h3>
+                <p>
+                    シラバスは、多数のプロンプティング技法が提案されている中で（出典：Schulhoff et al., 2024, &quot;The Prompt Report&quot;）、ソフトウェアテストのタスクにおいて特によく使われる<strong>3つのコア技法</strong>を挙げています。これらは前項の6要素プロンプト構造と組み合わせて使用します。
+                </p>
+                <ol>
+                    <li><strong>プロンプトチェイニング（Prompt Chaining）</strong></li>
+                    <li><strong>Few-shotプロンプティング（Few-shot Prompting）</strong></li>
+                    <li><strong>メタプロンプティング（Meta Prompting）</strong></li>
+                </ol>
+                <p>
+                    まず、Few-shotプロンプティングの前提となる「例示の数」による分類を整理します。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-2">
+                    <Mermaid chart={DIAGRAM_SHOT_COMPARISON} />
+                </div>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>分類</th>
+                                <th>定義</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>Zero-shot（ゼロショット）</td>
+                                <td>
+                                    例を与えず、モデルの事前学習済みの知識のみに依拠して応答を生成させる。
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>One-shot（ワンショット）</td>
+                                <td>与えられた入力に対する望ましい結果を、1つの例で示す。</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>Few-shot（フューショット）</td>
+                                <td>
+                                    複数（a few）の例をプロンプトに含めることで、モデルの望ましい応答パターンをさらに強化する。
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 id="①-プロンプトチェイニングprompt-chaining">
+                    ① プロンプトチェイニング（Prompt Chaining）
+                </h4>
+                <p>
+                    タスクを一連の中間ステップ（複数のプロンプト）に分解する手法です。各ステップの結果は、次のステップに進む前に<strong>手動または自動でチェック・修正</strong>されます。このアプローチは各応答が次のプロンプトの情報源となるため、精度の向上につながります。特に、複雑で複数のサブタスクへの分解と、中間出力の体系的なチェックが必要なテスト工程で有用です。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-3">
+                    <Mermaid chart={DIAGRAM_PROMPT_CHAINING} />
+                </div>
+
+                <h4 id="②-few-shotプロンプティングfew-shot-prompting">
+                    ② Few-shotプロンプティング（Few-shot Prompting）
+                </h4>
+                <p>
+                    プロンプトの中にLLMへの<strong>例（examples）</strong>を含める手法です。明確な参照例を与えることで、モデルの応答を一定の期待水準に沿わせ、一貫性のある結果を得やすくなります。出力に特定のパターンや形式が求められるタスク（例：Gherkin形式のテストケース生成）で特に有効です。
+                </p>
+
+                <h4 id="③-メタプロンプティングmeta-prompting">
+                    ③ メタプロンプティング（Meta Prompting）
+                </h4>
+                <p>
+                    AI自身にプロンプトを生成・改善させる能力を活用する手法です。反復的なサイクルの中で、LLMが生成したプロンプトをテスターが評価・洗練していきます。効率とプロンプト最適化が重要な場面で特に有益であり、テスターが効果的なプロンプトの作り方に不慣れな場合でも、LLMと協働（ペアリング）してプロンプトを共創できるという利点があります。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-4">
+                    <Mermaid chart={DIAGRAM_META_PROMPTING} />
+                </div>
+
+                <h3 id="3つの技法の比較表">3つの技法の比較表</h3>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>技法</th>
+                                <th>推奨されるユースケース</th>
+                                <th>主な特徴・適用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>プロンプトチェイニング</td>
+                                <td>
+                                    各ステップで人による検証が必要な、精度が求められる複雑なタスク
+                                </td>
+                                <td>
+                                    タスクを小さなステップに分解。テスト分析・テスト設計・テスト自動化など、各テストステップの正確性をチェックしたい場面で有用
+                                </td>
+                            </tr>
+                            <tr className="even">
+                                <td>Few-shotプロンプティング</td>
+                                <td>反復的、または特定・制約された出力形式が求められるタスク</td>
+                                <td>
+                                    特定パターンでの反復生成に例を提供。Gherkin形式のテストケース、キーワード駆動テスト、特定形式のテストレポートなど
+                                </td>
+                            </tr>
+                            <tr className="odd">
+                                <td>メタプロンプティング</td>
+                                <td>柔軟で動的なタスク、新しいタスク向けのプロンプト作成に有用</td>
+                                <td>
+                                    目的・タスクの一般的な説明を与え、LLM自身にプロンプト作成を誘導させる。テストレポート分析や異常検知など複雑なタスク全般に有用
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="callout-practice">
+                    <div className="callout-header">
+                        <span className="callout-icon">💡</span>
+                        <span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            技法は<strong>タスクの性質と使用するモデルに応じて選択</strong>します。上の比較表のとおり、単一の技法で十分なタスクも多くあります。そのうえで、必要に応じて<strong>組み合わせる</strong>選択肢もあります。シラバスが挙げる組み合わせの典型例は次の流れです。①まず<strong>メタプロンプティング</strong>で初期プロンプトを作成する → ②そのプロンプトに含まれる例を調整・強化する（<strong>Few-shotプロンプティング</strong>）→ ③タスクをより小さなサブタスクに分割し、中間ステップの検証を可能にする（<strong>プロンプトチェイニング</strong>）。組み合わせは「常に必要なもの」ではなく「単一技法では不十分な場合に取れる選択肢」と理解しましょう。
+                        </p>
+                    </div>
+                </div>
+
+                <div className="callout-handson">
+                    <div className="callout-header">
+                        <span className="callout-icon">🖐</span>
+                        <span className="callout-label">ハンズオン目標</span>
+                    </div>
+                    <div className="callout-body">
+                        <ul>
+                            <li>
+                                <strong>HO-2.1.2a (H0)</strong>：AIチャットボット上でプロンプトチェイニング・Few-shotプロンプティング・メタプロンプティングのデモを、それぞれ具体的なソフトウェアテストタスクに適用しながら観察・議論します。
+                            </li>
+                            <li>
+                                <strong>HO-2.1.2b (H1)</strong>：ソフトウェアテストに関連する複数のプロンプト例を読み、どのコアプロンプティング技法が使われているかを識別する演習を行います。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="callout-warning">
+                    <div className="callout-header">
+                        <span className="callout-icon">⚠️</span>
+                        <span className="callout-label">v1.1での用語変更に関する注記</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            v1.1のリリースノートによると、HO-2.1.2b内の記述で「few-shot」という表記の一部が「one-shot」に修正されています。正確な文言は公式リリースノート（本ガイド末尾のリンク）でご確認ください。
+                        </p>
+                    </div>
+                </div>
+                <hr />
+
+                <h3 id="13-システムプロンプトとユーザープロンプト213">
+                    1.3 システムプロンプトとユーザープロンプト（2.1.3）
+                </h3>
+                <p>
+                    LLMとの対話において、<strong>システムプロンプト</strong>と<strong>ユーザープロンプト</strong>はそれぞれ異なる役割を担います。
+                </p>
+                <div className="table-scroll">
+                    <table>
+                        <thead>
+                            <tr className="header">
+                                <th>項目</th>
+                                <th>システムプロンプト（System Prompt）</th>
+                                <th>ユーザープロンプト（User Prompt）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="odd">
+                                <td>定義者</td>
+                                <td>開発者またはテスターが定義</td>
+                                <td>チャットボットの利用者（テスター）が入力</td>
+                            </tr>
+                            <tr className="even">
+                                <td>可視性</td>
+                                <td>
+                                    ほとんどのインターフェースでは、チャットボット利用者からは見えない・編集できない
+                                </td>
+                                <td>利用者に直接見える。各やり取りの直接的な文脈を形成する</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>変化の頻度</td>
+                                <td>
+                                    対話セッション全体を通じて<strong>一定</strong>（変わらない）
+                                </td>
+                                <td>やり取りごとに<strong>変化</strong>する</td>
+                            </tr>
+                            <tr className="even">
+                                <td>役割</td>
+                                <td>
+                                    LLMの振る舞い・性格・運用パラメータを規定する「事前定義されたコマンドセット」。会話全体のルールを設定する。構造化プロンプトのRole・Context・Constraintsの一部を含みうる
+                                </td>
+                                <td>実際の入力や質問。特定の指示・質問・タスクを含みうる</td>
+                            </tr>
+                            <tr className="odd">
+                                <td>例</td>
+                                <td>
+                                    「あなたはプロフェッショナルなソフトウェアテスト支援アシスタントです。常に明確に、フォーマルな言葉遣いで回答し、ISTQBに準拠した実践に焦点を当ててください。推測は避け、関連するテスト原則を引用してください。」
+                                </td>
+                                <td>
+                                    「ブラックボックステストとホワイトボックステストの主な違いを、例を挙げて列挙してください。」
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    典型的な使い方は、<strong>対話の開始時にシステムプロンプトを一度だけ設定</strong>し、その後は<strong>ユーザープロンプトを繰り返し送信</strong>するというものです。LLMは、変化しないシステムプロンプトと現在のユーザープロンプトの両方を考慮して応答を生成します。
+                </p>
+                <div className="mermaid-container" data-diagram-id="mermaid-diagram-5">
+                    <Mermaid chart={DIAGRAM_SYSTEM_USER_PROMPT} />
+                </div>
+                <div className="callout-practice">
+                    <div className="callout-header">
+                        <span className="callout-icon">💡</span>
+                        <span className="callout-label">ベストプラクティス</span>
+                    </div>
+                    <div className="callout-body">
+                        <p>
+                            効果的な運用のために、システムプロンプトは<strong>LLMの役割と制約について明確かつ具体的</strong>であるべきです。また、期待される出力に関する文脈や一般的な指示を含めても構いません。一方、ユーザープロンプトは<strong>焦点を絞り、明確な指示・関連する追加の文脈・出力形式の指定</strong>を含む、構造化されたものにする必要があります。組織内で共通のシステムプロンプト（例：「ISTQB用語に準拠する」「日本語で応答する」等）をテンプレート化しておくと、チーム全体でのプロンプト品質のばらつきを抑えられます。
+                        </p>
+                    </div>
                 </div>
                 <hr />
             </main>
