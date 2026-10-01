@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import { afterEach, describe, it, expect } from 'bun:test';
 import CtGenAiChapter2Page from '../../app/istqb-ct-genai-chapter2-prompt-engineering/page';
 import { collectTableInventory, type TableSpec } from '../helpers/table-inventory';
@@ -136,6 +136,17 @@ export const EXPECTED_TABLE_SPECS_CAT3: TableSpec[] = [
         rows: 5,
         cols: 2,
         sample: '反復的なプロンプト修正（Iterative prompt modification）',
+    },
+];
+
+export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT3,
+    {
+        heading: '6. v1.0→v1.1 変更点（第2章に関わる箇所）',
+        headers: ['箇所', 'v1.0', 'v1.1での変更内容'],
+        rows: 5,
+        cols: 3,
+        sample: 'HO-2.1.2b (H1) の本文表記',
     },
 ];
 
@@ -444,4 +455,102 @@ describe('CT-GenAI 第2章 完全解説ガイド (Category 3: セクション3 G
         });
     });
 });
+
+describe('CT-GenAI 第2章 完全解説ガイド (Category 4: セクション4〜7、チェックリスト、フッター)', () => {
+    it('セクション4〜7の見出し（H2、H3）が正しく配置されていること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const h2List = [
+            '4-章末チェックリスト学習目標一覧',
+            '5-ベストプラクティス総集編',
+            '6-v10v11-変更点第2章に関わる箇所',
+            '7-参考文献出典',
+        ];
+        h2List.forEach((id) => {
+            const h2 = container.querySelector(`[id="${id}"]`);
+            expect(h2).not.toBeNull();
+            expect(h2?.tagName).toBe('H2');
+        });
+
+        const h3List = [
+            'istqb公式資料',
+            'シラバス内で引用されている学術文献第2章関連',
+            '関連する公式ドキュメント学習の前提次のステップ',
+        ];
+        h3List.forEach((id) => {
+            const h3 = container.querySelector(`[id="${id}"]`);
+            expect(h3).not.toBeNull();
+            expect(h3?.tagName).toBe('H3');
+        });
+    });
+
+    it('章末チェックリストカードが存在し、10項目あり、操作により進捗が更新されること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const card = container.querySelector('.checklist-card');
+        expect(card).not.toBeNull();
+
+        const checkboxes = container.querySelectorAll('.checklist-card input[type="checkbox"]');
+        expect(checkboxes.length).toBe(10);
+
+        const count = container.querySelector('.checklist-card .cp-count');
+        expect(count).not.toBeNull();
+        expect(count?.textContent).toContain('0 / 10 完了');
+
+        // 最初のチェックボックスをクリック
+        fireEvent.click(checkboxes[0]);
+        expect(count?.textContent).toContain('1 / 10 完了');
+    });
+
+    it('ベストプラクティス総集編に10項目が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const h2 = container.querySelector('[id="5-ベストプラクティス総集編"]');
+        expect(h2).not.toBeNull();
+
+        const ol = h2?.nextElementSibling?.nextElementSibling;
+        expect(ol?.tagName).toBe('OL');
+        const items = ol?.querySelectorAll('li');
+        expect(items?.length).toBe(10);
+    });
+
+    it('セクション6の変更点テーブルがインベントリ定義と一致すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+        const tables = collectTableInventory(container);
+
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT4.length);
+
+        EXPECTED_TABLE_SPECS_CAT4.forEach((spec, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual([...spec.headers]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+
+    it('セクション7の参考文献リンクおよび注記コールアウトが存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const links = Array.from(container.querySelectorAll('a[href]'));
+        expect(links.some((a) => a.getAttribute('href')?.includes('arxiv.org/abs/2406.06608'))).toBe(true);
+        expect(links.some((a) => a.getAttribute('href')?.includes('doi.org/10.1016/j.csi.2024.103942'))).toBe(true);
+        expect(links.some((a) => a.getAttribute('href')?.includes('glossary.istqb.org'))).toBe(true);
+
+        const noteCallout = container.querySelector('.callout-note');
+        expect(noteCallout).not.toBeNull();
+        expect(noteCallout?.textContent).toContain('Schulhoff 2024');
+    });
+
+    it('ページフッターが存在し著作権表示を含んでいること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const footer = container.querySelector('.page-footer');
+        expect(footer).not.toBeNull();
+        expect(footer?.textContent).toContain('ISTQB');
+        expect(footer?.textContent).toContain('著作権');
+    });
+});
+
 
