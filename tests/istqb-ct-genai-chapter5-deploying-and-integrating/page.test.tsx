@@ -645,3 +645,91 @@ describe('CT-GenAI Chapter 5 Page (Cat 4: s11-s13)', () => {
     });
 });
 
+export const EXPECTED_TABLE_SPECS_CAT5: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT4,
+    {
+        heading: '解答と解説',
+        headers: ['問', '正解', '解説'],
+        rows: 12,
+        cols: 3,
+        sample: 'DはシャドーAIの3リスク',
+    },
+    {
+        heading: '16.1 出典の信頼度と、このガイドの検証状況（重要）',
+        headers: ['区分', '説明'],
+        rows: 4,
+        cols: 2,
+        sample: 'A（一次情報）',
+    },
+    {
+        heading: '16.6 このガイドの各節と出典の対応',
+        headers: ['節', '主な出典'],
+        rows: 10,
+        cols: 2,
+        sample: '1（全体像・LO）',
+    },
+];
+
+describe('CT-GenAI Chapter 5 Page (Cat 5: s14-s16)', () => {
+    it('renders section s14 (確認問題) with 12 quiz cards and answer table', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s14 = container.querySelector('#s14');
+        expect(s14).not.toBeNull();
+        expect(s14?.textContent).toContain('14. 確認問題（オリジナル練習問題）');
+        expect(s14?.textContent).toContain('公式サンプル問題ではありません');
+
+        const quizCards = s14?.querySelectorAll('.quiz-card');
+        expect(quizCards?.length).toBe(12);
+        expect(s14?.textContent).toContain('問1（5.1.1／K1）');
+        expect(s14?.textContent).toContain('問12（5.2／K2）');
+        expect(s14?.textContent).toContain('解答と解説');
+    });
+
+    it('renders section s15 (学習チェックリスト) with checklist items', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s15 = container.querySelector('#s15');
+        expect(s15).not.toBeNull();
+        expect(s15?.textContent).toContain('15. 学習チェックリスト');
+        expect(s15?.textContent).toContain('5.1 ロードマップ');
+        expect(s15?.textContent).toContain('5.2 変革管理');
+        expect(s15?.textContent).toContain('全体');
+
+        const checkboxes = s15?.querySelectorAll('input[type="checkbox"]');
+        expect(checkboxes?.length).toBe(19);
+    });
+
+    it('renders section s16 (参考文献・出典URL) and footer', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const s16 = container.querySelector('#s16');
+        expect(s16).not.toBeNull();
+        expect(s16?.textContent).toContain('16. 参考文献・出典URL');
+        expect(s16?.textContent).toContain('16.1 出典の信頼度と、このガイドの検証状況（重要）');
+        expect(s16?.textContent).toContain('16.2 A：公式（ISTQB）');
+        expect(s16?.textContent).toContain('16.3 B：シラバス準拠の解説教材');
+        expect(s16?.textContent).toContain('16.4 C：外部の標準・フレームワーク・ガイドライン');
+        expect(s16?.textContent).toContain('16.5 D：第三者の解説');
+        expect(s16?.textContent).toContain('16.6 このガイドの各節と出典の対応');
+
+        const refItems = s16?.querySelectorAll('.ref-item');
+        expect(refItems?.length).toBe(25);
+
+        const footer = container.querySelector('.footer');
+        expect(footer).not.toBeNull();
+        expect(footer?.textContent).toContain('ISTQB® CT-GenAIシラバスv1.1に準拠');
+    });
+
+    it('matches all 48 tables exactly across the entire page', () => {
+        const { container } = render(<CtGenAiChapter5Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBe(48);
+        EXPECTED_TABLE_SPECS_CAT5.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual).toBeDefined();
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+});
