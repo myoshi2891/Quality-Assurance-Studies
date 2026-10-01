@@ -16,6 +16,8 @@ import {
     DIAGRAM_D12,
     DIAGRAM_D13,
     DIAGRAM_D14,
+    DIAGRAM_D15,
+    DIAGRAM_D16,
 } from './diagrams';
 import './istqb-ct-genai-chapter5-deploying-and-integrating.css';
 
@@ -2159,6 +2161,642 @@ export default function CtGenAiChapter5Page() {
                                 <strong>ひっかけ注意</strong>：「AIが進歩すると、人間の判断の重要性は下がる」→ <strong>誤り</strong>。<strong>より重要になります</strong>。
                             </li>
                         </ul>
+                    </section>
+
+                    <section className="doc-section" id="s11">
+                        <h1 className="doc-h1">
+                            11. 導入形態ごとのベストプラクティス（サービス・機能別）
+                        </h1>
+                        <p>
+                            第5章では特定の製品名は扱いませんが、<strong>どの「形」で生成AIを導入するか</strong>によって、注意点とベストプラクティスが変わります。ここでは、第1章〜第4章で学んだ<strong>導入形態・機能の種類</strong>ごとに整理します。
+                        </p>
+
+                        <h2 className="doc-h2">11.1 導入形態の全体像</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>導入形態</th>
+                                        <th>概要</th>
+                                        <th>参照章</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>AIチャットボット</strong></td>
+                                        <td>
+                                            会話形式でLLMとやりとりする。素早い質問・探索・日常的な作業向け
+                                        </td>
+                                        <td>第1章1.2.2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLM搭載テストアプリケーション</strong></td>
+                                        <td>
+                                            APIでLLMを組み込み、テストツールやフレームワークに統合。明確に定義された作業を自動化
+                                        </td>
+                                        <td>第1章1.2.2／第4章4.1.1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RAG（検索拡張生成）</strong></td>
+                                        <td>
+                                            社内文書やテストデータを検索して、その内容を根拠に回答を生成
+                                        </td>
+                                        <td>第4章4.1.2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLM搭載エージェント</strong></td>
+                                        <td>
+                                            定義されたツールを呼び出し、半自律／自律的にタスクを実行
+                                        </td>
+                                        <td>第4章4.1.3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>ファインチューニングしたモデル（LLM/SLM）</strong>
+                                        </td>
+                                        <td>
+                                            自組織のデータで追加学習し、形式・用語・専門性に合わせる
+                                        </td>
+                                        <td>第4章4.2.1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>運用基盤（LLMOps）</strong></td>
+                                        <td>展開・監視・管理のための運用プロセス</td>
+                                        <td>第4章4.2.2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 className="doc-h2">11.2 導入形態別ベストプラクティス表</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>導入形態</th>
+                                        <th>向いている用途</th>
+                                        <th>シラバス準拠のポイント</th>
+                                        <th>実務ベストプラクティス</th>
+                                        <th>導入の目安フェーズ（5.1.4）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>AIチャットボット</strong></td>
+                                        <td>
+                                            定型作業、探索的テスト、要件の疑問出し、新人のオンボーディング、素早いフィードバック
+                                        </td>
+                                        <td>
+                                            プロンプトチェーンで出力を段階的に洗練。<strong>強いプロンプトエンジニアリング</strong>が必須
+                                        </td>
+                                        <td>
+                                            <strong>法人向けの承認済み環境</strong>を用意し、個人アカウントの利用を減らす。入力禁止データを明文化
+                                        </td>
+                                        <td>1（発見）→ 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLM搭載テストアプリ</strong></td>
+                                        <td>
+                                            テストケース生成、欠陥分析、テストデータ合成の<strong>定型的・反復的</strong>な自動化
+                                        </td>
+                                        <td>
+                                            バックエンドが認証・データ取得・プロンプト準備・<strong>後処理</strong>を担う。既存テストフレームワークへ組み込み可能
+                                        </td>
+                                        <td>
+                                            <strong>プロンプトをコードと同様にバージョン管理</strong>。実行ログ・出力を保存して評価に使う
+                                        </td>
+                                        <td>2 → 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RAG</strong></td>
+                                        <td>
+                                            最新の仕様・要件・既存テストデータに沿った<strong>根拠ある</strong>テスト分析・設計
+                                        </td>
+                                        <td>
+                                            文書をチャンクに分割し埋め込み（ベクトル）化して検索。<strong>最新の企業データに基づく</strong>回答を得られる
+                                        </td>
+                                        <td>
+                                            検索対象の<strong>アクセス権とデータ分類</strong>を整理する（機密文書の漏えい防止）。出典を出力に含めて確認しやすくする
+                                        </td>
+                                        <td>2 → 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLM搭載エージェント</strong></td>
+                                        <td>反復的なテストタスクの自動化</td>
+                                        <td>
+                                            ハルシネーション・推論エラー・バイアスは<strong>エージェントでも起こる</strong>。<strong>自動検証手順</strong>の実装、または<strong>重要タスクには半自律型</strong>を使う
+                                        </td>
+                                        <td>
+                                            権限を<strong>最小限</strong>に絞る。人の承認ポイントを設ける。エージェントの行動ログを残す
+                                        </td>
+                                        <td>2 → 3（慎重に）</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ファインチューニング済みモデル</strong></td>
+                                        <td>組織固有の形式・用語でのテストケース生成など</td>
+                                        <td>
+                                            <strong>高品質でタスク特化のデータ</strong>で学習させる（バイアス・不正確さの回避）。SLMなら計算負荷を抑えられる
+                                        </td>
+                                        <td>
+                                            学習データから<strong>機密・個人情報を除去</strong>。再学習の手順と評価指標を決めておく
+                                        </td>
+                                        <td>2 → 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>運用基盤（LLMOps）</strong></td>
+                                        <td>継続運用・監視・管理</td>
+                                        <td>モデルの展開と管理のための運用プロセス</td>
+                                        <td>
+                                            バージョン、性能低下、コストを監視。ロールバック手順を用意
+                                        </td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p style={{ fontSize: '13px', color: 'var(--color-ink-faint)' }}>
+                            上の表の「シラバス準拠のポイント」は主に第1章・第4章・第3章の記述に基づき、「実務ベストプラクティス」と「導入の目安フェーズ」は本ガイド独自の整理です。
+                        </p>
+
+                        <h2 className="doc-h2">11.3 ホスティング（配置）の選び方</h2>
+                        <p>
+                            第3章3.2.3は、<strong>機密性のレベルに応じて、次の3つの安全な運用環境</strong>から選ぶことを示しています。
+                        </p>
+                        <div className="diagram-card">
+                            <div data-diagram="d15">
+                                <Mermaid chart={DIAGRAM_D15} id="mermaid-d15" />
+                            </div>
+                            <div className="diagram-caption">
+                                データの機密性に応じて、商用プラン・セキュアクラウド・自社インフラのいずれかを選ぶ
+                            </div>
+                        </div>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>配置</th>
+                                        <th>メリット（一般論）</th>
+                                        <th>注意点（一般論）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>商用のセキュアな提供プラン</td>
+                                        <td>導入が早い、運用負担が小さい</td>
+                                        <td>
+                                            契約条件（データの学習利用の有無、保存、所在地）を確認
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>セキュアなクラウド運用</td>
+                                        <td>管理の自由度と拡張性のバランス</td>
+                                        <td>構成・アクセス制御・監視を自組織が担う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>自組織インフラへの導入</td>
+                                        <td>データを外に出さずに済む</td>
+                                        <td>設備・人材・保守・モデル更新のコストが大きい</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="callout source">
+                            <div className="callout-icon"><i className="ti ti-external-link"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">ソース</div>
+                                <p>
+                                    第3章3.2.3：セキュリティエンジニア、法務、CTO、CISOなどの<strong>関与が強く推奨</strong>されています。
+                                </p>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">11.4 テスト活動別：導入の始め方と品質ゲート</h2>
+                        <p>
+                            第2章で学んだ4つのテスト活動を、5.1.4のフェーズ導入と組み合わせて考えます。<strong>どのAI出力にどれだけレビューを掛けるか</strong>は、リスクの大きさで調整します（第3章3.1.2）。
+                        </p>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>テスト活動</th>
+                                        <th>GenAIの支援例</th>
+                                        <th>導入の始め方（低リスクから）</th>
+                                        <th>品質ゲートの例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>テスト分析</strong></td>
+                                        <td>
+                                            テストベースの欠陥（曖昧さ・矛盾）検出、テスト条件の生成、リスクに基づく優先順位付け、カバレッジ分析、テスト技法の提案
+                                        </td>
+                                        <td>
+                                            まず<strong>要件の曖昧さの指摘</strong>（人が最終判断できる用途）から
+                                        </td>
+                                        <td>
+                                            生成されたテスト条件を、元の要件と<strong>照合</strong>（相互検証）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>テスト設計・実装</strong></td>
+                                        <td>
+                                            テストケース生成、合成テストデータ、テストスクリプト生成、実行スケジュール・優先順位付け
+                                        </td>
+                                        <td>
+                                            小さな機能の<strong>下書き作成</strong>から。実際の個人情報は使わず合成データで
+                                        </td>
+                                        <td>
+                                            実行してみて<strong>実行成功率</strong>を確認。レビュー承認後に登録
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>自動リグレッション</strong></td>
+                                        <td>
+                                            キーワード駆動スクリプト、影響分析、自己修復テスト、レポート・欠陥レポート作成
+                                        </td>
+                                        <td>
+                                            <strong>テストレポート分析</strong>（読み取り中心）から。教材では、すでにフェーズ3に達し得る例として挙げられている
+                                        </td>
+                                        <td>
+                                            誤りの可能性を前提に<strong>リスクに応じて出力を検証</strong>。自己修復の結果は人が確認
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>テスト監視・統制</strong></td>
+                                        <td>
+                                            指標分析、傾向予測、再優先順位付けの提案、完了レポート、ダッシュボード・自然言語要約
+                                        </td>
+                                        <td>
+                                            ダッシュボードの<strong>要約・傾向の説明</strong>から
+                                        </td>
+                                        <td>
+                                            元データとの<strong>整合確認</strong>。意思決定は人が行う
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            各活動の一般的な誤りの対策として、<strong>プロンプトチェーンで段階ごとに検証</strong>し（第3章3.1.3）、<strong>完全な文脈</strong>と<strong>明確なデータ形式</strong>を与えることが有効です。
+                        </p>
+                    </section>
+
+                    <section className="doc-section" id="s12">
+                        <h1 className="doc-h1">
+                            12. 関連する規制・標準・フレームワーク（第3章との接続）
+                        </h1>
+
+                        <h2 className="doc-h2">12.1 シラバス（第3章3.4.1）に挙げられているもの</h2>
+                        <p>
+                            <span className="tag tag-b">準拠</span>
+                            第5章の「ガバナンス」「コンプライアンス」「AIリスクマネジメント」の背景として、第3章の一覧を再確認しておきます。<strong>名称と種別の対応</strong>はK1（暗記）で問われ得ます。
+                        </p>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>種別</th>
+                                        <th>概要（要約）</th>
+                                        <th>テストでの適用（要約）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>ISO/IEC 42001:2023</strong></td>
+                                        <td>標準</td>
+                                        <td>
+                                            組織内でAIシステムを管理するための<strong>マネジメントシステム</strong>の要求事項
+                                        </td>
+                                        <td>
+                                            テストでのGenAI利用が推奨される実践に沿い、一貫性・信頼性を高める
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ISO/IEC 23053:2022</strong></td>
+                                        <td>標準</td>
+                                        <td>
+                                            機械学習を用いたAIシステムの<strong>フレームワーク</strong>。AIライフサイクルのプロセス、フォールトトレランス、透明性を重視
+                                        </td>
+                                        <td>
+                                            データ品質、透明性、フォールトトレランスの枠組みを提供
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>EU AI Act</strong></td>
+                                        <td>規制</td>
+                                        <td>
+                                            AIリスクを扱う<strong>法的枠組み</strong>。<strong>リスクベースのアプローチ</strong>で、AIシステムを用途に応じたリスクレベル（禁止・高リスク・限定的リスク・最小リスク）に分類し、義務はレベルごとに異なる
+                                        </td>
+                                        <td>
+                                            義務は全AIシステムに一律ではない。<strong>透明性義務</strong>は対象として定められたシステム（人と対話するAI、生成コンテンツ等）の提供者・導入者に課され、<strong>高リスクAI</strong>にはリスク管理、データガバナンス（バイアス対策を含む）、人による監視、文書化などの追加要件が課される。テストでは、対象システムのリスク区分を確認したうえで該当する義務への準拠を検証する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>NIST AI Risk Management Framework（米国）</strong>
+                                        </td>
+                                        <td>フレームワーク</td>
+                                        <td>
+                                            AIリスクを管理する指針（公平性、透明性、セキュリティ）
+                                        </td>
+                                        <td>公平性を確保し、偏ったテスト結果を防ぐ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="mnemonic">
+                            <strong>覚え方：</strong>標準2つ（ISO）、規制1つ（EU）、フレームワーク1つ（NIST）。シラバスは、これらの<strong>最新動向を組織が継続的に把握すること</strong>の重要性も述べています。
+                        </div>
+
+                        <h2 className="doc-h2">12.2 第5章の各項目との対応</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>第5章の項目</th>
+                                        <th>関連する規制・標準（例）</th>
+                                        <th>どう役立つか</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>5.1.1 シャドーAI</td>
+                                        <td>
+                                            EU AI Act、NIST AI RMF（Govern）、GDPR（第3章3.2.1）
+                                        </td>
+                                        <td>
+                                            未承認ツールの利用は、統制・透明性・データ保護の要求に反しやすい
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.2 戦略の観点</td>
+                                        <td>
+                                            NIST AI RMF（Govern／Map／Measure／Manage）、ISO/IEC 42001
+                                        </td>
+                                        <td>目標・責任・測定・改善のサイクルを整理する枠組み</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.4 フェーズ3（継続的改善）</td>
+                                        <td>ISO/IEC 42001（継続的改善）</td>
+                                        <td>監視・測定・改善を仕組みにする考え方</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.1 スキル・リテラシー</td>
+                                        <td>EU AI Act第4条（AIリテラシー）</td>
+                                        <td>従業員のAI理解を高める措置</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.3 マネージャーの役割</td>
+                                        <td>EU AI Act、NIST AI RMF</td>
+                                        <td>人による監督・説明責任の位置づけ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 className="doc-h2">
+                            12.3 補足：EU AI Act第4条（AIリテラシー）に関する注意（試験範囲外）
+                        </h2>
+                        <div className="callout note">
+                            <div className="callout-icon"><i className="ti ti-info-circle"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">補足</div>
+                                <ul className="doc-list" style={{ marginBottom: 0 }}>
+                                    <li>
+                                        <strong>2025年2月2日〜2026年7月26日（改正前）</strong>：第4条は、AIシステムの提供者・導入者に対し、従業員等について<strong>「可能な限り、十分なレベルのAIリテラシーを確保する」措置</strong>を講じることを求めていました。
+                                    </li>
+                                    <li>
+                                        <strong>2026年7月27日以降（改正後）</strong>：Digital Omnibus on AI（Regulation (EU) 2026/1744）により第4条が全面的に改正され、提供者・導入者に求められるのは<strong>AIリテラシーの育成を支援する措置</strong>になりました。改正後の条文は、<strong>個人ごとに特定のAIリテラシー水準を保証することまでは求めない</strong>と明記しています（改正前の「可能な限り、十分なレベルのAIリテラシーを確保する措置」から、改正後の「AIリテラシーの育成を支援する措置」へと求められる措置の内容が変わりました）。
+                                    </li>
+                                    <li>
+                                        <strong>実務で対応する場合は、必ず公式条文と最新の公的ガイダンスを確認してください</strong>（URLは16章参照）。試験（CT-GenAI）では、この改正の詳細は問われません。
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="doc-section" id="s13">
+                        <h1 className="doc-h1">13. 章のまとめ・重要用語・暗記表</h1>
+
+                        <h2 className="doc-h2">13.1 第5章の全体フロー（総まとめの図解）</h2>
+                        <div className="diagram-card">
+                            <div data-diagram="d16">
+                                <Mermaid chart={DIAGRAM_D16} id="mermaid-d16" />
+                            </div>
+                            <div className="diagram-caption">
+                                5.1ロードマップと5.2変革管理が合わさり、統制されたAI支援テスト組織へ至る
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">13.2 暗記表（K1問題の対策）</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>暗記内容</th>
+                                        <th>覚え方</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>シャドーAIとは</strong></td>
+                                        <td>個人用・未承認のAIツールの非公式利用</td>
+                                        <td>「私物USBのAI版」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>シャドーAIの3リスク</strong></td>
+                                        <td>
+                                            ①情報セキュリティ・プライバシーの弱点 ②コンプライアンス・規制問題 ③知的財産の不明確さ
+                                        </td>
+                                        <td>「漏れる・違反する・権利があいまい」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>戦略の観点</strong></td>
+                                        <td>
+                                            測定可能な目標／LLM・SLM選定／データ品質とセキュリティ／教育／指標／ガイドライン（機密データ・透明性・品質ゲート）
+                                        </td>
+                                        <td>「目・モ・デ・教・指・ガ」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>モデル選定の4基準</strong></td>
+                                        <td>
+                                            モデル性能／ファインチューニング可能性／継続的コスト／コミュニティとサポート
+                                        </td>
+                                        <td>「性能・チューニング・コスト・サポート」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>導入の3フェーズ</strong></td>
+                                        <td>
+                                            Discovery／Initiation and usage definition／Utilization and iteration
+                                        </td>
+                                        <td>「試す・決める・回す」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>フェーズの性質</strong></td>
+                                        <td>
+                                            重なり合う。ユースケースごとに成熟速度が違う。人的要因（雇用不安）を早期に扱う
+                                        </td>
+                                        <td>「直線ではない」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>必要なスキル</strong></td>
+                                        <td>
+                                            プロンプト、コンテキストウィンドウ理解、出力評価、リスク認識、データサニタイズ、右サイズとコスト・環境
+                                        </td>
+                                        <td>「書く・見る・守る・選ぶ」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>能力構築</strong></td>
+                                        <td>
+                                            ハンズオン、段階的な学習、プロンプトパターン、実践共同体、共有ライブラリ
+                                        </td>
+                                        <td>「触る・型にする・共有する」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>テスターの進化</strong></td>
+                                        <td>設計者・実行者 → AI支援テストスペシャリスト</td>
+                                        <td>「導く・見極める・磨く」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>マネージャーの進化</strong></td>
+                                        <td>
+                                            AI戦略・AIリスク管理・監視統制・ガバナンス → オーケストレーション
+                                        </td>
+                                        <td>「整える・束ねる」</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 className="doc-h2">13.3 重要用語集（日本語／英語）</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>日本語</th>
+                                        <th>英語</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>シャドーAI</td>
+                                        <td>Shadow AI</td>
+                                        <td>
+                                            個人用または未承認のAIツールを非公式に業務で使うこと
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>生成AI戦略</td>
+                                        <td>Generative AI strategy</td>
+                                        <td>
+                                            テストにGenAIを組み込むための目標・選定・データ・教育・指標・ガイドラインの方針
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ロードマップ</td>
+                                        <td>Roadmap</td>
+                                        <td>
+                                            段階的な導入計画（マイルストーンとフィードバックを含む）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LLM／SLM</td>
+                                        <td>LLM／SLM</td>
+                                        <td>大規模言語モデル／小規模言語モデル</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コンテキストウィンドウ</td>
+                                        <td>Context window</td>
+                                        <td>モデルが一度に考慮できる入力量（トークン数）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ファインチューニング</td>
+                                        <td>Fine-tuning</td>
+                                        <td>
+                                            事前学習済みモデルを、特定タスク・ドメイン向けに追加学習すること
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>継続的コスト</td>
+                                        <td>Recurring cost</td>
+                                        <td>ライセンス料や運用費など、繰り返し発生する費用</td>
+                                    </tr>
+                                    <tr>
+                                        <td>品質ゲート</td>
+                                        <td>Quality gate</td>
+                                        <td>生成物を受け入れる前に、レビューを必須にする関門</td>
+                                    </tr>
+                                    <tr>
+                                        <td>透明性</td>
+                                        <td>Transparency</td>
+                                        <td>GenAIで作られた成果物であることを明示すること</td>
+                                    </tr>
+                                    <tr>
+                                        <td>データサニタイズ</td>
+                                        <td>Data sanitisation</td>
+                                        <td>機微・個人・機密情報のマスキングまたは除去</td>
+                                    </tr>
+                                    <tr>
+                                        <td>右サイズのモデル</td>
+                                        <td>Right-sized model</td>
+                                        <td>タスクに見合った規模のモデル</td>
+                                    </tr>
+                                    <tr>
+                                        <td>プロンプトパターン</td>
+                                        <td>Prompt pattern</td>
+                                        <td>再利用可能なプロンプトのテンプレート</td>
+                                    </tr>
+                                    <tr>
+                                        <td>プロンプトライブラリ</td>
+                                        <td>Prompt library</td>
+                                        <td>共有できるプロンプトの集まり</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コミュニティ・オブ・プラクティス</td>
+                                        <td>Community of practice</td>
+                                        <td>知識共有を続ける実践共同体</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AI支援テストスペシャリスト</td>
+                                        <td>AI-assisted test specialist</td>
+                                        <td>AIを導き、結果を批判的に評価するテスターの姿</td>
+                                    </tr>
+                                    <tr>
+                                        <td>オーケストレーション</td>
+                                        <td>Orchestration</td>
+                                        <td>
+                                            人・プロセス・知的システムを、統制された戦略へ整合させること
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>変革管理</td>
+                                        <td>Change management</td>
+                                        <td>
+                                            導入に伴う人・役割・プロセスの変化を計画的に管理すること
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>発見</td>
+                                        <td>Discovery</td>
+                                        <td>フェーズ1：体験と学習</td>
+                                    </tr>
+                                    <tr>
+                                        <td>開始と利用方法の定義</td>
+                                        <td>Initiation and usage definition</td>
+                                        <td>フェーズ2：ユースケースの特定・評価・優先順位付け</td>
+                                    </tr>
+                                    <tr>
+                                        <td>活用と反復</td>
+                                        <td>Utilization and iteration</td>
+                                        <td>フェーズ3：統合、監視・測定・改善、展開</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 </div>
             </main>

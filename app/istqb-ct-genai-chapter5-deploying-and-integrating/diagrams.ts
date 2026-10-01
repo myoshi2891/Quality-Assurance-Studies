@@ -334,3 +334,50 @@ flowchart LR
     class T1,M1 box;
     class T2,M2 done;`;
 
+export const DIAGRAM_D15 = `${MERMAID_CONFIG}
+flowchart TD
+    D1{"扱うデータの機密性は？"}
+    H1["商用LLMプロバイダーの<br/>セキュアな提供プランを利用"]
+    H2["セキュアなクラウド上で<br/>LLMを運用"]
+    H3["自組織のインフラ内に<br/>LLMを導入"]
+    NOTE["いずれの場合も<br/>データ最小化・匿名化・暗号化・アクセス制御・<br/>定期的なセキュリティ監査を併用"]
+    D1 -- "機密性が比較的低い" --> H1
+    D1 -- "中程度／自社管理が必要" --> H2
+    D1 -- "非常に高い／外部へ出せない" --> H3
+    H1 --> NOTE
+    H2 --> NOTE
+    H3 --> NOTE
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class D1 hub;
+    class H1,H2,H3 box;
+    class NOTE done;`;
+
+export const DIAGRAM_D16 = `${MERMAID_CONFIG}
+flowchart TD
+    subgraph P51["5.1 ロードマップ"]
+        R1["5.1.1 シャドーAIのリスクを認識<br/>（漏れる・違反する・権利があいまい）"]
+        R2["5.1.2 戦略を定める<br/>（目標・モデル・データ・教育・指標・ガイドライン）"]
+        R3["5.1.3 モデルを選ぶ<br/>（性能・チューニング・コスト・サポート）"]
+        R4["5.1.4 3フェーズで段階導入<br/>（発見→利用方法の定義→活用と反復）"]
+        R1 --> R2 --> R3 --> R4
+    end
+    subgraph P52["5.2 変革管理"]
+        C1["5.2.1 スキルを身につける<br/>（プロンプト・評価・サニタイズ・右サイズ）"]
+        C2["5.2.2 チームで能力を育てる<br/>（ハンズオン・プロンプトパターン・実践共同体）"]
+        C3["5.2.3 役割を進化させる<br/>（AI支援テストスペシャリスト／オーケストレーション）"]
+        C1 --> C2 --> C3
+    end
+    R4 --> C1
+    C3 -. "経験を反映" .-> R2
+    GOAL["統制された、継続的に成果の出る<br/>AI支援テスト組織"]
+    R4 --> GOAL
+    C3 --> GOAL
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class R1,R2,R3,C1,C2 box;
+    class R4,C3 hub;
+    class GOAL done;`;
+
