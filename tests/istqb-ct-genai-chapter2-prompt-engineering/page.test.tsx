@@ -50,6 +50,38 @@ export const EXPECTED_TABLE_SPECS_CAT0: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT1: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT0,
+    {
+        heading: '1.1 プロンプトの6要素構造（2.1.1）',
+        headers: ['要素', '説明', 'ソフトウェアテストでの例'],
+        rows: 6,
+        cols: 3,
+        sample: '① Role（役割）',
+    },
+    {
+        heading: '1.2 コアプロンプティング技法（2.1.2）',
+        headers: ['分類', '定義'],
+        rows: 3,
+        cols: 2,
+        sample: 'Zero-shot（ゼロショット）',
+    },
+    {
+        heading: '3つの技法の比較表',
+        headers: ['技法', '推奨されるユースケース', '主な特徴・適用例'],
+        rows: 3,
+        cols: 3,
+        sample: 'プロンプトチェイニング',
+    },
+    {
+        heading: '1.3 システムプロンプトとユーザープロンプト（2.1.3）',
+        headers: ['項目', 'システムプロンプト（System Prompt）', 'ユーザープロンプト（User Prompt）'],
+        rows: 5,
+        cols: 3,
+        sample: '定義者',
+    },
+];
+
 describe('CT-GenAI 第2章 完全解説ガイド (Category 0: 基盤セットアップ & ナビゲーション & セクション0)', () => {
     it('ヒーロー領域（H1、キッカー、サブタイトル、メタ情報リンク）が正しくレンダリングされること', () => {
         const { container } = render(<CtGenAiChapter2Page />);
@@ -130,6 +162,90 @@ describe('CT-GenAI 第2章 完全解説ガイド (Category 0: 基盤セットア
         expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT0.length);
 
         EXPECTED_TABLE_SPECS_CAT0.forEach((spec, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(spec.heading);
+            expect(actual.headers).toEqual([...spec.headers]);
+            expect(actual.rows).toBe(spec.rows);
+            expect(actual.cols).toBe(spec.cols);
+            expect(actual.sample).toBe(spec.sample);
+        });
+    });
+});
+
+describe('CT-GenAI 第2章 完全解説ガイド (Category 1: セクション1 効果的なプロンプト開発)', () => {
+    it('セクション1の見出し（H2、H3、H4）が正しく配置されていること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const h2 = container.querySelector('[id="1-21-効果的なプロンプト開発"]');
+        expect(h2).not.toBeNull();
+        expect(h2?.tagName).toBe('H2');
+
+        const h3List = [
+            '11-プロンプトの6要素構造211',
+            '12-コアプロンプティング技法212',
+            '3つの技法の比較表',
+            '13-システムプロンプトとユーザープロンプト213',
+        ];
+        h3List.forEach((id) => {
+            const h3 = container.querySelector(`[id="${id}"]`);
+            expect(h3).not.toBeNull();
+            expect(h3?.tagName).toBe('H3');
+        });
+
+        const h4List = [
+            '①-プロンプトチェイニングprompt-chaining',
+            '②-few-shotプロンプティングfew-shot-prompting',
+            '③-メタプロンプティングmeta-prompting',
+        ];
+        h4List.forEach((id) => {
+            const h4 = container.querySelector(`[id="${id}"]`);
+            expect(h4).not.toBeNull();
+            expect(h4?.tagName).toBe('H4');
+        });
+    });
+
+    it('セクション1のMermaid図（図1〜5）が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        const diagramIds = [
+            'mermaid-diagram-1',
+            'mermaid-diagram-2',
+            'mermaid-diagram-3',
+            'mermaid-diagram-4',
+            'mermaid-diagram-5',
+        ];
+        diagramIds.forEach((id) => {
+            const el = container.querySelector(`[data-diagram-id="${id}"]`);
+            expect(el).not.toBeNull();
+        });
+    });
+
+    it('セクション1のコールアウト（ベストプラクティス3件、ハンズオン2件、警告1件）が存在すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+
+        // ベストプラクティス
+        const practices = Array.from(container.querySelectorAll('.callout-practice'));
+        expect(practices.length).toBeGreaterThanOrEqual(3);
+
+        // ハンズオン
+        const handson = Array.from(container.querySelectorAll('.callout-handson'));
+        expect(handson.length).toBeGreaterThanOrEqual(2);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.1.1'))).toBe(true);
+        expect(handson.some((el) => el.textContent?.includes('HO-2.1.2a'))).toBe(true);
+
+        // 警告（v1.1 用語変更）
+        const warnings = Array.from(container.querySelectorAll('.callout-warning'));
+        expect(warnings.length).toBeGreaterThanOrEqual(1);
+        expect(warnings.some((el) => el.textContent?.includes('v1.1での用語変更に関する注記'))).toBe(true);
+    });
+
+    it('セクション1内のテーブルがインベントリ定義と一致すること', () => {
+        const { container } = render(<CtGenAiChapter2Page />);
+        const tables = collectTableInventory(container);
+
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT1.length);
+
+        EXPECTED_TABLE_SPECS_CAT1.forEach((spec, i) => {
             const actual = tables[i];
             expect(actual.heading).toBe(spec.heading);
             expect(actual.headers).toEqual([...spec.headers]);
