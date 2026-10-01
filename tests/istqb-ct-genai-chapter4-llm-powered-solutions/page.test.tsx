@@ -125,4 +125,48 @@ describe('CT-GenAI Chapter 4 Page - Category 1 (Architecture & Overview)', () =>
         const critique = s2?.querySelector('.critique-card');
         expect(critique).not.toBeNull();
     });
+
+    it('renders Section 3: 4.1.2 RAG with Mermaid d3/d4, tables, step-list, and critique card', () => {
+        const { container } = render(<CtGenAiChapter4Page />);
+        const s3 = container.querySelector('#s3');
+        expect(s3).not.toBeNull();
+        expect(s3?.querySelector('h2')?.textContent).toContain('4.1.2');
+        expect(s3?.querySelector('h2')?.textContent).toContain('Retrieval-Augmented Generation（RAG）');
+
+        const h3List = Array.from(s3?.querySelectorAll('h3') || []).map((h) => h.textContent);
+        expect(h3List).toContain('3.1 RAGとは何か');
+        expect(h3List).toContain('3.2 なぜテストでRAGが必要か');
+        expect(h3List).toContain('3.3 RAGの仕組み：2つのフェーズ');
+        expect(h3List).toContain('3.4 「関連性のある応答（relevant response）」とは');
+        expect(h3List).toContain('3.5 キーワード検索とベクトル検索の違い');
+        expect(h3List).toContain('3.6 RAGを使ったテスト業務の例');
+        expect(h3List).toContain('3.7 RAGとファインチューニングの違い（比較）');
+        expect(h3List).toContain('3.8 RAGのリスクと限界');
+        expect(h3List).toContain('3.9 ハンズオン目標 HO-4.1.2（H1）：RAGを試す');
+
+        const h4List = Array.from(s3?.querySelectorAll('h4') || []).map((h) => h.textContent);
+        expect(h4List).toContain('フェーズ1：事前処理（前処理・インデックス作成）');
+        expect(h4List).toContain('フェーズ2：実行時（ユーザープロンプト処理）');
+        expect(h4List).toContain('3.10 この節の試験ポイント');
+
+        // Mermaid d3 & d4
+        const diagramCards = s3?.querySelectorAll('.diagram-card');
+        expect(diagramCards?.length).toBeGreaterThanOrEqual(2);
+        expect(diagramCards?.[0].textContent).toContain('図3');
+        expect(diagramCards?.[1].textContent).toContain('図4');
+
+        // テーブル群（比較、フェーズ、業務例等）
+        const tables = s3?.querySelectorAll('table');
+        expect(tables?.length).toBeGreaterThanOrEqual(6);
+
+        // ステップリスト（ハンズオンHO-4.1.2）
+        const stepList = s3?.querySelector('.step-list');
+        expect(stepList).not.toBeNull();
+        const steps = stepList?.querySelectorAll('li');
+        expect(steps?.length).toBe(5);
+
+        // 試験ポイント
+        const critique = s3?.querySelector('.critique-card');
+        expect(critique).not.toBeNull();
+    });
 });
