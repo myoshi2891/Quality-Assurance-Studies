@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import ChecklistCard, { ChecklistItem } from './ChecklistCard';
 import Mermaid from '../../components/Mermaid';
 import {
     DIAGRAM_CH3_OVERVIEW,
@@ -15,6 +16,41 @@ import {
     DIAGRAM_REGULATIONS_MAP,
 } from './diagrams';
 import './istqb-ct-genai-chapter3-risk-management.css';
+
+const CHECKLIST_ITEMS_A: ChecklistItem[] = [
+    { id: 'cl-a-1', label: 'プロンプトに、役割・文脈・指示・入力データ・制約・出力形式を含めているか' },
+    { id: 'cl-a-2', label: '複雑な依頼を分割し、各ステップの出力を確認しているか' },
+    { id: 'cl-a-3', label: '生成物に「根拠（要件 ID など）」を併記させ、突き合わせているか' },
+    { id: 'cl-a-4', label: '生成されたテストスクリプトを、実際に実行してから採用しているか' },
+    { id: 'cl-a-5', label: '計算・優先順位付けの結果を、人または別の手段で検算しているか' },
+    { id: 'cl-a-6', label: 'テストデータの偏り（言語・長さ・文字種・境界値）と、テストタイプの偏り（非機能テスト）を確認しているか' },
+    { id: 'cl-a-7', label: 'temperature や seed の設定と、使ったモデル名を記録しているか' },
+    { id: 'cl-a-8', label: '重要なタスクは、複数モデルで結果を比較しているか' },
+];
+
+const CHECKLIST_ITEMS_B: ChecklistItem[] = [
+    { id: 'cl-b-1', label: '「入力してよいデータ・いけないデータ」のルールを、チームに周知しているか' },
+    { id: 'cl-b-2', label: '機密情報・個人情報を、匿名化または仮名化してから渡しているか' },
+    { id: 'cl-b-3', label: '必要最小限のデータだけを渡しているか' },
+    { id: 'cl-b-4', label: 'データの機密度に応じて、運用環境（商用サービス／安全なクラウド／自社インフラ）を選んでいるか' },
+    { id: 'cl-b-5', label: '通信と保存が暗号化され、アクセス権限が絞られているか' },
+    { id: 'cl-b-6', label: '生成コードをレビューし、隔離環境で実行してから使っているか' },
+    { id: 'cl-b-7', label: 'エージェントなどに、最小権限を与え、重要な操作に人の承認を挟んでいるか' },
+    { id: 'cl-b-8', label: '定期的なセキュリティ監査と脆弱性評価を実施しているか' },
+    { id: 'cl-b-9', label: 'セキュリティ担当・法務・CTO・CISO などを関与させているか' },
+];
+
+const CHECKLIST_ITEMS_C: ChecklistItem[] = [
+    { id: 'cl-c-1', label: '依頼を整理してから送り、不要な試行を減らしているか' },
+    { id: 'cl-c-2', label: '画像生成など消費の大きい機能を、必要な場合に限定しているか' },
+    { id: 'cl-c-3', label: '軽いタスクに、小さなモデルを使い分けているか' },
+    { id: 'cl-c-4', label: '利用回数やトークン量を記録し、概算しているか' },
+];
+
+const CHECKLIST_ITEMS_D: ChecklistItem[] = [
+    { id: 'cl-d-1', label: '自社の GenAI 利用に関係する規制・標準・指針を、一覧にしているか' },
+    { id: 'cl-d-2', label: '最新動向を確認する担当者と頻度を決めているか' },
+];
 
 export const metadata: Metadata = {
     title: 'CT-GenAI 第3章：ソフトウェアテストにおける生成AIのリスク管理 初学者向けステップバイステップ解説',
@@ -3173,6 +3209,401 @@ export default function CtGenAiChapter3Page() {
                             </ul>
                         </div>
                     </div>
+                    <hr />
+
+                    {/* 6. 試験対策：まとめ・チェックリスト・練習問題 */}
+                    <h2 id="6-試験対策まとめチェックリスト練習問題">
+                        6. 試験対策：まとめ・チェックリスト・練習問題
+                    </h2>
+                    <p>
+                        💡 この章では、第3章全体を<strong>試験直前に見直せる形</strong>にまとめます。ここまでの内容を読み終えたあとに、<strong>用語の総まとめ → よくある間違い → 練習問題</strong>の順で確認してください。
+                    </p>
+
+                    <h3 id="61-第3章-総まとめ表試験直前チェック用">
+                        6.1 第3章 総まとめ表（試験直前チェック用）
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>節</th>
+                                    <th>K</th>
+                                    <th>覚える中心</th>
+                                    <th>一言</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>3.1.1</td>
+                                    <td>K1</td>
+                                    <td>ハルシネーション／推論エラー／バイアスの定義</td>
+                                    <td>事実と違う／論理の取り違え／学習データ由来の偏り</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>3.1.2</td>
+                                    <td>K3</td>
+                                    <td>検出方法</td>
+                                    <td>
+                                        クロス検証・専門家・一貫性／論理検証・実行して確認／代表性・テストタイプの偏り
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3.1.3</td>
+                                    <td>K2</td>
+                                    <td>軽減5技法</td>
+                                    <td>
+                                        完全なコンテキスト／分割（チェイニング）／明確な形式／適切なモデル／複数モデル比較
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>3.1.4</td>
+                                    <td>K1</td>
+                                    <td>非決定性の軽減</td>
+                                    <td>
+                                        temperature を下げる（多様性は下がる）／seed を固定（使える実装のみ）
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3.2.1</td>
+                                    <td>K2</td>
+                                    <td>リスク</td>
+                                    <td>
+                                        プライバシー3（露出・制御不能・コンプライアンス）＋セキュリティ3
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>3.2.2</td>
+                                    <td>K2</td>
+                                    <td>攻撃ベクトル4</td>
+                                    <td>
+                                        コンテキスト操作／リクエスト操作／データポイズニング／悪意のあるコード生成
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3.2.3</td>
+                                    <td>K2</td>
+                                    <td>緩和策</td>
+                                    <td>
+                                        基本4（最小化・匿名化・暗号化とアクセス制御・教育）＋追加5＋環境3択
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>3.3.1</td>
+                                    <td>K2</td>
+                                    <td>エネルギー</td>
+                                    <td>
+                                        タスクの特徴とモデルの使い方／画像＞テキスト／不要なやり取りを減らす
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>3.4.1</td>
+                                    <td>K1</td>
+                                    <td>規制・標準・枠組み</td>
+                                    <td>
+                                        ISO/IEC 42001・ISO/IEC 23053（標準）／EU AI Act（規制）／NIST AI RMF（枠組み）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="62-よくある間違いひっかけポイント">
+                        6.2 よくある間違い（ひっかけポイント）
+                    </h3>
+                    <div className="table-scroll">
+                        <table>
+                            <thead>
+                                <tr className="row-header">
+                                    <th>ひっかけの言い回し（誤り）</th>
+                                    <th>正しい理解</th>
+                                    <th>理由</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row-even">
+                                    <td>
+                                        「ある LLM 出力でハルシネーションを直せば、以後は再発しない」
+                                    </td>
+                                    <td><strong>再発しうる</strong></td>
+                                    <td>
+                                        非決定的なので、別の会話で同じ問題が再び出る（シラバス 3.1 節冒頭）
+                                    </td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>「temperature を上げると、出力が安定する」</td>
+                                    <td><strong>下げる</strong>と安定する</td>
+                                    <td>確率分布が狭まるため。ただし多様性は下がる</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>「seed を固定すれば、完全に同じ結果が保証される」</td>
+                                    <td><strong>保証されない</strong></td>
+                                    <td>再現性を<strong>高める</strong>のみ。使える実装も限られる</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>「LLM は真の論理的推論をしている」</td>
+                                    <td>パターン<strong>照合</strong>に頼っている</td>
+                                    <td>このため、推論エラーが起きる</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>「検出は、すべての出力に同じ深さで行う」</td>
+                                    <td><strong>リスクの大きさ</strong>に応じて決める</td>
+                                    <td>シラバス 3.1.2 節の条件</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>「GDPR は GenAI の利用を明示的に禁止している」</td>
+                                    <td><strong>明示的には制限しない</strong>が、安全策が課される</td>
+                                    <td>適法性・目的の制限などが、できることに影響する</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>「データ最小化とは、できるだけ多くのデータを渡すこと」</td>
+                                    <td><strong>必要最小限</strong>に絞ること</td>
+                                    <td>漏えい時の被害を小さくするため</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>「機密データは、商用サービスなら常に安全に処理できる」</td>
+                                    <td><strong>機密度に応じて環境を選ぶ</strong></td>
+                                    <td>
+                                        商用の安全なサービス、安全なクラウド、自社インフラの3択がある
+                                    </td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>「GenAI の環境影響は、1回の利用が小さいので無視してよい」</td>
+                                    <td><strong>累積で大きくなる</strong></td>
+                                    <td>世界中の利用が積み重なる（シラバス 3.3.1 節）</td>
+                                </tr>
+                                <tr className="row-odd">
+                                    <td>「EU AI Act は標準、ISO/IEC 42001 は規制である」</td>
+                                    <td>
+                                        EU AI Act＝<strong>規制</strong>、ISO/IEC 42001＝<strong>標準</strong>
+                                    </td>
+                                    <td>種類の取り違え</td>
+                                </tr>
+                                <tr className="row-even">
+                                    <td>「AI の出力は、人のレビューなしでも自動検証だけで十分」</td>
+                                    <td>人による<strong>体系的なレビュー</strong>が必須</td>
+                                    <td>人の評価は品質と正確性に欠かせない（3.2.3 節）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="63-実務導入チェックリスト-補足">6.3 実務導入チェックリスト（💡 補足）</h3>
+                    <ChecklistCard items={CHECKLIST_ITEMS_A} title="A. 出力の品質（3.1）" />
+                    <ChecklistCard items={CHECKLIST_ITEMS_B} title="B. プライバシーとセキュリティ（3.2）" />
+                    <ChecklistCard items={CHECKLIST_ITEMS_C} title="C. エネルギーと環境（3.3）" />
+                    <ChecklistCard items={CHECKLIST_ITEMS_D} title="D. 規制・標準（3.4）" />
+
+                    <h3 id="64-練習問題オリジナル12問">6.4 練習問題（オリジナル・12問）</h3>
+                    <div className="callout-warning callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">⚠️</span>
+                            <span className="callout-label">重要な注意</span>
+                        </div>
+                        <div className="callout-body">
+                            <p>
+                                これらは、本文書の作成者が<strong>学習用に作ったオリジナル問題</strong>です。公式のサンプル問題ではありません。公式の<strong>CT-GenAI Sample Exam A（Questions／Answers v1.1）</strong>は ISTQB 公式ページからダウンロードできます。本文書の作成時には、その内容を確認できていません。<strong>必ず公式サンプルも解いてください。</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>問題 1（K1）</strong> LLM が、要件に存在しない「パスワードの再発行機能」を検証するテストケースを生成した。これは何に該当するか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. バイアス　　B. ハルシネーション　　C. 推論エラー　　D. データポイズニング
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。存在しない内容を出力しているため、<strong>ハルシネーション</strong>です。バイアスは学習データ由来の偏り、推論エラーは論理の取り違え、データポイズニングは学習・評価データの汚染を指します。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 2（K3）</strong> LLM がテストケースの優先順位付けで「リスク値＝発生可能性 3 × 影響度 4 ＝ 7」と出力した。どの間違いで、どの検出方法が最も適切か。
+                    </p>
+                    <ul>
+                        <li>
+                            A. ハルシネーション／クロス検証　　B. 推論エラー／論理的検証　　C. バイアス／代表性の確認　　D. ハルシネーション／専門家への相談
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。3 × 4 ＝ 12 であり、掛け算の論理を誤っているため<strong>推論エラー</strong>です。検出には、論理の流れを確認する<strong>論理的検証</strong>（または再計算して確認）が適切です。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 3（K3）</strong> LLM が生成したテストデータの氏名が、すべて英語圏の名前だった。これに対する最も適切な対応はどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. temperature を上げる　　B. 生成物が定義したテスト戦略・カバレッジ要件を公平に反映しているか確認し、多様な名前を追加するようプロンプトで指示する　　C. seed を固定する　　D. 匿名化する
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。<strong>バイアス</strong>の検出と軽減です。代表性を確認し、コンテキストを補って再生成します。A・C は非決定性への対処で、D はプライバシー対策であり、この問題の解決にはなりません。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 4（K1）</strong> LLM の temperature を下げたときの効果として正しいものはどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. 出力の多様性が増える　　B. 出力のランダム性が減り、一貫性が高まるが、創造性や多様性は下がる　　C. 完全に同じ出力になることが保証される　　D. コンテキストウィンドウが広がる
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。確率分布が狭まりランダム性が減ります。<strong>完全な再現は保証されません</strong>（C は誤り）。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 5（K2）</strong> random seed に関する記述として、シラバスの内容に最も合うものはどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. すべての LLM で seed を指定できる　　B. seed を固定すれば、常に同一の出力が得られる　　C. seed を設定できる実装もあり、同じ疑似乱数列が使われるため再現性が高まる　　D. seed は temperature と同じ働きをする
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>C</strong>。「設定できる実装もある」「再現性が高まる」という表現がポイントです。A・B は言い過ぎ、D は別の仕組みです。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 6（K2）</strong> 攻撃者が、LLM のコンテキストウィンドウを超える非常に長いプロンプトを送り、学習データの断片を漏らさせようとした。どの攻撃ベクトルか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. データポイズニング　　B. 悪意のあるコード生成　　C. コンテキスト操作　　D. リクエスト操作
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>C</strong>。シラバスの表にある、<strong>コンテキスト操作</strong>の例そのものです。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 7（K2）</strong> AI が生成したテストレポートを評価する場面で、攻撃者が偽の評価を与えて AI の振る舞いを歪めようとした。どの攻撃ベクトルか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. データポイズニング　　B. リクエスト操作　　C. コンテキスト操作　　D. 悪意のあるコード生成
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>A</strong>。<strong>データポイズニング</strong>（学習・評価データの操作）のシラバスの例です。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 8（K2）</strong> 高い機密性が求められる組織が選べる運用環境として、シラバスに挙げられていないものはどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. LLM 提供元の商用の安全なサービス　　B. 安全なクラウドで LLM を運用　　C. 自社インフラに LLM を導入　　D. 公開の無料チャットサービスに機密データを直接入力
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>D</strong>。機密度に応じて A・B・C から選びます。D は、データ最小化や匿名化を行わずに機密データを入力するため、リスクを高めます。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 9（K2）</strong> GenAI のエネルギー消費について、正しい記述はどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. 1回の利用は小さいので、環境影響は無視できる　　B. 画像生成は、テキスト生成より一般に消費エネルギーが大きい　　C. 消費量はモデルの使い方とは関係しない　　D. 環境影響の正確なデータは、誰でもすぐに得られる
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。A は累積の影響を無視しており誤り、C はモデルの使い方（回数・規模）が影響するため誤り、D は正確なデータを得ることが難しいというシラバスの記述と食い違います。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 10（K1）</strong> 種類と名称の組み合わせとして正しいものはどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. EU AI Act ― 標準　　B. ISO/IEC 42001 ― 規制　　C. NIST AI RMF ― フレームワーク　　D. ISO/IEC 23053 ― 規制
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>C</strong>。EU AI Act は<strong>規制</strong>、ISO/IEC 42001 と 23053 は<strong>標準</strong>、NIST AI RMF は<strong>フレームワーク</strong>です。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 11（K2）</strong> GDPR と GenAI の関係について、シラバスの内容に合うものはどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. GDPR は GenAI の利用を明示的に禁止している　　B. GDPR は GenAI の利用を明示的には制限しないが、データ処理の適法性や目的の制限といった安全策により、できることが制限されうる　　C. GDPR は EU 域外の組織には一切関係しない　　D. GDPR は匿名化を禁止している
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。シラバス 3.2.3 節の記述どおりです。C と D はシラバスに書かれていない誤った内容です。
+                        </p>
+                    </details>
+
+                    <p>
+                        <strong>問題 12（K3）</strong> 本番環境のエラーログを、LLM に分析させたい。個人情報が含まれている。最も適切な進め方はどれか。
+                    </p>
+                    <ul>
+                        <li>
+                            A. ログ全体をそのまま貼り付け、回答を全面的に信頼する　　B. 必要な部分だけに絞り（データ最小化）、個人情報を置換し、機密度に応じた環境を選び、回答は突き合わせて検証する　　C. 個人情報を含むログは、どのような場合も分析できない　　D. 別の LLM で確認するだけで十分なので、社内ルールは確認しない
+                        </li>
+                    </ul>
+                    <details>
+                        <summary>答えと解説</summary>
+                        <p>
+                            <strong>B</strong>。データ最小化・匿名化／仮名化・安全な運用環境の選択・生成物のレビューを<strong>組み合わせる</strong>進め方です。シラバスは「策は補完的であり、組み合わせが必要」と述べています。C は「機密データは法的に許される場合を除き処理しない」という原則を極端に解釈した誤りで、A・D はリスクを高めます。
+                        </p>
+                    </details>
+
+                    <div className="callout-glossary callout-block">
+                        <div className="callout-header">
+                            <span className="callout-icon">📖</span>
+                            <span className="callout-label">このセクションで登場した用語</span>
+                        </div>
+                        <div className="callout-body">
+                            <ul>
+                                <li>
+                                    <strong>ひっかけ</strong>：一見正しそうに見えるが誤っている選択肢の書き方
+                                </li>
+                                <li><strong>チェックリスト</strong>：確認すべき項目を並べた一覧</li>
+                                <li>
+                                    <strong>サンプル試験</strong>：公式が公開している、試験形式の練習問題
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <hr />
                 </main>
             </div>
