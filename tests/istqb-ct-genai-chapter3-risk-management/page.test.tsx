@@ -281,6 +281,59 @@ export const EXPECTED_TABLE_SPECS_CAT4: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT5: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT4,
+    {
+        heading: '3種類のルールの違い',
+        headers: ['種類', '意味', '守らないと', '例え話'],
+        rows: 3,
+        cols: 4,
+        sample: '規制（Regulation）',
+    },
+    {
+        heading: 'シラバスの4つの例',
+        headers: ['名称', '種類', '概要', 'テストでの適用'],
+        rows: 4,
+        cols: 4,
+        sample: 'ISO/IEC 42001:2023 Information technology – Artificial intelligence – Management system',
+    },
+    {
+        heading: 'シラバスの4つの例',
+        headers: ['種類', '名称', '覚えるキーワード'],
+        rows: 4,
+        cols: 3,
+        sample: '標準',
+    },
+    {
+        heading: '変化に追いつくこと',
+        headers: ['項目', '内容'],
+        rows: 4,
+        cols: 2,
+        sample: 'Digital Omnibus on AI',
+    },
+    {
+        heading: '変化に追いつくこと',
+        headers: ['文書', '概要', '使いどころ'],
+        rows: 4,
+        cols: 3,
+        sample: 'NIST AI 600-1（生成AIプロファイル）',
+    },
+    {
+        heading: '変化に追いつくこと',
+        headers: ['使っているもの', '押さえたいルールブック', 'ベストプラクティス'],
+        rows: 5,
+        cols: 3,
+        sample: '組織としての GenAI 導入全体',
+    },
+    {
+        heading: '3.4 節の試験ポイントまとめ',
+        headers: ['観点', '覚えること'],
+        rows: 3,
+        cols: 2,
+        sample: '4つの例（K1）',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -531,6 +584,46 @@ describe('CT-GenAI Chapter 3 Page (Cat 4: 4. 3.3 エネルギー消費と環境�
         });
     });
 });
+
+describe('CT-GenAI Chapter 3 Page (Cat 5: 5. 3.4 AI規制・標準・ベストプラクティスフレームワーク)', () => {
+    it('renders Cat 5 headings correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#5-34-ai規制標準ベストプラクティスフレームワーク');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('5. 3.4 AI規制・標準・ベストプラクティスフレームワーク');
+
+        const h3Ids = [
+            '50-なぜこの節が必要なのか',
+            '51-genai-341--k14つの例',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
+
+    it('renders Mermaid diagram 9 correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const el = container.querySelector('[data-diagram-id="mermaid-diagram-9"]');
+        expect(el).not.toBeNull();
+    });
+
+    it('matches table inventory through Cat 5', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT5.length);
+
+        EXPECTED_TABLE_SPECS_CAT5.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+});
+
 
 
 
