@@ -334,6 +334,24 @@ export const EXPECTED_TABLE_SPECS_CAT5: TableSpec[] = [
     },
 ];
 
+export const EXPECTED_TABLE_SPECS_CAT6: TableSpec[] = [
+    ...EXPECTED_TABLE_SPECS_CAT5,
+    {
+        heading: '6.1 第3章 総まとめ表（試験直前チェック用）',
+        headers: ['節', 'K', '覚える中心', '一言'],
+        rows: 9,
+        cols: 4,
+        sample: '3.1.1',
+    },
+    {
+        heading: '6.2 よくある間違い（ひっかけポイント）',
+        headers: ['ひっかけの言い回し（誤り）', '正しい理解', '理由'],
+        rows: 11,
+        cols: 3,
+        sample: '「ある LLM 出力でハルシネーションを直せば、以後は再発しない」',
+    },
+];
+
 describe('CT-GenAI Chapter 3 Page (Cat 0: Hero & How-to-read)', () => {
     it('renders hero title and meta information correctly', () => {
         const { container } = render(<CtGenAiChapter3Page />);
@@ -623,6 +641,54 @@ describe('CT-GenAI Chapter 3 Page (Cat 5: 5. 3.4 AI規制・標準・ベスト�
         });
     });
 });
+
+describe('CT-GenAI Chapter 3 Page (Cat 6: 6. 試験対策：まとめ・チェックリスト・練習問題)', () => {
+    it('renders Cat 6 headings correctly', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const h2 = container.querySelector('h2#6-試験対策まとめチェックリスト練習問題');
+        expect(h2).not.toBeNull();
+        expect(h2?.textContent).toContain('6. 試験対策：まとめ・チェックリスト・練習問題');
+
+        const h3Ids = [
+            '61-第3章-総まとめ表試験直前チェック用',
+            '62-よくある間違いひっかけポイント',
+            '63-実務導入チェックリスト-補足',
+            '64-練習問題オリジナル12問',
+        ];
+        h3Ids.forEach((id) => {
+            const h3 = container.querySelector(`h3#${id}`);
+            expect(h3).not.toBeNull();
+        });
+    });
+
+    it('renders 4 checklist cards in Cat 6', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const cards = container.querySelectorAll('.checklist-card');
+        expect(cards.length).toBe(4);
+    });
+
+    it('renders 12 practice questions with details elements', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const details = container.querySelectorAll('details');
+        expect(details.length).toBeGreaterThanOrEqual(12);
+    });
+
+    it('matches table inventory through Cat 6', () => {
+        const { container } = render(<CtGenAiChapter3Page />);
+        const tables = collectTableInventory(container);
+        expect(tables.length).toBeGreaterThanOrEqual(EXPECTED_TABLE_SPECS_CAT6.length);
+
+        EXPECTED_TABLE_SPECS_CAT6.forEach((expected, i) => {
+            const actual = tables[i];
+            expect(actual.heading).toBe(expected.heading);
+            expect(actual.headers).toEqual([...expected.headers]);
+            expect(actual.rows).toBe(expected.rows);
+            expect(actual.cols).toBe(expected.cols);
+            expect(actual.sample).toContain(expected.sample);
+        });
+    });
+});
+
 
 
 
