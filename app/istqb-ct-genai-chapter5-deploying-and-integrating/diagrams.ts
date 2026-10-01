@@ -229,3 +229,108 @@ flowchart TD
     class C2,C3 box;
     class C1 hub;`;
 
+export const DIAGRAM_D10 = `${MERMAID_CONFIG}
+flowchart TD
+    ROOT["構造化された変革管理"]
+    T["技術面"]
+    O["組織面"]
+    ROOT --> T
+    ROOT --> O
+    T --> T1["5.2.1 スキルと知識<br/>プロンプト／コンテキストウィンドウ／評価／<br/>リスク認識／データサニタイズ／コスト・環境"]
+    O --> O1["5.2.2 チームの能力構築<br/>ハンズオン／プロンプトパターン／<br/>コミュニティ・オブ・プラクティス"]
+    O --> O2["5.2.3 テストプロセスの進化<br/>テスター：AI支援テストスペシャリスト<br/>テストマネージャー：オーケストレーション"]
+    T1 --> R["AIツールの活用・誤用の防止・抵抗の低減"]
+    O1 --> R
+    O2 --> R
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class ROOT hub;
+    class T,O,T1,O1,O2 box;
+    class R done;`;
+
+export const DIAGRAM_D11 = `${MERMAID_CONFIG}
+flowchart LR
+    subgraph BASE["従来のテスト専門性"]
+        B1["ドメイン知識"]
+        B2["テスト技法・経験"]
+    end
+    subgraph NEW["AI固有のスキル"]
+        N1["プロンプト<br/>エンジニアリング"]
+        N2["コンテキスト<br/>ウィンドウの理解"]
+        N3["出力の<br/>レビュー・評価"]
+        N4["リスク認識と<br/>データサニタイズ"]
+        N5["コスト・環境への<br/>配慮"]
+    end
+    OUT["責任あるAI支援テスト"]
+    B1 --> OUT
+    B2 --> OUT
+    N1 --> OUT
+    N2 --> OUT
+    N3 --> OUT
+    N4 --> OUT
+    N5 --> OUT
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class B1,B2,N1,N2,N3,N4,N5 box;
+    class OUT done;`;
+
+export const DIAGRAM_D12 = `${MERMAID_CONFIG}
+flowchart TD
+    C1["LLMへ送る内容を用意する"]
+    C2{"個人情報・認証情報・<br/>機密情報が含まれるか？"}
+    C3["マスキング／除去／仮名化"]
+    C4{"承認済みツール・<br/>許可された環境か？"}
+    C5["送信"]
+    C6["AIの出力を人がレビュー"]
+    C7["送信しない<br/>環境を切り替える／承認を得る"]
+    C1 --> C2
+    C2 -- "はい" --> C3
+    C2 -- "いいえ" --> C4
+    C3 --> C4
+    C4 -- "はい" --> C5 --> C6
+    C4 -- "いいえ" --> C7
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class C1,C3,C7 box;
+    class C2,C4 hub;
+    class C5,C6 done;`;
+
+export const DIAGRAM_D13 = `${MERMAID_CONFIG}
+flowchart TD
+    L1["ステップ1：基本的なプロンプト作成"]
+    L2["ステップ2：テスト特化の<br/>プロンプト技法（第2章）"]
+    L3["ステップ3：プロンプトパターンの活用<br/>（再利用可能なプロンプトのひな形）"]
+    L4["ステップ4：プロンプトライブラリと<br/>教訓の共有（組織の資産）"]
+    COP["コミュニティ・オブ・プラクティス（実践共同体）<br/>定期的な知識共有・成功事例・失敗と限界の議論"]
+    L1 --> L2 --> L3 --> L4
+    COP --> L3
+    COP --> L4
+    L4 -. "成功パターンを追加・改善" .-> L3
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class L1,L2,L3 box;
+    class L4 done;
+    class COP hub;`;
+
+export const DIAGRAM_D14 = `${MERMAID_CONFIG}
+flowchart LR
+    subgraph T["テスター"]
+        T1["従来：テスト設計者・実行者"]
+        T2["これから：AI支援テストスペシャリスト"]
+        T1 --> T2
+    end
+    subgraph M["テストマネージャー"]
+        M1["従来：計画・監視・統制"]
+        M2["これから：人とAIのワークフローのオーケストレーション"]
+        M1 --> M2
+    end
+    classDef box fill:#EEF1F8,stroke:#2E3F72,color:#161B26;
+    classDef hub fill:#FAF1DF,stroke:#B8802A,color:#161B26;
+    classDef done fill:#EAF4EC,stroke:#2F6B3D,color:#161B26;
+    class T1,M1 box;
+    class T2,M2 done;`;
+

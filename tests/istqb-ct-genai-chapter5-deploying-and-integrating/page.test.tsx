@@ -465,7 +465,8 @@ describe('CT-GenAI Chapter 5 Page (Cat 3: s7-s10)', () => {
         expect(s8?.querySelector('[data-diagram="d12"]')).not.toBeNull();
         const pb = s8?.querySelector('.prompt-block');
         expect(pb).not.toBeNull();
-        expect(pb?.textContent).toContain('プライバシー保護型プロンプト');
+        expect(pb?.textContent).toContain('個人情報・認証情報はすでにマスキング済みです');
+        expect(s8?.textContent).toContain('プライバシー保護型プロンプト');
     });
 
     it('renders section s9 (5.2.2 チーム能力の構築) with d13 diagram', () => {

@@ -11,6 +11,11 @@ import {
     DIAGRAM_D7,
     DIAGRAM_D8,
     DIAGRAM_D9,
+    DIAGRAM_D10,
+    DIAGRAM_D11,
+    DIAGRAM_D12,
+    DIAGRAM_D13,
+    DIAGRAM_D14,
 } from './diagrams';
 import './istqb-ct-genai-chapter5-deploying-and-integrating.css';
 
@@ -1272,6 +1277,889 @@ export default function CtGenAiChapter5Page() {
                         </ul>
                     </section>
 
+                    <section className="doc-section" id="s7">
+                        <h1 className="doc-h1">7. 5.2 変革管理（チェンジマネジメント）（概要）</h1>
+
+                        <h2 className="doc-h2">7.1 なぜ変革管理が必要なのか</h2>
+                        <p>
+                            <span className="tag tag-b">準拠</span>
+                            生成AIの導入は、<strong>単なる技術アップグレードではなく、人の働き方・役割・品質管理の仕方に影響する変革</strong>です。成功には、<strong>構造化された変革管理</strong>が不可欠です。
+                        </p>
+                        <p>含まれるもの：</p>
+                        <ul className="doc-list">
+                            <li><strong>新しいスキル</strong>の育成</li>
+                            <li><strong>従来のテスト職務の再定義</strong></li>
+                            <li>移行の<strong>技術面と組織面の両方</strong>への対応</li>
+                        </ul>
+                        <div className="spec-block">
+                            <div className="spec-label">ポイント</div>
+                            <p>
+                                変革管理がないと、どんなに強力なAIツールでも、<strong>使われない・誤用される・積極的に抵抗される</strong>リスクがあります。
+                            </p>
+                        </div>
+
+                        <h2 className="doc-h2">7.2 5.2の全体像（図解）</h2>
+                        <div className="diagram-card">
+                            <div data-diagram="d10">
+                                <Mermaid chart={DIAGRAM_D10} id="mermaid-d10" />
+                            </div>
+                            <div className="diagram-caption">
+                                技術面（5.2.1）と組織面（5.2.2・5.2.3）が、AIツールの活用と抵抗低減につながる
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="doc-section" id="s8">
+                        <h1 className="doc-h1">
+                            8. 5.2.1 生成AIを使ったテストに必要なスキルと知識
+                            <span className="k-badge">K2</span>
+                        </h1>
+
+                        <h2 className="doc-h2">8.1 考え方</h2>
+                        <p>
+                            <span className="tag tag-b">準拠</span>
+                            生成AIを使いこなすには、<strong>従来のテスト専門性に加えて、新しいスキルの組み合わせ</strong>が必要です。基本は「<strong>ドメイン知識・テスト経験 ＋ AI固有のスキル</strong>」です。
+                        </p>
+
+                        <h2 className="doc-h2">8.2 必要なスキル一覧</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>スキル領域</th>
+                                        <th>中身（要約）</th>
+                                        <th>関連する章</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>①</td>
+                                        <td><strong>プロンプトエンジニアリング</strong></td>
+                                        <td>
+                                            明確で、正確で、目的志向のプロンプトを作る力。これがスキルの<strong>中核</strong>
+                                        </td>
+                                        <td>第2章</td>
+                                    </tr>
+                                    <tr>
+                                        <td>②</td>
+                                        <td><strong>コンテキストウィンドウの理解</strong></td>
+                                        <td>
+                                            入力の量と構造が、出力の品質に影響することを理解する
+                                        </td>
+                                        <td>第1章1.1.2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>③</td>
+                                        <td><strong>AI生成テストウェアのレビュー・評価</strong></td>
+                                        <td>
+                                            テストケース、欠陥レポート、合成テストデータなどを<strong>評価できる</strong>。「AI結果を評価する力は、かつて手動でテストを設計する力と同じくらい重要になる」
+                                        </td>
+                                        <td>第2章2.3、第3章3.1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>④</td>
+                                        <td>
+                                            <strong>LLMの能力と限界の見極め・反復的改善</strong>
+                                        </td>
+                                        <td>
+                                            何ができ、どこまでか。反復的なプロンプトで出力を磨く
+                                        </td>
+                                        <td>第2章2.3.2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>⑤</td>
+                                        <td><strong>GenAIのリスクと軽減策の認識</strong></td>
+                                        <td>
+                                            テスト成果物をLLMへ送ることのデータセキュリティ上の意味を理解する
+                                        </td>
+                                        <td>第3章</td>
+                                    </tr>
+                                    <tr>
+                                        <td>⑥</td>
+                                        <td><strong>データサニタイズ（無害化）</strong></td>
+                                        <td>
+                                            機微・個人・機密情報を<strong>マスキングまたは除去</strong>する。<strong>プライバシー保護型のプロンプトエンジニアリング</strong>が日常業務の一部になる
+                                        </td>
+                                        <td>第3章3.2.3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>⑦</td>
+                                        <td><strong>環境・コストへの配慮</strong></td>
+                                        <td>
+                                            「右サイズ」のモデルを選ぶ／不要な計算を避ける使い方に最適化する／生産性向上とコスト・エネルギー消費のバランスをとる
+                                        </td>
+                                        <td>第3章3.3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            教材は、これを「<strong>責任あるテストとは、技術的に有能なだけでなく、経済的・環境的にも意識が高いこと</strong>」と表現しています。
+                        </p>
+
+                        <h2 className="doc-h2">8.3 スキルの全体像（図解）</h2>
+                        <div className="diagram-card">
+                            <div data-diagram="d11">
+                                <Mermaid chart={DIAGRAM_D11} id="mermaid-d11" />
+                            </div>
+                            <div className="diagram-caption">
+                                従来のテスト専門性とAI固有のスキルが組み合わさり、責任あるAI支援テストへつながる
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">8.4 データサニタイズをステップバイステップで理解する</h2>
+                        <p>
+                            <strong>データサニタイズ（Data sanitisation）</strong>とは、LLMに送る前に、<strong>個人情報・機密情報を、マスキング（伏せ字化・置換）または除去する</strong>ことです（第3章のデータ最小化・匿名化・仮名化と連動）。
+                        </p>
+
+                        <h3 className="doc-h3">ステップ1：送信前に「含まれていないか」を確認する</h3>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>個人を特定できる情報</td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            氏名、メールアドレス、電話番号、住所、会員ID
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>認証情報・秘密情報</td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            パスワード、APIキー、アクセストークン、内部URL
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>業務上の機密</td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            顧客名、契約金額、未公開の仕様、ソースコードの秘匿部分
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 className="doc-h3">ステップ2：マスキング／除去／置換を行う</h3>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>元のデータ（例）</th>
+                                        <th>サニタイズ後（例）</th>
+                                        <th>方法</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span className="tag tag-y">例</span> 山田太郎
+                                            taro.yamada@example.com
+                                        </td>
+                                        <td>【氏名A】 user_001@example.test</td>
+                                        <td>仮名化（架空値へ置換）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span className="tag tag-y">例</span> 顧客:
+                                            株式会社ABC商事、契約額 1,200万円
+                                        </td>
+                                        <td>顧客: 【顧客X】、契約額: 【金額】</td>
+                                        <td>マスキング（プレースホルダー）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span className="tag tag-y">例</span> Authorization: Bearer
+                                            eyJhbGciOi...
+                                        </td>
+                                        <td>（行ごと除去）</td>
+                                        <td>除去（そもそも送らない）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 className="doc-h3">
+                            ステップ3：サニタイズ後の入力でプロンプトを作る（プライバシー保護型プロンプト）
+                        </h3>
+                        <div className="prompt-block">
+                            <div className="pb-head"><i className="ti ti-message-2"></i>プロンプト例</div>
+                            <code>
+                                <span className="ph">【役割】</span>あなたはテスト分析の経験豊富なテストアナリストです。{"\n"}
+                                <span className="ph">【状況】</span>以下は、あるWebアプリのエラーログです。<span className="pv">個人情報・認証情報はすでにマスキング済みです。</span>{"\n"}
+                                <span className="ph">【指示】</span>エラーの原因候補を3つ挙げ、それぞれの確認手順を示してください。{"\n"}
+                                <span className="ph">【制約】</span>ログに存在しない情報を推測で補わないでください。不明な点は「不明」と書いてください。{"\n"}
+                                <span className="ph">【出力形式】</span>表（原因候補／根拠となるログ行／確認手順）{"\n"}
+                                <span className="ph">【入力データ】</span>（マスキング済みログをここに貼り付け）
+                            </code>
+                        </div>
+
+                        <h3 className="doc-h3">送信前チェックの流れ（図解）</h3>
+                        <div className="diagram-card">
+                            <div data-diagram="d12">
+                                <Mermaid chart={DIAGRAM_D12} id="mermaid-d12" />
+                            </div>
+                            <div className="diagram-caption">
+                                <span className="tag tag-y">例</span>
+                                機密情報の有無確認からマスキング、承認済み環境の確認、送信後のレビューまでの流れ
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">8.5 「右サイズ」モデルとコスト・エネルギーの考え方</h2>
+                        <ul className="doc-list">
+                            <li>
+                                <span className="tag tag-b">準拠</span>
+                                全部のタスクに最大・最高性能のモデルを使う必要はありません。<strong>タスクに見合ったモデル（右サイズ）</strong>を選びます。
+                            </li>
+                            <li>
+                                不要な計算（重複した問い合わせ、必要以上に長い入力など）を減らし、<strong>使い方を最適化</strong>します（第3章3.3：不要なモデル操作を制限することが重要）。
+                            </li>
+                            <li>
+                                <strong>生産性向上とコスト・エネルギー消費のバランス</strong>を考えます。
+                            </li>
+                        </ul>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>タスクの性質（例）</th>
+                                        <th>適したモデルの方向性（例）</th>
+                                        <th>理由</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ログの要約、定型的な分類</td>
+                                        <td>軽量なモデル（SLM等）で足りる場合がある</td>
+                                        <td>計算負荷・コストを抑えられる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>リスクに基づく優先順位付けなど複雑な多段階推論</td>
+                                        <td>推論能力の高いモデルを検討</td>
+                                        <td>推論エラーの抑制（第3章3.1.1）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>画面キャプチャの不整合検出</td>
+                                        <td>マルチモーダル対応モデル</td>
+                                        <td>画像入力が必要（第1章1.1.4）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 className="doc-h2">8.6 ベストプラクティス（5.2.1）</h2>
+                        <h3 className="doc-h3">シラバス準拠</h3>
+                        <ul className="doc-list">
+                            <li>
+                                <strong>プロンプト設計</strong>、<strong>入力量・構造の調整</strong>、<strong>出力の評価</strong>を「日常業務のスキル」として身につける
+                            </li>
+                            <li>
+                                LLMへ送る前に<strong>データサニタイズ</strong>（マスキング・除去）を行う
+                            </li>
+                            <li><strong>右サイズ</strong>のモデルを選び、使い方を最適化する</li>
+                        </ul>
+                        <div className="callout practice">
+                            <div className="callout-icon"><i className="ti ti-bulb"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">実務ベストプラクティス</div>
+                                <div className="table-wrap">
+                                    <table className="doc-table">
+                                        <thead>
+                                            <tr>
+                                                <th>施策</th>
+                                                <th>ねらい</th>
+                                                <th>根拠</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>スキルマトリクス</strong>（役割別に必要なAIスキルと現在レベル）を作る
+                                                </td>
+                                                <td>教育の優先順位を決める</td>
+                                                <td>
+                                                    EU AI Act第4条（AIリテラシー）の考え方に沿う実務的な整理
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    役割に応じた<strong>AIリテラシー研修</strong>を実施し、記録する
+                                                </td>
+                                                <td>組織としての説明責任を果たす</td>
+                                                <td>
+                                                    EU AI Act第4条（原文と改正の最新内容は公式条文で要確認）
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>プロンプトインジェクション</strong>や<strong>機密情報の出力</strong>などのリスクを、テスターも基本レベルで理解する
+                                                </td>
+                                                <td>攻撃・漏えいの早期気づき</td>
+                                                <td>
+                                                    OWASP Top 10 for LLM Applications 2025（LLM01/LLM02）
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">8.7 試験対策メモ（5.2.1）</h2>
+                        <ul className="doc-list">
+                            <li>
+                                出題は<strong>K2</strong>。<strong>「テスターが身につけるべきスキルとして適切なもの」</strong>、<strong>「なぜそれが必要か」</strong>を選ぶ形が想定されます。
+                            </li>
+                            <li>
+                                <strong>キーワード</strong>：プロンプトエンジニアリング／コンテキストウィンドウ／出力評価／データサニタイズ（マスキング・除去）／右サイズのモデル／コストと環境。
+                            </li>
+                            <li>
+                                <strong>ひっかけ注意</strong>：「AI導入後は、ドメイン知識・テスト経験は不要になる」→ <strong>誤り</strong>。<strong>テスト経験とAIスキルの組み合わせ</strong>が必要です。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section className="doc-section" id="s9">
+                        <h1 className="doc-h1">
+                            9. 5.2.2 テストチームの生成AI能力の構築 <span className="k-badge">K1</span>
+                        </h1>
+
+                        <h2 className="doc-h2">9.1 基本の考え方</h2>
+                        <p>
+                            <span className="tag tag-b">準拠</span>
+                            チームの本当のGenAI能力は、<strong>理論だけでは身につきません</strong>。<strong>ハンズオン中心</strong>のアプローチが不可欠です。
+                        </p>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>必要なもの</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>実践的な体験</td>
+                                        <td>複数のLLM/SLMに実際に触れる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>段階的な学習パス</td>
+                                        <td>順序立てて学べる道筋</td>
+                                    </tr>
+                                    <tr>
+                                        <td>継続的な機会</td>
+                                        <td>実際のテストシナリオでGenAIを適用し続ける機会</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            能力は、<strong>実験・振り返り・共有された経験</strong>を通じて徐々に育ちます。
+                        </p>
+
+                        <h2 className="doc-h2">9.2 能力の成長ステップ（図解）</h2>
+                        <div className="diagram-card">
+                            <div data-diagram="d13">
+                                <Mermaid chart={DIAGRAM_D13} id="mermaid-d13" />
+                            </div>
+                            <div className="diagram-caption">
+                                基本的なプロンプト作成から、プロンプトパターン・共有ライブラリへ。実践共同体が学習を後押しする
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">9.3 重要キーワードの解説</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>用語</th>
+                                        <th>意味</th>
+                                        <th>ポイント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>プロンプトパターン（Prompt patterns）</strong>
+                                        </td>
+                                        <td>
+                                            <strong>再利用可能なプロンプトのテンプレート</strong>。一貫性と信頼性のある結果を得るために設計
+                                        </td>
+                                        <td>
+                                            「何がうまくいき、何がうまくいかないか」という<strong>組織の知識が詰まっている</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>コミュニティ・オブ・プラクティス（Communities of practice）</strong>
+                                        </td>
+                                        <td>学習を継続させる社内の実践共同体</td>
+                                        <td>
+                                            定期的に<strong>成功したユースケース</strong>を共有／<strong>失敗と限界</strong>を議論／アプローチを<strong>共同で改善</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>共有プロンプトライブラリ</strong></td>
+                                        <td>使えるプロンプトを集めた共有の仕組み</td>
+                                        <td><strong>戦略的な資産</strong>になる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>文書化された教訓（Lessons learned）</strong>
+                                        </td>
+                                        <td>得られた学びの記録</td>
+                                        <td>同上。<strong>戦略的な資産</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="spec-block">
+                            <div className="spec-label">狙い</div>
+                            <p>
+                                GenAI能力が一部の専門家に<strong>閉じない</strong>こと。<strong>組織全体の集団的な強み</strong>にすること。
+                            </p>
+                        </div>
+
+                        <h2 className="doc-h2">
+                            9.4 プロンプトライブラリの作り方（ステップバイステップ）
+                        </h2>
+                        <h3 className="doc-h3">ステップ1：1件のプロンプトを「部品」として整理する</h3>
+                        <p>
+                            第2章の<strong>6つの構成要素</strong>（役割・文脈・指示・入力データ・制約・出力形式）を使って、再利用しやすい形にします。
+                        </p>
+
+                        <h3 className="doc-h3">
+                            ステップ2：メタ情報を付ける（ライブラリ登録フォーマット例）
+                        </h3>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>記入例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>プロンプトID／名前</strong></td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            TC-GEN-001／ユーザーストーリーからのテストケース生成
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>目的・対象タスク</strong></td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            受け入れ基準から機能テストケースを作成する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>想定モデル・設定</strong></td>
+                                        <td>使用モデル、温度パラメータ等（第3章3.1.4）</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>プロンプト本文（6要素）</strong></td>
+                                        <td>役割／文脈／指示／入力データ／制約／出力形式</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>使用する技法</strong></td>
+                                        <td>
+                                            プロンプトチェーン、フューショット、メタプロンプト（第2章）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>入力してよいデータ区分</strong></td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            「個人情報は禁止。マスキング済みのみ」など（5.1.1、5.2.1）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>評価結果</strong></td>
+                                        <td>
+                                            使用した指標（正確性、実行成功率など）と結果（2.3.1）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>既知の限界・注意点</strong></td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            「非機能要件を出しにくい」など
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>バージョン・更新日・オーナー</strong></td>
+                                        <td>
+                                            <span className="tag tag-y">例</span>
+                                            v1.2／2026-09-24／担当者名
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 className="doc-h3">ステップ3：評価・改善のサイクルに乗せる</h3>
+                        <p>
+                            第2章2.3.2の<strong>プロンプト評価・改善技法</strong>（反復的な修正、A/Bテスト、出力分析、ユーザーフィードバック、長さ・具体性の調整）を、ライブラリのプロンプトに継続適用します。
+                        </p>
+
+                        <h3 className="doc-h3">ステップ4：チームで共有・レビューする</h3>
+                        <p>
+                            定期的な<strong>プロンプト評価・最適化セッション</strong>を開催し、成功例・失敗例を共有します（第2章2.3.2）。
+                        </p>
+
+                        <h2 className="doc-h2">9.5 ベストプラクティス（5.2.2）</h2>
+                        <h3 className="doc-h3">シラバス準拠</h3>
+                        <ul className="doc-list">
+                            <li><strong>ハンズオン</strong>中心の学習（複数のLLM/SLMを体験）</li>
+                            <li><strong>基本 → テスト特化 → パターン</strong>へと段階的に進む</li>
+                            <li>
+                                <strong>コミュニティ・オブ・プラクティス</strong>で定期的に共有する
+                            </li>
+                            <li>
+                                <strong>プロンプトライブラリと教訓</strong>を戦略的資産として蓄積する
+                            </li>
+                        </ul>
+                        <div className="callout practice">
+                            <div className="callout-icon"><i className="ti ti-bulb"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">実務ベストプラクティス</div>
+                                <div className="table-wrap">
+                                    <table className="doc-table">
+                                        <thead>
+                                            <tr>
+                                                <th>施策</th>
+                                                <th>ねらい</th>
+                                                <th>根拠</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    プロンプトを<strong>コード成果物として扱う</strong>（バージョン管理、レビュー）
+                                                </td>
+                                                <td>変更履歴の追跡、品質の維持</td>
+                                                <td>
+                                                    AWS Prescriptive Guidance（「Treat prompts as code artifacts」）
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    社内に<strong>チャンピオン</strong>（推進役）を置き、相談窓口にする
+                                                </td>
+                                                <td>
+                                                    一部の専門家依存を避けつつ、立ち上がりを早める
+                                                </td>
+                                                <td>
+                                                    変革管理の一般的な実務（教材の「コミュニティ」の趣旨と整合）
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    学習コンテンツに<strong>失敗例</strong>を含める
+                                                </td>
+                                                <td>過信を防ぐ</td>
+                                                <td>
+                                                    第3章3.1（ハルシネーション、推論エラー、バイアス）
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    社内公開するプロンプトに<strong>入力禁止データ</strong>を明記する
+                                                </td>
+                                                <td>シャドーAI・情報漏えいの防止</td>
+                                                <td>5.1.1、第3章3.2.3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">9.6 試験対策メモ（5.2.2）</h2>
+                        <ul className="doc-list">
+                            <li>
+                                出題は<strong>K1</strong>。<strong>「プロンプトパターン」の定義</strong>、<strong>「コミュニティ・オブ・プラクティスの役割」</strong>、<strong>「共有プロンプトライブラリが資産になる」</strong>が狙われやすい点です。
+                            </li>
+                            <li>
+                                <strong>ひっかけ注意</strong>：
+                                <ul className="doc-list">
+                                    <li>
+                                        「GenAI能力は座学の研修だけで十分に身につく」→ <strong>誤り</strong>（<strong>ハンズオンが不可欠</strong>）
+                                    </li>
+                                    <li>
+                                        「GenAIに詳しい少数の専門家だけが使えればよい」→ <strong>誤り</strong>（<strong>集団的な強みにする</strong>）
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section className="doc-section" id="s10">
+                        <h1 className="doc-h1">
+                            10. 5.2.3 AI対応テスト組織におけるテストプロセスの進化
+                            <span className="k-badge">K1</span>
+                        </h1>
+
+                        <h2 className="doc-h2">10.1 全体像</h2>
+                        <p>
+                            <span className="tag tag-b">準拠</span>
+                            GenAIがテストプロセスに組み込まれると、<strong>テスターとテストマネージャーの役割が根本的に変わります</strong>。
+                        </p>
+                        <div className="diagram-card">
+                            <div data-diagram="d14">
+                                <Mermaid chart={DIAGRAM_D14} id="mermaid-d14" />
+                            </div>
+                            <div className="diagram-caption">
+                                テスターとテストマネージャーの役割が、それぞれ新しい形へ進化する
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">10.2 テスターの役割の変化</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>従来の責任</th>
+                                        <th>AI支援後に加わる／重みが増す責任</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>テストケースの作成・テストの実行が中心</td>
+                                        <td>それだけで終わらない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>—</td>
+                                        <td><strong>巧みに作られたプロンプトでAIを導く</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>—</td>
+                                        <td><strong>AI生成結果を批判的にレビューする</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>—</td>
+                                        <td><strong>反復的なプロンプトで出力を改善する</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>—</td>
+                                        <td>
+                                            <strong>テスト用のプロンプトライブラリを維持する</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>—</td>
+                                        <td>
+                                            <strong>どのAI結果を信頼し、どれを修正・破棄するかを判断する</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="spec-block">
+                            <div className="spec-label">最重要ポイント</div>
+                            <p>
+                                <strong>人間の判断は、より重要になる</strong>（less ではなく more）。
+                            </p>
+                        </div>
+
+                        <h2 className="doc-h2">10.3 テストマネージャーの役割の変化</h2>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>責任領域</th>
+                                        <th>内容（要約）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>AIベースのテスト戦略の策定</strong></td>
+                                        <td>5.1.2の観点を踏まえた戦略づくり</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>AIを意識したリスクマネジメント</strong></td>
+                                        <td>
+                                            AI固有のリスク（ハルシネーション、データ、規制等）を織り込む
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>AI支援テストプロセスの監視と統制</strong></td>
+                                        <td>指標に基づき効果とリスクを見る</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>人の専門性とAI能力のバランス</strong></td>
+                                        <td>何をAIに任せ、何を人が判断するか</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ガバナンスの枠組みの定義</strong></td>
+                                        <td>利用ルール、責任、承認済みツール等</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>品質への人の説明責任の維持</strong></td>
+                                        <td>「自動化に盲目的に委ねない」</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>AI対応ワークフローの調整</strong></td>
+                                        <td>
+                                            人間のテスターだけでなく、AI支援のワークフローも統括
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>ポリシー・規制へのコンプライアンス確保</strong>
+                                        </td>
+                                        <td>規制や社内ポリシーの順守（第3章3.4）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>戦略的・倫理的・運用上のリスクからの保護</strong>
+                                        </td>
+                                        <td>組織を守る</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            教材は、マネージャーの役割を「<strong>オーケストレーション（人・プロセス・知的システムを、一貫した統制されたテスト戦略へ整合させること）</strong>」と表現しています。
+                        </p>
+
+                        <h2 className="doc-h2">
+                            10.4 役割の変化と責任分担のイメージ（責任分担表の例）
+                        </h2>
+                        <p>
+                            <span className="tag tag-y">例</span>
+                            以下は、理解を助けるための<strong>架空の責任分担表</strong>です（実際の体制は組織に合わせて設計します）。
+                        </p>
+                        <div className="table-wrap">
+                            <table className="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>活動</th>
+                                        <th>テスター</th>
+                                        <th>テストマネージャー</th>
+                                        <th>承認者・関係部門（例）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>プロンプトの作成・改善</td>
+                                        <td>実行</td>
+                                        <td>助言</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AI生成物のレビュー（品質ゲート）</td>
+                                        <td>実行・判断</td>
+                                        <td>基準の設定</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>プロンプトライブラリの維持</td>
+                                        <td>実行</td>
+                                        <td>方針・監督</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>利用ポリシー・ガバナンス枠組みの策定</td>
+                                        <td>意見</td>
+                                        <td>実行</td>
+                                        <td>セキュリティ・法務が承認</td>
+                                    </tr>
+                                    <tr>
+                                        <td>効果測定・監視・改善判断</td>
+                                        <td>データ提供</td>
+                                        <td>実行・判断</td>
+                                        <td>経営層へ報告</td>
+                                    </tr>
+                                    <tr>
+                                        <td>規制・ポリシー順守の確認</td>
+                                        <td>遵守</td>
+                                        <td>責任</td>
+                                        <td>法務・コンプライアンス</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h2 className="doc-h2">10.5 ベストプラクティス（5.2.3）</h2>
+                        <h3 className="doc-h3">シラバス準拠</h3>
+                        <ul className="doc-list">
+                            <li>
+                                <strong>人の判断を中心に置く</strong>：AI出力は、テスターが批判的にレビューし、信頼・修正・破棄を判断する
+                            </li>
+                            <li>
+                                テストマネージャーは、<strong>AI戦略・AIリスク管理・監視統制・ガバナンス</strong>を担う
+                            </li>
+                            <li>
+                                <strong>品質は人の説明責任のもとにある</strong>（AIに丸投げしない）
+                            </li>
+                        </ul>
+                        <div className="callout practice">
+                            <div className="callout-icon"><i className="ti ti-bulb"></i></div>
+                            <div className="callout-body">
+                                <div className="callout-label">実務ベストプラクティス</div>
+                                <div className="table-wrap">
+                                    <table className="doc-table">
+                                        <thead>
+                                            <tr>
+                                                <th>施策</th>
+                                                <th>ねらい</th>
+                                                <th>根拠</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>役割記述書・評価項目を更新</strong>し、AIレビュー、プロンプトライブラリ保守などを明記する
+                                                </td>
+                                                <td>新しい責任を「業務」として認める</td>
+                                                <td>変革管理の一般的な実務（5.2の趣旨）</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    AI支援の<strong>判断ログ</strong>（採用・修正・却下の理由）を残す
+                                                </td>
+                                                <td>説明責任と学習の両立</td>
+                                                <td>
+                                                    NIST AI RMF（Govern／Measure）、ISO/IEC 42001（説明責任・継続的改善）
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>AI活用の成果を人の評価に適切に反映</strong>する
+                                                </td>
+                                                <td>「効率化＝要員削減」という不安を和らげる</td>
+                                                <td>5.1.4 人的要因を早期に扱う</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 className="doc-h2">10.6 試験対策メモ（5.2.3）</h2>
+                        <ul className="doc-list">
+                            <li>
+                                出題は<strong>K1</strong>。<strong>「テスター／テストマネージャーの責任として、AI導入後に適切なもの」</strong>を選ぶ形が想定されます。
+                            </li>
+                            <li>
+                                <strong>キーワード</strong>：<strong>AI支援テストスペシャリスト</strong>／プロンプトで導く／批判的レビュー／プロンプトライブラリ維持／<strong>オーケストレーション</strong>／人の説明責任。
+                            </li>
+                            <li>
+                                <strong>ひっかけ注意</strong>：「AIが進歩すると、人間の判断の重要性は下がる」→ <strong>誤り</strong>。<strong>より重要になります</strong>。
+                            </li>
+                        </ul>
+                    </section>
                 </div>
             </main>
         </div>
