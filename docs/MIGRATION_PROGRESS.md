@@ -13,10 +13,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `620eebb` |
-| 最新コミット内容 | `feat(ct-genai-ch3): implement cat 7 (references & footer)` |
+| 最新 HEAD | `dbb5e8e` |
+| 最新コミット内容 | `fix(ct-genai-ch3): fix sidebar layout overlap, mermaid blackout, and syntax highlighting` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `npm test`: 全テスト通過、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `npm test`: 全テスト通過（1229 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
 ## 2026/10/02: ISTQB CT-GenAI 第3章（生成AIのリスク管理）完全解説ガイドのNext.js完全移行
 
@@ -27,13 +27,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 全10点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
   - ハルシネーション・推論エラー・バイアスの検出と軽減技法、非決定性の軽減（temperature / seed）、プライバシー・セキュリティリスク（攻撃ベクトル4種、緩和策、運用環境3択）、エネルギー消費と環境影響、AI規制・標準・フレームワーク（ISO/IEC 42001, ISO/IEC 23053, EU AI Act, NIST AI RMF）、総まとめ表、よくある間違い11点、実務導入チェックリスト4基（`ChecklistCard.tsx`）、オリジナル練習問題12問を完全網羅。
   - 全47テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト（190件）、全30件以上の外部リンク（`target="_blank" rel="noopener noreferrer"`）の存在を検証。
+  - **レイアウト・スタイリング改善（2026-10-02 追加対応）**:
+    - `main` の globals リセットから `margin: 0 !important;` と `padding: 0 !important;` を除外し、`.main` に `margin-left: var(--sidebar-width) !important;`、`overflow-x: hidden;`、`box-sizing: border-box;`、`padding: 48px 72px 96px 56px;` を適用してサイドバーによる被りを解消。
+    - Mermaid 図解の黒潰れ防止 CSS（`.node rect`, `circle`, `ellipse`, `polygon`, `.nodeLabel`, `.cluster rect`, `.cluster .nodeLabel`）および横スクロール左端クリップ防止（`width: max-content`, `display: block`）を第1章・第2章の標準パターンと同期。`diagrams.ts` の `MERMAID_CONFIG` に `mainBkg: "#eff6ff"` を追加。
+    - 各コードブロック（Before/After プロンプト例、2.4節 OpenAI API 呼び出し、3.2節 仮名化処理）にシンタックスハイライトトークンクラス（`code-keyword`, `code-func`, `code-string`, `code-comment`, `code-number`）と CSS スタイルを定義・適用。
 - **ファイル構成**:
   - `app/istqb-ct-genai-chapter3-risk-management/page.tsx`
   - `app/istqb-ct-genai-chapter3-risk-management/NavBar.tsx`
   - `app/istqb-ct-genai-chapter3-risk-management/ChecklistCard.tsx`
   - `app/istqb-ct-genai-chapter3-risk-management/diagrams.ts`
   - `app/istqb-ct-genai-chapter3-risk-management/istqb-ct-genai-chapter3-risk-management.css`
-  - `tests/istqb-ct-genai-chapter3-risk-management/page.test.tsx`（30 tests / 1241 expect() calls）
+  - `tests/istqb-ct-genai-chapter3-risk-management/page.test.tsx`（31 tests / 1246 expect() calls）
 - `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter3-risk-management`（CT-GenAI 第3章 生成AIのリスク管理）を追加（全85件）。
 - `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 84 → 85 に同期。
 - `Ct-genai-chapter3.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter3.md` は `archive/md-archive/ct-specialist/` へ移動完了。
