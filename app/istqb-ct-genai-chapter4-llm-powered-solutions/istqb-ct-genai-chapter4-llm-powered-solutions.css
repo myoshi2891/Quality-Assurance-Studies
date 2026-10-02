@@ -62,6 +62,14 @@ main.ct-genai-chapter4-page {
     min-height: 100vh;
 }
 
+/* アンカーリンク移動時のヘッダー・免責バー被り防止 */
+.ct-genai-chapter4-page section,
+.ct-genai-chapter4-page h2,
+.ct-genai-chapter4-page h3,
+.ct-genai-chapter4-page [id] {
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
+}
+
 /* タイポグラフィ（Serif） */
 .ct-genai-chapter4-page h1,
 .ct-genai-chapter4-page h2,
@@ -88,11 +96,11 @@ main.ct-genai-chapter4-page {
 /* ---------- Sidebar ---------- */
 .ct-genai-chapter4-page .sidebar {
     position: fixed;
-    top: 60px; /* Header の高さ */
+    top: calc(60px + var(--disclaimer-height, 0px));
     left: 0;
     bottom: 0;
     width: var(--sidebar-w);
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     background: var(--ink);
     color: #f4efe4;
     overflow-y: auto;
@@ -583,6 +591,32 @@ main.ct-genai-chapter4-page {
     font-weight: 700 !important;
 }
 
+/* フローチャートノード黒潰れ防止 (mermaid v11 / globals.css ダークテーマ干渉対策) */
+.ct-genai-chapter4-page .mermaid-wrapper .node rect,
+.ct-genai-chapter4-page .mermaid-wrapper .node circle,
+.ct-genai-chapter4-page .mermaid-wrapper .node ellipse,
+.ct-genai-chapter4-page .mermaid-wrapper .node polygon {
+    fill: #eff6ff !important;
+    stroke: #93c5fd !important;
+}
+
+.ct-genai-chapter4-page .mermaid-wrapper .nodeLabel {
+    color: #0f172a !important;
+    fill: #0f172a !important;
+}
+
+/* サブグラフ（cluster）黒潰れ防止 */
+.ct-genai-chapter4-page .mermaid-wrapper .cluster rect {
+    fill: #f8fafc !important;
+    stroke: #e2e8f0 !important;
+}
+
+.ct-genai-chapter4-page .mermaid-wrapper .cluster .nodeLabel,
+.ct-genai-chapter4-page .mermaid-wrapper .cluster span {
+    color: #0f172a !important;
+    fill: #0f172a !important;
+}
+
 /* ---------- Comparison grid ---------- */
 .ct-genai-chapter4-page .compare-grid {
     display: grid;
@@ -984,7 +1018,7 @@ main.ct-genai-chapter4-page {
     .ct-genai-chapter4-page .mobile-bar {
         display: block;
         position: sticky;
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
         z-index: 30;
     }
     .ct-genai-chapter4-page .hero {
