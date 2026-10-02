@@ -846,3 +846,128 @@ describe('C6: 応用・まとめ（other-cases / oss / checklist / summary）', 
     }
   );
 });
+
+describe('C7: 参考文献・フッター', () => {
+  const GROUP_TITLES = [
+    '書籍・出版情報',
+    'Anomalo公式ブログ（著者らによる章別プレビュー）',
+    '国際的なエンジニアリング組織・著名開発者の発信',
+    '2026年時点のOSSエコシステム動向',
+  ];
+
+  it('参考文献: グループ見出し 4 件が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'references');
+    expect(headingTexts(section, 'h2')).toEqual(['参考文献・出典']);
+    expect(section.querySelector('h2 > i.ti.ti-link')).not.toBeNull();
+    const groups = Array.from(section.querySelectorAll('.ref-group-title')).map((g) =>
+      (g.textContent ?? '').trim()
+    );
+    expect(groups).toEqual(GROUP_TITLES);
+  });
+
+  it('参考文献: ref1〜ref15 の id 付きカードが連番で存在し、書籍参照元カードは id を持たない', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'references');
+    const cards = Array.from(section.querySelectorAll('.ref-card'));
+    expect(cards.length).toBe(16);
+    expect(cards[0]?.getAttribute('id')).toBeNull();
+    expect(cards[0]?.querySelector('.ref-num')?.textContent).toBe('✳');
+    const ids = cards.slice(1).map((c) => c.getAttribute('id'));
+    expect(ids).toEqual(Array.from({ length: 15 }, (_, i) => `ref${i + 1}`));
+    const nums = cards.slice(1).map((c) => c.querySelector('.ref-num')?.textContent);
+    expect(nums).toEqual(Array.from({ length: 15 }, (_, i) => String(i + 1)));
+  });
+
+  it('参考文献: 全 URL が外部リンク属性付きで、元 HTML の href 一覧と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'references');
+    const links = Array.from(section.querySelectorAll('a'));
+    const sourceLinks = Array.from(getSourceSection('references').querySelectorAll('a'));
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(
+      sourceLinks.map((a) => a.getAttribute('href'))
+    );
+    expect(links.length).toBe(19);
+    links.forEach((a) => {
+      expect(a.getAttribute('target')).toBe('_blank');
+      expect(a.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(a.getAttribute('href')).toMatch(/^https:\/\//);
+    });
+  });
+
+  it('references セクションが元 HTML と DOM 構造・テキストともに一致する', () => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, 'references');
+  });
+
+  it('フッターが元 HTML と一致し、content 直下の末尾に置かれる', () => {
+    const { container } = render(<Page />);
+    const footer = container.querySelector('.content > footer');
+    const sourceFooter = sourceDoc.querySelector('footer');
+    expect(footer).not.toBeNull();
+    expect(sourceFooter).not.toBeNull();
+    if (!footer || !sourceFooter) return;
+    expect(textBlocks(footer)).toEqual(textBlocks(sourceFooter));
+    expect(structureSignature(footer)).toEqual(structureSignature(sourceFooter));
+    expect(footer.previousElementSibling?.id).toBe('references');
+  });
+});
+
+describe('C7: ページ全体の突合（抜け漏れ・リンク切れ検出）', () => {
+  it('セクション id が元 HTML と同じ 15 件・同じ順序で、目次（TOC_ITEMS）とも一致する', () => {
+    const { container } = render(<Page />);
+    const rendered = Array.from(container.querySelectorAll('.content > section')).map((s) => s.id);
+    const source = Array.from(sourceDoc.querySelectorAll('.content > section')).map((s) => s.id);
+    expect(source.length).toBe(15);
+    expect(rendered).toEqual(source);
+    expect(TOC_ITEMS.map((item) => item.id)).toEqual(source);
+  });
+
+  it('全 13 図が過不足なく 1 度ずつ描画され、元 HTML のソース集合と一致する', async () => {
+    const { container } = render(<Page />);
+    const ids = Array.from({ length: 13 }, (_, i) => `dwrap-${i + 1}`);
+    expect(Array.from(container.querySelectorAll('.diagram-wrap')).map((w) => w.id)).toEqual(ids);
+    await expectDiagramsRendered(container, ids);
+    expect(renderedCharts.length).toBe(13);
+    expect(new Set(renderedCharts).size).toBe(13);
+    const captions = Array.from(container.querySelectorAll('.diagram-caption')).map(
+      (c) => c.querySelector('b')?.textContent
+    );
+    expect(captions).toEqual(Array.from({ length: 13 }, (_, i) => `図${i + 1}`));
+  });
+
+  it('本文の全ページ内アンカー（#...）が移行先の id に解決される（リンク切れなし）', () => {
+    const { container } = render(<Page />);
+    const hrefs = new Set<string>();
+    container.querySelectorAll('a[href^="#"]').forEach((a) => {
+      hrefs.add(a.getAttribute('href') ?? '');
+    });
+    const missing = Array.from(hrefs).filter((href) => {
+      const id = href.slice(1);
+      return container.querySelector(`[id="${id}"]`) === null;
+    });
+    expect(missing).toEqual([]);
+    expect(hrefs.size).toBe(15 + 17);
+  });
+
+  it('移行先の外部リンクはすべて target="_blank" と rel="noopener noreferrer" を持つ', () => {
+    const { container } = render(<Page />);
+    const external = Array.from(container.querySelectorAll('a[href^="http"]'));
+    expect(external.length).toBe(22);
+    const invalid = external.filter(
+      (a) => a.getAttribute('target') !== '_blank' || a.getAttribute('rel') !== 'noopener noreferrer'
+    );
+    expect(invalid).toEqual([]);
+  });
+
+  it('ページ全体のテキストブロックが元 HTML のコンテンツ領域と 1 対 1 で一致する', () => {
+    const { container } = render(<Page />);
+    const rendered = container.querySelector('.content');
+    const source = sourceDoc.querySelector('.content');
+    expect(rendered).not.toBeNull();
+    expect(source).not.toBeNull();
+    if (!rendered || !source) return;
+    expect(textBlocks(rendered)).toEqual(textBlocks(source));
+    expect(sectionText(rendered)).toBe(sectionText(source));
+  });
+});
