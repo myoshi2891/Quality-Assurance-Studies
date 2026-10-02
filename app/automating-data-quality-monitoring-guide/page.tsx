@@ -5,10 +5,12 @@ import NavBar from './NavBar';
 import {
   DIAGRAM_ALERT_LIFECYCLE,
   DIAGRAM_BACKTEST_LOOP,
+  DIAGRAM_BUILD_OR_BUY,
   DIAGRAM_CORE_IDEA,
   DIAGRAM_FACTORY_ORIGINS,
   DIAGRAM_FOUR_PILLARS,
   DIAGRAM_GBDT,
+  DIAGRAM_INTEGRATIONS,
   DIAGRAM_MODEL_CONCERNS,
   DIAGRAM_PITFALLS,
   DIAGRAM_ROADMAP,
@@ -1207,6 +1209,184 @@ export default function AutomatingDataQualityMonitoringGuidePage() {
               </sup>
               。
             </p>
+          </section>
+
+          {/* ===================== STEP 7 ===================== */}
+          <section className="section" id="step7">
+            <div className="step-head">
+              <div className="step-badge">7</div>
+              <h2>データスタック全体との統合で価値を最大化する</h2>
+            </div>
+            <p>
+              自動データ品質モニタリングは、単体で動いているだけでは真価を発揮しません。Chapter
+              7では、モニタリングを組織のデータスタック全体に組み込むための5つの統合ポイントが紹介されています<sup>
+                <a href="#ref10">[10]</a>
+              </sup>
+              。
+            </p>
+            <div className="diagram-wrap" id="dwrap-12">
+              <Mermaid chart={DIAGRAM_INTEGRATIONS} />
+            </div>
+            <p className="diagram-caption">
+              <b>図12</b>｜データスタックとの5つの統合ポイント
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">5つの統合先</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>統合先</th>
+                    <th>役割</th>
+                    <th>必須度</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>データウェアハウス</td>
+                    <td>
+                      監視対象データの本拠地。ネットワーク接続・読み取り権限・スキャン機構・メタデータ抽出が基本要素
+                    </td>
+                    <td>必須（ここがないと監視対象が存在しない）</td>
+                  </tr>
+                  <tr>
+                    <td>データオーケストレーター</td>
+                    <td>
+                      データが取り込まれる早い段階で問題を捕捉できる。チェックの実行・完了検知・検証の3機能が求められる
+                    </td>
+                    <td>必須</td>
+                  </tr>
+                  <tr>
+                    <td>データカタログ</td>
+                    <td>
+                      データ資産の一元的な発見・理解を支援。品質状況をカタログ側に表示し、逆にカタログの情報をモニタリング側の判断材料にする双方向連携が理想
+                    </td>
+                    <td>任意（価値が大きい）</td>
+                  </tr>
+                  <tr>
+                    <td>BIダッシュボード</td>
+                    <td>
+                      TableauやPower
+                      BIのようなツール上で、そのデータが信頼できるかを利用者に示す
+                    </td>
+                    <td>任意（価値が大きい）</td>
+                  </tr>
+                  <tr>
+                    <td>MLOpsツール</td>
+                    <td>
+                      Amazon
+                      SageMakerやMetaflowのような基盤に対し、モデルの再学習が必要かを、データそのものの品質から判断する材料を提供する
+                    </td>
+                    <td>任意（価値が大きい）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              データウェアハウス統合では、SOC
+              2準拠のようなセキュリティ基準を満たしつつ、PIIなど機微情報の扱いに注意する必要があります。また、エージェント型AIがデータとどう対話し、その会話データがどう保存・利用されるかについても、事前に方針を確認しておくべきだと書籍は指摘しています<sup>
+                <a href="#ref10">[10]</a>
+              </sup>
+              。
+            </p>
+          </section>
+
+          {/* ===================== STEP 8 ===================== */}
+          <section className="section" id="step8">
+            <div className="step-head">
+              <div className="step-badge">8</div>
+              <h2>本番展開とセルフドライビングデータへの道</h2>
+            </div>
+            <p>
+              最終章では、実際に組織へ導入・定着させるための意思決定ポイントが扱われます<sup>
+                <a href="#ref11">[11]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>ビルド（自社構築）か、バイ（購入）か</h3>
+            <div className="diagram-wrap" id="dwrap-13">
+              <Mermaid chart={DIAGRAM_BUILD_OR_BUY} />
+            </div>
+            <p className="diagram-caption">
+              <b>図13</b>｜ビルドかバイかの判断
+            </p>
+            <p>
+              「制御性」や「初期コストの低さ」がビルドの魅力ですが、実際にはライブラリ更新・セキュリティパッチ・新規統合の構築・進化するエージェントAI機能への追随など、継続的な工数がかかります。近年はオンプレ／VPC内完結のデプロイメントを提供するベンダーも増えており、「セキュリティ上の理由で自社構築しかない」という前提は必ずしも成り立たなくなってきています<sup>
+                <a href="#ref11">[11]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>オンボーディングと展開計画</h3>
+            <div className="table-wrap">
+              <div className="table-title">オンボーディング・展開の実践ポイント</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>観点</th>
+                    <th>実践のポイント</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>テーブルの監視範囲</td>
+                    <td>
+                      最初から全テーブルを網羅しようとせず、まず重要なテーブルから始めて信頼を積み上げる。SQLクエリログを見て頻繁に参照されるテーブル・カラムを特定するのも有効
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>時間軸</td>
+                    <td>
+                      直近データとの比較を基本としつつ、「その場更新」テーブルなど例外にはStep
+                      5のスナップショット手法を活用する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>設定アプローチ</td>
+                    <td>
+                      似た性質のテーブルはAPIでまとめて設定して構わないが、性質の異なるテーブルを一括設定するのは避ける。UIからの個別調整も並行して用意し、非エンジニアの専門家も貢献できるようにする
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ユーザーオンボーディング</td>
+                    <td>
+                      小規模でフラットな組織ならライブセッションや週次オフィスアワー、大規模で規制の厳しい組織ならオンデマンド教材や役割別アクセス制御など、組織文化に応じて設計する
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>定着のための継続的な改善</h3>
+            <p>
+              導入して終わりではなく、継続的に運用を磨き込むための実践が示されています<sup>
+                <a href="#ref11">[11]</a>
+              </sup>
+              。
+            </p>
+            <ul>
+              <li>
+                <strong>手順のドキュメント化</strong>
+                ：オンボーディングやトリアージ・対応のプロセスをランブックとして標準化する（チームごとのカスタマイズは歓迎される）
+              </li>
+              <li>
+                <strong>オーナーシップの明確化</strong>
+                ：どのテーブルの問題を誰が対応するのかを明確にする
+              </li>
+              <li>
+                <strong>データ基盤自体の強化</strong>
+                ：モニタリングを通じて見えてきた弱点を継続的に改善する
+              </li>
+              <li>
+                <strong>社内規範の確立</strong>
+                ：データ提供の適時性や、深刻度に応じた対応時間の目安を定める
+              </li>
+              <li>
+                <strong>ダッシュボードの整備</strong>
+                ：経営層を含む関係者が、モニタリングの成果パターンを俯瞰できるようにする
+              </li>
+            </ul>
           </section>
         </div>
       </main>

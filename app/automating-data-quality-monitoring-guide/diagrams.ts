@@ -171,3 +171,28 @@ export const DIAGRAM_ALERT_LIFECYCLE = `${MERMAID_CONFIG}flowchart LR
     class detect hub
     class doc done`;
 
+
+export const DIAGRAM_INTEGRATIONS = `${MERMAID_CONFIG}flowchart TB
+    core["自動データ品質　モニタリング基盤"]
+    core --> wh["データウェアハウス　データレイク"]
+    core --> orch["データオーケストレーター　ETL"]
+    core --> cat["データカタログ"]
+    core --> bi["BIダッシュボード"]
+    core --> mlops["MLOpsツール"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    class core hub`;
+
+export const DIAGRAM_BUILD_OR_BUY = `${MERMAID_CONFIG}flowchart TD
+    q["自動データ品質モニタリングを導入する"]
+    q --> build["ビルド　自社構築"]
+    q --> buy["バイ　外部ツール導入"]
+
+    build --> b1["メリット　柔軟な制御・低い直接コスト"]
+    build --> b2["デメリット　設計・保守・オンボーディング・セキュリティパッチ・エージェント機能の維持まですべて自社責任"]
+    buy --> s1["メリット　専任チームによる開発・研究・サポート、オンボーディング資料も充実、導入が速い"]
+    buy --> s2["デメリット　ライセンスコスト、ベンダーロックインの検討が必要"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    class q hub`;
+
