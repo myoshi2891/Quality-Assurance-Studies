@@ -21,19 +21,17 @@
     color: var(--text);
     font-family: var(--font-jp);
     line-height: 1.85;
-    font-size: 16px;
+    font-size: 1rem;
     min-height: 100vh;
     position: relative;
     -webkit-font-smoothing: antialiased;
 }
 
 /* globals.css 干渉リセット */
-/* .main は margin-left でサイドバー幅を確保するため別途定義 */
+/* padding/margin は .main ルールで制御するため、ここでは max-width のみリセット */
 .ct-genai-ch2-page main,
 main.ct-genai-ch2-page {
     max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 .ct-genai-ch2-page section {
@@ -73,7 +71,7 @@ main.ct-genai-ch2-page {
 }
 
 .ct-genai-ch2-page .hero-kicker {
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--accent-dark);
     letter-spacing: 0.06em;
@@ -101,7 +99,7 @@ main.ct-genai-ch2-page {
     border-top: 1px solid var(--border);
     padding: 20px 0 0;
     margin-top: 4px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .ct-genai-ch2-page .hero-meta p {
@@ -131,7 +129,7 @@ main.ct-genai-ch2-page {
     margin-bottom: 0 !important;
     /* overflow-x:hidden で子要素（mermaid-container）の overflow-x:auto が正しく機能する */
     overflow-x: hidden;
-    padding: 48px 72px 96px 56px;
+    padding: 48px 40px 96px 40px;
     box-sizing: border-box;
 }
 
@@ -212,7 +210,7 @@ main.ct-genai-ch2-page {
 .ct-genai-ch2-page table {
     border-collapse: collapse !important;
     width: 100% !important;
-    font-size: 14px;
+    font-size: 1rem;
     min-width: 480px;
 }
 
@@ -235,7 +233,7 @@ main.ct-genai-ch2-page {
 .ct-genai-ch2-page tbody td,
 .ct-genai-ch2-page td {
     color: var(--text) !important;
-    font-size: 14px !important;
+    font-size: 1rem !important;
 }
 
 .ct-genai-ch2-page tr.odd td {
@@ -254,7 +252,7 @@ main.ct-genai-ch2-page {
     background: var(--card2);
     padding: 1px 5px;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 1rem;
 }
 
 /* コールアウト */
@@ -275,7 +273,7 @@ main.ct-genai-ch2-page {
     gap: 8px;
     font-weight: 700;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .ct-genai-ch2-page .callout-icon {
@@ -324,7 +322,7 @@ main.ct-genai-ch2-page {
     background: var(--card2);
     border-color: var(--border);
     color: var(--text-faint);
-    font-size: 14px;
+    font-size: 1rem;
 }
 .ct-genai-ch2-page .callout-generic p:last-child {
     margin-bottom: 0;
@@ -344,7 +342,7 @@ main.ct-genai-ch2-page {
     align-items: center;
     gap: 12px;
     margin-bottom: 16px;
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 700;
 }
 
@@ -380,16 +378,28 @@ main.ct-genai-ch2-page {
 }
 
 .ct-genai-ch2-page ul.task-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 8px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--border);
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .ct-genai-ch2-page ul.task-list li:last-child {
     border-bottom: none;
+}
+
+.ct-genai-ch2-page ul.task-list label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.ct-genai-ch2-page ul.task-list .cl-text {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.5;
+    font-size: 1rem;
 }
 
 .ct-genai-ch2-page ul.task-list input[type='checkbox'] {
@@ -397,8 +407,8 @@ main.ct-genai-ch2-page {
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
-    flex-shrink: 0;
-    margin-top: 2px;
+    flex: 0 0 18px;
+    margin: 3px 0 0 0;
     border: 2px solid var(--border);
     border-radius: 5px;
     cursor: pointer;
@@ -414,7 +424,7 @@ main.ct-genai-ch2-page {
 .ct-genai-ch2-page ul.task-list input[type='checkbox']:checked::after {
     content: '';
     position: absolute;
-    left: 5px;
+    left: 4px;
     top: 1px;
     width: 5px;
     height: 9px;
@@ -423,7 +433,8 @@ main.ct-genai-ch2-page {
     transform: rotate(45deg);
 }
 
-.ct-genai-ch2-page ul.task-list li.completed {
+.ct-genai-ch2-page ul.task-list li.checked .cl-text,
+.ct-genai-ch2-page ul.task-list li.completed .cl-text {
     text-decoration: line-through;
     color: var(--text-faint);
 }
@@ -433,7 +444,7 @@ main.ct-genai-ch2-page {
     margin-top: 60px;
     padding-top: 24px;
     border-top: 1px solid var(--border);
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--text-faint);
 }
 
@@ -459,14 +470,14 @@ main.ct-genai-ch2-page {
 }
 
 .ct-genai-ch2-page .sidebar-brand .brand-kicker {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--accent);
     font-weight: 700;
     letter-spacing: 0.04em;
 }
 
 .ct-genai-ch2-page .sidebar-brand .brand-title {
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 700;
     margin-top: 4px;
     color: var(--text);
@@ -486,7 +497,7 @@ main.ct-genai-ch2-page {
 .ct-genai-ch2-page ul.side-nav > li > a {
     display: block;
     padding: 9px 20px;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text);
     text-decoration: none;
@@ -501,7 +512,7 @@ main.ct-genai-ch2-page {
 .ct-genai-ch2-page ul.side-nav-sub > li > a {
     display: block;
     padding: 7px 20px 7px 34px;
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--text-faint);
     text-decoration: none;
     border-left: 3px solid transparent;
