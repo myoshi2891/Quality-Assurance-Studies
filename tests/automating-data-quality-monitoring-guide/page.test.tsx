@@ -575,3 +575,98 @@ describe('C3: Step 3〜4（ROI 判断・教師なし ML モデル）', () => {
     expectSectionMatchesSource(container, id);
   });
 });
+
+describe('C4: Step 5〜6（実データ対応・通知設計）', () => {
+  it('Step 5: 見出し・5 つの落とし穴表・合成異常リスト・評価指標表が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step5');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('5');
+    expect(headingTexts(section)).toEqual([
+      '実データでモデルを機能させる',
+      'モデルをつまずかせる5つの現象と対策',
+      '「良性のカオス」でモデルを鍛える：合成異常によるテスト',
+      'バックテストと評価指標',
+    ]);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: '5つの落とし穴と対策',
+        headers: ['現象', '何が起きるか', '対策の要点'],
+        rowLeads: [
+          '季節性',
+          '時間依存の特徴量',
+          'カオスなテーブル',
+          '特殊な更新タイプ（静的テーブル／その場更新テーブル）',
+          'カラム相関',
+        ],
+      },
+      {
+        title: '主な評価指標',
+        headers: ['指標', '意味'],
+        rowLeads: ['実行時間', '適合率（Precision）', '再現率（Recall）', 'F1スコア', 'AUC（Area Under the Curve）'],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual([
+      '図9｜実データでつまずきやすい5現象と対策',
+      '図10｜バックテストと評価指標算出のループ',
+    ]);
+
+    const syntheticAnomalies = Array.from(section.querySelectorAll(':scope > ul > li')).map((li) =>
+      li.textContent?.trim()
+    );
+    expect(syntheticAnomalies).toEqual([
+      'あるカラムの値をランダムな係数で乗算する',
+      'カラムの15%の値をNULLに置き換える',
+      '最頻値（モード）に一致する行を削除する',
+      'カラムの値をランダムな浮動小数点数に置き換える',
+    ]);
+  });
+
+  it('Step 6: 見出し・解決ステップ・良いアラート表・アラート疲れ対策表が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step6');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('6');
+    expect(headingTexts(section)).toEqual([
+      '良い通知を設計し、アラート疲れを防ぐ',
+      'アラートが支える4つの解決ステップ',
+      '良いアラートに必要な要素',
+      'アラート疲れを防ぐ5つの工夫',
+    ]);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: '良いアラートの構成要素',
+        headers: ['要素', '内容'],
+        rowLeads: ['タイトル', '説明文', '可視化', 'トラッキング情報', 'クイックアクション'],
+      },
+      {
+        title: 'アラート疲れ対策',
+        headers: ['工夫', '内容'],
+        rowLeads: [
+          'チェックの実行順序を最適化',
+          '関連アラートのクラスタリング',
+          '優先度によるサプレッション',
+          '継続的な再学習',
+          '柔軟な感度調整',
+        ],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual(['図11｜アラートのライフサイクル']);
+
+    const steps = Array.from(section.querySelectorAll(':scope > ul > li > strong')).map((s) =>
+      s.textContent?.trim()
+    );
+    expect(steps).toEqual(['トリアージ', 'ルーティング', '解決（RCA）', 'ドキュメント化']);
+    expect(section.querySelector(':scope > p > strong')?.textContent).toBe(
+      '誰に（Audience）・どこに（Channel）・いつ（Timing）'
+    );
+  });
+
+  it('図9〜11 の Mermaid ソースが元 HTML と一致して描画される', async () => {
+    const { container } = render(<Page />);
+    await expectDiagramsRendered(container, ['dwrap-9', 'dwrap-10', 'dwrap-11']);
+  });
+
+  it.each(['step5', 'step6'])('%s が元 HTML と DOM 構造・テキストともに一致する', (id) => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, id);
+  });
+});
