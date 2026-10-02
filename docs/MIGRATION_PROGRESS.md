@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-10-02
+Updated 2026-10-03
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 87 ルート = ガイドライブラリ index + 86 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 88 ルート = ガイドライブラリ index + 87 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,35 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `3881725` |
-| 最新コミット内容 | `fix(ct-genai-ch4): place syllabus 2-step execution inside callout as list and remove table` |
+| 最新 HEAD | `9cbce42` |
+| 最新コミット内容 | `docs(data-quality-monitoring): sync CLAUDE.md and GEMINI.md` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `npm test`: 全テスト通過（1279 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `npm test`: 全テスト通過（1346 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+
+## 2026/10/03: データ品質モニタリング自動化ガイドのNext.js完全移行
+
+- **移行先**: `/automating-data-quality-monitoring-guide`
+- **移行内容**:
+  - `Automating-data-quality-monitoring-guide.html` / `Automating-data-quality-monitoring-guide.md` を Next.js App Router へ完全移行。
+  - TDD 必須サイクル（Red → Green）を厳格に適用し、全8カテゴリー（土台・はじめに・Step 0〜2・Step 3〜4・Step 5〜6・Step 7〜8・応用とまとめ・参考文献）と目次登録に分割して段階的にコミット。
+  - 元 HTML を仕様として読み込む突合基盤（`tests/automating-data-quality-monitoring-guide/source.ts`）を新設。固定配列との 1 対 1 照合に加え、セクション単位で「DOM 構造シグネチャ（タグ・クラス・id・リンク属性）」「テキストブロック」「全文（空白無視）」を元 HTML と突合し、Mermaid ソースも元スクリプトから抽出して比較する。
+  - スティッキーナビ（`NavBar.tsx`、全17セクションアンカー、`lib/useScrollSpy.ts`、モバイルトグル、`aria-current` 対応）とメイン領域（`.dqm-layout`）。
+  - 全13点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底（`tests/lib/mermaid-theme-contract.test.ts` 準拠）。
+  - 全16表（kv-table 1・章構成・4本柱比較・4V・モデルの性質／非要件・エンコード方式・5つの落とし穴・評価指標・アラート関連・統合先・オンボーディング・OSS）、コールアウト4種（既定2・tip・warn）、番号付き `summary-list`、12項目の対話型チェックリスト（`Checklist.tsx`、進捗カウンタ連動）、参考文献16件（`ref1`〜`ref15` アンカー、全外部リンクに `target="_blank" rel="noopener noreferrer"`）、フッターを完全網羅。
+  - 元 HTML はルート直下から `archive/html-archive/books/`、Markdown は `archive/md-archive/books/` へ移動。移行テストはアーカイブ側の元 HTML を読み込んで突合を継続する。
+- **ファイル構成**:
+  - `app/automating-data-quality-monitoring-guide/page.tsx`
+  - `app/automating-data-quality-monitoring-guide/NavBar.tsx`
+  - `app/automating-data-quality-monitoring-guide/Checklist.tsx`
+  - `app/automating-data-quality-monitoring-guide/diagrams.ts`
+  - `app/automating-data-quality-monitoring-guide/automating-data-quality-monitoring-guide.css`
+  - `tests/automating-data-quality-monitoring-guide/page.test.tsx`（62 tests / 499 expect() calls）
+  - `tests/automating-data-quality-monitoring-guide/source.ts`（元 HTML 突合用ヘルパー）
+- `lib/navigation.ts`: `books-practices` カテゴリに `/automating-data-quality-monitoring-guide`（データ品質モニタリング自動化ガイド）を追加（全88件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 87 → 88 に同期。
+- `tests/lib/navigation.test.ts`: 総件数を 88、`books-practices` を 19 に更新し、新規ページの登録検証を追加。
+- 検証: `npm test` 全 1346 tests 通過、ESLint・型チェック（対象ファイル）エラーなし。`next build` は実行していない（サンドボックス制約によりユーザー実行待ち）。
+- 目視確認はユーザーが `/automating-data-quality-monitoring-guide` をブラウザで確認する（CSS 変更後は `make css-reset` 推奨）。
 
 ## 2026/10/02: ISTQB CT-GenAI 第4章（LLM搭載テストインフラ）完全ガイドのNext.js完全移行
 
@@ -1268,6 +1293,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ai-driven-software-testing-guide.html` | `/ai-driven-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Automating-data-quality-monitoring-guide.html` | `/automating-data-quality-monitoring-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
@@ -1293,7 +1319,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（1 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -1306,7 +1332,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 87 ルート（ガイドライブラリ index + 86 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 88 ルート（ガイドライブラリ index + 87 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
