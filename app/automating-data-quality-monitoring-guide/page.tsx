@@ -3,11 +3,14 @@ import type { Metadata } from 'next';
 import Mermaid from '../../components/Mermaid';
 import NavBar from './NavBar';
 import {
+  DIAGRAM_ALERT_LIFECYCLE,
+  DIAGRAM_BACKTEST_LOOP,
   DIAGRAM_CORE_IDEA,
   DIAGRAM_FACTORY_ORIGINS,
   DIAGRAM_FOUR_PILLARS,
   DIAGRAM_GBDT,
   DIAGRAM_MODEL_CONCERNS,
+  DIAGRAM_PITFALLS,
   DIAGRAM_ROADMAP,
   DIAGRAM_ROI_FLOW,
   DIAGRAM_SCARS_AND_SHOCKS,
@@ -903,6 +906,304 @@ export default function AutomatingDataQualityMonitoringGuidePage() {
             <p>
               SHAP値を使うことで、「軽微」から「深刻」までの重大度を可視化し、数千ものデータポイントを横断して「どこを調査すべきか」を一目で把握できるようになります。たとえば、ある値の出現頻度が急に減り、別の値が急増していれば、その部分でラベル付けの誤りが起きている可能性が高い、といった読み解きができます<sup>
                 <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+          </section>
+
+          {/* ===================== STEP 5 ===================== */}
+          <section className="section" id="step5">
+            <div className="step-head">
+              <div className="step-badge">5</div>
+              <h2>実データでモデルを機能させる</h2>
+            </div>
+            <p>
+              理論上きれいなモデルも、現実のデータにぶつかると簡単には機能しません。Chapter
+              5では、実データ特有の&quot;クセ&quot;とその対処法が具体的に示されています<sup>
+                <a href="#ref8">[8]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>モデルをつまずかせる5つの現象と対策</h3>
+            <div className="table-wrap">
+              <div className="table-title">5つの落とし穴と対策</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>現象</th>
+                    <th>何が起きるか</th>
+                    <th>対策の要点</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>季節性</td>
+                    <td>12月のアイスクリーム販売のように、周期的な変動を異常と誤認する</td>
+                    <td>
+                      行数や平均取引額などのメタデータを時系列で蓄積し、周期パターンを明示的にモデルへ教える
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>時間依存の特徴量</td>
+                    <td>
+                      自動採番IDやタイムスタンプは「今日かどうか」を機械学習にとって自明にしてしまい、偽陽性が量産される
+                    </td>
+                    <td>
+                      補助的な単純モデルを作り、常に予測に強く効く特徴量を特定して本番モデルから除外する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>カオスなテーブル</td>
+                    <td>倉庫の臨時棚卸しのような不定期な更新は、日によって変化量が大きくぶれる</td>
+                    <td>
+                      SHAP値の平均的な大きさを時系列で追い、テーブルごとの「カオスの度合い」に応じてしきい値を動的に調整する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>特殊な更新タイプ（静的テーブル／その場更新テーブル）</td>
+                    <td>
+                      ディメンションテーブルや、配送日のように後から値が埋まる列は、毎日「異常」に見えてしまう
+                    </td>
+                    <td>
+                      定期的にテーブルのスナップショットを取得し、生きたデータではなくスナップショットの差分をモデルに評価させる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>カラム相関</td>
+                    <td>
+                      1つのカラムの異常が複数の関連カラムに波及し、別々のアラートとして重複してしまう
+                    </td>
+                    <td>SHAP値のパターンと大きさが似ている列同士をクラスタリングし、まとめて1つのアラートにする</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="diagram-wrap" id="dwrap-9">
+              <Mermaid chart={DIAGRAM_PITFALLS} />
+            </div>
+            <p className="diagram-caption">
+              <b>図9</b>｜実データでつまずきやすい5現象と対策
+            </p>
+
+            <h3>「良性のカオス」でモデルを鍛える：合成異常によるテスト</h3>
+            <p>
+              人手でラベル付けされたデータでモデルを評価するのが機械学習の一般的な方法ですが、企業規模でそれをやるのはコストが高く、しかも人間側の誤りが混入するリスクがあります。書籍が勧めるのは、
+              <strong>
+                意図的に「合成異常（synthetic
+                chaos）」をデータに注入し、モデルがそれを検知できるかをテストする
+              </strong>
+              アプローチです<sup>
+                <a href="#ref8">[8]</a>
+              </sup>
+              。
+            </p>
+            <p>代表的な合成異常の例：</p>
+            <ul>
+              <li>あるカラムの値をランダムな係数で乗算する</li>
+              <li>カラムの15%の値をNULLに置き換える</li>
+              <li>最頻値（モード）に一致する行を削除する</li>
+              <li>カラムの値をランダムな浮動小数点数に置き換える</li>
+            </ul>
+            <p>
+              実際の異常の多くも、何らかのコンピュータ処理の結果として発生するため、「合成異常を検知できるモデルは、現実の異常も検知しやすくなる」というのが書籍の基本的な考え方です<sup>
+                <a href="#ref8">[8]</a>
+              </sup>
+              。ただし、これはあくまで意図的に注入したパターンに対する評価であり、実データに似せた合成異常や履歴データでのバックテストだけで実際の異常の検知能力そのものが証明されるわけではありません。過去インシデントの再現検証など、追加の検証範囲も併せて必要になります。Anomaloは、このような合成異常を体系的に生成する「カオスライブラリ」を社内で保有しており、Databricks
+              Data + AI Summitでの講演でもその仕組みが紹介されています<sup>
+                <a href="#ref8">[8]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>バックテストと評価指標</h3>
+            <div className="diagram-wrap" id="dwrap-10">
+              <Mermaid chart={DIAGRAM_BACKTEST_LOOP} />
+            </div>
+            <p className="diagram-caption">
+              <b>図10</b>｜バックテストと評価指標算出のループ
+            </p>
+            <p>
+              主な評価指標は次のとおりです<sup>
+                <a href="#ref8">[8]</a>
+              </sup>
+              。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">主な評価指標</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>指標</th>
+                    <th>意味</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>実行時間</td>
+                    <td>モデルは毎日実行されるため、精度向上とのトレードオフを見極める必要がある</td>
+                  </tr>
+                  <tr>
+                    <td>適合率（Precision）</td>
+                    <td>アラートのうち実際に異常だった割合。高いほど誤報が少ない</td>
+                  </tr>
+                  <tr>
+                    <td>再現率（Recall）</td>
+                    <td>実際の異常のうちアラートできた割合。高いほど見逃しが少ない</td>
+                  </tr>
+                  <tr>
+                    <td>F1スコア</td>
+                    <td>適合率と再現率のバランスを示す指標。改善が一方を犠牲にしがちなため重要</td>
+                  </tr>
+                  <tr>
+                    <td>AUC（Area Under the Curve）</td>
+                    <td>0.5がランダム推測、1.0が完全な検知性能を表す</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              この一連の検証プロセスによって、適合率と再現率、そして計算コストの間のトレードオフを定量的に把握しながらモデルを磨き込むことができます。
+            </p>
+          </section>
+
+          {/* ===================== STEP 6 ===================== */}
+          <section className="section" id="step6">
+            <div className="step-head">
+              <div className="step-badge">6</div>
+              <h2>良い通知を設計し、アラート疲れを防ぐ</h2>
+            </div>
+            <p>
+              どれほど優れたモデルで異常を検知できても、担当者に届かなければ意味がありません。Chapter
+              6は、検知した問題を「人間が対応できる形」に変換するための実践的なノウハウを扱います<sup>
+                <a href="#ref9">[9]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>アラートが支える4つの解決ステップ</h3>
+            <div className="diagram-wrap" id="dwrap-11">
+              <Mermaid chart={DIAGRAM_ALERT_LIFECYCLE} />
+            </div>
+            <p className="diagram-caption">
+              <b>図11</b>｜アラートのライフサイクル
+            </p>
+            <ul>
+              <li>
+                <strong>トリアージ</strong>
+                ：「先日の寒波でアイスの売上が落ちた」のように、状況を判断できる文脈が重要。アラートは受け取った人にとって暗黙の“タスク”になるため、簡潔で構造化されている必要がある<sup>
+                  <a href="#ref9">[9]</a>
+                </sup>
+              </li>
+              <li>
+                <strong>ルーティング</strong>
+                ：ETL起因ならデータエンジニアリングチーム、コード変更起因ならプロダクトエンジニアリングチームなど、組織や部門によって最適な担当は異なる。初期設定には手間がかかるが、迅速な対応につながる投資<sup>
+                  <a href="#ref9">[9]</a>
+                </sup>
+              </li>
+              <li>
+                <strong>解決（RCA）</strong>
+                ：どのセグメントに問題が集中しているかを可視化し、調査の起点を示す
+              </li>
+              <li>
+                <strong>ドキュメント化</strong>
+                ：解決後すぐに記録することで、次に同様の問題が起きたときの判断材料になる
+              </li>
+            </ul>
+
+            <h3>良いアラートに必要な要素</h3>
+            <div className="table-wrap">
+              <div className="table-title">良いアラートの構成要素</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>要素</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>タイトル</td>
+                    <td>一目で状況を把握できる短い説明（特にメール通知で重要）</td>
+                  </tr>
+                  <tr>
+                    <td>説明文</td>
+                    <td>テーブル名・カラム名・問題の内容・期待値を含む、自動生成された要約</td>
+                  </tr>
+                  <tr>
+                    <td>可視化</td>
+                    <td>グラフ1点に絞る。情報過多は逆効果</td>
+                  </tr>
+                  <tr>
+                    <td>トラッキング情報</td>
+                    <td>手動設定のチェック（検証ルール・主要指標）については作成者・最終更新者・日時</td>
+                  </tr>
+                  <tr>
+                    <td>クイックアクション</td>
+                    <td>
+                      「詳細を見る」「チェックを編集する」「トリアージを開始する」など次の行動への導線
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              通知の送り先設計では、
+              <strong>誰に（Audience）・どこに（Channel）・いつ（Timing）</strong>
+              を明確にすることが重要です。関係者が複数部門にまたがる場合は専用チャンネルを作って情報を一元化し、Slack・メールに加えてPagerDuty・OpsGenieのようなオンコール管理ツールや、Jira・ServiceNowのようなチケット管理ツールとの連携も検討します。ルーティング漏れを防ぐデフォルトチャンネルの設置も忘れてはいけません<sup>
+                <a href="#ref9">[9]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>アラート疲れを防ぐ5つの工夫</h3>
+            <div className="table-wrap">
+              <div className="table-title">アラート疲れ対策</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>工夫</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>チェックの実行順序を最適化</td>
+                    <td>
+                      観測性チェック（データが届いているか）を最初に実行し、揃ってから他のチェックを走らせる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>関連アラートのクラスタリング</td>
+                    <td>
+                      同一原因が疑われる複数カラムの異常（例：クレジットカード番号・有効期限・郵便番号が同時にNULL）はまとめて1通に
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>優先度によるサプレッション</td>
+                    <td>
+                      Low（通知しない）・Normal（3回連続失敗まで通知、その後は週1回）・High（毎回通知）といった段階を用意する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>継続的な再学習</td>
+                    <td>
+                      翌日には「新しい正常」に適応させ、キャンペーンなど正当な変化への過検知を防ぐ（Step
+                      4のモデルは日次で自動的にこれを行う）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>柔軟な感度調整</td>
+                    <td>
+                      信頼区間を95%・80%のように調整できるようにし、ユーザーが許容できる変動幅を選べるようにする
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              ただし、「予期される変化」を一律に抑制するのは禁物です。マーケティング施策による急上昇であっても、初回だけはアラートを出しておくことで、将来の分析に役立つ文脈情報を残し、本当に想定外の変化を見逃すリスクも避けられます。アラートは「間違っている」ことを意味するのではなく、「普段と違う」ことを知らせるものだという前提を忘れないことが大切です<sup>
+                <a href="#ref9">[9]</a>
               </sup>
               。
             </p>

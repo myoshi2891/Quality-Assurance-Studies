@@ -128,3 +128,46 @@ export const DIAGRAM_GBDT = `${MERMAID_CONFIG}flowchart LR
     classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
     class more done`;
 
+
+export const DIAGRAM_PITFALLS = `${MERMAID_CONFIG}flowchart TB
+    pitfalls["実データでつまずきやすい5現象"]
+    pitfalls --> p1["季節性"]
+    pitfalls --> p2["時間依存特徴量"]
+    pitfalls --> p3["カオスなテーブル"]
+    pitfalls --> p4["特殊な更新タイプ"]
+    pitfalls --> p5["カラム相関"]
+
+    p1 --> s1["周期パターンをメタデータで学習"]
+    p2 --> s2["強く効く特徴量を検出して除外"]
+    p3 --> s3["SHAP値でカオス度を算出し閾値を動的化"]
+    p4 --> s4["スナップショット差分を評価対象にする"]
+    p5 --> s5["SHAP値パターンで相関列をクラスタ化"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    class pitfalls hub`;
+
+export const DIAGRAM_BACKTEST_LOOP = `${MERMAID_CONFIG}flowchart LR
+    hist["クリーンな履歴データで日次スナップショットを再現"] --> base["ベースラインとしてモデルを逐次実行"]
+    base --> inject["合成異常を注入したデータセットを用意"]
+    inject --> rerun["同じ手順でモデルを再実行"]
+    rerun --> metrics["評価指標を算出　適合率・再現率・F1・AUC・実行時間"]
+    metrics --> tune["モデルをチューニング"]
+    tune -.->|"再度ベンチマーク"| rerun
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
+    class rerun hub
+    class metrics done`;
+
+export const DIAGRAM_ALERT_LIFECYCLE = `${MERMAID_CONFIG}flowchart LR
+    detect["検知"] --> triage["1 トリアージ　本当に対応すべきか判断"]
+    triage --> route["2 ルーティング　誰が対応すべきか決める"]
+    route --> resolve["3 解決　根本原因分析RCAで原因箇所を特定"]
+    resolve --> doc["4 ドキュメント化　対応内容を記録"]
+    doc -.->|"次回の判断材料"| triage
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
+    class detect hub
+    class doc done`;
+
