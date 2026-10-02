@@ -130,6 +130,7 @@
 
 .dqm-layout strong {
     font-weight: 700;
+    color: var(--ink);
 }
 
 .dqm-layout ul {
@@ -394,6 +395,11 @@
     border-radius: 10px;
     padding: 1.1rem 1.3rem;
     margin: 1.4rem 0;
+    color: var(--ink);
+}
+
+.dqm-layout .callout strong {
+    color: var(--ink) !important;
 }
 
 .dqm-layout .callout.tip {
@@ -632,11 +638,105 @@
 .dqm-layout .mermaid-wrapper .edgeLabel span,
 .dqm-layout .mermaid-wrapper .edgeLabel p,
 .dqm-layout .mermaid-wrapper .edgeLabel text,
-.dqm-layout .mermaid-wrapper .edgeLabels .label {
+.dqm-layout .mermaid-wrapper .edgeLabel tspan,
+.dqm-layout .mermaid-wrapper .edgeLabels .label,
+.dqm-layout .mermaid-wrapper .edgeLabels text,
+.dqm-layout .mermaid-wrapper .edgeLabels tspan {
     background-color: #ffffff !important;
     color: #2a2419 !important;
     fill: #2a2419 !important;
     font-weight: 700 !important;
+}
+
+.dqm-layout .mermaid-wrapper .edgePaths path,
+.dqm-layout .mermaid-wrapper path.flowchart-link {
+    stroke: #8b8368 !important;
+    stroke-width: 1.5px !important;
+}
+
+.dqm-layout .mermaid-wrapper .marker,
+.dqm-layout .mermaid-wrapper marker path {
+    fill: #8b8368 !important;
+    stroke: #8b8368 !important;
+}
+
+
+/* --- Mermaid ノードスタイル（紙テーマ・未指定ノードの背景・枠線・文字色） --- */
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) rect,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) circle,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) ellipse,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) polygon,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) path,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .basic,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .label-container {
+    fill: #f2ecdd !important;
+    stroke: #c9bd94 !important;
+    stroke-width: 1px !important;
+}
+
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .label,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .label text,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel *,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) text,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) span,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) p,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) div {
+    color: #2a2419 !important;
+    fill: #2a2419 !important;
+    font-family: var(--font-serif) !important;
+}
+
+/* hub クラス (紫) */
+.dqm-layout .mermaid-wrapper .node.hub rect,
+.dqm-layout .mermaid-wrapper .node.hub circle,
+.dqm-layout .mermaid-wrapper .node.hub ellipse,
+.dqm-layout .mermaid-wrapper .node.hub polygon,
+.dqm-layout .mermaid-wrapper .node.hub path,
+.dqm-layout .mermaid-wrapper .node.hub .basic,
+.dqm-layout .mermaid-wrapper .node.hub .label-container {
+    fill: #c9c4ef !important;
+    stroke: #8f88d6 !important;
+    stroke-width: 1px !important;
+}
+
+.dqm-layout .mermaid-wrapper .node.hub .label,
+.dqm-layout .mermaid-wrapper .node.hub .label text,
+.dqm-layout .mermaid-wrapper .node.hub .nodeLabel,
+.dqm-layout .mermaid-wrapper .node.hub .nodeLabel *,
+.dqm-layout .mermaid-wrapper .node.hub text,
+.dqm-layout .mermaid-wrapper .node.hub span,
+.dqm-layout .mermaid-wrapper .node.hub p,
+.dqm-layout .mermaid-wrapper .node.hub div {
+    color: #221f52 !important;
+    fill: #221f52 !important;
+    font-family: var(--font-serif) !important;
+}
+
+/* done クラス (緑) */
+.dqm-layout .mermaid-wrapper .node.done rect,
+.dqm-layout .mermaid-wrapper .node.done circle,
+.dqm-layout .mermaid-wrapper .node.done ellipse,
+.dqm-layout .mermaid-wrapper .node.done polygon,
+.dqm-layout .mermaid-wrapper .node.done path,
+.dqm-layout .mermaid-wrapper .node.done .basic,
+.dqm-layout .mermaid-wrapper .node.done .label-container {
+    fill: #bfe4d2 !important;
+    stroke: #6ec79b !important;
+    stroke-width: 1px !important;
+}
+
+.dqm-layout .mermaid-wrapper .node.done .label,
+.dqm-layout .mermaid-wrapper .node.done .label text,
+.dqm-layout .mermaid-wrapper .node.done .nodeLabel,
+.dqm-layout .mermaid-wrapper .node.done .nodeLabel *,
+.dqm-layout .mermaid-wrapper .node.done text,
+.dqm-layout .mermaid-wrapper .node.done span,
+.dqm-layout .mermaid-wrapper .node.done p,
+.dqm-layout .mermaid-wrapper .node.done div {
+    color: #123722 !important;
+    fill: #123722 !important;
+    font-family: var(--font-serif) !important;
 }
 
 .dqm-layout .diagram-caption {
