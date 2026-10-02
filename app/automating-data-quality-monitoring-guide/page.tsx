@@ -3,9 +3,13 @@ import type { Metadata } from 'next';
 import Mermaid from '../../components/Mermaid';
 import NavBar from './NavBar';
 import {
+  DIAGRAM_CORE_IDEA,
   DIAGRAM_FACTORY_ORIGINS,
   DIAGRAM_FOUR_PILLARS,
+  DIAGRAM_GBDT,
+  DIAGRAM_MODEL_CONCERNS,
   DIAGRAM_ROADMAP,
+  DIAGRAM_ROI_FLOW,
   DIAGRAM_SCARS_AND_SHOCKS,
 } from './diagrams';
 import './automating-data-quality-monitoring-guide.css';
@@ -505,6 +509,403 @@ export default function AutomatingDataQualityMonitoringGuidePage() {
                 </p>
               </div>
             </div>
+          </section>
+
+          {/* ===================== STEP 3 ===================== */}
+          <section className="section" id="step3">
+            <div className="step-head">
+              <div className="step-badge">3</div>
+              <h2>自社に自動化が必要か？ ROI（投資対効果）で判断する</h2>
+            </div>
+            <p>
+              自動化はいつでも正義とは限りません。書籍は「上級スキーヘルメット」の比喩を使います——毎週上級コースを滑るなら装備投資は賢明ですが、年に数回子どもとソリ遊びをする程度なら過剰投資かもしれません<sup>
+                <a href="#ref6">[6]</a>
+              </sup>
+              。自社にとって自動データ品質モニタリングが見合う投資かどうかを判断するための観点が、Chapter
+              3で整理されています。
+            </p>
+
+            <h3>データの特性で判断する（4つのV）</h3>
+            <p>
+              IBMが提唱した「ビッグデータの4V（volume, variety, velocity,
+              veracity）」をベースに、書籍はより分かりやすい言葉で判断軸を示しています<sup>
+                <a href="#ref6">[6]</a>
+              </sup>
+              。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">4Vによる自動化適性の判断軸</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>観点</th>
+                    <th>自動化の効果が高い</th>
+                    <th>自動化の効果が低い</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>データ量（Volume）</td>
+                    <td>数十億行規模、セグメント分割されたデータ</td>
+                    <td>工場の製造記録のような小規模データ</td>
+                  </tr>
+                  <tr>
+                    <td>データ種別（Variety）</td>
+                    <td>構造化・非構造化を問わず多様な種類</td>
+                    <td>
+                      後から修正しにくいデータ（顧客住所等）、単発の大規模ダンプ（治験データ等）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>更新頻度（Velocity）</td>
+                    <td>週次以上の更新頻度</td>
+                    <td>年次・四半期更新のテーブル</td>
+                  </tr>
+                  <tr>
+                    <td>リスクプロファイル（Veracity）</td>
+                    <td>
+                      サードパーティ由来、複雑なシステム連携、継続変更中のシステム、レガシーシステム由来
+                    </td>
+                    <td>ほぼ静的で「密閉」されたデータ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>業界・データ成熟度・ステークホルダーの観点</h3>
+            <ul>
+              <li>
+                <strong>業界特性</strong>
+                ：金融・ヘルスケアのような規制産業は品質要求が厳しい。AI/MLを活用する企業はデータ品質の悪さが特徴量のショックや過学習に直結する。データそのものを商品として扱う企業（データプロバイダー）にとっては品質＝製造業でいう品質管理そのもの<sup>
+                  <a href="#ref6">[6]</a>
+                </sup>
+                。
+              </li>
+              <li>
+                <strong>データ成熟度</strong>
+                ：モダンデータスタック（Snowflake、BigQueryなどのウェアハウスやAirflow、dbtなどの変換ツール）を導入済みの組織ほど自動化の恩恵は大きい<sup>
+                  <a href="#ref6">[6]</a>
+                </sup>
+                。
+              </li>
+              <li>
+                <strong>ステークホルダー別の便益</strong>
+                ：エンジニアは設定のしやすさとAPI連携を、データチームの管理職は俯瞰的なダッシュボードを、非エンジニアのアナリストは直感的なUIと根本原因分析の可視化を、それぞれ重視する<sup>
+                  <a href="#ref6">[6]</a>
+                </sup>
+                。
+              </li>
+            </ul>
+
+            <h3>概算ROIの考え方</h3>
+            <p>
+              書籍が示す簡易試算の流れは次のとおりです（書籍61〜62ページにより詳細な計算例あり）<sup>
+                <a href="#ref6">[6]</a>
+              </sup>
+              。
+            </p>
+            <div className="diagram-wrap" id="dwrap-5">
+              <Mermaid chart={DIAGRAM_ROI_FLOW} />
+            </div>
+            <p className="diagram-caption">
+              <b>図5</b>｜自動化ROI試算の流れ
+            </p>
+            <p>数値化しにくい効果・リスクも考慮に入れる必要があります。</p>
+            <ul>
+              <li>
+                <strong>効果</strong>
+                ：開発サイクルの短縮、監査証跡としてのドキュメント、社内外からのデータ信頼性の向上
+              </li>
+              <li>
+                <strong>リスク</strong>
+                ：新しい運用に対するトレーニング負荷や抵抗感によるモラル低下、セキュリティ上の考慮点、設定を誤った場合のアラート疲れ<sup>
+                  <a href="#ref6">[6]</a>
+                </sup>
+              </li>
+            </ul>
+            <p>
+              自社のデータがこの表の「効果が高い」列に多く当てはまるほど、次のStepで扱う機械学習アプローチへの投資が報われやすいと言えます。
+            </p>
+          </section>
+
+          {/* ===================== STEP 4 ===================== */}
+          <section className="section" id="step4">
+            <div className="step-head">
+              <div className="step-badge">4</div>
+              <h2>教師なし機械学習モデルの作り方</h2>
+            </div>
+            <p>
+              ここからが本書の技術的な核心です。Chapter
+              4では、Anomaloが実際に採用している
+              <strong>「今日のデータは“今日”のものだと当てられるか？」</strong>
+              という、一見不思議なアイデアに基づくアルゴリズムが解説されています<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <div className="callout">
+              <i className="ti ti-info-circle" aria-hidden="true"></i>
+              <div className="callout-body">
+                <p>
+                  補足：ここで扱うのは生成AI（ChatGPTのような大規模言語モデル）ではありません。テーブルの異常検知に特化した、目的特化型の機械学習モデルの話です<sup>
+                    <a href="#ref7">[7]</a>
+                  </sup>
+                  。
+                </p>
+              </div>
+            </div>
+
+            <h3>モデルに求める4つの性質（ウィッシュリスト）</h3>
+            <p>
+              書籍は、実運用に耐えるモデルの要件を4つに整理しています<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">モデルに求める4つの性質</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>性質</th>
+                    <th>意味</th>
+                    <th>具体例</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>感度（Sensitivity）</td>
+                    <td>偽陰性を避ける＝本当の問題を見逃さない</td>
+                    <td>
+                      データの1%以上に影響する「構造的」な問題を捉える水準が目安。それ以下は検証ルールに任せる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>特異度（Specificity）</td>
+                    <td>偽陽性を避ける＝誤報でオオカミ少年にならない</td>
+                    <td>サイバーマンデーの売上急増やクリスマスの売上急減などの季節性に反応しない</td>
+                  </tr>
+                  <tr>
+                    <td>透明性（Transparency）</td>
+                    <td>人間が読める形で説明できる</td>
+                    <td>
+                      深刻度と根本原因の手がかりを示す。詳細のない汎用アラートは逆にアラート疲れを招く
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>スケーラビリティ（Scalability）</td>
+                    <td>個別カスタマイズなしで広く適用できる</td>
+                    <td>どのテーブルにもそのまま使え、設定が必要なのは通知先などの上位レイヤーのみ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              同時に、あえて「モデルに求めないこと（非要件）」を明確にしている点もユニークです<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">モデルの非要件</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>非要件</th>
+                    <th>理由</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>個々の不正レコードの特定</td>
+                    <td>重要なテーブル・カラムには検証ルールを使う</td>
+                  </tr>
+                  <tr>
+                    <td>リアルタイム処理</td>
+                    <td>
+                      時間次・日次バッチで十分。それ以上はスケールが難しく計算コストに見合わない
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>既存の問題の発見</td>
+                    <td>
+                      MLモデルは「これからのデータ」を評価する。過去データは検証ルールで確認する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>タイムスタンプのないテーブルの監視</td>
+                    <td>
+                      MLは時間経過での変化を検知する仕組みのため。静的情報はテーブル観測性や検証ルールで
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>外れ値（outlier）の検出</td>
+                    <td>
+                      外れ値自体は価値中立。MLが探すのは「構造的な変化」であり、単に大きい・小さい値ではない
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>
+              コアとなるアイデア：「今日のデータは今日のものか？」を機械学習に当てさせる
+            </h3>
+            <div className="diagram-wrap" id="dwrap-6">
+              <Mermaid chart={DIAGRAM_CORE_IDEA} />
+            </div>
+            <p className="diagram-caption">
+              <b>図6</b>｜教師なしMLモデルの核心アイデア
+            </p>
+            <p>
+              もしモデルが「今日のデータかどうか」を高い確度で当てられるなら、それは今日のデータが過去のパターンと明確に異なっているという意味であり、何らかの異常が疑われます。逆に見分けがつかなければ、構造的な異常はないと判断できます<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>モデル構築で考慮すべき4つの論点</h3>
+            <div className="diagram-wrap" id="dwrap-7">
+              <Mermaid chart={DIAGRAM_MODEL_CONCERNS} />
+            </div>
+            <p className="diagram-caption">
+              <b>図7</b>｜MLモデル構築の4つの関心事
+            </p>
+
+            <h4>① データサンプリング</h4>
+            <ul>
+              <li>
+                <strong>何を</strong>
+                ：本日・昨日・先週の同じ曜日など、複数の過去日からランダムな行を抽出し、今日を「1」、それ以外を「0」とラベル付けする<sup>
+                  <a href="#ref7">[7]</a>
+                </sup>
+              </li>
+              <li>
+                <strong>どれくらい</strong>
+                ：1万行程度が目安。大規模テーブルでも十分。これは世論調査が約2000人のサンプルで数億人の意見を推定できるのと同じ統計的原理に基づく（ただし真にランダムな抽出であることが前提）<sup>
+                  <a href="#ref7">[7]</a>
+                </sup>
+              </li>
+              <li>
+                <strong>どうやって</strong>
+                ：ウェアハウスにそのまま「ランダムな1万行」を要求すると、テーブル全体をメモリに読み込んでしまい非効率かつ高コストになる。個々の日付ごとに切り出し、<code>TABLESAMPLE</code>
+                などの機能で必要量より多めに抜き出してから、その中からランダムサンプリングするのが実践的な方法<sup>
+                  <a href="#ref7">[7]</a>
+                </sup>
+              </li>
+            </ul>
+
+            <h4>② 特徴量エンコーディング</h4>
+            <p>
+              文字列や、ZIPコード・電話番号のように数値の「意味」を持たない値も、機械学習で扱うには数値に変換する必要があります。代表的なエンコード方式は次のとおりです<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">代表的な特徴量エンコード方式</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>エンコード種別</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>numeric</td>
+                    <td>個数や金額などそのまま数値として扱う</td>
+                  </tr>
+                  <tr>
+                    <td>frequency</td>
+                    <td>その値が列内で何回登場するかに置き換える</td>
+                  </tr>
+                  <tr>
+                    <td>isNull</td>
+                    <td>値があれば1、なければ0</td>
+                  </tr>
+                  <tr>
+                    <td>secondOfDay / timeDelta</td>
+                    <td>発生時刻、または2つの出来事の間の時間差</td>
+                  </tr>
+                  <tr>
+                    <td>OneHot</td>
+                    <td>カテゴリ変数を複数の二値列に変換する</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              複雑なエンコーダーほど検知できる異常の幅は広がりますが、その分「なぜ異常と判定されたか」の直感的な理解が難しくなるトレードオフがある点には注意が必要です<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+
+            <h4>③ モデルアーキテクチャ：勾配ブースティング決定木</h4>
+            <p>
+              書籍は数ある機械学習手法の中から
+              <strong>勾配ブースティング決定木（Gradient-Boosted Decision Trees）</strong>
+              を推奨しています。理由は次のとおりです<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <ul>
+              <li>比較的少量のサンプルで学習できる一方、数百万件規模のレコードも高速に処理できる</li>
+              <li>特徴量エンコーディングさえ適切なら、あらゆる表形式データに汎化できる</li>
+              <li>推論（予測）が高速</li>
+              <li>チューニングすべきパラメータが少なく、主に学習率と各決定木の複雑さ程度で済む</li>
+            </ul>
+            <p>
+              実装ライブラリとしては
+              <a
+                href="https://xgboost.readthedocs.io/en/latest/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                XGBoost
+              </a>
+              の利用が勧められています<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <div className="diagram-wrap" id="dwrap-8">
+              <Mermaid chart={DIAGRAM_GBDT} />
+            </div>
+            <p className="diagram-caption">
+              <b>図8</b>｜勾配ブースティング決定木の仕組み
+            </p>
+            <p>
+              線形モデルでは複雑な構造化データのパターンを捉えきれず単純すぎる一方、ニューラルネットワークは要求されるデータ量・計算資源が過大です。勾配ブースティング決定木は、この中間の「ちょうどよい複雑さ」に位置づけられます。理論上は無限に木を追加できてしまうため、どこで学習を打ち切るかの見極めも必要です<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+
+            <h4>④ モデルの説明可能性：SHAP値</h4>
+            <p>
+              異常を検知できても、「どこが」「どれくらい深刻か」がわからなければ対応しようがありません。書籍が推奨するのは
+              <a
+                href="https://shap.readthedocs.io/en/latest/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                SHAP（SHapley Additive exPlanations）
+              </a>
+              を用いて、各セル（行×列）がモデルの予測にどれだけ寄与したかを算出する方法です<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
+            <p>
+              SHAP値を使うことで、「軽微」から「深刻」までの重大度を可視化し、数千ものデータポイントを横断して「どこを調査すべきか」を一目で把握できるようになります。たとえば、ある値の出現頻度が急に減り、別の値が急増していれば、その部分でラベル付けの誤りが起きている可能性が高い、といった読み解きができます<sup>
+                <a href="#ref7">[7]</a>
+              </sup>
+              。
+            </p>
           </section>
         </div>
       </main>

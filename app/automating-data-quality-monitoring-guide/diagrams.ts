@@ -83,3 +83,48 @@ export const DIAGRAM_FOUR_PILLARS = `${MERMAID_CONFIG}flowchart TB
     classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
     class core hub`;
 
+
+export const DIAGRAM_ROI_FLOW = `${MERMAID_CONFIG}flowchart TD
+    a["現状の検知インシデント数　年12件など"] --> b["1件あたりの平均損失額　50万ドルなど"]
+    c["未検知と推定される　インシデント数　年6件など"] --> b
+    b --> d["現状の年間コスト　合計900万ドル＋既存ツール費用"]
+    e["自動化後の想定　インシデント頻度と損失額"] --> f["自動化後の運用・維持コスト　人件費含む"]
+    f --> g["将来コストの見積もり"]
+    d --> h["年間コスト削減額イコール現状コスト引く将来コスト"]
+    g --> h
+
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
+    class h done`;
+
+export const DIAGRAM_CORE_IDEA = `${MERMAID_CONFIG}flowchart LR
+    past["過去複数日のデータ　サンプリング　ラベルイコール0"] --> train["学習用データセット"]
+    todayTrain["本日データの一部　ラベルイコール1"] --> train
+    train --> model["勾配ブースティング木で学習"]
+    todayRest["本日データの残り　未学習部分"] --> predict["モデルに予測させる　これは今日のデータか"]
+    model --> predict
+    predict -->|高い確度で今日と当てられる| anomaly["異常の可能性が高い　構造的な変化あり"]
+    predict -->|当てられない| ok["正常　過去と統計的に区別できない"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
+    class model hub
+    class anomaly done`;
+
+export const DIAGRAM_MODEL_CONCERNS = `${MERMAID_CONFIG}flowchart TB
+    build["MLモデル構築の4つの関心事"]
+    build --> sampling["データサンプリング"]
+    build --> encoding["特徴量エンコーディング"]
+    build --> arch["モデルアーキテクチャ"]
+    build --> explain["モデルの説明可能性"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    class build hub`;
+
+export const DIAGRAM_GBDT = `${MERMAID_CONFIG}flowchart LR
+    A["決定木A　訓練データから初期予測"] --> B["決定木B　Aの予測結果を見て正解は維持・誤りを学習"]
+    B --> C["決定木C　Bの結果をさらに学習して補正"]
+    C --> more["これを繰り返す　アンサンブル学習"]
+
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
+    class more done`;
+
