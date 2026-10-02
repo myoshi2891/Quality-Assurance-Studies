@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `43bf66c` |
-| 最新コミット内容 | `test(nav): update Header drawer count and index ladder test for 19 specialist items` |
+| 最新 HEAD | `e56bc7b` |
+| 最新コミット内容 | `fix(ct-genai-ch4): align Mermaid diagrams styling with chapter 3 and fix disclaimer banner overlap` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | `npm test`: 全テスト通過（1279 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
