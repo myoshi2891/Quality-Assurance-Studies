@@ -392,10 +392,16 @@ main.ct-genai-chapter4-page {
     margin-bottom: 0;
 }
 
-.ct-genai-chapter4-page .callout-body ol,
+.ct-genai-chapter4-page .callout-body ol {
+    margin: 8px 0 0;
+    padding-left: 1.4em;
+    list-style-type: decimal !important;
+}
+
 .ct-genai-chapter4-page .callout-body ul {
-    margin: 0;
-    padding-left: 1.3em;
+    margin: 8px 0 0;
+    padding-left: 1.4em;
+    list-style-type: disc !important;
 }
 
 .ct-genai-chapter4-page .callout-body li {

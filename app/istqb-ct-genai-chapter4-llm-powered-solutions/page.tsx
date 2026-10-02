@@ -713,28 +713,17 @@ export default function CtGenAiChapter4Page() {
                                 <p className="callout-title">
                                     <span className="tag syllabus">シラバス</span>実行時の2ステップ
                                 </p>
-                                <div className="table-wrap">
-                                    <table className="kv-table">
-                                        <tbody>
-                                            <tr>
-                                                <td style={{ whiteSpace: 'nowrap', fontWeight: 700 }}>
-                                                    1. 検索（Retrieval）
-                                                </td>
-                                                <td>
-                                                    ユーザーのクエリをエンコードし、以前に作成したベクトルデータベースから関連情報を検索する。検索は通常、プロンプトの埋め込みとチャンクの埋め込みの<strong>意味的類似度</strong>に基づく
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ whiteSpace: 'nowrap', fontWeight: 700 }}>
-                                                    2. 生成（Generation）
-                                                </td>
-                                                <td>
-                                                    取得した情報をLLMに渡し、LLMが既存の知識と新たに得たデータを組み合わせて応答を生成する
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <p>
+                                    実行時の処理は次の2ステップです。
+                                </p>
+                                <ol>
+                                    <li>
+                                        <strong>検索（Retrieval）：</strong>ユーザーのクエリをエンコードし、以前に作成したベクトルデータベースから関連情報を検索する。検索は通常、プロンプトの埋め込みとチャンクの埋め込みの<strong>意味的類似度</strong>に基づく
+                                    </li>
+                                    <li>
+                                        <strong>生成（Generation）：</strong>取得した情報をLLMに渡し、LLMが既存の知識と新たに得たデータを組み合わせて応答を生成する
+                                    </li>
+                                </ol>
                             </div>
                         </div>
 
