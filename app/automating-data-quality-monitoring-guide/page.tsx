@@ -26,6 +26,43 @@ export const metadata: Metadata = {
     'Jeremy Stanley, Paige Schwartz 著『Automating Data Quality Monitoring』の8章構成に沿って、教師なし機械学習によるデータ品質の自動監視を初学者向けに解説するガイド',
 };
 
+interface RefCardProps {
+  /** アンカー用 id。書籍そのものの参照元カードは持たない */
+  id?: string;
+  num: string;
+  title: string;
+  source: string;
+  urls: readonly string[];
+  note?: React.ReactNode;
+}
+
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a className="ref-url" href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
+}
+
+function RefCard({ id, num, title, source, urls, note }: RefCardProps) {
+  return (
+    <div className="ref-card" id={id}>
+      <div className="ref-num">{num}</div>
+      <div className="ref-body">
+        <div className="ref-title">{title}</div>
+        <div className="ref-source">{source}</div>
+        {urls.map((url, index) => (
+          <React.Fragment key={url}>
+            {index > 0 && <br />}
+            <ExternalLink href={url}>{url}</ExternalLink>
+          </React.Fragment>
+        ))}
+        {note !== undefined && <div className="ref-note">{note}</div>}
+      </div>
+    </div>
+  );
+}
+
 export default function AutomatingDataQualityMonitoringGuidePage() {
   return (
     <div className="dqm-layout">
@@ -1556,6 +1593,154 @@ export default function AutomatingDataQualityMonitoringGuidePage() {
               Expectations・Soda・dbtといったOSSエコシステムの動向も、この「4本柱」という枠組みで理解すると、自社にとって今どの柱が強く、どの柱が弱いのかを整理しやすくなります。本書はあくまで技術書ですが、「データ品質は技術の問題であると同時に、組織運用の問題でもある」というメッセージが一貫して流れている点が、初学者にとっても実務者にとっても学びの多いポイントだと言えるでしょう。
             </p>
           </section>
+
+          {/* ===================== REFERENCES ===================== */}
+          <section className="section" id="references">
+            <h2>
+              <i className="ti ti-link" aria-hidden="true"></i>参考文献・出典
+            </h2>
+
+            <div className="ref-group-title">書籍・出版情報</div>
+            <RefCard
+              num="✳"
+              title="書籍そのものの参照元"
+              source="O'Reilly Media"
+              urls={['https://www.oreilly.com/library/view/automating-data-quality/9781098145927/']}
+            />
+
+            <div className="ref-group-title">Anomalo公式ブログ（著者らによる章別プレビュー）</div>
+            <RefCard
+              id="ref1"
+              num="1"
+              title="An O'Reilly Book for Data Quality in the Age of AI"
+              source="Paige Schwartz, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/an-oreilly-book-for-data-quality-in-the-age-of-ai/']}
+            />
+            <RefCard
+              id="ref2"
+              num="2"
+              title="同上（DJ Patil氏による序文についての記載を含む）"
+              source="Paige Schwartz, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/an-oreilly-book-for-data-quality-in-the-age-of-ai/']}
+            />
+            <RefCard
+              id="ref3"
+              num="3"
+              title="Chapter 1: The data factory — How data quality degrades and why it matters"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-1-the-data-factory-how-data-quality-degrades-and-why-it-matters/']}
+            />
+            <RefCard
+              id="ref4"
+              num="4"
+              title="同上（データファクトリー内での品質劣化要因、データ傷とデータショック）"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-1-the-data-factory-how-data-quality-degrades-and-why-it-matters/']}
+            />
+            <RefCard
+              id="ref5"
+              num="5"
+              title="Chapter 2: A Four-Pillar Approach to Data Quality Monitoring"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-2-a-four-pillar-approach-to-data-quality-monitoring/']}
+            />
+            <RefCard
+              id="ref6"
+              num="6"
+              title="Chapter 3: Is Automated Data Quality Monitoring Right for Your Business?"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-3-is-automated-data-quality-monitoring-right-for-your-business/']}
+            />
+            <RefCard
+              id="ref7"
+              num="7"
+              title="Chapter 4: How to Build a Machine Learning Model for Data Quality Monitoring"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-4-how-to-build-a-machine-learning-model-for-data-quality-monitoring/']}
+              note={
+                <>
+                  関連一次資料：
+                  <ExternalLink href="https://xgboost.readthedocs.io/en/latest/index.html">
+                    XGBoost公式ドキュメント
+                  </ExternalLink>{' '}
+                  ／{' '}
+                  <ExternalLink href="https://shap.readthedocs.io/en/latest/index.html">
+                    SHAP公式ドキュメント
+                  </ExternalLink>
+                </>
+              }
+            />
+            <RefCard
+              id="ref8"
+              num="8"
+              title="Chapter 5: Making Data Quality Monitoring Models Work in the Real World"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-5-making-data-quality-monitoring-models-work-in-the-real-world/']}
+            />
+            <RefCard
+              id="ref9"
+              num="9"
+              title="Chapter 6: High-quality notifications bring the right information to the right people at the right time"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-6-high-quality-notifications-bring-the-right-information-to-the-right-people-at-the-right-time/']}
+            />
+            <RefCard
+              id="ref10"
+              num="10"
+              title="Chapter 7: Integrations multiply the power of your autonomous data tools"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-7-integrations-multiply-the-power-of-your-autonomous-data-tools/']}
+            />
+            <RefCard
+              id="ref11"
+              num="11"
+              title="Chapter 8: Towards a self-driving data future"
+              source="Team Anomalo, Anomalo Blog"
+              urls={['https://www.anomalo.com/blog/chapter-8-towards-a-self-driving-data-future/']}
+            />
+
+            <div className="ref-group-title">国際的なエンジニアリング組織・著名開発者の発信</div>
+            <RefCard
+              id="ref12"
+              num="12"
+              title="Monitoring Data Quality at Scale with Statistical Modeling"
+              source="Uber Engineering Blog"
+              urls={['https://eng.uber.com/monitoring-data-quality-at-scale/']}
+            />
+            <RefCard
+              id="ref13"
+              num="13"
+              title="Celebrating the New Pioneers of Data Reliability／Monte Carlo's Series D and the Future of Data Observability"
+              source="Barr Moses, Medium"
+              urls={[
+                'https://barrmoses.medium.com/celebrating-the-new-pioneers-of-data-reliability-f0a631a90611',
+                'https://barrmoses.medium.com/monte-carlos-series-d-and-the-future-of-data-observability-52f4aba71b91',
+              ]}
+            />
+            <RefCard
+              id="ref14"
+              num="14"
+              title="Data in Practice: Anomaly detection for data quality at Netflix"
+              source="Bigeye Blog"
+              urls={['https://www.bigeye.com/blog/data-in-practice-anomaly-detection-for-data-quality-at-netflix']}
+            />
+
+            <div className="ref-group-title">2026年時点のOSSエコシステム動向</div>
+            <RefCard
+              id="ref15"
+              num="15"
+              title="Data Quality Tooling Compared: Great Expectations, Soda, dbt Tests, and Anomaly Detection"
+              source="Data Lakehouse Hub"
+              urls={['https://datalakehousehub.com/blog/data-quality-tooling-compared/']}
+              note="Great Expectations/GX Coreのスチュワードシップ移管に関する2026年5月の発表を含む"
+            />
+          </section>
+
+          <footer>
+            本ガイドはO&apos;Reilly『Automating Data Quality Monitoring: Scaling Beyond Rules
+            with Machine Learning』（Jeremy Stanley, Paige
+            Schwartz著）の内容を初学者向けに要約・再構成したものです。正確な内容は必ず原書をご確認ください。
+          </footer>
         </div>
       </main>
     </div>

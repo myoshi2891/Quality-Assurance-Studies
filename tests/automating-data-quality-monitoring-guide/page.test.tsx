@@ -914,11 +914,11 @@ describe('C7: 参考文献・フッター', () => {
 });
 
 describe('C7: ページ全体の突合（抜け漏れ・リンク切れ検出）', () => {
-  it('セクション id が元 HTML と同じ 15 件・同じ順序で、目次（TOC_ITEMS）とも一致する', () => {
+  it('セクション id が元 HTML と同じ 17 件・同じ順序で、目次（TOC_ITEMS）とも一致する', () => {
     const { container } = render(<Page />);
     const rendered = Array.from(container.querySelectorAll('.content > section')).map((s) => s.id);
     const source = Array.from(sourceDoc.querySelectorAll('.content > section')).map((s) => s.id);
-    expect(source.length).toBe(15);
+    expect(source.length).toBe(17);
     expect(rendered).toEqual(source);
     expect(TOC_ITEMS.map((item) => item.id)).toEqual(source);
   });
