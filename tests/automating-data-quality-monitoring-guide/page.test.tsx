@@ -362,3 +362,90 @@ describe('C1: 学習ロードマップ（roadmap）', () => {
     expectSectionMatchesSource(container, 'roadmap');
   });
 });
+
+describe('C2: Step 0〜2（経営課題・データファクトリー・4本柱）', () => {
+  it('Step 0: 番号バッジ・見出し・事例リスト・初学者向けポイント（tip）が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step0');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('0');
+    expect(headingTexts(section)).toEqual(['なぜ「データ品質」が経営課題なのか']);
+    expect(section.querySelectorAll(':scope > ul > li').length).toBe(3);
+    expect(Array.from(section.querySelectorAll('sup > a')).map((a) => a.getAttribute('href'))).toEqual(
+      ['#ref3', '#ref3']
+    );
+
+    const callouts = section.querySelectorAll('.callout');
+    expect(callouts.length).toBe(1);
+    expect(callouts[0]?.classList.contains('tip')).toBe(true);
+    expect(callouts[0]?.querySelector('i.ti.ti-bulb')).not.toBeNull();
+    expect(callouts[0]?.querySelector('strong')?.textContent).toBe('初学者向けポイント');
+  });
+
+  it('Step 1: 見出し・表・図キャプション・リストが固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step1');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('1');
+    expect(headingTexts(section)).toEqual([
+      'データファクトリーという視点で劣化の原因をつかむ',
+      '工場のどこで品質が壊れるか',
+      'データの「傷」と「ショック」',
+    ]);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: '物理工場とデータファクトリーの対応関係',
+        headers: ['観点', '物理工場', 'データファクトリー'],
+        rowLeads: ['入力', '加工', '人の関与', '出力'],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual([
+      '図2｜データファクトリーで品質が壊れる8つの起点',
+      '図3｜データの傷とデータショックのサイクル',
+    ]);
+    const terms = Array.from(section.querySelectorAll(':scope > ul > li > strong')).map((s) =>
+      s.textContent?.trim()
+    );
+    expect(terms).toEqual(['データ傷（Data scars）', 'データショック（Data shocks）']);
+  });
+
+  it('Step 2: 見出し・比較表・4本柱の解説・注意点（warn）が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step2');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('2');
+    expect(headingTexts(section)).toEqual(['監視の4本柱を理解する', '4本柱の比較表']);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: '4本柱の特性比較',
+        headers: ['特性', 'データ観測性', '検証ルール', '主要指標', '教師なしML'],
+        rowLeads: [
+          '導入の速さ',
+          'スケールのしやすさ',
+          '未知の未知を検知できるか',
+          '履歴を加味するか',
+          '針の中の一本を見つける精度',
+          '既存の問題を発見できるか',
+          'テーブルの一部だけを厳密に監視',
+        ],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual(['図4｜監視の4本柱']);
+    const pillars = Array.from(section.querySelectorAll(':scope > ul > li > strong')).map((s) =>
+      s.textContent?.trim()
+    );
+    expect(pillars).toEqual(['データ観測性', '検証ルール', '主要指標', '教師なし機械学習']);
+
+    const warn = section.querySelectorAll('.callout.warn');
+    expect(warn.length).toBe(1);
+    expect(warn[0]?.querySelector('i.ti.ti-alert-triangle')).not.toBeNull();
+    expect(warn[0]?.querySelector('strong')?.textContent).toBe('注意点');
+  });
+
+  it('図2〜4 の Mermaid ソースが元 HTML と一致して描画される', async () => {
+    const { container } = render(<Page />);
+    await expectDiagramsRendered(container, ['dwrap-2', 'dwrap-3', 'dwrap-4']);
+  });
+
+  it.each(['step0', 'step1', 'step2'])('%s が元 HTML と DOM 構造・テキストともに一致する', (id) => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, id);
+  });
+});
