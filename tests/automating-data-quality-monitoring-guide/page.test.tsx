@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, mock } from 'bun:test';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/automating-data-quality-monitoring-guide/page';
@@ -8,6 +8,7 @@ import NavBar, {
   TOC_ITEMS,
 } from '../../app/automating-data-quality-monitoring-guide/NavBar';
 import {
+  extractSourceDiagrams,
   loadSourceDocument,
   navSignature,
   sectionText,
@@ -70,6 +71,63 @@ function expectSectionMatchesSource(container: HTMLElement, id: string): void {
   expect(structureSignature(rendered)).toEqual(structureSignature(source));
   expect(textBlocks(rendered)).toEqual(textBlocks(source));
   expect(sectionText(rendered)).toBe(sectionText(source));
+}
+
+interface TableSummary {
+  title: string;
+  headers: string[];
+  rowLeads: string[];
+}
+
+/** セクション内の .table-wrap を出現順に要約する（タイトル・見出し行・各行の先頭セル） */
+function summarizeTables(section: Element): TableSummary[] {
+  return Array.from(section.querySelectorAll('.table-wrap')).map((wrap) => ({
+    title: (wrap.querySelector('.table-title')?.textContent ?? '').trim(),
+    headers: Array.from(wrap.querySelectorAll('thead th')).map((th) => (th.textContent ?? '').trim()),
+    rowLeads: Array.from(wrap.querySelectorAll('tbody tr')).map((tr) =>
+      (tr.firstElementChild?.textContent ?? '').replace(/\s+/g, ' ').trim()
+    ),
+  }));
+}
+
+/** 元スクリプトの Mermaid ソース（dwrap-N → ソース） */
+const sourceDiagrams = new Map(extractSourceDiagrams().map((d) => [d.id, d.source]));
+
+function sourceDiagram(id: string): string {
+  const source = sourceDiagrams.get(id);
+  if (!source) throw new Error(`移行元に ${id} の Mermaid ソースがありません`);
+  return source;
+}
+
+/**
+ * 図が .diagram-wrap#<id> として配置され、元ソースがそのまま Mermaid へ渡されることを検証する。
+ * 共通設定（%%{init}%% ディレクティブ）は先頭に 1 つだけ付与される。
+ */
+async function expectDiagramsRendered(container: HTMLElement, ids: string[]): Promise<void> {
+  for (const id of ids) {
+    const wrap = container.querySelector(`.diagram-wrap#${id}`);
+    expect(wrap, `${id} の .diagram-wrap`).not.toBeNull();
+    expect(wrap?.nextElementSibling?.classList.contains('diagram-caption')).toBe(true);
+  }
+  await waitFor(() => {
+    expect(renderedCharts.length).toBe(container.querySelectorAll('.diagram-wrap').length);
+  });
+  for (const id of ids) {
+    const source = sourceDiagram(id);
+    const chart = renderedCharts.find((c) => c.endsWith(source));
+    expect(chart, `${id} のソースが描画されていない`).toBeDefined();
+    const prefix = (chart ?? '').slice(0, (chart ?? '').length - source.length);
+    expect(prefix.startsWith('%%{init:')).toBe(true);
+    expect(prefix.trimEnd().endsWith('}}%%')).toBe(true);
+    expect(prefix).toContain('"theme": "base"');
+    expect(prefix).not.toContain("'");
+  }
+}
+
+function captionTexts(section: Element): string[] {
+  return Array.from(section.querySelectorAll('.diagram-caption')).map((c) =>
+    (c.textContent ?? '').trim()
+  );
 }
 
 function headingTexts(section: Element, selector = 'h2, h3, h4'): string[] {
@@ -213,5 +271,94 @@ describe('C0: ページ土台とヒーロー・intro', () => {
   it('intro セクションが元 HTML と DOM 構造・テキストともに一致する', () => {
     const { container } = render(<Page />);
     expectSectionMatchesSource(container, 'intro');
+  });
+});
+
+describe('C1: 書籍情報（book-info）', () => {
+  const KV_LABELS = [
+    'タイトル',
+    '著者',
+    '序文',
+    '出版社',
+    '出版日',
+    'ページ数',
+    'ISBN',
+    '想定読者',
+    '参照URL',
+  ];
+
+  it('見出しが固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'book-info');
+    expect(headingTexts(section)).toEqual(['書籍情報', '章構成一覧']);
+  });
+
+  it('書籍カードの表紙（タイトル・著者・出版社）が元 HTML と一致する', () => {
+    const { container } = render(<Page />);
+    const card = getRenderedSection(container, 'book-info').querySelector('.book-card');
+    expect(card).not.toBeNull();
+    expect(card?.querySelector('.book-cover > i.ti.ti-book-2')).not.toBeNull();
+    expect(card?.querySelector('.cover-title')?.textContent?.trim()).toBe(
+      'Automating Data Quality Monitoring'
+    );
+    const authors = Array.from(card?.querySelectorAll('.cover-author') ?? []).map((a) =>
+      a.textContent?.trim()
+    );
+    expect(authors).toEqual(['Jeremy Stanley & Paige Schwartz', "O'Reilly Media, 2024"]);
+  });
+
+  it('書誌情報の kv-table が 9 行・ラベル順に一致し、外枠のスタイルが保たれる', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'book-info');
+    const wrap = section.querySelector('.book-card .table-wrap');
+    expect(wrap?.getAttribute('style')).toContain('margin');
+    expect(wrap?.getAttribute('style')).toContain('border');
+    const labels = Array.from(section.querySelectorAll('table.kv-table tbody tr > th')).map((th) =>
+      th.textContent?.trim()
+    );
+    expect(labels).toEqual(KV_LABELS);
+  });
+
+  it('参照URL が外部リンク属性（target / rel）付きで描画される', () => {
+    const { container } = render(<Page />);
+    const link = getRenderedSection(container, 'book-info').querySelector('table.kv-table a.ref-url');
+    expect(link?.getAttribute('href')).toBe(
+      'https://www.oreilly.com/library/view/automating-data-quality/9781098145927/'
+    );
+    expect(link?.getAttribute('target')).toBe('_blank');
+    expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  it('章構成一覧の表が 9 行（第1〜8章 + 付録）で一致する', () => {
+    const { container } = render(<Page />);
+    const tables = summarizeTables(getRenderedSection(container, 'book-info'));
+    const chapters = tables.find((t) => t.title === '全8章の構成');
+    expect(chapters).toBeDefined();
+    expect(chapters?.headers).toEqual(['章', 'タイトル（原題）', '内容の要点']);
+    expect(chapters?.rowLeads).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '付録']);
+  });
+
+  it('book-info が元 HTML と DOM 構造・テキストともに一致する', () => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, 'book-info');
+  });
+});
+
+describe('C1: 学習ロードマップ（roadmap）', () => {
+  it('見出し・図キャプションが固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'roadmap');
+    expect(headingTexts(section)).toEqual(['学習ロードマップ']);
+    expect(captionTexts(section)).toEqual(['図1｜Step 0からStep 8までの学習ロードマップ']);
+  });
+
+  it('図1 の Mermaid ソースが元 HTML と一致して描画される', async () => {
+    const { container } = render(<Page />);
+    await expectDiagramsRendered(container, ['dwrap-1']);
+  });
+
+  it('roadmap が元 HTML と DOM 構造・テキストともに一致する', () => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, 'roadmap');
   });
 });
