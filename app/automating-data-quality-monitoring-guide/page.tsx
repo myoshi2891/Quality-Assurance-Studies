@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
 import NavBar from './NavBar';
 import {
   DIAGRAM_ALERT_LIFECYCLE,
@@ -1387,6 +1388,173 @@ export default function AutomatingDataQualityMonitoringGuidePage() {
                 ：経営層を含む関係者が、モニタリングの成果パターンを俯瞰できるようにする
               </li>
             </ul>
+          </section>
+
+          {/* ===================== OTHER CASES ===================== */}
+          <section className="section" id="other-cases">
+            <h2>
+              <i className="ti ti-world" aria-hidden="true"></i>他社事例に学ぶ：Uber・Netflix・Monte
+              Carloの視点
+            </h2>
+            <p>
+              原書はAnomalo発の書籍ですが、「教師なし機械学習で構造的な変化を検知する」という発想そのものは、他の主要テック企業のデータ基盤チームでも独立して採用されてきました。ここでは国際的に著名なエンジニアリング組織の発信を補助線として紹介します。
+            </p>
+
+            <h3>Uber：統計モデリングによるData Quality Monitor（DQM）</h3>
+            <p>
+              Uberのエンジニアリングブログでは、1日1400万件規模のトリップデータを抱える同社が、数万テーブルを人手で確認することは不可能だとして、統計モデリングに基づく異常検知の仕組み「DQM」を構築した経緯が説明されています<sup>
+                <a href="#ref12">[12]</a>
+              </sup>
+              。DQMは主成分分析（PCA）とHolt-Winters時系列モデルによる1期先予測を組み合わせ、予測値と実際の値が乖離した場合にデータを異常とみなします。テーブルレベルのアラートはメトリックレベルのアラートよりもはるかに少なく、アラート疲れの軽減につながっていると報告されています<sup>
+                <a href="#ref12">[12]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>Monte Carlo（Barr Moses氏）：データ観測性の5本柱</h3>
+            <p>
+              データ観測性プラットフォームMonte Carloの共同創業者兼CEOであるBarr
+              Moses氏は、「データダウンタイム」という概念を提唱し、鮮度（freshness）・ボリューム（volume）・分布（distribution）・スキーマ（schema）・系譜（lineage）という
+              <strong>データ観測性の5本柱</strong>
+              を広めた、この分野で著名な人物の一人です<sup>
+                <a href="#ref13">[13]</a>
+              </sup>
+              。これは本書の「4本柱」における「①データ観測性」の柱をさらに深掘りする視点として参考になります。Monte
+              Carloも同じくO&apos;Reillyから『Data Quality
+              Fundamentals』という書籍を出版しており、業界全体でデータ品質のベストプラクティスを体系化しようとする動きが並行して進んでいることがわかります<sup>
+                <a href="#ref13">[13]</a>
+              </sup>
+              。
+            </p>
+
+            <h3>Netflix・Uber出身者が語るデータ観測性の実務</h3>
+            <p>
+              データ観測性ツールBigeyeの共同創業者Kyle
+              Kirwan氏（元Uberデータプラットフォームチーム）は、Netflixのデータチームが鮮度・完全性・重複・外れ値・分布シフトなど、複数の観点を組み合わせて品質を監視している事例を紹介しています<sup>
+                <a href="#ref14">[14]</a>
+              </sup>
+              。これは本書が強調する「単一の手法では不十分で、複数の監視手法を組み合わせる必要がある」という思想と軌を一にしています。
+            </p>
+          </section>
+
+          {/* ===================== OSS ===================== */}
+          <section className="section" id="oss">
+            <h2>
+              <i className="ti ti-git-branch" aria-hidden="true"></i>
+              ルールベースツールとのすみ分け：オープンソースのデータ品質エコシステム
+            </h2>
+            <p>
+              本書の「4本柱」のうち「②検証ルール」を実装する手段として広く使われているのが、Great
+              Expectations・Soda・dbt
+              testsといったオープンソースツールです。2026年時点の状況を踏まえて整理します。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">OSSデータ品質ツールの位置づけ（2026年時点）</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ツール</th>
+                    <th>特徴</th>
+                    <th>2026年の動向</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Great Expectations（GX Core）</td>
+                    <td>
+                      2017年公開。宣言的な「Expectation」でデータの期待値を記述する、最も表現力の高い検証フレームワークの一つ
+                    </td>
+                    <td>
+                      2026年5月、Fivetranが同OSSコミュニティとGX
+                      Coreプロジェクトのスチュワードシップを引き継ぐと発表。GX
+                      Coreは引き続きOSSとして開発が続く一方、商用のGX
+                      Cloudは同年6月に提供終了<sup>
+                        <a href="#ref15">[15]</a>
+                      </sup>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Soda Core</td>
+                    <td>
+                      SQLネイティブで軽量なチェックを記述できる。ステークホルダーにも読みやすい構文が特徴
+                    </td>
+                    <td>
+                      dbtプロジェクトへの統合や、データ契約（data
+                      contracts）機能の強化が進む<sup>
+                        <a href="#ref15">[15]</a>
+                      </sup>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>dbt tests</td>
+                    <td>
+                      モデル・ソース・シード・スナップショットを対象にテストを書ける。dbtプロジェクトを持つチームにとって着手コストが低い
+                    </td>
+                    <td>
+                      これらdbtの管理対象アセットに検証範囲が限られる制約があり、それ以外の取り込みデータには別のツールを併用する必要がある<sup>
+                        <a href="#ref15">[15]</a>
+                      </sup>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              これらのルールベース・検証系ツールは、本書の4本柱でいう「②検証ルール」に相当します。一方、Anomalo・Monte
+              Carloのような商用データ観測性／教師なしML型プラットフォームは、「①データ観測性」と「④教師なしML」の柱を担うことが多く、
+              <strong>「ルールで既知の問題をブロックしつつ、MLで未知の問題を拾う」という組み合わせ</strong>
+              が2026年時点でも実務上のベストプラクティスとして語られています<sup>
+                <a href="#ref15">[15]</a>
+              </sup>
+              。書籍のChapter
+              2が主張する「4本柱はどれも単独では不十分」というメッセージは、この2026年のツールランドスケープにもそのまま当てはまります。
+            </p>
+          </section>
+
+          {/* ===================== CHECKLIST ===================== */}
+          <section className="section" id="checklist">
+            <h2>
+              <i className="ti ti-checklist" aria-hidden="true"></i>実践チェックリスト
+            </h2>
+            <p>これから自動データ品質モニタリングに取り組む方向けの、行動ベースのチェックリストです。</p>
+            <Checklist />
+          </section>
+
+          {/* ===================== SUMMARY ===================== */}
+          <section className="section" id="summary">
+            <h2>
+              <i className="ti ti-flag" aria-hidden="true"></i>まとめ
+            </h2>
+            <p>
+              本ガイドでは、『Automating Data Quality Monitoring: Scaling Beyond Rules
+              with Machine Learning』の8章構成に沿って、次の流れを見てきました。
+            </p>
+            <ol className="summary-list">
+              <li>データ品質はビジネスに直結する経営課題であり、気づかれない劣化ほど危険である</li>
+              <li>
+                データ基盤を「ファクトリー」として捉えると、劣化が発生しうるポイントを体系的に洗い出せる
+              </li>
+              <li>
+                データ観測性・検証ルール・主要指標・教師なしMLという4本柱を組み合わせることで、初めて「広さ」と「深さ」を両立した監視が実現する
+              </li>
+              <li>
+                自動化への投資判断は、データの量・種類・更新頻度・リスクプロファイル、そして定量・定性両面のROIから行う
+              </li>
+              <li>
+                教師なしMLモデルの核心は「今日のデータを今日だと当てられるか」というシンプルな発想にあり、勾配ブースティング決定木とSHAP値による説明可能性の組み合わせが実務解となっている
+              </li>
+              <li>
+                実データには季節性やカオスなテーブルなど固有のクセがあり、合成異常によるバックテストで継続的に鍛える必要がある
+              </li>
+              <li>どれほど優れた検知でも、良い通知設計とアラート疲れ対策がなければ人に届かない</li>
+              <li>
+                モニタリングはデータスタック全体に統合されて初めて価値を発揮し、ビルドかバイかを含めた組織的な定着が最後の鍵を握る
+              </li>
+            </ol>
+            <p>
+              Uber・Netflix・Monte Carloなど他の著名な組織の実践や、Great
+              Expectations・Soda・dbtといったOSSエコシステムの動向も、この「4本柱」という枠組みで理解すると、自社にとって今どの柱が強く、どの柱が弱いのかを整理しやすくなります。本書はあくまで技術書ですが、「データ品質は技術の問題であると同時に、組織運用の問題でもある」というメッセージが一貫して流れている点が、初学者にとっても実務者にとっても学びの多いポイントだと言えるでしょう。
+            </p>
           </section>
         </div>
       </main>
