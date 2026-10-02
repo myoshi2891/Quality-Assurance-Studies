@@ -1,4 +1,6 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
@@ -971,3 +973,37 @@ describe('C7: ページ全体の突合（抜け漏れ・リンク切れ検出）
     expect(sectionText(rendered)).toBe(sectionText(source));
   });
 });
+
+describe('スタイリング & globals.css 干渉リセット契約', () => {
+  const css = readFileSync(
+    join(import.meta.dir, '../../app/automating-data-quality-monitoring-guide/automating-data-quality-monitoring-guide.css'),
+    'utf8'
+  );
+
+  it('globals.css の .callout strong 干渉を打ち消すため .callout strong と strong にインク色が定義されている', () => {
+    expect(css).toMatch(/\.dqm-layout\s+strong\s*\{[^}]*color:\s*var\(--ink\)/);
+    expect(css).toMatch(/\.dqm-layout\s+\.callout\s+strong\s*\{[^}]*color:\s*var\(--ink\)/);
+  });
+
+  it('Mermaid のノード背景が globals.css や dark テーマで黒潰れしないよう、通常ノード・hub・done のスタイルが定義されている', () => {
+    expect(css).toMatch(/\.dqm-layout\s+\.mermaid-wrapper\s+\.node:not\(\.hub\):not\(\.done\)\s+rect[\s\S]*?fill:\s*#f2ecdd\s*!important/);
+    expect(css).toMatch(/\.dqm-layout\s+\.mermaid-wrapper\s+\.node:not\(\.hub\):not\(\.done\)[\s\S]*?color:\s*#2a2419\s*!important/);
+
+    expect(css).toMatch(/\.dqm-layout\s+\.mermaid-wrapper\s+\.node\.hub\s+rect[\s\S]*?fill:\s*#c9c4ef\s*!important/);
+    expect(css).toMatch(/\.dqm-layout\s+\.mermaid-wrapper\s+\.node\.hub[\s\S]*?color:\s*#221f52\s*!important/);
+
+    expect(css).toMatch(/\.dqm-layout\s+\.mermaid-wrapper\s+\.node\.done\s+rect[\s\S]*?fill:\s*#bfe4d2\s*!important/);
+    expect(css).toMatch(/\.dqm-layout\s+\.mermaid-wrapper\s+\.node\.done[\s\S]*?color:\s*#123722\s*!important/);
+  });
+
+  it('diagrams.ts の MERMAID_CONFIG に mainBkg, nodeBorder, nodeTextColor が定義されている', () => {
+    const diagramsSource = readFileSync(
+      join(import.meta.dir, '../../app/automating-data-quality-monitoring-guide/diagrams.ts'),
+      'utf8'
+    );
+    expect(diagramsSource).toContain('"mainBkg": "#f2ecdd"');
+    expect(diagramsSource).toContain('"nodeBorder": "#c9bd94"');
+    expect(diagramsSource).toContain('"nodeTextColor": "#2a2419"');
+  });
+});
+
