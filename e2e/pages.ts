@@ -100,8 +100,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/software-testing-with-generative-ai-guide', h1: /生成AIとソフトウェアテスト実践ガイド/ },
   { path: '/ai-driven-software-testing-guide', h1: /AI駆動ソフトウェアテスト入門ガイド/ },
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
+  { path: '/automating-data-quality-monitoring-guide', h1: /データ品質モニタリングの自動化を学ぶ/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 87;
+export const EXPECTED_PAGE_COUNT = 88;
 
 
