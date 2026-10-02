@@ -670,3 +670,70 @@ describe('C4: Step 5〜6（実データ対応・通知設計）', () => {
     expectSectionMatchesSource(container, id);
   });
 });
+
+describe('C5: Step 7〜8（スタック統合・本番展開）', () => {
+  it('Step 7: 見出し・5 つの統合先表・図12 が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step7');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('7');
+    expect(headingTexts(section)).toEqual(['データスタック全体との統合で価値を最大化する']);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: '5つの統合先',
+        headers: ['統合先', '役割', '必須度'],
+        rowLeads: [
+          'データウェアハウス',
+          'データオーケストレーター',
+          'データカタログ',
+          'BIダッシュボード',
+          'MLOpsツール',
+        ],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual(['図12｜データスタックとの5つの統合ポイント']);
+    expect(
+      Array.from(section.querySelectorAll('sup > a')).map((a) => a.getAttribute('href'))
+    ).toEqual(['#ref10', '#ref10']);
+  });
+
+  it('Step 8: 見出し・オンボーディング表・継続改善リスト・図13 が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step8');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('8');
+    expect(headingTexts(section)).toEqual([
+      '本番展開とセルフドライビングデータへの道',
+      'ビルド（自社構築）か、バイ（購入）か',
+      'オンボーディングと展開計画',
+      '定着のための継続的な改善',
+    ]);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: 'オンボーディング・展開の実践ポイント',
+        headers: ['観点', '実践のポイント'],
+        rowLeads: ['テーブルの監視範囲', '時間軸', '設定アプローチ', 'ユーザーオンボーディング'],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual(['図13｜ビルドかバイかの判断']);
+
+    const practices = Array.from(section.querySelectorAll(':scope > ul > li > strong')).map((s) =>
+      s.textContent?.trim()
+    );
+    expect(practices).toEqual([
+      '手順のドキュメント化',
+      'オーナーシップの明確化',
+      'データ基盤自体の強化',
+      '社内規範の確立',
+      'ダッシュボードの整備',
+    ]);
+  });
+
+  it('図12〜13 の Mermaid ソースが元 HTML と一致して描画される', async () => {
+    const { container } = render(<Page />);
+    await expectDiagramsRendered(container, ['dwrap-12', 'dwrap-13']);
+  });
+
+  it.each(['step7', 'step8'])('%s が元 HTML と DOM 構造・テキストともに一致する', (id) => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, id);
+  });
+});
