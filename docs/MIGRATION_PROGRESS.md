@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e56bc7b` |
-| 最新コミット内容 | `fix(ct-genai-ch4): align Mermaid diagrams styling with chapter 3 and fix disclaimer banner overlap` |
+| 最新 HEAD | `3881725` |
+| 最新コミット内容 | `fix(ct-genai-ch4): place syllabus 2-step execution inside callout as list and remove table` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | `npm test`: 全テスト通過（1279 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
