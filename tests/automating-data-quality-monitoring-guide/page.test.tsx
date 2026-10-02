@@ -80,7 +80,7 @@ function headingTexts(section: Element, selector = 'h2, h3, h4'): string[] {
 
 describe('C0: ナビゲーション（NavBar）', () => {
   const EXPECTED_GROUPS = ['はじめに', 'ステップ', '応用・まとめ'];
-  const EXPECTED_ITEMS: ReadonlyArray<[string, string]> = [
+  const EXPECTED_ITEMS: string[][] = [
     ['intro', 'この記事について'],
     ['book-info', '書籍情報'],
     ['roadmap', '学習ロードマップ'],
