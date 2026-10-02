@@ -737,3 +737,112 @@ describe('C5: Step 7〜8（スタック統合・本番展開）', () => {
     expectSectionMatchesSource(container, id);
   });
 });
+
+describe('C6: 応用・まとめ（other-cases / oss / checklist / summary）', () => {
+  it('other-cases: 見出し・3 事例の h3・引用リンクが固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'other-cases');
+    expect(headingTexts(section)).toEqual([
+      '他社事例に学ぶ：Uber・Netflix・Monte Carloの視点',
+      'Uber：統計モデリングによるData Quality Monitor（DQM）',
+      'Monte Carlo（Barr Moses氏）：データ観測性の5本柱',
+      'Netflix・Uber出身者が語るデータ観測性の実務',
+    ]);
+    expect(section.querySelector('h2 > i.ti.ti-world')).not.toBeNull();
+    expect(
+      Array.from(section.querySelectorAll('sup > a')).map((a) => a.getAttribute('href'))
+    ).toEqual(['#ref12', '#ref12', '#ref13', '#ref13', '#ref14']);
+    expect(section.querySelector('strong')?.textContent).toBe('データ観測性の5本柱');
+  });
+
+  it('oss: 見出し・OSS ツール表・2026年動向の引用が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'oss');
+    expect(headingTexts(section)).toEqual([
+      'ルールベースツールとのすみ分け：オープンソースのデータ品質エコシステム',
+    ]);
+    expect(section.querySelector('h2 > i.ti.ti-git-branch')).not.toBeNull();
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: 'OSSデータ品質ツールの位置づけ（2026年時点）',
+        headers: ['ツール', '特徴', '2026年の動向'],
+        rowLeads: ['Great Expectations（GX Core）', 'Soda Core', 'dbt tests'],
+      },
+    ]);
+    expect(
+      Array.from(section.querySelectorAll('sup > a')).map((a) => a.getAttribute('href'))
+    ).toEqual(['#ref15', '#ref15', '#ref15', '#ref15']);
+  });
+
+  it('summary: 8 項目の番号付きまとめリスト（summary-list）と総括段落が一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'summary');
+    expect(headingTexts(section)).toEqual(['まとめ']);
+    expect(section.querySelector('h2 > i.ti.ti-flag')).not.toBeNull();
+    const list = section.querySelector('ol.summary-list');
+    expect(list).not.toBeNull();
+    expect(list?.querySelectorAll(':scope > li').length).toBe(8);
+    expect(list?.querySelector(':scope > li:first-child')?.textContent?.trim()).toBe(
+      'データ品質はビジネスに直結する経営課題であり、気づかれない劣化ほど危険である'
+    );
+    expect(list?.querySelector(':scope > li:last-child')?.textContent).toContain(
+      'ビルドかバイかを含めた組織的な定着が最後の鍵を握る'
+    );
+    expect(section.querySelectorAll(':scope > p').length).toBe(2);
+  });
+
+  it('checklist: 12 項目が元 HTML の文言・順序と一致し、初期カウンタは 0 / 12 完了', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'checklist');
+    expect(headingTexts(section)).toEqual(['実践チェックリスト']);
+    expect(section.querySelector('h2 > i.ti.ti-checklist')).not.toBeNull();
+
+    const items = Array.from(section.querySelectorAll('label.check-item'));
+    expect(items.length).toBe(12);
+    expect(items[0]?.textContent?.trim()).toBe(
+      '自社で過去に起きたデータ品質インシデントを棚卸しし、検知までの時間と損失額を概算した'
+    );
+    expect(items[11]?.textContent?.trim()).toBe(
+      'ランブック・オーナーシップ・社内規範・ダッシュボードによる継続改善の仕組みを用意した'
+    );
+    items.forEach((item) => {
+      expect(item.querySelector('input[type="checkbox"]')).not.toBeNull();
+      expect(item.querySelector('span')).not.toBeNull();
+      expect(item.classList.contains('done')).toBe(false);
+    });
+    expect(section.querySelector('#checkCounter')?.textContent?.trim()).toBe('0 / 12 完了');
+    expect(section.querySelector('.checklist-header > strong')?.textContent).toBe('進捗');
+  });
+
+  it('checklist: クリックで done クラス・カウンタが連動し、再クリックで解除される', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'checklist');
+    const boxes = Array.from(
+      section.querySelectorAll<HTMLInputElement>('label.check-item input[type="checkbox"]')
+    );
+    const counter = () => section.querySelector('#checkCounter')?.textContent?.trim();
+
+    fireEvent.click(boxes[0] as HTMLInputElement);
+    fireEvent.click(boxes[3] as HTMLInputElement);
+    expect(counter()).toBe('2 / 12 完了');
+    expect(boxes[0]?.closest('label')?.classList.contains('done')).toBe(true);
+    expect(boxes[1]?.closest('label')?.classList.contains('done')).toBe(false);
+
+    fireEvent.click(boxes[0] as HTMLInputElement);
+    expect(counter()).toBe('1 / 12 完了');
+    expect(boxes[0]?.closest('label')?.classList.contains('done')).toBe(false);
+
+    boxes.forEach((box) => {
+      if (!box.checked) fireEvent.click(box);
+    });
+    expect(counter()).toBe('12 / 12 完了');
+  });
+
+  it.each(['other-cases', 'oss', 'checklist', 'summary'])(
+    '%s が元 HTML と DOM 構造・テキストともに一致する',
+    (id) => {
+      const { container } = render(<Page />);
+      expectSectionMatchesSource(container, id);
+    }
+  );
+});
