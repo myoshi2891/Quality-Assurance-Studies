@@ -13,18 +13,22 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `9cbce42` |
-| 最新コミット内容 | `docs(data-quality-monitoring): sync CLAUDE.md and GEMINI.md` |
+| 最新 HEAD | `87b7f75` |
+| 最新コミット内容 | `fix(data-quality): fix callout strong contrast and restore paper theme for mermaid diagrams` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `npm test`: 全テスト通過（1346 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `npm test`: 全テスト通過（1349 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
-## 2026/10/03: データ品質モニタリング自動化ガイドのNext.js完全移行
+## 2026/10/03: データ品質モニタリング自動化ガイドのNext.js完全移行 & スタイル・Mermaidテーマ完全復元
 
 - **移行先**: `/automating-data-quality-monitoring-guide`
 - **移行内容**:
   - `Automating-data-quality-monitoring-guide.html` / `Automating-data-quality-monitoring-guide.md` を Next.js App Router へ完全移行。
   - TDD 必須サイクル（Red → Green）を厳格に適用し、全8カテゴリー（土台・はじめに・Step 0〜2・Step 3〜4・Step 5〜6・Step 7〜8・応用とまとめ・参考文献）と目次登録に分割して段階的にコミット。
   - 元 HTML を仕様として読み込む突合基盤（`tests/automating-data-quality-monitoring-guide/source.ts`）を新設。固定配列との 1 対 1 照合に加え、セクション単位で「DOM 構造シグネチャ（タグ・クラス・id・リンク属性）」「テキストブロック」「全文（空白無視）」を元 HTML と突合し、Mermaid ソースも元スクリプトから抽出して比較する。
+  - **スタイル・Mermaidテーマ復元（fix-mermaid 準拠）**:
+    - `globals.css` の `.callout strong { color: var(--color-text-primary); }`（薄い水色）干渉を解消し、`strong` および `.callout strong` を本来のインク文字色（`var(--ink)`: `#2a2419`）へ修正。
+    - Mermaid ダイアグラムにおいて、`components/Mermaid.tsx` のグローバルダークテーマによる通常ノードの黒潰れ（ネイビー背景＋黒文字）を防止するため、`diagrams.ts` の `MERMAID_CONFIG` に `mainBkg: "#f2ecdd"`, `nodeBorder: "#c9bd94"`, `nodeTextColor: "#2a2419"` を追加。
+    - `automating-data-quality-monitoring-guide.css` に通常ノード（`#f2ecdd` / `#2a2419` / `#c9bd94`）、hub（`#c9c4ef` / `#221f52` / `#8f88d6`）、done（`#bfe4d2` / `#123722` / `#6ec79b`）、エッジ線・マーカー（`#8b8368`）、エッジラベルのテキスト色等の明示的 CSS ルールを追加。
   - スティッキーナビ（`NavBar.tsx`、全17セクションアンカー、`lib/useScrollSpy.ts`、モバイルトグル、`aria-current` 対応）とメイン領域（`.dqm-layout`）。
   - 全13点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底（`tests/lib/mermaid-theme-contract.test.ts` 準拠）。
   - 全16表（kv-table 1・章構成・4本柱比較・4V・モデルの性質／非要件・エンコード方式・5つの落とし穴・評価指標・アラート関連・統合先・オンボーディング・OSS）、コールアウト4種（既定2・tip・warn）、番号付き `summary-list`、12項目の対話型チェックリスト（`Checklist.tsx`、進捗カウンタ連動）、参考文献16件（`ref1`〜`ref15` アンカー、全外部リンクに `target="_blank" rel="noopener noreferrer"`）、フッターを完全網羅。
@@ -35,12 +39,12 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - `app/automating-data-quality-monitoring-guide/Checklist.tsx`
   - `app/automating-data-quality-monitoring-guide/diagrams.ts`
   - `app/automating-data-quality-monitoring-guide/automating-data-quality-monitoring-guide.css`
-  - `tests/automating-data-quality-monitoring-guide/page.test.tsx`（62 tests / 499 expect() calls）
+  - `tests/automating-data-quality-monitoring-guide/page.test.tsx`（65 tests / 510 expect() calls）
   - `tests/automating-data-quality-monitoring-guide/source.ts`（元 HTML 突合用ヘルパー）
 - `lib/navigation.ts`: `books-practices` カテゴリに `/automating-data-quality-monitoring-guide`（データ品質モニタリング自動化ガイド）を追加（全88件）。
 - `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 87 → 88 に同期。
 - `tests/lib/navigation.test.ts`: 総件数を 88、`books-practices` を 19 に更新し、新規ページの登録検証を追加。
-- 検証: `npm test` 全 1346 tests 通過、ESLint・型チェック（対象ファイル）エラーなし。`next build` は実行していない（サンドボックス制約によりユーザー実行待ち）。
+- 検証: `npm test` 全 1349 tests 通過、ESLint・型チェック（対象ファイル）エラーなし。`next build` は実行していない（サンドボックス制約によりユーザー実行待ち）。
 - 目視確認はユーザーが `/automating-data-quality-monitoring-guide` をブラウザで確認する（CSS 変更後は `make css-reset` 推奨）。
 
 ## 2026/10/02: ISTQB CT-GenAI 第4章（LLM搭載テストインフラ）完全ガイドのNext.js完全移行
