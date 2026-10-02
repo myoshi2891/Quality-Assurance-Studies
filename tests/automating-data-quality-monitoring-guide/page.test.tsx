@@ -449,3 +449,129 @@ describe('C2: Step 0〜2（経営課題・データファクトリー・4本柱�
     expectSectionMatchesSource(container, id);
   });
 });
+
+describe('C3: Step 3〜4（ROI 判断・教師なし ML モデル）', () => {
+  it('Step 3: 見出し・4V 表・箇条書き・図5 が固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step3');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('3');
+    expect(headingTexts(section)).toEqual([
+      '自社に自動化が必要か？ ROI（投資対効果）で判断する',
+      'データの特性で判断する（4つのV）',
+      '業界・データ成熟度・ステークホルダーの観点',
+      '概算ROIの考え方',
+    ]);
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: '4Vによる自動化適性の判断軸',
+        headers: ['観点', '自動化の効果が高い', '自動化の効果が低い'],
+        rowLeads: [
+          'データ量（Volume）',
+          'データ種別（Variety）',
+          '更新頻度（Velocity）',
+          'リスクプロファイル（Veracity）',
+        ],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual(['図5｜自動化ROI試算の流れ']);
+
+    const lists = Array.from(section.querySelectorAll(':scope > ul')).map((ul) =>
+      Array.from(ul.querySelectorAll(':scope > li > strong')).map((s) => s.textContent?.trim())
+    );
+    expect(lists).toEqual([
+      ['業界特性', 'データ成熟度', 'ステークホルダー別の便益'],
+      ['効果', 'リスク'],
+    ]);
+  });
+
+  it('Step 4: 見出し（h3 / h4）・補足コールアウト・表 3 つが固定配列と一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step4');
+    expect(section.querySelector('.step-head .step-badge')?.textContent).toBe('4');
+    expect(headingTexts(section)).toEqual([
+      '教師なし機械学習モデルの作り方',
+      'モデルに求める4つの性質（ウィッシュリスト）',
+      'コアとなるアイデア：「今日のデータは今日のものか？」を機械学習に当てさせる',
+      'モデル構築で考慮すべき4つの論点',
+      '① データサンプリング',
+      '② 特徴量エンコーディング',
+      '③ モデルアーキテクチャ：勾配ブースティング決定木',
+      '④ モデルの説明可能性：SHAP値',
+    ]);
+    expect(headingTexts(section, 'h4')).toEqual([
+      '① データサンプリング',
+      '② 特徴量エンコーディング',
+      '③ モデルアーキテクチャ：勾配ブースティング決定木',
+      '④ モデルの説明可能性：SHAP値',
+    ]);
+
+    const callouts = section.querySelectorAll('.callout');
+    expect(callouts.length).toBe(1);
+    expect(callouts[0]?.classList.contains('tip')).toBe(false);
+    expect(callouts[0]?.classList.contains('warn')).toBe(false);
+    expect(callouts[0]?.querySelector('i.ti.ti-info-circle')).not.toBeNull();
+
+    expect(summarizeTables(section)).toEqual([
+      {
+        title: 'モデルに求める4つの性質',
+        headers: ['性質', '意味', '具体例'],
+        rowLeads: [
+          '感度（Sensitivity）',
+          '特異度（Specificity）',
+          '透明性（Transparency）',
+          'スケーラビリティ（Scalability）',
+        ],
+      },
+      {
+        title: 'モデルの非要件',
+        headers: ['非要件', '理由'],
+        rowLeads: [
+          '個々の不正レコードの特定',
+          'リアルタイム処理',
+          '既存の問題の発見',
+          'タイムスタンプのないテーブルの監視',
+          '外れ値（outlier）の検出',
+        ],
+      },
+      {
+        title: '代表的な特徴量エンコード方式',
+        headers: ['エンコード種別', '内容'],
+        rowLeads: ['numeric', 'frequency', 'isNull', 'secondOfDay / timeDelta', 'OneHot'],
+      },
+    ]);
+    expect(captionTexts(section)).toEqual([
+      '図6｜教師なしMLモデルの核心アイデア',
+      '図7｜MLモデル構築の4つの関心事',
+      '図8｜勾配ブースティング決定木の仕組み',
+    ]);
+  });
+
+  it('Step 4: サンプリングの 3 観点・TABLESAMPLE の code・外部リンクが一致する', () => {
+    const { container } = render(<Page />);
+    const section = getRenderedSection(container, 'step4');
+    const samplingTerms = Array.from(
+      section.querySelectorAll(':scope > ul:first-of-type > li > strong')
+    ).map((s) => s.textContent?.trim());
+    expect(samplingTerms).toEqual(['何を', 'どれくらい', 'どうやって']);
+    expect(section.querySelector('li code')?.textContent).toBe('TABLESAMPLE');
+
+    const external = Array.from(section.querySelectorAll('a[target="_blank"]')).map((a) => [
+      a.getAttribute('href'),
+      a.getAttribute('rel'),
+    ]);
+    expect(external).toEqual([
+      ['https://xgboost.readthedocs.io/en/latest/index.html', 'noopener noreferrer'],
+      ['https://shap.readthedocs.io/en/latest/index.html', 'noopener noreferrer'],
+    ]);
+  });
+
+  it('図5〜8 の Mermaid ソースが元 HTML と一致して描画される', async () => {
+    const { container } = render(<Page />);
+    await expectDiagramsRendered(container, ['dwrap-5', 'dwrap-6', 'dwrap-7', 'dwrap-8']);
+  });
+
+  it.each(['step3', 'step4'])('%s が元 HTML と DOM 構造・テキストともに一致する', (id) => {
+    const { container } = render(<Page />);
+    expectSectionMatchesSource(container, id);
+  });
+});
