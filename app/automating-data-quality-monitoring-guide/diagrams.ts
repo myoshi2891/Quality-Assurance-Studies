@@ -42,3 +42,44 @@ export const DIAGRAM_ROADMAP = `${MERMAID_CONFIG}flowchart TD
     class S0 hub
     class S8 done`;
 
+
+export const DIAGRAM_FACTORY_ORIGINS = `${MERMAID_CONFIG}flowchart TB
+    factory["データファクトリー"]
+    factory --> input["入力起因　センサー故障・入力ミス・上流の問題"]
+    factory --> meta["メタデータ起因　データセット説明の誤り・API仕様変更の未告知"]
+    factory --> sys["システム起因　ソフトウェアのバグ・障害・遅延"]
+    factory --> sched["スケジュール起因　処理順序や実行タイミングのずれ"]
+    factory --> code["コード起因　変換・集計・結合ロジックの誤り"]
+    factory --> config["設定起因　入力に合わない設定のまま稼働"]
+    factory --> newtech["新技術起因　オンプレからクラウドへの移行など仕様差異"]
+    factory --> people["人起因　新機能追加・バグ修正・リファクタ・引き継ぎ不足"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    class factory hub`;
+
+export const DIAGRAM_SCARS_AND_SHOCKS = `${MERMAID_CONFIG}flowchart LR
+    normal1["正常なデータ　トレンド"] -->|障害発生イコールショック1| incident["データ傷が蓄積　未検知期間"]
+    incident -->|自動検知| detect["異常を検知"]
+    detect -->|修正・復旧イコールショック2| recovered["正常なトレンドへ復帰"]
+    recovered -.->|"継続監視"| normal1
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#6ec79b,stroke-width:1px;
+    class detect hub
+    class recovered done`;
+
+export const DIAGRAM_FOUR_PILLARS = `${MERMAID_CONFIG}flowchart TB
+    core["自動データ品質　モニタリング"]
+    core --> obs["1 データ観測性　Data Observability"]
+    core --> rules["2 検証ルール　Validation Rules"]
+    core --> metrics["3 主要指標　Key Metrics"]
+    core --> uml["4 教師なし機械学習　UML Checks"]
+
+    obs --> obs1["メタデータのみを参照　計算コストが低く広くスケール"]
+    rules --> rules1["ドメイン知識を反映した　ハードなルール"]
+    metrics --> metrics1["時系列モデルで　季節性込みの予測"]
+    uml --> uml1["未知の未知　unknown unknowns　を相関ごと検知"]
+
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#8f88d6,stroke-width:1px;
+    class core hub`;
+
