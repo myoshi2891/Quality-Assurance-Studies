@@ -19,7 +19,7 @@ import {
     DIAGRAM_D15,
     DIAGRAM_D16,
 } from './diagrams';
-import ChecklistCard, { ChecklistGroup } from './ChecklistCard';
+import ChecklistCard, { type ChecklistGroup } from './ChecklistCard';
 import './istqb-ct-genai-chapter5-deploying-and-integrating.css';
 
 const CHECKLIST_GROUPS: ChecklistGroup[] = [
@@ -1398,7 +1398,7 @@ export default function CtGenAiChapter5Page() {
                         <h2 className="doc-h2">7.2 5.2の全体像（図解）</h2>
                         <div className="diagram-card">
                             <div data-diagram="d10">
-                                <Mermaid chart={DIAGRAM_D10} id="mermaid-d10" />
+                                <Mermaid chart={DIAGRAM_D10} />
                             </div>
                             <div className="diagram-caption">
                                 技術面（5.2.1）と組織面（5.2.2・5.2.3）が、AIツールの活用と抵抗低減につながる
@@ -1498,7 +1498,7 @@ export default function CtGenAiChapter5Page() {
                         <h2 className="doc-h2">8.3 スキルの全体像（図解）</h2>
                         <div className="diagram-card">
                             <div data-diagram="d11">
-                                <Mermaid chart={DIAGRAM_D11} id="mermaid-d11" />
+                                <Mermaid chart={DIAGRAM_D11} />
                             </div>
                             <div className="diagram-caption">
                                 従来のテスト専門性とAI固有のスキルが組み合わさり、責任あるAI支援テストへつながる
@@ -1602,7 +1602,7 @@ export default function CtGenAiChapter5Page() {
                         <h3 className="doc-h3">送信前チェックの流れ（図解）</h3>
                         <div className="diagram-card">
                             <div data-diagram="d12">
-                                <Mermaid chart={DIAGRAM_D12} id="mermaid-d12" />
+                                <Mermaid chart={DIAGRAM_D12} />
                             </div>
                             <div className="diagram-caption">
                                 <span className="tag tag-y">例</span>
@@ -1765,7 +1765,7 @@ export default function CtGenAiChapter5Page() {
                         <h2 className="doc-h2">9.2 能力の成長ステップ（図解）</h2>
                         <div className="diagram-card">
                             <div data-diagram="d13">
-                                <Mermaid chart={DIAGRAM_D13} id="mermaid-d13" />
+                                <Mermaid chart={DIAGRAM_D13} />
                             </div>
                             <div className="diagram-caption">
                                 基本的なプロンプト作成から、プロンプトパターン・共有ライブラリへ。実践共同体が学習を後押しする
@@ -2014,7 +2014,7 @@ export default function CtGenAiChapter5Page() {
                         </p>
                         <div className="diagram-card">
                             <div data-diagram="d14">
-                                <Mermaid chart={DIAGRAM_D14} id="mermaid-d14" />
+                                <Mermaid chart={DIAGRAM_D14} />
                             </div>
                             <div className="diagram-caption">
                                 テスターとテストマネージャーの役割が、それぞれ新しい形へ進化する
@@ -2419,7 +2419,7 @@ export default function CtGenAiChapter5Page() {
                         </p>
                         <div className="diagram-card">
                             <div data-diagram="d15">
-                                <Mermaid chart={DIAGRAM_D15} id="mermaid-d15" />
+                                <Mermaid chart={DIAGRAM_D15} />
                             </div>
                             <div className="diagram-caption">
                                 データの機密性に応じて、商用プラン・セキュアクラウド・自社インフラのいずれかを選ぶ
@@ -2678,7 +2678,7 @@ export default function CtGenAiChapter5Page() {
                         <h2 className="doc-h2">13.1 第5章の全体フロー（総まとめの図解）</h2>
                         <div className="diagram-card">
                             <div data-diagram="d16">
-                                <Mermaid chart={DIAGRAM_D16} id="mermaid-d16" />
+                                <Mermaid chart={DIAGRAM_D16} />
                             </div>
                             <div className="diagram-caption">
                                 5.1ロードマップと5.2変革管理が合わさり、統制されたAI支援テスト組織へ至る
