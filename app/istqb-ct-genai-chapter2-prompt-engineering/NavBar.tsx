@@ -126,18 +126,20 @@ export default function NavBar() {
 
                         if (item.isH3) {
                             return (
-                                <ul key={item.href} className="side-nav-sub">
-                                    <li>
-                                        <a
-                                            href={item.href}
-                                            data-target={targetId}
-                                            className={isActive ? 'active' : ''}
-                                            onClick={(e) => handleLinkClick(e, item.href)}
-                                        >
-                                            {item.text}
-                                        </a>
-                                    </li>
-                                </ul>
+                                <li key={item.href}>
+                                    <ul className="side-nav-sub">
+                                        <li>
+                                            <a
+                                                href={item.href}
+                                                data-target={targetId}
+                                                className={isActive ? 'active' : ''}
+                                                onClick={(e) => handleLinkClick(e, item.href)}
+                                            >
+                                                {item.text}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             );
                         }
 
