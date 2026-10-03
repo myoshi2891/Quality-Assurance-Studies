@@ -640,7 +640,7 @@ main.ct-genai-ch2-page {
         display: block;
     }
     .ct-genai-ch2-page .main {
-        margin-left: 0;
+        margin-left: 0 !important;
         padding: 60px 20px 64px;
     }
     .ct-genai-ch2-page .hero {
