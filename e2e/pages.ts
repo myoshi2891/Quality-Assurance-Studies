@@ -26,6 +26,11 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ct-aut-complete-guide', h1: /CT-AuT.*自動車ソフトウェアテスター/s },
   { path: '/istqb-ct-ai-complete-guide', h1: /CT-AI 完全ガイド/ },
   { path: '/istqb-ct-genai-complete-guide', h1: /Testing with Generative AI/ },
+  { path: '/istqb-ct-genai-chapter1-introduction', h1: /CT-GenAI 第1章.*生成AIソフトウェアテスト入門/ },
+  { path: '/istqb-ct-genai-chapter2-prompt-engineering', h1: /CT-GenAI 第2章.*完全解説ガイド/ },
+  { path: '/istqb-ct-genai-chapter3-risk-management', h1: /CT-GenAI 第3章.*リスク管理/ },
+  { path: '/istqb-ct-genai-chapter4-llm-powered-solutions', h1: /LLM 搭載テストインフラ/ },
+  { path: '/istqb-ct-genai-chapter5-deploying-and-integrating', h1: /第5章.*導入と統合/ },
   { path: '/istqb-ct-mat-complete-guide', h1: /Mobile Application.*Testing/s },
   { path: '/istqb-ct-mbt-complete-guide', h1: /CT-MBT.*モデルベーステスト/s },
   { path: '/istqb-ct-pt-complete-guide', h1: /Performance.*Testing/s },
@@ -95,8 +100,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/software-testing-with-generative-ai-guide', h1: /生成AIとソフトウェアテスト実践ガイド/ },
   { path: '/ai-driven-software-testing-guide', h1: /AI駆動ソフトウェアテスト入門ガイド/ },
   { path: '/testing-ai-confidence-engineering-guide', h1: /Testing AI.*完全ガイド/s },
+  { path: '/automating-data-quality-monitoring-guide', h1: /データ品質モニタリングの自動化を学ぶ/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 82;
+export const EXPECTED_PAGE_COUNT = 88;
 
 

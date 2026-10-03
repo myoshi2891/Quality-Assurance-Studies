@@ -1,0 +1,1057 @@
+/* ==========================================================================
+   データ品質モニタリングの自動化ガイド
+   Scoped styles for .dqm-layout（元 HTML の :root / 要素セレクタをページ固有スコープへ移設）
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
+
+.dqm-layout {
+    --paper: #faf6ec;
+    --paper-2: #f2ecdd;
+    --card: #fffdf8;
+    --ink: #2a2419;
+    --ink-soft: #6b6353;
+    --ink-faint: #736b57;
+    --border: #e6ddc7;
+    --indigo: #41407c;
+    --indigo-dark: #2e2d5c;
+    --indigo-soft: rgba(65, 64, 124, 0.08);
+    --gold: #a8791f;
+    --gold-soft: #f6ecd6;
+    --forest: #2f6b4f;
+    --forest-soft: #e3f1ea;
+    --plum: #7a3f68;
+    --plum-soft: #f2e7ee;
+    --sidebar-w: 296px;
+    --radius: 14px;
+    --shadow: 0 2px 10px rgba(42, 36, 25, 0.06), 0 1px 2px rgba(42, 36, 25, 0.08);
+    --font-serif: 'Source Serif 4', Georgia, 'Noto Serif JP', serif;
+    /* グローバルヘッダー（固定 60px）と免責バナーの合計。sticky / fixed の基準位置 */
+    --header-offset: calc(60px + var(--disclaimer-height, 0px));
+
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.85;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+.dqm-layout *,
+.dqm-layout *::before,
+.dqm-layout *::after {
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   globals.css 干渉リセット（section / .hero / main / table / footer）
+   -------------------------------------------------------------------------- */
+.dqm-layout section {
+    padding-top: 0 !important;
+    border-top: none !important;
+}
+
+.dqm-layout .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+}
+
+.dqm-layout .hero::after {
+    content: none !important;
+}
+
+.dqm-layout main.main {
+    max-width: none !important;
+    margin: 0 !important;
+    margin-left: var(--sidebar-w) !important;
+    padding: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   タイポグラフィ（Tailwind preflight で消えるマージン・リスト装飾を明示復元）
+   -------------------------------------------------------------------------- */
+.dqm-layout h1,
+.dqm-layout h2,
+.dqm-layout h3,
+.dqm-layout h4 {
+    font-family: var(--font-serif);
+    color: var(--ink);
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.dqm-layout h2 {
+    font-size: 1.5rem;
+    margin: 1.245rem 0;
+}
+
+.dqm-layout h3 {
+    font-size: 1.2rem;
+    margin: 1.8rem 0 1.2rem;
+}
+
+.dqm-layout h4 {
+    font-size: 1.05rem;
+    color: var(--indigo-dark);
+    margin: 1.4rem 0;
+}
+
+.dqm-layout h2 .ti,
+.dqm-layout h3 .ti {
+    color: var(--indigo);
+    margin-right: 0.4rem;
+}
+
+.dqm-layout p {
+    margin: 1rem 0;
+}
+
+.dqm-layout a {
+    color: var(--indigo);
+}
+
+.dqm-layout a:hover {
+    color: var(--indigo-dark);
+}
+
+.dqm-layout p,
+.dqm-layout li,
+.dqm-layout td,
+.dqm-layout th,
+.dqm-layout dd,
+.dqm-layout dt,
+.dqm-layout blockquote {
+    overflow-wrap: break-word;
+}
+
+.dqm-layout strong {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.dqm-layout ul {
+    list-style: disc;
+    padding-left: 2.5rem;
+    margin: 1rem 0;
+}
+
+.dqm-layout ol {
+    list-style: decimal;
+    padding-left: 2.5rem;
+    margin: 1rem 0;
+}
+
+.dqm-layout ul ul,
+.dqm-layout ol ul {
+    list-style: circle;
+    margin: 0;
+}
+
+.dqm-layout ol ol,
+.dqm-layout ul ol {
+    list-style: lower-alpha;
+    margin: 0;
+}
+
+.dqm-layout li {
+    display: list-item;
+}
+
+.dqm-layout code {
+    overflow-wrap: anywhere;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--paper-2);
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.dqm-layout sup {
+    font-size: 1rem;
+    vertical-align: super;
+    line-height: 0;
+}
+
+.dqm-layout sub {
+    font-size: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   レイアウト（サイドバー + 本文）
+   -------------------------------------------------------------------------- */
+.dqm-layout .sidebar {
+    position: fixed;
+    top: var(--header-offset);
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 1.6rem 1.1rem 3rem;
+    z-index: 40;
+}
+
+.dqm-layout .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--indigo-dark);
+    padding: 0 0.4rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+}
+
+.dqm-layout .brand .ti {
+    font-size: 1.4rem;
+    color: var(--indigo);
+}
+
+.dqm-layout .nav-group-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 1rem 0.5rem 0.4rem;
+}
+
+.dqm-layout .nav-a {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.55rem;
+    border-radius: 9px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.dqm-layout .nav-a:hover {
+    background: var(--paper-2);
+    color: var(--ink);
+}
+
+.dqm-layout .nav-a.active {
+    background: var(--indigo-soft);
+    color: var(--indigo-dark);
+    font-weight: 600;
+}
+
+.dqm-layout .nav-a .ti {
+    font-size: 1.05rem;
+    color: var(--indigo);
+    flex-shrink: 0;
+}
+
+.dqm-layout .n-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: var(--paper-2);
+    color: var(--indigo-dark);
+    font-size: 1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.dqm-layout .nav-a.active .n-num {
+    background: var(--indigo);
+    color: #fff;
+}
+
+.dqm-layout .content {
+    max-width: none;
+    padding: 3rem 3.4rem 6rem;
+}
+
+.dqm-layout .section {
+    scroll-margin-top: calc(var(--header-offset) + 1.5rem);
+}
+
+/* --------------------------------------------------------------------------
+   モバイルバー / スクリム
+   -------------------------------------------------------------------------- */
+.dqm-layout .mobile-bar,
+.dqm-layout .mobile-bar * {
+    font-size: 1rem;
+}
+
+.dqm-layout .mobile-bar {
+    display: none;
+    position: sticky;
+    top: var(--header-offset);
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.1rem;
+    z-index: 45;
+}
+
+.dqm-layout .mobile-bar .brand {
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.dqm-layout .mobile-toggle {
+    background: var(--indigo);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.dqm-layout .mobile-toggle .ti {
+    font-size: 1.3rem;
+}
+
+.dqm-layout .scrim {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 17, 10, 0.45);
+    z-index: 39;
+}
+
+.dqm-layout .scrim.show {
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   ヒーロー
+   -------------------------------------------------------------------------- */
+.dqm-layout .hero {
+    background: linear-gradient(135deg, var(--paper-2) 0%, var(--paper) 70%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.6rem 2.8rem !important;
+    margin-bottom: 2.2rem;
+}
+
+.dqm-layout .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--indigo);
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    /* globals の .hero-eyebrow 等の装飾が付かないよう等幅・字間を明示 */
+    letter-spacing: normal;
+}
+
+.dqm-layout .hero h1 {
+    font-family: var(--font-serif);
+    font-size: 2.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0 0 0.8rem;
+}
+
+.dqm-layout .hero h1 .book-title {
+    color: var(--indigo-dark);
+}
+
+.dqm-layout .hero p.lead {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   コールアウト（既定 / tip / warn）
+   -------------------------------------------------------------------------- */
+.dqm-layout .callout {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--indigo);
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+    color: var(--ink);
+}
+
+.dqm-layout .callout strong {
+    color: var(--ink) !important;
+}
+
+.dqm-layout .callout.tip {
+    border-left-color: var(--gold);
+    background: var(--gold-soft);
+}
+
+.dqm-layout .callout.warn {
+    border-left-color: var(--plum);
+    background: var(--plum-soft);
+}
+
+.dqm-layout .callout .ti {
+    font-size: 1.4rem;
+    color: var(--indigo);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.dqm-layout .callout.tip .ti {
+    color: var(--gold);
+}
+
+.dqm-layout .callout.warn .ti {
+    color: var(--plum);
+}
+
+.dqm-layout .callout-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.dqm-layout .callout-body p {
+    margin: 0.3rem 0;
+}
+
+.dqm-layout .callout-body p:first-child {
+    margin-top: 0;
+}
+
+.dqm-layout .callout-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   書籍カード
+   -------------------------------------------------------------------------- */
+.dqm-layout .book-card {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.8rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.4rem 0 2rem;
+}
+
+.dqm-layout .book-cover {
+    min-height: 220px;
+    background: linear-gradient(160deg, var(--indigo) 0%, var(--indigo-dark) 100%);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.3rem;
+    color: #fdfbf6;
+}
+
+.dqm-layout .book-cover .ti {
+    font-size: 2.2rem;
+    opacity: 0.85;
+}
+
+.dqm-layout .book-cover .cover-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.45;
+}
+
+.dqm-layout .book-cover .cover-author {
+    font-size: 1rem;
+    opacity: 0.85;
+    margin-top: 0.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   テーブル（globals の th / td / tr:hover td / td strong を完全リセット）
+   -------------------------------------------------------------------------- */
+.dqm-layout .table-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 1.3rem 0;
+    background: var(--card);
+}
+
+.dqm-layout .table-title {
+    background: var(--paper-2);
+    color: var(--ink);
+    font-weight: 700;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+}
+
+.dqm-layout table {
+    width: 100%;
+    min-width: 480px;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.dqm-layout thead tr {
+    background: transparent;
+    border-bottom: none;
+}
+
+.dqm-layout table td,
+.dqm-layout table th {
+    overflow-wrap: anywhere;
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.85;
+    letter-spacing: normal;
+}
+
+.dqm-layout tbody td,
+.dqm-layout td {
+    color: var(--ink) !important;
+    font-size: 1rem !important;
+    background: transparent !important;
+}
+
+.dqm-layout td strong,
+.dqm-layout td code {
+    color: var(--ink) !important;
+    font-weight: 700;
+}
+
+.dqm-layout td code {
+    font-weight: 400;
+}
+
+.dqm-layout table thead th {
+    background: var(--indigo-dark);
+    color: #fdfbf6 !important;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    border-bottom: none;
+    white-space: normal !important;
+}
+
+.dqm-layout table tbody tr:nth-child(even) {
+    background: rgba(65, 64, 124, 0.045);
+}
+
+.dqm-layout table tbody tr:hover,
+.dqm-layout table tbody tr:hover td {
+    background: var(--indigo-soft) !important;
+}
+
+.dqm-layout .kv-table th {
+    background: transparent;
+    color: var(--ink) !important;
+    font-weight: 700;
+    border-right: 1px solid var(--border);
+    width: 34%;
+    white-space: normal !important;
+}
+
+.dqm-layout .kv-table tbody tr:nth-child(even) {
+    background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   図解（Mermaid）— fix-mermaid スキル準拠
+   -------------------------------------------------------------------------- */
+.dqm-layout .diagram-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: safe center;
+    overflow-x: auto;
+    padding: 1.2rem 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 1.2rem 0 0.6rem;
+}
+
+/* globals の「ダークカード + max-width: 760px」既定を打ち消す */
+.dqm-layout .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    flex: 0 0 auto;
+    overflow: visible !important;
+}
+
+/* 縮小表示を防ぎ、広い図は .diagram-wrap の横スクロールで全体に到達できるようにする */
+.dqm-layout .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+}
+
+.dqm-layout .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.dqm-layout .mermaid-wrapper foreignObject p,
+.dqm-layout .mermaid-wrapper foreignObject span,
+.dqm-layout .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.dqm-layout .mermaid-wrapper .edgeLabels rect,
+.dqm-layout .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.dqm-layout .mermaid-wrapper .edgeLabel,
+.dqm-layout .mermaid-wrapper .edgeLabel span,
+.dqm-layout .mermaid-wrapper .edgeLabel p,
+.dqm-layout .mermaid-wrapper .edgeLabel text,
+.dqm-layout .mermaid-wrapper .edgeLabel tspan,
+.dqm-layout .mermaid-wrapper .edgeLabels .label,
+.dqm-layout .mermaid-wrapper .edgeLabels text,
+.dqm-layout .mermaid-wrapper .edgeLabels tspan {
+    background-color: #ffffff !important;
+    color: #2a2419 !important;
+    fill: #2a2419 !important;
+    font-weight: 700 !important;
+}
+
+.dqm-layout .mermaid-wrapper .edgePaths path,
+.dqm-layout .mermaid-wrapper path.flowchart-link {
+    stroke: #8b8368 !important;
+    stroke-width: 1.5px !important;
+}
+
+.dqm-layout .mermaid-wrapper .marker,
+.dqm-layout .mermaid-wrapper marker path {
+    fill: #8b8368 !important;
+    stroke: #8b8368 !important;
+}
+
+
+/* --- Mermaid ノードスタイル（紙テーマ・未指定ノードの背景・枠線・文字色） --- */
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) rect,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) circle,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) ellipse,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) polygon,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) path,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .basic,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .label-container {
+    fill: #f2ecdd !important;
+    stroke: #c9bd94 !important;
+    stroke-width: 1px !important;
+}
+
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .label,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .label text,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel *,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) text,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) span,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) p,
+.dqm-layout .mermaid-wrapper .node:not(.hub):not(.done) div {
+    color: #2a2419 !important;
+    fill: #2a2419 !important;
+    font-family: var(--font-serif) !important;
+}
+
+/* hub クラス (紫) */
+.dqm-layout .mermaid-wrapper .node.hub rect,
+.dqm-layout .mermaid-wrapper .node.hub circle,
+.dqm-layout .mermaid-wrapper .node.hub ellipse,
+.dqm-layout .mermaid-wrapper .node.hub polygon,
+.dqm-layout .mermaid-wrapper .node.hub path,
+.dqm-layout .mermaid-wrapper .node.hub .basic,
+.dqm-layout .mermaid-wrapper .node.hub .label-container {
+    fill: #c9c4ef !important;
+    stroke: #8f88d6 !important;
+    stroke-width: 1px !important;
+}
+
+.dqm-layout .mermaid-wrapper .node.hub .label,
+.dqm-layout .mermaid-wrapper .node.hub .label text,
+.dqm-layout .mermaid-wrapper .node.hub .nodeLabel,
+.dqm-layout .mermaid-wrapper .node.hub .nodeLabel *,
+.dqm-layout .mermaid-wrapper .node.hub text,
+.dqm-layout .mermaid-wrapper .node.hub span,
+.dqm-layout .mermaid-wrapper .node.hub p,
+.dqm-layout .mermaid-wrapper .node.hub div {
+    color: #221f52 !important;
+    fill: #221f52 !important;
+    font-family: var(--font-serif) !important;
+}
+
+/* done クラス (緑) */
+.dqm-layout .mermaid-wrapper .node.done rect,
+.dqm-layout .mermaid-wrapper .node.done circle,
+.dqm-layout .mermaid-wrapper .node.done ellipse,
+.dqm-layout .mermaid-wrapper .node.done polygon,
+.dqm-layout .mermaid-wrapper .node.done path,
+.dqm-layout .mermaid-wrapper .node.done .basic,
+.dqm-layout .mermaid-wrapper .node.done .label-container {
+    fill: #bfe4d2 !important;
+    stroke: #6ec79b !important;
+    stroke-width: 1px !important;
+}
+
+.dqm-layout .mermaid-wrapper .node.done .label,
+.dqm-layout .mermaid-wrapper .node.done .label text,
+.dqm-layout .mermaid-wrapper .node.done .nodeLabel,
+.dqm-layout .mermaid-wrapper .node.done .nodeLabel *,
+.dqm-layout .mermaid-wrapper .node.done text,
+.dqm-layout .mermaid-wrapper .node.done span,
+.dqm-layout .mermaid-wrapper .node.done p,
+.dqm-layout .mermaid-wrapper .node.done div {
+    color: #123722 !important;
+    fill: #123722 !important;
+    font-family: var(--font-serif) !important;
+}
+
+.dqm-layout .diagram-caption {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin: 0 0 1.6rem;
+}
+
+.dqm-layout .diagram-caption b {
+    color: var(--indigo-dark);
+}
+
+/* --------------------------------------------------------------------------
+   ステップ見出し
+   -------------------------------------------------------------------------- */
+.dqm-layout .step-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 2.6rem 0 1rem;
+}
+
+.dqm-layout .step-badge {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--indigo);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.dqm-layout .step-head h2 {
+    margin: 0;
+    font-size: 1.55rem;
+}
+
+/* --------------------------------------------------------------------------
+   チェックリスト
+   -------------------------------------------------------------------------- */
+.dqm-layout .checklist {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    margin: 1.4rem 0;
+}
+
+.dqm-layout .checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+.dqm-layout .checklist-counter {
+    font-weight: 700;
+    color: var(--indigo-dark);
+    background: var(--indigo-soft);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 1rem;
+}
+
+.dqm-layout .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.55rem 0.2rem;
+    border-bottom: 1px dashed var(--border);
+    cursor: pointer;
+}
+
+.dqm-layout .check-item:last-child {
+    border-bottom: none;
+}
+
+.dqm-layout .check-item input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.3rem;
+    height: 1.3rem;
+    border: 2px solid var(--indigo);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    cursor: pointer;
+    position: relative;
+    font-size: 1rem;
+    background: transparent;
+}
+
+.dqm-layout .check-item input[type='checkbox']:checked {
+    background: var(--forest);
+    border-color: var(--forest);
+}
+
+.dqm-layout .check-item input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 0.32rem;
+    top: 0.08rem;
+    width: 0.35rem;
+    height: 0.65rem;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(40deg);
+}
+
+.dqm-layout .check-item input[type='checkbox']:focus-visible {
+    outline: 3px solid var(--indigo);
+    outline-offset: 2px;
+}
+
+.dqm-layout .check-item span {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.dqm-layout .check-item.done span {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+}
+
+/* --------------------------------------------------------------------------
+   参考文献
+   -------------------------------------------------------------------------- */
+.dqm-layout .ref-group-title {
+    font-weight: 700;
+    color: var(--indigo-dark);
+    margin: 1.8rem 0 0.6rem;
+    font-size: 1.05rem;
+}
+
+.dqm-layout .ref-card {
+    display: flex;
+    gap: 0.9rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.95rem 1.2rem;
+    margin-bottom: 0.7rem;
+    scroll-margin-top: calc(var(--header-offset) + 1.5rem);
+}
+
+.dqm-layout .ref-num {
+    width: 2rem;
+    height: 2rem;
+    background: var(--paper-2);
+    color: var(--indigo-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.dqm-layout .ref-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.dqm-layout .ref-title {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1rem;
+}
+
+.dqm-layout .ref-source {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin: 0.15rem 0 0.3rem;
+}
+
+.dqm-layout .ref-url {
+    color: var(--indigo);
+    font-size: 1rem;
+    word-break: break-all;
+}
+
+.dqm-layout .ref-url:hover {
+    text-decoration: underline;
+}
+
+.dqm-layout .ref-note {
+    color: var(--ink-faint);
+    font-size: 1rem;
+    margin-top: 0.3rem;
+}
+
+/* --------------------------------------------------------------------------
+   まとめリスト（番号付き丸バッジ）
+   -------------------------------------------------------------------------- */
+.dqm-layout .summary-list {
+    counter-reset: sum;
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0;
+}
+
+.dqm-layout .summary-list li {
+    counter-increment: sum;
+    display: flex;
+    gap: 0.9rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.dqm-layout .summary-list li::before {
+    content: counter(sum);
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    background: var(--forest);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   フッター（globals の footer 既定: 中央寄せ・等幅・余白を打ち消す）
+   -------------------------------------------------------------------------- */
+.dqm-layout footer {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding: 1.6rem 0 0;
+    text-align: left;
+    font-family: var(--font-serif);
+    color: var(--ink-faint);
+    font-size: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   スクロールバー（globals 干渉による黒帯防止）
+   -------------------------------------------------------------------------- */
+.dqm-layout *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.dqm-layout *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.dqm-layout *::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   レスポンシブ
+   -------------------------------------------------------------------------- */
+@media (max-width: 980px) {
+    .dqm-layout .sidebar {
+        transform: translateX(-100%);
+        /* 閉じている間はフォーカス順・支援技術・クリック対象から除外し、退場アニメは保つ */
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            transform 0.25s ease,
+            visibility 0s linear 0.25s;
+        box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .dqm-layout .sidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+            transform 0.25s ease,
+            visibility 0s linear 0s;
+    }
+
+    .dqm-layout main.main {
+        margin-left: 0 !important;
+    }
+
+    .dqm-layout .mobile-bar {
+        display: flex;
+    }
+
+    /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+    .dqm-layout .section,
+    .dqm-layout .ref-card {
+        scroll-margin-top: calc(var(--header-offset) + 4rem + 1.5rem);
+    }
+
+    .dqm-layout .content {
+        padding: 1.6rem 1.2rem 4rem;
+    }
+
+    .dqm-layout .hero {
+        padding: 1.8rem 1.5rem !important;
+    }
+
+    .dqm-layout .hero h1 {
+        font-size: 1.55rem;
+    }
+
+    .dqm-layout .book-card {
+        grid-template-columns: 1fr;
+    }
+
+    .dqm-layout .book-cover {
+        min-height: 140px;
+    }
+}

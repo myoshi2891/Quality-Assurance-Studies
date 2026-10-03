@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-09-30
+Updated 2026-10-03
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 336 specs)
+bun test             # ユニットテスト (bun test, 1349 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 82 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 88 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -179,6 +179,30 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-complete-guide/istqb-ct-genai-complete-guide.css` — GenAIテスト(CT-GenAI)ガイド固有スタイル
 - `app/istqb-ct-genai-complete-guide/page.tsx` — GenAIテスト(CT-GenAI)ガイドページ
 - `app/istqb-ct-genai-complete-guide/NavBar.tsx` — CT-GenAI ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter1-introduction/istqb-ct-genai-chapter1-introduction.css` — CT-GenAI 第1章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter1-introduction/page.tsx` — CT-GenAI 第1章ガイドページ
+- `app/istqb-ct-genai-chapter1-introduction/NavBar.tsx` — CT-GenAI 第1章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter1-introduction/diagrams.ts` — CT-GenAI 第1章 Mermaid 図解定義（fix-mermaid 準拠）
+- `app/istqb-ct-genai-chapter2-prompt-engineering/istqb-ct-genai-chapter2-prompt-engineering.css` — CT-GenAI 第2章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter2-prompt-engineering/page.tsx` — CT-GenAI 第2章ガイドページ
+- `app/istqb-ct-genai-chapter2-prompt-engineering/NavBar.tsx` — CT-GenAI 第2章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter2-prompt-engineering/ChecklistCard.tsx` — CT-GenAI 第2章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
+- `app/istqb-ct-genai-chapter2-prompt-engineering/diagrams.ts` — CT-GenAI 第2章 Mermaid 図解定義（fix-mermaid 準拠、全9図）
+- `app/istqb-ct-genai-chapter3-risk-management/istqb-ct-genai-chapter3-risk-management.css` — CT-GenAI 第3章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter3-risk-management/page.tsx` — CT-GenAI 第3章ガイドページ
+- `app/istqb-ct-genai-chapter3-risk-management/NavBar.tsx` — CT-GenAI 第3章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter3-risk-management/ChecklistCard.tsx` — CT-GenAI 第3章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
+- `app/istqb-ct-genai-chapter3-risk-management/diagrams.ts` — CT-GenAI 第3章 Mermaid 図解定義（fix-mermaid 準拠、全10図）
+- `app/istqb-ct-genai-chapter4-llm-powered-solutions/istqb-ct-genai-chapter4-llm-powered-solutions.css` — CT-GenAI 第4章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter4-llm-powered-solutions/page.tsx` — CT-GenAI 第4章ガイドページ
+- `app/istqb-ct-genai-chapter4-llm-powered-solutions/NavBar.tsx` — CT-GenAI 第4章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter4-llm-powered-solutions/ChecklistCard.tsx` — CT-GenAI 第4章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
+- `app/istqb-ct-genai-chapter4-llm-powered-solutions/diagrams.ts` — CT-GenAI 第4章 Mermaid 図解定義（fix-mermaid 準拠、全10図）
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/istqb-ct-genai-chapter5-deploying-and-integrating.css` — CT-GenAI 第5章ガイド固有スタイル
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/page.tsx` — CT-GenAI 第5章ガイドページ
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/NavBar.tsx` — CT-GenAI 第5章ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/ChecklistCard.tsx` — CT-GenAI 第5章チェックリストカードコンポーネント（`'use client'`、進捗バーと完了カウント動的連動）
+- `app/istqb-ct-genai-chapter5-deploying-and-integrating/diagrams.ts` — CT-GenAI 第5章 Mermaid 図解定義（fix-mermaid 準拠、全16図）
 - `app/istqb-ct-mbt-complete-guide/istqb-ct-mbt-complete-guide.css` — モデルベーステスト(CT-MBT)ガイド固有スタイル
 - `app/istqb-ct-mbt-complete-guide/page.tsx` — モデルベーステスト(CT-MBT)ガイドページ
 - `app/istqb-ct-mbt-complete-guide/NavBar.tsx` — CT-MBT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -334,9 +358,14 @@ Next.js App Router 構成:
 - `app/testing-ai-confidence-engineering-guide/page.tsx` — Testing AI 完全ガイドページ
 - `app/testing-ai-confidence-engineering-guide/NavBar.tsx` — Testing AI 完全ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
 - `app/testing-ai-confidence-engineering-guide/Checklist.tsx` — Testing AI 完全ガイド用インタラクティブチェックリスト（`'use client'`）
+- `app/automating-data-quality-monitoring-guide/automating-data-quality-monitoring-guide.css` — データ品質モニタリング自動化ガイド固有スタイル
+- `app/automating-data-quality-monitoring-guide/page.tsx` — データ品質モニタリング自動化ガイドページ
+- `app/automating-data-quality-monitoring-guide/NavBar.tsx` — データ品質モニタリング自動化ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
+- `app/automating-data-quality-monitoring-guide/Checklist.tsx` — データ品質モニタリング自動化ガイド用インタラクティブチェックリスト（`'use client'`、進捗カウンタ連動）
+- `app/automating-data-quality-monitoring-guide/diagrams.ts` — データ品質モニタリング自動化ガイド Mermaid 図解定義（全13図、`fix-mermaid` スキル準拠）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
 - `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。playwright-intermediate-advanced / sonarqube-intermediate / cucumber / cypress / selenium / clean-code-cookbook / the-way-of-the-web-tester / testing-web-apis / software-test-design / secure-by-design / how-google-tests-software / agile-testing-practical の各 NavBar が共用する
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 82 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 88 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -660,6 +689,7 @@ bun test        # ユニットテスト成功
 | `Ai-driven-software-testing-guide.html` | `/ai-driven-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Automating-data-quality-monitoring-guide.html` | `/automating-data-quality-monitoring-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
@@ -668,10 +698,15 @@ bun test        # ユニットテスト成功
 | `Ctal-tm-v3.0-ch2-managing-the-product.html` | `/istqb-ctal-tm-chapter2-managing-the-product` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-tm-v3-ch3-managing-the-team-guide.html` | `/istqb-ctal-tm-chapter3-managing-the-team` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-ch5-software-defect-prevention.html` | `/istqb-ctal-ta-chapter5-defect-prevention` | ✅ スティッキーTOCナビ + aria-current あり (archive/html-archive/ctal/) |
+| `Ct-genai-chapter1.html` | `/istqb-ct-genai-chapter1-introduction` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter2.html` | `/istqb-ct-genai-chapter2-prompt-engineering` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ctgenai-ch4-llm-powered-solutions-guide.html` | `/istqb-ct-genai-chapter4-llm-powered-solutions` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 18 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 16 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -680,7 +715,7 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（3 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -691,8 +726,8 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 82 ルート（ガイドライブラリ index + 81 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 88 ルート（ガイドライブラリ index + 87 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 

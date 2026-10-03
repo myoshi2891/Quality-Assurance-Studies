@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-09-30
+Updated 2026-10-03
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 82 ルート = ガイドライブラリ index + 81 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 88 ルート = ガイドライブラリ index + 87 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,167 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `7de5251` |
-| 最新コミット内容 | `docs(langgraph): refine payload summary redaction logic for temporal and spatial values` |
+| 最新 HEAD | `87b7f75` |
+| 最新コミット内容 | `fix(data-quality): fix callout strong contrast and restore paper theme for mermaid diagrams` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `bun test`: 1118 pass / 0 fail、`bun run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち。直前のユーザー実行では ch2 `page.tsx` の `Mermaid` への `id` 渡しで型エラー → 修正済み） |
+| ビルド状態 | `npm test`: 全テスト通過（1349 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+
+## 2026/10/03: データ品質モニタリング自動化ガイドのNext.js完全移行 & スタイル・Mermaidテーマ完全復元
+
+- **移行先**: `/automating-data-quality-monitoring-guide`
+- **移行内容**:
+  - `Automating-data-quality-monitoring-guide.html` / `Automating-data-quality-monitoring-guide.md` を Next.js App Router へ完全移行。
+  - TDD 必須サイクル（Red → Green）を厳格に適用し、全8カテゴリー（土台・はじめに・Step 0〜2・Step 3〜4・Step 5〜6・Step 7〜8・応用とまとめ・参考文献）と目次登録に分割して段階的にコミット。
+  - 元 HTML を仕様として読み込む突合基盤（`tests/automating-data-quality-monitoring-guide/source.ts`）を新設。固定配列との 1 対 1 照合に加え、セクション単位で「DOM 構造シグネチャ（タグ・クラス・id・リンク属性）」「テキストブロック」「全文（空白無視）」を元 HTML と突合し、Mermaid ソースも元スクリプトから抽出して比較する。
+  - **スタイル・Mermaidテーマ復元（fix-mermaid 準拠）**:
+    - `globals.css` の `.callout strong { color: var(--color-text-primary); }`（薄い水色）干渉を解消し、`strong` および `.callout strong` を本来のインク文字色（`var(--ink)`: `#2a2419`）へ修正。
+    - Mermaid ダイアグラムにおいて、`components/Mermaid.tsx` のグローバルダークテーマによる通常ノードの黒潰れ（ネイビー背景＋黒文字）を防止するため、`diagrams.ts` の `MERMAID_CONFIG` に `mainBkg: "#f2ecdd"`, `nodeBorder: "#c9bd94"`, `nodeTextColor: "#2a2419"` を追加。
+    - `automating-data-quality-monitoring-guide.css` に通常ノード（`#f2ecdd` / `#2a2419` / `#c9bd94`）、hub（`#c9c4ef` / `#221f52` / `#8f88d6`）、done（`#bfe4d2` / `#123722` / `#6ec79b`）、エッジ線・マーカー（`#8b8368`）、エッジラベルのテキスト色等の明示的 CSS ルールを追加。
+  - スティッキーナビ（`NavBar.tsx`、全17セクションアンカー、`lib/useScrollSpy.ts`、モバイルトグル、`aria-current` 対応）とメイン領域（`.dqm-layout`）。
+  - 全13点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底（`tests/lib/mermaid-theme-contract.test.ts` 準拠）。
+  - 全16表（kv-table 1・章構成・4本柱比較・4V・モデルの性質／非要件・エンコード方式・5つの落とし穴・評価指標・アラート関連・統合先・オンボーディング・OSS）、コールアウト4種（既定2・tip・warn）、番号付き `summary-list`、12項目の対話型チェックリスト（`Checklist.tsx`、進捗カウンタ連動）、参考文献16件（`ref1`〜`ref15` アンカー、全外部リンクに `target="_blank" rel="noopener noreferrer"`）、フッターを完全網羅。
+  - 元 HTML はルート直下から `archive/html-archive/books/`、Markdown は `archive/md-archive/books/` へ移動。移行テストはアーカイブ側の元 HTML を読み込んで突合を継続する。
+- **ファイル構成**:
+  - `app/automating-data-quality-monitoring-guide/page.tsx`
+  - `app/automating-data-quality-monitoring-guide/NavBar.tsx`
+  - `app/automating-data-quality-monitoring-guide/Checklist.tsx`
+  - `app/automating-data-quality-monitoring-guide/diagrams.ts`
+  - `app/automating-data-quality-monitoring-guide/automating-data-quality-monitoring-guide.css`
+  - `tests/automating-data-quality-monitoring-guide/page.test.tsx`（65 tests / 510 expect() calls）
+  - `tests/automating-data-quality-monitoring-guide/source.ts`（元 HTML 突合用ヘルパー）
+- `lib/navigation.ts`: `books-practices` カテゴリに `/automating-data-quality-monitoring-guide`（データ品質モニタリング自動化ガイド）を追加（全88件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 87 → 88 に同期。
+- `tests/lib/navigation.test.ts`: 総件数を 88、`books-practices` を 19 に更新し、新規ページの登録検証を追加。
+- 検証: `npm test` 全 1349 tests 通過、ESLint・型チェック（対象ファイル）エラーなし。`next build` は実行していない（サンドボックス制約によりユーザー実行待ち）。
+- 目視確認はユーザーが `/automating-data-quality-monitoring-guide` をブラウザで確認する（CSS 変更後は `make css-reset` 推奨）。
+
+## 2026/10/02: ISTQB CT-GenAI 第4章（LLM搭載テストインフラ）完全ガイドのNext.js完全移行
+
+- **移行先**: `/istqb-ct-genai-chapter4-llm-powered-solutions`
+- **移行内容**:
+  - `Ctgenai-ch4-llm-powered-solutions-guide.html` / `Ctgenai-ch4-llm-powered-solutions-guide.md` を Next.js App Router へ完全移行。
+  - TDD 必須サイクル（Red → Green）を厳格に適用し、全6カテゴリーに分割して段階的にコミット。
+  - スティッキーナビ（`NavBar.tsx`、全13セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-chapter4-page`）。
+  - 全10点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
+  - 基本アーキテクチャ3層（フロントエンド・バックエンド・LLM/DB）、RAGの2フェーズ（事前処理・実行時）とベクトル検索、LLM搭載エージェントの動作・ツール呼び出し・自律度・マルチエージェントオーケストレーション、ファインチューニングとLLM/SLM使い分け・4大課題、LLMOpsのライフサイクルと3つの導入アプローチ・7領域の監視項目、手法の使い分け判断フロー、第4章用語集（16語）、学習目標対応表（8項目）、確認問題10問（詳細解説付き）、試験直前チェックリスト16項目（`ChecklistCard.tsx`）、参考文献15件を完全網羅。
+  - 全テーブル（20以上）、全コールアウト、全外部リンク（`target="_blank" rel="noopener noreferrer"`）の存在を検証。
+- **ファイル構成**:
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/page.tsx`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/NavBar.tsx`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/ChecklistCard.tsx`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/diagrams.ts`
+  - `app/istqb-ct-genai-chapter4-llm-powered-solutions/istqb-ct-genai-chapter4-llm-powered-solutions.css`
+  - `tests/istqb-ct-genai-chapter4-llm-powered-solutions/page.test.tsx`（15 tests / 220 expect() calls）
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter4-llm-powered-solutions`（CT-GenAI 第4章 LLM搭載テストインフラ）を追加（全87件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 86 → 87 に同期。
+- `Ctgenai-ch4-llm-powered-solutions-guide.html` は `archive/html-archive/ct-specialist/`、`Ctgenai-ch4-llm-powered-solutions-guide.md` は `archive/md-archive/ct-specialist/` へ移動完了。
+
+## 2026/10/02: ISTQB CT-GenAI 第5章（テスト組織における生成AIの導入と統合）完全ガイドのNext.js完全移行
+
+- **移行先**: `/istqb-ct-genai-chapter5-deploying-and-integrating`
+- **移行内容**:
+  - `Ct-genai-chapter5.html` / `Ct-genai-chapter5.md` を Next.js App Router へ完全移行。
+  - TDD 必須サイクル（Red → Green）を厳格に適用し、全5カテゴリーに分割して段階的にコミット。
+  - スティッキーナビ（`NavBar.tsx`、全16セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-chapter5-page`）。
+  - 全16点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
+  - シャドーAIの定義と3大リスク（セキュリティ・コンプライアンス・知的財産紛争）、生成AI戦略の6大観点、LLM/SLM選定の4基準とスコアカード、導入3フェーズ（Discovery, Initiation, Utilization）と重なり合い、人的要因（雇用不安）への早期対応、データサニタイズ（マスキング・除去）、右サイズモデル、プロンプトパターンとプロンプトライブラリ構築、テスターとテストマネージャーの役割進化、導入形態別ベストプラクティス、関連規制（ISO 42001, EU AI Act, NIST AI RMF等）、暗記表・重要用語集、クイズ12問（解答解説テーブル付き）、学習チェックリスト19項目（`ChecklistCard.tsx`）、参考文献25件を完全網羅。
+  - 全48テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト、外部リンク（`target="_blank" rel="noopener"`）の存在を検証。
+- **ファイル構成**:
+  - `app/istqb-ct-genai-chapter5-deploying-and-integrating/page.tsx`
+  - `app/istqb-ct-genai-chapter5-deploying-and-integrating/NavBar.tsx`
+  - `app/istqb-ct-genai-chapter5-deploying-and-integrating/ChecklistCard.tsx`
+  - `app/istqb-ct-genai-chapter5-deploying-and-integrating/diagrams.ts`
+  - `app/istqb-ct-genai-chapter5-deploying-and-integrating/istqb-ct-genai-chapter5-deploying-and-integrating.css`
+  - `tests/istqb-ct-genai-chapter5-deploying-and-integrating/page.test.tsx`（27 tests / 1137 expect() calls）
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter5-deploying-and-integrating`（CT-GenAI 第5章 生成AIの導入と統合）を追加（全86件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 85 → 86 に同期。
+- `Ct-genai-chapter5.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter5.md` は `archive/md-archive/ct-specialist/` へ移動完了。
+
+## 2026/10/02: ISTQB CT-GenAI 第3章（生成AIのリスク管理）完全解説ガイドのNext.js完全移行
+
+- **移行先**: `/istqb-ct-genai-chapter3-risk-management`
+- **移行内容**:
+  - `Ct-genai-chapter3.html` / `Ct-genai-chapter3.md` を Next.js App Router へ完全移行。
+  - スティッキーナビ（`NavBar.tsx`、全28セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-chapter3-page`）。
+  - 全10点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
+  - ハルシネーション・推論エラー・バイアスの検出と軽減技法、非決定性の軽減（temperature / seed）、プライバシー・セキュリティリスク（攻撃ベクトル4種、緩和策、運用環境3択）、エネルギー消費と環境影響、AI規制・標準・フレームワーク（ISO/IEC 42001, ISO/IEC 23053, EU AI Act, NIST AI RMF）、総まとめ表、よくある間違い11点、実務導入チェックリスト4基（`ChecklistCard.tsx`）、オリジナル練習問題12問を完全網羅。
+  - 全47テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト（190件）、全30件以上の外部リンク（`target="_blank" rel="noopener noreferrer"`）の存在を検証。
+  - **レイアウト・スタイリング改善（2026-10-02 追加対応）**:
+    - `main` の globals リセットから `margin: 0 !important;` と `padding: 0 !important;` を除外し、`.main` に `margin-left: var(--sidebar-width) !important;`、`overflow-x: hidden;`、`box-sizing: border-box;`、`padding: 48px 72px 96px 56px;` を適用してサイドバーによる被りを解消。
+    - Mermaid 図解の黒潰れ防止 CSS（`.node rect`, `circle`, `ellipse`, `polygon`, `.nodeLabel`, `.cluster rect`, `.cluster .nodeLabel`）および横スクロール左端クリップ防止（`width: max-content`, `display: block`）を第1章・第2章の標準パターンと同期。`diagrams.ts` の `MERMAID_CONFIG` に `mainBkg: "#eff6ff"` を追加。
+    - 各コードブロック（Before/After プロンプト例、2.4節 OpenAI API 呼び出し、3.2節 仮名化処理）にシンタックスハイライトトークンクラス（`code-keyword`, `code-func`, `code-string`, `code-comment`, `code-number`）と CSS スタイルを定義・適用。
+- **ファイル構成**:
+  - `app/istqb-ct-genai-chapter3-risk-management/page.tsx`
+  - `app/istqb-ct-genai-chapter3-risk-management/NavBar.tsx`
+  - `app/istqb-ct-genai-chapter3-risk-management/ChecklistCard.tsx`
+  - `app/istqb-ct-genai-chapter3-risk-management/diagrams.ts`
+  - `app/istqb-ct-genai-chapter3-risk-management/istqb-ct-genai-chapter3-risk-management.css`
+  - `tests/istqb-ct-genai-chapter3-risk-management/page.test.tsx`（31 tests / 1246 expect() calls）
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter3-risk-management`（CT-GenAI 第3章 生成AIのリスク管理）を追加（全85件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 84 → 85 に同期。
+- `Ct-genai-chapter3.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter3.md` は `archive/md-archive/ct-specialist/` へ移動完了。
+
+## 2026/10/01: ISTQB CT-GenAI 第2章（プロンプトエンジニアリング）完全ガイドのNext.js完全移行
+
+- **移行先**: `/istqb-ct-genai-chapter2-prompt-engineering`
+- **移行内容**:
+  - `Ct-genai-chapter2.html` / `Ct-genai-chapter2.md` を Next.js App Router へ完全移行。
+  - スティッキーナビ（`NavBar.tsx`、全23セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-ch2-page`）。
+  - 全9点の Mermaid 図解を `diagrams.ts` に集約し、`MERMAID_CONFIG` 合成・シングルクォート排除・`.mermaid-wrapper` の globals 干渉解除を徹底。
+  - プロンプトの6要素構造（Role, Context, Instruction, Input Data, Constraints, Output Format）、コア3技法（プロンプトチェイニング、Few-shot、メタプロンプティング）、システム／ユーザープロンプト、各テスト活動への適用、結果評価（表11: 7指標）、改善技法（表12: 5技法）、変更点（表13）を網羅。
+  - クライアントコンポーネント `ChecklistCard.tsx`（10個のチェックボックスと動的進捗バー・完了カウント）を実装。
+  - 全14テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト（ハンズオン9件、ベストプラクティス6件、警告・注意5件、注記1件）、全参考文献の存在を検証。
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter2-prompt-engineering`（CT-GenAI 第2章 プロンプトエンジニアリング）を追加（全84件）。
+- `e2e/pages.ts`: `PAGES` 配列に登録し、`EXPECTED_PAGE_COUNT` を 83 → 84 に同期。
+- `tests/istqb-ct-genai-chapter2-prompt-engineering/page.test.tsx`: TDD 必須サイクル（Red → Green）に従い、22件のテストをすべて実装・パス。
+- `Ct-genai-chapter2.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter2.md` は `archive/md-archive/ct-specialist/` へ移動完了。
+
+## 2026/10/01: CT-GenAI 第1章 Mermaid 横スクロール時の左端切れ修正
+
+- **根本原因**:
+  - `.ct-genai-ch1-page .mermaid-container` に `display: flex; justify-content: safe center;`、子要素 `.mermaid-wrapper` に `width: 100% !important;` が指定されていた。
+  - Flexbox のアライメントは直下の子要素（`.mermaid-wrapper`）にのみ適用され、`.mermaid-wrapper` 自体は親幅と同じ（100%）のため溢れず、`safe` による start フォールバックが発動しなかった。
+  - さらに、孫の `<svg>` に `applySvgFixups` によるインラインスタイル `margin: 0 auto;` が適用されていたため、親ラッパー（例: 800px）より幅広の図（例: 1100px）において、左右マージンが負の値（`-150px`）となり、`<svg>` が左側（負の座標）へ突き出して配置された。
+  - ブラウザのスクロールコンテナ（`overflow-x: auto`）は原点 `0` 未満の負の領域へスクロールできないため、スクロールバーを最左端まで戻しても、左端のノード（「入力テキスト」の「入」など）が見えない障害が発生していた。
+- **修正内容**:
+  - `app/istqb-ct-genai-chapter1-introduction/istqb-ct-genai-chapter1-introduction.css`:
+    - `.mermaid-container` / `.mermaid-wrap`: `display: block !important`、`overflow-x: auto !important`、`overscroll-behavior-x: contain` に変更し、Flexbox による中央揃えを排除。ライトカード用の明色スクロールバーを定義。
+    - `.mermaid-wrapper`: `display: block !important`、`width: max-content !important`、`min-width: 100% !important` を指定。図がコンテナより広い場合はラッパー自体が図の自然幅まで拡張されるため、`<svg>` の `margin: 0 auto` による負のマージン発生を完全に防止（原点0から整列）。図がコンテナより狭い場合は `min-width: 100%` により美しく中央揃えされるベストプラクティスを適用。
+    - `.mermaid-wrapper svg`: `display: block !important`、`margin: 0 auto !important`、`flex-shrink: 0` を指定。
+  - `tests/istqb-ct-genai-chapter1-introduction/page.test.tsx`: TDD に基づき、`.mermaid-container` の `display: block` / `overflow-x: auto`、`.mermaid-wrapper` の `width: max-content` / `min-width: 100%`、`svg` のスタイルを検証する契約テスト3件を追加。
+- **テスト**: `bun test tests/istqb-ct-genai-chapter1-introduction/page.test.tsx`（17 pass / 0 fail）、`bun test tests/lib/mermaid-theme-contract.test.ts`（79 pass / 0 fail）を確認。
+
+## 2026/10/01: CT-GenAI 第1章 Mermaid 図解黒潰れ修正
+
+- **根本原因**:
+  - `diagrams.ts` の `MERMAID_CONFIG` から `mainBkg` が欠落していた。mermaid v11 では `%%{init}%%` ディレクティブを使っても `mainBkg` が未指定だと、グローバル `mermaid.initialize({ theme: 'dark' })` の `mainBkg`（暗い色）がノード背景に適用され、ノードが黒い箱になる。
+  - `primaryBorderColor`・`primaryTextColor`・`nodeBorder` の値が原著 HTML のmermaid 初期化設定とずれていた。
+  - `flowchart.nodeSpacing`・`flowchart.rankSpacing` が未設定で、ノード間隔が原著と異なっていた。
+  - CSS にフローチャートノード（`.node rect`）およびサブグラフクラスター（`.cluster rect`）の黒潰れ防止フォールバック CSS がなかった。
+- **修正内容**:
+  - `app/istqb-ct-genai-chapter1-introduction/diagrams.ts`: `MERMAID_CONFIG` に `mainBkg: "#eff6ff"` を追加。`primaryBorderColor`・`nodeBorder` を `"#93c5fd"`、`primaryTextColor` を `"#0f172a"` に修正。`flowchart.nodeSpacing: 60`・`flowchart.rankSpacing: 70` を追加。
+  - `app/istqb-ct-genai-chapter1-introduction/istqb-ct-genai-chapter1-introduction.css`: `fix-mermaid` スキル §4 を拡張した flowchart ノード黒潰れ防止 CSS（`.node:not([class*=...]) rect`・`.nodeLabel`・`.cluster rect`）を追加。classDef 個別色（highlight, proc, stage1-3, input）は `:not()` セレクタで保護。
+- **テスト**: `bun test` 全 1165 pass / 0 fail、`bun test tests/lib/mermaid-theme-contract.test.ts` 全 93 pass / 0 fail を確認。
+
+## 2026/10/01: ISTQB CT-GenAI 第1章（生成AIソフトウェアテスト入門）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & Scoped CSS**:
+  - 原著HTML固有のテーマ（`--bg: #07101e`、`--panel: #0d1a2d`、`--panel-elev: #12233c`、`--accent: #5aa7ff`、`--accent-glow: rgba(90, 167, 255, 0.25)`、`--accent-sub: #8ec5fc`、`--green: #4ade80`、`--amber: #facc15` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `color: var(--ink) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、`.callout-practice`、`.callout-note`、`.ref-grid`、`.mermaid-wrapper` エッジラベル背景白抜け防止等）を完全実装。
+  - スティッキーナビ（`NavBar.tsx`、全8セクションアンカー、スクロールスパイ、モバイルトグル対応、`aria-current` 対応）とメイン領域（`.ct-genai-ch1-page`）。
+- **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
+  - 全5図解（AIの系譜、LLMテキスト生成フロー、LLM3分類、マルチモーダル処理、AIチャットボット vs LLM搭載アプリ）を共通 `<Mermaid>` コンポーネントへ移植。
+  - `fix-mermaid` スキルを厳格に遵守し、`%%{init: { ... }}%%` 内のクォートをダブルクォートに統一、Noto Sans JP を適用。
+- **テーブル & ベストプラクティスコールアウト**:
+  - 全7テーブル（学習目標一覧、重要キーワード一覧、シラバス改訂履歴、AIの系譜とアプローチ比較、LLM3分類の強みと適用、テストタスクにおけるLLM主要能力7領域、AIチャットボット vs LLM搭載アプリ比較）を完全移植。
+  - ベストプラクティスコールアウト（全7箇所）および補足ノート（全1箇所）を完全移植。
+- **参考文献 & 外部リンク**:
+  - ISTQB公式認定ページ、CT-GenAIシラバス v1.1、v1.0全文PDF、v1.1リリースノート、用語集への外部リンク全5件に `target="_blank" rel="noopener noreferrer"` を適用し安全性を確保。
+- `app/istqb-ct-genai-chapter1-introduction/`: ページコンポーネント、専用スタイル（`.ct-genai-ch1-page` スコープ、globals.css干渉リセット）、NavBar、diagrams.tsを実装。
+- `lib/navigation.ts`: `istqb-specialist` カテゴリに `/istqb-ct-genai-chapter1-introduction`（CT-GenAI 第1章 生成AIテスト入門）を追加（全83件）。
+- `tests/istqb-ct-genai-chapter1-introduction/page.test.tsx`: TDD 必須サイクルに従い、全見出し、全8TOCリンク、全5Mermaid図、全7テーブル（列ヘッダー・行列構成・代表セルによるインベントリとの 1 対 1 照合）、全コールアウト、全参考文献の存在を検証する厳格なテストスイートを実装して全パス（14 pass / 228 expect()）。
+- `Ct-genai-chapter1.html` は `archive/html-archive/ct-specialist/`、`Ct-genai-chapter1.md` は `archive/md-archive/ct-specialist/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 83 ページ体制に同期。
 
 ## 2026/09/30: ISTQB CTAL-TM v3.0 第3章（チームの管理）完全ガイドのNext.js完全移行
 
@@ -1140,6 +1297,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ai-driven-software-testing-guide.html` | `/ai-driven-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Automating-data-quality-monitoring-guide.html` | `/automating-data-quality-monitoring-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
@@ -1148,10 +1306,15 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tm-v3.0-ch2-managing-the-product.html` | `/istqb-ctal-tm-chapter2-managing-the-product` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-ch5-software-defect-prevention.html` | `/istqb-ctal-ta-chapter5-defect-prevention` | ✅ スティッキーTOCナビ + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-tm-v3-ch3-managing-the-team-guide.html` | `/istqb-ctal-tm-chapter3-managing-the-team` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
+| `Ct-genai-chapter1.html` | `/istqb-ct-genai-chapter1-introduction` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter2.html` | `/istqb-ct-genai-chapter2-prompt-engineering` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ctgenai-ch4-llm-powered-solutions-guide.html` | `/istqb-ct-genai-chapter4-llm-powered-solutions` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 18 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 16 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -1160,7 +1323,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（3 ファイル）: `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -1173,8 +1336,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 82 ルート（ガイドライブラリ index + 81 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 18 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系 3 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 88 ルート（ガイドライブラリ index + 87 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

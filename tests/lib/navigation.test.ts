@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 82 entries (home + 9 foundation + 11 fdn-ext + 14 advanced + 14 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 18 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(82);
+  it('contains 88 entries (home + 9 foundation + 11 fdn-ext + 14 advanced + 19 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 19 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(88);
   });
 
   it('every item has a unique href', () => {
@@ -322,10 +322,21 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(8);
   });
 
-  it('places 18 items in the books-practices group', () => {
+  it('places 19 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(18);
+    expect(books?.items).toHaveLength(19);
     expect(books?.title).toBe('名著・実践ガイド');
+  });
+
+  it('registers the automating-data-quality-monitoring-guide in books-practices', () => {
+    const item = NAV_ITEMS.find(
+      (entry: NavItem) => entry.href === '/automating-data-quality-monitoring-guide'
+    );
+    expect(item).toBeDefined();
+    expect(item?.category).toBe('books-practices');
+    expect(item?.label).toBe('データ品質モニタリング自動化ガイド');
+    expect(item?.description.length).toBeGreaterThan(0);
+    expect(item?.description.length).toBeLessThanOrEqual(80);
   });
 
   it('assigns a non-empty display title to every group', () => {
@@ -450,5 +461,13 @@ describe('matchesQuery', () => {
     for (const hit of hits) {
       expect(hit.href).toContain('ctfl-v4');
     }
+  });
+
+  it('matches CT-GenAI Chapter 1 with queries "生成AI", "第1章", and "CT-GenAI"', () => {
+    const ch1 = NAV_ITEMS.find((i) => i.href === '/istqb-ct-genai-chapter1-introduction');
+    expect(ch1).toBeDefined();
+    expect(matchesQuery(ch1!, '生成AI')).toBe(true);
+    expect(matchesQuery(ch1!, '第1章')).toBe(true);
+    expect(matchesQuery(ch1!, 'CT-GenAI')).toBe(true);
   });
 });

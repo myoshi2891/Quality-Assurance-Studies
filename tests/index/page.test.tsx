@@ -117,10 +117,10 @@ describe('Guide index level ladder (hero signature)', () => {
     }
   });
 
-  it('gives the widest bar to the largest level (books-practices)', () => {
+  it('gives the widest bar to the largest level (istqb-specialist)', () => {
     render(<Page />);
     const widest = document.querySelector<HTMLElement>(
-      '[data-ladder-rung][data-category="books-practices"] .ladder-fill',
+      '[data-ladder-rung][data-category="istqb-specialist"] .ladder-fill',
     );
     expect(widest?.style.width).toBe('100%');
   });

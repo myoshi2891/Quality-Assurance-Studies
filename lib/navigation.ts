@@ -83,6 +83,11 @@ export const NAV_ITEMS: readonly NavItem[] = [
 
   { href: '/istqb-ct-ai-complete-guide', label: 'AIテスト(CT-AI)ガイド', description: '機械学習システムの品質特性・テストデータ・メトリクスの扱い。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-complete-guide', label: '生成AIテスト(CT-GenAI)ガイド', description: 'LLM・生成AIのハルシネーションや評価手法に対するテスト。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter1-introduction', label: 'CT-GenAI 第1章 生成AIテスト入門', description: '生成AIの系譜、LLMの基礎、主要能力と対話モデルのテスト入門。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter2-prompt-engineering', label: 'CT-GenAI 第2章 プロンプトエンジニアリング', description: 'プロンプト6要素構造、コア3技法、テスト業務適用と結果評価・改善。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter3-risk-management', label: 'CT-GenAI 第3章 生成AIのリスク管理', description: 'ハルシネーション・推論エラー・バイアス・プライバシー・セキュリティ・環境・規制の管理。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter4-llm-powered-solutions', label: 'CT-GenAI 第4章 LLM搭載テストインフラ', description: 'アーキテクチャ、RAG、エージェント、ファインチューニング、LLMOpsを体系的に解説。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-chapter5-deploying-and-integrating', label: 'CT-GenAI 第5章 生成AIの導入と統合', description: 'シャドーAI回避、戦略策定、モデル選定、導入フェーズ、変革管理、テストプロセスの進化を体系的に解説。', category: 'istqb-specialist' },
   { href: '/istqb-ct-mbt-complete-guide', label: 'モデルベーステスト(CT-MBT)ガイド', description: 'モデルからテストケースを自動生成するMBTの設計と運用。', category: 'istqb-specialist' },
   { href: '/istqb-ct-aut-complete-guide', label: '自動車ソフトウェアテスター(CT-AuT)ガイド', description: 'ISO 26262・ASPICE に沿った車載ソフトウェアのテスト。', category: 'istqb-specialist' },
   { href: '/istqb-ct-act-complete-guide', label: '受入テスト(CT-AcT)ガイド', description: 'ビジネス要求とユーザー受入の合意形成に特化したテスト。', category: 'istqb-specialist' },
@@ -131,6 +136,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/software-testing-with-generative-ai-guide', label: '生成AIとソフトウェアテスト実践ガイド', description: '生成AIとLLMをテスト業務へ体系的かつ安全に取り入れるための実践ガイド。', category: 'books-practices' },
   { href: '/ai-driven-software-testing-guide', label: 'AI駆動テスト入門ガイド', description: 'Srinivasa Rao Bittla著『AI-Driven Software Testing』に基づく初学者向け解説ガイド。全18章のテーマを整理。', category: 'books-practices' },
   { href: '/testing-ai-confidence-engineering-guide', label: 'Testing AI 完全ガイド', description: '非決定的なAIシステムをどうやって「自信を持って」出荷できる状態にするか。Jason Arbon著に基づく初学者向け解説。', category: 'books-practices' },
+  { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
