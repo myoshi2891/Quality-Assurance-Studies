@@ -1623,7 +1623,7 @@ export default function CtGenAiChapter4Page() {
                                 <i className="ti ti-sitemap"></i>図7：ファインチューニングの一般的な手順
                             </p>
                             <div className="diagram-wrap">
-                                <Mermaid chart={DIAGRAM_D7} id="d7" />
+                                <Mermaid chart={DIAGRAM_D7} />
                             </div>
                         </div>
 
@@ -1903,7 +1903,7 @@ export default function CtGenAiChapter4Page() {
                                 <i className="ti ti-sitemap"></i>図8：LLMOpsのライフサイクル
                             </p>
                             <div className="diagram-wrap">
-                                <Mermaid chart={DIAGRAM_D8} id="d8" />
+                                <Mermaid chart={DIAGRAM_D8} />
                             </div>
                         </div>
 
@@ -1982,7 +1982,7 @@ export default function CtGenAiChapter4Page() {
                                 <i className="ti ti-sitemap"></i>図9：GenAI導入アプローチの選択フロー
                             </p>
                             <div className="diagram-wrap">
-                                <Mermaid chart={DIAGRAM_D9} id="d9" />
+                                <Mermaid chart={DIAGRAM_D9} />
                             </div>
                         </div>
 
@@ -2200,7 +2200,7 @@ export default function CtGenAiChapter4Page() {
                                 <i className="ti ti-sitemap"></i>図10：手法選択の判断フロー
                             </p>
                             <div className="diagram-wrap">
-                                <Mermaid chart={DIAGRAM_D10} id="d10" />
+                                <Mermaid chart={DIAGRAM_D10} />
                             </div>
                         </div>
 

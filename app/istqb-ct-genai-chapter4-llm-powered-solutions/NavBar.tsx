@@ -86,7 +86,13 @@ export default function NavBar() {
             </aside>
 
             <div className="mobile-bar">
-                <button id="mobileMenuBtn" type="button" onClick={toggleOpen}>
+                <button
+                    id="mobileMenuBtn"
+                    type="button"
+                    onClick={toggleOpen}
+                    aria-expanded={isOpen}
+                    aria-controls="sidebar"
+                >
                     <i className="ti ti-menu-2"></i>
                     {isOpen ? '目次を閉じる' : '目次を開く'}
                 </button>
