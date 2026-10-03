@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
-import ChecklistCard, { ChecklistItem } from './ChecklistCard';
+import ChecklistCard, { type ChecklistItem } from './ChecklistCard';
 import Mermaid from '../../components/Mermaid';
 import {
     DIAGRAM_CH3_OVERVIEW,
