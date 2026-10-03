@@ -177,8 +177,8 @@ export const DIAGRAM_REGULATIONS_MAP = `${MERMAID_CONFIG}
 flowchart LR
     RG_R1["3.1 出力の品質リスク 誤りと偏り"] --> RG_N["NIST AI RMF 公平性と透明性とセキュリティ"]
     RG_R1 --> RG_E["EU AI Act 透明性と説明責任とバイアス緩和"]
-    RG_R2["3.2 プライバシーとセキュリティ"] --> RG_I23["ISO IEC 23053 データ品質と透明性と安全性"]
-    RG_R2 --> RG_N
+    RG_R4["3.4 規制と標準"] --> RG_I23["ISO IEC 23053 機械学習を使うAIシステムを記述する枠組み"]
+    RG_R2["3.2 プライバシーとセキュリティ"] --> RG_N
     RG_R3["3.3 環境影響"] --> RG_I42["ISO IEC 42001 AI管理システム"]
     RG_R1 --> RG_I42
     RG_R2 --> RG_I42
