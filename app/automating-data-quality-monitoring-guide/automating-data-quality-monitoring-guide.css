@@ -625,7 +625,7 @@
 .dqm-layout .mermaid-wrapper foreignObject div {
     margin: 0 !important;
     line-height: 1.4 !important;
-    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
 }
 
 .dqm-layout .mermaid-wrapper .edgeLabels rect,
