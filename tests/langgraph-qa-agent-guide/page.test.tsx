@@ -120,3 +120,14 @@ it("preserves ordered .diagram-caption inventory", async () => { const {containe
 it("preserves .diagram-caption item 1", async () => { const {container}=await page(); const actual=container.querySelector('#implementation')?.querySelectorAll(".diagram-caption")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#implementation')!.querySelectorAll(".diagram-caption")[0]!)); });
 it("preserves ordered .ref-item inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#implementation .ref-item')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
 });
+
+describe("walkthrough", () => {
+ it('preserves section structure and full text', async () => { const {container}=await page(); const actual=container.querySelector('#walkthrough'); expect(actual).not.toBeNull(); expect(signature(actual!)).toEqual(signature(source.querySelector('#walkthrough')!)); });
+it("preserves ordered h2,h3,h4 inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#walkthrough h2, #walkthrough h3, #walkthrough h4')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual(["4.実践ウォークスルー：捜査支援QAエージェントの例"]); });
+it("preserves h2,h3,h4 item 1", async () => { const {container}=await page(); const actual=container.querySelector('#walkthrough')?.querySelectorAll("h2,h3,h4")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#walkthrough')!.querySelectorAll("h2,h3,h4")[0]!)); });
+it("preserves ordered table inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#walkthrough table')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered pre code inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#walkthrough pre code')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .callout,.summary-card inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#walkthrough .callout, #walkthrough .summary-card')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .diagram-caption inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#walkthrough .diagram-caption')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .ref-item inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#walkthrough .ref-item')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+});
