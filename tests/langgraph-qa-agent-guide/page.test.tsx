@@ -1,5 +1,9 @@
-import { afterEach, describe, expect, it } from 'bun:test';
+import { afterAll, beforeAll, afterEach, describe, expect, it } from 'bun:test';
 import React from 'react';
+import mermaid from 'mermaid';
+let originalRender: typeof mermaid.render;
+beforeAll(() => { originalRender = mermaid.render; mermaid.render = async () => ({ svg: '<svg></svg>', diagramType: 'flowchart', bindFunctions: undefined }); });
+afterAll(() => { mermaid.render = originalRender; });
 import { cleanup, render } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import postcss from 'postcss';
@@ -28,4 +32,17 @@ describe('foundation', () => {
  expect(rules.filter(r=>r.selector===selector&&r.media===rule.media).map(r=>r.declarations),rule.selector).toContainEqual(rule.declarations);
  }
  });
+});
+
+describe("overview", () => {
+ it('preserves section structure and full text', async () => { const {container}=await page(); const actual=container.querySelector('#overview'); expect(actual).not.toBeNull(); expect(signature(actual!)).toEqual(signature(source.querySelector('#overview')!)); });
+it("preserves ordered h2,h3,h4 inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#overview h2, #overview h3, #overview h4')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual(["0.全体像：なぜ「LangGraphでQAエージェント」なのか"]); });
+it("preserves h2,h3,h4 item 1", async () => { const {container}=await page(); const actual=container.querySelector('#overview')?.querySelectorAll("h2,h3,h4")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#overview')!.querySelectorAll("h2,h3,h4")[0]!)); });
+it("preserves ordered table inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#overview table')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual(["コンポーネント役割Streamlit（フロントエンド）チャット形式のUIでユーザーの質問と、グラフ上でのノード選択を受け取るQuestionProcessingInterfaceLangGraphパイプラインの実行をイベントストリームとして外部に公開する橋渡し役ConfigurationProviderプロンプトテンプレート、Few-shot例、ドメイン固有の注記を一元管理するSchemaProviderNeo4jの技術的なスキーマ情報を取得し、余計な要素を除去してLLMが読みやすい形に整形する"]); });
+it("preserves table item 1", async () => { const {container}=await page(); const actual=container.querySelector('#overview')?.querySelectorAll("table")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#overview')!.querySelectorAll("table")[0]!)); });
+it("preserves ordered pre code inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#overview pre code')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .callout,.summary-card inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#overview .callout, #overview .summary-card')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .diagram-caption inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#overview .diagram-caption')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual(["図1:システム全体のアーキテクチャ"]); });
+it("preserves .diagram-caption item 1", async () => { const {container}=await page(); const actual=container.querySelector('#overview')?.querySelectorAll(".diagram-caption")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#overview')!.querySelectorAll(".diagram-caption")[0]!)); });
+it("preserves ordered .ref-item inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#overview .ref-item')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
 });
