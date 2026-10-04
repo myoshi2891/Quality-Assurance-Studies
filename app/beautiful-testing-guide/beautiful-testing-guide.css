@@ -423,3 +423,8 @@
 .bt-page *::-webkit-scrollbar-track { background: transparent; }
 .bt-page *::-webkit-scrollbar-thumb { background: var(--border); }
 @media (max-width: 900px) { .bt-page .main { margin-left: 0; padding: 80px 20px 100px; } }
+.bt-page .hero h1, .bt-page .section h2, .bt-page .section h3 {
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: normal;
+}
