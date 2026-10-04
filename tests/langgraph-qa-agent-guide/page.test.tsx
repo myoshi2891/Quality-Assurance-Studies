@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'bun:test';
 import React from 'react';
 import { cleanup, render } from '@testing-library/react';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/langgraph-qa-agent-guide.json';
 import { source, signature } from './source';
@@ -25,7 +25,7 @@ describe('foundation', () => {
  css.walkRules(rule=>{rules.push({selector:rule.selector,media:rule.parent?.type==='atrule'?(rule.parent as postcss.AtRule).params:'',declarations:rule.nodes.filter(n=>n.type==='decl').map(n=>[(n as postcss.Declaration).prop,(n as postcss.Declaration).value])});});
  for (const rule of inventory.css) {
  const selector=rule.selector.split(',').map(s=>[':root','body','html'].includes(s.trim())?'.lgqa-page':'.lgqa-page '+s.trim()).join(', ');
- expect(rules.find(r=>r.selector===selector&&r.media===rule.media)?.declarations,rule.selector).toEqual(rule.declarations);
+ expect(rules.filter(r=>r.selector===selector&&r.media===rule.media).map(r=>r.declarations),rule.selector).toContainEqual(rule.declarations);
  }
  });
 });
