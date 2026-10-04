@@ -594,7 +594,9 @@ class NeuronCoverage:
     def _make_hook(self, name: str):
         def hook(module, inputs, output):
             out = output.detach()
-            if out.dim() == 1:                                     # バッチなし入力は1件のバッチとして扱う
+            if out.dim() == 0:                                     # スカラー出力は1件・1ニューロンとして扱う
+                out = out.reshape(1, 1)
+            elif out.dim() == 1:                                   # バッチなし入力は1件のバッチとして扱う
                 out = out.unsqueeze(0)
             flat = out.flatten(start_dim=1)                        # (batch, neurons)
             hit = (flat > self.threshold).any(dim=0)               # バッチ内で一度でも活性化
