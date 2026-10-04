@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `87b7f75` |
 | 最新コミット内容 | `fix(data-quality): fix callout strong contrast and restore paper theme for mermaid diagrams` |
 | 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `npm test`: 全テスト通過（1349 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| ビルド状態 | `bun test`: 1349 pass / 0 fail（107 files、2026-10-03 実測）、`bun run lint`: エラーなし（exit 0）。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
 
 ## 2026/10/03: データ品質モニタリング自動化ガイドのNext.js完全移行 & スタイル・Mermaidテーマ完全復元
 
