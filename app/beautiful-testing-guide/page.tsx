@@ -4,12 +4,14 @@ import './beautiful-testing-guide.css';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
 import Checklist from './Checklist';
+import NavBar from './NavBar';
 
 export const metadata: Metadata = { title: '『Beautiful Testing』完全ガイド ― 初学者のためのステップバイステップ・ベストプラクティス', description: 'Beautiful Testingの23章を現代のテスト実践と結び、TDD・探索的テスト・自動化・AI時代の品質を段階的に学ぶガイド。' };
 
 export default function Page(){
  return (
  <div className="bt-page">
+    <NavBar />
     <div className="layout">
         <main className="main">
             <header className="hero">
