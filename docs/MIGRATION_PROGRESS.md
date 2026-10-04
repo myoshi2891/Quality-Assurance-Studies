@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `4c36576`（検証対象。ドキュメント同期コミットは除外） |
 | 最新コミット内容 | `test(navigation): keep existing guide smoke contract aligned with route registry` |
 | 次の作業 | Beautiful Testingのテスト補正の復旧コミット承認、ユーザーによる目視確認 |
-| ビルド状態 | `npm test`: 1771 pass / 0 fail（109 files、2026-10-04 実測）。`npm run lint`: エラーなし。ビルド・目視確認はユーザー指示により未実施。全体型チェックは既存テストの型エラーが残存、今回の変更ファイルはエラーなし。 |
+| ビルド状態 | 当初の記録は npm で実行（`npm test`: 1771 pass / 0 fail、109 files）。Bun で再検証: `bun test`: 1771 pass / 0 fail / 19978 expect（109 files、2026-10-04 実測、レビュー指摘対応の差分を含む作業ツリー）。`bun run lint`: エラーなし（exit 0）。ビルド・目視確認はユーザー指示により未実施。全体型チェックは既存テストの型エラーが残存、今回の変更ファイルはエラーなし。 |
 
 ## 2026/10/04: Beautiful Testing完全ガイドの移行
 
