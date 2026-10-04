@@ -757,6 +757,54 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-12">
+                <h2>
+                    {"12. 現代への架け橋：AIエージェント時代のテストピラミッド（2026年視点）"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 『Beautiful Testing』が刊行された2009年から現在（2026年）までの最大の変化の一つが、"}
+                        <strong>
+                            {"LLM（大規模言語モデル）やAIエージェントを組み込んだソフトウェアの登場"}
+                        </strong>
+                        {"です。テストピラミッドというモデル自体が決定性（Determinism）を要件として定めているわけではありませんが、そこで想定されてきた従来の自動テストは「同じ入力には常に同じ出力が返る」決定的なロジックを対象とするものが中心でした。一方、LLMを含むシステムでは同じプロンプトでも毎回微妙に異なる出力が返ることがあります。 "}
+                    </p>
+                    <p>
+                        {" 2026年に提唱された「Agentic Test Pyramid（エージェント的テストピラミッド）」という考え方は、Fowlerの伝統的なピラミッドを"}
+                        <strong>
+                            {"置き換えるのではなく拡張する"}
+                        </strong>
+                        {"アプローチを取ります。次の図は元モデルを簡略化したもので、決定的レイヤーに含まれる「静的な不変条件によるトリップワイヤー（Static-invariant tripwires）」の層は省略しています。 "}
+                    </p>
+                </div>
+                <div className="mermaid-wrapper diagram-frame"><Mermaid chart={DIAGRAMS[7]} /></div>
+                <div className="prose">
+                    <p>
+                        {" この考え方のポイントは、「決定的な部分（従来型のロジック）は今までどおりFowlerのピラミッドに従い、モデル駆動の非決定的な部分だけを新しいレイヤーとして上に積み増す」という点です。バグを検出するコストが最も低いのは依然として下位の決定的なテストであるため、"}
+                        <strong>
+                            {"可能な限り多くのチェックを決定的なテストに\"押し下げる\"努力"}
+                        </strong>
+                        {"が推奨されています。 "}
+                    </p>
+                    <p>
+                        {" さらに別の2026年の分析では、AIによるコード生成が高速化する一方で人手によるE2Eテスト作成が追いつかなくなっているため、"}
+                        <strong>
+                            {"E2Eテストの自動生成"}
+                        </strong>
+                        {"が「あれば良い機能」から「戦略的な優先事項」に変わりつつあると指摘されています。『Beautiful Testing』が説いた「テストは静的な作業ではなく、常に進化する探求である」という思想は、こうした最新の変化の中でも色褪せていません。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://matthewboston.com/blog/the-agentic-test-pyramid.html" target="_blank" rel="noopener noreferrer">
+                        {"matthewboston.com/blog/the-agentic-test-pyramid.html"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing" target="_blank" rel="noopener noreferrer">
+                        {"getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
