@@ -1420,7 +1420,7 @@ describe('syntax highlighting', () => {
  expect([...container.querySelectorAll('.syntax-string')].map(node=>node.textContent)).toEqual(['"# if 123"','"""multi\nline"""']);
  expect(container.querySelector('.syntax-comment')?.textContent).toBe('# comment');
  expect([...container.querySelectorAll('.syntax-keyword')].map(node=>node.textContent)).toEqual(['from','import']);
- expect(container.querySelector('.syntax-builtin')?.textContent).toBe('print');
+ expect([...container.querySelectorAll('.syntax-builtin')].map(node=>node.textContent)).toEqual(['Any','print']);
  expect(container.querySelector('.syntax-number')?.textContent).toBe('42');
  });
  it('renders source markup as escaped text', async () => {
