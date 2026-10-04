@@ -62,3 +62,15 @@ it("preserves ordered .callout,.summary-card inventory", async () => { const {co
 it("preserves ordered .diagram-caption inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#fundamentals .diagram-caption')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
 it("preserves ordered .ref-item inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#fundamentals .ref-item')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
 });
+
+describe("pipeline-graph", () => {
+ it('preserves section structure and full text', async () => { const {container}=await page(); const actual=container.querySelector('#pipeline-graph'); expect(actual).not.toBeNull(); expect(signature(actual!)).toEqual(signature(source.querySelector('#pipeline-graph')!)); });
+it("preserves ordered h2,h3,h4 inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#pipeline-graph h2, #pipeline-graph h3, #pipeline-graph h4')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual(["2.パイプライン全体のグラフ構造"]); });
+it("preserves h2,h3,h4 item 1", async () => { const {container}=await page(); const actual=container.querySelector('#pipeline-graph')?.querySelectorAll("h2,h3,h4")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#pipeline-graph')!.querySelectorAll("h2,h3,h4")[0]!)); });
+it("preserves ordered table inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#pipeline-graph table')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered pre code inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#pipeline-graph pre code')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .callout,.summary-card inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#pipeline-graph .callout, #pipeline-graph .summary-card')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+it("preserves ordered .diagram-caption inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#pipeline-graph .diagram-caption')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual(["図2:パイプラインのノード構成と条件分岐ルーティング（点線がConditionalEdge）"]); });
+it("preserves .diagram-caption item 1", async () => { const {container}=await page(); const actual=container.querySelector('#pipeline-graph')?.querySelectorAll(".diagram-caption")[0]; expect(actual).toBeDefined(); expect(signature(actual!)).toEqual(signature(source.querySelector('#pipeline-graph')!.querySelectorAll(".diagram-caption")[0]!)); });
+it("preserves ordered .ref-item inventory", async () => { const {container}=await page(); expect([...container.querySelectorAll('#pipeline-graph .ref-item')].map(el=>(el.textContent??'').replace(/\s+/g,''))).toEqual([]); });
+});
