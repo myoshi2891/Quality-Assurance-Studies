@@ -508,12 +508,18 @@ def f(x):
 
 ### 4-4. 分岐条件テスト（Branch Condition Testing）
 
-**各条件が真・偽の両方の値をとり、かつ判定結果も両方出る**ようにします。例題は次の2ケースで満たせます。
+**各条件が真・偽の両方の値をとり、かつ判定結果も両方出る**ようにします。例題のコードは Python なので `and` / `or` は短絡評価され、結果が確定した時点で後続の条件は評価されません。評価されなかった条件（表の「−」）はカバレッジに数えないため、例題には次の4ケースが必要です。
 
 | TC | is_admin | is_active | has_token | 判定結果 |
 |---|---|---|---|---|
-| BC-1 | True | True | True | True |
-| BC-2 | False | False | False | False |
+| BC-1 | True | True | −（評価されない） | True |
+| BC-2 | True | False | True | True |
+| BC-3 | True | False | False | False |
+| BC-4 | False | −（評価されない） | −（評価されない） | False |
+
+- is_admin: BC-1〜3 で True、BC-4 で False
+- is_active: BC-1 で True、BC-2・BC-3 で False
+- has_token: BC-2 で True、BC-3 で False
 
 > 注意: これで全条件が真・偽を取り、判定結果も真・偽を取りますが、**各条件が結果に与える影響は確認できていません**。それを確認するのがMCDCです。
 
@@ -546,7 +552,8 @@ def f(x):
 
 | 技法 | この例でのテスト数 |
 |---|---|
-| 判定テスト、分岐条件テスト | 2 |
+| 判定テスト | 2 |
+| 分岐条件テスト（短絡評価を考慮） | 4 |
 | MCDCテスト | 4（n+1） |
 | 分岐条件組合せテスト | 8（2ⁿ） |
 
