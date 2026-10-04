@@ -387,7 +387,7 @@ flowchart LR
 | モニタリングテスト | 運用中の劣化や変化の検知 |
 
 **② Thoughtworks「CD4ML（Continuous Delivery for Machine Learning）」（Martin Fowlerのサイトで公開）**
-コード・データ・モデルの3つを小さく安全な増分で、再現可能なまま、いつでもリリースできるようにする考え方です。パイプラインのトリガーは「モデル構造の変更」と「学習・テストデータの変更」の2つで、データが変わるだけでもCI/CDが走る点が従来と異なります。
+コード・データ・モデルの3つを小さく安全な増分で、再現可能なまま、いつでもリリースできるようにする考え方です。パイプラインのトリガーは「コード変更」「モデル構造の変更」「学習・テストデータの変更」の3つです。データの変更は、データを追跡・バージョン管理している場合にパイプラインを起動できる点が、従来のCI/CDと異なります。
 
 ```mermaid
 flowchart LR
@@ -593,7 +593,10 @@ class NeuronCoverage:
 
     def _make_hook(self, name: str):
         def hook(module, inputs, output):
-            flat = output.detach().flatten(start_dim=1)           # (batch, neurons)
+            out = output.detach()
+            if out.dim() == 1:                                     # バッチなし入力は1件のバッチとして扱う
+                out = out.unsqueeze(0)
+            flat = out.flatten(start_dim=1)                        # (batch, neurons)
             hit = (flat > self.threshold).any(dim=0)               # バッチ内で一度でも活性化
             prev = self.activated.get(name)
             self.activated[name] = hit if prev is None else (prev | hit)
