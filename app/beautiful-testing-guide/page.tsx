@@ -805,6 +805,370 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-13">
+                <h2>
+                    {"13. 章立て早見表（原著23章サマリー）"}
+                </h2>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    {"Part"}
+                                </th>
+                                <th>
+                                    {"章"}
+                                </th>
+                                <th>
+                                    {"タイトル（原題）"}
+                                </th>
+                                <th>
+                                    {"概要"}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {"I"}
+                                </td>
+                                <td>
+                                    {"1"}
+                                </td>
+                                <td>
+                                    {"Was It Good for You?"}
+                                </td>
+                                <td>
+                                    {"テスト経験を振り返る導入エッセイ"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"I"}
+                                </td>
+                                <td>
+                                    {"2"}
+                                </td>
+                                <td>
+                                    {"Beautiful Testing Satisfies Stakeholders"}
+                                </td>
+                                <td>
+                                    {"ステークホルダーごとの「満足」の定義（Rex Blackの知見）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"I"}
+                                </td>
+                                <td>
+                                    {"3"}
+                                </td>
+                                <td>
+                                    {"Building Open Source QA Communities"}
+                                </td>
+                                <td>
+                                    {"OSSにおけるボランティアQAコミュニティの構築"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"I"}
+                                </td>
+                                <td>
+                                    {"4"}
+                                </td>
+                                <td>
+                                    {" Collaboration Is the Cornerstone of Beautiful Performance Testing "}
+                                </td>
+                                <td>
+                                    {"協働型パフォーマンステスト（Scott Barberの知見）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"5"}
+                                </td>
+                                <td>
+                                    {" Just Peachy: Making Office Software More Reliable with Fuzz Testing "}
+                                </td>
+                                <td>
+                                    {"ファジングによる信頼性向上"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"6"}
+                                </td>
+                                <td>
+                                    {"Bug Management and Test Case Effectiveness"}
+                                </td>
+                                <td>
+                                    {"バグ管理とテストケース効果測定"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"7"}
+                                </td>
+                                <td>
+                                    {"Beautiful XMPP Testing"}
+                                </td>
+                                <td>
+                                    {"XMPPプロトコルのユニット・相互運用性テスト"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"8"}
+                                </td>
+                                <td>
+                                    {"Beautiful Large-Scale Test Automation"}
+                                </td>
+                                <td>
+                                    {"大規模テスト自動化基盤（Alan Pageの知見）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"9"}
+                                </td>
+                                <td>
+                                    {"Beautiful Is Better Than Ugly"}
+                                </td>
+                                <td>
+                                    {"Buildbotによる継続的インテグレーション"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"10"}
+                                </td>
+                                <td>
+                                    {"Testing a Random Number Generator"}
+                                </td>
+                                <td>
+                                    {"乱数生成器のテスト（John D. Cookの知見）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"11"}
+                                </td>
+                                <td>
+                                    {"Change-Centric Testing"}
+                                </td>
+                                <td>
+                                    {"変更差分に基づくカバレッジ分析"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"12"}
+                                </td>
+                                <td>
+                                    {"Software in Use"}
+                                </td>
+                                <td>
+                                    {"実利用環境・探索的テスト（Karen N. Johnsonの知見）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"13"}
+                                </td>
+                                <td>
+                                    {"Software Development Is a Creative Process"}
+                                </td>
+                                <td>
+                                    {"アジャイル開発を「パフォーマンス」に例える視点"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"14"}
+                                </td>
+                                <td>
+                                    {" Test-Driven Development: Driving New Standards of Beauty "}
+                                </td>
+                                <td>
+                                    {"TDDと「美しさ」の再定義"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"15"}
+                                </td>
+                                <td>
+                                    {" Beautiful Testing As the Cornerstone of Business Success "}
+                                </td>
+                                <td>
+                                    {"ホールチーム・アプローチとビジネス価値"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"16"}
+                                </td>
+                                <td>
+                                    {"Peeling the Glass Onion at Socialtext"}
+                                </td>
+                                <td>
+                                    {"Socialtext社のWikitests事例"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"II"}
+                                </td>
+                                <td>
+                                    {"17"}
+                                </td>
+                                <td>
+                                    {"Beautiful Testing Is Efficient Testing"}
+                                </td>
+                                <td>
+                                    {"効率的なテストのためのヒューリスティクス"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"III"}
+                                </td>
+                                <td>
+                                    {"18"}
+                                </td>
+                                <td>
+                                    {"Seeding Bugs to Find Bugs: Beautiful Mutation Testing"}
+                                </td>
+                                <td>
+                                    {"ミューテーションテスト（Javalanche）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"III"}
+                                </td>
+                                <td>
+                                    {"19"}
+                                </td>
+                                <td>
+                                    {"Reference Testing As Beautiful Testing"}
+                                </td>
+                                <td>
+                                    {"リファレンステスト（ブラウザ等のレンダリング検証）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"III"}
+                                </td>
+                                <td>
+                                    {"20"}
+                                </td>
+                                <td>
+                                    {"Clam Anti-Virus: Testing Open Source with Open Tools"}
+                                </td>
+                                <td>
+                                    {"ClamAVにおけるOSSツールでのテスト"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"III"}
+                                </td>
+                                <td>
+                                    {"21"}
+                                </td>
+                                <td>
+                                    {"Web Application Testing with Windmill"}
+                                </td>
+                                <td>
+                                    {"Windmillによるブラウザテスト自動化"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"III"}
+                                </td>
+                                <td>
+                                    {"22"}
+                                </td>
+                                <td>
+                                    {"Testing One Million Web Pages"}
+                                </td>
+                                <td>
+                                    {"大規模Webページ検証の実践"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"III"}
+                                </td>
+                                <td>
+                                    {"23"}
+                                </td>
+                                <td>
+                                    {"Testing Network Services in Multimachine Scenarios"}
+                                </td>
+                                <td>
+                                    {"eBox/ANSTEによるマルチマシン環境テスト"}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout">
+                    <p>
+                        {" 本書には他にLinda Wilkinson、Martin Schröder、Clint Talbert、Kamran Khan、Emily Chen、Brian Nitz、Remko Tronçon、Neal Norwitz、Michelle Levesque、Jeffrey Yasskin、Murali Nandigama、Chris McMahon、Jennitta Andrea、Lisa Crispin、Matt Heusser、Tomasz Kojm、Adam Christian、Isaac Clerenciaを含む27名が寄稿しています。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://books.apple.com/us/book/beautiful-testing/id396905423" target="_blank" rel="noopener noreferrer">
+                        {"books.apple.com/us/book/beautiful-testing/id396905423"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
