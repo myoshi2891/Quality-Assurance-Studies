@@ -1393,3 +1393,11 @@ describe('metadata', () => {
  expect(metadata.title).toBe('LangGraphによるQAエージェント構築ガイド — Knowledge Graphs and LLMs in Action 第15章');
  });
 });
+
+describe('global style isolation', () => {
+ it('resets global callout line height and paragraph spacing to match the source', () => {
+ const css=readFileSync('app/langgraph-qa-agent-guide/langgraph-qa-agent-guide.css','utf8');
+ expect(css).toContain('.lgqa-page .callout { line-height: 1.7; }');
+ expect(css).toContain('.lgqa-page .callout p + p { margin-top: 0; }');
+ });
+});
