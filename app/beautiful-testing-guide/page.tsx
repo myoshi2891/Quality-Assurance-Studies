@@ -727,6 +727,36 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-11">
+                <h2>
+                    {"11. ステップ9：コミュニティとプロセスを育てる"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" テストは個人の技術だけでなく、"}
+                        <strong>
+                            {"組織・コミュニティのプロセス"}
+                        </strong>
+                        {"としても機能します。第3章「Building Open Source QA Communities」は、Mozillaのようなオープンソースプロジェクトにおいて、ボランティアテスターのコミュニティをどう立ち上げ、維持し、彼らのモチベーションを保つかを扱います。コミュニケーション、ボランティアの募集、イベントの運営など、技術というより「人と組織」に関するノウハウが中心です。 "}
+                    </p>
+                    <p>
+                        {" また第16章「Peeling the Glass Onion at Socialtext」や第15章「Beautiful Testing As the Cornerstone of Business Success」は、テスターと開発者が役割を分けずに協働する"}
+                        <strong>
+                            {"ホールチーム・アプローチ（Whole-Team Approach）"}
+                        </strong>
+                        {"の実例（Wikitestsのような独自ツールを含む）を紹介しています。「どのストーリーもテストされるまで完了とみなさない（No Story Is \"Done\" Until It's Tested）」という原則は、現代のアジャイル開発において多くのチームが「Definition of Done」に含める代表的な要素の一つです（Definition of Doneはこの原則だけでなく、コードレビューやドキュメント整備などチームが合意した複数の条件で構成されます）。 "}
+                    </p>
+                    <p>
+                        {" 初学者、特にこれから小さなチームやOSSプロジェクトに関わる人へのアドバイスは、「テストを一人で抱え込まない」ことです。テストの基準やプロセスをチーム全員で合意し、ドキュメント化し、新しく参加する人にも伝わる形にしておくことが、長期的に「美しいテスト文化」を維持する鍵になります。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
