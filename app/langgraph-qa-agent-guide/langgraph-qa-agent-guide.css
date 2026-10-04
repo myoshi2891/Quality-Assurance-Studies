@@ -564,3 +564,16 @@
 .lgqa-page pre code .syntax-number { color: #f78c6c; }
 .lgqa-page pre code .syntax-builtin, .lgqa-page pre code .syntax-command { color: #82aaff; }
 .lgqa-page pre code .syntax-option { color: #ffcb6b; }
+/* Narrow screens: show the section TOC inline above the content instead of hiding it. */
+@media (max-width: 960px) {
+    .lgqa-page .sidebar {
+        display: block;
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border-tertiary);
+        padding: 24px;
+    }
+}
