@@ -1,19 +1,21 @@
-import { afterAll, beforeAll, afterEach, describe, expect, it } from 'bun:test';
+import { afterAll, beforeAll, beforeEach, afterEach, describe, expect, it } from 'bun:test';
 import React from 'react';
 import mermaid from 'mermaid';
 let originalRender: typeof mermaid.render;
+const renderedCharts: string[] = [];
+beforeEach(() => { renderedCharts.length = 0; });
 beforeAll(() => {
     originalRender = mermaid.render;
-    mermaid.render = async () => ({
+    mermaid.render = async (_id, chart) => { renderedCharts.push(chart); return ({
         svg: '<svg></svg>',
         diagramType: 'flowchart',
         bindFunctions: undefined,
-    });
+    }); };
 });
 afterAll(() => {
     mermaid.render = originalRender;
 });
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, render, waitFor } from '@testing-library/react';
 import { existsSync, readFileSync } from 'node:fs';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/langgraph-qa-agent-guide.json';
@@ -21,7 +23,9 @@ import { source, signature } from './source';
 afterEach(cleanup);
 async function page() {
     const { default: Page } = await import('../../app/langgraph-qa-agent-guide/page');
-    return render(<Page />);
+    const result = render(<Page />);
+    await waitFor(() => expect(result.container.querySelectorAll('.mermaid-wrapper svg')).toHaveLength(3));
+    return result;
 }
 describe('foundation', () => {
     it('preserves the complete ordered source inventory', () => {
@@ -1362,5 +1366,22 @@ describe('archive', () => {
  expect(existsSync(filename)).toBe(false);
  expect(existsSync('archive/html-archive/books/'+filename)).toBe(true);
  }
+ });
+});
+
+describe('final fidelity gates', () => {
+ it('renders every original diagram through the shared component in source order', async () => {
+ const { DIAGRAMS }=await import('../../app/langgraph-qa-agent-guide/diagrams');
+ await page(); expect(renderedCharts).toEqual(Object.values(DIAGRAMS));
+ });
+ it('preserves all source headings in order with no extras', async () => {
+ const { container }=await page();
+ expect([...container.querySelectorAll('h1,h2,h3,h4')].map(node=>(node.textContent??'').replace(/\s+/g,''))).toEqual(inventory['h1,h2,h3,h4'].map(item=>item.text));
+ });
+ it('protects every external reference opened in a new tab', async () => {
+ const {container}=await page();
+ const links=[...container.querySelectorAll('a[target="_blank"]')];
+ expect(links.map(link=>link.getAttribute('href'))).toEqual([...source.querySelectorAll('a[target="_blank"]')].map(link=>link.getAttribute('href')));
+ for (const link of links) expect(link.getAttribute('rel')).toBe('noopener noreferrer');
  });
 });
