@@ -14,7 +14,7 @@ afterAll(() => {
     mermaid.render = originalRender;
 });
 import { cleanup, render } from '@testing-library/react';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/langgraph-qa-agent-guide.json';
 import { source, signature } from './source';
@@ -1352,5 +1352,15 @@ describe('code readability', () => {
  expect(blocks).toHaveLength(15);
  const css=readFileSync('app/langgraph-qa-agent-guide/langgraph-qa-agent-guide.css','utf8');
  expect(css).toContain('.lgqa-page pre code { color: #d6deeb; }');
+ });
+});
+
+describe('archive', () => {
+ it('archives original HTML and Markdown without keeping root duplicates', () => {
+ for (const extension of ['html','md']) {
+ const filename='Langgraph-qa-agent-guide.'+extension;
+ expect(existsSync(filename)).toBe(false);
+ expect(existsSync('archive/html-archive/books/'+filename)).toBe(true);
+ }
  });
 });
