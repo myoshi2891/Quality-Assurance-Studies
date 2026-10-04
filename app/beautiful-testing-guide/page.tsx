@@ -507,6 +507,85 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-7">
+                <h2>
+                    {"7. ステップ5：バグを「美しく」管理する"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 第6章「Bug Management and Test Case Effectiveness」は、本書のレビューでも「隠れた名章」と評される内容で、コンピュータ史上最初のバグ報告のエピソードから始まり、「バグとは何か」という定義論、そしてテストケースの効果測定（Test Case Effectiveness）までを扱います。 "}
+                    </p>
+                    <p>
+                        {"バグの一生は、多くの現場で概ね次のようなライフサイクルをたどります。"}
+                    </p>
+                </div>
+                <div className="mermaid-wrapper diagram-frame"><Mermaid chart={DIAGRAMS[4]} /></div>
+                <div className="prose">
+                    <p>
+                        {" 原著は、バグを単なる「不具合の記録」ではなく、"}
+                        <strong>
+                            {"プロダクトの品質を測る計測器"}
+                        </strong>
+                        {"として扱うことを提案しています。特に印象的なのは、「重要度（Severity）」と「優先度（Priority）」を区別する視点です。 "}
+                    </p>
+                </div>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    {"用語"}
+                                </th>
+                                <th>
+                                    {"意味"}
+                                </th>
+                                <th>
+                                    {"例"}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {"重要度（Severity）"}
+                                </td>
+                                <td>
+                                    {"バグそのものが引き起こす技術的・機能的な影響の大きさ"}
+                                </td>
+                                <td>
+                                    {"データ消失を伴うクラッシュは重要度が高い"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"優先度（Priority）"}
+                                </td>
+                                <td>
+                                    {"ビジネス上、いつ・どの順番で対応すべきかという判断"}
+                                </td>
+                                <td>
+                                    {" 重要度は低いが、目立つ画面の表示崩れは優先度が高くなることがある "}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="prose">
+                    <p>
+                        {" さらに本書は、OpenSolarisデスクトップチームの事例を通じて「テストケース効果測定（TCE: Test Case Effectiveness）」という考え方を紹介します。これは「テストをすり抜けたバグ（Test Escape）」を分析し、どのテストを強化すべきかをデータで判断する手法です。初学者は、バグを見つけて直して終わりにするのではなく、"}
+                        <strong>
+                            {"「なぜこのテストで検出できなかったのか」を振り返る習慣"}
+                        </strong>
+                        {"を早いうちから身につけると、テストスイート全体の質が着実に向上します。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
