@@ -179,7 +179,7 @@ pie showData
 | identification（識別／1:N） | データベース全体から該当者を探す | 犯罪捜査の照合 |
 | multi-modal system | 複数の生体特性を組み合わせるシステム | 顔＋指紋 |
 
-> **用語の注意点:** 【TR確認済】「match（マッチ）」という語は非推奨とされ、代わりに **comparison（比較）** を使います。また verification の旧称 authentication も非推奨扱いです。会話では「マッチング」と言いがちですが、規格文書を読むときはこの用語の違いに注意してください。
+> **用語の注意点:** 【TR確認済】非推奨とされるのは、「比較する」「判定する」という意味で使う**動詞の「match（マッチさせる）」** です。この意味では **compare（比較する）** を使うのが推奨です。一方、**名詞の「match」** は「比較の結果、一致と判定されたこと（肯定的な比較結果）」を表す用語として使われます。また verification の旧称 authentication も非推奨扱いです。会話では「マッチング」と言いがちですが、規格文書を読むときはこの用語の違いに注意してください。
 
 ### 5.3 生体認証システムの基本フロー
 
@@ -221,8 +221,10 @@ TRの本編6.1.3節は「Performance measures for biometric systems」を扱い�
 | **FRR** | False Reject Rate | 正しい本人申告が誤って拒否された割合 | 正しい申告のverification取引数 |
 | **FNIR** | False-Negative Identification Rate | 登録者がidentificationしたのに、正しい識別子が返らなかった割合 | 登録者のidentification取引数 |
 | **FPIR** | False-Positive Identification Rate | 未登録者のidentificationで、何らかの識別子が返ってしまった割合 | 未登録者のidentification取引数 |
-| **FTE / FTER** | Failure to Enrol / Rate | 登録に失敗した割合 | 登録取引数 |
-| **FTA / FTAR** | Failure to Acquire / Rate | 比較に使えるサンプルを取得できなかった割合 | 取得処理数 |
+| **FTE** | Failure to Enrol | 登録に失敗した**事象**（1件ごとの失敗） | — |
+| **FTER** | Failure-to-Enrol Rate | 登録取引のうち FTE となった**割合** | 登録取引数 |
+| **FTA** | Failure to Acquire | 比較に使えるサンプルを取得できなかった**事象** | — |
+| **FTAR** | Failure-to-Acquire Rate | 取得処理のうち FTA となった**割合** | 取得処理数 |
 | **FTC** | Failure to Capture | キャプチャ処理自体がサンプルを出力できなかったこと | — |
 | **Throughput rate** | スループット | 単位時間に処理できる人数 | — |
 | **DET** | Detection Error Trade-off | しきい値を動かしたときの誤拒否と誤受入のトレードオフ関係 | — |
@@ -520,7 +522,7 @@ flowchart LR
 
 | 品質特性 | テスト観点の例 | 主な技法の例（29119-4系）【一般知識】 |
 |---|---|---|
-| **性能（誤り率）** | FMR/FNMR/FTE/FTAがしきい値ごとに要件を満たすか | 統計的評価、DET分析 |
+| **性能（誤り率）** | FMR/FNMRが比較しきい値ごとに要件を満たすか、FTER/FTAR（FTE・FTAの発生率）が要件の率以内に収まるか | 統計的評価、DET分析 |
 | **性能（スループット）** | ピーク時の1時間あたり処理人数 | 負荷テスト、性能テスト |
 | **信頼性** | 連続稼働、センサ劣化、異常入力時の挙動 | 耐久テスト、状態遷移テスト |
 | **可用性** | 障害時のフォールバック（暗証番号、有人対応など） | 障害注入、フェイルオーバー確認 |
@@ -677,7 +679,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    L1["1 生体認証の基礎<br/>Annex A・用語"] --> L2["2 性能指標<br/>FMR/FNMR/FTE/FTA/DET"]
+    L1["1 生体認証の基礎<br/>Annex A・用語"] --> L2["2 性能指標<br/>FMR/FNMR/FTER/FTAR/DET"]
     L2 --> L3["3 29119の概要<br/>-1, -2, -3, -4"]
     L3 --> L4["4 リスクベースドテスト<br/>5.6節"]
     L4 --> L5["5 TR本編6章<br/>テスト範囲"]
@@ -689,7 +691,7 @@ flowchart LR
 
 - [ ] TRが「規格」ではなく「技術報告書」である意味を説明できる
 - [ ] 19795系とTR 29119-13の役割の違いを説明できる
-- [ ] FMR・FNMR・FTE・FTAを自分の言葉で定義し、計算できる
+- [ ] FMR・FNMR・FTER・FTARを自分の言葉で定義し、計算できる（FTE・FTAは失敗事象、FTER・FTARはその発生率であることを区別できる）
 - [ ] FMR/FNMR（比較レベル）とFAR/FRR（取引レベル）の違いを説明できる
 - [ ] しきい値の動かし方で誤りがどう変わるか説明できる
 - [ ] リスク露出度を「影響度×発生可能性」で算出し、優先順位付けできる
