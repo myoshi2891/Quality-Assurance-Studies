@@ -351,9 +351,7 @@ flowchart LR
     C1["原因1 会員"] --> AND1{"AND"}
     C2["原因2 5000円以上"] --> AND1
     AND1 --> E1["結果 ポイント2倍"]
-    C1 --> OR1{"OR"}
-    C2 --> OR1
-    OR1 --> E2["結果 送料無料"]
+    C2 --> E2["結果 送料無料"]
 ```
 
 ### 3-8. 状態遷移テスト（State Transition Testing）
