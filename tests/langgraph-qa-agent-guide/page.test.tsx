@@ -1397,3 +1397,36 @@ describe('global style isolation', () => {
  expect(css).toContain('.lgqa-page .callout p + p { margin-top: 0; }');
  });
 });
+
+describe('syntax highlighting', () => {
+ it('highlights every Python and Bash code block while preserving exact source text', async () => {
+ const {container}=await page();
+ const blocks=[...container.querySelectorAll('pre code')];
+ expect(blocks).toHaveLength(15);
+ expect(blocks.map(block=>block.textContent)).toEqual([...source.querySelectorAll('pre code')].map(block=>block.textContent));
+ for(const [index,block] of blocks.entries()) expect(block.querySelectorAll('.syntax-token').length, `code block ${index+1}`).toBeGreaterThan(0);
+ expect(container.querySelector('pre code.language-bash .syntax-command')?.textContent).toBe('pip');
+ expect(container.querySelector('pre code.language-python .syntax-keyword')?.textContent).toBe('from');
+ });
+ it('keeps inline code separate from fenced code highlighting', async () => {
+ const {container}=await page();
+ for(const code of container.querySelectorAll('code')) if(!code.closest('pre')) expect(code.querySelector('.syntax-token')).toBeNull();
+ });
+ it('distinguishes strings comments keywords builtins and numbers without losing whitespace', async () => {
+ const {default: SyntaxCode}=await import('../../app/langgraph-qa-agent-guide/SyntaxCode');
+ const example='from typing import Any\nvalue = "# if 123"\n# comment\nprint(42)\ntext = """multi\nline"""\n';
+ const {container}=render(<SyntaxCode language="python" code={example} />);
+ expect(container.textContent).toBe(example);
+ expect([...container.querySelectorAll('.syntax-string')].map(node=>node.textContent)).toEqual(['"# if 123"','"""multi\nline"""']);
+ expect(container.querySelector('.syntax-comment')?.textContent).toBe('# comment');
+ expect([...container.querySelectorAll('.syntax-keyword')].map(node=>node.textContent)).toEqual(['from','import']);
+ expect(container.querySelector('.syntax-builtin')?.textContent).toBe('print');
+ expect(container.querySelector('.syntax-number')?.textContent).toBe('42');
+ });
+ it('renders source markup as escaped text', async () => {
+ const {default: SyntaxCode}=await import('../../app/langgraph-qa-agent-guide/SyntaxCode');
+ const example='value = "<img src=x onerror=alert(1)>"\n';
+ const {container}=render(<SyntaxCode language="python" code={example} />);
+ expect(container.textContent).toBe(example); expect(container.querySelector('img')).toBeNull();
+ });
+});
