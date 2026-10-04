@@ -322,9 +322,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(8);
   });
 
-  it('places 19 items in the books-practices group', () => {
+  it('places 20 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(19);
+    expect(books?.items).toHaveLength(20);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 

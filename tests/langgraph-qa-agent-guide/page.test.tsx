@@ -64,13 +64,13 @@ describe('foundation', () => {
         const rules: { selector: string; media: string; declarations: string[][] }[] = [];
         css.walkRules((rule) => {
             rules.push({
-                selector: rule.selector,
+                selector: rule.selector.split(',').map(s => s.trim()).join(', '),
                 media: rule.parent?.type === 'atrule' ? (rule.parent as postcss.AtRule).params : '',
                 declarations: rule.nodes
                     .filter((n) => n.type === 'decl')
                     .map((n) => [
                         (n as postcss.Declaration).prop,
-                        (n as postcss.Declaration).value,
+                        (n as postcss.Declaration).value.replace(/\s+/g, ' ').trim(),
                     ]),
             });
         });
@@ -88,7 +88,7 @@ describe('foundation', () => {
                     .filter((r) => r.selector === selector && r.media === rule.media)
                     .map((r) => r.declarations),
                 rule.selector,
-            ).toContainEqual(rule.declarations);
+            ).toContainEqual(rule.declarations.map(([property, value]) => [property, value.replace(/\s+/g, ' ').trim()]));
         }
     });
 });
@@ -1337,7 +1337,9 @@ describe('navigation and completed migration', () => {
  expect(directive).not.toBeNull(); const config=JSON.parse(directive[1]!);
  expect(config.theme).toBe('dark'); expect(config.themeVariables.background).toBe('#07111e');
  expect(config.themeVariables.actorTextColor).toBe('#f3f5fa'); expect(directive[0]).not.toContain("'");
- expect(chart.slice(directive[0].length)).toBe(original[id]); await mermaid.parse(chart);
+ expect(chart.slice(directive[0].length)).toBe(original[id]);
+ const real = (await import('mermaid/dist/mermaid.esm.mjs')).default as unknown as {parse: (chart: string) => Promise<unknown>};
+ await real.parse(chart);
  }
  });
 });
