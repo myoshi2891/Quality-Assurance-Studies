@@ -264,3 +264,7 @@
 ## LangGraph QAエージェント構築ガイドの確認
 
 `/langgraph-qa-agent-guide`は移行済み。元HTML・MDは`archive/html-archive/books/`に保管。目次・Mermaid図・表・コードのブラウザ目視確認はユーザーが実施する。追加依存関係は不要。全15コードブロックのハイライトは`SyntaxCode.tsx`で実装済み。
+
+## Beautiful Testing完全ガイドの確認
+
+`/beautiful-testing-guide`のモバイル目次、Mermaid図8件、表5件、チェックリスト11項目は移行済み。ブラウザ目視確認はユーザーが実施する。元HTML・MDは`archive/html-archive/books/`に保存している。テスト補正の復旧コミットは承認待ちのため、進捗文書の留保を確認すること。
