@@ -5,7 +5,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import './langgraph-qa-agent-guide.css';
 export const metadata: Metadata = {
-    title: 'LangGraphによるQAエージェント構築ガイド',
+    title: 'LangGraphによるQAエージェント構築ガイド — Knowledge Graphs and LLMs in Action 第15章',
     description: 'LangGraphとNeo4jによるQAエージェントの構築を基礎から段階的に学ぶガイド。',
 };
 export default function Page() {
