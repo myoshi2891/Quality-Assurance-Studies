@@ -380,6 +380,133 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-6">
+                <h2>
+                    {"6. ステップ4：探索的テストとアジャイルテストの4象限"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 第12章「Software in Use」は、O'Reillyの書籍ページに示された章構成・著者情報によれば、医療ソフトウェアのテスト経験を持つKaren N. Johnsonによる章で、実利用環境でのテスト（探索的・アドホック・スクリプト化テストの使い分け）を扱います。 "}
+                    </p>
+                    <p>
+                        {" なお、James Bachの「Exploratory Testing Explained」は、本章が参考文献として挙げている資料であると確認できたものではありません。ここでは章の内容を理解するための"}
+                        <strong>
+                            {"補足資料"}
+                        </strong>
+                        {"として紹介します（探索的テストの古典的な定義を示す資料として、今も広く参照されています）。 "}
+                    </p>
+                    <p>
+                        {" 探索的テストを構造化して行う代表的な手法が、James BachとJonathan Bachが考案した"}
+                        <strong>
+                            {"セッションベース・テストマネジメント（Session-Based Test Management）"}
+                        </strong>
+                        {"です。 "}
+                    </p>
+                </div>
+                <div className="mermaid-wrapper diagram-frame"><Mermaid chart={DIAGRAMS[3]} /></div>
+                <div className="prose">
+                    <p>
+                        {" また、「どこにどんなテストを配置すべきか」を整理するフレームワークとして、"}
+                        <strong>
+                            {"アジャイルテストの4象限"}
+                        </strong>
+                        {"が国際的に広く使われています。原型は2003年にBrian Marickが示したテスト分類のマトリクスで、それをLisa CrispinとJanet Gregoryがアジャイル開発の文脈へ適用・発展させ、書籍『Agile Testing』を通じて広く普及させました。 "}
+                    </p>
+                </div>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+
+                                </th>
+                                <th>
+                                    {"ビジネス視点（Business-facing）"}
+                                </th>
+                                <th>
+                                    {"技術視点（Technology-facing）"}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        {"開発を支援する"}
+                                        <br />
+                                        {"（Supporting the team）"}
+                                    </strong>
+                                </td>
+                                <td>
+                                    {" Q2: ストーリーテスト（例示ベースの受け入れ基準テスト。例: Cucumber, FitNesse）。"}
+                                    <strong>
+                                        {"「何を作るか」を具体例で合意し、チームの開発を支援する"}
+                                    </strong>
+                                    {"ことを目的とするテスト "}
+                                </td>
+                                <td>
+                                    {"Q1: ユニットテスト・コンポーネントテスト（TDDの土台）"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        {"製品を批評する"}
+                                        <br />
+                                        {"（Critiquing the product）"}
+                                    </strong>
+                                </td>
+                                <td>
+                                    {" Q3: 探索的テスト・ユーザビリティテスト・ユーザー受け入れテスト（UAT）。"}
+                                    <strong>
+                                        {"ユーザー視点で「本当に価値があるか」を吟味し、製品を批評する"}
+                                    </strong>
+                                    {"ことを目的とするテスト "}
+                                </td>
+                                <td>
+                                    {"Q4: 性能・セキュリティなど非機能要件のテスト"}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout">
+                    <p>
+                        {" この4象限が分類しているのは、実施時期や実行順序ではなく、テストの"}
+                        <strong>
+                            {"目的"}
+                        </strong>
+                        {"です。同じ「受け入れテスト」という語がQ2とQ3の両方に現れますが、Q2は合意形成のための"}
+                        <strong>
+                            {"例示ベースのストーリーテスト"}
+                        </strong>
+                        {"、Q3は利用者視点で製品を吟味する"}
+                        <strong>
+                            {"批評としてのUAT"}
+                        </strong>
+                        {"であり、目的が異なります。どの象限のテストを自動化し、どれを人手で実行するかは象限だけで決まるものではなく、プロジェクトのリスクや運用上の必要性に応じて判断します。 "}
+                    </p>
+                </div>
+                <div className="prose">
+                    <p>
+                        {" 初学者は、まず「自分が今書こうとしているテストはこの4象限のどこに位置するか」＝何を目的としたテストなのかを意識するだけで、自動化すべきか、人手で探索すべきかを検討する足がかりが得られます。探索的テストは「行き当たりばったりのテスト」ではなく、"}
+                        <strong>
+                            {"仮説を立てて検証しながら学習する、規律あるプロセス"}
+                        </strong>
+                        {"であることを覚えておきましょう。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.satisfice.com/articles/et-article.pdf" target="_blank" rel="noopener noreferrer">
+                        {"satisfice.com/articles/et-article.pdf"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer">
+                        {"agiletester.ca"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
