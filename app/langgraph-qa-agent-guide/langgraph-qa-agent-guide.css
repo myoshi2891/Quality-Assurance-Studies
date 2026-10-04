@@ -475,3 +475,12 @@
 .lgqa-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); height: calc(100dvh - 60px - var(--disclaimer-height, 0px)); }
 .lgqa-page *::-webkit-scrollbar-track { background: var(--color-background-primary); }
 .lgqa-page *::-webkit-scrollbar-thumb { background: var(--color-border-primary); }
+
+/* Syntax tokens inherit the code block font, sizing, and whitespace. */
+.lgqa-page pre code .syntax-token { background: none; padding: 0; }
+.lgqa-page pre code .syntax-keyword { color: #c792ea; }
+.lgqa-page pre code .syntax-string { color: #c3e88d; }
+.lgqa-page pre code .syntax-comment { color: #93a1bd; font-style: italic; }
+.lgqa-page pre code .syntax-number { color: #f78c6c; }
+.lgqa-page pre code .syntax-builtin, .lgqa-page pre code .syntax-command { color: #82aaff; }
+.lgqa-page pre code .syntax-option { color: #ffcb6b; }
