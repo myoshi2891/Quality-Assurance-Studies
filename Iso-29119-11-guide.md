@@ -475,7 +475,7 @@ def test_mr_train_order_invariance(data):
 
     agreement = (base == shuffled).mean()
     # 数値誤差による境界付近のブレを許容し、一致率で判定する
-    assert agreement >= 0.98, f"一致率が低い: {agreement:.3f}"
+    assert agreement >= (len(base) - 1) / len(base), f"一致率が低い: {agreement:.3f}"
 
 
 def test_mr_feature_permutation(data):
