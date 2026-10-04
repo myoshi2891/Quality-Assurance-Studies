@@ -1385,3 +1385,10 @@ describe('final fidelity gates', () => {
  for (const link of links) expect(link.getAttribute('rel')).toBe('noopener noreferrer');
  });
 });
+
+describe('metadata', () => {
+ it('preserves the original title including the book and chapter', async () => {
+ const {metadata}=await import('../../app/langgraph-qa-agent-guide/page');
+ expect(metadata.title).toBe('LangGraphによるQAエージェント構築ガイド — Knowledge Graphs and LLMs in Action 第15章');
+ });
+});
