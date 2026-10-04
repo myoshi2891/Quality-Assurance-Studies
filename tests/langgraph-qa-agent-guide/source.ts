@@ -9,7 +9,7 @@ export const source = new DOMParser().parseFromString(
     html.replace(/<head>[\s\S]*?<\/head>/, '').replace(/<script[\s\S]*?<\/script>/g, ''),
     'text/html',
 );
-export const normalize = (text: string) => text.replace(/\s+/g, '');
+export const normalize = (text: string) => text.replace(/\s+/g, ' ').trim();
 export function signature(element: Element) {
     const clone = element.cloneNode(true) as Element;
     clone.querySelectorAll('.mermaid-wrapper').forEach((node) => node.remove());
