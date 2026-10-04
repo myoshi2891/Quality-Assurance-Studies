@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-02
+最終更新日: 2026-10-04
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -260,3 +260,7 @@
 **チェックリスト（実施後）**:
 - [ ] ...
 -->
+
+## LangGraph QAエージェント構築ガイドの確認
+
+`/langgraph-qa-agent-guide`は移行済み。元HTML・MDは`archive/html-archive/books/`に保管。目次・Mermaid図・表・コードのブラウザ目視確認はユーザーが実施する。追加依存関係は不要。
