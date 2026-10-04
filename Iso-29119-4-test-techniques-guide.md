@@ -380,7 +380,7 @@ stateDiagram-v2
 | カバレッジ基準 | カバレッジアイテム | この例での数 |
 |---|---|---|
 | すべての状態 | 状態 | 6（下書き・注文済み・出荷済み・配達完了・返品中・キャンセル） |
-| すべての遷移 | 遷移 | 7 |
+| すべての遷移（0-switch） | 実状態間の有効な単一遷移 | 6（開始・終了の疑似状態 `[*]` との矢印は数えない） |
 
 「無効な遷移（例: 下書きから出荷済みへ）が拒否されること」の確認は、状態表（state table）を使うと漏れにくくなります。
 
@@ -402,12 +402,25 @@ stateDiagram-v2
 
 ```python
 import random
+from collections import Counter
 
-def test_sort_is_idempotent():
+def insertion_sort(xs: list[int]) -> list[int]:
+    """テスト対象のソート実装（例）"""
+    result: list[int] = []
+    for x in xs:
+        i = len(result)
+        while i > 0 and result[i - 1] > x:
+            i -= 1
+        result.insert(i, x)
+    return result
+
+def test_insertion_sort_properties():
     for _ in range(1000):
         xs = [random.randint(-100, 100) for _ in range(random.randint(0, 50))]
-        once = sorted(xs)
-        assert sorted(once) == once   # 性質（オラクル）を使って判定
+        out = insertion_sort(xs)   # テスト対象をランダム入力で呼び出す
+        # 性質（オラクル）を使って判定
+        assert all(a <= b for a, b in zip(out, out[1:]))  # 昇順である
+        assert Counter(out) == Counter(xs)                # 要素が欠落・増加していない
 ```
 
 ### 3-11. メタモルフィックテスト（Metamorphic Testing）
@@ -589,14 +602,16 @@ def price(qty, unit):
 
 ### 6-1. 基本の考え方
 
-第6章は、**各技法に対応するカバレッジの測り方**を定義します。基本は次の式です。
+第6章は、**各技法に対応するカバレッジの測り方**を定義します。カバレッジアイテムを定義できる技法では、基本は次の式です。
 
 **カバレッジ（%）＝ テストで実際に踏んだカバレッジアイテム数 ÷ 全カバレッジアイテム数 × 100**
+
+> 適用上の注意: この式は、カバレッジアイテムを数えられる技法に限って使えます。29119-4ではランダムテストに認識されたカバレッジアイテムがなく、ランダムテストとメタモルフィックテストについてはカバレッジを計算する業界で合意された方法がありません。
 
 | 例 | 踏んだ数 | 全体の数 | カバレッジ |
 |---|---|---|---|
 | 同値クラス（5クラス中4クラスを実行） | 4 | 5 | 80% |
-| 状態遷移（7遷移中7遷移を実行） | 7 | 7 | 100% |
+| 状態遷移（0-switch：6遷移中6遷移を実行） | 6 | 6 | 100% |
 
 ### 6-2. 技法とカバレッジの対応
 
