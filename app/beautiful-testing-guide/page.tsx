@@ -115,6 +115,78 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-3">
+                <h2>
+                    {"3. ステップ1：誰のためにテストするのかを理解する"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 第2章「Beautiful Testing Satisfies Stakeholders（美しいテストはステークホルダーを満たす）」は、25年のテストキャリアを持つRex Blackの知見が反映された章とされ、「誰のためにテストするのか（For Whom Do We Test?）」という根源的な問いから出発します。本書は、テストの「美しさ」を"}
+                        <strong>
+                            {"外的な美しさ（ユーザーが実際に満足するか）"}
+                        </strong>
+                        {"と"}
+                        <strong>
+                            {"内的な美しさ（開発チームにとって保守しやすく、シグナルが明確か）"}
+                        </strong>
+                        {"の2軸で捉えます。 "}
+                    </p>
+                    <p>
+                        {" 初学者がまず実践すべきことは、テストを書き始める前に以下を自問することです。 "}
+                    </p>
+                </div>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    {"問い"}
+                                </th>
+                                <th>
+                                    {"具体例"}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {"このテストは誰のためのものか"}
+                                </td>
+                                <td>
+                                    {" エンドユーザー／プロダクトマネージャー／運用担当／将来の自分自身 "}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"何を「満足」とみなすか"}
+                                </td>
+                                <td>
+                                    {"機能要件を満たす／規制要件を満たす／性能要件を満たす"}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"失敗したとき誰が困るか"}
+                                </td>
+                                <td>
+                                    {"顧客が使えなくなる／開発者がデバッグに時間を取られる"}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="prose">
+                    <p>
+                        {" このステークホルダー思考は、後述する「アジャイルテストの4象限」（第6章）や「テストピラミッド／トロフィー」の判断基準にも直結します。「とりあえず全部テストする」のではなく、「誰の、どんな不安を解消するテストか」を先に決めることが、美しいテストの第一歩です。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
