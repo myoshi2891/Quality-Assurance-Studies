@@ -327,6 +327,59 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-5">
+                <h2>
+                    {"5. ステップ3：小さく始める ― ユニットテストとTDD"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 第14章「Test-Driven Development: Driving New Standards of Beauty」では、テスト駆動開発（TDD）が「美しさ」の新しい基準としてアジャイル開発と結びつけて論じられています。TDDの基本サイクルは、Kent Beckが体系化した "}
+                        <strong>
+                            {"Red → Green → Refactor"}
+                        </strong>
+                        {" というシンプルな3ステップです。 "}
+                    </p>
+                </div>
+                <div className="mermaid-wrapper diagram-frame"><Mermaid chart={DIAGRAMS[2]} /></div>
+                <div className="prose">
+                    <p>
+                        {"初学者が最初につまずきやすいポイントと、その対策をまとめます。"}
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>
+                                {"いきなり大きなテストを書こうとしてしまう"}
+                            </strong>
+                            {" → まず「1つのテストで1つの振る舞いだけを検証する」という粒度の方針を守り、テストを小さく刻む。そのうえで、個々のテストの中身はAAAパターン（Arrange＝準備、Act＝実行、Assert＝検証）の3段階で構造を整理すると、何を準備し、何を実行し、何を検証しているのかが読み取りやすくなる。 "}
+                        </li>
+                        <li>
+                            <strong>
+                                {"実装を先に書いてからテストを後付けしてしまう"}
+                            </strong>
+                            {" → まず失敗するテスト（Red）を書き、それが正しい理由で失敗することを確認してから実装に進む。 "}
+                        </li>
+                        <li>
+                            <strong>
+                                {"リファクタリングを省略してしまう"}
+                            </strong>
+                            {" → テストがGreenの状態は「安全網が張られた状態」なので、このタイミングでこそ設計を整理する。 "}
+                        </li>
+                    </ul>
+                    <p>
+                        {" 原著が強調するのは、TDDで書かれたテストが単なる検証コードにとどまらない、という点です。ただしすべてのテストが同じ役割を担うわけではありません。ストーリーの完了条件を表現する機能テストは、関係者が読んで仕様を確認できる"}
+                        <strong>
+                            {"「読める仕様書（Readable Examples）」であり「恒久的な要求仕様の記録（Permanent Requirement Artifacts）」"}
+                        </strong>
+                        {"として機能します。一方、TDDのサイクルで書かれる個々のユニットテストは、主に詳細設計を駆動しフィードバックを速くするための手段であり、実装のリファクタリングに伴って書き換えられたり破棄されたりする前提のものも含まれます。どちらを書く場合でも、「後で読む人（未来の自分やチームメイト）が意図を理解できるか」を常に意識しましょう。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
