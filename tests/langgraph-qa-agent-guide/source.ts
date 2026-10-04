@@ -28,6 +28,14 @@ export function signature(element: Element) {
                       : a.value,
             ])
             .sort(),
-        text: node.children.length ? '' : normalize(node.textContent ?? ''),
+        // Elements with children record only their own direct text nodes; leaves keep full textContent.
+        text: normalize(
+            node.children.length
+                ? [...node.childNodes]
+                      .filter((child) => child.nodeType === Node.TEXT_NODE)
+                      .map((child) => child.textContent ?? '')
+                      .join('')
+                : (node.textContent ?? ''),
+        ),
     }));
 }
