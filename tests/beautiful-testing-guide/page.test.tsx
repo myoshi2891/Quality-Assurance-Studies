@@ -288,3 +288,79 @@ it("preserves .section-refs a,.ref-list li item 14",async()=>{const {container}=
 it("preserves ordered .mermaid-wrapper",async()=>{const {container}=await page();expect([...section(container,'sec-15').querySelectorAll(".mermaid-wrapper")].map(n=>signature(n))).toEqual([...source.getElementById('sec-15')!.querySelectorAll(".mermaid-wrapper")].map(n=>signature(n)));});
 it("preserves ordered .checklist li",async()=>{const {container}=await page();expect([...section(container,'sec-15').querySelectorAll(".checklist li")].map(n=>signature(n))).toEqual([...source.getElementById('sec-15')!.querySelectorAll(".checklist li")].map(n=>signature(n)));});
 });
+
+describe('navigation',()=>{
+ it('preserves sidebar structure and ordered links targeting every section',async()=>{
+ const {container}=await page();const sidebar=container.querySelector('.sidebar');expect(sidebar).not.toBeNull();
+ expect(signature(sidebar!)).toEqual(signature(source.querySelector('.sidebar')!));
+ expect([...sidebar!.querySelectorAll('a')].map(link=>[link.getAttribute('href'),normalize(link.textContent??'')])).toEqual(inventory['.sidebar nav a'].map(item=>[item.href,item.text]));
+ for(const link of sidebar!.querySelectorAll('a'))expect(container.querySelector(link.getAttribute('href')!)).not.toBeNull();
+ });
+ it('opens closes and dismisses mobile navigation after following a link',async()=>{
+ const {container,getByRole}=await page();const button=getByRole('button',{name:'メニュー'});
+ expect(button.getAttribute('aria-expanded')).toBe('false');expect(button.getAttribute('aria-controls')).toBe('sidebar');
+ fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('true');expect(container.querySelector('.sidebar.open')).not.toBeNull();
+ fireEvent.click(button);expect(container.querySelector('.sidebar.open')).toBeNull();
+ fireEvent.click(button);fireEvent.click(container.querySelector('.sidebar a')!);
+ expect(button.getAttribute('aria-expanded')).toBe('false');expect(container.querySelector('.sidebar.open')).toBeNull();
+ });
+ it('closes the mobile menu with Escape and returns focus to the toggle',async()=>{
+ const {getByRole}=await page();const button=getByRole('button',{name:'メニュー'});fireEvent.click(button);fireEvent.keyDown(window,{key:'Escape'});
+ expect(button.getAttribute('aria-expanded')).toBe('false');expect(document.activeElement).toBe(button);
+ });
+ it('updates the active TOC link when a different section reaches the reading band',async()=>{
+ const {container}=await page();const target=container.querySelector('#sec-2')!;
+ target.getBoundingClientRect=()=>({top:window.innerHeight*0.2,bottom:window.innerHeight*0.3} as DOMRect);
+ fireEvent.scroll(window);await waitFor(()=>expect(container.querySelector('.sidebar a[aria-current="location"]')?.getAttribute('href')).toBe('#sec-2'));
+ });
+});
+
+describe('checklist interaction',()=>{
+ it('labels every checkbox and updates progress and done styling in both directions',async()=>{
+ const {container,getAllByRole,getByRole}=await page();const inputs=getAllByRole('checkbox') as HTMLInputElement[];
+ expect(inputs).toHaveLength(11);expect(getByRole('status').getAttribute('aria-live')).toBe('polite');
+ for(const [index,input] of inputs.entries())expect(normalize(input.closest('label')!.textContent??'')).toBe(inventory['.checklist li'][index]!.text);
+ fireEvent.click(inputs[0]!);expect(inputs[0]!.checked).toBe(true);expect(inputs[0]!.closest('li')!.classList.contains('done')).toBe(true);expect(container.querySelector('#checklistDone')?.textContent).toBe('1');
+ fireEvent.click(inputs[0]!);expect(inputs[0]!.closest('li')!.classList.contains('done')).toBe(false);expect(container.querySelector('#checklistDone')?.textContent).toBe('0');
+ });
+ it('counts all eleven completed items and permits returning to zero',async()=>{
+ const {container,getAllByRole}=await page();const inputs=getAllByRole('checkbox');inputs.forEach(input=>fireEvent.click(input));
+ expect(container.querySelector('#checklistDone')?.textContent).toBe('11');expect(container.querySelectorAll('.checklist li.done')).toHaveLength(11);
+ inputs.forEach(input=>fireEvent.click(input));expect(container.querySelector('#checklistDone')?.textContent).toBe('0');expect(container.querySelectorAll('.checklist li.done')).toHaveLength(0);
+ });
+});
+
+describe('diagram contracts',()=>{
+ it('renders all eight original diagrams in order with the source dark palette',async()=>{
+ await page();expect(charts).toHaveLength(8);
+ for(const [index,chart] of charts.entries()){
+ const directive=/^%%\{init: (.*?)\}%%\n/.exec(chart);expect(directive).not.toBeNull();expect(directive![0]).not.toContain("'");
+ const config=JSON.parse(directive![1]!);expect(config.theme).toBe('dark');expect(config.themeVariables.primaryColor).toBe('#12233a');expect(config.themeVariables.primaryTextColor).toBe('#e7edf7');expect(config.themeVariables.lineColor).toBe('#6fe7c0');
+ expect(chart.slice(directive![0].length)).toBe(inventory.diagrams[index]!);
+ const realModule='mermaid/dist/mermaid.esm.mjs';const real=(await import(realModule)).default as {parse:(chart:string)=>Promise<unknown>};await real.parse(chart);
+ }
+ });
+});
+
+describe('registration and archive',()=>{
+ it('registers the guide as books-practices and adds matching smoke coverage',async()=>{
+ const {NAV_ITEMS}=await import('../../lib/navigation');const {PAGES,EXPECTED_PAGE_COUNT}=await import('../../e2e/pages');
+ expect(NAV_ITEMS.find(item=>item.href==='/beautiful-testing-guide')?.category).toBe('books-practices');
+ expect(PAGES.find(item=>item.path==='/beautiful-testing-guide')?.h1.test('『Beautiful Testing』完全ガイド')).toBe(true);expect(EXPECTED_PAGE_COUNT).toBe(90);
+ });
+ it('preserves all fifteen section IDs and all eighteen headings in exact order',async()=>{
+ const {container}=await page();expect([...container.querySelectorAll('section[id]')].map(node=>node.id)).toEqual(inventory.sections);
+ expect([...container.querySelectorAll('h1,h2,h3,h4')].map(node=>normalize(node.textContent??''))).toEqual(inventory['h1,h2,h3,h4'].map(item=>item.text));
+ });
+ it('retains every external URL and secure new-tab attributes',async()=>{
+ const {container}=await page();const links=[...container.querySelectorAll('a[target="_blank"]')];
+ expect(links.map(link=>link.getAttribute('href'))).toEqual([...source.querySelectorAll('a[target="_blank"]')].map(link=>link.getAttribute('href')));
+ for(const link of links)expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+ });
+ it('preserves the original full title metadata',async()=>{
+ const {metadata}=await import('../../app/beautiful-testing-guide/page');expect(metadata.title).toBe('『Beautiful Testing』完全ガイド ― 初学者のためのステップバイステップ・ベストプラクティス');
+ });
+ it('archives both source documents unchanged and removes root duplicates',()=>{
+ for(const extension of ['html','md'] as const){const name='Beautiful-testing-guide.'+extension;expect(existsSync(name)).toBe(false);expect(createHash('sha256').update(readFileSync('archive/html-archive/books/'+name)).digest('hex')).toBe(inventory.hashes[extension]);}
+ });
+});
