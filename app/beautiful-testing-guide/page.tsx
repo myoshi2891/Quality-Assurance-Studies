@@ -187,6 +187,146 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-4">
+                <h2>
+                    {" 4. ステップ2：現代の「地図」を持つ ― ピラミッド／トロフィー／テストサイズ "}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 『Beautiful Testing』刊行(2009年)後の約17年（2026年8月時点）で、テスト戦略を可視化する「地図」がいくつも生まれました。初学者はまずこの地図を知っておくと、大量にあるテストの種類を迷わず整理できます。 "}
+                    </p>
+                    <p>
+                        {" 下図は、後述する3つのモデルを統合した唯一の正解モデルでも、必ずこの順に実施しなければならないという規範でもありません。"}
+                        <strong>
+                            {"どのトリガーでどこまでのテストを流すかの一例"}
+                        </strong>
+                        {"として示すものです（速く安く失敗を見つけられるものから先に流す、という考え方）。探索的テストは人手で行うため、CIの直列フローには載せず、独立した活動として並記しています。それぞれのモデルの違いは、直後の比較表で整理します。 "}
+                    </p>
+                </div>
+                <div className="mermaid-wrapper diagram-frame"><Mermaid chart={DIAGRAMS[1]} /></div>
+                <div className="prose">
+                    <p>
+                        {" 代表的な3つのモデルを比較します。これらは「どれか1つを選ぶ」排他的な選択肢ではなく、異なる軸を扱う補完的なモデルです。テストピラミッドとテスティングトロフィーは"}
+                        <strong>
+                            {"テストの配分"}
+                        </strong>
+                        {"（どの層をどれだけ厚く書くか）を論じるモデルであり、Googleのテストサイズは"}
+                        <strong>
+                            {"実行制約"}
+                        </strong>
+                        {"（プロセス・ネットワーク・I/Oをどこまで許すか）でテストを分類する枠組みです。軸が違うため、たとえば「配分はトロフィーに寄せつつ、CIでの実行制御はテストサイズで管理する」といった併用が自然に成立します。いずれも、上図のような実行順序とはさらに別の観点を示すものです。 "}
+                    </p>
+                </div>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    {"観点"}
+                                </th>
+                                <th>
+                                    {"テストピラミッド"}
+                                </th>
+                                <th>
+                                    {"テスティングトロフィー"}
+                                </th>
+                                <th>
+                                    {"Googleのテストサイズ"}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {"提唱者・時期"}
+                                </td>
+                                <td>
+                                    {" Mike Cohnが著書で提示、Martin Fowlerが2012年のbliki記事で整理 "}
+                                </td>
+                                <td>
+                                    {"Kent C. Dodds（2018年）"}
+                                </td>
+                                <td>
+                                    {" Google Testing Blog（2010年）／書籍『Software Engineering at Google』 "}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"分類軸"}
+                                </td>
+                                <td>
+                                    {"テストの粒度（Unit → Integration → E2E）"}
+                                </td>
+                                <td>
+                                    {"費用対効果（実装コストに対する「確信度」のROI）"}
+                                </td>
+                                <td>
+                                    {" 実行に必要なリソース（プロセス数・スレッド数・I/Oの有無） "}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"主張の要旨"}
+                                </td>
+                                <td>
+                                    {"下位（Unit）ほど数を多く、上位（E2E）ほど数を絞る"}
+                                </td>
+                                <td>
+                                    {" 静的解析を土台に据えつつ、費用対効果が最も高い統合テストを厚く書く "}
+                                </td>
+                                <td>
+                                    {" テストを「Small／Medium／Large」で分類し、実行速度と隔離性でCIの実行頻度を制御する "}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {"背景にある技術変化"}
+                                </td>
+                                <td>
+                                    {"2009年前後、E2Eツールは遅く不安定だった"}
+                                </td>
+                                <td>
+                                    {" Jest・Testing Library・Cypressなど高速なJS向けツールの登場により前提が変化 "}
+                                </td>
+                                <td>
+                                    {" 数万件規模のテストを継続的に実行するGoogle社内のインフラ事情 "}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="prose">
+                    <p>
+                        {" 初学者へのアドバイスは「どれか1つが正解ではない」ということです。フロントエンド開発ならトロフィーの考え方（統合テスト重視）が馴染みやすく、バックエンドのライブラリ開発ならピラミッド（ユニットテスト重視）が向いていることが多く、大規模な社内基盤ではGoogle方式のテストサイズ分類がCI設計に役立ちます。まず自分のプロジェクトがどのモデルに近いかを意識するだけで、「何をどれだけテストすべきか」の判断がぐっと楽になります。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">
+                        {"martinfowler.com/bliki/TestPyramid.html"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">
+                        {"martinfowler.com/articles/practical-test-pyramid.html"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://kentcdodds.com/blog/write-tests" target="_blank" rel="noopener noreferrer">
+                        {"kentcdodds.com/blog/write-tests"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications" target="_blank" rel="noopener noreferrer">
+                        {"kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://testing.googleblog.com/2010/12/test-sizes.html" target="_blank" rel="noopener noreferrer">
+                        {"testing.googleblog.com/2010/12/test-sizes.html"}
+                    </a>
+                    {" ／ "}
+                    <a href="https://abseil.io/resources/swe-book/html/ch14.html" target="_blank" rel="noopener noreferrer">
+                        {"abseil.io/resources/swe-book/html/ch14.html"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
