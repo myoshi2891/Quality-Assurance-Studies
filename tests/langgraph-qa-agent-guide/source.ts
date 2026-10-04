@@ -13,6 +13,8 @@ export const normalize = (text: string) => text.replace(/\s+/g, '');
 export function signature(element: Element) {
     const clone = element.cloneNode(true) as Element;
     clone.querySelectorAll('.mermaid-wrapper').forEach((node) => node.remove());
+    // Highlight spans add presentation only; retain every character for source comparison.
+    clone.querySelectorAll('code .syntax-token').forEach(node => node.replaceWith(...node.childNodes));
     return [clone, ...clone.querySelectorAll('*')].map((node) => ({
         tag: node.tagName,
         attributes: [...node.attributes]
