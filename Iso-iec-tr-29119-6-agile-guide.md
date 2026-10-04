@@ -348,6 +348,9 @@ sequenceDiagram
     alt 不具合を発見
         TST->>DEV: 不具合を報告
         DEV->>CI: 修正をコミット
+        CI->>CI: 自動テストを再実行
+        CI-->>TST: 再テスト結果を通知
+        TST->>TST: 修正を確認
     else 問題なし
         TST->>PO: ストーリー完了を報告
     end
