@@ -364,3 +364,15 @@ describe('registration and archive',()=>{
  for(const extension of ['html','md'] as const){const name='Beautiful-testing-guide.'+extension;expect(existsSync(name)).toBe(false);expect(createHash('sha256').update(readFileSync('archive/html-archive/books/'+name)).digest('hex')).toBe(inventory.hashes[extension]);}
  });
 });
+
+describe('style isolation',()=>{
+ it('protects source heading fonts against shared hero styles',()=>{
+ const css=postcss.parse(readFileSync('app/beautiful-testing-guide/beautiful-testing-guide.css','utf8'));let found=false;
+ css.walkRules(rule=>{if(rule.selector!=='.bt-page .hero h1, .bt-page .section h2, .bt-page .section h3')return;const declarations=Object.fromEntries(rule.nodes.filter(node=>node.type==='decl').map(node=>[(node as postcss.Declaration).prop,(node as postcss.Declaration).value]));found=declarations['font-family']==='inherit'&&declarations['font-weight']==='bold'&&declarations['letter-spacing']==='normal';});expect(found).toBe(true);
+ });
+ it('imports page CSS and keeps all page selectors scoped',async()=>{
+ await page();expect(readFileSync('app/beautiful-testing-guide/page.tsx','utf8')).toContain("import './beautiful-testing-guide.css'");
+ const css=postcss.parse(readFileSync('app/beautiful-testing-guide/beautiful-testing-guide.css','utf8'));
+ css.walkRules(rule=>{for(const selector of rule.selector.split(','))expect(selector.trim().startsWith('.bt-page')).toBe(true);});
+ });
+});
