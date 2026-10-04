@@ -87,12 +87,8 @@ describe('foundation', () => {
                         : '.lgqa-page ' + s.trim(),
                 )
                 .join(', ');
-            expect(
-                rules
-                    .filter((r) => r.selector === selector && r.media === rule.media)
-                    .map((r) => r.declarations),
-                rule.selector,
-            ).toContainEqual(rule.declarations.map(([property, value]) => [property, value!.replace(/\s+/g, ' ').trim()]));
+            const expected = rule.declarations.map(([property, value]) => [property, value!.replace(/\s+/g, ' ').trim()]);
+            expect(rules.some(r => r.selector === selector && r.media === rule.media && JSON.stringify(r.declarations) === JSON.stringify(expected)), rule.selector).toBe(true);
         }
     });
 });
