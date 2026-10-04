@@ -46,7 +46,7 @@ describe('foundation', () => {
                     href: el.getAttribute('href') ?? '',
                     text: (el.textContent ?? '').replace(/\s+/g, ''),
                 })),
-            ).toEqual(inventory[selector as keyof typeof inventory]);
+            ).toEqual(inventory[selector as keyof Pick<typeof inventory, 'h1,h2,h3,h4' | '.sidebar nav a' | '.diagram-wrap' | 'table' | 'pre code' | '.callout,.summary-card,blockquote' | '.ref-item'>]);
     });
     it('preserves hero and introductory content structure and text', async () => {
         const { container } = await page();
@@ -74,7 +74,7 @@ describe('foundation', () => {
                     .filter((n) => n.type === 'decl')
                     .map((n) => [
                         (n as postcss.Declaration).prop,
-                        (n as postcss.Declaration).value.replace(/\s+/g, ' ').trim(),
+                        (n as postcss.Declaration).value!.replace(/\s+/g, ' ').trim(),
                     ]),
             });
         });
@@ -92,7 +92,7 @@ describe('foundation', () => {
                     .filter((r) => r.selector === selector && r.media === rule.media)
                     .map((r) => r.declarations),
                 rule.selector,
-            ).toContainEqual(rule.declarations.map(([property, value]) => [property, value.replace(/\s+/g, ' ').trim()]));
+            ).toContainEqual(rule.declarations.map(([property, value]) => [property, value!.replace(/\s+/g, ' ').trim()]));
         }
     });
 });
@@ -1341,8 +1341,9 @@ describe('navigation and completed migration', () => {
  expect(directive).not.toBeNull(); const config=JSON.parse(directive[1]!);
  expect(config.theme).toBe('dark'); expect(config.themeVariables.background).toBe('#07111e');
  expect(config.themeVariables.actorTextColor).toBe('#f3f5fa'); expect(directive[0]).not.toContain("'");
- expect(chart.slice(directive[0].length)).toBe(original[id]);
- const real = (await import('mermaid/dist/mermaid.esm.mjs')).default as unknown as {parse: (chart: string) => Promise<unknown>};
+ expect(chart.slice(directive[0].length)).toBe(original[id]!);
+ const realModule = 'mermaid/dist/mermaid.esm.mjs';
+ const real = (await import(realModule)).default as unknown as {parse: (chart: string) => Promise<unknown>};
  await real.parse(chart);
  }
  });
