@@ -597,8 +597,8 @@ class NeuronCoverage:
             out = output.detach()
             if out.dim() == 0:                                     # スカラー出力は1件・1ニューロンとして扱う
                 out = out.reshape(1, 1)
-            elif out.dim() == 1:                                   # バッチなし入力は1件のバッチとして扱う
-                out = out.unsqueeze(0)
+            elif out.dim() == 1:                                   # (batch,) はサンプルごとのスカラー出力とみなし、
+                out = out.unsqueeze(1)                             # バッチ軸を保って1サンプル1ニューロンの (batch, 1) にする
             shape = out.shape[1:]
             expected = self.shapes.setdefault(name, shape)         # 初回呼び出し時の形状を記録
             if shape != expected:                                  # 集計前に形状の一致を検証
