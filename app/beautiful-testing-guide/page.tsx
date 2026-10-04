@@ -692,6 +692,41 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-10">
+                <h2>
+                    {"10. ステップ8：ファジングとミューテーションテストで質を深める"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" テストがある程度整った後、初学者が次に学ぶとよいのが「テストの\"抜け\"を見つけるテスト」です。原著には2つの好例があります。 "}
+                    </p>
+                    <h3>
+                        {" ファジングテスト（第5章「Just Peachy: Making Office Software More Reliable with Fuzz Testing」） "}
+                    </h3>
+                    <p>
+                        {" オフィスソフトウェアの信頼性向上を題材に、意図的に不正・想定外の入力データを大量に投入し、クラッシュや予期しない挙動を発見する手法を解説しています。相互運用性（Interoperability）、ユーザー満足度、セキュリティという3つの観点からファジングの価値が語られます。 "}
+                    </p>
+                    <h3>
+                        {" ミューテーションテスト（第18章「Seeding Bugs to Find Bugs: Beautiful Mutation Testing」） "}
+                    </h3>
+                    <p>
+                        {" 本章はAndreas ZellerとDavid Schulerによる研究（Javalancheフレームワーク）が土台になっているとみられ、「意図的にコードへ小さなバグ（ミューテーション）を仕込み、既存のテストスイートがそれを検出できるかどうかでテストの\"強さ\"そのものを測定する」という発想を紹介します。カバレッジ（実行された行数の割合）だけでは測れない、"}
+                        <strong>
+                            {"「本当にテストがバグを捕まえられるか」"}
+                        </strong>
+                        {"を検証する手法です。 "}
+                    </p>
+                    <p>
+                        {" 初学者はまず、通常のユニットテスト・統合テストで「動くこと」を確認する段階を終えたら、次のステップとして「自分のテストスイートは本当に有効か？」を問うために、これらの手法の存在を知っておくとよいでしょう（いきなり自前でミューテーションテストを実装する必要はなく、既存のミューテーションテストツールを使うのが現実的です）。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
