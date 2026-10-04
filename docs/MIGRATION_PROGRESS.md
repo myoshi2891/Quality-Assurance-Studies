@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-10-03
+Updated 2026-10-04
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 88 ルート = ガイドライブラリ index + 87 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 90 ルート = ガイドライブラリ index + 89 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,32 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `87b7f75` |
-| 最新コミット内容 | `fix(data-quality): fix callout strong contrast and restore paper theme for mermaid diagrams` |
-| 次の作業 | 残る書籍・新規ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | `npm test`: 全テスト通過（1349 tests）、`npm run lint`: エラーなし。`bun run build`: 未検証（サンドボックス制約によりユーザー実行待ち） |
+| 最新 HEAD | `4c36576`（検証対象。ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `test(navigation): keep existing guide smoke contract aligned with route registry` |
+| 次の作業 | Beautiful Testingのテスト補正の復旧コミット承認、ユーザーによる目視確認 |
+| ビルド状態 | 当初の記録は npm で実行（`npm test`: 1771 pass / 0 fail、109 files）。Bun で再検証: `bun test`: 1771 pass / 0 fail / 19978 expect（109 files、2026-10-04 実測、レビュー指摘対応の差分を含む作業ツリー）。`bun run lint`: エラーなし（exit 0）。ビルド・目視確認はユーザー指示により未実施。全体型チェックは既存テストの型エラーが残存、今回の変更ファイルはエラーなし。 |
+
+## 2026/10/04: Beautiful Testing完全ガイドの移行
+
+- 移行先: `/beautiful-testing-guide`。元HTMLの全15セクション、見出し18件、表5件、Mermaid図8件、注意ボックス2件、チェックリスト11項目、目次15リンクを移行。
+- `docs/migration-inventory/beautiful-testing-guide.json`に全要素、図ソース、65CSSルールとメディアクエリ、元HTML・MDのSHA-256を固定保存。
+- 実装前に全構成要素のRedテストを作成。土台、各セクション、目次、ルート登録、アーカイブ、スタイル隔離をカテゴリー別にコミット。
+- 本文全文・DOM構造・表の全セル・参考リンク・元CSS宣言を照合。図8件は元の濃紺・ミント配色を保持し、実Mermaidパーサで構文確認。
+- モバイル目次の開閉・Escape・フォーカス復帰・スクロール追従、チェックリストの0〜11件の進捗と完了装飾をテスト。
+- 元HTML・MDは`archive/html-archive/books/`へ移動。ハッシュ一致とルートの元ファイルが残っていないことを検証。
+- npmで検証。ページ265テスト、全体1,771テスト、Lint、移行対象の型チェックが成功。ビルド・目視確認はユーザー指示により未実施。
+- 留保: `7e93b73`と`5063529`でGreenテストの失敗を止めず実装コミットした手順違反を報告。共有Mermaidの入れ子ラッパーを区別するテスト補正は作業ツリーで検証済み。履歴を保持した別コミットによる復旧のユーザー承認待ち。
+
+## 2026/10/04: LangGraph QAエージェント構築ガイドの移行
+
+- 移行先: `/langgraph-qa-agent-guide`。元HTMLの全8セクション、見出し、表、コード15件、注意ボックス、参考文献22件を移行。
+- 全体像・基礎・パイプライン・実装手順・ウォークスルー・ベストプラクティス・まとめ・参考文献・目次登録をカテゴリー別にRed→Greenでコミット。
+- `docs/migration-inventory/langgraph-qa-agent-guide.json`を固定インベントリとして保存。本文全文、DOM構造、全CSS宣言、メディアクエリを元HTMLと照合。
+- Mermaid図3件は共有コンポーネントを使用し、元のダーク配色・図ソースを保持。実Mermaidパーサで構文を検証。
+- 追加依存関係なし。`SyntaxCode.tsx`でPython/Bashの全15コード例を色分け。キーワード・文字列・コメント・数値・組み込み名・コマンドをハイライトし、コード本文と改行は元HTMLと一致。
+- 元HTML・MDは`archive/html-archive/books/`へ移動し、SHA-256の一致を確認。
+- 検証はnpmで実行。全1,504テスト、Lint、移行対象の型チェックが成功。ビルド・ブラウザの目視確認はユーザー指示により実施していない。
+- 留保: `0d5f62f`で末尾空白検出後にPII検査を経ずコミットした手順違反を報告。事後PII検査は問題なし。末尾空白・コード文字色・注意ボックス行間のCSS補正は、ユーザーが作成した`4151060`で反映済み。
 
 ## 2026/10/03: データ品質モニタリング自動化ガイドのNext.js完全移行 & スタイル・Mermaidテーマ完全復元
 
@@ -1298,6 +1320,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Automating-data-quality-monitoring-guide.html` | `/automating-data-quality-monitoring-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Langgraph-qa-agent-guide.html` | `/langgraph-qa-agent-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/、HTML・MD両方) |
+| `Beautiful-testing-guide.html` | `/beautiful-testing-guide` | ✅ モバイル目次・チェックリスト・Mermaid図8件あり (archive/html-archive/books/、HTML・MD両方) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
@@ -1314,16 +1338,17 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 16 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 43 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 6 ペア = 12 ファイル）: `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 追加ガイド系: `Ct-genai-study-guide.*` / `Ctal-tae-*.html` / `Ctal-tae-*.md` / `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CT-GenAI総合ガイド、CTAL-TAE各章、ISO 29119各部の静的ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -1336,9 +1361,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 88 ルート（ガイドライブラリ index + 87 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 16 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、`Sonarqube.html`、新規ガイド系ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
+- 合計 90 ルート（ガイドライブラリ index + 89 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 43 ファイル（書籍ガイド、`Sonarqube.html`、CT-GenAI総合、CTAL-TAE各章、ISO 29119各部など）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- ユニットテストとESLintは成功。LangGraph移行対象の型チェックも成功。全体型チェックは既存テストの型エラーが残存。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
