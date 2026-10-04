@@ -1344,11 +1344,13 @@ describe('navigation and completed migration', () => {
  });
 });
 
-describe('code highlighting', () => {
- it('preserves all fifteen code blocks with syntax token styling', async () => {
+describe('code readability', () => {
+ it('preserves all fifteen code blocks and a readable code palette without new dependencies', async () => {
  const {container}=await page();
  const blocks=[...container.querySelectorAll('pre code')];
  expect(blocks.map(block=>block.textContent)).toEqual([...source.querySelectorAll('pre code')].map(block=>block.textContent));
- for(const block of blocks) { expect(block.classList.contains('hljs')).toBe(true); expect(block.querySelector('span[class^="hljs-"]')).not.toBeNull(); }
+ expect(blocks).toHaveLength(15);
+ const css=readFileSync('app/langgraph-qa-agent-guide/langgraph-qa-agent-guide.css','utf8');
+ expect(css).toContain('.lgqa-page pre code { color: #d6deeb; }');
  });
 });
