@@ -586,6 +586,7 @@ class NeuronCoverage:
     def __init__(self, model: nn.Module, threshold: float = 0.0):
         self.threshold = threshold
         self.activated: dict[str, torch.Tensor] = {}
+        self.shapes: dict[str, torch.Size] = {}                    # 層ごとのバッチ次元以外の形状
         self.handles = []
         for name, module in model.named_modules():
             if isinstance(module, nn.ReLU):
@@ -598,6 +599,12 @@ class NeuronCoverage:
                 out = out.reshape(1, 1)
             elif out.dim() == 1:                                   # バッチなし入力は1件のバッチとして扱う
                 out = out.unsqueeze(0)
+            shape = out.shape[1:]
+            expected = self.shapes.setdefault(name, shape)         # 初回呼び出し時の形状を記録
+            if shape != expected:                                  # 集計前に形状の一致を検証
+                raise ValueError(
+                    f"{name}: 出力形状が初回 {tuple(expected)} と異なる {tuple(shape)}"
+                )
             flat = out.flatten(start_dim=1)                        # (batch, neurons)
             hit = (flat > self.threshold).any(dim=0)               # バッチ内で一度でも活性化
             prev = self.activated.get(name)
