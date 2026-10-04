@@ -6,7 +6,7 @@ import {existsSync,readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/beautiful-testing-guide.json';
-import {source,signature,normalize} from './source';
+import {source,signature,normalize,textOf} from './source';
 let originalRender:typeof mermaid.render;
 const charts:string[]=[];
 beforeAll(()=>{originalRender=mermaid.render;mermaid.render=async (_id,chart)=>{charts.push(chart);return {svg:'<svg></svg>',diagramType:'flowchart'};};});
@@ -19,7 +19,7 @@ function section(container:HTMLElement,id:string){const node=container.querySele
 describe('foundation',()=>{
  it('freezes every source inventory in exact order',()=>{
  for(const selector of ["h1,h2,h3,h4",".sidebar nav a",".mermaid-wrapper","table","pre:not(.mermaid) code",".callout",".section-refs a,.ref-list li",".checklist li"]){
- const actual=[...source.querySelectorAll(selector)].map(node=>({tag:node.tagName.toLowerCase(),id:node.id,class:node.getAttribute('class')??'',href:node.getAttribute('href')??'',text:normalize(node.textContent??'')}));
+ const actual=[...source.querySelectorAll(selector)].map(node=>({tag:node.tagName.toLowerCase(),id:node.id,class:node.getAttribute('class')??'',href:node.getAttribute('href')??'',text:textOf(node)}));
  expect(JSON.stringify(actual)).toBe(JSON.stringify(inventory[selector as keyof typeof inventory]));
  }
  });

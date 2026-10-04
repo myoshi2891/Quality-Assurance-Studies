@@ -5,126 +5,126 @@
       "id": "",
       "class": "",
       "href": "",
-      "text": "『BeautifulTesting』完全ガイド―初学者のためのステップバイステップ・ベストプラクティス"
+      "text": "『Beautiful Testing』完全ガイド― 初学者のためのステップバイステップ・ベストプラクティス"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "1.はじめに：なぜ「美しい」テストなのか"
+      "text": "1. はじめに：なぜ「美しい」テストなのか"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "2.本書の全体構成（3部構成マップ）"
+      "text": "2. 本書の全体構成（3部構成マップ）"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "3.ステップ1：誰のためにテストするのかを理解する"
+      "text": "3. ステップ1：誰のためにテストするのかを理解する"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "4.ステップ2：現代の「地図」を持つ―ピラミッド／トロフィー／テストサイズ"
+      "text": "4. ステップ2：現代の「地図」を持つ ― ピラミッド／トロフィー／テストサイズ"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "5.ステップ3：小さく始める―ユニットテストとTDD"
+      "text": "5. ステップ3：小さく始める ― ユニットテストとTDD"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "6.ステップ4：探索的テストとアジャイルテストの4象限"
+      "text": "6. ステップ4：探索的テストとアジャイルテストの4象限"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "7.ステップ5：バグを「美しく」管理する"
+      "text": "7. ステップ5：バグを「美しく」管理する"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "8.ステップ6：自動化を大規模に育て、CIに組み込む"
+      "text": "8. ステップ6：自動化を大規模に育て、CIに組み込む"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "9.ステップ7：パフォーマンステストは「協働」で行う"
+      "text": "9. ステップ7：パフォーマンステストは「協働」で行う"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "10.ステップ8：ファジングとミューテーションテストで質を深める"
+      "text": "10. ステップ8：ファジングとミューテーションテストで質を深める"
     },
     {
       "tag": "h3",
       "id": "",
       "class": "",
       "href": "",
-      "text": "ファジングテスト（第5章「JustPeachy:MakingOfficeSoftwareMoreReliablewithFuzzTesting」）"
+      "text": "ファジングテスト（第5章「Just Peachy: Making Office Software More Reliable with Fuzz Testing」）"
     },
     {
       "tag": "h3",
       "id": "",
       "class": "",
       "href": "",
-      "text": "ミューテーションテスト（第18章「SeedingBugstoFindBugs:BeautifulMutationTesting」）"
+      "text": "ミューテーションテスト（第18章「Seeding Bugs to Find Bugs: Beautiful Mutation Testing」）"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "11.ステップ9：コミュニティとプロセスを育てる"
+      "text": "11. ステップ9：コミュニティとプロセスを育てる"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "12.現代への架け橋：AIエージェント時代のテストピラミッド（2026年視点）"
+      "text": "12. 現代への架け橋：AIエージェント時代のテストピラミッド（2026年視点）"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "13.章立て早見表（原著23章サマリー）"
+      "text": "13. 章立て早見表（原著23章サマリー）"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "14.ベストプラクティス・チェックリスト"
+      "text": "14. ベストプラクティス・チェックリスト"
     },
     {
       "tag": "h2",
       "id": "",
       "class": "",
       "href": "",
-      "text": "15.参考文献・出典"
+      "text": "15. 参考文献・出典"
     }
   ],
   ".sidebar nav a": [
@@ -133,105 +133,105 @@
       "id": "",
       "class": "",
       "href": "#sec-1",
-      "text": "1.なぜ「美しい」テストなのか"
+      "text": "1. なぜ「美しい」テストなのか"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-2",
-      "text": "2.本書の全体構成"
+      "text": "2. 本書の全体構成"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-3",
-      "text": "3.ステップ1：ステークホルダー"
+      "text": "3. ステップ1：ステークホルダー"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-4",
-      "text": "4.ステップ2：現代の地図"
+      "text": "4. ステップ2：現代の地図"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-5",
-      "text": "5.ステップ3：ユニットテストとTDD"
+      "text": "5. ステップ3：ユニットテストとTDD"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-6",
-      "text": "6.ステップ4：探索的テスト"
+      "text": "6. ステップ4：探索的テスト"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-7",
-      "text": "7.ステップ5：バグ管理"
+      "text": "7. ステップ5：バグ管理"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-8",
-      "text": "8.ステップ6：自動化とCI"
+      "text": "8. ステップ6：自動化とCI"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-9",
-      "text": "9.ステップ7：パフォーマンス"
+      "text": "9. ステップ7：パフォーマンス"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-10",
-      "text": "10.ステップ8：ファジング／ミューテーション"
+      "text": "10. ステップ8：ファジング／ミューテーション"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-11",
-      "text": "11.ステップ9：コミュニティ"
+      "text": "11. ステップ9：コミュニティ"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-12",
-      "text": "12.AIエージェント時代の視点"
+      "text": "12. AIエージェント時代の視点"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-13",
-      "text": "13.章立て早見表"
+      "text": "13. 章立て早見表"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-14",
-      "text": "14.チェックリスト"
+      "text": "14. チェックリスト"
     },
     {
       "tag": "a",
       "id": "",
       "class": "",
       "href": "#sec-15",
-      "text": "15.参考文献・出典"
+      "text": "15. 参考文献・出典"
     }
   ],
   ".mermaid-wrapper": [
@@ -240,56 +240,56 @@
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "%%{init:{'flowchart':{'subGraphTitleMargin':{'top':10,'bottom':28}}}}%%flowchartTBBook[\"BeautifulTesting<br/>23エッセイ・27人の著者\"]-->P1Book-->P2Book-->P3subgraphP1[\"PartI:BeautifulTesters\"]directionTBC1[\"第1章:WasItGoodforYou?\"]-->C2[\"第2章:ステークホルダーを満たす\"]-->C3[\"第3章:OSSのQAコミュニティ構築\"]-->C4[\"第4章:協働的パフォーマンステスト\"]endsubgraphP2[\"PartII:BeautifulProcess\"]directionTBC5[\"第5章:ファジングテスト\"]-->C6[\"第6章:バグ管理\"]-->C7[\"第7章:XMPPテスト\"]-->C8[\"第8章:大規模テスト自動化\"]-->C9[\"第9章:継続的インテグレーション\"]-->C10[\"第10章:乱数生成器のテスト\"]-->C11[\"第11章:変更中心テスト\"]-->C12[\"第12章:実利用環境でのテスト\"]-->C13[\"第13章:創造的プロセスとしての開発\"]-->C14[\"第14章:テスト駆動開発\"]-->C15[\"第15章:ビジネス成功の礎\"]-->C16[\"第16章:Socialtextの事例\"]-->C17[\"第17章:効率的なテスト\"]endsubgraphP3[\"PartIII:BeautifulTools\"]directionTBC18[\"第18章:ミューテーションテスト\"]-->C19[\"第19章:リファレンステスト\"]-->C20[\"第20章:ClamAVのテスト\"]-->C21[\"第21章:Windmillでのテスト\"]-->C22[\"第22章:100万ページのテスト\"]-->C23[\"第23章:マルチマシン環境テスト\"]end"
+      "text": "%%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%% flowchart TB Book[\"Beautiful Testing<br/>23エッセイ・27人の著者\"] --> P1 Book --> P2 Book --> P3 subgraph P1[\"Part I: Beautiful Testers\"] direction TB C1[\"第1章: Was It Good for You?\"] --> C2[\"第2章: ステークホルダーを満たす\"] --> C3[\"第3章: OSSのQAコミュニティ構築\"] --> C4[\"第4章: 協働的パフォーマンステスト\"] end subgraph P2[\"Part II: Beautiful Process\"] direction TB C5[\"第5章: ファジングテスト\"] --> C6[\"第6章: バグ管理\"] --> C7[\"第7章: XMPPテスト\"] --> C8[\"第8章: 大規模テスト自動化\"] --> C9[\"第9章: 継続的インテグレーション\"] --> C10[\"第10章: 乱数生成器のテスト\"] --> C11[\"第11章: 変更中心テスト\"] --> C12[\"第12章: 実利用環境でのテスト\"] --> C13[\"第13章: 創造的プロセスとしての開発\"] --> C14[\"第14章: テスト駆動開発\"] --> C15[\"第15章: ビジネス成功の礎\"] --> C16[\"第16章: Socialtextの事例\"] --> C17[\"第17章: 効率的なテスト\"] end subgraph P3[\"Part III: Beautiful Tools\"] direction TB C18[\"第18章: ミューテーションテスト\"] --> C19[\"第19章: リファレンステスト\"] --> C20[\"第20章: ClamAVのテスト\"] --> C21[\"第21章: Windmillでのテスト\"] --> C22[\"第22章: 100万ページのテスト\"] --> C23[\"第23章: マルチマシン環境テスト\"] end"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "flowchartTBCommit[\"トリガー:コミット/プルリクエスト\"]-->Static[\"静的解析<br/>Lint/型チェック\"]Static-->Unit[\"ユニットテスト<br/>Small\"]Unit-->Integration[\"統合テスト<br/>Medium\"]Release[\"トリガー:リリース前/ナイトリー\"]-->E2E[\"E2Eテスト<br/>Large\"]Manual[\"探索的テスト<br/>手動・CIとは独立して随時実施\"]"
+      "text": "flowchart TB Commit[\"トリガー: コミット / プルリクエスト\"] --> Static[\"静的解析<br/>Lint / 型チェック\"] Static --> Unit[\"ユニットテスト<br/>Small\"] Unit --> Integration[\"統合テスト<br/>Medium\"] Release[\"トリガー: リリース前 / ナイトリー\"] --> E2E[\"E2Eテスト<br/>Large\"] Manual[\"探索的テスト<br/>手動・CIとは独立して随時実施\"]"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "flowchartLRA[\"Red<br/>失敗するテストを書く\"]-->B[\"Green<br/>最小限の実装でパスさせる\"]B-->C[\"Refactor<br/>設計を整える\"]C-->A"
+      "text": "flowchart LR A[\"Red<br/>失敗するテストを書く\"] --> B[\"Green<br/>最小限の実装でパスさせる\"] B --> C[\"Refactor<br/>設計を整える\"] C --> A"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "flowchartTBCharter[\"チャーター作成<br/>調査対象と時間枠を決める\"]-->Session[\"セッション実行<br/>集中的に探索する\"]Session-->Debrief[\"デブリーフ<br/>発見を報告・共有する\"]Debrief-->Charter"
+      "text": "flowchart TB Charter[\"チャーター作成<br/>調査対象と時間枠を決める\"] --> Session[\"セッション実行<br/>集中的に探索する\"] Session --> Debrief[\"デブリーフ<br/>発見を報告・共有する\"] Debrief --> Charter"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "flowchartLRFound[\"発見<br/>報告\"]-->Triage[\"トリアージ<br/>重要度と優先度の判定\"]Triage-->Assigned[\"担当者アサイン\"]Assigned-->Fixed[\"修正\"]Fixed-->Verify[\"検証\"]Verify-->|\"再現する\"|AssignedVerify-->|\"解決\"|Closed[\"クローズ\"]"
+      "text": "flowchart LR Found[\"発見<br/>報告\"] --> Triage[\"トリアージ<br/>重要度と優先度の判定\"] Triage --> Assigned[\"担当者アサイン\"] Assigned --> Fixed[\"修正\"] Fixed --> Verify[\"検証\"] Verify -->|\"再現する\"| Assigned Verify -->|\"解決\"| Closed[\"クローズ\"]"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "flowchartTBCommit[\"コミット<br/>（毎回実行）\"]-->StaticC2[\"静的解析\"]StaticC2-->SmallC[\"Smallテスト<br/>数秒で完了\"]SmallC-->|\"失敗\"|Feedback[\"開発者へ即座にフィードバック\"]PR2[\"プルリクエスト\"]-->StaticP2[\"静的解析\"]StaticP2-->SmallP[\"Smallテスト<br/>数秒で完了\"]SmallP-->Medium[\"Mediumテスト<br/>数分で完了\"]Medium-->Merge[\"マージ可能\"]SmallP-->|\"失敗\"|FeedbackMedium-->|\"失敗\"|FeedbackFeedback-->Fix2[\"修正して再度push\"]"
+      "text": "flowchart TB Commit[\"コミット<br/>（毎回実行）\"] --> StaticC2[\"静的解析\"] StaticC2 --> SmallC[\"Smallテスト<br/>数秒で完了\"] SmallC -->|\"失敗\"| Feedback[\"開発者へ即座にフィードバック\"] PR2[\"プルリクエスト\"] --> StaticP2[\"静的解析\"] StaticP2 --> SmallP[\"Smallテスト<br/>数秒で完了\"] SmallP --> Medium[\"Mediumテスト<br/>数分で完了\"] Medium --> Merge[\"マージ可能\"] SmallP -->|\"失敗\"| Feedback Medium -->|\"失敗\"| Feedback Feedback --> Fix2[\"修正して再度push\"]"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "flowchartTBNightly[\"ナイトリー（定期実行）\"]-->Large[\"Largeテスト<br/>ネットワーク・外部システム連携あり\"]Release[\"リリース前（リリース候補）\"]-->LargeLarge-->|\"ナイトリーで成功\"|Staging[\"ステージング環境へデプロイ\"]Large-->|\"リリース前チェックで成功\"|Prod[\"本番環境へデプロイ\"]Large-->|\"失敗\"|Triage[\"担当者へ通知しトリアージ\"]Triage-->Fix[\"修正して次サイクルへ\"]"
+      "text": "flowchart TB Nightly[\"ナイトリー（定期実行）\"] --> Large[\"Largeテスト<br/>ネットワーク・外部システム連携あり\"] Release[\"リリース前（リリース候補）\"] --> Large Large -->|\"ナイトリーで成功\"| Staging[\"ステージング環境へデプロイ\"] Large -->|\"リリース前チェックで成功\"| Prod[\"本番環境へデプロイ\"] Large -->|\"失敗\"| Triage[\"担当者へ通知しトリアージ\"] Triage --> Fix[\"修正して次サイクルへ\"]"
     },
     {
       "tag": "div",
       "id": "",
       "class": "mermaid-wrapper",
       "href": "",
-      "text": "%%{init:{'flowchart':{'subGraphTitleMargin':{'top':10,'bottom':28}}}}%%flowchartTBsubgraphDeterministic[\"決定的レイヤー：Fowlerのピラミッド\"]directionTBU[\"ユニットテスト\"]-->I[\"統合テスト\"]-->E[\"E2Eテスト\"]endsubgraphNonDeterministic[\"非決定的レイヤー：LLM/エージェント特有\"]directionTBBehavior[\"振る舞いベースのE2E\"]-->Eval[\"モデル評価Evals\"]endDeterministic-->NonDeterministic"
+      "text": "%%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%% flowchart TB subgraph Deterministic[\"決定的レイヤー：Fowlerのピラミッド\"] direction TB U[\"ユニットテスト\"] --> I[\"統合テスト\"] --> E[\"E2Eテスト\"] end subgraph NonDeterministic[\"非決定的レイヤー：LLM/エージェント特有\"] direction TB Behavior[\"振る舞いベースのE2E\"] --> Eval[\"モデル評価 Evals\"] end Deterministic --> NonDeterministic"
     }
   ],
   "table": [
@@ -298,35 +298,35 @@
       "id": "",
       "class": "",
       "href": "",
-      "text": "問い具体例このテストは誰のためのものかエンドユーザー／プロダクトマネージャー／運用担当／将来の自分自身何を「満足」とみなすか機能要件を満たす／規制要件を満たす／性能要件を満たす失敗したとき誰が困るか顧客が使えなくなる／開発者がデバッグに時間を取られる"
+      "text": "問い具体例このテストは誰のためのものか エンドユーザー／プロダクトマネージャー／運用担当／将来の自分自身 何を「満足」とみなすか機能要件を満たす／規制要件を満たす／性能要件を満たす失敗したとき誰が困るか顧客が使えなくなる／開発者がデバッグに時間を取られる"
     },
     {
       "tag": "table",
       "id": "",
       "class": "",
       "href": "",
-      "text": "観点テストピラミッドテスティングトロフィーGoogleのテストサイズ提唱者・時期MikeCohnが著書で提示、MartinFowlerが2012年のbliki記事で整理KentC.Dodds（2018年）GoogleTestingBlog（2010年）／書籍『SoftwareEngineeringatGoogle』分類軸テストの粒度（Unit→Integration→E2E）費用対効果（実装コストに対する「確信度」のROI）実行に必要なリソース（プロセス数・スレッド数・I/Oの有無）主張の要旨下位（Unit）ほど数を多く、上位（E2E）ほど数を絞る静的解析を土台に据えつつ、費用対効果が最も高い統合テストを厚く書くテストを「Small／Medium／Large」で分類し、実行速度と隔離性でCIの実行頻度を制御する背景にある技術変化2009年前後、E2Eツールは遅く不安定だったJest・TestingLibrary・Cypressなど高速なJS向けツールの登場により前提が変化数万件規模のテストを継続的に実行するGoogle社内のインフラ事情"
+      "text": "観点テストピラミッドテスティングトロフィーGoogleのテストサイズ提唱者・時期 Mike Cohnが著書で提示、Martin Fowlerが2012年のbliki記事で整理 Kent C. Dodds（2018年） Google Testing Blog（2010年）／書籍『Software Engineering at Google』 分類軸テストの粒度（Unit → Integration → E2E）費用対効果（実装コストに対する「確信度」のROI） 実行に必要なリソース（プロセス数・スレッド数・I/Oの有無） 主張の要旨下位（Unit）ほど数を多く、上位（E2E）ほど数を絞る 静的解析を土台に据えつつ、費用対効果が最も高い統合テストを厚く書く テストを「Small／Medium／Large」で分類し、実行速度と隔離性でCIの実行頻度を制御する 背景にある技術変化2009年前後、E2Eツールは遅く不安定だった Jest・Testing Library・Cypressなど高速なJS向けツールの登場により前提が変化 数万件規模のテストを継続的に実行するGoogle社内のインフラ事情"
     },
     {
       "tag": "table",
       "id": "",
       "class": "",
       "href": "",
-      "text": "ビジネス視点（Business-facing）技術視点（Technology-facing）開発を支援する（Supportingtheteam）Q2:ストーリーテスト（例示ベースの受け入れ基準テスト。例:Cucumber,FitNesse）。「何を作るか」を具体例で合意し、チームの開発を支援することを目的とするテストQ1:ユニットテスト・コンポーネントテスト（TDDの土台）製品を批評する（Critiquingtheproduct）Q3:探索的テスト・ユーザビリティテスト・ユーザー受け入れテスト（UAT）。ユーザー視点で「本当に価値があるか」を吟味し、製品を批評することを目的とするテストQ4:性能・セキュリティなど非機能要件のテスト"
+      "text": "ビジネス視点（Business-facing）技術視点（Technology-facing）開発を支援する（Supporting the team） Q2: ストーリーテスト（例示ベースの受け入れ基準テスト。例: Cucumber, FitNesse）。「何を作るか」を具体例で合意し、チームの開発を支援することを目的とするテスト Q1: ユニットテスト・コンポーネントテスト（TDDの土台）製品を批評する（Critiquing the product） Q3: 探索的テスト・ユーザビリティテスト・ユーザー受け入れテスト（UAT）。ユーザー視点で「本当に価値があるか」を吟味し、製品を批評することを目的とするテスト Q4: 性能・セキュリティなど非機能要件のテスト"
     },
     {
       "tag": "table",
       "id": "",
       "class": "",
       "href": "",
-      "text": "用語意味例重要度（Severity）バグそのものが引き起こす技術的・機能的な影響の大きさデータ消失を伴うクラッシュは重要度が高い優先度（Priority）ビジネス上、いつ・どの順番で対応すべきかという判断重要度は低いが、目立つ画面の表示崩れは優先度が高くなることがある"
+      "text": "用語意味例重要度（Severity）バグそのものが引き起こす技術的・機能的な影響の大きさデータ消失を伴うクラッシュは重要度が高い優先度（Priority）ビジネス上、いつ・どの順番で対応すべきかという判断 重要度は低いが、目立つ画面の表示崩れは優先度が高くなることがある"
     },
     {
       "tag": "table",
       "id": "",
       "class": "",
       "href": "",
-      "text": "Part章タイトル（原題）概要I1WasItGoodforYou?テスト経験を振り返る導入エッセイI2BeautifulTestingSatisfiesStakeholdersステークホルダーごとの「満足」の定義（RexBlackの知見）I3BuildingOpenSourceQACommunitiesOSSにおけるボランティアQAコミュニティの構築I4CollaborationIstheCornerstoneofBeautifulPerformanceTesting協働型パフォーマンステスト（ScottBarberの知見）II5JustPeachy:MakingOfficeSoftwareMoreReliablewithFuzzTestingファジングによる信頼性向上II6BugManagementandTestCaseEffectivenessバグ管理とテストケース効果測定II7BeautifulXMPPTestingXMPPプロトコルのユニット・相互運用性テストII8BeautifulLarge-ScaleTestAutomation大規模テスト自動化基盤（AlanPageの知見）II9BeautifulIsBetterThanUglyBuildbotによる継続的インテグレーションII10TestingaRandomNumberGenerator乱数生成器のテスト（JohnD.Cookの知見）II11Change-CentricTesting変更差分に基づくカバレッジ分析II12SoftwareinUse実利用環境・探索的テスト（KarenN.Johnsonの知見）II13SoftwareDevelopmentIsaCreativeProcessアジャイル開発を「パフォーマンス」に例える視点II14Test-DrivenDevelopment:DrivingNewStandardsofBeautyTDDと「美しさ」の再定義II15BeautifulTestingAstheCornerstoneofBusinessSuccessホールチーム・アプローチとビジネス価値II16PeelingtheGlassOnionatSocialtextSocialtext社のWikitests事例II17BeautifulTestingIsEfficientTesting効率的なテストのためのヒューリスティクスIII18SeedingBugstoFindBugs:BeautifulMutationTestingミューテーションテスト（Javalanche）III19ReferenceTestingAsBeautifulTestingリファレンステスト（ブラウザ等のレンダリング検証）III20ClamAnti-Virus:TestingOpenSourcewithOpenToolsClamAVにおけるOSSツールでのテストIII21WebApplicationTestingwithWindmillWindmillによるブラウザテスト自動化III22TestingOneMillionWebPages大規模Webページ検証の実践III23TestingNetworkServicesinMultimachineScenarioseBox/ANSTEによるマルチマシン環境テスト"
+      "text": "Part章タイトル（原題）概要I1Was It Good for You?テスト経験を振り返る導入エッセイI2Beautiful Testing Satisfies Stakeholdersステークホルダーごとの「満足」の定義（Rex Blackの知見）I3Building Open Source QA CommunitiesOSSにおけるボランティアQAコミュニティの構築I4 Collaboration Is the Cornerstone of Beautiful Performance Testing 協働型パフォーマンステスト（Scott Barberの知見）II5 Just Peachy: Making Office Software More Reliable with Fuzz Testing ファジングによる信頼性向上II6Bug Management and Test Case Effectivenessバグ管理とテストケース効果測定II7Beautiful XMPP TestingXMPPプロトコルのユニット・相互運用性テストII8Beautiful Large-Scale Test Automation大規模テスト自動化基盤（Alan Pageの知見）II9Beautiful Is Better Than UglyBuildbotによる継続的インテグレーションII10Testing a Random Number Generator乱数生成器のテスト（John D. Cookの知見）II11Change-Centric Testing変更差分に基づくカバレッジ分析II12Software in Use実利用環境・探索的テスト（Karen N. Johnsonの知見）II13Software Development Is a Creative Processアジャイル開発を「パフォーマンス」に例える視点II14 Test-Driven Development: Driving New Standards of Beauty TDDと「美しさ」の再定義II15 Beautiful Testing As the Cornerstone of Business Success ホールチーム・アプローチとビジネス価値II16Peeling the Glass Onion at SocialtextSocialtext社のWikitests事例II17Beautiful Testing Is Efficient Testing効率的なテストのためのヒューリスティクスIII18Seeding Bugs to Find Bugs: Beautiful Mutation Testingミューテーションテスト（Javalanche）III19Reference Testing As Beautiful Testingリファレンステスト（ブラウザ等のレンダリング検証）III20Clam Anti-Virus: Testing Open Source with Open ToolsClamAVにおけるOSSツールでのテストIII21Web Application Testing with WindmillWindmillによるブラウザテスト自動化III22Testing One Million Web Pages大規模Webページ検証の実践III23Testing Network Services in Multimachine ScenarioseBox/ANSTEによるマルチマシン環境テスト"
     }
   ],
   "pre:not(.mermaid) code": [],
@@ -343,7 +343,7 @@
       "id": "",
       "class": "callout",
       "href": "",
-      "text": "本書には他にLindaWilkinson、MartinSchröder、ClintTalbert、KamranKhan、EmilyChen、BrianNitz、RemkoTronçon、NealNorwitz、MichelleLevesque、JeffreyYasskin、MuraliNandigama、ChrisMcMahon、JennittaAndrea、LisaCrispin、MattHeusser、TomaszKojm、AdamChristian、IsaacClerenciaを含む27名が寄稿しています。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。"
+      "text": "本書には他にLinda Wilkinson、Martin Schröder、Clint Talbert、Kamran Khan、Emily Chen、Brian Nitz、Remko Tronçon、Neal Norwitz、Michelle Levesque、Jeffrey Yasskin、Murali Nandigama、Chris McMahon、Jennitta Andrea、Lisa Crispin、Matt Heusser、Tomasz Kojm、Adam Christian、Isaac Clerenciaを含む27名が寄稿しています。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。"
     }
   ],
   ".section-refs a,.ref-list li": [
@@ -506,98 +506,98 @@
       "id": "",
       "class": "",
       "href": "",
-      "text": "BeautifulTesting（O'Reilly公式ページ／目次全文）https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+      "text": "Beautiful Testing（O'Reilly公式ページ／目次全文）https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "BeautifulTesting–NewfromO'Reilly（プレスリリース・編者コメント）https://www.oreilly.com/pub/pr/2453"
+      "text": "Beautiful Testing – New from O'Reilly（プレスリリース・編者コメント）https://www.oreilly.com/pub/pr/2453"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "BeautifulTesting（Amazon商品ページ／レビュー詳細）https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811"
+      "text": "Beautiful Testing（Amazon商品ページ／レビュー詳細）https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "BeautifulTesting（AppleBooks／寄稿者全リスト）https://books.apple.com/us/book/beautiful-testing/id396905423"
+      "text": "Beautiful Testing（Apple Books／寄稿者全リスト）https://books.apple.com/us/book/beautiful-testing/id396905423"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "MartinFowler–TestPyramid（bliki,2012年）https://martinfowler.com/bliki/TestPyramid.html"
+      "text": "Martin Fowler – Test Pyramid（bliki, 2012年）https://martinfowler.com/bliki/TestPyramid.html"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "MartinFowler/HamVocke–ThePracticalTestPyramid（2018年）https://martinfowler.com/articles/practical-test-pyramid.html"
+      "text": "Martin Fowler / Ham Vocke – The Practical Test Pyramid（2018年）https://martinfowler.com/articles/practical-test-pyramid.html"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "KentC.Dodds–Writetests.Nottoomany.Mostlyintegration.https://kentcdodds.com/blog/write-tests"
+      "text": "Kent C. Dodds – Write tests. Not too many. Mostly integration.https://kentcdodds.com/blog/write-tests"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "KentC.Dodds–TheTestingTrophyandTestingClassificationshttps://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+      "text": "Kent C. Dodds – The Testing Trophy and Testing Classificationshttps://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "GoogleTestingBlog–TestSizes（2010年）https://testing.googleblog.com/2010/12/test-sizes.html"
+      "text": "Google Testing Blog – Test Sizes（2010年）https://testing.googleblog.com/2010/12/test-sizes.html"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "SoftwareEngineeringatGoogle,Chapter14:LargerTesting（TitusWinters,TomManshreck,HyrumWright）https://abseil.io/resources/swe-book/html/ch14.html"
+      "text": "Software Engineering at Google, Chapter 14: Larger Testing（Titus Winters, Tom Manshreck, Hyrum Wright）https://abseil.io/resources/swe-book/html/ch14.html"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "MatthewBoston–TheAgenticTestPyramid（2026年）https://matthewboston.com/blog/the-agentic-test-pyramid.html"
+      "text": "Matthew Boston – The Agentic Test Pyramid（2026年）https://matthewboston.com/blog/the-agentic-test-pyramid.html"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "Autonoma–UnitvsIntegrationvsE2ETesting:TestingPyramidDecisionFramework（2026年）https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
+      "text": "Autonoma – Unit vs Integration vs E2E Testing: Testing Pyramid Decision Framework（2026年）https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "LisaCrispin&JanetGregory–AgileTesting/AgileTestingQuadrantshttps://agiletester.ca/"
+      "text": "Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing Quadrantshttps://agiletester.ca/"
     },
     {
       "tag": "li",
       "id": "",
       "class": "",
       "href": "",
-      "text": "JamesBach–ExploratoryTestingExplainedhttps://www.satisfice.com/articles/et-article.pdf"
+      "text": "James Bach – Exploratory Testing Explainedhttps://www.satisfice.com/articles/et-article.pdf"
     }
   ],
   ".checklist li": [
@@ -620,7 +620,7 @@
       "id": "",
       "class": "",
       "href": "",
-      "text": "Red→Green→Refactorのサイクルで小さくTDDを回している"
+      "text": "Red → Green → Refactorのサイクルで小さくTDDを回している"
     },
     {
       "tag": "li",
