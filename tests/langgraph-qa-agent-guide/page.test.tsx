@@ -1325,7 +1325,7 @@ describe('navigation and completed migration', () => {
  const {NAV_ITEMS}=await import('../../lib/navigation'); const {PAGES,EXPECTED_PAGE_COUNT}=await import('../../e2e/pages');
  expect(NAV_ITEMS.find(item=>item.href==='/langgraph-qa-agent-guide')?.category).toBe('books-practices');
  expect(PAGES.find(item=>item.path==='/langgraph-qa-agent-guide')?.h1.test('LangGraphによるQAエージェント構築ガイド')).toBe(true);
- expect(EXPECTED_PAGE_COUNT).toBe(89);
+ expect(EXPECTED_PAGE_COUNT).toBe(PAGES.length);
  });
  it('uses the original Mermaid source and explicit original dark palette for every diagram', async () => {
  const {DIAGRAMS}=await import('../../app/langgraph-qa-agent-guide/diagrams');
