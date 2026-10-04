@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 1500 tests)
+bun test             # ユニットテスト (bun test, 1504 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -369,7 +369,8 @@ Next.js App Router 構成:
 - `app/langgraph-qa-agent-guide/langgraph-qa-agent-guide.css` — 元HTMLのダーク配色・固定サイドバー・表・カード・コードをスコープしたCSS
 - `app/langgraph-qa-agent-guide/NavBar.tsx` — `useScrollSpy`と`aria-current`対応の目次（モバイルでは元HTML同様に非表示）
 - `app/langgraph-qa-agent-guide/diagrams.ts` — 元ソースと元テーマを維持したMermaid図3件
-- `tests/langgraph-qa-agent-guide/page.test.tsx` — 元HTMLとの本文・構造・CSS・コード・参考文献の照合テスト149件
+- `app/langgraph-qa-agent-guide/SyntaxCode.tsx` — 追加依存関係なしでPython/Bashの全15コード例をサーバー側で色分け。Reactによる文字列エスケープで元コードを安全に表示
+- `tests/langgraph-qa-agent-guide/page.test.tsx` — 元HTMLとの本文・構造・CSS・コード・参考文献の照合テスト153件
 - `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 89 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換

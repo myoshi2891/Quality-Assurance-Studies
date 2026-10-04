@@ -372,3 +372,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
 ```
+
+## LangGraphコード表示
+
+`app/langgraph-qa-agent-guide/SyntaxCode.tsx`はPython・Bashのコードをサーバー側でハイライトする。追加ライブラリ・CDNを使わず、Reactの文字列エスケープによりコードの安全性と改行を維持する。全15ブロックの本文一致と色分けをテストしている。

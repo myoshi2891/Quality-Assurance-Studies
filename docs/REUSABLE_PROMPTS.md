@@ -263,4 +263,4 @@
 
 ## LangGraph QAエージェント構築ガイドの確認
 
-`/langgraph-qa-agent-guide`は移行済み。元HTML・MDは`archive/html-archive/books/`に保管。目次・Mermaid図・表・コードのブラウザ目視確認はユーザーが実施する。追加依存関係は不要。
+`/langgraph-qa-agent-guide`は移行済み。元HTML・MDは`archive/html-archive/books/`に保管。目次・Mermaid図・表・コードのブラウザ目視確認はユーザーが実施する。追加依存関係は不要。全15コードブロックのハイライトは`SyntaxCode.tsx`で実装済み。
