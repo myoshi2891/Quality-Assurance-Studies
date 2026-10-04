@@ -221,7 +221,7 @@ TRの本編6.1.3節は「Performance measures for biometric systems」を扱い�
 | **FRR** | False Reject Rate | 正しい本人申告が誤って拒否された割合 | 正しい申告のverification取引数 |
 | **FNIR** | False-Negative Identification Rate | 登録者がidentificationしたのに、正しい識別子が返らなかった割合 | 登録者のidentification取引数 |
 | **FPIR** | False-Positive Identification Rate | 未登録者のidentificationで、何らかの識別子が返ってしまった割合 | 未登録者のidentification取引数 |
-| **FTE** | Failure to Enrol | 登録に失敗した**事象**（1件ごとの失敗） | — |
+| **FTE** | Failure to Enrol | 登録方針上の対象者について、生体登録データを作成・保存できなかった**事象**（登録対象外の人を登録しないことは含まない） | — |
 | **FTER** | Failure-to-Enrol Rate | 登録取引のうち FTE となった**割合** | 登録取引数 |
 | **FTA** | Failure to Acquire | 比較に使えるサンプルを取得できなかった**事象** | — |
 | **FTAR** | Failure-to-Acquire Rate | 取得処理のうち FTA となった**割合** | 取得処理数 |
