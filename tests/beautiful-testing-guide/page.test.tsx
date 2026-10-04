@@ -332,12 +332,15 @@ describe('checklist interaction',()=>{
 });
 
 describe('diagram contracts',()=>{
+ // 図1は本文（Mediumはプルリクエストのみ）と整合させるため、元HTMLから意図的に1辺だけ変更している
+ const PR_ONLY_EDGE={from:'Unit --> Integration',to:'Unit -->|"プルリクエストのみ"| Integration'};
+ const expectedDiagram=(index:number)=>{const original=inventory.diagrams[index]!;if(index!==1)return original;expect(original).toContain(PR_ONLY_EDGE.from);return original.replace(PR_ONLY_EDGE.from,PR_ONLY_EDGE.to);};
  it('renders all eight original diagrams in order with the source dark palette',async()=>{
  await page();expect(charts).toHaveLength(8);
  for(const [index,chart] of charts.entries()){
  const directive=/^%%\{init: (.*?)\}%%\n/.exec(chart);expect(directive).not.toBeNull();expect(directive![0]).not.toContain("'");
  const config=JSON.parse(directive![1]!);expect(config.theme).toBe('dark');expect(config.themeVariables.primaryColor).toBe('#12233a');expect(config.themeVariables.primaryTextColor).toBe('#e7edf7');expect(config.themeVariables.lineColor).toBe('#6fe7c0');
- expect(chart.slice(directive![0].length)).toBe(inventory.diagrams[index]!);
+ expect(chart.slice(directive![0].length)).toBe(expectedDiagram(index));
  const realModule='mermaid/dist/mermaid.esm.mjs';const real=(await import(realModule)).default as {parse:(chart:string)=>Promise<unknown>};await real.parse(chart);
  }
  });

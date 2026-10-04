@@ -8,5 +8,5 @@ export function signature(element:Element){
  clone.querySelectorAll('.mermaid-wrapper').forEach(node=>node.replaceChildren());
  return [clone,...clone.querySelectorAll('*')].map(node=>({tag:node.tagName,
  attributes:[...node.attributes].filter(attr=>!attr.name.startsWith('aria-')&&!['role','tabindex'].includes(attr.name)).map(attr=>[attr.name,attr.name==='class'?attr.value.split(/\s+/).filter(value=>!['active','open','done','diagram-frame'].includes(value)).join(' '):attr.value]).filter(([name,value])=>name!=='class'||value!=='').sort(),
- text:node.children.length?'':normalize(node.textContent??'')}));
+ text:normalize(node.textContent??'')}));
 }
