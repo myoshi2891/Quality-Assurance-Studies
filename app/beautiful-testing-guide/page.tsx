@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './beautiful-testing-guide.css';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
+import Checklist from './Checklist';
 
 export const metadata: Metadata = { title: '『Beautiful Testing』完全ガイド ― 初学者のためのステップバイステップ・ベストプラクティス', description: 'Beautiful Testingの23章を現代のテスト実践と結び、TDD・探索的テスト・自動化・AI時代の品質を段階的に学ぶガイド。' };
 
@@ -1169,6 +1170,7 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <Checklist />
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
