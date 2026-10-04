@@ -334,7 +334,19 @@ describe('checklist interaction',()=>{
 describe('diagram contracts',()=>{
  // 図1は本文（Mediumはプルリクエストのみ）と整合させるため、元HTMLから意図的に1辺だけ変更している
  const PR_ONLY_EDGE={from:'Unit --> Integration',to:'Unit -->|"プルリクエストのみ"| Integration'};
- const expectedDiagram=(index:number)=>{const original=inventory.diagrams[index]!;if(index!==1)return original;expect(original).toContain(PR_ONLY_EDGE.from);return original.replace(PR_ONLY_EDGE.from,PR_ONLY_EDGE.to);};
+ // 支援技術向けに、元HTMLにない accTitle / accDescr を図種別宣言の直後へ追加している
+ const ACCESSIBILITY:readonly (readonly [string,string])[]=[
+ ['『Beautiful Testing』の書籍構成','書籍全体が Beautiful Testers・Beautiful Process・Beautiful Tools の3部に分かれ、各部に第1章から第23章までの章が順に並ぶ構成を示す図'],
+ ['CIパイプラインにおけるテスト層の実行タイミング','コミットまたはプルリクエストを起点に静的解析とユニットテストを実行し、統合テストはプルリクエストのみ、E2Eテストはリリース前またはナイトリーで実行し、探索的テストはCIと独立して随時実施する流れを示す図'],
+ ['TDDのRed-Green-Refactorサイクル','失敗するテストを書くRed、最小限の実装でパスさせるGreen、設計を整えるRefactorを繰り返す循環を示す図'],
+ ['セッションベース探索的テストのサイクル','チャーター作成、セッション実行、デブリーフの3段階を繰り返す循環を示す図'],
+ ['バグのライフサイクル','発見・報告からトリアージ、担当者アサイン、修正、検証へ進み、再現すれば担当者へ差し戻し、解決すればクローズする流れを示す図'],
+ ['コミットとプルリクエストでのテスト実行フロー','コミット時は静的解析とSmallテストを毎回実行し、プルリクエスト時はMediumテストまで実行してマージ可能とし、失敗時は開発者へ即座にフィードバックして修正後に再度pushする流れを示す図'],
+ ['ナイトリーとリリース前のLargeテストフロー','ナイトリーまたはリリース前にLargeテストを実行し、ナイトリー成功時はステージング、リリース前チェック成功時は本番へデプロイし、失敗時は担当者へ通知してトリアージし次サイクルで修正する流れを示す図'],
+ ['決定的レイヤーと非決定的レイヤーのテスト構造','ユニット・統合・E2Eテストからなる決定的レイヤー（Fowlerのピラミッド）の後に、振る舞いベースのE2Eとモデル評価からなるLLM・エージェント特有の非決定的レイヤーが続く構造を示す図'],
+ ];
+ const withAccessibility=(body:string,index:number)=>{const [title,descr]=ACCESSIBILITY[index]!;expect(body).toMatch(/^flowchart [A-Z]{2}\n/m);return body.replace(/^(flowchart [A-Z]{2}\n)/m,`$1accTitle: ${title}\naccDescr: ${descr}\n`);};
+ const expectedDiagram=(index:number)=>{const original=inventory.diagrams[index]!;if(index!==1)return withAccessibility(original,index);expect(original).toContain(PR_ONLY_EDGE.from);return withAccessibility(original.replace(PR_ONLY_EDGE.from,PR_ONLY_EDGE.to),index);};
  it('renders all eight original diagrams in order with the source dark palette',async()=>{
  await page();expect(charts).toHaveLength(8);
  for(const [index,chart] of charts.entries()){
