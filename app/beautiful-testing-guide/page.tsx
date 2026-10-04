@@ -1171,6 +1171,130 @@ export default function Page(){
                 </div>
             </section>
             <Checklist />
+            <section className="section" id="sec-15">
+                <h2>
+                    {"15. 参考文献・出典"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 本ガイドの作成にあたり、2026年8月27日時点の情報をもとに以下の一次情報を参照しました。 "}
+                    </p>
+                </div>
+                <ol className="ref-list">
+                    <li>
+                        <span className="ref-title">
+                            {"Beautiful Testing（O'Reilly公式ページ／目次全文）"}
+                        </span>
+                        <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                            {"https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Beautiful Testing – New from O'Reilly（プレスリリース・編者コメント）"}
+                        </span>
+                        <a href="https://www.oreilly.com/pub/pr/2453" target="_blank" rel="noopener noreferrer">
+                            {"https://www.oreilly.com/pub/pr/2453"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Beautiful Testing（Amazon商品ページ／レビュー詳細）"}
+                        </span>
+                        <a href="https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811" target="_blank" rel="noopener noreferrer">
+                            {"https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Beautiful Testing（Apple Books／寄稿者全リスト）"}
+                        </span>
+                        <a href="https://books.apple.com/us/book/beautiful-testing/id396905423" target="_blank" rel="noopener noreferrer">
+                            {"https://books.apple.com/us/book/beautiful-testing/id396905423"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Martin Fowler – Test Pyramid（bliki, 2012年）"}
+                        </span>
+                        <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">
+                            {"https://martinfowler.com/bliki/TestPyramid.html"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Martin Fowler / Ham Vocke – The Practical Test Pyramid（2018年）"}
+                        </span>
+                        <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">
+                            {"https://martinfowler.com/articles/practical-test-pyramid.html"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Kent C. Dodds – Write tests. Not too many. Mostly integration."}
+                        </span>
+                        <a href="https://kentcdodds.com/blog/write-tests" target="_blank" rel="noopener noreferrer">
+                            {"https://kentcdodds.com/blog/write-tests"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Kent C. Dodds – The Testing Trophy and Testing Classifications"}
+                        </span>
+                        <a href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications" target="_blank" rel="noopener noreferrer">
+                            {"https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Google Testing Blog – Test Sizes（2010年）"}
+                        </span>
+                        <a href="https://testing.googleblog.com/2010/12/test-sizes.html" target="_blank" rel="noopener noreferrer">
+                            {"https://testing.googleblog.com/2010/12/test-sizes.html"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Software Engineering at Google, Chapter 14: Larger Testing（Titus Winters, Tom Manshreck, Hyrum Wright）"}
+                        </span>
+                        <a href="https://abseil.io/resources/swe-book/html/ch14.html" target="_blank" rel="noopener noreferrer">
+                            {"https://abseil.io/resources/swe-book/html/ch14.html"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Matthew Boston – The Agentic Test Pyramid（2026年）"}
+                        </span>
+                        <a href="https://matthewboston.com/blog/the-agentic-test-pyramid.html" target="_blank" rel="noopener noreferrer">
+                            {"https://matthewboston.com/blog/the-agentic-test-pyramid.html"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Autonoma – Unit vs Integration vs E2E Testing: Testing Pyramid Decision Framework（2026年）"}
+                        </span>
+                        <a href="https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing" target="_blank" rel="noopener noreferrer">
+                            {"https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing Quadrants"}
+                        </span>
+                        <a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer">
+                            {"https://agiletester.ca/"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"James Bach – Exploratory Testing Explained"}
+                        </span>
+                        <a href="https://www.satisfice.com/articles/et-article.pdf" target="_blank" rel="noopener noreferrer">
+                            {"https://www.satisfice.com/articles/et-article.pdf"}
+                        </a>
+                    </li>
+                </ol>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
