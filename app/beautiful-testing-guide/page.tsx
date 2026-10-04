@@ -644,6 +644,54 @@ export default function Page(){
                     </a>
                 </div>
             </section>
+            <section className="section" id="sec-9">
+                <h2>
+                    {"9. ステップ7：パフォーマンステストは「協働」で行う"}
+                </h2>
+                <div className="prose">
+                    <p>
+                        {" 第4章「Collaboration Is the Cornerstone of Beautiful Performance Testing」は、パフォーマンステストの国際的な専門家Scott Barberの知見が反映された章とされ、「パフォーマンステストを一人のテスターが孤立して行う\"計測作業\"にしてはいけない」という強いメッセージを発しています。 "}
+                    </p>
+                    <p>
+                        {"本書が紹介する失敗パターンには、次のようなものがあります。"}
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>
+                                {"「100%でないと失敗」という硬直した基準設定"}
+                            </strong>
+                            {"（100%?!? Fail）：現実的でない完璧主義がかえってチームの協力を妨げる。 "}
+                        </li>
+                        <li>
+                            <strong>
+                                {"メモリリークだと思ったら実は違った"}
+                            </strong>
+                            {"（The Memory Leak That Wasn't）：表面的な現象だけで原因を決めつけない。 "}
+                        </li>
+                        <li>
+                            <strong>
+                                {"負荷に耐えられないなら、UIを変えるという発想"}
+                            </strong>
+                            {"（Can't Handle the Load? Change the UI）：性能問題の解決策はコードの最適化だけとは限らない。 "}
+                        </li>
+                        <li>
+                            <strong>
+                                {"「ネットワークのせいにする」思考停止"}
+                            </strong>
+                            {"（It Can't Be the Network）：安易な原因の押し付け合いを避け、関係者全員でデータを見る。 "}
+                        </li>
+                    </ul>
+                    <p>
+                        {" 初学者にとっての教訓はシンプルです。パフォーマンステストの結果は、開発者・インフラ担当・プロダクトオーナーなど複数のステークホルダーと一緒に解釈しないと、誤った結論（あるいは誤った犯人探し）に陥りやすいということです。ステップ1で述べた「誰のためのテストか」という視点は、パフォーマンステストでこそ強く効いてきます。 "}
+                    </p>
+                </div>
+                <div className="section-refs">
+                    {" 参照: "}
+                    <a href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/" target="_blank" rel="noopener noreferrer">
+                        {"oreilly.com/library/view/beautiful-testing/9780596806934"}
+                    </a>
+                </div>
+            </section>
             <footer className="footer">
                 <p>
                     {" 本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful Testing』（O'Reilly）をご参照ください。 "}
