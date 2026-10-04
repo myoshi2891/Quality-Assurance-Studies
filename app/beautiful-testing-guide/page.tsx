@@ -139,7 +139,7 @@ export default function Page(){
                     </p>
                 </div>
                 <div className="table-wrap">
-                    <table>
+                    <table aria-label="テストの対象を見極める問いと具体例">
                         <thead>
                             <tr>
                                 <th>
@@ -221,7 +221,7 @@ export default function Page(){
                     </p>
                 </div>
                 <div className="table-wrap">
-                    <table>
+                    <table aria-label="テストピラミッド・テスティングトロフィー・Googleのテストサイズの比較">
                         <thead>
                             <tr>
                                 <th>
@@ -417,10 +417,10 @@ export default function Page(){
                     </p>
                 </div>
                 <div className="table-wrap">
-                    <table>
+                    <table aria-label="アジャイルテストの4象限">
                         <thead>
                             <tr>
-                                <th>
+                                <th aria-label="テストの目的（行の区分）">
 
                                 </th>
                                 <th>
@@ -533,7 +533,7 @@ export default function Page(){
                     </p>
                 </div>
                 <div className="table-wrap">
-                    <table>
+                    <table aria-label="重要度と優先度の違い">
                         <thead>
                             <tr>
                                 <th>
@@ -813,7 +813,7 @@ export default function Page(){
                     {"13. 章立て早見表（原著23章サマリー）"}
                 </h2>
                 <div className="table-wrap">
-                    <table>
+                    <table aria-label="原著23章の章立て早見表">
                         <thead>
                             <tr>
                                 <th>
