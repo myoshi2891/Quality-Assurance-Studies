@@ -433,13 +433,13 @@ export default function Page(){
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
+                                <th scope="row">
                                     <strong>
                                         {"開発を支援する"}
                                         <br />
                                         {"（Supporting the team）"}
                                     </strong>
-                                </td>
+                                </th>
                                 <td>
                                     {" Q2: ストーリーテスト（例示ベースの受け入れ基準テスト。例: Cucumber, FitNesse）。"}
                                     <strong>
@@ -452,13 +452,13 @@ export default function Page(){
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <th scope="row">
                                     <strong>
                                         {"製品を批評する"}
                                         <br />
                                         {"（Critiquing the product）"}
                                     </strong>
-                                </td>
+                                </th>
                                 <td>
                                     {" Q3: 探索的テスト・ユーザビリティテスト・ユーザー受け入れテスト（UAT）。"}
                                     <strong>

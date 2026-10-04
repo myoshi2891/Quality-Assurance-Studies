@@ -1,6 +1,13 @@
 import {existsSync, readFileSync} from 'node:fs';
 export const html=readFileSync(existsSync('Beautiful-testing-guide.html')?'Beautiful-testing-guide.html':'archive/html-archive/books/Beautiful-testing-guide.html','utf8');
 export const source=new DOMParser().parseFromString(html.replace(/<head>[\s\S]*?<\/head>/,'').replace(/<script(?! type="text\/plain")[\s\S]*?<\/script>/g,''),'text/html');
+// 意図的なアクセシビリティ改善: 4象限表の行見出しは元HTMLの td ではなく th scope="row" で描画する（元HTMLはハッシュ固定のため比較側で反映する）
+for(const cell of source.querySelectorAll('#sec-6 table tbody tr > td:first-child')){
+ const header=source.createElement('th');
+ header.setAttribute('scope','row');
+ header.replaceChildren(...cell.childNodes);
+ cell.replaceWith(header);
+}
 // 語間の空白を保持したまま、改行・インデント由来の空白差だけを吸収する
 export const normalize=(text:string)=>text.replace(/\s+/g,' ').trim();
 // 要素間の改行インデント（書式空白）は描画テキストではないため、比較前に取り除く
