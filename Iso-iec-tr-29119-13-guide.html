@@ -696,12 +696,12 @@ pie showData
 </tr>
 <tr class="odd">
 <td>comparison（比較）</td>
-<td>probeとreferenceの類似度を計算すること</td>
-<td>類似度スコアの算出</td>
+<td>probeとreferenceの間の類似度または非類似度を推定・計算・測定すること</td>
+<td>類似度スコアまたは距離スコアの算出</td>
 </tr>
 <tr class="even">
 <td>decision policy（判定ポリシー）</td>
-<td>比較結果を「一致／不一致」にするルール。しきい値を含むことが多い</td>
+<td>比較結果を「一致／不一致／判定不能」にするルール。しきい値を含むことが多い</td>
 <td>スコア ≥ 0.80 なら一致</td>
 </tr>
 <tr class="odd">
@@ -716,14 +716,14 @@ pie showData
 </tr>
 <tr class="odd">
 <td>multi-modal system</td>
-<td>複数の生体特性を組み合わせるシステム</td>
+<td>生体特性・センサ・処理方法の3つの観点のうち、少なくとも2つで複数の種類を使うシステム</td>
 <td>顔＋指紋</td>
 </tr>
 </tbody>
 </table>
 </div>
 <blockquote>
-<p><strong>用語の注意点:</strong> <span class="tag tag-tr">TR確認済</span>「match（マッチ）」という語は非推奨とされ、代わりに <strong>comparison（比較）</strong> を使います。また verification の旧称 authentication も非推奨扱いです。会話では「マッチング」と言いがちですが、規格文書を読むときはこの用語の違いに注意してください。</p>
+<p><strong>用語の注意点:</strong> <span class="tag tag-tr">TR確認済</span>非推奨とされるのは、「比較する」「判定する」という意味で使う<strong>動詞の「match（マッチさせる）」</strong> です。この意味では <strong>compare（比較する）</strong> を使うのが推奨です。一方、<strong>名詞の「match」</strong> は「比較の結果、一致と判定されたこと（肯定的な比較結果）」を表す用語として使われます。また verification の旧称 authentication も非推奨扱いです。会話では「マッチング」と言いがちですが、規格文書を読むときはこの用語の違いに注意してください。</p>
 </blockquote>
 <h3 id="s12">5.3 生体認証システムの基本フロー</h3>
 <p><span class="tag tag-lead tag-gen">一般知識</span>多くの生体認証システムは「登録（enrolment）」と「認識（recognition）」の2つのフェーズで動きます。TRの6.2.2節にも「Biometric enrolment and recognition」という節があります。</p>
@@ -798,15 +798,27 @@ flowchart TB
 <td>未登録者のidentification取引数</td>
 </tr>
 <tr class="odd">
-<td><strong>FTE / FTER</strong></td>
-<td>Failure to Enrol / Rate</td>
-<td>登録に失敗した割合</td>
-<td>登録取引数</td>
+<td><strong>FTE</strong></td>
+<td>Failure to Enrol</td>
+<td>登録方針上の対象者について、生体登録データを作成・保存できなかった<strong>事象</strong>（登録対象外の人を登録しないことは含まない）</td>
+<td>—</td>
 </tr>
 <tr class="even">
-<td><strong>FTA / FTAR</strong></td>
-<td>Failure to Acquire / Rate</td>
-<td>比較に使えるサンプルを取得できなかった割合</td>
+<td><strong>FTER</strong></td>
+<td>Failure-to-Enrol Rate</td>
+<td>登録取引のうち FTE となった<strong>割合</strong></td>
+<td>登録取引数</td>
+</tr>
+<tr class="odd">
+<td><strong>FTA</strong></td>
+<td>Failure to Acquire</td>
+<td>比較に使えるサンプルを取得できなかった<strong>事象</strong></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><strong>FTAR</strong></td>
+<td>Failure-to-Acquire Rate</td>
+<td>取得処理のうち FTA となった<strong>割合</strong></td>
 <td>取得処理数</td>
 </tr>
 <tr class="odd">
@@ -835,6 +847,9 @@ flowchart TB
 </blockquote>
 <h3 id="s15">6.2 しきい値のトレードオフ</h3>
 <p><span class="tag tag-lead tag-tr">TR確認済</span>FMRとFNMRの値は、しきい値や比較プロセスのパラメータ、試験プロトコルに依存します。</p>
+<blockquote>
+<p><strong>注:</strong> 次の図は、<strong>スコアが高いほど類似度が高い</strong>（類似度スコア）システムを前提にしています。距離スコア（値が小さいほど似ている）を使うシステムでは、しきい値を上げ下げしたときの FMR・FNMR への効果が逆になる場合があります。</p>
+</blockquote>
 <figure class="diagram"><pre class="mermaid">
 flowchart LR
     T0["しきい値を高く<br/>厳しく判定"] --&gt; T1["FMR 低下<br/>他人を通しにくい"]
@@ -1405,7 +1420,7 @@ flowchart LR
 <tbody>
 <tr class="odd">
 <td><strong>性能（誤り率）</strong></td>
-<td>FMR/FNMR/FTE/FTAがしきい値ごとに要件を満たすか</td>
+<td>FMR/FNMRが比較しきい値ごとに要件を満たすか、FTER/FTAR（FTE・FTAの発生率）が要件の率以内に収まるか</td>
 <td>統計的評価、DET分析</td>
 </tr>
 <tr class="even">
@@ -1679,7 +1694,7 @@ flowchart LR
 </tr>
 <tr class="odd">
 <td>Q5. 生体認証を使う小さな機能だけでもTRは使える？</td>
-<td>使えます。TRは**「生体認証サブシステムを含む大規模システム」**も対象です<span class="tag tag-tr">TR確認済</span>。</td>
+<td>使えます。TRは<strong>「生体認証サブシステムを含む大規模システム」</strong>も対象です<span class="tag tag-tr">TR確認済</span>。</td>
 </tr>
 <tr class="even">
 <td>Q6. Annex Cのリスクを全部やる必要がある？</td>
@@ -1697,7 +1712,7 @@ flowchart LR
 <h3 id="s49">16.1 おすすめの学習順序</h3>
 <figure class="diagram"><pre class="mermaid">
 flowchart TB
-    L1["1 生体認証の基礎<br/>Annex A・用語"] --&gt; L2["2 性能指標<br/>FMR/FNMR/FTE/FTA/DET"]
+    L1["1 生体認証の基礎<br/>Annex A・用語"] --&gt; L2["2 性能指標<br/>FMR/FNMR/FTER/FTAR/DET"]
     L2 --&gt; L3["3 29119の概要<br/>-1, -2, -3, -4"]
     L3 --&gt; L4["4 リスクベースドテスト<br/>5.6節"]
     L4 --&gt; L5["5 TR本編6章<br/>テスト範囲"]
@@ -1713,7 +1728,7 @@ flowchart TB
 <ul class="checklist">
 <li><label><input type="checkbox"/><span class="cl-text">TRが「規格」ではなく「技術報告書」である意味を説明できる</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">19795系とTR 29119-13の役割の違いを説明できる</span></label></li>
-<li><label><input type="checkbox"/><span class="cl-text">FMR・FNMR・FTE・FTAを自分の言葉で定義し、計算できる</span></label></li>
+<li><label><input type="checkbox"/><span class="cl-text">FMR・FNMR・FTER・FTARを自分の言葉で定義し、計算できる（FTE・FTAは失敗事象、FTER・FTARはその発生率であることを区別できる）</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">FMR/FNMR（比較レベル）とFAR/FRR（取引レベル）の違いを説明できる</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">しきい値の動かし方で誤りがどう変わるか説明できる</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">リスク露出度を「影響度×発生可能性」で算出し、優先順位付けできる</span></label></li>
