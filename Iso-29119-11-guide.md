@@ -583,8 +583,12 @@ class NeuronCoverage:
       - 目的は『考え方の理解』であり、研究用途ではツール実装を参照すること。
     """
 
-    def __init__(self, model: nn.Module, threshold: float = 0.0):
+    def __init__(self, model: nn.Module, threshold: float = 0.0, vector_axis: str = "batch"):
+        # vector_axis: 1次元出力の解釈。"batch" は (batch,) のスカラー出力列、"neurons" は1サンプル分の (neurons,)
+        if vector_axis not in ("batch", "neurons"):
+            raise ValueError(f"vector_axis は 'batch' か 'neurons' を指定する: {vector_axis!r}")
         self.threshold = threshold
+        self.vector_axis = vector_axis
         self.activated: dict[str, torch.Tensor] = {}
         self.shapes: dict[str, torch.Size] = {}                    # 層ごとのバッチ次元以外の形状
         self.handles = []
@@ -597,8 +601,11 @@ class NeuronCoverage:
             out = output.detach()
             if out.dim() == 0:                                     # スカラー出力は1件・1ニューロンとして扱う
                 out = out.reshape(1, 1)
-            elif out.dim() == 1:                                   # (batch,) はサンプルごとのスカラー出力とみなし、
-                out = out.unsqueeze(1)                             # バッチ軸を保って1サンプル1ニューロンの (batch, 1) にする
+            elif out.dim() == 1:                                   # 1次元出力は vector_axis に従って解釈する
+                if self.vector_axis == "batch":
+                    out = out.unsqueeze(1)                         # (batch,) → 1サンプル1ニューロンの (batch, 1)
+                else:
+                    out = out.unsqueeze(0)                         # (neurons,) → 1サンプル分の (1, neurons)
             shape = out.shape[1:]
             expected = self.shapes.setdefault(name, shape)         # 初回呼び出し時の形状を記録
             if shape != expected:                                  # 集計前に形状の一致を検証
