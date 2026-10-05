@@ -172,6 +172,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/ai-driven-software-testing-guide/page.tsx` (AI駆動ソフトウェアテスト入門ガイド、`NavBar.tsx` 付き)
 - `app/appium-essentials-guide/page.tsx` (Appium Essentials 完全ガイド、`NavBar.tsx` 付き)
 - `app/testing-ai-confidence-engineering-guide/page.tsx` (Testing AI 完全ガイド、`NavBar.tsx` 付き)
+- `app/automating-data-quality-monitoring-guide/page.tsx` (データ品質モニタリング自動化ガイド、`NavBar.tsx` 付き)
+- `app/langgraph-qa-agent-guide/page.tsx` (LangGraphとNeo4jによるQAエージェント構築ガイド、`NavBar.tsx` 付き)
+- `app/beautiful-testing-guide/page.tsx` (Beautiful Testing ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
