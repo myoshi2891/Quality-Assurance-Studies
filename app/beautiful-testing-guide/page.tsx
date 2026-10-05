@@ -501,8 +501,8 @@ export default function Page(){
                 </div>
                 <div className="section-refs">
                     {" 参照: "}
-                    <a href="https://www.satisfice.com/articles/et-article.pdf" target="_blank" rel="noopener noreferrer">
-                        {"satisfice.com/articles/et-article.pdf"}
+                    <a href="https://satisfice.us/articles/et-article.pdf" target="_blank" rel="noopener noreferrer">
+                        {"satisfice.us/articles/et-article.pdf"}
                     </a>
                     {" ／ "}
                     <a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer">
@@ -1291,8 +1291,8 @@ export default function Page(){
                         <span className="ref-title">
                             {"James Bach – Exploratory Testing Explained"}
                         </span>
-                        <a href="https://www.satisfice.com/articles/et-article.pdf" target="_blank" rel="noopener noreferrer">
-                            {"https://www.satisfice.com/articles/et-article.pdf"}
+                        <a href="https://satisfice.us/articles/et-article.pdf" target="_blank" rel="noopener noreferrer">
+                            {"https://satisfice.us/articles/et-article.pdf"}
                         </a>
                     </li>
                 </ol>
