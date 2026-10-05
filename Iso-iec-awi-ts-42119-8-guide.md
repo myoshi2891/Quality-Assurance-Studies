@@ -495,7 +495,11 @@ def evaluate(test_case: dict) -> dict:
     results = []
     for _ in range(N_TRIALS):
         output = run_system(test_case["prompt"])
-        results.append(judge(test_case["prompt"], output, test_case["expected_behavior"]))
+        # 機能テストは expected_points、レッドチーミングは expected_behavior を期待値として使う
+        expected = test_case.get("expected_behavior") or test_case.get("expected_points")
+        if expected is None:
+            raise ValueError(f"{test_case['id']}: 期待値が定義されていません")
+        results.append(judge(test_case["prompt"], output, json.dumps(expected, ensure_ascii=False)))
     fail_count = results.count(False)
     return {
         "id": test_case["id"],
