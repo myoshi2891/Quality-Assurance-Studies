@@ -173,7 +173,7 @@ pie showData
 | biometric template（テンプレート） | 比較用に保存された特徴量の集合 | 登録済みの特徴点データ |
 | biometric reference（登録データ） | 登録時に保存されるサンプル・テンプレート・モデル | パスポートのICチップ内の顔画像 |
 | biometric probe（照合データ） | 今回の照合で入力される側のデータ | ゲートで撮った顔画像 |
-| comparison（比較） | probeとreferenceの類似度を計算すること | 類似度スコアの算出 |
+| comparison（比較） | probeとreferenceの間の類似度または非類似度を推定・計算・測定すること | 類似度スコアまたは距離スコアの算出 |
 | decision policy（判定ポリシー） | 比較結果を「一致／不一致」にするルール。しきい値を含むことが多い | スコア ≥ 0.80 なら一致 |
 | verification（検証／1:1） | 「私はAです」という申告をreferenceと照合して確認する | スマホの顔ロック解除 |
 | identification（識別／1:N） | データベース全体から該当者を探す | 犯罪捜査の照合 |
