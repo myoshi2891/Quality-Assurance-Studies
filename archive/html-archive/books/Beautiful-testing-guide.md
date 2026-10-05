@@ -262,7 +262,7 @@ flowchart TB
 2. 次に、データベースやファイルシステムなど単一マシン内のリソースにアクセスするMediumテストをプルリクエスト単位で実行する。複数コンポーネントの結合を検証する統合テストが典型例です。
 3. 最後に、ネットワーク越しの通信や外部システムとの連携を伴うLargeテストは数を絞り、ナイトリー（ステージングへの反映まで）とリリース前（本番デプロイのゲート）に切り出す。E2Eテストが典型例です。
 
-なお、Small／Medium／Largeはテストレベル（ユニット／統合／E2E）の言い換えではありません。サイズを決めるのは「そのテストが何にアクセスするか」という実行制約——ネットワーク・データベース・ファイルシステム・外部システムへのアクセスの有無——であり、上に挙げた対応はあくまで典型例です。外部依存をすべてテストダブルに置き換えた統合テストはSmallになり得ますし、実データベースを起動して1つの関数だけを検証するテストはユニットテストであってもMediumに分類されます。
+なお、Small／Medium／Largeはテストレベル（ユニット／統合／E2E）の言い換えではありません。サイズを決めるのは「そのテストが何にアクセスするか」という実行制約——ネットワーク・データベース・ファイルシステム・外部システムへのアクセスの有無——であり、上に挙げた対応はあくまで典型例です。外部依存をすべてテストダブルに置き換えた統合テストはSmallになり得ますし、実データベースを起動して1つの関数だけを検証するテストはユニットテストであってもMediumに分類されます。これらのアクセス対象による例に加えて、Googleはプロセスとスレッドの実行制約でもサイズを定義しています。Smallテストは単一のプロセス・単一のスレッドで実行され、sleepやI/Oなどのブロッキング操作を行えません。Mediumテストは複数のプロセスやスレッドを使え、localhostとの通信（ブロッキングなネットワーク呼び出しを含む）が許されます。Largeテストではlocalhostに限る制約もなくなります。アクセス対象による例とこれらの実行制約は互いを補完するものなので、両方を照らし合わせるとテストのサイズを正確に分類できます。
 
 「大規模自動化」と聞くと難しく感じますが、本質は「テストインフラを"資産"として設計し、失敗したときに誰が・どこを見ればよいかを明確にする」という地道な積み重ねです。
 
@@ -410,7 +410,7 @@ flowchart TB
 7. Kent C. Dodds – Write tests. Not too many. Mostly integration.: <https://kentcdodds.com/blog/write-tests>
 8. Kent C. Dodds – The Testing Trophy and Testing Classifications: <https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications>
 9. Google Testing Blog – Test Sizes（2010年）: <https://testing.googleblog.com/2010/12/test-sizes.html>
-10. Software Engineering at Google, Chapter 14: Larger Testing（Titus Winters, Tom Manshreck, Hyrum Wright）: <https://abseil.io/resources/swe-book/html/ch14.html>
+10. Software Engineering at Google, Chapter 14: Larger Testing（章の著者: Joseph Graves、編集: Tom Manshreck）: <https://abseil.io/resources/swe-book/html/ch14.html>
 11. Matthew Boston – The Agentic Test Pyramid（2026年）: <https://matthewboston.com/blog/the-agentic-test-pyramid.html>
 12. Autonoma – Unit vs Integration vs E2E Testing: Testing Pyramid Decision Framework（2026年）: <https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing>
 13. Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing Quadrants: <https://agiletester.ca/>

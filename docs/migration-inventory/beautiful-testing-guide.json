@@ -569,7 +569,7 @@
       "id": "",
       "class": "",
       "href": "",
-      "text": "Software Engineering at Google, Chapter 14: Larger Testing（Titus Winters, Tom Manshreck, Hyrum Wright）https://abseil.io/resources/swe-book/html/ch14.html"
+      "text": "Software Engineering at Google, Chapter 14: Larger Testing（章の著者: Joseph Graves、編集: Tom Manshreck）https://abseil.io/resources/swe-book/html/ch14.html"
     },
     {
       "tag": "li",
@@ -1995,7 +1995,7 @@
     }
   ],
   "hashes": {
-    "html": "b96e21f8e126de04587dcb15b7ae66392310c8626222bd110672bce25d36b8ee",
-    "md": "c93d73850ce455eda72f45869e443ddbddaaa6b5db66dd45895af168a7250ede"
+    "html": "2453e037ee66a9dd8b60f35a8677a0a102efca0371f60834ad523ab1438ed7d2",
+    "md": "52962ecbcb1af989a63aae407fbef2a9416b22fd9208af14dd69686b739eb6ad"
   }
 }

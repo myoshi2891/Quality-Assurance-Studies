@@ -634,7 +634,7 @@ export default function Page(){
                         </li>
                     </ol>
                     <p>
-                        {" なお、Small／Medium／Largeはテストレベル（ユニット／統合／E2E）の言い換えではありません。サイズを決めるのは「そのテストが何にアクセスするか」という実行制約――ネットワーク・データベース・ファイルシステム・外部システムへのアクセスの有無――であり、上に挙げた対応はあくまで典型例です。外部依存をすべてテストダブルに置き換えた統合テストはSmallになり得ますし、実データベースを起動して1つの関数だけを検証するテストはユニットテストであってもMediumに分類されます。 "}
+                        {" なお、Small／Medium／Largeはテストレベル（ユニット／統合／E2E）の言い換えではありません。サイズを決めるのは「そのテストが何にアクセスするか」という実行制約――ネットワーク・データベース・ファイルシステム・外部システムへのアクセスの有無――であり、上に挙げた対応はあくまで典型例です。外部依存をすべてテストダブルに置き換えた統合テストはSmallになり得ますし、実データベースを起動して1つの関数だけを検証するテストはユニットテストであってもMediumに分類されます。これらのアクセス対象による例に加えて、Googleはプロセスとスレッドの実行制約でもサイズを定義しています。Smallテストは単一のプロセス・単一のスレッドで実行され、sleepやI/Oなどのブロッキング操作を行えません。Mediumテストは複数のプロセスやスレッドを使え、localhostとの通信（ブロッキングなネットワーク呼び出しを含む）が許されます。Largeテストではlocalhostに限る制約もなくなります。アクセス対象による例とこれらの実行制約は互いを補完するものなので、両方を照らし合わせるとテストのサイズを正確に分類できます。 "}
                     </p>
                     <p>
                         {" 「大規模自動化」と聞くと難しく感じますが、本質は「テストインフラを\"資産\"として設計し、失敗したときに誰が・どこを見ればよいかを明確にする」という地道な積み重ねです。 "}
@@ -1257,7 +1257,7 @@ export default function Page(){
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"Software Engineering at Google, Chapter 14: Larger Testing（Titus Winters, Tom Manshreck, Hyrum Wright）"}
+                            {"Software Engineering at Google, Chapter 14: Larger Testing（章の著者: Joseph Graves、編集: Tom Manshreck）"}
                         </span>
                         <a href="https://abseil.io/resources/swe-book/html/ch14.html" target="_blank" rel="noopener noreferrer">
                             {"https://abseil.io/resources/swe-book/html/ch14.html"}
