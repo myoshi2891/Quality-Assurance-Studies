@@ -351,6 +351,7 @@ sequenceDiagram
         CI->>CI: 自動テストを再実行
         CI-->>TST: 再テスト結果を通知
         TST->>TST: 修正を確認
+        TST->>PO: ストーリー完了を報告
     else 問題なし
         TST->>PO: ストーリー完了を報告
     end
