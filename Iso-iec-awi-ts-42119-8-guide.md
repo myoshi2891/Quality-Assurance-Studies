@@ -135,7 +135,7 @@ flowchart TB
 
     subgraph T42119["ISO/IEC 42119 AIのテスト シリーズ"]
         P2["42119-2:2025<br/>AIシステムのテスト概要<br/>発行済み"]
-        P3["42119-3<br/>検証・妥当性確認の分析<br/>ドラフト"]
+        P3["42119-3<br/>検証・妥当性確認の分析<br/>発行手続き中（60.00）"]
         P7["42119-7<br/>レッドチーミング<br/>開発中"]
         P8["42119-8<br/>★本ガイドの対象★<br/>プロンプトベースtext-to-text<br/>品質評価<br/>開発中"]
     end
@@ -545,7 +545,7 @@ flowchart LR
 
 | ツール／文書 | 提供元 | 概要 | 向いている用途 |
 |---|---|---|---|
-| **PyRIT** | Microsoft（AI Red Team） | 生成AIのリスク探索を自動化するオープンなフレームワーク。target、datasets、scoring engine、attack strategies、memory の5つのインターフェースを持つ。単発・多段の攻撃戦略に対応。人手のレッドチーミングを置き換えるものではなく補完する位置づけ | 攻撃プロンプトの大量生成・自動採点 |
+| **PyRIT** | Microsoft（AI Red Team） | 生成AIのリスク探索を自動化するオープンなフレームワーク。v1.0以降の主要コンポーネントは datasets（seeds）、scenarios、attack techniques、executors／attacks、converters、targets、scorers で、memory などの共有ライブラリが全体を支える。単発・多段の攻撃（Crescendo、TAP など）に対応。人手のレッドチーミングを置き換えるものではなく補完する位置づけ | 攻撃プロンプトの大量生成・自動採点 |
 | **garak** | NVIDIA | LLMの脆弱性スキャナ。プローブ（攻撃入力）とディテクタ（失敗検出）を組み合わせ、結果をJSONLで記録。nmapのLLM版に例えられる | 既知の失敗カテゴリの定期スキャン |
 | **GenAI Red Teaming Guide** | OWASP | 生成AIのレッドチーミング方法論をまとめたガイド（2025年1月22日公開）。脅威モデリング、ブループリント、継続的テストを解説 | 手順・体制づくりの参考 |
 | **HELM** | Stanford CRFM | 言語モデルを多指標・多シナリオで評価する枠組み | モデル選定・比較 |
