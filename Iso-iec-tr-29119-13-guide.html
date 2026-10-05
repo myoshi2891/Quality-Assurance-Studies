@@ -1286,6 +1286,7 @@ flowchart TB
 <h3 id="s32">10.1 テスト対象のスコープ図<span class="tag tag-ex">例示</span></h3>
 <figure class="diagram"><pre class="mermaid">
 flowchart TB
+    subgraph SYS["大きなシステム 例: 入退室管理"]
         UI["ユーザー向けUI<br/>案内表示・音声"]
         subgraph BIO["生体認証サブシステム"]
             SEN["センサ<br/>カメラ・指紋リーダ"]
@@ -1295,6 +1296,7 @@ flowchart TB
         DEC["判定ロジック<br/>しきい値・フォールバック"]
         ACT["連携先<br/>電気錠・勤怠システム"]
         ADM["管理機能<br/>登録・削除・監査ログ"]
+    end
     UI --&gt; SEN --&gt; ALG --&gt; DEC --&gt; ACT
     ALG &lt;--&gt; DB
     ADM --&gt; DB
