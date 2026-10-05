@@ -1179,7 +1179,7 @@ export default function Page(){
                 </h2>
                 <div className="prose">
                     <p>
-                        {" 本ガイドの作成にあたり、2026年8月27日時点の情報をもとに以下の一次情報を参照しました。 "}
+                        {" 本ガイドの作成にあたり、2026年8月27日時点の情報をもとに以下の資料を参照しました。 "}
                     </p>
                 </div>
                 <ol className="ref-list">
