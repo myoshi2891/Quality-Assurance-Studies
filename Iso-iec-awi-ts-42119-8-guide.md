@@ -617,7 +617,7 @@ flowchart LR
 |---|---|---|---|
 | 6 | OWASP GenAI Security Project | GenAI Red Teaming Guide 公開告知（2025-01-22） | <https://genai.owasp.org/2025/01/22/announcing-the-owasp-gen-ai-red-teaming-guide/> |
 | 7 | OWASP GenAI Security Project | GenAI Red Teaming Guide 本体ページ | <https://genai.owasp.org/resource/genai-red-teaming-guide> |
-| 8 | Microsoft（Azure/PyRIT） | PyRIT リポジトリ（README） | <https://github.com/azure/pyrit> |
+| 8 | Microsoft（microsoft/PyRIT） | PyRIT 公式リポジトリ（README。旧 Azure/PyRIT から移行） | <https://github.com/microsoft/PyRIT> |
 | 9 | The Hacker News（Ram Shankar Siva Kumar氏の発言を報道） | PyRITの発表記事（2024-02-23） | <https://thehackernews.com/2024/02/microsoft-releases-pyrit-red-teaming.html> |
 | 10 | NVIDIA | garak 公式サイト | <https://www.garak.ai> |
 | 11 | NVIDIA | garak リポジトリ | <https://github.com/NVIDIA/garak> |
