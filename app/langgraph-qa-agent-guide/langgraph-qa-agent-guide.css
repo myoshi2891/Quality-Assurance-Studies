@@ -521,7 +521,7 @@
 .lgqa-page .mermaid-wrapper foreignObject div {
     margin: 0;
     line-height: 1.4;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 .lgqa-page .mermaid-wrapper .edgeLabel rect,
 .lgqa-page .mermaid-wrapper .edgeLabels rect {

@@ -417,7 +417,7 @@
 .bt-page .diagram-frame { overflow-x: auto; margin: 30px 0; padding: 20px 0; }
 .bt-page .mermaid-wrapper svg { max-width: none !important; height: auto; }
 .bt-page .mermaid-wrapper foreignObject { overflow: visible; }
-.bt-page .mermaid-wrapper foreignObject p, .bt-page .mermaid-wrapper foreignObject span, .bt-page .mermaid-wrapper foreignObject div { margin: 0; line-height: 1.4; word-break: break-word; }
+.bt-page .mermaid-wrapper foreignObject p, .bt-page .mermaid-wrapper foreignObject span, .bt-page .mermaid-wrapper foreignObject div { margin: 0; line-height: 1.4; overflow-wrap: anywhere; }
 .bt-page .mermaid-wrapper .edgeLabels rect, .bt-page .mermaid-wrapper .edgeLabel rect { fill: #0d1a2b !important; stroke: none; }
 .bt-page .mermaid-wrapper .edgeLabel, .bt-page .mermaid-wrapper .edgeLabel span, .bt-page .mermaid-wrapper .edgeLabel p, .bt-page .mermaid-wrapper .edgeLabel text, .bt-page .mermaid-wrapper .edgeLabels .label { background-color: #0d1a2b !important; color: #e7edf7 !important; fill: #e7edf7 !important; }
 .bt-page *::-webkit-scrollbar-track { background: transparent; }
