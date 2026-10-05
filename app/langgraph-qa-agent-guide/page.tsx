@@ -593,7 +593,7 @@ export default function Page() {
                     </p>
                     <div className="code-tag">{'python'}</div>
                     <pre>
-                        <SyntaxCode language="python" code={'import os\n\nfrom neo4j import GraphDatabase\n\n# neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない\ndriver = GraphDatabase.driver(\n    os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io\n    auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),\n)'} />
+                        <SyntaxCode language="python" code={'import os\n\nfrom neo4j import GraphDatabase\n\n# neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない\nNEO4J_URI = os.environ["NEO4J_URI"]  # 例: neo4j+s://xxxx.databases.neo4j.io\n# 暗号化しない neo4j:// や証明書検証を省略する neo4j+ssc:// で接続しないよう、接続前にスキームを検証する\nif not NEO4J_URI.startswith("neo4j+s://"):\n    raise ValueError("NEO4J_URI は neo4j+s:// で始まる必要があります")\n\ndriver = GraphDatabase.driver(\n    NEO4J_URI,\n    auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),\n)'} />
                     </pre>
                     <p>
                         {'\n                        この共有\n                        '}
