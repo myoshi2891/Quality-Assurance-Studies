@@ -1319,7 +1319,7 @@ describe('navigation and completed migration', () => {
  it('preserves sidebar content and all TOC targets', async () => {
  const {container}=await page(); const sidebar=container.querySelector('.sidebar'); expect(sidebar).not.toBeNull();
  expect(signature(sidebar!)).toEqual(signature(source.querySelector('.sidebar')!));
- for(const link of sidebar!.querySelectorAll('a')) expect(container.querySelector(link.getAttribute('href')!)).not.toBeNull();
+ for(const link of sidebar!.querySelectorAll('a')){const href=link.getAttribute('href')??'';expect(href.startsWith('#')).toBe(true);const target=document.getElementById(decodeURIComponent(href.slice(1)));expect(target).not.toBeNull();expect(container.contains(target)).toBe(true);}
  });
  it('registers the guide in navigation and smoke E2E', async () => {
  const {NAV_ITEMS}=await import('../../lib/navigation'); const {PAGES,EXPECTED_PAGE_COUNT}=await import('../../e2e/pages');
