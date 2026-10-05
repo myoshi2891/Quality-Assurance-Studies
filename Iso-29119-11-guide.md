@@ -123,7 +123,7 @@ ISOの抄録は、AIベースシステムを次のような特徴を持つもの
 
 | 特徴 | 平易な言い換え | テストへの影響 |
 |---|---|---|
-| 複雑（例：ディープニューラルネット） | 内部が巨大で、人間が読んで理解できない | コードレビューや構造理解が効かない |
+| 複雑（例：ディープニューラルネット） | 内部が巨大で、人間が読んで理解できない | コードレビューだけでは学習済みモデルの振る舞いまでは見えない |
 | ビッグデータに基づくことがある | 振る舞いが「コード」でなく「データ」で決まる | データ自体の品質がテスト対象になる |
 | 仕様が曖昧なことがある | 「正解」を事前に厳密に書けない | 受入基準の設定が難しい |
 | 非決定的なことがある | 同じ入力でも出力が変わりうる | 再現性のあるテストが書きにくい |
@@ -591,9 +591,11 @@ class NeuronCoverage:
         self.vector_axis = vector_axis
         self.activated: dict[str, torch.Tensor] = {}
         self.shapes: dict[str, torch.Size] = {}                    # 層ごとのバッチ次元以外の形状
+        self.layer_names: list[str] = []                           # hook を登録した全ReLU層
         self.handles = []
         for name, module in model.named_modules():
             if isinstance(module, nn.ReLU):
+                self.layer_names.append(name)
                 self.handles.append(module.register_forward_hook(self._make_hook(name)))
 
     def _make_hook(self, name: str):
@@ -619,6 +621,10 @@ class NeuronCoverage:
         return hook
 
     def coverage(self) -> float:
+        # 一度も hook が呼ばれていない層は分母に入らないため、黙って除外せず不完全として報告する
+        missing = [n for n in self.layer_names if n not in self.activated]
+        if missing:
+            raise RuntimeError(f"未観測のReLU層があり、カバレッジは不完全: {missing}")
         total = sum(v.numel() for v in self.activated.values())
         covered = sum(int(v.sum()) for v in self.activated.values())
         return covered / total if total else 0.0
