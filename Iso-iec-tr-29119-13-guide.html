@@ -1123,7 +1123,7 @@ flowchart TB
 <tbody>
 <tr class="odd">
 <td><strong>静的テスト</strong></td>
-<td>コードを実行せずに評価する</td>
+<td>テスト対象（要求仕様・設計仕様・コードなど）を実行せずに評価する</td>
 <td>レビュー（インスペクション、テクニカルレビュー、ウォークスルー、非公式レビュー）、静的解析ツール</td>
 </tr>
 <tr class="even">
@@ -1937,16 +1937,40 @@ flowchart TB
     const fab = document.getElementById('toc-fab');
     const toc = document.getElementById('toc');
     const backdrop = document.getElementById('toc-backdrop');
-    const setToc = open => {
+    const isTocOpen = () => document.body.classList.contains('toc-open');
+    // ドロワー内のフォーカス循環対象（目次リンク + 閉じるボタン）
+    const trapItems = () => [...toc.querySelectorAll('a[href]'), fab];
+    const setToc = (open, { restoreFocus = true } = {}) => {
+      const wasOpen = isTocOpen();
       document.body.classList.toggle('toc-open', open);
       fab.setAttribute('aria-expanded', String(open));
       fab.setAttribute('aria-label', open ? '目次を閉じる' : '目次を開く');
+      // 状態が変わったときだけフォーカスを動かす（閉じた状態での Escape 等で奪わない）
+      if (open === wasOpen) return;
+      if (open) {
+        const firstLink = toc.querySelector('a[href]');
+        if (firstLink) firstLink.focus();
+        return;
+      }
+      if (restoreFocus) fab.focus();
     };
-    fab.addEventListener('click', () => setToc(!document.body.classList.contains('toc-open')));
+    fab.addEventListener('click', () => setToc(!isTocOpen()));
     backdrop.addEventListener('click', () => setToc(false));
-    toc.addEventListener('click', e => { if (e.target.closest('a')) setToc(false); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') setToc(false); });
-    window.matchMedia('(min-width: 1025px)').addEventListener('change', e => { if (e.matches) setToc(false); });
+    // リンク選択時は遷移先を次の Tab 起点にするため、ボタンへは戻さない
+    toc.addEventListener('click', e => { if (e.target.closest('a')) setToc(false, { restoreFocus: false }); });
+    document.addEventListener('keydown', e => {
+      if (!isTocOpen()) return;
+      if (e.key === 'Escape') { setToc(false); return; }
+      if (e.key !== 'Tab') return;
+      // fab は DOM 上で目次の外にあるため、境界判定ではなく循環リストで移動を制御する
+      const items = trapItems();
+      const idx = items.indexOf(document.activeElement);
+      const step = e.shiftKey ? -1 : 1;
+      const next = idx === -1 ? 0 : (idx + step + items.length) % items.length;
+      e.preventDefault();
+      items[next].focus();
+    });
+    window.matchMedia('(min-width: 1025px)').addEventListener('change', e => { if (e.matches) setToc(false, { restoreFocus: false }); });
 
     // 目次: 読んでいる章をハイライト
     const links = [...document.querySelectorAll('.toc a')];
