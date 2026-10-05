@@ -718,7 +718,7 @@ flowchart TD
 - 「再テスト」：修正版で、もう一度第6-4節の実行へ戻る
 - IR2の更新：解決状況に応じて、報告の内容や状態を更新する
 
-> 29119-2は、インシデントの**管理ライフサイクル全体**（優先度付け、修正担当の割り当てなど）までは扱いません。そこは、IEEEが別規格（Software and systems engineering — Incident management）として整備しています。
+> 29119-2は、インシデントの**管理ライフサイクル全体**（優先度付け、修正担当の割り当てなど）までは扱いません。そこは、IEEEが別規格 ISO/IEC/IEEE 23612:2026（Software and systems engineering — Incident management）として整備しています。
 
 📖 この章で登場した用語
 
@@ -1022,7 +1022,7 @@ flowchart TD
 | No. | ソース | URL | 本書で参照した内容 |
 |-----|--------|-----|--------------------|
 | 1 | ISO 公式ページ | <https://www.iso.org/standard/79428.html> | 版・発行日・ページ数・委員会・要旨・前版・ステージ |
-| 2 | IEEE Standards Association（29119-2のカタログ） | <https://standards.ieee.org/ieee/29119-2/5309/> | シリーズの説明、Part 3・4との関係 |
+| 2 | IEEE Standards Association（29119-2のカタログ） | <https://standards.ieee.org/ieee/29119-2/7498/> | シリーズの説明、Part 3・4との関係 |
 | 3 | IEEE カタログ（Nimonik） | <https://standards.nimonik.com/products/ieee/ieee-iso-iec-29119-2/> | 目的、共通テンプレート（ISO/IEC TR 24774）の使用、動的・機能・非機能・手動・自動テストへの対応 |
 | 4 | BSI（英国規格協会）ストア | <https://shop-checkout.bsigroup.com/products/software-and-systems-engineering-software-testing-test-processes-1> | リスクベース、テスト条件からテストモデルへの変更 |
 | 5 | 豪州規格協会（2021年版の採用版） | <https://store.standards.org.au/product/as-nzs-iso-iec-ieee-29119-2-2022> | 2021年版の目次（プロセス名、アクティビティ名、付録Aの項目） |
