@@ -337,7 +337,7 @@ flowchart TD
 
 ### 7.1 規格が示す方向性（✅）
 
-節タイトル「Testing AI-based systems across the life cycle」（6.2）と抄録から、規格は **開発の最後だけでなく、ライフサイクル全体でテストする** ことを求める立場だと読み取れます。
+節タイトル「Testing AI-based systems across the life cycle」（6.2）と抄録から、規格は **開発の最後だけでなく、ライフサイクル全体を通じたテスト** を扱い、その指針を示していると読み取れます（0.3 のとおり TR なので、各工程でのテストを義務づけるものではありません）。
 
 ### 7.2 AIシステムのライフサイクルとテスト（📘）
 
@@ -460,8 +460,8 @@ def data():
 
 
 def fit(X, y):
-    # 再現性のため乱数固定・十分な反復回数を指定
-    return LogisticRegression(max_iter=1000, random_state=0).fit(X, y)
+    # 既定の lbfgs ソルバーは random_state を使わないため指定しない。収束のため反復回数を十分に取る
+    return LogisticRegression(max_iter=1000).fit(X, y)
 
 
 def test_mr_train_order_invariance(data):
