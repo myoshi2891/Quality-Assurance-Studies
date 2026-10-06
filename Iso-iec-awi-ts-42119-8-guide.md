@@ -521,7 +521,7 @@ python -m pip install -U garak
 garak --list_probes
 
 # 例: OpenAIのモデルに対してエンコーディング系のプローブを実行
-python3 -m garak --model_type openai --model_name gpt-3.5-turbo --probes encoding
+python3 -m garak --model_type openai --model_name gpt-3.5-turbo --spec probes.encoding
 ```
 
 > ⚠️ 自社が許可を持つ環境・システムに対してのみ実行してください。また、バージョンによりオプション名が変わることがあるため、最新のドキュメント（<https://docs.garak.ai/>）を確認してください。
