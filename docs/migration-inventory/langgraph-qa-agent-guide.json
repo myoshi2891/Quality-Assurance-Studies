@@ -426,7 +426,7 @@
       "id": "",
       "class": "language-python",
       "href": "",
-      "text": "defsummarize(state:AgentState)->dict:prompt=prompt_config.render(\"summarize.jinja2\",question=state[\"question\"],#Step7のto_summary_dtoで伏せた結果だけをプロンプトに含め、表示用のresultsは渡さないresults=state.get(\"summary_results\")or[],#Trueなら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示するresults_truncated=state.get(\"results_truncated\",False),needs_analysis=state.get(\"needs_analysis\",False),)response=llm.invoke(prompt)return{\"summary\":response.content}"
+      "text": "importos#承認済みエンドポイント・保持設定・テナントのデータ処理ポリシーはコードから検証できない。#下記の運用上の前提条件を確認した環境でだけ、明示的に\"true\"を設定して外部LLMへの送信を許可するSUMMARY_LLM_TRANSFER_APPROVED=os.environ.get(\"SUMMARY_LLM_TRANSFER_APPROVED\")==\"true\"defsummarize(state:AgentState)->dict:ifnotSUMMARY_LLM_TRANSFER_APPROVED:#送信条件を満たさない環境ではクエリ結果をLLMへ送らない。要約は空のまま終え、表・グラフ・地図の表示だけを行うreturn{\"summary\":\"\"}prompt=prompt_config.render(\"summarize.jinja2\",question=state[\"question\"],#Step7のto_summary_dtoで伏せた結果だけをプロンプトに含め、表示用のresultsは渡さないresults=state.get(\"summary_results\")or[],#Trueなら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示するresults_truncated=state.get(\"results_truncated\",False),needs_analysis=state.get(\"needs_analysis\",False),)response=llm.invoke(prompt)return{\"summary\":response.content}"
     },
     {
       "tag": "code",
@@ -477,7 +477,7 @@
       "id": "",
       "class": "callout warning",
       "href": "",
-      "text": "セキュリティ上の注意apoc.load.*は外部URLやファイルを読み込めるため、生成されたCypher経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、dbms.security.procedures.allowlistで許可するAPOCを必要なもの（本ガイドではapoc.meta.*）だけに絞り、apoc.confのapoc.import.file.enabled=false設定と、Neo4jサーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。"
+      "text": "セキュリティ上の注意apoc.load.*は外部URLやファイルを読み込めるため、生成されたCypher経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、dbms.security.procedures.allowlistで許可するAPOCを必要なもの（本ガイドではapoc.meta.schema）だけに絞り、apoc.confのapoc.import.file.enabled=false設定と、Neo4jサーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。"
     },
     {
       "tag": "div",

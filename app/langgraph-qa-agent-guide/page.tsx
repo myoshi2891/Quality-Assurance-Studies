@@ -628,7 +628,7 @@ export default function Page() {
                             {
                                 '\n                            で許可する APOC を必要なもの（本ガイドでは\n                            '
                             }
-                            <code>{'apoc.meta.*'}</code>
+                            <code>{'apoc.meta.schema'}</code>
                             {'）だけに絞り、'}
                             <code>{'apoc.conf'}</code>
                             {' の\n                            '}
@@ -894,7 +894,7 @@ export default function Page() {
                     <h3>{'Step 9. Summarization ノード — 結果を人間向けの文章にする'}</h3>
                     <div className="code-tag">{'python'}</div>
                     <pre>
-                        <SyntaxCode language="python" code={'def summarize(state: AgentState) -> dict:\n    prompt = prompt_config.render(\n        "summarize.jinja2",\n        question=state["question"],\n        # Step 7 の to_summary_dto で伏せた結果だけをプロンプトに含め、表示用の results は渡さない\n        results=state.get("summary_results") or [],\n        # True なら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示する\n        results_truncated=state.get("results_truncated", False),\n        needs_analysis=state.get("needs_analysis", False),\n    )\n    response = llm.invoke(prompt)\n    return {"summary": response.content}'} />
+                        <SyntaxCode language="python" code={'import os\n\n# 承認済みエンドポイント・保持設定・テナントのデータ処理ポリシーはコードから検証できない。\n# 下記の運用上の前提条件を確認した環境でだけ、明示的に "true" を設定して外部 LLM への送信を許可する\nSUMMARY_LLM_TRANSFER_APPROVED = os.environ.get("SUMMARY_LLM_TRANSFER_APPROVED") == "true"\n\ndef summarize(state: AgentState) -> dict:\n    if not SUMMARY_LLM_TRANSFER_APPROVED:\n        # 送信条件を満たさない環境ではクエリ結果を LLM へ送らない。要約は空のまま終え、表・グラフ・地図の表示だけを行う\n        return {"summary": ""}\n    prompt = prompt_config.render(\n        "summarize.jinja2",\n        question=state["question"],\n        # Step 7 の to_summary_dto で伏せた結果だけをプロンプトに含め、表示用の results は渡さない\n        results=state.get("summary_results") or [],\n        # True なら「上限件数までの部分結果である」ことを要約文に明記するようテンプレートで指示する\n        results_truncated=state.get("results_truncated", False),\n        needs_analysis=state.get("needs_analysis", False),\n    )\n    response = llm.invoke(prompt)\n    return {"summary": response.content}'} />
                     </pre>
                     <p>
                         {
