@@ -408,7 +408,7 @@ timeline
 | No. | 出典 | URL | 備考 |
 |---|---|---|---|
 | 7 | Stuart Reid 博士（本規格の共同エディタ）：ETRI記事で言及 | <https://www.etri.re.kr/webzine/eng/202604/sub02.html> | 29119 シリーズにも関わる国際的なソフトウェアテストの権威 |
-| 8 | Adam Leon Smith 編『Artificial Intelligence and Software Testing』（BCS） | <https://dokumen.pub/artificial-intelligence-and-software-testing-building-systems-you-can-trust-1780175760-9781780175768.html> | ISO/IEC のAI標準化コミュニティで活動する実務家による書籍。バイアスやドリフトの背景理解に有用 |
+| 8 | Adam Leon Smith 編『Artificial Intelligence and Software Testing』（BCS） | <https://shop.bcs.org/page/detail/?k=9781780175768> | ISO/IEC のAI標準化コミュニティで活動する実務家による書籍。バイアスやドリフトの背景理解に有用 |
 | 9 | Tariq King 氏のプロフィール・著書紹介 | <https://www.linkedin.com/in/tariqking/> | 『Testing AI』の著者。評価、統計的信頼性、データ品質、本番監視などの実務観点 |
 
 > 📝 **出典に関する正直な注記**
