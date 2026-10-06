@@ -313,9 +313,9 @@ export default function Page() {
                             <code>{'neo4j.conf'}</code>
                             {'\n                            の '}
                             <code>{'dbms.security.procedures.allowlist'}</code>
-                            {'（必要に応じて\n                            '}
+                            {' と\n                            '}
                             <code>{'dbms.security.procedures.unrestricted'}</code>
-                            {'）に\n                            '}
+                            {' の両方に\n                            '}
                             <code>{'apoc.meta.*'}</code>
                             {
                                 '\n                            を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura\n                            では APOC Core が標準で利用可能です）。\n                        '

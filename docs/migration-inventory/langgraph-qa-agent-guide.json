@@ -463,7 +463,7 @@
       "id": "",
       "class": "callout info",
       "href": "",
-      "text": "補足Step4のSCHEMA_QUERYが呼び出すapoc.meta.schema()はAPOCCoreのプロシージャです。オンプレミスのNeo4jでは、APOCCoreのjarをpluginsディレクトリへ導入したうえで、neo4j.confのdbms.security.procedures.allowlist（必要に応じてdbms.security.procedures.unrestricted）にapoc.meta.*を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4jAuraではAPOCCoreが標準で利用可能です）。"
+      "text": "補足Step4のSCHEMA_QUERYが呼び出すapoc.meta.schema()はAPOCCoreのプロシージャです。オンプレミスのNeo4jでは、APOCCoreのjarをpluginsディレクトリへ導入したうえで、neo4j.confのdbms.security.procedures.allowlistとdbms.security.procedures.unrestrictedの両方にapoc.meta.*を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4jAuraではAPOCCoreが標準で利用可能です）。"
     },
     {
       "tag": "div",

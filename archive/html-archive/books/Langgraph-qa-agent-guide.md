@@ -116,7 +116,7 @@ pip install langgraph langchain langchain-neo4j langchain-openai neo4j streamlit
 
 2026年時点でLangGraphが公式に対応を明示している Python は 3.10〜3.13 で、3.11 または 3.12 の利用が推奨されています（3.9系は LangGraph 1.1 でサポートが終了しました）。
 
-Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core のプロシージャです。オンプレミスの Neo4j では、APOC Core の jar を `plugins` ディレクトリへ導入したうえで、`neo4j.conf` の `dbms.security.procedures.allowlist`（必要に応じて `dbms.security.procedures.unrestricted`）に `apoc.meta.*` を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura では APOC Core が標準で利用可能です）。
+Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core のプロシージャです。オンプレミスの Neo4j では、APOC Core の jar を `plugins` ディレクトリへ導入したうえで、`neo4j.conf` の `dbms.security.procedures.allowlist` と `dbms.security.procedures.unrestricted` の両方に `apoc.meta.*` を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura では APOC Core が標準で利用可能です）。
 
 ### Step 2. AgentState（共有状態）を設計する
 

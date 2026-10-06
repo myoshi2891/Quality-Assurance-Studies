@@ -700,7 +700,7 @@ describe('implementation', () => {
                 ),
             ].map((el) => (el.textContent ?? '').replace(/\s+/g, '')),
         ).toEqual([
-            '補足Step4のSCHEMA_QUERYが呼び出すapoc.meta.schema()はAPOCCoreのプロシージャです。オンプレミスのNeo4jでは、APOCCoreのjarをpluginsディレクトリへ導入したうえで、neo4j.confのdbms.security.procedures.allowlist（必要に応じてdbms.security.procedures.unrestricted）にapoc.meta.*を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4jAuraではAPOCCoreが標準で利用可能です）。',
+            '補足Step4のSCHEMA_QUERYが呼び出すapoc.meta.schema()はAPOCCoreのプロシージャです。オンプレミスのNeo4jでは、APOCCoreのjarをpluginsディレクトリへ導入したうえで、neo4j.confのdbms.security.procedures.allowlistとdbms.security.procedures.unrestrictedの両方にapoc.meta.*を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4jAuraではAPOCCoreが標準で利用可能です）。',
             '実務Tips2026年の実務では、State定義にPydanticv2を使い、実行時バリデーションとIDE補完を効かせる構成も広く採用されています。TypedDictはシンプルさ重視、Pydanticモデルは型安全性重視という使い分けが一般的です。',
             'セキュリティ上の注意apoc.load.*は外部URLやファイルを読み込めるため、生成されたCypher経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、dbms.security.procedures.allowlistで許可するAPOCを必要なもの（本ガイドではapoc.meta.*）だけに絞り、apoc.confのapoc.import.file.enabled=false設定と、Neo4jサーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。',
             '2026年の更新点ここで使っているstream_mode="updates"は安定版のAPIです。Pythonのstream_events()は、version="v1"/"v2"ではイベント辞書（StreamEvent）を順に返すイテレータで、呼び出し側がイベント種別で分岐して組み立て直す必要があります。LangGraphv1.2で追加されたstream_events(version="v3")は、代わりにGraphRunStream（非同期版はAsyncGraphRunStream）というハンドルを返します。このハンドルのrun.values（スーパーステップごとの状態スナップショット）やrun.messages（メッセージ）などの型付きprojection（射影）を個別に反復でき、実行後はrun.output（最終状態）やrun.interrupted/run.interrupts（human-in-the-loopの一時停止）を参照できます。ただしv3はexperimentalと明記されており、仕様が変わる可能性があります。本番用途では、当面は本ガイドのstream()を使い、v3はAPIが安定してから採用を検討するのが安全です。',
