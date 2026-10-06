@@ -1741,7 +1741,7 @@ flowchart TB
 <li><label><input type="checkbox"/><span class="cl-text">リスク露出度を「影響度×発生可能性」で算出し、優先順位付けできる</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">製品リスクとプロジェクトリスクの違いを例で示せる</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">「性能だけでなく全品質特性」を具体例で説明できる</span></label></li>
-<li><label><input type="checkbox"/><span class="cl-text">19795-1がプレゼンテーション攻撃を対象外とする点を説明できる</span></label></li>
+<li><label><input type="checkbox"/><span class="cl-text">19795-1が対象外とするのは、意図的にシステムを欺こうとする人が関与する誤り率・スループットの測定であり、プレゼンテーション攻撃のテスト全般ではない点を説明できる</span></label></li>
 <li><label><input type="checkbox"/><span class="cl-text">Annex D〜Kがどんな時に役立つか説明できる</span></label></li>
 </ul>
 <hr/>
@@ -1948,11 +1948,14 @@ flowchart TB
     const toc = document.getElementById('toc');
     const backdrop = document.getElementById('toc-backdrop');
     const isTocOpen = () => document.body.classList.contains('toc-open');
+    // 目次とボタンは .main の外にあるため、本文だけを操作不能にできる
+    const mainContent = document.querySelector('.main');
     // ドロワー内のフォーカス循環対象（目次リンク + 閉じるボタン）
     const trapItems = () => [...toc.querySelectorAll('a[href]'), fab];
     const setToc = (open, { restoreFocus = true } = {}) => {
       const wasOpen = isTocOpen();
       document.body.classList.toggle('toc-open', open);
+      if (mainContent) mainContent.inert = open;
       fab.setAttribute('aria-expanded', String(open));
       fab.setAttribute('aria-label', open ? '目次を閉じる' : '目次を開く');
       // 状態が変わったときだけフォーカスを動かす（閉じた状態での Escape 等で奪わない）
