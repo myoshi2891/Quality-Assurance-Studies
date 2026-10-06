@@ -1,7 +1,7 @@
-import {existsSync, readFileSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 // archive/ は git 管理外のため、CI でも読めるよう追跡対象のフィクスチャを正とする
 export const SOURCE_DIR='tests/fixtures/source-html/';
-export const html=readFileSync(existsSync('Beautiful-testing-guide.html')?'Beautiful-testing-guide.html':SOURCE_DIR+'Beautiful-testing-guide.html','utf8');
+export const html=readFileSync(SOURCE_DIR+'Beautiful-testing-guide.html','utf8');
 export const source=new DOMParser().parseFromString(html.replace(/<head>[\s\S]*?<\/head>/,'').replace(/<script(?! type="text\/plain")[\s\S]*?<\/script>/g,''),'text/html');
 // 意図的なアクセシビリティ改善: 4象限表の行見出しは元HTMLの td ではなく th scope="row" で描画する（元HTMLはハッシュ固定のため比較側で反映する）
 for(const cell of source.querySelectorAll('#sec-6 table tbody tr > td:first-child')){
