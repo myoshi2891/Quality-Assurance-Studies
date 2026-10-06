@@ -377,7 +377,7 @@ describe('registration and archive',()=>{
  const {metadata}=await import('../../app/beautiful-testing-guide/page');expect(metadata.title).toBe('『Beautiful Testing』完全ガイド ― 初学者のためのステップバイステップ・ベストプラクティス');
  });
  it('archives both source documents unchanged and removes root duplicates',()=>{
- for(const extension of ['html','md'] as const){const name='Beautiful-testing-guide.'+extension;expect(existsSync(name)).toBe(false);expect(createHash('sha256').update(readFileSync('archive/html-archive/books/'+name)).digest('hex')).toBe(inventory.hashes[extension]);}
+ for(const extension of ['html','md'] as const){const name='Beautiful-testing-guide.'+extension;expect(existsSync(name)).toBe(false);expect(createHash('sha256').update(readFileSync('tests/fixtures/source-html/'+name)).digest('hex')).toBe(inventory.hashes[extension]);}
  });
 });
 

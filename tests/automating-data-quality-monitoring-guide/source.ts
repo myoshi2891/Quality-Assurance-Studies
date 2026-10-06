@@ -3,10 +3,10 @@ import { join } from 'node:path';
 
 /**
  * 移行元 HTML を「仕様」として読み込むためのテスト用ヘルパー。
- * 移行完了後は archive/ 配下へ移動するため、両方の場所を探索する。
+ * archive/ は git 管理外のため、CI でも読めるよう追跡対象のフィクスチャを探索する。
  */
 const SOURCE_FILE = 'Automating-data-quality-monitoring-guide.html';
-const SOURCE_CANDIDATES = [SOURCE_FILE, join('archive', 'html-archive', 'books', SOURCE_FILE)];
+const SOURCE_CANDIDATES = [SOURCE_FILE, join('tests', 'fixtures', 'source-html', SOURCE_FILE)];
 
 let cachedHtml: string | null = null;
 

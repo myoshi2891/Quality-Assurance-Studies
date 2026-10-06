@@ -1,8 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs';
+// archive/ は git 管理外のため、CI でも読めるよう追跡対象のフィクスチャを正とする
+export const SOURCE_DIR = 'tests/fixtures/source-html/';
 export const html = readFileSync(
     existsSync('Langgraph-qa-agent-guide.html')
         ? 'Langgraph-qa-agent-guide.html'
-        : 'archive/html-archive/books/Langgraph-qa-agent-guide.html',
+        : SOURCE_DIR + 'Langgraph-qa-agent-guide.html',
     'utf8',
 );
 export const source = new DOMParser().parseFromString(
@@ -28,12 +30,20 @@ export function signature(element: Element) {
                       : a.value,
             ])
             .sort(),
-        // Elements with children record only their own direct text nodes; leaves keep full textContent.
+        // Elements with children record their direct text with a marker at each child element,
+        // so whitespace at child boundaries (`foo <b>` vs `foo<b>`) stays significant; leaves keep full textContent.
+        // Whitespace-only nodes containing a newline are source indentation, not rendered text, and are dropped.
         text: normalize(
             node.children.length
                 ? [...node.childNodes]
-                      .filter((child) => child.nodeType === Node.TEXT_NODE)
-                      .map((child) => child.textContent ?? '')
+                      .filter((child) => !(child.nodeType === Node.TEXT_NODE && /^\s*\n\s*$/.test(child.textContent ?? '')))
+                      .map((child) =>
+                          child.nodeType === Node.TEXT_NODE
+                              ? (child.textContent ?? '')
+                              : child.nodeType === Node.ELEMENT_NODE
+                                ? '␟'
+                                : '',
+                      )
                       .join('')
                 : (node.textContent ?? ''),
         ),
