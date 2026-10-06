@@ -63,7 +63,7 @@
 
 ```mermaid
 flowchart LR
-    P1["Part 1\n概念と定義\n2022"]
+    P1["Part 1\n一般概念\n2022"]
     P2["Part 2\nテストプロセス\n2021"]
     P3["Part 3\nテスト文書化\n2021"]
     P4["Part 4\nテスト技法\n2021\n本ガイドの対象"]
