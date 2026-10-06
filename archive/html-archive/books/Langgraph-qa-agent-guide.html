@@ -735,7 +735,7 @@
                             >
                             の <code>dbms.security.procedures.allowlist</code> と
                             <code>dbms.security.procedures.unrestricted</code> の両方に
-                            <code>apoc.meta.*</code>
+                            <code>apoc.meta.schema</code>
                             を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura
                             では APOC Core が標準で利用可能です）。
                         </p>
@@ -1212,9 +1212,13 @@ def to_summary_dto(value: Any, *, trusted_origin: bool = False) -&gt; Any:
             "nodes": [to_summary_dto(n) for n in value.nodes],
             "relationships": [to_summary_dto(r) for r in value.relationships],
         }
-    # 真偽値と null は残す（bool は int のサブクラスなので数値判定より前に処理する）
-    if value is None or isinstance(value, bool):
+    # null は残す
+    if value is None:
         return value
+    # 真偽値も RETURN p.is_flagged AS f のように機微なフラグがエイリアス経由で投影され得るため、出所が分かる場合だけ残す
+    # （bool は int のサブクラスなので数値判定より前に処理する）
+    if isinstance(value, bool):
+        return value if trusted_origin else REDACTED
     # 数値は出所が分かる場合だけ残す。列やマップの値として返った数値は、RETURN p.phone AS n のように
     # 数値型の機微なプロパティがエイリアス経由で投影されたものか、count(*) などの集計値かを区別できないため、
     # 件数などの集計値も含めて要約ペイロードから除外する（表示用の results には残る）
