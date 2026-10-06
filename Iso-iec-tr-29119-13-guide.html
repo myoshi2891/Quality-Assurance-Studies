@@ -1692,7 +1692,7 @@ flowchart LR
 </tr>
 <tr class="even">
 <td>Q4. なりすまし（プレゼンテーション攻撃）のテストは？</td>
-<td>19795-1は<strong>対象外</strong>と明記しています<span class="tag tag-tr">TR確認済</span>。PADは一般にISO/IEC 30107系で扱われます<span class="tag tag-gen">一般知識</span>。</td>
+<td>19795-1が対象外と明記しているのは、<strong>意図的にシステムを欺こうとする人が関与する場合の誤り率・スループットの測定</strong>です<span class="tag tag-tr">TR確認済</span>。プレゼンテーション攻撃のテスト全般を対象外としているわけではありません。PADの評価は一般にISO/IEC 30107系で扱われます<span class="tag tag-gen">一般知識</span>。</td>
 </tr>
 <tr class="odd">
 <td>Q5. 生体認証を使う小さな機能だけでもTRは使える？</td>
@@ -1897,27 +1897,32 @@ flowchart TB
   <!-- Mermaid (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js"></script>
   <script>
-    mermaid.initialize({
-      startOnLoad: true,
-      securityLevel: 'strict',
-      theme: 'base',
-      themeVariables: {
-        fontFamily: '"Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif',
-        fontSize: '15px',
-        primaryColor: '#e8f0ff',
-        primaryTextColor: '#14284b',
-        primaryBorderColor: '#3b6ef5',
-        lineColor: '#3b6ef5',
-        secondaryColor: '#e6f7f4',
-        tertiaryColor: '#f5f8fd',
-        clusterBkg: '#f5f8fd',
-        clusterBorder: '#b8c8e6',
-        edgeLabelBackground: '#ffffff',
-        textColor: '#1c2b45',
-        pie1: '#3b6ef5', pie2: '#14b8a6', pie3: '#f59e0b', pie4: '#8b5cf6'
-      },
-      flowchart: { curve: 'basis', htmlLabels: true, padding: 14, wrappingWidth: 400, useMaxWidth: false, subGraphTitleMargin: { top: 8, bottom: 14 } }
-    });
+    // CDN の読み込みに失敗しても、進捗表示や目次などの後続処理は止めない
+    if (window.mermaid) {
+      mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'strict',
+        theme: 'base',
+        themeVariables: {
+          fontFamily: '"Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif',
+          fontSize: '15px',
+          primaryColor: '#e8f0ff',
+          primaryTextColor: '#14284b',
+          primaryBorderColor: '#3b6ef5',
+          lineColor: '#3b6ef5',
+          secondaryColor: '#e6f7f4',
+          tertiaryColor: '#f5f8fd',
+          clusterBkg: '#f5f8fd',
+          clusterBorder: '#b8c8e6',
+          edgeLabelBackground: '#ffffff',
+          textColor: '#1c2b45',
+          pie1: '#3b6ef5', pie2: '#14b8a6', pie3: '#f59e0b', pie4: '#8b5cf6'
+        },
+        flowchart: { curve: 'basis', htmlLabels: true, padding: 14, wrappingWidth: 400, useMaxWidth: false, subGraphTitleMargin: { top: 8, bottom: 14 } }
+      });
+    } else {
+      console.warn('Mermaid を読み込めなかったため、図の描画をスキップします');
+    }
 
     // 理解度チェックリスト: 進捗バー
     document.querySelectorAll('ul.checklist').forEach(list => {
@@ -1977,7 +1982,12 @@ flowchart TB
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+          links.forEach(l => {
+            const isActive = l.getAttribute('href') === '#' + e.target.id;
+            l.classList.toggle('active', isActive);
+            if (isActive) l.setAttribute('aria-current', 'location');
+            else l.removeAttribute('aria-current');
+          });
         }
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
