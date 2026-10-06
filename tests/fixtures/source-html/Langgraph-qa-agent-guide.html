@@ -1331,7 +1331,7 @@ driver = GraphDatabase.driver(
                                 >dbms.security.procedures.allowlist</code
                             >
                             で許可する APOC を必要なもの（本ガイドでは
-                            <code>apoc.meta.*</code>）だけに絞り、<code>apoc.conf</code> の
+                            <code>apoc.meta.schema</code>）だけに絞り、<code>apoc.conf</code> の
                             <code>apoc.import.file.enabled=false</code> 設定と、Neo4j
                             サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
                         </p>
@@ -1491,7 +1491,16 @@ def route_after_execution(state: AgentState) -&gt; Literal["retry", "summarize",
 
                     <h3>Step 9. Summarization ノード &mdash; 結果を人間向けの文章にする</h3>
                     <div class="code-tag">python</div>
-                    <pre><code class="language-python">def summarize(state: AgentState) -&gt; dict:
+                    <pre><code class="language-python">import os
+
+# 承認済みエンドポイント・保持設定・テナントのデータ処理ポリシーはコードから検証できない。
+# 下記の運用上の前提条件を確認した環境でだけ、明示的に "true" を設定して外部 LLM への送信を許可する
+SUMMARY_LLM_TRANSFER_APPROVED = os.environ.get("SUMMARY_LLM_TRANSFER_APPROVED") == "true"
+
+def summarize(state: AgentState) -&gt; dict:
+    if not SUMMARY_LLM_TRANSFER_APPROVED:
+        # 送信条件を満たさない環境ではクエリ結果を LLM へ送らない。要約は空のまま終え、表・グラフ・地図の表示だけを行う
+        return {"summary": ""}
     prompt = prompt_config.render(
         "summarize.jinja2",
         question=state["question"],

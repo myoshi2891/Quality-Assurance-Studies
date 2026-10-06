@@ -659,7 +659,7 @@ driver = get_driver()
 
 この共有 `driver` 構成は**単一テナント前提**です。全利用者が同じ読み取り専用ユーザーの権限でクエリを実行するため、同じデータベース内の全データを参照できる利用者だけが使う環境に限ってください。利用者や組織ごとに参照範囲が異なる（マルチテナントの）場合は、認証済みの利用者・テナント情報を `question` とは別の経路で `AgentState` と `process_question` に渡し、生成された Cypher の内容に依存しない形で Neo4j 側に認可を強制します。たとえば `driver.session(impersonated_user=...)` で利用者ごとの Neo4j ユーザーに切り替え、ロールベースの細粒度アクセス制御で参照範囲を絞ります。「テナント ID で絞り込む WHERE 句を付けて」とプロンプトで LLM に指示するだけでは、生成結果に左右されるため認可の境界になりません。
 
-`apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.*`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
+`apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.schema`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
 
 State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。`Record.data()` はノードをプロパティの辞書に変換する際にラベルや `element_id` を捨ててしまい、リレーションシップも始点・終点が分からなくなります。そのため `to_dto()` でノードのラベルと `element_id`、リレーションシップの型・始点・終点を明示的に保持してから State に入れます。`Result.graph()` からグラフ表示用のデータを組み立てる場合も、neo4j ドライバのオブジェクトをそのまま State に置かず、checkpoint 保存前に同じ形の辞書へ変換してください。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
 
