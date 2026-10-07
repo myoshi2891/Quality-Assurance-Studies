@@ -164,6 +164,7 @@ footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--line);color:v
             <span class="k">return</span> u
     <span class="c"># 見つからないと None が返る</span>
 
+users <span class="o">=</span> [{<span class="s">"name"</span>: <span class="s">"Bob"</span>, <span class="s">"email"</span>: <span class="s">"bob@example.com"</span>}]
 user <span class="o">=</span> <span class="f">find_user</span>(users, <span class="s">"Alice"</span>)
 <span class="b">print</span>(user[<span class="s">"email"</span>])   <span class="c"># user が None だと実行時エラー</span></code></pre>
 <p>ツールはプログラムを動かさず、「<code>None</code>を返す経路があるのに確認せず参照している」と指摘できます。</p>
