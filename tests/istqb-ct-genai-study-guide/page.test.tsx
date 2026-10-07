@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'bun:test';
 import React from 'react';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import postcss from 'postcss';
@@ -94,13 +94,27 @@ describe('Navigation', () => {
   try { const {default:Page}=await import('../../app/istqb-ct-genai-study-guide/page');const result=render(<Page/>);
    expect(ids).toEqual(inventory.navigation.map(n=>n.attrs.find(([k])=>k==='data-target')![1]));
    const target=result.container.querySelector('main h3')!;
-   callback([{isIntersecting:true,target}] as IntersectionObserverEntry[],{} as IntersectionObserver);
+   act(() => callback([{isIntersecting:true,target}] as IntersectionObserverEntry[],{} as IntersectionObserver));
    await waitFor(()=>expect(result.container.querySelector('nav a[aria-current="location"]')?.getAttribute('href')).toBe('#'+target.id));
    result.unmount();expect(disconnected).toBe(true);
   }finally{window.IntersectionObserver=Native;}
  });
 });
 describe('Integration',()=>{
+ it('binds each diagram to its original placeholder',async()=>{
+  const {default:mermaid}=await import('mermaid');
+  const original=mermaid.render;
+  mermaid.render=async(_id,chart)=>({svg:'<svg data-chart="'+createHash('sha256').update(chart).digest('hex')+'"></svg>',diagramType:'flowchart'});
+  try {
+   const diagrams=await import('../../app/istqb-ct-genai-study-guide/diagrams');
+   const root=await category('page');
+   await waitFor(()=>expect(root.querySelectorAll('.mermaid-target svg')).toHaveLength(13));
+   for(const id of Object.keys(inventory.charts)){
+    const chart=diagrams[('DIAGRAM_'+id.split('-').at(-1)) as keyof typeof diagrams];
+    expect(root.querySelector('#'+id+' svg')?.getAttribute('data-chart')).toBe(createHash('sha256').update(chart).digest('hex'));
+   }
+  }finally{mermaid.render=original;}
+ });
  it('adds a distinct specialist route and smoke entry',()=>{
   expect(NAV_ITEMS.find(n=>n.href==='/istqb-ct-genai-study-guide')?.category).toBe('istqb-specialist');
   expect(PAGES.find(n=>n.path==='/istqb-ct-genai-study-guide')).toBeDefined();
