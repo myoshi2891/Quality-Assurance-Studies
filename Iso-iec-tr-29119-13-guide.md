@@ -134,7 +134,7 @@ flowchart TB
 | 6 | Software testing of biometric systems and subsystems | Step 6, 7 |
 | Annex A | Brief introduction to biometric systems | Step 1 |
 | Annex B | Standards related to the testing of biometric systems | Step 3 |
-| Annex C | Generic risks in biometric systems | Step 8 |
+| Annex C | Generic risks in biometric systems | Step 9 |
 | Annex D | Test documentation mappings for biometric systems | Step 9 |
 | Annex E〜K | 19795-1 / -2 / -4 / -6 / -7 / TS 19795-9 / 29109-1 から29119へのマッピング | Step 9 |
 
@@ -334,7 +334,7 @@ TR本文（5.5.2節）では、29119のモデルは**テストプロセスを中
 
 ```mermaid
 flowchart TB
-    P1["29119-1<br/>概念と定義"]
+    P1["29119-1<br/>一般概念"]
     P2["29119-2<br/>テストプロセス<br/>中核"]
     P3["29119-3<br/>テスト文書"]
     P4["29119-4<br/>テスト技法"]

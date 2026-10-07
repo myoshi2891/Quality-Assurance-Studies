@@ -618,7 +618,7 @@ flowchart TB
 <tr class="odd">
 <td>Annex C</td>
 <td>Generic risks in biometric systems</td>
-<td>Step 8</td>
+<td>Step 9</td>
 </tr>
 <tr class="even">
 <td>Annex D</td>
@@ -1028,7 +1028,7 @@ flowchart TD
 <p>TR本文（5.5.2節）では、29119のモデルは<strong>テストプロセスを中心</strong>に置き、テスト文書はプロセスの<strong>成果物</strong>であると説明されています。テスト設計技法は29119-4に、全体の概念は29119-1に定義されます。</p>
 <figure class="diagram"><pre class="mermaid">
 flowchart TB
-    P1["29119-1<br/>概念と定義"]
+    P1["29119-1<br/>一般概念"]
     P2["29119-2<br/>テストプロセス<br/>中核"]
     P3["29119-3<br/>テスト文書"]
     P4["29119-4<br/>テスト技法"]
@@ -2015,6 +2015,13 @@ flowchart TB
     };
     window.addEventListener('scroll', syncAtBottom, { passive: true });
     window.addEventListener('resize', syncAtBottom);
+    // URL フラグメントで直接開いた場合やハッシュ遷移時は、Observer の判定を待たずに該当リンクを現在位置とする
+    const syncFromHash = () => {
+      if (!location.hash) return;
+      if (links.some(l => l.getAttribute('href') === location.hash)) setActive(location.hash);
+    };
+    window.addEventListener('hashchange', syncFromHash);
+    syncFromHash();
     syncAtBottom();
   </script>
 </body>
