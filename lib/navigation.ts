@@ -82,6 +82,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-atlas-complete-guide', label: 'アジャイル(CT-ATLaS)ガイド', description: '大規模スケールドアジャイルにおけるテスト戦略と協働。', category: 'istqb-advanced' },
 
   { href: '/istqb-ct-ai-complete-guide', label: 'AIテスト(CT-AI)ガイド', description: '機械学習システムの品質特性・テストデータ・メトリクスの扱い。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-study-guide', label: 'CT-GenAI 完全学習ガイド', description: '試験概要、全5章の学習内容、プロンプト技法・リスク管理・LLM搭載インフラと学習ロードマップ。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-complete-guide', label: '生成AIテスト(CT-GenAI)ガイド', description: 'LLM・生成AIのハルシネーションや評価手法に対するテスト。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter1-introduction', label: 'CT-GenAI 第1章 生成AIテスト入門', description: '生成AIの系譜、LLMの基礎、主要能力と対話モデルのテスト入門。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter2-prompt-engineering', label: 'CT-GenAI 第2章 プロンプトエンジニアリング', description: 'プロンプト6要素構造、コア3技法、テスト業務適用と結果評価・改善。', category: 'istqb-specialist' },
