@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
@@ -6,11 +6,16 @@ import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import postcss from 'postcss';
+import type { Window as HappyWindow } from 'happy-dom';
 import inventory from '../../docs/migration-inventory/beyond-legacy-code-guide.json';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
 
-afterEach(cleanup);
+// Font delivery is verified through markup; unit tests must not fetch external CSS.
+const browserSettings = (window as unknown as HappyWindow).happyDOM.settings;
+let previousCSSLoading = browserSettings.disableCSSFileLoading;
+beforeEach(() => { previousCSSLoading = browserSettings.disableCSSFileLoading; browserSettings.disableCSSFileLoading = true; });
+afterEach(() => { cleanup(); browserSettings.disableCSSFileLoading = previousCSSLoading; });
 const directory = 'app/beyond-legacy-code-guide/';
 const norm = (value: string) => value.replace(/\s+/g, '').trim();
 function signatures(html: string, selector = '*') {
