@@ -1147,6 +1147,7 @@ flowchart TB
 <h3 id="s28">9.2 リスク管理プロセス<span class="tag tag-tr">TR確認済</span></h3>
 <figure class="diagram"><pre class="mermaid">
 flowchart TB
+    accDescr: リスク管理プロセスの流れ。1 リスク識別、2 影響度の分析、3 発生可能性の判断、4 影響度と可能性を組み合わせたリスク露出度の算出、5 優先順位付け、6 テストでの対処を含む対応策の決定、7 テスト戦略・計画への反映の順に進む。7 からは点線の矢印で 1 リスク識別に戻り、モニタリングと再評価を繰り返す。
     S1["1 リスク識別<br/>品質特性チェックリスト等"] --&gt; S2["2 影響度の分析<br/>製品またはプロジェクトへの重大性"]
     S2 --&gt; S3["3 発生可能性の判断<br/>要求品質・体制・複雑さ・過去データ"]
     S3 --&gt; S4["4 リスク露出度の算出<br/>影響度と可能性の組み合わせ"]
@@ -1493,6 +1494,7 @@ flowchart LR
 <p><strong>活用手順【一般知識に基づく使い方の提案】</strong></p>
 <figure class="diagram"><pre class="mermaid">
 flowchart TD
+    accDescr: Annex C の活用手順。Annex C のリスク例をチェックリストとして読み、自プロジェクトに該当するものを選別し、不足分を独自に追加する。次に影響度と発生可能性を評価し、露出度で優先順位を付け、どのテストで対処するかをテスト戦略へ反映し、テスト計画・設計・実行を行う。実行結果に基づいてリスクを再評価し、点線の矢印で影響度と発生可能性の評価に戻って繰り返す。
     A["Annex C のリスク例を<br/>チェックリストとして読む"] --&gt; B["自プロジェクトに該当するものを選別"]
     B --&gt; C["不足分を独自に追加"]
     C --&gt; D["影響度×発生可能性を評価"]
@@ -1608,6 +1610,7 @@ flowchart LR
 <h3 id="s44">14.1 全体ワークフロー</h3>
 <figure class="diagram"><pre class="mermaid">
 flowchart TD
+    accDescr: 実務の全体ワークフロー。1 対象の確認、2 関連規格の特定、3 Annex C と 25010 の品質特性によるリスク識別、4 リスク分析・優先順位付け、5 テスト戦略の策定、6 テスト計画、7 静的と動的のテスト設計・実装、8 テスト実行、9 誤り率に加えてリスク残存を含む報告、10 完了と教訓・リスク再評価の順に進む。10 からは改善のための点線の矢印で 3 リスク識別に戻る。
     A["1 対象の確認<br/>生体認証サブシステムか、含む大規模システムか"] --&gt; B["2 関連規格の特定<br/>19795系・29109-1・30107等"]
     B --&gt; C["3 リスク識別<br/>Annex C と25010の品質特性"]
     C --&gt; D["4 リスク分析・優先順位付け"]
@@ -1623,6 +1626,7 @@ flowchart TD
 <h3 id="s45">14.2 リスクからテストへの対応関係の例</h3>
 <figure class="diagram"><pre class="mermaid">
 flowchart LR
+    accDescr: 5つのリスクと対応するテストの対応関係。他人受入のリスクには、非同一人物ペアでの FMR 測定という動的テストと、しきい値設定のレビューという静的テストの2つが対応する。暗所での本人拒否には照度条件別の FNMR 測定、属性間の偏りには属性別の誤り率集計という動的テストがそれぞれ対応する。データ漏えいには設計レビュー・脆弱性解析という静的テストと、アクセス制御と暗号化の検証という動的テストの2つが対応する。プロジェクトリスクである被験者確保の遅延には、早期募集と代替データ確保という計画上の対策が対応する。再評価のループはない。
     R1["リスク: 他人受入"] --&gt; T1["動的: 非同一人物ペアでFMR測定"]
     R1 --&gt; T2["静的: しきい値設定のレビュー"]
     R2["リスク: 暗所で本人拒否"] --&gt; T3["動的: 照度条件別のFNMR測定"]
@@ -1987,19 +1991,31 @@ flowchart TB
 
     // 目次: 読んでいる章をハイライト
     const links = [...document.querySelectorAll('.toc a')];
+    const setActive = href => {
+      links.forEach(l => {
+        const isActive = l.getAttribute('href') === href;
+        l.classList.toggle('active', isActive);
+        if (isActive) l.setAttribute('aria-current', 'location');
+        else l.removeAttribute('aria-current');
+      });
+    };
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          links.forEach(l => {
-            const isActive = l.getAttribute('href') === '#' + e.target.id;
-            l.classList.toggle('active', isActive);
-            if (isActive) l.setAttribute('aria-current', 'location');
-            else l.removeAttribute('aria-current');
-          });
-        }
+        if (e.isIntersecting) setActive('#' + e.target.id);
       });
+      syncAtBottom();
     }, { rootMargin: '-20% 0px -70% 0px' });
     document.querySelectorAll('main h2').forEach(h => io.observe(h));
+    // 最後の章は短く判定領域に届かないことがあるため、ページ末尾では最後のリンクを現在位置とする
+    const lastHref = links.length ? links[links.length - 1].getAttribute('href') : null;
+    const syncAtBottom = () => {
+      if (lastHref === null) return;
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) setActive(lastHref);
+    };
+    window.addEventListener('scroll', syncAtBottom, { passive: true });
+    window.addEventListener('resize', syncAtBottom);
+    syncAtBottom();
   </script>
 </body>
 </html>
