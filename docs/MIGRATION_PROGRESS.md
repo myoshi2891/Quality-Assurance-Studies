@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-10-04
+Updated 2026-10-07
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -25,7 +25,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 実装前に全構成要素のRedテストを作成。土台、各セクション、目次、ルート登録、アーカイブ、スタイル隔離をカテゴリー別にコミット。
 - 本文全文・DOM構造・表の全セル・参考リンク・元CSS宣言を照合。図8件は元の濃紺・ミント配色を保持し、実Mermaidパーサで構文確認。
 - モバイル目次の開閉・Escape・フォーカス復帰・スクロール追従、チェックリストの0〜11件の進捗と完了装飾をテスト。
-- 元HTML・MDは`archive/html-archive/books/`へ移動。ハッシュ一致とルートの元ファイルが残っていないことを検証。
+- 元HTML・MDは`tests/fixtures/source-html/`で追跡管理（`archive/`はgitignore対象のローカル保管）。ハッシュ一致とルートの元ファイルが残っていないことを検証。
 - npmで検証。ページ265テスト、全体1,771テスト、Lint、移行対象の型チェックが成功。ビルド・目視確認はユーザー指示により未実施。
 - 留保: `7e93b73`と`5063529`でGreenテストの失敗を止めず実装コミットした手順違反を報告。共有Mermaidの入れ子ラッパーを区別するテスト補正は作業ツリーで検証済み。履歴を保持した別コミットによる復旧のユーザー承認待ち。
 
@@ -36,7 +36,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `docs/migration-inventory/langgraph-qa-agent-guide.json`を固定インベントリとして保存。本文全文、DOM構造、全CSS宣言、メディアクエリを元HTMLと照合。
 - Mermaid図3件は共有コンポーネントを使用し、元のダーク配色・図ソースを保持。実Mermaidパーサで構文を検証。
 - 追加依存関係なし。`SyntaxCode.tsx`でPython/Bashの全15コード例を色分け。キーワード・文字列・コメント・数値・組み込み名・コマンドをハイライトし、コード本文と改行は元HTMLと一致。
-- 元HTML・MDは`archive/html-archive/books/`へ移動し、SHA-256の一致を確認。
+- 元HTML・MDは`tests/fixtures/source-html/`で追跡管理（`archive/`はgitignore対象のローカル保管）し、SHA-256の一致を確認。
 - 検証はnpmで実行。全1,504テスト、Lint、移行対象の型チェックが成功。ビルド・ブラウザの目視確認はユーザー指示により実施していない。
 - 留保: `0d5f62f`で末尾空白検出後にPII検査を経ずコミットした手順違反を報告。事後PII検査は問題なし。末尾空白・コード文字色・注意ボックス行間のCSS補正は、ユーザーが作成した`4151060`で反映済み。
 
@@ -1320,8 +1320,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Appium-essentials-guide.html` | `/appium-essentials-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Automating-data-quality-monitoring-guide.html` | `/automating-data-quality-monitoring-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
-| `Langgraph-qa-agent-guide.html` | `/langgraph-qa-agent-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/、HTML・MD両方) |
-| `Beautiful-testing-guide.html` | `/beautiful-testing-guide` | ✅ モバイル目次・チェックリスト・Mermaid図8件あり (archive/html-archive/books/、HTML・MD両方) |
+| `Langgraph-qa-agent-guide.html` | `/langgraph-qa-agent-guide` | ✅ NavBar + aria-current あり (tests/fixtures/source-html/、HTML・MD両方) |
+| `Beautiful-testing-guide.html` | `/beautiful-testing-guide` | ✅ モバイル目次・チェックリスト・Mermaid図8件あり (tests/fixtures/source-html/、HTML・MD両方) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.html` | `/istqb-ctal-ta-chapter3-test-analysis-and-design` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
