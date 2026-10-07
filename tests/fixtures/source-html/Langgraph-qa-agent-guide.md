@@ -141,6 +141,7 @@ class AgentState(TypedDict, total=False):
     cypher_query: str
     cypher_reasoning: str
     raw_llm_response: str
+    selection_notice: Optional[str]      # 選択中のノードを送信できずに外した場合の、利用者向けの通知
 
     # execute_query の出力
     # チェックポイントに保存されるため、出力形式によらずシリアライズ可能なレコードのリストで持つ
@@ -317,6 +318,10 @@ def fetch_selected_node(tx, element_id: str):
     record = tx.run("MATCH (n) WHERE elementId(n) = $element_id RETURN n", element_id=element_id).single()
     return record["n"] if record is not None else None
 
+# LLM へ送ってよいプロパティの許可リスト（例）。Cypher の組み立てに必要で、機微でないと確認したキーだけを列挙する。
+# 列挙していないキーは値を伏せるのではなくキーごと送らないため、後からノードに追加されたプロパティも既定で送信されない
+SELECTION_PROPERTY_ALLOWLIST = frozenset({"incident_type", "status", "occurred_at"})
+
 def build_selection_context(selection: dict) -> dict:
     # UI から届く辞書はクライアント側で書き換えられるため、kind・labels・properties の値を文脈に使わない。
     # 参照として element_id だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる
@@ -328,21 +333,26 @@ def build_selection_context(selection: dict) -> dict:
         node = session.execute_read(fetch_selected_node, element_id)
     if node is None:
         raise ValueError("選択中のノードが見つかりません")
-    # 許可する構造情報は kind・labels・element_id のみ。プロパティは Step 7 の to_summary_dto で SENSITIVE_KEYS の値を伏せる
+    # 許可する構造情報は kind・labels・element_id のみ。プロパティは SELECTION_PROPERTY_ALLOWLIST に列挙したキーだけを残す。
+    # to_summary_dto（Step 7）は値の JSON 化に使い、SENSITIVE_KEYS による伏せ字は許可リストの後段の多層防御にとどめる
+    summary = to_summary_dto(node)["properties"]
     return {
         "kind": "node",
         "labels": sorted(node.labels),
         "element_id": node.element_id,
-        "properties": to_summary_dto(node)["properties"],
+        "properties": {k: v for k, v in summary.items() if k in SELECTION_PROPERTY_ALLOWLIST},
     }
 
 def text_to_cypher(state: AgentState) -> dict:
     selection = state.get("user_selection")
-    if selection is not None:
+    selection_notice = None
+    if selection is not None and not SUMMARY_LLM_TRANSFER_APPROVED:
         # 選択中のノードはグラフ DB 由来の値を含むため、クエリ結果と同じ送信条件を適用する。
-        # SUMMARY_LLM_TRANSFER_APPROVED（Step 9）が無効な環境では LLM を呼ばずに送信を拒否する
-        if not SUMMARY_LLM_TRANSFER_APPROVED:
-            raise PermissionError("外部 LLM への送信が承認されていないため、選択中のノードを含む質問は処理できません")
+        # SUMMARY_LLM_TRANSFER_APPROVED（Step 9）が無効な環境では、例外でグラフ実行を止めずに選択を外し、
+        # 質問とスキーマだけで続行する。外したことは selection_notice で UI に伝える
+        selection = None
+        selection_notice = "外部 LLM への送信が承認されていないため、選択中のノードを使わずに質問だけで回答しています。"
+    elif selection is not None:
         # クライアントの辞書ではなく、Neo4j の実ノードからサーバー側で組み立てた文脈だけをプロンプトに含める
         selection = build_selection_context(selection)
     prompt = prompt_config.render(
@@ -358,12 +368,13 @@ def text_to_cypher(state: AgentState) -> dict:
         "cypher_query": query,
         "cypher_reasoning": reasoning,
         "raw_llm_response": response.content,
+        "selection_notice": selection_notice,
     }
 ```
 
 このノードが「選択中のノード」（`user_selection`）と「前回のエラー内容」（`previous_error`）の両方を State から読み取っている点に注目してください。これにより、ユーザーが「選択中の事件に関連する車両を教えて」のような **文脈参照を含む質問** をしても正しくCypherを組み立てられますし、リトライ時には前回の失敗理由をプロンプトに含めて再生成の精度を上げられます。
 
-ただし `user_selection` は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した `element_id` だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた `kind`・`labels`・`element_id` と、`to_summary_dto()` で `SENSITIVE_KEYS` の値を伏せたプロパティだけです。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では LLM を呼ばずに `PermissionError` で処理を止めます。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
+ただし `user_selection` は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した `element_id` だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた `kind`・`labels`・`element_id` と、`SELECTION_PROPERTY_ALLOWLIST` に列挙したプロパティだけです。列挙していないプロパティは値を伏せるのではなくキーごと送りません。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では例外でグラフ実行を止めず、選択を外して質問とスキーマだけで続行し、`selection_notice` で UI に理由を表示します。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
 
 ### Step 7. Query Execution ノード — 実行してエラーを捕捉する
 
@@ -876,6 +887,9 @@ def render_result(payload: dict) -> None:
     # 最終 State（results は table なら DataFrame、それ以外は to_dto() 形式のレコードのリスト）を描画する。
     # graph / map の本格的な描画は外部の可視化コンポーネントに委ねる。差し替える場合も
     # 「to_dto() 形式のレコードのリストを受け取り、node / relationship / path / point を描く」というインターフェースを守る
+    if payload.get("selection_notice"):
+        # 選択中のノードを外して回答したことを、結果より先に利用者へ伝える
+        st.warning(payload["selection_notice"])
     if payload.get("results_error"):
         # リトライ上限に達しても解消しなかった Cypher エラー。再質問を促す
         st.error(f"クエリを生成できませんでした。質問を言い換えてください。（{payload['results_error']}）")
