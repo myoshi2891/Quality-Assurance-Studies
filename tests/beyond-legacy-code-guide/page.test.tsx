@@ -5,6 +5,7 @@ import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react
 import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
+import type { Element as HtmlElement } from 'domhandler';
 import postcss from 'postcss';
 import type { Window as HappyWindow } from 'happy-dom';
 import inventory from '../../docs/migration-inventory/beyond-legacy-code-guide.json';
@@ -14,14 +15,24 @@ import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
 // Font delivery is verified through markup; unit tests must not fetch external CSS.
 const browserSettings = (window as unknown as HappyWindow).happyDOM.settings;
 let previousCSSLoading = browserSettings.disableCSSFileLoading;
-beforeEach(() => { previousCSSLoading = browserSettings.disableCSSFileLoading; browserSettings.disableCSSFileLoading = true; });
-afterEach(() => { cleanup(); browserSettings.disableCSSFileLoading = previousCSSLoading; });
+let previousDisabledLoading = browserSettings.handleDisabledFileLoadingAsSuccess;
+beforeEach(() => {
+  previousCSSLoading = browserSettings.disableCSSFileLoading;
+  previousDisabledLoading = browserSettings.handleDisabledFileLoadingAsSuccess;
+  browserSettings.disableCSSFileLoading = true;
+  browserSettings.handleDisabledFileLoadingAsSuccess = true;
+});
+afterEach(() => {
+  cleanup();
+  browserSettings.disableCSSFileLoading = previousCSSLoading;
+  browserSettings.handleDisabledFileLoadingAsSuccess = previousDisabledLoading;
+});
 const directory = 'app/beyond-legacy-code-guide/';
 const norm = (value: string) => value.replace(/\s+/g, '').trim();
-function signatures(html: string, selector = '*') {
+function signatures(html: string, selector = '*'): { tag: string; attrs: string[][]; text: string }[] {
   const $ = load(html, null, false);
   $('.mermaid-wrapper').remove();
-  return $(selector).toArray().map(node => ({
+  return $(selector).toArray().filter((node): node is HtmlElement => 'tagName' in node).map(node => ({
     tag: node.tagName,
     attrs: Object.entries(node.attribs).filter(([key]) => !key.startsWith('aria-') && key !== 'role').sort(([a], [b]) => a.localeCompare(b)),
     text: norm($(node).text()),
@@ -196,7 +207,7 @@ describe('Registration', () => {
   });
 });
 describe('Archive', () => {
-  for (const [kind, hash] of [['html', inventory.hashHtml], ['md', inventory.hashMd]]) it('archives original ' + kind + ' byte for byte', () => {
+  for (const [kind, hash] of [['html', inventory.hashHtml], ['md', inventory.hashMd]] as const) it('archives original ' + kind + ' byte for byte', () => {
     const name = 'Beyond-legacy-code-guide.' + kind;
     expect(existsSync(name)).toBe(false);
     expect(createHash('sha256').update(readFileSync('archive/' + kind + '-archive/books/' + name)).digest('hex')).toBe(hash);
