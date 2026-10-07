@@ -38,6 +38,15 @@ for (const group of inventory.groups) describe(group.name, () => {
  }
 });
 describe('Styles', () => {
+ it('prevents inner flex centering and nested scrolling from hiding the left edge', () => {
+  const css=postcss.parse(readFileSync('app/istqb-ct-genai-study-guide/istqb-ct-genai-study-guide.css','utf8'));
+  const values: Record<string,string> = {};
+  css.walkRules(rule => {
+   if(rule.selector === '.ct-genai-study-page .mermaid-wrapper')rule.walkDecls(decl => {values[decl.prop]=decl.value;});
+  });
+  expect(values.display).toBe('block');
+  expect(values.overflow).toBe('visible');
+ });
  inventory.css.forEach((expected,index) => it('preserves source CSS rule ' + index + ': ' + expected.selector, () => {
   const css = postcss.parse(readFileSync('app/istqb-ct-genai-study-guide/istqb-ct-genai-study-guide.css', 'utf8'));
   const selector = expected.selector.split(',').map(s => [':root','html','body'].includes(s.trim()) ? '.ct-genai-study-page' : '.ct-genai-study-page ' + s.trim()).join(', ');
