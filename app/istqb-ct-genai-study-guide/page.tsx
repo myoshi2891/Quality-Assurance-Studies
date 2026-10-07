@@ -13,19 +13,34 @@ import Roadmap from './Roadmap';
 import References from './References';
 // Diagrams in the chapter components use the shared components/Mermaid renderer.
 export const metadata: Metadata = {
- title: 'ISTQB® CT-GenAI 完全学習ガイド',
- description: 'CT-GenAIの試験概要と全5章、プロンプト技法、リスク管理、LLM搭載テストインフラ、学習ロードマップを解説。',
+  title: 'ISTQB® CT-GenAI 完全学習ガイド',
+  description: 'CT-GenAIの試験概要と全5章、プロンプト技法、リスク管理、LLM搭載テストインフラ、学習ロードマップを解説。',
 };
 export default function Page() {
- return <div className="ct-genai-study-page"><NavBar /><div className="layout"><main className="main">
- <Hero />
- <Overview />
- <Chapter1 />
- <Chapter2 />
- <Chapter3 />
- <Chapter4 />
- <Chapter5 />
- <Roadmap />
- <References />
- </main></div></div>;
+  return <div className="ct-genai-study-page">
+    <NavBar />
+    <div className="layout">
+      <main className="main">
+
+        <Hero />
+
+        <Overview />
+
+        <Chapter1 />
+
+        <Chapter2 />
+
+        <Chapter3 />
+
+        <Chapter4 />
+
+        <Chapter5 />
+
+        <Roadmap />
+
+        <References />
+
+      </main>
+    </div>
+  </div>;
 }
