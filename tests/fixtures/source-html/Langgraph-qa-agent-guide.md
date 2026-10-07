@@ -313,9 +313,11 @@ def parse_cypher_response(text: str) -> tuple[str, str]:
         raise ValueError("LLM の応答に cypher がありません")
     return query.strip(), str(data.get("reasoning", ""))
 
-def fetch_selected_node(tx, element_id: str):
-    # element_id はパラメータとして渡し、Cypher 文字列に埋め込まない
-    record = tx.run("MATCH (n) WHERE elementId(n) = $element_id RETURN n", element_id=element_id).single()
+def fetch_selected_node(tx, uid: str):
+    # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など。対象ラベルに一意性制約を設定しておく）。
+    # elementId() は同一トランザクション内でしか一意性が保証されず、ノード削除後に別ノードへ再利用され得るため、UI から届く参照には使わない
+    # uid はパラメータとして渡し、Cypher 文字列に埋め込まない
+    record = tx.run("MATCH (n {uid: $uid}) RETURN n", uid=uid).single()
     return record["n"] if record is not None else None
 
 # LLM へ送ってよいプロパティの許可リスト（例）。Cypher の組み立てに必要で、機微でないと確認したキーだけを列挙する。
@@ -324,23 +326,23 @@ SELECTION_PROPERTY_ALLOWLIST = frozenset({"incident_type", "status", "occurred_a
 
 def build_selection_context(selection: dict) -> dict:
     # UI から届く辞書はクライアント側で書き換えられるため、kind・labels・properties の値を文脈に使わない。
-    # 参照として element_id だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる
-    element_id = selection.get("element_id")
-    if selection.get("kind") != "node" or not isinstance(element_id, str) or not element_id:
+    # 参照として uid だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる
+    uid = selection.get("uid")
+    if selection.get("kind") != "node" or not isinstance(uid, str) or not uid:
         raise ValueError("選択中のノードの参照が不正です")
     # driver は Step 7 で定義する読み取り専用ユーザーの共有ドライバ
     with driver.session() as session:
-        node = session.execute_read(fetch_selected_node, element_id)
+        node = session.execute_read(fetch_selected_node, uid)
     if node is None:
         raise ValueError("選択中のノードが見つかりません")
-    # 許可する構造情報は kind・labels・element_id のみ。プロパティは SELECTION_PROPERTY_ALLOWLIST に列挙したキーだけを残す。
+    # 許可する構造情報は kind・labels・uid のみ。プロパティは SELECTION_PROPERTY_ALLOWLIST に列挙したキーだけを残す。
     # to_summary_dto（Step 7）は値の JSON 化に使い、SENSITIVE_KEYS による伏せ字は許可リストの後段の多層防御にとどめる
     # SELECTION_PROPERTY_ALLOWLIST には SENSITIVE_KEYS と重なるキーを入れない（重ねると伏せ字の値だけが送られ、許可リストで送信を絞る意味がなくなる）
     summary = to_summary_dto(node)["properties"]
     return {
         "kind": "node",
         "labels": sorted(node.labels),
-        "element_id": node.element_id,
+        "uid": node["uid"],
         "properties": {k: v for k, v in summary.items() if k in SELECTION_PROPERTY_ALLOWLIST},
     }
 
@@ -380,7 +382,7 @@ def text_to_cypher(state: AgentState) -> dict:
 
 このノードが「選択中のノード」（`user_selection`）と「前回のエラー内容」（`previous_error`）の両方を State から読み取っている点に注目してください。これにより、ユーザーが「選択中の事件に関連する車両を教えて」のような **文脈参照を含む質問** をしても正しくCypherを組み立てられますし、リトライ時には前回の失敗理由をプロンプトに含めて再生成の精度を上げられます。
 
-ただし `user_selection` は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した `element_id` だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた `kind`・`labels`・`element_id` と、`SELECTION_PROPERTY_ALLOWLIST` に列挙したプロパティだけです。列挙していないプロパティは値を伏せるのではなくキーごと送りません。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では例外でグラフ実行を止めず、選択を外して質問とスキーマだけで続行し、`selection_notice` で UI に理由を表示します。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
+ただし `user_selection` は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した `uid`（アプリケーションが採番した一意で永続的な ID）だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた `kind`・`labels`・`uid` と、`SELECTION_PROPERTY_ALLOWLIST` に列挙したプロパティだけです。列挙していないプロパティは値を伏せるのではなくキーごと送りません。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、`SUMMARY_LLM_TRANSFER_APPROVED` が無効な環境では例外でグラフ実行を止めず、選択を外して質問とスキーマだけで続行し、`selection_notice` で UI に理由を表示します。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
 
 ### Step 7. Query Execution ノード — 実行してエラーを捕捉する
 
