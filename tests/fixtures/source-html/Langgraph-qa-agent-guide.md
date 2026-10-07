@@ -645,8 +645,12 @@ from neo4j import GraphDatabase
 # neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない
 @st.cache_resource
 def get_driver():
+    neo4j_uri = os.environ["NEO4J_URI"]  # 例: neo4j+s://xxxx.databases.neo4j.io
+    # 暗号化しない neo4j:// や証明書検証を省略する neo4j+ssc:// で接続しないよう、接続前にスキームを検証する
+    if not neo4j_uri.startswith("neo4j+s://"):
+        raise ValueError("NEO4J_URI は neo4j+s:// で始まる必要があります")
     driver = GraphDatabase.driver(
-        os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io
+        neo4j_uri,
         auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),
     )
     # プロセス終了時に共有 Driver の接続プールを明示的に閉じる
