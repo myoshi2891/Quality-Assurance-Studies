@@ -142,6 +142,8 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
+現在の登録は92ルート（2026-10-07）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`npm test -- tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
 ## 🎯 目的
