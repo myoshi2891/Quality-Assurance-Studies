@@ -1,4 +1,4 @@
-# ISO/IEC 30130:2016 初学者向け完全ガイド
+# ISO/IEC 30130:2016 初学者向け概要ガイド
 
 **Software engineering — Capabilities of software testing tools（ソフトウェアエンジニアリング — ソフトウェアテストツールの能力）**
 
