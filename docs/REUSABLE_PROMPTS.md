@@ -268,3 +268,7 @@
 ## Beautiful Testing完全ガイドの確認
 
 `/beautiful-testing-guide`のモバイル目次、Mermaid図8件、表5件、チェックリスト11項目は移行済み。ブラウザ目視確認はユーザーが実施する。元HTML・MDは`tests/fixtures/source-html/`で追跡管理している。テスト補正の復旧コミットは承認待ちのため、進捗文書の留保を確認すること。
+
+## CT-GenAI完全学習ガイドの追加移行（2026-10-07）
+
+`/istqb-ct-genai-study-guide`を追加済み。既存の総合・第1〜5章画面は保持する。目視確認はユーザーが行い、ビルドは自動実行しない。元HTML・MDは`archive/html-archive/ct-specialist/`・`archive/md-archive/ct-specialist/`で追跡管理し、固定インベントリと304テストで内容・図・デザインを照合する。CSSコミットの復旧承認の状況は`MIGRATION_PROGRESS.md`を参照。

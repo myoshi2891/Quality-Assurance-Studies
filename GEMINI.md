@@ -174,6 +174,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/testing-ai-confidence-engineering-guide/page.tsx` (Testing AI 完全ガイド、`NavBar.tsx` 付き)
 - `app/automating-data-quality-monitoring-guide/page.tsx` (データ品質モニタリング自動化ガイド、`NavBar.tsx` 付き)
 - `app/langgraph-qa-agent-guide/page.tsx` (LangGraphとNeo4jによるQAエージェント構築ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ct-genai-study-guide/page.tsx` (CT-GenAI完全学習ガイド、既存画面と併存、`NavBar.tsx` 付き)
 - `app/beautiful-testing-guide/page.tsx` (Beautiful Testing ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
@@ -200,7 +201,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（90 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（91 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -325,6 +326,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Testing-ai-confidence-engineering-guide.html` | `/testing-ai-confidence-engineering-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Automating-data-quality-monitoring-guide.html` | `/automating-data-quality-monitoring-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Langgraph-qa-agent-guide.html` | `/langgraph-qa-agent-guide` | ✅ NavBar + aria-current あり (tests/fixtures/source-html/、HTML・MD両方) |
+| `Ct-genai-study-guide.html` | `/istqb-ct-genai-study-guide` | ✅ 既存CT-GenAI画面と併存。目次25リンク・Mermaid図13件。HTML/MDはarchive配下で追跡管理 |
 | `Beautiful-testing-guide.html` | `/beautiful-testing-guide` | ✅ モバイル目次・チェックリスト・Mermaid図8件あり (tests/fixtures/source-html/、HTML・MD両方) |
 | `Ctal-ta-v4.0-ch1.html` | `/istqb-ctal-ta-chapter1-test-process` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
 | `Ctal-ta-v4.0-ch2.html` | `/istqb-ctal-ta-chapter2-risk-based-testing` | ✅ NavBar + aria-current あり (archive/html-archive/ctal/) |
@@ -342,7 +344,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 43 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 61 ファイル（HTML 29件・Markdown 32件、プロジェクト仕様書を除く）残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -352,7 +354,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | 書籍ガイド系（HTML + Markdown の 6 ペア = 12 ファイル）: `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Ct-genai-study-guide.*` / `Ctal-tae-*.html` / `Ctal-tae-*.md` / `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CT-GenAI総合ガイド、CTAL-TAE各章、ISO 29119各部の静的ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Ctal-tae-*.html` / `Ctal-tae-*.md` / `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE各章、ISO 29119各部の静的ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -365,9 +367,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 90 ルート（ガイドライブラリ index + 89 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 43 ファイル（書籍ガイド、`Sonarqube.html`、CT-GenAI総合、CTAL-TAE各章、ISO 29119各部など）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- ユニットテストとESLintは成功。LangGraph・Beautiful Testing移行対象の型チェックも成功。全体型チェックは既存テストの型エラーが残存。
+- 合計 91 ルート（ガイドライブラリ index + 90 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 61 ファイル（HTML 29件・Markdown 32件、プロジェクト仕様書を除く。書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 29119各部など）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- ユニットテストとESLintは成功。LangGraph・Beautiful Testing・CT-GenAI学習ガイド移行対象の型チェックも成功。全体型チェックは既存テストの型エラーが残存。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。

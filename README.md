@@ -1,6 +1,6 @@
 # ソフトウェアテスト実施概要
 
-最終更新日: 2026-10-02
+最終更新日: 2026-10-07
 
 本プロジェクトにおいて、システムの品質（正しく動くか・快適に使えるか）を担保するために実施するテスト項目の概要と目的を以下に定義します。
 
@@ -85,3 +85,9 @@ bun run dev
 ```
 
 This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+
+## CT-GenAI完全学習ガイド
+
+`/istqb-ct-genai-study-guide`を既存のCT-GenAI画面に追加しています。元HTML・Markdownは`archive/`に保管しています。移行テストは本文・全表・図13件・全55CSSルール・目次操作・既存画面のハッシュを検証します。
+
+今回のサンドボックス検証は`npm test`と`npm run lint`で実施します。ビルドとブラウザの目視確認はユーザーが実施します。
