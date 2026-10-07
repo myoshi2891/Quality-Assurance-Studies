@@ -335,6 +335,7 @@ def build_selection_context(selection: dict) -> dict:
         raise ValueError("選択中のノードが見つかりません")
     # 許可する構造情報は kind・labels・element_id のみ。プロパティは SELECTION_PROPERTY_ALLOWLIST に列挙したキーだけを残す。
     # to_summary_dto（Step 7）は値の JSON 化に使い、SENSITIVE_KEYS による伏せ字は許可リストの後段の多層防御にとどめる
+    # SELECTION_PROPERTY_ALLOWLIST には SENSITIVE_KEYS と重なるキーを入れない（重ねると伏せ字の値だけが送られ、許可リストで送信を絞る意味がなくなる）
     summary = to_summary_dto(node)["properties"]
     return {
         "kind": "node",
@@ -354,7 +355,12 @@ def text_to_cypher(state: AgentState) -> dict:
         selection_notice = "外部 LLM への送信が承認されていないため、選択中のノードを使わずに質問だけで回答しています。"
     elif selection is not None:
         # クライアントの辞書ではなく、Neo4j の実ノードからサーバー側で組み立てた文脈だけをプロンプトに含める
-        selection = build_selection_context(selection)
+        try:
+            selection = build_selection_context(selection)
+        except ValueError:
+            # 参照が不正、またはノードが見つからない場合も、グラフ実行を止めずに選択を外して質問とスキーマだけで続行する
+            selection = None
+            selection_notice = "選択中のノードを取得できなかったため、選択中のノードを使わずに質問だけで回答しています。"
     prompt = prompt_config.render(
         "text_to_cypher.jinja2",
         question=state["question"],
