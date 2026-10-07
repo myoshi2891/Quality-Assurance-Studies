@@ -271,4 +271,6 @@
 
 ## CT-GenAI完全学習ガイドの追加移行（2026-10-07）
 
-`/istqb-ct-genai-study-guide`を追加済み。既存の総合・第1〜5章画面は保持する。目視確認はユーザーが行い、ビルドは自動実行しない。元HTML・MDは`archive/html-archive/ct-specialist/`・`archive/md-archive/ct-specialist/`で追跡管理し、固定インベントリと304テストで内容・図・デザインを照合する。CSSコミットの復旧承認の状況は`MIGRATION_PROGRESS.md`を参照。
+`/istqb-ct-genai-study-guide`を追加済み。既存の総合・第1〜5章画面は保持する。目視確認はユーザーが行い、ビルドは自動実行しない。元HTML・MDは`archive/html-archive/ct-specialist/`・`archive/md-archive/ct-specialist/`で追跡管理し、固定インベントリと305テストで内容・図・デザインを照合する。CSSコミットの復旧承認の状況は`MIGRATION_PROGRESS.md`を参照。
+
+Mermaidの左端切れの再発確認は`npm exec -- playwright test --config playwright.mermaid-css.config.ts`で行う。外側コンテナに横スクロールを集約し、内側の共有ラッパーのflex中央寄せ・横スクロールをページ内で解除する。CSS単独テストのためサーバーと本番ビルドは起動しない。

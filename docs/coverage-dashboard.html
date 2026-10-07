@@ -1093,14 +1093,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">3 files</span>
+          <span class="inv-count" id="inv-count-e2e">4 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>Test Tooling &amp; Config</span>
-          <span class="inv-count" id="inv-count-tooling">2 files</span>
+          <span class="inv-count" id="inv-count-tooling">3 files</span>
         </summary>
         <ul id="inv-tooling"></ul>
       </details>
@@ -1278,7 +1278,7 @@ const DATA = {
         { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study additionally verifies all source DOM, tables, diagrams, CSS and navigation.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
-        { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
+        { state: 'partial', value: '12', label: 'CSS geometry', note: 'CT-GenAI study: Chromium verifies both scroll edges and small-diagram centering across 4 viewport widths and 3 SVG widths; screenshot baselines remain absent.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: `axe-core/playwright: Automated accessibility audit on all ${pages.length} routes.` },
         { state: 'full', value: '4/4', label: '100%', note: 'Lighthouse CI: Performance budget (LCP < 2.5s, TBT < 350ms, A11y/SEO >= 0.9) asserted on 4 key routes.' }
       ]
@@ -1529,10 +1529,12 @@ const DATA = {
     e2e: [
       'e2e/pages.ts',
       'e2e/smoke.e2e.ts',
-      'e2e/a11y.e2e.ts'
+      'e2e/a11y.e2e.ts',
+      'e2e/ct-genai-study-mermaid-css.e2e.ts'
     ],
     tooling: [
       'playwright.config.ts',
+      'playwright.mermaid-css.config.ts',
       'lighthouserc.json'
     ]
   },

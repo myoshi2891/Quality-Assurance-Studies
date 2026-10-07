@@ -13,10 +13,19 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `0b679d5`（検証対象。ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `refactor(ct-genai-study): format category components for source review` |
+| 最新 HEAD | `51f8a96`（検証対象。ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `fix(ct-genai-study): keep wide Mermaid diagrams reachable from scroll origin` |
 | 次の作業 | ユーザーによる新規CT-GenAI学習ガイドの目視確認。CSSコミット4e13ce0の履歴保持復旧は承認待ち |
-| ビルド状態 | `npm test`: 2079 pass / 0 fail、110 files（2026-10-07）。`npm run lint`: 成功。移行対象の型チェック成功。全体型チェックは既存テストの型エラーが残存。ビルド・ブラウザ確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| ビルド状態 | `npm test`: 2080 pass / 0 fail、110 files（2026-10-07）。`npm run lint`: 成功。移行対象の型チェック成功。全体型チェックは既存テストの型エラーが残存。ChromiumによるCSS単独レイアウト検証12件成功。ビルド・実ページの目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+
+## 2026/10/07: CT-GenAI学習ガイドのMermaid左端切れ修正
+
+- Chromiumで再現: 390px画面・1800px SVGで左端がスクロール原点より733px左に配置され、外側スクロール幅334px、内側1067pxとなっていた。
+- 原因は共有CSSの内側`.mermaid-wrapper`に残る`display: flex; justify-content: center; overflow-x: auto`と、ページ側の縮小解除・`flex-shrink: 0`の組み合わせ。外側の`safe center`では内側の負の配置を防げなかった。
+- ページ固有CSSのみで内側を`display: block !important; overflow: visible !important`に変更し、横スクロールを外側に集約。共有Mermaidコンポーネント、既存画面、図ソースは保持。
+- 失敗テストを`1a66ad5`、修正を`51f8a96`で独立コミット。ページ305テスト（CSS契約を含む）と共有テーマ契約が成功。
+- `playwright.mermaid-css.config.ts`はサーバー・ビルドを起動しない。`e2e/ct-genai-study-mermaid-css.e2e.ts`が実CSS・描画済みSVGと同じDOMをChromiumで計測し、4画面幅×3図幅の12ケースで両端到達性・自然幅・小図中央寄せ・ページ全体の横はみ出しを検証。修正前12 fail、修正後12 pass。
+- 実ページの目視確認はユーザーが行う。先のCSS末尾空白の履歴保持復旧は引き続き承認待ちで、今回の修正には含めない。
 
 ## 2026/10/07: CT-GenAI完全学習ガイドの追加移行
 
@@ -24,7 +33,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 見出し61件、目次25リンク、表24件（全セル）、コールアウト23件、出典注記6件、参考リンク25件、Mermaid図13件を移行。元HTMLにコードブロックはないことも固定インベントリに記録。
 - `docs/migration-inventory/istqb-ct-genai-study-guide.json` に元ソースのハッシュ、本文・DOM構造・順序、全55CSSルールとメディア条件、図ソース、既存画面のハッシュを保存。
 - 実装前にRedテストを独立コミット。CSS、図、ヒーロー、資格概要、第1〜5章、ロードマップ、参考資料、目次、ルート登録、アーカイブをカテゴリー別に検証・コミット。
-- ページ304テスト。実Mermaidパーサによる全図の構文検証、各図と元の配置先の対応、モバイル開閉・Escape・追従・監視解除、グローバルCSS干渉リセットを検証。
+- ページ305テスト。実Mermaidパーサによる全図の構文検証、各図と元の配置先の対応、モバイル開閉・Escape・追従・監視解除、グローバルCSS干渉リセットを検証。
 - HTMLは`archive/html-archive/ct-specialist/Ct-genai-study-guide.html`、Markdownは`archive/md-archive/ct-specialist/Ct-genai-study-guide.md`へ移動し、gitignore対象のarchiveを明示的に追跡管理。元ファイルとバイト単位のハッシュ一致を確認。
 - ナビ・E2E対象は91ルート。既存テストの旧固定件数はルート登録情報に追従させて補正。検証はnpmで実行し、ビルド・目視確認は実施しない。
 - 手順留保: `4e13ce0`で末尾空白検査の失敗後に処理を止められず、PII事前検査を経ずCSSをコミットした。事後PII検査は成功。履歴を保持した末尾空白修正・再検査の別コミットは、TDDルール「違反時の対応」に従ってユーザー承認待ち。

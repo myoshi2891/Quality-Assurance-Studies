@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 2079 tests)
+bun test             # ユニットテスト (bun test, 2080 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -374,9 +374,10 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/page.tsx` — 元HTMLの全5章・試験概要・ロードマップ・参考資料を既存画面と併存する新規ルートへ移行
 - `app/istqb-ct-genai-study-guide/istqb-ct-genai-study-guide.css` — 全55CSSルール・白背景と青の配色・880pxモバイル境界を保持し、共有スタイルをページ内でリセット
 - `app/istqb-ct-genai-study-guide/NavBar.tsx` — 目次25リンク、開閉・Escape・スクロール追従・IntersectionObserver解除
+- `playwright.mermaid-css.config.ts` / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
 - `app/istqb-ct-genai-study-guide/diagrams.ts` — 元配色・ノード・接続を保持するMermaid図13件
 - `app/istqb-ct-genai-study-guide/` — Hero・Overview・Chapter1〜5・Roadmap・Referencesのカテゴリー別コンポーネント
-- `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する304テスト
+- `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する305テスト
 - `app/beautiful-testing-guide/page.tsx` — Beautiful Testing全15セクションを元HTMLの本文・構造に沿って移行
 - `app/beautiful-testing-guide/beautiful-testing-guide.css` — 元の濃紺・ミント配色、表、目次、モバイル表示をページ内にスコープ
 - `app/beautiful-testing-guide/NavBar.tsx` — 開閉、Escape、フォーカス復帰、`useScrollSpy`と`aria-current`対応の目次
