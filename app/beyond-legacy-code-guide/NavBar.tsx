@@ -21,7 +21,7 @@ const TARGETS = [
   "roadmap",
   "summary",
   "references"
-];
+] as const;
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function NavBar() {
     let frame = 0;
     // Nested practice targets need document-order selection, as in the original.
     const update = () => {
-      let current = TARGETS[0];
+      let current: string = TARGETS[0];
       for (const id of TARGETS) {
         const element = document.getElementById(id);
         if (!element) continue;
