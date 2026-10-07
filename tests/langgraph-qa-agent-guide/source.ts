@@ -1,12 +1,7 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 // archive/ は git 管理外のため、CI でも読めるよう追跡対象のフィクスチャを正とする
 export const SOURCE_DIR = 'tests/fixtures/source-html/';
-export const html = readFileSync(
-    existsSync('Langgraph-qa-agent-guide.html')
-        ? 'Langgraph-qa-agent-guide.html'
-        : SOURCE_DIR + 'Langgraph-qa-agent-guide.html',
-    'utf8',
-);
+export const html = readFileSync(SOURCE_DIR + 'Langgraph-qa-agent-guide.html', 'utf8');
 export const source = new DOMParser().parseFromString(
     html.replace(/<head>[\s\S]*?<\/head>/, '').replace(/<script[\s\S]*?<\/script>/g, ''),
     'text/html',
