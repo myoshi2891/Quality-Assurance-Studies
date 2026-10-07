@@ -362,7 +362,7 @@ describe('registration and archive',()=>{
  it('registers the guide as books-practices and adds matching smoke coverage',async()=>{
  const {NAV_ITEMS}=await import('../../lib/navigation');const {PAGES,EXPECTED_PAGE_COUNT}=await import('../../e2e/pages');
  expect(NAV_ITEMS.find(item=>item.href==='/beautiful-testing-guide')?.category).toBe('books-practices');
- expect(PAGES.find(item=>item.path==='/beautiful-testing-guide')?.h1.test('『Beautiful Testing』完全ガイド')).toBe(true);expect(EXPECTED_PAGE_COUNT).toBe(90);
+ expect(PAGES.find(item=>item.path==='/beautiful-testing-guide')?.h1.test('『Beautiful Testing』完全ガイド')).toBe(true);expect(EXPECTED_PAGE_COUNT).toBe(NAV_ITEMS.length);
  });
  it('preserves all fifteen section IDs and all eighteen headings in exact order',async()=>{
  const {container}=await page();expect([...container.querySelectorAll('section[id]')].map(node=>node.id)).toEqual(inventory.sections);

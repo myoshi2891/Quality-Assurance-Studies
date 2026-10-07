@@ -68,7 +68,8 @@ describe('Diagrams', () => {
   const chart=diagrams[('DIAGRAM_'+id.split('-').at(-1)) as keyof typeof diagrams] as string;
   const expected=raw.split('\n').map(l=>l.trim()).join('\n').replaceAll('（','(').replaceAll('）',')').replaceAll('―','-').replaceAll('：',':').replace(/\{([^"{}]+)\}/g,'{"$1"}');
   expect(chart.replace(/^%%\{init:[\s\S]*?\}%%\n/,'')).toBe(expected);
-  const {default:mermaid}=await import('mermaid/dist/mermaid.esm.mjs');
+  const parserPath = 'mermaid/dist/mermaid.esm.mjs';
+  const {default:mermaid}=await import(parserPath) as { default: typeof import('mermaid').default };
   expect(await mermaid.parse(chart)).toBeTruthy();
   const config=JSON.parse(chart.match(/^%%\{init: ([\s\S]*?)\}%%/)![1]!);
   expect(config.theme).toBe('base');expect(config.themeVariables.mainBkg).toBe('#eff6ff');expect(config.flowchart.useMaxWidth).toBe(false);
@@ -77,7 +78,7 @@ describe('Diagrams', () => {
 describe('Navigation', () => {
  it('keeps every TOC link and anchor in order', async()=>{
   const root=await category('NavBar');
-  const actual=[...root.querySelectorAll('nav a')].map(n=>{const s=signature(n);s.attrs=s.attrs.map(([k,v])=>[k,k==='class'?v!.replace(' active',''):v]);return s;});
+  const actual=[...root.querySelectorAll('nav a')].map(n=>{const s=signature(n);s.attrs=s.attrs.map(([k,v])=>[k!,k==='class'?v!.replace(' active',''):v!] as [string,string]);return s;});
   expect(actual).toEqual(inventory.navigation);
  });
  it('opens and closes mobile navigation and supports Escape',async()=>{
@@ -90,9 +91,9 @@ describe('Navigation', () => {
  });
  it('observes all TOC headings and disconnects on unmount',async()=>{
   const Native=window.IntersectionObserver;const ids:string[]=[];let disconnected=false;let callback:IntersectionObserverCallback=()=>{};
-  window.IntersectionObserver=class { constructor(cb:IntersectionObserverCallback,options:IntersectionObserverInit){callback=cb;expect(options.rootMargin).toBe('-15% 0px -75% 0px');} observe(n:Element){ids.push(n.id);} disconnect(){disconnected=true;} } as unknown as typeof IntersectionObserver;
+  window.IntersectionObserver=class { constructor(cb:IntersectionObserverCallback,options?:IntersectionObserverInit){callback=cb;expect(options?.rootMargin).toBe('-15% 0px -75% 0px');} observe(n:Element){ids.push(n.id);} disconnect(){disconnected=true;} } as unknown as typeof IntersectionObserver;
   try { const {default:Page}=await import('../../app/istqb-ct-genai-study-guide/page');const result=render(<Page/>);
-   expect(ids).toEqual(inventory.navigation.map(n=>n.attrs.find(([k])=>k==='data-target')![1]));
+   expect(ids).toEqual(inventory.navigation.map(n=>n.attrs.find(([k])=>k==='data-target')![1]!));
    const target=result.container.querySelector('main h3')!;
    act(() => callback([{isIntersecting:true,target}] as IntersectionObserverEntry[],{} as IntersectionObserver));
    await waitFor(()=>expect(result.container.querySelector('nav a[aria-current="location"]')?.getAttribute('href')).toBe('#'+target.id));
