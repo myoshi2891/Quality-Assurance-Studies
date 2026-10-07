@@ -368,6 +368,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 <h2 id="3">3. ライフサイクル: いま規格はどこにいる？</h2>
 <p><span class="badge ok">✅</span> ISOページに掲載されているステージ一覧をもとにした図です。<strong>赤色相当の「現在地」は 20.00</strong> です。</p>
 <figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: ISO/IEC AWI TS 42119-8 の策定ステージと現在地
+    accDescr: 10.99 新規プロジェクト承認から 20.00 作業計画への登録、WD検討開始、コメント期間終了、WDのCD登録承認、CD登録、CDのDIS登録承認、最終テキスト受領を経て 60.60 発行へ進む流れを示し、現在地が 20.00 作業計画に登録の段階であることを強調している
     A[&quot;10.99&lt;br/&gt;新規プロジェクト承認&lt;br/&gt;2025-09-12&quot;] --&gt; B[&quot;20.00&lt;br/&gt;作業計画に登録&lt;br/&gt;2025-09-13&lt;br/&gt;★現在地★&quot;]
     B --&gt; C[&quot;20.20&lt;br/&gt;WD検討開始&quot;]
     C --&gt; D[&quot;20.60&lt;br/&gt;コメント期間終了&quot;]
@@ -478,6 +480,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 <h2 id="5">5. 規格ファミリー内での位置づけ</h2>
 <h3 id="51">5.1 全体マップ</h3>
 <figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 42119-8 と関連規格の関係
+    accDescr: マネジメント層の ISO/IEC 42001 が 42119 シリーズの技術的基盤を補完し、ISO/IEC/IEEE 29119 がシリーズの基盤となる。シリーズには 42119-2、42119-3、42119-7、42119-8 が含まれ、42119-7 レッドチーミングと ISO/IEC 23282 NLPシステムの評価方法が、本ガイドの対象である 42119-8 に入力される
     subgraph MGMT[&quot;マネジメント層&quot;]
         M1[&quot;ISO/IEC 42001&lt;br/&gt;AIマネジメントシステム&quot;]
     end
@@ -569,6 +573,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 <h3 id="61">6.1 システムの全体像（一般的な構成）<span class="badge ref">🔎</span></h3>
 <p>多くの生成AIアプリは、LLM単体ではなく、周辺の仕組みが組み合わさっています。品質評価では、<strong>LLMだけでなく「システム全体」</strong> が対象になります。</p>
 <figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: プロンプトベース text-to-text 生成AIシステムの構成
+    accDescr: ユーザー入力が入力ガードレールを通ってプロンプト組み立てに渡され、RAG の社内文書DB の情報も加えられる。組み立てたプロンプトから LLM が生成した結果は、出力ガードレールを経て出力テキストになる
     U[&quot;ユーザー入力&lt;br/&gt;テキスト&quot;] --&gt; G1[&quot;入力ガードレール&lt;br/&gt;フィルタ&quot;]
     G1 --&gt; P[&quot;プロンプト組み立て&lt;br/&gt;システムプロンプト + 履歴&quot;]
     R[(&quot;RAG&lt;br/&gt;社内文書DB&quot;)] --&gt; P
@@ -722,6 +728,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 <h3 id="82-abstract">8.2 「品質」と「安全性」の関係（Abstractの読み解き）</h3>
 <p><span class="badge ok">✅</span> Abstractには「quality assessment (which encompasses safety)」とあります。つまり、<strong>安全性は品質の一部として扱う</strong> 立場です。</p>
 <figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 品質評価の2つの側面
+    accDescr: 品質評価は機能面と安全性に分かれ、正確さや有用性などの機能面は主に通常テストや自動指標で、有害出力や情報漏えいなどの安全性は主にレッドチーミングで評価する
     Q[&quot;品質評価&lt;br/&gt;Quality assessment&quot;]
     Q --&gt; F[&quot;機能面&lt;br/&gt;正確さ・有用性・一貫性など&quot;]
     Q --&gt; S[&quot;安全性&lt;br/&gt;有害出力・情報漏えい・悪用耐性など&quot;]
@@ -813,6 +821,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 </table></div>
 <h3 id="92">9.2 手法の組み合わせイメージ <span class="badge idea">💡</span></h3>
 <figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: 評価手法の組み合わせ
+    accDescr: 自動指標、LLM-as-a-Judge、人手評価、レッドチーミングの4つの評価結果を総合判断に集約し、そこからリリース可否と改善点を決定する
     A[&quot;自動指標&lt;br/&gt;広く浅く&quot;] --&gt; D[&quot;総合判断&quot;]
     B[&quot;LLM-as-a-Judge&lt;br/&gt;大量・中程度の深さ&quot;] --&gt; D
     C[&quot;人手評価&lt;br/&gt;少量・深く&quot;] --&gt; D
@@ -860,6 +870,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 <h3 id="103">10.3 実施ステップ（一般的な流れ）<span class="badge idea">💡</span></h3>
 <p>以下は、OWASPガイドやPyRITなどの公開情報、およびAbstractの記述を踏まえた<strong>一般的な進め方</strong>です。本規格の正式な手順ではありません。</p>
 <figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 評価の9ステップ
+    accDescr: 目的とスコープの定義、リスクの洗い出し、テストシナリオ設計、実行、結果の採点と分類、分析と解釈、文書化と報告、改善、再テストの順に進み、再テストから実行へ戻って繰り返す。分析と解釈、文書化と報告の2ステップが強調されている
     S1[&quot;STEP1&lt;br/&gt;目的とスコープの定義&lt;br/&gt;何を守りたいか&quot;] --&gt; S2[&quot;STEP2&lt;br/&gt;リスクの洗い出し&lt;br/&gt;脅威モデリング&quot;]
     S2 --&gt; S3[&quot;STEP3&lt;br/&gt;テストシナリオ設計&lt;br/&gt;攻撃ベクトルの選定&quot;]
     S3 --&gt; S4[&quot;STEP4&lt;br/&gt;実行&lt;br/&gt;手動 + 自動ツール&quot;]
@@ -935,6 +947,8 @@ ul,ol{padding-left:1.4em}li{margin:.25em 0}
 <p><span class="badge ok">✅</span> Abstractは「結果の分析と解釈の方法」を扱うと述べています。生成AIは出力が揺らぐため、<strong>1回の結果で判断しない</strong> のが基本姿勢です。</p>
 <h3 id="111">11.1 なぜ「解釈」が難しいのか</h3>
 <figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 確率的な出力の合否判断
+    accDescr: 同じ攻撃プロンプトを10回実行して3回だけ不適切な出力が出た場合、成功率30パーセントと見るか、1回でも出たら重大と見るかで解釈が分かれ、どちらの見方でもリスクの種類と重大度によって判断が変わることを示す
     T[&quot;同じ攻撃プロンプトを&lt;br/&gt;10回実行&quot;] --&gt; R[&quot;結果: 3回だけ&lt;br/&gt;不適切な出力&quot;]
     R --&gt; Q1{&quot;これは合格？&lt;br/&gt;不合格？&quot;}
     Q1 --&gt; A1[&quot;成功率30%&lt;br/&gt;と見るか&quot;]
@@ -1171,6 +1185,8 @@ python3<span class="w"> </span>-m<span class="w"> </span>garak<span class="w"> <
 <h3 id="step-5">STEP 5: 結果を記録し、改善して再テストする</h3>
 <p>前章（12章）のテンプレートで記録し、修正後に同じテストを再実行して効果を確認します。</p>
 <figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: テスト結果の改善サイクル
+    accDescr: テスト実行、結果記録、分析、改善、再テストの順に進み、再テストの結果を再び記録して分析と改善を繰り返す
     A[&quot;テスト実行&quot;] --&gt; B[&quot;結果記録&quot;]
     B --&gt; C[&quot;分析&quot;]
     C --&gt; D[&quot;改善&quot;]
@@ -1527,12 +1543,29 @@ if(window.mermaid)mermaid.initialize({startOnLoad:true,theme:"default",securityL
 <script>
 (function(){
   var btn=document.getElementById('menuBtn'),nav=document.getElementById('toc'),back=document.getElementById('backdrop');
-  function setOpen(o){document.body.classList.toggle('nav-open',o);btn.setAttribute('aria-expanded',String(o));btn.setAttribute('aria-label',o?'目次を閉じる':'目次を開く');}
-  btn.addEventListener('click',function(){setOpen(!document.body.classList.contains('nav-open'));});
+  function isOpen(){return document.body.classList.contains('nav-open');}
+  function focusables(){return [].slice.call(nav.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])'));}
+  /* restore=false: リンク選択やデスクトップ幅への切替で閉じる場合はボタンへ戻さない */
+  function setOpen(o,restore){
+    var was=isOpen();
+    document.body.classList.toggle('nav-open',o);btn.setAttribute('aria-expanded',String(o));btn.setAttribute('aria-label',o?'目次を閉じる':'目次を開く');
+    if(o&&!was){var f=focusables()[0];if(f)f.focus();}
+    else if(!o&&was&&restore!==false){btn.focus();}
+  }
+  btn.addEventListener('click',function(){setOpen(!isOpen());});
   back.addEventListener('click',function(){setOpen(false);});
-  nav.addEventListener('click',function(e){if(e.target.closest('a'))setOpen(false);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false);});
-  window.matchMedia('(min-width:1025px)').addEventListener('change',function(e){if(e.matches)setOpen(false);});
+  nav.addEventListener('click',function(e){if(e.target.closest('a'))setOpen(false,false);});
+  document.addEventListener('keydown',function(e){
+    if(!isOpen())return;
+    if(e.key==='Escape'){setOpen(false);return;}
+    if(e.key!=='Tab')return;
+    /* 開いている間は目次のリンクと開閉ボタンの間でフォーカスを循環させる */
+    var list=focusables().concat(btn),first=list[0],last=list[list.length-1],act=document.activeElement;
+    if(list.indexOf(act)===-1){e.preventDefault();first.focus();return;}
+    if(e.shiftKey&&act===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&act===last){e.preventDefault();first.focus();}
+  });
+  window.matchMedia('(min-width:1025px)').addEventListener('change',function(e){if(e.matches)setOpen(false,false);});
   var links=[].slice.call(nav.querySelectorAll('a[href^="#"]')),items=[];
   links.forEach(function(a){var el=document.getElementById(decodeURIComponent(a.hash.slice(1)));if(el)items.push({a:a,el:el});});
   var ticking=false,current=null;
