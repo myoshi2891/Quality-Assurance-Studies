@@ -375,7 +375,10 @@
     width: 100%;
     flex-shrink: 0;
 }
+/* Keep wide SVGs after the scroll origin; only the outer container scrolls. */
 .ct-genai-study-page .mermaid-wrapper {
+    display: block !important;
+    overflow: visible !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
