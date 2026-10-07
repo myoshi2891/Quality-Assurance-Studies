@@ -544,7 +544,7 @@ export default function Page() {
                     <h3>{'Step 6. Text-to-Cypher ノード — 自然言語をCypherに変換する'}</h3>
                     <div className="code-tag">{'python'}</div>
                     <pre>
-                        <SyntaxCode language="python" code={'def parse_cypher_response(text: str) -> tuple[str, str]:\n    # 期待する形式: {"cypher": "MATCH ...", "reasoning": "..."}（parse_json_object は Step 5 で定義）\n    data = parse_json_object(text)\n    query = data.get("cypher")\n    if not isinstance(query, str) or not query.strip():\n        raise ValueError("LLM の応答に cypher がありません")\n    return query.strip(), str(data.get("reasoning", ""))\n\ndef text_to_cypher(state: AgentState) -> dict:\n    prompt = prompt_config.render(\n        "text_to_cypher.jinja2",\n        question=state["question"],\n        schema=state["llm_schema"],\n        selection=state.get("user_selection"),\n        previous_error=state.get("results_error"),\n    )\n    response = llm.invoke(prompt)\n    query, reasoning = parse_cypher_response(response.content)\n    return {\n        "cypher_query": query,\n        "cypher_reasoning": reasoning,\n        "raw_llm_response": response.content,\n    }'} />
+                        <SyntaxCode language="python" code={'def parse_cypher_response(text: str) -> tuple[str, str]:\n    # 期待する形式: {"cypher": "MATCH ...", "reasoning": "..."}（parse_json_object は Step 5 で定義）\n    data = parse_json_object(text)\n    query = data.get("cypher")\n    if not isinstance(query, str) or not query.strip():\n        raise ValueError("LLM の応答に cypher がありません")\n    return query.strip(), str(data.get("reasoning", ""))\n\ndef fetch_selected_node(tx, element_id: str):\n    # element_id はパラメータとして渡し、Cypher 文字列に埋め込まない\n    record = tx.run("MATCH (n) WHERE elementId(n) = $element_id RETURN n", element_id=element_id).single()\n    return record["n"] if record is not None else None\n\ndef build_selection_context(selection: dict) -> dict:\n    # UI から届く辞書はクライアント側で書き換えられるため、kind・labels・properties の値を文脈に使わない。\n    # 参照として element_id だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる\n    element_id = selection.get("element_id")\n    if selection.get("kind") != "node" or not isinstance(element_id, str) or not element_id:\n        raise ValueError("選択中のノードの参照が不正です")\n    # driver は Step 7 で定義する読み取り専用ユーザーの共有ドライバ\n    with driver.session() as session:\n        node = session.execute_read(fetch_selected_node, element_id)\n    if node is None:\n        raise ValueError("選択中のノードが見つかりません")\n    # 許可する構造情報は kind・labels・element_id のみ。プロパティは Step 7 の to_summary_dto で SENSITIVE_KEYS の値を伏せる\n    return {\n        "kind": "node",\n        "labels": sorted(node.labels),\n        "element_id": node.element_id,\n        "properties": to_summary_dto(node)["properties"],\n    }\n\ndef text_to_cypher(state: AgentState) -> dict:\n    selection = state.get("user_selection")\n    if selection is not None:\n        # 選択中のノードはグラフ DB 由来の値を含むため、クエリ結果と同じ送信条件を適用する。\n        # SUMMARY_LLM_TRANSFER_APPROVED（Step 9）が無効な環境では LLM を呼ばずに送信を拒否する\n        if not SUMMARY_LLM_TRANSFER_APPROVED:\n            raise PermissionError("外部 LLM への送信が承認されていないため、選択中のノードを含む質問は処理できません")\n        # クライアントの辞書ではなく、Neo4j の実ノードからサーバー側で組み立てた文脈だけをプロンプトに含める\n        selection = build_selection_context(selection)\n    prompt = prompt_config.render(\n        "text_to_cypher.jinja2",\n        question=state["question"],\n        schema=state["llm_schema"],\n        selection=selection,\n        previous_error=state.get("results_error"),\n    )\n    response = llm.invoke(prompt)\n    query, reasoning = parse_cypher_response(response.content)\n    return {\n        "cypher_query": query,\n        "cypher_reasoning": reasoning,\n        "raw_llm_response": response.content,\n    }'} />
                     </pre>
                     <p>
                         {'\n                        このノードが「選択中のノード」（'}
@@ -558,6 +558,27 @@ export default function Page() {
                         {
                             'をしても正しくCypherを組み立てられますし、リトライ時には前回の失敗理由をプロンプトに含めて再生成の精度を上げられます。\n                    '
                         }
+                    </p>
+                    <p>
+                        {'\n                        ただし '}
+                        <code>{'user_selection'}</code>
+                        {' は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した '}
+                        <code>{'element_id'}</code>
+                        {' だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた '}
+                        <code>{'kind'}</code>
+                        {'・'}
+                        <code>{'labels'}</code>
+                        {'・'}
+                        <code>{'element_id'}</code>
+                        {' と、'}
+                        <code>{'to_summary_dto()'}</code>
+                        {' で '}
+                        <code>{'SENSITIVE_KEYS'}</code>
+                        {' の値を伏せたプロパティだけです。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、'}
+                        <code>{'SUMMARY_LLM_TRANSFER_APPROVED'}</code>
+                        {' が無効な環境では LLM を呼ばずに '}
+                        <code>{'PermissionError'}</code>
+                        {' で処理を止めます。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。\n                    '}
                     </p>
                     <h3>{'Step 7. Query Execution ノード — 実行してエラーを捕捉する'}</h3>
                     <div className="code-tag">{'python'}</div>

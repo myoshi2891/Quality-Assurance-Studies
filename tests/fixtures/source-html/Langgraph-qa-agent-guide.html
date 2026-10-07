@@ -999,12 +999,44 @@ def intent_detection(state: AgentState) -&gt; dict:
         raise ValueError("LLM の応答に cypher がありません")
     return query.strip(), str(data.get("reasoning", ""))
 
+def fetch_selected_node(tx, element_id: str):
+    # element_id はパラメータとして渡し、Cypher 文字列に埋め込まない
+    record = tx.run("MATCH (n) WHERE elementId(n) = $element_id RETURN n", element_id=element_id).single()
+    return record["n"] if record is not None else None
+
+def build_selection_context(selection: dict) -&gt; dict:
+    # UI から届く辞書はクライアント側で書き換えられるため、kind・labels・properties の値を文脈に使わない。
+    # 参照として element_id だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる
+    element_id = selection.get("element_id")
+    if selection.get("kind") != "node" or not isinstance(element_id, str) or not element_id:
+        raise ValueError("選択中のノードの参照が不正です")
+    # driver は Step 7 で定義する読み取り専用ユーザーの共有ドライバ
+    with driver.session() as session:
+        node = session.execute_read(fetch_selected_node, element_id)
+    if node is None:
+        raise ValueError("選択中のノードが見つかりません")
+    # 許可する構造情報は kind・labels・element_id のみ。プロパティは Step 7 の to_summary_dto で SENSITIVE_KEYS の値を伏せる
+    return {
+        "kind": "node",
+        "labels": sorted(node.labels),
+        "element_id": node.element_id,
+        "properties": to_summary_dto(node)["properties"],
+    }
+
 def text_to_cypher(state: AgentState) -&gt; dict:
+    selection = state.get("user_selection")
+    if selection is not None:
+        # 選択中のノードはグラフ DB 由来の値を含むため、クエリ結果と同じ送信条件を適用する。
+        # SUMMARY_LLM_TRANSFER_APPROVED（Step 9）が無効な環境では LLM を呼ばずに送信を拒否する
+        if not SUMMARY_LLM_TRANSFER_APPROVED:
+            raise PermissionError("外部 LLM への送信が承認されていないため、選択中のノードを含む質問は処理できません")
+        # クライアントの辞書ではなく、Neo4j の実ノードからサーバー側で組み立てた文脈だけをプロンプトに含める
+        selection = build_selection_context(selection)
     prompt = prompt_config.render(
         "text_to_cypher.jinja2",
         question=state["question"],
         schema=state["llm_schema"],
-        selection=state.get("user_selection"),
+        selection=selection,
         previous_error=state.get("results_error"),
     )
     response = llm.invoke(prompt)
@@ -1018,6 +1050,9 @@ def text_to_cypher(state: AgentState) -&gt; dict:
                         このノードが「選択中のノード」（<code>user_selection</code>）と「前回のエラー内容」（<code>previous_error</code>）の両方を
                         State
                         から読み取っている点に注目してください。これにより、ユーザーが「選択中の事件に関連する車両を教えて」のような<strong>文脈参照を含む質問</strong>をしても正しくCypherを組み立てられますし、リトライ時には前回の失敗理由をプロンプトに含めて再生成の精度を上げられます。
+                    </p>
+                    <p>
+                        ただし <code>user_selection</code> は UI から届く辞書であり、クライアント側で任意の値に書き換えられます。そのため辞書の値はそのまま信用せず、検証した <code>element_id</code> だけを参照として使い、Neo4j から実ノードを取得し直します。プロンプトに含めるのは、サーバー側で組み立てた <code>kind</code>・<code>labels</code>・<code>element_id</code> と、<code>to_summary_dto()</code> で <code>SENSITIVE_KEYS</code> の値を伏せたプロパティだけです。取得したノードは Step 9 のクエリ結果と同じく機微なデータを含み得るため、<code>SUMMARY_LLM_TRANSFER_APPROVED</code> が無効な環境では LLM を呼ばずに <code>PermissionError</code> で処理を止めます。選択なしの質問は、ユーザー自身の入力とスキーマだけを送るためこの制限を受けません。
                     </p>
 
                     <h3>Step 7. Query Execution ノード &mdash; 実行してエラーを捕捉する</h3>
