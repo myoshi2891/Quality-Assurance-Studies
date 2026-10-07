@@ -116,7 +116,7 @@ pip install langgraph langchain langchain-neo4j langchain-openai neo4j streamlit
 
 2026年時点でLangGraphが公式に対応を明示している Python は 3.10〜3.13 で、3.11 または 3.12 の利用が推奨されています（3.9系は LangGraph 1.1 でサポートが終了しました）。
 
-Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core のプロシージャです。オンプレミスの Neo4j では、APOC Core の jar を `plugins` ディレクトリへ導入したうえで、`neo4j.conf` の `dbms.security.procedures.allowlist`（必要に応じて `dbms.security.procedures.unrestricted`）に `apoc.meta.*` を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura では APOC Core が標準で利用可能です）。
+Step 4 の `SCHEMA_QUERY` が呼び出す `apoc.meta.schema()` は APOC Core のプロシージャです。オンプレミスの Neo4j では、APOC Core の jar を `plugins` ディレクトリへ導入したうえで、`neo4j.conf` の `dbms.security.procedures.allowlist` と `dbms.security.procedures.unrestricted` の両方に `apoc.meta.schema` を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura では APOC Core が標準で利用可能です）。
 
 ### Step 2. AgentState（共有状態）を設計する
 
@@ -538,7 +538,7 @@ def to_dto(value: Any) -> Any:
     return value
 
 # 要約に不要な機微プロパティ。データモデルに合わせて定義し、スキーマ変更時に見直す
-SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
+SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number", "is_flagged"})
 REDACTED = "[REDACTED]"
 
 def to_summary_dto(value: Any, *, trusted_origin: bool = False) -> Any:
@@ -561,9 +561,13 @@ def to_summary_dto(value: Any, *, trusted_origin: bool = False) -> Any:
             "nodes": [to_summary_dto(n) for n in value.nodes],
             "relationships": [to_summary_dto(r) for r in value.relationships],
         }
-    # 真偽値と null は残す（bool は int のサブクラスなので数値判定より前に処理する）
-    if value is None or isinstance(value, bool):
+    # null は残す
+    if value is None:
         return value
+    # 真偽値も RETURN p.is_flagged AS f のように機微なフラグがエイリアス経由で投影され得るため、出所が分かる場合だけ残す
+    # （bool は int のサブクラスなので数値判定より前に処理する）
+    if isinstance(value, bool):
+        return value if trusted_origin else REDACTED
     # 数値は出所が分かる場合だけ残す。列やマップの値として返った数値は、RETURN p.phone AS n のように
     # 数値型の機微なプロパティがエイリアス経由で投影されたものか、count(*) などの集計値かを区別できないため、
     # 件数などの集計値も含めて要約ペイロードから除外する（表示用の results には残る）
@@ -641,8 +645,12 @@ from neo4j import GraphDatabase
 # neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない
 @st.cache_resource
 def get_driver():
+    neo4j_uri = os.environ["NEO4J_URI"]  # 例: neo4j+s://xxxx.databases.neo4j.io
+    # 暗号化しない neo4j:// や証明書検証を省略する neo4j+ssc:// で接続しないよう、接続前にスキームを検証する
+    if not neo4j_uri.startswith("neo4j+s://"):
+        raise ValueError("NEO4J_URI は neo4j+s:// で始まる必要があります")
     driver = GraphDatabase.driver(
-        os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io
+        neo4j_uri,
         auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),
     )
     # プロセス終了時に共有 Driver の接続プールを明示的に閉じる
@@ -655,7 +663,7 @@ driver = get_driver()
 
 この共有 `driver` 構成は**単一テナント前提**です。全利用者が同じ読み取り専用ユーザーの権限でクエリを実行するため、同じデータベース内の全データを参照できる利用者だけが使う環境に限ってください。利用者や組織ごとに参照範囲が異なる（マルチテナントの）場合は、認証済みの利用者・テナント情報を `question` とは別の経路で `AgentState` と `process_question` に渡し、生成された Cypher の内容に依存しない形で Neo4j 側に認可を強制します。たとえば `driver.session(impersonated_user=...)` で利用者ごとの Neo4j ユーザーに切り替え、ロールベースの細粒度アクセス制御で参照範囲を絞ります。「テナント ID で絞り込む WHERE 句を付けて」とプロンプトで LLM に指示するだけでは、生成結果に左右されるため認可の境界になりません。
 
-`apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.*`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
+`apoc.load.*` は外部URLやファイルを読み込めるため、生成された Cypher 経由で社内の未承認URLへアクセスされる（SSRF）おそれがあります。正規表現での拒否に加えて、`dbms.security.procedures.allowlist` で許可する APOC を必要なもの（本ガイドでは `apoc.meta.schema`）だけに絞り、`apoc.conf` の `apoc.import.file.enabled=false` 設定と、Neo4j サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
 
 State はチェックポインタに保存されるため、`results` には出力形式によらずシリアライズ可能な**レコードのリスト**を格納します。`Record.data()` はノードをプロパティの辞書に変換する際にラベルや `element_id` を捨ててしまい、リレーションシップも始点・終点が分からなくなります。そのため `to_dto()` でノードのラベルと `element_id`、リレーションシップの型・始点・終点を明示的に保持してから State に入れます。`Result.graph()` からグラフ表示用のデータを組み立てる場合も、neo4j ドライバのオブジェクトをそのまま State に置かず、checkpoint 保存前に同じ形の辞書へ変換してください。テーブル表示用の DataFrame への変換は、Step 11 のようにグラフの外（描画直前）で行います。
 

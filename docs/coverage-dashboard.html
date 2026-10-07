@@ -957,13 +957,13 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-10-02">2026-10-02</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-10-04">2026-10-04</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 87 pages · 3 components · 11 libs · 5 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 90 pages · 3 components · 11 libs · 5 scripts</span>
       </div>
     </div>
-    <div class="mc-gauge" style="--coverage: 95;" role="img" aria-label="全体テストカバー率 約95パーセント">
+    <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
       <svg viewBox="0 0 120 120" aria-hidden="true">
         <defs>
           <linearGradient id="gradArc" x1="0" y1="0" x2="1" y2="1">
@@ -976,7 +976,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <circle class="arc" cx="60" cy="60" r="50" pathLength="100" />
       </svg>
       <div class="center">
-        <div class="pct">95<span style="font-size:0.5em">%</span></div>
+        <div class="pct">100<span style="font-size:0.5em">%</span></div>
         <div class="lbl">Source Files Covered</div>
       </div>
     </div>
@@ -1045,10 +1045,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">32</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">90</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong id="cnt-total">32</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong id="cnt-e2e">32</strong> with E2E</span>
+      <span class="chip"><strong id="cnt-total">90</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-e2e">90</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">106 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">109 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">87 files</span>
+          <span class="inv-count" id="inv-count-pages">90 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1258,6 +1258,9 @@ const pages = [
   { path: '/software-testing-with-generative-ai-guide', topic: '名著・実践ガイド — 生成AIとソフトウェアテスト実践ガイド', tested: true },
   { path: '/ai-driven-software-testing-guide', topic: '名著・実践ガイド — AI駆動テスト入門ガイド', tested: true },
   { path: '/appium-essentials-guide', topic: 'テストツール & フレームワーク — Appium Essentials 完全ガイド', tested: true },
+  { path: '/automating-data-quality-monitoring-guide', topic: '名著・実践ガイド — データ品質モニタリング自動化ガイド', tested: true },
+  { path: '/beautiful-testing-guide', topic: '名著・実践ガイド — Beautiful Testing 完全ガイド', tested: true },
+  { path: '/langgraph-qa-agent-guide', topic: '名著・実践ガイド — LangGraph QAエージェント構築ガイド', tested: true },
   { path: '/testing-ai-confidence-engineering-guide', topic: '名著・実践ガイド — Testing AI 完全ガイド', tested: true },
   { path: '/istqb-ct-genai-chapter1-introduction', topic: 'ISTQB Specialist — CT-GenAI Ch1 入門', tested: true },
   { path: '/istqb-ct-genai-chapter2-prompt-engineering', topic: 'ISTQB Specialist — CT-GenAI Ch2 プロンプト', tested: true },
@@ -1317,12 +1320,12 @@ const DATA = {
     },
     {
       category: 'CSS Theme & Tokens',
-      hint: 'globals.css @theme + 8 page-specific stylesheets',
+      hint: 'globals.css + page-specific stylesheets (LangGraph source declarations checked)' ,
       cells: [
         { state: 'gap', value: '0', label: 'Gap', note: 'No token resolution test (--color-bg-primary etc).' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
-        { state: 'gap', value: '0', label: 'Gap', note: 'Dark-mode regression risk per migration history.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Beautiful Testing: 65 source CSS/media rules, 8 diagram sources, DOM structure, mobile menu and live checklist tested. LangGraph: source CSS/media rules and DOM classes verified; all 15 code blocks highlighted with exact-text and HTML-escaping tests; visual review pending.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'Contrast ratios unmeasured automatically.' },
         { state: 'na', value: '—', label: 'N/A' }
       ]
@@ -1487,6 +1490,9 @@ const DATA = {
       'tests/software-testing-with-generative-ai-guide/page.test.tsx',
       'tests/sonarqube-intermediate-guide/page.test.tsx',
       'tests/test-driven-development-by-example-guide/page.test.tsx',
+      'tests/automating-data-quality-monitoring-guide/page.test.tsx',
+      'tests/beautiful-testing-guide/page.test.tsx',
+      'tests/langgraph-qa-agent-guide/page.test.tsx',
       'tests/testing-ai-confidence-engineering-guide/page.test.tsx',
       'tests/testing-web-apis-guide/page.test.tsx',
       'tests/the-way-of-the-web-tester-guide/page.test.tsx',

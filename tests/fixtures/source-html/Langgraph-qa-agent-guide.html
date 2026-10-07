@@ -733,9 +733,9 @@
                             <code>plugins</code> ディレクトリへ導入したうえで、<code
                                 >neo4j.conf</code
                             >
-                            の <code>dbms.security.procedures.allowlist</code>（必要に応じて
-                            <code>dbms.security.procedures.unrestricted</code>）に
-                            <code>apoc.meta.*</code>
+                            の <code>dbms.security.procedures.allowlist</code> と
+                            <code>dbms.security.procedures.unrestricted</code> の両方に
+                            <code>apoc.meta.schema</code>
                             を含めて明示的に実行を許可し、再起動しておく必要があります（Neo4j Aura
                             では APOC Core が標準で利用可能です）。
                         </p>
@@ -1189,7 +1189,7 @@ def to_dto(value: Any) -&gt; Any:
     return value
 
 # 要約に不要な機微プロパティ。データモデルに合わせて定義し、スキーマ変更時に見直す
-SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number"})
+SENSITIVE_KEYS = frozenset({"name", "phone", "address", "date_of_birth", "plate_number", "is_flagged"})
 REDACTED = "[REDACTED]"
 
 def to_summary_dto(value: Any, *, trusted_origin: bool = False) -&gt; Any:
@@ -1212,9 +1212,13 @@ def to_summary_dto(value: Any, *, trusted_origin: bool = False) -&gt; Any:
             "nodes": [to_summary_dto(n) for n in value.nodes],
             "relationships": [to_summary_dto(r) for r in value.relationships],
         }
-    # 真偽値と null は残す（bool は int のサブクラスなので数値判定より前に処理する）
-    if value is None or isinstance(value, bool):
+    # null は残す
+    if value is None:
         return value
+    # 真偽値も RETURN p.is_flagged AS f のように機微なフラグがエイリアス経由で投影され得るため、出所が分かる場合だけ残す
+    # （bool は int のサブクラスなので数値判定より前に処理する）
+    if isinstance(value, bool):
+        return value if trusted_origin else REDACTED
     # 数値は出所が分かる場合だけ残す。列やマップの値として返った数値は、RETURN p.phone AS n のように
     # 数値型の機微なプロパティがエイリアス経由で投影されたものか、count(*) などの集計値かを区別できないため、
     # 件数などの集計値も含めて要約ペイロードから除外する（表示用の results には残る）
@@ -1296,8 +1300,13 @@ def execute_query(state: AgentState) -&gt; dict:
 from neo4j import GraphDatabase
 
 # neo4j+s:// は TLS 暗号化とサーバー証明書の検証を行う。認証情報は環境変数から読み込み、コードに直接書かない
+NEO4J_URI = os.environ["NEO4J_URI"]  # 例: neo4j+s://xxxx.databases.neo4j.io
+# 暗号化しない neo4j:// や証明書検証を省略する neo4j+ssc:// で接続しないよう、接続前にスキームを検証する
+if not NEO4J_URI.startswith("neo4j+s://"):
+    raise ValueError("NEO4J_URI は neo4j+s:// で始まる必要があります")
+
 driver = GraphDatabase.driver(
-    os.environ["NEO4J_URI"],  # 例: neo4j+s://xxxx.databases.neo4j.io
+    NEO4J_URI,
     auth=(os.environ["NEO4J_READER_USER"], os.environ["NEO4J_READER_PASSWORD"]),
 )</code></pre>
                     <p>
@@ -1322,7 +1331,7 @@ driver = GraphDatabase.driver(
                                 >dbms.security.procedures.allowlist</code
                             >
                             で許可する APOC を必要なもの（本ガイドでは
-                            <code>apoc.meta.*</code>）だけに絞り、<code>apoc.conf</code> の
+                            <code>apoc.meta.schema</code>）だけに絞り、<code>apoc.conf</code> の
                             <code>apoc.import.file.enabled=false</code> 設定と、Neo4j
                             サーバーからの外向き通信を許可リストやファイアウォールで制限するネットワーク制御を併用してください。
                         </p>
@@ -1482,7 +1491,16 @@ def route_after_execution(state: AgentState) -&gt; Literal["retry", "summarize",
 
                     <h3>Step 9. Summarization ノード &mdash; 結果を人間向けの文章にする</h3>
                     <div class="code-tag">python</div>
-                    <pre><code class="language-python">def summarize(state: AgentState) -&gt; dict:
+                    <pre><code class="language-python">import os
+
+# 承認済みエンドポイント・保持設定・テナントのデータ処理ポリシーはコードから検証できない。
+# 下記の運用上の前提条件を確認した環境でだけ、明示的に "true" を設定して外部 LLM への送信を許可する
+SUMMARY_LLM_TRANSFER_APPROVED = os.environ.get("SUMMARY_LLM_TRANSFER_APPROVED") == "true"
+
+def summarize(state: AgentState) -&gt; dict:
+    if not SUMMARY_LLM_TRANSFER_APPROVED:
+        # 送信条件を満たさない環境ではクエリ結果を LLM へ送らない。要約は空のまま終え、表・グラフ・地図の表示だけを行う
+        return {"summary": ""}
     prompt = prompt_config.render(
         "summarize.jinja2",
         question=state["question"],

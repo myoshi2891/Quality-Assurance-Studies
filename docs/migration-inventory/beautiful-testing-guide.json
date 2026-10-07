@@ -1,0 +1,2001 @@
+{
+  "h1,h2,h3,h4": [
+    {
+      "tag": "h1",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "『Beautiful Testing』完全ガイド― 初学者のためのステップバイステップ・ベストプラクティス"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "1. はじめに：なぜ「美しい」テストなのか"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "2. 本書の全体構成（3部構成マップ）"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "3. ステップ1：誰のためにテストするのかを理解する"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "4. ステップ2：現代の「地図」を持つ ― ピラミッド／トロフィー／テストサイズ"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "5. ステップ3：小さく始める ― ユニットテストとTDD"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "6. ステップ4：探索的テストとアジャイルテストの4象限"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "7. ステップ5：バグを「美しく」管理する"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "8. ステップ6：自動化を大規模に育て、CIに組み込む"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "9. ステップ7：パフォーマンステストは「協働」で行う"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "10. ステップ8：ファジングとミューテーションテストで質を深める"
+    },
+    {
+      "tag": "h3",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "ファジングテスト（第5章「Just Peachy: Making Office Software More Reliable with Fuzz Testing」）"
+    },
+    {
+      "tag": "h3",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "ミューテーションテスト（第18章「Seeding Bugs to Find Bugs: Beautiful Mutation Testing」）"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "11. ステップ9：コミュニティとプロセスを育てる"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "12. 現代への架け橋：AIエージェント時代のテストピラミッド（2026年視点）"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "13. 章立て早見表（原著23章サマリー）"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "14. ベストプラクティス・チェックリスト"
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "15. 参考文献・出典"
+    }
+  ],
+  ".sidebar nav a": [
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-1",
+      "text": "1. なぜ「美しい」テストなのか"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-2",
+      "text": "2. 本書の全体構成"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-3",
+      "text": "3. ステップ1：ステークホルダー"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-4",
+      "text": "4. ステップ2：現代の地図"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-5",
+      "text": "5. ステップ3：ユニットテストとTDD"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-6",
+      "text": "6. ステップ4：探索的テスト"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-7",
+      "text": "7. ステップ5：バグ管理"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-8",
+      "text": "8. ステップ6：自動化とCI"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-9",
+      "text": "9. ステップ7：パフォーマンス"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-10",
+      "text": "10. ステップ8：ファジング／ミューテーション"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-11",
+      "text": "11. ステップ9：コミュニティ"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-12",
+      "text": "12. AIエージェント時代の視点"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-13",
+      "text": "13. 章立て早見表"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-14",
+      "text": "14. チェックリスト"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "#sec-15",
+      "text": "15. 参考文献・出典"
+    }
+  ],
+  ".mermaid-wrapper": [
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "%%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%% flowchart TB Book[\"Beautiful Testing<br/>23エッセイ・27人の著者\"] --> P1 Book --> P2 Book --> P3 subgraph P1[\"Part I: Beautiful Testers\"] direction TB C1[\"第1章: Was It Good for You?\"] --> C2[\"第2章: ステークホルダーを満たす\"] --> C3[\"第3章: OSSのQAコミュニティ構築\"] --> C4[\"第4章: 協働的パフォーマンステスト\"] end subgraph P2[\"Part II: Beautiful Process\"] direction TB C5[\"第5章: ファジングテスト\"] --> C6[\"第6章: バグ管理\"] --> C7[\"第7章: XMPPテスト\"] --> C8[\"第8章: 大規模テスト自動化\"] --> C9[\"第9章: 継続的インテグレーション\"] --> C10[\"第10章: 乱数生成器のテスト\"] --> C11[\"第11章: 変更中心テスト\"] --> C12[\"第12章: 実利用環境でのテスト\"] --> C13[\"第13章: 創造的プロセスとしての開発\"] --> C14[\"第14章: テスト駆動開発\"] --> C15[\"第15章: ビジネス成功の礎\"] --> C16[\"第16章: Socialtextの事例\"] --> C17[\"第17章: 効率的なテスト\"] end subgraph P3[\"Part III: Beautiful Tools\"] direction TB C18[\"第18章: ミューテーションテスト\"] --> C19[\"第19章: リファレンステスト\"] --> C20[\"第20章: ClamAVのテスト\"] --> C21[\"第21章: Windmillでのテスト\"] --> C22[\"第22章: 100万ページのテスト\"] --> C23[\"第23章: マルチマシン環境テスト\"] end"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "flowchart TB Commit[\"トリガー: コミット / プルリクエスト\"] --> Static[\"静的解析<br/>Lint / 型チェック\"] Static --> Unit[\"ユニットテスト<br/>Small\"] Unit --> Integration[\"統合テスト<br/>Medium\"] Release[\"トリガー: リリース前 / ナイトリー\"] --> E2E[\"E2Eテスト<br/>Large\"] Manual[\"探索的テスト<br/>手動・CIとは独立して随時実施\"]"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "flowchart LR A[\"Red<br/>失敗するテストを書く\"] --> B[\"Green<br/>最小限の実装でパスさせる\"] B --> C[\"Refactor<br/>設計を整える\"] C --> A"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "flowchart TB Charter[\"チャーター作成<br/>調査対象と時間枠を決める\"] --> Session[\"セッション実行<br/>集中的に探索する\"] Session --> Debrief[\"デブリーフ<br/>発見を報告・共有する\"] Debrief --> Charter"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "flowchart LR Found[\"発見<br/>報告\"] --> Triage[\"トリアージ<br/>重要度と優先度の判定\"] Triage --> Assigned[\"担当者アサイン\"] Assigned --> Fixed[\"修正\"] Fixed --> Verify[\"検証\"] Verify -->|\"再現する\"| Assigned Verify -->|\"解決\"| Closed[\"クローズ\"]"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "flowchart TB Commit[\"コミット<br/>（毎回実行）\"] --> StaticC2[\"静的解析\"] StaticC2 --> SmallC[\"Smallテスト<br/>数秒で完了\"] SmallC -->|\"失敗\"| Feedback[\"開発者へ即座にフィードバック\"] PR2[\"プルリクエスト\"] --> StaticP2[\"静的解析\"] StaticP2 --> SmallP[\"Smallテスト<br/>数秒で完了\"] SmallP --> Medium[\"Mediumテスト<br/>数分で完了\"] Medium --> Merge[\"マージ可能\"] SmallP -->|\"失敗\"| Feedback Medium -->|\"失敗\"| Feedback Feedback --> Fix2[\"修正して再度push\"]"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "flowchart TB Nightly[\"ナイトリー（定期実行）\"] --> Large[\"Largeテスト<br/>ネットワーク・外部システム連携あり\"] Release[\"リリース前（リリース候補）\"] --> Large Large -->|\"ナイトリーで成功\"| Staging[\"ステージング環境へデプロイ\"] Large -->|\"リリース前チェックで成功\"| Prod[\"本番環境へデプロイ\"] Large -->|\"失敗\"| Triage[\"担当者へ通知しトリアージ\"] Triage --> Fix[\"修正して次サイクルへ\"]"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "mermaid-wrapper",
+      "href": "",
+      "text": "%%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%% flowchart TB subgraph Deterministic[\"決定的レイヤー：Fowlerのピラミッド\"] direction TB U[\"ユニットテスト\"] --> I[\"統合テスト\"] --> E[\"E2Eテスト\"] end subgraph NonDeterministic[\"非決定的レイヤー：LLM/エージェント特有\"] direction TB Behavior[\"振る舞いベースのE2E\"] --> Eval[\"モデル評価 Evals\"] end Deterministic --> NonDeterministic"
+    }
+  ],
+  "table": [
+    {
+      "tag": "table",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "問い具体例このテストは誰のためのものか エンドユーザー／プロダクトマネージャー／運用担当／将来の自分自身 何を「満足」とみなすか機能要件を満たす／規制要件を満たす／性能要件を満たす失敗したとき誰が困るか顧客が使えなくなる／開発者がデバッグに時間を取られる"
+    },
+    {
+      "tag": "table",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "観点テストピラミッドテスティングトロフィーGoogleのテストサイズ提唱者・時期 Mike Cohnが著書で提示、Martin Fowlerが2012年のbliki記事で整理 Kent C. Dodds（2018年） Google Testing Blog（2010年）／書籍『Software Engineering at Google』 分類軸テストの粒度（Unit → Integration → E2E）費用対効果（実装コストに対する「確信度」のROI） 実行に必要なリソース（プロセス数・スレッド数・I/Oの有無） 主張の要旨下位（Unit）ほど数を多く、上位（E2E）ほど数を絞る 静的解析を土台に据えつつ、費用対効果が最も高い統合テストを厚く書く テストを「Small／Medium／Large」で分類し、実行速度と隔離性でCIの実行頻度を制御する 背景にある技術変化2009年前後、E2Eツールは遅く不安定だった Jest・Testing Library・Cypressなど高速なJS向けツールの登場により前提が変化 数万件規模のテストを継続的に実行するGoogle社内のインフラ事情"
+    },
+    {
+      "tag": "table",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "ビジネス視点（Business-facing）技術視点（Technology-facing）開発を支援する（Supporting the team） Q2: ストーリーテスト（例示ベースの受け入れ基準テスト。例: Cucumber, FitNesse）。「何を作るか」を具体例で合意し、チームの開発を支援することを目的とするテスト Q1: ユニットテスト・コンポーネントテスト（TDDの土台）製品を批評する（Critiquing the product） Q3: 探索的テスト・ユーザビリティテスト・ユーザー受け入れテスト（UAT）。ユーザー視点で「本当に価値があるか」を吟味し、製品を批評することを目的とするテスト Q4: 性能・セキュリティなど非機能要件のテスト"
+    },
+    {
+      "tag": "table",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "用語意味例重要度（Severity）バグそのものが引き起こす技術的・機能的な影響の大きさデータ消失を伴うクラッシュは重要度が高い優先度（Priority）ビジネス上、いつ・どの順番で対応すべきかという判断 重要度は低いが、目立つ画面の表示崩れは優先度が高くなることがある"
+    },
+    {
+      "tag": "table",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Part章タイトル（原題）概要I1Was It Good for You?テスト経験を振り返る導入エッセイI2Beautiful Testing Satisfies Stakeholdersステークホルダーごとの「満足」の定義（Rex Blackの知見）I3Building Open Source QA CommunitiesOSSにおけるボランティアQAコミュニティの構築I4 Collaboration Is the Cornerstone of Beautiful Performance Testing 協働型パフォーマンステスト（Scott Barberの知見）II5 Just Peachy: Making Office Software More Reliable with Fuzz Testing ファジングによる信頼性向上II6Bug Management and Test Case Effectivenessバグ管理とテストケース効果測定II7Beautiful XMPP TestingXMPPプロトコルのユニット・相互運用性テストII8Beautiful Large-Scale Test Automation大規模テスト自動化基盤（Alan Pageの知見）II9Beautiful Is Better Than UglyBuildbotによる継続的インテグレーションII10Testing a Random Number Generator乱数生成器のテスト（John D. Cookの知見）II11Change-Centric Testing変更差分に基づくカバレッジ分析II12Software in Use実利用環境・探索的テスト（Karen N. Johnsonの知見）II13Software Development Is a Creative Processアジャイル開発を「パフォーマンス」に例える視点II14 Test-Driven Development: Driving New Standards of Beauty TDDと「美しさ」の再定義II15 Beautiful Testing As the Cornerstone of Business Success ホールチーム・アプローチとビジネス価値II16Peeling the Glass Onion at SocialtextSocialtext社のWikitests事例II17Beautiful Testing Is Efficient Testing効率的なテストのためのヒューリスティクスIII18Seeding Bugs to Find Bugs: Beautiful Mutation Testingミューテーションテスト（Javalanche）III19Reference Testing As Beautiful Testingリファレンステスト（ブラウザ等のレンダリング検証）III20Clam Anti-Virus: Testing Open Source with Open ToolsClamAVにおけるOSSツールでのテストIII21Web Application Testing with WindmillWindmillによるブラウザテスト自動化III22Testing One Million Web Pages大規模Webページ検証の実践III23Testing Network Services in Multimachine ScenarioseBox/ANSTEによるマルチマシン環境テスト"
+    }
+  ],
+  "pre:not(.mermaid) code": [],
+  ".callout": [
+    {
+      "tag": "div",
+      "id": "",
+      "class": "callout",
+      "href": "",
+      "text": "この4象限が分類しているのは、実施時期や実行順序ではなく、テストの目的です。同じ「受け入れテスト」という語がQ2とQ3の両方に現れますが、Q2は合意形成のための例示ベースのストーリーテスト、Q3は利用者視点で製品を吟味する批評としてのUATであり、目的が異なります。どの象限のテストを自動化し、どれを人手で実行するかは象限だけで決まるものではなく、プロジェクトのリスクや運用上の必要性に応じて判断します。"
+    },
+    {
+      "tag": "div",
+      "id": "",
+      "class": "callout",
+      "href": "",
+      "text": "本書には他にLinda Wilkinson、Martin Schröder、Clint Talbert、Kamran Khan、Emily Chen、Brian Nitz、Remko Tronçon、Neal Norwitz、Michelle Levesque、Jeffrey Yasskin、Murali Nandigama、Chris McMahon、Jennitta Andrea、Lisa Crispin、Matt Heusser、Tomasz Kojm、Adam Christian、Isaac Clerenciaを含む27名が寄稿しています。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。"
+    }
+  ],
+  ".section-refs a,.ref-list li": [
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/pub/pr/2453",
+      "text": "oreilly.com/pub/pr/2453"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://martinfowler.com/bliki/TestPyramid.html",
+      "text": "martinfowler.com/bliki/TestPyramid.html"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://martinfowler.com/articles/practical-test-pyramid.html",
+      "text": "martinfowler.com/articles/practical-test-pyramid.html"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://kentcdodds.com/blog/write-tests",
+      "text": "kentcdodds.com/blog/write-tests"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications",
+      "text": "kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://testing.googleblog.com/2010/12/test-sizes.html",
+      "text": "testing.googleblog.com/2010/12/test-sizes.html"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://abseil.io/resources/swe-book/html/ch14.html",
+      "text": "abseil.io/resources/swe-book/html/ch14.html"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://satisfice.us/articles/et-article.pdf",
+      "text": "satisfice.us/articles/et-article.pdf"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://agiletester.ca/",
+      "text": "agiletester.ca"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://matthewboston.com/blog/the-agentic-test-pyramid.html",
+      "text": "matthewboston.com/blog/the-agentic-test-pyramid.html"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing",
+      "text": "getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://www.oreilly.com/library/view/beautiful-testing/9780596806934/",
+      "text": "oreilly.com/library/view/beautiful-testing/9780596806934"
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "class": "",
+      "href": "https://books.apple.com/us/book/beautiful-testing/id396905423",
+      "text": "books.apple.com/us/book/beautiful-testing/id396905423"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Beautiful Testing（O'Reilly公式ページ／目次全文）https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Beautiful Testing – New from O'Reilly（プレスリリース・編者コメント）https://www.oreilly.com/pub/pr/2453"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Beautiful Testing（Amazon商品ページ／レビュー詳細）https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Beautiful Testing（Apple Books／寄稿者全リスト）https://books.apple.com/us/book/beautiful-testing/id396905423"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Martin Fowler – Test Pyramid（bliki, 2012年）https://martinfowler.com/bliki/TestPyramid.html"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Martin Fowler / Ham Vocke – The Practical Test Pyramid（2018年）https://martinfowler.com/articles/practical-test-pyramid.html"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Kent C. Dodds – Write tests. Not too many. Mostly integration.https://kentcdodds.com/blog/write-tests"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Kent C. Dodds – The Testing Trophy and Testing Classificationshttps://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Google Testing Blog – Test Sizes（2010年）https://testing.googleblog.com/2010/12/test-sizes.html"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Software Engineering at Google, Chapter 14: Larger Testing（章の著者: Joseph Graves、編集: Tom Manshreck）https://abseil.io/resources/swe-book/html/ch14.html"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Matthew Boston – The Agentic Test Pyramid（2026年）https://matthewboston.com/blog/the-agentic-test-pyramid.html"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Autonoma – Unit vs Integration vs E2E Testing: Testing Pyramid Decision Framework（2026年）https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing Quadrantshttps://agiletester.ca/"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "James Bach – Exploratory Testing Explainedhttps://satisfice.us/articles/et-article.pdf"
+    }
+  ],
+  ".checklist li": [
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "テストを書く前に「誰のためのテストか」「何を満足とみなすか」を言語化した"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "テストの配分（ピラミッド／トロフィー）と、CIでの実行制御（Small／Medium／Largeのテストサイズ）を分けて意識している"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "Red → Green → Refactorのサイクルで小さくTDDを回している"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "ストーリーレベルの受け入れテストとユニットレベルのTDDテストの役割の違いを理解している"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "自動化できる部分と、探索的テストで人が判断すべき部分を区別している（アジャイルテストの4象限）"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "バグには重要度（Severity）と優先度（Priority）を分けて記録している"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "テストをすり抜けたバグについて、テストスイート側の改善点を振り返っている"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "コミット時はSmall、プルリクエスト時はMediumまで、リリース前・ナイトリーでLargeを実行するようゲーティングしている"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "パフォーマンステストの結果は関係者と協働で解釈し、犯人探しで終わらせていない"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "テストの基準やプロセスをチームで共有し、属人化させていない"
+    },
+    {
+      "tag": "li",
+      "id": "",
+      "class": "",
+      "href": "",
+      "text": "LLM/AIエージェントを含む機能については、決定的な部分と非決定的な部分を切り分けてテスト戦略を設計している"
+    }
+  ],
+  "sections": [
+    "sec-1",
+    "sec-2",
+    "sec-3",
+    "sec-4",
+    "sec-5",
+    "sec-6",
+    "sec-7",
+    "sec-8",
+    "sec-9",
+    "sec-10",
+    "sec-11",
+    "sec-12",
+    "sec-13",
+    "sec-14",
+    "sec-15"
+  ],
+  "diagrams": [
+    "%%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%%\nflowchart TB\nBook[\"Beautiful Testing<br/>23エッセイ・27人の著者\"] --> P1\nBook --> P2\nBook --> P3\n\nsubgraph P1[\"Part I: Beautiful Testers\"]\ndirection TB\nC1[\"第1章: Was It Good for You?\"] --> C2[\"第2章: ステークホルダーを満たす\"] --> C3[\"第3章: OSSのQAコミュニティ構築\"] --> C4[\"第4章: 協働的パフォーマンステスト\"]\nend\n\nsubgraph P2[\"Part II: Beautiful Process\"]\ndirection TB\nC5[\"第5章: ファジングテスト\"] --> C6[\"第6章: バグ管理\"] --> C7[\"第7章: XMPPテスト\"] --> C8[\"第8章: 大規模テスト自動化\"] --> C9[\"第9章: 継続的インテグレーション\"] --> C10[\"第10章: 乱数生成器のテスト\"] --> C11[\"第11章: 変更中心テスト\"] --> C12[\"第12章: 実利用環境でのテスト\"] --> C13[\"第13章: 創造的プロセスとしての開発\"] --> C14[\"第14章: テスト駆動開発\"] --> C15[\"第15章: ビジネス成功の礎\"] --> C16[\"第16章: Socialtextの事例\"] --> C17[\"第17章: 効率的なテスト\"]\nend\n\nsubgraph P3[\"Part III: Beautiful Tools\"]\ndirection TB\nC18[\"第18章: ミューテーションテスト\"] --> C19[\"第19章: リファレンステスト\"] --> C20[\"第20章: ClamAVのテスト\"] --> C21[\"第21章: Windmillでのテスト\"] --> C22[\"第22章: 100万ページのテスト\"] --> C23[\"第23章: マルチマシン環境テスト\"]\nend",
+    "flowchart TB\nCommit[\"トリガー: コミット / プルリクエスト\"] --> Static[\"静的解析<br/>Lint / 型チェック\"]\nStatic --> Unit[\"ユニットテスト<br/>Small\"]\nUnit --> Integration[\"統合テスト<br/>Medium\"]\nRelease[\"トリガー: リリース前 / ナイトリー\"] --> E2E[\"E2Eテスト<br/>Large\"]\nManual[\"探索的テスト<br/>手動・CIとは独立して随時実施\"]",
+    "flowchart LR\nA[\"Red<br/>失敗するテストを書く\"] --> B[\"Green<br/>最小限の実装でパスさせる\"]\nB --> C[\"Refactor<br/>設計を整える\"]\nC --> A",
+    "flowchart TB\nCharter[\"チャーター作成<br/>調査対象と時間枠を決める\"] --> Session[\"セッション実行<br/>集中的に探索する\"]\nSession --> Debrief[\"デブリーフ<br/>発見を報告・共有する\"]\nDebrief --> Charter",
+    "flowchart LR\nFound[\"発見<br/>報告\"] --> Triage[\"トリアージ<br/>重要度と優先度の判定\"]\nTriage --> Assigned[\"担当者アサイン\"]\nAssigned --> Fixed[\"修正\"]\nFixed --> Verify[\"検証\"]\nVerify -->|\"再現する\"| Assigned\nVerify -->|\"解決\"| Closed[\"クローズ\"]",
+    "flowchart TB\nCommit[\"コミット<br/>（毎回実行）\"] --> StaticC2[\"静的解析\"]\nStaticC2 --> SmallC[\"Smallテスト<br/>数秒で完了\"]\nSmallC -->|\"失敗\"| Feedback[\"開発者へ即座にフィードバック\"]\nPR2[\"プルリクエスト\"] --> StaticP2[\"静的解析\"]\nStaticP2 --> SmallP[\"Smallテスト<br/>数秒で完了\"]\nSmallP --> Medium[\"Mediumテスト<br/>数分で完了\"]\nMedium --> Merge[\"マージ可能\"]\nSmallP -->|\"失敗\"| Feedback\nMedium -->|\"失敗\"| Feedback\nFeedback --> Fix2[\"修正して再度push\"]",
+    "flowchart TB\nNightly[\"ナイトリー（定期実行）\"] --> Large[\"Largeテスト<br/>ネットワーク・外部システム連携あり\"]\nRelease[\"リリース前（リリース候補）\"] --> Large\nLarge -->|\"ナイトリーで成功\"| Staging[\"ステージング環境へデプロイ\"]\nLarge -->|\"リリース前チェックで成功\"| Prod[\"本番環境へデプロイ\"]\nLarge -->|\"失敗\"| Triage[\"担当者へ通知しトリアージ\"]\nTriage --> Fix[\"修正して次サイクルへ\"]",
+    "%%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%%\nflowchart TB\nsubgraph Deterministic[\"決定的レイヤー：Fowlerのピラミッド\"]\ndirection TB\nU[\"ユニットテスト\"] --> I[\"統合テスト\"] --> E[\"E2Eテスト\"]\nend\nsubgraph NonDeterministic[\"非決定的レイヤー：LLM/エージェント特有\"]\ndirection TB\nBehavior[\"振る舞いベースのE2E\"] --> Eval[\"モデル評価 Evals\"]\nend\nDeterministic --> NonDeterministic"
+  ],
+  "css": [
+    {
+      "selector": ":root",
+      "media": "",
+      "declarations": [
+        [
+          "--bg",
+          "#07111e"
+        ],
+        [
+          "--bg-elevated",
+          "#0d1a2b"
+        ],
+        [
+          "--bg-elevated-2",
+          "#101f33"
+        ],
+        [
+          "--text",
+          "#e7edf7"
+        ],
+        [
+          "--text-dim",
+          "#94a7c2"
+        ],
+        [
+          "--accent",
+          "#6fe7c0"
+        ],
+        [
+          "--accent-2",
+          "#9df5da"
+        ],
+        [
+          "--border",
+          "#1c2c42"
+        ]
+      ]
+    },
+    {
+      "selector": "*",
+      "media": "",
+      "declarations": [
+        [
+          "box-sizing",
+          "border-box"
+        ]
+      ]
+    },
+    {
+      "selector": "html",
+      "media": "",
+      "declarations": [
+        [
+          "scroll-behavior",
+          "smooth"
+        ]
+      ]
+    },
+    {
+      "selector": "body",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "0"
+        ],
+        [
+          "padding",
+          "0"
+        ],
+        [
+          "background",
+          "var(--bg)"
+        ],
+        [
+          "color",
+          "var(--text)"
+        ],
+        [
+          "font-family",
+          "'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        ],
+        [
+          "line-height",
+          "1.9"
+        ],
+        [
+          "font-size",
+          "16px"
+        ]
+      ]
+    },
+    {
+      "selector": "a",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--accent-2)"
+        ],
+        [
+          "text-decoration",
+          "none"
+        ]
+      ]
+    },
+    {
+      "selector": "a:hover",
+      "media": "",
+      "declarations": [
+        [
+          "text-decoration",
+          "underline"
+        ]
+      ]
+    },
+    {
+      "selector": ".layout",
+      "media": "",
+      "declarations": [
+        [
+          "display",
+          "block"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar",
+      "media": "",
+      "declarations": [
+        [
+          "position",
+          "fixed"
+        ],
+        [
+          "top",
+          "0"
+        ],
+        [
+          "left",
+          "0"
+        ],
+        [
+          "width",
+          "290px"
+        ],
+        [
+          "height",
+          "100vh"
+        ],
+        [
+          "overflow-y",
+          "auto"
+        ],
+        [
+          "padding",
+          "28px 18px 40px"
+        ],
+        [
+          "background",
+          "var(--bg-elevated)"
+        ],
+        [
+          "border-right",
+          "1px solid var(--border)"
+        ],
+        [
+          "z-index",
+          "40"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar .brand",
+      "media": "",
+      "declarations": [
+        [
+          "font-size",
+          "0.78rem"
+        ],
+        [
+          "letter-spacing",
+          "0.08em"
+        ],
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "text-transform",
+          "uppercase"
+        ],
+        [
+          "margin",
+          "4px 6px 18px"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar nav ul",
+      "media": "",
+      "declarations": [
+        [
+          "list-style",
+          "none"
+        ],
+        [
+          "margin",
+          "0"
+        ],
+        [
+          "padding",
+          "0"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar nav li",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "1px 0"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar nav a",
+      "media": "",
+      "declarations": [
+        [
+          "display",
+          "block"
+        ],
+        [
+          "padding",
+          "9px 12px"
+        ],
+        [
+          "border-radius",
+          "8px"
+        ],
+        [
+          "font-size",
+          "0.9rem"
+        ],
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "line-height",
+          "1.5"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar nav a:hover",
+      "media": "",
+      "declarations": [
+        [
+          "background",
+          "rgba(111, 231, 192, 0.1)"
+        ],
+        [
+          "color",
+          "var(--text)"
+        ],
+        [
+          "text-decoration",
+          "none"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar nav a.active",
+      "media": "",
+      "declarations": [
+        [
+          "background",
+          "rgba(111, 231, 192, 0.16)"
+        ],
+        [
+          "color",
+          "var(--accent-2)"
+        ],
+        [
+          "font-weight",
+          "600"
+        ]
+      ]
+    },
+    {
+      "selector": ".menu-toggle",
+      "media": "",
+      "declarations": [
+        [
+          "display",
+          "none"
+        ],
+        [
+          "position",
+          "fixed"
+        ],
+        [
+          "top",
+          "14px"
+        ],
+        [
+          "left",
+          "14px"
+        ],
+        [
+          "z-index",
+          "60"
+        ],
+        [
+          "width",
+          "42px"
+        ],
+        [
+          "height",
+          "42px"
+        ],
+        [
+          "border-radius",
+          "10px"
+        ],
+        [
+          "background",
+          "var(--bg-elevated-2)"
+        ],
+        [
+          "border",
+          "1px solid var(--border)"
+        ],
+        [
+          "color",
+          "var(--text)"
+        ],
+        [
+          "align-items",
+          "center"
+        ],
+        [
+          "justify-content",
+          "center"
+        ],
+        [
+          "cursor",
+          "pointer"
+        ],
+        [
+          "font-size",
+          "1.1rem"
+        ]
+      ]
+    },
+    {
+      "selector": ".main",
+      "media": "",
+      "declarations": [
+        [
+          "margin-left",
+          "290px"
+        ],
+        [
+          "padding",
+          "56px 64px 140px"
+        ],
+        [
+          "max-width",
+          "none"
+        ]
+      ]
+    },
+    {
+      "selector": ".hero",
+      "media": "",
+      "declarations": [
+        [
+          "max-width",
+          "none"
+        ],
+        [
+          "margin-bottom",
+          "52px"
+        ],
+        [
+          "padding-bottom",
+          "32px"
+        ],
+        [
+          "border-bottom",
+          "1px solid var(--border)"
+        ],
+        [
+          "overflow-wrap",
+          "break-word"
+        ]
+      ]
+    },
+    {
+      "selector": ".hero h1",
+      "media": "",
+      "declarations": [
+        [
+          "font-size",
+          "2rem"
+        ],
+        [
+          "line-height",
+          "1.5"
+        ],
+        [
+          "margin",
+          "0 0 20px"
+        ],
+        [
+          "background",
+          "linear-gradient(90deg, var(--accent), var(--accent-2))"
+        ],
+        [
+          "background-clip",
+          "text"
+        ],
+        [
+          "-webkit-background-clip",
+          "text"
+        ],
+        [
+          "-webkit-text-fill-color",
+          "transparent"
+        ]
+      ]
+    },
+    {
+      "selector": ".hero .meta",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "font-size",
+          "0.95rem"
+        ]
+      ]
+    },
+    {
+      "selector": ".hero .meta p",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "4px 0"
+        ]
+      ]
+    },
+    {
+      "selector": ".hero .lead",
+      "media": "",
+      "declarations": [
+        [
+          "margin-top",
+          "20px"
+        ],
+        [
+          "color",
+          "var(--text)"
+        ]
+      ]
+    },
+    {
+      "selector": ".section",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "68px 0"
+        ],
+        [
+          "scroll-margin-top",
+          "24px"
+        ],
+        [
+          "max-width",
+          "none"
+        ]
+      ]
+    },
+    {
+      "selector": ".section h2",
+      "media": "",
+      "declarations": [
+        [
+          "font-size",
+          "1.45rem"
+        ],
+        [
+          "border-left",
+          "4px solid var(--accent)"
+        ],
+        [
+          "padding-left",
+          "14px"
+        ],
+        [
+          "margin",
+          "0 0 22px"
+        ],
+        [
+          "line-height",
+          "1.5"
+        ]
+      ]
+    },
+    {
+      "selector": ".section h3",
+      "media": "",
+      "declarations": [
+        [
+          "font-size",
+          "1.12rem"
+        ],
+        [
+          "color",
+          "var(--accent-2)"
+        ],
+        [
+          "margin",
+          "30px 0 12px"
+        ]
+      ]
+    },
+    {
+      "selector": ".prose",
+      "media": "",
+      "declarations": [
+        [
+          "max-width",
+          "none"
+        ],
+        [
+          "overflow-wrap",
+          "break-word"
+        ]
+      ]
+    },
+    {
+      "selector": ".prose p",
+      "media": "",
+      "declarations": [
+        [
+          "max-width",
+          "none"
+        ],
+        [
+          "overflow-wrap",
+          "break-word"
+        ],
+        [
+          "margin",
+          "0 0 18px"
+        ]
+      ]
+    },
+    {
+      "selector": ".prose li",
+      "media": "",
+      "declarations": [
+        [
+          "overflow-wrap",
+          "break-word"
+        ],
+        [
+          "margin",
+          "7px 0"
+        ]
+      ]
+    },
+    {
+      "selector": ".prose ul, .prose ol",
+      "media": "",
+      "declarations": [
+        [
+          "padding-left",
+          "1.5em"
+        ],
+        [
+          "margin",
+          "0 0 18px"
+        ]
+      ]
+    },
+    {
+      "selector": ".prose strong",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--accent-2)"
+        ]
+      ]
+    },
+    {
+      "selector": ".table-wrap",
+      "media": "",
+      "declarations": [
+        [
+          "overflow-x",
+          "auto"
+        ],
+        [
+          "margin",
+          "26px 0"
+        ],
+        [
+          "border",
+          "1px solid var(--border)"
+        ],
+        [
+          "border-radius",
+          "10px"
+        ]
+      ]
+    },
+    {
+      "selector": "table",
+      "media": "",
+      "declarations": [
+        [
+          "width",
+          "100%"
+        ],
+        [
+          "border-collapse",
+          "collapse"
+        ],
+        [
+          "font-size",
+          "0.92rem"
+        ],
+        [
+          "min-width",
+          "480px"
+        ]
+      ]
+    },
+    {
+      "selector": "th, td",
+      "media": "",
+      "declarations": [
+        [
+          "padding",
+          "13px 15px"
+        ],
+        [
+          "border-bottom",
+          "1px solid var(--border)"
+        ],
+        [
+          "text-align",
+          "left"
+        ],
+        [
+          "vertical-align",
+          "top"
+        ]
+      ]
+    },
+    {
+      "selector": "th",
+      "media": "",
+      "declarations": [
+        [
+          "background",
+          "rgba(111, 231, 192, 0.09)"
+        ],
+        [
+          "color",
+          "var(--accent-2)"
+        ],
+        [
+          "font-weight",
+          "600"
+        ],
+        [
+          "white-space",
+          "nowrap"
+        ]
+      ]
+    },
+    {
+      "selector": "tr:last-child td",
+      "media": "",
+      "declarations": [
+        [
+          "border-bottom",
+          "none"
+        ]
+      ]
+    },
+    {
+      "selector": "td strong",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--accent-2)"
+        ]
+      ]
+    },
+    {
+      "selector": ".callout",
+      "media": "",
+      "declarations": [
+        [
+          "background",
+          "var(--bg-elevated)"
+        ],
+        [
+          "border-left",
+          "4px solid var(--accent-2)"
+        ],
+        [
+          "padding",
+          "18px 22px"
+        ],
+        [
+          "border-radius",
+          "0 10px 10px 0"
+        ],
+        [
+          "margin",
+          "26px 0"
+        ],
+        [
+          "color",
+          "var(--text-dim)"
+        ]
+      ]
+    },
+    {
+      "selector": ".callout p",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "0"
+        ]
+      ]
+    },
+    {
+      "selector": ".callout strong",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--text)"
+        ]
+      ]
+    },
+    {
+      "selector": ".mermaid-wrapper",
+      "media": "",
+      "declarations": [
+        [
+          "width",
+          "100%"
+        ],
+        [
+          "overflow-x",
+          "auto"
+        ],
+        [
+          "margin",
+          "30px 0"
+        ],
+        [
+          "padding",
+          "20px 0"
+        ]
+      ]
+    },
+    {
+      "selector": "pre.mermaid",
+      "media": "",
+      "declarations": [
+        [
+          "width",
+          "100%"
+        ],
+        [
+          "display",
+          "flex"
+        ],
+        [
+          "justify-content",
+          "safe center"
+        ],
+        [
+          "margin",
+          "0"
+        ],
+        [
+          "background",
+          "transparent"
+        ],
+        [
+          "border",
+          "none"
+        ],
+        [
+          "font-family",
+          "inherit"
+        ]
+      ]
+    },
+    {
+      "selector": ".mermaid svg",
+      "media": "",
+      "declarations": [
+        [
+          "max-width",
+          "none"
+        ],
+        [
+          "height",
+          "auto"
+        ],
+        [
+          "flex-shrink",
+          "0"
+        ]
+      ]
+    },
+    {
+      "selector": ".checklist-progress",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "font-size",
+          "0.9rem"
+        ],
+        [
+          "margin",
+          "0 0 16px"
+        ]
+      ]
+    },
+    {
+      "selector": ".checklist-progress strong",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--accent-2)"
+        ]
+      ]
+    },
+    {
+      "selector": ".checklist",
+      "media": "",
+      "declarations": [
+        [
+          "list-style",
+          "none"
+        ],
+        [
+          "padding",
+          "0"
+        ],
+        [
+          "margin",
+          "20px 0"
+        ]
+      ]
+    },
+    {
+      "selector": ".checklist li",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "9px 0"
+        ],
+        [
+          "background",
+          "var(--bg-elevated)"
+        ],
+        [
+          "border",
+          "1px solid var(--border)"
+        ],
+        [
+          "border-radius",
+          "9px"
+        ],
+        [
+          "overflow-wrap",
+          "break-word"
+        ],
+        [
+          "transition",
+          "background 0.15s ease, border-color 0.15s ease"
+        ]
+      ]
+    },
+    {
+      "selector": ".checklist li.done",
+      "media": "",
+      "declarations": [
+        [
+          "background",
+          "rgba(111, 231, 192, 0.08)"
+        ],
+        [
+          "border-color",
+          "var(--accent)"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-label",
+      "media": "",
+      "declarations": [
+        [
+          "display",
+          "flex"
+        ],
+        [
+          "align-items",
+          "flex-start"
+        ],
+        [
+          "gap",
+          "13px"
+        ],
+        [
+          "padding",
+          "12px 16px"
+        ],
+        [
+          "cursor",
+          "pointer"
+        ],
+        [
+          "width",
+          "100%"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-input",
+      "media": "",
+      "declarations": [
+        [
+          "appearance",
+          "none"
+        ],
+        [
+          "-webkit-appearance",
+          "none"
+        ],
+        [
+          "flex",
+          "none"
+        ],
+        [
+          "width",
+          "19px"
+        ],
+        [
+          "height",
+          "19px"
+        ],
+        [
+          "margin-top",
+          "2px"
+        ],
+        [
+          "border",
+          "2px solid var(--accent)"
+        ],
+        [
+          "border-radius",
+          "5px"
+        ],
+        [
+          "background",
+          "transparent"
+        ],
+        [
+          "cursor",
+          "pointer"
+        ],
+        [
+          "position",
+          "relative"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-input:checked",
+      "media": "",
+      "declarations": [
+        [
+          "background",
+          "var(--accent)"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-input:checked::after",
+      "media": "",
+      "declarations": [
+        [
+          "content",
+          "''"
+        ],
+        [
+          "position",
+          "absolute"
+        ],
+        [
+          "left",
+          "5px"
+        ],
+        [
+          "top",
+          "1px"
+        ],
+        [
+          "width",
+          "5px"
+        ],
+        [
+          "height",
+          "9px"
+        ],
+        [
+          "border",
+          "solid var(--bg)"
+        ],
+        [
+          "border-width",
+          "0 2px 2px 0"
+        ],
+        [
+          "transform",
+          "rotate(45deg)"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-input:focus-visible",
+      "media": "",
+      "declarations": [
+        [
+          "outline",
+          "2px solid var(--accent-2)"
+        ],
+        [
+          "outline-offset",
+          "2px"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-text",
+      "media": "",
+      "declarations": [
+        [
+          "flex",
+          "1"
+        ],
+        [
+          "padding-top",
+          "1px"
+        ]
+      ]
+    },
+    {
+      "selector": ".check-input:checked ~ .check-text",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "text-decoration",
+          "line-through"
+        ],
+        [
+          "text-decoration-color",
+          "var(--accent)"
+        ]
+      ]
+    },
+    {
+      "selector": ".section-refs",
+      "media": "",
+      "declarations": [
+        [
+          "margin-top",
+          "22px"
+        ],
+        [
+          "padding-top",
+          "14px"
+        ],
+        [
+          "border-top",
+          "1px dashed var(--border)"
+        ],
+        [
+          "font-size",
+          "0.86rem"
+        ],
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "overflow-wrap",
+          "break-word"
+        ]
+      ]
+    },
+    {
+      "selector": ".section-refs a",
+      "media": "",
+      "declarations": [
+        [
+          "word-break",
+          "break-all"
+        ]
+      ]
+    },
+    {
+      "selector": ".ref-list",
+      "media": "",
+      "declarations": [
+        [
+          "padding-left",
+          "1.5em"
+        ]
+      ]
+    },
+    {
+      "selector": ".ref-list li",
+      "media": "",
+      "declarations": [
+        [
+          "margin",
+          "12px 0"
+        ],
+        [
+          "overflow-wrap",
+          "break-word"
+        ]
+      ]
+    },
+    {
+      "selector": ".ref-list a",
+      "media": "",
+      "declarations": [
+        [
+          "word-break",
+          "break-all"
+        ]
+      ]
+    },
+    {
+      "selector": ".ref-list .ref-title",
+      "media": "",
+      "declarations": [
+        [
+          "color",
+          "var(--text)"
+        ],
+        [
+          "display",
+          "block"
+        ],
+        [
+          "margin-bottom",
+          "2px"
+        ]
+      ]
+    },
+    {
+      "selector": ".footer",
+      "media": "",
+      "declarations": [
+        [
+          "margin-top",
+          "90px"
+        ],
+        [
+          "padding-top",
+          "26px"
+        ],
+        [
+          "border-top",
+          "1px solid var(--border)"
+        ],
+        [
+          "color",
+          "var(--text-dim)"
+        ],
+        [
+          "font-size",
+          "0.85rem"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar",
+      "media": "(max-width: 900px)",
+      "declarations": [
+        [
+          "transform",
+          "translateX(-100%)"
+        ],
+        [
+          "transition",
+          "transform 0.25s ease"
+        ],
+        [
+          "box-shadow",
+          "0 0 40px rgba(0, 0, 0, 0.5)"
+        ]
+      ]
+    },
+    {
+      "selector": ".sidebar.open",
+      "media": "(max-width: 900px)",
+      "declarations": [
+        [
+          "transform",
+          "translateX(0)"
+        ]
+      ]
+    },
+    {
+      "selector": ".main",
+      "media": "(max-width: 900px)",
+      "declarations": [
+        [
+          "margin-left",
+          "0"
+        ],
+        [
+          "padding",
+          "80px 20px 100px"
+        ]
+      ]
+    },
+    {
+      "selector": ".menu-toggle",
+      "media": "(max-width: 900px)",
+      "declarations": [
+        [
+          "display",
+          "flex"
+        ]
+      ]
+    },
+    {
+      "selector": ".hero h1",
+      "media": "(max-width: 900px)",
+      "declarations": [
+        [
+          "font-size",
+          "1.5rem"
+        ]
+      ]
+    }
+  ],
+  "hashes": {
+    "html": "1c6459a4cf690031ae26a61755adef81de5509be229221ce2a5080f6754e6c9d",
+    "md": "249de2346741ce68ace53575bf2e166a73a7adc5ab9411bd5111942daf744b57"
+  }
+}

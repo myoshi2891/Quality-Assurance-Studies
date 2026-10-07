@@ -136,6 +136,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/software-testing-with-generative-ai-guide', label: '生成AIとソフトウェアテスト実践ガイド', description: '生成AIとLLMをテスト業務へ体系的かつ安全に取り入れるための実践ガイド。', category: 'books-practices' },
   { href: '/ai-driven-software-testing-guide', label: 'AI駆動テスト入門ガイド', description: 'Srinivasa Rao Bittla著『AI-Driven Software Testing』に基づく初学者向け解説ガイド。全18章のテーマを整理。', category: 'books-practices' },
   { href: '/testing-ai-confidence-engineering-guide', label: 'Testing AI 完全ガイド', description: '非決定的なAIシステムをどうやって「自信を持って」出荷できる状態にするか。Jason Arbon著に基づく初学者向け解説。', category: 'books-practices' },
+  { href: '/beautiful-testing-guide', label: 'Beautiful Testing 完全ガイド', description: 'Beautiful Testingの23章を、TDD・探索的テスト・自動化・AI時代の品質と結ぶ実践ガイド。', category: 'books-practices' },
+  { href: '/langgraph-qa-agent-guide', label: 'LangGraph QAエージェント構築ガイド', description: 'LangGraphとNeo4jで自然言語QAエージェントを構築する手順と安全なText-to-Cypher設計。', category: 'books-practices' },
   { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
 ];
 
