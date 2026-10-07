@@ -86,7 +86,7 @@ ISO/IEC/IEEE 29119 は、ソフトウェアテストの国際規格シリーズ�
 
 ```mermaid
 flowchart TD
-    A["ISO/IEC/IEEE 29119<br/>ソフトウェアテスト規格シリーズ"] --> B["Part 1: 概念と定義"]
+    A["ISO/IEC/IEEE 29119<br/>ソフトウェアテスト規格シリーズ"] --> B["Part 1: 一般概念"]
     A --> C["Part 2: テストプロセス"]
     A --> D["Part 3: テスト文書化"]
     A --> E["Part 4: テスト技法"]
