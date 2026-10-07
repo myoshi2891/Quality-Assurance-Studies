@@ -139,6 +139,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/testing-ai-confidence-engineering-guide', label: 'Testing AI 完全ガイド', description: '非決定的なAIシステムをどうやって「自信を持って」出荷できる状態にするか。Jason Arbon著に基づく初学者向け解説。', category: 'books-practices' },
   { href: '/beautiful-testing-guide', label: 'Beautiful Testing 完全ガイド', description: 'Beautiful Testingの23章を、TDD・探索的テスト・自動化・AI時代の品質と結ぶ実践ガイド。', category: 'books-practices' },
   { href: '/langgraph-qa-agent-guide', label: 'LangGraph QAエージェント構築ガイド', description: 'LangGraphとNeo4jで自然言語QAエージェントを構築する手順と安全なText-to-Cypher設計。', category: 'books-practices' },
+  { href: '/beyond-legacy-code-guide', label: 'レガシーコードからの脱却 実践ガイド', description: 'Beyond Legacy Codeの9つのプラクティス、CLEANなコード、TDD、継続的統合と4週間の実践ロードマップ。', category: 'books-practices' },
   { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
 ];
 
