@@ -306,7 +306,8 @@ def find_user(users, name):
             return u
     # 見つからなかった場合、何も返さない（= None が返る）
 
-user = find_user(users, "Alice")
+users = [{"name": "Bob", "email": "bob@example.com"}]
+user = find_user(users, "Alice")  # 一致しないので None が返る
 print(user["email"])   # ← user が None だと実行時エラー
 ```
 

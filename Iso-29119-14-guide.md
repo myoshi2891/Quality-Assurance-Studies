@@ -351,8 +351,15 @@ SELECT 'source' AS side, COUNT(*) AS cnt FROM src.orders
 UNION ALL
 SELECT 'target' AS side, COUNT(*) AS cnt FROM tgt.orders;
 
--- ② 集計値突合（金額合計・日付範囲）
-SELECT SUM(amount) AS total_amount,
+-- ② 集計値突合（金額合計・日付範囲を移行元／移行先で並べて比較）
+SELECT 'source' AS side,
+       SUM(amount)     AS total_amount,
+       MIN(ordered_at) AS min_date,
+       MAX(ordered_at) AS max_date
+FROM   src.orders
+UNION ALL
+SELECT 'target' AS side,
+       SUM(amount)     AS total_amount,
        MIN(ordered_at) AS min_date,
        MAX(ordered_at) AS max_date
 FROM   tgt.orders;
