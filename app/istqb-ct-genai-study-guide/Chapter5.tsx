@@ -32,7 +32,7 @@ export default function Chapter5() {
       {" とは、組織内で正式承認を得ていないAIツールが利用される状態を指します。セキュリティ・コンプライアンス・データプライバシーに関する重大なリスクを伴います。 "}
     </p>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="511-shadow-aiのリスクk1">
         <thead >
           <tr className="header row-header">
             <th >
@@ -102,7 +102,7 @@ export default function Chapter5() {
       {"5.1.2 生成AI戦略の主要側面（K2）"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="512-生成ai戦略の主要側面k2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -190,7 +190,7 @@ export default function Chapter5() {
       {" 5.1.3 テストタスク向けLLM/SLM選定基準（K2） "}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="513-テストタスク向けllmslm選定基準k2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -264,7 +264,7 @@ export default function Chapter5() {
       </div>
     </div>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="514-生成ai導入のフェーズk1">
         <thead >
           <tr className="header row-header">
             <th >

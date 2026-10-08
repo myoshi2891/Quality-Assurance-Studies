@@ -32,7 +32,7 @@ export default function Chapter2() {
       </div>
     </div>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="211-プロンプトの6要素構造k2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -117,7 +117,7 @@ export default function Chapter2() {
       {"テストタスクで一般的に使われる3つのコア技法です。"}
     </p>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="212-コアプロンプト技法k2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -200,7 +200,7 @@ export default function Chapter2() {
       {" 2.1.3 システムプロンプトとユーザープロンプト（K2） "}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="213-システムプロンプトとユーザープロンプトk2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -282,7 +282,7 @@ export default function Chapter2() {
       {"2.2.1 テスト分析"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="221-テスト分析">
         <thead >
           <tr className="header row-header">
             <th >
@@ -341,7 +341,7 @@ export default function Chapter2() {
       {"2.2.2 テスト設計・実装"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="222-テスト設計実装">
         <thead >
           <tr className="header row-header">
             <th >
@@ -392,7 +392,7 @@ export default function Chapter2() {
       {"2.2.3 自動回帰テスト"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="223-自動回帰テスト">
         <thead >
           <tr className="header row-header">
             <th >
@@ -454,7 +454,7 @@ export default function Chapter2() {
       {" 2.2.4 テストモニタリング・コントロール "}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="224-テストモニタリングコントロール">
         <thead >
           <tr className="header row-header">
             <th >
@@ -505,7 +505,7 @@ export default function Chapter2() {
       {" 2.2.5 プロンプト技法の使い分け（公式シラバス掲載表） "}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="225-プロンプト技法の使い分け公式シラバス掲載表">
         <thead >
           <tr className="header row-header">
             <th >
@@ -578,7 +578,7 @@ export default function Chapter2() {
       {"2.3.1 評価メトリクス（K2）"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="231-評価メトリクスk2">
         <thead >
           <tr className="header row-header">
             <th >

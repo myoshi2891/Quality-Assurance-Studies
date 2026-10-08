@@ -28,7 +28,7 @@ export default function Chapter1() {
       </div>
     </div>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="111-aiスペクトラム記号的ai古典的機械学習深層学習生成aik1">
         <thead >
           <tr className="header row-header">
             <th >
@@ -178,7 +178,7 @@ export default function Chapter1() {
       </div>
     </div>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="113-基盤llm指示チューニング済みllm推論llmk2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -271,7 +271,7 @@ export default function Chapter1() {
       {" 1.2.1 テストタスクにおけるLLMの主要な能力（K2） "}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="121-テストタスクにおけるllmの主要な能力k2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -346,7 +346,7 @@ export default function Chapter1() {
       {" 1.2.2 AIチャットボット vs LLM搭載テストアプリケーション（K2） "}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="122-aiチャットボット-vs-llm搭載テストアプリケーションk2">
         <thead >
           <tr className="header row-header">
             <th >

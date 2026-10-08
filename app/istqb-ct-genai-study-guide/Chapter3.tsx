@@ -24,7 +24,7 @@ export default function Chapter3() {
       {"3.1.1 定義（K1）"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="311-定義k1">
         <thead >
           <tr className="header row-header">
             <th >
@@ -139,7 +139,7 @@ export default function Chapter3() {
       {"3.1.4 非決定的挙動の緩和（K1）"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="314-非決定的挙動の緩和k1">
         <thead >
           <tr className="header row-header">
             <th >
@@ -227,7 +227,7 @@ export default function Chapter3() {
       {"3.2.2 攻撃ベクトルの例（K2）"}
     </h4>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="322-攻撃ベクトルの例k2">
         <thead >
           <tr className="header row-header">
             <th >
@@ -393,7 +393,7 @@ export default function Chapter3() {
       {" 3.4 AI規制・標準・ベストプラクティスフレームワーク（K1） "}
     </h3>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="34-ai規制標準ベストプラクティスフレームワークk1">
         <thead >
           <tr className="header row-header">
             <th >

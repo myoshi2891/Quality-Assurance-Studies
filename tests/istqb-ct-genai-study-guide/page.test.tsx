@@ -153,3 +153,21 @@ describe('Archive',()=>{
   expect(existsSync('Ct-genai-study-guide.'+extension)).toBe(false);
  });
 });
+describe('Table accessible names',()=>{
+ const expectedCounts: Record<string,number>={Chapter1:4,Chapter2:9,Chapter3:4,Chapter5:4,Overview:2,References:1};
+ for(const [name,count] of Object.entries(expectedCounts))it(name+' labels every table by its own section heading',async()=>{
+  const root=await category(name);
+  const tables=[...root.querySelectorAll('table')];
+  expect(tables).toHaveLength(count);
+  const labels=tables.map(table=>{
+   const nodes=[...root.querySelectorAll('h2[id],h3[id],h4[id],table')];
+   const heading=nodes.slice(0,nodes.indexOf(table)).reverse().find(n=>n.tagName!=='TABLE');
+   expect(heading).toBeDefined();
+   expect(table.getAttribute('aria-labelledby')).toBe(heading!.id);
+   const label=root.querySelector('[id="'+heading!.id+'"]');
+   expect(norm(label?.textContent ?? '')).not.toBe('');
+   return norm(label!.textContent ?? '');
+  });
+  expect(new Set(labels).size).toBe(labels.length);
+ });
+});

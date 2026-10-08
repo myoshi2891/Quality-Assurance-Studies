@@ -18,7 +18,7 @@ export default function Overview() {
       {"0.1 試験概要"}
     </h3>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="01-試験概要">
         <thead >
           <tr className="header row-header">
             <th >
@@ -93,7 +93,7 @@ export default function Overview() {
       {" 0.2 ビジネスアウトカム（合格者が到達すべき状態） "}
     </h3>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="02-ビジネスアウトカム合格者が到達すべき状態">
         <thead >
           <tr className="header row-header">
             <th >

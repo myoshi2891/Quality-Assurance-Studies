@@ -6,7 +6,7 @@ export default function References() {
       {"出典・参考資料"}
     </h2>
     <div className="table-scroll">
-      <table >
+      <table aria-labelledby="出典参考資料">
         <thead >
           <tr className="header row-header">
             <th >
