@@ -177,7 +177,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-genai-study-guide/page.tsx` (CT-GenAI完全学習ガイド、既存画面と併存、`NavBar.tsx` 付き)
 - `app/beautiful-testing-guide/page.tsx` (Beautiful Testing ガイド、`NavBar.tsx` 付き)
 
-CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集約し、内側`.mermaid-wrapper`を`display: block; overflow: visible`にする。広いSVGの中央寄せによる負のスクロール原点を防止する。`npm exec -- playwright test --config playwright.mermaid-css.config.ts`でビルドなしのCSS座標検証を実行できる。
+CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集約し、内側`.mermaid-wrapper`を`display: block; overflow: visible`にする。広いSVGの中央寄せによる負のスクロール原点を防止する。`bunx playwright test --config playwright.mermaid-css.config.ts`でビルドなしのCSS座標検証を実行できる。
 
 ## HTML → Next.js 移行 注意事項
 
@@ -350,7 +350,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - `/beyond-legacy-code-guide`を名著・実践ガイドへ追加。紙色・藍色の元テーマ、全87CSSルール、階層目次18リンク、Mermaid図6件を保持。
 - `tests/beyond-legacy-code-guide/page.test.tsx`で501件を検証。ナビ・E2E対象は92ルート、書籍カテゴリは22件。
 - 原本は`archive/html-archive/books/Beyond-legacy-code-guide.html`と`archive/md-archive/books/Beyond-legacy-code-guide.md`へ移動し、SHA-256一致を確認。
-- このサンドボックスではユーザー指示に従って`npm test`・`npm run lint`・`npm exec -- tsc`を使用。ビルド・目視確認は実施しない。
+- 検証は`bun test`・`bun run lint`・`bunx tsc --noEmit`で実施。ビルド・目視確認は実施しない。
 
 ### 未移行（プロジェクトルートに残存）
 

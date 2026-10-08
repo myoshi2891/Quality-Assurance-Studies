@@ -142,7 +142,7 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
-現在の登録は92ルート（2026-10-07）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`npm test -- tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は92ルート（2026-10-07）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -275,4 +275,4 @@
 
 `/istqb-ct-genai-study-guide`を追加済み。既存の総合・第1〜5章画面は保持する。目視確認はユーザーが行い、ビルドは自動実行しない。元HTML・MDは`archive/html-archive/ct-specialist/`・`archive/md-archive/ct-specialist/`で追跡管理し、固定インベントリと305テストで内容・図・デザインを照合する。CSSコミットの復旧承認の状況は`MIGRATION_PROGRESS.md`を参照。
 
-Mermaidの左端切れの再発確認は`npm exec -- playwright test --config playwright.mermaid-css.config.ts`で行う。外側コンテナに横スクロールを集約し、内側の共有ラッパーのflex中央寄せ・横スクロールをページ内で解除する。CSS単独テストのためサーバーと本番ビルドは起動しない。
+Mermaidの左端切れの再発確認は`bunx playwright test --config playwright.mermaid-css.config.ts`で行う。外側コンテナに横スクロールを集約し、内側の共有ラッパーのflex中央寄せ・横スクロールをページ内で解除する。CSS単独テストのためサーバーと本番ビルドは起動しない。

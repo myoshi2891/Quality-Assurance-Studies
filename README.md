@@ -90,12 +90,12 @@ This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) 
 
 `/istqb-ct-genai-study-guide`を既存のCT-GenAI画面に追加しています。元HTML・Markdownは`archive/`に保管しています。移行テストは本文・全表・図13件・全55CSSルール・目次操作・既存画面のハッシュを検証します。
 
-今回のサンドボックス検証は`npm test`と`npm run lint`で実施します。ビルドとブラウザの目視確認はユーザーが実施します。
+今回のサンドボックス検証は`bun test`と`bun run lint`で実施します。ビルドとブラウザの目視確認はユーザーが実施します。
 
-Mermaidの左右スクロールは、`npm exec -- playwright test --config playwright.mermaid-css.config.ts`でサーバー・ビルドなしに検証できます。実際のChromiumで画面幅390/880/881/1440pxと図幅240/1800/3200pxの12ケースを検証します。これは共有・ページ固有CSSと描画済みSVGの構造を用いるレイアウト検証で、実ページの目視確認は別途行います。
+Mermaidの左右スクロールは、`bunx playwright test --config playwright.mermaid-css.config.ts`でサーバー・ビルドなしに検証できます。実際のChromiumで画面幅390/880/881/1440pxと図幅240/1800/3200pxの12ケースを検証します。これは共有・ページ固有CSSと描画済みSVGの構造を用いるレイアウト検証で、実ページの目視確認は別途行います。
 
 ## Beyond Legacy Code実践ガイド
 
 `/beyond-legacy-code-guide`に移行しました。元の紙色・藍色テーマ、階層目次18リンク、Mermaid図6件、全87CSSルールを保持しています。元HTML・Markdownは`archive/html-archive/books/`と`archive/md-archive/books/`で追跡管理しています。
 
-`npm test -- tests/beyond-legacy-code-guide/page.test.tsx`で501テストを実行し、本文全文・DOM順序・表の全セル・図ソースと配置・CSS宣言・モバイル目次・アーカイブのハッシュを照合します。ビルドと目視確認は今回実施していません。
+`bun test tests/beyond-legacy-code-guide/page.test.tsx`で501テストを実行し、本文全文・DOM順序・表の全セル・図ソースと配置・CSS宣言・モバイル目次・アーカイブのハッシュを照合します。ビルドと目視確認は今回実施していません。
