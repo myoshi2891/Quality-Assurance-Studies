@@ -131,7 +131,7 @@ ISO公式Abstractによれば、この規格は **「プロジェクトがソフ
 | 章 | 章タイトル（英語） | 日本語訳 | 確認状況 |
 |----|-------------------|---------|---------|
 | 4 | Object model for software testing tools | テストツールのオブジェクトモデル | ✅ 目次で確認 |
-| 5 | （タイトル未確認） | スコープ記述上は「カテゴリ化」「特性化」に関係 | 📘 本文要確認 |
+| 5 | Category of test entity | テストエンティティのカテゴリ | ✅ 目次で確認 |
 | 6 | Characteristics of software testing tools | テストツールの特性 | ✅ 目次で確認 |
 | 7 | Capabilities of software testing tools | テストツールの能力 | ✅ 目次で確認 |
 
