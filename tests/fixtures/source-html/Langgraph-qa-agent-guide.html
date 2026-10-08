@@ -1014,7 +1014,14 @@ SELECTION_PROPERTY_ALLOWLIST = frozenset({"incident_type", "status", "occurred_a
 def build_selection_context(selection: dict) -&gt; dict:
     # UI から届く辞書はクライアント側で書き換えられるため、kind・labels・properties の値を文脈に使わない。
     # 参照として uid だけを検証して取り出し、Neo4j から実ノードを取得し直してサーバー側で文脈を組み立てる
+    if not isinstance(selection, dict):
+        # 辞書以外が届いた場合も ValueError に揃え、text_to_cypher 側で選択を外して続行させる
+        raise ValueError("選択中のノードの参照が不正です")
+    # to_dto（Step 7）形式のノードは uid を properties に持つため、トップレベルに無い場合だけ properties.uid を参照として使う
     uid = selection.get("uid")
+    if uid is None:
+        properties = selection.get("properties")
+        uid = properties.get("uid") if isinstance(properties, dict) else None
     if selection.get("kind") != "node" or not isinstance(uid, str) or not uid:
         raise ValueError("選択中のノードの参照が不正です")
     # driver は Step 7 で定義する読み取り専用ユーザーの共有ドライバ
@@ -1580,6 +1587,7 @@ def summarize(state: AgentState) -&gt; dict:
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import RetryPolicy
+from neo4j.exceptions import ServiceUnavailable, SessionExpired, TransientError
 
 graph = StateGraph(AgentState)
 
@@ -1588,8 +1596,14 @@ graph.add_node("schema_extraction", schema_extraction)
 graph.add_node(
     "text_to_cypher",
     text_to_cypher,
-    # 選択ノード取得時の Neo4j 一時障害は ValueError ではないため伝播し、このノード単位で再試行される
-    retry_policy=RetryPolicy(max_attempts=3, initial_interval=0.5, backoff_factor=2.0),
+    # 選択ノード取得時の Neo4j 一時障害は ValueError ではないため伝播し、このノード単位で再試行される。
+    # LLM の認証エラーなど回復しない失敗まで再試行しないよう、対象は Neo4j の一時障害に限定する
+    retry_policy=RetryPolicy(
+        max_attempts=3,
+        initial_interval=0.5,
+        backoff_factor=2.0,
+        retry_on=(ServiceUnavailable, SessionExpired, TransientError),
+    ),
 )
 graph.add_node(
     "execute_query",
