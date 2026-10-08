@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f1c9658`（コード・アーカイブの最終コミット。復旧差分は作業ツリー、ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `chore(archive): relocate Beyond Legacy Code HTML and Markdown originals` |
+| 最新 HEAD | `2508512`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `docs(iso-ai): add beginner guides for ISO/IEC 22989:2022 and ISO/IEC 42005:2025` |
 | 次の作業 | ユーザーによる`/beyond-legacy-code-guide`の目視確認。10c34ebの失敗テストを止めずコミットした手順違反に対する履歴保持復旧コミットは承認待ち（修正・再検証済み）。既存4e13ce0の復旧承認待ちも保持 |
 | ビルド状態 | 復旧差分を含む作業ツリーで`bun test`: 2581 pass / 0 fail、111 files（2026-10-07）。ページ501テスト、対象・ナビ・Mermaid契約679テスト成功。`bun run lint`、移行対象の型チェック、変更ドキュメントのMarkdownlint成功。全体型チェックには既存テストの型エラーが残存。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
