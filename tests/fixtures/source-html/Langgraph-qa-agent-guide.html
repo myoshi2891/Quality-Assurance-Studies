@@ -1001,10 +1001,13 @@ def intent_detection(state: AgentState) -&gt; dict:
     return query.strip(), str(data.get("reasoning", ""))
 
 def fetch_selected_node(tx, uid: str):
-    # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など。対象ラベルに一意性制約を設定しておく）。
+    # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など）。
+    # 選択可能なノードには共通の固定ラベル Selectable を付け、そのラベルに uid の一意性制約を設定しておく:
+    #   CREATE CONSTRAINT selectable_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.uid IS UNIQUE
+    # ラベルを省いた MATCH (n {uid: $uid}) は制約のインデックスを使えず全ノード走査になるため、ラベルを必ず指定する
     # elementId() は同一トランザクション内でしか一意性が保証されず、ノード削除後に別ノードへ再利用され得るため、UI から届く参照には使わない
     # uid はパラメータとして渡し、Cypher 文字列に埋め込まない
-    record = tx.run("MATCH (n {uid: $uid}) RETURN n", uid=uid).single()
+    record = tx.run("MATCH (n:Selectable {uid: $uid}) RETURN n", uid=uid).single()
     return record["n"] if record is not None else None
 
 # LLM へ送ってよいプロパティの許可リスト（例）。Cypher の組み立てに必要で、機微でないと確認したキーだけを列挙する。
