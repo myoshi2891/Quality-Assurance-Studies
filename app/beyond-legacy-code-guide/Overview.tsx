@@ -25,7 +25,7 @@ export default function Overview() {
         {" 図3: 9つのプラクティスの流れ(色が濃いノードは各目的グループの起点、緑は最終到達点) "}
       </p>
       <div className="table-wrap">
-        <table>
+        <table aria-label="9つのプラクティス一覧">
           <thead>
             <tr>
               <th>

@@ -12,7 +12,7 @@ export default function Practice2() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-label="バッチサイズの比較">
           <thead>
             <tr>
               <th>

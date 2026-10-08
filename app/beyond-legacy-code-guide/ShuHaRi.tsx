@@ -17,7 +17,7 @@ export default function ShuHaRi() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-label="守破離の3段階">
           <thead>
             <tr>
               <th>

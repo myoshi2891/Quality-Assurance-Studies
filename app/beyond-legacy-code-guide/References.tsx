@@ -17,9 +17,9 @@ export default function References() {
         </p>
       </div>
       <div className="ref-group">
-        <h4>
+        <h3>
           {"公式・出版元の情報"}
-        </h4>
+        </h3>
         <ul className="ref-list">
           <li>
             <a href="https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/" target="_blank" rel="noopener noreferrer">
@@ -56,9 +56,9 @@ export default function References() {
         </ul>
       </div>
       <div className="ref-group">
-        <h4>
+        <h3>
           {"コミュニティ・書評"}
-        </h4>
+        </h3>
         <ul className="ref-list">
           <li>
             <a href="https://agilealliance.org/resources/books/beyond-legacy-code/" target="_blank" rel="noopener noreferrer">
@@ -108,9 +108,9 @@ export default function References() {
         </ul>
       </div>
       <div className="ref-group">
-        <h4>
+        <h3>
           {"日本語の情報源"}
-        </h4>
+        </h3>
         <ul className="ref-list">
           <li>
             <a href="https://www.attractor.co.jp/book/beyond-legacy-code/" target="_blank" rel="noopener noreferrer">

@@ -16,7 +16,7 @@ export default function Practice7() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-label="テスト名の例">
           <thead>
             <tr>
               <th>

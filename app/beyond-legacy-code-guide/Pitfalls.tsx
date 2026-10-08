@@ -12,7 +12,7 @@ export default function Pitfalls() {
         {"初学者がつまずきやすいポイント"}
       </h2>
       <div className="table-wrap">
-        <table>
+        <table aria-label="よくあるつまずき">
           <thead>
             <tr>
               <th>

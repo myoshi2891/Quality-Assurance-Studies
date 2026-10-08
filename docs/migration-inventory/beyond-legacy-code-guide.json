@@ -3436,7 +3436,7 @@
           "text": "公式・出版元の情報O'Reilly―原著の目次・概要ページ原著の詳細目次を確認できる。PragmaticBookshelf公式ページ原著出版元。詳細目次と概要が掲載されている。O'ReillyJapan日本語版書誌ページ『レガシーコードからの脱却』日本語版の書誌情報。TheStandishGroup公式サイト本文で言及したCHAOSReportの発行元。"
         },
         {
-          "tag": "h4",
+          "tag": "h3",
           "attrs": [],
           "text": "公式・出版元の情報"
         },
@@ -3593,7 +3593,7 @@
           "text": "コミュニティ・書評AgileAlliance書籍紹介ページアジャイル団体による書籍紹介。TheAgileRevolutionポッドキャスト第171回CraigSmith氏が著者DavidBernstein本人にインタビュー。ChristianTietze氏のブログCLEANコード頭字語の紹介記事。Numerickly―書評と要約記事著者DavidScottBernstein自身によるCLEANコード解説記事Goodreadsauthorblog。Goodreads書籍ページ読者による書評、CLEAN頭字語へのコメントを含む。"
         },
         {
-          "tag": "h4",
+          "tag": "h3",
           "attrs": [],
           "text": "コミュニティ・書評"
         },
@@ -3806,7 +3806,7 @@
           "text": "日本語の情報源株式会社アトラクタ―書籍紹介ページ日本語版訳者の一人吉羽龍太郎氏が代表を務める会社による紹介。irof氏のブログ―書評日本語コミュニティによる書評記事。"
         },
         {
-          "tag": "h4",
+          "tag": "h3",
           "attrs": [],
           "text": "日本語の情報源"
         },
@@ -3895,17 +3895,17 @@
             "text": "参考情報源(URL付き)"
           },
           {
-            "tag": "h4",
+            "tag": "h3",
             "attrs": [],
             "text": "公式・出版元の情報"
           },
           {
-            "tag": "h4",
+            "tag": "h3",
             "attrs": [],
             "text": "コミュニティ・書評"
           },
           {
-            "tag": "h4",
+            "tag": "h3",
             "attrs": [],
             "text": "日本語の情報源"
           }
@@ -5853,7 +5853,7 @@
       ]
     },
     {
-      "selector": ".ref-group h4",
+      "selector": ".ref-group h3",
       "media": "",
       "declarations": [
         [
@@ -8985,7 +8985,7 @@
       "text": "公式・出版元の情報O'Reilly―原著の目次・概要ページ原著の詳細目次を確認できる。PragmaticBookshelf公式ページ原著出版元。詳細目次と概要が掲載されている。O'ReillyJapan日本語版書誌ページ『レガシーコードからの脱却』日本語版の書誌情報。TheStandishGroup公式サイト本文で言及したCHAOSReportの発行元。"
     },
     {
-      "tag": "h4",
+      "tag": "h3",
       "attrs": [],
       "text": "公式・出版元の情報"
     },
@@ -9142,7 +9142,7 @@
       "text": "コミュニティ・書評AgileAlliance書籍紹介ページアジャイル団体による書籍紹介。TheAgileRevolutionポッドキャスト第171回CraigSmith氏が著者DavidBernstein本人にインタビュー。ChristianTietze氏のブログCLEANコード頭字語の紹介記事。Numerickly―書評と要約記事著者DavidScottBernstein自身によるCLEANコード解説記事Goodreadsauthorblog。Goodreads書籍ページ読者による書評、CLEAN頭字語へのコメントを含む。"
     },
     {
-      "tag": "h4",
+      "tag": "h3",
       "attrs": [],
       "text": "コミュニティ・書評"
     },
@@ -9355,7 +9355,7 @@
       "text": "日本語の情報源株式会社アトラクタ―書籍紹介ページ日本語版訳者の一人吉羽龍太郎氏が代表を務める会社による紹介。irof氏のブログ―書評日本語コミュニティによる書評記事。"
     },
     {
-      "tag": "h4",
+      "tag": "h3",
       "attrs": [],
       "text": "日本語の情報源"
     },

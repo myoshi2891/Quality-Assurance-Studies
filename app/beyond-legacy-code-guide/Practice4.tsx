@@ -12,7 +12,7 @@ export default function Practice4() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-label="協働手法の比較">
           <thead>
             <tr>
               <th>

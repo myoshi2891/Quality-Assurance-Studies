@@ -16,7 +16,7 @@ export default function Practice5() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-label="CLEANの5要素">
           <thead>
             <tr>
               <th>
