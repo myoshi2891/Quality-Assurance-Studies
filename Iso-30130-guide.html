@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISO/IEC 30130:2016
+初学者向け概要ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>:root{--bg:#07111e;--panel:#0d1b2e;--panel2:#10223a;--line:#22365a;--text:#e8f0ff;--dim:#c7d6ec;--faint:#9cb0cf;--accent:#7c9eff;--warn:#ffcf70;--tip:#6ee7b7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.85;overflow-x:hidden}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:280px;background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:22px 14px;z-index:20}
+.side-title{font-weight:800;font-size:15px;padding:0 10px 14px;border-bottom:1px solid var(--line);margin-bottom:12px}.side-title small{display:block;font-weight:500;color:var(--faint);font-size:12px;margin-top:2px}
+.sidebar ul{list-style:none;margin:0;padding:0}.sidebar a{display:block;padding:7px 10px;border-radius:8px;color:var(--dim);text-decoration:none;font-size:13.5px;line-height:1.5;border-left:3px solid transparent}
+.sidebar a:hover{background:var(--panel2)}.sidebar a.active{background:#16294a;color:#fff;border-left-color:var(--accent);font-weight:700}
+.main{margin-left:280px;padding:40px 48px 80px}
+.nav-toggle{display:none;position:fixed;top:12px;left:12px;z-index:30;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:inherit;font-size:14px}
+.hero{position:relative;border:1px solid var(--line);border-radius:18px;padding:34px 36px;margin-bottom:36px;background:var(--panel);overflow:hidden}
+.hero::before{content:"";position:absolute;top:-120px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(124,158,255,.28),transparent 70%)}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.08em;font-weight:700;color:var(--accent);border:1px solid #34508e;border-radius:999px;padding:4px 12px;background:#0f2038;position:relative}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin:16px 0 4px;line-height:1.4;position:relative}
+.hero-sub{color:var(--dim);margin:0 0 14px;font-weight:700;position:relative}
+.hero-lead{position:relative;color:var(--dim);font-size:14.5px;border-left:3px solid var(--accent);padding-left:14px}.hero-lead p{margin:4px 0}
+.hero-meta{display:flex;flex-wrap:wrap;margin-top:22px;border-top:1px solid var(--line);padding-top:16px;position:relative}
+.meta-item{padding:0 22px;border-right:1px solid var(--line)}.meta-item:first-child{padding-left:0}.meta-item:last-child{border-right:0}
+.meta-item span{display:block;font-size:11px;letter-spacing:.06em;color:var(--faint);text-transform:uppercase}.meta-item b{font-size:14.5px;font-weight:700}
+.main h2{font-size:23px;font-weight:800;margin:56px 0 16px;padding:12px 16px;background:linear-gradient(90deg,#16294a,transparent);border-left:4px solid var(--accent);border-radius:4px;color:#fff;scroll-margin-top:20px}
+.main h3{font-size:18px;font-weight:700;margin:32px 0 10px;color:#cfe0ff;scroll-margin-top:20px}.main h3::before{content:"";display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:2px;margin-right:10px;vertical-align:middle}
+.main p,.main li{color:var(--dim)}.main strong{color:#fff}
+.main a{color:#9db4ff;word-break:break-all}
+code:not(pre code){background:#16294a;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.9em;overflow-wrap:anywhere}
+.table-scroll{overflow-x:auto;margin:16px 0 22px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th{background:#16294a;color:#fff;text-align:left;font-weight:700;white-space:nowrap}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#0b192b}td{color:var(--dim)}
+.callout{margin:18px 0;padding:14px 18px;border:1px solid #34508e;border-left:4px solid var(--accent);border-radius:10px;background:#0f2038}.callout p{margin:4px 0;color:var(--text)}
+.callout-warn{border-color:#6b5420;border-left-color:var(--warn);background:#1b1a14}.callout-tip{border-color:#1f5a47;border-left-color:var(--tip);background:#0c1f1c}
+.mermaid-diagram{display:block;overflow-x:auto;margin:20px 0 26px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;height:auto}
+.mermaid-diagram p{color:inherit;margin:0}
+.main ul,.main ol{padding-left:1.4em}
+.page-footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+@media(max-width:900px){.sidebar{transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:none}.nav-toggle{display:block}.main{margin-left:0;padding:64px 16px 60px}.hero{padding:24px 18px}.hero-title{font-size:23px}.meta-item{border-right:0;border-bottom:1px solid var(--line);padding:8px 0;width:100%}.meta-item:last-child{border-bottom:0}}
+</style></head><body>
+<button class="nav-toggle" id="navToggle" aria-label="目次を開閉">☰ 目次</button>
+<aside class="sidebar" id="sidebar"><div class="side-title">ISO/IEC 30130<small>初学者向け概要ガイド</small></div><ul><li><a href="#0-このガイドの読み方と確認できたことできなかったこと" data-target="0-このガイドの読み方と確認できたことできなかったこと">0.
+このガイドの読み方と「確認できたこと／できなかったこと」</a></li><li><a href="#1-30秒でわかる-isoiec-301302016" data-target="1-30秒でわかる-isoiec-301302016">1. 30秒でわかる ISO/IEC
+30130:2016</a></li><li><a href="#2-step-1まずテストツールを整理しよう" data-target="2-step-1まずテストツールを整理しよう">2. Step
+1：まず「テストツール」を整理しよう</a></li><li><a href="#3-step-2この規格の立ち位置を理解する" data-target="3-step-2この規格の立ち位置を理解する">3. Step
+2：この規格の「立ち位置」を理解する</a></li><li><a href="#4-step-3規格の目的と守備範囲" data-target="4-step-3規格の目的と守備範囲">4. Step
+3：規格の「目的」と「守備範囲」</a></li><li><a href="#5-step-43本柱を初学者向けにかみ砕く" data-target="5-step-43本柱を初学者向けにかみ砕く">5. Step
+4：3本柱を初学者向けにかみ砕く</a></li><li><a href="#6-step-529119-2-のテストプロセスと重ねて見る" data-target="6-step-529119-2-のテストプロセスと重ねて見る">6. Step 5：29119-2
+のテストプロセスと重ねて見る</a></li><li><a href="#7-step-6現場のツール分類と見比べる" data-target="7-step-6現場のツール分類と見比べる">7. Step
+6：現場のツール分類と見比べる</a></li><li><a href="#8-step-7実務での使い方-解説者による提案" data-target="8-step-7実務での使い方-解説者による提案">8. Step
+7：実務での使い方（💡 解説者による提案）</a></li><li><a href="#9-step-8よくある誤解と注意点" data-target="9-step-8よくある誤解と注意点">9. Step
+8：よくある誤解と注意点</a></li><li><a href="#10-規格のライフサイクルiso公式より" data-target="10-規格のライフサイクルiso公式より">10.
+規格のライフサイクル（ISO公式より）</a></li><li><a href="#11-理解度チェック" data-target="11-理解度チェック">11. 理解度チェック</a></li><li><a href="#12-参考ソースurl根拠一覧" data-target="12-参考ソースurl根拠一覧">12. 参考ソースURL（根拠一覧）</a></li></ul></aside>
+<main class="main">
+<header class="hero"><span class="eyebrow">ISO/IEC 30130:2016 · SOFTWARE TESTING TOOLS</span>
+<h1 class="hero-title">ISO/IEC 30130:2016
+初学者向け概要ガイド</h1><p class="hero-sub">Software engineering — Capabilities of software testing
+tools（ソフトウェアエンジニアリング —
+ソフトウェアテストツールの能力）</p>
+<div class="hero-lead"><p>本ガイドは、ISO/IEC 30130:2016
+を「テストツールを選ぶ・評価する・説明する」立場の初学者が、ステップバイステップで理解できるように構成した解説です。
+調査基準日は <strong>2026年10月6日</strong> です。図解は Mermaid と
+Markdown 表のみで構成しています。</p></div><div class="hero-meta"><div class="meta-item"><span>規格番号</span><b>ISO/IEC 30130:2016</b></div><div class="meta-item"><span>版・発行</span><b>Edition 1 / 2016年</b></div><div class="meta-item"><span>ステージ</span><b>90.93（2022-05-24 確認）</b></div><div class="meta-item"><span>委員会</span><b>ISO/IEC JTC 1/SC 7</b></div><div class="meta-item"><span>調査基準日</span><b>2026-10-06</b></div></div></header>
+
+
+
+
+<h2 id="0-このガイドの読み方と確認できたことできなかったこと">0.
+このガイドの読み方と「確認できたこと／できなかったこと」</h2>
+<p>最初に、情報の信頼性について正直にお伝えします。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>区分</th>
+<th>内容</th>
+<th>根拠の強さ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>✅ 確認済み</td>
+<td>規格の目的・範囲（Abstract/Scope）、章と内容の対応、発行・見直し履歴、委員会、ページ数、目次の一部</td>
+<td>ISO公式ページ・各国標準機関のカタログ（一次情報）</td>
+</tr>
+<tr class="even">
+<td>✅ 確認済み</td>
+<td>関連規格（ISO/IEC/IEEE 29119-2、ISO/IEC 12207）との位置づけ</td>
+<td>ISO公式Abstract、29119-2の公開プレビュー</td>
+</tr>
+<tr class="odd">
+<td>⚠️ 未確認</td>
+<td>規格本文（各カテゴリの具体名、特性・能力の項目リスト、付属書の中身）</td>
+<td>有料PDFのため本ガイドでは閲覧していません</td>
+</tr>
+<tr class="even">
+<td>💡 解説者による補足</td>
+<td>実務での使い方、評価シート、ツール例</td>
+<td>一般的なテスト工学の知識と著名実務家の発言に基づく筆者の整理</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout">
+<p><strong>重要</strong>：ISO/IEC 30130
+の本文に書かれている具体的な分類名・項目名は、有料規格のため本ガイドでは断定していません。
+規格本文に当たる必要がある箇所には「📘
+本文要確認」と明記しています。</p>
+</blockquote>
+
+<h2 id="1-30秒でわかる-isoiec-301302016">1. 30秒でわかる ISO/IEC
+30130:2016</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>質問</th>
+<th>答え</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>何の規格？</td>
+<td><strong>ソフトウェアテストツールが持つ「能力（Capabilities）」を整理するための枠組み</strong>を定める国際規格</td>
+</tr>
+<tr class="even">
+<td>何ができるようになる？</td>
+<td>プロジェクトで使っているテストツール製品が「何ができるのか」を、共通の物差しで特定できる</td>
+</tr>
+<tr class="odd">
+<td>誰向け？</td>
+<td>テストツールの選定者、QAリード、ツールベンダー、監査・評価担当、テストプロセス改善担当</td>
+</tr>
+<tr class="even">
+<td>認証制度はある？</td>
+<td>公式情報の範囲では、認証を前提とした規格ではありません（準拠を主張する枠組みというより、整理の共通言語）</td>
+</tr>
+<tr class="odd">
+<td>今も有効？</td>
+<td><strong>有効</strong>。2022年に見直しの結果「確認（Confirmed）」されています</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="2-step-1まずテストツールを整理しよう">2. Step
+1：まず「テストツール」を整理しよう</h2>
+<h3 id="2-1-テストツールとは">2-1. テストツールとは</h3>
+<p>ソフトウェアテストでは、人間が手作業で行う作業の一部を、ソフトウェア（ツール）が支援または代行します。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>テストの作業</th>
+<th>ツールが支援する例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>テストの計画・進捗管理</td>
+<td>テスト管理ツール（Jira、TestRail、qTest、Zephyr など）</td>
+</tr>
+<tr class="even">
+<td>テストの実行</td>
+<td>自動テストツール（Selenium、Cypress、Playwright、Appium など）</td>
+</tr>
+<tr class="odd">
+<td>結果の記録・分析</td>
+<td>レポート、ダッシュボード、カバレッジ計測</td>
+</tr>
+<tr class="even">
+<td>欠陥の追跡</td>
+<td>欠陥管理ツール</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout">
+<p>ツール例の出典：テストツールの6分類を整理した <a href="https://testkube.io/glossary/it-testing-tools" rel="noopener noreferrer" target="_blank">Testkube
+の用語集</a>（参考情報）</p>
+</blockquote>
+<h3 id="2-2-なぜ能力という見方が必要か">2-2.
+なぜ「能力」という見方が必要か</h3>
+<p>ツールは製品ごとに名前も機能も違います。たとえば「Aツールはテスト管理も実行もできる」「Bツールは実行だけ」のように、製品の名前だけでは比較できません。</p>
+<p>そこで ISO/IEC 30130
+は、<strong>製品名ではなく「能力」という共通の単位</strong>でツールを見る枠組みを提供します。</p>
+<div class="mermaid-diagram" id="mermaid-diagram-0" role="img"><svg id="mm0" width="675.71875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="200" viewBox="4 4 675.71875 200" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm0{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm0 .error-icon{fill:#0d1b2e;}#mm0 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm0 .edge-thickness-normal{stroke-width:1px;}#mm0 .edge-thickness-thick{stroke-width:3.5px;}#mm0 .edge-pattern-solid{stroke-dasharray:0;}#mm0 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm0 .edge-pattern-dashed{stroke-dasharray:3;}#mm0 .edge-pattern-dotted{stroke-dasharray:2;}#mm0 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm0 .marker.cross{stroke:#9db4ff;}#mm0 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm0 p{margin:0;}#mm0 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm0 .cluster-label text{fill:#e8f0ff;}#mm0 .cluster-label span{color:#e8f0ff;}#mm0 .cluster-label span p{background-color:transparent;}#mm0 .label text,#mm0 span{fill:#e8f0ff;color:#e8f0ff;}#mm0 .node rect,#mm0 .node circle,#mm0 .node ellipse,#mm0 .node polygon,#mm0 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm0 .rough-node .label text,#mm0 .node .label text,#mm0 .image-shape .label,#mm0 .icon-shape .label{text-anchor:middle;}#mm0 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm0 .rough-node .label,#mm0 .node .label,#mm0 .image-shape .label,#mm0 .icon-shape .label{text-align:center;}#mm0 .node.clickable{cursor:pointer;}#mm0 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm0 .arrowheadPath{fill:#f2e4d1;}#mm0 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm0 .flowchart-link{stroke:#9db4ff;fill:none;}#mm0 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm0 .edgeLabel p{background-color:#0d1b2e;}#mm0 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm0 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm0 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm0 .cluster text{fill:#e8f0ff;}#mm0 .cluster span{color:#e8f0ff;}#mm0 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm0 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm0 rect.text{fill:none;stroke-width:0;}#mm0 .icon-shape,#mm0 .image-shape{background-color:#0d1b2e;text-align:center;}#mm0 .icon-shape p,#mm0 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm0 .icon-shape .label rect,#mm0 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm0 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm0 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm0 .node .neo-node{stroke:#7c9eff;}#mm0 [data-look="neo"].node rect,#mm0 [data-look="neo"].cluster rect,#mm0 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm0 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm0 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm0 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm0 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm0 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm0 [data-look="neo"].node circle .state-start{fill:#000000;}#mm0 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm0 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm0 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm0_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm0_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm0_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm0_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm0_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm0_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm0_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm0_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm0_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm0_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm0_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm0_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edges edgePaths"><path d="M220.015625,48L492.03125,48" id="mm0-L_X1_X2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 268.015625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_X1_X2_0" data-points="W3sieCI6MjIwLjAxNTYyNSwieSI6NDh9LHsieCI6NDk2LjAzMTI1LCJ5Ijo0OH1d" data-look="neo" marker-end="url(#mm0_flowchart-v2-pointEnd-margin)"></path><path d="M220.015625,160L492.03125,160" id="mm0-L_Y1_Y2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 268.015625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_Y1_Y2_0" data-points="W3sieCI6MjIwLjAxNTYyNSwieSI6MTYwfSx7IngiOjQ5Ni4wMzEyNSwieSI6MTYwfV0=" data-look="neo" marker-end="url(#mm0_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(358.0234375, 62.29999923706055)"><g class="label" data-id="L_X1_X2_0" transform="translate(0, -17.799999237060547)"><g><rect class="background" style="" x="-98.0078125" y="-5" width="196.015625" height="45.599998474121094"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">機能名・用語が製品ごとに</tspan></tspan><tspan class="text-outer-tspan row" x="0" y="1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">違う</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(358.0234375, 174.5)"><g class="label" data-id="L_Y1_Y2_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-50.0078125" y="-5" width="100.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">共通の物差し</tspan></tspan></text></g></g></g></g><g class="nodes"><g class="node default  " id="mm0-flowchart-X1-0" data-look="neo" transform="translate(134.3984375, 48)"><rect class="basic label-container" style="" x="-85.6171875" y="-36" width="171.234375" height="72"></rect><g class="label" style="" transform="translate(-69.6171875, -24)"><rect></rect><foreignObject width="139.234375" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>製品名で比較<br/>ツールA vs ツールB</p></span></div></foreignObject></g></g><g class="node default  " id="mm0-flowchart-X2-1" data-look="neo" transform="translate(576.0390625, 48)"><rect class="basic label-container" style="" x="-80.0078125" y="-24" width="160.015625" height="48"></rect><g class="label" style="" transform="translate(-64.0078125, -12)"><rect></rect><foreignObject width="128.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>比較が曖昧になる</p></span></div></foreignObject></g></g><g class="node default  " id="mm0-flowchart-Y1-2" data-look="neo" transform="translate(116.0078125, 160)"><rect class="basic label-container" style="" x="-104.0078125" y="-36" width="208.015625" height="72"></rect><g class="label" style="" transform="translate(-88.0078125, -24)"><rect></rect><foreignObject width="176.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>能力で比較<br/>共通の枠組みに割り当て</p></span></div></foreignObject></g></g><g class="node default  " id="mm0-flowchart-Y2-3" data-look="neo" transform="translate(583.875, 160)"><rect class="basic label-container" style="" x="-87.84375" y="-36" width="175.6875" height="72"></rect><g class="label" style="" transform="translate(-71.84375, -24)"><rect></rect><foreignObject width="143.6875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>何ができるかを<br/>客観的に説明できる</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm0-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm0-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+
+<h2 id="3-step-2この規格の立ち位置を理解する">3. Step
+2：この規格の「立ち位置」を理解する</h2>
+<h3 id="3-1-関連する規格との関係">3-1. 関連する規格との関係</h3>
+<p>ISO公式のAbstractによると、ISO/IEC 30130
+は次の2つの既存規格と<strong>テストプロセスの面で完全に整合</strong>（fully
+harmonized）しています。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>関連規格</th>
+<th>何を定めているか</th>
+<th>30130との関係</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ISO/IEC/IEEE 29119-2</td>
+<td>ソフトウェアテストプロセス</td>
+<td>テストプロセスを定義するのは29119-2。30130はそのプロセスと整合する形で、テストツールの能力の枠組みを提供する</td>
+</tr>
+<tr class="even">
+<td>ISO/IEC 12207</td>
+<td>ソフトウェアライフサイクルプロセス（検証プロセスを含む）</td>
+<td>検証プロセスを定義するのは12207。30130はそのプロセスと整合する形で、テストツールの能力の枠組みを提供する</td>
+</tr>
+</tbody>
+</table></div>
+<div class="mermaid-diagram" id="mermaid-diagram-1" role="img"><svg id="mm1" width="1335.265625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="224" viewBox="4 4 1335.265625 224" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm1{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm1 .error-icon{fill:#0d1b2e;}#mm1 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm1 .edge-thickness-normal{stroke-width:1px;}#mm1 .edge-thickness-thick{stroke-width:3.5px;}#mm1 .edge-pattern-solid{stroke-dasharray:0;}#mm1 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm1 .edge-pattern-dashed{stroke-dasharray:3;}#mm1 .edge-pattern-dotted{stroke-dasharray:2;}#mm1 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm1 .marker.cross{stroke:#9db4ff;}#mm1 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm1 p{margin:0;}#mm1 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm1 .cluster-label text{fill:#e8f0ff;}#mm1 .cluster-label span{color:#e8f0ff;}#mm1 .cluster-label span p{background-color:transparent;}#mm1 .label text,#mm1 span{fill:#e8f0ff;color:#e8f0ff;}#mm1 .node rect,#mm1 .node circle,#mm1 .node ellipse,#mm1 .node polygon,#mm1 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm1 .rough-node .label text,#mm1 .node .label text,#mm1 .image-shape .label,#mm1 .icon-shape .label{text-anchor:middle;}#mm1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm1 .rough-node .label,#mm1 .node .label,#mm1 .image-shape .label,#mm1 .icon-shape .label{text-align:center;}#mm1 .node.clickable{cursor:pointer;}#mm1 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm1 .arrowheadPath{fill:#f2e4d1;}#mm1 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm1 .flowchart-link{stroke:#9db4ff;fill:none;}#mm1 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm1 .edgeLabel p{background-color:#0d1b2e;}#mm1 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm1 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm1 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm1 .cluster text{fill:#e8f0ff;}#mm1 .cluster span{color:#e8f0ff;}#mm1 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm1 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm1 rect.text{fill:none;stroke-width:0;}#mm1 .icon-shape,#mm1 .image-shape{background-color:#0d1b2e;text-align:center;}#mm1 .icon-shape p,#mm1 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm1 .icon-shape .label rect,#mm1 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm1 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm1 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm1 .node .neo-node{stroke:#7c9eff;}#mm1 [data-look="neo"].node rect,#mm1 [data-look="neo"].cluster rect,#mm1 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm1 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm1 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm1 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm1 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm1 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm1 [data-look="neo"].node circle .state-start{fill:#000000;}#mm1 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm1 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm1 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm1_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm1_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm1_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm1_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm1_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm1_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm1_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm1_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm1_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm1_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm1_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm1_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edges edgePaths"><path d="M315.203125,60L500.1476821881345,60Q507.21875,60 507.21875,67.07106781186548L507.21875,106.26226552146785Q507.21875,113.33333333333333 514.2898178118655,113.33333333333333L523.21875,113.33333333333333" id="mm1-L_P12207_P30130_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 252.02069091796875 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_P12207_P30130_0" data-points="W3sieCI6MzE1LjIwMzEyNSwieSI6NjB9LHsieCI6NTA3LjIxODc1LCJ5Ijo2MH0seyJ4Ijo1MDcuMjE4NzUsInkiOjExMy4zMzMzMzMzMzMzMzMzM30seyJ4Ijo1MjcuMjE4NzUsInkiOjExMy4zMzMzMzMzMzMzMzMzM31d" data-look="neo" marker-end="url(#mm1_flowchart-v2-pointEnd-margin)"></path><path d="M315.203125,184L500.1476821881345,184Q507.21875,184 507.21875,176.92893218813452L507.21875,137.73773447853213Q507.21875,130.66666666666666 514.2898178118655,130.66666666666666L523.21875,130.66666666666666" id="mm1-L_P29119_P30130_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 252.02069091796875 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_P29119_P30130_0" data-points="W3sieCI6MzE1LjIwMzEyNSwieSI6MTg0fSx7IngiOjUwNy4yMTg3NSwieSI6MTg0fSx7IngiOjUwNy4yMTg3NSwieSI6MTMwLjY2NjY2NjY2NjY2NjY2fSx7IngiOjUyNy4yMTg3NSwieSI6MTMwLjY2NjY2NjY2NjY2NjY2fV0=" data-look="neo" marker-end="url(#mm1_flowchart-v2-pointEnd-margin)"></path><path d="M847.234375,122L1087.25,122" id="mm1-L_P30130_TOOLS_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 236.015625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_P30130_TOOLS_0" data-points="W3sieCI6ODQ3LjIzNDM3NSwieSI6MTIyfSx7IngiOjEwOTEuMjUsInkiOjEyMn1d" data-look="neo" marker-end="url(#mm1_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(421.2109375, 74.5)"><g class="label" data-id="L_P12207_P30130_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-66.0078125" y="-5" width="132.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">プロセス面で整合</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(421.2109375, 198.5)"><g class="label" data-id="L_P29119_P30130_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-66.0078125" y="-5" width="132.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">プロセス面で整合</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(969.2421875, 136.5)"><g class="label" data-id="L_P30130_TOOLS_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-82.0078125" y="-5" width="164.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">能力を特定する物差し</tspan></tspan></text></g></g></g></g><g class="nodes"><g class="node default  " id="mm1-flowchart-P12207-0" data-look="neo" transform="translate(163.6015625, 60)"><rect class="basic label-container" style="" x="-151.6015625" y="-48" width="303.203125" height="96"></rect><g class="label" style="" transform="translate(-135.6015625, -36)"><rect></rect><foreignObject width="271.203125" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC 12207<br/>ソフトウェアライフサイクルプロセス<br/>（検証プロセスを規定）</p></span></div></foreignObject></g></g><g class="node default  " id="mm1-flowchart-P29119-1" data-look="neo" transform="translate(220.1875, 184)"><rect class="basic label-container" style="" x="-95.015625" y="-36" width="190.03125" height="72"></rect><g class="label" style="" transform="translate(-79.015625, -24)"><rect></rect><foreignObject width="158.03125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC/IEEE 29119-2<br/>テストプロセス</p></span></div></foreignObject></g></g><g class="node default  " id="mm1-flowchart-P30130-2" data-look="neo" transform="translate(687.2265625, 122)"><rect class="basic label-container" style="" x="-160.0078125" y="-36" width="320.015625" height="72"></rect><g class="label" style="" transform="translate(-144.0078125, -24)"><rect></rect><foreignObject width="288.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC 30130:2016<br/>テストツールの能力を割り当てる枠組み</p></span></div></foreignObject></g></g><g class="node default  " id="mm1-flowchart-TOOLS-3" data-look="neo" transform="translate(1211.2578125, 122)"><rect class="basic label-container" style="" x="-120.0078125" y="-36" width="240.015625" height="72"></rect><g class="label" style="" transform="translate(-104.0078125, -24)"><rect></rect><foreignObject width="208.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>現場のテストツール製品<br/>管理・設計・実行・解析など</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm1-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm1-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+<h3 id="3-2-ひとことで言うと">3-2. ひとことで言うと</h3>
+<blockquote class="callout">
+<p><strong>29119-2 が「テストで何をするか（プロセス）」を決め、30130
+が「その作業を支えるツールに何ができるか（能力）」を整理する。</strong></p>
+</blockquote>
+<h3 id="3-3-発行元と基本情報iso公式ページより">3-3.
+発行元と基本情報（ISO公式ページより）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>規格番号</td>
+<td>ISO/IEC 30130:2016</td>
+</tr>
+<tr class="even">
+<td>規格名</td>
+<td>Software engineering — Capabilities of software testing tools</td>
+</tr>
+<tr class="odd">
+<td>版</td>
+<td>Edition 1（第1版）</td>
+</tr>
+<tr class="even">
+<td>発行</td>
+<td>2016年（公式ページ上の版表記は2016-02、公表段階の記録は2016-01-19）</td>
+</tr>
+<tr class="odd">
+<td>ページ数</td>
+<td>27ページ（ISO・IEC公式表記）。BSI英国版は38ページと表記（版組の違い）</td>
+</tr>
+<tr class="even">
+<td>担当委員会</td>
+<td>ISO/IEC JTC 1/SC 7（ソフトウェア及びシステムエンジニアリング）</td>
+</tr>
+<tr class="odd">
+<td>ICS分類</td>
+<td>35.080（ソフトウェア）</td>
+</tr>
+<tr class="even">
+<td>ステージ</td>
+<td><strong>90.93（International Standard confirmed）</strong></td>
+</tr>
+<tr class="odd">
+<td>言語</td>
+<td>英語のみ（ISOページ上で日本語版の記載なし）</td>
+</tr>
+<tr class="even">
+<td>価格（ISO）</td>
+<td>CHF 159（変動する可能性があります）</td>
+</tr>
+<tr class="odd">
+<td>SDGs</td>
+<td>目標9「産業と技術革新の基盤をつくろう」に貢献</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="4-step-3規格の目的と守備範囲">4. Step
+3：規格の「目的」と「守備範囲」</h2>
+<h3 id="4-1-何を定義している規格か">4-1. 何を定義している規格か</h3>
+<p>ISO公式Abstractによれば、この規格は
+<strong>「プロジェクトがソフトウェアテストに使う製品の能力を特定するために、テストツールの能力を割り当てる枠組み」</strong>
+を定義しています。</p>
+<h3 id="4-2-既存規格が扱わない3領域に焦点">4-2.
+既存規格が扱わない3領域に焦点</h3>
+<p>既存のISO/IEC規格が扱っていない領域として、次の3つが明記されています。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>柱</th>
+<th>日本語での意味</th>
+<th>対応する章</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① Categorization</td>
+<td><strong>カテゴリ化</strong>：テストの対象となるもの（テストエンティティ）とテストツールの分類</td>
+<td>4章・5章</td>
+</tr>
+<tr class="even">
+<td>② Characterization</td>
+<td><strong>特性化</strong>：各テストツールカテゴリの特徴づけ</td>
+<td>5章・6章</td>
+</tr>
+<tr class="odd">
+<td>③ Mapping</td>
+<td><strong>対応付け</strong>：ツールの「能力」と「特性」の対応づけ</td>
+<td>6章・7章</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-3-章構成のわかっている範囲">4-3. 章構成のわかっている範囲</h3>
+<p>公開されている目次プレビューから、次の章タイトルが確認できました。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>章</th>
+<th>章タイトル（英語）</th>
+<th>日本語訳</th>
+<th>確認状況</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4</td>
+<td>Object model for software testing tools</td>
+<td>テストツールのオブジェクトモデル</td>
+<td>✅ 目次で確認</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>（タイトル未確認）</td>
+<td>スコープ記述上は「カテゴリ化」「特性化」に関係</td>
+<td>📘 本文要確認</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Characteristics of software testing tools</td>
+<td>テストツールの特性</td>
+<td>✅ 目次で確認</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Capabilities of software testing tools</td>
+<td>テストツールの能力</td>
+<td>✅ 目次で確認</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-4-3本柱の関係図">4-4. 3本柱の関係図</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-2" role="img"><svg id="mm2" width="415.6875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="806.078125" viewBox="4 4 415.6875 806.078125" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm2{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm2 .error-icon{fill:#0d1b2e;}#mm2 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm2 .edge-thickness-normal{stroke-width:1px;}#mm2 .edge-thickness-thick{stroke-width:3.5px;}#mm2 .edge-pattern-solid{stroke-dasharray:0;}#mm2 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm2 .edge-pattern-dashed{stroke-dasharray:3;}#mm2 .edge-pattern-dotted{stroke-dasharray:2;}#mm2 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm2 .marker.cross{stroke:#9db4ff;}#mm2 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm2 p{margin:0;}#mm2 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm2 .cluster-label text{fill:#e8f0ff;}#mm2 .cluster-label span{color:#e8f0ff;}#mm2 .cluster-label span p{background-color:transparent;}#mm2 .label text,#mm2 span{fill:#e8f0ff;color:#e8f0ff;}#mm2 .node rect,#mm2 .node circle,#mm2 .node ellipse,#mm2 .node polygon,#mm2 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm2 .rough-node .label text,#mm2 .node .label text,#mm2 .image-shape .label,#mm2 .icon-shape .label{text-anchor:middle;}#mm2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm2 .rough-node .label,#mm2 .node .label,#mm2 .image-shape .label,#mm2 .icon-shape .label{text-align:center;}#mm2 .node.clickable{cursor:pointer;}#mm2 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm2 .arrowheadPath{fill:#f2e4d1;}#mm2 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm2 .flowchart-link{stroke:#9db4ff;fill:none;}#mm2 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm2 .edgeLabel p{background-color:#0d1b2e;}#mm2 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm2 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm2 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm2 .cluster text{fill:#e8f0ff;}#mm2 .cluster span{color:#e8f0ff;}#mm2 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm2 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm2 rect.text{fill:none;stroke-width:0;}#mm2 .icon-shape,#mm2 .image-shape{background-color:#0d1b2e;text-align:center;}#mm2 .icon-shape p,#mm2 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm2 .icon-shape .label rect,#mm2 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm2 .node .neo-node{stroke:#7c9eff;}#mm2 [data-look="neo"].node rect,#mm2 [data-look="neo"].cluster rect,#mm2 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm2 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm2 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm2 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm2 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm2 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm2 [data-look="neo"].node circle .state-start{fill:#000000;}#mm2 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm2 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm2 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm2_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm2_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm2_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm2_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm2_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm2_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"><g class="cluster " id="mm2-PILLAR3" data-look="neo"><rect style="" x="83.8359375" y="506.71875" width="256.015625" height="207.359375"></rect><g class="cluster-label " transform="translate(113.15625, 518.71875)"><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">柱③</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 対応付け（6章・7章）</tspan></tspan></text></g></g></g><g class="cluster " id="mm2-PILLAR2" data-look="neo"><rect style="" x="35.8359375" y="275.359375" width="352.015625" height="191.359375"></rect><g class="cluster-label " transform="translate(121.15625, 287.359375)"><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">柱②</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 特性化（5章・6章）</tspan></tspan></text></g></g></g><g class="cluster " id="mm2-PILLAR1" data-look="neo"><rect style="" x="76.796875" y="12" width="270.09375" height="223.359375"></rect><g class="cluster-label " transform="translate(105.15625, 24)"><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">柱①</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> カテゴリ化（4章・5章）</tspan></tspan></text></g></g></g></g><g class="edges edgePaths"><path d="M211.84375,111L211.84375,131" id="mm2-L_K1_K2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 16 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_K1_K2_0" data-points="W3sieCI6MjExLjg0Mzc1LCJ5IjoxMTF9LHsieCI6MjExLjg0Mzc1LCJ5IjoxMzV9XQ==" data-look="neo" marker-end="url(#mm2_flowchart-v2-pointEnd-margin)"></path><path d="M211.84375,235.359375L211.84375,271.359375" id="mm2-L_PILLAR1_PILLAR2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_PILLAR1_PILLAR2_0" data-points="W3sieCI6MjExLjg0Mzc1LCJ5IjoyMzUuMzU5Mzc1fSx7IngiOjIxMS44NDM3NSwieSI6Mjc1LjM1OTM3NX1d" data-look="neo" marker-end="url(#mm2_flowchart-v2-pointEnd-margin)"></path><path d="M211.84375,466.71875L211.84375,502.71875" id="mm2-L_PILLAR2_PILLAR3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_PILLAR2_PILLAR3_0" data-points="W3sieCI6MjExLjg0Mzc1LCJ5Ijo0NjYuNzE4NzV9LHsieCI6MjExLjg0Mzc1LCJ5Ijo1MDYuNzE4NzV9XQ==" data-look="neo" marker-end="url(#mm2_flowchart-v2-pointEnd-margin)"></path><path d="M211.84375,714.078125L211.84375,750.078125" id="mm2-L_PILLAR3_GOAL_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_PILLAR3_GOAL_0" data-points="W3sieCI6MjExLjg0Mzc1LCJ5Ijo3MTQuMDc4MTI1fSx7IngiOjIxMS44NDM3NSwieSI6NzU0LjA3ODEyNX1d" data-look="neo" marker-end="url(#mm2_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"></g><g class="nodes"><g class="node default  " id="mm2-flowchart-K1-0" data-look="neo" transform="translate(211.84375, 87)"><rect class="basic label-container" style="" x="-111.046875" y="-24" width="222.09375" height="48"></rect><g class="label" style="" transform="translate(-95.046875, -12)"><rect></rect><foreignObject width="190.09375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>テストエンティティの分類</p></span></div></foreignObject></g></g><g class="node default  " id="mm2-flowchart-K2-1" data-look="neo" transform="translate(211.84375, 159)"><rect class="basic label-container" style="" x="-88.0078125" y="-24" width="176.015625" height="48"></rect><g class="label" style="" transform="translate(-72.0078125, -12)"><rect></rect><foreignObject width="144.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>テストツールの分類</p></span></div></foreignObject></g></g><g class="node default  " id="mm2-flowchart-K3-2" data-look="neo" transform="translate(211.84375, 350.359375)"><rect class="basic label-container" style="" x="-152.0078125" y="-24" width="304.015625" height="48"></rect><g class="label" style="" transform="translate(-136.0078125, -12)"><rect></rect><foreignObject width="272.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>各カテゴリのツールが持つ特性を記述</p></span></div></foreignObject></g></g><g class="node default  " id="mm2-flowchart-K4-3" data-look="neo" transform="translate(211.84375, 581.71875)"><rect class="basic label-container" style="" x="-104.0078125" y="-24" width="208.015625" height="48"></rect><g class="label" style="" transform="translate(-88.0078125, -12)"><rect></rect><foreignObject width="176.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>能力と特性を対応づける</p></span></div></foreignObject></g></g><g class="node default  " id="mm2-flowchart-GOAL-11" data-look="neo" transform="translate(211.84375, 778.078125)"><rect class="basic label-container" style="" x="-199.84375" y="-24" width="399.6875" height="48"></rect><g class="label" style="" transform="translate(-183.84375, -12)"><rect></rect><foreignObject width="367.6875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>プロジェクトで使うツール製品の能力を特定できる</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm2-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm2-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+
+<h2 id="5-step-43本柱を初学者向けにかみ砕く">5. Step
+4：3本柱を初学者向けにかみ砕く</h2>
+<blockquote class="callout callout-warn">
+<p>⚠️
+このステップは、規格が示す<strong>枠組みの考え方</strong>を理解するための解説です。具体的なカテゴリ名や項目名は規格本文で確認してください（📘
+本文要確認）。</p>
+</blockquote>
+<h3 id="5-1-柱①カテゴリ化何を対象に何で支えるか">5-1.
+柱①「カテゴリ化」：何を対象に、何で支えるか</h3>
+<p>テストでは、テストされるもの（ソフトウェアの部品、システム、成果物）と、テストを支えるツールの両方が登場します。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>見る対象</th>
+<th>問い</th>
+<th>イメージ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>テストエンティティ</td>
+<td>テストに関わる「もの」にはどんな種類があるか</td>
+<td>テスト対象、テスト関連成果物など</td>
+</tr>
+<tr class="even">
+<td>テストツール</td>
+<td>それを支えるツールはどんな種類に分けられるか</td>
+<td>管理系、設計系、実行系、解析系など</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>ポイント</strong>：先に「対象物の整理（オブジェクトモデル）」を行い、そのうえでツールを分類します。分類の土台があるから、あとで能力を割り当てられます。</p>
+<h3 id="5-2-柱②特性化カテゴリごとの特徴を言葉にする">5-2.
+柱②「特性化」：カテゴリごとの特徴を言葉にする</h3>
+<p>カテゴリに分けただけでは、「そのカテゴリのツールは何が特徴なのか」が分かりません。そこで、カテゴリごとに特徴（特性）を記述します。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>比喩</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>図書館の分類</td>
+<td>「文学」「科学」と棚を分ける（カテゴリ化）→
+各棚にどんな本が置かれ、どう使われるか説明する（特性化）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-3-柱③対応付け能力と特性をつなぐ">5-3.
+柱③「対応付け」：能力と特性をつなぐ</h3>
+<p>最後に、ツールが実際に提供する「能力（できること）」と、カテゴリの「特性」を対応づけます。これにより、あるツール製品を見たときに「このカテゴリのこの能力を持っている」と説明できます。</p>
+<div class="mermaid-diagram" id="mermaid-diagram-3" role="img"><svg id="mm3" width="1007.234375" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="88" viewBox="4 4 1007.234375 88" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm3{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm3 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm3 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm3 .error-icon{fill:#0d1b2e;}#mm3 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm3 .edge-thickness-normal{stroke-width:1px;}#mm3 .edge-thickness-thick{stroke-width:3.5px;}#mm3 .edge-pattern-solid{stroke-dasharray:0;}#mm3 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm3 .edge-pattern-dashed{stroke-dasharray:3;}#mm3 .edge-pattern-dotted{stroke-dasharray:2;}#mm3 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm3 .marker.cross{stroke:#9db4ff;}#mm3 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm3 p{margin:0;}#mm3 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm3 .cluster-label text{fill:#e8f0ff;}#mm3 .cluster-label span{color:#e8f0ff;}#mm3 .cluster-label span p{background-color:transparent;}#mm3 .label text,#mm3 span{fill:#e8f0ff;color:#e8f0ff;}#mm3 .node rect,#mm3 .node circle,#mm3 .node ellipse,#mm3 .node polygon,#mm3 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm3 .rough-node .label text,#mm3 .node .label text,#mm3 .image-shape .label,#mm3 .icon-shape .label{text-anchor:middle;}#mm3 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm3 .rough-node .label,#mm3 .node .label,#mm3 .image-shape .label,#mm3 .icon-shape .label{text-align:center;}#mm3 .node.clickable{cursor:pointer;}#mm3 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm3 .arrowheadPath{fill:#f2e4d1;}#mm3 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm3 .flowchart-link{stroke:#9db4ff;fill:none;}#mm3 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm3 .edgeLabel p{background-color:#0d1b2e;}#mm3 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm3 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm3 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm3 .cluster text{fill:#e8f0ff;}#mm3 .cluster span{color:#e8f0ff;}#mm3 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm3 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm3 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm3 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm3 rect.text{fill:none;stroke-width:0;}#mm3 .icon-shape,#mm3 .image-shape{background-color:#0d1b2e;text-align:center;}#mm3 .icon-shape p,#mm3 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm3 .icon-shape .label rect,#mm3 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm3 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm3 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm3 .node .neo-node{stroke:#7c9eff;}#mm3 [data-look="neo"].node rect,#mm3 [data-look="neo"].cluster rect,#mm3 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm3 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm3 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm3 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm3 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm3 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm3 [data-look="neo"].node circle .state-start{fill:#000000;}#mm3 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm3 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm3 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm3_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm3_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm3_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm3_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm3_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm3_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm3_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm3_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm3_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm3_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm3_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm3_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edges edgePaths"><path d="M164,48L200,48" id="mm3-L_M1_M2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_M1_M2_0" data-points="W3sieCI6MTY0LCJ5Ijo0OH0seyJ4IjoyMDQsInkiOjQ4fV0=" data-look="neo" marker-end="url(#mm3_flowchart-v2-pointEnd-margin)"></path><path d="M443.53125,48L479.53125,48" id="mm3-L_M2_M3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_M2_M3_0" data-points="W3sieCI6NDQzLjUzMTI1LCJ5Ijo0OH0seyJ4Ijo0ODMuNTMxMjUsInkiOjQ4fV0=" data-look="neo" marker-end="url(#mm3_flowchart-v2-pointEnd-margin)"></path><path d="M771.546875,48L807.546875,48" id="mm3-L_M3_M4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_M3_M4_0" data-points="W3sieCI6NzcxLjU0Njg3NSwieSI6NDh9LHsieCI6ODExLjU0Njg3NSwieSI6NDh9XQ==" data-look="neo" marker-end="url(#mm3_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"></g><g class="nodes"><g class="node default  " id="mm3-flowchart-M1-0" data-look="neo" transform="translate(88, 48)"><rect class="basic label-container" style="" x="-76" y="-24" width="152" height="48"></rect><g class="label" style="" transform="translate(-60, -12)"><rect></rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>ツール製品X</p></span></div></foreignObject></g></g><g class="node default  " id="mm3-flowchart-M2-1" data-look="neo" transform="translate(323.765625, 48)"><rect class="basic label-container" style="" x="-119.765625" y="-24" width="239.53125" height="48"></rect><g class="label" style="" transform="translate(-103.765625, -12)"><rect></rect><foreignObject width="207.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>提供している能力を洗い出す</p></span></div></foreignObject></g></g><g class="node default  " id="mm3-flowchart-M3-3" data-look="neo" transform="translate(627.5390625, 48)"><rect class="basic label-container" style="" x="-144.0078125" y="-24" width="288.015625" height="48"></rect><g class="label" style="" transform="translate(-128.0078125, -12)"><rect></rect><foreignObject width="256.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>枠組みの特性・カテゴリへ対応づけ</p></span></div></foreignObject></g></g><g class="node default  " id="mm3-flowchart-M4-5" data-look="neo" transform="translate(907.390625, 48)"><rect class="basic label-container" style="" x="-95.84375" y="-36" width="191.6875" height="72"></rect><g class="label" style="" transform="translate(-79.84375, -24)"><rect></rect><foreignObject width="159.6875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>製品Xが担える範囲を<br/>共通言語で説明できる</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm3-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm3-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+
+<h2 id="6-step-529119-2-のテストプロセスと重ねて見る">6. Step 5：29119-2
+のテストプロセスと重ねて見る</h2>
+<h3 id="6-1-テストプロセスの3層">6-1. テストプロセスの3層</h3>
+<p>ISO/IEC/IEEE 29119-2
+は、テストプロセスを次の3つの層で定義しています（2021年版の目次・解説で確認）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>層</th>
+<th>2021年版の章</th>
+<th>主な内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>組織テストプロセス</td>
+<td>6章</td>
+<td>組織としてのテスト方針・戦略の整備</td>
+</tr>
+<tr class="even">
+<td>テストマネジメントプロセス</td>
+<td>7章</td>
+<td>テスト戦略・計画、モニタリングと制御、テスト完了</td>
+</tr>
+<tr class="odd">
+<td>動的テストプロセス</td>
+<td>8章</td>
+<td>テスト設計・実装、テスト環境とデータの管理、実行、インシデント報告</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="6-2-層ごとにツールの能力がどう効くか-解説者による整理">6-2.
+層ごとにツールの能力がどう効くか（💡 解説者による整理）</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-4" role="img"><svg id="mm4" width="641.5546875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="424" viewBox="4 4 641.5546875 424" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm4{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm4 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm4 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm4 .error-icon{fill:#0d1b2e;}#mm4 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm4 .edge-thickness-normal{stroke-width:1px;}#mm4 .edge-thickness-thick{stroke-width:3.5px;}#mm4 .edge-pattern-solid{stroke-dasharray:0;}#mm4 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm4 .edge-pattern-dashed{stroke-dasharray:3;}#mm4 .edge-pattern-dotted{stroke-dasharray:2;}#mm4 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm4 .marker.cross{stroke:#9db4ff;}#mm4 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm4 p{margin:0;}#mm4 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm4 .cluster-label text{fill:#e8f0ff;}#mm4 .cluster-label span{color:#e8f0ff;}#mm4 .cluster-label span p{background-color:transparent;}#mm4 .label text,#mm4 span{fill:#e8f0ff;color:#e8f0ff;}#mm4 .node rect,#mm4 .node circle,#mm4 .node ellipse,#mm4 .node polygon,#mm4 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm4 .rough-node .label text,#mm4 .node .label text,#mm4 .image-shape .label,#mm4 .icon-shape .label{text-anchor:middle;}#mm4 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm4 .rough-node .label,#mm4 .node .label,#mm4 .image-shape .label,#mm4 .icon-shape .label{text-align:center;}#mm4 .node.clickable{cursor:pointer;}#mm4 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm4 .arrowheadPath{fill:#f2e4d1;}#mm4 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm4 .flowchart-link{stroke:#9db4ff;fill:none;}#mm4 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm4 .edgeLabel p{background-color:#0d1b2e;}#mm4 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm4 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm4 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm4 .cluster text{fill:#e8f0ff;}#mm4 .cluster span{color:#e8f0ff;}#mm4 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm4 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm4 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm4 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm4 rect.text{fill:none;stroke-width:0;}#mm4 .icon-shape,#mm4 .image-shape{background-color:#0d1b2e;text-align:center;}#mm4 .icon-shape p,#mm4 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm4 .icon-shape .label rect,#mm4 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm4 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm4 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm4 .node .neo-node{stroke:#7c9eff;}#mm4 [data-look="neo"].node rect,#mm4 [data-look="neo"].cluster rect,#mm4 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm4 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm4 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm4 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm4 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm4 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm4 [data-look="neo"].node circle .state-start{fill:#000000;}#mm4 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm4 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm4 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm4_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm4_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm4_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm4_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm4_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm4_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm4_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm4_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm4_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm4_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm4_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm4_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edges edgePaths"><path d="M253.53125,196L253.53125,208.92893218813452Q253.53125,216 246.46018218813452,216L224.5098698951988,216Q217.43880208333331,216 217.43880208333331,223.07106781186548L217.43880208333331,232" id="mm4-L_ORG_MGT_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 62.76416778564453 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_ORG_MGT_0" data-points="W3sieCI6MjUzLjUzMTI1LCJ5IjoxOTZ9LHsieCI6MjUzLjUzMTI1LCJ5IjoyMTZ9LHsieCI6MjE3LjQzODgwMjA4MzMzMzMxLCJ5IjoyMTZ9LHsieCI6MjE3LjQzODgwMjA4MzMzMzMxLCJ5IjoyMzZ9XQ==" data-look="neo" marker-end="url(#mm4_flowchart-v2-pointEnd-margin)"></path><path d="M180.76953125,308L180.76953125,320.9289321881345Q180.76953125,328 187.84059906186548,328L288.7049738548012,328Q295.7760416666667,328 295.7760416666667,335.0710678118655L295.7760416666667,344" id="mm4-L_MGT_DYN_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 141.67823791503906 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_MGT_DYN_0" data-points="W3sieCI6MTgwLjc2OTUzMTI1LCJ5IjozMDh9LHsieCI6MTgwLjc2OTUzMTI1LCJ5IjozMjh9LHsieCI6Mjk1Ljc3NjA0MTY2NjY2NjcsInkiOjMyOH0seyJ4IjoyOTUuNzc2MDQxNjY2NjY2NywieSI6MzQ4fV0=" data-look="neo" marker-end="url(#mm4_flowchart-v2-pointEnd-margin)"></path><path d="M108.0078125,84L108.0078125,208.92893218813452Q108.0078125,216 115.07888031186548,216L137.0291926048012,216Q144.10026041666669,216 144.10026041666669,223.07106781186548L144.10026041666669,232" id="mm4-L_TL1_MGT_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_TL1_MGT_0" data-points="W3sieCI6MTA4LjAwNzgxMjUsInkiOjg0fSx7IngiOjEwOC4wMDc4MTI1LCJ5IjoyMTZ9LHsieCI6MTQ0LjEwMDI2MDQxNjY2NjY5LCJ5IjoyMTZ9LHsieCI6MTQ0LjEwMDI2MDQxNjY2NjY5LCJ5IjoyMzZ9XQ==" data-look="neo" marker-end="url(#mm4_flowchart-v2-pointEnd-margin)"></path><path d="M509.546875,196L509.546875,320.9289321881345Q509.546875,328 502.4758071881345,328L365.51898447853216,328Q358.4479166666667,328 358.4479166666667,335.0710678118655L358.4479166666667,344" id="mm4-L_TL2_DYN_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_TL2_DYN_0" data-points="W3sieCI6NTA5LjU0Njg3NSwieSI6MTk2fSx7IngiOjUwOS41NDY4NzUsInkiOjMyOH0seyJ4IjozNTguNDQ3OTE2NjY2NjY2NywieSI6MzI4fSx7IngiOjM1OC40NDc5MTY2NjY2NjY3LCJ5IjozNDh9XQ==" data-look="neo" marker-end="url(#mm4_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(107.515625, 175)"><g class="label" data-id="L_TL1_MGT_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-18.0078125" y="-5" width="36.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">支援</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(509.0546875, 287)"><g class="label" data-id="L_TL2_DYN_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-18.0078125" y="-5" width="36.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">支援</tspan></tspan></text></g></g></g></g><g class="nodes"><g class="node default  " id="mm4-flowchart-ORG-0" data-look="neo" transform="translate(253.53125, 160)"><rect class="basic label-container" style="" x="-88.0078125" y="-36" width="176.015625" height="72"></rect><g class="label" style="" transform="translate(-72.0078125, -24)"><rect></rect><foreignObject width="144.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>組織テストプロセス<br/>方針・戦略の整備</p></span></div></foreignObject></g></g><g class="node default  " id="mm4-flowchart-MGT-1" data-look="neo" transform="translate(180.76953125, 272)"><rect class="basic label-container" style="" x="-120.0078125" y="-36" width="240.015625" height="72"></rect><g class="label" style="" transform="translate(-104.0078125, -24)"><rect></rect><foreignObject width="208.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>テストマネジメントプロセス<br/>計画・モニタリング・完了</p></span></div></foreignObject></g></g><g class="node default  " id="mm4-flowchart-DYN-2" data-look="neo" transform="translate(327.1119791666667, 384)"><rect class="basic label-container" style="" x="-104.0078125" y="-36" width="208.015625" height="72"></rect><g class="label" style="" transform="translate(-88.0078125, -24)"><rect></rect><foreignObject width="176.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>動的テストプロセス<br/>設計・環境・実行・報告</p></span></div></foreignObject></g></g><g class="node default  " id="mm4-flowchart-TL1-7" data-look="neo" transform="translate(108.0078125, 48)"><rect class="basic label-container" style="" x="-96.0078125" y="-36" width="192.015625" height="72"></rect><g class="label" style="" transform="translate(-80.0078125, -24)"><rect></rect><foreignObject width="160.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>管理系ツールの能力<br/>計画・追跡・レポート</p></span></div></foreignObject></g></g><g class="node default  " id="mm4-flowchart-TL2-9" data-look="neo" transform="translate(509.546875, 160)"><rect class="basic label-container" style="" x="-128.0078125" y="-36" width="256.015625" height="72"></rect><g class="label" style="" transform="translate(-112.0078125, -24)"><rect></rect><foreignObject width="224.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>設計・実行系ツールの能力<br/>テストデータ・自動実行・ログ</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm4-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm4-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+<blockquote class="callout callout-tip">
+<p>💡
+上図は理解を助けるための概念図です。各プロセスにどの能力がどう対応づくかの正式な表は、規格本文（📘
+本文要確認）を参照してください。</p>
+</blockquote>
+<h3 id="6-3-バージョンの注意点">6-3. バージョンの注意点</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>事実</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>30130は2016年発行</td>
+<td>当時の最新の29119-2は2013年版だった</td>
+</tr>
+<tr class="even">
+<td>29119-2は2021年に改訂され2013年版を置き換えた</td>
+<td>2021年版では「テスト条件」の代わりに「テストモデル」の語が使われるなど変更あり</td>
+</tr>
+<tr class="odd">
+<td>30130は2022年に「確認」のみ</td>
+<td>改訂ではなく内容は2016年版のまま</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>示唆（推定）</strong>：30130
+が前提にしているプロセス記述は、発行時点の版に基づくと考えられます。現行の2021年版と用語がずれている可能性があるため、併読時は用語の違いに注意してください。</p>
+
+<h2 id="7-step-6現場のツール分類と見比べる">7. Step
+6：現場のツール分類と見比べる</h2>
+<p>規格の本文を持っていなくても、業界で広く使われる分類と照らして考えると理解が深まります。</p>
+<h3 id="7-1-istqb国際的な認定団体での整理">7-1.
+ISTQB（国際的な認定団体）での整理</h3>
+<p>ISTQB Foundation Level 2018
+シラバスの第6章（テストツール）は、ツールを次の観点で整理しています。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>ISTQBの観点</th>
+<th>概要</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>テストとテストウェアの管理</td>
+<td>管理・トレーサビリティ・レポート</td>
+</tr>
+<tr class="even">
+<td>静的テスト</td>
+<td>静的解析、レビュー支援</td>
+</tr>
+<tr class="odd">
+<td>テスト設計と実装</td>
+<td>テストケース・テストデータの作成</td>
+</tr>
+<tr class="even">
+<td>テスト実行とログ</td>
+<td>自動実行、結果ログ</td>
+</tr>
+<tr class="odd">
+<td>性能測定と動的解析</td>
+<td>負荷・性能・カバレッジなど</td>
+</tr>
+<tr class="even">
+<td>特殊なテストニーズ</td>
+<td>特定の目的に特化したツール</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="7-2-30130との関係比較して理解するための整理">7-2.
+30130との関係（比較して理解するための整理）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>ISTQBシラバス</th>
+<th>ISO/IEC 30130</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>位置づけ</td>
+<td>学習・資格のための知識体系</td>
+<td>国際規格としての枠組み</td>
+</tr>
+<tr class="even">
+<td>狙い</td>
+<td>ツール活用の考え方・リスク・導入ポイントの理解</td>
+<td>ツール製品の能力を共通の枠組みへ割り当てる</td>
+</tr>
+<tr class="odd">
+<td>特徴</td>
+<td>導入時のリスクや成功要因も扱う</td>
+<td>分類・特性・能力の対応づけに焦点</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout">
+<p>2つは<strong>競合ではなく補完関係</strong>です。ISTQBで考え方を学び、30130で能力の整理方法を押さえる、という使い分けが現実的です。</p>
+</blockquote>
+
+<h2 id="8-step-7実務での使い方-解説者による提案">8. Step
+7：実務での使い方（💡 解説者による提案）</h2>
+<blockquote class="callout">
+<p>ここからは規格の要求事項ではなく、30130の考え方を実務に応用するための<strong>筆者の提案</strong>です。</p>
+</blockquote>
+<h3 id="8-1-ツール評価フロー">8-1. ツール評価フロー</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-5" role="img"><svg id="mm5" width="496.03125" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="832" viewBox="4 4 496.03125 832" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm5{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm5 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm5 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm5 .error-icon{fill:#0d1b2e;}#mm5 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm5 .edge-thickness-normal{stroke-width:1px;}#mm5 .edge-thickness-thick{stroke-width:3.5px;}#mm5 .edge-pattern-solid{stroke-dasharray:0;}#mm5 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm5 .edge-pattern-dashed{stroke-dasharray:3;}#mm5 .edge-pattern-dotted{stroke-dasharray:2;}#mm5 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm5 .marker.cross{stroke:#9db4ff;}#mm5 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm5 p{margin:0;}#mm5 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm5 .cluster-label text{fill:#e8f0ff;}#mm5 .cluster-label span{color:#e8f0ff;}#mm5 .cluster-label span p{background-color:transparent;}#mm5 .label text,#mm5 span{fill:#e8f0ff;color:#e8f0ff;}#mm5 .node rect,#mm5 .node circle,#mm5 .node ellipse,#mm5 .node polygon,#mm5 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm5 .rough-node .label text,#mm5 .node .label text,#mm5 .image-shape .label,#mm5 .icon-shape .label{text-anchor:middle;}#mm5 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm5 .rough-node .label,#mm5 .node .label,#mm5 .image-shape .label,#mm5 .icon-shape .label{text-align:center;}#mm5 .node.clickable{cursor:pointer;}#mm5 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm5 .arrowheadPath{fill:#f2e4d1;}#mm5 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm5 .flowchart-link{stroke:#9db4ff;fill:none;}#mm5 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm5 .edgeLabel p{background-color:#0d1b2e;}#mm5 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm5 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm5 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm5 .cluster text{fill:#e8f0ff;}#mm5 .cluster span{color:#e8f0ff;}#mm5 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm5 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm5 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm5 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm5 rect.text{fill:none;stroke-width:0;}#mm5 .icon-shape,#mm5 .image-shape{background-color:#0d1b2e;text-align:center;}#mm5 .icon-shape p,#mm5 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm5 .icon-shape .label rect,#mm5 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm5 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm5 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm5 .node .neo-node{stroke:#7c9eff;}#mm5 [data-look="neo"].node rect,#mm5 [data-look="neo"].cluster rect,#mm5 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm5 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm5 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm5 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm5 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm5 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm5 [data-look="neo"].node circle .state-start{fill:#000000;}#mm5 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm5 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm5 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm5_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm5_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm5_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm5_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm5_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm5_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm5_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm5_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm5_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm5_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm5_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm5_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edges edgePaths"><path d="M283.68359375,60L283.68359375,96" id="mm5-L_F1_F2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F1_F2_0" data-points="W3sieCI6MjgzLjY4MzU5Mzc1LCJ5Ijo2MH0seyJ4IjoyODMuNjgzNTkzNzUsInkiOjEwMH1d" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M283.68359375,148L283.68359375,184" id="mm5-L_F2_F3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F2_F3_0" data-points="W3sieCI6MjgzLjY4MzU5Mzc1LCJ5IjoxNDh9LHsieCI6MjgzLjY4MzU5Mzc1LCJ5IjoxODh9XQ==" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M241.68098958333337,236L241.68098958333337,248.92893218813452Q241.68098958333337,256 234.6099217714679,256L208.75075531186548,256Q201.6796875,256 201.6796875,263.0710678118655L201.6796875,272" id="mm5-L_F3_F4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 66.67302703857422 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F3_F4_0" data-points="W3sieCI6MjQxLjY4MDk4OTU4MzMzMzM3LCJ5IjoyMzZ9LHsieCI6MjQxLjY4MDk4OTU4MzMzMzM3LCJ5IjoyNTZ9LHsieCI6MjAxLjY3OTY4NzUsInkiOjI1Nn0seyJ4IjoyMDEuNjc5Njg3NSwieSI6Mjc2fV0=" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M201.6796875,324L201.6796875,360" id="mm5-L_F4_F5_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F4_F5_0" data-points="W3sieCI6MjAxLjY3OTY4NzUsInkiOjMyNH0seyJ4IjoyMDEuNjc5Njg3NSwieSI6MzY0fV0=" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M172.34635416666669,530.666618347168L172.34635416666669,560L172.34635416666669,572.9289321881345Q172.34635416666669,580 165.2752863548012,580L131.07888031186548,580Q124.0078125,580 124.0078125,587.0710678118655L124.0078125,676" id="mm5-L_F5_F6_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 184.34364318847656 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F5_F6_0" data-points="W3sieCI6MTcyLjM0NjM1NDE2NjY2NjY5LCJ5Ijo1MzAuNjY2NjE4MzQ3MTY4fSx7IngiOjE3Mi4zNDYzNTQxNjY2NjY2OSwieSI6NTYwfSx7IngiOjE3Mi4zNDYzNTQxNjY2NjY2OSwieSI6NTgwfSx7IngiOjEyNC4wMDc4MTI1LCJ5Ijo1ODB9LHsieCI6MTI0LjAwNzgxMjUsInkiOjY4MH1d" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M231.01302083333331,530.666618347168L231.01302083333331,560L231.01302083333331,572.9289321881345Q231.01302083333331,580 238.0840886451988,580L305.6151301048012,580Q312.6861979166667,580 312.6861979166667,587.0710678118655L312.6861979166667,640.9289321881345Q312.6861979166667,648 319.75726572853216,648L338.9497655214679,648Q346.02083333333337,648 346.02083333333337,655.0710678118655L346.02083333333337,664" id="mm5-L_F5_F7_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 233.68463134765625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F5_F7_0" data-points="W3sieCI6MjMxLjAxMzAyMDgzMzMzMzMxLCJ5Ijo1MzAuNjY2NjE4MzQ3MTY4fSx7IngiOjIzMS4wMTMwMjA4MzMzMzMzMSwieSI6NTYwfSx7IngiOjIzMS4wMTMwMjA4MzMzMzMzMSwieSI6NTgwfSx7IngiOjMxMi42ODYxOTc5MTY2NjY3LCJ5Ijo1ODB9LHsieCI6MzEyLjY4NjE5NzkxNjY2NjcsInkiOjY0OH0seyJ4IjozNDYuMDIwODMzMzMzMzMzMzcsInkiOjY0OH0seyJ4IjozNDYuMDIwODMzMzMzMzMzMzcsInkiOjY2OH1d" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M414.0260416666667,668L414.0260416666667,614L414.0260416666667,462L414.0260416666667,300L414.0260416666667,263.0710678118655Q414.0260416666667,256 406.9549738548012,256L332.75726572853216,256Q325.6861979166667,256 325.6861979166667,248.92893218813452L325.6861979166667,240" id="mm5-L_F7_F3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 507.0115661621094 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F7_F3_0" data-points="W3sieCI6NDE0LjAyNjA0MTY2NjY2NjcsInkiOjY2OH0seyJ4Ijo0MTQuMDI2MDQxNjY2NjY2NywieSI6NjE0fSx7IngiOjQxNC4wMjYwNDE2NjY2NjY3LCJ5Ijo0NjJ9LHsieCI6NDE0LjAyNjA0MTY2NjY2NjcsInkiOjMwMH0seyJ4Ijo0MTQuMDI2MDQxNjY2NjY2NywieSI6MjU2fSx7IngiOjMyNS42ODYxOTc5MTY2NjY3LCJ5IjoyNTZ9LHsieCI6MzI1LjY4NjE5NzkxNjY2NjcsInkiOjIzNn1d" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path><path d="M124.0078125,728L124.0078125,776" id="mm5-L_F6_F8_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 44 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_F6_F8_0" data-points="W3sieCI6MTI0LjAwNzgxMjUsInkiOjcyOH0seyJ4IjoxMjQuMDA3ODEyNSwieSI6NzgwfV0=" data-look="neo" marker-end="url(#mm5_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(123.515625, 629)"><g class="label" data-id="L_F5_F6_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-18.0078125" y="-5" width="36.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">はい</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(312.1940104166667, 629)"><g class="label" data-id="L_F5_F7_0" transform="translate(0, -9)"><g><rect class="background" style="" x="-26.0078125" y="-5" width="52.015625" height="28"></rect><text y="-10.1" text-anchor="middle" style=""><tspan class="text-outer-tspan row" x="0" y="-0.1em" dy="1.1em" text-anchor="middle"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">いいえ</tspan></tspan></text></g></g></g></g><g class="nodes"><g class="node default  " id="mm5-flowchart-F1-0" data-look="neo" transform="translate(283.68359375, 36)"><rect class="basic label-container" style="" x="-152.0859375" y="-24" width="304.171875" height="48"></rect><g class="label" style="" transform="translate(-136.0859375, -12)"><rect></rect><foreignObject width="272.171875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>①支援したいテスト活動を明確にする</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F2-1" data-look="neo" transform="translate(283.68359375, 124)"><rect class="basic label-container" style="" x="-104.0078125" y="-24" width="208.015625" height="48"></rect><g class="label" style="" transform="translate(-88.0078125, -12)"><rect></rect><foreignObject width="176.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>②必要な能力を洗い出す</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F3-3" data-look="neo" transform="translate(283.68359375, 212)"><rect class="basic label-container" style="" x="-136.0078125" y="-24" width="272.015625" height="48"></rect><g class="label" style="" transform="translate(-120.0078125, -12)"><rect></rect><foreignObject width="240.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>③候補ツールの提供能力を調べる</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F4-5" data-look="neo" transform="translate(201.6796875, 300)"><rect class="basic label-container" style="" x="-144.0078125" y="-24" width="288.015625" height="48"></rect><g class="label" style="" transform="translate(-128.0078125, -12)"><rect></rect><foreignObject width="256.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>④能力を共通の枠組みへ割り当てる</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F5-7" data-look="neo" transform="translate(201.6796875, 462)"><polygon points="98,0 196,-98 98,-196 0,-98" class="label-container" transform="translate(-97.5, 98)"></polygon><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>必要な能力を<br/>すべて満たすか</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F6-9" data-look="neo" transform="translate(124.0078125, 704)"><rect class="basic label-container" style="" x="-104.0078125" y="-24" width="208.015625" height="48"></rect><g class="label" style="" transform="translate(-88.0078125, -12)"><rect></rect><foreignObject width="176.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>⑤パイロット導入で検証</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F7-11" data-look="neo" transform="translate(380.0234375, 704)"><rect class="basic label-container" style="" x="-112.0078125" y="-36" width="224.015625" height="72"></rect><g class="label" style="" transform="translate(-96.0078125, -24)"><rect></rect><foreignObject width="192.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>⑥他の候補や<br/>ツールの組み合わせを検討</p></span></div></foreignObject></g></g><g class="node default  " id="mm5-flowchart-F8-15" data-look="neo" transform="translate(124.0078125, 804)"><rect class="basic label-container" style="" x="-112.0078125" y="-24" width="224.015625" height="48"></rect><g class="label" style="" transform="translate(-96.0078125, -12)"><rect></rect><foreignObject width="192.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>⑦本格導入と効果の見直し</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm5-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm5-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+<h3 id="8-2-能力カバレッジ評価シートの例">8-2.
+能力カバレッジ評価シートの例</h3>
+<p>必要な能力ごとに、候補ツールがどれだけ満たすかを記録する表です（自作テンプレートの例）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>支援したいテスト活動</th>
+<th>必要な能力</th>
+<th>優先度</th>
+<th>ツールA</th>
+<th>ツールB</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>テスト計画・進捗管理</td>
+<td>進捗の可視化</td>
+<td>高</td>
+<td>○</td>
+<td>△</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>テスト設計・実装</td>
+<td>テストデータの生成支援</td>
+<td>中</td>
+<td>×</td>
+<td>○</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>テスト実行</td>
+<td>自動実行とログ保存</td>
+<td>高</td>
+<td>○</td>
+<td>○</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>結果分析</td>
+<td>レポート出力</td>
+<td>中</td>
+<td>△</td>
+<td>○</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>凡例：○＝満たす、△＝一部満たす、×＝満たさない</p>
+<h3 id="8-3-成功のカギはツールの外にもある">8-3.
+成功のカギは「ツールの外」にもある</h3>
+<p>国際的なテスト自動化の第一人者 <strong>Dorothy Graham
+氏</strong>（『Software Test Automation』『Experiences of Test
+Automation』の共著者、ISTQB Foundation Syllabus
+策定メンバー）は、システムレベルの自動テスト実行で多くの組織が期待した効果を得られない理由は、技術要因ではなく<strong>マネジメントの課題</strong>であることが多い、と述べています（STAREAST
+2016 講演紹介より）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>教訓</th>
+<th>30130を使うときの意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>能力が揃っていても成功するとは限らない</td>
+<td>能力の整理はスタート地点。運用体制・保守コストも評価する</td>
+</tr>
+<tr class="even">
+<td>導入目的の曖昧さがリスクになる</td>
+<td>手順①（支援したい活動の明確化）を省略しない</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="9-step-8よくある誤解と注意点">9. Step
+8：よくある誤解と注意点</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>よくある誤解</th>
+<th>正しい理解</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>30130はおすすめツールの一覧だ</td>
+<td><strong>違います</strong>。製品名の推奨ではなく、能力を整理する枠組みです</td>
+</tr>
+<tr class="even">
+<td>30130に準拠した認証がある</td>
+<td>公式情報の範囲では、認証制度を前提とした記載は確認できていません</td>
+</tr>
+<tr class="odd">
+<td>最新のAIテストツールも網羅している</td>
+<td>2016年発行・2022年確認のみ。<strong>近年の新しい種類のツールは本文に明示されていない可能性</strong>があります（推定）</td>
+</tr>
+<tr class="even">
+<td>29119-2の最新版と完全に同じ用語</td>
+<td>発行時期のずれがあるため、用語は照らし合わせが必要です</td>
+</tr>
+<tr class="odd">
+<td>無料で全文が読める</td>
+<td>有料規格です（ISOサイトでサンプル閲覧は可能）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="9-1-この規格を学ぶときのコツ">9-1. この規格を学ぶときのコツ</h3>
+<ol type="1">
+<li><strong>まず29119-2のプロセス（3層）を頭に入れる</strong></li>
+<li><strong>ISTQBシラバス第6章のツール分類と見比べる</strong></li>
+<li><strong>自社のツールを書き出し、「何ができるか」を言葉にしてみる</strong></li>
+<li><strong>本文を購入できる場合は、5章〜7章の表を自社ツールで試す</strong></li>
+</ol>
+
+<h2 id="10-規格のライフサイクルiso公式より">10.
+規格のライフサイクル（ISO公式より）</h2>
+<div class="mermaid-diagram" id="mermaid-diagram-6" role="img"><svg id="mm6" width="1383.546875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="112" viewBox="4 4 1383.546875 112" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mm6{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e8f0ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mm6 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mm6 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mm6 .error-icon{fill:#0d1b2e;}#mm6 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}#mm6 .edge-thickness-normal{stroke-width:1px;}#mm6 .edge-thickness-thick{stroke-width:3.5px;}#mm6 .edge-pattern-solid{stroke-dasharray:0;}#mm6 .edge-thickness-invisible{stroke-width:0;fill:none;}#mm6 .edge-pattern-dashed{stroke-dasharray:3;}#mm6 .edge-pattern-dotted{stroke-dasharray:2;}#mm6 .marker{fill:#9db4ff;stroke:#9db4ff;}#mm6 .marker.cross{stroke:#9db4ff;}#mm6 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mm6 p{margin:0;}#mm6 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e8f0ff;}#mm6 .cluster-label text{fill:#e8f0ff;}#mm6 .cluster-label span{color:#e8f0ff;}#mm6 .cluster-label span p{background-color:transparent;}#mm6 .label text,#mm6 span{fill:#e8f0ff;color:#e8f0ff;}#mm6 .node rect,#mm6 .node circle,#mm6 .node ellipse,#mm6 .node polygon,#mm6 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mm6 .rough-node .label text,#mm6 .node .label text,#mm6 .image-shape .label,#mm6 .icon-shape .label{text-anchor:middle;}#mm6 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mm6 .rough-node .label,#mm6 .node .label,#mm6 .image-shape .label,#mm6 .icon-shape .label{text-align:center;}#mm6 .node.clickable{cursor:pointer;}#mm6 .root .anchor path{fill:#9db4ff!important;stroke-width:0;stroke:#9db4ff;}#mm6 .arrowheadPath{fill:#f2e4d1;}#mm6 .edgePaths .path{stroke:#9db4ff;stroke-width:1px;}#mm6 .flowchart-link{stroke:#9db4ff;fill:none;}#mm6 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mm6 .edgeLabel p{background-color:#0d1b2e;}#mm6 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm6 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mm6 .cluster rect{fill:#0d1b2e;stroke:#3a5588;stroke-width:1px;}#mm6 .cluster text{fill:#e8f0ff;}#mm6 .cluster span{color:#e8f0ff;}#mm6 .node .collapsed-indicator{fill:#3a5588;stroke:none;opacity:0.6;}#mm6 .node .collapsed-separator{stroke:#3a5588;stroke-width:0.75px;}#mm6 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}#mm6 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8f0ff;}#mm6 rect.text{fill:none;stroke-width:0;}#mm6 .icon-shape,#mm6 .image-shape{background-color:#0d1b2e;text-align:center;}#mm6 .icon-shape p,#mm6 .image-shape p{background-color:#0d1b2e;padding:2px;}#mm6 .icon-shape .label rect,#mm6 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mm6 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mm6 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mm6 .node .neo-node{stroke:#7c9eff;}#mm6 [data-look="neo"].node rect,#mm6 [data-look="neo"].cluster rect,#mm6 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm6 [data-look="neo"].swimlane.cluster rect{filter:none;}#mm6 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mm6 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm6 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mm6 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm6 [data-look="neo"].node circle .state-start{fill:#000000;}#mm6 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm6 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mm6 :root{--mermaid-font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}</style><g><marker id="mm6_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm6_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mm6_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mm6_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mm6_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm6_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm6_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm6_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mm6_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm6_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mm6_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mm6_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edges edgePaths"><path d="M204.015625,60L240.015625,60" id="mm6-L_L1_L2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L1_L2_0" data-points="W3sieCI6MjA0LjAxNTYyNSwieSI6NjB9LHsieCI6MjQ0LjAxNTYyNSwieSI6NjB9XQ==" data-look="neo" marker-end="url(#mm6_flowchart-v2-pointEnd-margin)"></path><path d="M396.015625,60L432.015625,60" id="mm6-L_L2_L3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L2_L3_0" data-points="W3sieCI6Mzk2LjAxNTYyNSwieSI6NjB9LHsieCI6NDM2LjAxNTYyNSwieSI6NjB9XQ==" data-look="neo" marker-end="url(#mm6_flowchart-v2-pointEnd-margin)"></path><path d="M588.015625,60L624.015625,60" id="mm6-L_L3_L4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L3_L4_0" data-points="W3sieCI6NTg4LjAxNTYyNSwieSI6NjB9LHsieCI6NjI4LjAxNTYyNSwieSI6NjB9XQ==" data-look="neo" marker-end="url(#mm6_flowchart-v2-pointEnd-margin)"></path><path d="M780.015625,60L816.015625,60" id="mm6-L_L4_L5_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L4_L5_0" data-points="W3sieCI6NzgwLjAxNTYyNSwieSI6NjB9LHsieCI6ODIwLjAxNTYyNSwieSI6NjB9XQ==" data-look="neo" marker-end="url(#mm6_flowchart-v2-pointEnd-margin)"></path><path d="M972.015625,60L1008.015625,60" id="mm6-L_L5_L6_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L5_L6_0" data-points="W3sieCI6OTcyLjAxNTYyNSwieSI6NjB9LHsieCI6MTAxMi4wMTU2MjUsInkiOjYwfV0=" data-look="neo" marker-end="url(#mm6_flowchart-v2-pointEnd-margin)"></path><path d="M1187.546875,60L1223.546875,60" id="mm6-L_L6_L7_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_L6_L7_0" data-points="W3sieCI6MTE4Ny41NDY4NzUsInkiOjYwfSx7IngiOjEyMjcuNTQ2ODc1LCJ5Ijo2MH1d" data-look="neo" marker-end="url(#mm6_flowchart-v2-pointEnd-margin)"></path></g><g class="edgeLabels"></g><g class="nodes"><g class="node default  " id="mm6-flowchart-L1-0" data-look="neo" transform="translate(108.0078125, 60)"><rect class="basic label-container" style="" x="-96.0078125" y="-36" width="192.015625" height="72"></rect><g class="label" style="" transform="translate(-80.0078125, -24)"><rect></rect><foreignObject width="160.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>2014-03-25<br/>新規プロジェクト承認</p></span></div></foreignObject></g></g><g class="node default  " id="mm6-flowchart-L2-1" data-look="neo" transform="translate(320.015625, 60)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>2014-12-02<br/>CD承認</p></span></div></foreignObject></g></g><g class="node default  " id="mm6-flowchart-L3-3" data-look="neo" transform="translate(512.015625, 60)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>2015-02-09<br/>DIS投票開始<br/>12週間</p></span></div></foreignObject></g></g><g class="node default  " id="mm6-flowchart-L4-5" data-look="neo" transform="translate(704.015625, 60)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>2015-10-09<br/>DIS承認<br/>FDISへ</p></span></div></foreignObject></g></g><g class="node default  " id="mm6-flowchart-L5-7" data-look="neo" transform="translate(896.015625, 60)"><rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72"></rect><g class="label" style="" transform="translate(-60, -24)"><rect></rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>2015-11-24<br/>FDIS投票終了</p></span></div></foreignObject></g></g><g class="node default  " id="mm6-flowchart-L6-9" data-look="neo" transform="translate(1099.78125, 60)"><rect class="basic label-container" style="" x="-87.765625" y="-36" width="175.53125" height="72"></rect><g class="label" style="" transform="translate(-71.765625, -24)"><rect></rect><foreignObject width="143.53125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center;"><span class="nodeLabel "><p>2016-01-19<br/>国際規格として公表</p></span></div></foreignObject></g></g><g class="node default  " id="mm6-flowchart-L7-11" data-look="neo" transform="translate(1303.546875, 60)"><rect class="basic label-container" style="" x="-76" y="-48" width="152" height="96"></rect><g class="label" style="" transform="translate(-60, -36)"><rect></rect><foreignObject width="120" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 420px; text-align: center; width: 120px;"><span class="nodeLabel "><p>2022-05-24<br/>見直しの結果<br/>確認（90.93）</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mm6-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mm6-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>段階</th>
+<th>日付</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10.99</td>
+<td>2014-03-25</td>
+<td>新規プロジェクト承認</td>
+</tr>
+<tr class="even">
+<td>30.99</td>
+<td>2014-12-02</td>
+<td>CDがDISとして登録承認</td>
+</tr>
+<tr class="odd">
+<td>40.20</td>
+<td>2015-02-09</td>
+<td>DIS投票開始（12週間）</td>
+</tr>
+<tr class="even">
+<td>40.60</td>
+<td>2015-05-11</td>
+<td>投票終了</td>
+</tr>
+<tr class="odd">
+<td>40.99</td>
+<td>2015-10-09</td>
+<td>DIS承認、FDISへ</td>
+</tr>
+<tr class="even">
+<td>50.60</td>
+<td>2015-11-24</td>
+<td>FDIS投票終了</td>
+</tr>
+<tr class="odd">
+<td>60.60</td>
+<td>2016-01-19</td>
+<td>国際規格として公表</td>
+</tr>
+<tr class="even">
+<td>90.20〜90.60</td>
+<td>2021-01-15〜2021-06-05</td>
+<td>定期見直し</td>
+</tr>
+<tr class="odd">
+<td><strong>90.93</strong></td>
+<td><strong>2022-05-24</strong></td>
+<td><strong>確認（現行版として継続）</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>ISOでは規格は5年ごとに見直されます。次回の見直しは2027年前後が目安です（📘
+公式スケジュールではなく推定）。</p>
+<h3 id="国ごとの採用状況確認できた範囲">国ごとの採用状況（確認できた範囲）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>国・機関</th>
+<th>規格名</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>英国 BSI</td>
+<td>BS ISO/IEC 30130:2016</td>
+<td>2016年1月31日付</td>
+</tr>
+<tr class="even">
+<td>カナダ CSA</td>
+<td>CSA ISO/IEC 30130-16 (R2021)</td>
+<td>2021年に再確認</td>
+</tr>
+<tr class="odd">
+<td>湾岸諸国 GSO</td>
+<td>GSO ISO/IEC 30130:2021</td>
+<td>2021年7月承認</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="11-理解度チェック">11. 理解度チェック</h2>
+<h3 id="問題">問題</h3>
+<ol type="1">
+<li>ISO/IEC 30130 が定義しているものは何ですか？</li>
+<li>規格が「既存規格が扱わない」としている3領域を挙げてください。</li>
+<li>ISO/IEC 30130 と整合している2つの規格は何ですか？</li>
+<li>現在のステージ（90.93）は何を意味しますか？</li>
+<li>この規格は特定のツール製品を推奨していますか？</li>
+</ol>
+<h3 id="解答">解答</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>問</th>
+<th>解答</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>テストツールの能力を割り当てるための枠組み</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>①テストエンティティ・ツールのカテゴリ化 ②各カテゴリの特性化
+③能力と特性の対応付け</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>ISO/IEC/IEEE 29119-2（テストプロセス）と ISO/IEC
+12207（検証プロセスを含むライフサイクルプロセス）</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>国際規格が定期見直しの結果「確認」され、現行版として有効なこと</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>いいえ。製品推奨ではなく、能力を整理する枠組みです</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="12-参考ソースurl根拠一覧">12. 参考ソースURL（根拠一覧）</h2>
+<h3 id="12-1-一次情報公的カタログ確認度">12-1.
+一次情報・公的カタログ（確認度：◎）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ISO公式ページ（Abstract、ライフサイクル、基本情報）</td>
+<td><a href="https://www.iso.org/standard/64901.html" rel="noopener noreferrer" target="_blank">https://www.iso.org/standard/64901.html</a></td>
+</tr>
+<tr class="even">
+<td>IEC Webstore（出版情報、ページ数、委員会）</td>
+<td><a href="https://webstore.iec.ch/publication/24084" rel="noopener noreferrer" target="_blank">https://webstore.iec.ch/publication/24084</a></td>
+</tr>
+<tr class="odd">
+<td>カナダ標準評議会（SCC）データベース</td>
+<td><a href="https://scc-ccn.ca/standardsdb/standards/8159615" rel="noopener noreferrer" target="_blank">https://scc-ccn.ca/standardsdb/standards/8159615</a></td>
+</tr>
+<tr class="even">
+<td>CSA / ANSI Webstore（Scope文、採用規格）</td>
+<td><a href="https://webstore.ansi.org/standards/csa/csaisoiec3013016r2021" rel="noopener noreferrer" target="_blank">https://webstore.ansi.org/standards/csa/csaisoiec3013016r2021</a></td>
+</tr>
+<tr class="odd">
+<td>BSI英国版の規格情報</td>
+<td><a href="https://www.en-standard.eu/bs-iso-iec-30130-2016-software-engineering-capabilities-of-software-testing-tools/" rel="noopener noreferrer" target="_blank">https://www.en-standard.eu/bs-iso-iec-30130-2016-software-engineering-capabilities-of-software-testing-tools/</a></td>
+</tr>
+<tr class="even">
+<td>GSO（湾岸標準化機構）採用情報</td>
+<td><a href="https://dgsm.gso.org.sa/store/standards/GSO:788270?lang=en" rel="noopener noreferrer" target="_blank">https://dgsm.gso.org.sa/store/standards/GSO:788270?lang=en</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-2-関連規格の情報確認度">12-2.
+関連規格の情報（確認度：◎〜○）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ISO/IEC/IEEE 29119-2:2021 解説（BSI）</td>
+<td><a href="https://shop-checkout.bsigroup.com/products/software-and-systems-engineering-software-testing-test-processes-1" rel="noopener noreferrer" target="_blank">https://shop-checkout.bsigroup.com/products/software-and-systems-engineering-software-testing-test-processes-1</a></td>
+</tr>
+<tr class="even">
+<td>29119-2:2021 目次プレビュー（ANSI）</td>
+<td><a href="https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+IEEE+29119-2-2021.pdf" rel="noopener noreferrer" target="_blank">https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+IEEE+29119-2-2021.pdf</a></td>
+</tr>
+<tr class="odd">
+<td>29119-2 規格概要（Nimonik）</td>
+<td><a href="https://standards.nimonik.com/products/ieee/ieee-iso-iec-29119-2/" rel="noopener noreferrer" target="_blank">https://standards.nimonik.com/products/ieee/ieee-iso-iec-29119-2/</a></td>
+</tr>
+<tr class="even">
+<td>ISO/IEC 29119 シリーズ概説（Wikipedia）</td>
+<td><a href="https://en.wikipedia.org/wiki/ISO/IEC_29119" rel="noopener noreferrer" target="_blank">https://en.wikipedia.org/wiki/ISO/IEC_29119</a></td>
+</tr>
+<tr class="odd">
+<td>ISO/IEC JTC 1/SC 7 概要（Wikipedia）</td>
+<td><a href="https://en.wikipedia.org/wiki/ISO/IEC_JTC_1/SC_7" rel="noopener noreferrer" target="_blank">https://en.wikipedia.org/wiki/ISO/IEC_JTC_1/SC_7</a></td>
+</tr>
+<tr class="even">
+<td>ISO 30000番台規格一覧（Wikipedia）</td>
+<td><a href="https://en.wikipedia.org/wiki/List_of_ISO_standards_30000%E2%80%9399999" rel="noopener noreferrer" target="_blank">https://en.wikipedia.org/wiki/List_of_ISO_standards_30000%E2%80%9399999</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-3-著名な国際的実務家教育資料確認度">12-3.
+著名な国際的実務家・教育資料（確認度：○）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dorothy Graham 氏のプロフィールと講演紹介（STAREAST 2016）</td>
+<td><a href="https://conferences.techwell.com/archives/stareast-2016/speakers/dorothy-graham.html" rel="noopener noreferrer" target="_blank">https://conferences.techwell.com/archives/stareast-2016/speakers/dorothy-graham.html</a></td>
+</tr>
+<tr class="even">
+<td>Dorothy Graham 氏 "Fifty Years of Test
+Automation"（EuroSTAR、AutomationSTAR 2024）</td>
+<td><a href="https://community.eurostarsoftwaretesting.com/topic/test-automation/fifty-years-of-test-automation/" rel="noopener noreferrer" target="_blank">https://community.eurostarsoftwaretesting.com/topic/test-automation/fifty-years-of-test-automation/</a></td>
+</tr>
+<tr class="odd">
+<td>Dorothy Graham 氏インタビュー（StickyMinds）</td>
+<td><a href="https://www.stickyminds.com/interview/long-road-test-automation-interview-dorothy-graham" rel="noopener noreferrer" target="_blank">https://www.stickyminds.com/interview/long-road-test-automation-interview-dorothy-graham</a></td>
+</tr>
+<tr class="even">
+<td>ISTQB Foundation 2018「テストツールサポート」コース概要</td>
+<td><a href="https://library.skillport.com/coursedesc/it_sdstfd_11_enus/summary.htm" rel="noopener noreferrer" target="_blank">https://library.skillport.com/coursedesc/it_sdstfd_11_enus/summary.htm</a></td>
+</tr>
+<tr class="odd">
+<td>Software Testing Foundations 第7章 テストツール（O'Reilly）</td>
+<td><a href="https://oreilly.com/library/view/software-testing-foundations/9781492001454/ch07.html" rel="noopener noreferrer" target="_blank">https://oreilly.com/library/view/software-testing-foundations/9781492001454/ch07.html</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-4-一般的なツール分類の参考確認度">12-4.
+一般的なツール分類の参考（確認度：△）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IT Testing Tools の6分類（Testkube）</td>
+<td><a href="https://testkube.io/glossary/it-testing-tools" rel="noopener noreferrer" target="_blank">https://testkube.io/glossary/it-testing-tools</a></td>
+</tr>
+<tr class="even">
+<td>テストツールの種類（TutorialsPoint）</td>
+<td><a href="https://www.tutorialspoint.com/software_testing_dictionary/test_tools.htm" rel="noopener noreferrer" target="_blank">https://www.tutorialspoint.com/software_testing_dictionary/test_tools.htm</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-5-調査上の制約正直な注記">12-5.
+調査上の制約（正直な注記）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>規格本文</td>
+<td>有料のため閲覧できず、章の中身（5〜7章の具体的な表や分類名）は確認していません</td>
+</tr>
+<tr class="even">
+<td>VDE社のプレビューPDF</td>
+<td>自動アクセス不可のため、検索結果の断片（目次の一部）のみ確認</td>
+</tr>
+<tr class="odd">
+<td>ISO OBP（オンライン閲覧）</td>
+<td>JavaScript前提のため取得不可</td>
+</tr>
+<tr class="even">
+<td>30130単独を扱う著名開発者の投稿</td>
+<td>今回の調査範囲では見つかっていません。そのため Dorothy Graham
+氏などの<strong>テストツール全般に関する国際的な発言</strong>を補助的に引用しています</td>
+</tr>
+<tr class="odd">
+<td>日本語資料</td>
+<td>30130を日本語で詳しく解説した公的資料は今回の調査では確認できていません</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout">
+<p><strong>次のステップのおすすめ</strong>：規格本文（ISOストアで購入、またはお住まいの国の標準機関経由）で
+5章〜7章の表を確認し、本ガイドの「📘
+本文要確認」箇所を埋めると、より正確なガイドに仕上がります。</p>
+</blockquote>
+
+
+
+<footer class="page-footer">本ガイドは公開情報に基づく学習用の解説であり、ISO/IEC 30130:2016
+の本文を転載・代替するものではありません。</footer>
+</main>
+<script>
+(function(){
+var sb=document.getElementById('sidebar'),tg=document.getElementById('navToggle');
+tg.addEventListener('click',function(){sb.classList.toggle('open');});
+var links=[].slice.call(document.querySelectorAll('.sidebar a'));
+links.forEach(function(a){a.addEventListener('click',function(){sb.classList.remove('open');});});
+var map={};links.forEach(function(a){map[a.dataset.target]=a;});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove('active');});var a=map[e.target.id];if(a)a.classList.add('active');}});},{rootMargin:'-15% 0px -75% 0px'});
+document.querySelectorAll('.main h2[id]').forEach(function(h){io.observe(h);});
+})();
+</script></body></html>
