@@ -496,6 +496,8 @@
 
 /* Preserve the paper theme against shared app styles and Tailwind Preflight. */
 .beyond-legacy-page { min-height: 100vh; width: 100%; }
+/* 原本の --ink-faint / --gold は紙色背景で 4.5:1 に届かないため、本文サイズの文字用に暗くする */
+.beyond-legacy-page { --ink-faint: #6b6455; --gold: #8a5d14; }
 .beyond-legacy-page main.main {
     max-width: none;
     margin: 0 0 0 var(--sidebar-w);
