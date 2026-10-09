@@ -235,7 +235,7 @@ user <span class="o">=</span> <span class="f">find_user</span>(users, <span clas
 </footer>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js" integrity="sha384-o+g/BxPwhi0C3RK7oQBxQuNimeafQ3GE/ST4iT2BxVI4Wzt60SH4pq9iXVYujjaS" crossorigin="anonymous"></script>
 <script>
 const MERMAID_DIAGRAMS = {
 d1: `flowchart LR
@@ -305,7 +305,7 @@ async function renderAll(){
     for(const id in MERMAID_DIAGRAMS){document.getElementById(id).textContent='mermaid の読み込みに失敗しました（CDNに接続できません）。ネットワーク設定をご確認ください。';}
     return;
   }
-  mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'loose',
+  mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'strict',
     themeVariables:{fontSize:'16px',fontFamily:'"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif',primaryColor:'#0d1b2e',primaryTextColor:'#e6eefb',lineColor:'#7c9eff',clusterBkg:'#0a1626',clusterBorder:'#1f3350'},
     flowchart:{useMaxWidth:false,htmlLabels:true,nodeSpacing:50,rankSpacing:50,subGraphTitleMargin:{top:12,bottom:18}}});
   if(document.fonts&&document.fonts.ready){try{await document.fonts.ready;}catch(e){}}
