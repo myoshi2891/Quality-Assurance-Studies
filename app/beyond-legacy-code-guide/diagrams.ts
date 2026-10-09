@@ -52,6 +52,7 @@ flowchart TB
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
+classDef goal fill:#3f6b4f,stroke:#34406b,stroke-width:4px,color:#f7f3ea
 P1[プラクティス1 目的 理由 対象を先に伝える]:::hub --> P2[プラクティス2 小さなバッチで作る]:::hub
 P2 --> P3[プラクティス3 継続的に統合する]:::box
 P3 --> P4[プラクティス4 協力しあう]:::box
@@ -59,7 +60,7 @@ P4 --> P5[プラクティス5 CLEANなコードを作る]:::hub
 P5 --> P6[プラクティス6 まずテストを書く]:::box
 P6 --> P7[プラクティス7 テストで振る舞いを明示する]:::box
 P7 --> P8[プラクティス8 設計は最後に実装する]:::box
-P8 --> P9[プラクティス9 レガシーコードをリファクタリングする]:::done`;
+P8 --> P9[プラクティス9 レガシーコードをリファクタリングする]:::goal`;
 
 export const DIAGRAM_CI = `${MERMAID_CONFIG}
 flowchart LR

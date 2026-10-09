@@ -22,7 +22,7 @@ export default function Overview() {
         <Mermaid chart={DIAGRAMS["diagram-overview"]} />
       </div>
       <p className="diagram-caption">
-        {" 図3: 9つのプラクティスの流れ(色が濃いノードは各目的グループの起点、緑は最終到達点) "}
+        {" 図3: 9つのプラクティスの流れ(色が濃いノードは4つの目的グループの起点。紺はグループ1〜3、紺の太枠付きの緑はグループ4の起点かつ最終到達点) "}
       </p>
       <div className="table-wrap">
         <table aria-label="9つのプラクティス一覧">
