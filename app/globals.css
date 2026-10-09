@@ -82,6 +82,8 @@
     --font-display: 'DM Sans', 'Noto Sans JP', sans-serif;
     --font-body: 'Noto Sans JP', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    /* ガイド index 専用のディスプレイ書体。Fontsource で layout.tsx から読み込む */
+    --font-bricolage: 'Bricolage Grotesque';
     /* --- 角丸・シャドウ --- */
     --radius-DEFAULT: 12px;
     --radius-sm: 8px;

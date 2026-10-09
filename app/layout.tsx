@@ -1,44 +1,33 @@
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans_JP, JetBrains_Mono, DM_Sans, Bricolage_Grotesque } from 'next/font/google';
-import './globals.css';
-import Header from '../components/Header';
-import { DisclaimerBanner } from '../components/DisclaimerBanner';
-
-const notoSansJP = Noto_Sans_JP({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-  preload: false,
-  display: 'swap',
-  variable: '--font-body',
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mono',
-});
-
+/*
+  Web フォントは Fontsource で node_modules から自前配信する。
+  next/font の Google ローダーはビルドのたびに Google Fonts へ通信し、CI ランナーからの
+  取得失敗で Turbopack ビルドが非決定的に落ちるため使わない。
+  各 CSS は unicode-range でスライスされており、閲覧時は必要なスライスだけを読む。
+  family 名（'Noto Sans JP' 等）は globals.css の --font-* 変数が参照する。
+*/
+import '@fontsource/noto-sans-jp/300.css';
+import '@fontsource/noto-sans-jp/400.css';
+import '@fontsource/noto-sans-jp/500.css';
+import '@fontsource/noto-sans-jp/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '@fontsource/dm-sans/300.css';
+import '@fontsource/dm-sans/400.css';
+import '@fontsource/dm-sans/500.css';
+import '@fontsource/dm-sans/700.css';
+import '@fontsource/dm-sans/800.css';
 /*
   ガイド index（`/`）専用のディスプレイ書体。
   h1 は日本語なので、この書体が実際に効くのはガイド総数の数字と
   CTAL-TTA / CT-AI といったラテン略号だけ。そこだけ声が切り替わる混植を狙う。
-  1 ルートでしか使わないため preload はしない。
 */
-const bricolage = Bricolage_Grotesque({
-  weight: ['600', '800'],
-  subsets: ['latin'],
-  preload: false,
-  display: 'swap',
-  variable: '--font-bricolage',
-});
-
-const dmSans = DM_Sans({
-  weight: ['300', '400', '500', '700', '800'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-});
+import '@fontsource/bricolage-grotesque/600.css';
+import '@fontsource/bricolage-grotesque/800.css';
+import './globals.css';
+import Header from '../components/Header';
+import { DisclaimerBanner } from '../components/DisclaimerBanner';
 
 export const metadata: Metadata = {
   title: 'QA Studies & AI Test Guide',
@@ -56,7 +45,7 @@ export const viewport: Viewport = {
 
 /**
  * Renders the application's root HTML layout, sets the document language to Japanese,
- * applies project font CSS variables, includes the shared header and disclaimer banner,
+ * loads self-hosted web fonts, includes the shared header and disclaimer banner,
  * and wraps page content in a `.layout-content` container.
  *
  * @param children - Page content to render inside the `.layout-content` wrapper
@@ -68,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable} ${bricolage.variable}`}>
+    <html lang="ja">
       <body>
         {/*
           Tabler アイコンフォント。CSS の @import はページ CSS を読み終えるまで
