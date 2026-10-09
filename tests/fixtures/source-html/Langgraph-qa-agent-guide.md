@@ -305,6 +305,8 @@ def intent_detection(state: AgentState) -> dict:
 ### Step 6. Text-to-Cypher ノード — 自然言語をCypherに変換する
 
 ```python
+import re
+
 def parse_cypher_response(text: str) -> tuple[str, str]:
     # 期待する形式: {"cypher": "MATCH ...", "reasoning": "..."}（parse_json_object は Step 5 で定義）
     data = parse_json_object(text)
@@ -316,19 +318,32 @@ def parse_cypher_response(text: str) -> tuple[str, str]:
 # UI で選択可能にするラベル（例）。ラベル名は Cypher のパラメータにできないため、この固定タプルからだけ埋め込む
 SELECTABLE_LABELS = ("Incident", "Vehicle", "ANPRCamera")
 
-def init_selectable_nodes(admin_driver) -> None:
+# 選択用 ID として有効なのは randomUUID() が返す小文字の UUID 形式だけ。Cypher の =~ と Python の re.fullmatch で同じ式を使う
+UID_PATTERN = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+
+def init_selectable_nodes(admin_driver) -> int:
     # fetch_selected_node は Selectable ラベルと永続的な uid の両方を前提とするため、データ取り込み後に一度実行して付与する。
     # 書き込みが必要なので、Step 7 の読み取り専用ドライバではなく管理用の認証情報で作ったドライバを渡す
+    migrated = 0
     with admin_driver.session() as session:
         session.run(
             "CREATE CONSTRAINT selectable_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.uid IS UNIQUE"
         ).consume()
         for label in SELECTABLE_LABELS:
-            # 既に uid を持つノードは値を保ち、未採番のノードにだけ randomUUID() で採番する（再実行しても参照は変わらない）
-            session.run(
-                f"MATCH (n:`{label}`) SET n:Selectable, n.uid = coalesce(n.uid, randomUUID())"
-            ).consume()
-    # 以後にノードを追加する取り込み処理でも、同じく Selectable ラベルと uid を作成時に付ける
+            # 既存の uid は UUID 形式の文字列のときだけ保つ（再実行しても参照は変わらない）。
+            # 未設定・文字列以外・形式外の値（メールアドレスや業務上の番号を流用した値など）は機微情報を含み得るため、
+            # 無条件に残さず randomUUID() の選択用 ID へ置き換える
+            record = session.run(
+                f"MATCH (n:`{label}`) "
+                "WITH n, CASE WHEN n.uid IS :: STRING NOT NULL THEN n.uid =~ $pattern ELSE false END AS valid "
+                "SET n:Selectable, n.uid = CASE WHEN valid THEN n.uid ELSE randomUUID() END "
+                "RETURN sum(CASE WHEN valid THEN 0 ELSE 1 END) AS migrated",
+                pattern=UID_PATTERN,
+            ).single()
+            migrated += record["migrated"]
+    # 置き換えた uid は旧値と対応しないため、旧値で保存された UI 側の選択状態は破棄させる。
+    # 以後にノードを追加する取り込み処理でも、同じく Selectable ラベルと UUID 形式の uid を作成時に付ける
+    return migrated
 
 def fetch_selected_node(tx, uid: str):
     # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など）。
@@ -354,7 +369,8 @@ def build_selection_context(selection: dict) -> dict:
     if uid is None:
         properties = selection.get("properties")
         uid = properties.get("uid") if isinstance(properties, dict) else None
-    if selection.get("kind") != "node" or not isinstance(uid, str) or not uid:
+    # UUID 形式の uid だけを参照として受け付け、検証していない値は Neo4j への問い合わせにもプロンプトにも使わない
+    if selection.get("kind") != "node" or not isinstance(uid, str) or re.fullmatch(UID_PATTERN, uid) is None:
         raise ValueError("選択中のノードの参照が不正です")
     # driver は Step 7 で定義する読み取り専用ユーザーの共有ドライバ
     with driver.session() as session:
