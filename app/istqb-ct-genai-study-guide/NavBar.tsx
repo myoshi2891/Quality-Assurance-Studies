@@ -45,8 +45,10 @@ export default function NavBar() {
     return () => document.removeEventListener('keydown', escape);
   }, [open]);
   const onNavigate = (event: React.MouseEvent<HTMLElement>) => {
-    const link = (event.target as Element).closest('a');
-    if (link) { setActive(link.getAttribute('data-target')!); setOpen(false); }
+    const target = (event.target as Element).closest('a')?.getAttribute('data-target');
+    if (!target) return;
+    setActive(target);
+    setOpen(false);
   };
   return <>
 
