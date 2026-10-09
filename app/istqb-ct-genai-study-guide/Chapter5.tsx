@@ -446,7 +446,7 @@ export default function Chapter5() {
       </a>
       {"、"}
       <a href="https://dev.to/qa-leaders/roadmap-for-the-adoption-of-generative-ai-in-software-testing-4em4" target="_blank" rel="noopener noreferrer">
-        {"CT-GenAI公式ページ（第5章要約に基づく二次資料）"}
+        {"第5章ロードマップの理解を補助する二次資料（dev.toの第三者記事）"}
       </a>
     </p>
 

@@ -9630,7 +9630,7 @@
               "callout-source"
             ]
           ],
-          "text": "出典：CT-GenAISyllabusv1.1第5章、CT-GenAI公式ページ（第5章要約に基づく二次資料）"
+          "text": "出典：CT-GenAISyllabusv1.1第5章、第5章ロードマップの理解を補助する二次資料（dev.toの第三者記事）"
         },
         {
           "tag": "a",
@@ -9666,7 +9666,7 @@
               "_blank"
             ]
           ],
-          "text": "CT-GenAI公式ページ（第5章要約に基づく二次資料）"
+          "text": "第5章ロードマップの理解を補助する二次資料（dev.toの第三者記事）"
         }
       ],
       "items": {
@@ -9845,7 +9845,7 @@
                 "callout-source"
               ]
             ],
-            "text": "出典：CT-GenAISyllabusv1.1第5章、CT-GenAI公式ページ（第5章要約に基づく二次資料）"
+            "text": "出典：CT-GenAISyllabusv1.1第5章、第5章ロードマップの理解を補助する二次資料（dev.toの第三者記事）"
           }
         ],
         ".mermaid-target": [
@@ -9899,7 +9899,7 @@
                 "_blank"
               ]
             ],
-            "text": "CT-GenAI公式ページ（第5章要約に基づく二次資料）"
+            "text": "第5章ロードマップの理解を補助する二次資料（dev.toの第三者記事）"
           }
         ],
         "pre,code": []
