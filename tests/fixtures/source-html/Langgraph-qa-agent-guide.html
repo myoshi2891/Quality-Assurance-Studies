@@ -1003,7 +1003,7 @@ def parse_cypher_response(text: str) -&gt; tuple[str, str]:
     return query.strip(), str(data.get("reasoning", ""))
 
 # UI で選択可能にするラベル（例）。ラベル名は Cypher のパラメータにできないため、この固定タプルからだけ埋め込む
-SELECTABLE_LABELS = ("Incident", "Vehicle", "ANPRCamera")
+SELECTABLE_LABELS = ("Crime", "Vehicle", "ANPRCamera")
 
 # 選択用 ID として有効なのは randomUUID() が返す小文字の UUID 形式だけ。Cypher の =~ と Python の re.fullmatch で同じ式を使う
 UID_PATTERN = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
@@ -1011,26 +1011,29 @@ UID_PATTERN = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 def init_selectable_nodes(admin_driver) -&gt; int:
     # fetch_selected_node は Selectable ラベルと永続的な uid の両方を前提とするため、データ取り込み後に一度実行して付与する。
     # 書き込みが必要なので、Step 7 の読み取り専用ドライバではなく管理用の認証情報で作ったドライバを渡す
-    migrated = 0
     with admin_driver.session() as session:
+        # 既存の uid は、UUID 形式の文字列で、かつ対象ノード全体で 1 件だけ使われているときだけ保つ（再実行しても参照は変わらない）。
+        # 未設定・文字列以外・形式外の値（メールアドレスや業務上の番号を流用した値など）は機微情報を含み得るため、
+        # また重複した値はどのノードを指すか決まらないため、該当するノードすべてに randomUUID() の選択用 ID を再発行する。
+        # ラベルごとに分けず全対象ノードを 1 つのクエリで集計し、ラベルをまたぐ重複も検出してから Selectable を付ける
+        record = session.run(
+            "MATCH (n) WHERE any(label IN labels(n) WHERE label IN $labels) "
+            "WITH n, CASE WHEN n.uid IS :: STRING NOT NULL THEN n.uid =~ $pattern ELSE false END AS valid "
+            "WITH CASE WHEN valid THEN n.uid END AS kept_uid, collect(n) AS nodes "
+            "WITH nodes, kept_uid IS NOT NULL AND size(nodes) = 1 AS keep "
+            "UNWIND nodes AS n "
+            "SET n:Selectable, n.uid = CASE WHEN keep THEN n.uid ELSE randomUUID() END "
+            "RETURN count(n) - sum(CASE WHEN keep THEN 1 ELSE 0 END) AS migrated",
+            labels=list(SELECTABLE_LABELS),
+            pattern=UID_PATTERN,
+        ).single()
+        # 重複を解消した後に一意性制約を作る（先に作ると、重複した既存値に Selectable を付けた時点で制約違反になる）
         session.run(
             "CREATE CONSTRAINT selectable_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.uid IS UNIQUE"
         ).consume()
-        for label in SELECTABLE_LABELS:
-            # 既存の uid は UUID 形式の文字列のときだけ保つ（再実行しても参照は変わらない）。
-            # 未設定・文字列以外・形式外の値（メールアドレスや業務上の番号を流用した値など）は機微情報を含み得るため、
-            # 無条件に残さず randomUUID() の選択用 ID へ置き換える
-            record = session.run(
-                f"MATCH (n:`{label}`) "
-                "WITH n, CASE WHEN n.uid IS :: STRING NOT NULL THEN n.uid =~ $pattern ELSE false END AS valid "
-                "SET n:Selectable, n.uid = CASE WHEN valid THEN n.uid ELSE randomUUID() END "
-                "RETURN sum(CASE WHEN valid THEN 0 ELSE 1 END) AS migrated",
-                pattern=UID_PATTERN,
-            ).single()
-            migrated += record["migrated"]
     # 置き換えた uid は旧値と対応しないため、旧値で保存された UI 側の選択状態は破棄させる。
     # 以後にノードを追加する取り込み処理でも、同じく Selectable ラベルと UUID 形式の uid を作成時に付ける
-    return migrated
+    return record["migrated"]
 
 def fetch_selected_node(tx, uid: str):
     # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など）。
