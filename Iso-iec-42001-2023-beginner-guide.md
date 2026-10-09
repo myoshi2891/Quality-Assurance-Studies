@@ -921,7 +921,7 @@ flowchart TD
 |------|------|-----------|
 | 42001とEU規制の位置づけ | 42001は、EUの調和規格の枠組みの一部ではない。欧州のAI事務局が2024年5月に、AI法の最終条文と完全には整合していないと示したとの解説がある | 独立専門家の解説 |
 | 官報での引用 | 42001は、EU官報に引用されておらず、それ自体では法的な適合推定を与えない | CSAの調査ノート（2026年9月8日付） |
-| 専用の規格 | EN 18286:2026（AI法の品質マネジメントシステム規格）。2026年7月12日に承認されたが、官報への引用は未了で、現時点で適合推定は生じない | 規格動向を整理した解説（Modulos） |
+| 専用の規格 | EN 18286:2026（AI法の品質マネジメントシステム規格）。2026年6月にCENとCENELECが承認し、2026年7月31日付の公式記事で発行が告知された。官報への引用は未了で、現時点で適合推定は生じない | CEN-CENELECの公式発表（承認・発行）、規格動向を整理した解説（Modulos、官報引用の状況） |
 | 組織と製品 | 42001は組織全体の管理、EN 18286は高リスクAIシステムの提供者の法的義務に対応 | CSAの文書 |
 | 重なりの目安 | CSAの白書は、42001が高リスク義務に必要な組織基盤の約70〜80%を提供すると推計 | 推計値であり、参考程度に扱う |
 
@@ -1146,6 +1146,8 @@ AIMSは経営の仕組みですが、証拠（ログ、テスト結果、変更�
 | CSA：EU AI Actコンプライアンスの対応表（白書、2026年5月） | <https://labs.cloudsecurityalliance.org/research-rb/csa-whitepaper-eu-ai-act-iso42001-pren18286-compliance-20260/> |
 | CSA：ISO 42001とEU AI Actの誤解（調査ノート、2026年9月） | <https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-governance-fragmentation-20260908-csa-s/> |
 | Adam Leon Smith（AI規格動向を追う専門家）：prEN 18286の解説 | <https://adamleonsmith.substack.com/p/pren-18286> |
+| CEN-CENELEC公式ニュースレター：EN 18286の承認（「In June, CEN and CENELEC approved EN 18286」、2026年7月29日掲載） | <https://www.cencenelec.eu/news-events/news/2026/newsletter/ots-75-anec/> |
+| CEN-CENELEC公式記事：EN 18286の発行告知（2026年7月31日掲載） | <https://www.cencenelec.eu/news-events/news/2026/en-in-the-spotlight/2026-07-30-ai-quality-management/> |
 | Modulos：EU AI Act調和規格の進捗表（EN 18286:2026の承認状況） | <https://docs.modulos.ai/frameworks/eu-ai-act/harmonized-standards> |
 | Lumenova AI：EN 18286:2026の要約 | <https://www.lumenova.ai/blog/en-18286-eu-ai-act-standard/> |
 | CEPA：AIの安全性と認証の動向（BSIのUKAS認定、大手企業の取得状況） | <https://cepa.org/article/what-counts-as-safe-ai/> |
