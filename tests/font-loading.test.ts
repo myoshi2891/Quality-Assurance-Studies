@@ -40,8 +40,14 @@ describe('Web フォントの読み込み', () => {
     // Arrange
     const layout = readFileSync(LAYOUT, 'utf8');
 
-    // Act & Assert
-    expect(layout).not.toContain('next/font/google');
+    // Act: コメント内の言及ではなく、実際の import / re-export 文のモジュール指定子だけを対象にする
+    const specifiers = [...layout.matchAll(/^\s*(?:import|export)\b[^'"]*?(?:\bfrom\s*)?['"]([^'"]+)['"]/gm)].map(
+      (match) => match[1] ?? ''
+    );
+
+    // Assert
+    expect(specifiers.length).toBeGreaterThan(0);
+    expect(specifiers.filter((specifier) => specifier.startsWith('next/font/google'))).toEqual([]);
   });
 
   it('共有レイアウトが必要なウェイトの Fontsource CSS だけを過不足なく import する', () => {
