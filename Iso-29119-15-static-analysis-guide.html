@@ -155,7 +155,8 @@ footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--line);color:v
 <tr><td>制御フロー解析</td><td>分岐・ループの通り道を追跡</td><td>到達不能コード</td></tr>
 <tr><td>データフロー解析</td><td>値の生成〜使用を追跡</td><td>未初期化変数、NULL参照</td></tr>
 <tr><td>テイント解析</td><td>外部入力が危険箇所に届くか追跡</td><td>SQLインジェクションの可能性</td></tr>
-<tr><td>抽象解釈・記号実行</td><td>実行パスを数学的に近似して推論</td><td>配列範囲外、メモリリーク</td></tr>
+<tr><td>抽象解釈</td><td>プログラムの意味を抽象ドメイン（値の範囲など）上で近似して推論</td><td>配列範囲外、メモリリーク</td></tr>
+<tr><td>記号実行</td><td>入力を記号として扱い、パス条件を集めながら実行パスを探索</td><td>特定の入力条件でのみ到達するエラー、その再現入力の生成</td></tr>
 </table></div>
 <h3>具体例：実行せずに欠陥を見つける</h3>
 <pre><code><span class="k">def</span> <span class="f">find_user</span>(users, name):
