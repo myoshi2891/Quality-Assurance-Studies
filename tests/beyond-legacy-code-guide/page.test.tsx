@@ -176,6 +176,19 @@ describe('NavBar', () => {
       const count = callbacks.length;fireEvent.scroll(window);expect(callbacks.length).toBe(count);
     } finally {host.remove();window.requestAnimationFrame = originalRAF;window.cancelAnimationFrame = originalCancel;}
   });
+  it('keeps an anchor target active when its scroll-margin-top exceeds 25% of a short viewport', async () => {
+    const { default: NavBar } = await import('../../app/beyond-legacy-code-guide/NavBar');
+    const originalHeight = window.innerHeight;const originalStyle = window.getComputedStyle;
+    const host = document.createElement('div');document.body.append(host);
+    // アンカー着地位置 = scroll-margin-top(120px)。高さ400pxでは25%閾値(100px)を上回る
+    inventory.nav.forEach((link, index) => { const element = document.createElement('div');element.id = link.attrs.find(([key]) => key === 'href')![1]!.slice(1);element.getBoundingClientRect = () => ({ top: index <= 3 ? 120 : 10000 } as DOMRect);host.append(element); });
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: 400 });
+    window.getComputedStyle = (element => ({ ...originalStyle(element), scrollMarginTop: '120px' })) as typeof window.getComputedStyle;
+    try {
+      const view = render(<NavBar />);
+      expect(view.container.querySelector('a.active')?.getAttribute('href')).toBe('#overview');
+    } finally {host.remove();window.getComputedStyle = originalStyle;Object.defineProperty(window, 'innerHeight', { configurable: true, value: originalHeight });}
+  });
   it('makes the closed mobile sidebar inert and reacts to desktop resize', async () => {
     const { default: NavBar } = await import('../../app/beyond-legacy-code-guide/NavBar');
     const original = window.matchMedia;let handler: (() => void) | undefined;let removed = false;

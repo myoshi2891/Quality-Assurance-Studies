@@ -45,7 +45,9 @@ export default function NavBar() {
       for (const id of TARGETS) {
         const element = document.getElementById(id);
         if (!element) continue;
-        if (element.getBoundingClientRect().top <= window.innerHeight * 0.25) current = id;
+        // アンカー着地位置(scroll-margin-top)より閾値が上だと、遷移直後に直前の項目へ戻ってしまう
+        const margin = parseFloat(window.getComputedStyle(element).scrollMarginTop) || 0;
+        if (element.getBoundingClientRect().top <= Math.max(window.innerHeight * 0.25, margin + 1)) current = id;
         else break;
       }
       setActive(current);
