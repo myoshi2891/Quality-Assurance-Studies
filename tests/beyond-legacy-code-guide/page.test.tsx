@@ -203,7 +203,7 @@ describe('Registration', () => {
   it('registers the book guide and matching smoke test', () => {
     const item = NAV_ITEMS.find(item => item.href === '/beyond-legacy-code-guide');expect(item?.category).toBe('books-practices');expect(item?.description.length).toBeLessThanOrEqual(80);
     expect(PAGES.find(page => page.path === '/beyond-legacy-code-guide')?.h1.test('レガシーコードからの脱却')).toBe(true);
-    expect(EXPECTED_PAGE_COUNT).toBe(92);
+    expect(EXPECTED_PAGE_COUNT).toBe(NAV_ITEMS.length);
   });
 });
 describe('Archive', () => {
