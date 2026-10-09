@@ -46,12 +46,34 @@ tr:last-child td{border-bottom:0}
 tbody tr:nth-child(even){background:rgba(15,36,66,.45)}
 .mermaid-diagram{display:block;overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
 .mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
-ul.checklist{list-style:none;padding-left:4px}
-ul.checklist li{padding:4px 0}
-ul.checklist input{margin-right:10px;accent-color:var(--accent);transform:scale(1.2)}
 .page-footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
 .nav-toggle{display:none;position:fixed;top:10px;left:10px;z-index:30;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px}
 @media(max-width:900px){.nav-toggle{display:block}.sidebar{transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:none}.main{margin-left:0;padding:60px 16px 60px}.hero-title{font-size:22px}}
+
+.checklist-card{margin:16px 0 26px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.checklist-progress{display:flex;align-items:center;gap:14px;padding:14px 18px;background:linear-gradient(90deg,rgba(124,158,255,.14),transparent);border-bottom:1px solid var(--line)}
+.cl-label{font-weight:700;color:#fff;font-size:14px;white-space:nowrap}
+.cl-bar{flex:1;height:8px;background:var(--panel2);border-radius:999px;overflow:hidden}
+.cl-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));border-radius:999px;transition:width .3s}
+.cl-count{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);font-size:14px;white-space:nowrap}
+.cl-reset{background:transparent;color:var(--faint);border:1px solid var(--line);border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+.cl-reset:hover{color:var(--text);border-color:var(--accent)}
+ul.checklist{list-style:none;margin:0;padding:6px 8px}
+ul.checklist li{margin:2px 0}
+ul.checklist .cl-txt{flex:1;line-height:1.6}
+ul.checklist label{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;cursor:pointer;color:var(--dim);transition:background .15s,color .15s}
+ul.checklist label:hover{background:rgba(124,158,255,.1)}
+.cl-no{font-size:12px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums;min-width:22px}
+ul.checklist input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;border:2px solid #4a6fb5;border-radius:7px;background:var(--panel2);display:grid;place-content:center;cursor:pointer;transition:all .15s}
+ul.checklist input::after{content:"";width:6px;height:11px;border:solid #07111e;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0);transition:transform .15s;margin-top:-2px}
+ul.checklist input:checked{background:var(--ok);border-color:var(--ok)}
+ul.checklist input:checked::after{transform:rotate(45deg) scale(1)}
+ul.checklist input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ul.checklist li.done label{color:var(--faint);background:rgba(90,209,165,.06)}
+ul.checklist li.done .cl-txt{text-decoration:line-through;text-decoration-color:rgba(156,176,207,.6)}
+.checklist-card.complete .checklist-progress{background:linear-gradient(90deg,rgba(90,209,165,.2),transparent)}
+.checklist-card.complete .cl-count{color:var(--ok)}
+@media(max-width:600px){.checklist-progress{flex-wrap:wrap}.cl-bar{order:3;flex-basis:100%}}
 
 </style></head><body>
 <button class="nav-toggle" id="navToggle" aria-label="目次を開閉">☰ 目次</button>
@@ -4569,22 +4591,22 @@ QAエンジニアの視点：影響評価をテストと品質活動につなげ
 </table></div>
 <h3 id="13-2-導入チェックリスト提案">13-2.
 導入チェックリスト【提案】</h3>
-<ul class="checklist">
-<li><label><input type="checkbox"/>影響評価の手順書を作成した（5.2）</label></li>
-<li><label><input type="checkbox"/>既存のリスク管理、開発、変更管理のプロセスとつないだ（5.3）</label></li>
-<li><label><input type="checkbox"/>評価を始めるタイミングと再評価の条件を決めた（5.4、5.12）</label></li>
-<li><label><input type="checkbox"/>評価の範囲の決め方を定めた（5.5）</label></li>
-<li><label><input type="checkbox"/>作成、レビュー、承認の役割を割り当てた（5.6、5.11）</label></li>
-<li><label><input type="checkbox"/>慎重な扱いが必要な用途と制限する用途を定義した（5.7）</label></li>
-<li><label><input type="checkbox"/>影響の尺度（段階の基準）を決めた（5.7）</label></li>
-<li><label><input type="checkbox"/>評価書の記録項目を決めた（第6章、附属書E）</label></li>
-<li><label><input type="checkbox"/>便益と害の分類の観点を決めた（6.8.2、附属書C）</label></li>
-<li><label><input type="checkbox"/>失敗と誤用のシナリオを洗い出す方法を決めた（6.8.3）</label></li>
-<li><label><input type="checkbox"/>対応策の効果を確認する方法を決めた（6.9）</label></li>
-<li><label><input type="checkbox"/>42001やEU AI
-Actなど、関連する枠組みとの対応を整理した（附属書A、B、D）</label></li>
-<li><label><input type="checkbox"/>正規版の規格を入手して、条文を確認した</label></li>
-</ul>
+<div class="checklist-card" data-cl="1"><div class="checklist-progress"><span class="cl-label">進捗</span><div aria-valuemin="0" class="cl-bar" role="progressbar"><div class="cl-fill"></div></div><span class="cl-count">0 / 0</span><button class="cl-reset" type="button">リセット</button></div><ul class="checklist">
+<li><label><span class="cl-no">01</span><input data-k="1" type="checkbox"/><span class="cl-txt">影響評価の手順書を作成した（5.2）</span></label></li>
+<li><label><span class="cl-no">02</span><input data-k="2" type="checkbox"/><span class="cl-txt">既存のリスク管理、開発、変更管理のプロセスとつないだ（5.3）</span></label></li>
+<li><label><span class="cl-no">03</span><input data-k="3" type="checkbox"/><span class="cl-txt">評価を始めるタイミングと再評価の条件を決めた（5.4、5.12）</span></label></li>
+<li><label><span class="cl-no">04</span><input data-k="4" type="checkbox"/><span class="cl-txt">評価の範囲の決め方を定めた（5.5）</span></label></li>
+<li><label><span class="cl-no">05</span><input data-k="5" type="checkbox"/><span class="cl-txt">作成、レビュー、承認の役割を割り当てた（5.6、5.11）</span></label></li>
+<li><label><span class="cl-no">06</span><input data-k="6" type="checkbox"/><span class="cl-txt">慎重な扱いが必要な用途と制限する用途を定義した（5.7）</span></label></li>
+<li><label><span class="cl-no">07</span><input data-k="7" type="checkbox"/><span class="cl-txt">影響の尺度（段階の基準）を決めた（5.7）</span></label></li>
+<li><label><span class="cl-no">08</span><input data-k="8" type="checkbox"/><span class="cl-txt">評価書の記録項目を決めた（第6章、附属書E）</span></label></li>
+<li><label><span class="cl-no">09</span><input data-k="9" type="checkbox"/><span class="cl-txt">便益と害の分類の観点を決めた（6.8.2、附属書C）</span></label></li>
+<li><label><span class="cl-no">10</span><input data-k="10" type="checkbox"/><span class="cl-txt">失敗と誤用のシナリオを洗い出す方法を決めた（6.8.3）</span></label></li>
+<li><label><span class="cl-no">11</span><input data-k="11" type="checkbox"/><span class="cl-txt">対応策の効果を確認する方法を決めた（6.9）</span></label></li>
+<li><label><span class="cl-no">12</span><input data-k="12" type="checkbox"/><span class="cl-txt">42001やEU AI
+Actなど、関連する枠組みとの対応を整理した（附属書A、B、D）</span></label></li>
+<li><label><span class="cl-no">13</span><input data-k="13" type="checkbox"/><span class="cl-txt">正規版の規格を入手して、条文を確認した</span></label></li>
+</ul></div>
 <hr/>
 <h2 id="14-情報の確からしさと調査の限界">14.
 情報の確からしさと調査の限界</h2>
@@ -4839,7 +4861,19 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
  document.querySelectorAll('.sidebar a.active').forEach(function(x){x.classList.remove('active')});
  var a=links[e.target.id];if(a){a.classList.add('active');a.scrollIntoView({block:'nearest'})}}})},{rootMargin:'-15% 0px -75% 0px'});
 document.querySelectorAll('h2[id],h3[id]').forEach(function(h){io.observe(h)});
-document.querySelectorAll('ul.checklist input').forEach(function(c){c.disabled=false});
+document.querySelectorAll('.checklist-card').forEach(function(card){
+ var key='iso42005-cl-'+card.getAttribute('data-cl'),boxes=[].slice.call(card.querySelectorAll('input[type=checkbox]'));
+ var fill=card.querySelector('.cl-fill'),cnt=card.querySelector('.cl-count'),bar=card.querySelector('.cl-bar');
+ function load(){try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(e){return[]}}
+ function save(){try{localStorage.setItem(key,JSON.stringify(boxes.filter(function(b){return b.checked}).map(function(b){return b.getAttribute('data-k')})))}catch(e){}}
+ function render(){var n=boxes.filter(function(b){return b.checked}).length;
+  boxes.forEach(function(b){b.closest('li').classList.toggle('done',b.checked)});
+  fill.style.width=(boxes.length?n/boxes.length*100:0)+'%';cnt.textContent=n+' / '+boxes.length;
+  bar.setAttribute('aria-valuemax',boxes.length);bar.setAttribute('aria-valuenow',n);card.classList.toggle('complete',n===boxes.length)}
+ var saved=load();boxes.forEach(function(b){b.checked=saved.indexOf(b.getAttribute('data-k'))>-1;b.addEventListener('change',function(){save();render()})});
+ card.querySelector('.cl-reset').addEventListener('click',function(){boxes.forEach(function(b){b.checked=false});save();render()});
+ render();
+});
 })();
 
 </script></body></html>
