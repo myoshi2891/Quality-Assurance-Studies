@@ -8,7 +8,7 @@
 > | 対象読者 | ソフトウェアエンジニア、QAエンジニア、AI開発者、品質・コンプライアンス担当、初めてISOマネジメントシステムに触れる人 |
 > | 前提知識 | 不要（用語は初出時にカッコで補足します） |
 > | 図の方針 | フローチャートは Mermaid、表は Markdown。ASCIIアートは使いません |
-> | 一次情報 | ISO公式ページ https://www.iso.org/standard/42001 |
+> | 一次情報 | ISO公式ページ <https://www.iso.org/standard/42001> |
 
 ---
 
@@ -1121,43 +1121,43 @@ AIMSは経営の仕組みですが、証拠（ログ、テスト結果、変更�
 
 | 内容 | URL |
 |------|-----|
-| ISO/IEC 42001:2023 公式ページ（基本情報、FAQ、ライフサイクル） | https://www.iso.org/standard/42001 |
-| ISO/IEC 42001 explained（ISO公式の解説。2026年8月31日付のメタ情報） | https://www.iso.org/insights/iso-42001-explained |
-| ISO/IEC 42006:2025 公式ページ（認証機関向け規格） | https://www.iso.org/standard/42006 |
-| ISO/IEC 42006 IEC Webstore（発行日の確認） | https://webstore.iec.ch/en/publication/108460 |
+| ISO/IEC 42001:2023 公式ページ（基本情報、FAQ、ライフサイクル） | <https://www.iso.org/standard/42001> |
+| ISO/IEC 42001 explained（ISO公式の解説。2026年8月31日付のメタ情報） | <https://www.iso.org/insights/iso-42001-explained> |
+| ISO/IEC 42006:2025 公式ページ（認証機関向け規格） | <https://www.iso.org/standard/42006> |
+| ISO/IEC 42006 IEC Webstore（発行日の確認） | <https://webstore.iec.ch/en/publication/108460> |
 
 ### 18.2 事業者の公式発表（国際的な開発・提供企業）
 
 | 内容 | URL |
 |------|-----|
-| AWS Machine Learning Blog：ISO/IEC 42001認定認証の取得（2024年11月） | https://aws.amazon.com/blogs/machine-learning/aws-achieves-iso-iec-420012023-artificial-intelligence-management-system-accredited-certification |
-| AWS Machine Learning Blog：責任あるAIツールと認証の発表（re:Invent 2024） | https://aws.amazon.com/blogs/machine-learning/advancing-ai-trust-with-new-responsible-ai-tools-capabilities-and-resources/ |
-| AWS Security Blog：最初のサーベイランス審査を指摘事項なしで完了（2025年11月） | https://aws.amazon.com/blogs/security/aws-successfully-completed-its-first-surveillance-audit-for-iso-420012023-with-no-findings |
-| AWS 日本語ブログ：取得の発表（日本語訳） | https://aws.amazon.com/jp/blogs/news/aws-achieves-iso-iec-420012023-artificial-intelligence-management-system-accredited-certification/ |
-| Anthropic：ISO 42001認証の取得 | https://www.anthropic.com/news/anthropic-achieves-iso-42001-certification-for-responsible-ai |
+| AWS Machine Learning Blog：ISO/IEC 42001認定認証の取得（2024年11月） | <https://aws.amazon.com/blogs/machine-learning/aws-achieves-iso-iec-420012023-artificial-intelligence-management-system-accredited-certification> |
+| AWS Machine Learning Blog：責任あるAIツールと認証の発表（re:Invent 2024） | <https://aws.amazon.com/blogs/machine-learning/advancing-ai-trust-with-new-responsible-ai-tools-capabilities-and-resources/> |
+| AWS Security Blog：最初のサーベイランス審査を指摘事項なしで完了（2025年11月） | <https://aws.amazon.com/blogs/security/aws-successfully-completed-its-first-surveillance-audit-for-iso-420012023-with-no-findings> |
+| AWS 日本語ブログ：取得の発表（日本語訳） | <https://aws.amazon.com/jp/blogs/news/aws-achieves-iso-iec-420012023-artificial-intelligence-management-system-accredited-certification/> |
+| Anthropic：ISO 42001認証の取得 | <https://www.anthropic.com/news/anthropic-achieves-iso-42001-certification-for-responsible-ai> |
 
 ### 18.3 業界団体・独立した解説
 
 | 内容 | URL |
 |------|-----|
-| Cloud Security Alliance：ISO 42001の審査と導入の教訓（2025年5月） | https://cloudsecurityalliance.org/blog/2025/05/08/iso-42001-lessons-learned-from-auditing-and-implementing-the-framework |
-| CSA：EU AI Act、ISO 42001、prEN 18286の関係（調査ノート、2026年4月） | https://labs.cloudsecurityalliance.org/research/csa-research-note-eu-ai-act-pren-18286-iso-42001-20260428/ |
-| CSA：EU AI Actコンプライアンスの対応表（白書、2026年5月） | https://labs.cloudsecurityalliance.org/research-rb/csa-whitepaper-eu-ai-act-iso42001-pren18286-compliance-20260/ |
-| CSA：ISO 42001とEU AI Actの誤解（調査ノート、2026年9月） | https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-governance-fragmentation-20260908-csa-s/ |
-| Adam Leon Smith（AI規格動向を追う専門家）：prEN 18286の解説 | https://adamleonsmith.substack.com/p/pren-18286 |
-| Modulos：EU AI Act調和規格の進捗表（EN 18286:2026の承認状況） | https://docs.modulos.ai/frameworks/eu-ai-act/harmonized-standards |
-| Lumenova AI：EN 18286:2026の要約 | https://www.lumenova.ai/blog/en-18286-eu-ai-act-standard/ |
-| CEPA：AIの安全性と認証の動向（BSIのUKAS認定、大手企業の取得状況） | https://cepa.org/article/what-counts-as-safe-ai/ |
+| Cloud Security Alliance：ISO 42001の審査と導入の教訓（2025年5月） | <https://cloudsecurityalliance.org/blog/2025/05/08/iso-42001-lessons-learned-from-auditing-and-implementing-the-framework> |
+| CSA：EU AI Act、ISO 42001、prEN 18286の関係（調査ノート、2026年4月） | <https://labs.cloudsecurityalliance.org/research/csa-research-note-eu-ai-act-pren-18286-iso-42001-20260428/> |
+| CSA：EU AI Actコンプライアンスの対応表（白書、2026年5月） | <https://labs.cloudsecurityalliance.org/research-rb/csa-whitepaper-eu-ai-act-iso42001-pren18286-compliance-20260/> |
+| CSA：ISO 42001とEU AI Actの誤解（調査ノート、2026年9月） | <https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-governance-fragmentation-20260908-csa-s/> |
+| Adam Leon Smith（AI規格動向を追う専門家）：prEN 18286の解説 | <https://adamleonsmith.substack.com/p/pren-18286> |
+| Modulos：EU AI Act調和規格の進捗表（EN 18286:2026の承認状況） | <https://docs.modulos.ai/frameworks/eu-ai-act/harmonized-standards> |
+| Lumenova AI：EN 18286:2026の要約 | <https://www.lumenova.ai/blog/en-18286-eu-ai-act-standard/> |
+| CEPA：AIの安全性と認証の動向（BSIのUKAS認定、大手企業の取得状況） | <https://cepa.org/article/what-counts-as-safe-ai/> |
 
 ### 18.4 附属書Aの解説（管理策の構成確認に使用）
 
 | 内容 | URL |
 |------|-----|
-| Konfirmity：38管理策の解説 | https://www.konfirmity.com/blog/iso-42001-controls |
-| blckalpaca：附属書Aの概観 | https://blckalpaca.at/en/knowledge-base/ai-agents/iso-42001-ai-management-system/annex-a-controls-iso-42001 |
-| SureCloud：附属書Aの実務ガイド | https://www.surecloud.com/resource-hub/iso-42001-annex-controls |
-| CASRAI：認証の道筋と附属書Aの概要 | https://casrai.org/guides/iso-42001-certification-guide |
-| Compliance Council：規格の構成の解説（39管理策と記載。第8章の注記参照） | https://www.compliancecouncil.com.au/insights/iso-42001-artificial-intelligence-ai-management-systems |
+| Konfirmity：38管理策の解説 | <https://www.konfirmity.com/blog/iso-42001-controls> |
+| blckalpaca：附属書Aの概観 | <https://blckalpaca.at/en/knowledge-base/ai-agents/iso-42001-ai-management-system/annex-a-controls-iso-42001> |
+| SureCloud：附属書Aの実務ガイド | <https://www.surecloud.com/resource-hub/iso-42001-annex-controls> |
+| CASRAI：認証の道筋と附属書Aの概要 | <https://casrai.org/guides/iso-42001-certification-guide> |
+| Compliance Council：規格の構成の解説（39管理策と記載。第8章の注記参照） | <https://www.compliancecouncil.com.au/insights/iso-42001-artificial-intelligence-ai-management-systems> |
 
 ---
 
@@ -1186,7 +1186,7 @@ AIMSは経営の仕組みですが、証拠（ログ、テスト結果、変更�
 
 | 目的 | 確認先 |
 |------|--------|
-| 規格の改訂・状態 | ISO公式ページ https://www.iso.org/standard/42001 |
+| 規格の改訂・状態 | ISO公式ページ <https://www.iso.org/standard/42001> |
 | 規格本文 | ISOストア、または各国の標準化機関 |
 | 認証機関の認定状況 | 各国の認定機関（UKAS、ANABなど）のサイト |
 | 事業者の取得範囲 | 各社のトラストセンターや公式ブログ |
