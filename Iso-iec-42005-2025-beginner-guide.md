@@ -997,40 +997,40 @@ flowchart LR
 
 | 番号 | 内容 | URL |
 |------|------|-----|
-| 1 | ISO公式ページ（概要、FAQ、ライフサイクル、基本情報） | https://www.iso.org/standard/42005 |
-| 2 | ANSI Webstore 公開プレビューPDF（目次、序文） | https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+42005-2025.pdf |
+| 1 | ISO公式ページ（概要、FAQ、ライフサイクル、基本情報） | <https://www.iso.org/standard/42005> |
+| 2 | ANSI Webstore 公開プレビューPDF（目次、序文） | <https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+42005-2025.pdf> |
 
 ### 15-2. 標準化団体・規格ストア
 
 | 番号 | 内容 | URL |
 |------|------|-----|
-| 3 | BSI Knowledge（BS ISO/IEC 42005:2025 の概要） | https://knowledge.bsigroup.com/products/information-technology-artificial-intelligence-ai-ai-system-impact-assessment |
-| 4 | Standards Australia（AS ISO/IEC 42005:2025 の目次） | https://store.standards.org.au/product/as-iso-iec-42005-2025 |
-| 5 | INCITS 動画シリーズ「Mastering AI Impact Assessments with ISO/IEC 42005」 | https://www.incits.org/news-events/-/incits-youtube-video-series-mastering-ai-impact-assessments-with-isoiec-42005 |
-| 6 | ANSI Member Updates（INCITSの動画シリーズ告知、2025年9月19日） | https://www.ansi.org/standards-news/member-updates/9-19-25-incits-launches-youtube-video-series |
+| 3 | BSI Knowledge（BS ISO/IEC 42005:2025 の概要） | <https://knowledge.bsigroup.com/products/information-technology-artificial-intelligence-ai-ai-system-impact-assessment> |
+| 4 | Standards Australia（AS ISO/IEC 42005:2025 の目次） | <https://store.standards.org.au/product/as-iso-iec-42005-2025> |
+| 5 | INCITS 動画シリーズ「Mastering AI Impact Assessments with ISO/IEC 42005」 | <https://www.incits.org/news-events/-/incits-youtube-video-series-mastering-ai-impact-assessments-with-isoiec-42005> |
+| 6 | ANSI Member Updates（INCITSの動画シリーズ告知、2025年9月19日） | <https://www.ansi.org/standards-news/member-updates/9-19-25-incits-launches-youtube-video-series> |
 
 ### 15-3. 実務者・専門家による解説
 
 | 番号 | 内容 | URL |
 |------|------|-----|
-| 7 | LinkedIn上の実務者の投稿（プロフィール名 kevinchancw）「PUBLISHED: ISO 42005:2025」（2025年5月28日） | https://my.linkedin.com/in/kevinchancw |
-| 8 | CMS（法律事務所）「ISO/IEC 42005:2025 – A New Blueprint for Legal and Commercial Leaders」 | https://cms.law/en/gbr/legal-updates/iso-iec-42005-2025-a-new-blueprint-for-legal-and-commercial-leaders-navigating-ai-risk-and-governance |
-| 9 | AI Governance Library Newsletter（ISO 42005の紹介） | https://www.aigl.blog/ai-governance-library-newsletter-5-iso-what-you-did-there/ |
-| 10 | regulations.ai の規制解説ページ | https://regulations.ai/regulations/RAI-XS-GO-ITAIAXX-2025 |
+| 7 | LinkedIn上の実務者の投稿（プロフィール名 kevinchancw）「PUBLISHED: ISO 42005:2025」（2025年5月28日） | <https://my.linkedin.com/in/kevinchancw> |
+| 8 | CMS（法律事務所）「ISO/IEC 42005:2025 – A New Blueprint for Legal and Commercial Leaders」 | <https://cms.law/en/gbr/legal-updates/iso-iec-42005-2025-a-new-blueprint-for-legal-and-commercial-leaders-navigating-ai-risk-and-governance> |
+| 9 | AI Governance Library Newsletter（ISO 42005の紹介） | <https://www.aigl.blog/ai-governance-library-newsletter-5-iso-what-you-did-there/> |
+| 10 | regulations.ai の規制解説ページ | <https://regulations.ai/regulations/RAI-XS-GO-ITAIAXX-2025> |
 
 ### 15-4. 関連規格との関係を扱う解説（ベンダー・コンサルティング）
 
 | 番号 | 内容 | URL |
 |------|------|-----|
-| 11 | TCSA「AI Risk vs AI Impact Assessment」 | https://www.tcsa.in/learn/ai-risk-vs-impact-assessment |
-| 12 | Presencis「ISO 42001 Article 6.1」 | https://presencis.com/regulations/iso-42001/article-6.1/ |
-| 13 | Konfirmity「ISO 42001 Requirements」 | https://www.konfirmity.com/blog/iso-42001-requirements |
+| 11 | TCSA「AI Risk vs AI Impact Assessment」 | <https://www.tcsa.in/learn/ai-risk-vs-impact-assessment> |
+| 12 | Presencis「ISO 42001 Article 6.1」 | <https://presencis.com/regulations/iso-42001/article-6.1/> |
+| 13 | Konfirmity「ISO 42001 Requirements」 | <https://www.konfirmity.com/blog/iso-42001-requirements> |
 
 ### 15-5. 学術研究
 
 | 番号 | 内容 | URL |
 |------|------|-----|
-| 14 | arXiv「Co-designing an AI Impact Assessment Report Template with AI Practitioners and AI Compliance Experts」 | https://arxiv.org/pdf/2407.17374 |
+| 14 | arXiv「Co-designing an AI Impact Assessment Report Template with AI Practitioners and AI Compliance Experts」 | <https://arxiv.org/pdf/2407.17374> |
 
 ### 15-6. 本ガイドの根拠の対応表
 
