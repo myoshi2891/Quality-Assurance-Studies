@@ -239,6 +239,8 @@ user <span class="o">=</span> <span class="f">find_user</span>(users, <span clas
 <script>
 const MERMAID_DIAGRAMS = {
 d1: `flowchart LR
+  accTitle: ISO規格のステージ遷移と29119-15の現在地
+  accDescr: ISO規格は10 提案、20 準備、30 委員会、40 照会（DIS）、50 承認（FDIS）、60 発行、90 定期見直しの順に一方向へ進み、分岐やループはない。30 委員会段階に点線で注記が付き、29119-15の現在地がステージ30.00（2026-01-07にCD登録）であることを示す。
   S1["10 提案"] --> S2["20 準備"]
   S2 --> S3["30 委員会"]
   S3 --> S4["40 照会 (DIS)"]
@@ -286,6 +288,8 @@ d4: `flowchart TD
   classDef c fill:#0d1b2e,stroke:#7c9eff,color:#e6eefb
   class L1,L2,L3,L4 c`,
 d5: `flowchart LR
+  accTitle: 静的解析をCI/CDに組み込むフロー
+  accDescr: 開発者がプルリクエストを作成するとCIが起動し、Lint・SAST・型チェックなどの静的解析を自動実行する。重大な指摘ありの場合はマージをブロックしてPRに指摘をコメントし、開発者が修正するとCI起動に戻って再解析するループになる。重大な指摘なしの場合は人によるコードレビューを経てマージし、その後ルールと指標を定期的に見直す。
   C1["プルリクエスト作成"] --> C2["CI起動"]
   C2 --> C3["静的解析を自動実行<br/>Lint / SAST / 型チェック"]
   C3 --> C4{"重大な指摘あり？"}
