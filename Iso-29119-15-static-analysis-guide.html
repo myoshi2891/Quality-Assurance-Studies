@@ -57,7 +57,7 @@ footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--line);color:v
 <nav>
 <a href="#s0">読み方</a><a href="#s1">現在地</a><a href="#s2">静的解析とは</a><a href="#s3">概要の読解</a><a href="#s4">シリーズ内の位置</a><a href="#s5">プロセス例</a><a href="#s6">手法</a><a href="#s7">業界の知見</a><a href="#s8">導入</a><a href="#src">ソース</a>
 </nav>
-<div class="main">
+<main class="main">
 
 <header class="hero">
 <span class="badge">ISO 29119 シリーズ ／ 初学者向け</span>
@@ -91,12 +91,12 @@ footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--line);color:v
 <tr><td>NP投票</td><td>2025-07-11（ステージ10.20）</td></tr>
 <tr><td>構想の初出</td><td>2018年のBCS SIGiST報告で、WG26の作業テーマとして「静的解析の国際規格」が挙がっている</td></tr>
 </table></div>
-<div id="d1" class="md"></div>
+<div id="d1" class="md"><p>ISO規格は10 提案、20 準備、30 委員会、40 照会（DIS）、50 承認（FDIS）、60 発行、90 定期見直しの順に進む。図では主な流れを一方向に示しているが、実際には30 委員会段階の意見募集の結果によってはWGへ差し戻し（30.92）となり、作業部会に戻って草案を修正することもある（Step 10の図を参照）。30 委員会段階に点線で注記が付き、29119-15の現在地がステージ30.00（2026-01-07にCD登録）であることを示す。</p></div>
 <div class="co w"><p>CD意見募集（30.20）の結果次第で、DIS登録（30.99）へ進むか、WGへ差し戻し（30.92）になります。<strong>発行時期は公表されていません。</strong></p></div>
 
 <h2 id="s2">Step 2. 静的解析とは</h2>
 <p><strong>静的解析 ＝ プログラムや成果物を「実行せずに」調べ、欠陥・リスク・規約違反を見つける活動</strong>です。Metaの Peter O'Hearn 氏もCACM論文で、静的解析ツールを「他のプログラムのソースを、実行せずに調べて結論を導くプログラム」と説明しています。</p>
-<div id="d2" class="md"></div>
+<div id="d2" class="md"><p>静的解析（実行しない）では、ソースコードと仕様書・設計書・モデルを解析ツールまたは人のレビューで調べ、欠陥の疑いや規約違反を指摘事項として出す。動的テスト（実行する）では、ビルド済みソフトにテスト入力を与えて実行し、実際の出力・挙動を期待結果と比較する。両者の最後の段階は点線で結ばれ、互いに補完し合う関係であることを示す。</p></div>
 <div class="tw"><table>
 <tr><th>観点</th><th>静的解析</th><th>動的テスト</th></tr>
 <tr><td>実行</td><td>不要</td><td>必要</td></tr>
@@ -135,7 +135,7 @@ footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--line);color:v
 
 <h2 id="s5">Step 5. 静的解析の一般的なプロセス（学習用モデル）</h2>
 <div class="co w"><p><span class="tag t2">一般知識</span> 以下は <strong>CD本文の内容ではありません</strong>。実務で回すときの一般的な流れを整理した学習用モデルです。</p></div>
-<div id="d3" class="md"></div>
+<div id="d3" class="md"><p>計画、準備、実施、結果の分析（トリアージ）の順に進み、指摘が本当の問題かを判断して分岐する。はい（真の指摘）なら是正として修正と再発防止を行い、いいえ（誤検知）なら抑制設定やルール調整を行って理由を記録する。どちらの経路も報告・記録に合流して結果をまとめ、続く改善でルールとプロセスを見直したあと、点線で次回の計画に戻るループになる。</p></div>
 <div class="tw"><table>
 <tr><th>ステップ</th><th>やること</th><th>具体例</th></tr>
 <tr><td>① 計画</td><td>目的・対象・合格基準を決める</td><td>新規コードは重大度High指摘ゼロでマージ</td></tr>
@@ -181,11 +181,11 @@ user <span class="o">=</span> <span class="f">find_user</span>(users, <span clas
 <tr><td><strong>Google：Tricorder</strong><br>Sadowskiほか（ICSE 2015）</td><td>解析ツールを載せる共通プラットフォームと指導原則を整備。専門家でない開発者もルールを書け、データで改善するエコシステム</td><td>組織として回す仕組みが重要</td></tr>
 <tr><td><strong>Coverity</strong><br>Bessey, Englerほか（CACM 2010）</td><td>研究技術を商用化して顧客コードに適用した経験談。ビルド方法や言語方言の違いなど想定外の壁が多数。誤検知が増えると開発者の信頼を失う</td><td>検出力と誤検知抑制のバランス設計</td></tr>
 </table></div>
-<div id="d4" class="md"></div>
+<div id="d4" class="md"><p>Meta・Google・Coverityの教訓は3つに分かれる。開発者のワークフロー（コードレビュー・CI）に組み込むこと、誤検知を管理して信頼を守ること、データを見て継続的に改善すること。</p></div>
 <div class="co"><p><span class="tag t3">推測</span> この3つの教訓は、29119-15が目指す「汎用プロセス・活動・タスク・文書化」の方向性と重なると考えられます。</p></div>
 
 <h2 id="s8">Step 8. 実務への活かし方</h2>
-<div id="d5" class="md"></div>
+<div id="d5" class="md"><p>開発者がプルリクエストを作成するとCIが起動し、Lint・SAST・型チェックなどの静的解析を自動実行する。重大な指摘ありの場合はマージをブロックしてPRに指摘をコメントし、開発者が修正するとCI起動に戻って再解析するループになる。重大な指摘なしの場合は人によるコードレビューを経てマージし、その後ルールと指標を定期的に見直す。</p></div>
 <div class="tw"><table>
 <tr><th>#</th><th>導入チェック項目</th><th>目的</th></tr>
 <tr><td>1</td><td>目的と合格基準を文書化したか</td><td>何をもって合格かを明確にする</td></tr>
@@ -233,7 +233,7 @@ user <span class="o">=</span> <span class="f">find_user</span>(users, <span clas
 <footer>
 <p>本ガイドは2026年10月6日時点で公開されている情報のみを根拠とします。CD本文は未公開のため引用・要約しておらず、Step 5・8の実務プロセスは一般知識または推測であって規格の要求事項ではありません。CDは審議で内容が大きく変わる可能性があるため、正式内容は発行後の規格本文とISOページで確認してください。</p>
 </footer>
-</div>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js" integrity="sha384-o+g/BxPwhi0C3RK7oQBxQuNimeafQ3GE/ST4iT2BxVI4Wzt60SH4pq9iXVYujjaS" crossorigin="anonymous"></script>
 <script>
@@ -308,7 +308,8 @@ d5: `flowchart LR
 };
 async function renderAll(){
   if(typeof mermaid==='undefined'){
-    for(const id in MERMAID_DIAGRAMS){document.getElementById(id).textContent='mermaid の読み込みに失敗しました（CDNに接続できません）。ネットワーク設定をご確認ください。';}
+    // 各図の初期内容（説明文）をそのまま残す
+    console.error('mermaid の読み込みに失敗しました（CDNに接続できません）。図の代わりに説明文を表示しています。');
     return;
   }
   mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'strict',
@@ -318,7 +319,7 @@ async function renderAll(){
   for(const id in MERMAID_DIAGRAMS){
     const box=document.getElementById(id);
     try{const r=await mermaid.render('svg-'+id,MERMAID_DIAGRAMS[id]);box.innerHTML=r.svg;}
-    catch(err){box.textContent='図の描画に失敗: '+err.message;}
+    catch(err){console.error('図の描画に失敗（説明文を表示）: '+id,err);}
   }
 }
 renderAll();
