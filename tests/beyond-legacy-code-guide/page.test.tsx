@@ -106,6 +106,12 @@ describe('Styles', () => {
     expect(cssValue('.beyond-legacy-page ' + selector, prop!)).toBe(expected!);
   }));
   it('keeps mobile main offset at zero', () => expect(cssValue('.beyond-legacy-page main.main', 'margin-left', '(max-width: 900px)')).toBe('0'));
+  it('starts the open mobile sidebar below the mobile bar so the toggle stays operable', () => {
+    const media = '(max-width: 900px)';
+    expect(cssValue('.beyond-legacy-page .mobile-bar', 'height', media)).toBe('var(--mobile-bar-h)');
+    expect(cssValue('.beyond-legacy-page .sidebar', 'top', media)).toBe('calc(60px + var(--disclaimer-height, 0px) + var(--mobile-bar-h))');
+    expect(cssValue('.beyond-legacy-page .sidebar', 'height', media)).toBe('calc(100dvh - 60px - var(--disclaimer-height, 0px) - var(--mobile-bar-h))');
+  });
   // 本文サイズの文字色として使う変数は、文字が乗る紙色背景すべてで WCAG AA（4.5:1）を満たす
   const luminance = (hex: string) => {
     const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(c => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);

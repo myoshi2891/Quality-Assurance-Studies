@@ -580,6 +580,14 @@
 
 @media (max-width: 900px) {
     .beyond-legacy-page main.main { margin-left: 0; }
+    /* 開いた目次（z-index: 50）がモバイルバーの開閉ボタンを覆わないよう、目次をバーの直下から始める。
+       バーの z-index を上げるとグローバルドロワー（z-index: 45）より手前に出るため、重なり自体を無くす */
+    .beyond-legacy-page { --mobile-bar-h: 58px; }
+    .beyond-legacy-page .mobile-bar { height: var(--mobile-bar-h); }
+    .beyond-legacy-page .sidebar {
+        top: calc(60px + var(--disclaimer-height, 0px) + var(--mobile-bar-h));
+        height: calc(100dvh - 60px - var(--disclaimer-height, 0px) - var(--mobile-bar-h));
+    }
 }
 @media (prefers-reduced-motion: reduce) {
     .beyond-legacy-page .sidebar,
