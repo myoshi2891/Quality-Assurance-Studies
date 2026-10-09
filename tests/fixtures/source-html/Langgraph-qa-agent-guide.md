@@ -322,39 +322,39 @@ SELECTABLE_LABELS = ("Crime", "Vehicle", "ANPRCamera")
 UID_PATTERN = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 
 def init_selectable_nodes(admin_driver) -> int:
-    # fetch_selected_node は Selectable ラベルと永続的な uid の両方を前提とするため、データ取り込み後に一度実行して付与する。
+    # fetch_selected_node は Selectable ラベルと永続的な選択用 ID の両方を前提とするため、データ取り込み後に一度実行して付与する。
     # 書き込みが必要なので、Step 7 の読み取り専用ドライバではなく管理用の認証情報で作ったドライバを渡す
     with admin_driver.session() as session:
-        # 既存の uid は、UUID 形式の文字列で、かつ対象ノード全体で 1 件だけ使われているときだけ保つ（再実行しても参照は変わらない）。
-        # 未設定・文字列以外・形式外の値（メールアドレスや業務上の番号を流用した値など）は機微情報を含み得るため、
+        # 選択用 ID は業務上の識別子（uid など）を上書きしないよう専用プロパティ selection_uid に持たせる。既存の selection_uid は、UUID 形式の文字列で、かつ対象ノード全体で 1 件だけ使われているときだけ保つ（再実行しても参照は変わらない）。
+        # 未設定・文字列以外・形式外の値は選択用 ID として使えないため、
         # また重複した値はどのノードを指すか決まらないため、該当するノードすべてに randomUUID() の選択用 ID を再発行する。
         # ラベルごとに分けず全対象ノードを 1 つのクエリで集計し、ラベルをまたぐ重複も検出してから Selectable を付ける
         record = session.run(
             "MATCH (n) WHERE any(label IN labels(n) WHERE label IN $labels) "
-            "WITH n, CASE WHEN n.uid IS :: STRING NOT NULL THEN n.uid =~ $pattern ELSE false END AS valid "
-            "WITH CASE WHEN valid THEN n.uid END AS kept_uid, collect(n) AS nodes "
+            "WITH n, CASE WHEN n.selection_uid IS :: STRING NOT NULL THEN n.selection_uid =~ $pattern ELSE false END AS valid "
+            "WITH CASE WHEN valid THEN n.selection_uid END AS kept_uid, collect(n) AS nodes "
             "WITH nodes, kept_uid IS NOT NULL AND size(nodes) = 1 AS keep "
             "UNWIND nodes AS n "
-            "SET n:Selectable, n.uid = CASE WHEN keep THEN n.uid ELSE randomUUID() END "
+            "SET n:Selectable, n.selection_uid = CASE WHEN keep THEN n.selection_uid ELSE randomUUID() END "
             "RETURN count(n) - sum(CASE WHEN keep THEN 1 ELSE 0 END) AS migrated",
             labels=list(SELECTABLE_LABELS),
             pattern=UID_PATTERN,
         ).single()
         # 重複を解消した後に一意性制約を作る（先に作ると、重複した既存値に Selectable を付けた時点で制約違反になる）
         session.run(
-            "CREATE CONSTRAINT selectable_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.uid IS UNIQUE"
+            "CREATE CONSTRAINT selectable_selection_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.selection_uid IS UNIQUE"
         ).consume()
-    # 置き換えた uid は旧値と対応しないため、旧値で保存された UI 側の選択状態は破棄させる。
-    # 以後にノードを追加する取り込み処理でも、同じく Selectable ラベルと UUID 形式の uid を作成時に付ける
+    # 置き換えた selection_uid は旧値と対応しないため、旧値で保存された UI 側の選択状態は破棄させる。
+    # 以後にノードを追加する取り込み処理でも、同じく Selectable ラベルと UUID 形式の selection_uid を作成時に付ける
     return record["migrated"]
 
 def fetch_selected_node(tx, uid: str):
-    # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など）。
-    # 選択可能なノードには init_selectable_nodes で共通の固定ラベル Selectable と uid を付け、uid の一意性制約を設定しておく
-    # ラベルを省いた MATCH (n {uid: $uid}) は制約のインデックスを使えず全ノード走査になるため、ラベルを必ず指定する
+    # uid は UI から届く参照で、ノードの selection_uid（アプリケーションが採番して保存する一意で永続的な ID）と照合する。
+    # 選択可能なノードには init_selectable_nodes で共通の固定ラベル Selectable と selection_uid を付け、selection_uid の一意性制約を設定しておく
+    # ラベルを省いた MATCH (n {selection_uid: $uid}) は制約のインデックスを使えず全ノード走査になるため、ラベルを必ず指定する
     # elementId() は同一トランザクション内でしか一意性が保証されず、ノード削除後に別ノードへ再利用され得るため、UI から届く参照には使わない
     # uid はパラメータとして渡し、Cypher 文字列に埋め込まない
-    record = tx.run("MATCH (n:Selectable {uid: $uid}) RETURN n", uid=uid).single()
+    record = tx.run("MATCH (n:Selectable {selection_uid: $uid}) RETURN n", uid=uid).single()
     return record["n"] if record is not None else None
 
 # LLM へ送ってよいプロパティの許可リスト（例）。Cypher の組み立てに必要で、機微でないと確認したキーだけを列挙する。
@@ -367,11 +367,11 @@ def build_selection_context(selection: dict) -> dict:
     if not isinstance(selection, dict):
         # 辞書以外が届いた場合も ValueError に揃え、text_to_cypher 側で選択を外して続行させる
         raise ValueError("選択中のノードの参照が不正です")
-    # to_dto（Step 7）形式のノードは uid を properties に持つため、トップレベルに無い場合だけ properties.uid を参照として使う
+    # to_dto（Step 7）形式のノードは selection_uid を properties に持つため、トップレベルに無い場合だけ properties.selection_uid を参照として使う
     uid = selection.get("uid")
     if uid is None:
         properties = selection.get("properties")
-        uid = properties.get("uid") if isinstance(properties, dict) else None
+        uid = properties.get("selection_uid") if isinstance(properties, dict) else None
     # UUID 形式の uid だけを参照として受け付け、検証していない値は Neo4j への問い合わせにもプロンプトにも使わない
     if selection.get("kind") != "node" or not isinstance(uid, str) or re.fullmatch(UID_PATTERN, uid) is None:
         raise ValueError("選択中のノードの参照が不正です")
@@ -387,7 +387,7 @@ def build_selection_context(selection: dict) -> dict:
     return {
         "kind": "node",
         "labels": sorted(node.labels),
-        "uid": node["uid"],
+        "uid": node["selection_uid"],
         "properties": {k: v for k, v in summary.items() if k in SELECTION_PROPERTY_ALLOWLIST},
     }
 
