@@ -1000,10 +1000,26 @@ def intent_detection(state: AgentState) -&gt; dict:
         raise ValueError("LLM の応答に cypher がありません")
     return query.strip(), str(data.get("reasoning", ""))
 
+# UI で選択可能にするラベル（例）。ラベル名は Cypher のパラメータにできないため、この固定タプルからだけ埋め込む
+SELECTABLE_LABELS = ("Incident", "Vehicle", "ANPRCamera")
+
+def init_selectable_nodes(admin_driver) -&gt; None:
+    # fetch_selected_node は Selectable ラベルと永続的な uid の両方を前提とするため、データ取り込み後に一度実行して付与する。
+    # 書き込みが必要なので、Step 7 の読み取り専用ドライバではなく管理用の認証情報で作ったドライバを渡す
+    with admin_driver.session() as session:
+        session.run(
+            "CREATE CONSTRAINT selectable_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.uid IS UNIQUE"
+        ).consume()
+        for label in SELECTABLE_LABELS:
+            # 既に uid を持つノードは値を保ち、未採番のノードにだけ randomUUID() で採番する（再実行しても参照は変わらない）
+            session.run(
+                f"MATCH (n:`{label}`) SET n:Selectable, n.uid = coalesce(n.uid, randomUUID())"
+            ).consume()
+    # 以後にノードを追加する取り込み処理でも、同じく Selectable ラベルと uid を作成時に付ける
+
 def fetch_selected_node(tx, uid: str):
     # uid はアプリケーションが採番してノードに保存する一意で永続的な ID（UUID など）。
-    # 選択可能なノードには共通の固定ラベル Selectable を付け、そのラベルに uid の一意性制約を設定しておく:
-    #   CREATE CONSTRAINT selectable_uid IF NOT EXISTS FOR (n:Selectable) REQUIRE n.uid IS UNIQUE
+    # 選択可能なノードには init_selectable_nodes で共通の固定ラベル Selectable と uid を付け、uid の一意性制約を設定しておく
     # ラベルを省いた MATCH (n {uid: $uid}) は制約のインデックスを使えず全ノード走査になるため、ラベルを必ず指定する
     # elementId() は同一トランザクション内でしか一意性が保証されず、ノード削除後に別ノードへ再利用され得るため、UI から届く参照には使わない
     # uid はパラメータとして渡し、Cypher 文字列に埋め込まない
