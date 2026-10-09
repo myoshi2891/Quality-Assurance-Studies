@@ -420,7 +420,7 @@
 .ct-genai-study-page .mermaid-wrapper foreignObject div {
     margin: 0 !important;
     line-height: 1.4 !important;
-    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
 }
 .ct-genai-study-page *::-webkit-scrollbar {
     width: 6px;
