@@ -131,7 +131,11 @@ describe('Diagrams', () => {
     const module = await import('../../app/beyond-legacy-code-guide/diagrams');
     const chart = module.DIAGRAMS[id as keyof typeof module.DIAGRAMS];
     const expected = raw.split('\n').map(line => line.trim()).join('\n').replace(/\{([^"{}]+)\}/g, '{"$1"}');
-    expect(chart.replace(/^%%\{init: [\s\S]*?\}%%\n/, '')).toBe(expected);
+    const body = chart.replace(/^%%\{init: [\s\S]*?\}%%\n/, '');
+    // 2〜3 行目に日本語のアクセシブル名と説明を置き、それ以外は原本どおりに保つ
+    expect(body.split('\n')[1]).toMatch(/^accTitle: \S*[ぁ-んァ-ヶ一-龠]/);
+    expect(body.split('\n')[2]).toMatch(/^accDescr: \S*[ぁ-んァ-ヶ一-龠]/);
+    expect(body.replace(/^accTitle: .*\naccDescr: .*\n/m, '')).toBe(expected);
     const config = JSON.parse(chart.match(/^%%\{init: ([\s\S]*?)\}%%/)![1]!);
     expect(config.theme).toBe('base');
     expect(config.themeVariables).toMatchObject({ primaryColor: '#efe8d8', primaryTextColor: '#2b2620', primaryBorderColor: '#c9bfa4', lineColor: '#8a8271', background: '#fffdf7', mainBkg: '#efe8d8', nodeTextColor: '#2b2620', fontFamily: 'Noto Sans JP, sans-serif', fontSize: '16px' });

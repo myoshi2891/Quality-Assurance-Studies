@@ -28,6 +28,8 @@ const MERMAID_CONFIG = `%%{init: {
 
 export const DIAGRAM_VICIOUS = `${MERMAID_CONFIG}
 flowchart LR
+accTitle: レガシーコードを生む悪循環
+accDescr: 仕様変更や納期優先から場当たり的な修正が生まれ、複雑さと重複の増大、バグとリスクの増加、変更コストの上昇へと進み、再び仕様変更や納期優先へ戻る循環を示す図
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 A1[仕様変更や納期優先]:::hub --> A2[場当たり的な修正]:::box
@@ -38,6 +40,8 @@ A5 --> A1`;
 
 export const DIAGRAM_VIRTUOUS = `${MERMAID_CONFIG}
 flowchart LR
+accTitle: 9つのプラクティスによる好循環
+accDescr: 目的と理由を先に共有し、小さく作り継続的に統合し、CLEANなコードとテストで品質を確保することで変更が怖くなくなり、すぐにフィードバックを反映できる状態から再び目的と理由の共有へ戻る循環を示す図
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
@@ -49,6 +53,8 @@ B5 --> B1`;
 
 export const DIAGRAM_OVERVIEW = `${MERMAID_CONFIG}
 flowchart TB
+accTitle: 9つのプラクティスの全体像
+accDescr: プラクティス1の目的・理由・対象を先に伝えるから始まり、小さなバッチで作る、継続的に統合する、協力しあう、CLEANなコードを作る、まずテストを書く、テストで振る舞いを明示する、設計は最後に実装するを順に経て、プラクティス9のレガシーコードをリファクタリングするに至る流れを示す図
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
@@ -64,6 +70,8 @@ P8 --> P9[プラクティス9 レガシーコードをリファクタリング�
 
 export const DIAGRAM_CI = `${MERMAID_CONFIG}
 flowchart LR
+accTitle: 継続的インテグレーションの流れ
+accDescr: 開発者がコードを変更してこまめにコミットし、自動ビルドと自動テストを実行し、成功すればメインブランチに統合し、失敗すればすぐに修正して再びコミットへ戻る流れを示す図
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
@@ -76,6 +84,8 @@ Fix --> Commit`;
 
 export const DIAGRAM_TDD = `${MERMAID_CONFIG}
 flowchart LR
+accTitle: TDDのRed-Green-Refactorサイクル
+accDescr: 失敗するテストを書くRed、テストを通す最小限の実装を行うGreen、重複を除去し設計を整えるRefactorを順に繰り返し、RefactorからRedへ戻る循環を示す図
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
@@ -85,6 +95,8 @@ Refactor --> Red`;
 
 export const DIAGRAM_REFACTOR = `${MERMAID_CONFIG}
 flowchart TB
+accTitle: レガシーコードを安全にリファクタリングする手順
+accDescr: テストのないレガシーコードに直面したら、そのままテストを書けるかで分岐し、書ける場合は特性化テストを直接追加し、書きにくい場合は継ぎ目を作ってから特性化テストを追加し、どちらもテストで現状の振る舞いを固定したうえで小さな単位でリファクタリングし、テストが通ることを都度確認して安全に構造を改善できた状態に至る流れを示す図
 classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
 classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
 classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
