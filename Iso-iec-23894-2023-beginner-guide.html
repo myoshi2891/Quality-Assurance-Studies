@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISO/IEC
+23894:2023 初学者向けステップバイステップ解説ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07111e;--panel:#0d1b2f;--panel2:#12243d;--border:#1f3556;--accent:#7c9eff;--accent2:#5fd3c4;--text:#e8eefc;--text-dim:#c7d6ec;--text-faint:#9cb0cf;--warn:#f0b45f;--sb:280px;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans JP","Noto Sans CJK JP",-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.85;font-size:16px;overflow-x:hidden}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sb);background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;padding:20px 14px 40px;z-index:20}
+.side-title{font-weight:800;font-size:15px;color:#fff;padding:0 8px 14px;border-bottom:1px solid var(--border);margin-bottom:12px;line-height:1.5}
+.side-title span{font-weight:500;font-size:12px;color:var(--text-faint)}
+.sidebar ul{list-style:none;margin:0;padding:0}
+.sidebar li ul{margin:2px 0 6px 10px;border-left:1px solid var(--border)}
+.sidebar a{display:block;color:var(--text-dim);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;line-height:1.5}
+.sidebar a.sub{font-size:12px;color:var(--text-faint);padding:3px 10px}
+.sidebar a:hover{background:var(--panel2);color:#fff}
+.sidebar a.active{background:rgba(124,158,255,.16);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+.main{margin-left:var(--sb);padding:32px 48px 80px}
+.nav-toggle{display:none;position:fixed;top:12px;left:12px;z-index:30;background:var(--panel2);color:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font:600 13px inherit;font-family:inherit;cursor:pointer}
+.hero{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:32px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(124,158,255,.28),transparent 70%);pointer-events:none}
+.eyebrow{display:inline-block;background:rgba(124,158,255,.14);color:var(--accent);border:1px solid rgba(124,158,255,.4);border-radius:999px;padding:3px 14px;font-size:12px;font-weight:600;margin-bottom:14px}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin:0 0 8px;line-height:1.4}
+.hero-sub{color:var(--text-dim);margin:0 0 20px;font-size:15px}
+.meta{display:flex;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:16px}
+.meta-item{flex:1 1 220px;padding:6px 18px 6px 0;margin-right:18px;border-right:1px solid var(--border);min-width:0}
+.meta-item:last-child{border-right:none}
+.meta-label{display:block;font-size:11px;letter-spacing:.08em;color:var(--text-faint);text-transform:uppercase}
+.meta-val{display:block;font-size:14.5px;color:var(--text);overflow-wrap:anywhere}
+h2{font-size:23px;font-weight:800;color:#fff;margin:56px 0 18px;padding:10px 0 10px 16px;border-left:5px solid var(--accent);background:linear-gradient(90deg,rgba(124,158,255,.12),transparent);scroll-margin-top:20px;line-height:1.5}
+h3{font-size:18px;font-weight:700;color:var(--accent);margin:32px 0 12px;scroll-margin-top:20px}
+h4{font-size:16px;font-weight:700;color:var(--accent2);margin:24px 0 10px;scroll-margin-top:20px}
+p{margin:0 0 14px;color:var(--text)}
+strong{color:#fff}
+a{color:var(--accent);overflow-wrap:anywhere}
+code:not(pre code){background:#14284a;border:1px solid var(--border);padding:1px 6px;border-radius:5px;font-family:"JetBrains Mono",monospace;font-size:.88em;overflow-wrap:anywhere}
+ul,ol{padding-left:24px;margin:0 0 16px}
+li{margin:4px 0}
+.table-scroll{overflow-x:auto;margin:16px 0 22px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th{background:#16294a;color:#fff;text-align:left;font-weight:700;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid #162a47;vertical-align:top;color:var(--text);min-width:80px}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(124,158,255,.06)}
+td:last-child a{word-break:break-all}
+.callout{background:rgba(124,158,255,.08);border:1px solid rgba(124,158,255,.35);border-left:5px solid var(--accent);border-radius:10px;padding:12px 18px;margin:16px 0 22px}
+.callout p{margin:0;color:var(--text-dim)}
+.callout-warn{background:rgba(240,180,95,.08);border-color:rgba(240,180,95,.4);border-left-color:var(--warn)}
+.mermaid-diagram{display:block;overflow-x:auto;background:#0b1829;border:1px solid var(--border);border-radius:12px;padding:20px 16px;margin:18px 0 26px}
+.mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
+.mermaid-diagram p{color:inherit;margin:0}
+ul.checklist{list-style:none;padding:14px 18px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin:12px 0 20px}
+ul.checklist li{margin:8px 0}
+ul.checklist input{accent-color:var(--accent);width:17px;height:17px;vertical-align:-3px;margin-right:10px;cursor:pointer}
+.checklist-progress{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px 18px;margin:16px 0}
+.checklist-progress .row{display:flex;justify-content:space-between;font-size:13px;color:var(--text-dim);margin-bottom:8px}
+.checklist-progress .bar{height:8px;background:#0b1829;border-radius:999px;overflow:hidden}
+.checklist-progress .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .25s}
+.page-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);color:var(--text-faint);font-size:13px;text-align:center}
+@media (max-width:900px){
+ .sidebar{transform:translateX(-100%);transition:transform .25s;box-shadow:0 0 40px rgba(0,0,0,.6)}
+ .sidebar.open{transform:none}
+ .nav-toggle{display:block}
+ .main{margin-left:0;padding:60px 16px 60px}
+ .hero{padding:22px}.hero-title{font-size:22px}
+ .meta-item{border-right:none;border-bottom:1px solid var(--border);margin-right:0;flex-basis:100%}
+ .meta-item:last-child{border-bottom:none}
+ h2{font-size:20px}
+}
+.meta-item:last-child{flex-basis:100%;border-top:1px solid var(--border);margin-top:10px;padding-top:12px}
+
+</style>
+</head>
+<body>
+<button class="nav-toggle" id="navToggle" aria-label="目次を開く">☰ 目次</button>
+<aside class="sidebar" id="sidebar"><div class="side-title">ISO/IEC 23894:2023<br><span>AIリスクマネジメント入門</span></div><nav><ul><li><a href="#1-まず結論この規格を一言でいうと" data-target="1-まず結論この規格を一言でいうと">1.
+まず結論：この規格を一言でいうと</a></li><li><a href="#2-基本情報iso公式ページより" data-target="2-基本情報iso公式ページより">2.
+基本情報（ISO公式ページより）</a><ul><li><a class="sub" href="#開発の流れiso公式ページのライフサイクル情報から" data-target="開発の流れiso公式ページのライフサイクル情報から">開発の流れ（ISO公式ページのライフサイクル情報から）</a></li></ul></li><li><a href="#3-step-0なぜai専用のリスクマネジメントが必要か" data-target="3-step-0なぜai専用のリスクマネジメントが必要か">3. Step
+0：なぜAI専用のリスクマネジメントが必要か</a><ul><li><a class="sub" href="#3-1-従来のソフトウェアとaiの違い" data-target="3-1-従来のソフトウェアとaiの違い">3-1.
+従来のソフトウェアとAIの違い</a></li><li><a class="sub" href="#3-2-リスクの定義iso-31000-の考え方" data-target="3-2-リスクの定義iso-31000-の考え方">3-2. 「リスク」の定義（ISO
+31000 の考え方）</a></li></ul></li><li><a href="#4-step-1規格ファミリーの中での位置づけ" data-target="4-step-1規格ファミリーの中での位置づけ">4. Step
+1：規格ファミリーの中での位置づけ</a><ul><li><a class="sub" href="#4-1-関係図" data-target="4-1-関係図">4-1. 関係図</a></li><li><a class="sub" href="#4-2-隣り合う規格との違い" data-target="4-2-隣り合う規格との違い">4-2. 隣り合う規格との違い</a></li></ul></li><li><a href="#5-step-2規格の構成全体地図" data-target="5-step-2規格の構成全体地図">5. Step
+2：規格の構成（全体地図）</a></li><li><a href="#6-step-3原則clause-4" data-target="6-step-3原則clause-4">6. Step 3：原則（Clause 4）</a></li><li><a href="#7-step-4枠組みclause-5" data-target="7-step-4枠組みclause-5">7. Step 4：枠組み（Clause 5）</a><ul><li><a class="sub" href="#7-1-枠組みの構造" data-target="7-1-枠組みの構造">7-1. 枠組みの構造</a></li><li><a class="sub" href="#7-2-初学者向けの読み替え" data-target="7-2-初学者向けの読み替え">7-2. 初学者向けの読み替え</a></li></ul></li><li><a href="#8-step-5プロセスclause-6" data-target="8-step-5プロセスclause-6">8. Step 5：プロセス（Clause 6）</a><ul><li><a class="sub" href="#8-1-プロセス全体のフローチャート" data-target="8-1-プロセス全体のフローチャート">8-1.
+プロセス全体のフローチャート</a></li><li><a class="sub" href="#8-2-各ステップの詳細" data-target="8-2-各ステップの詳細">8-2. 各ステップの詳細</a></li></ul></li><li><a href="#9-step-6aiの目的annex-a" data-target="9-step-6aiの目的annex-a">9. Step 6：AIの目的（Annex A）</a></li><li><a href="#10-step-7ai特有のリスク源annex-b" data-target="10-step-7ai特有のリスク源annex-b">10. Step
+7：AI特有のリスク源（Annex B）</a><ul><li><a class="sub" href="#10-1-リスク源とqaの視点" data-target="10-1-リスク源とqaの視点">10-1. リスク源とQAの視点</a></li></ul></li><li><a href="#11-step-8aiライフサイクルとの対応annex-c" data-target="11-step-8aiライフサイクルとの対応annex-c">11. Step
+8：AIライフサイクルとの対応（Annex C）</a></li><li><a href="#12-step-9ミニ演習採用スクリーニングai" data-target="12-step-9ミニ演習採用スクリーニングai">12. Step
+9：ミニ演習（採用スクリーニングAI）</a><ul><li><a class="sub" href="#12-1-設定" data-target="12-1-設定">12-1. 設定</a></li><li><a class="sub" href="#12-2-リスク登録簿例" data-target="12-2-リスク登録簿例">12-2. リスク登録簿（例）</a></li><li><a class="sub" href="#12-3-流れの確認" data-target="12-3-流れの確認">12-3. 流れの確認</a></li></ul></li><li><a href="#13-step-10関連規格法規との関係" data-target="13-step-10関連規格法規との関係">13. Step
+10：関連規格・法規との関係</a><ul><li><a class="sub" href="#13-1-nist-ai-rmf-との対応nist公開のクロスウォークより" data-target="13-1-nist-ai-rmf-との対応nist公開のクロスウォークより">13-1.
+NIST AI RMF との対応（NIST公開のクロスウォークより）</a></li><li><a class="sub" href="#13-2-isoiec-42001-との使い分け" data-target="13-2-isoiec-42001-との使い分け">13-2. ISO/IEC 42001
+との使い分け</a></li><li><a class="sub" href="#13-3-eu-ai-act-との関係" data-target="13-3-eu-ai-act-との関係">13-3. EU AI Act との関係</a></li></ul></li><li><a href="#14-最新動向2026年10月8日時点" data-target="14-最新動向2026年10月8日時点">14.
+最新動向（2026年10月8日時点）</a><ul><li><a class="sub" href="#23894-と-pren-18228-の違い初学者向け" data-target="23894-と-pren-18228-の違い初学者向け">23894 と prEN 18228
+の違い（初学者向け）</a></li></ul></li><li><a href="#15-よくある誤解-faq" data-target="15-よくある誤解-faq">15. よくある誤解 FAQ</a></li><li><a href="#16-導入チェックリスト" data-target="16-導入チェックリスト">16. 導入チェックリスト</a><ul><li><a class="sub" href="#準備" data-target="準備">準備</a></li><li><a class="sub" href="#プロセス設計" data-target="プロセス設計">プロセス設計</a></li><li><a class="sub" href="#実施" data-target="実施">実施</a></li><li><a class="sub" href="#運用" data-target="運用">運用</a></li></ul></li><li><a href="#17-用語集" data-target="17-用語集">17. 用語集</a></li><li><a href="#18-根拠となる出典url" data-target="18-根拠となる出典url">18. 根拠となる出典URL</a><ul><li><a class="sub" href="#18-1-一次情報公的機関" data-target="18-1-一次情報公的機関">18-1. 一次情報・公的機関</a></li><li><a class="sub" href="#18-2-国際的な開発者研究機関による資料" data-target="18-2-国際的な開発者研究機関による資料">18-2.
+国際的な開発者・研究機関による資料</a></li><li><a class="sub" href="#18-3-欧州規格pren-18228関連" data-target="18-3-欧州規格pren-18228関連">18-3. 欧州規格（prEN
+18228）関連</a></li><li><a class="sub" href="#18-4-二次情報解説記事参考としてのみ使用" data-target="18-4-二次情報解説記事参考としてのみ使用">18-4.
+二次情報（解説記事。参考としてのみ使用）</a></li><li><a class="sub" href="#18-5-出典についての補足重要" data-target="18-5-出典についての補足重要">18-5.
+出典についての補足（重要）</a></li></ul></li></ul></nav></aside>
+<main class="main">
+<header class="hero"><span class="eyebrow">ISO規格ガイドシリーズ ／ AIリスクマネジメント</span>
+<h1 class="hero-title">ISO/IEC
+23894:2023 初学者向けステップバイステップ解説ガイド</h1>
+<p class="hero-sub">AIのリスクを「どう見つけ、どう評価し、どう減らし、どう見張るか」を整理するための国際ガイダンス</p>
+<div class="meta"><div class="meta-item"><span class="meta-label">対象規格</span><span class="meta-val">ISO/IEC 23894:2023 <em>Information technology — Artificial
+intelligence — Guidance on risk management</em>（情報技術 ― 人工知能 ―
+リスクマネジメントに関するガイダンス）</span></div><div class="meta-item"><span class="meta-label">情報の基準日</span><span class="meta-val">2026年10月8日時点（ウェブ検索で確認できた範囲）</span></div><div class="meta-item"><span class="meta-label">想定読者</span><span class="meta-val">AI/MLを初めて体系的に学ぶエンジニア、QA、PM、監査・法務・コンプライアンス担当</span></div><div class="meta-item"><span class="meta-label">読了目安</span><span class="meta-val">約40〜60分</span></div><div class="meta-item"><span class="meta-label">注意</span><span class="meta-val">本ガイドは規格本文の転載ではなく、公開情報をもとにした<strong>独自の解説</strong>です。正確な要求・文言は必ず正規版（有償）で確認してください</span></div></div></header>
+
+
+
+
+
+
+
+<h2 id="1-まず結論この規格を一言でいうと">1.
+まず結論：この規格を一言でいうと</h2>
+<p><strong>ISO/IEC 23894 は、汎用のリスクマネジメント規格「ISO
+31000」を、AIシステムの特性に合わせて読み替えるための“AI向け補足ガイド”です。</strong></p>
+<p>ポイントは3つだけ覚えれば十分です。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>ポイント</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>ISO 31000 とセットで使う</strong></td>
+<td>章立てが ISO 31000
+とほぼ同じ。AIに特有の注意点が「追記」されている</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>ガイダンス（認証なし）</strong></td>
+<td>「ISO 23894 認証」は存在しない。要求事項ではなく“指針”</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>AIのライフサイクル全体が対象</strong></td>
+<td>企画から廃棄まで、開発者だけでなく導入・利用する組織も対象</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="2-基本情報iso公式ページより">2.
+基本情報（ISO公式ページより）</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>規格番号</td>
+<td>ISO/IEC 23894:2023</td>
+</tr>
+<tr class="even">
+<td>状態</td>
+<td>Published（発行済み）、ステージコード 60.60</td>
+</tr>
+<tr class="odd">
+<td>発行</td>
+<td>2023年2月（版: Edition 1）</td>
+</tr>
+<tr class="even">
+<td>ページ数</td>
+<td>26ページ</td>
+</tr>
+<tr class="odd">
+<td>担当委員会</td>
+<td>ISO/IEC JTC 1/SC 42（Artificial intelligence）</td>
+</tr>
+<tr class="even">
+<td>ICS</td>
+<td>35.020（情報技術一般）</td>
+</tr>
+<tr class="odd">
+<td>言語</td>
+<td>英語、フランス語</td>
+</tr>
+<tr class="even">
+<td>価格（ISOストア）</td>
+<td>CHF 155（税・送料別）</td>
+</tr>
+<tr class="odd">
+<td>認証スキーム</td>
+<td>なし（ガイダンス文書）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="開発の流れiso公式ページのライフサイクル情報から">開発の流れ（ISO公式ページのライフサイクル情報から）</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-0"><svg id="mmd0" width="1790" xmlns="http://www.w3.org/2000/svg" height="495.6000061035156" viewBox="100 -70 1790 495.6000061035156" role="graphics-document document" aria-roledescription="timeline">
+<style>#mmd0{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd0 .error-icon{fill:#0f2038;}#mmd0 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd0 .edge-thickness-normal{stroke-width:1px;}#mmd0 .edge-thickness-thick{stroke-width:3.5px;}#mmd0 .edge-pattern-solid{stroke-dasharray:0;}#mmd0 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd0 .edge-pattern-dashed{stroke-dasharray:3;}#mmd0 .edge-pattern-dotted{stroke-dasharray:2;}#mmd0 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd0 .marker.cross{stroke:#7c9eff;}#mmd0 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd0 p{margin:0;}#mmd0 .edge{stroke-width:3;}#mmd0 .section--1 rect,#mmd0 .section--1 path,#mmd0 .section--1 circle,#mmd0 .section--1 path{fill:#7c9eff;}#mmd0 .section--1 text{fill:#07111e;}#mmd0 .node-icon--1{font-size:40px;color:#07111e;}#mmd0 .section-edge--1{stroke:#7c9eff;}#mmd0 .edge-depth--1{stroke-width:17;}#mmd0 .section--1 line{stroke:rgb(255, 189.7251908396, 3.5);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-0 rect,#mmd0 .section-0 path,#mmd0 .section-0 circle,#mmd0 .section-0 path{fill:#5fd3c4;}#mmd0 .section-0 text{fill:#07111e;}#mmd0 .node-icon-0{font-size:40px;color:#07111e;}#mmd0 .section-edge-0{stroke:#5fd3c4;}#mmd0 .edge-depth-0{stroke-width:14;}#mmd0 .section-0 line{stroke:rgb(216.5, 115, 128.1250000001);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-1 rect,#mmd0 .section-1 path,#mmd0 .section-1 circle,#mmd0 .section-1 path{fill:#f0b45f;}#mmd0 .section-1 text{fill:#07111e;}#mmd0 .node-icon-1{font-size:40px;color:#07111e;}#mmd0 .section-edge-1{stroke:#f0b45f;}#mmd0 .edge-depth-1{stroke-width:11;}#mmd0 .section-1 line{stroke:rgb(65.2857142858, 136.4285714286, 237.2142857142);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-2 rect,#mmd0 .section-2 path,#mmd0 .section-2 circle,#mmd0 .section-2 path{fill:#c58cff;}#mmd0 .section-2 text{fill:#07111e;}#mmd0 .node-icon-2{font-size:40px;color:#07111e;}#mmd0 .section-edge-2{stroke:#c58cff;}#mmd0 .edge-depth-2{stroke-width:8;}#mmd0 .section-2 line{stroke:rgb(122.3043478259, 242.4999999998, 0);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-3 rect,#mmd0 .section-3 path,#mmd0 .section-3 circle,#mmd0 .section-3 path{fill:#ff8fa3;}#mmd0 .section-3 text{fill:#07111e;}#mmd0 .node-icon-3{font-size:40px;color:#07111e;}#mmd0 .section-edge-3{stroke:#ff8fa3;}#mmd0 .edge-depth-3{stroke-width:5;}#mmd0 .section-3 line{stroke:rgb(0, 239.4999999999, 196.732142857);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-4 rect,#mmd0 .section-4 path,#mmd0 .section-4 circle,#mmd0 .section-4 path{fill:#8fd16f;}#mmd0 .section-4 text{fill:#07111e;}#mmd0 .node-icon-4{font-size:40px;color:#07111e;}#mmd0 .section-edge-4{stroke:#8fd16f;}#mmd0 .edge-depth-4{stroke-width:2;}#mmd0 .section-4 line{stroke:rgb(175.9736842105, 109.105263158, 208.3947368421);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-5 rect,#mmd0 .section-5 path,#mmd0 .section-5 circle,#mmd0 .section-5 path{fill:#6cc4ff;}#mmd0 .section-5 text{fill:#07111e;}#mmd0 .node-icon-5{font-size:40px;color:#07111e;}#mmd0 .section-edge-5{stroke:#6cc4ff;}#mmd0 .edge-depth-5{stroke-width:-1;}#mmd0 .section-5 line{stroke:rgb(255, 114.0204081635, 19.5000000002);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#07111e;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-6 rect,#mmd0 .section-6 path,#mmd0 .section-6 circle,#mmd0 .section-6 path{fill:hsl(8.0769230769, 54.1666666667%, 0%);}#mmd0 .section-6 text{fill:#e8eefc;}#mmd0 .node-icon-6{font-size:40px;color:#e8eefc;}#mmd0 .section-edge-6{stroke:hsl(8.0769230769, 54.1666666667%, 0%);}#mmd0 .edge-depth-6{stroke-width:-4;}#mmd0 .section-6 line{stroke:#ffffff;stroke-width:3;}#mmd0 .lineWrapper line{stroke:#e8eefc;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-7 rect,#mmd0 .section-7 path,#mmd0 .section-7 circle,#mmd0 .section-7 path{fill:hsl(68.0769230769, 54.1666666667%, 75%);}#mmd0 .section-7 text{fill:#e8eefc;}#mmd0 .node-icon-7{font-size:40px;color:#e8eefc;}#mmd0 .section-edge-7{stroke:hsl(68.0769230769, 54.1666666667%, 75%);}#mmd0 .edge-depth-7{stroke-width:-7;}#mmd0 .section-7 line{stroke:rgb(38.515625, 29.21875, 98.28125);stroke-width:3;}#mmd0 .lineWrapper line{stroke:#e8eefc;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-8 rect,#mmd0 .section-8 path,#mmd0 .section-8 circle,#mmd0 .section-8 path{fill:hsl(128.0769230769, 54.1666666667%, 0%);}#mmd0 .section-8 text{fill:#e8eefc;}#mmd0 .node-icon-8{font-size:40px;color:#e8eefc;}#mmd0 .section-edge-8{stroke:hsl(128.0769230769, 54.1666666667%, 0%);}#mmd0 .edge-depth-8{stroke-width:-10;}#mmd0 .section-8 line{stroke:#ffffff;stroke-width:3;}#mmd0 .lineWrapper line{stroke:#e8eefc;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-9 rect,#mmd0 .section-9 path,#mmd0 .section-9 circle,#mmd0 .section-9 path{fill:hsl(158.0769230769, 54.1666666667%, 0%);}#mmd0 .section-9 text{fill:#e8eefc;}#mmd0 .node-icon-9{font-size:40px;color:#e8eefc;}#mmd0 .section-edge-9{stroke:hsl(158.0769230769, 54.1666666667%, 0%);}#mmd0 .edge-depth-9{stroke-width:-13;}#mmd0 .section-9 line{stroke:#ffffff;stroke-width:3;}#mmd0 .lineWrapper line{stroke:#e8eefc;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-10 rect,#mmd0 .section-10 path,#mmd0 .section-10 circle,#mmd0 .section-10 path{fill:hsl(188.0769230769, 54.1666666667%, 0%);}#mmd0 .section-10 text{fill:#e8eefc;}#mmd0 .node-icon-10{font-size:40px;color:#e8eefc;}#mmd0 .section-edge-10{stroke:hsl(188.0769230769, 54.1666666667%, 0%);}#mmd0 .edge-depth-10{stroke-width:-16;}#mmd0 .section-10 line{stroke:#ffffff;stroke-width:3;}#mmd0 .lineWrapper line{stroke:#e8eefc;}#mmd0 .disabled,#mmd0 .disabled circle,#mmd0 .disabled text{fill:lightgray;}#mmd0 .disabled text{fill:#efefef;}#mmd0 .section-root rect,#mmd0 .section-root path,#mmd0 .section-root circle{fill:hsl(218.0769230769, 54.1666666667%, 0%);}#mmd0 .section-root text{fill:#e8eefc;}#mmd0 .icon-container{height:100%;display:flex;justify-content:center;align-items:center;}#mmd0 .edge{fill:none;}#mmd0 .eventWrapper{filter:brightness(120%);}#mmd0 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+</g>
+<g>
+</g>
+<defs>
+<marker id="arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto">
+<path d="M 0,0 V 4 L6,2 Z">
+</path>
+</marker>
+</defs>
+<g class="taskWrapper" transform="translate(200, 50)">
+<g class="timeline-node section--1">
+<g>
+<path id="d0-node-1" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line--1" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2019-06</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="295" y1="122.8" x2="295" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(200, 250)">
+<g class="timeline-node section--1">
+<g>
+<path id="d0-node-2" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line--1" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">
+</tspan>
+<tspan x="0" dy="1.1em">新規プロジェクト承認</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="taskWrapper" transform="translate(400, 50)">
+<g class="timeline-node section-0">
+<g>
+<path id="d0-node-3" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line-0" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2020-06</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="495" y1="122.8" x2="495" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(400, 250)">
+<g class="timeline-node section-0">
+<g>
+<path id="d0-node-4" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line-0" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">
+</tspan>
+<tspan x="0" dy="1.1em">委員会原案（CD）登録</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="taskWrapper" transform="translate(600, 50)">
+<g class="timeline-node section-1">
+<g>
+<path id="d0-node-5" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line-1" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2021-11</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="695" y1="122.8" x2="695" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(600, 250)">
+<g class="timeline-node section-1">
+<g>
+<path id="d0-node-6" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line-1" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">
+</tspan>
+<tspan x="0" dy="1.1em">CDがDISとして登録承認</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="taskWrapper" transform="translate(800, 50)">
+<g class="timeline-node section-2">
+<g>
+<path id="d0-node-7" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line-2" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2022-01</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="895" y1="122.8" x2="895" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(800, 250)">
+<g class="timeline-node section-2">
+<g>
+<path id="d0-node-8" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line-2" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">
+</tspan>
+<tspan x="0" dy="1.1em">DIS投票開始（12週間）</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="taskWrapper" transform="translate(1000, 50)">
+<g class="timeline-node section-3">
+<g>
+<path id="d0-node-9" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line-3" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2022-08</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="1095" y1="122.8" x2="1095" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(1000, 250)">
+<g class="timeline-node section-3">
+<g>
+<path id="d0-node-10" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line-3" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">FDIS登録承認</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="taskWrapper" transform="translate(1200, 50)">
+<g class="timeline-node section-4">
+<g>
+<path id="d0-node-11" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line-4" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2022-12</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="1295" y1="122.8" x2="1295" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(1200, 250)">
+<g class="timeline-node section-4">
+<g>
+<path id="d0-node-12" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line-4" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">FDIS投票終了</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="taskWrapper" transform="translate(1400, 50)">
+<g class="timeline-node section-5">
+<g>
+<path id="d0-node-13" class="node-bkg node-undefined" d="M0 67.8 v-62.8 q0,-5 5,-5 h180 q5,0 5,5 v67.8 H0 Z">
+</path>
+<line class="node-line-5" x1="0" y1="72.8" x2="190" y2="72.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">2023-02</tspan>
+</text>
+</g>
+</g>
+</g>
+<g class="lineWrapper">
+<line x1="1495" y1="122.8" x2="1495" y2="375.6" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" stroke-dasharray="5,5">
+</line>
+</g>
+<g class="eventWrapper" transform="translate(1400, 250)">
+<g class="timeline-node section-5">
+<g>
+<path id="d0-node-14" class="node-bkg node-undefined" d="M0 47.8 v-42.8 q0,-5 5,-5 h180 q5,0 5,5 v47.8 H0 Z">
+</path>
+<line class="node-line-5" x1="0" y1="52.8" x2="190" y2="52.8">
+</line>
+</g>
+<g transform="translate(95, 10)">
+<text dy="1em" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle">
+<tspan x="0" dy="1em">国際規格として発行</tspan>
+</text>
+</g>
+</g>
+</g>
+<text x="545" font-size="4ex" font-weight="bold" y="20">ISO/IEC 23894 の策定経緯</text>
+<g class="lineWrapper">
+<line x1="150" y1="172.8" x2="1840" y2="172.8" stroke-width="4" stroke="black" marker-end="url(#arrowhead)">
+</line>
+</g>
+</svg></div>
+
+<h2 id="3-step-0なぜai専用のリスクマネジメントが必要か">3. Step
+0：なぜAI専用のリスクマネジメントが必要か</h2>
+<h3 id="3-1-従来のソフトウェアとaiの違い">3-1.
+従来のソフトウェアとAIの違い</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>従来のソフトウェア</th>
+<th>AI（特に機械学習）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>振る舞いの決まり方</td>
+<td>人間が書いたルール</td>
+<td><strong>データから学習</strong></td>
+</tr>
+<tr class="even">
+<td>動作の予測</td>
+<td>入力が同じなら出力が同じ</td>
+<td>確率的・環境変化で変わりうる</td>
+</tr>
+<tr class="odd">
+<td>不具合の原因</td>
+<td>コードの欠陥が中心</td>
+<td>データ品質、偏り、ドリフト、学習設定など多岐</td>
+</tr>
+<tr class="even">
+<td>説明のしやすさ</td>
+<td>処理を追跡しやすい</td>
+<td>ブラックボックスになりやすい</td>
+</tr>
+<tr class="odd">
+<td>劣化</td>
+<td>変更しなければ安定</td>
+<td>現実世界の変化で<strong>精度が落ちる</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-2-リスクの定義iso-31000-の考え方">3-2. 「リスク」の定義（ISO
+31000 の考え方）</h3>
+<div class="callout">
+<p><strong>リスク ＝ 目的に対する不確かさの影響</strong></p>
+</div>
+<p>ここで重要なのは「<strong>目的</strong>」です。AIのリスクは「何を達成したいか（目的）」が決まって初めて語れます。</p>
+<div class="mermaid-diagram" id="mermaid-diagram-1"><svg id="mmd1" width="1020.109375" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="124" viewBox="0 15 1020.109375 124" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd1{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd1 .error-icon{fill:#0f2038;}#mmd1 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd1 .edge-thickness-normal{stroke-width:1px;}#mmd1 .edge-thickness-thick{stroke-width:3.5px;}#mmd1 .edge-pattern-solid{stroke-dasharray:0;}#mmd1 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd1 .edge-pattern-dashed{stroke-dasharray:3;}#mmd1 .edge-pattern-dotted{stroke-dasharray:2;}#mmd1 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd1 .marker.cross{stroke:#7c9eff;}#mmd1 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd1 p{margin:0;}#mmd1 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd1 .cluster-label text{fill:#e8eefc;}#mmd1 .cluster-label span{color:#e8eefc;}#mmd1 .cluster-label span p{background-color:transparent;}#mmd1 .label text,#mmd1 span{fill:#e8eefc;color:#e8eefc;}#mmd1 .node rect,#mmd1 .node circle,#mmd1 .node ellipse,#mmd1 .node polygon,#mmd1 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd1 .rough-node .label text,#mmd1 .node .label text,#mmd1 .image-shape .label,#mmd1 .icon-shape .label{text-anchor:middle;}#mmd1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd1 .rough-node .label,#mmd1 .node .label,#mmd1 .image-shape .label,#mmd1 .icon-shape .label{text-align:center;}#mmd1 .node.clickable{cursor:pointer;}#mmd1 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd1 .arrowheadPath{fill:#f4e7d6;}#mmd1 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd1 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd1 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd1 .edgeLabel p{background-color:#0b1829;}#mmd1 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd1 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd1 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd1 .cluster text{fill:#e8eefc;}#mmd1 .cluster span{color:#e8eefc;}#mmd1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd1 rect.text{fill:none;stroke-width:0;}#mmd1 .icon-shape,#mmd1 .image-shape{background-color:#0b1829;text-align:center;}#mmd1 .icon-shape p,#mmd1 .image-shape p{background-color:#0b1829;padding:2px;}#mmd1 .icon-shape rect,#mmd1 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd1 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd1 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd1_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd1_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd1_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd1_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd1_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd1_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M216.047,77L221.047,77C226.047,77,236.047,77,245.38,77C254.714,77,263.38,77,267.714,77L272.047,77" id="L_N1_A_N1_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N1_A_N1_B_0" data-points="W3sieCI6MjE2LjA0Njg3NSwieSI6Nzd9LHsieCI6MjQ2LjA0Njg3NSwieSI6Nzd9LHsieCI6Mjc2LjA0Njg3NSwieSI6Nzd9XQ==" marker-end="url(#mmd1_flowchart-v2-pointEnd)">
+</path>
+<path d="M500.094,77L505.094,77C510.094,77,520.094,77,529.427,77C538.76,77,547.427,77,551.76,77L556.094,77" id="L_N1_B_N1_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N1_B_N1_C_0" data-points="W3sieCI6NTAwLjA5Mzc1LCJ5Ijo3N30seyJ4Ijo1MzAuMDkzNzUsInkiOjc3fSx7IngiOjU2MC4wOTM3NSwieSI6Nzd9XQ==" marker-end="url(#mmd1_flowchart-v2-pointEnd)">
+</path>
+<path d="M832.094,77L837.094,77C842.094,77,852.094,77,861.427,77C870.76,77,879.427,77,883.76,77L888.094,77" id="L_N1_C_N1_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N1_C_N1_D_0" data-points="W3sieCI6ODMyLjA5Mzc1LCJ5Ijo3N30seyJ4Ijo4NjIuMDkzNzUsInkiOjc3fSx7IngiOjg5Mi4wOTM3NSwieSI6Nzd9XQ==" marker-end="url(#mmd1_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N1_A_N1_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N1_B_N1_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N1_C_N1_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N1_A-0" transform="translate(112.0234375, 77)">
+<rect class="basic label-container" style="" x="-104.0234375" y="-42" width="208.046875" height="84">
+</rect>
+<g class="label" style="" transform="translate(-68.0234375, -24)">
+<rect>
+</rect><foreignObject width="136.046875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>目的<br/>例: 公平な採用選考</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N1_B-1" transform="translate(388.0703125, 77)">
+<rect class="basic label-container" style="" x="-112.0234375" y="-42" width="224.046875" height="84">
+</rect>
+<g class="label" style="" transform="translate(-76.0234375, -24)">
+<rect>
+</rect><foreignObject width="152.046875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>不確かさ<br/>例: 学習データの偏り</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N1_C-3" transform="translate(696.09375, 77)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>影響<br/>例: 特定属性の候補者が不当に低評価</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N1_D-5" transform="translate(952.1015625, 77)">
+<rect class="basic label-container" style="" x="-60.0078125" y="-30" width="120.015625" height="60">
+</rect>
+<g class="label" style="" transform="translate(-24.0078125, -12)">
+<rect>
+</rect><foreignObject width="48.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>リスク</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+
+<h2 id="4-step-1規格ファミリーの中での位置づけ">4. Step
+1：規格ファミリーの中での位置づけ</h2>
+<h3 id="4-1-関係図">4-1. 関係図</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-2"><svg id="mmd2" width="972" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="532" viewBox="0 15 972 532" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd2{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd2 .error-icon{fill:#0f2038;}#mmd2 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd2 .edge-thickness-normal{stroke-width:1px;}#mmd2 .edge-thickness-thick{stroke-width:3.5px;}#mmd2 .edge-pattern-solid{stroke-dasharray:0;}#mmd2 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd2 .edge-pattern-dashed{stroke-dasharray:3;}#mmd2 .edge-pattern-dotted{stroke-dasharray:2;}#mmd2 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd2 .marker.cross{stroke:#7c9eff;}#mmd2 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd2 p{margin:0;}#mmd2 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd2 .cluster-label text{fill:#e8eefc;}#mmd2 .cluster-label span{color:#e8eefc;}#mmd2 .cluster-label span p{background-color:transparent;}#mmd2 .label text,#mmd2 span{fill:#e8eefc;color:#e8eefc;}#mmd2 .node rect,#mmd2 .node circle,#mmd2 .node ellipse,#mmd2 .node polygon,#mmd2 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd2 .rough-node .label text,#mmd2 .node .label text,#mmd2 .image-shape .label,#mmd2 .icon-shape .label{text-anchor:middle;}#mmd2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd2 .rough-node .label,#mmd2 .node .label,#mmd2 .image-shape .label,#mmd2 .icon-shape .label{text-align:center;}#mmd2 .node.clickable{cursor:pointer;}#mmd2 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd2 .arrowheadPath{fill:#f4e7d6;}#mmd2 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd2 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd2 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd2 .edgeLabel p{background-color:#0b1829;}#mmd2 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd2 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd2 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd2 .cluster text{fill:#e8eefc;}#mmd2 .cluster span{color:#e8eefc;}#mmd2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd2 rect.text{fill:none;stroke-width:0;}#mmd2 .icon-shape,#mmd2 .image-shape{background-color:#0b1829;text-align:center;}#mmd2 .icon-shape p,#mmd2 .image-shape p{background-color:#0b1829;padding:2px;}#mmd2 .icon-shape rect,#mmd2 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd2 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M190.457,131L190.457,140C190.457,149,190.457,167,217.53,184.794C244.603,202.588,298.749,220.176,325.823,228.97L352.896,237.764" id="L_N2_R31000_N2_S23894_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_R31000_N2_S23894_0" data-points="W3sieCI6MTkwLjQ1NzAzMTI1LCJ5IjoxMzF9LHsieCI6MTkwLjQ1NzAzMTI1LCJ5IjoxODV9LHsieCI6MzU2LjY5OTk1MTE3MTg3NSwieSI6MjM5fV0=" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M499.918,119L499.918,130C499.918,141,499.918,163,498.709,182.34C497.5,201.68,495.081,218.361,493.872,226.701L492.663,235.041" id="L_N2_G73_N2_S23894_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_G73_N2_S23894_0" data-points="W3sieCI6NDk5LjkxNzk2ODc1LCJ5IjoxMTl9LHsieCI6NDk5LjkxNzk2ODc1LCJ5IjoxODV9LHsieCI6NDkyLjA4OTExMTMyODEyNSwieSI6MjM5fV0=" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M781.543,119L781.543,130C781.543,141,781.543,163,754.47,182.794C727.397,202.588,673.251,220.176,646.177,228.97L619.104,237.764" id="L_N2_S22989_N2_S23894_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_S22989_N2_S23894_0" data-points="W3sieCI6NzgxLjU0Mjk2ODc1LCJ5IjoxMTl9LHsieCI6NzgxLjU0Mjk2ODc1LCJ5IjoxODV9LHsieCI6NjE1LjMwMDA0ODgyODEyNSwieSI6MjM5fV0=" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M354.789,317.831L319.658,327.693C284.526,337.554,214.263,357.277,179.132,375.472C144,393.667,144,410.333,144,418.667L144,427" id="L_N2_S23894_N2_S42001_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_S23894_N2_S42001_0" data-points="W3sieCI6MzU0Ljc4OTA2MjUsInkiOjMxNy44MzExNDAzNTA4NzcyfSx7IngiOjE0NCwieSI6Mzc3fSx7IngiOjE0NCwieSI6NDMxfV0=" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M486,327L486,335.333C486,343.667,486,360.333,486,377C486,393.667,486,410.333,486,418.667L486,427" id="L_N2_S23894_N2_NIST_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_S23894_N2_NIST_0" data-points="W3sieCI6NDg2LCJ5IjozMjN9LHsieCI6NDg2LCJ5IjozNzd9LHsieCI6NDg2LCJ5Ijo0MzF9XQ==" marker-start="url(#mmd2_flowchart-v2-pointStart)" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M617.211,317.831L652.342,327.693C687.474,337.554,757.737,357.277,792.868,375.472C828,393.667,828,410.333,828,418.667L828,427" id="L_N2_S23894_N2_EU_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_S23894_N2_EU_0" data-points="W3sieCI6NjE3LjIxMDkzNzUsInkiOjMxNy44MzExNDAzNTA4NzcyfSx7IngiOjgyOCwieSI6Mzc3fSx7IngiOjgyOCwieSI6NDMxfV0=" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel" transform="translate(190.45703125, 185)">
+<g class="label" data-id="L_N2_R31000_N2_S23894_0" transform="translate(-55.765625, -12)"><foreignObject width="111.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>土台として参照</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(499.91796875, 185)">
+<g class="label" data-id="L_N2_G73_N2_S23894_0" transform="translate(-40.0078125, -12)"><foreignObject width="80.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>用語を参照</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(781.54296875, 185)">
+<g class="label" data-id="L_N2_S22989_N2_S23894_0" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel "><p>用語・ライフサイクルを参照</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(144, 377)">
+<g class="label" data-id="L_N2_S23894_N2_S42001_0" transform="translate(-79.765625, -12)"><foreignObject width="159.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>リスク手法として活用</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(486, 377)">
+<g class="label" data-id="L_N2_S23894_N2_NIST_0" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel "><p>対応表（クロスウォーク）あり</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(828, 377)">
+<g class="label" data-id="L_N2_S23894_N2_EU_0" transform="translate(-40.0078125, -12)"><foreignObject width="80.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>運用の参考</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N2_R31000-0" transform="translate(190.45703125, 77)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>ISO 31000:2018<br/>リスクマネジメント指針（汎用）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_G73-1" transform="translate(499.91796875, 77)">
+<rect class="basic label-container" style="" x="-103.4609375" y="-42" width="206.921875" height="84">
+</rect>
+<g class="label" style="" transform="translate(-67.4609375, -24)">
+<rect>
+</rect><foreignObject width="134.921875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>ISO Guide 73:2009<br/>リスク用語</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_S22989-2" transform="translate(781.54296875, 77)">
+<rect class="basic label-container" style="" x="-108.1640625" y="-42" width="216.328125" height="84">
+</rect>
+<g class="label" style="" transform="translate(-72.1640625, -24)">
+<rect>
+</rect><foreignObject width="144.328125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC 22989:2022<br/>AIの概念と用語</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_S23894-3" transform="translate(486, 281)">
+<rect class="basic label-container" style="" x="-131.2109375" y="-42" width="262.421875" height="84">
+</rect>
+<g class="label" style="" transform="translate(-95.2109375, -24)">
+<rect>
+</rect><foreignObject width="190.421875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC 23894:2023<br/>AIリスクマネジメント指針</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_S42001-4" transform="translate(144, 485)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>ISO/IEC 42001:2023<br/>AIマネジメントシステム（認証可能）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_NIST-5" transform="translate(486, 485)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>NIST AI RMF 1.0<br/>Govern / Map / Measure / Manage</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_EU-6" transform="translate(828, 485)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>EU AI Act 第9条<br/>高リスクAIのリスク管理システム</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+<h3 id="4-2-隣り合う規格との違い">4-2. 隣り合う規格との違い</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>規格・枠組み</th>
+<th>種類</th>
+<th>認証</th>
+<th>一言で言うと</th>
+<th>23894との関係</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ISO 31000:2018</td>
+<td>汎用ガイダンス</td>
+<td>なし</td>
+<td>あらゆる組織のリスク管理の型</td>
+<td>23894の<strong>土台</strong></td>
+</tr>
+<tr class="even">
+<td>ISO/IEC 23894:2023</td>
+<td>AI向けガイダンス</td>
+<td>なし</td>
+<td>AI版のリスク管理の進め方</td>
+<td>（本規格）</td>
+</tr>
+<tr class="odd">
+<td>ISO/IEC 42001:2023</td>
+<td>要求事項（マネジメントシステム）</td>
+<td><strong>あり</strong></td>
+<td>AIガバナンスの仕組み全体</td>
+<td>23894は42001の<strong>リスク手法の参考</strong></td>
+</tr>
+<tr class="even">
+<td>NIST AI RMF 1.0</td>
+<td>自主的フレームワーク</td>
+<td>なし</td>
+<td>4機能で運用する実務の枠組み</td>
+<td>目的が近く、NISTが<strong>対応表</strong>を公開</td>
+</tr>
+<tr class="odd">
+<td>EU AI Act 第9条</td>
+<td>法規制</td>
+<td>法的義務</td>
+<td>高リスクAIにリスク管理システムを義務化</td>
+<td>手法面で参考になるが<strong>法適合を自動的に保証しない</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<p><strong>覚え方</strong>：23894は「<strong>どうやるか（手順）</strong>」、42001は「<strong>組織の仕組み（認証対象）</strong>」、AI
+Actは「<strong>やらなければならない（法的義務）</strong>」。</p>
+</div>
+
+<h2 id="5-step-2規格の構成全体地図">5. Step
+2：規格の構成（全体地図）</h2>
+<p>目次の構造は次のとおりです（公開されている目次プレビューに基づく）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>章・附属書</th>
+<th>タイトル（意訳）</th>
+<th>性格</th>
+<th>一言メモ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>適用範囲</td>
+<td>本文</td>
+<td>AIを開発・提供・導入・利用する組織が対象</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>引用規格</td>
+<td>本文</td>
+<td>ISO 31000 など</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>用語と定義</td>
+<td>本文</td>
+<td>ISO 31000 / ISO/IEC 22989 / ISO Guide 73 から</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td><strong>AIリスクマネジメントの原則</strong></td>
+<td>本文</td>
+<td>8つの原則にAI観点を追加</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td><strong>枠組み（フレームワーク）</strong></td>
+<td>本文</td>
+<td>リーダーシップ、統合、設計、実施、評価、改善</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td><strong>プロセス</strong></td>
+<td>本文</td>
+<td>状況設定→評価→対応→監視</td>
+</tr>
+<tr class="odd">
+<td>Annex A</td>
+<td>目的（Objectives）</td>
+<td>参考（informative）</td>
+<td>AIで考慮すべき目的の例</td>
+</tr>
+<tr class="even">
+<td>Annex B</td>
+<td>リスク源（Risk sources）</td>
+<td>参考</td>
+<td>AI特有のリスクの出どころ</td>
+</tr>
+<tr class="odd">
+<td>Annex C</td>
+<td>リスクマネジメントとAIシステムライフサイクル</td>
+<td>参考</td>
+<td>プロセスをライフサイクルに対応づけた例</td>
+</tr>
+</tbody>
+</table></div>
+<div class="mermaid-diagram" id="mermaid-diagram-3"><svg id="mmd3" width="655.234375" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="586" viewBox="0 15 655.234375 586" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd3{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd3 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd3 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd3 .error-icon{fill:#0f2038;}#mmd3 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd3 .edge-thickness-normal{stroke-width:1px;}#mmd3 .edge-thickness-thick{stroke-width:3.5px;}#mmd3 .edge-pattern-solid{stroke-dasharray:0;}#mmd3 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd3 .edge-pattern-dashed{stroke-dasharray:3;}#mmd3 .edge-pattern-dotted{stroke-dasharray:2;}#mmd3 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd3 .marker.cross{stroke:#7c9eff;}#mmd3 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd3 p{margin:0;}#mmd3 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd3 .cluster-label text{fill:#e8eefc;}#mmd3 .cluster-label span{color:#e8eefc;}#mmd3 .cluster-label span p{background-color:transparent;}#mmd3 .label text,#mmd3 span{fill:#e8eefc;color:#e8eefc;}#mmd3 .node rect,#mmd3 .node circle,#mmd3 .node ellipse,#mmd3 .node polygon,#mmd3 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd3 .rough-node .label text,#mmd3 .node .label text,#mmd3 .image-shape .label,#mmd3 .icon-shape .label{text-anchor:middle;}#mmd3 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd3 .rough-node .label,#mmd3 .node .label,#mmd3 .image-shape .label,#mmd3 .icon-shape .label{text-align:center;}#mmd3 .node.clickable{cursor:pointer;}#mmd3 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd3 .arrowheadPath{fill:#f4e7d6;}#mmd3 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd3 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd3 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd3 .edgeLabel p{background-color:#0b1829;}#mmd3 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd3 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd3 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd3 .cluster text{fill:#e8eefc;}#mmd3 .cluster span{color:#e8eefc;}#mmd3 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd3 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd3 rect.text{fill:none;stroke-width:0;}#mmd3 .icon-shape,#mmd3 .image-shape{background-color:#0b1829;text-align:center;}#mmd3 .icon-shape p,#mmd3 .image-shape p{background-color:#0b1829;padding:2px;}#mmd3 .icon-shape rect,#mmd3 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd3 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd3 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd3 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd3_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd3_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd3_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd3_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd3_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd3_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M160.016,77L165.016,77C170.016,77,180.016,77,194.615,77C209.214,77,228.411,77,238.01,77L247.609,77" id="L_N3_P_N3_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N3_P_N3_F_0" data-points="W3sieCI6MTYwLjAxNTYyNSwieSI6Nzd9LHsieCI6MTkwLjAxNTYyNSwieSI6Nzd9LHsieCI6MjUxLjYwOTM3NSwieSI6Nzd9XQ==" marker-end="url(#mmd3_flowchart-v2-pointEnd)">
+</path>
+<path d="M403.625,77L413.891,77C424.156,77,444.688,77,468.428,107.889C492.169,138.778,519.119,200.556,532.595,231.445L546.07,262.334" id="L_N3_F_N3_PR_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N3_F_N3_PR_0" data-points="W3sieCI6NDAzLjYyNSwieSI6Nzd9LHsieCI6NDY1LjIxODc1LCJ5Ijo3N30seyJ4Ijo1NDcuNjY5MjcwODMzMzMzNCwieSI6MjY2fV0=" marker-end="url(#mmd3_flowchart-v2-pointEnd)">
+</path>
+<path d="M395.625,243L407.224,243C418.823,243,442.021,243,458.358,246.442C474.695,249.883,484.171,256.766,488.909,260.208L493.647,263.649" id="L_N3_A_N3_PR_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N3_A_N3_PR_0" data-points="W3sieCI6Mzk1LjYyNSwieSI6MjQzfSx7IngiOjQ2NS4yMTg3NSwieSI6MjQzfSx7IngiOjQ5Ni44ODM0MjEyNjYyMzM3NywieSI6MjY2fV0=" marker-end="url(#mmd3_flowchart-v2-pointEnd)">
+</path>
+<path d="M411.625,397L420.557,397C429.49,397,447.354,397,461.025,393.558C474.695,390.117,484.171,383.234,488.909,379.792L493.647,376.351" id="L_N3_B_N3_PR_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N3_B_N3_PR_0" data-points="W3sieCI6NDExLjYyNSwieSI6Mzk3fSx7IngiOjQ2NS4yMTg3NSwieSI6Mzk3fSx7IngiOjQ5Ni44ODM0MjEyNjYyMzM3NywieSI6Mzc0fV0=" marker-end="url(#mmd3_flowchart-v2-pointEnd)">
+</path>
+<path d="M435.219,551L440.219,551C445.219,551,455.219,551,473.478,522.106C491.738,493.212,518.258,435.424,531.517,406.53L544.777,377.635" id="L_N3_C_N3_PR_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N3_C_N3_PR_0" data-points="W3sieCI6NDM1LjIxODc1LCJ5Ijo1NTF9LHsieCI6NDY1LjIxODc1LCJ5Ijo1NTF9LHsieCI6NTQ2LjQ0NTUxNTQyMjA3OCwieSI6Mzc0fV0=" marker-end="url(#mmd3_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N3_P_N3_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N3_F_N3_PR_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N3_A_N3_PR_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N3_B_N3_PR_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N3_C_N3_PR_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N3_P-0" transform="translate(84.0078125, 77)">
+<rect class="basic label-container" style="" x="-76.0078125" y="-54" width="152.015625" height="108">
+</rect>
+<g class="label" style="" transform="translate(-40.0078125, -36)">
+<rect>
+</rect><foreignObject width="80.015625" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Clause 4<br/>原則<br/>なぜやるか</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N3_F-1" transform="translate(327.6171875, 77)">
+<rect class="basic label-container" style="" x="-76.0078125" y="-54" width="152.015625" height="108">
+</rect>
+<g class="label" style="" transform="translate(-40.0078125, -36)">
+<rect>
+</rect><foreignObject width="80.015625" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Clause 5<br/>枠組み<br/>組織の土台</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N3_PR-3" transform="translate(571.2265625, 320)">
+<rect class="basic label-container" style="" x="-76.0078125" y="-54" width="152.015625" height="108">
+</rect>
+<g class="label" style="" transform="translate(-40.0078125, -36)">
+<rect>
+</rect><foreignObject width="80.015625" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Clause 6<br/>プロセス<br/>実際の手順</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N3_A-4" transform="translate(327.6171875, 243)">
+<rect class="basic label-container" style="" x="-68.0078125" y="-42" width="136.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-32.0078125, -24)">
+<rect>
+</rect><foreignObject width="64.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Annex A<br/>目的の例</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N3_B-6" transform="translate(327.6171875, 397)">
+<rect class="basic label-container" style="" x="-84.0078125" y="-42" width="168.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-48.0078125, -24)">
+<rect>
+</rect><foreignObject width="96.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Annex B<br/>リスク源の例</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N3_C-8" transform="translate(327.6171875, 551)">
+<rect class="basic label-container" style="" x="-107.6015625" y="-42" width="215.203125" height="84">
+</rect>
+<g class="label" style="" transform="translate(-71.6015625, -24)">
+<rect>
+</rect><foreignObject width="143.203125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Annex C<br/>ライフサイクル対応</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+<div class="callout callout-warn">
+<p><strong>重要な注意</strong>：Web上の解説記事には、附属書の中身（A/B/C）を取り違えて紹介しているものがあります。ISO/IEC
+42001 の附属書（A: 管理策、C:
+目的とリスク源）と混同しやすいためです。<strong>23894 は
+A=目的、B=リスク源、C=ライフサイクル対応</strong>です（目次プレビューで確認）。</p>
+</div>
+
+<h2 id="6-step-3原則clause-4">6. Step 3：原則（Clause 4）</h2>
+<p>ISO 31000 の原則に、AI特有の配慮を重ねたものです。以下はISO
+31000の一般的な8原則を、AIの文脈で読み替えた<strong>解説者の整理</strong>です（規格本文の表現そのものではありません）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>原則（ISO 31000の趣旨）</th>
+<th>AIで特に意識すること</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>統合的</strong>：活動全体に組み込む</td>
+<td>AI開発のスプリントやMLOpsにリスク活動を組み込む</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>体系的・包括的</strong>：一貫した結果を得る</td>
+<td>チーム・プロジェクトごとにバラバラな評価をしない</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>カスタマイズ</strong>：組織の状況に合わせる</td>
+<td>医療AIと広告AIでは受容できるリスクが違う</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>包摂的</strong>：利害関係者を適時に関与させる</td>
+<td>利用者、影響を受ける人々、規制当局、ドメイン専門家</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>動的</strong>：変化に応じて見直す</td>
+<td>データドリフト、モデル更新、利用環境の変化</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>最良の入手可能な情報</strong>：限界も認識</td>
+<td>評価指標やテストの限界、データの代表性の限界を明示</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>人間と文化の要因</strong>：行動や文化を考慮</td>
+<td>過信（自動化バイアス）、現場の運用実態</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>継続的改善</strong>：学習と経験で改善</td>
+<td>インシデントや誤判定の教訓をプロセスに戻す</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="7-step-4枠組みclause-5">7. Step 4：枠組み（Clause 5）</h2>
+<p>プロセス（Clause
+6）を機能させるための<strong>組織側の土台</strong>です。</p>
+<h3 id="7-1-枠組みの構造">7-1. 枠組みの構造</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-4"><svg id="mmd4" width="627.74609375" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="1412" viewBox="0 15 627.74609375 1412" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd4{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd4 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd4 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd4 .error-icon{fill:#0f2038;}#mmd4 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd4 .edge-thickness-normal{stroke-width:1px;}#mmd4 .edge-thickness-thick{stroke-width:3.5px;}#mmd4 .edge-pattern-solid{stroke-dasharray:0;}#mmd4 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd4 .edge-pattern-dashed{stroke-dasharray:3;}#mmd4 .edge-pattern-dotted{stroke-dasharray:2;}#mmd4 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd4 .marker.cross{stroke:#7c9eff;}#mmd4 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd4 p{margin:0;}#mmd4 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd4 .cluster-label text{fill:#e8eefc;}#mmd4 .cluster-label span{color:#e8eefc;}#mmd4 .cluster-label span p{background-color:transparent;}#mmd4 .label text,#mmd4 span{fill:#e8eefc;color:#e8eefc;}#mmd4 .node rect,#mmd4 .node circle,#mmd4 .node ellipse,#mmd4 .node polygon,#mmd4 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd4 .rough-node .label text,#mmd4 .node .label text,#mmd4 .image-shape .label,#mmd4 .icon-shape .label{text-anchor:middle;}#mmd4 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd4 .rough-node .label,#mmd4 .node .label,#mmd4 .image-shape .label,#mmd4 .icon-shape .label{text-align:center;}#mmd4 .node.clickable{cursor:pointer;}#mmd4 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd4 .arrowheadPath{fill:#f4e7d6;}#mmd4 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd4 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd4 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd4 .edgeLabel p{background-color:#0b1829;}#mmd4 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd4 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd4 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd4 .cluster text{fill:#e8eefc;}#mmd4 .cluster span{color:#e8eefc;}#mmd4 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd4 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd4 rect.text{fill:none;stroke-width:0;}#mmd4 .icon-shape,#mmd4 .image-shape{background-color:#0b1829;text-align:center;}#mmd4 .icon-shape p,#mmd4 .image-shape p{background-color:#0b1829;padding:2px;}#mmd4 .icon-shape rect,#mmd4 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd4 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd4 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd4 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd4_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd4_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd4_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd4_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd4_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd4_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M366.095,107L362.279,112C358.463,117,350.831,127,347.015,136.333C343.199,145.667,343.199,154.333,343.199,158.667L343.199,163" id="L_N4_L_N4_I_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_L_N4_I_0" data-points="W3sieCI6MzY2LjA5NDcyNjU2MjUsInkiOjEwN30seyJ4IjozNDMuMTk5MjE4NzUsInkiOjEzN30seyJ4IjozNDMuMTk5MjE4NzUsInkiOjE2N31d" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M343.199,227L343.199,232C343.199,237,343.199,247,343.199,256.333C343.199,265.667,343.199,274.333,343.199,278.667L343.199,283" id="L_N4_I_N4_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_I_N4_D_0" data-points="W3sieCI6MzQzLjE5OTIxODc1LCJ5IjoyMjd9LHsieCI6MzQzLjE5OTIxODc1LCJ5IjoyNTd9LHsieCI6MzQzLjE5OTIxODc1LCJ5IjoyODd9XQ==" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M408.098,341.85L423.398,347.708C438.698,353.566,469.298,365.283,484.598,434.808C499.898,504.333,499.898,631.667,499.898,695.333L499.898,759" id="L_N4_D_N4_IM_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_D_N4_IM_0" data-points="W3sieCI6NDA4LjA5NzY1NjI1LCJ5IjozNDEuODQ5NTU3NTIyMTIzOX0seyJ4Ijo0OTkuODk4NDM3NSwieSI6Mzc3fSx7IngiOjQ5OS44OTg0Mzc1LCJ5Ijo3NjN9XQ==" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M499.898,823L499.898,887.333C499.898,951.667,499.898,1080.333,499.898,1149C499.898,1217.667,499.898,1226.333,499.898,1230.667L499.898,1235" id="L_N4_IM_N4_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_IM_N4_E_0" data-points="W3sieCI6NDk5Ljg5ODQzNzUsInkiOjgyM30seyJ4Ijo0OTkuODk4NDM3NSwieSI6MTIwOX0seyJ4Ijo0OTkuODk4NDM3NSwieSI6MTIzOX1d" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M499.898,1299L499.898,1304C499.898,1309,499.898,1319,504.027,1328.508C508.156,1338.017,516.414,1347.033,520.543,1351.542L524.672,1356.05" id="L_N4_E_N4_IP_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_E_N4_IP_0" data-points="W3sieCI6NDk5Ljg5ODQzNzUsInkiOjEyOTl9LHsieCI6NDk5Ljg5ODQzNzUsInkiOjEzMjl9LHsieCI6NTI3LjM3MzA0Njg3NSwieSI6MTM1OX1d" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M582.322,1359L586.901,1354C591.48,1349,600.639,1339,605.218,1324C609.797,1309,609.797,1289,609.797,1269C609.797,1249,609.797,1229,609.797,1149.667C609.797,1070.333,609.797,931.667,609.797,793C609.797,654.333,609.797,515.667,609.797,436.333C609.797,357,609.797,337,609.797,317C609.797,297,609.797,277,609.797,257C609.797,237,609.797,217,609.797,197C609.797,177,609.797,157,595.73,142.215C581.664,127.429,553.53,117.859,539.464,113.074L525.397,108.288" id="L_N4_IP_N4_L_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_IP_N4_L_0" data-points="W3sieCI6NTgyLjMyMjI2NTYyNSwieSI6MTM1OX0seyJ4Ijo2MDkuNzk2ODc1LCJ5IjoxMzI5fSx7IngiOjYwOS43OTY4NzUsInkiOjEyNjl9LHsieCI6NjA5Ljc5Njg3NSwieSI6MTIwOX0seyJ4Ijo2MDkuNzk2ODc1LCJ5Ijo3OTN9LHsieCI6NjA5Ljc5Njg3NSwieSI6Mzc3fSx7IngiOjYwOS43OTY4NzUsInkiOjMxN30seyJ4Ijo2MDkuNzk2ODc1LCJ5IjoyNTd9LHsieCI6NjA5Ljc5Njg3NSwieSI6MTk3fSx7IngiOjYwOS43OTY4NzUsInkiOjEzN30seyJ4Ijo1MjEuNjEwMDI2MDQxNjY2NiwieSI6MTA3fV0=" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M278.301,341.85L263.001,347.708C247.701,353.566,217.1,365.283,201.8,376.142C186.5,387,186.5,397,186.5,402L186.5,407" id="L_N4_D_N4_DESIGN_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_D_N4_DESIGN_0" data-points="W3sieCI6Mjc4LjMwMDc4MTI1LCJ5IjozNDEuODQ5NTU3NTIyMTIzOX0seyJ4IjoxODYuNSwieSI6Mzc3fSx7IngiOjE4Ni41LCJ5Ijo0MDd9XQ==">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_L_N4_I_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_I_N4_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_D_N4_IM_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_IM_N4_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_E_N4_IP_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_IP_N4_L_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_D_N4_DESIGN_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="root" transform="translate(0, 414)">
+<g class="clusters">
+<g class="cluster " id="N4_DESIGN" data-look="classic">
+<rect style="" x="8" y="-7" width="357" height="772">
+</rect>
+<g class="cluster-label " transform="translate(133.6015625, 5)"><foreignObject width="105.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.4 設計の内訳</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="edgePaths">
+</g>
+<g class="edgeLabels">
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N4_D1-12" transform="translate(186.5, 98)">
+<rect class="basic label-container" style="" x="-135.3203125" y="-30" width="270.640625" height="60">
+</rect>
+<g class="label" style="" transform="translate(-99.3203125, -12)">
+<rect>
+</rect><foreignObject width="198.640625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.4.1 組織とその状況の理解</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_D2-13" transform="translate(186.5, 240)">
+<rect class="basic label-container" style="" x="-136" y="-42" width="272" height="84">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>5.4.2 リスクマネジメントのコミットメントの明示</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_D3-14" transform="translate(186.5, 394)">
+<rect class="basic label-container" style="" x="-136" y="-42" width="272" height="84">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>5.4.3 役割・権限・責任・説明責任の割当</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_D4-15" transform="translate(186.5, 536)">
+<rect class="basic label-container" style="" x="-95.5625" y="-30" width="191.125" height="60">
+</rect>
+<g class="label" style="" transform="translate(-59.5625, -12)">
+<rect>
+</rect><foreignObject width="119.125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.4.4 資源の配分</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_D5-16" transform="translate(186.5, 678)">
+<rect class="basic label-container" style="" x="-136" y="-42" width="272" height="84">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>5.4.5 コミュニケーションと協議の確立</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+<g class="node default  " id="flowchart-N4_L-0" transform="translate(398.1484375, 65)">
+<rect class="basic label-container" style="" x="-136" y="-42" width="272" height="84">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>5.2 リーダーシップとコミットメント</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_I-1" transform="translate(343.19921875, 197)">
+<rect class="basic label-container" style="" x="-64.8984375" y="-30" width="129.796875" height="60">
+</rect>
+<g class="label" style="" transform="translate(-28.8984375, -12)">
+<rect>
+</rect><foreignObject width="57.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.3 統合</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_D-3" transform="translate(343.19921875, 317)">
+<rect class="basic label-container" style="" x="-64.8984375" y="-30" width="129.796875" height="60">
+</rect>
+<g class="label" style="" transform="translate(-28.8984375, -12)">
+<rect>
+</rect><foreignObject width="57.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.4 設計</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_IM-5" transform="translate(499.8984375, 793)">
+<rect class="basic label-container" style="" x="-64.8984375" y="-30" width="129.796875" height="60">
+</rect>
+<g class="label" style="" transform="translate(-28.8984375, -12)">
+<rect>
+</rect><foreignObject width="57.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.5 実施</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_E-7" transform="translate(499.8984375, 1269)">
+<rect class="basic label-container" style="" x="-64.8984375" y="-30" width="129.796875" height="60">
+</rect>
+<g class="label" style="" transform="translate(-28.8984375, -12)">
+<rect>
+</rect><foreignObject width="57.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.6 評価</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_IP-9" transform="translate(554.84765625, 1389)">
+<rect class="basic label-container" style="" x="-64.8984375" y="-30" width="129.796875" height="60">
+</rect>
+<g class="label" style="" transform="translate(-28.8984375, -12)">
+<rect>
+</rect><foreignObject width="57.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>5.7 改善</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+<div class="callout">
+<p>5.2〜5.5の細目は目次プレビューで確認できる範囲です。5.6（評価）・5.7（改善）はISO
+31000の枠組み構造に対応する一般的な構成として記載しています。</p>
+</div>
+<h3 id="7-2-初学者向けの読み替え">7-2. 初学者向けの読み替え</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>枠組みの要素</th>
+<th>現場での具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>リーダーシップ</td>
+<td>経営層がAIリスク方針を承認し、責任者を指名する</td>
+</tr>
+<tr class="even">
+<td>統合</td>
+<td>開発プロセス（要件定義・設計・テスト・運用）にリスクレビューを組み込む</td>
+</tr>
+<tr class="odd">
+<td>組織の状況の理解</td>
+<td>自社のAI利用状況、関連法規（EU AI Actなど）、顧客要件を整理</td>
+</tr>
+<tr class="even">
+<td>コミットメントの明示</td>
+<td>「AIリスク管理方針」を文書化し社内外に示す</td>
+</tr>
+<tr class="odd">
+<td>役割・責任</td>
+<td>AIプロダクトオーナー、データ責任者、QA、法務の役割分担表（RACI）</td>
+</tr>
+<tr class="even">
+<td>資源配分</td>
+<td>評価ツール、専門人材、教育、監視基盤の予算</td>
+</tr>
+<tr class="odd">
+<td>コミュニケーション</td>
+<td>開発・事業・法務・経営・利用者の間での報告ライン</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="8-step-5プロセスclause-6">8. Step 5：プロセス（Clause 6）</h2>
+<p><strong>ここが実務の中心</strong>です。ISO 31000
+と同じ流れを、AIの文脈で回します。</p>
+<h3 id="8-1-プロセス全体のフローチャート">8-1.
+プロセス全体のフローチャート</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-5"><svg id="mmd5" width="962.4765625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="1405.796875" viewBox="0 15 962.4765625 1405.796875" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd5{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd5 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd5 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd5 .error-icon{fill:#0f2038;}#mmd5 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd5 .edge-thickness-normal{stroke-width:1px;}#mmd5 .edge-thickness-thick{stroke-width:3.5px;}#mmd5 .edge-pattern-solid{stroke-dasharray:0;}#mmd5 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd5 .edge-pattern-dashed{stroke-dasharray:3;}#mmd5 .edge-pattern-dotted{stroke-dasharray:2;}#mmd5 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd5 .marker.cross{stroke:#7c9eff;}#mmd5 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd5 p{margin:0;}#mmd5 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd5 .cluster-label text{fill:#e8eefc;}#mmd5 .cluster-label span{color:#e8eefc;}#mmd5 .cluster-label span p{background-color:transparent;}#mmd5 .label text,#mmd5 span{fill:#e8eefc;color:#e8eefc;}#mmd5 .node rect,#mmd5 .node circle,#mmd5 .node ellipse,#mmd5 .node polygon,#mmd5 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd5 .rough-node .label text,#mmd5 .node .label text,#mmd5 .image-shape .label,#mmd5 .icon-shape .label{text-anchor:middle;}#mmd5 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd5 .rough-node .label,#mmd5 .node .label,#mmd5 .image-shape .label,#mmd5 .icon-shape .label{text-align:center;}#mmd5 .node.clickable{cursor:pointer;}#mmd5 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd5 .arrowheadPath{fill:#f4e7d6;}#mmd5 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd5 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd5 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd5 .edgeLabel p{background-color:#0b1829;}#mmd5 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd5 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd5 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd5 .cluster text{fill:#e8eefc;}#mmd5 .cluster span{color:#e8eefc;}#mmd5 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd5 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd5 rect.text{fill:none;stroke-width:0;}#mmd5 .icon-shape,#mmd5 .image-shape{background-color:#0b1829;text-align:center;}#mmd5 .icon-shape p,#mmd5 .image-shape p{background-color:#0b1829;padding:2px;}#mmd5 .icon-shape rect,#mmd5 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd5 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd5 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd5 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd5_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd5_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd5_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd5_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd5_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd5_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M498.016,299L498.016,304C498.016,309,498.016,319,498.618,328.34C499.221,337.679,500.427,346.359,501.029,350.698L501.632,355.038" id="L_N5_S1_N5_S2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S1_N5_S2_0" data-points="W3sieCI6NDk4LjAxNTYyNSwieSI6Mjk5fSx7IngiOjQ5OC4wMTU2MjUsInkiOjMyOX0seyJ4Ijo1MDIuMTgyMjkxNjY2NjY2NywieSI6MzU5fV0=" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M389.789,424.131L348.159,432.276C306.529,440.421,223.268,456.71,181.638,469.188C140.008,481.667,140.008,490.333,140.008,494.667L140.008,499" id="L_N5_S2_N5_S3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S2_N5_S3_0" data-points="W3sieCI6Mzg5Ljc4OTA2MjUsInkiOjQyNC4xMzA3OTI5MDk0NTc1N30seyJ4IjoxNDAuMDA3ODEyNSwieSI6NDczfSx7IngiOjE0MC4wMDc4MTI1LCJ5Ijo1MDN9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M140.008,587L140.008,592C140.008,597,140.008,607,140.008,616.333C140.008,625.667,140.008,634.333,140.008,638.667L140.008,643" id="L_N5_S3_N5_S4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S3_N5_S4_0" data-points="W3sieCI6MTQwLjAwNzgxMjUsInkiOjU4N30seyJ4IjoxNDAuMDA3ODEyNSwieSI6NjE3fSx7IngiOjE0MC4wMDc4MTI1LCJ5Ijo2NDd9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M140.008,731L140.008,736C140.008,741,140.008,751,147.814,767.016C155.619,783.031,171.231,805.062,179.036,816.078L186.842,827.093" id="L_N5_S4_N5_S5_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S4_N5_S5_0" data-points="W3sieCI6MTQwLjAwNzgxMjUsInkiOjczMX0seyJ4IjoxNDAuMDA3ODEyNSwieSI6NzYxfSx7IngiOjE4OS4xNTQ2ODg4ODcxNDc0MiwieSI6ODMwLjM1NzAyOTg2Mjg1MjZ9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M290.19,919.119L322.272,936.398C354.354,953.678,418.519,988.237,450.601,1011.851C482.684,1035.464,482.684,1048.13,482.684,1054.464L482.684,1060.797" id="L_N5_S5_N5_S6_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S5_N5_S6_0" data-points="W3sieCI6MjkwLjE4OTkyMDkxMjAzNTMsInkiOjkxOS4xMTg2NzI4Mzc5NjQ3fSx7IngiOjQ4Mi42ODM1OTM3NSwieSI6MTAyMi43OTY4NzV9LHsieCI6NDgyLjY4MzU5Mzc1LCJ5IjoxMDY0Ljc5Njg3NX1d" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M482.684,1148.797L482.684,1155.797C482.684,1162.797,482.684,1176.797,515.476,1190.819C548.269,1204.841,613.855,1218.886,646.647,1225.908L679.44,1232.93" id="L_N5_S6_N5_S7_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S6_N5_S7_0" data-points="W3sieCI6NDgyLjY4MzU5Mzc1LCJ5IjoxMTQ4Ljc5Njg3NX0seyJ4Ijo0ODIuNjgzNTkzNzUsInkiOjExOTAuNzk2ODc1fSx7IngiOjY4My4zNTE1NjI1LCJ5IjoxMjMzLjc2NzY3OTUzMDkzMjR9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M827.247,1232.797L829.192,1225.797C831.136,1218.797,835.025,1204.797,836.97,1183.797C838.914,1162.797,838.914,1134.797,838.914,1106.797C838.914,1078.797,838.914,1050.797,838.914,1013.98C838.914,977.164,838.914,931.531,838.914,887.898C838.914,844.266,838.914,802.633,838.914,769.816C838.914,737,838.914,713,838.914,689C838.914,665,838.914,641,838.914,617C838.914,593,838.914,569,838.914,545C838.914,521,838.914,497,804.12,477.429C769.326,457.858,699.739,442.717,664.945,435.146L630.151,427.575" id="L_N5_S7_N5_S2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S7_N5_S2_0" data-points="W3sieCI6ODI3LjI0NzM5NTgzMzMzMzQsInkiOjEyMzIuNzk2ODc1fSx7IngiOjgzOC45MTQwNjI1LCJ5IjoxMTkwLjc5Njg3NX0seyJ4Ijo4MzguOTE0MDYyNSwieSI6MTEwNi43OTY4NzV9LHsieCI6ODM4LjkxNDA2MjUsInkiOjEwMjIuNzk2ODc1fSx7IngiOjgzOC45MTQwNjI1LCJ5Ijo4ODUuODk4NDM3NX0seyJ4Ijo4MzguOTE0MDYyNSwieSI6NzYxfSx7IngiOjgzOC45MTQwNjI1LCJ5Ijo2ODl9LHsieCI6ODM4LjkxNDA2MjUsInkiOjYxN30seyJ4Ijo4MzguOTE0MDYyNSwieSI6NTQ1fSx7IngiOjgzOC45MTQwNjI1LCJ5Ijo0NzN9LHsieCI6NjI2LjI0MjE4NzUsInkiOjQyNi43MjQ4NDk0ODY0ODMzfV0=" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M190.799,943.084L182.038,956.37C173.276,969.655,155.753,996.226,146.992,1023.511C138.23,1050.797,138.23,1078.797,138.23,1106.797C138.23,1134.797,138.23,1162.797,138.23,1188.797C138.23,1214.797,138.23,1238.797,138.23,1260.797C138.23,1282.797,138.23,1302.797,178.796,1320.036C219.362,1337.275,300.493,1351.753,341.059,1358.991L381.625,1366.23" id="L_N5_S5_N5_S8_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S5_N5_S8_0" data-points="W3sieCI6MTkwLjc5OTA2MjA2NDc2MzIzLCJ5Ijo5NDMuMDg0MjE4MzE0NzYzMn0seyJ4IjoxMzguMjMwNDY4NzUsInkiOjEwMjIuNzk2ODc1fSx7IngiOjEzOC4yMzA0Njg3NSwieSI6MTEwNi43OTY4NzV9LHsieCI6MTM4LjIzMDQ2ODc1LCJ5IjoxMTkwLjc5Njg3NX0seyJ4IjoxMzguMjMwNDY4NzUsInkiOjEyNjIuNzk2ODc1fSx7IngiOjEzOC4yMzA0Njg3NSwieSI6MTMyMi43OTY4NzV9LHsieCI6Mzg1LjU2MjUsInkiOjEzNjYuOTMzMDM1MzI1Mjk3Nn1d" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M818.914,1292.797L818.914,1297.797C818.914,1302.797,818.914,1312.797,776.978,1325.102C735.043,1337.406,651.171,1352.016,609.236,1359.321L567.3,1366.625" id="L_N5_S7_N5_S8_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_S7_N5_S8_0" data-points="W3sieCI6ODE4LjkxNDA2MjUsInkiOjEyOTIuNzk2ODc1fSx7IngiOjgxOC45MTQwNjI1LCJ5IjoxMzIyLjc5Njg3NX0seyJ4Ijo1NjMuMzU5Mzc1LCJ5IjoxMzY3LjMxMTczMDk3NjQxMTh9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M465.694,131L471.081,136C476.468,141,487.242,151,492.629,160.333C498.016,169.667,498.016,178.333,498.016,182.667L498.016,187" id="L_N5_CC_N5_S1_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_CC_N5_S1_0" data-points="W3sieCI6NDY1LjY5NDE5NjQyODU3MTQ0LCJ5IjoxMzF9LHsieCI6NDk4LjAxNTYyNSwieSI6MTYxfSx7IngiOjQ5OC4wMTU2MjUsInkiOjE5MX1d" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M349.337,131L343.95,136C338.563,141,327.789,151,322.403,170C317.016,189,317.016,217,317.016,245C317.016,273,317.016,301,317.016,327C317.016,353,317.016,377,317.016,401C317.016,425,317.016,449,317.016,473C317.016,497,317.016,521,317.016,545C317.016,569,317.016,593,317.016,617C317.016,641,317.016,665,317.016,689C317.016,713,317.016,737,309.21,760.016C301.404,783.031,285.793,805.062,277.987,816.078L270.181,827.093" id="L_N5_CC_N5_S5_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_CC_N5_S5_0" data-points="W3sieCI6MzQ5LjMzNzA1MzU3MTQyODU2LCJ5IjoxMzF9LHsieCI6MzE3LjAxNTYyNSwieSI6MTYxfSx7IngiOjMxNy4wMTU2MjUsInkiOjI0NX0seyJ4IjozMTcuMDE1NjI1LCJ5IjozMjl9LHsieCI6MzE3LjAxNTYyNSwieSI6NDAxfSx7IngiOjMxNy4wMTU2MjUsInkiOjQ3M30seyJ4IjozMTcuMDE1NjI1LCJ5Ijo1NDV9LHsieCI6MzE3LjAxNTYyNSwieSI6NjE3fSx7IngiOjMxNy4wMTU2MjUsInkiOjY4OX0seyJ4IjozMTcuMDE1NjI1LCJ5Ijo3NjF9LHsieCI6MjY3Ljg2ODc0ODYxMjg1MjYsInkiOjgzMC4zNTcwMjk4NjI4NTI2fV0=" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M736.189,287L724.069,294C711.948,301,687.706,315,665.395,326.72C643.085,338.44,622.704,347.879,612.514,352.599L602.324,357.319" id="L_N5_MR_N5_S2_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_MR_N5_S2_0" data-points="W3sieCI6NzM2LjE4OTQ1MzEyNSwieSI6Mjg3fSx7IngiOjY2My40NjQ4NDM3NSwieSI6MzI5fSx7IngiOjU5OC42OTQzMzU5Mzc1LCJ5IjozNTl9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M813.914,287L814.747,294C815.581,301,817.247,315,818.081,334C818.914,353,818.914,377,818.914,401C818.914,425,818.914,449,818.914,473C818.914,497,818.914,521,818.914,545C818.914,569,818.914,593,818.914,617C818.914,641,818.914,665,818.914,689C818.914,713,818.914,737,818.914,769.816C818.914,802.633,818.914,844.266,818.914,887.898C818.914,931.531,818.914,977.164,818.914,1013.98C818.914,1050.797,818.914,1078.797,818.914,1106.797C818.914,1134.797,818.914,1162.797,818.914,1183.13C818.914,1203.464,818.914,1216.13,818.914,1222.464L818.914,1228.797" id="L_N5_MR_N5_S7_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_MR_N5_S7_0" data-points="W3sieCI6ODEzLjkxNDA2MjUsInkiOjI4N30seyJ4Ijo4MTguOTE0MDYyNSwieSI6MzI5fSx7IngiOjgxOC45MTQwNjI1LCJ5Ijo0MDF9LHsieCI6ODE4LjkxNDA2MjUsInkiOjQ3M30seyJ4Ijo4MTguOTE0MDYyNSwieSI6NTQ1fSx7IngiOjgxOC45MTQwNjI1LCJ5Ijo2MTd9LHsieCI6ODE4LjkxNDA2MjUsInkiOjY4OX0seyJ4Ijo4MTguOTE0MDYyNSwieSI6NzYxfSx7IngiOjgxOC45MTQwNjI1LCJ5Ijo4ODUuODk4NDM3NX0seyJ4Ijo4MTguOTE0MDYyNSwieSI6MTAyMi43OTY4NzV9LHsieCI6ODE4LjkxNDA2MjUsInkiOjExMDYuNzk2ODc1fSx7IngiOjgxOC45MTQwNjI1LCJ5IjoxMTkwLjc5Njg3NX0seyJ4Ijo4MTguOTE0MDYyNSwieSI6MTIzMi43OTY4NzV9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S1_N5_S2_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S2_N5_S3_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S3_N5_S4_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S4_N5_S5_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(482.68359375, 1022.796875)">
+<g class="label" data-id="L_N5_S5_N5_S6_0" transform="translate(-24.0078125, -12)"><foreignObject width="48.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>いいえ</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S6_N5_S7_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S7_N5_S2_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(138.23046875, 1190.796875)">
+<g class="label" data-id="L_N5_S5_N5_S8_0" transform="translate(-16.0078125, -12)"><foreignObject width="32.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>はい</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_S7_N5_S8_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_CC_N5_S1_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_CC_N5_S5_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_MR_N5_S2_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_MR_N5_S7_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N5_CC-0" transform="translate(407.515625, 77)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>6.2 コミュニケーションと協議<br/>（全工程で継続）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_MR-1" transform="translate(808.9140625, 245)">
+<rect class="basic label-container" style="" x="-104.8984375" y="-42" width="209.796875" height="84">
+</rect>
+<g class="label" style="" transform="translate(-68.8984375, -24)">
+<rect>
+</rect><foreignObject width="137.796875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.6 監視とレビュー<br/>（全工程で継続）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S1-2" transform="translate(498.015625, 245)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>6.3 適用範囲・状況・基準の設定<br/>6.3.4 リスク基準の定義</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S2-3" transform="translate(508.015625, 401)">
+<rect class="basic label-container" style="" x="-118.2265625" y="-42" width="236.453125" height="84">
+</rect>
+<g class="label" style="" transform="translate(-82.2265625, -24)">
+<rect>
+</rect><foreignObject width="164.453125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.4.2 リスク特定<br/>6.4.2.3 リスク源の特定</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S3-4" transform="translate(140.0078125, 545)">
+<rect class="basic label-container" style="" x="-132.0078125" y="-42" width="264.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-96.0078125, -24)">
+<rect>
+</rect><foreignObject width="192.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.4.3 リスク分析<br/>発生可能性と影響の見積り</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S4-5" transform="translate(140.0078125, 689)">
+<rect class="basic label-container" style="" x="-132.0078125" y="-42" width="264.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-96.0078125, -24)">
+<rect>
+</rect><foreignObject width="192.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.4.4 リスク評価<br/>基準と比較し優先順位付け</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S5-6" transform="translate(228.51171875, 885.8984375)">
+<polygon points="94.8984375,0 189.796875,-94.8984375 94.8984375,-189.796875 0,-94.8984375" class="label-container" transform="translate(-94.3984375, 94.8984375)">
+</polygon>
+<g class="label" style="" transform="translate(-52.8984375, -24)">
+<rect>
+</rect><foreignObject width="105.796875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.5 リスク対応<br/>受容できるか?</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S6-7" transform="translate(482.68359375, 1106.796875)">
+<rect class="basic label-container" style="" x="-135.5625" y="-42" width="271.125" height="84">
+</rect>
+<g class="label" style="" transform="translate(-99.5625, -24)">
+<rect>
+</rect><foreignObject width="199.125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.5.2 対応オプションの選択<br/>回避・低減・移転・受容</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S7-8" transform="translate(818.9140625, 1262.796875)">
+<rect class="basic label-container" style="" x="-135.5625" y="-30" width="271.125" height="60">
+</rect>
+<g class="label" style="" transform="translate(-99.5625, -12)">
+<rect>
+</rect><foreignObject width="199.125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.5.3 対応計画の作成と実施</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_S8-9" transform="translate(474.4609375, 1382.796875)">
+<rect class="basic label-container" style="" x="-88.8984375" y="-30" width="177.796875" height="60">
+</rect>
+<g class="label" style="" transform="translate(-52.8984375, -12)">
+<rect>
+</rect><foreignObject width="105.796875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>6.7 記録と報告</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+<div class="callout">
+<p>節番号は NIST
+が公開した対応表（クロスウォーク）に出てくる範囲（6.3.4、6.4.2、6.4.2.3、6.4.3、6.4.4、6.5、6.5.2、6.5.3）と、ISO
+31000 の構成に基づいています。6.2（コミュニケーションと協議）は NIST AI
+RMF の対応表では対応づけがないと明記されています。</p>
+</div>
+<h3 id="8-2-各ステップの詳細">8-2. 各ステップの詳細</h3>
+<h4 id="step-5-1適用範囲状況基準の設定63">Step
+5-1：適用範囲・状況・基準の設定（6.3）</h4>
+<p>「何のために」「どこまで」「どの水準なら許容か」を決めます。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>決めること</th>
+<th>AIでの例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>範囲</td>
+<td>対象システム、利用目的、利用者、ライフサイクルのどの段階か</td>
+</tr>
+<tr class="even">
+<td>状況</td>
+<td>法規制、業界慣行、技術成熟度、ステークホルダー</td>
+</tr>
+<tr class="odd">
+<td><strong>リスク基準（6.3.4）</strong></td>
+<td>発生可能性・影響の尺度、許容水準、AI特有の基準（公平性指標の許容差、誤検知率の上限など）</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="step-5-2リスク特定642">Step 5-2：リスク特定（6.4.2）</h4>
+<p><strong>「何が起こりうるか」を洗い出す</strong>工程です。AI特有のリスク源（Annex
+B）を手がかりにします。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>切り口</th>
+<th>質問の例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>目的から</td>
+<td>達成したい目的を阻害する事象は何か</td>
+</tr>
+<tr class="even">
+<td>リスク源から</td>
+<td>データ・モデル・運用・ハードウェアのどこに不確かさがあるか</td>
+</tr>
+<tr class="odd">
+<td>影響を受ける人から</td>
+<td>誰が、どんな被害を受けうるか</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="step-5-3リスク分析643">Step 5-3：リスク分析（6.4.3）</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>要素</th>
+<th>内容</th>
+<th>AIでの注意</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>発生可能性</td>
+<td>どのくらい起こりそうか</td>
+<td>統計的な見積りが難しい場合も。テスト結果や運用データを活用</td>
+</tr>
+<tr class="even">
+<td>影響（結果）</td>
+<td>起きたらどうなるか</td>
+<td>個人への影響（人権・安全）、事業、社会への影響</td>
+</tr>
+<tr class="odd">
+<td>既存の管理策</td>
+<td>すでにある対策の有効性</td>
+<td>人間によるレビューが形骸化していないか</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>簡易的なリスクマトリクスの例</strong>（※理解のための例示であり、規格が定める固定の表ではありません）</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>影響＼発生可能性</th>
+<th>低</th>
+<th>中</th>
+<th>高</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>大</strong></td>
+<td>中</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr class="even">
+<td><strong>中</strong></td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr class="odd">
+<td><strong>小</strong></td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="step-5-4リスク評価644">Step 5-4：リスク評価（6.4.4）</h4>
+<p>分析結果を<strong>基準と比較</strong>し、「対応が必要か」「優先順位は」を決めます。</p>
+<h4 id="step-5-5リスク対応65">Step 5-5：リスク対応（6.5）</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>選択肢</th>
+<th>意味</th>
+<th>AIでの例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>回避</td>
+<td>リスクのある活動をやめる</td>
+<td>高リスク用途へのAI利用を中止</td>
+</tr>
+<tr class="even">
+<td>低減</td>
+<td>発生可能性や影響を下げる</td>
+<td>データ拡充、バイアス緩和、人間の確認工程の追加、ガードレール</td>
+</tr>
+<tr class="odd">
+<td>移転</td>
+<td>他者と分担する</td>
+<td>保険、契約上の責任分担、ベンダー保証</td>
+</tr>
+<tr class="even">
+<td>受容</td>
+<td>基準内なので許容する</td>
+<td>残留リスクを文書化して承認</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<p>対応後に残るリスク（<strong>残留リスク</strong>）を必ず再評価・記録する点が重要です。</p>
+</div>
+<h4 id="step-5-6監視とレビュー記録と報告6667">Step
+5-6：監視とレビュー・記録と報告（6.6、6.7）</h4>
+<p>AIは<strong>運用中に状況が変わる</strong>ため、継続的な監視が特に重要です。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>監視対象</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>入力データの分布</td>
+<td>ドリフト検知</td>
+</tr>
+<tr class="even">
+<td>性能指標</td>
+<td>精度、誤検知率、公平性指標の推移</td>
+</tr>
+<tr class="odd">
+<td>インシデント</td>
+<td>誤判定の苦情、安全上の事象</td>
+</tr>
+<tr class="even">
+<td>外部環境</td>
+<td>法改正、攻撃手法の進化</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="9-step-6aiの目的annex-a">9. Step 6：AIの目的（Annex A）</h2>
+<p>リスクは「目的」との関係で決まるため、Annex
+Aは<strong>AIで考慮したい目的の例</strong>を挙げています。以下の一覧は規格の主題を解説者がまとめたものです（一部は目次プレビューで確認した項目を含みます）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>目的の例</th>
+<th>初学者向けの説明</th>
+<th>気にすべき問い</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>説明責任（Accountability）</td>
+<td>誰が結果に責任を持つか</td>
+<td>責任者は明確か</td>
+</tr>
+<tr class="even">
+<td>AIの専門性（AI expertise）</td>
+<td>AIを扱える人材・知見</td>
+<td>評価できる人材がいるか</td>
+</tr>
+<tr class="odd">
+<td>学習・テストデータの可用性と品質</td>
+<td>良質なデータがあるか</td>
+<td>代表性・正確性は十分か</td>
+</tr>
+<tr class="even">
+<td>環境への影響</td>
+<td>学習・推論のエネルギー消費など</td>
+<td>環境負荷を把握しているか</td>
+</tr>
+<tr class="odd">
+<td>公平性（Fairness）</td>
+<td>不当な差別がないか</td>
+<td>属性ごとの性能差は許容内か</td>
+</tr>
+<tr class="even">
+<td>保守性（Maintainability）</td>
+<td>継続的に直せるか</td>
+<td>再学習・更新の手順は整っているか</td>
+</tr>
+<tr class="odd">
+<td>プライバシー</td>
+<td>個人情報の適切な扱い</td>
+<td>学習データに個人情報が混入していないか</td>
+</tr>
+<tr class="even">
+<td>頑健性（Robustness）</td>
+<td>想定外の入力でも壊れにくいか</td>
+<td>ノイズや攻撃に耐えられるか</td>
+</tr>
+<tr class="odd">
+<td>安全性（Safety）</td>
+<td>人や環境に害を与えないか</td>
+<td>失敗時の影響は許容範囲か</td>
+</tr>
+<tr class="even">
+<td>セキュリティ</td>
+<td>悪意ある攻撃への耐性</td>
+<td>データ汚染・敵対的入力の対策は</td>
+</tr>
+<tr class="odd">
+<td>透明性と説明可能性</td>
+<td>理由を説明できるか</td>
+<td>利用者や監査人に説明できるか</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<p>各目的の項目名・分類の正確な表現は、規格の正規版でご確認ください。</p>
+</div>
+
+<h2 id="10-step-7ai特有のリスク源annex-b">10. Step
+7：AI特有のリスク源（Annex B）</h2>
+<p>Annex
+Bは「AIならではの<strong>リスクの出どころ</strong>」の一覧です。公開されている複数の解説で共通して挙げられている区分は次のとおりです。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>リスク源</th>
+<th>意味</th>
+<th>具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>環境の複雑さ</td>
+<td>利用環境が多様・変化しやすい</td>
+<td>想定外のユーザー、地域差、季節変動</td>
+</tr>
+<tr class="even">
+<td>透明性・説明可能性の欠如</td>
+<td>判断根拠が追えない</td>
+<td>深層学習の判断理由が説明できない</td>
+</tr>
+<tr class="odd">
+<td>自動化のレベル</td>
+<td>人間の関与がどの程度か</td>
+<td>完全自動の判断、人間の確認の形骸化</td>
+</tr>
+<tr class="even">
+<td>機械学習に関するリスク源</td>
+<td>データ品質、学習プロセス、ドリフトなど</td>
+<td>偏ったデータ、ラベル誤り、過学習、概念ドリフト</td>
+</tr>
+<tr class="odd">
+<td>システムハードウェアの問題</td>
+<td>計算資源・デバイスの制約</td>
+<td>エッジ機器での性能劣化</td>
+</tr>
+<tr class="even">
+<td>ライフサイクルの問題</td>
+<td>各段階特有の問題</td>
+<td>運用中の更新による挙動変化、廃棄時のデータ残存</td>
+</tr>
+<tr class="odd">
+<td>技術の成熟度</td>
+<td>技術がどの程度確立しているか</td>
+<td>新しい手法の未知の失敗モード、第三者モデルへの依存</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="10-1-リスク源とqaの視点">10-1. リスク源とQAの視点</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>リスク源</th>
+<th>テスト・検証の観点（QA向けの整理）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>データ品質</td>
+<td>データ検証、分布比較、ラベル品質監査</td>
+</tr>
+<tr class="even">
+<td>ドリフト</td>
+<td>運用監視、再評価のトリガー設計</td>
+</tr>
+<tr class="odd">
+<td>透明性</td>
+<td>説明手法の妥当性確認、ドキュメントの整備</td>
+</tr>
+<tr class="even">
+<td>自動化レベル</td>
+<td>人間介入ポイントの有効性テスト</td>
+</tr>
+<tr class="odd">
+<td>頑健性</td>
+<td>摂動テスト、敵対的テスト、境界条件テスト</td>
+</tr>
+<tr class="even">
+<td>第三者依存</td>
+<td>ベンダー評価、バージョン固定、フォールバック設計</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<p>外部のAIサービスのみを利用する組織でも、データ品質や技術成熟度のような要素は「ベンダーの評価」に形を変えて残り、セキュリティ・プライバシー・自動化の水準は自組織の責任として残る、という整理が公開解説に見られます。</p>
+</div>
+
+<h2 id="11-step-8aiライフサイクルとの対応annex-c">11. Step
+8：AIライフサイクルとの対応（Annex C）</h2>
+<p>Annex Cは、<strong>リスクマネジメントのプロセスを AI
+システムのライフサイクル（ISO/IEC 22989
+で定義）に対応づけた例</strong>を示しています。つまり「<strong>いつ、何をするか</strong>」の見取り図です。</p>
+<div class="mermaid-diagram" id="mermaid-diagram-6"><svg id="mmd6" width="1901.421875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="169" viewBox="0 15 1901.421875 169" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd6{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd6 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd6 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd6 .error-icon{fill:#0f2038;}#mmd6 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd6 .edge-thickness-normal{stroke-width:1px;}#mmd6 .edge-thickness-thick{stroke-width:3.5px;}#mmd6 .edge-pattern-solid{stroke-dasharray:0;}#mmd6 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd6 .edge-pattern-dashed{stroke-dasharray:3;}#mmd6 .edge-pattern-dotted{stroke-dasharray:2;}#mmd6 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd6 .marker.cross{stroke:#7c9eff;}#mmd6 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd6 p{margin:0;}#mmd6 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd6 .cluster-label text{fill:#e8eefc;}#mmd6 .cluster-label span{color:#e8eefc;}#mmd6 .cluster-label span p{background-color:transparent;}#mmd6 .label text,#mmd6 span{fill:#e8eefc;color:#e8eefc;}#mmd6 .node rect,#mmd6 .node circle,#mmd6 .node ellipse,#mmd6 .node polygon,#mmd6 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd6 .rough-node .label text,#mmd6 .node .label text,#mmd6 .image-shape .label,#mmd6 .icon-shape .label{text-anchor:middle;}#mmd6 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd6 .rough-node .label,#mmd6 .node .label,#mmd6 .image-shape .label,#mmd6 .icon-shape .label{text-align:center;}#mmd6 .node.clickable{cursor:pointer;}#mmd6 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd6 .arrowheadPath{fill:#f4e7d6;}#mmd6 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd6 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd6 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd6 .edgeLabel p{background-color:#0b1829;}#mmd6 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd6 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd6 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd6 .cluster text{fill:#e8eefc;}#mmd6 .cluster span{color:#e8eefc;}#mmd6 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd6 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd6 rect.text{fill:none;stroke-width:0;}#mmd6 .icon-shape,#mmd6 .image-shape{background-color:#0b1829;text-align:center;}#mmd6 .icon-shape p,#mmd6 .image-shape p{background-color:#0b1829;padding:2px;}#mmd6 .icon-shape rect,#mmd6 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd6 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd6 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd6 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd6_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd6_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd6_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd6_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd6_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd6_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M150.594,114.5L155.594,114.5C160.594,114.5,170.594,114.5,179.927,114.5C189.26,114.5,197.927,114.5,202.26,114.5L206.594,114.5" id="L_N6_L1_N6_L2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L1_N6_L2_0" data-points="W3sieCI6MTUwLjU5Mzc1LCJ5IjoxMTQuNX0seyJ4IjoxODAuNTkzNzUsInkiOjExNC41fSx7IngiOjIxMC41OTM3NSwieSI6MTE0LjV9XQ==" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M468.641,74.338L473.641,72.782C478.641,71.225,488.641,68.113,497.974,66.556C507.307,65,515.974,65,520.307,65L524.641,65" id="L_N6_L2_N6_L3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L2_N6_L3_0" data-points="W3sieCI6NDY4LjY0MDYyNSwieSI6NzQuMzM4MjQ2MTMxMTcxN30seyJ4Ijo0OTguNjQwNjI1LCJ5Ijo2NX0seyJ4Ijo1MjguNjQwNjI1LCJ5Ijo2NX1d" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M795.656,65L800.656,65C805.656,65,815.656,65,824.99,65C834.323,65,842.99,65,847.323,65L851.656,65" id="L_N6_L3_N6_L4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L3_N6_L4_0" data-points="W3sieCI6Nzk1LjY1NjI1LCJ5Ijo2NX0seyJ4Ijo4MjUuNjU2MjUsInkiOjY1fSx7IngiOjg1NS42NTYyNSwieSI6NjV9XQ==" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M1019.438,65L1024.438,65C1029.438,65,1039.438,65,1048.771,65C1058.104,65,1066.771,65,1071.104,65L1075.438,65" id="L_N6_L4_N6_L5_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L4_N6_L5_0" data-points="W3sieCI6MTAxOS40Mzc1LCJ5Ijo2NX0seyJ4IjoxMDQ5LjQzNzUsInkiOjY1fSx7IngiOjEwNzkuNDM3NSwieSI6NjV9XQ==" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M1345.938,65L1350.938,65C1355.938,65,1365.938,65,1375.299,66.3C1384.66,67.601,1393.382,70.202,1397.743,71.502L1402.104,72.803" id="L_N6_L5_N6_L6_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L5_N6_L6_0" data-points="W3sieCI6MTM0NS45Mzc1LCJ5Ijo2NX0seyJ4IjoxMzc1LjkzNzUsInkiOjY1fSx7IngiOjE0MDUuOTM3NSwieSI6NzMuOTQ1NzgzMTMyNTMwMTJ9XQ==" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M1677.938,114.5L1682.938,114.5C1687.938,114.5,1697.938,114.5,1707.271,114.5C1716.604,114.5,1725.271,114.5,1729.604,114.5L1733.938,114.5" id="L_N6_L6_N6_L7_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L6_N6_L7_0" data-points="W3sieCI6MTY3Ny45Mzc1LCJ5IjoxMTQuNX0seyJ4IjoxNzA3LjkzNzUsInkiOjExNC41fSx7IngiOjE3MzcuOTM3NSwieSI6MTE0LjV9XQ==" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M1405.938,155.054L1400.938,156.545C1395.938,158.036,1385.938,161.018,1353.729,162.509C1321.521,164,1267.104,164,1212.688,164C1158.271,164,1103.854,164,1057.997,164C1012.141,164,974.844,164,937.547,164C900.25,164,862.953,164,817.053,164C771.154,164,716.651,164,662.148,164C607.646,164,553.143,164,521.528,162.642C489.914,161.284,481.187,158.567,476.823,157.209L472.46,155.851" id="L_N6_L6_N6_L2_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_L6_N6_L2_0" data-points="W3sieCI6MTQwNS45Mzc1LCJ5IjoxNTUuMDU0MjE2ODY3NDY5ODh9LHsieCI6MTM3NS45Mzc1LCJ5IjoxNjR9LHsieCI6MTIxMi42ODc1LCJ5IjoxNjR9LHsieCI6MTA0OS40Mzc1LCJ5IjoxNjR9LHsieCI6OTM3LjU0Njg3NSwieSI6MTY0fSx7IngiOjgyNS42NTYyNSwieSI6MTY0fSx7IngiOjY2Mi4xNDg0Mzc1LCJ5IjoxNjR9LHsieCI6NDk4LjY0MDYyNSwieSI6MTY0fSx7IngiOjQ2OC42NDA2MjUsInkiOjE1NC42NjE3NTM4Njg4MjgzfV0=" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N6_L1_N6_L2_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N6_L2_N6_L3_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N6_L3_N6_L4_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N6_L4_N6_L5_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N6_L5_N6_L6_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N6_L6_N6_L7_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(937.546875, 164)">
+<g class="label" data-id="L_N6_L6_N6_L2_0" transform="translate(-64.0078125, -12)"><foreignObject width="128.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>状況変化で見直し</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N6_L1-0" transform="translate(79.296875, 114.5)">
+<rect class="basic label-container" style="" x="-71.296875" y="-42" width="142.59375" height="84">
+</rect>
+<g class="label" style="" transform="translate(-35.296875, -24)">
+<rect>
+</rect><foreignObject width="70.59375" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>企画<br/>Inception</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_L2-1" transform="translate(339.6171875, 114.5)">
+<rect class="basic label-container" style="" x="-129.0234375" y="-42" width="258.046875" height="84">
+</rect>
+<g class="label" style="" transform="translate(-93.0234375, -24)">
+<rect>
+</rect><foreignObject width="186.046875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>設計・開発<br/>Design and development</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_L3-3" transform="translate(662.1484375, 65)">
+<rect class="basic label-container" style="" x="-133.5078125" y="-42" width="267.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-97.5078125, -24)">
+<rect>
+</rect><foreignObject width="195.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>検証・妥当性確認<br/>Verification and validation</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_L4-5" transform="translate(937.546875, 65)">
+<rect class="basic label-container" style="" x="-81.890625" y="-42" width="163.78125" height="84">
+</rect>
+<g class="label" style="" transform="translate(-45.890625, -24)">
+<rect>
+</rect><foreignObject width="91.78125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>展開<br/>Deployment</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_L5-7" transform="translate(1212.6875, 65)">
+<rect class="basic label-container" style="" x="-133.25" y="-42" width="266.5" height="84">
+</rect>
+<g class="label" style="" transform="translate(-97.25, -24)">
+<rect>
+</rect><foreignObject width="194.5" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>運用・監視<br/>Operation and monitoring</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_L6-9" transform="translate(1541.9375, 114.5)">
+<rect class="basic label-container" style="" x="-136" y="-54" width="272" height="108">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>継続的妥当性確認・再評価<br/>Continuous validation / Re-evaluation</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_L7-11" transform="translate(1815.6796875, 114.5)">
+<rect class="basic label-container" style="" x="-77.7421875" y="-42" width="155.484375" height="84">
+</rect>
+<g class="label" style="" transform="translate(-41.7421875, -24)">
+<rect>
+</rect><foreignObject width="83.484375" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>廃棄<br/>Retirement</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>ライフサイクル段階</th>
+<th>主なリスク活動の例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>企画</td>
+<td>目的・利用範囲・関係者の特定、リスク基準の設定</td>
+</tr>
+<tr class="even">
+<td>設計・開発</td>
+<td>データ選定・前処理のリスク、モデル選定、バイアス評価</td>
+</tr>
+<tr class="odd">
+<td>検証・妥当性確認</td>
+<td>性能・公平性・頑健性・セキュリティの検証、残留リスクの確認</td>
+</tr>
+<tr class="even">
+<td>展開</td>
+<td>展開前レビュー、ロールバック計画、利用者への情報提供</td>
+</tr>
+<tr class="odd">
+<td>運用・監視</td>
+<td>ドリフト監視、インシデント対応、ログ管理</td>
+</tr>
+<tr class="even">
+<td>再評価</td>
+<td>目的や環境が変わった際のリスク再評価</td>
+</tr>
+<tr class="odd">
+<td>廃棄</td>
+<td>データ・モデルの適切な処分、影響の整理</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<p>段階の名称はISO/IEC
+22989のライフサイクルの考え方に基づく一般的な整理です。Annex C
+の具体的な表は正規版でご確認ください。</p>
+</div>
+
+<h2 id="12-step-9ミニ演習採用スクリーニングai">12. Step
+9：ミニ演習（採用スクリーニングAI）</h2>
+<p>架空の事例で、プロセスを一周してみましょう。</p>
+<h3 id="12-1-設定">12-1. 設定</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>システム</td>
+<td>応募書類を自動採点し、面接候補者を絞り込むAI</td>
+</tr>
+<tr class="even">
+<td>目的</td>
+<td>公平で効率的な選考</td>
+</tr>
+<tr class="odd">
+<td>状況</td>
+<td>人事部門が利用。EU域内の候補者も対象になりうる</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-2-リスク登録簿例">12-2. リスク登録簿（例）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>リスク源（Annex B）</th>
+<th>リスク（目的への影響）</th>
+<th>発生可能性</th>
+<th>影響</th>
+<th>評価</th>
+<th>対応</th>
+<th>担当</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R1</td>
+<td>機械学習（データの偏り）</td>
+<td>過去の採用実績の偏りを学習し、特定属性の候補者が不利に</td>
+<td>中</td>
+<td>大</td>
+<td>高</td>
+<td>低減：データ監査、属性別の性能比較、再学習</td>
+<td>データ責任者</td>
+</tr>
+<tr class="even">
+<td>R2</td>
+<td>透明性の欠如</td>
+<td>不採用理由を説明できず苦情・法的リスク</td>
+<td>中</td>
+<td>中</td>
+<td>中</td>
+<td>低減：説明手法の導入、判断根拠の記録</td>
+<td>プロダクトオーナー</td>
+</tr>
+<tr class="odd">
+<td>R3</td>
+<td>自動化レベル</td>
+<td>担当者がAIの結果を無批判に採用（自動化バイアス）</td>
+<td>高</td>
+<td>大</td>
+<td>高</td>
+<td>低減：人間の最終判断プロセスの設計と教育</td>
+<td>人事責任者</td>
+</tr>
+<tr class="even">
+<td>R4</td>
+<td>ライフサイクル（運用中の変化）</td>
+<td>求人要件の変化でスコアの妥当性が低下</td>
+<td>中</td>
+<td>中</td>
+<td>中</td>
+<td>低減：定期的な再評価、監視指標の設定</td>
+<td>QA</td>
+</tr>
+<tr class="odd">
+<td>R5</td>
+<td>技術の成熟度（第三者モデル）</td>
+<td>ベンダーのモデル更新で挙動が変わる</td>
+<td>低</td>
+<td>中</td>
+<td>低</td>
+<td>移転・低減：契約、バージョン固定、回帰テスト</td>
+<td>調達・QA</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-3-流れの確認">12-3. 流れの確認</h3>
+<div class="mermaid-diagram" id="mermaid-diagram-7"><svg id="mmd7" width="1624.25" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="169" viewBox="0 15 1624.25 169" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd7{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;fill:#e8eefc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd7 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd7 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd7 .error-icon{fill:#0f2038;}#mmd7 .error-text{fill:#f0dfc7;stroke:#f0dfc7;}#mmd7 .edge-thickness-normal{stroke-width:1px;}#mmd7 .edge-thickness-thick{stroke-width:3.5px;}#mmd7 .edge-pattern-solid{stroke-dasharray:0;}#mmd7 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd7 .edge-pattern-dashed{stroke-dasharray:3;}#mmd7 .edge-pattern-dotted{stroke-dasharray:2;}#mmd7 .marker{fill:#7c9eff;stroke:#7c9eff;}#mmd7 .marker.cross{stroke:#7c9eff;}#mmd7 svg{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:16px;}#mmd7 p{margin:0;}#mmd7 .label{font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#e8eefc;}#mmd7 .cluster-label text{fill:#e8eefc;}#mmd7 .cluster-label span{color:#e8eefc;}#mmd7 .cluster-label span p{background-color:transparent;}#mmd7 .label text,#mmd7 span{fill:#e8eefc;color:#e8eefc;}#mmd7 .node rect,#mmd7 .node circle,#mmd7 .node ellipse,#mmd7 .node polygon,#mmd7 .node path{fill:#16294a;stroke:#7c9eff;stroke-width:1px;}#mmd7 .rough-node .label text,#mmd7 .node .label text,#mmd7 .image-shape .label,#mmd7 .icon-shape .label{text-anchor:middle;}#mmd7 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd7 .rough-node .label,#mmd7 .node .label,#mmd7 .image-shape .label,#mmd7 .icon-shape .label{text-align:center;}#mmd7 .node.clickable{cursor:pointer;}#mmd7 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}#mmd7 .arrowheadPath{fill:#f4e7d6;}#mmd7 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}#mmd7 .flowchart-link{stroke:#7c9eff;fill:none;}#mmd7 .edgeLabel{background-color:#0b1829;text-align:center;}#mmd7 .edgeLabel p{background-color:#0b1829;}#mmd7 .edgeLabel rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd7 .labelBkg{background-color:rgba(11, 24, 41, 0.5);}#mmd7 .cluster rect{fill:#0f2038;stroke:#3a5a9a;stroke-width:1px;}#mmd7 .cluster text{fill:#e8eefc;}#mmd7 .cluster span{color:#e8eefc;}#mmd7 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:12px;background:#0f2038;border:1px solid hsl(215.1219512195, 17.7464788732%, 3.9215686275%);border-radius:2px;pointer-events:none;z-index:100;}#mmd7 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e8eefc;}#mmd7 rect.text{fill:none;stroke-width:0;}#mmd7 .icon-shape,#mmd7 .image-shape{background-color:#0b1829;text-align:center;}#mmd7 .icon-shape p,#mmd7 .image-shape p{background-color:#0b1829;padding:2px;}#mmd7 .icon-shape rect,#mmd7 .image-shape rect{opacity:0.5;background-color:#0b1829;fill:#0b1829;}#mmd7 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd7 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd7 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd7_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd7_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd7_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd7_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd7_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd7_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M256.016,114.5L261.016,114.5C266.016,114.5,276.016,114.5,285.349,114.5C294.682,114.5,303.349,114.5,307.682,114.5L312.016,114.5" id="L_N7_A_N7_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_A_N7_B_0" data-points="W3sieCI6MjU2LjAxNTYyNSwieSI6MTE0LjV9LHsieCI6Mjg2LjAxNTYyNSwieSI6MTE0LjV9LHsieCI6MzE2LjAxNTYyNSwieSI6MTE0LjV9XQ==" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M474,84.5L481.685,81.25C489.37,78,504.74,71.5,516.758,68.25C528.776,65,537.443,65,541.776,65L546.109,65" id="L_N7_B_N7_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_B_N7_C_0" data-points="W3sieCI6NDc0LCJ5Ijo4NC41fSx7IngiOjUyMC4xMDkzNzUsInkiOjY1fSx7IngiOjU1MC4xMDkzNzUsInkiOjY1fV0=" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M798.125,65L803.125,65C808.125,65,818.125,65,827.458,65C836.792,65,845.458,65,849.792,65L854.125,65" id="L_N7_C_N7_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_C_N7_D_0" data-points="W3sieCI6Nzk4LjEyNSwieSI6NjV9LHsieCI6ODI4LjEyNSwieSI6NjV9LHsieCI6ODU4LjEyNSwieSI6NjV9XQ==" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M1096.219,65L1101.219,65C1106.219,65,1116.219,65,1125.552,65C1134.885,65,1143.552,65,1147.885,65L1152.219,65" id="L_N7_D_N7_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_D_N7_E_0" data-points="W3sieCI6MTA5Ni4yMTg3NSwieSI6NjV9LHsieCI6MTEyNi4yMTg3NSwieSI6NjV9LHsieCI6MTE1Ni4yMTg3NSwieSI6NjV9XQ==" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M1340.234,65L1345.234,65C1350.234,65,1360.234,65,1369.607,66.568C1378.979,68.137,1387.724,71.273,1392.097,72.841L1396.469,74.41" id="L_N7_E_N7_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_E_N7_F_0" data-points="W3sieCI6MTM0MC4yMzQzNzUsInkiOjY1fSx7IngiOjEzNzAuMjM0Mzc1LCJ5Ijo2NX0seyJ4IjoxNDAwLjIzNDM3NSwieSI6NzUuNzYwMjYwNDAxOTI0NzF9XQ==" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M1400.234,153.24L1395.234,155.033C1390.234,156.826,1380.234,160.413,1354.9,162.207C1329.565,164,1288.896,164,1248.227,164C1207.557,164,1166.888,164,1121.712,164C1076.536,164,1026.854,164,977.172,164C927.49,164,877.807,164,827.298,164C776.789,164,725.453,164,674.117,164C622.781,164,571.445,164,538.706,161.01C505.968,158.019,491.826,152.039,484.755,149.048L477.684,146.058" id="L_N7_F_N7_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_F_N7_B_0" data-points="W3sieCI6MTQwMC4yMzQzNzUsInkiOjE1My4yMzk3Mzk1OTgwNzUzfSx7IngiOjEzNzAuMjM0Mzc1LCJ5IjoxNjR9LHsieCI6MTI0OC4yMjY1NjI1LCJ5IjoxNjR9LHsieCI6MTEyNi4yMTg3NSwieSI6MTY0fSx7IngiOjk3Ny4xNzE4NzUsInkiOjE2NH0seyJ4Ijo4MjguMTI1LCJ5IjoxNjR9LHsieCI6Njc0LjExNzE4NzUsInkiOjE2NH0seyJ4Ijo1MjAuMTA5Mzc1LCJ5IjoxNjR9LHsieCI6NDc0LCJ5IjoxNDQuNX1d" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_A_N7_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_B_N7_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_C_N7_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_D_N7_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_E_N7_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(977.171875, 164)">
+<g class="label" data-id="L_N7_F_N7_B_0" transform="translate(-40.0078125, -12)"><foreignObject width="80.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>変化を検知</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N7_A-0" transform="translate(132.0078125, 114.5)">
+<rect class="basic label-container" style="" x="-124.0078125" y="-42" width="248.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-88.0078125, -24)">
+<rect>
+</rect><foreignObject width="176.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>範囲・基準の設定<br/>公平性の許容差を決める</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_B-1" transform="translate(403.0625, 114.5)">
+<rect class="basic label-container" style="" x="-87.046875" y="-30" width="174.09375" height="60">
+</rect>
+<g class="label" style="" transform="translate(-51.046875, -12)">
+<rect>
+</rect><foreignObject width="102.09375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>R1〜R5を特定</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_C-3" transform="translate(674.1171875, 65)">
+<rect class="basic label-container" style="" x="-124.0078125" y="-30" width="248.015625" height="60">
+</rect>
+<g class="label" style="" transform="translate(-88.0078125, -12)">
+<rect>
+</rect><foreignObject width="176.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>発生可能性×影響で分析</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_D-5" transform="translate(977.171875, 65)">
+<rect class="basic label-container" style="" x="-119.046875" y="-42" width="238.09375" height="84">
+</rect>
+<g class="label" style="" transform="translate(-83.046875, -24)">
+<rect>
+</rect><foreignObject width="166.09375" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>基準と比較し<br/>R1・R3を最優先と評価</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_E-7" transform="translate(1248.2265625, 65)">
+<rect class="basic label-container" style="" x="-92.0078125" y="-30" width="184.015625" height="60">
+</rect>
+<g class="label" style="" transform="translate(-56.0078125, -12)">
+<rect>
+</rect><foreignObject width="112.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>対応計画を実施</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_F-9" transform="translate(1508.2421875, 114.5)">
+<rect class="basic label-container" style="" x="-108.0078125" y="-42" width="216.015625" height="84">
+</rect>
+<g class="label" style="" transform="translate(-72.0078125, -24)">
+<rect>
+</rect><foreignObject width="144.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>運用監視で<br/>残留リスクを再確認</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg></div>
+
+<h2 id="13-step-10関連規格法規との関係">13. Step
+10：関連規格・法規との関係</h2>
+<h3 id="13-1-nist-ai-rmf-との対応nist公開のクロスウォークより">13-1.
+NIST AI RMF との対応（NIST公開のクロスウォークより）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>NIST AI RMF 1.0 の機能</th>
+<th>意味</th>
+<th>対応する ISO/IEC 23894 の節（主なもの）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>GOVERN</strong></td>
+<td>リスク管理の文化を育てる</td>
+<td>5.2 リーダーシップ、5.3 統合、5.4 設計（5.4.1〜5.4.4）など</td>
+</tr>
+<tr class="even">
+<td><strong>MAP</strong></td>
+<td>状況を把握しリスクを特定</td>
+<td>6.3.4 リスク基準、6.4.2 リスク特定、6.4.2.3 リスク源、6.4.3
+分析</td>
+</tr>
+<tr class="odd">
+<td><strong>MEASURE</strong></td>
+<td>リスクを評価・分析・追跡</td>
+<td>6.3.4、6.4.3、6.4.4 リスク評価</td>
+</tr>
+<tr class="even">
+<td><strong>MANAGE</strong></td>
+<td>リスクに対応する</td>
+<td>6.5 リスク対応（6.5.2、6.5.3）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<p>NIST の対応表は、23894 にあって NIST AI RMF に対応しない節（例：6.2
+コミュニケーションと協議）があることも明記しています。両者は目的が近い一方、<strong>構造は異なる</strong>ことに注意してください。</p>
+</div>
+<h3 id="13-2-isoiec-42001-との使い分け">13-2. ISO/IEC 42001
+との使い分け</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>質問</th>
+<th>23894</th>
+<th>42001</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>認証できる？</td>
+<td>いいえ</td>
+<td>はい</td>
+</tr>
+<tr class="even">
+<td>何を定める？</td>
+<td>リスク管理の進め方（指針）</td>
+<td>AIマネジメントシステムの要求事項</td>
+</tr>
+<tr class="odd">
+<td>実務での使い方</td>
+<td>リスク評価・対応の<strong>手法</strong>として参照</td>
+<td>組織の<strong>仕組み</strong>として構築・認証取得</td>
+</tr>
+<tr class="even">
+<td>併用</td>
+<td>42001の導入時にリスク手法として活用されるケースが多い</td>
+<td>23894を手法の参考にできる</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="13-3-eu-ai-act-との関係">13-3. EU AI Act との関係</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>論点</th>
+<th>整理</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>法的義務</td>
+<td>AI Act
+第9条は高リスクAIにライフサイクル全体のリスク管理システムを求める（法的義務）</td>
+</tr>
+<tr class="even">
+<td>23894の位置づけ</td>
+<td>参考となる国際的手法だが、<strong>それだけで法適合が保証されるわけではない</strong></td>
+</tr>
+<tr class="odd">
+<td>欧州の動き</td>
+<td>後述の prEN
+18228（AIリスクマネジメントの欧州規格案）が第9条に対応する調和規格として策定中</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="14-最新動向2026年10月8日時点">14.
+最新動向（2026年10月8日時点）</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>確認できた内容</th>
+<th>出典の種類</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>23894の状態</td>
+<td>ISO公式ページで Published（Edition
+1、2023-02）。ページ上に改訂の記載は確認できなかった</td>
+<td>ISO公式</td>
+</tr>
+<tr class="even">
+<td>OECD.AIの政策ナビゲータ</td>
+<td>2026年7月に掲載、同年7月28日に更新</td>
+<td>OECD</td>
+</tr>
+<tr class="odd">
+<td><strong>prEN 18228:2026（欧州）</strong></td>
+<td>CEN/CLC/JTC 21 WG 2 による「AI Risk Management」の欧州規格案。AI Act
+第9条の調和規格として策定中。DINでは2026年9月11日から2026年11月11日までの公開意見募集（英独版）が告知されている</td>
+<td>DIN、CEN-CENELEC関連情報</td>
+</tr>
+<tr class="even">
+<td>prEN 18228の性格</td>
+<td>23894とは異なり、<strong>要求事項</strong>を含み、健康・安全・基本的権利へのリスクを対象とする。組織自身のリスク管理を目的とはしない、とされる</td>
+<td>DIN</td>
+</tr>
+<tr class="odd">
+<td>NIST関連</td>
+<td>NISTが 23894 との対応表（クロスウォーク）を公開。Berkeley
+CLTCのGPAIプロファイルも 23894
+との対応を提供（v1.2は2026年4月付資料）</td>
+<td>NIST、UC Berkeley</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="23894-と-pren-18228-の違い初学者向け">23894 と prEN 18228
+の違い（初学者向け）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>ISO/IEC 23894:2023</th>
+<th>prEN 18228:2026（草案）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>性格</td>
+<td>ガイダンス（指針）</td>
+<td>要求事項と指針（草案段階）</td>
+</tr>
+<tr class="even">
+<td>対象リスク</td>
+<td>組織・目的に対するリスク全般</td>
+<td>AIシステムの健康・安全・基本的権利へのリスク</td>
+</tr>
+<tr class="odd">
+<td>主な利用者</td>
+<td>AIを開発・導入・利用する組織全般</td>
+<td>AIシステムの<strong>提供者</strong>（プロバイダ）</td>
+</tr>
+<tr class="even">
+<td>法規制との関係</td>
+<td>直接の紐付けなし</td>
+<td>AI Act 第9条への適合推定を目指す</td>
+</tr>
+<tr class="odd">
+<td>状態</td>
+<td>発行済み</td>
+<td>草案（まだ最終版ではない）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-warn">
+<p><strong>注意</strong>：prEN 18228
+は草案であり、<strong>現時点で適合推定を与えるものではありません</strong>。最終版の動向は
+CEN-CENELEC や各国標準化機関の発表を確認してください。</p>
+</div>
+
+<h2 id="15-よくある誤解-faq">15. よくある誤解 FAQ</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>質問</th>
+<th>回答</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Q1. ISO 23894 の認証は取れる？</td>
+<td><strong>取れません</strong>。ガイダンス文書で、認証スキームはありません。認証が必要なら
+ISO/IEC 42001 が対象です。</td>
+</tr>
+<tr class="even">
+<td>Q2. 開発者だけが対象？</td>
+<td>いいえ。AIを<strong>開発・提供・導入・利用</strong>する組織が対象です。</td>
+</tr>
+<tr class="odd">
+<td>Q3. 外部のAIサービスを使うだけでも関係ある？</td>
+<td>あります。ベンダー評価や、セキュリティ・プライバシー・運用上のリスクは利用側にも残ります。</td>
+</tr>
+<tr class="even">
+<td>Q4. 規格を満たせばEU AI Actに適合？</td>
+<td><strong>いいえ</strong>。法適合は別の話です。参考手法として有用ですが、保証にはなりません。</td>
+</tr>
+<tr class="odd">
+<td>Q5. 一度リスク評価をすれば終わり？</td>
+<td>いいえ。AIは環境やデータが変わるため、<strong>継続的な監視と見直し</strong>が前提です。</td>
+</tr>
+<tr class="even">
+<td>Q6. 附属書は必須？</td>
+<td>附属書A・B・Cは<strong>参考</strong>（informative）です。組織の状況に合わせて活用します。</td>
+</tr>
+<tr class="odd">
+<td>Q7. ISO 31000 を知らなくても読める？</td>
+<td>読めますが、ISO 31000
+の基本（原則・枠組み・プロセス）を先に押さえると理解が早まります。</td>
+</tr>
+<tr class="even">
+<td>Q8. NIST AI RMF とどちらを使う？</td>
+<td>排他ではありません。公開解説では、42001の枠内で23894を手法として参照しつつ、NISTを運用ツールとして使う例も紹介されています。</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="16-導入チェックリスト">16. 導入チェックリスト</h2>
+<h3 id="準備">準備</h3>
+<ul class="task-list checklist">
+<li><label><input type="checkbox"/>対象となるAIシステムの一覧（社内開発・外部サービス含む）を作った</label></li>
+<li><label><input type="checkbox"/>AIリスク管理の責任者と役割分担を決めた</label></li>
+<li><label><input type="checkbox"/>経営層の方針（コミットメント）を文書化した</label></li>
+</ul>
+<h3 id="プロセス設計">プロセス設計</h3>
+<ul class="task-list checklist">
+<li><label><input type="checkbox"/>リスク基準（発生可能性・影響・許容水準）を定義した</label></li>
+<li><label><input type="checkbox"/>公平性・頑健性・安全性など、AI特有の目的ごとの基準を決めた</label></li>
+<li><label><input type="checkbox"/>リスク特定の手がかりとしてAnnex
+B（リスク源）を使う運用にした</label></li>
+<li><label><input type="checkbox"/>リスク登録簿のテンプレートを用意した</label></li>
+</ul>
+<h3 id="実施">実施</h3>
+<ul class="task-list checklist">
+<li><label><input type="checkbox"/>ライフサイクルの各段階にリスクレビューを組み込んだ</label></li>
+<li><label><input type="checkbox"/>対応計画の担当者・期限・残留リスクの承認者を決めた</label></li>
+<li><label><input type="checkbox"/>第三者AIの依存関係を棚卸しした</label></li>
+</ul>
+<h3 id="運用">運用</h3>
+<ul class="task-list checklist">
+<li><label><input type="checkbox"/>ドリフト・性能・公平性・インシデントの監視指標を決めた</label></li>
+<li><label><input type="checkbox"/>再評価のトリガー（モデル更新、環境変化、法改正）を決めた</label></li>
+<li><label><input type="checkbox"/>記録と報告の仕組みを整備した</label></li>
+</ul>
+
+<h2 id="17-用語集">17. 用語集</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>リスク</td>
+<td>目的に対する不確かさの影響</td>
+</tr>
+<tr class="even">
+<td>リスク源</td>
+<td>リスクを生み出す可能性のある要素</td>
+</tr>
+<tr class="odd">
+<td>リスク基準</td>
+<td>リスクの重大さを評価するための基準</td>
+</tr>
+<tr class="even">
+<td>リスクアセスメント</td>
+<td>特定・分析・評価の一連の工程</td>
+</tr>
+<tr class="odd">
+<td>リスク対応</td>
+<td>リスクを修正するためのプロセス</td>
+</tr>
+<tr class="even">
+<td>残留リスク</td>
+<td>対応後に残るリスク</td>
+</tr>
+<tr class="odd">
+<td>ガイダンス</td>
+<td>指針。認証の対象にならない文書</td>
+</tr>
+<tr class="even">
+<td>要求事項</td>
+<td>満たすことが求められる事項（認証や適合確認の対象になりうる）</td>
+</tr>
+<tr class="odd">
+<td>ドリフト</td>
+<td>運用中にデータの性質が変わり、モデル性能が劣化する現象</td>
+</tr>
+<tr class="even">
+<td>ライフサイクル</td>
+<td>企画から廃棄までのAIシステムの全期間</td>
+</tr>
+<tr class="odd">
+<td>JTC 1/SC 42</td>
+<td>AI分野を担当するISO/IEC合同の標準化委員会</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="18-根拠となる出典url">18. 根拠となる出典URL</h2>
+<h3 id="18-1-一次情報公的機関">18-1. 一次情報・公的機関</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>区分</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ISO公式（指定ページ）</td>
+<td>ISO/IEC 23894:2023 の基本情報、概要、ライフサイクル（策定経緯）</td>
+<td><a href="https://www.iso.org/standard/77304.html" rel="noopener" target="_blank">https://www.iso.org/standard/77304.html</a></td>
+</tr>
+<tr class="even">
+<td>目次プレビュー（VDE）</td>
+<td>附属書A〜Cの題名、章構成の確認</td>
+<td><a href="https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec23894" rel="noopener" target="_blank">https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec23894</a>{ed1.0}en.pdf</td>
+</tr>
+<tr class="odd">
+<td>目次プレビュー（ANSI）</td>
+<td>同上</td>
+<td><a href="https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+23894-2023.pdf" rel="noopener" target="_blank">https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+23894-2023.pdf</a></td>
+</tr>
+<tr class="even">
+<td>豪州規格（AS ISO/IEC 23894）</td>
+<td>章・節の目次一覧（5.4.1〜5.4.5、6.3.4、6.4.2.3 など）</td>
+<td><a href="https://store.standards.org.au/product/as-iso-iec-23894-2023" rel="noopener" target="_blank">https://store.standards.org.au/product/as-iso-iec-23894-2023</a></td>
+</tr>
+<tr class="odd">
+<td>NIST AI RMF クロスウォーク</td>
+<td>23894:2023 と NIST AI RMF 1.0 の節対応</td>
+<td><a href="https://airc.nist.gov/documents/3/ai-2025-00109_revised_ISO_IEC_23894_Crosswalk_to_the_NIST_AI_RMF.pdf" rel="noopener" target="_blank">https://airc.nist.gov/documents/3/ai-2025-00109_revised_ISO_IEC_23894_Crosswalk_to_the_NIST_AI_RMF.pdf</a></td>
+</tr>
+<tr class="even">
+<td>NIST（ドラフト版クロスウォーク）</td>
+<td>FDIS段階の対応表</td>
+<td><a href="https://www.nist.gov/document/ai-rmf-crosswalk-iso" rel="noopener" target="_blank">https://www.nist.gov/document/ai-rmf-crosswalk-iso</a></td>
+</tr>
+<tr class="odd">
+<td>OECD.AI Policy Navigator</td>
+<td>規格の概要、Annex A/B/Cの位置づけ（2026年7月更新）</td>
+<td><a href="https://oecd.ai/en/dashboards/policy-initiatives/information-technology-%E2%80%94-artificial-intelligence-%E2%80%94-guidance-on-risk-management-isoiec-23894" rel="noopener" target="_blank">https://oecd.ai/en/dashboards/policy-initiatives/information-technology-%E2%80%94-artificial-intelligence-%E2%80%94-guidance-on-risk-management-isoiec-23894</a></td>
+</tr>
+<tr class="even">
+<td>AI Standards Hub（英国）</td>
+<td>23894の解説（ISO 31000との関係、Annex C）</td>
+<td><a href="https://aistandardshub.org/a-new-standard-for-ai-risk-management" rel="noopener" target="_blank">https://aistandardshub.org/a-new-standard-for-ai-risk-management</a></td>
+</tr>
+<tr class="odd">
+<td>AI Standards Hub（規格ページ）</td>
+<td>範囲（ISO 31000との関係、章構成を踏襲）</td>
+<td><a href="https://aistandardshub.org/?p=9295" rel="noopener" target="_blank">https://aistandardshub.org/?p=9295</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="18-2-国際的な開発者研究機関による資料">18-2.
+国際的な開発者・研究機関による資料</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>区分</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Microsoft（Peter Deussen氏、Microsoft Germany
+国内標準化担当／ISO/IEC AIワークショップ登壇資料）</td>
+<td>23894の構造と ISO 31000 との関係の解説スライド（2022年11月）</td>
+<td><a href="https://jtc1info.org/wp-content/uploads/2023/06/Peter_Deussen-Risk_management-W2_2022-11-30.pdf" rel="noopener" target="_blank">https://jtc1info.org/wp-content/uploads/2023/06/Peter_Deussen-Risk_management-W2_2022-11-30.pdf</a></td>
+</tr>
+<tr class="even">
+<td>UC Berkeley CLTC</td>
+<td>汎用AI向けリスクマネジメント標準プロファイルと 23894
+の対応（v1.1）</td>
+<td><a href="https://cltc.berkeley.edu/wp-content/uploads/2025/01/Berkeley-Mapping-of-Profile-Guidance-v1-1-to-Key-Standards-and-Regulations.pdf" rel="noopener" target="_blank">https://cltc.berkeley.edu/wp-content/uploads/2025/01/Berkeley-Mapping-of-Profile-Guidance-v1-1-to-Key-Standards-and-Regulations.pdf</a></td>
+</tr>
+<tr class="odd">
+<td>UC Berkeley CLTC</td>
+<td>同上（v1.2、2026年4月付）</td>
+<td><a href="https://cltc.berkeley.edu/wp-content/uploads/2026/04/Berkeley-Mapping-of-Profile-Guidance-v1-2-to-Key-Standards-and-Regulations.pdf" rel="noopener" target="_blank">https://cltc.berkeley.edu/wp-content/uploads/2026/04/Berkeley-Mapping-of-Profile-Guidance-v1-2-to-Key-Standards-and-Regulations.pdf</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="18-3-欧州規格pren-18228関連">18-3. 欧州規格（prEN
+18228）関連</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>区分</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DIN（EN 18228 草案、2026-06版）</td>
+<td>範囲・対象リスクの概要（73ページ）</td>
+<td><a href="https://www.dinmedia.de/en/draft-standard/din-en-18228/402263138" rel="noopener" target="_blank">https://www.dinmedia.de/en/draft-standard/din-en-18228/402263138</a></td>
+</tr>
+<tr class="even">
+<td>DIN（プロジェクトページ）</td>
+<td>草案の要旨</td>
+<td><a href="https://www.din.de/en/wdc-proj:din21:379705345" rel="noopener" target="_blank">https://www.din.de/en/wdc-proj:din21:379705345</a></td>
+</tr>
+<tr class="odd">
+<td>DIN（2026-10版 草案）</td>
+<td>公開意見募集期間（2026-09-11〜2026-11-11）</td>
+<td><a href="https://www.din.de/en/wdc-beuth:din21:405977950" rel="noopener" target="_blank">https://www.din.de/en/wdc-beuth:din21:405977950</a></td>
+</tr>
+<tr class="even">
+<td>Responsible AI Platform</td>
+<td>prEN 18228 の位置づけ（草案であり適合推定を与えない）</td>
+<td><a href="https://www.aiactblog.nl/en/richtsnoeren/pren-18228-europese-norm-voor-risicomanagement-onder-de-ai-verordening" rel="noopener" target="_blank">https://www.aiactblog.nl/en/richtsnoeren/pren-18228-europese-norm-voor-risicomanagement-onder-de-ai-verordening</a></td>
+</tr>
+<tr class="odd">
+<td>STANDICT.eu</td>
+<td>prEN 18228 の策定意図（M/613、AI Act 第9条）</td>
+<td><a href="https://standict.eu/standict-funded-fellows/bruno-banelli" rel="noopener" target="_blank">https://standict.eu/standict-funded-fellows/bruno-banelli</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="18-4-二次情報解説記事参考としてのみ使用">18-4.
+二次情報（解説記事。参考としてのみ使用）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>認証の有無、42001との違い、Annex B のリスク源の区分（解説記事）</td>
+<td><a href="https://www.strac.io/blog/iso-23894" rel="noopener" target="_blank">https://www.strac.io/blog/iso-23894</a></td>
+</tr>
+<tr class="even">
+<td>同上（Annex B のリスク源の区分、第三者AI利用時の整理）</td>
+<td><a href="https://www.deepinspect.ai/blog/iso-23894-ai-risk-management" rel="noopener" target="_blank">https://www.deepinspect.ai/blog/iso-23894-ai-risk-management</a></td>
+</tr>
+<tr class="odd">
+<td>ANSI Blog（23894の概要、関連規格パッケージ）</td>
+<td><a href="https://blog.ansi.org/ansi/iso-iec-23894-2023-ai-risk-management/" rel="noopener" target="_blank">https://blog.ansi.org/ansi/iso-iec-23894-2023-ai-risk-management/</a></td>
+</tr>
+<tr class="even">
+<td>Mindgard（23894と42001・NISTとの併用）</td>
+<td><a href="https://mindgard.ai/blog/iso-iec-23894-ai-risk-management-standard" rel="noopener" target="_blank">https://mindgard.ai/blog/iso-iec-23894-ai-risk-management-standard</a></td>
+</tr>
+<tr class="odd">
+<td>Modulos（NIST・ISO・EU AI Actの関係）</td>
+<td><a href="https://www.modulos.ai/blog/ai-risk-management-framework/" rel="noopener" target="_blank">https://www.modulos.ai/blog/ai-risk-management-framework/</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="18-5-出典についての補足重要">18-5.
+出典についての補足（重要）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>「著名で国際的な開発者の投稿」について</td>
+<td>検索の範囲では、大手開発企業による<strong>23894単独を主題とした公式ブログ</strong>は確認できませんでした。代わりに、Microsoftの標準化担当者による
+ISO/IEC ワークショップ資料、NIST、UC Berkeley CLTC、OECD、英国AI
+Standards Hub を中核の根拠としました</td>
+</tr>
+<tr class="even">
+<td>二次情報の扱い</td>
+<td>ベンダー系ブログは、規格の概要（認証の有無など）の裏付けに限定して使い、附属書の中身は<strong>目次プレビュー</strong>を優先しました。ベンダー記事には附属書の対応を取り違えた記述が見られます</td>
+</tr>
+<tr class="odd">
+<td>規格本文について</td>
+<td>規格本文は有償で、ISOは著作権上の制約を明示しています。本ガイドの条文レベルの記述は<strong>公開された目次・要旨・対応表</strong>の範囲に基づく解説であり、実務での適用や監査対応には正規版の確認が必要です</td>
+</tr>
+<tr class="even">
+<td>最新性</td>
+<td>2026年10月8日時点で確認できた情報です。prEN 18228
+など進行中の項目は変更される可能性があります</td>
+</tr>
+</tbody>
+</table></div>
+
+
+
+<footer class="page-footer">作成日：2026年10月8日時点の情報に基づく ／ 規格本文の転載ではなく公開情報をもとにした解説です</footer>
+</main>
+<script>
+(function(){
+  var sb=document.getElementById('sidebar'),tg=document.getElementById('navToggle');
+  tg.addEventListener('click',function(){sb.classList.toggle('open')});
+  sb.addEventListener('click',function(e){if(e.target.tagName==='A'&&window.innerWidth<=900)sb.classList.remove('open')});
+  // scroll-spy
+  var links={};document.querySelectorAll('.sidebar a[data-target]').forEach(function(a){links[a.getAttribute('data-target')]=a});
+  var heads=[];Object.keys(links).forEach(function(id){var h=document.getElementById(id);if(h)heads.push(h)});
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){
+    document.querySelectorAll('.sidebar a.active').forEach(function(a){a.classList.remove('active')});
+    var a=links[en.target.id];if(a){a.classList.add('active');a.scrollIntoView({block:'nearest'})}}})},{rootMargin:'-15% 0px -75% 0px'});
+  heads.forEach(function(h){io.observe(h)});
+  // checklist progress
+  var boxes=document.querySelectorAll('ul.checklist input[type=checkbox]');
+  if(boxes.length){
+    var first=document.querySelector('ul.checklist');
+    var pr=document.createElement('div');pr.className='checklist-progress';
+    pr.innerHTML='<div class="row"><span>導入チェックリストの進捗</span><span class="count">0 / '+boxes.length+'</span></div><div class="bar"><div class="fill"></div></div>';
+    first.parentNode.insertBefore(pr,first.previousElementSibling&&first.previousElementSibling.tagName==='H3'?first.previousElementSibling:first);
+    function upd(){var n=0;boxes.forEach(function(b){if(b.checked)n++});pr.querySelector('.count').textContent=n+' / '+boxes.length;pr.querySelector('.fill').style.width=(n/boxes.length*100)+'%'}
+    boxes.forEach(function(b){b.addEventListener('change',upd)});upd();
+  }
+})();
+
+</script>
+</body></html>
