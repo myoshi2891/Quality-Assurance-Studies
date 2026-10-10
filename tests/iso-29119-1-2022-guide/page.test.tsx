@@ -242,6 +242,33 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
         mermaid.render = original;
       }
     });
+
+    it('gives every diagram a unique accTitle and accDescr', async () => {
+      const diagrams = (await import('../../app/iso-29119-1-2022-guide/diagrams')) as Record<string, string>;
+      const titles: string[] = [];
+      const descrs: string[] = [];
+      for (let i = 1; i <= 19; i++) {
+        const chart = diagrams[`DIAGRAM_${i}`];
+        const title = /^\s*accTitle:\s*(.+)$/m.exec(chart)?.[1]?.trim();
+        const descr = /^\s*accDescr:\s*(.+)$/m.exec(chart)?.[1]?.trim();
+        expect(title).toBeTruthy();
+        expect(descr).toBeTruthy();
+        titles.push(title ?? '');
+        descrs.push(descr ?? '');
+      }
+      expect(new Set(titles).size).toBe(19);
+      expect(new Set(descrs).size).toBe(19);
+    });
+
+    it('describes all three conformance branches in DIAGRAM_17 accDescr', async () => {
+      const { DIAGRAM_17 } = await import('../../app/iso-29119-1-2022-guide/diagrams');
+      const descr = /^\s*accDescr:\s*(.+)$/m.exec(DIAGRAM_17)?.[1] ?? '';
+      expect(descr).toContain('完全適合');
+      expect(descr).toContain('テーラード適合');
+      expect(descr).toContain('正当な理由');
+      expect(descr).toContain('合意');
+      expect(descr).toContain('適合を主張できない');
+    });
   });
 
   describe('Styles and Scope', () => {
