@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISO/IEC/IEEE CD 29119-15（静的解析）初学者向け解説</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#07111e;--card:#0d1b2e;--line:#1f3350;--text:#e6eefb;--dim:#c7d6ec;--faint:#9cb0cf;--acc:#7c9eff;--ok:#5fd4a0;--warn:#ffcf6b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.85;font-size:16px;overflow-x:hidden}
+nav{position:sticky;top:0;z-index:5;background:rgba(7,17,30,.94);border-bottom:1px solid var(--line);padding:10px 20px;display:flex;gap:6px 16px;flex-wrap:wrap;font-size:13px}
+nav a{color:var(--dim);text-decoration:none}nav a:hover{color:var(--acc)}
+.main{padding:0 32px 80px}
+.hero{position:relative;padding:56px 0 28px;border-bottom:1px solid var(--line);overflow:hidden}
+.hero::before{content:"";position:absolute;right:-80px;top:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(124,158,255,.25),transparent 70%)}
+.badge{display:inline-block;border:1px solid var(--acc);color:var(--acc);border-radius:999px;padding:2px 14px;font-size:12px;font-weight:700;margin-bottom:14px}
+h1{font-size:28px;font-weight:800;color:#fff;margin:0 0 10px;line-height:1.4}
+h2{font-size:22px;margin:52px 0 14px;padding-left:12px;border-left:4px solid var(--acc);color:#fff}
+h3{font-size:17px;margin:28px 0 8px;color:var(--acc)}
+.meta{display:flex;flex-wrap:wrap;margin-top:18px}
+.meta div{padding:0 22px 0 0;margin-right:22px;border-right:1px solid var(--line)}
+.meta div:last-child{border:0}
+.meta small{display:block;font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
+.meta span{font-size:14.5px}
+p,li{color:var(--dim)}
+a{color:var(--acc);overflow-wrap:anywhere}
+.tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:9px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;color:var(--dim)}
+th{background:#0f2036;color:#fff;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.co{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:8px;padding:12px 16px;margin:16px 0}
+.co.w{border-left-color:var(--warn)}.co.o{border-left-color:var(--ok)}
+.co p{margin:0}
+.tag{font-size:12px;font-weight:700;border-radius:4px;padding:1px 7px;margin-right:4px}
+.t1{background:rgba(95,212,160,.15);color:var(--ok)}.t2{background:rgba(124,158,255,.15);color:var(--acc)}.t3{background:rgba(255,207,107,.15);color:var(--warn)}
+.md{display:block;overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:16px;margin:16px 0}
+.md svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
+.md p{color:inherit;margin:0}
+code{background:#13253d;padding:1px 6px;border-radius:4px;font-size:.92em}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto}
+pre code{background:none;padding:0}
+pre code .k{color:#c792ea;font-weight:700}
+pre code .f{color:#7c9eff}
+pre code .s{color:#a5e075}
+pre code .c{color:#7f93b2;font-style:italic}
+pre code .o{color:#89ddff}
+pre code .b{color:#ffcf6b}
+footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+@media(max-width:700px){nav{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:10px 16px}.main{padding:0 16px 60px}.meta div{border:0;margin-bottom:8px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+<nav>
+<a href="#s0">読み方</a><a href="#s1">現在地</a><a href="#s2">静的解析とは</a><a href="#s3">概要の読解</a><a href="#s4">シリーズ内の位置</a><a href="#s5">プロセス例</a><a href="#s6">手法</a><a href="#s7">業界の知見</a><a href="#s8">導入</a><a href="#src">ソース</a>
+</nav>
+<main class="main">
+
+<header class="hero">
+<span class="badge">ISO 29119 シリーズ ／ 初学者向け</span>
+<h1>ISO/IEC/IEEE CD 29119-15<br>ソフトウェアテスト Part 15：静的解析</h1>
+<p>委員会原案（CD）段階の新規格を、公開情報と業界知見からステップバイステップで解説します。</p>
+<div class="meta">
+<div><small>調査基準日</small><span>2026-10-06</span></div>
+<div><small>ステージ</small><span>30.00（CD登録）</span></div>
+<div><small>一次情報</small><span><a href="https://www.iso.org/standard/92493.html" target="_blank" rel="noopener noreferrer">iso.org/standard/92493.html</a></span></div>
+</div>
+</header>
+
+<h2 id="s0">0. 読み方（重要）</h2>
+<p>この規格は <strong>CD段階で本文が未公開</strong> です。そのため情報を3種類に分けて表示します。本ガイドは「規格本文の解説」ではなく、<strong>公開情報と業界知見から先回りして理解するための学習ガイド</strong> です。</p>
+<div class="tw"><table>
+<tr><th>ラベル</th><th>意味</th><th>信頼度</th></tr>
+<tr><td><span class="tag t1">公開情報</span></td><td>ISO / IEEE / DIN など公式ページに書かれている事実</td><td>高</td></tr>
+<tr><td><span class="tag t2">一般知識</span></td><td>静的解析・レビューの教科書的内容、国際的な開発者の公開論文</td><td>高〜中</td></tr>
+<tr><td><span class="tag t3">推測</span></td><td>公開情報から考えられるが、CD本文では未確認</td><td>中〜低</td></tr>
+</table></div>
+<div class="co o"><p><strong>3行要点</strong><br>① 静的解析の「共通の枠組み」（プロセス・活動・タスク・レビュー技法・文書化）を定める新規格案。<br>② 対象は仕様書・ソースコード・モデル・関連データ。特定のツールや言語に依存しない。<br>③ 2026-01-07にCD登録済みで、委員会で草案レビュー中。</p></div>
+
+<h2 id="s1">Step 1. 規格の「現在地」</h2>
+<div class="tw"><table>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>正式名称</td><td>ISO/IEC/IEEE CD 29119-15 — Software testing — Part 15: Static analysis（Edition 1）</td></tr>
+<tr><td>状態 / ステージ</td><td>Under development ／ 30.00（Committee draft 登録）</td></tr>
+<tr><td>新規プロジェクト承認</td><td>2026-01-07（10.99）</td></tr>
+<tr><td>担当</td><td>ISO/IEC JTC 1/SC 7、作業部会 WG 26（Software testing）</td></tr>
+<tr><td>IEEE側</td><td>P29119-15 のPARが2025-09-10に承認。作業部会議長は Jon Hagar</td></tr>
+<tr><td>NP投票</td><td>2025-07-11（ステージ10.20）</td></tr>
+<tr><td>構想の初出</td><td>2018年のBCS SIGiST報告で、WG26の作業テーマとして「静的解析の国際規格」が挙がっている</td></tr>
+</table></div>
+<div id="d1" class="md"><p>ISO規格は10 提案、20 準備、30 委員会、40 照会（DIS）、50 承認（FDIS）、60 発行、90 定期見直しの順に進む。図では主な流れを一方向に示しているが、実際には30 委員会段階の意見募集の結果によってはWGへ差し戻し（30.92）となり、作業部会に戻って草案を修正することもある（Step 10の図を参照）。30 委員会段階に点線で注記が付き、29119-15の現在地がステージ30.00（2026-01-07にCD登録）であることを示す。</p></div>
+<div class="co w"><p>CD意見募集（30.20）の結果次第で、DIS登録（30.99）へ進むか、WGへ差し戻し（30.92）になります。<strong>発行時期は公表されていません。</strong></p></div>
+
+<h2 id="s2">Step 2. 静的解析とは</h2>
+<p><strong>静的解析 ＝ プログラムや成果物を「実行せずに」調べ、欠陥・リスク・規約違反を見つける活動</strong>です。Metaの Peter O'Hearn 氏もCACM論文で、静的解析ツールを「他のプログラムのソースを、実行せずに調べて結論を導くプログラム」と説明しています。</p>
+<div id="d2" class="md"><p>静的解析（実行しない）では、ソースコードと仕様書・設計書・モデルを解析ツールまたは人のレビューで調べ、欠陥の疑いや規約違反を指摘事項として出す。動的テスト（実行する）では、ビルド済みソフトにテスト入力を与えて実行し、実際の出力・挙動を期待結果と比較する。両者の最後の段階は点線で結ばれ、互いに補完し合う関係であることを示す。</p></div>
+<div class="tw"><table>
+<tr><th>観点</th><th>静的解析</th><th>動的テスト</th></tr>
+<tr><td>実行</td><td>不要</td><td>必要</td></tr>
+<tr><td>対象</td><td>コード・仕様・設計・モデル・データ</td><td>動くソフトウェア</td></tr>
+<tr><td>得意な欠陥</td><td>規約違反、未初期化変数、NULL参照の可能性、要件の矛盾</td><td>性能、環境依存、実際の出力の誤り</td></tr>
+<tr><td>時期</td><td>早い（成果物ができた時点）</td><td>実行可能になってから</td></tr>
+<tr><td>弱点</td><td>誤検知が出る</td><td>テストした範囲しか確認できない</td></tr>
+</table></div>
+<p><span class="tag t2">一般知識</span> 静的解析には「ツールによる解析」と「人によるレビュー」の2つの顔があります。概要に「review techniques」とあるため、29119-15は両方を視野に入れていると読めます。</p>
+
+<h2 id="s3">Step 3. 概要（Abstract）の読み解き</h2>
+<p><span class="tag t1">公開情報</span> ISOページの概要の要旨です（日本語に言い換え）。</p>
+<div class="tw"><table>
+<tr><th>キーワード</th><th>やさしい言い換え</th><th>初学者が押さえること</th></tr>
+<tr><td>generic framework</td><td>特定のツールや会社に依存しない共通の型</td><td>「ツールの使い方」ではなく「進め方のルール」</td></tr>
+<tr><td>process / activities / tasks</td><td>全体の流れ → 大きな作業 → 個別の作業</td><td>3層構造で整理される</td></tr>
+<tr><td>review techniques</td><td>人が成果物を確認する方法</td><td>インスペクション等</td></tr>
+<tr><td>documentation</td><td>記録の取り方</td><td>計画・結果報告の考え方</td></tr>
+<tr><td>解析対象</td><td>仕様、ソースコード、モデル、関連データ</td><td><strong>コードだけではない</strong></td></tr>
+<tr><td>informative diagram</td><td>プロセスを示す参考図</td><td>本文公開後に最初に見たい図</td></tr>
+<tr><td>想定読者</td><td>PM、開発・品質・テストマネージャ、ビジネスアナリスト、開発者、テスト担当者</td><td>役割横断の規格</td></tr>
+</table></div>
+
+<h2 id="s4">Step 4. 29119シリーズ内の位置づけ</h2>
+<div class="tw"><table>
+<tr><th>Part</th><th>内容</th><th>役割</th></tr>
+<tr><td>29119-1</td><td>概念と定義</td><td>用語の土台</td></tr>
+<tr><td>29119-2</td><td>テストプロセス</td><td>どう進めるか</td></tr>
+<tr><td>29119-3</td><td>テスト文書化</td><td>何を書くか</td></tr>
+<tr><td>29119-4</td><td>テスト技法</td><td>どう設計するか</td></tr>
+<tr><td>29119-5</td><td>キーワード駆動テスト</td><td>自動化方式</td></tr>
+<tr><td><strong>29119-15</strong></td><td><strong>静的解析（本CD）</strong></td><td><strong>実行しない解析の枠組み</strong></td></tr>
+</table></div>
+<p><span class="tag t1">公開情報</span> 姉妹規格 <strong>ISO/IEC 20246:2017（Work product reviews）</strong>は成果物レビューの汎用枠組みで、2022年に見直し確認された現行版です。20246と29119-15の概要は、どちらも「汎用プロセス・活動・タスク・レビュー技法・文書化」という同じ構成の言葉で書かれています。</p>
+<div class="co w"><p><span class="tag t3">推測</span> 20246が「人によるレビュー」を、29119-15が「ツール解析も含めた静的解析全体」を担う役割分担の可能性があります。正確な関係は本文公開まで確認できません。</p></div>
+
+<h2 id="s5">Step 5. 静的解析の一般的なプロセス（学習用モデル）</h2>
+<div class="co w"><p><span class="tag t2">一般知識</span> 以下は <strong>CD本文の内容ではありません</strong>。実務で回すときの一般的な流れを整理した学習用モデルです。</p></div>
+<div id="d3" class="md"><p>計画、準備、実施、結果の分析（トリアージ）の順に進み、指摘が本当の問題かを判断して分岐する。はい（真の指摘）なら是正として修正と再発防止を行い、いいえ（誤検知）なら抑制設定やルール調整を行って理由を記録する。どちらの経路も報告・記録に合流して結果をまとめ、続く改善でルールとプロセスを見直したあと、点線で次回の計画に戻るループになる。</p></div>
+<div class="tw"><table>
+<tr><th>ステップ</th><th>やること</th><th>具体例</th></tr>
+<tr><td>① 計画</td><td>目的・対象・合格基準を決める</td><td>新規コードは重大度High指摘ゼロでマージ</td></tr>
+<tr><td>② 準備</td><td>ルール・ツール・担当を決める</td><td>言語別Linter設定、レビュー担当割当</td></tr>
+<tr><td>③ 実施</td><td>ツール実行／個人レビュー</td><td>CIで自動実行</td></tr>
+<tr><td>④ 分析</td><td>指摘の真偽・重大度を判断</td><td>誤検知の除外、優先度付け</td></tr>
+<tr><td>⑤ 是正</td><td>修正して再確認</td><td>修正→再解析</td></tr>
+<tr><td>⑥ 報告</td><td>結果と判断を記録</td><td>件数・傾向・未解決事項</td></tr>
+<tr><td>⑦ 改善</td><td>ルールとプロセスを更新</td><td>誤検知の多いルールを無効化</td></tr>
+</table></div>
+
+<h2 id="s6">Step 6. ツール解析のしくみ</h2>
+<div class="tw"><table>
+<tr><th>手法</th><th>一言で</th><th>見つけられる例</th></tr>
+<tr><td>字句・構文解析</td><td>書き方のルールを機械的にチェック</td><td>命名規則違反、未使用import</td></tr>
+<tr><td>型チェック</td><td>値の種類の整合性を確認</td><td>数値に文字列を渡している</td></tr>
+<tr><td>制御フロー解析</td><td>分岐・ループの通り道を追跡</td><td>到達不能コード</td></tr>
+<tr><td>データフロー解析</td><td>値の生成〜使用を追跡</td><td>未初期化変数、NULL参照</td></tr>
+<tr><td>テイント解析</td><td>外部入力が危険箇所に届くか追跡</td><td>SQLインジェクションの可能性</td></tr>
+<tr><td>抽象解釈</td><td>プログラムの意味を抽象ドメイン（値の範囲など）上で近似して推論</td><td>配列範囲外、メモリリーク</td></tr>
+<tr><td>記号実行</td><td>入力を記号として扱い、パス条件を集めながら実行パスを探索</td><td>特定の入力条件でのみ到達するエラー、その再現入力の生成</td></tr>
+</table></div>
+<h3>具体例：実行せずに欠陥を見つける</h3>
+<pre><code><span class="k">def</span> <span class="f">find_user</span>(users, name):
+    <span class="k">for</span> u <span class="k">in</span> users:
+        <span class="k">if</span> u[<span class="s">"name"</span>] <span class="o">==</span> name:
+            <span class="k">return</span> u
+    <span class="c"># 見つからないと None が返る</span>
+
+users <span class="o">=</span> [{<span class="s">"name"</span>: <span class="s">"Bob"</span>, <span class="s">"email"</span>: <span class="s">"bob@example.com"</span>}]
+user <span class="o">=</span> <span class="f">find_user</span>(users, <span class="s">"Alice"</span>)
+<span class="b">print</span>(user[<span class="s">"email"</span>])   <span class="c"># user が None だと実行時エラー</span></code></pre>
+<p>ツールはプログラムを動かさず、「<code>None</code>を返す経路があるのに確認せず参照している」と指摘できます。</p>
+<div class="tw"><table>
+<tr><th>用語</th><th>意味</th><th>影響</th></tr>
+<tr><td>偽陽性（false positive）</td><td>問題がないのに「問題あり」と報告</td><td>信頼低下、指摘が無視される</td></tr>
+<tr><td>偽陰性（false negative）</td><td>本当の問題を報告しない</td><td>欠陥が残って出荷される</td></tr>
+</table></div>
+
+<h2 id="s7">Step 7. 国際的な開発者の知見（一般知識）</h2>
+<div class="tw"><table>
+<tr><th>事例</th><th>要点</th><th>学び</th></tr>
+<tr><td><strong>Meta：Infer / Zoncolan</strong><br>Peter O'Hearn（CACM 2019）</td><td>すべてのコード変更に対して実行し、コードレビュー内でボットとして指摘。10万件超の指摘が本番前に修正された。一括（バッチ）実行は修正率0%、コードレビュー中の差分実行は70%</td><td>「いつ・どこで見せるか」が成果を決める</td></tr>
+<tr><td><strong>Google：Tricorder</strong><br>Sadowskiほか（ICSE 2015）</td><td>解析ツールを載せる共通プラットフォームと指導原則を整備。専門家でない開発者もルールを書け、データで改善するエコシステム</td><td>組織として回す仕組みが重要</td></tr>
+<tr><td><strong>Coverity</strong><br>Bessey, Englerほか（CACM 2010）</td><td>研究技術を商用化して顧客コードに適用した経験談。ビルド方法や言語方言の違いなど想定外の壁が多数。誤検知が増えると開発者の信頼を失う</td><td>検出力と誤検知抑制のバランス設計</td></tr>
+</table></div>
+<div id="d4" class="md"><p>Meta・Google・Coverityの教訓は3つに分かれる。開発者のワークフロー（コードレビュー・CI）に組み込むこと、誤検知を管理して信頼を守ること、データを見て継続的に改善すること。</p></div>
+<div class="co"><p><span class="tag t3">推測</span> この3つの教訓は、29119-15が目指す「汎用プロセス・活動・タスク・文書化」の方向性と重なると考えられます。</p></div>
+
+<h2 id="s8">Step 8. 実務への活かし方</h2>
+<div id="d5" class="md"><p>開発者がプルリクエストを作成するとCIが起動し、Lint・SAST・型チェックなどの静的解析を自動実行する。重大な指摘ありの場合はマージをブロックしてPRに指摘をコメントし、開発者が修正するとCI起動に戻って再解析するループになる。重大な指摘なしの場合は人によるコードレビューを経てマージし、その後ルールと指標を定期的に見直す。</p></div>
+<div class="tw"><table>
+<tr><th>#</th><th>導入チェック項目</th><th>目的</th></tr>
+<tr><td>1</td><td>目的と合格基準を文書化したか</td><td>何をもって合格かを明確にする</td></tr>
+<tr><td>2</td><td>対象範囲（コード・設定・仕様・モデル）を決めたか</td><td>見逃し領域の把握</td></tr>
+<tr><td>3</td><td>ルールを少数から段階導入したか</td><td>指摘の洪水を避ける</td></tr>
+<tr><td>4</td><td>指摘の分類基準（重大度・真偽）を決めたか</td><td>判断のぶれを減らす</td></tr>
+<tr><td>5</td><td>誤検知の抑制ルール（理由の記録必須）を決めたか</td><td>無視文化を防ぐ</td></tr>
+<tr><td>6</td><td>結果を記録・追跡しているか</td><td>傾向分析と監査対応</td></tr>
+<tr><td>7</td><td>定期的な見直しの仕組みがあるか</td><td>継続的改善</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th>よくある失敗</th><th>対策</th></tr>
+<tr><td>初日に数千件の指摘が出て誰も見なくなる</td><td>新規・変更箇所のみから開始（Metaの教訓と整合）</td></tr>
+<tr><td>ルールが多すぎて開発者が疲弊</td><td>重要度の高いルールに絞る</td></tr>
+<tr><td>指摘が放置される</td><td>是正の責任者と期限を決める</td></tr>
+<tr><td>ツールだけで安心する</td><td>静的解析と動的テストを併用する</td></tr>
+</table></div>
+
+<h3>今後の追い方</h3>
+<p>ISOページのステージ表示と <a href="https://www.iso.org/contents/data/standard/09/24/92493.detail.rss" target="_blank" rel="noopener noreferrer">RSS</a>、DIN・IEEE SAのプロジェクトページを確認します。発行後は、プロセスの段階名、20246・29119-2との関係、ツール解析の記述範囲、文書化の要求レベル、参考図の内容を確認すると学習が進みます。</p>
+
+<h2 id="src">参考ソース一覧（調査基準日：2026-10-06）</h2>
+<h3>A. 規格・標準化団体（公開情報の根拠）</h3>
+<div class="tw"><table>
+<tr><th>#</th><th>内容</th><th>URL</th></tr>
+<tr><td>A1</td><td>ISO：CD 29119-15 ページ（ステージ・概要・日付）</td><td><a href="https://www.iso.org/standard/92493.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/92493.html</a></td></tr>
+<tr><td>A2</td><td>DIN：担当WG26、開始日2026-01-07</td><td><a href="https://www.din.de/en/wdc-proj:din21:394018782" target="_blank" rel="noopener noreferrer">https://www.din.de/en/wdc-proj:din21:394018782</a></td></tr>
+<tr><td>A3</td><td>IEEE SA：P29119-15（PAR承認、議長）</td><td><a href="https://standards.ieee.org/ieee/29119-15/12189/" target="_blank" rel="noopener noreferrer">https://standards.ieee.org/ieee/29119-15/12189/</a></td></tr>
+<tr><td>A4</td><td>ISS（セルビア）：NP投票 2025-07-11</td><td><a href="https://iss.rs/en/project/show/iso:proj:92493" target="_blank" rel="noopener noreferrer">https://iss.rs/en/project/show/iso:proj:92493</a></td></tr>
+<tr><td>A5</td><td>ISO RSS（ステージ更新）</td><td><a href="https://www.iso.org/contents/data/standard/09/24/92493.detail.rss" target="_blank" rel="noopener noreferrer">https://www.iso.org/contents/data/standard/09/24/92493.detail.rss</a></td></tr>
+<tr><td>A6</td><td>ISO/IEC 20246:2017 Work product reviews</td><td><a href="https://www.iso.org/standard/67407.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/67407.html</a></td></tr>
+<tr><td>A7</td><td>BCS SIGiST標準化WP年次報告 2018</td><td><a href="https://www.bcs.org/media/2956/sigist-standards-report-2018.pdf" target="_blank" rel="noopener noreferrer">https://www.bcs.org/media/2956/sigist-standards-report-2018.pdf</a></td></tr>
+</table></div>
+<h3>B. 国際的な開発者・研究者の公開資料（一般知識の根拠）</h3>
+<div class="tw"><table>
+<tr><th>#</th><th>著者・内容</th><th>URL</th></tr>
+<tr><td>B1</td><td>Peter O'Hearn（Meta/UCL）Scaling Static Analyses at Facebook（CACM 2019）</td><td><a href="https://cacm.acm.org/?p=106093" target="_blank" rel="noopener noreferrer">https://cacm.acm.org/?p=106093</a></td></tr>
+<tr><td>B2</td><td>同・著者版PDF</td><td><a href="https://discovery-pp.ucl.ac.uk/10084236/1/O%27Hearn%20AAM%20scaling-static-analysis-at-facebook.pdf" target="_blank" rel="noopener noreferrer">https://discovery-pp.ucl.ac.uk/10084236/1/O'Hearn AAM scaling-static-analysis-at-facebook.pdf</a></td></tr>
+<tr><td>B3</td><td>Peter O'Hearn: Formal Reasoning: The Elements of Scale（バッチ0%／コードレビュー70%）</td><td><a href="https://cps-vo.org/sites/cps-vo.org/files/cpsvo_file_nodes/Peter_OHearn_-_Formal_Methods_at_Scale.pdf" target="_blank" rel="noopener noreferrer">https://cps-vo.org/sites/cps-vo.org/files/cpsvo_file_nodes/Peter_OHearn_-_Formal_Methods_at_Scale.pdf</a></td></tr>
+<tr><td>B4</td><td>Harman, O'Hearn: From Start-ups to Scale-ups（SCAM 2018）</td><td><a href="https://discovery.ucl.ac.uk/id/eprint/10068035/" target="_blank" rel="noopener noreferrer">https://discovery.ucl.ac.uk/id/eprint/10068035/</a></td></tr>
+<tr><td>B5</td><td>Sadowskiほか（Google）Tricorder（ICSE 2015）</td><td><a href="https://research.google/pubs/pub43322/" target="_blank" rel="noopener noreferrer">https://research.google/pubs/pub43322/</a></td></tr>
+<tr><td>B6</td><td>Bessey, Englerほか（Coverity）A Few Billion Lines of Code Later（CACM 2010）</td><td><a href="https://cacm.acm.org/research/a-few-billion-lines-of-code-later" target="_blank" rel="noopener noreferrer">https://cacm.acm.org/research/a-few-billion-lines-of-code-later</a></td></tr>
+</table></div>
+
+<footer>
+<p>本ガイドは2026年10月6日時点で公開されている情報のみを根拠とします。CD本文は未公開のため引用・要約しておらず、Step 5・8の実務プロセスは一般知識または推測であって規格の要求事項ではありません。CDは審議で内容が大きく変わる可能性があるため、正式内容は発行後の規格本文とISOページで確認してください。</p>
+</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js" integrity="sha384-o+g/BxPwhi0C3RK7oQBxQuNimeafQ3GE/ST4iT2BxVI4Wzt60SH4pq9iXVYujjaS" crossorigin="anonymous"></script>
+<script>
+const MERMAID_DIAGRAMS = {
+d1: `flowchart LR
+  accTitle: ISO規格のステージ遷移と29119-15の現在地
+  accDescr: ISO規格は10 提案、20 準備、30 委員会、40 照会（DIS）、50 承認（FDIS）、60 発行、90 定期見直しの順に進む。図では主な流れを一方向に示しているが、実際には30 委員会段階の意見募集の結果によってはWGへ差し戻し（30.92）となり、作業部会に戻って草案を修正することもある（Step 10の図を参照）。30 委員会段階に点線で注記が付き、29119-15の現在地がステージ30.00（2026-01-07にCD登録）であることを示す。
+  S1["10 提案"] --> S2["20 準備"]
+  S2 --> S3["30 委員会"]
+  S3 --> S4["40 照会 (DIS)"]
+  S4 --> S5["50 承認 (FDIS)"]
+  S5 --> S6["60 発行"]
+  S6 --> S7["90 定期見直し"]
+  S3 -.- S8["現在地：30.00<br/>CD登録 (2026-01-07)"]
+  classDef now fill:#3a2f10,stroke:#ffcf6b,color:#fff,stroke-width:3px
+  classDef norm fill:#0d1b2e,stroke:#7c9eff,color:#e6eefb
+  class S3,S8 now
+  class S1,S2,S4,S5,S6,S7 norm`,
+d2: `flowchart TB
+  subgraph ST["静的解析（実行しない）"]
+    T1["ソースコード"] --> T3["解析ツール / 人のレビュー"]
+    T2["仕様書・設計書・モデル"] --> T3
+    T3 --> T4["指摘事項<br/>欠陥の疑い・規約違反"]
+  end
+  subgraph DY["動的テスト（実行する）"]
+    U1["ビルド済みソフト"] --> U2["テスト入力を与えて実行"]
+    U2 --> U3["実際の出力・挙動"]
+    U3 --> U4["期待結果と比較"]
+  end
+  T4 -.補完し合う.- U4
+  classDef c fill:#0d1b2e,stroke:#7c9eff,color:#e6eefb
+  class T1,T2,T3,T4,U1,U2,U3,U4 c`,
+d3: `flowchart TD
+  accTitle: 静的解析の一般的なプロセス（学習用モデル）
+  accDescr: 計画、準備、実施、結果の分析（トリアージ）の順に進み、指摘が本当の問題かを判断して分岐する。はい（真の指摘）なら是正として修正と再発防止を行い、いいえ（誤検知）なら抑制設定やルール調整を行って理由を記録する。どちらの経路も報告・記録に合流して結果をまとめ、続く改善でルールとプロセスを見直したあと、点線で次回の計画に戻るループになる。
+  P1["① 計画<br/>目的・対象・基準"] --> P2["② 準備<br/>ルール・ツール・役割"]
+  P2 --> P3["③ 実施<br/>ツール実行 / 個人レビュー"]
+  P3 --> P4["④ 分析<br/>指摘を分類"]
+  P4 --> P5{"本当の問題か？"}
+  P5 -- "はい" --> P6["⑤ 是正<br/>修正・再発防止"]
+  P5 -- "いいえ（誤検知）" --> P7["抑制・ルール調整<br/>理由を記録"]
+  P6 --> P8["⑥ 報告・記録"]
+  P7 --> P8
+  P8 --> P9["⑦ 改善<br/>ルール・プロセス見直し"]
+  P9 -.次回へ.-> P1
+  classDef c fill:#0d1b2e,stroke:#7c9eff,color:#e6eefb
+  classDef d fill:#3a2f10,stroke:#ffcf6b,color:#fff
+  class P1,P2,P3,P4,P6,P7,P8,P9 c
+  class P5 d`,
+d4: `flowchart TD
+  L1["Meta / Google / Coverity の教訓"] --> L2["開発者のワークフローに組み込む<br/>コードレビュー・CI"]
+  L1 --> L3["誤検知を管理し信頼を守る"]
+  L1 --> L4["データを見て継続的に改善する"]
+  classDef c fill:#0d1b2e,stroke:#7c9eff,color:#e6eefb
+  class L1,L2,L3,L4 c`,
+d5: `flowchart LR
+  accTitle: 静的解析をCI/CDに組み込むフロー
+  accDescr: 開発者がプルリクエストを作成するとCIが起動し、Lint・SAST・型チェックなどの静的解析を自動実行する。重大な指摘ありの場合はマージをブロックしてPRに指摘をコメントし、開発者が修正するとCI起動に戻って再解析するループになる。重大な指摘なしの場合は人によるコードレビューを経てマージし、その後ルールと指標を定期的に見直す。
+  C1["プルリクエスト作成"] --> C2["CI起動"]
+  C2 --> C3["静的解析を自動実行<br/>Lint / SAST / 型チェック"]
+  C3 --> C4{"重大な指摘あり？"}
+  C4 -- "あり" --> C5["マージをブロック<br/>PRに指摘をコメント"]
+  C4 -- "なし" --> C6["人によるコードレビュー"]
+  C5 --> C7["開発者が修正"]
+  C7 --> C2
+  C6 --> C8["マージ"]
+  C8 --> C9["ルール・指標を定期見直し"]
+  classDef c fill:#0d1b2e,stroke:#7c9eff,color:#e6eefb
+  classDef d fill:#3a2f10,stroke:#ffcf6b,color:#fff
+  class C1,C2,C3,C5,C6,C7,C8,C9 c
+  class C4 d`
+};
+async function renderAll(){
+  if(typeof mermaid==='undefined'){
+    // 各図の初期内容（説明文）をそのまま残す
+    console.error('mermaid の読み込みに失敗しました（CDNに接続できません）。図の代わりに説明文を表示しています。');
+    return;
+  }
+  mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'strict',
+    themeVariables:{fontSize:'16px',fontFamily:'"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif',primaryColor:'#0d1b2e',primaryTextColor:'#e6eefb',lineColor:'#7c9eff',clusterBkg:'#0a1626',clusterBorder:'#1f3350'},
+    flowchart:{useMaxWidth:false,htmlLabels:true,nodeSpacing:50,rankSpacing:50,subGraphTitleMargin:{top:12,bottom:18}}});
+  if(document.fonts&&document.fonts.ready){try{await document.fonts.ready;}catch(e){}}
+  for(const id in MERMAID_DIAGRAMS){
+    const box=document.getElementById(id);
+    try{const r=await mermaid.render('svg-'+id,MERMAID_DIAGRAMS[id]);box.innerHTML=r.svg;}
+    catch(err){console.error('図の描画に失敗（説明文を表示）: '+id,err);}
+  }
+}
+renderAll();
+</script>
+</body>
+</html>

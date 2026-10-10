@@ -82,6 +82,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-atlas-complete-guide', label: 'アジャイル(CT-ATLaS)ガイド', description: '大規模スケールドアジャイルにおけるテスト戦略と協働。', category: 'istqb-advanced' },
 
   { href: '/istqb-ct-ai-complete-guide', label: 'AIテスト(CT-AI)ガイド', description: '機械学習システムの品質特性・テストデータ・メトリクスの扱い。', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-study-guide', label: 'CT-GenAI 完全学習ガイド', description: '試験概要、全5章の学習内容、プロンプト技法・リスク管理・LLM搭載インフラと学習ロードマップ。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-complete-guide', label: '生成AIテスト(CT-GenAI)ガイド', description: 'LLM・生成AIのハルシネーションや評価手法に対するテスト。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter1-introduction', label: 'CT-GenAI 第1章 生成AIテスト入門', description: '生成AIの系譜、LLMの基礎、主要能力と対話モデルのテスト入門。', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-chapter2-prompt-engineering', label: 'CT-GenAI 第2章 プロンプトエンジニアリング', description: 'プロンプト6要素構造、コア3技法、テスト業務適用と結果評価・改善。', category: 'istqb-specialist' },
@@ -138,6 +139,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/testing-ai-confidence-engineering-guide', label: 'Testing AI 完全ガイド', description: '非決定的なAIシステムをどうやって「自信を持って」出荷できる状態にするか。Jason Arbon著に基づく初学者向け解説。', category: 'books-practices' },
   { href: '/beautiful-testing-guide', label: 'Beautiful Testing 完全ガイド', description: 'Beautiful Testingの23章を、TDD・探索的テスト・自動化・AI時代の品質と結ぶ実践ガイド。', category: 'books-practices' },
   { href: '/langgraph-qa-agent-guide', label: 'LangGraph QAエージェント構築ガイド', description: 'LangGraphとNeo4jで自然言語QAエージェントを構築する手順と安全なText-to-Cypher設計。', category: 'books-practices' },
+  { href: '/beyond-legacy-code-guide', label: 'レガシーコードからの脱却 実践ガイド', description: 'Beyond Legacy Codeの9つのプラクティス、CLEANなコード、TDD、継続的統合と4週間の実践ロードマップ。', category: 'books-practices' },
   { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
 ];
 

@@ -957,10 +957,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-10-04">2026-10-04</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-10-07">2026-10-07</time></span>
         <span><strong>Branch</strong> dev</span>
-        <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 90 pages · 3 components · 11 libs · 5 scripts</span>
+        <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
+        <span id="mc-scope"><strong>Scope</strong> 92 pages · 3 components · 11 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">0<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">116<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num" id="kpi-pages-tested">0<span class="unit">/ 0</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">92<span class="unit">/ 92</span></div>
       <div class="kpi-lbl">Pages Tested · 100%</div>
-      <p class="kpi-desc"><span id="kpi-pages-desc-count">0</span> ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
+      <p class="kpi-desc"><span id="kpi-pages-desc-count">92</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 92 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">32</span> routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">92</span> routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">90</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">92</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong id="cnt-total">90</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong id="cnt-e2e">90</strong> with E2E</span>
+      <span class="chip"><strong id="cnt-total">92</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-e2e">92</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">109 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">116 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">90 files</span>
+          <span class="inv-count" id="inv-count-pages">92 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1093,14 +1093,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">3 files</span>
+          <span class="inv-count" id="inv-count-e2e">5 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>Test Tooling &amp; Config</span>
-          <span class="inv-count" id="inv-count-tooling">2 files</span>
+          <span class="inv-count" id="inv-count-tooling">3 files</span>
         </summary>
         <ul id="inv-tooling"></ul>
       </details>
@@ -1161,7 +1161,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
             <p class="foot">
             QA_Studies Coverage Radar
             <span class="sep">·</span>
-            Generated 2026-06-10
+            Updated <time datetime="2026-10-07">2026-10-07</time>
 
     <span class="sep">·</span>
     Single-file, standalone HTML
@@ -1258,7 +1258,9 @@ const pages = [
   { path: '/software-testing-with-generative-ai-guide', topic: '名著・実践ガイド — 生成AIとソフトウェアテスト実践ガイド', tested: true },
   { path: '/ai-driven-software-testing-guide', topic: '名著・実践ガイド — AI駆動テスト入門ガイド', tested: true },
   { path: '/appium-essentials-guide', topic: 'テストツール & フレームワーク — Appium Essentials 完全ガイド', tested: true },
+  { path: '/beyond-legacy-code-guide', topic: '名著・実践ガイド — レガシーコードからの脱却 実践ガイド', tested: true },
   { path: '/automating-data-quality-monitoring-guide', topic: '名著・実践ガイド — データ品質モニタリング自動化ガイド', tested: true },
+  { path: '/istqb-ct-genai-study-guide', topic: 'ISTQB Specialist — CT-GenAI 完全学習ガイド', tested: true },
   { path: '/beautiful-testing-guide', topic: '名著・実践ガイド — Beautiful Testing 完全ガイド', tested: true },
   { path: '/langgraph-qa-agent-guide', topic: '名著・実践ガイド — LangGraph QAエージェント構築ガイド', tested: true },
   { path: '/testing-ai-confidence-engineering-guide', topic: '名著・実践ガイド — Testing AI 完全ガイド', tested: true },
@@ -1274,10 +1276,10 @@ const DATA = {
       category: 'Pages',
       hint: `${pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Render-only smoke tests on all ${pages.length} pages.` },
+        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
-        { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
+        { state: 'partial', value: '12', label: 'CSS geometry', note: 'CT-GenAI study: Chromium verifies both scroll edges and small-diagram centering across 4 viewport widths and 3 SVG widths; screenshot baselines remain absent.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: `axe-core/playwright: Automated accessibility audit on all ${pages.length} routes.` },
         { state: 'full', value: '4/4', label: '100%', note: 'Lighthouse CI: Performance budget (LCP < 2.5s, TBT < 350ms, A11y/SEO >= 0.9) asserted on 4 key routes.' }
       ]
@@ -1310,7 +1312,7 @@ const DATA = {
       category: 'Interactive Behaviors',
       hint: 'Header drawer · NavBar IntersectionObserver · Mermaid async render',
       cells: [
-        { state: 'partial', value: '2/3', label: '67%', note: 'Header drawer + Mermaid async render covered, NavBar IntersectionObserver not.' },
+        { state: 'full', value: '3/3', label: '100%', note: 'Header drawer, CT-GenAI study NavBar observer/cleanup/mobile/Escape and Mermaid async render covered.' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap', note: 'Scroll-spy behavior requires real browser.' },
         { state: 'gap', value: '0', label: 'Gap' },
@@ -1368,7 +1370,7 @@ const DATA = {
     },
     {
       category: 'Accessibility',
-      hint: 'aria-current · aria-expanded · keyboard nav · contrast',
+      hint: 'aria-current · aria-expanded · keyboard nav · contrast (CT-GenAI study: mobile toggle, Escape, scroll observer cleanup verified)',
       cells: [
         { state: 'partial', value: '1/3', label: '33%', note: 'aria-label asserted on DisclaimerBanner tests, but not on Header/Mermaid.' },
         { state: 'gap', value: '0', label: 'Gap' },
@@ -1490,8 +1492,10 @@ const DATA = {
       'tests/software-testing-with-generative-ai-guide/page.test.tsx',
       'tests/sonarqube-intermediate-guide/page.test.tsx',
       'tests/test-driven-development-by-example-guide/page.test.tsx',
+      'tests/beyond-legacy-code-guide/page.test.tsx',
       'tests/automating-data-quality-monitoring-guide/page.test.tsx',
       'tests/beautiful-testing-guide/page.test.tsx',
+      'tests/istqb-ct-genai-study-guide/page.test.tsx',
       'tests/langgraph-qa-agent-guide/page.test.tsx',
       'tests/testing-ai-confidence-engineering-guide/page.test.tsx',
       'tests/testing-web-apis-guide/page.test.tsx',
@@ -1527,10 +1531,13 @@ const DATA = {
     e2e: [
       'e2e/pages.ts',
       'e2e/smoke.e2e.ts',
-      'e2e/a11y.e2e.ts'
+      'e2e/a11y.e2e.ts',
+      'e2e/mermaid-layout.e2e.ts',
+      'e2e/ct-genai-study-mermaid-css.e2e.ts'
     ],
     tooling: [
       'playwright.config.ts',
+      'playwright.mermaid-css.config.ts',
       'lighthouserc.json'
     ]
   },

@@ -1,0 +1,595 @@
+.beyond-legacy-page {
+    --paper: #f7f3ea;
+    --paper-alt: #efe8d8;
+    --paper-card: #fffdf7;
+    --ink: #2b2620;
+    --ink-soft: #5c5548;
+    --ink-faint: #8a8271;
+    --line: #ddd3ba;
+    --indigo: #34406b;
+    --indigo-soft: #5b6b9e;
+    --gold: #a8721f;
+    --gold-soft: #e8d4a8;
+    --forest: #3f6b4f;
+    --forest-soft: #d9e8dd;
+    --plum: #6b3f5c;
+    --plum-soft: #ecdce6;
+    --sidebar-w: 280px;
+    --radius: 10px;
+    --shadow: 0 2px 10px rgba(43, 38, 32, 0.08);
+}
+.beyond-legacy-page * {
+    box-sizing: border-box;
+}
+.beyond-legacy-page {
+    scroll-behavior: smooth;
+}
+.beyond-legacy-page {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    overflow-wrap: break-word;
+}
+.beyond-legacy-page h1, .beyond-legacy-page h2, .beyond-legacy-page h3, .beyond-legacy-page h4 {
+    font-family: 'Source Serif 4', serif;
+    color: var(--indigo);
+    line-height: 1.4;
+    font-weight: 700;
+}
+.beyond-legacy-page a {
+    color: var(--indigo-soft);
+}
+.beyond-legacy-page .layout {
+    display: block;
+}
+
+/* Sidebar */
+.beyond-legacy-page .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--paper-alt);
+    border-right: 1px solid var(--line);
+    padding: 28px 18px 40px;
+    z-index: 50;
+}
+.beyond-legacy-page .sidebar-brand {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--indigo);
+    margin: 0 0 4px;
+    padding: 0 6px;
+}
+.beyond-legacy-page .sidebar-sub {
+    font-size: 1rem;
+    color: var(--ink-faint);
+    margin: 0 0 22px;
+    padding: 0 6px;
+}
+.beyond-legacy-page .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.beyond-legacy-page .nav-a {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 9px 8px;
+    border-radius: 8px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 1rem;
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+.beyond-legacy-page .nav-a:hover {
+    background: var(--paper-card);
+}
+.beyond-legacy-page .nav-a.active {
+    background: var(--paper-card);
+    color: var(--indigo);
+    font-weight: 700;
+    box-shadow: var(--shadow);
+}
+.beyond-legacy-page .n-num {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 700;
+    min-width: 20px;
+}
+.beyond-legacy-page .nav-sub {
+    list-style: none;
+    margin: 2px 0 6px 30px;
+    padding: 0;
+    border-left: 1px solid var(--line);
+}
+.beyond-legacy-page .nav-sub .nav-a {
+    font-size: 1rem;
+    padding: 6px 8px;
+}
+.beyond-legacy-page .sidebar-toggle {
+    display: none;
+}
+
+/* Main */
+.beyond-legacy-page .main {
+    margin-left: var(--sidebar-w);
+    padding: 0 0 80px;
+}
+.beyond-legacy-page .hero {
+    background: linear-gradient(135deg, var(--indigo) 0%, #232d4d 100%);
+    color: var(--paper);
+    padding: 64px 56px 48px;
+}
+.beyond-legacy-page .hero-kicker {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin: 0 0 14px;
+    font-weight: 700;
+}
+.beyond-legacy-page .hero h1 {
+    color: #fff;
+    font-size: 2.1rem;
+    margin: 0 0 18px;
+    max-width: none;
+}
+.beyond-legacy-page .hero p {
+    color: #e3e0f0;
+    max-width: none;
+    font-size: 1.02rem;
+    margin: 0 0 10px;
+}
+.beyond-legacy-page .hero-meta {
+    color: #c9c6e0;
+    font-size: 1rem;
+    margin-top: 18px;
+}
+.beyond-legacy-page .stat-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+}
+.beyond-legacy-page .stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    min-width: 140px;
+}
+.beyond-legacy-page .stat-num {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--gold-soft);
+}
+.beyond-legacy-page .stat-label {
+    font-size: 1rem;
+    color: #d8d5ea;
+    margin-top: 2px;
+}
+
+.beyond-legacy-page .content-wrap {
+    padding: 0 56px;
+    max-width: none;
+}
+.beyond-legacy-page section {
+    padding: 52px 0;
+    border-bottom: 1px solid var(--line);
+}
+.beyond-legacy-page section:last-of-type {
+    border-bottom: none;
+}
+.beyond-legacy-page .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+.beyond-legacy-page .section-eyebrow i {
+    font-size: 1.1rem;
+}
+.beyond-legacy-page h2 {
+    font-size: 1.55rem;
+    margin: 0 0 18px;
+}
+.beyond-legacy-page h3 {
+    font-size: 1.18rem;
+    margin: 34px 0 12px;
+    color: var(--plum);
+}
+.beyond-legacy-page .prose p {
+    margin: 0 0 16px;
+}
+.beyond-legacy-page .prose ul, .beyond-legacy-page .prose ol {
+    margin: 0 0 16px;
+    padding-left: 1.4em;
+}
+.beyond-legacy-page .prose li {
+    margin-bottom: 6px;
+}
+.beyond-legacy-page blockquote.lead {
+    margin: 0 0 28px;
+    padding: 18px 22px;
+    background: var(--paper-card);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 1rem;
+    color: var(--ink-soft);
+}
+.beyond-legacy-page blockquote.lead p {
+    margin: 0 0 6px;
+}
+.beyond-legacy-page blockquote.lead p:last-child {
+    margin-bottom: 0;
+}
+
+/* Tables */
+.beyond-legacy-page .table-wrap {
+    overflow-x: auto;
+    margin: 0 0 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-card);
+}
+.beyond-legacy-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 1rem;
+}
+.beyond-legacy-page thead th {
+    background: var(--indigo);
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.beyond-legacy-page tbody td {
+    padding: 10px 14px;
+    border-top: 1px solid var(--line);
+    vertical-align: top;
+}
+.beyond-legacy-page tbody tr:nth-child(even) {
+    background: rgba(168, 114, 31, 0.05);
+}
+
+/* Callouts */
+.beyond-legacy-page .callout {
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 0 0 20px;
+    border: 1px solid var(--line);
+}
+.beyond-legacy-page .callout-title {
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.beyond-legacy-page .callout p {
+    margin: 0 0 8px;
+    font-size: 1rem;
+}
+.beyond-legacy-page .callout p:last-child {
+    margin-bottom: 0;
+}
+.beyond-legacy-page .callout ul {
+    margin: 0;
+    padding-left: 1.2em;
+}
+.beyond-legacy-page .callout li {
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+.beyond-legacy-page .callout.practice {
+    background: var(--forest-soft);
+    border-color: #bcd8c5;
+}
+.beyond-legacy-page .callout.practice .callout-title {
+    color: var(--forest);
+}
+.beyond-legacy-page .callout.note {
+    background: var(--plum-soft);
+    border-color: #d9c0cf;
+}
+.beyond-legacy-page .callout.note .callout-title {
+    color: var(--plum);
+}
+.beyond-legacy-page .callout.source {
+    background: var(--gold-soft);
+    border-color: #dcbd82;
+}
+.beyond-legacy-page .callout.source .callout-title {
+    color: #7a5416;
+}
+
+/* Diagrams */
+.beyond-legacy-page .diagram-container {
+    margin: 8px 0 28px;
+    padding: 20px;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    display: flex;
+    justify-content: safe center;
+}
+.beyond-legacy-page .diagram-container svg {
+    max-width: none;
+    height: auto;
+    flex-shrink: 0;
+}
+.beyond-legacy-page .diagram-caption {
+    font-size: 1rem;
+    color: var(--ink-faint);
+    text-align: center;
+    margin: -16px 0 28px;
+}
+.beyond-legacy-page .diagram-loading {
+    color: var(--ink-faint);
+    font-size: 1rem;
+    padding: 20px;
+}
+.beyond-legacy-page .mermaidTooltip {
+    font-size: 1rem !important;
+}
+
+/* Step list */
+.beyond-legacy-page .step-list {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    counter-reset: step;
+}
+.beyond-legacy-page .step-list li {
+    counter-increment: step;
+    position: relative;
+    padding: 12px 16px 12px 52px;
+    margin-bottom: 10px;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 1rem;
+}
+.beyond-legacy-page .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--indigo);
+    color: #fff;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* References */
+.beyond-legacy-page .ref-group {
+    margin-bottom: 22px;
+}
+.beyond-legacy-page .ref-group h3 {
+    font-size: 1rem;
+    color: var(--gold);
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.beyond-legacy-page .ref-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.beyond-legacy-page .ref-list li {
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 1rem;
+}
+.beyond-legacy-page .ref-list li:first-child {
+    border-top: none;
+}
+.beyond-legacy-page .ref-list a {
+    color: var(--indigo);
+    font-weight: 700;
+    text-decoration: none;
+    word-break: break-all;
+}
+.beyond-legacy-page .ref-list a:hover {
+    text-decoration: underline;
+}
+.beyond-legacy-page .ref-list .ref-note {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-top: 3px;
+}
+
+.beyond-legacy-page footer.site-footer {
+    padding: 32px 56px 56px;
+    font-size: 1rem;
+    color: var(--ink-faint);
+    max-width: none;
+}
+
+/* Mobile */
+.beyond-legacy-page .mobile-bar {
+    display: none;
+}
+.beyond-legacy-page .mobile-bar button, .beyond-legacy-page .mobile-bar button i {
+    font-size: 1rem;
+}
+@media (max-width: 900px) {
+    .beyond-legacy-page .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0);
+    }
+    .beyond-legacy-page .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+    }
+    .beyond-legacy-page .main {
+        margin-left: 0;
+    }
+    .beyond-legacy-page .mobile-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: sticky;
+        top: 0;
+        background: var(--indigo);
+        color: #fff;
+        padding: 14px 18px;
+        z-index: 40;
+    }
+    .beyond-legacy-page .mobile-bar button {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 1rem;
+        line-height: 1;
+    }
+    .beyond-legacy-page .mobile-bar button i {
+        font-size: 1rem;
+    }
+    .beyond-legacy-page .hero {
+        padding: 36px 22px 32px;
+    }
+    .beyond-legacy-page .content-wrap {
+        padding: 0 20px;
+    }
+    .beyond-legacy-page footer.site-footer {
+        padding: 24px 20px 40px;
+    }
+    .beyond-legacy-page .hero h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Preserve the paper theme against shared app styles and Tailwind Preflight. */
+.beyond-legacy-page { min-height: 100vh; width: 100%; }
+/* 原本の --ink-faint / --gold は紙色背景で 4.5:1 に届かないため、本文サイズの文字用に暗くする */
+.beyond-legacy-page { --ink-faint: #6b6455; --gold: #8a5d14; }
+.beyond-legacy-page main.main {
+    max-width: none;
+    margin: 0 0 0 var(--sidebar-w);
+    margin-left: var(--sidebar-w);
+    padding: 0 0 80px;
+    min-width: 0;
+}
+.beyond-legacy-page .hero { min-height: 0; display: block; overflow: visible; }
+.beyond-legacy-page .hero::after { content: none; }
+.beyond-legacy-page .hero h1 { font-family: 'Source Serif 4', serif; font-weight: 700; line-height: 1.4; }
+.beyond-legacy-page section + section { border-top: none; }
+.beyond-legacy-page ul { list-style-type: disc; }
+.beyond-legacy-page ol { list-style-type: decimal; }
+.beyond-legacy-page .nav-list,
+.beyond-legacy-page .nav-sub,
+.beyond-legacy-page .step-list,
+.beyond-legacy-page .ref-list { list-style-type: none; }
+.beyond-legacy-page thead tr { background: var(--indigo); border-bottom: none; }
+.beyond-legacy-page th { font-family: inherit; font-size: 1rem; letter-spacing: normal; }
+.beyond-legacy-page thead th { color: #fff; }
+.beyond-legacy-page td { color: var(--ink); line-height: inherit; border-bottom: none; }
+.beyond-legacy-page tbody tr:hover td { background: transparent; }
+.beyond-legacy-page td strong { color: var(--ink); font-weight: 700; }
+.beyond-legacy-page .callout { font-size: 1rem; line-height: inherit; }
+.beyond-legacy-page .callout strong { color: var(--ink); }
+.beyond-legacy-page .callout p + p { margin-top: 0; }
+.beyond-legacy-page .sidebar {
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+    border-right: 2px solid #c9bfa4;
+}
+.beyond-legacy-page .mobile-bar { top: calc(60px + var(--disclaimer-height, 0px)); }
+.beyond-legacy-page [id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); }
+.beyond-legacy-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.beyond-legacy-page *::-webkit-scrollbar-track { background: transparent; }
+.beyond-legacy-page *::-webkit-scrollbar-thumb { background: #c9bfa4; border-radius: 3px; }
+.beyond-legacy-page *::-webkit-scrollbar-thumb:hover { background: var(--ink-faint); }
+
+/* A single outer scroll container keeps both edges of wide diagrams reachable. */
+.beyond-legacy-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: max-content !important;
+    max-width: none !important;
+    flex-shrink: 0;
+    display: block !important;
+    overflow: visible !important;
+}
+.beyond-legacy-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.beyond-legacy-page .mermaid-wrapper .edgeLabels rect,
+.beyond-legacy-page .mermaid-wrapper .edgeLabel rect { fill: #fffdf7 !important; stroke: none !important; }
+.beyond-legacy-page .mermaid-wrapper .edgeLabel,
+.beyond-legacy-page .mermaid-wrapper .edgeLabel span,
+.beyond-legacy-page .mermaid-wrapper .edgeLabel p,
+.beyond-legacy-page .mermaid-wrapper .edgeLabel text,
+.beyond-legacy-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #fffdf7 !important;
+    color: #2b2620 !important;
+    fill: #2b2620 !important;
+    font-weight: 700 !important;
+}
+.beyond-legacy-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.beyond-legacy-page .mermaid-wrapper foreignObject p,
+.beyond-legacy-page .mermaid-wrapper foreignObject span,
+.beyond-legacy-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+}
+.beyond-legacy-page .mermaid-wrapper .node.box .label,
+.beyond-legacy-page .mermaid-wrapper .node.box .nodeLabel { color: #2b2620 !important; }
+.beyond-legacy-page .mermaid-wrapper .node.hub .label,
+.beyond-legacy-page .mermaid-wrapper .node.hub .nodeLabel,
+.beyond-legacy-page .mermaid-wrapper .node.done .label,
+.beyond-legacy-page .mermaid-wrapper .node.done .nodeLabel { color: #f7f3ea !important; }
+
+@media (max-width: 900px) {
+    .beyond-legacy-page main.main { margin-left: 0; }
+    /* 開いた目次（z-index: 50）がモバイルバーの開閉ボタンを覆わないよう、目次をバーの直下から始める。
+       バーの z-index を上げるとグローバルドロワー（z-index: 45）より手前に出るため、重なり自体を無くす */
+    .beyond-legacy-page { --mobile-bar-h: 58px; }
+    .beyond-legacy-page .mobile-bar { height: var(--mobile-bar-h); }
+    .beyond-legacy-page .sidebar {
+        top: calc(60px + var(--disclaimer-height, 0px) + var(--mobile-bar-h));
+        height: calc(100dvh - 60px - var(--disclaimer-height, 0px) - var(--mobile-bar-h));
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .beyond-legacy-page .sidebar,
+    .beyond-legacy-page .nav-a { transition: none; }
+}

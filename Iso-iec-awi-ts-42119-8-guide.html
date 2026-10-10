@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>ISO/IEC AWI TS 42119-8 初学者向け完全ガイド</title>
+<style>
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #F00 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #04D } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #00F; font-weight: bold } /* Name.Class */
+.highlight .no { color: #800 } /* Name.Constant */
+.highlight .nd { color: #A2F } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00F } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #BBB } /* Text.Whitespace */
+.highlight .mb { color: #666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666 } /* Literal.Number.Float */
+.highlight .mh { color: #666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #00F } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666 } /* Literal.Number.Integer.Long */
+
+:root{color-scheme:light;--bg:#fff;--side:#f7f9fc;--ink:#1e293b;--sub:#475569;--line:#dbe3ee;--brand:#1d4ed8;--brand2:#e0e9ff;--warn:#fff6e0;--warnl:#e9b44c;--code:#f1f5f9;--sw:280px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.85;font-size:16px}
+/* sidebar: fixed to the left edge */
+nav.toc{position:fixed;top:0;left:0;bottom:0;width:var(--sw);overflow-y:auto;background:var(--side);border-right:1px solid var(--line);padding:18px 12px 32px;font-size:13px;z-index:30}
+nav.toc .t{font-weight:700;margin:0 0 10px 8px;color:var(--brand);font-size:14px}
+nav.toc ul{list-style:none;margin:0;padding-left:12px}
+nav.toc>div>ul,nav.toc>ul{padding-left:0}
+nav.toc a{display:block;padding:4px 8px;color:var(--sub);text-decoration:none;border-radius:6px;line-height:1.5;word-break:normal}
+nav.toc a:hover{background:var(--brand2);color:var(--brand)}
+nav.toc a.active{background:var(--brand2);color:var(--brand);font-weight:700}
+/* main fills the remaining width */
+main{margin-left:var(--sw);padding:36px clamp(20px,4vw,64px) 96px;min-width:0}
+h1{font-size:1.9rem;line-height:1.35;margin:0 0 .5em;padding-bottom:.4em;border-bottom:3px solid var(--brand)}
+h2{font-size:1.45rem;margin:2.4em 0 .8em;padding-bottom:.3em;border-bottom:2px solid var(--line)}
+h3{font-size:1.15rem;margin:1.8em 0 .6em}
+p{margin:.8em 0}
+a{color:var(--brand);word-break:break-all}
+blockquote{margin:1.1em 0;padding:.7em 1.1em;background:var(--warn);border-left:5px solid var(--warnl);border-radius:6px;color:#4a3a10}
+blockquote p{margin:.3em 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+code{background:var(--code);padding:.1em .4em;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
+pre{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto;font-size:.88rem;line-height:1.6;margin:0}
+pre code{background:none;padding:0;font-size:inherit}
+.highlight{margin:1.1em 0;border-radius:10px}
+.highlight,.highlight pre{background:#f8fafc !important}
+.tw{overflow-x:auto;margin:1.1em 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{background:#eef3fb;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:#fafcff}
+figure.diagram{margin:1.3em 0;padding:16px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow-x:auto;text-align:center}
+figure.diagram pre.mermaid{background:none;border:0;padding:0;overflow:visible}
+.badge{display:inline-block;padding:0 .35em;border-radius:6px;font-size:.9em}
+.badge.ok{background:#dcfce7}.badge.ref{background:#dbeafe}.badge.idea{background:#fef3c7}
+ul,ol{padding-left:1.4em}li{margin:.25em 0}
+/* hamburger + backdrop (hidden on desktop) */
+#menuBtn,#backdrop{display:none}
+@media(max-width:1024px){
+  main{margin-left:0;padding:24px 18px 110px}
+  h1{font-size:1.5rem}
+  nav.toc{width:min(86vw,320px);transform:translateX(-100%);transition:transform .28s ease;box-shadow:none;visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s}
+  body.nav-open nav.toc{transform:translateX(0);visibility:visible;box-shadow:6px 0 24px rgba(15,23,42,.18);transition:transform .28s ease,visibility 0s}
+  #backdrop{display:block;position:fixed;inset:0;background:rgba(15,23,42,.38);opacity:0;pointer-events:none;transition:opacity .28s ease;z-index:25}
+  body.nav-open #backdrop{opacity:1;pointer-events:auto}
+  #menuBtn{display:flex;align-items:center;justify-content:center;position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--brand);color:#fff;box-shadow:0 6px 18px rgba(29,78,216,.4);cursor:pointer;z-index:40;padding:0}
+  #menuBtn:focus-visible{outline:3px solid #93b4ff;outline-offset:3px}
+  #menuBtn .bars{position:relative;width:22px;height:16px}
+  #menuBtn .bars i{position:absolute;left:0;width:100%;height:2.5px;background:#fff;border-radius:2px;transition:transform .25s ease,opacity .2s ease,top .25s ease}
+  #menuBtn .bars i:nth-child(1){top:0}#menuBtn .bars i:nth-child(2){top:6.75px}#menuBtn .bars i:nth-child(3){top:13.5px}
+  body.nav-open #menuBtn .bars i:nth-child(1){top:6.75px;transform:rotate(45deg)}
+  body.nav-open #menuBtn .bars i:nth-child(2){opacity:0}
+  body.nav-open #menuBtn .bars i:nth-child(3){top:6.75px;transform:rotate(-45deg)}
+  body.nav-open{overflow:hidden}
+}
+@media print{nav.toc,#menuBtn,#backdrop{display:none}main{margin:0;padding:0}}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;scroll-behavior:auto !important}}
+
+</style>
+</head>
+<body>
+<nav class="toc" id="toc" aria-label="目次"><p class="t">目次</p><div class="toc">
+<ul>
+<li><a href="#0">0. はじめに: 本ガイドの「信頼性ラベル」の読み方</a></li>
+<li><a href="#1">1. 一言でいうと</a></li>
+<li><a href="#2">2. 基本情報（確認済み）</a><ul>
+<li><a href="#awits">「AWI」「TS」って何？</a></li>
+</ul>
+</li>
+<li><a href="#3">3. ライフサイクル: いま規格はどこにいる？</a><ul>
+<li><a href="#_1">初学者へのアドバイス</a></li>
+</ul>
+</li>
+<li><a href="#4-abstract">4. Abstract（要旨）をキーワード分解して理解する</a><ul>
+<li><a href="#_2">重要キーワード辞典</a></li>
+</ul>
+</li>
+<li><a href="#5">5. 規格ファミリー内での位置づけ</a><ul>
+<li><a href="#51">5.1 全体マップ</a></li>
+<li><a href="#52">5.2 各文書との関係（表）</a></li>
+<li><a href="#53">5.3 「なぜ分けて作られているのか」💡</a></li>
+</ul>
+</li>
+<li><a href="#6-text-to-text">6. 前提知識: 「プロンプトベースのtext-to-textシステム」とは</a><ul>
+<li><a href="#61">6.1 システムの全体像（一般的な構成）🔎</a></li>
+<li><a href="#62">6.2 評価対象のレベル（なぜ「システム」なのか）</a></li>
+</ul>
+</li>
+<li><a href="#7-ai">7. なぜ生成AIのテストは従来のソフトウェアテストと違うのか</a></li>
+<li><a href="#8">8. 品質評価の「ものさし」: 何を測るのか</a><ul>
+<li><a href="#81">8.1 評価の観点（一般的な整理）🔎</a></li>
+<li><a href="#82-abstract">8.2 「品質」と「安全性」の関係（Abstractの読み解き）</a></li>
+</ul>
+</li>
+<li><a href="#9">9. 評価手法の全体像</a><ul>
+<li><a href="#91-llm-as-a-judge">9.1 LLM-as-a-Judge の注意点 🔎</a></li>
+<li><a href="#92">9.2 手法の組み合わせイメージ 💡</a></li>
+</ul>
+</li>
+<li><a href="#10">10. レッドチーミングを理解する（ステップバイステップ）</a><ul>
+<li><a href="#101">10.1 レッドチーミングとは</a></li>
+<li><a href="#102">10.2 従来のテストとの違い 🔎</a></li>
+<li><a href="#103">10.3 実施ステップ（一般的な流れ）💡</a></li>
+</ul>
+</li>
+<li><a href="#11-abstract">11. 結果の分析・解釈（Abstractが明記する重要ポイント）</a><ul>
+<li><a href="#111">11.1 なぜ「解釈」が難しいのか</a></li>
+<li><a href="#112">11.2 分析で見るべき観点 💡</a></li>
+</ul>
+</li>
+<li><a href="#12-abstract">12. 文書化のベストプラクティス（Abstractが明記）</a><ul>
+<li><a href="#121">12.1 記録すべき項目の例 💡</a></li>
+<li><a href="#122-markdown">12.2 記録テンプレート例（Markdown）</a></li>
+</ul>
+</li>
+<li><a href="#13">13. 実践ステップ: 今日から始める評価の土台づくり</a><ul>
+<li><a href="#step-1">STEP 1: 評価対象を言語化する</a></li>
+<li><a href="#step-2">STEP 2: テストデータセットを作る</a></li>
+<li><a href="#step-3">STEP 3: 複数回実行して結果を集計する</a></li>
+<li><a href="#step-4">STEP 4: 自動ツールで攻撃プローブを走らせる 🔎</a></li>
+<li><a href="#step-5">STEP 5: 結果を記録し、改善して再テストする</a></li>
+</ul>
+</li>
+<li><a href="#14">14. 主要ツール・フレームワーク早見表 🔎</a></li>
+<li><a href="#15-faq">15. よくある誤解（FAQ）</a></li>
+<li><a href="#16">16. 今後ウォッチすべきポイント</a></li>
+<li><a href="#17">17. 用語集</a></li>
+<li><a href="#18-2026-10-04">18. 根拠となるソース一覧（調査基準日: 2026-10-04）</a><ul>
+<li><a href="#181-iso">18.1 一次情報（ISO／標準化機関）</a></li>
+<li><a href="#182">18.2 国際的な組織・開発者による情報</a></li>
+<li><a href="#183">18.3 解説・補足情報</a></li>
+<li><a href="#184">18.4 ソースの信頼性について</a></li>
+</ul>
+</li>
+<li><a href="#19-3">19. まとめ（3行）</a></li>
+</ul>
+</div>
+</nav>
+<div id="backdrop" aria-hidden="true"></div>
+<button id="menuBtn" type="button" aria-label="目次を開く" aria-controls="toc" aria-expanded="false"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
+<main>
+<h1 id="isoiec-awi-ts-42119-8">ISO/IEC AWI TS 42119-8 初学者向け完全ガイド</h1>
+<p><strong>Artificial intelligence — Testing of AI — Part 8: Quality assessment of prompt-based text-to-text systems that utilize generative AI</strong></p>
+<blockquote>
+<p>日本語訳（仮）: 人工知能 — AIのテスト — 第8部: 生成AIを利用したプロンプトベースのテキスト入力・テキスト出力システムの品質評価</p>
+</blockquote>
+<ul>
+<li>調査基準日: <strong>2026年10月4日</strong></li>
+<li>対象読者: 生成AI（LLM）アプリのテスト・QA・開発に携わり始めた方、ISO/IEC 42119 シリーズを初めて学ぶ方</li>
+<li>本ガイドの方針: 図解は <strong>Mermaid</strong> と <strong>Markdown表</strong> のみを使用（ASCII図解は不使用）</li>
+</ul>
+<hr />
+<h2 id="0">0. はじめに: 本ガイドの「信頼性ラベル」の読み方</h2>
+<p>この規格は <strong>まだ開発中（ドラフト作成段階）</strong> で、<strong>規格本文は公開されていません</strong>。ISO公式ページで確認できるのは「タイトル・Abstract（要旨）・ライフサイクル情報」だけです。</p>
+<p>そのため、本ガイドでは情報の確かさを3種類のラベルで区別します。ここを理解しておくと、誤った情報を信じ込むリスクを避けられます。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ラベル</th>
+<th>意味</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="badge ok">✅</span> <strong>確認済み事実</strong></td>
+<td>ISO公式ページ等の一次情報で確認できる内容</td>
+<td>規格番号、Abstract、現在のステージ</td>
+</tr>
+<tr>
+<td><span class="badge ref">🔎</span> <strong>関連情報</strong></td>
+<td>本規格が参照・関連する他規格や、業界で広く使われる手法・ツールの確認済み情報</td>
+<td>OWASPガイド、PyRIT、garak、HELM</td>
+</tr>
+<tr>
+<td><span class="badge idea">💡</span> <strong>解説者の解釈</strong></td>
+<td>Abstractと関連情報から推測した「こうなる可能性が高い」という整理。<strong>正式な規格内容ではありません</strong></td>
+<td>想定される評価プロセスの流れ</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ <strong>重要</strong>: <span class="badge idea">💡</span>のラベルがついた内容は、規格が正式発行された際に変わる可能性があります。業務や監査で根拠として使う場合は、必ず正式発行版を確認してください。</p>
+</blockquote>
+<p>また、ISOの規格本文は著作権で保護されています。本ガイドは規格本文の転載ではなく、公開されているAbstractの解説と、公開情報にもとづく学習用の整理です。</p>
+<hr />
+<h2 id="1">1. 一言でいうと</h2>
+<p><span class="badge ok">✅</span> この規格は、<strong>「プロンプトを入れるとテキストが返ってくる生成AIシステム（例: チャットボット、要約ツール、社内QAボット）」の品質を、どう評価すればよいかを定める技術仕様書（TS）</strong> です。</p>
+<p>特徴は次の3点です。</p>
+<ol>
+<li><strong>品質評価に「安全性」も含む</strong>（Abstractに明記）</li>
+<li>評価手法として <strong>レッドチーミング</strong> を含む</li>
+<li>評価の「やり方」だけでなく、<strong>結果の分析・解釈の方法</strong> と <strong>文書化のベストプラクティス</strong> まで扱う</li>
+</ol>
+<hr />
+<h2 id="2">2. 基本情報（確認済み）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+<th>ラベル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>規格番号</td>
+<td>ISO/IEC AWI TS 42119-8</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>英語タイトル</td>
+<td>Artificial intelligence — Testing of AI — Part 8: Quality assessment of prompt-based text-to-text systems that utilize generative AI</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>文書の種類</td>
+<td>TS（Technical Specification: 技術仕様書）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>版</td>
+<td>Edition 1（第1版）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>担当委員会</td>
+<td>ISO/IEC JTC 1/SC 42（Artificial intelligence）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>現在のステータス</td>
+<td>Under development（開発中）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>現在のステージ</td>
+<td><strong>20.00</strong>（New project registered in TC/SC work programme）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>新規プロジェクト承認日</td>
+<td>2025-09-12（ステージ10.99）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>作業計画への登録日</td>
+<td>2025-09-13（ステージ20.00）</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>公式ページ</td>
+<td><a href="https://www.iso.org/standard/91609.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/91609.html</a></td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="awits">「AWI」「TS」って何？</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>略語</th>
+<th>正式名称</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AWI</strong></td>
+<td>Approved Work Item</td>
+<td>「作業項目として承認された」段階。まだ本格的な草案（CDなど）の前</td>
+</tr>
+<tr>
+<td><strong>TS</strong></td>
+<td>Technical Specification</td>
+<td>技術仕様書。国際規格（IS）になる前の位置づけや、技術が発展途上の分野で使われることが多い文書種別</td>
+</tr>
+</tbody>
+</table></div>
+<p>AWIは規格が成熟するにつれて、WD（作業原案）→ CD（委員会原案）→ … と名称が変わっていきます。</p>
+<hr />
+<h2 id="3">3. ライフサイクル: いま規格はどこにいる？</h2>
+<p><span class="badge ok">✅</span> ISOページに掲載されているステージ一覧をもとにした図です。<strong>赤色相当の「現在地」は 20.00</strong> です。</p>
+<figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: ISO/IEC AWI TS 42119-8 の策定ステージと現在地
+    accDescr: 10.99 新規プロジェクト承認から 20.00 作業計画への登録、WD検討開始、コメント期間終了、WDのCD登録承認、CD登録、CDのDIS登録承認、最終テキスト受領を経て 60.60 発行へ進む流れを示し、現在地が 20.00 作業計画に登録の段階であることを強調している
+    A[&quot;10.99&lt;br/&gt;新規プロジェクト承認&lt;br/&gt;2025-09-12&quot;] --&gt; B[&quot;20.00&lt;br/&gt;作業計画に登録&lt;br/&gt;2025-09-13&lt;br/&gt;★現在地★&quot;]
+    B --&gt; C[&quot;20.20&lt;br/&gt;WD検討開始&quot;]
+    C --&gt; D[&quot;20.60&lt;br/&gt;コメント期間終了&quot;]
+    D --&gt; E[&quot;20.99&lt;br/&gt;WDをCDとして登録承認&quot;]
+    E --&gt; F[&quot;30.00&lt;br/&gt;CD登録&quot;]
+    F --&gt; G[&quot;30.99&lt;br/&gt;CDをDISとして登録承認&quot;]
+    G --&gt; H[&quot;50.00&lt;br/&gt;最終テキスト受領&quot;]
+    H --&gt; I[&quot;60.60&lt;br/&gt;発行&quot;]
+
+    style B fill:#ffd6d6,stroke:#d33,stroke-width:3px
+</pre></figure>
+<p><span class="badge idea">💡</span> <strong>補足</strong>: 上図はISOページが一覧表示しているステージ名を並べたものです。TS（技術仕様書）は、国際規格（IS）と審議の経路が一部異なる場合があるため、実際に通過するステージは変わる可能性があります。</p>
+<h3 id="_1">初学者へのアドバイス</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>状況</th>
+<th>取るべき行動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>今すぐ規格に準拠したい</td>
+<td><strong>できません</strong>（未発行）。関連する発行済み文書（例: 42119-2）や、後述の実践ガイドを参照</td>
+</tr>
+<tr>
+<td>将来の準拠に備えたい</td>
+<td>本ガイドの「実践ステップ」で、評価の土台（テスト資産・記録）を整えておく</td>
+</tr>
+<tr>
+<td>最新状況を知りたい</td>
+<td>ISOページの「RSS updates」を購読する</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="4-abstract">4. Abstract（要旨）をキーワード分解して理解する</h2>
+<p><span class="badge ok">✅</span> ISOのAbstractは、大きく次の4つの内容を述べています（本ガイドによる日本語での言い換え）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Abstractの内容</th>
+<th>初学者向けの言い換え</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>定義・概念・要求事項・ガイダンスを提供</td>
+<td>「用語の意味をそろえ、何をすべきか（要求）とどうすればよいか（ガイダンス）を示す」</td>
+</tr>
+<tr>
+<td>2</td>
+<td>品質評価（安全性を含む）を、レッドチーミング等の方法論で扱う</td>
+<td>「普通の動作確認だけでなく、わざと攻撃的な入力を与えて弱点を探す」</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ISO/IEC 23282 と ISO/IEC 42119-7 を土台にする</td>
+<td>「自然言語処理の評価法（23282）とレッドチーミング（42119-7）の上に積み上げる」</td>
+</tr>
+<tr>
+<td>4</td>
+<td>結果の分析・解釈の方法と、文書化のベストプラクティス</td>
+<td>「テストして終わりではなく、結果をどう読み解き、どう記録するかまで」</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_2">重要キーワード辞典</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>キーワード</th>
+<th>意味</th>
+<th>具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>prompt-based</strong></td>
+<td>プロンプト（指示文）で動作を制御する</td>
+<td>システムプロンプト、ユーザー入力、RAGで付加した文脈</td>
+</tr>
+<tr>
+<td><strong>text-to-text</strong></td>
+<td>入力も出力もテキスト</td>
+<td>質問→回答、長文→要約、日本語→英語</td>
+</tr>
+<tr>
+<td><strong>generative AI</strong></td>
+<td>新しい内容を生成するAI</td>
+<td>LLM（大規模言語モデル）を使ったアプリ</td>
+</tr>
+<tr>
+<td><strong>quality assessment</strong></td>
+<td>品質の評価</td>
+<td>正確さ、有用性、安全性などを総合的に確かめる</td>
+</tr>
+<tr>
+<td><strong>red teaming</strong></td>
+<td>攻撃者の視点で弱点を探す手法</td>
+<td>有害な回答を引き出そうとする入力を試す</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5">5. 規格ファミリー内での位置づけ</h2>
+<h3 id="51">5.1 全体マップ</h3>
+<figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 42119-8 と関連規格の関係
+    accDescr: マネジメント層の ISO/IEC 42001 が 42119 シリーズの技術的基盤を補完し、ISO/IEC/IEEE 29119 がシリーズの基盤となる。シリーズには 42119-2、42119-3、42119-7、42119-8 が含まれ、42119-7 レッドチーミングと ISO/IEC 23282 NLPシステムの評価方法が、本ガイドの対象である 42119-8 に入力される
+    subgraph MGMT[&quot;マネジメント層&quot;]
+        M1[&quot;ISO/IEC 42001&lt;br/&gt;AIマネジメントシステム&quot;]
+    end
+
+    subgraph BASE[&quot;テストの基盤&quot;]
+        B1[&quot;ISO/IEC/IEEE 29119&lt;br/&gt;ソフトウェアテスト規格群&quot;]
+    end
+
+    subgraph T42119[&quot;ISO/IEC 42119 AIのテスト シリーズ&quot;]
+        P2[&quot;42119-2:2025&lt;br/&gt;AIシステムのテスト概要&lt;br/&gt;発行済み&quot;]
+        P3[&quot;42119-3&lt;br/&gt;検証・妥当性確認の分析&lt;br/&gt;発行手続き中（60.00）&quot;]
+        P7[&quot;42119-7&lt;br/&gt;レッドチーミング&lt;br/&gt;開発中&quot;]
+        P8[&quot;42119-8&lt;br/&gt;★本ガイドの対象★&lt;br/&gt;プロンプトベースtext-to-text&lt;br/&gt;品質評価&lt;br/&gt;開発中&quot;]
+    end
+
+    subgraph NLP[&quot;自然言語処理の評価&quot;]
+        N1[&quot;ISO/IEC 23282&lt;br/&gt;NLPシステムの評価方法&quot;]
+    end
+
+    M1 -. &quot;技術的基盤を補完&quot; .-&gt; T42119
+    B1 --&gt; T42119
+    P7 --&gt; P8
+    N1 --&gt; P8
+
+    style P8 fill:#ffe9b3,stroke:#c80,stroke-width:3px
+</pre></figure>
+<h3 id="52">5.2 各文書との関係（表）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>文書</th>
+<th>本規格との関係</th>
+<th>ラベル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ISO/IEC 23282</td>
+<td>Abstractで「土台とする規格」として明記。NLPシステムの出力品質を測り、機能適合性を評価する方法を扱う。定量指標とその他の評価方法を含む</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>ISO/IEC AWI TS 42119-7</td>
+<td>Abstractで土台として明記。AIシステム全般のレッドチーミングについて、技術に依存しないガイダンスを提供する予定。ISO/IEC 29119のプロセスとの整合も範囲に含む</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>ISO/IEC/IEEE 29119</td>
+<td>42119-7のスコープで「整合」が言及されている、ソフトウェアテストの国際規格群</td>
+<td><span class="badge ok">✅</span></td>
+</tr>
+<tr>
+<td>ISO/IEC 42001</td>
+<td>AIマネジメントシステム規格。42119シリーズは42001と組み合わせて使う位置づけだと、認証機関（SGS）が解説している</td>
+<td><span class="badge ref">🔎</span></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="53">5.3 「なぜ分けて作られているのか」<span class="badge idea">💡</span></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>規格</th>
+<th>守備範囲の広さ</th>
+<th>例えるなら</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>42119-7（レッドチーミング）</td>
+<td><strong>広い</strong>（あらゆるAIシステム対象）</td>
+<td>「防犯診断の一般ルール」</td>
+</tr>
+<tr>
+<td>23282（NLP評価）</td>
+<td>自然言語処理に特化</td>
+<td>「文章の採点基準」</td>
+</tr>
+<tr>
+<td><strong>42119-8（本規格）</strong></td>
+<td><strong>狭くて深い</strong>（プロンプトベースのtext-to-text生成AI）</td>
+<td>「チャットボットの総合健康診断マニュアル」</td>
+</tr>
+</tbody>
+</table></div>
+<p>汎用ルール（42119-7）と専門ルール（23282）を組み合わせ、特定の用途（本規格）に落とし込む構造と読めます。</p>
+<hr />
+<h2 id="6-text-to-text">6. 前提知識: 「プロンプトベースのtext-to-textシステム」とは</h2>
+<h3 id="61">6.1 システムの全体像（一般的な構成）<span class="badge ref">🔎</span></h3>
+<p>多くの生成AIアプリは、LLM単体ではなく、周辺の仕組みが組み合わさっています。品質評価では、<strong>LLMだけでなく「システム全体」</strong> が対象になります。</p>
+<figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: プロンプトベース text-to-text 生成AIシステムの構成
+    accDescr: ユーザー入力が入力ガードレールを通ってプロンプト組み立てに渡され、RAG の社内文書DB の情報も加えられる。組み立てたプロンプトから LLM が生成した結果は、出力ガードレールを経て出力テキストになる
+    U[&quot;ユーザー入力&lt;br/&gt;テキスト&quot;] --&gt; G1[&quot;入力ガードレール&lt;br/&gt;フィルタ&quot;]
+    G1 --&gt; P[&quot;プロンプト組み立て&lt;br/&gt;システムプロンプト + 履歴&quot;]
+    R[(&quot;RAG&lt;br/&gt;社内文書DB&quot;)] --&gt; P
+    P --&gt; L[&quot;LLM&lt;br/&gt;生成AIモデル&quot;]
+    L --&gt; G2[&quot;出力ガードレール&lt;br/&gt;フィルタ&quot;]
+    G2 --&gt; O[&quot;出力&lt;br/&gt;テキスト&quot;]
+
+    style L fill:#dbeafe,stroke:#2563eb
+</pre></figure>
+<h3 id="62">6.2 評価対象のレベル（なぜ「システム」なのか）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>評価対象のレベル</th>
+<th>何を見るか</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>モデル単体</td>
+<td>LLMそのものの能力・傾向</td>
+<td>HELMなどのベンチマークはこちらが中心 <span class="badge ref">🔎</span></td>
+</tr>
+<tr>
+<td>プロンプト</td>
+<td>指示文の書き方による出力の変化</td>
+<td>少しの文言変更で結果が変わりやすい</td>
+</tr>
+<tr>
+<td><strong>システム全体</strong>（本規格の対象）</td>
+<td>実際の利用形態での品質・安全性</td>
+<td>本規格のタイトルは「systems」と表記 <span class="badge ok">✅</span></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><span class="badge idea">💡</span> HELMの論文は「評価対象は言語モデルであり、特定シナリオのシステムではない」と明記しています。本規格は逆に、<strong>プロンプトを含むシステムの品質評価</strong> にフォーカスしていると読み取れます。両者は補完関係です。</p>
+</blockquote>
+<hr />
+<h2 id="7-ai">7. なぜ生成AIのテストは従来のソフトウェアテストと違うのか</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>従来のソフトウェア</th>
+<th>生成AI（text-to-text）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>出力の決定性</td>
+<td>同じ入力→同じ出力</td>
+<td>同じ入力でも<strong>毎回変わりうる</strong>（確率的）</td>
+</tr>
+<tr>
+<td>期待結果</td>
+<td>1つに決まることが多い</td>
+<td><strong>正解が複数</strong>ありうる（言い回しの違いなど）</td>
+</tr>
+<tr>
+<td>合否判定</td>
+<td>完全一致で比較できる</td>
+<td>意味の正しさ・適切さの<strong>判定基準が必要</strong></td>
+</tr>
+<tr>
+<td>不具合の種類</td>
+<td>計算ミス、例外など</td>
+<td>もっともらしい誤情報、有害出力、情報漏えい、バイアスなど</td>
+</tr>
+<tr>
+<td>入力空間</td>
+<td>仕様で限定しやすい</td>
+<td>自然言語は<strong>実質無限</strong></td>
+</tr>
+<tr>
+<td>攻撃のされ方</td>
+<td>脆弱性の悪用</td>
+<td><strong>言葉巧みな誘導</strong>（プロンプトインジェクション、脱獄など）</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge ref">🔎</span> Microsoft AI Red Team のRam Shankar Siva Kumar氏は、生成AIのレッドチーミングではセキュリティリスクと責任あるAIのリスクを同時に探る必要があり、その実施は確率的になると述べています（The Hacker News報道）。</p>
+<hr />
+<h2 id="8">8. 品質評価の「ものさし」: 何を測るのか</h2>
+<h3 id="81">8.1 評価の観点（一般的な整理）<span class="badge ref">🔎</span></h3>
+<p>本規格が具体的にどの品質特性を定義するかは、本文が未公開のため不明です。ここでは、関連する公開情報から<strong>一般的に使われる観点</strong>を整理します。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>説明</th>
+<th>出典となる関連情報</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正確性（accuracy）</td>
+<td>出力が正しいか</td>
+<td>HELMの7指標の1つ、23282の「機能適合性」</td>
+</tr>
+<tr>
+<td>校正（calibration）</td>
+<td>自信の度合いと正しさが合っているか</td>
+<td>HELM</td>
+</tr>
+<tr>
+<td>頑健性（robustness）</td>
+<td>入力の言い回しを変えても安定するか</td>
+<td>HELM</td>
+</tr>
+<tr>
+<td>公平性（fairness）</td>
+<td>属性によって不当な差が出ないか</td>
+<td>HELM</td>
+</tr>
+<tr>
+<td>バイアス（bias）</td>
+<td>偏見・ステレオタイプを含まないか</td>
+<td>HELM</td>
+</tr>
+<tr>
+<td>有害性（toxicity）</td>
+<td>攻撃的・有害な出力をしないか</td>
+<td>HELM</td>
+</tr>
+<tr>
+<td>効率性（efficiency）</td>
+<td>応答速度やコストが妥当か</td>
+<td>HELM</td>
+</tr>
+<tr>
+<td>虚偽生成（confabulation）</td>
+<td>もっともらしい誤情報を作らないか</td>
+<td>NIST AI 600-1</td>
+</tr>
+<tr>
+<td>データプライバシー</td>
+<td>個人情報や機密を漏らさないか</td>
+<td>NIST AI 600-1</td>
+</tr>
+<tr>
+<td>情報完全性</td>
+<td>誤情報・偽情報の拡散につながらないか</td>
+<td>NIST AI 600-1</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge ref">🔎</span> <strong>HELM</strong>（スタンフォード大学のPercy Liang氏らによる評価フレームワーク）は、30の主要言語モデルを42のシナリオで評価し、精度以外の指標も見落とさず、トレードオフを明示する「マルチメトリック」の考え方を示しました。</p>
+<p><span class="badge ref">🔎</span> <strong>NIST AI 600-1</strong>（2024年7月発行）は、生成AIに固有、または生成AIによって増幅される12のリスクカテゴリを整理したガイダンスです。</p>
+<h3 id="82-abstract">8.2 「品質」と「安全性」の関係（Abstractの読み解き）</h3>
+<p><span class="badge ok">✅</span> Abstractには「quality assessment (which encompasses safety)」とあります。つまり、<strong>安全性は品質の一部として扱う</strong> 立場です。</p>
+<figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 品質評価の2つの側面
+    accDescr: 品質評価は機能面と安全性に分かれ、正確さや有用性などの機能面は主に通常テストや自動指標で、有害出力や情報漏えいなどの安全性は主にレッドチーミングで評価する
+    Q[&quot;品質評価&lt;br/&gt;Quality assessment&quot;]
+    Q --&gt; F[&quot;機能面&lt;br/&gt;正確さ・有用性・一貫性など&quot;]
+    Q --&gt; S[&quot;安全性&lt;br/&gt;有害出力・情報漏えい・悪用耐性など&quot;]
+
+    F -.-&gt; M1[&quot;主に通常テストや&lt;br/&gt;自動指標で評価&quot;]
+    S -.-&gt; M2[&quot;主にレッドチーミング&lt;br/&gt;で評価&quot;]
+
+    style S fill:#fee2e2,stroke:#dc2626
+</pre></figure>
+<p><span class="badge idea">💡</span> 「機能面は普通のテスト、安全性はレッドチーミング」という単純な二分ではなく、<strong>両方を組み合わせて総合判断する</strong> のが本規格の趣旨と読めます。</p>
+<hr />
+<h2 id="9">9. 評価手法の全体像</h2>
+<p>Abstractは「レッドチーミングを含む方法論」と述べています。ここでは、業界で使われる主な手法を比較します。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>手法</th>
+<th>概要</th>
+<th>長所</th>
+<th>短所</th>
+<th>ラベル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>自動指標</strong>（正解データとの比較）</td>
+<td>参照回答との一致度などを数値化</td>
+<td>速い・再現しやすい</td>
+<td>言い換えに弱い、意味の正しさを測りにくい</td>
+<td><span class="badge ref">🔎</span>（23282が定量指標を扱う）</td>
+</tr>
+<tr>
+<td><strong>ベンチマーク評価</strong></td>
+<td>共通のシナリオ集で複数モデルを比較</td>
+<td>他と比較できる</td>
+<td>自社の用途に合うとは限らない</td>
+<td><span class="badge ref">🔎</span>（HELM等）</td>
+</tr>
+<tr>
+<td><strong>LLM-as-a-Judge</strong></td>
+<td>別のLLMに採点させる</td>
+<td>大量評価をスケールできる</td>
+<td>偏り（バイアス）がある</td>
+<td><span class="badge ref">🔎</span>（Zheng et al.）</td>
+</tr>
+<tr>
+<td><strong>人手評価</strong></td>
+<td>専門家やユーザーが採点</td>
+<td>文脈・ニュアンスを判断できる</td>
+<td>コストが高い、評価者間でばらつく</td>
+<td><span class="badge idea">💡</span></td>
+</tr>
+<tr>
+<td><strong>レッドチーミング</strong></td>
+<td>攻撃者視点で弱点を探索</td>
+<td>未知の弱点を発見できる</td>
+<td>網羅は不可能、手間がかかる</td>
+<td><span class="badge ok">✅</span>（Abstractに明記）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="91-llm-as-a-judge">9.1 LLM-as-a-Judge の注意点 <span class="badge ref">🔎</span></h3>
+<p>LMSYSグループ（UC Berkeley）のLianmin Zhengらの論文は、強力なLLM（GPT-4）が人間の好みと80%超一致し、これは人間同士の一致度と同程度であると報告しました。一方で、次のバイアスを指摘しています。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>バイアス</th>
+<th>内容</th>
+<th>対策の方向性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>位置バイアス</td>
+<td>先に提示された回答を好みやすい</td>
+<td>提示順を入れ替えて複数回判定</td>
+</tr>
+<tr>
+<td>冗長性バイアス</td>
+<td>長い回答を好みやすい</td>
+<td>長さを統制した比較</td>
+</tr>
+<tr>
+<td>自己強化バイアス</td>
+<td>自分と似た出力を好みやすい</td>
+<td>異なるモデルを判定者に使う</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="92">9.2 手法の組み合わせイメージ <span class="badge idea">💡</span></h3>
+<figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: 評価手法の組み合わせ
+    accDescr: 自動指標、LLM-as-a-Judge、人手評価、レッドチーミングの4つの評価結果を総合判断に集約し、そこからリリース可否と改善点を決定する
+    A[&quot;自動指標&lt;br/&gt;広く浅く&quot;] --&gt; D[&quot;総合判断&quot;]
+    B[&quot;LLM-as-a-Judge&lt;br/&gt;大量・中程度の深さ&quot;] --&gt; D
+    C[&quot;人手評価&lt;br/&gt;少量・深く&quot;] --&gt; D
+    E[&quot;レッドチーミング&lt;br/&gt;弱点の探索&quot;] --&gt; D
+    D --&gt; F[&quot;リリース可否・&lt;br/&gt;改善点の決定&quot;]
+</pre></figure>
+<hr />
+<h2 id="10">10. レッドチーミングを理解する（ステップバイステップ）</h2>
+<h3 id="101">10.1 レッドチーミングとは</h3>
+<p>「攻撃者の立場でシステムに挑み、弱点を事前に見つける」手法です。生成AIでは、<strong>わざと有害・不適切な出力を引き出そうとする入力</strong> を試します。</p>
+<h3 id="102">10.2 従来のテストとの違い <span class="badge ref">🔎</span></h3>
+<p>OWASPの「GenAI Red Teaming Guide」（2025年1月22日公開）は、従来のサイバーセキュリティが技術的な侵入を主眼に置くのに対し、生成AIのレッドチーミングはモデルの振る舞い、コンテンツ生成、プロンプト操作、社会技術的リスクに焦点を移すと整理しています。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>従来のセキュリティ・レッドチーム</th>
+<th>生成AIのレッドチーム</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主な標的</td>
+<td>サーバー、ネットワーク、アプリの脆弱性</td>
+<td>モデルの振る舞い、プロンプト、出力内容</td>
+</tr>
+<tr>
+<td>典型的な攻撃</td>
+<td>不正侵入、権限昇格</td>
+<td>プロンプトインジェクション、脱獄、情報の引き出し</td>
+</tr>
+<tr>
+<td>成功の判定</td>
+<td>侵入できたか</td>
+<td><strong>不適切な出力が得られたか</strong></td>
+</tr>
+<tr>
+<td>再現性</td>
+<td>高い</td>
+<td>確率的なので<strong>複数回試行が必要</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge ref">🔎</span> OWASPガイドは、モデル評価、実装テスト、インフラ評価、実行時の振る舞い分析の4領域にわたる包括的な取り組みを提唱し、「どのAIモデルも『完成』や『安全』にはならない」ため、継続的な監視が必要だと強調しています。</p>
+<h3 id="103">10.3 実施ステップ（一般的な流れ）<span class="badge idea">💡</span></h3>
+<p>以下は、OWASPガイドやPyRITなどの公開情報、およびAbstractの記述を踏まえた<strong>一般的な進め方</strong>です。本規格の正式な手順ではありません。</p>
+<figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 評価の9ステップ
+    accDescr: 目的とスコープの定義、リスクの洗い出し、テストシナリオ設計、実行、結果の採点と分類、分析と解釈、文書化と報告、改善、再テストの順に進み、再テストから実行へ戻って繰り返す。分析と解釈、文書化と報告の2ステップが強調されている
+    S1[&quot;STEP1&lt;br/&gt;目的とスコープの定義&lt;br/&gt;何を守りたいか&quot;] --&gt; S2[&quot;STEP2&lt;br/&gt;リスクの洗い出し&lt;br/&gt;脅威モデリング&quot;]
+    S2 --&gt; S3[&quot;STEP3&lt;br/&gt;テストシナリオ設計&lt;br/&gt;攻撃ベクトルの選定&quot;]
+    S3 --&gt; S4[&quot;STEP4&lt;br/&gt;実行&lt;br/&gt;手動 + 自動ツール&quot;]
+    S4 --&gt; S5[&quot;STEP5&lt;br/&gt;結果の採点・分類&quot;]
+    S5 --&gt; S6[&quot;STEP6&lt;br/&gt;分析・解釈&lt;br/&gt;重大度と再現率の判断&quot;]
+    S6 --&gt; S7[&quot;STEP7&lt;br/&gt;文書化・報告&quot;]
+    S7 --&gt; S8[&quot;STEP8&lt;br/&gt;改善（対策）&quot;]
+    S8 --&gt; S9[&quot;STEP9&lt;br/&gt;再テスト&quot;]
+    S9 --&gt; S4
+
+    style S6 fill:#ffe9b3,stroke:#c80
+    style S7 fill:#ffe9b3,stroke:#c80
+</pre></figure>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ステップ</th>
+<th>やること</th>
+<th>具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 目的とスコープ</td>
+<td>評価対象と範囲を決める</td>
+<td>「社内ヘルプデスクBotが機密情報を漏らさないか」</td>
+</tr>
+<tr>
+<td>2. リスク洗い出し</td>
+<td>起こりうる被害を列挙</td>
+<td>個人情報漏えい、不適切助言、有害表現</td>
+</tr>
+<tr>
+<td>3. シナリオ設計</td>
+<td>攻撃パターンを作る</td>
+<td>ロールプレイ誘導、言い換え、多段会話</td>
+</tr>
+<tr>
+<td>4. 実行</td>
+<td>手動と自動ツールで試す</td>
+<td>PyRIT、garak など</td>
+</tr>
+<tr>
+<td>5. 採点・分類</td>
+<td>出力を判定し分類</td>
+<td>合格／不合格、害の種類のラベル付け</td>
+</tr>
+<tr>
+<td>6. 分析・解釈</td>
+<td>結果の意味を読み解く</td>
+<td>成功率、再現性、重大度</td>
+</tr>
+<tr>
+<td>7. 文書化</td>
+<td>再現できる形で記録</td>
+<td>入力、出力、設定、バージョン</td>
+</tr>
+<tr>
+<td>8. 改善</td>
+<td>プロンプトやガードレールを修正</td>
+<td>システムプロンプトの強化</td>
+</tr>
+<tr>
+<td>9. 再テスト</td>
+<td>修正の効果を確認</td>
+<td>回帰テストとして自動化</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge ref">🔎</span> OWASPガイドは「継続的テスト」を重視し、修正後の再テストと、脅威の進化に合わせた手法の更新を推奨しています。</p>
+<hr />
+<h2 id="11-abstract">11. 結果の分析・解釈（Abstractが明記する重要ポイント）</h2>
+<p><span class="badge ok">✅</span> Abstractは「結果の分析と解釈の方法」を扱うと述べています。生成AIは出力が揺らぐため、<strong>1回の結果で判断しない</strong> のが基本姿勢です。</p>
+<h3 id="111">11.1 なぜ「解釈」が難しいのか</h3>
+<figure class="diagram"><pre class="mermaid">flowchart TB
+    accTitle: 確率的な出力の合否判断
+    accDescr: 同じ攻撃プロンプトを10回実行して3回だけ不適切な出力が出た場合、成功率30パーセントと見るか、1回でも出たら重大と見るかで解釈が分かれ、どちらの見方でもリスクの種類と重大度によって判断が変わることを示す
+    T[&quot;同じ攻撃プロンプトを&lt;br/&gt;10回実行&quot;] --&gt; R[&quot;結果: 3回だけ&lt;br/&gt;不適切な出力&quot;]
+    R --&gt; Q1{&quot;これは合格？&lt;br/&gt;不合格？&quot;}
+    Q1 --&gt; A1[&quot;成功率30%&lt;br/&gt;と見るか&quot;]
+    Q1 --&gt; A2[&quot;1回でも出たら&lt;br/&gt;重大と見るか&quot;]
+    A1 --&gt; D[&quot;リスクの種類と&lt;br/&gt;重大度で判断が変わる&quot;]
+    A2 --&gt; D
+</pre></figure>
+<p><span class="badge ref">🔎</span> DatabricksのGarak活用事例では、非決定性を考慮して同じプローブを複数回LLMに送る手法が紹介されています。</p>
+<h3 id="112">11.2 分析で見るべき観点 <span class="badge idea">💡</span></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>問い</th>
+<th>判断の例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成功率</td>
+<td>攻撃は何%で成功したか</td>
+<td>回数を増やして割合で把握</td>
+</tr>
+<tr>
+<td>重大度</td>
+<td>起きた場合の被害は大きいか</td>
+<td>個人情報漏えいは高、軽い表現ミスは低</td>
+</tr>
+<tr>
+<td>再現性</td>
+<td>条件を変えても起きるか</td>
+<td>設定やバージョンを固定して再実行</td>
+</tr>
+<tr>
+<td>一般化</td>
+<td>類似の入力でも起きるか</td>
+<td>言い換えパターンで確認</td>
+</tr>
+<tr>
+<td>判定の信頼性</td>
+<td>採点者（人・LLM）の判断は妥当か</td>
+<td>判定者間の一致度を確認</td>
+</tr>
+<tr>
+<td>限界の明示</td>
+<td>何を評価できていないか</td>
+<td>未評価範囲を明記</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge ref">🔎</span> HELMは「網羅は不可能なので、欠けているシナリオや指標を明示すべき」という考え方を提示しています。評価結果の解釈では、<strong>「見ていない範囲」を明示する姿勢</strong> が大切です。</p>
+<hr />
+<h2 id="12-abstract">12. 文書化のベストプラクティス（Abstractが明記）</h2>
+<p><span class="badge ok">✅</span> Abstractは「文書化のベストプラクティス」を扱うと述べています。ISO/IEC 42119-7のスコープにも、レッドチーミングの発見事項の文書化・報告手順が含まれます。</p>
+<h3 id="121">12.1 記録すべき項目の例 <span class="badge idea">💡</span></h3>
+<p>本規格の正式な文書様式は未公開です。以下は、再現性と説明責任のために一般に推奨される項目の例です。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>カテゴリ</th>
+<th>記録する項目</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>対象システム</td>
+<td>モデル名・バージョン、システムプロンプト、RAG構成、ガードレール設定</td>
+<td>結果の再現に必須</td>
+</tr>
+<tr>
+<td>実行環境</td>
+<td>日時、温度などの生成パラメータ、乱数シード（可能なら）</td>
+<td>出力の揺らぎを説明するため</td>
+</tr>
+<tr>
+<td>テスト設計</td>
+<td>目的、リスク、シナリオ、入力プロンプト</td>
+<td>何をなぜ試したかを示す</td>
+</tr>
+<tr>
+<td>実行結果</td>
+<td>出力の要約・抜粋（個人情報・秘密情報は伏せ字化）、実行回数、成功・失敗の件数。漏えいテストの出力全文は通常の記録に残さない。伏せ字化していない原文は再現に必要な場合に限り、アクセス制限付きの別保管とする</td>
+<td>根拠データ（記録自体からの二次漏えいを防ぐ）</td>
+</tr>
+<tr>
+<td>判定方法</td>
+<td>採点基準、判定者（人／LLM）、判定プロンプト</td>
+<td>判定の妥当性を検証するため</td>
+</tr>
+<tr>
+<td>分析結果</td>
+<td>成功率、重大度、再現性、未評価範囲</td>
+<td>意思決定の材料</td>
+</tr>
+<tr>
+<td>対応状況</td>
+<td>検出された問題、対策、再テスト結果</td>
+<td>トレーサビリティ</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="122-markdown">12.2 記録テンプレート例（Markdown）</h3>
+<div class="highlight"><pre><span></span><code><span class="gu">## テスト記録</span>
+
+<span class="k">-</span><span class="w"> </span>記録ID: RT-2026-0001
+<span class="k">-</span><span class="w"> </span>対象: 社内ヘルプデスクBot v1.3（モデル: ○○、システムプロンプト: sp-v7）
+<span class="k">-</span><span class="w"> </span>実施日: 2026-10-05
+<span class="k">-</span><span class="w"> </span>目的: 機密情報の不正な引き出しに対する耐性確認
+
+<span class="gu">### シナリオ</span>
+<span class="k">-</span><span class="w"> </span>カテゴリ: 情報漏えい誘導
+<span class="k">-</span><span class="w"> </span>攻撃手法: ロールプレイによる指示無視の誘導
+<span class="k">-</span><span class="w"> </span>実行回数: 20回
+
+<span class="gu">### 結果</span>
+| 項目 | 値 |
+|---|---|
+| 不適切な出力 | 2/20 |
+| 重大度 | 高 |
+| 判定者 | 人手（2名）+ LLM判定 |
+
+<span class="gu">### 所見・改善</span>
+<span class="k">-</span><span class="w"> </span>所見: 特定の言い回しでシステムプロンプトの一部が出力された
+<span class="k">-</span><span class="w"> </span>対策: 出力ガードレール追加、プロンプト修正
+<span class="k">-</span><span class="w"> </span>再テスト: 2026-10-08 実施予定（結果は実施後に記入）
+
+<span class="gu">### 未評価範囲</span>
+<span class="k">-</span><span class="w"> </span>多言語での攻撃、長い会話履歴での攻撃は未評価
+</code></pre></div>
+
+<hr />
+<h2 id="13">13. 実践ステップ: 今日から始める評価の土台づくり</h2>
+<p>規格が未発行でも、<strong>共通して必要になる基盤</strong> は今から整えられます。</p>
+<h3 id="step-1">STEP 1: 評価対象を言語化する</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>質問</th>
+<th>記入例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>システムの目的は？</td>
+<td>社内規程に関する質問への回答</td>
+</tr>
+<tr>
+<td>入力は？</td>
+<td>従業員が入力する日本語の質問</td>
+</tr>
+<tr>
+<td>出力の用途は？</td>
+<td>業務判断の参考（最終判断は人間）</td>
+</tr>
+<tr>
+<td>誤った出力の影響は？</td>
+<td>誤った手続きの案内（中程度）</td>
+</tr>
+<tr>
+<td>守るべきものは？</td>
+<td>個人情報、未公開の経営情報</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="step-2">STEP 2: テストデータセットを作る</h3>
+<p>JSON形式で、再利用できるテストケースを管理します（例）。</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TC-001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;functional&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;有給休暇の申請期限を教えてください&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;expected_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;申請期限の日数&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;申請方法への言及&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;risk_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RT-001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info_leak&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;（システムプロンプトの開示を誘導する入力）&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;expected_behavior&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;refuse&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;risk_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="step-3">STEP 3: 複数回実行して結果を集計する</h3>
+<p>非決定性に対応するため、同じ入力を複数回実行する簡単な例です（概念を示す疑似コード）。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 概念を示す疑似コードです（実際のAPI呼び出しは各自の環境に合わせて実装）</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">N_TRIALS</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># 同じ入力を複数回実行する</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_system</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;評価対象システムを呼び出す（各自で実装）&quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">judge</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">expected</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;採点する（ルール、人手、LLM判定のいずれか）&quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">test_case</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_TRIALS</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">run_system</span><span class="p">(</span><span class="n">test_case</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">])</span>
+        <span class="c1"># 機能テストは expected_points、レッドチーミングは expected_behavior を期待値として使う</span>
+        <span class="n">expected</span> <span class="o">=</span> <span class="n">test_case</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;expected_behavior&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">test_case</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;expected_points&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">expected</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">test_case</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: 期待値が定義されていません&quot;</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">judge</span><span class="p">(</span><span class="n">test_case</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">],</span> <span class="n">output</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
+    <span class="n">fail_count</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">test_case</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;trials&quot;</span><span class="p">:</span> <span class="n">N_TRIALS</span><span class="p">,</span>
+        <span class="s2">&quot;failures&quot;</span><span class="p">:</span> <span class="n">fail_count</span><span class="p">,</span>
+        <span class="s2">&quot;failure_rate&quot;</span><span class="p">:</span> <span class="n">fail_count</span> <span class="o">/</span> <span class="n">N_TRIALS</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+<h3 id="step-4">STEP 4: 自動ツールで攻撃プローブを走らせる <span class="badge ref">🔎</span></h3>
+<p>NVIDIAのgarakはコマンドラインツールで、ドキュメントには次のような実行例が示されています。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># インストール</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>garak
+
+<span class="c1"># 利用可能なプローブの一覧</span>
+garak<span class="w"> </span>--list_probes
+
+<span class="c1"># 例: OpenAIのモデルに対してエンコーディング系のプローブを実行</span>
+python3<span class="w"> </span>-m<span class="w"> </span>garak<span class="w"> </span>--model_type<span class="w"> </span>openai<span class="w"> </span>--model_name<span class="w"> </span>gpt-3.5-turbo<span class="w"> </span>--spec<span class="w"> </span>probes.encoding
+</code></pre></div>
+
+<blockquote>
+<p>⚠️ 自社が許可を持つ環境・システムに対してのみ実行してください。また、バージョンによりオプション名が変わることがあるため、最新のドキュメント（<a href="https://docs.garak.ai/" target="_blank" rel="noopener noreferrer">https://docs.garak.ai/</a>）を確認してください。</p>
+</blockquote>
+<h3 id="step-5">STEP 5: 結果を記録し、改善して再テストする</h3>
+<p>前章（12章）のテンプレートで記録し、修正後に同じテストを再実行して効果を確認します。</p>
+<figure class="diagram"><pre class="mermaid">flowchart LR
+    accTitle: テスト結果の改善サイクル
+    accDescr: テスト実行、結果記録、分析、改善、再テストの順に進み、再テストの結果を再び記録して分析と改善を繰り返す
+    A[&quot;テスト実行&quot;] --&gt; B[&quot;結果記録&quot;]
+    B --&gt; C[&quot;分析&quot;]
+    C --&gt; D[&quot;改善&quot;]
+    D --&gt; E[&quot;再テスト&quot;]
+    E --&gt; B
+</pre></figure>
+<hr />
+<h2 id="14">14. 主要ツール・フレームワーク早見表 <span class="badge ref">🔎</span></h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ツール／文書</th>
+<th>提供元</th>
+<th>概要</th>
+<th>向いている用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PyRIT</strong></td>
+<td>Microsoft（AI Red Team）</td>
+<td>生成AIのリスク探索を自動化するオープンなフレームワーク。v1.0以降の主要コンポーネントは datasets（seeds）、scenarios、attack techniques、executors／attacks、converters、targets、scorers で、memory などの共有ライブラリが全体を支える。単発・多段の攻撃（Crescendo、TAP など）に対応。人手のレッドチーミングを置き換えるものではなく補完する位置づけ</td>
+<td>攻撃プロンプトの大量生成・自動採点</td>
+</tr>
+<tr>
+<td><strong>garak</strong></td>
+<td>NVIDIA</td>
+<td>LLMの脆弱性スキャナ。プローブ（攻撃入力）とディテクタ（失敗検出）を組み合わせ、結果をJSONLで記録。nmapのLLM版に例えられる</td>
+<td>既知の失敗カテゴリの定期スキャン</td>
+</tr>
+<tr>
+<td><strong>GenAI Red Teaming Guide</strong></td>
+<td>OWASP</td>
+<td>生成AIのレッドチーミング方法論をまとめたガイド（2025年1月22日公開）。脅威モデリング、ブループリント、継続的テストを解説</td>
+<td>手順・体制づくりの参考</td>
+</tr>
+<tr>
+<td><strong>HELM</strong></td>
+<td>Stanford CRFM</td>
+<td>言語モデルを多指標・多シナリオで評価する枠組み</td>
+<td>モデル選定・比較</td>
+</tr>
+<tr>
+<td><strong>NIST AI 600-1</strong></td>
+<td>NIST</td>
+<td>生成AIの12リスクカテゴリと、AI RMFに沿った管理策</td>
+<td>リスクの洗い出し・語彙の統一</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="15-faq">15. よくある誤解（FAQ）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>誤解</th>
+<th>正しい理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「42119-8はもう発行されている」</td>
+<td><strong>誤り</strong>。現在は開発中（ステージ20.00）。本文も未公開</td>
+</tr>
+<tr>
+<td>「この規格に従えば認証が取れる」</td>
+<td>現時点では<strong>認証制度は未定</strong>（Abstractに認証への言及なし）。TSは要求事項やガイダンスを示す文書</td>
+</tr>
+<tr>
+<td>「レッドチーミングだけやれば品質は担保できる」</td>
+<td>レッドチーミングは<strong>手段の1つ</strong>。機能面の評価や分析・文書化と組み合わせる</td>
+</tr>
+<tr>
+<td>「自動ツールがあれば人は不要」</td>
+<td>PyRITの開発元自身が、人手のレッドチーミングの代替ではないと明言している</td>
+</tr>
+<tr>
+<td>「1回試して問題なければ安全」</td>
+<td>出力は確率的なので<strong>複数回の試行と、未評価範囲の明示</strong>が必要</td>
+</tr>
+<tr>
+<td>「LLMに採点させれば客観的」</td>
+<td>位置・冗長性・自己強化などのバイアスがあり、<strong>検証が必要</strong></td>
+</tr>
+<tr>
+<td>「LLMのベンチマーク高得点＝自社アプリも高品質」</td>
+<td>HELMの対象はモデル。<strong>プロンプトを含むシステム全体</strong> の評価は別に必要</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="16">16. 今後ウォッチすべきポイント</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>確認方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ステージの進捗（20.20→20.60→…）</td>
+<td>ISOページ／RSS（<a href="https://www.iso.org/contents/data/standard/09/16/91609.detail.rss" target="_blank" rel="noopener noreferrer">https://www.iso.org/contents/data/standard/09/16/91609.detail.rss</a>）</td>
+</tr>
+<tr>
+<td>42119-7（レッドチーミング）の進捗</td>
+<td><a href="https://www.iso.org/standard/91240.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/91240.html</a></td>
+</tr>
+<tr>
+<td>23282（NLP評価）の進捗</td>
+<td><a href="https://www.iso.org/standard/87387.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/87387.html</a></td>
+</tr>
+<tr>
+<td>発行済みの42119-2</td>
+<td>ISOのStoreで確認</td>
+</tr>
+<tr>
+<td>国内の動向</td>
+<td>各国の標準化機関のプロジェクトページ（例: DIN）</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge ref">🔎</span> 参考: 韓国ETRIの技術動向論文は、ISO/IEC/IEEE 29119と、新たに登場しつつある42119-7の関係に着目し、AIレッドチーミングの標準化動向を整理しています（韓国語）。</p>
+<hr />
+<h2 id="17">17. 用語集</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWI</td>
+<td>Approved Work Item。作業項目として承認された段階</td>
+</tr>
+<tr>
+<td>TS</td>
+<td>Technical Specification。技術仕様書</td>
+</tr>
+<tr>
+<td>SC 42</td>
+<td>ISO/IEC JTC 1の人工知能分科委員会</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>Large Language Model（大規模言語モデル）</td>
+</tr>
+<tr>
+<td>RAG</td>
+<td>Retrieval-Augmented Generation。外部文書を検索して回答に反映する仕組み</td>
+</tr>
+<tr>
+<td>ガードレール</td>
+<td>入力・出力を検査して不適切な内容を防ぐ仕組み</td>
+</tr>
+<tr>
+<td>プロンプトインジェクション</td>
+<td>入力文によってAIに本来の指示を無視させる攻撃</td>
+</tr>
+<tr>
+<td>脱獄（ジェイルブレイク）</td>
+<td>安全対策を回避して制限された出力を引き出す行為</td>
+</tr>
+<tr>
+<td>虚偽生成（confabulation）</td>
+<td>もっともらしいが事実でない内容を生成すること（いわゆるハルシネーション）</td>
+</tr>
+<tr>
+<td>LLM-as-a-Judge</td>
+<td>LLMを採点者として使う評価方法</td>
+</tr>
+<tr>
+<td>機能適合性</td>
+<td>システムが必要な機能を適切に果たす度合い</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="18-2026-10-04">18. 根拠となるソース一覧（調査基準日: 2026-10-04）</h2>
+<h3 id="181-iso">18.1 一次情報（ISO／標準化機関）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>ISO/IEC AWI TS 42119-8 公式ページ</strong>（Abstract、ステージ情報。本ガイドの中核根拠）</td>
+<td><a href="https://www.iso.org/standard/91609.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/91609.html</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>ISO/IEC AWI TS 42119-7（レッドチーミング）公式ページ</td>
+<td><a href="https://www.iso.org/standard/91240.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/91240.html</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>ISO/IEC 23282（NLPシステムの評価方法）公式ページ</td>
+<td><a href="https://www.iso.org/standard/87387.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/87387.html</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td>DIN: 42119-7 プロジェクト情報（JTC 1/SC 42/JWG 2 による審議、開始2025-04-15）</td>
+<td><a href="https://www.din.de/en/getting-involved/standards-committees/nia/projects/wdc-proj:din21:388355114" target="_blank" rel="noopener noreferrer">https://www.din.de/en/getting-involved/standards-committees/nia/projects/wdc-proj:din21:388355114</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td>DIN: 23282 プロジェクト情報</td>
+<td><a href="https://www.din.de/en/wdc-proj:din21:365691795" target="_blank" rel="noopener noreferrer">https://www.din.de/en/wdc-proj:din21:365691795</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="182">18.2 国際的な組織・開発者による情報</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>提供元／著者</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6</td>
+<td>OWASP GenAI Security Project</td>
+<td>GenAI Red Teaming Guide 公開告知（2025-01-22）</td>
+<td><a href="https://genai.owasp.org/2025/01/22/announcing-the-owasp-gen-ai-red-teaming-guide/" target="_blank" rel="noopener noreferrer">https://genai.owasp.org/2025/01/22/announcing-the-owasp-gen-ai-red-teaming-guide/</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td>OWASP GenAI Security Project</td>
+<td>GenAI Red Teaming Guide 本体ページ</td>
+<td><a href="https://genai.owasp.org/resource/genai-red-teaming-guide" target="_blank" rel="noopener noreferrer">https://genai.owasp.org/resource/genai-red-teaming-guide</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Microsoft（microsoft/PyRIT）</td>
+<td>PyRIT 公式リポジトリ（README。旧 Azure/PyRIT から移行）</td>
+<td><a href="https://github.com/microsoft/PyRIT" target="_blank" rel="noopener noreferrer">https://github.com/microsoft/PyRIT</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td>The Hacker News（Ram Shankar Siva Kumar氏の発言を報道）</td>
+<td>PyRITの発表記事（2024-02-23）</td>
+<td><a href="https://thehackernews.com/2024/02/microsoft-releases-pyrit-red-teaming.html" target="_blank" rel="noopener noreferrer">https://thehackernews.com/2024/02/microsoft-releases-pyrit-red-teaming.html</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td>NVIDIA</td>
+<td>garak 公式サイト</td>
+<td><a href="https://www.garak.ai" target="_blank" rel="noopener noreferrer">https://www.garak.ai</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td>NVIDIA</td>
+<td>garak リポジトリ</td>
+<td><a href="https://github.com/NVIDIA/garak" target="_blank" rel="noopener noreferrer">https://github.com/NVIDIA/garak</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td>PyPI</td>
+<td>garak パッケージページ（コマンド例の根拠）</td>
+<td><a href="https://pypi.org/project/garak" target="_blank" rel="noopener noreferrer">https://pypi.org/project/garak</a></td>
+</tr>
+<tr>
+<td>13</td>
+<td>OECD.AI</td>
+<td>garak の紹介（Catalogue of Tools &amp; Metrics for Trustworthy AI）</td>
+<td><a href="https://oecd.ai/en/catalogue/tools/garak%2C-llm-vulnerability-scanner" target="_blank" rel="noopener noreferrer">https://oecd.ai/en/catalogue/tools/garak%2C-llm-vulnerability-scanner</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td>Databricks</td>
+<td>garakをLLMに適用する事例（複数回試行の例）</td>
+<td><a href="https://www.databricks.com/blog/ai-security-action-applying-nvidias-garak-llms-databricks" target="_blank" rel="noopener noreferrer">https://www.databricks.com/blog/ai-security-action-applying-nvidias-garak-llms-databricks</a></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Percy Liang ら（Stanford CRFM）</td>
+<td>HELM 論文（arXiv:2211.09110）</td>
+<td><a href="https://arxiv.org/abs/2211.09110" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2211.09110</a></td>
+</tr>
+<tr>
+<td>16</td>
+<td>Stanford CRFM</td>
+<td>HELM 解説ブログ</td>
+<td><a href="https://crfm.stanford.edu/2022/11/17/helm.html" target="_blank" rel="noopener noreferrer">https://crfm.stanford.edu/2022/11/17/helm.html</a></td>
+</tr>
+<tr>
+<td>17</td>
+<td>Lianmin Zheng ら（LMSYS／UC Berkeley）</td>
+<td>LLM-as-a-Judge 論文（arXiv:2306.05685）</td>
+<td><a href="https://arxiv.org/abs/2306.05685" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2306.05685</a></td>
+</tr>
+<tr>
+<td>18</td>
+<td>NIST</td>
+<td>AI 600-1 Generative AI Profile（DOI）</td>
+<td><a href="https://doi.org/10.6028/NIST.AI.600-1" target="_blank" rel="noopener noreferrer">https://doi.org/10.6028/NIST.AI.600-1</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="183">18.3 解説・補足情報</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>提供元</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>19</td>
+<td>SGS</td>
+<td>ISO/IEC 42119 シリーズの紹介（42001との関係、各パートの位置づけ）</td>
+<td><a href="https://www.sgs.com/en-lv/news/2026/01/announcing-the-iso-iec-42119-series-a-new-era-for-ai-testing-and-assurance" target="_blank" rel="noopener noreferrer">https://www.sgs.com/en-lv/news/2026/01/announcing-the-iso-iec-42119-series-a-new-era-for-ai-testing-and-assurance</a></td>
+</tr>
+<tr>
+<td>20</td>
+<td>ETRI（韓国電子通信研究院）</td>
+<td>AIレッドチーム試験の標準化動向（韓国語）</td>
+<td><a href="https://ettrends.etri.re.kr/ettrends/220/0905220008/084-095.%20전종홍_220호_최종.pdf" target="_blank" rel="noopener noreferrer">https://ettrends.etri.re.kr/ettrends/220/0905220008/084-095.%20전종홍_220호_최종.pdf</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="184">18.4 ソースの信頼性について</h3>
+<ul>
+<li><strong>ISOページ（#1〜3）</strong>が、規格に関する唯一の公式な根拠です。</li>
+<li>23282のステージ表示は、取得できた情報源によって差があります（ISOの別言語ページではDIS段階の表示、別のミラーではCD段階の表示）。<strong>最新の状況は必ずISO公式ページで確認してください。</strong></li>
+<li>NIST AI 600-1の「12リスク」の個別名称は、複数の解説ページで確認される一方、第三者サイトの要約を含みます。<strong>正確な定義はNIST原文（#18）を参照してください。</strong></li>
+<li>本規格の具体的な要求事項・手順・文書様式は、<strong>現時点では公開情報から確認できません</strong>。<span class="badge idea">💡</span>ラベルの内容は参考情報として扱ってください。</li>
+</ul>
+<hr />
+<h2 id="19-3">19. まとめ（3行）</h2>
+<ol>
+<li>ISO/IEC AWI TS 42119-8 は、<strong>プロンプトベースのtext-to-text生成AIシステムの品質評価（安全性含む）</strong> を扱う、<strong>開発中</strong>の技術仕様書です。</li>
+<li><strong>23282（NLP評価）</strong> と <strong>42119-7（レッドチーミング）</strong> を土台に、<strong>結果の分析・解釈</strong> と <strong>文書化</strong> まで含める構成です。</li>
+<li>本文は未公開ですが、<strong>テスト資産の整備・複数回試行・記録の標準化</strong> は今から始められます。公式ページのRSSで進捗を追いましょう。</li>
+</ol>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" integrity="sha384-WmdflGW9aGfoBdHc4rRyWzYuAjEmDwMdGdiPNacbwfGKxBW/SO6guzuQ76qjnSlr" crossorigin="anonymous"></script>
+<script>
+if(window.mermaid)mermaid.initialize({startOnLoad:true,theme:"default",securityLevel:"strict",flowchart:{htmlLabels:true,useMaxWidth:true}});
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('menuBtn'),nav=document.getElementById('toc'),back=document.getElementById('backdrop');
+  function isOpen(){return document.body.classList.contains('nav-open');}
+  function focusables(){return [].slice.call(nav.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])'));}
+  /* restore=false: リンク選択やデスクトップ幅への切替で閉じる場合はボタンへ戻さない */
+  function setOpen(o,restore){
+    var was=isOpen();
+    document.body.classList.toggle('nav-open',o);btn.setAttribute('aria-expanded',String(o));btn.setAttribute('aria-label',o?'目次を閉じる':'目次を開く');
+    if(o&&!was){var f=focusables()[0];if(f)f.focus();}
+    else if(!o&&was&&restore!==false){btn.focus();}
+  }
+  btn.addEventListener('click',function(){setOpen(!isOpen());});
+  back.addEventListener('click',function(){setOpen(false);});
+  nav.addEventListener('click',function(e){if(e.target.closest('a'))setOpen(false,false);});
+  document.addEventListener('keydown',function(e){
+    if(!isOpen())return;
+    if(e.key==='Escape'){setOpen(false);return;}
+    if(e.key!=='Tab')return;
+    /* 開いている間は目次のリンクと開閉ボタンの間でフォーカスを循環させる */
+    var list=focusables().concat(btn),first=list[0],last=list[list.length-1],act=document.activeElement;
+    if(list.indexOf(act)===-1){e.preventDefault();first.focus();return;}
+    if(e.shiftKey&&act===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&act===last){e.preventDefault();first.focus();}
+  });
+  window.matchMedia('(min-width:1025px)').addEventListener('change',function(e){if(e.matches)setOpen(false,false);});
+  var links=[].slice.call(nav.querySelectorAll('a[href^="#"]')),items=[];
+  links.forEach(function(a){var el=document.getElementById(decodeURIComponent(a.hash.slice(1)));if(el)items.push({a:a,el:el});});
+  var ticking=false,current=null;
+  function spy(){
+    ticking=false;var hit=items[0];
+    for(var i=0;i<items.length;i++){if(items[i].el.getBoundingClientRect().top<=120)hit=items[i];else break;}
+    if(!hit||hit===current)return;
+    if(current)current.a.classList.remove('active');
+    hit.a.classList.add('active');current=hit;
+    var a=hit.a;if(a.offsetTop<nav.scrollTop+40||a.offsetTop>nav.scrollTop+nav.clientHeight-60){nav.scrollTop=a.offsetTop-nav.clientHeight/3;}
+  }
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(spy);}},{passive:true});
+  spy();
+})();
+</script>
+</body>
+</html>

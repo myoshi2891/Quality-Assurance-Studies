@@ -103,8 +103,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/automating-data-quality-monitoring-guide', h1: /データ品質モニタリングの自動化を学ぶ/ },
   { path: '/langgraph-qa-agent-guide', h1: /LangGraphによるQAエージェント構築ガイド/ },
   { path: '/beautiful-testing-guide', h1: /Beautiful Testing.*完全ガイド/s },
+  { path: '/istqb-ct-genai-study-guide', h1: /Certified Tester.*Testing with Generative AI/s },
+  { path: '/beyond-legacy-code-guide', h1: /レガシーコードからの脱却/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 90;
+export const EXPECTED_PAGE_COUNT = 92;
 
 

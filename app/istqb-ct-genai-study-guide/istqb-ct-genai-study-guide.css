@@ -1,0 +1,455 @@
+
+            .ct-genai-study-page {
+                --bg: #f8fafc;
+                --bg-elevated: #ffffff;
+                --card: #f1f5f9;
+                --card-border: #e2e8f0;
+                --text: #0f172a;
+                --text-faint: #64748b;
+                --accent: #2563eb;
+                --accent-strong: #1d4ed8;
+                --success: #15803d;
+                --success-bg: #f0fdf4;
+                --success-border: #bbf7d0;
+                --warn: #b45309;
+                --warn-bg: #fffbeb;
+                --note-bg: #eff6ff;
+                --note-border: #bfdbfe;
+                --code-bg: #f1f5f9;
+                --sidebar-width: 300px;
+            }
+            .ct-genai-study-page * {
+                box-sizing: border-box;
+            }
+            .ct-genai-study-page, .ct-genai-study-page {
+                margin: 0;
+                padding: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+                    'Segoe UI', sans-serif;
+                line-height: 1.85;
+                overflow-x: hidden;
+            }
+            .ct-genai-study-page a {
+                color: var(--accent);
+            }
+            .ct-genai-study-page .layout {
+                display: block;
+                min-height: 100vh;
+            }
+            .ct-genai-study-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-width);
+                overflow-y: auto;
+                background: var(--bg-elevated);
+                border-right: 1px solid var(--card-border);
+                padding: 24px 18px 60px;
+                z-index: 50;
+            }
+            .ct-genai-study-page .sidebar-title {
+                font-size: 0.85rem;
+                color: var(--text-faint);
+                letter-spacing: 0.05em;
+                margin-bottom: 14px;
+                text-transform: uppercase;
+            }
+            .ct-genai-study-page .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .ct-genai-study-page .sidebar > ul > li {
+                margin-bottom: 4px;
+            }
+            .ct-genai-study-page .nav-h2, .ct-genai-study-page .nav-h3 {
+                display: block;
+                padding: 7px 10px;
+                border-radius: 6px;
+                text-decoration: none;
+                color: var(--text);
+                font-size: 0.92rem;
+                line-height: 1.4;
+            }
+            .ct-genai-study-page .nav-h2 {
+                font-weight: 600;
+            }
+            .ct-genai-study-page .nav-h3 {
+                font-weight: 400;
+                font-size: 0.85rem;
+                color: var(--text-faint);
+                padding-left: 20px;
+            }
+            .ct-genai-study-page .nav-h2:hover, .ct-genai-study-page .nav-h3:hover {
+                background: rgba(37, 99, 235, 0.08);
+                color: var(--accent-strong);
+            }
+            .ct-genai-study-page .nav-h2.active, .ct-genai-study-page .nav-h3.active {
+                background: rgba(37, 99, 235, 0.12);
+                color: var(--accent-strong);
+            }
+            .ct-genai-study-page .nav-sub {
+                margin-bottom: 6px;
+            }
+            .ct-genai-study-page .main {
+                margin-left: var(--sidebar-width);
+                padding: 48px 56px 100px;
+            }
+            .ct-genai-study-page .hero {
+                border-bottom: 1px solid var(--card-border);
+                padding-bottom: 28px;
+                margin-bottom: 36px;
+            }
+            .ct-genai-study-page .hero h1 {
+                font-size: 1.9rem;
+                margin: 0 0 14px;
+                color: var(--text);
+                line-height: 1.4;
+            }
+            .ct-genai-study-page .hero p {
+                color: var(--text-faint);
+                font-size: 1rem;
+                margin: 0;
+            }
+            .ct-genai-study-page .main h2 {
+                font-size: 1.5rem;
+                color: var(--text);
+                margin-top: 56px;
+                padding-top: 12px;
+                border-top: 1px solid var(--card-border);
+            }
+            .ct-genai-study-page .main h2:first-of-type {
+                border-top: none;
+                margin-top: 0;
+            }
+            .ct-genai-study-page .main h3 {
+                font-size: 1.2rem;
+                color: var(--accent-strong);
+                margin-top: 40px;
+            }
+            .ct-genai-study-page .main h4 {
+                font-size: 1.05rem;
+                color: var(--text);
+                margin-top: 30px;
+            }
+            .ct-genai-study-page .main p, .ct-genai-study-page .main ul, .ct-genai-study-page .main ol {
+                font-size: 0.98rem;
+                color: var(--text);
+            }
+            .ct-genai-study-page .main ul, .ct-genai-study-page .main ol {
+                padding-left: 1.4em;
+            }
+            .ct-genai-study-page .main li {
+                margin-bottom: 4px;
+            }
+            .ct-genai-study-page .main strong {
+                color: var(--text);
+            }
+            .ct-genai-study-page .table-scroll {
+                overflow-x: auto;
+                margin: 18px 0 28px;
+                border: 1px solid var(--card-border);
+                border-radius: 10px;
+            }
+            .ct-genai-study-page table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 0.9rem;
+                background: var(--bg-elevated);
+            }
+            .ct-genai-study-page th, .ct-genai-study-page td {
+                padding: 10px 14px;
+                text-align: left;
+                border-bottom: 1px solid var(--card-border);
+                vertical-align: top;
+            }
+            .ct-genai-study-page tr.row-header th {
+                background: var(--card);
+                color: var(--accent-strong);
+                font-weight: 600;
+            }
+            .ct-genai-study-page tr.row-odd td {
+                background: rgba(15, 23, 42, 0.015);
+            }
+            .ct-genai-study-page tr.row-even td {
+                background: transparent;
+            }
+            .ct-genai-study-page tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .ct-genai-study-page .callout {
+                border-radius: 12px;
+                padding: 16px 20px;
+                margin: 20px 0;
+                border: 1px solid var(--card-border);
+            }
+            .ct-genai-study-page .callout-head {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+            .ct-genai-study-page .callout-icon {
+                font-size: 1.1rem;
+            }
+            .ct-genai-study-page .callout-practice {
+                background: var(--success-bg);
+                border-color: var(--success-border);
+            }
+            .ct-genai-study-page .callout-practice .callout-title {
+                color: var(--success);
+            }
+            .ct-genai-study-page .callout-note {
+                background: var(--note-bg);
+                border-color: var(--note-border);
+            }
+            .ct-genai-study-page .callout-note .callout-title {
+                color: var(--accent-strong);
+            }
+            .ct-genai-study-page .callout-body p {
+                margin: 6px 0;
+            }
+            .ct-genai-study-page .callout-body ul {
+                margin: 6px 0;
+            }
+            .ct-genai-study-page p.callout-source {
+                font-size: 0.85rem;
+                color: var(--text-faint);
+                border-left: 3px solid var(--card-border);
+                padding-left: 12px;
+                margin: 18px 0;
+            }
+            .ct-genai-study-page p.callout-source a {
+                color: var(--accent);
+            }
+            .ct-genai-study-page .mermaid-container {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 24px 0;
+                padding: 12px 0;
+            }
+            .ct-genai-study-page .mermaid-container svg {
+                flex-shrink: 0;
+            }
+            .ct-genai-study-page .mermaid-target p {
+                color: inherit;
+                margin: 0;
+            }
+            .ct-genai-study-page .mermaid-error {
+                color: var(--warn);
+                background: var(--warn-bg);
+                border: 1px dashed var(--warn);
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .ct-genai-study-page hr {
+                border: none;
+                border-top: 1px solid var(--card-border);
+                margin: 40px 0;
+            }
+            .ct-genai-study-page .mobile-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 100;
+                background: var(--accent);
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+            @media (max-width: 880px) {
+                .ct-genai-study-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    width: 82vw;
+                    max-width: 320px;
+                    box-shadow: 2px 0 16px rgba(15, 23, 42, 0.15);
+                }
+                .ct-genai-study-page .sidebar.open {
+                    transform: translateX(0);
+                }
+                .ct-genai-study-page .main {
+                    margin-left: 0;
+                    padding: 80px 20px 80px;
+                }
+                .ct-genai-study-page .mobile-toggle {
+                    display: block;
+                }
+            }
+        
+/* Shared Header and DisclaimerBanner offsets; no duplicate layout-content margin. */
+.ct-genai-study-page {
+    min-height: 100vh;
+    width: 100%;
+    isolation: isolate;
+    overflow-x: clip;
+}
+.ct-genai-study-page .sidebar {
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+    z-index: 40;
+    scrollbar-width: thin;
+    scrollbar-color: var(--card-border) transparent;
+}
+.ct-genai-study-page .main {
+    max-width: none !important;
+    min-width: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+.ct-genai-study-page [id] {
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+.ct-genai-study-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    padding-top: 0 !important;
+    overflow: visible !important;
+}
+.ct-genai-study-page .hero::after {
+    content: none;
+}
+.ct-genai-study-page .hero h1 span {
+    color: inherit;
+}
+.ct-genai-study-page section {
+    padding-top: 0 !important;
+}
+.ct-genai-study-page section + section {
+    border-top: none !important;
+}
+.ct-genai-study-page table {
+    font-size: 0.9rem !important;
+    font-family: inherit;
+    color: var(--text);
+}
+.ct-genai-study-page th {
+    font-size: inherit;
+    font-family: inherit;
+    letter-spacing: normal;
+    white-space: normal !important;
+    line-height: inherit;
+}
+.ct-genai-study-page td {
+    color: var(--text) !important;
+    font-size: inherit;
+    line-height: inherit;
+}
+.ct-genai-study-page thead tr {
+    background: transparent;
+}
+.ct-genai-study-page tr.row-odd:hover td {
+    background: rgba(15, 23, 42, 0.015);
+}
+.ct-genai-study-page tr.row-even:hover td {
+    background: transparent;
+}
+.ct-genai-study-page strong,
+.ct-genai-study-page td strong,
+.ct-genai-study-page .callout strong {
+    color: var(--text) !important;
+    font-weight: 700;
+}
+.ct-genai-study-page .callout {
+    font-size: inherit;
+    line-height: inherit;
+}
+.ct-genai-study-page .callout-body p + p {
+    margin: 6px 0;
+}
+.ct-genai-study-page .mermaid-target {
+    width: 100%;
+    flex-shrink: 0;
+}
+/* Keep wide SVGs after the scroll origin; only the outer container scrolls. */
+.ct-genai-study-page .mermaid-wrapper {
+    display: block !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+.ct-genai-study-page .mermaid-container {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+.ct-genai-study-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+}
+.ct-genai-study-page .mermaid-wrapper .edgeLabels rect,
+.ct-genai-study-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+.ct-genai-study-page .mermaid-wrapper .edgeLabel,
+.ct-genai-study-page .mermaid-wrapper .edgeLabel span,
+.ct-genai-study-page .mermaid-wrapper .edgeLabel p,
+.ct-genai-study-page .mermaid-wrapper .edgeLabel text,
+.ct-genai-study-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    fill: #0f172a !important;
+    font-weight: 700 !important;
+}
+.ct-genai-study-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+.ct-genai-study-page .mermaid-wrapper foreignObject p,
+.ct-genai-study-page .mermaid-wrapper foreignObject span,
+.ct-genai-study-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+}
+.ct-genai-study-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.ct-genai-study-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.ct-genai-study-page *::-webkit-scrollbar-thumb {
+    background: var(--card-border) !important;
+    border-radius: 3px;
+}
+.ct-genai-study-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-faint) !important;
+}
+@media (max-width: 880px) {
+    .ct-genai-study-page .sidebar {
+        visibility: hidden;
+    }
+    .ct-genai-study-page .sidebar.open {
+        visibility: visible;
+    }
+    .ct-genai-study-page .mobile-toggle {
+        top: calc(74px + var(--disclaimer-height, 0px));
+        z-index: 45;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ct-genai-study-page .sidebar {
+        transition: none;
+    }
+}
