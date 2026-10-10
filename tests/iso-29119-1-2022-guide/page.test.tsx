@@ -62,4 +62,15 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       }
     });
   }
+
+  it('enforces rel="noopener noreferrer" and target="_blank" on all external links in AnnexB', async () => {
+    const html = await markup('AnnexB');
+    const $ = load(html, null, false);
+    const links = $('a[href^="http"]').toArray() as HtmlElement[];
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
+      expect(link.attribs.target).toBe('_blank');
+      expect(link.attribs.rel).toBe('noopener noreferrer');
+    }
+  });
 });
