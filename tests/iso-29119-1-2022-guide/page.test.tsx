@@ -262,6 +262,10 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
 
     it('describes all three conformance branches in DIAGRAM_17 accDescr', async () => {
       const { DIAGRAM_17 } = await import('../../app/iso-29119-1-2022-guide/diagrams');
+      const title = /^\s*accTitle:\s*(.+)$/m.exec(DIAGRAM_17)?.[1] ?? '';
+      // 29119-1 は参考文書で適合要求を持たないため、適合対象が Part 2・3・4 であることをタイトルで示す
+      expect(title).toContain('Part 2・3・4');
+      expect(title).not.toContain('29119-1 への適合');
       const descr = /^\s*accDescr:\s*(.+)$/m.exec(DIAGRAM_17)?.[1] ?? '';
       expect(descr).toContain('完全適合');
       expect(descr).toContain('テーラード適合');
