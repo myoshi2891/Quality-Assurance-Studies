@@ -397,7 +397,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
 - `app/iso-29119-1-2022-guide/NavBar.tsx` — 階層目次69リンク、`scroll` イベント + `getBoundingClientRect()` によるアクティブ節追従、モバイルトグル対応のスティッキー目次
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
-- `tests/iso-29119-1-2022-guide/page.test.tsx` — 100テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
+- `tests/iso-29119-1-2022-guide/page.test.tsx` — 103テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
 - `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 93 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
