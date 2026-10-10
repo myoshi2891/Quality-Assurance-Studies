@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `f78a940`（ドキュメント同期コミットは除外） |
 | 最新コミット内容 | `fix(iso-29119-1): wire Mermaid component and diagram definitions into all 19 chart containers` |
 | 次の作業 | ユーザーによる`/iso-29119-1-2022-guide`（Mermaid図19件表示）および`/beyond-legacy-code-guide`の目視確認。 |
-| ビルド状態 | 全体テスト`npm test`: 2718 pass / 0 fail、113 files（2026-10-10）。ページ102テスト（全19図のMermaid配線・クライアント描画・SHA-256検証含む）、Mermaid契約107テスト、ナビゲーション73テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| ビルド状態 | 全体テスト`npm test`: 2719 pass / 0 fail、113 files（2026-10-10）。ページ103テスト（全19図のMermaid配線・クライアント描画・SHA-256検証含む）、Mermaid契約107テスト、ナビゲーション73テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
 ## 2026/10/10: ISO/IEC/IEEE 29119-1:2022 ソフトウェアテスト概念・定義ガイドの移行
 
@@ -27,7 +27,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - ページ102テスト（`tests/iso-29119-1-2022-guide/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全19図のMermaid配線・クライアント描画（SHA-256ハッシュ照合）、CSS詳細度・スコープ、スティッキーNavBar動作（IntersectionObserver / スクロール追従 / モバイルトグル）を完全検証。
 - Mermaid図19件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テスト（107 tests）を全件パス。
 - 元HTMLは `archive/html-archive/iso/Iso-29119-1-2022-guide.html`、Markdownは `archive/md-archive/iso/Iso-29119-1-2022-guide.md` へ移動し、`.gitignore` で明示的に追跡管理。
-- ナビ・E2E対象は93ルート、新カテゴリ `iso` は1件。全体2718 pass / 113 files。
+- ナビ・E2E対象は93ルート、新カテゴリ `iso` は1件。全体2719 pass / 113 files。
 
 ## 2026/10/07: Beyond Legacy Code実践ガイドの移行
 
@@ -1411,7 +1411,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 93 ルート（ガイドライブラリ index + 92 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2716件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テスト2719件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加カテゴリ「ISO 国際規格」（`iso`）および `/iso-29119-1-2022-guide` が正常に登録・稼働しています。
 
 【指示】
