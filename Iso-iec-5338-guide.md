@@ -1,4 +1,5 @@
 # ISO/IEC 5338:2023 初学者向け完全ガイド
+
 ## AIシステムライフサイクルプロセスをステップバイステップで理解する
 
 > 対象規格：**ISO/IEC 5338:2023** *Information technology — Artificial intelligence — AI system life cycle processes*
