@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
-import { existsSync, readFileSync } from 'node:fs';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import type { Element as HtmlElement } from 'domhandler';
 import postcss from 'postcss';
 import type { Window as HappyWindow } from 'happy-dom';
 import inventory from '../../docs/migration-inventory/iso-29119-1-2022-guide.json';
-import { NAV_ITEMS, CATEGORY_ORDER, CATEGORY_TITLES, CATEGORY_CODES } from '../../lib/navigation';
-import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
+import NavBar from '../../app/iso-29119-1-2022-guide/NavBar';
 
 // Font delivery is verified through markup; unit tests must not fetch external CSS.
 const browserSettings = (window as unknown as HappyWindow).happyDOM.settings;
@@ -28,10 +27,11 @@ afterEach(() => {
   browserSettings.handleDisabledFileLoadingAsSuccess = previousDisabledLoading;
 });
 
-const directory = 'app/iso-29119-1-2022-guide/';
 const norm = (value: string) => value.replace(/\s+/g, '').trim();
 
-function signatures(html: string, selector = '*'): { tag: string; attrs: string[][]; text: string }[] {
+type InventoryItem = { tag: string; attrs: string[][]; text: string };
+
+function signatures(html: string, selector = '*'): InventoryItem[] {
   const $ = load(html, null, false);
   $('.mermaid-wrapper').remove();
   $('.mermaid-diagram svg').remove();
@@ -55,9 +55,10 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
         expect(signatures(await markup(group.name))).toEqual(group.structure);
       });
       for (const [selector, items] of Object.entries(group.items)) {
-        if ((items as unknown[]).length === 0) continue;
+        const expected: InventoryItem[] = items;
+        if (expected.length === 0) continue;
         it(`preserves exact ordered inventory for ${selector}`, async () => {
-          expect(signatures(await markup(group.name), selector)).toEqual(items as any);
+          expect(signatures(await markup(group.name), selector)).toEqual(expected);
         });
       }
     });
@@ -85,7 +86,6 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
     });
 
     it('toggles mobile sidebar open state and closes on link click', () => {
-      const { default: NavBar } = require('../../app/iso-29119-1-2022-guide/NavBar');
       const { container } = render(<NavBar />);
       const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
       const nav = container.querySelector('nav.sidebar') as HTMLElement;
@@ -94,6 +94,32 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       expect(nav.classList.contains('open')).toBe(true);
       fireEvent.click(toggle);
       expect(nav.classList.contains('open')).toBe(false);
+    });
+
+    it('marks the active link and closes the sidebar on link click at narrow widths', () => {
+      // Arrange
+      const previousWidth = window.innerWidth;
+      Object.defineProperty(window, 'innerWidth', { configurable: true, value: 800 });
+      try {
+        const { container } = render(<NavBar />);
+        const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
+        const nav = container.querySelector('nav.sidebar') as HTMLElement;
+        const first = container.querySelector('a[data-target="0-はじめにこのガイドの読み方"]') as HTMLAnchorElement;
+        const other = container.querySelector('a[data-target="11-基本情報"]') as HTMLAnchorElement;
+        // Assert: 初期アクティブ節のみ active / aria-current
+        expect(first.classList.contains('active')).toBe(true);
+        expect(first.getAttribute('aria-current')).toBe('location');
+        expect(other.classList.contains('active')).toBe(false);
+        expect(other.hasAttribute('aria-current')).toBe(false);
+        // Act
+        fireEvent.click(toggle);
+        expect(nav.classList.contains('open')).toBe(true);
+        fireEvent.click(other);
+        // Assert
+        expect(nav.classList.contains('open')).toBe(false);
+      } finally {
+        Object.defineProperty(window, 'innerWidth', { configurable: true, value: previousWidth });
+      }
     });
   });
 
