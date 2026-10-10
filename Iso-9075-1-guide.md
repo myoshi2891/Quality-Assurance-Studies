@@ -287,7 +287,8 @@ FROM GRAPH_TABLE (
 | UNIQUE のNULL扱い（F292） | PostgreSQL 15 | Eisentraut氏ブログ |
 | ANY_VALUE（T626） | PostgreSQL 16 | 同上 |
 | 非10進整数リテラル（T661）・アンダースコア（T662） | PostgreSQL 16 | 同上 |
-| JSONデータ型（T801） | 9.2／9.4 | 同上 |
+| 独自の `json`／`jsonb` 型の追加 | `json` は 9.2、`jsonb` は 9.4 で追加（**T801への適合とは別の話**） | PostgreSQL公式ドキュメント |
+| JSONデータ型（T801） | **PostgreSQL 18 時点で未対応**（公式ドキュメントの Unsupported Features に掲載） | PostgreSQL 18 公式ドキュメント Appendix D |
 | JSON簡易アクセサ・アイテムメソッド | 記事公開時点では「将来」 | 同上（2023年4月時点の情報） |
 | **SQL/PGQ** | 2026年3月16日に master へコミットされたが、**2026年9月7日に REL_19_STABLE から revert**。**PostgreSQL 19 には搭載されず、今後の搭載版は未定** | pgsql-committers／depesz／pgEdge |
 
@@ -416,6 +417,7 @@ flowchart TD
 | 15 | PostgreSQL ML: SQL:2023向けドキュメント更新の議論 | <https://hackorum.dev/topics/47552> |
 | 16 | Wikipedia: SQL:2023 | <https://en.wikipedia.org/wiki/SQL:2023> |
 | 17 | pgEdge「Looking Forward to Postgres 19: Epilogue」（SQL/PGQ の revert） | <https://www.pgedge.com/blog/looking-forward-to-postgres-19-epilogue> |
+| 18 | PostgreSQL 18 公式ドキュメント: Unsupported Features（T801 未対応） | <https://www.postgresql.org/docs/18/unsupported-features-sql-standard.html> |
 
 ---
 
