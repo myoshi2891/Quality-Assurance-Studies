@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_17 } from './diagrams';
 
 export default function Section10() {
   return (
@@ -14,6 +16,7 @@ Part 2, 3, 4 の各適合条項で定められます。</p>
 テーラード適合（Tailored conformance）</h3>
 <p>序文には、すべての要求に従わない正当な理由がある場合（たとえばアジャイルで開発・テストを行う場合）でも、<strong>調整の程度とその根拠が記述され、合意されていれば「テーラード適合」を主張できる</strong>旨が書かれています。</p>
 <div className="mermaid-diagram" id="mermaid-17">
+  <Mermaid chart={DIAGRAM_17} />
 </div>
 <hr />
     </>

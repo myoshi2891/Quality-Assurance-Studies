@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_11, DIAGRAM_12, DIAGRAM_13 } from './diagrams';
 
 export default function Section8() {
   return (
@@ -11,6 +13,7 @@ export default function Section8() {
 <p>Stuart Reid 氏が公開している論文（Test Design using Test
 Models）でも、テスト条件をやめて、より単純な「テストモデル」の概念から、テストカバレッジアイテム、そしてテストケースを導出する設計プロセスが説明されています。</p>
 <div className="mermaid-diagram" id="mermaid-11">
+  <Mermaid chart={DIAGRAM_11} />
 </div>
 <h3 id="82-具体例で理解する筆者の作例">8.2
 具体例で理解する（筆者の作例）</h3>
@@ -51,6 +54,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 <h3 id="83-テスト設計技法444">8.3 テスト設計技法（4.4.4）</h3>
 <p>用語定義には、次の3系統の技法が出てきます。</p>
 <div className="mermaid-diagram" id="mermaid-12">
+  <Mermaid chart={DIAGRAM_12} />
 </div>
 <div className="table-scroll"><table>
 <thead>
@@ -194,6 +198,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 </tbody>
 </table></div>
 <div className="mermaid-diagram" id="mermaid-13">
+  <Mermaid chart={DIAGRAM_13} />
 </div>
 <h3 id="87-手動テストと自動テスト447">8.7
 手動テストと自動テスト（4.4.7）</h3>

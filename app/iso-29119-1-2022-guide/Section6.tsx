@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_7, DIAGRAM_8 } from './diagrams';
 
 export default function Section6() {
   return (
@@ -37,6 +39,7 @@ export default function Section6() {
 <p>Reid
 氏の解説では、リスクの扱いは「特定・見積り・対応」の3段階で説明されています。</p>
 <div className="mermaid-diagram" id="mermaid-7">
+  <Mermaid chart={DIAGRAM_7} />
 </div>
 <h3 id="64-リスクの見積り例筆者の作例">6.4
 リスクの見積り例（筆者の作例）</h3>
@@ -106,6 +109,7 @@ export default function Section6() {
 <p><strong>テストアプローチ</strong>とは、テストをどう進めるかの方針のことです。テストレベル、テストタイプ、テスト設計技法（およびその測定指標）は、この戦略の中に含まれる要素として説明されます。</p>
 <h4 id="テストレベル一般的な例">テストレベル（一般的な例）</h4>
 <div className="mermaid-diagram" id="mermaid-8">
+  <Mermaid chart={DIAGRAM_8} />
 </div>
 <h4 id="テストタイプ用語定義に登場するものの例">テストタイプ（用語定義に登場するものの例）</h4>
 <div className="table-scroll"><table>

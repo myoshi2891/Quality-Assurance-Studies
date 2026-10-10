@@ -108,6 +108,39 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       expect($('.mermaid-diagram').length).toBe(19);
       expect($('table').length).toBe(39);
     });
+
+    it('wires all 19 mermaid diagrams into their containers with Mermaid component', async () => {
+      const { default: Page } = await import('../../app/iso-29119-1-2022-guide/page');
+      const html = renderToStaticMarkup(<Page />);
+      const $ = load(html, null, false);
+      for (let i = 1; i <= 19; i++) {
+        const diagramEl = $(`#mermaid-${i}`);
+        expect(diagramEl.length).toBe(1);
+        expect(diagramEl.find('.mermaid-wrapper').length).toBe(1);
+      }
+    });
+
+    it('renders all 19 charts on the client with correct diagram definitions', async () => {
+      const { default: mermaid } = await import('mermaid');
+      const original = mermaid.render;
+      mermaid.render = async (_id, chart) => ({
+        svg: `<svg data-chart="${createHash('sha256').update(chart).digest('hex')}"></svg>`,
+        diagramType: 'flowchart',
+      });
+      try {
+        const { default: Page } = await import('../../app/iso-29119-1-2022-guide/page');
+        const diagrams = await import('../../app/iso-29119-1-2022-guide/diagrams');
+        const view = render(<Page />);
+        await waitFor(() => expect(view.container.querySelectorAll('.mermaid-diagram svg')).toHaveLength(19));
+        for (let i = 1; i <= 19; i++) {
+          const expectedChart = (diagrams as Record<string, string>)[`DIAGRAM_${i}`];
+          expect(view.container.querySelector(`#mermaid-${i} svg`)?.getAttribute('data-chart'))
+            .toBe(createHash('sha256').update(expectedChart).digest('hex'));
+        }
+      } finally {
+        mermaid.render = original;
+      }
+    });
   });
 
   describe('Styles and Scope', () => {

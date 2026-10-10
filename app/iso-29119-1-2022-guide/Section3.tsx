@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_2 } from './diagrams';
 
 export default function Section3() {
   return (
@@ -61,6 +63,7 @@ definitions」から「General concepts」へ変更</strong></td>
 </table></div>
 <h3 id="31-変更の流れ">3.1 変更の流れ</h3>
 <div className="mermaid-diagram" id="mermaid-2">
+  <Mermaid chart={DIAGRAM_2} />
 </div>
 <hr />
     </>

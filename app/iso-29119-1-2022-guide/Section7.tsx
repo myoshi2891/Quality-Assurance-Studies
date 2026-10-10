@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_9, DIAGRAM_10 } from './diagrams';
 
 export default function Section7() {
   return (
@@ -10,6 +12,7 @@ export default function Section7() {
 <p>29119-2
 で詳細が定められるテストプロセスモデルは、次の3階層で構成されます。序文でも「組織レベル、テスト管理レベル、動的テストレベル」を扱うと述べられています。</p>
 <div className="mermaid-diagram" id="mermaid-9">
+  <Mermaid chart={DIAGRAM_9} />
 </div>
 <div className="table-scroll"><table>
 <thead>
@@ -67,6 +70,7 @@ export default function Section7() {
 テストプロセスの「インスタンス化」</h3>
 <p>2022年版では、複雑さを理由にサブプロセスの概念を削除し、代わりに<strong>プロセスのインスタンス化</strong>の説明が追加されました。ここでの意味合いは次のとおりです（筆者の解釈）。</p>
 <div className="mermaid-diagram" id="mermaid-10">
+  <Mermaid chart={DIAGRAM_10} />
 </div>
 <h3 id="73-テスト文書化432-433">7.3 テスト文書化（4.3.2, 4.3.3）</h3>
 <p>テストで作る文書のテンプレートや例は Part 3 で定義されます。29119-1

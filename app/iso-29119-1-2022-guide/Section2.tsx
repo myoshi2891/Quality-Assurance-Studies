@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_1 } from './diagrams';
 
 export default function Section2() {
   return (
@@ -9,6 +11,7 @@ export default function Section2() {
 <p>29119-1
 は「概念の土台」で、実際に「何をするか（プロセス）」「何を書くか（文書）」「どう設計するか（技法）」は他のパートが担当します。</p>
 <div className="mermaid-diagram" id="mermaid-1">
+  <Mermaid chart={DIAGRAM_1} />
 </div>
 <h3 id="22-各パートの役割">2.2 各パートの役割</h3>
 <div className="table-scroll"><table>

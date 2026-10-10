@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_14, DIAGRAM_15, DIAGRAM_16 } from './diagrams';
 
 export default function Section9() {
   return (
@@ -11,6 +13,7 @@ export default function Section9() {
 <h3 id="92-コミュニケーションと報告46">9.2
 コミュニケーションと報告（4.6）</h3>
 <div className="mermaid-diagram" id="mermaid-14">
+  <Mermaid chart={DIAGRAM_14} />
 </div>
 <p>報告で重要なのは、「数字を並べる」ことより、<strong>相手の意思決定に役立つ情報を、分かる言葉で伝える</strong>ことです。</p>
 <h3 id="93-欠陥とインシデントの管理47">9.3
@@ -39,11 +42,13 @@ export default function Section9() {
 インシデント報告は、異常報告、バグ報告、欠陥報告、エラー報告、問題報告、トラブル報告などとも呼ばれます。</p>
 </blockquote>
 <div className="mermaid-diagram" id="mermaid-15">
+  <Mermaid chart={DIAGRAM_15} />
 </div>
 <h3 id="94-附属書a参考-システム特性とテスト">9.4 附属書A（参考）:
 システム特性とテスト</h3>
 <p>序文の説明では、附属書Aは<strong>システムの特性</strong>と、それに関連して<strong>提案されるテストアプローチ</strong>を簡潔に示します。テスト担当者が、対象システムにどの特性が当てはまるかを見極め、その特性に対応する専門的なテストを戦略に含めるべきかを検討する、という使い方です。</p>
 <div className="mermaid-diagram" id="mermaid-16">
+  <Mermaid chart={DIAGRAM_16} />
 </div>
 <h3 id="95-附属書b参考-テストの役割">9.5 附属書B（参考）:
 テストの役割</h3>

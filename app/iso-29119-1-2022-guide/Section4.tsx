@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_3 } from './diagrams';
 
 export default function Section4() {
   return (
@@ -79,6 +81,7 @@ export default function Section4() {
 <h3 id="42-初学者向けのおすすめ読み順">4.2
 初学者向けのおすすめ読み順</h3>
 <div className="mermaid-diagram" id="mermaid-3">
+  <Mermaid chart={DIAGRAM_3} />
 </div>
 <hr />
     </>

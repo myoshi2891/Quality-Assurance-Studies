@@ -1,4 +1,6 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAM_4, DIAGRAM_5, DIAGRAM_6 } from './diagrams';
 
 export default function Section5() {
   return (
@@ -7,6 +9,7 @@ export default function Section5() {
 5）</h2>
 <h3 id="51-概念マップ">5.1 概念マップ</h3>
 <div className="mermaid-diagram" id="mermaid-4">
+  <Mermaid chart={DIAGRAM_4} />
 </div>
 <h3 id="52-各概念の解説">5.2 各概念の解説</h3>
 <h4 id="1-品質マネジメントとの関係412">(1)
@@ -63,6 +66,7 @@ item）（4.1.4）</h4>
 </tbody>
 </table></div>
 <div className="mermaid-diagram" id="mermaid-5">
+  <Mermaid chart={DIAGRAM_5} />
 </div>
 <blockquote>
 <p>補足: 29119 シリーズのプロセス（Part
@@ -129,6 +133,7 @@ item）（4.1.4）</h4>
 </tbody>
 </table></div>
 <div className="mermaid-diagram" id="mermaid-6">
+  <Mermaid chart={DIAGRAM_6} />
 </div>
 <p>用語定義では、<strong>期待結果</strong>は「仕様やその他の情報源にもとづく、特定条件下でのテスト対象の観察可能な予測された振る舞い」、<strong>実際の結果</strong>は「テスト実行の結果として観察された、テスト対象やデータ・テスト環境の振る舞いや状態」と説明されています。</p>
 <h4 id="9-テストの独立性4111">(9) テストの独立性（4.1.11）</h4>
