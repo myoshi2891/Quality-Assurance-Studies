@@ -5,7 +5,7 @@ export default function AnnexB() {
     <>
 <h2 id="付録b-参考ソースurl">付録B. 参考ソース（URL）</h2>
 <h3 id="b1-一次情報規格の公式情報">B.1 一次情報（規格の公式情報）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="b1-一次情報規格の公式情報">
 <thead>
 <tr className="header">
 <th>#</th>
@@ -43,7 +43,7 @@ export default function AnnexB() {
 </table></div>
 <h3 id="b2-規格策定関係者国際的に著名な実務家研究者の情報">B.2
 規格策定関係者・国際的に著名な実務家・研究者の情報</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="b2-規格策定関係者国際的に著名な実務家研究者の情報">
 <thead>
 <tr className="header">
 <th>#</th>
@@ -107,7 +107,7 @@ News（テストモデルによるテスト設計の論文への言及）</td>
 </table></div>
 <h3 id="b3-批判的な見解コンテキスト駆動テストのコミュニティ">B.3
 批判的な見解（コンテキスト駆動テストのコミュニティ）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="b3-批判的な見解コンテキスト駆動テストのコミュニティ">
 <thead>
 <tr className="header">
 <th>#</th>

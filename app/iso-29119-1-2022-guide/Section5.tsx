@@ -17,7 +17,7 @@ export default function Section5() {
 <p>テストは、品質を「作る」活動そのものではなく、<strong>品質の状態についての情報を得て、リスクを扱う活動</strong>です。開発や品質保証など、組織の品質マネジメントの一部として位置づけられます。</p>
 <h4 id="2-検証verificationと妥当性確認validation413">(2)
 検証（Verification）と妥当性確認（Validation）（4.1.3）</h4>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="2-検証verificationと妥当性確認validation413">
 <thead>
 <tr className="header">
 <th>観点</th>
@@ -44,7 +44,7 @@ item）（4.1.4）</h4>
 <p>テストされる「もの」のことです。プログラム全体だけでなく、コンポーネント、システム、ドキュメントなども含みます。用語定義でも「テスト対象」という言葉が繰り返し使われます。</p>
 <h4 id="4-静的テストと動的テスト415">(4)
 静的テストと動的テスト（4.1.5）</h4>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="4-静的テストと動的テスト415">
 <thead>
 <tr className="header">
 <th>種類</th>
@@ -83,7 +83,7 @@ item）（4.1.4）</h4>
 <p>テストは「バグがないことを証明する」ものではなく、<strong>経験則にもとづく有限のサンプリングで、欠陥の存在や品質の状況を推定する手段</strong>です。したがって、合格しても「欠陥ゼロ」の証明にはなりません。</p>
 <h4 id="7-テストの目的418">(7) テストの目的（4.1.8）</h4>
 <p>テストの目的は複数あります（筆者の整理）。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="7-テストの目的418">
 <thead>
 <tr className="header">
 <th>目的</th>
@@ -111,7 +111,7 @@ item）（4.1.4）</h4>
 </table></div>
 <h4 id="8-テストベースとテストオラクル419-4110">(8)
 テストベースとテストオラクル（4.1.9, 4.1.10）</h4>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="8-テストベースとテストオラクル419-4110">
 <thead>
 <tr className="header">
 <th>用語</th>
@@ -138,7 +138,7 @@ item）（4.1.4）</h4>
 <p>用語定義では、<strong>期待結果</strong>は「仕様やその他の情報源にもとづく、特定条件下でのテスト対象の観察可能な予測された振る舞い」、<strong>実際の結果</strong>は「テスト実行の結果として観察された、テスト対象やデータ・テスト環境の振る舞いや状態」と説明されています。</p>
 <h4 id="9-テストの独立性4111">(9) テストの独立性（4.1.11）</h4>
 <p>「作った人」と「テストする人」が同じだと、思い込みで見落としが起きやすくなります。序文でも<strong>テスト独立性のメリット</strong>が導入されています。独立性には程度があります（筆者の整理）。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="9-テストの独立性4111">
 <thead>
 <tr className="header">
 <th>独立性の程度</th>

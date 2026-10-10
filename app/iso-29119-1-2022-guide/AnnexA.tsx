@@ -5,7 +5,7 @@ export default function AnnexA() {
     <>
 <h2 id="付録a-用語ミニ辞典第3章から抜粋要約">付録A.
 用語ミニ辞典（第3章から抜粋・要約）</h2>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="付録a-用語ミニ辞典第3章から抜粋要約">
 <thead>
 <tr className="header">
 <th>用語</th>

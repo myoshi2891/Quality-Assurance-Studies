@@ -7,7 +7,7 @@ export default function Section4() {
     <>
 <h2 id="4-規格の構成と読み順step-4">4. 規格の構成と読み順（Step 4）</h2>
 <h3 id="41-章立て">4.1 章立て</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="41-章立て">
 <thead>
 <tr className="header">
 <th>章</th>

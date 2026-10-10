@@ -18,7 +18,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 <h3 id="82-具体例で理解する筆者の作例">8.2
 具体例で理解する（筆者の作例）</h3>
 <p><strong>題材</strong>: 「年齢によって入場料金が決まる」機能</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="82-具体例で理解する筆者の作例">
 <thead>
 <tr className="header">
 <th>年齢の区分（テストモデル: 同値分割）</th>
@@ -56,7 +56,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 <div className="mermaid-diagram" id="mermaid-12">
   <Mermaid chart={DIAGRAM_12} />
 </div>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="83-テスト設計技法444">
 <thead>
 <tr className="header">
 <th>技法</th>
@@ -122,7 +122,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 </blockquote>
 <p>探索的テストは上記のテスト設計技法の一つではなく、<strong>独立したテストプラクティス</strong>として扱います（8.5
 参照）。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-label="8.3 テスト設計技法とは独立したテストプラクティス">
 <thead>
 <tr className="header">
 <th>テストプラクティス</th>
@@ -142,7 +142,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 <p>テストモデルを、状態遷移図や決定表のような<strong>形式的・準形式的なモデル</strong>として明確に表現し、そこからテストケースを（場合により自動で）導出するアプローチです。</p>
 <h3 id="85-スクリプト化テストと探索的テスト443-445">8.5
 スクリプト化テストと探索的テスト（4.4.3／経験ベーステストは4.4.5）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="85-スクリプト化テストと探索的テスト443-445">
 <thead>
 <tr className="header">
 <th>観点</th>
@@ -176,7 +176,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 <p>用語定義では、探索的テストは経験ベーステストの一種で、テスト担当者が既存の知識、それまでの探索結果、一般的なソフトウェアの振る舞いや故障に関する経験則にもとづき、その場でテストを設計・実行するものと説明されています。</p>
 <h3 id="86-再テストと回帰テスト446">8.6
 再テストと回帰テスト（4.4.6）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="86-再テストと回帰テスト446">
 <thead>
 <tr className="header">
 <th>種類</th>
@@ -202,7 +202,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 </div>
 <h3 id="87-手動テストと自動テスト447">8.7
 手動テストと自動テスト（4.4.7）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="87-手動テストと自動テスト447">
 <thead>
 <tr className="header">
 <th>観点</th>
@@ -230,7 +230,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 </table></div>
 <h3 id="88-その他のテストアプローチ4484411">8.8
 その他のテストアプローチ（4.4.8〜4.4.11）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="88-その他のテストアプローチ4484411">
 <thead>
 <tr className="header">
 <th>アプローチ</th>
@@ -263,7 +263,7 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 <h3 id="89-aiに関する用語も追加されている">8.9
 AIに関する用語も追加されている</h3>
 <p>2022年版の第3章には、AI関連の用語（機械学習、ニューラルネットワーク、ニューロンカバレッジ、非決定的システム、自律システム、AIベースシステム等）が含まれます。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="89-aiに関する用語も追加されている">
 <thead>
 <tr className="header">
 <th>用語</th>
@@ -291,7 +291,7 @@ AIに関する用語も追加されている</h3>
 </table></div>
 <h3 id="810-テスト環境とテストデータ管理4412-4413">8.10
 テスト環境とテストデータ管理（4.4.12, 4.4.13）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="810-テスト環境とテストデータ管理4412-4413">
 <thead>
 <tr className="header">
 <th>項目</th>

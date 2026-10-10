@@ -7,7 +7,7 @@ export default function Section11() {
     <>
 <h2 id="11-現場での活用step-10">11. 現場での活用（Step 10）</h2>
 <h3 id="111-使いどころ">11.1 使いどころ</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="111-使いどころ">
 <thead>
 <tr className="header">
 <th>場面</th>

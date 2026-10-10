@@ -14,7 +14,7 @@ export default function Section2() {
   <Mermaid chart={DIAGRAM_1} />
 </div>
 <h3 id="22-各パートの役割">2.2 各パートの役割</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="22-各パートの役割">
 <thead>
 <tr className="header">
 <th>パート</th>
@@ -71,7 +71,7 @@ export default function Section2() {
 シリーズは単独でも、より大きな規格群の一部としても使えるとされています。たとえば、ソフトウェアのライフサイクル定義に
 ISO/IEC/IEEE 12207（システム側は 15288）を使い、テストについては 29119
 を参照する、という使い方です。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="23-併用される他の規格">
 <thead>
 <tr className="header">
 <th>併用する規格</th>

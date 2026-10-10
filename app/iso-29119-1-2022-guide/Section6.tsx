@@ -13,7 +13,7 @@ export default function Section6() {
 <p>規格策定作業部会（WG26）の議長 Stuart Reid 氏は、公開記事で「29119
 シリーズはすべてのテストがリスクベースであることを求める」旨を述べています。</p>
 <h3 id="62-2種類のリスク">6.2 2種類のリスク</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="62-2種類のリスク">
 <thead>
 <tr className="header">
 <th>種類</th>
@@ -43,7 +43,7 @@ export default function Section6() {
 </div>
 <h3 id="64-リスクの見積り例筆者の作例">6.4
 リスクの見積り例（筆者の作例）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="64-リスクの見積り例筆者の作例">
 <thead>
 <tr className="header">
 <th>機能</th>
@@ -79,7 +79,7 @@ export default function Section6() {
 </table></div>
 <h3 id="65-テスト計画とテスト戦略の違い">6.5
 テスト計画とテスト戦略の違い</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="65-テスト計画とテスト戦略の違い">
 <thead>
 <tr className="header">
 <th>項目</th>
@@ -112,7 +112,7 @@ export default function Section6() {
   <Mermaid chart={DIAGRAM_8} />
 </div>
 <h4 id="テストタイプ用語定義に登場するものの例">テストタイプ（用語定義に登場するものの例）</h4>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="テストタイプ用語定義に登場するものの例">
 <thead>
 <tr className="header">
 <th>テストタイプ</th>
@@ -154,7 +154,7 @@ export default function Section6() {
 開発・保守ライフサイクルでのテスト（4.2.5）</h3>
 <p>2022年版では、ライフサイクルを説明していた附属書は削除されました。序文でも、オブジェクト指向、従来型、アジャイル、DevOps
 など多様な方法論のもとで使えることが強調されています。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="67-開発保守ライフサイクルでのテスト425">
 <thead>
 <tr className="header">
 <th>開発スタイル</th>
@@ -185,7 +185,7 @@ export default function Section6() {
 <h3 id="69-テスト戦略に含まれる内容427">6.9
 テスト戦略に含まれる内容（4.2.7）</h3>
 <p>2022年版では「戦略に期待される内容」が明確化されました。正確な項目は規格本文を参照してください。ここでは、序文と本文構成から読み取れる<strong>戦略の主な構成要素</strong>を整理します（筆者の整理であり、規格の項目リストそのものではありません）。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="69-テスト戦略に含まれる内容427">
 <thead>
 <tr className="header">
 <th>構成要素</th>

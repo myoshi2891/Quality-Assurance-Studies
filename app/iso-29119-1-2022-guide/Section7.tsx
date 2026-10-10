@@ -14,7 +14,7 @@ export default function Section7() {
 <div className="mermaid-diagram" id="mermaid-9">
   <Mermaid chart={DIAGRAM_9} />
 </div>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="71-テストプロセス431-3階層モデル">
 <thead>
 <tr className="header">
 <th>階層</th>
@@ -41,7 +41,7 @@ export default function Section7() {
 </tbody>
 </table></div>
 <h4 id="組織テスト仕様書の用語第3章から">組織テスト仕様書の用語（第3章から）</h4>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="組織テスト仕様書の用語第3章から">
 <thead>
 <tr className="header">
 <th>用語</th>
@@ -78,7 +78,7 @@ export default function Section7() {
 <h3 id="74-構成管理とテスト434">7.4 構成管理とテスト（4.3.4）</h3>
 <p>テスト成果物（テストケース、データ、環境設定など）も版管理の対象です。「どの版のテスト対象を、どの版のテストで確認したか」を追跡できないと、結果の信頼性が損なわれます。</p>
 <h3 id="75-ツールによる支援435">7.5 ツールによる支援（4.3.5）</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="75-ツールによる支援435">
 <thead>
 <tr className="header">
 <th>支援対象</th>
@@ -109,7 +109,7 @@ export default function Section7() {
 <p>テストプロセス自体も改善の対象です。序文でも「テストプロセス（および改善）」が言及されています。</p>
 <h3 id="77-テストメトリクス437">7.7 テストメトリクス（4.3.7）</h3>
 <p>2022年版で、メトリクスは附属書から<strong>本文へ移されました</strong>。測定は、進捗の把握、品質の判断、改善の根拠に使われます。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="77-テストメトリクス437">
 <thead>
 <tr className="header">
 <th>種類</th>

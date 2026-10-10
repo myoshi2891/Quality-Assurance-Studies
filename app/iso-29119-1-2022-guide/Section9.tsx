@@ -19,7 +19,7 @@ export default function Section9() {
 <h3 id="93-欠陥とインシデントの管理47">9.3
 欠陥とインシデントの管理（4.7）</h3>
 <p>用語定義には次の区別があります。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="93-欠陥とインシデントの管理47">
 <thead>
 <tr className="header">
 <th>用語</th>

@@ -8,7 +8,7 @@ export default function Section3() {
 <h2 id="3-2013年版から何が変わったかstep-3">3.
 2013年版から何が変わったか（Step 3）</h2>
 <p>まえがきに列挙されている主な変更点は次のとおりです。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="3-2013年版から何が変わったかstep-3">
 <thead>
 <tr className="header">
 <th>#</th>

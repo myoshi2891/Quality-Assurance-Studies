@@ -7,7 +7,7 @@ export default function Section12() {
 議論と批判的な見解を知っておく（Step 11）</h2>
 <p>29119
 シリーズには、テスト業界で<strong>賛否の議論</strong>があることも知っておくと、バランスよく学べます。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="12-議論と批判的な見解を知っておくstep-11">
 <thead>
 <tr className="header">
 <th>立場</th>

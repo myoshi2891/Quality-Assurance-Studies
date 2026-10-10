@@ -88,6 +88,35 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
     });
   }
 
+  // 見出しレベル（h2〜h4）に依存せず、全表が固有のアクセシブル名を持つことを検証する
+  const TABLE_COUNTS: Record<string, number> = {
+    Section2: 2, Section3: 1, Section4: 1, Section5: 5, Section6: 6, Section7: 4, Section8: 9,
+    Section9: 1, Section11: 1, Section12: 1, Section14: 1, AnnexA: 1, AnnexB: 3,
+  };
+  for (const [name, count] of Object.entries(TABLE_COUNTS)) {
+    it(`gives each of the ${count} tables in ${name} a unique accessible name`, async () => {
+      const $ = load(await markup(name), null, false);
+      const tables = $('table').toArray() as HtmlElement[];
+      expect(tables).toHaveLength(count);
+      const names = tables.map(table => {
+        const labelledby = table.attribs['aria-labelledby'];
+        if (labelledby === undefined) return norm(table.attribs['aria-label'] ?? '');
+        const target = $(`[id="${labelledby}"]`);
+        expect(target).toHaveLength(1);
+        expect(/^h[2-6]$/.test(target.prop('tagName')?.toLowerCase() ?? '')).toBe(true);
+        return norm(target.text());
+      });
+      for (const label of names) expect(label.length).toBeGreaterThan(0);
+      expect(new Set(names).size).toBe(names.length);
+    });
+  }
+
+  it('associates the three AnnexB tables with the B.1, B.2 and B.3 headings', async () => {
+    const $ = load(await markup('AnnexB'), null, false);
+    const labels = ($('table').toArray() as HtmlElement[]).map(table => norm($(`[id="${table.attribs['aria-labelledby']}"]`).text()));
+    expect(labels.map(label => label.slice(0, 3))).toEqual(['B.1', 'B.2', 'B.3']);
+  });
+
   describe('NavBar', () => {
     it('preserves all 69 links, targets and hierarchy in sidebar', async () => {
       const html = await markup('NavBar');

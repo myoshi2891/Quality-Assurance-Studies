@@ -4,7 +4,7 @@ export default function Section14() {
   return (
     <>
 <h2 id="14-理解度チェック">14. 理解度チェック</h2>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="14-理解度チェック">
 <thead>
 <tr className="header">
 <th>#</th>
