@@ -83,6 +83,16 @@ export default function Section4() {
 <div className="mermaid-diagram" id="mermaid-3">
   <Mermaid chart={DIAGRAM_3} />
 </div>
+<ol>
+<li>序文とまえがきを読む（全体の狙いを掴む）</li>
+<li>4.1 テストの基本概念（静的テストと動的テスト、テストオラクル、独立性）</li>
+<li>4.2 リスクとテスト戦略（ここが規格の核心）</li>
+<li>4.3 プロセス・文書・メトリクス（Part 2、3 への橋渡し）</li>
+<li>4.4 設計と実行（Part 4 への橋渡し）</li>
+<li>4.5〜4.7 と附属書</li>
+<li>3章の用語を辞書として引く</li>
+<li>Part 2 へ進む</li>
+</ol>
 <hr />
     </>
   );

@@ -42,6 +42,12 @@ export default function Section11() {
 <div className="mermaid-diagram" id="mermaid-18">
   <Mermaid chart={DIAGRAM_18} />
 </div>
+<ol>
+<li>Step A: 自分たちの用語を棚卸しし、食い違いのある言葉を洗い出す</li>
+<li>Step B: 用語を 29119-1 に照らして整理し、チーム用語集を作る</li>
+<li>Step C: 次のプロジェクトで、リスクの特定 → 戦略 → 計画の順に試す</li>
+<li>振り返りと改善: 足りない部分は Part 2、3、4 で補う</li>
+</ol>
 <hr />
     </>
   );
