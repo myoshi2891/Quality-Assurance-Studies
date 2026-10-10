@@ -105,8 +105,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/beautiful-testing-guide', h1: /Beautiful Testing.*完全ガイド/s },
   { path: '/istqb-ct-genai-study-guide', h1: /Certified Tester.*Testing with Generative AI/s },
   { path: '/beyond-legacy-code-guide', h1: /レガシーコードからの脱却/ },
+  { path: '/iso-29119-1-2022-guide', h1: /ISO\/IEC\/IEEE 29119-1:2022.*初学者向け解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 92;
+export const EXPECTED_PAGE_COUNT = 93;
 
 
