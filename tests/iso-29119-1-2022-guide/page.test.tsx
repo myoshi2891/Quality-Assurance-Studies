@@ -75,6 +75,19 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
     }
   });
 
+  for (const name of ['Section0', 'Section1']) {
+    it(`labels every table in ${name} by its preceding h3 via aria-labelledby`, async () => {
+      const $ = load(await markup(name), null, false);
+      const tables = $('table').toArray() as HtmlElement[];
+      expect(tables.length).toBeGreaterThan(0);
+      for (const table of tables) {
+        const headingId = $(table).parent().prevAll('h3').first().attr('id');
+        expect(headingId).toBeDefined();
+        expect(table.attribs['aria-labelledby']).toBe(headingId);
+      }
+    });
+  }
+
   describe('NavBar', () => {
     it('preserves all 69 links, targets and hierarchy in sidebar', async () => {
       const html = await markup('NavBar');

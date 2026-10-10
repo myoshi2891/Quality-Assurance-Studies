@@ -5,7 +5,7 @@ export default function Section1() {
     <>
 <h2 id="1-29119-1-とは何かstep-1">1. 29119-1 とは何か（Step 1）</h2>
 <h3 id="11-基本情報">1.1 基本情報</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="11-基本情報">
 <thead>
 <tr className="header">
 <th>項目</th>
@@ -65,7 +65,7 @@ IEEE Computer Society</td>
 <h3 id="13-なぜ共通の言葉が必要なのか">1.3
 なぜ「共通の言葉」が必要なのか</h3>
 <p>テストの現場では、同じ言葉が人によって違う意味で使われがちです。</p>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="13-なぜ共通の言葉が必要なのか">
 <thead>
 <tr className="header">
 <th>よくある言葉</th>
