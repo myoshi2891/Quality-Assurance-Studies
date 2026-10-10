@@ -13,21 +13,21 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e82c8f3`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `test(header): update expected category count to 9 with ISO category` |
-| 次の作業 | ユーザーによる`/iso-29119-1-2022-guide`および`/beyond-legacy-code-guide`の目視確認。 |
-| ビルド状態 | 全体テスト`npm test`: 2716 pass / 0 fail、113 files（2026-10-10）。ページ100テスト、Mermaid契約107テスト、ナビゲーション73テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| 最新 HEAD | `f78a940`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `fix(iso-29119-1): wire Mermaid component and diagram definitions into all 19 chart containers` |
+| 次の作業 | ユーザーによる`/iso-29119-1-2022-guide`（Mermaid図19件表示）および`/beyond-legacy-code-guide`の目視確認。 |
+| ビルド状態 | 全体テスト`npm test`: 2718 pass / 0 fail、113 files（2026-10-10）。ページ102テスト（全19図のMermaid配線・クライアント描画・SHA-256検証含む）、Mermaid契約107テスト、ナビゲーション73テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
 ## 2026/10/10: ISO/IEC/IEEE 29119-1:2022 ソフトウェアテスト概念・定義ガイドの移行
 
 - 移行先: `/iso-29119-1-2022-guide`。新カテゴリ「ISO 国際規格」（`iso`）をグローバルナビおよびヘッダードロワーに新設して登録。
 - 元HTMLの見出し70件、階層目次69リンク、全39表・全セル、引用ブロック6件、リスト23件、参考リンク、Mermaid図19件を移行。元HTMLにコードブロックがないことも固定インベントリにて照合。
 - `docs/migration-inventory/iso-29119-1-2022-guide.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
-- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`f358035`）、CSS・ダイアグラム定義（`868f20d`）、全10カテゴリー分割コンポーネント実装、ナビゲーション登録（`1a1765d`）、ヘッダー同期（`e82c8f3`）をそれぞれ独立コミット。
-- ページ100テスト（`tests/iso-29119-1-2022-guide/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、Mermaid配置、CSS詳細度・スコープ、スティッキーNavBar動作（IntersectionObserver / スクロール追従 / モバイルトグル）を完全検証。
+- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`f358035`）、CSS・ダイアグラム定義（`868f20d`）、全10カテゴリー分割コンポーネント実装、ナビゲーション登録（`1a1765d`）、ヘッダー同期（`e82c8f3`）、Mermaid配線修正（`f78a940`）をそれぞれ独立コミット。
+- ページ102テスト（`tests/iso-29119-1-2022-guide/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全19図のMermaid配線・クライアント描画（SHA-256ハッシュ照合）、CSS詳細度・スコープ、スティッキーNavBar動作（IntersectionObserver / スクロール追従 / モバイルトグル）を完全検証。
 - Mermaid図19件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テスト（107 tests）を全件パス。
 - 元HTMLは `archive/html-archive/iso/Iso-29119-1-2022-guide.html`、Markdownは `archive/md-archive/iso/Iso-29119-1-2022-guide.md` へ移動し、`.gitignore` で明示的に追跡管理。
-- ナビ・E2E対象は93ルート、新カテゴリ `iso` は1件。全体2716 pass / 113 files。
+- ナビ・E2E対象は93ルート、新カテゴリ `iso` は1件。全体2718 pass / 113 files。
 
 ## 2026/10/07: Beyond Legacy Code実践ガイドの移行
 
