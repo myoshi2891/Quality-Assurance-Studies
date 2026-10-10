@@ -73,4 +73,59 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       expect(link.attribs.rel).toBe('noopener noreferrer');
     }
   });
+
+  describe('NavBar', () => {
+    it('preserves all 69 links, targets and hierarchy in sidebar', async () => {
+      const html = await markup('NavBar');
+      const $ = load(html, null, false);
+      const links = $('nav.sidebar a.nav-link');
+      expect(links.length).toBe(69);
+      expect($('nav.sidebar .nav-h2').length).toBe(17);
+      expect($('nav.sidebar .nav-h3').length).toBe(52);
+    });
+
+    it('toggles mobile sidebar open state and closes on link click', () => {
+      const { default: NavBar } = require('../../app/iso-29119-1-2022-guide/NavBar');
+      const { container } = render(<NavBar />);
+      const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
+      const nav = container.querySelector('nav.sidebar') as HTMLElement;
+      expect(nav.classList.contains('open')).toBe(false);
+      fireEvent.click(toggle);
+      expect(nav.classList.contains('open')).toBe(true);
+      fireEvent.click(toggle);
+      expect(nav.classList.contains('open')).toBe(false);
+    });
+  });
+
+  describe('Page Integration', () => {
+    it('integrates all sections and renders without runtime error', async () => {
+      const { default: Page } = await import('../../app/iso-29119-1-2022-guide/page');
+      const html = renderToStaticMarkup(<Page />);
+      const $ = load(html, null, false);
+      expect($('.iso-29119-1-page').length).toBe(1);
+      expect($('nav.sidebar').length).toBe(1);
+      expect($('main.main').length).toBe(1);
+      expect($('.mermaid-diagram').length).toBe(19);
+      expect($('table').length).toBe(39);
+    });
+  });
+
+  describe('Styles and Scope', () => {
+    it('scopes all styles under .iso-29119-1-page', () => {
+      const css = readFileSync('app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css', 'utf8');
+      const root = postcss.parse(css);
+      root.walkRules((rule) => {
+        expect(rule.selector.startsWith('.iso-29119-1-page')).toBe(true);
+      });
+    });
+
+    it('resets globals.css hero, table, and mermaid interference', () => {
+      const css = readFileSync('app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css', 'utf8');
+      expect(css).toContain('.hero');
+      expect(css).toContain('min-height: 0 !important');
+      expect(css).toContain('.mermaid-wrapper');
+      expect(css).toContain('background: transparent !important');
+      expect(css).toContain('max-width: none !important');
+    });
+  });
 });
