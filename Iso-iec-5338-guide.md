@@ -253,13 +253,13 @@ flowchart TD
 | 6.4.1 | Business or mission analysis | Modified | 事業課題の分析。AIで解くべき問題か？ |
 | 6.4.2 | Stakeholder needs and requirements definition | Modified | 利害関係者のニーズ整理 |
 | 6.4.3 | System requirements definition | Modified | **モデル要件の設定**を含む |
-| 6.4.4 | System architecture definition | Modified | データ・モデル・従来コンポーネントの構成を決める |
-| 6.4.5 | Design definition | Modified | 詳細設計 |
-| 6.4.6 | System analysis | Modified | 分析・トレードオフ評価 |
+| 6.4.4 | System architecture definition | Generic | データ・モデル・従来コンポーネントの構成を決める |
+| 6.4.5 | Design definition | Generic | 詳細設計 |
+| 6.4.6 | System analysis | Generic | 分析・トレードオフ評価 |
 | 6.4.7 | **Knowledge acquisition** | **AI-specific** | 知識の収集・精緻化・処理可能な形への変換 |
 | 6.4.8 | **AI data engineering** | **AI-specific** | データの取得・更新・準備 |
 | 6.4.9 | Implementation | Modified | **モデルの学習・チューニング**を含む |
-| 6.4.10 | Integration | Modified | コンポーネントの統合 |
+| 6.4.10 | Integration | Generic | コンポーネントの統合 |
 | 6.4.11 | Verification | Modified | **展開前のモデルテスト** |
 | 6.4.12 | Transition | Modified | **モデルのデプロイ** |
 | 6.4.13 | Validation | Modified | 利用者ニーズを満たすかの妥当性確認 |
