@@ -353,7 +353,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - `/iso-29119-1-2022-guide`を新設カテゴリ「ISO 国際規格」（`iso`）へ追加。全70見出し、目次69リンク、全39表、Mermaid図19件を保持。
 - `tests/iso-29119-1-2022-guide/page.test.tsx`で103件を検証。ナビ・E2E対象は93ルート、ISOカテゴリは1件。
 - 原本は`archive/html-archive/iso/Iso-29119-1-2022-guide.html`と`archive/md-archive/iso/Iso-29119-1-2022-guide.md`へ移動し、SHA-256一致を確認。
-- 検証は`npm test`で実施。ビルド・目視確認は実施しない。
+- 検証は`bun test`で実施。ビルド・目視確認は実施しない。
 
 ### Beyond Legacy Codeの追加移行（2026-10-07）
 
