@@ -44,7 +44,7 @@ export default function Section0() {
 </tr>
 <tr className="even">
 <td>現場での使い方、批判的な見解、学習ロードマップ</td>
-<td>9〜12</td>
+<td>11〜13</td>
 </tr>
 </tbody>
 </table></div>

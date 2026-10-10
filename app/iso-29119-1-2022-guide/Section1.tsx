@@ -28,7 +28,7 @@ General concepts</td>
 </tr>
 <tr className="even">
 <td>発行</td>
-<td>2022年2月（ISOステージ 60.60: 国際規格発行済み）</td>
+<td>2022年1月（ISOステージ 60.60: 国際規格発行済み）</td>
 </tr>
 <tr className="odd">
 <td>ページ数</td>
