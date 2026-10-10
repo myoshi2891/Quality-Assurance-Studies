@@ -121,6 +121,68 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
         Object.defineProperty(window, 'innerWidth', { configurable: true, value: previousWidth });
       }
     });
+
+    describe('page-end selection', () => {
+      const FIRST = '0-はじめにこのガイドの読み方';
+      const LAST = 'b4-情報の鮮度に関する注記';
+      const root = document.documentElement;
+      let sections: HTMLElement[] = [];
+
+      // 先頭節は読み取り帯（30%）内、末尾節は帯より下に置き、末尾の短い節を再現する
+      function mountSections() {
+        sections = [FIRST, LAST].map((id, index) => {
+          const el = document.createElement('section');
+          el.id = id;
+          const top = index === 0 ? 0 : window.innerHeight * 0.9;
+          el.getBoundingClientRect = () => ({ top } as DOMRect);
+          document.body.appendChild(el);
+          return el;
+        });
+      }
+
+      function setScroll(scrollY: number, scrollHeight: number) {
+        Object.defineProperty(window, 'scrollY', { configurable: true, value: scrollY });
+        Object.defineProperty(root, 'scrollHeight', { configurable: true, value: scrollHeight });
+      }
+
+      afterEach(() => {
+        for (const el of sections) el.remove();
+        sections = [];
+        Reflect.deleteProperty(window, 'scrollY');
+        Reflect.deleteProperty(root, 'scrollHeight');
+      });
+
+      it('selects the last existing target when scrolled to the bottom', async () => {
+        // Arrange
+        mountSections();
+        const { container } = render(<NavBar />);
+        const first = container.querySelector(`a[data-target="${FIRST}"]`) as HTMLAnchorElement;
+        const last = container.querySelector(`a[data-target="${LAST}"]`) as HTMLAnchorElement;
+        // Act: ページ末尾までスクロール
+        setScroll(1000, 1000 + window.innerHeight);
+        fireEvent.scroll(window);
+        // Assert
+        await waitFor(() => expect(last.getAttribute('aria-current')).toBe('location'));
+        expect(last.classList.contains('active')).toBe(true);
+        expect(first.classList.contains('active')).toBe(false);
+        expect(first.hasAttribute('aria-current')).toBe(false);
+      });
+
+      it('keeps the threshold-based selection when not at the bottom', () => {
+        // Arrange
+        mountSections();
+        const { container } = render(<NavBar />);
+        const first = container.querySelector(`a[data-target="${FIRST}"]`) as HTMLAnchorElement;
+        const last = container.querySelector(`a[data-target="${LAST}"]`) as HTMLAnchorElement;
+        // Act: 末尾より手前
+        setScroll(100, 1000 + window.innerHeight);
+        fireEvent.scroll(window);
+        // Assert
+        expect(first.getAttribute('aria-current')).toBe('location');
+        expect(last.classList.contains('active')).toBe(false);
+        expect(last.hasAttribute('aria-current')).toBe(false);
+      });
+    });
   });
 
   describe('Page Integration', () => {

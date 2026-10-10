@@ -91,6 +91,13 @@ export default function NavBar() {
           break;
         }
       }
+      // 末尾の短い節は30%ラインに届かないため、ページ末尾では存在する最後の対象を選ぶ
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) {
+        const last = [...TARGETS].reverse().find((id) => document.getElementById(id));
+        if (last) current = last;
+      }
       if (current) {
         setActive(current);
       }
@@ -183,7 +190,7 @@ export default function NavBar() {
 <li><a className={`nav-link nav-h3${active === "82-具体例で理解する筆者の作例" ? " active" : ""}`} data-target="82-具体例で理解する筆者の作例" href="#82-具体例で理解する筆者の作例" aria-current={active === "82-具体例で理解する筆者の作例" ? "location" : undefined} onClick={handleLinkClick}>8.2 具体例で理解する（筆者の作例）</a></li>
 <li><a className={`nav-link nav-h3${active === "83-テスト設計技法444" ? " active" : ""}`} data-target="83-テスト設計技法444" href="#83-テスト設計技法444" aria-current={active === "83-テスト設計技法444" ? "location" : undefined} onClick={handleLinkClick}>8.3 テスト設計技法（4.4.4）</a></li>
 <li><a className={`nav-link nav-h3${active === "84-モデルベーステスト442" ? " active" : ""}`} data-target="84-モデルベーステスト442" href="#84-モデルベーステスト442" aria-current={active === "84-モデルベーステスト442" ? "location" : undefined} onClick={handleLinkClick}>8.4 モデルベーステスト（4.4.2）</a></li>
-<li><a className={`nav-link nav-h3${active === "85-スクリプト化テストと探索的テスト443-445" ? " active" : ""}`} data-target="85-スクリプト化テストと探索的テスト443-445" href="#85-スクリプト化テストと探索的テスト443-445" aria-current={active === "85-スクリプト化テストと探索的テスト443-445" ? "location" : undefined} onClick={handleLinkClick}>8.5 スクリプト化テストと探索的テスト（4.4.3, 4.4.5）</a></li>
+<li><a className={`nav-link nav-h3${active === "85-スクリプト化テストと探索的テスト443-445" ? " active" : ""}`} data-target="85-スクリプト化テストと探索的テスト443-445" href="#85-スクリプト化テストと探索的テスト443-445" aria-current={active === "85-スクリプト化テストと探索的テスト443-445" ? "location" : undefined} onClick={handleLinkClick}>8.5 スクリプト化テストと探索的テスト（4.4.3／経験ベーステストは4.4.5）</a></li>
 <li><a className={`nav-link nav-h3${active === "86-再テストと回帰テスト446" ? " active" : ""}`} data-target="86-再テストと回帰テスト446" href="#86-再テストと回帰テスト446" aria-current={active === "86-再テストと回帰テスト446" ? "location" : undefined} onClick={handleLinkClick}>8.6 再テストと回帰テスト（4.4.6）</a></li>
 <li><a className={`nav-link nav-h3${active === "87-手動テストと自動テスト447" ? " active" : ""}`} data-target="87-手動テストと自動テスト447" href="#87-手動テストと自動テスト447" aria-current={active === "87-手動テストと自動テスト447" ? "location" : undefined} onClick={handleLinkClick}>8.7 手動テストと自動テスト（4.4.7）</a></li>
 <li><a className={`nav-link nav-h3${active === "88-その他のテストアプローチ4484411" ? " active" : ""}`} data-target="88-その他のテストアプローチ4484411" href="#88-その他のテストアプローチ4484411" aria-current={active === "88-その他のテストアプローチ4484411" ? "location" : undefined} onClick={handleLinkClick}>8.8 その他のテストアプローチ（4.4.8〜4.4.11）</a></li>
