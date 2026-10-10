@@ -6,7 +6,7 @@ export default function Section0() {
 <h2 id="0-はじめにこのガイドの読み方">0.
 はじめに（このガイドの読み方）</h2>
 <h3 id="01-このガイドで分かること">0.1 このガイドで分かること</h3>
-<div className="table-scroll"><table>
+<div className="table-scroll"><table aria-labelledby="01-このガイドで分かること">
 <thead>
 <tr className="header">
 <th>知りたいこと</th>
