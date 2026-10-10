@@ -44,7 +44,7 @@ flowchart TD
     P1 -. "用語・表記・概念を提供" .-> P16
 ```
 
-### 1.2 パート一覧表（ISO公式ページの規定参照に基づく）
+### 1.2 ISO/IEC 9075 シリーズ全体のパート一覧（現行パート）
 
 | Part | 略称 | 日本語での意味 | 一言説明 |
 |---|---|---|---|
@@ -60,7 +60,9 @@ flowchart TD
 | 15 | SQL/MDA | 多次元配列 | 配列データの扱い |
 | 16 | SQL/PGQ | プロパティグラフ問合せ | **2023年版で新設**。グラフ問合せをSQLに追加 |
 
-> **補足**: 歴史的には Part 5〜8・12 なども存在した、または計画されましたが、現行版の Part 1 が規定参照しているのは上表のパートです。欠番の経緯（内容が他パートへ吸収された等）は Markus Winand 氏の「The 16 Parts of SQL」に整理されています（参考URLは末尾）。
+> **補足（規定参照との区別）**: 上表はシリーズ全体のパート一覧であり、Part 1 自身を含みます。これとは別に、ISO公式ページに示される Part 1 の Clause 2（規定参照）が挙げているのは **Part 2、3、4、9、10、11、13、14、15、16** で、Part 1 自身は規定参照には含まれません。
+>
+> 歴史的には Part 5〜8・12 なども存在した、または計画されましたが、現行シリーズには含まれていません。欠番の経緯（内容が他パートへ吸収された等）は Markus Winand 氏の「The 16 Parts of SQL」に整理されています（参考URLは末尾）。
 
 ---
 
@@ -287,11 +289,11 @@ FROM GRAPH_TABLE (
 | 非10進整数リテラル（T661）・アンダースコア（T662） | PostgreSQL 16 | 同上 |
 | JSONデータ型（T801） | 9.2／9.4 | 同上 |
 | JSON簡易アクセサ・アイテムメソッド | 記事公開時点では「将来」 | 同上（2023年4月時点の情報） |
-| **SQL/PGQ** | 2026年3月16日、Peter Eisentraut氏が master にコミット。**PostgreSQL 19** に搭載予定 | pgsql-committers／depesz |
+| **SQL/PGQ** | 2026年3月16日に master へコミットされたが、**2026年9月7日に REL_19_STABLE から revert**。**PostgreSQL 19 には搭載されず、今後の搭載版は未定** | pgsql-committers／depesz／pgEdge |
 
-PostgreSQL 19 の SQL/PGQ では、`GRAPH_TABLE` によるグラフパターンマッチングと、`CREATE / ALTER / DROP PROPERTY GRAPH` が追加されました。プロパティグラフは新しい relkind として実装され、ビューに近い振る舞い（リライタで通常のリレーショナルクエリに書き換え）をします。
+SQL/PGQ の実装（`GRAPH_TABLE` によるグラフパターンマッチングと `CREATE / ALTER / DROP PROPERTY GRAPH`）は、2026年3月に一度コミットされたものの、リリース前に設計上の課題が複数指摘されたため、2026年9月7日に Peter Eisentraut氏自身のコミットで revert されました。したがって、これらは **PostgreSQL 19 の機能ではありません**。後継バージョンでの再提案が見込まれますが、搭載版は確定していません。
 
-> **注意**: Eisentraut氏の対応表は2023年4月時点です。最新の対応状況は、お使いのバージョンの公式ドキュメント（SQL Conformance）で必ず確認してください。PostgreSQL 19 の正式リリース状況も公式サイトで確認してください。
+> **注意**: Eisentraut氏の対応表は2023年4月時点です。最新の対応状況は、お使いのバージョンの公式ドキュメント（SQL Conformance）で必ず確認してください。SQL/PGQ の搭載版についても、PostgreSQL 公式のリリースノートで確認してください。
 
 ### 6.2 Oracle Database
 
@@ -387,32 +389,33 @@ flowchart TD
 
 | # | 内容 | URL |
 |---|---|---|
-| 1 | ISO/IEC 9075-1:2023 公式ページ（Scope、版、ライフサイクル、規定参照） | https://www.iso.org/standard/76583.html |
-| 2 | 後継ドラフト ISO/IEC CD 9075-1 | https://www.iso.org/standard/92320.html |
-| 3 | ISO/IEC 9075-1:2023/Cor 1:2026 | https://www.iso.org/standard/93690.html |
-| 4 | ISO/IEC 9075-2（Foundation） | https://www.iso.org/standard/76584.html |
-| 5 | ISO/IEC 9075-16（SQL/PGQ） | https://www.iso.org/standard/79473.html |
+| 1 | ISO/IEC 9075-1:2023 公式ページ（Scope、版、ライフサイクル、規定参照） | <https://www.iso.org/standard/76583.html> |
+| 2 | 後継ドラフト ISO/IEC CD 9075-1 | <https://www.iso.org/standard/92320.html> |
+| 3 | ISO/IEC 9075-1:2023/Cor 1:2026 | <https://www.iso.org/standard/93690.html> |
+| 4 | ISO/IEC 9075-2（Foundation） | <https://www.iso.org/standard/76584.html> |
+| 5 | ISO/IEC 9075-16（SQL/PGQ） | <https://www.iso.org/standard/79473.html> |
 
 ### 10.2 国際的な開発者・実装者による解説
 
 | # | 発信者 | 内容 | URL |
 |---|---|---|---|
-| 6 | Peter Eisentraut（PostgreSQLコミッタ） | SQL:2023 の新機能解説 | https://peter.eisentraut.org/blog/2023/04/04/sql-2023-is-finished-here-is-whats-new |
-| 7 | Peter Eisentraut | PostgreSQLのSQL:2023対応状況 | https://peter.eisentraut.org/blog/2023/04/18/postgresql-and-sql-2023 |
-| 8 | Peter Eisentraut | PostgreSQLへのSQL/PGQ実装コミット（2026-03-16） | https://www.postgresql.org/message-id/E1w247I-0000Tk-2Y@gemulon.postgresql.org |
-| 9 | Markus Winand | SQL適合レベル（Core SQLとオプション機能） | https://modern-sql.com/standard/levels |
-| 10 | Markus Winand | SQL標準の16パートの整理 | https://modern-sql.com/standard/parts |
-| 11 | Markus Winand（jOOQ Tuesdays） | 標準準拠への考え方のインタビュー | https://blog.jooq.org/jooq-tuesdays-markus-winand-is-on-a-modern-sql-mission/ |
-| 12 | Oracle（公式ブログ） | Oracle Database 23ai のSQL/PGQ | https://blogs.oracle.com/database/property-graphs-in-oracle-database-23ai-the-sql-pgq-standard |
+| 6 | Peter Eisentraut（PostgreSQLコミッタ） | SQL:2023 の新機能解説 | <https://peter.eisentraut.org/blog/2023/04/04/sql-2023-is-finished-here-is-whats-new> |
+| 7 | Peter Eisentraut | PostgreSQLのSQL:2023対応状況 | <https://peter.eisentraut.org/blog/2023/04/18/postgresql-and-sql-2023> |
+| 8 | Peter Eisentraut | PostgreSQLへのSQL/PGQ実装コミット（2026-03-16） | <https://www.postgresql.org/message-id/E1w247I-0000Tk-2Y@gemulon.postgresql.org> |
+| 9 | Markus Winand | SQL適合レベル（Core SQLとオプション機能） | <https://modern-sql.com/standard/levels> |
+| 10 | Markus Winand | SQL標準の16パートの整理 | <https://modern-sql.com/standard/parts> |
+| 11 | Markus Winand（jOOQ Tuesdays） | 標準準拠への考え方のインタビュー | <https://blog.jooq.org/jooq-tuesdays-markus-winand-is-on-a-modern-sql-mission/> |
+| 12 | Oracle（公式ブログ） | Oracle Database 23ai のSQL/PGQ | <https://blogs.oracle.com/database/property-graphs-in-oracle-database-23ai-the-sql-pgq-standard> |
 
 ### 10.3 コミュニティ・補助資料
 
 | # | 内容 | URL |
 |---|---|---|
-| 13 | depesz「Waiting for PostgreSQL 19 – SQL/PGQ」 | https://www.depesz.com/tag/graphs/ |
-| 14 | PostgreSQL ML: PGQ実装のOracleとの比較検証 | https://www.postgresql.org/message-id/CAExHW5ufB8y1oguSea_9WPFHFDOOTsxZ3Na_OAUBF-H%2BB7AfYw%40mail.gmail.com |
-| 15 | PostgreSQL ML: SQL:2023向けドキュメント更新の議論 | https://hackorum.dev/topics/47552 |
-| 16 | Wikipedia: SQL:2023 | https://en.wikipedia.org/wiki/SQL:2023 |
+| 13 | depesz「Waiting for PostgreSQL 19 – SQL/PGQ」 | <https://www.depesz.com/tag/graphs/> |
+| 14 | PostgreSQL ML: PGQ実装のOracleとの比較検証 | <https://www.postgresql.org/message-id/CAExHW5ufB8y1oguSea_9WPFHFDOOTsxZ3Na_OAUBF-H%2BB7AfYw%40mail.gmail.com> |
+| 15 | PostgreSQL ML: SQL:2023向けドキュメント更新の議論 | <https://hackorum.dev/topics/47552> |
+| 16 | Wikipedia: SQL:2023 | <https://en.wikipedia.org/wiki/SQL:2023> |
+| 17 | pgEdge「Looking Forward to Postgres 19: Epilogue」（SQL/PGQ の revert） | <https://www.pgedge.com/blog/looking-forward-to-postgres-19-epilogue> |
 
 ---
 
