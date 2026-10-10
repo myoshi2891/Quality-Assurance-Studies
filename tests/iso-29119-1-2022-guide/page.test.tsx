@@ -37,7 +37,7 @@ function signatures(html: string, selector = '*'): { tag: string; attrs: string[
   $('.mermaid-diagram svg').remove();
   return $(selector).toArray().filter((node): node is HtmlElement => 'tagName' in node).map(node => ({
     tag: node.tagName,
-    attrs: Object.entries(node.attribs).filter(([key]) => !key.startsWith('aria-') && key !== 'role').sort(([a], [b]) => a.localeCompare(b)),
+    attrs: Object.entries(node.attribs).filter(([key]) => !key.startsWith('aria-') && key !== 'role' && key !== 'target' && key !== 'rel').sort(([a], [b]) => a.localeCompare(b)),
     text: norm($(node).text()),
   }));
 }
