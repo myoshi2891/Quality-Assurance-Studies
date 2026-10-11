@@ -100,7 +100,7 @@ export default function Section6() {
 </tr>
 <tr className="odd">
 <td>関係</td>
-<td>計画の土台になる</td>
+<td>テスト計画に含まれる、テストのアプローチ</td>
 <td>戦略を具体化する</td>
 </tr>
 </tbody>
