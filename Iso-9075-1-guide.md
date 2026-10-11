@@ -224,7 +224,7 @@ flowchart TD
 | 数値リテラル内のアンダースコア | T662 | 桁区切りに使える | `1_000_000` |
 
 ```sql
--- 例: ANY_VALUE により、GROUP BY に含めたくない列を安全に取り出す
+-- 例: ANY_VALUE により、GROUP BY に含めない列について、関数従属性を前提とせずグループ内の任意の値を集約結果に含める
 SELECT department_id,
        ANY_VALUE(department_name) AS department_name,
        COUNT(*)                   AS employee_count
@@ -303,6 +303,8 @@ Oracle の公式ブログによれば、Oracle は SQL/PGQ の標準化を主導
 ### 6.3 PostgreSQLとOracleのPGQ実装差（コミュニティでの検証例）
 
 PostgreSQLのメーリングリストでは、PGQのリグレッションテストをOracleでも動かした比較が共有されています。報告された例を抜粋します（個別の挙動は各製品の最新版で再確認してください）。
+
+> **比較対象の時点**: 下表の「PostgreSQL」列は、2026年9月7日の revert 前の PostgreSQL 開発版（master にコミットされていた SQL/PGQ 実装）を対象とした報告です。現在の PostgreSQL の対応状況を示すものではありません（6.1 のとおり、SQL/PGQ は PostgreSQL 19 には搭載されていません）。
 
 | 項目 | PostgreSQL | Oracle |
 |---|---|---|
