@@ -147,7 +147,8 @@ describe('Integration',()=>{
 });
 describe('Archive',()=>{
  for(const [extension,key] of [['html','html'],['md','md']] as const)it('archives original '+extension+' without byte changes',()=>{
-  const path='archive/'+(extension==='html'?'html-archive':'md-archive')+'/ct-specialist/Ct-genai-study-guide.'+extension;
+  // archive/ は git 管理外のため、CI でも読めるよう追跡対象のフィクスチャを正とする
+  const path='tests/fixtures/source-html/Ct-genai-study-guide.'+extension;
   expect(existsSync(path)).toBe(true);
   expect(createHash('sha256').update(readFileSync(path)).digest('hex')).toBe(inventory.sourceHashes[key]);
   expect(existsSync('Ct-genai-study-guide.'+extension)).toBe(false);
