@@ -170,7 +170,7 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       const root = document.documentElement;
       let sections: HTMLElement[] = [];
 
-      // 先頭節は読み取り帯（30%）内、末尾節は帯より下に置き、末尾の短い節を再現する
+      // 先頭節は判定ライン内、末尾節は帯より下に置き、末尾の短い節を再現する
       function mountSections() {
         sections = [FIRST, LAST].map((id, index) => {
           const el = document.createElement('section');
@@ -223,6 +223,54 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
         expect(first.getAttribute('aria-current')).toBe('location');
         expect(last.classList.contains('active')).toBe(false);
         expect(last.hasAttribute('aria-current')).toBe(false);
+      });
+    });
+
+    describe('scroll-margin-top boundary', () => {
+      const CHAPTER = '1-29119-1-とは何かstep-1';
+      const SUB = '11-基本情報';
+      let sections: HTMLElement[] = [];
+
+      function mountAt(tops: Record<string, number>) {
+        sections = Object.entries(tops).map(([id, top]) => {
+          const el = document.createElement('section');
+          el.id = id;
+          el.getBoundingClientRect = () => ({ top } as DOMRect);
+          document.body.appendChild(el);
+          return el;
+        });
+      }
+
+      afterEach(() => {
+        for (const el of sections) el.remove();
+        sections = [];
+      });
+
+      it('selects the chapter heading stopped at scroll-margin-top, not the following subheading', () => {
+        // Arrange: 章見出しが停止位置（84px）、直後の小見出しが 30% ライン内（150px）
+        mountAt({ [CHAPTER]: 84, [SUB]: 150 });
+        const { container } = render(<NavBar />);
+        const chapter = container.querySelector(`a[data-target="${CHAPTER}"]`) as HTMLAnchorElement;
+        const sub = container.querySelector(`a[data-target="${SUB}"]`) as HTMLAnchorElement;
+        // Act
+        fireEvent.scroll(window);
+        // Assert
+        expect(chapter.getAttribute('aria-current')).toBe('location');
+        expect(sub.classList.contains('active')).toBe(false);
+        expect(sub.hasAttribute('aria-current')).toBe(false);
+      });
+
+      it('selects the subheading once it reaches scroll-margin-top', () => {
+        // Arrange: 小見出しが停止位置に到達
+        mountAt({ [CHAPTER]: -200, [SUB]: 84 });
+        const { container } = render(<NavBar />);
+        const chapter = container.querySelector(`a[data-target="${CHAPTER}"]`) as HTMLAnchorElement;
+        const sub = container.querySelector(`a[data-target="${SUB}"]`) as HTMLAnchorElement;
+        // Act
+        fireEvent.scroll(window);
+        // Assert
+        expect(sub.getAttribute('aria-current')).toBe('location');
+        expect(chapter.hasAttribute('aria-current')).toBe(false);
       });
     });
   });

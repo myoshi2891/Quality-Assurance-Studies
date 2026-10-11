@@ -74,6 +74,9 @@ const TARGETS = [
   "b4-情報の鮮度に関する注記"
 ] as const;
 
+// 見出しの scroll-margin-top（84px）と一致させ、サブピクセル丸め分の 1px を許容する
+const ACTIVE_LINE_PX = 84 + 1;
+
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>('0-はじめにこのガイドの読み方');
@@ -85,13 +88,13 @@ export default function NavBar() {
         const el = document.getElementById(id);
         if (!el) continue;
         const rect = el.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.3) {
+        if (rect.top <= ACTIVE_LINE_PX) {
           current = id;
         } else {
           break;
         }
       }
-      // 末尾の短い節は30%ラインに届かないため、ページ末尾では存在する最後の対象を選ぶ
+      // 末尾の短い節は判定ラインに届かないため、ページ末尾では存在する最後の対象を選ぶ
       const atBottom =
         window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
       if (atBottom) {
