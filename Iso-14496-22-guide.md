@@ -108,7 +108,7 @@ flowchart TB
 
     TT --> OT
     PS --> OT
-    OT <-->|"内容を同期して維持"| OFF
+    OT <-.->|"版単位で内容を取り込み"| OFF
     OT -.->|"圧縮して配信"| WOFF
 
     classDef origin fill:#2b2f3a,stroke:#9aa4b2,color:#ffffff
@@ -122,8 +122,8 @@ flowchart TB
 ### 2-2. 同期の仕組み
 
 - 2007年の初版は、技術的に **OpenType 1.4** 仕様と同等でした。
-- 2009年の第2版は、OpenType仕様と「技術的に同等」と宣言され、以後 **OFFとOpenTypeは同期して維持**されています。
-- Microsoft の OpenType 1.9.1 仕様ページには、「第5版の予備作業草案の改訂を取り込んでいる」と明記されています。つまり、**OFF第5版の審議中の草案が、OpenType 1.9.1 に取り込まれた**ことが確認できます。
+- 2009年の第2版は、OpenType仕様と「技術的に同等」と宣言されました。ただしこれは**第2版の時点での同等性**であり、以後のすべての版で両者が継続的に同期していることを示す根拠は、本稿では確認できていません。OpenType 側には、ISO/IEC 14496-22 の改訂に含まれない拡張もあります。
+- Microsoft の OpenType 1.9.1 仕様ページには、「第5版の予備作業草案の改訂を取り込んでいる」と明記されています。確認できるのは、**OFF第5版の審議中の草案が OpenType 1.9.1 に取り込まれた**という、特定の版における一方向の更新です。これを両者の継続的な同期の根拠とはみなせません。
 
 > 🔑 **初学者向けの覚え方**：OpenType = 「現場で使う名前」、OFF = 「国際標準として文書化された名前」。中身はほぼ同じ。
 
@@ -600,6 +600,7 @@ flowchart LR
 | 発行日が 2026-07-16、FDIS投票終了が 2026-04-29 | ISO公式ページのライフサイクル |
 | 2019年版・Amd 1・Amd 2 が撤回済み | ISO公式ページ |
 | OpenType 1.9.1 が第5版の予備作業草案の改訂を取り込んでいる | Microsoft OpenType 仕様ページ |
+| 第5版（発行版）のページ数が1,003ページ | ISO公式ページ |
 | 初版2007年〜第5版2026年の発行年 | 日本語Wikipedia（二次情報） |
 
 ### 🔶 実装者の一次発言から読み取った事項
@@ -614,7 +615,6 @@ flowchart LR
 | 事項 | 理由 |
 |---|---|
 | **第5版の本文（約1,000ページ）の逐条確認** | ISOページはプレビューまでの公開で、本文を読んでいない |
-| 最終ページ数 | FDIS時点の掲載値が1,003ページ。発行版の値は未確認 |
 | 第5版の入手方法・価格 | 第4版までは無料ダウンロードの記載があったが、第5版は未確認。ISOページで確認を推奨 |
 | `CUBIC` フラグの最終的なビット位置・名称 | 提案文書の記述。最終版との一致は未確認 |
 | 実装PRのマージ状況（2026年10月8日時点） | PRの一部は「Open」や「Closed（再提出）」で、各リポジトリで要確認 |
@@ -632,38 +632,38 @@ flowchart LR
 
 | # | 内容 | URL |
 |---|---|---|
-| 1 | ISO公式：ISO/IEC 14496-22:2026（ご指定のページ） | https://www.iso.org/standard/14496-22 |
-| 2 | ISO公式：FDIS 14496-22（最終国際規格案、ライフサイクルと1,003ページの記載） | https://www.iso.org/standard/87621.html |
-| 3 | ISO公式：ISO/IEC 14496-22:2009（第2版の概要・目標） | https://www.iso.org/standard/52136.html |
-| 4 | IEC Webstore：ISO/IEC 14496-22:2019（第4版、628ページ、撤回日） | https://webstore.iec.ch/en/publication/64608 |
-| 5 | MPEG公式：Open Font Format の標準ページ | https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format |
-| 6 | MPEG公式：カラーフォント・MATH対応の提案募集 | https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html |
-| 7 | MPEG公式GitHub：OpenFontFormat（課題の議論リポジトリ） | https://github.com/MPEGGroup/OpenFontFormat |
-| 8 | Microsoft：OpenType 仕様 1.9.1（第5版予備草案の取り込みを明記） | https://learn.microsoft.com/en-us/typography/opentype/spec/ |
-| 9 | Microsoft：OpenType 変更履歴 | https://learn.microsoft.com/en-us/typography/opentype/spec/changes |
-| 10 | Microsoft：`glyf` テーブル（OpenType 1.9.1） | https://learn.microsoft.com/en-us/typography/opentype/spec/glyf |
+| 1 | ISO公式：ISO/IEC 14496-22:2026（ご指定のページ） | <https://www.iso.org/standard/14496-22> |
+| 2 | ISO公式：FDIS 14496-22（最終国際規格案、ライフサイクルと1,003ページの記載） | <https://www.iso.org/standard/87621.html> |
+| 3 | ISO公式：ISO/IEC 14496-22:2009（第2版の概要・目標） | <https://www.iso.org/standard/52136.html> |
+| 4 | IEC Webstore：ISO/IEC 14496-22:2019（第4版、628ページ、撤回日） | <https://webstore.iec.ch/en/publication/64608> |
+| 5 | MPEG公式：Open Font Format の標準ページ | <https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format> |
+| 6 | MPEG公式：カラーフォント・MATH対応の提案募集 | <https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html> |
+| 7 | MPEG公式GitHub：OpenFontFormat（課題の議論リポジトリ） | <https://github.com/MPEGGroup/OpenFontFormat> |
+| 8 | Microsoft：OpenType 仕様 1.9.1（第5版予備草案の取り込みを明記） | <https://learn.microsoft.com/en-us/typography/opentype/spec/> |
+| 9 | Microsoft：OpenType 変更履歴 | <https://learn.microsoft.com/en-us/typography/opentype/spec/changes> |
+| 10 | Microsoft：`glyf` テーブル（OpenType 1.9.1） | <https://learn.microsoft.com/en-us/typography/opentype/spec/glyf> |
 
 ### 著名な国際的開発者・プロジェクトの一次発言
 
 | # | 内容 | 発信者 | URL |
 |---|---|---|---|
-| 11 | HarfBuzz：最終版の第5版規格へ更新（beyond-64k） | Behdad Esfahbod 氏ほか（HarfBuzz） | https://github.com/harfbuzz/harfbuzz/pull/5655 |
-| 12 | fontTools：最終版の第5版 beyond-64k 実装 | Behdad Esfahbod 氏ほか（fontTools） | https://github.com/fonttools/fonttools/pull/4097 |
-| 13 | fontations：`GLYF`/`LOCA` と3次アウトライン（2026年10月4日） | Behdad Esfahbod 氏（Google Fonts） | https://github.com/googlefonts/fontations/pull/2209 |
-| 14 | fontations：`MAXP` と拡張メトリクス | 同上 | https://github.com/googlefonts/fontations/pull/2208 |
-| 15 | fontations：`GVAR` | 同上 | https://github.com/googlefonts/fontations/pull/2210 |
-| 16 | 提案資料：WG 3「otf improvements」（3次曲線・64K超の提案） | HarfBuzz の boring-expansion-spec | https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true |
-| 17 | fontTools ドキュメント：`GVAR`（24ビットのグリフ変化テーブル） | fontTools プロジェクト | https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html |
+| 11 | HarfBuzz：最終版の第5版規格へ更新（beyond-64k） | Behdad Esfahbod 氏ほか（HarfBuzz） | <https://github.com/harfbuzz/harfbuzz/pull/5655> |
+| 12 | fontTools：最終版の第5版 beyond-64k 実装 | Behdad Esfahbod 氏ほか（fontTools） | <https://github.com/fonttools/fonttools/pull/4097> |
+| 13 | fontations：`GLYF`/`LOCA` と3次アウトライン（2026年10月4日） | Behdad Esfahbod 氏（Google Fonts） | <https://github.com/googlefonts/fontations/pull/2209> |
+| 14 | fontations：`MAXP` と拡張メトリクス | 同上 | <https://github.com/googlefonts/fontations/pull/2208> |
+| 15 | fontations：`GVAR` | 同上 | <https://github.com/googlefonts/fontations/pull/2210> |
+| 16 | 提案資料：WG 3「otf improvements」（3次曲線・64K超の提案） | HarfBuzz の boring-expansion-spec | <https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true> |
+| 17 | fontTools ドキュメント：`GVAR`（24ビットのグリフ変化テーブル） | fontTools プロジェクト | <https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html> |
 
 ### 二次情報（補助的な参照）
 
 | # | 内容 | URL |
 |---|---|---|
-| 18 | 日本語Wikipedia：OpenType（OFFの歴史・各版の発行年） | https://ja.wikipedia.org/wiki/OpenType |
-| 19 | 英語Wikipedia：OpenType（カラーフォントの標準化経緯） | https://en.wikipedia.org/wiki/OpenType |
-| 20 | NISP：ISO/IEC 14496-22（第2版の概要） | https://nisp.nw3.dk/standard/iso-iec-14496-22.html |
-| 21 | 第4版（2019）の本文PDF（Internet Archive） | https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf |
-| 22 | Amd 1:2020 の本文PDF（Internet Archive） | https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf |
+| 18 | 日本語Wikipedia：OpenType（OFFの歴史・各版の発行年） | <https://ja.wikipedia.org/wiki/OpenType> |
+| 19 | 英語Wikipedia：OpenType（カラーフォントの標準化経緯） | <https://en.wikipedia.org/wiki/OpenType> |
+| 20 | NISP：ISO/IEC 14496-22（第2版の概要） | <https://nisp.nw3.dk/standard/iso-iec-14496-22.html> |
+| 21 | 第4版（2019）の本文PDF（Internet Archive） | <https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf> |
+| 22 | Amd 1:2020 の本文PDF（Internet Archive） | <https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf> |
 
 ---
 
