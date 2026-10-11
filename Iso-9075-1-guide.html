@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISO/IEC 9075-1:2023（SQL/Framework）初学者向け解説ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07111e; --bg-card:#0d1b2e; --bg-card2:#12233a; --border:#1f3555;
+  --accent:#7c9eff; --accent-dim:#4b628f; --text:#e6edf7; --text-dim:#c7d6ec; --text-faint:#9cb0cf;
+  --ok:#5fd4a0; --warn:#ffcf6e; --sidebar-w:300px;
+  --font:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.85;overflow-x:hidden}
+.layout{display:block}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--bg-card);border-right:1px solid var(--border);overflow-y:auto;padding:24px 16px 40px;z-index:20}
+.sidebar .brand{font-size:12px;letter-spacing:.08em;color:var(--accent);font-weight:700;margin:0 8px 14px;text-transform:uppercase}
+.sidebar ul{list-style:none;margin:0;padding:0}
+.sidebar li>ul{margin:2px 0 8px 12px;border-left:1px solid var(--border)}
+.sidebar a{display:block;color:var(--text-dim);text-decoration:none;font-size:13.5px;line-height:1.5;padding:6px 10px;border-radius:6px}
+.sidebar li>ul a{font-size:12.5px;color:var(--text-faint)}
+.sidebar a:hover{background:var(--bg-card2);color:#fff}
+.sidebar a.active{background:rgba(124,158,255,.16);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+.toggle{display:none;position:fixed;top:12px;left:12px;z-index:30;background:var(--bg-card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+.main{margin-left:var(--sidebar-w);padding:40px 48px 80px}
+.hero{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px 32px 24px;margin-bottom:36px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-120px;right:-80px;width:340px;height:340px;background:radial-gradient(circle,rgba(124,158,255,.28),transparent 70%);pointer-events:none}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:rgba(124,158,255,.14);border:1px solid rgba(124,158,255,.35);border-radius:999px;padding:4px 14px;margin-bottom:14px;position:relative}
+.hero-title{margin:0 0 20px;font-size:28px;font-weight:800;color:#fff;line-height:1.45;position:relative}
+.hero-meta{display:flex;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:16px;position:relative}
+.meta-item{display:flex;flex-direction:column;gap:2px;padding:4px 24px 4px 0;margin-right:24px;border-right:1px solid var(--border);min-width:0}
+.meta-item:last-child{border-right:0;margin-right:0}
+.meta-label{font-size:11px;letter-spacing:.06em;color:var(--text-faint);text-transform:uppercase}
+.meta-value{font-size:14.5px;color:var(--text);overflow-wrap:anywhere}
+h2{font-size:24px;font-weight:800;color:#fff;margin:56px 0 18px;padding:0 0 10px;border-bottom:1px solid var(--border);scroll-margin-top:20px;line-height:1.5}
+h3{font-size:19px;font-weight:700;color:var(--accent);margin:34px 0 12px;scroll-margin-top:20px;line-height:1.5}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px;padding-left:1.4em}
+li{margin:4px 0}
+a{color:var(--accent);overflow-wrap:anywhere}
+strong{color:#fff;font-weight:700}
+hr{border:0;border-top:1px solid var(--border);margin:32px 0}
+code{font-family:var(--mono);font-size:.88em;background:var(--bg-card2);border:1px solid var(--border);border-radius:5px;padding:1px 6px;color:#ffd6a5;overflow-wrap:anywhere}
+pre{background:#050d18;border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow-x:auto;margin:0 0 20px;line-height:1.65}
+pre code{background:none;border:0;padding:0;color:var(--text);font-size:13.5px;overflow-wrap:normal}
+.tok-k{color:#7c9eff;font-weight:700}.tok-s{color:#8fe3b0}.tok-c{color:#6f86aa;font-style:italic}.tok-n{color:#ffcf6e}
+.table-scroll{overflow-x:auto;margin:0 0 22px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th{background:var(--bg-card2);color:#fff;text-align:left;font-weight:700;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-dim)}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:rgba(124,158,255,.05)}
+td a{word-break:break-all}
+.callout{border:1px solid var(--border);border-left:4px solid var(--accent);background:var(--bg-card);border-radius:10px;padding:14px 18px;margin:0 0 22px}
+.callout p:last-child{margin-bottom:0}
+.callout-practice{border-left-color:var(--ok)}
+.callout-warn{border-left-color:var(--warn)}
+.mermaid-diagram{display:block;overflow-x:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:0 0 24px}
+.mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
+.mermaid-diagram p{color:inherit;margin:0}
+.page-footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--border);color:var(--text-faint);font-size:13px}
+@media (max-width:960px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s}
+  .sidebar.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.6)}
+  .toggle{display:block}
+  .main{margin-left:0;padding:64px 18px 60px}
+  .hero{padding:24px 20px 18px}.hero-title{font-size:22px}
+  .meta-item{border-right:0;border-bottom:1px solid var(--border);width:100%;margin-right:0;padding:8px 0}
+  .meta-item:last-child{border-bottom:0}
+  h2{font-size:21px}
+}
+</style>
+</head>
+<body>
+<button class="toggle" id="toggle" aria-label="目次を開閉">☰ 目次</button>
+<div class="layout">
+<nav class="sidebar" id="sidebar" aria-label="目次">
+<div class="brand">ISO/IEC 9075-1:2023 Guide</div>
+<ul>
+<li><a href="#s-0-先に結論-3分で分かる要約" data-target="s-0-先に結論-3分で分かる要約">0. 先に結論（3分で分かる要約）</a></li>
+<li><a href="#s-1-step-1-sql標準の全体像をつかむ" data-target="s-1-step-1-sql標準の全体像をつかむ">1. Step 1: SQL標準の全体像をつかむ</a><ul><li><a href="#s-1-1-sql標準は-1冊-ではなく-パートの集合" data-target="s-1-1-sql標準は-1冊-ではなく-パートの集合">1.1 SQL標準は「1冊」ではなく「パートの集合」</a></li><li><a href="#s-1-2-iso-iec-9075-シリーズ全体のパート一覧-現行パート" data-target="s-1-2-iso-iec-9075-シリーズ全体のパート一覧-現行パート">1.2 ISO/IEC 9075 シリーズ全体のパート一覧（現行パート）</a></li></ul></li>
+<li><a href="#s-2-step-2-part-1-が-何を決めているか" data-target="s-2-step-2-part-1-が-何を決めているか">2. Step 2: Part 1 が「何を決めているか」</a><ul><li><a href="#s-2-1-役割をマークダウン表で整理" data-target="s-2-1-役割をマークダウン表で整理">2.1 役割をマークダウン表で整理</a></li><li><a href="#s-2-2-part-1-と-part-2-の関係-フローチャート" data-target="s-2-2-part-1-と-part-2-の関係-フローチャート">2.2 Part 1 と Part 2 の関係（フローチャート）</a></li></ul></li>
+<li><a href="#s-3-step-3-基本概念を理解する-sql環境のモデル" data-target="s-3-step-3-基本概念を理解する-sql環境のモデル">3. Step 3: 基本概念を理解する（SQL環境のモデル）</a><ul><li><a href="#s-3-1-sqlデータの入れ物の階層" data-target="s-3-1-sqlデータの入れ物の階層">3.1 SQLデータの入れ物の階層</a></li><li><a href="#s-3-2-クライアントとサーバーの関係" data-target="s-3-2-クライアントとサーバーの関係">3.2 クライアントとサーバーの関係</a></li><li><a href="#s-3-3-文の分類" data-target="s-3-3-文の分類">3.3 文の分類</a></li></ul></li>
+<li><a href="#s-4-step-4-sql準拠-とは何か-conformance" data-target="s-4-step-4-sql準拠-とは何か-conformance">4. Step 4: 「SQL準拠」とは何か（Conformance）</a><ul><li><a href="#s-4-1-すべてを実装する製品は存在しない" data-target="s-4-1-すべてを実装する製品は存在しない">4.1 すべてを実装する製品は存在しない</a></li><li><a href="#s-4-2-sql-2023-で追加された機能はすべて-オプション" data-target="s-4-2-sql-2023-で追加された機能はすべて-オプション">4.2 SQL:2023 で追加された機能はすべて「オプション」</a></li><li><a href="#s-4-3-実務での確認方法-qa向けチェックリスト" data-target="s-4-3-実務での確認方法-qa向けチェックリスト">4.3 実務での確認方法（QA向けチェックリスト）</a></li></ul></li>
+<li><a href="#s-5-step-5-sql-2023-で何が新しくなったか" data-target="s-5-step-5-sql-2023-で何が新しくなったか">5. Step 5: SQL:2023 で何が新しくなったか</a><ul><li><a href="#s-5-1-既存sqlの小さな改良-機能id付き" data-target="s-5-1-既存sqlの小さな改良-機能id付き">5.1 既存SQLの小さな改良（機能ID付き）</a></li><li><a href="#s-5-2-json関連の新機能" data-target="s-5-2-json関連の新機能">5.2 JSON関連の新機能</a></li><li><a href="#s-5-3-新パート-sql-pgq-プロパティグラフ問合せ" data-target="s-5-3-新パート-sql-pgq-プロパティグラフ問合せ">5.3 新パート: SQL/PGQ（プロパティグラフ問合せ）</a></li></ul></li>
+<li><a href="#s-6-step-6-主要製品の対応状況-2026年10月8日時点で確認できた範囲" data-target="s-6-step-6-主要製品の対応状況-2026年10月8日時点で確認できた範囲">6. Step 6: 主要製品の対応状況（2026年10月8日時点で確認できた範囲）</a><ul><li><a href="#s-6-1-postgresql" data-target="s-6-1-postgresql">6.1 PostgreSQL</a></li><li><a href="#s-6-2-oracle-database" data-target="s-6-2-oracle-database">6.2 Oracle Database</a></li><li><a href="#s-6-3-postgresqlとoracleのpgq実装差-コミュニティでの検証例" data-target="s-6-3-postgresqlとoracleのpgq実装差-コミュニティでの検証例">6.3 PostgreSQLとOracleのPGQ実装差（コミュニティでの検証例）</a></li></ul></li>
+<li><a href="#s-7-step-7-規格の改訂状況-今後の動き" data-target="s-7-step-7-規格の改訂状況-今後の動き">7. Step 7: 規格の改訂状況（今後の動き）</a></li>
+<li><a href="#s-8-step-8-エンジニア-qaのための活用ガイド" data-target="s-8-step-8-エンジニア-qaのための活用ガイド">8. Step 8: エンジニア／QAのための活用ガイド</a><ul><li><a href="#s-8-1-いつ-part-1-を読むべきか" data-target="s-8-1-いつ-part-1-を読むべきか">8.1 いつ Part 1 を読むべきか</a></li><li><a href="#s-8-2-学習ロードマップ" data-target="s-8-2-学習ロードマップ">8.2 学習ロードマップ</a></li><li><a href="#s-8-3-よくある誤解" data-target="s-8-3-よくある誤解">8.3 よくある誤解</a></li></ul></li>
+<li><a href="#s-9-用語集" data-target="s-9-用語集">9. 用語集</a></li>
+<li><a href="#s-10-根拠となる情報源-url" data-target="s-10-根拠となる情報源-url">10. 根拠となる情報源（URL）</a><ul><li><a href="#s-10-1-規格の一次情報" data-target="s-10-1-規格の一次情報">10.1 規格の一次情報</a></li><li><a href="#s-10-2-国際的な開発者・実装者による解説" data-target="s-10-2-国際的な開発者・実装者による解説">10.2 国際的な開発者・実装者による解説</a></li><li><a href="#s-10-3-コミュニティ・補助資料" data-target="s-10-3-コミュニティ・補助資料">10.3 コミュニティ・補助資料</a></li></ul></li>
+<li><a href="#s-11-本ガイドの限界と注意点" data-target="s-11-本ガイドの限界と注意点">11. 本ガイドの限界と注意点</a></li>
+</ul>
+</nav>
+<main class="main">
+<header class="hero">
+<span class="eyebrow">ISO規格ガイドシリーズ ／ SQL/Framework</span>
+<h1 class="hero-title">ISO/IEC 9075-1:2023（SQL/Framework）初学者向けステップバイステップ解説ガイド</h1>
+<div class="hero-meta"><div class="meta-item"><span class="meta-label">対象読者</span><span class="meta-value">SQLは書けるが「SQL標準」の全体像を知らないエンジニア／QAエンジニア</span></div><div class="meta-item"><span class="meta-label">情報基準日</span><span class="meta-value">2026年10月8日時点で確認できた公開情報</span></div><div class="meta-item"><span class="meta-label">規格の正式名称</span><span class="meta-value">Information technology — Database languages SQL — Part 1: Framework (SQL/Framework)</span></div></div>
+</header>
+
+
+
+<h2 id="s-0-先に結論-3分で分かる要約">0. 先に結論（3分で分かる要約）</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>何の規格か</td>
+<td>SQL標準（ISO/IEC 9075シリーズ）全体の「<strong>枠組み（フレームワーク）</strong>」を定める第1部</td>
+</tr>
+<tr class="even">
+<td>何が書かれているか</td>
+<td>他のパートが使う<strong>概念・用語・表記法</strong>と、SQL文を処理した結果を規定するための考え方</td>
+</tr>
+<tr class="odd">
+<td>SQL文法そのものは？</td>
+<td><strong>書かれていない</strong>（文法の本体は Part 2: Foundation にある）</td>
+</tr>
+<tr class="even">
+<td>版</td>
+<td>第6版（Edition 6）、2023年6月発行、74ページ</td>
+</tr>
+<tr class="odd">
+<td>技術委員会</td>
+<td>ISO/IEC JTC 1/SC 32（Data management and interchange）</td>
+</tr>
+<tr class="even">
+<td>現在のステータス</td>
+<td>発行済み。2025年6月に定期見直し段階（90.92: To be revised）へ。<strong>後継ドラフト（ISO/IEC CD 9075-1）が開発中</strong></td>
+</tr>
+<tr class="odd">
+<td>訂正票</td>
+<td>ISO/IEC 9075-1:2023/Cor 1:2026 が発行済み（無償）</td>
+</tr>
+<tr class="even">
+<td>初学者向けの一言</td>
+<td>「SQL標準という大きな本棚の、<strong>目次と用語集と凡例</strong>にあたる巻」</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="s-1-step-1-sql標準の全体像をつかむ">1. Step 1: SQL標準の全体像をつかむ</h2>
+<h3 id="s-1-1-sql標準は-1冊-ではなく-パートの集合">1.1 SQL標準は「1冊」ではなく「パートの集合」</h3>
+<p>SQL標準は SQL:1999 以降、複数の<strong>パート</strong>（Part）に分割されています。Part 1 はその「親玉」ではなく、<strong>他のパートが共通で参照する前提知識の巻</strong>です。</p>
+<div class="mermaid-diagram" id="diagram-0">
+<svg id="mmd0" width="936" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="1251.5" viewBox="0 -30 936 1251.5" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd0{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd0 .error-icon{fill:#0d1b2e;}
+#mmd0 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd0 .edge-thickness-normal{stroke-width:1px;}
+#mmd0 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd0 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd0 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd0 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd0 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd0 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd0 .marker.cross{stroke:#7c9eff;}
+#mmd0 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd0 p{margin:0;}
+#mmd0 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd0 .cluster-label text{fill:#f2e4d1;}
+#mmd0 .cluster-label span{color:#f2e4d1;}
+#mmd0 .cluster-label span p{background-color:transparent;}
+#mmd0 .label text,#mmd0 span{fill:#e6edf7;color:#e6edf7;}
+#mmd0 .node rect,#mmd0 .node circle,#mmd0 .node ellipse,#mmd0 .node polygon,#mmd0 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd0 .rough-node .label text,#mmd0 .node .label text,#mmd0 .image-shape .label,#mmd0 .icon-shape .label{text-anchor:middle;}
+#mmd0 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd0 .rough-node .label,#mmd0 .node .label,#mmd0 .image-shape .label,#mmd0 .icon-shape .label{text-align:center;}
+#mmd0 .node.clickable{cursor:pointer;}
+#mmd0 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd0 .arrowheadPath{fill:#f8eee1;}
+#mmd0 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd0 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd0 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd0 .edgeLabel p{background-color:#07111e;}
+#mmd0 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd0 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd0 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd0 .cluster text{fill:#f2e4d1;}
+#mmd0 .cluster span{color:#f2e4d1;}
+#mmd0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd0 rect.text{fill:none;stroke-width:0;}
+#mmd0 .icon-shape,#mmd0 .image-shape{background-color:#07111e;text-align:center;}
+#mmd0 .icon-shape p,#mmd0 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd0 .icon-shape rect,#mmd0 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd0 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd0 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd0 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd0_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd0_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd0_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd0_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd0_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd0_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M138.537,575L161.596,654C184.655,733,230.773,891,258.165,970C285.557,1049,294.224,1049,298.557,1049L302.891,1049" id="L_N0_A_N0_P1_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P1_0" data-points="W3sieCI6MTM4LjUzNjk1Njc4NzEwOTM4LCJ5Ijo1NzV9LHsieCI6Mjc2Ljg5MDYyNSwieSI6MTA0OX0seyJ4IjozMDYuODkwNjI1LCJ5IjoxMDQ5fV0=" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M137.604,499L160.819,412.167C184.033,325.333,230.462,151.667,274.646,64.833C318.831,-22,360.771,-22,417.379,-22C473.987,-22,545.263,-22,613.1,58.298C680.938,138.596,745.336,299.192,777.535,379.489L809.735,459.787" id="L_N0_A_N0_P2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P2_0" data-points="W3sieCI6MTM3LjYwNDM4NTYyMTY0NTgsInkiOjQ5OX0seyJ4IjoyNzYuODkwNjI1LCJ5IjotMjJ9LHsieCI6NDAyLjcxMDkzNzUsInkiOi0yMn0seyJ4Ijo2MTYuNTM5MDYyNSwieSI6LTIyfSx7IngiOjgxMS4yMjM1NDI1NDIwMTY4LCJ5Ijo0NjMuNX1d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M139.082,499L162.05,424C185.019,349,230.955,199,263.334,124C295.714,49,314.536,49,323.948,49L333.359,49" id="L_N0_A_N0_P3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P3_0" data-points="W3sieCI6MTM5LjA4MjQ0NzQ4OTc1NDEsInkiOjQ5OX0seyJ4IjoyNzYuODkwNjI1LCJ5Ijo0OX0seyJ4IjozMzcuMzU5Mzc1LCJ5Ijo0OX1d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M142.961,499L165.283,444.333C187.605,389.667,232.248,280.333,263.24,225.667C294.232,171,311.573,171,320.243,171L328.914,171" id="L_N0_A_N0_P4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P4_0" data-points="W3sieCI6MTQyLjk2MTQ5MjQ4NjMzODc4LCJ5Ijo0OTl9LHsieCI6Mjc2Ljg5MDYyNSwieSI6MTcxfSx7IngiOjMzMi45MTQwNjI1LCJ5IjoxNzF9XQ==" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M150.72,499L171.748,464.667C192.777,430.333,234.834,361.667,264.455,327.333C294.076,293,311.26,293,319.853,293L328.445,293" id="L_N0_A_N0_P9_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P9_0" data-points="W3sieCI6MTUwLjcxOTU4MjQ3OTUwODIsInkiOjQ5OX0seyJ4IjoyNzYuODkwNjI1LCJ5IjoyOTN9LHsieCI6MzMyLjQ0NTMxMjUsInkiOjI5M31d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M173.994,499L191.143,485C208.293,471,242.592,443,267.789,429C292.987,415,309.083,415,317.132,415L325.18,415" id="L_N0_A_N0_P10_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P10_0" data-points="W3sieCI6MTczLjk5Mzg1MjQ1OTAxNjQsInkiOjQ5OX0seyJ4IjoyNzYuODkwNjI1LCJ5Ijo0MTV9LHsieCI6MzI5LjE3OTY4NzUsInkiOjQxNX1d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M246.891,537L251.891,537C256.891,537,266.891,537,276.319,537C285.747,537,294.604,537,299.033,537L303.461,537" id="L_N0_A_N0_P11_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P11_0" data-points="W3sieCI6MjQ2Ljg5MDYyNSwieSI6NTM3fSx7IngiOjI3Ni44OTA2MjUsInkiOjUzN30seyJ4IjozMDcuNDYwOTM3NSwieSI6NTM3fV0=" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M173.994,575L191.143,589C208.293,603,242.592,631,268.039,645C293.487,659,310.083,659,318.382,659L326.68,659" id="L_N0_A_N0_P13_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P13_0" data-points="W3sieCI6MTczLjk5Mzg1MjQ1OTAxNjQsInkiOjU3NX0seyJ4IjoyNzYuODkwNjI1LCJ5Ijo2NTl9LHsieCI6MzMwLjY3OTY4NzUsInkiOjY1OX1d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M150.72,575L171.748,609.333C192.777,643.667,234.834,712.333,263.929,746.667C293.023,781,309.156,781,317.223,781L325.289,781" id="L_N0_A_N0_P14_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P14_0" data-points="W3sieCI6MTUwLjcxOTU4MjQ3OTUwODIsInkiOjU3NX0seyJ4IjoyNzYuODkwNjI1LCJ5Ijo3ODF9LHsieCI6MzI5LjI4OTA2MjUsInkiOjc4MX1d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M142.961,575L165.283,629.667C187.605,684.333,232.248,793.667,262.41,848.333C292.573,903,308.255,903,316.096,903L323.938,903" id="L_N0_A_N0_P15_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P15_0" data-points="W3sieCI6MTQyLjk2MTQ5MjQ4NjMzODc4LCJ5Ijo1NzV9LHsieCI6Mjc2Ljg5MDYyNSwieSI6OTAzfSx7IngiOjMyNy45Mzc1LCJ5Ijo5MDN9XQ==" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M136.801,575L160.149,669.833C183.498,764.667,230.194,954.333,274.512,1049.167C318.831,1144,360.771,1144,417.379,1144C473.987,1144,545.263,1144,603.07,1147.252C660.876,1150.504,705.213,1157.008,727.382,1160.26L749.55,1163.512" id="L_N0_A_N0_P16_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_A_N0_P16_0" data-points="W3sieCI6MTM2LjgwMTAzMjIyODE3MTMyLCJ5Ijo1NzV9LHsieCI6Mjc2Ljg5MDYyNSwieSI6MTE0NH0seyJ4Ijo0MDIuNzEwOTM3NSwieSI6MTE0NH0seyJ4Ijo2MTYuNTM5MDYyNSwieSI6MTE0NH0seyJ4Ijo3NTMuNTA3ODEyNSwieSI6MTE2NC4wOTIzMzc5MTc0ODUzfV0=" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M498.531,1049L518.199,1049C537.867,1049,577.203,1049,629.07,968.702C680.938,888.404,745.336,727.808,777.535,647.511L809.735,567.213" id="L_N0_P1_N0_P2_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_P1_N0_P2_0" data-points="W3sieCI6NDk4LjUzMTI1LCJ5IjoxMDQ5fSx7IngiOjYxNi41MzkwNjI1LCJ5IjoxMDQ5fSx7IngiOjgxMS4yMjM1NDI1NDIwMTY4LCJ5Ijo1NjMuNX1d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+<path d="M477.738,1099L500.872,1114.417C524.005,1129.833,570.272,1160.667,615.569,1174.432C660.866,1188.197,705.192,1184.894,727.356,1183.243L749.519,1181.592" id="L_N0_P1_N0_P16_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N0_P1_N0_P16_0" data-points="W3sieCI6NDc3LjczODM0OTc4MDcwMTc1LCJ5IjoxMDk5fSx7IngiOjYxNi41MzkwNjI1LCJ5IjoxMTkxLjV9LHsieCI6NzUzLjUwNzgxMjUsInkiOjExODEuMjk0MzY4MDQxOTEyM31d" marker-end="url(#mmd0_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P1_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P2_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P3_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P4_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P9_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P10_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P11_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P13_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P14_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P15_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N0_A_N0_P16_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(616.5390625, 1049)">
+<g class="label" data-id="L_N0_P1_N0_P2_0" transform="translate(-88.0078125, -12)"><foreignObject width="176.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>用語・表記・概念を提供</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(604.28553, 1198.33397)">
+<g class="label" data-id="L_N0_P1_N0_P16_0" transform="translate(-88.0078125, -12)"><foreignObject width="176.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>用語・表記・概念を提供</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N0_A-0" transform="translate(127.4453125, 537)">
+<rect class="basic label-container" style="" x="-119.4453125" y="-38" width="238.890625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-91.4453125, -24)">
+<rect>
+</rect><foreignObject width="182.890625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC 9075 シリーズ<br/>Database languages SQL</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P1-1" transform="translate(402.7109375, 1049)">
+<rect class="basic label-container" style="" x="-95.8203125" y="-50" width="191.640625" height="100">
+</rect>
+<g class="label" style="" transform="translate(-67.8203125, -36)">
+<rect>
+</rect><foreignObject width="135.640625" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 1: Framework<br/>(SQL/Framework)<br/>★この記事の主役</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P2-3" transform="translate(831.2734375, 513.5)">
+<rect class="basic label-container" style="" x="-96.7265625" y="-50" width="193.453125" height="100">
+</rect>
+<g class="label" style="" transform="translate(-68.7265625, -36)">
+<rect>
+</rect><foreignObject width="137.453125" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 2: Foundation<br/>(SQL/Foundation)<br/>SQLの中核文法</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P3-5" transform="translate(402.7109375, 49)">
+<rect class="basic label-container" style="" x="-65.3515625" y="-26" width="130.703125" height="52">
+</rect>
+<g class="label" style="" transform="translate(-37.3515625, -12)">
+<rect>
+</rect><foreignObject width="74.703125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 3: CLI</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P4-7" transform="translate(402.7109375, 171)">
+<rect class="basic label-container" style="" x="-69.796875" y="-26" width="139.59375" height="52">
+</rect>
+<g class="label" style="" transform="translate(-41.796875, -12)">
+<rect>
+</rect><foreignObject width="83.59375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 4: PSM</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P9-9" transform="translate(402.7109375, 293)">
+<rect class="basic label-container" style="" x="-70.265625" y="-26" width="140.53125" height="52">
+</rect>
+<g class="label" style="" transform="translate(-42.265625, -12)">
+<rect>
+</rect><foreignObject width="84.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 9: MED</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P10-11" transform="translate(402.7109375, 415)">
+<rect class="basic label-container" style="" x="-73.53125" y="-26" width="147.0625" height="52">
+</rect>
+<g class="label" style="" transform="translate(-45.53125, -12)">
+<rect>
+</rect><foreignObject width="91.0625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 10: OLB</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P11-13" transform="translate(402.7109375, 537)">
+<rect class="basic label-container" style="" x="-95.25" y="-26" width="190.5" height="52">
+</rect>
+<g class="label" style="" transform="translate(-67.25, -12)">
+<rect>
+</rect><foreignObject width="134.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 11: Schemata</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P13-15" transform="translate(402.7109375, 659)">
+<rect class="basic label-container" style="" x="-72.03125" y="-26" width="144.0625" height="52">
+</rect>
+<g class="label" style="" transform="translate(-44.03125, -12)">
+<rect>
+</rect><foreignObject width="88.0625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 13: JRT</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P14-17" transform="translate(402.7109375, 781)">
+<rect class="basic label-container" style="" x="-73.421875" y="-26" width="146.84375" height="52">
+</rect>
+<g class="label" style="" transform="translate(-45.421875, -12)">
+<rect>
+</rect><foreignObject width="90.84375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 14: XML</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P15-19" transform="translate(402.7109375, 903)">
+<rect class="basic label-container" style="" x="-74.7734375" y="-26" width="149.546875" height="52">
+</rect>
+<g class="label" style="" transform="translate(-46.7734375, -12)">
+<rect>
+</rect><foreignObject width="93.546875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 15: MDA</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N0_P16-21" transform="translate(831.2734375, 1175.5)">
+<rect class="basic label-container" style="" x="-77.765625" y="-38" width="155.53125" height="76">
+</rect>
+<g class="label" style="" transform="translate(-49.765625, -24)">
+<rect>
+</rect><foreignObject width="99.53125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 16: PGQ<br/>2023年に新設</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<h3 id="s-1-2-iso-iec-9075-シリーズ全体のパート一覧-現行パート">1.2 ISO/IEC 9075 シリーズ全体のパート一覧（現行パート）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>略称</th>
+<th>日本語での意味</th>
+<th>一言説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>SQL/Framework</td>
+<td>フレームワーク</td>
+<td><strong>本ガイドの対象</strong>。概念・用語・表記の共通基盤</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>SQL/Foundation</td>
+<td>基盤</td>
+<td>SELECT/INSERT/DDL等、SQLの中核機能の規定</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>SQL/CLI</td>
+<td>コールレベルインタフェース</td>
+<td>アプリからSQLを呼び出すAPI</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>SQL/PSM</td>
+<td>永続格納モジュール</td>
+<td>ストアドプロシージャ等の手続き言語</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>SQL/MED</td>
+<td>外部データ管理</td>
+<td>外部データソースへの接続（Foreign Data）</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>SQL/OLB</td>
+<td>オブジェクト言語バインディング</td>
+<td>埋め込みSQL的な言語連携（SQLJ系）</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>SQL/Schemata</td>
+<td>情報・定義スキーマ</td>
+<td><code>INFORMATION_SCHEMA</code> の規定</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>SQL/JRT</td>
+<td>Java関連</td>
+<td>JavaでのSQLルーチン・型</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>SQL/XML</td>
+<td>XML関連</td>
+<td>XMLとSQLの連携</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>SQL/MDA</td>
+<td>多次元配列</td>
+<td>配列データの扱い</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>SQL/PGQ</td>
+<td>プロパティグラフ問合せ</td>
+<td><strong>2023年版で新設</strong>。グラフ問合せをSQLに追加</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-practice">
+<p><strong>補足（規定参照との区別）</strong>: 上表はシリーズ全体のパート一覧であり、Part 1 自身を含みます。これとは別に、ISO公式ページに示される Part 1 の Clause 2（規定参照）が挙げているのは <strong>Part 2、3、4、9、10、11、13、14、15、16</strong> で、Part 1 自身は規定参照には含まれません。</p>
+<p>歴史的には Part 5〜8・12 なども存在した、または計画されましたが、現行シリーズには含まれていません。欠番の経緯（内容が他パートへ吸収された等）は Markus Winand 氏の「The 16 Parts of SQL」に整理されています（参考URLは末尾）。</p>
+</div>
+<hr/>
+<h2 id="s-2-step-2-part-1-が-何を決めているか">2. Step 2: Part 1 が「何を決めているか」</h2>
+<p>ISO公式ページの Scope（適用範囲）は、次の2点に集約されます（要約）。</p>
+<ol type="1">
+<li>ISO/IEC 9075 シリーズの他パートが、<strong>SQLの文法</strong>と、SQL実装（SQL-implementation）が文を処理した<strong>結果</strong>を規定するために使う<strong>概念的な枠組み</strong>を説明する</li>
+<li>他パートで使われる<strong>用語と表記法</strong>を定義する</li>
+</ol>
+<h3 id="s-2-1-役割をマークダウン表で整理">2.1 役割をマークダウン表で整理</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>Part 1 の役割</th>
+<th>具体例（イメージ）</th>
+<th>初学者への意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>概念の定義</td>
+<td>SQL環境、カタログ、スキーマ、セッション、トランザクション</td>
+<td>「SQLの世界の登場人物」の紹介</td>
+</tr>
+<tr class="even">
+<td>用語の定義</td>
+<td>規格内で厳密に使う語（例: SQL-implementation）</td>
+<td>規格を読むときの辞書</td>
+</tr>
+<tr class="odd">
+<td>表記法の定義</td>
+<td>文法記述（BNF風）の読み方</td>
+<td>規格の「凡例」</td>
+</tr>
+<tr class="even">
+<td>適合性（Conformance）の枠組み</td>
+<td>何を実装すれば「SQL準拠」と言えるか</td>
+<td>ベンダー比較の物差し</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="s-2-2-part-1-と-part-2-の関係-フローチャート">2.2 Part 1 と Part 2 の関係（フローチャート）</h3>
+<div class="mermaid-diagram" id="diagram-1">
+<svg id="mmd1" width="844.640625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="161" viewBox="0 15 844.640625 161" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd1{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd1 .error-icon{fill:#0d1b2e;}
+#mmd1 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd1 .edge-thickness-normal{stroke-width:1px;}
+#mmd1 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd1 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd1 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd1 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd1 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd1 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd1 .marker.cross{stroke:#7c9eff;}
+#mmd1 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd1 p{margin:0;}
+#mmd1 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd1 .cluster-label text{fill:#f2e4d1;}
+#mmd1 .cluster-label span{color:#f2e4d1;}
+#mmd1 .cluster-label span p{background-color:transparent;}
+#mmd1 .label text,#mmd1 span{fill:#e6edf7;color:#e6edf7;}
+#mmd1 .node rect,#mmd1 .node circle,#mmd1 .node ellipse,#mmd1 .node polygon,#mmd1 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd1 .rough-node .label text,#mmd1 .node .label text,#mmd1 .image-shape .label,#mmd1 .icon-shape .label{text-anchor:middle;}
+#mmd1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd1 .rough-node .label,#mmd1 .node .label,#mmd1 .image-shape .label,#mmd1 .icon-shape .label{text-align:center;}
+#mmd1 .node.clickable{cursor:pointer;}
+#mmd1 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd1 .arrowheadPath{fill:#f8eee1;}
+#mmd1 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd1 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd1 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd1 .edgeLabel p{background-color:#07111e;}
+#mmd1 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd1 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd1 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd1 .cluster text{fill:#f2e4d1;}
+#mmd1 .cluster span{color:#f2e4d1;}
+#mmd1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd1 rect.text{fill:none;stroke-width:0;}
+#mmd1 .icon-shape,#mmd1 .image-shape{background-color:#07111e;text-align:center;}
+#mmd1 .icon-shape p,#mmd1 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd1 .icon-shape rect,#mmd1 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd1 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd1 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd1_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd1_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd1_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd1_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd1_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd1_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M192.016,83.916L206.31,80.097C220.604,76.277,249.193,68.639,277.115,64.819C305.036,61,332.292,61,345.919,61L359.547,61" id="L_N1_F_N1_FD_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N1_F_N1_FD_0" data-points="W3sieCI6MTkyLjAxNTYyNSwieSI6ODMuOTE2MDYyNDAzODY3Mjl9LHsieCI6Mjc3Ljc4MTI1LCJ5Ijo2MX0seyJ4IjozNjMuNTQ2ODc1LCJ5Ijo2MX1d" marker-end="url(#mmd1_flowchart-v2-pointEnd)">
+</path>
+<path d="M547.563,61L555.23,61C562.898,61,578.234,61,596.173,64.375C614.111,67.75,634.652,74.501,644.923,77.876L655.193,81.251" id="L_N1_FD_N1_EXT_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N1_FD_N1_EXT_0" data-points="W3sieCI6NTQ3LjU2MjUsInkiOjYxfSx7IngiOjU5My41NzAzMTI1LCJ5Ijo2MX0seyJ4Ijo2NTguOTkzMjU2NTc4OTQ3NCwieSI6ODIuNX1d" marker-end="url(#mmd1_flowchart-v2-pointEnd)">
+</path>
+<path d="M192.016,133.084L206.31,136.903C220.604,140.723,249.193,148.361,293.116,152.181C337.039,156,396.297,156,448.928,156C501.56,156,547.565,156,580.838,152.625C614.111,149.25,634.652,142.499,644.923,139.124L655.193,135.749" id="L_N1_F_N1_EXT_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N1_F_N1_EXT_0" data-points="W3sieCI6MTkyLjAxNTYyNSwieSI6MTMzLjA4MzkzNzU5NjEzMjczfSx7IngiOjI3Ny43ODEyNSwieSI6MTU2fSx7IngiOjQ1NS41NTQ2ODc1LCJ5IjoxNTZ9LHsieCI6NTkzLjU3MDMxMjUsInkiOjE1Nn0seyJ4Ijo2NTguOTkzMjU2NTc4OTQ3NCwieSI6MTM0LjV9XQ==" marker-end="url(#mmd1_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel" transform="translate(277.78125, 61)">
+<g class="label" data-id="L_N1_F_N1_FD_0" transform="translate(-55.765625, -12)"><foreignObject width="111.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>前提として参照</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(593.5703125, 61)">
+<g class="label" data-id="L_N1_FD_N1_EXT_0" transform="translate(-16.0078125, -12)"><foreignObject width="32.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>拡張</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(455.5546875, 156)">
+<g class="label" data-id="L_N1_F_N1_EXT_0" transform="translate(-55.765625, -12)"><foreignObject width="111.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>前提として参照</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N1_F-0" transform="translate(100.0078125, 108.5)">
+<rect class="basic label-container" style="" x="-92.0078125" y="-38" width="184.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-64.0078125, -24)">
+<rect>
+</rect><foreignObject width="128.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 1<br/>概念・用語・表記</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N1_FD-1" transform="translate(455.5546875, 61)">
+<rect class="basic label-container" style="" x="-92.0078125" y="-38" width="184.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-64.0078125, -24)">
+<rect>
+</rect><foreignObject width="128.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 2<br/>文法と動作の規定</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N1_EXT-3" transform="translate(738.109375, 108.5)">
+<rect class="basic label-container" style="" x="-98.53125" y="-26" width="197.0625" height="52">
+</rect>
+<g class="label" style="" transform="translate(-70.53125, -12)">
+<rect>
+</rect><foreignObject width="141.0625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Part 4 / 14 / 16 など</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<div class="callout callout-practice">
+<p><strong>ポイント</strong>: <code>SELECT</code> の正確な文法や評価規則を知りたい → Part 2。 「そもそもSQLの世界はどんな構成要素でできているか」「準拠とは何か」を知りたい → <strong>Part 1</strong>。</p>
+</div>
+<hr/>
+<h2 id="s-3-step-3-基本概念を理解する-sql環境のモデル">3. Step 3: 基本概念を理解する（SQL環境のモデル）</h2>
+<div class="callout callout-warn">
+<p>※ 規格本文は有料で、ISOは本文のAI利用を認めていません。そのため、本節は<strong>公開情報と一般的なSQL知識に基づく概念説明</strong>です。正確な定義文は、必ずISO Online Browsing Platform（OBP）のサンプルまたは規格本文で確認してください。</p>
+</div>
+<h3 id="s-3-1-sqlデータの入れ物の階層">3.1 SQLデータの入れ物の階層</h3>
+<p>実務で見慣れた「データベース &gt; スキーマ &gt; テーブル」は、標準の用語では次のように整理されます。</p>
+<div class="mermaid-diagram" id="diagram-2">
+<svg id="mmd2" width="272" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="660" viewBox="0 15 272 660" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd2{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd2 .error-icon{fill:#0d1b2e;}
+#mmd2 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd2 .edge-thickness-normal{stroke-width:1px;}
+#mmd2 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd2 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd2 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd2 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd2 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd2 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd2 .marker.cross{stroke:#7c9eff;}
+#mmd2 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd2 p{margin:0;}
+#mmd2 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd2 .cluster-label text{fill:#f2e4d1;}
+#mmd2 .cluster-label span{color:#f2e4d1;}
+#mmd2 .cluster-label span p{background-color:transparent;}
+#mmd2 .label text,#mmd2 span{fill:#e6edf7;color:#e6edf7;}
+#mmd2 .node rect,#mmd2 .node circle,#mmd2 .node ellipse,#mmd2 .node polygon,#mmd2 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd2 .rough-node .label text,#mmd2 .node .label text,#mmd2 .image-shape .label,#mmd2 .icon-shape .label{text-anchor:middle;}
+#mmd2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd2 .rough-node .label,#mmd2 .node .label,#mmd2 .image-shape .label,#mmd2 .icon-shape .label{text-align:center;}
+#mmd2 .node.clickable{cursor:pointer;}
+#mmd2 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd2 .arrowheadPath{fill:#f8eee1;}
+#mmd2 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd2 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd2 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd2 .edgeLabel p{background-color:#07111e;}
+#mmd2 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd2 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd2 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd2 .cluster text{fill:#f2e4d1;}
+#mmd2 .cluster span{color:#f2e4d1;}
+#mmd2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd2 rect.text{fill:none;stroke-width:0;}
+#mmd2 .icon-shape,#mmd2 .image-shape{background-color:#07111e;text-align:center;}
+#mmd2 .icon-shape p,#mmd2 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd2 .icon-shape rect,#mmd2 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd2 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M136,99L136,104C136,109,136,119,136,128.333C136,137.667,136,146.333,136,150.667L136,155" id="L_N2_ENV_N2_CAT_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_ENV_N2_CAT_0" data-points="W3sieCI6MTM2LCJ5Ijo5OX0seyJ4IjoxMzYsInkiOjEyOX0seyJ4IjoxMzYsInkiOjE1OX1d" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,235L136,240C136,245,136,255,136,264.333C136,273.667,136,282.333,136,286.667L136,291" id="L_N2_CAT_N2_SCH_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_CAT_N2_SCH_0" data-points="W3sieCI6MTM2LCJ5IjoyMzV9LHsieCI6MTM2LCJ5IjoyNjV9LHsieCI6MTM2LCJ5IjoyOTV9XQ==" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,371L136,376C136,381,136,391,136,400.333C136,409.667,136,418.333,136,422.667L136,427" id="L_N2_SCH_N2_OBJ_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_SCH_N2_OBJ_0" data-points="W3sieCI6MTM2LCJ5IjozNzF9LHsieCI6MTM2LCJ5Ijo0MDF9LHsieCI6MTM2LCJ5Ijo0MzF9XQ==" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,531L136,536C136,541,136,551,136,560.333C136,569.667,136,578.333,136,582.667L136,587" id="L_N2_OBJ_N2_DATA_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N2_OBJ_N2_DATA_0" data-points="W3sieCI6MTM2LCJ5Ijo1MzF9LHsieCI6MTM2LCJ5Ijo1NjF9LHsieCI6MTM2LCJ5Ijo1OTF9XQ==" marker-end="url(#mmd2_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N2_ENV_N2_CAT_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N2_CAT_N2_SCH_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N2_SCH_N2_OBJ_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N2_OBJ_N2_DATA_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N2_ENV-0" transform="translate(136, 61)">
+<rect class="basic label-container" style="" x="-93.5078125" y="-38" width="187.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-65.5078125, -24)">
+<rect>
+</rect><foreignObject width="131.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>SQL-environment<br/>SQL環境</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_CAT-1" transform="translate(136, 197)">
+<rect class="basic label-container" style="" x="-60.0078125" y="-38" width="120.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-32.0078125, -24)">
+<rect>
+</rect><foreignObject width="64.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Catalog<br/>カタログ</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_SCH-3" transform="translate(136, 333)">
+<rect class="basic label-container" style="" x="-60.0078125" y="-38" width="120.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-32.0078125, -24)">
+<rect>
+</rect><foreignObject width="64.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Schema<br/>スキーマ</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_OBJ-5" transform="translate(136, 481)">
+<rect class="basic label-container" style="" x="-128" y="-50" width="256" height="100">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>SQL-object<br/>テーブル / ビュー / 型 / ルーチン など</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N2_DATA-7" transform="translate(136, 629)">
+<rect class="basic label-container" style="" x="-76.0078125" y="-38" width="152.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-48.0078125, -24)">
+<rect>
+</rect><foreignObject width="96.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>SQL-data<br/>実際のデータ</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>標準の用語</th>
+<th>PostgreSQLでの近い概念</th>
+<th>MySQLでの近い概念</th>
+<th>注意点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>カタログ</td>
+<td>データベース</td>
+<td>（実装依存）</td>
+<td>製品ごとに呼び方・扱いが異なる</td>
+</tr>
+<tr class="even">
+<td>スキーマ</td>
+<td>スキーマ</td>
+<td>データベース（≒スキーマ）</td>
+<td>MySQLは「スキーマ＝データベース」の扱い</td>
+</tr>
+<tr class="odd">
+<td>テーブル</td>
+<td>テーブル</td>
+<td>テーブル</td>
+<td>ほぼ共通</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-practice">
+<p><strong>QAの視点</strong>: 「標準ではこう呼ぶ」と「製品ではこう呼ぶ」の差を意識すると、<strong>移植性テスト</strong>の観点が増えます。</p>
+</div>
+<h3 id="s-3-2-クライアントとサーバーの関係">3.2 クライアントとサーバーの関係</h3>
+<div class="mermaid-diagram" id="diagram-3">
+<svg id="mmd3" width="926" xmlns="http://www.w3.org/2000/svg" height="435" viewBox="-50 -10 926 435" role="graphics-document document" aria-roledescription="sequence">
+<g>
+<rect x="676" y="349" fill="#eaeaea" stroke="#666" width="150" height="65" name="DB" rx="3" ry="3" class="actor actor-bottom">
+</rect>
+<text x="751" y="381.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="751" dy="0">データ</tspan>
+</text>
+</g>
+<g>
+<rect x="466" y="349" fill="#eaeaea" stroke="#666" width="150" height="65" name="Srv" rx="3" ry="3" class="actor actor-bottom">
+</rect>
+<text x="541" y="381.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="541" dy="0">SQL-server</tspan>
+</text>
+</g>
+<g>
+<rect x="210" y="349" fill="#eaeaea" stroke="#666" width="150" height="65" name="Cli" rx="3" ry="3" class="actor actor-bottom">
+</rect>
+<text x="285" y="381.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="285" dy="0">SQL-client</tspan>
+</text>
+</g>
+<g>
+<rect x="0" y="349" fill="#eaeaea" stroke="#666" width="150" height="65" name="App" rx="3" ry="3" class="actor actor-bottom">
+</rect>
+<text x="75" y="381.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="75" dy="-8">アプリケーション</tspan>
+</text>
+<text x="75" y="381.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="75" dy="8">(SQL-agent)</tspan>
+</text>
+</g>
+<g>
+<line id="actor3" x1="751" y1="65" x2="751" y2="349" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="DB">
+</line>
+<g id="root-3">
+<rect x="676" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" name="DB" rx="3" ry="3" class="actor actor-top">
+</rect>
+<text x="751" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="751" dy="0">データ</tspan>
+</text>
+</g>
+</g>
+<g>
+<line id="actor2" x1="541" y1="65" x2="541" y2="349" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="Srv">
+</line>
+<g id="root-2">
+<rect x="466" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" name="Srv" rx="3" ry="3" class="actor actor-top">
+</rect>
+<text x="541" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="541" dy="0">SQL-server</tspan>
+</text>
+</g>
+</g>
+<g>
+<line id="actor1" x1="285" y1="65" x2="285" y2="349" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="Cli">
+</line>
+<g id="root-1">
+<rect x="210" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" name="Cli" rx="3" ry="3" class="actor actor-top">
+</rect>
+<text x="285" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="285" dy="0">SQL-client</tspan>
+</text>
+</g>
+</g>
+<g>
+<line id="actor0" x1="75" y1="65" x2="75" y2="349" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="App">
+</line>
+<g id="root-0">
+<rect x="0" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" name="App" rx="3" ry="3" class="actor actor-top">
+</rect>
+<text x="75" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="75" dy="-8">アプリケーション</tspan>
+</text>
+<text x="75" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="75" dy="8">(SQL-agent)</tspan>
+</text>
+</g>
+</g>
+<style>#mmd3{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd3 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd3 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd3 .error-icon{fill:#0d1b2e;}
+#mmd3 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd3 .edge-thickness-normal{stroke-width:1px;}
+#mmd3 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd3 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd3 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd3 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd3 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd3 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd3 .marker.cross{stroke:#7c9eff;}
+#mmd3 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd3 p{margin:0;}
+#mmd3 .actor{stroke:#7c9eff;fill:#12233a;}
+#mmd3 text.actor>tspan{fill:#e6edf7;stroke:none;}
+#mmd3 .actor-line{stroke:#4b628f;}
+#mmd3 .innerArc{stroke-width:1.5;stroke-dasharray:none;}
+#mmd3 .messageLine0{stroke-width:1.5;stroke-dasharray:none;stroke:#c7d6ec;}
+#mmd3 .messageLine1{stroke-width:1.5;stroke-dasharray:2,2;stroke:#c7d6ec;}
+#mmd3 #arrowhead path{fill:#c7d6ec;stroke:#c7d6ec;}
+#mmd3 .sequenceNumber{fill:#07111e;}
+#mmd3 #sequencenumber{fill:#c7d6ec;}
+#mmd3 #crosshead path{fill:#c7d6ec;stroke:#c7d6ec;}
+#mmd3 .messageText{fill:#e6edf7;stroke:none;}
+#mmd3 .labelBox{stroke:#7c9eff;fill:#12233a;}
+#mmd3 .labelText,#mmd3 .labelText>tspan{fill:#e6edf7;stroke:none;}
+#mmd3 .loopText,#mmd3 .loopText>tspan{fill:#e6edf7;stroke:none;}
+#mmd3 .loopLine{stroke-width:2px;stroke-dasharray:2,2;stroke:#7c9eff;fill:#7c9eff;}
+#mmd3 .note{stroke:hsl(212.6315789474, 16.4356435644%, 9.8039215686%);fill:#16304f;}
+#mmd3 .noteText,#mmd3 .noteText>tspan{fill:#e6edf7;stroke:none;}
+#mmd3 .activation0{fill:#16304f;stroke:hsl(212.6315789474, 56.4356435644%, 9.8039215686%);}
+#mmd3 .activation1{fill:#16304f;stroke:hsl(212.6315789474, 56.4356435644%, 9.8039215686%);}
+#mmd3 .activation2{fill:#16304f;stroke:hsl(212.6315789474, 56.4356435644%, 9.8039215686%);}
+#mmd3 .actorPopupMenu{position:absolute;}
+#mmd3 .actorPopupMenuPanel{position:absolute;fill:#12233a;box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);filter:drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));}
+#mmd3 .actor-man line{stroke:#7c9eff;fill:#12233a;}
+#mmd3 .actor-man circle,#mmd3 line{stroke:#7c9eff;fill:#12233a;stroke-width:2px;}
+#mmd3 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+</g>
+<defs>
+<symbol id="computer" width="24" height="24">
+<path transform="scale(.5)" d="M2 2v13h20v-13h-20zm18 11h-16v-9h16v9zm-10.228 6l.466-1h3.524l.467 1h-4.457zm14.228 3h-24l2-6h2.104l-1.33 4h18.45l-1.297-4h2.073l2 6zm-5-10h-14v-7h14v7z">
+</path>
+</symbol>
+</defs>
+<defs>
+<symbol id="database" fill-rule="evenodd" clip-rule="evenodd">
+<path transform="scale(.5)" d="M12.258.001l.256.004.255.005.253.008.251.01.249.012.247.015.246.016.242.019.241.02.239.023.236.024.233.027.231.028.229.031.225.032.223.034.22.036.217.038.214.04.211.041.208.043.205.045.201.046.198.048.194.05.191.051.187.053.183.054.18.056.175.057.172.059.168.06.163.061.16.063.155.064.15.066.074.033.073.033.071.034.07.034.069.035.068.035.067.035.066.035.064.036.064.036.062.036.06.036.06.037.058.037.058.037.055.038.055.038.053.038.052.038.051.039.05.039.048.039.047.039.045.04.044.04.043.04.041.04.04.041.039.041.037.041.036.041.034.041.033.042.032.042.03.042.029.042.027.042.026.043.024.043.023.043.021.043.02.043.018.044.017.043.015.044.013.044.012.044.011.045.009.044.007.045.006.045.004.045.002.045.001.045v17l-.001.045-.002.045-.004.045-.006.045-.007.045-.009.044-.011.045-.012.044-.013.044-.015.044-.017.043-.018.044-.02.043-.021.043-.023.043-.024.043-.026.043-.027.042-.029.042-.03.042-.032.042-.033.042-.034.041-.036.041-.037.041-.039.041-.04.041-.041.04-.043.04-.044.04-.045.04-.047.039-.048.039-.05.039-.051.039-.052.038-.053.038-.055.038-.055.038-.058.037-.058.037-.06.037-.06.036-.062.036-.064.036-.064.036-.066.035-.067.035-.068.035-.069.035-.07.034-.071.034-.073.033-.074.033-.15.066-.155.064-.16.063-.163.061-.168.06-.172.059-.175.057-.18.056-.183.054-.187.053-.191.051-.194.05-.198.048-.201.046-.205.045-.208.043-.211.041-.214.04-.217.038-.22.036-.223.034-.225.032-.229.031-.231.028-.233.027-.236.024-.239.023-.241.02-.242.019-.246.016-.247.015-.249.012-.251.01-.253.008-.255.005-.256.004-.258.001-.258-.001-.256-.004-.255-.005-.253-.008-.251-.01-.249-.012-.247-.015-.245-.016-.243-.019-.241-.02-.238-.023-.236-.024-.234-.027-.231-.028-.228-.031-.226-.032-.223-.034-.22-.036-.217-.038-.214-.04-.211-.041-.208-.043-.204-.045-.201-.046-.198-.048-.195-.05-.19-.051-.187-.053-.184-.054-.179-.056-.176-.057-.172-.059-.167-.06-.164-.061-.159-.063-.155-.064-.151-.066-.074-.033-.072-.033-.072-.034-.07-.034-.069-.035-.068-.035-.067-.035-.066-.035-.064-.036-.063-.036-.062-.036-.061-.036-.06-.037-.058-.037-.057-.037-.056-.038-.055-.038-.053-.038-.052-.038-.051-.039-.049-.039-.049-.039-.046-.039-.046-.04-.044-.04-.043-.04-.041-.04-.04-.041-.039-.041-.037-.041-.036-.041-.034-.041-.033-.042-.032-.042-.03-.042-.029-.042-.027-.042-.026-.043-.024-.043-.023-.043-.021-.043-.02-.043-.018-.044-.017-.043-.015-.044-.013-.044-.012-.044-.011-.045-.009-.044-.007-.045-.006-.045-.004-.045-.002-.045-.001-.045v-17l.001-.045.002-.045.004-.045.006-.045.007-.045.009-.044.011-.045.012-.044.013-.044.015-.044.017-.043.018-.044.02-.043.021-.043.023-.043.024-.043.026-.043.027-.042.029-.042.03-.042.032-.042.033-.042.034-.041.036-.041.037-.041.039-.041.04-.041.041-.04.043-.04.044-.04.046-.04.046-.039.049-.039.049-.039.051-.039.052-.038.053-.038.055-.038.056-.038.057-.037.058-.037.06-.037.061-.036.062-.036.063-.036.064-.036.066-.035.067-.035.068-.035.069-.035.07-.034.072-.034.072-.033.074-.033.151-.066.155-.064.159-.063.164-.061.167-.06.172-.059.176-.057.179-.056.184-.054.187-.053.19-.051.195-.05.198-.048.201-.046.204-.045.208-.043.211-.041.214-.04.217-.038.22-.036.223-.034.226-.032.228-.031.231-.028.234-.027.236-.024.238-.023.241-.02.243-.019.245-.016.247-.015.249-.012.251-.01.253-.008.255-.005.256-.004.258-.001.258.001zm-9.258 20.499v.01l.001.021.003.021.004.022.005.021.006.022.007.022.009.023.01.022.011.023.012.023.013.023.015.023.016.024.017.023.018.024.019.024.021.024.022.025.023.024.024.025.052.049.056.05.061.051.066.051.07.051.075.051.079.052.084.052.088.052.092.052.097.052.102.051.105.052.11.052.114.051.119.051.123.051.127.05.131.05.135.05.139.048.144.049.147.047.152.047.155.047.16.045.163.045.167.043.171.043.176.041.178.041.183.039.187.039.19.037.194.035.197.035.202.033.204.031.209.03.212.029.216.027.219.025.222.024.226.021.23.02.233.018.236.016.24.015.243.012.246.01.249.008.253.005.256.004.259.001.26-.001.257-.004.254-.005.25-.008.247-.011.244-.012.241-.014.237-.016.233-.018.231-.021.226-.021.224-.024.22-.026.216-.027.212-.028.21-.031.205-.031.202-.034.198-.034.194-.036.191-.037.187-.039.183-.04.179-.04.175-.042.172-.043.168-.044.163-.045.16-.046.155-.046.152-.047.148-.048.143-.049.139-.049.136-.05.131-.05.126-.05.123-.051.118-.052.114-.051.11-.052.106-.052.101-.052.096-.052.092-.052.088-.053.083-.051.079-.052.074-.052.07-.051.065-.051.06-.051.056-.05.051-.05.023-.024.023-.025.021-.024.02-.024.019-.024.018-.024.017-.024.015-.023.014-.024.013-.023.012-.023.01-.023.01-.022.008-.022.006-.022.006-.022.004-.022.004-.021.001-.021.001-.021v-4.127l-.077.055-.08.053-.083.054-.085.053-.087.052-.09.052-.093.051-.095.05-.097.05-.1.049-.102.049-.105.048-.106.047-.109.047-.111.046-.114.045-.115.045-.118.044-.12.043-.122.042-.124.042-.126.041-.128.04-.13.04-.132.038-.134.038-.135.037-.138.037-.139.035-.142.035-.143.034-.144.033-.147.032-.148.031-.15.03-.151.03-.153.029-.154.027-.156.027-.158.026-.159.025-.161.024-.162.023-.163.022-.165.021-.166.02-.167.019-.169.018-.169.017-.171.016-.173.015-.173.014-.175.013-.175.012-.177.011-.178.01-.179.008-.179.008-.181.006-.182.005-.182.004-.184.003-.184.002h-.37l-.184-.002-.184-.003-.182-.004-.182-.005-.181-.006-.179-.008-.179-.008-.178-.01-.176-.011-.176-.012-.175-.013-.173-.014-.172-.015-.171-.016-.17-.017-.169-.018-.167-.019-.166-.02-.165-.021-.163-.022-.162-.023-.161-.024-.159-.025-.157-.026-.156-.027-.155-.027-.153-.029-.151-.03-.15-.03-.148-.031-.146-.032-.145-.033-.143-.034-.141-.035-.14-.035-.137-.037-.136-.037-.134-.038-.132-.038-.13-.04-.128-.04-.126-.041-.124-.042-.122-.042-.12-.044-.117-.043-.116-.045-.113-.045-.112-.046-.109-.047-.106-.047-.105-.048-.102-.049-.1-.049-.097-.05-.095-.05-.093-.052-.09-.051-.087-.052-.085-.053-.083-.054-.08-.054-.077-.054v4.127zm0-5.654v.011l.001.021.003.021.004.021.005.022.006.022.007.022.009.022.01.022.011.023.012.023.013.023.015.024.016.023.017.024.018.024.019.024.021.024.022.024.023.025.024.024.052.05.056.05.061.05.066.051.07.051.075.052.079.051.084.052.088.052.092.052.097.052.102.052.105.052.11.051.114.051.119.052.123.05.127.051.131.05.135.049.139.049.144.048.147.048.152.047.155.046.16.045.163.045.167.044.171.042.176.042.178.04.183.04.187.038.19.037.194.036.197.034.202.033.204.032.209.03.212.028.216.027.219.025.222.024.226.022.23.02.233.018.236.016.24.014.243.012.246.01.249.008.253.006.256.003.259.001.26-.001.257-.003.254-.006.25-.008.247-.01.244-.012.241-.015.237-.016.233-.018.231-.02.226-.022.224-.024.22-.025.216-.027.212-.029.21-.03.205-.032.202-.033.198-.035.194-.036.191-.037.187-.039.183-.039.179-.041.175-.042.172-.043.168-.044.163-.045.16-.045.155-.047.152-.047.148-.048.143-.048.139-.05.136-.049.131-.05.126-.051.123-.051.118-.051.114-.052.11-.052.106-.052.101-.052.096-.052.092-.052.088-.052.083-.052.079-.052.074-.051.07-.052.065-.051.06-.05.056-.051.051-.049.023-.025.023-.024.021-.025.02-.024.019-.024.018-.024.017-.024.015-.023.014-.023.013-.024.012-.022.01-.023.01-.023.008-.022.006-.022.006-.022.004-.021.004-.022.001-.021.001-.021v-4.139l-.077.054-.08.054-.083.054-.085.052-.087.053-.09.051-.093.051-.095.051-.097.05-.1.049-.102.049-.105.048-.106.047-.109.047-.111.046-.114.045-.115.044-.118.044-.12.044-.122.042-.124.042-.126.041-.128.04-.13.039-.132.039-.134.038-.135.037-.138.036-.139.036-.142.035-.143.033-.144.033-.147.033-.148.031-.15.03-.151.03-.153.028-.154.028-.156.027-.158.026-.159.025-.161.024-.162.023-.163.022-.165.021-.166.02-.167.019-.169.018-.169.017-.171.016-.173.015-.173.014-.175.013-.175.012-.177.011-.178.009-.179.009-.179.007-.181.007-.182.005-.182.004-.184.003-.184.002h-.37l-.184-.002-.184-.003-.182-.004-.182-.005-.181-.007-.179-.007-.179-.009-.178-.009-.176-.011-.176-.012-.175-.013-.173-.014-.172-.015-.171-.016-.17-.017-.169-.018-.167-.019-.166-.02-.165-.021-.163-.022-.162-.023-.161-.024-.159-.025-.157-.026-.156-.027-.155-.028-.153-.028-.151-.03-.15-.03-.148-.031-.146-.033-.145-.033-.143-.033-.141-.035-.14-.036-.137-.036-.136-.037-.134-.038-.132-.039-.13-.039-.128-.04-.126-.041-.124-.042-.122-.043-.12-.043-.117-.044-.116-.044-.113-.046-.112-.046-.109-.046-.106-.047-.105-.048-.102-.049-.1-.049-.097-.05-.095-.051-.093-.051-.09-.051-.087-.053-.085-.052-.083-.054-.08-.054-.077-.054v4.139zm0-5.666v.011l.001.02.003.022.004.021.005.022.006.021.007.022.009.023.01.022.011.023.012.023.013.023.015.023.016.024.017.024.018.023.019.024.021.025.022.024.023.024.024.025.052.05.056.05.061.05.066.051.07.051.075.052.079.051.084.052.088.052.092.052.097.052.102.052.105.051.11.052.114.051.119.051.123.051.127.05.131.05.135.05.139.049.144.048.147.048.152.047.155.046.16.045.163.045.167.043.171.043.176.042.178.04.183.04.187.038.19.037.194.036.197.034.202.033.204.032.209.03.212.028.216.027.219.025.222.024.226.021.23.02.233.018.236.017.24.014.243.012.246.01.249.008.253.006.256.003.259.001.26-.001.257-.003.254-.006.25-.008.247-.01.244-.013.241-.014.237-.016.233-.018.231-.02.226-.022.224-.024.22-.025.216-.027.212-.029.21-.03.205-.032.202-.033.198-.035.194-.036.191-.037.187-.039.183-.039.179-.041.175-.042.172-.043.168-.044.163-.045.16-.045.155-.047.152-.047.148-.048.143-.049.139-.049.136-.049.131-.051.126-.05.123-.051.118-.052.114-.051.11-.052.106-.052.101-.052.096-.052.092-.052.088-.052.083-.052.079-.052.074-.052.07-.051.065-.051.06-.051.056-.05.051-.049.023-.025.023-.025.021-.024.02-.024.019-.024.018-.024.017-.024.015-.023.014-.024.013-.023.012-.023.01-.022.01-.023.008-.022.006-.022.006-.022.004-.022.004-.021.001-.021.001-.021v-4.153l-.077.054-.08.054-.083.053-.085.053-.087.053-.09.051-.093.051-.095.051-.097.05-.1.049-.102.048-.105.048-.106.048-.109.046-.111.046-.114.046-.115.044-.118.044-.12.043-.122.043-.124.042-.126.041-.128.04-.13.039-.132.039-.134.038-.135.037-.138.036-.139.036-.142.034-.143.034-.144.033-.147.032-.148.032-.15.03-.151.03-.153.028-.154.028-.156.027-.158.026-.159.024-.161.024-.162.023-.163.023-.165.021-.166.02-.167.019-.169.018-.169.017-.171.016-.173.015-.173.014-.175.013-.175.012-.177.01-.178.01-.179.009-.179.007-.181.006-.182.006-.182.004-.184.003-.184.001-.185.001-.185-.001-.184-.001-.184-.003-.182-.004-.182-.006-.181-.006-.179-.007-.179-.009-.178-.01-.176-.01-.176-.012-.175-.013-.173-.014-.172-.015-.171-.016-.17-.017-.169-.018-.167-.019-.166-.02-.165-.021-.163-.023-.162-.023-.161-.024-.159-.024-.157-.026-.156-.027-.155-.028-.153-.028-.151-.03-.15-.03-.148-.032-.146-.032-.145-.033-.143-.034-.141-.034-.14-.036-.137-.036-.136-.037-.134-.038-.132-.039-.13-.039-.128-.041-.126-.041-.124-.041-.122-.043-.12-.043-.117-.044-.116-.044-.113-.046-.112-.046-.109-.046-.106-.048-.105-.048-.102-.048-.1-.05-.097-.049-.095-.051-.093-.051-.09-.052-.087-.052-.085-.053-.083-.053-.08-.054-.077-.054v4.153zm8.74-8.179l-.257.004-.254.005-.25.008-.247.011-.244.012-.241.014-.237.016-.233.018-.231.021-.226.022-.224.023-.22.026-.216.027-.212.028-.21.031-.205.032-.202.033-.198.034-.194.036-.191.038-.187.038-.183.04-.179.041-.175.042-.172.043-.168.043-.163.045-.16.046-.155.046-.152.048-.148.048-.143.048-.139.049-.136.05-.131.05-.126.051-.123.051-.118.051-.114.052-.11.052-.106.052-.101.052-.096.052-.092.052-.088.052-.083.052-.079.052-.074.051-.07.052-.065.051-.06.05-.056.05-.051.05-.023.025-.023.024-.021.024-.02.025-.019.024-.018.024-.017.023-.015.024-.014.023-.013.023-.012.023-.01.023-.01.022-.008.022-.006.023-.006.021-.004.022-.004.021-.001.021-.001.021.001.021.001.021.004.021.004.022.006.021.006.023.008.022.01.022.01.023.012.023.013.023.014.023.015.024.017.023.018.024.019.024.02.025.021.024.023.024.023.025.051.05.056.05.06.05.065.051.07.052.074.051.079.052.083.052.088.052.092.052.096.052.101.052.106.052.11.052.114.052.118.051.123.051.126.051.131.05.136.05.139.049.143.048.148.048.152.048.155.046.16.046.163.045.168.043.172.043.175.042.179.041.183.04.187.038.191.038.194.036.198.034.202.033.205.032.21.031.212.028.216.027.22.026.224.023.226.022.231.021.233.018.237.016.241.014.244.012.247.011.25.008.254.005.257.004.26.001.26-.001.257-.004.254-.005.25-.008.247-.011.244-.012.241-.014.237-.016.233-.018.231-.021.226-.022.224-.023.22-.026.216-.027.212-.028.21-.031.205-.032.202-.033.198-.034.194-.036.191-.038.187-.038.183-.04.179-.041.175-.042.172-.043.168-.043.163-.045.16-.046.155-.046.152-.048.148-.048.143-.048.139-.049.136-.05.131-.05.126-.051.123-.051.118-.051.114-.052.11-.052.106-.052.101-.052.096-.052.092-.052.088-.052.083-.052.079-.052.074-.051.07-.052.065-.051.06-.05.056-.05.051-.05.023-.025.023-.024.021-.024.02-.025.019-.024.018-.024.017-.023.015-.024.014-.023.013-.023.012-.023.01-.023.01-.022.008-.022.006-.023.006-.021.004-.022.004-.021.001-.021.001-.021-.001-.021-.001-.021-.004-.021-.004-.022-.006-.021-.006-.023-.008-.022-.01-.022-.01-.023-.012-.023-.013-.023-.014-.023-.015-.024-.017-.023-.018-.024-.019-.024-.02-.025-.021-.024-.023-.024-.023-.025-.051-.05-.056-.05-.06-.05-.065-.051-.07-.052-.074-.051-.079-.052-.083-.052-.088-.052-.092-.052-.096-.052-.101-.052-.106-.052-.11-.052-.114-.052-.118-.051-.123-.051-.126-.051-.131-.05-.136-.05-.139-.049-.143-.048-.148-.048-.152-.048-.155-.046-.16-.046-.163-.045-.168-.043-.172-.043-.175-.042-.179-.041-.183-.04-.187-.038-.191-.038-.194-.036-.198-.034-.202-.033-.205-.032-.21-.031-.212-.028-.216-.027-.22-.026-.224-.023-.226-.022-.231-.021-.233-.018-.237-.016-.241-.014-.244-.012-.247-.011-.25-.008-.254-.005-.257-.004-.26-.001-.26.001z">
+</path>
+</symbol>
+</defs>
+<defs>
+<symbol id="clock" width="24" height="24">
+<path transform="scale(.5)" d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.848 12.459c.202.038.202.333.001.372-1.907.361-6.045 1.111-6.547 1.111-.719 0-1.301-.582-1.301-1.301 0-.512.77-5.447 1.125-7.445.034-.192.312-.181.343.014l.985 6.238 5.394 1.011z">
+</path>
+</symbol>
+</defs>
+<defs>
+<marker id="arrowhead" refX="7.9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+<path d="M -1 0 L 10 5 L 0 10 z">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="crosshead" markerWidth="15" markerHeight="8" orient="auto" refX="4" refY="4.5">
+<path fill="none" stroke="#000000" stroke-width="1pt" d="M 1,2 L 6,7 M 6,2 L 1,7" style="stroke-dasharray: 0, 0;">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="filled-head" refX="15.5" refY="7" markerWidth="20" markerHeight="28" orient="auto">
+<path d="M 18,7 L9,13 L14,7 L9,1 Z">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="sequencenumber" refX="15" refY="15" markerWidth="60" markerHeight="40" orient="auto">
+<circle cx="15" cy="15" r="6">
+</circle>
+</marker>
+</defs>
+<text x="179" y="80" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">SQL文を発行</text>
+<line x1="76" y1="109" x2="281" y2="109" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;">
+</line>
+<text x="412" y="124" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">セッションを確立し送信</text>
+<line x1="286" y1="153" x2="537" y2="153" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;">
+</line>
+<text x="645" y="168" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">解析・実行</text>
+<line x1="542" y1="197" x2="747" y2="197" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;">
+</line>
+<text x="648" y="212" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">結果</text>
+<line x1="750" y1="241" x2="545" y2="241" class="messageLine1" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="stroke-dasharray: 3, 3; fill: none;">
+</line>
+<text x="415" y="256" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">結果（または例外）</text>
+<line x1="540" y1="285" x2="289" y2="285" class="messageLine1" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="stroke-dasharray: 3, 3; fill: none;">
+</line>
+<text x="182" y="300" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">結果を返却</text>
+<line x1="284" y1="329" x2="79" y2="329" class="messageLine1" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="stroke-dasharray: 3, 3; fill: none;">
+</line>
+</svg>
+</div>
+<div class="callout callout-note">
+<p>上図は<strong>概念モデル</strong>です。実際の通信方式（ネットワークプロトコル等）は標準の対象外で、製品ごとに異なります。</p>
+</div>
+<h3 id="s-3-3-文の分類">3.3 文の分類</h3>
+<p>SQL文は大きく次のように整理して理解すると、学習しやすくなります。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>分類</th>
+<th>代表例</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>スキーマ定義系</td>
+<td><code>CREATE TABLE</code></td>
+<td>構造を定義</td>
+</tr>
+<tr class="even">
+<td>データ操作系</td>
+<td><code>SELECT</code> / <code>INSERT</code> / <code>UPDATE</code> / <code>DELETE</code></td>
+<td>データを読み書き</td>
+</tr>
+<tr class="odd">
+<td>トランザクション系</td>
+<td><code>COMMIT</code> / <code>ROLLBACK</code></td>
+<td>一貫性の制御</td>
+</tr>
+<tr class="even">
+<td>接続・セッション系</td>
+<td><code>SET</code> 系</td>
+<td>接続状態の制御</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="s-4-step-4-sql準拠-とは何か-conformance">4. Step 4: 「SQL準拠」とは何か（Conformance）</h2>
+<h3 id="s-4-1-すべてを実装する製品は存在しない">4.1 すべてを実装する製品は存在しない</h3>
+<p>Markus Winand 氏（modern-sql.com 運営、『SQL Performance Explained』著者）は、SQL標準は巨大で、<strong>単一の実装がすべてを実装することはあり得ない</strong>と述べています。SQL-92 では entry / intermediate / full の3段階の適合レベルがありましたが、SQL:1999 以降は次の構造です。</p>
+<div class="mermaid-diagram" id="diagram-4">
+<svg id="mmd4" width="566.015625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="364" viewBox="0 15 566.015625 364" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd4{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd4 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd4 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd4 .error-icon{fill:#0d1b2e;}
+#mmd4 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd4 .edge-thickness-normal{stroke-width:1px;}
+#mmd4 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd4 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd4 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd4 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd4 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd4 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd4 .marker.cross{stroke:#7c9eff;}
+#mmd4 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd4 p{margin:0;}
+#mmd4 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd4 .cluster-label text{fill:#f2e4d1;}
+#mmd4 .cluster-label span{color:#f2e4d1;}
+#mmd4 .cluster-label span p{background-color:transparent;}
+#mmd4 .label text,#mmd4 span{fill:#e6edf7;color:#e6edf7;}
+#mmd4 .node rect,#mmd4 .node circle,#mmd4 .node ellipse,#mmd4 .node polygon,#mmd4 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd4 .rough-node .label text,#mmd4 .node .label text,#mmd4 .image-shape .label,#mmd4 .icon-shape .label{text-anchor:middle;}
+#mmd4 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd4 .rough-node .label,#mmd4 .node .label,#mmd4 .image-shape .label,#mmd4 .icon-shape .label{text-align:center;}
+#mmd4 .node.clickable{cursor:pointer;}
+#mmd4 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd4 .arrowheadPath{fill:#f8eee1;}
+#mmd4 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd4 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd4 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd4 .edgeLabel p{background-color:#07111e;}
+#mmd4 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd4 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd4 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd4 .cluster text{fill:#f2e4d1;}
+#mmd4 .cluster span{color:#f2e4d1;}
+#mmd4 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd4 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd4 rect.text{fill:none;stroke-width:0;}
+#mmd4 .icon-shape,#mmd4 .image-shape{background-color:#07111e;text-align:center;}
+#mmd4 .icon-shape p,#mmd4 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd4 .icon-shape rect,#mmd4 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd4 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd4 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd4 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd4_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd4_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd4_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd4_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd4_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd4_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M217.966,75L204.305,80C190.644,85,163.322,95,149.661,104.333C136,113.667,136,122.333,136,126.667L136,131" id="L_N4_A_N4_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_A_N4_B_0" data-points="W3sieCI6MjE3Ljk2NjM3ODM0ODIxNDI4LCJ5Ijo3NX0seyJ4IjoxMzYsInkiOjEwNX0seyJ4IjoxMzYsInkiOjEzNX1d" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M360.041,75L373.702,80C387.364,85,414.686,95,428.347,104.333C442.008,113.667,442.008,122.333,442.008,126.667L442.008,131" id="L_N4_A_N4_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_A_N4_C_0" data-points="W3sieCI6MzYwLjA0MTQzNDE1MTc4NTcsInkiOjc1fSx7IngiOjQ0Mi4wMDc4MTI1LCJ5IjoxMDV9LHsieCI6NDQyLjAwNzgxMjUsInkiOjEzNX1d" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,211L136,216C136,221,136,231,136,240.333C136,249.667,136,258.333,136,262.667L136,267" id="L_N4_B_N4_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_B_N4_D_0" data-points="W3sieCI6MTM2LCJ5IjoyMTF9LHsieCI6MTM2LCJ5IjoyNDF9LHsieCI6MTM2LCJ5IjoyNzF9XQ==" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+<path d="M442.008,211L442.008,216C442.008,221,442.008,231,442.008,242.333C442.008,253.667,442.008,266.333,442.008,272.667L442.008,279" id="L_N4_C_N4_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N4_C_N4_E_0" data-points="W3sieCI6NDQyLjAwNzgxMjUsInkiOjIxMX0seyJ4Ijo0NDIuMDA3ODEyNSwieSI6MjQxfSx7IngiOjQ0Mi4wMDc4MTI1LCJ5IjoyODN9XQ==" marker-end="url(#mmd4_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_A_N4_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_A_N4_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_B_N4_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N4_C_N4_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N4_A-0" transform="translate(289.00390625, 49)">
+<rect class="basic label-container" style="" x="-91.0546875" y="-26" width="182.109375" height="52">
+</rect>
+<g class="label" style="" transform="translate(-63.0546875, -12)">
+<rect>
+</rect><foreignObject width="126.109375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>SQL標準の全機能</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_B-1" transform="translate(136, 173)">
+<rect class="basic label-container" style="" x="-84.0078125" y="-38" width="168.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-56.0078125, -24)">
+<rect>
+</rect><foreignObject width="112.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>必須機能の集合<br/>Core SQL</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_C-3" transform="translate(442.0078125, 173)">
+<rect class="basic label-container" style="" x="-116.0078125" y="-38" width="232.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-88.0078125, -24)">
+<rect>
+</rect><foreignObject width="176.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>オプション機能<br/>機能ごとに識別子を持つ</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_D-5" transform="translate(136, 321)">
+<rect class="basic label-container" style="" x="-128" y="-50" width="256" height="100">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>Core SQL に準拠すれば<br/>最低限の標準準拠を主張可能</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N4_E-7" transform="translate(442.0078125, 321)">
+<rect class="basic label-container" style="" x="-108.0078125" y="-38" width="216.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-80.0078125, -24)">
+<rect>
+</rect><foreignObject width="160.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>ベンダーは機能単位で<br/>対応を宣言</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Core SQL</td>
+<td>すべての準拠実装が満たすべき<strong>必須機能</strong>の集合</td>
+</tr>
+<tr class="even">
+<td>オプション機能</td>
+<td>Core以外。<strong>機能単位</strong>で対応可否を主張する</td>
+</tr>
+<tr class="odd">
+<td>機能識別子（Feature ID）</td>
+<td><code>T054</code>、<code>F292</code> のようなコード。機能を一意に指す</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-note">
+<p>Winand 氏が引用した、ANSIデータベース委員会の元幹事の論文では、SQL:1999 の Core を実装することは「3社のうち2社を除き、ほぼ不可能」と評されています（出典: modern-sql.com「SQL Conformance Levels」）。</p>
+</div>
+<h3 id="s-4-2-sql-2023-で追加された機能はすべて-オプション">4.2 SQL:2023 で追加された機能はすべて「オプション」</h3>
+<p>Peter Eisentraut 氏（PostgreSQLコミッタ、ISO SQL標準の策定にも関与）の解説によれば、SQL:2023 の新機能はすべて<strong>オプション機能</strong>です。つまり、「SQL:2023に対応」と言っても、<strong>どの機能に対応しているか</strong>の確認が必須です。</p>
+<h3 id="s-4-3-実務での確認方法-qa向けチェックリスト">4.3 実務での確認方法（QA向けチェックリスト）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>手順</th>
+<th>やること</th>
+<th>具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>製品ドキュメントの「SQL適合性」章を読む</td>
+<td>PostgreSQL公式ドキュメントの Appendix D（SQL Conformance）</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>機能IDで対応状況を確認</td>
+<td><code>T626 ANY_VALUE</code> など</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>カタログビューで確認</td>
+<td>PostgreSQLは <code>information_schema.sql_features</code> で機能一覧を参照可能</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>自前の適合テストを用意</td>
+<td>機能ごとにテストケースを作り、製品間で比較</td>
+</tr>
+</tbody>
+</table></div>
+<pre class="sql"><code>-- PostgreSQL での確認例: ANY_VALUE (T626) に対応しているか
+SELECT feature_id, feature_name, is_supported
+FROM information_schema.sql_features
+WHERE feature_id = 'T626';</code></pre>
+<div class="callout callout-note">
+<p><code>information_schema</code> の規定は Part 11（SQL/Schemata）にあります。</p>
+</div>
+<hr/>
+<h2 id="s-5-step-5-sql-2023-で何が新しくなったか">5. Step 5: SQL:2023 で何が新しくなったか</h2>
+<p>Part 1 自体は枠組みの巻ですが、<strong>SQL:2023 というエディション全体</strong>の変更点を知ることは、Part 1 の「枠組み」が実際にどう使われるかを理解する近道です。Eisentraut 氏は変更点を次の3つに整理しています。</p>
+<div class="mermaid-diagram" id="diagram-5">
+<svg id="mmd5" width="622.953125" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="204" viewBox="0 15 622.953125 204" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd5{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd5 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd5 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd5 .error-icon{fill:#0d1b2e;}
+#mmd5 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd5 .edge-thickness-normal{stroke-width:1px;}
+#mmd5 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd5 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd5 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd5 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd5 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd5 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd5 .marker.cross{stroke:#7c9eff;}
+#mmd5 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd5 p{margin:0;}
+#mmd5 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd5 .cluster-label text{fill:#f2e4d1;}
+#mmd5 .cluster-label span{color:#f2e4d1;}
+#mmd5 .cluster-label span p{background-color:transparent;}
+#mmd5 .label text,#mmd5 span{fill:#e6edf7;color:#e6edf7;}
+#mmd5 .node rect,#mmd5 .node circle,#mmd5 .node ellipse,#mmd5 .node polygon,#mmd5 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd5 .rough-node .label text,#mmd5 .node .label text,#mmd5 .image-shape .label,#mmd5 .icon-shape .label{text-anchor:middle;}
+#mmd5 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd5 .rough-node .label,#mmd5 .node .label,#mmd5 .image-shape .label,#mmd5 .icon-shape .label{text-align:center;}
+#mmd5 .node.clickable{cursor:pointer;}
+#mmd5 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd5 .arrowheadPath{fill:#f8eee1;}
+#mmd5 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd5 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd5 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd5 .edgeLabel p{background-color:#07111e;}
+#mmd5 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd5 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd5 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd5 .cluster text{fill:#f2e4d1;}
+#mmd5 .cluster span{color:#f2e4d1;}
+#mmd5 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd5 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd5 rect.text{fill:none;stroke-width:0;}
+#mmd5 .icon-shape,#mmd5 .image-shape{background-color:#07111e;text-align:center;}
+#mmd5 .icon-shape p,#mmd5 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd5 .icon-shape rect,#mmd5 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd5 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd5 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd5 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd5_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd5_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd5_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd5_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd5_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd5_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M189.961,74.725L170.969,79.771C151.977,84.817,113.992,94.908,95,104.288C76.008,113.667,76.008,122.333,76.008,126.667L76.008,131" id="L_N5_N_N5_A_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_N_N5_A_0" data-points="W3sieCI6MTg5Ljk2MDkzNzUsInkiOjc0LjcyNTEyOTcyNTcyMjc1fSx7IngiOjc2LjAwNzgxMjUsInkiOjEwNX0seyJ4Ijo3Ni4wMDc4MTI1LCJ5IjoxMzV9XQ==" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M286.789,75L286.789,80C286.789,85,286.789,95,286.789,104.333C286.789,113.667,286.789,122.333,286.789,126.667L286.789,131" id="L_N5_N_N5_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_N_N5_B_0" data-points="W3sieCI6Mjg2Ljc4OTA2MjUsInkiOjc1fSx7IngiOjI4Ni43ODkwNjI1LCJ5IjoxMDV9LHsieCI6Mjg2Ljc4OTA2MjUsInkiOjEzNX1d" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+<path d="M383.617,72.028L406.724,77.523C429.831,83.019,476.044,94.009,499.151,103.838C522.258,113.667,522.258,122.333,522.258,126.667L522.258,131" id="L_N5_N_N5_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N5_N_N5_C_0" data-points="W3sieCI6MzgzLjYxNzE4NzUsInkiOjcyLjAyODAwMjY1NDI4MDAzfSx7IngiOjUyMi4yNTc4MTI1LCJ5IjoxMDV9LHsieCI6NTIyLjI1NzgxMjUsInkiOjEzNX1d" marker-end="url(#mmd5_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_N_N5_A_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_N_N5_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N5_N_N5_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N5_N-0" transform="translate(286.7890625, 49)">
+<rect class="basic label-container" style="" x="-96.828125" y="-26" width="193.65625" height="52">
+</rect>
+<g class="label" style="" transform="translate(-68.828125, -12)">
+<rect>
+</rect><foreignObject width="137.65625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>SQL:2023 の変更点</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_A-1" transform="translate(76.0078125, 173)">
+<rect class="basic label-container" style="" x="-68.0078125" y="-38" width="136.015625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-40.0078125, -24)">
+<rect>
+</rect><foreignObject width="80.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>既存SQLの<br/>小さな改良</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_B-3" transform="translate(286.7890625, 173)">
+<rect class="basic label-container" style="" x="-72.7734375" y="-38" width="145.546875" height="76">
+</rect>
+<g class="label" style="" transform="translate(-44.7734375, -24)">
+<rect>
+</rect><foreignObject width="89.546875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>JSON関連の<br/>新機能</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N5_C-5" transform="translate(522.2578125, 173)">
+<rect class="basic label-container" style="" x="-92.6953125" y="-38" width="185.390625" height="76">
+</rect>
+<g class="label" style="" transform="translate(-64.6953125, -24)">
+<rect>
+</rect><foreignObject width="129.390625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>新パート<br/>Part 16: SQL/PGQ</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<h3 id="s-5-1-既存sqlの小さな改良-機能id付き">5.1 既存SQLの小さな改良（機能ID付き）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>機能</th>
+<th>機能ID</th>
+<th>概要</th>
+<th>使用例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>UNIQUE制約のNULL扱い</td>
+<td>F292</td>
+<td>NULLを重複とみなすか選べる</td>
+<td><code>UNIQUE NULLS NOT DISTINCT (col)</code></td>
+</tr>
+<tr class="even">
+<td>GROUP化された表のORDER BY</td>
+<td>F868</td>
+<td>グループ化表でのORDER BY</td>
+<td>－</td>
+</tr>
+<tr class="odd">
+<td>GREATEST / LEAST</td>
+<td>T054</td>
+<td>複数値の最大・最小</td>
+<td><code>GREATEST(1, 5, 3)</code></td>
+</tr>
+<tr class="even">
+<td>文字列パディング関数</td>
+<td>T055</td>
+<td><code>LPAD</code> / <code>RPAD</code></td>
+<td><code>LPAD('7', 3, '0')</code></td>
+</tr>
+<tr class="odd">
+<td>複数文字のTRIM</td>
+<td>T056</td>
+<td>複数文字を指定してTRIM</td>
+<td>－</td>
+</tr>
+<tr class="even">
+<td>文字列型の最大長省略</td>
+<td>T081</td>
+<td>長さ指定を省略可能に</td>
+<td>－</td>
+</tr>
+<tr class="odd">
+<td>循環検出の標識値の拡張</td>
+<td>T133</td>
+<td>再帰クエリのcycle mark値を拡張</td>
+<td>－</td>
+</tr>
+<tr class="even">
+<td>ANY_VALUE</td>
+<td>T626</td>
+<td>グループ内の任意の1値を返す集約関数</td>
+<td><code>ANY_VALUE(name)</code></td>
+</tr>
+<tr class="odd">
+<td>非10進整数リテラル</td>
+<td>T661</td>
+<td>16進等の整数リテラル</td>
+<td><code>0xFF</code></td>
+</tr>
+<tr class="even">
+<td>数値リテラル内のアンダースコア</td>
+<td>T662</td>
+<td>桁区切りに使える</td>
+<td><code>1_000_000</code></td>
+</tr>
+</tbody>
+</table></div>
+<pre class="sql"><code>-- 例: ANY_VALUE により、GROUP BY に含めたくない列を安全に取り出す
+SELECT department_id,
+       ANY_VALUE(department_name) AS department_name,
+       COUNT(*)                   AS employee_count
+FROM employees
+GROUP BY department_id;</code></pre>
+<h3 id="s-5-2-json関連の新機能">5.2 JSON関連の新機能</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>機能</th>
+<th>機能ID</th>
+<th>概要</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JSONデータ型</td>
+<td>T801</td>
+<td>ネイティブなJSON型</td>
+</tr>
+<tr class="even">
+<td>拡張JSONデータ型</td>
+<td>T802</td>
+<td>JSON型の強化</td>
+</tr>
+<tr class="odd">
+<td>文字列ベースJSON</td>
+<td>T803</td>
+<td>文字列としてJSONを扱う従来方式</td>
+</tr>
+<tr class="even">
+<td>SQL/JSONパスの16進整数リテラル</td>
+<td>T840</td>
+<td>JSONパス言語での16進表記</td>
+</tr>
+<tr class="odd">
+<td>SQL/JSON簡易アクセサ</td>
+<td>T860〜T864</td>
+<td>ドット記法等での簡易アクセス</td>
+</tr>
+<tr class="even">
+<td>SQL/JSONアイテムメソッド</td>
+<td>T865〜T878</td>
+<td>JSON値に適用するメソッド群</td>
+</tr>
+<tr class="odd">
+<td>JSON比較</td>
+<td>T879〜T882</td>
+<td>JSON値の比較</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-note">
+<p>Eisentraut 氏は、SQL:2023 のJSON関連は SQL:2016 を土台にした強化であり、SQL/JSONパス言語は JavaScript 由来であること、ECMAScriptの構文拡張を実装拡張として追従できるよう規格の文言が調整されたことにも触れています。</p>
+</div>
+<h3 id="s-5-3-新パート-sql-pgq-プロパティグラフ問合せ">5.3 新パート: SQL/PGQ（プロパティグラフ問合せ）</h3>
+<p>SQL/PGQ は、リレーショナルDBのテーブルの上に<strong>グラフ構造</strong>（頂点と辺）を定義し、パターンマッチングで問い合わせる機能です。Winand 氏は、これが新しいグラフ問合せ標準（GQL）の一部をSQLに取り込むものと説明しています。</p>
+<div class="mermaid-diagram" id="diagram-6">
+<svg id="mmd6" width="1062.515625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="190" viewBox="0 15 1062.515625 190" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd6{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd6 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd6 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd6 .error-icon{fill:#0d1b2e;}
+#mmd6 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd6 .edge-thickness-normal{stroke-width:1px;}
+#mmd6 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd6 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd6 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd6 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd6 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd6 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd6 .marker.cross{stroke:#7c9eff;}
+#mmd6 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd6 p{margin:0;}
+#mmd6 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd6 .cluster-label text{fill:#f2e4d1;}
+#mmd6 .cluster-label span{color:#f2e4d1;}
+#mmd6 .cluster-label span p{background-color:transparent;}
+#mmd6 .label text,#mmd6 span{fill:#e6edf7;color:#e6edf7;}
+#mmd6 .node rect,#mmd6 .node circle,#mmd6 .node ellipse,#mmd6 .node polygon,#mmd6 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd6 .rough-node .label text,#mmd6 .node .label text,#mmd6 .image-shape .label,#mmd6 .icon-shape .label{text-anchor:middle;}
+#mmd6 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd6 .rough-node .label,#mmd6 .node .label,#mmd6 .image-shape .label,#mmd6 .icon-shape .label{text-align:center;}
+#mmd6 .node.clickable{cursor:pointer;}
+#mmd6 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd6 .arrowheadPath{fill:#f8eee1;}
+#mmd6 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd6 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd6 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd6 .edgeLabel p{background-color:#07111e;}
+#mmd6 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd6 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd6 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd6 .cluster text{fill:#f2e4d1;}
+#mmd6 .cluster span{color:#f2e4d1;}
+#mmd6 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd6 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd6 rect.text{fill:none;stroke-width:0;}
+#mmd6 .icon-shape,#mmd6 .image-shape{background-color:#07111e;text-align:center;}
+#mmd6 .icon-shape p,#mmd6 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd6 .icon-shape rect,#mmd6 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd6 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd6 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd6 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd6_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd6_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd6_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd6_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd6_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd6_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M194.5,49L210.794,49C227.089,49,259.677,49,292.706,54.621C325.736,60.242,359.206,71.484,375.941,77.105L392.676,82.726" id="L_N6_T1_N6_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_T1_N6_G_0" data-points="W3sieCI6MTk0LjUsInkiOjQ5fSx7IngiOjI5Mi4yNjU2MjUsInkiOjQ5fSx7IngiOjM5Ni40Njc3MjU0MDk4MzYxLCJ5Ijo4NH1d" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M206.5,171L220.794,171C235.089,171,263.677,171,294.706,165.379C325.736,159.758,359.206,148.516,375.941,142.895L392.676,137.274" id="L_N6_T2_N6_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_T2_N6_G_0" data-points="W3sieCI6MjA2LjUsInkiOjE3MX0seyJ4IjoyOTIuMjY1NjI1LCJ5IjoxNzF9LHsieCI6Mzk2LjQ2NzcyNTQwOTgzNjEsInkiOjEzNn1d" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+<path d="M569.719,110L589.518,110C609.318,110,648.917,110,687.849,110C726.781,110,765.047,110,784.18,110L803.313,110" id="L_N6_G_N6_R_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N6_G_N6_R_0" data-points="W3sieCI6NTY5LjcxODc1LCJ5IjoxMTB9LHsieCI6Njg4LjUxNTYyNSwieSI6MTEwfSx7IngiOjgwNy4zMTI1LCJ5IjoxMTB9XQ==" marker-end="url(#mmd6_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel" transform="translate(292.265625, 49)">
+<g class="label" data-id="L_N6_T1_N6_G_0" transform="translate(-55.765625, -12)"><foreignObject width="111.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>頂点として定義</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(292.265625, 171)">
+<g class="label" data-id="L_N6_T2_N6_G_0" transform="translate(-47.765625, -12)"><foreignObject width="95.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>辺として定義</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(688.515625, 110)">
+<g class="label" data-id="L_N6_G_N6_R_0" transform="translate(-88.796875, -12)"><foreignObject width="177.59375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>GRAPH_TABLE + MATCH</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N6_T1-0" transform="translate(107.25, 49)">
+<rect class="basic label-container" style="" x="-87.25" y="-26" width="174.5" height="52">
+</rect>
+<g class="label" style="" transform="translate(-59.25, -12)">
+<rect>
+</rect><foreignObject width="118.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>person テーブル</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_G-1" transform="translate(473.875, 110)">
+<rect class="basic label-container" style="" x="-95.84375" y="-26" width="191.6875" height="52">
+</rect>
+<g class="label" style="" transform="translate(-67.84375, -12)">
+<rect>
+</rect><foreignObject width="135.6875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>PROPERTY GRAPH</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_T2-2" transform="translate(107.25, 171)">
+<rect class="basic label-container" style="" x="-99.25" y="-26" width="198.5" height="52">
+</rect>
+<g class="label" style="" transform="translate(-71.25, -12)">
+<rect>
+</rect><foreignObject width="142.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>friendship テーブル</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N6_R-5" transform="translate(930.9140625, 110)">
+<rect class="basic label-container" style="" x="-123.6015625" y="-26" width="247.203125" height="52">
+</rect>
+<g class="label" style="" transform="translate(-95.6015625, -12)">
+<rect>
+</rect><foreignObject width="191.203125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>パターンに一致した結果表</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<pre class="sql"><code>-- 概念例（製品により細部の構文は異なる）
+CREATE PROPERTY GRAPH social
+  VERTEX TABLES (person KEY (id) PROPERTIES (name))
+  EDGE TABLES (
+    friendship KEY (id)
+      SOURCE      KEY (person_a) REFERENCES person (id)
+      DESTINATION KEY (person_b) REFERENCES person (id)
+      PROPERTIES (since)
+  );
+
+SELECT *
+FROM GRAPH_TABLE (
+  social
+  MATCH (p IS person)-[f IS friendship]-&gt;(q IS person)
+  COLUMNS (p.name AS from_name, q.name AS to_name, f.since)
+);</code></pre>
+<hr/>
+<h2 id="s-6-step-6-主要製品の対応状況-2026年10月8日時点で確認できた範囲">6. Step 6: 主要製品の対応状況（2026年10月8日時点で確認できた範囲）</h2>
+<h3 id="s-6-1-postgresql">6.1 PostgreSQL</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>機能</th>
+<th>対応状況</th>
+<th>出典</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>UNIQUE のNULL扱い（F292）</td>
+<td>PostgreSQL 15</td>
+<td>Eisentraut氏ブログ</td>
+</tr>
+<tr class="even">
+<td>ANY_VALUE（T626）</td>
+<td>PostgreSQL 16</td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td>非10進整数リテラル（T661）・アンダースコア（T662）</td>
+<td>PostgreSQL 16</td>
+<td>同上</td>
+</tr>
+<tr class="even">
+<td>独自の <code>json</code>／<code>jsonb</code> 型の追加</td>
+<td><code>json</code> は 9.2、<code>jsonb</code> は 9.4 で追加（<strong>T801への適合とは別の話</strong>）</td>
+<td>PostgreSQL公式ドキュメント</td>
+</tr>
+<tr class="odd">
+<td>JSONデータ型（T801）</td>
+<td><strong>PostgreSQL 18 時点で未対応</strong>（公式ドキュメントの Unsupported Features に掲載）</td>
+<td>PostgreSQL 18 公式ドキュメント Appendix D</td>
+</tr>
+<tr class="even">
+<td>JSON簡易アクセサ・アイテムメソッド</td>
+<td>記事公開時点では「将来」</td>
+<td>同上（2023年4月時点の情報）</td>
+</tr>
+<tr class="odd">
+<td><strong>SQL/PGQ</strong></td>
+<td>2026年3月16日に master へコミットされたが、<strong>2026年9月7日に REL_19_STABLE から revert</strong>。<strong>PostgreSQL 19 には搭載されず、今後の搭載版は未定</strong></td>
+<td>pgsql-committers／depesz／pgEdge</td>
+</tr>
+</tbody>
+</table></div>
+<p>SQL/PGQ の実装（<code>GRAPH_TABLE</code> によるグラフパターンマッチングと <code>CREATE / ALTER / DROP PROPERTY GRAPH</code>）は、2026年3月に一度コミットされたものの、リリース前に設計上の課題が複数指摘されたため、2026年9月7日に Peter Eisentraut氏自身のコミットで revert されました。pgsql-hackers では、カタログ表現と pg_dump 対応の再設計が必要として、19 からの revert を求める意見が出ており（2026年9月3日のスレッド）、Eisentraut氏が同意しています。したがって、これらは <strong>PostgreSQL 19 の機能ではありません</strong>。後継バージョンでの再提案が見込まれますが、搭載版は確定していません。</p>
+<div class="callout callout-warn">
+<p><strong>注意</strong>: Eisentraut氏の対応表は2023年4月時点です。最新の対応状況は、お使いのバージョンの公式ドキュメント（SQL Conformance）で必ず確認してください。SQL/PGQ の搭載版についても、PostgreSQL 公式のリリースノートで確認してください。なお、PostgreSQL 19 自体のリリースも、ベータ期間中の機能 revert や見直しの影響で例年より遅れる見通しと報じられています（Snowflakeのエンジニアリングブログ）。</p>
+</div>
+<h3 id="s-6-2-oracle-database">6.2 Oracle Database</h3>
+<p>Oracle の公式ブログによれば、Oracle は SQL/PGQ の標準化を主導し、<strong>Oracle Database 23ai で最初の商用SQL/PGQ実装</strong>を提供しました。JSON型やVECTOR型をプロパティのデータ型に使える点なども特徴として挙げられています。</p>
+<h3 id="s-6-3-postgresqlとoracleのpgq実装差-コミュニティでの検証例">6.3 PostgreSQLとOracleのPGQ実装差（コミュニティでの検証例）</h3>
+<p>PostgreSQLのメーリングリストでは、PGQのリグレッションテストをOracleでも動かした比較が共有されています。報告された例を抜粋します（個別の挙動は各製品の最新版で再確認してください）。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>PostgreSQL</th>
+<th>Oracle</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ALTER PROPERTY GRAPH</code></td>
+<td>対応</td>
+<td>非対応（報告時点）</td>
+</tr>
+<tr class="even">
+<td><code>NODE</code> / <code>RELATIONSHIP</code> の同義語</td>
+<td>標準の同義語に対応</td>
+<td><code>VERTEX</code> / <code>EDGE</code> のみ</td>
+</tr>
+<tr class="odd">
+<td><code>TEMPORARY PROPERTY GRAPH</code></td>
+<td>対応</td>
+<td>非対応（報告時点）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-practice">
+<p><strong>QAの教訓</strong>: 同じ標準機能でも<strong>製品間で差が出る</strong>ことが、実例として確認できます。移植性を謳うシステムでは、機能単位の適合テストが重要です。</p>
+</div>
+<hr/>
+<h2 id="s-7-step-7-規格の改訂状況-今後の動き">7. Step 7: 規格の改訂状況（今後の動き）</h2>
+<div class="mermaid-diagram" id="diagram-7">
+<svg id="mmd7" width="693.625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="384" viewBox="0 15 693.625 384" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd7{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd7 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd7 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd7 .error-icon{fill:#0d1b2e;}
+#mmd7 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd7 .edge-thickness-normal{stroke-width:1px;}
+#mmd7 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd7 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd7 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd7 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd7 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd7 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd7 .marker.cross{stroke:#7c9eff;}
+#mmd7 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd7 p{margin:0;}
+#mmd7 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd7 .cluster-label text{fill:#f2e4d1;}
+#mmd7 .cluster-label span{color:#f2e4d1;}
+#mmd7 .cluster-label span p{background-color:transparent;}
+#mmd7 .label text,#mmd7 span{fill:#e6edf7;color:#e6edf7;}
+#mmd7 .node rect,#mmd7 .node circle,#mmd7 .node ellipse,#mmd7 .node polygon,#mmd7 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd7 .rough-node .label text,#mmd7 .node .label text,#mmd7 .image-shape .label,#mmd7 .icon-shape .label{text-anchor:middle;}
+#mmd7 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd7 .rough-node .label,#mmd7 .node .label,#mmd7 .image-shape .label,#mmd7 .icon-shape .label{text-align:center;}
+#mmd7 .node.clickable{cursor:pointer;}
+#mmd7 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd7 .arrowheadPath{fill:#f8eee1;}
+#mmd7 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd7 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd7 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd7 .edgeLabel p{background-color:#07111e;}
+#mmd7 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd7 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd7 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd7 .cluster text{fill:#f2e4d1;}
+#mmd7 .cluster span{color:#f2e4d1;}
+#mmd7 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd7 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd7 rect.text{fill:none;stroke-width:0;}
+#mmd7 .icon-shape,#mmd7 .image-shape{background-color:#07111e;text-align:center;}
+#mmd7 .icon-shape p,#mmd7 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd7 .icon-shape rect,#mmd7 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd7 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd7 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd7 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd7_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd7_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd7_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd7_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd7_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd7_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M153.922,207L158.922,207C163.922,207,173.922,207,183.255,207C192.589,207,201.255,207,205.589,207L209.922,207" id="L_N7_A_N7_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_A_N7_B_0" data-points="W3sieCI6MTUzLjkyMTg3NSwieSI6MjA3fSx7IngiOjE4My45MjE4NzUsInkiOjIwN30seyJ4IjoyMTMuOTIxODc1LCJ5IjoyMDd9XQ==" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M328.709,157L340.528,141C352.348,125,375.986,93,392.139,77C408.292,61,416.958,61,421.292,61L425.625,61" id="L_N7_B_N7_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_B_N7_C_0" data-points="W3sieCI6MzI4LjcwODkwNDEwOTU4OTA3LCJ5IjoxNTd9LHsieCI6Mzk5LjYyNSwieSI6NjF9LHsieCI6NDI5LjYyNSwieSI6NjF9XQ==" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M369.625,207L374.625,207C379.625,207,389.625,207,400.056,207C410.487,207,421.349,207,426.78,207L432.211,207" id="L_N7_B_N7_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_B_N7_D_0" data-points="W3sieCI6MzY5LjYyNSwieSI6MjA3fSx7IngiOjM5OS42MjUsInkiOjIwN30seyJ4Ijo0MzYuMjEwOTM3NSwieSI6MjA3fV0=" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+<path d="M328.709,257L340.528,273C352.348,289,375.986,321,397.579,337C419.172,353,438.719,353,448.492,353L458.266,353" id="L_N7_B_N7_E_0" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N7_B_N7_E_0" data-points="W3sieCI6MzI4LjcwODkwNDEwOTU4OTA3LCJ5IjoyNTd9LHsieCI6Mzk5LjYyNSwieSI6MzUzfSx7IngiOjQ2Mi4yNjU2MjUsInkiOjM1M31d" marker-end="url(#mmd7_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_A_N7_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_B_N7_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_B_N7_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N7_B_N7_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N7_A-0" transform="translate(80.9609375, 207)">
+<rect class="basic label-container" style="" x="-72.9609375" y="-50" width="145.921875" height="100">
+</rect>
+<g class="label" style="" transform="translate(-44.9609375, -36)">
+<rect>
+</rect><foreignObject width="89.921875" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>2016年版<br/>9075-1:2016<br/>(撤回済み)</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_B-1" transform="translate(291.7734375, 207)">
+<rect class="basic label-container" style="" x="-77.8515625" y="-50" width="155.703125" height="100">
+</rect>
+<g class="label" style="" transform="translate(-49.8515625, -36)">
+<rect>
+</rect><foreignObject width="99.703125" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>2023年版<br/>9075-1:2023<br/>(現行・第6版)</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_C-3" transform="translate(557.625, 61)">
+<rect class="basic label-container" style="" x="-128" y="-38" width="256" height="76">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>Cor 1:2022 は旧版に対する訂正</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_D-5" transform="translate(557.625, 207)">
+<rect class="basic label-container" style="" x="-121.4140625" y="-38" width="242.828125" height="76">
+</rect>
+<g class="label" style="" transform="translate(-93.4140625, -24)">
+<rect>
+</rect><foreignObject width="186.828125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>Cor 1:2026<br/>(現行版の訂正・発行済み)</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N7_E-7" transform="translate(557.625, 353)">
+<rect class="basic label-container" style="" x="-95.359375" y="-38" width="190.71875" height="76">
+</rect>
+<g class="label" style="" transform="translate(-67.359375, -24)">
+<rect>
+</rect><foreignObject width="134.71875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC CD 9075-1<br/>(後継版・開発中)</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>日付</th>
+<th>出来事（ISO公式ページより）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2018-07-30</td>
+<td>新規プロジェクト承認</td>
+</tr>
+<tr class="even">
+<td>2020-11</td>
+<td>委員会ドラフト（CD）登録・協議開始</td>
+</tr>
+<tr class="odd">
+<td>2022-10</td>
+<td>DIS投票開始（12週間）</td>
+</tr>
+<tr class="even">
+<td>2023-05</td>
+<td>FDIS投票終了</td>
+</tr>
+<tr class="odd">
+<td>2023-06-01</td>
+<td><strong>国際規格として発行</strong></td>
+</tr>
+<tr class="even">
+<td>2025-06-22</td>
+<td>定期見直し段階へ（90.92: To be revised）</td>
+</tr>
+<tr class="odd">
+<td>2026</td>
+<td>Cor 1:2026 発行／後継の CD 9075-1 が開発中</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="s-8-step-8-エンジニア-qaのための活用ガイド">8. Step 8: エンジニア／QAのための活用ガイド</h2>
+<h3 id="s-8-1-いつ-part-1-を読むべきか">8.1 いつ Part 1 を読むべきか</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>場面</th>
+<th>読むべきか</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SQLの書き方を学ぶ</td>
+<td>いいえ（Part 2が主）</td>
+<td>Part 1は概念・用語の巻</td>
+</tr>
+<tr class="even">
+<td>ベンダー比較・移行調査</td>
+<td><strong>はい</strong></td>
+<td>適合性（Core SQL／機能ID）の考え方を理解できる</td>
+</tr>
+<tr class="odd">
+<td>適合テスト設計</td>
+<td><strong>はい</strong></td>
+<td>機能単位でテスト項目を切り出す土台になる</td>
+</tr>
+<tr class="even">
+<td>規格本文を読み進める</td>
+<td><strong>はい（最初に）</strong></td>
+<td>用語・表記法の凡例にあたる</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="s-8-2-学習ロードマップ">8.2 学習ロードマップ</h3>
+<div class="mermaid-diagram" id="diagram-8">
+<svg id="mmd8" width="272" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="636" viewBox="0 15 272 636" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd8{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#e6edf7;}
+@keyframes edge-animation-frame{from{stroke-dashoffset:0;}
+}
+@keyframes dash{to{stroke-dashoffset:0;}
+}
+#mmd8 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}
+#mmd8 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}
+#mmd8 .error-icon{fill:#0d1b2e;}
+#mmd8 .error-text{fill:#f2e4d1;stroke:#f2e4d1;}
+#mmd8 .edge-thickness-normal{stroke-width:1px;}
+#mmd8 .edge-thickness-thick{stroke-width:3.5px;}
+#mmd8 .edge-pattern-solid{stroke-dasharray:0;}
+#mmd8 .edge-thickness-invisible{stroke-width:0;fill:none;}
+#mmd8 .edge-pattern-dashed{stroke-dasharray:3;}
+#mmd8 .edge-pattern-dotted{stroke-dasharray:2;}
+#mmd8 .marker{fill:#7c9eff;stroke:#7c9eff;}
+#mmd8 .marker.cross{stroke:#7c9eff;}
+#mmd8 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}
+#mmd8 p{margin:0;}
+#mmd8 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#e6edf7;}
+#mmd8 .cluster-label text{fill:#f2e4d1;}
+#mmd8 .cluster-label span{color:#f2e4d1;}
+#mmd8 .cluster-label span p{background-color:transparent;}
+#mmd8 .label text,#mmd8 span{fill:#e6edf7;color:#e6edf7;}
+#mmd8 .node rect,#mmd8 .node circle,#mmd8 .node ellipse,#mmd8 .node polygon,#mmd8 .node path{fill:#12233a;stroke:#7c9eff;stroke-width:1px;}
+#mmd8 .rough-node .label text,#mmd8 .node .label text,#mmd8 .image-shape .label,#mmd8 .icon-shape .label{text-anchor:middle;}
+#mmd8 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}
+#mmd8 .rough-node .label,#mmd8 .node .label,#mmd8 .image-shape .label,#mmd8 .icon-shape .label{text-align:center;}
+#mmd8 .node.clickable{cursor:pointer;}
+#mmd8 .root .anchor path{fill:#7c9eff!important;stroke-width:0;stroke:#7c9eff;}
+#mmd8 .arrowheadPath{fill:#f8eee1;}
+#mmd8 .edgePath .path{stroke:#7c9eff;stroke-width:2.0px;}
+#mmd8 .flowchart-link{stroke:#7c9eff;fill:none;}
+#mmd8 .edgeLabel{background-color:#07111e;text-align:center;}
+#mmd8 .edgeLabel p{background-color:#07111e;}
+#mmd8 .edgeLabel rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd8 .labelBkg{background-color:rgba(7, 17, 30, 0.5);}
+#mmd8 .cluster rect{fill:#0d1b2e;stroke:hsl(214.5454545455, 15.9322033898%, 1.568627451%);stroke-width:1px;}
+#mmd8 .cluster text{fill:#f2e4d1;}
+#mmd8 .cluster span{color:#f2e4d1;}
+#mmd8 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1b2e;border:1px solid hsl(214.5454545455, 15.9322033898%, 1.568627451%);border-radius:2px;pointer-events:none;z-index:100;}
+#mmd8 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}
+#mmd8 rect.text{fill:none;stroke-width:0;}
+#mmd8 .icon-shape,#mmd8 .image-shape{background-color:#07111e;text-align:center;}
+#mmd8 .icon-shape p,#mmd8 .image-shape p{background-color:#07111e;padding:2px;}
+#mmd8 .icon-shape rect,#mmd8 .image-shape rect{opacity:0.5;background-color:#07111e;fill:#07111e;}
+#mmd8 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}
+#mmd8 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}
+#mmd8 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+</style>
+<g>
+<marker id="mmd8_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd8_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd8_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd8_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd8_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd8_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edgePaths">
+<path d="M136,75L136,80C136,85,136,95,136,104.333C136,113.667,136,122.333,136,126.667L136,131" id="L_N8_S1_N8_S2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N8_S1_N8_S2_0" data-points="W3sieCI6MTM2LCJ5Ijo3NX0seyJ4IjoxMzYsInkiOjEwNX0seyJ4IjoxMzYsInkiOjEzNX1d" marker-end="url(#mmd8_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,211L136,216C136,221,136,231,136,240.333C136,249.667,136,258.333,136,262.667L136,267" id="L_N8_S2_N8_S3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N8_S2_N8_S3_0" data-points="W3sieCI6MTM2LCJ5IjoyMTF9LHsieCI6MTM2LCJ5IjoyNDF9LHsieCI6MTM2LCJ5IjoyNzF9XQ==" marker-end="url(#mmd8_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,371L136,376C136,381,136,391,136,400.333C136,409.667,136,418.333,136,422.667L136,427" id="L_N8_S3_N8_S4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N8_S3_N8_S4_0" data-points="W3sieCI6MTM2LCJ5IjozNzF9LHsieCI6MTM2LCJ5Ijo0MDF9LHsieCI6MTM2LCJ5Ijo0MzF9XQ==" marker-end="url(#mmd8_flowchart-v2-pointEnd)">
+</path>
+<path d="M136,507L136,512C136,517,136,527,136,536.333C136,545.667,136,554.333,136,558.667L136,563" id="L_N8_S4_N8_S5_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_N8_S4_N8_S5_0" data-points="W3sieCI6MTM2LCJ5Ijo1MDd9LHsieCI6MTM2LCJ5Ijo1Mzd9LHsieCI6MTM2LCJ5Ijo1Njd9XQ==" marker-end="url(#mmd8_flowchart-v2-pointEnd)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel">
+<g class="label" data-id="L_N8_S1_N8_S2_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N8_S2_N8_S3_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N8_S3_N8_S4_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel">
+<g class="label" data-id="L_N8_S4_N8_S5_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="flowchart-N8_S1-0" transform="translate(136, 49)">
+<rect class="basic label-container" style="" x="-125.796875" y="-26" width="251.59375" height="52">
+</rect>
+<g class="label" style="" transform="translate(-97.796875, -12)">
+<rect>
+</rect><foreignObject width="195.59375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel "><p>① 本ガイドで全体像を把握</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N8_S2-1" transform="translate(136, 173)">
+<rect class="basic label-container" style="" x="-128" y="-38" width="256" height="76">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>② modern-sql.com で機能別の対応状況を確認</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N8_S3-3" transform="translate(136, 321)">
+<rect class="basic label-container" style="" x="-128" y="-50" width="256" height="100">
+</rect>
+<g class="label" style="" transform="translate(-100, -36)">
+<rect>
+</rect><foreignObject width="200" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>③ 利用中DBの SQL Conformance ドキュメントを読む</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N8_S4-5" transform="translate(136, 469)">
+<rect class="basic label-container" style="" x="-128" y="-38" width="256" height="76">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>④ 機能IDごとの適合テストを作成</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="flowchart-N8_S5-7" transform="translate(136, 605)">
+<rect class="basic label-container" style="" x="-128" y="-38" width="256" height="76">
+</rect>
+<g class="label" style="" transform="translate(-100, -24)">
+<rect>
+</rect><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel "><p>⑤ 必要に応じて ISO OBP で規格本文を確認</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+</svg>
+</div>
+<h3 id="s-8-3-よくある誤解">8.3 よくある誤解</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>誤解</th>
+<th>正しい理解</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Part 1 にSQLの文法が書いてある</td>
+<td>文法の中核は Part 2。Part 1 は枠組み</td>
+</tr>
+<tr class="even">
+<td>SQL:2023対応＝全機能対応</td>
+<td>新機能は<strong>オプション</strong>。機能ID単位で確認が必要</td>
+</tr>
+<tr class="odd">
+<td>標準準拠ならどのDBでも同じに動く</td>
+<td>実装依存要素や対応機能の差があり、製品間差は残る</td>
+</tr>
+<tr class="even">
+<td>SQL標準は1冊の文書</td>
+<td>複数パートの<strong>シリーズ</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="s-9-用語集">9. 用語集</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SQL-implementation</td>
+<td>SQLを処理する実装（DBMS本体など）</td>
+</tr>
+<tr class="even">
+<td>Core SQL</td>
+<td>準拠に最低限必要な必須機能群</td>
+</tr>
+<tr class="odd">
+<td>Feature ID</td>
+<td>機能を一意に識別するコード（例: T626）</td>
+</tr>
+<tr class="even">
+<td>Catalog / Schema</td>
+<td>SQLオブジェクトを格納する階層構造</td>
+</tr>
+<tr class="odd">
+<td>SQL/PGQ</td>
+<td>プロパティグラフ問合せ（Part 16）</td>
+</tr>
+<tr class="even">
+<td>CD / DIS / FDIS</td>
+<td>委員会原案／国際規格案／最終国際規格案（策定段階）</td>
+</tr>
+<tr class="odd">
+<td>OBP</td>
+<td>ISOのOnline Browsing Platform（規格のオンライン閲覧）</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="s-10-根拠となる情報源-url">10. 根拠となる情報源（URL）</h2>
+<div class="callout callout-note">
+<p>調査基準日: 2026年10月8日。規格本文は有料のため、<strong>ISO公式ページの公開情報</strong>と、<strong>著名な国際的開発者・コミュニティの公開記事</strong>を根拠にしています。</p>
+</div>
+<h3 id="s-10-1-規格の一次情報">10.1 規格の一次情報</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>ISO/IEC 9075-1:2023 公式ページ（Scope、版、ライフサイクル、規定参照）</td>
+<td><a href="https://www.iso.org/standard/76583.html" rel="noopener noreferrer" target="_blank">https://www.iso.org/standard/76583.html</a></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>後継ドラフト ISO/IEC CD 9075-1</td>
+<td><a href="https://www.iso.org/standard/92320.html" rel="noopener noreferrer" target="_blank">https://www.iso.org/standard/92320.html</a></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>ISO/IEC 9075-1:2023/Cor 1:2026</td>
+<td><a href="https://www.iso.org/standard/93690.html" rel="noopener noreferrer" target="_blank">https://www.iso.org/standard/93690.html</a></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>ISO/IEC 9075-2（Foundation）</td>
+<td><a href="https://www.iso.org/standard/76584.html" rel="noopener noreferrer" target="_blank">https://www.iso.org/standard/76584.html</a></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>ISO/IEC 9075-16（SQL/PGQ）</td>
+<td><a href="https://www.iso.org/standard/79473.html" rel="noopener noreferrer" target="_blank">https://www.iso.org/standard/79473.html</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="s-10-2-国際的な開発者・実装者による解説">10.2 国際的な開発者・実装者による解説</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>発信者</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6</td>
+<td>Peter Eisentraut（PostgreSQLコミッタ）</td>
+<td>SQL:2023 の新機能解説</td>
+<td><a href="https://peter.eisentraut.org/blog/2023/04/04/sql-2023-is-finished-here-is-whats-new" rel="noopener noreferrer" target="_blank">https://peter.eisentraut.org/blog/2023/04/04/sql-2023-is-finished-here-is-whats-new</a></td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Peter Eisentraut</td>
+<td>PostgreSQLのSQL:2023対応状況</td>
+<td><a href="https://peter.eisentraut.org/blog/2023/04/18/postgresql-and-sql-2023" rel="noopener noreferrer" target="_blank">https://peter.eisentraut.org/blog/2023/04/18/postgresql-and-sql-2023</a></td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Peter Eisentraut</td>
+<td>PostgreSQLへのSQL/PGQ実装コミット（2026-03-16）</td>
+<td><a href="https://www.postgresql.org/message-id/E1w247I-0000Tk-2Y@gemulon.postgresql.org" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/message-id/E1w247I-0000Tk-2Y@gemulon.postgresql.org</a></td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Markus Winand</td>
+<td>SQL適合レベル（Core SQLとオプション機能）</td>
+<td><a href="https://modern-sql.com/standard/levels" rel="noopener noreferrer" target="_blank">https://modern-sql.com/standard/levels</a></td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Markus Winand</td>
+<td>SQL標準の16パートの整理</td>
+<td><a href="https://modern-sql.com/standard/parts" rel="noopener noreferrer" target="_blank">https://modern-sql.com/standard/parts</a></td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>Markus Winand（jOOQ Tuesdays）</td>
+<td>標準準拠への考え方のインタビュー</td>
+<td><a href="https://blog.jooq.org/jooq-tuesdays-markus-winand-is-on-a-modern-sql-mission/" rel="noopener noreferrer" target="_blank">https://blog.jooq.org/jooq-tuesdays-markus-winand-is-on-a-modern-sql-mission/</a></td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>Oracle（公式ブログ）</td>
+<td>Oracle Database 23ai のSQL/PGQ</td>
+<td><a href="https://blogs.oracle.com/database/property-graphs-in-oracle-database-23ai-the-sql-pgq-standard" rel="noopener noreferrer" target="_blank">https://blogs.oracle.com/database/property-graphs-in-oracle-database-23ai-the-sql-pgq-standard</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="s-10-3-コミュニティ・補助資料">10.3 コミュニティ・補助資料</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>13</td>
+<td>depesz「Waiting for PostgreSQL 19 – SQL/PGQ」</td>
+<td><a href="https://www.depesz.com/tag/graphs/" rel="noopener noreferrer" target="_blank">https://www.depesz.com/tag/graphs/</a></td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>PostgreSQL ML: PGQ実装のOracleとの比較検証</td>
+<td><a href="https://www.postgresql.org/message-id/CAExHW5ufB8y1oguSea_9WPFHFDOOTsxZ3Na_OAUBF-H%2BB7AfYw%40mail.gmail.com" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/message-id/CAExHW5ufB8y1oguSea_9WPFHFDOOTsxZ3Na_OAUBF-H%2BB7AfYw%40mail.gmail.com</a></td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>PostgreSQL ML: SQL:2023向けドキュメント更新の議論</td>
+<td><a href="https://hackorum.dev/topics/47552" rel="noopener noreferrer" target="_blank">https://hackorum.dev/topics/47552</a></td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>Wikipedia: SQL:2023</td>
+<td><a href="https://en.wikipedia.org/wiki/SQL:2023" rel="noopener noreferrer" target="_blank">https://en.wikipedia.org/wiki/SQL:2023</a></td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>pgEdge「Looking Forward to Postgres 19: Epilogue」（SQL/PGQ の revert）</td>
+<td><a href="https://www.pgedge.com/blog/looking-forward-to-postgres-19-epilogue" rel="noopener noreferrer" target="_blank">https://www.pgedge.com/blog/looking-forward-to-postgres-19-epilogue</a></td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>PostgreSQL 18 公式ドキュメント: Unsupported Features（T801 未対応）</td>
+<td><a href="https://www.postgresql.org/docs/18/unsupported-features-sql-standard.html" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/docs/18/unsupported-features-sql-standard.html</a></td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>pgsql-hackers: PGQ catalog representation and pg_dump support（19からのrevert合意）</td>
+<td><a href="https://www.postgresql.org/message-id/96b179ff-0be2-4467-8fd7-f3afae8d360b%40eisentraut.org" rel="noopener noreferrer" target="_blank">https://www.postgresql.org/message-id/96b179ff-0be2-4467-8fd7-f3afae8d360b%40eisentraut.org</a></td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>Snowflake Engineering Blog: What Is Happening with PostgreSQL 19?（機能revertとリリース遅延）</td>
+<td><a href="https://www.snowflake.com/en/blog/engineering/postgresql-19-release-delay-feature-reverts/" rel="noopener noreferrer" target="_blank">https://www.snowflake.com/en/blog/engineering/postgresql-19-release-delay-feature-reverts/</a></td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+<h2 id="s-11-本ガイドの限界と注意点">11. 本ガイドの限界と注意点</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>規格本文の未参照</td>
+<td>ISO規格本文は有料かつAI利用不可のため、<strong>Part 1 の条文の詳細（定義文、適合性条項の細部）は本ガイドで直接引用していません</strong>。第3章の概念説明は一般的なSQL知識に基づく解説です</td>
+</tr>
+<tr class="even">
+<td>時点依存の情報</td>
+<td>製品の対応状況（特にPostgreSQL 19、Oracle）は変化が速いため、最新の公式ドキュメントで再確認してください</td>
+</tr>
+<tr class="odd">
+<td>実装差</td>
+<td>コード例は概念理解用です。実際の構文は製品・バージョンで差があります</td>
+</tr>
+<tr class="even">
+<td>次の一歩</td>
+<td>条文レベルの確認が必要な場合は、ISO OBPのサンプルまたは規格の購入版を参照してください</td>
+</tr>
+</tbody>
+</table></div>
+
+<footer class="page-footer">本ガイドは2026年10月8日時点の公開情報に基づく初学者向け解説です。ISO規格本文は有料のため直接引用していません。正確な条文は ISO Online Browsing Platform または規格本文で確認してください。</footer>
+</main>
+</div>
+<script>
+(function(){
+  // サイドバー開閉（モバイル）
+  var sb=document.getElementById('sidebar'),tg=document.getElementById('toggle');
+  tg.addEventListener('click',function(){sb.classList.toggle('open');});
+  sb.addEventListener('click',function(e){if(e.target.tagName==='A'&&window.innerWidth<=960)sb.classList.remove('open');});
+  // スクロールスパイ
+  var links={};document.querySelectorAll('.sidebar a[data-target]').forEach(function(a){links[a.dataset.target]=a;});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){Object.values(links).forEach(function(l){l.classList.remove('active');});
+      var l=links[e.target.id];if(l){l.classList.add('active');l.scrollIntoView({block:'nearest'});}}});
+  },{rootMargin:'-15% 0px -75% 0px'});
+  document.querySelectorAll('.main h2[id],.main h3[id]').forEach(function(h){io.observe(h);});
+  // 軽量SQLハイライト（外部ライブラリ不使用）
+  var KW=/\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|CREATE|PROPERTY|GRAPH|VERTEX|EDGE|TABLES|KEY|SOURCE|DESTINATION|REFERENCES|PROPERTIES|MATCH|COLUMNS|IS|AS|COUNT|UNIQUE|NULLS|NOT|DISTINCT|BY)\b/g;
+  document.querySelectorAll('pre code').forEach(function(c){
+    var t=c.textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    var cm=[];t=t.replace(/(--[^\n]*)/g,function(m){cm.push(m);return '\u0001'+(cm.length-1)+'\u0001';});
+    var st=[];t=t.replace(/('[^']*')/g,function(m){st.push(m);return '\u0002'+(st.length-1)+'\u0002';});
+    t=t.replace(KW,'<span class="tok-k">$1</span>');
+    t=t.replace(/\u0002(\d+)\u0002/g,function(_,i){return '<span class="tok-s">'+st[i]+'</span>';});
+    t=t.replace(/\u0001(\d+)\u0001/g,function(_,i){return '<span class="tok-c">'+cm[i]+'</span>';});
+    c.innerHTML=t;
+  });
+})();
+</script>
+</body>
+</html>
