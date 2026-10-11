@@ -104,7 +104,7 @@ timeline
 
 ### 5.1 いちばん大事な事実
 
-`.docx` は、拡張子を `.zip` に変えて解凍できます。中身は **XML ファイルの集まり**です。
+`.docx` は、拡張子を `.zip` に変えて解凍できます。中身は、XML の部品に画像などのバイナリ部品も加えて ZIP にまとめた **OPC パッケージ**です。
 
 ```mermaid
 flowchart LR
@@ -149,7 +149,7 @@ Part 1 の主要部分は、文書の種類ごとの XML 語彙のリファレ�
 | 略称 | 対象 | 主な拡張子 | ルート要素の例 | 基本の入れ子構造 |
 |---|---|---|---|---|
 | WordprocessingML | ワープロ文書 | `.docx` | `w:document` | 文書 → 本文 `w:body` → 段落 `w:p` → ラン `w:r` → テキスト `w:t` |
-| SpreadsheetML | 表計算 | `.xlsx` | `x:workbook`（既定名前空間） | ブック → シート → 行 `row` → セル `c` |
+| SpreadsheetML | 表計算 | `.xlsx` | `x:workbook`（`x` は SpreadsheetML 名前空間の接頭辞） | ブック → シート → 行 `row` → セル `c` |
 | PresentationML | プレゼン | `.pptx` | `p:presentation` | プレゼン → スライド → 図形ツリー `p:spTree` → 図形 `p:sp` |
 | DrawingML | 図・グラフ・図形の共通部品 | 上記3種に埋め込み | `a:...` | 図形、テキスト、色、効果、チャート |
 | Shared / その他 | 数式（OMML）、カスタム XML、書誌など | 同上 | — | — |
