@@ -127,6 +127,13 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       expect($('nav.sidebar .nav-h3').length).toBe(52);
     });
 
+    it('exposes the sidebar as a navigation landmark named 目次', () => {
+      // Arrange & Act
+      const { getByRole } = render(<NavBar />);
+      // Assert
+      expect(getByRole('navigation', { name: '目次' }).id).toBe('sidebar');
+    });
+
     it('toggles mobile sidebar open state and closes on link click', () => {
       const { container } = render(<NavBar />);
       const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;

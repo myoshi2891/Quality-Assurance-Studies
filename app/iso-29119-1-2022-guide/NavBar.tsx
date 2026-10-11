@@ -130,7 +130,7 @@ export default function NavBar() {
         ☰
       </button>
 
-      <nav className={`sidebar${open ? ' open' : ''}`} id="sidebar">
+      <nav className={`sidebar${open ? ' open' : ''}`} id="sidebar" aria-label="目次">
 
     <div className="sidebar-title">目次</div>
     <ul className="nav-list">
