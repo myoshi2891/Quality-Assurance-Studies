@@ -58,7 +58,7 @@ flowchart LR
 ### 1-3. 対象範囲（Scope）の要点
 
 - **機械学習（ML）システム**と**ヒューリスティック（ルール・知識ベース）システム**の両方が対象
-- 土台となる規格は **ISO/IEC/IEEE 15288（システム）** と **ISO/IEC/IEEE 12207（ソフトウェア）**
+- 土台となる規格は **ISO/IEC/IEEE 15288（システム）** と **ISO/IEC/IEEE 12207:2017（ソフトウェア）**
 - AI固有のプロセスは **ISO/IEC 22989** と **ISO/IEC 23053** から取り入れている
 - AIシステムの中に「普通のソフトウェア」部分がある場合、その部分には 12207 / 15288 をそのまま使える
 - 組織内・プロジェクト内で、AIシステムを**開発するとき**にも**調達するとき**にも使える
@@ -143,7 +143,7 @@ flowchart TD
 
 ## Step 4. 3種類のプロセス：Generic / Modified / AI-specific
 
-5338 のプロセスは、**12207/15288 との関係**で次の3種類に分類されます。
+5338 のプロセスは、**12207:2017 / 15288 との関係**で次の3種類に分類されます。
 
 | 種類 | 意味 | 初学者向けのたとえ |
 |---|---|---|
@@ -153,7 +153,7 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    BASE["ISO/IEC/IEEE 15288<br/>ISO/IEC/IEEE 12207"] --> G["Generic<br/>そのまま利用"]
+    BASE["ISO/IEC/IEEE 15288<br/>ISO/IEC/IEEE 12207:2017"] --> G["Generic<br/>そのまま利用"]
     BASE --> M["Modified<br/>AI向けに修正"]
     NEW["AI固有の特性<br/>ISO/IEC 22989, 23053"] --> AI["AI-specific<br/>新規追加"]
     G --> OUT["ISO/IEC 5338<br/>AIシステムライフサイクルプロセス"]
@@ -182,7 +182,7 @@ flowchart LR
 | 箇条 | タイトル | 内容 |
 |---|---|---|
 | 1 | Scope | 適用範囲 |
-| 2 | Normative references | 引用規格（15288, 12207, 22989, 23053） |
+| 2 | Normative references | 引用規格（15288, 12207:2017, 22989, 23053） |
 | 3 | Terms and definitions | 用語定義（例：knowledge acquisition） |
 | 4 | Abbreviated terms | 略語（AI, ML） |
 | 5 | Key concepts | 基本概念（3種類のプロセス、AIの特徴、ライフサイクルモデル、適合性） |
