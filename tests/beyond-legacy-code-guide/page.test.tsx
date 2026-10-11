@@ -245,6 +245,7 @@ describe('Archive', () => {
   for (const [kind, hash] of [['html', inventory.hashHtml], ['md', inventory.hashMd]] as const) it('archives original ' + kind + ' byte for byte', () => {
     const name = 'Beyond-legacy-code-guide.' + kind;
     expect(existsSync(name)).toBe(false);
-    expect(createHash('sha256').update(readFileSync('archive/' + kind + '-archive/books/' + name)).digest('hex')).toBe(hash);
+    // archive/ は git 管理外のため、CI でも読めるよう追跡対象のフィクスチャを正とする
+    expect(createHash('sha256').update(readFileSync('tests/fixtures/source-html/' + name)).digest('hex')).toBe(hash);
   });
 });
