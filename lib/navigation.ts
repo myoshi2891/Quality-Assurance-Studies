@@ -23,7 +23,8 @@ export type NavCategory =
   | 'istqb-expert'
   | 'cicd-devops'
   | 'tools-frameworks'
-  | 'books-practices';
+  | 'books-practices'
+  | 'iso';
 
 export interface NavItem {
   href: string;
@@ -141,6 +142,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/langgraph-qa-agent-guide', label: 'LangGraph QAエージェント構築ガイド', description: 'LangGraphとNeo4jで自然言語QAエージェントを構築する手順と安全なText-to-Cypher設計。', category: 'books-practices' },
   { href: '/beyond-legacy-code-guide', label: 'レガシーコードからの脱却 実践ガイド', description: 'Beyond Legacy Codeの9つのプラクティス、CLEANなコード、TDD、継続的統合と4週間の実践ロードマップ。', category: 'books-practices' },
   { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
+
+  { href: '/iso-29119-1-2022-guide', label: 'ISO 29119-1:2022 ガイド', description: '国際テスト規格ISO/IEC/IEEE 29119-1:2022の一般概念、プロセス階層、リスクベースドテストを初学者向けに体系解説。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
@@ -153,6 +156,7 @@ export const CATEGORY_ORDER: readonly NavCategory[] = [
   'cicd-devops',
   'tools-frameworks',
   'books-practices',
+  'iso',
 ];
 
 export const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
@@ -165,6 +169,7 @@ export const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
   'cicd-devops': 'CI/CD & DevOps',
   'tools-frameworks': 'テストツール & フレームワーク',
   'books-practices': '名著・実践ガイド',
+  'iso': 'ISO 国際規格',
 };
 
 /**
@@ -182,6 +187,7 @@ export const CATEGORY_CODES: Readonly<Record<NavCategory, string>> = {
   'cicd-devops': 'CI/CD',
   'tools-frameworks': 'TOOLS',
   'books-practices': 'BOOKS',
+  'iso': 'ISO',
 };
 
 /**

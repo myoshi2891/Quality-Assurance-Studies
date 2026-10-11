@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 92 entries (home + 9 foundation + 11 fdn-ext + 14 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 22 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(92);
+  it('contains 93 entries (home + 9 foundation + 11 fdn-ext + 14 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 22 books-practices + 1 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(93);
   });
 
   it('every item has a unique href', () => {
@@ -206,6 +206,13 @@ describe('NAV_ITEMS', () => {
     expect(book?.label).toBe('Testing AI 完全ガイド');
   });
 
+  it('classifies /iso-29119-1-2022-guide as iso', () => {
+    const item = NAV_ITEMS.find((i: NavItem) => i.href === '/iso-29119-1-2022-guide');
+    expect(item).toBeDefined();
+    expect(item?.category).toBe('iso');
+    expect(item?.label).toBe('ISO 29119-1:2022 ガイド');
+  });
+
   it('classifies home "/" as home category and labels it as the guide index', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home).toBeDefined();
@@ -239,6 +246,7 @@ describe('CATEGORY_ORDER / CATEGORY_TITLES', () => {
       'cicd-devops',
       'tools-frameworks',
       'books-practices',
+      'iso',
     ]);
   });
 
@@ -294,7 +302,14 @@ describe('groupByCategory', () => {
       'cicd-devops',
       'tools-frameworks',
       'books-practices',
+      'iso',
     ]);
+  });
+
+  it('places 1 items in the iso group', () => {
+    const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
+    expect(iso?.items).toHaveLength(1);
+    expect(iso?.title).toBe('ISO 国際規格');
   });
 
   it('places 9 items in the foundation group', () => {
@@ -413,6 +428,7 @@ describe('groupByCategory extensibility', () => {
       'cicd-devops',
       'tools-frameworks',
       'books-practices',
+      'iso',
     ]);
   });
 });
