@@ -55,21 +55,21 @@ export default function Section6() {
 </thead>
 <tbody>
 <tr className="odd">
-<td>ログイン</td>
+<th scope="row">ログイン</th>
 <td>中</td>
 <td>大</td>
 <td>高</td>
 <td>詳細に設計、自動化</td>
 </tr>
 <tr className="even">
-<td>決済</td>
+<th scope="row">決済</th>
 <td>中</td>
 <td>特大</td>
 <td>最高</td>
 <td>複数技法を組合せ、独立性を高める</td>
 </tr>
 <tr className="odd">
-<td>プロフィール画像の変更</td>
+<th scope="row">プロフィール画像の変更</th>
 <td>低</td>
 <td>小</td>
 <td>低</td>

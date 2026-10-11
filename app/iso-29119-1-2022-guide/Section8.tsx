@@ -66,52 +66,52 @@ Models）でも、テスト条件をやめて、より単純な「テストモ�
 </thead>
 <tbody>
 <tr className="odd">
-<td>同値分割</td>
+<th scope="row">同値分割</th>
 <td>同じように扱われる入力・出力のクラスから代表値を選ぶ</td>
 <td>似た入力をまとめて代表だけ試す</td>
 </tr>
 <tr className="even">
-<td>境界値分析</td>
+<th scope="row">境界値分析</th>
 <td>同値クラスの境界を試す</td>
 <td>「以上・未満」の境目は間違えやすい</td>
 </tr>
 <tr className="odd">
-<td>ディシジョンテーブル</td>
+<th scope="row">ディシジョンテーブル</th>
 <td>条件と結果の組（ルール）を表にして網羅</td>
 <td>条件が複数絡む業務ルールに強い</td>
 </tr>
 <tr className="even">
-<td>原因結果グラフ</td>
+<th scope="row">原因結果グラフ</th>
 <td>論理条件と結果の関係をグラフ化して網羅</td>
 <td>ディシジョンテーブルの前段の整理に使う</td>
 </tr>
 <tr className="odd">
-<td>ペアワイズ</td>
+<th scope="row">ペアワイズ</th>
 <td>すべての「2つの入力項目の組合せ」を網羅</td>
 <td>組合せ爆発を抑える定番手法</td>
 </tr>
 <tr className="even">
-<td>ランダムテスト</td>
+<th scope="row">ランダムテスト</th>
 <td>ランダムに選んだ入力で実施</td>
 <td>意外な入力を試す</td>
 </tr>
 <tr className="odd">
-<td>メタモルフィックテスト</td>
+<th scope="row">メタモルフィックテスト</th>
 <td>既存テストと「入力を変えると出力がどう変わるか」の関係から新テストを作る</td>
 <td>オラクルが作りにくいAI・科学計算で有用</td>
 </tr>
 <tr className="even">
-<td>ブランチ/ディシジョンテスト</td>
+<th scope="row">ブランチ/ディシジョンテスト</th>
 <td>制御フローの分岐結果を網羅</td>
 <td>if の真偽の両方を通す</td>
 </tr>
 <tr className="odd">
-<td>MC/DCテスト</td>
+<th scope="row">MC/DCテスト</th>
 <td>個々の条件が単独で判定結果に影響することを示す</td>
 <td>安全重要領域で使われる厳密な基準</td>
 </tr>
 <tr className="even">
-<td>エラー推測</td>
+<th scope="row">エラー推測</th>
 <td>過去の故障や故障モードの知識からテストを導出</td>
 <td>バグの傾向表（バグ分類）が役立つ</td>
 </tr>
