@@ -79,6 +79,7 @@ sample-docs
 .claude/settings.local.json
 
 .next
+next-env.d.ts
 /html-archive/
 /md-archive/
 # Markdown Formatting Scripts
