@@ -79,6 +79,7 @@ sample-docs
 .claude/settings.local.json
 
 .next
+next-env.d.ts
 /html-archive/
 /md-archive/
 # Markdown Formatting Scripts
@@ -113,4 +114,8 @@ scripts/fix-toc.mjs
 !/archive/md-archive/books/Beyond-legacy-code-guide.md
 !/archive/html-archive/ct-specialist/Ct-genai-study-guide.html
 !/archive/md-archive/ct-specialist/Ct-genai-study-guide.md
+!/archive/html-archive/iso/
+!/archive/md-archive/iso/
+!/archive/html-archive/iso/Iso-29119-1-2022-guide.html
+!/archive/md-archive/iso/Iso-29119-1-2022-guide.md
 /plans/

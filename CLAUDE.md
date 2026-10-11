@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-07
+Updated 2026-10-10
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 2581 tests)
+bun test             # ユニットテスト (bun test, 2719 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 92 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 93 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -393,12 +393,18 @@ Next.js App Router 構成:
 - `app/beyond-legacy-code-guide/Pitfalls.tsx` / `Roadmap.tsx` / `Summary.tsx` / `References.tsx` / `Footer.tsx` — つまずき・4週間計画・まとめ・参考資料・出典注記
 - `tests/beyond-legacy-code-guide/page.test.tsx` — 501テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS全宣言・目次動作・原本ハッシュを照合
 - `docs/migration-inventory/beyond-legacy-code-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 92 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `app/iso-29119-1-2022-guide/page.tsx` — ISO/IEC/IEEE 29119-1:2022 完全解説ガイド（新設カテゴリ「ISO 国際規格」）
+- `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
+- `app/iso-29119-1-2022-guide/NavBar.tsx` — 階層目次69リンク、`scroll` イベント + `getBoundingClientRect()` によるアクティブ節追従、モバイルトグル対応のスティッキー目次
+- `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
+- `tests/iso-29119-1-2022-guide/page.test.tsx` — 103テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
+- `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 93 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり: `books/` `cicd/` `tools/` 等）
-- `archive/md-archive/` — 移行済みの元 Markdown ファイルの保管場所（カテゴリ別サブディレクトリあり: `books/` `tools/` 等）
+- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり: `books/` `cicd/` `iso/` `tools/` 等）
+- `archive/md-archive/` — 移行済みの元 Markdown ファイルの保管場所（カテゴリ別サブディレクトリあり: `books/` `iso/` `tools/` 等）
 
 ## 移行進行状況
 
@@ -735,10 +741,11 @@ bun test        # ユニットテスト成功
 | `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ctgenai-ch4-llm-powered-solutions-guide.html` | `/istqb-ct-genai-chapter4-llm-powered-solutions` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
+| `Iso-29119-1-2022-guide.html` | `/iso-29119-1-2022-guide` | ✅ スティッキーNavBar + Mermaid図19件 + 全39表 + 目次69リンク (archive/html-archive/iso/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 60 ファイル（HTML 29件・Markdown 31件、プロジェクト仕様書を除く）残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメント（プロジェクト仕様書を除く）が残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -748,7 +755,7 @@ bun test        # ユニットテスト成功
 | 書籍ガイド系（HTML + Markdown の 5 ペア = 10 ファイル）: `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Ctal-tae-*.html` / `Ctal-tae-*.md` / `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE各章、ISO 29119各部の静的ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Ctal-tae-*.html` / `Ctal-tae-*.md` / `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE各章、ISO 規格各部の静的ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -759,9 +766,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 92 ルート（ガイドライブラリ index + 91 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 60 ファイル（HTML 29件・Markdown 31件、プロジェクト仕様書を除く。書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 29119各部など）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- ユニットテストとESLintは成功。LangGraph・Beautiful Testing・CT-GenAI学習ガイド移行対象の型チェックも成功。全体型チェックは既存テストの型エラーが残存。
+- 合計 93 ルート（ガイドライブラリ index + 92 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 全体テスト2719件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加カテゴリ「ISO 国際規格」（`iso`）および `/iso-29119-1-2022-guide` が正常に登録・稼働しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】

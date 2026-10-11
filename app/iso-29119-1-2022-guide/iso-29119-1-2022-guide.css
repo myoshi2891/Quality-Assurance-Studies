@@ -1,0 +1,528 @@
+/* ==========================================================================
+   ISO/IEC/IEEE 29119-1:2022 初学者向け解説ガイド スコープ付きスタイル
+   ========================================================================== */
+
+.iso-29119-1-page {
+  --bg: #07111e;
+  --bg-panel: #0c1930;
+  --bg-elevated: #101f3a;
+  --border: #1f2f4e;
+  --accent: #7c9eff;
+  --accent-soft: rgba(124, 158, 255, 0.14);
+  --text: #e8edf7;
+  --text-dim: #c7d6ec;
+  --text-faint: #9cb0cf;
+  --sidebar-width: 320px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+
+.iso-29119-1-page .hero {
+  min-height: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+  padding-top: 40px !important;
+}
+
+.iso-29119-1-page section {
+  padding-top: 0 !important;
+}
+
+.iso-29119-1-page section + section {
+  border-top: none !important;
+}
+
+.iso-29119-1-page main.main,
+.iso-29119-1-page .main {
+  max-width: none !important;
+  margin-top: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  margin-left: var(--sidebar-width) !important;
+  padding: 48px 56px 96px !important;
+}
+
+.iso-29119-1-page table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  min-width: 560px !important;
+  font-size: 14.5px !important;
+  margin: 0 !important;
+}
+
+.iso-29119-1-page tbody td,
+.iso-29119-1-page td {
+  color: var(--text-dim) !important;
+  padding: 10px 16px !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--border) !important;
+  vertical-align: top !important;
+  font-size: 14.5px !important;
+}
+
+.iso-29119-1-page td strong {
+  color: var(--text) !important;
+}
+
+.iso-29119-1-page thead th,
+.iso-29119-1-page th {
+  color: var(--text) !important;
+  background: var(--bg-elevated) !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  padding: 10px 16px !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--border) !important;
+  font-size: 14.5px !important;
+}
+
+.iso-29119-1-page tr:last-child td {
+  border-bottom: none !important;
+}
+
+.iso-29119-1-page ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+}
+
+.iso-29119-1-page ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+}
+
+.iso-29119-1-page li {
+  margin: 4px 0 !important;
+}
+
+/* ---------- リンク & レイアウト ---------- */
+
+.iso-29119-1-page a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.iso-29119-1-page a:hover {
+  text-decoration: underline;
+}
+
+.iso-29119-1-page .layout {
+  display: block;
+}
+
+/* ---------- サイドバー ---------- */
+
+.iso-29119-1-page .sidebar {
+  position: fixed;
+  top: 60px; /* グローバルヘッダー下 */
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  padding: 24px 0 40px;
+  z-index: 40;
+}
+
+.iso-29119-1-page .sidebar-title {
+  padding: 0 24px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.iso-29119-1-page .nav-list,
+.iso-29119-1-page .nav-sublist {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.iso-29119-1-page .nav-list > li {
+  margin: 2px 0 !important;
+}
+
+.iso-29119-1-page .nav-link {
+  display: block;
+  padding: 7px 24px;
+  font-size: 14px;
+  color: var(--text-dim);
+  border-left: 3px solid transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.iso-29119-1-page .nav-link:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.iso-29119-1-page .nav-h3 {
+  padding-left: 40px;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.iso-29119-1-page .nav-link.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+.iso-29119-1-page .sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 76px;
+  left: 16px;
+  z-index: 45;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ---------- メイン本文 ---------- */
+
+.iso-29119-1-page .main h1,
+.iso-29119-1-page .main h2,
+.iso-29119-1-page .main h3,
+.iso-29119-1-page .main h4 {
+  color: var(--text);
+  font-weight: 700;
+  scroll-margin-top: 84px; /* ヘッダー分余白 */
+}
+
+.iso-29119-1-page .main h2 {
+  font-size: 26px;
+  margin-top: 56px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.iso-29119-1-page .main h3 {
+  font-size: 20px;
+  margin-top: 36px;
+  color: var(--accent);
+}
+
+.iso-29119-1-page .main h4 {
+  font-size: 16.5px;
+  margin-top: 26px;
+}
+
+.iso-29119-1-page .main p,
+.iso-29119-1-page .main ul,
+.iso-29119-1-page .main ol {
+  color: var(--text-dim);
+  font-size: 15.5px;
+}
+
+.iso-29119-1-page .main strong {
+  color: var(--text);
+}
+
+.iso-29119-1-page .main blockquote {
+  margin: 18px 0;
+  padding: 14px 20px;
+  background: var(--bg-elevated);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  color: var(--text-dim);
+}
+
+.iso-29119-1-page .main blockquote p {
+  margin: 0;
+}
+
+.iso-29119-1-page .main hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+.iso-29119-1-page .main em {
+  color: var(--text-faint);
+}
+
+.iso-29119-1-page code {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.92em;
+  color: var(--accent);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ---------- テーブル ---------- */
+
+.iso-29119-1-page .table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.iso-29119-1-page td a {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+/* ---------- ヒーロー ---------- */
+
+.iso-29119-1-page .hero {
+  position: relative;
+  background: linear-gradient(135deg, #0d1b36 0%, #0a1527 100%);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 40px 44px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.iso-29119-1-page .hero::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 158, 255, 0.22) 0%, rgba(124, 158, 255, 0) 70%);
+  pointer-events: none;
+}
+
+.iso-29119-1-page .hero-eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(124, 158, 255, 0.35);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 18px;
+}
+
+.iso-29119-1-page .hero-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 14px;
+  line-height: 1.4;
+  position: relative;
+}
+
+.iso-29119-1-page .hero-subtitle {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin: 0 0 24px;
+  max-width: 780px;
+  position: relative;
+}
+
+.iso-29119-1-page .hero-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  position: relative;
+}
+
+.iso-29119-1-page .hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 28px 0 0;
+  margin-right: 28px;
+  border-right: 1px solid var(--border);
+}
+
+.iso-29119-1-page .hero-meta-item:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.iso-29119-1-page .hero-meta-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.iso-29119-1-page .hero-meta-value {
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+/* ---------- フッター ---------- */
+
+.iso-29119-1-page .page-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+/* ---------- Mermaid ダイアグラム ---------- */
+
+.iso-29119-1-page .mermaid-diagram {
+  margin: 28px 0 !important;
+  display: block !important;
+  overflow-x: auto !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  background: var(--bg-panel) !important;
+  padding: 20px !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.iso-29119-1-page .mermaid-wrapper {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+.iso-29119-1-page .mermaid-diagram svg {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: none !important;
+  height: auto !important;
+}
+
+.iso-29119-1-page .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+.iso-29119-1-page .mermaid-wrapper foreignObject p,
+.iso-29119-1-page .mermaid-wrapper foreignObject span,
+.iso-29119-1-page .mermaid-wrapper foreignObject div {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+  word-break: break-word !important;
+}
+
+.iso-29119-1-page .mermaid-wrapper .edgeLabels rect,
+.iso-29119-1-page .mermaid-wrapper .edgeLabel rect {
+  fill: #101f3a !important;
+  stroke: none !important;
+}
+
+.iso-29119-1-page .mermaid-wrapper .edgeLabel,
+.iso-29119-1-page .mermaid-wrapper .edgeLabel span,
+.iso-29119-1-page .mermaid-wrapper .edgeLabel p,
+.iso-29119-1-page .mermaid-wrapper .edgeLabel text,
+.iso-29119-1-page .mermaid-wrapper .edgeLabels .label {
+  background-color: #101f3a !important;
+  color: #e8edf7 !important;
+  fill: #e8edf7 !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- スクロールバー ---------- */
+
+.iso-29119-1-page *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.iso-29119-1-page *::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.iso-29119-1-page *::-webkit-scrollbar-thumb {
+  background: var(--border) !important;
+  border-radius: 3px;
+}
+
+.iso-29119-1-page *::-webkit-scrollbar-thumb:hover {
+  background: var(--text-faint) !important;
+}
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width: 960px) {
+  .iso-29119-1-page .sidebar {
+    transform: translateX(-100%);
+    /* 閉状態は visibility: hidden で目次リンクをタブ順序・支援技術から外す。閉じる時はスライド完了後に隠す */
+    visibility: hidden;
+    transition: transform 0.2s ease, visibility 0s linear 0.2s;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
+
+  .iso-29119-1-page .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.2s ease, visibility 0s linear 0s;
+  }
+
+  .iso-29119-1-page main.main,
+  .iso-29119-1-page .main {
+    margin-left: 0 !important;
+    padding: 88px 20px 64px !important;
+  }
+
+  .iso-29119-1-page .sidebar-toggle {
+    display: block;
+  }
+
+  .iso-29119-1-page .hero {
+    padding: 28px 22px !important;
+  }
+
+  .iso-29119-1-page .hero-title {
+    font-size: 22px;
+  }
+
+  .iso-29119-1-page .hero-meta-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .iso-29119-1-page .hero-meta-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0 0 12px 0;
+    margin-right: 0;
+  }
+
+  .iso-29119-1-page .hero-meta-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}

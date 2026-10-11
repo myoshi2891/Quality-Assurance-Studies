@@ -273,7 +273,8 @@ body::before {
 }
 [data-category='cicd-devops'],
 [data-category='tools-frameworks'],
-[data-category='books-practices'] {
+[data-category='books-practices'],
+[data-category='iso'] {
     --level: #7f96b8;
 }
 

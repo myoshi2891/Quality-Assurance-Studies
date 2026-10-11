@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISO/IEC 23009-1:2026
+初学者向け解説ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07111e; --bg-card:#0d1a30; --bg-card2:#10213b; --border:#1f3354;
+  --accent:#7c9eff; --accent-soft:rgba(124,158,255,.14);
+  --text:#e6edf7; --text-dim:#c7d6ec; --text-faint:#9cb0cf;
+  --warn:#f0b24a; --warn-bg:rgba(240,178,74,.10);
+  --tip:#5fd3a4; --tip-bg:rgba(95,211,164,.10);
+  --sidebar-w:300px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.85;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none;overflow-wrap:anywhere}
+a:hover{text-decoration:underline}
+.layout{display:block}
+.sidebar{position:fixed;left:0;top:0;width:var(--sidebar-w);height:100vh;overflow-y:auto;background:#050d18;border-right:1px solid var(--border);padding:22px 14px 40px;z-index:50}
+.sidebar-title{font-weight:800;font-size:15px;color:#fff;padding:0 8px 14px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.sidebar-title span{display:block;font-weight:500;font-size:12px;color:var(--text-faint);margin-top:2px}
+.nav-list,.nav-sub{list-style:none;margin:0;padding:0}
+.nav-list>li>a{display:block;padding:6px 10px;border-radius:8px;font-size:13.5px;color:var(--text-dim);line-height:1.5;font-weight:500}
+.nav-sub{margin:0 0 4px 12px;border-left:1px solid var(--border)}
+.nav-sub a{display:block;padding:3px 10px;font-size:12.5px;color:var(--text-faint);line-height:1.5}
+.nav-list a:hover{background:var(--accent-soft);text-decoration:none;color:#fff}
+.nav-list a.active{background:var(--accent-soft);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+.main{margin-left:var(--sidebar-w);padding:40px 48px 80px}
+.nav-toggle{display:none;position:fixed;top:12px;left:12px;z-index:60;background:var(--accent);color:#07111e;border:0;border-radius:8px;padding:8px 14px;font-weight:700;font-family:inherit;cursor:pointer}
+
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:18px;padding:34px 34px 26px;margin-bottom:36px;background:linear-gradient(160deg,#0d1a30,#09142a)}
+.hero::before{content:"";position:absolute;top:-120px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(124,158,255,.28),transparent 70%);pointer-events:none}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--accent);background:var(--accent-soft);border:1px solid rgba(124,158,255,.35);padding:4px 14px;border-radius:999px}
+.hero-title{position:relative;font-size:28px;font-weight:800;color:#fff;margin:16px 0 8px;line-height:1.4}
+.hero-sub{position:relative;font-size:15px;color:var(--text-dim);font-weight:700;margin:0 0 10px}
+.hero-lead{position:relative;font-size:14.5px;color:var(--text-dim);margin:0 0 18px}
+.hero-meta{position:relative;display:flex;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:14px}
+.meta-item{padding:2px 22px 2px 0;margin-right:22px;border-right:1px solid var(--border)}
+.meta-item:last-child{border-right:0}
+.meta-label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)}
+.meta-value{display:block;font-size:14.5px;font-weight:700;color:#fff}
+
+.main h2{font-size:23px;font-weight:800;color:#fff;margin:56px 0 18px;padding:12px 0 12px 16px;border-left:4px solid var(--accent);background:linear-gradient(90deg,var(--accent-soft),transparent)}
+.main h3{font-size:18.5px;font-weight:700;color:#dbe6ff;margin:34px 0 12px;padding-bottom:6px;border-bottom:1px dashed var(--border)}
+.main h4{font-size:16px;color:#cfe0ff;margin:22px 0 8px}
+.main p{margin:12px 0;color:var(--text)}
+.main ul,.main ol{padding-left:1.5em;margin:10px 0}
+.main li{margin:4px 0}
+.main strong{color:#fff}
+.main hr{border:0;border-top:1px solid var(--border);margin:36px 0}
+.main code:not(pre code){background:#13264a;color:#bcd0ff;padding:2px 7px;border-radius:6px;font-size:.88em;font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+
+.table-scroll{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:12px;background:var(--bg-card)}
+.table-scroll table{border-collapse:collapse;width:100%;font-size:14.5px}
+.table-scroll th{background:#13264a;color:#fff;text-align:left;padding:10px 14px;font-weight:700;white-space:nowrap;border-bottom:1px solid var(--border)}
+.table-scroll td{padding:10px 14px;border-top:1px solid var(--border);vertical-align:top;color:var(--text-dim);min-width:90px}
+.table-scroll tr:hover td{background:rgba(124,158,255,.05)}
+
+.callout{border-radius:12px;padding:12px 18px 8px;margin:18px 0;border:1px solid var(--border);border-left-width:4px;background:var(--bg-card)}
+.callout p{margin:6px 0 10px;color:var(--text-dim)}
+.callout-label{font-size:12px;font-weight:800;letter-spacing:.05em;margin-bottom:2px}
+.callout-note{border-left-color:var(--accent)} .callout-note .callout-label{color:var(--accent)}
+.callout-warn{border-left-color:var(--warn);background:var(--warn-bg)} .callout-warn .callout-label{color:var(--warn)}
+.callout-practice{border-left-color:var(--tip);background:var(--tip-bg)} .callout-practice .callout-label{color:var(--tip)}
+
+.code-block{margin:16px 0;border:1px solid var(--border);border-radius:12px;background:#050d18;overflow-x:auto}
+.code-block pre{margin:0;padding:16px 18px;font-size:13.5px;line-height:1.65;font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;color:#d6e2f8}
+.t-tag{color:#7cc4ff}.t-attr{color:#f0b27a}.t-str{color:#9be29b}.t-meta{color:#8a9bb8}
+
+.mermaid-diagram{display:block;overflow-x:auto;margin:20px 0;padding:22px 16px;border:1px solid var(--border);border-radius:14px;background:var(--bg-card)}
+.mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;height:auto}
+.mermaid-diagram p{color:inherit;margin:0}
+.mermaid-diagram .nodeLabel,.mermaid-diagram .edgeLabel{color:#eaf1ff}
+
+.page-footer{margin-top:64px;padding-top:18px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-faint)}
+
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s}
+  .sidebar.open{transform:none}
+  .nav-toggle{display:block}
+  .main{margin-left:0;padding:64px 18px 60px}
+  .hero{padding:24px 18px 18px}
+  .hero-title{font-size:23px}
+  .meta-item{border-right:0;border-bottom:1px solid var(--border);width:100%;padding:6px 0;margin:0}
+  .meta-item:last-child{border-bottom:0}
+}
+
+</style>
+</head>
+<body>
+<button class="nav-toggle" id="navToggle" aria-label="目次を開閉">☰ 目次</button>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-title">ISO/IEC 23009-1:2026<span>MPEG-DASH 初学者ガイド</span></div>
+<nav><ul class="nav-list"><li><a href="#0-このガイドの前提と読み方" data-target="0-このガイドの前提と読み方">0. このガイドの前提と読み方</a><ul class="nav-sub"><li><a href="#想定読者" data-target="想定読者">想定読者</a></li><li><a href="#表記ルール" data-target="表記ルール">表記ルール</a></li></ul></li><li><a href="#1-規格の基本情報早見表" data-target="1-規格の基本情報早見表">1. 規格の基本情報（早見表）</a></li><li><a href="#step-1そもそも-dash-とは何か" data-target="step-1そもそも-dash-とは何か">Step 1：そもそも DASH とは何か</a><ul class="nav-sub"><li><a href="#1-1-解決したい課題" data-target="1-1-解決したい課題">1-1. 解決したい課題</a></li><li><a href="#1-2-dash-の考え方" data-target="1-2-dash-の考え方">1-2. DASH の考え方</a></li><li><a href="#1-3-全体像" data-target="1-3-全体像">1-3. 全体像</a></li></ul></li><li><a href="#step-2規格ファミリーisoiec-23009の中での-part-1-の位置づけ" data-target="step-2規格ファミリーisoiec-23009の中での-part-1-の位置づけ">Step 2：規格ファミリー（ISO/IEC 23009）の中での Part 1 の位置づけ</a></li><li><a href="#step-3part-1-が決めている-2-つのものmpd-とセグメント" data-target="step-3part-1-が決めている-2-つのものmpd-とセグメント">Step 3：Part 1 が決めている 2 つのもの（MPD とセグメント）</a><ul class="nav-sub"><li><a href="#①-mpdmedia-presentation-description" data-target="①-mpdmedia-presentation-description">① MPD（Media Presentation Description）</a></li><li><a href="#②-セグメント形式" data-target="②-セグメント形式">② セグメント形式</a></li></ul></li><li><a href="#step-4mpd-の階層構造を理解する" data-target="step-4mpd-の階層構造を理解する">Step 4：MPD の階層構造を理解する</a><ul class="nav-sub"><li><a href="#各階層の意味" data-target="各階層の意味">各階層の意味</a></li></ul></li><li><a href="#step-5セグメントの場所を示す-4-つの方法アドレッシング" data-target="step-5セグメントの場所を示す-4-つの方法アドレッシング">Step 5：セグメントの場所を示す 4 つの方法（アドレッシング）</a><ul class="nav-sub"><li><a href="#5-1-オンデマンド向けの最小例学習用に簡略化" data-target="5-1-オンデマンド向けの最小例学習用に簡略化">5-1. オンデマンド向けの最小例（学習用に簡略化）</a></li><li><a href="#5-2-ライブ向けの最小例segmenttemplate--segmenttimeline" data-target="5-2-ライブ向けの最小例segmenttemplate--segmenttimeline">5-2. ライブ向けの最小例（SegmentTemplate + SegmentTimeline）</a></li></ul></li><li><a href="#step-6オンデマンドstaticとライブdynamic" data-target="step-6オンデマンドstaticとライブdynamic">Step 6：オンデマンド（static）とライブ（dynamic）</a></li><li><a href="#step-7プロファイルとは何か" data-target="step-7プロファイルとは何か">Step 7：プロファイルとは何か</a></li><li><a href="#step-8dash-クライアントの動き方" data-target="step-8dash-クライアントの動き方">Step 8：DASH クライアントの動き方</a><ul class="nav-sub"><li><a href="#abr-ロジックは規格の対象外" data-target="abr-ロジックは規格の対象外">ABR ロジックは規格の対象外</a></li></ul></li><li><a href="#step-9版の歴史第1版第6版" data-target="step-9版の歴史第1版第6版">Step 9：版の歴史（第1版〜第6版）</a><ul class="nav-sub"><li><a href="#第6版に至るまでの流れmpeg-会合ベース" data-target="第6版に至るまでの流れmpeg-会合ベース">第6版に至るまでの流れ（MPEG 会合ベース）</a></li></ul></li><li><a href="#step-10第6版2026の主な強化点" data-target="step-10第6版2026の主な強化点">Step 10：第6版（2026）の主な強化点</a><ul class="nav-sub"><li><a href="#追加で確認できた採択内容第145回会合2024年1月" data-target="追加で確認できた採択内容第145回会合2024年1月">追加で確認できた採択内容（第145回会合・2024年1月）</a></li><li><a href="#コンテンツステアリングの動き概念図" data-target="コンテンツステアリングの動き概念図">コンテンツステアリングの動き（概念図）</a></li></ul></li><li><a href="#step-11発行後の動きと実装エコシステム" data-target="step-11発行後の動きと実装エコシステム">Step 11：発行後の動きと実装エコシステム</a><ul class="nav-sub"><li><a href="#11-1-発行後も規格は進化している" data-target="11-1-発行後も規格は進化している">11-1. 発行後も規格は進化している</a></li><li><a href="#11-2-代表的な実装での扱い" data-target="11-2-代表的な実装での扱い">11-2. 代表的な実装での扱い</a></li></ul></li><li><a href="#step-12qa-エンジニア視点のテスト観点" data-target="step-12qa-エンジニア視点のテスト観点">Step 12：QA エンジニア視点のテスト観点</a><ul class="nav-sub"><li><a href="#12-1-mpd-そのものの検証" data-target="12-1-mpd-そのものの検証">12-1. MPD そのものの検証</a></li><li><a href="#12-2-再生abr-の検証" data-target="12-2-再生abr-の検証">12-2. 再生・ABR の検証</a></li><li><a href="#12-3-ライブ特有の検証" data-target="12-3-ライブ特有の検証">12-3. ライブ特有の検証</a></li><li><a href="#12-4-第6版の新機能に関する検証導入する場合" data-target="12-4-第6版の新機能に関する検証導入する場合">12-4. 第6版の新機能に関する検証（導入する場合）</a></li></ul></li><li><a href="#用語集" data-target="用語集">用語集</a></li><li><a href="#根拠となるソース一覧url" data-target="根拠となるソース一覧url">根拠となるソース一覧（URL）</a><ul class="nav-sub"><li><a href="#a-規格標準化団体の一次情報" data-target="a-規格標準化団体の一次情報">A. 規格・標準化団体の一次情報</a></li><li><a href="#b-国際的な開発者研究者の発信規格編集者業界団体主要-oss" data-target="b-国際的な開発者研究者の発信規格編集者業界団体主要-oss">B. 国際的な開発者・研究者の発信（規格編集者・業界団体・主要 OSS）</a></li><li><a href="#c-二次情報参考導入判断は一次情報で再確認してください" data-target="c-二次情報参考導入判断は一次情報で再確認してください">C. 二次情報（参考。導入判断は一次情報で再確認してください）</a></li></ul></li><li><a href="#調査の限界と注意事項" data-target="調査の限界と注意事項">調査の限界と注意事項</a></li></ul></nav>
+</aside>
+<div class="layout">
+<main class="main" id="main">
+<header class="hero">
+<span class="eyebrow">ISO/IEC 23009-1:2026 · MPEG-DASH · Edition 6</span>
+<h1 class="hero-title">ISO/IEC 23009-1:2026
+初学者向け解説ガイド</h1>
+<p class="hero-sub">Dynamic adaptive streaming over HTTP（DASH）— Part 1: Media presentation description and segment formats（MPD とセグメント形式）</p>
+<p class="hero-lead">一般に MPEG-DASH と呼ばれる、インターネット動画配信の中核となる国際規格の「第6版（Edition 6）」を、初学者向けにステップバイステップで解説します。 調査時点は 2026年10月8日 です。ウェブ検索で確認できた一次情報（ISO・MPEG公式）と、MPEG-DASH の編集者である Christian Timmerer 氏（Bitmovin / クラーゲンフルト大学）らの発信、Shaka Player・dash.js といった代表的な OSS の公開情報を根拠にしています。</p>
+<div class="hero-meta"><div class="meta-item"><span class="meta-label">規格</span><span class="meta-value">ISO/IEC 23009-1:2026</span></div><div class="meta-item"><span class="meta-label">版</span><span class="meta-value">第6版（Edition 6）</span></div><div class="meta-item"><span class="meta-label">発行</span><span class="meta-value">2026年7月</span></div><div class="meta-item"><span class="meta-label">ページ数</span><span class="meta-value">375</span></div><div class="meta-item"><span class="meta-label">調査時点</span><span class="meta-value">2026-10-08</span></div></div>
+</header>
+
+
+
+
+
+
+
+<h2 id="0-このガイドの前提と読み方">0. このガイドの前提と読み方</h2>
+<h3 id="想定読者">想定読者</h3>
+<ul>
+<li>動画配信や ABR（Adaptive
+Bitrate：適応ビットレート）を初めて学ぶソフトウェアエンジニア・QA
+エンジニア</li>
+<li>DASH の MPD（XML
+ファイル）を見たことはあるが、規格として何が決まっているのかを整理したい人</li>
+</ul>
+<h3 id="表記ルール">表記ルール</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>表記</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>【根拠あり】</strong></td>
+<td>末尾のソース一覧にある公開情報で確認できた内容</td>
+</tr>
+<tr class="even">
+<td><strong>【一般知識】</strong></td>
+<td>DASH
+の基本的な仕組みとして広く知られている内容（今回の検索で個別に再確認していないもの）</td>
+</tr>
+<tr class="odd">
+<td><strong>【筆者の解釈・提案】</strong></td>
+<td>公開情報をもとにした筆者の解釈や、実務上の提案（規格が定めている内容ではない）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-warn"><div class="callout-label">⚠ 注意</div>
+<p><strong>重要</strong>：ISO/IEC 23009-1:2026
+の本文（375ページ）は有償規格であり、本ガイドは本文を逐条で読んだものではありません。第6版の新機能は、MPEG
+公式のプレスリリースと、規格編集者による会合レポートに基づいています。詳細は「<a href="#調査の限界と注意事項">調査の限界と注意事項</a>」を必ず確認してください。</p>
+</div>
+
+<h2 id="1-規格の基本情報早見表">1. 規格の基本情報（早見表）</h2>
+<p><strong>【根拠あり】</strong> ISO 公式ページ（<a href="https://www.iso.org/standard/23009-1">https://www.iso.org/standard/23009-1</a>）の掲載内容は次のとおりです。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>規格番号</td>
+<td>ISO/IEC 23009-1:2026</td>
+</tr>
+<tr class="even">
+<td>正式名称</td>
+<td>Information technology — Dynamic adaptive streaming over HTTP (DASH)
+— Part 1: Media presentation description and segment formats</td>
+</tr>
+<tr class="odd">
+<td>版（Edition）</td>
+<td>第6版（Edition 6）</td>
+</tr>
+<tr class="even">
+<td>ステータス</td>
+<td>Published（国際規格として発行済み、ステージ 60.60）</td>
+</tr>
+<tr class="odd">
+<td>発行年月</td>
+<td>2026年7月</td>
+</tr>
+<tr class="even">
+<td>ページ数</td>
+<td>375 ページ</td>
+</tr>
+<tr class="odd">
+<td>担当委員会</td>
+<td>ISO/IEC JTC 1/SC 29（MPEG が属する分科委員会）</td>
+</tr>
+<tr class="even">
+<td>ICS</td>
+<td>35.040.40</td>
+</tr>
+<tr class="odd">
+<td>置き換える規格</td>
+<td>ISO/IEC 23009-1:2022（第5版）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-practice"><div class="callout-label">💡 ポイント</div>
+<p>補足：ISO の過去の掲示では「Under publication（発行準備中）、発行予定
+2026年6月」と表示されていた時期があり、最終的に
+<strong>2026年7月発行</strong> となっています。</p>
+</div>
+
+<h2 id="step-1そもそも-dash-とは何か">Step 1：そもそも DASH
+とは何か</h2>
+<h3 id="1-1-解決したい課題">1-1. 解決したい課題</h3>
+<p>インターネットの回線速度は、利用者・場所・時間帯によって大きく変わります。固定の画質で動画を配信すると、遅い回線では止まり、速い回線では画質がもったいなくなります。</p>
+<h3 id="1-2-dash-の考え方">1-2. DASH の考え方</h3>
+<p><strong>【根拠あり】</strong> MPEG 公式は、DASH を「既存の HTTP
+インフラ（サーバー、CDN、プロキシ、キャッシュなど）を使って、マルチメディアを効率よく簡単にストリーミングするための規格群」と説明しています。オンデマンドとライブの両方に対応し、MPEG-4
+ファイル形式と MPEG-2
+トランスポートストリームには特別な規定がありますが、任意のメディア形式で利用できます。</p>
+<p><strong>【一般知識】</strong> 仕組みの要点は次の3つです。</p>
+<ol type="1">
+<li>同じ動画を <strong>複数のビットレート（画質）</strong>
+でエンコードしておく</li>
+<li>各画質を <strong>数秒程度の小さなファイル（セグメント）</strong>
+に分割して HTTP サーバーや CDN に置く</li>
+<li><strong>クライアント（プレーヤー）が自分の回線状況を見て、次に取る画質を自分で選ぶ</strong></li>
+</ol>
+<p>つまり「サーバーが賢い」のではなく
+<strong>「クライアントが賢い」</strong> 方式です。サーバー側は普通の
+HTTP ファイル配信だけで済むため、既存の CDN にそのまま載せられます。</p>
+<h3 id="1-3-全体像">1-3. 全体像</h3>
+<div aria-label="図1" class="mermaid-diagram" id="mermaid-diagram-1" role="img">
+<svg id="mmd-1" width="1183.328125" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="88" viewBox="4 4 1183.328125 88" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd-1{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#eaf1ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd-1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd-1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd-1 .error-icon{fill:#0d1a30;}#mmd-1 .error-text{fill:#f2e5cf;stroke:#f2e5cf;}#mmd-1 .edge-thickness-normal{stroke-width:1px;}#mmd-1 .edge-thickness-thick{stroke-width:3.5px;}#mmd-1 .edge-pattern-solid{stroke-dasharray:0;}#mmd-1 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd-1 .edge-pattern-dashed{stroke-dasharray:3;}#mmd-1 .edge-pattern-dotted{stroke-dasharray:2;}#mmd-1 .marker{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-1 .marker.cross{stroke:#8fb0ff;}#mmd-1 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mmd-1 p{margin:0;}#mmd-1 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#eaf1ff;}#mmd-1 .cluster-label text{fill:#f2e5cf;}#mmd-1 .cluster-label span{color:#f2e5cf;}#mmd-1 .cluster-label span p{background-color:transparent;}#mmd-1 .label text,#mmd-1 span{fill:#eaf1ff;color:#eaf1ff;}#mmd-1 .node rect,#mmd-1 .node circle,#mmd-1 .node ellipse,#mmd-1 .node polygon,#mmd-1 .node path{fill:#15294a;stroke:#7c9eff;stroke-width:1px;}#mmd-1 .rough-node .label text,#mmd-1 .node .label text,#mmd-1 .image-shape .label,#mmd-1 .icon-shape .label{text-anchor:middle;}#mmd-1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd-1 .rough-node .label,#mmd-1 .node .label,#mmd-1 .image-shape .label,#mmd-1 .icon-shape .label{text-align:center;}#mmd-1 .node.clickable{cursor:pointer;}#mmd-1 .root .anchor path{fill:#8fb0ff!important;stroke-width:0;stroke:#8fb0ff;}#mmd-1 .arrowheadPath{fill:#f8eee1;}#mmd-1 .edgePaths .path{stroke:#8fb0ff;stroke-width:1px;}#mmd-1 .flowchart-link{stroke:#8fb0ff;fill:none;}#mmd-1 .edgeLabel{background-color:#0d1a30;text-align:center;}#mmd-1 .edgeLabel p{background-color:#0d1a30;}#mmd-1 .edgeLabel rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-1 .labelBkg{background-color:rgba(13, 26, 48, 0.5);}#mmd-1 .cluster rect{fill:#0d1a30;stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:1px;}#mmd-1 .cluster text{fill:#f2e5cf;}#mmd-1 .cluster span{color:#f2e5cf;}#mmd-1 .node .collapsed-indicator{fill:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke:none;opacity:0.6;}#mmd-1 .node .collapsed-separator{stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:0.75px;}#mmd-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1a30;border:1px solid hsl(217.7142857143, 17.3770491803%, 1.9607843137%);border-radius:2px;pointer-events:none;z-index:100;}#mmd-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#eaf1ff;}#mmd-1 rect.text{fill:none;stroke-width:0;}#mmd-1 .icon-shape,#mmd-1 .image-shape{background-color:#0d1a30;text-align:center;}#mmd-1 .icon-shape p,#mmd-1 .image-shape p{background-color:#0d1a30;padding:2px;}#mmd-1 .icon-shape .label rect,#mmd-1 .image-shape .label rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-1 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd-1 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd-1 .node .neo-node{stroke:#7c9eff;}#mmd-1 [data-look="neo"].node rect,#mmd-1 [data-look="neo"].cluster rect,#mmd-1 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-1 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd-1 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mmd-1 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-1 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd-1 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-1 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd-1 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-1 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-1 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd-1_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-1_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-1_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto">
+<path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-1_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto">
+<polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</polygon>
+</marker>
+<marker id="mmd-1_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-1_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-1_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-1_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-1_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-1_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-1_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;">
+</path>
+</marker>
+<marker id="mmd-1_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edges edgePaths">
+<path d="M164,48L200,48" id="mmd-1-L_aSrc_aEnc_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_aSrc_aEnc_0" data-points="W3sieCI6MTY0LCJ5Ijo0OH0seyJ4IjoyMDQsInkiOjQ4fV0=" data-look="neo" marker-end="url(#mmd-1_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M380.015625,48L416.015625,48" id="mmd-1-L_aEnc_aPkg_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_aEnc_aPkg_0" data-points="W3sieCI6MzgwLjAxNTYyNSwieSI6NDh9LHsieCI6NDIwLjAxNTYyNSwieSI6NDh9XQ==" data-look="neo" marker-end="url(#mmd-1_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M572.015625,48L608.015625,48" id="mmd-1-L_aPkg_aCdn_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_aPkg_aCdn_0" data-points="W3sieCI6NTcyLjAxNTYyNSwieSI6NDh9LHsieCI6NjEyLjAxNTYyNSwieSI6NDh9XQ==" data-look="neo" marker-end="url(#mmd-1_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M798.609375,43.333333333333336L816.609375,43.333333333333336Q818.609375,43.333333333333336 818.609375,41.333333333333336L818.609375,41.333333333333336Q818.609375,39.333333333333336 820.609375,39.333333333333336L902.6171875,39.333333333333336L1002.625,39.333333333333336" id="mmd-1-L_aCdn_aCli_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 202.50869750976562 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_aCdn_aCli_0" data-points="W3sieCI6Nzk4LjYwOTM3NSwieSI6NDMuMzMzMzMzMzMzMzMzMzM2fSx7IngiOjgxOC42MDkzNzUsInkiOjQzLjMzMzMzMzMzMzMzMzMzNn0seyJ4Ijo4MTguNjA5Mzc1LCJ5IjozOS4zMzMzMzMzMzMzMzMzMzZ9LHsieCI6OTAyLjYxNzE4NzUsInkiOjM5LjMzMzMzMzMzMzMzMzMzNn0seyJ4IjoxMDA2LjYyNSwieSI6MzkuMzMzMzMzMzMzMzMzMzM2fV0=" data-look="neo" marker-end="url(#mmd-1_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M1006.625,56.66666666666667L820.609375,56.66666666666667Q818.609375,56.66666666666667 818.609375,54.66666666666667L818.609375,54.66666666666667Q818.609375,52.66666666666667 816.609375,52.66666666666667L802.609375,52.66666666666667" id="mmd-1-L_aCli_aCdn_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 202.50869750976562 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_aCli_aCdn_0" data-points="W3sieCI6MTAwNi42MjUsInkiOjU2LjY2NjY2NjY2NjY2NjY3fSx7IngiOjgxOC42MDkzNzUsInkiOjU2LjY2NjY2NjY2NjY2NjY3fSx7IngiOjgxOC42MDkzNzUsInkiOjUyLjY2NjY2NjY2NjY2NjY3fSx7IngiOjc5OC42MDkzNzUsInkiOjUyLjY2NjY2NjY2NjY2NjY3fV0=" data-look="neo" marker-end="url(#mmd-1_flowchart-v2-pointEnd-margin)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel" transform="translate(902.6171875, 56.66666666666667)">
+<g class="label" data-id="L_aCli_aCdn_0" transform="translate(-64.0078125, -24)"><foreignObject width="128.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>回線状況に応じて<br/>次の画質を選ぶ</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="mmd-1-flowchart-aSrc-0" data-look="neo" transform="translate(88, 48)">
+<rect class="basic label-container" style="" x="-76" y="-24" width="152" height="48">
+</rect>
+<g class="label" style="" transform="translate(-60, -12)">
+<rect>
+</rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>元の動画・音声</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-1-flowchart-aEnc-1" data-look="neo" transform="translate(292.0078125, 48)">
+<rect class="basic label-container" style="" x="-88.0078125" y="-36" width="176.015625" height="72">
+</rect>
+<g class="label" style="" transform="translate(-72.0078125, -24)">
+<rect>
+</rect><foreignObject width="144.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>複数ビットレートで<br/>エンコード</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-1-flowchart-aPkg-3" data-look="neo" transform="translate(496.015625, 48)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>セグメント化<br/>＋ MPD を生成</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-1-flowchart-aCdn-5" data-look="neo" transform="translate(705.3125, 48)">
+<rect class="basic label-container" style="" x="-93.296875" y="-24" width="186.59375" height="48">
+</rect>
+<g class="label" style="" transform="translate(-77.296875, -12)">
+<rect>
+</rect><foreignObject width="154.59375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>HTTP サーバー / CDN</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-1-flowchart-aCli-7" data-look="neo" transform="translate(1092.9765625, 48.00000000000001)">
+<rect class="basic label-container" style="" x="-86.3515625" y="-36" width="172.703125" height="72">
+</rect>
+<g class="label" style="" transform="translate(-70.3515625, -24)">
+<rect>
+</rect><foreignObject width="140.703125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>DASH クライアント<br/>（プレーヤー）</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="mmd-1-drop-shadow" height="130%" width="130%">
+<feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+<defs>
+<filter id="mmd-1-drop-shadow-small" height="150%" width="150%">
+<feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+</svg>
+</div>
+
+<h2 id="step-2規格ファミリーisoiec-23009の中での-part-1-の位置づけ">Step
+2：規格ファミリー（ISO/IEC 23009）の中での Part 1 の位置づけ</h2>
+<p><strong>【根拠あり】</strong> MPEG 公式の DASH
+ページには、少なくとも次の Part が掲載されています。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>内容</th>
+<th>ひとことで言うと</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Part 1</strong></td>
+<td>Media Presentation Description and Segment Formats</td>
+<td><strong>本ガイドの対象。MPD
+とセグメントの形式を定義する中核</strong></td>
+</tr>
+<tr class="even">
+<td>Part 4</td>
+<td>Segment Encryption and Authentication</td>
+<td>セグメントの暗号化と認証（メディア形式に依存しない）</td>
+</tr>
+<tr class="odd">
+<td>Part 5</td>
+<td>Server and Network assisted DASH（SAND）</td>
+<td>サーバー・ネットワーク支援の DASH</td>
+</tr>
+<tr class="even">
+<td>Part 6</td>
+<td>DASH with Server Push and WebSockets</td>
+<td>サーバープッシュ、WebSocket との組み合わせ</td>
+</tr>
+<tr class="odd">
+<td>Part 7</td>
+<td>Delivery of CMAF content with DASH</td>
+<td>CMAF コンテンツを DASH で配信する方法</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【根拠あり】</strong> また、Part 8（Session-based DASH）が
+FDIS（最終国際規格案）に進んだことが、Bitmovin のブログ（Timmerer
+氏）で報告されています。</p>
+<p><strong>【一般知識】</strong> Part
+2（適合性試験・参照ソフトウェア）と Part
+3（実装ガイドライン）も存在します。MPEG
+側の公式解説では、第1版の後に「参照ソフトウェアと適合性試験ツール、ガイドライン、追加の展開シナリオ向けの拡張」を含む6つの
+Part が追加されたと説明されています。</p>
+<div class="callout callout-practice"><div class="callout-label">💡 ポイント</div>
+<p><strong>ポイント</strong>：Part 1 を理解すれば、DASH
+の「データの形」の 9 割は理解できます。他の Part
+は「暗号化」「配信最適化」「CMAF
+との組み合わせ」といった追加の話題です。</p>
+</div>
+
+<h2 id="step-3part-1-が決めている-2-つのものmpd-とセグメント">Step
+3：Part 1 が決めている 2 つのもの（MPD とセグメント）</h2>
+<p><strong>【根拠あり】</strong> ISO の抄録（第1版の説明）では、Part 1
+が主に次の 2 つを定義するとされています。</p>
+<h3 id="①-mpdmedia-presentation-description">① MPD（Media Presentation
+Description）</h3>
+<ul>
+<li><strong>XML 形式</strong> の文書</li>
+<li>「どんなメディアが、どんな画質・言語で、どこにあるか」を説明する
+<strong>目次</strong> のようなもの</li>
+<li>セグメントの
+<strong>HTTP-URL（バイト範囲を組み合わせることもある）</strong>
+を伝える</li>
+</ul>
+<h3 id="②-セグメント形式">② セグメント形式</h3>
+<ul>
+<li>クライアントが送る HTTP
+リクエストの形式と、セグメントの中身の形式</li>
+<li>具体的には <strong>ISO Base Media File Format（ISO/IEC
+14496-12）</strong> ベースと <strong>MPEG-2 TS（ISO/IEC 13818）</strong>
+ベースの形式を記述</li>
+</ul>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>比較項目</th>
+<th>MPD</th>
+<th>セグメント</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>役割</td>
+<td>目次・地図</td>
+<td>本体（実際の映像・音声データ）</td>
+</tr>
+<tr class="even">
+<td>形式</td>
+<td>XML</td>
+<td>MP4 の断片（fMP4）など</td>
+</tr>
+<tr class="odd">
+<td>取得頻度</td>
+<td>最初に1回（ライブでは更新のたびに）</td>
+<td>再生中ずっと連続的に</td>
+</tr>
+<tr class="even">
+<td>例えるなら</td>
+<td>本の目次</td>
+<td>本の各ページ</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="step-4mpd-の階層構造を理解する">Step 4：MPD
+の階層構造を理解する</h2>
+<p><strong>【一般知識】</strong> MPD
+は次の階層で構成されます。まずこの形を頭に入れてください。</p>
+<div aria-label="図2" class="mermaid-diagram" id="mermaid-diagram-2" role="img">
+<svg id="mmd-2" width="692.421875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="556" viewBox="4 4 692.421875 556" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd-2{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#eaf1ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd-2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd-2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd-2 .error-icon{fill:#0d1a30;}#mmd-2 .error-text{fill:#f2e5cf;stroke:#f2e5cf;}#mmd-2 .edge-thickness-normal{stroke-width:1px;}#mmd-2 .edge-thickness-thick{stroke-width:3.5px;}#mmd-2 .edge-pattern-solid{stroke-dasharray:0;}#mmd-2 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd-2 .edge-pattern-dashed{stroke-dasharray:3;}#mmd-2 .edge-pattern-dotted{stroke-dasharray:2;}#mmd-2 .marker{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-2 .marker.cross{stroke:#8fb0ff;}#mmd-2 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mmd-2 p{margin:0;}#mmd-2 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#eaf1ff;}#mmd-2 .cluster-label text{fill:#f2e5cf;}#mmd-2 .cluster-label span{color:#f2e5cf;}#mmd-2 .cluster-label span p{background-color:transparent;}#mmd-2 .label text,#mmd-2 span{fill:#eaf1ff;color:#eaf1ff;}#mmd-2 .node rect,#mmd-2 .node circle,#mmd-2 .node ellipse,#mmd-2 .node polygon,#mmd-2 .node path{fill:#15294a;stroke:#7c9eff;stroke-width:1px;}#mmd-2 .rough-node .label text,#mmd-2 .node .label text,#mmd-2 .image-shape .label,#mmd-2 .icon-shape .label{text-anchor:middle;}#mmd-2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd-2 .rough-node .label,#mmd-2 .node .label,#mmd-2 .image-shape .label,#mmd-2 .icon-shape .label{text-align:center;}#mmd-2 .node.clickable{cursor:pointer;}#mmd-2 .root .anchor path{fill:#8fb0ff!important;stroke-width:0;stroke:#8fb0ff;}#mmd-2 .arrowheadPath{fill:#f8eee1;}#mmd-2 .edgePaths .path{stroke:#8fb0ff;stroke-width:1px;}#mmd-2 .flowchart-link{stroke:#8fb0ff;fill:none;}#mmd-2 .edgeLabel{background-color:#0d1a30;text-align:center;}#mmd-2 .edgeLabel p{background-color:#0d1a30;}#mmd-2 .edgeLabel rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-2 .labelBkg{background-color:rgba(13, 26, 48, 0.5);}#mmd-2 .cluster rect{fill:#0d1a30;stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:1px;}#mmd-2 .cluster text{fill:#f2e5cf;}#mmd-2 .cluster span{color:#f2e5cf;}#mmd-2 .node .collapsed-indicator{fill:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke:none;opacity:0.6;}#mmd-2 .node .collapsed-separator{stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:0.75px;}#mmd-2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1a30;border:1px solid hsl(217.7142857143, 17.3770491803%, 1.9607843137%);border-radius:2px;pointer-events:none;z-index:100;}#mmd-2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#eaf1ff;}#mmd-2 rect.text{fill:none;stroke-width:0;}#mmd-2 .icon-shape,#mmd-2 .image-shape{background-color:#0d1a30;text-align:center;}#mmd-2 .icon-shape p,#mmd-2 .image-shape p{background-color:#0d1a30;padding:2px;}#mmd-2 .icon-shape .label rect,#mmd-2 .image-shape .label rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd-2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd-2 .node .neo-node{stroke:#7c9eff;}#mmd-2 [data-look="neo"].node rect,#mmd-2 [data-look="neo"].cluster rect,#mmd-2 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-2 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd-2 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mmd-2 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-2 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd-2 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-2 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd-2 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-2 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-2 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd-2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-2_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto">
+<path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-2_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto">
+<polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</polygon>
+</marker>
+<marker id="mmd-2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-2_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-2_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-2_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;">
+</path>
+</marker>
+<marker id="mmd-2_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edges edgePaths">
+<path d="M568.421875,84L568.421875,96.92893218813452Q568.421875,104 561.3508071881345,104L427.4929428118655,104Q420.421875,104 420.421875,111.07106781186548L420.421875,120" id="mmd-2-L_bMpd_bP1_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 174.67172241210938 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bMpd_bP1_0" data-points="W3sieCI6NTY4LjQyMTg3NSwieSI6ODR9LHsieCI6NTY4LjQyMTg3NSwieSI6MTA0fSx7IngiOjQyMC40MjE4NzUsInkiOjEwNH0seyJ4Ijo0MjAuNDIxODc1LCJ5IjoxMjR9XQ==" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M612.421875,84L612.421875,120" id="mmd-2-L_bMpd_bP2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bMpd_bP2_0" data-points="W3sieCI6NjEyLjQyMTg3NSwieSI6ODR9LHsieCI6NjEyLjQyMTg3NSwieSI6MTI0fV0=" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M387.421875,196L387.421875,208.92893218813452Q387.421875,216 380.3508071881345,216L235.49294281186548,216Q228.421875,216 228.421875,223.07106781186548L228.421875,232" id="mmd-2-L_bP1_bAv_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 185.6717071533203 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bP1_bAv_0" data-points="W3sieCI6Mzg3LjQyMTg3NSwieSI6MTk2fSx7IngiOjM4Ny40MjE4NzUsInkiOjIxNn0seyJ4IjoyMjguNDIxODc1LCJ5IjoyMTZ9LHsieCI6MjI4LjQyMTg3NSwieSI6MjM2fV0=" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M420.421875,196L420.421875,232" id="mmd-2-L_bP1_bAa_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bP1_bAa_0" data-points="W3sieCI6NDIwLjQyMTg3NSwieSI6MTk2fSx7IngiOjQyMC40MjE4NzUsInkiOjIzNn1d" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M453.421875,196L453.421875,208.92893218813452Q453.421875,216 460.4929428118655,216L605.3508071881345,216Q612.421875,216 612.421875,223.07106781186548L612.421875,232" id="mmd-2-L_bP1_bAs_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 185.67173767089844 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bP1_bAs_0" data-points="W3sieCI6NDUzLjQyMTg3NSwieSI6MTk2fSx7IngiOjQ1My40MjE4NzUsInkiOjIxNn0seyJ4Ijo2MTIuNDIxODc1LCJ5IjoyMTZ9LHsieCI6NjEyLjQyMTg3NSwieSI6MjM2fV0=" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M195.421875,308L195.421875,320.9289321881345Q195.421875,328 188.35080718813452,328L122.99294281186548,328Q115.921875,328 115.921875,335.0710678118655L115.921875,364" id="mmd-2-L_bAv_bR1_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 126.17172241210938 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bAv_bR1_0" data-points="W3sieCI6MTk1LjQyMTg3NSwieSI6MzA4fSx7IngiOjE5NS40MjE4NzUsInkiOjMyOH0seyJ4IjoxMTUuOTIxODc1LCJ5IjozMjh9LHsieCI6MTE1LjkyMTg3NSwieSI6MzY4fV0=" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M228.421875,308L228.421875,340.9289321881345Q228.421875,348 235.49294281186548,348L300.8508071881345,348Q307.921875,348 307.921875,355.0710678118655L307.921875,364" id="mmd-2-L_bAv_bR2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 126.17172241210938 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bAv_bR2_0" data-points="W3sieCI6MjI4LjQyMTg3NSwieSI6MzA4fSx7IngiOjIyOC40MjE4NzUsInkiOjM0OH0seyJ4IjozMDcuOTIxODc1LCJ5IjozNDh9LHsieCI6MzA3LjkyMTg3NSwieSI6MzY4fV0=" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M261.421875,308L261.421875,320.9289321881345Q261.421875,328 268.4929428118655,328L492.8508071881345,328Q499.921875,328 499.921875,335.0710678118655L499.921875,364" id="mmd-2-L_bAv_bR3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 285.17169189453125 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bAv_bR3_0" data-points="W3sieCI6MjYxLjQyMTg3NSwieSI6MzA4fSx7IngiOjI2MS40MjE4NzUsInkiOjMyOH0seyJ4Ijo0OTkuOTIxODc1LCJ5IjozMjh9LHsieCI6NDk5LjkyMTg3NSwieSI6MzY4fV0=" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M115.921875,440L115.921875,476" id="mmd-2-L_bR1_bSeg_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_bR1_bSeg_0" data-points="W3sieCI6MTE1LjkyMTg3NSwieSI6NDQwfSx7IngiOjExNS45MjE4NzUsInkiOjQ4MH1d" data-look="neo" marker-end="url(#mmd-2_flowchart-v2-pointEnd-margin)">
+</path>
+</g>
+<g class="edgeLabels">
+</g>
+<g class="nodes">
+<g class="node default  " id="mmd-2-flowchart-bMpd-0" data-look="neo" transform="translate(590.421875, 48)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>MPD<br/>（ルート要素）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bP1-2" data-look="neo" transform="translate(420.421875, 160)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>Period 1<br/>（例：本編）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bP2-4" data-look="neo" transform="translate(612.421875, 160)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>Period 2<br/>（例：広告）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bAv-6" data-look="neo" transform="translate(228.421875, 272)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>AdaptationSet<br/>映像</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bAa-8" data-look="neo" transform="translate(420.421875, 272)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>AdaptationSet<br/>音声（日本語）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bAs-10" data-look="neo" transform="translate(612.421875, 272)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>AdaptationSet<br/>字幕</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bR1-12" data-look="neo" transform="translate(115.921875, 404)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>Representation<br/>1080p / 5 Mbps</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bR2-14" data-look="neo" transform="translate(307.921875, 404)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>Representation<br/>720p / 3 Mbps</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bR3-16" data-look="neo" transform="translate(499.921875, 404)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>Representation<br/>360p / 0.8 Mbps</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-2-flowchart-bSeg-18" data-look="neo" transform="translate(115.921875, 516)">
+<rect class="basic label-container" style="" x="-103.921875" y="-36" width="207.84375" height="72">
+</rect>
+<g class="label" style="" transform="translate(-87.921875, -24)">
+<rect>
+</rect><foreignObject width="175.84375" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>Segment 群<br/>（数秒ごとのファイル）</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="mmd-2-drop-shadow" height="130%" width="130%">
+<feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+<defs>
+<filter id="mmd-2-drop-shadow-small" height="150%" width="150%">
+<feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+</svg>
+</div>
+<h3 id="各階層の意味">各階層の意味</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>階層</th>
+<th>意味</th>
+<th>具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>MPD</strong></td>
+<td>配信全体の説明書</td>
+<td>1本の動画またはライブ番組</td>
+</tr>
+<tr class="even">
+<td><strong>Period</strong></td>
+<td>時間軸上の区間</td>
+<td>本編・広告・次の番組などの切れ目</td>
+</tr>
+<tr class="odd">
+<td><strong>AdaptationSet</strong></td>
+<td>切り替え可能な同種メディアの集合</td>
+<td>映像、日本語音声、英語音声、字幕</td>
+</tr>
+<tr class="even">
+<td><strong>Representation</strong></td>
+<td>同じ内容の 1 つの品質版</td>
+<td>1080p/5Mbps、720p/3Mbps など</td>
+</tr>
+<tr class="odd">
+<td><strong>Segment</strong></td>
+<td>実際に HTTP で取得する小さなファイル</td>
+<td>4 秒ごとの fMP4 断片</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【根拠あり】</strong> 特許公報などに引用されている DASH
+の定義でも、Period
+は「メディアプレゼンテーションの区間」であり、すべての Period
+を連続して並べたものがメディアプレゼンテーション全体になる、と説明されています。</p>
+<div class="callout callout-practice"><div class="callout-label">💡 ポイント</div>
+<p><strong>覚え方</strong>：「Period（いつ）→ AdaptationSet（何を）→
+Representation（どの画質で）→ Segment（どの断片か）」</p>
+</div>
+
+<h2 id="step-5セグメントの場所を示す-4-つの方法アドレッシング">Step
+5：セグメントの場所を示す 4 つの方法（アドレッシング）</h2>
+<p><strong>【一般知識】</strong> MPD は、各セグメントの URL
+を決める方法をいくつか用意しています。代表的なものは次のとおりです。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>概要</th>
+<th>向いている用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BaseURL + SegmentBase</strong></td>
+<td>1 つの MP4 ファイルの中のバイト範囲（インデックス）で位置を示す</td>
+<td>オンデマンド（単一ファイル）</td>
+</tr>
+<tr class="even">
+<td><strong>SegmentList</strong></td>
+<td>セグメントの URL を MPD に列挙する</td>
+<td>小規模なオンデマンド</td>
+</tr>
+<tr class="odd">
+<td><strong>SegmentTemplate（Number）</strong></td>
+<td><code>$Number$</code> を連番に置き換えて URL を作る</td>
+<td>ライブ・オンデマンド</td>
+</tr>
+<tr class="even">
+<td><strong>SegmentTemplate + SegmentTimeline</strong></td>
+<td>各セグメントの開始時刻と長さを明示して URL を作る</td>
+<td>長さが不揃いなセグメント、ライブ</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-1-オンデマンド向けの最小例学習用に簡略化">5-1.
+オンデマンド向けの最小例（学習用に簡略化）</h3>
+<div class="code-block"><pre class="xml"><code><span class="t-meta">&lt;?xml <span class="t-attr">version</span>=<span class="t-str">"1.0"</span> <span class="t-attr">encoding</span>=<span class="t-str">"UTF-8"</span>?&gt;</span>
+<span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;MPD <span class="t-attr">xmlns</span>=<span class="t-str">"urn:mpeg:dash:schema:mpd:2011"</span>
+<span class="t-attr">type</span>=<span class="t-str">"static"</span>
+<span class="t-attr">mediaPresentationDuration</span>=<span class="t-str">"PT10M"</span>
+<span class="t-attr">minBufferTime</span>=<span class="t-str">"PT2S"</span>
+<span class="t-attr">profiles</span>=<span class="t-str">"urn:mpeg:dash:profile:isoff-on-demand:2011"</span>&gt;
+  <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;Period&gt;
+    <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;AdaptationSet <span class="t-attr">contentType</span>=<span class="t-str">"video"</span> <span class="t-attr">mimeType</span>=<span class="t-str">"video/mp4"</span> <span class="t-attr">segmentAlignment</span>=<span class="t-str">"true"</span>&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;Representation <span class="t-attr">id</span>=<span class="t-str">"v1080"</span> <span class="t-attr">bandwidth</span>=<span class="t-str">"5000000"</span> <span class="t-attr">width</span>=<span class="t-str">"1920"</span> <span class="t-attr">height</span>=<span class="t-str">"1080"</span> <span class="t-attr">codecs</span>=<span class="t-str">"avc1.640028"</span>&gt;
+        <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;BaseURL&gt;video_1080.mp4<span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/BaseURL&gt;
+        <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;SegmentBase <span class="t-attr">indexRange</span>=<span class="t-str">"800-1500"</span>/&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/Representation&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;Representation <span class="t-attr">id</span>=<span class="t-str">"v360"</span> <span class="t-attr">bandwidth</span>=<span class="t-str">"800000"</span> <span class="t-attr">width</span>=<span class="t-str">"640"</span> <span class="t-attr">height</span>=<span class="t-str">"360"</span> <span class="t-attr">codecs</span>=<span class="t-str">"avc1.64001e"</span>&gt;
+        <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;BaseURL&gt;video_360.mp4<span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/BaseURL&gt;
+        <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;SegmentBase <span class="t-attr">indexRange</span>=<span class="t-str">"800-1500"</span>/&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/Representation&gt;
+    <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/AdaptationSet&gt;
+  <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/Period&gt;
+<span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/MPD&gt;</code></pre></div>
+<h3 id="5-2-ライブ向けの最小例segmenttemplate--segmenttimeline">5-2.
+ライブ向けの最小例（SegmentTemplate + SegmentTimeline）</h3>
+<div class="code-block"><pre class="xml"><code><span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;MPD <span class="t-attr">xmlns</span>=<span class="t-str">"urn:mpeg:dash:schema:mpd:2011"</span>
+<span class="t-attr">type</span>=<span class="t-str">"dynamic"</span>
+<span class="t-attr">availabilityStartTime</span>=<span class="t-str">"2026-10-08T00:00:00Z"</span>
+<span class="t-attr">minimumUpdatePeriod</span>=<span class="t-str">"PT2S"</span>
+<span class="t-attr">timeShiftBufferDepth</span>=<span class="t-str">"PT30S"</span>
+<span class="t-attr">minBufferTime</span>=<span class="t-str">"PT2S"</span>
+<span class="t-attr">profiles</span>=<span class="t-str">"urn:mpeg:dash:profile:isoff-live:2011"</span>&gt;
+  <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;Period <span class="t-attr">id</span>=<span class="t-str">"1"</span> <span class="t-attr">start</span>=<span class="t-str">"PT0S"</span>&gt;
+    <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;AdaptationSet <span class="t-attr">contentType</span>=<span class="t-str">"video"</span> <span class="t-attr">mimeType</span>=<span class="t-str">"video/mp4"</span> <span class="t-attr">segmentAlignment</span>=<span class="t-str">"true"</span>&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;SegmentTemplate <span class="t-attr">timescale</span>=<span class="t-str">"90000"</span>
+<span class="t-attr">initialization</span>=<span class="t-str">"video_$RepresentationID$_init.mp4"</span>
+<span class="t-attr">media</span>=<span class="t-str">"video_$RepresentationID$_$Time$.m4s"</span>&gt;
+        <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;SegmentTimeline&gt;
+          <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;S <span class="t-attr">t</span>=<span class="t-str">"0"</span> <span class="t-attr">d</span>=<span class="t-str">"360000"</span> <span class="t-attr">r</span>=<span class="t-str">"9"</span>/&gt;
+        <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/SegmentTimeline&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/SegmentTemplate&gt;
+      <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;Representation <span class="t-attr">id</span>=<span class="t-str">"v720"</span> <span class="t-attr">bandwidth</span>=<span class="t-str">"3000000"</span> <span class="t-attr">width</span>=<span class="t-str">"1280"</span> <span class="t-attr">height</span>=<span class="t-str">"720"</span> <span class="t-attr">codecs</span>=<span class="t-str">"avc1.64001f"</span>/&gt;
+    <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/AdaptationSet&gt;
+  <span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/Period&gt;
+<span <span="" class="t-attr">class</span>=<span class="t-str">"t-tag"</span>&gt;&lt;/MPD&gt;</code></pre></div>
+<p><strong>読み方</strong>：<code>&lt;S t="0" d="360000" r="9"/&gt;</code>
+は、<code>timescale="90000"</code> のもとで「開始時刻 0、長さ 360000（=
+4 秒）のセグメントを、最初の 1 個＋繰り返し 9 回（= 計 10
+個）」という意味です。<code>$Time$</code>
+の部分に各セグメントの開始時刻が入って URL になります。</p>
+<div class="callout callout-warn"><div class="callout-label">⚠ 注意</div>
+<p>⚠️
+<strong>この例はライブ再生には使えません【筆者の注記】</strong>：<code>availabilityStartTime</code>
+を固定日時にし、SegmentTimeline も 40 秒分（10
+個）で止めた、構造を説明するための <strong>有限の模式図</strong>
+です。実際のライブ配信では、<code>availabilityStartTime</code>
+を実際のストリーム開始時刻に合わせ、パッケージャーが
+<code>minimumUpdatePeriod</code> ごとに MPD を更新して SegmentTimeline
+に新しいセグメントを追記し続け、<code>timeShiftBufferDepth</code>
+から外れた古いエントリを取り除きます。この例をそのままプレーヤーに読み込ませると、現在時刻が
+timeline の範囲外になり、取得できるセグメントがない状態になります。</p>
+</div>
+<div class="callout callout-note"><div class="callout-label">ℹ メモ</div>
+<p><strong>第6版との関係</strong>：後述するとおり、第6版では「SegmentTimeline
+で <strong>セグメント長のパターン</strong>
+を簡潔に表せる」ようになったと報告されています。MPD
+が長くなる問題（特にライブ）を減らす狙いです。</p>
+</div>
+
+<h2 id="step-6オンデマンドstaticとライブdynamic">Step
+6：オンデマンド（static）とライブ（dynamic）</h2>
+<p><strong>【一般知識】</strong> MPD のルート要素の <code>type</code>
+属性で、2 つの動作モードが切り替わります。</p>
+<div aria-label="図3" class="mermaid-diagram" id="mermaid-diagram-3" role="img">
+<svg id="mmd-3" width="602.875" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="634.046875" viewBox="4 4 602.875 634.046875" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd-3{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#eaf1ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd-3 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd-3 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd-3 .error-icon{fill:#0d1a30;}#mmd-3 .error-text{fill:#f2e5cf;stroke:#f2e5cf;}#mmd-3 .edge-thickness-normal{stroke-width:1px;}#mmd-3 .edge-thickness-thick{stroke-width:3.5px;}#mmd-3 .edge-pattern-solid{stroke-dasharray:0;}#mmd-3 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd-3 .edge-pattern-dashed{stroke-dasharray:3;}#mmd-3 .edge-pattern-dotted{stroke-dasharray:2;}#mmd-3 .marker{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-3 .marker.cross{stroke:#8fb0ff;}#mmd-3 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mmd-3 p{margin:0;}#mmd-3 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#eaf1ff;}#mmd-3 .cluster-label text{fill:#f2e5cf;}#mmd-3 .cluster-label span{color:#f2e5cf;}#mmd-3 .cluster-label span p{background-color:transparent;}#mmd-3 .label text,#mmd-3 span{fill:#eaf1ff;color:#eaf1ff;}#mmd-3 .node rect,#mmd-3 .node circle,#mmd-3 .node ellipse,#mmd-3 .node polygon,#mmd-3 .node path{fill:#15294a;stroke:#7c9eff;stroke-width:1px;}#mmd-3 .rough-node .label text,#mmd-3 .node .label text,#mmd-3 .image-shape .label,#mmd-3 .icon-shape .label{text-anchor:middle;}#mmd-3 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd-3 .rough-node .label,#mmd-3 .node .label,#mmd-3 .image-shape .label,#mmd-3 .icon-shape .label{text-align:center;}#mmd-3 .node.clickable{cursor:pointer;}#mmd-3 .root .anchor path{fill:#8fb0ff!important;stroke-width:0;stroke:#8fb0ff;}#mmd-3 .arrowheadPath{fill:#f8eee1;}#mmd-3 .edgePaths .path{stroke:#8fb0ff;stroke-width:1px;}#mmd-3 .flowchart-link{stroke:#8fb0ff;fill:none;}#mmd-3 .edgeLabel{background-color:#0d1a30;text-align:center;}#mmd-3 .edgeLabel p{background-color:#0d1a30;}#mmd-3 .edgeLabel rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-3 .labelBkg{background-color:rgba(13, 26, 48, 0.5);}#mmd-3 .cluster rect{fill:#0d1a30;stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:1px;}#mmd-3 .cluster text{fill:#f2e5cf;}#mmd-3 .cluster span{color:#f2e5cf;}#mmd-3 .node .collapsed-indicator{fill:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke:none;opacity:0.6;}#mmd-3 .node .collapsed-separator{stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:0.75px;}#mmd-3 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1a30;border:1px solid hsl(217.7142857143, 17.3770491803%, 1.9607843137%);border-radius:2px;pointer-events:none;z-index:100;}#mmd-3 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#eaf1ff;}#mmd-3 rect.text{fill:none;stroke-width:0;}#mmd-3 .icon-shape,#mmd-3 .image-shape{background-color:#0d1a30;text-align:center;}#mmd-3 .icon-shape p,#mmd-3 .image-shape p{background-color:#0d1a30;padding:2px;}#mmd-3 .icon-shape .label rect,#mmd-3 .image-shape .label rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-3 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd-3 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd-3 .node .neo-node{stroke:#7c9eff;}#mmd-3 [data-look="neo"].node rect,#mmd-3 [data-look="neo"].cluster rect,#mmd-3 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-3 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd-3 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mmd-3 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-3 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd-3 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-3 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd-3 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-3 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-3 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd-3_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-3_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-3_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto">
+<path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-3_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto">
+<polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</polygon>
+</marker>
+<marker id="mmd-3_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-3_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-3_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-3_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-3_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-3_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-3_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;">
+</path>
+</marker>
+<marker id="mmd-3_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edges edgePaths">
+<path d="M265.3046875,197.03902949392796L265.3046875,230.046875L265.3046875,242.97580718813452Q265.3046875,250.046875 258.2336196881345,250.046875L148.66481781186548,250.046875Q141.59375,250.046875 141.59375,257.1179428118655L141.59375,330.046875" id="mmd-3-L_dQ_dS_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 247.39047241210938 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_dQ_dS_0" data-points="W3sieCI6MjY1LjMwNDY4NzUsInkiOjE5Ny4wMzkwMjk0OTM5Mjc5Nn0seyJ4IjoyNjUuMzA0Njg3NSwieSI6MjMwLjA0Njg3NX0seyJ4IjoyNjUuMzA0Njg3NSwieSI6MjUwLjA0Njg3NX0seyJ4IjoxNDEuNTkzNzUsInkiOjI1MC4wNDY4NzV9LHsieCI6MTQxLjU5Mzc1LCJ5IjozMzQuMDQ2ODc1fV0=" data-look="neo" marker-end="url(#mmd-3_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M331.3203125,197.03902949392796L331.3203125,230.046875L331.3203125,242.97580718813452Q331.3203125,250.046875 338.3913803118655,250.046875L447.9601821881345,250.046875Q455.03125,250.046875 455.03125,257.1179428118655L455.03125,330.046875" id="mmd-3-L_dQ_dD_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 247.3905029296875 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_dQ_dD_0" data-points="W3sieCI6MzMxLjMyMDMxMjUsInkiOjE5Ny4wMzkwMjk0OTM5Mjc5Nn0seyJ4IjozMzEuMzIwMzEyNSwieSI6MjMwLjA0Njg3NX0seyJ4IjozMzEuMzIwMzEyNSwieSI6MjUwLjA0Njg3NX0seyJ4Ijo0NTUuMDMxMjUsInkiOjI1MC4wNDY4NzV9LHsieCI6NDU1LjAzMTI1LCJ5IjozMzQuMDQ2ODc1fV0=" data-look="neo" marker-end="url(#mmd-3_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M141.59375,406.046875L141.59375,442.046875" id="mmd-3-L_dS_dS2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_dS_dS2_0" data-points="W3sieCI6MTQxLjU5Mzc1LCJ5Ijo0MDYuMDQ2ODc1fSx7IngiOjE0MS41OTM3NSwieSI6NDQ2LjA0Njg3NX1d" data-look="neo" marker-end="url(#mmd-3_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M455.03125,406.046875L455.03125,442.046875" id="mmd-3-L_dD_dD2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_dD_dD2_0" data-points="W3sieCI6NDU1LjAzMTI1LCJ5Ijo0MDYuMDQ2ODc1fSx7IngiOjQ1NS4wMzEyNSwieSI6NDQ2LjA0Njg3NX1d" data-look="neo" marker-end="url(#mmd-3_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M455.03125,518.046875L455.03125,554.046875" id="mmd-3-L_dD2_dD3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_dD2_dD3_0" data-points="W3sieCI6NDU1LjAzMTI1LCJ5Ijo1MTguMDQ2ODc1fSx7IngiOjQ1NS4wMzEyNSwieSI6NTU4LjA0Njg3NX1d" data-look="neo" marker-end="url(#mmd-3_flowchart-v2-pointEnd-margin)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel" transform="translate(141.171875, 282.046875)">
+<g class="label" data-id="L_dQ_dS_0" transform="translate(-20.078125, -12)"><foreignObject width="40.15625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>static</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(454.734375, 282.046875)">
+<g class="label" data-id="L_dQ_dD_0" transform="translate(-32.203125, -12)"><foreignObject width="64.40625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>dynamic</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="mmd-3-flowchart-dQ-0" data-look="neo" transform="translate(298.3125, 121.0234375)">
+<polygon points="109.0234375,0 218.046875,-109.0234375 109.0234375,-218.046875 0,-109.0234375" class="label-container" transform="translate(-108.5234375, 109.0234375)">
+</polygon>
+<g class="label" style="" transform="translate(-79.0234375, -12)">
+<rect>
+</rect><foreignObject width="158.046875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>MPD の type 属性は？</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-3-flowchart-dS-2" data-look="neo" transform="translate(141.59375, 370.046875)">
+<rect class="basic label-container" style="" x="-120.0078125" y="-36" width="240.015625" height="72">
+</rect>
+<g class="label" style="" transform="translate(-104.0078125, -24)">
+<rect>
+</rect><foreignObject width="208.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>オンデマンド配信<br/>全セグメントが既に存在する</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-3-flowchart-dD-4" data-look="neo" transform="translate(455.03125, 370.046875)">
+<rect class="basic label-container" style="" x="-135.765625" y="-36" width="271.53125" height="72">
+</rect>
+<g class="label" style="" transform="translate(-119.765625, -24)">
+<rect>
+</rect><foreignObject width="239.53125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>ライブ配信<br/>セグメントが時間とともに増える</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-3-flowchart-dS2-6" data-look="neo" transform="translate(141.59375, 482.046875)">
+<rect class="basic label-container" style="" x="-129.59375" y="-36" width="259.1875" height="72">
+</rect>
+<g class="label" style="" transform="translate(-113.59375, -24)">
+<rect>
+</rect><foreignObject width="227.1875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>mediaPresentationDuration で<br/>総再生時間が分かる</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-3-flowchart-dD2-8" data-look="neo" transform="translate(455.03125, 482.046875)">
+<rect class="basic label-container" style="" x="-143.84375" y="-36" width="287.6875" height="72">
+</rect>
+<g class="label" style="" transform="translate(-127.84375, -24)">
+<rect>
+</rect><foreignObject width="255.6875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>availabilityStartTime を基準に<br/>今取得できるセグメントを計算する</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-3-flowchart-dD3-10" data-look="neo" transform="translate(455.03125, 594.046875)">
+<rect class="basic label-container" style="" x="-129.9453125" y="-36" width="259.890625" height="72">
+</rect>
+<g class="label" style="" transform="translate(-113.9453125, -24)">
+<rect>
+</rect><foreignObject width="227.890625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>minimumUpdatePeriod ごとに<br/>MPD の更新を確認する</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="mmd-3-drop-shadow" height="130%" width="130%">
+<feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+<defs>
+<filter id="mmd-3-drop-shadow-small" height="150%" width="150%">
+<feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+</svg>
+</div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>比較項目</th>
+<th>static（オンデマンド）</th>
+<th>dynamic（ライブ）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MPD の更新</td>
+<td>基本的に不要</td>
+<td>必要（または Patch で差分更新）</td>
+</tr>
+<tr class="even">
+<td>総再生時間</td>
+<td>決まっている</td>
+<td>決まっていない（無制限もある）</td>
+</tr>
+<tr class="odd">
+<td>シーク</td>
+<td>全区間に可能</td>
+<td><code>timeShiftBufferDepth</code> の範囲内</td>
+</tr>
+<tr class="even">
+<td>時刻同期</td>
+<td>ほぼ不要</td>
+<td><strong>重要</strong>（クライアントとサーバーの時刻ずれが問題になる）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【根拠あり】</strong> Bitmovin のブログ（Timmerer
+氏）によると、第4版（2019）の第1アメンドメントで <strong>DASH と CMAF
+の調和</strong>、<strong>イベントとタイムドメタデータのタイミング／処理モデル</strong>、<strong>XML
+Patch（IETF RFC 5261）を使った MPD の部分更新（MPD Patch）</strong>
+などが整備されました。</p>
+
+<h2 id="step-7プロファイルとは何か">Step 7：プロファイルとは何か</h2>
+<p><strong>【一般知識】</strong> DASH
+規格は機能が非常に多いため、全機能をすべてのプレーヤーが実装するのは現実的ではありません。そこで
+<strong>プロファイル（profile）</strong> が「この MPD
+は、この機能の範囲だけを使っています」という宣言（<code>profiles</code>
+属性）として使われます。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>プロファイル名（URN の例）</th>
+<th>概要</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>urn:mpeg:dash:profile:isoff-on-demand:2011</code></td>
+<td>ISO BMFF のオンデマンド向け</td>
+</tr>
+<tr class="even">
+<td><code>urn:mpeg:dash:profile:isoff-live:2011</code></td>
+<td>ISO BMFF のライブ向け</td>
+</tr>
+<tr class="odd">
+<td><code>urn:mpeg:dash:profile:isoff-main:2011</code></td>
+<td>ISO BMFF の汎用</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【根拠あり】</strong> 第4版の第1アメンドメントでは「CMAF
+向けの DASH プロファイル」も追加されています（Bitmovin ブログ）。</p>
+<div class="callout callout-practice"><div class="callout-label">💡 ポイント</div>
+<p><strong>QA のヒント</strong>：実運用では、MPD の
+<code>profiles</code> 宣言と、実際に MPD
+が使っている機能（例：SegmentTimeline、MPD Patch
+など）が一致しているかが典型的な確認ポイントです【筆者の提案】。</p>
+</div>
+
+<h2 id="step-8dash-クライアントの動き方">Step 8：DASH
+クライアントの動き方</h2>
+<p><strong>【一般知識】</strong> プレーヤーは概ね次の順で動きます。</p>
+<div aria-label="図4" class="mermaid-diagram" id="mermaid-diagram-4" role="img">
+<svg id="mmd-4" width="879.0729370117188" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="972.015625" viewBox="4 4 879.0729370117188 972.015625" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd-4{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#eaf1ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd-4 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd-4 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd-4 .error-icon{fill:#0d1a30;}#mmd-4 .error-text{fill:#f2e5cf;stroke:#f2e5cf;}#mmd-4 .edge-thickness-normal{stroke-width:1px;}#mmd-4 .edge-thickness-thick{stroke-width:3.5px;}#mmd-4 .edge-pattern-solid{stroke-dasharray:0;}#mmd-4 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd-4 .edge-pattern-dashed{stroke-dasharray:3;}#mmd-4 .edge-pattern-dotted{stroke-dasharray:2;}#mmd-4 .marker{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-4 .marker.cross{stroke:#8fb0ff;}#mmd-4 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mmd-4 p{margin:0;}#mmd-4 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#eaf1ff;}#mmd-4 .cluster-label text{fill:#f2e5cf;}#mmd-4 .cluster-label span{color:#f2e5cf;}#mmd-4 .cluster-label span p{background-color:transparent;}#mmd-4 .label text,#mmd-4 span{fill:#eaf1ff;color:#eaf1ff;}#mmd-4 .node rect,#mmd-4 .node circle,#mmd-4 .node ellipse,#mmd-4 .node polygon,#mmd-4 .node path{fill:#15294a;stroke:#7c9eff;stroke-width:1px;}#mmd-4 .rough-node .label text,#mmd-4 .node .label text,#mmd-4 .image-shape .label,#mmd-4 .icon-shape .label{text-anchor:middle;}#mmd-4 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd-4 .rough-node .label,#mmd-4 .node .label,#mmd-4 .image-shape .label,#mmd-4 .icon-shape .label{text-align:center;}#mmd-4 .node.clickable{cursor:pointer;}#mmd-4 .root .anchor path{fill:#8fb0ff!important;stroke-width:0;stroke:#8fb0ff;}#mmd-4 .arrowheadPath{fill:#f8eee1;}#mmd-4 .edgePaths .path{stroke:#8fb0ff;stroke-width:1px;}#mmd-4 .flowchart-link{stroke:#8fb0ff;fill:none;}#mmd-4 .edgeLabel{background-color:#0d1a30;text-align:center;}#mmd-4 .edgeLabel p{background-color:#0d1a30;}#mmd-4 .edgeLabel rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-4 .labelBkg{background-color:rgba(13, 26, 48, 0.5);}#mmd-4 .cluster rect{fill:#0d1a30;stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:1px;}#mmd-4 .cluster text{fill:#f2e5cf;}#mmd-4 .cluster span{color:#f2e5cf;}#mmd-4 .node .collapsed-indicator{fill:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke:none;opacity:0.6;}#mmd-4 .node .collapsed-separator{stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:0.75px;}#mmd-4 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1a30;border:1px solid hsl(217.7142857143, 17.3770491803%, 1.9607843137%);border-radius:2px;pointer-events:none;z-index:100;}#mmd-4 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#eaf1ff;}#mmd-4 rect.text{fill:none;stroke-width:0;}#mmd-4 .icon-shape,#mmd-4 .image-shape{background-color:#0d1a30;text-align:center;}#mmd-4 .icon-shape p,#mmd-4 .image-shape p{background-color:#0d1a30;padding:2px;}#mmd-4 .icon-shape .label rect,#mmd-4 .image-shape .label rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-4 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd-4 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd-4 .node .neo-node{stroke:#7c9eff;}#mmd-4 [data-look="neo"].node rect,#mmd-4 [data-look="neo"].cluster rect,#mmd-4 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-4 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd-4 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mmd-4 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-4 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd-4 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-4 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd-4 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-4 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-4 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd-4_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-4_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-4_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto">
+<path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-4_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto">
+<polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</polygon>
+</marker>
+<marker id="mmd-4_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-4_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-4_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-4_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-4_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-4_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-4_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;">
+</path>
+</marker>
+<marker id="mmd-4_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edges edgePaths">
+<path d="M521.75,60L521.75,96" id="mmd-4-L_cA_cB_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cA_cB_0" data-points="W3sieCI6NTIxLjc1LCJ5Ijo2MH0seyJ4Ijo1MjEuNzUsInkiOjEwMH1d" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M521.75,172L521.75,208" id="mmd-4-L_cB_cC_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cB_cC_0" data-points="W3sieCI6NTIxLjc1LCJ5IjoxNzJ9LHsieCI6NTIxLjc1LCJ5IjoyMTJ9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M521.75,260L521.75,296" id="mmd-4-L_cC_cD_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cC_cD_0" data-points="W3sieCI6NTIxLjc1LCJ5IjoyNjB9LHsieCI6NTIxLjc1LCJ5IjozMDB9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M521.75,348L521.75,384" id="mmd-4-L_cD_cE_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 32 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cD_cE_0" data-points="W3sieCI6NTIxLjc1LCJ5IjozNDh9LHsieCI6NTIxLjc1LCJ5IjozODh9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M521.75,436L521.75,492" id="mmd-4-L_cE_cF_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 52 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cE_cF_0" data-points="W3sieCI6NTIxLjc1LCJ5Ijo0MzZ9LHsieCI6NTIxLjc1LCJ5Ijo0OTZ9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M489.81770833333326,544L489.81770833333326,556.9289321881345Q489.81770833333326,564 482.7466405214678,564L252.4278386451988,564Q245.35677083333331,564 245.35677083333331,571.0710678118655L245.35677083333331,584L245.35677083333331,612.0026369839907" id="mmd-4-L_cF_cG_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 303.13531494140625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cF_cG_0" data-points="W3sieCI6NDg5LjgxNzcwODMzMzMzMzI2LCJ5Ijo1NDR9LHsieCI6NDg5LjgxNzcwODMzMzMzMzI2LCJ5Ijo1NjR9LHsieCI6MjQ1LjM1Njc3MDgzMzMzMzMxLCJ5Ijo1NjR9LHsieCI6MjQ1LjM1Njc3MDgzMzMzMzMxLCJ5Ijo1ODR9LHsieCI6MjQ1LjM1Njc3MDgzMzMzMzMxLCJ5Ijo2MTYuMDAyNjM2OTgzOTkwN31d" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M181.35156249999994,764.0129880160093L181.35156249999994,796.015625L181.35156249999994,815.0130208333334Q181.35156249999994,816.015625 180.3489583333333,816.015625L180.3489583333333,816.015625Q179.34635416666663,816.015625 179.34635416666663,817.0182291666666L179.34635416666663,874.5716145833334Q179.34635416666663,880.015625 173.90234374999997,880.015625L173.90234374999997,880.015625Q168.45833333333331,880.015625 168.45833333333331,885.4596354166666L168.45833333333331,916.015625" id="mmd-4-L_cG_cH_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 156.0381622314453 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cG_cH_0" data-points="W3sieCI6MTgxLjM1MTU2MjQ5OTk5OTk0LCJ5Ijo3NjQuMDEyOTg4MDE2MDA5M30seyJ4IjoxODEuMzUxNTYyNDk5OTk5OTQsInkiOjc5Ni4wMTU2MjV9LHsieCI6MTgxLjM1MTU2MjQ5OTk5OTk0LCJ5Ijo4MTYuMDE1NjI1fSx7IngiOjE3OS4zNDYzNTQxNjY2NjY2MywieSI6ODE2LjAxNTYyNX0seyJ4IjoxNzkuMzQ2MzU0MTY2NjY2NjMsInkiOjg4MC4wMTU2MjV9LHsieCI6MTY4LjQ1ODMzMzMzMzMzMzMxLCJ5Ijo4ODAuMDE1NjI1fSx7IngiOjE2OC40NTgzMzMzMzMzMzMzMSwieSI6OTIwLjAxNTYyNX1d" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M245.35677083333331,764.0129880160093L245.35677083333331,796.015625L245.35677083333331,808.9445571881345Q245.35677083333331,816.015625 252.4278386451988,816.015625L298.62424468813447,816.015625Q305.69531249999994,816.015625 305.69531249999994,823.0866928118655L305.69531249999994,872.9445571881345Q305.69531249999994,880.015625 312.7663803118654,880.015625L431.0122655214678,880.015625Q438.08333333333326,880.015625 438.08333333333326,887.0866928118655L438.08333333333326,916.015625" id="mmd-4-L_cG_cI_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 330.0726318359375 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cG_cI_0" data-points="W3sieCI6MjQ1LjM1Njc3MDgzMzMzMzMxLCJ5Ijo3NjQuMDEyOTg4MDE2MDA5M30seyJ4IjoyNDUuMzU2NzcwODMzMzMzMzEsInkiOjc5Ni4wMTU2MjV9LHsieCI6MjQ1LjM1Njc3MDgzMzMzMzMxLCJ5Ijo4MTYuMDE1NjI1fSx7IngiOjMwNS42OTUzMTI0OTk5OTk5NCwieSI6ODE2LjAxNTYyNX0seyJ4IjozMDUuNjk1MzEyNDk5OTk5OTQsInkiOjg4MC4wMTU2MjV9LHsieCI6NDM4LjA4MzMzMzMzMzMzMzI2LCJ5Ijo4ODAuMDE1NjI1fSx7IngiOjQzOC4wODMzMzMzMzMzMzMyNiwieSI6OTIwLjAxNTYyNX1d" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M181.35156249999994,616.0026369839907L181.35156249999994,584L181.35156249999997,483.0710678118655Q181.35156249999997,476 188.42263031186545,476L472.31955718813447,476Q479.39062499999994,476 479.39062499999994,468.9289321881345L479.39062499999994,440" id="mmd-4-L_cG_cE_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 464.71337890625 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cG_cE_0" data-points="W3sieCI6MTgxLjM1MTU2MjQ5OTk5OTk0LCJ5Ijo2MTYuMDAyNjM2OTgzOTkwN30seyJ4IjoxODEuMzUxNTYyNDk5OTk5OTQsInkiOjU4NH0seyJ4IjoxODEuMzUxNTYyNDk5OTk5OTcsInkiOjQ3Nn0seyJ4Ijo0NzkuMzkwNjI0OTk5OTk5OTQsInkiOjQ3Nn0seyJ4Ijo0NzkuMzkwNjI0OTk5OTk5OTQsInkiOjQzNn1d" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M95.22916666666666,920.015625L95.22916666666666,884.45703125Q95.22916666666666,880.015625 90.78776041666663,880.015625L90.78776041666663,880.015625Q86.34635416666661,880.015625 86.34635416666661,875.57421875L86.34635416666661,848.015625L86.34635416666661,690.0078125L86.34635416666661,520L86.34635416666661,463.0710678118655Q86.34635416666661,456 93.41742197853209,456L429.96018218813447,456Q437.03124999999994,456 437.03124999999994,448.9289321881345L437.03124999999994,440" id="mmd-4-L_cH_cE_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 826.9083251953125 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cH_cE_0" data-points="W3sieCI6OTUuMjI5MTY2NjY2NjY2NjYsInkiOjkyMC4wMTU2MjV9LHsieCI6OTUuMjI5MTY2NjY2NjY2NjYsInkiOjg4MC4wMTU2MjV9LHsieCI6ODYuMzQ2MzU0MTY2NjY2NjEsInkiOjg4MC4wMTU2MjV9LHsieCI6ODYuMzQ2MzU0MTY2NjY2NjEsInkiOjg0OC4wMTU2MjV9LHsieCI6ODYuMzQ2MzU0MTY2NjY2NjEsInkiOjY5MC4wMDc4MTI1fSx7IngiOjg2LjM0NjM1NDE2NjY2NjYxLCJ5Ijo1MjB9LHsieCI6ODYuMzQ2MzU0MTY2NjY2NjEsInkiOjQ1Nn0seyJ4Ijo0MzcuMDMxMjQ5OTk5OTk5OTQsInkiOjQ1Nn0seyJ4Ijo0MzcuMDMxMjQ5OTk5OTk5OTQsInkiOjQzNn1d" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M511.312,920.016 L511.312,887.087 Q511.312,880.016 518.384,880.016 L547.682,880.016 A6,6 0 0 1 559.682,880.016 L668.611,880.016 Q675.682,880.016 675.682,872.945 L675.682,848.016 L675.682,690.008 L675.682,520 L675.682,483.071 Q675.682,476 668.611,476 L571.18,476 Q564.109,476 564.109,468.929 L564.109,440" id="mmd-4-L_cI_cE_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 748.1546630859375 4; stroke-dashoffset: 0;" data-edge="true" data-et="edge" data-id="L_cI_cE_0" data-points="W3sieCI6NTExLjMxMjQ5OTk5OTk5OTk0LCJ5Ijo5MjAuMDE1NjI1fSx7IngiOjUxMS4zMTI0OTk5OTk5OTk5NCwieSI6ODgwLjAxNTYyNX0seyJ4Ijo2NzUuNjgyMjkxNjY2NjY2NiwieSI6ODgwLjAxNTYyNX0seyJ4Ijo2NzUuNjgyMjkxNjY2NjY2NiwieSI6ODQ4LjAxNTYyNX0seyJ4Ijo2NzUuNjgyMjkxNjY2NjY2NiwieSI6NjkwLjAwNzgxMjV9LHsieCI6Njc1LjY4MjI5MTY2NjY2NjYsInkiOjUyMH0seyJ4Ijo2NzUuNjgyMjkxNjY2NjY2NiwieSI6NDc2fSx7IngiOjU2NC4xMDkzNzUsInkiOjQ3Nn0seyJ4Ijo1NjQuMTA5Mzc1LCJ5Ijo0MzZ9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M553.6822916666666,544L553.6822916666666,584.0078125" id="mmd-4-L_cF_cJ_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 36.0078125 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cF_cJ_0" data-points="W3sieCI6NTUzLjY4MjI5MTY2NjY2NjYsInkiOjU0NH0seyJ4Ijo1NTMuNjgyMjkxNjY2NjY2NiwieSI6NTg4LjAwNzgxMjV9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M553.6822916666666,792.0078125L553.6822916666666,892.9445571881345Q553.6822916666666,900.015625 560.753359478532,900.015625L710.9810155214677,900.015625Q718.0520833333333,900.015625 718.0520833333333,907.0866928118655L718.0520833333333,916.015625" id="mmd-4-L_cJ_cK_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 279.0493469238281 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cJ_cK_0" data-points="W3sieCI6NTUzLjY4MjI5MTY2NjY2NjYsInkiOjc5Mi4wMDc4MTI1fSx7IngiOjU1My42ODIyOTE2NjY2NjY2LCJ5Ijo5MDAuMDE1NjI1fSx7IngiOjcxOC4wNTIwODMzMzMzMzMzLCJ5Ijo5MDAuMDE1NjI1fSx7IngiOjcxOC4wNTIwODMzMzMzMzMzLCJ5Ijo5MjAuMDE1NjI1fV0=" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M791.5624999999999,920.015625L791.5624999999999,887.0866928118655Q791.5624999999999,880.015625 798.6335678118653,880.015625L819.2362238548012,880.015625Q826.3072916666666,880.015625 826.3072916666666,872.9445571881345L826.3072916666666,848.015625L826.3072916666666,690.0078125L826.3072916666666,520L826.3072916666666,463.0710678118655Q826.3072916666666,456 819.2362238548012,456L613.5398178118653,456Q606.4687499999999,456 606.4687499999999,448.9289321881345L606.4687499999999,440" id="mmd-4-L_cK_cE_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 719.9423828125 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_cK_cE_0" data-points="W3sieCI6NzkxLjU2MjQ5OTk5OTk5OTksInkiOjkyMC4wMTU2MjV9LHsieCI6NzkxLjU2MjQ5OTk5OTk5OTksInkiOjg4MC4wMTU2MjV9LHsieCI6ODI2LjMwNzI5MTY2NjY2NjYsInkiOjg4MC4wMTU2MjV9LHsieCI6ODI2LjMwNzI5MTY2NjY2NjYsInkiOjg0OC4wMTU2MjV9LHsieCI6ODI2LjMwNzI5MTY2NjY2NjYsInkiOjY5MC4wMDc4MTI1fSx7IngiOjgyNi4zMDcyOTE2NjY2NjY2LCJ5Ijo1MjB9LHsieCI6ODI2LjMwNzI5MTY2NjY2NjYsInkiOjQ1Nn0seyJ4Ijo2MDYuNDY4NzQ5OTk5OTk5OSwieSI6NDU2fSx7IngiOjYwNi40Njg3NDk5OTk5OTk5LCJ5Ijo0MzZ9XQ==" data-look="neo" marker-end="url(#mmd-4_flowchart-v2-pointEnd-margin)">
+</path>
+</g>
+<g class="edgeLabels">
+<g class="edgeLabel" transform="translate(178.85416666666663, 848.015625)">
+<g class="label" data-id="L_cG_cH_0" transform="translate(-32.0078125, -12)"><foreignObject width="64.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>余裕あり</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(305.20312499999994, 848.015625)">
+<g class="label" data-id="L_cG_cI_0" transform="translate(-16.0078125, -12)"><foreignObject width="32.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>不足</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(180.85937499999997, 520)">
+<g class="label" data-id="L_cG_cE_0" transform="translate(-16.0078125, -12)"><foreignObject width="32.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>適正</p></span></div></foreignObject></g>
+</g>
+<g class="edgeLabel" transform="translate(553.1901041666666, 848.015625)">
+<g class="label" data-id="L_cJ_cK_0" transform="translate(-16.0078125, -12)"><foreignObject width="32.015625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel "><p>はい</p></span></div></foreignObject></g>
+</g>
+</g>
+<g class="nodes">
+<g class="node default  " id="mmd-4-flowchart-cA-0" data-look="neo" transform="translate(521.75, 36)">
+<rect class="basic label-container" style="" x="-100.7109375" y="-24" width="201.421875" height="48">
+</rect>
+<g class="label" style="" transform="translate(-84.7109375, -12)">
+<rect>
+</rect><foreignObject width="169.421875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>① MPD を HTTP で取得</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cB-1" data-look="neo" transform="translate(521.75, 136)">
+<rect class="basic label-container" style="" x="-164.2890625" y="-36" width="328.578125" height="72">
+</rect>
+<g class="label" style="" transform="translate(-148.2890625, -24)">
+<rect>
+</rect><foreignObject width="296.578125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>② MPD を解析<br/>Period / AdaptationSet / Representation</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cC-3" data-look="neo" transform="translate(521.75, 236)">
+<rect class="basic label-container" style="" x="-142.421875" y="-24" width="284.84375" height="48">
+</rect>
+<g class="label" style="" transform="translate(-126.421875, -12)">
+<rect>
+</rect><foreignObject width="252.84375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>③ 再生する Representation を選ぶ</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cD-5" data-look="neo" transform="translate(521.75, 324)">
+<rect class="basic label-container" style="" x="-113.796875" y="-24" width="227.59375" height="48">
+</rect>
+<g class="label" style="" transform="translate(-97.796875, -12)">
+<rect>
+</rect><foreignObject width="195.59375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>④ 初期化セグメントを取得</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cE-7" data-look="neo" transform="translate(521.75, 412)">
+<rect class="basic label-container" style="" x="-137.078125" y="-24" width="274.15625" height="48">
+</rect>
+<g class="label" style="" transform="translate(-121.078125, -12)">
+<rect>
+</rect><foreignObject width="242.15625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>⑤ メディアセグメントを順に取得</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cF-9" data-look="neo" transform="translate(521.75, 520)">
+<rect class="basic label-container" style="" x="-105.796875" y="-24" width="211.59375" height="48">
+</rect>
+<g class="label" style="" transform="translate(-89.796875, -12)">
+<rect>
+</rect><foreignObject width="179.59375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>⑥ バッファに貯めて再生</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cG-11" data-look="neo" transform="translate(213.35416666666663, 690.0078125)">
+<polygon points="106.0078125,0 212.015625,-106.0078125 106.0078125,-212.015625 0,-106.0078125" class="label-container" transform="translate(-105.5078125, 106.0078125)">
+</polygon>
+<g class="label" style="" transform="translate(-64.0078125, -24)">
+<rect>
+</rect><foreignObject width="128.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>帯域とバッファは<br/>十分か？</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cH-13" data-look="neo" transform="translate(131.84375, 944.015625)">
+<rect class="basic label-container" style="" x="-119.84375" y="-24" width="239.6875" height="48">
+</rect>
+<g class="label" style="" transform="translate(-103.84375, -12)">
+<rect>
+</rect><foreignObject width="207.6875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>より高いビットレートへ切替</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cI-15" data-look="neo" transform="translate(474.69791666666663, 944.015625)">
+<rect class="basic label-container" style="" x="-119.84375" y="-24" width="239.6875" height="48">
+</rect>
+<g class="label" style="" transform="translate(-103.84375, -12)">
+<rect>
+</rect><foreignObject width="207.6875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>より低いビットレートへ切替</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cJ-23" data-look="neo" transform="translate(553.6822916666666, 690.0078125)">
+<polygon points="102,0 204,-102 102,-204 0,-102" class="label-container" transform="translate(-101.5, 102)">
+</polygon>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>MPD の type は<br/>dynamic か？</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-4-flowchart-cK-25" data-look="neo" transform="translate(754.8072916666666, 944.015625)">
+<rect class="basic label-container" style="" x="-120.265625" y="-24" width="240.53125" height="48">
+</rect>
+<g class="label" style="" transform="translate(-104.265625, -12)">
+<rect>
+</rect><foreignObject width="208.53125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>MPD を再取得 / Patch を適用</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="mmd-4-drop-shadow" height="130%" width="130%">
+<feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+<defs>
+<filter id="mmd-4-drop-shadow-small" height="150%" width="150%">
+<feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+</svg>
+</div>
+<h3 id="abr-ロジックは規格の対象外">ABR ロジックは規格の対象外</h3>
+<p><strong>【一般知識】</strong>
+どのタイミングでどの画質に切り替えるか（ABR アルゴリズム）は
+<strong>規格では定められておらず、プレーヤー実装の領域</strong>
+です。規格が定めるのは「選べる選択肢とその取得方法（MPD
+とセグメント）」です。だからこそ、dash.js・Shaka Player
+など各実装で挙動が異なります。</p>
+
+<h2 id="step-9版の歴史第1版第6版">Step 9：版の歴史（第1版〜第6版）</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>版</th>
+<th>年</th>
+<th>補足</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第1版</td>
+<td>2012</td>
+<td>MPEG が 3GPP と協力して初版を策定。現在は Withdrawn（廃止）</td>
+<td>ISO、Bitmovin</td>
+</tr>
+<tr class="even">
+<td>第2版</td>
+<td>2014</td>
+<td>2014年5月と引用されている</td>
+<td>特許公報の引用</td>
+</tr>
+<tr class="odd">
+<td>第3版</td>
+<td>2017年頃</td>
+<td>今回の検索では個別確認できていません</td>
+<td>【一般知識】</td>
+</tr>
+<tr class="even">
+<td>第4版</td>
+<td>2019（12月）</td>
+<td>CSA 規格の注記に「ISO/IEC 23009-1:2019, fourth edition,
+2019-12」とある</td>
+<td>CSA/ANSI</td>
+</tr>
+<tr class="odd">
+<td>第5版</td>
+<td>2022</td>
+<td>第4版への Amendment（Preroll
+等）を統合した版。2023年時点で最新版</td>
+<td>Timmerer 氏</td>
+</tr>
+<tr class="even">
+<td><strong>第6版</strong></td>
+<td><strong>2026（7月）</strong></td>
+<td><strong>本ガイドの対象。375ページ</strong></td>
+<td>ISO</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【根拠あり】</strong> 第5版（ISO/IEC
+23009-1:2022）が最新であった 2023年9月時点で、Timmerer
+氏は次の3つのアメンドメントが進行中であると報告しています。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>Amendment</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AMD 1</td>
+<td>Preroll、非線形再生、その他の拡張</td>
+</tr>
+<tr class="even">
+<td>AMD 2</td>
+<td>EDRAP（Extended Dependent Random Access
+Point）ストリーミングなど</td>
+</tr>
+<tr class="odd">
+<td>AMD 3</td>
+<td>ランダムアクセスと切替のための Segment sequences（ライブの tune-in
+時間短縮が狙い）</td>
+</tr>
+</tbody>
+</table></div>
+<p>また 2024年1月時点で、第6版は
+2024年中の予定とされ、すべてのアメンドメントを含むとは限らない旨も述べられていました（実際の発行は
+2026年7月）。</p>
+<h3 id="第6版に至るまでの流れmpeg-会合ベース">第6版に至るまでの流れ（MPEG
+会合ベース）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>時期</th>
+<th>MPEG 会合</th>
+<th>出来事</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2023年7〜8月</td>
+<td>第143回</td>
+<td>第6版のドラフトテキスト作成が進行</td>
+</tr>
+<tr class="even">
+<td>2024年1月</td>
+<td>第145回</td>
+<td>CMCD の <code>sid</code>/<code>cid</code> を MPD URL
+経由で渡せる、SegmentTimeline
+でのセグメント長パターン、バックグラウンド動作モードなどを採択</td>
+</tr>
+<tr class="odd">
+<td>2024年5月</td>
+<td>第146回</td>
+<td>DIS 段階のテキストの改善案</td>
+</tr>
+<tr class="even">
+<td>2025年1月</td>
+<td>第148〜149回</td>
+<td>第6版が <strong>FDIS（最終国際規格案）</strong> に昇格</td>
+</tr>
+<tr class="odd">
+<td>2025年7月〜2026年5月</td>
+<td>第151〜154回</td>
+<td>第6版に対する AMD 1（メディア認証、CMCD
+拡張など）の作業文書が継続</td>
+</tr>
+<tr class="even">
+<td>2026年7月</td>
+<td>—</td>
+<td>ISO が <strong>第6版を発行</strong>（375ページ）</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="step-10第6版2026の主な強化点">Step
+10：第6版（2026）の主な強化点</h2>
+<p><strong>【根拠あり】</strong> MPEG
+公式の第149回会合プレスリリースが、第6版の主な強化点を次の6点で紹介しています。</p>
+<div aria-label="図5" class="mermaid-diagram" id="mermaid-diagram-5" role="img">
+<svg id="mmd-5" width="494.140625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="624" viewBox="4 4 494.140625 624" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#mmd-5{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#eaf1ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd-5 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd-5 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd-5 .error-icon{fill:#0d1a30;}#mmd-5 .error-text{fill:#f2e5cf;stroke:#f2e5cf;}#mmd-5 .edge-thickness-normal{stroke-width:1px;}#mmd-5 .edge-thickness-thick{stroke-width:3.5px;}#mmd-5 .edge-pattern-solid{stroke-dasharray:0;}#mmd-5 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd-5 .edge-pattern-dashed{stroke-dasharray:3;}#mmd-5 .edge-pattern-dotted{stroke-dasharray:2;}#mmd-5 .marker{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-5 .marker.cross{stroke:#8fb0ff;}#mmd-5 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mmd-5 p{margin:0;}#mmd-5 .label{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:#eaf1ff;}#mmd-5 .cluster-label text{fill:#f2e5cf;}#mmd-5 .cluster-label span{color:#f2e5cf;}#mmd-5 .cluster-label span p{background-color:transparent;}#mmd-5 .label text,#mmd-5 span{fill:#eaf1ff;color:#eaf1ff;}#mmd-5 .node rect,#mmd-5 .node circle,#mmd-5 .node ellipse,#mmd-5 .node polygon,#mmd-5 .node path{fill:#15294a;stroke:#7c9eff;stroke-width:1px;}#mmd-5 .rough-node .label text,#mmd-5 .node .label text,#mmd-5 .image-shape .label,#mmd-5 .icon-shape .label{text-anchor:middle;}#mmd-5 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd-5 .rough-node .label,#mmd-5 .node .label,#mmd-5 .image-shape .label,#mmd-5 .icon-shape .label{text-align:center;}#mmd-5 .node.clickable{cursor:pointer;}#mmd-5 .root .anchor path{fill:#8fb0ff!important;stroke-width:0;stroke:#8fb0ff;}#mmd-5 .arrowheadPath{fill:#f8eee1;}#mmd-5 .edgePaths .path{stroke:#8fb0ff;stroke-width:1px;}#mmd-5 .flowchart-link{stroke:#8fb0ff;fill:none;}#mmd-5 .edgeLabel{background-color:#0d1a30;text-align:center;}#mmd-5 .edgeLabel p{background-color:#0d1a30;}#mmd-5 .edgeLabel rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-5 .labelBkg{background-color:rgba(13, 26, 48, 0.5);}#mmd-5 .cluster rect{fill:#0d1a30;stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:1px;}#mmd-5 .cluster text{fill:#f2e5cf;}#mmd-5 .cluster span{color:#f2e5cf;}#mmd-5 .node .collapsed-indicator{fill:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke:none;opacity:0.6;}#mmd-5 .node .collapsed-separator{stroke:hsl(217.7142857143, 17.3770491803%, 1.9607843137%);stroke-width:0.75px;}#mmd-5 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:12px;background:#0d1a30;border:1px solid hsl(217.7142857143, 17.3770491803%, 1.9607843137%);border-radius:2px;pointer-events:none;z-index:100;}#mmd-5 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#eaf1ff;}#mmd-5 rect.text{fill:none;stroke-width:0;}#mmd-5 .icon-shape,#mmd-5 .image-shape{background-color:#0d1a30;text-align:center;}#mmd-5 .icon-shape p,#mmd-5 .image-shape p{background-color:#0d1a30;padding:2px;}#mmd-5 .icon-shape .label rect,#mmd-5 .image-shape .label rect{opacity:0.5;background-color:#0d1a30;fill:#0d1a30;}#mmd-5 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd-5 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd-5 .node .neo-node{stroke:#7c9eff;}#mmd-5 [data-look="neo"].node rect,#mmd-5 [data-look="neo"].cluster rect,#mmd-5 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-5 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd-5 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mmd-5 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-5 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd-5 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-5 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd-5 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-5 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-5 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+<marker id="mmd-5_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-5_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-5_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto">
+<path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-5_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto">
+<polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</polygon>
+</marker>
+<marker id="mmd-5_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-5_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-5_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-5_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+<circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;">
+</circle>
+</marker>
+<marker id="mmd-5_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-5_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+<path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<marker id="mmd-5_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;">
+</path>
+</marker>
+<marker id="mmd-5_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+<path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;">
+</path>
+</marker>
+<g class="root">
+<g class="clusters">
+</g>
+<g class="edges edgePaths">
+<path d="M202.765625,309.42857142857144L215.69455718813452,309.42857142857144Q222.765625,309.42857142857144 222.765625,302.35750361670597L222.765625,55.071067811865476Q222.765625,48 229.83669281186548,48L278.765625,48" id="mmd-5-L_eHub_e1_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 328.1002502441406 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_eHub_e1_0" data-points="W3sieCI6MjAyLjc2NTYyNSwieSI6MzA5LjQyODU3MTQyODU3MTQ0fSx7IngiOjIyMi43NjU2MjUsInkiOjMwOS40Mjg1NzE0Mjg1NzE0NH0seyJ4IjoyMjIuNzY1NjI1LCJ5Ijo0OH0seyJ4IjoyODIuNzY1NjI1LCJ5Ijo0OH1d" data-look="neo" marker-end="url(#mmd-5_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M202.765625,316.8571428571429L235.69455718813452,316.8571428571429Q242.765625,316.8571428571429 242.765625,309.7860750452774L242.765625,167.07106781186548Q242.765625,160 249.83669281186548,160L278.765625,160" id="mmd-5-L_eHub_e2_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 223.5288543701172 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_eHub_e2_0" data-points="W3sieCI6MjAyLjc2NTYyNSwieSI6MzE2Ljg1NzE0Mjg1NzE0Mjl9LHsieCI6MjQyLjc2NTYyNSwieSI6MzE2Ljg1NzE0Mjg1NzE0Mjl9LHsieCI6MjQyLjc2NTYyNSwieSI6MTYwfSx7IngiOjI4Mi43NjU2MjUsInkiOjE2MH1d" data-look="neo" marker-end="url(#mmd-5_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M202.765625,324.2857142857143L255.69455718813452,324.2857142857143Q262.765625,324.2857142857143 262.765625,317.2146464738488L262.765625,279.0710678118655Q262.765625,272 269.8366928118655,272L278.765625,272" id="mmd-5-L_eHub_e3_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 118.95742797851562 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_eHub_e3_0" data-points="W3sieCI6MjAyLjc2NTYyNSwieSI6MzI0LjI4NTcxNDI4NTcxNDN9LHsieCI6MjYyLjc2NTYyNSwieSI6MzI0LjI4NTcxNDI4NTcxNDN9LHsieCI6MjYyLjc2NTYyNSwieSI6MjcyfSx7IngiOjI4Mi43NjU2MjUsInkiOjI3Mn1d" data-look="neo" marker-end="url(#mmd-5_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M202.765625,331.7142857142857L255.69455718813452,331.7142857142857Q262.765625,331.7142857142857 262.765625,338.7853535261512L262.765625,376.9289321881345Q262.765625,384 269.8366928118655,384L278.765625,384" id="mmd-5-L_eHub_e4_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 118.9574203491211 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_eHub_e4_0" data-points="W3sieCI6MjAyLjc2NTYyNSwieSI6MzMxLjcxNDI4NTcxNDI4NTd9LHsieCI6MjYyLjc2NTYyNSwieSI6MzMxLjcxNDI4NTcxNDI4NTd9LHsieCI6MjYyLjc2NTYyNSwieSI6Mzg0fSx7IngiOjI4Mi43NjU2MjUsInkiOjM4NH1d" data-look="neo" marker-end="url(#mmd-5_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M202.765625,339.14285714285717L235.69455718813452,339.14285714285717Q242.765625,339.14285714285717 242.765625,346.21392495472264L242.765625,488.9289321881345Q242.765625,496 249.83669281186548,496L278.765625,496" id="mmd-5-L_eHub_e5_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 223.5288543701172 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_eHub_e5_0" data-points="W3sieCI6MjAyLjc2NTYyNSwieSI6MzM5LjE0Mjg1NzE0Mjg1NzE3fSx7IngiOjI0Mi43NjU2MjUsInkiOjMzOS4xNDI4NTcxNDI4NTcxN30seyJ4IjoyNDIuNzY1NjI1LCJ5Ijo0OTZ9LHsieCI6MjgyLjc2NTYyNSwieSI6NDk2fV0=" data-look="neo" marker-end="url(#mmd-5_flowchart-v2-pointEnd-margin)">
+</path>
+<path d="M202.765625,346.57142857142856L215.69455718813452,346.57142857142856Q222.765625,346.57142857142856 222.765625,353.64249638329403L222.765625,588.9289321881345Q222.765625,596 229.83669281186548,596L278.765625,596" id="mmd-5-L_eHub_e6_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style="stroke-dasharray: 0 0 316.1003112792969 4; stroke-dashoffset: 0;;" data-edge="true" data-et="edge" data-id="L_eHub_e6_0" data-points="W3sieCI6MjAyLjc2NTYyNSwieSI6MzQ2LjU3MTQyODU3MTQyODU2fSx7IngiOjIyMi43NjU2MjUsInkiOjM0Ni41NzE0Mjg1NzE0Mjg1Nn0seyJ4IjoyMjIuNzY1NjI1LCJ5Ijo1OTZ9LHsieCI6MjgyLjc2NTYyNSwieSI6NTk2fV0=" data-look="neo" marker-end="url(#mmd-5_flowchart-v2-pointEnd-margin)">
+</path>
+</g>
+<g class="edgeLabels">
+</g>
+<g class="nodes">
+<g class="node default  " id="mmd-5-flowchart-eHub-0" data-look="neo" transform="translate(107.3828125, 328)">
+<rect class="basic label-container" style="" x="-95.3828125" y="-36" width="190.765625" height="72">
+</rect>
+<g class="label" style="" transform="translate(-79.3828125, -24)">
+<rect>
+</rect><foreignObject width="158.765625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>ISO/IEC 23009-1:2026<br/>第6版の主な強化点</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-5-flowchart-e1-2" data-look="neo" transform="translate(370.609375, 48)">
+<rect class="basic label-container" style="" x="-87.84375" y="-36" width="175.6875" height="72">
+</rect>
+<g class="label" style="" transform="translate(-71.84375, -24)">
+<rect>
+</rect><foreignObject width="143.6875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>代替メディア<br/>プレゼンテーション</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-5-flowchart-e2-4" data-look="neo" transform="translate(358.765625, 160)">
+<rect class="basic label-container" style="" x="-76" y="-36" width="152" height="72">
+</rect>
+<g class="label" style="" transform="translate(-60, -24)">
+<rect>
+</rect><foreignObject width="120" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>コンテンツ<br/>ステアリング</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-5-flowchart-e3-6" data-look="neo" transform="translate(378.3671875, 272)">
+<rect class="basic label-container" style="" x="-95.6015625" y="-36" width="191.203125" height="72">
+</rect>
+<g class="label" style="" transform="translate(-79.6015625, -24)">
+<rect>
+</rect><foreignObject width="159.203125" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>セグメントシーケンス<br/>アドレッシング</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-5-flowchart-e4-8" data-look="neo" transform="translate(378.7734375, 384)">
+<rect class="basic label-container" style="" x="-96.0078125" y="-36" width="192.015625" height="72">
+</rect>
+<g class="label" style="" transform="translate(-80.0078125, -24)">
+<rect>
+</rect><foreignObject width="160.015625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>パターンによる<br/>コンパクトな長さ表現</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-5-flowchart-e5-10" data-look="neo" transform="translate(386.453125, 496)">
+<rect class="basic label-container" style="" x="-103.6875" y="-36" width="207.375" height="72">
+</rect>
+<g class="label" style="" transform="translate(-87.6875, -24)">
+<rect>
+</rect><foreignObject width="175.375" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center;"><span class="nodeLabel "><p>CMCD<br/>（クライアントデータ）</p></span></div></foreignObject></g>
+</g>
+<g class="node default  " id="mmd-5-flowchart-e6-12" data-look="neo" transform="translate(358.765625, 596)">
+<rect class="basic label-container" style="" x="-76" y="-24" width="152" height="48">
+</rect>
+<g class="label" style="" transform="translate(-60, -12)">
+<rect>
+</rect><foreignObject width="120" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: nowrap; line-height: 1.5; max-width: 380px; text-align: center; width: 120px;"><span class="nodeLabel "><p>非線形再生</p></span></div></foreignObject></g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="mmd-5-drop-shadow" height="130%" width="130%">
+<feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+<defs>
+<filter id="mmd-5-drop-shadow-small" height="150%" width="150%">
+<feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000">
+</feDropShadow>
+</filter>
+</defs>
+</svg>
+</div>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>強化点</th>
+<th>何が嬉しいか（公式の説明）</th>
+<th>初学者向けの補足【筆者の解釈】</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>代替メディアプレゼンテーション</strong></td>
+<td>メインのストリームと代替ストリームの間をシームレスに切り替えられる</td>
+<td>広告・差し替え素材・別アングルなどへの切替に使われる発想</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>コンテンツステアリング</strong></td>
+<td>複数の CDN をまたぐ配信を最適化するためのシグナリング</td>
+<td>「どの CDN から取るか」を配信側が誘導できる</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>セグメントシーケンスのアドレッシング強化</strong></td>
+<td>低遅延配信と高速な tune-in（視聴開始）を改善</td>
+<td>ライブで再生開始までの待ち時間を短縮</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>パターンによるコンパクトな長さ表現</strong></td>
+<td>MPD のオーバーヘッドを削減</td>
+<td>セグメント長が規則的なら「パターン」で短く書ける</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>CMCD（Common Media Client Data）対応</strong></td>
+<td>クライアント側の分析（アナリティクス）を改善</td>
+<td>プレーヤーの状態を CDN などへ伝える標準的な仕組み</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>非線形再生</strong></td>
+<td>インタラクティブなストーリーラインなど次世代のメディア体験に対応</td>
+<td>分岐するストーリー、選択型コンテンツなど</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="追加で確認できた採択内容第145回会合2024年1月">追加で確認できた採択内容（第145回会合・2024年1月）</h3>
+<p><strong>【根拠あり】</strong> Timmerer
+氏の会合レポートによると、後に第6版となる ISO/IEC 23009-1
+に次の内容が採択されました。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>内容</th>
+<th>概要</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CMCD の <code>sid</code> / <code>cid</code> を MPD URL で渡せる</td>
+<td>セッション ID・コンテンツ ID を MPD の取得 URL 経由で扱える</td>
+</tr>
+<tr class="even">
+<td>SegmentTimeline でのセグメント長パターン</td>
+<td>長さの繰り返しパターンを簡潔に記述</td>
+</tr>
+<tr class="odd">
+<td><strong>バックグラウンド動作モード</strong></td>
+<td>プレーヤーが、メディアの復号や描画をせずに MPD
+更新の受信とイベントのリスニングだけを行える</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="コンテンツステアリングの動き概念図">コンテンツステアリングの動き（概念図）</h3>
+<p><strong>【根拠あり】</strong> DASH-IF
+のコンテンツステアリング仕様では、外部の「制御サーバー」が、再生開始時と再生中の両方で、プレーヤーが使う
+CDN を切り替えられます。Silhavy 氏・Pham 氏・Giladi 氏・Balk 氏・Begen
+氏・Law 氏らの SMPTE 論文（dash.js
+での実装）がこの仕組みを解説しています。下図は、その考え方を学習用に単純化したものです【筆者による単純化】。</p>
+<div aria-label="図6" class="mermaid-diagram" id="mermaid-diagram-6" role="img">
+<svg id="mmd-6" width="942" xmlns="http://www.w3.org/2000/svg" height="569" viewBox="-50 -10 942 599" role="graphics-document document" aria-roledescription="sequence">
+<g>
+<rect x="692" y="475" fill="#eaeaea" stroke="#666" width="150" height="73" name="B" rx="6" ry="6" class="actor actor-bottom" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="767" y="511.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="767" dy="0">CDN B</tspan>
+</text>
+</g>
+<g>
+<rect x="482" y="475" fill="#eaeaea" stroke="#666" width="150" height="73" name="A" rx="6" ry="6" class="actor actor-bottom" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="557" y="511.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="557" dy="0">CDN A</tspan>
+</text>
+</g>
+<g>
+<rect x="272" y="475" fill="#eaeaea" stroke="#666" width="150" height="73" name="S" rx="6" ry="6" class="actor actor-bottom" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="347" y="511.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="347" dy="0">制御サーバー</tspan>
+</text>
+</g>
+<g>
+<rect x="0" y="475" fill="#eaeaea" stroke="#666" width="150" height="73" name="P" rx="6" ry="6" class="actor actor-bottom" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="75" y="511.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="75" dy="0">DASHプレーヤー</tspan>
+</text>
+</g>
+<g>
+<line id="actor3" x1="767" y1="73" x2="767" y2="475" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="B" data-et="life-line" data-id="B">
+</line>
+<g id="root-3" data-look="neo" data-et="participant" data-type="participant" data-id="B">
+<rect x="692" y="0" fill="#eaeaea" stroke="#666" width="150" height="73" name="B" rx="6" ry="6" class="actor actor-top" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="767" y="36.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="767" dy="0">CDN B</tspan>
+</text>
+</g>
+</g>
+<g>
+<line id="actor2" x1="557" y1="73" x2="557" y2="475" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="A" data-et="life-line" data-id="A">
+</line>
+<g id="root-2" data-look="neo" data-et="participant" data-type="participant" data-id="A">
+<rect x="482" y="0" fill="#eaeaea" stroke="#666" width="150" height="73" name="A" rx="6" ry="6" class="actor actor-top" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="557" y="36.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="557" dy="0">CDN A</tspan>
+</text>
+</g>
+</g>
+<g>
+<line id="actor1" x1="347" y1="73" x2="347" y2="475" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="S" data-et="life-line" data-id="S">
+</line>
+<g id="root-1" data-look="neo" data-et="participant" data-type="participant" data-id="S">
+<rect x="272" y="0" fill="#eaeaea" stroke="#666" width="150" height="73" name="S" rx="6" ry="6" class="actor actor-top" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="347" y="36.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="347" dy="0">制御サーバー</tspan>
+</text>
+</g>
+</g>
+<g>
+<line id="actor0" x1="75" y1="73" x2="75" y2="475" class="actor-line 200" stroke-width="0.5px" stroke="#999" name="P" data-et="life-line" data-id="P">
+</line>
+<g id="root-0" data-look="neo" data-et="participant" data-type="participant" data-id="P">
+<rect x="0" y="0" fill="#eaeaea" stroke="#666" width="150" height="73" name="P" rx="6" ry="6" class="actor actor-top" data-look="neo" filter="url(#mmd-6-drop-shadow)">
+</rect>
+<text x="75" y="36.5" dominant-baseline="central" alignment-baseline="central" class="actor actor-box" style="text-anchor: middle; font-size: 16px; font-weight: 400;">
+<tspan x="75" dy="0">DASHプレーヤー</tspan>
+</text>
+</g>
+</g>
+<style>#mmd-6{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;fill:#eaf1ff;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd-6 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd-6 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd-6 .error-icon{fill:#0d1a30;}#mmd-6 .error-text{fill:#f2e5cf;stroke:#f2e5cf;}#mmd-6 .edge-thickness-normal{stroke-width:1px;}#mmd-6 .edge-thickness-thick{stroke-width:3.5px;}#mmd-6 .edge-pattern-solid{stroke-dasharray:0;}#mmd-6 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd-6 .edge-pattern-dashed{stroke-dasharray:3;}#mmd-6 .edge-pattern-dotted{stroke-dasharray:2;}#mmd-6 .marker{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-6 .marker.cross{stroke:#8fb0ff;}#mmd-6 svg{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:16px;}#mmd-6 p{margin:0;}#mmd-6 .actor{stroke:#7c9eff;fill:#15294a;stroke-width:1;}#mmd-6 rect.actor.outer-path[data-look="neo"]{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 rect.note[data-look="neo"]{stroke:#d9a93a;fill:#3a2f12;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 text.actor>tspan{fill:#eaf1ff;stroke:none;}#mmd-6 .actor-line{stroke:#5f7fcf;}#mmd-6 .innerArc{stroke-width:1.5;stroke-dasharray:none;}#mmd-6 .messageLine0{stroke-width:1.5;stroke-dasharray:none;stroke:#8fb0ff;}#mmd-6 .messageLine1{stroke-width:1.5;stroke-dasharray:2,2;stroke:#8fb0ff;}#mmd-6 [id$="-arrowhead"] path{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-6 .sequenceNumber{fill:#704f00;}#mmd-6 [id$="-sequencenumber"]{fill:#8fb0ff;}#mmd-6 [id$="-crosshead"] path{fill:#8fb0ff;stroke:#8fb0ff;}#mmd-6 .messageText{fill:#eaf1ff;stroke:none;}#mmd-6 .labelBox{stroke:#7c9eff;fill:#15294a;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 .labelText,#mmd-6 .labelText>tspan{fill:#eaf1ff;stroke:none;}#mmd-6 .loopText,#mmd-6 .loopText>tspan{fill:#eaf1ff;stroke:none;}#mmd-6 .sectionTitle,#mmd-6 .sectionTitle>tspan{fill:#eaf1ff;stroke:none;}#mmd-6 .loopLine{stroke-width:2px;stroke-dasharray:2,2;stroke:#7c9eff;fill:#7c9eff;}#mmd-6 .note{stroke:#d9a93a;fill:#3a2f12;}#mmd-6 .noteText,#mmd-6 .noteText>tspan{fill:#ffe9a8;stroke:none;}#mmd-6 .activation0{fill:#10213b;stroke:hsl(216.2790697674, 57.3333333333%, 4.7058823529%);}#mmd-6 .activation1{fill:#10213b;stroke:hsl(216.2790697674, 57.3333333333%, 4.7058823529%);}#mmd-6 .activation2{fill:#10213b;stroke:hsl(216.2790697674, 57.3333333333%, 4.7058823529%);}#mmd-6 .actorPopupMenu{position:absolute;}#mmd-6 .actorPopupMenuPanel{position:absolute;fill:#15294a;box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);filter:drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));}#mmd-6 .actor-man circle,#mmd-6 line{fill:#15294a;stroke-width:2px;}#mmd-6 g rect.rect{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));stroke:#7c9eff;}#mmd-6 .node .neo-node{stroke:#7c9eff;}#mmd-6 [data-look="neo"].node rect,#mmd-6 [data-look="neo"].cluster rect,#mmd-6 [data-look="neo"].node polygon{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd-6 [data-look="neo"].node path{stroke:#7c9eff;stroke-width:1px;}#mmd-6 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd-6 [data-look="neo"].node circle{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd-6 [data-look="neo"].icon-shape .icon{fill:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 [data-look="neo"].icon-shape .icon-neo path{stroke:#7c9eff;filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd-6 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g>
+</g>
+<defs>
+<symbol id="mmd-6-computer" width="24" height="24">
+<path transform="scale(.5)" d="M2 2v13h20v-13h-20zm18 11h-16v-9h16v9zm-10.228 6l.466-1h3.524l.467 1h-4.457zm14.228 3h-24l2-6h2.104l-1.33 4h18.45l-1.297-4h2.073l2 6zm-5-10h-14v-7h14v7z">
+</path>
+</symbol>
+</defs>
+<defs>
+<symbol id="mmd-6-database" fill-rule="evenodd" clip-rule="evenodd">
+<path transform="scale(.5)" d="M12.258.001l.256.004.255.005.253.008.251.01.249.012.247.015.246.016.242.019.241.02.239.023.236.024.233.027.231.028.229.031.225.032.223.034.22.036.217.038.214.04.211.041.208.043.205.045.201.046.198.048.194.05.191.051.187.053.183.054.18.056.175.057.172.059.168.06.163.061.16.063.155.064.15.066.074.033.073.033.071.034.07.034.069.035.068.035.067.035.066.035.064.036.064.036.062.036.06.036.06.037.058.037.058.037.055.038.055.038.053.038.052.038.051.039.05.039.048.039.047.039.045.04.044.04.043.04.041.04.04.041.039.041.037.041.036.041.034.041.033.042.032.042.03.042.029.042.027.042.026.043.024.043.023.043.021.043.02.043.018.044.017.043.015.044.013.044.012.044.011.045.009.044.007.045.006.045.004.045.002.045.001.045v17l-.001.045-.002.045-.004.045-.006.045-.007.045-.009.044-.011.045-.012.044-.013.044-.015.044-.017.043-.018.044-.02.043-.021.043-.023.043-.024.043-.026.043-.027.042-.029.042-.03.042-.032.042-.033.042-.034.041-.036.041-.037.041-.039.041-.04.041-.041.04-.043.04-.044.04-.045.04-.047.039-.048.039-.05.039-.051.039-.052.038-.053.038-.055.038-.055.038-.058.037-.058.037-.06.037-.06.036-.062.036-.064.036-.064.036-.066.035-.067.035-.068.035-.069.035-.07.034-.071.034-.073.033-.074.033-.15.066-.155.064-.16.063-.163.061-.168.06-.172.059-.175.057-.18.056-.183.054-.187.053-.191.051-.194.05-.198.048-.201.046-.205.045-.208.043-.211.041-.214.04-.217.038-.22.036-.223.034-.225.032-.229.031-.231.028-.233.027-.236.024-.239.023-.241.02-.242.019-.246.016-.247.015-.249.012-.251.01-.253.008-.255.005-.256.004-.258.001-.258-.001-.256-.004-.255-.005-.253-.008-.251-.01-.249-.012-.247-.015-.245-.016-.243-.019-.241-.02-.238-.023-.236-.024-.234-.027-.231-.028-.228-.031-.226-.032-.223-.034-.22-.036-.217-.038-.214-.04-.211-.041-.208-.043-.204-.045-.201-.046-.198-.048-.195-.05-.19-.051-.187-.053-.184-.054-.179-.056-.176-.057-.172-.059-.167-.06-.164-.061-.159-.063-.155-.064-.151-.066-.074-.033-.072-.033-.072-.034-.07-.034-.069-.035-.068-.035-.067-.035-.066-.035-.064-.036-.063-.036-.062-.036-.061-.036-.06-.037-.058-.037-.057-.037-.056-.038-.055-.038-.053-.038-.052-.038-.051-.039-.049-.039-.049-.039-.046-.039-.046-.04-.044-.04-.043-.04-.041-.04-.04-.041-.039-.041-.037-.041-.036-.041-.034-.041-.033-.042-.032-.042-.03-.042-.029-.042-.027-.042-.026-.043-.024-.043-.023-.043-.021-.043-.02-.043-.018-.044-.017-.043-.015-.044-.013-.044-.012-.044-.011-.045-.009-.044-.007-.045-.006-.045-.004-.045-.002-.045-.001-.045v-17l.001-.045.002-.045.004-.045.006-.045.007-.045.009-.044.011-.045.012-.044.013-.044.015-.044.017-.043.018-.044.02-.043.021-.043.023-.043.024-.043.026-.043.027-.042.029-.042.03-.042.032-.042.033-.042.034-.041.036-.041.037-.041.039-.041.04-.041.041-.04.043-.04.044-.04.046-.04.046-.039.049-.039.049-.039.051-.039.052-.038.053-.038.055-.038.056-.038.057-.037.058-.037.06-.037.061-.036.062-.036.063-.036.064-.036.066-.035.067-.035.068-.035.069-.035.07-.034.072-.034.072-.033.074-.033.151-.066.155-.064.159-.063.164-.061.167-.06.172-.059.176-.057.179-.056.184-.054.187-.053.19-.051.195-.05.198-.048.201-.046.204-.045.208-.043.211-.041.214-.04.217-.038.22-.036.223-.034.226-.032.228-.031.231-.028.234-.027.236-.024.238-.023.241-.02.243-.019.245-.016.247-.015.249-.012.251-.01.253-.008.255-.005.256-.004.258-.001.258.001zm-9.258 20.499v.01l.001.021.003.021.004.022.005.021.006.022.007.022.009.023.01.022.011.023.012.023.013.023.015.023.016.024.017.023.018.024.019.024.021.024.022.025.023.024.024.025.052.049.056.05.061.051.066.051.07.051.075.051.079.052.084.052.088.052.092.052.097.052.102.051.105.052.11.052.114.051.119.051.123.051.127.05.131.05.135.05.139.048.144.049.147.047.152.047.155.047.16.045.163.045.167.043.171.043.176.041.178.041.183.039.187.039.19.037.194.035.197.035.202.033.204.031.209.03.212.029.216.027.219.025.222.024.226.021.23.02.233.018.236.016.24.015.243.012.246.01.249.008.253.005.256.004.259.001.26-.001.257-.004.254-.005.25-.008.247-.011.244-.012.241-.014.237-.016.233-.018.231-.021.226-.021.224-.024.22-.026.216-.027.212-.028.21-.031.205-.031.202-.034.198-.034.194-.036.191-.037.187-.039.183-.04.179-.04.175-.042.172-.043.168-.044.163-.045.16-.046.155-.046.152-.047.148-.048.143-.049.139-.049.136-.05.131-.05.126-.05.123-.051.118-.052.114-.051.11-.052.106-.052.101-.052.096-.052.092-.052.088-.053.083-.051.079-.052.074-.052.07-.051.065-.051.06-.051.056-.05.051-.05.023-.024.023-.025.021-.024.02-.024.019-.024.018-.024.017-.024.015-.023.014-.024.013-.023.012-.023.01-.023.01-.022.008-.022.006-.022.006-.022.004-.022.004-.021.001-.021.001-.021v-4.127l-.077.055-.08.053-.083.054-.085.053-.087.052-.09.052-.093.051-.095.05-.097.05-.1.049-.102.049-.105.048-.106.047-.109.047-.111.046-.114.045-.115.045-.118.044-.12.043-.122.042-.124.042-.126.041-.128.04-.13.04-.132.038-.134.038-.135.037-.138.037-.139.035-.142.035-.143.034-.144.033-.147.032-.148.031-.15.03-.151.03-.153.029-.154.027-.156.027-.158.026-.159.025-.161.024-.162.023-.163.022-.165.021-.166.02-.167.019-.169.018-.169.017-.171.016-.173.015-.173.014-.175.013-.175.012-.177.011-.178.01-.179.008-.179.008-.181.006-.182.005-.182.004-.184.003-.184.002h-.37l-.184-.002-.184-.003-.182-.004-.182-.005-.181-.006-.179-.008-.179-.008-.178-.01-.176-.011-.176-.012-.175-.013-.173-.014-.172-.015-.171-.016-.17-.017-.169-.018-.167-.019-.166-.02-.165-.021-.163-.022-.162-.023-.161-.024-.159-.025-.157-.026-.156-.027-.155-.027-.153-.029-.151-.03-.15-.03-.148-.031-.146-.032-.145-.033-.143-.034-.141-.035-.14-.035-.137-.037-.136-.037-.134-.038-.132-.038-.13-.04-.128-.04-.126-.041-.124-.042-.122-.042-.12-.044-.117-.043-.116-.045-.113-.045-.112-.046-.109-.047-.106-.047-.105-.048-.102-.049-.1-.049-.097-.05-.095-.05-.093-.052-.09-.051-.087-.052-.085-.053-.083-.054-.08-.054-.077-.054v4.127zm0-5.654v.011l.001.021.003.021.004.021.005.022.006.022.007.022.009.022.01.022.011.023.012.023.013.023.015.024.016.023.017.024.018.024.019.024.021.024.022.024.023.025.024.024.052.05.056.05.061.05.066.051.07.051.075.052.079.051.084.052.088.052.092.052.097.052.102.052.105.052.11.051.114.051.119.052.123.05.127.051.131.05.135.049.139.049.144.048.147.048.152.047.155.046.16.045.163.045.167.044.171.042.176.042.178.04.183.04.187.038.19.037.194.036.197.034.202.033.204.032.209.03.212.028.216.027.219.025.222.024.226.022.23.02.233.018.236.016.24.014.243.012.246.01.249.008.253.006.256.003.259.001.26-.001.257-.003.254-.006.25-.008.247-.01.244-.012.241-.015.237-.016.233-.018.231-.02.226-.022.224-.024.22-.025.216-.027.212-.029.21-.03.205-.032.202-.033.198-.035.194-.036.191-.037.187-.039.183-.039.179-.041.175-.042.172-.043.168-.044.163-.045.16-.045.155-.047.152-.047.148-.048.143-.048.139-.05.136-.049.131-.05.126-.051.123-.051.118-.051.114-.052.11-.052.106-.052.101-.052.096-.052.092-.052.088-.052.083-.052.079-.052.074-.051.07-.052.065-.051.06-.05.056-.051.051-.049.023-.025.023-.024.021-.025.02-.024.019-.024.018-.024.017-.024.015-.023.014-.023.013-.024.012-.022.01-.023.01-.023.008-.022.006-.022.006-.022.004-.021.004-.022.001-.021.001-.021v-4.139l-.077.054-.08.054-.083.054-.085.052-.087.053-.09.051-.093.051-.095.051-.097.05-.1.049-.102.049-.105.048-.106.047-.109.047-.111.046-.114.045-.115.044-.118.044-.12.044-.122.042-.124.042-.126.041-.128.04-.13.039-.132.039-.134.038-.135.037-.138.036-.139.036-.142.035-.143.033-.144.033-.147.033-.148.031-.15.03-.151.03-.153.028-.154.028-.156.027-.158.026-.159.025-.161.024-.162.023-.163.022-.165.021-.166.02-.167.019-.169.018-.169.017-.171.016-.173.015-.173.014-.175.013-.175.012-.177.011-.178.009-.179.009-.179.007-.181.007-.182.005-.182.004-.184.003-.184.002h-.37l-.184-.002-.184-.003-.182-.004-.182-.005-.181-.007-.179-.007-.179-.009-.178-.009-.176-.011-.176-.012-.175-.013-.173-.014-.172-.015-.171-.016-.17-.017-.169-.018-.167-.019-.166-.02-.165-.021-.163-.022-.162-.023-.161-.024-.159-.025-.157-.026-.156-.027-.155-.028-.153-.028-.151-.03-.15-.03-.148-.031-.146-.033-.145-.033-.143-.033-.141-.035-.14-.036-.137-.036-.136-.037-.134-.038-.132-.039-.13-.039-.128-.04-.126-.041-.124-.042-.122-.043-.12-.043-.117-.044-.116-.044-.113-.046-.112-.046-.109-.046-.106-.047-.105-.048-.102-.049-.1-.049-.097-.05-.095-.051-.093-.051-.09-.051-.087-.053-.085-.052-.083-.054-.08-.054-.077-.054v4.139zm0-5.666v.011l.001.02.003.022.004.021.005.022.006.021.007.022.009.023.01.022.011.023.012.023.013.023.015.023.016.024.017.024.018.023.019.024.021.025.022.024.023.024.024.025.052.05.056.05.061.05.066.051.07.051.075.052.079.051.084.052.088.052.092.052.097.052.102.052.105.051.11.052.114.051.119.051.123.051.127.05.131.05.135.05.139.049.144.048.147.048.152.047.155.046.16.045.163.045.167.043.171.043.176.042.178.04.183.04.187.038.19.037.194.036.197.034.202.033.204.032.209.03.212.028.216.027.219.025.222.024.226.021.23.02.233.018.236.017.24.014.243.012.246.01.249.008.253.006.256.003.259.001.26-.001.257-.003.254-.006.25-.008.247-.01.244-.013.241-.014.237-.016.233-.018.231-.02.226-.022.224-.024.22-.025.216-.027.212-.029.21-.03.205-.032.202-.033.198-.035.194-.036.191-.037.187-.039.183-.039.179-.041.175-.042.172-.043.168-.044.163-.045.16-.045.155-.047.152-.047.148-.048.143-.049.139-.049.136-.049.131-.051.126-.05.123-.051.118-.052.114-.051.11-.052.106-.052.101-.052.096-.052.092-.052.088-.052.083-.052.079-.052.074-.052.07-.051.065-.051.06-.051.056-.05.051-.049.023-.025.023-.025.021-.024.02-.024.019-.024.018-.024.017-.024.015-.023.014-.024.013-.023.012-.023.01-.022.01-.023.008-.022.006-.022.006-.022.004-.022.004-.021.001-.021.001-.021v-4.153l-.077.054-.08.054-.083.053-.085.053-.087.053-.09.051-.093.051-.095.051-.097.05-.1.049-.102.048-.105.048-.106.048-.109.046-.111.046-.114.046-.115.044-.118.044-.12.043-.122.043-.124.042-.126.041-.128.04-.13.039-.132.039-.134.038-.135.037-.138.036-.139.036-.142.034-.143.034-.144.033-.147.032-.148.032-.15.03-.151.03-.153.028-.154.028-.156.027-.158.026-.159.024-.161.024-.162.023-.163.023-.165.021-.166.02-.167.019-.169.018-.169.017-.171.016-.173.015-.173.014-.175.013-.175.012-.177.01-.178.01-.179.009-.179.007-.181.006-.182.006-.182.004-.184.003-.184.001-.185.001-.185-.001-.184-.001-.184-.003-.182-.004-.182-.006-.181-.006-.179-.007-.179-.009-.178-.01-.176-.01-.176-.012-.175-.013-.173-.014-.172-.015-.171-.016-.17-.017-.169-.018-.167-.019-.166-.02-.165-.021-.163-.023-.162-.023-.161-.024-.159-.024-.157-.026-.156-.027-.155-.028-.153-.028-.151-.03-.15-.03-.148-.032-.146-.032-.145-.033-.143-.034-.141-.034-.14-.036-.137-.036-.136-.037-.134-.038-.132-.039-.13-.039-.128-.041-.126-.041-.124-.041-.122-.043-.12-.043-.117-.044-.116-.044-.113-.046-.112-.046-.109-.046-.106-.048-.105-.048-.102-.048-.1-.05-.097-.049-.095-.051-.093-.051-.09-.052-.087-.052-.085-.053-.083-.053-.08-.054-.077-.054v4.153zm8.74-8.179l-.257.004-.254.005-.25.008-.247.011-.244.012-.241.014-.237.016-.233.018-.231.021-.226.022-.224.023-.22.026-.216.027-.212.028-.21.031-.205.032-.202.033-.198.034-.194.036-.191.038-.187.038-.183.04-.179.041-.175.042-.172.043-.168.043-.163.045-.16.046-.155.046-.152.048-.148.048-.143.048-.139.049-.136.05-.131.05-.126.051-.123.051-.118.051-.114.052-.11.052-.106.052-.101.052-.096.052-.092.052-.088.052-.083.052-.079.052-.074.051-.07.052-.065.051-.06.05-.056.05-.051.05-.023.025-.023.024-.021.024-.02.025-.019.024-.018.024-.017.023-.015.024-.014.023-.013.023-.012.023-.01.023-.01.022-.008.022-.006.023-.006.021-.004.022-.004.021-.001.021-.001.021.001.021.001.021.004.021.004.022.006.021.006.023.008.022.01.022.01.023.012.023.013.023.014.023.015.024.017.023.018.024.019.024.02.025.021.024.023.024.023.025.051.05.056.05.06.05.065.051.07.052.074.051.079.052.083.052.088.052.092.052.096.052.101.052.106.052.11.052.114.052.118.051.123.051.126.051.131.05.136.05.139.049.143.048.148.048.152.048.155.046.16.046.163.045.168.043.172.043.175.042.179.041.183.04.187.038.191.038.194.036.198.034.202.033.205.032.21.031.212.028.216.027.22.026.224.023.226.022.231.021.233.018.237.016.241.014.244.012.247.011.25.008.254.005.257.004.26.001.26-.001.257-.004.254-.005.25-.008.247-.011.244-.012.241-.014.237-.016.233-.018.231-.021.226-.022.224-.023.22-.026.216-.027.212-.028.21-.031.205-.032.202-.033.198-.034.194-.036.191-.038.187-.038.183-.04.179-.041.175-.042.172-.043.168-.043.163-.045.16-.046.155-.046.152-.048.148-.048.143-.048.139-.049.136-.05.131-.05.126-.051.123-.051.118-.051.114-.052.11-.052.106-.052.101-.052.096-.052.092-.052.088-.052.083-.052.079-.052.074-.051.07-.052.065-.051.06-.05.056-.05.051-.05.023-.025.023-.024.021-.024.02-.025.019-.024.018-.024.017-.023.015-.024.014-.023.013-.023.012-.023.01-.023.01-.022.008-.022.006-.023.006-.021.004-.022.004-.021.001-.021.001-.021-.001-.021-.001-.021-.004-.021-.004-.022-.006-.021-.006-.023-.008-.022-.01-.022-.01-.023-.012-.023-.013-.023-.014-.023-.015-.024-.017-.023-.018-.024-.019-.024-.02-.025-.021-.024-.023-.024-.023-.025-.051-.05-.056-.05-.06-.05-.065-.051-.07-.052-.074-.051-.079-.052-.083-.052-.088-.052-.092-.052-.096-.052-.101-.052-.106-.052-.11-.052-.114-.052-.118-.051-.123-.051-.126-.051-.131-.05-.136-.05-.139-.049-.143-.048-.148-.048-.152-.048-.155-.046-.16-.046-.163-.045-.168-.043-.172-.043-.175-.042-.179-.041-.183-.04-.187-.038-.191-.038-.194-.036-.198-.034-.202-.033-.205-.032-.21-.031-.212-.028-.216-.027-.22-.026-.224-.023-.226-.022-.231-.021-.233-.018-.237-.016-.241-.014-.244-.012-.247-.011-.25-.008-.254-.005-.257-.004-.26-.001-.26.001z">
+</path>
+</symbol>
+</defs>
+<defs>
+<symbol id="mmd-6-clock" width="24" height="24">
+<path transform="scale(.5)" d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.848 12.459c.202.038.202.333.001.372-1.907.361-6.045 1.111-6.547 1.111-.719 0-1.301-.582-1.301-1.301 0-.512.77-5.447 1.125-7.445.034-.192.312-.181.343.014l.985 6.238 5.394 1.011z">
+</path>
+</symbol>
+</defs>
+<defs>
+<marker id="mmd-6-arrowhead" refX="7.9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+<path d="M -1 0 L 10 5 L 0 10 z">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-crosshead" markerWidth="15" markerHeight="8" orient="auto" refX="4" refY="4.5">
+<path fill="none" stroke="#000000" stroke-width="1pt" d="M 1,2 L 6,7 M 6,2 L 1,7" style="stroke-dasharray: 0, 0;">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-filled-head" refX="15.5" refY="7" markerWidth="20" markerHeight="28" orient="auto">
+<path d="M 18,7 L9,13 L14,7 L9,1 Z">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-sequencenumber" refX="15" refY="15" markerWidth="60" markerHeight="40" orient="auto">
+<circle cx="15" cy="15" r="6">
+</circle>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-solidTopArrowHead" refX="7.9" refY="7.25" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+<path d="M 0 0 L 10 8 L 0 8 z">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-solidBottomArrowHead" refX="7.9" refY="0.75" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+<path d="M 0 0 L 10 0 L 0 8 z">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-stickTopArrowHead" refX="7.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+<path d="M 0 0 L 7 7" stroke="black" stroke-width="1.5" fill="none">
+</path>
+</marker>
+</defs>
+<defs>
+<marker id="mmd-6-stickBottomArrowHead" refX="7.5" refY="0" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+<path d="M 0 7 L 7 0" stroke="black" stroke-width="1.5" fill="none">
+</path>
+</marker>
+</defs>
+<defs>
+<filter id="mmd-6-drop-shadow" height="130%" width="130%">
+<feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#FFFFFF">
+</feDropShadow>
+</filter>
+</defs>
+<g data-et="note" data-id="i4">
+<rect x="263" y="269" fill="#EDF2AE" stroke="#666" width="168" height="44" class="note" data-look="neo">
+</rect>
+<text x="347" y="274" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="noteText" dy="1em" style="font-size: 16px; font-weight: 400;">
+<tspan x="347">CDN A の劣化を検知</tspan>
+</text>
+</g>
+<text x="313" y="88" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">MPD を取得</text>
+<line x1="76" y1="119" x2="550" y2="119" class="messageLine0" data-et="message" data-id="i0" data-from="P" data-to="A" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="fill: none;">
+</line>
+<text x="208" y="134" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">制御用マニフェストを取得</text>
+<line x1="76" y1="165" x2="340" y2="165" class="messageLine0" data-et="message" data-id="i1" data-from="P" data-to="S" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="fill: none;">
+</line>
+<text x="214" y="180" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">CDN A を優先する指示</text>
+<line x1="346" y1="211" x2="82" y2="211" class="messageLine1" data-et="message" data-id="i2" data-from="S" data-to="P" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="stroke-dasharray: 3, 3; fill: none;">
+</line>
+<text x="313" y="226" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">セグメントを取得</text>
+<line x1="76" y1="257" x2="550" y2="257" class="messageLine0" data-et="message" data-id="i3" data-from="P" data-to="A" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="fill: none;">
+</line>
+<text x="208" y="328" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">定期的に再問い合わせ</text>
+<line x1="76" y1="359" x2="340" y2="359" class="messageLine0" data-et="message" data-id="i5" data-from="P" data-to="S" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="fill: none;">
+</line>
+<text x="214" y="374" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">CDN B を優先する指示</text>
+<line x1="346" y1="405" x2="82" y2="405" class="messageLine1" data-et="message" data-id="i6" data-from="S" data-to="P" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="stroke-dasharray: 3, 3; fill: none;">
+</line>
+<text x="418" y="420" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-size: 16px; font-weight: 400;">セグメントを取得（再生は継続）</text>
+<line x1="76" y1="451" x2="760" y2="451" class="messageLine0" data-et="message" data-id="i7" data-from="P" data-to="B" stroke-width="2" stroke="none" marker-end="url(#mmd-6-arrowhead)" style="fill: none;">
+</line>
+</svg>
+</div>
+
+<h2 id="step-11発行後の動きと実装エコシステム">Step
+11：発行後の動きと実装エコシステム</h2>
+<h3 id="11-1-発行後も規格は進化している">11-1.
+発行後も規格は進化している</h3>
+<p><strong>【根拠あり】</strong> MPEG 公式の DASH Part 1
+ページには、次の作業文書が掲載されています。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>MPEG 会合</th>
+<th>日付</th>
+<th>文書</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第152回</td>
+<td>2025-10-15</td>
+<td>第6版 AMD 1「メディア認証、CMCD
+拡張、その他の強化」の予備ドラフト</td>
+</tr>
+<tr class="even">
+<td>第153回</td>
+<td>2026-01-29</td>
+<td>同 AMD 1 の作業原案（WD）</td>
+</tr>
+<tr class="odd">
+<td>第154回</td>
+<td>2026-05-07</td>
+<td>同 AMD 1 の作業原案（WD）</td>
+</tr>
+<tr class="even">
+<td>各回</td>
+<td>—</td>
+<td>「Technologies under Consideration for
+DASH」（将来技術の候補集）</td>
+</tr>
+</tbody>
+</table></div>
+<p>つまり「第6版が出たら終わり」ではなく、<strong>第6版に対する AMD 1
+がすでに準備されています</strong>。実務では「第6版 + 今後の
+AMD」を意識するのが安全です。</p>
+<p>また、Timmerer 氏は
+2024年1月に、触覚（haptics）のシグナリング、最大セグメントレートの通知、著作権ライセンス通知の拡張などが「Technologies
+under Consideration」に入っていると報告しています。</p>
+<h3 id="11-2-代表的な実装での扱い">11-2. 代表的な実装での扱い</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>実装</th>
+<th>提供元・位置づけ</th>
+<th>確認できた事実</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>dash.js</strong></td>
+<td>DASH Industry Forum（DASH-IF）の参照実装</td>
+<td>MPD Patch、ギャップ処理、CMCD、CMAF 低遅延などをサポートしてきたと
+DASH-IF の資料に記載</td>
+</tr>
+<tr class="even">
+<td><strong>Shaka Player</strong></td>
+<td>Google 主導の OSS プレーヤー</td>
+<td>API ドキュメントで <strong>ISO/IEC 23009-1:2026 の Annex
+K（ServiceDescription）</strong> や K.4.2.7.2（CMCD
+報告のデスクリプタ）を参照して実装</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>【根拠あり・要注意】</strong> Shaka Player
+のドキュメントには、dash.js が受け入れる DASH-IF の別名スキーム
+<code>urn:dashif:cta-5004:2025</code>
+について「レジストリに項目がないため、あえて受け入れていない」という趣旨の記述があります。<strong>同じ規格でも実装ごとに解釈や受け入れ範囲が異なる</strong>
+ことの実例です。</p>
+<p><strong>【二次情報】</strong> 解説記事（Fora
+Soft）によれば、コンテンツステアリングは hls.js 1.4 以降、Shaka 4.6
+以降、dash.js 4.7 以降で対応済みで、HLS と DASH
+で同じ形式の制御マニフェストを共有できるとされています。ただし二次情報のため、導入時は各プロジェクトの公式リリースノートで確認してください。</p>
+
+<h2 id="step-12qa-エンジニア視点のテスト観点">Step 12：QA
+エンジニア視点のテスト観点</h2>
+<div class="callout callout-note"><div class="callout-label">ℹ メモ</div>
+<p>この章は <strong>【筆者の提案】</strong>
+です。規格が定めるテスト項目ではなく、公開情報から導いた実務上のチェック観点です。</p>
+</div>
+<h3 id="12-1-mpd-そのものの検証">12-1. MPD そのものの検証</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>確認内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>スキーマ妥当性</td>
+<td>XML が MPD のスキーマに沿っているか</td>
+</tr>
+<tr class="even">
+<td><code>profiles</code> 宣言の整合</td>
+<td>宣言したプロファイルの範囲を超える機能を使っていないか</td>
+</tr>
+<tr class="odd">
+<td>Period の連続性</td>
+<td>Period の境目で時間が欠落・重複していないか</td>
+</tr>
+<tr class="even">
+<td>セグメント URL</td>
+<td>テンプレートから生成される URL が全て 200 で取得できるか</td>
+</tr>
+<tr class="odd">
+<td>セグメント長の整合</td>
+<td>SegmentTimeline の合計と実ファイルの長さが一致するか</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-2-再生abr-の検証">12-2. 再生・ABR の検証</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>確認内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>初期画質</td>
+<td>起動直後の Representation 選択が妥当か</td>
+</tr>
+<tr class="even">
+<td>帯域低下</td>
+<td>帯域を制限したとき、リバッファを起こさず画質を下げるか</td>
+</tr>
+<tr class="odd">
+<td>帯域回復</td>
+<td>回復後に画質が適切に戻るか（過度な振動がないか）</td>
+</tr>
+<tr class="even">
+<td>シーク</td>
+<td>シーク後の再開時間は許容範囲か</td>
+</tr>
+<tr class="odd">
+<td>音声・字幕切替</td>
+<td>AdaptationSet の切替が映像と同期しているか</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-3-ライブ特有の検証">12-3. ライブ特有の検証</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>確認内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>時刻同期</td>
+<td>クライアント時刻がずれても、取得可能なセグメントを正しく計算できるか</td>
+</tr>
+<tr class="even">
+<td>MPD 更新</td>
+<td><code>minimumUpdatePeriod</code> に沿って更新を取得できているか</td>
+</tr>
+<tr class="odd">
+<td>低遅延</td>
+<td>目標レイテンシと再生レートの調整が機能しているか</td>
+</tr>
+<tr class="even">
+<td>DVR</td>
+<td><code>timeShiftBufferDepth</code> の範囲でシークできるか</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-4-第6版の新機能に関する検証導入する場合">12-4.
+第6版の新機能に関する検証（導入する場合）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>機能</th>
+<th>確認の例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>コンテンツステアリング</td>
+<td>制御サーバーの指示で CDN
+を切り替えても再生が途切れないか。制御サーバーが落ちたときの挙動は適切か</td>
+</tr>
+<tr class="even">
+<td>CMCD</td>
+<td>送信されるパラメータが仕様どおりか。個人情報にあたる値を含めていないか</td>
+</tr>
+<tr class="odd">
+<td>代替メディア・非線形再生</td>
+<td>メイン⇄代替の切替が滑らかか。戻り先が正しいか</td>
+</tr>
+<tr class="even">
+<td>バックグラウンドモード</td>
+<td>映像を描画しない間も MPD 更新・イベントを受信し続けるか</td>
+</tr>
+<tr class="odd">
+<td>セグメント長パターン</td>
+<td>パターンから復元した時刻が実ファイルと一致するか</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="用語集">用語集</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ABR（Adaptive Bitrate）</td>
+<td>回線状況に合わせて画質（ビットレート）を切り替える方式</td>
+</tr>
+<tr class="even">
+<td>MPD</td>
+<td>Media Presentation Description。DASH の目次にあたる XML 文書</td>
+</tr>
+<tr class="odd">
+<td>Period</td>
+<td>MPD 内の時間区間</td>
+</tr>
+<tr class="even">
+<td>AdaptationSet</td>
+<td>切り替え可能な同種メディアの集合（映像、音声、字幕など）</td>
+</tr>
+<tr class="odd">
+<td>Representation</td>
+<td>AdaptationSet 内の 1 つの品質版</td>
+</tr>
+<tr class="even">
+<td>Segment</td>
+<td>HTTP で個別に取得するメディアの断片</td>
+</tr>
+<tr class="odd">
+<td>初期化セグメント</td>
+<td>復号に必要な情報を持つ最初のセグメント</td>
+</tr>
+<tr class="even">
+<td>ISO BMFF</td>
+<td>ISO Base Media File Format（ISO/IEC 14496-12）。MP4
+の元になる形式</td>
+</tr>
+<tr class="odd">
+<td>CMAF</td>
+<td>Common Media Application Format（ISO/IEC 23000-19）。HLS と DASH
+で共通のセグメントを使うための形式</td>
+</tr>
+<tr class="even">
+<td>CDN</td>
+<td>Content Delivery Network。コンテンツ配信網</td>
+</tr>
+<tr class="odd">
+<td>CMCD</td>
+<td>Common Media Client
+Data（CTA-5004）。クライアントの状態を伝える標準</td>
+</tr>
+<tr class="even">
+<td>コンテンツステアリング</td>
+<td>制御サーバーが、プレーヤーの使う CDN を誘導する仕組み</td>
+</tr>
+<tr class="odd">
+<td>EDRAP</td>
+<td>Extended Dependent Random Access
+Point。ランダムアクセスの符号化効率を高める仕組み（VVC で採用）</td>
+</tr>
+<tr class="even">
+<td>FDIS</td>
+<td>Final Draft International
+Standard。国際規格として発行される直前の最終段階</td>
+</tr>
+<tr class="odd">
+<td>DASH-IF</td>
+<td>DASH Industry Forum。DASH の相互運用性を推進する業界団体</td>
+</tr>
+<tr class="even">
+<td>tune-in</td>
+<td>視聴開始（再生開始）の手続き・時間</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="根拠となるソース一覧url">根拠となるソース一覧（URL）</h2>
+<h3 id="a-規格標準化団体の一次情報">A. 規格・標準化団体の一次情報</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td>ISO 公式：ISO/IEC 23009-1:2026（Edition
+6、2026-07、375ページ、Published）</td>
+<td><a href="https://www.iso.org/standard/23009-1">https://www.iso.org/standard/23009-1</a></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td>ISO 公式：第6版の旧ページ（Under publication 時点の表示。ISO/IEC
+23009-1:2022 を置換と記載）</td>
+<td><a href="https://www.iso.org/standard/89027.html">https://www.iso.org/standard/89027.html</a></td>
+</tr>
+<tr class="odd">
+<td>A3</td>
+<td>ISO 公式：第1版（2012、Withdrawn）。MPD・セグメントの概要抄録</td>
+<td><a href="https://www.iso.org/standard/57623.html">https://www.iso.org/standard/57623.html</a></td>
+</tr>
+<tr class="even">
+<td>A4</td>
+<td>MPEG 公式：第149回会合プレスリリース（第6版 FDIS、6つの強化点）</td>
+<td><a href="https://www.mpeg.org/149th-meeting-of-mpeg/">https://www.mpeg.org/149th-meeting-of-mpeg/</a></td>
+</tr>
+<tr class="odd">
+<td>A5</td>
+<td>MPEG 公式：MPEG-DASH 概要（Part 1/4/5/6/7 の紹介）</td>
+<td><a href="https://www.mpeg.org/standards/MPEG-DASH/">https://www.mpeg.org/standards/MPEG-DASH/</a></td>
+</tr>
+<tr class="even">
+<td>A6</td>
+<td>MPEG 公式：DASH Part 1 の会合別文書一覧（第6版 AMD 1 の WD
+など）</td>
+<td><a href="https://www.mpeg.org/standards/MPEG-DASH/1/">https://www.mpeg.org/standards/MPEG-DASH/1/</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="b-国際的な開発者研究者の発信規格編集者業界団体主要-oss">B.
+国際的な開発者・研究者の発信（規格編集者・業界団体・主要 OSS）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>B1</td>
+<td>Christian Timmerer 氏（Bitmovin /
+AAU）：第143回会合レポート（第5版と AMD 1〜3）</td>
+<td><a href="https://records.sigmm.org/2023/09/05/mpeg-column-143rd-mpeg-meeting-in-geneva-switzerland/">https://records.sigmm.org/2023/09/05/mpeg-column-143rd-mpeg-meeting-in-geneva-switzerland/</a></td>
+</tr>
+<tr class="even">
+<td>B2</td>
+<td>同氏：第145回会合レポート（第6版に採択された内容：CMCD
+sid/cid、セグメント長パターン、バックグラウンドモード）</td>
+<td><a href="https://records.sigmm.org/2024/02/22/mpeg-column-145th-mpeg-meeting-virtual-online/">https://records.sigmm.org/2024/02/22/mpeg-column-145th-mpeg-meeting-virtual-online/</a></td>
+</tr>
+<tr class="odd">
+<td>B3</td>
+<td>同氏（Bitmovin ブログ）：第143回会合（EDRAP、Segment
+sequences）</td>
+<td><a href="https://bitmovin.com/blog/143nd-mpeg-meeting-takeaways/">https://bitmovin.com/blog/143nd-mpeg-meeting-takeaways/</a></td>
+</tr>
+<tr class="even">
+<td>B4</td>
+<td>同氏（Bitmovin
+ブログ）：第144回会合（第6版の予定、触覚シグナリング）</td>
+<td><a href="https://bitmovin.com/blog/144th-mpeg-meeting-takeaways/">https://bitmovin.com/blog/144th-mpeg-meeting-takeaways/</a></td>
+</tr>
+<tr class="odd">
+<td>B5</td>
+<td>同氏（Bitmovin ブログ）：第132回会合（DASH と CMAF の調和、MPD
+Patch）</td>
+<td><a href="https://bitmovin.com/132nd-mpeg-meeting-takeaways/">https://bitmovin.com/132nd-mpeg-meeting-takeaways/</a></td>
+</tr>
+<tr class="even">
+<td>B6</td>
+<td>同氏（Bitmovin ブログ）：第137回会合（MPEG の Emmy 受賞、DASH
+の概要）</td>
+<td><a href="https://bitmovin.com/blog/137th-mpeg-meeting-takeaways/">https://bitmovin.com/blog/137th-mpeg-meeting-takeaways/</a></td>
+</tr>
+<tr class="odd">
+<td>B7</td>
+<td>同氏（Bitmovin ブログ）：第133回会合（Part 8 Session-based DASH が
+FDIS へ）</td>
+<td><a href="https://bitmovin.com/133rd-mpeg-meeting-takeaways/">https://bitmovin.com/133rd-mpeg-meeting-takeaways/</a></td>
+</tr>
+<tr class="even">
+<td>B8</td>
+<td>MPEG 会合レポート（第149回、Research aspects 付き）</td>
+<td><a href="https://multimediacommunication.blogspot.com/2025/03/mpeg-news-report-from-149th-meeting.html">https://multimediacommunication.blogspot.com/2025/03/mpeg-news-report-from-149th-meeting.html</a></td>
+</tr>
+<tr class="odd">
+<td>B9</td>
+<td>Silhavy 氏、Pham 氏、Giladi 氏、Balk 氏、Begen 氏、Law
+氏：コンテンツステアリング（SMPTE Motion Imaging Journal, 2024-07）</td>
+<td><a href="https://journal.smpte.org/periodicals/SMPTE%20Motion%20Imaging%20Journal/133/4/20/">https://journal.smpte.org/periodicals/SMPTE%20Motion%20Imaging%20Journal/133/4/20/</a></td>
+</tr>
+<tr class="even">
+<td>B10</td>
+<td>Shaka Player API ドキュメント：ServiceDescriptionParser（ISO/IEC
+23009-1:2026 Annex K を参照）</td>
+<td><a href="https://shaka-project.github.io/shaka-player/docs/api/shaka.dash.ServiceDescriptionParser.html">https://shaka-project.github.io/shaka-player/docs/api/shaka.dash.ServiceDescriptionParser.html</a></td>
+</tr>
+<tr class="odd">
+<td>B11</td>
+<td>DASH-IF：dash.js リポジトリ</td>
+<td><a href="https://github.com/Dash-Industry-Forum/dash.js/">https://github.com/Dash-Industry-Forum/dash.js/</a></td>
+</tr>
+<tr class="even">
+<td>B12</td>
+<td>DASH-IF：dash.js の概要資料（MPD
+Patch、CMCD、低遅延などの対応状況）</td>
+<td><a href="https://github.com/Dash-Industry-Forum/dash.js/files/8989954/overview.pdf">https://github.com/Dash-Industry-Forum/dash.js/files/8989954/overview.pdf</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="c-二次情報参考導入判断は一次情報で再確認してください">C.
+二次情報（参考。導入判断は一次情報で再確認してください）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>内容</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C1</td>
+<td>Fora Soft：dash.js の解説（Shaka・hls.js との比較）</td>
+<td><a href="https://www.forasoft.com/learn/video-streaming/articles-streaming/dash-js-deep-dive">https://www.forasoft.com/learn/video-streaming/articles-streaming/dash-js-deep-dive</a></td>
+</tr>
+<tr class="even">
+<td>C2</td>
+<td>Fora
+Soft：コンテンツステアリング用語解説（対応プレーヤーのバージョン）</td>
+<td><a href="https://www.forasoft.com/learn/video-streaming/glossary/terms-streaming/content-steering">https://www.forasoft.com/learn/video-streaming/glossary/terms-streaming/content-steering</a></td>
+</tr>
+<tr class="odd">
+<td>C3</td>
+<td>GlobalSpec：ISO/IEC 23009-1 の規格履歴（アメンドメント一覧）</td>
+<td><a href="https://standards.globalspec.com/std/14555626/iso-iec-23009-1">https://standards.globalspec.com/std/14555626/iso-iec-23009-1</a></td>
+</tr>
+<tr class="even">
+<td>C4</td>
+<td>ANSI Webstore：CSA 版（第4版 2019-12 の採用規格）</td>
+<td><a href="https://webstore.ansi.org/standards/csa/csaisoiec230092020">https://webstore.ansi.org/standards/csa/csaisoiec230092020</a></td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="調査の限界と注意事項">調査の限界と注意事項</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>規格本文の未確認</td>
+<td>ISO/IEC 23009-1:2026
+の本文（375ページ）は有償のため、本ガイドは本文を直接確認していません。第6版の機能は
+MPEG 公式のプレスリリース・会合レポートに基づく概要レベルです</td>
+</tr>
+<tr class="even">
+<td>第5版→第6版の差分</td>
+<td>条項番号や正確な属性名・要素名（例：新しい要素の名称）は、本文または
+DASH-IF の仕様で確認してください</td>
+</tr>
+<tr class="odd">
+<td>第3版の年</td>
+<td>今回の検索では確認できていません（表では「2017年頃」としています）</td>
+</tr>
+<tr class="even">
+<td>実装の対応状況</td>
+<td>dash.js・Shaka Player
+等の第6版機能への対応状況は、各プロジェクトの最新リリースノートで確認してください（Shaka
+が Annex K を参照している事実のみ確認）</td>
+</tr>
+<tr class="odd">
+<td>時点</td>
+<td>情報は 2026年10月8日までに確認できた範囲です。第6版 AMD 1
+は作業中のため、内容が変わる可能性があります</td>
+</tr>
+<tr class="even">
+<td>MPD 例</td>
+<td>Step 5 の XML
+は学習用に簡略化した例であり、そのまま本番配信に使える完全な MPD
+ではありません</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout callout-practice"><div class="callout-label">💡 ポイント</div>
+<p><strong>次のステップ</strong>：本文を入手できる場合は、まず「MPD
+の意味論（要素・属性の表）」「セグメント情報（SegmentTemplate/SegmentTimeline）」「Annex
+K（ServiceDescription）」の順に読むと、本ガイドの Step 4〜10
+と対応づけやすくなります。</p>
+</div>
+
+<footer class="page-footer">ISO/IEC 23009-1:2026 初学者向け解説ガイド ／ 調査時点：2026年10月8日 ／ 規格本文（有償）は未確認。詳細は末尾の「調査の限界と注意事項」を参照してください。</footer>
+</main>
+</div>
+<script>
+(function () {
+  var sidebar = document.getElementById('sidebar');
+  var toggle = document.getElementById('navToggle');
+  if (toggle) {
+    toggle.addEventListener('click', function () { sidebar.classList.toggle('open'); });
+  }
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-list a[data-target]'));
+  links.forEach(function (a) {
+    a.addEventListener('click', function () { sidebar.classList.remove('open'); });
+  });
+  function activate(id) {
+    links.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-target') === id);
+    });
+    var act = document.querySelector('.nav-list a.active');
+    if (act && act.scrollIntoView) { act.scrollIntoView({ block: 'nearest' }); }
+  }
+  window.addEventListener('scroll', function () {
+    if (window.scrollY < 160) { links.forEach(function (a) { a.classList.remove('active'); }); }
+  }, { passive: true });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { activate(e.target.id); } });
+    }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+    document.querySelectorAll('.main h2[id], .main h3[id]').forEach(function (h) { io.observe(h); });
+  }
+})();
+
+</script>
+</body>
+</html>

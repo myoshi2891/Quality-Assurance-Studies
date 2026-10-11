@@ -59,7 +59,7 @@ describe('Header drawer panel', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders 8 category headings (excluding home) when opened', () => {
+  it('renders 9 category headings (excluding home) when opened', () => {
     const dialog = openDrawer();
     const headings = within(dialog).getAllByRole('heading', { level: 2 });
     expect(headings.map((h) => h.textContent)).toEqual([
@@ -71,6 +71,7 @@ describe('Header drawer panel', () => {
       'CI/CD & DevOps',
       'テストツール & フレームワーク',
       '名著・実践ガイド',
+      'ISO 国際規格',
     ]);
   });
 
@@ -96,7 +97,7 @@ describe('Header drawer accordion', () => {
   it('renders each category as a collapsible details element', () => {
     openDrawer();
     const sections = document.querySelectorAll('details[data-category]');
-    expect(sections).toHaveLength(8);
+    expect(sections).toHaveLength(9);
   });
 
   it('collapses every category by default on the index route', () => {
