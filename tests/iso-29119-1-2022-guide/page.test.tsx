@@ -302,6 +302,16 @@ describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
       expect(descr).toContain('合意');
       expect(descr).toContain('適合を主張できない');
     });
+
+    it('branches DIAGRAM_17 on stakeholder agreement after documenting justified tailoring', async () => {
+      const { DIAGRAM_17 } = await import('../../app/iso-29119-1-2022-guide/diagrams');
+      // 正当な理由の経路は維持し、合意の可否を判定ノードで分岐させる
+      expect(DIAGRAM_17).toMatch(/B -->\|"いいえ 正当な理由あり"\| D\[/);
+      expect(DIAGRAM_17).toMatch(/D --> E\{"関係者と合意したか"\}/);
+      expect(DIAGRAM_17).toMatch(/E -->\|"合意した"\| F\["テーラード適合を主張可能"\]/);
+      expect(DIAGRAM_17).toMatch(/E -->\|"合意しない"\| G\b/);
+      expect(DIAGRAM_17).toMatch(/G\["適合を主張できない"\]/);
+    });
   });
 
   describe('Styles and Scope', () => {
