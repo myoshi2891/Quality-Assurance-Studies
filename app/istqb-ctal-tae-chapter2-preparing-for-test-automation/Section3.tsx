@@ -126,49 +126,49 @@ export default function Section3() {
             </thead>
             <tbody>
               <tr>
-                <td>対応言語／技術・IDE</td>
+                <th scope="row">対応言語／技術・IDE</th>
                 <td>高</td>
                 <td>◎</td>
                 <td>○</td>
                 <td>△</td>
               </tr>
               <tr>
-                <td>環境設定の柔軟性（動的/静的値）</td>
+                <th scope="row">環境設定の柔軟性（動的/静的値）</th>
                 <td>中</td>
                 <td>○</td>
                 <td>◎</td>
                 <td>○</td>
               </tr>
               <tr>
-                <td>テストデータ管理（バージョン管理連携）</td>
+                <th scope="row">テストデータ管理（バージョン管理連携）</th>
                 <td>高</td>
                 <td>△</td>
                 <td>◎</td>
                 <td>○</td>
               </tr>
               <tr>
-                <td>対応テストタイプ</td>
+                <th scope="row">対応テストタイプ</th>
                 <td>中</td>
                 <td>○</td>
                 <td>○</td>
                 <td>◎</td>
               </tr>
               <tr>
-                <td>レポーティング機能</td>
+                <th scope="row">レポーティング機能</th>
                 <td>低</td>
                 <td>◎</td>
                 <td>○</td>
                 <td>○</td>
               </tr>
               <tr>
-                <td>他ツール連携（CI/CD、タスク管理、テスト管理）</td>
+                <th scope="row">他ツール連携（CI/CD、タスク管理、テスト管理）</th>
                 <td>高</td>
                 <td>○</td>
                 <td>◎</td>
                 <td>△</td>
               </tr>
               <tr>
-                <td>拡張性・保守性・変更容易性・互換性・信頼性</td>
+                <th scope="row">拡張性・保守性・変更容易性・互換性・信頼性</th>
                 <td>中</td>
                 <td>○</td>
                 <td>◎</td>

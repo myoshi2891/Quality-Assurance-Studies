@@ -10,7 +10,7 @@
     --border: #e0e4ee;
     --text: #1b2333;
     --text-dim: #5b6478;
-    --text-faint: #8891a3;
+    --text-faint: #636c7f; /* 白・各背景で 4.5:1 以上を確保 */
     --accent: #2f5fdc;
     --accent-dark: #1e3fa0;
     --accent-soft: #e8eefd;
@@ -375,7 +375,8 @@ main.ctal-tae-ch2-page {
     white-space: nowrap !important;
 }
 
-.ctal-tae-ch2-page tbody td {
+.ctal-tae-ch2-page tbody td,
+.ctal-tae-ch2-page tbody th {
     padding: 11px 14px !important;
     font-size: 13.5px !important;
     color: var(--text-dim) !important;
@@ -383,12 +384,23 @@ main.ctal-tae-ch2-page {
     vertical-align: top !important;
 }
 
+/* 行見出し（th scope="row"）は globals の th 指定（等幅・太字・字間・折り返し禁止）を打ち消し、td と同じ見た目にする */
+.ctal-tae-ch2-page tbody th {
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: normal !important;
+    text-align: left !important;
+    white-space: normal !important;
+    line-height: 1.6 !important;
+}
+
 .ctal-tae-ch2-page tbody td strong {
     color: var(--text) !important;
     font-weight: 700 !important;
 }
 
-.ctal-tae-ch2-page tbody tr:last-child td {
+.ctal-tae-ch2-page tbody tr:last-child td,
+.ctal-tae-ch2-page tbody tr:last-child th {
     border-bottom: none !important;
 }
 

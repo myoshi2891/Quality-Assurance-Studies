@@ -19,6 +19,9 @@ import {
 // 空白差を吸収して本文を照合する
 const normalize = (text: string | null | undefined) => text?.replace(/\s+/g, ' ').trim();
 
+// 空白をすべて除いて照合する（strong・br の境界で生じる空白差を無視する）
+const squash = (text: string | null | undefined) => text?.replace(/\s+/g, '');
+
 // 各実践コールアウトの項目本文を出現順に取り出す
 const practiceItems = (callout: Element | undefined) =>
   Array.from(callout?.querySelectorAll('li') ?? []).map((li) => normalize(li.textContent));
@@ -170,7 +173,7 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(h2?.textContent?.trim()).toBe(inventory.sections.sec0.heading);
 
       const intro = sec0?.querySelector('p');
-      expect(intro?.textContent).toContain('Chapter 1では「なぜテスト自動化を行うのか」を学びました');
+      expect(squash(intro?.textContent)).toBe(squash(inventory.sections.sec0.intro));
 
       const olItems = sec0?.querySelectorAll('ol > li') ?? [];
       expect(olItems.length).toBe(inventory.sections.sec0.orderedItems.length);
@@ -216,6 +219,17 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(sec1_1?.textContent?.trim()).toBe(inventory.sections.sec1.sec1_1.heading);
       const calloutSource = sec1?.querySelector('.callout-source');
       expect(calloutSource?.textContent?.trim()).toBe(inventory.sections.sec1.sec1_1.calloutSource);
+      // 1.1 の本文 2 段落と 1.3 の導入文（callout-source を除く section 直下の段落）
+      const sec1Paragraphs = Array.from(sec1?.children ?? [])
+        .filter((el) => el.tagName === 'P' && !el.classList.contains('callout-source'))
+        .map((el) => squash(el.textContent));
+      expect(sec1Paragraphs).toEqual(
+        [
+          inventory.sections.sec1.sec1_1.intro1,
+          inventory.sections.sec1.sec1_1.intro2,
+          inventory.sections.sec1.sec1_3.intro,
+        ].map(squash)
+      );
 
       // 1.2
       const sec1_2 = sec1?.querySelector('#sec-1-2');
@@ -261,6 +275,9 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(sec2).not.toBeNull();
 
       expect(sec2?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.sec2.heading);
+      expect(squash(sec2?.querySelector('p:not(.legend-note)')?.textContent)).toBe(
+        squash(inventory.sections.sec2.intro)
+      );
       expect(sec2?.querySelector('.legend-note')?.textContent?.trim()).toBe(
         inventory.sections.sec2.legendNote
       );
@@ -300,6 +317,25 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         inventory.sections.sec3.sec3_1.quote
       );
 
+      // 小見出し（h4）と本文段落・凡例をインベントリと 1 対 1 で照合する
+      const h4s = Array.from(sec3?.querySelectorAll('h4') ?? []).map((el) => el.textContent?.trim());
+      expect(h4s).toEqual([
+        inventory.sections.sec3.sec3_1.perspectivesHeading,
+        inventory.sections.sec3.sec3_2.comparisonHeading,
+        inventory.sections.sec3.sec3_2.techRequirementsHeading,
+      ]);
+      const sec3Paragraphs = Array.from(sec3?.children ?? [])
+        .filter((el) => el.tagName === 'P')
+        .map((el) => squash(el.textContent));
+      expect(sec3Paragraphs).toEqual(
+        [
+          inventory.sections.sec3.sec3_1.intro,
+          inventory.sections.sec3.sec3_2.intro,
+          inventory.sections.sec3.sec3_2.comparisonIntro,
+          inventory.sections.sec3.sec3_2.legendNote,
+        ].map(squash)
+      );
+
       const tables = sec3?.querySelectorAll('table') ?? [];
       expect(tables.length).toBe(3);
 
@@ -319,12 +355,16 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       const compRows = tables[1].querySelectorAll('tbody tr');
       expect(compRows.length).toBe(inventory.sections.sec3.sec3_2.comparisonRows.length);
       inventory.sections.sec3.sec3_2.comparisonRows.forEach((expected, i) => {
+        // 要件名は行見出し（th scope="row"）、残りはデータセル
+        const rowHeader = compRows[i].querySelector(':scope > th');
+        expect(rowHeader?.getAttribute('scope')).toBe('row');
+        expect(rowHeader?.textContent?.trim()).toBe(expected.requirement);
         const cells = compRows[i].querySelectorAll('td');
-        expect(cells[0].textContent?.trim()).toBe(expected.requirement);
-        expect(cells[1].textContent?.trim()).toBe(expected.priority);
-        expect(cells[2].textContent?.trim()).toBe(expected.toolA);
-        expect(cells[3].textContent?.trim()).toBe(expected.toolB);
-        expect(cells[4].textContent?.trim()).toBe(expected.toolC);
+        expect(cells.length).toBe(4);
+        expect(cells[0].textContent?.trim()).toBe(expected.priority);
+        expect(cells[1].textContent?.trim()).toBe(expected.toolA);
+        expect(cells[2].textContent?.trim()).toBe(expected.toolB);
+        expect(cells[3].textContent?.trim()).toBe(expected.toolC);
       });
 
       // Tech requirements table
@@ -352,8 +392,16 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
 
       expect(sec4?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.sec4.heading);
 
+      expect(sec4?.querySelector('h3')?.textContent?.trim()).toBe(inventory.sections.sec4.checklistHeading);
+
       const checkboxes = sec4?.querySelectorAll('input[type="checkbox"]') ?? [];
       expect(checkboxes.length).toBe(inventory.sections.sec4.checklistItems.length);
+
+      // 各チェック項目の label 本文をインベントリと 1 対 1 で照合する
+      const labels = Array.from(sec4?.querySelectorAll('.checklist-card label') ?? []).map((el) =>
+        normalize(el.textContent)
+      );
+      expect(labels).toEqual(inventory.sections.sec4.checklistItems);
 
       const progressCount = sec4?.querySelector('.cp-count');
       expect(progressCount?.textContent?.trim()).toBe('0 / 7 完了');
@@ -391,6 +439,7 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         );
         const link = card.querySelector('a');
         expect(link?.getAttribute('href')).toBe(expected.url);
+        expect(link?.textContent?.trim()).toBe(expected.linkText);
         expect(link?.getAttribute('target')).toBe('_blank');
         expect(link?.getAttribute('rel')).toContain('noopener');
       });
@@ -550,6 +599,44 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(mobile).toMatch(
         /\.ctal-tae-ch2-page main\.main,\s*\.ctal-tae-ch2-page \.main\s*\{[^}]*margin-left:\s*0\s*!important/
       );
+    });
+
+    it('defines --text-faint dark enough for 4.5:1 contrast on white and the page backgrounds', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+      const hex = css.match(/--text-faint:\s*(#[0-9a-fA-F]{6})/)?.[1] ?? '';
+      // WCAG 2.x の相対輝度とコントラスト比
+      const luminance = (h: string) => {
+        const [r, g, b] = [1, 3, 5].map((i) => {
+          const c = parseInt(h.slice(i, i + 2), 16) / 255;
+          return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * (r ?? 0) + 0.7152 * (g ?? 0) + 0.0722 * (b ?? 0);
+      };
+      const contrast = (a: string, b: string) => {
+        const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+        return ((hi ?? 0) + 0.05) / ((lo ?? 0) + 0.05);
+      };
+
+      expect(hex).toMatch(/^#[0-9a-fA-F]{6}$/);
+      // 白（surface）・ページ背景（bg）・ヒーロー背景・surface-alt
+      ['#ffffff', '#f6f7fb', '#eef3ff', '#eef1f8'].forEach((bg) => {
+        expect(contrast(hex, bg)).toBeGreaterThanOrEqual(4.5);
+      });
+    });
+
+    it('styles the comparison row headers like body cells', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+
+      expect(css).toMatch(/\.ctal-tae-ch2-page tbody td,\s*\.ctal-tae-ch2-page tbody th\s*\{/);
+      expect(css).toMatch(/\.ctal-tae-ch2-page tbody th\s*\{[^}]*font-weight:\s*400\s*!important/);
     });
 
     it('resets globals dark scrollbar track to transparent with light theme thumb', () => {
