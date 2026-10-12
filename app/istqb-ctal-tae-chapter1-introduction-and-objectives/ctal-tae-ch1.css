@@ -776,7 +776,9 @@ main.ctal-tae-ch1-page {
 .ctal-tae-ch1-page .ref-group {
     margin-bottom: 1.4em;
 }
-.ctal-tae-ch1-page .ref-group h4 {
+.ctal-tae-ch1-page .ref-group h3 {
+    display: block;
+    margin-top: 0;
     font-size: 0.95rem;
     color: var(--ink-faint);
     text-transform: uppercase;

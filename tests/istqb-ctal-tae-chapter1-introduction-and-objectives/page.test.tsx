@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
 import fs from 'fs';
 import path from 'path';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter1-introduction-and-objectives.json';
 import Page from '../../app/istqb-ctal-tae-chapter1-introduction-and-objectives/page';
@@ -179,6 +179,30 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
         inventory.sections.s0.callout.title
       );
       expect(callout?.textContent).toContain('Foundation Level認定');
+    });
+
+    it('passes each of the 7 diagram definitions to Mermaid in a 1:1 match with its data-diagram key', async () => {
+      // Arrange: 図キーと期待する図定義の対応（ページ上の出現順）
+      const expected: ReadonlyArray<readonly [string, string]> = [
+        ['roadmap', DIAGRAM_ROADMAP],
+        ['purpose3', DIAGRAM_PURPOSE3],
+        ['decision', DIAGRAM_DECISION],
+        ['waterfall', DIAGRAM_WATERFALL],
+        ['vmodel', DIAGRAM_VMODEL],
+        ['agile', DIAGRAM_AGILE],
+        ['toolselect', DIAGRAM_TOOLSELECT],
+      ];
+
+      // Act
+      const { container } = render(<Page />);
+
+      // Assert: 図キーの並びと、Mermaid へ渡された描画入力の並びがどちらも 1 対 1 で一致する
+      const keys = Array.from(container.querySelectorAll('[data-diagram]')).map((el) =>
+        el.getAttribute('data-diagram')
+      );
+      expect(keys).toEqual(expected.map(([key]) => key));
+      await waitFor(() => expect(renderedDiagrams.length).toBe(expected.length));
+      expect(renderedDiagrams).toEqual(expected.map(([, definition]) => definition));
     });
   });
 
@@ -397,6 +421,30 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
 
       const footer = container.querySelector('.site-footer');
       expect(footer?.textContent).toContain(inventory.footer.text);
+    });
+
+    it('marks the reference group title as an h3 directly under the section h2', () => {
+      // Arrange
+      const { container } = render(<Page />);
+      const s6 = container.querySelector('#s6');
+
+      // Act
+      const groupHeading = s6?.querySelector('.ref-group > h3');
+
+      // Assert: h2 → h3 の順で見出しレベルを飛ばさない
+      expect(groupHeading?.textContent?.trim()).toBe(inventory.sections.s6.groupTitle);
+      expect(s6?.querySelector('h4')).toBeNull();
+    });
+
+    it('styles the reference group heading via an h3 selector', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter1-introduction-and-objectives/ctal-tae-ch1.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf8');
+
+      expect(css).toContain('.ctal-tae-ch1-page .ref-group h3 {');
+      expect(css).not.toContain('.ref-group h4');
     });
   });
 

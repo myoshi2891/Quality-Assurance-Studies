@@ -14,7 +14,7 @@ export default function Section6() {
       </div>
 
       <div className="ref-group">
-        <h4>ISTQB® 公式資料</h4>
+        <h3>ISTQB® 公式資料</h3>
         <div className="ref-card">
           <i className="ti ti-certificate"></i>
           <div className="ref-card-body">
