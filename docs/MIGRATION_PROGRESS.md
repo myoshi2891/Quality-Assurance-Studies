@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `f68b0cd`（ドキュメント同期コミットは除外） |
 | 最新コミット内容 | `chore(archive): move ctal-tae-ch2 source files to archive and update docs` |
 | 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter2-preparing-for-test-automation`の目視確認。 |
-| ビルド状態 | 全体テスト`npm test`: 2793 pass / 0 fail、116 files（2026-10-12）。ページ12テスト（287 expect() calls、全6Mermaid図・全5表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| ビルド状態 | 全体テスト`bun test`: 2799 pass / 0 fail、116 files（2026-10-12）。※`docs/coverage-dashboard.html` の「120 files」は `bun test` 対象 116 files に Playwright の `.e2e.ts` 4 files を加えた集計であり、差分 4 はこの集計基準の違いによる。ページ17テスト（313 expect() calls、全6Mermaid図・全5表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
 ## 2026/10/12: ISTQB CTAL-TAE 第2章「テスト自動化の準備」初学者向け解説ガイドの移行
 

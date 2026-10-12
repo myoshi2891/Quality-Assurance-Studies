@@ -404,7 +404,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 94 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 96 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
