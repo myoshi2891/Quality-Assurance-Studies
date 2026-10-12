@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
 import fs from 'fs';
 import path from 'path';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter3-test-automation-architecture.json';
 import Page from '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/page';
@@ -239,6 +239,30 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       });
     });
 
+    it('passes the 9 charts to Mermaid in section order, matching the inventory 1:1', async () => {
+      // Arrange: セクション順の図定義
+      const definitions = [
+        DIAGRAM_OVERVIEW,
+        DIAGRAM_GTAA,
+        DIAGRAM_TAA_DESIGN,
+        DIAGRAM_TAF_LAYERS,
+        DIAGRAM_TAF_SCALING,
+        DIAGRAM_APPROACHES,
+        DIAGRAM_TDD_CYCLE,
+        DIAGRAM_FLOW_MODEL,
+        DIAGRAM_CHECKLIST,
+      ];
+
+      // Act
+      render(<Page />);
+
+      // Assert: 描画入力がセクション順の定義と一致し、各本体がインベントリと一致する
+      await waitFor(() => expect(renderedDiagrams.length).toBe(inventory.mermaidDiagrams.length));
+      expect(renderedDiagrams).toEqual(definitions);
+      const renderedSources = renderedDiagrams.map((chart) => chart.slice(MERMAID_CONFIG.length).trim());
+      expect(renderedSources).toEqual(inventory.mermaidDiagrams.map((d) => d.code.trim()));
+    });
+
     it('renders all 9 mermaid container elements in the DOM', () => {
       const { container } = render(<Page />);
       const containers = container.querySelectorAll('.mermaid-container');
@@ -302,6 +326,25 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
         expect(link.getAttribute('target')).toBe('_blank');
         expect(link.getAttribute('rel')).toBe('noopener noreferrer');
       });
+    });
+  });
+
+  describe('ISO/IEC/IEEE 29119-5 Reference Edition', () => {
+    it('distinguishes the 2016 edition cited by the syllabus from the current 2024 edition linked', () => {
+      // Arrange
+      const expected =
+        'ISO/IEC/IEEE 29119-5（キーワード駆動テストに関する標準。シラバスが参照するのは2016年版、リンク先は現行の2024年版）';
+
+      // Act
+      const { container } = render(<Page />);
+      const link = container.querySelector('a[href="https://www.iso.org/standard/87233.html"]');
+      const cellText = link?.closest('tr')?.querySelector('td')?.textContent?.replace(/\s+/g, ' ').trim();
+
+      // Assert: 画面・参考文献インベントリ・表インベントリが同じ区別を示す
+      expect(cellText).toBe(expected);
+      expect(inventory.references.some((r) => r.name === expected)).toBe(true);
+      const refRows = inventory.tables[inventory.tables.length - 1]?.rows ?? [];
+      expect(refRows.some((row) => row[0] === expected)).toBe(true);
     });
   });
 

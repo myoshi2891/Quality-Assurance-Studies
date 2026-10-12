@@ -540,7 +540,7 @@
           "https://www.oreilly.com/library/view/clean-code-a/9780136083238/"
         ],
         [
-          "ISO/IEC/IEEE 29119-5:2024（キーワード駆動テストに関する標準の2024年版。シラバス内で参照）",
+          "ISO/IEC/IEEE 29119-5（キーワード駆動テストに関する標準。シラバスが参照するのは2016年版、リンク先は現行の2024年版）",
           "https://www.iso.org/standard/87233.html"
         ],
         [
@@ -654,7 +654,7 @@
       "url": "https://www.oreilly.com/library/view/clean-code-a/9780136083238/"
     },
     {
-      "name": "ISO/IEC/IEEE 29119-5:2024（キーワード駆動テストに関する標準の2024年版。シラバス内で参照）",
+      "name": "ISO/IEC/IEEE 29119-5（キーワード駆動テストに関する標準。シラバスが参照するのは2016年版、リンク先は現行の2024年版）",
       "url": "https://www.iso.org/standard/87233.html"
     },
     {

@@ -59,7 +59,7 @@ export default function Section7() {
             </tr>
             <tr className="even">
               <td>
-                ISO/IEC/IEEE 29119-5:2024（キーワード駆動テストに関する標準の2024年版。シラバス内で参照）
+                ISO/IEC/IEEE 29119-5（キーワード駆動テストに関する標準。シラバスが参照するのは2016年版、リンク先は現行の2024年版）
               </td>
               <td>
                 <a
