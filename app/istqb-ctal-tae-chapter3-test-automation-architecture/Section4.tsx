@@ -22,6 +22,7 @@ export default function Section4() {
       </h3>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>テストケース自動化アプローチの比較</caption>
           <thead>
             <tr className="header">
               <th>アプローチ</th>

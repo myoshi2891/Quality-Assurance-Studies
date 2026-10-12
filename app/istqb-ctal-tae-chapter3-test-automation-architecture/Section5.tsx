@@ -17,6 +17,7 @@ export default function Section5() {
       </h3>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>オブジェクト指向プログラミングの4原則</caption>
           <thead>
             <tr className="header">
               <th>原則</th>
@@ -57,6 +58,7 @@ export default function Section5() {
       </p>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>SOLID原則</caption>
           <thead>
             <tr className="header">
               <th>頭文字</th>
@@ -111,6 +113,7 @@ export default function Section5() {
       </div>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>テスト自動化で使われるデザインパターン</caption>
           <thead>
             <tr className="header">
               <th>パターン</th>

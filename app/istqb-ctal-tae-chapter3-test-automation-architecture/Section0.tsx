@@ -13,6 +13,7 @@ export default function Section0() {
       </p>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>第3章の学習目標（LO）一覧</caption>
           <thead>
             <tr className="header">
               <th>LO番号</th>

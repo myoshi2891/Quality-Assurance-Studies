@@ -6,6 +6,7 @@ export default function Section7() {
       <h2 id="7-出典参考ソース">7. 出典・参考ソース</h2>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>出典・参考ソース一覧</caption>
           <thead>
             <tr className="header">
               <th>資料名</th>

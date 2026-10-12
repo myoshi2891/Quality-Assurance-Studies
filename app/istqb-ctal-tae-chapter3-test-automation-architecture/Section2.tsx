@@ -25,6 +25,7 @@ export default function Section2() {
       </div>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>TAA設計時の検討項目</caption>
           <thead>
             <tr className="header">
               <th>検討項目</th>

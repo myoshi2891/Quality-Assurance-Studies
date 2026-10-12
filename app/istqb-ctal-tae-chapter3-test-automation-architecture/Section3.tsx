@@ -41,6 +41,7 @@ export default function Section3() {
       </div>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>TAFの3層レイヤー比較</caption>
           <thead>
             <tr className="header">
               <th>層</th>

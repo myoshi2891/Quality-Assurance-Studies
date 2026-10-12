@@ -20,6 +20,7 @@ export default function Section1() {
       </p>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>gTAAが定義する4つの外部インターフェース</caption>
           <thead>
             <tr className="header">
               <th>インターフェース</th>
@@ -60,6 +61,7 @@ export default function Section1() {
       <p>gTAAが定義する4つのコア機能（ケーパビリティ）は次の通りです。</p>
       <div className="table-scroll">
         <table className="data-table">
+          <caption>gTAAの4つのコア機能</caption>
           <thead>
             <tr className="header">
               <th>機能</th>
