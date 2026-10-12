@@ -410,5 +410,16 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       // Mermaid nodes must have light background and contrast styling
       expect(css).toContain('.node:not(.box):not(.hub):not(.done) rect');
     });
+
+    it('allows hero title and lead text to span the full width of the screen without premature wrapping', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter1-introduction-and-objectives/ctal-tae-ch1.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf8');
+
+      expect(css).toMatch(/\.hero\s+h1\s*\{[^}]*max-width:\s*none/);
+      expect(css).toMatch(/\.hero-lead\s*\{[^}]*max-width:\s*none/);
+    });
   });
 });

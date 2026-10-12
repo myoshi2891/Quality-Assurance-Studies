@@ -430,13 +430,13 @@ main.ctal-tae-ch1-page {
 .ctal-tae-ch1-page .hero h1 {
     color: #ffffff;
     font-size: 2rem;
-    max-width: 900px;
+    max-width: none;
     margin-bottom: 0.5em;
 }
 .ctal-tae-ch1-page .hero-lead {
     color: #e3e1ff;
     font-size: 1.05rem;
-    max-width: 920px;
+    max-width: none;
     margin-bottom: 24px;
     line-height: 1.8;
 }
