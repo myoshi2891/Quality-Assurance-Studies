@@ -107,8 +107,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ct-genai-study-guide', h1: /Certified Tester.*Testing with Generative AI/s },
   { path: '/beyond-legacy-code-guide', h1: /レガシーコードからの脱却/ },
   { path: '/iso-29119-1-2022-guide', h1: /ISO\/IEC\/IEEE 29119-1:2022.*初学者向け解説ガイド/ },
+  { path: '/istqb-ctal-tae-chapter1-introduction-and-objectives', h1: /第1章「テスト自動化の導入と目的」/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 94;
+export const EXPECTED_PAGE_COUNT = 95;
 
 
