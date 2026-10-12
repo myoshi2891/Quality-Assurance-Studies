@@ -7,6 +7,7 @@ import Section0 from './Section0';
 import Section1 from './Section1';
 import Section2 from './Section2';
 import Section3 from './Section3';
+import Section4 from './Section4';
 
 export const metadata: Metadata = {
   title: 'CTAL-TAE v2.0 第1章「テスト自動化の導入と目的」初学者向け解説ガイド',
@@ -25,6 +26,7 @@ export default function CtalTaeChapter1Page() {
           <Section1 />
           <Section2 />
           <Section3 />
+          <Section4 />
         </main>
       </div>
     </div>
