@@ -8,6 +8,12 @@ export const MERMAID_CONFIG = `%%{init: {
     "lineColor": "#8a7f68",
     "secondaryColor": "#f3ede2",
     "tertiaryColor": "#faf7f2",
+    "mainBkg": "#fffdf8",
+    "nodeTextColor": "#2b2620",
+    "nodeBorder": "#c9bfa8",
+    "clusterBkg": "#fbf8f2",
+    "clusterBorder": "#e4dbc9",
+    "edgeLabelBackground": "#fffdf8",
     "fontFamily": "Noto Sans JP, -apple-system, BlinkMacSystemFont, sans-serif",
     "fontSize": "15px"
   },
@@ -16,6 +22,7 @@ export const MERMAID_CONFIG = `%%{init: {
 }}%%`;
 
 const CLASSDEFS = `
+    classDef default fill:#fffdf8,stroke:#c9bfa8,color:#2b2620
     classDef box fill:#f5ead0,stroke:#8a6a1f,color:#5c4310
     classDef hub fill:#e0e3fa,stroke:#3538a6,color:#22246b
     classDef done fill:#dcf3e3,stroke:#1f6b3f,color:#154d2c

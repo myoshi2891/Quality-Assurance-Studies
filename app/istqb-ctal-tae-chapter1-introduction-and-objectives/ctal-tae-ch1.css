@@ -61,8 +61,16 @@
 .ctal-tae-ch1-page main,
 main.ctal-tae-ch1-page {
     max-width: none !important;
+}
+
+.ctal-tae-ch1-page main.main,
+.ctal-tae-ch1-page .main {
+    max-width: none !important;
     margin: 0 !important;
+    margin-left: var(--sidebar-w) !important;
     padding: 0 !important;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .ctal-tae-ch1-page section {
@@ -172,6 +180,80 @@ main.ctal-tae-ch1-page {
     word-break: break-word !important;
 }
 
+/* Mermaid ノード背景色・枠線・テキスト色のコントラスト保護（黒塗り防止） */
+.ctal-tae-ch1-page .mermaid-wrapper .node rect,
+.ctal-tae-ch1-page .mermaid-wrapper .node circle,
+.ctal-tae-ch1-page .mermaid-wrapper .node ellipse,
+.ctal-tae-ch1-page .mermaid-wrapper .node polygon,
+.ctal-tae-ch1-page .mermaid-wrapper .node path,
+.ctal-tae-ch1-page .mermaid-wrapper .node .basic,
+.ctal-tae-ch1-page .mermaid-wrapper .node .label-container {
+    fill: #fffdf8;
+    stroke: #c9bfa8;
+}
+
+.ctal-tae-ch1-page .mermaid-wrapper .node:not(.box):not(.hub):not(.done) rect,
+.ctal-tae-ch1-page .mermaid-wrapper .node:not(.box):not(.hub):not(.done) polygon {
+    fill: #fffdf8 !important;
+    stroke: #c9bfa8 !important;
+}
+
+.ctal-tae-ch1-page .mermaid-wrapper .node .label,
+.ctal-tae-ch1-page .mermaid-wrapper .node .label text,
+.ctal-tae-ch1-page .mermaid-wrapper .node .nodeLabel,
+.ctal-tae-ch1-page .mermaid-wrapper .node .nodeLabel *,
+.ctal-tae-ch1-page .mermaid-wrapper .node foreignObject div,
+.ctal-tae-ch1-page .mermaid-wrapper .node foreignObject span,
+.ctal-tae-ch1-page .mermaid-wrapper .node foreignObject p {
+    color: #2b2620;
+    fill: #2b2620;
+}
+
+.ctal-tae-ch1-page .mermaid-wrapper .node.box .label,
+.ctal-tae-ch1-page .mermaid-wrapper .node.box .label text,
+.ctal-tae-ch1-page .mermaid-wrapper .node.box .nodeLabel,
+.ctal-tae-ch1-page .mermaid-wrapper .node.box .nodeLabel *,
+.ctal-tae-ch1-page .mermaid-wrapper .node.box foreignObject div {
+    color: #5c4310 !important;
+    fill: #5c4310 !important;
+}
+
+.ctal-tae-ch1-page .mermaid-wrapper .node.hub .label,
+.ctal-tae-ch1-page .mermaid-wrapper .node.hub .label text,
+.ctal-tae-ch1-page .mermaid-wrapper .node.hub .nodeLabel,
+.ctal-tae-ch1-page .mermaid-wrapper .node.hub .nodeLabel *,
+.ctal-tae-ch1-page .mermaid-wrapper .node.hub foreignObject div {
+    color: #22246b !important;
+    fill: #22246b !important;
+}
+
+.ctal-tae-ch1-page .mermaid-wrapper .node.done .label,
+.ctal-tae-ch1-page .mermaid-wrapper .node.done .label text,
+.ctal-tae-ch1-page .mermaid-wrapper .node.done .nodeLabel,
+.ctal-tae-ch1-page .mermaid-wrapper .node.done .nodeLabel *,
+.ctal-tae-ch1-page .mermaid-wrapper .node.done foreignObject div {
+    color: #154d2c !important;
+    fill: #154d2c !important;
+}
+
+/* edgeLabel のコントラスト保護 */
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabel rect {
+    fill: #fffdf8 !important;
+    stroke: none !important;
+}
+
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabel,
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabel span,
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabel p,
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabel text,
+.ctal-tae-ch1-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #fffdf8 !important;
+    color: #2b2620 !important;
+    fill: #2b2620 !important;
+    font-weight: 600 !important;
+}
+
 /* Scrollbar styling */
 .ctal-tae-ch1-page *::-webkit-scrollbar {
     width: 6px;
@@ -233,15 +315,16 @@ main.ctal-tae-ch1-page {
 
 .ctal-tae-ch1-page .sidebar {
     position: fixed;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     left: 0;
-    bottom: 0;
     width: var(--sidebar-w);
+    height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+    bottom: 0;
     background: var(--paper-card);
     border-right: 1px solid var(--border);
     overflow-y: auto;
     padding: 24px 0 40px;
-    z-index: 45;
+    z-index: 40;
 }
 
 .ctal-tae-ch1-page .sidebar-brand {
@@ -737,21 +820,24 @@ main.ctal-tae-ch1-page {
             transform 0.25s,
             visibility 0.25s;
         box-shadow: var(--shadow-lg);
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
+        height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+        z-index: 50;
     }
     .ctal-tae-ch1-page .sidebar.open {
         transform: translateX(0);
         visibility: visible;
     }
+    .ctal-tae-ch1-page main.main,
     .ctal-tae-ch1-page .main {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
     .ctal-tae-ch1-page .mobile-bar {
         display: flex;
         align-items: center;
         gap: 12px;
         position: sticky;
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
         z-index: 40;
         background: var(--paper-card);
         border-bottom: 1px solid var(--border);

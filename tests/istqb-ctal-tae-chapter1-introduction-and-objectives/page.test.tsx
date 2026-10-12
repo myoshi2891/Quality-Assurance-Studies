@@ -366,6 +366,13 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
         expect(d).toContain('classDef done');
       });
     });
+
+    it('overrides dark mainBkg and nodeTextColor in MERMAID_CONFIG and defines default class', () => {
+      expect(DIAGRAM_ROADMAP).toContain('"mainBkg": "#fffdf8"');
+      expect(DIAGRAM_ROADMAP).toContain('"nodeTextColor": "#2b2620"');
+      expect(DIAGRAM_ROADMAP).toContain('"nodeBorder": "#c9bfa8"');
+      expect(DIAGRAM_ROADMAP).toContain('classDef default fill:#fffdf8,stroke:#c9bfa8,color:#2b2620');
+    });
   });
 
   describe('CSS Scoping and Resets Contract', () => {
@@ -380,6 +387,21 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(css).toContain('.ctal-tae-ch1-page');
       expect(css).toContain('.mermaid-wrapper');
       expect(css).toContain('max-width: none !important');
+    });
+
+    it('ensures main content is offset by sidebar width and sidebar respects disclaimer height', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter1-introduction-and-objectives/ctal-tae-ch1.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf8');
+
+      // Sidebar must respect header + disclaimer height
+      expect(css).toContain('calc(60px + var(--disclaimer-height, 0px))');
+      // Main must have margin-left: var(--sidebar-w) without being overridden by margin: 0 !important
+      expect(css).toMatch(/main\.main[^}]*margin-left:\s*var\(--sidebar-w\)\s*!important/);
+      // Mermaid nodes must have light background and contrast styling
+      expect(css).toContain('.node:not(.box):not(.hub):not(.done) rect');
     });
   });
 });
