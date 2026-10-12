@@ -108,8 +108,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/beyond-legacy-code-guide', h1: /レガシーコードからの脱却/ },
   { path: '/iso-29119-1-2022-guide', h1: /ISO\/IEC\/IEEE 29119-1:2022.*初学者向け解説ガイド/ },
   { path: '/istqb-ctal-tae-chapter1-introduction-and-objectives', h1: /第1章「テスト自動化の導入と目的」/ },
+  { path: '/istqb-ctal-tae-chapter2-preparing-for-test-automation', h1: /Preparing for Test Automation|テスト自動化の準備/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 95;
+export const EXPECTED_PAGE_COUNT = 96;
 
 
