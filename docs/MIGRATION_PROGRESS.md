@@ -13,10 +13,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `11fda0a`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `fix(ctal-tae-ch3): resolve sidebar and main content layout overlaps with disclaimer and header` |
+| 最新 HEAD | `0469d8c`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `fix(ctal-tae-ch3): restore complete hero section design and eliminate globals interference` |
 | 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter3-test-automation-architecture`の目視確認。 |
-| ビルド状態 | 全体テスト`npm test`: 2760 pass / 0 fail、114 files（2026-10-12）。ページ15テスト（213 expect() calls、レイアウト契約・Mermaid図9件・全8表・スティッキーNavBar・安全な外部リンク検証含む）、Mermaid契約107テスト、ナビゲーション180テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| ビルド状態 | 全体テスト`npm test`: 2765 pass / 0 fail、114 files（2026-10-12）。ページ20テスト（224 expect() calls、ヒーロー完全デザイン・レイアウト契約・Mermaid図9件・全8表・スティッキーNavBar・安全な外部リンク検証含む）、Mermaid契約107テスト、ナビゲーション180テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
 ## 2026/10/12: ISTQB CTAL-TAE 第3章 テスト自動化アーキテクチャ（TAA）完全ガイドの移行
 
