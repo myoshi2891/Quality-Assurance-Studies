@@ -27,7 +27,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - ページ単体テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンク / モバイルトグル開閉）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（12 pass / 287 expect() calls）。
 - Mermaid図6件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
 - 元HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch2.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-v2.0-ch2.md` へ移動。
-- ナビ・E2E対象は96ルート。全体 2793 pass / 116 files。
+- ナビ・E2E対象は96ルート。全体 2793 pass / 116 files（本移行の完了時点の結果。現在値は「現在地」のビルド状態を参照）。
 
 ## 2026/10/12: ISTQB CTAL-TAE 第1章「テスト自動化の導入と目的」初学者向け解説ガイドの移行
 
@@ -1447,7 +1447,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2793件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テスト2799件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
 
 【指示】
