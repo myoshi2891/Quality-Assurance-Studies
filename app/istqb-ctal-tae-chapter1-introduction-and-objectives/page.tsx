@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import './ctal-tae-ch1.css';
 import NavBar from './NavBar';
 import Hero from './Hero';
+import Section0 from './Section0';
+import Section1 from './Section1';
 
 export const metadata: Metadata = {
   title: 'CTAL-TAE v2.0 第1章「テスト自動化の導入と目的」初学者向け解説ガイド',
@@ -17,6 +19,8 @@ export default function CtalTaeChapter1Page() {
         <NavBar />
         <main className="main">
           <Hero />
+          <Section0 />
+          <Section1 />
         </main>
       </div>
     </div>
