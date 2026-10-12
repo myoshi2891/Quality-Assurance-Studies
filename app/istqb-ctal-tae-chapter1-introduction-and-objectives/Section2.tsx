@@ -43,11 +43,11 @@ export default function Section2() {
         <p className="cap">テスト自動化を構成する3つの活動と、それらが対象とするSUT</p>
       </div>
 
-      <h3>
+      <h3 id="s2-advantages-heading">
         <i className="ti ti-thumb-up"></i>テスト自動化のメリット（Advantages）
       </h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s2-advantages-heading">
           <thead>
             <tr>
               <th>#</th>
@@ -105,11 +105,11 @@ export default function Section2() {
         </table>
       </div>
 
-      <h3>
+      <h3 id="s2-disadvantages-heading">
         <i className="ti ti-thumb-down"></i>テスト自動化のデメリット（Disadvantages）
       </h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s2-disadvantages-heading">
           <thead>
             <tr>
               <th>#</th>

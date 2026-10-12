@@ -177,7 +177,7 @@ main.ctal-tae-ch1-page {
 .ctal-tae-ch1-page foreignObject div {
     margin: 0 !important;
     line-height: 1.4 !important;
-    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
 }
 
 /* Mermaid ノード背景色・枠線・テキスト色のコントラスト保護（黒塗り防止） */

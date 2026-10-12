@@ -13,14 +13,14 @@ export default function Section1() {
         </div>
       </div>
 
-      <h3>
+      <h3 id="s1-keywords-heading">
         <i className="ti ti-tag"></i>キーワード
       </h3>
       <p className="section-note">
         シラバスの見出し直下に記載されているキーワードは、学習目標に明示されていなくても暗記が必須とされています。
       </p>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s1-keywords-heading">
           <thead>
             <tr>
               <th>キーワード（英語）</th>
@@ -48,11 +48,11 @@ export default function Section1() {
         </table>
       </div>
 
-      <h3>
+      <h3 id="s1-lo-heading">
         <i className="ti ti-target"></i>学習目標（Learning Objectives）一覧
       </h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s1-lo-heading">
           <thead>
             <tr>
               <th>番号</th>

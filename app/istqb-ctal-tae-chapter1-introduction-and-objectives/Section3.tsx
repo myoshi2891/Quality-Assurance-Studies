@@ -70,11 +70,11 @@ export default function Section3() {
         詳細はISTQB CT-TAS（Test Automation Strategy）シラバス セクション3.2に記載されています。
       </p>
 
-      <h3>
+      <h3 id="s3-comparison-heading">
         <i className="ti ti-table"></i>SDLCモデル比較表
       </h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s3-comparison-heading">
           <thead>
             <tr>
               <th>観点</th>

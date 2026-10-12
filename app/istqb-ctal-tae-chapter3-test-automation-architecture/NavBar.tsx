@@ -44,7 +44,7 @@ export const TOC_ITEMS: readonly TocItem[] = [
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeId, setActiveId] = useState<string>(TOC_ITEMS[0].id);
+  const [activeId, setActiveId] = useState<string>(TOC_ITEMS[0]?.id ?? '');
 
   useEffect(() => {
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
@@ -91,6 +91,7 @@ export default function NavBar() {
       <div
         className={`sidebar-backdrop ${isOpen ? 'open' : ''}`}
         id="sidebarBackdrop"
+        aria-hidden="true"
         onClick={() => setIsOpen(false)}
       ></div>
 
