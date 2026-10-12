@@ -20,6 +20,34 @@ import {
 // 空白差を吸収して本文を照合する
 const normalize = (text: string | null | undefined) => text?.replace(/\s+/g, ' ').trim();
 
+// 空白をすべて除いて照合する（strong 等の境界で生じる空白差を無視する）
+const squash = (text: string | null | undefined) => text?.replace(/\s+/g, '');
+
+// section 直下の本文段落を出現順に取り出す
+const directParagraphs = (section: Element | null | undefined) =>
+  Array.from(section?.children ?? [])
+    .filter((el) => el.tagName === 'P' && !el.classList.contains('section-note'))
+    .map((el) => normalize(el.textContent));
+
+// 実践カードの各項目（番号・見出し・本文）をインベントリと 1 対 1 で照合する
+const expectPracticeItems = (
+  section: Element | null | undefined,
+  items: { number: number; title: string; text: string }[]
+) => {
+  const rendered = Array.from(section?.querySelectorAll('.practice-list li') ?? []).map((li) => ({
+    number: li.querySelector('.p-num')?.textContent?.trim(),
+    title: li.querySelector('.p-body strong')?.textContent?.trim(),
+    body: squash(li.querySelector('.p-body')?.textContent),
+  }));
+  expect(rendered).toEqual(
+    items.map((item) => ({
+      number: String(item.number),
+      title: item.title,
+      body: squash(item.title + item.text),
+    }))
+  );
+};
+
 // Mock Mermaid and IntersectionObserver
 const renderedDiagrams: string[] = [];
 let origMermaidRender: typeof mermaid.render;
@@ -132,6 +160,25 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(sidebar.classList.contains('open')).toBe(false);
     });
 
+    it('moves focus to the target section when a TOC link closes the drawer', () => {
+      // Arrange
+      const { container } = render(<Page />);
+      const menuBtn = container.querySelector('#menuBtn');
+      const sidebar = container.querySelector('#sidebar');
+      const link = container.querySelector<HTMLAnchorElement>('#sidebar a[href="#s3"]');
+      const target = container.querySelector('#s3');
+      if (!menuBtn || !sidebar || !link || !target) throw new Error('目次・リンク先が描画されていない');
+
+      // Act
+      fireEvent.click(menuBtn);
+      link.focus();
+      fireEvent.click(link);
+
+      // Assert: ドロワーは閉じ、フォーカスは非表示のリンクではなくリンク先セクションにある
+      expect(sidebar.classList.contains('open')).toBe(false);
+      expect(document.activeElement === target).toBe(true);
+    });
+
     it('returns focus to the menu button after closing via the close button or Escape', () => {
       // Arrange
       const { container } = render(<NavBar />);
@@ -165,8 +212,7 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       const h2 = s0?.querySelector('h2');
       expect(h2?.textContent?.trim()).toBe(inventory.sections.s0.heading);
 
-      const paragraphs = s0?.querySelectorAll('p:not(.cap)');
-      expect(paragraphs?.length).toBeGreaterThanOrEqual(2);
+      expect(directParagraphs(s0)).toEqual(inventory.sections.s0.paragraphs);
 
       const diagramCard = s0?.querySelector('.diagram-card');
       expect(diagramCard?.querySelector('[data-diagram="roadmap"]')).not.toBeNull();
@@ -178,7 +224,9 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe(
         inventory.sections.s0.callout.title
       );
-      expect(callout?.textContent).toContain('Foundation Level認定');
+      expect(normalize(callout?.querySelector('.callout-body p')?.textContent)).toBe(
+        inventory.sections.s0.callout.content
+      );
     });
 
     it('passes each of the 7 diagram definitions to Mermaid in a 1:1 match with its data-diagram key', async () => {
@@ -243,8 +291,7 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(practice?.querySelector('.practice-card-head span')?.textContent?.trim()).toBe(
         inventory.sections.s1.bestPractices.title
       );
-      const pItems = practice?.querySelectorAll('.practice-list li');
-      expect(pItems?.length).toBe(inventory.sections.s1.bestPractices.items.length);
+      expectPracticeItems(practice, inventory.sections.s1.bestPractices.items);
     });
   });
 
@@ -257,9 +304,12 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(s2?.querySelector('.eyebrow')?.textContent?.trim()).toBe(inventory.sections.s2.eyebrow);
       expect(s2?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.s2.heading);
 
-      // Activities
-      const activitiesList = s2?.querySelectorAll('ul li');
-      expect(activitiesList?.length).toBeGreaterThanOrEqual(3);
+      // Activities（最初の箇条書き）と限界（2 つ目の箇条書き）
+      const lists = Array.from(s2?.children ?? []).filter((el) => el.tagName === 'UL');
+      const listItems = (list: Element | undefined) =>
+        Array.from(list?.querySelectorAll('li') ?? []).map((li) => normalize(li.textContent));
+      expect(listItems(lists[0])).toEqual(inventory.sections.s2.activities);
+      expect(listItems(lists[1])).toEqual(inventory.sections.s2.limitations);
 
       // Diagrams
       expect(s2?.querySelector('[data-diagram="purpose3"]')).not.toBeNull();
@@ -286,16 +336,12 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(rowCells(advTable)).toEqual(toCells(inventory.sections.s2.advantages));
       expect(rowCells(disTable)).toEqual(toCells(inventory.sections.s2.disadvantages));
 
-      // Limitations
-      inventory.sections.s2.limitations.forEach((limit) => {
-        expect(s2?.textContent).toContain(limit);
-      });
-
       // Practice card
       const practice = s2?.querySelector('.practice-card');
       expect(practice?.querySelector('.practice-card-head span')?.textContent?.trim()).toBe(
         inventory.sections.s2.bestPractices.title
       );
+      expectPracticeItems(practice, inventory.sections.s2.bestPractices.items);
     });
   });
 
@@ -332,6 +378,7 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(practice?.querySelector('.practice-card-head span')?.textContent?.trim()).toBe(
         inventory.sections.s3.bestPractices.title
       );
+      expectPracticeItems(practice, inventory.sections.s3.bestPractices.items);
     });
   });
 
@@ -356,9 +403,7 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(practice?.querySelector('.practice-card-head span')?.textContent?.trim()).toBe(
         inventory.sections.s4.bestPractices.title
       );
-      expect(practice?.querySelectorAll('.practice-list li')?.length).toBe(
-        inventory.sections.s4.bestPractices.items.length
-      );
+      expectPracticeItems(practice, inventory.sections.s4.bestPractices.items);
     });
   });
 

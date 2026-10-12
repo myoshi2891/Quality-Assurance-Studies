@@ -91,8 +91,14 @@ export default function NavBar() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, closeDrawer]);
 
-  const handleLinkClick = () => {
+  // 閉じたドロワー内（非表示）のリンクにフォーカスを残さず、リンク先セクションへ移す
+  const handleLinkClick = (href: string) => {
     setIsOpen(false);
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    // スクロールはアンカー本来の遷移に任せる
+    target.focus({ preventScroll: true });
   };
 
   return (
@@ -142,7 +148,7 @@ export default function NavBar() {
                       href={link.href}
                       data-nav
                       className={isActive ? 'active' : ''}
-                      onClick={handleLinkClick}
+                      onClick={() => handleLinkClick(link.href)}
                     >
                       <i className={link.icon}></i>
                       {link.text}
