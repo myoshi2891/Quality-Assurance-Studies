@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4505858`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `feat(navigation): register ctal-tae-ch2 in navigation and e2e page list` |
+| 最新 HEAD | `f68b0cd`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `chore(archive): move ctal-tae-ch2 source files to archive and update docs` |
 | 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter2-preparing-for-test-automation`の目視確認。 |
 | ビルド状態 | 全体テスト`npm test`: 2793 pass / 0 fail、116 files（2026-10-12）。ページ12テスト（287 expect() calls、全6Mermaid図・全5表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
@@ -1445,10 +1445,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 95 ルート（ガイドライブラリ index + 94 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2781件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第1章 テスト自動化の導入と目的」（`/istqb-ctal-tae-chapter1-introduction-and-objectives`）が正常に登録・稼働しています。
+- 全体テスト2793件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 2781 tests)
+bun test             # ユニットテスト (bun test, 2793 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 95 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 96 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -133,6 +133,8 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-complete-guide/page.tsx` — テスト自動化(CTAL-TAE)ガイドページ
 - `app/istqb-ctal-tae-chapter1-introduction-and-objectives/ctal-tae-ch1.css` — CTAL-TAE 第1章ガイド固有スタイル
 - `app/istqb-ctal-tae-chapter1-introduction-and-objectives/page.tsx` — CTAL-TAE 第1章ガイドページ（`NavBar.tsx` 付き）
+- `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css` — CTAL-TAE 第2章ガイド固有スタイル
+- `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.tsx` — CTAL-TAE 第2章ガイドページ（`NavBar.tsx` 付き）
 - `app/istqb-ctal-tae-chapter3-test-automation-architecture/page.tsx` — CTAL-TAE 第3章 テスト自動化アーキテクチャガイドページ（`NavBar.tsx` 付き）
 - `app/istqb-ctal-ta-complete-guide/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
 - `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
@@ -747,6 +749,7 @@ bun test        # ユニットテスト成功
 | `Iso-29119-1-2022-guide.html` | `/iso-29119-1-2022-guide` | ✅ スティッキーNavBar + Mermaid図19件 + 全39表 + 目次69リンク (archive/html-archive/iso/) |
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全4表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -771,10 +774,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 95 ルート（ガイドライブラリ index + 94 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2781件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第1章 テスト自動化の導入と目的」（`/istqb-ctal-tae-chapter1-introduction-and-objectives`）が正常に登録・稼働しています。
+- 全体テスト2793件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
