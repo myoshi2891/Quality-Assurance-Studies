@@ -342,8 +342,9 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
 
       inventory.sections.sec5.referenceCards.forEach((expected, i) => {
         const card = refCards[i];
-        expect(card.querySelector('.ref-card-title')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
-          expected.title.replace(/\s+/g, ' ').trim()
+        const titleEl = card.querySelector('.ref-card-title');
+        expect(titleEl?.textContent?.replace(/\s+/g, '').trim()).toBe(
+          expected.title.replace(/\s+/g, '').trim()
         );
         const link = card.querySelector('a');
         expect(link?.getAttribute('href')).toBe(expected.url);
