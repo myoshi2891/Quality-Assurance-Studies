@@ -17,6 +17,9 @@ import {
   DIAGRAM_TOOLSELECT,
 } from '../../app/istqb-ctal-tae-chapter1-introduction-and-objectives/diagrams';
 
+// 空白差を吸収して本文を照合する
+const normalize = (text: string | null | undefined) => text?.replace(/\s+/g, ' ').trim();
+
 // Mock Mermaid and IntersectionObserver
 const renderedDiagrams: string[] = [];
 let origMermaidRender: typeof mermaid.render;
@@ -222,11 +225,22 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       const tables = s2?.querySelectorAll('table');
       expect(tables?.length).toBe(2);
 
-      const advRows = tables?.[0].querySelectorAll('tbody tr');
-      expect(advRows?.length).toBe(inventory.sections.s2.advantages.length);
+      const advTable = tables?.[0];
+      const disTable = tables?.[1];
+      if (!advTable || !disTable) {
+        throw new Error('メリット / デメリットの表が描画されていない');
+      }
 
-      const disRows = tables?.[1].querySelectorAll('tbody tr');
-      expect(disRows?.length).toBe(inventory.sections.s2.disadvantages.length);
+      // 各行の番号・見出し・解説をインベントリと 1 対 1 で照合する
+      const rowCells = (table: Element) =>
+        Array.from(table.querySelectorAll('tbody tr')).map((tr) =>
+          Array.from(tr.querySelectorAll('td')).map((td) => normalize(td.textContent))
+        );
+      const toCells = (items: { id: number; title: string; description: string }[]) =>
+        items.map((item) => [String(item.id), item.title, item.description]);
+
+      expect(rowCells(advTable)).toEqual(toCells(inventory.sections.s2.advantages));
+      expect(rowCells(disTable)).toEqual(toCells(inventory.sections.s2.disadvantages));
 
       // Limitations
       inventory.sections.s2.limitations.forEach((limit) => {
@@ -286,6 +300,12 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(s4?.querySelector('.eyebrow')?.textContent?.trim()).toBe(inventory.sections.s4.eyebrow);
       expect(s4?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.s4.heading);
 
+      // 本文段落（section 直下の p）をインベントリと 1 対 1 で照合する
+      const paragraphs = Array.from(s4?.children ?? [])
+        .filter((el) => el.tagName === 'P')
+        .map((el) => normalize(el.textContent));
+      expect(paragraphs).toEqual(inventory.sections.s4.paragraphs);
+
       expect(s4?.querySelector('[data-diagram="toolselect"]')).not.toBeNull();
 
       const practice = s4?.querySelector('.practice-card');
@@ -309,6 +329,12 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
 
       const checkboxes = s5?.querySelectorAll('input[type="checkbox"]') ?? [];
       expect(checkboxes.length).toBe(inventory.sections.s5.checklist.length);
+
+      // 各チェック項目の文言をインベントリと 1 対 1 で照合する
+      const itemTexts = Array.from(s5?.querySelectorAll('.check-list li .txt') ?? []).map((el) =>
+        normalize(el.textContent)
+      );
+      expect(itemTexts).toEqual(inventory.sections.s5.checklist);
 
       const fill = s5?.querySelector<HTMLElement>('#checkFill');
       const label = s5?.querySelector('#checkLabel');

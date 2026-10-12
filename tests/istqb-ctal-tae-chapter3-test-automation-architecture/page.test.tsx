@@ -20,6 +20,37 @@ import {
   DIAGRAM_CHECKLIST,
 } from '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/diagrams';
 
+// noUncheckedIndexedAccess 下で添字参照を安全に行い、欠落時は添字付きで失敗させる
+function at<T>(list: ArrayLike<T>, index: number, label: string): T {
+  const item = list[index];
+  if (item === undefined) {
+    throw new Error(`${label}[${index}] が存在しない`);
+  }
+  return item;
+}
+
+// 各データ表の caption（出現順）
+const TABLE_CAPTIONS = [
+  '第3章の学習目標（LO）一覧',
+  'gTAAが定義する4つの外部インターフェース',
+  'gTAAの4つのコア機能',
+  'TAA設計時の検討項目',
+  'TAFの3層レイヤー比較',
+  'テストケース自動化アプローチの比較',
+  'オブジェクト指向プログラミングの4原則',
+  'SOLID原則',
+  'テスト自動化で使われるデザインパターン',
+  '出典・参考ソース一覧',
+];
+
+// 第6章の Mermaid 図と対応する判断項目（描画失敗時のフォールバック）
+const CHECKLIST_DECISIONS = [
+  'gTAAの4機能（生成・定義・実行・適応）をどのツールが担うか整理したか？',
+  'TAF内のレイヤー構成（Test Scripts / Business Logic / Core Libraries）は明確か？',
+  'チームのスキルとSUTの変化頻度に見合った自動化アプローチを選んだか？',
+  '要件に適した設計原則・デザインパターンを選定・適用したか？',
+];
+
 // Mock Mermaid and IntersectionObserver
 const renderedDiagrams: string[] = [];
 let origMermaidRender: typeof mermaid.render;
@@ -64,7 +95,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(metaItems.length).toBe(inventory.hero.meta.length);
 
       inventory.hero.meta.forEach((expected, i) => {
-        const item = metaItems[i];
+        const item = at(metaItems, i, 'metaItems');
         const label = item.querySelector('.hero-meta-label')?.textContent?.trim();
         const value = item.querySelector('.hero-meta-value')?.textContent?.replace(/\s+/g, ' ').trim();
         expect(label).toBe(expected.label);
@@ -80,7 +111,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(navLinks.length).toBe(inventory.tocLinks.length);
 
       inventory.tocLinks.forEach((expected, i) => {
-        const link = navLinks[i];
+        const link = at(navLinks, i, 'navLinks');
         expect(link.getAttribute('href')).toBe(expected.href);
         expect(link.getAttribute('data-target')).toBe(expected.dataTarget);
         expect(link.textContent?.replace(/\s+/g, ' ').trim()).toBe(expected.text);
@@ -90,8 +121,9 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
     it('exposes TOC_ITEMS constant synchronized with inventory', () => {
       expect(TOC_ITEMS.length).toBe(inventory.tocLinks.length);
       TOC_ITEMS.forEach((item, i) => {
-        expect(item.id).toBe(inventory.tocLinks[i].dataTarget);
-        expect(item.label).toBe(inventory.tocLinks[i].text);
+        const expected = at(inventory.tocLinks, i, 'inventory.tocLinks');
+        expect(item.id).toBe(expected.dataTarget);
+        expect(item.label).toBe(expected.text);
       });
     });
 
@@ -125,9 +157,10 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
 
       expect(renderedHeadings.length).toBe(inventory.headings.length);
       inventory.headings.forEach((expected, i) => {
-        expect(renderedHeadings[i].level).toBe(expected.level);
-        expect(renderedHeadings[i].id).toBe(expected.id);
-        expect(renderedHeadings[i].text).toBe(expected.text);
+        const heading = at(renderedHeadings, i, 'renderedHeadings');
+        expect(heading.level).toBe(expected.level);
+        expect(heading.id).toBe(expected.id);
+        expect(heading.text).toBe(expected.text);
       });
     });
   });
@@ -137,9 +170,14 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       const { container } = render(<Page />);
       const tables = container.querySelectorAll('table.data-table');
       expect(tables.length).toBe(inventory.tables.length);
+      expect(tables.length).toBe(TABLE_CAPTIONS.length);
 
       inventory.tables.forEach((expectedTable, tableIdx) => {
-        const tableEl = tables[tableIdx];
+        const tableEl = at(tables, tableIdx, 'tables');
+        // 各表は内容を識別できる caption を先頭に持つ
+        const caption = tableEl.querySelector(':scope > caption');
+        expect(caption?.textContent?.trim()).toBe(at(TABLE_CAPTIONS, tableIdx, 'TABLE_CAPTIONS'));
+
         const headers = Array.from(tableEl.querySelectorAll('thead th')).map((th) =>
           th.textContent?.replace(/\s+/g, ' ').trim()
         );
@@ -192,6 +230,22 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       const { container } = render(<Page />);
       const containers = container.querySelectorAll('.mermaid-container');
       expect(containers.length).toBe(9);
+
+      // 第6章: 図を維持しつつ、描画失敗時にも読める判断項目リストを併置する
+      const section6 = container.querySelector('[id="6-章全体のまとめtaaを設計する際のチェックリスト"]')?.closest('section');
+      if (!section6) {
+        throw new Error('第6章の section が描画されていない');
+      }
+      expect(section6.querySelector('.mermaid-container')).not.toBeNull();
+      const decisions = Array.from(section6.querySelectorAll('ol.checklist-decisions > li')).map((li) =>
+        li.textContent?.replace(/\s+/g, ' ').trim()
+      );
+      expect(decisions).toEqual(CHECKLIST_DECISIONS);
+      // 各項目が図の判断ノードと同じ文言であること（改行タグ・空白差を除いて照合）
+      const squash = (text: string) => text.replace(/<br\/>/g, '').replace(/\s+/g, '');
+      CHECKLIST_DECISIONS.forEach((decision) => {
+        expect(squash(DIAGRAM_CHECKLIST)).toContain(squash(decision));
+      });
     });
   });
 
@@ -202,7 +256,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(callouts.length).toBe(inventory.callouts.length);
 
       inventory.callouts.forEach((expectedCallout, calloutIdx) => {
-        const calloutEl = callouts[calloutIdx];
+        const calloutEl = at(callouts, calloutIdx, 'callouts');
         const label = calloutEl.querySelector('.callout-label')?.textContent?.trim();
         expect(label).toBe(expectedCallout.label);
 
@@ -230,7 +284,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(links.length).toBe(inventory.references.length);
 
       inventory.references.forEach((expected, i) => {
-        const link = links[i];
+        const link = at(links, i, 'links');
         expect(link.getAttribute('href')).toBe(expected.url);
         expect(link.getAttribute('target')).toBe('_blank');
         expect(link.getAttribute('rel')).toBe('noopener noreferrer');
