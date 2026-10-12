@@ -12,7 +12,7 @@
 ## 目次
 
 1. [この規格を一言でいうと](#第1章-この規格を一言でいうと)
-2. [ISO/IEC 2382 シリーズの中での位置づけ](#第2章-iso-iec-2382-シリーズの中での位置づけ)
+2. [ISO/IEC 2382 シリーズの中での位置づけ](#第2章-isoiec-2382-シリーズの中での位置づけ)
 3. [ライフサイクルと現在のステータス（2026年10月11日時点）](#第3章-ライフサイクルと現在のステータス2026年10月11日時点)
 4. [規格が扱う概念の地図](#第4章-規格が扱う概念の地図)
 5. [ステップ別解説：ソースコードが動くまで](#第5章-ステップ別解説ソースコードが動くまで)
@@ -904,12 +904,12 @@ flowchart TD
 
 | 内容 | URL |
 |---|---|
-| ISO/IEC 2382-15:1999 公式ページ（ステータス・ステージ履歴） | <https://www.iso.org/standard/7257.html> |
-| ISO/IEC AWI 2382-15（第2版の作業項目） | <https://www.iso.org/standard/93664.html> |
-| ISO/IEC 2382:2015（統合版・各部の状態一覧） | <https://committee.iso.org/standard/63598.html> |
-| IEC Webstore（書誌情報・安定期限 2026） | <https://webstore.iec.ch/publication/11070> |
-| ANSI Webstore（スコープ記述） | <https://webstore.ansi.org/standards/iso/isoiec2382151999> |
-| ANSI 公式プレビュー PDF（目次の一部・15.02・15.08・15.09 の節名） | <https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf> |
+| ISO/IEC 2382-15:1999 公式ページ（ステータス・ステージ履歴） | <a href="https://www.iso.org/standard/7257.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/7257.html</a> |
+| ISO/IEC AWI 2382-15（第2版の作業項目） | <a href="https://www.iso.org/standard/93664.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/93664.html</a> |
+| ISO/IEC 2382:2015（統合版・各部の状態一覧） | <a href="https://committee.iso.org/standard/63598.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/standard/63598.html</a> |
+| IEC Webstore（書誌情報・安定期限 2026） | <a href="https://webstore.iec.ch/publication/11070" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/11070</a> |
+| ANSI Webstore（スコープ記述） | <a href="https://webstore.ansi.org/standards/iso/isoiec2382151999" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/standards/iso/isoiec2382151999</a> |
+| ANSI 公式プレビュー PDF（目次の一部・15.02・15.08・15.09 の節名） | <a href="https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf</a> |
 
 ### 9-2. 目次の再構成に使った第三者情報（機械翻訳のため要確認）
 
