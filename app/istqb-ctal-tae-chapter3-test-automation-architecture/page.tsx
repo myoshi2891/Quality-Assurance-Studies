@@ -5,6 +5,8 @@ import NavBar from './NavBar';
 import Hero from './Hero';
 import Section0 from './Section0';
 import Section1 from './Section1';
+import Section2 from './Section2';
+import Section3 from './Section3';
 
 export const metadata: Metadata = {
   title: 'CTAL-TAE v2.0 第3章：Test Automation Architecture 徹底解説',
@@ -21,6 +23,8 @@ export default function CtalTaeChapter3Page() {
           <Hero />
           <Section0 />
           <Section1 />
+          <Section2 />
+          <Section3 />
         </main>
       </div>
     </div>
