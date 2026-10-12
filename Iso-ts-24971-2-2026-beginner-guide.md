@@ -88,7 +88,7 @@ flowchart LR
 | **MLMD** | ML-enabled Medical Device。機械学習を搭載した医療機器（IVDソフトも含む） |
 | **ハザード** | 危害の潜在的な原因 |
 | **危険状態** | 人・財産・環境がハザードにさらされる状況 |
-| **危害（Harm）** | 人の傷害や健康被害 |
+| **危害（Harm）** | 人の傷害や健康被害、または財産・環境への損害 |
 | **バイアス** | データやモデルに生じる偏り。特定の集団で性能が低下する原因になる |
 | **ドリフト／データセットシフト** | 運用中の入力データの性質が、学習時と変わってしまい性能が劣化する現象 |
 | **OOD入力** | Out-of-Distribution。学習時に想定していない種類の入力 |
@@ -326,14 +326,19 @@ flowchart LR
 
 ### Step 5：リスク評価
 
-**ISO 14971 の基本**：リスク受容基準に照らして、リスクを評価する。
+**ISO 14971 の基本**：ここでは2つの活動を区別します。
 
-**MLで加わること**：MLでは**発生確率の推定が難しい**ことが多い。その場合の考え方は次のとおりです（Johner Instituteの解説に基づく）。
+| 活動 | 内容 | ISO 14971 での位置づけ |
+|---|---|---|
+| リスク推定 | 危害の発生確率と重大度から、リスクの大きさを見積もる | リスク分析の一部 |
+| リスク評価 | 推定したリスクをリスク受容基準と照合し、受容できるかを決める | 推定とは別の活動 |
+
+**MLで加わること**：MLでは**発生確率の推定が難しい**ことが多い。その場合のリスク推定の考え方は次のとおりです（Johner Instituteの解説に基づく）。推定の結果は、その後のリスク評価でリスク受容基準と照合します。
 
 ```mermaid
 flowchart TD
-    A["危害の発生確率を<br/>信頼できる形で推定できるか？"] -->|"できる"| B["確率と重大度の組合せで評価"]
-    A -->|"できない"| C["危害の重大度を基準に評価"]
+    A["危害の発生確率を<br/>信頼できる形で推定できるか？"] -->|"できる"| B["確率と重大度の組合せで推定"]
+    A -->|"できない"| C["危害の重大度を基準に推定"]
     C --> D["追加の根拠を集める"]
     D --> E1["ユーザビリティ評価"]
     D --> E2["重要なユーザータスクの分析"]
@@ -456,7 +461,7 @@ AIがどこまで自動で判断・実行し、人がどこで関与するか。
 | Step 2（用途・誤使用） | 「優先順位付けの補助」であり「診断確定」ではないことを明記。スコアを確定診断と誤解するリスクを特定 |
 | Step 3（安全特性） | 対応する撮影装置、画像形式、対象年齢層、閾値、既知の誤検出パターンを整理 |
 | Step 4（ハザード分析） | 学習データに小児が含まれない→小児画像でOOD→見逃し→治療遅延、という連鎖を分析 |
-| Step 5（評価） | 確率推定が難しいため、重大度を軸に評価し、サブグループ分析で補強 |
+| Step 5（推定・評価） | 確率推定が難しいため、重大度を軸に推定し、サブグループ分析で補強したうえで、リスク受容基準と照合して受容性を判断 |
 | Step 6（対策） | 対象年齢外の画像は処理しない入力制約、警告表示、読影者の確認フロー |
 | Step 9（市販後） | 導入施設別の陽性率の変化を監視し、閾値を超えたらドリフト調査 |
 
@@ -484,7 +489,7 @@ flowchart LR
 | **IEC 62304** | 医療機器ソフトウェアのライフサイクル規格（Johner Instituteは第2版の話題も扱っている） |
 | **IEC 62366-1** | ユーザビリティエンジニアリング。AI特有の誤解・過信リスクと関連 |
 | **IMDRF GMLP 10原則** | 2025年1月に最終版が公表。意図する用途の理解、優れたソフトウェア・設計・セキュリティ実践、集団を代表するデータセット、学習データとテストデータの独立などを含む |
-| **FDA PCCP最終ガイダンス（2024年12月）** | AI対応デバイスのソフトウェア機能について、事前に計画した変更を認可に含める枠組み。**ML更新のリスク管理**と整合させる場面が多い |
+| **FDA PCCP最終ガイダンス（2025年8月改訂版。初版は2024年12月）** | AI対応デバイスのソフトウェア機能について、事前に計画した変更を認可に含める枠組み。**ML更新のリスク管理**と整合させる場面が多い |
 | **EU AI Act** | Johner Instituteは、AI ActとISO/TS 24971-2等を合わせて対応を支援する旨を記載。詳細な適用関係は別途確認が必要 |
 
 ### 10.1 関係の全体像
@@ -617,7 +622,7 @@ flowchart LR
 |---|---|---|---|
 | 米FDA | Good Machine Learning Practice for Medical Device Development: Guiding Principles | <https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles> | IMDRFが2025年1月にGMLP 10原則の最終版を公表 |
 | RAPS | IMDRF finalizes good machine learning practice, software risk documents | <https://www.raps.org/resource/imdrf-finalizes-good-machine-learning-practice-so.html> | GMLP最終版の内容（意図する用途、代表性のあるデータ、学習・テストデータの独立など） |
-| Foley & Lardner | FDA final guidance: PCCP for AI device software | <https://www.foley.com/insights/publications/2025/01/fda-final-guidance-ai-device-software-predetermined-change-control-plan/> | PCCP最終ガイダンスの概要 |
+| 米FDA | Marketing Submission Recommendations for a Predetermined Change Control Plan for AI-Enabled Device Software Functions（Final、2025年8月） | <https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence> | PCCP最終ガイダンスの現行版 |
 | Ropes & Gray | FDA finalizes guidance on PCCPs for AI-enabled device | <https://ropesgray.com/en/insights/alerts/2024/12/fda-finalizes-guidance-on-predetermined-change-control-plans-for-ai-enabled-device> | PCCP最終ガイダンスの公表日・スコープ |
 | McDermott Will & Schulte | FDA Issues Final Guidance on PCCPs for AI-Enabled Devices | <https://www.mcdermottlaw.com/insights/fda-issues-final-guidance-on-predetermined-change-control-plans-for-ai-enabled-devices/> | PCCPの位置づけ |
 
