@@ -82,7 +82,7 @@ flowchart LR
 | 用語 | 意味（やさしい説明） |
 |---|---|
 | **ISO 14971** | 医療機器のリスクマネジメントを定めた国際規格。ハザードの特定→評価→対策→残留リスク評価→市販後まで一連のプロセスを規定 |
-| **ISO/TR 24971** | ISO 14971 の適用ガイダンス（Technical Report）。本規格はその「第2部（ML編）」という位置づけ |
+| **ISO/TR 24971** | ISO 14971 の適用ガイダンス（Technical Report）。現行版は ISO/TR 24971:2020 で、「第1部」ではない。これを置き換える予定の ISO/AWI TS 24971-1「第1部：一般」が開発中（2026年7月に作業項目登録、ステージ 20.00）。本規格（ISO/TS 24971-2）は「第2部（ML編）」に当たる |
 | **Technical Specification（TS）** | ISOの成果物の一種。国際規格（IS）ほど合意が固まっていない、または技術が発展途上の分野で使われる。**直接の法的拘束力はない** |
 | **ML（機械学習）** | データからパターンを学習し、予測・分類などを行う技術 |
 | **MLMD** | ML-enabled Medical Device。機械学習を搭載した医療機器（IVDソフトも含む） |
@@ -106,7 +106,7 @@ flowchart LR
 ```mermaid
 flowchart TD
     A["ISO 14971:2019<br/>医療機器のリスクマネジメント<br/>（要求事項）"]
-    B["ISO/TR 24971<br/>14971 の適用ガイダンス<br/>（第1部：一般）"]
+    B["ISO/TR 24971:2020<br/>14971 の適用ガイダンス<br/>（現行の技術報告書）"]
     C["ISO/TS 24971-2:2026<br/>14971 の適用ガイダンス<br/>（第2部：ML）"]
     D["MLを搭載した医療機器<br/>（MLMD）"]
     A -->|"プロセスはそのまま使う"| C
@@ -484,7 +484,7 @@ flowchart LR
 | 規格・規制 | 関係 |
 |---|---|
 | **ISO 14971:2019** | 本規格が適用対象とするリスクマネジメント規格。要求事項は変更されない |
-| **ISO/TR 24971** | 14971 の一般的な適用ガイダンス。本規格と併用 |
+| **ISO/TR 24971:2020** | 14971 の一般的な適用ガイダンス（現行の技術報告書）。本規格と併用。開発中の ISO/AWI TS 24971-1「第1部：一般」に置き換えられる予定 |
 | **BS/AAMI 34971:2023／AAMI TIR34971** | 前身にあたるガイド（第3.2節） |
 | **IEC 62304** | 医療機器ソフトウェアのライフサイクル規格（Johner Instituteは第2版の話題も扱っている） |
 | **IEC 62366-1** | ユーザビリティエンジニアリング。AI特有の誤解・過信リスクと関連 |
@@ -600,31 +600,31 @@ flowchart LR
 
 | 区分 | ソース | URL | 参照内容 |
 |---|---|---|---|
-| ISO公式 | ISO/TS 24971-2:2026 | <https://www.iso.org/standard/24971-2> | 名称、概要（対象範囲、LLM/生成AI対象外）、発行日、ページ数、TC、ライフサイクル、価格 |
-| 欧州規格 | CEN ISO/TS 24971-2:2026（EVS） | <https://www.evs.ee/en/cen-iso-ts-24971-2-2026> | CEN版の有効開始日（2026-07-15） |
-| スペイン規格協会 | UNE掲載ページ | <https://www.en.une.org/encuentra-tu-norma/busca-tu-norma/iso?c=087600> | 発行日（2026-06-17）の確認 |
-| カナダ規格評議会 | SCC標準データベース（発行版） | <https://scc-ccn.ca/standardsdb/standards/2058833> | 発行版の概要・公開日 |
-| カナダ規格評議会 | SCC標準データベース（ドラフト版） | <https://scc-ccn.ca/standardsdb/standards/8191847> | ドラフト段階の概要（バイアス、継続学習などの記述） |
+| ISO公式 | ISO/TS 24971-2:2026 | <a href="https://www.iso.org/standard/24971-2" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/24971-2</a> | 名称、概要（対象範囲、LLM/生成AI対象外）、発行日、ページ数、TC、ライフサイクル、価格 |
+| 欧州規格 | CEN ISO/TS 24971-2:2026（EVS） | <a href="https://www.evs.ee/en/cen-iso-ts-24971-2-2026" target="_blank" rel="noopener noreferrer">https://www.evs.ee/en/cen-iso-ts-24971-2-2026</a> | CEN版の有効開始日（2026-07-15） |
+| スペイン規格協会 | UNE掲載ページ | <a href="https://www.en.une.org/encuentra-tu-norma/busca-tu-norma/iso?c=087600" target="_blank" rel="noopener noreferrer">https://www.en.une.org/encuentra-tu-norma/busca-tu-norma/iso?c=087600</a> | 発行日（2026-06-17）の確認 |
+| カナダ規格評議会 | SCC標準データベース（発行版） | <a href="https://scc-ccn.ca/standardsdb/standards/2058833" target="_blank" rel="noopener noreferrer">https://scc-ccn.ca/standardsdb/standards/2058833</a> | 発行版の概要・公開日 |
+| カナダ規格評議会 | SCC標準データベース（ドラフト版） | <a href="https://scc-ccn.ca/standardsdb/standards/8191847" target="_blank" rel="noopener noreferrer">https://scc-ccn.ca/standardsdb/standards/8191847</a> | ドラフト段階の概要（バイアス、継続学習などの記述） |
 
 ### 14.2 専門機関・業界団体の解説（著名な国際的専門機関）
 
 | 区分 | ソース | URL | 参照内容 |
 |---|---|---|---|
-| Johner Institute（Dr. Catharina Bertram、2026-09-16公開） | ISO/TS 24971-2:2026 – Risk Management for ML-Based Medical Devices | <https://blog.johner-institute.com/regulatory-affairs/iso-ts-24971-22026-risk-management-for-ml-based-medical-devices/> | 要点、構成、附属書、製造業者への推奨ステップ、評価 |
-| BSI | BS/AAMI 34971:2023 解説 | <https://knowledge.bsigroup.com/articles/how-to-tackle-hazards-in-ai-medical-devices-using-bs-aami-34971> | 前身ガイドの趣旨 |
-| BSI | BS/AAMI 34971 製品ページ | <https://knowledge.bsigroup.com/products/application-of-iso-14971-to-machine-learning-in-artificial-intelligence-guide/standard> | 前身ガイドの対象範囲 |
-| AAMI／MedTech Intelligence | AAMI TIR34971 と BS/AAMI 34971 の発行 | <https://medtechintelligence.com/?p=31349> | CR→TIR→BSの経緯、FDAによる認識 |
-| GlobalSpec（AAMI CR34971） | AAMI CR34971 概要 | <https://standards.globalspec.com/std/14504976/cr34971> | 前身コンセンサスレポートの趣旨（データ管理、特徴抽出、学習、評価、サイバーセキュリティ） |
+| Johner Institute（Dr. Catharina Bertram、2026-09-16公開） | ISO/TS 24971-2:2026 – Risk Management for ML-Based Medical Devices | <a href="https://blog.johner-institute.com/regulatory-affairs/iso-ts-24971-22026-risk-management-for-ml-based-medical-devices/" target="_blank" rel="noopener noreferrer">https://blog.johner-institute.com/regulatory-affairs/iso-ts-24971-22026-risk-management-for-ml-based-medical-devices/</a> | 要点、構成、附属書、製造業者への推奨ステップ、評価 |
+| BSI | BS/AAMI 34971:2023 解説 | <a href="https://knowledge.bsigroup.com/articles/how-to-tackle-hazards-in-ai-medical-devices-using-bs-aami-34971" target="_blank" rel="noopener noreferrer">https://knowledge.bsigroup.com/articles/how-to-tackle-hazards-in-ai-medical-devices-using-bs-aami-34971</a> | 前身ガイドの趣旨 |
+| BSI | BS/AAMI 34971 製品ページ | <a href="https://knowledge.bsigroup.com/products/application-of-iso-14971-to-machine-learning-in-artificial-intelligence-guide/standard" target="_blank" rel="noopener noreferrer">https://knowledge.bsigroup.com/products/application-of-iso-14971-to-machine-learning-in-artificial-intelligence-guide/standard</a> | 前身ガイドの対象範囲 |
+| AAMI／MedTech Intelligence | AAMI TIR34971 と BS/AAMI 34971 の発行 | <a href="https://medtechintelligence.com/?p=31349" target="_blank" rel="noopener noreferrer">https://medtechintelligence.com/?p=31349</a> | CR→TIR→BSの経緯、FDAによる認識 |
+| GlobalSpec（AAMI CR34971） | AAMI CR34971 概要 | <a href="https://standards.globalspec.com/std/14504976/cr34971" target="_blank" rel="noopener noreferrer">https://standards.globalspec.com/std/14504976/cr34971</a> | 前身コンセンサスレポートの趣旨（データ管理、特徴抽出、学習、評価、サイバーセキュリティ） |
 
 ### 14.3 関連する規制・ガイダンス
 
 | 区分 | ソース | URL | 参照内容 |
 |---|---|---|---|
-| 米FDA | Good Machine Learning Practice for Medical Device Development: Guiding Principles | <https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles> | IMDRFが2025年1月にGMLP 10原則の最終版を公表 |
-| RAPS | IMDRF finalizes good machine learning practice, software risk documents | <https://www.raps.org/resource/imdrf-finalizes-good-machine-learning-practice-so.html> | GMLP最終版の内容（意図する用途、代表性のあるデータ、学習・テストデータの独立など） |
-| 米FDA | Marketing Submission Recommendations for a Predetermined Change Control Plan for AI-Enabled Device Software Functions（Final、2025年8月） | <https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence> | PCCP最終ガイダンスの現行版 |
-| Ropes & Gray | FDA finalizes guidance on PCCPs for AI-enabled device | <https://ropesgray.com/en/insights/alerts/2024/12/fda-finalizes-guidance-on-predetermined-change-control-plans-for-ai-enabled-device> | PCCP最終ガイダンスの公表日・スコープ |
-| McDermott Will & Schulte | FDA Issues Final Guidance on PCCPs for AI-Enabled Devices | <https://www.mcdermottlaw.com/insights/fda-issues-final-guidance-on-predetermined-change-control-plans-for-ai-enabled-devices/> | PCCPの位置づけ |
+| 米FDA | Good Machine Learning Practice for Medical Device Development: Guiding Principles | <a href="https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles" target="_blank" rel="noopener noreferrer">https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles</a> | IMDRFが2025年1月にGMLP 10原則の最終版を公表 |
+| RAPS | IMDRF finalizes good machine learning practice, software risk documents | <a href="https://www.raps.org/resource/imdrf-finalizes-good-machine-learning-practice-so.html" target="_blank" rel="noopener noreferrer">https://www.raps.org/resource/imdrf-finalizes-good-machine-learning-practice-so.html</a> | GMLP最終版の内容（意図する用途、代表性のあるデータ、学習・テストデータの独立など） |
+| 米FDA | Marketing Submission Recommendations for a Predetermined Change Control Plan for AI-Enabled Device Software Functions（Final、2025年8月） | <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence" target="_blank" rel="noopener noreferrer">https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence</a> | PCCP最終ガイダンスの現行版 |
+| Ropes & Gray | FDA finalizes guidance on PCCPs for AI-enabled device | <a href="https://ropesgray.com/en/insights/alerts/2024/12/fda-finalizes-guidance-on-predetermined-change-control-plans-for-ai-enabled-device" target="_blank" rel="noopener noreferrer">https://ropesgray.com/en/insights/alerts/2024/12/fda-finalizes-guidance-on-predetermined-change-control-plans-for-ai-enabled-device</a> | PCCP最終ガイダンスの公表日・スコープ |
+| McDermott Will & Schulte | FDA Issues Final Guidance on PCCPs for AI-Enabled Devices | <a href="https://www.mcdermottlaw.com/insights/fda-issues-final-guidance-on-predetermined-change-control-plans-for-ai-enabled-devices/" target="_blank" rel="noopener noreferrer">https://www.mcdermottlaw.com/insights/fda-issues-final-guidance-on-predetermined-change-control-plans-for-ai-enabled-devices/</a> | PCCPの位置づけ |
 
 ### 14.4 ソースに関する補足
 
