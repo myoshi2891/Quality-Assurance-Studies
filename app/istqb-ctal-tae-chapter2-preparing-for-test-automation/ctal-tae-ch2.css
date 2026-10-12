@@ -30,6 +30,22 @@
     min-height: 100vh;
 }
 
+/* ---------- Scrollbar Resets ---------- */
+.ctal-tae-ch2-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.ctal-tae-ch2-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.ctal-tae-ch2-page *::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px;
+}
+.ctal-tae-ch2-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-faint) !important;
+}
+
 /* ---------- globals.css Resets ---------- */
 .ctal-tae-ch2-page .hero {
     min-height: 0 !important;

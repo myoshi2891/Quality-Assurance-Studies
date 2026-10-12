@@ -423,5 +423,17 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(DIAGRAM_SUT).toContain('class S_Start');
       expect(DIAGRAM_TOOLS).toContain('class R_Tool');
     });
+
+    it('resets globals dark scrollbar track to transparent with light theme thumb', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+
+      expect(css).toContain('*::-webkit-scrollbar-track');
+      expect(css).toMatch(/\*::-webkit-scrollbar-track\s*\{[^}]*background:\s*transparent\s*!important/);
+      expect(css).toContain('*::-webkit-scrollbar-thumb');
+    });
   });
 });
