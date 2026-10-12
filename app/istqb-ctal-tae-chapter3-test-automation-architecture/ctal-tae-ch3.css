@@ -61,8 +61,10 @@
 .ctal-tae-ch3-page main,
 main.ctal-tae-ch3-page {
     max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+}
+
+.ctal-tae-ch3-page [id] {
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .ctal-tae-ch3-page table {
@@ -108,10 +110,10 @@ main.ctal-tae-ch3-page {
 
 .ctal-tae-ch3-page .sidebar {
     position: fixed;
-    top: 0;
+    top: calc(60px + var(--disclaimer-height, 0px));
     left: 0;
     width: var(--sidebar-width);
-    height: 100vh;
+    height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
     overflow-y: auto;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--border);
@@ -190,7 +192,7 @@ main.ctal-tae-ch3-page {
 .ctal-tae-ch3-page .sidebar-toggle {
     display: none;
     position: fixed;
-    top: 74px; /* below fixed global header 60px */
+    top: calc(60px + var(--disclaimer-height, 0px) + 14px);
     left: 14px;
     z-index: 60;
     width: 42px;
@@ -227,9 +229,14 @@ main.ctal-tae-ch3-page {
     display: none;
 }
 
+.ctal-tae-ch3-page main.main,
 .ctal-tae-ch3-page .main {
-    margin-left: var(--sidebar-width);
-    padding: 48px 56px 90px;
+    max-width: none !important;
+    margin: 0 !important;
+    margin-left: var(--sidebar-width) !important;
+    padding: 48px 56px 90px !important;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 /* ---------- Hero ---------- */
@@ -549,12 +556,13 @@ main.ctal-tae-ch3-page {
     .ctal-tae-ch3-page .sidebar-toggle {
         display: flex;
     }
+    .ctal-tae-ch3-page main.main,
     .ctal-tae-ch3-page .main {
-        margin-left: 0;
-        padding: 84px 20px 70px;
+        margin-left: 0 !important;
+        padding: 84px 20px 70px !important;
     }
     .ctal-tae-ch3-page .hero {
-        padding: 30px 22px 26px;
+        padding: 30px 22px 26px !important;
     }
     .ctal-tae-ch3-page .hero-title {
         font-size: 23px;
@@ -562,7 +570,10 @@ main.ctal-tae-ch3-page {
     .ctal-tae-ch3-page .sidebar-backdrop {
         display: none;
         position: fixed;
-        inset: 0;
+        top: calc(60px + var(--disclaimer-height, 0px));
+        left: 0;
+        right: 0;
+        bottom: 0;
         background: rgba(20, 24, 32, 0.35);
         z-index: 39;
     }

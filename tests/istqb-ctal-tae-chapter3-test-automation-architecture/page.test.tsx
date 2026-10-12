@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
+import fs from 'fs';
+import path from 'path';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter3-test-automation-architecture.json';
@@ -239,4 +241,29 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(footer?.textContent?.replace(/\s+/g, ' ').trim()).toBe(inventory.footer);
     });
   });
+
+  describe('Layout & CSS Contracts', () => {
+    const cssPath = path.resolve(__dirname, '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/ctal-tae-ch3.css');
+    const cssContent = fs.readFileSync(cssPath, 'utf-8');
+
+    it('positions sidebar below the fixed header and dynamic disclaimer banner', () => {
+      expect(cssContent).toMatch(/\.sidebar\s*\{[\s\S]*?top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height,\s*0px\)\)/);
+      expect(cssContent).toMatch(/\.sidebar\s*\{[\s\S]*?height:\s*calc\(100d?vh\s*-\s*60px\s*-\s*var\(--disclaimer-height,\s*0px\)\)/);
+    });
+
+    it('ensures main content offsets past sidebar width with !important to overcome globals.css', () => {
+      expect(cssContent).toMatch(/main\.main[\s\S]*?margin-left:\s*var\(--sidebar-width\)\s*!important/);
+      expect(cssContent).toMatch(/main\.main[\s\S]*?padding:\s*48px\s*56px\s*90px\s*!important/);
+    });
+
+    it('defines scroll-margin-top for anchors accounting for header and disclaimer heights', () => {
+      expect(cssContent).toMatch(/\[id\]\s*\{[\s\S]*?scroll-margin-top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height,\s*0px\)/);
+    });
+
+    it('adjusts mobile sidebar toggle and main margin appropriately in media query', () => {
+      expect(cssContent).toMatch(/\.sidebar-toggle\s*\{[\s\S]*?top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height,\s*0px\)/);
+      expect(cssContent).toMatch(/@media\s*\(max-width:\s*980px\)\s*\{[\s\S]*?main\.main[\s\S]*?margin-left:\s*0\s*!important/);
+    });
+  });
 });
+
