@@ -12,7 +12,7 @@ export default function Section2() {
         </p>
 
         <div className="mermaid-container">
-          <Mermaid chart={DIAGRAM_ENVS} id="mermaid-diagram-envs" />
+          <Mermaid chart={DIAGRAM_ENVS} />
         </div>
         <p className="legend-note">
           ※上図は典型的な構成例です。環境の構成・順序はプロジェクトにより異なります。

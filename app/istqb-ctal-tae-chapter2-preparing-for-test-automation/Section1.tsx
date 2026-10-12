@@ -23,7 +23,7 @@ export default function Section1() {
         </p>
 
         <div className="mermaid-container">
-          <Mermaid chart={DIAGRAM_TESTABILITY} id="mermaid-diagram-testability" />
+          <Mermaid chart={DIAGRAM_TESTABILITY} />
         </div>
 
         <h3 id="sec-1-2">1.2 テスト容易性を支える3つの設計側面</h3>

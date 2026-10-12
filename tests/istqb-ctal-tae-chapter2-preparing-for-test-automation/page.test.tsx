@@ -121,6 +121,19 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         expect(sidebar?.classList.contains('open')).toBe(false);
       }
     });
+
+    it('renders without throwing when IntersectionObserver is unavailable', () => {
+      // Arrange: IntersectionObserver 未対応環境を再現する（afterEach で復元される）
+      Reflect.deleteProperty(window, 'IntersectionObserver');
+
+      // Act
+      const renderNav = () => render(<NavBar />);
+
+      // Assert: 例外なく描画され、初期アクティブリンクが維持される
+      expect(renderNav).not.toThrow();
+      const active = document.querySelector('#sidebar a.active');
+      expect(active?.getAttribute('data-target')).toBe('sec-0');
+    });
   });
 
   describe('Section 0 (Positioning & Learning Objectives) Inventory', () => {

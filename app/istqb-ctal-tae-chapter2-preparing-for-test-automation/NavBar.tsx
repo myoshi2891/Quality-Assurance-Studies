@@ -104,6 +104,9 @@ export default function NavBar() {
       'sec-5',
     ];
 
+    // IntersectionObserver 未対応環境では追従を諦め、初期アクティブ状態のまま描画する
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

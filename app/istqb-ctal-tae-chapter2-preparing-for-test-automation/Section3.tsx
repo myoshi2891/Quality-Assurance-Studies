@@ -18,7 +18,7 @@ export default function Section3() {
         </blockquote>
 
         <div className="mermaid-container">
-          <Mermaid chart={DIAGRAM_SUT} id="mermaid-diagram-sut" />
+          <Mermaid chart={DIAGRAM_SUT} />
         </div>
 
         <h4>分析で検討すべき8つの観点</h4>
@@ -185,7 +185,7 @@ export default function Section3() {
 
         <h4>評価すべき7つの技術要件</h4>
         <div className="mermaid-container">
-          <Mermaid chart={DIAGRAM_TOOLS} id="mermaid-diagram-tools" />
+          <Mermaid chart={DIAGRAM_TOOLS} />
         </div>
 
         <div className="table-scroll">

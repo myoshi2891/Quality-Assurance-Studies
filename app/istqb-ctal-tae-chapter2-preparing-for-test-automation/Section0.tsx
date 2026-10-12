@@ -23,7 +23,7 @@ export default function Section0() {
         </ol>
 
         <div className="mermaid-container">
-          <Mermaid chart={DIAGRAM_POSITION} id="mermaid-diagram-position" />
+          <Mermaid chart={DIAGRAM_POSITION} />
         </div>
 
         <h3>学習目標（Learning Objectives）</h3>
