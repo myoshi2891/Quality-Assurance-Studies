@@ -68,6 +68,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctfl-at-chapter3-agile-testing-techniques-tools', label: 'CTFL-AT 3章 アジャイルテスト技法とツール', description: '受入基準の作成、テスト四象限、探索的テストとツール活用。', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', description: 'テスト自動化アーキテクチャの設計・実装・保守と投資対効果。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tae-chapter3-test-automation-architecture', label: 'CTAL-TAE 3章 テスト自動化アーキテクチャ', description: 'gTAA、TAFの3層レイヤー化、7つの自動化アプローチ、設計原則・SOLID・デザインパターン。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', description: 'ビジネス視点のテスト分析・設計と品質特性の評価。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter1-test-process', label: 'CTAL-TA 1章 テストプロセス', description: 'SDLCにおけるTAのタスク、テスト活動への関与、テスト成果物管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter2-risk-based-testing', label: 'CTAL-TA 2章 リスクベースドテスト', description: 'リスクベースドテストにおけるTAの役割、リスク識別・評価・軽減活動。', category: 'istqb-advanced' },

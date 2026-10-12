@@ -47,6 +47,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-ta-chapter4-quality-characteristics', h1: /第4章.*品質特性のテスト/ },
   { path: '/istqb-ctal-ta-chapter5-defect-prevention', h1: /第5章.*ソフトウェア欠陥防止/ },
   { path: '/istqb-ctal-tae-complete-guide', h1: /テスト自動化.*完全ガイド/s },
+  { path: '/istqb-ctal-tae-chapter3-test-automation-architecture', h1: /Test Automation Architecture.*徹底解説/s },
   { path: '/istqb-ctal-tm-complete-guide', h1: /CTAL-TM v3\.0/ },
   { path: '/istqb-ctal-tm-chapter1-managing-the-test-activities', h1: /テスト活動の管理.*完全ガイド/s },
   { path: '/istqb-ctal-tm-chapter2-managing-the-product', h1: /プロダクトのマネジメント/ },
@@ -108,6 +109,6 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-29119-1-2022-guide', h1: /ISO\/IEC\/IEEE 29119-1:2022.*初学者向け解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 93;
+export const EXPECTED_PAGE_COUNT = 94;
 
 
