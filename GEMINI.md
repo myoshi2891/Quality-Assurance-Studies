@@ -355,9 +355,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 ### ISTQB CTAL-TAE 第1章「テスト自動化の導入と目的」の追加移行（2026-10-12）
 
 - `/istqb-ctal-tae-chapter1-introduction-and-objectives`をISTQB高度レベル（`istqb-advanced`）へ追加。自動化の目的、メリット・デメリット・限界、SDLCモデル適用、ツール選定プロセス、Mermaid図7件、全4表、チェックリストを完全保持。
-- `tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx`で13テスト（193 expect() calls）を検証。ナビ・E2E対象は95ルート、Advancedカテゴリは16件。
+- `tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx`で15テスト（204 expect() calls）を検証。ナビ・E2E対象は95ルート、Advancedカテゴリは16件。
 - 原本は`archive/html-archive/ctal/Ctal-tae-v2.0-ch1-introduction-and-objectives.html`と`archive/md-archive/ctal/Ctal-tae-v2.0-ch1-introduction-and-objectives.md`へ移動。
-- 検証は`npm test`（2778 pass / 0 fail）で実施。ビルド・目視確認は実施しない。
+- 検証は`npm test`（2780 pass / 0 fail）で実施。ビルド・目視確認は実施しない。
 
 ### ISTQB CTAL-TAE 第3章 テスト自動化アーキテクチャの追加移行（2026-10-12）
 
@@ -407,7 +407,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 95 ルート（ガイドライブラリ index + 94 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2778件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テスト2780件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「CTAL-TAE 第1章 テスト自動化の導入と目的」（`/istqb-ctal-tae-chapter1-introduction-and-objectives`）が正常に登録・稼働しています。
 
 【ビルド検証の制約】
