@@ -20,7 +20,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="hero-meta-item">
-          <div className="hero-meta-label">配分時間</div>
+          <div className="hero-meta-label">第3章の学習時間</div>
           <div className="hero-meta-value">210分（学習目標レベル：K3＝適用）</div>
         </div>
         <div className="hero-meta-item">

@@ -611,18 +611,19 @@ main.ctal-tae-ch3-page {
 }
 
 @media (max-width: 720px) {
+    /* デスクトップ側の !important 宣言を上書きするため同等の優先度を付ける */
     .ctal-tae-ch3-page .hero-meta {
-        flex-direction: column;
-        gap: 14px;
+        flex-direction: column !important;
+        gap: 14px !important;
     }
     .ctal-tae-ch3-page .hero-meta-item {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 0 0 14px 0;
-        margin-right: 0;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border) !important;
+        padding: 0 0 14px 0 !important;
+        margin-right: 0 !important;
     }
     .ctal-tae-ch3-page .hero-meta-item:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
     }
 }

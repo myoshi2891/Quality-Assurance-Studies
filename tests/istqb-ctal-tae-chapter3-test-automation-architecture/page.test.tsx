@@ -102,6 +102,19 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
         expect(value).toBe(expected.value);
       });
     });
+
+    it('labels the chapter time as chapter 3 study time, distinct from the 90-minute exam duration', () => {
+      // Arrange
+      const expectedLabels = ['対象試験', '第3章の学習時間', '試験配点'];
+
+      // Act
+      const { container } = render(<Page />);
+      const labels = Array.from(container.querySelectorAll('.hero-meta-label')).map((el) => el.textContent?.trim());
+
+      // Assert: 画面とインベントリが同じ明確なラベルを持つ
+      expect(labels).toEqual(expectedLabels);
+      expect(inventory.hero.meta.map((m) => m.label)).toEqual(expectedLabels);
+    });
   });
 
   describe('TOC Navigation Inventory', () => {
@@ -327,6 +340,18 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
   describe('Hero Design & Globals Reset Contracts', () => {
     const cssPath = path.resolve(__dirname, '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/ctal-tae-ch3.css');
     const cssContent = fs.readFileSync(cssPath, 'utf-8');
+
+    it('overrides desktop !important hero-meta spacing and borders in the 720px mobile layout', () => {
+      const mobile = cssContent.match(/@media\s*\(max-width:\s*720px\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
+
+      expect(mobile).toMatch(/\.hero-meta\s*\{[\s\S]*?gap:\s*14px\s*!important/);
+      expect(mobile).toMatch(/\.hero-meta-item\s*\{[\s\S]*?border-right:\s*none\s*!important/);
+      expect(mobile).toMatch(/\.hero-meta-item\s*\{[\s\S]*?border-bottom:\s*1px solid var\(--border\)\s*!important/);
+      expect(mobile).toMatch(/\.hero-meta-item\s*\{[\s\S]*?padding:\s*0 0 14px 0\s*!important/);
+      expect(mobile).toMatch(/\.hero-meta-item\s*\{[\s\S]*?margin-right:\s*0\s*!important/);
+      expect(mobile).toMatch(/\.hero-meta-item:last-child\s*\{[\s\S]*?border-bottom:\s*none\s*!important/);
+      expect(mobile).toMatch(/\.hero-meta-item:last-child\s*\{[\s\S]*?padding-bottom:\s*0\s*!important/);
+    });
 
     it('resets globals.css pseudo-elements on hero and eyebrow', () => {
       expect(cssContent).toMatch(/\.hero::after\s*\{[\s\S]*?content:\s*none\s*!important/);
