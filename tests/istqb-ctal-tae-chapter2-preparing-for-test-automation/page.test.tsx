@@ -395,5 +395,33 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(css).toContain('.ctal-tae-ch2-page table');
       expect(css).toContain('!important');
     });
+
+    it('ensures sidebar respects disclaimer height and scroll-margin includes disclaimer offset', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+
+      // Sidebar must offset by 60px header + disclaimer height
+      expect(css).toContain('top: calc(60px + var(--disclaimer-height, 0px))');
+      expect(css).toContain('height: calc(100dvh - 60px - var(--disclaimer-height, 0px))');
+      // Scroll-margin-top must account for header + disclaimer height
+      expect(css).toContain('scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px)');
+      // Mermaid nodes must have light background and contrast styling
+      expect(css).toContain('.mermaid-wrapper .node rect');
+      expect(css).toContain('.mermaid-wrapper .edgeLabels rect');
+    });
+
+    it('ensures all diagrams define light theme mainBkg and classDef default to prevent dark fills', () => {
+      expect(DIAGRAM_TESTABILITY).toContain('"mainBkg": "#ffffff"');
+      expect(DIAGRAM_TESTABILITY).toContain('"nodeTextColor": "#1b2333"');
+      expect(DIAGRAM_TESTABILITY).toContain('classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333');
+      // Verify specific previously-blackout nodes have styling classes
+      expect(DIAGRAM_TESTABILITY).toContain('class TB_F1,TB_F2');
+      expect(DIAGRAM_TESTABILITY).toContain('class TB_T');
+      expect(DIAGRAM_SUT).toContain('class S_Start');
+      expect(DIAGRAM_TOOLS).toContain('class R_Tool');
+    });
   });
 });

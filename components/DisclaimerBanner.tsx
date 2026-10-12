@@ -40,7 +40,7 @@ export function DisclaimerBanner() {
     return (
         <aside
             ref={ref}
-            className="fixed top-[60px] left-0 right-0 bg-yellow-500/12 border-b border-yellow-500/25 z-40 text-center px-4 py-[0.35rem] text-xs text-[#d4a017] leading-[1.4]"
+            className="fixed top-[60px] left-0 right-0 bg-[#070a12]/92 backdrop-blur-md border-b border-yellow-500/25 z-40 text-center px-4 py-[0.35rem] text-xs text-[#d4a017] leading-[1.4]"
             aria-label="免責事項"
         >
             <p style={{ margin: 0 }}>

@@ -81,7 +81,7 @@ main.ctal-tae-ch2-page {
 }
 
 .ctal-tae-ch2-page [id] {
-    scroll-margin-top: calc(60px + 24px);
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 /* ---------- Typography ---------- */
@@ -248,10 +248,11 @@ main.ctal-tae-ch2-page {
 /* ---------- Sidebar Navigation ---------- */
 .ctal-tae-ch2-page .sidebar {
     position: fixed;
-    top: 60px; /* Header分オフセット */
+    top: calc(60px + var(--disclaimer-height, 0px));
     left: 0;
     width: var(--sidebar-w);
-    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+    bottom: 0;
     overflow-y: auto;
     background: var(--surface);
     border-right: 1px solid var(--border);
@@ -319,7 +320,7 @@ main.ctal-tae-ch2-page {
 .ctal-tae-ch2-page .sidebar-toggle {
     display: none;
     position: fixed;
-    top: 74px;
+    top: calc(60px + var(--disclaimer-height, 0px) + 14px);
     left: 14px;
     z-index: 50;
     width: 42px;
@@ -608,6 +609,35 @@ main.ctal-tae-ch2-page {
     height: auto !important;
 }
 
+/* Mermaid ノード背景色・枠線・テキスト色のコントラスト保護（黒塗り防止） */
+.ctal-tae-ch2-page .mermaid-wrapper .node rect,
+.ctal-tae-ch2-page .mermaid-wrapper .node circle,
+.ctal-tae-ch2-page .mermaid-wrapper .node ellipse,
+.ctal-tae-ch2-page .mermaid-wrapper .node polygon,
+.ctal-tae-ch2-page .mermaid-wrapper .node path,
+.ctal-tae-ch2-page .mermaid-wrapper .node .basic,
+.ctal-tae-ch2-page .mermaid-wrapper .node .label-container {
+    fill: #ffffff;
+    stroke: #c7d0e0;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.aspect):not(.result):not(.current):not(.monitored):not(.req):not(.decide):not(.root):not(.start):not(.phase):not(.trigger):not(.env):not(.leaf) rect,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.aspect):not(.result):not(.current):not(.monitored):not(.req):not(.decide):not(.root):not(.start):not(.phase):not(.trigger):not(.env):not(.leaf) polygon {
+    fill: #ffffff !important;
+    stroke: #c7d0e0 !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper .node .label,
+.ctal-tae-ch2-page .mermaid-wrapper .node .label text,
+.ctal-tae-ch2-page .mermaid-wrapper .node .nodeLabel,
+.ctal-tae-ch2-page .mermaid-wrapper .node .nodeLabel *,
+.ctal-tae-ch2-page .mermaid-wrapper .node foreignObject div,
+.ctal-tae-ch2-page .mermaid-wrapper .node foreignObject span,
+.ctal-tae-ch2-page .mermaid-wrapper .node foreignObject p {
+    color: #1b2333;
+    fill: #1b2333;
+}
+
 .ctal-tae-ch2-page .mermaid-wrapper .edgeLabels rect,
 .ctal-tae-ch2-page .mermaid-wrapper .edgeLabel rect {
     fill: #ffffff !important;
@@ -640,10 +670,13 @@ main.ctal-tae-ch2-page {
 /* ---------- Media Queries ---------- */
 @media (max-width: 900px) {
     .ctal-tae-ch2-page .sidebar {
+        top: calc(60px + var(--disclaimer-height, 0px));
+        height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
         transform: translateX(-100%);
         visibility: hidden;
         transition: transform 0.2s, visibility 0.2s;
         box-shadow: var(--shadow);
+        z-index: 55;
     }
     .ctal-tae-ch2-page .sidebar.open {
         transform: translateX(0);

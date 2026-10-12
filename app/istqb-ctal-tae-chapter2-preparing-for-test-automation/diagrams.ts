@@ -8,6 +8,8 @@ const MERMAID_CONFIG = `%%{init: {
     "lineColor": "#8891a3",
     "secondaryColor": "#eef1f8",
     "tertiaryColor": "#ffffff",
+    "mainBkg": "#ffffff",
+    "nodeTextColor": "#1b2333",
     "nodeBorder": "#2f5fdc",
     "clusterBkg": "#f6f7fb",
     "clusterBorder": "#c7d0e0",
@@ -25,6 +27,7 @@ flowchart LR
     P2 --> P3["Ch.3 自動化アーキテクチャを設計する"]
     P2 --> P4["2.1 インフラ構成の理解"]
     P2 --> P5["2.2 ツール・戦略の評価プロセス"]
+    classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
     classDef current fill:#e8eefd,stroke:#2f5fdc,stroke-width:2px,color:#1b2333;
     classDef sub fill:#eef1f8,stroke:#c7d0e0,stroke-width:1px,color:#1b2333;
     class P2 current;
@@ -44,8 +47,13 @@ flowchart TD
     TB_O --> TB_R["TAEが効率よく<br>自動テストを実装できる"]
     TB_C --> TB_R
     TB_A --> TB_R
+    classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
+    classDef phase fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
+    classDef trigger fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
     classDef aspect fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
     classDef result fill:#e6f7ef,stroke:#1a8a5f,stroke-width:1.5px,color:#1b2333;
+    class TB_F1,TB_F2 phase;
+    class TB_T trigger;
     class TB_O,TB_C,TB_A aspect;
     class TB_R result;`;
 
@@ -55,6 +63,7 @@ flowchart LR
     V_B -.-> V_C["統合環境<br>黒箱テスト<br>(UI/APIテスト)"]
     V_C -.-> V_D["プレプロダクション環境<br>非機能テスト・UAT"]
     V_D -.-> V_E["本番/運用環境<br>カナリア/Blue-Green・<br>A/Bテスト"]
+    classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
     classDef env fill:#eef1f8,stroke:#8891a3,stroke-width:1px,color:#1b2333;
     classDef monitored fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
     class V_A,V_B env;
@@ -71,8 +80,11 @@ flowchart TD
     S_Start --> S_Q7{"テストデータの<br>可用性・品質は?"}
     S_Start --> S_Q8{"到達困難なケースを<br>どうエミュレートするか?"}
     S_Q1 & S_Q2 & S_Q3 & S_Q4 & S_Q5 & S_Q6 & S_Q7 & S_Q8 --> S_Req["自動化アプローチ/<br>アーキテクチャの要件定義"]
+    classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
+    classDef start fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
     classDef q fill:#eef1f8,stroke:#8891a3,stroke-width:1px,color:#1b2333;
     classDef req fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
+    class S_Start start;
     class S_Q1,S_Q2,S_Q3,S_Q4,S_Q5,S_Q6,S_Q7,S_Q8 q;
     class S_Req req;`;
 
@@ -87,8 +99,11 @@ flowchart LR
     R_Tool --> R_R7["拡張性・保守性・<br>変更容易性・互換性・信頼性"]
     R_R1 & R_R2 & R_R3 & R_R4 & R_R5 & R_R6 & R_R7 --> R_Decision["比較表を基に<br>ツール/ツールセットを提案"]
     R_Decision --> R_Approval["ステークホルダーへの<br>提示・承認"]
+    classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
+    classDef start fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
     classDef req fill:#eef1f8,stroke:#8891a3,stroke-width:1px,color:#1b2333;
     classDef decide fill:#e8eefd,stroke:#2f5fdc,stroke-width:1.5px,color:#1b2333;
+    class R_Tool start;
     class R_R1,R_R2,R_R3,R_R4,R_R5,R_R6,R_R7 req;
     class R_Decision,R_Approval decide;`;
 
@@ -105,6 +120,7 @@ flowchart TD
         M_Sut["SUT分析<br>8つの検討観点"]
         M_ToolEval["ツール評価<br>比較表・7つの技術要件"]
     end
+    classDef default fill:#ffffff,stroke:#c7d0e0,color:#1b2333;
     classDef root fill:#2f5fdc,stroke:#1e3fa0,stroke-width:1.5px,color:#ffffff;
     classDef leaf fill:#ffffff,stroke:#c7d0e0,stroke-width:1px,color:#1b2333;
     class M_Root root;
