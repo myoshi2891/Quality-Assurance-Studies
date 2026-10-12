@@ -900,3 +900,11 @@ main.ctal-tae-ch1-page {
         padding: 32px 22px 48px;
     }
 }
+
+/* 動きを減らす設定ではドロワー開閉と進捗バーの遷移を止める */
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch1-page .sidebar,
+    .ctal-tae-ch1-page .check-progress-fill {
+        transition: none;
+    }
+}

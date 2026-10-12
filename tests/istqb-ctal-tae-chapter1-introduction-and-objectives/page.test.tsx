@@ -131,6 +131,26 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       fireEvent.click(closeBtn);
       expect(sidebar.classList.contains('open')).toBe(false);
     });
+
+    it('returns focus to the menu button after closing via the close button or Escape', () => {
+      // Arrange
+      const { container } = render(<NavBar />);
+      const menuBtn = container.querySelector<HTMLButtonElement>('#menuBtn');
+      const closeBtn = container.querySelector<HTMLButtonElement>('#sidebarClose');
+      if (!menuBtn || !closeBtn) throw new Error('menuBtn / sidebarClose が描画されていない');
+
+      // Act / Assert: 閉じるボタン経路
+      fireEvent.click(menuBtn);
+      closeBtn.focus();
+      fireEvent.click(closeBtn);
+      expect(document.activeElement === menuBtn).toBe(true);
+
+      // Act / Assert: Escape 経路
+      fireEvent.click(menuBtn);
+      closeBtn.focus();
+      fireEvent.keyDown(window, { key: 'Escape' });
+      expect(document.activeElement === menuBtn).toBe(true);
+    });
   });
 
   describe('Section 0 (Chapter 1 Overview) Inventory', () => {
@@ -431,6 +451,19 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
   });
 
   describe('CSS Scoping and Resets Contract', () => {
+    it('disables sidebar and progress-fill transitions under prefers-reduced-motion', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter1-introduction-and-objectives/ctal-tae-ch1.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf8');
+      const block = css.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
+
+      expect(block).toContain('.ctal-tae-ch1-page .sidebar');
+      expect(block).toContain('.ctal-tae-ch1-page .check-progress-fill');
+      expect(block).toMatch(/transition:\s*none/);
+    });
+
     it('contains page css with globals resets for .hero, table, and .mermaid-wrapper', () => {
       const cssPath = path.resolve(
         __dirname,

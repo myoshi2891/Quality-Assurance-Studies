@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface TocLink {
   href: string;
@@ -46,6 +46,13 @@ export const TOC_GROUPS: readonly TocGroup[] = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>('s0');
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+
+  // ドロワーを閉じた後はフォーカスを開いた元のメニューボタンへ戻す
+  const closeDrawer = useCallback(() => {
+    setIsOpen(false);
+    menuBtnRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -77,12 +84,12 @@ export default function NavBar() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        closeDrawer();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, closeDrawer]);
 
   const handleLinkClick = () => {
     setIsOpen(false);
@@ -94,6 +101,7 @@ export default function NavBar() {
         <button
           type="button"
           id="menuBtn"
+          ref={menuBtnRef}
           aria-label="メニューを開く"
           aria-expanded={isOpen ? 'true' : 'false'}
           onClick={() => setIsOpen(!isOpen)}
@@ -115,7 +123,7 @@ export default function NavBar() {
             className="sidebar-close"
             id="sidebarClose"
             aria-label="メニューを閉じる"
-            onClick={() => setIsOpen(false)}
+            onClick={closeDrawer}
           >
             <i className="ti ti-x"></i>
           </button>
