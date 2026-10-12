@@ -265,5 +265,36 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(cssContent).toMatch(/@media\s*\(max-width:\s*980px\)\s*\{[\s\S]*?main\.main[\s\S]*?margin-left:\s*0\s*!important/);
     });
   });
+
+  describe('Hero Design & Globals Reset Contracts', () => {
+    const cssPath = path.resolve(__dirname, '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/ctal-tae-ch3.css');
+    const cssContent = fs.readFileSync(cssPath, 'utf-8');
+
+    it('resets globals.css pseudo-elements on hero and eyebrow', () => {
+      expect(cssContent).toMatch(/\.hero::after\s*\{[\s\S]*?content:\s*none\s*!important/);
+      expect(cssContent).toMatch(/\.hero-eyebrow::before\s*\{[\s\S]*?content:\s*none\s*!important/);
+    });
+
+    it('matches original hero box styles including 3-side padding and gradient background', () => {
+      expect(cssContent).toMatch(/\.hero\s*\{[\s\S]*?padding:\s*40px\s*44px\s*32px\s*!important/);
+      expect(cssContent).toMatch(/\.hero\s*\{[\s\S]*?border-radius:\s*20px\s*!important/);
+    });
+
+    it('preserves hero eyebrow typography and removes mono font or wide letter spacing', () => {
+      expect(cssContent).toMatch(/\.hero-eyebrow\s*\{[\s\S]*?font-family:\s*inherit/);
+      expect(cssContent).toMatch(/\.hero-eyebrow\s*\{[\s\S]*?letter-spacing:\s*normal/);
+    });
+
+    it('ensures hero title and accent styles are explicitly scoped and immune to globals.css', () => {
+      expect(cssContent).toMatch(/\.hero\s*h1[\s\S]*?font-size:\s*30px\s*!important/);
+      expect(cssContent).toMatch(/\.hero\s*h1[\s\S]*?line-height:\s*1\.4\s*!important/);
+      expect(cssContent).toMatch(/\.hero\s*h1\s*span[\s\S]*?color:\s*var\(--accent\)\s*!important/);
+    });
+
+    it('preserves hero meta grid styles', () => {
+      expect(cssContent).toMatch(/\.hero-meta\s*\{[\s\S]*?border-top:\s*1px\s*solid\s*var\(--border\)/);
+      expect(cssContent).toMatch(/\.hero-meta-item\s*\{[\s\S]*?border-right:\s*1px\s*solid\s*var\(--border\)/);
+    });
+  });
 });
 
