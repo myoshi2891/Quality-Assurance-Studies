@@ -213,7 +213,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
   describe('References Section & Links Security', () => {
     it('renders references table with secure external links', () => {
       const { container } = render(<Page />);
-      const refSection = container.querySelector('#7-出典参考ソース');
+      const refSection = container.querySelector('[id="7-出典参考ソース"]');
       expect(refSection).not.toBeNull();
 
       const refTable = refSection?.parentElement?.querySelector('table.data-table:last-of-type') ||
