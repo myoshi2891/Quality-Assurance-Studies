@@ -22,13 +22,13 @@ export default function Section0() {
           </li>
         </ol>
 
-        <div className="mermaid-container">
+        <div className="mermaid-container" id="mermaid-diagram-position">
           <Mermaid chart={DIAGRAM_POSITION} />
         </div>
 
-        <h3>学習目標（Learning Objectives）</h3>
+        <h3 id="lo-heading">学習目標（Learning Objectives）</h3>
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="lo-heading">
             <thead>
               <tr>
                 <th>ID</th>

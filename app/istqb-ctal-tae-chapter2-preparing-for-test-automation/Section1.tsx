@@ -22,13 +22,13 @@ export default function Section1() {
           重要なのは、テスト容易性は<strong>後付けで足すもの</strong>ではなく、SUTの他の機能設計と並行して、<strong>ソフトウェアアーキテクトが設計・実装すべき非機能要件</strong>だという点です。実務では、TAE（Test Automation Engineer）がアーキテクトと協働し、「どこを改善すればテストしやすくなるか」を具体的に特定する役割を担います。
         </p>
 
-        <div className="mermaid-container">
+        <div className="mermaid-container" id="mermaid-diagram-testability">
           <Mermaid chart={DIAGRAM_TESTABILITY} />
         </div>
 
         <h3 id="sec-1-2">1.2 テスト容易性を支える3つの設計側面</h3>
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="sec-1-2">
             <thead>
               <tr>
                 <th>側面</th>
@@ -95,7 +95,7 @@ export default function Section1() {
           テスト容易性を高めるための代表的な仕組みと、それぞれの設定方法（構成ニーズ）は以下の通りです。
         </p>
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="sec-1-3">
             <thead>
               <tr>
                 <th>構成要素</th>

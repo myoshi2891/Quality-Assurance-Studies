@@ -36,7 +36,7 @@ export default function Section4() {
       <section id="sec-4">
         <h2>4. 章のまとめとチェックリスト</h2>
 
-        <div className="mermaid-container">
+        <div className="mermaid-container" id="mermaid-diagram-summary">
           <Mermaid chart={DIAGRAM_SUMMARY} />
         </div>
 

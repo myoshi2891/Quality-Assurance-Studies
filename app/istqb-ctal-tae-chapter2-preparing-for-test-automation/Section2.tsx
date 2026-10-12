@@ -11,7 +11,7 @@ export default function Section2() {
           同じ自動テストスイートでも、<strong>どの環境で実行するか</strong>によって目的・実施可能なテストタイプ・監視の有無が異なります。シラバスでは代表的な5つの環境を、開発からリリースまでの典型的な流れに沿った<strong>例</strong>として紹介しています。これらは必ず5段階すべてを順番に経由しなければならない必須のステージではなく、<strong>実際の環境構成や順序はプロジェクトごとに異なります</strong>（環境を統合・省略する場合や、別の環境を追加する場合もあります）。
         </p>
 
-        <div className="mermaid-container">
+        <div className="mermaid-container" id="mermaid-diagram-envs">
           <Mermaid chart={DIAGRAM_ENVS} />
         </div>
         <p className="legend-note">
@@ -20,7 +20,7 @@ export default function Section2() {
 
         <h3 id="sec-2-1">2.1 各環境の特徴と自動化の役割</h3>
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="sec-2-1">
             <thead>
               <tr>
                 <th>環境</th>

@@ -122,6 +122,23 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       }
     });
 
+    it('exposes open state and controlled target on the sidebar toggle button', () => {
+      // Arrange
+      const { container } = render(<NavBar />);
+      const toggleBtn = container.querySelector('#sidebarToggle');
+      if (!toggleBtn) throw new Error('#sidebarToggle が描画されていない');
+
+      // Assert: 初期は閉じている
+      expect(toggleBtn.getAttribute('aria-controls')).toBe('sidebar');
+      expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
+
+      // Act / Assert: 開閉に追従する
+      fireEvent.click(toggleBtn);
+      expect(toggleBtn.getAttribute('aria-expanded')).toBe('true');
+      fireEvent.click(toggleBtn);
+      expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
+    });
+
     it('renders without throwing when IntersectionObserver is unavailable', () => {
       // Arrange: IntersectionObserver 未対応環境を再現する（afterEach で復元される）
       Reflect.deleteProperty(window, 'IntersectionObserver');
@@ -417,10 +434,42 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       // Assert
       expect(inventoryDiagramIds.length).toBe(6);
       expect(container.querySelectorAll('.mermaid-container').length).toBe(inventoryDiagramIds.length);
+      const containerIds = Array.from(container.querySelectorAll('.mermaid-container')).map((el) => el.id);
+      expect(containerIds).toEqual(inventoryDiagramIds);
       await waitFor(() => expect(renderedDiagrams.length).toBe(definitions.length));
       definitions.forEach((def) => {
         expect(renderedDiagrams).toContain(def);
       });
+    });
+  });
+
+  describe('Table Accessible Names', () => {
+    it('labels each of the 7 tables via aria-labelledby pointing to its own heading', () => {
+      // Arrange
+      const expectedHeadings = [
+        '学習目標（Learning Objectives）',
+        '1.2 テスト容易性を支える3つの設計側面',
+        '1.3 テスト容易性を実現するための構成要素',
+        '2.1 各環境の特徴と自動化の役割',
+        '分析で検討すべき8つの観点',
+        '比較表（Comparison Table）の作り方',
+        '評価すべき7つの技術要件',
+      ];
+
+      // Act
+      const { container } = render(<Page />);
+      const tables = Array.from(container.querySelectorAll('table'));
+
+      // Assert: 表ごとに一意の見出しを参照し、その見出し文言で区別できる
+      expect(tables.length).toBe(expectedHeadings.length);
+      const ids = tables.map((t) => t.getAttribute('aria-labelledby') ?? '');
+      expect(new Set(ids).size).toBe(expectedHeadings.length);
+      const labels = ids.map((id) => {
+        const heading = container.querySelector(`[id="${id}"]`);
+        expect(heading?.tagName).toMatch(/^H[34]$/);
+        return heading?.textContent?.trim();
+      });
+      expect(labels).toEqual(expectedHeadings);
     });
   });
 

@@ -17,13 +17,13 @@ export default function Section3() {
           </p>
         </blockquote>
 
-        <div className="mermaid-container">
+        <div className="mermaid-container" id="mermaid-diagram-sut">
           <Mermaid chart={DIAGRAM_SUT} />
         </div>
 
-        <h4>分析で検討すべき8つの観点</h4>
+        <h4 id="perspectives-heading">分析で検討すべき8つの観点</h4>
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="perspectives-heading">
             <thead>
               <tr>
                 <th>#</th>
@@ -109,12 +109,12 @@ export default function Section3() {
           SUTの分析と要件収集が終わったら、次に候補となるテストツールを比較します。シラバスは「<strong>単一のツールでは全要件を満たせない場合がある</strong>」と明言しており、ステークホルダーもその前提を理解しておく必要があります。
         </p>
 
-        <h4>比較表（Comparison Table）の作り方</h4>
+        <h4 id="comparison-heading">比較表（Comparison Table）の作り方</h4>
         <p>
           推奨されるのは、ツールを列に、要件を行にした<strong>比較表</strong>を作ることです。各セルにはそのツールがその要件をどの程度満たすか（適合度）を記載し、要件の優先度は別の列で記録します。
         </p>
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="comparison-heading">
             <thead>
               <tr>
                 <th>要件 ＼ ツール</th>
@@ -183,13 +183,13 @@ export default function Section3() {
           凡例（優先度）：高／中／低（要件の重要度。適合度の記号とは独立に記録する）
         </p>
 
-        <h4>評価すべき7つの技術要件</h4>
-        <div className="mermaid-container">
+        <h4 id="tech-requirements-heading">評価すべき7つの技術要件</h4>
+        <div className="mermaid-container" id="mermaid-diagram-tools">
           <Mermaid chart={DIAGRAM_TOOLS} />
         </div>
 
         <div className="table-scroll">
-          <table>
+          <table aria-labelledby="tech-requirements-heading">
             <thead>
               <tr>
                 <th>#</th>

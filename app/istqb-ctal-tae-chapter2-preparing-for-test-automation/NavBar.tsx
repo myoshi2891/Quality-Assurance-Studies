@@ -138,6 +138,8 @@ export default function NavBar() {
         className="sidebar-toggle"
         id="sidebarToggle"
         aria-label="メニュー"
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         ☰
