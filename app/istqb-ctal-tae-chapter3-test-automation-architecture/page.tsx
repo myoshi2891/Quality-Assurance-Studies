@@ -9,6 +9,9 @@ import Section2 from './Section2';
 import Section3 from './Section3';
 import Section4 from './Section4';
 import Section5 from './Section5';
+import Section6 from './Section6';
+import Section7 from './Section7';
+import Footer from './Footer';
 
 export const metadata: Metadata = {
   title: 'CTAL-TAE v2.0 第3章：Test Automation Architecture 徹底解説',
@@ -29,6 +32,9 @@ export default function CtalTaeChapter3Page() {
           <Section3 />
           <Section4 />
           <Section5 />
+          <Section6 />
+          <Section7 />
+          <Footer />
         </main>
       </div>
     </div>
