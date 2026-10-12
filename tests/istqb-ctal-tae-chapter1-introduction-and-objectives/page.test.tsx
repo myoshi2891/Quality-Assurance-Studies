@@ -66,6 +66,13 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
         const icon = badge.querySelector('i');
         expect(icon?.className).toContain(expected.icon);
       });
+
+      const leadEn = container.querySelector('.hero-lead .hero-lead-en');
+      const leadJa = container.querySelector('.hero-lead .hero-lead-ja');
+      expect(leadEn).not.toBeNull();
+      expect(leadJa).not.toBeNull();
+      expect(leadEn?.textContent).toContain('Introduction and Objectives for Test Automation');
+      expect(leadJa?.textContent).toContain('なぜテスト自動化を行うのか');
     });
   });
 

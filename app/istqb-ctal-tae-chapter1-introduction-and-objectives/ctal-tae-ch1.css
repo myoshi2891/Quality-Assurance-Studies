@@ -436,8 +436,18 @@ main.ctal-tae-ch1-page {
 .ctal-tae-ch1-page .hero-lead {
     color: #e3e1ff;
     font-size: 1.05rem;
-    max-width: 760px;
+    max-width: 920px;
     margin-bottom: 24px;
+    line-height: 1.8;
+}
+.ctal-tae-ch1-page .hero-lead-en {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.95em;
+    opacity: 0.92;
+}
+.ctal-tae-ch1-page .hero-lead-ja {
+    display: block;
 }
 .ctal-tae-ch1-page .hero-badges {
     display: flex;

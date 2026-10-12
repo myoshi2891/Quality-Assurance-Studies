@@ -12,8 +12,12 @@ export default function Hero() {
         初学者向け解説ガイド
       </h1>
       <p className="hero-lead">
-        Introduction and Objectives for Test Automation ―
-        なぜテスト自動化を行うのか、SDLCの中でどう位置づけられるのかという、後続の全章の土台となる考え方をステップバイステップで整理します。
+        <span className="hero-lead-en">
+          Introduction and Objectives for Test Automation ―
+        </span>{' '}
+        <span className="hero-lead-ja">
+          なぜテスト自動化を行うのか、SDLCの中でどう位置づけられるのかという、後続の全章の土台となる考え方をステップバイステップで整理します。
+        </span>
       </p>
       <div className="hero-badges">
         <span className="hero-badge">
