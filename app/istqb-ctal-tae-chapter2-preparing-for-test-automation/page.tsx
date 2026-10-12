@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import Hero from './Hero';
 import Section0 from './Section0';
 import Section1 from './Section1';
+import Section2 from './Section2';
 import Footer from './Footer';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function CtalTaeChapter2Page() {
           <Hero />
           <Section0 />
           <Section1 />
+          <Section2 />
           <Footer />
         </main>
       </div>
