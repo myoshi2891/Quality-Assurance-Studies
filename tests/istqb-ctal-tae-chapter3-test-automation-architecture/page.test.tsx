@@ -8,6 +8,7 @@ import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter3-te
 import Page from '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/page';
 import NavBar, { TOC_ITEMS } from '../../app/istqb-ctal-tae-chapter3-test-automation-architecture/NavBar';
 import {
+  MERMAID_CONFIG,
   DIAGRAM_OVERVIEW,
   DIAGRAM_GTAA,
   DIAGRAM_TAA_DESIGN,
@@ -174,16 +175,17 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
         expect(diag).not.toMatch(/'/); // fix-mermaid rule: no single quotes
       });
 
-      // Verify diagrams contain core keywords from original diagrams
-      expect(DIAGRAM_OVERVIEW).toContain('OV1');
-      expect(DIAGRAM_GTAA).toContain('GTAA');
-      expect(DIAGRAM_TAA_DESIGN).toContain('TAA');
-      expect(DIAGRAM_TAF_LAYERS).toContain('Test Scripts');
-      expect(DIAGRAM_TAF_SCALING).toContain('Core Libraries');
-      expect(DIAGRAM_APPROACHES).toContain('Capture/Playback');
-      expect(DIAGRAM_TDD_CYCLE).toContain('Red');
-      expect(DIAGRAM_FLOW_MODEL).toContain('Flow Model');
-      expect(DIAGRAM_CHECKLIST).toContain('TAA設計を始める');
+      // インベントリと出現順に 1 対 1 で照合する（MERMAID_CONFIG ヘッダーを除いたソース本体）
+      expect(diagrams.length).toBe(inventory.mermaidDiagrams.length);
+      diagrams.forEach((diag, i) => {
+        expect(diag.startsWith(MERMAID_CONFIG)).toBe(true);
+        const expected = inventory.mermaidDiagrams[i];
+        if (!expected) {
+          throw new Error(`inventory.mermaidDiagrams[${i}] が存在しない`);
+        }
+        const source = diag.slice(MERMAID_CONFIG.length).trim();
+        expect(source).toBe(expected.code.trim());
+      });
     });
 
     it('renders all 9 mermaid container elements in the DOM', () => {
@@ -218,9 +220,11 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       const refSection = container.querySelector('[id="7-出典参考ソース"]');
       expect(refSection).not.toBeNull();
 
-      const refTable = refSection?.parentElement?.querySelector('table.data-table:last-of-type') ||
-        container.querySelectorAll('table.data-table')[9];
-      expect(refTable).not.toBeNull();
+      const dataTables = container.querySelectorAll('table.data-table');
+      const refTable = dataTables[dataTables.length - 1];
+      if (!refTable) {
+        throw new Error('参考資料の data-table が描画されていない');
+      }
 
       const links = Array.from(refTable.querySelectorAll('a'));
       expect(links.length).toBe(inventory.references.length);

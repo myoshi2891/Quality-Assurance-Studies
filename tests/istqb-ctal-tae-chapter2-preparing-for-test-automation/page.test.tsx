@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
 import fs from 'fs';
 import path from 'path';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter2-preparing-for-test-automation.json';
 import Page from '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page';
@@ -389,6 +389,37 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         expect(diag).toContain('%%{init:');
         expect(diag).not.toMatch(/%%\{init:[^}]*'[^}]*\}%%/);
         expect(diag).toContain('"theme": "base"');
+      });
+    });
+
+    it('renders every inventory diagram on the page and passes all 6 definitions to mermaid', async () => {
+      // Arrange: インベントリ内の diagramId を出現順に再帰収集する
+      const collectDiagramIds = (node: unknown): string[] => {
+        if (Array.isArray(node)) return node.flatMap(collectDiagramIds);
+        if (typeof node !== 'object' || node === null) return [];
+        return Object.entries(node).flatMap(([key, value]) =>
+          key === 'diagramId' && typeof value === 'string' ? [value] : collectDiagramIds(value)
+        );
+      };
+      const inventoryDiagramIds = collectDiagramIds(inventory);
+      const definitions = [
+        DIAGRAM_POSITION,
+        DIAGRAM_TESTABILITY,
+        DIAGRAM_ENVS,
+        DIAGRAM_SUT,
+        DIAGRAM_TOOLS,
+        DIAGRAM_SUMMARY,
+      ];
+
+      // Act
+      const { container } = render(<Page />);
+
+      // Assert
+      expect(inventoryDiagramIds.length).toBe(6);
+      expect(container.querySelectorAll('.mermaid-container').length).toBe(inventoryDiagramIds.length);
+      await waitFor(() => expect(renderedDiagrams.length).toBe(definitions.length));
+      definitions.forEach((def) => {
+        expect(renderedDiagrams).toContain(def);
       });
     });
   });

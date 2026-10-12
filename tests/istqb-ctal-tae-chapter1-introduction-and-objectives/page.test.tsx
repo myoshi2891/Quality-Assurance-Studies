@@ -117,17 +117,16 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       const sidebar = container.querySelector('#sidebar');
       const closeBtn = container.querySelector('#sidebarClose');
 
-      expect(sidebar?.classList.contains('open')).toBe(false);
-
-      if (menuBtn) {
-        fireEvent.click(menuBtn);
-        expect(sidebar?.classList.contains('open')).toBe(true);
+      if (!menuBtn || !sidebar || !closeBtn) {
+        throw new Error('menuBtn / sidebar / sidebarClose が描画されていない');
       }
+      expect(sidebar.classList.contains('open')).toBe(false);
 
-      if (closeBtn) {
-        fireEvent.click(closeBtn);
-        expect(sidebar?.classList.contains('open')).toBe(false);
-      }
+      fireEvent.click(menuBtn);
+      expect(sidebar.classList.contains('open')).toBe(true);
+
+      fireEvent.click(closeBtn);
+      expect(sidebar.classList.contains('open')).toBe(false);
     });
   });
 
@@ -308,19 +307,21 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(s5?.querySelector('.eyebrow')?.textContent?.trim()).toBe(inventory.sections.s5.eyebrow);
       expect(s5?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.s5.heading);
 
-      const checkboxes = s5?.querySelectorAll('input[type="checkbox"]');
-      expect(checkboxes?.length).toBe(inventory.sections.s5.checklist.length);
+      const checkboxes = s5?.querySelectorAll('input[type="checkbox"]') ?? [];
+      expect(checkboxes.length).toBe(inventory.sections.s5.checklist.length);
 
-      const fill = s5?.querySelector('#checkFill') as HTMLElement;
+      const fill = s5?.querySelector<HTMLElement>('#checkFill');
       const label = s5?.querySelector('#checkLabel');
-
-      expect(label?.textContent?.trim()).toBe('0 / 7 完了');
-
-      if (checkboxes?.[0]) {
-        fireEvent.click(checkboxes[0]);
-        expect(label?.textContent?.trim()).toBe('1 / 7 完了');
-        expect(fill?.style.width).toBe('14.285714285714285%');
+      const firstCheckbox = checkboxes[0];
+      if (!fill || !label || !firstCheckbox) {
+        throw new Error('checkFill / checkLabel / 先頭チェックボックスが描画されていない');
       }
+
+      expect(label.textContent?.trim()).toBe('0 / 7 完了');
+
+      fireEvent.click(firstCheckbox);
+      expect(label.textContent?.trim()).toBe('1 / 7 完了');
+      expect(fill.style.width).toBe('14.285714285714285%');
 
       const callout = s5?.querySelector('.callout.warn');
       expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe(
@@ -350,6 +351,27 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
 
       const footer = container.querySelector('.site-footer');
       expect(footer?.textContent).toContain(inventory.footer.text);
+    });
+  });
+
+  describe('Table Accessible Names', () => {
+    it('labels every table in s1-s3 via aria-labelledby pointing to its preceding h3', () => {
+      // Arrange
+      const { container } = render(<Page />);
+
+      // Act
+      const tables = Array.from(container.querySelectorAll('#s1 table, #s2 table, #s3 table'));
+
+      // Assert: 5 表すべてが一意の h3 を参照する
+      expect(tables.length).toBe(5);
+      const ids = tables.map((t) => t.getAttribute('aria-labelledby'));
+      expect(new Set(ids).size).toBe(5);
+      ids.forEach((id) => {
+        expect(id).toBeTruthy();
+        const heading = container.querySelector(`[id="${id}"]`);
+        expect(heading?.tagName).toBe('H3');
+        expect(heading?.textContent?.trim()).not.toBe('');
+      });
     });
   });
 
