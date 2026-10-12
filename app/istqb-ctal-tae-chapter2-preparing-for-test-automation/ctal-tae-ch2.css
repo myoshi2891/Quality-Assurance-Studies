@@ -693,16 +693,22 @@ main.ctal-tae-ch2-page {
         transition: transform 0.2s, visibility 0.2s;
         box-shadow: var(--shadow);
         z-index: 55;
+        /* トグル（上端 14px + 高さ 42px）の下から目次を始め、文字と重ねない */
+        padding-top: 72px;
     }
     .ctal-tae-ch2-page .sidebar.open {
         transform: translateX(0);
         visibility: visible;
     }
+    /* 開いたサイドバー（z-index: 55）より前面に置き、同じボタンで閉じられるようにする */
     .ctal-tae-ch2-page .sidebar-toggle {
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 60;
     }
+    /* 基本指定の main.main は詳細度が高いため、モバイルでも同じセレクターで上書きする */
+    .ctal-tae-ch2-page main.main,
     .ctal-tae-ch2-page .main {
         margin-left: 0 !important;
         padding: 80px 20px 60px !important;

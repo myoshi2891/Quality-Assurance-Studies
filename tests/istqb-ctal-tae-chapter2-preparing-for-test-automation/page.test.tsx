@@ -16,6 +16,13 @@ import {
   DIAGRAM_SUMMARY,
 } from '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/diagrams';
 
+// 空白差を吸収して本文を照合する
+const normalize = (text: string | null | undefined) => text?.replace(/\s+/g, ' ').trim();
+
+// 各実践コールアウトの項目本文を出現順に取り出す
+const practiceItems = (callout: Element | undefined) =>
+  Array.from(callout?.querySelectorAll('li') ?? []).map((li) => normalize(li.textContent));
+
 // Mock Mermaid and IntersectionObserver
 const renderedDiagrams: string[] = [];
 let origMermaidRender: typeof mermaid.render;
@@ -240,8 +247,10 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         expect(cells[2].textContent?.trim()).toBe(expected.configuration);
       });
 
-      const practiceCallouts = sec1?.querySelectorAll('.callout-practice') ?? [];
+      const practiceCallouts = Array.from(sec1?.querySelectorAll('.callout-practice') ?? []);
       expect(practiceCallouts.length).toBe(2);
+      expect(practiceItems(practiceCallouts[0])).toEqual(inventory.sections.sec1.sec1_2.practices);
+      expect(practiceItems(practiceCallouts[1])).toEqual(inventory.sections.sec1.sec1_3.practices);
     });
   });
 
@@ -269,8 +278,10 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         expect(cells[3].textContent?.trim()).toBe(expected.notes);
       });
 
-      const practices = sec2?.querySelectorAll('.callout-practice li') ?? [];
-      expect(practices.length).toBe(inventory.sections.sec2.sec2_1.practices.length);
+      const practices = Array.from(sec2?.querySelectorAll('.callout-practice li') ?? []).map((li) =>
+        normalize(li.textContent)
+      );
+      expect(practices).toEqual(inventory.sections.sec2.sec2_1.practices);
     });
   });
 
@@ -326,8 +337,10 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         expect(cells[2].textContent?.trim()).toBe(expected.checkpoint);
       });
 
-      const practiceCallouts = sec3?.querySelectorAll('.callout-practice') ?? [];
+      const practiceCallouts = Array.from(sec3?.querySelectorAll('.callout-practice') ?? []);
       expect(practiceCallouts.length).toBe(2);
+      expect(practiceItems(practiceCallouts[0])).toEqual(inventory.sections.sec3.sec3_1.practices);
+      expect(practiceItems(practiceCallouts[1])).toEqual(inventory.sections.sec3.sec3_2.practices);
     });
   });
 
@@ -515,6 +528,28 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(DIAGRAM_TESTABILITY).toContain('class TB_T');
       expect(DIAGRAM_SUT).toContain('class S_Start');
       expect(DIAGRAM_TOOLS).toContain('class R_Tool');
+    });
+
+    it('keeps the mobile toggle above the open sidebar without overlapping its text, and clears main offset', () => {
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+      const mobile = css.match(/@media\s*\(max-width:\s*900px\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
+      const zIndexOf = (selector: string) =>
+        Number(mobile.match(new RegExp(`${selector}\\s*\\{[^}]*?z-index:\\s*(\\d+)`))?.[1] ?? NaN);
+
+      // トグルが開いたサイドバーより前面にあり、同じボタンで閉じられる
+      expect(zIndexOf('\\.ctal-tae-ch2-page \\.sidebar-toggle')).toBeGreaterThan(
+        zIndexOf('\\.ctal-tae-ch2-page \\.sidebar')
+      );
+      // トグル（上端 14px + 高さ 42px）の下からサイドバーの文字が始まる
+      expect(mobile).toMatch(/\.ctal-tae-ch2-page \.sidebar\s*\{[^}]*padding-top:\s*72px/);
+      // 基本指定の main.main（詳細度が高い）もモバイルで左余白 0 に上書きする
+      expect(mobile).toMatch(
+        /\.ctal-tae-ch2-page main\.main,\s*\.ctal-tae-ch2-page \.main\s*\{[^}]*margin-left:\s*0\s*!important/
+      );
     });
 
     it('resets globals dark scrollbar track to transparent with light theme thumb', () => {
