@@ -15,7 +15,7 @@
     --accent-dark: #1e3fa0;
     --accent-soft: #e8eefd;
     --accent-soft-border: #c7d7fb;
-    --practice: #1a8a5f;
+    --practice: #157a54; /* .callout-label 文字色。--practice-soft 背景上で 4.8:1（AA 4.5:1 以上）を確保 */
     --practice-soft: #e6f7ef;
     --practice-border: #b9e8d2;
     --shadow: 0 1px 2px rgba(20, 30, 60, 0.04), 0 8px 24px rgba(20, 30, 60, 0.06);
