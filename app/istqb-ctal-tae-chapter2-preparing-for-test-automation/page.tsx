@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './ctal-tae-ch2.css';
 import NavBar from './NavBar';
 import Hero from './Hero';
+import Section0 from './Section0';
 import Footer from './Footer';
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function CtalTaeChapter2Page() {
         <NavBar />
         <main className="main">
           <Hero />
-          {/* Sections will be added progressively in subsequent categories */}
+          <Section0 />
           <Footer />
         </main>
       </div>
