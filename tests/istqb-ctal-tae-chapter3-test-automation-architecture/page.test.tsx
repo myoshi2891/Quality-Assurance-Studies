@@ -161,7 +161,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
     it('syncs the active link on TOC click even when the observer does not fire', () => {
       // Arrange
       const { container } = render(<NavBar />);
-      const target = TOC_ITEMS[TOC_ITEMS.length - 1];
+      const target = at(TOC_ITEMS, TOC_ITEMS.length - 1, 'TOC_ITEMS');
       const link = container.querySelector(`a[data-target="${target.id}"]`);
 
       // Act
@@ -174,7 +174,7 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
     it('syncs the active link on hashchange and ignores hashes outside the TOC', async () => {
       // Arrange
       const { container } = render(<NavBar />);
-      const target = TOC_ITEMS[3];
+      const target = at(TOC_ITEMS, 3, 'TOC_ITEMS');
       const linkOf = (id: string) => container.querySelector(`a[data-target="${id}"]`);
 
       try {

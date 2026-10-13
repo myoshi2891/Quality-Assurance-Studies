@@ -29,7 +29,8 @@ export default function Section7() {
             <tr className="even">
               <td>
                 ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture,
-                p.22-28 が本ガイドの主な出典）
+                p.22-28 が本ガイドの主な出典。著者 Andrew Pollner（Chair）, Péter Földházi,
+                Patrick Quilter, Gergely Ágnecz, László Szikszai、© ISTQB®）
               </td>
               <td>
                 <a

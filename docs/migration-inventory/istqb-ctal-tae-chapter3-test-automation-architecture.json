@@ -532,7 +532,7 @@
           "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
         ],
         [
-          "ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture, p.22-28 が本ガイドの主な出典）",
+          "ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture, p.22-28 が本ガイドの主な出典。著者 Andrew Pollner（Chair）, Péter Földházi, Patrick Quilter, Gergely Ágnecz, László Szikszai、© ISTQB®）",
           "https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
         ],
         [
@@ -646,7 +646,7 @@
       "url": "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
     },
     {
-      "name": "ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture, p.22-28 が本ガイドの主な出典）",
+      "name": "ISTQB CTAL-TAE Syllabus v2.0（シラバスPDF・第3章 Test Automation Architecture, p.22-28 が本ガイドの主な出典。著者 Andrew Pollner（Chair）, Péter Földházi, Patrick Quilter, Gergely Ágnecz, László Szikszai、© ISTQB®）",
       "url": "https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
     },
     {
@@ -666,5 +666,5 @@
       "url": "https://glossary.istqb.org/"
     }
   ],
-  "footer": "本ガイドはISTQB® CTAL-TAE v2.0シラバスに基づく初学者向け解説であり、公式教材ではありません。試験対策には必ず公式シラバスもあわせてご参照ください。"
+  "footer": "本ガイドはISTQB® CTAL-TAE v2.0シラバスに基づく初学者向け解説であり、公式教材ではありません。試験対策には必ず公式シラバスもあわせてご参照ください。出典・著作権: ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) Syllabus v2.0、著者 Andrew Pollner（Chair）, Péter Földházi, Patrick Quilter, Gergely Ágnecz, László Szikszai. Copyright © International Software Testing Qualifications Board（ISTQB®）。"
 }
