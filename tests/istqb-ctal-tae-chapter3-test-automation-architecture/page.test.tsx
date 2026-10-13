@@ -268,6 +268,31 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       const containers = container.querySelectorAll('.mermaid-container');
       expect(containers.length).toBe(9);
 
+      // 各セクション内に、インベントリ通りの図・表・コールアウトがあることを個別に検証する
+      const allContainers = Array.from(containers);
+      inventory.sections.forEach((expected) => {
+        const section = container.querySelector(`[id="${expected.id}"]`)?.closest('section');
+        if (!section) {
+          throw new Error(`section ${expected.id} が描画されていない`);
+        }
+
+        const expectedIds: string[] = [];
+        if ('diagramId' in expected && typeof expected.diagramId === 'string') {
+          expectedIds.push(expected.diagramId);
+        }
+        if ('diagramIds' in expected && Array.isArray(expected.diagramIds)) {
+          expectedIds.push(...expected.diagramIds);
+        }
+        const sectionContainers = Array.from(section.querySelectorAll('.mermaid-container'));
+        const actualIds = sectionContainers.map((el) => `mermaid-diagram-${allContainers.indexOf(el) + 1}`);
+        expect(actualIds).toEqual(expectedIds);
+
+        expect(section.querySelector('table') !== null).toBe(expected.hasTable === true);
+        if ('hasCallout' in expected) {
+          expect(section.querySelector('.callout') !== null).toBe(expected.hasCallout === true);
+        }
+      });
+
       // 第6章: 図を維持しつつ、描画失敗時にも読める判断項目リストを併置する
       const section6 = container.querySelector('[id="6-章全体のまとめtaaを設計する際のチェックリスト"]')?.closest('section');
       if (!section6) {

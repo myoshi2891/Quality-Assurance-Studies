@@ -54,7 +54,7 @@ export default function Section4() {
               </td>
               <td>セットアップと記述開始が容易／Capture/Playbackより修正しやすい</td>
               <td>
-                保守・拡張が困難／SUTが可用である必要がある／小規模向け／多少のプログラミング知識が必要
+                保守・拡張が困難／テストケースの録画中はSUTが可用である必要がある／小規模向け／多少のプログラミング知識が必要
               </td>
             </tr>
             <tr className="odd">
