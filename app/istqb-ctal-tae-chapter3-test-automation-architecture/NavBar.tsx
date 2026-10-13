@@ -70,7 +70,30 @@ export default function NavBar() {
     };
   }, []);
 
-  const handleLinkClick = () => {
+  // 着地位置が監視帯の外になる節でも、URL ハッシュから activeId を同期する
+  useEffect(() => {
+    const syncFromHash = () => {
+      const raw = window.location.hash.slice(1);
+      if (!raw) return;
+      let id = raw;
+      try {
+        id = decodeURIComponent(raw);
+      } catch (error) {
+        // 不正なエンコードは生の値で照合する（目次外なら下で無視される）
+        if (!(error instanceof URIError)) throw error;
+      }
+      if (TOC_ITEMS.some((item) => item.id === id)) setActiveId(id);
+    };
+
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+    return () => {
+      window.removeEventListener('hashchange', syncFromHash);
+    };
+  }, []);
+
+  const handleLinkClick = (id: string) => {
+    setActiveId(id);
     setIsOpen(false);
   };
 
@@ -111,7 +134,7 @@ export default function NavBar() {
                   href={`#${item.id}`}
                   data-target={item.id}
                   className={`nav-link ${activeId === item.id ? 'active' : ''}`}
-                  onClick={handleLinkClick}
+                  onClick={() => handleLinkClick(item.id)}
                 >
                   {item.label}
                 </a>

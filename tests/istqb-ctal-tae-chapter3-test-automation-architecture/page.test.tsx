@@ -157,6 +157,44 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(sidebar?.classList.contains('open')).toBe(false);
       expect(toggle?.getAttribute('aria-expanded')).toBe('false');
     });
+
+    it('syncs the active link on TOC click even when the observer does not fire', () => {
+      // Arrange
+      const { container } = render(<NavBar />);
+      const target = TOC_ITEMS[TOC_ITEMS.length - 1];
+      const link = container.querySelector(`a[data-target="${target.id}"]`);
+
+      // Act
+      if (link) fireEvent.click(link);
+
+      // Assert
+      expect(link?.classList.contains('active')).toBe(true);
+    });
+
+    it('syncs the active link on hashchange and ignores hashes outside the TOC', async () => {
+      // Arrange
+      const { container } = render(<NavBar />);
+      const target = TOC_ITEMS[3];
+      const linkOf = (id: string) => container.querySelector(`a[data-target="${id}"]`);
+
+      try {
+        // Act
+        window.history.replaceState(null, '', `#${encodeURIComponent(target.id)}`);
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+
+        // Assert
+        await waitFor(() => expect(linkOf(target.id)?.classList.contains('active')).toBe(true));
+
+        // Act（目次にないハッシュでは現在のアクティブを維持する）
+        window.history.replaceState(null, '', '#not-in-toc');
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+
+        // Assert
+        expect(linkOf(target.id)?.classList.contains('active')).toBe(true);
+      } finally {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    });
   });
 
   describe('Headings Inventory', () => {
