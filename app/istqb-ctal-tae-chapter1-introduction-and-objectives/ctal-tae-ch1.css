@@ -67,6 +67,7 @@ main.ctal-tae-ch1-page {
 .ctal-tae-ch1-page .main {
     max-width: none !important;
     margin: 0 !important;
+    margin-top: 60px !important;
     margin-left: var(--sidebar-w) !important;
     padding: 0 !important;
     min-width: 0;
