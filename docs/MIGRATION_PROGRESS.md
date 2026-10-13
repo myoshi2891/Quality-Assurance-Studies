@@ -21,7 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/10/12: ISTQB CTAL-TAE 第2章「テスト自動化の準備」初学者向け解説ガイドの移行
 
 - 移行先: `/istqb-ctal-tae-chapter2-preparing-for-test-automation`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
-- 元HTMLの見出し、目次、全5表（LO、テスト容易性3側面、構成要素、5環境、SUT分析8観点、比較表、7技術要件）、Mermaid図6件（position, testability, envs, sut, tools, summary）、インタラクティブチェックリスト（進捗バー・動的カウンター）、一次情報源3件を完全移行。
+- 元HTMLの見出し、目次、全7表（LO、テスト容易性3側面、構成要素、5環境、SUT分析8観点、比較表、7技術要件）、Mermaid図6件（position, testability, envs, sut, tools, summary）、インタラクティブチェックリスト（進捗バー・動的カウンター）、一次情報源3件を完全移行。
 - `docs/migration-inventory/istqb-ctal-tae-chapter2-preparing-for-test-automation.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソースを固定保存。
 - TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`7be1ea5`）、CSS・ダイアグラム定義・NavBar・Hero（`96c2d60`）、Section 0（`1cd28ec`）、Section 1（`195f15f`）、Section 2（`a50fd95`）、Section 3（`8e8dec3`）、Section 4 & 5 & page統合（`f0397db`）、ナビゲーション登録（`4505858`）をそれぞれ独立コミット。
 - ページ単体テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンク / モバイルトグル開閉）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（22 pass / 365 expect() calls）。
