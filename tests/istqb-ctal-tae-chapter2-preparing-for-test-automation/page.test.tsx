@@ -61,7 +61,7 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(eyebrow?.textContent?.trim()).toBe(inventory.hero.eyebrow);
 
       const title = container.querySelector('.hero-title');
-      expect(title?.textContent?.replace(/\s+/g, '').trim()).toBe('PreparingforTestAutomationテスト自動化の準備');
+      expect(squash(title?.textContent)).toBe(squash(inventory.hero.title));
       expect(title?.querySelector('br')).not.toBeNull();
 
       const subtitle = container.querySelector('.hero-subtitle');
