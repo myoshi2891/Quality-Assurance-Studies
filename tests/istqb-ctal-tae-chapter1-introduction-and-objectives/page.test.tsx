@@ -29,6 +29,15 @@ const directParagraphs = (section: Element | null | undefined) =>
     .filter((el) => el.tagName === 'P' && !el.classList.contains('section-note'))
     .map((el) => normalize(el.textContent));
 
+// section 直下の h3 小見出し（アイコン・文言）を出現順に取り出す
+const directSubheadings = (section: Element | null | undefined) =>
+  Array.from(section?.children ?? [])
+    .filter((el) => el.tagName === 'H3')
+    .map((el) => ({
+      icon: el.querySelector('i')?.className,
+      title: el.textContent?.trim(),
+    }));
+
 // 実践カードの各項目（番号・見出し・本文）をインベントリと 1 対 1 で照合する
 const expectPracticeItems = (
   section: Element | null | undefined,
@@ -303,6 +312,7 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
 
       expect(s2?.querySelector('.eyebrow')?.textContent?.trim()).toBe(inventory.sections.s2.eyebrow);
       expect(s2?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.s2.heading);
+      expect(directSubheadings(s2)).toEqual(inventory.sections.s2.subheadings);
 
       // Activities（最初の箇条書き）と限界（2 つ目の箇条書き）
       const lists = Array.from(s2?.children ?? []).filter((el) => el.tagName === 'UL');
@@ -353,6 +363,22 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
 
       expect(s3?.querySelector('.eyebrow')?.textContent?.trim()).toBe(inventory.sections.s3.eyebrow);
       expect(s3?.querySelector('h2')?.textContent?.trim()).toBe(inventory.sections.s3.heading);
+      expect(directSubheadings(s3)).toEqual(inventory.sections.s3.subheadings);
+
+      // 本文段落（strong 境界の空白差を除いて照合）と出典注記
+      const s3Paragraphs = Array.from(s3?.children ?? [])
+        .filter((el) => el.tagName === 'P' && !el.classList.contains('section-note'))
+        .map((el) => squash(el.textContent));
+      expect(s3Paragraphs).toEqual(
+        [
+          inventory.sections.s3.waterfallText,
+          inventory.sections.s3.vmodelText,
+          inventory.sections.s3.agileText,
+        ].map((text) => squash(text))
+      );
+      expect(normalize(s3?.querySelector(':scope > .section-note')?.textContent)).toBe(
+        inventory.sections.s3.agileNote
+      );
 
       // 3 diagrams
       expect(s3?.querySelector('[data-diagram="waterfall"]')).not.toBeNull();
@@ -442,6 +468,10 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe(
         inventory.sections.s5.callout.title
       );
+      const calloutParagraphs = Array.from(callout?.querySelectorAll('.callout-body p') ?? []).map((p) =>
+        normalize(p.textContent)
+      );
+      expect(calloutParagraphs).toEqual(inventory.sections.s5.callout.paragraphs);
     });
   });
 
@@ -458,6 +488,7 @@ describe('CTAL-TAE Chapter 1 Page Migration Spec', () => {
       expect(refCards?.length).toBe(inventory.sections.s6.references.length);
 
       inventory.sections.s6.references.forEach((ref, i) => {
+        expect(normalize(refCards?.[i].querySelector('.ref-card-title')?.textContent)).toBe(ref.title);
         const link = refCards?.[i].querySelector('a');
         expect(link?.getAttribute('href')).toBe(ref.url);
         expect(link?.getAttribute('target')).toBe('_blank');
