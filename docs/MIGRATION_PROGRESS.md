@@ -32,7 +32,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/10/12: ISTQB CTAL-TAE 第1章「テスト自動化の導入と目的」初学者向け解説ガイドの移行
 
 - 移行先: `/istqb-ctal-tae-chapter1-introduction-and-objectives`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
-- 元HTMLの見出し、目次8リンク、全4表（LO、キーワード、メリット9件、デメリット6件、限界4件、SDLC比較）、Mermaid図7件（ロードマップ、purpose3、decision、waterfall、vmodel、agile、toolselect）、インタラクティブチェックリスト（進捗バー・状態維持）、一次情報源2件を完全移行。
+- 元HTMLの見出し、目次8リンク、全5表（LO、キーワード、メリット9件、デメリット6件、SDLC比較）、Mermaid図7件（ロードマップ、purpose3、decision、waterfall、vmodel、agile、toolselect）、インタラクティブチェックリスト（進捗バー・状態維持）、一次情報源2件を完全移行。
 - `docs/migration-inventory/istqb-ctal-tae-chapter1-introduction-and-objectives.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
 - TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`4bd316d`）、CSS・ダイアグラム定義・NavBar・Hero（`f19f303`）、Section 0 & 1（`dffcaf9`）、Section 2（`a76bd89`）、Section 3（`0b093e6`）、Section 4（`54458fd`）、Section 5, 6, Footer & page統合（`71fc7e4`）、ナビゲーション登録（`575344a`）、アーカイブ移動（`9f0914e`）、サイドバー重なり・Mermaid黒塗り修正（`a0188f8`）、ヒーローリード改行修正（`cad3233`）、ヒーロー全幅表示修正（`c861e98`）をそれぞれ独立コミット。
 - ページ単体テスト（`tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全7図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンクと `aria-current` / モバイルトグル開閉 / 狭幅でのリンククリック時クローズ）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（16 pass / 206 expect() calls）。
@@ -1417,7 +1417,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Iso-29119-1-2022-guide.html` | `/iso-29119-1-2022-guide` | ✅ スティッキーNavBar + Mermaid図19件 + 全39表 + 目次69リンク (archive/html-archive/iso/) |
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
-| `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全4表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
