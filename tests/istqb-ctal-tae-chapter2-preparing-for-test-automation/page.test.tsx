@@ -449,7 +449,11 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       );
 
       const footer = container.querySelector('.page-footer');
-      expect(footer?.textContent?.trim()).toBe(inventory.footer.disclaimer);
+      // 既存の案内文を維持しつつ、著者と ISTQB® を出典・著作権者として示す帰属表示を併記する
+      const footerParagraphs = Array.from(footer?.querySelectorAll('p') ?? []).map((p) =>
+        p.textContent?.replace(/\s+/g, ' ').trim()
+      );
+      expect(footerParagraphs).toEqual([inventory.footer.disclaimer, inventory.footer.text]);
     });
   });
 
@@ -649,6 +653,25 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(css).toContain('*::-webkit-scrollbar-track');
       expect(css).toMatch(/\*::-webkit-scrollbar-track\s*\{[^}]*background:\s*transparent\s*!important/);
       expect(css).toContain('*::-webkit-scrollbar-thumb');
+    });
+
+    it('keeps the white label of the root node by excluding .root from the dark label color rule', () => {
+      // Arrange
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+
+      // Act: 濃い文字色（#1b2333）を指定するルールのセレクター群を取り出す
+      const rule = css.match(/([^{}]+)\{\s*color:\s*#1b2333;\s*fill:\s*#1b2333;\s*\}/);
+      const selectors = (rule?.[1] ?? '').split(',').map((s) => s.trim()).filter((s) => s.length > 0);
+
+      // Assert: 全セレクターが .root を除外し、classDef root の白文字を上書きしない
+      expect(selectors.length).toBeGreaterThan(0);
+      selectors.forEach((selector) => {
+        expect(selector).toContain('.node:not(.root)');
+      });
     });
   });
 });

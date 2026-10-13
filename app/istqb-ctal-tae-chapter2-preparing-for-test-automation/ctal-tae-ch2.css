@@ -655,13 +655,13 @@ main.ctal-tae-ch2-page {
     stroke: #c7d0e0 !important;
 }
 
-.ctal-tae-ch2-page .mermaid-wrapper .node .label,
-.ctal-tae-ch2-page .mermaid-wrapper .node .label text,
-.ctal-tae-ch2-page .mermaid-wrapper .node .nodeLabel,
-.ctal-tae-ch2-page .mermaid-wrapper .node .nodeLabel *,
-.ctal-tae-ch2-page .mermaid-wrapper .node foreignObject div,
-.ctal-tae-ch2-page .mermaid-wrapper .node foreignObject span,
-.ctal-tae-ch2-page .mermaid-wrapper .node foreignObject p {
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .label,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .label text,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .nodeLabel,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .nodeLabel *,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) foreignObject div,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) foreignObject span,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) foreignObject p {
     color: #1b2333;
     fill: #1b2333;
 }
