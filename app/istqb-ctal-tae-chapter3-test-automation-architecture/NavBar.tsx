@@ -92,9 +92,15 @@ export default function NavBar() {
     };
   }, []);
 
+  // 閉じたドロワー内（非表示）のリンクにフォーカスを残さず、リンク先の見出しへ移す
   const handleLinkClick = (id: string) => {
     setActiveId(id);
     setIsOpen(false);
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    // スクロールはアンカー本来の遷移に任せる
+    target.focus({ preventScroll: true });
   };
 
   return (

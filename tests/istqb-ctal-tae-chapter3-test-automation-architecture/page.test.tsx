@@ -171,6 +171,26 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       expect(link?.classList.contains('active')).toBe(true);
     });
 
+    it('moves focus to the target heading when a TOC link closes the drawer', () => {
+      // Arrange
+      const { container } = render(<Page />);
+      const item = at(TOC_ITEMS, 2, 'TOC_ITEMS');
+      const toggle = container.querySelector('#sidebarToggle');
+      const sidebar = container.querySelector('#sidebar');
+      const link = container.querySelector<HTMLAnchorElement>(`#sidebar a[data-target="${item.id}"]`);
+      const target = document.getElementById(item.id);
+      if (!toggle || !sidebar || !link || !target) throw new Error('目次・リンク先が描画されていない');
+
+      // Act
+      fireEvent.click(toggle);
+      link.focus();
+      fireEvent.click(link);
+
+      // Assert: ドロワーは閉じ、フォーカスは非表示のリンクではなくリンク先の見出しにある
+      expect(sidebar.classList.contains('open')).toBe(false);
+      expect(document.activeElement === target).toBe(true);
+    });
+
     it('syncs the active link on hashchange and ignores hashes outside the TOC', async () => {
       // Arrange
       const { container } = render(<NavBar />);
@@ -457,6 +477,15 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
     it('adjusts mobile sidebar toggle and main margin appropriately in media query', () => {
       expect(cssContent).toMatch(/\.sidebar-toggle\s*\{[\s\S]*?top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height,\s*0px\)/);
       expect(cssContent).toMatch(/@media\s*\(max-width:\s*980px\)\s*\{[\s\S]*?main\.main[\s\S]*?margin-left:\s*0\s*!important/);
+    });
+
+    it('disables sidebar drawer and toggle icon transitions under prefers-reduced-motion', () => {
+      const block = cssContent.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
+
+      expect(block).toContain('.ctal-tae-ch3-page .sidebar,');
+      expect(block).toContain('.ctal-tae-ch3-page .sidebar.open');
+      expect(block).toContain('.ctal-tae-ch3-page .sidebar-toggle span');
+      expect(block).toMatch(/transition:\s*none/);
     });
   });
 

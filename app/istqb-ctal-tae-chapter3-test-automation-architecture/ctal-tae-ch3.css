@@ -610,6 +610,16 @@ main.ctal-tae-ch3-page {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch3-page .sidebar,
+    .ctal-tae-ch3-page .sidebar.open,
+    .ctal-tae-ch3-page .sidebar-toggle span,
+    .ctal-tae-ch3-page .sidebar-toggle span::before,
+    .ctal-tae-ch3-page .sidebar-toggle span::after {
+        transition: none;
+    }
+}
+
 @media (max-width: 720px) {
     /* デスクトップ側の !important 宣言を上書きするため同等の優先度を付ける */
     .ctal-tae-ch3-page .hero-meta {
