@@ -9,9 +9,10 @@ export default function Section4() {
         4. TAE-3.1.4：テストケース自動化のさまざまなアプローチ
       </h2>
       <p>
-        シラバスでは7つのアプローチが紹介されています。これらは優劣の順位ではなく、
-        <strong>前の手法を土台に積み上がる関係</strong>として理解すると覚えやすいです。たとえば DDT
-        は Structured Scripting を基礎とし、KDT は DDT を基礎とする場合が多い、という具合です。どれを採用するかは、SUT
+        シラバスでは7つのアプローチが紹介されています。これらは優劣の順位ではありません。
+        <strong>一部の手法には前の手法を土台に積み上がる関係</strong>があり、DDT は Structured Scripting
+        を基礎とし、KDT は DDT を基礎とする場合が多い、という具合です。一方、Linear Scripting は Capture/Playback
+        で録画したスクリプトを流用することもできますが、Linear Scripting は Capture/Playback を前提としません。どれを採用するかは、SUT
         の安定性、テストデータの量、テスト作成者のスキル、保守にかけられる工数などの状況に応じて選びます。後段の手法ほど準備・設計のコストも増えるため、常に後段が優れているわけではありません（TDD/BDDは開発方法論ですが、正しく実践すれば自動化テストケースの生成につながります）。
       </p>
       <div className="mermaid-container">

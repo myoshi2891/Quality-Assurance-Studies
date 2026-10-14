@@ -577,7 +577,7 @@
     },
     {
       "id": "mermaid-diagram-6",
-      "code": "flowchart LR\n    AP1[\"Capture/Playback<br/>録画型\"] --> AP2[\"Linear Scripting<br/>線形スクリプティング\"]\n    AP2 --> AP3[\"Structured Scripting<br/>構造化スクリプティング\"]\n    AP3 --> AP4[\"Data-Driven Testing<br/>データ駆動テスト\"]\n    AP4 --> AP5[\"Keyword-Driven Testing<br/>キーワード駆動テスト\"]\n\n    AP6[\"Test-Driven Development<br/>テスト駆動開発\"]\n    AP7[\"Behavior-Driven Development<br/>振る舞い駆動開発\"]\n\n    classDef basic fill:#fee2e2,stroke:#dc2626,color:#1e293b;\n    classDef mid fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    classDef adv fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    classDef method fill:#e0e7ff,stroke:#4338ca,color:#1e293b;\n    class AP1,AP2 basic\n    class AP3 mid\n    class AP4,AP5 adv\n    class AP6,AP7 method"
+      "code": "flowchart LR\n    AP1[\"Capture/Playback<br/>録画型\"]\n    AP2[\"Linear Scripting<br/>線形スクリプティング\"]\n    AP3[\"Structured Scripting<br/>構造化スクリプティング\"]\n    AP3 --> AP4[\"Data-Driven Testing<br/>データ駆動テスト\"]\n    AP4 --> AP5[\"Keyword-Driven Testing<br/>キーワード駆動テスト\"]\n\n    AP6[\"Test-Driven Development<br/>テスト駆動開発\"]\n    AP7[\"Behavior-Driven Development<br/>振る舞い駆動開発\"]\n\n    classDef basic fill:#fee2e2,stroke:#dc2626,color:#1e293b;\n    classDef mid fill:#fef3c7,stroke:#d97706,color:#1e293b;\n    classDef adv fill:#dcfce7,stroke:#16a34a,color:#1e293b;\n    classDef method fill:#e0e7ff,stroke:#4338ca,color:#1e293b;\n    class AP1,AP2 basic\n    class AP3 mid\n    class AP4,AP5 adv\n    class AP6,AP7 method"
     },
     {
       "id": "mermaid-diagram-7",

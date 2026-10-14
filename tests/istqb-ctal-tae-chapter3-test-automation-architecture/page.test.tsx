@@ -277,6 +277,23 @@ describe('CTAL-TAE Chapter 3 Page Migration Spec', () => {
       });
     });
 
+    it('keeps only the documented build-on relations (SS→DDT→KDT) in the approaches diagram and its lead text', () => {
+      // Arrange
+      const { container } = render(<Page />);
+      const heading = container.querySelector('h2[id="4-tae-314テストケース自動化のさまざまなアプローチ"]');
+      const lead = heading?.nextElementSibling?.textContent?.replace(/\s+/g, '') ?? '';
+
+      // Act: 図中の依存矢印（A --> B）を抽出する
+      const edges = [...DIAGRAM_APPROACHES.matchAll(/(AP\d)(?:\[[^\]]*\])?\s*-->\s*(AP\d)/g)].map(
+        (m) => `${m[1]}->${m[2]}`
+      );
+
+      // Assert: Linear Scripting は Capture/Playback に依存しない。DDT・KDT の土台関係は維持する
+      expect(edges).toEqual(['AP3->AP4', 'AP4->AP5']);
+      expect(lead).not.toContain('前の手法を土台に積み上がる関係として理解すると');
+      expect(lead).toContain('LinearScriptingはCapture/Playbackを前提としません');
+    });
+
     it('passes the 9 charts to Mermaid in section order, matching the inventory 1:1', async () => {
       // Arrange: セクション順の図定義
       const definitions = [

@@ -128,8 +128,9 @@ flowchart TB
 
 export const DIAGRAM_APPROACHES = `${MERMAID_CONFIG}
 flowchart LR
-    AP1["Capture/Playback<br/>録画型"] --> AP2["Linear Scripting<br/>線形スクリプティング"]
-    AP2 --> AP3["Structured Scripting<br/>構造化スクリプティング"]
+    AP1["Capture/Playback<br/>録画型"]
+    AP2["Linear Scripting<br/>線形スクリプティング"]
+    AP3["Structured Scripting<br/>構造化スクリプティング"]
     AP3 --> AP4["Data-Driven Testing<br/>データ駆動テスト"]
     AP4 --> AP5["Keyword-Driven Testing<br/>キーワード駆動テスト"]
 
