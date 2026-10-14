@@ -673,5 +673,21 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
         expect(selector).toContain('.node:not(.root)');
       });
     });
+
+    it('renders root node paragraphs in white so the page-level p color does not override classDef root', () => {
+      // Arrange
+      const cssPath = path.resolve(
+        __dirname,
+        '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css'
+      );
+      const css = fs.readFileSync(cssPath, 'utf-8');
+
+      // Act: .node.root 内の p に白文字を指定するルールを取り出す
+      const rule = css.match(/\.mermaid-wrapper \.node\.root[^{}]*\bp\s*\{([^}]*)\}/);
+
+      // Assert: ページ全体の p { color: var(--text) } より詳細度の高いセレクターで白文字を指定する
+      expect(rule).not.toBeNull();
+      expect(rule?.[1] ?? '').toMatch(/color:\s*#ffffff/);
+    });
   });
 });

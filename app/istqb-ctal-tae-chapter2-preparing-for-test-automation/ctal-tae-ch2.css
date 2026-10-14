@@ -666,6 +666,11 @@ main.ctal-tae-ch2-page {
     fill: #1b2333;
 }
 
+/* ページ全体の p { color: var(--text) } が継承より優先されるため、要約図ルートノード内の段落は classDef root の白文字を明示する */
+.ctal-tae-ch2-page .mermaid-wrapper .node.root foreignObject p {
+    color: #ffffff;
+}
+
 .ctal-tae-ch2-page .mermaid-wrapper .edgeLabels rect,
 .ctal-tae-ch2-page .mermaid-wrapper .edgeLabel rect {
     fill: #ffffff !important;
