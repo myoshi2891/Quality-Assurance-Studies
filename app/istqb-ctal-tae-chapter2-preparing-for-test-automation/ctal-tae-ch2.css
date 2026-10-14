@@ -749,3 +749,10 @@ main.ctal-tae-ch2-page {
         grid-template-columns: 1fr;
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch2-page .sidebar,
+    .ctal-tae-ch2-page .cp-bar-fill {
+        transition: none;
+    }
+}
