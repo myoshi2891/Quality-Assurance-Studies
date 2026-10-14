@@ -161,6 +161,35 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       const active = document.querySelector('#sidebar a.active');
       expect(active?.getAttribute('data-target')).toBe('sec-0');
     });
+
+    it('moves focus to the target section for parent and child TOC links at mobile width', () => {
+      // Arrange: 900px 以下のモバイル幅を再現する
+      const originalWidth = window.innerWidth;
+      Object.defineProperty(window, 'innerWidth', { value: 800, configurable: true, writable: true });
+      try {
+        const { container } = render(<Page />);
+        const toggleBtn = container.querySelector('#sidebarToggle');
+        const sidebar = container.querySelector('#sidebar');
+        if (!toggleBtn || !sidebar) throw new Error('目次が描画されていない');
+
+        for (const id of ['sec-1', 'sec-1-1']) {
+          const link = container.querySelector<HTMLAnchorElement>(`#sidebar a[href="#${id}"]`);
+          const target = container.querySelector(`#${id}`);
+          if (!link || !target) throw new Error(`#${id} のリンク・リンク先が描画されていない`);
+
+          // Act
+          fireEvent.click(toggleBtn);
+          link.focus();
+          fireEvent.click(link);
+
+          // Assert: ドロワーは閉じ、フォーカスは非表示のリンクではなくリンク先にある
+          expect(sidebar.classList.contains('open')).toBe(false);
+          expect(document.activeElement === target).toBe(true);
+        }
+      } finally {
+        Object.defineProperty(window, 'innerWidth', { value: originalWidth, configurable: true, writable: true });
+      }
+    });
   });
 
   describe('Section 0 (Positioning & Learning Objectives) Inventory', () => {

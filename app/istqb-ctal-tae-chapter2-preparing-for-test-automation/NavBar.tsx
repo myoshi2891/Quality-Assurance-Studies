@@ -126,10 +126,15 @@ export default function NavBar() {
     return () => observer.disconnect();
   }, []);
 
-  const handleLinkClick = () => {
-    if (typeof window !== 'undefined' && window.innerWidth <= 900) {
-      setIsOpen(false);
-    }
+  // 閉じたドロワー内（非表示）のリンクにフォーカスを残さず、リンク先セクションへ移す
+  const handleLinkClick = (href: string) => {
+    if (typeof window === 'undefined' || window.innerWidth > 900) return;
+    setIsOpen(false);
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    // スクロールはアンカー本来の遷移に任せる
+    target.focus({ preventScroll: true });
   };
 
   return (
@@ -156,7 +161,7 @@ export default function NavBar() {
                   href={item.href}
                   data-target={item.dataTarget}
                   className={activeTarget === item.dataTarget ? 'active' : ''}
-                  onClick={handleLinkClick}
+                  onClick={() => handleLinkClick(item.href)}
                 >
                   {item.text}
                 </a>
@@ -168,7 +173,7 @@ export default function NavBar() {
                           href={child.href}
                           data-target={child.dataTarget}
                           className={activeTarget === child.dataTarget ? 'active' : ''}
-                          onClick={handleLinkClick}
+                          onClick={() => handleLinkClick(child.href)}
                         >
                           {child.text}
                         </a>
