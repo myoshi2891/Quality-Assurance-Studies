@@ -531,31 +531,31 @@ flowchart TD
 | ISO公式 | ISO/IEC 29138-3:2022（ユーザニーズのマッピング） | <a href="https://www.iso.org/standard/80765.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/80765.html</a> |
 | ISO/IEC | ISO/IEC Guide 71:2014（11の目標、用語、戦略）。アイルランド国立ユニバーサルデザインセンター（universaldesign.ie）が公開しているPDF | <a href="https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf" target="_blank" rel="noopener noreferrer">https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf</a> |
 | IEC | IEC Webstore の 29138-1 のページ | <a href="https://webstore.iec.ch/en/publication/64193" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/64193</a> |
-| IEC | IEC Webstore の 29138-3 のページ | https://webstore.iec.ch/publication/76037 |
-| 各国規格団体 | カナダ規格評議会のTR 29138-1:2009（前身）の情報 | https://ccn-scc.ca/standardsdb/standards/8147689 |
-| 目次の断片 | 規格の目次情報の公開サンプル（iTeh） | https://cdn.standards.iteh.ai/samples/71953/bf1f4ff0c66a4ea486546a1b995b09c6/ISO-IEC-29138-1-2018.pdf |
+| IEC | IEC Webstore の 29138-3 のページ | <a href="https://webstore.iec.ch/publication/76037" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/76037</a> |
+| 各国規格団体 | カナダ規格評議会のTR 29138-1:2009（前身）の情報 | <a href="https://ccn-scc.ca/standardsdb/standards/8147689" target="_blank" rel="noopener noreferrer">https://ccn-scc.ca/standardsdb/standards/8147689</a> |
+| 目次の断片 | 規格の目次情報の公開サンプル（iTeh） | <a href="https://cdn.standards.iteh.ai/samples/71953/bf1f4ff0c66a4ea486546a1b995b09c6/ISO-IEC-29138-1-2018.pdf" target="_blank" rel="noopener noreferrer">https://cdn.standards.iteh.ai/samples/71953/bf1f4ff0c66a4ea486546a1b995b09c6/ISO-IEC-29138-1-2018.pdf</a> |
 
 ### 14.2 国際的な実務コミュニティ・業界の情報
 
 | 区分 | 内容 | URL |
 |---|---|---|
-| W3C WAI | How People with Disabilities Use the Web（多様な能力と障壁） | https://www.w3.org/WAI/people-use-web/ |
-| W3C WAI | WCAG 3 作業草案（2026年9月）のお知らせ | https://www.w3.org/WAI/news/2026-09-10/wcag3/ |
-| W3C WAI | WCAG 3 の導入ページ（背景とタイムライン） | https://www.w3.org/WAI/standards-guidelines/wcag/wcag3-intro/ |
-| W3C WAI 議論リスト | Gregg Vanderheiden氏（Trace Center）の、WCAG適合と利用可能性に関する発言 | https://lists.w3.org/Archives/Public/w3c-wai-ig/2011JulSep/0008.html |
-| Google web.dev | Learn Accessibility：デザインとUX（恒久・一時・状況的な障害、ペルソナ） | https://web.dev/learn/accessibility/design-ux |
-| Microsoft | Inclusive Design Toolkit | https://www.microsoft.com/design/inclusive/ |
-| ETSI/CEN/CENELEC | EN 301 549 V4.1.1（2026年9月公開） | https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf |
-| カナダ政府 | EN 301 549 の附属書E（第4章＝機能性能の説明） | https://accessible.canada.ca/node/395 |
+| W3C WAI | How People with Disabilities Use the Web（多様な能力と障壁） | <a href="https://www.w3.org/WAI/people-use-web/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/people-use-web/</a> |
+| W3C WAI | WCAG 3 作業草案（2026年9月）のお知らせ | <a href="https://www.w3.org/WAI/news/2026-09-10/wcag3/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2026-09-10/wcag3/</a> |
+| W3C WAI | WCAG 3 の導入ページ（背景とタイムライン） | <a href="https://www.w3.org/WAI/standards-guidelines/wcag/wcag3-intro/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/standards-guidelines/wcag/wcag3-intro/</a> |
+| W3C WAI 議論リスト | Gregg Vanderheiden氏（Trace Center）の、WCAG適合と利用可能性に関する発言 | <a href="https://lists.w3.org/Archives/Public/w3c-wai-ig/2011JulSep/0008.html" target="_blank" rel="noopener noreferrer">https://lists.w3.org/Archives/Public/w3c-wai-ig/2011JulSep/0008.html</a> |
+| Google web.dev | Learn Accessibility：デザインとUX（恒久・一時・状況的な障害、ペルソナ） | <a href="https://web.dev/learn/accessibility/design-ux" target="_blank" rel="noopener noreferrer">https://web.dev/learn/accessibility/design-ux</a> |
+| Microsoft | Inclusive Design Toolkit | <a href="https://www.microsoft.com/design/inclusive/" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/design/inclusive/</a> |
+| ETSI/CEN/CENELEC | EN 301 549 V4.1.1（2026年9月公開） | <a href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf" target="_blank" rel="noopener noreferrer">https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf</a> |
+| カナダ政府 | EN 301 549 の附属書E（第4章＝機能性能の説明） | <a href="https://accessible.canada.ca/node/395" target="_blank" rel="noopener noreferrer">https://accessible.canada.ca/node/395</a> |
 
 ### 14.3 解説記事（補助資料）
 
 | 内容 | URL |
 |---|---|
-| ペルソナスペクトラムの解説（CareerFoundry） | https://careerfoundry.com/en/blog/ux-design/persona-spectrums/ |
-| 一時的な障害を使った設計への批判的検討（Experience Dynamics） | https://dev.experiencedynamics.com/?p=26225 |
-| WCAG 3.0 の2026年9月草案の解説（AccessibleWeb） | https://accessibleweb.com/wcag/wcag-3-working-draft-changes/ |
-| EN 301 549 と EAA の関係（arc42 Quality Model） | https://quality.arc42.org/standards/en-301-549 |
+| ペルソナスペクトラムの解説（CareerFoundry） | <a href="https://careerfoundry.com/en/blog/ux-design/persona-spectrums/" target="_blank" rel="noopener noreferrer">https://careerfoundry.com/en/blog/ux-design/persona-spectrums/</a> |
+| 一時的な障害を使った設計への批判的検討（Experience Dynamics） | <a href="https://dev.experiencedynamics.com/?p=26225" target="_blank" rel="noopener noreferrer">https://dev.experiencedynamics.com/?p=26225</a> |
+| WCAG 3.0 の2026年9月草案の解説（AccessibleWeb） | <a href="https://accessibleweb.com/wcag/wcag-3-working-draft-changes/" target="_blank" rel="noopener noreferrer">https://accessibleweb.com/wcag/wcag-3-working-draft-changes/</a> |
+| EN 301 549 と EAA の関係（arc42 Quality Model） | <a href="https://quality.arc42.org/standards/en-301-549" target="_blank" rel="noopener noreferrer">https://quality.arc42.org/standards/en-301-549</a> |
 
 ---
 
