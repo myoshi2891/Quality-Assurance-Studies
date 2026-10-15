@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `f68b0cd`（ドキュメント同期コミットは除外） |
 | 最新コミット内容 | `chore(archive): move ctal-tae-ch2 source files to archive and update docs` |
 | 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter2-preparing-for-test-automation`の目視確認。 |
-| ビルド状態 | 全体テスト`bun test`: 2799 pass / 0 fail、116 files（2026-10-12）。※`docs/coverage-dashboard.html` の「120 files」は `bun test` 対象 116 files に Playwright の `.e2e.ts` 4 files を加えた集計であり、差分 4 はこの集計基準の違いによる。ページ22テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`、365 expect() calls、全6Mermaid図・全7表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| ビルド状態 | 全体テスト`bun test`: 2799 pass / 0 fail、116 files（2026-10-12）。※`docs/coverage-dashboard.html` の「120 files」は `bun test` 対象 116 files に Playwright の `.e2e.ts` 4 files を加えた集計であり、差分 4 はこの集計基準の違いによる。ページ26テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`、383 expect() calls、全6Mermaid図・全7表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
 
 ## 2026/10/12: ISTQB CTAL-TAE 第2章「テスト自動化の準備」初学者向け解説ガイドの移行
 
@@ -24,7 +24,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 元HTMLの見出し、目次、全7表（LO、テスト容易性3側面、構成要素、5環境、SUT分析8観点、比較表、7技術要件）、Mermaid図6件（position, testability, envs, sut, tools, summary）、インタラクティブチェックリスト（進捗バー・動的カウンター）、一次情報源3件を完全移行。
 - `docs/migration-inventory/istqb-ctal-tae-chapter2-preparing-for-test-automation.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソースを固定保存。
 - TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`7be1ea5`）、CSS・ダイアグラム定義・NavBar・Hero（`96c2d60`）、Section 0（`1cd28ec`）、Section 1（`195f15f`）、Section 2（`a50fd95`）、Section 3（`8e8dec3`）、Section 4 & 5 & page統合（`f0397db`）、ナビゲーション登録（`4505858`）をそれぞれ独立コミット。
-- ページ単体テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンク / モバイルトグル開閉）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（22 pass / 365 expect() calls）。
+- ページ単体テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンク / モバイルトグル開閉）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（26 pass / 383 expect() calls）。
 - Mermaid図6件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
 - 元HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch2.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-v2.0-ch2.md` へ移動。
 - ナビ・E2E対象は96ルート。全体 2793 pass / 116 files（本移行の完了時点の結果。現在値は「現在地」のビルド状態を参照）。

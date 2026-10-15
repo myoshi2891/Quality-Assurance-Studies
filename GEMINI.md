@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-12
+Updated 2026-10-15
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -357,7 +357,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 ### ISTQB CTAL-TAE 第2章「テスト自動化の準備」の追加移行（2026-10-12）
 
 - `/istqb-ctal-tae-chapter2-preparing-for-test-automation`をISTQB高度レベル（`istqb-advanced`）へ追加。テスト容易性の3側面（内因的・外因的・要件容易性）、各種環境での自動テスト活用、SUT分析とツール評価プロセス、Mermaid図6件、全5表、チェックリストを完全保持。
-- `tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`で12テスト（287 expect() calls）を検証。ナビ・E2E対象は96ルート、Advancedカテゴリは17件。
+- `tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`で26テスト（383 expect() calls）を検証。ナビ・E2E対象は96ルート、Advancedカテゴリは17件。
 - 原本は`archive/html-archive/ctal/Ctal-tae-v2.0-ch2.html`と`archive/md-archive/ctal/Ctal-tae-v2.0-ch2.md`へ移動。
 - 検証は`npm test`（2793 pass / 0 fail）および`npm run lint`で実施。ビルド・目視確認は実施しない。
 
