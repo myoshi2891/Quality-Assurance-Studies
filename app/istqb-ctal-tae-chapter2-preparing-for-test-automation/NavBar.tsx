@@ -148,6 +148,7 @@ export default function NavBar() {
   return (
     <>
       <button
+        type="button"
         className="sidebar-toggle"
         id="sidebarToggle"
         aria-label="メニュー"

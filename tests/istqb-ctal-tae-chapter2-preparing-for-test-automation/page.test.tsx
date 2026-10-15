@@ -149,6 +149,16 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
     });
 
+    it('declares the sidebar toggle as type="button" so it never submits an enclosing form', () => {
+      // Arrange
+      const { container } = render(<NavBar />);
+      const toggleBtn = container.querySelector('#sidebarToggle');
+      if (!toggleBtn) throw new Error('#sidebarToggle が描画されていない');
+
+      // Assert: 既定の type="submit" に依存しない
+      expect(toggleBtn.getAttribute('type')).toBe('button');
+    });
+
     it('renders without throwing when IntersectionObserver is unavailable', () => {
       // Arrange: IntersectionObserver 未対応環境を再現する（afterEach で復元される）
       Reflect.deleteProperty(window, 'IntersectionObserver');
