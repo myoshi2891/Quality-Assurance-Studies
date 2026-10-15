@@ -526,11 +526,11 @@ flowchart TD
 
 | 区分 | 内容 | URL |
 |---|---|---|
-| ISO公式 | ISO/IEC 29138-1:2018 の公式ページ（概要、ライフサイクル、ステージ） | https://www.iso.org/standard/71953.html |
-| ISO公式 | ISO/IEC AWI 29138-1（第2版・開発中） | https://www.iso.org/standard/95214.html |
-| ISO公式 | ISO/IEC 29138-3:2022（ユーザニーズのマッピング） | https://www.iso.org/standard/80765.html |
-| ISO/IEC | ISO/IEC Guide 71:2014（11の目標、用語、戦略）。アイルランド国立ユニバーサルデザインセンター（universaldesign.ie）が公開しているPDF | https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf |
-| IEC | IEC Webstore の 29138-1 のページ | https://webstore.iec.ch/en/publication/64193 |
+| ISO公式 | ISO/IEC 29138-1:2018 の公式ページ（概要、ライフサイクル、ステージ） | <a href="https://www.iso.org/standard/71953.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/71953.html</a> |
+| ISO公式 | ISO/IEC AWI 29138-1（第2版・開発中） | <a href="https://www.iso.org/standard/95214.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/95214.html</a> |
+| ISO公式 | ISO/IEC 29138-3:2022（ユーザニーズのマッピング） | <a href="https://www.iso.org/standard/80765.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/80765.html</a> |
+| ISO/IEC | ISO/IEC Guide 71:2014（11の目標、用語、戦略）。アイルランド国立ユニバーサルデザインセンター（universaldesign.ie）が公開しているPDF | <a href="https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf" target="_blank" rel="noopener noreferrer">https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf</a> |
+| IEC | IEC Webstore の 29138-1 のページ | <a href="https://webstore.iec.ch/en/publication/64193" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/64193</a> |
 | IEC | IEC Webstore の 29138-3 のページ | https://webstore.iec.ch/publication/76037 |
 | 各国規格団体 | カナダ規格評議会のTR 29138-1:2009（前身）の情報 | https://ccn-scc.ca/standardsdb/standards/8147689 |
 | 目次の断片 | 規格の目次情報の公開サンプル（iTeh） | https://cdn.standards.iteh.ai/samples/71953/bf1f4ff0c66a4ea486546a1b995b09c6/ISO-IEC-29138-1-2018.pdf |

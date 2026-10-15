@@ -587,11 +587,11 @@ standards:
 
 | 根拠にした内容 | URL |
 |--------------|-----|
-| 規格の基本情報、要旨、ステージ履歴 | https://www.iso.org/standard/51341.html |
-| TR 29138-1:2009 が廃止されている状況 | https://www.iso.org/standard/45161.html |
-| ISO/IEC 29138-1:2018 の要旨と状況（2024年に確認） | https://www.iso.org/standard/71953.html |
-| TR 29138-3:2009 が廃止されている状況 | https://committee.iso.org/es/sites/isoorg/contents/data/standard/05/13/51342.html |
-| ISO/IEC 29138-3:2022 の要旨 | https://committee.iso.org/es/sites/isoorg/contents/data/standard/08/07/80765.html |
+| 規格の基本情報、要旨、ステージ履歴 | <a href="https://www.iso.org/standard/51341.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/51341.html</a> |
+| TR 29138-1:2009 が廃止されている状況 | <a href="https://www.iso.org/standard/45161.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/45161.html</a> |
+| ISO/IEC 29138-1:2018 の要旨と状況（2024年に確認） | <a href="https://www.iso.org/standard/71953.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/71953.html</a> |
+| TR 29138-3:2009 が廃止されている状況 | <a href="https://committee.iso.org/es/sites/isoorg/contents/data/standard/05/13/51342.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/es/sites/isoorg/contents/data/standard/05/13/51342.html</a> |
+| ISO/IEC 29138-3:2022 の要旨 | <a href="https://committee.iso.org/es/sites/isoorg/contents/data/standard/08/07/80765.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/es/sites/isoorg/contents/data/standard/08/07/80765.html</a> |
 | Guide 71（2014年版）の範囲 | https://www.iso.org/ru/standard/33987.html |
 | JTC 1 SWG-A の履歴（2007〜2010年） | https://jtc1info.org/sd-2-history/special-wgs/swg-1/ |
 | SWG-A の作業がSC 35へ移ったこと | https://interoperable-europe.ec.europa.eu/collection/rolling-plan-ict-standardisation/accessibility-ict-products-and-services-0 |

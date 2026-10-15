@@ -3,7 +3,7 @@
 > **対象規格**：IEC 81001-5-1:2021「ヘルスソフトウェア及びヘルスITシステムの安全、有効性及びセキュリティ — 第5-1部：セキュリティ — 製品ライフサイクルにおけるアクティビティ」
 > **情報の基準日**：2026年10月13日（この日までに確認できた公開情報にもとづく）
 > **想定読者**：ソフトウェアエンジニア／QAエンジニア／医療機器・ヘルスソフトウェアの開発に初めて関わる方
-> **公式ページ**：https://www.iso.org/standard/76097.html
+> **公式ページ**：<a href="https://www.iso.org/standard/76097.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/76097.html</a>
 
 ---
 
@@ -585,49 +585,49 @@ flowchart LR
 
 | 内容 | URL |
 |---|---|
-| ISO：IEC 81001-5-1:2021 公式ページ（ステージ・概要） | https://www.iso.org/standard/76097.html |
-| ISO：IEC/AWI 81001-5-1（第2版・開発中） | https://www.iso.org/standard/92904.html |
-| IEC Webstore：解釈シート ISH1:2025 | https://webstore.iec.ch/en/publication/108664 |
-| 目次情報（iTeh） | https://iteh.eu/catalog/standards/iso/227a3148-4206-42e3-ad21-05f80dda507a/iec-81001-5-1-2021 |
-| BSI：概要 | https://knowledge.bsigroup.com/products/health-software-and-health-it-systems-safety-effectiveness-and-security-security-activities-in-the-product-life-cycle-1 |
-| 欧州版 EN IEC 81001-5-1:2022（Genorma） | https://genorma.com/en/standards/en-iec-81001-5-1-2022 |
-| オーストラリア デジタルヘルス庁：規格情報 | https://developer.digitalhealth.gov.au/standards/health-software-and-health-it-systems-safety-effectiveness-and-security-part-5-1-security-activities-in-the-product-life-cycle |
+| ISO：IEC 81001-5-1:2021 公式ページ（ステージ・概要） | <a href="https://www.iso.org/standard/76097.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/76097.html</a> |
+| ISO：IEC/AWI 81001-5-1（第2版・開発中） | <a href="https://www.iso.org/standard/92904.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/92904.html</a> |
+| IEC Webstore：解釈シート ISH1:2025 | <a href="https://webstore.iec.ch/en/publication/108664" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/108664</a> |
+| 目次情報（iTeh） | <a href="https://iteh.eu/catalog/standards/iso/227a3148-4206-42e3-ad21-05f80dda507a/iec-81001-5-1-2021" target="_blank" rel="noopener noreferrer">https://iteh.eu/catalog/standards/iso/227a3148-4206-42e3-ad21-05f80dda507a/iec-81001-5-1-2021</a> |
+| BSI：概要 | <a href="https://knowledge.bsigroup.com/products/health-software-and-health-it-systems-safety-effectiveness-and-security-security-activities-in-the-product-life-cycle-1" target="_blank" rel="noopener noreferrer">https://knowledge.bsigroup.com/products/health-software-and-health-it-systems-safety-effectiveness-and-security-security-activities-in-the-product-life-cycle-1</a> |
+| 欧州版 EN IEC 81001-5-1:2022（Genorma） | <a href="https://genorma.com/en/standards/en-iec-81001-5-1-2022" target="_blank" rel="noopener noreferrer">https://genorma.com/en/standards/en-iec-81001-5-1-2022</a> |
+| オーストラリア デジタルヘルス庁：規格情報 | <a href="https://developer.digitalhealth.gov.au/standards/health-software-and-health-it-systems-safety-effectiveness-and-security-part-5-1-security-activities-in-the-product-life-cycle" target="_blank" rel="noopener noreferrer">https://developer.digitalhealth.gov.au/standards/health-software-and-health-it-systems-safety-effectiveness-and-security-part-5-1-security-activities-in-the-product-life-cycle</a> |
 
 ### 15.2 規制当局
 
 | 内容 | URL |
 |---|---|
-| FDA：市販前サイバーセキュリティガイダンス（2026年2月3日） | https://www.fda.gov/media/119933/download |
-| 欧州委員会：医療機器の整合規格 | https://health.ec.europa.eu/medical-devices-topics-interest/harmonised-standards_en |
-| 欧州委員会：整合規格の官報掲載の一覧 | https://single-market-economy.ec.europa.eu/single-market/goods/european-standards/harmonised-standards/medical-devices_en |
-| 欧州委員会：標準化要請 M/575 | https://health.ec.europa.eu/document/download/6eb9d1d8-7d9c-4442-9016-1eb84ab8492f_en?filename=md_mdr-ivdr-consolidated-stand-req-m-575.pdf |
-| 厚生労働省：医療機器のサイバーセキュリティ関連 | https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000179749_00009.html |
-| PMDA：基本要件基準第12条第3項のQ&A | https://www.pmda.go.jp/files/000269641.pdf |
-| PMDA：規格情報（IEC 81001-5-1 Ed.1の概要） | https://www.std.pmda.go.jp/stdDB/Data_en/InfData/Infetc/kikaku_info_iec81001-5-1_ed1.pdf |
+| FDA：市販前サイバーセキュリティガイダンス（2026年2月3日） | <a href="https://www.fda.gov/media/119933/download" target="_blank" rel="noopener noreferrer">https://www.fda.gov/media/119933/download</a> |
+| 欧州委員会：医療機器の整合規格 | <a href="https://health.ec.europa.eu/medical-devices-topics-interest/harmonised-standards_en" target="_blank" rel="noopener noreferrer">https://health.ec.europa.eu/medical-devices-topics-interest/harmonised-standards_en</a> |
+| 欧州委員会：整合規格の官報掲載の一覧 | <a href="https://single-market-economy.ec.europa.eu/single-market/goods/european-standards/harmonised-standards/medical-devices_en" target="_blank" rel="noopener noreferrer">https://single-market-economy.ec.europa.eu/single-market/goods/european-standards/harmonised-standards/medical-devices_en</a> |
+| 欧州委員会：標準化要請 M/575 | <a href="https://health.ec.europa.eu/document/download/6eb9d1d8-7d9c-4442-9016-1eb84ab8492f_en?filename=md_mdr-ivdr-consolidated-stand-req-m-575.pdf" target="_blank" rel="noopener noreferrer">https://health.ec.europa.eu/document/download/6eb9d1d8-7d9c-4442-9016-1eb84ab8492f_en?filename=md_mdr-ivdr-consolidated-stand-req-m-575.pdf</a> |
+| 厚生労働省：医療機器のサイバーセキュリティ関連 | <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000179749_00009.html" target="_blank" rel="noopener noreferrer">https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000179749_00009.html</a> |
+| PMDA：基本要件基準第12条第3項のQ&A | <a href="https://www.pmda.go.jp/files/000269641.pdf" target="_blank" rel="noopener noreferrer">https://www.pmda.go.jp/files/000269641.pdf</a> |
+| PMDA：規格情報（IEC 81001-5-1 Ed.1の概要） | <a href="https://www.std.pmda.go.jp/stdDB/Data_en/InfData/Infetc/kikaku_info_iec81001-5-1_ed1.pdf" target="_blank" rel="noopener noreferrer">https://www.std.pmda.go.jp/stdDB/Data_en/InfData/Infetc/kikaku_info_iec81001-5-1_ed1.pdf</a> |
 
 ### 15.3 専門家・コンサルティング・認証機関の解説
 
 | 発信元 | 内容 | URL |
 |---|---|---|
-| Johner Institute | 規格の全体像・EU整合化の計画日 | https://blog.johner-institute.com/iec-62304-medical-software/iec-81001-5-1/ |
-| Johner Institute | FDAガイダンスとの関係 | https://blog.johner-institute.com/iec-62304-medical-software/fda-guidance-on-cybersecurity/ |
-| MD101 Consulting | 規格の実務的な見方・EUノーボの視点 | https://blog.cm-dm.com/post/2024/02/23/IEC-81001-5-1-Right-Here-Right-Now |
-| MD101 Consulting | 発行前の位置付けの解説 | https://blog.cm-dm.com/post/2021/07/09/Cybersecurity-standards:-IEC-81001-5-1-and-IEC/TR-60601-4-5 |
-| King & Spalding | 62304との関係・移行期ソフト（附属書F） | https://www.kslaw.com/attachments/000/009/407/original/New_Standard_Maps_Medical_Device_Software_Development_Standard_to_Health_Software_and_Health_IT_Cybersecurity.pdf?1644335254= |
-| TÜV SÜD | 規格解説ウェビナー（英語） | https://www.tuvsud.com/en-us/resource-centre/webinar/cybersecurity-in-medical-devices-and-the-role-of-iec-81001-5-1 |
-| テュフズード（日本） | 日本の要求と規格の解説 | https://www.tuvsud.com/ja-jp/services/training/ac/medical/open-schedule/iec81001-5-1 |
-| Intertek | 規格の概要ブログ | https://www.intertek.com/blog/2025/03-11-iec-81001-5-1/ |
-| URM Consulting | 整合規格化の期限・FDA認定の経緯 | https://www.urmconsulting.com/blog/iso-13485-and-beyond-key-updates-shaping-the-medical-device-regulatory-landscape |
-| Exponent | FDAガイダンスとSPDFの関係 | https://www.exponent.com/article/navigating-fdas-cybersecurity-medical-devices-guidance |
-| Hattrick IT | 2026年2月版FDAガイダンスの変更点 | https://www.hattrick-it.com/blog/cybersecurityguidanceupdate/ |
+| Johner Institute | 規格の全体像・EU整合化の計画日 | <a href="https://blog.johner-institute.com/iec-62304-medical-software/iec-81001-5-1/" target="_blank" rel="noopener noreferrer">https://blog.johner-institute.com/iec-62304-medical-software/iec-81001-5-1/</a> |
+| Johner Institute | FDAガイダンスとの関係 | <a href="https://blog.johner-institute.com/iec-62304-medical-software/fda-guidance-on-cybersecurity/" target="_blank" rel="noopener noreferrer">https://blog.johner-institute.com/iec-62304-medical-software/fda-guidance-on-cybersecurity/</a> |
+| MD101 Consulting | 規格の実務的な見方・EUノーボの視点 | <a href="https://blog.cm-dm.com/post/2024/02/23/IEC-81001-5-1-Right-Here-Right-Now" target="_blank" rel="noopener noreferrer">https://blog.cm-dm.com/post/2024/02/23/IEC-81001-5-1-Right-Here-Right-Now</a> |
+| MD101 Consulting | 発行前の位置付けの解説 | <a href="https://blog.cm-dm.com/post/2021/07/09/Cybersecurity-standards:-IEC-81001-5-1-and-IEC/TR-60601-4-5" target="_blank" rel="noopener noreferrer">https://blog.cm-dm.com/post/2021/07/09/Cybersecurity-standards:-IEC-81001-5-1-and-IEC/TR-60601-4-5</a> |
+| King & Spalding | 62304との関係・移行期ソフト（附属書F） | <a href="https://www.kslaw.com/attachments/000/009/407/original/New_Standard_Maps_Medical_Device_Software_Development_Standard_to_Health_Software_and_Health_IT_Cybersecurity.pdf?1644335254=" target="_blank" rel="noopener noreferrer">https://www.kslaw.com/attachments/000/009/407/original/New_Standard_Maps_Medical_Device_Software_Development_Standard_to_Health_Software_and_Health_IT_Cybersecurity.pdf?1644335254=</a> |
+| TÜV SÜD | 規格解説ウェビナー（英語） | <a href="https://www.tuvsud.com/en-us/resource-centre/webinar/cybersecurity-in-medical-devices-and-the-role-of-iec-81001-5-1" target="_blank" rel="noopener noreferrer">https://www.tuvsud.com/en-us/resource-centre/webinar/cybersecurity-in-medical-devices-and-the-role-of-iec-81001-5-1</a> |
+| テュフズード（日本） | 日本の要求と規格の解説 | <a href="https://www.tuvsud.com/ja-jp/services/training/ac/medical/open-schedule/iec81001-5-1" target="_blank" rel="noopener noreferrer">https://www.tuvsud.com/ja-jp/services/training/ac/medical/open-schedule/iec81001-5-1</a> |
+| Intertek | 規格の概要ブログ | <a href="https://www.intertek.com/blog/2025/03-11-iec-81001-5-1/" target="_blank" rel="noopener noreferrer">https://www.intertek.com/blog/2025/03-11-iec-81001-5-1/</a> |
+| URM Consulting | 整合規格化の期限・FDA認定の経緯 | <a href="https://www.urmconsulting.com/blog/iso-13485-and-beyond-key-updates-shaping-the-medical-device-regulatory-landscape" target="_blank" rel="noopener noreferrer">https://www.urmconsulting.com/blog/iso-13485-and-beyond-key-updates-shaping-the-medical-device-regulatory-landscape</a> |
+| Exponent | FDAガイダンスとSPDFの関係 | <a href="https://www.exponent.com/article/navigating-fdas-cybersecurity-medical-devices-guidance" target="_blank" rel="noopener noreferrer">https://www.exponent.com/article/navigating-fdas-cybersecurity-medical-devices-guidance</a> |
+| Hattrick IT | 2026年2月版FDAガイダンスの変更点 | <a href="https://www.hattrick-it.com/blog/cybersecurityguidanceupdate/" target="_blank" rel="noopener noreferrer">https://www.hattrick-it.com/blog/cybersecurityguidanceupdate/</a> |
 
 ### 15.4 日本語の解説
 
 | 発信元 | 内容 | URL |
 |---|---|---|
-| @IT MONOist | 国内の医療サイバーセキュリティ規制の整備状況 | https://monoist.itmedia.co.jp/mn/articles/2401/17/news010_2.html |
-| @IT MONOist | 経過措置と適合性確認 | https://monoist.itmedia.co.jp/mn/articles/2402/22/news027_2.html |
-| KPMG Japan | JIS T 81001-5-1 を例にした企業側の対応 | https://kpmg.com/jp/ja/insights/2024/05/med-equipment-cyber.html |
+| @IT MONOist | 国内の医療サイバーセキュリティ規制の整備状況 | <a href="https://monoist.itmedia.co.jp/mn/articles/2401/17/news010_2.html" target="_blank" rel="noopener noreferrer">https://monoist.itmedia.co.jp/mn/articles/2401/17/news010_2.html</a> |
+| @IT MONOist | 経過措置と適合性確認 | <a href="https://monoist.itmedia.co.jp/mn/articles/2402/22/news027_2.html" target="_blank" rel="noopener noreferrer">https://monoist.itmedia.co.jp/mn/articles/2402/22/news027_2.html</a> |
+| KPMG Japan | JIS T 81001-5-1 を例にした企業側の対応 | <a href="https://kpmg.com/jp/ja/insights/2024/05/med-equipment-cyber.html" target="_blank" rel="noopener noreferrer">https://kpmg.com/jp/ja/insights/2024/05/med-equipment-cyber.html</a> |
 
 ### 15.5 情報の確度についての注記
 
