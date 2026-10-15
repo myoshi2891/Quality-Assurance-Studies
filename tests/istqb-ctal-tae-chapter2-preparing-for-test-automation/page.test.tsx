@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
 import fs from 'fs';
 import path from 'path';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter2-preparing-for-test-automation.json';
 import Page from '../../app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page';
@@ -160,6 +160,39 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       expect(renderNav).not.toThrow();
       const active = document.querySelector('#sidebar a.active');
       expect(active?.getAttribute('data-target')).toBe('sec-0');
+    });
+
+    it('keeps a clicked child heading active even when its parent section is observed afterwards', () => {
+      // Arrange: 観測コールバックを捕捉し、スクロールに伴う交差通知を手動で発火できるようにする
+      let notify: IntersectionObserverCallback = () => undefined;
+      window.IntersectionObserver = mock((callback: IntersectionObserverCallback) => {
+        notify = callback;
+        return { observe: () => null, unobserve: () => null, disconnect: () => null };
+      }) as unknown as typeof IntersectionObserver;
+      const { container } = render(<Page />);
+      const intersect = (id: string) => {
+        const target = container.querySelector(`#${id}`);
+        if (!target) throw new Error(`#${id} が描画されていない`);
+        const entry = { target, isIntersecting: true } as unknown as IntersectionObserverEntry;
+        act(() => notify([entry], {} as IntersectionObserver));
+      };
+      const activeId = () => container.querySelector('#sidebar a.active')?.getAttribute('data-target');
+      const child = container.querySelector('#sidebar a[href="#sec-1-1"]');
+      if (!child) throw new Error('子見出しのリンクが描画されていない');
+
+      // Act / Assert: クリックした子見出しがアクティブになる
+      fireEvent.click(child);
+      expect(activeId()).toBe('sec-1-1');
+
+      // Act / Assert: 子見出しを含む親 section の交差通知では上書きされない
+      intersect('sec-1');
+      expect(activeId()).toBe('sec-1-1');
+
+      // Act / Assert: 別の節へスクロールすれば、通常の追従に戻る
+      intersect('sec-2');
+      expect(activeId()).toBe('sec-2');
+      intersect('sec-1');
+      expect(activeId()).toBe('sec-1');
     });
 
     it('moves focus to the target section for parent and child TOC links at mobile width', () => {

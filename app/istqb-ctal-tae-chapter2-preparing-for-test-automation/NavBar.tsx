@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface TocChildLink {
   href: string;
@@ -87,6 +87,8 @@ export const TOC_LINKS: TocLink[] = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTarget, setActiveTarget] = useState<string>('sec-0');
+  // 目次から選んだ要素。親 section の交差通知でこの選択を上書きしないために保持する
+  const pendingTargetRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const targets = [
@@ -110,9 +112,12 @@ export default function NavBar() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveTarget(entry.target.id);
-          }
+          if (!entry.isIntersecting) return;
+          const pending = pendingTargetRef.current;
+          // 選んだ子見出しを内包する親 section の通知は無視し、それ以外の節に移ったら通常の追従へ戻す
+          if (pending && entry.target !== pending && entry.target.contains(pending)) return;
+          pendingTargetRef.current = null;
+          setActiveTarget(entry.target.id);
         });
       },
       { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
@@ -126,11 +131,14 @@ export default function NavBar() {
     return () => observer.disconnect();
   }, []);
 
-  // 閉じたドロワー内（非表示）のリンクにフォーカスを残さず、リンク先セクションへ移す
+  // 選んだ項目をアクティブ表示に反映する。モバイルでは閉じたドロワー内（非表示）のリンクにフォーカスを残さず、リンク先へ移す
   const handleLinkClick = (href: string) => {
+    const id = href.slice(1);
+    const target = document.getElementById(id);
+    setActiveTarget(id);
+    pendingTargetRef.current = target;
     if (typeof window === 'undefined' || window.innerWidth > 900) return;
     setIsOpen(false);
-    const target = document.getElementById(href.slice(1));
     if (!target) return;
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
     // スクロールはアンカー本来の遷移に任せる
