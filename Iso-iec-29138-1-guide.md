@@ -486,7 +486,7 @@ flowchart TD
 | WCAG 2.2 | 2023年10月5日にW3C勧告となった。現行の実務基準 | 監査・調達では引き続き中心 |
 | WCAG 3.0 | 2026年9月10日に作業草案が更新。まだ草案であり、WCAG 2.xを廃止するものではないとW3Cが説明 | 動向は追うが、現時点では適合目標にしない |
 | EU 欧州アクセシビリティ法（EAA） | 2025年6月28日から適用開始 | EU市場向け製品・サービスは対応が必要 |
-| EN 301 549 | V3.2.1 は WCAG 2.1 を取り込む。V4.1.0 の草案（2025年11月）が公開されている | 版の更新状況は継続して確認 |
+| EN 301 549 | ETSI が V4.1.1 を2026年9月に公開した（V3.2.1 は WCAG 2.1 を取り込んだ旧版）。規格の公開と、EU官報（OJEU）への整合規格としての引用は別の状態で、V4.1.1 の OJEU 引用は本ガイドでは確認していない | 調達・適合推定では OJEU に引用された版を確認する |
 
 ---
 
@@ -545,7 +545,7 @@ flowchart TD
 | W3C WAI 議論リスト | Gregg Vanderheiden氏（Trace Center）の、WCAG適合と利用可能性に関する発言 | https://lists.w3.org/Archives/Public/w3c-wai-ig/2011JulSep/0008.html |
 | Google web.dev | Learn Accessibility：デザインとUX（恒久・一時・状況的な障害、ペルソナ） | https://web.dev/learn/accessibility/design-ux |
 | Microsoft | Inclusive Design Toolkit | https://www.microsoft.com/design/inclusive/ |
-| ETSI/CEN/CENELEC | EN 301 549 V4.1.0 草案（2025年11月） | https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.00_20/en_301549v040100ev.pdf |
+| ETSI/CEN/CENELEC | EN 301 549 V4.1.1（2026年9月公開） | https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf |
 | カナダ政府 | EN 301 549 の附属書E（第4章＝機能性能の説明） | https://accessible.canada.ca/node/395 |
 
 ### 14.3 解説記事（補助資料）
