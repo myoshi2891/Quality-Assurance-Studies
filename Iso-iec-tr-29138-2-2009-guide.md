@@ -3,7 +3,7 @@
 > **対象規格**：ISO/IEC TR 29138-2:2009 「Information technology — Accessibility considerations for people with disabilities — Part 2: Standards inventory」
 > **情報の時点**：2026年10月13日
 > **想定読者**：アクセシビリティ規格を初めて学ぶソフトウェアエンジニア・QAエンジニア
-> **公式ページ**：https://www.iso.org/standard/51341.html
+> **公式ページ**：<a href="https://www.iso.org/standard/51341.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/51341.html</a>
 > **読む前の注意**：この規格の全文は有償で、今回読めたのは公式ページ、無料サンプルの範囲（前付け、第1〜3章、第4章の前半）、各機関の公開情報です。読めていない部分は「確認できていない」と明記します。
 
 ---
@@ -592,29 +592,29 @@ standards:
 | ISO/IEC 29138-1:2018 の要旨と状況（2024年に確認） | <a href="https://www.iso.org/standard/71953.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/71953.html</a> |
 | TR 29138-3:2009 が廃止されている状況 | <a href="https://committee.iso.org/es/sites/isoorg/contents/data/standard/05/13/51342.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/es/sites/isoorg/contents/data/standard/05/13/51342.html</a> |
 | ISO/IEC 29138-3:2022 の要旨 | <a href="https://committee.iso.org/es/sites/isoorg/contents/data/standard/08/07/80765.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/es/sites/isoorg/contents/data/standard/08/07/80765.html</a> |
-| Guide 71（2014年版）の範囲 | https://www.iso.org/ru/standard/33987.html |
-| JTC 1 SWG-A の履歴（2007〜2010年） | https://jtc1info.org/sd-2-history/special-wgs/swg-1/ |
-| SWG-A の作業がSC 35へ移ったこと | https://interoperable-europe.ec.europa.eu/collection/rolling-plan-ict-standardisation/accessibility-ict-products-and-services-0 |
-| WCAG 2.2 が ISO/IEC 40500:2025 になったこと | https://www.w3.org/WAI/news/2025-10-21/wcag22-iso |
-| EN 301 549 V4.1.1（2026-09）の公開と、第9〜11節のWCAG 2.2への整合 | https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/ |
-| WCAG 3.0 ドラフトの最新状況（2026年9月10日のWorking Draft） | https://www.w3.org/TR/wcag-3.0/ |
+| Guide 71（2014年版）の範囲 | <a href="https://www.iso.org/ru/standard/33987.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/ru/standard/33987.html</a> |
+| JTC 1 SWG-A の履歴（2007〜2010年） | <a href="https://jtc1info.org/sd-2-history/special-wgs/swg-1/" target="_blank" rel="noopener noreferrer">https://jtc1info.org/sd-2-history/special-wgs/swg-1/</a> |
+| SWG-A の作業がSC 35へ移ったこと | <a href="https://interoperable-europe.ec.europa.eu/collection/rolling-plan-ict-standardisation/accessibility-ict-products-and-services-0" target="_blank" rel="noopener noreferrer">https://interoperable-europe.ec.europa.eu/collection/rolling-plan-ict-standardisation/accessibility-ict-products-and-services-0</a> |
+| WCAG 2.2 が ISO/IEC 40500:2025 になったこと | <a href="https://www.w3.org/WAI/news/2025-10-21/wcag22-iso" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2025-10-21/wcag22-iso</a> |
+| EN 301 549 V4.1.1（2026-09）の公開と、第9〜11節のWCAG 2.2への整合 | <a href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/" target="_blank" rel="noopener noreferrer">https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/</a> |
+| WCAG 3.0 ドラフトの最新状況（2026年9月10日のWorking Draft） | <a href="https://www.w3.org/TR/wcag-3.0/" target="_blank" rel="noopener noreferrer">https://www.w3.org/TR/wcag-3.0/</a> |
 
 ### 12.2 規格本文（無料サンプル）に基づく情報
 
 | 根拠にした内容 | URL |
 |--------------|-----|
-| 目次、前付け、第1〜3章、第4章の前半（第3〜6章の説明の根拠） | https://standards.iteh.ai/catalog/standards/iso/3df196dd-5125-49d9-8710-00432511ed34/iso-iec-tr-29138-2-2009 |
-| 同サンプルのPDF（iTeh のページに掲載されているリンク） | https://cdn.standards.iteh.ai/samples/51341/3b7b56fbb36d49f2a9eea455a69b0c69/ISO-IEC-TR-29138-2-2009.pdf |
+| 目次、前付け、第1〜3章、第4章の前半（第3〜6章の説明の根拠） | <a href="https://standards.iteh.ai/catalog/standards/iso/3df196dd-5125-49d9-8710-00432511ed34/iso-iec-tr-29138-2-2009" target="_blank" rel="noopener noreferrer">https://standards.iteh.ai/catalog/standards/iso/3df196dd-5125-49d9-8710-00432511ed34/iso-iec-tr-29138-2-2009</a> |
+| 同サンプルのPDF（iTeh のページに掲載されているリンク） | <a href="https://cdn.standards.iteh.ai/samples/51341/3b7b56fbb36d49f2a9eea455a69b0c69/ISO-IEC-TR-29138-2-2009.pdf" target="_blank" rel="noopener noreferrer">https://cdn.standards.iteh.ai/samples/51341/3b7b56fbb36d49f2a9eea455a69b0c69/ISO-IEC-TR-29138-2-2009.pdf</a> |
 
 ### 12.3 実務者向け・二次情報
 
 | 根拠にした内容 | URL | 信頼度 |
 |--------------|-----|-------|
-| Guide 71:2014 の公表と ITU-T SG16 の採択 | https://ansi.org/standards-news/all-news/2014/12/iec-iso-and-itu-publish-international-accessibility-guide-for-standards-development-09 | 中（業界団体の報道） |
-| Guide 71:2014 と旧版の関係 | https://www.boutique.afnor.org/en-gb/standard/iso-iec-guide-712014/guide-for-addressing-accessibility-in-standards/xs023160/123396 | 中（規格販売サイト） |
-| ISO/TR 22411（Guide 71 の適用データ） | https://knowledge.bsigroup.com/products/ergonomics-data-and-guidelines-for-the-application-of-iso-iec-guide-71-to-products-and-services-to-address-the-needs-of-older-persons-and-persons-with-disabilities | 中（規格販売サイト） |
-| 2013年版インベントリ、WCAG の経緯 | https://en.wikipedia.org/wiki/ISO/IEC_JTC_1/SWG-A 、 https://en.wikipedia.org/wiki/WCAG | 低〜中（百科事典。一次情報での裏取りを推奨） |
-| EN 301 549 と EAA の状況 | https://accessible.org/what-is-en-301-549/ 、 https://www.acquia.com/blog/european-accessibility-act-and-en-301-549-your-complete-compliance-guide 、 https://www.taylorwessing.com/en/interface/2025/accessibility/the-european-accessibility-act-and-its-implementation | 中（アクセシビリティ専門事業者、法律事務所の解説） |
+| Guide 71:2014 の公表と ITU-T SG16 の採択 | <a href="https://ansi.org/standards-news/all-news/2014/12/iec-iso-and-itu-publish-international-accessibility-guide-for-standards-development-09" target="_blank" rel="noopener noreferrer">https://ansi.org/standards-news/all-news/2014/12/iec-iso-and-itu-publish-international-accessibility-guide-for-standards-development-09</a> | 中（業界団体の報道） |
+| Guide 71:2014 と旧版の関係 | <a href="https://www.boutique.afnor.org/en-gb/standard/iso-iec-guide-712014/guide-for-addressing-accessibility-in-standards/xs023160/123396" target="_blank" rel="noopener noreferrer">https://www.boutique.afnor.org/en-gb/standard/iso-iec-guide-712014/guide-for-addressing-accessibility-in-standards/xs023160/123396</a> | 中（規格販売サイト） |
+| ISO/TR 22411（Guide 71 の適用データ） | <a href="https://knowledge.bsigroup.com/products/ergonomics-data-and-guidelines-for-the-application-of-iso-iec-guide-71-to-products-and-services-to-address-the-needs-of-older-persons-and-persons-with-disabilities" target="_blank" rel="noopener noreferrer">https://knowledge.bsigroup.com/products/ergonomics-data-and-guidelines-for-the-application-of-iso-iec-guide-71-to-products-and-services-to-address-the-needs-of-older-persons-and-persons-with-disabilities</a> | 中（規格販売サイト） |
+| 2013年版インベントリ、WCAG の経緯 | <a href="https://en.wikipedia.org/wiki/ISO/IEC_JTC_1/SWG-A" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/ISO/IEC_JTC_1/SWG-A</a> 、 <a href="https://en.wikipedia.org/wiki/WCAG" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/WCAG</a> | 低〜中（百科事典。一次情報での裏取りを推奨） |
+| EN 301 549 と EAA の状況 | <a href="https://accessible.org/what-is-en-301-549/" target="_blank" rel="noopener noreferrer">https://accessible.org/what-is-en-301-549/</a> 、 <a href="https://www.acquia.com/blog/european-accessibility-act-and-en-301-549-your-complete-compliance-guide" target="_blank" rel="noopener noreferrer">https://www.acquia.com/blog/european-accessibility-act-and-en-301-549-your-complete-compliance-guide</a> 、 <a href="https://www.taylorwessing.com/en/interface/2025/accessibility/the-european-accessibility-act-and-its-implementation" target="_blank" rel="noopener noreferrer">https://www.taylorwessing.com/en/interface/2025/accessibility/the-european-accessibility-act-and-its-implementation</a> | 中（アクセシビリティ専門事業者、法律事務所の解説） |
 
 ### 12.4 開発者向けの学習リソース（国際的に知られたもの）
 
@@ -622,9 +622,9 @@ TR 29138-2 そのものを解説した、著名な開発者の投稿は、今回
 
 | 資料 | URL | 使いどころ |
 |------|-----|----------|
-| W3C WAI（Web Accessibility Initiative） | https://www.w3.org/WAI/ | WCAG、WAI-ARIA、評価方法の公式情報 |
-| MDN Web Docs：アクセシビリティ（英語） | https://developer.mozilla.org/en-US/docs/Web/Accessibility | HTML、ARIA、WCAG の実装の入門 |
-| MDN Web Docs：アクセシビリティ（日本語） | https://developer.mozilla.org/ja/docs/Web/Accessibility/Index | 日本語での学習 |
+| W3C WAI（Web Accessibility Initiative） | <a href="https://www.w3.org/WAI/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/</a> | WCAG、WAI-ARIA、評価方法の公式情報 |
+| MDN Web Docs：アクセシビリティ（英語） | <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/Accessibility</a> | HTML、ARIA、WCAG の実装の入門 |
+| MDN Web Docs：アクセシビリティ（日本語） | <a href="https://developer.mozilla.org/ja/docs/Web/Accessibility/Index" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/ja/docs/Web/Accessibility/Index</a> | 日本語での学習 |
 
 ### 12.5 この調査の限界
 
