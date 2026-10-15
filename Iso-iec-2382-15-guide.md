@@ -206,7 +206,7 @@ flowchart TD
 
 ### 4-2. 節構成（確認できた範囲）
 
-規格の第2章「Terms and definitions」には「15 Programming languages」があり、その下に 15.01〜15.10 の小節が並びます。ANSI の公開プレビューの記載にもとづき、15.02 は「Declarations（宣言）」、15.08 は「Execution（実行）」、15.09 は「Object-oriented programming」としています。15.02 は、JTC 1/SC 22 のドラフト審査資料に「15.02.04 implicit declaration」という用語があることとも整合します。その他の節名は、同一規格を採用した中国国家規格 GB/T 5271.15-2008 の目次（機械翻訳）から再構成したもので、本調査ではプレビューと突き合わせられていません。
+規格の第2章「Terms and definitions」には「15 Programming languages」があり、その下に 15.01〜15.10 の小節が並びます。ANSI の公開プレビューの記載にもとづき、15.02 は「Declarations（宣言）」、15.06 は「Parts of programs」、15.08 は「Execution（実行）」、15.09 は「Object-oriented programming」としています。15.02 は、JTC 1/SC 22 のドラフト審査資料に「15.02.04 implicit declaration」という用語があることとも整合します。その他の節名は、同一規格を採用した中国国家規格 GB/T 5271.15-2008 の目次（機械翻訳）から再構成したもので、本調査ではプレビューと突き合わせられていません。
 
 | 節 | 分野（日本語） | 英語での推定表記 | 確認度 |
 |---|---|---|---|
@@ -215,7 +215,7 @@ flowchart TD
 | 15.03 | データオブジェクト | Data objects | 第三者目次から再構成 |
 | 15.04 | データ型 | Data types | 第三者目次から再構成 |
 | 15.05 | 文と式 | Statements and expressions | 第三者目次から再構成 |
-| 15.06 | プログラム部品 | Program parts | 第三者目次から再構成 |
+| 15.06 | プログラム部品 | Parts of programs | ✅ ANSI プレビューで確認 |
 | 15.07 | タスク | Tasks | 第三者目次から再構成 |
 | 15.08 | 実行 | Execution | ✅ ANSI プレビューの記載 |
 | 15.09 | オブジェクト指向プログラミング | Object-oriented programming | ✅ ANSI プレビューで確認 |
@@ -450,7 +450,7 @@ flowchart TD
 
 ---
 
-### STEP 4：プログラム部品（Program parts）
+### STEP 4：プログラム部品（Parts of programs）
 
 **なぜ必要か**：大きなプログラムを一枚岩で書くと、読めず、直せず、再利用もできません。部品に分けると、役割ごとに理解できます。
 
@@ -876,7 +876,7 @@ flowchart TD
 <details>
 <summary>答えを見る</summary>
 
-規格本文が有料で、節名の根拠は ANSI のプレビュー（15.02・15.08・15.09）と、中国国家規格の機械翻訳された目次だけだったためです。後者にもとづく節名は、英語の正式名を断定できません。
+規格本文が有料で、節名の根拠は ANSI のプレビュー（15.02・15.06・15.08・15.09）と、中国国家規格の機械翻訳された目次だけだったためです。後者にもとづく節名は、英語の正式名を断定できません。
 
 </details>
 
@@ -909,15 +909,15 @@ flowchart TD
 | ISO/IEC 2382:2015（統合版・各部の状態一覧） | <a href="https://committee.iso.org/standard/63598.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/standard/63598.html</a> |
 | IEC Webstore（書誌情報・安定期限 2026） | <a href="https://webstore.iec.ch/publication/11070" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/11070</a> |
 | ANSI Webstore（スコープ記述） | <a href="https://webstore.ansi.org/standards/iso/isoiec2382151999" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/standards/iso/isoiec2382151999</a> |
-| ANSI 公式プレビュー PDF（目次の一部・15.02・15.08・15.09 の節名） | <a href="https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf</a> |
+| ANSI 公式プレビュー PDF（目次の一部・15.02・15.06・15.08・15.09 の節名） | <a href="https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+2382-15-1999.pdf</a> |
 
 ### 9-2. 目次の再構成に使った第三者情報（機械翻訳のため要確認）
 
 | 内容 | URL |
 |---|---|
-| GB/T 5271.15-2008（ISO/IEC 2382-15:1999 の同一採用規格）の概要 | <https://www.chinesestandard.net/Related.aspx/GBT5271.15-2008> |
-| JTC 1/SC 22 のドラフト審査資料（1997年、「15.02.04 implicit declaration」の記載） | <https://open-std.org/jtc1/SC22docs/230> |
-| 規格の一覧ページ（1999-06 の発行日の確認） | <https://www.unicode.org/L2/L2001/01178-2382.htm> |
+| GB/T 5271.15-2008（ISO/IEC 2382-15:1999 の同一採用規格）の概要 | <a href="https://www.chinesestandard.net/Related.aspx/GBT5271.15-2008" target="_blank" rel="noopener noreferrer">https://www.chinesestandard.net/Related.aspx/GBT5271.15-2008</a> |
+| JTC 1/SC 22 のドラフト審査資料（1997年、「15.02.04 implicit declaration」の記載） | <a href="https://open-std.org/jtc1/SC22docs/230" target="_blank" rel="noopener noreferrer">https://open-std.org/jtc1/SC22docs/230</a> |
+| 規格の一覧ページ（1999-06 の発行日の確認） | <a href="https://www.unicode.org/L2/L2001/01178-2382.htm" target="_blank" rel="noopener noreferrer">https://www.unicode.org/L2/L2001/01178-2382.htm</a> |
 
 ### 9-3. 著名な開発者・コミュニティの一次発信
 
@@ -951,7 +951,7 @@ flowchart TD
 | 項目 | 内容 |
 |---|---|
 | 本文の未確認 | 規格本文が有料で、ISO の著作権表示が AI 利用を制限しているため、用語の定義文は確認も転載もしていない |
-| 節名の再構成 | 15.02・15.08・15.09 以外の節名は第三者の機械翻訳目次に依存している |
+| 節名の再構成 | 15.02・15.06・15.08・15.09 以外の節名は第三者の機械翻訳目次に依存している |
 | C++26 の ISO 発行 | 技術作業の完了までは確認したが、ISO 発行済みかは未確認 |
 | 現代概念の記載有無 | 1999年版が第6章の「後から重要になった概念」を扱うかは未確認 |
 
