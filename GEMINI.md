@@ -359,21 +359,21 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - `/istqb-ctal-tae-chapter2-preparing-for-test-automation`をISTQB高度レベル（`istqb-advanced`）へ追加。テスト容易性の3側面（内因的・外因的・要件容易性）、各種環境での自動テスト活用、SUT分析とツール評価プロセス、Mermaid図6件、全5表、チェックリストを完全保持。
 - `tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`で26テスト（383 expect() calls）を検証。ナビ・E2E対象は96ルート、Advancedカテゴリは17件。
 - 原本は`archive/html-archive/ctal/Ctal-tae-v2.0-ch2.html`と`archive/md-archive/ctal/Ctal-tae-v2.0-ch2.md`へ移動。
-- 検証は`npm test`（2793 pass / 0 fail）および`npm run lint`で実施。ビルド・目視確認は実施しない。
+- 検証は`bun test`（2793 pass / 0 fail）および`bun run lint`で実施。ビルド・目視確認は実施しない。
 
 ### ISTQB CTAL-TAE 第1章「テスト自動化の導入と目的」の追加移行（2026-10-12）
 
 - `/istqb-ctal-tae-chapter1-introduction-and-objectives`をISTQB高度レベル（`istqb-advanced`）へ追加。自動化の目的、メリット・デメリット・限界、SDLCモデル適用、ツール選定プロセス、Mermaid図7件、全5表、チェックリストを完全保持。
 - `tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx`で16テスト（206 expect() calls）を検証。ナビ・E2E対象は95ルート、Advancedカテゴリは16件。
 - 原本は`archive/html-archive/ctal/Ctal-tae-v2.0-ch1-introduction-and-objectives.html`と`archive/md-archive/ctal/Ctal-tae-v2.0-ch1-introduction-and-objectives.md`へ移動。
-- 検証は`npm test`（2781 pass / 0 fail）で実施。ビルド・目視確認は実施しない。
+- 検証は`bun test`（2781 pass / 0 fail）で実施。ビルド・目視確認は実施しない。
 
 ### ISTQB CTAL-TAE 第3章 テスト自動化アーキテクチャの追加移行（2026-10-12）
 
 - `/istqb-ctal-tae-chapter3-test-automation-architecture`をISTQB高度レベル（`istqb-advanced`）へ追加。gTAA概念、TAF3層レイヤー構造、7つの自動化アプローチ、OOP/SOLID設計原則、デザインパターン、Mermaid図9件を完全保持。
 - `tests/istqb-ctal-tae-chapter3-test-automation-architecture/page.test.tsx`で11テスト（206 expect() calls）を検証。ナビ・E2E対象は94ルート、Advancedカテゴリは15件。
 - 原本は`archive/html-archive/ctal/Ctal-tae-ch3-test-automation-architecture.html`と`archive/md-archive/ctal/Ctal-tae-ch3-test-automation-architecture.md`へ移動。
-- 検証は`npm test`（2756 pass / 0 fail）および`npm run lint`で実施。ビルド・目視確認は実施しない。
+- 検証は`bun test`（2756 pass / 0 fail）および`bun run lint`で実施。ビルド・目視確認は実施しない。
 
 ### ISO/IEC/IEEE 29119-1:2022の追加移行（2026-10-10）
 
