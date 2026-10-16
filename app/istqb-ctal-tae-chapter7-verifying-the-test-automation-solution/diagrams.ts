@@ -1,10 +1,12 @@
-// Chapter-local config preserves the source layout and light palette.
+// Page directives merge with shared dark themeVariables. The derived mainBkg
+// must be explicit: primaryColor alone leaves the shared dark node fill in place.
 export const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
     "fontSize": "16px",
     "fontFamily": "-apple-system, BlinkMacSystemFont, Hiragino Kaku Gothic ProN, Noto Sans JP, sans-serif",
     "primaryColor": "#eaf0ff",
+    "mainBkg": "#eaf0ff",
     "primaryTextColor": "#1c2536",
     "primaryBorderColor": "#3459e6",
     "lineColor": "#8891a1",
