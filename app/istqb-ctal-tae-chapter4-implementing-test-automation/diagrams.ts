@@ -32,11 +32,16 @@ export const DIAGRAM_PILOT_FLOW = `${MERMAID_CONFIG}
 flowchart TD
     START(["パイロット開始"]) --> PLAN["言語・ツール・テストレベル・テストケース・開発アプローチを評価"]
     PLAN --> PROTO["初期プロトタイプを作成　要件に応じて複数作成し比較"]
-    PROTO --> CI["CI・CDパイプラインへ早期に統合　自動実行・結果通知を確認"]
-    CI --> EVAL{"成功基準を満たしたか？"}
-    EVAL -->|Yes| EXPAND["本番展開へスケールアップ　第5章「展開」へ進む"]
-    EVAL -->|No| ADAPT["アプローチ・ツール・言語の見直しまたはパイロット中止の判断"]
-    ADAPT --> PLAN`;
+    PROTO --> TIMELINE["タイムラインを設定し定期的に進捗をチェック"]
+    TIMELINE --> CICD["CI・CDへの統合を試みる　問題を早期に発見するため"]
+    CICD --> RISKCHECK{"未対応リスクが残っているか"}
+    RISKCHECK -->|Yes| MITIGATE["リスクを識別し緩和策を実施"]
+    MITIGATE --> TIMELINE
+    RISKCHECK -->|No| NONTECH["非技術面を評価　チームの知識と経験　チーム体制　ライセンスと組織ルール　対象テストレベル"]
+    NONTECH --> EVAL["TAEとテストマネージャーが成功・失敗を評価"]
+    EVAL --> DECISION{"本格展開する価値があるか"}
+    DECISION -->|Yes| SCALE(["本格展開へ移行"])
+    DECISION -->|No| REVISE(["アプローチを見直し再パイロット"])`;
 
 export const DIAGRAM_DEPLOYMENT_RISKS = `${MERMAID_CONFIG}
 flowchart TB

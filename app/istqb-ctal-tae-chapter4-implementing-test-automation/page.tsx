@@ -4,6 +4,7 @@ import Hero from './Hero';
 import NavBar from './NavBar';
 import Section0 from './Section0';
 import Section1 from './Section1';
+import Section2 from './Section2';
 import Footer from './Footer';
 
 export default function Page() {
@@ -15,6 +16,7 @@ export default function Page() {
           <Hero />
           <Section0 />
           <Section1 />
+          <Section2 />
           <Footer />
         </main>
       </div>
