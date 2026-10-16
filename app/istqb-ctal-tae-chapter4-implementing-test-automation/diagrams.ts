@@ -49,21 +49,25 @@ flowchart TB
     ROOT --> GEN["一般的なデプロイリスク"]
     ROOT --> TECH["技術的デプロイリスク"]
 
-    GEN --> G1["誤った期待　銀の弾丸視"]
-    GEN --> G2["スキルのミスマッチ"]
-    GEN --> G3["組織のレジスタンス"]
+    GEN --> G1["ファイアウォールの開放設定"]
+    GEN --> G2["リソース使用率　CPU・RAM"]
+    GEN --> G3["ネットワーク接続と信頼性"]
+    GEN --> G4["モバイル実機の電源・充電・ネットワーク接続"]
 
-    TECH --> T1["パッケージング　依存関係・共有ライブラリ管理"]
-    TECH --> T2["ロギング　粒度不足・過剰ログ・一貫性欠如"]
-    TECH --> T3["テスト構造化　ハーネス・スイート・フィクスチャの設計不備"]
-    TECH --> T4["更新　SUT変更・OSアップデートへの追従不能"]`;
+    TECH --> T1["パッケージング　Packaging"]
+    TECH --> T2["ロギング　Logging"]
+    TECH --> T3["テスト構造化　Test Structuring"]
+    TECH --> T4["更新　Updating"]`;
 
 export const DIAGRAM_RISK_FLOW = `${MERMAID_CONFIG}
 flowchart LR
     A["アーキテクチャ設計時にTAF-SUT間のインターフェースを検討"] --> B["パッケージング・ロギング・テストハーネスツールを選定"]
     B --> C["パイロット実施中にデプロイリスクを識別"]
-    C --> D["リスクを緩和する具体的な仕組みを実装"]
-    D --> E["本番展開・長期運用へ安全に移行"]`;
+    C --> D1["一般的リスク　FW・リソース・ネットワーク"]
+    C --> D2["技術的リスク　パッケージング・ログ・構造化・更新"]
+    D1 --> E["緩和策を計画・実施"]
+    D2 --> E
+    E --> F["信頼できる品質ゲートとして継続運用"]`;
 
 export const DIAGRAM_HARDCODING_AVOIDANCE = `${MERMAID_CONFIG}
 flowchart LR
