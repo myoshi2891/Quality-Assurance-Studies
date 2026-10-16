@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
@@ -74,7 +74,7 @@ describe('design fidelity: every original CSS rule', () => {
         if (rule.selector === scoped(original.selector) && media === original.media) {
           matches.push(rule.nodes.filter(n => n.type === 'decl').map(n => {
             const d = n as postcss.Declaration;
-            return [d.prop, d.value, d.important];
+            return [d.prop, d.value, d.important ?? null];
           }));
         }
       });
@@ -115,7 +115,8 @@ describe('Mermaid sources and rendering', () => {
       const chart = DIAGRAMS[key as keyof typeof DIAGRAMS];
       expect(chart.startsWith(MERMAID_CONFIG)).toBe(true);
       expect(chart.slice(MERMAID_CONFIG.length).trim()).toBe(source.split('\n').map(l => l.trim()).join('\n').trim());
-      expect(await mermaid.parse(chart)).toBeTruthy();
+      const parser = (await import('mermaid/dist/mermaid.esm.mjs')).default as unknown as { parse: (text: string) => Promise<unknown> };
+      expect(await parser.parse(chart)).toBeTruthy();
     });
   }
   it('passes every chart to the shared Mermaid renderer in source order', async () => {
@@ -150,16 +151,18 @@ describe('navigation and checklist behavior', () => {
   afterEach(() => { cleanup(); window.IntersectionObserver = original; });
   it('observes all seven sections, updates active/aria-current and disconnects on unmount', async () => {
     const { container, unmount } = render(<Page />);
+    await waitFor(() => expect(container.querySelectorAll('.mermaid-diagram svg').length).toBe(5));
     expect(observed.map(el => el.id)).toEqual(['sec-0','sec-1','sec-2','sec-3','sec-4','sec-5','sec-6']);
-    callback([{ isIntersecting: true, target: container.querySelector('#sec-3')! }] as IntersectionObserverEntry[], {} as IntersectionObserver);
+    act(() => callback([{ isIntersecting: true, target: container.querySelector('#sec-3')! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
     await waitFor(() => expect(container.querySelector('a[href="#sec-3"]')?.getAttribute('aria-current')).toBe('location'));
     expect(container.querySelectorAll('.nav-link.active').length).toBe(1);
     fireEvent.click(container.querySelector('a[href="#sec-2"]')!);
     expect(container.querySelector('a[href="#sec-2"]')?.getAttribute('aria-current')).toBe('location');
     unmount(); expect(disconnected).toBe(true);
   });
-  it('keeps all six labelled checkboxes independently toggleable', () => {
+  it('keeps all six labelled checkboxes independently toggleable', async () => {
     const { container, getAllByRole } = render(<Page />);
+    await waitFor(() => expect(container.querySelectorAll('.mermaid-diagram svg').length).toBe(5));
     const boxes = getAllByRole('checkbox') as HTMLInputElement[];
     expect(boxes).toHaveLength(6);
     boxes.forEach((box, i) => {
