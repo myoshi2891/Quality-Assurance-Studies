@@ -57,7 +57,9 @@ describe('original content and DOM inventory', () => {
   it('imports scoped CSS and preserves original font and icon resources', () => {
     expect(readFileSync(`${base}/page.tsx`, 'utf8')).toContain("import './ctal-tae-ch5.css'");
     const content = readFileSync(`${base}/ctal-tae-ch5.css`, 'utf8');
-    inventory.stylesheets.forEach(url => expect(content).toContain(url));
+    inventory.stylesheets.filter(url => !url.includes('@tabler/')).forEach(url => expect(content).toContain(url));
+    expect(content).not.toMatch(/@import[^;]*@tabler/);
+    expect(readFileSync('app/layout.tsx', 'utf8')).toMatch(/@tabler\/icons-webfont@[\d.]+\/dist\/tabler-icons.min.css/);
   });
   it('preserves every reference link with secure external attributes', () => {
     const $ = html();

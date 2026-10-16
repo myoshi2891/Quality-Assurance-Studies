@@ -368,6 +368,7 @@ describe('groupByCategory', () => {
       '/istqb-ctal-tae-chapter2-preparing-for-test-automation',
       '/istqb-ctal-tae-chapter3-test-automation-architecture',
       '/istqb-ctal-tae-chapter4-implementing-test-automation',
+      '/istqb-ctal-tae-chapter5-implementation-deployment-strategies',
       '/istqb-ctal-ta-complete-guide',
       '/istqb-ctal-ta-chapter1-test-process',
       '/istqb-ctal-ta-chapter2-risk-based-testing',
