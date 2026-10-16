@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import IntroTerms from './IntroTerms';
 import DataCollection from './DataCollection';
+import DataAnalysis from './DataAnalysis';
 import './ctal-tae-ch6.css';
 
 export const metadata: Metadata = {
@@ -55,5 +56,6 @@ export default function Page() {
         </header>
         <IntroTerms />
         <DataCollection />
+        <DataAnalysis />
     </main></div></div>;
 }
