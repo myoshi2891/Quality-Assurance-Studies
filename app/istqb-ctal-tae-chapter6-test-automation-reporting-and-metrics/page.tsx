@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import IntroTerms from './IntroTerms';
 import './ctal-tae-ch6.css';
 
 export const metadata: Metadata = {
@@ -51,5 +52,6 @@ export default function Page() {
                 </div>
             </div>
         </header>
+        <IntroTerms />
     </main></div></div>;
 }
