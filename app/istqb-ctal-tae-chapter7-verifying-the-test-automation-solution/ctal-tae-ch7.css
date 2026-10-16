@@ -656,6 +656,8 @@
 .ctal-tae-ch7-page *::-webkit-scrollbar-track { background: transparent !important; }
 .ctal-tae-ch7-page *::-webkit-scrollbar-thumb { background: var(--border-strong) !important; border-radius: 3px; }
 
+.ctal-tae-ch7-page .sidebar-scrim { display: none; }
+
 /* Shared diagram wrappers must preserve source light cards and reachable scroll origins. */
 .ctal-tae-ch7-page .mermaid-diagram { display: block; }
 .ctal-tae-ch7-page .mermaid-wrapper {

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import NavBar from './NavBar';
 import './highlight.css';
 import OverviewTerminology from './OverviewTerminology';
 import EnvironmentVerification from './EnvironmentVerification';
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-    return <div className="ctal-tae-ch7-page"><div className="layout"><main className="main">
+    return <div className="ctal-tae-ch7-page"><div className="layout"><NavBar /><main className="main">
         <div className="hero">
             <span className="hero-eyebrow">
                 {"ISTQB Advanced Level ｜ Test Automation Engineering"}
