@@ -1,0 +1,529 @@
+{
+  "meta": {
+    "sourceHtml": "Ctal-tae-v2.0-ch1-introduction-and-objectives.html",
+    "sourceMd": "Ctal-tae-v2.0-ch1-introduction-and-objectives.md",
+    "htmlSha256": "c552eb14a317dfe8e369da3af7514d04c3db4f20065d242f221b6bd08aee3a03",
+    "mdSha256": "7cf35b069aecbcecbfa3c06a383aedde2d81db69afb27235a949c98fbeb2238e",
+    "targetRoute": "/istqb-ctal-tae-chapter1-introduction-and-objectives",
+    "title": "CTAL-TAE v2.0 第1章「テスト自動化の導入と目的」初学者向け解説ガイド"
+  },
+  "hero": {
+    "eyebrow": "ISTQB® CTAL-TAE v2.0",
+    "title": "第1章「テスト自動化の導入と目的」初学者向け解説ガイド",
+    "lead": "Introduction and Objectives for Test Automation ― なぜテスト自動化を行うのか、SDLCの中でどう位置づけられるのかという、後続の全章の土台となる考え方をステップバイステップで整理します。",
+    "badges": [
+      {
+        "icon": "ti ti-clock-hour-3",
+        "text": "指導時間 45分"
+      },
+      {
+        "icon": "ti ti-stack-2",
+        "text": "認知レベル K2"
+      },
+      {
+        "icon": "ti ti-list-numbers",
+        "text": "全8章中の第1章"
+      },
+      {
+        "icon": "ti ti-target",
+        "text": "学習目標 3項目"
+      }
+    ]
+  },
+  "sidebar": {
+    "brand": {
+      "icon": "ti ti-route",
+      "title": "CTAL-TAE v2.0",
+      "subtitle": "第1章 解説ガイド"
+    },
+    "groups": [
+      {
+        "title": "はじめに",
+        "links": [
+          {
+            "href": "#s0",
+            "icon": "ti ti-home",
+            "text": "Chapter 1の位置づけ"
+          },
+          {
+            "href": "#s1",
+            "icon": "ti ti-key",
+            "text": "キーワードと学習目標"
+          }
+        ]
+      },
+      {
+        "title": "1.1 テスト自動化の目的",
+        "links": [
+          {
+            "href": "#s2",
+            "icon": "ti ti-target-arrow",
+            "text": "目的・メリット・デメリット"
+          }
+        ]
+      },
+      {
+        "title": "1.2 SDLCと自動化",
+        "links": [
+          {
+            "href": "#s3",
+            "icon": "ti ti-git-branch",
+            "text": "SDLCモデル別の適用"
+          },
+          {
+            "href": "#s4",
+            "icon": "ti ti-tools",
+            "text": "ツール選定プロセス"
+          }
+        ]
+      },
+      {
+        "title": "まとめ",
+        "links": [
+          {
+            "href": "#s5",
+            "icon": "ti ti-checklist",
+            "text": "章末チェックリスト"
+          },
+          {
+            "href": "#s6",
+            "icon": "ti ti-books",
+            "text": "参考文献・出典"
+          }
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "s0": {
+      "id": "s0",
+      "eyebrow": "Chapter 1 の位置づけと全体像",
+      "icon": "ti ti-route",
+      "heading": "なぜこの章から学ぶのか",
+      "paragraphs": [
+        "CTAL-TAE v2.0 のシラバスは全8章構成で、認定トレーニングコースには最低21時間の講習時間が求められています。第1章はその導入部にあたり、「なぜテスト自動化を行うのか」「テスト自動化はソフトウェア開発ライフサイクル（SDLC）の中でどう位置づけられるのか」という、以降のアーキテクチャ設計・実装・CI/CD統合・レポーティング・検証・継続的改善の各章を学ぶための土台をつくる章です。",
+        "第1章は認知レベルがK2（理解する）のみで構成されており、第2章以降のK3（適用する）・K4（分析する）に比べると、求められるのは概念を理解する能力（K2）です。Kレベルは試験の回答形式ではなく、問われる認知能力を示します。ただし、シラバスの序章と付録を除く全章が試験範囲となるため、第1章の内容も油断せず押さえておく必要があります。"
+      ],
+      "diagram": {
+        "key": "roadmap",
+        "caption": "第1章はシラバス全体の導入にあたり、以降の全章が積み上がっていく土台となる"
+      },
+      "callout": {
+        "type": "note",
+        "icon": "ti ti-info-circle",
+        "title": "試験の前提条件",
+        "content": "CTAL-TAE試験を受験するには、ISTQB® Foundation Level認定を先に取得している必要があります。また、ソフトウェアテストまたは開発における十分な実務経験も認定取得の条件です。具体的な経験基準は、認定機関または試験提供者に確認してください。"
+      }
+    },
+    "s1": {
+      "id": "s1",
+      "eyebrow": "キーワードと学習目標",
+      "icon": "ti ti-key",
+      "heading": "まず押さえるべき前提知識",
+      "subheadings": [
+        {
+          "icon": "ti ti-tag",
+          "title": "キーワード"
+        },
+        {
+          "icon": "ti ti-target",
+          "title": "学習目標（Learning Objectives）一覧"
+        }
+      ],
+      "note": "シラバスの見出し直下に記載されているキーワードは、学習目標に明示されていなくても暗記が必須とされています。",
+      "keywords": [
+        {
+          "term": "system under test（SUT）",
+          "japanese": "テスト対象システム",
+          "coverage": "1.1、1.2.2"
+        },
+        {
+          "term": "test automation",
+          "japanese": "テスト自動化",
+          "coverage": "1.1 全体"
+        },
+        {
+          "term": "test automation engineer（TAE）",
+          "japanese": "テスト自動化エンジニア",
+          "coverage": "1.1、1.2.2"
+        }
+      ],
+      "learningObjectives": [
+        {
+          "id": "TAE-1.1.1",
+          "objective": "テスト自動化のメリット・デメリットを説明できる",
+          "kLevel": "K2"
+        },
+        {
+          "id": "TAE-1.2.1",
+          "objective": "異なるソフトウェア開発ライフサイクルモデルにおいて、テスト自動化がどのように適用されるかを説明できる",
+          "kLevel": "K2"
+        },
+        {
+          "id": "TAE-1.2.2",
+          "objective": "与えられたテスト対象システム（SUT）に適したテスト自動化ツールを選定できる",
+          "kLevel": "K2"
+        }
+      ],
+      "bestPractices": {
+        "title": "ベストプラクティス：学習の進め方",
+        "icon": "ti ti-bulb",
+        "items": [
+          {
+            "number": 1,
+            "title": "「暗記」ではなく「説明できる」を目指す。",
+            "text": "K2レベルの章は、人に説明できるレベルまで理解することが得点につながります。"
+          },
+          {
+            "number": 2,
+            "title": "学習目標の動詞に着目する。",
+            "text": "学習目標の動詞（Explain／Select）は、求められる認知能力を示します。「Explain」は概念（メリット・デメリットやSDLCごとの適用など）を説明する能力、「Select」はSUTの特徴を踏まえて適したテスト自動化ツールを選択する能力を指します。"
+          }
+        ]
+      }
+    },
+    "s2": {
+      "id": "s2",
+      "eyebrow": "1.1 テスト自動化の目的（Purpose of Test Automation）",
+      "icon": "ti ti-target-arrow",
+      "heading": "テスト自動化は何のために行うのか",
+      "subheadings": [
+        {
+          "icon": "ti ti-info-circle",
+          "title": "テスト自動化とは何か"
+        },
+        {
+          "icon": "ti ti-thumb-up",
+          "title": "テスト自動化のメリット（Advantages）"
+        },
+        {
+          "icon": "ti ti-thumb-down",
+          "title": "テスト自動化のデメリット（Disadvantages）"
+        },
+        {
+          "icon": "ti ti-alert-triangle",
+          "title": "テスト自動化の限界（Limitations）"
+        }
+      ],
+      "lead": "シラバスでは、テスト自動化（自動テスト実行とテストレポーティングを含む）を、以下のいずれか、または複数の活動と定義しています。",
+      "activities": [
+        "専用のソフトウェアツールを使ってテストスイートの制御・セットアップを行うこと",
+        "テストを自動的な方法で実行すること",
+        "実際の結果（actual results）と期待される結果（expected results）を比較すること"
+      ],
+      "description": "テスト自動化はテスト対象システム（SUT）と相互作用する重要な機能・能力を提供します。対象範囲も幅広く、UIのあるSUT、UIのないSUT、モバイルアプリケーション、ネットワークプロトコル・接続など、多様なソフトウェアをカバーできます。",
+      "diagramPurpose3": {
+        "key": "purpose3",
+        "caption": "テスト自動化を構成する3つの活動と、それらが対象とするSUT"
+      },
+      "advantages": [
+        {
+          "id": 1,
+          "title": "ビルドあたりの実行テスト数増加",
+          "description": "手動テストより多くのテストを1ビルドで実行できる"
+        },
+        {
+          "id": 2,
+          "title": "手動では不可能なテストの実現",
+          "description": "リアルタイム応答、リモートテスト、並行（並列）テストなど"
+        },
+        {
+          "id": 3,
+          "title": "より複雑なテストの実行",
+          "description": "手動より複雑な条件・シナリオを扱える"
+        },
+        {
+          "id": 4,
+          "title": "実行速度の向上",
+          "description": "手動テストより高速に実行できる"
+        },
+        {
+          "id": 5,
+          "title": "ヒューマンエラーの低減",
+          "description": "人為的ミスの影響を受けにくい"
+        },
+        {
+          "id": 6,
+          "title": "テストリソースの効率的活用",
+          "description": "人的リソースをより効果的・効率的に使える"
+        },
+        {
+          "id": 7,
+          "title": "迅速なフィードバック",
+          "description": "SUTの品質について早期にフィードバックが得られる"
+        },
+        {
+          "id": 8,
+          "title": "システム信頼性の向上支援",
+          "description": "可用性・回復性（availability, recoverability）などの向上に貢献"
+        },
+        {
+          "id": 9,
+          "title": "テスト実行の一貫性向上",
+          "description": "テストサイクルをまたいで一貫した実行結果が得られる"
+        }
+      ],
+      "disadvantages": [
+        {
+          "id": 1,
+          "title": "追加コストの発生",
+          "description": "TAE（テスト自動化エンジニア）の採用、新規ハードウェア購入、トレーニング費用など"
+        },
+        {
+          "id": 2,
+          "title": "初期投資の必要性",
+          "description": "テスト自動化ソリューション構築のための初期投資が必要"
+        },
+        {
+          "id": 3,
+          "title": "開発・保守にかかる時間",
+          "description": "ソリューションの開発と継続的なメンテナンスに時間がかかる"
+        },
+        {
+          "id": 4,
+          "title": "明確な目的設定の必要性",
+          "description": "成功のためには明確なテスト自動化の目的定義が不可欠"
+        },
+        {
+          "id": 5,
+          "title": "テストの硬直性",
+          "description": "SUTの変更に対する適応力が手動テストより低い場合がある"
+        },
+        {
+          "id": 6,
+          "title": "新たな欠陥混入のリスク",
+          "description": "テスト自動化自体が新たな欠陥を持ち込む可能性がある"
+        }
+      ],
+      "limitationsNote": "デメリットとは別に、シラバスでは「テスト自動化そのものが持つ限界」も明示しています。試験では「デメリット」と「限界」の区別を問われることがあるため注意しましょう。",
+      "limitations": [
+        "すべての手動テストが自動化できるわけではない",
+        "自動化されたテストは、プログラムされた内容しか検証できない",
+        "テスト自動化は機械で解釈可能な結果しか確認できないため、品質特性の一部は自動化で検証できない場合がある",
+        "テスト自動化は、自動化されたテストオラクル（test oracle）で検証可能な結果しか確認できない"
+      ],
+      "diagramDecision": {
+        "key": "decision",
+        "caption": "自動化するかどうかを判断する際の考え方（限界①③・限界④との対応）"
+      },
+      "bestPractices": {
+        "title": "ベストプラクティス：1.1 テスト自動化の目的",
+        "icon": "ti ti-bulb",
+        "items": [
+          {
+            "number": 1,
+            "title": "メリット・デメリット・限界を分けて整理する。",
+            "text": "面接や社内提案の場でも「デメリット（コストや保守負荷）」と「限界（手動テストの一部を自動化できないことや、プログラムされた内容しか検証できないことを含む自動化固有の制約・適用範囲）」を混同すると誤解を招くため、常に分離して説明できるようにしておく。"
+          },
+          {
+            "number": 2,
+            "title": "自動化の目的を最初に定義する。",
+            "text": "デメリットの1つである「明確な目的設定の必要性」に対応するため、自動化プロジェクトの開始前に「何を、どのレベルで、なぜ自動化するのか」を明文化する。"
+          },
+          {
+            "number": 3,
+            "title": "テストオラクルの実現可能性を事前検証する。",
+            "text": "機械判定できない品質特性（UIの見た目の美しさなど）は自動化の対象から除外するか、探索的テストなど別の検証手段と組み合わせる。"
+          },
+          {
+            "number": 4,
+            "title": "ROI（投資対効果）を継続的に可視化する。",
+            "text": "初期投資と保守コストがかかる特性を踏まえ、自動化によるコスト削減・品質向上の効果を定量的に追跡し、経営層への説明材料とする。"
+          }
+        ]
+      }
+    },
+    "s3": {
+      "id": "s3",
+      "eyebrow": "1.2 ソフトウェア開発ライフサイクルにおけるテスト自動化",
+      "icon": "ti ti-git-branch",
+      "heading": "SDLCモデルごとの適用のされ方（1.2.1）",
+      "subheadings": [
+        {
+          "icon": "ti ti-stairs",
+          "title": "ウォーターフォールモデル（Waterfall）"
+        },
+        {
+          "icon": "ti ti-git-merge",
+          "title": "Vモデル（V-model）"
+        },
+        {
+          "icon": "ti ti-recycle",
+          "title": "アジャイルソフトウェア開発（Agile）"
+        },
+        {
+          "icon": "ti ti-table",
+          "title": "SDLCモデル比較表"
+        }
+      ],
+      "waterfallText": "線形かつ逐次的なSDLCモデルで、要件定義・設計・実装・検証・保守という明確なフェーズを持ち、各フェーズは通常、承認が必要なドキュメント作成で終わります。テスト自動化の実装は、実装フェーズと並行して、または実装フェーズの後に行われるのが一般的です。ソフトウェアコンポーネントがテスト可能になるのが検証フェーズであるため、テスト実行も通常このフェーズで行われます。",
+      "diagramWaterfall": {
+        "key": "waterfall",
+        "caption": "ウォーターフォールモデルにおける自動化構築と実行のタイミング"
+      },
+      "vmodelText": "Vモデルも逐次的に実行されるSDLCモデルですが、プロジェクトが高レベル要件から低レベル要件へと定義されるのに対応して、それぞれのテスト・統合活動が定義される点が特徴です。ここから、CTFLセクション2.2で説明されている伝統的なテストレベル（コンポーネント、コンポーネント統合、システム、システム統合、受け入れ）が導き出されます。各テストレベルごとにテスト自動化フレームワーク（TAF）を用意することが可能であり、推奨されています。",
+      "diagramVmodel": {
+        "key": "vmodel",
+        "caption": "開発側の各フェーズ（左）と、それぞれに対応するテストレベル・TAF（右）"
+      },
+      "agileText": "アジャイル開発では、テスト自動化の可能性が非常に多岐にわたります。ウォーターフォールやVモデルと異なり、TAE（テスト自動化エンジニア）とビジネス側の代表者が、ロードマップやタイムライン、計画されたテストの提供時期を共同で決定できます。この方法では、コードレビュー、ペアプログラミング、頻繁な自動テスト実行といったベストプラクティスが存在します。開発者・テスター・その他ステークホルダー間のサイロ（分断）を排除することで、チームはすべてのテストレベルを適切な量・深さの自動化でカバーでき、「スプリント内自動化（in-sprint automation）」と呼ばれる目標を達成できます。",
+      "diagramAgile": {
+        "key": "agile",
+        "caption": "アジャイル開発における自動化の進め方と「スプリント内自動化」"
+      },
+      "agileNote": "詳細はISTQB CT-TAS（Test Automation Strategy）シラバス セクション3.2に記載されています。",
+      "comparisonTable": [
+        {
+          "perspective": "プロセスの流れ",
+          "waterfall": "線形・逐次",
+          "vmodel": "逐次（開発と対応するテストを対で定義）",
+          "agile": "反復・漸進的"
+        },
+        {
+          "perspective": "自動化構築のタイミング",
+          "waterfall": "実装フェーズと並行 or 実装後",
+          "vmodel": "各テストレベルの定義に合わせて計画的に構築",
+          "agile": "スプリントごとに継続的に構築・拡張"
+        },
+        {
+          "perspective": "テスト実行のタイミング",
+          "waterfall": "検証フェーズ",
+          "vmodel": "各テストレベル（コンポーネント〜受け入れ）ごと",
+          "agile": "スプリント内で継続的（in-sprint automation）"
+        },
+        {
+          "perspective": "推奨されるTAF構成",
+          "waterfall": "特に規定なし",
+          "vmodel": "テストレベルごとにTAFを用意することを推奨",
+          "agile": "チーム横断で協働しつつ全レベルをカバー"
+        },
+        {
+          "perspective": "意思決定の主体",
+          "waterfall": "フェーズごとの承認プロセス",
+          "vmodel": "要件定義側とテスト側の対応関係",
+          "agile": "TAEとビジネス代表者が共同決定"
+        }
+      ],
+      "bestPractices": {
+        "title": "ベストプラクティス：SDLCモデルとテスト自動化",
+        "icon": "ti ti-bulb",
+        "items": [
+          {
+            "number": 1,
+            "title": "モデルに応じて自動化の着手タイミングを設計する。",
+            "text": "ウォーターフォールでは実装フェーズの終盤から自動化スクリプトの並行開発を始め、検証フェーズでボトルネックにならないよう準備する。"
+          },
+          {
+            "number": 2,
+            "title": "Vモデルではテストレベルごとに責任分界を明確にする。",
+            "text": "コンポーネントレベルは開発者、システム統合・受け入れレベルはTAE/テストチームというように、各レベルのTAFの所有者を明確にする。"
+          },
+          {
+            "number": 3,
+            "title": "アジャイルではサイロを解消する仕組みを作る。",
+            "text": "デイリースクラムやペアプログラミングに自動化の話題を組み込み、開発者とTAEが同じ定義（Definition of Done）を共有する。"
+          },
+          {
+            "number": 4,
+            "title": "in-sprint automationを目標に段階的に導入する。",
+            "text": "いきなり全テストレベルの自動化を目指すのではなく、まずスモークテストレベルから自動化し、スプリントごとにカバレッジを拡大する。"
+          }
+        ]
+      }
+    },
+    "s4": {
+      "id": "s4",
+      "eyebrow": "1.2.2 与えられたSUTに適したテスト自動化ツールの選定",
+      "icon": "ti ti-tools",
+      "heading": "ツールはどう選ぶべきか",
+      "paragraphs": [
+        "適切なテストツールを識別するには、まずSUTを分析することが出発点になります。TAEは、ツール選定のベースラインとなるプロジェクト要件を特定する必要があります。",
+        "異なるテスト自動化ツールの機能は、UIソフトウェアとWebサービスなどでは異なるため、プロジェクトが長期的に何を達成したいのかを理解することが重要です。使用・選定できるテスト自動化ツールや機能の数に上限はありませんが、コストは常に考慮する必要があります。商用パッケージ製品（COTS）を使うか、オープンソース技術に基づくカスタムソリューションを実装するかは、いずれも複雑なプロセスになり得ます。",
+        "次に評価すべき点は、チームのテスト自動化における構成と経験です。テスターがプログラミング経験をほとんど、あるいは全く持たない場合は、ローコード／ノーコードのソリューションが有効な選択肢となり得ます。",
+        "プログラミング知識を持つ技術系テスターに対しては、SUTの言語と一致する言語のツールを選ぶことが有用です。これにより、開発者とテスト自動化の欠陥をより効率的にデバッグできる、チーム間でメンバーを相互トレーニングしやすい、といった利点が得られます。"
+      ],
+      "diagram": {
+        "key": "toolselect",
+        "caption": "SUTの分析からツール選定に至るまでの検討フロー"
+      },
+      "bestPractices": {
+        "title": "ベストプラクティス：ツール選定プロセス",
+        "icon": "ti ti-bulb",
+        "items": [
+          {
+            "number": 1,
+            "title": "要件定義をツール選定より優先する。",
+            "text": "ツールありきで進めるのではなく、SUTの技術特性（UI/API/モバイル/ネットワーク）とプロジェクトの長期ゴールを先に明文化する。"
+          },
+          {
+            "number": 2,
+            "title": "コストは「ライセンス費用」だけで判断しない。",
+            "text": "教育コスト、保守コスト、拡張性（将来的なSUTの変化への追従コスト）まで含めたトータルコストで比較する。"
+          },
+          {
+            "number": 3,
+            "title": "チームのスキルセットを正直に評価する。",
+            "text": "プログラミング経験が乏しいチームに高度なコードベースのフレームワークを導入すると保守が属人化・停滞するリスクが高いため、ローコード／ノーコードの選択肢も候補から外さない。"
+          },
+          {
+            "number": 4,
+            "title": "SUTと自動化ツールの言語親和性を重視する。",
+            "text": "同一言語であれば開発者とテスターの相互レビューやペアデバッグが容易になり、結果的に欠陥の早期発見・修正につながる。"
+          },
+          {
+            "number": 5,
+            "title": "PoC（概念実証）で複数候補を比較する。",
+            "text": "本番導入前に小規模なパイロットで複数ツールを試し、実際のSUTに対する適合度を確認してから本格導入する。この評価プロセスの詳細は第2章で扱われます。"
+          }
+        ]
+      }
+    },
+    "s5": {
+      "id": "s5",
+      "eyebrow": "章末チェックリストと試験対策のポイント",
+      "icon": "ti ti-checklist",
+      "heading": "理解度セルフチェック",
+      "checklist": [
+        "テスト自動化の定義（3つの活動）を自分の言葉で説明できる",
+        "メリット9項目・デメリット6項目・限界4項目を区別して説明できる",
+        "ウォーターフォール・Vモデル・アジャイルそれぞれで、自動化の「構築タイミング」と「実行タイミング」の違いを説明できる",
+        "Vモデルにおいて「テストレベルごとにTAFを用意することが推奨される」という記述を覚えている",
+        "アジャイルにおける「in-sprint automation」という用語とその意味を説明できる",
+        "ツール選定において、SUTの分析→要件特定→コスト検討→チームスキル評価→言語親和性、という流れを説明できる",
+        "キーワード（system under test, test automation, test automation engineer）を正確に説明できる"
+      ],
+      "callout": {
+        "type": "warn",
+        "icon": "ti ti-alert-triangle",
+        "title": "ベストプラクティス（試験対策）",
+        "paragraphs": [
+          "第1章はK2レベルのため、選択肢問題では「一見正しそうだが微妙にニュアンスが異なる」ダミー選択肢（例：デメリットと限界の入れ替え）が出やすい傾向があります。表形式で整理した項目を「デメリットか限界か」を即座に判別できるレベルまで整理しておきましょう。",
+          "シラバス本文の因果関係（例：「プログラミング経験が少ない→ローコード/ノーコードが有効」）はシナリオ問題として出題されやすいため、単なる暗記でなく「なぜその選択が妥当なのか」を説明できるようにしておくことが重要です。"
+        ]
+      }
+    },
+    "s6": {
+      "id": "s6",
+      "eyebrow": "参考文献・出典",
+      "icon": "ti ti-books",
+      "heading": "一次情報源",
+      "groupTitle": "ISTQB® 公式資料",
+      "references": [
+        {
+          "icon": "ti ti-certificate",
+          "title": "ISTQB® Certified Tester Advanced Level Test Automation Engineering（CTAL-TAE）v2.0 認定ページ",
+          "url": "https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+        },
+        {
+          "icon": "ti ti-file-text",
+          "title": "ISTQB® CTAL-TAE Syllabus v2.0（本ガイドの一次情報源、第1章：pp.14-16）",
+          "url": "https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
+        }
+      ],
+      "note": "本ガイドは上記シラバス（2024年5月3日 GA Release, v2.0）の第1章の内容を初学者向けに要約・図解したものです。本文中で言及されている関連シラバス（ISTQB CT-TAS：Test Automation Strategy 等）については、必要に応じてISTQB® 公式サイト（istqb.org）で最新情報をご確認ください。試験の正式な出題範囲は必ず原文シラバスでご確認ください。"
+    }
+  },
+  "footer": {
+    "text": "CTAL-TAE v2.0 第1章「Introduction and Objectives for Test Automation」初学者向け解説ガイド ― ISTQB® CTAL-TAE Syllabus v2.0 をもとに作成。出典・著作権: ISTQB® Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE) Syllabus v2.0、著者 Andrew Pollner（Chair）, Péter Földházi, Patrick Quilter, Gergely Ágnecz, László Szikszai. Copyright © International Software Testing Qualifications Board（ISTQB®）。"
+  }
+}

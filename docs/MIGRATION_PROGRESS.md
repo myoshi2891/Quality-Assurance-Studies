@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-10-10
+Updated 2026-10-12
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 93 ルート = ガイドライブラリ index + 92 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 96 ルート = ガイドライブラリ index + 95 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,43 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f78a940`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `fix(iso-29119-1): wire Mermaid component and diagram definitions into all 19 chart containers` |
-| 次の作業 | ユーザーによる`/iso-29119-1-2022-guide`（Mermaid図19件表示）および`/beyond-legacy-code-guide`の目視確認。 |
-| ビルド状態 | 全体テスト`bun test`: 2719 pass / 0 fail、113 files（2026-10-10）。ページ103テスト（全19図のMermaid配線・クライアント描画・SHA-256検証含む）、Mermaid契約107テスト、ナビゲーション73テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| 最新 HEAD | `f68b0cd`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `chore(archive): move ctal-tae-ch2 source files to archive and update docs` |
+| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter2-preparing-for-test-automation`の目視確認。 |
+| ビルド状態 | 全体テスト`bun test`: 2799 pass / 0 fail、116 files（2026-10-12）。※`docs/coverage-dashboard.html` の「120 files」は `bun test` 対象 116 files に Playwright の `.e2e.ts` 4 files を加えた集計であり、差分 4 はこの集計基準の違いによる。ページ26テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`、383 expect() calls、全6Mermaid図・全7表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+
+## 2026/10/12: ISTQB CTAL-TAE 第2章「テスト自動化の準備」初学者向け解説ガイドの移行
+
+- 移行先: `/istqb-ctal-tae-chapter2-preparing-for-test-automation`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
+- 元HTMLの見出し、目次、全7表（LO、テスト容易性3側面、構成要素、5環境、SUT分析8観点、比較表、7技術要件）、Mermaid図6件（position, testability, envs, sut, tools, summary）、インタラクティブチェックリスト（進捗バー・動的カウンター）、一次情報源3件を完全移行。
+- `docs/migration-inventory/istqb-ctal-tae-chapter2-preparing-for-test-automation.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソースを固定保存。
+- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`7be1ea5`）、CSS・ダイアグラム定義・NavBar・Hero（`96c2d60`）、Section 0（`1cd28ec`）、Section 1（`195f15f`）、Section 2（`a50fd95`）、Section 3（`8e8dec3`）、Section 4 & 5 & page統合（`f0397db`）、ナビゲーション登録（`4505858`）をそれぞれ独立コミット。
+- ページ単体テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンク / モバイルトグル開閉）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（26 pass / 383 expect() calls）。
+- Mermaid図6件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
+- 元HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch2.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-v2.0-ch2.md` へ移動。
+- ナビ・E2E対象は96ルート。全体 2793 pass / 116 files（本移行の完了時点の結果。現在値は「現在地」のビルド状態を参照）。
+
+## 2026/10/12: ISTQB CTAL-TAE 第1章「テスト自動化の導入と目的」初学者向け解説ガイドの移行
+
+- 移行先: `/istqb-ctal-tae-chapter1-introduction-and-objectives`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
+- 元HTMLの見出し、目次8リンク、全5表（LO、キーワード、メリット9件、デメリット6件、SDLC比較）、Mermaid図7件（ロードマップ、purpose3、decision、waterfall、vmodel、agile、toolselect）、インタラクティブチェックリスト（進捗バー・状態維持）、一次情報源2件を完全移行。
+- `docs/migration-inventory/istqb-ctal-tae-chapter1-introduction-and-objectives.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
+- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`4bd316d`）、CSS・ダイアグラム定義・NavBar・Hero（`f19f303`）、Section 0 & 1（`dffcaf9`）、Section 2（`a76bd89`）、Section 3（`0b093e6`）、Section 4（`54458fd`）、Section 5, 6, Footer & page統合（`71fc7e4`）、ナビゲーション登録（`575344a`）、アーカイブ移動（`9f0914e`）、サイドバー重なり・Mermaid黒塗り修正（`a0188f8`）、ヒーローリード改行修正（`cad3233`）、ヒーロー全幅表示修正（`c861e98`）をそれぞれ独立コミット。
+- ページ単体テスト（`tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全7図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンクと `aria-current` / モバイルトグル開閉 / 狭幅でのリンククリック時クローズ）、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（16 pass / 206 expect() calls）。
+- Mermaid図7件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
+- 元HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch1-introduction-and-objectives.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-v2.0-ch1-introduction-and-objectives.md` へ移動。
+- ナビ・E2E対象は95ルート。全体 2781 pass / 115 files。
+
+## 2026/10/12: ISTQB CTAL-TAE 第3章 テスト自動化アーキテクチャ（TAA）完全ガイドの移行
+
+- 移行先: `/istqb-ctal-tae-chapter3-test-automation-architecture`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
+- 元HTMLの見出し、目次11リンク、全8表（学習目標LO、gTAA外部インターフェース、gTAA4つの機能、設計検討項目、TAFレイヤー構造、7つの自動化アプローチ比較、OOP/SOLID原則、参考文献）、コールアウト、Mermaid図9件を完全移行。
+- `docs/migration-inventory/istqb-ctal-tae-chapter3-test-automation-architecture.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
+- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`907d318`）、CSS・ダイアグラム定義・NavBar・Hero（`6e973c3`）、Section 0 & 1（`669d2aa`）、Section 2 & 3（`b4d1135`）、Section 4（`b69af48`）、Section 5（`c681349`）、Section 6, 7 & Footer & page統合（`67b7f2e`）、ナビゲーション登録（`9e9dcaf`）をそれぞれ独立コミット。
+- ページ単体テスト（`tests/istqb-ctal-tae-chapter3-test-automation-architecture/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全9図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンクと `aria-current` / モバイルトグル開閉 / 狭幅でのリンククリック時クローズ）、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証。
+- Mermaid図9件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
+- 元HTMLは `archive/html-archive/ctal/Ctal-tae-ch3-test-automation-architecture.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-ch3-test-automation-architecture.md` へ移動。
+- ナビ・E2E対象は94ルート。全体 2756 pass / 114 files。
 
 ## 2026/10/10: ISO/IEC/IEEE 29119-1:2022 ソフトウェアテスト概念・定義ガイドの移行
 
@@ -24,7 +57,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 元HTMLの見出し70件、階層目次69リンク、全39表・全セル、引用ブロック6件、リスト23件、参考リンク、Mermaid図19件を移行。元HTMLにコードブロックがないことも固定インベントリにて照合。
 - `docs/migration-inventory/iso-29119-1-2022-guide.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
 - TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`f358035`）、CSS・ダイアグラム定義（`868f20d`）、全10カテゴリー分割コンポーネント実装、ナビゲーション登録（`1a1765d`）、ヘッダー同期（`e82c8f3`）、Mermaid配線修正（`f78a940`）をそれぞれ独立コミット。
-- ページ103テスト（`tests/iso-29119-1-2022-guide/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全19図のMermaid配線・クライアント描画（SHA-256ハッシュ照合）、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンクと `aria-current` / モバイルトグル開閉 / 狭幅でのリンククリック時クローズ）を完全検証。
+- ページ129テスト（`tests/iso-29119-1-2022-guide/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全19図のMermaid配線・クライアント描画（SHA-256ハッシュ照合）、CSS詳細度・スコープ、スティッキーNavBar動作（初期アクティブリンクと `aria-current` / モバイルトグル開閉 / 狭幅でのリンククリック時クローズ）を完全検証。
 - Mermaid図19件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テスト（107 tests）を全件パス。
 - 元HTMLは `archive/html-archive/iso/Iso-29119-1-2022-guide.html`、Markdownは `archive/md-archive/iso/Iso-29119-1-2022-guide.md` へ移動し、`.gitignore` で明示的に追跡管理。
 - ナビ・E2E対象は93ルート、新カテゴリ `iso` は1件。全体2719 pass / 113 files。
@@ -1383,6 +1416,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctgenai-ch4-llm-powered-solutions-guide.html` | `/istqb-ct-genai-chapter4-llm-powered-solutions` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Iso-29119-1-2022-guide.html` | `/iso-29119-1-2022-guide` | ✅ スティッキーNavBar + Mermaid図19件 + 全39表 + 目次69リンク (archive/html-archive/iso/) |
+| `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1409,10 +1445,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 93 ルート（ガイドライブラリ index + 92 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2719件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加カテゴリ「ISO 国際規格」（`iso`）および `/iso-29119-1-2022-guide` が正常に登録・稼働しています。
+- 全体テスト2799件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

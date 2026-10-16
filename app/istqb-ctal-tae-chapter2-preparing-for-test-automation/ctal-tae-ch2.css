@@ -1,0 +1,763 @@
+/* ==========================================================================
+   CTAL-TAE Chapter 2: Preparing for Test Automation
+   Scoped under .ctal-tae-ch2-page
+   ========================================================================== */
+
+.ctal-tae-ch2-page {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-alt: #eef1f8;
+    --border: #e0e4ee;
+    --text: #1b2333;
+    --text-dim: #5b6478;
+    --text-faint: #636c7f; /* 白・各背景で 4.5:1 以上を確保 */
+    --accent: #2f5fdc;
+    --accent-dark: #1e3fa0;
+    --accent-soft: #e8eefd;
+    --accent-soft-border: #c7d7fb;
+    --practice: #157a54; /* .callout-label 文字色。--practice-soft 背景上で 4.8:1（AA 4.5:1 以上）を確保 */
+    --practice-soft: #e6f7ef;
+    --practice-border: #b9e8d2;
+    --shadow: 0 1px 2px rgba(20, 30, 60, 0.04), 0 8px 24px rgba(20, 30, 60, 0.06);
+    --radius: 14px;
+    --sidebar-w: 280px;
+
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.85;
+    font-size: 16px;
+    min-height: 100vh;
+}
+
+/* ---------- Scrollbar Resets ---------- */
+.ctal-tae-ch2-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.ctal-tae-ch2-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.ctal-tae-ch2-page *::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px;
+}
+.ctal-tae-ch2-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--text-faint) !important;
+}
+
+/* ---------- globals.css Resets ---------- */
+.ctal-tae-ch2-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: linear-gradient(135deg, #eef3ff 0%, #f7f9ff 60%, #ffffff 100%) !important;
+    border: 1px solid var(--accent-soft-border) !important;
+    border-radius: 20px !important;
+    padding: 40px 44px !important;
+    margin-bottom: 44px !important;
+}
+
+.ctal-tae-ch2-page .hero::after {
+    content: none !important;
+}
+
+.ctal-tae-ch2-page .hero::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -60px !important;
+    right: -60px !important;
+    width: 260px !important;
+    height: 260px !important;
+    background: radial-gradient(circle, rgba(47, 95, 220, 0.16), transparent 70%) !important;
+    pointer-events: none !important;
+}
+
+.ctal-tae-ch2-page main,
+main.ctal-tae-ch2-page {
+    max-width: none !important;
+}
+
+.ctal-tae-ch2-page main.main,
+.ctal-tae-ch2-page .main {
+    max-width: none !important;
+    margin: 0 !important;
+    margin-left: var(--sidebar-w) !important;
+    padding: 48px 56px 80px !important;
+    box-sizing: border-box !important;
+}
+
+.ctal-tae-ch2-page section {
+    padding-top: 24px !important;
+}
+
+.ctal-tae-ch2-page section + section {
+    border-top: none !important;
+}
+
+.ctal-tae-ch2-page [id] {
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
+}
+
+/* ---------- Typography ---------- */
+.ctal-tae-ch2-page h1,
+.ctal-tae-ch2-page h2,
+.ctal-tae-ch2-page h3,
+.ctal-tae-ch2-page h4 {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif !important;
+    font-weight: 800 !important;
+    color: var(--text) !important;
+    line-height: 1.4 !important;
+}
+
+.ctal-tae-ch2-page h2 {
+    font-size: 24px !important;
+    margin: 0 0 18px !important;
+    padding-top: 8px !important;
+}
+
+.ctal-tae-ch2-page h3 {
+    font-size: 19px !important;
+    margin: 36px 0 14px !important;
+}
+
+.ctal-tae-ch2-page h4 {
+    font-size: 16px !important;
+    margin: 24px 0 10px !important;
+}
+
+.ctal-tae-ch2-page p {
+    margin: 0 0 16px;
+    color: var(--text);
+    line-height: 1.85;
+}
+
+.ctal-tae-ch2-page a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft-border);
+    transition: border-color 0.15s;
+}
+
+.ctal-tae-ch2-page a:hover {
+    border-bottom-color: var(--accent);
+}
+
+.ctal-tae-ch2-page strong {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.ctal-tae-ch2-page blockquote {
+    margin: 0 0 20px;
+    padding: 14px 18px;
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    color: var(--text-dim);
+}
+
+.ctal-tae-ch2-page blockquote p {
+    margin: 0;
+}
+
+.ctal-tae-ch2-page hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 44px 0;
+}
+
+/* ---------- List Styling (忠実再現) ---------- */
+.ctal-tae-ch2-page .main ol {
+    list-style-type: decimal !important;
+    margin: 0 0 18px !important;
+    padding-left: 24px !important;
+}
+
+.ctal-tae-ch2-page .main ul {
+    list-style-type: disc !important;
+    margin: 0 0 18px !important;
+    padding-left: 24px !important;
+}
+
+.ctal-tae-ch2-page .main ol ol,
+.ctal-tae-ch2-page .main ul ul,
+.ctal-tae-ch2-page .main ol ul,
+.ctal-tae-ch2-page .main ul ol {
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    padding-left: 20px !important;
+}
+
+.ctal-tae-ch2-page .main li {
+    margin-bottom: 6px !important;
+    line-height: 1.8 !important;
+    color: var(--text);
+}
+
+/* ---------- Hero Details ---------- */
+.ctal-tae-ch2-page .hero-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent-dark);
+    background: #ffffff;
+    border: 1px solid var(--accent-soft-border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.ctal-tae-ch2-page .hero-title {
+    font-size: 30px;
+    margin: 0 0 10px;
+    color: var(--text);
+    position: relative;
+    line-height: 1.35;
+}
+
+.ctal-tae-ch2-page .hero-subtitle {
+    font-size: 15px;
+    color: var(--text-dim);
+    margin: 0 0 24px;
+    max-width: 720px;
+    line-height: 1.7;
+}
+
+.ctal-tae-ch2-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--accent-soft-border);
+    padding-top: 18px;
+}
+
+.ctal-tae-ch2-page .hero-meta-item {
+    padding: 0 24px 0 0;
+    margin-right: 24px;
+    border-right: 1px solid var(--accent-soft-border);
+}
+
+.ctal-tae-ch2-page .hero-meta-item:last-child {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.ctal-tae-ch2-page .hero-meta-label {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 4px;
+}
+
+.ctal-tae-ch2-page .hero-meta-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ---------- Sidebar Navigation ---------- */
+.ctal-tae-ch2-page .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    width: var(--sidebar-w);
+    height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+    bottom: 0;
+    overflow-y: auto;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 28px 20px 40px;
+    z-index: 40;
+}
+
+.ctal-tae-ch2-page .sidebar-brand {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.ctal-tae-ch2-page .sidebar-sub {
+    font-size: 12.5px;
+    color: var(--text-faint);
+    margin-bottom: 24px;
+}
+
+.ctal-tae-ch2-page .sidebar nav ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ctal-tae-ch2-page .sidebar nav ul ul {
+    margin-left: 14px !important;
+    margin-top: 2px !important;
+    margin-bottom: 6px !important;
+    padding-left: 0 !important;
+}
+
+.ctal-tae-ch2-page .sidebar nav li {
+    margin: 2px 0 !important;
+}
+
+.ctal-tae-ch2-page .sidebar nav a {
+    display: block;
+    padding: 7px 10px;
+    border-radius: 8px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    border-bottom: none;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ctal-tae-ch2-page .sidebar nav a:hover {
+    background: var(--surface-alt);
+    color: var(--text);
+}
+
+.ctal-tae-ch2-page .sidebar nav a.active {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    border-left-color: var(--accent);
+    font-weight: 700;
+}
+
+.ctal-tae-ch2-page .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px) + 14px);
+    left: 14px;
+    z-index: 50;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* ---------- Tables ---------- */
+.ctal-tae-ch2-page .table-scroll {
+    overflow-x: auto;
+    margin: 0 0 22px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.ctal-tae-ch2-page table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    min-width: 560px;
+    background: var(--surface) !important;
+}
+
+.ctal-tae-ch2-page thead th {
+    background: var(--surface-alt) !important;
+    text-align: left !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--text) !important;
+    padding: 11px 14px !important;
+    border-bottom: 1px solid var(--border) !important;
+    white-space: nowrap !important;
+}
+
+.ctal-tae-ch2-page tbody td,
+.ctal-tae-ch2-page tbody th {
+    padding: 11px 14px !important;
+    font-size: 13.5px !important;
+    color: var(--text-dim) !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: top !important;
+}
+
+/* 行見出し（th scope="row"）は globals の th 指定（等幅・太字・字間・折り返し禁止）を打ち消し、td と同じ見た目にする */
+.ctal-tae-ch2-page tbody th {
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: normal !important;
+    text-align: left !important;
+    white-space: normal !important;
+    line-height: 1.6 !important;
+}
+
+.ctal-tae-ch2-page tbody td strong {
+    color: var(--text) !important;
+    font-weight: 700 !important;
+}
+
+.ctal-tae-ch2-page tbody tr:last-child td,
+.ctal-tae-ch2-page tbody tr:last-child th {
+    border-bottom: none !important;
+}
+
+.ctal-tae-ch2-page tbody tr:hover {
+    background: #fafbfe !important;
+}
+
+/* ---------- Callouts ---------- */
+.ctal-tae-ch2-page .callout-practice {
+    background: var(--practice-soft);
+    border: 1px solid var(--practice-border);
+    border-left: 4px solid var(--practice);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 0 0 22px;
+}
+
+.ctal-tae-ch2-page .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.ctal-tae-ch2-page .callout-icon {
+    font-size: 16px;
+}
+
+.ctal-tae-ch2-page .callout-label {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--practice);
+}
+
+.ctal-tae-ch2-page .callout-practice ul {
+    margin: 0 !important;
+    padding-left: 20px !important;
+}
+
+.ctal-tae-ch2-page .callout-practice li {
+    color: var(--text) !important;
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+}
+
+.ctal-tae-ch2-page .callout-practice li:last-child {
+    margin-bottom: 0 !important;
+}
+
+.ctal-tae-ch2-page .callout-source {
+    font-size: 13px;
+    color: var(--text-faint);
+    padding: 8px 0 0;
+    margin: 0 0 18px;
+}
+
+.ctal-tae-ch2-page .legend-note {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin: -8px 0 22px;
+}
+
+/* ---------- Checklist ---------- */
+.ctal-tae-ch2-page .checklist-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px 22px;
+    margin: 0 0 22px;
+    list-style: none !important;
+}
+
+.ctal-tae-ch2-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.ctal-tae-ch2-page .cp-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+
+.ctal-tae-ch2-page .cp-bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    overflow: hidden;
+}
+
+.ctal-tae-ch2-page .cp-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.2s;
+}
+
+.ctal-tae-ch2-page .cp-count {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    white-space: nowrap;
+}
+
+.ctal-tae-ch2-page .checklist-card li {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    font-size: 14.5px !important;
+    color: var(--text) !important;
+    padding: 6px 0 !important;
+    margin: 0 !important;
+}
+
+.ctal-tae-ch2-page .checklist-card label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.ctal-tae-ch2-page .checklist-card input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 19px;
+    height: 19px;
+    flex: none;
+    margin-top: 2px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    position: relative;
+    cursor: pointer;
+    background: var(--surface);
+}
+
+.ctal-tae-ch2-page .checklist-card input[type='checkbox']:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.ctal-tae-ch2-page .checklist-card input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ctal-tae-ch2-page .checklist-card li:has(input:checked) span {
+    text-decoration: line-through;
+    color: var(--text-faint);
+}
+
+/* ---------- Reference Cards ---------- */
+.ctal-tae-ch2-page .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0 0 20px;
+}
+
+.ctal-tae-ch2-page .ref-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    min-width: 0;
+}
+
+.ctal-tae-ch2-page .ref-card-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.ctal-tae-ch2-page .ref-card a {
+    font-size: 12.5px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.ctal-tae-ch2-page .ref-note {
+    font-size: 13px;
+    color: var(--text-dim);
+    background: var(--surface-alt);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 16px;
+}
+
+/* ---------- Footer ---------- */
+.ctal-tae-ch2-page .page-footer {
+    margin-top: 52px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--text-faint);
+}
+
+/* ---------- Mermaid Resets & Themes ---------- */
+.ctal-tae-ch2-page .mermaid-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 18px;
+    margin: 0 0 26px;
+    overflow-x: auto !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+}
+
+/* Mermaid ノード背景色・枠線・テキスト色のコントラスト保護（黒塗り防止） */
+.ctal-tae-ch2-page .mermaid-wrapper .node rect,
+.ctal-tae-ch2-page .mermaid-wrapper .node circle,
+.ctal-tae-ch2-page .mermaid-wrapper .node ellipse,
+.ctal-tae-ch2-page .mermaid-wrapper .node polygon,
+.ctal-tae-ch2-page .mermaid-wrapper .node path,
+.ctal-tae-ch2-page .mermaid-wrapper .node .basic,
+.ctal-tae-ch2-page .mermaid-wrapper .node .label-container {
+    fill: #ffffff;
+    stroke: #c7d0e0;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.aspect):not(.result):not(.current):not(.monitored):not(.req):not(.decide):not(.root):not(.start):not(.phase):not(.trigger):not(.env):not(.leaf) rect,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.aspect):not(.result):not(.current):not(.monitored):not(.req):not(.decide):not(.root):not(.start):not(.phase):not(.trigger):not(.env):not(.leaf) polygon {
+    fill: #ffffff !important;
+    stroke: #c7d0e0 !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .label,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .label text,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .nodeLabel,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) .nodeLabel *,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) foreignObject div,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) foreignObject span,
+.ctal-tae-ch2-page .mermaid-wrapper .node:not(.root) foreignObject p {
+    color: #1b2333;
+    fill: #1b2333;
+}
+
+/* ページ全体の p { color: var(--text) } が継承より優先されるため、要約図ルートノード内の段落は classDef root の白文字を明示する */
+.ctal-tae-ch2-page .mermaid-wrapper .node.root foreignObject p {
+    color: #ffffff;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabel,
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabel span,
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabel p,
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabel text,
+.ctal-tae-ch2-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #1b2333 !important;
+    fill: #1b2333 !important;
+    font-weight: 700 !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ctal-tae-ch2-page .mermaid-wrapper foreignObject p,
+.ctal-tae-ch2-page .mermaid-wrapper foreignObject span,
+.ctal-tae-ch2-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+
+/* ---------- Media Queries ---------- */
+@media (max-width: 900px) {
+    .ctal-tae-ch2-page .sidebar {
+        top: calc(60px + var(--disclaimer-height, 0px));
+        height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+        transform: translateX(-100%);
+        visibility: hidden;
+        transition: transform 0.2s, visibility 0.2s;
+        box-shadow: var(--shadow);
+        z-index: 55;
+        /* トグル（上端 14px + 高さ 42px）の下から目次を始め、文字と重ねない */
+        padding-top: 72px;
+    }
+    .ctal-tae-ch2-page .sidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+    /* 開いたサイドバー（z-index: 55）より前面に置き、同じボタンで閉じられるようにする */
+    .ctal-tae-ch2-page .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+    }
+    /* 基本指定の main.main は詳細度が高いため、モバイルでも同じセレクターで上書きする */
+    .ctal-tae-ch2-page main.main,
+    .ctal-tae-ch2-page .main {
+        margin-left: 0 !important;
+        padding: 80px 20px 60px !important;
+    }
+    .ctal-tae-ch2-page .hero {
+        padding: 28px 22px !important;
+    }
+    .ctal-tae-ch2-page .hero-title {
+        font-size: 24px;
+    }
+    .ctal-tae-ch2-page .hero-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .ctal-tae-ch2-page .hero-meta-item {
+        border-right: none;
+        border-bottom: 1px solid var(--accent-soft-border);
+        padding: 0 0 10px;
+        margin-right: 0;
+    }
+    .ctal-tae-ch2-page .hero-meta-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .ctal-tae-ch2-page .ref-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch2-page .sidebar,
+    .ctal-tae-ch2-page .cp-bar-fill {
+        transition: none;
+    }
+}
