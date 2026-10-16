@@ -4,6 +4,7 @@ import IntroTerms from './IntroTerms';
 import DataCollection from './DataCollection';
 import DataAnalysis from './DataAnalysis';
 import Reporting from './Reporting';
+import SummaryQuestions from './SummaryQuestions';
 import './ctal-tae-ch6.css';
 
 export const metadata: Metadata = {
@@ -59,5 +60,6 @@ export default function Page() {
         <DataCollection />
         <DataAnalysis />
         <Reporting />
+        <SummaryQuestions />
     </main></div></div>;
 }
