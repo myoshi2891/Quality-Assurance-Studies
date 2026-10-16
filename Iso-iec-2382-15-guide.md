@@ -923,28 +923,28 @@ flowchart TD
 
 | 発信者 | 内容 | URL |
 |---|---|---|
-| Rob Pike（Go 共同設計者） | 「Go at Google」：言語設計をソフトウェア工学のために行う | <https://go.googlesource.com/talks/+/master%5E/content/2012/splash.article> |
-| Go 公式ブログ | 上記講演・論文の紹介 | <https://blog.golang.org/two-recent-go-articles> |
-| Bjarne Stroustrup（C++ 設計者） | C++ のスタイルと抽象化の考え方 | <https://stroustrup.com/style95.pdf> |
-| Bjarne Stroustrup | 抽象化と効率の両立に関するインタビュー | <https://develop-plus.bigthink.com/?p=72983> |
-| Herb Sutter（元 ISO C++ 委員会議長） | 「C++26 is done!」2026年3月29日 | <https://herbsutter.com/2026/03/29/c26-is-done-trip-report-march-2026-iso-c-standards-meeting-london-croydon-uk/> |
-| Herb Sutter | 2026年6月の委員会報告（C++29 へ向けた契約の拡張） | <https://herbsutter.com/category/c/> |
-| Anders Hejlsberg（TypeScript 設計者） | ネイティブ移植の発表（ブログ紹介） | <https://mjtsai.com/blog/?p=47088> |
-| Anders Hejlsberg | 発表内容の報道（2025年5月） | <https://www.infoq.com/news/2025/05/new-typescript-compiler-10x-fast> |
-| TypeScript チーム | TypeScript 7.0 公開の報道（2026年8月） | <https://www.infoq.com/news/2026/08/typescript-7-released/> |
-| TypeScript チーム | typescript-go の今後に関する Q&A（2026年7月9日） | <https://github.com/microsoft/typescript-go/discussions/4576> |
-| Rust プロジェクト | 所有権の公式説明 | <https://doc.rust-lang.org/stable/book/ownership.html> |
-| Python プロジェクト | Python 3.14.1 リリースページ（PEP 779 を含む主要機能） | <https://www.python.org/downloads/release/python-3141/> |
-| Python プロジェクト | What's New in Python 3.14 | <https://docs.python.org/3.14/whatsnew/3.14.html> |
-| Python（解説） | バイトコードの用語解説 | <https://realpython.com/ref/glossary/bytecode> |
-| Python（日本語解説） | 3.14 のフリースレッド版の経緯 | <https://atmarkit.itmedia.co.jp/ait/spv/2510/09/news014.html> |
+| Rob Pike（Go 共同設計者） | 「Go at Google」：言語設計をソフトウェア工学のために行う | <a href="https://go.googlesource.com/talks/+/master%5E/content/2012/splash.article" target="_blank" rel="noopener noreferrer">https://go.googlesource.com/talks/+/master%5E/content/2012/splash.article</a> |
+| Go 公式ブログ | 上記講演・論文の紹介 | <a href="https://blog.golang.org/two-recent-go-articles" target="_blank" rel="noopener noreferrer">https://blog.golang.org/two-recent-go-articles</a> |
+| Bjarne Stroustrup（C++ 設計者） | C++ のスタイルと抽象化の考え方 | <a href="https://stroustrup.com/style95.pdf" target="_blank" rel="noopener noreferrer">https://stroustrup.com/style95.pdf</a> |
+| Bjarne Stroustrup | 抽象化と効率の両立に関するインタビュー | <a href="https://develop-plus.bigthink.com/?p=72983" target="_blank" rel="noopener noreferrer">https://develop-plus.bigthink.com/?p=72983</a> |
+| Herb Sutter（元 ISO C++ 委員会議長） | 「C++26 is done!」2026年3月29日 | <a href="https://herbsutter.com/2026/03/29/c26-is-done-trip-report-march-2026-iso-c-standards-meeting-london-croydon-uk/" target="_blank" rel="noopener noreferrer">https://herbsutter.com/2026/03/29/c26-is-done-trip-report-march-2026-iso-c-standards-meeting-london-croydon-uk/</a> |
+| Herb Sutter | 2026年6月の委員会報告（C++29 へ向けた契約の拡張） | <a href="https://herbsutter.com/category/c/" target="_blank" rel="noopener noreferrer">https://herbsutter.com/category/c/</a> |
+| Anders Hejlsberg（TypeScript 設計者） | ネイティブ移植の発表（ブログ紹介） | <a href="https://mjtsai.com/blog/?p=47088" target="_blank" rel="noopener noreferrer">https://mjtsai.com/blog/?p=47088</a> |
+| Anders Hejlsberg | 発表内容の報道（2025年5月） | <a href="https://www.infoq.com/news/2025/05/new-typescript-compiler-10x-fast" target="_blank" rel="noopener noreferrer">https://www.infoq.com/news/2025/05/new-typescript-compiler-10x-fast</a> |
+| TypeScript チーム | TypeScript 7.0 公開の報道（2026年8月） | <a href="https://www.infoq.com/news/2026/08/typescript-7-released/" target="_blank" rel="noopener noreferrer">https://www.infoq.com/news/2026/08/typescript-7-released/</a> |
+| TypeScript チーム | typescript-go の今後に関する Q&A（2026年7月9日） | <a href="https://github.com/microsoft/typescript-go/discussions/4576" target="_blank" rel="noopener noreferrer">https://github.com/microsoft/typescript-go/discussions/4576</a> |
+| Rust プロジェクト | 所有権の公式説明 | <a href="https://doc.rust-lang.org/stable/book/ownership.html" target="_blank" rel="noopener noreferrer">https://doc.rust-lang.org/stable/book/ownership.html</a> |
+| Python プロジェクト | Python 3.14.1 リリースページ（PEP 779 を含む主要機能） | <a href="https://www.python.org/downloads/release/python-3141/" target="_blank" rel="noopener noreferrer">https://www.python.org/downloads/release/python-3141/</a> |
+| Python プロジェクト | What's New in Python 3.14 | <a href="https://docs.python.org/3.14/whatsnew/3.14.html" target="_blank" rel="noopener noreferrer">https://docs.python.org/3.14/whatsnew/3.14.html</a> |
+| Python（解説） | バイトコードの用語解説 | <a href="https://realpython.com/ref/glossary/bytecode" target="_blank" rel="noopener noreferrer">https://realpython.com/ref/glossary/bytecode</a> |
+| Python（日本語解説） | 3.14 のフリースレッド版の経緯 | <a href="https://atmarkit.itmedia.co.jp/ait/spv/2510/09/news014.html" target="_blank" rel="noopener noreferrer">https://atmarkit.itmedia.co.jp/ait/spv/2510/09/news014.html</a> |
 
 ### 9-3-補. 報道（C++26）
 
 | 内容 | URL |
 |---|---|
-| C++26 の機能概要（InfoQ、2026年4月） | <https://www.infoq.com/news/2026/04/cpp-26-reflection-safety-async/> |
-| 契約の採否と投票結果（DevClass、2026年4月1日） | <https://www.devclass.com/development/2026/04/01/contracts-are-in-c26-despite-disquiet-over-their-value/5213555> |
+| C++26 の機能概要（InfoQ、2026年4月） | <a href="https://www.infoq.com/news/2026/04/cpp-26-reflection-safety-async/" target="_blank" rel="noopener noreferrer">https://www.infoq.com/news/2026/04/cpp-26-reflection-safety-async/</a> |
+| 契約の採否と投票結果（DevClass、2026年4月1日） | <a href="https://www.devclass.com/development/2026/04/01/contracts-are-in-c26-despite-disquiet-over-their-value/5213555" target="_blank" rel="noopener noreferrer">https://www.devclass.com/development/2026/04/01/contracts-are-in-c26-despite-disquiet-over-their-value/5213555</a> |
 
 ### 9-4. このガイドの限界
 
