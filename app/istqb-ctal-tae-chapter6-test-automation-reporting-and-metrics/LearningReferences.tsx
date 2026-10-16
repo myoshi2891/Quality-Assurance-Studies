@@ -1,105 +1,12 @@
 import React from 'react';
+import ChecklistCard from './ChecklistCard';
 
 export default function LearningReferences() {
     return <>
         <h2 id="7-学習チェックリスト">
             {"7. 学習チェックリスト"}
         </h2>
-        <div className="checklist-card">
-            <div className="checklist-progress">
-                <span className="cp-label">
-                    {"学習の進捗"}
-                </span>
-                <div className="cp-bar">
-                    <div className="cp-bar-fill">
-
-                    </div>
-                </div>
-                <span className="cp-count">
-                    {"0 / 13 完了"}
-                </span>
-            </div>
-            <ul className="task-list">
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"第6章のキーワード5語（measurement、metric、test log、test progress report、test step）を説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"SUT ログ、TAF ログ、ビルドログ、デプロイログ、本番ログ、スクリーンショットの違いを説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"下位のテストウェアに記録機能を組み込む利点を説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"passed／failed／TAS failure／inconclusive の違いを説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"TAS ロギングで記録する内容を挙げられる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"SUT ロギングで押さえる内容とタイムスタンプ同期の意義を説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"一次データ（TAS）と二次データ（SUT）の違いを説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"失敗分析の5ステップを順に言える"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"「期待と実際が一致しているのに失敗」「全テスト失敗」の原因を説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"相関 ID（トレース ID）の役割を説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"テスト進捗レポートの必須内容と公開方法を説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"管理層・運用層・技術層の関心の違いを説明できる"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="checkbox" />
-                        {"ダッシュボードと AI／ML 分析の役割を説明できる"}
-                    </label>
-                </li>
-            </ul>
-        </div>
+        <ChecklistCard />
         <hr />
         <h2 id="8-参考文献ソース-url">
             {"8. 参考文献・ソース URL"}
