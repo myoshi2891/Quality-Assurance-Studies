@@ -697,3 +697,29 @@
 @media (prefers-reduced-motion: reduce) {
     .ctal-tae-ch7-page * { scroll-behavior: auto; transition: none !important; animation: none !important; }
 }
+
+/* Keep retained styles from other routes from wrapping or resizing source code. */
+.ctal-tae-ch7-page pre.code-block,
+.ctal-tae-ch7-page pre.code-block code,
+.ctal-tae-ch7-page pre.code-block .code-line {
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
+    tab-size: 4;
+}
+.ctal-tae-ch7-page pre.code-block { min-width: 0; max-width: 100%; }
+.ctal-tae-ch7-page pre.code-block code {
+    width: max-content;
+    min-width: 100%;
+    overflow: visible;
+    font-size: inherit;
+    line-height: inherit;
+}
+.ctal-tae-ch7-page pre.code-block .code-line {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
