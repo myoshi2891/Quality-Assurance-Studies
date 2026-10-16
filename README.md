@@ -100,8 +100,8 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 
 `bun test tests/beyond-legacy-code-guide/page.test.tsx`で501テストを実行し、本文全文・DOM順序・表の全セル・図ソースと配置・CSS宣言・モバイル目次・アーカイブのハッシュを照合します。ビルドと目視確認は今回実施していません。
 
-## CTAL-TAE 第6章の移行検証（2026-10-17）
+## CTAL-TAE 第7章の移行検証（2026-10-17）
 
-`/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics`を追加。49見出し・31表・11図・コード例2件・全160 CSSルールを固定インベントリと照合し、目次開閉と学習進捗を検証しました。元HTML・MDは各アーカイブの`ctal/`へ移動しハッシュ一致を確認済みです。
+`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`を追加。58見出し・30表・11図・コード例7件・全99 CSSルールを固定インベントリと照合しました。構文色は原本と同じhighlight.js 11.10.0で事前生成し、全文とトークン、Atom One Lightの配色を検証しています。元HTML・MDは各アーカイブの`ctal/`へ移動しハッシュ一致を確認済みです。
 
-サンドボックスでは`npm exec -- bun test`と`npm run lint`を使用し、全3480件のテスト（121ファイル）とlintが成功。ビルドは実行せず、目視確認はユーザーが担当します。型検査の既存エラーは移行対象を除外した場合と一致し、今回の追加ファイルには診断がありません。
+サンドボックスでは`npm exec -- bun test`と`npm run lint`を使用し、全3894件のテスト（123ファイル）とlintが成功。ビルドは実行せず、目視確認はユーザーが担当します。型検査には既存エラーが残っていますが、エラー位置・メッセージは移行対象を除外した基準と一致し、新規ファイルの診断はありません。

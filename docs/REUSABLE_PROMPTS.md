@@ -70,7 +70,7 @@
 **参照実装**: `app/istqb-ct-ai-complete-guide/` — NavBar.tsx・CSS・page.tsx の 3 点セット  
 **NavBar 未実装のページ（2026-10-17 時点）**:
 
-- なし（すべて実装完了）。CTAL-TAE第6章も`app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/NavBar.tsx`で対応済み。デスクトップ固定・900px以下で目次開閉という原本の挙動を維持。
+- なし（すべて実装完了）。CTAL-TAE第7章も`app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx`で対応済み。デスクトップ固定・900px以下で目次とスクリーンを開閉する原本の挙動を維持。
 
 > 以下の画面にページ内のスティッキーナビゲーションを新規追加してください。
 > /istqb-ct-ai-complete-guide の実装を参考にしてください。

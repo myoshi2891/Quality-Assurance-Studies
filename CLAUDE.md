@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 3480 tests)
+bun test             # ユニットテスト (bun test, 3894 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 99 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 100 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -154,6 +154,22 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/Reporting.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
 - `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/SummaryQuestions.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
 - `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/LearningReferences.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、本文カテゴリーの組み立てとメタデータ
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ctal-tae-ch7.css` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、原本全99 CSSルール・900px/640px表示条件と共通CSS干渉補正
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、階層目次40リンク・開閉・スクリーン・追従
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChecklistCard.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、全6項目のチェック状態・進捗と完了数
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/diagrams.ts` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、フローチャート10図・シーケンス図1図の原本定義とライトテーマ
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChapterDiagram.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、共通Mermaidへの配線と図ID保持
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/CodeExample.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、原本と同じhighlight.js 11.10.0で事前生成した全7コード例
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/highlight.css` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、スコープしたAtom One Lightの全14ルール
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/highlight-LICENSE.txt` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、ハイライト配色のライセンス
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/OverviewTerminology.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/EnvironmentVerification.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ScriptSuiteBehavior.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/UnexpectedResults.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/StaticAnalysis.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ReviewQuestions.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/GlossaryReferences.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
 - `app/istqb-ctal-ta-complete-guide/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
 - `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
 - `app/istqb-ctal-ta-complete-guide/NavBar.tsx` — CTAL-TA ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -422,7 +438,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 99 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 100 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -771,6 +787,7 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -795,10 +812,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 99 ルート（ガイドライブラリ index + 98 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 100 ルート（ガイドライブラリ index + 99 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第6章 レポートとメトリクス」（`/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics`）を登録済み。目視確認はユーザーが担当。
+- 新規追加「CTAL-TAE 第7章 テスト自動化ソリューションの検証」（`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`）を登録済み。目視確認はユーザーが担当。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】

@@ -5,7 +5,7 @@ Updated 2026-10-17
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 99 ルート = ガイドライブラリ index + 98 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 100 ルート = ガイドライブラリ index + 99 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,22 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `079b22e`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `chore(archive): move original chapter 6 HTML and Markdown unchanged` |
-| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics`の目視確認。 |
-| ビルド状態 | npm経由の全体テスト3480件成功（121ファイル）、ページ409件・登録と原本保持4件・ナビと描画契約215件成功。lint成功。型検査は既存エラーが残存し新規ファイルの診断なし。ビルド・ブラウザE2E・目視確認は未実施（ユーザー指定）。 |
+| 最新 HEAD | `5bc06b4`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `chore(archive): move original chapter 7 HTML and Markdown unchanged` |
+| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`の目視確認。 |
+| ビルド状態 | npm経由の全体テスト3894件成功（123ファイル）、ページ406件・登録と原本保持4件・ナビと描画契約219件成功。lint成功。ビルド・ブラウザE2E・目視確認は未実施（ユーザー指定）。型検査のエラー位置・メッセージは既存基準と一致し、新規ファイルの診断なし。 |
+
+## 2026/10/17: CTAL-TAE 第7章 テスト自動化ソリューションの検証の移行
+
+- 移行先: `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`。Advancedカテゴリーの第6章の次へ追加し、ナビ・E2E一覧と固定順序・総数テストを100ルートへ同期。
+- 58見出し、40目次リンク、全30表の全セル、11図、コード例7件（Python・YAML・INI・Bash）、コールアウト18件、解答6件、学習チェック6項目、参考URL13件とフッターを原本と照合。参考外部リンクには`target="_blank" rel="noopener noreferrer"`を付与。
+- 原本全99 CSSルールをページ内へスコープし、900px・640px条件、ヒーローの背景と疑似要素、余白、表、セーフエリア対応を保持。共通CSSの干渉と共通ヘッダー分の固定要素位置・重なり順を補正。
+- 原本と同じhighlight.js 11.10.0を一時取得し、全7コードを静的TSXへ事前変換。コード全文・空白・改行・インデント・言語・構文トークンとAtom One Lightの全14 CSSルールを検証。配色のライセンスを保存し、プロジェクトの依存関係は変更なし。
+- 全11図の原本定義・実Mermaidパーサー・描画配線を検証。ライト設定、エッジラベル・シーケンス注釈、見切れと横スクロールの保護CSSを適用。
+- 目次40アンカーの追従と解放、モバイル開閉・スクリーン・リンク選択・Escape、6項目の全チェック・全解除と進捗表示を検証。確認問題はネイティブの`details`を維持。
+- Redテスト先行後、骨格とCSS、構文色、本文7カテゴリー、図、目次、進捗操作、ナビ、アーカイブ、仕様書を分割コミット。
+- 原本HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html`、MDは `archive/md-archive/ctal/Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.md` へ移動。双方のSHA-256一致を検証。
+- 検証: `npm exec -- bun test` 全3894件成功（123ファイル）、ページ406件・原本保持と登録4件・ナビと描画契約219件成功。`npm run lint`成功。ビルド・ブラウザE2E・目視確認は未実施。型検査のエラー位置・メッセージは移行対象を除外した既存基準と一致し、新規ファイルの診断なし。
 
 ## 2026/10/17: CTAL-TAE 第6章 レポートとメトリクスの移行
 
@@ -1454,6 +1466,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1480,10 +1493,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 99 ルート（ガイドライブラリ index + 98 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 100 ルート（ガイドライブラリ index + 99 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト3480件すべて成功（121ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第6章 レポートとメトリクス」（`/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics`）を登録済み。目視確認はユーザーが担当。
+- 全体テスト3894件すべて成功（123ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第7章 テスト自動化ソリューションの検証」（`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`）を登録済み。目視確認はユーザーが担当。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
