@@ -6,6 +6,7 @@ import DataAnalysis from './DataAnalysis';
 import Reporting from './Reporting';
 import SummaryQuestions from './SummaryQuestions';
 import LearningReferences from './LearningReferences';
+import NavBar from './NavBar';
 import './ctal-tae-ch6.css';
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-    return <div className="ctal-tae-ch6-page"><div className="layout"><main className="main">
+    return <div className="ctal-tae-ch6-page"><div className="layout"><NavBar /><main className="main">
         <header className="hero">
             <span className="eyebrow">
                 {"ISTQB CTAL-TAE v2.0 ・ Chapter 6"}
