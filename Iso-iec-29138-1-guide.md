@@ -399,6 +399,7 @@ flowchart TD
 | ISO/IEC Guide 71:2014 | 規格を作る人向けに、アクセシビリティの目標・人間の能力・戦略を示す | ガイド |
 | **ISO/IEC 29138-1:2018** | ICT向けの**ユーザアクセシビリティニーズの一覧** | ニーズ集 |
 | ISO/IEC 29138-3:2022 | あるニーズ集合と、特定の規格・指針の条項を**対応づける方法**を示す | 要求・推奨 |
+| ISO/IEC 29138-4:2026 | ユーザアクセシビリティニーズを、ICT製品・サービスの**調達・開発・評価に適用**し、その適用を文書化するための手引き | ガイダンス |
 | WCAG 2.2 | Webコンテンツの**検証可能な達成基準** | 技術基準 |
 | EN 301 549 | EUでのICT製品・サービスの要求事項。第4章に機能性能の記述（ユーザ視点のニーズ）がある | 調達・法令関連 |
 
@@ -486,6 +487,7 @@ flowchart TD
 | ISO/IEC 29138-1:2018 | 発行済み・有効。2024年の見直しで確認。2026-08-26 に「改訂予定」ステージへ | 当面は2018年版が最新の発行版 |
 | ISO/IEC AWI 29138-1（第2版） | 2026-08-26 に新規プロジェクト承認、起草開始 | 数年単位の作業になる可能性。発行前に動向を確認 |
 | ISO/IEC 29138-3:2022 | 2022年5月発行。ニーズのマッピング指針 | ニーズと各基準の対応表を作るときの参考 |
+| ISO/IEC 29138-4:2026 | 第1版。2026年6月に発行（カナダ規格評議会などの規格団体の掲載による。ISO公式ページの表示が「発行準備中」のままの場合があるため、最新状態はISOで確認する）。ニーズを要求事項へ変換し、その充足を評価し、調達に適用するための手引き | 調達仕様・開発要求・評価計画にニーズを反映するときの参考。29138-3 のマッピング指針と併用する |
 | WCAG 2.2 | 2023年10月5日にW3C勧告となった。現行の実務基準 | 監査・調達では引き続き中心 |
 | WCAG 3.0 | 2026年9月10日に作業草案が更新。まだ草案であり、WCAG 2.xを廃止するものではないとW3Cが説明 | 動向は追うが、現時点では適合目標にしない |
 | EU 欧州アクセシビリティ法（EAA） | 2025年6月28日から適用開始 | EU市場に提供する製品・サービスのうち、EAAの対象となるものに適用される。対象範囲と例外（零細企業向けの適用除外、不均衡な負担の主張など）を確認する |
@@ -532,6 +534,8 @@ flowchart TD
 | ISO公式 | ISO/IEC 29138-1:2018 の公式ページ（概要、ライフサイクル、ステージ） | <a href="https://www.iso.org/standard/71953.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/71953.html</a> |
 | ISO公式 | ISO/IEC AWI 29138-1（第2版・開発中） | <a href="https://www.iso.org/standard/95214.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/95214.html</a> |
 | ISO公式 | ISO/IEC 29138-3:2022（ユーザニーズのマッピング） | <a href="https://www.iso.org/standard/80765.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/80765.html</a> |
+| ISO公式 | ISO/IEC 29138-4:2026（ユーザアクセシビリティニーズの適用） | <a href="https://www.iso.org/standard/89285.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/89285.html</a> |
+| 各国規格団体 | カナダ規格評議会の ISO/IEC 29138-4:2026 の情報（発行日の確認） | <a href="https://scc-ccn.ca/standardsdb/standards/2058846" target="_blank" rel="noopener noreferrer">https://scc-ccn.ca/standardsdb/standards/2058846</a> |
 | ISO/IEC | ISO/IEC Guide 71:2014（11の目標、用語、戦略）。アイルランド国立ユニバーサルデザインセンター（universaldesign.ie）が公開しているPDF | <a href="https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf" target="_blank" rel="noopener noreferrer">https://universaldesign.ie/uploads/publications/ISO-IEC-Guide-71-2014.pdf</a> |
 | IEC | IEC Webstore の 29138-1 のページ | <a href="https://webstore.iec.ch/en/publication/64193" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/64193</a> |
 | IEC | IEC Webstore の 29138-3 のページ | <a href="https://webstore.iec.ch/publication/76037" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/76037</a> |
