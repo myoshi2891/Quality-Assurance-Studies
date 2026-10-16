@@ -247,7 +247,7 @@ describe('interactive behavior', () => {
         $('details').each((_, el) => {
             expect($(el).attr('open')).toBeUndefined();
             expect($(el).children('summary').text()).toBe('解答と解説');
-            expect($(el).find('.answer').text().trim().length).toBeGreaterThan(0);
+            expect($(el).children('p').text().trim().length).toBeGreaterThan(0);
         });
     });
 });
