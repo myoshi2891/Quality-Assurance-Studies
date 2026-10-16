@@ -122,14 +122,15 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       const { container } = render(<NavBar />);
       const toggleBtn = container.querySelector('#sidebarToggle');
       const sidebar = container.querySelector('#sidebar');
-      expect(sidebar?.classList.contains('open')).toBe(false);
+      // 要素の欠落で開閉検証が黙ってスキップされないよう、先に存在を確定させる
+      if (!toggleBtn) throw new Error('#sidebarToggle が描画されていない');
+      if (!sidebar) throw new Error('#sidebar が描画されていない');
+      expect(sidebar.classList.contains('open')).toBe(false);
 
-      if (toggleBtn) {
-        fireEvent.click(toggleBtn);
-        expect(sidebar?.classList.contains('open')).toBe(true);
-        fireEvent.click(toggleBtn);
-        expect(sidebar?.classList.contains('open')).toBe(false);
-      }
+      fireEvent.click(toggleBtn);
+      expect(sidebar.classList.contains('open')).toBe(true);
+      fireEvent.click(toggleBtn);
+      expect(sidebar.classList.contains('open')).toBe(false);
     });
 
     it('exposes open state and controlled target on the sidebar toggle button', () => {
@@ -478,16 +479,18 @@ describe('CTAL-TAE Chapter 2 Page Migration Spec', () => {
       const progressCount = sec4?.querySelector('.cp-count');
       expect(progressCount?.textContent?.trim()).toBe('0 / 7 完了');
 
-      // Click first checkbox
-      if (checkboxes.length > 0) {
-        fireEvent.click(checkboxes[0]);
-        expect(progressCount?.textContent?.trim()).toBe('1 / 7 完了');
-        const fill = sec4?.querySelector('.cp-bar-fill') as HTMLElement;
-        expect(fill?.style.width).toBe('14%');
+      // 先頭チェックボックスと進捗バーの存在を確定させてから無条件に操作する
+      const firstCheckbox = checkboxes[0];
+      if (!firstCheckbox) throw new Error('チェックボックスが描画されていない');
+      const fill = sec4?.querySelector<HTMLElement>('.cp-bar-fill');
+      if (!fill) throw new Error('.cp-bar-fill が描画されていない');
 
-        fireEvent.click(checkboxes[0]);
-        expect(progressCount?.textContent?.trim()).toBe('0 / 7 完了');
-      }
+      fireEvent.click(firstCheckbox);
+      expect(progressCount?.textContent?.trim()).toBe('1 / 7 完了');
+      expect(fill.style.width).toBe('14%');
+
+      fireEvent.click(firstCheckbox);
+      expect(progressCount?.textContent?.trim()).toBe('0 / 7 完了');
     });
   });
 
