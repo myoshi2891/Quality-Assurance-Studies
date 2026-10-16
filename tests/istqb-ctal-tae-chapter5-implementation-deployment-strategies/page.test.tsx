@@ -117,7 +117,8 @@ describe('Mermaid sources and rendering', () => {
       const chart = DIAGRAMS[key as keyof typeof DIAGRAMS];
       expect(chart.startsWith(MERMAID_CONFIG)).toBe(true);
       expect(chart.slice(MERMAID_CONFIG.length).trim()).toBe(source.split('\n').map(l => l.trim()).join('\n').trim());
-      const parser = (await import('mermaid/dist/mermaid.esm.mjs')).default as unknown as { parse: (text: string) => Promise<unknown> };
+      const mermaidEntry = 'mermaid/dist/mermaid.esm.mjs';
+      const parser = (await import(mermaidEntry)).default as unknown as { parse: (text: string) => Promise<unknown> };
       expect(await parser.parse(chart)).toBeTruthy();
     });
   }
