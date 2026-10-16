@@ -13,10 +13,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `5bc06b4`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `chore(archive): move original chapter 7 HTML and Markdown unchanged` |
+| 最新 HEAD | `b5579c0`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `fix(ctal-tae-ch7): override inherited dark Mermaid node background` |
 | 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`の目視確認。 |
-| ビルド状態 | npm経由の全体テスト3894件成功（123ファイル）、ページ406件・登録と原本保持4件・ナビと描画契約219件成功。lint成功。ビルド・ブラウザE2E・目視確認は未実施（ユーザー指定）。型検査のエラー位置・メッセージは既存基準と一致し、新規ファイルの診断なし。 |
+| ビルド状態 | 第7章Mermaid配色を修正。ビルド・サーバー不要の実ブラウザ検証34件と関連ユニット555件、lintが成功。移行時の全体テスト3894件成功は既存記録を参照。本番ビルド・ページ全体の目視確認は未実施。 |
+
+## 2026-10-17: CTAL-TAE第7章 Mermaid黒塗りの修正
+
+- 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
+- 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026/10/17: CTAL-TAE 第7章 テスト自動化ソリューションの検証の移行
 

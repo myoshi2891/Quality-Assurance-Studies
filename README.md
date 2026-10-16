@@ -105,3 +105,10 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`を追加。58見出し・30表・11図・コード例7件・全99 CSSルールを固定インベントリと照合しました。構文色は原本と同じhighlight.js 11.10.0で事前生成し、全文とトークン、Atom One Lightの配色を検証しています。元HTML・MDは各アーカイブの`ctal/`へ移動しハッシュ一致を確認済みです。
 
 サンドボックスでは`npm exec -- bun test`と`npm run lint`を使用し、全3894件のテスト（123ファイル）とlintが成功。ビルドは実行せず、目視確認はユーザーが担当します。型検査には既存エラーが残っていますが、エラー位置・メッセージは移行対象を除外した基準と一致し、新規ファイルの診断はありません。
+
+## 2026-10-17: CTAL-TAE第7章 Mermaid黒塗りの修正
+
+* 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
+* 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
+* 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
+* 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
