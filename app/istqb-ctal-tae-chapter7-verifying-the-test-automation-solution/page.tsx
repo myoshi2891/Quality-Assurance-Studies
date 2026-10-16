@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import './highlight.css';
+import OverviewTerminology from './OverviewTerminology';
 import './ctal-tae-ch7.css';
 
 export const metadata: Metadata = {
@@ -54,5 +55,6 @@ export default function Page() {
                 </div>
             </div>
         </div>
+        <OverviewTerminology />
     </main></div></div>;
 }
