@@ -108,7 +108,7 @@ describe('design contract', () => {
     });
     // Assert final page declarations as well as original copies: copying CSS alone must not pass.
     const overrides = [
-        ['.hero', 'min-height', '0'], ['.hero', 'display', 'block'], ['.hero::after', 'content', 'none'],
+        ['.hero', 'min-height', '0'], ['.hero', 'display', 'block'], ['.hero-eyebrow', 'font-family', 'inherit'], ['.hero-eyebrow', 'animation', 'none'], ['.hero-eyebrow', 'margin-bottom', '0'], ['.hero-eyebrow::before', 'content', 'none'], ['.hero::after', 'content', 'none'],
         ['.main', 'max-width', 'none'], ['td', 'color', 'var(--text)'], ['th', 'font-family', 'inherit'],
         ['th', 'white-space', 'nowrap'], ['.main ul', 'list-style-type', 'disc'], ['.main ol', 'list-style-type', 'decimal'],
         ['.checklist-card ul', 'list-style-type', 'none'], ['.mermaid-wrapper', 'display', 'block'],
@@ -306,5 +306,19 @@ describe('original syntax highlighting', () => {
         expect(readFileSync(`${base}/page.tsx`, 'utf8')).toContain("import './highlight.css'");
         const $ = await html();
         expect($('script,link[rel=stylesheet]')).toHaveLength(0);
+    });
+});
+
+describe('standalone static code examples', () => {
+    inventory.code.forEach((code, index) => {
+        it(`CodeExample[${index}] renders the original highlighted text before page assembly`, async () => {
+            const entry = '../../app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/CodeExample';
+            const CodeExample = (await import(entry)).default as React.ComponentType<{ index: number }>;
+            const $ = load(renderToStaticMarkup(<CodeExample index={index} />));
+            const el = $('pre code')[0];
+            if (!el) throw new Error('Code example is missing');
+            expect($(el).text()).toBe(code.text);
+            expect(highlightTokens(el.children)).toEqual(code.tokens);
+        });
     });
 });
