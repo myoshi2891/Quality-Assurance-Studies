@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-10-12
+Updated 2026-10-16
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 96 ルート = ガイドライブラリ index + 95 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 97 ルート = ガイドライブラリ index + 96 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,21 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f68b0cd`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `chore(archive): move ctal-tae-ch2 source files to archive and update docs` |
-| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter2-preparing-for-test-automation`の目視確認。 |
-| ビルド状態 | 全体テスト`bun test`: 2799 pass / 0 fail、116 files（2026-10-12）。※`docs/coverage-dashboard.html` の「120 files」は `bun test` 対象 116 files に Playwright の `.e2e.ts` 4 files を加えた集計であり、差分 4 はこの集計基準の違いによる。ページ26テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`、383 expect() calls、全6Mermaid図・全7表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| 最新 HEAD | `2bfe7b8`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `feat(nav): register ctal-tae-chapter4 in navigation and e2e` |
+| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter4-implementing-test-automation`の目視確認。 |
+| ビルド状態 | ページ単体テスト（`tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`）全11件（180 expect() calls）、Mermaid契約テスト107件、ナビゲーション・E2E同期テスト73件すべて成功。ビルド検証はサンドボックス保護規約に基づきユーザーへ依頼。 |
+
+## 2026/10/16: ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」初学者向け解説ガイドの移行
+
+- 移行先: `/istqb-ctal-tae-chapter4-implementing-test-automation`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
+- 元HTMLの見出し、目次26リンク、全5表（キーワード、LO、パイロット5項目評価、ログレベル6段階、クリーンコード8原則）、Mermaid図6件（第4章の構成フロー、パイロット実行フロー、デプロイリスクの分類、リスク対応フロー、ハードコーディング回避の効果、第4章の学習フロー全体図）、インタラクティブチェックリスト（進捗バー・動的カウンター）、参考文献3件、ベストプラクティスカード3件を完全移行。
+- `docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
+- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`4f03fc2`）、CSS・ダイアグラム定義・Hero・Footer・ページ骨格（`a8fbce9`）、NavBar・目次（`69564ec`）、Section 0 & 1（`a6983f6`）、Section 2（`7c12236`）、Section 3（`d143350`）、Section 4（`6c6079e`）、Section 5, 6, 7（`3e6b7ed`）をそれぞれ独立コミット。
+- ページ単体テスト（`tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（11 pass / 180 expect() calls）。
+- Mermaid図6件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
+- 元HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.md` へ移動。
+- ナビ・E2E対象は97ルート。
 
 ## 2026/10/12: ISTQB CTAL-TAE 第2章「テスト自動化の準備」初学者向け解説ガイドの移行
 
@@ -1419,6 +1430,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 

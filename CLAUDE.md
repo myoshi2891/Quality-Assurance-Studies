@@ -136,6 +136,8 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css` — CTAL-TAE 第2章ガイド固有スタイル
 - `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.tsx` — CTAL-TAE 第2章ガイドページ（`NavBar.tsx` 付き）
 - `app/istqb-ctal-tae-chapter3-test-automation-architecture/page.tsx` — CTAL-TAE 第3章 テスト自動化アーキテクチャガイドページ（`NavBar.tsx` 付き）
+- `app/istqb-ctal-tae-chapter4-implementing-test-automation/ctal-tae-ch4.css` — CTAL-TAE 第4章ガイド固有スタイル
+- `app/istqb-ctal-tae-chapter4-implementing-test-automation/page.tsx` — CTAL-TAE 第4章ガイドページ（`NavBar.tsx` 付き）
 - `app/istqb-ctal-ta-complete-guide/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
 - `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
 - `app/istqb-ctal-ta-complete-guide/NavBar.tsx` — CTAL-TA ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -750,6 +752,7 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -774,10 +777,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 97 ルート（ガイドライブラリ index + 96 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2799件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
+- 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第4章 テスト自動化の実装」（`/istqb-ctal-tae-chapter4-implementing-test-automation`）が正常に登録・稼働しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
