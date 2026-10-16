@@ -4,6 +4,7 @@ import './highlight.css';
 import OverviewTerminology from './OverviewTerminology';
 import EnvironmentVerification from './EnvironmentVerification';
 import ScriptSuiteBehavior from './ScriptSuiteBehavior';
+import UnexpectedResults from './UnexpectedResults';
 import './ctal-tae-ch7.css';
 
 export const metadata: Metadata = {
@@ -60,5 +61,6 @@ export default function Page() {
         <OverviewTerminology />
         <EnvironmentVerification />
         <ScriptSuiteBehavior />
+        <UnexpectedResults />
     </main></div></div>;
 }
