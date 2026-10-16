@@ -822,6 +822,13 @@ main.ctal-tae-ch4-page {
     position: relative;
 }
 
+.ctal-tae-ch4-page .step-head {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+}
+
 .ctal-tae-ch4-page .step-card .step-num {
     display: inline-flex;
     align-items: center;
@@ -833,18 +840,21 @@ main.ctal-tae-ch4-page {
     color: #fff;
     font-weight: 700;
     font-size: 0.85rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
 
 .ctal-tae-ch4-page .step-card h4 {
-    margin-top: 0;
-    font-size: 1rem;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.3;
 }
 
 .ctal-tae-ch4-page .step-card p {
     font-size: 0.88rem;
     color: var(--ink-faint);
     margin-bottom: 0;
+    line-height: 1.7;
 }
 
 /* ---------- References List ---------- */

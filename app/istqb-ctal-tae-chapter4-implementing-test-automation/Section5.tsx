@@ -15,22 +15,28 @@ export default function Section5() {
 
       <div className="step-row">
         <div className="step-card">
-          <span className="step-num">4.1</span>
-          <h4>開発</h4>
+          <div className="step-head">
+            <span className="step-num">4.1</span>
+            <h4>開発</h4>
+          </div>
           <p>
             パイロットのスコープ・言語・ツール・テストレベルを評価し、小さく試して方向性を決める。
           </p>
         </div>
         <div className="step-card">
-          <span className="step-num">4.2</span>
-          <h4>リスク</h4>
+          <div className="step-head">
+            <span className="step-num">4.2</span>
+            <h4>リスク</h4>
+          </div>
           <p>
             パイロット・展開時に生じる一般的リスクと技術的リスク（パッケージング・ログ・構造化・更新）を識別し緩和する。
           </p>
         </div>
         <div className="step-card">
-          <span className="step-num">4.3</span>
-          <h4>保守性</h4>
+          <div className="step-head">
+            <span className="step-num">4.3</span>
+            <h4>保守性</h4>
+          </div>
           <p>
             クリーンコード原則・命名規則・デザインパターン・静的解析を通じて、長期的に保守可能な状態を保つ。
           </p>
