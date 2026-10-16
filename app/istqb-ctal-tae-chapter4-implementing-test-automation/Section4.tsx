@@ -118,7 +118,7 @@ export default function Section4() {
         <div className="diagram-title">
           <i className="ti ti-replace"></i> ハードコーディング回避の効果
         </div>
-        <div className="mermaid-wrapper">
+        <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_HARDCODING_AVOIDANCE} />
         </div>
         <div className="diagram-fallback" style={{ display: 'none' }}>

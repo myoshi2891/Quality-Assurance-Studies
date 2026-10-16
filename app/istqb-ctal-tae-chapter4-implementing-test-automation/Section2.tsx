@@ -87,7 +87,7 @@ export default function Section2() {
         <div className="diagram-title">
           <i className="ti ti-git-branch"></i> パイロット実行フロー
         </div>
-        <div className="mermaid-wrapper">
+        <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_PILOT_FLOW} />
         </div>
         <div className="diagram-fallback" style={{ display: 'none' }}>

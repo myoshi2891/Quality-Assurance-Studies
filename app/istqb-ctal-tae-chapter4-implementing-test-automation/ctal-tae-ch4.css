@@ -503,20 +503,143 @@ main.ctal-tae-ch4-page {
     padding: 0 !important;
     width: 100% !important;
     max-width: none !important;
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: center !important;
+    overflow: visible !important;
 }
 
+.ctal-tae-ch4-page .diagram-wrap,
 .ctal-tae-ch4-page .mermaid-container,
 .ctal-tae-ch4-page .mermaid-wrap {
     overflow-x: auto !important;
     max-width: 100% !important;
     width: 100% !important;
+    display: flex !important;
+    justify-content: safe center !important;
+    min-width: 0 !important;
 }
 
 .ctal-tae-ch4-page .mermaid-wrapper svg {
     max-width: none !important;
     height: auto !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+}
+
+/* Mermaid Default Nodes */
+.ctal-tae-ch4-page .mermaid-wrapper .node rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node circle,
+.ctal-tae-ch4-page .mermaid-wrapper .node ellipse,
+.ctal-tae-ch4-page .mermaid-wrapper .node polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node path,
+.ctal-tae-ch4-page .mermaid-wrapper .node .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node .label-container {
+    fill: #ffffff;
+    stroke: #e2d9c8;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper .node:not(.box):not(.hub):not(.done) rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node:not(.box):not(.hub):not(.done) polygon {
+    fill: #ffffff !important;
+    stroke: #e2d9c8 !important;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper .node .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node foreignObject span,
+.ctal-tae-ch4-page .mermaid-wrapper .node foreignObject p {
+    color: #2b2420;
+    fill: #2b2420;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* Hub Node: Indigo (Chapter Hubs & Key Themes) */
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .label-container {
+    fill: #e7eafb !important;
+    stroke: #3b4fc2 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub foreignObject span {
+    color: #29348a !important;
+    fill: #29348a !important;
+    font-weight: 600;
+}
+
+/* Box Node: Amber/Gold (Decisions & General Risks) */
+.ctal-tae-ch4-page .mermaid-wrapper .node.box rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .label-container {
+    fill: #f6ecd3 !important;
+    stroke: #7d5c14 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box foreignObject span {
+    color: #5c4310 !important;
+    fill: #5c4310 !important;
+    font-weight: 600;
+}
+
+/* Done Node: Forest Green (Success, Long-term Operation) */
+.ctal-tae-ch4-page .mermaid-wrapper .node.done rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .label-container {
+    fill: #dcefe3 !important;
+    stroke: #1f4a36 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done foreignObject span {
+    color: #1f4a36 !important;
+    fill: #1f4a36 !important;
+    font-weight: 600;
+}
+
+/* Specific Done override for Technical Deployment Risks (Plum) */
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] polygon {
+    fill: #efe3f2 !important;
+    stroke: #4a2757 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] foreignObject span {
+    color: #4a2757 !important;
+    fill: #4a2757 !important;
+    font-weight: 600;
+}
+
+/* Mermaid Flowchart Links & Markers */
+.ctal-tae-ch4-page .mermaid-wrapper .flowchart-link,
+.ctal-tae-ch4-page .mermaid-wrapper .edgePath path {
+    stroke: #726858 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .marker {
+    fill: #726858 !important;
+    stroke: #726858 !important;
 }
 
 /* Mermaid EdgeLabels */
@@ -532,9 +655,10 @@ main.ctal-tae-ch4-page {
 .ctal-tae-ch4-page .mermaid-wrapper .edgeLabel text,
 .ctal-tae-ch4-page .mermaid-wrapper .edgeLabels .label {
     background-color: #ffffff !important;
-    color: #1e293b !important;
-    fill: #1e293b !important;
-    font-weight: 700 !important;
+    color: #2b2420 !important;
+    fill: #2b2420 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
 }
 
 /* Mermaid ForeignObject text clipping fix */

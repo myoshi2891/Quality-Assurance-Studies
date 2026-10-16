@@ -41,7 +41,7 @@ export default function Section5() {
         <div className="diagram-title">
           <i className="ti ti-timeline"></i> 第4章の学習フロー全体図
         </div>
-        <div className="mermaid-wrapper">
+        <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_CH4_SUMMARY} />
         </div>
         <div className="diagram-fallback" style={{ display: 'none' }}>

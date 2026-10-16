@@ -18,7 +18,7 @@ export default function Section0() {
         <div className="diagram-title">
           <i className="ti ti-sitemap"></i> 第4章の構成フロー
         </div>
-        <div className="mermaid-wrapper">
+        <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_CH4_OVERVIEW} />
         </div>
         <div className="diagram-fallback" style={{ display: 'none' }}>

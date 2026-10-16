@@ -22,7 +22,7 @@ export default function Section3() {
         <div className="diagram-title">
           <i className="ti ti-alert-triangle"></i> デプロイリスクの分類
         </div>
-        <div className="mermaid-wrapper">
+        <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_DEPLOYMENT_RISKS} />
         </div>
         <div className="diagram-fallback" style={{ display: 'none' }}>
@@ -198,7 +198,7 @@ export default function Section3() {
         <div className="diagram-title">
           <i className="ti ti-route"></i> リスク対応フロー（まとめ図）
         </div>
-        <div className="mermaid-wrapper">
+        <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_RISK_FLOW} />
         </div>
         <div className="diagram-fallback" style={{ display: 'none' }}>
