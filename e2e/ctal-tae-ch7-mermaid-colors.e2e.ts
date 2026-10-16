@@ -38,9 +38,10 @@ for (const width of [390, 1440]) {
                     return { background, foreground, contrast: contrast(foreground, background) };
                 });
                 const actors = [...document.querySelectorAll('rect.actor')].map(el => getComputedStyle(el).fill);
-                const svgText = [...document.querySelectorAll('svg text')].filter(el => el.textContent?.trim()).map(el => {
+                const svgText = [...document.querySelectorAll('svg text, svg text tspan')].filter(el => el.textContent?.trim() && el.children.length === 0).map(el => {
                     const foreground = getComputedStyle(el).fill;
-                    return { foreground, contrast: contrast(foreground, 'rgb(255, 255, 255)') };
+                    const background = el.closest('text.actor') ? actors[0] ?? 'rgb(255, 255, 255)' : 'rgb(255, 255, 255)';
+                    return { foreground, background, contrast: contrast(foreground, background), text: el.textContent };
                 });
                 return { nodes, actors, svgText };
             }, { chart, id, globalConfig });
