@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-15
+Updated 2026-10-17
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -111,6 +111,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.tsx` (CTAL-TAE 第2章 テスト自動化の準備、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-chapter3-test-automation-architecture/page.tsx` (CTAL-TAE 第3章 テスト自動化アーキテクチャ、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-chapter4-implementing-test-automation/page.tsx` (CTAL-TAE 第4章 テスト自動化の実装、`NavBar.tsx` 付き)
+- `app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.tsx` (CTAL-TAE 第5章 実装・デプロイ戦略、`NavBar.tsx`・`diagrams.ts`・専用CSS付き)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter1-test-process/page.tsx` (CTAL-TA 第1章 テストプロセス、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/page.tsx` (CTAL-TA 第2章 リスクベースドテスト、`NavBar.tsx` 付き)
@@ -209,7 +210,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（96 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（98 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -355,6 +356,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
 
 ### ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」の追加移行（2026-10-16）
 
@@ -423,10 +425,10 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 97 ルート（ガイドライブラリ index + 96 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 98 ルート（ガイドライブラリ index + 97 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第4章 テスト自動化の実装」（`/istqb-ctal-tae-chapter4-implementing-test-automation`）が正常に登録・稼働しています。
+- 新規追加「CTAL-TAE 第5章 実装・デプロイ戦略」（`/istqb-ctal-tae-chapter5-implementation-deployment-strategies`）を登録済み。目視確認はユーザーが担当。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
@@ -439,3 +441,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 ## LangGraphコード表示
 
 `app/langgraph-qa-agent-guide/SyntaxCode.tsx`はPython・Bashのコードをサーバー側でハイライトする。追加ライブラリ・CDNを使わず、Reactの文字列エスケープによりコードの安全性と改行を維持する。全15ブロックの本文一致と色分けをテストしている。
+
+## 2026-10-17: CTAL-TAE 第5章移行の検証
+
+- ナビ・E2E登録は98ルート、Advancedカテゴリーは19件。新規ページ196件・原本保持と登録4件を検証。全体テスト3063件（119ファイル）とlintが成功。
+- 原本HTML・MDは各アーカイブの`ctal/`へ移動しSHA-256一致。ビルド・ブラウザE2E・目視確認は未実施。型検査は既存テストのエラーが残存。

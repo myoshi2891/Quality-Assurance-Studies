@@ -1,6 +1,6 @@
 # ソフトウェアテスト実施概要
 
-最終更新日: 2026-10-12
+最終更新日: 2026-10-17
 
 本プロジェクトにおいて、システムの品質（正しく動くか・快適に使えるか）を担保するために実施するテスト項目の概要と目的を以下に定義します。
 
@@ -99,3 +99,7 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 `/beyond-legacy-code-guide`に移行しました。元の紙色・藍色テーマ、階層目次18リンク、Mermaid図6件、全87CSSルールを保持しています。元HTML・Markdownは`archive/html-archive/books/`と`archive/md-archive/books/`で追跡管理しています。
 
 `bun test tests/beyond-legacy-code-guide/page.test.tsx`で501テストを実行し、本文全文・DOM順序・表の全セル・図ソースと配置・CSS宣言・モバイル目次・アーカイブのハッシュを照合します。ビルドと目視確認は今回実施していません。
+
+## CTAL-TAE 第5章の移行検証（2026-10-17）
+
+`/istqb-ctal-tae-chapter5-implementation-deployment-strategies`を追加。元HTML・MDは各アーカイブの`ctal/`へ移動済み。サンドボックスでは`npm exec -- bun test`（既存Bun形式テスト）と`npm run lint`を使用し、全3063件のテストとlintが成功。ビルドは実行せず、目視確認はユーザーが担当します。全体の型検査には既存テストのエラーが残っています。

@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-07
+最終更新日: 2026-10-17
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -68,9 +68,9 @@
 
 **目的**: ページ内ナビゲーションがないページに、CT-AI と同じパターンで新規実装する  
 **参照実装**: `app/istqb-ct-ai-complete-guide/` — NavBar.tsx・CSS・page.tsx の 3 点セット  
-**NavBar 未実装のページ（2025-05-17 時点）**:
+**NavBar 未実装のページ（2026-10-17 時点）**:
 
-- なし（すべて実装完了）
+- なし（すべて実装完了）。CTAL-TAE第5章も`app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/NavBar.tsx`で対応済み。デスクトップ固定・860px以下で通常配置という原本の挙動を維持。
 
 > 以下の画面にページ内のスティッキーナビゲーションを新規追加してください。
 > /istqb-ct-ai-complete-guide の実装を参考にしてください。
