@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import IntroTerms from './IntroTerms';
 import DataCollection from './DataCollection';
 import DataAnalysis from './DataAnalysis';
+import Reporting from './Reporting';
 import './ctal-tae-ch6.css';
 
 export const metadata: Metadata = {
@@ -57,5 +58,6 @@ export default function Page() {
         <IntroTerms />
         <DataCollection />
         <DataAnalysis />
+        <Reporting />
     </main></div></div>;
 }
