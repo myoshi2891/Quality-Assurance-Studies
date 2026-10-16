@@ -494,6 +494,17 @@ main.ctal-tae-ch4-page {
     color: var(--indigo-text);
 }
 
+.ctal-tae-ch4-page .diagram-wrap,
+.ctal-tae-ch4-page .mermaid-container,
+.ctal-tae-ch4-page .mermaid-wrap {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+    min-width: 0 !important;
+    padding: 0.5rem 0 !important;
+}
+
 .ctal-tae-ch4-page .mermaid-wrapper {
     background: transparent !important;
     border: none !important;
@@ -503,26 +514,15 @@ main.ctal-tae-ch4-page {
     padding: 0 !important;
     width: 100% !important;
     max-width: none !important;
-    display: flex !important;
-    justify-content: center !important;
+    display: block !important;
     overflow: visible !important;
-}
-
-.ctal-tae-ch4-page .diagram-wrap,
-.ctal-tae-ch4-page .mermaid-container,
-.ctal-tae-ch4-page .mermaid-wrap {
-    overflow-x: auto !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: safe center !important;
-    min-width: 0 !important;
 }
 
 .ctal-tae-ch4-page .mermaid-wrapper svg {
     max-width: none !important;
     height: auto !important;
-    flex-shrink: 0 !important;
+    display: block !important;
+    margin: 0 auto !important;
     overflow: visible !important;
 }
 
