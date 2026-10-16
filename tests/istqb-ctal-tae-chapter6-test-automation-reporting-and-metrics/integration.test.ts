@@ -12,9 +12,9 @@ describe('chapter 6 registration and source archives', () => {
         expect(NAV_ITEMS[index]?.category).toBe('istqb-advanced');
         expect(NAV_ITEMS[index - 1]?.href).toBe('/istqb-ctal-tae-chapter5-implementation-deployment-strategies');
     });
-    it('synchronizes all 99 routes and the real chapter heading with smoke expectations', () => {
-        expect(NAV_ITEMS).toHaveLength(99);
-        expect(EXPECTED_PAGE_COUNT).toBe(99);
+    it('synchronizes all 100 routes and the real chapter heading with smoke expectations', () => {
+        expect(NAV_ITEMS).toHaveLength(100);
+        expect(EXPECTED_PAGE_COUNT).toBe(100);
         expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
         const pages = PAGES.filter(page => page.path === href);
         expect(pages).toHaveLength(1);
