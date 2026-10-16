@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 97 entries (home + 9 foundation + 11 fdn-ext + 18 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 22 books-practices + 1 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(97);
+  it('contains 98 entries (home + 9 foundation + 11 fdn-ext + 19 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 22 books-practices + 1 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(98);
   });
 
   it('every item has a unique href', () => {
