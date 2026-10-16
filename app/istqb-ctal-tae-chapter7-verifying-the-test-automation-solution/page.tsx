@@ -7,6 +7,7 @@ import ScriptSuiteBehavior from './ScriptSuiteBehavior';
 import UnexpectedResults from './UnexpectedResults';
 import StaticAnalysis from './StaticAnalysis';
 import ReviewQuestions from './ReviewQuestions';
+import GlossaryReferences from './GlossaryReferences';
 import './ctal-tae-ch7.css';
 
 export const metadata: Metadata = {
@@ -66,5 +67,6 @@ export default function Page() {
         <UnexpectedResults />
         <StaticAnalysis />
         <ReviewQuestions />
+        <GlossaryReferences />
     </main></div></div>;
 }
