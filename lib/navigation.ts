@@ -73,6 +73,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-tae-chapter3-test-automation-architecture', label: 'CTAL-TAE 3章 テスト自動化アーキテクチャ', description: 'gTAA、TAFの3層レイヤー化、7つの自動化アプローチ、設計原則・SOLID・デザインパターン。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tae-chapter4-implementing-test-automation', label: 'CTAL-TAE 4章 自動化の実装', description: 'パイロットとデプロイのガイドライン、一般的・技術的デプロイリスク、保守性とクリーンコード原則。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', label: 'CTAL-TAE 5章 実装・デプロイ戦略', description: 'CI/CDへのテストレベル統合、テストウェアの構成管理、API依存関係とコントラクトテスト。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics', label: 'CTAL-TAE 6章 レポートとメトリクス', description: '自動テストのデータ収集、失敗分析、進捗レポートの作成と公開、メトリクスの活用。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', description: 'ビジネス視点のテスト分析・設計と品質特性の評価。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter1-test-process', label: 'CTAL-TA 1章 テストプロセス', description: 'SDLCにおけるTAのタスク、テスト活動への関与、テスト成果物管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter2-risk-based-testing', label: 'CTAL-TA 2章 リスクベースドテスト', description: 'リスクベースドテストにおけるTAの役割、リスク識別・評価・軽減活動。', category: 'istqb-advanced' },

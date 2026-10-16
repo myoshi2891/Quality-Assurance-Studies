@@ -111,8 +111,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-tae-chapter2-preparing-for-test-automation', h1: /Preparing for Test Automation|テスト自動化の準備/ },
   { path: '/istqb-ctal-tae-chapter4-implementing-test-automation', h1: /Implementing Test Automation|テスト自動化の実装/ },
   { path: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', h1: /Implementation and Deployment Strategies for Test Automation/ },
+  { path: '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics', h1: /第6章.*Test Automation Reporting and Metrics/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 98;
+export const EXPECTED_PAGE_COUNT = 99;
 
 
