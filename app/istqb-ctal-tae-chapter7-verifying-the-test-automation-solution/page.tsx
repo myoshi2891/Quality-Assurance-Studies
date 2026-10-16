@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './highlight.css';
 import OverviewTerminology from './OverviewTerminology';
 import EnvironmentVerification from './EnvironmentVerification';
+import ScriptSuiteBehavior from './ScriptSuiteBehavior';
 import './ctal-tae-ch7.css';
 
 export const metadata: Metadata = {
@@ -58,5 +59,6 @@ export default function Page() {
         </div>
         <OverviewTerminology />
         <EnvironmentVerification />
+        <ScriptSuiteBehavior />
     </main></div></div>;
 }
