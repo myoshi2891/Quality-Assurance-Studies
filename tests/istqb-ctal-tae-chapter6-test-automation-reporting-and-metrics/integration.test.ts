@@ -1,0 +1,30 @@
+import { describe, expect, it } from 'bun:test';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
+import { NAV_ITEMS } from '../../lib/navigation';
+import { EXPECTED_PAGE_COUNT, PAGES } from '../../e2e/pages';
+import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics.json';
+const href = '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics';
+describe('chapter 6 registration and source archives', () => {
+    it('registers exactly once in Advanced immediately after chapter 5', () => {
+        expect(NAV_ITEMS.filter(item => item.href === href)).toHaveLength(1);
+        const index = NAV_ITEMS.findIndex(item => item.href === href);
+        expect(NAV_ITEMS[index]?.category).toBe('istqb-advanced');
+        expect(NAV_ITEMS[index - 1]?.href).toBe('/istqb-ctal-tae-chapter5-implementation-deployment-strategies');
+    });
+    it('synchronizes all 99 routes and the real chapter heading with smoke expectations', () => {
+        expect(NAV_ITEMS).toHaveLength(99);
+        expect(EXPECTED_PAGE_COUNT).toBe(99);
+        expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
+        const pages = PAGES.filter(page => page.path === href);
+        expect(pages).toHaveLength(1);
+        expect(pages[0]?.h1.test('CTAL-TAE v2.0 第6章「Test Automation Reporting and Metrics」初学者向け解説ガイド')).toBe(true);
+    });
+    for (const ext of ['html', 'md'] as const) {
+        it(`archives the original ${ext} unchanged and removes it from the project root`, () => {
+            expect(existsSync(`${inventory.source}.${ext}`)).toBe(false);
+            const content = readFileSync(`archive/${ext}-archive/ctal/${inventory.source}.${ext}`);
+            expect(createHash('sha256').update(content).digest('hex')).toBe(inventory.hashes[ext]);
+        });
+    }
+});
