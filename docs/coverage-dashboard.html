@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-10-17">2026-10-17</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 98 pages · 3 components · 12 libs · 5 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 99 pages · 3 components · 12 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">127<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">129<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num" id="kpi-pages-tested">98<span class="unit">/ 98</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">99<span class="unit">/ 99</span></div>
       <div class="kpi-lbl">Pages Tested · 100%</div>
-      <p class="kpi-desc"><span id="kpi-pages-desc-count">98</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 98 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
+      <p class="kpi-desc"><span id="kpi-pages-desc-count">99</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 99 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">98</span> routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">99</span> routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">98</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">99</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong id="cnt-total">98</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong id="cnt-e2e">98</strong> with E2E</span>
+      <span class="chip"><strong id="cnt-total">99</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-e2e">99</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">127 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">129 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">99 files</span>
+          <span class="inv-count" id="inv-count-pages">101 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1274,7 +1274,8 @@ const pages = [
   { path: '/istqb-ctal-tae-chapter2-preparing-for-test-automation', topic: 'ISTQB Advanced — CTAL-TAE Ch2 テスト自動化の準備', tested: true },
   { path: '/istqb-ctal-tae-chapter3-test-automation-architecture', topic: 'ISTQB Advanced — CTAL-TAE Ch3 アーキテクチャ', tested: true },
   { path: '/istqb-ctal-tae-chapter4-implementing-test-automation', topic: 'ISTQB Advanced — CTAL-TAE Ch4 テスト自動化の実装', tested: true },
-  { path: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', topic: 'CTAL-TAE 第5章 実装・デプロイ戦略', tested: true }
+  { path: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', topic: 'CTAL-TAE 第5章 実装・デプロイ戦略', tested: true },
+  { path: '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics', topic: 'CTAL-TAE 第6章 レポートとメトリクス', tested: true }
 ];
 const DATA = {
   matrix: [
@@ -1282,7 +1283,7 @@ const DATA = {
       category: 'Pages',
       hint: `${pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes.` },
+        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'partial', value: '12', label: 'CSS geometry', note: 'CT-GenAI study: Chromium verifies both scroll edges and small-diagram centering across 4 viewport widths and 3 SVG widths; screenshot baselines remain absent.' },
@@ -1514,7 +1515,9 @@ const DATA = {
       'tests/unit-testing-principles-practices-patterns-guide/page.test.tsx',
       'tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx',
       'tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/integration.test.ts',
-      'tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.test.tsx'
+      'tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.test.tsx',
+      'tests/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/page.test.tsx',
+      'tests/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/integration.test.ts'
     ],
     components: [
       'tests/components/Header.test.tsx',
