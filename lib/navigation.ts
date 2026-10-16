@@ -71,6 +71,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-tae-chapter1-introduction-and-objectives', label: 'CTAL-TAE 1章 導入と目的', description: 'テスト自動化の目的、メリット・デメリット・限界、SDLCモデル別の適用とツール選定。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tae-chapter2-preparing-for-test-automation', label: 'CTAL-TAE 2章 テスト自動化の準備', description: 'テスト容易性の3側面、各種環境での自動テスト活用、SUT分析とツール評価プロセス。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tae-chapter3-test-automation-architecture', label: 'CTAL-TAE 3章 テスト自動化アーキテクチャ', description: 'gTAA、TAFの3層レイヤー化、7つの自動化アプローチ、設計原則・SOLID・デザインパターン。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tae-chapter4-implementing-test-automation', label: 'CTAL-TAE 4章 自動化の実装', description: 'パイロットとデプロイのガイドライン、一般的・技術的デプロイリスク、保守性とクリーンコード原則。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', description: 'ビジネス視点のテスト分析・設計と品質特性の評価。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter1-test-process', label: 'CTAL-TA 1章 テストプロセス', description: 'SDLCにおけるTAのタスク、テスト活動への関与、テスト成果物管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter2-risk-based-testing', label: 'CTAL-TA 2章 リスクベースドテスト', description: 'リスクベースドテストにおけるTAの役割、リスク識別・評価・軽減活動。', category: 'istqb-advanced' },
