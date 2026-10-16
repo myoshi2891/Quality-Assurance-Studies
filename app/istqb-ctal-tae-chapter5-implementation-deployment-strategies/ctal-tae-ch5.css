@@ -1,0 +1,688 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css");
+
+
+            .ctal-tae-ch5-page {
+                --color-paper: #f6f7f9;
+                --color-card: #ffffff;
+                --color-ink: #161b26;
+                --color-ink-secondary: #454e60;
+                --color-ink-tertiary: #6b7488;
+                --color-indigo: #2e3f72;
+                --color-indigo-tint: #eef1f8;
+                --color-gold: #b8802a;
+                --color-gold-tint: #faf1df;
+                --color-forest: #1b6e6a;
+                --color-forest-tint: #eaf4ec;
+                --color-plum: #8c3a5c;
+                --color-plum-tint: #f7eaf0;
+                --color-border: #e3e6ec;
+                --color-border-strong: #c7cdd9;
+                --radius-md: 8px;
+                --radius-lg: 12px;
+                --radius-xl: 16px;
+                --font-serif: 'Source Serif 4', serif;
+                --font-sans:
+                    'Noto Sans JP', 'Hiragino Kaku Gothic ProN', system-ui, -apple-system,
+                    sans-serif;
+            }
+            .ctal-tae-ch5-page * {
+                box-sizing: border-box;
+            }
+            .ctal-tae-ch5-page {
+                scroll-behavior: smooth;
+            }
+            .ctal-tae-ch5-page {
+                margin: 0;
+                background: var(--color-paper);
+                color: var(--color-ink-secondary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                -webkit-font-smoothing: antialiased;
+            }
+            .ctal-tae-ch5-page .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .ctal-tae-ch5-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 288px;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--color-card);
+                border-right: 1px solid var(--color-border);
+                padding: 32px 22px 40px;
+            }
+            .ctal-tae-ch5-page .brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding-bottom: 22px;
+                margin-bottom: 22px;
+                border-bottom: 1px solid var(--color-border);
+            }
+            .ctal-tae-ch5-page .brand-seal {
+                width: 46px;
+                height: 46px;
+                flex-shrink: 0;
+            }
+            .ctal-tae-ch5-page .brand-text .brand-title {
+                font-family: var(--font-serif);
+                font-size: 17px;
+                font-weight: 700;
+                color: var(--color-indigo);
+                line-height: 1.35;
+            }
+            .ctal-tae-ch5-page .brand-text .brand-subtitle {
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+                margin-top: 3px;
+            }
+            .ctal-tae-ch5-page .nav {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .ctal-tae-ch5-page .nav-link {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 10px;
+                border-radius: var(--radius-md);
+                text-decoration: none;
+                color: var(--color-ink-secondary);
+                font-size: 16px;
+                line-height: 1.35;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+            .ctal-tae-ch5-page .nav-link:hover {
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+            }
+            .ctal-tae-ch5-page .nav-link.active {
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+                border-left-color: var(--color-indigo);
+                font-weight: 600;
+            }
+            .ctal-tae-ch5-page .nav-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 26px;
+                height: 26px;
+                border-radius: 999px;
+                background: var(--color-paper);
+                border: 1px solid var(--color-border-strong);
+                color: var(--color-ink-tertiary);
+                font-size: 16px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .ctal-tae-ch5-page .nav-link.active .nav-badge {
+                background: var(--color-indigo);
+                border-color: var(--color-indigo);
+                color: #fff;
+            }
+            .ctal-tae-ch5-page .sidebar-foot {
+                margin-top: 26px;
+                padding-top: 18px;
+                border-top: 1px solid var(--color-border);
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+            }
+            .ctal-tae-ch5-page .sidebar-foot a {
+                color: var(--color-indigo);
+            }
+
+            /* ---------- Main content ---------- */
+            .ctal-tae-ch5-page .main-content {
+                margin-left: 288px;
+                padding: 56px 64px 100px;
+            }
+
+            .ctal-tae-ch5-page .hero {
+                padding-bottom: 36px;
+                border-bottom: 1px solid var(--color-border);
+                margin-bottom: 12px;
+            }
+            .ctal-tae-ch5-page .hero-label {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--color-gold);
+                letter-spacing: 0.03em;
+                margin-bottom: 14px;
+            }
+            .ctal-tae-ch5-page .hero h1 {
+                font-family: var(--font-serif);
+                font-size: 34px;
+                font-weight: 700;
+                color: var(--color-ink);
+                line-height: 1.45;
+                margin: 0 0 20px;
+            }
+            .ctal-tae-ch5-page .meta-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .ctal-tae-ch5-page .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 8px 16px;
+                border-radius: 999px;
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .ctal-tae-ch5-page .chip.chip-accent {
+                background: var(--color-plum-tint);
+                color: var(--color-plum);
+            }
+            .ctal-tae-ch5-page .chip i {
+                font-size: 16px;
+            }
+
+            .ctal-tae-ch5-page .section-head {
+                display: flex;
+                align-items: baseline;
+                gap: 16px;
+                margin: 60px 0 22px;
+                padding-bottom: 14px;
+                border-bottom: 2px solid var(--color-border);
+            }
+            .ctal-tae-ch5-page section:first-of-type .section-head {
+                margin-top: 36px;
+            }
+            .ctal-tae-ch5-page .section-num {
+                font-family: var(--font-serif);
+                font-size: 38px;
+                font-weight: 700;
+                color: var(--color-gold);
+                line-height: 1;
+            }
+            .ctal-tae-ch5-page .section-head h2 {
+                font-family: var(--font-serif);
+                font-size: 25px;
+                font-weight: 700;
+                color: var(--color-indigo);
+                margin: 0;
+                line-height: 1.4;
+            }
+
+            .ctal-tae-ch5-page h3 {
+                font-family: var(--font-serif);
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--color-ink);
+                margin: 38px 0 14px;
+            }
+            .ctal-tae-ch5-page h4 {
+                font-family: var(--font-serif);
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--color-indigo);
+                margin: 28px 0 12px;
+            }
+
+            .ctal-tae-ch5-page .prose p {
+                font-size: 16px;
+                line-height: 1.85;
+                color: var(--color-ink-secondary);
+                margin: 16px 0;
+            }
+            .ctal-tae-ch5-page .prose strong {
+                color: var(--color-ink);
+                font-weight: 700;
+            }
+            .ctal-tae-ch5-page .prose ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 16px 0;
+            }
+            .ctal-tae-ch5-page .prose ul li {
+                position: relative;
+                padding-left: 22px;
+                margin-bottom: 10px;
+                font-size: 16px;
+                line-height: 1.8;
+                color: var(--color-ink-secondary);
+            }
+            .ctal-tae-ch5-page .prose ul li::before {
+                content: '';
+                position: absolute;
+                left: 4px;
+                top: 11px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--color-indigo);
+            }
+            .ctal-tae-ch5-page .prose ul li strong {
+                color: var(--color-ink);
+            }
+
+            /* ---------- Tables ---------- */
+            .ctal-tae-ch5-page .table-wrap {
+                overflow-x: auto;
+                margin: 22px 0;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+            }
+            .ctal-tae-ch5-page table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--color-card);
+            }
+            .ctal-tae-ch5-page thead th {
+                background: var(--color-indigo);
+                color: #fff;
+                font-size: 16px;
+                font-weight: 600;
+                text-align: left;
+                padding: 13px 18px;
+                white-space: nowrap;
+            }
+            .ctal-tae-ch5-page tbody td {
+                font-size: 16px;
+                padding: 13px 18px;
+                border-top: 1px solid var(--color-border);
+                vertical-align: top;
+                line-height: 1.75;
+                color: var(--color-ink-secondary);
+            }
+            .ctal-tae-ch5-page tbody td strong {
+                color: var(--color-ink);
+            }
+            .ctal-tae-ch5-page tbody tr:nth-child(even) {
+                background: #fbfbfd;
+            }
+            .ctal-tae-ch5-page tbody td:first-child {
+                color: var(--color-ink);
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            /* ---------- Callouts (exactly 3 types) ---------- */
+            .ctal-tae-ch5-page .callout {
+                border: 1px solid;
+                border-radius: var(--radius-lg);
+                padding: 20px 24px;
+                margin: 28px 0;
+                background: var(--color-card);
+            }
+            .ctal-tae-ch5-page .callout-head {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                font-weight: 700;
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            .ctal-tae-ch5-page .callout-head i {
+                font-size: 18px;
+            }
+            .ctal-tae-ch5-page .callout p {
+                font-size: 16px;
+                line-height: 1.8;
+                color: var(--color-ink-secondary);
+                margin: 0;
+            }
+            .ctal-tae-ch5-page .callout ul {
+                padding-left: 22px;
+                margin: 0;
+            }
+            .ctal-tae-ch5-page .callout li {
+                font-size: 16px;
+                line-height: 1.8;
+                color: var(--color-ink-secondary);
+                margin-bottom: 8px;
+            }
+            .ctal-tae-ch5-page .callout li:last-child {
+                margin-bottom: 0;
+            }
+            .ctal-tae-ch5-page .callout li strong {
+                color: var(--color-ink);
+            }
+            .ctal-tae-ch5-page .callout.practice {
+                border-color: var(--color-gold);
+                background: var(--color-gold-tint);
+            }
+            .ctal-tae-ch5-page .callout.practice .callout-head {
+                color: var(--color-gold);
+            }
+            .ctal-tae-ch5-page .callout.source {
+                border-color: var(--color-forest);
+                background: var(--color-forest-tint);
+            }
+            .ctal-tae-ch5-page .callout.source .callout-head {
+                color: var(--color-forest);
+            }
+            .ctal-tae-ch5-page .callout.note {
+                border-color: var(--color-plum);
+                background: var(--color-plum-tint);
+            }
+            .ctal-tae-ch5-page .callout.note .callout-head {
+                color: var(--color-plum);
+            }
+
+            /* ---------- Mermaid diagrams ---------- */
+            .ctal-tae-ch5-page .diagram-card {
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-card);
+                padding: 28px;
+                margin: 30px 0;
+            }
+            .ctal-tae-ch5-page .diagram-caption {
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+                margin-bottom: 6px;
+                font-weight: 600;
+            }
+            .ctal-tae-ch5-page .mermaid-diagram {
+                width: 100%;
+                display: flex;
+                /* 幅に収まる図は中央寄せ、はみ出す図は左端から横スクロールできるようにする */
+                justify-content: safe center;
+                overflow-x: auto;
+            }
+            .ctal-tae-ch5-page .mermaid-diagram svg {
+                overflow: visible;
+            }
+            .ctal-tae-ch5-page .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .ctal-tae-ch5-page .mermaid-diagram .cluster-label div, .ctal-tae-ch5-page .mermaid-diagram .cluster-label span, .ctal-tae-ch5-page .mermaid-diagram .edgeLabel div, .ctal-tae-ch5-page .mermaid-diagram .edgeLabel span {
+                max-width: none !important;
+                white-space: nowrap !important;
+            }
+            .ctal-tae-ch5-page .diagram-loading {
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+                padding: 40px 0;
+                text-align: center;
+            }
+
+            /* ---------- Checklist ---------- */
+            .ctal-tae-ch5-page .checklist {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin: 24px 0;
+            }
+            .ctal-tae-ch5-page .checklist-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 16px 18px;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-card);
+                cursor: pointer;
+                transition:
+                    background 0.15s,
+                    border-color 0.15s;
+            }
+            .ctal-tae-ch5-page .checklist-item:hover {
+                border-color: var(--color-border-strong);
+            }
+            .ctal-tae-ch5-page .checklist-item input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+                margin-top: 2px;
+                border: 2px solid var(--color-border-strong);
+                border-radius: 6px;
+                background: #fff;
+                cursor: pointer;
+                position: relative;
+            }
+            .ctal-tae-ch5-page .checklist-item input[type='checkbox']:checked {
+                background: var(--color-forest);
+                border-color: var(--color-forest);
+            }
+            .ctal-tae-ch5-page .checklist-item input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 7px;
+                top: 3px;
+                width: 6px;
+                height: 12px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(40deg);
+            }
+            .ctal-tae-ch5-page .checklist-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 30px;
+                height: 30px;
+                padding: 0 6px;
+                border-radius: 999px;
+                background: var(--color-indigo-tint);
+                color: var(--color-indigo);
+                font-size: 16px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .ctal-tae-ch5-page .checklist-text {
+                font-size: 16px;
+                line-height: 1.75;
+                color: var(--color-ink);
+                padding-top: 2px;
+            }
+            .ctal-tae-ch5-page .checklist-item:has(input:checked) {
+                background: var(--color-forest-tint);
+                border-color: var(--color-forest);
+            }
+            .ctal-tae-ch5-page .checklist-item:has(input:checked) .checklist-text {
+                text-decoration: line-through;
+                color: var(--color-ink-tertiary);
+            }
+            .ctal-tae-ch5-page .checklist-item:has(input:checked) .checklist-badge {
+                background: var(--color-forest);
+                color: #fff;
+            }
+
+            /* ---------- Reference cards ---------- */
+            .ctal-tae-ch5-page .ref-list {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                margin: 24px 0;
+            }
+            .ctal-tae-ch5-page .ref-card {
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+                padding: 18px 20px;
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-card);
+            }
+            .ctal-tae-ch5-page .ref-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                flex-shrink: 0;
+                border-radius: 999px;
+                background: var(--color-gold);
+                color: #fff;
+                font-size: 16px;
+                font-weight: 700;
+            }
+            .ctal-tae-ch5-page .ref-body {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .ctal-tae-ch5-page .ref-title {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--color-ink);
+                line-height: 1.6;
+            }
+            .ctal-tae-ch5-page .ref-url {
+                font-size: 16px;
+                color: var(--color-indigo);
+                word-break: break-all;
+                text-decoration: none;
+            }
+            .ctal-tae-ch5-page .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            .ctal-tae-ch5-page footer {
+                margin-top: 60px;
+                padding-top: 24px;
+                border-top: 1px solid var(--color-border);
+                font-size: 16px;
+                color: var(--color-ink-tertiary);
+            }
+
+            @media (max-width: 860px) {
+                .ctal-tae-ch5-page .sidebar {
+                    position: static;
+                    width: 100%;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid var(--color-border);
+                }
+                .ctal-tae-ch5-page .main-content {
+                    margin-left: 0;
+                    padding: 36px 22px 64px;
+                }
+                .ctal-tae-ch5-page .section-num {
+                    font-size: 30px;
+                }
+                .ctal-tae-ch5-page .hero h1 {
+                    font-size: 27px;
+                }
+            }
+
+
+/* App chrome and global-style interference: preserve the original editorial layout. */
+.ctal-tae-ch5-page { width: 100%; min-width: 0; }
+.ctal-tae-ch5-page .sidebar {
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    border-right: 2px solid var(--color-border-strong);
+    z-index: 40;
+}
+.ctal-tae-ch5-page .main-content {
+    max-width: none !important;
+    min-width: 0;
+    margin: 0 0 0 288px !important;
+    padding: 56px 64px 100px !important;
+}
+.ctal-tae-ch5-page section {
+    padding-top: 0 !important;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+.ctal-tae-ch5-page section + section { border-top: none !important; }
+.ctal-tae-ch5-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    padding-top: 0 !important;
+    overflow: visible !important;
+}
+.ctal-tae-ch5-page .hero::after { content: none; }
+.ctal-tae-ch5-page .hero h1 { letter-spacing: normal; }
+.ctal-tae-ch5-page .hero h1 span { color: inherit; }
+.ctal-tae-ch5-page .section-num { display: inline; letter-spacing: normal; margin-bottom: 0; }
+.ctal-tae-ch5-page strong { color: var(--color-ink) !important; font-weight: 700; }
+.ctal-tae-ch5-page ul { list-style-type: disc !important; }
+.ctal-tae-ch5-page .prose ul { list-style-type: none !important; }
+.ctal-tae-ch5-page table { font-size: 16px; }
+.ctal-tae-ch5-page thead tr { background: transparent; border-bottom: none; }
+.ctal-tae-ch5-page th {
+    color: #fff !important;
+    font-family: var(--font-sans);
+    letter-spacing: normal;
+}
+.ctal-tae-ch5-page td {
+    color: var(--color-ink-secondary) !important;
+    border-bottom: none;
+}
+.ctal-tae-ch5-page tbody td:first-child { color: var(--color-ink) !important; }
+.ctal-tae-ch5-page td strong { color: var(--color-ink) !important; font-weight: 700; }
+.ctal-tae-ch5-page tr:hover td { background: transparent; }
+.ctal-tae-ch5-page .callout { font-size: 16px; line-height: 1.7; }
+.ctal-tae-ch5-page .callout p + p { margin-top: 0; }
+.ctal-tae-ch5-page footer {
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    text-align: left;
+    font-family: var(--font-sans);
+}
+.ctal-tae-ch5-page .ref-body { min-width: 0; }
+.ctal-tae-ch5-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.ctal-tae-ch5-page *::-webkit-scrollbar-track { background: transparent !important; }
+.ctal-tae-ch5-page *::-webkit-scrollbar-thumb { background: var(--color-border-strong) !important; border-radius: 3px; }
+.ctal-tae-ch5-page :focus-visible { outline: 2px solid var(--color-indigo); outline-offset: 3px; }
+
+/* Shared Mermaid's dark card and flex centering must not hide the left scroll origin. */
+.ctal-tae-ch5-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+}
+.ctal-tae-ch5-page .mermaid-diagram { display: block; overflow-x: auto !important; max-width: 100%; }
+.ctal-tae-ch5-page .mermaid-wrapper svg {
+    display: block !important;
+    max-width: none !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    flex-shrink: 0;
+}
+.ctal-tae-ch5-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.ctal-tae-ch5-page .mermaid-wrapper foreignObject p,
+.ctal-tae-ch5-page .mermaid-wrapper foreignObject span,
+.ctal-tae-ch5-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+}
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabel rect { fill: #ffffff !important; stroke: none !important; }
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabel,
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabel span,
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabel p,
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabel text,
+.ctal-tae-ch5-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #161b26 !important;
+    fill: #161b26 !important;
+    font-weight: 700 !important;
+}
+@media (max-width: 860px) {
+    .ctal-tae-ch5-page .sidebar { position: static; height: auto; border-right: none; }
+    .ctal-tae-ch5-page .main-content { margin: 0 !important; padding: 36px 22px 64px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch5-page * { scroll-behavior: auto; transition: none !important; animation: none !important; }
+}
