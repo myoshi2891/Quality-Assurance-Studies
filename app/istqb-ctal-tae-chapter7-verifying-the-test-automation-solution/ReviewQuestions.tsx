@@ -1,4 +1,5 @@
 import React from 'react';
+import ChecklistCard from './ChecklistCard';
 
 
 export default function ReviewQuestions() {
@@ -313,59 +314,7 @@ export default function ReviewQuestions() {
         <h3 id="83-暗記用チェックリスト">
             {"8.3 暗記用チェックリスト"}
         </h3>
-        <div className="checklist-card">
-            <div className="checklist-progress">
-                <span className="cp-label">
-                    {"進捗"}
-                </span>
-                <div className="cp-bar">
-                    <div className="cp-bar-fill">
-
-                    </div>
-                </div>
-                <span className="cp-count">
-                    {"0 / 6 完了"}
-                </span>
-            </div>
-            <ul className="task-list">
-                <li>
-                    <label>
-                        <input className="checklist-checkbox" type="checkbox" />
-                        {"環境検証の4観点（インストール・構成、再現性、接続性、TAF コンポーネントテスト）を言える"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input className="checklist-checkbox" type="checkbox" />
-                        {"接続性の事前条件（ログイン、ツール起動、SUT へのアクセス、設定の確認、権限）を言える"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input className="checklist-checkbox" type="checkbox" />
-                        {"スイート検証の4項目（構成、新機能、再現性、侵入性）を言える"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input className="checklist-checkbox" type="checkbox" />
-                        {"不具合の場所の5つ（テストケース、SUT、TAF、ハードウェア、ネットワーク）を言える"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input className="checklist-checkbox" type="checkbox" />
-                        {"静的解析の重大度（critical、high、medium、low）を言える"}
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input className="checklist-checkbox" type="checkbox" />
-                        {"静的解析が DevSecOps で果たす役割を説明できる"}
-                    </label>
-                </li>
-            </ul>
-        </div>
+        <ChecklistCard />
         <hr />
         <h2 id="9-確認問題解答付き">
             {"9. 確認問題（解答付き）"}
