@@ -5,6 +5,7 @@ import DataCollection from './DataCollection';
 import DataAnalysis from './DataAnalysis';
 import Reporting from './Reporting';
 import SummaryQuestions from './SummaryQuestions';
+import LearningReferences from './LearningReferences';
 import './ctal-tae-ch6.css';
 
 export const metadata: Metadata = {
@@ -61,5 +62,6 @@ export default function Page() {
         <DataAnalysis />
         <Reporting />
         <SummaryQuestions />
+        <LearningReferences />
     </main></div></div>;
 }
