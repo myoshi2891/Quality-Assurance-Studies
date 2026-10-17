@@ -15,9 +15,9 @@ export default function StaticAnalysis() {
             {" シラバスは、"}
             <strong>
                 {"静的コード解析（static code analysis）"}
-                <strong>
-                    {"は、プログラムコードの"}
-                </strong>
+            </strong>
+            {"は、プログラムコードの"}
+            <strong>
                 {"脆弱性や欠陥を見つける"}
             </strong>
             {"のに役立つと述べています。対象は "}

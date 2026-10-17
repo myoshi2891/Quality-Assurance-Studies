@@ -13359,14 +13359,14 @@
             "tag": "strong",
             "attrs": {},
             "children": [
-              "静的コード解析（static code analysis）",
-              {
-                "tag": "strong",
-                "attrs": {},
-                "children": [
-                  "は、プログラムコードの"
-                ]
-              },
+              "静的コード解析（static code analysis）"
+            ]
+          },
+          "は、プログラムコードの",
+          {
+            "tag": "strong",
+            "attrs": {},
+            "children": [
               "脆弱性や欠陥を見つける"
             ]
           },
@@ -21841,14 +21841,14 @@
             "tag": "strong",
             "attrs": {},
             "children": [
-              "静的コード解析（static code analysis）",
-              {
-                "tag": "strong",
-                "attrs": {},
-                "children": [
-                  "は、プログラムコードの"
-                ]
-              },
+              "静的コード解析（static code analysis）"
+            ]
+          },
+          "は、プログラムコードの",
+          {
+            "tag": "strong",
+            "attrs": {},
+            "children": [
               "脆弱性や欠陥を見つける"
             ]
           },
