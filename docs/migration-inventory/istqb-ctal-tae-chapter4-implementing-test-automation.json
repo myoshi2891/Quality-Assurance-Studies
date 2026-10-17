@@ -427,10 +427,10 @@
     {
       "title": "ベストプラクティス（4.3 保守性向上）",
       "items": [
-        "Robert C.\n                                Martinのクリーンコード原則（8項目）をチームの共通ルールとして明文化し、コードレビューの観点に組み込む",
+        "Robert C. Martinのクリーンコード原則（8項目）をチームの共通ルールとして明文化し、コードレビューの観点に組み込む",
         "変数・メソッド名は役割が一目でわかる命名にし、命名規則をドキュメント化してチーム全体で共有する",
         "頻繁に変化する値はデータ駆動テストで外部化し、変化しない値のみ定数として管理する",
-        "デザインパターン（Facade・Singleton・Page\n                                Object Model・Flow\n                                Model）は「必要な場面でのみ」適用し、過剰な抽象化を避ける",
+        "デザインパターン（Facade・Singleton・Page Object Model・Flow Model）は「必要な場面でのみ」適用し、過剰な抽象化を避ける",
         "静的解析ツールとコードフォーマッタをCIパイプラインに組み込み、レビュー前に機械的にチェックできる状態にする",
         "ブランチ戦略（feature・release・hotfix等）をチームで合意し、テストウェアのバージョン管理にも一貫して適用する"
       ]
@@ -456,7 +456,7 @@
       "text": "CTAL-TAE v2.0 シラバス（PDF、本記事の一次情報源） https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"
     },
     {
-      "name": "Robert C. Martin,\n                                Clean Code: A Handbook of Agile Software Craftsmanship（2008）",
+      "name": "Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship（2008）",
       "text": "Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship（2008） シラバス本文 Section 4.3.1 に書誌情報あり（上記シラバスPDFを参照）"
     }
   ]
