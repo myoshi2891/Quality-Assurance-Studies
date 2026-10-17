@@ -671,7 +671,7 @@ main.ctal-tae-ch4-page {
 .ctal-tae-ch4-page .mermaid-wrapper foreignObject div {
     margin: 0 !important;
     line-height: 1.4 !important;
-    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
 }
 
 /* ---------- Key-Value Grid ---------- */
