@@ -78,7 +78,9 @@ export default function NavBar() {
         type="button"
         className="menu-toggle"
         id="menuToggle"
-        aria-label="目次を開く"
+        aria-label={isOpen ? '目次を閉じる' : '目次を開く'}
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
         onClick={() => setIsOpen(!isOpen)}
       >
         <i className="ti ti-menu-2"></i> 目次

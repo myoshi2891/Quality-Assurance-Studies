@@ -17,7 +17,7 @@ export default function Section4() {
 
       <h3 id="s-43-clean">クリーンコード原則の8項目</h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s-43-clean">
           <thead>
             <tr>
               <th className="num">#</th>

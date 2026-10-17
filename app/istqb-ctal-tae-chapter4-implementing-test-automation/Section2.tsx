@@ -25,7 +25,7 @@ export default function Section2() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s-41-eval">
           <thead>
             <tr>
               <th className="num">#</th>

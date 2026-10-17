@@ -70,7 +70,7 @@ export default function Section3() {
         </p>
       </div>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s-42-logging">
           <thead>
             <tr>
               <th style={{ width: '20%' }}>ログレベル</th>

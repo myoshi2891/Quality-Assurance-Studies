@@ -6,9 +6,9 @@ export default function Section1() {
       <span className="section-num">2</span>
       <h2>キーワードと学習目標</h2>
 
-      <h3>本章のキーワード（試験で暗記が求められる用語）</h3>
+      <h3 id="s-keywords-terms">本章のキーワード（試験で暗記が求められる用語）</h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s-keywords-terms">
           <thead>
             <tr>
               <th style={{ width: '22%' }}>用語</th>
@@ -32,9 +32,9 @@ export default function Section1() {
         </table>
       </div>
 
-      <h3>学習目標（Learning Objectives）一覧</h3>
+      <h3 id="s-keywords-lo">学習目標（Learning Objectives）一覧</h3>
       <div className="table-wrap">
-        <table>
+        <table aria-labelledby="s-keywords-lo">
           <thead>
             <tr>
               <th>節</th>

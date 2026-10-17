@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json';
 import Page from '../../app/istqb-ctal-tae-chapter4-implementing-test-automation/page';
@@ -160,6 +160,38 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
         const title = card.querySelector('.diagram-title')?.textContent?.replace(/\s+/g, ' ').trim();
         expect(title).toContain(expected.title);
       });
+    });
+
+    it('passes all 6 diagram definitions to Mermaid in document order', async () => {
+      render(<Page />);
+      // Mermaid コンポーネントはフォント待機後に非同期で render するため、6 図揃うまで待つ
+      await waitFor(() => expect(renderedDiagrams.length).toBe(6));
+      expect(renderedDiagrams).toEqual([
+        DIAGRAM_CH4_OVERVIEW,
+        DIAGRAM_PILOT_FLOW,
+        DIAGRAM_DEPLOYMENT_RISKS,
+        DIAGRAM_RISK_FLOW,
+        DIAGRAM_HARDCODING_AVOIDANCE,
+        DIAGRAM_CH4_SUMMARY,
+      ]);
+    });
+
+    it('parses every diagram with the real Mermaid parser', async () => {
+      // テスト環境の 'mermaid' は差し替えられているため、実パーサーを ESM ビルドから直接読み込む
+      const parserPath = 'mermaid/dist/mermaid.esm.mjs';
+      const { default: realMermaid } = (await import(parserPath)) as {
+        default: typeof import('mermaid').default;
+      };
+      for (const diagram of [
+        DIAGRAM_CH4_OVERVIEW,
+        DIAGRAM_PILOT_FLOW,
+        DIAGRAM_DEPLOYMENT_RISKS,
+        DIAGRAM_RISK_FLOW,
+        DIAGRAM_HARDCODING_AVOIDANCE,
+        DIAGRAM_CH4_SUMMARY,
+      ]) {
+        expect(await realMermaid.parse(diagram)).toBeTruthy();
+      }
     });
   });
 
