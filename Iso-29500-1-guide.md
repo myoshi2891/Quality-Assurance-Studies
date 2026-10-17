@@ -600,7 +600,7 @@ unzip -p t.docx word/document.xml | python -m xml.dom.minidom /dev/stdin
 
 ### 9-2. 実験B：Strict / Transitional 判定スクリプト
 
-`_rels/.rels` の `officeDocument` 関係と、メインパーツのルート名前空間から判定する最小スクリプトです。
+`_rels/.rels` の `officeDocument` 関係と、メインパーツのルート名前空間から判定する最小スクリプトです。関係の `Type` と名前空間が同じ適合クラス（Strict 同士、または Transitional 同士）を指すときだけ判定を確定し、食い違うときは `unknown` を返します。
 
 ```python
 import posixpath
@@ -612,9 +612,10 @@ from xml.etree import ElementTree as ET
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 # メインパーツへの関係型は Strict と Transitional の正式な URI だけを完全一致で受け入れる。
 # 末尾一致にすると、別の関係型が main_target を上書きしてしまうため。
+# 値は関係型が属する適合クラス。ルート名前空間のクラスと突き合わせるために使う。
 OFFICE_DOCUMENT_REL_TYPES = {
-    "http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument",
-    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
+    "http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument": "Strict",
+    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument": "Transitional",
 }
 # メインパーツのルート名前空間（WML・SML・PML）だけを完全一致で判定する。
 # 接頭辞一致にすると Relationships 名前空間など無関係な名前空間まで分類してしまうため。
@@ -647,11 +648,14 @@ def probe(path):
         root = ET.fromstring(z.read(part_name.lstrip("/")))
         root_ns = root.tag.split("}")[0].lstrip("{")
     if root_ns in STRICT_NAMESPACES:
-        variant = "Strict"
+        ns_variant = "Strict"
     elif root_ns in TRANSITIONAL_NAMESPACES:
-        variant = "Transitional"
+        ns_variant = "Transitional"
     else:
-        variant = "unknown"
+        ns_variant = "unknown"
+    # 名前空間と officeDocument 関係の Type が同じ適合クラスを指すときだけ判定を確定する。
+    # 片方だけ Strict のパッケージは混在であり、どちらとも断定できない。
+    variant = ns_variant if ns_variant == OFFICE_DOCUMENT_REL_TYPES[main_type] else "unknown"
     return {
         "parts": len(names),
         "main_part": main_target,
@@ -672,7 +676,8 @@ if __name__ == "__main__":
 |---|---|---|---|---|
 | `t.docx`（python-docx で生成） | 17 | `word/document.xml` | `schemas.openxmlformats.org/wordprocessingml/2006/main` | **Transitional** |
 | `t.xlsx`（openpyxl で生成） | 9 | `xl/workbook.xml` | `schemas.openxmlformats.org/spreadsheetml/2006/main` | **Transitional** |
-| `s.docx` / `s.xlsx`（上記の名前空間だけを purl に書き換えた**デモ用**ファイル） | 17 / 9 | 同上 | `purl.oclc.org/ooxml/…` | **Strict** と判定 |
+| `s.docx` / `s.xlsx`（上記の名前空間と `officeDocument` 関係の `Type` を purl に書き換えた**デモ用**ファイル） | 17 / 9 | 同上 | `purl.oclc.org/ooxml/…` | **Strict** と判定 |
+| 名前空間だけを purl に書き換え、関係の `Type` は Transitional のままのファイル | — | 同上 | `purl.oclc.org/ooxml/…` | **unknown**（適合クラスの不一致） |
 
 > ⚠️ `s.docx` は判定ロジックを確かめるために名前空間だけを書き換えた疑似ファイルで、**規格に適合した本物の Strict 文書ではありません**。本物の Strict 文書は、Excel の「Strict Open XML スプレッドシート」として保存したファイルなどで試してください \[S4\]。
 
