@@ -54,11 +54,17 @@ describe('original content and DOM inventory', () => {
     expect($(`${scope} main`).length).toBe(1);
     expect($('script,style').length).toBe(0);
   });
-  it('imports scoped CSS and preserves original font and icon resources', () => {
+  it('imports scoped CSS and self-hosts original font and icon resources', () => {
     expect(readFileSync(`${base}/page.tsx`, 'utf8')).toContain("import './ctal-tae-ch5.css'");
     const content = readFileSync(`${base}/ctal-tae-ch5.css`, 'utf8');
-    inventory.stylesheets.filter(url => !url.includes('@tabler/')).forEach(url => expect(content).toContain(url));
+    // フォントは共有レイアウトから Fontsource で自前配信し、Google Fonts へは通信しない
+    expect(inventory.stylesheets.some(url => url.includes('fonts.googleapis.com'))).toBe(false);
+    expect(content).not.toContain('fonts.googleapis.com');
     expect(content).not.toMatch(/@import[^;]*@tabler/);
+    const layout = readFileSync('app/layout.tsx', 'utf8');
+    for (const weight of [600, 700]) expect(layout).toContain(`import '@fontsource/source-serif-4/${weight}.css';`);
+    for (const weight of [400, 500, 600, 700]) expect(layout).toContain(`import '@fontsource/noto-sans-jp/${weight}.css';`);
+    expect(content).toContain("--font-serif: 'Source Serif 4', serif;");
     expect(readFileSync('app/layout.tsx', 'utf8')).toMatch(/@tabler\/icons-webfont@[\d.]+\/dist\/tabler-icons.min.css/);
   });
   it('preserves every reference link with secure external attributes', () => {
