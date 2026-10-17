@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
-import { cleanup, render, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json';
 import Page from '../../app/istqb-ctal-tae-chapter4-implementing-test-automation/page';
@@ -107,6 +107,29 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
 
       const scrim = container.querySelector('.scrim');
       expect(scrim).not.toBeNull();
+      expect(scrim?.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('closes the open TOC with Escape and returns focus to the toggle', () => {
+      const { container } = render(<NavBar />);
+      const toggle = container.querySelector<HTMLButtonElement>('.menu-toggle');
+      if (!toggle) throw new Error('menu toggle missing');
+      fireEvent.click(toggle);
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+      expect(container.querySelector('.sidebar')?.classList.contains('open')).toBe(true);
+
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+      expect(container.querySelector('.sidebar')?.classList.contains('open')).toBe(false);
+      expect(document.activeElement).toBe(toggle);
+    });
+
+    it('ignores Escape while the TOC is closed', () => {
+      const { container } = render(<NavBar />);
+      const toggle = container.querySelector<HTMLButtonElement>('.menu-toggle');
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(toggle?.getAttribute('aria-expanded')).toBe('false');
+      expect(document.activeElement).not.toBe(toggle);
     });
   });
 

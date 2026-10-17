@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface TocItem {
   href: string;
@@ -40,6 +40,7 @@ export const TOC_ITEMS: readonly TocItem[] = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string>(TOC_ITEMS[0]?.href ?? '');
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -67,6 +68,18 @@ export default function NavBar() {
     };
   }, []);
 
+  // 開いている間だけ Escape を監視し、閉じたらトグルへフォーカスを戻す
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setIsOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
+
   const handleLinkClick = (href: string) => {
     setActiveHref(href);
     setIsOpen(false);
@@ -76,6 +89,7 @@ export default function NavBar() {
     <>
       <button
         type="button"
+        ref={toggleRef}
         className="menu-toggle"
         id="menuToggle"
         aria-label={isOpen ? '目次を閉じる' : '目次を開く'}
@@ -89,6 +103,7 @@ export default function NavBar() {
       <div
         className={`scrim ${isOpen ? 'show' : ''}`}
         id="scrim"
+        aria-hidden="true"
         onClick={() => setIsOpen(false)}
       ></div>
 
