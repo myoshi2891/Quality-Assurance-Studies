@@ -41,11 +41,11 @@
     min-height: 0 !important;
     display: block !important;
     overflow: visible !important;
-    padding-top: 0 !important;
     background: linear-gradient(135deg, var(--indigo-soft) 0%, var(--paper-card) 65%) !important;
     border: 1px solid var(--border) !important;
     border-radius: var(--radius) !important;
     padding: 2.6rem 2.6rem !important;
+    padding-top: 0 !important;
     margin-bottom: 2.6rem !important;
     box-shadow: var(--shadow) !important;
     position: relative !important;
