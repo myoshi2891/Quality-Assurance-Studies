@@ -723,3 +723,60 @@
     font-size: inherit;
     line-height: inherit;
 }
+
+/* Large checklist targets retain readable text in both completion states. */
+.ctal-tae-ch7-page .checklist-card {
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgb(28 37 54 / 5%);
+}
+.ctal-tae-ch7-page .checklist-progress {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.ctal-tae-ch7-page .cp-label { font-size: 14px; color: var(--text); }
+.ctal-tae-ch7-page .cp-count {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 5px 10px;
+    border-radius: 999px;
+    color: var(--accent-dark);
+    background: var(--accent-tint);
+}
+.ctal-tae-ch7-page .cp-bar { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 10px; }
+.ctal-tae-ch7-page .cp-bar-fill { background: linear-gradient(90deg, var(--accent), #718bf3); }
+.ctal-tae-ch7-page .checklist-card ul { display: grid; gap: 10px; }
+.ctal-tae-ch7-page .checklist-card li,
+.ctal-tae-ch7-page .checklist-card li:has(input:checked) {
+    display: block;
+    padding: 0;
+    color: var(--text);
+    text-decoration: none;
+}
+.ctal-tae-ch7-page .checklist-card label {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #f8faff;
+    color: var(--text);
+    line-height: 1.75;
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s;
+}
+.ctal-tae-ch7-page .checklist-card label:hover { border-color: var(--accent); background: var(--accent-tint); }
+.ctal-tae-ch7-page .checklist-card label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ctal-tae-ch7-page .checklist-card label:has(input:checked) { border-color: #86cda5; background: #f0fdf4; color: #14532d; }
+.ctal-tae-ch7-page .checklist-checkbox { width: 22px; height: 22px; min-width: 22px; margin: 3px 0 0; }
+.ctal-tae-ch7-page .checklist-checkbox:checked { background: #15803d; border-color: #15803d; }
+@media (max-width: 640px) {
+    .ctal-tae-ch7-page .checklist-card { padding: 16px; }
+    .ctal-tae-ch7-page .checklist-card label { padding: 14px; gap: 10px; font-size: 15px; }
+}
