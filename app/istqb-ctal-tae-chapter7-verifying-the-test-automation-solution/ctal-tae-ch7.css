@@ -685,6 +685,9 @@
 .ctal-tae-ch7-page .mermaid-wrapper .edgeLabel text,
 .ctal-tae-ch7-page .mermaid-wrapper .edgeLabels .label { background-color: #ffffff !important; color: #1c2536 !important; fill: #1c2536 !important; font-weight: 700 !important; }
 @media (max-width: 900px) {
+    /* Closed TOC links must leave the Tab order; visibility flips after the slide-out ends. */
+    .ctal-tae-ch7-page .sidebar { visibility: hidden; transition: transform 0.25s ease, visibility 0.25s; }
+    .ctal-tae-ch7-page .sidebar.open { visibility: visible; }
     .ctal-tae-ch7-page .main { margin: 0 !important; padding: 76px 20px 60px !important; }
     .ctal-tae-ch7-page .sidebar-scrim { top: var(--app-top); z-index: 35; }
     .ctal-tae-ch7-page .main h2,

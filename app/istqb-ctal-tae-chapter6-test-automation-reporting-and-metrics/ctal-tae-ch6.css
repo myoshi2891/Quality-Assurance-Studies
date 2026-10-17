@@ -851,6 +851,9 @@
 .ctal-tae-ch6-page .mermaid-wrapper .statediagram-state text { color: #0f172a !important; fill: #0f172a !important; }
 .ctal-tae-ch6-page .mermaid-wrapper .transition { stroke: #475569 !important; }
 @media (max-width: 900px) {
+    /* Closed TOC links must leave the Tab order; visibility flips after the slide-out ends. */
+    .ctal-tae-ch6-page .sidebar { visibility: hidden; transition: transform 0.25s, visibility 0.25s; }
+    .ctal-tae-ch6-page .sidebar.open { visibility: visible; }
     .ctal-tae-ch6-page .main { margin: 0 !important; padding: 64px 16px 48px !important; }
     .ctal-tae-ch6-page .hero { padding: 24px 20px !important; }
     .ctal-tae-ch6-page .hero h1 { font-size: 22px; }
