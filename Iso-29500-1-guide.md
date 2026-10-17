@@ -608,6 +608,12 @@ import zipfile
 from xml.etree import ElementTree as ET
 
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
+# メインパーツへの関係型は Strict と Transitional の正式な URI だけを完全一致で受け入れる。
+# 末尾一致にすると、別の関係型が main_target を上書きしてしまうため。
+OFFICE_DOCUMENT_REL_TYPES = {
+    "http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument",
+    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
+}
 # メインパーツのルート名前空間（WML・SML・PML）だけを完全一致で判定する。
 # 接頭辞一致にすると Relationships 名前空間など無関係な名前空間まで分類してしまうため。
 STRICT_NAMESPACES = {
@@ -629,7 +635,7 @@ def probe(path):
         main_target = main_type = None
         for rel in rels.findall(f"{{{REL_NS}}}Relationship"):
             rel_type = rel.get("Type", "")
-            if rel_type.endswith("/officeDocument"):
+            if rel_type in OFFICE_DOCUMENT_REL_TYPES:
                 main_type, main_target = rel_type, rel.get("Target")
         if main_target is None:
             return {"error": "officeDocument relationship not found"}
