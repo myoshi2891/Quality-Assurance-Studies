@@ -11,14 +11,14 @@
 
 | 項目 | 内容 | 根拠 |
 |---|---|---|
-| 規格番号 | ISO/IEC 29500-1:2016 | [S1] |
-| 通称 | OOXML（Office Open XML）。Ecma International 側の対応規格は ECMA-376 | [S1][S3] |
-| 版（Edition） | 第4版（2016年11月） | [S1] |
-| ページ数 | 5,024ページ | [S1] |
-| 担当委員会 | ISO/IEC JTC 1/SC 34（Document description and processing languages） | [S1] |
-| ステータス | **Published（現行版）**。2022年の見直しで「継続」と確認済み。ただしステージは 90.92（改訂予定）で、ISOページは「近く ISO/IEC 29500-1 の新版に置き換わる見込み」と記載 | [S1] |
-| 後継（改訂版） | ISO/IEC FDIS 29500-1（第5版、3,146ページ）。2026年8月17日にFDIS投票（8週間）が開始（ステージ 50.20） | [S2] |
-| 入手性 | ISOページの価格表示は CHF 0（無料公開）。ISOの「Publicly Available Standards」から取得可 | [S1][S4] |
+| 規格番号 | ISO/IEC 29500-1:2016 | \[S1\] |
+| 通称 | OOXML（Office Open XML）。Ecma International 側の対応規格は ECMA-376 | \[S1\]\[S3\] |
+| 版（Edition） | 第4版（2016年11月） | \[S1\] |
+| ページ数 | 5,024ページ | \[S1\] |
+| 担当委員会 | ISO/IEC JTC 1/SC 34（Document description and processing languages） | \[S1\] |
+| ステータス | **Published（現行版）**。2022年の見直しで「継続」と確認済み。ただしステージは 90.92（改訂予定）で、ISOページは「近く ISO/IEC 29500-1 の新版に置き換わる見込み」と記載 | \[S1\] |
+| 後継（改訂版） | ISO/IEC FDIS 29500-1（第5版、3,146ページ）。2026年8月17日にFDIS投票（8週間）が開始（ステージ 50.20） | \[S2\] |
+| 入手性 | ISOページの価格表示は CHF 0（無料公開）。ISOの「Publicly Available Standards」から取得可 | \[S1\]\[S4\] |
 
 > ⚠️ **このガイドの位置づけ**：ISOは規格本文のAI利用を制限しています。そのため本稿は規格本文を転載・要約せず、ISO/Ecma/Library of Congress の公開メタデータ、Microsoft Learn、国際的な専門家・開発者の公開記事、OSSのドキュメントをもとに構成しています。条文レベルの正確な要求事項は、必ず一次資料（規格PDF）で確認してください。
 
@@ -66,9 +66,9 @@
 
 ## STEP 1：OOXMLとは何か（全体像）
 
-**Office Open XML（OOXML）** は、ワープロ文書・表計算ブック・プレゼンテーションを **ZIPで固めたXMLファイル群** として表現するためのファイル形式の規格です。Microsoft Office 2007以降の標準形式として広く使われています [S9][S18]。
+**Office Open XML（OOXML）** は、ワープロ文書・表計算ブック・プレゼンテーションを **ZIPで固めたXMLファイル群** として表現するためのファイル形式の規格です。Microsoft Office 2007以降の標準形式として広く使われています \[S9\]\[S18\]。
 
-ISO/IEC 29500-1 の概要説明（抄録）によると、この規格は次の2つを目標にしています [S1]。
+ISO/IEC 29500-1 の概要説明（抄録）によると、この規格は次の2つを目標にしています \[S1\]。
 
 - **既存資産の忠実な表現**：Microsoft Office 97〜2008 で作られた既存の文書を、忠実に表現できること
 - **相互運用性と拡張性**：複数ベンダー・複数プラットフォームでの実装を可能にすること
@@ -107,7 +107,7 @@ OOXMLには **2つの標準化団体** が関わっています。
 - **Ecma International**：最初に標準化（ECMA-376）
 - **ISO/IEC**：その後の版を ISO/IEC 29500 として標準化
 
-Ecmaのサイトは、Ecmaが初版を標準化し、ISO/IECが以降の版を ISO/IEC 29500 として標準化したと説明しています [S3][S18]。2つは並行して改訂され、**技術的には同等の内容**を保つ運用です [S9][S10]。
+Ecmaのサイトは、Ecmaが初版を標準化し、ISO/IECが以降の版を ISO/IEC 29500 として標準化したと説明しています \[S3\]\[S18\]。2つは並行して改訂され、**技術的には同等の内容**を保つ運用です \[S9\]\[S10\]。
 
 ### 4つのPart
 
@@ -134,22 +134,22 @@ flowchart TB
 | Part | 内容 | 補足 |
 |---|---|---|
 | **Part 1** | 基礎とマークアップ言語リファレンス（WordprocessingML・SpreadsheetML・PresentationML・DrawingML など、**Strict形式**の語彙定義） | 本ガイドの主役 |
-| Part 2 | Open Packaging Conventions（OPC）。ZIPの中のパーツ・関係・MIMEタイプの規則 | `.xps` など他形式でも利用される [S18] |
+| Part 2 | Open Packaging Conventions（OPC）。ZIPの中のパーツ・関係・MIMEタイプの規則 | `.xps` など他形式でも利用される \[S18\] |
 | Part 3 | Markup Compatibility and Extensibility（MCE）。拡張要素を古いソフトが安全に無視するための仕組み | STEP 8で解説 |
-| Part 4 | Transitional Migration Features。旧バイナリ形式との互換のための機能群（VML など） | **Transitional形式**に必要 [S9][S10] |
+| Part 4 | Transitional Migration Features。旧バイナリ形式との互換のための機能群（VML など） | **Transitional形式**に必要 \[S9\]\[S10\] |
 
-> 📌 ISO化の審議の過程で、元のECMA-376は複数のPartに分割されました（Part 1に3つのML、Part 2にOPC、Part 3に拡張仕様）。当時の審議を追っていた Wictor Wilén 氏のブログでも、この分割が主要な変更点の一つとして紹介されています [S16]。
+> 📌 ISO化の審議の過程で、元のECMA-376は複数のPartに分割されました（Part 1に3つのML、Part 2にOPC、Part 3に拡張仕様）。当時の審議を追っていた Wictor Wilén 氏のブログでも、この分割が主要な変更点の一つとして紹介されています \[S16\]。
 
 ### 版の対応表
 
 | ECMA-376 | ISO/IEC 29500 | 備考 |
 |---|---|---|
-| 第1版（2006年12月） | なし | Office 2007が読み書きした形式 [S9] |
-| 第2版（2008年12月） | 29500:2008 | Strict / Transitional が導入された版 [S9][S10] |
-| 第3版（2011年6月） | 29500:2011 | [S3][S10] |
-| 第4版（2012年12月） | 29500:2012 | ISO側の旧版（29500-1:2012）は第4版の発行により廃止扱い [S1][S3] |
-| 第5版 Part 1（2016年12月） | **29500-1:2016**（Part 3:2015、Part 4:2016 も同時期） | **本ガイドの対象** [S3][S10] |
-| 第5版 Part 2（2021年12月） | （OPCは別の版番号で改訂） | Ecma側の Part 2 のみ2021年版 [S3] |
+| 第1版（2006年12月） | なし | Office 2007が読み書きした形式 \[S9\] |
+| 第2版（2008年12月） | 29500:2008 | Strict / Transitional が導入された版 \[S9\]\[S10\] |
+| 第3版（2011年6月） | 29500:2011 | \[S3\]\[S10\] |
+| 第4版（2012年12月） | 29500:2012 | ISO側の旧版（29500-1:2012）は第4版の発行により廃止扱い \[S1\]\[S3\] |
+| 第5版 Part 1（2016年12月） | **29500-1:2016**（Part 3:2015、Part 4:2016 も同時期） | **本ガイドの対象** \[S3\]\[S10\] |
+| 第5版 Part 2（2021年12月） | （OPCは別の版番号で改訂） | Ecma側の Part 2 のみ2021年版 \[S3\] |
 
 ---
 
@@ -157,7 +157,7 @@ flowchart TB
 
 ### 3-1. 歴史の流れ
 
-OOXMLは、標準化の過程で大きな論争を呼んだ規格です。当時のISO側の議長役（Ballot Resolution Meeting のコンビーナー）だった **Alex Brown** 氏は、「Strict」と「Transitional」の2つに分割したことが改訂プロセスの突破口だったと述べています [S5][S6]。
+OOXMLは、標準化の過程で大きな論争を呼んだ規格です。当時のISO側の議長役（Ballot Resolution Meeting のコンビーナー）だった **Alex Brown** 氏は、「Strict」と「Transitional」の2つに分割したことが改訂プロセスの突破口だったと述べています \[S5\]\[S6\]。
 
 ```mermaid
 flowchart TB
@@ -178,29 +178,29 @@ flowchart TB
     class H9 now
 ```
 
-> 根拠：H1〜H3 は [S3][S5][S10]、H4〜H9 のステージ日付は ISO の2つのページ [S1][S2] による。
+> 根拠：H1〜H3 は \[S3\]\[S5\]\[S10\]、H4〜H9 のステージ日付は ISO の2つのページ \[S1\]\[S2\] による。
 
 ### 3-2. 2026年10月16日時点で確認できたこと
 
 | 項目 | 状況 | 根拠 |
 |---|---|---|
-| 現行版 | ISO/IEC 29500-1:2016 は **Published**。見直しで継続と確認済み | [S1] |
-| 改訂版 | ISO/IEC FDIS 29500-1（第5版）が **承認フェーズ（50.20）**。2026年8月17日にFDIS投票が開始 | [S2] |
-| 投票終了日の目安 | 投票期間は8週間のため、**2026年10月12日前後**が目安（計算値）。ただし ISOページには終了日・結果の記載がなく、**可決・発行の確認は取れていません** | [S2]＋計算 |
-| 版の継続性 | 新版が発行されるまでは、2016年版が現行規格 | [S1] |
-| Ecma側 | ECMA-376 の掲載は **第5版**（Part 1：2016年12月、Part 2：2021年12月）。Ecmaページの更新日は2022年1月と表示されており、新版の掲載は確認できませんでした | [S3] |
+| 現行版 | ISO/IEC 29500-1:2016 は **Published**。見直しで継続と確認済み | \[S1\] |
+| 改訂版 | ISO/IEC FDIS 29500-1（第5版）が **承認フェーズ（50.20）**。2026年8月17日にFDIS投票が開始 | \[S2\] |
+| 投票終了日の目安 | 投票期間は8週間のため、**2026年10月12日前後**が目安（計算値）。ただし ISOページには終了日・結果の記載がなく、**可決・発行の確認は取れていません** | \[S2\]＋計算 |
+| 版の継続性 | 新版が発行されるまでは、2016年版が現行規格 | \[S1\] |
+| Ecma側 | ECMA-376 の掲載は **第5版**（Part 1：2016年12月、Part 2：2021年12月）。Ecmaページの更新日は2022年1月と表示されており、新版の掲載は確認できませんでした | \[S3\] |
 
-> 📌 **実務メモ**：設計書・テスト計画書に引用するときは、「ISO/IEC 29500-1:2016（改訂版 FDIS 審議中、2026年10月16日時点）」のように **基準日付きで書く** と、後から読んだ人が混乱しません。ISOページ（[S1][S2]）のステージ表示を、発行のタイミングで再確認してください。
+> 📌 **実務メモ**：設計書・テスト計画書に引用するときは、「ISO/IEC 29500-1:2016（改訂版 FDIS 審議中、2026年10月16日時点）」のように **基準日付きで書く** と、後から読んだ人が混乱しません。ISOページ（\[S1\]\[S2\]）のステージ表示を、発行のタイミングで再確認してください。
 
 ### 3-3. 第4版と第5版のページ数が大きく違う理由
 
-ISOページ上の数字は、第4版が5,024ページ、FDIS（第5版）が3,146ページです [S1][S2]。差の理由は、公開情報からは **確認できませんでした**（組版の違いなのか内容の整理なのかは不明）。推測で断定せず、新版を入手した段階で差分を確認するのが安全です。
+ISOページ上の数字は、第4版が5,024ページ、FDIS（第5版）が3,146ページです \[S1\]\[S2\]。差の理由は、公開情報からは **確認できませんでした**（組版の違いなのか内容の整理なのかは不明）。推測で断定せず、新版を入手した段階で差分を確認するのが安全です。
 
 ---
 
 ## STEP 4：Part 1 の構成を地図で理解する
 
-Part 1 は「**語彙の辞書**」です。目次（公開されている各版のプレビュー）から読み取れる大きな構成は次のとおりです [S19]。
+Part 1 は「**語彙の辞書**」です。目次（公開されている各版のプレビュー）から読み取れる大きな構成は次のとおりです \[S19\]。
 
 | 章 | 内容 | 初学者の読みどころ |
 |---|---|---|
@@ -285,7 +285,7 @@ flowchart LR
 読み方：
 
 - `Type` の末尾が `officeDocument` の関係が **メインパーツへの入口** です。
-- この `Type` のURLが **`schemas.openxmlformats.org`** なら Transitional、**`purl.oclc.org/ooxml`** なら Strict です（STEP 7）[S4][S15]。
+- この `Type` のURLが **`schemas.openxmlformats.org`** なら Transitional、**`purl.oclc.org/ooxml`** なら Strict です（STEP 7）\[S4\]\[S15\]。
 
 ### 5-4. アプリがファイルを開く流れ
 
@@ -303,7 +303,7 @@ sequenceDiagram
     App->>App: 画面に描画
 ```
 
-> ⚠️ MS Learn によると、Open XML SDK で文書を作るとき、文書タイプ（`WordprocessingDocumentType`）と拡張子が一致していないと、Wordで開く際にエラーになります [S11]。`[Content_Types].xml` の宣言と拡張子の整合は、QAの重要観点です（STEP 11）。
+> ⚠️ MS Learn によると、Open XML SDK で文書を作るとき、文書タイプ（`WordprocessingDocumentType`）と拡張子が一致していないと、Wordで開く際にエラーになります \[S11\]。`[Content_Types].xml` の宣言と拡張子の整合は、QAの重要観点です（STEP 11）。
 
 ---
 
@@ -318,11 +318,11 @@ Part 1 が定める主役は、次の3つの「マークアップ言語」です
 | **PML** | PresentationML | PowerPoint | `ppt/presentation.xml` |
 | （共通） | DrawingML | 図形・画像・グラフ・テキストの共通表現 | 各MLから参照 |
 
-> 📌 メインパーツの名前（`xl/workbook.xml` など）は慣例であり、規格が固定しているわけではありません。**入口は常に `_rels/.rels` の `officeDocument` 関係**です [S4]。
+> 📌 メインパーツの名前（`xl/workbook.xml` など）は慣例であり、規格が固定しているわけではありません。**入口は常に `_rels/.rels` の `officeDocument` 関係**です \[S4\]。
 
 ### 6-1. WordprocessingML：文書は「段落 → ラン → テキスト」
 
-MS Learn は、WordprocessingML の基本構造を「`document` と `body` の下に、段落 `p` などのブロック要素が並ぶ」と説明しています [S11]。
+MS Learn は、WordprocessingML の基本構造を「`document` と `body` の下に、段落 `p` などのブロック要素が並ぶ」と説明しています \[S11\]。
 
 ```xml
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
@@ -351,7 +351,12 @@ MS Learn は、WordprocessingML の基本構造を「`document` と `body` の�
 
 ### 6-2. SpreadsheetML：セルの文字列は「共有文字列テーブル」を参照
 
-SpreadsheetML では、文字列セルの値を **共有文字列テーブル（`sharedStrings.xml`）** に集約し、セルからは番号で参照します（Part 1 の 18.4 章が共有文字列テーブルを扱います [S19]）。
+SpreadsheetML の文字列セルには、主に次の2つの格納方式があります。
+
+- **共有文字列方式（`t="s"`）**：文字列を **共有文字列テーブル（`sharedStrings.xml`）** に集約し、セルの `<v>` には番号だけを入れて参照します（Part 1 の 18.4 章が共有文字列テーブルを扱います \[S19\]）。Excel が保存するファイルで一般的な方式です。
+- **インライン文字列方式（`t="inlineStr"`）**：文字列をセル内の `<is>` 要素（その中の `<t>`）に直接格納します。共有文字列テーブルを参照しないため、`sharedStrings.xml` がないブックでも値を読み取れます。ライブラリが生成するファイルなどで使われます。
+
+読み取り側は、`t` 属性を見て両方の方式に対応する必要があります。
 
 ```xml
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
@@ -359,6 +364,7 @@ SpreadsheetML では、文字列セルの値を **共有文字列テーブル（
     <row r="1">
       <c r="A1" t="s"><v>0</v></c>   <!-- t="s"：値は共有文字列の番号 -->
       <c r="B1"><v>42</v></c>        <!-- 数値はそのまま保持 -->
+      <c r="C1" t="inlineStr"><is><t>Hello</t></is></c>  <!-- t="inlineStr"：値はセル内の is に直接格納 -->
     </row>
   </sheetData>
 </worksheet>
@@ -384,10 +390,10 @@ flowchart LR
 | `sheet` / `worksheet` | シートの参照／シート本体 |
 | `sheetData` → `row` → `c` | 行とセル |
 | `c@r` | セルの位置（A1形式） |
-| `c@t` | セルの型。`s` は共有文字列 |
+| `c@t` | セルの型。`s` は共有文字列、`inlineStr` はインライン文字列 |
 | `v` | 値 |
 
-> 📌 日付の扱いは **StrictとTransitionalで異なります**（STEP 7）。Strictにはセル型 `d`（ISO 8601の日付）がありますが、Transitionalでは許可されていません [S4]。
+> 📌 日付の扱いは **StrictとTransitionalで異なります**（STEP 7）。Strictにはセル型 `d`（ISO 8601の日付）がありますが、Transitionalでは許可されていません \[S4\]。
 
 ### 6-3. PresentationML：スライドは「図形ツリー」
 
@@ -403,17 +409,17 @@ PresentationML は、プレゼン全体（`presentation`）、スライドマス
 
 ### 7-1. なぜ2つあるのか
 
-Library of Congress（米国議会図書館）のフォーマット解説は、次のように整理しています [S4]。
+Library of Congress（米国議会図書館）のフォーマット解説は、次のように整理しています \[S4\]。
 
 - **Strict**：旧Office形式の不具合や古い機能の名残を除いた、**規格本来の形**。マークアップは Transitional の **サブセット** に近いが、名前空間が別でスキーマも別配布
 - **Transitional**：既存のOffice文書を高い忠実度で移行するため、**旧機能を許容する形**
 - 当初の意図は「新規文書は Strict で作る」ことだったが、後方互換の圧力により、**実際の新規ファイルの多くは Transitional で作られている**
 
-Alex Brown 氏は、改訂プロセスの鍵が「StrictとTransitionalへの分割」であり、Microsoftが実装していたのはECMAが承認した Transitional だったと整理しています [S5]。
+Alex Brown 氏は、改訂プロセスの鍵が「StrictとTransitionalへの分割」であり、Microsoftが実装していたのはECMAが承認した Transitional だったと整理しています \[S5\]。
 
 ### 7-2. 何が違うか
 
-LOCの解説から、主な違いをまとめます [S4]。
+LOCの解説から、主な違いをまとめます \[S4\]。
 
 | 観点 | Strict | Transitional |
 |---|---|---|
@@ -435,11 +441,11 @@ LOCの解説から、主な違いをまとめます [S4]。
 | DrawingML | `http://schemas.openxmlformats.org/drawingml/2006/main` | `http://purl.oclc.org/ooxml/drawingml/main` |
 | 関係の型 | `http://schemas.openxmlformats.org/officeDocument/2006/relationships` | `http://purl.oclc.org/ooxml/officeDocument/relationships` |
 
-> 出典：OSSライブラリの実装定数 [S20] と、LOCの解説 [S4]、実際のツール不具合報告 [S15]。**Strict の文書は、パッケージ内に Transitional の名前空間を混在させてはいけません**（実装時の検証ポイント）。
+> 出典：OSSライブラリの実装定数 \[S20\] と、LOCの解説 \[S4\]、実際のツール不具合報告 \[S15\]。**Strict の文書は、パッケージ内に Transitional の名前空間を混在させてはいけません**（実装時の検証ポイント）。
 
 ### 7-4. 実際に起きた不具合の例
 
-OSSの翻訳フレームワーク Okapi には、「Strict 形式の `.xlsx` をOpenXMLフィルターが処理できない」という報告が上がっています。原因は、`.rels` の `Type` が `purl.oclc.org` を指す Strict 形式だったことでした [S15]。**Strict の存在を知らないツールは、見た目は同じ拡張子の別形式として失敗します。**
+OSSの翻訳フレームワーク Okapi には、「Strict 形式の `.xlsx` をOpenXMLフィルターが処理できない」という報告が上がっています。原因は、`.rels` の `Type` が `purl.oclc.org` を指す Strict 形式だったことでした \[S15\]。**Strict の存在を知らないツールは、見た目は同じ拡張子の別形式として失敗します。**
 
 ### 7-5. Office はどちらをサポートするか（歴史）
 
@@ -454,16 +460,16 @@ flowchart TB
     class O1,O2,O3 step
 ```
 
-> 根拠：Office 2007〜2010 の対応は MS Learn [S9]。Excel 2013 以降が Strict を読み書きできる点は LOC [S4]。Office 2013 以降の「Strict 対応だが既定ではない」は Wikipedia の記述 [S18]。**現在の各製品の最新の対応状況は、各製品の公式ドキュメントで確認してください**（本稿では2026年時点の最新確認は取れていません）。
+> 根拠：Office 2007〜2010 の対応は MS Learn \[S9\]。Excel 2013 以降が Strict を読み書きできる点は LOC \[S4\]。Office 2013 以降の「Strict 対応だが既定ではない」は Wikipedia の記述 \[S18\]。**現在の各製品の最新の対応状況は、各製品の公式ドキュメントで確認してください**（本稿では2026年時点の最新確認は取れていません）。
 
 ### 7-6. 専門家たちの議論（国際的な視点）
 
 | 人物・媒体 | 主張（要約） | 根拠 |
 |---|---|---|
-| **Alex Brown**（元 BRM コンビーナー） | Office 2010 が Transitional のみだと、ISOが承認した形式ではなく、否決された形式を出荷することになる、と強く批判（2010年） | [S6] |
-| **Doug Mahugh**（Microsoft） | Strict の読み書きは、遅くとも次期メジャーリリース（Office “15”）までに実装すると表明。Office 2010 では Transitional が顧客と既存エコシステムに適すると説明 | [S7][S8] |
-| **Gareth Horton**（表計算の専門家） | Transitional でシリアル日付が必要な理由を解説（ISO 8601日付の議論） | [S4] |
-| **Jesper Stocholm**（OOXMLツール開発者） | ISO 8601日付による「静かなデータ欠落」の危険を指摘 | [S4] |
+| **Alex Brown**（元 BRM コンビーナー） | Office 2010 が Transitional のみだと、ISOが承認した形式ではなく、否決された形式を出荷することになる、と強く批判（2010年） | \[S6\] |
+| **Doug Mahugh**（Microsoft） | Strict の読み書きは、遅くとも次期メジャーリリース（Office “15”）までに実装すると表明。Office 2010 では Transitional が顧客と既存エコシステムに適すると説明 | \[S7\]\[S8\] |
+| **Gareth Horton**（表計算の専門家） | Transitional でシリアル日付が必要な理由を解説（ISO 8601日付の議論） | \[S4\] |
+| **Jesper Stocholm**（OOXMLツール開発者） | ISO 8601日付による「静かなデータ欠落」の危険を指摘 | \[S4\] |
 
 > 💡 **学び**：規格は「正しさ」だけでなく、**既存ソフトの互換性と政治的な妥協**の産物です。実務では「規格上はどうか」と「主要ソフトはどう動くか」を **両方** 確認する癖をつけましょう。
 
@@ -493,7 +499,7 @@ flowchart TB
 
 ### 8-1. 文書の適合条件（概要）
 
-Alex Brown 氏がSC 34 WG 4のメーリングリストに投稿した、Part 1 の適合性条項に関する議論から、条件の骨子が確認できます [S14]。要点を言い換えると次のとおりです。
+Alex Brown 氏がSC 34 WG 4のメーリングリストに投稿した、Part 1 の適合性条項に関する議論から、条件の骨子が確認できます \[S14\]。要点を言い換えると次のとおりです。
 
 | 条件 | 内容 |
 |---|---|
@@ -534,7 +540,7 @@ flowchart TB
     class V1,V4 step
 ```
 
-> ⚠️ 上記は ISO のメーリングリスト上の公開議論 [S14]（2010年の版を対象）にもとづく骨子です。**2016年版の条文の正確な文言は、規格本文で確認してください。**
+> ⚠️ 上記は ISO のメーリングリスト上の公開議論 \[S14\]（2010年の版を対象）にもとづく骨子です。**2016年版の条文の正確な文言は、規格本文で確認してください。**
 
 ### 8-2. MCE（Part 3）：新しい機能を古いソフトで壊さない仕組み
 
@@ -572,7 +578,7 @@ flowchart TB
     class E4 ng
 ```
 
-> 📌 `mc:AlternateContent`（`Choice` と `Fallback`）による「新機能が使えるときは Choice、使えないときは Fallback」という切り替えも MCE の機能です。**MCEの詳細な挙動は Part 3 の本文で確認してください**（本稿の公開ソースでは、Part 3 が独立した規格であることまでを確認しています [S3][S10]）。
+> 📌 `mc:AlternateContent`（`Choice` と `Fallback`）による「新機能が使えるときは Choice、使えないときは Fallback」という切り替えも MCE の機能です。**MCEの詳細な挙動は Part 3 の本文で確認してください**（本稿の公開ソースでは、Part 3 が独立した規格であることまでを確認しています \[S3\]\[S10\]）。
 
 ---
 
@@ -602,8 +608,18 @@ import zipfile
 from xml.etree import ElementTree as ET
 
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
-STRICT_PREFIX = "http://purl.oclc.org/ooxml/"
-TRANSITIONAL_PREFIX = "http://schemas.openxmlformats.org/"
+# メインパーツのルート名前空間（WML・SML・PML）だけを完全一致で判定する。
+# 接頭辞一致にすると Relationships 名前空間など無関係な名前空間まで分類してしまうため。
+STRICT_NAMESPACES = {
+    "http://purl.oclc.org/ooxml/wordprocessingml/main",
+    "http://purl.oclc.org/ooxml/spreadsheetml/main",
+    "http://purl.oclc.org/ooxml/presentationml/main",
+}
+TRANSITIONAL_NAMESPACES = {
+    "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    "http://schemas.openxmlformats.org/presentationml/2006/main",
+}
 
 
 def probe(path):
@@ -619,9 +635,9 @@ def probe(path):
             return {"error": "officeDocument relationship not found"}
         root = ET.fromstring(z.read(main_target.lstrip("/")))
         root_ns = root.tag.split("}")[0].lstrip("{")
-    if root_ns.startswith(STRICT_PREFIX):
+    if root_ns in STRICT_NAMESPACES:
         variant = "Strict"
-    elif root_ns.startswith(TRANSITIONAL_PREFIX):
+    elif root_ns in TRANSITIONAL_NAMESPACES:
         variant = "Transitional"
     else:
         variant = "unknown"
@@ -647,11 +663,11 @@ if __name__ == "__main__":
 | `t.xlsx`（openpyxl で生成） | 9 | `xl/workbook.xml` | `schemas.openxmlformats.org/spreadsheetml/2006/main` | **Transitional** |
 | `s.docx` / `s.xlsx`（上記の名前空間だけを purl に書き換えた**デモ用**ファイル） | 17 / 9 | 同上 | `purl.oclc.org/ooxml/…` | **Strict** と判定 |
 
-> ⚠️ `s.docx` は判定ロジックを確かめるために名前空間だけを書き換えた疑似ファイルで、**規格に適合した本物の Strict 文書ではありません**。本物の Strict 文書は、Excel の「Strict Open XML スプレッドシート」として保存したファイルなどで試してください [S4]。
+> ⚠️ `s.docx` は判定ロジックを確かめるために名前空間だけを書き換えた疑似ファイルで、**規格に適合した本物の Strict 文書ではありません**。本物の Strict 文書は、Excel の「Strict Open XML スプレッドシート」として保存したファイルなどで試してください \[S4\]。
 
 ### 9-3. 実験C：Strict を「名乗るだけ」のツールに注意
 
-UniOffice（Go言語のOffice文書ライブラリ）のドキュメントには、`SetStrict(true)` を呼んでも **名前空間は Transitional のまま**で、`conformance` 属性だけが変わる、と明記されています。また、Strict 文書を開いて保存し直すと **Transitional として書き出される**とも説明されています [S21]。
+UniOffice（Go言語のOffice文書ライブラリ）のドキュメントには、`SetStrict(true)` を呼んでも **名前空間は Transitional のまま**で、`conformance` 属性だけが変わる、と明記されています。また、Strict 文書を開いて保存し直すと **Transitional として書き出される**とも説明されています \[S21\]。
 
 | 学び | 内容 |
 |---|---|
@@ -664,13 +680,13 @@ UniOffice（Go言語のOffice文書ライブラリ）のドキュメントには
 
 | ツール | 言語・環境 | 用途 | 根拠 |
 |---|---|---|---|
-| **Open XML SDK**（`DocumentFormat.OpenXml`） | .NET（MITライセンス、.NET Foundation プロジェクト） | Word / Excel / PowerPoint の生成・編集・検証。型付きクラスで要素を操作 | [S11][S13][S22] |
-| Open XML Powertools | .NET | 文書の分割・結合など、幅広いシナリオのサンプルコード | [S13] |
-| **OOXML Validator** | VS Code 拡張 | Office Open XML ファイルの検証。ただし Strict と Transitional を区別して検証する機能は、作者の回答によると未対応（SDK側の機能に依存） | [S13][S23] |
-| ClosedXML / OfficeIMO / ShapeCrawler | .NET | Open XML SDK の上位ラッパー（Excel / Word / PowerPoint） | [S13] |
-| **python-docx** | Python（MITライセンス） | `.docx` の読み書き。作者は Steve Canny 氏 | [S12] |
+| **Open XML SDK**（`DocumentFormat.OpenXml`） | .NET（MITライセンス、.NET Foundation プロジェクト） | Word / Excel / PowerPoint の生成・編集・検証。型付きクラスで要素を操作 | \[S11\]\[S13\]\[S22\] |
+| Open XML Powertools | .NET | 文書の分割・結合など、幅広いシナリオのサンプルコード | \[S13\] |
+| **OOXML Validator** | VS Code 拡張 | Office Open XML ファイルの検証。ただし Strict と Transitional を区別して検証する機能は、作者の回答によると未対応（SDK側の機能に依存） | \[S13\]\[S23\] |
+| ClosedXML / OfficeIMO / ShapeCrawler | .NET | Open XML SDK の上位ラッパー（Excel / Word / PowerPoint） | \[S13\] |
+| **python-docx** | Python（MITライセンス） | `.docx` の読み書き。作者は Steve Canny 氏 | \[S12\] |
 
-> 📌 Open XML SDK は、検索時点でNuGetに 3.5.1（2026年3月公開）が最新安定版として表示されていました [S22]。**利用前に最新版を確認してください。**
+> 📌 Open XML SDK は、検索時点でNuGetに 3.5.1（2026年3月公開）が最新安定版として表示されていました \[S22\]。**利用前に最新版を確認してください。**
 
 ### ツール選定の目安
 
@@ -691,18 +707,18 @@ OOXMLを扱うソフト（エクスポート機能、変換ツール、文書生
 
 | # | 観点 | 具体例 | 根拠・背景 |
 |---|---|---|---|
-| ① | **Strict / Transitional の判別** | 名前空間とリレーションの `Type` で分岐できるか | [S4][S15] |
-| ② | **Strict の読み込み** | Strict の `.xlsx` を読み込み、失敗せず値が取れるか | [S15] |
-| ③ | **往復変換でのクラス保持** | Strict を開いて保存したとき、意図せず Transitional に変わらないか | [S21] |
-| ④ | **「Strict対応」の実体** | フラグだけでなく名前空間・要素名まで Strict になっているか | [S21] |
-| ⑤ | **Strict で禁止される要素** | VML、旧い文字セット、`left`/`right` 旧名称が Strict 出力に混入していないか | [S4] |
-| ⑥ | **日付** | Strict の `d` 型日付を正しく扱えるか。Transitional の出力に `d` 型が出ていないか | [S4] |
-| ⑦ | **Content Types と拡張子の整合** | `.docx` なのに別タイプを宣言していないか（Word でエラーになる） | [S11] |
+| ① | **Strict / Transitional の判別** | 名前空間とリレーションの `Type` で分岐できるか | \[S4\]\[S15\] |
+| ② | **Strict の読み込み** | Strict の `.xlsx` を読み込み、失敗せず値が取れるか | \[S15\] |
+| ③ | **往復変換でのクラス保持** | Strict を開いて保存したとき、意図せず Transitional に変わらないか | \[S21\] |
+| ④ | **「Strict対応」の実体** | フラグだけでなく名前空間・要素名まで Strict になっているか | \[S21\] |
+| ⑤ | **Strict で禁止される要素** | VML、旧い文字セット、`left`/`right` 旧名称が Strict 出力に混入していないか | \[S4\] |
+| ⑥ | **日付** | Strict の `d` 型日付を正しく扱えるか。Transitional の出力に `d` 型が出ていないか | \[S4\] |
+| ⑦ | **Content Types と拡張子の整合** | `.docx` なのに別タイプを宣言していないか（Word でエラーになる） | \[S11\] |
 | ⑧ | **関係の参照切れ** | `.rels` の `Target` が実在するパーツを指すか | STEP 5 |
 | ⑨ | **未知の拡張の扱い** | `mc:Ignorable` の拡張を含む文書を、古い実装が無視して開けるか | STEP 8 |
 | ⑩ | **ランをまたぐ文字列** | 書式が途中で変わる単語を検索・置換できるか | STEP 6 |
 | ⑪ | **共有文字列** | 同じ文字列が複数セルにあるとき、参照番号が正しいか | STEP 6 |
-| ⑫ | **文字コード** | UTF-8 / UTF-16 のXMLを正しく読めるか。日本語・絵文字・サロゲートペア | [S14] |
+| ⑫ | **文字コード** | UTF-8 / UTF-16 のXMLを正しく読めるか。日本語・絵文字・サロゲートペア | \[S14\] |
 
 ### 11-2. 受け入れチェックリスト（コピーして使えます）
 
@@ -840,7 +856,7 @@ flowchart LR
 
 ### 補足
 
-- **規格PDFの入手先**：LOC [S4] によると、ISO/IEC 29500-1:2016 の本文PDFとスキーマ（W3C XML Schema・RELAX NG）は、ISOの Publicly Available Standards から無償で取得できます。URL：https://standards.iso.org/ittf/PubliclyAvailableStandards/c071691_ISO_IEC_29500-1_2016.zip（このURLは [S4] の記載から転記したもので、本稿作成時にダウンロードはしていません）
+- **規格PDFの入手先**：LOC \[S4\] によると、ISO/IEC 29500-1:2016 の本文PDFとスキーマ（W3C XML Schema・RELAX NG）は、ISOの Publicly Available Standards から無償で取得できます。URL：https://standards.iso.org/ittf/PubliclyAvailableStandards/c071691_ISO_IEC_29500-1_2016.zip（このURLは \[S4\] の記載から転記したもので、本稿作成時にダウンロードはしていません）
 - **未確認事項**：（a）FDIS 投票の結果と第5版の発行有無、（b）第4版と第5版のページ数差の理由、（c）2026年時点での各ソフトの Strict 対応の最新状況。いずれも2026年10月16日時点の公開情報では確認できませんでした。
 
 ---
