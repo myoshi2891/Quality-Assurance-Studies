@@ -429,7 +429,11 @@ flowchart LR
 -- 概念例（構文の細部はDBMSごとに確認してください）
 CREATE PROPERTY GRAPH bank_graph
     VERTEX TABLES (person, account)
-    EDGE TABLES (ownerof);          -- 外部キーがあれば関係を推論できる \[S5\]
+    EDGE TABLES (
+        ownerof
+            SOURCE person           -- 始点の頂点表（キー列は外部キーから推論できる \[S5\]）
+            DESTINATION account     -- 終点の頂点表
+    );
 
 SELECT *
 FROM GRAPH_TABLE (bank_graph
