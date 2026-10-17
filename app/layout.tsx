@@ -9,6 +9,7 @@ import type { Metadata, Viewport } from 'next';
 import '@fontsource/noto-sans-jp/300.css';
 import '@fontsource/noto-sans-jp/400.css';
 import '@fontsource/noto-sans-jp/500.css';
+import '@fontsource/noto-sans-jp/600.css';
 import '@fontsource/noto-sans-jp/700.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
@@ -25,6 +26,9 @@ import '@fontsource/dm-sans/800.css';
 */
 import '@fontsource/bricolage-grotesque/600.css';
 import '@fontsource/bricolage-grotesque/800.css';
+/* CTAL-TAE 第5章の見出し用セリフ（元 HTML が Google Fonts で読んでいた 600・700 のみ） */
+import '@fontsource/source-serif-4/600.css';
+import '@fontsource/source-serif-4/700.css';
 import './globals.css';
 import Header from '../components/Header';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';

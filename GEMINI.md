@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-15
+Updated 2026-10-17
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -110,6 +110,10 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-tae-chapter1-introduction-and-objectives/page.tsx` (CTAL-TAE 第1章 テスト自動化の導入と目的、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.tsx` (CTAL-TAE 第2章 テスト自動化の準備、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-chapter3-test-automation-architecture/page.tsx` (CTAL-TAE 第3章 テスト自動化アーキテクチャ、`NavBar.tsx` 付き)
+- `app/istqb-ctal-tae-chapter4-implementing-test-automation/page.tsx` (CTAL-TAE 第4章 テスト自動化の実装、`NavBar.tsx` 付き)
+- `app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.tsx` (CTAL-TAE 第5章 実装・デプロイ戦略、`NavBar.tsx`・`diagrams.ts`・専用CSS付き)
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/page.tsx` (CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別本文・`NavBar.tsx`・`ChecklistCard.tsx`・図定義・専用CSS付き)
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.tsx` (CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別本文・静的構文色・目次と進捗・図定義・専用CSS付き)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter1-test-process/page.tsx` (CTAL-TA 第1章 テストプロセス、`NavBar.tsx` 付き)
 - `app/istqb-ctal-ta-chapter2-risk-based-testing/page.tsx` (CTAL-TA 第2章 リスクベースドテスト、`NavBar.tsx` 付き)
@@ -208,7 +212,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（96 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（100 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -353,6 +357,17 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
+
+### ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」の追加移行（2026-10-16）
+
+- `/istqb-ctal-tae-chapter4-implementing-test-automation`をISTQB高度レベル（`istqb-advanced`）へ追加。パイロットとデプロイのガイドライン、一般的・技術的デプロイリスク、保守性とクリーンコード原則、Mermaid図6件、全5表、チェックリストを完全保持。
+- `tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`で11テスト（180 expect() calls）を検証。ナビ・E2E対象は97ルート、Advancedカテゴリは18件。
+- 原本は`archive/html-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.html`と`archive/md-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.md`へ移動。
+- 検証は`bun test`および`bun run lint`で実施。ビルド・目視確認は実施しない。
 
 ### ISTQB CTAL-TAE 第2章「テスト自動化の準備」の追加移行（2026-10-12）
 
@@ -414,10 +429,10 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 100 ルート（ガイドライブラリ index + 99 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2799件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
+- 全体テストすべて成功（直近 3894件（123ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第7章 テスト自動化ソリューションの検証」（`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`）を登録済み。目視確認はユーザーが担当。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
@@ -430,3 +445,34 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 ## LangGraphコード表示
 
 `app/langgraph-qa-agent-guide/SyntaxCode.tsx`はPython・Bashのコードをサーバー側でハイライトする。追加ライブラリ・CDNを使わず、Reactの文字列エスケープによりコードの安全性と改行を維持する。全15ブロックの本文一致と色分けをテストしている。
+
+## 2026-10-17: CTAL-TAE 第5章移行の検証
+
+- ナビ・E2E登録は98ルート、Advancedカテゴリーは19件。新規ページ196件・原本保持と登録4件を検証。全体テスト3063件（119ファイル）とlintが成功。
+- 原本HTML・MDは各アーカイブの`ctal/`へ移動しSHA-256一致。ビルド・ブラウザE2E・目視確認は未実施。型検査は既存テストのエラーが残存。
+
+## 2026-10-17: CTAL-TAE 第6章移行の検証
+
+- ナビ・E2E登録は99ルート、Advancedカテゴリーは20件。第6章のページ409件・登録と原本保持4件を検証。
+- 49見出し・43目次リンク・31表・11図・コード例2件・コールアウト13件・解答開閉5件・チェック項目13件・参考文献12リンクを固定インベントリと照合。CSS全160ルールと追加上書きを検証。
+- 元HTML・MDは各アーカイブの`ctal/`へ移動しSHA-256一致。全体テスト3480件（121ファイル）とlintが成功。ビルド・ブラウザE2E・目視確認は未実施。型検査の既存エラーは移行対象を除いた場合と一致し、新規ファイルの診断なし。
+
+## 2026-10-17: CTAL-TAE 第7章移行の検証
+
+- ナビ・E2E登録は100ルート、Advancedカテゴリーは21件。第7章のページ406件・登録と原本保持4件を検証。全体テスト3894件（123ファイル）とlintが成功。
+- 58見出し・40目次リンク・30表・11図・コード例7件・コールアウト18件・解答6件・チェック項目6件・参考URL13件を固定インベントリと照合。CSS全99ルールとハイライト配色14ルールを検証。
+- 構文色は原本と同じhighlight.js 11.10.0で事前生成し、原本全文・言語・構文トークンを照合。追加の実行時依存・CDNスクリプトはなく、配色のライセンスを保存。
+- 原本HTML・MDは各アーカイブの`ctal/`へ移動しSHA-256一致。ビルド・ブラウザE2E・目視確認は未実施。型検査のエラー位置・メッセージは既存基準と一致し、新規ファイルの診断なし。
+
+## 2026-10-17: CTAL-TAE第7章 Mermaid黒塗りの修正
+
+- 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
+- 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+
+## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
+
+- 原因: 他ルートの未スコープ`.code-block code`が残ると、コードに`white-space: pre-wrap`と異なる文字サイズ・行高が適用される。第7章内で明示的に上書きし、字下げ・改行を保持して外側の`pre`で横スクロールする。
+- チェックリスト: 全6項目の文章・状態管理を保持し、行全体を押せるカード、2段の進捗表示、完了時の読みやすい緑色、キーボードフォーカスを追加。
+- 検証: `e2e/ctal-tae-ch7-learning-ui.e2e.ts`で390px／1440px、他ルートCSSの前後両順序、全7コード、チェックリストの操作領域・完了色・フォーカスを検査。ブラウザ計40件、全体ユニット3894件（123ファイル）、lint成功。ビルド・サーバー起動・ページ全体の目視確認は未実施。

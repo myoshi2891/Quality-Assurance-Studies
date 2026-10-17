@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-07
+最終更新日: 2026-10-17
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -68,9 +68,9 @@
 
 **目的**: ページ内ナビゲーションがないページに、CT-AI と同じパターンで新規実装する  
 **参照実装**: `app/istqb-ct-ai-complete-guide/` — NavBar.tsx・CSS・page.tsx の 3 点セット  
-**NavBar 未実装のページ（2025-05-17 時点）**:
+**NavBar 未実装のページ（2026-10-17 時点）**:
 
-- なし（すべて実装完了）
+- なし（すべて実装完了）。CTAL-TAE第7章も`app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx`で対応済み。デスクトップ固定・900px以下で目次とスクリーンを開閉する原本の挙動を維持。
 
 > 以下の画面にページ内のスティッキーナビゲーションを新規追加してください。
 > /istqb-ct-ai-complete-guide の実装を参考にしてください。
@@ -142,7 +142,7 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
-現在の登録は92ルート（2026-10-07）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は100ルート（2026-10-17）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 

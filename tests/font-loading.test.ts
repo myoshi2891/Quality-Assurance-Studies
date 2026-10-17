@@ -18,12 +18,16 @@ const GLOBALS = join(ROOT, 'app', 'globals.css');
   閲覧時は必要なスライスだけがダウンロードされる。
 */
 
-/** 書体ごとに必要なウェイト。旧 next/font/google 設定と同じ集合を保つ */
+/**
+ * 書体ごとに必要なウェイト。旧 next/font/google 設定と同じ集合に、
+ * CTAL-TAE 第5章が元 HTML で Google Fonts から読んでいた分（Noto Sans JP 600・Source Serif 4 600/700）を加える
+ */
 const REQUIRED_WEIGHTS: Record<string, string[]> = {
-  'noto-sans-jp': ['300', '400', '500', '700'],
+  'noto-sans-jp': ['300', '400', '500', '600', '700'],
   'jetbrains-mono': ['400', '500', '700'],
   'dm-sans': ['300', '400', '500', '700', '800'],
   'bricolage-grotesque': ['600', '800'],
+  'source-serif-4': ['600', '700'],
 };
 
 const EXPECTED_IMPORTS = Object.entries(REQUIRED_WEIGHTS).flatMap(([pkg, weights]) =>
