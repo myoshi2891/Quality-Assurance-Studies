@@ -603,8 +603,10 @@ unzip -p t.docx word/document.xml | python -m xml.dom.minidom /dev/stdin
 `_rels/.rels` の `officeDocument` 関係と、メインパーツのルート名前空間から判定する最小スクリプトです。
 
 ```python
+import posixpath
 import sys
 import zipfile
+from urllib.parse import unquote
 from xml.etree import ElementTree as ET
 
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
@@ -639,7 +641,10 @@ def probe(path):
                 main_type, main_target = rel_type, rel.get("Target")
         if main_target is None:
             return {"error": "officeDocument relationship not found"}
-        root = ET.fromstring(z.read(main_target.lstrip("/")))
+        # Target はパッケージルート基準の相対 URI。「./word/document.xml」や
+        # 「/word/document.xml」も同じパーツになるよう正規化し、ZIP エントリ名に変換する。
+        part_name = posixpath.normpath(posixpath.join("/", unquote(main_target)))
+        root = ET.fromstring(z.read(part_name.lstrip("/")))
         root_ns = root.tag.split("}")[0].lstrip("{")
     if root_ns in STRICT_NAMESPACES:
         variant = "Strict"
