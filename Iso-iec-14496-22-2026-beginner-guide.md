@@ -298,6 +298,11 @@ def read_table_directory(path):
         if sfnt_version == b"ttcf":
             raise ValueError("フォントコレクションです。TTC ヘッダの読み取りが必要です")
 
+        # 単体フォントの sfntVersion は 0x00010000（TrueType 輪郭）か OTTO（CFF 系）のみ。
+        # それ以外の値は OpenType ではないか壊れたファイルなので、目次を読む前に拒否する。
+        if sfnt_version not in (b"\x00\x01\x00\x00", b"OTTO"):
+            raise ValueError(f"未対応の sfntVersion です: {sfnt_version.hex()}")
+
         records = []
         for _ in range(num_tables):
             # TableRecord は1件16バイト（tag 4 + checksum 4 + offset 4 + length 4）。
