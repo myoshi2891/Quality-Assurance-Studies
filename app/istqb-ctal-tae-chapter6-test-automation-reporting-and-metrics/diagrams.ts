@@ -5,6 +5,7 @@ export const MERMAID_CONFIG = `%%{init: {
     "fontSize": "16px",
     "fontFamily": "-apple-system, BlinkMacSystemFont, Hiragino Kaku Gothic ProN, Noto Sans JP, sans-serif",
     "primaryColor": "#dbeafe",
+    "mainBkg": "#dbeafe",
     "primaryTextColor": "#0f172a",
     "primaryBorderColor": "#1d4ed8",
     "lineColor": "#475569",

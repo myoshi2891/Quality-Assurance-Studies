@@ -146,6 +146,9 @@ describe('Mermaid diagrams', () => {
         expect(config.flowchart.rankSpacing).toBe(60);
         expect(config.themeVariables.edgeLabelBackground).toBe('#ffffff');
         expect(config.themeVariables.actorTextColor).toBe('#0f172a');
+        // 共通Mermaidのダークな mainBkg がマージで残らないよう、primaryColor と同色を明示する
+        expect(config.themeVariables.mainBkg).toBe(config.themeVariables.primaryColor);
+        expect(config.themeVariables.mainBkg).toBe('#dbeafe');
     });
     for (const [id, original] of Object.entries(inventory.diagrams)) {
         it(`${id}: exact original labels/connections/classes and real parser acceptance`, async () => {
