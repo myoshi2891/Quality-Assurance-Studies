@@ -60,13 +60,13 @@
 ### 読み方のコツ
 
 - 先に **STEP 1〜3**（背景）を読み、**STEP 5**（パッケージ）で手を動かすと理解が早まります。
-- 規格の本体（Part 1）は数千ページあります。**全部読む必要はありません**。「地図」（STEP 4）を持って、必要な章だけ引くのが実務的な使い方です。
+- 規格の本体（Part 1）は数千ページあります。**全部読む必要はありません**。「地図」（STEP 4）を持って、必要な章だけを参照するのが実務的な使い方です。
 
 ---
 
 ## STEP 1：OOXMLとは何か（全体像）
 
-**Office Open XML（OOXML）** は、ワープロ文書・表計算ブック・プレゼンテーションを **ZIPで固めたXMLファイル群** として表現するためのファイル形式の規格です。Microsoft Office 2007以降の標準形式として広く使われています \[S9\]\[S18\]。
+**Office Open XML（OOXML）** は、ワープロ文書・表計算ブック・プレゼンテーションを、**XML パーツと画像などの非 XML パーツをまとめた ZIP パッケージ** として表現するためのファイル形式の規格です。Microsoft Office 2007以降の標準形式として広く使われています \[S9\]\[S18\]。
 
 ISO/IEC 29500-1 の概要説明（抄録）によると、この規格は次の2つを目標にしています \[S1\]。
 
@@ -284,8 +284,10 @@ flowchart LR
 
 読み方：
 
-- `Type` の末尾が `officeDocument` の関係が **メインパーツへの入口** です。
-- この `Type` のURLが **`schemas.openxmlformats.org`** なら Transitional、**`purl.oclc.org/ooxml`** なら Strict です（STEP 7）\[S4\]\[S15\]。
+- `Type` が `officeDocument` の正式な関係型 URI と **完全一致** する関係が **メインパーツへの入口** です。末尾や名前空間の接頭辞だけで判定すると、別の関係型を取り違えます。
+- 判定に使う正式な関係型 URI は次の2つです（STEP 7、STEP 9 のスクリプトと同じ完全一致の判定）\[S4\]\[S15\]。
+  - Transitional：`http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument`
+  - Strict：`http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument`
 
 ### 5-4. アプリがファイルを開く流れ
 
@@ -595,19 +597,23 @@ python -c "from docx import Document; d=Document(); d.add_paragraph('Hello, Word
 unzip -l t.docx
 
 # ③ 本文を整形して読む
-unzip -p t.docx word/document.xml | python -m xml.dom.minidom /dev/stdin
+unzip -p t.docx word/document.xml | python -c "import sys, xml.dom.minidom; print(xml.dom.minidom.parseString(sys.stdin.buffer.read()).toprettyxml())"
 ```
 
 ### 9-2. 実験B：Strict / Transitional 判定スクリプト
 
 `_rels/.rels` の `officeDocument` 関係と、メインパーツのルート名前空間から判定する最小スクリプトです。関係の `Type` と名前空間が同じ適合クラス（Strict 同士、または Transitional 同士）を指すときだけ判定を確定し、食い違うときは `unknown` を返します。
 
+> ⚠️ **このスクリプトは信頼済みファイル専用です**：自分で作成した、または出所を確認したファイルの学習・調査に使ってください。ZIP エントリのサイズ上限と、外部エンティティや DTD を拒否する XML パーサー（`defusedxml`、`pip install defusedxml` で導入）は最低限の防御であり、信頼できない入力を受け付ける本番処理の代わりにはなりません。
+
 ```python
 import posixpath
 import sys
 import zipfile
 from urllib.parse import unquote
-from xml.etree import ElementTree as ET
+
+# 標準の xml.etree は DTD や実体参照の展開を拒否できないため、defusedxml で解析する
+from defusedxml import ElementTree as ET
 
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 # メインパーツへの関係型は Strict と Transitional の正式な URI だけを完全一致で受け入れる。
@@ -629,12 +635,27 @@ TRANSITIONAL_NAMESPACES = {
     "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
     "http://schemas.openxmlformats.org/presentationml/2006/main",
 }
+# 1パーツあたりの解凍後サイズの上限（ZIP 爆弾対策）。学習用の小さなファイルを想定した値
+MAX_PART_SIZE = 10 * 1024 * 1024
+
+
+def read_part(z, name):
+    # 解凍前に宣言サイズを確認し、宣言が偽装されていても実際の解凍量を上限で打ち切る
+    info = z.getinfo(name)
+    if info.file_size > MAX_PART_SIZE:
+        raise ValueError(f"{name} is too large: {info.file_size} bytes")
+    with z.open(info) as f:
+        data = f.read(MAX_PART_SIZE + 1)
+    if len(data) > MAX_PART_SIZE:
+        raise ValueError(f"{name} exceeds {MAX_PART_SIZE} bytes when decompressed")
+    return data
 
 
 def probe(path):
     with zipfile.ZipFile(path) as z:
         names = z.namelist()
-        rels = ET.fromstring(z.read("_rels/.rels"))
+        # DTD を含む XML は OOXML では不要なため、宣言の段階で拒否する
+        rels = ET.fromstring(read_part(z, "_rels/.rels"), forbid_dtd=True)
         main_target = main_type = None
         for rel in rels.findall(f"{{{REL_NS}}}Relationship"):
             rel_type = rel.get("Type", "")
@@ -645,7 +666,7 @@ def probe(path):
         # Target はパッケージルート基準の相対 URI。「./word/document.xml」や
         # 「/word/document.xml」も同じパーツになるよう正規化し、ZIP エントリ名に変換する。
         part_name = posixpath.normpath(posixpath.join("/", unquote(main_target)))
-        root = ET.fromstring(z.read(part_name.lstrip("/")))
+        root = ET.fromstring(read_part(z, part_name.lstrip("/")), forbid_dtd=True)
         root_ns = root.tag.split("}")[0].lstrip("{")
     if root_ns in STRICT_NAMESPACES:
         ns_variant = "Strict"
@@ -787,7 +808,7 @@ flowchart LR
 
 | # | 問い | 答えの要点 |
 |---|---|---|
-| Q1 | OOXMLファイルの正体は？ | ZIPで固めた XML パーツ群（OPC パッケージ） |
+| Q1 | OOXMLファイルの正体は？ | XML パーツと画像などの非 XML パーツをまとめた ZIP パッケージ（OPC パッケージ） |
 | Q2 | ECMA-376 と ISO/IEC 29500 の関係は？ | 同じ形式を2団体が標準化。初版は Ecma、以降の版を ISO/IEC が 29500 として標準化。対応する版・Part で技術的な整合が図られる場合はあるが、改訂時期・版番号・内容は常に一致するとは限らない |
 | Q3 | Part 1〜4 の役割は？ | 1：語彙と基礎、2：パッケージ（OPC）、3：互換と拡張（MCE）、4：Transitional の移行機能 |
 | Q4 | Strict と Transitional を一番簡単に見分ける方法は？ | 名前空間（`purl.oclc.org/ooxml` か `schemas.openxmlformats.org` か） |
@@ -867,7 +888,7 @@ flowchart LR
 | S18 | Wikipedia：Office Open XML（Office 2013 以降の Strict 対応に関する記述。検索結果ではミラーサイト経由で内容を確認） | https://en.wikipedia.org/wiki/Office_Open_XML |
 | S20 | office_oxide（Rust製OSS）の名前空間定数（Strict / Transitional の対応の実装例） | https://docs.rs/crate/office_oxide/0.1.4/source/src/core/xml.rs |
 | S21 | UniOffice のドキュメント：Strict モードの実装上の注意 | https://docs.unidoc.io/unioffice/guides/document/strict-mode/ |
-| S22 | NuGet 掲載情報（Open XML SDK 3.5.1、2026年3月公開と表示） | https://nubrowse.com/packages/DocumentFormat.OpenXml |
+| S22 | NuGet 公式ページ（Open XML SDK `DocumentFormat.OpenXml` 3.5.1） | https://www.nuget.org/packages/DocumentFormat.OpenXml/3.5.1 |
 | S23 | OOXML Validator（VS Code拡張）の議論：Strict/Transitional の区別は未対応 | https://github.com/mikeebowen/ooxml-validator-vscode/discussions/13 |
 
 ### 補足
