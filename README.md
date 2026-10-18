@@ -104,7 +104,7 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 
 `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`を追加。58見出し・30表・11図・コード例7件・全99 CSSルールを固定インベントリと照合しました。構文色は原本と同じhighlight.js 11.10.0で事前生成し、全文とトークン、Atom One Lightの配色を検証しています。元HTML・MDは各アーカイブの`ctal/`へ移動しハッシュ一致を確認済みです。
 
-サンドボックスでは`npm exec -- bun test`と`npm run lint`を使用し、全3894件のテスト（123ファイル）とlintが成功。ビルドは実行せず、目視確認はユーザーが担当します。型検査には既存エラーが残っていますが、エラー位置・メッセージは移行対象を除外した基準と一致し、新規ファイルの診断はありません。
+サンドボックスでは`bun test`と`bun run lint`で検証し、全3894件のテスト（123ファイル）とlintが成功（当時は`npm exec -- bun test`と`npm run lint`経由で実行。Bun-only規約の例外として記録）。ビルドは実行せず、目視確認はユーザーが担当します。型検査には既存エラーが残っていますが、エラー位置・メッセージは移行対象を除外した基準と一致し、新規ファイルの診断はありません。
 
 ## 2026-10-17: CTAL-TAE第7章 Mermaid黒塗りの修正
 

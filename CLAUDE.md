@@ -156,7 +156,7 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/LearningReferences.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、本文カテゴリーの組み立てとメタデータ
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ctal-tae-ch7.css` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、原本全99 CSSルール・900px/640px表示条件と共通CSS干渉補正
-- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、階層目次40リンク・開閉・スクリーン・追従
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、階層目次40リンク・開閉・スクリム・追従
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChecklistCard.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、全6項目のチェック状態・進捗と完了数
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/diagrams.ts` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、フローチャート10図・シーケンス図1図の原本定義とライトテーマ
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChapterDiagram.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、共通Mermaidへの配線と図ID保持

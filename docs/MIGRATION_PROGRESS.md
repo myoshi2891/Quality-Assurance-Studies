@@ -44,10 +44,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 原本全99 CSSルールをページ内へスコープし、900px・640px条件、ヒーローの背景と疑似要素、余白、表、セーフエリア対応を保持。共通CSSの干渉と共通ヘッダー分の固定要素位置・重なり順を補正。
 - 原本と同じhighlight.js 11.10.0を一時取得し、全7コードを静的TSXへ事前変換。コード全文・空白・改行・インデント・言語・構文トークンとAtom One Lightの全14 CSSルールを検証。配色のライセンスを保存し、プロジェクトの依存関係は変更なし。
 - 全11図の原本定義・実Mermaidパーサー・描画配線を検証。ライト設定、エッジラベル・シーケンス注釈、見切れと横スクロールの保護CSSを適用。
-- 目次40アンカーの追従と解放、モバイル開閉・スクリーン・リンク選択・Escape、6項目の全チェック・全解除と進捗表示を検証。確認問題はネイティブの`details`を維持。
+- 目次40アンカーの追従と解放、モバイル開閉・スクリム・リンク選択・Escape、6項目の全チェック・全解除と進捗表示を検証。確認問題はネイティブの`details`を維持。
 - Redテスト先行後、骨格とCSS、構文色、本文7カテゴリー、図、目次、進捗操作、ナビ、アーカイブ、仕様書を分割コミット。
 - 原本HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html`、MDは `archive/md-archive/ctal/Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.md` へ移動。双方のSHA-256一致を検証。
-- 検証: `npm exec -- bun test` 全3894件成功（123ファイル）、ページ406件・原本保持と登録4件・ナビと描画契約219件成功。`npm run lint`成功。ビルド・ブラウザE2E・目視確認は未実施。型検査のエラー位置・メッセージは移行対象を除外した既存基準と一致し、新規ファイルの診断なし。
+- 検証: `bun test` 全3894件成功（123ファイル）、ページ406件・原本保持と登録4件・ナビと描画契約219件成功。`bun run lint`成功（当時は `npm exec -- bun test` / `npm run lint` 経由で実行。Bun-only 規約の例外として記録）。ビルド・ブラウザE2E・目視確認は未実施。型検査のエラー位置・メッセージは移行対象を除外した既存基準と一致し、新規ファイルの診断なし。
 
 ## 2026/10/17: CTAL-TAE 第6章 レポートとメトリクスの移行
 
@@ -58,7 +58,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 目次43アンカーのObserver追従と解放、モバイル開閉・リンク選択・Escape、13項目のチェックと解除・完了数・進捗を検証。解答はネイティブの`details`を維持。
 - Redテスト先行後、骨格とCSS、本文6カテゴリー、図、目次、進捗操作、ナビ、アーカイブ、仕様書を分割コミット。
 - 原本HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html`、MDは `archive/md-archive/ctal/Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.md` へ移動。双方のSHA-256一致を検証。
-- 検証: `npm exec -- bun test` 全3480件成功（121ファイル）、ページ409件・原本保持と登録4件・ナビと描画契約215件成功。`npm run lint`成功。型検査のエラー位置・メッセージは移行対象を除外した基準と一致。ビルド・ブラウザE2E・目視確認は未実施。
+- 検証: `bun test` 全3480件成功（121ファイル）、ページ409件・原本保持と登録4件・ナビと描画契約215件成功。`bun run lint`成功（当時は `npm exec -- bun test` / `npm run lint` 経由で実行。Bun-only 規約の例外として記録）。型検査のエラー位置・メッセージは移行対象を除外した基準と一致。ビルド・ブラウザE2E・目視確認は未実施。
 
 ## 2026/10/17: CTAL-TAE 第5章 実装・デプロイ戦略の移行
 
@@ -68,7 +68,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - ページ196件・登録と原本保持4件のテストを追加。Mermaid全図を実パーサーで検証し、目次のObserver解放・チェック操作も検証。
 - Redテストを先行コミットし、図と目次、本文とデザイン、ナビ登録、アーカイブ、修正、仕様書をカテゴリー別にコミット。
 - 原本HTMLは `archive/html-archive/ctal/`、MDは `archive/md-archive/ctal/` へ移動。双方のSHA-256が移行前と一致。
-- 検証: `npm exec -- bun test` 全3063件成功（119ファイル）、ページ・登録・ナビ・Mermaid・アイコン関連411件成功、`npm run lint` 成功。型検査には既存テストのエラーが残存。ビルド・ブラウザE2E・目視確認は未実施。
+- 検証: `bun test` 全3063件成功（119ファイル）、ページ・登録・ナビ・Mermaid・アイコン関連411件成功、`bun run lint` 成功（当時は `npm exec -- bun test` / `npm run lint` 経由で実行。Bun-only 規約の例外として記録）。型検査には既存テストのエラーが残存。ビルド・ブラウザE2E・目視確認は未実施。
 
 ## 2026/10/16: ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」初学者向け解説ガイドの移行
 
