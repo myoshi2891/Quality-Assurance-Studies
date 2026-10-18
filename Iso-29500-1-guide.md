@@ -860,42 +860,42 @@ flowchart LR
 
 | ID | 内容 | URL |
 |---|---|---|
-| S1 | ISO：ISO/IEC 29500-1:2016 のページ（ステータス、版、ページ数、ライフサイクル） | https://www.iso.org/standard/71691.html |
-| S2 | ISO：ISO/IEC FDIS 29500-1（第5版）のページ（FDIS 投票の日付、3,146ページ） | https://www.iso.org/standard/85626.html |
-| S3 | Ecma International：ECMA-376（第5版、各Partの版と日付、旧版アーカイブ） | https://ecma-international.org/publications-and-standards/standards/ecma-376/ |
-| S19 | 規格目次のプレビュー（2016年版のPart 1 構成の確認に使用） | https://iteh.es/catalog/standards/iso/4b68b56c-c890-4f38-8c21-6f55e648977d/iso-iec-29500-1-2016 |
+| S1 | ISO：ISO/IEC 29500-1:2016 のページ（ステータス、版、ページ数、ライフサイクル） | <https://www.iso.org/standard/71691.html> |
+| S2 | ISO：ISO/IEC FDIS 29500-1（第5版）のページ（FDIS 投票の日付、3,146ページ） | <https://www.iso.org/standard/85626.html> |
+| S3 | Ecma International：ECMA-376（第5版、各Partの版と日付、旧版アーカイブ） | <https://ecma-international.org/publications-and-standards/standards/ecma-376/> |
+| S19 | 規格目次のプレビュー（2016年版のPart 1 構成の確認に使用） | <https://iteh.es/catalog/standards/iso/4b68b56c-c890-4f38-8c21-6f55e648977d/iso-iec-29500-1-2016> |
 
 ### B. 国際的な専門家・開発者の記事
 
 | ID | 内容 | URL |
 |---|---|---|
-| S4 | Library of Congress：XLSX Strict の形式解説（Strict と Transitional の違い、名前空間、Office 対応、Gareth Horton 氏と Jesper Stocholm 氏のブログへの参照を含む）。ISO公開の規格PDF（`standards.iso.org`）への案内もこのページに記載 | https://www.loc.gov/preservation/digital/formats/fdd/fdd000401.shtml |
-| S5 | Alex Brown 氏の論考（Consortium Info による紹介）。Strict/Transitional 分割の経緯と Office 2010 への懸念 | https://consortiuminfo.org/opendocument-and-ooxml/alex-brownwithout-action-the-entire-ooxml-project-is-now-surely-heading-for-failure/ |
-| S6 | The Register：Office 2010 の対応をめぐる Alex Brown 氏の批判（2010年4月） | https://www.theregister.co.uk/2010/04/06/microsoft_ooxml_standards_fail/ |
-| S7 | Redmond Magazine：Doug Mahugh 氏による説明（Office 2010 は Transitional を選択した理由） | https://redmondmag.com/Articles/2010/04/07/Office-2010-Breaks-ISO-IEC-Standard.aspx |
-| S8 | Doug Mahugh 氏（Microsoft）のブログ：Office の ISO/IEC 29500 Strict サポートの表明 | https://learn.microsoft.com/sv-se/archive/blogs/dmahugh/offices-support-for-isoiec-29500-strict |
-| S14 | Alex Brown 氏による SC 34 WG 4 メーリングリスト投稿（適合性条項の議論） | https://mailman.vse.cz/pipermail/sc34wg4/2010-March/001256.html |
-| S16 | Wictor Wilén 氏のブログ：DIS 29500 の主な変更点（Part 分割など）の解説（背景調査に使用） | https://www.wictorwilen.se/blog/all-ooxml-comments-reviewed-and-answered/ |
+| S4 | Library of Congress：XLSX Strict の形式解説（Strict と Transitional の違い、名前空間、Office 対応、Gareth Horton 氏と Jesper Stocholm 氏のブログへの参照を含む）。ISO公開の規格PDF（`standards.iso.org`）への案内もこのページに記載 | <https://www.loc.gov/preservation/digital/formats/fdd/fdd000401.shtml> |
+| S5 | Alex Brown 氏の論考（Consortium Info による紹介）。Strict/Transitional 分割の経緯と Office 2010 への懸念 | <https://consortiuminfo.org/opendocument-and-ooxml/alex-brownwithout-action-the-entire-ooxml-project-is-now-surely-heading-for-failure/> |
+| S6 | The Register：Office 2010 の対応をめぐる Alex Brown 氏の批判（2010年4月） | <https://www.theregister.co.uk/2010/04/06/microsoft_ooxml_standards_fail/> |
+| S7 | Redmond Magazine：Doug Mahugh 氏による説明（Office 2010 は Transitional を選択した理由） | <https://redmondmag.com/Articles/2010/04/07/Office-2010-Breaks-ISO-IEC-Standard.aspx> |
+| S8 | Doug Mahugh 氏（Microsoft）のブログ：Office の ISO/IEC 29500 Strict サポートの表明 | <https://learn.microsoft.com/sv-se/archive/blogs/dmahugh/offices-support-for-isoiec-29500-strict> |
+| S14 | Alex Brown 氏による SC 34 WG 4 メーリングリスト投稿（適合性条項の議論） | <https://mailman.vse.cz/pipermail/sc34wg4/2010-March/001256.html> |
+| S16 | Wictor Wilén 氏のブログ：DIS 29500 の主な変更点（Part 分割など）の解説（背景調査に使用） | <https://www.wictorwilen.se/blog/all-ooxml-comments-reviewed-and-answered/> |
 
 ### C. 公式ドキュメント・OSS
 
 | ID | 内容 | URL |
 |---|---|---|
-| S9 | Microsoft Learn：Office Open XML、ECMA-376、ISO/IEC 29500（Office 2007〜2010 の対応、Strict/Transitional の説明） | https://learn.microsoft.com/en-us/previous-versions/office/developer/office-2010/gg607163(v=office.14) |
-| S10 | Antenna House：OOXMLとは（ECMA-376 と ISO/IEC 29500 の版の対応表） | https://www.antennahouse.com/osdc-what-is-office-open-xml |
-| S11 | Microsoft Learn：WordprocessingML 文書の構造（Open XML SDK） | https://learn.microsoft.com/en-us/office/open-xml/word/structure-of-a-wordprocessingml-document |
-| S12 | python-docx（作者 Steve Canny 氏） | https://github.com/python-openxml/python-docx |
-| S13 | Open XML SDK（.NET Foundation、MIT） | https://github.com/dotnet/open-xml-sdk |
-| S15 | Okapi Framework：Strict 形式の `.xlsx` を処理できない不具合報告 | https://bitbucket.org/okapiframework/okapi/issues/646/openxml-support-for-strict-mode-documents |
-| S18 | Wikipedia：Office Open XML（Office 2013 以降の Strict 対応に関する記述。検索結果ではミラーサイト経由で内容を確認） | https://en.wikipedia.org/wiki/Office_Open_XML |
-| S20 | office_oxide（Rust製OSS）の名前空間定数（Strict / Transitional の対応の実装例） | https://docs.rs/crate/office_oxide/0.1.4/source/src/core/xml.rs |
-| S21 | UniOffice のドキュメント：Strict モードの実装上の注意 | https://docs.unidoc.io/unioffice/guides/document/strict-mode/ |
-| S22 | NuGet 公式ページ（Open XML SDK `DocumentFormat.OpenXml` 3.5.1） | https://www.nuget.org/packages/DocumentFormat.OpenXml/3.5.1 |
-| S23 | OOXML Validator（VS Code拡張）の議論：Strict/Transitional の区別は未対応 | https://github.com/mikeebowen/ooxml-validator-vscode/discussions/13 |
+| S9 | Microsoft Learn：Office Open XML、ECMA-376、ISO/IEC 29500（Office 2007〜2010 の対応、Strict/Transitional の説明） | <https://learn.microsoft.com/en-us/previous-versions/office/developer/office-2010/gg607163(v=office.14)> |
+| S10 | Antenna House：OOXMLとは（ECMA-376 と ISO/IEC 29500 の版の対応表） | <https://www.antennahouse.com/osdc-what-is-office-open-xml> |
+| S11 | Microsoft Learn：WordprocessingML 文書の構造（Open XML SDK） | <https://learn.microsoft.com/en-us/office/open-xml/word/structure-of-a-wordprocessingml-document> |
+| S12 | python-docx（作者 Steve Canny 氏） | <https://github.com/python-openxml/python-docx> |
+| S13 | Open XML SDK（.NET Foundation、MIT） | <https://github.com/dotnet/open-xml-sdk> |
+| S15 | Okapi Framework：Strict 形式の `.xlsx` を処理できない不具合報告 | <https://bitbucket.org/okapiframework/okapi/issues/646/openxml-support-for-strict-mode-documents> |
+| S18 | Wikipedia：Office Open XML（Office 2013 以降の Strict 対応に関する記述。検索結果ではミラーサイト経由で内容を確認） | <https://en.wikipedia.org/wiki/Office_Open_XML> |
+| S20 | office_oxide（Rust製OSS）の名前空間定数（Strict / Transitional の対応の実装例） | <https://docs.rs/crate/office_oxide/0.1.4/source/src/core/xml.rs> |
+| S21 | UniOffice のドキュメント：Strict モードの実装上の注意 | <https://docs.unidoc.io/unioffice/guides/document/strict-mode/> |
+| S22 | NuGet 公式ページ（Open XML SDK `DocumentFormat.OpenXml` 3.5.1） | <https://www.nuget.org/packages/DocumentFormat.OpenXml/3.5.1> |
+| S23 | OOXML Validator（VS Code拡張）の議論：Strict/Transitional の区別は未対応 | <https://github.com/mikeebowen/ooxml-validator-vscode/discussions/13> |
 
 ### 補足
 
-- **規格PDFの入手先**：LOC \[S4\] によると、ISO/IEC 29500-1:2016 の本文PDFとスキーマ（W3C XML Schema・RELAX NG）は、ISOの Publicly Available Standards から無償で取得できます。URL：https://standards.iso.org/ittf/PubliclyAvailableStandards/c071691_ISO_IEC_29500-1_2016.zip（このURLは \[S4\] の記載から転記したもので、本稿作成時にダウンロードはしていません）
+- **規格PDFの入手先**：LOC \[S4\] によると、ISO/IEC 29500-1:2016 の本文PDFとスキーマ（W3C XML Schema・RELAX NG）は、ISOの Publicly Available Standards から無償で取得できます。URL：<https://standards.iso.org/ittf/PubliclyAvailableStandards/c071691_ISO_IEC_29500-1_2016.zip>（このURLは \[S4\] の記載から転記したもので、本稿作成時にダウンロードはしていません）
 - **未確認事項**：（a）FDIS 投票の結果と第5版の発行有無、（b）第4版と第5版のページ数差の理由、（c）2026年時点での各ソフトの Strict 対応の最新状況。いずれも2026年10月16日時点の公開情報では確認できませんでした。
 
 ---
