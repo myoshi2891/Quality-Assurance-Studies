@@ -322,3 +322,50 @@ describe('standalone static code examples', () => {
         });
     });
 });
+
+describe('review fixes', () => {
+    // WCAG 2.x の相対輝度とコントラスト比
+    const luminance = (hex: string) => {
+        const [r, g, b] = [1, 3, 5].map(i => {
+            const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+            return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * (r ?? 0) + 0.7152 * (g ?? 0) + 0.0722 * (b ?? 0);
+    };
+    const contrast = (a: string, b: string) => {
+        const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+        return ((hi ?? 0) + 0.05) / ((lo ?? 0) + 0.05);
+    };
+    it('reads SUT_BASE_URL inside preflight_check only after confirming it is set', async () => {
+        const $ = await html();
+        const code = $('pre.code-block code').eq(0).text();
+        const fixture = code.indexOf('def preflight_check():');
+        const check = code.indexOf('assert os.environ.get(name)');
+        const read = code.indexOf('os.environ["SUT_BASE_URL"]');
+        const request = code.indexOf('requests.get(');
+        expect(fixture).toBeGreaterThan(-1);
+        expect(code.slice(0, fixture)).not.toContain('SUT_BASE_URL');
+        expect(fixture).toBeLessThan(check);
+        expect(check).toBeLessThan(read);
+        expect(read).toBeLessThan(request);
+    });
+    it('makes the effective --text-faint at least 4.5:1 on every light surface it is used on', () => {
+        let value = '';
+        css().walkDecls('--text-faint', decl => {
+            const rule = decl.parent as postcss.Rule;
+            if (rule.selector === scope && rule.parent?.type === 'root') value = decl.value;
+        });
+        expect(value).toMatch(/^#[0-9a-fA-F]{6}$/);
+        ['#ffffff', '#f6f8fb', '#eef3ff', '#eaf0ff'].forEach(bg => expect(contrast(value, bg)).toBeGreaterThanOrEqual(4.5));
+    });
+    it('darkens code comments to 4.5:1 on the code background without changing quotes', () => {
+        let comment = '';
+        let quote = '';
+        postcss.parse(readFileSync(`${base}/highlight.css`, 'utf8')).walkRules(rule => rule.walkDecls('color', decl => {
+            if (rule.selectors.includes(`${scope} .hljs-comment`)) comment = decl.value;
+            if (rule.selectors.includes(`${scope} .hljs-quote`)) quote = decl.value;
+        }));
+        expect(contrast(comment, '#fafafa')).toBeGreaterThanOrEqual(4.5);
+        expect(quote).toBe('#a0a1a7');
+    });
+});

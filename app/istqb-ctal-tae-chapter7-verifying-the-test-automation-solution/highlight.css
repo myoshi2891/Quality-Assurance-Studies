@@ -33,6 +33,10 @@ hue-6-2: #c18401
   color: #a0a1a7;
   font-style: italic
 }
+/* コメントは #fafafa 上で約 2.5:1 と読みにくいため、同テーマの mono-2（5.08:1）に上げる。.hljs-quote は原本のまま */
+.ctal-tae-ch7-page .hljs-comment {
+  color: #686b77
+}
 .ctal-tae-ch7-page .hljs-doctag, .ctal-tae-ch7-page .hljs-keyword, .ctal-tae-ch7-page .hljs-formula {
   color: #a626a4
 }

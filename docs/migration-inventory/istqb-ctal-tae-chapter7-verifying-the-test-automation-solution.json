@@ -5936,7 +5936,7 @@
                 "class": "language-python"
               },
               "children": [
-                "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nBASE_URL = os.environ[\"SUT_BASE_URL\"]           # 環境ごとに切り替える\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{BASE_URL}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 2. 必須の環境変数\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
+                "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
               ]
             }
           ]
@@ -10666,7 +10666,7 @@
               "class": "language-python"
             },
             "children": [
-              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nBASE_URL = os.environ[\"SUT_BASE_URL\"]           # 環境ごとに切り替える\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{BASE_URL}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 2. 必須の環境変数\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
+              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
             ]
           }
         ]
@@ -19154,7 +19154,7 @@
               "class": "language-python"
             },
             "children": [
-              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nBASE_URL = os.environ[\"SUT_BASE_URL\"]           # 環境ごとに切り替える\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{BASE_URL}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 2. 必須の環境変数\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
+              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
             ]
           }
         ]
@@ -26015,7 +26015,7 @@
   "code": [
     {
       "language": "python",
-      "text": "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nBASE_URL = os.environ[\"SUT_BASE_URL\"]           # 環境ごとに切り替える\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{BASE_URL}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 2. 必須の環境変数\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()",
+      "text": "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()",
       "tokens": [
         {
           "text": "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例",
@@ -26064,27 +26064,7 @@
           ]
         },
         {
-          "text": " requests\n\nBASE_URL = os.environ[",
-          "classes": []
-        },
-        {
-          "text": "\"SUT_BASE_URL\"",
-          "classes": [
-            "hljs-string"
-          ]
-        },
-        {
-          "text": "]           ",
-          "classes": []
-        },
-        {
-          "text": "# 環境ごとに切り替える",
-          "classes": [
-            "hljs-comment"
-          ]
-        },
-        {
-          "text": "\nREPORT_DIR = pathlib.Path(os.environ.get(",
+          "text": " requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(",
           "classes": []
         },
         {
@@ -26185,80 +26165,7 @@
           "classes": []
         },
         {
-          "text": "# 1. SUT への到達性（ヘルスチェック用エンドポイントを想定）",
-          "classes": [
-            "hljs-comment"
-          ]
-        },
-        {
-          "text": "\n    res = requests.get(",
-          "classes": []
-        },
-        {
-          "text": "f\"",
-          "classes": [
-            "hljs-string"
-          ]
-        },
-        {
-          "text": "{BASE_URL}",
-          "classes": [
-            "hljs-string",
-            "hljs-subst"
-          ]
-        },
-        {
-          "text": "/health\"",
-          "classes": [
-            "hljs-string"
-          ]
-        },
-        {
-          "text": ", timeout=",
-          "classes": []
-        },
-        {
-          "text": "10",
-          "classes": [
-            "hljs-number"
-          ]
-        },
-        {
-          "text": ")\n    ",
-          "classes": []
-        },
-        {
-          "text": "assert",
-          "classes": [
-            "hljs-keyword"
-          ]
-        },
-        {
-          "text": " res.status_code == ",
-          "classes": []
-        },
-        {
-          "text": "200",
-          "classes": [
-            "hljs-number"
-          ]
-        },
-        {
-          "text": ", ",
-          "classes": []
-        },
-        {
-          "text": "\"SUT に到達できません\"",
-          "classes": [
-            "hljs-string"
-          ]
-        },
-        {
-          "text": "\n\n    ",
-          "classes": []
-        },
-        {
-          "text": "# 2. 必須の環境変数",
+          "text": "# 1. 必須の環境変数（接続を試みる前に確認する）",
           "classes": [
             "hljs-comment"
           ]
@@ -26332,6 +26239,99 @@
         },
         {
           "text": " が未設定です\"",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": "\n    base_url = os.environ[",
+          "classes": []
+        },
+        {
+          "text": "\"SUT_BASE_URL\"",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": "]   ",
+          "classes": []
+        },
+        {
+          "text": "# 環境ごとに切り替える",
+          "classes": [
+            "hljs-comment"
+          ]
+        },
+        {
+          "text": "\n\n    ",
+          "classes": []
+        },
+        {
+          "text": "# 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）",
+          "classes": [
+            "hljs-comment"
+          ]
+        },
+        {
+          "text": "\n    res = requests.get(",
+          "classes": []
+        },
+        {
+          "text": "f\"",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": "{base_url}",
+          "classes": [
+            "hljs-string",
+            "hljs-subst"
+          ]
+        },
+        {
+          "text": "/health\"",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": ", timeout=",
+          "classes": []
+        },
+        {
+          "text": "10",
+          "classes": [
+            "hljs-number"
+          ]
+        },
+        {
+          "text": ")\n    ",
+          "classes": []
+        },
+        {
+          "text": "assert",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": " res.status_code == ",
+          "classes": []
+        },
+        {
+          "text": "200",
+          "classes": [
+            "hljs-number"
+          ]
+        },
+        {
+          "text": ", ",
+          "classes": []
+        },
+        {
+          "text": "\"SUT に到達できません\"",
           "classes": [
             "hljs-string"
           ]

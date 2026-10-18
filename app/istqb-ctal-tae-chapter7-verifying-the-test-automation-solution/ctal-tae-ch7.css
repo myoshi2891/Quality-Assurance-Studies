@@ -783,3 +783,6 @@
     .ctal-tae-ch7-page .checklist-card { padding: 16px; }
     .ctal-tae-ch7-page .checklist-card label { padding: 14px; gap: 10px; font-size: 15px; }
 }
+
+/* Source --text-faint (#8891a1) is ~3.2:1 on white; darken TOC/meta text to >= 4.5:1 on every light surface. */
+.ctal-tae-ch7-page { --text-faint: #646d7e; }
