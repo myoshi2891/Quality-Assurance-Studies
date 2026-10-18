@@ -302,6 +302,13 @@ main.ctal-tae-ch4-page {
 /* ---------- Section Blocks ---------- */
 .ctal-tae-ch4-page section.block {
     margin-bottom: 3.2rem;
+}
+
+/* 目次リンクの着地先（節内の ID 付き見出し・カードを含む）を固定ヘッダーの下に出す */
+.ctal-tae-ch4-page section.block,
+.ctal-tae-ch4-page section.block h3[id],
+.ctal-tae-ch4-page section.block h4[id],
+.ctal-tae-ch4-page section.block .practice-card[id] {
     scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
