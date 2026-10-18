@@ -452,7 +452,7 @@ BFO-2020 の公式リポジトリに掲載されている階層図にあるク�
 | | material entity | 物質を部分としてもつ | 人、机 |
 | | object | まとまった一つの物質的単位 | 一人の患者、一台の機器 |
 | | object aggregate | 複数の object の集まり | 患者グループ、群れ |
-| | fiat object part | 人が恣意的に区切った物質的な部分 | 体の上半分 |
+| | fiat object part | fiat surface（境界面）によって区切られた、object の物質的な部分 | 体の上半分 |
 | | immaterial entity | 物質を部分にもたない | 空洞、領域 |
 | | site | 物の内部や周囲の「場所」 | 鼻腔、部屋の空間 |
 | | spatial region | 空間そのもの（0〜3次元の4種） | ある立体領域 |
