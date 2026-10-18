@@ -379,7 +379,9 @@ Microsoft の仕様書は、TrueType 輪郭でも CFF 輪郭でも、次の8つ�
 ```mermaid
 flowchart TD
     FONT["OpenType フォント"] --> REQ["必須 cmap head hhea hmtx maxp name OS2 post"]
-    FONT --> OUT["輪郭 glyf loca または CFF CFF2 または SVG"]
+    FONT --> OUT["基本輪郭 glyf loca または CFF または CFF2"]
+    FONT --> SVGT["任意 SVG 基本輪郭と共存し グリフの SVG 表現を提供"]
+    SVGT -.->|共存| OUT
     FONT --> BMP["ビットマップ EBDT EBLC EBSC CBDT CBLC sbix"]
     FONT --> LAY["高度な組版 GSUB GPOS GDEF BASE JSTF MATH"]
     FONT --> VAR["可変フォント fvar avar gvar cvar HVAR MVAR VVAR STAT"]
@@ -388,7 +390,8 @@ flowchart TD
 ```
 
 各ノードの意味：
-- 「輪郭」：文字の形そのもの。TrueType なら `glyf`（形）と `loca`（位置の索引）の組、CFF 系なら `CFF` か `CFF2`
+- 「基本輪郭」：文字の形そのもの。TrueType なら `glyf`（形）と `loca`（位置の索引）の組、CFF 系なら `CFF` か `CFF2`。基本輪郭の形式はこの3種類に限られる
+- 「任意 SVG」：基本輪郭の代わりにはならない任意のテーブル。基本輪郭と共存し、対応するグリフに SVG 表現を追加で提供する
 - 「ビットマップ」：小さいサイズ向けの点の絵や、カラー絵文字の画像
 - 「高度な組版」：合字（fi など）の置き換えや、文字間の位置調整
 - 「可変フォント」：太さや幅を連続的に変えるための追加データ
@@ -396,12 +399,19 @@ flowchart TD
 
 ### 6-3. 輪郭の方式の比較
 
+基本輪郭の形式は次の3種類です。
+
 | 方式 | テーブル | 特徴 |
 |------|---------|------|
 | TrueType 輪郭 | glyf, loca | 二次曲線。ヒンティング（小さいサイズで形を整える命令）を持てる |
 | CFF | CFF | 三次曲線。Adobe の PostScript 由来 |
 | CFF2 | CFF2 | CFF の後継。可変フォントの「blend」演算を含められる |
-| SVG | SVG | SVG 文書でグリフを表す。色つき・グラデーション向け |
+
+次のテーブルは基本輪郭の代わりにはならず、基本輪郭と共存して追加の表現を提供します。
+
+| 方式 | テーブル | 特徴 |
+|------|---------|------|
+| SVG（任意） | SVG | 基本輪郭と共存し、対応するグリフの SVG 表現（色つき・グラデーション向け）を提供する |
 | ビットマップ | EBDT など | 点の絵。手作業で調整した小サイズ表示向け |
 
 Microsoft の仕様書によると、CFF2 は `glyf` の代替として使える形式で、COLR・CPAL と組み合わせて色つきグリフも表せます。
