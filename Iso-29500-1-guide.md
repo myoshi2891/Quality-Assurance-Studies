@@ -107,7 +107,7 @@ OOXMLには **2つの標準化団体** が関わっています。
 - **Ecma International**：最初に標準化（ECMA-376）
 - **ISO/IEC**：その後の版を ISO/IEC 29500 として標準化
 
-Ecmaのサイトは、Ecmaが初版を標準化し、ISO/IECが以降の版を ISO/IEC 29500 として標準化したと説明しています \[S3\]\[S18\]。2つは並行して改訂され、**技術的には同等の内容**を保つ運用です \[S9\]\[S10\]。
+Ecmaのサイトは、Ecmaが初版を標準化し、ISO/IECが以降の版を ISO/IEC 29500 として標準化したと説明しています \[S3\]\[S18\]。2つは、対応する版・Part どうしで**技術的な整合が図られる場合があります**。ただし、**改訂の時期・版番号・内容が常に一致するとは限りません**（たとえば Ecma 側の Part 2 だけが2021年版です。下の「版の対応表」を参照）\[S3\]\[S9\]\[S10\]。
 
 ### 4つのPart
 
@@ -119,7 +119,7 @@ flowchart TB
     PB["Part 2<br/>Open Packaging Conventions<br/>OPC：ZIPパッケージの規則"]
     PC["Part 3<br/>Markup Compatibility and Extensibility<br/>MCE：互換性と拡張"]
     PD["Part 4<br/>Transitional Migration Features<br/>旧形式からの移行用機能"]
-    FA <-->|並行して改訂| FB
+    FA <-->|対応する版で整合を図る場合あり<br/>時期・版番号・内容は常には一致しない| FB
     FB --> PA
     FB --> PB
     FB --> PC
@@ -788,7 +788,7 @@ flowchart LR
 | # | 問い | 答えの要点 |
 |---|---|---|
 | Q1 | OOXMLファイルの正体は？ | ZIPで固めた XML パーツ群（OPC パッケージ） |
-| Q2 | ECMA-376 と ISO/IEC 29500 の関係は？ | 同じ形式を2団体が標準化。初版は Ecma、以降の版を ISO/IEC が 29500 として標準化し、並行して改訂 |
+| Q2 | ECMA-376 と ISO/IEC 29500 の関係は？ | 同じ形式を2団体が標準化。初版は Ecma、以降の版を ISO/IEC が 29500 として標準化。対応する版・Part で技術的な整合が図られる場合はあるが、改訂時期・版番号・内容は常に一致するとは限らない |
 | Q3 | Part 1〜4 の役割は？ | 1：語彙と基礎、2：パッケージ（OPC）、3：互換と拡張（MCE）、4：Transitional の移行機能 |
 | Q4 | Strict と Transitional を一番簡単に見分ける方法は？ | 名前空間（`purl.oclc.org/ooxml` か `schemas.openxmlformats.org` か） |
 | Q5 | Strict で使えない代表例は？ | VML、旧い文字セット、`left`/`right` 旧名称（Transitional のみ） |
@@ -809,7 +809,7 @@ flowchart LR
 | 用語 | 意味 |
 |---|---|
 | OOXML | Office Open XML。Office文書のXMLベースのファイル形式 |
-| ECMA-376 | Ecma International が定めるOOXMLの標準。ISO/IEC 29500 と並行して改訂される |
+| ECMA-376 | Ecma International が定めるOOXMLの標準。ISO/IEC 29500 とは対応する版・Part で技術的な整合が図られる場合があるが、改訂時期・版番号・内容は常に一致するとは限らない |
 | ISO/IEC 29500 | ISO/IEC が定めるOOXMLの国際規格（Part 1〜4） |
 | JTC 1/SC 34 | 本規格を担当する ISO/IEC の合同技術委員会の分科会 |
 | OPC | Open Packaging Conventions。ZIPパッケージの構造規則（Part 2） |
