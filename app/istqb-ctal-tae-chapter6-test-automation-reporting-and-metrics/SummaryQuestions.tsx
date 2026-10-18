@@ -25,6 +25,9 @@ export default function SummaryQuestions() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"サービス・機能別の使い分け（例）"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -137,7 +140,7 @@ export default function SummaryQuestions() {
             {"5.2 6.1.1〜6.1.3 横断のチェックリスト"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="52-611613-横断のチェックリスト">
                 <thead>
                     <tr className="header">
                         <th>
@@ -188,7 +191,7 @@ export default function SummaryQuestions() {
             {"5.3 他の章との関係"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="53-他の章との関係">
                 <thead>
                     <tr className="header">
                         <th>
@@ -251,7 +254,7 @@ export default function SummaryQuestions() {
             {"6.1 K レベル別の出題イメージ"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="61-k-レベル別の出題イメージ">
                 <thead>
                     <tr className="header">
                         <th>
@@ -306,7 +309,7 @@ export default function SummaryQuestions() {
             {"6.2 覚えておくべき要点"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="62-覚えておくべき要点">
                 <thead>
                     <tr className="header">
                         <th>

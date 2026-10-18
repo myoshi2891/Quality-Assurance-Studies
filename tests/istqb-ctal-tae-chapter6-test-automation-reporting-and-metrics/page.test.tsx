@@ -264,3 +264,28 @@ describe('secure logging example', () => {
         expect(python.match(/"url": logged_url/g)).toHaveLength(2);
     });
 });
+
+describe('accessible table names', () => {
+    it('names every table by its immediately preceding ID heading or by a distinct leading caption', async () => {
+        const $ = await html();
+        const names = $('table').toArray().map(table => {
+            const labelledby = $(table).attr('aria-labelledby');
+            if (labelledby) {
+                const heading = $(table).parent().prev();
+                expect(heading.is('h2,h3,h4')).toBe(true);
+                expect(heading.attr('id')).toBe(labelledby);
+                expect($(table).children('caption')).toHaveLength(0);
+                return norm(heading.text());
+            }
+            expect($(table).children().first().is('caption.table-caption')).toBe(true);
+            return norm($(table).children('caption').text());
+        });
+        names.forEach(name => expect(name).not.toBe(''));
+        expect(new Set(names).size).toBe(names.length);
+    });
+    it('visually hides captions with a page-scoped rule', () => {
+        let found = false;
+        css().walkRules(rule => { if (rule.selector === `${scope} .table-caption`) found = rule.toString().includes('clip: rect(0, 0, 0, 0)'); });
+        expect(found).toBe(true);
+    });
+});

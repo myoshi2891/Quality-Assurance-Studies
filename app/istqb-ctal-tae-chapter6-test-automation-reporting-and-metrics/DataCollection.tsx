@@ -20,6 +20,9 @@ export default function DataCollection() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"データ源と具体例・主な使いどころ"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -168,7 +171,7 @@ export default function DataCollection() {
             {" 2.3 ステップ3：測定とレポート生成を支える機能を使う "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="23-ステップ3測定とレポート生成を支える機能を使う">
                 <thead>
                     <tr className="header">
                         <th>
@@ -263,7 +266,7 @@ export default function DataCollection() {
             {"2.4.1 ログレベル（第4章の復習）"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="241-ログレベル第4章の復習">
                 <thead>
                     <tr className="header">
                         <th>
@@ -334,6 +337,9 @@ export default function DataCollection() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"TAS ロギングで記録すべき内容"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -461,7 +467,7 @@ export default function DataCollection() {
             {"2.4.3 SUT ロギングで押さえること"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="243-sut-ロギングで押さえること">
                 <thead>
                     <tr className="header">
                         <th>
@@ -509,7 +515,7 @@ export default function DataCollection() {
             {" 2.5 ステップ5：サードパーティツールとの連携と可視化 "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="25-ステップ5サードパーティツールとの連携と可視化">
                 <thead>
                     <tr className="header">
                         <th>
@@ -582,6 +588,9 @@ export default function DataCollection() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"Playwright の収集設定と役割"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -635,7 +644,7 @@ export default function DataCollection() {
             {" 2.7 この節のベストプラクティス（まとめ） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="27-この節のベストプラクティスまとめ">
                 <thead>
                     <tr className="header">
                         <th>

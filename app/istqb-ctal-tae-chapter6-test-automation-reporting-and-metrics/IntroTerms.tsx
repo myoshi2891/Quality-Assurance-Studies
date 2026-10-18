@@ -17,7 +17,7 @@ export default function IntroTerms() {
             {"0.1 学習目標（Learning Objectives）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="01-学習目標learning-objectives">
                 <thead>
                     <tr className="header">
                         <th>
@@ -114,7 +114,7 @@ export default function IntroTerms() {
             {"1. 最初に押さえる用語"}
         </h2>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="1-最初に押さえる用語">
                 <thead>
                     <tr className="header">
                         <th>

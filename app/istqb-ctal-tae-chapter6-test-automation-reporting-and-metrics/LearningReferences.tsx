@@ -15,7 +15,7 @@ export default function LearningReferences() {
             {"8.1 一次情報（試験の根拠）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="81-一次情報試験の根拠">
                 <thead>
                     <tr className="header">
                         <th>
@@ -76,7 +76,7 @@ export default function LearningReferences() {
             {" 8.2 シラバスが参照する関連シラバス（章内の言及） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="82-シラバスが参照する関連シラバス章内の言及">
                 <thead>
                     <tr className="header">
                         <th>
@@ -139,7 +139,7 @@ export default function LearningReferences() {
             {" 8.3 補足資料（実務の例に関する参考情報。試験範囲外） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="83-補足資料実務の例に関する参考情報試験範囲外">
                 <thead>
                     <tr className="header">
                         <th>

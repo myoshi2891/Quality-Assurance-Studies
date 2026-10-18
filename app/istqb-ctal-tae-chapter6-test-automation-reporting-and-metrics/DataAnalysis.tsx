@@ -27,7 +27,7 @@ export default function DataAnalysis() {
             {"3.2 分析で見るもの"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="32-分析で見るもの">
                 <thead>
                     <tr className="header">
                         <th>
@@ -72,6 +72,9 @@ export default function DataAnalysis() {
         <ChapterDiagram id="mermaid-diagram-8" />
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"テスト実行失敗の分析手順（5ステップ）"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -148,7 +151,7 @@ export default function DataAnalysis() {
             {" 3.4 「失敗したのに原因が見当たらない」ケース "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="34-失敗したのに原因が見当たらないケース">
                 <thead>
                     <tr className="header">
                         <th>
@@ -204,6 +207,9 @@ export default function DataAnalysis() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"相関 ID による追跡の項目と内容"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -274,6 +280,9 @@ export default function DataAnalysis() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"原因の切り分け整理表"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -354,7 +363,7 @@ export default function DataAnalysis() {
             {"3.7 この節のベストプラクティス"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="37-この節のベストプラクティス">
                 <thead>
                     <tr className="header">
                         <th>

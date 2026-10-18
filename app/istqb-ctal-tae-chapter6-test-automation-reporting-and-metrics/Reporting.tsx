@@ -42,7 +42,7 @@ export default function Reporting() {
             {"4.2 レポートの内容"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="42-レポートの内容">
                 <thead>
                     <tr className="header">
                         <th>
@@ -104,6 +104,9 @@ export default function Reporting() {
         <ChapterDiagram id="mermaid-diagram-10" />
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"レポートの公開の選択肢"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -168,6 +171,9 @@ export default function Reporting() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"関係者ごとの関心"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -258,6 +264,9 @@ export default function Reporting() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"ダッシュボードの項目と内容"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -304,6 +313,9 @@ export default function Reporting() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"AI／ML によるテストログ分析の支援内容"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -381,6 +393,9 @@ export default function Reporting() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"メトリクスの例と主な受け手"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -468,7 +483,7 @@ export default function Reporting() {
             {"4.8 この節のベストプラクティス"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="48-この節のベストプラクティス">
                 <thead>
                     <tr className="header">
                         <th>
