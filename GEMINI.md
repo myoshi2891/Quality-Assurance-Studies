@@ -365,7 +365,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 ### ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」の追加移行（2026-10-16）
 
 - `/istqb-ctal-tae-chapter4-implementing-test-automation`をISTQB高度レベル（`istqb-advanced`）へ追加。パイロットとデプロイのガイドライン、一般的・技術的デプロイリスク、保守性とクリーンコード原則、Mermaid図6件、全5表、チェックリストを完全保持。
-- `tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`で11テスト（180 expect() calls）を検証。ナビ・E2E対象は97ルート、Advancedカテゴリは18件。
+- `tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`で16テスト（197 expect() calls）を検証。ナビ・E2E対象は97ルート、Advancedカテゴリは18件。
 - 原本は`archive/html-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.html`と`archive/md-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.md`へ移動。
 - 検証は`bun test`および`bun run lint`で実施。ビルド・目視確認は実施しない。
 
