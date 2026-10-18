@@ -213,12 +213,12 @@
         },
         {
           "tag": "h3",
-          "id": "s-42-packaging",
+          "id": null,
           "text": "技術的デプロイリスクの詳細"
         },
         {
           "tag": "h4",
-          "id": null,
+          "id": "s-42-packaging",
           "text": "1. パッケージング（Packaging）"
         },
         {

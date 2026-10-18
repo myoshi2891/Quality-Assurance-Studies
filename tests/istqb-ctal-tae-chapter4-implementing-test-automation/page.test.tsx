@@ -150,6 +150,17 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
         expect(h2?.textContent?.trim()).toBe(sec.title);
       });
     });
+
+    it('renders 4.2 h3/h4 with the inventory tag, ID and text so TOC anchors land on the named heading', () => {
+      const { container } = render(<Page />);
+      const sec = inventory.sections.find(s => s.id === 's-42');
+      const headings = Array.from(container.querySelectorAll('#s-42 h3, #s-42 h4')).map(h => ({
+        tag: h.tagName.toLowerCase(),
+        id: h.getAttribute('id'),
+        text: h.textContent?.trim(),
+      }));
+      expect(headings).toEqual(sec?.headings ?? []);
+    });
   });
 
   describe('Diagrams Inventory and Mermaid Config', () => {

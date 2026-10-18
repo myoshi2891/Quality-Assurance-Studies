@@ -52,8 +52,8 @@ export default function Section3() {
         </p>
       </div>
 
-      <h3 id="s-42-packaging">技術的デプロイリスクの詳細</h3>
-      <h4>1. パッケージング（Packaging）</h4>
+      <h3>技術的デプロイリスクの詳細</h3>
+      <h4 id="s-42-packaging">1. パッケージング（Packaging）</h4>
       <div className="prose">
         <p>
           テストウェア（testware：テストスクリプト・テストデータ・設定ファイルなど、テスト自動化に関わる成果物の総称）も、SUTと同様に<strong>バージョン管理</strong>が重要です。
