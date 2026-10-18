@@ -20,9 +20,13 @@ describe('chapter 7 registration and source archives', () => {
         expect(pages[0]?.h1.test('CTAL-TAE v2.0 第7章 ｜ Verifying the Test Automation Solution 初学者向けガイド')).toBe(true);
     });
     for (const ext of ['html', 'md'] as const) {
-        it(`archives the original ${ext} unchanged and removes it from the project root`, () => {
+        const archivePath = `archive/${ext}-archive/ctal/${inventory.source}.${ext}`;
+        it(`removes the original ${ext} from the project root`, () => {
             expect(existsSync(`${inventory.source}.${ext}`)).toBe(false);
-            const content = readFileSync(`archive/${ext}-archive/ctal/${inventory.source}.${ext}`);
+        });
+        // archive/ は .gitignore 対象のため CI には存在しない。実体がある環境でのみ原本の同一性を検証する
+        it.skipIf(!existsSync(archivePath))(`archives the original ${ext} unchanged`, () => {
+            const content = readFileSync(archivePath);
             expect(createHash('sha256').update(content).digest('hex')).toBe(inventory.hashes[ext]);
         });
     }
