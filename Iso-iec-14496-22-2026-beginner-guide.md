@@ -289,6 +289,9 @@ def read_table_directory(path):
         # ">" はビッグエンディアンの指定。OpenType は必ずこの並びのため、
         # 指定を忘れると数値が逆順に読めてしまう。
         header = f.read(12)
+        # ファイルが短いと struct.error になり原因が分かりにくいため、先に長さを検証する。
+        if len(header) < 12:
+            raise ValueError(f"ヘッダが不足しています: 12バイト必要ですが {len(header)} バイトしかありません")
         sfnt_version, num_tables, _sr, _es, _rs = struct.unpack(">4sHHHH", header)
 
         # searchRange など3つの値は読み捨てる（_ で始まる変数名）。
@@ -305,9 +308,15 @@ def read_table_directory(path):
             raise ValueError(f"未対応の sfntVersion です: {sfnt_version.hex()}")
 
         records = []
-        for _ in range(num_tables):
+        for i in range(num_tables):
             # TableRecord は1件16バイト（tag 4 + checksum 4 + offset 4 + length 4）。
-            tag, checksum, offset, length = struct.unpack(">4sIII", f.read(16))
+            record = f.read(16)
+            # numTables が実際のレコード数より大きい壊れたファイルでも、内容が分かるエラーにする。
+            if len(record) < 16:
+                raise ValueError(
+                    f"テーブルレコード {i} が不足しています: 16バイト必要ですが {len(record)} バイトしかありません"
+                )
+            tag, checksum, offset, length = struct.unpack(">4sIII", record)
             records.append({
                 "tag": tag.decode("ascii"),   # Tag は表示可能な ASCII と決まっている
                 "checksum": checksum,
