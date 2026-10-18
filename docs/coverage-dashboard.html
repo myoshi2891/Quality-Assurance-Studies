@@ -957,7 +957,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-10-17">2026-10-17</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-10-18">2026-10-18</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
         <span id="mc-scope"><strong>Scope</strong> 100 pages · 3 components · 12 libs · 5 scripts</span>
@@ -985,7 +985,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">133<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">131<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
@@ -1058,7 +1058,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">133 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">131 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
@@ -1093,7 +1093,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">7 files</span>
+          <span class="inv-count" id="inv-count-e2e">8 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
@@ -1161,7 +1161,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
             <p class="foot">
             QA_Studies Coverage Radar
             <span class="sep">·</span>
-            Updated <time datetime="2026-10-17">2026-10-17</time>
+            Updated <time datetime="2026-10-18">2026-10-18</time>
 
     <span class="sep">·</span>
     Single-file, standalone HTML
@@ -1284,7 +1284,7 @@ const DATA = {
       category: 'Pages',
       hint: `${pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. Real browser SVG color and contrast checks cover all 11 Ch7 diagrams at 390px and 1440px without a server/build.` },
+        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. Real browser SVG color and contrast checks cover all 11 Ch6 diagrams (page CSS and config-only variants, 44 cases) and all 11 Ch7 diagrams (22 cases) at 390px and 1440px without a server/build; the suite runs 84 Chromium cases in total.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'partial', value: '12', label: 'CSS geometry', note: 'CT-GenAI study: Chromium verifies both scroll edges and small-diagram centering across 4 viewport widths and 3 SVG widths; screenshot baselines remain absent.' },
@@ -1554,6 +1554,7 @@ const DATA = {
       'e2e/a11y.e2e.ts',
       'e2e/mermaid-layout.e2e.ts',
       'e2e/ct-genai-study-mermaid-css.e2e.ts',
+      'e2e/ctal-tae-ch6-mermaid-colors.e2e.ts',
       'e2e/ctal-tae-ch7-mermaid-colors.e2e.ts',
       'e2e/ctal-tae-ch7-learning-ui.e2e.ts'
     ],

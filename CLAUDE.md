@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-17
+Updated 2026-10-18
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -844,3 +844,9 @@ bun test        # ユニットテスト成功
 - 原因: 他ルートの未スコープ`.code-block code`が残ると、コードに`white-space: pre-wrap`と異なる文字サイズ・行高が適用される。第7章内で明示的に上書きし、字下げ・改行を保持して外側の`pre`で横スクロールする。
 - チェックリスト: 全6項目の文章・状態管理を保持し、行全体を押せるカード、2段の進捗表示、完了時の読みやすい緑色、キーボードフォーカスを追加。
 - 検証: `e2e/ctal-tae-ch7-learning-ui.e2e.ts`で390px／1440px、他ルートCSSの前後両順序、全7コード、チェックリストの操作領域・完了色・フォーカスを検査。ブラウザ計40件、全体ユニット3894件（123ファイル）、lint成功。ビルド・サーバー起動・ページ全体の目視確認は未実施。
+
+## 2026-10-18: CTAL-TAE第6章 Mermaid色検証の追加
+
+- 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。ページ全体の目視確認と本番ビルドは未実施。
