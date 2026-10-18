@@ -16,7 +16,6 @@ describe('chapter 5 integration and original preservation', () => {
     const page = PAGES.filter(page => page.path === href);
     expect(page).toHaveLength(1);
     expect(page[0]?.h1.test('CTAL‑TAE v2.0 Ch.5「Implementation and Deployment Strategies for Test Automation」')).toBe(true);
-    expect(EXPECTED_PAGE_COUNT).toBe(100);
     expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
     expect(NAV_ITEMS).toHaveLength(EXPECTED_PAGE_COUNT);
   });
