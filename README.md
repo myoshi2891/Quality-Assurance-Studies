@@ -123,4 +123,4 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 
 * 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 * 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
-* 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。ページ全体の目視確認と本番ビルドは未実施。
+* 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
