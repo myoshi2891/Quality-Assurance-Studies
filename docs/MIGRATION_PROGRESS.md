@@ -74,7 +74,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - 移行先: `/istqb-ctal-tae-chapter4-implementing-test-automation`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
 - 元HTMLの見出し、目次26リンク、全5表（キーワード、LO、パイロット5項目評価、ログレベル6段階、クリーンコード8原則）、Mermaid図6件（第4章の構成フロー、パイロット実行フロー、デプロイリスクの分類、リスク対応フロー、ハードコーディング回避の効果、第4章の学習フロー全体図）、インタラクティブチェックリスト（進捗バー・動的カウンター）、参考文献3件、ベストプラクティスカード3件を完全移行。
-- `docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json`に本文全文・DOM構造と順序・CSSルールの宣言・図ソース・原本HTML/MDのSHA-256を固定保存。
+- `docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json`に原本HTML/MDのSHA-256、ヒーロー、目次26リンク、セクションID・見出し、図ソース6件、表5件の見出し列と行数（セル本文は保持しない）、コールアウト・ベストプラクティス・チェックリスト・参考文献の本文を固定保存。本文全文・DOM構造・CSSルールは保存対象外で、表テストも見出し列と行数のみを照合しセル本文は比較しない。
 - TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`4f03fc2`）、CSS・ダイアグラム定義・Hero・Footer・ページ骨格（`a8fbce9`）、NavBar・目次（`69564ec`）、Section 0 & 1（`a6983f6`）、Section 2（`7c12236`）、Section 3（`d143350`）、Section 4（`6c6079e`）、Section 5, 6, 7（`3e6b7ed`）をそれぞれ独立コミット。
 - ページ単体テスト（`tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`）で、全コンポーネントのDOM構造、表データ、全6図のMermaid配線・クライアント描画、CSS詳細度・スコープ、スティッキーNavBar動作、チェックリスト動作、参考文献のセキュア属性（`target="_blank" rel="noopener noreferrer"`）を完全検証（11 pass / 180 expect() calls）。
 - Mermaid図6件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
