@@ -786,3 +786,16 @@
 
 /* Source --text-faint (#8891a1) is ~3.2:1 on white; darken TOC/meta text to >= 4.5:1 on every light surface. */
 .ctal-tae-ch7-page { --text-faint: #646d7e; }
+
+/* Table names for screen-reader table lists; hidden visually to keep the source design. */
+.ctal-tae-ch7-page .table-caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

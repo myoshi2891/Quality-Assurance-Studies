@@ -20,6 +20,9 @@ export default function ScriptSuiteBehavior() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"テストスイートの4つの検証項目"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -100,6 +103,9 @@ export default function ScriptSuiteBehavior() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"テストスイートの構成の確認対象"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -169,6 +175,9 @@ export default function ScriptSuiteBehavior() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"TAF の新機能を使う場面と監視のしかた"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -319,7 +328,7 @@ export default function ScriptSuiteBehavior() {
             {"侵入性の例と対策（補足）"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="侵入性の例と対策補足">
                 <thead>
                     <tr className="header">
                         <th>

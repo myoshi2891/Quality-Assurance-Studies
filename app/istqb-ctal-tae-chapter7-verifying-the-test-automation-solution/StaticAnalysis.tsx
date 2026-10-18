@@ -28,6 +28,9 @@ export default function StaticAnalysis() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"静的解析の項目と説明"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -97,7 +100,7 @@ export default function StaticAnalysis() {
             {"6.2 静的解析の出力と支援機能"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="62-静的解析の出力と支援機能">
                 <thead>
                     <tr className="header">
                         <th>
@@ -155,6 +158,9 @@ export default function StaticAnalysis() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"テスト自動化コードの静的解析で誤解しやすい点"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -199,7 +205,7 @@ export default function StaticAnalysis() {
             {" ツールの例（補足：シラバスには記載のない一般的な例） "}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="ツールの例補足シラバスには記載のない一般的な例">
                 <thead>
                     <tr className="header">
                         <th>

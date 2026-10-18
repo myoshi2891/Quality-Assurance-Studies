@@ -8,7 +8,7 @@ export default function ReviewQuestions() {
             {"7. ベストプラクティス総まとめ"}
         </h2>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="7-ベストプラクティス総まとめ">
                 <thead>
                     <tr className="header">
                         <th>
@@ -166,7 +166,7 @@ export default function ReviewQuestions() {
             {"8.1 出題の構造"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="81-出題の構造">
                 <thead>
                     <tr className="header">
                         <th>
@@ -232,7 +232,7 @@ export default function ReviewQuestions() {
             {"8.2 間違えやすいポイント"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="82-間違えやすいポイント">
                 <thead>
                     <tr className="header">
                         <th>

@@ -38,7 +38,7 @@ export default function OverviewTerminology() {
             {"1.2 学習目標（Learning Objectives）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="12-学習目標learning-objectives">
                 <thead>
                     <tr className="header">
                         <th>
@@ -140,6 +140,9 @@ export default function OverviewTerminology() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"観点ごとの対応 LO と検証のタイミング"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -210,6 +213,9 @@ export default function OverviewTerminology() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"前提となる用語と第7章での関わり"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -312,6 +318,9 @@ export default function OverviewTerminology() {
         </div>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"「SUT のテスト」と「TAS の検証」の比較"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>

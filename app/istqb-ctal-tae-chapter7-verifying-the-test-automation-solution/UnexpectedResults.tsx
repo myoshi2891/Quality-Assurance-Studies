@@ -20,6 +20,9 @@ export default function UnexpectedResults() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"予期しない結果の確認対象"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -70,6 +73,9 @@ export default function UnexpectedResults() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"予期しない成功・失敗の現象と危険性"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -132,6 +138,9 @@ export default function UnexpectedResults() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"不具合が潜みうる5つの場所"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -197,6 +206,9 @@ export default function UnexpectedResults() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"予期しない結果の調査手段"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -267,6 +279,9 @@ export default function UnexpectedResults() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"第6章の分析手順と第7章の検証の比較"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>

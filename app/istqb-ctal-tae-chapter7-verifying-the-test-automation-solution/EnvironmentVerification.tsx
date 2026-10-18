@@ -31,6 +31,9 @@ export default function EnvironmentVerification() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"テスト自動化環境の4つの検証観点"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -144,7 +147,7 @@ export default function EnvironmentVerification() {
             {" 自動インストールやリポジトリからのコピーの利点 "}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="自動インストールやリポジトリからのコピーの利点">
                 <thead>
                     <tr className="header">
                         <th>
@@ -198,6 +201,9 @@ export default function EnvironmentVerification() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"セットアップの手段の例"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -281,6 +287,9 @@ export default function EnvironmentVerification() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"テスト環境の再現性で達成すべきこと"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -362,6 +371,9 @@ export default function EnvironmentVerification() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"接続性のチェック項目"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -478,6 +490,9 @@ export default function EnvironmentVerification() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"TAF コンポーネントのテストの種類"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -572,6 +587,9 @@ export default function EnvironmentVerification() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="table-caption">
+                    {"K3 シナリオの手がかりと対応する観点"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>

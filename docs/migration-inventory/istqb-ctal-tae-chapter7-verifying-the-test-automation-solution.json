@@ -946,7 +946,9 @@
       "items": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "12-学習目標learning-objectives"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1147,6 +1149,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "観点ごとの対応 LO と検証のタイミング"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -1309,6 +1320,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "前提となる用語と第7章での関わり"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -1560,6 +1580,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "「SUT のテスト」と「TAS の検証」の比較"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -1693,6 +1722,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "テスト自動化環境の4つの検証観点"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -1854,7 +1892,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "自動インストールやリポジトリからのコピーの利点"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1963,6 +2003,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "セットアップの手段の例"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -2069,6 +2118,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "テスト環境の再現性で達成すべきこと"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -2152,6 +2210,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "接続性のチェック項目"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -2303,6 +2370,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "TAF コンポーネントのテストの種類"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -2453,6 +2529,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "K3 シナリオの手がかりと対応する観点"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -2580,6 +2665,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "テストスイートの4つの検証項目"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -2744,6 +2838,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "テストスイートの構成の確認対象"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -2850,6 +2953,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "TAF の新機能を使う場面と監視のしかた"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -2953,7 +3065,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "侵入性の例と対策補足"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3090,6 +3204,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "予期しない結果の確認対象"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -3196,6 +3319,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "予期しない成功・失敗の現象と危険性"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -3300,6 +3432,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "不具合が潜みうる5つの場所"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -3450,6 +3591,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "予期しない結果の調査手段"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -3623,6 +3773,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "第6章の分析手順と第7章の検証の比較"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -3727,6 +3886,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "静的解析の項目と説明"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -3853,7 +4021,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "62-静的解析の出力と支援機能"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3962,6 +4132,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "テスト自動化コードの静的解析で誤解しやすい点"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -4043,7 +4222,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "ツールの例補足シラバスには記載のない一般的な例"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4171,7 +4352,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "7-ベストプラクティス総まとめ"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4566,7 +4749,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "81-出題の構造"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4729,7 +4914,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "82-間違えやすいポイント"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4945,7 +5132,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "10-用語集"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5227,7 +5416,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "111-一次情報第7章の根拠"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5391,7 +5582,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "112-補足の参考資料シラバス外ベストプラクティスの補強"
+          },
           "children": [
             {
               "tag": "thead",
@@ -8501,7 +8694,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "12-学習目標learning-objectives"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -8790,6 +8985,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "観点ごとの対応 LO と検証のタイミング"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -8981,6 +9185,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "前提となる用語と第7章での関わり"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -9265,6 +9478,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "「SUT のテスト」と「TAS の検証」の比較"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -9526,6 +9748,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テスト自動化環境の4つの検証観点"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -9845,7 +10076,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "自動インストールやリポジトリからのコピーの利点"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -9992,6 +10225,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "セットアップの手段の例"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -10223,6 +10465,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テスト環境の再現性で達成すべきこと"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -10457,6 +10708,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "接続性のチェック項目"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -10817,6 +11077,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "TAF コンポーネントのテストの種類"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -11092,6 +11361,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "K3 シナリオの手がかりと対応する観点"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -11267,6 +11545,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テストスイートの4つの検証項目"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -11487,6 +11774,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テストスイートの構成の確認対象"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -11681,6 +11977,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "TAF の新機能を使う場面と監視のしかた"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -12142,7 +12447,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "侵入性の例と対策補足"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -12445,6 +12752,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "予期しない結果の確認対象"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -12582,6 +12898,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "予期しない成功・失敗の現象と危険性"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -12760,6 +13085,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "不具合が潜みうる5つの場所"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -12950,6 +13284,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "予期しない結果の調査手段"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -13146,6 +13489,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "第6章の分析手順と第7章の検証の比較"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -13392,6 +13744,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "静的解析の項目と説明"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -13591,7 +13952,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "62-静的解析の出力と支援機能"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -13747,6 +14110,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テスト自動化コードの静的解析で誤解しやすい点"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -13896,7 +14268,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "ツールの例補足シラバスには記載のない一般的な例"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -14131,7 +14505,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "7-ベストプラクティス総まとめ"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -14557,7 +14933,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "81-出題の構造"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -14737,7 +15115,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "82-間違えやすいポイント"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -15706,7 +16086,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "10-用語集"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -16019,7 +16401,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "111-一次情報第7章の根拠"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -16249,7 +16633,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "112-補足の参考資料シラバス外ベストプラクティスの補強"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -16991,7 +17377,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "12-学習目標learning-objectives"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -17280,6 +17668,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "観点ごとの対応 LO と検証のタイミング"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -17471,6 +17868,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "前提となる用語と第7章での関わり"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -17755,6 +18161,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "「SUT のテスト」と「TAS の検証」の比較"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -18014,6 +18429,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テスト自動化環境の4つの検証観点"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -18333,7 +18757,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "自動インストールやリポジトリからのコピーの利点"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -18480,6 +18906,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "セットアップの手段の例"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -18711,6 +19146,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テスト環境の再現性で達成すべきこと"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -18945,6 +19389,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "接続性のチェック項目"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -19305,6 +19758,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "TAF コンポーネントのテストの種類"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -19580,6 +20042,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "K3 シナリオの手がかりと対応する観点"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -19753,6 +20224,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テストスイートの4つの検証項目"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -19973,6 +20453,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テストスイートの構成の確認対象"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -20167,6 +20656,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "TAF の新機能を使う場面と監視のしかた"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -20628,7 +21126,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "侵入性の例と対策補足"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -20929,6 +21429,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "予期しない結果の確認対象"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -21066,6 +21575,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "予期しない成功・失敗の現象と危険性"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -21244,6 +21762,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "不具合が潜みうる5つの場所"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -21434,6 +21961,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "予期しない結果の調査手段"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -21630,6 +22166,15 @@
             "tag": "table",
             "attrs": {},
             "children": [
+              {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "第6章の分析手順と第7章の検証の比較"
+                ]
+              },
               {
                 "tag": "thead",
                 "attrs": {},
@@ -21874,6 +22419,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "静的解析の項目と説明"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -22073,7 +22627,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "62-静的解析の出力と支援機能"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -22229,6 +22785,15 @@
             "attrs": {},
             "children": [
               {
+                "tag": "caption",
+                "attrs": {
+                  "class": "table-caption"
+                },
+                "children": [
+                  "テスト自動化コードの静的解析で誤解しやすい点"
+                ]
+              },
+              {
                 "tag": "thead",
                 "attrs": {},
                 "children": [
@@ -22378,7 +22943,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "ツールの例補足シラバスには記載のない一般的な例"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -22611,7 +23178,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "7-ベストプラクティス総まとめ"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -23037,7 +23606,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "81-出題の構造"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -23217,7 +23788,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "82-間違えやすいポイント"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24184,7 +24757,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "10-用語集"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24497,7 +25072,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "111-一次情報第7章の根拠"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24727,7 +25304,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "112-補足の参考資料シラバス外ベストプラクティスの補強"
+            },
             "children": [
               {
                 "tag": "thead",
