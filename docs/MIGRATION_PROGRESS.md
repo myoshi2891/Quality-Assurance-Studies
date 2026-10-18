@@ -13,10 +13,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `97c319a`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `style(ctal-tae-ch7): improve checklist targets progress and completion states` |
+| 最新 HEAD | `4f4b05d`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `fix(ctal-tae): CTAL-TAE 第4章の s-42-packaging アンカーIDを h4 見出しへ移動しインベントリとテストを同期` |
 | 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`の目視確認。 |
-| ビルド状態 | 第6章Mermaid色検証を追加。ビルド・サーバー不要のブラウザ検証84件、全体ユニット3901件（123ファイル）、lintが成功。本番ビルド・ページ全体の目視確認は未実施。 |
+| ビルド状態 | 第6章Mermaid色検証を追加。ビルド・サーバー不要のブラウザ検証84件、全体ユニット3902件（123ファイル）、lintが成功。本番ビルド・ページ全体の目視確認は未実施。 |
 
 ## 2026-10-18: CTAL-TAE第6章 Mermaid色検証の追加
 
