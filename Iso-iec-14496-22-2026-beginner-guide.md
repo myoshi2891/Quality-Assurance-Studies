@@ -317,6 +317,12 @@ def read_table_directory(path):
                     f"テーブルレコード {i} が不足しています: 16バイト必要ですが {len(record)} バイトしかありません"
                 )
             tag, checksum, offset, length = struct.unpack(">4sIII", record)
+            # Tag は 0x20〜0x7E のバイト4つと決まっている。decode("ascii") だけでは
+            # 制御文字（0x00〜0x1F、0x7F）を通してしまうため、デコード前に範囲を検証する。
+            if any(b < 0x20 or b > 0x7E for b in tag):
+                raise ValueError(
+                    f"テーブルレコード {i} の tableTag に 0x20〜0x7E 以外のバイトがあります: {tag.hex()}"
+                )
             records.append({
                 "tag": tag.decode("ascii"),   # Tag は表示可能な ASCII と決まっている
                 "checksum": checksum,
