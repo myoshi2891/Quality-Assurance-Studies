@@ -138,7 +138,7 @@ flowchart TB
 | Part 3 | Markup Compatibility and Extensibility（MCE）。拡張要素を古いソフトが安全に無視するための仕組み | STEP 8で解説 |
 | Part 4 | Transitional Migration Features。旧バイナリ形式との互換のための機能群（VML など） | **Transitional形式**に必要 \[S9\]\[S10\] |
 
-> 📌 ISO化の審議の過程で、元のECMA-376は複数のPartに分割されました（Part 1に3つのML、Part 2にOPC、Part 3に拡張仕様）。当時の審議を追っていた Wictor Wilén 氏のブログでも、この分割が主要な変更点の一つとして紹介されています \[S16\]。
+> 📌 ISO化の審議の過程で、元のECMA-376は複数のPartに分割されました（Part 1に3つの主要MLと共通のDrawingML、Part 2にOPC、Part 3に拡張仕様）。当時の審議を追っていた Wictor Wilén 氏のブログでも、この分割が主要な変更点の一つとして紹介されています \[S16\]。
 
 ### 版の対応表
 
