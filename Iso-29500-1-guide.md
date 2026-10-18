@@ -482,10 +482,10 @@ flowchart TB
     S1{"目的は？"}
     S2{"相手のアプリは<br/>Strict を読める？"}
     R1["Transitional を選ぶ<br/>多くのソフトの既定で互換性が高い"]
-    R2["Strict を選ぶ<br/>ISO準拠が調達条件のとき など"]
+    R2["Strict を選ぶ<br/>明示的な Strict 要件や長期保存方針があるとき"]
     R3["先に相互運用テストを行う<br/>結果を見て決める"]
     S1 -->|一般配布・既存Officeとの互換重視| R1
-    S1 -->|ISO準拠が要件・長期保存の方針| S2
+    S1 -->|明示的な Strict 要件・長期保存の方針| S2
     S2 -->|はい| R2
     S2 -->|不明 または いいえ| R3
 
@@ -494,6 +494,8 @@ flowchart TB
     class S1,S2 q
     class R1,R2,R3 ans
 ```
+
+> 📌 **ISO/IEC 29500 準拠だけでは Strict を選ぶ理由になりません**：Strict と Transitional は、どちらも ISO/IEC 29500 が定める適合クラスです（STEP 8）。「ISO/IEC 29500 準拠」が求められているだけなら、どちらのクラスでも要件を満たせます。Strict を選ぶのは、調達仕様などで Strict が明示的に指定されている場合や、長期保存の方針で Strict を採用している場合に限られます。
 
 ---
 
