@@ -8371,7 +8371,7 @@
                         "class": "c1"
                       },
                       "children": [
-                        "# userinfo（user:password@）・クエリ・フラグメントには秘密情報が含まれうるため、ログには載せない"
+                        "# userinfo（user:password@）・パス・クエリ・フラグメントには秘密情報が含まれうるため、ログにはオリジンだけを載せる"
                       ]
                     },
                     "\n    ",
@@ -8727,28 +8727,10 @@
                     {
                       "tag": "span",
                       "attrs": {
-                        "class": "n"
+                        "class": "s2"
                       },
                       "children": [
-                        "parts"
-                      ]
-                    },
-                    {
-                      "tag": "span",
-                      "attrs": {
-                        "class": "o"
-                      },
-                      "children": [
-                        "."
-                      ]
-                    },
-                    {
-                      "tag": "span",
-                      "attrs": {
-                        "class": "n"
-                      },
-                      "children": [
-                        "path"
+                        "\"\""
                       ]
                     },
                     {
@@ -16209,7 +16191,7 @@
                       "class": "c1"
                     },
                     "children": [
-                      "# userinfo（user:password@）・クエリ・フラグメントには秘密情報が含まれうるため、ログには載せない"
+                      "# userinfo（user:password@）・パス・クエリ・フラグメントには秘密情報が含まれうるため、ログにはオリジンだけを載せる"
                     ]
                   },
                   "\n    ",
@@ -16565,28 +16547,10 @@
                   {
                     "tag": "span",
                     "attrs": {
-                      "class": "n"
+                      "class": "s2"
                     },
                     "children": [
-                      "parts"
-                    ]
-                  },
-                  {
-                    "tag": "span",
-                    "attrs": {
-                      "class": "o"
-                    },
-                    "children": [
-                      "."
-                    ]
-                  },
-                  {
-                    "tag": "span",
-                    "attrs": {
-                      "class": "n"
-                    },
-                    "children": [
-                      "path"
+                      "\"\""
                     ]
                   },
                   {
@@ -27900,7 +27864,7 @@
                       "class": "c1"
                     },
                     "children": [
-                      "# userinfo（user:password@）・クエリ・フラグメントには秘密情報が含まれうるため、ログには載せない"
+                      "# userinfo（user:password@）・パス・クエリ・フラグメントには秘密情報が含まれうるため、ログにはオリジンだけを載せる"
                     ]
                   },
                   "\n    ",
@@ -28256,28 +28220,10 @@
                   {
                     "tag": "span",
                     "attrs": {
-                      "class": "n"
+                      "class": "s2"
                     },
                     "children": [
-                      "parts"
-                    ]
-                  },
-                  {
-                    "tag": "span",
-                    "attrs": {
-                      "class": "o"
-                    },
-                    "children": [
-                      "."
-                    ]
-                  },
-                  {
-                    "tag": "span",
-                    "attrs": {
-                      "class": "n"
-                    },
-                    "children": [
-                      "path"
+                      "\"\""
                     ]
                   },
                   {
@@ -35821,7 +35767,7 @@
     },
     {
       "language": "python",
-      "text": "import json\nimport logging\nimport time\nimport uuid\nfrom urllib.parse import urlsplit, urlunsplit\n\nimport requests\n\nlogger = logging.getLogger(\"taf\")\n\n\ndef call_api(base_url: str, path: str, test_id: str) -> requests.Response:\n    trace_id = uuid.uuid4().hex                      # 32桁の16進数\n    span_id = uuid.uuid4().hex[:16]                  # 16桁の16進数\n    headers = {\"traceparent\": f\"00-{trace_id}-{span_id}-01\"}\n\n    url = f\"{base_url}{path}\"\n    parts = urlsplit(url)\n    # 認証情報が平文で流れないよう、HTTPS 以外は送信前に拒否する\n    if parts.scheme != \"https\":\n        raise ValueError(\"base_url は https:// で始まる必要があります\")\n\n    # userinfo（user:password@）・クエリ・フラグメントには秘密情報が含まれうるため、ログには載せない\n    host = parts.hostname or \"\"\n    netloc = f\"{host}:{parts.port}\" if parts.port else host\n    logged_url = urlunsplit((parts.scheme, netloc, parts.path, \"\", \"\"))\n\n    # time.time() はシステム時刻の補正で巻き戻りうるため、経過時間は単調増加の perf_counter() で測る\n    started = time.perf_counter()\n    try:\n        # リダイレクトは追従しない（HTTP など想定外の送信先へ認証情報が渡るのを防ぐ）\n        response = requests.get(url, headers=headers, timeout=10, allow_redirects=False)\n    except requests.RequestException as exc:\n        # 失敗時も相関 ID を残し、SUT ログと突き合わせられるようにしてから再送出する\n        # 例外メッセージには URL（認証情報・トークンを含みうる）が入るため、型名だけを記録する\n        logger.error(json.dumps({\n            \"test_id\": test_id,\n            \"trace_id\": trace_id,\n            \"url\": logged_url,\n            \"error\": type(exc).__name__,\n            \"elapsed_ms\": int((time.perf_counter() - started) * 1000),\n        }))\n        raise\n\n    logger.info(json.dumps({\n        \"test_id\": test_id,\n        \"trace_id\": trace_id,\n        \"url\": logged_url,\n        \"status\": response.status_code,\n        \"elapsed_ms\": int((time.perf_counter() - started) * 1000),\n    }))\n    return response\n"
+      "text": "import json\nimport logging\nimport time\nimport uuid\nfrom urllib.parse import urlsplit, urlunsplit\n\nimport requests\n\nlogger = logging.getLogger(\"taf\")\n\n\ndef call_api(base_url: str, path: str, test_id: str) -> requests.Response:\n    trace_id = uuid.uuid4().hex                      # 32桁の16進数\n    span_id = uuid.uuid4().hex[:16]                  # 16桁の16進数\n    headers = {\"traceparent\": f\"00-{trace_id}-{span_id}-01\"}\n\n    url = f\"{base_url}{path}\"\n    parts = urlsplit(url)\n    # 認証情報が平文で流れないよう、HTTPS 以外は送信前に拒否する\n    if parts.scheme != \"https\":\n        raise ValueError(\"base_url は https:// で始まる必要があります\")\n\n    # userinfo（user:password@）・パス・クエリ・フラグメントには秘密情報が含まれうるため、ログにはオリジンだけを載せる\n    host = parts.hostname or \"\"\n    netloc = f\"{host}:{parts.port}\" if parts.port else host\n    logged_url = urlunsplit((parts.scheme, netloc, \"\", \"\", \"\"))\n\n    # time.time() はシステム時刻の補正で巻き戻りうるため、経過時間は単調増加の perf_counter() で測る\n    started = time.perf_counter()\n    try:\n        # リダイレクトは追従しない（HTTP など想定外の送信先へ認証情報が渡るのを防ぐ）\n        response = requests.get(url, headers=headers, timeout=10, allow_redirects=False)\n    except requests.RequestException as exc:\n        # 失敗時も相関 ID を残し、SUT ログと突き合わせられるようにしてから再送出する\n        # 例外メッセージには URL（認証情報・トークンを含みうる）が入るため、型名だけを記録する\n        logger.error(json.dumps({\n            \"test_id\": test_id,\n            \"trace_id\": trace_id,\n            \"url\": logged_url,\n            \"error\": type(exc).__name__,\n            \"elapsed_ms\": int((time.perf_counter() - started) * 1000),\n        }))\n        raise\n\n    logger.info(json.dumps({\n        \"test_id\": test_id,\n        \"trace_id\": trace_id,\n        \"url\": logged_url,\n        \"status\": response.status_code,\n        \"elapsed_ms\": int((time.perf_counter() - started) * 1000),\n    }))\n    return response\n"
     }
   ],
   "css": [

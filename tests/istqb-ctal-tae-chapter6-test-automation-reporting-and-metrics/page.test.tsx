@@ -254,3 +254,13 @@ describe('interactive behavior', () => {
         });
     });
 });
+
+describe('secure logging example', () => {
+    it('logs only the origin so secrets in the path reach neither success nor failure logs', async () => {
+        const $ = await html();
+        const python = $('pre.python code').text();
+        expect(python).toContain('logged_url = urlunsplit((parts.scheme, netloc, "", "", ""))');
+        expect(python).not.toContain('parts.path');
+        expect(python.match(/"url": logged_url/g)).toHaveLength(2);
+    });
+});
