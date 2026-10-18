@@ -244,6 +244,15 @@
                   "attrs": {},
                   "children": [
                     {
+                      "tag": "caption",
+                      "attrs": {
+                        "class": "table-caption"
+                      },
+                      "children": [
+                        "学習目標（Learning Objectives）一覧"
+                      ]
+                    },
+                    {
                       "tag": "thead",
                       "attrs": {},
                       "children": [
@@ -501,6 +510,15 @@
                   "tag": "table",
                   "attrs": {},
                   "children": [
+                    {
+                      "tag": "caption",
+                      "attrs": {
+                        "class": "table-caption"
+                      },
+                      "children": [
+                        "テストレベルごとのパイプライン統合パターン"
+                      ]
+                    },
                     {
                       "tag": "thead",
                       "attrs": {},
@@ -970,6 +988,15 @@
                   "tag": "table",
                   "attrs": {},
                   "children": [
+                    {
+                      "tag": "caption",
+                      "attrs": {
+                        "class": "table-caption"
+                      },
+                      "children": [
+                        "パイプラインのその他の活用方法"
+                      ]
+                    },
                     {
                       "tag": "thead",
                       "attrs": {},
@@ -1444,6 +1471,15 @@
                   "attrs": {},
                   "children": [
                     {
+                      "tag": "caption",
+                      "attrs": {
+                        "class": "table-caption"
+                      },
+                      "children": [
+                        "SUT のリリースと機能セットへの対応方式"
+                      ]
+                    },
+                    {
                       "tag": "thead",
                       "attrs": {},
                       "children": [
@@ -1701,6 +1737,15 @@
                   "attrs": {},
                   "children": [
                     {
+                      "tag": "caption",
+                      "attrs": {
+                        "class": "table-caption"
+                      },
+                      "children": [
+                        "API テスト自動化に必要な前提情報"
+                      ]
+                    },
+                    {
                       "tag": "thead",
                       "attrs": {},
                       "children": [
@@ -1950,6 +1995,15 @@
                   "tag": "table",
                   "attrs": {},
                   "children": [
+                    {
+                      "tag": "caption",
+                      "attrs": {
+                        "class": "table-caption"
+                      },
+                      "children": [
+                        "コンシューマー駆動型とプロバイダー駆動型の比較"
+                      ]
+                    },
                     {
                       "tag": "thead",
                       "attrs": {},
@@ -2882,6 +2936,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "学習目標（Learning Objectives）一覧"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -3007,6 +3070,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "テストレベルごとのパイプライン統合パターン"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -3204,6 +3276,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "パイプラインのその他の活用方法"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -3281,6 +3362,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "SUT のリリースと機能セットへの対応方式"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -3397,6 +3487,15 @@
           "attrs": {},
           "children": [
             {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "API テスト自動化に必要な前提情報"
+              ]
+            },
+            {
               "tag": "thead",
               "attrs": {},
               "children": [
@@ -3474,6 +3573,15 @@
           "tag": "table",
           "attrs": {},
           "children": [
+            {
+              "tag": "caption",
+              "attrs": {
+                "class": "table-caption"
+              },
+              "children": [
+                "コンシューマー駆動型とプロバイダー駆動型の比較"
+              ]
+            },
             {
               "tag": "thead",
               "attrs": {},
@@ -5214,6 +5322,15 @@
                 "attrs": {},
                 "children": [
                   {
+                    "tag": "caption",
+                    "attrs": {
+                      "class": "table-caption"
+                    },
+                    "children": [
+                      "学習目標（Learning Objectives）一覧"
+                    ]
+                  },
+                  {
                     "tag": "thead",
                     "attrs": {},
                     "children": [
@@ -5471,6 +5588,15 @@
                 "tag": "table",
                 "attrs": {},
                 "children": [
+                  {
+                    "tag": "caption",
+                    "attrs": {
+                      "class": "table-caption"
+                    },
+                    "children": [
+                      "テストレベルごとのパイプライン統合パターン"
+                    ]
+                  },
                   {
                     "tag": "thead",
                     "attrs": {},
@@ -5940,6 +6066,15 @@
                 "tag": "table",
                 "attrs": {},
                 "children": [
+                  {
+                    "tag": "caption",
+                    "attrs": {
+                      "class": "table-caption"
+                    },
+                    "children": [
+                      "パイプラインのその他の活用方法"
+                    ]
+                  },
                   {
                     "tag": "thead",
                     "attrs": {},
@@ -6414,6 +6549,15 @@
                 "attrs": {},
                 "children": [
                   {
+                    "tag": "caption",
+                    "attrs": {
+                      "class": "table-caption"
+                    },
+                    "children": [
+                      "SUT のリリースと機能セットへの対応方式"
+                    ]
+                  },
+                  {
                     "tag": "thead",
                     "attrs": {},
                     "children": [
@@ -6671,6 +6815,15 @@
                 "attrs": {},
                 "children": [
                   {
+                    "tag": "caption",
+                    "attrs": {
+                      "class": "table-caption"
+                    },
+                    "children": [
+                      "API テスト自動化に必要な前提情報"
+                    ]
+                  },
+                  {
                     "tag": "thead",
                     "attrs": {},
                     "children": [
@@ -6920,6 +7073,15 @@
                 "tag": "table",
                 "attrs": {},
                 "children": [
+                  {
+                    "tag": "caption",
+                    "attrs": {
+                      "class": "table-caption"
+                    },
+                    "children": [
+                      "コンシューマー駆動型とプロバイダー駆動型の比較"
+                    ]
+                  },
                   {
                     "tag": "thead",
                     "attrs": {},

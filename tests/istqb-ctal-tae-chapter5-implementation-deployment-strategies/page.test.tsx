@@ -185,3 +185,15 @@ describe('navigation and checklist behavior', () => {
     });
   });
 });
+
+describe('accessible table names', () => {
+  it('names all six data tables with distinct leading captions for screen-reader table lists', () => {
+    const $ = html();
+    const tables = $('table').toArray();
+    expect(tables).toHaveLength(6);
+    tables.forEach(table => expect($(table).children().first().is('caption')).toBe(true));
+    const captions = tables.map(table => norm($(table).children('caption').text()));
+    captions.forEach(caption => expect(caption).not.toBe(''));
+    expect(new Set(captions).size).toBe(tables.length);
+  });
+});

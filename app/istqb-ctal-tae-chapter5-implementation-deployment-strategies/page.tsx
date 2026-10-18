@@ -63,6 +63,9 @@ export default function Page() {
                     </div>
                     <div className="table-wrap">
                         <table>
+                            <caption className="table-caption">
+                                {"学習目標（Learning Objectives）一覧"}
+                            </caption>
                             <thead>
                                 <tr>
                                     <th>
@@ -157,6 +160,9 @@ export default function Page() {
                     </div>
                     <div className="table-wrap">
                         <table>
+                            <caption className="table-caption">
+                                {"テストレベルごとのパイプライン統合パターン"}
+                            </caption>
                             <thead>
                                 <tr>
                                     <th>
@@ -335,6 +341,9 @@ export default function Page() {
                     </div>
                     <div className="table-wrap">
                         <table>
+                            <caption className="table-caption">
+                                {"パイプラインのその他の活用方法"}
+                            </caption>
                             <thead>
                                 <tr>
                                     <th>
@@ -508,6 +517,9 @@ export default function Page() {
                     </div>
                     <div className="table-wrap">
                         <table>
+                            <caption className="table-caption">
+                                {"SUT のリリースと機能セットへの対応方式"}
+                            </caption>
                             <thead>
                                 <tr>
                                     <th>
@@ -602,6 +614,9 @@ export default function Page() {
                     </div>
                     <div className="table-wrap">
                         <table>
+                            <caption className="table-caption">
+                                {"API テスト自動化に必要な前提情報"}
+                            </caption>
                             <thead>
                                 <tr>
                                     <th>
@@ -695,6 +710,9 @@ export default function Page() {
                     </div>
                     <div className="table-wrap">
                         <table>
+                            <caption className="table-caption">
+                                {"コンシューマー駆動型とプロバイダー駆動型の比較"}
+                            </caption>
                             <thead>
                                 <tr>
                                     <th>
