@@ -1,7 +1,7 @@
 # ISO/IEC 21838-2:2021（Basic Formal Ontology：BFO）初学者向けステップバイステップ解説
 
 > **調査日**：2026年10月16日　／　**対象規格**：ISO/IEC 21838-2:2021 *Information technology — Top-level ontologies (TLO) — Part 2: Basic Formal Ontology (BFO)*
-> **公式ページ**：https://www.iso.org/standard/74572.html
+> **公式ページ**：[https://www.iso.org/standard/74572.html](https://www.iso.org/standard/74572.html)
 > **本ガイドの位置づけ**：ISO公式ページ（要旨・ライフサイクル）、BFO開発チームの公開リポジトリ・公式サイト、BFO開発者（Barry Smith、Alan Ruttenberg、John Beverley ら）による論文・書籍・講演資料をもとに、初学者向けに再構成した解説です。規格本文（有償）の逐語的な引用や転載は行っていません。
 > **表記ルール**：図解は Mermaid と Markdown のみを使用し、ASCII アートは使用していません。
 
@@ -677,6 +677,7 @@ flowchart TB
 | Industrial Ontologies Foundry（IOF） | 製造・デジタル製造向け。IOF の全オントロジーは BFO 2020 を基盤とし、Core が中間層を担う。公式ブラウザは 202601 リリースを公開 | IOF 公式サイト |
 
 > 📈 **採用規模の目安**（時期ごとに値が異なる点に注意）
+>
 > - 2022年4月の論文：350超のプロジェクトで使用
 > - 2022年5月のバッファロー大学ニュース：約500の組織・グループ
 > - 2024年の論文：600超のオープンソースのオントロジー・プロジェクトで使用
@@ -832,49 +833,49 @@ flowchart LR
 
 | 種別 | ソース | URL |
 |------|--------|-----|
-| 規格公式ページ | ISO/IEC 21838-2:2021（要旨、ライフサイクル、基本情報） | https://www.iso.org/standard/74572.html |
-| 規格公式ページ | ISO/IEC 21838-1:2021（Part 1：要件） | https://www.iso.org/standard/71954.html |
-| 規格公式ページ | ISO/IEC 21838-3:2023（DOLCE） | https://www.iso.org/standard/78927.html |
-| 規格公式ページ | ISO/IEC 21838-4:2023（TUpper） | https://www.iso.org/standard/78928.html |
-| 規格保守ポータル | ISO Standards Maintenance Portal（21838-2） | https://standards.iso.org/iso-iec/21838/-2/ed-1/en/ |
+| 規格公式ページ | ISO/IEC 21838-2:2021（要旨、ライフサイクル、基本情報） | [https://www.iso.org/standard/74572.html](https://www.iso.org/standard/74572.html) |
+| 規格公式ページ | ISO/IEC 21838-1:2021（Part 1：要件） | [https://www.iso.org/standard/71954.html](https://www.iso.org/standard/71954.html) |
+| 規格公式ページ | ISO/IEC 21838-3:2023（DOLCE） | [https://www.iso.org/standard/78927.html](https://www.iso.org/standard/78927.html) |
+| 規格公式ページ | ISO/IEC 21838-4:2023（TUpper） | [https://www.iso.org/standard/78928.html](https://www.iso.org/standard/78928.html) |
+| 規格保守ポータル | ISO Standards Maintenance Portal（21838-2） | [https://standards.iso.org/iso-iec/21838/-2/ed-1/en/](https://standards.iso.org/iso-iec/21838/-2/ed-1/en/) |
 
 ### 18.2 BFO 開発チームによる公式成果物
 
 | 種別 | ソース | URL |
 |------|--------|-----|
-| 公開リポジトリ | BFO-ontology/BFO-2020（階層図、成果物、ディレクトリ構成、ライセンス、開発チーム） | https://github.com/BFO-ontology/BFO-2020 |
-| 公式サイト | BFO 2020 ドキュメントページ（用語表・IRI 表・OWL・CL の一覧） | https://basic-formal-ontology.org/bfo-2020 |
-| 公式サイト | BFO 利用者一覧 | https://basic-formal-ontology.org/users.html |
-| NCOR Wiki | BFO 2020 のファイル一覧と説明 | https://www.ncorwiki.buffalo.edu/index.php/BFO_2020 |
+| 公開リポジトリ | BFO-ontology/BFO-2020（階層図、成果物、ディレクトリ構成、ライセンス、開発チーム） | [https://github.com/BFO-ontology/BFO-2020](https://github.com/BFO-ontology/BFO-2020) |
+| 公式サイト | BFO 2020 ドキュメントページ（用語表・IRI 表・OWL・CL の一覧） | [https://basic-formal-ontology.org/bfo-2020](https://basic-formal-ontology.org/bfo-2020) |
+| 公式サイト | BFO 利用者一覧 | [https://basic-formal-ontology.org/users.html](https://basic-formal-ontology.org/users.html) |
+| NCOR Wiki | BFO 2020 のファイル一覧と説明 | [https://www.ncorwiki.buffalo.edu/index.php/BFO_2020](https://www.ncorwiki.buffalo.edu/index.php/BFO_2020) |
 
 ### 18.3 国際的な開発者・研究者による文献
 
 | 著者・組織 | 内容 | URL |
 |-----------|------|-----|
-| J. Neil Otte、John Beverley、Alan Ruttenberg | 「BFO: Basic Formal Ontology」（Applied Ontology, 2022）。36クラス、変化を扱う設計パターン | https://philarchive.org/rec/OTTBBF |
-| Robert Arp、Barry Smith、Andrew Spear | 書籍 *Building Ontologies with Basic Formal Ontology*（MIT Press, 2015）の紹介ページ | https://ontology.buffalo.edu/BOBFO |
-| 同上 | MIT Press の書籍ページ | https://mitpress.mit.edu/9780262527811/building-ontologies-with-basic-formal-ontology/ |
-| Alexander Cox、John Beverley ら | 「The Common Core Ontologies」（BFO と CCO の関係、continuant/occurrent の整理） | https://arxiv.org/pdf/2404.17758 |
-| Beverley ら | 「Grounding Realizable Entities」（BFO の利用規模、IOF・CCO・防衛での位置づけ） | https://arxiv.org/pdf/2405.00197 |
-| John Beverley | Common Core Ontologies ガバナンス委員会の告知（BFO と CCO が基準標準として指示されている旨） | https://johnbeverley.com/blogic/2024/3/13/common-core-ontologies-governance-board |
-| John Beverley | 出版物一覧（2026年の BFO と IES の整合研究を含む） | https://philpeople.org/profiles/john-beverley/publications |
-| FOUST VII 論文集 | BFO の process・continuant 変化に関する論文（CEUR-WS） | https://ceur-ws.org/Vol-3637/paper33.pdf |
+| J. Neil Otte、John Beverley、Alan Ruttenberg | 「BFO: Basic Formal Ontology」（Applied Ontology, 2022）。36クラス、変化を扱う設計パターン | [https://philarchive.org/rec/OTTBBF](https://philarchive.org/rec/OTTBBF) |
+| Robert Arp、Barry Smith、Andrew Spear | 書籍 *Building Ontologies with Basic Formal Ontology*（MIT Press, 2015）の紹介ページ | [https://ontology.buffalo.edu/BOBFO](https://ontology.buffalo.edu/BOBFO) |
+| 同上 | MIT Press の書籍ページ | [https://mitpress.mit.edu/9780262527811/building-ontologies-with-basic-formal-ontology/](https://mitpress.mit.edu/9780262527811/building-ontologies-with-basic-formal-ontology/) |
+| Alexander Cox、John Beverley ら | 「The Common Core Ontologies」（BFO と CCO の関係、continuant/occurrent の整理） | [https://arxiv.org/pdf/2404.17758](https://arxiv.org/pdf/2404.17758) |
+| Beverley ら | 「Grounding Realizable Entities」（BFO の利用規模、IOF・CCO・防衛での位置づけ） | [https://arxiv.org/pdf/2405.00197](https://arxiv.org/pdf/2405.00197) |
+| John Beverley | Common Core Ontologies ガバナンス委員会の告知（BFO と CCO が基準標準として指示されている旨） | [https://johnbeverley.com/blogic/2024/3/13/common-core-ontologies-governance-board](https://johnbeverley.com/blogic/2024/3/13/common-core-ontologies-governance-board) |
+| John Beverley | 出版物一覧（2026年の BFO と IES の整合研究を含む） | [https://philpeople.org/profiles/john-beverley/publications](https://philpeople.org/profiles/john-beverley/publications) |
+| FOUST VII 論文集 | BFO の process・continuant 変化に関する論文（CEUR-WS） | [https://ceur-ws.org/Vol-3637/paper33.pdf](https://ceur-ws.org/Vol-3637/paper33.pdf) |
 
 ### 18.4 報道・解説・コミュニティ
 
 | 種別 | ソース | URL |
 |------|--------|-----|
-| 大学ニュース | バッファロー大学「UB professor's ontology work recognized as an international standard」（2022-05-05、Barry Smith 氏のコメント、歴史、事例） | https://www.buffalo.edu/ubnow/stories/2022/05/smith-ontology-standard.html |
-| 百科事典 | Wikipedia「ISO/IEC 21838」（シリーズ構成、Part 1 の要件の整理） | https://en.wikipedia.org/wiki/ISO/IEC_21838 |
-| 産業コミュニティ | Industrial Ontologies Foundry（リリース 202601。全オントロジーが BFO 2020 を基盤） | https://spec.industrialontologies.org/portal/release/202601/ |
+| 大学ニュース | バッファロー大学「UB professor's ontology work recognized as an international standard」（2022-05-05、Barry Smith 氏のコメント、歴史、事例） | [https://www.buffalo.edu/ubnow/stories/2022/05/smith-ontology-standard.html](https://www.buffalo.edu/ubnow/stories/2022/05/smith-ontology-standard.html) |
+| 百科事典 | Wikipedia「ISO/IEC 21838」（シリーズ構成、Part 1 の要件の整理） | [https://en.wikipedia.org/wiki/ISO/IEC_21838](https://en.wikipedia.org/wiki/ISO/IEC_21838) |
+| 産業コミュニティ | Industrial Ontologies Foundry（リリース 202601。全オントロジーが BFO 2020 を基盤） | [https://spec.industrialontologies.org/portal/release/202601/](https://spec.industrialontologies.org/portal/release/202601/) |
 
 ### 18.5 さらに学ぶための推奨リンク
 
 | テーマ | ソース | URL |
 |--------|--------|-----|
-| realizable entity（役割・傾向・機能） | Arp & Smith「Realizable Entities in Basic Formal Ontology」 | https://ontology.buffalo.edu/smith/articles/realizables.pdf |
-| function | Spear、Ceusters、Smith「Functions in Basic Formal Ontology」 | https://philarchive.org/rec/SPEFIB |
-| process の分類 | Smith「Classifying Processes: An Essay in Applied Ontology」 | https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3718480 |
+| realizable entity（役割・傾向・機能） | Arp & Smith「Realizable Entities in Basic Formal Ontology」 | [https://ontology.buffalo.edu/smith/articles/realizables.pdf](https://ontology.buffalo.edu/smith/articles/realizables.pdf) |
+| function | Spear、Ceusters、Smith「Functions in Basic Formal Ontology」 | [https://philarchive.org/rec/SPEFIB](https://philarchive.org/rec/SPEFIB) |
+| process の分類 | Smith「Classifying Processes: An Essay in Applied Ontology」 | [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3718480](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3718480) |
 
 ---
 
