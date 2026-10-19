@@ -6129,7 +6129,7 @@
                 "class": "language-python"
               },
               "children": [
-                "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
+                "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    try:\n        # 1. 必須の環境変数（接続を試みる前に確認する）\n        for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n            if not os.environ.get(name):\n                raise RuntimeError(f\"環境変数 {name} が未設定です\")\n        base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n        # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n        res = requests.get(f\"{base_url}/health\", timeout=10)\n        if res.status_code != 200:\n            raise RuntimeError(f\"SUT に到達できません（HTTP {res.status_code}）\")\n\n        # 3. ログ・レポートの書き込み権限\n        REPORT_DIR.mkdir(parents=True, exist_ok=True)\n        probe = REPORT_DIR / \".write_probe\"\n        probe.write_text(\"ok\")\n        probe.unlink()\n    except (RuntimeError, requests.RequestException, OSError) as exc:\n        # assert で失敗させると各テストの setup error として繰り返し報告されるため、\n        # 理由を添えて実行全体を一度だけ終了する\n        pytest.exit(f\"事前チェックに失敗したため実行を中止します: {exc}\")"
               ]
             }
           ]
@@ -10926,7 +10926,7 @@
               "class": "language-python"
             },
             "children": [
-              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
+              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    try:\n        # 1. 必須の環境変数（接続を試みる前に確認する）\n        for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n            if not os.environ.get(name):\n                raise RuntimeError(f\"環境変数 {name} が未設定です\")\n        base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n        # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n        res = requests.get(f\"{base_url}/health\", timeout=10)\n        if res.status_code != 200:\n            raise RuntimeError(f\"SUT に到達できません（HTTP {res.status_code}）\")\n\n        # 3. ログ・レポートの書き込み権限\n        REPORT_DIR.mkdir(parents=True, exist_ok=True)\n        probe = REPORT_DIR / \".write_probe\"\n        probe.write_text(\"ok\")\n        probe.unlink()\n    except (RuntimeError, requests.RequestException, OSError) as exc:\n        # assert で失敗させると各テストの setup error として繰り返し報告されるため、\n        # 理由を添えて実行全体を一度だけ終了する\n        pytest.exit(f\"事前チェックに失敗したため実行を中止します: {exc}\")"
             ]
           }
         ]
@@ -19607,7 +19607,7 @@
               "class": "language-python"
             },
             "children": [
-              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()"
+              "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    try:\n        # 1. 必須の環境変数（接続を試みる前に確認する）\n        for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n            if not os.environ.get(name):\n                raise RuntimeError(f\"環境変数 {name} が未設定です\")\n        base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n        # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n        res = requests.get(f\"{base_url}/health\", timeout=10)\n        if res.status_code != 200:\n            raise RuntimeError(f\"SUT に到達できません（HTTP {res.status_code}）\")\n\n        # 3. ログ・レポートの書き込み権限\n        REPORT_DIR.mkdir(parents=True, exist_ok=True)\n        probe = REPORT_DIR / \".write_probe\"\n        probe.write_text(\"ok\")\n        probe.unlink()\n    except (RuntimeError, requests.RequestException, OSError) as exc:\n        # assert で失敗させると各テストの setup error として繰り返し報告されるため、\n        # 理由を添えて実行全体を一度だけ終了する\n        pytest.exit(f\"事前チェックに失敗したため実行を中止します: {exc}\")"
             ]
           }
         ]
@@ -26594,7 +26594,7 @@
   "code": [
     {
       "language": "python",
-      "text": "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    # 1. 必須の環境変数（接続を試みる前に確認する）\n    for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n        assert os.environ.get(name), f\"環境変数 {name} が未設定です\"\n    base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n    # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n    res = requests.get(f\"{base_url}/health\", timeout=10)\n    assert res.status_code == 200, \"SUT に到達できません\"\n\n    # 3. ログ・レポートの書き込み権限\n    REPORT_DIR.mkdir(parents=True, exist_ok=True)\n    probe = REPORT_DIR / \".write_probe\"\n    probe.write_text(\"ok\")\n    probe.unlink()",
+      "text": "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例\nimport os\nimport pathlib\nimport pytest\nimport requests\n\nREPORT_DIR = pathlib.Path(os.environ.get(\"REPORT_DIR\", \"reports\"))\n\n\n@pytest.fixture(scope=\"session\", autouse=True)\ndef preflight_check():\n    \"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\"\n    try:\n        # 1. 必須の環境変数（接続を試みる前に確認する）\n        for name in (\"SUT_BASE_URL\", \"TEST_USER\"):\n            if not os.environ.get(name):\n                raise RuntimeError(f\"環境変数 {name} が未設定です\")\n        base_url = os.environ[\"SUT_BASE_URL\"]   # 環境ごとに切り替える\n\n        # 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）\n        res = requests.get(f\"{base_url}/health\", timeout=10)\n        if res.status_code != 200:\n            raise RuntimeError(f\"SUT に到達できません（HTTP {res.status_code}）\")\n\n        # 3. ログ・レポートの書き込み権限\n        REPORT_DIR.mkdir(parents=True, exist_ok=True)\n        probe = REPORT_DIR / \".write_probe\"\n        probe.write_text(\"ok\")\n        probe.unlink()\n    except (RuntimeError, requests.RequestException, OSError) as exc:\n        # assert で失敗させると各テストの setup error として繰り返し報告されるため、\n        # 理由を添えて実行全体を一度だけ終了する\n        pytest.exit(f\"事前チェックに失敗したため実行を中止します: {exc}\")",
       "tokens": [
         {
           "text": "# conftest.py — 本実行の前に一度だけ実行する事前チェックの例",
@@ -26744,13 +26744,23 @@
           "classes": []
         },
         {
+          "text": "try",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": ":\n        ",
+          "classes": []
+        },
+        {
           "text": "# 1. 必須の環境変数（接続を試みる前に確認する）",
           "classes": [
             "hljs-comment"
           ]
         },
         {
-          "text": "\n    ",
+          "text": "\n        ",
           "classes": []
         },
         {
@@ -26790,17 +26800,37 @@
           ]
         },
         {
-          "text": "):\n        ",
+          "text": "):\n            ",
           "classes": []
         },
         {
-          "text": "assert",
+          "text": "if",
           "classes": [
             "hljs-keyword"
           ]
         },
         {
-          "text": " os.environ.get(name), ",
+          "text": " ",
+          "classes": []
+        },
+        {
+          "text": "not",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": " os.environ.get(name):\n                ",
+          "classes": []
+        },
+        {
+          "text": "raise",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": " RuntimeError(",
           "classes": []
         },
         {
@@ -26823,7 +26853,7 @@
           ]
         },
         {
-          "text": "\n    base_url = os.environ[",
+          "text": ")\n        base_url = os.environ[",
           "classes": []
         },
         {
@@ -26843,7 +26873,7 @@
           ]
         },
         {
-          "text": "\n\n    ",
+          "text": "\n\n        ",
           "classes": []
         },
         {
@@ -26853,7 +26883,7 @@
           ]
         },
         {
-          "text": "\n    res = requests.get(",
+          "text": "\n        res = requests.get(",
           "classes": []
         },
         {
@@ -26886,17 +26916,17 @@
           ]
         },
         {
-          "text": ")\n    ",
+          "text": ")\n        ",
           "classes": []
         },
         {
-          "text": "assert",
+          "text": "if",
           "classes": [
             "hljs-keyword"
           ]
         },
         {
-          "text": " res.status_code == ",
+          "text": " res.status_code != ",
           "classes": []
         },
         {
@@ -26906,17 +26936,40 @@
           ]
         },
         {
-          "text": ", ",
+          "text": ":\n            ",
           "classes": []
         },
         {
-          "text": "\"SUT に到達できません\"",
+          "text": "raise",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": " RuntimeError(",
+          "classes": []
+        },
+        {
+          "text": "f\"SUT に到達できません（HTTP ",
           "classes": [
             "hljs-string"
           ]
         },
         {
-          "text": "\n\n    ",
+          "text": "{res.status_code}",
+          "classes": [
+            "hljs-string",
+            "hljs-subst"
+          ]
+        },
+        {
+          "text": "）\"",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": ")\n\n        ",
           "classes": []
         },
         {
@@ -26926,7 +26979,7 @@
           ]
         },
         {
-          "text": "\n    REPORT_DIR.mkdir(parents=",
+          "text": "\n        REPORT_DIR.mkdir(parents=",
           "classes": []
         },
         {
@@ -26946,7 +26999,7 @@
           ]
         },
         {
-          "text": ")\n    probe = REPORT_DIR / ",
+          "text": ")\n        probe = REPORT_DIR / ",
           "classes": []
         },
         {
@@ -26956,7 +27009,7 @@
           ]
         },
         {
-          "text": "\n    probe.write_text(",
+          "text": "\n        probe.write_text(",
           "classes": []
         },
         {
@@ -26966,7 +27019,70 @@
           ]
         },
         {
-          "text": ")\n    probe.unlink()",
+          "text": ")\n        probe.unlink()\n    ",
+          "classes": []
+        },
+        {
+          "text": "except",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": " (RuntimeError, requests.RequestException, OSError) ",
+          "classes": []
+        },
+        {
+          "text": "as",
+          "classes": [
+            "hljs-keyword"
+          ]
+        },
+        {
+          "text": " exc:\n        ",
+          "classes": []
+        },
+        {
+          "text": "# assert で失敗させると各テストの setup error として繰り返し報告されるため、",
+          "classes": [
+            "hljs-comment"
+          ]
+        },
+        {
+          "text": "\n        ",
+          "classes": []
+        },
+        {
+          "text": "# 理由を添えて実行全体を一度だけ終了する",
+          "classes": [
+            "hljs-comment"
+          ]
+        },
+        {
+          "text": "\n        pytest.exit(",
+          "classes": []
+        },
+        {
+          "text": "f\"事前チェックに失敗したため実行を中止します: ",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": "{exc}",
+          "classes": [
+            "hljs-string",
+            "hljs-subst"
+          ]
+        },
+        {
+          "text": "\"",
+          "classes": [
+            "hljs-string"
+          ]
+        },
+        {
+          "text": ")",
           "classes": []
         }
       ]
