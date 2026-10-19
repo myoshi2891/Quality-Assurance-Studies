@@ -870,9 +870,9 @@ flowchart TD
 
 | 用途 | ソース | URL |
 |------|-------|-----|
-| 規格ページ（版・日付・要約・ライフサイクル） | ISO | https://www.iso.org/standard/14496-22 |
-| 試し読み（目次の一部） | ANSI Webstore のプレビュー | https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+14496-22-2026.pdf |
-| 発行前の記録（Will replace 2019 版の記載） | ISO（発行前ページ） | https://www.iso.org/standard/87621.html |
+| 規格ページ（版・日付・要約・ライフサイクル） | ISO | <https://www.iso.org/standard/14496-22> |
+| 試し読み（目次の一部） | ANSI Webstore のプレビュー | <https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+14496-22-2026.pdf> |
+| 発行前の記録（Will replace 2019 版の記載） | ISO（発行前ページ） | <https://www.iso.org/standard/87621.html> |
 
 ### 15-2. 仕様書・実装者の公開情報（著名な開発者・組織）
 
