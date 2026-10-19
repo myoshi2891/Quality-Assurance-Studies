@@ -619,27 +619,27 @@ flowchart TB
 
 | 番号 | 内容 | URL | 区分 |
 |---|---|---|---|
-| S1 | ISO/IEC 9075-1:2023 カタログ（版・ステージ・規定引用・スコープ） | https://www.iso.org/standard/76583.html | ◎ |
-| S2 | 目次プレビュー（ANSI Webstore） | https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+9075-1-2023.pdf | ◎ |
-| S3 | 目次情報（iteh カタログ） | https://iteh.es/catalog/standards/iso/390f9dc6-45e5-425b-b6d8-942d06647c78/iso-iec-9075-1-2023 | △ |
-| S4 | ISO/IEC 9075-16（SQL/PGQ）カタログ | https://www.iso.org/standard/79473.html | ◎ |
-| S5 | Peter Eisentraut「SQL:2023 is finished: Here is what's new」（2023-04-04） | https://peter.eisentraut.org/blog/2023/04/04/sql-2023-is-finished-here-is-whats-new | ○ |
-| S6 | Peter Eisentraut「PostgreSQL and SQL:2023」（2023-04-18） | http://peter.eisentraut.org/blog/2023/04/18/postgresql-and-sql-2023 | ○ |
-| S7 | Simon Willison「PostgreSQL 17: SQL/JSON is here!」リンクブログ（2024-10-13） | https://feeds.simonwillison.net/2024/Oct/13/postgresql-sqljson/ | ○ |
-| S8 | Markus Winand（modern-sql.com）「SQL Conformance Levels」 | https://modern-sql.com/standard/levels | ○ |
-| S9 | Markus Winand「SQL:2023」 | https://modern-sql.com/standard/2023 | ○ |
-| S10 | Markus Winand「Group by All」 | https://modern-sql.com/caniuse/group-by-all | ○ |
-| S11 | Oracle「Property Graphs in Oracle Database 23ai: the SQL/PGQ standard」 | https://blogs.oracle.com/database/property-graphs-in-oracle-database-23ai-the-sql-pgq-standard | ○ |
-| S12 | Oracle Database 23ai SQL Language Reference（変更点） | https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/Changes-in-This-Release-for-Oracle-Database-SQL-Language-Reference.html | ◎ |
-| S13 | pgEdge（Shaun Thomas）「Looking Forward to Postgres 19: Epilogue」 | https://www.pgedge.com/blog/looking-forward-to-postgres-19-epilogue | ○ |
-| S14 | Command Prompt「Two features just left PostgreSQL v19」 | https://www.commandprompt.com/blog/two-features-just-left-postgresql-19/ | ○ |
-| S15 | PostgreSQL 19 Beta 4 リリース告知 | https://www.postgresql.org/about/news/postgresql-19-beta-4-3386/ | ◎ |
-| S16 | FAUN「PostgreSQL 19 GA target moves to October, SQL/PGQ graph queries pulled」 | https://faun.dev/news/postgresql-19-ga-slips-to-october-sqlpgq-graph-queries-reverted/ | △ |
-| S17 | pgsql-hackers「PostgreSQL 19 RC1 and GA release dates」（2026-09-28） | https://www.postgresql.org/message-id/915517c4-d0ee-49f9-bbeb-c683ef2b9d3f%40postgresql.org | ◎ |
-| S18 | pgsql-hackers「Updated PostgreSQL RC / GA dates」（2026-10-10） | https://www.postgresql.org/message-id/f161fbb7-e193-42eb-bec7-4cfc1af74a50%40postgresql.org | ◎ |
-| S19 | ISO/IEC 9075-1:2023/Cor 1:2026 カタログ | https://www.iso.org/standard/93690.html | ◎ |
-| S20 | ISO/IEC CD 9075-1（次期版・開発中） | https://www.iso.org/standard/92320.html | ◎ |
-| S21 | Wikipedia「SQL:2023」（概要把握用） | https://en.wikipedia.org/wiki/SQL:2023 | △ |
+| S1 | ISO/IEC 9075-1:2023 カタログ（版・ステージ・規定引用・スコープ） | <https://www.iso.org/standard/76583.html> | ◎ |
+| S2 | 目次プレビュー（ANSI Webstore） | <https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+9075-1-2023.pdf> | ◎ |
+| S3 | 目次情報（iteh カタログ） | <https://iteh.es/catalog/standards/iso/390f9dc6-45e5-425b-b6d8-942d06647c78/iso-iec-9075-1-2023> | △ |
+| S4 | ISO/IEC 9075-16（SQL/PGQ）カタログ | <https://www.iso.org/standard/79473.html> | ◎ |
+| S5 | Peter Eisentraut「SQL:2023 is finished: Here is what's new」（2023-04-04） | <https://peter.eisentraut.org/blog/2023/04/04/sql-2023-is-finished-here-is-whats-new> | ○ |
+| S6 | Peter Eisentraut「PostgreSQL and SQL:2023」（2023-04-18） | <http://peter.eisentraut.org/blog/2023/04/18/postgresql-and-sql-2023> | ○ |
+| S7 | Simon Willison「PostgreSQL 17: SQL/JSON is here!」リンクブログ（2024-10-13） | <https://feeds.simonwillison.net/2024/Oct/13/postgresql-sqljson/> | ○ |
+| S8 | Markus Winand（modern-sql.com）「SQL Conformance Levels」 | <https://modern-sql.com/standard/levels> | ○ |
+| S9 | Markus Winand「SQL:2023」 | <https://modern-sql.com/standard/2023> | ○ |
+| S10 | Markus Winand「Group by All」 | <https://modern-sql.com/caniuse/group-by-all> | ○ |
+| S11 | Oracle「Property Graphs in Oracle Database 23ai: the SQL/PGQ standard」 | <https://blogs.oracle.com/database/property-graphs-in-oracle-database-23ai-the-sql-pgq-standard> | ○ |
+| S12 | Oracle Database 23ai SQL Language Reference（変更点） | <https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/Changes-in-This-Release-for-Oracle-Database-SQL-Language-Reference.html> | ◎ |
+| S13 | pgEdge（Shaun Thomas）「Looking Forward to Postgres 19: Epilogue」 | <https://www.pgedge.com/blog/looking-forward-to-postgres-19-epilogue> | ○ |
+| S14 | Command Prompt「Two features just left PostgreSQL v19」 | <https://www.commandprompt.com/blog/two-features-just-left-postgresql-19/> | ○ |
+| S15 | PostgreSQL 19 Beta 4 リリース告知 | <https://www.postgresql.org/about/news/postgresql-19-beta-4-3386/> | ◎ |
+| S16 | FAUN「PostgreSQL 19 GA target moves to October, SQL/PGQ graph queries pulled」 | <https://faun.dev/news/postgresql-19-ga-slips-to-october-sqlpgq-graph-queries-reverted/> | △ |
+| S17 | pgsql-hackers「PostgreSQL 19 RC1 and GA release dates」（2026-09-28） | <https://www.postgresql.org/message-id/915517c4-d0ee-49f9-bbeb-c683ef2b9d3f%40postgresql.org> | ◎ |
+| S18 | pgsql-hackers「Updated PostgreSQL RC / GA dates」（2026-10-10） | <https://www.postgresql.org/message-id/f161fbb7-e193-42eb-bec7-4cfc1af74a50%40postgresql.org> | ◎ |
+| S19 | ISO/IEC 9075-1:2023/Cor 1:2026 カタログ | <https://www.iso.org/standard/93690.html> | ◎ |
+| S20 | ISO/IEC CD 9075-1（次期版・開発中） | <https://www.iso.org/standard/92320.html> | ◎ |
+| S21 | Wikipedia「SQL:2023」（概要把握用） | <https://en.wikipedia.org/wiki/SQL:2023> | △ |
 
 > ⚠️ **出典の取り扱い**: S3・S16・S21 は二次情報です。重要な判断には◎・○の一次情報を優先してください。PostgreSQL 19 関連は**日付が頻繁に動く**ため、必ず公式の最新告知を確認してください（本ガイドの時点は 2026-10-13）。
 
