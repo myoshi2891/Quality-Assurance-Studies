@@ -164,12 +164,12 @@
       "headings": [
         {
           "tag": "h3",
-          "id": null,
+          "id": "s-keywords-terms",
           "text": "本章のキーワード（試験で暗記が求められる用語）"
         },
         {
           "tag": "h3",
-          "id": null,
+          "id": "s-keywords-lo",
           "text": "学習目標（Learning Objectives）一覧"
         }
       ]

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json';
 import Page from '../../app/istqb-ctal-tae-chapter4-implementing-test-automation/page';
@@ -124,6 +124,57 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
       expect(document.activeElement).toBe(toggle);
     });
 
+    it('observes every TOC target, activates the intersecting one and disconnects on unmount', () => {
+      // Arrange: 全 TOC 対象要素を配置し、コールバックと監視対象を捕捉する
+      const targets = TOC_ITEMS.map((item) => {
+        const el = document.createElement('div');
+        el.id = item.href.slice(1);
+        document.body.appendChild(el);
+        return el;
+      });
+      const observed: Element[] = [];
+      const disconnect = mock(() => undefined);
+      let callback: IntersectionObserverCallback | undefined;
+      window.IntersectionObserver = mock((cb: IntersectionObserverCallback) => {
+        callback = cb;
+        return { observe: (el: Element) => observed.push(el), unobserve: () => null, disconnect };
+      }) as unknown as typeof IntersectionObserver;
+
+      try {
+        const { container, unmount } = render(<NavBar />);
+        // DOM 要素の深い比較は循環参照で終わらないため、同一性を ID の並びで照合する
+        expect(observed.every((el, i) => el === targets[i])).toBe(true);
+        expect(observed.map((el) => el.id)).toEqual(TOC_ITEMS.map((item) => item.href.slice(1)));
+        if (!callback) throw new Error('IntersectionObserver callback missing');
+
+        // Act: 4.2 節の見出しが交差したことを通知する
+        const target = at(targets, 8, 'targets');
+        const entry = { isIntersecting: true, target } as unknown as IntersectionObserverEntry;
+        act(() => callback?.([entry], {} as IntersectionObserver));
+
+        // Assert
+        expect(container.querySelector('a.active')?.getAttribute('href')).toBe('#s-42');
+        unmount();
+        expect(disconnect).toHaveBeenCalledTimes(1);
+      } finally {
+        targets.forEach((el) => el.remove());
+      }
+    });
+
+    it('does nothing when IntersectionObserver is unavailable', () => {
+      // Arrange
+      const original = window.IntersectionObserver;
+      Reflect.deleteProperty(window, 'IntersectionObserver');
+      try {
+        // Act
+        const { container } = render(<NavBar />);
+        // Assert: 例外なく描画され、初期の先頭リンクが活性のまま
+        expect(container.querySelector('a.active')?.getAttribute('href')).toBe('#s-overview');
+      } finally {
+        window.IntersectionObserver = original;
+      }
+    });
+
     it('ignores Escape while the TOC is closed', () => {
       const { container } = render(<NavBar />);
       const toggle = container.querySelector<HTMLButtonElement>('.menu-toggle');
@@ -151,16 +202,18 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
       });
     });
 
-    it('renders 4.2 h3/h4 with the inventory tag, ID and text so TOC anchors land on the named heading', () => {
-      const { container } = render(<Page />);
-      const sec = inventory.sections.find(s => s.id === 's-42');
-      const headings = Array.from(container.querySelectorAll('#s-42 h3, #s-42 h4')).map(h => ({
-        tag: h.tagName.toLowerCase(),
-        id: h.getAttribute('id'),
-        text: h.textContent?.trim(),
-      }));
-      expect(headings).toEqual(sec?.headings ?? []);
-    });
+    it.each(inventory.sections.map(sec => [sec.id, sec] as const))(
+      'renders %s h3/h4 with the inventory tag, ID and text so TOC anchors land on the named heading',
+      (id, sec) => {
+        const { container } = render(<Page />);
+        const headings = Array.from(container.querySelectorAll(`#${id} h3, #${id} h4`)).map(h => ({
+          tag: h.tagName.toLowerCase(),
+          id: h.getAttribute('id'),
+          text: h.textContent?.trim(),
+        }));
+        expect(headings).toEqual(sec.headings);
+      }
+    );
   });
 
   describe('Diagrams Inventory and Mermaid Config', () => {

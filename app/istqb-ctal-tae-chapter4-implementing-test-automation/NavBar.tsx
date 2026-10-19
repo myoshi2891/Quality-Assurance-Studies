@@ -43,29 +43,23 @@ export default function NavBar() {
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof IntersectionObserver === 'undefined') return;
 
-    const onScroll = () => {
-      const pos = window.scrollY + 140;
-      let currentId: string | null = null;
-      for (const item of TOC_ITEMS) {
-        const id = item.href.slice(1);
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= pos) {
-          currentId = id;
+    // 上端 140px（固定ヘッダーと余白）を除いた読み取り帯に入った節をアクティブにする
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveHref(`#${entry.target.id}`);
         }
-      }
-      if (currentId) {
-        setActiveHref(`#${currentId}`);
-      }
-    };
+      },
+      { rootMargin: '-140px 0px -60% 0px' }
+    );
+    for (const item of TOC_ITEMS) {
+      const el = document.getElementById(item.href.slice(1));
+      if (el) observer.observe(el);
+    }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
+    return () => observer.disconnect();
   }, []);
 
   // 開いている間だけ Escape を監視し、閉じたらトグルへフォーカスを戻す
