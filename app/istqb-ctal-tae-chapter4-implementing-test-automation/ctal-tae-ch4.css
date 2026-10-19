@@ -1,0 +1,974 @@
+/* ==========================================================================
+   CTAL-TAE Chapter 4: Implementing Test Automation Styles
+   Scoped under .ctal-tae-ch4-page
+   ========================================================================== */
+
+.ctal-tae-ch4-page {
+    --paper: #f7f3ea;
+    --paper-alt: #efe8d8;
+    --paper-card: #ffffff;
+    --ink: #2b2420;
+    --ink-faint: #726858;
+    --border: #e2d9c8;
+    --shadow: 0 6px 20px rgba(43, 36, 25, 0.08);
+    --radius: 14px;
+
+    --indigo: #3b4fc2;
+    --indigo-soft: #e7eafb;
+    --indigo-text: #29348a;
+
+    --gold: #7d5c14;
+    --gold-soft: #f6ecd3;
+
+    --forest: #1f4a36;
+    --forest-soft: #dcefe3;
+
+    --plum: #4a2757;
+    --plum-soft: #efe3f2;
+
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    font-size: 1rem;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+/* ---------- globals.css Resets ---------- */
+.ctal-tae-ch4-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    background: linear-gradient(135deg, var(--indigo-soft) 0%, var(--paper-card) 65%) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    padding: 2.6rem 2.6rem !important;
+    padding-top: 0 !important;
+    margin-bottom: 2.6rem !important;
+    box-shadow: var(--shadow) !important;
+    position: relative !important;
+}
+
+.ctal-tae-ch4-page .hero::after {
+    content: none !important;
+}
+
+.ctal-tae-ch4-page .hero-kicker::before {
+    content: none !important;
+}
+
+.ctal-tae-ch4-page section {
+    padding-top: 0 !important;
+}
+
+.ctal-tae-ch4-page section + section {
+    border-top: none !important;
+}
+
+.ctal-tae-ch4-page main,
+main.ctal-tae-ch4-page {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 2.4rem 3rem 6rem !important;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+}
+
+.ctal-tae-ch4-page table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    min-width: 480px;
+    font-size: 0.93rem !important;
+    background: var(--paper-card) !important;
+}
+
+.ctal-tae-ch4-page tbody td,
+.ctal-tae-ch4-page td {
+    color: var(--ink) !important;
+    font-size: 0.93rem !important;
+    padding: 0.7rem 0.9rem !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: top !important;
+}
+
+.ctal-tae-ch4-page td strong {
+    color: var(--ink) !important;
+}
+
+.ctal-tae-ch4-page thead th {
+    background: var(--indigo-soft) !important;
+    color: var(--indigo-text) !important;
+    text-align: left !important;
+    padding: 0.7rem 0.9rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.ctal-tae-ch4-page tbody tr:nth-child(even) {
+    background: var(--paper) !important;
+}
+
+.ctal-tae-ch4-page tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.ctal-tae-ch4-page *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.ctal-tae-ch4-page *::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.ctal-tae-ch4-page *::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 3px;
+}
+.ctal-tae-ch4-page *::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-faint) !important;
+}
+
+/* ---------- Typography ---------- */
+.ctal-tae-ch4-page h1,
+.ctal-tae-ch4-page h2,
+.ctal-tae-ch4-page h3,
+.ctal-tae-ch4-page h4 {
+    font-family: 'Source Serif 4', 'Noto Sans JP', serif;
+    color: var(--ink);
+    line-height: 1.45;
+    margin: 0 0 0.7em;
+    font-weight: 700;
+}
+
+.ctal-tae-ch4-page p {
+    margin: 0 0 1em;
+}
+
+.ctal-tae-ch4-page ul,
+.ctal-tae-ch4-page ol {
+    margin: 0 0 1em;
+    padding-left: 1.4em;
+}
+
+.ctal-tae-ch4-page li {
+    margin-bottom: 0.45em;
+}
+
+.ctal-tae-ch4-page a {
+    color: var(--indigo-text);
+}
+
+.ctal-tae-ch4-page strong {
+    color: var(--ink);
+}
+
+.ctal-tae-ch4-page code {
+    background: var(--paper-alt);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* ---------- Layout shell ---------- */
+.ctal-tae-ch4-page .layout {
+    display: flex;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+.ctal-tae-ch4-page .sidebar {
+    width: 290px;
+    flex-shrink: 0;
+    position: sticky;
+    /* 固定ヘッダー（60px）と免責表示の下に収める */
+    top: calc(60px + var(--disclaimer-height, 0px));
+    align-self: flex-start;
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    padding: 1.8rem 1.2rem 2rem;
+    border-right: 1px solid var(--border);
+    scrollbar-width: thin;
+    background: var(--paper);
+}
+
+.ctal-tae-ch4-page .sidebar-brand {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--indigo-text);
+    margin-bottom: 0.2rem;
+}
+
+.ctal-tae-ch4-page .sidebar-sub {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-bottom: 1.6rem;
+}
+
+.ctal-tae-ch4-page .toc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ctal-tae-ch4-page .toc li {
+    margin-bottom: 0.15rem;
+}
+
+.ctal-tae-ch4-page .toc a {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    border-radius: 9px;
+    color: var(--ink-faint);
+    text-decoration: none;
+    font-size: 0.92rem;
+    border-left: 3px solid transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ctal-tae-ch4-page .toc a:hover {
+    background: var(--paper-alt);
+    color: var(--ink);
+}
+
+.ctal-tae-ch4-page .toc a.active {
+    background: var(--indigo-soft);
+    color: var(--indigo-text);
+    border-left: 3px solid var(--indigo);
+    font-weight: 600;
+}
+
+.ctal-tae-ch4-page .toc .toc-sub {
+    padding-left: 1.6rem;
+    font-size: 0.86rem;
+}
+
+.ctal-tae-ch4-page .menu-toggle {
+    display: none;
+}
+
+/* ---------- Hero Details ---------- */
+.ctal-tae-ch4-page .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--indigo-text);
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.8rem;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+}
+
+.ctal-tae-ch4-page .hero h1 {
+    font-size: 1.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.ctal-tae-ch4-page .hero .hero-lead {
+    color: var(--ink-faint);
+    font-size: 1.02rem;
+    margin-bottom: 1.2rem;
+}
+
+.ctal-tae-ch4-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.ctal-tae-ch4-page .hero-meta span {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.ctal-tae-ch4-page .hero-meta a {
+    color: var(--indigo-text);
+}
+
+/* ---------- Section Blocks ---------- */
+.ctal-tae-ch4-page section.block {
+    margin-bottom: 3.2rem;
+}
+
+/* 目次リンクの着地先（節内の ID 付き見出し・カードを含む）を固定ヘッダーの下に出す */
+.ctal-tae-ch4-page section.block,
+.ctal-tae-ch4-page section.block h3[id],
+.ctal-tae-ch4-page section.block h4[id],
+.ctal-tae-ch4-page section.block .practice-card[id] {
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.ctal-tae-ch4-page .section-num {
+    display: inline-block;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--indigo-text);
+    background: var(--indigo-soft);
+    padding: 0.25rem 0.7rem;
+    border-radius: 99px;
+    margin-bottom: 0.7rem;
+}
+
+.ctal-tae-ch4-page section.block h2 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.6rem;
+}
+
+.ctal-tae-ch4-page section.block h3 {
+    font-size: 1.18rem;
+    margin-top: 1.8rem;
+    color: var(--indigo-text);
+}
+
+.ctal-tae-ch4-page section.block h4 {
+    font-size: 1.04rem;
+    margin-top: 1.3rem;
+}
+
+.ctal-tae-ch4-page .prose {
+    max-width: none;
+    width: 100%;
+}
+
+.ctal-tae-ch4-page .prose,
+.ctal-tae-ch4-page .callout-body,
+.ctal-tae-ch4-page .kv-value,
+.ctal-tae-ch4-page td,
+.ctal-tae-ch4-page li {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    line-break: strict;
+}
+
+.ctal-tae-ch4-page .lead {
+    font-size: 1.04rem;
+    color: var(--ink-faint);
+}
+
+/* ---------- Callouts ---------- */
+.ctal-tae-ch4-page .callout {
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 0.8rem;
+}
+
+.ctal-tae-ch4-page .callout i {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.ctal-tae-ch4-page .callout .callout-body {
+    font-size: 0.95rem;
+    color: var(--ink);
+}
+
+.ctal-tae-ch4-page .callout .callout-body p:last-child {
+    margin-bottom: 0;
+}
+
+.ctal-tae-ch4-page .callout.source {
+    background: var(--paper-alt);
+    border-color: var(--border);
+}
+
+.ctal-tae-ch4-page .callout.source i {
+    color: var(--ink-faint);
+}
+
+.ctal-tae-ch4-page .callout.source .callout-body {
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+    line-height: 1.75;
+}
+
+.ctal-tae-ch4-page .callout.source a {
+    word-break: break-all;
+}
+
+.ctal-tae-ch4-page .callout.note {
+    background: var(--indigo-soft);
+    border-color: #c9d0f5;
+}
+
+.ctal-tae-ch4-page .callout.note i {
+    color: var(--indigo-text);
+}
+
+/* ---------- Practice Cards ---------- */
+.ctal-tae-ch4-page .practice-card {
+    background: var(--gold-soft);
+    border: 1px solid #e6d3a0;
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    margin: 1.6rem 0;
+}
+
+.ctal-tae-ch4-page .practice-card .practice-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1.05rem;
+    margin-bottom: 0.9rem;
+}
+
+.ctal-tae-ch4-page .practice-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ctal-tae-ch4-page .practice-card li {
+    position: relative;
+    display: block;
+    padding: 0.65rem 0 0.65rem 1.9rem;
+    border-bottom: 1px dashed #e6d3a0;
+    color: var(--ink);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.ctal-tae-ch4-page .practice-card li:last-child {
+    border-bottom: none;
+}
+
+.ctal-tae-ch4-page .practice-card li i {
+    position: absolute;
+    left: 0;
+    top: 0.8rem;
+    color: var(--gold);
+}
+
+/* ---------- Tables Wrap ---------- */
+.ctal-tae-ch4-page .table-wrap {
+    overflow-x: auto;
+    margin: 1.4rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.ctal-tae-ch4-page td.num,
+.ctal-tae-ch4-page th.num {
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ---------- Diagram Cards & Mermaid Resets ---------- */
+.ctal-tae-ch4-page .diagram-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.2rem 1.1rem;
+    margin: 1.6rem 0;
+    box-shadow: var(--shadow);
+}
+
+.ctal-tae-ch4-page .diagram-card .diagram-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.98rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.ctal-tae-ch4-page .diagram-card .diagram-title i {
+    color: var(--indigo-text);
+}
+
+.ctal-tae-ch4-page .diagram-wrap,
+.ctal-tae-ch4-page .mermaid-container,
+.ctal-tae-ch4-page .mermaid-wrap {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+    min-width: 0 !important;
+    padding: 0.5rem 0 !important;
+}
+
+/* 図の代替説明。原本と同じく描画失敗時だけ表示する。
+   共通 Mermaid は成功時に svg、失敗時に p を出力するため、p の有無で切り替える */
+.ctal-tae-ch4-page .diagram-fallback {
+    display: none;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    padding: 0.6rem;
+}
+
+.ctal-tae-ch4-page .diagram-card:has(.mermaid-wrapper > p) .diagram-fallback {
+    display: block;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    display: block !important;
+    overflow: visible !important;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper svg {
+    max-width: none !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+}
+
+/* Mermaid Default Nodes */
+.ctal-tae-ch4-page .mermaid-wrapper .node rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node circle,
+.ctal-tae-ch4-page .mermaid-wrapper .node ellipse,
+.ctal-tae-ch4-page .mermaid-wrapper .node polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node path,
+.ctal-tae-ch4-page .mermaid-wrapper .node .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node .label-container {
+    fill: #ffffff;
+    stroke: #e2d9c8;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper .node:not(.box):not(.hub):not(.done) rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node:not(.box):not(.hub):not(.done) polygon {
+    fill: #ffffff !important;
+    stroke: #e2d9c8 !important;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper .node .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node foreignObject span,
+.ctal-tae-ch4-page .mermaid-wrapper .node foreignObject p {
+    color: #2b2420;
+    fill: #2b2420;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* Hub Node: Indigo (Chapter Hubs & Key Themes) */
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .label-container {
+    fill: #e7eafb !important;
+    stroke: #3b4fc2 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node.hub foreignObject span {
+    color: #29348a !important;
+    fill: #29348a !important;
+    font-weight: 600;
+}
+
+/* Box Node: Amber/Gold (Decisions & General Risks) */
+.ctal-tae-ch4-page .mermaid-wrapper .node.box rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .label-container {
+    fill: #f6ecd3 !important;
+    stroke: #7d5c14 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node.box foreignObject span {
+    color: #5c4310 !important;
+    fill: #5c4310 !important;
+    font-weight: 600;
+}
+
+/* Done Node: Forest Green (Success, Long-term Operation) */
+.ctal-tae-ch4-page .mermaid-wrapper .node.done rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done polygon,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .basic,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .label-container {
+    fill: #dcefe3 !important;
+    stroke: #1f4a36 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .label,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .label text,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done .nodeLabel *,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node.done foreignObject span {
+    color: #1f4a36 !important;
+    fill: #1f4a36 !important;
+    font-weight: 600;
+}
+
+/* Specific Done override for Technical Deployment Risks (Plum) */
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] rect,
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] polygon {
+    fill: #efe3f2 !important;
+    stroke: #4a2757 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] .nodeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] foreignObject div,
+.ctal-tae-ch4-page .mermaid-wrapper .node[id*="TECH"] foreignObject span {
+    color: #4a2757 !important;
+    fill: #4a2757 !important;
+    font-weight: 600;
+}
+
+/* Mermaid Flowchart Links & Markers */
+.ctal-tae-ch4-page .mermaid-wrapper .flowchart-link,
+.ctal-tae-ch4-page .mermaid-wrapper .edgePath path {
+    stroke: #726858 !important;
+    stroke-width: 1.5px !important;
+}
+.ctal-tae-ch4-page .mermaid-wrapper .marker {
+    fill: #726858 !important;
+    stroke: #726858 !important;
+}
+
+/* Mermaid EdgeLabels */
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: none !important;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabel,
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabel span,
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabel p,
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabel text,
+.ctal-tae-ch4-page .mermaid-wrapper .edgeLabels .label {
+    background-color: #ffffff !important;
+    color: #2b2420 !important;
+    fill: #2b2420 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+/* Mermaid ForeignObject text clipping fix */
+.ctal-tae-ch4-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.ctal-tae-ch4-page .mermaid-wrapper foreignObject p,
+.ctal-tae-ch4-page .mermaid-wrapper foreignObject span,
+.ctal-tae-ch4-page .mermaid-wrapper foreignObject div {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+}
+
+/* ---------- Key-Value Grid ---------- */
+.ctal-tae-ch4-page .kv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.4rem 0;
+}
+
+.ctal-tae-ch4-page .kv-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+}
+
+.ctal-tae-ch4-page .kv-card .kv-label {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.ctal-tae-ch4-page .kv-card .kv-value {
+    font-size: 0.95rem;
+}
+
+/* ---------- Badge / Pill ---------- */
+.ctal-tae-ch4-page .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+}
+
+.ctal-tae-ch4-page .pill.k2 {
+    background: var(--forest-soft);
+    color: var(--forest);
+}
+
+.ctal-tae-ch4-page .pill.k3 {
+    background: var(--indigo-soft);
+    color: var(--indigo-text);
+}
+
+.ctal-tae-ch4-page .pill.k4 {
+    background: var(--plum-soft);
+    color: var(--plum);
+}
+
+/* ---------- Checklist Card ---------- */
+.ctal-tae-ch4-page .checklist-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.6rem;
+    margin: 1.6rem 0;
+}
+
+.ctal-tae-ch4-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.1rem;
+}
+
+.ctal-tae-ch4-page .checklist-progress .bar {
+    flex: 1;
+    height: 10px;
+    border-radius: 99px;
+    background: var(--paper-alt);
+    overflow: hidden;
+}
+
+.ctal-tae-ch4-page .checklist-progress .bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--forest);
+    border-radius: 99px;
+    transition: width 0.25s ease;
+}
+
+.ctal-tae-ch4-page .checklist-progress .count {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.ctal-tae-ch4-page .checklist-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ctal-tae-ch4-page .checklist-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+.ctal-tae-ch4-page .checklist-card li:last-child {
+    border-bottom: none;
+}
+
+.ctal-tae-ch4-page .checklist-card input[type='checkbox'] {
+    width: 19px;
+    height: 19px;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+    accent-color: var(--forest);
+    cursor: pointer;
+}
+
+.ctal-tae-ch4-page .checklist-card label {
+    cursor: pointer;
+    flex: 1;
+}
+
+.ctal-tae-ch4-page .checklist-card li.checked label {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+}
+
+/* ---------- Flow Summary Steps ---------- */
+.ctal-tae-ch4-page .step-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.6rem 0;
+}
+
+.ctal-tae-ch4-page .step-card {
+    flex: 1 1 220px;
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    position: relative;
+}
+
+.ctal-tae-ch4-page .step-head {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+}
+
+.ctal-tae-ch4-page .step-card .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--indigo);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.ctal-tae-ch4-page .step-card h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+.ctal-tae-ch4-page .step-card p {
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+/* ---------- References List ---------- */
+.ctal-tae-ch4-page .ref-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ctal-tae-ch4-page .ref-list li {
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.8rem;
+    background: var(--paper-card);
+    font-size: 0.92rem;
+}
+
+.ctal-tae-ch4-page .ref-list li .ref-name {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.ctal-tae-ch4-page .ref-list li a {
+    word-break: break-all;
+    color: var(--indigo-text);
+}
+
+/* ---------- Footer ---------- */
+.ctal-tae-ch4-page footer.footer {
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+    padding-top: 1.6rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+    .ctal-tae-ch4-page .sidebar {
+        position: fixed;
+        left: 0;
+        top: calc(60px + var(--disclaimer-height, 0px));
+        bottom: 0;
+        height: auto;
+        z-index: 40;
+        background: var(--paper);
+        transform: translateX(-100%);
+        /* 閉じた目次のリンクをフォーカス順から外す。visibility もトランジションさせ、閉じるアニメーション完了後に非表示にする */
+        visibility: hidden;
+        transition: transform 0.2s ease, visibility 0.2s ease;
+        box-shadow: var(--shadow);
+        width: 78vw;
+        max-width: 320px;
+    }
+    .ctal-tae-ch4-page .sidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+    .ctal-tae-ch4-page .menu-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: fixed;
+        top: calc(60px + 1rem + var(--disclaimer-height, 0px));
+        left: 1rem;
+        z-index: 50;
+        background: var(--paper-card);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 0.55rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+    }
+    .ctal-tae-ch4-page .scrim {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 15, 5, 0.35);
+        z-index: 35;
+    }
+    .ctal-tae-ch4-page .scrim.show {
+        display: block;
+    }
+    .ctal-tae-ch4-page main,
+    main.ctal-tae-ch4-page {
+        padding: 5rem 1.2rem 4rem !important;
+    }
+    .ctal-tae-ch4-page .hero {
+        padding: 1.8rem 1.5rem !important;
+    }
+}

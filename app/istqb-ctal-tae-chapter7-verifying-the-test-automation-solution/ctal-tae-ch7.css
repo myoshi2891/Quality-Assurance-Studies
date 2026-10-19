@@ -1,0 +1,801 @@
+
+            .ctal-tae-ch7-page {
+                --bg: #f6f8fb;
+                --bg-card: #ffffff;
+                --bg-hero: linear-gradient(135deg, #eef3ff 0%, #f7f9fd 60%, #ffffff 100%);
+                --text: #1c2536;
+                --text-dim: #5b6577;
+                --text-faint: #8891a1;
+                --border: #e1e6ef;
+                --border-strong: #c9d2e3;
+                --accent: #3459e6;
+                --accent-dark: #1f3fae;
+                --accent-tint: #eaf0ff;
+                --accent-tint-border: #c6d4ff;
+                --warn: #b4560a;
+                --warn-tint: #fff2e5;
+                --warn-border: #f3caa0;
+                --note-tint: #eef6ff;
+                --note-border: #c9deff;
+                --note-text: #1f5aa8;
+                --code-bg: #fafafa;
+                --shadow: 0 1px 3px rgba(28, 37, 54, 0.06), 0 8px 24px rgba(28, 37, 54, 0.04);
+                --radius: 12px;
+                --sidebar-w: 300px;
+            }
+            .ctal-tae-ch7-page :root:not([data-theme='light']) {
+            }
+            .ctal-tae-ch7-page * {
+                box-sizing: border-box;
+            }
+            .ctal-tae-ch7-page {
+                scroll-behavior: smooth;
+                scroll-padding-top: env(safe-area-inset-top, 0px);
+            }
+            .ctal-tae-ch7-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+                    'Yu Gothic', sans-serif;
+                font-size: 16px;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+                padding-top: env(safe-area-inset-top, 0px);
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+                overflow-x: hidden;
+            }
+            .ctal-tae-ch7-page, .ctal-tae-ch7-page {
+                overflow-x: hidden;
+            }
+
+            /* ---------- Layout ---------- */
+            .ctal-tae-ch7-page .layout {
+                display: block;
+            }
+
+            .ctal-tae-ch7-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: #ffffff;
+                border-right: 1px solid var(--border);
+                padding: 24px 0 40px 0;
+                z-index: 50;
+                -webkit-overflow-scrolling: touch;
+            }
+            .ctal-tae-ch7-page .sidebar-brand {
+                padding: 0 22px 18px 22px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 10px;
+            }
+            .ctal-tae-ch7-page .sidebar-brand-kicker {
+                font-size: 11px;
+                letter-spacing: 0.08em;
+                color: var(--accent);
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+            .ctal-tae-ch7-page .sidebar-brand-title {
+                font-size: 15px;
+                font-weight: 800;
+                margin-top: 4px;
+                color: var(--text);
+            }
+            .ctal-tae-ch7-page .sidebar-nav {
+                list-style: none;
+                margin: 0;
+                padding: 6px 10px 0 10px;
+            }
+            .ctal-tae-ch7-page .sidebar-nav li {
+                margin: 1px 0;
+            }
+            .ctal-tae-ch7-page .sidebar-nav a {
+                display: block;
+                padding: 7px 12px;
+                border-radius: 8px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                line-height: 1.4;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .ctal-tae-ch7-page .sidebar-nav li.nav-h3 a {
+                font-size: 12.5px;
+                padding-left: 24px;
+                color: var(--text-faint);
+            }
+            .ctal-tae-ch7-page .sidebar-nav a:hover {
+                background: var(--accent-tint);
+                color: var(--accent-dark);
+            }
+            .ctal-tae-ch7-page .sidebar-nav a.active {
+                background: var(--accent-tint);
+                color: var(--accent-dark);
+                font-weight: 700;
+            }
+            .ctal-tae-ch7-page .sidebar-nav li.nav-h3 a.active {
+                color: var(--accent-dark);
+                font-weight: 600;
+            }
+
+            .ctal-tae-ch7-page .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 60;
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                border: 1px solid var(--border-strong);
+                background: #ffffff;
+                box-shadow: var(--shadow);
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            .ctal-tae-ch7-page .main {
+                margin-left: var(--sidebar-w);
+                padding: 0 56px 80px 56px;
+            }
+
+            @media (max-width: 900px) {
+                .ctal-tae-ch7-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+                    width: 82vw;
+                    max-width: 320px;
+                }
+                .ctal-tae-ch7-page .sidebar.open {
+                    transform: translateX(0);
+                    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+                }
+                .ctal-tae-ch7-page .sidebar-toggle {
+                    display: flex;
+                }
+                .ctal-tae-ch7-page .main {
+                    margin-left: 0;
+                    padding: 76px 20px 60px 20px;
+                }
+                .ctal-tae-ch7-page .sidebar-scrim {
+                    display: none;
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(15, 20, 30, 0.35);
+                    z-index: 45;
+                }
+                .ctal-tae-ch7-page .sidebar-scrim.open {
+                    display: block;
+                }
+            }
+
+            /* ---------- Hero ---------- */
+            .ctal-tae-ch7-page .hero {
+                position: relative;
+                margin: 28px 0 40px 0;
+                padding: 40px 40px 32px 40px;
+                border-radius: 20px;
+                background: var(--bg-hero);
+                border: 1px solid var(--border);
+                overflow: hidden;
+            }
+            .ctal-tae-ch7-page .hero::before {
+                content: '';
+                position: absolute;
+                top: -60px;
+                right: -60px;
+                width: 260px;
+                height: 260px;
+                background: radial-gradient(
+                    circle,
+                    rgba(52, 89, 230, 0.14) 0%,
+                    rgba(52, 89, 230, 0) 70%
+                );
+                pointer-events: none;
+            }
+            .ctal-tae-ch7-page .hero-eyebrow {
+                display: inline-block;
+                padding: 6px 14px;
+                border-radius: 999px;
+                background: var(--accent-tint);
+                border: 1px solid var(--accent-tint-border);
+                color: var(--accent-dark);
+                font-size: 12.5px;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+            }
+            .ctal-tae-ch7-page .hero h1 {
+                font-size: 28px;
+                font-weight: 800;
+                margin: 18px 0 6px 0;
+                color: var(--text);
+                line-height: 1.35;
+            }
+            .ctal-tae-ch7-page .hero-subtitle {
+                font-size: 16px;
+                color: var(--text-dim);
+                margin: 0 0 22px 0;
+            }
+            .ctal-tae-ch7-page .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0;
+                border-top: 1px solid var(--border-strong);
+                padding-top: 18px;
+            }
+            .ctal-tae-ch7-page .hero-meta-item {
+                flex: 1 1 200px;
+                padding: 4px 22px 4px 0;
+                border-right: 1px solid var(--border-strong);
+                margin-right: 22px;
+            }
+            .ctal-tae-ch7-page .hero-meta-item:last-child {
+                border-right: none;
+                margin-right: 0;
+            }
+            .ctal-tae-ch7-page .hero-meta-label {
+                display: block;
+                font-size: 10.5px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--text-faint);
+                font-weight: 700;
+                margin-bottom: 3px;
+            }
+            .ctal-tae-ch7-page .hero-meta-value {
+                display: block;
+                font-size: 14px;
+                color: var(--text);
+                font-weight: 600;
+            }
+            @media (max-width: 640px) {
+                .ctal-tae-ch7-page .hero {
+                    padding: 28px 22px 24px 22px;
+                }
+                .ctal-tae-ch7-page .hero-meta-item {
+                    flex: 1 1 100%;
+                    border-right: none;
+                    border-bottom: 1px solid var(--border-strong);
+                    padding-bottom: 10px;
+                    margin-bottom: 8px;
+                    margin-right: 0;
+                }
+                .ctal-tae-ch7-page .hero-meta-item:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            /* ---------- Typography ---------- */
+            .ctal-tae-ch7-page .main h2 {
+                font-size: 23px;
+                font-weight: 800;
+                margin: 56px 0 18px 0;
+                padding-bottom: 12px;
+                border-bottom: 2px solid var(--accent);
+                scroll-margin-top: 16px;
+                color: var(--text);
+            }
+            .ctal-tae-ch7-page .main h2:first-of-type {
+                margin-top: 0;
+            }
+            .ctal-tae-ch7-page .main h3 {
+                font-size: 19px;
+                font-weight: 700;
+                margin: 38px 0 14px 0;
+                scroll-margin-top: 16px;
+                color: var(--text);
+            }
+            .ctal-tae-ch7-page .main h4 {
+                font-size: 15.5px;
+                font-weight: 700;
+                margin: 26px 0 10px 0;
+                color: var(--accent-dark);
+                scroll-margin-top: 16px;
+            }
+            .ctal-tae-ch7-page .main p {
+                margin: 0 0 16px 0;
+                color: var(--text);
+            }
+            .ctal-tae-ch7-page .main ul, .ctal-tae-ch7-page .main ol {
+                margin: 0 0 16px 0;
+                padding-left: 26px;
+                color: var(--text);
+            }
+            .ctal-tae-ch7-page .main li {
+                margin: 5px 0;
+            }
+            .ctal-tae-ch7-page .main strong {
+                color: var(--text);
+                font-weight: 700;
+            }
+            .ctal-tae-ch7-page .main hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 40px 0;
+            }
+            .ctal-tae-ch7-page .main a {
+                color: var(--accent);
+                text-decoration: none;
+                border-bottom: 1px solid var(--accent-tint-border);
+            }
+            .ctal-tae-ch7-page .main a:hover {
+                border-bottom-color: var(--accent);
+            }
+
+            /* ---------- Tables ---------- */
+            .ctal-tae-ch7-page .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 22px 0;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+            }
+            .ctal-tae-ch7-page table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14px;
+                background: var(--bg-card);
+            }
+            .ctal-tae-ch7-page th, .ctal-tae-ch7-page td {
+                padding: 10px 14px;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            .ctal-tae-ch7-page thead th {
+                background: #f1f4fa;
+                color: var(--text);
+                font-weight: 700;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+            .ctal-tae-ch7-page tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .ctal-tae-ch7-page tbody tr:hover {
+                background: #f9fafc;
+            }
+
+            /* ---------- Code ---------- */
+            .ctal-tae-ch7-page pre.code-block {
+                background: var(--code-bg);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 16px 18px;
+                overflow-x: auto;
+                margin: 0 0 20px 0;
+                font-size: 13.5px;
+                line-height: 1.65;
+            }
+            .ctal-tae-ch7-page pre.code-block code {
+                background: none;
+                padding: 0;
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            }
+            .ctal-tae-ch7-page code:not(pre code) {
+                background: var(--accent-tint);
+                color: var(--accent-dark);
+                padding: 2px 6px;
+                border-radius: 5px;
+                font-size: 0.88em;
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+
+            /* ---------- Mermaid ---------- */
+            .ctal-tae-ch7-page .mermaid-container {
+                display: block;
+                overflow-x: auto;
+                margin: 24px 0;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                background: #ffffff;
+                padding: 18px 10px;
+            }
+            .ctal-tae-ch7-page .mermaid-diagram {
+                width: 100%;
+                display: flex;
+                min-height: 60px;
+            }
+            .ctal-tae-ch7-page .mermaid-container svg {
+                flex-shrink: 0;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .ctal-tae-ch7-page .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            .ctal-tae-ch7-page .mermaid-loading {
+                font-size: 13px;
+                color: var(--text-faint);
+                margin: auto;
+                padding: 20px;
+            }
+            .ctal-tae-ch7-page .mermaid-error {
+                font-size: 13px;
+                color: #b4560a;
+                margin: auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            /* ---------- Callouts ---------- */
+            .ctal-tae-ch7-page .callout {
+                border-radius: 12px;
+                padding: 16px 20px;
+                margin: 0 0 20px 0;
+                border: 1px solid var(--border);
+            }
+            .ctal-tae-ch7-page .callout-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            .ctal-tae-ch7-page .callout-icon {
+                font-size: 16px;
+            }
+            .ctal-tae-ch7-page .callout-label {
+                font-weight: 700;
+                font-size: 14px;
+            }
+            .ctal-tae-ch7-page .callout-body {
+                font-size: 14.5px;
+                color: var(--text);
+            }
+            .ctal-tae-ch7-page .callout-body p:last-child, .ctal-tae-ch7-page .callout-body ul:last-child, .ctal-tae-ch7-page .callout-body ol:last-child {
+                margin-bottom: 0;
+            }
+            .ctal-tae-ch7-page .callout-practice {
+                background: var(--accent-tint);
+                border-color: var(--accent-tint-border);
+            }
+            .ctal-tae-ch7-page .callout-practice .callout-label {
+                color: var(--accent-dark);
+            }
+            .ctal-tae-ch7-page .callout-warning {
+                background: var(--warn-tint);
+                border-color: var(--warn-border);
+            }
+            .ctal-tae-ch7-page .callout-warning .callout-label {
+                color: var(--warn);
+            }
+            .ctal-tae-ch7-page .callout-note {
+                background: var(--note-tint);
+                border-color: var(--note-border);
+            }
+            .ctal-tae-ch7-page .callout-note .callout-label {
+                color: var(--note-text);
+            }
+            .ctal-tae-ch7-page .callout-source {
+                font-size: 13px;
+                color: var(--text-faint);
+                border-left: 3px solid var(--border-strong);
+                padding: 6px 0 6px 14px;
+                margin: 0 0 20px 0;
+            }
+
+            /* ---------- Checklist ---------- */
+            .ctal-tae-ch7-page .checklist-card {
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 18px 20px 14px 20px;
+                background: var(--bg-card);
+                margin: 0 0 22px 0;
+            }
+            .ctal-tae-ch7-page .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+            .ctal-tae-ch7-page .cp-label {
+                font-size: 12.5px;
+                font-weight: 700;
+                color: var(--text-dim);
+            }
+            .ctal-tae-ch7-page .cp-bar {
+                flex: 1;
+                height: 8px;
+                border-radius: 999px;
+                background: #e9edf5;
+                overflow: hidden;
+            }
+            .ctal-tae-ch7-page .cp-bar-fill {
+                height: 100%;
+                width: 0%;
+                background: var(--accent);
+                transition: width 0.2s ease;
+            }
+            .ctal-tae-ch7-page .cp-count {
+                font-size: 12.5px;
+                color: var(--text-dim);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .ctal-tae-ch7-page .checklist-card ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 0;
+            }
+            .ctal-tae-ch7-page .checklist-card li {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 6px 0;
+                margin: 0;
+            }
+            .ctal-tae-ch7-page .checklist-card li:has(input:checked) {
+                text-decoration: line-through;
+                color: var(--text-faint);
+            }
+            .ctal-tae-ch7-page .checklist-checkbox {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 18px;
+                height: 18px;
+                min-width: 18px;
+                border: 2px solid var(--border-strong);
+                border-radius: 5px;
+                margin-top: 2px;
+                cursor: pointer;
+                position: relative;
+                background: #fff;
+            }
+            .ctal-tae-ch7-page .checklist-checkbox:checked {
+                background: var(--accent);
+                border-color: var(--accent);
+            }
+            .ctal-tae-ch7-page .checklist-checkbox:checked::after {
+                content: '';
+                position: absolute;
+                left: 4px;
+                top: 0px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+
+            /* ---------- Quiz details ---------- */
+            .ctal-tae-ch7-page .quiz-details {
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 4px 16px;
+                margin: 4px 0 22px 0;
+                background: var(--bg-card);
+            }
+            .ctal-tae-ch7-page .quiz-summary {
+                cursor: pointer;
+                font-weight: 700;
+                padding: 10px 0;
+                color: var(--accent-dark);
+                font-size: 14px;
+                list-style: none;
+            }
+            .ctal-tae-ch7-page .quiz-summary::-webkit-details-marker {
+                display: none;
+            }
+            .ctal-tae-ch7-page .quiz-summary::before {
+                content: '▸ ';
+            }
+            .ctal-tae-ch7-page .quiz-details[open] .quiz-summary::before {
+                content: '▾ ';
+            }
+            .ctal-tae-ch7-page .quiz-details > *:not(summary) {
+                margin-top: 4px;
+            }
+            .ctal-tae-ch7-page .quiz-details p:last-child {
+                margin-bottom: 12px;
+            }
+
+            /* ---------- Footer ---------- */
+            .ctal-tae-ch7-page .page-footer {
+                margin: 60px 0 0 0;
+                padding: 24px 0 0 0;
+                border-top: 1px solid var(--border);
+                font-size: 12.5px;
+                color: var(--text-faint);
+                font-style: italic;
+            }
+
+            /* ---------- misc grid safety ---------- */
+            .ctal-tae-ch7-page .table-scroll table {
+                min-width: 480px;
+            }
+
+
+/* Keep source layout and decoration while compensating for shared app chrome. */
+.ctal-tae-ch7-page { min-width: 0; width: 100%; --app-top: calc(60px + var(--disclaimer-height, 0px)); }
+.ctal-tae-ch7-page .sidebar {
+    top: var(--app-top);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    border-right: 2px solid var(--border-strong);
+    z-index: 40;
+}
+.ctal-tae-ch7-page .sidebar-toggle { top: calc(74px + var(--disclaimer-height, 0px) + env(safe-area-inset-top, 0px)); z-index: 45; }
+.ctal-tae-ch7-page .main { max-width: none !important; min-width: 0; margin: 0 0 0 var(--sidebar-w) !important; padding: 0 56px 80px !important; }
+.ctal-tae-ch7-page .hero { min-height: 0 !important; display: block !important; padding: 40px 40px 32px !important; }
+.ctal-tae-ch7-page .hero::after { content: none; }
+.ctal-tae-ch7-page .hero h1 { font-family: inherit; letter-spacing: normal; }
+.ctal-tae-ch7-page .hero-eyebrow { font-family: inherit; animation: none; margin-bottom: 0; }
+.ctal-tae-ch7-page .hero-eyebrow::before { content: none; }
+.ctal-tae-ch7-page .main h2,
+.ctal-tae-ch7-page .main h3,
+.ctal-tae-ch7-page .main h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.ctal-tae-ch7-page .main ul { list-style-type: disc; }
+.ctal-tae-ch7-page .main ol { list-style-type: decimal; }
+.ctal-tae-ch7-page .sidebar-nav,
+.ctal-tae-ch7-page .checklist-card ul { list-style-type: none; }
+.ctal-tae-ch7-page thead tr { background: transparent; border-bottom: none; }
+.ctal-tae-ch7-page th { font-family: inherit; letter-spacing: normal; white-space: nowrap; }
+.ctal-tae-ch7-page td { color: var(--text) !important; line-height: inherit; }
+.ctal-tae-ch7-page tr:hover td { background: transparent; }
+.ctal-tae-ch7-page pre.code-block { color: #383a42; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+.ctal-tae-ch7-page .code-line { display: inline; }
+.ctal-tae-ch7-page code:not(pre code) { white-space: normal; }
+.ctal-tae-ch7-page .callout { line-height: inherit; font-size: inherit; }
+.ctal-tae-ch7-page .checklist-card ul { padding-left: 0; margin: 0; }
+.ctal-tae-ch7-page .checklist-card li { margin: 0; }
+.ctal-tae-ch7-page .page-footer { text-align: left; font-family: inherit; }
+.ctal-tae-ch7-page :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ctal-tae-ch7-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.ctal-tae-ch7-page *::-webkit-scrollbar-track { background: transparent !important; }
+.ctal-tae-ch7-page *::-webkit-scrollbar-thumb { background: var(--border-strong) !important; border-radius: 3px; }
+
+.ctal-tae-ch7-page .sidebar-scrim { display: none; }
+
+/* Shared diagram wrappers must preserve source light cards and reachable scroll origins. */
+.ctal-tae-ch7-page .mermaid-diagram { display: block; }
+.ctal-tae-ch7-page .mermaid-wrapper {
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+}
+.ctal-tae-ch7-page .mermaid-wrapper svg { display: block !important; max-width: none !important; height: auto !important; margin: 0 auto !important; flex-shrink: 0; }
+.ctal-tae-ch7-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.ctal-tae-ch7-page .mermaid-wrapper foreignObject p,
+.ctal-tae-ch7-page .mermaid-wrapper foreignObject span,
+.ctal-tae-ch7-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; word-break: break-word !important; }
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabel rect { fill: #ffffff !important; stroke: none !important; }
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabel,
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabel span,
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabel p,
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabel text,
+.ctal-tae-ch7-page .mermaid-wrapper .edgeLabels .label { background-color: #ffffff !important; color: #1c2536 !important; fill: #1c2536 !important; font-weight: 700 !important; }
+@media (max-width: 900px) {
+    /* Closed TOC links must leave the Tab order; visibility flips after the slide-out ends. */
+    .ctal-tae-ch7-page .sidebar { visibility: hidden; transition: transform 0.25s ease, visibility 0.25s; }
+    .ctal-tae-ch7-page .sidebar.open { visibility: visible; }
+    .ctal-tae-ch7-page .main { margin: 0 !important; padding: 76px 20px 60px !important; }
+    .ctal-tae-ch7-page .sidebar-scrim { top: var(--app-top); z-index: 35; }
+    .ctal-tae-ch7-page .main h2,
+    .ctal-tae-ch7-page .main h3,
+    .ctal-tae-ch7-page .main h4 { scroll-margin-top: calc(136px + var(--disclaimer-height, 0px)); }
+}
+@media (max-width: 640px) {
+    .ctal-tae-ch7-page .hero { padding: 28px 22px 24px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch7-page * { scroll-behavior: auto; transition: none !important; animation: none !important; }
+}
+
+/* Keep retained styles from other routes from wrapping or resizing source code. */
+.ctal-tae-ch7-page pre.code-block,
+.ctal-tae-ch7-page pre.code-block code,
+.ctal-tae-ch7-page pre.code-block .code-line {
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
+    tab-size: 4;
+}
+.ctal-tae-ch7-page pre.code-block { min-width: 0; max-width: 100%; }
+.ctal-tae-ch7-page pre.code-block code {
+    width: max-content;
+    min-width: 100%;
+    overflow: visible;
+    font-size: inherit;
+    line-height: inherit;
+}
+.ctal-tae-ch7-page pre.code-block .code-line {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* Large checklist targets retain readable text in both completion states. */
+.ctal-tae-ch7-page .checklist-card {
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgb(28 37 54 / 5%);
+}
+.ctal-tae-ch7-page .checklist-progress {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.ctal-tae-ch7-page .cp-label { font-size: 14px; color: var(--text); }
+.ctal-tae-ch7-page .cp-count {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 5px 10px;
+    border-radius: 999px;
+    color: var(--accent-dark);
+    background: var(--accent-tint);
+}
+.ctal-tae-ch7-page .cp-bar { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 10px; }
+.ctal-tae-ch7-page .cp-bar-fill { background: linear-gradient(90deg, var(--accent), #718bf3); }
+.ctal-tae-ch7-page .checklist-card ul { display: grid; gap: 10px; }
+.ctal-tae-ch7-page .checklist-card li,
+.ctal-tae-ch7-page .checklist-card li:has(input:checked) {
+    display: block;
+    padding: 0;
+    color: var(--text);
+    text-decoration: none;
+}
+.ctal-tae-ch7-page .checklist-card label {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #f8faff;
+    color: var(--text);
+    line-height: 1.75;
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s;
+}
+.ctal-tae-ch7-page .checklist-card label:hover { border-color: var(--accent); background: var(--accent-tint); }
+.ctal-tae-ch7-page .checklist-card label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ctal-tae-ch7-page .checklist-card label:has(input:checked) { border-color: #86cda5; background: #f0fdf4; color: #14532d; }
+.ctal-tae-ch7-page .checklist-checkbox { width: 22px; height: 22px; min-width: 22px; margin: 3px 0 0; }
+.ctal-tae-ch7-page .checklist-checkbox:checked { background: #15803d; border-color: #15803d; }
+@media (max-width: 640px) {
+    .ctal-tae-ch7-page .checklist-card { padding: 16px; }
+    .ctal-tae-ch7-page .checklist-card label { padding: 14px; gap: 10px; font-size: 15px; }
+}
+
+/* Source --text-faint (#8891a1) is ~3.2:1 on white; darken TOC/meta text to >= 4.5:1 on every light surface. */
+.ctal-tae-ch7-page { --text-faint: #646d7e; }
+
+/* Table names for screen-reader table lists; hidden visually to keep the source design. */
+.ctal-tae-ch7-page .table-caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

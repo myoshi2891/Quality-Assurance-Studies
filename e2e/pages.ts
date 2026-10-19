@@ -109,8 +109,12 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-29119-1-2022-guide', h1: /ISO\/IEC\/IEEE 29119-1:2022.*初学者向け解説ガイド/ },
   { path: '/istqb-ctal-tae-chapter1-introduction-and-objectives', h1: /第1章「テスト自動化の導入と目的」/ },
   { path: '/istqb-ctal-tae-chapter2-preparing-for-test-automation', h1: /Preparing for Test Automation|テスト自動化の準備/ },
+  { path: '/istqb-ctal-tae-chapter4-implementing-test-automation', h1: /Implementing Test Automation|テスト自動化の実装/ },
+  { path: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', h1: /Implementation and Deployment Strategies for Test Automation/ },
+  { path: '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics', h1: /第6章.*Test Automation Reporting and Metrics/ },
+  { path: '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution', h1: /第7章.*Verifying the Test Automation Solution/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 96;
+export const EXPECTED_PAGE_COUNT = 100;
 
 

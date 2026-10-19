@@ -1,0 +1,878 @@
+
+            .ctal-tae-ch6-page {
+                --bg: #f6f8fc;
+                --card: #fff;
+                --text: #1e293b;
+                --dim: #64748b;
+                --line: #e2e8f0;
+                --accent: #2563eb;
+                --accent-soft: #eff6ff;
+                --sb: 280px;
+                --green: #15803d;
+                --green-bg: #f0fdf4;
+                --amber: #b45309;
+                --amber-bg: #fffbeb;
+                --blue: #1d4ed8;
+                --blue-bg: #eff6ff;
+                --font:
+                    -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+                    'Yu Gothic', Meiryo, sans-serif;
+                --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            }
+            .ctal-tae-ch6-page * {
+                box-sizing: border-box;
+            }
+            .ctal-tae-ch6-page {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+                color-scheme: light;
+            }
+            .ctal-tae-ch6-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font);
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+            }
+            .ctal-tae-ch6-page .layout {
+                display: block;
+            }
+            .ctal-tae-ch6-page .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: var(--sb);
+                background: #fff;
+                border-right: 1px solid var(--line);
+                overflow-y: auto;
+                padding: 22px 16px 32px;
+                z-index: 20;
+            }
+            .ctal-tae-ch6-page .sb-title {
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                color: var(--dim);
+                margin: 0 0 12px 8px;
+            }
+            .ctal-tae-ch6-page .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .ctal-tae-ch6-page .sidebar li ul {
+                margin: 2px 0 6px 10px;
+                border-left: 1px solid var(--line);
+            }
+            .ctal-tae-ch6-page .sidebar a {
+                display: block;
+                padding: 5px 10px;
+                border-radius: 6px;
+                color: #334155;
+                text-decoration: none;
+                font-size: 13.5px;
+                line-height: 1.5;
+            }
+            .ctal-tae-ch6-page .sidebar li ul a {
+                font-size: 12.5px;
+                color: var(--dim);
+            }
+            .ctal-tae-ch6-page .sidebar a:hover {
+                background: var(--accent-soft);
+                color: var(--accent);
+            }
+            .ctal-tae-ch6-page .sidebar a.active {
+                background: var(--accent-soft);
+                color: var(--accent);
+                font-weight: 700;
+            }
+            .ctal-tae-ch6-page .sb-toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 30;
+                border: 1px solid var(--line);
+                background: #fff;
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 14px;
+                cursor: pointer;
+                box-shadow: 0 1px 4px rgba(15, 23, 42, 0.1);
+            }
+            .ctal-tae-ch6-page .main {
+                margin-left: var(--sb);
+                padding: 32px 48px 64px;
+            }
+            .ctal-tae-ch6-page .hero {
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(135deg, #fff 0%, #eef4ff 100%);
+                border: 1px solid var(--line);
+                border-radius: 16px;
+                padding: 36px 40px;
+                margin-bottom: 36px;
+            }
+            .ctal-tae-ch6-page .hero::before {
+                content: '';
+                position: absolute;
+                top: -80px;
+                right: -60px;
+                width: 320px;
+                height: 320px;
+                background: radial-gradient(circle, rgba(37, 99, 235, 0.16), transparent 70%);
+                pointer-events: none;
+            }
+            .ctal-tae-ch6-page .eyebrow {
+                display: inline-block;
+                background: var(--accent-soft);
+                color: var(--accent);
+                border: 1px solid #bfdbfe;
+                border-radius: 999px;
+                padding: 3px 14px;
+                font-size: 12.5px;
+                font-weight: 700;
+                margin-bottom: 14px;
+            }
+            .ctal-tae-ch6-page .hero-title {
+                position: relative;
+                font-size: 28px;
+                line-height: 1.4;
+                font-weight: 800;
+                margin: 0 0 22px;
+                color: #0f172a;
+            }
+            .ctal-tae-ch6-page .hero-meta {
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                border-top: 1px solid var(--line);
+                padding-top: 16px;
+            }
+            .ctal-tae-ch6-page .meta-item {
+                padding: 0 24px;
+                border-right: 1px solid var(--line);
+            }
+            .ctal-tae-ch6-page .hero-meta {
+                gap: 14px 0;
+            }
+            .ctal-tae-ch6-page .meta-item:first-child {
+                flex: 0 0 100%;
+                border-right: none;
+                padding: 0;
+            }
+            .ctal-tae-ch6-page .meta-item:nth-child(2) {
+                padding-left: 0;
+            }
+            .ctal-tae-ch6-page .meta-item:last-child {
+                border-right: none;
+            }
+            .ctal-tae-ch6-page .meta-label {
+                font-size: 11px;
+                letter-spacing: 0.06em;
+                color: var(--dim);
+                font-weight: 700;
+            }
+            .ctal-tae-ch6-page .meta-value {
+                font-size: 14.5px;
+                font-weight: 600;
+                line-height: 1.6;
+            }
+            .ctal-tae-ch6-page .main h2 {
+                font-size: 24px;
+                margin: 56px 0 18px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid var(--accent);
+                scroll-margin-top: 20px;
+            }
+            .ctal-tae-ch6-page .main h3 {
+                font-size: 19px;
+                margin: 36px 0 12px;
+                padding-left: 12px;
+                border-left: 4px solid var(--accent);
+                scroll-margin-top: 20px;
+            }
+            .ctal-tae-ch6-page .main h4 {
+                font-size: 16.5px;
+                margin: 26px 0 8px;
+                color: #0f172a;
+            }
+            .ctal-tae-ch6-page .main p {
+                margin: 0 0 14px;
+            }
+            .ctal-tae-ch6-page .main ul, .ctal-tae-ch6-page .main ol {
+                padding-left: 1.6em;
+                margin: 0 0 16px;
+            }
+            .ctal-tae-ch6-page .main li {
+                margin: 4px 0;
+            }
+            .ctal-tae-ch6-page .main hr {
+                border: none;
+                border-top: 1px solid var(--line);
+                margin: 40px 0;
+            }
+            .ctal-tae-ch6-page .main a {
+                color: var(--accent);
+                word-break: break-word;
+            }
+            .ctal-tae-ch6-page .main code:not(pre code) {
+                font-family: var(--mono);
+                font-size: 0.88em;
+                background: #eef2f7;
+                border: 1px solid var(--line);
+                border-radius: 5px;
+                padding: 1px 6px;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+            .ctal-tae-ch6-page .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 22px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+            }
+            .ctal-tae-ch6-page table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+            }
+            .ctal-tae-ch6-page th {
+                background: #f1f5f9;
+                text-align: left;
+                font-weight: 700;
+                color: #0f172a;
+            }
+            .ctal-tae-ch6-page th, .ctal-tae-ch6-page td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--line);
+                vertical-align: top;
+                line-height: 1.7;
+            }
+            .ctal-tae-ch6-page tr:last-child td {
+                border-bottom: none;
+            }
+            .ctal-tae-ch6-page tbody tr:nth-child(even) td {
+                background: #fafcff;
+            }
+            .ctal-tae-ch6-page .code-card {
+                margin: 0 0 22px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+                overflow: hidden;
+            }
+            .ctal-tae-ch6-page .code-lang {
+                background: #f1f5f9;
+                border-bottom: 1px solid var(--line);
+                padding: 5px 14px;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--dim);
+                font-family: var(--mono);
+            }
+            .ctal-tae-ch6-page .code-card pre {
+                margin: 0;
+                padding: 14px 16px;
+                overflow-x: auto;
+                background: #fbfcfe;
+                font-size: 13.5px;
+                line-height: 1.65;
+            }
+            .ctal-tae-ch6-page .code-card pre code {
+                font-family: var(--mono);
+                color: #1e293b;
+            }
+            .ctal-tae-ch6-page .mermaid-container {
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 8px 0 26px;
+                padding: 18px;
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+            }
+            .ctal-tae-ch6-page .mermaid-container svg {
+                flex-shrink: 0;
+            }
+            .ctal-tae-ch6-page .mermaid-container p {
+                color: inherit;
+                margin: 0;
+            }
+            .ctal-tae-ch6-page .callout-practice, .ctal-tae-ch6-page .callout-warning, .ctal-tae-ch6-page .callout-note {
+                border-radius: 10px;
+                border: 1px solid;
+                border-left-width: 5px;
+                padding: 14px 18px;
+                margin: 0 0 22px;
+            }
+            .ctal-tae-ch6-page .callout-practice {
+                background: var(--green-bg);
+                border-color: #bbf7d0;
+                border-left-color: var(--green);
+            }
+            .ctal-tae-ch6-page .callout-warning {
+                background: var(--amber-bg);
+                border-color: #fde68a;
+                border-left-color: var(--amber);
+            }
+            .ctal-tae-ch6-page .callout-note {
+                background: var(--blue-bg);
+                border-color: #bfdbfe;
+                border-left-color: var(--blue);
+            }
+            .ctal-tae-ch6-page .callout-head {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 6px;
+                font-weight: 800;
+            }
+            .ctal-tae-ch6-page .callout-practice .callout-title {
+                color: var(--green);
+            }
+            .ctal-tae-ch6-page .callout-warning .callout-title {
+                color: var(--amber);
+            }
+            .ctal-tae-ch6-page .callout-note .callout-title {
+                color: var(--blue);
+            }
+            .ctal-tae-ch6-page .callout-body > *:last-child {
+                margin-bottom: 0;
+            }
+            .ctal-tae-ch6-page .callout-body p, .ctal-tae-ch6-page .callout-body ul, .ctal-tae-ch6-page .callout-body ol {
+                margin-bottom: 8px;
+            }
+            .ctal-tae-ch6-page details.answer {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+                padding: 10px 16px;
+                margin: 0 0 22px;
+            }
+            .ctal-tae-ch6-page details.answer summary {
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--accent);
+            }
+            .ctal-tae-ch6-page details.answer[open] summary {
+                margin-bottom: 8px;
+            }
+            .ctal-tae-ch6-page .checklist-card {
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 18px 22px;
+                margin: 0 0 22px;
+            }
+            .ctal-tae-ch6-page .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 14px;
+                flex-wrap: wrap;
+            }
+            .ctal-tae-ch6-page .cp-label {
+                font-weight: 700;
+                font-size: 14px;
+            }
+            .ctal-tae-ch6-page .cp-bar {
+                flex: 1;
+                min-width: 120px;
+                height: 10px;
+                background: #e2e8f0;
+                border-radius: 999px;
+                overflow: hidden;
+            }
+            .ctal-tae-ch6-page .cp-bar-fill {
+                height: 100%;
+                width: 0;
+                background: var(--accent);
+                transition: width 0.25s;
+            }
+            .ctal-tae-ch6-page .cp-count {
+                font-size: 13.5px;
+                color: var(--dim);
+                font-weight: 600;
+            }
+            .ctal-tae-ch6-page .checklist-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .ctal-tae-ch6-page .checklist-card li {
+                padding: 6px 0;
+                border-bottom: 1px dashed var(--line);
+                margin: 0;
+            }
+            .ctal-tae-ch6-page .checklist-card label {
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                cursor: pointer;
+                width: 100%;
+            }
+            .ctal-tae-ch6-page .checklist-card li:last-child {
+                border-bottom: none;
+            }
+            .ctal-tae-ch6-page .checklist-card input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                flex: none;
+                width: 20px;
+                height: 20px;
+                margin: calc((1.85em - 20px) / 2) 0 0;
+                font-size: inherit;
+                border: 2px solid #94a3b8;
+                border-radius: 5px;
+                background: #fff;
+                cursor: pointer;
+                position: relative;
+            }
+            .ctal-tae-ch6-page .checklist-card input[type='checkbox']:checked {
+                background: var(--accent);
+                border-color: var(--accent);
+            }
+            .ctal-tae-ch6-page .checklist-card input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 10px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .ctal-tae-ch6-page .checklist-card li:has(input:checked) {
+                color: var(--dim);
+                text-decoration: line-through;
+            }
+            .ctal-tae-ch6-page .page-footer {
+                margin-top: 56px;
+                padding-top: 18px;
+                border-top: 1px solid var(--line);
+                font-size: 13px;
+                color: var(--dim);
+                line-height: 1.8;
+            }
+            @media (max-width: 900px) {
+                .ctal-tae-ch6-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s;
+                    box-shadow: 2px 0 12px rgba(15, 23, 42, 0.15);
+                }
+                .ctal-tae-ch6-page .sidebar.open {
+                    transform: none;
+                }
+                .ctal-tae-ch6-page .sb-toggle {
+                    display: block;
+                }
+                .ctal-tae-ch6-page .main {
+                    margin-left: 0;
+                    padding: 64px 16px 48px;
+                }
+                .ctal-tae-ch6-page .hero {
+                    padding: 24px 20px;
+                }
+                .ctal-tae-ch6-page .hero-title {
+                    font-size: 22px;
+                }
+                .ctal-tae-ch6-page .hero-meta {
+                    display: block;
+                }
+                .ctal-tae-ch6-page .meta-item {
+                    padding: 8px 0;
+                    border-right: none;
+                    border-bottom: 1px solid var(--line);
+                }
+                .ctal-tae-ch6-page .meta-item:last-child {
+                    border-bottom: none;
+                }
+            }
+            .ctal-tae-ch6-page pre {
+                line-height: 125%;
+            }
+            .ctal-tae-ch6-page td.linenos .normal {
+                color: inherit;
+                background-color: transparent;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .ctal-tae-ch6-page span.linenos {
+                color: inherit;
+                background-color: transparent;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .ctal-tae-ch6-page td.linenos .special {
+                color: #000000;
+                background-color: #ffffc0;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .ctal-tae-ch6-page span.linenos.special {
+                color: #000000;
+                background-color: #ffffc0;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .ctal-tae-ch6-page .code-card pre code .hll {
+                background-color: #ffffcc;
+            }
+            .ctal-tae-ch6-page .code-card pre code .c {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment */
+            .ctal-tae-ch6-page .code-card pre code .err {
+                border: 1px solid #f00;
+            } /* Error */
+            .ctal-tae-ch6-page .code-card pre code .k {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword */
+            .ctal-tae-ch6-page .code-card pre code .o {
+                color: #666;
+            } /* Operator */
+            .ctal-tae-ch6-page .code-card pre code .ch {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Hashbang */
+            .ctal-tae-ch6-page .code-card pre code .cm {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Multiline */
+            .ctal-tae-ch6-page .code-card pre code .cp {
+                color: #9c6500;
+            } /* Comment.Preproc */
+            .ctal-tae-ch6-page .code-card pre code .cpf {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.PreprocFile */
+            .ctal-tae-ch6-page .code-card pre code .c1 {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Single */
+            .ctal-tae-ch6-page .code-card pre code .cs {
+                color: #3d7b7b;
+                font-style: italic;
+            } /* Comment.Special */
+            .ctal-tae-ch6-page .code-card pre code .gd {
+                color: #a00000;
+            } /* Generic.Deleted */
+            .ctal-tae-ch6-page .code-card pre code .ge {
+                font-style: italic;
+            } /* Generic.Emph */
+            .ctal-tae-ch6-page .code-card pre code .ges {
+                font-weight: bold;
+                font-style: italic;
+            } /* Generic.EmphStrong */
+            .ctal-tae-ch6-page .code-card pre code .gr {
+                color: #e40000;
+            } /* Generic.Error */
+            .ctal-tae-ch6-page .code-card pre code .gh {
+                color: #000080;
+                font-weight: bold;
+            } /* Generic.Heading */
+            .ctal-tae-ch6-page .code-card pre code .gi {
+                color: #008400;
+            } /* Generic.Inserted */
+            .ctal-tae-ch6-page .code-card pre code .go {
+                color: #717171;
+            } /* Generic.Output */
+            .ctal-tae-ch6-page .code-card pre code .gp {
+                color: #000080;
+                font-weight: bold;
+            } /* Generic.Prompt */
+            .ctal-tae-ch6-page .code-card pre code .gs {
+                font-weight: bold;
+            } /* Generic.Strong */
+            .ctal-tae-ch6-page .code-card pre code .gu {
+                color: #800080;
+                font-weight: bold;
+            } /* Generic.Subheading */
+            .ctal-tae-ch6-page .code-card pre code .gt {
+                color: #04d;
+            } /* Generic.Traceback */
+            .ctal-tae-ch6-page .code-card pre code .kc {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Constant */
+            .ctal-tae-ch6-page .code-card pre code .kd {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Declaration */
+            .ctal-tae-ch6-page .code-card pre code .kn {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Namespace */
+            .ctal-tae-ch6-page .code-card pre code .kp {
+                color: #008000;
+            } /* Keyword.Pseudo */
+            .ctal-tae-ch6-page .code-card pre code .kr {
+                color: #008000;
+                font-weight: bold;
+            } /* Keyword.Reserved */
+            .ctal-tae-ch6-page .code-card pre code .kt {
+                color: #b00040;
+            } /* Keyword.Type */
+            .ctal-tae-ch6-page .code-card pre code .m {
+                color: #666;
+            } /* Literal.Number */
+            .ctal-tae-ch6-page .code-card pre code .s {
+                color: #ba2121;
+            } /* Literal.String */
+            .ctal-tae-ch6-page .code-card pre code .na {
+                color: #687822;
+            } /* Name.Attribute */
+            .ctal-tae-ch6-page .code-card pre code .nb {
+                color: #008000;
+            } /* Name.Builtin */
+            .ctal-tae-ch6-page .code-card pre code .nc {
+                color: #00f;
+                font-weight: bold;
+            } /* Name.Class */
+            .ctal-tae-ch6-page .code-card pre code .no {
+                color: #800;
+            } /* Name.Constant */
+            .ctal-tae-ch6-page .code-card pre code .nd {
+                color: #a2f;
+            } /* Name.Decorator */
+            .ctal-tae-ch6-page .code-card pre code .ni {
+                color: #717171;
+                font-weight: bold;
+            } /* Name.Entity */
+            .ctal-tae-ch6-page .code-card pre code .ne {
+                color: #cb3f38;
+                font-weight: bold;
+            } /* Name.Exception */
+            .ctal-tae-ch6-page .code-card pre code .nf {
+                color: #00f;
+            } /* Name.Function */
+            .ctal-tae-ch6-page .code-card pre code .nl {
+                color: #767600;
+            } /* Name.Label */
+            .ctal-tae-ch6-page .code-card pre code .nn {
+                color: #00f;
+                font-weight: bold;
+            } /* Name.Namespace */
+            .ctal-tae-ch6-page .code-card pre code .nt {
+                color: #008000;
+                font-weight: bold;
+            } /* Name.Tag */
+            .ctal-tae-ch6-page .code-card pre code .nv {
+                color: #19177c;
+            } /* Name.Variable */
+            .ctal-tae-ch6-page .code-card pre code .ow {
+                color: #a2f;
+                font-weight: bold;
+            } /* Operator.Word */
+            .ctal-tae-ch6-page .code-card pre code .w {
+                color: #bbb;
+            } /* Text.Whitespace */
+            .ctal-tae-ch6-page .code-card pre code .mb {
+                color: #666;
+            } /* Literal.Number.Bin */
+            .ctal-tae-ch6-page .code-card pre code .mf {
+                color: #666;
+            } /* Literal.Number.Float */
+            .ctal-tae-ch6-page .code-card pre code .mh {
+                color: #666;
+            } /* Literal.Number.Hex */
+            .ctal-tae-ch6-page .code-card pre code .mi {
+                color: #666;
+            } /* Literal.Number.Integer */
+            .ctal-tae-ch6-page .code-card pre code .mo {
+                color: #666;
+            } /* Literal.Number.Oct */
+            .ctal-tae-ch6-page .code-card pre code .sa {
+                color: #ba2121;
+            } /* Literal.String.Affix */
+            .ctal-tae-ch6-page .code-card pre code .sb {
+                color: #ba2121;
+            } /* Literal.String.Backtick */
+            .ctal-tae-ch6-page .code-card pre code .sc {
+                color: #ba2121;
+            } /* Literal.String.Char */
+            .ctal-tae-ch6-page .code-card pre code .dl {
+                color: #ba2121;
+            } /* Literal.String.Delimiter */
+            .ctal-tae-ch6-page .code-card pre code .sd {
+                color: #ba2121;
+                font-style: italic;
+            } /* Literal.String.Doc */
+            .ctal-tae-ch6-page .code-card pre code .s2 {
+                color: #ba2121;
+            } /* Literal.String.Double */
+            .ctal-tae-ch6-page .code-card pre code .se {
+                color: #aa5d1f;
+                font-weight: bold;
+            } /* Literal.String.Escape */
+            .ctal-tae-ch6-page .code-card pre code .sh {
+                color: #ba2121;
+            } /* Literal.String.Heredoc */
+            .ctal-tae-ch6-page .code-card pre code .si {
+                color: #a45a77;
+                font-weight: bold;
+            } /* Literal.String.Interpol */
+            .ctal-tae-ch6-page .code-card pre code .sx {
+                color: #008000;
+            } /* Literal.String.Other */
+            .ctal-tae-ch6-page .code-card pre code .sr {
+                color: #a45a77;
+            } /* Literal.String.Regex */
+            .ctal-tae-ch6-page .code-card pre code .s1 {
+                color: #ba2121;
+            } /* Literal.String.Single */
+            .ctal-tae-ch6-page .code-card pre code .ss {
+                color: #19177c;
+            } /* Literal.String.Symbol */
+            .ctal-tae-ch6-page .code-card pre code .bp {
+                color: #008000;
+            } /* Name.Builtin.Pseudo */
+            .ctal-tae-ch6-page .code-card pre code .fm {
+                color: #00f;
+            } /* Name.Function.Magic */
+            .ctal-tae-ch6-page .code-card pre code .vc {
+                color: #19177c;
+            } /* Name.Variable.Class */
+            .ctal-tae-ch6-page .code-card pre code .vg {
+                color: #19177c;
+            } /* Name.Variable.Global */
+            .ctal-tae-ch6-page .code-card pre code .vi {
+                color: #19177c;
+            } /* Name.Variable.Instance */
+            .ctal-tae-ch6-page .code-card pre code .vm {
+                color: #19177c;
+            } /* Name.Variable.Magic */
+            .ctal-tae-ch6-page .code-card pre code .il {
+                color: #666;
+            } /* Literal.Number.Integer.Long */
+
+
+/* App chrome and global CSS compensation; retain the source hero and code decorations. */
+.ctal-tae-ch6-page { min-width: 0; width: 100%; }
+.ctal-tae-ch6-page .sidebar {
+    top: calc(60px + var(--disclaimer-height, 0px));
+    border-right: 2px solid #cbd5e1;
+}
+.ctal-tae-ch6-page .sb-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
+.ctal-tae-ch6-page .main {
+    max-width: none !important;
+    min-width: 0;
+    margin: 0 0 0 var(--sb) !important;
+    padding: 32px 48px 64px !important;
+}
+.ctal-tae-ch6-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    padding: 36px 40px !important;
+}
+.ctal-tae-ch6-page .hero::after { content: none; }
+.ctal-tae-ch6-page .hero h1 {
+    font-family: var(--font);
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: normal;
+}
+.ctal-tae-ch6-page .main h2,
+.ctal-tae-ch6-page .main h3 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); font-weight: 700; }
+.ctal-tae-ch6-page .main h4 { font-weight: 700; }
+.ctal-tae-ch6-page .main ul { list-style-type: disc; }
+.ctal-tae-ch6-page .main ol { list-style-type: decimal; }
+.ctal-tae-ch6-page .sidebar ul,
+.ctal-tae-ch6-page .checklist-card ul { list-style-type: none; }
+.ctal-tae-ch6-page thead tr { background: transparent; border-bottom: none; }
+.ctal-tae-ch6-page th {
+    font-family: var(--font);
+    font-size: 14.5px;
+    letter-spacing: normal;
+    white-space: normal;
+    color: #0f172a !important;
+}
+.ctal-tae-ch6-page td { color: var(--text) !important; }
+.ctal-tae-ch6-page td strong { color: var(--text) !important; font-weight: 700; }
+.ctal-tae-ch6-page tr:hover td { background: transparent; }
+.ctal-tae-ch6-page tbody tr:nth-child(even):hover td { background: #fafcff; }
+.ctal-tae-ch6-page .code-lang { letter-spacing: normal; }
+.ctal-tae-ch6-page pre { font-family: var(--mono); color: var(--text); }
+.ctal-tae-ch6-page .code-card pre code { white-space: pre; }
+.ctal-tae-ch6-page .checklist-card ul { padding: 0; margin: 0; }
+.ctal-tae-ch6-page .checklist-card li { margin: 0; }
+.ctal-tae-ch6-page .page-footer { padding-right: 0; padding-bottom: 0; padding-left: 0; text-align: left; font-family: var(--font); }
+.ctal-tae-ch6-page summary { display: list-item; }
+.ctal-tae-ch6-page :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ctal-tae-ch6-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.ctal-tae-ch6-page *::-webkit-scrollbar-track { background: transparent !important; }
+.ctal-tae-ch6-page *::-webkit-scrollbar-thumb { background: #cbd5e1 !important; border-radius: 3px; }
+
+/* Shared Mermaid wrappers must not introduce a dark card or a negative scroll origin. */
+.ctal-tae-ch6-page .mermaid-container { display: block; max-width: 100%; }
+.ctal-tae-ch6-page .mermaid-wrapper {
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+}
+.ctal-tae-ch6-page .mermaid-wrapper svg {
+    display: block !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    flex-shrink: 0;
+}
+.ctal-tae-ch6-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.ctal-tae-ch6-page .mermaid-wrapper foreignObject p,
+.ctal-tae-ch6-page .mermaid-wrapper foreignObject span,
+.ctal-tae-ch6-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; word-break: break-word !important; }
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabels rect,
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabel rect { fill: #ffffff !important; stroke: none !important; }
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabel,
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabel span,
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabel p,
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabel text,
+.ctal-tae-ch6-page .mermaid-wrapper .edgeLabels .label { background-color: #ffffff !important; color: #0f172a !important; fill: #0f172a !important; font-weight: 700 !important; }
+.ctal-tae-ch6-page .mermaid-wrapper .statediagram-state rect.basic,
+.ctal-tae-ch6-page .mermaid-wrapper .statediagram-state rect { fill: #dbeafe !important; stroke: #1d4ed8 !important; }
+.ctal-tae-ch6-page .mermaid-wrapper .statediagram-state .nodeLabel,
+.ctal-tae-ch6-page .mermaid-wrapper .statediagram-state text { color: #0f172a !important; fill: #0f172a !important; }
+.ctal-tae-ch6-page .mermaid-wrapper .transition { stroke: #475569 !important; }
+@media (max-width: 900px) {
+    /* Closed TOC links must leave the Tab order; visibility flips after the slide-out ends. */
+    .ctal-tae-ch6-page .sidebar { visibility: hidden; transition: transform 0.25s, visibility 0.25s; }
+    .ctal-tae-ch6-page .sidebar.open { visibility: visible; }
+    .ctal-tae-ch6-page .main { margin: 0 !important; padding: 64px 16px 48px !important; }
+    .ctal-tae-ch6-page .hero { padding: 24px 20px !important; }
+    .ctal-tae-ch6-page .hero h1 { font-size: 22px; }
+    .ctal-tae-ch6-page .main h2,
+    .ctal-tae-ch6-page .main h3 { scroll-margin-top: calc(130px + var(--disclaimer-height, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ctal-tae-ch6-page * { scroll-behavior: auto; animation: none !important; transition: none !important; }
+}
+
+/* Table names for screen-reader table lists; hidden visually to keep the source design. */
+.ctal-tae-ch6-page .table-caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

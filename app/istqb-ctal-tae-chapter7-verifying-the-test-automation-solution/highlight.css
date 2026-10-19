@@ -1,0 +1,69 @@
+.ctal-tae-ch7-page pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+.ctal-tae-ch7-page code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+.ctal-tae-ch7-page .hljs {
+  color: #383a42;
+  background: #fafafa
+}
+.ctal-tae-ch7-page .hljs-comment, .ctal-tae-ch7-page .hljs-quote {
+  color: #a0a1a7;
+  font-style: italic
+}
+/* コメントは #fafafa 上で約 2.5:1 と読みにくいため、同テーマの mono-2（5.08:1）に上げる。.hljs-quote は原本のまま */
+.ctal-tae-ch7-page .hljs-comment {
+  color: #686b77
+}
+.ctal-tae-ch7-page .hljs-doctag, .ctal-tae-ch7-page .hljs-keyword, .ctal-tae-ch7-page .hljs-formula {
+  color: #a626a4
+}
+.ctal-tae-ch7-page .hljs-section, .ctal-tae-ch7-page .hljs-name, .ctal-tae-ch7-page .hljs-selector-tag, .ctal-tae-ch7-page .hljs-deletion, .ctal-tae-ch7-page .hljs-subst {
+  color: #e45649
+}
+.ctal-tae-ch7-page .hljs-literal {
+  color: #0184bb
+}
+.ctal-tae-ch7-page .hljs-string, .ctal-tae-ch7-page .hljs-regexp, .ctal-tae-ch7-page .hljs-addition, .ctal-tae-ch7-page .hljs-attribute, .ctal-tae-ch7-page .hljs-meta .hljs-string {
+  color: #50a14f
+}
+.ctal-tae-ch7-page .hljs-attr, .ctal-tae-ch7-page .hljs-variable, .ctal-tae-ch7-page .hljs-template-variable, .ctal-tae-ch7-page .hljs-type, .ctal-tae-ch7-page .hljs-selector-class, .ctal-tae-ch7-page .hljs-selector-attr, .ctal-tae-ch7-page .hljs-selector-pseudo, .ctal-tae-ch7-page .hljs-number {
+  color: #986801
+}
+.ctal-tae-ch7-page .hljs-symbol, .ctal-tae-ch7-page .hljs-bullet, .ctal-tae-ch7-page .hljs-link, .ctal-tae-ch7-page .hljs-meta, .ctal-tae-ch7-page .hljs-selector-id, .ctal-tae-ch7-page .hljs-title {
+  color: #4078f2
+}
+.ctal-tae-ch7-page .hljs-built_in, .ctal-tae-ch7-page .hljs-title.class_, .ctal-tae-ch7-page .hljs-class .hljs-title {
+  color: #c18401
+}
+.ctal-tae-ch7-page .hljs-emphasis {
+  font-style: italic
+}
+.ctal-tae-ch7-page .hljs-strong {
+  font-weight: bold
+}
+.ctal-tae-ch7-page .hljs-link {
+  text-decoration: underline
+}

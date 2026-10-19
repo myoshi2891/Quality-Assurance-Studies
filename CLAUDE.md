@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-12
+Updated 2026-10-19
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 2799 tests)
+bun test             # ユニットテスト (bun test, 3902 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 96 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 100 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -136,6 +136,40 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/ctal-tae-ch2.css` — CTAL-TAE 第2章ガイド固有スタイル
 - `app/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.tsx` — CTAL-TAE 第2章ガイドページ（`NavBar.tsx` 付き）
 - `app/istqb-ctal-tae-chapter3-test-automation-architecture/page.tsx` — CTAL-TAE 第3章 テスト自動化アーキテクチャガイドページ（`NavBar.tsx` 付き）
+- `app/istqb-ctal-tae-chapter4-implementing-test-automation/ctal-tae-ch4.css` — CTAL-TAE 第4章ガイド固有スタイル
+- `app/istqb-ctal-tae-chapter4-implementing-test-automation/page.tsx` — CTAL-TAE 第4章ガイドページ（`NavBar.tsx` 付き）
+- `app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.tsx` — CTAL-TAE 第5章 実装・デプロイ戦略、本文・全7セクション
+- `app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/ctal-tae-ch5.css` — CTAL-TAE 第5章 実装・デプロイ戦略、元HTML全89 CSSルールと共通CSS干渉補正
+- `app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/NavBar.tsx` — CTAL-TAE 第5章 実装・デプロイ戦略、IntersectionObserverによる目次追従
+- `app/istqb-ctal-tae-chapter5-implementation-deployment-strategies/diagrams.ts` — CTAL-TAE 第5章 実装・デプロイ戦略、原本に対応する全5図とライトテーマ
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/page.tsx` — CTAL-TAE 第6章 レポートとメトリクス、本文カテゴリーの組み立てとメタデータ
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/ctal-tae-ch6.css` — CTAL-TAE 第6章 レポートとメトリクス、元HTML全160 CSSルール・900pxレスポンシブ表示・共通CSS干渉補正
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/NavBar.tsx` — CTAL-TAE 第6章 レポートとメトリクス、階層目次43リンク・開閉・スクロール追従
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/ChecklistCard.tsx` — CTAL-TAE 第6章 レポートとメトリクス、全13項目のチェック状態・進捗バーと完了数
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/diagrams.ts` — CTAL-TAE 第6章 レポートとメトリクス、フローチャート9図・状態図1図・シーケンス図1図の原本定義
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/ChapterDiagram.tsx` — CTAL-TAE 第6章 レポートとメトリクス、共通Mermaidへの配線と図ID保持
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/IntroTerms.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/DataCollection.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/DataAnalysis.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/Reporting.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/SummaryQuestions.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/LearningReferences.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、本文カテゴリーの組み立てとメタデータ
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ctal-tae-ch7.css` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、原本全99 CSSルール・900px/640px表示条件と共通CSS干渉補正
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、階層目次40リンク・開閉・スクリム・追従
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChecklistCard.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、全6項目のチェック状態・進捗と完了数
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/diagrams.ts` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、フローチャート10図・シーケンス図1図の原本定義とライトテーマ
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChapterDiagram.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、共通Mermaidへの配線と図ID保持
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/CodeExample.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、原本と同じhighlight.js 11.10.0で事前生成した全7コード例
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/highlight.css` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、スコープしたAtom One Lightの全14ルール
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/highlight-LICENSE.txt` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、ハイライト配色のライセンス
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/OverviewTerminology.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/EnvironmentVerification.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ScriptSuiteBehavior.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/UnexpectedResults.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/StaticAnalysis.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ReviewQuestions.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/GlossaryReferences.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、カテゴリー別の原本本文
 - `app/istqb-ctal-ta-complete-guide/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
 - `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
 - `app/istqb-ctal-ta-complete-guide/NavBar.tsx` — CTAL-TA ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -404,7 +438,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 96 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 100 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -750,6 +784,10 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -774,10 +812,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 100 ルート（ガイドライブラリ index + 99 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2799件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
+- 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第7章 テスト自動化ソリューションの検証」（`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`）を登録済み。目視確認はユーザーが担当。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -793,3 +831,22 @@ bun test        # ユニットテスト成功
 ## 完了: ハンバーガーメニュー化（TDD）
 
 ...
+
+## 2026-10-17: CTAL-TAE第7章 Mermaid黒塗りの修正
+
+- 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
+- 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+
+## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
+
+- 原因: 他ルートの未スコープ`.code-block code`が残ると、コードに`white-space: pre-wrap`と異なる文字サイズ・行高が適用される。第7章内で明示的に上書きし、字下げ・改行を保持して外側の`pre`で横スクロールする。
+- チェックリスト: 全6項目の文章・状態管理を保持し、行全体を押せるカード、2段の進捗表示、完了時の読みやすい緑色、キーボードフォーカスを追加。
+- 検証: `e2e/ctal-tae-ch7-learning-ui.e2e.ts`で390px／1440px、他ルートCSSの前後両順序、全7コード、チェックリストの操作領域・完了色・フォーカスを検査。Playwrightテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証、全体ユニット3894件（123ファイル）、lint成功。ビルド・サーバー起動・ページ全体の目視確認は未実施。
+
+## 2026-10-18: CTAL-TAE第6章 Mermaid色検証の追加
+
+- 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。

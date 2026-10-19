@@ -40,21 +40,31 @@ interface MermaidPage {
 function mermaidPages(): MermaidPage[] {
     const pages: MermaidPage[] = [];
     for (const dir of pageDirs()) {
-        const pagePath = join(APP_DIR, dir, 'page.tsx');
+        const dirPath = join(APP_DIR, dir);
+        const pagePath = join(dirPath, 'page.tsx');
         if (!existsSync(pagePath)) continue;
-        let source = readFileSync(pagePath, 'utf8');
-        if (!source.includes('components/Mermaid')) continue;
 
-        const diagramsPath = join(APP_DIR, dir, 'diagrams.ts');
+        const tsxFiles = readdirSync(dirPath).filter((name) => name.endsWith('.tsx'));
+        const usesMermaid = tsxFiles.some((name) =>
+            readFileSync(join(dirPath, name), 'utf8').includes('components/Mermaid')
+        );
+        if (!usesMermaid) continue;
+
+        let source = '';
+        for (const name of tsxFiles) {
+            source += '\n' + readFileSync(join(dirPath, name), 'utf8');
+        }
+
+        const diagramsPath = join(dirPath, 'diagrams.ts');
         if (existsSync(diagramsPath)) {
             source += '\n' + readFileSync(diagramsPath, 'utf8');
         }
 
-        const cssFiles = readdirSync(join(APP_DIR, dir))
+        const cssFiles = readdirSync(dirPath)
             .filter((name) => name.endsWith('.css'))
             .map((name) => ({
                 path: `app/${dir}/${name}`,
-                content: stripCssComments(readFileSync(join(APP_DIR, dir, name), 'utf8')),
+                content: stripCssComments(readFileSync(join(dirPath, name), 'utf8')),
             }));
         pages.push({ dir, source, cssFiles });
     }

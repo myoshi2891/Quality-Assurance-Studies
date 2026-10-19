@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-10-12
+Updated 2026-10-19
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 96 ルート = ガイドライブラリ index + 95 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 100 ルート = ガイドライブラリ index + 99 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,73 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f68b0cd`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `chore(archive): move ctal-tae-ch2 source files to archive and update docs` |
-| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter2-preparing-for-test-automation`の目視確認。 |
-| ビルド状態 | 全体テスト`bun test`: 2799 pass / 0 fail、116 files（2026-10-12）。※`docs/coverage-dashboard.html` の「120 files」は `bun test` 対象 116 files に Playwright の `.e2e.ts` 4 files を加えた集計であり、差分 4 はこの集計基準の違いによる。ページ26テスト（`tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx`、383 expect() calls、全6Mermaid図・全7表・LO&キーワード・スティッキーNavBar・インタラクティブチェックリスト・セキュア外部リンク含む）、Mermaid契約107テスト、ナビゲーション181テスト全て成功。今回のビルド・目視確認・本番ビルドを起動するE2Eはユーザー指示により未実施。 |
+| 最新 HEAD | `4f4b05d`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `fix(ctal-tae): CTAL-TAE 第4章の s-42-packaging アンカーIDを h4 見出しへ移動しインベントリとテストを同期` |
+| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`の目視確認。 |
+| ビルド状態 | 第6章Mermaid色検証を追加。ビルド・サーバー不要のブラウザ検証でPlaywrightテストケース84件、全体ユニット3902件（123ファイル）、lintが成功。本番ビルド・ページ全体の目視確認は未実施。 |
+
+## 2026-10-18: CTAL-TAE第6章 Mermaid色検証の追加
+
+- 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+
+## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
+
+- 原因: 他ルートの未スコープ`.code-block code`が残ると、コードに`white-space: pre-wrap`と異なる文字サイズ・行高が適用される。第7章内で明示的に上書きし、字下げ・改行を保持して外側の`pre`で横スクロールする。
+- チェックリスト: 全6項目の文章・状態管理を保持し、行全体を押せるカード、2段の進捗表示、完了時の読みやすい緑色、キーボードフォーカスを追加。
+- 検証: `e2e/ctal-tae-ch7-learning-ui.e2e.ts`で390px／1440px、他ルートCSSの前後両順序、全7コード、チェックリストの操作領域・完了色・フォーカスを検査。Playwrightテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証、全体ユニット3894件（123ファイル）、lint成功。ビルド・サーバー起動・ページ全体の目視確認は未実施。
+
+## 2026-10-17: CTAL-TAE第7章 Mermaid黒塗りの修正
+
+- 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
+- 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
+- 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
+- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+
+## 2026/10/17: CTAL-TAE 第7章 テスト自動化ソリューションの検証の移行
+
+- 移行先: `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`。Advancedカテゴリーの第6章の次へ追加し、ナビ・E2E一覧と固定順序・総数テストを100ルートへ同期。
+- 58見出し、40目次リンク、全30表の全セル、11図、コード例7件（Python・YAML・INI・Bash）、コールアウト18件、解答6件、学習チェック6項目、参考URL13件とフッターを原本と照合。参考外部リンクには`target="_blank" rel="noopener noreferrer"`を付与。
+- 原本全99 CSSルールをページ内へスコープし、900px・640px条件、ヒーローの背景と疑似要素、余白、表、セーフエリア対応を保持。共通CSSの干渉と共通ヘッダー分の固定要素位置・重なり順を補正。
+- 原本と同じhighlight.js 11.10.0を一時取得し、全7コードを静的TSXへ事前変換。コード全文・空白・改行・インデント・言語・構文トークンとAtom One Lightの全14 CSSルールを検証。配色のライセンスを保存し、プロジェクトの依存関係は変更なし。
+- 全11図の原本定義・実Mermaidパーサー・描画配線を検証。ライト設定、エッジラベル・シーケンス注釈、見切れと横スクロールの保護CSSを適用。
+- 目次40アンカーの追従と解放、モバイル開閉・スクリム・リンク選択・Escape、6項目の全チェック・全解除と進捗表示を検証。確認問題はネイティブの`details`を維持。
+- Redテスト先行後、骨格とCSS、構文色、本文7カテゴリー、図、目次、進捗操作、ナビ、アーカイブ、仕様書を分割コミット。
+- 原本HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html`、MDは `archive/md-archive/ctal/Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.md` へ移動。双方のSHA-256一致を検証。
+- 検証: `bun test` 全3894件成功（123ファイル）、ページ406件・原本保持と登録4件・ナビと描画契約219件成功。`bun run lint`成功（当時は `npm exec -- bun test` / `npm run lint` 経由で実行。Bun-only 規約の例外として記録）。ビルド・ブラウザE2E・目視確認は未実施。型検査のエラー位置・メッセージは移行対象を除外した既存基準と一致し、新規ファイルの診断なし。
+
+## 2026/10/17: CTAL-TAE 第6章 レポートとメトリクスの移行
+
+- 移行先: `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics`。Advancedカテゴリーの第5章の次へ追加し、ナビ・E2E一覧と固定順序テストを99ルートへ同期。
+- 49見出し、43目次リンク、全31表の全セル、11図、TypeScript・Pythonコード例2件、コールアウト13件、解答5件、学習チェック13項目、参考文献12リンクとフッターを原本と照合。コードの空白・インデント・改行・構文色クラスも保持。
+- 原本全160 CSSルールをページ内へスコープして移植。ヒーローのグラデーション・疑似要素・900px条件を維持し、共通CSSの干渉、固定目次とモバイルボタンの共通ヘッダー位置を補正。
+- 全11図を実Mermaidパーサーで検証し、原本のラベル・接続・図種別・配色を保持。ページ専用ライト設定、エッジラベル・状態ノード・注釈、文字の見切れと横スクロールの保護CSSを適用。
+- 目次43アンカーのObserver追従と解放、モバイル開閉・リンク選択・Escape、13項目のチェックと解除・完了数・進捗を検証。解答はネイティブの`details`を維持。
+- Redテスト先行後、骨格とCSS、本文6カテゴリー、図、目次、進捗操作、ナビ、アーカイブ、仕様書を分割コミット。
+- 原本HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html`、MDは `archive/md-archive/ctal/Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.md` へ移動。双方のSHA-256一致を検証。
+- 検証: `bun test` 全3480件成功（121ファイル）、ページ409件・原本保持と登録4件・ナビと描画契約215件成功。`bun run lint`成功（当時は `npm exec -- bun test` / `npm run lint` 経由で実行。Bun-only 規約の例外として記録）。型検査のエラー位置・メッセージは移行対象を除外した基準と一致。ビルド・ブラウザE2E・目視確認は未実施。
+
+## 2026/10/17: CTAL-TAE 第5章 実装・デプロイ戦略の移行
+
+- 移行先: `/istqb-ctal-tae-chapter5-implementation-deployment-strategies`。Advancedカテゴリーに第4章の次として登録し、ナビ・E2E対象を98ルートへ同期。
+- 全22見出し、7セクション・目次7リンク、6表の全セル、Mermaid図5件、コールアウト5件、チェック項目6件、参考文献3件、ブランドSVG・全本文・装飾を固定インベントリと照合。
+- 元HTML全89 CSSルールをページ内へスコープし、全宣言・疑似要素・860pxブレークポイントを検証。共通CSSの干渉と共通ヘッダー分の位置を補正。アイコンは共有レイアウトから読み込む。
+- ページ196件・登録と原本保持4件のテストを追加。Mermaid全図を実パーサーで検証し、目次のObserver解放・チェック操作も検証。
+- Redテストを先行コミットし、図と目次、本文とデザイン、ナビ登録、アーカイブ、修正、仕様書をカテゴリー別にコミット。
+- 原本HTMLは `archive/html-archive/ctal/`、MDは `archive/md-archive/ctal/` へ移動。双方のSHA-256が移行前と一致。
+- 検証: `bun test` 全3063件成功（119ファイル）、ページ・登録・ナビ・Mermaid・アイコン関連411件成功、`bun run lint` 成功（当時は `npm exec -- bun test` / `npm run lint` 経由で実行。Bun-only 規約の例外として記録）。型検査には既存テストのエラーが残存。ビルド・ブラウザE2E・目視確認は未実施。
+
+## 2026/10/16: ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」初学者向け解説ガイドの移行
+
+- 移行先: `/istqb-ctal-tae-chapter4-implementing-test-automation`。カテゴリ「ISTQB 高度レベル (CTAL)」（`istqb-advanced`）に登録。
+- 元HTMLの見出し、目次26リンク、全5表（キーワード、LO、パイロット5項目評価、ログレベル6段階、クリーンコード8原則）、Mermaid図6件（第4章の構成フロー、パイロット実行フロー、デプロイリスクの分類、リスク対応フロー、ハードコーディング回避の効果、第4章の学習フロー全体図）、インタラクティブチェックリスト（進捗バー・動的カウンター）、参考文献3件、ベストプラクティスカード3件を完全移行。
+- `docs/migration-inventory/istqb-ctal-tae-chapter4-implementing-test-automation.json`に原本HTML/MDのSHA-256、ヒーロー、目次26リンク、セクションID・見出し、図ソース6件、表5件の見出し列と行数（セル本文は保持しない）、コールアウト・ベストプラクティス・チェックリスト・参考文献の本文を固定保存。本文全文・DOM構造・CSSルールは保存対象外で、表テストも見出し列と行数のみを照合しセル本文は比較しない。
+- TDD 必須サイクル（Red → Green）を遵守し、インベントリ作成・Redテスト（`4f03fc2`）、CSS・ダイアグラム定義・Hero・Footer・ページ骨格（`a8fbce9`）、NavBar・目次（`69564ec`）、Section 0 & 1（`a6983f6`）、Section 2（`7c12236`）、Section 3（`d143350`）、Section 4（`6c6079e`）、Section 5, 6, 7（`3e6b7ed`）をそれぞれ独立コミット。
+- ページ単体テスト（`tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx`）で、ヒーロー・目次・セクション見出しのインベントリ、表の見出し列と行数、全6図のMermaid配線・実パーサー検証、モバイル目次の開閉とEscape、ベストプラクティスカード・チェックリスト項目・参考文献名の件数と本文、ヒーローのシラバスリンクのセキュア属性（`target="_blank"`・`rel`に`noopener`）を検証（16 pass / 197 expect() calls）。
+- Mermaid図6件は `diagrams.ts` に集約し、実Mermaidパーサによる構文検証と契約テストを全件パス。
+- 元HTMLは `archive/html-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.html`、Markdownは `archive/md-archive/ctal/Ctal-tae-v2.0-ch4-implementing-test-automation.md` へ移動。
+- ナビ・E2E対象は97ルート。
 
 ## 2026/10/12: ISTQB CTAL-TAE 第2章「テスト自動化の準備」初学者向け解説ガイドの移行
 
@@ -1419,6 +1482,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch4-implementing-test-automation.html` | `/istqb-ctal-tae-chapter4-implementing-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全5表 + 目次26リンク + インタラクティブチェックリスト (archive/html-archive/ctal/) |
+| `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
+| `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1445,10 +1512,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 96 ルート（ガイドライブラリ index + 95 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 100 ルート（ガイドライブラリ index + 99 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト2799件すべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第2章 テスト自動化の準備」（`/istqb-ctal-tae-chapter2-preparing-for-test-automation`）が正常に登録・稼働しています。
+- 全体テスト3902件すべて成功（123ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「CTAL-TAE 第7章 テスト自動化ソリューションの検証」（`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`）を登録済み。目視確認はユーザーが担当。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
