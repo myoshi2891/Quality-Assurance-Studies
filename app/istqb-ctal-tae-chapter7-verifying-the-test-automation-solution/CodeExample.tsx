@@ -18,20 +18,27 @@ export default function CodeExample({ index }: { index: number }) {
                 <div className="code-line"><span className="hljs-meta">{"@pytest.fixture("}</span><span className="hljs-meta"><span className="hljs-params">{"scope="}</span></span><span className="hljs-meta"><span className="hljs-params"><span className="hljs-string">{"\"session\""}</span></span></span><span className="hljs-meta"><span className="hljs-params">{", autouse="}</span></span><span className="hljs-meta"><span className="hljs-params"><span className="hljs-literal">{"True"}</span></span></span><span className="hljs-meta">{")"}</span>&#10;</div>
                 <div className="code-line"><span className="hljs-keyword">{"def"}</span>{" "}<span className="hljs-title function_">{"preflight_check"}</span>{"():"}&#10;</div>
                 <div className="code-line">{"    "}<span className="hljs-string">{"\"\"\"接続性と権限を確認し、失敗したら本実行を中止する。\"\"\""}</span>&#10;</div>
-                <div className="code-line">{"    "}<span className="hljs-comment">{"# 1. 必須の環境変数（接続を試みる前に確認する）"}</span>&#10;</div>
-                <div className="code-line">{"    "}<span className="hljs-keyword">{"for"}</span>{" name "}<span className="hljs-keyword">{"in"}</span>{" ("}<span className="hljs-string">{"\"SUT_BASE_URL\""}</span>{", "}<span className="hljs-string">{"\"TEST_USER\""}</span>{"):"}&#10;</div>
-                <div className="code-line">{"        "}<span className="hljs-keyword">{"assert"}</span>{" os.environ.get(name), "}<span className="hljs-string">{"f\"環境変数 "}</span><span className="hljs-string"><span className="hljs-subst">{"{name}"}</span></span><span className="hljs-string">{" が未設定です\""}</span>&#10;</div>
-                <div className="code-line">{"    base_url = os.environ["}<span className="hljs-string">{"\"SUT_BASE_URL\""}</span>{"]   "}<span className="hljs-comment">{"# 環境ごとに切り替える"}</span>&#10;</div>
+                <div className="code-line">{"    "}<span className="hljs-keyword">{"try"}</span>{":"}&#10;</div>
+                <div className="code-line">{"        "}<span className="hljs-comment">{"# 1. 必須の環境変数（接続を試みる前に確認する）"}</span>&#10;</div>
+                <div className="code-line">{"        "}<span className="hljs-keyword">{"for"}</span>{" name "}<span className="hljs-keyword">{"in"}</span>{" ("}<span className="hljs-string">{"\"SUT_BASE_URL\""}</span>{", "}<span className="hljs-string">{"\"TEST_USER\""}</span>{"):"}&#10;</div>
+                <div className="code-line">{"            "}<span className="hljs-keyword">{"if"}</span>{" "}<span className="hljs-keyword">{"not"}</span>{" os.environ.get(name):"}&#10;</div>
+                <div className="code-line">{"                "}<span className="hljs-keyword">{"raise"}</span>{" RuntimeError("}<span className="hljs-string">{"f\"環境変数 "}</span><span className="hljs-string"><span className="hljs-subst">{"{name}"}</span></span><span className="hljs-string">{" が未設定です\""}</span>{")"}&#10;</div>
+                <div className="code-line">{"        base_url = os.environ["}<span className="hljs-string">{"\"SUT_BASE_URL\""}</span>{"]   "}<span className="hljs-comment">{"# 環境ごとに切り替える"}</span>&#10;</div>
                 <div className="code-line">&#10;</div>
-                <div className="code-line">{"    "}<span className="hljs-comment">{"# 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）"}</span>&#10;</div>
-                <div className="code-line">{"    res = requests.get("}<span className="hljs-string">{"f\""}</span><span className="hljs-string"><span className="hljs-subst">{"{base_url}"}</span></span><span className="hljs-string">{"/health\""}</span>{", timeout="}<span className="hljs-number">{"10"}</span>{")"}&#10;</div>
-                <div className="code-line">{"    "}<span className="hljs-keyword">{"assert"}</span>{" res.status_code == "}<span className="hljs-number">{"200"}</span>{", "}<span className="hljs-string">{"\"SUT に到達できません\""}</span>&#10;</div>
+                <div className="code-line">{"        "}<span className="hljs-comment">{"# 2. SUT への到達性（ヘルスチェック用エンドポイントを想定）"}</span>&#10;</div>
+                <div className="code-line">{"        res = requests.get("}<span className="hljs-string">{"f\""}</span><span className="hljs-string"><span className="hljs-subst">{"{base_url}"}</span></span><span className="hljs-string">{"/health\""}</span>{", timeout="}<span className="hljs-number">{"10"}</span>{")"}&#10;</div>
+                <div className="code-line">{"        "}<span className="hljs-keyword">{"if"}</span>{" res.status_code != "}<span className="hljs-number">{"200"}</span>{":"}&#10;</div>
+                <div className="code-line">{"            "}<span className="hljs-keyword">{"raise"}</span>{" RuntimeError("}<span className="hljs-string">{"f\"SUT に到達できません（HTTP "}</span><span className="hljs-string"><span className="hljs-subst">{"{res.status_code}"}</span></span><span className="hljs-string">{"）\""}</span>{")"}&#10;</div>
                 <div className="code-line">&#10;</div>
-                <div className="code-line">{"    "}<span className="hljs-comment">{"# 3. ログ・レポートの書き込み権限"}</span>&#10;</div>
-                <div className="code-line">{"    REPORT_DIR.mkdir(parents="}<span className="hljs-literal">{"True"}</span>{", exist_ok="}<span className="hljs-literal">{"True"}</span>{")"}&#10;</div>
-                <div className="code-line">{"    probe = REPORT_DIR / "}<span className="hljs-string">{"\".write_probe\""}</span>&#10;</div>
-                <div className="code-line">{"    probe.write_text("}<span className="hljs-string">{"\"ok\""}</span>{")"}&#10;</div>
-                <div className="code-line">{"    probe.unlink()"}</div>
+                <div className="code-line">{"        "}<span className="hljs-comment">{"# 3. ログ・レポートの書き込み権限"}</span>&#10;</div>
+                <div className="code-line">{"        REPORT_DIR.mkdir(parents="}<span className="hljs-literal">{"True"}</span>{", exist_ok="}<span className="hljs-literal">{"True"}</span>{")"}&#10;</div>
+                <div className="code-line">{"        probe = REPORT_DIR / "}<span className="hljs-string">{"\".write_probe\""}</span>&#10;</div>
+                <div className="code-line">{"        probe.write_text("}<span className="hljs-string">{"\"ok\""}</span>{")"}&#10;</div>
+                <div className="code-line">{"        probe.unlink()"}&#10;</div>
+                <div className="code-line">{"    "}<span className="hljs-keyword">{"except"}</span>{" (RuntimeError, requests.RequestException, OSError) "}<span className="hljs-keyword">{"as"}</span>{" exc:"}&#10;</div>
+                <div className="code-line">{"        "}<span className="hljs-comment">{"# assert で失敗させると各テストの setup error として繰り返し報告されるため、"}</span>&#10;</div>
+                <div className="code-line">{"        "}<span className="hljs-comment">{"# 理由を添えて実行全体を一度だけ終了する"}</span>&#10;</div>
+                <div className="code-line">{"        pytest.exit("}<span className="hljs-string">{"f\"事前チェックに失敗したため実行を中止します: "}</span><span className="hljs-string"><span className="hljs-subst">{"{exc}"}</span></span><span className="hljs-string">{"\""}</span>{")"}</div>
             </code></pre>;
         case 1:
             return <pre className="code-block"><code className="language-yaml hljs">
