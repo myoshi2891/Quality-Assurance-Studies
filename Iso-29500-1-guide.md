@@ -702,7 +702,7 @@ if __name__ == "__main__":
 | `s.docx` / `s.xlsx`（上記の名前空間と `officeDocument` 関係の `Type` を purl に書き換えた**デモ用**ファイル） | 17 / 9 | 同上 | `purl.oclc.org/ooxml/…` | **Strict** と判定 |
 | 名前空間だけを purl に書き換え、関係の `Type` は Transitional のままのファイル | — | 同上 | `purl.oclc.org/ooxml/…` | **unknown**（適合クラスの不一致） |
 
-> ⚠️ `s.docx` は判定ロジックを確かめるために名前空間だけを書き換えた疑似ファイルで、**規格に適合した本物の Strict 文書ではありません**。本物の Strict 文書は、Excel の「Strict Open XML スプレッドシート」として保存したファイルなどで試してください \[S4\]。
+> ⚠️ `s.docx` は判定ロジックを確かめるために名前空間と `officeDocument` 関係の `Type` を書き換えた疑似ファイルで、**規格に適合した本物の Strict 文書ではありません**。本物の Strict 文書は、Excel の「Strict Open XML スプレッドシート」として保存したファイルなどで試してください \[S4\]。
 
 ### 9-3. 実験C：Strict を「名乗るだけ」のツールに注意
 
