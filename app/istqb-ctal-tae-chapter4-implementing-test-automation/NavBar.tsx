@@ -110,6 +110,7 @@ export default function NavBar() {
               <a
                 href={item.href}
                 className={`${item.sub ? 'toc-sub' : ''} ${activeHref === item.href ? 'active' : ''}`.trim()}
+                aria-current={activeHref === item.href ? 'location' : undefined}
                 onClick={() => handleLinkClick(item.href)}
               >
                 {item.text}

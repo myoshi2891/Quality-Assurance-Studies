@@ -121,7 +121,7 @@ export default function Section4() {
         <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_HARDCODING_AVOIDANCE} />
         </div>
-        <div className="diagram-fallback" style={{ display: 'none' }}>
+        <div className="diagram-fallback">
           図：ハードコーディングは修正箇所の増加につながる一方、データ駆動テストは1箇所の変更で全テストに反映でき、変化しない値は定数化することで保守対象を減らせる。
         </div>
       </div>

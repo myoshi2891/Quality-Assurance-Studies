@@ -25,7 +25,7 @@ export default function Section3() {
         <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_DEPLOYMENT_RISKS} />
         </div>
-        <div className="diagram-fallback" style={{ display: 'none' }}>
+        <div className="diagram-fallback">
           図：デプロイリスクは「一般的リスク（FW・リソース・ネットワーク・モバイル実機）」と「技術的リスク（パッケージング・ロギング・テスト構造化・更新）」に大別される。
         </div>
       </div>
@@ -201,7 +201,7 @@ export default function Section3() {
         <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_RISK_FLOW} />
         </div>
-        <div className="diagram-fallback" style={{ display: 'none' }}>
+        <div className="diagram-fallback">
           図：アーキテクチャ設計からツール選定、リスク識別、緩和策の実施を経て、継続運用可能な品質ゲートに至る一連の流れ。
         </div>
       </div>

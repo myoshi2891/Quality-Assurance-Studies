@@ -513,6 +513,19 @@ main.ctal-tae-ch4-page {
     padding: 0.5rem 0 !important;
 }
 
+/* 図の代替説明。原本と同じく描画失敗時だけ表示する。
+   共通 Mermaid は成功時に svg、失敗時に p を出力するため、p の有無で切り替える */
+.ctal-tae-ch4-page .diagram-fallback {
+    display: none;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    padding: 0.6rem;
+}
+
+.ctal-tae-ch4-page .diagram-card:has(.mermaid-wrapper > p) .diagram-fallback {
+    display: block;
+}
+
 .ctal-tae-ch4-page .mermaid-wrapper {
     background: transparent !important;
     border: none !important;

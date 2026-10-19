@@ -1,4 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import React from 'react';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
@@ -152,8 +154,12 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
         const entry = { isIntersecting: true, target } as unknown as IntersectionObserverEntry;
         act(() => callback?.([entry], {} as IntersectionObserver));
 
-        // Assert
+        // Assert: 現在の節だけが aria-current="location" を持つ
         expect(container.querySelector('a.active')?.getAttribute('href')).toBe('#s-42');
+        const current = Array.from(container.querySelectorAll('.toc a[aria-current]'));
+        expect(current.map((a) => [a.getAttribute('href'), a.getAttribute('aria-current')])).toEqual([
+          ['#s-42', 'location'],
+        ]);
         unmount();
         expect(disconnect).toHaveBeenCalledTimes(1);
       } finally {
@@ -263,6 +269,36 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
       ]);
     });
 
+    it('passes the inventory diagram code (after the config prefix) to Mermaid in order', async () => {
+      render(<Page />);
+      await waitFor(() => expect(renderedDiagrams.length).toBe(inventory.diagrams.length));
+      // 設定用プレフィックス（%%{init}%%）を除いた本体を、インベントリの図コードと照合する
+      const bodies = renderedDiagrams.map((text) => {
+        expect(text.startsWith(MERMAID_CONFIG)).toBe(true);
+        return text.slice(MERMAID_CONFIG.length).trim();
+      });
+      expect(bodies).toEqual(inventory.diagrams.map((d) => d.code.trim()));
+    });
+
+    it('keeps every diagram fallback out of inline display:none and reveals it via CSS on render failure', () => {
+      // Arrange
+      const css = readFileSync(
+        join(import.meta.dir, '../../app/istqb-ctal-tae-chapter4-implementing-test-automation/ctal-tae-ch4.css'),
+        'utf8'
+      );
+      // Act
+      const { container } = render(<Page />);
+      const fallbacks = Array.from(container.querySelectorAll('.diagram-card .diagram-fallback'));
+      // Assert: 全図に代替説明があり、インライン指定で恒久的に隠されていない
+      expect(fallbacks.length).toBe(inventory.diagrams.length);
+      fallbacks.forEach((el) => expect(el.getAttribute('style')).toBeNull());
+      // 共通 Mermaid は失敗時に svg ではなく p を出力するため、その場合だけ代替説明を表示する
+      expect(css).toMatch(/\.ctal-tae-ch4-page \.diagram-fallback\s*\{[^}]*display:\s*none/);
+      expect(css).toMatch(
+        /\.ctal-tae-ch4-page \.diagram-card:has\(\.mermaid-wrapper > p\) \.diagram-fallback\s*\{[^}]*display:\s*block/
+      );
+    });
+
     it('parses every diagram with the real Mermaid parser', async () => {
       // テスト環境の 'mermaid' は差し替えられているため、実パーサーを ESM ビルドから直接読み込む
       const parserPath = 'mermaid/dist/mermaid.esm.mjs';
@@ -314,9 +350,27 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
         const title = card.querySelector('.practice-title')?.textContent?.trim();
         expect(title).toBe(expected.title);
 
-        const items = card.querySelectorAll('li');
-        expect(items.length).toBe(expected.items.length);
+        const items = Array.from(card.querySelectorAll('li')).map((li) =>
+          li.textContent?.replace(/\s+/g, ' ').trim()
+        );
+        expect(items).toEqual(expected.items.map((t) => t.replace(/\s+/g, ' ').trim()));
       });
+    });
+  });
+  // JSX は要素境界（<br />・ブロック要素）の空白を保持しないため、テキスト照合では空白を除去する
+  const squash = (s: string | null | undefined) => (s ?? '').replace(/\s+/g, '');
+
+
+  describe('Callouts Inventory', () => {
+    it('renders every callout with the inventory type and text in order', () => {
+      const { container } = render(<Page />);
+      const callouts = Array.from(container.querySelectorAll('.callout')).map((el) => ({
+        type: Array.from(el.classList).find((c) => c !== 'callout'),
+        text: squash(el.textContent),
+      }));
+      expect(callouts).toEqual(
+        inventory.callouts.map((c) => ({ type: c.type, text: squash(c.text) }))
+      );
     });
   });
 
@@ -344,6 +398,20 @@ describe('CTAL-TAE Chapter 4 Page Migration Spec', () => {
         const li = at(refItems, i, 'refItems');
         const name = li.querySelector('.ref-name')?.textContent?.replace(/\s+/g, ' ').trim();
         expect(name).toBe(expected.name.replace(/\s+/g, ' '));
+        expect(squash(li.textContent)).toBe(squash(expected.text));
+      });
+    });
+
+    it('links each reference URL shown in the inventory text, in order, with secure attributes', () => {
+      const { container } = render(<Page />);
+      const links = Array.from(container.querySelectorAll('.ref-list li a'));
+      // インベントリ本文中の URL が、そのままリンク先かつ表示テキストになる
+      const expectedUrls = inventory.references.flatMap((r) => r.text.match(/https?:\/\/\S+/g) ?? []);
+      expect(links.map((a) => a.getAttribute('href'))).toEqual(expectedUrls);
+      expect(links.map((a) => a.textContent?.trim())).toEqual(expectedUrls);
+      links.forEach((a) => {
+        expect(a.getAttribute('target')).toBe('_blank');
+        expect(a.getAttribute('rel')).toBe('noopener noreferrer');
       });
     });
   });

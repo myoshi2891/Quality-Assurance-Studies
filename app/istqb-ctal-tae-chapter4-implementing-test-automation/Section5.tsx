@@ -50,7 +50,7 @@ export default function Section5() {
         <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_CH4_SUMMARY} />
         </div>
-        <div className="diagram-fallback" style={{ display: 'none' }}>
+        <div className="diagram-fallback">
           図：4.1開発→4.2リスク→4.3保守性の順に学習が進み、継続的な改善は第8章に接続する。
         </div>
       </div>

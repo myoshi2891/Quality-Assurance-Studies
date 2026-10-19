@@ -21,7 +21,7 @@ export default function Section0() {
         <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_CH4_OVERVIEW} />
         </div>
-        <div className="diagram-fallback" style={{ display: 'none' }}>
+        <div className="diagram-fallback">
           図：第4章は「4.1 開発（パイロット・デプロイ）」→「4.2 リスク」→「4.3 保守性」の順に構成される。
         </div>
       </div>

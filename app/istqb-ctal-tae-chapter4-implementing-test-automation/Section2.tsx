@@ -90,7 +90,7 @@ export default function Section2() {
         <div className="diagram-wrap">
           <Mermaid chart={DIAGRAM_PILOT_FLOW} />
         </div>
-        <div className="diagram-fallback" style={{ display: 'none' }}>
+        <div className="diagram-fallback">
           図：パイロットは「評価→プロトタイプ作成→CI・CD統合→リスク緩和→非技術面評価→展開判断」の順に進み、リスクが残る限りタイムラインへ戻って調整する。
         </div>
       </div>
