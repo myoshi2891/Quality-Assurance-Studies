@@ -340,7 +340,7 @@ describe('review fixes', () => {
         const $ = await html();
         const code = $('pre.code-block code').eq(0).text();
         const fixture = code.indexOf('def preflight_check():');
-        const check = code.indexOf('assert os.environ.get(name)');
+        const check = code.indexOf('if not os.environ.get(name):');
         const read = code.indexOf('os.environ["SUT_BASE_URL"]');
         const request = code.indexOf('requests.get(');
         expect(fixture).toBeGreaterThan(-1);
@@ -348,6 +348,25 @@ describe('review fixes', () => {
         expect(fixture).toBeLessThan(check);
         expect(check).toBeLessThan(read);
         expect(read).toBeLessThan(request);
+    });
+    it('stops the whole session once via pytest.exit with the failure reason instead of per-test setup errors', async () => {
+        // Arrange
+        const $ = await html();
+        const code = $('pre.code-block code').eq(0).text();
+        const body = code.slice(code.indexOf('def preflight_check():'));
+        // Act: 3 種のチェックを囲む try と、捕捉後の終了処理の位置
+        const tryAt = body.indexOf('    try:\n');
+        const checks = ['os.environ.get(name)', 'requests.get(', 'probe.write_text('].map(s => body.indexOf(s));
+        const exceptAt = body.indexOf('    except (RuntimeError, requests.RequestException, OSError) as exc:\n');
+        const exitAt = body.indexOf('pytest.exit(f"事前チェックに失敗したため実行を中止します: {exc}")');
+        // Assert: assert による失敗（各テストで再送出される setup error）を使わない
+        expect(body).not.toMatch(/^\s+assert\s/m);
+        expect(tryAt).toBeGreaterThan(-1);
+        checks.forEach(at => expect(at).toBeGreaterThan(tryAt));
+        expect(exceptAt).toBeGreaterThan(Math.max(...checks));
+        expect(exitAt).toBeGreaterThan(exceptAt);
+        expect(body).toContain('raise RuntimeError(f"環境変数 {name} が未設定です")');
+        expect(body).toContain('raise RuntimeError(f"SUT に到達できません（HTTP {res.status_code}）")');
     });
     it('makes the effective --text-faint at least 4.5:1 on every light surface it is used on', () => {
         let value = '';
