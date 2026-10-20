@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 100 entries (home + 9 foundation + 11 fdn-ext + 21 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 22 books-practices + 1 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(100);
+  it('contains 101 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 22 books-practices + 1 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(101);
   });
 
   it('every item has a unique href', () => {
@@ -371,6 +371,7 @@ describe('groupByCategory', () => {
       '/istqb-ctal-tae-chapter5-implementation-deployment-strategies',
       '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics',
       '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution',
+      '/istqb-ctal-tae-chapter8-continuous-improvement',
       '/istqb-ctal-ta-complete-guide',
       '/istqb-ctal-ta-chapter1-test-process',
       '/istqb-ctal-ta-chapter2-risk-based-testing',
