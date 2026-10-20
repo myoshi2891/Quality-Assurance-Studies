@@ -1,6 +1,7 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAMS, type DiagramId } from './diagrams';
 
-// Preserve diagram slots while the content categories are assembled.
-export default function ChapterDiagram({ id }: { id: string }) {
-    return <div className="mermaid-wrapper" id={id} />;
+export default function ChapterDiagram({ id }: { id: DiagramId }) {
+    return <div className="mermaid-wrapper" id={id}><Mermaid chart={DIAGRAMS[id]} /></div>;
 }
