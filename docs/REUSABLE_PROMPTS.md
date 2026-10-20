@@ -142,7 +142,7 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
-現在の登録は100ルート（2026-10-17）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は102ルート（2026-10-20）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -284,7 +284,7 @@ Mermaidの左端切れの再発確認は`bunx playwright test --config playwrigh
 既存devサーバーに対する検証は、次のコマンドで実行する。サーバー起動と本番ビルドは行わない。
 
 ```sh
-CTAL_CODE_ORIGIN=http://127.0.0.1:3000 npm exec -- playwright test --config playwright.mermaid-css.config.ts e2e/ctal-tae-code-layout.e2e.ts
+CTAL_CODE_ORIGIN=http://127.0.0.1:3000 bunx playwright test --config playwright.mermaid-css.config.ts e2e/ctal-tae-code-layout.e2e.ts
 ```
 
 `CTAL_CODE_ORIGIN`を省略すると実ページ4ケースはスキップし、SWC経由のCSS・行配置78ケースを実行する。必要に応じて`PLAYWRIGHT_CHROMIUM_EXECUTABLE`で利用するブラウザーを指定する。
@@ -294,8 +294,8 @@ CTAL_CODE_ORIGIN=http://127.0.0.1:3000 npm exec -- playwright test --config play
 Quality Is Freeは、固定インベントリ・SWC出力に加え、原本と移行後の計算済みスタイル、寸法、表ホバーを390/960/961/1440pxで比較する。残留CSSを前後両順序で読み込み、全8図の実SVG配色とスクロール端も検証する。
 
 ```sh
-npm exec -- playwright test --config playwright.mermaid-css.config.ts e2e/quality-is-free-layout.e2e.ts
-QIF_ORIGIN=http://localhost:3000 npm exec -- playwright test --config playwright.mermaid-css.config.ts e2e/quality-is-free-layout.e2e.ts --grep 'live quality-is-free'
+bunx playwright test --config playwright.mermaid-css.config.ts e2e/quality-is-free-layout.e2e.ts
+QIF_ORIGIN=http://localhost:3000 bunx playwright test --config playwright.mermaid-css.config.ts e2e/quality-is-free-layout.e2e.ts --grep 'live quality-is-free'
 ```
 
 最初のコマンドは40ケースをサーバー・ビルドなしで実行する。実ページ2ケースは、既存devサーバーがある場合に`QIF_ORIGIN`を指定する。この環境では`localhost`を維持してHMRの初期化を確認し、テスト内でIPv4へ解決する。目視確認は別途実施する。
