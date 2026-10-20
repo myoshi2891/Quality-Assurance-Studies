@@ -7,6 +7,8 @@ import { load } from 'cheerio';
 import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import mermaid from 'mermaid';
+import { createRequire } from 'node:module';
+import { transformSync } from 'next/dist/build/swc';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter8-continuous-improvement.json';
 
 const base = 'app/istqb-ctal-tae-chapter8-continuous-improvement';
@@ -342,5 +344,35 @@ describe('code display cascade regression', () => {
             });
             expect(actual).toBe(value);
         });
+    }
+});
+
+// Next.js/SWC removes a numeric LF entity at the end of JSX text. Bun and
+// TypeScript's JSX transform retain it, so they alone cannot verify this output.
+describe('Next.js compiled code preserves line endings and indentation', () => {
+    const requireSource = createRequire(`${process.cwd()}/package.json`);
+    for (const [chapter, slug] of [
+        [7, 'istqb-ctal-tae-chapter7-verifying-the-test-automation-solution'],
+        [8, 'istqb-ctal-tae-chapter8-continuous-improvement'],
+    ] as const) {
+        const original = JSON.parse(readFileSync(`docs/migration-inventory/${slug}.json`, 'utf8')) as { code: { text: string }[] };
+        for (const development of [true, false]) {
+            original.code.forEach((code, index) => {
+                it(`chapter ${chapter} example ${index + 1}: exact text and every line (development=${development})`, () => {
+                    const filename = `app/${slug}/CodeExample.tsx`;
+                    const output = transformSync(readFileSync(filename, 'utf8'), {
+                        filename,
+                        jsc: { parser: { syntax: 'typescript', tsx: true }, transform: { react: { runtime: 'classic', development } } },
+                        module: { type: 'commonjs' },
+                    });
+                    const exported: { default?: React.ComponentType<{ index: number }> } = {};
+                    Function('exports', 'require', output.code)(exported, requireSource);
+                    const CodeExample = exported.default!;
+                    const $ = load(renderToStaticMarkup(<CodeExample index={index} />));
+                    expect($('pre code').text()).toBe(code.text);
+                    expect($('.code-line').map((_, line) => $(line).text()).get()).toEqual(code.text.match(/[^\n]*\n|[^\n]+$/g) ?? []);
+                });
+            });
+        }
     }
 });
