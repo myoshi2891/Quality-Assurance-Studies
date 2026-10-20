@@ -335,7 +335,7 @@ flowchart LR
 
 | 場面 | 24765の活かし方 |
 |---|---|
-| 用語集（Glossary）作成 | 自社用語を作る前に、24765に該当語があるか確認し、出典付きで流用する |
+| 用語集（Glossary）作成 | 自社用語を作る前に、該当語があるか確認する。SEVOCABの定義は、SEVOCABの利用条件に従い出典を明記して流用する（出典付きのコピーが認められるのはSEVOCABの範囲）。24765規格本文（PDF・冊子）からの転載には別の著作権条件が適用されるため、利用条件を確認する |
 | テスト計画書・報告書 | 「欠陥」「故障」など、報告書で使う語の意味をチーム内で揃える |
 | 要求仕様・契約書 | 重要語を24765の定義に紐づけ、解釈の揺れを防ぐ |
 | 国際規格の読み解き | 12207・15288・29119 など、他の規格を読むときの用語確認に使う |
@@ -349,7 +349,7 @@ flowchart TB
     B --> C{"24765に載っている？"}
     C -->|"はい"| D["文脈に合う定義と出典を選ぶ"]
     C -->|"いいえ"| E["自チームで定義を作る"]
-    D --> F["プロジェクト用語集に出典付きで登録"]
+    D --> F["プロジェクト用語集に登録<br/>SEVOCABは利用条件に従い出典付き<br/>規格本文の転載は別の著作権条件"]
     E --> F
     F --> G["全員でレビューして合意"]
     G --> H["文書・コード・テストで同じ語を使う"]
@@ -357,7 +357,7 @@ flowchart TB
 
 ### 9-3. よく使われる用語のイメージ（解説用の意訳）
 
-以下は**学習用の意訳**であり、規格本文の定義ではありません。実際には1つの用語に複数の定義が併記されます。
+以下は**学習用の意訳**であり、規格本文の定義ではありません。用語によっては複数の定義が併記されます。
 
 | 用語 | 学習用のイメージ | 注意点 |
 |---|---|---|
@@ -497,7 +497,7 @@ flowchart TB
 
 | No. | 内容 | URL |
 |---|---|---|
-| 9 | BSI：適用範囲（1 Scope）、除外基準、印刷版とWeb版の関係 | https://knowledge.bsigroup.com/products/systems-and-software-engineering-vocabulary-1 |
+| 9 | BSI：BS ISO/IEC/IEEE 24765:2017（適用範囲 1 Scope、除外基準） | https://knowledge.bsigroup.com/products/systems-and-software-engineering-vocabulary |
 | 10 | en-standard：BS ISO/IEC/IEEE 24765:2017（1.3 用語集の構造、出典、PMI用語集第5版、附属書A） | https://www.en-standard.eu/bs-iso-iec-ieee-24765-2017-systems-and-software-engineering-vocabulary/ |
 | 11 | Standards Australia：AS/NZS ISO/IEC/IEEE 24765:2024（2017版の同一採用、目次） | https://store.standards.org.au/product/as-nzs-iso-iec-ieee-24765-2024 |
 | 12 | NASA Software Engineering Handbook 掲載のサンプルPDF（エントリ形式：Note to entry、cf. 参照） | https://swehb.nasa.gov/download/attachments/16450104/c071952_ISO_IEC_IEEE_24765_2017.pdf?api=v2 |
