@@ -5,7 +5,7 @@ Updated 2026-10-20
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 101 ルート = ガイドライブラリ index + 100 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 102 ルート = ガイドライブラリ index + 101 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,10 +13,21 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `9b7e724`（ドキュメント同期コミットは除外） |
-| 最新コミット内容 | `fix(ctal-tae): preserve code newlines through Next.js compilation` |
-| 次の作業 | ユーザーによる`/istqb-ctal-tae-chapter8-continuous-improvement`の目視確認。 |
-| ビルド状態 | 第7・8章のコード改行を修正。全体4419件（125ファイル）、両章関連902件、実ページ4件を含むブラウザー88件、lint成功。npm経由で検証。本番ビルド未実施。 |
+| 最新 HEAD | `fbd655e6`（ドキュメント同期コミットは除外） |
+| 最新コミット内容 | `test(quality-is-free): preserve canonical localhost origin for live checks` |
+| 次の作業 | ユーザーによる`/quality-is-free-guide`の目視確認。 |
+| ビルド状態 | Quality Is Free移行完了。全体4718件（127ファイル）、対象295件、ブラウザー42件（実ページ2件含む）、対象型検査・lint・Markdown lint成功。npm経由。本番ビルド未実施。 |
+
+## 2026-10-20: Quality Is Free入門ガイドの移行
+
+- 移行先: `/quality-is-free-guide`。名著・実践ガイドの末尾へ登録し、ナビ・E2E一覧を102ルート、書籍カテゴリーを23件へ同期。
+- 原本の16セクション・22見出し・目次15リンク・6表全セル・図8件と全キャプション・チェック11項目・参考文献16カード・外部リンク6件・アイコン31個・引用2件・タグ6件・全本文とフッターを固定インベントリと出現順で照合。コードブロックはなし。
+- 原本全79 CSSルールと960px条件を保存。紙色・セリフ体・紫のヒーローを保持し、共有CSS・残留CSSによる文字色、リスト余白、表の罫線・フォント・大文字化・最小幅、入力装飾を補正。既存のフォント・アイコン読み込みを再利用。
+- 目次の追従・開閉・リンク選択・Escape・スクリム・Observer解除、11チェックの選択と解除・件数・完了装飾を検証。全8図は原本のノード・接続・classDefと紙色設定を保持して共有Mermaidへ接続。
+- 原本との実スタイル・寸法・ホバー比較8ケース（390/960/961/1440px×CSS読込2順序）、実SVGの配色・スクロール端検証32ケース、起動済みNext.jsの操作・図描画2ケースが成功。実ページは`QIF_ORIGIN=http://localhost:3000`で検証し、サーバー起動・本番ビルドは行わない。
+- Red先行、デザイン、各16セクション、図、目次、登録、アーカイブ、実ブラウザーで発見した補正、仕様書を分割コミット。コミットごとにPII検査。
+- 原本HTMLは`archive/html-archive/books/Quality-is-free-guide.html`、MDは`archive/md-archive/books/Quality-is-free-guide.md`へ同名で移動し、双方のSHA-256一致を確認。archiveの既存Git除外設定を維持。
+- 検証: ページ289件＋登録・アーカイブ6件の計295件、全体4718件（127ファイル）、ブラウザー42件、対象型検査、lint、変更Markdownのlintが成功。ユーザー指定によりnpm経由で実行。目視確認はユーザー担当、本番ビルドは未実施。
 
 ## 2026-10-20: CTAL-TAE第7・8章のコード改行・インデント修正
 
@@ -1506,6 +1517,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
+| `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1516,7 +1528,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 5 ペア = 10 ファイル）: `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 4 ペア = 8 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -1532,10 +1544,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 101 ルート（ガイドライブラリ index + 100 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 102 ルート（ガイドライブラリ index + 101 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト4419件すべて成功（125ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第8章 継続的改善」（`/istqb-ctal-tae-chapter8-continuous-improvement`）を登録済み。目視確認はユーザーが担当。
+- 全体テスト4718件すべて成功（127ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「Quality Is Free 入門ガイド」（`/quality-is-free-guide`）を登録済み。目視確認はユーザーが担当。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 4419 tests)
+bun test             # ユニットテスト (bun test, 4718 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 101 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 102 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -431,10 +431,32 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/NavBar.tsx` — 目次25リンク、開閉・Escape・スクロール追従・IntersectionObserver解除
 - `playwright.mermaid-css.config.ts` / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
 - `e2e/ctal-tae-code-layout.e2e.ts` — 第7・8章の13コードをSWC経由で描画し、改行・字下げ・横スクロールを検証。`CTAL_CODE_ORIGIN`指定時は起動済みNext.jsの実ページ4ケースも検証
+- `e2e/quality-is-free-layout.e2e.ts` / `tests/quality-is-free-guide/source-renderer.ts` — SWC出力と原本の実スタイル比較、実SVG検証、任意の起動済みNext.js操作検証
 - `app/istqb-ct-genai-study-guide/diagrams.ts` — 元配色・ノード・接続を保持するMermaid図13件
 - `app/istqb-ct-genai-study-guide/` — Hero・Overview・Chapter1〜5・Roadmap・Referencesのカテゴリー別コンポーネント
 - `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する305テスト
 - `app/beautiful-testing-guide/page.tsx` — Beautiful Testing全15セクションを元HTMLの本文・構造に沿って移行
+- `app/quality-is-free-guide/ChapterDiagram.tsx` — Quality Is Free、原本カードと共有Mermaidの接続
+- `app/quality-is-free-guide/NavBar.tsx` — Quality Is Free、15目次リンク・開閉・追従・サーバー本文のchildrenスロット
+- `app/quality-is-free-guide/Section00.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section01.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section02.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section03.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section04.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section05.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section06.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section07.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section08.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section09.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section10.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section11.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section12.tsx` — Quality Is Free、11チェックの状態・完了件数・原本装飾
+- `app/quality-is-free-guide/Section13.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section14.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/Section15.tsx` — Quality Is Free、カテゴリー別の原本本文
+- `app/quality-is-free-guide/diagrams.ts` — Quality Is Free、全8図の原本定義と紙色テーマ
+- `app/quality-is-free-guide/page.tsx` — Quality Is Free、全16セクションの組み立てとmetadata
+- `app/quality-is-free-guide/quality-is-free-guide.css` — Quality Is Free、全79原本CSSルール・960px条件・共有/残留CSS干渉補正
 - `app/beautiful-testing-guide/beautiful-testing-guide.css` — 元の濃紺・ミント配色、表、目次、モバイル表示をページ内にスコープ
 - `app/beautiful-testing-guide/NavBar.tsx` — 開閉、Escape、フォーカス復帰、`useScrollSpy`と`aria-current`対応の目次
 - `app/beautiful-testing-guide/Checklist.tsx` — 全11項目のチェック状態・完了装飾・ライブ進捗を管理
@@ -455,7 +477,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 101 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 102 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -806,6 +828,7 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
+| `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -816,7 +839,7 @@ bun test        # ユニットテスト成功
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 5 ペア = 10 ファイル）: `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 4 ペア = 8 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -830,10 +853,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 101 ルート（ガイドライブラリ index + 100 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 102 ルート（ガイドライブラリ index + 101 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第8章 継続的改善」（`/istqb-ctal-tae-chapter8-continuous-improvement`）を登録済み。目視確認はユーザーが担当。
+- 新規追加「Quality Is Free 入門ガイド」（`/quality-is-free-guide`）を登録済み。目視確認はユーザーが担当。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -887,3 +910,14 @@ bun test        # ユニットテスト成功
 - 回帰検証: Next.js/SWCの開発・本番変換26ケースを追加し、修正前の全26失敗を確認。ブラウザー側もTypeScript変換からSWCへ変更。
 - 実ブラウザー: 全13コード×390px/1440px×CSS読込3条件の78ケース、第7章学習UI6ケース、起動済みNext.jsの実ページ4ケースの計88件が成功。実ページでも全コードの改行・字下げ・行位置を原本と照合。
 - 検証: 両章関連902件、全体4419件（125ファイル）、lintが成功。ユーザー指定によりnpm経由で実行。本番ビルドは未実施。
+
+## 2026-10-20: Quality Is Free入門ガイドの移行
+
+- 移行先: `/quality-is-free-guide`。名著・実践ガイドの末尾へ登録し、ナビ・E2E一覧を102ルート、書籍カテゴリーを23件へ同期。
+- 原本の16セクション・22見出し・目次15リンク・6表全セル・図8件と全キャプション・チェック11項目・参考文献16カード・外部リンク6件・アイコン31個・引用2件・タグ6件・全本文とフッターを固定インベントリと出現順で照合。コードブロックはなし。
+- 原本全79 CSSルールと960px条件を保存。紙色・セリフ体・紫のヒーローを保持し、共有CSS・残留CSSによる文字色、リスト余白、表の罫線・フォント・大文字化・最小幅、入力装飾を補正。既存のフォント・アイコン読み込みを再利用。
+- 目次の追従・開閉・リンク選択・Escape・スクリム・Observer解除、11チェックの選択と解除・件数・完了装飾を検証。全8図は原本のノード・接続・classDefと紙色設定を保持して共有Mermaidへ接続。
+- 原本との実スタイル・寸法・ホバー比較8ケース（390/960/961/1440px×CSS読込2順序）、実SVGの配色・スクロール端検証32ケース、起動済みNext.jsの操作・図描画2ケースが成功。実ページは`QIF_ORIGIN=http://localhost:3000`で検証し、サーバー起動・本番ビルドは行わない。
+- Red先行、デザイン、各16セクション、図、目次、登録、アーカイブ、実ブラウザーで発見した補正、仕様書を分割コミット。コミットごとにPII検査。
+- 原本HTMLは`archive/html-archive/books/Quality-is-free-guide.html`、MDは`archive/md-archive/books/Quality-is-free-guide.md`へ同名で移動し、双方のSHA-256一致を確認。archiveの既存Git除外設定を維持。
+- 検証: ページ289件＋登録・アーカイブ6件の計295件、全体4718件（127ファイル）、ブラウザー42件、対象型検査、lint、変更Markdownのlintが成功。ユーザー指定によりnpm経由で実行。目視確認はユーザー担当、本番ビルドは未実施。
