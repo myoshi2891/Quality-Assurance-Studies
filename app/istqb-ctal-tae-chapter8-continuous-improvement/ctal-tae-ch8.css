@@ -545,3 +545,8 @@
 .ctal-tae-ch8-page .hero::after, .ctal-tae-ch8-page .hero-eyebrow::before { content: none; }
 .ctal-tae-ch8-page tbody td { line-height: 1.85; }
 .ctal-tae-ch8-page thead tr { background: var(--bg-elevated); border-bottom: 0; }
+
+/* Keep oversized SVGs anchored at the reachable scroll origin. */
+.ctal-tae-ch8-page .mermaid-wrapper { display: block !important; overflow: visible !important; }
+/* Global footer typography and its six-rem gap are absent in the source. */
+.ctal-tae-ch8-page .page-footer { text-align: left; font-family: inherit; margin-top: 0; }
