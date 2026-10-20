@@ -1,6 +1,7 @@
 import React from 'react';
+import Mermaid from '../../components/Mermaid';
+import { DIAGRAMS, type DiagramId } from './diagrams';
 
-// Preserve the original diagram slots during the staged migration.
-export default function ChapterDiagram({ id }: { id: string }) {
-    return <div className="mermaid-diagram" id={id} />;
+export default function ChapterDiagram({ id }: { id: DiagramId }) {
+    return <div className="mermaid-diagram" id={id}><Mermaid chart={DIAGRAMS[id]} /></div>;
 }
