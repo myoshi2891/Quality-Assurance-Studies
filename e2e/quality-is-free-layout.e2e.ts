@@ -17,7 +17,7 @@ const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 const selectors = ['.hero','.hero h1','.hero p','.sidebar-title','.sidebar-sub','.nav-a','.n-num','.content','.content section','.sec-head','.sec-head h2','.content h3','.content p','.content ul:not(.checklist)','.content ol','.content li','.table-wrap','.table-title','table','th','td','thead th','.kv-table th','blockquote','strong','.diagram-caption','.diagram-block > .mermaid-wrapper','.tag','.checklist-counter','.checklist li','.checklist label','.checklist input','.ref-card','.ref-title','.ref-note','.ref-url','.footer'];
-const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth'];
+const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth'];
 for (const width of [390,960,961,1440]) {
     for (const order of ['before','after'] as const) {
         test(`${width}px CSS ${order}: every source design element matches computed styles`, async ({ page }) => {
@@ -35,6 +35,11 @@ for (const width of [390,960,961,1440]) {
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height','0px');
             await expect(page.locator('.mobile-bar')).toHaveCSS('display', width <= 960 ? 'flex' : 'none');
+            const rowStyles = (row: Element) => ({ background: getComputedStyle(row).backgroundColor, cells: Array.from(row.children, cell => ({ background: getComputedStyle(cell).backgroundColor, color: getComputedStyle(cell).color })) });
+            await reference.locator('tbody tr').first().hover();
+            const hoverExpected = await reference.locator('tbody tr').first().evaluate(rowStyles);
+            await page.locator('tbody tr').first().hover();
+            expect(await page.locator('tbody tr').first().evaluate(rowStyles)).toEqual(hoverExpected);
             await reference.close();
         });
     }
@@ -68,3 +73,33 @@ for (const width of [390,960,961,1440]) {
         });
     }
 }
+
+// Optional integration check against an existing dev server; never starts a build.
+test.describe('live quality-is-free page', () => {
+    const origin = process.env.QIF_ORIGIN;
+    test.skip(!origin, 'Set QIF_ORIGIN to an already running development server.');
+    for (const width of [390,1440]) {
+        test(`${width}px: real Next.js output, hydrated checklist and responsive TOC`, async ({ page }) => {
+            await page.setViewportSize({ width, height: 900 });
+            const response = await page.goto(`${origin}/quality-is-free-guide`, { waitUntil: 'domcontentloaded' });
+            expect(response?.status()).toBe(200);
+            await expect(page.locator('h1')).toContainText('Quality Is Free 入門ガイド');
+            await expect(page.locator('.content > section')).toHaveCount(16);
+            await expect(page.locator('.diagram-block svg')).toHaveCount(8, { timeout: 30000 });
+            await expect(page.locator('.nav-a')).toHaveCount(15);
+            for (const [index, label] of (await page.locator('#qifChecklist label').all()).entries()) {
+                await label.click(); await expect(page.locator('#checkCount')).toHaveText(String(index + 1));
+            }
+            for (const [index, input] of (await page.locator('#qifChecklist input').all()).entries()) {
+                await input.uncheck(); await expect(page.locator('#checkCount')).toHaveText(String(10 - index));
+            }
+            if (width <= 960) {
+                const toggle = page.locator('#mobileToggle');
+                await toggle.click(); await expect(toggle).toHaveAttribute('aria-expanded','true');
+                await page.locator('.nav-a[href="#sec1"]').click(); await expect(toggle).toHaveAttribute('aria-expanded','false');
+                await toggle.click(); await page.keyboard.press('Escape'); await expect(toggle).toBeFocused();
+            }
+            expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+        });
+    }
+});
