@@ -54,6 +54,7 @@ for (const width of [390, 1440]) {
                         boxes: lines.map(line => { const b = line.getBoundingClientRect(); return { top: b.top, height: b.height }; }),
                         left: box.left,
                         preLeft: element.parentElement!.getBoundingClientRect().left,
+                        preBorder: parseFloat(getComputedStyle(element.parentElement!).borderLeftWidth),
                         totalHeight: box.height,
                     };
                 });
@@ -66,7 +67,7 @@ for (const width of [390, 1440]) {
                         expect(Math.abs(box.top - measured.boxes[0]!.top - line * lineHeight)).toBeLessThan(1);
                     }
                 });
-                expect.soft(measured.left - measured.preLeft).toBeCloseTo(paddingLeft, 0);
+                expect.soft(measured.left - measured.preLeft - measured.preBorder).toBeCloseTo(paddingLeft, 0);
                 const scroll = await pre.evaluate(element => {
                     const code = element.querySelector('code')!;
                     const before = code.getBoundingClientRect().left;
@@ -86,3 +87,39 @@ for (const width of [390, 1440]) {
     }
 }
 }
+
+// Optional checks against an already running dev server. This config never
+// starts a server or a production build; pass CTAL_CODE_ORIGIN explicitly.
+test.describe('live Next.js output', () => {
+    const origin = process.env.CTAL_CODE_ORIGIN;
+    test.skip(!origin, 'Set CTAL_CODE_ORIGIN to an existing development server.');
+    for (const [chapter, slug] of [
+        [7, 'istqb-ctal-tae-chapter7-verifying-the-test-automation-solution'],
+        [8, 'istqb-ctal-tae-chapter8-continuous-improvement'],
+    ] as const) {
+        for (const width of [390, 1440]) {
+            test(`live chapter ${chapter}: every code line (${width})`, async ({ page }) => {
+                await page.setViewportSize({ width, height: 900 });
+                await page.goto(`${origin}/${slug}`, { waitUntil: 'domcontentloaded' });
+                const inventory = JSON.parse(readFileSync(`docs/migration-inventory/${slug}.json`, 'utf8')) as { code: { text: string }[] };
+                const codes = page.locator('pre code');
+                await expect(codes).toHaveCount(inventory.code.length);
+                for (const [index, expected] of inventory.code.entries()) {
+                    const code = codes.nth(index);
+                    expect(await code.textContent()).toBe(expected.text);
+                    await expect(code).toHaveCSS('white-space', 'pre');
+                    const lines = expected.text.match(/[^\n]*\n|[^\n]+$/g) ?? [];
+                    const actual = await code.evaluate(element => ({
+                        text: Array.from(element.children, line => line.textContent),
+                        y: Array.from(element.children, line => line.getBoundingClientRect().top),
+                        lineHeight: parseFloat(getComputedStyle(element).lineHeight),
+                    }));
+                    expect(actual.text).toEqual(lines);
+                    lines.forEach((line, i) => {
+                        if (line.trim()) expect(Math.abs(actual.y[i]! - actual.y[0]! - i * actual.lineHeight)).toBeLessThan(1);
+                    });
+                }
+            });
+        }
+    }
+});
