@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import './highlight.css';
 import Overview from './Overview';
+import DataAnalysis from './DataAnalysis';
 import './ctal-tae-ch8.css';
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function Page() {
             </div>
         </div>
         <Overview />
+        <DataAnalysis />
     </main></div>
         <footer className="page-footer">
             <p>
