@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './highlight.css';
 import Overview from './Overview';
 import DataAnalysis from './DataAnalysis';
+import TechnicalImprovements from './TechnicalImprovements';
 import './ctal-tae-ch8.css';
 
 export const metadata: Metadata = {
@@ -51,6 +52,7 @@ export default function Page() {
         </div>
         <Overview />
         <DataAnalysis />
+        <TechnicalImprovements />
     </main></div>
         <footer className="page-footer">
             <p>
