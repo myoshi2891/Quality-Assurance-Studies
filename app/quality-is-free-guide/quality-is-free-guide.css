@@ -552,3 +552,27 @@
 @media (prefers-reduced-motion: reduce) {
     .quality-is-free-page *, .quality-is-free-page *::before, .quality-is-free-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Undo concrete style leaks found by source-versus-rendered browser comparison. */
+.quality-is-free-page .hero, .quality-is-free-page .footer { text-align: start; }
+.quality-is-free-page .hero p { color: inherit; }
+.quality-is-free-page .content p, .quality-is-free-page .content ul, .quality-is-free-page .content ol, .quality-is-free-page .content li { color: var(--ink); }
+.quality-is-free-page .content ul:not(.checklist) li, .quality-is-free-page .content ol li { margin-bottom: 0; }
+.quality-is-free-page table { color: var(--ink); border: 0 solid currentColor; }
+.quality-is-free-page .table-wrap table tbody td { border-bottom: 1px solid var(--border); }
+.quality-is-free-page .tag { font-family: inherit; margin-bottom: 0; }
+.quality-is-free-page .ref-url { font-family: inherit; }
+.quality-is-free-page .checklist input[type='checkbox'] { color: #000; font-family: Arial; font-size: 13.3333px; line-height: normal; margin-bottom: 3px; margin-left: 4px; margin-right: 3px; }
+/* A retained .kv-table th rule can otherwise win by load order. */
+.quality-is-free-page .table-wrap table th, .quality-is-free-page .table-wrap table td {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: normal;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+}
+.quality-is-free-page .table-wrap table { font-family: inherit; font-size: 1rem; min-width: 0; width: 100%; }
+.quality-is-free-page .table-wrap table th, .quality-is-free-page .table-wrap table td { text-transform: none; vertical-align: middle; }
+.quality-is-free-page .table-wrap table td { color: var(--ink); }
+.quality-is-free-page .table-wrap tr:hover td { background: transparent; }
