@@ -550,3 +550,14 @@
 .ctal-tae-ch8-page .mermaid-wrapper { display: block !important; overflow: visible !important; }
 /* Global footer typography and its six-rem gap are absent in the source. */
 .ctal-tae-ch8-page .page-footer { text-align: left; font-family: inherit; margin-top: 0; }
+
+/* highlight.css uses `pre code.hljs`, whose specificity exceeds `.code-block code`.
+   Keep one scroll owner (pre), without nested highlight padding or clipped lines. */
+.ctal-tae-ch8-page .code-block { overflow-x: hidden; }
+.ctal-tae-ch8-page .code-block pre { white-space: pre; overflow-x: auto; }
+.ctal-tae-ch8-page .code-block pre code.hljs {
+    padding: 0;
+    overflow: visible;
+    width: max-content;
+    min-width: 100%;
+}
