@@ -322,3 +322,25 @@ describe('external reference safety', () => {
         });
     });
 });
+
+describe('code display cascade regression', () => {
+    for (const [selector, property, value] of [
+        ['.code-block pre code.hljs', 'padding', '0'],
+        ['.code-block pre code.hljs', 'overflow', 'visible'],
+        ['.code-block pre code.hljs', 'width', 'max-content'],
+        ['.code-block pre code.hljs', 'min-width', '100%'],
+        ['.code-block pre', 'white-space', 'pre'],
+        ['.code-block pre', 'overflow-x', 'auto'],
+        ['.code-block', 'overflow-x', 'hidden'],
+    ] as const) {
+        it(`${selector}: ${property} prevents nested scroll/spacing after navigation`, () => {
+            let actual: string | undefined;
+            css().walkRules(rule => {
+                if (rule.parent?.type !== 'atrule' && rule.selectors.includes(`${scope} ${selector}`)) {
+                    rule.walkDecls(property, declaration => { actual = declaration.value; });
+                }
+            });
+            expect(actual).toBe(value);
+        });
+    }
+});
