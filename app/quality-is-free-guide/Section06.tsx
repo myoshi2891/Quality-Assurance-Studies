@@ -21,10 +21,10 @@ export default function Section06() {
             <ChapterDiagram id="dg-steps" />
         </div>
         <div className="table-wrap">
-            <div className="table-title">
+            <div className="table-title" id="qif-sec6-table">
                 {"14ステップ一覧"}
             </div>
-            <table>
+            <table aria-labelledby="qif-sec6-table">
                 <thead>
                     <tr>
                         <th>

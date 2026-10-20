@@ -21,10 +21,10 @@ export default function Section04() {
             <ChapterDiagram id="dg-absolutes" />
         </div>
         <div className="table-wrap">
-            <div className="table-title">
+            <div className="table-title" id="qif-sec4-table">
                 {"4つの絶対原則とソフトウェアでの読み替え"}
             </div>
-            <table>
+            <table aria-labelledby="qif-sec4-table">
                 <thead>
                     <tr>
                         <th>

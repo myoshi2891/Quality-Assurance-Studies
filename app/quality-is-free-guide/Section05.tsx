@@ -21,10 +21,10 @@ export default function Section05() {
             <ChapterDiagram id="dg-coq" />
         </div>
         <div className="table-wrap">
-            <div className="table-title">
+            <div className="table-title" id="qif-sec5-table">
                 {"品質コストの4分類とソフトウェア開発の例"}
             </div>
-            <table>
+            <table aria-labelledby="qif-sec5-table">
                 <thead>
                     <tr>
                         <th>

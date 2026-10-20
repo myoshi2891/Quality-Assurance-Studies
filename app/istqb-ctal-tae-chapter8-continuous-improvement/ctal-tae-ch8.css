@@ -536,6 +536,9 @@
 @media (max-width: 900px) {
     .ctal-tae-ch8-page .main { margin-left: 0; padding: 88px 20px 70px; }
     .ctal-tae-ch8-page .hero { padding: 28px 22px; }
+    /* Keep the closed off-canvas sidebar out of the tab order; visibility flips after the slide-out. */
+    .ctal-tae-ch8-page .sidebar { visibility: hidden; transition: transform 0.2s ease, visibility 0.2s ease; }
+    .ctal-tae-ch8-page .sidebar.open { visibility: visible; }
     .ctal-tae-ch8-page .sidebar-scrim.open { display: block; position: fixed; inset: calc(60px + var(--disclaimer-height, 0px)) 0 0; border: 0; background: rgba(15, 23, 42, 0.25); z-index: 39; }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -21,10 +21,10 @@ export default function Section07() {
             <ChapterDiagram id="dg-maturity" />
         </div>
         <div className="table-wrap">
-            <div className="table-title">
+            <div className="table-title" id="qif-sec7-table">
                 {"成熟度グリッドの5段階"}
             </div>
-            <table>
+            <table aria-labelledby="qif-sec7-table">
                 <thead>
                     <tr>
                         <th>

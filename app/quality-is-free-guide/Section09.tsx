@@ -28,10 +28,10 @@ export default function Section09() {
             <ChapterDiagram id="dg-critique" />
         </div>
         <div className="table-wrap">
-            <div className="table-title">
+            <div className="table-title" id="qif-sec9-table">
                 {"コスト曲線をめぐる論点整理"}
             </div>
-            <table>
+            <table aria-labelledby="qif-sec9-table">
                 <thead>
                     <tr>
                         <th>

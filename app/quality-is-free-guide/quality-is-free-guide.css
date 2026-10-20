@@ -545,6 +545,8 @@
 @media (max-width: 960px) {
     .quality-is-free-page .main { margin-left: 0; }
     .quality-is-free-page .hero { padding: 2rem 1.2rem; }
+    /* The sticky mobile bar (0.8rem padding x2 + 2.4rem toggle + 1px border) also covers section tops. */
+    .quality-is-free-page section { scroll-margin-top: calc(84px + 4rem + 1px + var(--disclaimer-height, 0px)); }
     .quality-is-free-page .sidebar { visibility: hidden; }
     .quality-is-free-page .sidebar.open { visibility: visible; }
     .quality-is-free-page .sidebar-scrim.open { display: block; position: fixed; inset: calc(60px + var(--disclaimer-height, 0px)) 0 0; border: 0; background: rgba(42, 36, 28, 0.25); z-index: 39; }

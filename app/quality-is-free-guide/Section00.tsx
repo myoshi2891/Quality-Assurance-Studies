@@ -3,10 +3,10 @@ import React from 'react';
 export default function Section00() {
     return <section id="sec0">
         <div className="table-wrap">
-            <div className="table-title">
+            <div className="table-title" id="qif-sec0-table">
                 {"書籍情報"}
             </div>
-            <table className="kv-table">
+            <table className="kv-table" aria-labelledby="qif-sec0-table">
                 <tbody>
                     <tr>
                         <th>
