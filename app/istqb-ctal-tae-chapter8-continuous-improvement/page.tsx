@@ -7,6 +7,7 @@ import TechnicalImprovements from './TechnicalImprovements';
 import TestwareRefactoring from './TestwareRefactoring';
 import ToolOpportunities from './ToolOpportunities';
 import ExamPractice from './ExamPractice';
+import BestPractices from './BestPractices';
 import './ctal-tae-ch8.css';
 
 export const metadata: Metadata = {
@@ -59,6 +60,7 @@ export default function Page() {
         <TestwareRefactoring />
         <ToolOpportunities />
         <ExamPractice />
+        <BestPractices />
     </main></div>
         <footer className="page-footer">
             <p>
