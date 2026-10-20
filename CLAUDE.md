@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-19
+Updated 2026-10-20
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 3902 tests)
+bun test             # ユニットテスト (bun test, 4386 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 100 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 101 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -155,6 +155,22 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/SummaryQuestions.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
 - `app/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/LearningReferences.tsx` — CTAL-TAE 第6章 レポートとメトリクス、カテゴリー別の原本本文
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、本文カテゴリーの組み立てとメタデータ
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/BestPractices.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/ChapterDiagram.tsx` — CTAL-TAE第8章 共有Mermaidへの接続
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/CodeExample.tsx` — CTAL-TAE第8章 静的構文色付きPython/YAMLコード6例
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/DataAnalysis.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/ExamPractice.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/GlossaryReferences.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/NavBar.tsx` — CTAL-TAE第8章 目次70リンクの開閉・追従
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/Overview.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/TechnicalImprovements.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/TestwareRefactoring.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/ToolOpportunities.tsx` — CTAL-TAE第8章 カテゴリー別の原本本文
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/ctal-tae-ch8.css` — CTAL-TAE第8章 原本デザインのスコープと共通CSS補正
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/diagrams.ts` — CTAL-TAE第8章 全16図とライトテーマ
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/highlight-LICENSE.txt` — CTAL-TAE第8章 配色のライセンス
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/highlight.css` — CTAL-TAE第8章 原本デザインのスコープと共通CSS補正
+- `app/istqb-ctal-tae-chapter8-continuous-improvement/page.tsx` — CTAL-TAE第8章 ページ組み立てとmetadata
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ctal-tae-ch7.css` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、原本全99 CSSルール・900px/640px表示条件と共通CSS干渉補正
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/NavBar.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、階層目次40リンク・開閉・スクリム・追従
 - `app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/ChecklistCard.tsx` — CTAL-TAE 第7章 テスト自動化ソリューションの検証、全6項目のチェック状態・進捗と完了数
@@ -438,7 +454,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 100 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 101 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -788,6 +804,7 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-ch5-implementation-deployment-strategies.html` | `/istqb-ctal-tae-chapter5-implementation-deployment-strategies` | ✅ 固定サイドバー + 7目次リンク + Mermaid図5件 + 全6表 + チェック項目6件 (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch6-test-automation-reporting-and-metrics.html` | `/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics` | ✅ 固定サイドバー・モバイル目次43リンク + Mermaid図11件 + 全31表 + コード2件 + 学習進捗13項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
+| `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -801,7 +818,7 @@ bun test        # ユニットテスト成功
 | 書籍ガイド系（HTML + Markdown の 5 ペア = 10 ファイル）: `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Ctal-tae-*.html` / `Ctal-tae-*.md` / `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE各章、ISO 規格各部の静的ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -812,10 +829,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 100 ルート（ガイドライブラリ index + 99 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、CTAL-TAE各章、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 101 ルート（ガイドライブラリ index + 100 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「CTAL-TAE 第7章 テスト自動化ソリューションの検証」（`/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution`）を登録済み。目視確認はユーザーが担当。
+- 新規追加「CTAL-TAE 第8章 継続的改善」（`/istqb-ctal-tae-chapter8-continuous-improvement`）を登録済み。目視確認はユーザーが担当。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -850,3 +867,14 @@ bun test        # ユニットテスト成功
 - 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
 - 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+
+## 2026-10-20: CTAL-TAE第8章 継続的改善の移行
+
+- 移行先: `/istqb-ctal-tae-chapter8-continuous-improvement`。Advancedカテゴリーの第7章直後に登録し、ナビ・E2E一覧を101ルートへ同期。
+- 原本71見出し・目次70リンク・36表の全セル・16図・Python/YAMLコード6例・注記8件・解答6件・確認問題6件・参考URL13件・全本文・フッターを固定インベントリと出現順で照合。
+- 原本CSS全77ルールとAtom One Light配色14ルールを照合。ライト背景・ヒーロー装飾・900px条件・余白を保持し、共通CSSの疑似要素・表・リスト・コード・固定要素の干渉を補正。
+- コードは原本と同じhighlight.js 11.9.0で事前生成。全文・空白・改行・言語・全構文トークンを検証し、追加の実行時依存やCDNスクリプトなし。
+- 全16図を実Mermaidパーサーで検証。ページ専用ライト設定でフロー・シーケンス・XYチャートを維持し、黒背景・文字切れ・縮小を保護。目次70リンクの開閉・追従・Escape・スクリム・Observer解除を検証。外部出典13リンクのtarget・relと、共有Mermaidの横スクロール・フッター干渉の追加回帰検証も実施。
+- Red先行後、デザイン、構文色、本文8カテゴリー、Mermaid、目次、ナビ、アーカイブを分割コミット。全コミット前にPII検査を実施。
+- HTMLは`archive/html-archive/ctal/Ctal-tae-ch8-continuous-improvement.html`、MDは`archive/md-archive/ctal/Ctal-tae-ch8-continuous-improvement.md`へ移動。双方のSHA-256一致を検証。既存のarchive除外設定を維持。
+- 検証: ページ445件＋登録・アーカイブ6件の計451件成功。全体4386件（125ファイル）成功、lint成功。ユーザー指定により`npm exec -- bun test`と`npm run lint`で実行。第8章のコード・テストの型検査も成功。全体型検査は既存ファイルのエラーで失敗（第8章の診断なし）。ビルド・ブラウザE2Eは未実施、目視確認はユーザーが担当。
