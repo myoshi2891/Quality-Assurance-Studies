@@ -182,7 +182,7 @@ export default function GlossaryReferences() {
                             {"ISTQB CTAL-TAE v2.0 認定ページ"}
                         </td>
                         <td>
-                            <a href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/">
+                            <a href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/" target="_blank" rel="noopener noreferrer">
                                 {"https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"}
                             </a>
                         </td>
@@ -198,7 +198,7 @@ export default function GlossaryReferences() {
                             {"ISTQB CTAL-TAE Syllabus v2.0（PDF）"}
                         </td>
                         <td>
-                            <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf">
+                            <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf" target="_blank" rel="noopener noreferrer">
                                 {"https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTAL-TAE_Syllabus_v2.0.pdf"}
                             </a>
                         </td>
@@ -236,7 +236,7 @@ export default function GlossaryReferences() {
                             {"待機（Selenium）"}
                         </td>
                         <td>
-                            <a href="https://www.selenium.dev/documentation/webdriver/waits/">
+                            <a href="https://www.selenium.dev/documentation/webdriver/waits/" target="_blank" rel="noopener noreferrer">
                                 {"https://www.selenium.dev/documentation/webdriver/waits/"}
                             </a>
                         </td>
@@ -249,7 +249,7 @@ export default function GlossaryReferences() {
                             {"自動待機（Playwright）"}
                         </td>
                         <td>
-                            <a href="https://playwright.dev/docs/actionability">
+                            <a href="https://playwright.dev/docs/actionability" target="_blank" rel="noopener noreferrer">
                                 {"https://playwright.dev/docs/actionability"}
                             </a>
                         </td>
@@ -262,7 +262,7 @@ export default function GlossaryReferences() {
                             {"JSON Schema"}
                         </td>
                         <td>
-                            <a href="https://json-schema.org/">
+                            <a href="https://json-schema.org/" target="_blank" rel="noopener noreferrer">
                                 {"https://json-schema.org/"}
                             </a>
                         </td>
@@ -275,7 +275,7 @@ export default function GlossaryReferences() {
                             {"契約テスト（Pact）"}
                         </td>
                         <td>
-                            <a href="https://docs.pact.io/">
+                            <a href="https://docs.pact.io/" target="_blank" rel="noopener noreferrer">
                                 {"https://docs.pact.io/"}
                             </a>
                         </td>
@@ -288,7 +288,7 @@ export default function GlossaryReferences() {
                             {"フィクスチャ（pytest）"}
                         </td>
                         <td>
-                            <a href="https://docs.pytest.org/en/stable/how-to/fixtures.html">
+                            <a href="https://docs.pytest.org/en/stable/how-to/fixtures.html" target="_blank" rel="noopener noreferrer">
                                 {"https://docs.pytest.org/en/stable/how-to/fixtures.html"}
                             </a>
                         </td>
@@ -301,7 +301,7 @@ export default function GlossaryReferences() {
                             {"不安定なテスト（Martin Fowler）"}
                         </td>
                         <td>
-                            <a href="https://martinfowler.com/articles/nonDeterminism.html">
+                            <a href="https://martinfowler.com/articles/nonDeterminism.html" target="_blank" rel="noopener noreferrer">
                                 {"https://martinfowler.com/articles/nonDeterminism.html"}
                             </a>
                         </td>
@@ -314,7 +314,7 @@ export default function GlossaryReferences() {
                             {"Page Object（Martin Fowler）"}
                         </td>
                         <td>
-                            <a href="https://martinfowler.com/bliki/PageObject.html">
+                            <a href="https://martinfowler.com/bliki/PageObject.html" target="_blank" rel="noopener noreferrer">
                                 {"https://martinfowler.com/bliki/PageObject.html"}
                             </a>
                         </td>
@@ -327,7 +327,7 @@ export default function GlossaryReferences() {
                             {"GitHub Actions のマトリクス戦略"}
                         </td>
                         <td>
-                            <a href="https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs">
+                            <a href="https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs" target="_blank" rel="noopener noreferrer">
                                 {"https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs"}
                             </a>
                         </td>
@@ -340,7 +340,7 @@ export default function GlossaryReferences() {
                             {"GitHub Actions のスケジュール実行"}
                         </td>
                         <td>
-                            <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule">
+                            <a href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule" target="_blank" rel="noopener noreferrer">
                                 {"https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule"}
                             </a>
                         </td>
@@ -353,7 +353,7 @@ export default function GlossaryReferences() {
                             {"セマンティックバージョニング"}
                         </td>
                         <td>
-                            <a href="https://semver.org/">
+                            <a href="https://semver.org/" target="_blank" rel="noopener noreferrer">
                                 {"https://semver.org/"}
                             </a>
                         </td>
@@ -384,7 +384,7 @@ export default function GlossaryReferences() {
             </li>
             <li>
                 {" 最新情報：シラバスや試験構成は改訂される可能性があります。受験前に必ず "}
-                <a href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/">
+                <a href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/" target="_blank" rel="noopener noreferrer">
                     {"ISTQB 公式ページ"}
                 </a>
                 {" で最新情報を確認してください。 "}
