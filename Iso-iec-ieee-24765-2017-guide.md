@@ -110,7 +110,7 @@ flowchart TB
 
 | 組織 | 役割 |
 |---|---|
-| ISO/IEC JTC 1/SC 7 | 規格の作成を担う国際委員会。用語の検証は WG 22（用語検証）が担当 |
+| ISO/IEC JTC 1/SC 7 | 規格の作成を担う国際委員会。用語の検証は SWG 22（Vocabulary Validation Team）が担当 |
 | IEEE Computer Society | ISO/IEC JTC 1/SC 7 の Vocabulary Validation Team と協力して SEVOCAB データベースを維持。IEEE 側の規格も担当 |
 | PMI | プロジェクトマネジメント用語集（Glossary）の定義を提供。規格内に利用許諾付きで収録 |
 
@@ -118,7 +118,7 @@ flowchart TB
 flowchart TB
     subgraph ISO["ISO/IEC 側"]
         SC7["JTC 1/SC 7"]
-        WG22["WG 22：用語検証"]
+        WG22["SWG 22（Vocabulary Validation Team）"]
     end
     subgraph IEEE["IEEE 側"]
         CS["Computer Society<br/>S2ESC"]
