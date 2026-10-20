@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import './highlight.css';
 import './ctal-tae-ch8.css';
 
 export const metadata: Metadata = {
