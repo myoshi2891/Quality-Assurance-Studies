@@ -5,6 +5,7 @@ import Overview from './Overview';
 import DataAnalysis from './DataAnalysis';
 import TechnicalImprovements from './TechnicalImprovements';
 import TestwareRefactoring from './TestwareRefactoring';
+import ToolOpportunities from './ToolOpportunities';
 import './ctal-tae-ch8.css';
 
 export const metadata: Metadata = {
@@ -55,6 +56,7 @@ export default function Page() {
         <DataAnalysis />
         <TechnicalImprovements />
         <TestwareRefactoring />
+        <ToolOpportunities />
     </main></div>
         <footer className="page-footer">
             <p>
