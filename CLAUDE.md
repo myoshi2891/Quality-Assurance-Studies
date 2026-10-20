@@ -431,7 +431,7 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/NavBar.tsx` — 目次25リンク、開閉・Escape・スクロール追従・IntersectionObserver解除
 - `playwright.mermaid-css.config.ts` / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
 - `e2e/ctal-tae-code-layout.e2e.ts` — 第7・8章の13コードをSWC経由で描画し、改行・字下げ・横スクロールを検証。`CTAL_CODE_ORIGIN`指定時は起動済みNext.jsの実ページ4ケースも検証
-- `e2e/quality-is-free-layout.e2e.ts` / `tests/quality-is-free-guide/source-renderer.ts` — SWC出力と原本の実スタイル比較、実SVG検証、任意の起動済みNext.js操作検証
+- `e2e/quality-is-free-layout.e2e.ts` / `tests/helpers/source-module.ts` — SWC出力と原本の実スタイル比較、実SVG検証、任意の起動済みNext.js操作検証
 - `app/istqb-ct-genai-study-guide/diagrams.ts` — 元配色・ノード・接続を保持するMermaid図13件
 - `app/istqb-ct-genai-study-guide/` — Hero・Overview・Chapter1〜5・Roadmap・Referencesのカテゴリー別コンポーネント
 - `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する305テスト

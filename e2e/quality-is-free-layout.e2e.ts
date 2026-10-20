@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/quality-is-free-guide.json';
-import { sourceModule } from '../tests/quality-is-free-guide/source-renderer';
+import { sourceModule } from '../tests/helpers/source-module';
 // Worker-scoped options must be configured at file level.
 if (process.env.QIF_ORIGIN) {
     test.use({ launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE, args: ['--host-resolver-rules=MAP localhost 127.0.0.1'] } });

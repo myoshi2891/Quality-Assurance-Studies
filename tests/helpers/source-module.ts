@@ -6,7 +6,9 @@ import { transformSync } from 'next/dist/build/swc';
 
 // Compile the production page with Next.js/SWC, including every local import.
 // Only Mermaid's effect-driven SVG renderer is a stub; browser tests render real SVGs.
-export function sourceModule(path: string): Record<string, unknown> {
+// Next.js/SWC trims numeric newline entities differently from TypeScript/Bun, so
+// `development` switches the JSX transform to match the dev or production build.
+export function sourceModule(path: string, { development = false }: { development?: boolean } = {}): Record<string, unknown> {
     const cache = new Map<string, Record<string, unknown>>();
     function load(filename: string): Record<string, unknown> {
         filename = resolve(filename);
@@ -22,7 +24,7 @@ export function sourceModule(path: string): Record<string, unknown> {
             const target = ['.tsx', '.ts'].map(ext => base + ext).find(existsSync);
             return target ? load(target) : localRequire(request);
         };
-        const { code } = transformSync(readFileSync(filename, 'utf8'), { filename, jsc: { parser: { syntax: 'typescript', tsx: true }, transform: { react: { runtime: 'classic' } } }, module: { type: 'commonjs' } });
+        const { code } = transformSync(readFileSync(filename, 'utf8'), { filename, jsc: { parser: { syntax: 'typescript', tsx: true }, transform: { react: { runtime: 'classic', development } } }, module: { type: 'commonjs' } });
         Function('exports', 'require', code)(exported, requireSource);
         return exported;
     }

@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/quality-is-free-guide.json';
-import { sourceModule } from './source-renderer';
+import { sourceModule } from '../helpers/source-module';
 const base = 'app/quality-is-free-guide';
 const scope = '.quality-is-free-page';
 const pageEntry = '../../app/quality-is-free-guide/page';
@@ -27,6 +27,8 @@ function tree(node: AnyNode | undefined): unknown {
     if (attrs.id === 'sidebar') delete attrs['aria-label'];
     if (attrs.id === 'mobileToggle') { for (const key of ['type','aria-controls','aria-expanded']) delete attrs[key]; attrs['aria-label'] = 'メニューを開く'; }
     if (attrs.id === 'checkCount') delete attrs['aria-live'];
+    if (node.tagName === 'table') delete attrs['aria-labelledby'];
+    if (attrs.class === 'table-title' && attrs.id?.startsWith('qif-')) delete attrs.id;
     return { tag: node.tagName, attrs, children: attrs.id?.startsWith('dg-') ? [] : node.children.map(tree).filter(x => x !== null) };
 }
 const css = () => postcss.parse(readFileSync(`${base}/quality-is-free-guide.css`, 'utf8'));
@@ -54,6 +56,19 @@ describe('source inventory', () => {
         const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Page />));
         expect(tree($('main')[0])).toEqual(inventory.main);
+    });
+    it('names every table by its visible title through a unique id', async () => {
+        const $ = await html();
+        const tables = $('.table-wrap table').toArray();
+        expect(tables).toHaveLength(6);
+        const ids = tables.map(table => $(table).attr('aria-labelledby'));
+        expect(new Set(ids).size).toBe(tables.length);
+        tables.forEach((table, i) => {
+            const title = $(`#${ids[i]}`);
+            expect(title).toHaveLength(1);
+            expect(title.hasClass('table-title')).toBe(true);
+            expect(title.next()[0]).toBe(table);
+        });
     });
     inventory.groups.external.items.forEach((expected, i) => {
         it(`external[${i}]: original URL and safe new-tab attributes`, async () => {

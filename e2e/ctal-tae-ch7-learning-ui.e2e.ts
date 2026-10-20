@@ -2,17 +2,12 @@ import { test, expect } from '@playwright/test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { transformSync } from 'next/dist/build/swc';
+import { sourceModule } from '../tests/helpers/source-module';
 
 const root = 'app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/';
 // Compile with the same SWC JSX semantics as Next.js, including whitespace handling.
-const sourceRequire = createRequire(`${process.cwd()}/package.json`);
 function component(name: string): React.ComponentType<{ index?: number }> {
-    const exported: { default?: React.ComponentType<{ index?: number }> } = {};
-    const { code: source } = transformSync(readFileSync(`${root}${name}.tsx`, 'utf8'), { filename: `${root}${name}.tsx`, jsc: { parser: { syntax: 'typescript', tsx: true }, transform: { react: { runtime: 'classic' } } }, module: { type: 'commonjs' } });
-    Function('exports', 'require', source)(exported, sourceRequire);
-    return exported.default!;
+    return sourceModule(`${root}${name}.tsx`).default as React.ComponentType<{ index?: number }>;
 }
 const CodeExample = component('CodeExample');
 const ChecklistCard = component('ChecklistCard');

@@ -2,10 +2,8 @@ import { test, expect } from '@playwright/test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { transformSync } from 'next/dist/build/swc';
+import { sourceModule } from '../tests/helpers/source-module';
 
-const sourceRequire = createRequire(`${process.cwd()}/package.json`);
 const retainedCss = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
 
 for (const [chapter, slug] of [
@@ -14,15 +12,8 @@ for (const [chapter, slug] of [
 ] as const) {
     const root = `app/${slug}/`;
     const inventory = JSON.parse(readFileSync(`docs/migration-inventory/${slug}.json`, 'utf8')) as { code: { text: string; language: string }[] };
-    const exported: { default?: React.ComponentType<{ index: number }> } = {};
     // Next.js/SWC trims numeric newline entities differently from TypeScript/Bun.
-    const { code: compiled } = transformSync(readFileSync(`${root}CodeExample.tsx`, 'utf8'), {
-        filename: `${root}CodeExample.tsx`,
-        jsc: { parser: { syntax: 'typescript', tsx: true }, transform: { react: { runtime: 'classic' } } },
-        module: { type: 'commonjs' },
-    });
-    Function('exports', 'require', compiled)(exported, sourceRequire);
-    const CodeExample = exported.default!;
+    const CodeExample = sourceModule(`${root}CodeExample.tsx`).default as React.ComponentType<{ index: number }>;
     const ownCss = ['app/globals.css', `${root}highlight.css`, `${root}ctal-tae-ch${chapter}.css`].map(path => readFileSync(path, 'utf8')).join('\n');
     const lineHeight = chapter === 7 ? 22.275 : 22.95;
     const paddingLeft = chapter === 7 ? 18 : 20;
