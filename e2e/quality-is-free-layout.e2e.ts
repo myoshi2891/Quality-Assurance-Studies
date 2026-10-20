@@ -5,6 +5,10 @@ import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/quality-is-free-guide.json';
 import { sourceModule } from '../tests/quality-is-free-guide/source-renderer';
+// Worker-scoped options must be configured at file level.
+if (process.env.QIF_ORIGIN) {
+    test.use({ launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE, args: ['--host-resolver-rules=MAP localhost 127.0.0.1'] } });
+}
 const base = 'app/quality-is-free-guide';
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
