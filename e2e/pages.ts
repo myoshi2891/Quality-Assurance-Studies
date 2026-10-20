@@ -113,8 +113,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', h1: /Implementation and Deployment Strategies for Test Automation/ },
   { path: '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics', h1: /第6章.*Test Automation Reporting and Metrics/ },
   { path: '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution', h1: /第7章.*Verifying the Test Automation Solution/ },
+  { path: '/istqb-ctal-tae-chapter8-continuous-improvement', h1: /第8章.*Continuous Improvement/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 100;
+export const EXPECTED_PAGE_COUNT = 101;
 
 
