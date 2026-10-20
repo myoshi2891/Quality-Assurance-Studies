@@ -13,6 +13,7 @@ import Section09 from './Section09';
 import Section10 from './Section10';
 import Section11 from './Section11';
 import Section12 from './Section12';
+import Section13 from './Section13';
 import './quality-is-free-guide.css';
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function Page() {
             <Section10 />
             <Section11 />
             <Section12 />
+            <Section13 />
         </div>
         <footer className="footer">
             {" 本ガイドはPhilip B. Crosby『Quality Is Free』の学習補助を目的とした独自解説であり、原著の文章を逐語的に引用したものではありません。原著の詳細な内容については、参考文献のGoogle Booksリンクまたは書籍そのものをご参照ください。 "}
