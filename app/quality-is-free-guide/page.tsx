@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Section00 from './Section00';
 import './quality-is-free-guide.css';
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function Page() {
             </p>
         </header>
         <div className="content">
+            <Section00 />
         </div>
         <footer className="footer">
             {" 本ガイドはPhilip B. Crosby『Quality Is Free』の学習補助を目的とした独自解説であり、原著の文章を逐語的に引用したものではありません。原著の詳細な内容については、参考文献のGoogle Booksリンクまたは書籍そのものをご参照ください。 "}
