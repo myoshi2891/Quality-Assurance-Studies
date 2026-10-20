@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import NavBar from './NavBar';
 import Section00 from './Section00';
 import Section01 from './Section01';
 import Section02 from './Section02';
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-    return <div className="quality-is-free-page"><div className="layout"><main className="main">
+    return <div className="quality-is-free-page"><NavBar><main className="main">
         <header className="hero">
             <p className="hero-kicker">
                 {"Classic Software Testing Books Series"}
@@ -59,5 +60,5 @@ export default function Page() {
         <footer className="footer">
             {" 本ガイドはPhilip B. Crosby『Quality Is Free』の学習補助を目的とした独自解説であり、原著の文章を逐語的に引用したものではありません。原著の詳細な内容については、参考文献のGoogle Booksリンクまたは書籍そのものをご参照ください。 "}
         </footer>
-    </main></div></div>;
+    </main></NavBar></div>;
 }
