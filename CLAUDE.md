@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 4386 tests)
+bun test             # ユニットテスト (bun test, 4419 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -430,6 +430,7 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/istqb-ct-genai-study-guide.css` — 全55CSSルール・白背景と青の配色・880pxモバイル境界を保持し、共有スタイルをページ内でリセット
 - `app/istqb-ct-genai-study-guide/NavBar.tsx` — 目次25リンク、開閉・Escape・スクロール追従・IntersectionObserver解除
 - `playwright.mermaid-css.config.ts` / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
+- `e2e/ctal-tae-code-layout.e2e.ts` — 第7・8章の13コードをSWC経由で描画し、改行・字下げ・横スクロールを検証。`CTAL_CODE_ORIGIN`指定時は起動済みNext.jsの実ページ4ケースも検証
 - `app/istqb-ct-genai-study-guide/diagrams.ts` — 元配色・ノード・接続を保持するMermaid図13件
 - `app/istqb-ct-genai-study-guide/` — Hero・Overview・Chapter1〜5・Roadmap・Referencesのカテゴリー別コンポーネント
 - `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する305テスト
@@ -878,3 +879,11 @@ bun test        # ユニットテスト成功
 - Red先行後、デザイン、構文色、本文8カテゴリー、Mermaid、目次、ナビ、アーカイブを分割コミット。全コミット前にPII検査を実施。
 - HTMLは`archive/html-archive/ctal/Ctal-tae-ch8-continuous-improvement.html`、MDは`archive/md-archive/ctal/Ctal-tae-ch8-continuous-improvement.md`へ移動。双方のSHA-256一致を検証。既存のarchive除外設定を維持。
 - 検証: ページ445件＋登録・アーカイブ6件の計451件成功。全体4386件（125ファイル）成功、lint成功。ユーザー指定により`npm exec -- bun test`と`npm run lint`で実行。第8章のコード・テストの型検査も成功。全体型検査は既存ファイルのエラーで失敗（第8章の診断なし）。ビルド・ブラウザE2Eは未実施、目視確認はユーザーが担当。
+
+## 2026-10-20: CTAL-TAE第7・8章のコード改行・インデント修正
+
+- 原因: 各行末のJSX改行エンティティ`&#10;`がNext.js/SWCで除去され、インラインの行要素が連結。従来のBun・TypeScriptによる変換では再現せず、DOM照合とCSS検証だけでは検知できなかった。
+- 修正: 両章の`CodeExample.tsx`でLFを実行時に生成する`CodeLine`へ変更。13コードの全文・改行・空行・インデント・構文トークンを保持。第8章はハイライトCSSの詳細度による余白二重化と内側スクロールも解消し、`pre`へ横スクロールを集約。
+- 回帰検証: Next.js/SWCの開発・本番変換26ケースを追加し、修正前の全26失敗を確認。ブラウザー側もTypeScript変換からSWCへ変更。
+- 実ブラウザー: 全13コード×390px/1440px×CSS読込3条件の78ケース、第7章学習UI6ケース、起動済みNext.jsの実ページ4ケースの計88件が成功。実ページでも全コードの改行・字下げ・行位置を原本と照合。
+- 検証: 両章関連902件、全体4419件（125ファイル）、lintが成功。ユーザー指定によりnpm経由で実行。本番ビルドは未実施。

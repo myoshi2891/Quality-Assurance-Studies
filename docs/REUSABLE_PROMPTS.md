@@ -276,3 +276,15 @@
 `/istqb-ct-genai-study-guide`を追加済み。既存の総合・第1〜5章画面は保持する。目視確認はユーザーが行い、ビルドは自動実行しない。元HTML・MDは`archive/html-archive/ct-specialist/`・`archive/md-archive/ct-specialist/`で追跡管理し、固定インベントリと305テストで内容・図・デザインを照合する。CSSコミットの復旧承認の状況は`MIGRATION_PROGRESS.md`を参照。
 
 Mermaidの左端切れの再発確認は`bunx playwright test --config playwright.mermaid-css.config.ts`で行う。外側コンテナに横スクロールを集約し、内側の共有ラッパーのflex中央寄せ・横スクロールをページ内で解除する。CSS単独テストのためサーバーと本番ビルドは起動しない。
+
+## CTAL-TAEコードの改行検証
+
+各行末のJSX改行エンティティ`&#10;`はNext.js/SWCで除去されるため、`CodeLine`でLFを実行時に生成する。Bun・TypeScript変換だけのテストで合格しても、実ページの改行は保証できない。第7・8章はSWC変換後の全文・空行・字下げを照合する。
+
+既存devサーバーに対する検証は、次のコマンドで実行する。サーバー起動と本番ビルドは行わない。
+
+```sh
+CTAL_CODE_ORIGIN=http://127.0.0.1:3000 npm exec -- playwright test --config playwright.mermaid-css.config.ts e2e/ctal-tae-code-layout.e2e.ts
+```
+
+`CTAL_CODE_ORIGIN`を省略すると実ページ4ケースはスキップし、SWC経由のCSS・行配置78ケースを実行する。必要に応じて`PLAYWRIGHT_CHROMIUM_EXECUTABLE`で利用するブラウザーを指定する。
