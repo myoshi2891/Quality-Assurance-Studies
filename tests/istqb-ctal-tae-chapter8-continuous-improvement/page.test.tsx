@@ -22,6 +22,8 @@ function tree(node: AnyNode | undefined, code = false): unknown {
     if (node.type === 'text') return code ? node.data : norm(node.data) || null;
     if (!isTag(node)) return null;
     const attrs = { ...node.attribs };
+    // Dedicated reference tests assert these migration-required attributes.
+    if (node.tagName === 'a' && /^https?:/.test(attrs.href ?? '')) { delete attrs.target; delete attrs.rel; }
     delete attrs['aria-current'];
     if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '').replace(/\s+open\b/g, '');
     if (attrs.id === 'sidebar') delete attrs['aria-label'];
@@ -303,6 +305,18 @@ describe('standalone static code examples', () => {
             if (!el) throw new Error('Code example is missing');
             expect($(el).text()).toBe(code.text);
             expect(highlightTokens(el.children)).toEqual(code.tokens);
+        });
+    });
+});
+
+describe('external reference safety', () => {
+    inventory.groups.references.items.forEach((reference, index) => {
+        it(`reference[${index}]: opens the original URL with noopener noreferrer`, async () => {
+            const $ = await html();
+            const link = $('main a[href^="http"]').eq(index);
+            expect(link.attr('href')).toBe(reference.attrs.href);
+            expect(link.attr('target')).toBe('_blank');
+            expect(link.attr('rel')).toBe('noopener noreferrer');
         });
     });
 });
