@@ -123,6 +123,8 @@ describe('design contract', () => {
         ['.code-line', 'display', 'inline'], ['.mermaid-diagram', 'display', 'block'],
         ['.mermaid-wrapper', 'max-width', 'none'], ['.mermaid-wrapper', 'background', 'transparent'],
         ['.mermaid-wrapper svg', 'max-width', 'none'], ['.mermaid-wrapper foreignObject', 'overflow', 'visible'],
+        ['.mermaid-wrapper', 'display', 'block'], ['.mermaid-wrapper', 'overflow', 'visible'],
+        ['.page-footer', 'text-align', 'left'], ['.page-footer', 'font-family', 'inherit'], ['.page-footer', 'margin-top', '0'],
     ] as const;
     for (const [selector, property, value] of overrides) {
         it(`final cascade protection: ${selector} ${property}`, () => {
