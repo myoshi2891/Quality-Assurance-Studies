@@ -70,7 +70,7 @@ for (const width of [390,960,961,1440]) {
             const reference = await page.context().newPage(); await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
             const collect = (outer: Element) => {
                 const norm = (s: string | null) => (s ?? '').replace(/\s+/g,' ').trim();
-                const nodes = Array.from(outer.querySelectorAll('g.node'), node => ({ id: node.id.replace(/^.*flowchart-/,'').replace(/^.*classId-/,'').replace(/-\d+$/,''), label: norm(node.querySelector('.nodeLabel')?.textContent ?? ''), color: getComputedStyle(node.querySelector('.nodeLabel')!).color, fill: getComputedStyle(node.querySelector('rect, polygon, path')!).fill }));
+                const nodes = Array.from(outer.querySelectorAll('g.node'), node => ({ id: node.id.replace(/^.*flowchart-/,'').replace(/^.*classId-/,'').replace(/-\d+$/,''), label: norm(node.querySelector('.nodeLabel')?.textContent ?? ''), shape: node.firstElementChild?.tagName === 'polygon' ? 'diamond' : node.firstElementChild?.tagName === 'g' && node.querySelector('path') ? 'stadium' : 'rect', color: getComputedStyle(node.querySelector('.nodeLabel')!).color, fill: getComputedStyle(node.querySelector('rect, polygon, path')!).fill }));
                 const messages = Array.from(outer.querySelectorAll('.messageText'), el => ({ label: norm(el.textContent), fill: getComputedStyle(el).fill }));
                 const actors = Array.from(outer.querySelectorAll('text.actor'), el => ({ label: norm(el.textContent), fill: getComputedStyle(el).fill }));
                 const labels = Array.from(outer.querySelectorAll('g.edgeLabels > g.edgeLabel'), el => norm(el.textContent));
@@ -82,13 +82,14 @@ for (const width of [390,960,961,1440]) {
             const expected = await reference.locator('#'+id).evaluate(collect);
             await page.evaluate(async ({ id, chart, globalConfig, fixups }) => {
                 const mermaid = (window as unknown as { mermaid: { initialize: (config: object) => void; render: (id: string, chart: string) => Promise<{ svg: string }> } }).mermaid;
-                mermaid.initialize(globalConfig); const { svg } = await mermaid.render(`sql-${id}`, chart);
+                mermaid.initialize(globalConfig); const { svg } = await mermaid.render(`mdr-${id}`, chart);
                 const inner = document.getElementById(id)!.querySelector('.mermaid-wrapper')!; inner.innerHTML = svg;
                 Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'), chart);
             }, { id, chart: DIAGRAMS[id]!, globalConfig, fixups });
             expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
             const edges = await page.locator('#'+id+' path.flowchart-link').evaluateAll(els => els.map(el => ({ id: el.id.replace(/^mdr-diagram-\d+-/,''), dotted: el.classList.contains('edge-pattern-dotted'), thick: el.classList.contains('edge-thickness-thick'), arrow: !!el.getAttribute('marker-end') })));
-            expect(edges).toEqual(diagram.edges.map(e => ({ id: `L_${e.from}_${e.to}_0`, dotted: e.dotted, thick: e.thick, arrow: e.arrow })));
+            // Mermaid groups cluster edges in its SVG; compare every connection independently of that DOM regrouping.
+            expect(edges.sort((a,b)=>a.id.localeCompare(b.id))).toEqual(diagram.edges.map(e => ({ id: `L_${e.from}_${e.to}_0`, dotted: e.dotted, thick: e.thick, arrow: e.arrow })).sort((a,b)=>a.id.localeCompare(b.id)));
             const reach = await page.locator('#'+id).evaluate(el => { const svg = el.querySelector('svg')!; const initial = svg.getBoundingClientRect().left; el.scrollLeft = el.scrollWidth; return { initial, left: el.getBoundingClientRect().left, movement: initial-svg.getBoundingClientRect().left, scroll: el.scrollLeft, required: el.scrollWidth-el.clientWidth }; });
             expect(reach.initial).toBeGreaterThanOrEqual(reach.left); expect(Math.abs(reach.scroll-reach.required)).toBeLessThanOrEqual(1); expect(Math.abs(reach.movement-reach.scroll)).toBeLessThanOrEqual(1);
             await expect(page.locator('#'+id+' .mermaid-wrapper')).toHaveCSS('background-color','rgba(0, 0, 0, 0)');
