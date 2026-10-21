@@ -115,8 +115,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution', h1: /第7章.*Verifying the Test Automation Solution/ },
   { path: '/istqb-ctal-tae-chapter8-continuous-improvement', h1: /第8章.*Continuous Improvement/ },
   { path: '/quality-is-free-guide', h1: /Quality Is Free 入門ガイド/ },
+  { path: '/iec-62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 102;
+export const EXPECTED_PAGE_COUNT = 103;
 
 
