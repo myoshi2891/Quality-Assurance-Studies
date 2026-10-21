@@ -16,9 +16,9 @@ describe('IEC 62304 registration and original archives', () => {
         const entries = PAGES.filter(p => p.path === href); expect(entries).toHaveLength(1); expect(entries[0]?.h1.test('IEC 62304:2006 初学者向けステップバイステップ解説ガイド')).toBe(true);
     });
     for (const ext of ['html', 'md'] as const) {
-        const path = `archive/${ext}-archive/iso/${inventory.source}.${ext}`;
+        const path = `tests/fixtures/source-html/${inventory.source}.${ext}`;
         it(`moves original ${ext} out of the project root`, () => expect(existsSync(`${inventory.source}.${ext}`)).toBe(false));
-        // The repository ignores local archives; byte checks run when the archive is present.
-        it.skipIf(!existsSync(path))(`preserves archived ${ext} SHA-256`, () => expect(createHash('sha256').update(readFileSync(path)).digest('hex')).toBe(inventory.hashes[ext]));
+        // 原本は Git 追跡下の fixtures に置き、クリーンなチェックアウトでも常にハッシュを検証する
+        it(`preserves tracked original ${ext} SHA-256`, () => expect(createHash('sha256').update(readFileSync(path)).digest('hex')).toBe(inventory.hashes[ext]));
     }
 });
