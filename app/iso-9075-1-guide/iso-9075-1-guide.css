@@ -103,3 +103,13 @@
 .iso-9075-page *::-webkit-scrollbar { width: 6px; height: 6px; }
 .iso-9075-page *::-webkit-scrollbar-track { background: transparent !important; }
 .iso-9075-page *::-webkit-scrollbar-thumb { background: var(--border) !important; border-radius: 3px; }
+/* Differences detected by source computed-style comparisons at all four widths. */
+.iso-9075-page .callout p + p { margin-top: 0; }
+.iso-9075-page .page-footer { text-align: start; }
+.iso-9075-page hr { color: gray; }
+.iso-9075-page code { white-space: normal; }
+.iso-9075-page pre { color: var(--text); font-family: monospace; font-size: 16px; }
+.iso-9075-page pre code { white-space: pre; display: inline; }
+.iso-9075-page .code-line { display: inline; }
+.iso-9075-page .callout p { margin: 0 0 16px; }
+.iso-9075-page .callout p:last-child { margin-bottom: 0; }
