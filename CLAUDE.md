@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-20
+Updated 2026-10-21
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 4718 tests)
+bun test             # ユニットテスト (bun test, 5075 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 102 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 103 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -436,6 +436,36 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/` — Hero・Overview・Chapter1〜5・Roadmap・Referencesのカテゴリー別コンポーネント
 - `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する305テスト
 - `app/beautiful-testing-guide/page.tsx` — Beautiful Testing全15セクションを元HTMLの本文・構造に沿って移行
+- `app/iec-62304-beginner-guide/Diagram.tsx` — 共有Mermaidへの配線
+- `app/iec-62304-beginner-guide/NavBar.tsx` — 階層目次・開閉・追従・親展開・解放
+- `app/iec-62304-beginner-guide/Section01.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section02.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section03.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section04.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section05.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section06.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section07.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section08.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section09.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section10.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section11.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section12.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section13.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section14.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section15.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section16.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section17.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section18.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section19.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section20.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section21.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/Section22.tsx` — IEC 62304、原本のカテゴリー別本文
+- `app/iec-62304-beginner-guide/diagrams.ts` — HTMLの18図・ダーク配色・縦配置
+- `app/iec-62304-beginner-guide/iec-62304-beginner-guide.css` — 全65原本CSS・960px条件・共有CSS干渉補正
+- `app/iec-62304-beginner-guide/page.tsx` — 22セクションの組み立て・metadata・800ウェイト
+- `app/iec-62304-beginner-guide/toc.ts` — 全50リンクの原本順序
+- `tests/iec-62304-beginner-guide/page.test.tsx` / `integration.test.ts` — 原本全量・操作・CSS・登録・原本ハッシュの351件
+- `e2e/iec-62304-layout.e2e.ts` / `playwright.iec-62304.config.ts` — ビルド/サーバー不要の実スタイル比較・実SVGの80件
 - `app/quality-is-free-guide/ChapterDiagram.tsx` — Quality Is Free、原本カードと共有Mermaidの接続
 - `app/quality-is-free-guide/NavBar.tsx` — Quality Is Free、15目次リンク・開閉・追従・サーバー本文のchildrenスロット
 - `app/quality-is-free-guide/Section00.tsx` — Quality Is Free、カテゴリー別の原本本文
@@ -477,7 +507,7 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 102 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 103 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -829,6 +859,7 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
+| `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -853,10 +884,10 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 102 ルート（ガイドライブラリ index + 101 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 103 ルート（ガイドライブラリ index + 102 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「Quality Is Free 入門ガイド」（`/quality-is-free-guide`）を登録済み。目視確認はユーザーが担当。
+- 新規追加「IEC 62304初学者向けガイド」（`/iec-62304-beginner-guide`）を登録済み。目視確認はユーザーが担当。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -921,3 +952,14 @@ bun test        # ユニットテスト成功
 - Red先行、デザイン、各16セクション、図、目次、登録、アーカイブ、実ブラウザーで発見した補正、仕様書を分割コミット。コミットごとにPII検査。
 - 原本HTMLは`archive/html-archive/books/Quality-is-free-guide.html`、MDは`archive/md-archive/books/Quality-is-free-guide.md`へ同名で移動し、双方のSHA-256一致を確認。archiveの既存Git除外設定を維持。
 - 検証: ページ289件＋登録・アーカイブ6件の計295件、全体4718件（127ファイル）、ブラウザー42件、対象型検査、lint、変更Markdownのlintが成功。ユーザー指定によりnpm経由で実行。目視確認はユーザー担当、本番ビルドは未実施。
+
+## 2026-10-21: IEC 62304初学者向けガイドの移行
+
+- 移行先は`/iec-62304-beginner-guide`。国際規格カテゴリーへ追加し、ナビ・E2E一覧を103ルートへ同期。
+- 全22セクション・59見出し・階層目次50リンク・37表の全セル・図18件・コールアウト13件・外部リンク30件・全本文とフッターを固定インベントリと照合。コードブロックなし。QAチェック表の13項目は原本の静的な記号を保持。
+- 原本全65 CSSルールと960px条件を保存。ダーク配色・ヒーロー装飾・固定目次を維持し、共有/他ルートCSSによる書体・文字塗り・本文色・表・注記余白・疑似要素の干渉を補正。原本のNoto Sans JP 800ウェイトを追加読み込み。
+- HTML内の実SVGからノード・判断形状・接続・ラベル・グループを抽出し、共通Mermaidで再描画。Markdownと形式が異なる版履歴・改訂動向・導入ロードマップはHTMLの形式を採用。縦配置と分離図の方向、配色、横スクロールの両端を検証。
+- 目次のモバイル開閉・リンク選択・Escape・フォーカス復帰・全50アンカーのObserver追従・親グループ展開・目次内スクロール・Observer解除を検証。全本文はNext.js/SWCの開発/本番変換後も照合。
+- Red先行、デザイン、図、目次、基礎解説、Step 1〜3、Step 4、Step 5〜7、実務、改訂/FAQ/参考資料、登録、アーカイブ、補正、リファクタリング、仕様書を分割コミット。各コミット前にPII検査。
+- HTMLとMDはGit追跡下の`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`へ同名で移動し、クリーンなチェックアウトでもSHA-256一致を常に検証。
+- 検証はnpm経由。対象351件、全体5075件（129ファイル）、ビルド/サーバー不要のブラウザー80件（4幅×18図＋CSS読込2順序×4幅）、lint成功。対象型検査成功。全体型検査には既存エラーが残存。ビルド未実施、目視確認はユーザー担当。

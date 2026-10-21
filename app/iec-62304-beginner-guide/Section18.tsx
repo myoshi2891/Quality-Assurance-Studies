@@ -1,0 +1,5 @@
+import React from 'react';
+export default function Section18() { return <><h2 id="sec-38">{"18. よくある失敗と対策"}</h2>
+
+<div className="table-scroll"><table><thead><tr className="header"><th>{"失敗"}</th><th>{"何が起きるか"}</th><th>{"対策"}</th></tr></thead><tbody><tr className="odd"><td>{"安全クラスの判定根拠が曖昧"}</td><td>{"監査で再判定を求められ手戻り"}</td><td>{"判定フローと根拠を記録する"}</td></tr><tr className="even"><td>{"FDAのクラスと62304のクラスを混同"}</td><td>{"申請・監査の説明が破綻"}</td><td>{"別概念として整理して用語を統一"}</td></tr><tr className="odd"><td>{"SOUPを「他人の問題」とする"}</td><td>{"既知の異常の見落とし"}</td><td>{"SOUPリストと異常評価を運用に組み込む"}</td></tr><tr className="even"><td>{"62304を単独の規格として扱う"}</td><td>{"リスク管理・QMSとの不整合"}</td><td>{"ISO 13485 / 14971と一体で設計"}</td></tr><tr className="odd"><td>{"保守を非公式に運用"}</td><td>{"市販後の問題が記録・評価されない"}</td><td>{"問題解決・保守プロセスを手順化"}</td></tr><tr className="even"><td>{"計画書が更新されない"}</td><td>{"実態と文書の乖離"}</td><td>{"変更のたびに計画書を更新するルール"}</td></tr><tr className="odd"><td>{"計画段階でなく最後に適用"}</td><td>{"大規模な手戻り"}</td><td>{"企画・計画の段階から取り込む"}</td></tr></tbody></table></div>
+</>; }
