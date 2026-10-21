@@ -21969,7 +21969,7 @@
       "clusters": []
     },
     "mmd-2": {
-      "chart": "timeline\nD2_Y1[\"2006<br>IEC 62304:2006 発行\"]\nD2_Y2[\"2008<br>編集上の訂正\"]\nD2_Y3[\"2015<br>Amd 1:2015 発行<br>統合版 Edition 1.1\"]\nD2_Y4[\"2023<br>ISOページ上で<br>見直しの結果「確認済み」\"]\nD2_Y5[\"2026<br>Edition 2 の改訂作業が継続中\"]\nD2_Y1 --> D2_Y2\nD2_Y2 --> D2_Y3\nD2_Y3 --> D2_Y4\nD2_Y4 --> D2_Y5",
+      "chart": "flowchart LR\nD2_Y1[\"2006<br>IEC 62304:2006 発行\"]\nD2_Y2[\"2008<br>編集上の訂正\"]\nD2_Y3[\"2015<br>Amd 1:2015 発行<br>統合版 Edition 1.1\"]\nD2_Y4[\"2023<br>ISOページ上で<br>見直しの結果「確認済み」\"]\nD2_Y5[\"2026<br>Edition 2 の改訂作業が継続中\"]\nD2_Y1 --> D2_Y2\nD2_Y2 --> D2_Y3\nD2_Y3 --> D2_Y4\nD2_Y4 --> D2_Y5",
       "nodes": [
         {
           "id": "D2_Y1",
