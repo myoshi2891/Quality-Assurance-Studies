@@ -10,6 +10,7 @@ import Section06 from './Section06';
 import Section07 from './Section07';
 import Section08 from './Section08';
 import Section09 from './Section09';
+import Section10 from './Section10';
 import './iec-62304-beginner-guide.css';
 export const metadata: Metadata = { title: "IEC 62304:2006 初学者向けステップバイステップ解説ガイド", description: 'IEC 62304の適用範囲、安全クラス、開発・保守・リスク管理、SOUPとQAの実践を学ぶ初学者向けガイド。' };
 export default function Page() { return <div className="iec-62304-page"><div className="layout"><NavBar /><main className="main">
@@ -26,4 +27,5 @@ export default function Page() { return <div className="iec-62304-page"><div cla
 <Section07 />
 <Section08 />
 <Section09 />
+<Section10 />
 <footer className="page-footer">{" 作成日：2026年10月14日／情報基準日：2026年10月11日 "}</footer></main></div></div>; }
