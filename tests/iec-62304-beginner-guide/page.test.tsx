@@ -61,6 +61,9 @@ describe('exact original content inventory', () => {
     });
 });
 describe('complete original design inventory', () => {
+    it('loads the original 800 weight used by the hero and brand mark', () => {
+        expect(readFileSync(`${base}/page.tsx`, 'utf8')).toContain("import '@fontsource/noto-sans-jp/800.css'");
+    });
     inventory.css.forEach((original, index) => {
         it(`CSS[${index}] ${original.media ?? 'desktop'} ${original.selector}: preserves every declaration`, () => {
             const candidates: unknown[] = [];
@@ -126,9 +129,9 @@ describe('hierarchical TOC behavior', () => {
             const link = result.container.querySelector('a[href="#sec-3"]')!;
             link.getBoundingClientRect = () => ({ top: 500, bottom: 530 }) as DOMRect;
             sidebar.getBoundingClientRect = () => ({ top: 0, bottom: 300, height: 300 }) as DOMRect;
-            act(() => callback!([{ isIntersecting: true, target: document.getElementById('sec-3')! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+            act(() => callback!([{ isIntersecting: true, target: document.getElementById('sec-3')! }] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
             expect(link.getAttribute('aria-current')).toBe('location'); expect(link.closest('.nav-h2')?.classList.contains('open')).toBe(true); expect(sidebar.scrollTop).toBe(400);
-            act(() => callback!([{ isIntersecting: true, target: document.getElementById('sec-1')! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+            act(() => callback!([{ isIntersecting: true, target: document.getElementById('sec-1')! }] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
             expect(link.getAttribute('aria-current')).toBeNull(); expect(link.closest('.nav-h2')?.classList.contains('open')).toBe(false);
             result.unmount(); expect(disconnect).toHaveBeenCalledTimes(1);
         } finally { targets.remove(); globalThis.IntersectionObserver = previous; }
