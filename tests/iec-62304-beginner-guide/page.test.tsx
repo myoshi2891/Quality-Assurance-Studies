@@ -82,9 +82,9 @@ describe('all eighteen source SVG diagrams', () => {
         const { DIAGRAMS, MERMAID_CONFIG } = await import(diagramsEntry);
         expect(Object.keys(DIAGRAMS)).toEqual(Object.keys(inventory.diagrams)); expect(MERMAID_CONFIG).not.toContain("'");
         const config = JSON.parse(MERMAID_CONFIG.replace(/^%%\{init:\s*/, '').replace(/\}%%$/, ''));
-        expect(config.themeVariables.mainBkg).toBe('#11233b');
+        expect(config.themeVariables.mainBkg).toBe('#13253f');
         expect(config.themeVariables.primaryTextColor).toBe('#e6edf7');
-        expect(config.themeVariables.edgeLabelBackground).toBe('#091526');
+        expect(config.themeVariables.edgeLabelBackground).toBe('#0b1a2d');
     });
     for (const [id, source] of Object.entries(inventory.diagrams)) {
         it(`${id}: every node, decision shape, edge, edge label and cluster; real Mermaid parser`, async () => {
