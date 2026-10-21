@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-20
+最終更新日: 2026-10-21
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -70,7 +70,7 @@
 **参照実装**: `app/istqb-ct-ai-complete-guide/` — NavBar.tsx・CSS・page.tsx の 3 点セット  
 **NavBar 未実装のページ（2026-10-20 時点）**:
 
-- なし（すべて実装完了）。Quality Is Freeも`app/quality-is-free-guide/NavBar.tsx`で対応済み。960px以下のモバイルバー・固定目次の開閉とスクロール追従を保持。
+- なし（すべて実装完了）。Quality Is Freeも`app/quality-is-free-guide/NavBar.tsx`で対応済み。960px以下のモバイルバー・固定目次の開閉とスクロール追従を保持。IEC 62304も`app/iec-62304-beginner-guide/NavBar.tsx`で階層目次50リンクの開閉・追従に対応済み。
 
 > 以下の画面にページ内のスティッキーナビゲーションを新規追加してください。
 > /istqb-ct-ai-complete-guide の実装を参考にしてください。
@@ -142,7 +142,7 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
-現在の登録は102ルート（2026-10-20）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は103ルート（2026-10-21）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -299,3 +299,13 @@ QIF_ORIGIN=http://localhost:3000 bunx playwright test --config playwright.mermai
 ```
 
 最初のコマンドは40ケースをサーバー・ビルドなしで実行する。実ページ2ケースは、既存devサーバーがある場合に`QIF_ORIGIN`を指定する。この環境では`localhost`を維持してHMRの初期化を確認し、テスト内でIPv4へ解決する。目視確認は別途実施する。
+
+## IEC 62304移行後の確認（2026-10-21）
+
+移行先は`/iec-62304-beginner-guide`。原本は`archive/html-archive/iso/`と`archive/md-archive/iso/`へ移動済み。目視確認はユーザー担当。今回のサンドボックス検証はユーザー指定によりnpmを使用し、ビルドは実行しません。
+
+```bash
+npm exec -- bun test tests/iec-62304-beginner-guide
+npm exec -- playwright test --config playwright.iec-62304.config.ts
+npm run lint
+```

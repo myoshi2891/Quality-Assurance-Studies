@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-20
+Updated 2026-10-21
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -185,6 +185,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-genai-study-guide/page.tsx` (CT-GenAI完全学習ガイド、既存画面と併存、`NavBar.tsx` 付き)
 - `app/beautiful-testing-guide/page.tsx` (Beautiful Testing ガイド、`NavBar.tsx` 付き)
 - `app/quality-is-free-guide/page.tsx` (Quality Is Free入門、紙色テーマ・全16セクション・目次15リンク・8図・6表・チェック11項目)
+- `app/iec-62304-beginner-guide/page.tsx`（ダーク配色・全22セクション・目次50リンク・18図・37表。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成）
 - `app/beyond-legacy-code-guide/page.tsx` (Beyond Legacy Code 実践ガイド、`NavBar.tsx` 付き)
 - `app/iso-29119-1-2022-guide/page.tsx` (ISO/IEC/IEEE 29119-1:2022 完全解説ガイド、`NavBar.tsx` 付き)
 
@@ -214,7 +215,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（102 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（103 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -365,6 +366,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Ctal-tae-v2.0-ch7-verifying-the-test-automation-solution.html` | `/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution` | ✅ 固定サイドバー・モバイル目次40リンク + Mermaid図11件 + 全30表 + 構文色付きコード7件 + 学習進捗6項目 (archive/html-archive/ctal/) |
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
+| `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (archive/html-archive/iso/) |
 
 ### ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」の追加移行（2026-10-16）
 
@@ -433,10 +435,10 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 102 ルート（ガイドライブラリ index + 101 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 103 ルート（ガイドライブラリ index + 102 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 4718件（127ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「Quality Is Free 入門ガイド」（`/quality-is-free-guide`）を登録済み。目視確認はユーザーが担当。
+- 全体テストすべて成功（直近 5075件（129ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「IEC 62304初学者向けガイド」（`/iec-62304-beginner-guide`）を登録済み。目視確認はユーザーが担当。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
@@ -516,3 +518,14 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - Red先行、デザイン、各16セクション、図、目次、登録、アーカイブ、実ブラウザーで発見した補正、仕様書を分割コミット。コミットごとにPII検査。
 - 原本HTMLは`archive/html-archive/books/Quality-is-free-guide.html`、MDは`archive/md-archive/books/Quality-is-free-guide.md`へ同名で移動し、双方のSHA-256一致を確認。archiveの既存Git除外設定を維持。
 - 検証: ページ289件＋登録・アーカイブ6件の計295件、全体4718件（127ファイル）、ブラウザー42件、対象型検査、lint、変更Markdownのlintが成功。ユーザー指定によりnpm経由で実行。目視確認はユーザー担当、本番ビルドは未実施。
+
+## 2026-10-21: IEC 62304初学者向けガイドの移行
+
+- 移行先は`/iec-62304-beginner-guide`。国際規格カテゴリーへ追加し、ナビ・E2E一覧を103ルートへ同期。
+- 全22セクション・59見出し・階層目次50リンク・37表の全セル・図18件・コールアウト13件・外部リンク30件・全本文とフッターを固定インベントリと照合。コードブロックなし。QAチェック表の13項目は原本の静的な記号を保持。
+- 原本全65 CSSルールと960px条件を保存。ダーク配色・ヒーロー装飾・固定目次を維持し、共有/他ルートCSSによる書体・文字塗り・本文色・表・注記余白・疑似要素の干渉を補正。原本のNoto Sans JP 800ウェイトを追加読み込み。
+- HTML内の実SVGからノード・判断形状・接続・ラベル・グループを抽出し、共通Mermaidで再描画。Markdownと形式が異なる版履歴・改訂動向・導入ロードマップはHTMLの形式を採用。縦配置と分離図の方向、配色、横スクロールの両端を検証。
+- 目次のモバイル開閉・リンク選択・Escape・フォーカス復帰・全50アンカーのObserver追従・親グループ展開・目次内スクロール・Observer解除を検証。全本文はNext.js/SWCの開発/本番変換後も照合。
+- Red先行、デザイン、図、目次、基礎解説、Step 1〜3、Step 4、Step 5〜7、実務、改訂/FAQ/参考資料、登録、アーカイブ、補正、リファクタリング、仕様書を分割コミット。各コミット前にPII検査。
+- HTMLは`archive/html-archive/iso/Iec-62304-beginner-guide.html`、MDは`archive/md-archive/iso/Iec-62304-beginner-guide.md`へ同名で移動し、SHA-256一致を確認。既存のarchiveのGit除外設定を維持。
+- 検証はnpm経由。対象351件、全体5075件（129ファイル）、ビルド/サーバー不要のブラウザー80件（4幅×18図＋CSS読込2順序×4幅）、lint成功。対象型検査成功。全体型検査には既存エラーが残存。ビルド未実施、目視確認はユーザー担当。
