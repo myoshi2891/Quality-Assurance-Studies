@@ -393,3 +393,19 @@
 .iec-62304-page *::-webkit-scrollbar { width: 6px; height: 6px; }
 .iec-62304-page *::-webkit-scrollbar-track { background: transparent !important; }
 .iec-62304-page *::-webkit-scrollbar-thumb { background: #203556 !important; border-radius: 3px; }
+
+/* Computed-style regressions against the original HTML, including retained route CSS. */
+.iec-62304-page .hero { text-align: start; }
+.iec-62304-page .hero::after { content: none; background: none; width: auto; height: auto; position: static; top: auto; right: auto; }
+.iec-62304-page .hero-title { background: none; background-clip: border-box; -webkit-text-fill-color: #fff; }
+.iec-62304-page h1, .iec-62304-page h2, .iec-62304-page h3, .iec-62304-page h4 { font-family: inherit; }
+.iec-62304-page .callout p { font-size: inherit; color: inherit; }
+.iec-62304-page ul, .iec-62304-page ol, .iec-62304-page li { color: inherit; }
+.iec-62304-page main ul, .iec-62304-page main ol { margin-block: 1em; }
+.iec-62304-page table { color: var(--text-dim); border-color: gray; }
+.iec-62304-page th, .iec-62304-page td { font-family: inherit; line-height: inherit; }
+.iec-62304-page .page-footer { font-family: inherit; padding-left: 0; padding-right: 0; }
+.iec-62304-page .mermaid-wrapper { display: block !important; }
+.iec-62304-page p { color: inherit; }
+.iec-62304-page .hero-sub { color: var(--text-faint); }
+.iec-62304-page .callout p { margin: 12px 0; }
