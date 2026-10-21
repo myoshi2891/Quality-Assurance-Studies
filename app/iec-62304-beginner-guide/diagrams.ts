@@ -61,7 +61,7 @@ D1_CORE -->|"認知コンセンサス規格"| D1_FDA
 D1_CORE -.->|"EN 62304 による適合推定なし<br>技術水準として参照"| D1_EU
 D1_CORE -->|"国内制度に応じて活用<br>JIS T 2304 など"| D1_JP`,
 "mmd-2": `${MERMAID_CONFIG}
-flowchart LR
+flowchart TD
 D2_Y1["2006<br>IEC 62304:2006 発行"]
 D2_Y2["2008<br>編集上の訂正"]
 D2_Y3["2015<br>Amd 1:2015 発行<br>統合版 Edition 1.1"]
@@ -125,6 +125,7 @@ D5_Q3 -->|"死亡または重大な傷害"| D5_C`,
 "mmd-6": `${MERMAID_CONFIG}
 flowchart LR
 subgraph D6_システム["ソフトウェアシステム：クラスC"]
+direction TB
 D6_X["アイテムX：投与量計算<br>クラスC"]
 D6_Y["アイテムY：画面表示ログ<br>分離できればクラスA"]
 end
@@ -289,7 +290,7 @@ D16_b2 --> D16_b3
 D16_b3 --> D16_c1
 D16_c2 --> D16_d1`,
 "mmd-17": `${MERMAID_CONFIG}
-flowchart LR
+flowchart TD
 D17_E1["2025<br>CD1 配布・多数のコメント"]
 D17_E2["2026<br>CD2 段階の報告あり"]
 D17_E3["2027<br>古い予測（公開見込み）"]
