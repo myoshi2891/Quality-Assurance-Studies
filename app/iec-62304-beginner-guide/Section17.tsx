@@ -4,7 +4,7 @@ export default function Section17() { return <><h2 id="sec-35">{"17. QAエンジ
 
 <h3 id="sec-36">{"17.1 トレーサビリティの全体像"}</h3>
 
-<Diagram id="mmd-15" />
+<Diagram id="mmd-15" label="トレーサビリティの全体像" />
 
 <h3 id="sec-37">{"17.2 チェックリスト"}</h3>
 

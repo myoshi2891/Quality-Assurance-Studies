@@ -10,5 +10,5 @@ export default function Section09() { return <><h2 id="sec-19">{"Step 3：クラ
 
 <h3 id="sec-21">{"3.2 クラスと厳格さのイメージ"}</h3>
 
-<Diagram id="mmd-7" />
+<Diagram id="mmd-7" label="クラス別に求められる活動の厳格さ" />
 </>; }

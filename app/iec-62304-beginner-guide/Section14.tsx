@@ -14,7 +14,7 @@ export default function Section14() { return <><h2 id="sec-30">{"14. SOUP（出�
 
 <h3 id="sec-32">{"14.2 SOUPの管理サイクル"}</h3>
 
-<Diagram id="mmd-13" />
+<Diagram id="mmd-13" label="SOUPの管理サイクル" />
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"管理項目"}</th><th>{"記録する内容"}</th></tr></thead><tbody><tr className="odd"><td>{"識別"}</td><td>{"名称、メーカー／提供元、バージョン"}</td></tr><tr className="even"><td>{"要求"}</td><td>{"そのSOUPに期待する機能・性能、必要なシステム環境"}</td></tr><tr className="odd"><td>{"異常リスト"}</td><td>{"公開されている既知の不具合、評価結果"}</td></tr><tr className="even"><td>{"リスク"}</td><td>{"危険状態への寄与、対策"}</td></tr><tr className="odd"><td>{"変更管理"}</td><td>{"バージョン更新時の影響評価"}</td></tr></tbody></table></div>
 

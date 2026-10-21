@@ -4,9 +4,9 @@ export default function Section10() { return <><h2 id="sec-22">{"Step 4：開発
 
 <h3 id="sec-23">{"4.1 開発プロセス全体像"}</h3>
 
-<Diagram id="mmd-8" />
+<Diagram id="mmd-8" label="開発プロセス5.1〜5.8の流れ" />
 
-<Diagram id="mmd-9" />
+<Diagram id="mmd-9" label="開発活動と検証活動の対応" />
 
 <aside className="callout callout-tip"><div className="callout-icon">{"💡"}</div><div className="callout-body"><p>{" 左側（作る）と右側（確かめる）が"}<strong>{"V字"}</strong>{"で対応します。要求とテスト、設計とテストが"}<strong>{"追跡可能"}</strong>{"であることが、監査で最も見られるポイントの一つです。 "}</p></div></aside>
 

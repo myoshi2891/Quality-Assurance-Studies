@@ -22,6 +22,8 @@ function tree(node: AnyNode | undefined): unknown {
     if (!isTag(node)) return null;
     const attrs = { ...node.attribs };
     delete attrs['aria-current'];
+    // 図の aria-label は原本にないアクセシビリティ追加のため、原本照合から外して別テストで固定する
+    if (attrs.class === 'mermaid-diagram') delete attrs['aria-label'];
     if (attrs.style) attrs.style = attrs.style.replace(/:\s*/g, ': ');
     if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '').replace(/\s+open\b/g, '');
     return { tag: node.tagName, attrs, children: attrs.class === 'mermaid-diagram' ? [] : node.children.map(tree).filter(x => x !== null) };
@@ -82,6 +84,19 @@ describe('complete original design inventory', () => {
     });
 });
 describe('all eighteen source SVG diagrams', () => {
+    it('labels every diagram container as an image with its own description', async () => {
+        const labels = [
+            'ソフトウェアの不具合が患者・使用者への危害につながる流れ', 'IEC 62304と周辺規格の関係', 'IEC 62304の版の歴史',
+            'IEC 62304の条項マップ', '62304の適用対象の判断フロー', 'ソフトウェア安全クラスの判定フロー',
+            'セグリゲーションによるソフトウェアアイテムの分離', 'クラス別に求められる活動の厳格さ', '開発プロセス5.1〜5.8の流れ',
+            '開発活動と検証活動の対応', 'ソフトウェアリスクマネジメントの流れ', '構成管理における変更管理の流れ',
+            'ソフトウェア保守プロセスの流れ', 'SOUPの管理サイクル', 'アジャイル開発と規格活動のマッピング',
+            'トレーサビリティの全体像', '導入ロードマップ例', 'IEC 62304第2版の改訂動向',
+        ];
+        const $ = await html();
+        const diagrams = $('.mermaid-diagram').toArray().map(el => ({ id: $(el).attr('id'), role: $(el).attr('role'), label: $(el).attr('aria-label') }));
+        expect(diagrams).toEqual(labels.map((label, i) => ({ id: `mmd-${i}`, role: 'img', label })));
+    });
     it('registers exactly the source diagram IDs and uses the original dark palette', async () => {
         const { DIAGRAMS, MERMAID_CONFIG } = await import(diagramsEntry);
         expect(Object.keys(DIAGRAMS)).toEqual(Object.keys(inventory.diagrams)); expect(MERMAID_CONFIG).not.toContain("'");

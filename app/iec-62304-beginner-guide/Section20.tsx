@@ -8,7 +8,7 @@ export default function Section20() { return <><h2 id="sec-40">{"20. Edition 2�
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"情報源（日付）"}</th><th>{"内容"}</th></tr></thead><tbody><tr className="odd"><td>{"Critical Software（2026年6月12日）"}</td><td>{" FDIS段階が2026年5月に始まり、公式予測は2027年初頭〜中頃と記載 "}</td></tr><tr className="even"><td>{"QARA PULSE（2026年8月12日）"}</td><td>{" CD2が送付され、コメント解決は2026年8月19日開始、承認段階は10月21日、公開予測は2028年 "}</td></tr><tr className="odd"><td>{"Quickbird Medical（2026年10月初旬頃）"}</td><td>{" IEC予測では2028年10月26日公開。以前の2027年4月予測から大幅に遅延と記載 "}</td></tr><tr className="even"><td>{"MD Regulatory（2026年8月下旬頃）"}</td><td>{" Edition 2は未存在。"}<strong>{"現行は2006+A1:2015"}</strong>{"。FDISは2028年以前に見込まれないと記載 "}</td></tr></tbody></table></div>
 
-<Diagram id="mmd-17" />
+<Diagram id="mmd-17" label="IEC 62304第2版の改訂動向" />
 
 <h3 id="sec-42">{"20.2 実務上の結論"}</h3>
 

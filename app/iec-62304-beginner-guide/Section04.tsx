@@ -4,7 +4,7 @@ export default function Section04() { return <><h2 id="sec-7">{"4. 規格の位�
 
 <p>{" 62304は単独では機能しません。周辺規格との関係を先に押さえると、全体像が掴みやすくなります。 "}</p>
 
-<Diagram id="mmd-1" />
+<Diagram id="mmd-1" label="IEC 62304と周辺規格の関係" />
 
 <aside className="callout callout-note"><div className="callout-icon">{"ℹ"}</div><div className="callout-body"><p>{" 各国規制での扱いは一律ではありません。米国では FDA の認知コンセンサス規格、EU MDR では EN 62304 による適合推定は得られず（第20章参照）、日本では国内制度に応じて活用されます。 "}</p></div></aside>
 

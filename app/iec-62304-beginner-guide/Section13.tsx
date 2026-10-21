@@ -6,7 +6,7 @@ export default function Section13() { return <><h2 id="sec-27">{"Step 7：保守
 
 <p>{" 保守は、出荷後のソフトウェアに起きる"}<strong>{"問題の受付・評価・修正"}</strong>{"を管理するプロセスです。 "}</p>
 
-<Diagram id="mmd-12" />
+<Diagram id="mmd-12" label="ソフトウェア保守プロセスの流れ" />
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"要点"}</th><th>{"内容"}</th></tr></thead><tbody><tr className="odd"><td>{"保守計画"}</td><td>{"問題報告の受付、評価、修正、SOUPの更新対応を計画しておく"}</td></tr><tr className="even"><td>{"安全性の評価"}</td><td>{" 受け取ったすべての問題報告について、"}<strong>{"安全性への影響"}</strong>{"を評価する "}</td></tr><tr className="odd"><td>{"修正の実装"}</td><td>{" 開発プロセス（箇条5）を再利用し、変更の影響を評価して再検証する "}</td></tr></tbody></table></div>
 

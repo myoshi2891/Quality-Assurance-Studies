@@ -10,7 +10,7 @@ export default function Section08() { return <><h2 id="sec-13">{"Step 2：ソフ
 
 <h3 id="sec-15">{"2.2 判定フロー"}</h3>
 
-<Diagram id="mmd-5" />
+<Diagram id="mmd-5" label="ソフトウェア安全クラスの判定フロー" />
 
 <h3 id="sec-16">{"2.3 判定のコツ"}</h3>
 
@@ -18,7 +18,7 @@ export default function Section08() { return <><h2 id="sec-13">{"Step 2：ソフ
 
 <h3 id="sec-17">{"2.4 セグリゲーション（分離）の考え方"}</h3>
 
-<Diagram id="mmd-6" />
+<Diagram id="mmd-6" label="セグリゲーションによるソフトウェアアイテムの分離" />
 
 <p>{" 分離を主張するには、「Yが故障してもXに悪影響が及ばない」ことを"}<strong>{"アーキテクチャ上で説明・検証"}</strong>{"できなければなりません。分離できない場合、全体が高いクラスになります。 "}</p>
 
