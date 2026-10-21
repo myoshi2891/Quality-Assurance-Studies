@@ -37,6 +37,13 @@ for (const width of [390,960,961,1440]) {
                 for (let i=0; i<Math.min(a.length,e.length); i++) for (const prop of properties) if (a[i]![prop] !== e[i]![prop]) differences.push([selector,i,prop,a[i]![prop],e[i]![prop]]);
             }
             expect(differences).toEqual([]);
+            for (let i = 0; i < inventory.groups.codes.items.length; i++) {
+                const block = page.locator('pre').nth(i), source = reference.locator('pre').nth(i);
+                expect(await block.textContent()).toBe(inventory.groups.codes.items[i]!.code);
+                expect((await block.boundingBox())!.height).toBe((await source.boundingBox())!.height);
+                const ends = await block.evaluate(el => { el.scrollLeft = el.scrollWidth; return { actual: el.scrollLeft, required: el.scrollWidth-el.clientWidth }; });
+                expect(Math.abs(ends.actual-ends.required)).toBeLessThanOrEqual(1);
+            }
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height','0px');
             await expect(page.locator('.toggle')).toHaveCSS('display', width <= 960 ? 'block' : 'none');
