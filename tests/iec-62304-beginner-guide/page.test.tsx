@@ -22,6 +22,7 @@ function tree(node: AnyNode | undefined): unknown {
     if (!isTag(node)) return null;
     const attrs = { ...node.attribs };
     delete attrs['aria-current'];
+    if (attrs.style) attrs.style = attrs.style.replace(/:\s*/g, ': ');
     if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '').replace(/\s+open\b/g, '');
     return { tag: node.tagName, attrs, children: attrs.class === 'mermaid-diagram' ? [] : node.children.map(tree).filter(x => x !== null) };
 }
