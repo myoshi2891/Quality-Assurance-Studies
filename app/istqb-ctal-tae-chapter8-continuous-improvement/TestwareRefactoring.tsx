@@ -22,7 +22,7 @@ export default function TestwareRefactoring() {
             {" 4.2 進め方（テスト環境コンポーネントの変更への対応） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="42-進め方テスト環境コンポーネントの変更への対応">
                 <thead>
                     <tr className="header">
                         <th>
@@ -104,7 +104,7 @@ export default function TestwareRefactoring() {
             {" 自動テストの大部分は、GUI コントロールの状態確認（表示／非表示、有効／無効、サイズ、データなど）です。 "}
         </p>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="②-同じコントロール種別に作用する複数関数を統合する">
                 <thead>
                     <tr className="header">
                         <th>
@@ -151,7 +151,7 @@ export default function TestwareRefactoring() {
             </li>
         </ul>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="③-sut-の変更に対応して-taa-をリファクタリングする">
                 <thead>
                     <tr className="header">
                         <th>
@@ -205,7 +205,7 @@ export default function TestwareRefactoring() {
             {" ⑤ 既存テストスクリプトの見直し・廃止の評価 "}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="⑤-既存テストスクリプトの見直し廃止の評価">
                 <thead>
                     <tr className="header">
                         <th>

@@ -16,7 +16,7 @@ export default function ToolOpportunities() {
             {" 5.2 環境のセットアップと制御（Environment setup and control） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="52-環境のセットアップと制御environment-setup-and-control">
                 <thead>
                     <tr className="header">
                         <th>
@@ -70,7 +70,7 @@ export default function ToolOpportunities() {
             {"5.3 データエイジング（Data aging）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="53-データエイジングdata-aging">
                 <thead>
                     <tr className="header">
                         <th>
@@ -113,7 +113,7 @@ export default function ToolOpportunities() {
             {" 5.4 スクリーンショットと動画の生成（Screenshot and video generation） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="54-スクリーンショットと動画の生成screenshot-and-video-generation">
                 <thead>
                     <tr className="header">
                         <th>
@@ -148,7 +148,7 @@ export default function ToolOpportunities() {
             {"5.5 ベストプラクティス"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="55-ベストプラクティス">
                 <thead>
                     <tr className="header">
                         <th>

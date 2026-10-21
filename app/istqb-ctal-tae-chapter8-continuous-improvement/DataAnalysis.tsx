@@ -11,7 +11,7 @@ export default function DataAnalysis() {
             {" 第6章で学んだ「ログやレポートの収集」を土台に、そのデータを使ってテストケース自体を良くするための3つの切り口が示されています。 "}
         </p>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="2-811-データ収集と分析でテストケースを改善するk3">
                 <thead>
                     <tr className="header">
                         <th>
@@ -94,7 +94,7 @@ export default function DataAnalysis() {
             {"直近 30 回の CI 実行で、テストケースごとの「失敗回数」を集計したとします。"}
         </p>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="212-具体例イメージをつかむための例">
                 <thead>
                     <tr className="header">
                         <th>
@@ -184,7 +184,7 @@ export default function DataAnalysis() {
             {"2.1.4 ベストプラクティス"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="214-ベストプラクティス">
                 <thead>
                     <tr className="header">
                         <th>
@@ -273,7 +273,7 @@ export default function DataAnalysis() {
             {"2.2.3 ベストプラクティスと注意点"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="223-ベストプラクティスと注意点">
                 <thead>
                     <tr className="header">
                         <th>
@@ -382,7 +382,7 @@ export default function DataAnalysis() {
             {"2.3.3 使いどころの整理"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="233-使いどころの整理">
                 <thead>
                     <tr className="header">
                         <th>
@@ -425,7 +425,7 @@ export default function DataAnalysis() {
             {" 2.3.4 スキーマ検証と契約テスト（第5章）の違い "}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="234-スキーマ検証と契約テスト第5章の違い">
                 <thead>
                     <tr className="header">
                         <th>
@@ -491,7 +491,7 @@ export default function DataAnalysis() {
             {"2.3.5 ベストプラクティス"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="235-ベストプラクティス">
                 <thead>
                     <tr className="header">
                         <th>

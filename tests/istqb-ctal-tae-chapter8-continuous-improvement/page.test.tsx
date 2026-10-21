@@ -22,7 +22,10 @@ function tree(node: AnyNode | undefined, code = false): unknown {
     if (!node) throw new Error('Missing original inventory element');
     if (node.type === 'text') return code ? node.data : norm(node.data) || null;
     if (!isTag(node)) return null;
+    // 表の名前付けは専用テストで検証するため、追加した caption と aria-labelledby は原本比較から除外する
+    if (node.tagName === 'caption' && isTag(node.parent as AnyNode) && (node.parent as { tagName?: string }).tagName === 'table') return null;
     const attrs = { ...node.attribs };
+    if (node.tagName === 'table') delete attrs['aria-labelledby'];
     // Dedicated reference tests assert these migration-required attributes.
     if (node.tagName === 'a' && /^https?:/.test(attrs.href ?? '')) { delete attrs.target; delete attrs.rel; }
     delete attrs['aria-current'];
@@ -90,6 +93,33 @@ describe('original content inventory', () => {
             expect($('.code-block pre code').eq(i).attr('class')).toBe(`language-${code.language} hljs`);
             expect($('.code-block pre code').eq(i).text()).toBe(code.text);
         });
+    });
+    it('names all 36 tables by a preceding id heading or a non-empty caption', async () => {
+        const $ = await html();
+        const tables = $('table').toArray();
+        expect(tables).toHaveLength(36);
+        const all = $('*').toArray();
+        const names = tables.map(table => {
+            const caption = $(table).children('caption');
+            const labelledby = $(table).attr('aria-labelledby');
+            if (caption.length > 0) {
+                expect(caption).toHaveLength(1);
+                expect($(table).children().first().is('caption')).toBe(true);
+                expect(labelledby).toBeUndefined();
+                const text = norm(caption.text());
+                expect(text).not.toBe('');
+                return text;
+            }
+            expect(labelledby).toBeDefined();
+            const heading = $(`[id="${labelledby}"]`);
+            expect(heading).toHaveLength(1);
+            expect(heading.is('h2, h3, h4')).toBe(true);
+            expect(all.indexOf(heading[0])).toBeLessThan(all.indexOf(table));
+            const text = norm(heading.text());
+            expect(text).not.toBe('');
+            return text;
+        });
+        expect(new Set(names).size).toBe(tables.length);
     });
 });
 

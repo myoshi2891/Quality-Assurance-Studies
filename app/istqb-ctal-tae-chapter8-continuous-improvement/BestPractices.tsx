@@ -10,7 +10,7 @@ export default function BestPractices() {
             {"7.1 項目別"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="71-項目別">
                 <thead>
                     <tr className="header">
                         <th>
@@ -211,7 +211,7 @@ export default function BestPractices() {
             <ChapterDiagram id="mmd-16" />
         </div>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="72-改善提案を書くときの型k4-対策">
                 <thead>
                     <tr className="header">
                         <th>

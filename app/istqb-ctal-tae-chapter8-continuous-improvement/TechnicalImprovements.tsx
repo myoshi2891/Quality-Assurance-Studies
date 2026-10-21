@@ -25,7 +25,7 @@ export default function TechnicalImprovements() {
             {"3.2 改善を検討する 9 つの領域"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="32-改善を検討する-9-つの領域">
                 <thead>
                     <tr className="header">
                         <th>
@@ -158,7 +158,7 @@ export default function TechnicalImprovements() {
             <ChapterDiagram id="mmd-7" />
         </div>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="331-スクリプト手法をアップグレードする">
                 <thead>
                     <tr className="header">
                         <th>
@@ -210,6 +210,9 @@ export default function TechnicalImprovements() {
         </ul>
         <div className="table-scroll">
             <table>
+                <caption className="sr-only">
+                    {"3.3.2（1）重複統合の Before／After"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -272,6 +275,9 @@ export default function TechnicalImprovements() {
         </p>
         <div className="table-scroll">
             <table>
+                <caption className="sr-only">
+                    {"3.3.2（3）待機方式 3 種の比較"}
+                </caption>
                 <thead>
                     <tr className="header">
                         <th>
@@ -356,7 +362,7 @@ export default function TechnicalImprovements() {
             {" 3.4.1 課題：リグレッションが時間内に終わらない "}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="341-課題リグレッションが時間内に終わらない">
                 <thead>
                     <tr className="header">
                         <th>
@@ -437,7 +443,7 @@ export default function TechnicalImprovements() {
             {"3.4.3 ベストプラクティス"}
         </h4>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="343-ベストプラクティス">
                 <thead>
                     <tr className="header">
                         <th>
@@ -499,7 +505,7 @@ export default function TechnicalImprovements() {
             </li>
         </ul>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="35-領域③-verification検証">
                 <thead>
                     <tr className="header">
                         <th>
@@ -587,7 +593,7 @@ export default function TechnicalImprovements() {
             <ChapterDiagram id="mmd-11" />
         </div>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="372-推奨する進め方">
                 <thead>
                     <tr className="header">
                         <th>
@@ -648,7 +654,7 @@ export default function TechnicalImprovements() {
         </p>
         <CodeExample index={4} />
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="38-領域⑥-setup-and-teardownセットアップとティアダウン">
                 <thead>
                     <tr className="header">
                         <th>
@@ -694,7 +700,7 @@ export default function TechnicalImprovements() {
             {"対象は次のすべてです。"}
         </p>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="39-領域⑦-documentationドキュメント">
                 <thead>
                     <tr className="header">
                         <th>
@@ -756,7 +762,7 @@ export default function TechnicalImprovements() {
             </li>
         </ul>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="310-領域⑧-tas-featurestas-の機能">
                 <thead>
                     <tr className="header">
                         <th>
@@ -805,7 +811,7 @@ export default function TechnicalImprovements() {
             </li>
         </ul>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="311-領域⑨-taf-updates-and-upgradestaf-の更新アップグレード">
                 <thead>
                     <tr className="header">
                         <th>

@@ -6,7 +6,7 @@ export default function GlossaryReferences() {
             {"8. 用語集"}
         </h2>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="8-用語集">
                 <thead>
                     <tr className="header">
                         <th>
@@ -156,7 +156,7 @@ export default function GlossaryReferences() {
             {"9.1 一次情報（本ガイドの根拠）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="91-一次情報本ガイドの根拠">
                 <thead>
                     <tr className="header">
                         <th>
@@ -213,7 +213,7 @@ export default function GlossaryReferences() {
             {"9.2 補足資料（コード例・実装の理解用）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="92-補足資料コード例実装の理解用">
                 <thead>
                     <tr className="header">
                         <th>

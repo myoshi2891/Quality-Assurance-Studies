@@ -9,7 +9,7 @@ export default function ExamPractice() {
             {"6.1 ひっかけポイント表"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="61-ひっかけポイント表">
                 <thead>
                     <tr className="header">
                         <th>

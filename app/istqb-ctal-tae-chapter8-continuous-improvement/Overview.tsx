@@ -16,7 +16,7 @@ export default function Overview() {
             {"1.2 学習目標（Learning Objectives）"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="12-学習目標learning-objectives">
                 <thead>
                     <tr className="header">
                         <th>
@@ -105,7 +105,7 @@ export default function Overview() {
             {" 1.3 試験で必ず覚えるキーワード（この章） "}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="13-試験で必ず覚えるキーワードこの章">
                 <thead>
                     <tr className="header">
                         <th>
@@ -140,7 +140,7 @@ export default function Overview() {
             {"1.4 略語の早見表"}
         </h3>
         <div className="table-scroll">
-            <table>
+            <table aria-labelledby="14-略語の早見表">
                 <thead>
                     <tr className="header">
                         <th>
