@@ -155,6 +155,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-29119-1-2022-guide', label: 'ISO 29119-1:2022 ガイド', description: '国際テスト規格ISO/IEC/IEEE 29119-1:2022の一般概念、プロセス階層、リスクベースドテストを初学者向けに体系解説。', category: 'iso' },
   { href: '/iec-62304-beginner-guide', label: 'IEC 62304 初学者向けガイド', description: '医療機器ソフトウェアの安全クラス、開発・保守・リスク管理、SOUPとQAの実践を段階的に解説。', category: 'iso' },
   { href: '/iso-9075-1-guide', label: 'ISO 9075-1 SQL/Framework ガイド', description: 'SQL標準の全体像、Part 1の役割、適合性、SQL:2023・JSON・PGQとQAの活用を段階的に解説。', category: 'iso' },
+  { href: '/iso-11179-1-2023-guide', label: 'ISO 11179-1 メタデータレジストリ ガイド', description: '意味と表現の分離、11179ファミリー、登録運用・メタデータ設計とQAへの活用を段階的に解説。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

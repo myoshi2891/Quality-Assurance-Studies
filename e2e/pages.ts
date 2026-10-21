@@ -117,8 +117,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/quality-is-free-guide', h1: /Quality Is Free 入門ガイド/ },
   { path: '/iec-62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-9075-1-guide', h1: /ISO\/IEC 9075-1:2023（SQL\/Framework）初学者向けステップバイステップ解説ガイド/ },
+  { path: '/iso-11179-1-2023-guide', h1: /ISO\/IEC 11179-1:2023 初学者向けステップバイステップ解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 104;
+export const EXPECTED_PAGE_COUNT = 105;
 
 
