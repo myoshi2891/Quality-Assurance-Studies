@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-21
+最終更新日: 2026-10-22
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -142,7 +142,7 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
-現在の登録は104ルート（2026-10-21）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は105ルート（2026-10-22）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -313,3 +313,7 @@ npm run lint
 ## ISO 9075-1移行後の確認（2026-10-21）
 
 `/iso-9075-1-guide`は階層目次34リンク・モバイル開閉・スクロール追従を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-9075-1-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config playwright.iso-9075.config.ts`でビルド・サーバー不要の実スタイル・図検証44件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
+
+## ISO 11179-1移行後の確認（2026-10-22）
+
+`/iso-11179-1-2023-guide`は階層目次57リンク・モバイル開閉・スクロール追従とチェック6項目を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-11179-1-2023-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config playwright.iso-11179.config.ts`でビルド・サーバー不要の実スタイル・YAML・図検証64件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
