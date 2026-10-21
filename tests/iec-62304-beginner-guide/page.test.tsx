@@ -91,7 +91,7 @@ describe('all eighteen source SVG diagrams', () => {
             const { DIAGRAMS, MERMAID_CONFIG } = await import(diagramsEntry); const chart = DIAGRAMS[id] as string;
             expect(chart.slice(MERMAID_CONFIG.length).trim()).toBe(source.chart);
             const entry: string = 'mermaid/dist/mermaid.esm.mjs'; const real = (await import(entry)).default;
-            expect(await real.parse(chart)).toBeTruthy();
+            expect(await real.parse(chart)).toEqual({ diagramType: 'flowchart-v2', config: expect.anything() });
         });
     }
     it('wires the shared Mermaid renderer to all source diagram definitions in order', async () => {
