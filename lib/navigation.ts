@@ -75,6 +75,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctal-tae-chapter5-implementation-deployment-strategies', label: 'CTAL-TAE 5章 実装・デプロイ戦略', description: 'CI/CDへのテストレベル統合、テストウェアの構成管理、API依存関係とコントラクトテスト。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics', label: 'CTAL-TAE 6章 レポートとメトリクス', description: '自動テストのデータ収集、失敗分析、進捗レポートの作成と公開、メトリクスの活用。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution', label: 'CTAL-TAE 7章 テスト自動化ソリューションの検証', description: '自動化環境の検証計画、スクリプトとスイートの正しい振る舞い、予期しない結果、静的解析。', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tae-chapter8-continuous-improvement', label: 'CTAL-TAE 8章 継続的改善', description: 'データ分析によるテスト改善、TASの技術面の分析、SUT更新に伴う再構成、自動化ツールの活用。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', description: 'ビジネス視点のテスト分析・設計と品質特性の評価。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter1-test-process', label: 'CTAL-TA 1章 テストプロセス', description: 'SDLCにおけるTAのタスク、テスト活動への関与、テスト成果物管理。', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-chapter2-risk-based-testing', label: 'CTAL-TA 2章 リスクベースドテスト', description: 'リスクベースドテストにおけるTAの役割、リスク識別・評価・軽減活動。', category: 'istqb-advanced' },
@@ -149,6 +150,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/langgraph-qa-agent-guide', label: 'LangGraph QAエージェント構築ガイド', description: 'LangGraphとNeo4jで自然言語QAエージェントを構築する手順と安全なText-to-Cypher設計。', category: 'books-practices' },
   { href: '/beyond-legacy-code-guide', label: 'レガシーコードからの脱却 実践ガイド', description: 'Beyond Legacy Codeの9つのプラクティス、CLEANなコード、TDD、継続的統合と4週間の実践ロードマップ。', category: 'books-practices' },
   { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
+  { href: '/quality-is-free-guide', label: 'Quality Is Free 入門ガイド', description: 'Crosbyの品質の4原則・品質コスト・14ステップ改善・成熟度グリッドをソフトウェア開発へ応用。', category: 'books-practices' },
 
   { href: '/iso-29119-1-2022-guide', label: 'ISO 29119-1:2022 ガイド', description: '国際テスト規格ISO/IEC/IEEE 29119-1:2022の一般概念、プロセス階層、リスクベースドテストを初学者向けに体系解説。', category: 'iso' },
 ];

@@ -2,17 +2,12 @@ import { test, expect } from '@playwright/test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import ts from 'typescript';
+import { sourceModule } from '../tests/helpers/source-module';
 
 const root = 'app/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/';
-// Playwright's JSX transform creates test descriptors; transpile source with React for SSR.
-const sourceRequire = createRequire(`${process.cwd()}/package.json`);
+// Compile with the same SWC JSX semantics as Next.js, including whitespace handling.
 function component(name: string): React.ComponentType<{ index?: number }> {
-    const exported: { default?: React.ComponentType<{ index?: number }> } = {};
-    const source = ts.transpile(readFileSync(`${root}${name}.tsx`, 'utf8'), { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.React, esModuleInterop: true });
-    Function('exports', 'require', source)(exported, sourceRequire);
-    return exported.default!;
+    return sourceModule(`${root}${name}.tsx`).default as React.ComponentType<{ index?: number }>;
 }
 const CodeExample = component('CodeExample');
 const ChecklistCard = component('ChecklistCard');
