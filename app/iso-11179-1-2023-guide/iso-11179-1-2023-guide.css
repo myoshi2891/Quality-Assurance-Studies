@@ -94,3 +94,8 @@
 .iso-11179-page *::-webkit-scrollbar { width: 6px; height: 6px; }
 .iso-11179-page *::-webkit-scrollbar-track { background: transparent !important; }
 .iso-11179-page *::-webkit-scrollbar-thumb { background: var(--line) !important; border-radius: 3px; }
+/* Restore source computed styles changed by shared CSS and Tailwind preflight. */
+.iso-11179-page .hero-sub { line-height: 1.85; }
+.iso-11179-page .callout-title { font-family: inherit; font-size: inherit; line-height: inherit; text-transform: none; letter-spacing: normal; }
+.iso-11179-page .menu-btn { font-family: Arial; line-height: normal; padding: 1px 6px; }
+.iso-11179-page .cb { font: 400 13.3333px Arial; line-height: normal; color: #000; margin: 8px 3px 3px 4px; }
