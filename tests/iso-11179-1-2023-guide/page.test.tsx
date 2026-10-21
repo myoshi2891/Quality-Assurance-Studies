@@ -78,8 +78,12 @@ describe('all original diagrams', () => {
     });
 });
 describe('YAML source tokens and line fidelity', () => {
+    for (const development of [false, true]) it('YAML runtime newlines after SWC development='+development, () => {
+        const Code = sourceModule(base+'/CodeExample.tsx', { development }).default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Code />)); expect($('pre').text()).toBe(inventory.groups.codes.items[0]!.code);
+    });
     it('preserves every highlighted token in source order', async () => {
-        const $ = await html(); expect($('pre span[class]').map((_, el) => ({ class: $(el).attr('class'), text: $(el).text() })).get()).toEqual(inventory.codeTokens);
+        const Code = sourceModule(base+'/CodeExample.tsx').default as React.ComponentType; const $ = load(renderToStaticMarkup(<Code />)); expect($('pre span[class]').map((_, el) => ({ class: $(el).attr('class'), text: $(el).text() })).get()).toEqual(inventory.codeTokens);
     });
 });
 describe('TOC interactions', () => {
