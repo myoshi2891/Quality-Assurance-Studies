@@ -1,0 +1,395 @@
+
+            .iec-62304-page {
+                --bg: #07111e;
+                --panel: #0d1b2e;
+                --panel2: #11233b;
+                --border: #203556;
+                --accent: #7c9eff;
+                --text: #e6edf7;
+                --text-dim: #c7d6ec;
+                --text-faint: #9cb0cf;
+                --warn: #ffb86b;
+                --tip: #6ee7b7;
+                --sb: 292px;
+                --font:
+                    'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+                --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+            }
+            .iec-62304-page * {
+                box-sizing: border-box;
+            }
+            .iec-62304-page {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+                scroll-padding-top: 20px;
+            }
+            .iec-62304-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text-dim);
+                font-family: var(--font);
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
+            .iec-62304-page a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+            .iec-62304-page a:hover {
+                text-decoration: underline;
+            }
+            .iec-62304-page .layout {
+                display: block;
+            }
+            .iec-62304-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sb);
+                background: #0a1628;
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 20px 14px 40px;
+                z-index: 50;
+            }
+            .iec-62304-page .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 4px 8px 18px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 12px;
+            }
+            .iec-62304-page .brand-mark {
+                background: var(--accent);
+                color: #07111e;
+                font-weight: 800;
+                font-size: 12px;
+                padding: 3px 8px;
+                border-radius: 6px;
+                letter-spacing: 0.04em;
+            }
+            .iec-62304-page .brand-text {
+                color: #fff;
+                font-weight: 700;
+                font-size: 15px;
+            }
+            .iec-62304-page .nav-list, .iec-62304-page .nav-sub {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .iec-62304-page .nav-list a {
+                display: block;
+                padding: 6px 10px;
+                border-radius: 8px;
+                color: var(--text-faint);
+                font-size: 13.5px;
+                line-height: 1.5;
+            }
+            .iec-62304-page .nav-list a:hover {
+                background: #12233b;
+                color: #fff;
+                text-decoration: none;
+            }
+            .iec-62304-page .nav-list a.active {
+                background: #16305a;
+                color: #fff;
+                box-shadow: inset 3px 0 0 var(--accent);
+            }
+            .iec-62304-page .nav-sub {
+                display: none;
+                margin: 2px 0 6px 12px;
+                border-left: 1px solid var(--border);
+            }
+            .iec-62304-page .nav-h2.open > .nav-sub {
+                display: block;
+            }
+            .iec-62304-page .nav-sub a {
+                font-size: 12.5px;
+                padding: 4px 10px;
+            }
+            .iec-62304-page .main {
+                margin-left: var(--sb);
+                padding: 48px 56px 80px;
+            }
+            .iec-62304-page .hero {
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(160deg, #0f2038, #0a1628);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                padding: 36px 40px;
+                margin-bottom: 32px;
+            }
+            .iec-62304-page .hero::before {
+                content: '';
+                position: absolute;
+                top: -120px;
+                right: -120px;
+                width: 380px;
+                height: 380px;
+                background: radial-gradient(circle, rgba(124, 158, 255, 0.28), transparent 65%);
+                pointer-events: none;
+            }
+            .iec-62304-page .eyebrow {
+                display: inline-block;
+                background: rgba(124, 158, 255, 0.14);
+                border: 1px solid rgba(124, 158, 255, 0.4);
+                color: var(--accent);
+                font-size: 12px;
+                font-weight: 700;
+                padding: 4px 14px;
+                border-radius: 999px;
+                letter-spacing: 0.04em;
+            }
+            .iec-62304-page .hero-title {
+                margin: 16px 0 6px;
+                font-size: 28px;
+                font-weight: 800;
+                color: #fff;
+                line-height: 1.4;
+            }
+            .iec-62304-page .hero-sub {
+                margin: 0 0 22px;
+                color: var(--text-faint);
+                font-size: 15px;
+            }
+            .iec-62304-page .hero-meta {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 14px 28px;
+                border-top: 1px solid var(--border);
+                padding-top: 18px;
+            }
+            .iec-62304-page .meta-item {
+                min-width: 0;
+                padding-left: 14px;
+                border-left: 2px solid rgba(124, 158, 255, 0.35);
+            }
+            .iec-62304-page .meta-label {
+                font-size: 11px;
+                letter-spacing: 0.08em;
+                color: var(--text-faint);
+                text-transform: uppercase;
+            }
+            .iec-62304-page .meta-value {
+                font-size: 14.5px;
+                color: var(--text);
+                overflow-wrap: anywhere;
+            }
+            .iec-62304-page h2, .iec-62304-page h3, .iec-62304-page h4 {
+                color: #fff;
+                line-height: 1.5;
+                font-weight: 700;
+            }
+            .iec-62304-page h2 {
+                font-size: 26px;
+                margin: 64px 0 18px;
+                padding: 4px 0 4px 16px;
+                border-left: 4px solid var(--accent);
+            }
+            .iec-62304-page h3 {
+                font-size: 20px;
+                margin: 40px 0 12px;
+                color: #dbe6ff;
+            }
+            .iec-62304-page h4 {
+                font-size: 17px;
+                margin: 30px 0 10px;
+                color: #c7d6ec;
+            }
+            .iec-62304-page p {
+                margin: 12px 0;
+            }
+            .iec-62304-page ul, .iec-62304-page ol {
+                padding-left: 1.5em;
+            }
+            .iec-62304-page li {
+                margin: 5px 0;
+            }
+            .iec-62304-page strong {
+                color: #fff;
+                font-weight: 700;
+            }
+            .iec-62304-page .table-scroll {
+                overflow-x: auto;
+                margin: 18px 0;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: var(--panel);
+            }
+            .iec-62304-page table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+                line-height: 1.7;
+            }
+            .iec-62304-page th {
+                background: #13294a;
+                color: #fff;
+                text-align: left;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .iec-62304-page th, .iec-62304-page td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            .iec-62304-page tr:last-child td {
+                border-bottom: 0;
+            }
+            .iec-62304-page tbody tr:nth-child(even) {
+                background: rgba(255, 255, 255, 0.02);
+            }
+            .iec-62304-page td a {
+                overflow-wrap: anywhere;
+                word-break: break-all;
+            }
+            .iec-62304-page .callout {
+                display: flex;
+                gap: 14px;
+                border: 1px solid var(--border);
+                border-left-width: 4px;
+                border-radius: 12px;
+                padding: 14px 18px;
+                margin: 20px 0;
+                background: var(--panel);
+            }
+            .iec-62304-page .callout-icon {
+                font-size: 18px;
+                line-height: 1.8;
+            }
+            .iec-62304-page .callout-body {
+                min-width: 0;
+            }
+            .iec-62304-page .callout-body > :first-child {
+                margin-top: 0;
+            }
+            .iec-62304-page .callout-body > :last-child {
+                margin-bottom: 0;
+            }
+            .iec-62304-page .callout-warn {
+                border-left-color: var(--warn);
+                background: rgba(255, 184, 107, 0.07);
+            }
+            .iec-62304-page .callout-tip {
+                border-left-color: var(--tip);
+                background: rgba(110, 231, 183, 0.07);
+            }
+            .iec-62304-page .callout-note {
+                border-left-color: var(--accent);
+                background: rgba(124, 158, 255, 0.07);
+            }
+            .iec-62304-page .mermaid-diagram {
+                display: block;
+                overflow-x: auto;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                background: #091526;
+                padding: 22px 16px;
+                margin: 22px 0;
+            }
+            .iec-62304-page .mermaid-diagram svg {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: none;
+                flex-shrink: 0;
+                height: auto;
+            }
+            .iec-62304-page .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .iec-62304-page .mermaid-diagram foreignObject div, .iec-62304-page .mermaid-diagram foreignObject span, .iec-62304-page .mermaid-diagram foreignObject p {
+                white-space: normal !important;
+            }
+            .iec-62304-page .mermaid-diagram p {
+                color: inherit;
+                margin: 0;
+            }
+            .iec-62304-page .page-footer {
+                margin-top: 64px;
+                padding-top: 20px;
+                border-top: 1px solid var(--border);
+                color: var(--text-faint);
+                font-size: 13px;
+                text-align: center;
+            }
+            .iec-62304-page .nav-toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 60;
+                background: #16305a;
+                color: #fff;
+                border: 1px solid var(--accent);
+                border-radius: 10px;
+                padding: 8px 14px;
+                font: 700 14px var(--font);
+                cursor: pointer;
+            }
+            @media (max-width: 960px) {
+                .iec-62304-page .nav-toggle {
+                    display: block;
+                }
+                .iec-62304-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s;
+                }
+                .iec-62304-page .sidebar.open {
+                    transform: none;
+                    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.55);
+                }
+                .iec-62304-page .main {
+                    margin-left: 0;
+                    padding: 64px 18px 60px;
+                }
+                .iec-62304-page .hero {
+                    padding: 24px 20px;
+                }
+                .iec-62304-page .hero-title {
+                    font-size: 23px;
+                }
+                .iec-62304-page h2 {
+                    font-size: 22px;
+                }
+            }
+        
+/* Keep the source layout inside the shared application chrome. */
+.iec-62304-page { min-height: 100vh; width: 100%; }
+.iec-62304-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
+.iec-62304-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 45; }
+.iec-62304-page [id] { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.iec-62304-page .main { max-width: none; width: auto; }
+.iec-62304-page .hero { min-height: 0; display: block; }
+.iec-62304-page h1, .iec-62304-page h2, .iec-62304-page h3, .iec-62304-page h4 { letter-spacing: normal; }
+.iec-62304-page h2::before, .iec-62304-page h3::before { content: none; }
+.iec-62304-page p { max-width: none; }
+.iec-62304-page ul { list-style-type: disc; }
+.iec-62304-page ol { list-style-type: decimal; }
+.iec-62304-page .nav-list, .iec-62304-page .nav-sub { list-style-type: none; }
+.iec-62304-page table { min-width: 0; font-family: inherit; margin: 0; }
+.iec-62304-page th, .iec-62304-page td { border: 0; border-bottom: 1px solid var(--border); font-size: inherit; color: inherit; letter-spacing: normal; text-transform: none; }
+.iec-62304-page th { color: #fff; background: #13294a; }
+.iec-62304-page td { background: transparent; }
+.iec-62304-page tbody tr:hover td { background: transparent; }
+.iec-62304-page td strong, .iec-62304-page .callout strong { color: #fff; }
+.iec-62304-page .callout { font-size: inherit; line-height: inherit; }
+.iec-62304-page .callout-icon { flex-shrink: 1; }
+.iec-62304-page .hero-sub { max-width: none; line-height: inherit; }
+.iec-62304-page .page-footer { background: transparent; border-radius: 0; padding-bottom: 0; }
+.iec-62304-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
+.iec-62304-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iec-62304-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iec-62304-page .mermaid-wrapper foreignObject p, .iec-62304-page .mermaid-wrapper foreignObject span, .iec-62304-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.5 !important; word-break: break-word !important; }
+.iec-62304-page .mermaid-wrapper .edgeLabel rect, .iec-62304-page .mermaid-wrapper .edgeLabels rect { fill: #0b1a2d !important; stroke: none !important; }
+.iec-62304-page .mermaid-wrapper .edgeLabel, .iec-62304-page .mermaid-wrapper .edgeLabel span, .iec-62304-page .mermaid-wrapper .edgeLabel p, .iec-62304-page .mermaid-wrapper .edgeLabel text { background-color: #0b1a2d !important; color: #e6edf7 !important; fill: #e6edf7 !important; }
+.iec-62304-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.iec-62304-page *::-webkit-scrollbar-track { background: transparent !important; }
+.iec-62304-page *::-webkit-scrollbar-thumb { background: #203556 !important; border-radius: 3px; }
