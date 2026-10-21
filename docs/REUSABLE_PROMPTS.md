@@ -142,7 +142,7 @@
 >
 > `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
-現在の登録は103ルート（2026-10-21）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は104ルート（2026-10-21）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -309,3 +309,7 @@ npm exec -- bun test tests/iec-62304-beginner-guide
 npm exec -- playwright test --config playwright.iec-62304.config.ts
 npm run lint
 ```
+
+## ISO 9075-1移行後の確認（2026-10-21）
+
+`/iso-9075-1-guide`は階層目次34リンク・モバイル開閉・スクロール追従を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-9075-1-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config playwright.iso-9075.config.ts`でビルド・サーバー不要の実スタイル・図検証44件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。

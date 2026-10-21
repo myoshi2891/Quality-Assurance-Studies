@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-10-21">2026-10-21</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 103 pages · 3 components · 12 libs · 5 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 104 pages · 3 components · 12 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">137<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">148<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num" id="kpi-pages-tested">103<span class="unit">/ 103</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">104<span class="unit">/ 104</span></div>
       <div class="kpi-lbl">Pages Tested · 100%</div>
-      <p class="kpi-desc"><span id="kpi-pages-desc-count">103</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 103 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
+      <p class="kpi-desc"><span id="kpi-pages-desc-count">104</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 104 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">103</span> routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">104</span> routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">103</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">104</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong id="cnt-total">103</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong id="cnt-e2e">103</strong> with E2E</span>
+      <span class="chip"><strong id="cnt-total">104</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-e2e">104</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">144 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">148 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">109 files</span>
+          <span class="inv-count" id="inv-count-pages">111 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1093,14 +1093,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">11 files</span>
+          <span class="inv-count" id="inv-count-e2e">12 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>Test Tooling &amp; Config</span>
-          <span class="inv-count" id="inv-count-tooling">4 files</span>
+          <span class="inv-count" id="inv-count-tooling">5 files</span>
         </summary>
         <ul id="inv-tooling"></ul>
       </details>
@@ -1279,7 +1279,8 @@ const pages = [
   { path: '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution', topic: 'CTAL-TAE 第7章 テスト自動化ソリューションの検証', tested: true },
   { path: '/istqb-ctal-tae-chapter8-continuous-improvement', topic: 'CTAL-TAE 第8章 継続的改善', tested: true },
   { path: '/quality-is-free-guide', topic: 'Quality Is Free 入門ガイド', tested: true },
-  { path: '/iec-62304-beginner-guide', topic: 'IEC 62304 初学者向けガイド', tested: true }
+  { path: '/iec-62304-beginner-guide', topic: 'IEC 62304 初学者向けガイド', tested: true },
+  { path: '/iso-9075-1-guide', topic: 'ISO 9075-1 SQL/Framework ガイド', tested: true }
 ];
 const DATA = {
   matrix: [
@@ -1287,7 +1288,7 @@ const DATA = {
       category: 'Pages',
       hint: `${pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. CTAL-TAE Ch8 verifies 77 source CSS rules, 14 highlight rules, 71 headings, 70 TOC links, 36 tables, 16 parsed charts, six exact highlighted examples and all source DOM; 484 chapter tests pass, including safe external references and final diagram/footer cascade protections. Real browser SVG color and contrast checks cover all 11 Ch6 diagrams (page CSS and config-only variants, 44 cases) and all 11 Ch7 diagrams (22 cases) at 390px and 1440px without a server/build; the suite now registers 208 Chromium cases, including six optional live-server cases. The code fix verified 88 cases: 78 SWC-based Ch7/Ch8 code layouts, six Ch7 learning UI cases and four live Next.js cases. SWC dev/prod compilation also verifies exact newlines and indentation in 26 unit cases. Quality Is Free adds 295 source-contract unit tests (79 CSS rules, 16 sections, 22 headings, 15 TOC links, six tables, eight diagrams, eleven checks, sixteen reference cards), eight computed-style/dimension/hover comparisons, 32 real SVG checks and two live Next.js interaction cases; all 42 browser cases passed. IEC 62304 adds 351 source-contract tests: 22 sections, 59 headings, 50 hierarchical links, 37 complete tables, 18 diagrams, 13 callouts, 30 external links, all 65 source CSS rules, SWC dev/prod fidelity and archive hashes. Eight computed-style cases cover 390/960/961/1440px and two retained-CSS orders; 72 browser SVG cases verify every original node, decision shape, edge, label, cluster, source palette and both scroll ends. The dedicated config starts no server/build; manual visual review is user-owned.` },
+        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. CTAL-TAE Ch8 verifies 77 source CSS rules, 14 highlight rules, 71 headings, 70 TOC links, 36 tables, 16 parsed charts, six exact highlighted examples and all source DOM; 484 chapter tests pass, including safe external references and final diagram/footer cascade protections. Real browser SVG color and contrast checks cover all 11 Ch6 diagrams (page CSS and config-only variants, 44 cases) and all 11 Ch7 diagrams (22 cases) at 390px and 1440px without a server/build; the suite now registers 208 Chromium cases, including six optional live-server cases. The code fix verified 88 cases: 78 SWC-based Ch7/Ch8 code layouts, six Ch7 learning UI cases and four live Next.js cases. SWC dev/prod compilation also verifies exact newlines and indentation in 26 unit cases. Quality Is Free adds 295 source-contract unit tests (79 CSS rules, 16 sections, 22 headings, 15 TOC links, six tables, eight diagrams, eleven checks, sixteen reference cards), eight computed-style/dimension/hover comparisons, 32 real SVG checks and two live Next.js interaction cases; all 42 browser cases passed. IEC 62304 adds 351 source-contract tests: 22 sections, 59 headings, 50 hierarchical links, 37 complete tables, 18 diagrams, 13 callouts, 30 external links, all 65 source CSS rules, SWC dev/prod fidelity and archive hashes. Eight computed-style cases cover 390/960/961/1440px and two retained-CSS orders; 72 browser SVG cases verify every original node, decision shape, edge, label, cluster, source palette and both scroll ends. The dedicated config starts no server/build; manual visual review is user-owned. ISO 9075-1 adds 218 source-contract tests (35 headings, 34 TOC links, 19 complete tables, nine parsed diagrams, three SQL blocks, 11 callouts, 20 external links, all 63 original CSS rules, SWC dev/prod fidelity, navigation and tracked archive hashes). Forty-four browser cases compare every source design element at four widths in two CSS orders and all nine real SVG semantics/palettes/scroll ends; SQL text, block height and horizontal reachability are checked.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'partial', value: '80', label: 'IEC 62304 CSS/SVG', note: 'IEC 62304: eight computed-style comparisons and 72 real SVG cases passed across four viewport widths without a server/build. Earlier CT-GenAI coverage includes 12 scroll-edge and centering cases; other guide-specific suites remain listed in the inventory. Screenshot baselines are absent; manual visual review is user-owned.' },
@@ -1529,7 +1530,9 @@ const DATA = {
       'tests/quality-is-free-guide/page.test.tsx',
       'tests/quality-is-free-guide/integration.test.ts',
       'tests/iec-62304-beginner-guide/page.test.tsx',
-      'tests/iec-62304-beginner-guide/integration.test.ts'
+      'tests/iec-62304-beginner-guide/integration.test.ts',
+      'tests/iso-9075-1-guide/page.test.tsx',
+      'tests/iso-9075-1-guide/integration.test.ts'
     ],
     components: [
       'tests/components/Header.test.tsx',
@@ -1568,12 +1571,14 @@ const DATA = {
       'e2e/ctal-tae-ch7-learning-ui.e2e.ts',
       'e2e/ctal-tae-code-layout.e2e.ts',
       'e2e/quality-is-free-layout.e2e.ts',
-      'e2e/iec-62304-layout.e2e.ts'
+      'e2e/iec-62304-layout.e2e.ts',
+      'e2e/iso-9075-layout.e2e.ts'
     ],
     tooling: [
       'playwright.config.ts',
       'playwright.mermaid-css.config.ts',
       'playwright.iec-62304.config.ts',
+      'playwright.iso-9075.config.ts',
       'lighthouserc.json'
     ]
   },
