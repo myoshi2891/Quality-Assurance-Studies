@@ -30,7 +30,7 @@ for (const width of [390,960,961,1440]) {
             const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) => Object.fromEntries(selectors.map(selector => [selector, Array.from(document.querySelectorAll(root + selector)).map(el => { const style = getComputedStyle(el); return Object.fromEntries(properties.map(key => [key, style[key as keyof CSSStyleDeclaration]])); })]));
             const expected = await reference.evaluate(collect, { selectors, properties, root: '' });
             const actual = await page.evaluate(collect, { selectors, properties, root: '.iec-62304-page ' });
-            for (const selector of selectors) expect(actual[selector], selector).toEqual(expected[selector]);
+            for (const selector of selectors) expect.soft(actual[selector], selector).toEqual(expected[selector]);
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height','0px');
             await expect(page.locator('.nav-toggle')).toHaveCSS('display', width <= 960 ? 'block' : 'none');
@@ -58,10 +58,10 @@ for (const width of [390,960,961,1440]) {
                 const el = inner.querySelector('svg') as SVGSVGElement; Function(`${fixups};return applySvgFixups;`)()(el, chart);
                 const initial = el.getBoundingClientRect().left; const left = outer.getBoundingClientRect().left; outer.scrollLeft = outer.scrollWidth; const right = outer.scrollLeft; const movement = initial - el.getBoundingClientRect().left; outer.scrollLeft = 0;
                 const norm = (s: string | null) => (s ?? '').replace(/\s+/g,' ').trim();
-                const nodes = Array.from(inner.querySelectorAll('g.node'), node => ({ id: node.id.replace(/^flowchart-/,'').replace(/-\d+$/,''), label: norm(node.querySelector('.nodeLabel')?.textContent ?? ''), shape: node.firstElementChild?.tagName === 'polygon' ? 'diamond' : 'rect', color: getComputedStyle(node.querySelector('.nodeLabel')!).color, fill: getComputedStyle(node.firstElementChild!).fill, x: node.getBoundingClientRect().x, y: node.getBoundingClientRect().y }));
-                const edges = Array.from(inner.querySelectorAll('path.flowchart-link'), edge => ({ id: edge.id, dotted: edge.classList.contains('edge-pattern-dotted') }));
+                const nodes = Array.from(inner.querySelectorAll('g.node'), node => ({ id: node.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''), label: norm(node.querySelector('.nodeLabel')?.textContent ?? ''), shape: node.firstElementChild?.tagName === 'polygon' ? 'diamond' : 'rect', color: getComputedStyle(node.querySelector('.nodeLabel')!).color, fill: getComputedStyle(node.firstElementChild!).fill, x: node.getBoundingClientRect().x, y: node.getBoundingClientRect().y }));
+                const edges = Array.from(inner.querySelectorAll('path.flowchart-link'), edge => ({ id: edge.id.replace(/^iec-mmd-\d+-/,''), dotted: edge.classList.contains('edge-pattern-dotted') }));
                 const labels = Array.from(inner.querySelectorAll('g.edgeLabels > g.edgeLabel'), label => norm(label.textContent));
-                const clusters = Array.from(inner.querySelectorAll('g.cluster'), cluster => ({ id: cluster.id, label: norm(cluster.querySelector('.cluster-label')?.textContent ?? '') }));
+                const clusters = Array.from(inner.querySelectorAll('g.cluster'), cluster => ({ id: cluster.id.replace(/^iec-mmd-\d+-/,''), label: norm(cluster.querySelector('.cluster-label')?.textContent ?? '') }));
                 return { nodes, edges, labels, clusters, initial, left, right, movement, required: outer.scrollWidth - outer.clientWidth, background: getComputedStyle(outer).backgroundColor, innerBackground: getComputedStyle(inner).backgroundColor };
             }, { id, chart: DIAGRAMS[id]!, globalConfig, fixups });
             const text = (s: string) => s.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
