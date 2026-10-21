@@ -163,5 +163,5 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 * HTML内の実SVGからノード・判断形状・接続・ラベル・グループを抽出し、共通Mermaidで再描画。Markdownと形式が異なる版履歴・改訂動向・導入ロードマップはHTMLの形式を採用。縦配置と分離図の方向、配色、横スクロールの両端を検証。
 * 目次のモバイル開閉・リンク選択・Escape・フォーカス復帰・全50アンカーのObserver追従・親グループ展開・目次内スクロール・Observer解除を検証。全本文はNext.js/SWCの開発/本番変換後も照合。
 * Red先行、デザイン、図、目次、基礎解説、Step 1〜3、Step 4、Step 5〜7、実務、改訂/FAQ/参考資料、登録、アーカイブ、補正、リファクタリング、仕様書を分割コミット。各コミット前にPII検査。
-* HTMLは`archive/html-archive/iso/Iec-62304-beginner-guide.html`、MDは`archive/md-archive/iso/Iec-62304-beginner-guide.md`へ同名で移動し、SHA-256一致を確認。既存のarchiveのGit除外設定を維持。
+* HTMLとMDはGit追跡下の`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`へ同名で移動し、クリーンなチェックアウトでもSHA-256一致を常に検証。
 * 検証はnpm経由。対象351件、全体5075件（129ファイル）、ビルド/サーバー不要のブラウザー80件（4幅×18図＋CSS読込2順序×4幅）、lint成功。対象型検査成功。全体型検査には既存エラーが残存。ビルド未実施、目視確認はユーザー担当。

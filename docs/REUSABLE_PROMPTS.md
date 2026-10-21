@@ -302,7 +302,7 @@ QIF_ORIGIN=http://localhost:3000 bunx playwright test --config playwright.mermai
 
 ## IEC 62304移行後の確認（2026-10-21）
 
-移行先は`/iec-62304-beginner-guide`。原本は`archive/html-archive/iso/`と`archive/md-archive/iso/`へ移動済み。目視確認はユーザー担当。今回のサンドボックス検証はユーザー指定によりnpmを使用し、ビルドは実行しません。
+移行先は`/iec-62304-beginner-guide`。原本はGit追跡下の`tests/fixtures/source-html/`へ移動済み。目視確認はユーザー担当。今回のサンドボックス検証はユーザー指定によりnpmを使用し、ビルドは実行しません。
 
 ```bash
 npm exec -- bun test tests/iec-62304-beginner-guide
