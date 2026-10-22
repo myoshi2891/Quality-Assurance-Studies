@@ -1552,9 +1552,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
-
 | `Iso-9075-1-guide.html` | `/iso-9075-1-guide` | ✅ ダーク配色・35見出し・目次34リンク・19表・9図・SQL3例・11注記・外部20リンク (archive/、HTML・MD両方) |
-
 | `Iso-11179-1-2023-guide.html` | `/iso-11179-1-2023-guide` | ✅ ダーク配色・58見出し・目次57リンク・32表・14図・YAML1例・チェック6項目・15注記・外部21リンク (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
