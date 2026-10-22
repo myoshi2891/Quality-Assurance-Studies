@@ -155,4 +155,13 @@ describe('review fixes', () => {
         expect(source.indexOf('<Diagram id="diagram-14" />')).toBeLessThan(source.indexOf('<ol'));
         expect(source.indexOf('<ol')).toBeLessThan(source.indexOf('id="9-2-設計時のチェックリスト"'));
     });
+    it('STEP 5-A example names the property 純収入, matching diagram-7', async () => {
+        const Section = sourceModule(base+'/Section06.tsx').default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Section />), {}, false);
+        const text = norm($('p').filter((_, p) => $(p).text().includes('人の純収入')).first().text());
+        expect(text).toContain('「純収入」に、オブジェクトクラス「人」を組み合わせて');
+        expect(text).not.toContain('「収入」');
+        const { DIAGRAMS } = await import(diagramsEntry);
+        expect(DIAGRAMS['diagram-7']).toContain('N6_PR["プロパティ<br>純収入"]');
+    });
 });

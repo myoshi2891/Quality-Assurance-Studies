@@ -139,4 +139,19 @@ describe('review fixes', () => {
         expect(table.find('thead th').eq(1).text()).toContain('revert 前');
         table.find('tbody tr').each((_, row) => { const cell = $(row).find('td').eq(1).text(); expect(cell).not.toBe('対応'); expect(cell).not.toBe('標準の同義語に対応'); expect(cell).toContain('開発版'); });
     });
+    it('Clause 2 callout lists SQL series parts separately from the other normative references', async () => {
+        const $ = await html(); const callout = $('main .callout').filter((_, el) => $(el).text().includes('規定参照との区別')).first();
+        const paragraphs = callout.children('p').map((_, p) => norm($(p).text())).get();
+        const parts = paragraphs.filter(p => p.includes('Part 2、3、4、9、10、11、13、14、15、16'));
+        const others = paragraphs.filter(p => ['ISO/IEC 646', 'ISO/IEC 10646:2020', 'ISO/IEC 14651'].every(ref => p.includes(ref)));
+        expect(parts).toHaveLength(1); expect(others).toHaveLength(1);
+        expect(parts[0]).not.toContain('646'); expect(others[0]).not.toContain('Part 2、');
+        expect(norm(callout.text())).toContain('Part 1 自身は規定参照には含まれません');
+    });
+    it('SQL/PGQ row records the revert on both master and REL_19_STABLE', async () => {
+        const $ = await html(); const row = $('#s-6-1-postgresql').nextAll('.table-scroll').first().find('tbody tr').filter((_, tr) => $(tr).find('td').first().text() === 'SQL/PGQ');
+        const cell = norm(row.find('td').eq(1).text());
+        expect(cell).toContain('2026年9月7日に master と REL_19_STABLE の両方から revert');
+        expect(cell).toContain('PostgreSQL 19 には搭載されず、今後の搭載版は未定');
+    });
 });
