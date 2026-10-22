@@ -191,4 +191,12 @@ describe('review fixes', () => {
         expect(old).toContain('N4_O7["Part 7:2019<br>データセット登録"]');
         expect(old).toContain('N4_OM["ISO/IEC 19763-10:2014<br>モデル登録"]');
     });
+    it('C-4 evidence table states DEC = object class + property, matching the body and diagram-7', () => {
+        const Section = sourceModule(base+'/Section14.tsx').default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Section />), {}, false);
+        const row = $('tbody tr').filter((_, tr) => $(tr).find('td').first().text().includes('人の純収入'));
+        expect(row).toHaveLength(1);
+        expect(row.find('td').first().text()).toBe('DEC＝オブジェクトクラス＋プロパティの例（人の純収入）');
+        expect(row.find('td').eq(1).text()).toBe('S10');
+    });
 });
