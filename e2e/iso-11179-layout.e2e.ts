@@ -16,14 +16,16 @@ const globalConfig = Function(`return (${initialization});`)() as object;
 const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
-// レビューで追加した diagram-14 のテキスト代替を原本にも挿入し、追加分ではなく CSS 差だけを比較する
-const reviewedBody = (() => {
-    const Section = sourceModule(`${base}/Section10.tsx`).default as React.ComponentType;
+// レビューで追加した diagram-12 / diagram-14 のテキスト代替を原本にも挿入し、追加分ではなく CSS 差だけを比較する
+const reviewedBody = ([
+    ['Section08.tsx', '\n<h3 id="7-3-命名定義のルールは別パートへ">'],
+    ['Section10.tsx', '\n<h3 id="9-2-設計時のチェックリスト">'],
+] as const).reduce((body, [file, anchor]) => {
+    const Section = sourceModule(`${base}/${file}`).default as React.ComponentType;
     const list = renderToStaticMarkup(React.createElement(Section)).match(/<ol>[\s\S]*?<\/ol>/)?.[0];
-    const anchor = '\n<h3 id="9-2-設計時のチェックリスト">';
-    if (!list || !inventory.originalBody.includes(anchor)) throw new Error('Missing diagram-14 text alternative or source anchor');
-    return inventory.originalBody.replace(anchor, `\n${list}${anchor}`);
-})();
+    if (!list || !body.includes(anchor)) throw new Error(`Missing ${file} text alternative or source anchor`);
+    return body.replace(anchor, `\n${list}${anchor}`);
+}, inventory.originalBody);
 const selectors = ['.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hm','.hm-l','.hm-v','.hero-note','h2','h3','h4','main p','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.callout-icon','.callout-body','.callout-title','.page-footer','.sb-title','.sidebar ul','.sidebar li','.sidebar a','.menu-btn','main code','pre','pre span','.checklist-card','.checklist','.checklist label','.checklist li','.cb','.checklist-progress','.cp-bar','.cp-fill','.cp-count'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,960,961,1440]) {

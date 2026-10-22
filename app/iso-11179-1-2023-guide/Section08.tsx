@@ -17,6 +17,14 @@ export default function Section() { return <>
 
 <Diagram id="diagram-12" />
 
+<ol>
+<li>{"提出者が登録官へ、新しい項目の登録を申請する。"}</li>
+<li>{"登録官が管理者へ内容の確認・責任範囲の確認を依頼し、管理者が定義・表現の妥当性を回答する。"}</li>
+<li>{"登録官が登録機関へ登録可否を上申し、登録機関が承認する。"}</li>
+<li>{"登録官がレジストリへ項目を登録する。"}</li>
+<li>{"レジストリが提出者へ、識別子とともに登録を通知する。"}</li>
+</ol>
+
 <h3 id="7-3-命名定義のルールは別パートへ">{"7-3.\n命名・定義のルールは別パートへ"}</h3>
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"テーマ"}</th><th>{"担当パート"}</th><th>{"Part 1 での扱い"}</th></tr></thead><tbody><tr className="odd"><td>{"定義の書き方"}</td><td>{"Part 4"}</td><td>{"全体像の案内"}</td></tr><tr className="even"><td>{"命名・識別の原則"}</td><td>{"Part 5"}</td><td>{"全体像の案内"}</td></tr><tr className="odd"><td>{"登録・ライフサイクル"}</td><td>{"Part 6"}</td><td>{"全体像の案内"}</td></tr></tbody></table></div>
