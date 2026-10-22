@@ -2,7 +2,7 @@ import React from 'react';
 export default function Section() { return <>
 <h2 id="s-10-根拠となる情報源-url">{"10. 根拠となる情報源（URL）"}</h2>
 
-<div className="callout callout-note"><p>{"調査基準日: 2026年10月8日。規格本文は有料のため、"}<strong>{"ISO公式ページの公開情報"}</strong>{"と、"}<strong>{"著名な国際的開発者・コミュニティの公開記事"}</strong>{"を根拠にしています。"}</p></div>
+<div className="callout callout-note"><p>{"調査基準日: 2026年10月8日。ISO/IEC 9075-1:2023 の公式ストア価格は CHF 0 ですが、ISOは規格本文のAI利用を認めていないため、"}<strong>{"ISO公式ページの公開情報"}</strong>{"と、"}<strong>{"著名な国際的開発者・コミュニティの公開記事"}</strong>{"を根拠にしています。"}</p></div>
 
 <h3 id="s-10-1-規格の一次情報">{"10.1 規格の一次情報"}</h3>
 

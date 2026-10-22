@@ -3,7 +3,7 @@ import Diagram from './Diagram';
 export default function Section() { return <>
 <h2 id="s-3-step-3-基本概念を理解する-sql環境のモデル">{"3. Step 3: 基本概念を理解する（SQL環境のモデル）"}</h2>
 
-<div className="callout callout-warn"><p>{"※ 規格本文は有料で、ISOは本文のAI利用を認めていません。そのため、本節は"}<strong>{"公開情報と一般的なSQL知識に基づく概念説明"}</strong>{"です。正確な定義文は、必ずISO Online Browsing Platform（OBP）のサンプルまたは規格本文で確認してください。"}</p></div>
+<div className="callout callout-warn"><p>{"※ ISO/IEC 9075-1:2023 は、ISO・IECの公式ストアで価格 CHF 0 と案内されています。これとは別に、ISOは規格本文のAI利用を認めていないため、本節は"}<strong>{"公開情報と一般的なSQL知識に基づく概念説明"}</strong>{"です。正確な定義文は、必ずISO Online Browsing Platform（OBP）のサンプルまたは規格本文で確認してください。"}</p></div>
 
 <h3 id="s-3-1-sqlデータの入れ物の階層">{"3.1 SQLデータの入れ物の階層"}</h3>
 
