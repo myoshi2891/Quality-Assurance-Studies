@@ -108,3 +108,35 @@ describe('TOC interactions', () => {
         } finally { targets.remove(); globalThis.IntersectionObserver = previous; }
     });
 });
+describe('review fixes', () => {
+    const mobileDecls = (selector: string) => {
+        const found: Record<string, string> = {}; css().walkRules(r => {
+            const parent = r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params.replace(/\s+/g, '') : null;
+            if (parent === '(max-width:960px)' && r.selector === selector) r.walkDecls(d => { found[d.prop] = d.value; });
+        }); return found;
+    };
+    it('closed mobile TOC is hidden from Tab order after the 0.2s slide, open TOC is visible', () => {
+        const closed = mobileDecls(`${scope} .sidebar`); const open = mobileDecls(`${scope} .sidebar.open`);
+        expect(closed.visibility).toBe('hidden'); expect(closed.transition).toBe('transform .2s, visibility 0s linear .2s');
+        expect(open.visibility).toBe('visible'); expect(open.transition).toBe('transform .2s, visibility 0s');
+    });
+    it('diagram-7 attaches Cor 1:2022 to the 2016 edition', async () => {
+        const { DIAGRAMS } = await import(diagramsEntry);
+        expect(DIAGRAMS['diagram-7']).toContain('N7_A --> N7_C'); expect(DIAGRAMS['diagram-7']).not.toContain('N7_B --> N7_C');
+    });
+    it('every table has a unique accessible name from its section heading', async () => {
+        const $ = await html(); const names = $('main table').map((_, el) => {
+            const id = $(el).attr('aria-labelledby'); expect(id).toBeTruthy(); const label = $(`[id="${id}"]`);
+            expect(label).toHaveLength(1); expect(['h2', 'h3']).toContain(label.prop('tagName')?.toLowerCase()); return norm(label.text());
+        }).get(); expect(names).toHaveLength(19); expect(new Set(names).size).toBe(19);
+    });
+    it('ANY_VALUE example states the uniqueness precondition instead of claiming safety', async () => {
+        const code = (await html())('pre').filter((_, el) => load(el).text().includes('ANY_VALUE')).text();
+        expect(code).not.toContain('安全に取り出す'); expect(code).toContain('一意');
+    });
+    it('PostgreSQL PGQ comparison is dated to the pre-revert development version', async () => {
+        const $ = await html(); const table = $('#s-6-3-postgresqlとoracleのpgq実装差-コミュニティでの検証例').nextAll('.table-scroll').first();
+        expect(table.find('thead th').eq(1).text()).toContain('revert 前');
+        table.find('tbody tr').each((_, row) => { const cell = $(row).find('td').eq(1).text(); expect(cell).not.toBe('対応'); expect(cell).not.toBe('標準の同義語に対応'); expect(cell).toContain('開発版'); });
+    });
+});

@@ -125,3 +125,34 @@ describe('six source checklist controls', () => {
         expect((view.container.querySelector('.cp-fill') as HTMLElement).style.width).toBe('0%');
     });
 });
+describe('review fixes', () => {
+    const mobileDecls = (selector: string) => {
+        const found: Record<string, string> = {}; css().walkRules(r => {
+            const parent = r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params.replace(/\s+/g, '') : null;
+            if (parent === '(max-width:960px)' && r.selector === selector) r.walkDecls(d => { found[d.prop] = d.value; });
+        }); return found;
+    };
+    it('closed mobile TOC is hidden from Tab order after the 0.25s slide, open TOC is visible', () => {
+        const closed = mobileDecls(`${scope} .sidebar`); const open = mobileDecls(`${scope} .sidebar.open`);
+        expect(closed.visibility).toBe('hidden'); expect(closed.transition).toBe('transform .25s, visibility 0s linear .25s');
+        expect(open.visibility).toBe('visible'); expect(open.transition).toBe('transform .25s, visibility 0s');
+        expect(open.transform).toBe('none');
+    });
+    it('diagram-14 is followed by an ordered text alternative of every decision and transition', () => {
+        const Section = sourceModule(base+'/Section10.tsx').default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Section />), {}, false);
+        const items = $('ol').first().children('li').map((_, li) => norm($(li).text())).get();
+        expect(items).toEqual([
+            '新しいデータ項目が必要になったら、同じ意味の DEC が既にあるかを確認する。',
+            'DEC がある（はい）場合は既存の DEC を再利用する。ない（いいえ）場合はオブジェクトクラスとプロパティを決めて DEC を新規作成する。',
+            '次に、同じ表現の VD が既にあるかを確認する。',
+            'VD がある（はい）場合は既存の VD を再利用する。ない（いいえ）場合はデータ型・単位・許容値を決めて VD を新規作成する。',
+            'DEC と VD を組み合わせて DE を作成する。',
+            '定義・命名をレビューし、レジストリに登録する。',
+            '登録後は共有・再利用する。',
+        ]);
+        const source = readFileSync(base+'/Section10.tsx', 'utf8');
+        expect(source.indexOf('<Diagram id="diagram-14" />')).toBeLessThan(source.indexOf('<ol'));
+        expect(source.indexOf('<ol')).toBeLessThan(source.indexOf('id="9-2-設計時のチェックリスト"'));
+    });
+});
