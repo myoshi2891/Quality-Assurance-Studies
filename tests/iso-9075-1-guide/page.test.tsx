@@ -190,3 +190,10 @@ describe('diagram accessible descriptions', () => {
         expect(inOrder(text, ['全体像', 'modern-sql.com', 'SQL Conformance', '適合テスト', 'ISO OBP'])).toBe(true);
     });
 });
+describe('PostgreSQL support table sources', () => {
+    it('cites the April 2023 Eisentraut article for JSON accessors and keeps every other source unchanged', async () => {
+        const $ = await html();
+        const sources = $('table[aria-labelledby="s-6-1-postgresql"] tbody tr').map((_, tr) => norm($(tr).find('td').eq(2).text())).get();
+        expect(sources).toEqual(['Eisentraut氏ブログ', '同上', '同上', 'PostgreSQL公式ドキュメント', 'PostgreSQL 18 公式ドキュメント Appendix D', 'Eisentraut氏ブログ（2023年4月時点の情報）', 'pgsql-committers／depesz／pgEdge']);
+    });
+});
