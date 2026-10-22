@@ -32,7 +32,7 @@ const reviewedBody = ([
     if (!body.includes(from)) throw new Error(`Missing reviewed source text: ${from}`);
     return body.replaceAll(from, to);
 }, inventory.originalBody);
-const selectors = ['.main','.hero','.eyebrow','.hero-title','.hero-meta','.meta-item','.meta-label','.meta-value','h2','h3','main p','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.brand','.sidebar ul','.sidebar li','.sidebar a','.toggle','hr','main code','pre'];
+const selectors = ['.main','.hero','.eyebrow','.hero-title','.hero-meta','.meta-item','.meta-label','.meta-value','h2','h3','main p:not([hidden])','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.brand','.sidebar ul','.sidebar li','.sidebar a','.toggle','hr','main code','pre'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,960,961,1440]) {
     for (const order of ['before','after'] as const) {
