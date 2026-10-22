@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 5627 tests)
+bun test             # ユニットテスト (bun test, 5637 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -983,7 +983,7 @@ bun test        # ユニットテスト成功
 - `app/iso-9075-1-guide/NavBar.tsx` / `toc.ts` — 階層目次と追従
 - `app/iso-9075-1-guide/CodeExample.tsx` — SQLの構文色と改行
 - `app/iso-9075-1-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の9図
-- `tests/iso-9075-1-guide/page.test.tsx` / `integration.test.ts` — 218件の原本・登録・アーカイブ契約
+- `tests/iso-9075-1-guide/page.test.tsx` / `integration.test.ts` — 225件の原本・登録・アーカイブ契約
 - `e2e/iso-9075-layout.e2e.ts` / `playwright.iso-9075.config.ts` — ビルド・サーバー不要の44件
 
 ## 2026-10-22: ISO/IEC 11179-1:2023メタデータレジストリガイドの移行
@@ -1006,5 +1006,5 @@ bun test        # ユニットテスト成功
 - `app/iso-11179-1-2023-guide/Checklist.tsx` — 設計チェック6項目と進捗
 - `app/iso-11179-1-2023-guide/CodeExample.tsx` — 原本のYAML構文色と改行
 - `app/iso-11179-1-2023-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の14図
-- `tests/iso-11179-1-2023-guide/page.test.tsx` / `integration.test.ts` — 325件の原本・操作・登録・アーカイブ契約
+- `tests/iso-11179-1-2023-guide/page.test.tsx` / `integration.test.ts` — 328件の原本・操作・登録・アーカイブ契約
 - `e2e/iso-11179-layout.e2e.ts` / `playwright.iso-11179.config.ts` — ビルド・サーバー不要の64件
