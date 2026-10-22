@@ -99,3 +99,5 @@
 .iso-11179-page .callout-title { font-family: inherit; font-size: inherit; line-height: inherit; text-transform: none; letter-spacing: normal; }
 .iso-11179-page .menu-btn { font-family: Arial; line-height: normal; padding: 1px 6px; }
 .iso-11179-page .cb { font: 400 13.3333px Arial; line-height: normal; color: #000; margin: 8px 3px 3px 4px; }
+/* Remove the closed mobile TOC from the Tab order after its slide-out finishes. */
+@media(max-width:960px){.iso-11179-page .sidebar{visibility:hidden;transition:transform .25s, visibility 0s linear .25s}.iso-11179-page .sidebar.open{visibility:visible;transition:transform .25s, visibility 0s}}
