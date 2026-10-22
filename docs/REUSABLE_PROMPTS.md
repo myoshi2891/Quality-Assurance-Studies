@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-22
+最終更新日: 2026-10-23
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -317,3 +317,7 @@ npm run lint
 ## ISO 11179-1移行後の確認（2026-10-22）
 
 `/iso-11179-1-2023-guide`は階層目次57リンク・モバイル開閉・スクロール追従とチェック6項目を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-11179-1-2023-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config playwright.iso-11179.config.ts`でビルド・サーバー不要の実スタイル・YAML・図検証64件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
+
+## ホーム・メニューの拡張
+
+ガイドを追加するときは `lib/navigation.ts` の `NAV_ITEMS` を更新し、ホーム・マップ・カテゴリ件数・メニューへの自動反映を確認してください。カテゴリ追加時の定義・配色・資格トラックの扱いは [LIBRARY_DESIGN.md](LIBRARY_DESIGN.md) を参照してください。回帰検証は `bun test tests/index/page.test.tsx tests/components/Header.test.tsx` と `bunx playwright test --config playwright.library.config.ts` で行います。

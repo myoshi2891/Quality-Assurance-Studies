@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-22
+Updated 2026-10-23
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 133 ファイル・5647 tests)
+bun test             # ユニットテスト (bun test 全体, 133 ファイル・5653 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1011,3 +1011,7 @@ bun test        # ユニットテスト成功
 - `app/iso-11179-1-2023-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の14図
 - `tests/iso-11179-1-2023-guide/page.test.tsx` / `integration.test.ts` — 328件の原本・操作・登録・アーカイブ契約
 - `e2e/iso-11179-layout.e2e.ts` / `playwright.iso-11179.config.ts` — ビルド・サーバー不要の64件
+
+## 2026-10-23: ホームとグローバルメニュー
+
+ホームは常時ラベル付き学習マップ・カテゴリ絞り込み・検索・空状態リセットを提供する。メニューは右側パネル・説明付きリンク・検索件数・クリア・フォーカス循環を提供する。既存の `NAV_ITEMS` から件数と操作を自動生成する。追加CSSは `components/header.css`。設計と拡張手順は [LIBRARY_DESIGN.md](docs/LIBRARY_DESIGN.md) を参照。ユニットテスト6件をTDDで追加し、対象64件成功。

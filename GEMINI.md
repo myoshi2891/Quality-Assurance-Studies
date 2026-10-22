@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-22
+Updated 2026-10-23
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -556,3 +556,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - Red先行、CSS、図、目次、YAML、チェック、ヒーロー、導入、STEP 1〜10、付録A〜C、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。本文は1カテゴリーずつ実装→原本照合→コミットを実行。各コミット直前にPII検査。
 - 原本HTMLは`archive/html-archive/iso/Iso-11179-1-2023-guide.html`、MDは`archive/md-archive/iso/Iso-11179-1-2023-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
 - 検証はnpm経由。対象325件、全体5627件（133ファイル）、ビルド・サーバー不要のブラウザー64件（4幅×14図＋CSS読込2順序×4幅）、lint、対象型検査が成功。全体型検査には既存テストの型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-23: Library navigation design
+
+Home and global navigation share `NAV_ITEMS`, category ordering, labels, counts and search matching. Home adds category filtering, persistent map labels, introductory links and empty-state recovery. The menu adds descriptions, result counts and keyboard focus containment. Header refinements live in `components/header.css`; home rules remain scoped to `.index-page`. See [library design and extension rules](docs/LIBRARY_DESIGN.md).
