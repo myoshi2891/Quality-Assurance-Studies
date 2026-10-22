@@ -127,7 +127,7 @@ N7_C["<p>Cor 1:2022 は旧版に対する訂正</p>"]
 N7_D["<p>Cor 1:2026<br>(現行版の訂正・発行済み)</p>"]
 N7_E["<p>ISO/IEC CD 9075-1<br>(後継版・開発中)</p>"]
 N7_A --> N7_B
-N7_B --> N7_C
+N7_A --> N7_C
 N7_B --> N7_D
 N7_B -.-> N7_E`,
 "diagram-8": `${MERMAID_CONFIG}

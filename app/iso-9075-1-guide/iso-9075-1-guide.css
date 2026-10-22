@@ -113,3 +113,8 @@
 .iso-9075-page .code-line { display: inline; }
 .iso-9075-page .callout p { margin: 0 0 16px; }
 .iso-9075-page .callout p:last-child { margin-bottom: 0; }
+/* Remove the closed mobile TOC from the Tab order after its slide-out finishes. */
+@media (max-width:960px){
+  .iso-9075-page .sidebar{visibility:hidden;transition:transform .2s, visibility 0s linear .2s}
+  .iso-9075-page .sidebar.open{visibility:visible;transition:transform .2s, visibility 0s}
+}

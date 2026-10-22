@@ -16,6 +16,16 @@ const globalConfig = Function(`return (${initialization});`)() as object;
 const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
+// レビューで意図的に変更した文言を原本にも反映し、文言差ではなく CSS 差だけを比較する
+const reviewedBody = ([
+    ['-- 例: ANY_VALUE により、GROUP BY に含めたくない列を安全に取り出す', '-- 例: department_id ごとに department_name が一意な場合に限り、ANY_VALUE で GROUP BY に含めずに取り出せる\n-- （一意でない場合は、グループ内のどの値が返るかは不定）'],
+    ['<th>PostgreSQL</th>\n<th>Oracle</th>', '<th>PostgreSQL（2026年9月7日の revert 前の開発版）</th>\n<th>Oracle（報告時点）</th>'],
+    ['<td>標準の同義語に対応</td>', '<td>標準の同義語に対応（revert 前の開発版）</td>'],
+    ['<td>対応</td>', '<td>対応（revert 前の開発版）</td>'],
+] as const).reduce((body, [from, to]) => {
+    if (!body.includes(from)) throw new Error(`Missing reviewed source text: ${from}`);
+    return body.replaceAll(from, to);
+}, inventory.originalBody);
 const selectors = ['.main','.hero','.eyebrow','.hero-title','.hero-meta','.meta-item','.meta-label','.meta-value','h2','h3','main p','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.brand','.sidebar ul','.sidebar li','.sidebar a','.toggle','hr','main code','pre'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,960,961,1440]) {
@@ -23,7 +33,7 @@ for (const width of [390,960,961,1440]) {
         test(`${width}px CSS ${order}: every source design element matches computed styles`, async ({ page }) => {
             await page.setViewportSize({ width, height: 900 });
             const reference = await page.context().newPage(); await reference.setViewportSize({ width, height: 900 });
-            await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+            await reference.setContent(`<style>${inventory.originalCss}</style>${reviewedBody}`);
             const own = readFileSync(`${base}/iso-9075-1-guide.css`, 'utf8');
             const css = preflight + globals + (order === 'before' ? retained + own : own + retained);
             await page.setContent(`<style>${css}</style>${markup()}`);

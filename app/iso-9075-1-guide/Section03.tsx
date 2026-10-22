@@ -9,7 +9,7 @@ export default function Section() { return <>
 
 <h3 id="s-2-1-役割をマークダウン表で整理">{"2.1 役割をマークダウン表で整理"}</h3>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"Part 1 の役割"}</th><th>{"具体例（イメージ）"}</th><th>{"初学者への意味"}</th></tr></thead><tbody><tr className="odd"><td>{"概念の定義"}</td><td>{"SQL環境、カタログ、スキーマ、セッション、トランザクション"}</td><td>{"「SQLの世界の登場人物」の紹介"}</td></tr><tr className="even"><td>{"用語の定義"}</td><td>{"規格内で厳密に使う語（例: SQL-implementation）"}</td><td>{"規格を読むときの辞書"}</td></tr><tr className="odd"><td>{"表記法の定義"}</td><td>{"文法記述（BNF風）の読み方"}</td><td>{"規格の「凡例」"}</td></tr><tr className="even"><td>{"適合性（Conformance）の枠組み"}</td><td>{"何を実装すれば「SQL準拠」と言えるか"}</td><td>{"ベンダー比較の物差し"}</td></tr></tbody></table></div>
+<div className="table-scroll"><table aria-labelledby="s-2-1-役割をマークダウン表で整理"><thead><tr className="header"><th>{"Part 1 の役割"}</th><th>{"具体例（イメージ）"}</th><th>{"初学者への意味"}</th></tr></thead><tbody><tr className="odd"><td>{"概念の定義"}</td><td>{"SQL環境、カタログ、スキーマ、セッション、トランザクション"}</td><td>{"「SQLの世界の登場人物」の紹介"}</td></tr><tr className="even"><td>{"用語の定義"}</td><td>{"規格内で厳密に使う語（例: SQL-implementation）"}</td><td>{"規格を読むときの辞書"}</td></tr><tr className="odd"><td>{"表記法の定義"}</td><td>{"文法記述（BNF風）の読み方"}</td><td>{"規格の「凡例」"}</td></tr><tr className="even"><td>{"適合性（Conformance）の枠組み"}</td><td>{"何を実装すれば「SQL準拠」と言えるか"}</td><td>{"ベンダー比較の物差し"}</td></tr></tbody></table></div>
 
 <h3 id="s-2-2-part-1-と-part-2-の関係-フローチャート">{"2.2 Part 1 と Part 2 の関係（フローチャート）"}</h3>
 

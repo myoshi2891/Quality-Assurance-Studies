@@ -675,7 +675,9 @@
       "items": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-0-先に結論-3分で分かる要約"
+          },
           "children": [
             {
               "tag": "thead",
@@ -929,7 +931,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-1-2-iso-iec-9075-シリーズ全体のパート一覧-現行パート"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1400,7 +1404,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-2-1-役割をマークダウン表で整理"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1563,7 +1569,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-3-1-sqlデータの入れ物の階層"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1725,7 +1733,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-3-3-文の分類"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1945,7 +1955,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-4-1-すべてを実装する製品は存在しない"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2082,7 +2094,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-4-3-実務での確認方法-qa向けチェックリスト"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2260,7 +2274,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-5-1-既存sqlの小さな改良-機能id付き"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2724,7 +2740,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-5-2-json関連の新機能"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2974,7 +2992,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-6-1-postgresql"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3291,7 +3311,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-6-3-postgresqlとoracleのpgq実装差-コミュニティでの検証例"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3314,14 +3336,14 @@
                       "tag": "th",
                       "attrs": {},
                       "children": [
-                        "PostgreSQL"
+                        "PostgreSQL（2026年9月7日の revert 前の開発版）"
                       ]
                     },
                     {
                       "tag": "th",
                       "attrs": {},
                       "children": [
-                        "Oracle"
+                        "Oracle（報告時点）"
                       ]
                     }
                   ]
@@ -3355,7 +3377,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "対応"
+                        "対応（revert 前の開発版）"
                       ]
                     },
                     {
@@ -3399,7 +3421,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "標準の同義語に対応"
+                        "標準の同義語に対応（revert 前の開発版）"
                       ]
                     },
                     {
@@ -3449,7 +3471,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "対応"
+                        "対応（revert 前の開発版）"
                       ]
                     },
                     {
@@ -3467,7 +3489,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-7-step-7-規格の改訂状況-今後の動き"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3667,7 +3691,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-8-1-いつ-part-1-を読むべきか"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3848,7 +3874,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-8-3-よくある誤解"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3991,7 +4019,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-9-用語集"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4185,7 +4215,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-10-1-規格の一次情報"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4427,7 +4459,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-10-2-国際的な開発者・実装者による解説"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4803,7 +4837,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-10-3-コミュニティ・補助資料"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5162,7 +5198,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-11-本ガイドの限界と注意点"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5313,7 +5351,7 @@
           "attrs": {
             "class": "sql"
           },
-          "code": "-- 例: ANY_VALUE により、GROUP BY に含めたくない列を安全に取り出す\nSELECT department_id,\n       ANY_VALUE(department_name) AS department_name,\n       COUNT(*)                   AS employee_count\nFROM employees\nGROUP BY department_id;"
+          "code": "-- 例: department_id ごとに department_name が一意な場合に限り、ANY_VALUE で GROUP BY に含めずに取り出せる\n-- （一意でない場合は、グループ内のどの値が返るかは不定）\nSELECT department_id,\n       ANY_VALUE(department_name) AS department_name,\n       COUNT(*)                   AS employee_count\nFROM employees\nGROUP BY department_id;"
         },
         {
           "tag": "pre",
@@ -6102,7 +6140,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-0-先に結論-3分で分かる要約"
+          },
           "children": [
             {
               "tag": "thead",
@@ -6427,7 +6467,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-1-2-iso-iec-9075-シリーズ全体のパート一覧-現行パート"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7027,7 +7069,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-2-1-役割をマークダウン表で整理"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7314,7 +7358,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-3-1-sqlデータの入れ物の階層"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7570,7 +7616,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-3-3-文の分類"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7844,7 +7892,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-4-1-すべてを実装する製品は存在しない"
+          },
           "children": [
             {
               "tag": "thead",
@@ -8045,7 +8095,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-4-3-実務での確認方法-qa向けチェックリスト"
+          },
           "children": [
             {
               "tag": "thead",
@@ -8306,7 +8358,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-5-1-既存sqlの小さな改良-機能id付き"
+          },
           "children": [
             {
               "tag": "thead",
@@ -8775,7 +8829,7 @@
       "attrs": {
         "class": "sql"
       },
-      "code": "-- 例: ANY_VALUE により、GROUP BY に含めたくない列を安全に取り出す\nSELECT department_id,\n       ANY_VALUE(department_name) AS department_name,\n       COUNT(*)                   AS employee_count\nFROM employees\nGROUP BY department_id;"
+      "code": "-- 例: department_id ごとに department_name が一意な場合に限り、ANY_VALUE で GROUP BY に含めずに取り出せる\n-- （一意でない場合は、グループ内のどの値が返るかは不定）\nSELECT department_id,\n       ANY_VALUE(department_name) AS department_name,\n       COUNT(*)                   AS employee_count\nFROM employees\nGROUP BY department_id;"
     },
     {
       "tag": "h3",
@@ -8794,7 +8848,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-5-2-json関連の新機能"
+          },
           "children": [
             {
               "tag": "thead",
@@ -9129,7 +9185,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-6-1-postgresql"
+          },
           "children": [
             {
               "tag": "thead",
@@ -9536,7 +9594,7 @@
       "tag": "p",
       "attrs": {},
       "children": [
-        "PostgreSQLのメーリングリストでは、PGQのリグレッションテストをOracleでも動かした比較が共有されています。報告された例を抜粋します（個別の挙動は各製品の最新版で再確認してください）。"
+        "PostgreSQLのメーリングリストでは、PGQのリグレッションテストをOracleでも動かした比較が共有されています。報告された例を抜粋します（個別の挙動は各製品の最新版で再確認してください）。PostgreSQL 列は、2026年9月7日に revert される前の開発版（master）での挙動であり、PostgreSQL 19 で利用できる機能ではありません。Oracle 列は報告時点の挙動です。"
       ]
     },
     {
@@ -9547,7 +9605,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-6-3-postgresqlとoracleのpgq実装差-コミュニティでの検証例"
+          },
           "children": [
             {
               "tag": "thead",
@@ -9570,14 +9630,14 @@
                       "tag": "th",
                       "attrs": {},
                       "children": [
-                        "PostgreSQL"
+                        "PostgreSQL（2026年9月7日の revert 前の開発版）"
                       ]
                     },
                     {
                       "tag": "th",
                       "attrs": {},
                       "children": [
-                        "Oracle"
+                        "Oracle（報告時点）"
                       ]
                     }
                   ]
@@ -9611,7 +9671,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "対応"
+                        "対応（revert 前の開発版）"
                       ]
                     },
                     {
@@ -9655,7 +9715,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "標準の同義語に対応"
+                        "標準の同義語に対応（revert 前の開発版）"
                       ]
                     },
                     {
@@ -9705,7 +9765,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "対応"
+                        "対応（revert 前の開発版）"
                       ]
                     },
                     {
@@ -9783,7 +9843,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-7-step-7-規格の改訂状況-今後の動き"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10014,7 +10076,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-8-1-いつ-part-1-を読むべきか"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10229,7 +10293,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-8-3-よくある誤解"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10394,7 +10460,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-9-用語集"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10650,7 +10718,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-10-1-規格の一次情報"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10909,7 +10979,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-10-2-国際的な開発者・実装者による解説"
+          },
           "children": [
             {
               "tag": "thead",
@@ -11302,7 +11374,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-10-3-コミュニティ・補助資料"
+          },
           "children": [
             {
               "tag": "thead",
@@ -11683,7 +11757,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "s-11-本ガイドの限界と注意点"
+          },
           "children": [
             {
               "tag": "thead",
@@ -13833,7 +13909,7 @@
       ]
     },
     "diagram-7": {
-      "chart": "flowchart LR\nN7_A[\"<p>2016年版<br>9075-1:2016<br>(撤回済み)</p>\"]\nN7_B[\"<p>2023年版<br>9075-1:2023<br>(現行・第6版)</p>\"]\nN7_C[\"<p>Cor 1:2022 は旧版に対する訂正</p>\"]\nN7_D[\"<p>Cor 1:2026<br>(現行版の訂正・発行済み)</p>\"]\nN7_E[\"<p>ISO/IEC CD 9075-1<br>(後継版・開発中)</p>\"]\nN7_A --> N7_B\nN7_B --> N7_C\nN7_B --> N7_D\nN7_B -.-> N7_E",
+      "chart": "flowchart LR\nN7_A[\"<p>2016年版<br>9075-1:2016<br>(撤回済み)</p>\"]\nN7_B[\"<p>2023年版<br>9075-1:2023<br>(現行・第6版)</p>\"]\nN7_C[\"<p>Cor 1:2022 は旧版に対する訂正</p>\"]\nN7_D[\"<p>Cor 1:2026<br>(現行版の訂正・発行済み)</p>\"]\nN7_E[\"<p>ISO/IEC CD 9075-1<br>(後継版・開発中)</p>\"]\nN7_A --> N7_B\nN7_A --> N7_C\nN7_B --> N7_D\nN7_B -.-> N7_E",
       "nodes": [
         {
           "id": "N7_A",
@@ -13869,7 +13945,7 @@
           "dotted": false
         },
         {
-          "from": "N7_B",
+          "from": "N7_A",
           "to": "N7_C",
           "label": "",
           "dotted": false
