@@ -199,4 +199,20 @@ describe('review fixes', () => {
         expect(row.find('td').first().text()).toBe('DEC＝オブジェクトクラス＋プロパティの例（人の純収入）');
         expect(row.find('td').eq(1).text()).toBe('S10');
     });
+    it('Part 32 is recorded as published January 2023 with its ISO source in appendix C, leaving other parts unchanged', () => {
+        const render$ = (file: string) => { const Section = sourceModule(base+'/'+file).default as React.ComponentType; return load(renderToStaticMarkup(<Section />), {}, false); };
+        const parts = render$('Section04.tsx'); const rows = parts('table').first().find('tbody tr');
+        const status = (part: string) => norm(rows.filter((_, tr) => parts(tr).find('td').first().text() === part).find('td').eq(3).text());
+        expect(status('32')).toBe('2023年1月発行（Edition 1）');
+        expect(['1','3','30','31','33','34','35'].map(status)).toEqual(['2023年1月発行（第4版）','2023年版が存在（旧版を分割）','2023年1月発行（10ページ）','2023年1月発行（Edition 1）','2023年1月発行（Edition 1）','2024年5月発行（Edition 1、41ページ）','2023年1月発行（Edition 1、66ページ）']);
+        const appendix = render$('Section14.tsx');
+        const source = appendix('tbody tr').filter((_, tr) => appendix(tr).find('a[href="https://www.iso.org/standard/78926.html"]').length === 1);
+        expect(source).toHaveLength(1);
+        const id = source.find('td').first().text();
+        expect(norm(source.find('td').eq(1).text())).toBe('ISO/IEC 11179-32:2023（概念体系登録のメタモデル）');
+        const claim = appendix('tbody tr').filter((_, tr) => appendix(tr).find('td').first().text().includes('Part 32'));
+        expect(claim).toHaveLength(1);
+        expect(norm(claim.find('td').first().text())).toBe('Part 32 の発行（2023年1月）');
+        expect(claim.find('td').eq(1).text()).toBe(id);
+    });
 });
