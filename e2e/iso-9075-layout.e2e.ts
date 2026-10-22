@@ -22,6 +22,8 @@ const reviewedBody = ([
     ['<th>PostgreSQL</th>\n<th>Oracle</th>', '<th>PostgreSQL（2026年9月7日の revert 前の開発版）</th>\n<th>Oracle（報告時点）</th>'],
     ['<td>標準の同義語に対応</td>', '<td>標準の同義語に対応（revert 前の開発版）</td>'],
     ['<td>対応</td>', '<td>対応（revert 前の開発版）</td>'],
+    ['<strong>2026年9月7日に REL_19_STABLE から revert</strong>', '<strong>2026年9月7日に master と REL_19_STABLE の両方から revert</strong>'],
+    ['<p><strong>補足（規定参照との区別）</strong>: 上表はシリーズ全体のパート一覧であり、Part 1 自身を含みます。これとは別に、ISO公式ページに示される Part 1 の Clause 2（規定参照）が挙げているのは <strong>Part 2、3、4、9、10、11、13、14、15、16</strong> で、Part 1 自身は規定参照には含まれません。</p>', '<p><strong>補足（規定参照との区別）</strong>: 上表はシリーズ全体のパート一覧であり、Part 1 自身を含みます。これとは別に、ISO公式ページに示される Part 1 の Clause 2（規定参照）は、SQLシリーズのパートと、それ以外の規格に分けて次のとおりです。</p>\n<p><strong>SQLシリーズのパート</strong>: Part 2、3、4、9、10、11、13、14、15、16。Part 1 自身は規定参照には含まれません。</p>\n<p><strong>SQLシリーズ以外の規定参照</strong>: ISO/IEC 646、ISO/IEC 10646:2020、ISO/IEC 14651。</p>'],
 ] as const).reduce((body, [from, to]) => {
     if (!body.includes(from)) throw new Error(`Missing reviewed source text: ${from}`);
     return body.replaceAll(from, to);
