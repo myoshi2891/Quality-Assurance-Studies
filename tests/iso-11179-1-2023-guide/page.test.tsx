@@ -179,4 +179,16 @@ describe('review fixes', () => {
         const { DIAGRAMS } = await import(diagramsEntry);
         expect(DIAGRAMS['diagram-7']).toContain('N6_PR["プロパティ<br>純収入"]');
     });
+    it('diagram-5 derives Part 33 from Part 7:2019 and Part 35 from ISO/IEC 19763-10:2014, matching the STEP 3 table', async () => {
+        const { DIAGRAMS } = await import(diagramsEntry);
+        const chart: string = DIAGRAMS['diagram-5'];
+        const edges = chart.split('\n').filter(line => line.includes('==>'));
+        expect(edges).toEqual([
+            'N4_O3 ==> N4_N3', 'N4_O3 ==> N4_N30', 'N4_O3 ==> N4_N31', 'N4_O3 ==> N4_N32',
+            'N4_O7 ==> N4_N33', 'N4_OM ==> N4_N35',
+        ]);
+        const old = chart.slice(chart.indexOf('subgraph N4_OLD'), chart.indexOf('subgraph N4_NEW'));
+        expect(old).toContain('N4_O7["Part 7:2019<br>データセット登録"]');
+        expect(old).toContain('N4_OM["ISO/IEC 19763-10:2014<br>モデル登録"]');
+    });
 });
