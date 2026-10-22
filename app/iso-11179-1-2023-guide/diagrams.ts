@@ -123,6 +123,8 @@ flowchart LR
 subgraph N4_OLD["従来の構成"]
 direction TB
 N4_O3["Part 3<br>基本属性<br>データ記述<br>共通機能 など"]
+N4_O7["Part 7:2019<br>データセット登録"]
+N4_OM["ISO/IEC 19763-10:2014<br>モデル登録"]
 end
 subgraph N4_NEW["2023年版の構成"]
 direction TB
@@ -138,8 +140,8 @@ N4_O3 ==> N4_N3
 N4_O3 ==> N4_N30
 N4_O3 ==> N4_N31
 N4_O3 ==> N4_N32
-N4_O3 ==> N4_N33
-N4_O3 ==> N4_N35`,
+N4_O7 ==> N4_N33
+N4_OM ==> N4_N35`,
 "diagram-6": `${MERMAID_CONFIG}
 flowchart TB
 N5_OC["オブジェクトクラス<br>何について記録するか"]

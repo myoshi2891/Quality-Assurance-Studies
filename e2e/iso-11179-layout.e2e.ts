@@ -90,6 +90,13 @@ for (const width of [390,960,961,1440]) {
                 return { nodes, labels, actors, messages, clusters, relations };
             };
             const expected = await reference.locator('#'+id).evaluate(collect);
+            // レビューで追加した diagram-5 の移行元ノード（原本 SVG に座標なし）は、同じ「従来の構成」ノードの配色で期待値へ補う
+            const added = diagram.nodes.filter(n => n.position === null);
+            const template = expected.nodes.find(n => n.id === 'N4_O3');
+            if (added.length && template) {
+                expected.nodes.push(...added.map(n => ({ ...template, id: n.id, label: n.label.replace(/<br>/g, '') })));
+                expected.nodes.sort((a,b)=>a.id.localeCompare(b.id));
+            }
             await page.evaluate(async ({ id, chart, globalConfig, fixups }) => {
                 const mermaid = (window as unknown as { mermaid: { initialize: (config: object) => void; render: (id: string, chart: string) => Promise<{ svg: string }> } }).mermaid;
                 mermaid.initialize(globalConfig); const { svg } = await mermaid.render(`mdr-${id}`, chart);

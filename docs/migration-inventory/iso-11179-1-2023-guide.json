@@ -31319,13 +31319,25 @@
     },
     "diagram-5": {
       "type": "flowchart-v2",
-      "chart": "flowchart LR\nsubgraph N4_OLD[\"従来の構成\"]\ndirection TB\nN4_O3[\"Part 3<br>基本属性<br>データ記述<br>共通機能 など\"]\nend\nsubgraph N4_NEW[\"2023年版の構成\"]\ndirection TB\nN4_N3[\"Part 3 共通機能\"]\nN4_N30[\"Part 30 基本属性\"]\nN4_N31[\"Part 31 データ仕様\"]\nN4_N32[\"Part 32 概念体系\"]\nN4_N33[\"Part 33 データセット\"]\nN4_N35[\"Part 35 モデル\"]\nend\n\nN4_O3 ==> N4_N3\nN4_O3 ==> N4_N30\nN4_O3 ==> N4_N31\nN4_O3 ==> N4_N32\nN4_O3 ==> N4_N33\nN4_O3 ==> N4_N35",
+      "chart": "flowchart LR\nsubgraph N4_OLD[\"従来の構成\"]\ndirection TB\nN4_O3[\"Part 3<br>基本属性<br>データ記述<br>共通機能 など\"]\nN4_O7[\"Part 7:2019<br>データセット登録\"]\nN4_OM[\"ISO/IEC 19763-10:2014<br>モデル登録\"]\nend\nsubgraph N4_NEW[\"2023年版の構成\"]\ndirection TB\nN4_N3[\"Part 3 共通機能\"]\nN4_N30[\"Part 30 基本属性\"]\nN4_N31[\"Part 31 データ仕様\"]\nN4_N32[\"Part 32 概念体系\"]\nN4_N33[\"Part 33 データセット\"]\nN4_N35[\"Part 35 モデル\"]\nend\n\nN4_O3 ==> N4_N3\nN4_O3 ==> N4_N30\nN4_O3 ==> N4_N31\nN4_O3 ==> N4_N32\nN4_O7 ==> N4_N33\nN4_OM ==> N4_N35",
       "nodes": [
         {
           "id": "N4_O3",
           "label": "Part 3<br>基本属性<br>データ記述<br>共通機能 など",
           "shape": "rect",
           "position": "translate(115.796875, 399)"
+        },
+        {
+          "id": "N4_O7",
+          "label": "Part 7:2019<br>データセット登録",
+          "shape": "rect",
+          "position": null
+        },
+        {
+          "id": "N4_OM",
+          "label": "ISO/IEC 19763-10:2014<br>モデル登録",
+          "shape": "rect",
+          "position": null
         },
         {
           "id": "N4_N3",
@@ -31398,7 +31410,7 @@
           "arrow": true
         },
         {
-          "from": "N4_O3",
+          "from": "N4_O7",
           "to": "N4_N33",
           "label": "",
           "dotted": false,
@@ -31406,7 +31418,7 @@
           "arrow": true
         },
         {
-          "from": "N4_O3",
+          "from": "N4_OM",
           "to": "N4_N35",
           "label": "",
           "dotted": false,
