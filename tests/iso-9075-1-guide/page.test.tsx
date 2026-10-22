@@ -154,4 +154,18 @@ describe('review fixes', () => {
         expect(cell).toContain('2026年9月7日に master と REL_19_STABLE の両方から revert');
         expect(cell).toContain('PostgreSQL 19 には搭載されず、今後の搭載版は未定');
     });
+    it('price notices state the CHF 0 store price and keep the AI-use restriction as a separate statement', async () => {
+        const $ = await html();
+        const notices = [
+            $('#s-3-step-3-基本概念を理解する-sql環境のモデル').nextAll('.callout').first().text(),
+            $('main .callout').filter((_, el) => $(el).text().includes('調査基準日')).first().text(),
+            $('main td').filter((_, td) => $(td).prev('td').text() === '規格本文の未参照').first().text(),
+            $('.page-footer').text(),
+        ].map(norm);
+        for (const notice of notices) {
+            expect(notice).not.toContain('有料');
+            expect(notice).toContain('CHF 0');
+            expect(notice).toContain('AI利用を認めていない');
+        }
+    });
 });
