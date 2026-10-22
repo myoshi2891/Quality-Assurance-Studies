@@ -985,7 +985,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">152<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">154<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
@@ -1813,9 +1813,7 @@ function renderInventory() {
     if (countEl) {
       countEl.textContent = files.length + ' file' + (files.length === 1 ? '' : 's');
     }
-    if (k !== 'tooling') {
-      total += files.length;
-    }
+    total += files.length;
   });
   const totalEl = document.getElementById('inv-total');
   if (totalEl) {
