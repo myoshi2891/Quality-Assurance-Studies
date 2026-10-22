@@ -188,6 +188,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/iec-62304-beginner-guide/page.tsx`（ダーク配色・全22セクション・目次50リンク・18図・37表。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成）
 - `app/beyond-legacy-code-guide/page.tsx` (Beyond Legacy Code 実践ガイド、`NavBar.tsx` 付き)
 - `app/iso-29119-1-2022-guide/page.tsx` (ISO/IEC/IEEE 29119-1:2022 完全解説ガイド、`NavBar.tsx` 付き)
+- `app/iso-9075-1-guide/page.tsx` (ISO/IEC 9075-1 SQL/Framework ガイド、ダーク配色・目次34リンク・9図・19表・SQLコード3例。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成)
+- `app/iso-11179-1-2023-guide/page.tsx` (ISO/IEC 11179-1:2023 メタデータレジストリガイド、ダーク配色・目次57リンク・14図・32表・YAMLコード1例・チェック6項目。`NavBar.tsx`・`toc.ts`・`Checklist.tsx`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成)
 
 CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集約し、内側`.mermaid-wrapper`を`display: block; overflow: visible`にする。広いSVGの中央寄せによる負のスクロール原点を防止する。`bunx playwright test --config playwright.mermaid-css.config.ts`でビルドなしのCSS座標検証を実行できる。
 
@@ -437,7 +439,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 105 ルート（ガイドライブラリ index + 104 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 5637件（133ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 5643件（`bun test` 全体・133ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認をユーザーに依頼する。
