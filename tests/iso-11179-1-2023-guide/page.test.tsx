@@ -155,6 +155,21 @@ describe('review fixes', () => {
         expect(source.indexOf('<Diagram id="diagram-14" />')).toBeLessThan(source.indexOf('<ol'));
         expect(source.indexOf('<ol')).toBeLessThan(source.indexOf('id="9-2-設計時のチェックリスト"'));
     });
+    it('diagram-12 is followed by an ordered text alternative of every registration message', () => {
+        const Section = sourceModule(base+'/Section08.tsx').default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Section />), {}, false);
+        const items = $('ol').first().children('li').map((_, li) => norm($(li).text())).get();
+        expect(items).toEqual([
+            '提出者が登録官へ、新しい項目の登録を申請する。',
+            '登録官が管理者へ内容の確認・責任範囲の確認を依頼し、管理者が定義・表現の妥当性を回答する。',
+            '登録官が登録機関へ登録可否を上申し、登録機関が承認する。',
+            '登録官がレジストリへ項目を登録する。',
+            'レジストリが提出者へ、識別子とともに登録を通知する。',
+        ]);
+        const source = readFileSync(base+'/Section08.tsx', 'utf8');
+        expect(source.indexOf('<Diagram id="diagram-12" />')).toBeLessThan(source.indexOf('<ol'));
+        expect(source.indexOf('<ol')).toBeLessThan(source.indexOf('id="7-3-命名定義のルールは別パートへ"'));
+    });
     it('STEP 5-A example names the property 純収入, matching diagram-7', async () => {
         const Section = sourceModule(base+'/Section06.tsx').default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Section />), {}, false);
