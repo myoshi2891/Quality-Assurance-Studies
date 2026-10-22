@@ -20,8 +20,8 @@ const CERTIFICATION_TRACK = [
 /**
  * Renders one step of the hero staircase.
  *
- * バーの軌道長は全段で等しく、伸びた長さだけがガイド数を表す。段のインデントは
- * CSS 側で付けるため、長さの比較は段が上がっても壊れない。
+ * バーの軌道長は全段で等しく、伸びた長さだけがガイド数を表す。カテゴリ名は常時表示し、
+ * タッチ操作でもマップの意味を読み取れるようにする。
  *
  * @param level - The category group this step represents
  * @param largest - The guide count of the biggest group, used as the 100% reference
@@ -98,23 +98,35 @@ export default function Home() {
               ISTQB シラバスと現場実践をもとにしたテスト学習ガイド集。
               レベルから辿るか、検索して直接開く。
             </p>
+            <div className="index-actions">
+              <a href="#guide-library" className="index-primary">
+                ガイドを探す <span aria-hidden="true">↗</span>
+              </a>
+              <a href="/modern-software-testing-complete-guide-2025" className="index-secondary">
+                はじめての方へ <span aria-hidden="true">→</span>
+              </a>
+            </div>
             <p className="index-meta">
               <span data-total-guides>{guideCount} GUIDES</span>
               <span aria-hidden="true"> · </span>
-              <span>{levels.length} LEVELS</span>
+              <span>{levels.length} CATEGORIES</span>
             </p>
           </div>
 
           <nav className="climb" aria-label="レベル別ガイド数">
+            <div className="climb-caption">
+              <span>LEARNING MAP</span>
+              <span>カテゴリから探す</span>
+            </div>
             {/* column-reverse で描画順を反転し、文書順（＝カリキュラム順）を保ったまま
-                BASE を最下段に置く。読み込み時のアニメーションも下から上へ進む。 */}
+                BASE を最下段に置く。 */}
             <div className="climb-stairs">
               {climb.map((level) => (
                 <Rung key={level.category} level={level} largest={largest} track="certification" />
               ))}
             </div>
             <div className="climb-shelf">
-              <p className="climb-shelf-label">階梯の外 / 実務の棚</p>
+              <p className="climb-shelf-label">実務を深める / PRACTICE</p>
               {shelf.map((level) => (
                 <Rung key={level.category} level={level} largest={largest} track="practice" />
               ))}
