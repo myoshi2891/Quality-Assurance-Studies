@@ -2489,7 +2489,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "Part 1 の目次で記載を確認"
+                        "2023年1月発行（Edition 1）"
                       ]
                     }
                   ]
@@ -7256,6 +7256,45 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "S22"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "ISO/IEC 11179-32:2023（概念体系登録のメタモデル）"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "a",
+                          "attrs": {
+                            "href": "https://www.iso.org/standard/78926.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
+                          },
+                          "children": [
+                            "https://www.iso.org/standard/78926.html"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -8140,6 +8179,28 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
+                        "Part 32 の発行（2023年1月）"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "S22"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
                         "Part 30 の目的（基本属性）"
                       ]
                     },
@@ -8155,7 +8216,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -8177,7 +8238,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -8199,7 +8260,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -8221,7 +8282,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -8243,7 +8304,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -8265,7 +8326,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -9044,6 +9105,17 @@
           },
           "children": [
             "https://www.iso.org/standard/81743.html"
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "href": "https://www.iso.org/standard/78926.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          "children": [
+            "https://www.iso.org/standard/78926.html"
           ]
         },
         {
@@ -11530,7 +11602,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "Part 1 の目次で記載を確認"
+                        "2023年1月発行（Edition 1）"
                       ]
                     }
                   ]
@@ -18152,6 +18224,45 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "S22"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "ISO/IEC 11179-32:2023（概念体系登録のメタモデル）"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "a",
+                          "attrs": {
+                            "href": "https://www.iso.org/standard/78926.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
+                          },
+                          "children": [
+                            "https://www.iso.org/standard/78926.html"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -19087,6 +19198,28 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
+                        "Part 32 の発行（2023年1月）"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "S22"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
                         "Part 30 の目的（基本属性）"
                       ]
                     },
@@ -19102,7 +19235,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -19124,7 +19257,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -19146,7 +19279,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -19168,7 +19301,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -19190,7 +19323,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -19212,7 +19345,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -21171,7 +21304,7 @@
                         "tag": "td",
                         "attrs": {},
                         "children": [
-                          "Part 1 の目次で記載を確認"
+                          "2023年1月発行（Edition 1）"
                         ]
                       }
                     ]
@@ -27813,6 +27946,45 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "tag": "tr",
+                    "attrs": {
+                      "class": "odd"
+                    },
+                    "children": [
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "S22"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "ISO/IEC 11179-32:2023（概念体系登録のメタモデル）"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          {
+                            "tag": "a",
+                            "attrs": {
+                              "href": "https://www.iso.org/standard/78926.html",
+                              "target": "_blank",
+                              "rel": "noopener noreferrer"
+                            },
+                            "children": [
+                              "https://www.iso.org/standard/78926.html"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -28748,6 +28920,28 @@
                         "tag": "td",
                         "attrs": {},
                         "children": [
+                          "Part 32 の発行（2023年1月）"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "S22"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "tr",
+                    "attrs": {
+                      "class": "odd"
+                    },
+                    "children": [
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
                           "Part 30 の目的（基本属性）"
                         ]
                       },
@@ -28763,7 +28957,7 @@
                   {
                     "tag": "tr",
                     "attrs": {
-                      "class": "odd"
+                      "class": "even"
                     },
                     "children": [
                       {
@@ -28785,7 +28979,7 @@
                   {
                     "tag": "tr",
                     "attrs": {
-                      "class": "even"
+                      "class": "odd"
                     },
                     "children": [
                       {
@@ -28807,7 +29001,7 @@
                   {
                     "tag": "tr",
                     "attrs": {
-                      "class": "odd"
+                      "class": "even"
                     },
                     "children": [
                       {
@@ -28829,7 +29023,7 @@
                   {
                     "tag": "tr",
                     "attrs": {
-                      "class": "even"
+                      "class": "odd"
                     },
                     "children": [
                       {
@@ -28851,7 +29045,7 @@
                   {
                     "tag": "tr",
                     "attrs": {
-                      "class": "odd"
+                      "class": "even"
                     },
                     "children": [
                       {
@@ -28873,7 +29067,7 @@
                   {
                     "tag": "tr",
                     "attrs": {
-                      "class": "even"
+                      "class": "odd"
                     },
                     "children": [
                       {

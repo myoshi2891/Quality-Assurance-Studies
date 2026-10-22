@@ -17,7 +17,7 @@ const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 // レビューで追加した diagram-12 / diagram-14 のテキスト代替を原本にも挿入し、追加分ではなく CSS 差だけを比較する
-const reviewedBody = ([
+const textAlternativesBody = ([
     ['Section08.tsx', '\n<h3 id="7-3-命名定義のルールは別パートへ">'],
     ['Section10.tsx', '\n<h3 id="9-2-設計時のチェックリスト">'],
 ] as const).reduce((body, [file, anchor]) => {
@@ -26,6 +26,18 @@ const reviewedBody = ([
     if (!list || !body.includes(anchor)) throw new Error(`Missing ${file} text alternative or source anchor`);
     return body.replace(anchor, `\n${list}${anchor}`);
 }, inventory.originalBody);
+// レビューで更新した Part 32 の発行状態と、付録 C の出典 S22・根拠行を原本にも反映する
+const reviewedBody = ([
+    ['<td>Metamodel for concept system registration</td>\n<td><strong>概念体系</strong>の登録</td>\n<td>Part 1 の目次で記載を確認</td>',
+     '<td>Metamodel for concept system registration</td>\n<td><strong>概念体系</strong>の登録</td>\n<td>2023年1月発行（Edition 1）</td>'],
+    ['https://www.iso.org/standard/81743.html</a></td>\n</tr>\n',
+     'https://www.iso.org/standard/81743.html</a></td>\n</tr>\n<tr class="odd">\n<td>S22</td>\n<td>ISO/IEC 11179-32:2023（概念体系登録のメタモデル）</td>\n<td><a href="https://www.iso.org/standard/78926.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/78926.html</a></td>\n</tr>\n'],
+    ['<td>Part 34 の発行（2024年5月）</td>\n<td>S5</td>\n</tr>\n',
+     '<td>Part 34 の発行（2024年5月）</td>\n<td>S5</td>\n</tr>\n<tr class="even">\n<td>Part 32 の発行（2023年1月）</td>\n<td>S22</td>\n</tr>\n'],
+] as const).reduce((body, [from, to]) => {
+    if (body.split(from).length !== 2) throw new Error(`Missing or ambiguous reviewed source text: ${from}`);
+    return body.replace(from, to);
+}, textAlternativesBody);
 const selectors = ['.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hm','.hm-l','.hm-v','.hero-note','h2','h3','h4','main p','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.callout-icon','.callout-body','.callout-title','.page-footer','.sb-title','.sidebar ul','.sidebar li','.sidebar a','.menu-btn','main code','pre','pre span','.checklist-card','.checklist','.checklist label','.checklist li','.cb','.checklist-progress','.cp-bar','.cp-fill','.cp-count'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,960,961,1440]) {
