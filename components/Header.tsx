@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import Link from 'next/link';
+import './header.css';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, groupByCategory, matchesQuery, type NavCategory } from '../lib/navigation';
 
@@ -21,7 +22,7 @@ function initialOpenCategories(pathname: string): Set<NavCategory> {
 }
 
 /**
- * グローバルヘッダー。ロゴとハンバーガーメニュー（ドロワー）のみを表示する。
+ * グローバルヘッダー。ブランド・検索の入口と、説明付きガイドメニューを表示する。
  *
  * ドロワーはガイド数の増加に耐えるよう、先頭にインクリメンタル検索を置き、
  * カテゴリを `<details>` で折りたたむ。既定では現在ページのカテゴリのみ展開し、
@@ -33,6 +34,7 @@ export default function Header({ className }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [openCategories, setOpenCategories] = useState<Set<NavCategory>>(() => new Set());
+  const panelRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   // ドロワーを閉じた後にハンバーガーへフォーカスを戻すか。
@@ -90,6 +92,13 @@ export default function Header({ className }: HeaderProps) {
     if (!isOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
+      if (e.key !== 'Tab' || !panelRef.current) return;
+      const controls = Array.from(panelRef.current.querySelectorAll<HTMLElement>('button, input, summary, a[href]'))
+        .filter(el => !el.closest('details:not([open])') || el.tagName === 'SUMMARY');
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
     };
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
@@ -110,10 +119,11 @@ export default function Header({ className }: HeaderProps) {
   }, [isOpen]);
 
   return (
-    <nav className={`nav-header ${className || ''}`}>
+    <nav aria-label="グローバルナビゲーション" className={`nav-header ${className || ''}`}>
       <Link href="/" className="nav-logo hover:opacity-80 transition-opacity">
-        QA_STUDIES
+        <span className="nav-brand-mark" aria-hidden="true">Q<span>.</span></span>QA_STUDIES
       </Link>
+      <span className="nav-context">学びを、品質につなげる。</span>
       <button
         ref={hamburgerRef}
         type="button"
@@ -123,6 +133,7 @@ export default function Header({ className }: HeaderProps) {
         aria-controls="global-nav-panel"
         onClick={() => (isOpen ? close() : open())}
       >
+        <span>ガイドを探す</span>
         {isOpen ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -143,13 +154,23 @@ export default function Header({ className }: HeaderProps) {
             aria-hidden="true"
             onClick={close}
           />
-          <aside
+          <div
+            ref={panelRef}
             id="global-nav-panel"
             className="nav-drawer"
             role="dialog"
             aria-modal="true"
             aria-label="ナビゲーションメニュー"
           >
+            <div className="nav-drawer-top">
+              <div>
+                <span className="nav-drawer-eyebrow">QA_STUDIES / LIBRARY</span>
+                <p>学びたいことを、見つけよう。</p>
+              </div>
+              <button type="button" className="nav-close" aria-label="ナビゲーションを閉じる" onClick={close}>
+                ×
+              </button>
+            </div>
             {homeItem && (
               <ul className="nav-drawer-list nav-drawer-pinned">
                 <li>
@@ -176,6 +197,17 @@ export default function Header({ className }: HeaderProps) {
               />
             </div>
 
+            <div className="nav-search-feedback">
+              <span role="status">
+                {groups.reduce((sum, g) => sum + g.items.length, 0)} 件のガイド
+                {isFiltering ? 'が見つかりました' : ' / カテゴリから探す'}
+              </span>
+              {isFiltering && (
+                <button type="button" onClick={() => { setQuery(''); searchRef.current?.focus(); }}>
+                  検索をクリア
+                </button>
+              )}
+            </div>
             {groups.length === 0 ? (
               <p className="nav-drawer-empty">該当するガイドがありません</p>
             ) : (
@@ -206,10 +238,12 @@ export default function Header({ className }: HeaderProps) {
                       <li key={item.href}>
                         <Link
                           href={item.href}
+                          aria-describedby={`nav-desc-${item.href.slice(1)}`}
                           onClick={closeForNavigation}
                           aria-current={pathname === item.href ? 'page' : undefined}
                         >
-                          {item.label}
+                          <span>{item.label}</span>
+                          <span className="nav-guide-description" id={`nav-desc-${item.href.slice(1)}`} aria-hidden="true">{item.description}</span>
                         </Link>
                       </li>
                     ))}
@@ -217,7 +251,7 @@ export default function Header({ className }: HeaderProps) {
                 </details>
               ))
             )}
-          </aside>
+          </div>
         </>
       )}
     </nav>

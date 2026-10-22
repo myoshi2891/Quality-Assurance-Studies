@@ -1,0 +1,173 @@
+/* Scoped global navigation: independent of page-local nav styles. */
+.nav-header {
+    --level: #a4b2c7;
+}
+.nav-header .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    color: #edf3f7;
+    text-decoration: none;
+    margin: 0;
+}
+.nav-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #17312e;
+    border: 1px solid #335950;
+    border-radius: 8px;
+    color: #90e7d7;
+    font: 700 20px var(--font-display);
+    letter-spacing: -.1em;
+}
+.nav-brand-mark > span {
+    color: #edf3f7;
+}
+.nav-context {
+    margin-right: auto;
+    color: #a4b2c7;
+    font-size: 11px;
+}
+.nav-header .nav-hamburger {
+    width: auto;
+    min-height: 40px;
+    gap: .8rem;
+    padding: 0 .9rem;
+    color: #d9e4ed;
+    font: 12px var(--font-body);
+    background: #13212c;
+}
+.nav-header .nav-drawer {
+    left: auto;
+    right: 0;
+    top: 60px;
+    width: min(620px, 100%);
+    max-height: calc(100dvh - 60px);
+    border-left: 1px solid #2a3c48;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    overscroll-behavior: contain;
+}
+.nav-drawer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.2rem;
+}
+.nav-drawer-eyebrow {
+    font: 10px var(--font-mono);
+    letter-spacing: .12em;
+    color: #90e7d7;
+}
+.nav-drawer-top > div {
+    min-width: 0;
+}
+.nav-drawer-top p {
+    text-wrap: balance;
+    margin: .5rem 0 0;
+    font-size: 1.1rem;
+    color: #edf3f7;
+}
+.nav-close {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 1px solid #334255;
+    background: #13212c;
+    border-radius: 8px;
+    font-size: 24px;
+    color: #edf3f7;
+    cursor: pointer;
+}
+.nav-header .nav-drawer-pinned a {
+    border: 1px solid #2a3c48;
+    background: #13212c;
+    border-radius: 8px;
+}
+.nav-header .nav-drawer-search {
+    padding-top: .8rem;
+}
+.nav-header .nav-drawer-search-input {
+    border-radius: 8px;
+    background: #101b27;
+    padding: .85rem;
+    font-size: 14px;
+}
+.nav-search-feedback {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 11px;
+    color: #a4b2c7;
+    padding: .25rem 0 .7rem;
+}
+.nav-search-feedback button {
+    color: #90e7d7;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.nav-header .nav-drawer-heading {
+    padding-block: 1rem;
+}
+.nav-header .nav-drawer-heading h2 {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    color: #d9e4ed;
+}
+.nav-header .nav-drawer-list a {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .35rem;
+    padding: .8rem;
+    border-radius: 7px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.nav-guide-description {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #a4b2c7;
+}
+.nav-header .nav-drawer-list a[aria-current='page'] {
+    border-left: 2px solid #90e7d7;
+    background: #162b2a;
+}
+.nav-header :is(button, a, summary):focus-visible {
+    outline: 2px solid #90e7d7;
+    outline-offset: 3px;
+}
+@media (max-width: 600px) {
+    .nav-context {
+        display: none;
+    }
+    .nav-header {
+        padding-inline: 1rem;
+        gap: .75rem;
+    }
+    .nav-header .nav-hamburger {
+        gap: .5rem;
+        font-size: 11px;
+        padding-inline: .65rem;
+    }
+    .nav-header .nav-logo {
+        font-size: 11px;
+        gap: .5rem;
+    }
+    .nav-header .nav-drawer {
+        padding: 1rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nav-header *, .nav-header *::before {
+        animation: none;
+        transition: none;
+    }
+}

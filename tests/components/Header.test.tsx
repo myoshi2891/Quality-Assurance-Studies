@@ -280,3 +280,35 @@ describe('Header body scroll lock and focus', () => {
     expect(document.activeElement).toBe(searchInput());
   });
 });
+
+describe('Library menu refinement', () => {
+  it('announces filtered results and allows resetting an empty search', () => {
+    const dialog = openDrawer();
+    expect(within(dialog).getByRole('status').textContent).toContain(String(NAV_ITEMS.length - 1));
+    fireEvent.change(searchInput(), { target: { value: 'zzzz-no-such-guide' } });
+    expect(within(dialog).getByRole('status').textContent).toContain('0');
+    fireEvent.click(within(dialog).getByRole('button', { name: '検索をクリア' }));
+    expect((searchInput() as HTMLInputElement).value).toBe('');
+    expect(document.activeElement).toBe(searchInput());
+  });
+
+  it('keeps keyboard focus inside the modal in both directions', () => {
+    const dialog = openDrawer();
+    const close = within(dialog).getByRole('button', { name: 'ナビゲーションを閉じる' });
+    const summaries = dialog.querySelectorAll('summary');
+    const last = summaries[summaries.length - 1] as HTMLElement;
+    last.focus();
+    fireEvent.keyDown(last, { key: 'Tab' });
+    expect(document.activeElement).toBe(close);
+    fireEvent.keyDown(close, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(last);
+  });
+
+  it('provides descriptions without changing link accessible names', () => {
+    const dialog = openDrawer();
+    const link = within(dialog).getByRole('link', { name: 'AIテスト(CT-AI)ガイド' });
+    const id = link.getAttribute('aria-describedby');
+    expect(id).toBeTruthy();
+    expect(document.getElementById(id!)?.textContent).toBe(NAV_ITEMS.find(i => i.href === '/istqb-ct-ai-complete-guide')?.description);
+  });
+});
