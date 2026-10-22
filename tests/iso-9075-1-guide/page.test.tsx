@@ -22,7 +22,7 @@ function tree(node: AnyNode | undefined): unknown {
     if (!isTag(node)) return null;
     const attrs = { ...node.attribs }; delete attrs['aria-current'];
     if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '').replace(/\s+open\b/g, '');
-    if (attrs.class === 'mermaid-diagram') { delete attrs.role; delete attrs['aria-label']; return { tag: node.tagName, attrs, children: [] }; }
+    if (attrs.class === 'mermaid-diagram') { delete attrs.role; delete attrs['aria-label']; delete attrs['aria-describedby']; return { tag: node.tagName, attrs, children: [] }; }
     if (node.tagName === 'pre') return { tag: 'pre', attrs, code: load(node).text() };
     return { tag: node.tagName, attrs, children: node.children.map(tree).filter(x => x !== null) };
 }
@@ -167,5 +167,26 @@ describe('review fixes', () => {
             expect(notice).toContain('CHF 0');
             expect(notice).toContain('AI利用を認めていない');
         }
+    });
+});
+describe('diagram accessible descriptions', () => {
+    const inOrder = (text: string, steps: string[]) => steps.map(s => text.indexOf(s)).every((p, i, a) => p >= 0 && (i === 0 || p > a[i - 1]!));
+    it('keeps every aria-label and links each diagram to a non-empty description inside it', async () => {
+        const $ = await html(); const diagrams = $('.mermaid-diagram');
+        expect(diagrams).toHaveLength(9);
+        diagrams.each((_, el) => {
+            const id = $(el).attr('id')!; expect($(el).attr('role')).toBe('img'); expect($(el).attr('aria-label')?.trim()).toBeTruthy();
+            expect($(el).attr('aria-describedby')).toBe(`${id}-desc`);
+            const desc = $(el).find(`[id="${id}-desc"]`); expect(desc).toHaveLength(1); expect(desc.attr('hidden')).toBeDefined(); expect(norm(desc.text())).not.toBe('');
+        });
+    });
+    it('diagram-3 describes the client-server processing order', async () => {
+        const $ = await html(); const text = norm($('#diagram-3-desc').text());
+        expect(inOrder(text, ['SQL文を発行', 'セッションを確立', '解析・実行', '結果（または例外）', '返却'])).toBe(true);
+    });
+    it('diagram-8 describes the five learning steps in order', async () => {
+        const $ = await html(); const text = norm($('#diagram-8-desc').text());
+        expect(inOrder(text, ['①', '②', '③', '④', '⑤'])).toBe(true);
+        expect(inOrder(text, ['全体像', 'modern-sql.com', 'SQL Conformance', '適合テスト', 'ISO OBP'])).toBe(true);
     });
 });
