@@ -128,7 +128,6 @@ export default function Header({ className }: HeaderProps) {
         ref={hamburgerRef}
         type="button"
         className="nav-hamburger"
-        aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
         aria-expanded={isOpen}
         aria-controls="global-nav-panel"
         onClick={() => (isOpen ? close() : open())}

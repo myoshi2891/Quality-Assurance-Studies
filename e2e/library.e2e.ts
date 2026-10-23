@@ -28,7 +28,7 @@ for (const width of [320, 390, 768, 1440]) {
 
     test('searches the modal, traps keyboard focus, closes and navigates', async ({ page }) => {
       await page.goto('/', { waitUntil: 'networkidle' });
-      const open = page.getByRole('button', { name: 'メニューを開く' });
+      const open = page.getByRole('button', { name: 'ガイドを探す' });
       await open.click();
       const dialog = page.getByRole('dialog');
       const search = dialog.getByRole('searchbox');
@@ -59,7 +59,7 @@ for (const width of [320, 390, 768, 1440]) {
       await page.goto('/', { waitUntil: 'networkidle' });
       const home = await new AxeBuilder({ page }).include('.index-page').analyze();
       expect(home.violations).toEqual([]);
-      await page.getByRole('button', { name: 'メニューを開く' }).click();
+      await page.getByRole('button', { name: 'ガイドを探す' }).click();
       await expect(page.getByRole('dialog')).toHaveCSS('opacity', '1');
       const menu = await new AxeBuilder({ page }).include('.nav-header').analyze();
       expect(menu.violations).toEqual([]);

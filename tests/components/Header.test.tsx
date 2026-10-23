@@ -16,7 +16,7 @@ afterEach(() => {
 
 const openDrawer = () => {
   render(<Header />);
-  fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+  fireEvent.click(screen.getByRole('button', { name: 'ガイドを探す' }));
   return screen.getByRole('dialog');
 };
 
@@ -26,30 +26,31 @@ const sectionFor = (category: string) =>
   document.querySelector<HTMLDetailsElement>(`details[data-category="${category}"]`);
 
 describe('Header hamburger button', () => {
-  it('renders a button with aria-label "メニューを開く"', () => {
+  it('uses the visible label "ガイドを探す" as its accessible name', () => {
     render(<Header />);
-    const btn = screen.getByRole('button', { name: 'メニューを開く' });
-    expect(btn).toBeDefined();
+    const btn = screen.getByRole('button', { name: 'ガイドを探す' });
+    expect(btn.textContent).toBe('ガイドを探す');
     expect(btn.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('exposes aria-controls pointing to the drawer panel id', () => {
     render(<Header />);
-    const btn = screen.getByRole('button', { name: 'メニューを開く' });
+    const btn = screen.getByRole('button', { name: 'ガイドを探す' });
     expect(btn.getAttribute('aria-controls')).toBe('global-nav-panel');
   });
 
   it('flips aria-expanded to true after a click', () => {
     render(<Header />);
-    const btn = screen.getByRole('button', { name: /メニュー/ });
+    const btn = screen.getByRole('button', { name: 'ガイドを探す' });
     fireEvent.click(btn);
     expect(btn.getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('updates the aria-label to "メニューを閉じる" when open', () => {
+  it('keeps the visible label as its name when open and signals state only via aria-expanded', () => {
     render(<Header />);
-    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
-    expect(screen.getByRole('button', { name: 'メニューを閉じる' })).toBeDefined();
+    fireEvent.click(screen.getByRole('button', { name: 'ガイドを探す' }));
+    const btn = screen.getByRole('button', { name: 'ガイドを探す', expanded: true });
+    expect(btn.hasAttribute('aria-label')).toBe(false);
   });
 });
 
@@ -181,10 +182,10 @@ describe('Header drawer search', () => {
 
   it('resets the query when the drawer is reopened', () => {
     render(<Header />);
-    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ガイドを探す' }));
     fireEvent.change(searchInput(), { target: { value: 'cypress' } });
     fireEvent.keyDown(document, { key: 'Escape' });
-    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ガイドを探す' }));
     expect((searchInput() as HTMLInputElement).value).toBe('');
   });
 });
@@ -246,7 +247,7 @@ describe('Header legacy cleanup', () => {
 describe('Header CSS class hooks', () => {
   it('hamburger button carries the nav-hamburger class', () => {
     render(<Header />);
-    const btn = screen.getByRole('button', { name: 'メニューを開く' });
+    const btn = screen.getByRole('button', { name: 'ガイドを探す' });
     expect(btn.classList.contains('nav-hamburger')).toBe(true);
   });
 
@@ -264,13 +265,13 @@ describe('Header body scroll lock and focus', () => {
   it('locks body scroll while the drawer is open', () => {
     render(<Header />);
     expect(document.body.style.overflow).toBe('');
-    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ガイドを探す' }));
     expect(document.body.style.overflow).toBe('hidden');
   });
 
   it('restores body scroll after the drawer is closed', () => {
     render(<Header />);
-    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ガイドを探す' }));
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(document.body.style.overflow).toBe('');
   });
@@ -284,9 +285,9 @@ describe('Header body scroll lock and focus', () => {
 describe('Library menu refinement', () => {
   it('announces filtered results and allows resetting an empty search', () => {
     const dialog = openDrawer();
-    expect(within(dialog).getByRole('status').textContent).toContain(String(NAV_ITEMS.length - 1));
+    expect(within(dialog).getByRole('status').textContent).toBe(`${NAV_ITEMS.length - 1} 件のガイド / カテゴリから探す`);
     fireEvent.change(searchInput(), { target: { value: 'zzzz-no-such-guide' } });
-    expect(within(dialog).getByRole('status').textContent).toContain('0');
+    expect(within(dialog).getByRole('status').textContent).toBe('0 件のガイドが見つかりました');
     fireEvent.click(within(dialog).getByRole('button', { name: '検索をクリア' }));
     expect((searchInput() as HTMLInputElement).value).toBe('');
     expect(document.activeElement).toBe(searchInput());

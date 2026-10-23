@@ -43,9 +43,9 @@
 .nav-header .nav-drawer {
     left: auto;
     right: 0;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     width: min(620px, 100%);
-    max-height: calc(100dvh - 60px);
+    max-height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
     border-left: 1px solid #2a3c48;
     padding: 1.5rem;
     box-sizing: border-box;
