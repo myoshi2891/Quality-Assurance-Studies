@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, mock } from 'bun:test';
+import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
@@ -98,6 +98,15 @@ describe('TOC interactions', () => {
         expect(button.getAttribute('aria-expanded')).toBe('false'); fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true'); expect(view.container.querySelector('.sidebar.open')).not.toBeNull();
         fireEvent.click(view.container.querySelector('a')!); expect(button.getAttribute('aria-expanded')).toBe('false');
         fireEvent.click(button); fireEvent.keyDown(document, { key: 'Escape' }); expect(button.getAttribute('aria-expanded')).toBe('false'); expect(document.activeElement).toBe(button);
+    });
+    it('returns focus to the toggle without scrolling only when a link closes the open TOC', async () => {
+        const entry = '../../app/iso-11179-1-2023-guide/NavBar'; const Nav = (await import(entry)).default;
+        const view = render(<Nav />); const button = view.getByRole('button', { name: '目次を開く' }); const anchor = view.container.querySelector('a')!;
+        const focus = spyOn(button, 'focus');
+        anchor.focus(); fireEvent.click(anchor); expect(focus).not.toHaveBeenCalled(); expect(document.activeElement).toBe(anchor);
+        fireEvent.click(button); anchor.focus(); fireEvent.click(anchor);
+        expect(focus).toHaveBeenCalledWith({ preventScroll: true }); expect(button.getAttribute('aria-expanded')).toBe('false');
+        focus.mockRestore();
     });
     it('observes all 57 anchors, selects each link and disconnects on unmount', async () => {
         const previous = globalThis.IntersectionObserver; let callback: IntersectionObserverCallback | undefined; const observed: Element[] = []; const disconnect = mock(() => {});

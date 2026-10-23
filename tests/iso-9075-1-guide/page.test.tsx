@@ -96,6 +96,13 @@ describe('TOC interactions', () => {
         fireEvent.click(view.container.querySelector('a')!); expect(button.getAttribute('aria-expanded')).toBe('false');
         fireEvent.click(button); fireEvent.keyDown(document, { key: 'Escape' }); expect(button.getAttribute('aria-expanded')).toBe('false'); expect(document.activeElement).toBe(button);
     });
+    it('returns focus to the toggle only when a link closes the open TOC', async () => {
+        const entry = '../../app/iso-9075-1-guide/NavBar'; const Nav = (await import(entry)).default;
+        const view = render(<Nav />); const button = view.getByRole('button', { name: '目次を開く' }); const anchor = view.container.querySelector('a')!;
+        anchor.focus(); fireEvent.click(anchor); expect(document.activeElement).toBe(anchor);
+        fireEvent.click(button); anchor.focus(); fireEvent.click(anchor);
+        expect(document.activeElement).toBe(button); expect(button.getAttribute('aria-expanded')).toBe('false');
+    });
     it('observes all 34 anchors, selects each link and disconnects on unmount', async () => {
         const previous = globalThis.IntersectionObserver; let callback: IntersectionObserverCallback | undefined; const observed: Element[] = []; const disconnect = mock(() => {});
         globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe(el: Element) { observed.push(el); } disconnect = disconnect; } as unknown as typeof IntersectionObserver;
