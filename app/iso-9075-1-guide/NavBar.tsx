@@ -3,11 +3,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { TOC_GROUPS } from './toc';
 
-const TOC_IDS = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
+// URL ハッシュ由来の任意の文字列を includes で照合できるよう string として扱う
+const TOC_IDS: readonly string[] = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
 type TocLink = { readonly id: string; readonly label: string };
-type TocId = (typeof TOC_IDS)[number];
-// URL ハッシュなど任意の文字列を目次 ID に絞り込む
-const isTocId = (id: string): id is TocId => (TOC_IDS as readonly string[]).includes(id);
 
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +59,7 @@ export default function NavBar() {
     useEffect(() => {
         const onHashChange = () => {
             const id = decodeURIComponent(window.location.hash.slice(1));
-            if (!isTocId(id)) return;
+            if (!TOC_IDS.includes(id)) return;
             pendingRef.current = id;
             setActive(id);
             scheduleSettle();
