@@ -274,4 +274,23 @@ describe('toc follows browser history hash changes', () => {
             expect(current()).toBe(`#${ids[1]}`);
         } finally { view.unmount(); targets.remove(); history.replaceState(null, '', '#'); globalThis.IntersectionObserver = previous; }
     });
+    it('ignores a malformed percent-encoded hash without throwing and keeps the current heading', async () => {
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        // dispatchEvent は例外を握りつぶす実装があるため、登録されたハンドラーを直接呼び出して検証する
+        const handlers: EventListener[] = []; const original = window.addEventListener.bind(window);
+        window.addEventListener = ((type: string, listener: EventListener, options?: AddEventListenerOptions) => {
+            if (type === 'hashchange') handlers.push(listener);
+            original(type, listener, options);
+        }) as typeof window.addEventListener;
+        const entry = '../../app/iso-9075-1-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        const fire = (hash: string) => act(() => { history.replaceState(null, '', hash); for (const handler of handlers) handler(new Event('hashchange')); });
+        try {
+            expect(handlers.length).toBeGreaterThan(0);
+            fire(`#${ids[2]}`);
+            expect(current()).toBe(`#${ids[2]}`);
+            expect(() => fire('#%E0%A4%A')).not.toThrow();
+            expect(current()).toBe(`#${ids[2]}`);
+        } finally { view.unmount(); window.addEventListener = original; history.replaceState(null, '', '#'); }
+    });
 });
