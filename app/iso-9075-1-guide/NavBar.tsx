@@ -54,6 +54,19 @@ export default function NavBar() {
         return () => observer.disconnect();
     }, []);
 
+    // ブラウザ履歴（戻る/進む）によるハッシュ変更にも追従する。直後のスクロール中はクリック時と同様に保持する
+    useEffect(() => {
+        const onHashChange = () => {
+            const id = decodeURIComponent(window.location.hash.slice(1));
+            if (!TOC_IDS.includes(id)) return;
+            pendingRef.current = id;
+            setActive(id);
+            scheduleSettle();
+        };
+        window.addEventListener('hashchange', onHashChange);
+        return () => window.removeEventListener('hashchange', onHashChange);
+    }, [scheduleSettle]);
+
     useEffect(() => {
         if (!active) return;
         const sidebar = sidebarRef.current;

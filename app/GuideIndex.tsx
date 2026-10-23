@@ -68,7 +68,7 @@ export default function GuideIndex() {
         <p>次に学ぶことを、ここから。</p>
       </div>
       <div className="library-layout">
-        <aside className="library-categories" aria-label="カテゴリで絞り込み">
+        <div className="library-categories" role="group" aria-label="カテゴリで絞り込み">
           <p className="library-category-label">カテゴリ</p>
           <button type="button" aria-pressed={category === 'all'} onClick={() => setCategory('all')}>
             すべてのガイド <span>{TOTAL_GUIDES}</span>
@@ -84,7 +84,7 @@ export default function GuideIndex() {
               {group.title}<span>{group.items.length}</span>
             </button>
           ))}
-        </aside>
+        </div>
         <div className="library-results">
           <div className="guide-index-search">
             <label htmlFor="library-query" className="library-search-label">ガイドを検索</label>
