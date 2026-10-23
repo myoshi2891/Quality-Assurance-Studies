@@ -9,7 +9,7 @@ export default function Section() { return <>
 
 <p>{"LLNL\nの解説では、登録と運用に関わる主要な概念として次が挙げられています。"}</p>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"役割／概念"}</th><th>{"説明"}</th></tr></thead><tbody><tr className="odd"><td>{"Registration Authority（RA／登録機関）"}</td><td>{"MDR を運営する"}<strong>{"責任組織"}</strong></td></tr><tr className="even"><td>{"Submitter（提出者）"}</td><td>{"新しい項目を"}<strong>{"登録申請"}</strong>{"する側"}</td></tr><tr className="odd"><td>{"Steward（管理者）"}</td><td>{"項目の"}<strong>{"内容に責任"}</strong>{"を持つ側"}</td></tr><tr className="even"><td>{"Registrar（登録官）"}</td><td>{"登録の"}<strong>{"手続きを担当"}</strong>{"する役"}</td></tr><tr className="odd"><td>{"Context（コンテキスト）"}</td><td>{"項目が"}<strong>{"どの文脈で使われるか"}</strong>{"の区分"}</td></tr></tbody></table></div>
+<div className="table-scroll"><table aria-labelledby="7-1-登録して終わりではない"><thead><tr className="header"><th>{"役割／概念"}</th><th>{"説明"}</th></tr></thead><tbody><tr className="odd"><td>{"Registration Authority（RA／登録機関）"}</td><td>{"MDR を運営する"}<strong>{"責任組織"}</strong></td></tr><tr className="even"><td>{"Submitter（提出者）"}</td><td>{"新しい項目を"}<strong>{"登録申請"}</strong>{"する側"}</td></tr><tr className="odd"><td>{"Steward（管理者）"}</td><td>{"項目の"}<strong>{"内容に責任"}</strong>{"を持つ側"}</td></tr><tr className="even"><td>{"Registrar（登録官）"}</td><td>{"登録の"}<strong>{"手続きを担当"}</strong>{"する役"}</td></tr><tr className="odd"><td>{"Context（コンテキスト）"}</td><td>{"項目が"}<strong>{"どの文脈で使われるか"}</strong>{"の区分"}</td></tr></tbody></table></div>
 
 <h3 id="7-2-登録の概念的な流れイメージ">{"7-2.\n登録の概念的な流れ（イメージ）"}</h3>
 
@@ -27,6 +27,6 @@ export default function Section() { return <>
 
 <h3 id="7-3-命名定義のルールは別パートへ">{"7-3.\n命名・定義のルールは別パートへ"}</h3>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"テーマ"}</th><th>{"担当パート"}</th><th>{"Part 1 での扱い"}</th></tr></thead><tbody><tr className="odd"><td>{"定義の書き方"}</td><td>{"Part 4"}</td><td>{"全体像の案内"}</td></tr><tr className="even"><td>{"命名・識別の原則"}</td><td>{"Part 5"}</td><td>{"全体像の案内"}</td></tr><tr className="odd"><td>{"登録・ライフサイクル"}</td><td>{"Part 6"}</td><td>{"全体像の案内"}</td></tr></tbody></table></div>
+<div className="table-scroll"><table aria-labelledby="7-3-命名定義のルールは別パートへ"><thead><tr className="header"><th>{"テーマ"}</th><th>{"担当パート"}</th><th>{"Part 1 での扱い"}</th></tr></thead><tbody><tr className="odd"><td>{"定義の書き方"}</td><td>{"Part 4"}</td><td>{"全体像の案内"}</td></tr><tr className="even"><td>{"命名・識別の原則"}</td><td>{"Part 5"}</td><td>{"全体像の案内"}</td></tr><tr className="odd"><td>{"登録・ライフサイクル"}</td><td>{"Part 6"}</td><td>{"全体像の案内"}</td></tr></tbody></table></div>
 
 </>; }

@@ -9,7 +9,7 @@ export default function Section() { return <>
 
 <h3 id="0-2-先に押さえる3行まとめ">{"0-2. 先に押さえる3行まとめ"}</h3>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"#"}</th><th>{"ポイント"}</th><th>{"一言で言うと"}</th></tr></thead><tbody><tr className="odd"><td>{"①"}</td><td>{"何の規格か"}</td><td>{"「データの意味と表現を、組織を超えて共有・再利用できるように記述・登録する仕組み」の"}<strong>{"入口となる枠組み"}</strong></td></tr><tr className="even"><td>{"②"}</td><td>{"Part 1 の役割"}</td><td>{"ISO/IEC 11179\nの"}<strong>{"各パートをつなぎ、メタデータとレジストリを概念的に理解するための土台"}</strong>{"を提供する"}</td></tr><tr className="odd"><td>{"③"}</td><td>{"最重要概念"}</td><td><strong>{"データエレメント ＝ データエレメントコンセプト（意味）＋\n値領域（表現）"}</strong></td></tr></tbody></table></div>
+<div className="table-scroll"><table aria-labelledby="0-2-先に押さえる3行まとめ"><thead><tr className="header"><th>{"#"}</th><th>{"ポイント"}</th><th>{"一言で言うと"}</th></tr></thead><tbody><tr className="odd"><td>{"①"}</td><td>{"何の規格か"}</td><td>{"「データの意味と表現を、組織を超えて共有・再利用できるように記述・登録する仕組み」の"}<strong>{"入口となる枠組み"}</strong></td></tr><tr className="even"><td>{"②"}</td><td>{"Part 1 の役割"}</td><td>{"ISO/IEC 11179\nの"}<strong>{"各パートをつなぎ、メタデータとレジストリを概念的に理解するための土台"}</strong>{"を提供する"}</td></tr><tr className="odd"><td>{"③"}</td><td>{"最重要概念"}</td><td><strong>{"データエレメント ＝ データエレメントコンセプト（意味）＋\n値領域（表現）"}</strong></td></tr></tbody></table></div>
 
 <h3 id="0-3-重要な前提">{"0-3. 重要な前提"}</h3>
 

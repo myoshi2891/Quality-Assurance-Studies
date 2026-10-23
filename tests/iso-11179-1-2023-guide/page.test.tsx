@@ -137,6 +137,14 @@ describe('review fixes', () => {
             if (parent === '(max-width:960px)' && r.selector === selector) r.walkDecls(d => { found[d.prop] = d.value; });
         }); return found;
     };
+    it('every table has a unique accessible name led by its section heading', async () => {
+        const $ = await html(); const names = $('main table').map((_, el) => {
+            const ids = ($(el).attr('aria-labelledby') ?? '').split(' ').filter(Boolean); expect(ids.length).toBeGreaterThan(0);
+            const labels = ids.map(id => $(`[id="${id}"]`)); labels.forEach(l => expect(l).toHaveLength(1));
+            expect(['h2', 'h3']).toContain(labels[0]?.prop('tagName')?.toLowerCase());
+            return labels.map(l => norm(l.text())).join(' ');
+        }).get(); expect(names).toHaveLength(32); expect(new Set(names).size).toBe(32);
+    });
     it('closed mobile TOC is hidden from Tab order after the 0.25s slide, open TOC is visible', () => {
         const closed = mobileDecls(`${scope} .sidebar`); const open = mobileDecls(`${scope} .sidebar.open`);
         expect(closed.visibility).toBe('hidden'); expect(closed.transition).toBe('transform .25s, visibility 0s linear .25s');

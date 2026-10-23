@@ -1169,7 +1169,9 @@
       "items": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "0-2-先に押さえる3行まとめ"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1324,7 +1326,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "1-1-現場で起きる典型的な問題"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1570,7 +1574,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "1-1-現場で起きる典型的な問題 1-1-意味と表現が未分離のときの問題"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1705,7 +1711,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "2-1-基本情報iso公式ページより"
+          },
           "children": [
             {
               "tag": "thead",
@@ -1987,7 +1995,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "2-3-part-1-は何を決めない規格か"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2093,7 +2103,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "3-1-パート一覧"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2636,7 +2648,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "3-3-迷ったときの選び方"
+          },
           "children": [
             {
               "tag": "thead",
@@ -2880,7 +2894,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "4-2-主な変更点確認できた範囲"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3101,7 +3117,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "4-4-学習者への影響"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3215,7 +3233,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-1-全体像データエレメントを構成する主要概念"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3541,7 +3561,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-2-step-5-aオブジェクトクラスとプロパティ--dec"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3655,7 +3677,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-3-step-5-b概念領域cdとバリューミーニング"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3768,7 +3792,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-3-step-5-b概念領域cdとバリューミーニング 5-3-cdの2種類"
+          },
           "children": [
             {
               "tag": "thead",
@@ -3888,7 +3914,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-4-step-5-c値領域vdと許容値"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4023,7 +4051,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-5-step-5-dデータエレメントde-dec--vd"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4252,7 +4282,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-6-具体例で通しで見る収縮期血圧"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4468,7 +4500,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "step-6概念レベルと表現レベルの2層構造"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4589,7 +4623,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "6-1-semantic意味であってphysical物理ではない"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4723,7 +4759,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "7-1-登録して終わりではない"
+          },
           "children": [
             {
               "tag": "thead",
@@ -4912,7 +4950,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "7-3-命名定義のルールは別パートへ"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5046,7 +5086,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "8-2-実システムコミュニティでの採用例"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5276,7 +5318,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "8-3-実システムの発想を借りるときの注意"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5382,7 +5426,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "9-4-qaエンジニア視点メタデータからテスト観点を導く"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5547,7 +5593,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "10-1-よくある誤解"
+          },
           "children": [
             {
               "tag": "thead",
@@ -5758,7 +5806,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "10-2-理解度チェック自己採点"
+          },
           "children": [
             {
               "tag": "thead",
@@ -6125,7 +6175,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "付録a用語集"
+          },
           "children": [
             {
               "tag": "thead",
@@ -6636,7 +6688,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "b-1-検証できたことできなかったこと"
+          },
           "children": [
             {
               "tag": "thead",
@@ -6854,7 +6908,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "b-2-著名で国際的な開発者の投稿についての正直な報告"
+          },
           "children": [
             {
               "tag": "thead",
@@ -6982,7 +7038,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-1-一次情報iso公式"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7302,7 +7360,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-2-規格プレビューサンプル二次配布"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7466,7 +7526,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-3-実装者実務家研究者の公開資料"
+          },
           "children": [
             {
               "tag": "thead",
@@ -7981,7 +8043,9 @@
         },
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-4-本文中の主張と根拠の対応"
+          },
           "children": [
             {
               "tag": "thead",
@@ -9888,7 +9952,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "0-2-先に押さえる3行まとめ"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10132,7 +10198,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "1-1-現場で起きる典型的な問題"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10380,7 +10448,9 @@
     },
     {
       "tag": "p",
-      "attrs": {},
+      "attrs": {
+        "id": "1-1-意味と表現が未分離のときの問題"
+      },
       "children": [
         "見た目は違っても、",
         {
@@ -10401,7 +10471,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "1-1-現場で起きる典型的な問題 1-1-意味と表現が未分離のときの問題"
+          },
           "children": [
             {
               "tag": "thead",
@@ -10651,7 +10723,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "2-1-基本情報iso公式ページより"
+          },
           "children": [
             {
               "tag": "thead",
@@ -11017,7 +11091,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "2-3-part-1-は何を決めない規格か"
+          },
           "children": [
             {
               "tag": "thead",
@@ -11206,7 +11282,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "3-1-パート一覧"
+          },
           "children": [
             {
               "tag": "thead",
@@ -11833,7 +11911,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "3-3-迷ったときの選び方"
+          },
           "children": [
             {
               "tag": "thead",
@@ -12135,7 +12215,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "4-2-主な変更点確認できた範囲"
+          },
           "children": [
             {
               "tag": "thead",
@@ -12391,7 +12473,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "4-4-学習者への影響"
+          },
           "children": [
             {
               "tag": "thead",
@@ -12653,7 +12737,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-1-全体像データエレメントを構成する主要概念"
+          },
           "children": [
             {
               "tag": "thead",
@@ -13025,7 +13111,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-2-step-5-aオブジェクトクラスとプロパティ--dec"
+          },
           "children": [
             {
               "tag": "thead",
@@ -13188,7 +13276,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-3-step-5-b概念領域cdとバリューミーニング"
+          },
           "children": [
             {
               "tag": "thead",
@@ -13303,7 +13393,9 @@
     },
     {
       "tag": "p",
-      "attrs": {},
+      "attrs": {
+        "id": "5-3-cdの2種類"
+      },
       "children": [
         "CD には2種類あると整理されます。"
       ]
@@ -13316,7 +13408,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-3-step-5-b概念領域cdとバリューミーニング 5-3-cdの2種類"
+          },
           "children": [
             {
               "tag": "thead",
@@ -13524,7 +13618,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-4-step-5-c値領域vdと許容値"
+          },
           "children": [
             {
               "tag": "thead",
@@ -13714,7 +13810,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-5-step-5-dデータエレメントde-dec--vd"
+          },
           "children": [
             {
               "tag": "thead",
@@ -14018,7 +14116,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "5-6-具体例で通しで見る収縮期血圧"
+          },
           "children": [
             {
               "tag": "thead",
@@ -14354,7 +14454,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "step-6概念レベルと表現レベルの2層構造"
+          },
           "children": [
             {
               "tag": "thead",
@@ -14501,7 +14603,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "6-1-semantic意味であってphysical物理ではない"
+          },
           "children": [
             {
               "tag": "thead",
@@ -14748,7 +14852,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "7-1-登録して終わりではない"
+          },
           "children": [
             {
               "tag": "thead",
@@ -15053,7 +15159,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "7-3-命名定義のルールは別パートへ"
+          },
           "children": [
             {
               "tag": "thead",
@@ -15254,7 +15362,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "8-2-実システムコミュニティでの採用例"
+          },
           "children": [
             {
               "tag": "thead",
@@ -15501,7 +15611,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "8-3-実システムの発想を借りるときの注意"
+          },
           "children": [
             {
               "tag": "thead",
@@ -16049,7 +16161,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "9-4-qaエンジニア視点メタデータからテスト観点を導く"
+          },
           "children": [
             {
               "tag": "thead",
@@ -16289,7 +16403,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "10-1-よくある誤解"
+          },
           "children": [
             {
               "tag": "thead",
@@ -16517,7 +16633,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "10-2-理解度チェック自己採点"
+          },
           "children": [
             {
               "tag": "thead",
@@ -16901,7 +17019,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "付録a用語集"
+          },
           "children": [
             {
               "tag": "thead",
@@ -17478,7 +17598,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "b-1-検証できたことできなかったこと"
+          },
           "children": [
             {
               "tag": "thead",
@@ -17736,7 +17858,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "b-2-著名で国際的な開発者の投稿についての正直な報告"
+          },
           "children": [
             {
               "tag": "thead",
@@ -17950,7 +18074,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-1-一次情報iso公式"
+          },
           "children": [
             {
               "tag": "thead",
@@ -18287,7 +18413,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-2-規格プレビューサンプル二次配布"
+          },
           "children": [
             {
               "tag": "thead",
@@ -18468,7 +18596,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-3-実装者実務家研究者の公開資料"
+          },
           "children": [
             {
               "tag": "thead",
@@ -19000,7 +19130,9 @@
       "children": [
         {
           "tag": "table",
-          "attrs": {},
+          "attrs": {
+            "aria-labelledby": "c-4-本文中の主張と根拠の対応"
+          },
           "children": [
             {
               "tag": "thead",
@@ -19584,7 +19716,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "0-2-先に押さえる3行まとめ"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -19830,7 +19964,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "1-1-現場で起きる典型的な問題"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -20078,7 +20214,9 @@
       },
       {
         "tag": "p",
-        "attrs": {},
+        "attrs": {
+          "id": "1-1-意味と表現が未分離のときの問題"
+        },
         "children": [
           "見た目は違っても、",
           {
@@ -20099,7 +20237,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "1-1-現場で起きる典型的な問題 1-1-意味と表現が未分離のときの問題"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -20351,7 +20491,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "2-1-基本情報iso公式ページより"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -20717,7 +20859,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "2-3-part-1-は何を決めない規格か"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -20908,7 +21052,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "3-1-パート一覧"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -21535,7 +21681,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "3-3-迷ったときの選び方"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -21839,7 +21987,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "4-2-主な変更点確認できた範囲"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -22095,7 +22245,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "4-4-学習者への影響"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -22359,7 +22511,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-1-全体像データエレメントを構成する主要概念"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -22731,7 +22885,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-2-step-5-aオブジェクトクラスとプロパティ--dec"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -22894,7 +23050,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-3-step-5-b概念領域cdとバリューミーニング"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -23009,7 +23167,9 @@
       },
       {
         "tag": "p",
-        "attrs": {},
+        "attrs": {
+          "id": "5-3-cdの2種類"
+        },
         "children": [
           "CD には2種類あると整理されます。"
         ]
@@ -23022,7 +23182,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-3-step-5-b概念領域cdとバリューミーニング 5-3-cdの2種類"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -23230,7 +23392,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-4-step-5-c値領域vdと許容値"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -23420,7 +23584,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-5-step-5-dデータエレメントde-dec--vd"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -23724,7 +23890,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "5-6-具体例で通しで見る収縮期血圧"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24062,7 +24230,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "step-6概念レベルと表現レベルの2層構造"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24209,7 +24379,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "6-1-semantic意味であってphysical物理ではない"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24458,7 +24630,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "7-1-登録して終わりではない"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24763,7 +24937,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "7-3-命名定義のルールは別パートへ"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -24966,7 +25142,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "8-2-実システムコミュニティでの採用例"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -25213,7 +25391,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "8-3-実システムの発想を借りるときの注意"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -25763,7 +25943,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "9-4-qaエンジニア視点メタデータからテスト観点を導く"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -26005,7 +26187,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "10-1-よくある誤解"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -26233,7 +26417,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "10-2-理解度チェック自己採点"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -26619,7 +26805,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "付録a用語集"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -27198,7 +27386,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "b-1-検証できたことできなかったこと"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -27456,7 +27646,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "b-2-著名で国際的な開発者の投稿についての正直な報告"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -27672,7 +27864,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "c-1-一次情報iso公式"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -28009,7 +28203,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "c-2-規格プレビューサンプル二次配布"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -28190,7 +28386,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "c-3-実装者実務家研究者の公開資料"
+            },
             "children": [
               {
                 "tag": "thead",
@@ -28722,7 +28920,9 @@
         "children": [
           {
             "tag": "table",
-            "attrs": {},
+            "attrs": {
+              "aria-labelledby": "c-4-本文中の主張と根拠の対応"
+            },
             "children": [
               {
                 "tag": "thead",
