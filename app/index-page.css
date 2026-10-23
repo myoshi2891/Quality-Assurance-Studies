@@ -234,7 +234,9 @@
 .library-categories {
     position: sticky;
     top: calc(85px + var(--disclaimer-height, 0px));
-    padding-right: 1rem;
+    max-height: calc(100dvh - 85px - var(--disclaimer-height, 0px) - 1rem);
+    overflow-y: auto;
+    padding: .4rem 1rem 0 .4rem;
     border-right: 1px solid var(--hair);
 }
 .library-category-label {
@@ -439,7 +441,8 @@
         overflow-x: auto;
         gap: .5rem;
         position: static;
-        padding: .2rem .2rem .8rem;
+        max-height: none;
+        padding: .4rem .4rem .8rem;
         border: 0;
     }
     .library-category-label {
