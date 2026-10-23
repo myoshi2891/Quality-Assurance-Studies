@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import './index-page.css';
 import GuideIndex from './GuideIndex';
 import { NAV_ITEMS, groupByCategory, CATEGORY_CODES, type NavGroup } from '../lib/navigation';
@@ -102,9 +103,9 @@ export default function Home() {
               <a href="#guide-library" className="index-primary">
                 ガイドを探す <span aria-hidden="true">↗</span>
               </a>
-              <a href="/modern-software-testing-complete-guide-2025" className="index-secondary">
+              <Link href="/modern-software-testing-complete-guide-2025" className="index-secondary">
                 はじめての方へ <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
             <p className="index-meta">
               <span data-total-guides>{guideCount} GUIDES</span>
