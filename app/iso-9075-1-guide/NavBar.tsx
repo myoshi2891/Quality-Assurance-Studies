@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { TOC_GROUPS } from './toc';
 
 const TOC_IDS = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
@@ -11,10 +11,38 @@ export default function NavBar() {
     const [active, setActive] = useState('');
     const sidebarRef = useRef<HTMLElement>(null);
     const toggleRef = useRef<HTMLButtonElement>(null);
+    // 目次クリックで選んだ見出し。スムーススクロール中に通過する見出しで active が揺れないよう、完了まで保持する
+    const pendingRef = useRef<string | null>(null);
+    const settleTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+    const settle = useCallback(() => {
+        clearTimeout(settleTimerRef.current);
+        const id = pendingRef.current;
+        if (!id) return;
+        pendingRef.current = null;
+        setActive(id);
+    }, []);
+    // scrollend 非対応ブラウザやスクロールが発生しない場合に備え、最後のスクロールから一定時間で完了とみなす
+    const scheduleSettle = useCallback(() => {
+        clearTimeout(settleTimerRef.current);
+        settleTimerRef.current = setTimeout(settle, 150);
+    }, [settle]);
+
+    useEffect(() => {
+        const onScroll = () => { if (pendingRef.current) scheduleSettle(); };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('scrollend', settle);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('scrollend', settle);
+            clearTimeout(settleTimerRef.current);
+        };
+    }, [settle, scheduleSettle]);
 
     useEffect(() => {
         if (typeof IntersectionObserver === 'undefined') return;
         const observer = new IntersectionObserver(entries => {
+            if (pendingRef.current) return;
             for (const entry of entries) {
                 if (entry.isIntersecting) setActive(entry.target.id);
             }
@@ -54,7 +82,12 @@ export default function NavBar() {
         <a href={`#${item.id}`} data-target={item.id}
             className={active === item.id ? 'active' : undefined}
             aria-current={active === item.id ? 'location' : undefined}
-            onClick={() => setIsOpen(false)}>
+            onClick={() => {
+                pendingRef.current = item.id;
+                setActive(item.id);
+                scheduleSettle();
+                setIsOpen(false);
+            }}>
             {item.label}
         </a>
     );
