@@ -24,8 +24,8 @@ describe('library category rail (app/index-page.css)', () => {
     expect(rule['overflow-y']).toBe('auto');
   });
 
-  it('desktop: top/left padding fits the 6px focus ring (2px outline + 4px offset)', () => {
-    expect(decls(file, '.library-categories').padding).toBe('.4rem 1rem 0 .4rem');
+  it('desktop: top/bottom/left padding fits the 6px focus ring (2px outline + 4px offset)', () => {
+    expect(decls(file, '.library-categories').padding).toBe('.4rem 1rem .4rem .4rem');
   });
 
   it('≤760px: releases max-height and keeps the ring inside the horizontal strip', () => {
