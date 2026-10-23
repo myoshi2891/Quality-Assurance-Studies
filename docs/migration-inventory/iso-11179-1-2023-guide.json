@@ -8359,7 +8359,7 @@
           "attrs": {
             "class": "yaml"
           },
-          "code": "# 意味（DEC）\ndata_element_concept:\n  id: DEC-0001\n  name: 患者の収縮期血圧\n  object_class: 患者\n  property: 収縮期血圧\n  definition: 患者の心臓が収縮したときの動脈内の血圧。\n\n# 表現（VD）— 2種類\nvalue_domains:\n  - id: VD-0001\n    name: 血圧_mmHg_整数\n    datatype: integer\n    unit: mmHg\n    permissible_range: [0, 300]\n  - id: VD-0002\n    name: 血圧_kPa_小数\n    datatype: decimal\n    unit: kPa\n    permissible_range: [0.0, 40.0]\n\n# データエレメント（DE）= DEC + VD\ndata_elements:\n  - id: DE-0001\n    name: 患者収縮期血圧_mmHg\n    data_element_concept: DEC-0001\n    value_domain: VD-0001\n  - id: DE-0002\n    name: 患者収縮期血圧_kPa\n    data_element_concept: DEC-0001\n    value_domain: VD-0002"
+          "code": "# 意味（DEC）\ndata_element_concept:\n  id: DEC-0001\n  name: 患者の収縮期血圧\n  object_class: 患者\n  property: 収縮期血圧\n  definition: 患者の心臓が収縮したときの動脈内の血圧。\n\n# 表現（VD）— 2種類\nvalue_domains:\n  - id: VD-0001\n    name: 血圧_mmHg_整数\n    datatype: integer\n    unit: mmHg\n    permissible_range:\n      min: 0\n      max: 300\n  - id: VD-0002\n    name: 血圧_kPa_小数\n    datatype: decimal\n    unit: kPa\n    permissible_range:\n      min: 0.0\n      max: 40.0\n\n# データエレメント（DE）= DEC + VD\ndata_elements:\n  - id: DE-0001\n    name: 患者収縮期血圧_mmHg\n    data_element_concept: DEC-0001\n    value_domain: VD-0001\n  - id: DE-0002\n    name: 患者収縮期血圧_kPa\n    data_element_concept: DEC-0001\n    value_domain: VD-0002"
         }
       ]
     },
@@ -16030,7 +16030,7 @@
       "attrs": {
         "class": "yaml"
       },
-      "code": "# 意味（DEC）\ndata_element_concept:\n  id: DEC-0001\n  name: 患者の収縮期血圧\n  object_class: 患者\n  property: 収縮期血圧\n  definition: 患者の心臓が収縮したときの動脈内の血圧。\n\n# 表現（VD）— 2種類\nvalue_domains:\n  - id: VD-0001\n    name: 血圧_mmHg_整数\n    datatype: integer\n    unit: mmHg\n    permissible_range: [0, 300]\n  - id: VD-0002\n    name: 血圧_kPa_小数\n    datatype: decimal\n    unit: kPa\n    permissible_range: [0.0, 40.0]\n\n# データエレメント（DE）= DEC + VD\ndata_elements:\n  - id: DE-0001\n    name: 患者収縮期血圧_mmHg\n    data_element_concept: DEC-0001\n    value_domain: VD-0001\n  - id: DE-0002\n    name: 患者収縮期血圧_kPa\n    data_element_concept: DEC-0001\n    value_domain: VD-0002"
+      "code": "# 意味（DEC）\ndata_element_concept:\n  id: DEC-0001\n  name: 患者の収縮期血圧\n  object_class: 患者\n  property: 収縮期血圧\n  definition: 患者の心臓が収縮したときの動脈内の血圧。\n\n# 表現（VD）— 2種類\nvalue_domains:\n  - id: VD-0001\n    name: 血圧_mmHg_整数\n    datatype: integer\n    unit: mmHg\n    permissible_range:\n      min: 0\n      max: 300\n  - id: VD-0002\n    name: 血圧_kPa_小数\n    datatype: decimal\n    unit: kPa\n    permissible_range:\n      min: 0.0\n      max: 40.0\n\n# データエレメント（DE）= DEC + VD\ndata_elements:\n  - id: DE-0001\n    name: 患者収縮期血圧_mmHg\n    data_element_concept: DEC-0001\n    value_domain: VD-0001\n  - id: DE-0002\n    name: 患者収縮期血圧_kPa\n    data_element_concept: DEC-0001\n    value_domain: VD-0002"
     },
     {
       "tag": "h3",
@@ -25744,7 +25744,7 @@
         "attrs": {
           "class": "yaml"
         },
-        "code": "# 意味（DEC）\ndata_element_concept:\n  id: DEC-0001\n  name: 患者の収縮期血圧\n  object_class: 患者\n  property: 収縮期血圧\n  definition: 患者の心臓が収縮したときの動脈内の血圧。\n\n# 表現（VD）— 2種類\nvalue_domains:\n  - id: VD-0001\n    name: 血圧_mmHg_整数\n    datatype: integer\n    unit: mmHg\n    permissible_range: [0, 300]\n  - id: VD-0002\n    name: 血圧_kPa_小数\n    datatype: decimal\n    unit: kPa\n    permissible_range: [0.0, 40.0]\n\n# データエレメント（DE）= DEC + VD\ndata_elements:\n  - id: DE-0001\n    name: 患者収縮期血圧_mmHg\n    data_element_concept: DEC-0001\n    value_domain: VD-0001\n  - id: DE-0002\n    name: 患者収縮期血圧_kPa\n    data_element_concept: DEC-0001\n    value_domain: VD-0002"
+        "code": "# 意味（DEC）\ndata_element_concept:\n  id: DEC-0001\n  name: 患者の収縮期血圧\n  object_class: 患者\n  property: 収縮期血圧\n  definition: 患者の心臓が収縮したときの動脈内の血圧。\n\n# 表現（VD）— 2種類\nvalue_domains:\n  - id: VD-0001\n    name: 血圧_mmHg_整数\n    datatype: integer\n    unit: mmHg\n    permissible_range:\n      min: 0\n      max: 300\n  - id: VD-0002\n    name: 血圧_kPa_小数\n    datatype: decimal\n    unit: kPa\n    permissible_range:\n      min: 0.0\n      max: 40.0\n\n# データエレメント（DE）= DEC + VD\ndata_elements:\n  - id: DE-0001\n    name: 患者収縮期血圧_mmHg\n    data_element_concept: DEC-0001\n    value_domain: VD-0001\n  - id: DE-0002\n    name: 患者収縮期血圧_kPa\n    data_element_concept: DEC-0001\n    value_domain: VD-0002"
       },
       {
         "tag": "h3",
@@ -32319,8 +32319,20 @@
       "text": "permissible_range"
     },
     {
+      "class": "tk-k",
+      "text": "min"
+    },
+    {
       "class": "tk-n",
-      "text": "[0, 300]"
+      "text": "0"
+    },
+    {
+      "class": "tk-k",
+      "text": "max"
+    },
+    {
+      "class": "tk-n",
+      "text": "300"
     },
     {
       "class": "tk-k",
@@ -32355,8 +32367,20 @@
       "text": "permissible_range"
     },
     {
+      "class": "tk-k",
+      "text": "min"
+    },
+    {
       "class": "tk-n",
-      "text": "[0.0, 40.0]"
+      "text": "0.0"
+    },
+    {
+      "class": "tk-k",
+      "text": "max"
+    },
+    {
+      "class": "tk-n",
+      "text": "40.0"
     },
     {
       "class": "tk-c",

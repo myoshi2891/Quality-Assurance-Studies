@@ -26,7 +26,7 @@ const textAlternativesBody = ([
     if (!list || !body.includes(anchor)) throw new Error(`Missing ${file} text alternative or source anchor`);
     return body.replace(anchor, `\n${list}${anchor}`);
 }, inventory.originalBody);
-// レビューで更新した Part 32 の発行状態と、付録 C の出典 S22・根拠行を原本にも反映する
+// レビューで更新した Part 32 の発行状態、付録 C の出典 S22・根拠行、YAML の許容範囲（min/max）を原本にも反映する
 const reviewedBody = ([
     ['<td>Metamodel for concept system registration</td>\n<td><strong>概念体系</strong>の登録</td>\n<td>Part 1 の目次で記載を確認</td>',
      '<td>Metamodel for concept system registration</td>\n<td><strong>概念体系</strong>の登録</td>\n<td>2023年1月発行（Edition 1）</td>'],
@@ -34,6 +34,9 @@ const reviewedBody = ([
      'https://www.iso.org/standard/81743.html</a></td>\n</tr>\n<tr class="odd">\n<td>S22</td>\n<td>ISO/IEC 11179-32:2023（概念体系登録のメタモデル）</td>\n<td><a href="https://www.iso.org/standard/78926.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/78926.html</a></td>\n</tr>\n'],
     ['<td>Part 34 の発行（2024年5月）</td>\n<td>S5</td>\n</tr>\n',
      '<td>Part 34 の発行（2024年5月）</td>\n<td>S5</td>\n</tr>\n<tr class="even">\n<td>Part 32 の発行（2023年1月）</td>\n<td>S22</td>\n</tr>\n'],
+    ...([['0', '300'], ['0.0', '40.0']] as const).map(([min, max]) => [
+     `<span class="tk-k">permissible_range</span>: <span class="tk-n">[${min}, ${max}]</span>`,
+     `<span class="tk-k">permissible_range</span>:\n      <span class="tk-k">min</span>: <span class="tk-n">${min}</span>\n      <span class="tk-k">max</span>: <span class="tk-n">${max}</span>`] as const),
 ] as const).reduce((body, [from, to]) => {
     if (body.split(from).length !== 2) throw new Error(`Missing or ambiguous reviewed source text: ${from}`);
     return body.replace(from, to);

@@ -82,6 +82,11 @@ describe('YAML source tokens and line fidelity', () => {
         const Code = sourceModule(base+'/CodeExample.tsx', { development }).default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Code />)); expect($('pre').text()).toBe(inventory.groups.codes.items[0]!.code);
     });
+    it('expresses every permissible range as min/max bounds matching the VD tables', () => {
+        const Code = sourceModule(base+'/CodeExample.tsx').default as React.ComponentType; const text = load(renderToStaticMarkup(<Code />))('pre').text();
+        expect(text).not.toMatch(/permissible_range: \[/);
+        expect(text).toContain('    permissible_range:\n      min: 0\n      max: 300\n'); expect(text).toContain('    permissible_range:\n      min: 0.0\n      max: 40.0\n');
+    });
     it('preserves every highlighted token in source order', async () => {
         const Code = sourceModule(base+'/CodeExample.tsx').default as React.ComponentType; const $ = load(renderToStaticMarkup(<Code />)); expect($('pre span[class]').map((_, el) => ({ class: $(el).attr('class'), text: $(el).text() })).get()).toEqual(inventory.codeTokens);
     });

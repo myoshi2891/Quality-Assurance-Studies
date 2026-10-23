@@ -20,12 +20,16 @@ export default function CodeExample() { return <pre className="yaml"><code>
 <CodeLine newline={true}>{"    "}<span className="tk-k">{"name"}</span>{": 血圧_mmHg_整数"}</CodeLine>
 <CodeLine newline={true}>{"    "}<span className="tk-k">{"datatype"}</span>{": "}<span className="tk-s">{"integer"}</span></CodeLine>
 <CodeLine newline={true}>{"    "}<span className="tk-k">{"unit"}</span>{": "}<span className="tk-s">{"mmHg"}</span></CodeLine>
-<CodeLine newline={true}>{"    "}<span className="tk-k">{"permissible_range"}</span>{": "}<span className="tk-n">{"[0, 300]"}</span></CodeLine>
+<CodeLine newline={true}>{"    "}<span className="tk-k">{"permissible_range"}</span>{":"}</CodeLine>
+<CodeLine newline={true}>{"      "}<span className="tk-k">{"min"}</span>{": "}<span className="tk-n">{"0"}</span></CodeLine>
+<CodeLine newline={true}>{"      "}<span className="tk-k">{"max"}</span>{": "}<span className="tk-n">{"300"}</span></CodeLine>
 <CodeLine newline={true}>{"  - "}<span className="tk-k">{"id"}</span>{": "}<span className="tk-s">{"VD-0002"}</span></CodeLine>
 <CodeLine newline={true}>{"    "}<span className="tk-k">{"name"}</span>{": 血圧_kPa_小数"}</CodeLine>
 <CodeLine newline={true}>{"    "}<span className="tk-k">{"datatype"}</span>{": "}<span className="tk-s">{"decimal"}</span></CodeLine>
 <CodeLine newline={true}>{"    "}<span className="tk-k">{"unit"}</span>{": "}<span className="tk-s">{"kPa"}</span></CodeLine>
-<CodeLine newline={true}>{"    "}<span className="tk-k">{"permissible_range"}</span>{": "}<span className="tk-n">{"[0.0, 40.0]"}</span></CodeLine>
+<CodeLine newline={true}>{"    "}<span className="tk-k">{"permissible_range"}</span>{":"}</CodeLine>
+<CodeLine newline={true}>{"      "}<span className="tk-k">{"min"}</span>{": "}<span className="tk-n">{"0.0"}</span></CodeLine>
+<CodeLine newline={true}>{"      "}<span className="tk-k">{"max"}</span>{": "}<span className="tk-n">{"40.0"}</span></CodeLine>
 <CodeLine newline={true}></CodeLine>
 <CodeLine newline={true}><span className="tk-c">{"# データエレメント（DE）= DEC + VD"}</span></CodeLine>
 <CodeLine newline={true}><span className="tk-k">{"data_elements"}</span>{":"}</CodeLine>
