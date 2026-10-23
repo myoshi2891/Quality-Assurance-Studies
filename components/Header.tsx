@@ -97,7 +97,9 @@ export default function Header({ className }: HeaderProps) {
         .filter(el => !el.closest('details:not([open])') || el.tagName === 'SUMMARY');
       const first = controls[0];
       const last = controls[controls.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      // フォーカスがパネル外（ハンバーガーや body 等）にある場合は、方向に応じて端の操作要素へ引き戻す
+      if (!panelRef.current.contains(document.activeElement)) { e.preventDefault(); (e.shiftKey ? last : first)?.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
     };
     document.addEventListener('keydown', onKeyDown);
