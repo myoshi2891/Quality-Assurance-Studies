@@ -58,7 +58,14 @@ export default function NavBar() {
     // ブラウザ履歴（戻る/進む）によるハッシュ変更にも追従する。直後のスクロール中はクリック時と同様に保持する
     useEffect(() => {
         const onHashChange = () => {
-            const id = decodeURIComponent(window.location.hash.slice(1));
+            let id: string;
+            try {
+                id = decodeURIComponent(window.location.hash.slice(1));
+            } catch (error) {
+                // 不正なパーセントエンコードのハッシュは目次の見出しを指さないため対象外とする
+                if (error instanceof URIError) return;
+                throw error;
+            }
             if (!TOC_IDS.includes(id)) return;
             pendingRef.current = id;
             setActive(id);
