@@ -86,6 +86,8 @@ export default function NavBar() {
                 pendingRef.current = item.id;
                 setActive(item.id);
                 scheduleSettle();
+                // 閉じて非表示になるサイドバー内にフォーカスを残さない（アンカーへのスクロールは妨げない）
+                if (isOpen) toggleRef.current?.focus({ preventScroll: true });
                 setIsOpen(false);
             }}>
             {item.label}

@@ -54,7 +54,11 @@ export default function NavBar() {
         <a href={`#${item.id}`} data-target={item.id}
             className={level + (active === item.id ? ' active' : '')}
             aria-current={active === item.id ? 'location' : undefined}
-            onClick={() => setIsOpen(false)}>
+            onClick={() => {
+                // 閉じて非表示になるサイドバー内にフォーカスを残さない（アンカーへのスクロールは妨げない）
+                if (isOpen) toggleRef.current?.focus({ preventScroll: true });
+                setIsOpen(false);
+            }}>
             {item.label}
         </a>
     );
