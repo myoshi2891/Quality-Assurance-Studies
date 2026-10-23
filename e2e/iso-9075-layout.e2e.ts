@@ -6,6 +6,8 @@ import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-9075-1-guide.json';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-9075-1-guide';
+// レビューで意図的にノード構成を改訂した図（データを保持する表とそれ以外の SQL-object を区別）
+const REVISED_DIAGRAMS = new Set(['diagram-2']);
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
 const globals = readFileSync('app/globals.css', 'utf8');
@@ -99,7 +101,13 @@ for (const width of [390,960,961,1440]) {
                 const inner = document.getElementById(id)!.querySelector('.mermaid-wrapper')!; inner.innerHTML = svg;
                 Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'), chart);
             }, { id, chart: DIAGRAMS[id]!, globalConfig, fixups });
-            expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
+            const actual = await page.locator('#'+id).evaluate(collect);
+            if (REVISED_DIAGRAMS.has(id)) {
+                // 元SVGとはノード構成が異なるため、意味はインベントリ、配色は元SVGの先頭ノードを正とする
+                const palette = expected.nodes[0]!;
+                expect(actual.nodes).toEqual(diagram.nodes.map(n => ({ id: n.id, label: n.label.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim(), color: palette.color, fill: palette.fill })));
+                expect(actual.labels).toEqual(diagram.edges.map(e => e.label));
+            } else expect(actual).toEqual(expected);
             const edges = await page.locator('#'+id+' path.flowchart-link').evaluateAll(els => els.map(el => ({ id: el.id.replace(/^sql-diagram-\d+-/,''), dotted: el.classList.contains('edge-pattern-dotted') })));
             expect(edges).toEqual(diagram.edges.map(e => ({ id: `L_${e.from}_${e.to}_0`, dotted: e.dotted })));
             const reach = await page.locator('#'+id).evaluate(el => { const svg = el.querySelector('svg')!; const initial = svg.getBoundingClientRect().left; el.scrollLeft = el.scrollWidth; return { initial, left: el.getBoundingClientRect().left, movement: initial-svg.getBoundingClientRect().left, scroll: el.scrollLeft, required: el.scrollWidth-el.clientWidth }; });

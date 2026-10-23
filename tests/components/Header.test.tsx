@@ -305,6 +305,27 @@ describe('Library menu refinement', () => {
     expect(document.activeElement).toBe(last);
   });
 
+  it('pulls focus back into the modal when Tab is pressed from outside the panel', () => {
+    const dialog = openDrawer();
+    const close = within(dialog).getByRole('button', { name: 'ナビゲーションを閉じる' });
+    const summaries = dialog.querySelectorAll('summary');
+    const last = summaries[summaries.length - 1] as HTMLElement;
+    // 失敗時に DOM 要素の差分出力が極端に遅くなるため、要素の比較は真偽値で行う
+    const hamburger = document.querySelector('.nav-hamburger') as HTMLElement;
+    hamburger.focus();
+    fireEvent.keyDown(hamburger, { key: 'Tab' });
+    expect(document.activeElement === close).toBe(true);
+    hamburger.focus();
+    fireEvent.keyDown(hamburger, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement === last).toBe(true);
+    (document.activeElement as HTMLElement).blur();
+    fireEvent.keyDown(document.body, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement === last).toBe(true);
+    (document.activeElement as HTMLElement).blur();
+    fireEvent.keyDown(document.body, { key: 'Tab' });
+    expect(document.activeElement === close).toBe(true);
+  });
+
   it('provides descriptions without changing link accessible names', () => {
     const dialog = openDrawer();
     const link = within(dialog).getByRole('link', { name: 'AIテスト(CT-AI)ガイド' });

@@ -197,3 +197,18 @@ describe('PostgreSQL support table sources', () => {
         expect(sources).toEqual(['Eisentraut氏ブログ', '同上', '同上', 'PostgreSQL公式ドキュメント', 'PostgreSQL 18 公式ドキュメント Appendix D', 'Eisentraut氏ブログ（2023年4月時点の情報）', 'pgsql-committers／depesz／pgEdge']);
     });
 });
+describe('diagram-2 distinguishes the objects that hold SQL-data', () => {
+    it('routes SQL-data only from tables and marks other SQL-objects as definitions', async () => {
+        const { DIAGRAMS } = await import(diagramsEntry); const chart: string = DIAGRAMS['diagram-2'];
+        expect(chart).not.toContain('N2_OBJ --> N2_DATA');
+        expect(chart).toContain('N2_OBJ --> N2_TBL'); expect(chart).toContain('N2_OBJ --> N2_DEF');
+        expect(chart.match(/N2_DATA$/gm)).toHaveLength(1); expect(chart).toMatch(/^N2_TBL -->\|"[^"]+"\| N2_DATA$/m);
+        expect(chart).toMatch(/^N2_DEF\["[^"]*データは保持しない[^"]*"\]$/m);
+    });
+    it('describes that tables hold the data while views, types and routines do not', async () => {
+        const $ = await html(); const text = norm($('#diagram-2-desc').text());
+        expect(text).not.toContain('SQL オブジェクトが実際の SQL データを保持');
+        expect(text).toContain('実際の SQL データを行として保持するのはテーブル（表）');
+        expect(text).toContain('ビュー・型・ルーチンなどは定義のみでデータを保持しない');
+    });
+});

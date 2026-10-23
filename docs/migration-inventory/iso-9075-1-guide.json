@@ -13742,7 +13742,7 @@
       ]
     },
     "diagram-2": {
-      "chart": "flowchart TD\nN2_ENV[\"<p>SQL-environment<br>SQL環境</p>\"]\nN2_CAT[\"<p>Catalog<br>カタログ</p>\"]\nN2_SCH[\"<p>Schema<br>スキーマ</p>\"]\nN2_OBJ[\"<p>SQL-object<br>テーブル / ビュー / 型 / ルーチン など</p>\"]\nN2_DATA[\"<p>SQL-data<br>実際のデータ</p>\"]\nN2_ENV --> N2_CAT\nN2_CAT --> N2_SCH\nN2_SCH --> N2_OBJ\nN2_OBJ --> N2_DATA",
+      "chart": "flowchart TD\nN2_ENV[\"<p>SQL-environment<br>SQL環境</p>\"]\nN2_CAT[\"<p>Catalog<br>カタログ</p>\"]\nN2_SCH[\"<p>Schema<br>スキーマ</p>\"]\nN2_OBJ[\"<p>SQL-object<br>テーブル / ビュー / 型 / ルーチン など</p>\"]\nN2_TBL[\"<p>Table（表）<br>データを保持する SQL-object</p>\"]\nN2_DEF[\"<p>ビュー / 型 / ルーチン など<br>定義のみ（データは保持しない）</p>\"]\nN2_DATA[\"<p>SQL-data<br>表に格納された実際のデータ</p>\"]\nN2_ENV --> N2_CAT\nN2_CAT --> N2_SCH\nN2_SCH --> N2_OBJ\nN2_OBJ --> N2_TBL\nN2_OBJ --> N2_DEF\nN2_TBL -->|\"行として保持\"| N2_DATA",
       "nodes": [
         {
           "id": "N2_ENV",
@@ -13765,8 +13765,18 @@
           "shape": "rect"
         },
         {
+          "id": "N2_TBL",
+          "label": "<p>Table（表）<br>データを保持する SQL-object</p>",
+          "shape": "rect"
+        },
+        {
+          "id": "N2_DEF",
+          "label": "<p>ビュー / 型 / ルーチン など<br>定義のみ（データは保持しない）</p>",
+          "shape": "rect"
+        },
+        {
           "id": "N2_DATA",
-          "label": "<p>SQL-data<br>実際のデータ</p>",
+          "label": "<p>SQL-data<br>表に格納された実際のデータ</p>",
           "shape": "rect"
         }
       ],
@@ -13791,8 +13801,20 @@
         },
         {
           "from": "N2_OBJ",
-          "to": "N2_DATA",
+          "to": "N2_TBL",
           "label": "",
+          "dotted": false
+        },
+        {
+          "from": "N2_OBJ",
+          "to": "N2_DEF",
+          "label": "",
+          "dotted": false
+        },
+        {
+          "from": "N2_TBL",
+          "to": "N2_DATA",
+          "label": "行として保持",
           "dotted": false
         }
       ]
