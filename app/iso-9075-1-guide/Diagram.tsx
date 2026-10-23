@@ -16,7 +16,7 @@ const LABELS: Record<string, string> = {
 const DESCRIPTIONS: Record<string, string> = {
   "diagram-0": "ISO/IEC 9075 シリーズは Part 1 Framework、Part 2 Foundation、Part 3 CLI、Part 4 PSM、Part 9 MED、Part 10 OLB、Part 11 Schemata、Part 13 JRT、Part 14 XML、Part 15 MDA、2023年に新設された Part 16 PGQ で構成される。Part 1 は Part 2 と Part 16 に用語・表記・概念を提供する。",
   "diagram-1": "Part 1 の概念・用語・表記は、Part 2 の文法と動作の規定から前提として参照される。Part 4・14・16 などは Part 2 を拡張し、Part 1 も前提として参照する。",
-  "diagram-2": "SQL環境（SQL-environment）はカタログを含み、カタログはスキーマを含み、スキーマはテーブル・ビュー・型・ルーチンなどの SQL オブジェクトを含み、SQL オブジェクトが実際の SQL データを保持する。",
+  "diagram-2": "SQL環境（SQL-environment）はカタログを含み、カタログはスキーマを含み、スキーマはテーブル・ビュー・型・ルーチンなどの SQL オブジェクトを含む。このうち実際の SQL データを行として保持するのはテーブル（表）であり、ビュー・型・ルーチンなどは定義のみでデータを保持しない。",
   "diagram-3": "処理の順序：1. アプリケーション（SQL-agent）が SQL-client へ SQL文を発行する。2. SQL-client がセッションを確立し SQL-server へ送信する。3. SQL-server がデータに対して解析・実行する。4. データから SQL-server へ結果が戻る。5. SQL-server から SQL-client へ結果（または例外）が戻る。6. SQL-client がアプリケーションへ結果を返却する。",
   "diagram-4": "SQL標準の全機能は、必須機能の集合である Core SQL と、機能ごとに識別子を持つオプション機能に分かれる。Core SQL に準拠すれば最低限の標準準拠を主張でき、オプション機能はベンダーが機能単位で対応を宣言する。",
   "diagram-5": "SQL:2023 の変更点は、既存SQLの小さな改良、JSON関連の新機能、新パート Part 16 SQL/PGQ の3つに分かれる。",

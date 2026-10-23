@@ -73,11 +73,15 @@ N2_ENV["<p>SQL-environment<br>SQL環境</p>"]
 N2_CAT["<p>Catalog<br>カタログ</p>"]
 N2_SCH["<p>Schema<br>スキーマ</p>"]
 N2_OBJ["<p>SQL-object<br>テーブル / ビュー / 型 / ルーチン など</p>"]
-N2_DATA["<p>SQL-data<br>実際のデータ</p>"]
+N2_TBL["<p>Table（表）<br>データを保持する SQL-object</p>"]
+N2_DEF["<p>ビュー / 型 / ルーチン など<br>定義のみ（データは保持しない）</p>"]
+N2_DATA["<p>SQL-data<br>表に格納された実際のデータ</p>"]
 N2_ENV --> N2_CAT
 N2_CAT --> N2_SCH
 N2_SCH --> N2_OBJ
-N2_OBJ --> N2_DATA`,
+N2_OBJ --> N2_TBL
+N2_OBJ --> N2_DEF
+N2_TBL -->|"行として保持"| N2_DATA`,
 "diagram-3": `${MERMAID_CONFIG}
 sequenceDiagram
     participant App as アプリケーション<br/>(SQL-agent)
