@@ -212,3 +212,39 @@ describe('diagram-2 distinguishes the objects that hold SQL-data', () => {
         expect(text).toContain('ビュー・型・ルーチンなどは定義のみでデータを保持しない');
     });
 });
+describe('toc click keeps its target active during smooth scroll', () => {
+    const mount = async () => {
+        let callback: IntersectionObserverCallback | undefined; const previous = globalThis.IntersectionObserver;
+        globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe() {} disconnect() {} } as unknown as typeof IntersectionObserver;
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        const targets = document.createElement('div'); targets.innerHTML = ids.map(id => `<h2 id="${id}">target</h2>`).join(''); document.body.appendChild(targets);
+        const entry = '../../app/iso-9075-1-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const intersect = (id: string) => act(() => callback!([{ isIntersecting: true, target: document.getElementById(id)! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        const restore = () => { view.unmount(); targets.remove(); globalThis.IntersectionObserver = previous; };
+        return { ids, view, intersect, current, restore };
+    };
+    it('ignores observer updates until scrollend and then activates the clicked heading', async () => {
+        const { ids, view, intersect, current, restore } = await mount();
+        try {
+            const [passing, clicked] = [ids[1]!, ids[5]!];
+            fireEvent.click(view.container.querySelector(`a[href="#${clicked}"]`)!);
+            expect(current()).toBe(`#${clicked}`);
+            act(() => { window.dispatchEvent(new Event('scroll')); }); intersect(passing);
+            expect(current()).toBe(`#${clicked}`);
+            act(() => { window.dispatchEvent(new Event('scrollend')); });
+            expect(current()).toBe(`#${clicked}`);
+            intersect(passing);
+            expect(current()).toBe(`#${passing}`);
+        } finally { restore(); }
+    });
+    it('releases the lock when no scroll follows the click', async () => {
+        const { ids, view, intersect, current, restore } = await mount();
+        try {
+            fireEvent.click(view.container.querySelector(`a[href="#${ids[5]}"]`)!);
+            await act(() => new Promise(resolve => setTimeout(resolve, 400)));
+            intersect(ids[1]!);
+            expect(current()).toBe(`#${ids[1]}`);
+        } finally { restore(); }
+    });
+});

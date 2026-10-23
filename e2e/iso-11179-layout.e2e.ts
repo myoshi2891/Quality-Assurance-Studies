@@ -26,8 +26,10 @@ const textAlternativesBody = ([
     if (!list || !body.includes(anchor)) throw new Error(`Missing ${file} text alternative or source anchor`);
     return body.replace(anchor, `\n${list}${anchor}`);
 }, inventory.originalBody);
-// レビューで更新した Part 32 の発行状態、付録 C の出典 S22・根拠行、YAML の許容範囲（min/max）を原本にも反映する
+// レビューで更新した Part 32 の発行状態、付録 B の確認済みパート、付録 C の出典 S22・根拠行、YAML の許容範囲（min/max）を原本にも反映する
 const reviewedBody = ([
+    ['<td>関連パート（30, 31, 33, 34, 35）の公式ページの要旨・発行日</td>',
+     '<td>関連パート（30, 31, 32, 33, 34, 35）の公式ページの要旨・発行日</td>'],
     ['<td>Metamodel for concept system registration</td>\n<td><strong>概念体系</strong>の登録</td>\n<td>Part 1 の目次で記載を確認</td>',
      '<td>Metamodel for concept system registration</td>\n<td><strong>概念体系</strong>の登録</td>\n<td>2023年1月発行（Edition 1）</td>'],
     ['https://www.iso.org/standard/81743.html</a></td>\n</tr>\n',

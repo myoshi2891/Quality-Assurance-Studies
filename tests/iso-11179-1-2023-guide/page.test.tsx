@@ -229,3 +229,11 @@ describe('review fixes', () => {
         expect(claim.find('td').eq(1).text()).toBe(id);
     });
 });
+describe('review fixes: verified related parts', () => {
+    it('lists Part 32 among the related parts whose summary and publication date were confirmed', async () => {
+        const $ = await html();
+        const rows = $('table[aria-labelledby="b-1-検証できたことできなかったこと"] tbody tr').map((_, tr) => norm($(tr).text())).get();
+        const row = rows.find(text => text.includes('公式ページの要旨・発行日'));
+        expect(row).toBe('✅ 確認できた関連パート（30, 31, 32, 33, 34, 35）の公式ページの要旨・発行日');
+    });
+});
