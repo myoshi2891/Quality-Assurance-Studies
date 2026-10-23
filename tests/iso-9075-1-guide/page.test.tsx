@@ -255,3 +255,23 @@ describe('toc click keeps its target active during smooth scroll', () => {
         } finally { restore(); }
     });
 });
+describe('toc follows browser history hash changes', () => {
+    it('activates the heading named by the new hash and keeps observer updates afterwards', async () => {
+        let callback: IntersectionObserverCallback | undefined; const previous = globalThis.IntersectionObserver;
+        globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe() {} disconnect() {} } as unknown as typeof IntersectionObserver;
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        const targets = document.createElement('div'); targets.innerHTML = ids.map(id => `<h2 id="${id}">target</h2>`).join(''); document.body.appendChild(targets);
+        const entry = '../../app/iso-9075-1-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        const navigate = (hash: string) => act(() => { history.replaceState(null, '', hash); window.dispatchEvent(new Event('hashchange')); });
+        try {
+            navigate(`#${ids[3]}`);
+            expect(current()).toBe(`#${ids[3]}`);
+            navigate('#not-a-toc-heading');
+            expect(current()).toBe(`#${ids[3]}`);
+            act(() => { window.dispatchEvent(new Event('scrollend')); });
+            act(() => callback!([{ isIntersecting: true, target: document.getElementById(ids[1]!)! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+            expect(current()).toBe(`#${ids[1]}`);
+        } finally { view.unmount(); targets.remove(); history.replaceState(null, '', '#'); globalThis.IntersectionObserver = previous; }
+    });
+});

@@ -309,3 +309,13 @@ describe('Library map navigation while filtered', () => {
     expect((searchInput() as HTMLInputElement).value).toBe('');
   });
 });
+
+describe('Library category controls semantics', () => {
+  it('groups the category buttons without creating a complementary landmark', () => {
+    render(<Page />);
+    const group = screen.getByRole('group', { name: 'カテゴリで絞り込み' });
+    expect(group.tagName).toBe('DIV');
+    expect(within(group).getByRole('button', { name: /すべてのガイド/ })).not.toBeNull();
+    expect(screen.queryByRole('complementary', { name: 'カテゴリで絞り込み' })).toBeNull();
+  });
+});
