@@ -3,7 +3,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { TOC_GROUPS } from './toc';
 
-const TOC_IDS = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
+// URL ハッシュ由来の任意の文字列を includes で照合できるよう string として扱う
+const TOC_IDS: readonly string[] = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
 type TocLink = { readonly id: string; readonly label: string };
 /** scrollend 非対応ブラウザや、スクロールが発生しない場合のロック解除フォールバック(ms) */
 const SCROLL_LOCK_FALLBACK_MS = 1200;
@@ -52,6 +53,27 @@ export default function NavBar() {
         }
         return () => observer.disconnect();
     }, []);
+
+    // ブラウザ履歴（戻る/進む）によるハッシュ変更にも追従する。直後のスクロール中はクリック時と同様に保持する
+    // 見出しハッシュ付きの直接アクセスでは hashchange が発火しないため、マウント時にも同じ判定を行う
+    useEffect(() => {
+        const onHashChange = () => {
+            let id: string;
+            try {
+                id = decodeURIComponent(window.location.hash.slice(1));
+            } catch (error) {
+                // 不正なパーセントエンコードのハッシュは目次の見出しを指さないため対象外とする
+                if (error instanceof URIError) return;
+                throw error;
+            }
+            if (!TOC_IDS.includes(id)) return;
+            setActive(id);
+            lockScroll();
+        };
+        onHashChange();
+        window.addEventListener('hashchange', onHashChange);
+        return () => window.removeEventListener('hashchange', onHashChange);
+    }, [lockScroll]);
 
     useEffect(() => {
         if (!active) return;
