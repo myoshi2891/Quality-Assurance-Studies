@@ -67,7 +67,7 @@
     margin: 0 0 1.3rem;
 }
 .index-count {
-    font-family: var(--font-bricolage), sans-serif;
+    font-family: var(--font-bricolage), 'Noto Sans JP', sans-serif;
     font-size: 1.4em;
     color: #80e1d3;
     font-variant-numeric: tabular-nums;
