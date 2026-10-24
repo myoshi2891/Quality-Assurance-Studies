@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 103 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 23 books-practices + 2 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(103);
+  it('contains 105 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 23 books-practices + 4 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(105);
   });
 
   it('every item has a unique href', () => {
@@ -306,9 +306,9 @@ describe('groupByCategory', () => {
     ]);
   });
 
-  it('places 2 items in the iso group', () => {
+  it('places 4 items in the iso group', () => {
     const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
-    expect(iso?.items).toHaveLength(2);
+    expect(iso?.items).toHaveLength(4);
     expect(iso?.title).toBe('ISO 国際規格');
   });
 

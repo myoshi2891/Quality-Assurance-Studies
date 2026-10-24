@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-21
+Updated 2026-10-24
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -188,6 +188,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/iec-62304-beginner-guide/page.tsx`（ダーク配色・全22セクション・目次50リンク・18図・37表。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成）
 - `app/beyond-legacy-code-guide/page.tsx` (Beyond Legacy Code 実践ガイド、`NavBar.tsx` 付き)
 - `app/iso-29119-1-2022-guide/page.tsx` (ISO/IEC/IEEE 29119-1:2022 完全解説ガイド、`NavBar.tsx` 付き)
+- `app/iso-9075-1-guide/page.tsx` (ISO/IEC 9075-1 SQL/Framework ガイド、ダーク配色・目次34リンク・9図・19表・SQLコード3例。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成)
+- `app/iso-11179-1-2023-guide/page.tsx` (ISO/IEC 11179-1:2023 メタデータレジストリガイド、ダーク配色・目次57リンク・14図・32表・YAMLコード1例・チェック6項目。`NavBar.tsx`・`toc.ts`・`Checklist.tsx`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成)
 
 CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集約し、内側`.mermaid-wrapper`を`display: block; overflow: visible`にする。広いSVGの中央寄せによる負のスクロール原点を防止する。`bunx playwright test --config playwright.mermaid-css.config.ts`でビルドなしのCSS座標検証を実行できる。
 
@@ -215,7 +217,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（103 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（105 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -224,8 +226,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - ドロワーはガイド数に対してスケールするよう、検索ボックス + `<details>` アコーディオン方式。
   既定では現在ページのカテゴリのみ展開し、検索中は残ったカテゴリを全展開する
 - index（`/`）は ISTQB の認定レベルの階梯を情報構造として使う。ヒーローは階段で、段の縦位置が
-  資格レベルの高さ、バーの伸びがそのレベルのガイド数。バーの軌道幅は全段で固定（`--bar-col`）で、
-  `1fr` にすると量の比較が壊れる。CI/CD・ツール・書籍は階梯の段ではないため `data-track="practice"`
+  資格レベルの高さ、バーの伸びがそのレベルのガイド数。全段が同じ列定義を共有するためバーの軌道幅は等しく、
+  段ごとに列幅を変えると量の比較が壊れる。カテゴリ名はタッチでも読めるよう常時表示する。CI/CD・ツール・書籍は階梯の段ではないため `data-track="practice"`
   として「実務の棚」に分ける。いずれも装飾ではないので変更時に意味を壊さないこと
 - レベル色（`--level`）は寒色 → 暖色の 1 本のランプ。定義は `app/globals.css` の
   `[data-category='...']` にあり、index とドロワーがこの 1 箇所を共有する
@@ -435,10 +437,14 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 103 ルート（ガイドライブラリ index + 102 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 105 ルート（ガイドライブラリ index + 104 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 5075件（129ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「IEC 62304初学者向けガイド」（`/iec-62304-beginner-guide`）を登録済み。目視確認はユーザーが担当。
+- 全体テストすべて成功（直近 5653件（`bun test` 全体・133ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
+- 保留中の作業（次回セッション）:
+  1. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認をユーザーに依頼する。
+  2. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
+  3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
@@ -529,3 +535,29 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - Red先行、デザイン、図、目次、基礎解説、Step 1〜3、Step 4、Step 5〜7、実務、改訂/FAQ/参考資料、登録、アーカイブ、補正、リファクタリング、仕様書を分割コミット。各コミット前にPII検査。
 - HTMLとMDはGit追跡下の`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`へ同名で移動し、クリーンなチェックアウトでもSHA-256一致を常に検証。
 - 検証はnpm経由。対象351件、全体5075件（129ファイル）、ビルド/サーバー不要のブラウザー80件（4幅×18図＋CSS読込2順序×4幅）、lint成功。対象型検査成功。全体型検査には既存エラーが残存。ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-21: ISO/IEC 9075-1 SQL/Frameworkガイドの移行
+
+- 移行先は`/iso-9075-1-guide`。国際規格カテゴリーへ追加し、ナビ・E2E一覧を104ルートへ同期。
+- 全35見出し・階層目次34リンク・19表の全セル・9図・SQLコード3例・コールアウト11件・外部リンク20件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。
+- 原本CSS全63ルールと960px条件を保存。ダーク配色、ヒーロー装飾、固定サイドバー、SQL構文色を保持し、共有CSS・残留CSSの余白・文字・表・インラインコード・コード枠への干渉を補正。
+- 図はHTML内の実SVGから全ノード・接続・ラベルを抽出。HTMLとMarkdownで異なる図の方向はHTMLを採用し、共有Mermaidで描画。シーケンス図の参加者・メッセージと全図の原本配色を実ブラウザーで照合。
+- 目次の開閉・リンク選択・Escape・フォーカス復帰・全34アンカーのObserver追従と解除を検証。Next.js/SWCの開発・本番変換で全文・構造・SQLの改行と字下げを照合。
+- Red先行、CSS、図、SQL、目次、ヒーロー、要約、Step 1〜8、用語集、参考資料、注意点、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/iso/Iso-9075-1-guide.html`、MDは`archive/md-archive/iso/Iso-9075-1-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。作業中に検出した外部の整形差分も`archive/html-archive/iso/Iso-9075-1-guide.formatted.html`へ別途保全。
+- 検証はnpm経由。対象218件、全体5298件（131ファイル）、ビルド・サーバー不要のブラウザー44件（4幅×9図＋CSS読込2順序×4幅）、lint、対象型検査が成功。全体型検査には既存テストの型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-22: ISO/IEC 11179-1:2023メタデータレジストリガイドの移行
+
+- 移行先は`/iso-11179-1-2023-guide`。国際規格カテゴリーへ追加し、ナビ・E2E一覧を105ルートへ同期。
+- 全58見出し・階層目次57リンク・32表の全セル・14図・YAMLコード1例・コールアウト15件・外部リンク21件・学習チェック6項目・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。
+- 原本CSS全80ルールと960px条件を保存。ダーク配色、ヒーロー装飾、固定サイドバー、表の交互背景、YAMLの全構文トークンと改行・空行・字下げを保持し、共有CSSと残留CSSの干渉を補正。
+- 図のラベル・ノード形状・接続・矢印・太線・点線・グループ名をHTML内の実SVGから抽出。Markdownと異なるグループ名や接続はHTMLを採用。クラス図・シーケンス図を含む全14図を共有Mermaidで描画し、実SVGの意味・配色と横スクロール端を検証。
+- 目次の開閉・リンク選択・Escape・フォーカス復帰・全57アンカーのObserver追従と解除、チェック6項目の全選択・全解除・件数・進捗を検証。Next.js/SWCの開発・本番変換でも全文・構造とYAMLの改行・字下げを照合。
+- Red先行、CSS、図、目次、YAML、チェック、ヒーロー、導入、STEP 1〜10、付録A〜C、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。本文は1カテゴリーずつ実装→原本照合→コミットを実行。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/iso/Iso-11179-1-2023-guide.html`、MDは`archive/md-archive/iso/Iso-11179-1-2023-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
+- 検証はnpm経由。対象325件、全体5627件（133ファイル）、ビルド・サーバー不要のブラウザー64件（4幅×14図＋CSS読込2順序×4幅）、lint、対象型検査が成功。全体型検査には既存テストの型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-23: Library navigation design
+
+Home and global navigation share `NAV_ITEMS`, category ordering, labels, counts and search matching. Home adds category filtering, persistent map labels, introductory links and empty-state recovery. The menu adds descriptions, result counts and keyboard focus containment. Header refinements live in `components/header.css`; home rules remain scoped to `.index-page`. See [library design and extension rules](docs/LIBRARY_DESIGN.md).

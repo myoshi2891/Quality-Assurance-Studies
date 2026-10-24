@@ -1,0 +1,137 @@
+'use client';
+
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { TOC_GROUPS } from './toc';
+
+// URL ハッシュ由来の任意の文字列を includes で照合できるよう string として扱う
+const TOC_IDS: readonly string[] = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
+type TocLink = { readonly id: string; readonly label: string };
+/** scrollend 非対応ブラウザや、スクロールが発生しない場合のロック解除フォールバック(ms) */
+const SCROLL_LOCK_FALLBACK_MS = 1200;
+
+export default function NavBar() {
+    const [isOpen, setIsOpen] = useState(false);
+    const [active, setActive] = useState('');
+    const sidebarRef = useRef<HTMLElement>(null);
+    const toggleRef = useRef<HTMLButtonElement>(null);
+    // クリック後のスムーススクロール中は中間見出しでの active 更新を抑止する
+    const scrollLockRef = useRef(false);
+    const unlockRef = useRef<(() => void) | null>(null);
+
+    const releaseScrollLock = useCallback(() => {
+        unlockRef.current?.();
+        unlockRef.current = null;
+    }, []);
+
+    const lockScroll = useCallback(() => {
+        releaseScrollLock();
+        scrollLockRef.current = true;
+        const timer = window.setTimeout(() => unlockRef.current?.(), SCROLL_LOCK_FALLBACK_MS);
+        const onEnd = () => unlockRef.current?.();
+        window.addEventListener('scrollend', onEnd, { once: true });
+        unlockRef.current = () => {
+            scrollLockRef.current = false;
+            window.clearTimeout(timer);
+            window.removeEventListener('scrollend', onEnd);
+            unlockRef.current = null;
+        };
+    }, [releaseScrollLock]);
+
+    useEffect(() => releaseScrollLock, [releaseScrollLock]);
+
+    useEffect(() => {
+        if (typeof IntersectionObserver === 'undefined') return;
+        const observer = new IntersectionObserver(entries => {
+            if (scrollLockRef.current) return;
+            for (const entry of entries) {
+                if (entry.isIntersecting) setActive(entry.target.id);
+            }
+        }, { rootMargin: '-15% 0px -75% 0px' });
+        for (const id of TOC_IDS) {
+            const heading = document.getElementById(id);
+            if (heading) observer.observe(heading);
+        }
+        return () => observer.disconnect();
+    }, []);
+
+    // ブラウザ履歴（戻る/進む）によるハッシュ変更にも追従する。直後のスクロール中はクリック時と同様に保持する
+    // 見出しハッシュ付きの直接アクセスでは hashchange が発火しないため、マウント時にも同じ判定を行う
+    useEffect(() => {
+        const onHashChange = () => {
+            let id: string;
+            try {
+                id = decodeURIComponent(window.location.hash.slice(1));
+            } catch (error) {
+                // 不正なパーセントエンコードのハッシュは目次の見出しを指さないため対象外とする
+                if (error instanceof URIError) return;
+                throw error;
+            }
+            if (!TOC_IDS.includes(id)) return;
+            setActive(id);
+            lockScroll();
+        };
+        onHashChange();
+        window.addEventListener('hashchange', onHashChange);
+        return () => window.removeEventListener('hashchange', onHashChange);
+    }, [lockScroll]);
+
+    useEffect(() => {
+        if (!active) return;
+        const sidebar = sidebarRef.current;
+        const link = sidebar?.querySelector('a[aria-current="location"]');
+        if (!sidebar || !link) return;
+        const bounds = link.getBoundingClientRect();
+        const viewport = sidebar.getBoundingClientRect();
+        if (bounds.top < viewport.top + 60 || bounds.bottom > viewport.bottom - 20) {
+            sidebar.scrollTop += bounds.top - viewport.top - viewport.height / 3;
+        }
+    }, [active]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const escape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsOpen(false);
+                toggleRef.current?.focus();
+            }
+        };
+        document.addEventListener('keydown', escape);
+        return () => document.removeEventListener('keydown', escape);
+    }, [isOpen]);
+
+    const link = (item: TocLink, level: 'nav-h2' | 'nav-h3') => (
+        <a href={`#${item.id}`} data-target={item.id}
+            className={level + (active === item.id ? ' active' : '')}
+            aria-current={active === item.id ? 'location' : undefined}
+            onClick={() => {
+                setActive(item.id);
+                lockScroll();
+                // 閉じて非表示になるサイドバー内にフォーカスを残さない（アンカーへのスクロールは妨げない）
+                if (isOpen) toggleRef.current?.focus({ preventScroll: true });
+                setIsOpen(false);
+            }}>
+            {item.label}
+        </a>
+    );
+
+    return <>
+        <button className="menu-btn" id="menuBtn" type="button" ref={toggleRef}
+            aria-label={isOpen ? '目次を閉じる' : '目次を開く'} aria-controls="sidebar"
+            aria-expanded={isOpen} onClick={() => setIsOpen(open => !open)}>
+            ☰
+        </button>
+        <nav className={isOpen ? 'sidebar open' : 'sidebar'} ref={sidebarRef} id="sidebar" aria-label="目次">
+            <p className="sb-title">ISO/IEC 11179-1:2023 ガイド</p>
+            <ul className="nav-root">
+                {TOC_GROUPS.map(group => (
+                    <li key={group.id}>
+                        {link(group, 'nav-h2')}
+                        {group.children.length > 0 && <ul className="nav-sub">
+                            {group.children.map(child => <li key={child.id}>{link(child, 'nav-h3')}</li>)}
+                        </ul>}
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </>;
+}

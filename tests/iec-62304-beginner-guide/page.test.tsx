@@ -64,7 +64,7 @@ describe('exact original content inventory', () => {
 });
 describe('complete original design inventory', () => {
     it('loads the original 800 weight used by the hero and brand mark', () => {
-        expect(readFileSync(`${base}/page.tsx`, 'utf8')).toContain("import '@fontsource/noto-sans-jp/800.css'");
+        expect(readFileSync(`${base}/page.tsx`, 'utf8')).toContain("import '../fonts/noto-sans-jp-800.css'");
     });
     inventory.css.forEach((original, index) => {
         it(`CSS[${index}] ${original.media ?? 'desktop'} ${original.selector}: preserves every declaration`, () => {

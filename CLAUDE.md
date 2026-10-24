@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-21
+Updated 2026-10-24
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 5075 tests)
+bun test             # ユニットテスト (bun test 全体, 133 ファイル・5653 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 103 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 105 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -507,10 +507,12 @@ Next.js App Router 構成:
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 103 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 105 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
+  - `generate-optional-fonts.mjs` — Fontsource の CSS を `font-display: optional` 化して `app/fonts/` へ生成（`swap` の差し替えによる CLS を防ぐ）。Fontsource 更新時は再実行し、`--check` で同期を検査する
+- `app/fonts/` — 上記スクリプトの生成物（直接編集しない）。`app/layout.tsx` とページ単位の追加ウェイトはここから import し、`@fontsource/*.css` を直接 import しない（`tests/font-display-optional.test.ts` が検証）
 - `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり: `books/` `cicd/` `iso/` `tools/` 等）
 - `archive/md-archive/` — 移行済みの元 Markdown ファイルの保管場所（カテゴリ別サブディレクトリあり: `books/` `iso/` `tools/` 等）
 
@@ -640,8 +642,8 @@ index は「ISTQB の認定レベルは並列のカテゴリではなく階梯�
 | 要素 | 何を符号化しているか |
 |---|---|
 | ヒーローの階段（`.climb-stairs` の `.ladder-rung`） | 段の縦位置 = 資格レベルの高さ、バーの伸び = そのレベルのガイド数。各段は該当セクションへのアンカー |
-| 段のインデント（`--step-indent`） | 1 段上がるごとに右へずれることが「登る」ことの符号。蹴上げ線（`::before`）の着地位置はここから幾何学的に決まる |
-| バーの軌道幅（`--bar-col`） | 全段で固定。段をインデントしても量の比較が壊れないための固定幅であり、`1fr` にしてはならない |
+| 段のインデント（`.ladder-code` の `padding-left`） | 1 段上がるごとに略号が右へずれることが「登る」ことの符号。ずれは固定幅（3.4rem）の略号列の内側に収め、段ごとの列幅は変えない |
+| バーの軌道幅（`.ladder-rung` の第 2 列） | 全段が同じ列定義（`3.4rem minmax(0, 1fr) 1.8rem`）を共有するため、軌道幅は全段で等しく量を比較できる。インデントを列幅で表して段ごとに軌道幅を変えてはならない |
 | `data-track` | `certification`（ISTQB 5 レベル）と `practice`（CI/CD・ツール・書籍）の区別。後者は資格階梯の段ではないので階段に積まず「実務の棚」に置く |
 | `CATEGORY_CODES` | ラベルの短縮版ではなく実際の資格略号（CTFL / CTAL / CT-\* / CTEL）。コード自体が資格体系を示す |
 | レベルランプ（`--level`） | 無関係な 8 色ではなく寒色 → 暖色の 1 本のランプ。ランプ上の位置がレベルの高さを示す。実務トラックはランプ外の 1 色（`#7f96b8`）に統合する |
@@ -655,8 +657,8 @@ index は「ISTQB の認定レベルは並列のカテゴリではなく階梯�
 - 書体は index のみ Bricolage Grotesque（`--font-bricolage`）をディスプレイに使う。
   h1 は日本語なので実際に効くのはガイド総数の数字とラテン略号だけ。そこだけ声が切り替わる混植が狙いなので、
   `'Noto Sans JP'` を必ず後段に置く。1 ルートでしか使わないため `preload: false`
-- 階段の日本語ラベル（`.ladder-label`）はホバー／フォーカス時のチップ。常時表示すると
-  第二の階段になって蹴上げ線と干渉する。DOM からは外さないこと（リンクのアクセシブル名になる）
+- 階段のカテゴリ名（`.ladder-label`）はタッチ端末でも読めるよう常時表示する（ホバーを前提にしない）。
+  第 2 列 1 行目の通常のグリッド項目としてバーの上に置く。リンクのアクセシブル名にもなるので DOM から外さないこと
 
 ### CSS コンポーネントクラス
 
@@ -884,10 +886,14 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 103 ルート（ガイドライブラリ index + 102 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 105 ルート（ガイドライブラリ index + 104 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「IEC 62304初学者向けガイド」（`/iec-62304-beginner-guide`）を登録済み。目視確認はユーザーが担当。
+- 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
+- 保留中の作業（次回セッション）:
+  1. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認をユーザーに依頼する。
+  2. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
+  3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -963,3 +969,52 @@ bun test        # ユニットテスト成功
 - Red先行、デザイン、図、目次、基礎解説、Step 1〜3、Step 4、Step 5〜7、実務、改訂/FAQ/参考資料、登録、アーカイブ、補正、リファクタリング、仕様書を分割コミット。各コミット前にPII検査。
 - HTMLとMDはGit追跡下の`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`へ同名で移動し、クリーンなチェックアウトでもSHA-256一致を常に検証。
 - 検証はnpm経由。対象351件、全体5075件（129ファイル）、ビルド/サーバー不要のブラウザー80件（4幅×18図＋CSS読込2順序×4幅）、lint成功。対象型検査成功。全体型検査には既存エラーが残存。ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-21: ISO/IEC 9075-1 SQL/Frameworkガイドの移行
+
+- 移行先は`/iso-9075-1-guide`。国際規格カテゴリーへ追加し、ナビ・E2E一覧を104ルートへ同期。
+- 全35見出し・階層目次34リンク・19表の全セル・9図・SQLコード3例・コールアウト11件・外部リンク20件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。
+- 原本CSS全63ルールと960px条件を保存。ダーク配色、ヒーロー装飾、固定サイドバー、SQL構文色を保持し、共有CSS・残留CSSの余白・文字・表・インラインコード・コード枠への干渉を補正。
+- 図はHTML内の実SVGから全ノード・接続・ラベルを抽出。HTMLとMarkdownで異なる図の方向はHTMLを採用し、共有Mermaidで描画。シーケンス図の参加者・メッセージと全図の原本配色を実ブラウザーで照合。
+- 目次の開閉・リンク選択・Escape・フォーカス復帰・全34アンカーのObserver追従と解除を検証。Next.js/SWCの開発・本番変換で全文・構造・SQLの改行と字下げを照合。
+- Red先行、CSS、図、SQL、目次、ヒーロー、要約、Step 1〜8、用語集、参考資料、注意点、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/iso/Iso-9075-1-guide.html`、MDは`archive/md-archive/iso/Iso-9075-1-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。作業中に検出した外部の整形差分も`archive/html-archive/iso/Iso-9075-1-guide.formatted.html`へ別途保全。
+- 検証はnpm経由。対象218件、全体5298件（131ファイル）、ビルド・サーバー不要のブラウザー44件（4幅×9図＋CSS読込2順序×4幅）、lint、対象型検査が成功。全体型検査には既存テストの型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
+
+### ISO 9075-1配置
+
+- `app/iso-9075-1-guide/page.tsx` — ページ構成とメタデータ
+- `app/iso-9075-1-guide/iso-9075-1-guide.css` — 原本CSSと干渉補正
+- `app/iso-9075-1-guide/Section00.tsx`〜`Section12.tsx` — 原本のヒーローと12章
+- `app/iso-9075-1-guide/NavBar.tsx` / `toc.ts` — 階層目次と追従
+- `app/iso-9075-1-guide/CodeExample.tsx` — SQLの構文色と改行
+- `app/iso-9075-1-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の9図
+- `tests/iso-9075-1-guide/page.test.tsx` / `integration.test.ts` — 225件の原本・登録・アーカイブ契約
+- `e2e/iso-9075-layout.e2e.ts` / `playwright.iso-9075.config.ts` — ビルド・サーバー不要の44件
+
+## 2026-10-22: ISO/IEC 11179-1:2023メタデータレジストリガイドの移行
+
+- 移行先は`/iso-11179-1-2023-guide`。国際規格カテゴリーへ追加し、ナビ・E2E一覧を105ルートへ同期。
+- 全58見出し・階層目次57リンク・32表の全セル・14図・YAMLコード1例・コールアウト15件・外部リンク21件・学習チェック6項目・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。
+- 原本CSS全80ルールと960px条件を保存。ダーク配色、ヒーロー装飾、固定サイドバー、表の交互背景、YAMLの全構文トークンと改行・空行・字下げを保持し、共有CSSと残留CSSの干渉を補正。
+- 図のラベル・ノード形状・接続・矢印・太線・点線・グループ名をHTML内の実SVGから抽出。Markdownと異なるグループ名や接続はHTMLを採用。クラス図・シーケンス図を含む全14図を共有Mermaidで描画し、実SVGの意味・配色と横スクロール端を検証。
+- 目次の開閉・リンク選択・Escape・フォーカス復帰・全57アンカーのObserver追従と解除、チェック6項目の全選択・全解除・件数・進捗を検証。Next.js/SWCの開発・本番変換でも全文・構造とYAMLの改行・字下げを照合。
+- Red先行、CSS、図、目次、YAML、チェック、ヒーロー、導入、STEP 1〜10、付録A〜C、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。本文は1カテゴリーずつ実装→原本照合→コミットを実行。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/iso/Iso-11179-1-2023-guide.html`、MDは`archive/md-archive/iso/Iso-11179-1-2023-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
+- 検証はnpm経由。対象325件、全体5627件（133ファイル）、ビルド・サーバー不要のブラウザー64件（4幅×14図＋CSS読込2順序×4幅）、lint、対象型検査が成功。全体型検査には既存テストの型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
+
+### ISO 11179-1配置
+
+- `app/iso-11179-1-2023-guide/page.tsx` — ページ構成とメタデータ
+- `app/iso-11179-1-2023-guide/iso-11179-1-2023-guide.css` — 原本CSSと干渉補正
+- `app/iso-11179-1-2023-guide/Section00.tsx`〜`Section14.tsx` — ヒーロー・導入・STEP 1〜10・付録A〜C
+- `app/iso-11179-1-2023-guide/NavBar.tsx` / `toc.ts` — 階層目次57リンクと追従
+- `app/iso-11179-1-2023-guide/Checklist.tsx` — 設計チェック6項目と進捗
+- `app/iso-11179-1-2023-guide/CodeExample.tsx` — 原本のYAML構文色と改行
+- `app/iso-11179-1-2023-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の14図
+- `tests/iso-11179-1-2023-guide/page.test.tsx` / `integration.test.ts` — 328件の原本・操作・登録・アーカイブ契約
+- `e2e/iso-11179-layout.e2e.ts` / `playwright.iso-11179.config.ts` — ビルド・サーバー不要の64件
+
+## 2026-10-23: ホームとグローバルメニュー
+
+ホームは常時ラベル付き学習マップ・カテゴリ絞り込み・検索・空状態リセットを提供する。メニューは右側パネル・説明付きリンク・検索件数・クリア・フォーカス循環を提供する。既存の `NAV_ITEMS` から件数と操作を自動生成する。追加CSSは `components/header.css`。設計と拡張手順は [LIBRARY_DESIGN.md](docs/LIBRARY_DESIGN.md) を参照。ユニットテスト6件をTDDで追加し、対象64件成功。

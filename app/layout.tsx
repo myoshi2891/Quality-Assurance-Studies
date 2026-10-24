@@ -4,31 +4,33 @@ import type { Metadata, Viewport } from 'next';
   next/font の Google ローダーはビルドのたびに Google Fonts へ通信し、CI ランナーからの
   取得失敗で Turbopack ビルドが非決定的に落ちるため使わない。
   各 CSS は unicode-range でスライスされており、閲覧時は必要なスライスだけを読む。
+  Fontsource 同梱の CSS は font-display: swap で、到着後の差し替えがレイアウトシフト（CLS）を
+  起こすため、scripts/generate-optional-fonts.mjs で optional 化した app/fonts/ の CSS を読む。
   family 名（'Noto Sans JP' 等）は globals.css の --font-* 変数が参照する。
 */
-import '@fontsource/noto-sans-jp/300.css';
-import '@fontsource/noto-sans-jp/400.css';
-import '@fontsource/noto-sans-jp/500.css';
-import '@fontsource/noto-sans-jp/600.css';
-import '@fontsource/noto-sans-jp/700.css';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/500.css';
-import '@fontsource/jetbrains-mono/700.css';
-import '@fontsource/dm-sans/300.css';
-import '@fontsource/dm-sans/400.css';
-import '@fontsource/dm-sans/500.css';
-import '@fontsource/dm-sans/700.css';
-import '@fontsource/dm-sans/800.css';
+import './fonts/noto-sans-jp-300.css';
+import './fonts/noto-sans-jp-400.css';
+import './fonts/noto-sans-jp-500.css';
+import './fonts/noto-sans-jp-600.css';
+import './fonts/noto-sans-jp-700.css';
+import './fonts/jetbrains-mono-400.css';
+import './fonts/jetbrains-mono-500.css';
+import './fonts/jetbrains-mono-700.css';
+import './fonts/dm-sans-300.css';
+import './fonts/dm-sans-400.css';
+import './fonts/dm-sans-500.css';
+import './fonts/dm-sans-700.css';
+import './fonts/dm-sans-800.css';
 /*
   ガイド index（`/`）専用のディスプレイ書体。
   h1 は日本語なので、この書体が実際に効くのはガイド総数の数字と
   CTAL-TTA / CT-AI といったラテン略号だけ。そこだけ声が切り替わる混植を狙う。
 */
-import '@fontsource/bricolage-grotesque/600.css';
-import '@fontsource/bricolage-grotesque/800.css';
+import './fonts/bricolage-grotesque-600.css';
+import './fonts/bricolage-grotesque-800.css';
 /* CTAL-TAE 第5章の見出し用セリフ（元 HTML が Google Fonts で読んでいた 600・700 のみ） */
-import '@fontsource/source-serif-4/600.css';
-import '@fontsource/source-serif-4/700.css';
+import './fonts/source-serif-4-600.css';
+import './fonts/source-serif-4-700.css';
 import './globals.css';
 import Header from '../components/Header';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';

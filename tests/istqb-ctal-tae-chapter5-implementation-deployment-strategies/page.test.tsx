@@ -62,8 +62,8 @@ describe('original content and DOM inventory', () => {
     expect(content).not.toContain('fonts.googleapis.com');
     expect(content).not.toMatch(/@import[^;]*@tabler/);
     const layout = readFileSync('app/layout.tsx', 'utf8');
-    for (const weight of [600, 700]) expect(layout).toContain(`import '@fontsource/source-serif-4/${weight}.css';`);
-    for (const weight of [400, 500, 600, 700]) expect(layout).toContain(`import '@fontsource/noto-sans-jp/${weight}.css';`);
+    for (const weight of [600, 700]) expect(layout).toContain(`import './fonts/source-serif-4-${weight}.css';`);
+    for (const weight of [400, 500, 600, 700]) expect(layout).toContain(`import './fonts/noto-sans-jp-${weight}.css';`);
     expect(content).toContain("--font-serif: 'Source Serif 4', serif;");
     expect(readFileSync('app/layout.tsx', 'utf8')).toMatch(/@tabler\/icons-webfont@[\d.]+\/dist\/tabler-icons.min.css/);
   });

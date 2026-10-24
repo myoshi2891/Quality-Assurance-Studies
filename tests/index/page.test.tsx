@@ -274,3 +274,48 @@ describe('Guide index search feedback', () => {
     expect(hint?.textContent?.length ?? 0).toBeGreaterThan(0);
   });
 });
+
+describe('Library category refinement', () => {
+  it('combines category and text filters and resets both from an empty state', () => {
+    render(<Page />);
+    fireEvent.click(screen.getByRole('button', { name: /ISO 国際規格/ }));
+    expect(document.querySelectorAll('a.guide-card')).toHaveLength(GUIDE_ITEMS.filter(i => i.category === 'iso').length);
+    fireEvent.change(searchInput(), { target: { value: 'cypress' } });
+    expect(document.querySelectorAll('a.guide-card')).toHaveLength(0);
+    fireEvent.click(screen.getByRole('button', { name: '絞り込みをリセット' }));
+    expect((searchInput() as HTMLInputElement).value).toBe('');
+    expect(document.querySelectorAll('a.guide-card')).toHaveLength(GUIDE_ITEMS.length);
+  });
+
+  it('generates accessible category controls from every registered group', () => {
+    render(<Page />);
+    for (const group of groupByCategory(GUIDE_ITEMS)) {
+      const button = screen.getByRole('button', { name: new RegExp(group.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) });
+      expect(button.getAttribute('aria-pressed')).toBe('false');
+      fireEvent.click(button);
+      expect(button.getAttribute('aria-pressed')).toBe('true');
+      expect(document.querySelectorAll('a.guide-card')).toHaveLength(group.items.length);
+    }
+  });
+});
+
+describe('Library map navigation while filtered', () => {
+  it('restores a hidden category when its map anchor is selected', () => {
+    render(<Page />);
+    fireEvent.click(screen.getByRole('button', { name: /ISO 国際規格/ }));
+    fireEvent.change(searchInput(), { target: { value: 'zzzz-no-such-guide' } });
+    fireEvent.click(document.querySelector('[data-ladder-rung][data-category="foundation"]')!);
+    expect(document.querySelector('section#foundation')).not.toBeNull();
+    expect((searchInput() as HTMLInputElement).value).toBe('');
+  });
+});
+
+describe('Library category controls semantics', () => {
+  it('groups the category buttons without creating a complementary landmark', () => {
+    render(<Page />);
+    const group = screen.getByRole('group', { name: 'カテゴリで絞り込み' });
+    expect(group.tagName).toBe('DIV');
+    expect(within(group).getByRole('button', { name: /すべてのガイド/ })).not.toBeNull();
+    expect(screen.queryByRole('complementary', { name: 'カテゴリで絞り込み' })).toBeNull();
+  });
+});
