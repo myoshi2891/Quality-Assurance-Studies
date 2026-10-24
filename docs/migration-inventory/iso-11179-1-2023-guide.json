@@ -9936,6 +9936,82 @@
       "children": []
     },
     {
+      "tag": "ol",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 1：課題を知る"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 2：規格の位置づけ"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 3：ファミリー全体像"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 4：2023年版の変更点"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 5：コア概念"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 6：2層構造"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 7：運用と役割"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 8：他規格・実装"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 9：実践"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "STEP 10：確認"
+          ]
+        }
+      ]
+    },
+    {
       "tag": "h3",
       "attrs": {
         "id": "0-2-先に押さえる3行まとめ"
@@ -12457,6 +12533,33 @@
       "children": []
     },
     {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "従来の Part 3（基本属性・データ記述・共通機能など）は、2023年版で Part 3（共通機能）・Part 30（基本属性）・Part 31（データ仕様）・Part 32（概念体系）に分割された。"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "従来の Part 7:2019（データセット登録）は、2023年版の Part 33（データセット）に対応する。"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "従来の ISO/IEC 19763-10:2014（モデル登録）は、2023年版の Part 35（モデル）に対応する。"
+          ]
+        }
+      ]
+    },
+    {
       "tag": "h3",
       "attrs": {
         "id": "4-4-学習者への影響"
@@ -13778,6 +13881,40 @@
         "role": "img"
       },
       "children": []
+    },
+    {
+      "tag": "ul",
+      "attrs": {},
+      "children": [
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "値領域（VD）は、データ型（文字・整数・日付など）を構成要素に持つ。"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "値領域（VD）は、測定単位（mmHg・kg など）を構成要素に持つ。"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "値領域（VD）は、許容値の集合（列挙または規則）を構成要素に持つ。"
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            "値領域（VD）は、表現クラス（コード・日付・数量など）を構成要素に持つ。"
+          ]
+        }
+      ]
     },
     {
       "tag": "h3",
@@ -19700,6 +19837,82 @@
         "children": []
       },
       {
+        "tag": "ol",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 1：課題を知る"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 2：規格の位置づけ"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 3：ファミリー全体像"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 4：2023年版の変更点"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 5：コア概念"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 6：2層構造"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 7：運用と役割"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 8：他規格・実装"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 9：実践"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "STEP 10：確認"
+            ]
+          }
+        ]
+      },
+      {
         "tag": "h3",
         "attrs": {
           "id": "0-2-先に押さえる3行まとめ"
@@ -22229,6 +22442,33 @@
         "children": []
       },
       {
+        "tag": "ul",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "従来の Part 3（基本属性・データ記述・共通機能など）は、2023年版で Part 3（共通機能）・Part 30（基本属性）・Part 31（データ仕様）・Part 32（概念体系）に分割された。"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "従来の Part 7:2019（データセット登録）は、2023年版の Part 33（データセット）に対応する。"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "従来の ISO/IEC 19763-10:2014（モデル登録）は、2023年版の Part 35（モデル）に対応する。"
+            ]
+          }
+        ]
+      },
+      {
         "tag": "h3",
         "attrs": {
           "id": "4-4-学習者への影響"
@@ -23552,6 +23792,40 @@
           "role": "img"
         },
         "children": []
+      },
+      {
+        "tag": "ul",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "値領域（VD）は、データ型（文字・整数・日付など）を構成要素に持つ。"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "値領域（VD）は、測定単位（mmHg・kg など）を構成要素に持つ。"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "値領域（VD）は、許容値の集合（列挙または規則）を構成要素に持つ。"
+            ]
+          },
+          {
+            "tag": "li",
+            "attrs": {},
+            "children": [
+              "値領域（VD）は、表現クラス（コード・日付・数量など）を構成要素に持つ。"
+            ]
+          }
+        ]
       },
       {
         "tag": "h3",

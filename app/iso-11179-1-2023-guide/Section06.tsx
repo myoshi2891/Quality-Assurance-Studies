@@ -45,6 +45,13 @@ export default function Section() { return <>
 
 <Diagram id="diagram-8" />
 
+<ul>
+<li>{"値領域（VD）は、データ型（文字・整数・日付など）を構成要素に持つ。"}</li>
+<li>{"値領域（VD）は、測定単位（mmHg・kg など）を構成要素に持つ。"}</li>
+<li>{"値領域（VD）は、許容値の集合（列挙または規則）を構成要素に持つ。"}</li>
+<li>{"値領域（VD）は、表現クラス（コード・日付・数量など）を構成要素に持つ。"}</li>
+</ul>
+
 <h3 id="5-5-step-5-dデータエレメントde-dec--vd">{"5-5. STEP\n5-D：データエレメント（DE）＝ DEC ＋ VD"}</h3>
 
 <p><strong>{"データエレメントは「意味（DEC）」と「表現（VD）」の組"}</strong>{"です。"}</p>
