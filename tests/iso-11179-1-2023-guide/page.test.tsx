@@ -263,17 +263,19 @@ describe('review fixes', () => {
             '従来の ISO/IEC 19763-10:2014（モデル登録）は、2023年版の Part 35（モデル）に対応する。',
         ]],
         ['diagram-8', 'Section06.tsx', 'ul', '5-5-step-5-dデータエレメントde-dec--vd', [
-            '値領域（VD）は、データ型（文字・整数・日付など）を構成要素に持つ。',
-            '値領域（VD）は、測定単位（mmHg・kg など）を構成要素に持つ。',
-            '値領域（VD）は、許容値の集合（列挙または規則）を構成要素に持つ。',
-            '値領域（VD）は、表現クラス（コード・日付・数量など）を構成要素に持つ。',
+            'データエレメントの表現には、値領域（VD）とともにデータ型（文字・整数・日付など）が含まれる。',
+            'データエレメントの表現には、値領域（VD）とともに測定単位（mmHg・kg など）が含まれる。',
+            '値領域（VD）は、列挙または規則によって定義される許容値の集合を表す。',
+            '表現クラス（コード・日付・数量など）は、値領域の構成要素ではなく、表現の種類（タイプ）を分類する。',
         ]],
     ] as const).forEach(([id, file, tag, nextHeading, expected]) => it(`${id} is followed by a ${tag} text alternative of every relationship`, () => {
         const Section = sourceModule(base+'/'+file).default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Section />), {}, false);
         expect($(tag).first().children('li').map((_, li) => norm($(li).text())).get()).toEqual([...expected]);
         const source = readFileSync(base+'/'+file, 'utf8');
-        expect(source.indexOf(`<Diagram id="${id}" />`)).toBeLessThan(source.indexOf('<'+tag));
+        const diagramIndex = source.indexOf(`<Diagram id="${id}" />`);
+        expect(diagramIndex).toBeGreaterThanOrEqual(0);
+        expect(diagramIndex).toBeLessThan(source.indexOf('<'+tag));
         expect(source.indexOf('<'+tag)).toBeLessThan(source.indexOf(`id="${nextHeading}"`));
     }));
     it('STEP 5-A example names the property 純収入, matching diagram-7', async () => {
