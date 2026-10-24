@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-23
+Updated 2026-10-24
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -511,6 +511,8 @@ Next.js App Router 構成:
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
+  - `generate-optional-fonts.mjs` — Fontsource の CSS を `font-display: optional` 化して `app/fonts/` へ生成（`swap` の差し替えによる CLS を防ぐ）。Fontsource 更新時は再実行し、`--check` で同期を検査する
+- `app/fonts/` — 上記スクリプトの生成物（直接編集しない）。`app/layout.tsx` とページ単位の追加ウェイトはここから import し、`@fontsource/*.css` を直接 import しない（`tests/font-display-optional.test.ts` が検証）
 - `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり: `books/` `cicd/` `iso/` `tools/` 等）
 - `archive/md-archive/` — 移行済みの元 Markdown ファイルの保管場所（カテゴリ別サブディレクトリあり: `books/` `iso/` `tools/` 等）
 
