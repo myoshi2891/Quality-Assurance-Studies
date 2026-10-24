@@ -329,7 +329,7 @@ html {
 
 ### 5.7 2.4.13 フォーカスの外観（AAA・参考）
 
-フォーカス表示は、サイズ（外周の太さの目安は 2 CSS px 以上）と、フォーカス前後での **3:1 以上のコントラスト変化**が求められます。AA の 2.4.7（フォーカスの可視化）よりも具体的な数値要件を持つため、AAA に分類されています。AA 目標の組織でも、デザインシステムのフォーカススタイルに先取りで取り入れる価値があります。
+フォーカス表示は、その**面積**が「フォーカス前のコンポーネント（またはサブコンポーネント）の外周を囲む、太さ 2 CSS px の線の面積」以上であることと、フォーカス前後の同じピクセル間で **3:1 以上のコントラスト変化**があることが求められます。要件は面積で判定するため、上の例のような 2 px のアウトラインは満たし方の一例であり、あらゆる形状で「太さ 2 px」を測ることが求められているわけではありません。AA の 2.4.7（フォーカスの可視化）よりも具体的な数値要件を持つため、AAA に分類されています。AA 目標の組織でも、デザインシステムのフォーカススタイルに先取りで取り入れる価値があります。
 
 ---
 
@@ -368,6 +368,8 @@ flowchart LR
 ```
 
 > 新規の **A/AA** は 6 基準です（A: 3.2.6、3.3.7／AA: 2.4.11、2.5.7、2.5.8、3.3.8）。まずここから着手するのが一般的です。
+>
+> **4.1.1（構文解析）の扱いに注意**: WCAG 2.2 では 4.1.1 が削除されましたが、契約・調達要件や法令が WCAG 2.0 または 2.1 を参照している場合は、引き続き 4.1.1 の試験と報告が求められることがあります。移行の前に、自組織に適用される契約・法令がどの版を要求しているかを確認してください。
 
 ### 6.3 テストの種類と役割
 
@@ -501,38 +503,38 @@ flowchart TD
 
 | # | 内容 | URL |
 |---|------|-----|
-| 1 | ISO/IEC 40500:2025 公式ページ（ステージ・版・DIS の記載） | <https://www.iso.org/standard/91029.html> |
-| 2 | W3C WAI ニュース: WCAG 2.2 が ISO 標準として承認（2025-10-21） | <https://www.w3.org/WAI/news/2025-10-21/wcag22-iso> |
-| 3 | W3C プレスリリース（ML 配信テキスト） | <https://lists.w3.org/Archives/Public/w3c-news/2025OctDec/0002.html> |
-| 4 | W3C プレスリリース（日本語版・PAS として審査された旨） | <https://www.w3.org/ja/press-releases/2025/wcag22-iso-pas/> |
-| 5 | W3C WAI ディレクター Shawn Lawton Henry 氏の告知 | <https://lists.w3.org/Archives/Public/public-wai-announce/2025OctDec/0001.html> |
-| 6 | WCAG 2 Overview（ISO/IEC 40500, EAA, EN 301 549 の節） | <https://www.w3.org/WAI/standards-guidelines/wcag/> |
-| 7 | WCAG 2.2 本文（W3C 勧告） | <https://www.w3.org/TR/WCAG22/> |
-| 8 | What's New in WCAG 2.2（W3C WAI） | <https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/> |
-| 9 | WCAG 2.1/2.2 軽微な編集更新（2024-12-12） | <https://www.w3.org/WAI/news/2024-12-12/wcag2updates/> |
-| 10 | WCAG 2.2 公開履歴 | <https://w3.org/standards/history/WCAG22> |
-| 11 | WCAG 3 草案（2026-09-10 版） | <https://w3.org/TR/WCAG3/> |
-| 12 | WCAG 3 草案更新のお知らせ（2026-03-03） | <https://www.w3.org/WAI/news/2026-03-03/wcag3> |
+| 1 | ISO/IEC 40500:2025 公式ページ（ステージ・版・DIS の記載） | <a href="https://www.iso.org/standard/91029.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/91029.html</a> |
+| 2 | W3C WAI ニュース: WCAG 2.2 が ISO 標準として承認（2025-10-21） | <a href="https://www.w3.org/WAI/news/2025-10-21/wcag22-iso" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2025-10-21/wcag22-iso</a> |
+| 3 | W3C プレスリリース（ML 配信テキスト） | <a href="https://lists.w3.org/Archives/Public/w3c-news/2025OctDec/0002.html" target="_blank" rel="noopener noreferrer">https://lists.w3.org/Archives/Public/w3c-news/2025OctDec/0002.html</a> |
+| 4 | W3C プレスリリース（日本語版・PAS として審査された旨） | <a href="https://www.w3.org/ja/press-releases/2025/wcag22-iso-pas/" target="_blank" rel="noopener noreferrer">https://www.w3.org/ja/press-releases/2025/wcag22-iso-pas/</a> |
+| 5 | W3C WAI ディレクター Shawn Lawton Henry 氏の告知 | <a href="https://lists.w3.org/Archives/Public/public-wai-announce/2025OctDec/0001.html" target="_blank" rel="noopener noreferrer">https://lists.w3.org/Archives/Public/public-wai-announce/2025OctDec/0001.html</a> |
+| 6 | WCAG 2 Overview（ISO/IEC 40500, EAA, EN 301 549 の節） | <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/standards-guidelines/wcag/</a> |
+| 7 | WCAG 2.2 本文（W3C 勧告） | <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">https://www.w3.org/TR/WCAG22/</a> |
+| 8 | What's New in WCAG 2.2（W3C WAI） | <a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/</a> |
+| 9 | WCAG 2.1/2.2 軽微な編集更新（2024-12-12） | <a href="https://www.w3.org/WAI/news/2024-12-12/wcag2updates/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2024-12-12/wcag2updates/</a> |
+| 10 | WCAG 2.2 公開履歴 | <a href="https://w3.org/standards/history/WCAG22" target="_blank" rel="noopener noreferrer">https://w3.org/standards/history/WCAG22</a> |
+| 11 | WCAG 3 草案（2026-09-10 版） | <a href="https://w3.org/TR/WCAG3/" target="_blank" rel="noopener noreferrer">https://w3.org/TR/WCAG3/</a> |
+| 12 | WCAG 3 草案更新のお知らせ（2026-03-03） | <a href="https://www.w3.org/WAI/news/2026-03-03/wcag3" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2026-03-03/wcag3</a> |
 
 ### 実務家・専門組織の解説
 
 | # | 内容 | URL |
 |---|------|-----|
-| 13 | Hidde de Vries: What's new in WCAG 2.2? | <https://hidde.blog/new-in-wcag22/> |
-| 14 | Adrian Roselli: CSUN ATC 2024「WCAGmire」スライド（フォーカス・ターゲットサイズ） | <https://blog.adrianroselli.com/wp-content/uploads/2024/03/CSUNATC-2024_WCAGmire_Adrian-Roselli.pdf> |
-| 15 | Deque: EN 301 549 v4.1.1 is final! | <https://www.deque.com/blog/en-301-549-v4-1-1-is-final-what-changed-what-it-means-and-what-you-should-do/> |
-| 16 | Deque University: WCAG 2.2 リソース | <https://dequeuniversity.com/resources/wcag-2.2> |
-| 17 | Intopia: WCAG 2.2 の新規基準の概要 | <https://intopia.digital/?p=3241> |
-| 18 | アイルランド NDA: EN 301 549 V4.1.1 公開のお知らせ | <https://nda.ie/news/en301549-published> |
-| 19 | Davis Wright Tremaine: EAA 向け新技術標準の解説 | <https://www.dwt.com/insights/2026/09/european-accessibility-act-ict-standards-update> |
-| 20 | HTML5 Accessibility: Last week in WAI #3（WCAG 3 の日程に関する議論） | <https://html5accessibility.com/stuff/2026/01/16/last-week-in-wai-3/> |
+| 13 | Hidde de Vries: What's new in WCAG 2.2? | <a href="https://hidde.blog/new-in-wcag22/" target="_blank" rel="noopener noreferrer">https://hidde.blog/new-in-wcag22/</a> |
+| 14 | Adrian Roselli: CSUN ATC 2024「WCAGmire」スライド（フォーカス・ターゲットサイズ） | <a href="https://blog.adrianroselli.com/wp-content/uploads/2024/03/CSUNATC-2024_WCAGmire_Adrian-Roselli.pdf" target="_blank" rel="noopener noreferrer">https://blog.adrianroselli.com/wp-content/uploads/2024/03/CSUNATC-2024_WCAGmire_Adrian-Roselli.pdf</a> |
+| 15 | Deque: EN 301 549 v4.1.1 is final! | <a href="https://www.deque.com/blog/en-301-549-v4-1-1-is-final-what-changed-what-it-means-and-what-you-should-do/" target="_blank" rel="noopener noreferrer">https://www.deque.com/blog/en-301-549-v4-1-1-is-final-what-changed-what-it-means-and-what-you-should-do/</a> |
+| 16 | Deque University: WCAG 2.2 リソース | <a href="https://dequeuniversity.com/resources/wcag-2.2" target="_blank" rel="noopener noreferrer">https://dequeuniversity.com/resources/wcag-2.2</a> |
+| 17 | Intopia: WCAG 2.2 の新規基準の概要 | <a href="https://intopia.digital/?p=3241" target="_blank" rel="noopener noreferrer">https://intopia.digital/?p=3241</a> |
+| 18 | アイルランド NDA: EN 301 549 V4.1.1 公開のお知らせ | <a href="https://nda.ie/news/en301549-published" target="_blank" rel="noopener noreferrer">https://nda.ie/news/en301549-published</a> |
+| 19 | Davis Wright Tremaine: EAA 向け新技術標準の解説 | <a href="https://www.dwt.com/insights/2026/09/european-accessibility-act-ict-standards-update" target="_blank" rel="noopener noreferrer">https://www.dwt.com/insights/2026/09/european-accessibility-act-ict-standards-update</a> |
+| 20 | HTML5 Accessibility: Last week in WAI #3（WCAG 3 の日程に関する議論） | <a href="https://html5accessibility.com/stuff/2026/01/16/last-week-in-wai-3/" target="_blank" rel="noopener noreferrer">https://html5accessibility.com/stuff/2026/01/16/last-week-in-wai-3/</a> |
 
 ### 補助的な情報源（ベンダー記事。参考扱い）
 
 | # | 内容 | URL |
 |---|------|-----|
-| 21 | Accessible Web: ISO 標準と WCAG 2.2 適合の影響 | <https://accessibleweb.com/disability-law/iso-standards-wcag-2-2-conformance/> |
-| 22 | WebAbility: WCAG 3.0 解説（2026） | <https://www.webability.io/blog/wcag-3-0-explained> |
+| 21 | Accessible Web: ISO 標準と WCAG 2.2 適合の影響 | <a href="https://accessibleweb.com/disability-law/iso-standards-wcag-2-2-conformance/" target="_blank" rel="noopener noreferrer">https://accessibleweb.com/disability-law/iso-standards-wcag-2-2-conformance/</a> |
+| 22 | WebAbility: WCAG 3.0 解説（2026） | <a href="https://www.webability.io/blog/wcag-3-0-explained" target="_blank" rel="noopener noreferrer">https://www.webability.io/blog/wcag-3-0-explained</a> |
 
 ---
 

@@ -14,8 +14,8 @@
 | 区分 | 内容 |
 |---|---|
 | ✅ 公式に確認できた情報 | ISO公式ページ、各国規格機関（SFS・ISS・ISME 等）の公開ページにある**要旨（Abstract/Scope）・書誌情報・制定履歴** |
-| ⚠️ 確認できなかった情報 | **規格本文（条項番号、具体的な要求・推奨事項、附属書）**。本文は有償（CHF 135、21ページ）で、ISOは本文をAIの入力に使うことを禁じているため、本ガイドは本文を参照していません |
-| 🧭 本ガイドの補足 | 公開要旨から読み取れる**考え方の整理**と、W3C・Nielsen Norman Group・Matter 等の**国際的に著名な一次情報**をもとにした実務への橋渡し |
+| ⚠️ 確認できなかった情報 | **規格本文（条項番号、具体的な要求・推奨事項、附属書）**。本文は有償（CHF 135、21ページ）で、ISOの利用規約は該当するライセンス条件の下で許諾のないAI/MLによるISOコンテンツの処理を認めていない（第12章 URL 17）ため、本ガイドは本文を参照していません |
+| 🧭 本ガイドの補足 | 公開要旨から読み取れる**考え方の整理**と、W3C・Nielsen Norman Group・Matter 等の**国際的に信頼できる公開情報**をもとにした実務への橋渡し |
 
 **重要な約束事**
 
@@ -93,7 +93,7 @@ flowchart LR
     L3 --> L4["2025-07-11<br/>CD を DIS 登録へ承認"]
     L4 --> L5["2025-09-25<br/>最終原案を受領"]
     L5 --> L6["2025-12-31<br/>投票終了"]
-    L6 --> L7["2026-02-10<br/>国際規格として発行"]
+    L6 --> L7["2026-02-10<br/>技術仕様書（TS）として発行"]
 
     classDef done fill:#e8f0fe,stroke:#3b5bdb,color:#102a6b
     class L1,L2,L3,L4,L5,L6,L7 done
@@ -364,7 +364,7 @@ flowchart TB
 
 ### 9-3. 著名な国際情報源から学べる設計の勘所
 
-規格本文とは別に、国際的に信頼される一次情報から、再利用しやすい知見をまとめます。
+規格本文とは別に、国際的に信頼できる公開情報（解説・研究資料を含み、本規格の一次情報ではありません）から、再利用しやすい知見をまとめます。
 
 #### ① W3C WAI（Web Accessibility Initiative）
 
@@ -420,7 +420,7 @@ flowchart TB
 | **使いやすさ：効果** | 目的のタスクを達成できるか | タスク成功率の測定 |
 | **使いやすさ：効率** | 所要時間・手数が妥当か | 操作時間、クリック数の計測 |
 | **使いやすさ：満足** | 不安なく使い続けられるか | 事後アンケート、観察 |
-| **知覚性** | 文字サイズ・コントラスト・音量が適切か | WCAG準拠チェック、実機確認 |
+| **知覚性** | 文字サイズ・コントラスト・音量が適切か | 管理アプリのUIはWCAG準拠チェック、機器本体の表示・音量は実機での評価 |
 | **一貫性** | 機器間・画面間で操作が統一されているか | UIレビュー、ヒューリスティック評価 |
 | **導入・設定** | 初期設定を本人または支援者が完了できるか | 初期設定シナリオテスト |
 | **経時変化への対応** | 設定変更や機器追加が容易か | 変更シナリオテスト |
@@ -480,32 +480,33 @@ flowchart LR
 
 | # | 情報源 | URL | 確認できた内容 |
 |---|---|---|---|
-| 1 | ISO公式（本規格） | <https://www.iso.org/standard/85086.html> | 要旨、版、ページ数、価格、ICS、委員会、制定ライフサイクル、SDGs |
-| 2 | ISO公式（フランス語ページ） | <https://www.iso.org/fr/standard/85086.html> | 英語のみ提供であること |
-| 3 | フィンランド規格協会（SFS） | <https://store.sfs.fi/en/isots-25558-2026-2> | 要旨・ICS・委員会の一致確認 |
-| 4 | セルビア規格協会（ISS） | <https://iss.rs/en/project/show/iso:proj:85086> | 発行日 2026-02-10、Scope |
-| 5 | モンテネグロ規格協会（ISME） | <https://isme.me/en/project/show/iso:proj:85086> | 発行日、Scope、ICS名称 |
+| 1 | ISO公式（本規格） | <a href="https://www.iso.org/standard/85086.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/85086.html</a> | 要旨、版、ページ数、価格、ICS、委員会、制定ライフサイクル、SDGs |
+| 2 | ISO公式（フランス語ページ） | <a href="https://www.iso.org/fr/standard/85086.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/fr/standard/85086.html</a> | 英語のみ提供であること |
+| 3 | フィンランド規格協会（SFS） | <a href="https://store.sfs.fi/en/isots-25558-2026-2" target="_blank" rel="noopener noreferrer">https://store.sfs.fi/en/isots-25558-2026-2</a> | 要旨・ICS・委員会の一致確認 |
+| 4 | セルビア規格協会（ISS） | <a href="https://iss.rs/en/project/show/iso:proj:85086" target="_blank" rel="noopener noreferrer">https://iss.rs/en/project/show/iso:proj:85086</a> | 発行日 2026-02-10、Scope |
+| 5 | モンテネグロ規格協会（ISME） | <a href="https://isme.me/en/project/show/iso:proj:85086" target="_blank" rel="noopener noreferrer">https://isme.me/en/project/show/iso:proj:85086</a> | 発行日、Scope、ICS名称 |
+| 17 | ISO Online Browsing Platform 利用規約 | <a href="https://www.iso.org/home/store/iso-obp-terms.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/home/store/iso-obp-terms.html</a> | ISOコンテンツの利用条件（許諾のないAI/ML処理の制限の根拠） |
 
 ### 12-2. 委員会・関連規格
 
 | # | 情報源 | URL | 確認できた内容 |
 |---|---|---|---|
-| 6 | ISO記事「A society for all ages」 | <https://www.iso.org/news/society-for-all-ages.html> | TC 314の目的、ISO 25552 等の位置づけ |
-| 7 | ISO 25550:2022 | <https://www.iso.org/fr/standard/76420.html> | 年齢包摂的な職場の規格情報 |
-| 8 | BSI 標準開発ポータル（TC 314対応委員会） | <https://standardsdevelopment.bsigroup.com/committees/50276427> | ISO 25552・25556・25553-1 等の状況 |
+| 6 | ISO記事「A society for all ages」 | <a href="https://www.iso.org/news/society-for-all-ages.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/news/society-for-all-ages.html</a> | TC 314の目的、ISO 25552 等の位置づけ |
+| 7 | ISO 25550:2022 | <a href="https://www.iso.org/fr/standard/76420.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/fr/standard/76420.html</a> | 年齢包摂的な職場の規格情報 |
+| 8 | BSI 標準開発ポータル（TC 314対応委員会） | <a href="https://standardsdevelopment.bsigroup.com/committees/50276427" target="_blank" rel="noopener noreferrer">https://standardsdevelopment.bsigroup.com/committees/50276427</a> | ISO 25552・25556・25553-1 等の状況 |
 
 ### 12-3. 国際的に著名な技術・設計コミュニティの情報
 
 | # | 情報源 | URL | 活用した内容 |
 |---|---|---|---|
-| 9 | W3C WAI「Older Users and Web Accessibility」 | <https://www.w3.org/WAI/older-users/> | 高齢者ニーズとアクセシビリティの重なり |
-| 10 | Nielsen Norman Group「User Testing with Older Adults」 | <https://www.nngroup.com/videos/user-testing-older-adults/> | 高齢者向けテストの配慮 |
-| 11 | Pernice & Nielsen「Web Usability for Senior Citizens」書誌（Univ. of Groningen） | <https://ebooks.ub.rug.nl/87> | 65歳以上の調査の概要 |
-| 12 | UPM Ageing Lab「UX and usability for older users」 | <https://ageinglab.ctb.upm.es/en/ux-and-usability-for-older-users-en> | 高齢者向けUI指針、一貫性の重要性 |
-| 13 | ZURB Radar「Design for Seniors, Ship a Better Product for Everyone」 | <https://radar.zurb.com/article/design-for-seniors-ship-a-better-product-for-everyone> | 高齢者設計を全体改善へ活かす考え方、フォームの許容度 |
-| 14 | Guide Dogs（英国）「How Matter will revolutionise smart home device accessibility」 | <https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility> | Matter とアクセシビリティ |
-| 15 | AbilityNet「Matter: Enriching disabled people's experience of technology」 | <https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology> | Matter の期待と限界 |
-| 16 | arXiv「Matter: IoT Interoperability for Smart Homes」 | <https://arxiv.org/abs/2405.01618v2> | Matter の技術的な位置づけ |
+| 9 | W3C WAI「Older Users and Web Accessibility」 | <a href="https://www.w3.org/WAI/older-users/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/older-users/</a> | 高齢者ニーズとアクセシビリティの重なり |
+| 10 | Nielsen Norman Group「User Testing with Older Adults」 | <a href="https://www.nngroup.com/videos/user-testing-older-adults/" target="_blank" rel="noopener noreferrer">https://www.nngroup.com/videos/user-testing-older-adults/</a> | 高齢者向けテストの配慮 |
+| 11 | Pernice & Nielsen「Web Usability for Senior Citizens」書誌（Univ. of Groningen） | <a href="https://ebooks.ub.rug.nl/87" target="_blank" rel="noopener noreferrer">https://ebooks.ub.rug.nl/87</a> | 65歳以上の調査の概要 |
+| 12 | UPM Ageing Lab「UX and usability for older users」 | <a href="https://ageinglab.ctb.upm.es/en/ux-and-usability-for-older-users-en" target="_blank" rel="noopener noreferrer">https://ageinglab.ctb.upm.es/en/ux-and-usability-for-older-users-en</a> | 高齢者向けUI指針、一貫性の重要性 |
+| 13 | ZURB Radar「Design for Seniors, Ship a Better Product for Everyone」 | <a href="https://radar.zurb.com/article/design-for-seniors-ship-a-better-product-for-everyone" target="_blank" rel="noopener noreferrer">https://radar.zurb.com/article/design-for-seniors-ship-a-better-product-for-everyone</a> | 高齢者設計を全体改善へ活かす考え方、フォームの許容度 |
+| 14 | Guide Dogs（英国）「How Matter will revolutionise smart home device accessibility」 | <a href="https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility" target="_blank" rel="noopener noreferrer">https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility</a> | Matter とアクセシビリティ |
+| 15 | AbilityNet「Matter: Enriching disabled people's experience of technology」 | <a href="https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology" target="_blank" rel="noopener noreferrer">https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology</a> | Matter の期待と限界 |
+| 16 | arXiv「Matter: IoT Interoperability for Smart Homes」 | <a href="https://arxiv.org/abs/2405.01618v2" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2405.01618v2</a> | Matter の技術的な位置づけ |
 
 ### 12-4. 規格本文の入手方法
 
@@ -527,7 +528,7 @@ flowchart LR
 | Q3. 技術的な要件（通信方式やAI仕様）が書かれていますか？ | 公開要旨からは確認できません。公式要旨はニーズの評価および製品・サービス・システムの選定・適用・評価のプロセスに焦点を当てており、具体的な規定の詳細は**正規版の本文で確認**してください |
 | Q4. 日本語版はありますか？ | ISOの公式ページでは**英語のみ**です。日本語版の有無は国内規格機関に確認してください |
 | Q5. 最初に何を読めばよいですか？ | 本ガイドの第6章（4ステップ）と第9章を読み、その後に正規版の本文へ進むのがおすすめです |
-| Q6. AIで規格本文を要約してもよいですか？ | ISOは、本文をAIの学習・入力に使うことを**禁止**する旨をサイトに明記しています。本文は人が読み、自分の言葉で整理してください |
+| Q6. AIで規格本文を要約してもよいですか？ | ISOの利用規約は、該当するライセンス条件の下で**許諾のない**AI/MLによるISOコンテンツの処理を認めていません（第12章 URL 17）。入手したライセンスの条件を確認し、許諾がない場合は本文を人が読み、自分の言葉で整理してください |
 
 ---
 
