@@ -112,12 +112,72 @@ describe('TOC interactions', () => {
         const previous = globalThis.IntersectionObserver; let callback: IntersectionObserverCallback | undefined; const observed: Element[] = []; const disconnect = mock(() => {});
         globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe(el: Element) { observed.push(el); } disconnect = disconnect; } as unknown as typeof IntersectionObserver;
         const targets = document.createElement('div'); targets.innerHTML = inventory.groups.toc.items.map(a => `<h2 id="${a.attrs['data-target']}">target</h2>`).join(''); document.body.appendChild(targets);
+        // 前のテストのリンククリックで残ったハッシュがマウント時の選択として扱われないよう初期化する
+        history.replaceState(null, '', '#');
         try {
             const entry = '../../app/iso-11179-1-2023-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
             expect(observed.map(el => el.id)).toEqual(inventory.groups.toc.items.map(a => a.attrs['data-target']));
             for (const target of observed) { act(() => callback!([{ isIntersecting: true, target }] as IntersectionObserverEntry[], {} as IntersectionObserver)); expect(view.container.querySelectorAll('a.active')).toHaveLength(1); expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe('#'+target.id); }
             view.unmount(); expect(disconnect).toHaveBeenCalledTimes(1);
         } finally { targets.remove(); globalThis.IntersectionObserver = previous; }
+    });
+});
+describe('toc follows browser history hash changes', () => {
+    it('activates the heading named by the new hash, holds it during the scroll and resumes observer updates afterwards', async () => {
+        let callback: IntersectionObserverCallback | undefined; const previous = globalThis.IntersectionObserver;
+        globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe() {} disconnect() {} } as unknown as typeof IntersectionObserver;
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        const targets = document.createElement('div'); targets.innerHTML = ids.map(id => `<h2 id="${id}">target</h2>`).join(''); document.body.appendChild(targets);
+        history.replaceState(null, '', '#');
+        const entry = '../../app/iso-11179-1-2023-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        const navigate = (hash: string) => act(() => { history.replaceState(null, '', hash); window.dispatchEvent(new Event('hashchange')); });
+        const intersect = (id: string) => act(() => callback!([{ isIntersecting: true, target: document.getElementById(id)! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+        try {
+            navigate(`#${ids[3]}`);
+            expect(current()).toBe(`#${ids[3]}`);
+            navigate('#not-a-toc-heading');
+            expect(current()).toBe(`#${ids[3]}`);
+            // スクロール中に通過する見出しでは現在地を変えない
+            intersect(ids[2]!);
+            expect(current()).toBe(`#${ids[3]}`);
+            act(() => { window.dispatchEvent(new Event('scrollend')); });
+            intersect(ids[1]!);
+            expect(current()).toBe(`#${ids[1]}`);
+        } finally { view.unmount(); targets.remove(); history.replaceState(null, '', '#'); globalThis.IntersectionObserver = previous; }
+    });
+    it('activates the heading named by the hash on direct load without hashchange or observer detection', async () => {
+        const previous = globalThis.IntersectionObserver;
+        // Observer は一切通知しない。初期ハッシュだけで現在地が決まることを検証する
+        globalThis.IntersectionObserver = class { observe() {} disconnect() {} } as unknown as typeof IntersectionObserver;
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        const targets = document.createElement('div'); targets.innerHTML = ids.map(id => `<h2 id="${id}">target</h2>`).join(''); document.body.appendChild(targets);
+        history.replaceState(null, '', `#${ids[4]}`);
+        const entry = '../../app/iso-11179-1-2023-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        try {
+            expect(current()).toBe(`#${ids[4]}`);
+        } finally { view.unmount(); targets.remove(); history.replaceState(null, '', '#'); globalThis.IntersectionObserver = previous; }
+    });
+    it('ignores a malformed percent-encoded hash without throwing and keeps the current heading', async () => {
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        // dispatchEvent は例外を握りつぶす実装があるため、登録されたハンドラーを直接呼び出して検証する
+        const handlers: EventListener[] = []; const original = window.addEventListener.bind(window);
+        window.addEventListener = ((type: string, listener: EventListener, options?: AddEventListenerOptions) => {
+            if (type === 'hashchange') handlers.push(listener);
+            original(type, listener, options);
+        }) as typeof window.addEventListener;
+        history.replaceState(null, '', '#');
+        const entry = '../../app/iso-11179-1-2023-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        const fire = (hash: string) => act(() => { history.replaceState(null, '', hash); for (const handler of handlers) handler(new Event('hashchange')); });
+        try {
+            expect(handlers.length).toBeGreaterThan(0);
+            fire(`#${ids[2]}`);
+            expect(current()).toBe(`#${ids[2]}`);
+            expect(() => fire('#%E0%A4%A')).not.toThrow();
+            expect(current()).toBe(`#${ids[2]}`);
+        } finally { view.unmount(); window.addEventListener = original; history.replaceState(null, '', '#'); }
     });
 });
 
