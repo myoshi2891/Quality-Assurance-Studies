@@ -252,6 +252,32 @@ describe('review fixes', () => {
         expect(source.indexOf('<Diagram id="diagram-12" />')).toBeLessThan(source.indexOf('<ol'));
         expect(source.indexOf('<ol')).toBeLessThan(source.indexOf('id="7-3-命名定義のルールは別パートへ"'));
     });
+    ([
+        ['diagram-1', 'Section01.tsx', 'ol', '0-2-先に押さえる3行まとめ', [
+            'STEP 1：課題を知る', 'STEP 2：規格の位置づけ', 'STEP 3：ファミリー全体像', 'STEP 4：2023年版の変更点', 'STEP 5：コア概念',
+            'STEP 6：2層構造', 'STEP 7：運用と役割', 'STEP 8：他規格・実装', 'STEP 9：実践', 'STEP 10：確認',
+        ]],
+        ['diagram-5', 'Section05.tsx', 'ul', '4-4-学習者への影響', [
+            '従来の Part 3（基本属性・データ記述・共通機能など）は、2023年版で Part 3（共通機能）・Part 30（基本属性）・Part 31（データ仕様）・Part 32（概念体系）に分割された。',
+            '従来の Part 7:2019（データセット登録）は、2023年版の Part 33（データセット）に対応する。',
+            '従来の ISO/IEC 19763-10:2014（モデル登録）は、2023年版の Part 35（モデル）に対応する。',
+        ]],
+        ['diagram-8', 'Section06.tsx', 'ul', '5-5-step-5-dデータエレメントde-dec--vd', [
+            'データエレメントの表現には、値領域（VD）とともにデータ型（文字・整数・日付など）が含まれる。',
+            'データエレメントの表現には、値領域（VD）とともに測定単位（mmHg・kg など）が含まれる。',
+            '値領域（VD）は、列挙または規則によって定義される許容値の集合を表す。',
+            '表現クラス（コード・日付・数量など）は、値領域の構成要素ではなく、表現の種類（タイプ）を分類する。',
+        ]],
+    ] as const).forEach(([id, file, tag, nextHeading, expected]) => it(`${id} is followed by a ${tag} text alternative of every relationship`, () => {
+        const Section = sourceModule(base+'/'+file).default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Section />), {}, false);
+        expect($(tag).first().children('li').map((_, li) => norm($(li).text())).get()).toEqual([...expected]);
+        const source = readFileSync(base+'/'+file, 'utf8');
+        const diagramIndex = source.indexOf(`<Diagram id="${id}" />`);
+        expect(diagramIndex).toBeGreaterThanOrEqual(0);
+        expect(diagramIndex).toBeLessThan(source.indexOf('<'+tag));
+        expect(source.indexOf('<'+tag)).toBeLessThan(source.indexOf(`id="${nextHeading}"`));
+    }));
     it('STEP 5-A example names the property 純収入, matching diagram-7', async () => {
         const Section = sourceModule(base+'/Section06.tsx').default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Section />), {}, false);
