@@ -107,6 +107,8 @@ describe('TOC interactions', () => {
         const previous = globalThis.IntersectionObserver; let callback: IntersectionObserverCallback | undefined; const observed: Element[] = []; const disconnect = mock(() => {});
         globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe(el: Element) { observed.push(el); } disconnect = disconnect; } as unknown as typeof IntersectionObserver;
         const targets = document.createElement('div'); targets.innerHTML = inventory.groups.toc.items.map(a => `<h2 id="${a.attrs['data-target']}">target</h2>`).join(''); document.body.appendChild(targets);
+        // 前のテストのリンククリックで残ったハッシュがマウント時の選択として扱われないよう初期化する
+        history.replaceState(null, '', '#');
         try {
             const entry = '../../app/iso-9075-1-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
             expect(observed.map(el => el.id)).toEqual(inventory.groups.toc.items.map(a => a.attrs['data-target']));

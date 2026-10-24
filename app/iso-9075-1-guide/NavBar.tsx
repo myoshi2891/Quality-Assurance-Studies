@@ -56,6 +56,7 @@ export default function NavBar() {
     }, []);
 
     // ブラウザ履歴（戻る/進む）によるハッシュ変更にも追従する。直後のスクロール中はクリック時と同様に保持する
+    // 見出しハッシュ付きの直接アクセスでは hashchange が発火しないため、マウント時にも同じ判定を行う
     useEffect(() => {
         const onHashChange = () => {
             let id: string;
@@ -71,6 +72,7 @@ export default function NavBar() {
             setActive(id);
             scheduleSettle();
         };
+        onHashChange();
         window.addEventListener('hashchange', onHashChange);
         return () => window.removeEventListener('hashchange', onHashChange);
     }, [scheduleSettle]);
