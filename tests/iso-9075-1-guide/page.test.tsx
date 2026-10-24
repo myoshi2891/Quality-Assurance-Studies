@@ -274,6 +274,19 @@ describe('toc follows browser history hash changes', () => {
             expect(current()).toBe(`#${ids[1]}`);
         } finally { view.unmount(); targets.remove(); history.replaceState(null, '', '#'); globalThis.IntersectionObserver = previous; }
     });
+    it('activates the heading named by the hash on direct load without hashchange or observer detection', async () => {
+        const previous = globalThis.IntersectionObserver;
+        // Observer は一切通知しない。初期ハッシュだけで現在地が決まることを検証する
+        globalThis.IntersectionObserver = class { observe() {} disconnect() {} } as unknown as typeof IntersectionObserver;
+        const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
+        const targets = document.createElement('div'); targets.innerHTML = ids.map(id => `<h2 id="${id}">target</h2>`).join(''); document.body.appendChild(targets);
+        history.replaceState(null, '', `#${ids[4]}`);
+        const entry = '../../app/iso-9075-1-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
+        try {
+            expect(current()).toBe(`#${ids[4]}`);
+        } finally { view.unmount(); targets.remove(); history.replaceState(null, '', '#'); globalThis.IntersectionObserver = previous; }
+    });
     it('ignores a malformed percent-encoded hash without throwing and keeps the current heading', async () => {
         const ids = inventory.groups.toc.items.map(a => a.attrs['data-target'] as string);
         // dispatchEvent は例外を握りつぶす実装があるため、登録されたハンドラーを直接呼び出して検証する
