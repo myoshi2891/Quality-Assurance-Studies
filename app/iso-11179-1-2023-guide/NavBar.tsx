@@ -1,20 +1,47 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { TOC_GROUPS } from './toc';
 
 const TOC_IDS = TOC_GROUPS.flatMap(group => [group.id, ...group.children.map(child => child.id)]);
 type TocLink = { readonly id: string; readonly label: string };
+/** scrollend 非対応ブラウザや、スクロールが発生しない場合のロック解除フォールバック(ms) */
+const SCROLL_LOCK_FALLBACK_MS = 1200;
 
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState('');
     const sidebarRef = useRef<HTMLElement>(null);
     const toggleRef = useRef<HTMLButtonElement>(null);
+    // クリック後のスムーススクロール中は中間見出しでの active 更新を抑止する
+    const scrollLockRef = useRef(false);
+    const unlockRef = useRef<(() => void) | null>(null);
+
+    const releaseScrollLock = useCallback(() => {
+        unlockRef.current?.();
+        unlockRef.current = null;
+    }, []);
+
+    const lockScroll = useCallback(() => {
+        releaseScrollLock();
+        scrollLockRef.current = true;
+        const timer = window.setTimeout(() => unlockRef.current?.(), SCROLL_LOCK_FALLBACK_MS);
+        const onEnd = () => unlockRef.current?.();
+        window.addEventListener('scrollend', onEnd, { once: true });
+        unlockRef.current = () => {
+            scrollLockRef.current = false;
+            window.clearTimeout(timer);
+            window.removeEventListener('scrollend', onEnd);
+            unlockRef.current = null;
+        };
+    }, [releaseScrollLock]);
+
+    useEffect(() => releaseScrollLock, [releaseScrollLock]);
 
     useEffect(() => {
         if (typeof IntersectionObserver === 'undefined') return;
         const observer = new IntersectionObserver(entries => {
+            if (scrollLockRef.current) return;
             for (const entry of entries) {
                 if (entry.isIntersecting) setActive(entry.target.id);
             }
@@ -55,6 +82,8 @@ export default function NavBar() {
             className={level + (active === item.id ? ' active' : '')}
             aria-current={active === item.id ? 'location' : undefined}
             onClick={() => {
+                setActive(item.id);
+                lockScroll();
                 // 閉じて非表示になるサイドバー内にフォーカスを残さない（アンカーへのスクロールは妨げない）
                 if (isOpen) toggleRef.current?.focus({ preventScroll: true });
                 setIsOpen(false);
