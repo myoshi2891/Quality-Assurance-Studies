@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-23
+Updated 2026-10-24
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -226,8 +226,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - ドロワーはガイド数に対してスケールするよう、検索ボックス + `<details>` アコーディオン方式。
   既定では現在ページのカテゴリのみ展開し、検索中は残ったカテゴリを全展開する
 - index（`/`）は ISTQB の認定レベルの階梯を情報構造として使う。ヒーローは階段で、段の縦位置が
-  資格レベルの高さ、バーの伸びがそのレベルのガイド数。バーの軌道幅は全段で固定（`--bar-col`）で、
-  `1fr` にすると量の比較が壊れる。CI/CD・ツール・書籍は階梯の段ではないため `data-track="practice"`
+  資格レベルの高さ、バーの伸びがそのレベルのガイド数。全段が同じ列定義を共有するためバーの軌道幅は等しく、
+  段ごとに列幅を変えると量の比較が壊れる。カテゴリ名はタッチでも読めるよう常時表示する。CI/CD・ツール・書籍は階梯の段ではないため `data-track="practice"`
   として「実務の棚」に分ける。いずれも装飾ではないので変更時に意味を壊さないこと
 - レベル色（`--level`）は寒色 → 暖色の 1 本のランプ。定義は `app/globals.css` の
   `[data-category='...']` にあり、index とドロワーがこの 1 箇所を共有する
