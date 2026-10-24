@@ -76,7 +76,7 @@ describe('Web フォントの font-display: optional 化', () => {
                 // Assert
                 expect(faces.length).toBeGreaterThan(0);
                 expect(optional.length).toBe(faces.length);
-                expect(css).not.toMatch(/font-display:\s*(?!optional)/);
+                expect(css).not.toMatch(/font-display:\s*(?!optional\b)[a-z]/);
             });
 
             it('全 url() が実在する同梱フォントファイルを指す', () => {

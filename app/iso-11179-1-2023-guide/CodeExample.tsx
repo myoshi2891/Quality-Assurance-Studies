@@ -1,5 +1,5 @@
 import React from 'react';
-import '@fontsource/jetbrains-mono/600.css';
+import '../fonts/jetbrains-mono-600.css';
 
 // Runtime LF text survives both Next.js/SWC JSX transforms and preserves clipboard text.
 function CodeLine({ children, newline }: { children?: React.ReactNode; newline: boolean }) {

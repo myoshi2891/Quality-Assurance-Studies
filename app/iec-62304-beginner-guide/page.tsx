@@ -1,5 +1,5 @@
 import React from 'react';
-import '@fontsource/noto-sans-jp/800.css';
+import '../fonts/noto-sans-jp-800.css';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
 import Section01 from './Section01';
