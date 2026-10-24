@@ -132,7 +132,7 @@ describe('toc follows browser history hash changes', () => {
         const entry = '../../app/iso-11179-1-2023-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
         const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('href');
         const navigate = (hash: string) => act(() => { history.replaceState(null, '', hash); window.dispatchEvent(new Event('hashchange')); });
-        const intersect = (id: string) => act(() => callback!([{ isIntersecting: true, target: document.getElementById(id)! }] as IntersectionObserverEntry[], {} as IntersectionObserver));
+        const intersect = (id: string) => act(() => callback!([{ isIntersecting: true, target: document.getElementById(id)! }] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
         try {
             navigate(`#${ids[3]}`);
             expect(current()).toBe(`#${ids[3]}`);
