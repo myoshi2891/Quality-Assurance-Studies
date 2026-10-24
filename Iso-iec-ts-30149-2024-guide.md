@@ -508,23 +508,23 @@ Reliabilityは想定条件下で機能を果たし続ける力、Resilienceは�
 
 | 内容 | URL |
 |---|---|
-| ISO公式ページ（基本情報・要旨） | <https://www.iso.org/standard/53269.html> |
-| IECストア（発行日・stability date・ページ数） | <https://webstore.iec.ch/en/publication/67281> |
-| 規格プレビューPDF（目次・序文・Scope・用語定義） | <https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf> |
-| カナダ規格データベース（CSA採用 2026-01-31） | <https://ccn-scc.ca/standardsdb/standards/4034053> |
-| SC 41 事業計画2020（信頼性の位置づけ） | <https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf> |
+| ISO公式ページ（基本情報・要旨） | <a href="https://www.iso.org/standard/53269.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53269.html</a> |
+| IECストア（発行日・stability date・ページ数） | <a href="https://webstore.iec.ch/en/publication/67281" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/67281</a> |
+| 規格プレビューPDF（目次・序文・Scope・用語定義） | <a href="https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf" target="_blank" rel="noopener noreferrer">https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf</a> |
+| カナダ規格データベース（CSA採用 2026-01-31） | <a href="https://ccn-scc.ca/standardsdb/standards/4034053" target="_blank" rel="noopener noreferrer">https://ccn-scc.ca/standardsdb/standards/4034053</a> |
+| SC 41 事業計画2020（信頼性の位置づけ） | <a href="https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf" target="_blank" rel="noopener noreferrer">https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf</a> |
 
 ### 14.2 国際的な開発者・企業による解説
 
 | 内容 | 発信者 | URL |
 |---|---|---|
-| Why standardization matters: from convenience to saving lives（2024年10月、TS 30149の策定に参加した旨と5特性の解説） | Kaspersky | <https://www.kaspersky.com/blog/iot-trustworthiness-iec-30149/52392/> |
-| 5特性の定義と相互関係の解説ブログ | Industry IoT Consortium（IIC）Trustworthiness Task Group | <https://iiconsortium.org/?p=1660> |
-| IIoT Trustworthiness Framework Foundations公表（2021年7月）のニュース | IIC / Control Engineering | <https://www.controleng.com/?p=115950> |
-| IIC 2021年第2四半期報告（信頼性メソッドの例） | IIC | <https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf> |
-| IIC 2017年第4四半期報告（特性が互いに関連し調整が必要） | IIC | <https://www.iiconsortium.org/pdf/2017-12_4Q17_report_Trustworthiness_Final.pdf> |
-| IoT Trustworthiness States（Bassam Zarkout氏、IGnPower） | IIoT World | <https://www.iiot-world.com/industrial-iot/connected-industry/iot-trustworthiness-states/> |
-| Journal of Innovation 2018年9月号（IIC信頼性特集の著者一覧） | IIC | <https://www.iiconsortium.org/?p=2982> |
+| Why standardization matters: from convenience to saving lives（2024年10月、TS 30149の策定に参加した旨と5特性の解説） | Kaspersky | <a href="https://www.kaspersky.com/blog/iot-trustworthiness-iec-30149/52392/" target="_blank" rel="noopener noreferrer">https://www.kaspersky.com/blog/iot-trustworthiness-iec-30149/52392/</a> |
+| 5特性の定義と相互関係の解説ブログ | Industry IoT Consortium（IIC）Trustworthiness Task Group | <a href="https://iiconsortium.org/?p=1660" target="_blank" rel="noopener noreferrer">https://iiconsortium.org/?p=1660</a> |
+| IIoT Trustworthiness Framework Foundations公表（2021年7月）のニュース | IIC / Control Engineering | <a href="https://www.controleng.com/?p=115950" target="_blank" rel="noopener noreferrer">https://www.controleng.com/?p=115950</a> |
+| IIC 2021年第2四半期報告（信頼性メソッドの例） | IIC | <a href="https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf</a> |
+| IIC 2017年第4四半期報告（特性が互いに関連し調整が必要） | IIC | <a href="https://www.iiconsortium.org/pdf/2017-12_4Q17_report_Trustworthiness_Final.pdf" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/pdf/2017-12_4Q17_report_Trustworthiness_Final.pdf</a> |
+| IoT Trustworthiness States（Bassam Zarkout氏、IGnPower） | IIoT World | <a href="https://www.iiot-world.com/industrial-iot/connected-industry/iot-trustworthiness-states/" target="_blank" rel="noopener noreferrer">https://www.iiot-world.com/industrial-iot/connected-industry/iot-trustworthiness-states/</a> |
+| Journal of Innovation 2018年9月号（IIC信頼性特集の著者一覧） | IIC | <a href="https://www.iiconsortium.org/?p=2982" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/?p=2982</a> |
 
 ---
 

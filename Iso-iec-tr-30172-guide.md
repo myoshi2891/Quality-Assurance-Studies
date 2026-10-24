@@ -434,7 +434,7 @@ flowchart LR
 |---|---|---|
 | **ISO/IEC 30173:2023** | Digital twin — Concepts and terminology（概念と用語） | 本書の用語定義の出典。SC 41が2023年に発行した姉妹規格 |
 | **ISO 23247 シリーズ** | 製造向けデジタルツインフレームワーク（ISO/TC 184/SC 4） | 製造領域で内容が重なる。Part 1〜4は2021年、Part 5（デジタルスレッド）は2026年6月に発行、Part 6（構成）も2026年版が掲載 |
-| ISO/IEC 30188:2026 | Digital twin — Reference architecture（参照アーキテクチャ） | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2026年7月／2026-07-22発行） |
+| ISO/IEC 30188:2026 | Digital twin — Reference architecture（参照アーキテクチャ） | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2026年7月／2026-07-31発行） |
 | ISO/IEC 30186:2025 | Digital twin — Maturity model and guidance for a maturity assessment | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2025年7月／2025-07-14発行） |
 | ISO/IEC 30194:2024 | Best practices for use case projects | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2024年12月発行） |
 | ISO/TR 24464:2025 | Visualization elements of digital twin — Visualization fidelity | 2025年発行のDTw関連文書として論文で言及 |
@@ -555,29 +555,29 @@ flowchart LR
 
 | # | ソース | URL | 確認した内容 |
 |---|---|---|---|
-| 1 | ISO 公式ページ | <https://www.iso.org/standard/81578.html> | 題名、抄録、版、ページ数、委員会、ステージ、価格 |
-| 2 | VDE Verlag 公開プレビューPDF | <https://assets.vde-verlag.de/iec-normen/preview-pdf/info_isoiectr30172%7Bed1.0%7Den.pdf> | 目次、序文、箇条1〜3.3、図表一覧 |
-| 3 | iTeh Standards（サンプル） | <https://iteh.es/catalog/standards/iec/169258c6-aff5-437e-8a46-aa74c2bf85cc/iso-iec-tr-30172-2023> | 目次の一部、ICSコード等 |
-| 4 | カナダ SCC 規格DB | <https://scc-ccn.ca/standardsdb/standards/8187911> | 範囲、発行日 |
-| 5 | StandICT.eu | <https://www.standict.eu/standards-repository/isoiec-tr-30172-ed1digital-twin-use-cases> | 規格リポジトリ上の位置づけ |
-| 6 | ISO/IEC 30173:2023（ISO） | <https://www.iso.org/standard/81442.html> | 概念と用語の範囲 |
-| 7 | ISO/IEC 30173:2023（IEC Webstore） | <https://webstore.iec.ch/publication/68081> | 発行日、ページ数 |
-| 8 | ISO 23247-5:2026 | <https://www.iso.org/standard/87425.html> | デジタルスレッド規格の範囲・発行 |
-| 9 | ISO 23247-6:2026（ANSI） | <https://webstore.ansi.org/standards/iso/iso232472026-2614645> | 構成（composition）規格の範囲 |
+| 1 | ISO 公式ページ | <a href="https://www.iso.org/standard/81578.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/81578.html</a> | 題名、抄録、版、ページ数、委員会、ステージ、価格 |
+| 2 | VDE Verlag 公開プレビューPDF | <a href="https://assets.vde-verlag.de/iec-normen/preview-pdf/info_isoiectr30172%7Bed1.0%7Den.pdf" target="_blank" rel="noopener noreferrer">https://assets.vde-verlag.de/iec-normen/preview-pdf/info_isoiectr30172%7Bed1.0%7Den.pdf</a> | 目次、序文、箇条1〜3.3、図表一覧 |
+| 3 | iTeh Standards（サンプル） | <a href="https://iteh.es/catalog/standards/iec/169258c6-aff5-437e-8a46-aa74c2bf85cc/iso-iec-tr-30172-2023" target="_blank" rel="noopener noreferrer">https://iteh.es/catalog/standards/iec/169258c6-aff5-437e-8a46-aa74c2bf85cc/iso-iec-tr-30172-2023</a> | 目次の一部、ICSコード等 |
+| 4 | カナダ SCC 規格DB | <a href="https://scc-ccn.ca/standardsdb/standards/8187911" target="_blank" rel="noopener noreferrer">https://scc-ccn.ca/standardsdb/standards/8187911</a> | 範囲、発行日 |
+| 5 | StandICT.eu | <a href="https://www.standict.eu/standards-repository/isoiec-tr-30172-ed1digital-twin-use-cases" target="_blank" rel="noopener noreferrer">https://www.standict.eu/standards-repository/isoiec-tr-30172-ed1digital-twin-use-cases</a> | 規格リポジトリ上の位置づけ |
+| 6 | ISO/IEC 30173:2023（ISO） | <a href="https://www.iso.org/standard/81442.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/81442.html</a> | 概念と用語の範囲 |
+| 7 | ISO/IEC 30173:2023（IEC Webstore） | <a href="https://webstore.iec.ch/publication/68081" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/68081</a> | 発行日、ページ数 |
+| 8 | ISO 23247-5:2026 | <a href="https://www.iso.org/standard/87425.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/87425.html</a> | デジタルスレッド規格の範囲・発行 |
+| 9 | ISO 23247-6:2026（ANSI） | <a href="https://webstore.ansi.org/standards/iso/iso232472026-2614645" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/standards/iso/iso232472026-2614645</a> | 構成（composition）規格の範囲 |
 
 ### 解説・業界団体・研究機関
 
 | # | ソース | URL | 確認した内容 |
 |---|---|---|---|
-| 10 | Sirris（ベルギー）解説ページ | <https://sirris.be/en/inspiration/look-latest-standardisation-projects-field-digital-twins> | SC 41の規格群と30172の領域 |
-| 11 | ルクセンブルク標準化資料（PDF） | <https://portail-qualite.public.lu/dam-assets/publications/normalisation/2023/fiche-technique-digital-twin.pdf> | DTw関連規格の俯瞰 |
-| 12 | 学術論文（KPI Science News, 2025） | <https://scinews.kpi.ua/article/view/337306> | ISO/IEC 30173・23247・IEC 63278-1等の比較分析 |
-| 13 | NIST（Shao）製造DTw標準の論文 | <https://www.nist.gov/node/1862836> | 製造DTwのユースケースと標準化動向 |
-| 14 | NIST（Shao & Helu）製造DTwフレームワーク | <https://www.nist.gov/node/1615601> | ISO 23247の背景 |
-| 15 | Digital Twin Consortium CPT | <https://www.digitaltwinconsortium.org/initiatives/capabilities-periodic-table/> | 能力要件フレームワーク |
-| 16 | Automation.com：CPT v1.1 | <https://www.automation.com/article/digital-twin-capabilities-periodic-table-v1-1> | v1.1の新機能 |
-| 17 | Eclipse Ditto | <https://projects.eclipse.org/projects/iot.ditto> | DTw状態管理OSSの概要 |
-| 18 | DTDL（Microsoft、GitHub上の複製リポジトリ） | <https://github.com/gnakti/opendigitaltwins-dtdl> | DTDLの概要（公式リポジトリの確認も推奨） |
+| 10 | Sirris（ベルギー）解説ページ | <a href="https://sirris.be/en/inspiration/look-latest-standardisation-projects-field-digital-twins" target="_blank" rel="noopener noreferrer">https://sirris.be/en/inspiration/look-latest-standardisation-projects-field-digital-twins</a> | SC 41の規格群と30172の領域 |
+| 11 | ルクセンブルク標準化資料（PDF） | <a href="https://portail-qualite.public.lu/dam-assets/publications/normalisation/2023/fiche-technique-digital-twin.pdf" target="_blank" rel="noopener noreferrer">https://portail-qualite.public.lu/dam-assets/publications/normalisation/2023/fiche-technique-digital-twin.pdf</a> | DTw関連規格の俯瞰 |
+| 12 | 学術論文（KPI Science News, 2025） | <a href="https://scinews.kpi.ua/article/view/337306" target="_blank" rel="noopener noreferrer">https://scinews.kpi.ua/article/view/337306</a> | ISO/IEC 30173・23247・IEC 63278-1等の比較分析 |
+| 13 | NIST（Shao）製造DTw標準の論文 | <a href="https://www.nist.gov/node/1862836" target="_blank" rel="noopener noreferrer">https://www.nist.gov/node/1862836</a> | 製造DTwのユースケースと標準化動向 |
+| 14 | NIST（Shao & Helu）製造DTwフレームワーク | <a href="https://www.nist.gov/node/1615601" target="_blank" rel="noopener noreferrer">https://www.nist.gov/node/1615601</a> | ISO 23247の背景 |
+| 15 | Digital Twin Consortium CPT | <a href="https://www.digitaltwinconsortium.org/initiatives/capabilities-periodic-table/" target="_blank" rel="noopener noreferrer">https://www.digitaltwinconsortium.org/initiatives/capabilities-periodic-table/</a> | 能力要件フレームワーク |
+| 16 | Automation.com：CPT v1.1 | <a href="https://www.automation.com/article/digital-twin-capabilities-periodic-table-v1-1" target="_blank" rel="noopener noreferrer">https://www.automation.com/article/digital-twin-capabilities-periodic-table-v1-1</a> | v1.1の新機能 |
+| 17 | Eclipse Ditto | <a href="https://projects.eclipse.org/projects/iot.ditto" target="_blank" rel="noopener noreferrer">https://projects.eclipse.org/projects/iot.ditto</a> | DTw状態管理OSSの概要 |
+| 18 | DTDL（Microsoft、GitHub上の複製リポジトリ） | <a href="https://github.com/gnakti/opendigitaltwins-dtdl" target="_blank" rel="noopener noreferrer">https://github.com/gnakti/opendigitaltwins-dtdl</a> | DTDLの概要（公式リポジトリの確認も推奨） |
 
 ---
 

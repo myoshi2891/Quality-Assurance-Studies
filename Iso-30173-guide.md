@@ -588,36 +588,36 @@ flowchart TB
 
 | # | ソース | URL | 確認できた内容 |
 |---|---|---|---|
-| 1 | ISO公式ページ（ご指定のURL） | <https://www.iso.org/standard/81442.html> | 発行年月、版、ページ数、価格、所管、抄録 |
-| 2 | VDE出版 無料プレビューPDF（IEC版） | <https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30173{ed1.0}en.pdf> | 目次全体、序文、適用範囲、3.1.1・3.1.2の定義 |
-| 3 | iTeh Standards（目次の抜粋） | <https://iteh.es/catalog/standards/iec/e0ed45a5-319d-4cbc-a742-3706ec7c40ed/iso-iec-30173-2023> | 目次の一部 |
-| 4 | AFNOR | <https://www.boutique.afnor.org/en-gb/standard/iso-iec-301732023/digital-twin-concepts-and-terminology/xs144498/354004> | 28ページ、発行2023年11月 |
-| 5 | ANSI Webstore | <https://webstore.ansi.org/standards/iso/isoiec301732023> | 抄録、版情報 |
-| 6 | StandICT.eu | <https://standict.eu/standards-repository/isoiec-30173-ed1digital-twin-concepts-and-terminology> | 規格開発段階での抄録（ライフサイクル、分類などの記述） |
+| 1 | ISO公式ページ（ご指定のURL） | <a href="https://www.iso.org/standard/81442.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/81442.html</a> | 発行年月、版、ページ数、価格、所管、抄録 |
+| 2 | VDE出版 無料プレビューPDF（IEC版） | <a href="https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30173{ed1.0}en.pdf" target="_blank" rel="noopener noreferrer">https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30173{ed1.0}en.pdf</a> | 目次全体、序文、適用範囲、3.1.1・3.1.2の定義 |
+| 3 | iTeh Standards（目次の抜粋） | <a href="https://iteh.es/catalog/standards/iec/e0ed45a5-319d-4cbc-a742-3706ec7c40ed/iso-iec-30173-2023" target="_blank" rel="noopener noreferrer">https://iteh.es/catalog/standards/iec/e0ed45a5-319d-4cbc-a742-3706ec7c40ed/iso-iec-30173-2023</a> | 目次の一部 |
+| 4 | AFNOR | <a href="https://www.boutique.afnor.org/en-gb/standard/iso-iec-301732023/digital-twin-concepts-and-terminology/xs144498/354004" target="_blank" rel="noopener noreferrer">https://www.boutique.afnor.org/en-gb/standard/iso-iec-301732023/digital-twin-concepts-and-terminology/xs144498/354004</a> | 28ページ、発行2023年11月 |
+| 5 | ANSI Webstore | <a href="https://webstore.ansi.org/standards/iso/isoiec301732023" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/standards/iso/isoiec301732023</a> | 抄録、版情報 |
+| 6 | StandICT.eu | <a href="https://standict.eu/standards-repository/isoiec-30173-ed1digital-twin-concepts-and-terminology" target="_blank" rel="noopener noreferrer">https://standict.eu/standards-repository/isoiec-30173-ed1digital-twin-concepts-and-terminology</a> | 規格開発段階での抄録（ライフサイクル、分類などの記述） |
 
 ### 13-2. 関連規格
 
 | # | ソース | URL | 確認できた内容 |
 |---|---|---|---|
-| 7 | ISO 23247-1:2021 概要（iTeh） | <https://iteh.eu/catalog/standards/iso/7df6fef2-6487-43da-9a48-eaba332a9ffc/iso-23247-1-2021> | 製造向けDTフレームワークの概要と一般原則 |
-| 8 | ISO 23247-2 概要（BSI） | <https://shop-checkout.bsigroup.com/products/automation-systems-and-integration-digital-twin-framework-for-manufacturing-reference-architecture> | 参照アーキテクチャ、OMEの対象 |
-| 9 | ISO 23247-4 概要（BSI） | <https://shop-checkout.bsigroup.com/products/automation-systems-and-integration-digital-twin-framework-for-manufacturing-information-exchange> | 4種類のネットワーク要件 |
-| 10 | Sirris 解説PDF | <https://sirris.be/print/pdf/node/13329> | 23247が30141に基づくこと、30172・30173との位置づけ |
+| 7 | ISO 23247-1:2021 概要（iTeh） | <a href="https://iteh.eu/catalog/standards/iso/7df6fef2-6487-43da-9a48-eaba332a9ffc/iso-23247-1-2021" target="_blank" rel="noopener noreferrer">https://iteh.eu/catalog/standards/iso/7df6fef2-6487-43da-9a48-eaba332a9ffc/iso-23247-1-2021</a> | 製造向けDTフレームワークの概要と一般原則 |
+| 8 | ISO 23247-2 概要（BSI） | <a href="https://shop-checkout.bsigroup.com/products/automation-systems-and-integration-digital-twin-framework-for-manufacturing-reference-architecture" target="_blank" rel="noopener noreferrer">https://shop-checkout.bsigroup.com/products/automation-systems-and-integration-digital-twin-framework-for-manufacturing-reference-architecture</a> | 参照アーキテクチャ、OMEの対象 |
+| 9 | ISO 23247-4 概要（BSI） | <a href="https://shop-checkout.bsigroup.com/products/automation-systems-and-integration-digital-twin-framework-for-manufacturing-information-exchange" target="_blank" rel="noopener noreferrer">https://shop-checkout.bsigroup.com/products/automation-systems-and-integration-digital-twin-framework-for-manufacturing-information-exchange</a> | 4種類のネットワーク要件 |
+| 10 | Sirris 解説PDF | <a href="https://sirris.be/print/pdf/node/13329" target="_blank" rel="noopener noreferrer">https://sirris.be/print/pdf/node/13329</a> | 23247が30141に基づくこと、30172・30173との位置づけ |
 
 ### 13-3. 国際的な開発者コミュニティ・ベンダーの公開情報
 
 | # | ソース | URL | 確認できた内容 |
 |---|---|---|---|
-| 11 | DTC Capabilities Periodic Table 1.1（プレスリリース） | <https://www.automation.com/article/digital-twin-capabilities-periodic-table-v1-1> | 2024年4月のv1.1発表、Dan Isaacs氏のコメント |
-| 12 | Control Engineering（CPT v1.1） | <https://www.controleng.com/digital-twin-capabilities-periodic-table-released/> | Pieter van Schalkwyk氏のコメント、新能力（責任・検索） |
-| 13 | DTC CPT ユーザーガイド v1.1 | <https://www.digitaltwinconsortium.org/wp-content/uploads/sites/3/2024/04/DTC_Capabilities-Periodic-Table-User-Guide-v1.1.pdf> | CPTの構成 |
-| 14 | Philly ETE 2023 Dan Isaacs講演 | <https://chariotsolutions.com/screencast/philly-ete-2023-demystifying-digital-twins-the-digital-twin-consortiums-capabilities-periodic-table-dan-isaacs/> | CPTの要件定義での使い方 |
-| 15 | Microsoft Learn: Azure Digital Twins モデル | <https://learn.microsoft.com/azure/digital-twins/concepts-models> | DTDLの概要、v2・v3対応 |
-| 16 | DTDL v2 言語仕様（GitHub Pages） | <https://azure.github.io/opendigitaltwins-dtdl/DTDL/v2/DTDL.v2.html> | DTDLの目的とメタモデル |
-| 17 | Eclipse Ditto プロジェクトページ | <https://projects.eclipse.org/projects/iot.ditto> | デジタルツインパターンのフレームワークとしての説明 |
-| 18 | Eclipse Ditto 紹介スライド（2023年1月） | <https://eclipse.dev/ditto/slides/2023_01_ditto-in-30-min/index.html> | 状態永続化、検索、認可、WoT連携 |
-| 19 | Eclipse Ditto × WoT 統合 | <https://eclipse.dev/ditto/basic-wot-integration.html> | Thing ModelとThing Descriptionの関係 |
-| 20 | Eclipse Newsroom（Ditto紹介記事） | <https://newsroom.eclipse.org/node/39109> | W3C WoTとの連携 |
+| 11 | DTC Capabilities Periodic Table 1.1（プレスリリース） | <a href="https://www.automation.com/article/digital-twin-capabilities-periodic-table-v1-1" target="_blank" rel="noopener noreferrer">https://www.automation.com/article/digital-twin-capabilities-periodic-table-v1-1</a> | 2024年4月のv1.1発表、Dan Isaacs氏のコメント |
+| 12 | Control Engineering（CPT v1.1） | <a href="https://www.controleng.com/digital-twin-capabilities-periodic-table-released/" target="_blank" rel="noopener noreferrer">https://www.controleng.com/digital-twin-capabilities-periodic-table-released/</a> | Pieter van Schalkwyk氏のコメント、新能力（責任・検索） |
+| 13 | DTC CPT ユーザーガイド v1.1 | <a href="https://www.digitaltwinconsortium.org/wp-content/uploads/sites/3/2024/04/DTC_Capabilities-Periodic-Table-User-Guide-v1.1.pdf" target="_blank" rel="noopener noreferrer">https://www.digitaltwinconsortium.org/wp-content/uploads/sites/3/2024/04/DTC_Capabilities-Periodic-Table-User-Guide-v1.1.pdf</a> | CPTの構成 |
+| 14 | Philly ETE 2023 Dan Isaacs講演 | <a href="https://chariotsolutions.com/screencast/philly-ete-2023-demystifying-digital-twins-the-digital-twin-consortiums-capabilities-periodic-table-dan-isaacs/" target="_blank" rel="noopener noreferrer">https://chariotsolutions.com/screencast/philly-ete-2023-demystifying-digital-twins-the-digital-twin-consortiums-capabilities-periodic-table-dan-isaacs/</a> | CPTの要件定義での使い方 |
+| 15 | Microsoft Learn: Azure Digital Twins モデル | <a href="https://learn.microsoft.com/azure/digital-twins/concepts-models" target="_blank" rel="noopener noreferrer">https://learn.microsoft.com/azure/digital-twins/concepts-models</a> | DTDLの概要、v2・v3対応 |
+| 16 | DTDL v2 言語仕様（GitHub Pages） | <a href="https://azure.github.io/opendigitaltwins-dtdl/DTDL/v2/DTDL.v2.html" target="_blank" rel="noopener noreferrer">https://azure.github.io/opendigitaltwins-dtdl/DTDL/v2/DTDL.v2.html</a> | DTDLの目的とメタモデル |
+| 17 | Eclipse Ditto プロジェクトページ | <a href="https://projects.eclipse.org/projects/iot.ditto" target="_blank" rel="noopener noreferrer">https://projects.eclipse.org/projects/iot.ditto</a> | デジタルツインパターンのフレームワークとしての説明 |
+| 18 | Eclipse Ditto 紹介スライド（2023年1月） | <a href="https://eclipse.dev/ditto/slides/2023_01_ditto-in-30-min/index.html" target="_blank" rel="noopener noreferrer">https://eclipse.dev/ditto/slides/2023_01_ditto-in-30-min/index.html</a> | 状態永続化、検索、認可、WoT連携 |
+| 19 | Eclipse Ditto × WoT 統合 | <a href="https://eclipse.dev/ditto/basic-wot-integration.html" target="_blank" rel="noopener noreferrer">https://eclipse.dev/ditto/basic-wot-integration.html</a> | Thing ModelとThing Descriptionの関係 |
+| 20 | Eclipse Newsroom（Ditto紹介記事） | <a href="https://newsroom.eclipse.org/node/39109" target="_blank" rel="noopener noreferrer">https://newsroom.eclipse.org/node/39109</a> | W3C WoTとの連携 |
 
 ---
 

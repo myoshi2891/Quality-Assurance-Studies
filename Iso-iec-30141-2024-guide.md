@@ -65,9 +65,9 @@ ISOの公式概要によると、この規格は「共通の語彙」「再利�
 
 RAは「そのまま使う完成品」ではなく、**自分の案件に合わせて取り込む共通の土台**です。
 
-### 2.2 IoTとは（規格の序文より）
+### 2.2 IoTとは（規格の序文（Introduction）0.2より）
 
-規格の序文では、IoTの根っこを次のように説明しています（要旨）。
+規格の序文（Introduction）の0.2「About Internet of Things (IoT)」では、IoTの根っこを次のように説明しています（要旨）。
 
 - **センサー**が物理世界の情報を集める
 - **アクチュエータ**が物理世界に働きかける
@@ -126,9 +126,9 @@ flowchart LR
 
 > **補足**: ステージ90.92は「定期見直しの結果、改訂が決まった」段階を示します。**現行の有効版は2024年版**ですが、将来の改訂（第3版）に備えて、ISOの規格ページを定期的に確認すると安心です。
 
-### 3.2 規格の使われ方（序文の Figure 1 の趣旨）
+### 3.2 規格の使われ方（序文（Introduction）0.4 の Figure 1 の趣旨）
 
-序文によると、この規格の主目的は「IoTシステムの**アーキテクチャを設計する人（アーキテクト）**を支援すること」です。規格の規範的な部分を、より実装に近いアーキテクチャへ取り込めます。
+序文（Introduction）の0.4によると、この規格の主目的は「IoTシステムの**アーキテクチャを設計する人（アーキテクト）**を支援すること」です。規格の規範的な部分を、より実装に近いアーキテクチャへ取り込めます。
 
 ```mermaid
 flowchart TB
@@ -197,7 +197,7 @@ flowchart LR
 
 | 章 | タイトル | 役割 |
 |---|---|---|
-| 序文 | 一般／IoTについて／IoTの情報源／参照アーキテクチャの一般原則 | 背景と目的 |
+| 序文（Introduction） | 0.1 一般／0.2 IoTについて／0.3 IoTの情報源／0.4 参照アーキテクチャの一般原則 | 背景と目的 |
 | 1 | 適用範囲 | この規格が扱う範囲 |
 | 2 | 引用規格 | **ISO/IEC 20924**（IoTとデジタルツインの用語）を引用 |
 | 3 | 用語及び定義 | 用語はISO/IEC 20924に従う |
@@ -284,7 +284,7 @@ flowchart TB
 | IoTコンポーネント・IoTシステム・IoT環境の関係（Figure 2） | IoTの部品、それらを束ねたシステム、システムが置かれる環境の関係を整理 |
 | IoT環境の例（Figure 3） | 具体的な環境のイメージ |
 
-**初学者向けの理解のコツ**: 「このシステムはIoTか？」と迷ったとき、判断の基準を与えてくれるのがこのビューです。序文では、IoT RAが対象とするシステムを次の2点で説明しています。
+**初学者向けの理解のコツ**: 「このシステムはIoTか？」と迷ったとき、判断の基準を与えてくれるのがこのビューです。序文（Introduction）の0.1では、IoT RAが対象とするシステムを次の2点で説明しています。
 
 - 物理世界の実体を**センシング・操作する技術**を使う
 - ネットワークを介して**やり取りする構成要素**を持つ
@@ -315,7 +315,7 @@ flowchart TB
 
 - Table 6 は、**ISO/IEC TS 30149** を考慮した信頼性ビューポイントを示しています。
 - 目次には Figure 6（信頼性ビューで使う凡例）があります。
-- 序文では、物理世界とデジタル世界の両方に関わる**信頼性機能**を扱うと述べられています。
+- 序文（Introduction）の0.1では、物理世界とデジタル世界の両方に関わる**信頼性機能**を扱うと述べられています。
 
 > **信頼性（Trustworthiness）とは？**
 > 第1版の本文では、ISO/IEC 20924の定義を引いて「システムが期待どおりに動作するとステークホルダーが持つ信頼の度合い」という趣旨で説明されています。セキュリティ、プライバシー、安全、信頼性（Reliability）、レジリエンスなどを含む広い概念です。ISO委員会のニュース記事では、規格開発を率いた Dr François Coallier（JTC 1/SC 41の委員長）が、信頼性を「頼れる、安全、セキュア、プライバシーを尊重し、災害や攻撃などの混乱にも耐えられる」という意味で説明しています。
@@ -407,7 +407,7 @@ flowchart TB
 
 この規格が**アーキテクチャ記述としてどう作られているか**を説明する附属書です（ステークホルダー・関心事、ビューポイント、モデル種別、凡例、対応関係、ビューとモデル、対応関係）。
 
-序文には「アスペクト、パースペクティブ、決定事項、根拠を除き、42010:2022の要求に適合する」と書かれています。自分のプロジェクトでアーキテクチャ記述を作るときの**お手本**になります。
+序文（Introduction）の0.1には「アスペクト、パースペクティブ、決定事項、根拠を除き、42010:2022の要求に適合する」と書かれています。自分のプロジェクトでアーキテクチャ記述を作るときの**お手本**になります。
 
 ### 9.3 附属書C（参考）: IoTシステムの特性
 
@@ -584,48 +584,48 @@ ISO/IEC 20924（IoTとデジタルツインの用語）です。
 
 | 情報源 | URL | 使った内容 |
 |---|---|---|
-| ISO 公式（規格ページ） | <https://www.iso.org/standard/88800.html> | 抄録、第2版の3つの技術的変更、ステージ90.92、SC 41、ICS、53ページ |
-| ISO 委員会サイト（同ページ） | <https://committee.iso.org/standard/88800.html?browse=ics> | 同上の確認 |
-| ISO/IEC TS 30149:2024 | <https://www.iso.org/standard/53269.html> | 30141に基づく信頼性原則の位置づけ |
-| ISO SC 41 規格一覧 | <https://www.iso.org/ru/committee/6483279/x/catalogue/> | 20924、21823シリーズ、30141:2018の撤回 |
-| ISO ニュース（Reference framework for the IoT） | <https://committee.iso.org/news/ref2340.html> | Dr François Coallier（JTC 1/SC 41）の発言、信頼性の説明 |
-| IEC Webstore（2024年版） | <https://webstore.iec.ch/en/publication/66548> | IECとしての刊行情報 |
-| IEC Webstore（2018年版・撤回） | <https://webstore.iec.ch/en/publication/60606> | 第1版の撤回日（2024-08-23） |
+| ISO 公式（規格ページ） | <a href="https://www.iso.org/standard/88800.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/88800.html</a> | 抄録、第2版の3つの技術的変更、ステージ90.92、SC 41、ICS、53ページ |
+| ISO 委員会サイト（同ページ） | <a href="https://committee.iso.org/standard/88800.html?browse=ics" target="_blank" rel="noopener noreferrer">https://committee.iso.org/standard/88800.html?browse=ics</a> | 同上の確認 |
+| ISO/IEC TS 30149:2024 | <a href="https://www.iso.org/standard/53269.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53269.html</a> | 30141に基づく信頼性原則の位置づけ |
+| ISO SC 41 規格一覧 | <a href="https://www.iso.org/ru/committee/6483279/x/catalogue/" target="_blank" rel="noopener noreferrer">https://www.iso.org/ru/committee/6483279/x/catalogue/</a> | 20924、21823シリーズ、30141:2018の撤回 |
+| ISO ニュース（Reference framework for the IoT） | <a href="https://committee.iso.org/news/ref2340.html" target="_blank" rel="noopener noreferrer">https://committee.iso.org/news/ref2340.html</a> | Dr François Coallier（JTC 1/SC 41）の発言、信頼性の説明 |
+| IEC Webstore（2024年版） | <a href="https://webstore.iec.ch/en/publication/66548" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/66548</a> | IECとしての刊行情報 |
+| IEC Webstore（2018年版・撤回） | <a href="https://webstore.iec.ch/en/publication/60606" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/60606</a> | 第1版の撤回日（2024-08-23） |
 
 ### 15.2 規格プレビュー・目次（本ガイドの構成の根拠）
 
 | 情報源 | URL | 使った内容 |
 |---|---|---|
-| iTeh Standards（2024年版プレビューPDF） | <https://cdn.standards.iteh.ai/samples/88800/e545dddaf5474251a0fb9af0e2109b9e/ISO-IEC-30141-2024.pdf> | 目次、序文、適用範囲、5章（Table 1）、6.1概要 |
-| iTeh Standards（2024年版カタログ） | <https://standards.iteh.ai/catalog/standards/iec/cf861230-b8ce-43d4-8fe3-86c27178c814/iso-iec-30141-2024> | 6つのビューポイントの整理、Annex A/Bの概要 |
-| IECNORM プレビュー（2024年版） | <https://previewnorm.com/iec/ISO%20IEC%2030141-2024%20PDF.pdf> | 6.4〜6.7、構築ビューの説明 |
-| BSI Knowledge（BS ISO/IEC 30141:2024） | <https://knowledge.bsigroup.com/products/internet-of-things-iot-reference-architecture-12> | 適用範囲（英国規格としての採用） |
-| ANSI Webstore プレビュー | <https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+30141-2024.pdf> | 目次の裏取り |
-| 第1版（2018）のプレビュー | <https://iteh.es/catalog/standards/iso/06829b4e-71d3-4230-9aa9-598154487f62/iso-iec-30141-2018> | 第1版の章構成（概念モデル、ドメイン、機能／システム／ネットワーク／利用ビュー） |
-| ISO/IEC TS 30149:2024 プレビュー | <https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf> | 30141との関係図の存在 |
+| iTeh Standards（2024年版プレビューPDF） | <a href="https://cdn.standards.iteh.ai/samples/88800/e545dddaf5474251a0fb9af0e2109b9e/ISO-IEC-30141-2024.pdf" target="_blank" rel="noopener noreferrer">https://cdn.standards.iteh.ai/samples/88800/e545dddaf5474251a0fb9af0e2109b9e/ISO-IEC-30141-2024.pdf</a> | 目次、序文、適用範囲、5章（Table 1）、6.1概要 |
+| iTeh Standards（2024年版カタログ） | <a href="https://standards.iteh.ai/catalog/standards/iec/cf861230-b8ce-43d4-8fe3-86c27178c814/iso-iec-30141-2024" target="_blank" rel="noopener noreferrer">https://standards.iteh.ai/catalog/standards/iec/cf861230-b8ce-43d4-8fe3-86c27178c814/iso-iec-30141-2024</a> | 6つのビューポイントの整理、Annex A/Bの概要 |
+| IECNORM プレビュー（2024年版） | <a href="https://previewnorm.com/iec/ISO%20IEC%2030141-2024%20PDF.pdf" target="_blank" rel="noopener noreferrer">https://previewnorm.com/iec/ISO%20IEC%2030141-2024%20PDF.pdf</a> | 6.4〜6.7、構築ビューの説明 |
+| BSI Knowledge（BS ISO/IEC 30141:2024） | <a href="https://knowledge.bsigroup.com/products/internet-of-things-iot-reference-architecture-12" target="_blank" rel="noopener noreferrer">https://knowledge.bsigroup.com/products/internet-of-things-iot-reference-architecture-12</a> | 適用範囲（英国規格としての採用） |
+| ANSI Webstore プレビュー | <a href="https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+30141-2024.pdf" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/preview-pages/ISO/preview_ISO+IEC+30141-2024.pdf</a> | 目次の裏取り |
+| 第1版（2018）のプレビュー | <a href="https://iteh.es/catalog/standards/iso/06829b4e-71d3-4230-9aa9-598154487f62/iso-iec-30141-2018" target="_blank" rel="noopener noreferrer">https://iteh.es/catalog/standards/iso/06829b4e-71d3-4230-9aa9-598154487f62/iso-iec-30141-2018</a> | 第1版の章構成（概念モデル、ドメイン、機能／システム／ネットワーク／利用ビュー） |
+| ISO/IEC TS 30149:2024 プレビュー | <a href="https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf" target="_blank" rel="noopener noreferrer">https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf</a> | 30141との関係図の存在 |
 
 ### 15.3 業界団体・標準化関係者・研究機関による解説
 
 | 情報源 | URL | 使った内容 |
 |---|---|---|
-| Industrial Internet Consortium（IIC） IIRA v1.10 | <https://www.iiconsortium.org/wp-content/uploads/sites/2/2022/11/IIRA-v1.10.pdf> | IIRAがISO/IEC/IEEE 42010の考え方（関心事・ステークホルダー・ビュー・ビューポイント）を採る点 |
-| IIoT World（IIC IIRA解説） | <https://www.iiot-world.com/industrial-iot/connected-industry/iic-industrial-iot-reference-architecture/> | IIRAの概要 |
-| Birmingham City University（ERAMIS論文） | <https://www.open-access.bcu.ac.uk/7508/1/ConciseVersion-published.pdf> | 30141がIoT-AとIIRAを土台にしているという整理 |
-| The Open Group（IoT参照アーキテクチャ） | <http://www.opengroup.org/iot/wp-refarchs/p6.htm> | 草案段階の位置づけ（IIRA、oneM2Mとの並び） |
-| Stefan Malich 氏のブログ | <https://stefanmalich.com/2017/09/10/reference-models-and-architectures-related-to-smart-connected-devices-and-internet-of-things/> | IIRA・IoT-A・oneM2M・30141（当時CD）の比較。**2017年の草案段階の記事であり、第2版の内容は反映していない** |
+| Industrial Internet Consortium（IIC） IIRA v1.10 | <a href="https://www.iiconsortium.org/wp-content/uploads/sites/2/2022/11/IIRA-v1.10.pdf" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/wp-content/uploads/sites/2/2022/11/IIRA-v1.10.pdf</a> | IIRAがISO/IEC/IEEE 42010の考え方（関心事・ステークホルダー・ビュー・ビューポイント）を採る点 |
+| IIoT World（IIC IIRA解説） | <a href="https://www.iiot-world.com/industrial-iot/connected-industry/iic-industrial-iot-reference-architecture/" target="_blank" rel="noopener noreferrer">https://www.iiot-world.com/industrial-iot/connected-industry/iic-industrial-iot-reference-architecture/</a> | IIRAの概要 |
+| Birmingham City University（ERAMIS論文） | <a href="https://www.open-access.bcu.ac.uk/7508/1/ConciseVersion-published.pdf" target="_blank" rel="noopener noreferrer">https://www.open-access.bcu.ac.uk/7508/1/ConciseVersion-published.pdf</a> | 30141がIoT-AとIIRAを土台にしているという整理 |
+| The Open Group（IoT参照アーキテクチャ） | <a href="http://www.opengroup.org/iot/wp-refarchs/p6.htm" target="_blank" rel="noopener noreferrer">http://www.opengroup.org/iot/wp-refarchs/p6.htm</a> | 草案段階の位置づけ（IIRA、oneM2Mとの並び） |
+| Stefan Malich 氏のブログ | <a href="https://stefanmalich.com/2017/09/10/reference-models-and-architectures-related-to-smart-connected-devices-and-internet-of-things/" target="_blank" rel="noopener noreferrer">https://stefanmalich.com/2017/09/10/reference-models-and-architectures-related-to-smart-connected-devices-and-internet-of-things/</a> | IIRA・IoT-A・oneM2M・30141（当時CD）の比較。**2017年の草案段階の記事であり、第2版の内容は反映していない** |
 
 ### 15.4 本ガイドで採用しなかった情報
 
 | 情報源 | 理由 |
 |---|---|
-| iso-library.com（<https://iso-library.com/standard/30141/>） | 「通信ビュー」「情報ビュー」など、ISO公式の目次と一致しない記述があるため、**ビュー構成の根拠には使っていない** |
+| iso-library.com（<a href="https://iso-library.com/standard/30141/" target="_blank" rel="noopener noreferrer">https://iso-library.com/standard/30141/</a>） | 「通信ビュー」「情報ビュー」など、ISO公式の目次と一致しない記述があるため、**ビュー構成の根拠には使っていない** |
 
 ### 15.5 情報の限界と確認のすすめ
 
 - 本ガイドの記述は、**公開目次・抄録・プレビュー**で確認できる範囲に基づきます。図の細部（例: Figure 2〜8の具体的な内容、Table 9〜12の中身）は有料部分にあり、**本文を直接確認していません**。
 - 第1版の知識（ドメインモデルなど）が第2版でどう再編されたかは、**正規版で必ず確認してください**。
 - 実務で規格を根拠にする場合は、ISO、IEC、各国規格協会（JSAなど）から正規版を入手してください。
-- ISOのステージは**90.92（改訂予定）**です。最新状況は <https://www.iso.org/standard/88800.html> で確認してください。
+- ISOのステージは**90.92（改訂予定）**です。最新状況は <a href="https://www.iso.org/standard/88800.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/88800.html</a> で確認してください。
 
 ---
 

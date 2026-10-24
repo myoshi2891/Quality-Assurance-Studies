@@ -4,7 +4,7 @@
 （Digital twin — Maturity model and guidance for a maturity assessment）
 
 > 情報時点：2026年10月22日まで　／　対象：初学者〜中級のソフトウェアエンジニア・QAエンジニア
-> 一次情報：<https://www.iso.org/standard/53306.html>
+> 一次情報：<a href="https://www.iso.org/standard/53306.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53306.html</a>
 
 ---
 
@@ -430,12 +430,10 @@ flowchart TB
 
 ### 8.3 評価シートの雛形（Markdown）
 
-```markdown
 | 指標ID | 質問 | 判定 | 証拠 | 備考 |
 |---|---|---|---|---|
 | CA.2-1 | 監視のためのデータ接続はあるか | はい | 接続設計書 §3.2、稼働ログ | |
 | CA.3-1 | データやシミュレーションで予測しているか | いいえ | 該当なし | 予測モデルは検討中 |
-```
 
 ### 8.4 つまずきポイント
 
@@ -594,29 +592,29 @@ A. ISOストア（CHF 159）、BSI、DIN Media、VDEなどの各国窓口で購�
 
 | # | 内容 | URL |
 |---|---|---|
-| 1 | ISO公式ページ（基本情報、アブストラクト、ライフサイクル） | <https://www.iso.org/standard/53306.html> |
-| 2 | VDE Verlag 試読PDF（目次、序文、箇条1〜5.2冒頭） | <https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30186{ed1.0}en.pdf> |
-| 3 | iTeh Standards 試読PDF（同上の試読版） | <https://cdn.standards.iteh.ai/samples/iec/iso-iec-30186-2025/c2ea01a2040f435080744e3083cc2edc/iso-iec-30186-2025.pdf> |
-| 4 | iTeh Standards 規格ページ（5アスペクトの概要） | <https://standards.iteh.ai/catalog/standards/iec/0b43663d-3cc2-4e71-a643-60eb0c768c01/iso-iec-30186-2025> |
-| 5 | BSI Knowledge（BS ISO/IEC 30186:2025 の書誌情報） | <https://knowledge.bsigroup.com/products/digital-twin-maturity-model-and-guidance-for-a-maturity-assessment> |
-| 6 | DIN Media（書誌情報、価格） | <https://www.dinmedia.de/en/standard/iso-iec-30186/394197442> |
+| 1 | ISO公式ページ（基本情報、アブストラクト、ライフサイクル） | <a href="https://www.iso.org/standard/53306.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53306.html</a> |
+| 2 | VDE Verlag 試読PDF（目次、序文、箇条1〜5.2冒頭） | <a href="https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30186{ed1.0}en.pdf" target="_blank" rel="noopener noreferrer">https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30186{ed1.0}en.pdf</a> |
+| 3 | iTeh Standards 試読PDF（同上の試読版） | <a href="https://cdn.standards.iteh.ai/samples/iec/iso-iec-30186-2025/c2ea01a2040f435080744e3083cc2edc/iso-iec-30186-2025.pdf" target="_blank" rel="noopener noreferrer">https://cdn.standards.iteh.ai/samples/iec/iso-iec-30186-2025/c2ea01a2040f435080744e3083cc2edc/iso-iec-30186-2025.pdf</a> |
+| 4 | iTeh Standards 規格ページ（5アスペクトの概要） | <a href="https://standards.iteh.ai/catalog/standards/iec/0b43663d-3cc2-4e71-a643-60eb0c768c01/iso-iec-30186-2025" target="_blank" rel="noopener noreferrer">https://standards.iteh.ai/catalog/standards/iec/0b43663d-3cc2-4e71-a643-60eb0c768c01/iso-iec-30186-2025</a> |
+| 5 | BSI Knowledge（BS ISO/IEC 30186:2025 の書誌情報） | <a href="https://knowledge.bsigroup.com/products/digital-twin-maturity-model-and-guidance-for-a-maturity-assessment" target="_blank" rel="noopener noreferrer">https://knowledge.bsigroup.com/products/digital-twin-maturity-model-and-guidance-for-a-maturity-assessment</a> |
+| 6 | DIN Media（書誌情報、価格） | <a href="https://www.dinmedia.de/en/standard/iso-iec-30186/394197442" target="_blank" rel="noopener noreferrer">https://www.dinmedia.de/en/standard/iso-iec-30186/394197442</a> |
 
 ### 14.2 標準化団体・研究機関の解説
 
 | # | 内容 | URL |
 |---|---|---|
-| 7 | BSI ウェビナー資料「Digital Twins and ISO/IEC 30186」（2026-04-23。レベル名・特徴・評価方法の主な根拠） | <https://www.bsigroup.com/siteassets/pdf/en/insights-and-media/media/webinars/bsi-md-digital-twins-iso-webinar-230426-en-gb.pdf> |
+| 7 | BSI ウェビナー資料「Digital Twins and ISO/IEC 30186」（2026-04-23。レベル名・特徴・評価方法の主な根拠） | <a href="https://www.bsigroup.com/siteassets/pdf/en/insights-and-media/media/webinars/bsi-md-digital-twins-iso-webinar-230426-en-gb.pdf" target="_blank" rel="noopener noreferrer">https://www.bsigroup.com/siteassets/pdf/en/insights-and-media/media/webinars/bsi-md-digital-twins-iso-webinar-230426-en-gb.pdf</a> |
 | 8 | UK Digital Twin Centre（Digital Catapult）の準備度評価（BSI資料内で30186準拠と説明） | 上記 #7 に記載 |
-| 9 | 学術論文：Identifying and characterising uncertainty in digital twin engineering（5アスペクト×5レベルへの言及） | <https://www.tandfonline.com/doi/full/10.1080/27525783.2026.2668886> |
-| 10 | 学術論文：Formal Integration of ISO/IEC Digital Twin Standards（管理レイヤでの30186の位置づけ） | <https://www.mdpi.com/2227-7390/14/9/1425> |
+| 9 | 学術論文：Identifying and characterising uncertainty in digital twin engineering（5アスペクト×5レベルへの言及） | <a href="https://www.tandfonline.com/doi/full/10.1080/27525783.2026.2668886" target="_blank" rel="noopener noreferrer">https://www.tandfonline.com/doi/full/10.1080/27525783.2026.2668886</a> |
+| 10 | 学術論文：Formal Integration of ISO/IEC Digital Twin Standards（管理レイヤでの30186の位置づけ） | <a href="https://www.mdpi.com/2227-7390/14/9/1425" target="_blank" rel="noopener noreferrer">https://www.mdpi.com/2227-7390/14/9/1425</a> |
 
 ### 14.3 実務者の解説（二次情報）
 
 | # | 内容 | URL |
 |---|---|---|
-| 11 | Asset Dynamics「Digital Twin Maturity Assessments Using ISO/IEC 30186」（アスペクト数や収束の説明に規格との食い違いあり） | <https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments> |
-| 12 | Robert Suansri氏（LinkedIn）の紹介投稿（検索結果のスニペットのみ確認） | <https://www.linkedin.com/in/robert-suansri/> |
-| 13 | 標準化リポジトリ（ICT Rolling Plan） | <https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment> |
+| 11 | Asset Dynamics「Digital Twin Maturity Assessments Using ISO/IEC 30186」（アスペクト数や収束の説明に規格との食い違いあり） | <a href="https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments" target="_blank" rel="noopener noreferrer">https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments</a> |
+| 12 | Robert Suansri氏（LinkedIn）の紹介投稿（検索結果のスニペットのみ確認） | <a href="https://www.linkedin.com/in/robert-suansri/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/robert-suansri/</a> |
+| 13 | 標準化リポジトリ（ICT Rolling Plan） | <a href="https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment" target="_blank" rel="noopener noreferrer">https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment</a> |
 
 ---
 
