@@ -212,18 +212,6 @@ flowchart TB
 | 提供者（事業者、販売・導入支援） | 導入前のニーズ評価、導入後の見直し |
 | QAエンジニア（🟡 筆者の補足） | 受入基準・テスト観点を考える材料 |
 
-### 5-4. 発行前後で要旨の表現が異なる点（要注意）
-
-公開情報を調べると、**発行前（"Under publication" 段階）の要旨**と**発行後の要旨**で表現が違うことが確認できました。
-
-| 比較項目 | 発行前の要旨（キャッシュ） | 発行後の公式要旨 |
-|---|---|---|
-| 重点 | 身体・感覚・認知の各能力の観点から、**年齢包摂的な安全性と利便性**を高める | 安全性と使いやすさを高める**プロセス**（評価→選定→適用→評価） |
-| 技術要件 | ICT・AI・人間工学等の**技術的要求や機械的な指示は含まない**と記載 | 同様の記載は確認できず |
-| 想定読者 | 政策立案者、設計・施工者、メーカー、生涯教育提供者 等 | 設計者・開発者・提供者 |
-
-> ⚠️ **結論**：最終的な正本は**発行後の版**です。発行前の要旨は「審議段階の考え方」を知る参考にとどめ、**根拠としては使わない**でください。
-
 ---
 
 ## 6. 核心：4ステップのプロセス
@@ -309,7 +297,7 @@ flowchart LR
 
 ### 8-1. 変化の3つの側面
 
-発行前の要旨は「身体・感覚・認知」の3つの能力に言及していました（🟢 ただし発行前の版）。実務で整理しやすい枠組みなので、ここでは考え方の枠組みとして使います。
+高齢者向けのUX・人間工学やアクセシビリティの実務では、「身体・感覚・認知」の3つの側面で変化を整理するのが一般的です（🟡 実務上の整理枠組み）。
 
 | 側面 | 起こりうる変化（一般論） | 設計上の観点 |
 |---|---|---|
@@ -472,7 +460,7 @@ flowchart LR
 | ISO 25550:2022 | 年齢包摂的な職場 | 同じ「高齢社会」シリーズ。対象は職場 |
 | ISO 25552:2022 | 認知症にやさしい地域の枠組み | 認知面の配慮を考える際の参考 |
 | ISO 25556:2025 | 高齢者を含むデジタル経済 | デジタルサービス全般の視点 |
-| ISO 25553（審議中） | スマート多世代近隣地区 | 住まいから地域へ広げた視点 |
+| ISO 25553-1:2026 | スマート多世代近隣地区の枠組み（第1部：要求事項及び推奨事項、2026年6月発行） | 住まいから地域へ広げた視点 |
 
 ### 11-2. 実務で併用しやすいガイドライン（🟡）
 
@@ -494,38 +482,37 @@ flowchart LR
 |---|---|---|---|
 | 1 | ISO公式（本規格） | <https://www.iso.org/standard/85086.html> | 要旨、版、ページ数、価格、ICS、委員会、制定ライフサイクル、SDGs |
 | 2 | ISO公式（フランス語ページ） | <https://www.iso.org/fr/standard/85086.html> | 英語のみ提供であること |
-| 3 | ISO委員会サイト（発行前の表示） | <https://committee.iso.org/standard/85086.html> | 発行前（Under publication）段階の要旨 |
-| 4 | フィンランド規格協会（SFS） | <https://store.sfs.fi/en/isots-25558-2026-2> | 要旨・ICS・委員会の一致確認 |
-| 5 | セルビア規格協会（ISS） | <https://iss.rs/en/project/show/iso:proj:85086> | 発行日 2026-02-10、Scope |
-| 6 | モンテネグロ規格協会（ISME） | <https://isme.me/en/project/show/iso:proj:85086> | 発行日、Scope、ICS名称 |
+| 3 | フィンランド規格協会（SFS） | <https://store.sfs.fi/en/isots-25558-2026-2> | 要旨・ICS・委員会の一致確認 |
+| 4 | セルビア規格協会（ISS） | <https://iss.rs/en/project/show/iso:proj:85086> | 発行日 2026-02-10、Scope |
+| 5 | モンテネグロ規格協会（ISME） | <https://isme.me/en/project/show/iso:proj:85086> | 発行日、Scope、ICS名称 |
 
 ### 12-2. 委員会・関連規格
 
 | # | 情報源 | URL | 確認できた内容 |
 |---|---|---|---|
-| 7 | ISO記事「A society for all ages」 | <https://www.iso.org/news/society-for-all-ages.html> | TC 314の目的、ISO 25552 等の位置づけ |
-| 8 | ISO 25550:2022 | <https://www.iso.org/fr/standard/76420.html> | 年齢包摂的な職場の規格情報 |
-| 9 | BSI 標準開発ポータル（TC 314対応委員会） | <https://standardsdevelopment.bsigroup.com/committees/50276427> | ISO 25552・25556・25553 等の状況 |
+| 6 | ISO記事「A society for all ages」 | <https://www.iso.org/news/society-for-all-ages.html> | TC 314の目的、ISO 25552 等の位置づけ |
+| 7 | ISO 25550:2022 | <https://www.iso.org/fr/standard/76420.html> | 年齢包摂的な職場の規格情報 |
+| 8 | BSI 標準開発ポータル（TC 314対応委員会） | <https://standardsdevelopment.bsigroup.com/committees/50276427> | ISO 25552・25556・25553-1 等の状況 |
 
 ### 12-3. 国際的に著名な技術・設計コミュニティの情報
 
 | # | 情報源 | URL | 活用した内容 |
 |---|---|---|---|
-| 10 | W3C WAI「Older Users and Web Accessibility」 | <https://www.w3.org/WAI/older-users/> | 高齢者ニーズとアクセシビリティの重なり |
-| 11 | Nielsen Norman Group「User Testing with Older Adults」 | <https://www.nngroup.com/videos/user-testing-older-adults/> | 高齢者向けテストの配慮 |
-| 12 | Pernice & Nielsen「Web Usability for Senior Citizens」書誌（Univ. of Groningen） | <https://ebooks.ub.rug.nl/87> | 65歳以上の調査の概要 |
-| 13 | UPM Ageing Lab「UX and usability for older users」 | <https://ageinglab.ctb.upm.es/en/ux-and-usability-for-older-users-en> | 高齢者向けUI指針、一貫性の重要性 |
-| 14 | ZURB Radar「Design for Seniors, Ship a Better Product for Everyone」 | <https://radar.zurb.com/article/design-for-seniors-ship-a-better-product-for-everyone> | 高齢者設計を全体改善へ活かす考え方、フォームの許容度 |
-| 15 | Guide Dogs（英国）「How Matter will revolutionise smart home device accessibility」 | <https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility> | Matter とアクセシビリティ |
-| 16 | AbilityNet「Matter: Enriching disabled people's experience of technology」 | <https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology> | Matter の期待と限界 |
-| 17 | arXiv「Matter: IoT Interoperability for Smart Homes」 | <https://arxiv.org/abs/2405.01618v2> | Matter の技術的な位置づけ |
+| 9 | W3C WAI「Older Users and Web Accessibility」 | <https://www.w3.org/WAI/older-users/> | 高齢者ニーズとアクセシビリティの重なり |
+| 10 | Nielsen Norman Group「User Testing with Older Adults」 | <https://www.nngroup.com/videos/user-testing-older-adults/> | 高齢者向けテストの配慮 |
+| 11 | Pernice & Nielsen「Web Usability for Senior Citizens」書誌（Univ. of Groningen） | <https://ebooks.ub.rug.nl/87> | 65歳以上の調査の概要 |
+| 12 | UPM Ageing Lab「UX and usability for older users」 | <https://ageinglab.ctb.upm.es/en/ux-and-usability-for-older-users-en> | 高齢者向けUI指針、一貫性の重要性 |
+| 13 | ZURB Radar「Design for Seniors, Ship a Better Product for Everyone」 | <https://radar.zurb.com/article/design-for-seniors-ship-a-better-product-for-everyone> | 高齢者設計を全体改善へ活かす考え方、フォームの許容度 |
+| 14 | Guide Dogs（英国）「How Matter will revolutionise smart home device accessibility」 | <https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility> | Matter とアクセシビリティ |
+| 15 | AbilityNet「Matter: Enriching disabled people's experience of technology」 | <https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology> | Matter の期待と限界 |
+| 16 | arXiv「Matter: IoT Interoperability for Smart Homes」 | <https://arxiv.org/abs/2405.01618v2> | Matter の技術的な位置づけ |
 
 ### 12-4. 規格本文の入手方法
 
 | 方法 | 内容 |
 |---|---|
 | ISO公式ストア | 上記 URL 1 から購入（PDF + ePub、CHF 135） |
-| 各国の規格機関 | SFS、ISS 等の販売ページ（URL 4〜6）。日本国内では日本規格協会（JSA）等の取り扱いを各自確認 |
+| 各国の規格機関 | SFS、ISS 等の販売ページ（URL 3〜5）。日本国内では日本規格協会（JSA）等の取り扱いを各自確認 |
 
 > ⚠️ **誠実な注記**：「高齢者向けスマートホーム」に特化した**著名な開発者個人の投稿**は、調査時点で本規格を直接解説したものを見つけられませんでした。そのため、関連分野で国際的に信頼される W3C、Nielsen Norman Group、Matter 関連の情報を橋渡しとして用いています。
 
@@ -537,7 +524,7 @@ flowchart LR
 |---|---|
 | Q1. この規格を満たせば高齢者に安全だと言えますか？ | いいえ。本規格は**ガイダンス**であり、安全の保証ではありません。実環境での評価が前提です |
 | Q2. 高齢者専用の特別な機器を作る必要がありますか？ | 公式要旨は「ニーズの評価に基づく製品等の**選定・適用**」を述べており、専用機器の開発が必須とは読み取れません（🔵） |
-| Q3. 技術的な要件（通信方式やAI仕様）が書かれていますか？ | 公開要旨からは確認できません。発行前の要旨には「技術要件は含まない」との記載がありましたが、**最終版は本文で確認**してください |
+| Q3. 技術的な要件（通信方式やAI仕様）が書かれていますか？ | 公開要旨からは確認できません。公式要旨はニーズの評価および製品・サービス・システムの選定・適用・評価のプロセスに焦点を当てており、具体的な規定の詳細は**正規版の本文で確認**してください |
 | Q4. 日本語版はありますか？ | ISOの公式ページでは**英語のみ**です。日本語版の有無は国内規格機関に確認してください |
 | Q5. 最初に何を読めばよいですか？ | 本ガイドの第6章（4ステップ）と第9章を読み、その後に正規版の本文へ進むのがおすすめです |
 | Q6. AIで規格本文を要約してもよいですか？ | ISOは、本文をAIの学習・入力に使うことを**禁止**する旨をサイトに明記しています。本文は人が読み、自分の言葉で整理してください |
