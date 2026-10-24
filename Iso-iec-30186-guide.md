@@ -97,7 +97,6 @@ flowchart LR
 | ページ数 | 32ページ（ISO公式）。VDEは31ページ表記 | ISO公式／VDE |
 | 言語 | 英語のみ | ISO公式 |
 | 価格 | CHF 159（PDF／紙、ISOストア） | ISO公式 |
-| 補足 | チェコの販売サイトに「CORRECTED VERSION 2026-01」の表記あり。**最新の訂正版を購入前に確認** | technickenormy.cz |
 
 ### 3.1 策定の流れ
 
@@ -108,7 +107,7 @@ flowchart LR
   E3 --> E4["2025-07-14<br/>国際規格として発行"]
 ```
 
-> 参考：ISOの記録では、CDからFDISへ進み、2025-07-10に「発行準備」へ移っています。投票の資料番号は試読版のForewordに記載があります。
+> 参考：ISOの記録では、2025-07-10にCDがDIS登録として承認（ステージ 30.99）され、同日に「発行準備」（ステージ 60.00）へ移っています。投票の資料番号は試読版のForewordに記載があります。
 
 ---
 
@@ -135,11 +134,11 @@ flowchart LR
 
 > ISO/IEC 30173 のデジタルツインの定義は、収束アスペクトの**レベル3**に焦点を当てている。ISO/IEC 30186 は、そこに留まらない特徴まで含めて成熟度を評価できるよう拡張している。
 
-つまり、**30173で「デジタルツイン」と呼べる最低ラインは、30186の収束レベル3あたり**と読めます。「双方向につながっていて初めてツインらしい」という感覚です。
+つまり、**ISO/IEC 30173 の定義は収束レベル3（双方向の同期）に焦点を当てている一方、ISO/IEC 30186 はレベル1から成熟度を評価できる枠組み**になっており、レベル1やレベル2の段階を排除するものではありません。
 
 ```mermaid
 flowchart LR
-  A["収束 L1〜L2<br/>モデル・片方向"] -->|ツインと呼べる<br/>境界| B["収束 L3<br/>同期した双方向"]
+  A["収束 L1〜L2<br/>モデル・片方向"] -->|30173の定義が<br/>焦点を当てる段階| B["収束 L3<br/>同期した双方向"]
   B --> C["収束 L4〜L5<br/>連携・統合へ"]
 ```
 
@@ -566,7 +565,7 @@ A. BSI資料は、開発初期のプロジェクトを排除せず、静的モ�
 A. 規格の注記は、5アスペクトを最小限のモデルとし、整合する形での拡張を認めています。
 
 **Q4. 規格はどこで入手できますか？**
-A. ISOストア（CHF 159）、BSI、DIN Media、VDEなどの各国窓口で購入できます。価格と版（訂正版の有無）は購入前に確認してください。
+A. ISOストア（CHF 159）、BSI、DIN Media、VDEなどの各国窓口で購入できます。価格と最新の版は購入前に確認してください。
 
 ---
 
@@ -601,24 +600,23 @@ A. ISOストア（CHF 159）、BSI、DIN Media、VDEなどの各国窓口で購�
 | 4 | iTeh Standards 規格ページ（5アスペクトの概要） | <https://standards.iteh.ai/catalog/standards/iec/0b43663d-3cc2-4e71-a643-60eb0c768c01/iso-iec-30186-2025> |
 | 5 | BSI Knowledge（BS ISO/IEC 30186:2025 の書誌情報） | <https://knowledge.bsigroup.com/products/digital-twin-maturity-model-and-guidance-for-a-maturity-assessment> |
 | 6 | DIN Media（書誌情報、価格） | <https://www.dinmedia.de/en/standard/iso-iec-30186/394197442> |
-| 7 | technickenormy.cz（「CORRECTED VERSION 2026-01」の表記） | <https://www.technickenormy.cz/en/iso-iec-30186-2025-digital-twin-maturity-model-and-guidance-for-a-maturity-assessment> |
 
 ### 14.2 標準化団体・研究機関の解説
 
 | # | 内容 | URL |
 |---|---|---|
-| 8 | BSI ウェビナー資料「Digital Twins and ISO/IEC 30186」（2026-04-23。レベル名・特徴・評価方法の主な根拠） | <https://www.bsigroup.com/siteassets/pdf/en/insights-and-media/media/webinars/bsi-md-digital-twins-iso-webinar-230426-en-gb.pdf> |
-| 9 | UK Digital Twin Centre（Digital Catapult）の準備度評価（BSI資料内で30186準拠と説明） | 上記 #8 に記載 |
-| 10 | 学術論文：Identifying and characterising uncertainty in digital twin engineering（5アスペクト×5レベルへの言及） | <https://www.tandfonline.com/doi/full/10.1080/27525783.2026.2668886> |
-| 11 | 学術論文：Formal Integration of ISO/IEC Digital Twin Standards（管理レイヤでの30186の位置づけ） | <https://www.mdpi.com/2227-7390/14/9/1425> |
+| 7 | BSI ウェビナー資料「Digital Twins and ISO/IEC 30186」（2026-04-23。レベル名・特徴・評価方法の主な根拠） | <https://www.bsigroup.com/siteassets/pdf/en/insights-and-media/media/webinars/bsi-md-digital-twins-iso-webinar-230426-en-gb.pdf> |
+| 8 | UK Digital Twin Centre（Digital Catapult）の準備度評価（BSI資料内で30186準拠と説明） | 上記 #7 に記載 |
+| 9 | 学術論文：Identifying and characterising uncertainty in digital twin engineering（5アスペクト×5レベルへの言及） | <https://www.tandfonline.com/doi/full/10.1080/27525783.2026.2668886> |
+| 10 | 学術論文：Formal Integration of ISO/IEC Digital Twin Standards（管理レイヤでの30186の位置づけ） | <https://www.mdpi.com/2227-7390/14/9/1425> |
 
 ### 14.3 実務者の解説（二次情報）
 
 | # | 内容 | URL |
 |---|---|---|
-| 12 | Asset Dynamics「Digital Twin Maturity Assessments Using ISO/IEC 30186」（アスペクト数や収束の説明に規格との食い違いあり） | <https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments> |
-| 13 | Robert Suansri氏（LinkedIn）の紹介投稿（検索結果のスニペットのみ確認） | <https://www.linkedin.com/in/robert-suansri/> |
-| 14 | 標準化リポジトリ（ICT Rolling Plan） | <https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment> |
+| 11 | Asset Dynamics「Digital Twin Maturity Assessments Using ISO/IEC 30186」（アスペクト数や収束の説明に規格との食い違いあり） | <https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments> |
+| 12 | Robert Suansri氏（LinkedIn）の紹介投稿（検索結果のスニペットのみ確認） | <https://www.linkedin.com/in/robert-suansri/> |
+| 13 | 標準化リポジトリ（ICT Rolling Plan） | <https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment> |
 
 ---
 

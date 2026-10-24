@@ -122,10 +122,10 @@ ISO/IECの出版物には種類があります。**TR（Technical Report）は�
 
 ```mermaid
 flowchart LR
-    T1["ターゲットエンティティ<br/>（物理世界）"] -->|センシング・計測データ| T2["データ接続"]
+    T1["ターゲットエンティティ<br/>（例：物理世界の対象）"] -->|センシング・計測データ| T2["データ接続"]
     T2 -->|状態の同期| T3["デジタルツイン<br/>（デジタル表現）"]
-    T3 -->|分析・シミュレーション・最適化の結果| T4["意思決定・制御"]
-    T4 -->|アクチュエーション・運用変更| T1
+    T3 -->|分析・シミュレーション・最適化の結果| T4["意思決定・制御（例）"]
+    T4 -.->|アクチュエーション・運用変更（任意）| T1
 
     classDef phys fill:#e8f1ff,stroke:#3b6fd4,color:#0b1f44
     classDef link fill:#fff4d6,stroke:#c99a1c,color:#3a2a00
@@ -434,9 +434,9 @@ flowchart LR
 |---|---|---|
 | **ISO/IEC 30173:2023** | Digital twin — Concepts and terminology（概念と用語） | 本書の用語定義の出典。SC 41が2023年に発行した姉妹規格 |
 | **ISO 23247 シリーズ** | 製造向けデジタルツインフレームワーク（ISO/TC 184/SC 4） | 製造領域で内容が重なる。Part 1〜4は2021年、Part 5（デジタルスレッド）は2026年6月に発行、Part 6（構成）も2026年版が掲載 |
-| ISO/IEC 30188 | Digital twin — Reference architecture（参照アーキテクチャ） | 2023年時点の解説ページで策定中と記載。最新ステータスはISOサイトで要確認 |
-| ISO/IEC 30186 | Digital twin — Maturity model and guidance for a maturity assessment | 同上（策定中と記載） |
-| ISO/IEC 30194 | Best practices for use case projects | 同上（策定中と記載） |
+| ISO/IEC 30188:2026 | Digital twin — Reference architecture（参照アーキテクチャ） | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2026年7月／2026-07-22発行） |
+| ISO/IEC 30186:2025 | Digital twin — Maturity model and guidance for a maturity assessment | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2025年7月／2025-07-14発行） |
+| ISO/IEC 30194:2024 | Best practices for use case projects | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2024年12月発行） |
 | ISO/TR 24464:2025 | Visualization elements of digital twin — Visualization fidelity | 2025年発行のDTw関連文書として論文で言及 |
 | IEC 62559-2 | ユースケース方法論のテンプレート | 本書のテンプレートの改変元 |
 | ISO/IEC TR 22417 | IoTユースケース | 本書のテンプレートの改変元 |
