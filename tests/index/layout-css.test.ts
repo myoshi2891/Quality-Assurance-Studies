@@ -37,6 +37,13 @@ describe('library category rail (app/index-page.css)', () => {
   });
 });
 
+describe('display numerals (app/index-page.css)', () => {
+  it('guide count falls back to Noto Sans JP before the generic sans-serif', () => {
+    // --font-bricolage は Bricolage Grotesque 単体のため、未到着時も本文と同じ和文書体で組む
+    expect(decls('app/index-page.css', '.index-count')['font-family']).toBe("var(--font-bricolage), 'Noto Sans JP', sans-serif");
+  });
+});
+
 describe('global drawer offset (components/header.css)', () => {
   it('places the drawer below header + disclaimer and shrinks its height by the same amount', () => {
     const rule = decls('components/header.css', '.nav-header .nav-drawer');
