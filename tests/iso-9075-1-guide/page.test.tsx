@@ -55,7 +55,7 @@ describe('every original CSS declaration', () => {
     }));
     it('scopes every selector, imports the CSS and 800 font and compensates fixed app chrome', () => {
         css().walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
-        const entry = readFileSync(`${base}/page.tsx`, 'utf8'); expect(entry).toContain("import './iso-9075-1-guide.css'"); expect(entry).toContain("import '@fontsource/noto-sans-jp/800.css'");
+        const entry = readFileSync(`${base}/page.tsx`, 'utf8'); expect(entry).toContain("import './iso-9075-1-guide.css'"); expect(entry).toContain("import '../fonts/noto-sans-jp-800.css'");
         expect(css().toString()).toContain('var(--disclaimer-height, 0px)');
     });
 });

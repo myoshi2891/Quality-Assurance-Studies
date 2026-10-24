@@ -31,12 +31,12 @@ const REQUIRED_WEIGHTS: Record<string, string[]> = {
 };
 
 const EXPECTED_IMPORTS = Object.entries(REQUIRED_WEIGHTS).flatMap(([pkg, weights]) =>
-  weights.map((weight) => `@fontsource/${pkg}/${weight}.css`)
+  weights.map((weight) => `./fonts/${pkg}-${weight}.css`)
 );
 
 function layoutFontImports(): string[] {
   const layout = readFileSync(LAYOUT, 'utf8');
-  return [...layout.matchAll(/^import\s+['"](@fontsource\/[^'"]+)['"];?$/gm)].map((match) => match[1] ?? '');
+  return [...layout.matchAll(/^import\s+['"](\.\/fonts\/[^'"]+)['"];?$/gm)].map((match) => match[1] ?? '');
 }
 
 describe('Web フォントの読み込み', () => {
@@ -54,7 +54,7 @@ describe('Web フォントの読み込み', () => {
     expect(specifiers.filter((specifier) => specifier.startsWith('next/font/google'))).toEqual([]);
   });
 
-  it('共有レイアウトが必要なウェイトの Fontsource CSS だけを過不足なく import する', () => {
+  it('共有レイアウトが必要なウェイトの生成済み Fontsource CSS（font-display: optional）だけを過不足なく import する', () => {
     // Arrange & Act
     const imports = layoutFontImports();
 
@@ -77,7 +77,7 @@ describe('Web フォントの読み込み', () => {
   for (const specifier of EXPECTED_IMPORTS) {
     it(`${specifier} は外部 URL を参照せず同梱の woff2 だけを指す`, () => {
       // Arrange
-      const file = join(ROOT, 'node_modules', specifier);
+      const file = join(ROOT, 'app', specifier);
       expect(existsSync(file)).toBe(true);
       const css = readFileSync(file, 'utf8');
       const urls = [...css.matchAll(/url\(([^)]+)\)/g)].map((match) => match[1] ?? '');
@@ -90,7 +90,7 @@ describe('Web フォントの読み込み', () => {
 
   it('Noto Sans JP は unicode-range スライスを保ち、必要な分だけ配信される', () => {
     // Arrange
-    const css = readFileSync(join(ROOT, 'node_modules', '@fontsource/noto-sans-jp/400.css'), 'utf8');
+    const css = readFileSync(join(ROOT, 'app', 'fonts', 'noto-sans-jp-400.css'), 'utf8');
 
     // Act
     const faces = css.match(/@font-face/g) ?? [];
