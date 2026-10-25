@@ -99,7 +99,7 @@ describe('one-to-one complete source inventory', () => {
         const { DIAGRAMS } = await import(diagramsEntry); const chart: string = DIAGRAMS.d10;
         expect(chart).toContain('\naccTitle: 学習ロードマップ（5つのステップ）\n');
         expect(chart).toContain('\naccDescr: 5つの学習ステップを順に示す図。①Part 1（第1〜5章）を読み用語に慣れる、②コーディングカタなど小さな練習問題で技法を試す、③実プロジェクトの小さな変更に5ステップを適用する、④うまくいった技法をチームで共有する、⑤自分のコードベース向けのシームパターン集を育てる\n');
-        ['L1[', 'L1 --> L2', 'L2 --> L3', 'L3 --> L4', 'L4 --> L5'].forEach(part => expect(chart).toContain(part));
+        ['L1[', '--> L2[', 'L2 --> L3', 'L3 --> L4', 'L4 --> L5'].forEach(part => expect(chart).toContain(part));
     });
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
