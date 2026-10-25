@@ -12,6 +12,8 @@ const sourceInitialization = sourceText.match(/mermaid.initialize\((\{[\s\S]*?\n
 const sourceConfig = Function('return ('+sourceInitialization+')')() as object;
 const original = load(sourceText);
 const originalCss = original('style').text(); original('script,link').remove();
+// The original startup script marks the first TOC item active before scrolling.
+original('.nav-a').first().addClass('active');
 const body = original('body').html()!;
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
 const globals = readFileSync('app/globals.css', 'utf8');

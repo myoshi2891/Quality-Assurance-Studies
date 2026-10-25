@@ -84,7 +84,9 @@ it('renders all nine charts through the shared Mermaid component in order', asyn
     const original = mermaid.render; const calls: string[] = [];
     mermaid.render = mock(async (_id: string, chart: string) => { calls.push(chart); return { svg: '<svg viewBox="0 0 200 100"><text>diagram</text></svg>' }; }) as unknown as typeof mermaid.render;
     try {
-        const Page = (await import(entry)).default; const view = render(<Page />);
+        const names = ['Fundamentals','Strategies','Management','Practice'];
+        const components = await Promise.all(names.map(async name => { const path = `../../app/testing-computer-software-guide/${name}`; return (await import(path)).default; }));
+        const view = render(<>{components.map((Component,i) => <Component key={i} />)}</>);
         await waitFor(() => expect(view.container.querySelectorAll('.diagram-block svg')).toHaveLength(9));
         const { DIAGRAMS } = await import(diagramsEntry); expect(calls).toEqual(Object.values(DIAGRAMS));
     } finally { cleanup(); mermaid.render = original; }
