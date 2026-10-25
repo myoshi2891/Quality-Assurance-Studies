@@ -1,8 +1,635 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
-export default function Techniques() {return <><section className="section" id="sec11">{"\n                    "}<div className="section-head">{"\n                        "}<div className="icon-badge"><i className="ti ti-seedling"></i></div>{"\n                        "}<h2>{"11. 新機能を安全に追加する：Sprout と Wrap"}</h2>{"\n                    "}</div>{"\n                    "}<div className="prose">{"\n                        "}<p>{"\n                            「時間がない」「変更にとても時間がかかる」という現場の悩みに対して、Feathers\n                            は第6〜7章で、新しい機能を安全に追加するための実践的な技法を紹介しています"}<sup>{"[9]"}</sup>{"。中でも特に有名なのが\n                            "}<strong>{"Sprout（芽吹かせる）"}</strong>{" と\n                            "}<strong>{"Wrap（包む）"}</strong>{" という2つの考え方です。\n                        "}</p>{"\n                        "}<div className="mermaid-wrapper">{"\n                            "}<div id="d8"><Mermaid chart={DIAGRAMS.d8} /></div>{"\n                        "}</div>{"\n                        "}<div className="table-wrap">{"\n                            "}<div className="table-title">{"Sprout / Wrap の使い分け"}</div>{"\n                            "}<table>{"\n                                "}<thead>{"\n                                    "}<tr>{"\n                                        "}<th>{"技法"}</th>{"\n                                        "}<th>{"やり方"}</th>{"\n                                        "}<th>{"向いているケース"}</th>{"\n                                        "}<th>{"長所"}</th>{"\n                                        "}<th>{"短所"}</th>{"\n                                    "}</tr>{"\n                                "}</thead>{"\n                                "}<tbody>{"\n                                    "}<tr>{"\n                                        "}<td>{"Sprout Method"}</td>{"\n                                        "}<td>{"\n                                            既存メソッドに新メソッドへの呼び出しを差し込み、新メソッドはTDDで実装する"}<sup>{"[44]"}</sup>{"\n                                        "}</td>{"\n                                        "}<td>{"\n                                            新しい振る舞いをロジックの1箇所に差し込みたいとき"}<sup>{"[41]"}</sup>{"\n                                        "}</td>{"\n                                        "}<td>{"\n                                            新旧を分離でき新しい部分は確実にテストされる"}<sup>{"[42]"}</sup>{"\n                                        "}</td>{"\n                                        "}<td>{"既存メソッドのテスト整備は先送り"}<sup>{"[42]"}</sup></td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Sprout Class"}</td>{"\n                                        "}<td>{"新機能をまるごと新クラスに切り出す"}</td>{"\n                                        "}<td>{"新機能の独立性が高いとき"}</td>{"\n                                        "}<td>{"新クラスは最初からテスト可能な設計にできる"}</td>{"\n                                        "}<td>{"クラス数が増える"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Wrap Method"}</td>{"\n                                        "}<td>{"\n                                            元のメソッドをリネームし、新しい名前で前後処理と旧メソッド呼び出しをまとめる"}<sup>{"[45]"}</sup>{"\n                                        "}</td>{"\n                                        "}<td>{"\n                                            既存の呼び出し前後に処理を追加したいとき"}<sup>{"[41]"}</sup>{"\n                                        "}</td>{"\n                                        "}<td>{"呼び出し元を変えずに新旧を分離できる"}<sup>{"[45]"}</sup></td>{"\n                                        "}<td>{"リネームで命名が不自然になりがち"}<sup>{"[42]"}</sup></td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Wrap Class"}</td>{"\n                                        "}<td>{"\n                                            元のクラスをコンストラクタで受け取り委譲する新クラスを作る\n                                        "}</td>{"\n                                        "}<td>{"クラス単位で前後処理を挟みたいとき"}</td>{"\n                                        "}<td>{"Wrap Method のクラス版として同様の利点"}</td>{"\n                                        "}<td>{"委譲コードが増える"}</td>{"\n                                    "}</tr>{"\n                                "}</tbody>{"\n                            "}</table>{"\n                        "}</div>{"\n                        "}<p>{"\n                            これらの技法に共通する目的は、「今日中に安全に機能を出す」ことと「将来的にテストを充実させる」ことの間で現実的な折り合いをつける点にあります。いきなり既存コード全体をテスト可能にしようとするのではなく、"}<strong>{"新しく書く部分だけは必ずテストで守る"}</strong>{"という現実的な戦略です。\n                        "}</p>{"\n                    "}</div>{"\n                "}</section>
-<section className="section" id="sec12">{"\n                    "}<div className="section-head">{"\n                        "}<div className="icon-badge"><i className="ti ti-scissors"></i></div>{"\n                        "}<h2>{"12. 代表的な依存関係破壊テクニック（全24種の抜粋）"}</h2>{"\n                    "}</div>{"\n                    "}<div className="prose">{"\n                        "}<p>{"\n                            本書第25章「Dependency-Breaking\n                            Techniques」では、依存関係を断ち切るための具体的なリファクタリング手法が24種類カタログ化されています"}<sup>{"[15]"}</sup>{"。すべてを覚える必要はなく、まずは代表的なものから使えるようにするのがおすすめです。\n                        "}</p>{"\n                        "}<div className="table-wrap">{"\n                            "}<div className="table-title">{"代表的な依存関係破壊テクニック"}</div>{"\n                            "}<table>{"\n                                "}<thead>{"\n                                    "}<tr>{"\n                                        "}<th>{"テクニック名"}</th>{"\n                                        "}<th>{"概要"}</th>{"\n                                        "}<th>{"主に効くケース"}</th>{"\n                                    "}</tr>{"\n                                "}</thead>{"\n                                "}<tbody>{"\n                                    "}<tr>{"\n                                        "}<td>{"Extract Interface"}</td>{"\n                                        "}<td>{"\n                                            差し替えたいメソッド群をインターフェースとして切り出す\n                                        "}</td>{"\n                                        "}<td>{"テストでフェイク実装を渡したいとき"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Parameterize Constructor"}</td>{"\n                                        "}<td>{"\n                                            コンストラクタ内部で生成していた協調オブジェクトを外から渡せる引数にする\n                                        "}</td>{"\n                                        "}<td>{"依存オブジェクトをテスト用に差し替えたいとき"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Subclass and Override Method"}</td>{"\n                                        "}<td>{"\n                                            テスト専用のサブクラスで問題のメソッドだけを無害な実装に置き換える\n                                        "}</td>{"\n                                        "}<td>{"呼び出し箇所を変更できない・したくないとき"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Extract and Override Call"}</td>{"\n                                        "}<td>{"\n                                            問題の呼び出しを別メソッドに切り出し、サブクラスでそこだけ差し替える\n                                        "}</td>{"\n                                        "}<td>{"特定の呼び出し1箇所だけを無害化したいとき"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Replace Global Reference with Getter"}</td>{"\n                                        "}<td>{"\n                                            グローバル参照をオーバーライド可能なGetter経由に置き換える\n                                        "}</td>{"\n                                        "}<td>{"シングルトンやグローバル状態への依存を切りたいとき"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"Extract and Override Factory Method"}</td>{"\n                                        "}<td>{"\n                                            生成処理を専用メソッドに切り出し、生成方法だけ差し替える\n                                        "}</td>{"\n                                        "}<td>{"直接生成に依存しているとき"}</td>{"\n                                    "}</tr>{"\n                                "}</tbody>{"\n                            "}</table>{"\n                        "}</div>{"\n                        "}<div className="callout">{"\n                            "}<p>{"\n                                GitHub 上の \"dependency-breaking-katas\"\n                                のように、公開APIを変えずにこれらのテクニックだけでクラスをテスト可能にする練習問題も公開されています"}<sup>{"[17]"}</sup>{"。すべての協調オブジェクトにインターフェースを抽出するのではなく、「今日行う変更」に必要な1箇所にだけシームを作るという実務的な指針も紹介されており、"}<strong>{"必要な配線だけを切って、あとはそのままにしておく"}</strong>{"という割り切りが実務での使いこなしのコツです"}<sup>{"[14]"}</sup>{"。\n                            "}</p>{"\n                        "}</div>{"\n                    "}</div>{"\n                "}</section>
-<section className="section" id="sec13">{"\n                    "}<div className="section-head">{"\n                        "}<div className="icon-badge"><i className="ti ti-list-search"></i></div>{"\n                        "}<h2>{"13. 「あるある」問題と対応する章・技法の早見表"}</h2>{"\n                    "}</div>{"\n                    "}<div className="prose">{"\n                        "}<p>{"\n                            Part\n                            II（第6〜24章）は、どれも現場でよく聞く悩みをそのまま章タイトルにしているのが特徴です"}<sup>{"[15]"}</sup>{"。初学者は、まず自分が直面している状況に近い行を探すと、目的の章にすぐアクセスできます。\n                        "}</p>{"\n                        "}<div className="table-wrap">{"\n                            "}<div className="table-title">{"現場の悩み早見表"}</div>{"\n                            "}<table>{"\n                                "}<thead>{"\n                                    "}<tr>{"\n                                        "}<th>{"現場の悩み"}</th>{"\n                                        "}<th>{"主に関連する概念・技法"}</th>{"\n                                    "}</tr>{"\n                                "}</thead>{"\n                                "}<tbody>{"\n                                    "}<tr>{"\n                                        "}<td>{"時間がないのに変更しなければならない"}</td>{"\n                                        "}<td>{"Sprout Method／Class"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"変更にとにかく時間がかかりすぎる"}</td>{"\n                                        "}<td>{"Wrap Method／Class"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"このクラスをテストハーネスに載せられない"}</td>{"\n                                        "}<td>{"センシングと分離、Extract Interface 等"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"このメソッド単体をテストハーネスで動かせない"}</td>{"\n                                        "}<td>{"オブジェクトシーム、Subclass and Override"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"何をテストすればいいか分からない"}</td>{"\n                                        "}<td>{"Effect Sketch（前向きの推論）"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"1箇所直すのに関係クラス全部の依存を切る必要があるか"}</td>{"\n                                        "}<td>{"高レベルの介入点・Pinch Point の活用"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"ライブラリへの依存に振り回される"}</td>{"\n                                        "}<td>{"\n                                            ライブラリをラップして自前のインターフェース越しに使う\n                                        "}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"コードを理解するだけの余裕がない"}</td>{"\n                                        "}<td>{"Effect Sketch、コードの見取り図作り"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"アプリケーションに構造がない"}</td>{"\n                                        "}<td>{"責務の分離、CRCによる整理"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"クラスが巨大でこれ以上大きくしたくない"}</td>{"\n                                        "}<td>{"責務の分割、God Class 化の回避"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"手のつけられない「モンスターメソッド」がある"}</td>{"\n                                        "}<td>{"巨大メソッドの段階的分解"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"チームが疲弊し状況が良くなる気がしない"}</td>{"\n                                        "}<td>{"\n                                            小さな成功体験の積み重ね、変更アルゴリズムの反復適用\n                                        "}</td>{"\n                                    "}</tr>{"\n                                "}</tbody>{"\n                            "}</table>{"\n                        "}</div>{"\n                    "}</div>{"\n                "}</section>
-<section className="section" id="sec14">{"\n                    "}<div className="section-head">{"\n                        "}<div className="icon-badge"><i className="ti ti-stamp"></i></div>{"\n                        "}<h2>{"14. 承認テスト（Approval Testing）／ゴールデンマスターとの関係"}</h2>{"\n                    "}</div>{"\n                    "}<div className="prose">{"\n                        "}<p>{"\n                            キャラクタリゼーションテストと似た考え方に、"}<strong>{"承認テスト（Approval Testing）"}</strong>{"、あるいは"}<strong>{"ゴールデンマスターテスト"}</strong>{"と呼ばれる手法があります。Approval\n                            Tests ツールの開発者として知られる Llewellyn Falco\n                            は、レガシーコードに対しては内部構造を深く理解しなくても、出力ベースで良好なテストカバレッジを比較的簡単に得られる点で、この手法を高く評価しています"}<sup>{"[38]"}</sup>{"。\n                        "}</p>{"\n                        "}<p>{"\n                            承認テストの基本的な考え方は、期待値をコードの中に直接書き込むのではなく、出力をファイルに保存し、その内容を人間が承認することで期待値として確定するというものです。97\n                            Things シリーズの著者でもある Emily Bache\n                            は、この手法をスナップショットテストやゴールデンマスターテストと呼ばれることもあると説明しつつ、専用ツールを使うことで期待値の更新や差分比較が格段にやりやすくなる点を強調しています"}<sup>{"[16]"}</sup>{"。\n                        "}</p>{"\n                        "}<div className="table-wrap">{"\n                            "}<div className="table-title">{"近縁の用語の違い"}</div>{"\n                            "}<table>{"\n                                "}<thead>{"\n                                    "}<tr>{"\n                                        "}<th>{"用語"}</th>{"\n                                        "}<th>{"主な使われ方"}</th>{"\n                                        "}<th>{"ニュアンス"}</th>{"\n                                    "}</tr>{"\n                                "}</thead>{"\n                                "}<tbody>{"\n                                    "}<tr>{"\n                                        "}<td>{"キャラクタリゼーションテスト"}</td>{"\n                                        "}<td>{"Feathers の用語。既存コードの挙動を記録し保護する"}</td>{"\n                                        "}<td>{"今の挙動を理解し固定するプロセス寄り"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"ゴールデンマスターテスト"}</td>{"\n                                        "}<td>{"出力全体を正解として保存し差分を検知する"}</td>{"\n                                        "}<td>{"出力全体をまるごと比較する手法寄り"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"承認テスト"}</td>{"\n                                        "}<td>{"\n                                            出力をファイルに保存し人間が確認・承認して期待値にする\n                                        "}</td>{"\n                                        "}<td>{"「承認」という人間の意思決定を重視"}</td>{"\n                                    "}</tr>{"\n                                "}</tbody>{"\n                            "}</table>{"\n                        "}</div>{"\n                        "}<p>{"\n                            Understand Legacy Code の運営者 Nicolas Carlo\n                            は、「ゴールデンマスター」という呼び方には二度と触れない神聖なものという含みがあるため好ましくなく、人間が振る舞いを承認し必要に応じて更新していくという意味で「承認テスト」という呼び方を好む、という見解を示しています"}<sup>{"[32]"}</sup>{"。呼び方はどうあれ、いずれも「まず今の振る舞いを固定してから、安心して変更に取り組む」という\n                            Feathers の考え方の延長線上にある実践です。\n                        "}</p>{"\n                    "}</div>{"\n                "}</section>
-<section className="section" id="sec15">{"\n                    "}<div className="section-head">{"\n                        "}<div className="icon-badge"><i className="ti ti-plant-2"></i></div>{"\n                        "}<h2>{"15. より大きなスケールへ：Strangler Fig パターンとの関係"}</h2>{"\n                    "}</div>{"\n                    "}<div className="prose">{"\n                        "}<p>{"\n                            Feathers\n                            の技法の多くは、メソッドやクラスといった「コードレベル」でのミクロな安全策です。一方で、システム全体を段階的に置き換えていくマクロな戦略として広く知られているのが、Martin\n                            Fowler が提唱した"}<strong>{"Strangler Fig パターン"}</strong>{"です"}<sup>{"[19][27]"}</sup>{"。\n                        "}</p>{"\n                        "}<p>{"\n                            このパターンは、宿主となる木に巻きついて成長し最終的に宿主に取って代わる「絞め殺しの木」という植物に由来しています。一気に書き直す「ビッグバン・リライト」の代わりに、新しい実装を少しずつ既存システムの周りに構築し、機能単位で置き換えを進めていく、という考え方です"}<sup>{"[24]"}</sup>{"。\n                        "}</p>{"\n                        "}<div className="mermaid-wrapper">{"\n                            "}<div id="d9"><Mermaid chart={DIAGRAMS.d9} /></div>{"\n                        "}</div>{"\n                        "}<p>{"\n                            EC企業 Shopify\n                            のエンジニアリングブログでは、実際にこのパターンを用いて巨大な Shop\n                            モデルから設定値を切り出した際の具体的な進め方が紹介されています"}<sup>{"[20]"}</sup>{"。また\n                            Microsoft の Azure Architecture Center\n                            でも、モノリスからの段階的な移行パターンとして正式に文書化されています"}<sup>{"[25]"}</sup>{"。\n                        "}</p>{"\n                        "}<div className="table-wrap">{"\n                            "}<div className="table-title">{"スケールの異なる補完関係"}</div>{"\n                            "}<table>{"\n                                "}<thead>{"\n                                    "}<tr>{"\n                                        "}<th>{"観点"}</th>{"\n                                        "}<th>{"Feathers の技法"}</th>{"\n                                        "}<th>{"Strangler Fig パターン"}</th>{"\n                                    "}</tr>{"\n                                "}</thead>{"\n                                "}<tbody>{"\n                                    "}<tr>{"\n                                        "}<td>{"対象の粒度"}</td>{"\n                                        "}<td>{"メソッド・クラス単位"}</td>{"\n                                        "}<td>{"システム・サービス単位"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"主な道具"}</td>{"\n                                        "}<td>{"シーム、キャラクタリゼーションテスト、Sprout/Wrap"}</td>{"\n                                        "}<td>{"ファサード／プロキシ層、機能単位の段階的移行"}</td>{"\n                                    "}</tr>{"\n                                    "}<tr>{"\n                                        "}<td>{"ゴール"}</td>{"\n                                        "}<td>{"既存コードを安全にテスト可能にし変更する"}</td>{"\n                                        "}<td>{"モノリス全体を安全に新システムへ移行する"}</td>{"\n                                    "}</tr>{"\n                                "}</tbody>{"\n                            "}</table>{"\n                        "}</div>{"\n                        "}<p>{"\n                            大規模な近代化プロジェクトの中でも、実際に個々のクラスやメソッドに手を入れる場面では、結局のところ本書のテクニックが必要になります。\n                        "}</p>{"\n                    "}</div>{"\n                "}</section></>;}
+export default function Techniques() {return <>
+    <section className="section" id="sec11">
+        <div className="section-head">
+            <div className="icon-badge">
+                <i className="ti ti-seedling">
+                </i>
+            </div>
+            <h2>
+                {"11. 新機能を安全に追加する：Sprout と Wrap"}
+            </h2>
+        </div>
+        <div className="prose">
+            <p>
+                {" 「時間がない」「変更にとても時間がかかる」という現場の悩みに対して、Feathers は第6〜7章で、新しい機能を安全に追加するための実践的な技法を紹介しています"}
+                <sup>
+                    {"[9]"}
+                </sup>
+                {"。中でも特に有名なのが "}
+                <strong>
+                    {"Sprout（芽吹かせる）"}
+                </strong>
+                {" と "}
+                <strong>
+                    {"Wrap（包む）"}
+                </strong>
+                {" という2つの考え方です。 "}
+            </p>
+            <div className="mermaid-wrapper">
+                <div id="d8">
+                    <Mermaid chart={DIAGRAMS.d8} />
+                </div>
+            </div>
+            <div className="table-wrap">
+                <div className="table-title">
+                    {"Sprout / Wrap の使い分け"}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"技法"}
+                            </th>
+                            <th>
+                                {"やり方"}
+                            </th>
+                            <th>
+                                {"向いているケース"}
+                            </th>
+                            <th>
+                                {"長所"}
+                            </th>
+                            <th>
+                                {"短所"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"Sprout Method"}
+                            </td>
+                            <td>
+                                {" 既存メソッドに新メソッドへの呼び出しを差し込み、新メソッドはTDDで実装する"}
+                                <sup>
+                                    {"[44]"}
+                                </sup>
+                            </td>
+                            <td>
+                                {" 新しい振る舞いをロジックの1箇所に差し込みたいとき"}
+                                <sup>
+                                    {"[41]"}
+                                </sup>
+                            </td>
+                            <td>
+                                {" 新旧を分離でき新しい部分は確実にテストされる"}
+                                <sup>
+                                    {"[42]"}
+                                </sup>
+                            </td>
+                            <td>
+                                {"既存メソッドのテスト整備は先送り"}
+                                <sup>
+                                    {"[42]"}
+                                </sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Sprout Class"}
+                            </td>
+                            <td>
+                                {"新機能をまるごと新クラスに切り出す"}
+                            </td>
+                            <td>
+                                {"新機能の独立性が高いとき"}
+                            </td>
+                            <td>
+                                {"新クラスは最初からテスト可能な設計にできる"}
+                            </td>
+                            <td>
+                                {"クラス数が増える"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Wrap Method"}
+                            </td>
+                            <td>
+                                {" 元のメソッドをリネームし、新しい名前で前後処理と旧メソッド呼び出しをまとめる"}
+                                <sup>
+                                    {"[45]"}
+                                </sup>
+                            </td>
+                            <td>
+                                {" 既存の呼び出し前後に処理を追加したいとき"}
+                                <sup>
+                                    {"[41]"}
+                                </sup>
+                            </td>
+                            <td>
+                                {"呼び出し元を変えずに新旧を分離できる"}
+                                <sup>
+                                    {"[45]"}
+                                </sup>
+                            </td>
+                            <td>
+                                {"リネームで命名が不自然になりがち"}
+                                <sup>
+                                    {"[42]"}
+                                </sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Wrap Class"}
+                            </td>
+                            <td>
+                                {" 元のクラスをコンストラクタで受け取り委譲する新クラスを作る "}
+                            </td>
+                            <td>
+                                {"クラス単位で前後処理を挟みたいとき"}
+                            </td>
+                            <td>
+                                {"Wrap Method のクラス版として同様の利点"}
+                            </td>
+                            <td>
+                                {"委譲コードが増える"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                {" これらの技法に共通する目的は、「今日中に安全に機能を出す」ことと「将来的にテストを充実させる」ことの間で現実的な折り合いをつける点にあります。いきなり既存コード全体をテスト可能にしようとするのではなく、"}
+                <strong>
+                    {"新しく書く部分だけは必ずテストで守る"}
+                </strong>
+                {"という現実的な戦略です。 "}
+            </p>
+        </div>
+    </section>
+
+    
+    <section className="section" id="sec12">
+        <div className="section-head">
+            <div className="icon-badge">
+                <i className="ti ti-scissors">
+                </i>
+            </div>
+            <h2>
+                {"12. 代表的な依存関係破壊テクニック（全24種の抜粋）"}
+            </h2>
+        </div>
+        <div className="prose">
+            <p>
+                {" 本書第25章「Dependency-Breaking Techniques」では、依存関係を断ち切るための具体的なリファクタリング手法が24種類カタログ化されています"}
+                <sup>
+                    {"[15]"}
+                </sup>
+                {"。すべてを覚える必要はなく、まずは代表的なものから使えるようにするのがおすすめです。 "}
+            </p>
+            <div className="table-wrap">
+                <div className="table-title">
+                    {"代表的な依存関係破壊テクニック"}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"テクニック名"}
+                            </th>
+                            <th>
+                                {"概要"}
+                            </th>
+                            <th>
+                                {"主に効くケース"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"Extract Interface"}
+                            </td>
+                            <td>
+                                {" 差し替えたいメソッド群をインターフェースとして切り出す "}
+                            </td>
+                            <td>
+                                {"テストでフェイク実装を渡したいとき"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Parameterize Constructor"}
+                            </td>
+                            <td>
+                                {" コンストラクタ内部で生成していた協調オブジェクトを外から渡せる引数にする "}
+                            </td>
+                            <td>
+                                {"依存オブジェクトをテスト用に差し替えたいとき"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Subclass and Override Method"}
+                            </td>
+                            <td>
+                                {" テスト専用のサブクラスで問題のメソッドだけを無害な実装に置き換える "}
+                            </td>
+                            <td>
+                                {"呼び出し箇所を変更できない・したくないとき"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Extract and Override Call"}
+                            </td>
+                            <td>
+                                {" 問題の呼び出しを別メソッドに切り出し、サブクラスでそこだけ差し替える "}
+                            </td>
+                            <td>
+                                {"特定の呼び出し1箇所だけを無害化したいとき"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Replace Global Reference with Getter"}
+                            </td>
+                            <td>
+                                {" グローバル参照をオーバーライド可能なGetter経由に置き換える "}
+                            </td>
+                            <td>
+                                {"シングルトンやグローバル状態への依存を切りたいとき"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"Extract and Override Factory Method"}
+                            </td>
+                            <td>
+                                {" 生成処理を専用メソッドに切り出し、生成方法だけ差し替える "}
+                            </td>
+                            <td>
+                                {"直接生成に依存しているとき"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div className="callout">
+                <p>
+                    {" GitHub 上の \"dependency-breaking-katas\" のように、公開APIを変えずにこれらのテクニックだけでクラスをテスト可能にする練習問題も公開されています"}
+                    <sup>
+                        {"[17]"}
+                    </sup>
+                    {"。すべての協調オブジェクトにインターフェースを抽出するのではなく、「今日行う変更」に必要な1箇所にだけシームを作るという実務的な指針も紹介されており、"}
+                    <strong>
+                        {"必要な配線だけを切って、あとはそのままにしておく"}
+                    </strong>
+                    {"という割り切りが実務での使いこなしのコツです"}
+                    <sup>
+                        {"[14]"}
+                    </sup>
+                    {"。 "}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    
+    <section className="section" id="sec13">
+        <div className="section-head">
+            <div className="icon-badge">
+                <i className="ti ti-list-search">
+                </i>
+            </div>
+            <h2>
+                {"13. 「あるある」問題と対応する章・技法の早見表"}
+            </h2>
+        </div>
+        <div className="prose">
+            <p>
+                {" Part II（第6〜24章）は、どれも現場でよく聞く悩みをそのまま章タイトルにしているのが特徴です"}
+                <sup>
+                    {"[15]"}
+                </sup>
+                {"。初学者は、まず自分が直面している状況に近い行を探すと、目的の章にすぐアクセスできます。 "}
+            </p>
+            <div className="table-wrap">
+                <div className="table-title">
+                    {"現場の悩み早見表"}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"現場の悩み"}
+                            </th>
+                            <th>
+                                {"主に関連する概念・技法"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"時間がないのに変更しなければならない"}
+                            </td>
+                            <td>
+                                {"Sprout Method／Class"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"変更にとにかく時間がかかりすぎる"}
+                            </td>
+                            <td>
+                                {"Wrap Method／Class"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"このクラスをテストハーネスに載せられない"}
+                            </td>
+                            <td>
+                                {"センシングと分離、Extract Interface 等"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"このメソッド単体をテストハーネスで動かせない"}
+                            </td>
+                            <td>
+                                {"オブジェクトシーム、Subclass and Override"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"何をテストすればいいか分からない"}
+                            </td>
+                            <td>
+                                {"Effect Sketch（前向きの推論）"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"1箇所直すのに関係クラス全部の依存を切る必要があるか"}
+                            </td>
+                            <td>
+                                {"高レベルの介入点・Pinch Point の活用"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"ライブラリへの依存に振り回される"}
+                            </td>
+                            <td>
+                                {" ライブラリをラップして自前のインターフェース越しに使う "}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"コードを理解するだけの余裕がない"}
+                            </td>
+                            <td>
+                                {"Effect Sketch、コードの見取り図作り"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"アプリケーションに構造がない"}
+                            </td>
+                            <td>
+                                {"責務の分離、CRCによる整理"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"クラスが巨大でこれ以上大きくしたくない"}
+                            </td>
+                            <td>
+                                {"責務の分割、God Class 化の回避"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"手のつけられない「モンスターメソッド」がある"}
+                            </td>
+                            <td>
+                                {"巨大メソッドの段階的分解"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"チームが疲弊し状況が良くなる気がしない"}
+                            </td>
+                            <td>
+                                {" 小さな成功体験の積み重ね、変更アルゴリズムの反復適用 "}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    
+    <section className="section" id="sec14">
+        <div className="section-head">
+            <div className="icon-badge">
+                <i className="ti ti-stamp">
+                </i>
+            </div>
+            <h2>
+                {"14. 承認テスト（Approval Testing）／ゴールデンマスターとの関係"}
+            </h2>
+        </div>
+        <div className="prose">
+            <p>
+                {" キャラクタリゼーションテストと似た考え方に、"}
+                <strong>
+                    {"承認テスト（Approval Testing）"}
+                </strong>
+                {"、あるいは"}
+                <strong>
+                    {"ゴールデンマスターテスト"}
+                </strong>
+                {"と呼ばれる手法があります。Approval Tests ツールの開発者として知られる Llewellyn Falco は、レガシーコードに対しては内部構造を深く理解しなくても、出力ベースで良好なテストカバレッジを比較的簡単に得られる点で、この手法を高く評価しています"}
+                <sup>
+                    {"[38]"}
+                </sup>
+                {"。 "}
+            </p>
+            <p>
+                {" 承認テストの基本的な考え方は、期待値をコードの中に直接書き込むのではなく、出力をファイルに保存し、その内容を人間が承認することで期待値として確定するというものです。97 Things シリーズの著者でもある Emily Bache は、この手法をスナップショットテストやゴールデンマスターテストと呼ばれることもあると説明しつつ、専用ツールを使うことで期待値の更新や差分比較が格段にやりやすくなる点を強調しています"}
+                <sup>
+                    {"[16]"}
+                </sup>
+                {"。 "}
+            </p>
+            <div className="table-wrap">
+                <div className="table-title">
+                    {"近縁の用語の違い"}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"用語"}
+                            </th>
+                            <th>
+                                {"主な使われ方"}
+                            </th>
+                            <th>
+                                {"ニュアンス"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"キャラクタリゼーションテスト"}
+                            </td>
+                            <td>
+                                {"Feathers の用語。既存コードの挙動を記録し保護する"}
+                            </td>
+                            <td>
+                                {"今の挙動を理解し固定するプロセス寄り"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"ゴールデンマスターテスト"}
+                            </td>
+                            <td>
+                                {"出力全体を正解として保存し差分を検知する"}
+                            </td>
+                            <td>
+                                {"出力全体をまるごと比較する手法寄り"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"承認テスト"}
+                            </td>
+                            <td>
+                                {" 出力をファイルに保存し人間が確認・承認して期待値にする "}
+                            </td>
+                            <td>
+                                {"「承認」という人間の意思決定を重視"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                {" Understand Legacy Code の運営者 Nicolas Carlo は、「ゴールデンマスター」という呼び方には二度と触れない神聖なものという含みがあるため好ましくなく、人間が振る舞いを承認し必要に応じて更新していくという意味で「承認テスト」という呼び方を好む、という見解を示しています"}
+                <sup>
+                    {"[32]"}
+                </sup>
+                {"。呼び方はどうあれ、いずれも「まず今の振る舞いを固定してから、安心して変更に取り組む」という Feathers の考え方の延長線上にある実践です。 "}
+            </p>
+        </div>
+    </section>
+
+    
+    <section className="section" id="sec15">
+        <div className="section-head">
+            <div className="icon-badge">
+                <i className="ti ti-plant-2">
+                </i>
+            </div>
+            <h2>
+                {"15. より大きなスケールへ：Strangler Fig パターンとの関係"}
+            </h2>
+        </div>
+        <div className="prose">
+            <p>
+                {" Feathers の技法の多くは、メソッドやクラスといった「コードレベル」でのミクロな安全策です。一方で、システム全体を段階的に置き換えていくマクロな戦略として広く知られているのが、Martin Fowler が提唱した"}
+                <strong>
+                    {"Strangler Fig パターン"}
+                </strong>
+                {"です"}
+                <sup>
+                    {"[19][27]"}
+                </sup>
+                {"。 "}
+            </p>
+            <p>
+                {" このパターンは、宿主となる木に巻きついて成長し最終的に宿主に取って代わる「絞め殺しの木」という植物に由来しています。一気に書き直す「ビッグバン・リライト」の代わりに、新しい実装を少しずつ既存システムの周りに構築し、機能単位で置き換えを進めていく、という考え方です"}
+                <sup>
+                    {"[24]"}
+                </sup>
+                {"。 "}
+            </p>
+            <div className="mermaid-wrapper">
+                <div id="d9">
+                    <Mermaid chart={DIAGRAMS.d9} />
+                </div>
+            </div>
+            <p>
+                {" EC企業 Shopify のエンジニアリングブログでは、実際にこのパターンを用いて巨大な Shop モデルから設定値を切り出した際の具体的な進め方が紹介されています"}
+                <sup>
+                    {"[20]"}
+                </sup>
+                {"。また Microsoft の Azure Architecture Center でも、モノリスからの段階的な移行パターンとして正式に文書化されています"}
+                <sup>
+                    {"[25]"}
+                </sup>
+                {"。 "}
+            </p>
+            <div className="table-wrap">
+                <div className="table-title">
+                    {"スケールの異なる補完関係"}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"観点"}
+                            </th>
+                            <th>
+                                {"Feathers の技法"}
+                            </th>
+                            <th>
+                                {"Strangler Fig パターン"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"対象の粒度"}
+                            </td>
+                            <td>
+                                {"メソッド・クラス単位"}
+                            </td>
+                            <td>
+                                {"システム・サービス単位"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"主な道具"}
+                            </td>
+                            <td>
+                                {"シーム、キャラクタリゼーションテスト、Sprout/Wrap"}
+                            </td>
+                            <td>
+                                {"ファサード／プロキシ層、機能単位の段階的移行"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"ゴール"}
+                            </td>
+                            <td>
+                                {"既存コードを安全にテスト可能にし変更する"}
+                            </td>
+                            <td>
+                                {"モノリス全体を安全に新システムへ移行する"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                {" 大規模な近代化プロジェクトの中でも、実際に個々のクラスやメソッドに手を入れる場面では、結局のところ本書のテクニックが必要になります。 "}
+            </p>
+        </div>
+    </section>
+</>;}
