@@ -2791,6 +2791,35 @@
                   ]
                 },
                 {
+                  "tag": "ul",
+                  "attrs": {
+                    "class": "diagram-steps"
+                  },
+                  "children": [
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "ブラックボックス技法：同値分割、境界値分析、デシジョンテーブルテスト、状態遷移テスト"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "ホワイトボックス技法：ステートメントカバレッジ、ブランチカバレッジ"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "経験ベース技法：探索的テスト、チェックリストベーステスト"
+                      ]
+                    }
+                  ]
+                },
+                {
                   "tag": "h3",
                   "attrs": {},
                   "children": [
@@ -3164,7 +3193,7 @@
                   "tag": "p",
                   "attrs": {},
                   "children": [
-                    "自動テストがどれだけ充実していても、人間による探索的な調査は依然として重要です。探索的テスト(Exploratory Testing)は、James Bach が1990年代に提唱し、Michael Bolton とともに体系化した「Rapid Software Testing(RST)」というアプローチの中核をなす考え方です。両者は、テスト設計・学習・テスト実行を同時並行的に行うプロセスとして探索的テストを定義しています。"
+                    "自動テストがどれだけ充実していても、人間による探索的な調査は依然として重要です。探索的テスト(Exploratory Testing)という用語は、Cem Kaner が1984年に造り、1988年の『Testing Computer Software』初版で発表したものです。その後 James Bach が1990年代に広め、Michael Bolton とともに体系化した「Rapid Software Testing(RST)」というアプローチの中核に据えました。両者は、テスト設計・学習・テスト実行を同時並行的に行うプロセスとして探索的テストを定義しています。"
                   ]
                 },
                 {
@@ -11010,6 +11039,35 @@
               ]
             },
             {
+              "tag": "ul",
+              "attrs": {
+                "class": "diagram-steps"
+              },
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "ブラックボックス技法：同値分割、境界値分析、デシジョンテーブルテスト、状態遷移テスト"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "ホワイトボックス技法：ステートメントカバレッジ、ブランチカバレッジ"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "経験ベース技法：探索的テスト、チェックリストベーステスト"
+                  ]
+                }
+              ]
+            },
+            {
               "tag": "h3",
               "attrs": {},
               "children": [
@@ -11383,7 +11441,7 @@
               "tag": "p",
               "attrs": {},
               "children": [
-                "自動テストがどれだけ充実していても、人間による探索的な調査は依然として重要です。探索的テスト(Exploratory Testing)は、James Bach が1990年代に提唱し、Michael Bolton とともに体系化した「Rapid Software Testing(RST)」というアプローチの中核をなす考え方です。両者は、テスト設計・学習・テスト実行を同時並行的に行うプロセスとして探索的テストを定義しています。"
+                "自動テストがどれだけ充実していても、人間による探索的な調査は依然として重要です。探索的テスト(Exploratory Testing)という用語は、Cem Kaner が1984年に造り、1988年の『Testing Computer Software』初版で発表したものです。その後 James Bach が1990年代に広め、Michael Bolton とともに体系化した「Rapid Software Testing(RST)」というアプローチの中核に据えました。両者は、テスト設計・学習・テスト実行を同時並行的に行うプロセスとして探索的テストを定義しています。"
               ]
             },
             {
