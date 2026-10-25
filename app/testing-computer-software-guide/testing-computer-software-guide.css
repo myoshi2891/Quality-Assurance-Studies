@@ -630,3 +630,18 @@ body:has(.tcs-page)::before, body:has(.tcs-page)::after { content: none !importa
 html:has(.tcs-page) { scroll-behavior: auto; }
 .tcs-page .sidebar { transition: none; }
 }
+
+/* Preserve the source cascade: prose indentation also applies to decorated lists. */
+.tcs-page .prose .step-list,
+.tcs-page .prose .checklist,
+.tcs-page .prose .ref-list { padding-left: 1.4rem; }
+.tcs-page .prose .step-list { display: block; }
+.tcs-page .callout .callout-title { font-family: var(--font-body); font-size: 1rem; line-height: inherit; letter-spacing: normal; text-transform: none; }
+.tcs-page .ref-url { display: inline; }
+.tcs-page .checklist input { font-family: Arial; }
+@media (max-width: 960px) {
+    .tcs-page .mobile-bar button { font-family: Arial; padding: 1px 6px; }
+}
+@media (min-width: 961px) {
+    .tcs-page .mobile-bar button { all: revert; font-size: 1rem; }
+}
