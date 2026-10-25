@@ -412,7 +412,7 @@ A. 💡 Cockburn の立場では、ユースケースはテキスト中心で、
 | ISO 委員会サイト（同内容の別URL） | <https://committee.iso.org/standard/53314.html?browse=ics> |
 | IEC Webstore（TR 表記・34ページ・安定期限 2027） | <https://webstore.iec.ch/publication/68099> |
 | AFNOR（TR 表記・34ページ） | <https://www.boutique.afnor.org/en-gb/standard/iso-iec-tr-301942024/internet-of-things-iot-and-digital-twin-best-practices-for-use-case-project/xs302504/430980> |
-| VDE Verlag（TR 表記・34ページ） | <https://vde-verlag.de/iec-standards/254601/iso-iec-tr-30194-2024.html> |
+| VDE Verlag 試読PDF（TR 表記） | <https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiectr30194{ed1.0}en.pdf> |
 | Standards Council of Canada（IS 表記・2024-12-06） | <https://scc-ccn.ca/standardsdb/standards/8190336> |
 | Singapore Standards eShop（29ページ・SC 41） | <https://www.singaporestandardseshop.sg/Product/SSPdtDetail/d6850b3e-2761-da00-8a26-3a16b0ce846a> |
 

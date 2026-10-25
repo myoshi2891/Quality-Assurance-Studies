@@ -1,6 +1,6 @@
 # ISO/IEC TS 30149:2024 初学者向け解説ガイド
 
-**IoT — Trustworthiness principles（IoTの信頼性原則）を、ステップバイステップで理解する**
+**IoT — Trustworthiness principles（IoTの信頼に足る性質の原則）を、ステップバイステップで理解する**
 
 > 調査基準日: 2026年10月23日
 > 対象読者: IoT・組込み・クラウド・QAに関わる初学者〜中級者
@@ -16,8 +16,8 @@
 4. [Step 1: 中心概念 ― trust と trustworthiness](#4-step-1-中心概念--trust-と-trustworthiness)
 5. [規格の全体構成マップ](#5-規格の全体構成マップ)
 6. [Step 2: 5つの特性（Safety / Security / Privacy / Resilience / Reliability）](#6-step-2-5つの特性)
-7. [Step 3: 信頼性を「管理する」（箇条7）](#7-step-3-信頼性を管理する箇条7)
-8. [Step 4: 信頼性を「構築する」（箇条8）](#8-step-4-信頼性を構築する箇条8)
+7. [Step 3: 信頼に足る性質を「管理する」（箇条7）](#7-step-3-信頼に足る性質を管理する箇条7)
+8. [Step 4: 信頼に足る性質を「構築する」（箇条8）](#8-step-4-信頼に足る性質を構築する箇条8)
 9. [Step 5: 附属書A ― ベストプラクティス（パターン集）](#9-step-5-附属書a--ベストプラクティスパターン集)
 10. [Step 6: 実務での使い方（QA・開発の視点）](#10-step-6-実務での使い方qa開発の視点)
 11. [関連する規格・フレームワークとの違い](#11-関連する規格フレームワークとの違い)
@@ -30,13 +30,13 @@
 
 ## 1. この規格をひとことで言うと
 
-**「そのIoT製品は本当に信頼してよいのか？ を、ベンダーの自己申告ではなく、根拠（証拠）つきで示すための考え方を整理した文書」** です。
+**「そのIoT製品は本当に信頼してよいのか？ を、ベンダーの自己申告を含む主張が根拠（証拠）で裏づけられているかで示すための考え方を整理した文書」** です。自己申告そのものを否定するのではなく、証拠に支えられていない主張に頼らないことが要点です。
 
 | 疑問 | この規格が与える答えの方向性 |
 |---|---|
 | 「安全です」と言われたが本当か？ | 主張（claim）・論拠（argument）・証拠（evidence）で裏づける |
-| 何をもって「信頼できる」と言うのか？ | 5つの特性（安全・セキュリティ・プライバシー・レジリエンス・信頼度）で分解する |
-| 誰が・いつ・どこで考えるのか？ | IoT参照アーキテクチャ（ISO/IEC 30141）の「信頼性の視点」で考える |
+| 何をもって「信頼できる」と言うのか？ | 5つの特性（安全・セキュリティ・プライバシー・レジリエンス・信頼性）で分解する |
+| 誰が・いつ・どこで考えるのか？ | IoT参照アーキテクチャ（ISO/IEC 30141）の「信頼に足る性質の視点」で考える |
 | 具体的な進め方は？ | 附属書Aのパターン（特性評価・成熟度・影響評価・エンジニアリング・保証）を使う |
 
 初学者が最初に覚えるべきキーワードは次の3つだけです。
@@ -53,12 +53,12 @@
 |---|---|
 | 規格番号 | ISO/IEC TS 30149:2024 |
 | 正式名称 | Internet of Things (IoT) — Trustworthiness principles |
-| 文書の種類 | **TS（Technical Specification：技術仕様書）**。TSは規範的規定（要求事項等）を含み得る文書区分だが、本書は信頼性の原則・要素と構築パターンを整理し、適合性評価の要求事項を定めるものではない |
+| 文書の種類 | **TS（Technical Specification：技術仕様書）**。TSは規範的規定（要求事項等）を含み得る文書区分だが、本書は信頼に足る性質の原則・要素と構築パターンを整理し、適合性評価の要求事項を定めるものではない |
 | 版 | 第1版（Edition 1） |
 | 発行年月 | 2024年5月 |
 | 担当委員会 | ISO/IEC JTC 1/SC 41（Internet of Things and Digital Twin） |
 | ICS | 35.020, 35.030 |
-| 適用範囲（Scope） | ISO/IEC 30141 の参照アーキテクチャに基づく、IoTの信頼性の要素を示す |
+| 適用範囲（Scope） | ISO/IEC 30141 の参照アーキテクチャに基づく、IoTの信頼に足る性質の要素を示す |
 | 規範的引用文献 | **なし**（他規格の引用が必須ではない） |
 | 状態 | 発行済み（Published） |
 | ページ数 | ISOのページでは29、IECストアでは34ページ表記（販売元・数え方の違い） |
@@ -71,7 +71,7 @@
 |---|---|---|
 | 位置づけ | 技術的に発展途上、または即時IS化の合意に至る前の分野で発行される仕様（規範的規定を含み得る） | 広い合意に基づき発行される国際規格（規範的規定を含み得る） |
 | 認証（適合性評価）との関係 | 文書が適合性評価の対象となる要求事項を含むかどうかで決まる（TSだから一律に不向きというわけではない） | 要求事項を含む規格は認証・監査の基準として使われることがある |
-| 本書（TS 30149）の内容 | IoT参照アーキテクチャにおける信頼性の原則・要素と参考パターン（附属書A）を示し、適合性評価用の要求事項は定めない | — |
+| 本書（TS 30149）の内容 | IoT参照アーキテクチャにおける信頼に足る性質の原則・要素と参考パターン（附属書A）を示し、適合性評価用の要求事項は定めない | — |
 
 > 補足: ISO/IECの文書は、適合性の証明（認証）そのものを行いません。第三者認証機関が別途サービスとして提供します（規格のForewordにも明記）。
 
@@ -86,14 +86,14 @@
 
 TS 30149 は単独で読むものではなく、**ISO/IEC 30141（IoT参照アーキテクチャ）の一部を深掘りした文書**です。規格の序文（Introduction）では、次の2点が明記されています。
 
-1. TS 30149 は、IoT参照アーキテクチャの「**信頼性の視点（trustworthiness view）**」を専門化する
+1. TS 30149 は、IoT参照アーキテクチャの「**信頼に足る性質の視点（trustworthiness view）**」を専門化する
 2. 附属書Aで、参照アーキテクチャの「**構築の視点（construction view）**」で使えるパターンを列挙する
 
 ```mermaid
 flowchart LR
-    P1["ISO/IEC 30141<br/>IoT参照アーキテクチャ"] --> P2["信頼性の視点<br/>trustworthiness view"]
+    P1["ISO/IEC 30141<br/>IoT参照アーキテクチャ"] --> P2["信頼に足る性質の視点<br/>trustworthiness view"]
     P1 --> P3["構築の視点<br/>construction view"]
-    P2 --> P4["TS 30149 本文<br/>信頼性の原則を専門化"]
+    P2 --> P4["TS 30149 本文<br/>信頼に足る性質の原則を専門化"]
     P3 --> P5["TS 30149 附属書A<br/>パターン集"]
     classDef base fill:#e8f0ff,stroke:#3b5bdb,color:#102a63
     classDef ts fill:#fff3d6,stroke:#d9822b,color:#4a2a00
@@ -106,7 +106,7 @@ flowchart LR
 | 例え | 対応するもの |
 |---|---|
 | 建築の「基本設計図一式」 | ISO/IEC 30141（IoT全体の設計図） |
-| その中の「耐震・防火・防犯の設計ルール集」 | TS 30149（信頼性に特化した部分） |
+| その中の「耐震・防火・防犯の設計ルール集」 | TS 30149（信頼に足る性質に特化した部分） |
 
 > 学習順序のおすすめ: まず 30141 の全体像（ドメインやビュー）をざっくり掴み、その後で 30149 を読むと「どこの話をしているのか」が迷子になりません。
 
@@ -166,10 +166,10 @@ flowchart LR
 | 2 | Normative references | 規範的引用文献（なし） | 2章 |
 | 3 | Terms and definitions | 用語定義 | 4章 |
 | 4 | Abbreviated terms | 略語 | — |
-| 5 | Concept of trustworthiness | 信頼性の概念 | Step 1 |
+| 5 | Concept of trustworthiness | 信頼に足る性質の概念 | Step 1 |
 | 6 | Characteristics | 5つの特性 | Step 2 |
-| 7 | Managing trustworthiness | 信頼性の管理 | Step 3 |
-| 8 | Building trustworthiness | 信頼性の構築 | Step 4 |
+| 7 | Managing trustworthiness | 信頼に足る性質の管理 | Step 3 |
+| 8 | Building trustworthiness | 信頼に足る性質の構築 | Step 4 |
 | 附属書A（参考） | Best practices for IoT trustworthiness | ベストプラクティスとパターン | Step 5 |
 | 参考文献 | Bibliography | — | — |
 
@@ -185,7 +185,7 @@ flowchart LR
 | Figure 6 | Goal oriented trustworthiness | 目標指向の見方 |
 | Figure 7 | Risk oriented trustworthiness | リスク指向の見方 |
 | Figure 8 | Assurance based on claims, arguments, and evidence | 主張・論拠・証拠 |
-| Figure 9 | Conceptual model for trustworthiness | 信頼性の概念モデル |
+| Figure 9 | Conceptual model for trustworthiness | 信頼に足る性質の概念モデル |
 | Figure 10 | Determining risk factors within an RA | 参照アーキテクチャ内のリスク要因の特定 |
 | Table 1 | Example of goals and properties | 目標と性質の例 |
 | Table 2 | Principles for trustworthiness operationalization | 運用化の原則 |
@@ -195,15 +195,15 @@ flowchart LR
 
 ## 6. Step 2: 5つの特性
 
-規格は、信頼性を次の**5つの特性**に分解します（Kaspersky解説でも同じ5つが列挙されています）。
+規格は、信頼に足る性質を次の**5つの特性**に分解します（Kaspersky解説でも同じ5つが列挙されています）。
 
 ```mermaid
 flowchart TB
-    TW["IoTの信頼性<br/>Trustworthiness"] --> C1["Safety<br/>安全"]
+    TW["IoTの信頼に足る性質<br/>Trustworthiness"] --> C1["Safety<br/>安全"]
     TW --> C2["Security<br/>セキュリティ"]
     TW --> C3["Privacy<br/>プライバシー"]
     TW --> C4["Resilience<br/>レジリエンス"]
-    TW --> C5["Reliability<br/>信頼度（信頼性）"]
+    TW --> C5["Reliability<br/>信頼性"]
     classDef root fill:#fff3d6,stroke:#d9822b,color:#4a2a00
     classDef leaf fill:#e8f0ff,stroke:#3b5bdb,color:#102a63
     class TW root
@@ -212,23 +212,25 @@ flowchart TB
 
 ### 6.1 5特性の早見表
 
-定義の言い回しは、同じ5特性を扱うIIC（Industry IoT Consortium）の信頼性解説ブログの整理を参考にした**学習用の要約**です。規格本文の逐語訳ではありません。
+定義の言い回しは、同じ5特性を扱うIIC（Industry IoT Consortium）の信頼に足る性質の解説ブログの整理を参考にした**学習用の要約**です。規格本文の逐語訳ではありません。
 
 | 特性 | 一言で | 守る対象 | 具体例 |
 |---|---|---|---|
 | **Safety（安全）** | 人・環境に害を与えない | 人命・財産・環境 | 異常時に機器を安全側に停止させる |
 | **Security（セキュリティ）** | 許可されないアクセス・改変・破壊から守る | システムと情報 | 認証、暗号化、ファームウェア署名 |
 | **Privacy（プライバシー）** | 個人が自分の情報の扱いを制御できる | 個人の権利 | 収集目的の限定、保存期間の管理 |
-| **Resilience（レジリエンス）** | 想定外の障害でも許容水準のサービスを保つ | サービス継続 | 停電・人的ミス・攻撃を受けても縮退運転で継続 |
-| **Reliability（信頼度）** | 定められた条件・期間で必要な機能を果たし続ける | 通常運用の継続性 | 故障率、平均故障間隔 |
+| **Resilience（レジリエンス）** | 混乱を引き起こす事象に抵抗・適応し、回復する | サービス継続 | 停電・人的ミス・攻撃を受けても縮退運転で継続し、復旧する |
+| **Reliability（信頼性）** | 定められた条件・期間で必要な機能を果たし続ける | 通常運用の継続性 | 故障率、平均故障間隔 |
 
 ### 6.2 ReliabilityとResilienceの違い（初学者がつまずく点）
 
 | 観点 | Reliability | Resilience |
 |---|---|---|
-| 想定する状況 | **想定内**の条件 | **想定外・計画外**の状況 |
-| 目的 | 止まらずに動き続ける | 被害を減らし、サービス水準を保つ・回復する |
-| 例 | 規定温度範囲での長期稼働 | 地震・停電・攻撃の最中や直後の動作 |
+| 定義の軸 | **定められた条件**のもとで、**定められた期間**、機能を果たすこと | 混乱を引き起こす事象（disruptive events）に**抵抗し、適応し、回復する**こと |
+| 目的 | 必要な機能を所定の期間果たし続ける | 混乱の影響を抑え、サービスを保ち、回復させる |
+| 例 | 規定温度範囲での所定期間の稼働 | 地震・停電・攻撃の最中の縮退運転と、その後の復旧 |
+
+> 注: 「想定内か想定外か」だけで区別するのは不正確です。Resilience が扱う事象には、あらかじめ想定して備えておくものも含まれます。
 
 ### 6.3 規格の箇条6の「型」を読み取る
 
@@ -271,18 +273,18 @@ flowchart LR
 
 ---
 
-## 7. Step 3: 信頼性を「管理する」（箇条7）
+## 7. Step 3: 信頼に足る性質を「管理する」（箇条7）
 
-箇条7は、信頼性を**継続的に管理するための要素**を扱います。
+箇条7は、信頼に足る性質を**継続的に管理するための要素**を扱います。
 
 | 節 | 要素 | 初学者向けの意味（節タイトルからの一般的な解釈） |
 |---|---|---|
 | 7.1 | General | 全般 |
 | 7.2 | Assumptions | 「こう動くはず」という前提を明示し、管理する |
 | 7.3 | Assurance | 主張を裏づける証拠を揃える |
-| 7.4 | Risks | 信頼性を損なう要因をリスクとして扱う |
-| 7.5 | Composition | 部品・システムを組み合わせたときの信頼性を考える |
-| 7.6 | Trustworthiness profiles | 信頼性要求を用途別にまとめた「型」 |
+| 7.4 | Risks | 信頼に足る性質を損なう要因をリスクとして扱う |
+| 7.5 | Composition | 部品・システムを組み合わせたときの信頼に足る性質を考える |
+| 7.6 | Trustworthiness profiles | 信頼に足る性質の要求を用途別にまとめた「型」 |
 
 ```mermaid
 flowchart LR
@@ -309,9 +311,9 @@ IoTは「センサ + ゲートウェイ + クラウド + アプリ」のよう�
 
 ---
 
-## 8. Step 4: 信頼性を「構築する」（箇条8）
+## 8. Step 4: 信頼に足る性質を「構築する」（箇条8）
 
-箇条8は、信頼性を**作り込む**ための見方を3つの視点で示します。
+箇条8は、信頼に足る性質を**作り込む**ための見方を3つの視点で示します。
 
 | 節 | 視点 | 対応する図 | 問い |
 |---|---|---|---|
@@ -325,7 +327,7 @@ flowchart TB
     V1["能力の視点<br/>目標指向"] --> O1["運用化<br/>Operationalization"]
     V2["リスクの視点<br/>リスク指向"] --> O1
     V3["保証の視点<br/>主張・論拠・証拠"] --> O1
-    O1 --> R1["現場で回る<br/>信頼性の作り込み"]
+    O1 --> R1["現場で回る<br/>信頼に足る性質の作り込み"]
     classDef v fill:#e8f0ff,stroke:#3b5bdb,color:#102a63
     classDef o fill:#fff3d6,stroke:#d9822b,color:#4a2a00
     class V1,V2,V3 v
@@ -348,10 +350,12 @@ flowchart LR
     class EV e
 ```
 
-| 悪い例（自己申告） | 良い例（保証つき） |
+| 悪い例（根拠のない主張） | 良い例（証拠に裏づけられた主張） |
 |---|---|
-| 「当社製品は安全です」 | 「異常電流時に100ms以内に遮断する」（主張）→ 保護回路の設計根拠（論拠）→ 試験成績書・FMEA記録（証拠） |
+| 「当社製品は安全です」とだけ述べる | 「異常電流時に100ms以内に遮断する」（主張）→ 保護回路の設計根拠（論拠）→ 試験成績書・FMEA記録（証拠） |
 
+> 良い例の主張は、供給者自身による自己申告（自己宣言）でもかまいません。問題は誰が述べるかではなく、主張が論拠と証拠で裏づけられ、検証できるかどうかです。
+>
 > 上の数値や例は理解のための**架空の例**で、規格が定める値ではありません。
 
 ### 8.2 参照アーキテクチャ内のリスク要因
@@ -368,11 +372,11 @@ Figure 10 **Determining risk factors within an RA** は、IoT参照アーキテ�
 |---|---|---|---|
 | A.1 | Relation with ISO/IEC 30141 | — | 30141とのつながり |
 | A.2 | Concerns | Table A.1: Concerns for an implementation architecture | 実装アーキテクチャで気にすべき関心事 |
-| A.3.2 | Trustworthiness characterization method pattern | Table A.2 | 対象システムの信頼性を**特徴づける**方法 |
-| A.3.3 | Trustworthiness maturity model pattern | Table A.3 | 信頼性の**成熟度**を段階的に評価する |
-| A.3.4 | Trustworthiness impact assessment pattern | Table A.4 | 信頼性が損なわれたときの**影響**を評価する |
-| A.3.5 | Trustworthiness engineering pattern | Table A.5 | 信頼性を**設計・実装に組み込む** |
-| A.3.6 | Trustworthiness assurance pattern | Table A.6 | 信頼性を**証拠で保証する** |
+| A.3.2 | Trustworthiness characterization method pattern | Table A.2 | 対象システムの信頼に足る性質を**特徴づける**方法 |
+| A.3.3 | Trustworthiness maturity model pattern | Table A.3 | 信頼に足る性質の**成熟度**を段階的に評価する |
+| A.3.4 | Trustworthiness impact assessment pattern | Table A.4 | 信頼に足る性質が損なわれたときの**影響**を評価する |
+| A.3.5 | Trustworthiness engineering pattern | Table A.5 | 信頼に足る性質を**設計・実装に組み込む** |
+| A.3.6 | Trustworthiness assurance pattern | Table A.6 | 信頼に足る性質を**証拠で保証する** |
 
 ```mermaid
 flowchart LR
@@ -386,7 +390,7 @@ flowchart LR
 
 > 注意: 上図は附属書Aの節の並びを**使い方の流れとして描いた学習用図**です。各パターンの具体的な手順・表の内容は有料部分のため、本ガイドでは再現していません。
 
-Kaspersky解説では、附属書のパターンについて「信頼性違反の脅威評価手法から、MILS（Multiple Independent Levels of Security）のような信頼できるシステム向けアーキテクチャ解までのベストプラクティスのテンプレート」と紹介されています。
+Kaspersky解説では、附属書のパターンについて「信頼に足る性質の違反の脅威評価手法から、MILS（Multiple Independent Levels of Security）のような信頼できるシステム向けアーキテクチャ解までのベストプラクティスのテンプレート」と紹介されています。
 
 ---
 
@@ -434,9 +438,9 @@ flowchart TB
 
 | 文書 | 発行元 | 位置づけ | TS 30149との関係 |
 |---|---|---|---|
-| ISO/IEC 30141 | ISO/IEC JTC 1/SC 41 | IoT参照アーキテクチャ | **親**。30149はその信頼性の視点を専門化 |
-| IIoT Trustworthiness Framework Foundations | Industry IoT Consortium（IIC） | 産業IoT向けの信頼性フレームワーク（2021年7月公表） | 同じ5特性を扱う。IICの文書はIIRAの一部 |
-| IISF（Industrial Internet of Things Security Framework） | IIC | 産業IoTのセキュリティフレームワーク | IICの信頼性文書の土台 |
+| ISO/IEC 30141 | ISO/IEC JTC 1/SC 41 | IoT参照アーキテクチャ | **親**。30149はその信頼に足る性質の視点を専門化 |
+| IIoT Trustworthiness Framework Foundations | Industry IoT Consortium（IIC） | 産業IoT向けの信頼に足る性質のフレームワーク（2021年7月公表） | 同じ5特性を扱う。IICの文書はIIRAの一部 |
+| IISF（Industrial Internet of Things Security Framework） | IIC | 産業IoTのセキュリティフレームワーク | IICの信頼に足る性質の文書の土台 |
 | ISO/IEC/IEEE 15026-1 | ISO/IEC/IEEE | 保証（assurance）の用語・概念 | 30149の用語定義の出典 |
 | ISO 22166-1 | ISO | ロボティクス分野のモジュール性の用語 | composabilityの定義の出典 |
 
@@ -451,7 +455,7 @@ flowchart LR
     class TS1 b
 ```
 
-> SC 41の事業計画（2020年版）でも、信頼性（Trustworthiness）はIoTシステムに重要なシステム工学上の属性として位置づけられ、信頼度・可用性・レジリエンス・セキュリティ・プライバシー・安全などが挙げられています。IoT信頼性は、TS 30149の発行以前からSC 41の重点領域でした。
+> SC 41の事業計画（2020年版）でも、信頼に足る性質（Trustworthiness）はIoTシステムに重要なシステム工学上の属性として位置づけられ、信頼性・可用性・レジリエンス・セキュリティ・プライバシー・安全などが挙げられています。IoTの信頼に足る性質は、TS 30149の発行以前からSC 41の重点領域でした。
 
 ---
 
@@ -459,10 +463,10 @@ flowchart LR
 
 | 誤解 | 実際 |
 |---|---|
-| この規格に準拠すれば認証が取れる | 本書は信頼性の原則・要素と参考パターンを示す文書であり、適合性評価用の要求事項を定めていない（またISO/IEC自身は認証を行わない） |
+| この規格に準拠すれば認証が取れる | 本書は信頼に足る性質の原則・要素と参考パターンを示す文書であり、適合性評価用の要求事項を定めていない（またISO/IEC自身は認証を行わない） |
 | セキュリティのことだけを書いた規格 | セキュリティは5特性のうちの1つ。Safety・Privacy・Resilience・Reliabilityも同格 |
 | 具体的な技術要件（暗号方式など）が書いてある | 原則・考え方・パターンが中心で、特定の暗号方式などを強制する文書ではない（本文は有料のため詳細は原文で確認） |
-| ReliabilityとResilienceは同じ | 想定内で動き続ける力と、想定外でも被害を減らす力で別物 |
+| ReliabilityとResilienceは同じ | 定められた条件・期間で機能を果たす力と、混乱を引き起こす事象に抵抗・適応し回復する力で別物 |
 | 信頼（trust）と信頼に足る性質（trustworthiness）は同義 | 前者は思い込みを含み、後者は検証可能な根拠を伴う |
 | 1度評価すれば終わり | 運用・更新の中で証拠と成熟度を継続的に管理する発想 |
 
@@ -491,13 +495,13 @@ Safety、Security、Privacy、Resilience、Reliability。
 <details>
 <summary>Q4. TS 30149とISO/IEC 30141の関係は</summary>
 
-30141（IoT参照アーキテクチャ）の「信頼性の視点」を専門化し、附属書Aで「構築の視点」で使えるパターンを列挙する関係。
+30141（IoT参照アーキテクチャ）の「信頼に足る性質の視点」を専門化し、附属書Aで「構築の視点」で使えるパターンを列挙する関係。
 </details>
 
 <details>
 <summary>Q5. ReliabilityとResilienceの違いは</summary>
 
-Reliabilityは想定条件下で機能を果たし続ける力、Resilienceは想定外の事態でも許容水準のサービスを保つ力。
+Reliability（信頼性）は定められた条件のもとで、定められた期間、機能を果たす力。Resilienceは混乱を引き起こす事象に抵抗し、適応し、回復する力。
 </details>
 
 ---
@@ -512,7 +516,7 @@ Reliabilityは想定条件下で機能を果たし続ける力、Resilienceは�
 | IECストア（発行日・stability date・ページ数） | <a href="https://webstore.iec.ch/en/publication/67281" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/en/publication/67281</a> |
 | 規格プレビューPDF（目次・序文・Scope・用語定義） | <a href="https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf" target="_blank" rel="noopener noreferrer">https://vde-verlag.de/iec-normen/preview-pdf/info_isoiects30149{ed1.0}en.pdf</a> |
 | カナダ規格データベース（CSA採用 2026-01-31） | <a href="https://ccn-scc.ca/standardsdb/standards/4034053" target="_blank" rel="noopener noreferrer">https://ccn-scc.ca/standardsdb/standards/4034053</a> |
-| SC 41 事業計画2020（信頼性の位置づけ） | <a href="https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf" target="_blank" rel="noopener noreferrer">https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf</a> |
+| SC 41 事業計画2020（信頼に足る性質の位置づけ） | <a href="https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf" target="_blank" rel="noopener noreferrer">https://jtc1info.org/wp-content/uploads/2022/04/SC_41_Business_Plan_2020.pdf</a> |
 
 ### 14.2 国際的な開発者・企業による解説
 
@@ -521,10 +525,10 @@ Reliabilityは想定条件下で機能を果たし続ける力、Resilienceは�
 | Why standardization matters: from convenience to saving lives（2024年10月、TS 30149の策定に参加した旨と5特性の解説） | Kaspersky | <a href="https://www.kaspersky.com/blog/iot-trustworthiness-iec-30149/52392/" target="_blank" rel="noopener noreferrer">https://www.kaspersky.com/blog/iot-trustworthiness-iec-30149/52392/</a> |
 | 5特性の定義と相互関係の解説ブログ | Industry IoT Consortium（IIC）Trustworthiness Task Group | <a href="https://iiconsortium.org/?p=1660" target="_blank" rel="noopener noreferrer">https://iiconsortium.org/?p=1660</a> |
 | IIoT Trustworthiness Framework Foundations公表（2021年7月）のニュース | IIC / Control Engineering | <a href="https://www.controleng.com/?p=115950" target="_blank" rel="noopener noreferrer">https://www.controleng.com/?p=115950</a> |
-| IIC 2021年第2四半期報告（信頼性メソッドの例） | IIC | <a href="https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf</a> |
+| IIC 2021年第2四半期報告（信頼に足る性質のメソッドの例） | IIC | <a href="https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/pdf/2021-Q2-Quarterly-Report.pdf</a> |
 | IIC 2017年第4四半期報告（特性が互いに関連し調整が必要） | IIC | <a href="https://www.iiconsortium.org/pdf/2017-12_4Q17_report_Trustworthiness_Final.pdf" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/pdf/2017-12_4Q17_report_Trustworthiness_Final.pdf</a> |
 | IoT Trustworthiness States（Bassam Zarkout氏、IGnPower） | IIoT World | <a href="https://www.iiot-world.com/industrial-iot/connected-industry/iot-trustworthiness-states/" target="_blank" rel="noopener noreferrer">https://www.iiot-world.com/industrial-iot/connected-industry/iot-trustworthiness-states/</a> |
-| Journal of Innovation 2018年9月号（IIC信頼性特集の著者一覧） | IIC | <a href="https://www.iiconsortium.org/?p=2982" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/?p=2982</a> |
+| Journal of Innovation 2018年9月号（IIC信頼に足る性質の特集の著者一覧） | IIC | <a href="https://www.iiconsortium.org/?p=2982" target="_blank" rel="noopener noreferrer">https://www.iiconsortium.org/?p=2982</a> |
 
 ---
 
