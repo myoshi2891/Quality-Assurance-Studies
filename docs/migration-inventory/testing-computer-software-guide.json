@@ -3846,6 +3846,70 @@
                   ]
                 },
                 {
+                  "tag": "ol",
+                  "attrs": {
+                    "class": "diagram-steps"
+                  },
+                  "children": [
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "要件定義"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "設計"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "実装とユニットテスト"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "CIビルド（静的解析と単体テスト）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "結合テストとAPIテスト"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "ステージングでのE2Eテスト"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "本番リリース"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "本番監視（得られたフィードバックを要件定義へ戻す）"
+                      ]
+                    }
+                  ]
+                },
+                {
                   "tag": "div",
                   "attrs": {
                     "class": "callout source"
@@ -11946,6 +12010,70 @@
                   },
                   "children": [
                     "図8: シフトレフトとCI/CDパイプライン"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "attrs": {
+                "class": "diagram-steps"
+              },
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "要件定義"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "設計"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "実装とユニットテスト"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "CIビルド（静的解析と単体テスト）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "結合テストとAPIテスト"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "ステージングでのE2Eテスト"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "本番リリース"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "本番監視（得られたフィードバックを要件定義へ戻す）"
                   ]
                 }
               ]

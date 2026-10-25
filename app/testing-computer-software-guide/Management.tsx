@@ -211,6 +211,16 @@ export default function Management() {return <>
                     {"図8: シフトレフトとCI/CDパイプライン"}
                 </div>
             </div>
+            <ol className="diagram-steps">
+                <li>{"要件定義"}</li>
+                <li>{"設計"}</li>
+                <li>{"実装とユニットテスト"}</li>
+                <li>{"CIビルド（静的解析と単体テスト）"}</li>
+                <li>{"結合テストとAPIテスト"}</li>
+                <li>{"ステージングでのE2Eテスト"}</li>
+                <li>{"本番リリース"}</li>
+                <li>{"本番監視（得られたフィードバックを要件定義へ戻す）"}</li>
+            </ol>
             <div className="callout source">
                 <i className="ti ti-quote">
 
