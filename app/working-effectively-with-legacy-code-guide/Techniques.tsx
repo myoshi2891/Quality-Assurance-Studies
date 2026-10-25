@@ -14,11 +14,11 @@ export default function Techniques() {return <>
         </div>
         <div className="prose">
             <p>
-                {" 「時間がない」「変更にとても時間がかかる」という現場の悩みに対して、Feathers は第6〜7章で、新しい機能を安全に追加するための実践的な技法を紹介しています"}
+                {" 「時間がない」「変更にとても時間がかかる」という現場の悩みに対して、Feathers は第6章で、新しい機能を安全に追加するための実践的な技法を紹介しています"}
                 <sup>
                     {"[9]"}
                 </sup>
-                {"。中でも特に有名なのが "}
+                {"。中でも特に有名なのが、いずれも第6章で解説される "}
                 <strong>
                     {"Sprout（芽吹かせる）"}
                 </strong>
@@ -347,7 +347,7 @@ export default function Techniques() {return <>
                                 {"Wrap Method／Class"}
                             </td>
                             <td>
-                                {"第7章"}
+                                {"第6章"}
                             </td>
                         </tr>
                         <tr>
