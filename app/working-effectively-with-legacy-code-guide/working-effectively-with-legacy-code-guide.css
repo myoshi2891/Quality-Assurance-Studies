@@ -597,3 +597,27 @@
 @media (prefers-reduced-motion: reduce) {
 .wewlc-page .sidebar { transition: none; }
 }
+
+/* Computed-style parity with the original, including retained guide CSS. */
+.wewlc-page .prose p,
+.wewlc-page .prose ul,
+.wewlc-page .prose ol,
+.wewlc-page .prose li,
+.wewlc-page .callout p { color: var(--ink); font-size: 1rem; }
+.wewlc-page .prose li { margin-bottom: 0; }
+.wewlc-page .prose .roadmap-list li { margin-bottom: 0.4rem; }
+.wewlc-page .prose ul.checklist li { margin-bottom: 0.6rem; }
+.wewlc-page strong { font-weight: 700; }
+.wewlc-page table { min-width: 0; color: var(--ink); }
+.wewlc-page .ref-title { font-size: 1rem; margin-bottom: 0; }
+.wewlc-page .ref-url { font-family: inherit; }
+.wewlc-page ul.checklist input { color: #000; line-height: normal; margin-bottom: 3px; }
+.wewlc-page .mobile-bar button { line-height: normal; padding: 1px 6px; }
+.wewlc-page .footer { font-family: inherit; padding: 1.6rem 0 0; }
+.wewlc-page .table-wrap table { font-size: 1rem; min-width: 0; }
+.wewlc-page .table-wrap th,
+.wewlc-page .table-wrap td { padding: 0.7rem 1.1rem; border-bottom: 1px solid var(--border); }
+.wewlc-page .table-wrap th { font-family: inherit; letter-spacing: normal; text-transform: none; }
+.wewlc-page .table-wrap tbody tr:last-child td { border-bottom: none; }
+.wewlc-page .table-wrap tbody tr:hover td { background: transparent; }
+.wewlc-page .table-wrap tbody tr:hover { background: var(--paper-card-2); }
