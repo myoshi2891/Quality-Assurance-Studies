@@ -69,6 +69,10 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); const groups = $('#diag-4').closest('.diagram-block').next('ul.diagram-steps');
         expect(groups.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['ブラックボックス技法：同値分割、境界値分析、デシジョンテーブルテスト、状態遷移テスト', 'ホワイトボックス技法：ステートメントカバレッジ、ブランチカバレッジ', '経験ベース技法：探索的テスト、チェックリストベーステスト']);
     });
+    it('diagram 6 is followed by an ordered text description of the session loop and report', async () => {
+        const $ = await html(); const steps = $('#diag-6').closest('.diagram-block').next('ol.diagram-steps');
+        expect(steps.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['チャーターを作る（探索の目的を決める）', '探索する', '学習する（探索で得た気づきを整理する）', '次のテストを設計する（設計したテストで再び探索へ戻る）', 'セッションレポートを作成（探索の結果をまとめる）']);
+    });
     it('credits Cem Kaner with coining exploratory testing and James Bach with popularizing it', async () => {
         const $ = await html(); const history = $('#sec10 .prose > p').first().text();
         expect(history).toContain('Cem Kaner が1984年に造り、1988年の『Testing Computer Software』初版で発表した');
