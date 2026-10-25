@@ -217,7 +217,7 @@ export default function Fundamentals() {return <>
                         </tr>
                         <tr>
                             <td>
-                                {"⑤ 殺虫剤のパラドックス"}
+                                {"⑤ テストは使い古される"}
                             </td>
                             <td>
                                 {" 同じテストを繰り返すと新しい欠陥を見つけられなくなるため、テストを見直し続ける必要がある "}
