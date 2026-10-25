@@ -344,10 +344,10 @@ export default function Techniques() {return <>
                                 {"変更にとにかく時間がかかりすぎる"}
                             </td>
                             <td>
-                                {"Wrap Method／Class"}
+                                {"ラグタイム（ビルドとテストの待ち時間）の短縮、依存関係の解消（Wrap Method／Class は第6章）"}
                             </td>
                             <td>
-                                {"第6章"}
+                                {"第7章"}
                             </td>
                         </tr>
                         <tr>
