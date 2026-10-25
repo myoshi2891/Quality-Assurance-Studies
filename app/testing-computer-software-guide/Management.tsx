@@ -25,6 +25,14 @@ export default function Management() {return <>
                     {"図7: 良いバグレポートの構成要素"}
                 </div>
             </div>
+            <ol className="diagram-steps">
+                <li>{"タイトル（何が起きたかを一言で）"}</li>
+                <li>{"再現手順（番号付きで具体的に）"}</li>
+                <li>{"期待結果（本来どうあるべきか）"}</li>
+                <li>{"実際の結果（何が起きたか）"}</li>
+                <li>{"環境情報（OS、ブラウザ、バージョン）"}</li>
+                <li>{"証拠（スクリーンショットとログ）"}</li>
+            </ol>
             <div className="table-wrap">
                 <table>
                     <thead>

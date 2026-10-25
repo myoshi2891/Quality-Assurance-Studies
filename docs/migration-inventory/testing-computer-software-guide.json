@@ -3330,6 +3330,56 @@
                   ]
                 },
                 {
+                  "tag": "ol",
+                  "attrs": {
+                    "class": "diagram-steps"
+                  },
+                  "children": [
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "タイトル（何が起きたかを一言で）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "再現手順（番号付きで具体的に）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "期待結果（本来どうあるべきか）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "実際の結果（何が起きたか）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "環境情報（OS、ブラウザ、バージョン）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "証拠（スクリーンショットとログ）"
+                      ]
+                    }
+                  ]
+                },
+                {
                   "tag": "div",
                   "attrs": {
                     "class": "table-wrap"
@@ -11494,6 +11544,56 @@
                   },
                   "children": [
                     "図7: 良いバグレポートの構成要素"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "attrs": {
+                "class": "diagram-steps"
+              },
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "タイトル（何が起きたかを一言で）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "再現手順（番号付きで具体的に）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "期待結果（本来どうあるべきか）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "実際の結果（何が起きたか）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "環境情報（OS、ブラウザ、バージョン）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "証拠（スクリーンショットとログ）"
                   ]
                 }
               ]
