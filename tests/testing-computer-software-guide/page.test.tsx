@@ -65,6 +65,13 @@ describe('every original design rule and responsive breakpoint', () => {
         expect(bar).toBeGreaterThan(sidebar); expect(bar).toBeLessThan(50);
         expect(mobileValue(`${scope} .mobile-bar`, 'top')).toBe('calc(60px + var(--disclaimer-height, 0px))');
     });
+    it('hovering the active TOC link keeps its white text on the indigo background', () => {
+        // アクティブかつホバー中のリンクに適用されるセレクターと詳細度（クラス・疑似クラス数）
+        const weights: Record<string, number> = {[`${scope} .nav-a:hover`]: 3, [`${scope} .nav-a.active`]: 3, [`${scope} .nav-a.active:hover`]: 4};
+        let winner = {weight: -1, value: ''};
+        css().walkDecls('color', decl => {const rule = decl.parent; if (rule?.type !== 'rule' || rule.parent?.type === 'atrule') return; for (const s of (rule as postcss.Rule).selectors) {const w = weights[s]; if (w !== undefined && w >= winner.weight) winner = {weight: w, value: decl.value};}});
+        expect(winner.value).toBe('#fff');
+    });
     inventory.css.forEach((rule, i) => it(`CSS[${i}] ${rule.media ?? 'desktop'} ${rule.selector}`, () => {
         const found: unknown[] = []; css().walkRules(r => {
             if (r.selector === scoped(rule.selector) && (r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params : null) === rule.media)

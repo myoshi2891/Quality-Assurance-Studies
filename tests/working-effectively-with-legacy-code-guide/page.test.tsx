@@ -57,6 +57,13 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); expect($('#sec3 sup').first().text()).toBe('[2][15]');
         expect($('.ref-card').filter((_, el) => $(el).find('.ref-num').text().trim() === '[15]').find('.ref-title').text()).toContain('Working Effectively with Legacy');
     });
+    it('the characterization test example declares its provisional expectation instead of an undefined identifier', async () => {
+        const code = (await html())('pre code').first().text();
+        expect(code).not.toContain('actualObservedValue');
+        expect(code).toMatch(/const provisionalExpected = [^;\n]+;/);
+        expect(code).toContain('calculateShippingFee(sampleOrder) が実際に返した値に置き換える');
+        expect(code).toContain('expect(result).toEqual(provisionalExpected);');
+    });
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
     });
