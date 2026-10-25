@@ -559,7 +559,7 @@
 .wewlc-page section.section { padding: 1.4rem 0 0; border-top: 1px dashed var(--border); scroll-margin-top: calc(76px + var(--disclaimer-height, 0px)); }
 .wewlc-page section.section:first-of-type { border-top: none; }
 .wewlc-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); height: calc(100dvh - 60px - var(--disclaimer-height, 0px)); }
-.wewlc-page .mobile-bar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 38; }
+.wewlc-page .mobile-bar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 41; }
 .wewlc-page .sidebar-scrim { top: calc(60px + var(--disclaimer-height, 0px)); }
 .wewlc-page table { margin: 0; background: transparent; border-radius: 0; overflow: visible; }
 .wewlc-page th, .wewlc-page td { font-family: inherit; font-size: 1rem !important; line-height: inherit; letter-spacing: normal; text-transform: none; }

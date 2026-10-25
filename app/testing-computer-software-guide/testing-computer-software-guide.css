@@ -620,7 +620,7 @@ html:has(.tcs-page) { scroll-behavior: smooth; }
 body:has(.tcs-page)::before, body:has(.tcs-page)::after { content: none !important; }
 @media (max-width: 960px) {
 .tcs-page main.main { margin-left: 0; padding: 0 1.25rem 4rem; }
-.tcs-page .mobile-bar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 38; }
+.tcs-page .mobile-bar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 41; }
 .tcs-page .mobile-bar button { font-family: Arial, sans-serif; line-height: normal; padding: 2px 6px; }
 .tcs-page .sidebar { visibility: hidden; transition: left 0.25s ease, visibility 0s linear 0.25s; max-width: 90vw; }
 .tcs-page .sidebar.open { visibility: visible; transition: left 0.25s ease, visibility 0s; }
