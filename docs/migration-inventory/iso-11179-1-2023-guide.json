@@ -12554,7 +12554,7 @@
           "tag": "li",
           "attrs": {},
           "children": [
-            "従来の ISO/IEC 19763-10:2014（モデル登録）は、2023年版の Part 35（モデル）に対応する。"
+            "従来の ISO/IEC 19763-10:2014（Core model and basic mapping）は、ISO/IEC 19763-10:2023 と 2023年版の Part 35（ISO/IEC 11179-35:2023、モデル）に引き継がれた。"
           ]
         }
       ]
@@ -22463,7 +22463,7 @@
             "tag": "li",
             "attrs": {},
             "children": [
-              "従来の ISO/IEC 19763-10:2014（モデル登録）は、2023年版の Part 35（モデル）に対応する。"
+              "従来の ISO/IEC 19763-10:2014（Core model and basic mapping）は、ISO/IEC 19763-10:2023 と 2023年版の Part 35（ISO/IEC 11179-35:2023、モデル）に引き継がれた。"
             ]
           }
         ]
