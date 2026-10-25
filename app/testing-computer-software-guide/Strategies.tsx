@@ -312,6 +312,13 @@ export default function Strategies() {return <>
                     {"図6: 探索的テストのセッションループ"}
                 </div>
             </div>
+            <ol className="diagram-steps">
+                <li>{"チャーターを作る（探索の目的を決める）"}</li>
+                <li>{"探索する"}</li>
+                <li>{"学習する（探索で得た気づきを整理する）"}</li>
+                <li>{"次のテストを設計する（設計したテストで再び探索へ戻る）"}</li>
+                <li>{"セッションレポートを作成（探索の結果をまとめる）"}</li>
+            </ol>
             <div className="callout note">
                 <i className="ti ti-users">
 

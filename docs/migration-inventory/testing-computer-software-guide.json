@@ -3229,6 +3229,49 @@
                   ]
                 },
                 {
+                  "tag": "ol",
+                  "attrs": {
+                    "class": "diagram-steps"
+                  },
+                  "children": [
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "チャーターを作る（探索の目的を決める）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "探索する"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "学習する（探索で得た気づきを整理する）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "次のテストを設計する（設計したテストで再び探索へ戻る）"
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        "セッションレポートを作成（探索の結果をまとめる）"
+                      ]
+                    }
+                  ]
+                },
+                {
                   "tag": "div",
                   "attrs": {
                     "class": "callout note"
@@ -11472,6 +11515,49 @@
                   },
                   "children": [
                     "図6: 探索的テストのセッションループ"
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "attrs": {
+                "class": "diagram-steps"
+              },
+              "children": [
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "チャーターを作る（探索の目的を決める）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "探索する"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "学習する（探索で得た気づきを整理する）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "次のテストを設計する（設計したテストで再び探索へ戻る）"
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "attrs": {},
+                  "children": [
+                    "セッションレポートを作成（探索の結果をまとめる）"
                   ]
                 }
               ]
