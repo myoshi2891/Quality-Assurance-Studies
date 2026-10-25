@@ -15,7 +15,7 @@ const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-co
 const own = () => readFileSync(`${base}/working-effectively-with-legacy-code-guide.css`, 'utf8');
 const markup = () => { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; const $ = load(renderToStaticMarkup(React.createElement(Page))); $('link').remove(); return $('body').html()!; };
 const selectors = ['.main','.hero','.eyebrow','h1','.subtitle','.hero-tags','.hero-tag','.book-info-card','.book-info-item','.label','.value','section.section','.section-head','.icon-badge','h2','.prose p','.prose ul:not(.checklist)','.prose ol','.prose li','.callout','.callout strong','.table-wrap','.table-title','table','th','td','td strong','.ref-grid','.ref-card','.ref-num','.ref-title','.ref-url','.checklist-counter','ul.checklist','ul.checklist label','ul.checklist input','.footer','.sidebar-brand','.nav-group-label','.nav-a','.n-num','.mobile-bar','.mobile-bar button'];
-const properties = ['color','backgroundColor','backgroundImage','fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','display','marginTop','marginBottom','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderRadius','boxShadow','whiteSpace','listStyleType','textDecorationLine','width','maxWidth','webkitTextFillColor'];
+const properties = ['color','backgroundColor','backgroundImage','fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','display','marginTop','marginBottom','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderRadius','boxShadow','whiteSpace','textTransform','listStyleType','textDecorationLine','width','maxWidth','webkitTextFillColor'];
 for (const width of [390,560,820,960,961,1440]) for (const order of ['before','after']) {
     test(`${width}px CSS ${order}: compare every source design element`, async ({page}) => {
         await page.setViewportSize({width,height:900}); const reference = await page.context().newPage(); await reference.setViewportSize({width,height:900});
@@ -26,6 +26,7 @@ for (const width of [390,560,820,960,961,1440]) for (const order of ['before','a
         const differences: unknown[] = [];
         for(const selector of selectors){const a=actual[selector]!,e=expected[selector]!; if(a.length!==e.length)differences.push([selector,'count',a.length,e.length]);for(let i=0;i<Math.min(a.length,e.length);i++)for(const prop of properties)if(a[i]![prop]!==e[i]![prop])differences.push([selector,i,prop,a[i]![prop],e[i]![prop]]);}
         expect(differences).toEqual([]);
+        for (const pseudo of ['::before','::after']) expect(await page.evaluate(pseudo => getComputedStyle(document.body,pseudo).content,pseudo)).toBe('none');
         expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
         await expect(page.locator('.mobile-bar')).toHaveCSS('display',width<=960?'flex':'none');
         const code = page.locator('pre'); expect(await code.textContent()).toBe(inventory.groups.codes.items[0]!.code);

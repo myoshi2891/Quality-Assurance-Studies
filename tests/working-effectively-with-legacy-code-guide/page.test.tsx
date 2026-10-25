@@ -66,7 +66,7 @@ describe('every original design rule and responsive breakpoint', () => {
     }));
     it('imports scoped CSS and preserves serif fonts', () => {
         const page = readFileSync(`${base}/page.tsx`,'utf8'); expect(page).toContain("import './working-effectively-with-legacy-code-guide.css'"); expect(page).toContain('Noto+Serif+JP');
-        css().walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
+        css().walkRules(r => r.selectors.forEach(s => expect((s.startsWith(scope) || s.startsWith('body:has(.wewlc-page)'))).toBe(true)));
     });
     it('compensates application chrome and protects light text/table/code/diagram styles', () => {
         const text = css().toString(); for (const token of ['var(--disclaimer-height, 0px)', 'foreignObject', '.edgeLabels rect', 'visibility: hidden', 'white-space: pre', 'min-height: 0', '-webkit-text-fill-color', '::-webkit-scrollbar', '.callout strong', 'tbody td']) expect(text).toContain(token);
