@@ -75,6 +75,12 @@ describe('one-to-one complete source inventory', () => {
         expect(chart).toContain('B[モニタリングと制御 全活動と並行して継続] -.->|進捗の確認と計画の調整| ACT');
         expect(chart).not.toContain('A[テスト計画] --> B'); expect(chart).not.toContain('B --> C');
     });
+    it('white-box text names statement coverage before its guarantee and keeps branch coverage distinct', async () => {
+        const $ = await html(); const text = $('#sec8 h3').filter((_, el) => $(el).text().includes('8.2')).next('p').text().trim();
+        expect(text).toContain('ステートメントカバレッジ100%は「すべての実行可能なステートメントを実行した」ことを保証しますが');
+        expect(text).toContain('「すべての分岐を通った」こと(ブランチカバレッジ100%)');
+        expect(text).not.toContain('すべての行を実行した'); expect(text).not.toContain('命令行');
+    });
     it('diagram 6 is followed by an ordered text description of the session loop and report', async () => {
         const $ = await html(); const steps = $('#diag-6').closest('.diagram-block').next('ol.diagram-steps');
         expect(steps.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['チャーターを作る（探索の目的を決める）', '探索する', '学習する（探索で得た気づきを整理する）', '次のテストを設計する（設計したテストで再び探索へ戻る）', 'セッションレポートを作成（探索の結果をまとめる）']);
