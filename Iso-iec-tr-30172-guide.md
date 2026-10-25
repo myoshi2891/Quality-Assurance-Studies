@@ -287,7 +287,7 @@ flowchart TB
 | A.2.15 | Relation with other known use cases | 他ユースケースとの関係（共通要件など） | ✔ |
 | A.2.16 | General remarks | 一般的な備考 | ✔ |
 | A.2.17 | Challenges and issues | 課題・問題点 | ✔ |
-| A.2.18 | Data security, privacy and trustworthiness | データセキュリティ・プライバシー・信頼性 | ✔ |
+| A.2.18 | Data security, privacy and trustworthiness | データセキュリティ・プライバシー・信頼に足る性質 | ✔ |
 | A.2.19 | User requirements and interactions with other actors | ユーザー要求と他アクターとの相互作用 | ✔ |
 
 ### 6-3. Part 2：図による表現（A.3）の5項目
