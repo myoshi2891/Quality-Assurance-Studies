@@ -53,6 +53,10 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); const ids = $('[id]').map((_, el) => $(el).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
         $('.sidebar a').each((_, el) => expect($($(el).attr('href')!)).toHaveLength(1));
     });
+    it('cites the book page [15], not the strangler fig article [19], for Feathers\' legacy-code definition', async () => {
+        const $ = await html(); expect($('#sec3 sup').first().text()).toBe('[2][15]');
+        expect($('.ref-card').filter((_, el) => $(el).find('.ref-num').text().trim() === '[15]').find('.ref-title').text()).toContain('Working Effectively with Legacy');
+    });
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
     });
