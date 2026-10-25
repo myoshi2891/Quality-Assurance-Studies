@@ -64,6 +64,16 @@ describe('one-to-one complete source inventory', () => {
         expect(code).toContain('calculateShippingFee(sampleOrder) が実際に返した値に置き換える');
         expect(code).toContain('expect(result).toEqual(provisionalExpected);');
     });
+    it('the provisional expectation is a non-numeric sentinel that cannot equal a shipping fee on the first run', async () => {
+        const code = (await html())('pre code').first().text();
+        expect(code).toMatch(/const provisionalExpected = '[^']+';/);
+    });
+    it('step 1 recommends only investigation and notes before tests, deferring deletion until behavior is protected', async () => {
+        const text = (await html())('#sec6 .prose p').eq(1).text();
+        expect(text).not.toContain('削る');
+        expect(text).toContain('コードを変更しない調査');
+        expect(text).toContain('利用箇所を確認し、キャラクタリゼーションテストで挙動を保護してから');
+    });
     it('references [41] and [42] each link to their own article', async () => {
         const $ = await html(); const card = (num: string) => $('.ref-card').filter((_, el) => $(el).find('.ref-num').text().trim() === num);
         expect(card('[41][42]')).toHaveLength(0);
@@ -87,6 +97,21 @@ describe('every original design rule and responsive breakpoint', () => {
         const bar = Number(mobileValue(`${scope} .mobile-bar`, 'z-index')); const sidebar = Number(mobileValue(`${scope} .sidebar`, 'z-index'));
         expect(bar).toBeGreaterThan(sidebar); expect(bar).toBeLessThan(50);
         expect(mobileValue(`${scope} .mobile-bar`, 'top')).toBe('calc(60px + var(--disclaimer-height, 0px))');
+    });
+    // メディア外で最後に宣言された値を有効値とみなす
+    const decls = (selector: string) => {const out: Record<string, [string, boolean]> = {}; css().walkDecls(decl => {const rule = decl.parent; if (rule?.type !== 'rule' || rule.parent?.type === 'atrule' || !(rule as postcss.Rule).selectors.includes(selector)) return; out[decl.prop] = [decl.value, decl.important === true];}); return out;};
+    it('reference numbers in --gold meet 4.5:1 on the card background', () => {
+        const vars = decls(scope);
+        const luminance = (hex: string) => {const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(c => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4); return 0.2126 * r + 0.7152 * g + 0.0722 * b;};
+        const ratio = (a: string, b: string) => {const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05);};
+        expect(decls(`${scope} .ref-card .ref-num`).color).toEqual(['var(--gold)', false]);
+        expect(ratio(vars['--gold'][0], vars['--paper-card'][0])).toBeGreaterThanOrEqual(4.5);
+    });
+    it('every table cell forces ink color and inline code in cells is fully reset', () => {
+        expect(decls(`${scope} td`).color).toEqual(['var(--ink)', true]);
+        expect(decls(`${scope} tbody td`).color).toEqual(['var(--ink)', true]);
+        const code = decls(`${scope} td code`);
+        for (const prop of ['color', 'font-size', 'font-family', 'background']) expect(code[prop]).toBeDefined();
     });
     inventory.css.forEach((rule, i) => it(`CSS[${i}] ${rule.media ?? 'desktop'} ${rule.selector}`, () => {
         const found: unknown[] = []; css().walkRules(r => {

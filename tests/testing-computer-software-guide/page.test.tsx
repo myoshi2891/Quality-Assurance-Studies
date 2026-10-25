@@ -61,6 +61,11 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); const steps = $('#diag-8').closest('.diagram-block').next('ol.diagram-steps');
         expect(steps.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['要件定義', '設計', '実装とユニットテスト', 'CIビルド（静的解析と単体テスト）', '結合テストとAPIテスト', 'ステージングでのE2Eテスト', '本番リリース', '本番監視（得られたフィードバックを要件定義へ戻す）']);
     });
+    it('names the fifth testing principle with the CTFL v4.0.1 term', async () => {
+        const $ = await html(); const row = $('#sec4 tbody tr').eq(4).find('td');
+        expect(row.eq(0).text().trim()).toBe('⑤ テストは使い古される');
+        expect(row.eq(1).text().trim()).toBe('同じテストを繰り返すと新しい欠陥を見つけられなくなるため、テストを見直し続ける必要がある');
+    });
 });
 describe('every original design rule and responsive breakpoint', () => {
     it('at 960px or less the menu bar stacks above the open sidebar and below the header, keeping its offset', () => {
@@ -77,6 +82,16 @@ describe('every original design rule and responsive breakpoint', () => {
         const ratio = (a: string, b: string) => {const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05);};
         for (const bg of ['--paper', '--paper-alt', '--paper-card']) expect(ratio(vars['--gold'], vars[bg])).toBeGreaterThanOrEqual(4.5);
         expect(ratio(vars['--gold'], '#ffffff')).toBeGreaterThanOrEqual(4.5);
+    });
+    it('table cells force ink color and size, and inline code in cells is reset within the table', () => {
+        // メディア外で最後に宣言された値を有効値とみなす
+        const decls = (selector: string) => {const out: Record<string, [string, boolean]> = {}; css().walkDecls(decl => {const rule = decl.parent; if (rule?.type !== 'rule' || rule.parent?.type === 'atrule' || !(rule as postcss.Rule).selectors.includes(selector)) return; out[decl.prop] = [decl.value, decl.important === true];}); return out;};
+        for (const selector of [`${scope} .table-wrap tbody td`, `${scope} .table-wrap td`]) {
+            expect(decls(selector).color).toEqual(['var(--ink)', true]);
+            expect(decls(selector)['font-size']).toEqual(['1rem', true]);
+        }
+        const code = decls(`${scope} .table-wrap td code`);
+        for (const prop of ['color', 'font-size', 'font-family', 'background']) expect(code[prop]).toBeDefined();
     });
     it('hovering the active TOC link keeps its white text on the indigo background', () => {
         // アクティブかつホバー中のリンクに適用されるセレクターと詳細度（クラス・疑似クラス数）
