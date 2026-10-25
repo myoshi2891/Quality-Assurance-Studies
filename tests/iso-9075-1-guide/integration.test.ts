@@ -9,8 +9,8 @@ it('registers the SQL Framework guide in the ISO category once', () => {
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
     expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide',href,'/iso-11179-1-2023-guide']);
 });
-it('registers exactly 106 routes and the original H1 in E2E', () => {
-    expect(EXPECTED_PAGE_COUNT).toBe(106); expect(PAGES).toHaveLength(106); expect(NAV_ITEMS).toHaveLength(106);
+it('registers exactly 107 routes and the original H1 in E2E', () => {
+    expect(EXPECTED_PAGE_COUNT).toBe(107); expect(PAGES).toHaveLength(107); expect(NAV_ITEMS).toHaveLength(107);
     const entry = PAGES.filter(i => i.path === href); expect(entry).toHaveLength(1); expect(entry[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
 });
 for (const ext of ['html', 'md'] as const) {

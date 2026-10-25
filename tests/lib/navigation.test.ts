@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 106 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 24 books-practices + 4 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(106);
+  it('contains 107 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 25 books-practices + 4 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(107);
   });
 
   it('every item has a unique href', () => {
@@ -337,9 +337,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(8);
   });
 
-  it('places 24 items in the books-practices group', () => {
+  it('places 25 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(24);
+    expect(books?.items).toHaveLength(25);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 
