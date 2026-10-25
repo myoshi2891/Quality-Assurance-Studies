@@ -57,7 +57,7 @@
 | 版 | 第1版（Edition 1） |
 | 発行年月 | 2024年5月 |
 | 担当委員会 | ISO/IEC JTC 1/SC 41（Internet of Things and Digital Twin） |
-| ICS | 35.020, 35.030 |
+| ICS | ISOカタログ: 35.020 ／ IECストア: 35.020, 35.030（掲載元により付与される分類が異なる） |
 | 適用範囲（Scope） | ISO/IEC 30141 の参照アーキテクチャに基づく、IoTの信頼に足る性質の要素を示す |
 | 規範的引用文献 | **なし**（他規格の引用が必須ではない） |
 | 状態 | 発行済み（Published） |
@@ -439,8 +439,8 @@ flowchart TB
 | 文書 | 発行元 | 位置づけ | TS 30149との関係 |
 |---|---|---|---|
 | ISO/IEC 30141 | ISO/IEC JTC 1/SC 41 | IoT参照アーキテクチャ | **親**。30149はその信頼に足る性質の視点を専門化 |
-| IIoT Trustworthiness Framework Foundations | Industry IoT Consortium（IIC） | 産業IoT向けの信頼に足る性質のフレームワーク（2021年7月公表） | 同じ5特性を扱う。IICの文書はIIRAの一部 |
-| IISF（Industrial Internet of Things Security Framework） | IIC | 産業IoTのセキュリティフレームワーク | IICの信頼に足る性質の文書の土台 |
+| IIoT Trustworthiness Framework Foundations | Industry IoT Consortium（IIC） | 産業IoT向けの信頼に足る性質のフレームワーク（2021年7月公表） | 同じ5特性を扱う。IIRAのPDFとは別の文書で、IICのIIRAプログラムに関連づけられている |
+| IISF（Industrial Internet of Things Security Framework） | IIC | 産業IoTのセキュリティフレームワーク | 関連文書。Trustworthiness Framework Foundations はIISFを基にしている |
 | ISO/IEC/IEEE 15026-1 | ISO/IEC/IEEE | 保証（assurance）の用語・概念 | 30149の用語定義の出典 |
 | ISO 22166-1 | ISO | ロボティクス分野のモジュール性の用語 | composabilityの定義の出典 |
 
