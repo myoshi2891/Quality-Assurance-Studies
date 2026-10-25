@@ -16020,7 +16020,7 @@
     }
   ],
   "diagrams": {
-    "diag-1": "flowchart TB\nA[テスト計画] --> B[モニタリングと制御]\nB --> C[テスト分析]\nC --> D[テスト設計]\nD --> E[テスト実装]\nE --> F[テスト実行]\nF --> G[テスト完了]\nG -.->|次のサイクルへ| A\nclassDef hub fill:#eef0fb,stroke:#33469b,stroke-width:2px,color:#1f2a63;\nclassDef done fill:#dcefe2,stroke:#2f6f4e,stroke-width:2px,color:#1c4530;\nclass A hub;\nclass G done;",
+    "diag-1": "flowchart TB\nsubgraph ACT[テスト活動]\nA[テスト計画] --> C[テスト分析]\nC --> D[テスト設計]\nD --> E[テスト実装]\nE --> F[テスト実行]\nF --> G[テスト完了]\nend\nG -.->|次のサイクルへ| A\nB[モニタリングと制御 全活動と並行して継続] -.->|進捗の確認と計画の調整| ACT\nclassDef hub fill:#eef0fb,stroke:#33469b,stroke-width:2px,color:#1f2a63;\nclassDef done fill:#dcefe2,stroke:#2f6f4e,stroke-width:2px,color:#1c4530;\nclass A hub;\nclass G done;",
     "diag-2": "flowchart TB\nE2E[E2Eテスト 少数]\nINT[結合テスト 中程度]\nUNIT[ユニットテスト 多数]\nE2E --- INT --- UNIT\nclassDef hub fill:#eef0fb,stroke:#33469b,stroke-width:2px,color:#1f2a63;\nclass UNIT hub;",
     "diag-3": "flowchart TB\nE2E2[E2Eテスト 最小限]\nINT2[結合テスト 最重要]\nUNIT2[ユニットテスト]\nSTATIC[静的テスト 型チェック]\nE2E2 --- INT2 --- UNIT2 --- STATIC\nclassDef hub fill:#ece1f5,stroke:#6a3f8f,stroke-width:2px,color:#3a2350;\nclass INT2 hub;",
     "diag-4": "flowchart TB\nROOT[テスト設計技法] --> BB[ブラックボックス技法]\nROOT --> WB[ホワイトボックス技法]\nROOT --> EXP[経験ベース技法]\nBB --> EP[同値分割]\nBB --> BVA[境界値分析]\nBB --> DT[デシジョンテーブルテスト]\nBB --> ST[状態遷移テスト]\nWB --> SC[ステートメントカバレッジ]\nWB --> BC[ブランチカバレッジ]\nEXP --> ETX[探索的テスト]\nEXP --> CHK[チェックリストベーステスト]\nclassDef hub fill:#eef0fb,stroke:#33469b,stroke-width:2px,color:#1f2a63;\nclass ROOT hub;",
