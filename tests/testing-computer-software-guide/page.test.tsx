@@ -61,6 +61,10 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); const steps = $('#diag-8').closest('.diagram-block').next('ol.diagram-steps');
         expect(steps.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['要件定義', '設計', '実装とユニットテスト', 'CIビルド（静的解析と単体テスト）', '結合テストとAPIテスト', 'ステージングでのE2Eテスト', '本番リリース', '本番監視（得られたフィードバックを要件定義へ戻す）']);
     });
+    it('diagram 7 is followed by an ordered text description of every bug report field', async () => {
+        const $ = await html(); const fields = $('#diag-7').closest('.diagram-block').next('ol.diagram-steps');
+        expect(fields.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['タイトル（何が起きたかを一言で）', '再現手順（番号付きで具体的に）', '期待結果（本来どうあるべきか）', '実際の結果（何が起きたか）', '環境情報（OS、ブラウザ、バージョン）', '証拠（スクリーンショットとログ）']);
+    });
     it('names the fifth testing principle with the CTFL v4.0.1 term', async () => {
         const $ = await html(); const row = $('#sec4 tbody tr').eq(4).find('td');
         expect(row.eq(0).text().trim()).toBe('⑤ テストは使い古される');
