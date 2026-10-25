@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
+import { afterEach, describe, expect, it, spyOn } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
