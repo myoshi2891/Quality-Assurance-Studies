@@ -420,24 +420,24 @@ A. 💡 Cockburn の立場では、ユースケースはテキスト中心で、
 
 | 内容 | URL |
 |---|---|
-| IEC 62559-2:2015（テンプレート規格の概要） | <https://webstore.iec.ch/publication/22349> |
-| IEC 62559-2 プレビュー PDF（VDE） | <https://www.vde-verlag.de/iec-normen/preview-pdf/info_iec62559-2{ed1.0}b.pdf> |
-| DIN EN 62559-2（UCMR の記載） | <https://www.dinmedia.de/en/standard/din-en-62559-2/249847571> |
-| ISO/IEC TR 22417:2017 IoT ユースケース | <https://webstore.iec.ch/publication/60605> |
-| ISO/IEC TR 30172:2023 デジタルツイン ユースケース | <https://lsmu.lt/cris/entities/standard/c111c56d-8be8-4844-b8ca-2ba0aa577a51> |
-| JTC 1/SC 41 公式ページ（スコープ・沿革） | <https://jtc1info.org/jtc1-subcommittees/sc-41/> |
-| SC 41 のデジタルツイン活動資料（ETSI ワークショップ、2023年） | <https://docbox.etsi.org/Workshop/2023/07_ETSIIoTCONFERENCE/S09_DIGITAL_TWINS/SC41_ACTIVITIES_DIGITAL_TWINS_TRIALOG_KUNG.pdf> |
-| SC 41 の動向（AIOTI Days 2024） | <https://aioti.eu/wp-content/uploads/AIOTI-Days-2024-S8-Antonio-Kung.pdf> |
+| IEC 62559-2:2015（テンプレート規格の概要） | <a href="https://webstore.iec.ch/publication/22349" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/22349</a> |
+| IEC 62559-2 プレビュー PDF（VDE） | <a href="https://www.vde-verlag.de/iec-normen/preview-pdf/info_iec62559-2{ed1.0}b.pdf" target="_blank" rel="noopener noreferrer">https://www.vde-verlag.de/iec-normen/preview-pdf/info_iec62559-2{ed1.0}b.pdf</a> |
+| DIN EN 62559-2（UCMR の記載） | <a href="https://www.dinmedia.de/en/standard/din-en-62559-2/249847571" target="_blank" rel="noopener noreferrer">https://www.dinmedia.de/en/standard/din-en-62559-2/249847571</a> |
+| ISO/IEC TR 22417:2017 IoT ユースケース | <a href="https://webstore.iec.ch/publication/60605" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/60605</a> |
+| ISO/IEC TR 30172:2023 デジタルツイン ユースケース | <a href="https://lsmu.lt/cris/entities/standard/c111c56d-8be8-4844-b8ca-2ba0aa577a51" target="_blank" rel="noopener noreferrer">https://lsmu.lt/cris/entities/standard/c111c56d-8be8-4844-b8ca-2ba0aa577a51</a> |
+| JTC 1/SC 41 公式ページ（スコープ・沿革） | <a href="https://jtc1info.org/jtc1-subcommittees/sc-41/" target="_blank" rel="noopener noreferrer">https://jtc1info.org/jtc1-subcommittees/sc-41/</a> |
+| SC 41 のデジタルツイン活動資料（ETSI ワークショップ、2023年） | <a href="https://docbox.etsi.org/Workshop/2023/07_ETSIIoTCONFERENCE/S09_DIGITAL_TWINS/SC41_ACTIVITIES_DIGITAL_TWINS_TRIALOG_KUNG.pdf" target="_blank" rel="noopener noreferrer">https://docbox.etsi.org/Workshop/2023/07_ETSIIoTCONFERENCE/S09_DIGITAL_TWINS/SC41_ACTIVITIES_DIGITAL_TWINS_TRIALOG_KUNG.pdf</a> |
+| SC 41 の動向（AIOTI Days 2024） | <a href="https://aioti.eu/wp-content/uploads/AIOTI-Days-2024-S8-Antonio-Kung.pdf" target="_blank" rel="noopener noreferrer">https://aioti.eu/wp-content/uploads/AIOTI-Days-2024-S8-Antonio-Kung.pdf</a> |
 
 ### 14.3 著名な実務家・研究者の文献（💡 背景理解用）
 
 | 内容 | URL |
 |---|---|
-| Alistair Cockburn, *Writing Effective Use Cases*（Pearson 書籍ページ） | <https://www.pearson.com/en-nz/subject-catalog/p/writing-effective-use-cases/P200000009217/9780321605801> |
-| 同書の書評記事（Alan Zeichick, ProjectManagement.com） | <https://www.projectmanagement.com/books/19843/writing-effective-use-cases> |
-| 同書の書評（TDAN） | <https://tdan.com/?p=5598> |
-| Gottschalk, Uslar, Delfs, *The Use Case and SGAM Approach*（Springer） | <https://link.springer.com/9783319492285> |
-| IEC 62559 ユースケースと SGAM の品質特性に関する論文 | <https://link.springer.com/article/10.1186/s42162-023-00280-5> |
+| Alistair Cockburn, *Writing Effective Use Cases*（Pearson 書籍ページ） | <a href="https://www.pearson.com/en-nz/subject-catalog/p/writing-effective-use-cases/P200000009217/9780321605801" target="_blank" rel="noopener noreferrer">https://www.pearson.com/en-nz/subject-catalog/p/writing-effective-use-cases/P200000009217/9780321605801</a> |
+| 同書の書評記事（Alan Zeichick, ProjectManagement.com） | <a href="https://www.projectmanagement.com/books/19843/writing-effective-use-cases" target="_blank" rel="noopener noreferrer">https://www.projectmanagement.com/books/19843/writing-effective-use-cases</a> |
+| 同書の書評（TDAN） | <a href="https://tdan.com/?p=5598" target="_blank" rel="noopener noreferrer">https://tdan.com/?p=5598</a> |
+| Gottschalk, Uslar, Delfs, *The Use Case and SGAM Approach*（Springer） | <a href="https://link.springer.com/9783319492285" target="_blank" rel="noopener noreferrer">https://link.springer.com/9783319492285</a> |
+| IEC 62559 ユースケースと SGAM の品質特性に関する論文 | <a href="https://link.springer.com/article/10.1186/s42162-023-00280-5" target="_blank" rel="noopener noreferrer">https://link.springer.com/article/10.1186/s42162-023-00280-5</a> |
 
 ---
 
