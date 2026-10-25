@@ -1,7 +1,7 @@
-import { afterEach, describe, expect, it, mock } from 'bun:test';
+import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { act, cleanup, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -93,14 +93,17 @@ describe('checklist and navigation behavior', () => {
             expect(button.getAttribute('aria-expanded')).toBe('false'); expect(document.activeElement).toBe(button);
         }
     });
-    it('observes every section, updates aria-current and disconnects', async () => {
-        const original = globalThis.IntersectionObserver; const observed: Element[] = []; let cb: IntersectionObserverCallback; const disconnect = mock(() => {});
-        globalThis.IntersectionObserver = class {constructor(callback: IntersectionObserverCallback){cb=callback;} observe(el:Element){observed.push(el);} disconnect=disconnect;} as unknown as typeof IntersectionObserver;
-        const targets = document.createElement('div'); targets.innerHTML = Array.from({length:19},(_,i)=>`<section id="sec${i+1}"></section>`).join('');document.body.appendChild(targets);
-        try { const Nav = (await import(navEntry)).default; const view = render(<Nav />); expect(observed.map(el=>el.id)).toEqual(Array.from({length:19},(_,i)=>`sec${i+1}`));
-            for(const target of observed){act(()=>cb!([{isIntersecting:true,target}] as IntersectionObserverEntry[],{} as IntersectionObserver));expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe('#'+target.id);expect(view.container.querySelectorAll('a.active')).toHaveLength(1);}
-            view.unmount();expect(disconnect).toHaveBeenCalledTimes(1);
-        } finally {targets.remove();globalThis.IntersectionObserver=original;}
+    it('tracks the section in the reading band on scroll and resize, then removes listeners', async () => {
+        const band = {top: innerHeight * 0.2, bottom: innerHeight * 0.3}; let current = 0;
+        const targets = document.createElement('div'); targets.innerHTML = Array.from({length:19},(_,i)=>`<section id="sec${i+1}"></section>`).join(''); document.body.appendChild(targets);
+        const sections = Array.from(targets.querySelectorAll('section'));
+        sections.forEach((el, i) => {el.getBoundingClientRect = () => {const [top, bottom] = i === current ? [band.top - 10, band.bottom + 10] : i < current ? [-2000, -1000] : [innerHeight + 1000, innerHeight + 2000]; return {top, bottom, left:0, right:0, width:0, height:bottom-top, x:0, y:top, toJSON:()=>({})} as DOMRect;};});
+        const removed = spyOn(window, 'removeEventListener');
+        try { const Nav = (await import(navEntry)).default; const view = render(<Nav />);
+            for (const [i, el] of sections.entries()) {current = i; act(() => {window.dispatchEvent(new Event(i % 2 ? 'resize' : 'scroll'));});
+                await waitFor(() => expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe('#' + el.id)); expect(view.container.querySelectorAll('a.active')).toHaveLength(1);}
+            view.unmount(); const types = removed.mock.calls.map(call => call[0]); expect(types).toContain('scroll'); expect(types).toContain('resize');
+        } finally {targets.remove(); removed.mockRestore();}
     });
 });
 describe('registration and untouched tracked archives', () => {
