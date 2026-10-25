@@ -1,0 +1,250 @@
+import React from 'react';
+export default function Book() {return <>
+    <section className="section" id="sec1">
+        <div className="section-head">
+            <div className="section-icon">
+                <i className="ti ti-book">
+
+                </i>
+            </div>
+            <h2>
+                {"1. Testing Computer Software という本について"}
+            </h2>
+        </div>
+        <div className="prose">
+            <p>
+                {" 『Testing Computer Software』は、Cem Kaner・Jack L. Falk・Hung Quoc Nguyen の3名によって書かれ、1993年に Van Nostrand Reinhold から第2版が刊行された、ソフトウェアテスト分野における古典的な入門書です。全480ページで、テストの目的と限界、テストの種類、バグ報告と追跡、テストケース設計、テストツール、テスト計画書の作り方、テストグループのマネジメント、欠陥のあるソフトウェアがもたらす法的責任まで、実務に直結する内容を幅広くカバーしています。 "}
+            </p>
+            <h3>
+                {"書誌情報"}
+            </h3>
+            <div className="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"項目"}
+                            </th>
+                            <th>
+                                {"内容"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"書名"}
+                            </td>
+                            <td>
+                                {"Testing Computer Software"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"著者"}
+                            </td>
+                            <td>
+                                {"Cem Kaner, Jack L. Falk, Hung Quoc Nguyen"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"出版社"}
+                            </td>
+                            <td>
+                                {"Van Nostrand Reinhold"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"出版年"}
+                            </td>
+                            <td>
+                                {"1993年(第2版)"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"ページ数"}
+                            </td>
+                            <td>
+                                {"480ページ"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"ISBN"}
+                            </td>
+                            <td>
+                                {"0442013612 / 9780442013615"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>
+                {"目次構成(章立ての要約)"}
+            </h3>
+            <div className="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                {"#"}
+                            </th>
+                            <th>
+                                {"章のテーマ(日本語要約)"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {"1"}
+                            </td>
+                            <td>
+                                {"あるテストシリーズの実例"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"2"}
+                            </td>
+                            <td>
+                                {"テストの目的と限界"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"3"}
+                            </td>
+                            <td>
+                                {" ソフトウェア開発プロセスにおけるテストの種類と位置づけ "}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"4"}
+                            </td>
+                            <td>
+                                {"ソフトウェアの誤り(エラー)とは何か"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"5"}
+                            </td>
+                            <td>
+                                {"バグの報告と分析"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"6"}
+                            </td>
+                            <td>
+                                {"問題追跡システム(バグトラッキングシステム)"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"7"}
+                            </td>
+                            <td>
+                                {"テストケース設計"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"8"}
+                            </td>
+                            <td>
+                                {"プリンタなど周辺機器のテスト"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"9"}
+                            </td>
+                            <td>
+                                {"ローカライゼーション(多言語対応)テスト"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"10"}
+                            </td>
+                            <td>
+                                {"ユーザーマニュアルのテスト"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"11"}
+                            </td>
+                            <td>
+                                {"テストツール"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"12"}
+                            </td>
+                            <td>
+                                {"テスト計画とテストドキュメント"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"13"}
+                            </td>
+                            <td>
+                                {"全体をまとめる ― テスト活動の統合"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"14"}
+                            </td>
+                            <td>
+                                {"欠陥のあるソフトウェアの法的責任"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"15"}
+                            </td>
+                            <td>
+                                {"テストグループのマネジメント"}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {"16"}
+                            </td>
+                            <td>
+                                {"よくあるソフトウェアの誤りのカタログ"}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                {" 著者の一人である Cem Kaner はその後、James Bach・Bret Pettichord・Brian Marick とともに「コンテキスト駆動テスト(Context-Driven Testing)」を一つの学派として2001年に宣言し、テストは常に文脈(プロジェクトの制約・目的・リスク)に応じて設計されるべきだという思想を広めました。この考え方は本ガイドの探索的テストの章(第10章)でも扱います。 "}
+            </p>
+            <div className="callout note">
+                <i className="ti ti-info-circle">
+
+                </i>
+                <div>
+                    <span className="callout-title">
+                        {"この本の入手について"}
+                    </span>
+                    <p>
+                        {" 本書自体は電子版が提供されておらず、詳細な原文は書店・図書館等でのみ参照可能です(出典URLは本ガイド末尾の参考文献一覧を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。 "}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</>;}
