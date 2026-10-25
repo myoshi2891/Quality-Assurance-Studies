@@ -65,6 +65,16 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); const fields = $('#diag-7').closest('.diagram-block').next('ol.diagram-steps');
         expect(fields.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['タイトル（何が起きたかを一言で）', '再現手順（番号付きで具体的に）', '期待結果（本来どうあるべきか）', '実際の結果（何が起きたか）', '環境情報（OS、ブラウザ、バージョン）', '証拠（スクリーンショットとログ）']);
     });
+    it('diagram 4 is followed by a text equivalent naming every technique in its category', async () => {
+        const $ = await html(); const groups = $('#diag-4').closest('.diagram-block').next('ul.diagram-steps');
+        expect(groups.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['ブラックボックス技法：同値分割、境界値分析、デシジョンテーブルテスト、状態遷移テスト', 'ホワイトボックス技法：ステートメントカバレッジ、ブランチカバレッジ', '経験ベース技法：探索的テスト、チェックリストベーステスト']);
+    });
+    it('credits Cem Kaner with coining exploratory testing and James Bach with popularizing it', async () => {
+        const $ = await html(); const history = $('#sec10 .prose > p').first().text();
+        expect(history).toContain('Cem Kaner が1984年に造り、1988年の『Testing Computer Software』初版で発表した');
+        expect(history).toContain('その後 James Bach が1990年代に広め、Michael Bolton とともに体系化した「Rapid Software Testing(RST)」');
+        expect(history).not.toContain('James Bach が1990年代に提唱し');
+    });
     it('names the fifth testing principle with the CTFL v4.0.1 term', async () => {
         const $ = await html(); const row = $('#sec4 tbody tr').eq(4).find('td');
         expect(row.eq(0).text().trim()).toBe('⑤ テストは使い古される');
