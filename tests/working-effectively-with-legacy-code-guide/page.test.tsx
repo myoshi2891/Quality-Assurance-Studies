@@ -101,6 +101,12 @@ describe('one-to-one complete source inventory', () => {
         expect(chart).toContain('\naccDescr: 5つの学習ステップを順に示す図。①Part 1（第1〜5章）を読み用語に慣れる、②コーディングカタなど小さな練習問題で技法を試す、③実プロジェクトの小さな変更に5ステップを適用する、④うまくいった技法をチームで共有する、⑤自分のコードベース向けのシームパターン集を育てる\n');
         ['L1[', '--> L2[', 'L2 --> L3', 'L3 --> L4', 'L4 --> L5'].forEach(part => expect(chart).toContain(part));
     });
+    it('diagram 11 carries an accessible title and a description of its summary relationships', async () => {
+        const { DIAGRAMS } = await import(diagramsEntry); const chart: string = DIAGRAMS.d11;
+        expect(chart).toContain('\naccTitle: 全体のまとめ（レガシーコード改善の流れ）\n');
+        expect(chart).toContain('\naccDescr: レガシーコードの定義（テストのないコード）からジレンマが生じ、5段階の変更アルゴリズムへ進む。変更アルゴリズムはシームで依存を断ち切ることと、キャラクタリゼーションテストで現状の挙動を固定することに分かれ、両方が安全に変更できる状態へつながる。その状態から、SproutとWrapによる新機能の安全な追加と、Strangler Figパターンによるシステム全体の段階的な近代化へ進む\n');
+        ['Def[', '--> Dilemma[', 'Dilemma --> Algo[', 'Algo --> Seam2[', 'Algo --> Char[', 'Seam2 --> Safe[', 'Char --> Safe', 'Safe --> Grow[', 'Safe --> Big['].forEach(part => expect(chart).toContain(part));
+    });
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
     });
