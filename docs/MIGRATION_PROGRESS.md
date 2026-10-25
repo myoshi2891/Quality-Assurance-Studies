@@ -5,7 +5,7 @@ Updated 2026-10-25
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 106 ルート = ガイドライブラリ index + 105 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 107 ルート = ガイドライブラリ index + 106 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -14,9 +14,19 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync legacy code migration, archives and validation status` |
-| 次の作業 | `/working-effectively-with-legacy-code-guide`の目視確認はユーザー担当。ビルドは指示により未実施。従来のホーム・ISOページの確認も保留。 |
-| ビルド状態 | Working Effectively with Legacy Code移行完了。npm経由で対象283件・全体6024件（137ファイル）・ブラウザー34件・lint・対象型検査成功。全体型検査に既存エラーあり。本番ビルド未実施、目視確認はユーザー担当。 |
+| 最新コミット内容 | `chore(docs): sync Testing Computer Software migration and validation status` |
+| 次の作業 | `/testing-computer-software-guide`の目視確認はユーザー担当。ビルドは指示により未実施。従来のWEwLC・ホーム・ISOの確認も保留。 |
+| ビルド状態 | Testing Computer Software移行完了。npm経由で対象295件・全体6321件（138ファイル）・ブラウザー26件・lint・対象型検査成功。本番ビルド未実施、目視確認はユーザー担当。 |
+
+## 2026-10-25: Testing Computer Software入門ガイドの移行
+
+- 移行先は`/testing-computer-software-guide`。書籍カテゴリーへ登録し、ナビ・E2E一覧を107ルートへ同期。
+- 全18セクション・30見出し・目次18リンク・10表の全セル・9図・注記8件・参考文献16件・外部リンク16件・チェック10項目・実践8ステップ・アイコン32件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。コードブロックは原本どおり0件。
+- 原本CSS全88ルールと960px条件を保持。紙色背景・見出しの文字グラデーション・固定目次・表の交互背景・チェックの疑似要素・ステップ番号を保存。共有/残留CSSによる本文色、表の書体/罫線/余白、装飾リストの字下げ、注記見出し、参考文献、ボタンの既定スタイル、全画面装飾への干渉を補正。
+- HTML内の9定義を共有Mermaidで描画し、実パーサー・共有レンダラーへの出現順・実SVGのラベル/接続/点線/配色と横スクロール両端を検証。目次の開閉・Escape・フォーカス復帰・全18セクション追従とObserver解除、チェック10項目の全選択/解除/完了数、SWC開発/本番変換後の全文とDOMを照合。
+- Red先行、CSS、図、チェック、書籍紹介、基礎、戦略・設計、管理・運用、実践、参考文献、目次、ヒーロー、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/books/Testing-computer-software-guide.html`、MDは`archive/md-archive/books/Testing-computer-software-guide.md`へ同名で移動。Git追跡とSHA-256一致を確認。
+- npm経由で対象295件、全体6321件（138ファイル）、サーバー・ビルド不要のブラウザー26件（4幅×CSS2読込順＋2幅×9図）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
 
 ## 2026-10-25: Working Effectively with Legacy Codeガイドの移行
 
@@ -1569,6 +1579,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Iso-9075-1-guide.html` | `/iso-9075-1-guide` | ✅ ダーク配色・35見出し・目次34リンク・19表・9図・SQL3例・11注記・外部20リンク (archive/、HTML・MD両方) |
 | `Iso-11179-1-2023-guide.html` | `/iso-11179-1-2023-guide` | ✅ ダーク配色・58見出し・目次57リンク・32表・14図・YAML1例・チェック6項目・15注記・外部21リンク (archive/、HTML・MD両方) |
 | `Working-effectively-with-legacy-code-guide.html` | `/working-effectively-with-legacy-code-guide` | ✅ 紙色テーマ・目次19リンク・全19セクション・9表・Mermaid11図・チェック8項目・参考文献26件 (archive/、HTML・MD両方) |
+| `Testing-computer-software-guide.html` | `/testing-computer-software-guide` | ✅ 紙色テーマ・18セクション・目次18リンク・10表・9図・チェック10項目・参考文献16件 (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1579,7 +1590,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 3 ペア = 6 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 2 ペア = 4 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -1595,9 +1606,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 106 ルート（ガイドライブラリ index + 105 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 107 ルート（ガイドライブラリ index + 106 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト6024件すべて成功（137ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
+- 全体テスト6321件すべて成功（138ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
+- 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
 - 新規追加「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。保留中の作業（ユーザー担当）:
   1. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
   2. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。

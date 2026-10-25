@@ -10,6 +10,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **スタック**: Next.js (App Router) + Tailwind CSS v4 + TypeScript（strict）
 
+## 2026-10-25: Testing Computer Software入門ガイドの移行
+
+- 移行先は`/testing-computer-software-guide`。書籍カテゴリーへ登録し、ナビ・E2E一覧を107ルートへ同期。
+- 全18セクション・30見出し・目次18リンク・10表の全セル・9図・注記8件・参考文献16件・外部リンク16件・チェック10項目・実践8ステップ・アイコン32件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。コードブロックは原本どおり0件。
+- 原本CSS全88ルールと960px条件を保持。紙色背景・見出しの文字グラデーション・固定目次・表の交互背景・チェックの疑似要素・ステップ番号を保存。共有/残留CSSによる本文色、表の書体/罫線/余白、装飾リストの字下げ、注記見出し、参考文献、ボタンの既定スタイル、全画面装飾への干渉を補正。
+- HTML内の9定義を共有Mermaidで描画し、実パーサー・共有レンダラーへの出現順・実SVGのラベル/接続/点線/配色と横スクロール両端を検証。目次の開閉・Escape・フォーカス復帰・全18セクション追従とObserver解除、チェック10項目の全選択/解除/完了数、SWC開発/本番変換後の全文とDOMを照合。
+- Red先行、CSS、図、チェック、書籍紹介、基礎、戦略・設計、管理・運用、実践、参考文献、目次、ヒーロー、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/books/Testing-computer-software-guide.html`、MDは`archive/md-archive/books/Testing-computer-software-guide.md`へ同名で移動。Git追跡とSHA-256一致を確認。
+- npm経由で対象295件、全体6321件（138ファイル）、サーバー・ビルド不要のブラウザー26件（4幅×CSS2読込順＋2幅×9図）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
+
 ## 2026-10-25: Working Effectively with Legacy Codeガイドの移行
 
 - 移行先は`/working-effectively-with-legacy-code-guide`。書籍カテゴリーへ登録し、ナビ・E2E一覧を106ルートへ同期。
@@ -28,14 +38,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 137 ファイル・6024 tests)
+bun test             # ユニットテスト (bun test 全体, 138 ファイル・6321 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 106 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 107 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -518,7 +528,8 @@ Next.js App Router 構成:
 - `tests/iso-29119-1-2022-guide/page.test.tsx` — 129テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS宣言・目次動作を完全検証
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
 - `app/working-effectively-with-legacy-code-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`SourceCode.tsx`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Introduction.tsx` / `Foundations.tsx` / `FiveSteps.tsx` / `Techniques.tsx` / `Practice.tsx`。紙色テーマと原本照合283件。
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 106 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `app/testing-computer-software-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Book.tsx` / `Fundamentals.tsx` / `Strategies.tsx` / `Management.tsx` / `Practice.tsx` / `References.tsx`。原本照合295件・CSS88ルール・9図・チェック10項目。
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 107 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -883,7 +894,7 @@ bun test        # ユニットテスト成功
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 3 ペア = 6 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 2 ペア = 4 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -897,7 +908,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 106 ルート（ガイドライブラリ index + 105 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 107 ルート（ガイドライブラリ index + 106 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。

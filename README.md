@@ -6,11 +6,12 @@
 
 ## 直近の移行検証（2026-10-25）
 
-`/working-effectively-with-legacy-code-guide`を追加。対象283件・全体6024件（137ファイル）が成功。原本の全本文・CSS84ルール・11図・9表・チェック8項目を照合しています。ユーザー指定によりサンドボックスではnpmを使用し、ビルドは行っていません。目視確認はユーザー担当です。
+`/testing-computer-software-guide`を追加。対象295件・全体6321件（138ファイル）が成功。原本の全18セクション・CSS88ルール・9図・10表・チェック10項目を照合しました。HTML・Markdownは同名でアーカイブし、内容一致を確認しています。ユーザー指定によりサンドボックスではnpmを使用し、ビルドは行っていません。目視確認はユーザー担当です。
 
 * `npm test` — ユニットテスト。
 * `npm run lint` — ESLint。
-* `npm exec -- playwright test --config=playwright.wewlc.config.ts` — サーバー・ビルド不要の原本スタイル比較12件と実SVG検証22件。
+* `npm exec -- playwright test --config=playwright.tcs.config.ts` — サーバー・ビルド不要の原本スタイル比較8件と実SVG検証18件。
+* `npm exec -- playwright test --config=playwright.wewlc.config.ts` — 前回のWorking Effectively with Legacy Code移行の原本スタイル比較12件と実SVG検証22件。
 
 ## 1. 機能テスト
 

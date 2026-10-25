@@ -144,7 +144,9 @@
 
 `/working-effectively-with-legacy-code-guide`も`books-practices`へ登録済みです。原本の目次19リンク、モバイル開閉、スクロール追従、Escapeとフォーカス復帰を実装し、HTML・MDをアーカイブしました。ユーザー指定時のサンドボックス検証はnpmで行い、本番ビルドは起動しません。
 
-現在の登録は106ルート（2026-10-25）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+`/testing-computer-software-guide`も`books-practices`へ登録済みです。全18目次リンク・開閉・スクロール追従・キーボード操作を移行し、HTML・MDをアーカイブしました。対象295テストとビルド不要のブラウザー26件で検証しています。
+
+現在の登録は107ルート（2026-10-25）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
