@@ -2961,6 +2961,13 @@
                                   "children": [
                                     "主に関連する概念・技法"
                                   ]
+                                },
+                                {
+                                  "tag": "th",
+                                  "attrs": {},
+                                  "children": [
+                                    "対応する章"
+                                  ]
                                 }
                               ]
                             }
@@ -2987,6 +2994,13 @@
                                   "children": [
                                     "Sprout Method／Class"
                                   ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第6章"
+                                  ]
                                 }
                               ]
                             },
@@ -3006,6 +3020,13 @@
                                   "attrs": {},
                                   "children": [
                                     "Wrap Method／Class"
+                                  ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第7章"
                                   ]
                                 }
                               ]
@@ -3027,6 +3048,13 @@
                                   "children": [
                                     "センシングと分離、Extract Interface 等"
                                   ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第9章"
+                                  ]
                                 }
                               ]
                             },
@@ -3046,6 +3074,13 @@
                                   "attrs": {},
                                   "children": [
                                     "オブジェクトシーム、Subclass and Override"
+                                  ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第10章"
                                   ]
                                 }
                               ]
@@ -3067,6 +3102,13 @@
                                   "children": [
                                     "Effect Sketch（前向きの推論）"
                                   ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第11章"
+                                  ]
                                 }
                               ]
                             },
@@ -3086,6 +3128,13 @@
                                   "attrs": {},
                                   "children": [
                                     "高レベルの介入点・Pinch Point の活用"
+                                  ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第12章"
                                   ]
                                 }
                               ]
@@ -3107,6 +3156,13 @@
                                   "children": [
                                     "ライブラリをラップして自前のインターフェース越しに使う"
                                   ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第14章"
+                                  ]
                                 }
                               ]
                             },
@@ -3126,6 +3182,13 @@
                                   "attrs": {},
                                   "children": [
                                     "Effect Sketch、コードの見取り図作り"
+                                  ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第16章"
                                   ]
                                 }
                               ]
@@ -3147,6 +3210,13 @@
                                   "children": [
                                     "責務の分離、CRCによる整理"
                                   ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第17章"
+                                  ]
                                 }
                               ]
                             },
@@ -3166,6 +3236,13 @@
                                   "attrs": {},
                                   "children": [
                                     "責務の分割、God Class 化の回避"
+                                  ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第20章"
                                   ]
                                 }
                               ]
@@ -3187,6 +3264,13 @@
                                   "children": [
                                     "巨大メソッドの段階的分解"
                                   ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第22章"
+                                  ]
                                 }
                               ]
                             },
@@ -3206,6 +3290,13 @@
                                   "attrs": {},
                                   "children": [
                                     "小さな成功体験の積み重ね、変更アルゴリズムの反復適用"
+                                  ]
+                                },
+                                {
+                                  "tag": "td",
+                                  "attrs": {},
+                                  "children": [
+                                    "第24章"
                                   ]
                                 }
                               ]
@@ -5090,7 +5181,7 @@
                             "class": "ref-num"
                           },
                           "children": [
-                            "[41][42]"
+                            "[41]"
                           ]
                         },
                         {
@@ -5099,7 +5190,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」／Medium（Nitesh Ranjan）"
+                            "tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」"
                           ]
                         },
                         {
@@ -5112,6 +5203,44 @@
                           },
                           "children": [
                             "https://tamerlan.dev/working-effectively-with-legacy-code/"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "attrs": {
+                        "class": "ref-card"
+                      },
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ref-num"
+                          },
+                          "children": [
+                            "[42]"
+                          ]
+                        },
+                        {
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ref-title"
+                          },
+                          "children": [
+                            "Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」"
+                          ]
+                        },
+                        {
+                          "tag": "a",
+                          "attrs": {
+                            "class": "ref-url",
+                            "href": "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
+                          },
+                          "children": [
+                            "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98"
                           ]
                         }
                       ]
@@ -6343,6 +6472,13 @@
                       "children": [
                         "主に関連する概念・技法"
                       ]
+                    },
+                    {
+                      "tag": "th",
+                      "attrs": {},
+                      "children": [
+                        "対応する章"
+                      ]
                     }
                   ]
                 }
@@ -6369,6 +6505,13 @@
                       "children": [
                         "Sprout Method／Class"
                       ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第6章"
+                      ]
                     }
                   ]
                 },
@@ -6388,6 +6531,13 @@
                       "attrs": {},
                       "children": [
                         "Wrap Method／Class"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第7章"
                       ]
                     }
                   ]
@@ -6409,6 +6559,13 @@
                       "children": [
                         "センシングと分離、Extract Interface 等"
                       ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第9章"
+                      ]
                     }
                   ]
                 },
@@ -6428,6 +6585,13 @@
                       "attrs": {},
                       "children": [
                         "オブジェクトシーム、Subclass and Override"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第10章"
                       ]
                     }
                   ]
@@ -6449,6 +6613,13 @@
                       "children": [
                         "Effect Sketch（前向きの推論）"
                       ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第11章"
+                      ]
                     }
                   ]
                 },
@@ -6468,6 +6639,13 @@
                       "attrs": {},
                       "children": [
                         "高レベルの介入点・Pinch Point の活用"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第12章"
                       ]
                     }
                   ]
@@ -6489,6 +6667,13 @@
                       "children": [
                         "ライブラリをラップして自前のインターフェース越しに使う"
                       ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第14章"
+                      ]
                     }
                   ]
                 },
@@ -6508,6 +6693,13 @@
                       "attrs": {},
                       "children": [
                         "Effect Sketch、コードの見取り図作り"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第16章"
                       ]
                     }
                   ]
@@ -6529,6 +6721,13 @@
                       "children": [
                         "責務の分離、CRCによる整理"
                       ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第17章"
+                      ]
                     }
                   ]
                 },
@@ -6548,6 +6747,13 @@
                       "attrs": {},
                       "children": [
                         "責務の分割、God Class 化の回避"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第20章"
                       ]
                     }
                   ]
@@ -6569,6 +6775,13 @@
                       "children": [
                         "巨大メソッドの段階的分解"
                       ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第22章"
+                      ]
                     }
                   ]
                 },
@@ -6588,6 +6801,13 @@
                       "attrs": {},
                       "children": [
                         "小さな成功体験の積み重ね、変更アルゴリズムの反復適用"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "第24章"
                       ]
                     }
                   ]
@@ -7762,7 +7982,7 @@
                 "class": "ref-num"
               },
               "children": [
-                "[41][42]"
+                "[41]"
               ]
             },
             {
@@ -7771,7 +7991,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」／Medium（Nitesh Ranjan）"
+                "tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」"
               ]
             },
             {
@@ -7784,6 +8004,44 @@
               },
               "children": [
                 "https://tamerlan.dev/working-effectively-with-legacy-code/"
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "attrs": {
+            "class": "ref-card"
+          },
+          "children": [
+            {
+              "tag": "span",
+              "attrs": {
+                "class": "ref-num"
+              },
+              "children": [
+                "[42]"
+              ]
+            },
+            {
+              "tag": "span",
+              "attrs": {
+                "class": "ref-title"
+              },
+              "children": [
+                "Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」"
+              ]
+            },
+            {
+              "tag": "a",
+              "attrs": {
+                "class": "ref-url",
+                "href": "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              },
+              "children": [
+                "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98"
               ]
             }
           ]
@@ -8218,6 +8476,18 @@
           },
           "children": [
             "https://tamerlan.dev/working-effectively-with-legacy-code/"
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "class": "ref-url",
+            "href": "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          "children": [
+            "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98"
           ]
         },
         {
@@ -11525,6 +11795,13 @@
                               "children": [
                                 "主に関連する概念・技法"
                               ]
+                            },
+                            {
+                              "tag": "th",
+                              "attrs": {},
+                              "children": [
+                                "対応する章"
+                              ]
                             }
                           ]
                         }
@@ -11551,6 +11828,13 @@
                               "children": [
                                 "Sprout Method／Class"
                               ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第6章"
+                              ]
                             }
                           ]
                         },
@@ -11570,6 +11854,13 @@
                               "attrs": {},
                               "children": [
                                 "Wrap Method／Class"
+                              ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第7章"
                               ]
                             }
                           ]
@@ -11591,6 +11882,13 @@
                               "children": [
                                 "センシングと分離、Extract Interface 等"
                               ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第9章"
+                              ]
                             }
                           ]
                         },
@@ -11610,6 +11908,13 @@
                               "attrs": {},
                               "children": [
                                 "オブジェクトシーム、Subclass and Override"
+                              ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第10章"
                               ]
                             }
                           ]
@@ -11631,6 +11936,13 @@
                               "children": [
                                 "Effect Sketch（前向きの推論）"
                               ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第11章"
+                              ]
                             }
                           ]
                         },
@@ -11650,6 +11962,13 @@
                               "attrs": {},
                               "children": [
                                 "高レベルの介入点・Pinch Point の活用"
+                              ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第12章"
                               ]
                             }
                           ]
@@ -11671,6 +11990,13 @@
                               "children": [
                                 "ライブラリをラップして自前のインターフェース越しに使う"
                               ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第14章"
+                              ]
                             }
                           ]
                         },
@@ -11690,6 +12016,13 @@
                               "attrs": {},
                               "children": [
                                 "Effect Sketch、コードの見取り図作り"
+                              ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第16章"
                               ]
                             }
                           ]
@@ -11711,6 +12044,13 @@
                               "children": [
                                 "責務の分離、CRCによる整理"
                               ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第17章"
+                              ]
                             }
                           ]
                         },
@@ -11730,6 +12070,13 @@
                               "attrs": {},
                               "children": [
                                 "責務の分割、God Class 化の回避"
+                              ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第20章"
                               ]
                             }
                           ]
@@ -11751,6 +12098,13 @@
                               "children": [
                                 "巨大メソッドの段階的分解"
                               ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第22章"
+                              ]
                             }
                           ]
                         },
@@ -11770,6 +12124,13 @@
                               "attrs": {},
                               "children": [
                                 "小さな成功体験の積み重ね、変更アルゴリズムの反復適用"
+                              ]
+                            },
+                            {
+                              "tag": "td",
+                              "attrs": {},
+                              "children": [
+                                "第24章"
                               ]
                             }
                           ]
@@ -13654,7 +14015,7 @@
                         "class": "ref-num"
                       },
                       "children": [
-                        "[41][42]"
+                        "[41]"
                       ]
                     },
                     {
@@ -13663,7 +14024,7 @@
                         "class": "ref-title"
                       },
                       "children": [
-                        "tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」／Medium（Nitesh Ranjan）"
+                        "tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」"
                       ]
                     },
                     {
@@ -13676,6 +14037,44 @@
                       },
                       "children": [
                         "https://tamerlan.dev/working-effectively-with-legacy-code/"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "attrs": {
+                    "class": "ref-card"
+                  },
+                  "children": [
+                    {
+                      "tag": "span",
+                      "attrs": {
+                        "class": "ref-num"
+                      },
+                      "children": [
+                        "[42]"
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "attrs": {
+                        "class": "ref-title"
+                      },
+                      "children": [
+                        "Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」"
+                      ]
+                    },
+                    {
+                      "tag": "a",
+                      "attrs": {
+                        "class": "ref-url",
+                        "href": "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98",
+                        "target": "_blank",
+                        "rel": "noopener noreferrer"
+                      },
+                      "children": [
+                        "https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98"
                       ]
                     }
                   ]

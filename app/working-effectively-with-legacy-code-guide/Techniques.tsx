@@ -322,6 +322,9 @@ export default function Techniques() {return <>
                             <th>
                                 {"主に関連する概念・技法"}
                             </th>
+                            <th>
+                                {"対応する章"}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -332,6 +335,9 @@ export default function Techniques() {return <>
                             <td>
                                 {"Sprout Method／Class"}
                             </td>
+                            <td>
+                                {"第6章"}
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -339,6 +345,9 @@ export default function Techniques() {return <>
                             </td>
                             <td>
                                 {"Wrap Method／Class"}
+                            </td>
+                            <td>
+                                {"第7章"}
                             </td>
                         </tr>
                         <tr>
@@ -348,6 +357,9 @@ export default function Techniques() {return <>
                             <td>
                                 {"センシングと分離、Extract Interface 等"}
                             </td>
+                            <td>
+                                {"第9章"}
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -355,6 +367,9 @@ export default function Techniques() {return <>
                             </td>
                             <td>
                                 {"オブジェクトシーム、Subclass and Override"}
+                            </td>
+                            <td>
+                                {"第10章"}
                             </td>
                         </tr>
                         <tr>
@@ -364,6 +379,9 @@ export default function Techniques() {return <>
                             <td>
                                 {"Effect Sketch（前向きの推論）"}
                             </td>
+                            <td>
+                                {"第11章"}
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -371,6 +389,9 @@ export default function Techniques() {return <>
                             </td>
                             <td>
                                 {"高レベルの介入点・Pinch Point の活用"}
+                            </td>
+                            <td>
+                                {"第12章"}
                             </td>
                         </tr>
                         <tr>
@@ -380,6 +401,9 @@ export default function Techniques() {return <>
                             <td>
                                 {" ライブラリをラップして自前のインターフェース越しに使う "}
                             </td>
+                            <td>
+                                {"第14章"}
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -387,6 +411,9 @@ export default function Techniques() {return <>
                             </td>
                             <td>
                                 {"Effect Sketch、コードの見取り図作り"}
+                            </td>
+                            <td>
+                                {"第16章"}
                             </td>
                         </tr>
                         <tr>
@@ -396,6 +423,9 @@ export default function Techniques() {return <>
                             <td>
                                 {"責務の分離、CRCによる整理"}
                             </td>
+                            <td>
+                                {"第17章"}
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -403,6 +433,9 @@ export default function Techniques() {return <>
                             </td>
                             <td>
                                 {"責務の分割、God Class 化の回避"}
+                            </td>
+                            <td>
+                                {"第20章"}
                             </td>
                         </tr>
                         <tr>
@@ -412,6 +445,9 @@ export default function Techniques() {return <>
                             <td>
                                 {"巨大メソッドの段階的分解"}
                             </td>
+                            <td>
+                                {"第22章"}
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -419,6 +455,9 @@ export default function Techniques() {return <>
                             </td>
                             <td>
                                 {" 小さな成功体験の積み重ね、変更アルゴリズムの反復適用 "}
+                            </td>
+                            <td>
+                                {"第24章"}
                             </td>
                         </tr>
                     </tbody>

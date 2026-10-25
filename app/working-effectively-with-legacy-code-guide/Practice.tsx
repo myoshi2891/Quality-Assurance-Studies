@@ -342,13 +342,24 @@ export default function Practice() {return <>
                 </div>
                 <div className="ref-card">
                     <span className="ref-num">
-                        {"[41][42]"}
+                        {"[41]"}
                     </span>
                     <span className="ref-title">
-                        {"tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」／Medium（Nitesh Ranjan）"}
+                        {"tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」"}
                     </span>
                     <a className="ref-url" href="https://tamerlan.dev/working-effectively-with-legacy-code/" target="_blank" rel="noopener noreferrer">
                         {"https://tamerlan.dev/working-effectively-with-legacy-code/"}
+                    </a>
+                </div>
+                <div className="ref-card">
+                    <span className="ref-num">
+                        {"[42]"}
+                    </span>
+                    <span className="ref-title">
+                        {"Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」"}
+                    </span>
+                    <a className="ref-url" href="https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98" target="_blank" rel="noopener noreferrer">
+                        {"https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98"}
                     </a>
                 </div>
                 <div className="ref-card">
