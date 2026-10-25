@@ -621,3 +621,6 @@
 .wewlc-page .table-wrap tbody tr:last-child td { border-bottom: none; }
 .wewlc-page .table-wrap tbody tr:hover td { background: transparent; }
 .wewlc-page .table-wrap tbody tr:hover { background: var(--paper-card-2); }
+/* Disable retained body decorations only while this paper-themed guide is mounted. */
+body:has(.wewlc-page)::before,
+body:has(.wewlc-page)::after { content: none !important; }
