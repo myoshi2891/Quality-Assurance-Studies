@@ -375,7 +375,7 @@ flowchart TB
 |---|---|
 | 研究の結論 | EU出資の WAI-AGE プロジェクトは、高齢のウェブ利用者のニーズと障害者向けアクセシビリティとの**重なり**を調査した |
 | 示唆 | 障害のある人に配慮してアクセシブルに作られたWebサイト・アプリ・ツールは、**高齢の利用者にもよりアクセシブル**になる |
-| 実務への影響 | スマートホームの**Web管理画面**には、WCAG（Web Content Accessibility Guidelines）の適用が有効。**ネイティブのモバイルアプリ**はWebコンテンツではないため、WCAG2ICT（WCAGを非Web ICTへ適用するためのW3Cの指針、第12章 URL 18）または適用される製品規格（例：EN 301 549）を参照する |
+| 実務への影響 | スマートホームの**Web管理画面**には、WCAG（Web Content Accessibility Guidelines）の適用が有効。**ネイティブのモバイルアプリ**はWebコンテンツではないため、WCAGの解釈にはWCAG2ICT（WCAGを非Web ICTへ適用する際の解釈を示すW3Cの参考情報、第12章 URL 18）を参照する。WCAG2ICTは適合性の基準ではなく、適合の判定根拠にもならない。適合の判定は、適用される製品規格（例：EN 301 549）と契約上・法令上の要求に従う |
 
 #### ② Nielsen Norman Group（Jakob Nielsen ら）
 
@@ -423,7 +423,7 @@ flowchart TB
 | **使いやすさ：効果** | 目的のタスクを達成できるか | タスク成功率の測定 |
 | **使いやすさ：効率** | 所要時間・手数が妥当か | 操作時間、クリック数の計測 |
 | **使いやすさ：満足** | 不安なく使い続けられるか | 事後アンケート、観察 |
-| **知覚性** | 文字サイズ・コントラスト・音量が適切か | Web管理画面はWCAG準拠チェック、ネイティブのモバイルアプリはWCAG2ICTまたは適用される製品規格（例：EN 301 549）に基づくチェック、機器本体の表示・音量は実機での評価 |
+| **知覚性** | 文字サイズ・コントラスト・音量が適切か | Web管理画面はWCAG準拠チェック、ネイティブのモバイルアプリは適用される製品規格（例：EN 301 549）や契約上・法令上の要求に基づくチェック（WCAG2ICTはWCAGの解釈の参考情報で、適合の判定根拠にはしない）、機器本体の表示・音量は実機での評価 |
 | **一貫性** | 機器間・画面間で操作が統一されているか | UIレビュー、ヒューリスティック評価 |
 | **導入・設定** | 初期設定を本人または支援者が完了できるか | 初期設定シナリオテスト |
 | **経時変化への対応** | 設定変更や機器追加が容易か | 変更シナリオテスト |
@@ -470,7 +470,7 @@ flowchart LR
 | 領域 | 参照先 | 活用場面 |
 |---|---|---|
 | Webアクセシビリティ | W3C WCAG | Web管理画面、Webダッシュボード |
-| ネイティブアプリのアクセシビリティ | W3C WCAG2ICT、適用される製品規格（例：EN 301 549） | モバイル管理アプリ |
+| ネイティブアプリのアクセシビリティ | 適合の判定：適用される製品規格（例：EN 301 549）と契約上・法令上の要求。WCAGの解釈の参考：W3C WCAG2ICT（参考情報で、適合性の基準ではない） | モバイル管理アプリ |
 | ユーザビリティ | Nielsen の10ヒューリスティクス | UIレビュー |
 | 機器間連携 | Matter | 機器選定、接続設計 |
 
@@ -511,7 +511,7 @@ flowchart LR
 | 14 | Guide Dogs（英国）「How Matter will revolutionise smart home device accessibility」 | <a href="https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility" target="_blank" rel="noopener noreferrer">https://www.guidedogs.org.uk/blog/matter-smart-home-accessibility</a> | Matter とアクセシビリティ |
 | 15 | AbilityNet「Matter: Enriching disabled people's experience of technology」 | <a href="https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology" target="_blank" rel="noopener noreferrer">https://abilitynet.org.uk/news-blogs/matter-enriching-disabled-peoples-experience-technology</a> | Matter の期待と限界 |
 | 16 | arXiv「Matter: IoT Interoperability for Smart Homes」 | <a href="https://arxiv.org/abs/2405.01618v2" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2405.01618v2</a> | Matter の技術的な位置づけ |
-| 18 | W3C「Guidance on Applying WCAG 2.2 to Non-Web Information and Communications Technologies (WCAG2ICT)」 | <a href="https://www.w3.org/TR/wcag2ict-22/" target="_blank" rel="noopener noreferrer">https://www.w3.org/TR/wcag2ict-22/</a> | ネイティブアプリなど非Web ICTへのWCAGの適用 |
+| 18 | W3C「Guidance on Applying WCAG 2.2 to Non-Web Information and Communications Technologies (WCAG2ICT)」 | <a href="https://www.w3.org/TR/wcag2ict-22/" target="_blank" rel="noopener noreferrer">https://www.w3.org/TR/wcag2ict-22/</a> | ネイティブアプリなど非Web ICTへWCAGを適用する際の解釈（参考情報。適合性の基準ではない） |
 
 ### 12-4. 規格本文の入手方法
 
