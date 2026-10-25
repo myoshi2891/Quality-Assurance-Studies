@@ -623,6 +623,8 @@
 .wewlc-page .table-wrap tbody tr:last-child td { border-bottom: none; }
 .wewlc-page .table-wrap tbody tr:hover td { background: transparent; }
 .wewlc-page .table-wrap tbody tr:hover { background: var(--paper-card-2); }
+/* Darken the source gold so reference numbers reach 4.5:1 on the #fffdf8 card. */
+.wewlc-page { --gold: #8a611f; }
 /* Disable retained body decorations only while this paper-themed guide is mounted. */
 body:has(.wewlc-page)::before,
 body:has(.wewlc-page)::after { content: none !important; }
