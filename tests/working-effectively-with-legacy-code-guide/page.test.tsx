@@ -64,6 +64,19 @@ describe('one-to-one complete source inventory', () => {
         expect(code).toContain('calculateShippingFee(sampleOrder) が実際に返した値に置き換える');
         expect(code).toContain('expect(result).toEqual(provisionalExpected);');
     });
+    it('references [41] and [42] each link to their own article', async () => {
+        const $ = await html(); const card = (num: string) => $('.ref-card').filter((_, el) => $(el).find('.ref-num').text().trim() === num);
+        expect(card('[41][42]')).toHaveLength(0);
+        expect(card('[41]').find('.ref-title').text()).toContain('tamerlan.dev');
+        expect(card('[41]').find('a.ref-url').attr('href')).toBe('https://tamerlan.dev/working-effectively-with-legacy-code/');
+        expect(card('[42]').find('.ref-title').text()).toContain('Nitesh Ranjan');
+        expect(card('[42]').find('a.ref-url').attr('href')).toBe('https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98');
+    });
+    it('the pain-point lookup table names the book chapter for every row', async () => {
+        const $ = await html(); const table = $('#sec13 table');
+        expect(table.find('thead th').map((_, el) => $(el).text().trim()).get()).toEqual(['現場の悩み', '主に関連する概念・技法', '対応する章']);
+        expect(table.find('tbody tr').map((_, el) => $(el).find('td').eq(2).text().trim()).get()).toEqual(['第6章', '第7章', '第9章', '第10章', '第11章', '第12章', '第14章', '第16章', '第17章', '第20章', '第22章', '第24章']);
+    });
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
     });

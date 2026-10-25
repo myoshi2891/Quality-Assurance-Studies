@@ -57,6 +57,10 @@ describe('one-to-one complete source inventory', () => {
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
     });
+    it('diagram 8 is followed by an ordered text description of the whole pipeline loop', async () => {
+        const $ = await html(); const steps = $('#diag-8').closest('.diagram-block').next('ol.diagram-steps');
+        expect(steps.find('li').map((_, el) => $(el).text().trim()).get()).toEqual(['要件定義', '設計', '実装とユニットテスト', 'CIビルド（静的解析と単体テスト）', '結合テストとAPIテスト', 'ステージングでのE2Eテスト', '本番リリース', '本番監視（得られたフィードバックを要件定義へ戻す）']);
+    });
 });
 describe('every original design rule and responsive breakpoint', () => {
     it('at 960px or less the menu bar stacks above the open sidebar and below the header, keeping its offset', () => {
@@ -64,6 +68,15 @@ describe('every original design rule and responsive breakpoint', () => {
         const bar = Number(mobileValue(`${scope} .mobile-bar`, 'z-index')); const sidebar = Number(mobileValue(`${scope} .sidebar`, 'z-index'));
         expect(bar).toBeGreaterThan(sidebar); expect(bar).toBeLessThan(50);
         expect(mobileValue(`${scope} .mobile-bar`, 'top')).toBe('calc(60px + var(--disclaimer-height, 0px))');
+    });
+    it('--gold text and the white number on the active gold badge meet 4.5:1 on every background', () => {
+        // ページ直下（メディア外）の .tcs-page で最後に宣言されたカスタムプロパティを有効値とみなす
+        const vars: Record<string, string> = {};
+        css().walkDecls(/^--/, decl => {const rule = decl.parent; if (rule?.type === 'rule' && rule.parent?.type !== 'atrule' && (rule as postcss.Rule).selector === scope) vars[decl.prop] = decl.value;});
+        const luminance = (hex: string) => {const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(c => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4); return 0.2126 * r + 0.7152 * g + 0.0722 * b;};
+        const ratio = (a: string, b: string) => {const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05);};
+        for (const bg of ['--paper', '--paper-alt', '--paper-card']) expect(ratio(vars['--gold'], vars[bg])).toBeGreaterThanOrEqual(4.5);
+        expect(ratio(vars['--gold'], '#ffffff')).toBeGreaterThanOrEqual(4.5);
     });
     it('hovering the active TOC link keeps its white text on the indigo background', () => {
         // アクティブかつホバー中のリンクに適用されるセレクターと詳細度（クラス・疑似クラス数）
