@@ -229,14 +229,17 @@ flowchart TB
     S3["③ 適用する Apply<br/>住環境に導入し、使い方を支援する"]
     S4["④ 評価する Evaluate<br/>安全性と使いやすさを確認する"]
     S5{"状態や生活に<br/>変化があった？"}
+    S6["継続利用とモニタリング<br/>日々の使用と状態変化を見守る"]
 
     S1 --> S2 --> S3 --> S4 --> S5
     S5 -->|はい| S1
-    S5 -->|いいえ| S4
+    S5 -->|いいえ| S6
+    S6 -->|変化を検知| S1
+    S6 -->|定期評価| S4
 
     classDef step fill:#e8f0fe,stroke:#3b5bdb,color:#102a6b
     classDef dec fill:#fff9db,stroke:#f08c00,color:#6b4500
-    class S1,S2,S3,S4 step
+    class S1,S2,S3,S4,S6 step
     class S5 dec
 ```
 
