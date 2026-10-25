@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-24
+Updated 2026-10-25
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -82,7 +82,19 @@ This project is a Next.js (App Router) web application designed as a comprehensi
   - **一時的なスクリプト (デバッグ・調査用):** ログ解析、単発のデータ抽出等の目的で作成したスクリプトおよび出力された一時ファイルは、作業完了後またはコミット前に必ずリポジトリから物理削除し、決してコミットに含めてはなりません。特にローカル絶対パス（PII）を含むものは、流出防止のため即時削除を徹底してください。作成時にはユーザーに「一時的なスクリプトであること」を明確に報告します。
   - **永続的なスクリプト (プロジェクト機能・テスト用):** プロジェクトの機能、自動テスト、CI/CDなどで永続的に使用するスクリプトは、作成時にその役割と設置場所を明記して報告します。当然、これらのファイルには PII やローカル絶対パスが含まれていないことを事前に走査・検証しなければなりません。
 
+## 2026-10-25: Working Effectively with Legacy Codeガイドの移行
+
+- 移行先は`/working-effectively-with-legacy-code-guide`。書籍カテゴリーへ登録し、ナビ・E2E一覧を106ルートへ同期。
+- 原本の全19セクション・20見出し・目次19リンク・9表の全セル・11図・JavaScriptコード1例・コールアウト4件・参考文献26件・外部リンク27件・チェック8項目・書誌カード6件・アイコン19件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。
+- 原本CSS全84ルールと560/820/960px条件を保持。紙色テーマ・藍色ヒーロー・固定サイドバー・コード構文色を再現し、共有/残留CSSの本文色・表の最小幅/書体/大文字化/罫線/余白・参考文献・フッター・全画面装飾への干渉を補正。
+- 図は原本HTML内の全11定義を共有Mermaidで描画。原本ラベル・接続・点線・配色と左右スクロール端を実SVGで比較。目次の開閉・スクロール追従・Escape・フォーカス復帰・Observer解除、チェック全8項目の選択/解除/完了件数、SWC開発/本番変換後の全文・構造・コード改行を検証。
+- Red先行、CSS、図、チェック、コード、導入、基礎概念、5ステップ、実践テクニック、応用、目次、ヒーロー、ページ構成、登録、アーカイブ、補正、仕様書を分割コミット。各コミット直前にPII検査。
+- 原本HTMLは`archive/html-archive/books/Working-effectively-with-legacy-code-guide.html`、MDは`archive/md-archive/books/Working-effectively-with-legacy-code-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
+- npm経由で対象283件、全体6024件（137ファイル）、ビルド・サーバー不要のブラウザー34件（6幅×CSS読込2順序＋2幅×11図）、lint、対象型検査が成功。全体型検査には既存の型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
+
 ## Migrated Pages (Tracking)
+
+- `app/working-effectively-with-legacy-code-guide/page.tsx`（紙色テーマ、`NavBar.tsx`、同名CSS、5カテゴリー・11図・8チェック。原本HTML/MDは`archive/`へ移動済み）
 
 - `app/page.tsx` (ガイドライブラリ index — 全ガイドをカテゴリ別カードで一覧、検索付き)
 - `app/GuideIndex.tsx` (index の検索 + レベル別セクション、`'use client'`)
@@ -217,7 +229,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（105 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（106 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -421,7 +433,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 4 ペア = 8 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 3 ペア = 6 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -437,9 +449,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 105 ルート（ガイドライブラリ index + 104 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 106 ルート（ガイドライブラリ index + 105 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 5653件（`bun test` 全体・133ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 6024件（`npm test` 全体・137ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認をユーザーに依頼する。
