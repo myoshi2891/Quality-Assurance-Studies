@@ -591,7 +591,9 @@
 .tcs-page .table-wrap table { min-width: 0; margin: 0; color: var(--ink); font-size: 1rem; border-radius: 0; overflow: visible; }
 .tcs-page .table-wrap thead tr { background: transparent; border: 0; }
 .tcs-page .table-wrap thead th { font-family: inherit; font-size: 1rem; letter-spacing: normal; text-transform: none; padding: 0.75rem 1rem; border: 0; line-height: inherit; }
-.tcs-page .table-wrap tbody td { color: var(--ink); font-family: inherit; font-size: 1rem; line-height: inherit; text-align: start; padding: 0.7rem 1rem; }
+.tcs-page .table-wrap tbody td { color: var(--ink) !important; font-family: inherit; font-size: 1rem !important; line-height: inherit; text-align: start; padding: 0.7rem 1rem; }
+.tcs-page .table-wrap td { color: var(--ink) !important; font-size: 1rem !important; }
+.tcs-page .table-wrap td code { color: inherit; font-size: inherit; font-family: inherit; background: transparent; }
 .tcs-page .table-wrap td strong { color: var(--ink); font-weight: 700; }
 .tcs-page .table-wrap tbody tr:hover td { background: transparent; }
 .tcs-page .prose .step-list { padding: 0; margin: 1.6rem 0; list-style: none; }
