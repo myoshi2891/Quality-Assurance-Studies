@@ -513,7 +513,7 @@ flowchart TD
 | 8 | What's New in WCAG 2.2（W3C WAI） | <a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/</a> |
 | 9 | WCAG 2.1/2.2 軽微な編集更新（2024-12-12） | <a href="https://www.w3.org/WAI/news/2024-12-12/wcag2updates/" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2024-12-12/wcag2updates/</a> |
 | 10 | WCAG 2.2 公開履歴 | <a href="https://w3.org/standards/history/WCAG22" target="_blank" rel="noopener noreferrer">https://w3.org/standards/history/WCAG22</a> |
-| 11 | WCAG 3 草案（2026-09-10 版） | <a href="https://w3.org/TR/WCAG3/" target="_blank" rel="noopener noreferrer">https://w3.org/TR/WCAG3/</a> |
+| 11 | WCAG 3 草案（2026-09-10 版） | <a href="https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/" target="_blank" rel="noopener noreferrer">https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/</a> |
 | 12 | WCAG 3 草案更新のお知らせ（2026-03-03） | <a href="https://www.w3.org/WAI/news/2026-03-03/wcag3" target="_blank" rel="noopener noreferrer">https://www.w3.org/WAI/news/2026-03-03/wcag3</a> |
 
 ### 実務家・専門組織の解説
