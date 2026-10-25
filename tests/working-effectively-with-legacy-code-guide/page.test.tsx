@@ -89,7 +89,11 @@ describe('one-to-one complete source inventory', () => {
     it('the pain-point lookup table names the book chapter for every row', async () => {
         const $ = await html(); const table = $('#sec13 table');
         expect(table.find('thead th').map((_, el) => $(el).text().trim()).get()).toEqual(['現場の悩み', '主に関連する概念・技法', '対応する章']);
-        expect(table.find('tbody tr').map((_, el) => $(el).find('td').eq(2).text().trim()).get()).toEqual(['第6章', '第6章', '第9章', '第10章', '第11章', '第12章', '第14章', '第16章', '第17章', '第20章', '第22章', '第24章']);
+        expect(table.find('tbody tr').map((_, el) => $(el).find('td').eq(2).text().trim()).get()).toEqual(['第6章', '第7章', '第9章', '第10章', '第11章', '第12章', '第14章', '第16章', '第17章', '第20章', '第22章', '第24章']);
+    });
+    it('the slow-change row points to chapter 7 and keeps Wrap in chapter 6', async () => {
+        const $ = await html(); const row = $('#sec13 tbody tr').eq(1).find('td');
+        expect(row.map((_, el) => $(el).text().trim()).get()).toEqual(['変更にとにかく時間がかかりすぎる', 'ラグタイム（ビルドとテストの待ち時間）の短縮、依存関係の解消（Wrap Method／Class は第6章）', '第7章']);
     });
     it('all external references have safe new-tab attributes', async () => {
         const $ = await html(); $('main a[href^="http"]').each((_, el) => {expect($(el).attr('target')).toBe('_blank'); expect($(el).attr('rel')).toBe('noopener noreferrer');});
