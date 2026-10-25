@@ -58,6 +58,12 @@ describe('one-to-one complete source inventory', () => {
     });
 });
 describe('every original design rule and responsive breakpoint', () => {
+    it('at 960px or less the menu bar stacks above the open sidebar and below the header, keeping its offset', () => {
+        const mobileValue = (selector: string, prop: string) => {let value = ''; css().walkDecls(prop, decl => {const rule = decl.parent; if (rule?.type !== 'rule') return; const media = rule.parent?.type === 'atrule' ? (rule.parent as postcss.AtRule).params : ''; if (media && !media.includes('max-width: 960px')) return; if ((rule as postcss.Rule).selectors.includes(selector)) value = decl.value;}); return value;};
+        const bar = Number(mobileValue(`${scope} .mobile-bar`, 'z-index')); const sidebar = Number(mobileValue(`${scope} .sidebar`, 'z-index'));
+        expect(bar).toBeGreaterThan(sidebar); expect(bar).toBeLessThan(50);
+        expect(mobileValue(`${scope} .mobile-bar`, 'top')).toBe('calc(60px + var(--disclaimer-height, 0px))');
+    });
     inventory.css.forEach((rule, i) => it(`CSS[${i}] ${rule.media ?? 'desktop'} ${rule.selector}`, () => {
         const found: unknown[] = []; css().walkRules(r => {
             if (r.selector === scoped(rule.selector) && (r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params : null) === rule.media)
