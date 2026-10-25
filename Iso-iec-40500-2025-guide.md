@@ -308,9 +308,16 @@ html {
   請求先は配送先と同じ
 </label>
 
-<!-- 標準的な属性値で、ブラウザの自動入力を助ける -->
-<input type="text" id="postal" name="postal-code" autocomplete="postal-code">
+<!-- 前のステップで入力された配送先の郵便番号を、ページ側が請求先の欄に自動入力しておく -->
+<label for="billing-postal">請求先の郵便番号</label>
+<input type="text" id="billing-postal" name="billing-postal" value="100-0001">
 ```
+
+> 参考（3.3.7 とは別の話）: `autocomplete` 属性は、ブラウザの一般的な入力支援を助けるための仕組みです。3.3.7 は、同じプロセスで利用者がすでに入力した情報を**ページ側が**自動入力するか選択肢として提示することを求めており、ブラウザの自動入力に任せることでは満たせません。
+>
+> ```html
+> <input type="text" id="postal" name="postal-code" autocomplete="postal-code">
+> ```
 
 ### 5.6 3.3.8 アクセシブルな認証（最小）
 
@@ -361,7 +368,7 @@ flowchart TD
     Q2 -->|"はい"| Q3{"プロセス全体を<br/>通して確認したか？"}
     Q3 -->|"いいえ"| Flow["購入・申込みなどの<br/>一連の流れで確認"]
     Flow --> T
-    Q3 -->|"はい"| Done["適合と判断し<br/>アクセシビリティ表明を作成"]
+    Q3 -->|"はい"| Done["適合と判断<br/>（アクセシビリティ表明は必要に応じて作成）"]
 ```
 
 ### 6.2 現実的な進め方（既存サービスを WCAG 2.1 AA から 2.2 AA へ）
