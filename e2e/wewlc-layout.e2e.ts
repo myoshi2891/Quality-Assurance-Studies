@@ -45,8 +45,8 @@ for(const width of [390,1440]) for(const id of Object.keys(inventory.diagrams)) 
             mermaid.initialize(config);const ref=document.createElement('div');document.body.append(ref);ref.innerHTML=(await mermaid.render('source-'+id,originalChart)).svg;const expected=snapshot(ref);ref.remove();
             mermaid.initialize({startOnLoad:false,theme:'dark'});const inner=document.querySelector('#'+id+' .mermaid-wrapper')!;inner.innerHTML=(await mermaid.render('migrated-'+id,chart)).svg;
             const svg=inner.querySelector('svg')!;svg.removeAttribute('width');svg.removeAttribute('height');svg.style.width=svg.viewBox.baseVal.width+'px';svg.style.height='auto';
-            const actual=snapshot(inner); const outer=inner.parentElement!.parentElement!;const initial=svg.getBoundingClientRect().left;outer.scrollLeft=outer.scrollWidth;
-            return {actual,expected,left:outer.getBoundingClientRect().left,initial,moved:initial-svg.getBoundingClientRect().left,scroll:outer.scrollLeft,required:outer.scrollWidth-outer.clientWidth};
+            const actual=snapshot(inner);const initial=svg.getBoundingClientRect().left;inner.scrollLeft=inner.scrollWidth;
+            return {actual,expected,left:inner.getBoundingClientRect().left,initial,moved:initial-svg.getBoundingClientRect().left,scroll:inner.scrollLeft,required:inner.scrollWidth-inner.clientWidth};
         },{chart:DIAGRAMS[id]!,originalChart:inventory.diagrams[id as keyof typeof inventory.diagrams],id});
         expect(result.actual).toEqual(result.expected);expect(result.initial).toBeGreaterThanOrEqual(result.left);expect(Math.abs(result.scroll-result.required)).toBeLessThanOrEqual(1);expect(Math.abs(result.moved-result.scroll)).toBeLessThanOrEqual(1);
     });
