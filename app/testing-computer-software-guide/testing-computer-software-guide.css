@@ -631,6 +631,9 @@ html:has(.tcs-page) { scroll-behavior: auto; }
 .tcs-page .sidebar { transition: none; }
 }
 
+/* Darken the source gold so eyebrow, reference headings and the white badge number reach 4.5:1. */
+.tcs-page { --gold: #8a611f; }
+
 /* Preserve the source cascade: prose indentation also applies to decorated lists. */
 .tcs-page .prose .step-list,
 .tcs-page .prose .checklist,
