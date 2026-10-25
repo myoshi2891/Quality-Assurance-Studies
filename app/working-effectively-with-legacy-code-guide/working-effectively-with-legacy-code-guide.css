@@ -563,7 +563,9 @@
 .wewlc-page .sidebar-scrim { top: calc(60px + var(--disclaimer-height, 0px)); }
 .wewlc-page table { margin: 0; background: transparent; border-radius: 0; overflow: visible; }
 .wewlc-page th, .wewlc-page td { font-family: inherit; font-size: 1rem !important; line-height: inherit; letter-spacing: normal; text-transform: none; }
+.wewlc-page td { color: var(--ink) !important; }
 .wewlc-page tbody td { color: var(--ink) !important; }
+.wewlc-page td code { color: inherit; font-size: inherit; font-family: inherit; background: transparent; }
 .wewlc-page thead th { background: var(--indigo) !important; color: #fff !important; }
 .wewlc-page tbody tr:hover td { background: var(--paper-card-2); }
 .wewlc-page strong, .wewlc-page td strong, .wewlc-page .callout strong { color: inherit !important; }
