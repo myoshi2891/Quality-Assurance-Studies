@@ -50,7 +50,7 @@ export default function References() {return <>
                 <ul className="ref-list">
                     <li>
                         <span className="ref-title">
-                            {"4. Martin Fowler / Ham Vocke, The Practical Test Pyramid"}
+                            {"4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"}
                         </span>
                         <a className="ref-url" href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">
                             {"https://martinfowler.com/articles/practical-test-pyramid.html"}
