@@ -1,6 +1,6 @@
 import React from 'react';
 export default function Book() {return <>
-    <section className="section" id="sec1">
+    <section className="section" id="sec1" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-book">

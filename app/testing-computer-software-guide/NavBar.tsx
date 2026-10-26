@@ -9,11 +9,11 @@ export default function NavBar() {
     const active = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
     const toggle = useRef<HTMLButtonElement>(null);
     const nav = useRef<HTMLElement>(null);
-    const close = () => { setOpen(false); toggle.current?.focus({ preventScroll: true }); };
+    // Escape ではトグルへフォーカスを戻す。リンク選択時は閉じるだけにし、フラグメント移動で移動先の節（tabIndex={-1}）へフォーカスを渡す
     useEffect(() => {
         if (!open) return;
         const onKey = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') { setOpen(false); toggle.current?.focus(); }
+            if (event.key === 'Escape') { setOpen(false); toggle.current?.focus({ preventScroll: true }); }
         };
         document.addEventListener('keydown', onKey);
         return () => document.removeEventListener('keydown', onKey);
@@ -33,7 +33,7 @@ export default function NavBar() {
         <aside role="navigation" className={open ? 'sidebar open' : 'sidebar'} id="sidebar" ref={nav} aria-label="目次">
             <div className="sidebar-brand"><i className="ti ti-book-2" aria-hidden="true" /><span>Testing Computer Software 入門ガイド</span></div>
             <ul className="nav-list">{TOC.map(item => <li key={item.id}>
-                <a className={active === item.id ? 'nav-a active' : 'nav-a'} href={'#' + item.id} aria-current={active === item.id ? 'location' : undefined} onClick={() => { if (open) close(); }}><span className="n-num">{item.number}</span>{item.label}</a>
+                <a className={active === item.id ? 'nav-a active' : 'nav-a'} href={'#' + item.id} aria-current={active === item.id ? 'location' : undefined} onClick={() => setOpen(false)}><span className="n-num">{item.number}</span>{item.label}</a>
             </li>)}</ul>
         </aside>
     </>;

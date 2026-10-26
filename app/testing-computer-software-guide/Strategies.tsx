@@ -2,7 +2,7 @@ import React from 'react';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
 export default function Strategies() {return <>
-    <section className="section" id="sec7">
+    <section className="section" id="sec7" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-hierarchy">
@@ -139,7 +139,7 @@ export default function Strategies() {return <>
             </p>
         </div>
     </section>
-    <section className="section" id="sec8">
+    <section className="section" id="sec8" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-puzzle">
@@ -241,7 +241,7 @@ export default function Strategies() {return <>
             </p>
         </div>
     </section>
-    <section className="section" id="sec9">
+    <section className="section" id="sec9" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-repeat">
@@ -289,7 +289,7 @@ export default function Strategies() {return <>
             </p>
         </div>
     </section>
-    <section className="section" id="sec10">
+    <section className="section" id="sec10" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-microscope">

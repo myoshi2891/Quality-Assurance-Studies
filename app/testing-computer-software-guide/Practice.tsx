@@ -3,7 +3,7 @@ import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
 import Checklist from './Checklist';
 export default function Practice() {return <>
-    <section className="section" id="sec15">
+    <section className="section" id="sec15" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-map-2">
@@ -78,7 +78,7 @@ export default function Practice() {return <>
             </ol>
         </div>
     </section>
-    <section className="section" id="sec16">
+    <section className="section" id="sec16" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-checklist">
@@ -96,7 +96,7 @@ export default function Practice() {return <>
             <Checklist />
         </div>
     </section>
-    <section className="section" id="sec17">
+    <section className="section" id="sec17" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-sparkles">

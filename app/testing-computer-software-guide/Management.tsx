@@ -2,7 +2,7 @@ import React from 'react';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
 export default function Management() {return <>
-    <section className="section" id="sec11">
+    <section className="section" id="sec11" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-bug">
@@ -112,7 +112,7 @@ export default function Management() {return <>
             </div>
         </div>
     </section>
-    <section className="section" id="sec12">
+    <section className="section" id="sec12" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-clipboard-list">
@@ -196,7 +196,7 @@ export default function Management() {return <>
             </p>
         </div>
     </section>
-    <section className="section" id="sec13">
+    <section className="section" id="sec13" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-git-branch">
@@ -244,7 +244,7 @@ export default function Management() {return <>
             </div>
         </div>
     </section>
-    <section className="section" id="sec14">
+    <section className="section" id="sec14" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-robot">

@@ -1,6 +1,6 @@
 import React from 'react';
 export default function References() {return <>
-    <section className="section" id="sec18">
+    <section className="section" id="sec18" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-report-search">

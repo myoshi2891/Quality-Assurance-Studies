@@ -2,7 +2,7 @@ import React from 'react';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
 export default function Fundamentals() {return <>
-    <section className="section" id="sec2">
+    <section className="section" id="sec2" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-bulb">
@@ -74,7 +74,7 @@ export default function Fundamentals() {return <>
             </p>
         </div>
     </section>
-    <section className="section" id="sec3">
+    <section className="section" id="sec3" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-scale">
@@ -155,7 +155,7 @@ export default function Fundamentals() {return <>
             </p>
         </div>
     </section>
-    <section className="section" id="sec4">
+    <section className="section" id="sec4" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-list-check">
@@ -244,7 +244,7 @@ export default function Fundamentals() {return <>
             </div>
         </div>
     </section>
-    <section className="section" id="sec5">
+    <section className="section" id="sec5" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-route">
@@ -313,7 +313,7 @@ export default function Fundamentals() {return <>
             </ul>
         </div>
     </section>
-    <section className="section" id="sec6">
+    <section className="section" id="sec6" tabIndex={-1}>
         <div className="section-head">
             <div className="section-icon">
                 <i className="ti ti-stack-2">
