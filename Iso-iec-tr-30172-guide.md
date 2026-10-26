@@ -434,9 +434,9 @@ flowchart LR
 |---|---|---|
 | **ISO/IEC 30173:2023** | Digital twin — Concepts and terminology（概念と用語） | 本書の用語定義の出典。SC 41が2023年に発行した姉妹規格 |
 | **ISO 23247 シリーズ** | 製造向けデジタルツインフレームワーク（ISO/TC 184/SC 4） | 製造領域で内容が重なる。Part 1〜4は2021年、Part 5（デジタルスレッド）は2026年6月に発行、Part 6（構成）も2026年版が掲載 |
-| ISO/IEC 30188:2026 | Digital twin — Reference architecture（参照アーキテクチャ） | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2026年7月／2026-07-31発行） |
-| ISO/IEC 30186:2025 | Digital twin — Maturity model and guidance for a maturity assessment | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2025年7月／2025-07-14発行） |
-| ISO/IEC 30194:2024 | Best practices for use case projects | 2023年時点の解説ページでは策定中と記載。現在は発行済み（Published、ステージ 60.60、2024年12月発行） |
+| ISO/IEC 30188:2026 | Digital twin — Reference architecture（参照アーキテクチャ） | 2023年時点の解説ページでは策定中と記載。現在は発行済み（第1版、Published、ステージ 60.60、2026年7月発行。参照ソース #19） |
+| ISO/IEC 30186:2025 | Digital twin — Maturity model and guidance for a maturity assessment | 2023年時点の解説ページでは策定中と記載。現在は発行済み（第1版、Published、ステージ 60.60、2025年7月発行。参照ソース #20） |
+| ISO/IEC 30194:2024 | Best practices for use case projects | 2023年時点の解説ページでは策定中と記載。現在は発行済み（第1版、Published、ステージ 60.60、2024年12月発行。参照ソース #21） |
 | ISO/TR 24464:2025 | Visualization elements of digital twin — Visualization fidelity | 2025年発行のDTw関連文書として論文で言及 |
 | IEC 62559-2 | ユースケース方法論のテンプレート | 本書のテンプレートの改変元 |
 | ISO/IEC TR 22417 | IoTユースケース | 本書のテンプレートの改変元 |
@@ -564,6 +564,9 @@ flowchart LR
 | 7 | ISO/IEC 30173:2023（IEC Webstore） | <a href="https://webstore.iec.ch/publication/68081" target="_blank" rel="noopener noreferrer">https://webstore.iec.ch/publication/68081</a> | 発行日、ページ数 |
 | 8 | ISO 23247-5:2026 | <a href="https://www.iso.org/standard/87425.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/87425.html</a> | デジタルスレッド規格の範囲・発行 |
 | 9 | ISO 23247-6:2026（ANSI） | <a href="https://webstore.ansi.org/standards/iso/iso232472026-2614645" target="_blank" rel="noopener noreferrer">https://webstore.ansi.org/standards/iso/iso232472026-2614645</a> | 構成（composition）規格の範囲 |
+| 19 | ISO/IEC 30188:2026（ISO） | <a href="https://www.iso.org/standard/53308.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53308.html</a> | 参照アーキテクチャ規格の版・ステータス・発行年月 |
+| 20 | ISO/IEC 30186:2025（ISO） | <a href="https://www.iso.org/standard/53306.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53306.html</a> | 成熟度モデル規格の版・ステータス・発行年月 |
+| 21 | ISO/IEC 30194:2024（ISO） | <a href="https://www.iso.org/standard/53314.html" target="_blank" rel="noopener noreferrer">https://www.iso.org/standard/53314.html</a> | ユースケース案件ベストプラクティス規格の版・ステータス・発行年月 |
 
 ### 解説・業界団体・研究機関
 
