@@ -95,6 +95,11 @@ describe('one-to-one complete source inventory', () => {
         const $ = await html(); const row = $('#sec13 tbody tr').eq(1).find('td');
         expect(row.map((_, el) => $(el).text().trim()).get()).toEqual(['変更にとにかく時間がかかりすぎる', 'ラグタイム（ビルドとテストの待ち時間）の短縮、依存関係の解消（Wrap Method／Class は第6章）', '第7章']);
     });
+    it('the Sprout/Wrap intro assigns slow changes to chapter 7 and safe feature addition to chapter 6', async () => {
+        const $ = await html(); const text = $('#sec11 .prose > p').first().text();
+        expect(text).toContain('「変更にとても時間がかかる」という悩みは第7章で扱われますが、「時間がない」という現場の悩みに対しては、Feathers は第6章で、Sprout と Wrap を含む、新しい機能を安全に追加するための実践的な技法を紹介しています');
+        expect(text).not.toContain('「時間がない」「変更にとても時間がかかる」という現場の悩みに対して');
+    });
     it('diagram 10 carries an accessible title and a description of its five steps in order', async () => {
         const { DIAGRAMS } = await import(diagramsEntry); const chart: string = DIAGRAMS.d10;
         expect(chart).toContain('\naccTitle: 学習ロードマップ（5つのステップ）\n');
