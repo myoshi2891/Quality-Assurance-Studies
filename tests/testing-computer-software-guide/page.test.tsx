@@ -116,6 +116,14 @@ describe('every original design rule and responsive breakpoint', () => {
         expect(bar).toBeGreaterThan(sidebar); expect(bar).toBeLessThan(50);
         expect(mobileValue(`${scope} .mobile-bar`, 'top')).toBe('calc(60px + var(--disclaimer-height, 0px))');
     });
+    it('at 960px or less the menu bar title stays on one line and truncates with an ellipsis', () => {
+        const mobileValue = (selector: string, prop: string) => {let value = ''; css().walkDecls(prop, decl => {const rule = decl.parent; if (rule?.type !== 'rule') return; const media = rule.parent?.type === 'atrule' ? (rule.parent as postcss.AtRule).params : ''; if (media && !media.includes('max-width: 960px')) return; if ((rule as postcss.Rule).selectors.includes(selector)) value = decl.value;}); return value;};
+        const title = `${scope} .mobile-bar .mobile-title`;
+        expect(mobileValue(title, 'white-space')).toBe('nowrap');
+        expect(mobileValue(title, 'overflow')).toBe('hidden');
+        expect(mobileValue(title, 'text-overflow')).toBe('ellipsis');
+        expect(mobileValue(title, 'min-width')).toBe('0');
+    });
     it('--gold text and the white number on the active gold badge meet 4.5:1 on every background', () => {
         // ページ直下（メディア外）の .tcs-page で最後に宣言されたカスタムプロパティを有効値とみなす
         const vars: Record<string, string> = {};
