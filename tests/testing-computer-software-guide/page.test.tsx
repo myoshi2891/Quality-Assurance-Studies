@@ -116,6 +116,19 @@ describe('one-to-one complete source inventory', () => {
         const note = $('#sec1 .callout.note p').text();
         expect(note).toContain('印刷版は参考文献1、2011年のWiley版電子書籍は参考文献2を参照');
     });
+    it('in-body citation numbers point to the cited sources and the source note matches the shifted numbering', async () => {
+        const $ = await html(); const titles = $('#sec18 .ref-title').map((_, el) => $(el).text().trim()).get();
+        const body = $('main').clone(); body.find('#sec18').remove(); const text = body.text();
+        expect(text).toContain('NIST が2002年に公表した報告書(参考文献16)');
+        expect(titles[15]).toStartWith('16. NIST,');
+        expect(text).toContain('中核ケイパビリティの一つとして挙げています(参考文献17)');
+        expect(titles[16]).toStartWith('17. DORA,');
+        const note = $('#sec18 .callout.note p').text();
+        expect(note).toContain('1～4は一次情報源(書誌情報・標準化団体)、5～14は国際的に著名な');
+        expect(note).toContain('15は2026年時点の業界動向');
+        expect(note).toContain('16は不十分なテストインフラ');
+        expect(note).toContain('17は継続的インテグレーション');
+    });
 });
 describe('every original design rule and responsive breakpoint', () => {
     it('at 960px or less the menu bar stacks above the open sidebar and below the header, keeping its offset', () => {
