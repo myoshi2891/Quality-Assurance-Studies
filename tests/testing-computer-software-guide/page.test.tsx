@@ -105,8 +105,16 @@ describe('one-to-one complete source inventory', () => {
     });
     it('credits Ham Vocke alone as the author of The Practical Test Pyramid hosted on MartinFowler.com', async () => {
         const $ = await html(); const titles = $('#sec18 .ref-title').map((_, el) => $(el).text().trim()).get();
-        expect(titles[3]).toBe('4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)');
+        expect(titles[4]).toBe('5. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)');
         expect(titles.join('\n')).not.toContain('Martin Fowler / Ham Vocke');
+    });
+    it('cites the 2011 Wiley eBook edition right after the print edition and the availability note points to both', async () => {
+        const $ = await html(); const items = $('#sec18 .ref-list li');
+        expect(items.eq(1).find('.ref-title').text().trim()).toBe('2. Cem Kaner, Jack Falk, Hung Q. Nguyen, Testing Computer Software, 2nd Edition (Wiley, 2011年電子書籍版 / ISBN 9781118080689, eCampus書誌情報)');
+        expect(items.eq(1).find('a.ref-url').attr('href')).toBe('https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689');
+        expect(items.map((_, el) => Number($(el).find('.ref-title').text().trim().split('.')[0])).get()).toEqual(Array.from({ length: 17 }, (_, i) => i + 1));
+        const note = $('#sec1 .callout.note p').text();
+        expect(note).toContain('印刷版は参考文献1、2011年のWiley版電子書籍は参考文献2を参照');
     });
 });
 describe('every original design rule and responsive breakpoint', () => {
