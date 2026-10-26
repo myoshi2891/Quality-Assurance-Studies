@@ -103,6 +103,11 @@ describe('one-to-one complete source inventory', () => {
         expect(row.eq(0).text().trim()).toBe('⑤ テストは使い古される');
         expect(row.eq(1).text().trim()).toBe('同じテストを繰り返すと新しい欠陥を見つけられなくなるため、テストを見直し続ける必要がある');
     });
+    it('credits Ham Vocke alone as the author of The Practical Test Pyramid hosted on MartinFowler.com', async () => {
+        const $ = await html(); const titles = $('#sec18 .ref-title').map((_, el) => $(el).text().trim()).get();
+        expect(titles[3]).toBe('4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)');
+        expect(titles.join('\n')).not.toContain('Martin Fowler / Ham Vocke');
+    });
 });
 describe('every original design rule and responsive breakpoint', () => {
     it('at 960px or less the menu bar stacks above the open sidebar and below the header, keeping its offset', () => {
