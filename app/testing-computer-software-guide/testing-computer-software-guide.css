@@ -646,6 +646,8 @@ html:has(.tcs-page) { scroll-behavior: auto; }
 .tcs-page .checklist input { font-family: Arial; }
 @media (max-width: 960px) {
     .tcs-page .mobile-bar button { font-family: Arial; padding: 1px 6px; }
+    /* 長いタイトルの折り返しでバーが高くならないよう 1 行に収めて省略する */
+    .tcs-page .mobile-bar .mobile-title { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
 @media (min-width: 961px) {
     .tcs-page .mobile-bar button { all: revert; font-size: 1rem; }
