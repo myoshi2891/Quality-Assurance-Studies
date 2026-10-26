@@ -1203,7 +1203,7 @@
                           "tag": "p",
                           "attrs": {},
                           "children": [
-                            "本ガイドが参照したのは1993年刊行の印刷版(第2版)です。後年には2011年のWiley版電子書籍などのデジタル版も刊行されていますが、現在の入手可否は時期や販売経路によって異なるため、書店・図書館・出版社の情報で確認してください(出典URLは本ガイド末尾の参考文献一覧を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。"
+                            "本ガイドが参照したのは1993年刊行の印刷版(第2版)です。後年には2011年のWiley版電子書籍などのデジタル版も刊行されていますが、現在の入手可否は時期や販売経路によって異なるため、書店・図書館・出版社の情報で確認してください(出典URLは本ガイド末尾の参考文献一覧のうち、印刷版は参考文献1、2011年のWiley版電子書籍は参考文献2を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。"
                           ]
                         }
                       ]
@@ -4893,7 +4893,34 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "2. ISTQB(International Software Testing Qualifications Board)公式サイト"
+                                "2. Cem Kaner, Jack Falk, Hung Q. Nguyen, Testing Computer Software, 2nd Edition (Wiley, 2011年電子書籍版 / ISBN 9781118080689, eCampus書誌情報)"
+                              ]
+                            },
+                            {
+                              "tag": "a",
+                              "attrs": {
+                                "class": "ref-url",
+                                "href": "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689",
+                                "target": "_blank",
+                                "rel": "noopener noreferrer"
+                              },
+                              "children": [
+                                "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "span",
+                              "attrs": {
+                                "class": "ref-title"
+                              },
+                              "children": [
+                                "3. ISTQB(International Software Testing Qualifications Board)公式サイト"
                               ]
                             },
                             {
@@ -4920,7 +4947,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "3. ISTQB Certified Tester Foundation Level (CTFL) v4.0"
+                                "4. ISTQB Certified Tester Foundation Level (CTFL) v4.0"
                               ]
                             },
                             {
@@ -4970,7 +4997,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"
+                                "5. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"
                               ]
                             },
                             {
@@ -4997,7 +5024,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "5. Martin Fowler, Test Pyramid (Bliki)"
+                                "6. Martin Fowler, Test Pyramid (Bliki)"
                               ]
                             },
                             {
@@ -5024,7 +5051,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "6. Martin Fowler, Test Driven Development (Bliki)"
+                                "7. Martin Fowler, Test Driven Development (Bliki)"
                               ]
                             },
                             {
@@ -5051,7 +5078,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "7. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"
+                                "8. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"
                               ]
                             },
                             {
@@ -5078,7 +5105,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "8. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
+                                "9. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
                               ]
                             },
                             {
@@ -5105,7 +5132,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "9. Kent C. Dodds, The Testing Trophy and Testing Classifications"
+                                "10. Kent C. Dodds, The Testing Trophy and Testing Classifications"
                               ]
                             },
                             {
@@ -5132,7 +5159,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "10. Kent C. Dodds, Write tests. Not too many. Mostly integration."
+                                "11. Kent C. Dodds, Write tests. Not too many. Mostly integration."
                               ]
                             },
                             {
@@ -5159,7 +5186,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "11. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"
+                                "12. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"
                               ]
                             },
                             {
@@ -5186,7 +5213,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "12. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"
+                                "13. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"
                               ]
                             },
                             {
@@ -5213,7 +5240,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "13. Simon Tatham, How to Report Bugs Effectively"
+                                "14. Simon Tatham, How to Report Bugs Effectively"
                               ]
                             },
                             {
@@ -5263,7 +5290,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "14. Tricentis, QA trends for 2026: AI, agents, and the future of testing"
+                                "15. Tricentis, QA trends for 2026: AI, agents, and the future of testing"
                               ]
                             },
                             {
@@ -5313,7 +5340,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "15. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"
+                                "16. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"
                               ]
                             },
                             {
@@ -5340,7 +5367,7 @@
                                 "class": "ref-title"
                               },
                               "children": [
-                                "16. DORA, Continuous integration (DORA Core ケイパビリティ解説)"
+                                "17. DORA, Continuous integration (DORA Core ケイパビリティ解説)"
                               ]
                             },
                             {
@@ -7194,7 +7221,7 @@
                   "tag": "p",
                   "attrs": {},
                   "children": [
-                    "本ガイドが参照したのは1993年刊行の印刷版(第2版)です。後年には2011年のWiley版電子書籍などのデジタル版も刊行されていますが、現在の入手可否は時期や販売経路によって異なるため、書店・図書館・出版社の情報で確認してください(出典URLは本ガイド末尾の参考文献一覧を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。"
+                    "本ガイドが参照したのは1993年刊行の印刷版(第2版)です。後年には2011年のWiley版電子書籍などのデジタル版も刊行されていますが、現在の入手可否は時期や販売経路によって異なるため、書店・図書館・出版社の情報で確認してください(出典URLは本ガイド末尾の参考文献一覧のうち、印刷版は参考文献1、2011年のWiley版電子書籍は参考文献2を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。"
                   ]
                 }
               ]
@@ -7502,7 +7529,34 @@
                 "class": "ref-title"
               },
               "children": [
-                "2. ISTQB(International Software Testing Qualifications Board)公式サイト"
+                "2. Cem Kaner, Jack Falk, Hung Q. Nguyen, Testing Computer Software, 2nd Edition (Wiley, 2011年電子書籍版 / ISBN 9781118080689, eCampus書誌情報)"
+              ]
+            },
+            {
+              "tag": "a",
+              "attrs": {
+                "class": "ref-url",
+                "href": "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+              },
+              "children": [
+                "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689"
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "li",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "span",
+              "attrs": {
+                "class": "ref-title"
+              },
+              "children": [
+                "3. ISTQB(International Software Testing Qualifications Board)公式サイト"
               ]
             },
             {
@@ -7529,7 +7583,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "3. ISTQB Certified Tester Foundation Level (CTFL) v4.0"
+                "4. ISTQB Certified Tester Foundation Level (CTFL) v4.0"
               ]
             },
             {
@@ -7556,7 +7610,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"
+                "5. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"
               ]
             },
             {
@@ -7583,7 +7637,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "5. Martin Fowler, Test Pyramid (Bliki)"
+                "6. Martin Fowler, Test Pyramid (Bliki)"
               ]
             },
             {
@@ -7610,7 +7664,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "6. Martin Fowler, Test Driven Development (Bliki)"
+                "7. Martin Fowler, Test Driven Development (Bliki)"
               ]
             },
             {
@@ -7637,7 +7691,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "7. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"
+                "8. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"
               ]
             },
             {
@@ -7664,7 +7718,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "8. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
+                "9. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
               ]
             },
             {
@@ -7691,7 +7745,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "9. Kent C. Dodds, The Testing Trophy and Testing Classifications"
+                "10. Kent C. Dodds, The Testing Trophy and Testing Classifications"
               ]
             },
             {
@@ -7718,7 +7772,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "10. Kent C. Dodds, Write tests. Not too many. Mostly integration."
+                "11. Kent C. Dodds, Write tests. Not too many. Mostly integration."
               ]
             },
             {
@@ -7745,7 +7799,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "11. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"
+                "12. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"
               ]
             },
             {
@@ -7772,7 +7826,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "12. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"
+                "13. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"
               ]
             },
             {
@@ -7799,7 +7853,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "13. Simon Tatham, How to Report Bugs Effectively"
+                "14. Simon Tatham, How to Report Bugs Effectively"
               ]
             },
             {
@@ -7826,7 +7880,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "14. Tricentis, QA trends for 2026: AI, agents, and the future of testing"
+                "15. Tricentis, QA trends for 2026: AI, agents, and the future of testing"
               ]
             },
             {
@@ -7853,7 +7907,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "15. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"
+                "16. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"
               ]
             },
             {
@@ -7880,7 +7934,7 @@
                 "class": "ref-title"
               },
               "children": [
-                "16. DORA, Continuous integration (DORA Core ケイパビリティ解説)"
+                "17. DORA, Continuous integration (DORA Core ケイパビリティ解説)"
               ]
             },
             {
@@ -7912,6 +7966,18 @@
           },
           "children": [
             "https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y"
+          ]
+        },
+        {
+          "tag": "a",
+          "attrs": {
+            "class": "ref-url",
+            "href": "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+          },
+          "children": [
+            "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689"
           ]
         },
         {
@@ -9494,7 +9560,7 @@
                       "tag": "p",
                       "attrs": {},
                       "children": [
-                        "本ガイドが参照したのは1993年刊行の印刷版(第2版)です。後年には2011年のWiley版電子書籍などのデジタル版も刊行されていますが、現在の入手可否は時期や販売経路によって異なるため、書店・図書館・出版社の情報で確認してください(出典URLは本ガイド末尾の参考文献一覧を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。"
+                        "本ガイドが参照したのは1993年刊行の印刷版(第2版)です。後年には2011年のWiley版電子書籍などのデジタル版も刊行されていますが、現在の入手可否は時期や販売経路によって異なるため、書店・図書館・出版社の情報で確認してください(出典URLは本ガイド末尾の参考文献一覧のうち、印刷版は参考文献1、2011年のWiley版電子書籍は参考文献2を参照)。本ガイドは同書の構成を参考にしつつ、2026年時点の実務・業界動向を踏まえて独自に再構成したものです。"
                       ]
                     }
                   ]
@@ -13184,7 +13250,34 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "2. ISTQB(International Software Testing Qualifications Board)公式サイト"
+                            "2. Cem Kaner, Jack Falk, Hung Q. Nguyen, Testing Computer Software, 2nd Edition (Wiley, 2011年電子書籍版 / ISBN 9781118080689, eCampus書誌情報)"
+                          ]
+                        },
+                        {
+                          "tag": "a",
+                          "attrs": {
+                            "class": "ref-url",
+                            "href": "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
+                          },
+                          "children": [
+                            "https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "li",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "span",
+                          "attrs": {
+                            "class": "ref-title"
+                          },
+                          "children": [
+                            "3. ISTQB(International Software Testing Qualifications Board)公式サイト"
                           ]
                         },
                         {
@@ -13211,7 +13304,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "3. ISTQB Certified Tester Foundation Level (CTFL) v4.0"
+                            "4. ISTQB Certified Tester Foundation Level (CTFL) v4.0"
                           ]
                         },
                         {
@@ -13261,7 +13354,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"
+                            "5. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"
                           ]
                         },
                         {
@@ -13288,7 +13381,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "5. Martin Fowler, Test Pyramid (Bliki)"
+                            "6. Martin Fowler, Test Pyramid (Bliki)"
                           ]
                         },
                         {
@@ -13315,7 +13408,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "6. Martin Fowler, Test Driven Development (Bliki)"
+                            "7. Martin Fowler, Test Driven Development (Bliki)"
                           ]
                         },
                         {
@@ -13342,7 +13435,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "7. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"
+                            "8. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"
                           ]
                         },
                         {
@@ -13369,7 +13462,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "8. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
+                            "9. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
                           ]
                         },
                         {
@@ -13396,7 +13489,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "9. Kent C. Dodds, The Testing Trophy and Testing Classifications"
+                            "10. Kent C. Dodds, The Testing Trophy and Testing Classifications"
                           ]
                         },
                         {
@@ -13423,7 +13516,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "10. Kent C. Dodds, Write tests. Not too many. Mostly integration."
+                            "11. Kent C. Dodds, Write tests. Not too many. Mostly integration."
                           ]
                         },
                         {
@@ -13450,7 +13543,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "11. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"
+                            "12. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"
                           ]
                         },
                         {
@@ -13477,7 +13570,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "12. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"
+                            "13. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"
                           ]
                         },
                         {
@@ -13504,7 +13597,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "13. Simon Tatham, How to Report Bugs Effectively"
+                            "14. Simon Tatham, How to Report Bugs Effectively"
                           ]
                         },
                         {
@@ -13554,7 +13647,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "14. Tricentis, QA trends for 2026: AI, agents, and the future of testing"
+                            "15. Tricentis, QA trends for 2026: AI, agents, and the future of testing"
                           ]
                         },
                         {
@@ -13604,7 +13697,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "15. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"
+                            "16. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"
                           ]
                         },
                         {
@@ -13631,7 +13724,7 @@
                             "class": "ref-title"
                           },
                           "children": [
-                            "16. DORA, Continuous integration (DORA Core ケイパビリティ解説)"
+                            "17. DORA, Continuous integration (DORA Core ケイパビリティ解説)"
                           ]
                         },
                         {

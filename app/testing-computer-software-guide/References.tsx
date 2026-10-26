@@ -27,7 +27,15 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"2. ISTQB(International Software Testing Qualifications Board)公式サイト"}
+                            {"2. Cem Kaner, Jack Falk, Hung Q. Nguyen, Testing Computer Software, 2nd Edition (Wiley, 2011年電子書籍版 / ISBN 9781118080689, eCampus書誌情報)"}
+                        </span>
+                        <a className="ref-url" href="https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689" target="_blank" rel="noopener noreferrer">
+                            {"https://www.ecampus.com/testing-computer-software-2nd-edition-cem/bk/9781118080689"}
+                        </a>
+                    </li>
+                    <li>
+                        <span className="ref-title">
+                            {"3. ISTQB(International Software Testing Qualifications Board)公式サイト"}
                         </span>
                         <a className="ref-url" href="https://istqb.org/" target="_blank" rel="noopener noreferrer">
                             {"https://istqb.org/"}
@@ -35,7 +43,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"3. ISTQB Certified Tester Foundation Level (CTFL) v4.0"}
+                            {"4. ISTQB Certified Tester Foundation Level (CTFL) v4.0"}
                         </span>
                         <a className="ref-url" href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" target="_blank" rel="noopener noreferrer">
                             {"https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"}
@@ -50,7 +58,7 @@ export default function References() {return <>
                 <ul className="ref-list">
                     <li>
                         <span className="ref-title">
-                            {"4. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"}
+                            {"5. Ham Vocke, The Practical Test Pyramid (MartinFowler.com)"}
                         </span>
                         <a className="ref-url" href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">
                             {"https://martinfowler.com/articles/practical-test-pyramid.html"}
@@ -58,7 +66,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"5. Martin Fowler, Test Pyramid (Bliki)"}
+                            {"6. Martin Fowler, Test Pyramid (Bliki)"}
                         </span>
                         <a className="ref-url" href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">
                             {"https://martinfowler.com/bliki/TestPyramid.html"}
@@ -66,7 +74,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"6. Martin Fowler, Test Driven Development (Bliki)"}
+                            {"7. Martin Fowler, Test Driven Development (Bliki)"}
                         </span>
                         <a className="ref-url" href="https://www.martinfowler.com/bliki/TestDrivenDevelopment.html" target="_blank" rel="noopener noreferrer">
                             {"https://www.martinfowler.com/bliki/TestDrivenDevelopment.html"}
@@ -74,7 +82,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"7. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"}
+                            {"8. Google Testing Blog, Just Say No to More End-to-End Tests (2015)"}
                         </span>
                         <a className="ref-url" href="https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html" target="_blank" rel="noopener noreferrer">
                             {"https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html"}
@@ -82,7 +90,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"8. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"}
+                            {"9. Kent C. Dodds, Static vs Unit vs Integration vs E2E Testing for Frontend Apps"}
                         </span>
                         <a className="ref-url" href="https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener noreferrer">
                             {"https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests"}
@@ -90,7 +98,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"9. Kent C. Dodds, The Testing Trophy and Testing Classifications"}
+                            {"10. Kent C. Dodds, The Testing Trophy and Testing Classifications"}
                         </span>
                         <a className="ref-url" href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications" target="_blank" rel="noopener noreferrer">
                             {"https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"}
@@ -98,7 +106,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"10. Kent C. Dodds, Write tests. Not too many. Mostly integration."}
+                            {"11. Kent C. Dodds, Write tests. Not too many. Mostly integration."}
                         </span>
                         <a className="ref-url" href="https://kentcdodds.com/blog/write-tests" target="_blank" rel="noopener noreferrer">
                             {"https://kentcdodds.com/blog/write-tests"}
@@ -106,7 +114,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"11. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"}
+                            {"12. James Bach, Satisfice, Inc. (Rapid Software Testing / Context-Driven School)"}
                         </span>
                         <a className="ref-url" href="https://www.satisfice.com/" target="_blank" rel="noopener noreferrer">
                             {"https://www.satisfice.com/"}
@@ -114,7 +122,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"12. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"}
+                            {"13. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ"}
                         </span>
                         <a className="ref-url" href="https://rapid-software-testing.com/authors/" target="_blank" rel="noopener noreferrer">
                             {"https://rapid-software-testing.com/authors/"}
@@ -122,7 +130,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"13. Simon Tatham, How to Report Bugs Effectively"}
+                            {"14. Simon Tatham, How to Report Bugs Effectively"}
                         </span>
                         <a className="ref-url" href="https://www.chiark.greenend.org.uk/~sgtatham/bugs.html" target="_blank" rel="noopener noreferrer">
                             {"https://www.chiark.greenend.org.uk/~sgtatham/bugs.html"}
@@ -137,7 +145,7 @@ export default function References() {return <>
                 <ul className="ref-list">
                     <li>
                         <span className="ref-title">
-                            {"14. Tricentis, QA trends for 2026: AI, agents, and the future of testing"}
+                            {"15. Tricentis, QA trends for 2026: AI, agents, and the future of testing"}
                         </span>
                         <a className="ref-url" href="https://www.tricentis.com/blog/qa-trends-ai-agentic-testing" target="_blank" rel="noopener noreferrer">
                             {"https://www.tricentis.com/blog/qa-trends-ai-agentic-testing"}
@@ -152,7 +160,7 @@ export default function References() {return <>
                 <ul className="ref-list">
                     <li>
                         <span className="ref-title">
-                            {"15. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"}
+                            {"16. NIST, The Economic Impacts of Inadequate Infrastructure for Software Testing (2002)"}
                         </span>
                         <a className="ref-url" href="https://www.nist.gov/document/report02-3pdf" target="_blank" rel="noopener noreferrer">
                             {"https://www.nist.gov/document/report02-3pdf"}
@@ -160,7 +168,7 @@ export default function References() {return <>
                     </li>
                     <li>
                         <span className="ref-title">
-                            {"16. DORA, Continuous integration (DORA Core ケイパビリティ解説)"}
+                            {"17. DORA, Continuous integration (DORA Core ケイパビリティ解説)"}
                         </span>
                         <a className="ref-url" href="https://dora.dev/capabilities/continuous-integration/" target="_blank" rel="noopener noreferrer">
                             {"https://dora.dev/capabilities/continuous-integration/"}
