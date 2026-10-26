@@ -75,6 +75,13 @@ describe('one-to-one complete source inventory', () => {
         expect(chart).toContain('B[モニタリングと制御 全活動と並行して継続] -.->|進捗の確認と計画の調整| ACT');
         expect(chart).not.toContain('A[テスト計画] --> B'); expect(chart).not.toContain('B --> C');
     });
+    it('availability note distinguishes the cited 1993 print edition from later digital editions without promising availability', async () => {
+        const $ = await html(); const text = $('#sec1 .callout.note p').text().trim();
+        expect(text).toContain('本ガイドが参照したのは1993年刊行の印刷版(第2版)です');
+        expect(text).toContain('2011年のWiley版電子書籍');
+        expect(text).toContain('現在の入手可否は時期や販売経路によって異なる');
+        expect(text).not.toContain('電子版が提供されておらず'); expect(text).not.toContain('のみ参照可能');
+    });
     it('white-box text names statement coverage before its guarantee and keeps branch coverage distinct', async () => {
         const $ = await html(); const text = $('#sec8 h3').filter((_, el) => $(el).text().includes('8.2')).next('p').text().trim();
         expect(text).toContain('ステートメントカバレッジ100%は「すべての実行可能なステートメントを実行した」ことを保証しますが');
