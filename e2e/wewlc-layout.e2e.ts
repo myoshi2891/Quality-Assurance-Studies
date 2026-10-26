@@ -8,6 +8,8 @@ import inventory from '../docs/migration-inventory/working-effectively-with-lega
 const base = 'app/working-effectively-with-legacy-code-guide';
 const original = load(readFileSync('archive/html-archive/books/Working-effectively-with-legacy-code-guide.html', 'utf8'));
 const originalCss = original('style').text(); original('script,link').remove();
+// NavBar の useScrollSpy は初期状態で先頭の目次項目をアクティブにする。
+original('.nav-a').first().addClass('active');
 const body = original('body').html()!;
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
 const globals = readFileSync('app/globals.css', 'utf8');
@@ -44,10 +46,14 @@ for(const width of [390,1440]) for(const id of Object.keys(inventory.diagrams)) 
             const snapshot=(el:Element)=>({nodes:Array.from(el.querySelectorAll('g.node'),n=>({label:n.querySelector('.nodeLabel')?.textContent,fill:getComputedStyle(n.querySelector('rect,path,polygon')!).fill,color:getComputedStyle(n.querySelector('.nodeLabel')!).color})),edges:Array.from(el.querySelectorAll('path.flowchart-link'),e=>({id:e.id.replace(/^.*L_/, 'L_'),dotted:e.classList.contains('edge-pattern-dotted')})),labels:Array.from(el.querySelectorAll('g.edgeLabels > g.edgeLabel'),e=>e.textContent)});
             mermaid.initialize(config);const ref=document.createElement('div');document.body.append(ref);ref.innerHTML=(await mermaid.render('source-'+id,originalChart)).svg;const expected=snapshot(ref);ref.remove();
             mermaid.initialize({startOnLoad:false,theme:'dark'});const inner=document.querySelector('#'+id+' .mermaid-wrapper')!;inner.innerHTML=(await mermaid.render('migrated-'+id,chart)).svg;
-            const svg=inner.querySelector('svg')!;svg.removeAttribute('width');svg.removeAttribute('height');svg.style.width=svg.viewBox.baseVal.width+'px';svg.style.height='auto';
+            const svg=inner.querySelector('svg')!;
+            // components/Mermaid.tsx の applySvgFixups と同じ寸法指定（ページ CSS の max-width: none !important が maxWidth:100% に勝つことも検証する）
+            svg.removeAttribute('width');svg.removeAttribute('height');Object.assign(svg.style,{height:'auto',overflow:'visible',display:'block',margin:'0 auto',marginBottom:'10px'});
+            const box=svg.viewBox.baseVal;svg.style.width=box.width+'px';svg.style.maxWidth='100%';svg.setAttribute('viewBox',`${box.x} ${box.y} ${box.width} ${box.height+(/^\s*(sequenceDiagram|stateDiagram)/.test(chart.replace(/^\s*%%\{[\s\S]*?\}%%\s*/,''))?25:15)}`);
+            const style=getComputedStyle(inner);const content=inner.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight);
             const actual=snapshot(inner);const initial=svg.getBoundingClientRect().left;inner.scrollLeft=inner.scrollWidth;
-            return {actual,expected,left:inner.getBoundingClientRect().left,initial,moved:initial-svg.getBoundingClientRect().left,scroll:inner.scrollLeft,required:inner.scrollWidth-inner.clientWidth};
+            return {actual,expected,left:inner.getBoundingClientRect().left,initial,moved:initial-svg.getBoundingClientRect().left,scroll:inner.scrollLeft,required:inner.scrollWidth-inner.clientWidth,overflowing:svg.viewBox.baseVal.width>content+1,rendered:svg.getBoundingClientRect().width,natural:box.width};
         },{chart:DIAGRAMS[id]!,originalChart:inventory.diagrams[id as keyof typeof inventory.diagrams],id});
-        expect(result.actual).toEqual(result.expected);expect(result.initial).toBeGreaterThanOrEqual(result.left);expect(Math.abs(result.scroll-result.required)).toBeLessThanOrEqual(1);expect(Math.abs(result.moved-result.scroll)).toBeLessThanOrEqual(1);
+        expect(result.actual).toEqual(result.expected);expect(Math.abs(result.rendered-result.natural)).toBeLessThanOrEqual(1);if(result.overflowing)expect(result.required).toBeGreaterThan(0);expect(result.initial).toBeGreaterThanOrEqual(result.left);expect(Math.abs(result.scroll-result.required)).toBeLessThanOrEqual(1);expect(Math.abs(result.moved-result.scroll)).toBeLessThanOrEqual(1);
     });
 }
