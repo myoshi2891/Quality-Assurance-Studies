@@ -23,6 +23,8 @@ function tree(node: AnyNode | undefined): unknown {
     if (!isTag(node)) return null;
     const attrs = { ...node.attribs };
     for (const key of Object.keys(attrs)) if (key.startsWith('aria-') || key === 'role') delete attrs[key];
+    // 目次の移動先をフォーカス可能にするため追加した tabindex="-1" は原本との照合から除外する
+    if (node.tagName === 'section' && attrs.tabindex === '-1') delete attrs.tabindex;
     if (attrs.class) attrs.class = attrs.class.replace(/\s+(active|open|done)\b/g, '');
     if (/^diag-\d+$/.test(attrs.id ?? '')) return { tag: 'div', attrs: { id: attrs.id }, children: [] };
     if (node.tagName === 'pre') return { tag: 'pre', attrs, code: load(node).text() };
@@ -209,13 +211,31 @@ describe('checklist and navigation behavior', () => {
         boxes.forEach((box, i) => {fireEvent.click(box); expect(view.container.querySelector('#checklistCounter')?.textContent).toBe(`${i+1} / 10 完了`); expect(box.closest('li')?.classList.contains('done')).toBe(true);});
         boxes.forEach(box => fireEvent.click(box)); expect(view.container.querySelectorAll('li.done')).toHaveLength(0); expect(view.container.querySelector('#checklistCounter')?.textContent).toBe('0 / 10 完了');
     });
-    it('toggle, anchor and Escape close the mobile menu and restore focus', async () => {
-        const Nav = (await import(navEntry)).default; const view = render(<Nav />); const button = view.getByRole('button', {name:'目次を開く'});
-        expect(button.getAttribute('aria-expanded')).toBe('false');
-        for (const action of ['anchor','Escape']) {fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true');
-            if (action === 'Escape') fireEvent.keyDown(document,{key:'Escape'}); else fireEvent.click(view.container.querySelector('a')!);
+    it('anchor closes the mobile menu and moves focus to the section; Escape restores toggle focus', async () => {
+        const original = mermaid.render;
+        mermaid.render = mock(async () => ({ svg: '<svg viewBox="0 0 200 100"></svg>' })) as unknown as typeof mermaid.render;
+        try {
+            const Nav = (await import(navEntry)).default;
+            const components = await Promise.all(['Book','Fundamentals','Strategies','Management','Practice','References'].map(async name => { const path = `../../app/testing-computer-software-guide/${name}`; return (await import(path)).default as React.ComponentType; }));
+            const view = render(<><Nav />{components.map((Component, i) => <Component key={i} />)}</>);
+            const button = view.getByRole('button', {name:'目次を開く'}); const links = Array.from(view.container.querySelectorAll<HTMLAnchorElement>('.sidebar a'));
+            expect(links).toHaveLength(18);
+            // 全目次リンクの移動先がプログラムからフォーカス可能であること
+            links.forEach(link => expect(document.getElementById(link.hash.slice(1))?.getAttribute('tabindex')).toBe('-1'));
+            // happy-dom はフラグメント移動時のフォーカス移動を行わないため、ブラウザーの規則（フォーカス可能な移動先のみフォーカス、それ以外は解除）を再現する
+            const navigate = (link: HTMLAnchorElement) => {
+                const target = document.getElementById(link.hash.slice(1));
+                if (target?.hasAttribute('tabindex')) target.focus(); else (document.activeElement as HTMLElement | null)?.blur();
+                return target;
+            };
+            expect(button.getAttribute('aria-expanded')).toBe('false');
+            fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true');
+            fireEvent.click(links[0]); const target = navigate(links[0]);
+            expect(button.getAttribute('aria-expanded')).toBe('false'); expect(target).not.toBeNull(); expect(document.activeElement).toBe(target);
+            fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true');
+            fireEvent.keyDown(document,{key:'Escape'});
             expect(button.getAttribute('aria-expanded')).toBe('false'); expect(document.activeElement).toBe(button);
-        }
+        } finally { cleanup(); mermaid.render = original; }
     });
     it('tracks the section in the reading band on scroll and resize, then removes listeners', async () => {
         const band = {top: innerHeight * 0.2, bottom: innerHeight * 0.3}; let current = 0;
