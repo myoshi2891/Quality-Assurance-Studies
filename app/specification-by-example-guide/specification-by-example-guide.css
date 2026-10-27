@@ -564,3 +564,17 @@ body:has(.sbe-page)::before, body:has(.sbe-page)::after { content: none !importa
  .sbe-page .sidebar { top: calc(116px + var(--disclaimer-height, 0px)); height: calc(100vh - 116px - var(--disclaimer-height, 0px)); }
  .sbe-page section, .sbe-page h3[id] { scroll-margin-top: calc(136px + var(--disclaimer-height, 0px)); }
 }
+
+/* Restore inherited values that shared and retained route rules supply explicitly. */
+.sbe-page .audience ul, .sbe-page .audience li, .sbe-page .nav-list, .sbe-page .nav-sub { color: var(--ink); }
+.sbe-page .audience li { margin-bottom: 0; }
+.sbe-page .prose p { font-size: 1rem; }
+.sbe-page .prose .callout.source { color: var(--ink-soft); }
+.sbe-page .code-block { padding: 0; white-space: normal; }
+.sbe-page .code-block pre { font-size: 1rem; line-height: 1.85; }
+.sbe-page .code-block code { white-space: pre; }
+.sbe-page .ref-item a { text-decoration: underline; }
+.sbe-page footer.footer { font-family: inherit; margin-top: 0; border-top: none; }
+.sbe-page .footer p { margin-top: 1em; margin-bottom: 1em; }
+.sbe-page .mobile-bar button { font-family: Arial; padding-top: 1px; padding-bottom: 1px; }
+.sbe-page .prose .mermaid-caption { color: var(--ink-soft); }
