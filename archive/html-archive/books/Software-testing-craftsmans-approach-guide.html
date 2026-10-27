@@ -1,0 +1,2052 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Software Testing: A Craftsman's Approach 入門ガイド</title>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"></script>
+        <style>
+            :root {
+                --bg: #07111e;
+                --surface: #0d1b2e;
+                --surface-2: #122135;
+                --text: #e6edf7;
+                --text-dim: #9fb0c9;
+                --accent: #7c9eff;
+                --accent-2: #5fd3ff;
+                --border: #1e2f47;
+                --code-bg: #0a1524;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic',
+                    'Segoe UI', sans-serif;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+                font-size: 16px;
+            }
+            a {
+                color: var(--accent);
+            }
+            .layout {
+                display: block;
+            }
+
+            /* ---- Sidebar ---- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 290px;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--surface);
+                border-right: 1px solid var(--border);
+                padding: 28px 18px;
+                z-index: 10;
+            }
+            .sidebar .brand {
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--text);
+                margin: 0 0 4px;
+            }
+            .sidebar .brand-sub {
+                font-size: 1rem;
+                color: var(--text-dim);
+                margin: 0 0 24px;
+            }
+            .sidebar h2 {
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--text-dim);
+                margin: 0 0 14px;
+                font-weight: 700;
+            }
+            .sidebar ul {
+                list-style: none;
+                margin: 0 0 22px;
+                padding: 0;
+            }
+            .sidebar li {
+                margin-bottom: 2px;
+            }
+            .sidebar a {
+                display: block;
+                padding: 9px 12px;
+                border-radius: 8px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 1rem;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .sidebar a:hover {
+                background: var(--surface-2);
+                color: var(--text);
+            }
+            .sidebar a.active {
+                background: rgba(124, 158, 255, 0.16);
+                color: var(--accent);
+                font-weight: 700;
+            }
+
+            /* ---- Main content (full width beside sidebar; no narrow max-width) ---- */
+            .content {
+                margin-left: 290px;
+                padding: 56px 64px 140px;
+                max-width: none;
+            }
+
+            .hero {
+                max-width: none;
+                padding-bottom: 40px;
+                border-bottom: 1px solid var(--border);
+            }
+            .hero .eyebrow {
+                color: var(--accent-2);
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                margin-bottom: 14px;
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+                line-height: 1.5;
+                margin: 0 0 16px;
+                background: linear-gradient(90deg, var(--accent), var(--accent-2));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .hero .subtitle {
+                font-size: 1.2rem;
+                color: var(--text-dim);
+                margin: 0 0 24px;
+            }
+            .hero .source-line {
+                font-size: 1rem;
+                color: var(--text-dim);
+            }
+
+            .section {
+                padding: 56px 0;
+                border-bottom: 1px solid var(--border);
+                max-width: none;
+            }
+            .section:last-of-type {
+                border-bottom: none;
+            }
+            .section h2 {
+                font-size: 1.65rem;
+                margin: 0 0 22px;
+                color: var(--text);
+            }
+            .section h2 .step-num {
+                color: var(--accent);
+                margin-right: 12px;
+            }
+            .section h3 {
+                font-size: 1.25rem;
+                margin: 34px 0 14px;
+                color: var(--accent-2);
+            }
+
+            .prose p,
+            .prose li {
+                overflow-wrap: break-word;
+            }
+            .prose p {
+                margin: 0 0 16px;
+            }
+            .prose ul,
+            .prose ol {
+                margin: 0 0 18px;
+                padding-left: 1.5em;
+            }
+            .prose li {
+                margin-bottom: 6px;
+            }
+
+            /* ---- Tables ---- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 22px 0;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 520px;
+                font-size: 1rem;
+            }
+            th,
+            td {
+                padding: 11px 16px;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+            }
+            th {
+                background: var(--surface-2);
+                color: var(--accent);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: rgba(124, 158, 255, 0.05);
+            }
+
+            /* ---- Callouts ---- */
+            .callout {
+                background: var(--surface);
+                border-left: 4px solid var(--accent);
+                border-radius: 8px;
+                padding: 18px 22px;
+                margin: 22px 0;
+                color: var(--text-dim);
+            }
+            .callout strong {
+                color: var(--text);
+            }
+            .callout.tip {
+                border-left-color: var(--accent-2);
+            }
+
+            /* ---- Mermaid ---- */
+            .mermaid-wrapper {
+                width: 100%;
+                overflow-x: auto;
+                margin: 26px 0;
+            }
+            pre.mermaid {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                margin: 0;
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+            .mermaid svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            code {
+                background: var(--code-bg);
+                color: var(--accent-2);
+                padding: 3px 7px;
+                border-radius: 5px;
+                font-size: 1em;
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+            }
+
+            /* ---- References ---- */
+            .ref-group-title {
+                font-size: 1.05rem;
+                color: var(--text);
+                font-weight: 700;
+                margin: 28px 0 12px;
+            }
+            .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .ref-item {
+                padding: 14px 0;
+                border-bottom: 1px solid var(--border);
+            }
+            .ref-item:last-child {
+                border-bottom: none;
+            }
+            .ref-item .ref-title {
+                display: block;
+                color: var(--text);
+                margin-bottom: 6px;
+                font-size: 1rem;
+            }
+            .ref-item .ref-url {
+                display: block;
+                color: var(--accent);
+                font-size: 1rem;
+                word-break: break-all;
+                text-decoration: none;
+            }
+            .ref-item .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            .footer {
+                padding: 44px 0 10px;
+                color: var(--text-dim);
+                font-size: 1rem;
+                max-width: none;
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    position: static;
+                    width: 100%;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                }
+                .content {
+                    margin-left: 0;
+                    padding: 36px 20px 90px;
+                }
+                .hero h1 {
+                    font-size: 1.7rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="sidebar">
+                <div class="brand">Software Testing</div>
+                <div class="brand-sub">A Craftsman's Approach 入門ガイド</div>
+                <h2>目次</h2>
+                <ul>
+                    <li><a href="#hero">概要</a></li>
+                    <li><a href="#step0">Step 0：全体像をつかむ</a></li>
+                    <li><a href="#step1">Step 1：基本概念</a></li>
+                    <li><a href="#step2">Step 2：数学的基盤</a></li>
+                    <li><a href="#step3">Step 3：境界値分析</a></li>
+                    <li><a href="#step4">Step 4：同値分割</a></li>
+                    <li><a href="#step5">Step 5：デシジョンテーブル</a></li>
+                    <li><a href="#step6">Step 6：パス／データフロー</a></li>
+                    <li><a href="#step7">Step 7：統合・システム・OO</a></li>
+                    <li><a href="#step8">Step 8：高度な評価技法</a></li>
+                    <li><a href="#step9">Step 9：技術レビュー</a></li>
+                    <li><a href="#step10">Step 10：ベストプラクティス</a></li>
+                    <li><a href="#trends2026">2026年の実務トレンド</a></li>
+                    <li><a href="#roadmap">学習ロードマップ</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                    <li><a href="#references">参考文献・出典</a></li>
+                </ul>
+            </nav>
+
+            <main class="content">
+                <header class="hero" id="hero">
+                    <div class="eyebrow">初学者向け・ステップバイステップ解説</div>
+                    <h1>Software Testing: A Craftsman's Approach 入門ガイド</h1>
+                    <p class="subtitle">
+                        Paul C. Jorgensen 著『Software Testing, 4th
+                        Edition』で学ぶ、ステップバイステップのテスト設計ベストプラクティス
+                    </p>
+                    <div class="prose">
+                        <p>
+                            本ガイドは、O'Reilly / Auerbach Publications
+                            から出版されている書籍<strong
+                                >Software Testing: A Craftsman's Approach, 4th Edition</strong
+                            >（著者: Paul C.
+                            Jorgensen）の目次構成に沿って、初学者がテスト設計技法を体系的に学べるようにまとめたものです。あわせて、2026年8月時点での業界動向（Martin
+                            Fowler、Kent Beck、Google、ThoughtWorks
+                            など著名な開発者・組織の発信）もコラムとして補足し、「古典的名著の理論」と「現代の実務」を橋渡しします。
+                        </p>
+                        <p class="source-line">
+                            書籍情報の一次ソース：<a
+                                href="https://www.oreilly.com/library/view/software-testing-4th/9781466560680/"
+                                target="_blank"
+                                rel="noopener"
+                                >https://www.oreilly.com/library/view/software-testing-4th/9781466560680/</a
+                            >
+                        </p>
+                    </div>
+                </header>
+
+                <!-- ===================== STEP 0 ===================== -->
+                <section class="section" id="step0">
+                    <h2><span class="step-num">Step 0</span>この本の全体像をつかむ</h2>
+                    <div class="prose">
+                        <p>
+                            Jorgensen
+                            の本は「テスト技法のカタログ」であると同時に、<strong>なぜその技法が必要なのかを数学的に裏付ける</strong>という珍しい構成を取っています。初学者はまず、全体が5部構成になっていることを押さえましょう。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Part</th>
+                                        <th>主題</th>
+                                        <th>章</th>
+                                        <th>ひとことで言うと</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Part I</td>
+                                        <td>数学的コンテキスト</td>
+                                        <td>1〜4章</td>
+                                        <td>テストの基本用語、離散数学、グラフ理論</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part II</td>
+                                        <td>単体テスト</td>
+                                        <td>5〜10章</td>
+                                        <td>
+                                            境界値分析、同値分割、デシジョンテーブル、パステスト、データフローテスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part III</td>
+                                        <td>単体テストを超えて</td>
+                                        <td>11〜17章</td>
+                                        <td>
+                                            ライフサイクル、モデルベーステスト、統合・システム・OOテスト、複雑度、System
+                                            of Systems
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part IV</td>
+                                        <td>テスト技法の評価と発展</td>
+                                        <td>18〜21章</td>
+                                        <td>
+                                            探索的テスト、TDD、オールペア法、ミューテーションテスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part V</td>
+                                        <td>プロセスと総括</td>
+                                        <td>22〜23章</td>
+                                        <td>
+                                            技術レビュー、Craftsmanship（熟達者としてのベストプラクティス）
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            <strong>対象読者</strong
+                            >：本ガイドはプログラミング経験はあるがテスト設計技法を体系的に学んだことがない方（新人エンジニア、QAへのキャリアチェンジを考えている方）を想定しています。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-0"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-0">
+                            flowchart TD
+                                A["Part I: 数学的コンテキスト<br/>用語・集合論・グラフ理論"] --> B["Part II: 単体テスト技法<br/>境界値・同値分割・デシジョンテーブル・パス・データフロー"]
+                                B --> C["Part III: 単体テストを超えて<br/>ライフサイクル・モデルベース・統合・システム・OOテスト"]
+                                C --> D["Part IV: 評価と発展<br/>探索的テスト・TDD・オールペア・ミューテーション"]
+                                D --> E["Part V: 総括<br/>技術レビュー・ベストプラクティス"]
+                        </script>
+                        <p style="font-size: 1rem; color: var(--text-dim)">
+                            補足：上図のノードラベル内の改行は Mermaid の
+                            <code>&lt;br/&gt;</code> 記法によるものです。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 1 ===================== -->
+                <section class="section" id="step1">
+                    <h2>
+                        <span class="step-num">Step 1</span>テストの基本概念を理解する（第1章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            最初の関門は用語の整理です。曖昧なまま進むと、後の技法の意義が理解できなくなります。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>用語</th>
+                                        <th>意味</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>フォールト（fault）</td>
+                                        <td>プログラム中に埋め込まれた誤り（バグの原因）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>エラー（error）</td>
+                                        <td>
+                                            フォールトによって生じる、プログラムの内部状態の誤り
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>フェイラー（failure）</td>
+                                        <td>
+                                            エラーが外部から観測可能な形で現れたもの（＝ユーザーが気づく不具合）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>テストケース</td>
+                                        <td>入力値・実行条件・期待結果の組み合わせ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>仕様ベーステスト vs コードベーステスト</h3>
+                        <p>Jorgensen は、テストケースの源泉を大きく2つに分類します。</p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>仕様ベース（ブラックボックス）</th>
+                                        <th>コードベース（ホワイトボックス）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>何を見るか</td>
+                                        <td>要求仕様・振る舞い</td>
+                                        <td>ソースコードの構造</td>
+                                    </tr>
+                                    <tr>
+                                        <td>代表技法</td>
+                                        <td>境界値分析、同値分割、デシジョンテーブル</td>
+                                        <td>パステスト、データフローテスト</td>
+                                    </tr>
+                                    <tr>
+                                        <td>長所</td>
+                                        <td>実装に依存しない、要求の抜け漏れを検出しやすい</td>
+                                        <td>コードの未実行経路を機械的に洗い出せる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>弱点</td>
+                                        <td>実装特有の欠陥を見逃しやすい</td>
+                                        <td>
+                                            仕様と異なる「動くが間違っている」コードを見逃しやすい
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            書籍はこの2つを対立軸としてではなく、<strong>互いに補完する道具</strong>として扱う立場（third
+                            view / hybrid
+                            view）を取っており、これは後の第10章「単体テストの回顧」で再確認されます。
+                        </p>
+
+                        <h3>テストレベルと開発工程の対応</h3>
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-1"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-1">
+                            flowchart LR
+                                A[要求定義] --> B[外部設計]
+                                B --> C[内部設計]
+                                C --> D[実装/プログラミング]
+                                D --> E[単体テスト]
+                                E --> F[結合テスト]
+                                F --> G[システムテスト]
+                                G --> H[受入テスト]
+                        </script>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>開発工程</th>
+                                        <th>対応するテストレベル</th>
+                                        <th>主な確認観点</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>要求定義</td>
+                                        <td>受入テスト</td>
+                                        <td>ユーザー要求を満たしているか</td>
+                                    </tr>
+                                    <tr>
+                                        <td>外部設計</td>
+                                        <td>システムテスト</td>
+                                        <td>システム全体としての振る舞い</td>
+                                    </tr>
+                                    <tr>
+                                        <td>内部設計</td>
+                                        <td>結合テスト</td>
+                                        <td>モジュール間のインターフェース</td>
+                                    </tr>
+                                    <tr>
+                                        <td>実装</td>
+                                        <td>単体テスト</td>
+                                        <td>個々のモジュール・関数の正しさ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout">
+                            <strong>コラム（2026年の位置づけ）</strong
+                            >：この「工程と対応するテストレベル」という考え方は、いわゆる
+                            V字モデルの土台です。現代の実務では、この対応関係を早期に前倒しする<strong>シフトレフト</strong>（テストを開発の後工程からより早い段階へ移す考え方）が主流になっています。詳しくは<a
+                                href="#trends2026"
+                                >2026年時点の実務トレンドとの接続</a
+                            >で扱います。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 2 ===================== -->
+                <section class="section" id="step2">
+                    <h2>
+                        <span class="step-num">Step 2</span
+                        >テストを支える数学的基盤を知る（第3〜4章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            初学者がつまずきやすいポイントですが、必要なのは「数学の証明ができること」ではなく、<strong>後続の技法を理解するための最小限の語彙</strong>を持つことです。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>数学分野</th>
+                                        <th>テストで使われる場面</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>集合論（ベン図、集合演算）</td>
+                                        <td>
+                                            仕様ベース／コードベーステストケース集合の重なりを可視化する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>論理演算</td>
+                                        <td>デシジョンテーブルの条件式を整理する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>関数（定義域・値域）</td>
+                                        <td>境界値分析・同値分割で入力空間を分割する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>グラフ理論</td>
+                                        <td>
+                                            プログラムの制御フローをグラフとして表現し、パステストの土台にする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>有限状態機械（FSM）</td>
+                                        <td>
+                                            状態遷移を伴う仕様のテスト（モデルベーステスト）の土台にする
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>プログラムグラフとサイクロマティック数の例</h3>
+                        <p>
+                            コードの分岐構造をグラフ（ノード＝処理、エッジ＝制御の流れ）として表すと、後述のパステストで使う<strong
+                                >サイクロマティック複雑度</strong
+                            >
+                            V(G) = E − N + 2 を計算できます。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-2"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-2">
+                            flowchart TD
+                                N1(("1: 開始")) --> N2{"2: 条件分岐"}
+                                N2 -->|Yes| N3["3: 処理A"]
+                                N2 -->|No| N4["4: 処理B"]
+                                N3 --> N5(("5: 終了"))
+                                N4 --> N5
+                        </script>
+
+                        <p>
+                            この例では、ノード数 N=5、エッジ数 E=5 なので、V(G) = 5 − 5 + 2 =
+                            <strong>2</strong>
+                            となり、「独立した実行パスが2本ある」ことを意味します。これは、「最低2つのテストケースがあれば全ての分岐を通せる」という設計指針に直結します。
+                        </p>
+
+                        <div class="callout">
+                            <strong>なぜ重要か</strong
+                            >：グラフ理論はこの後登場する「パステスト」「統合テストのMM-Path」「有限状態機械ベースのモデルベーステスト」すべての共通言語になります。ここで挫折せず、「ノードとエッジで処理の流れを描く」という感覚だけ掴んでおきましょう。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 3 ===================== -->
+                <section class="section" id="step3">
+                    <h2>
+                        <span class="step-num">Step 3</span
+                        >境界値分析でテストケースを作る（第5章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            <strong>境界値分析（Boundary Value Analysis, BVA）</strong
+                            >は、「バグは境界に潜む」という経験則に基づく技法です。入力の最小値・最大値・その近傍（±1）を重点的にテストします。
+                        </p>
+
+                        <h3>4種類の境界値分析</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>特徴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Normal BVA</td>
+                                        <td>
+                                            各変数を境界値付近（min, min+1, nominal, max−1,
+                                            max）で個別に動かす。他の変数は正常値に固定
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Robust BVA</td>
+                                        <td>
+                                            正常値に加え、境界を超えた無効値（min−1,
+                                            max+1）もテストする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Worst-case BVA</td>
+                                        <td>
+                                            複数変数の境界値を<strong>同時に</strong>組み合わせてテストする（直積）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Special Value Testing</td>
+                                        <td>
+                                            ドメイン知識に基づく特殊値（ゼロ除算になる値、うるう年の2/29
+                                            など）を経験と勘でテストする
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>例：Triangle Problem（三角形の判定）</h3>
+                        <p>
+                            3辺 a, b, c（各
+                            1〜200）を入力し、不等辺・二等辺・正三角形・非三角形を判定する古典的な例題です。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>テストケース</th>
+                                        <th>a</th>
+                                        <th>b</th>
+                                        <th>c</th>
+                                        <th>期待結果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>下限値</td>
+                                        <td>1</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td>二等辺</td>
+                                    </tr>
+                                    <tr>
+                                        <td>下限値−1（Robust）</td>
+                                        <td>0</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td>不正な入力</td>
+                                    </tr>
+                                    <tr>
+                                        <td>上限値</td>
+                                        <td>200</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td>二等辺</td>
+                                    </tr>
+                                    <tr>
+                                        <td>上限値+1（Robust）</td>
+                                        <td>201</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td>不正な入力</td>
+                                    </tr>
+                                    <tr>
+                                        <td>名目値</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td>100</td>
+                                        <td>正三角形</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-3"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-3">
+                            flowchart TD
+                                A["入力変数を洗い出す"] --> B["各変数の min / max を特定"]
+                                B --> C["Normal: min, min+1, nom, max-1, max を生成"]
+                                C --> D{"無効値もテストするか?"}
+                                D -->|Yes: Robust| E["min-1, max+1 を追加"]
+                                D -->|No: 正常系のみ| F["テストケース確定"]
+                                E --> F
+                        </script>
+
+                        <div class="callout">
+                            <strong>コラム（実務での位置づけ）</strong>：境界値分析は
+                            ISTQB（国際ソフトウェアテスト資格）の Foundation Level
+                            シラバスでも中核技法として扱われ続けており、2026年時点でも実務テスト設計の基本スキルです。著者
+                            Jorgensen 自身も ISTQB Advanced Level シラバスの共著者であり、ISTQB
+                            Glossary Working Group の副議長を務めた人物です。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 4 ===================== -->
+                <section class="section" id="step4">
+                    <h2>
+                        <span class="step-num">Step 4</span
+                        >同値分割でテストケースを整理する（第6章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            境界値分析が「端」に注目するのに対し、<strong
+                                >同値分割（Equivalence Class Testing）</strong
+                            >は「同じ振る舞いになるはずの入力をグループ化し、各グループから代表値を1つ選ぶ」ことでテストケース数を削減する技法です。
+                        </p>
+
+                        <h3>4つの改良版（Weak/Strong × Normal/Robust）</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>有効値の組合せ方</th>
+                                        <th>無効値の扱い</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Weak Normal ECT</td>
+                                        <td>各クラスから1点、変数ごとに1テストケース</td>
+                                        <td>無効値なし</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Strong Normal ECT</td>
+                                        <td>全変数のクラスの直積（デカルト積）</td>
+                                        <td>無効値なし</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weak Robust ECT</td>
+                                        <td>各クラスから1点</td>
+                                        <td>無効値も1変数ずつテスト</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Strong Robust ECT</td>
+                                        <td>全変数のクラスの直積</td>
+                                        <td>無効値も直積に含める</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>BVAとの比較</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>境界値分析 (BVA)</th>
+                                        <th>同値分割 (ECT)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>着眼点</td>
+                                        <td>入力範囲の「端」</td>
+                                        <td>入力範囲の「グループ」</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テストケース数</td>
+                                        <td>比較的多い（境界ごと）</td>
+                                        <td>比較的少ない（代表値のみ）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>見つけやすい欠陥</td>
+                                        <td>オフバイワンエラー（境界の誤り）</td>
+                                        <td>ロジックの大分類の誤り</td>
+                                    </tr>
+                                    <tr>
+                                        <td>併用の要否</td>
+                                        <td>単独では不十分</td>
+                                        <td>単独では不十分</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout">
+                            <strong>ガイドライン</strong>：Jorgensen
+                            は「BVAとECTは互いに補完する」とし、実務では両方を組み合わせて使うことを推奨しています。片方だけに頼ると、境界の誤りかクラス全体の誤りかのどちらかを見逃すリスクが残ります。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 5 ===================== -->
+                <section class="section" id="step5">
+                    <h2>
+                        <span class="step-num">Step 5</span
+                        >デシジョンテーブルで複雑な条件を整理する（第7章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            条件が複数絡み合う仕様（例：「会員種別が Gold
+                            かつ購入額が1万円以上なら10%割引、Silver
+                            なら5%割引…」）は、自然言語のまま考えると条件の組合せ漏れが起きやすくなります。<strong>デシジョンテーブル</strong>はこの組合せを表形式で網羅する技法です。
+                        </p>
+
+                        <h3>例：割引ルールのデシジョンテーブル</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>条件</th>
+                                        <th>ルール1</th>
+                                        <th>ルール2</th>
+                                        <th>ルール3</th>
+                                        <th>ルール4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>会員種別が Gold</td>
+                                        <td>Y</td>
+                                        <td>Y</td>
+                                        <td>N</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>購入額が1万円以上</td>
+                                        <td>Y</td>
+                                        <td>N</td>
+                                        <td>Y</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>アクション：割引率</strong></td>
+                                        <td>10%</td>
+                                        <td>5%</td>
+                                        <td>5%</td>
+                                        <td>0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            このように条件をすべて洗い出して真偽の組合せ表にすると、抜け漏れなくテストケースを導出できます。書籍ではさらに、条件間の因果関係を図示する<strong
+                                >Cause-and-Effect Graphing（原因結果グラフ）</strong
+                            >も紹介されており、これはデシジョンテーブルを機械的に導出するための補助技法です。
+                        </p>
+
+                        <div class="callout">
+                            <strong>ガイドライン</strong
+                            >：条件数が多い場合、単純な直積では組合せ爆発が起きます。実務では「意味のある組合せ」だけに絞り込む工夫（不可能な組合せの除外、類似ルールの統合）が必要です。この考え方は、後述する<a
+                                href="#step8"
+                                >オールペア法</a
+                            >にもつながります。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 6 ===================== -->
+                <section class="section" id="step6">
+                    <h2>
+                        <span class="step-num">Step 6</span
+                        >コードを読んでテストする（パステスト／データフローテスト、第8〜10章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            ここからは仕様ではなく<strong>ソースコードそのもの</strong>を根拠にテストを設計する、コードベーステストの領域です。
+                        </p>
+
+                        <h3>パステストとカバレッジ基準</h3>
+                        <p>
+                            Step 2
+                            で作ったプログラムグラフをもとに、「どの経路を通ればテスト十分と言えるか」を定義したのがカバレッジ基準です。厳しさの順に整理すると以下のようになります。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>カバレッジ基準</th>
+                                        <th>説明</th>
+                                        <th>厳しさ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ステートメントカバレッジ</td>
+                                        <td>全ての文を最低1回実行する</td>
+                                        <td>最も弱い</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DD-Pathカバレッジ（分岐カバレッジ）</td>
+                                        <td>全ての決定–決定パス（分岐の枝）を通る</td>
+                                        <td>弱〜中</td>
+                                    </tr>
+                                    <tr>
+                                        <td>単純ループカバレッジ</td>
+                                        <td>ループを0回・1回・複数回通す</td>
+                                        <td>中</td>
+                                    </tr>
+                                    <tr>
+                                        <td>条件網羅（Predicate Outcome）</td>
+                                        <td>各条件式の真偽両方を確認する</td>
+                                        <td>中〜強</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Modified Condition/Decision Coverage (MC/DC)</td>
+                                        <td>
+                                            各条件が結果に単独で影響することを確認する（航空宇宙分野などで必須）
+                                        </td>
+                                        <td>強</td>
+                                    </tr>
+                                    <tr>
+                                        <td>全パスカバレッジ</td>
+                                        <td>理論上可能な全経路を通す</td>
+                                        <td>最も強い（現実的にはほぼ不可能）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>McCabeの基底パス法（Basis Path Method）</h3>
+                        <p>
+                            サイクロマティック複雑度 V(G) を使い、「V(G)
+                            本の独立したパスを見つけて、それぞれに対応するテストケースを1つずつ作る」ことで、最小限のテストケース数でDD-Pathカバレッジを達成する方法です。Step
+                            2
+                            の例（V(G)=2）であれば、Yesを通るパスとNoを通るパスの2つのテストケースで十分、という結論になります。
+                        </p>
+
+                        <h3>データフローテスト（Define/Use Testing）</h3>
+                        <p>
+                            変数が「定義（define）」された箇所と「使用（use）」された箇所の対応関係（du-path）に着目し、「定義されたのに一度も正しく使われない」「定義前に使われている」といった、パステストでは見逃しがちな欠陥を検出します。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-4"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-4">
+                            flowchart LR
+                                A["変数Xを定義（代入）"] --> B["Xを参照する経路を洗い出す"]
+                                B --> C["du-pathごとにテストケースを設計"]
+                                C --> D["定義後に再定義されるまでの間に<br/>最低1回は使用されることを確認"]
+                        </script>
+
+                        <div class="callout">
+                            <strong>コラム（実務での位置づけ）</strong
+                            >：パステスト・データフローテストの考え方は、現代の静的解析ツールやカバレッジツール（例：JaCoCo、Istanbul、coverage.py
+                            等）に組み込まれており、CI/CDパイプラインでの「カバレッジ閾値」の設定根拠になっています。ただし本書第21章でも触れられる通り、<strong>カバレッジ100%は「テストが十分」を意味しません</strong>。この点は<a
+                                href="#step8"
+                                >Step 8のミューテーションテスト</a
+                            >で詳しく扱います。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 7 ===================== -->
+                <section class="section" id="step7">
+                    <h2>
+                        <span class="step-num">Step 7</span
+                        >単体テストを超えて（統合・システム・OOテスト、第11〜17章対応）
+                    </h2>
+                    <div class="prose">
+                        <h3>ライフサイクルモデルとテストの関係</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ライフサイクルモデル</th>
+                                        <th>テストへの影響</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ウォーターフォール</td>
+                                        <td>
+                                            各工程の終わりにまとめてテスト。手戻りコストが大きい
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>反復型・仕様ベース派生モデル</td>
+                                        <td>反復ごとに段階的にテスト範囲を広げる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>アジャイル（XP・Scrum）</td>
+                                        <td>テストを開発と同時並行に行う。TDDが中核</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>TDDのサイクル（第19章、詳細は Step 8）</h3>
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-5"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-5">
+                            flowchart LR
+                                A["Red: 失敗するテストを書く"] --> B["Green: 最小限の実装でテストを通す"]
+                                B --> C["Refactor: 重複を除去し設計を整える"]
+                                C --> A
+                        </script>
+
+                        <h3>統合テストの3つの戦略</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>戦略</th>
+                                        <th>進め方</th>
+                                        <th>長所</th>
+                                        <th>短所</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Top-Down（分解ベース）</td>
+                                        <td>上位モジュールから下位へ、下位はスタブで代替</td>
+                                        <td>早期に全体構造を確認できる</td>
+                                        <td>スタブ作成コストが高い</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bottom-Up（分解ベース）</td>
+                                        <td>下位モジュールから上位へ、上位はドライバで代替</td>
+                                        <td>下位の欠陥を早期発見できる</td>
+                                        <td>全体像の確認が遅れる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sandwich（折衷）</td>
+                                        <td>上下から同時に統合し中間で合流</td>
+                                        <td>両方の長所を活かせる</td>
+                                        <td>計画・管理がやや複雑</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            書籍ではさらに、モジュール呼び出し関係だけでなく<strong
+                                >実行パス（MM-Path: Method-Message Path）</strong
+                            >に基づく統合テストも提案されており、単なる「呼び出したかどうか」ではなく「どういう経路でメッセージ・制御が渡ったか」まで検証します。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-6"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-6">
+                            flowchart TD
+                                M["Main"] --> A["モジュールA"]
+                                M --> B["モジュールB"]
+                                A --> C["モジュールC"]
+                                A --> D["モジュールD"]
+                                B --> E["モジュールE"]
+                        </script>
+
+                        <h3>システムテストの考え方</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>概念</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>スレッド（Thread）</td>
+                                        <td>
+                                            データ・アクション・デバイス・イベントが連鎖する一連の処理の流れ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ユースケースベースのスレッド</td>
+                                        <td>ユースケースを実行可能なテストシナリオに変換する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>運用プロファイル（Operational Profile）</td>
+                                        <td>実際の使用頻度に基づいてテストの重み付けを行う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>リスクベーステスト</td>
+                                        <td>
+                                            影響度と発生確率からリスクの高い機能を優先してテストする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>非機能テスト（ストレステスト等）</td>
+                                        <td>性能・信頼性・キューイング理論に基づく負荷テスト</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>オブジェクト指向テストで追加考慮すべきこと</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>OOの特性</th>
+                                        <th>テストへの影響</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>カプセル化</td>
+                                        <td>
+                                            内部状態が見えないため、公開メソッド経由の間接的な検証が必要
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>継承</td>
+                                        <td>
+                                            親クラスでテスト済みのメソッドでも、子クラスでの再テスト（再利用テスト）が必要になる場合がある
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ポリモーフィズム</td>
+                                        <td>
+                                            実行時に呼ばれる実装が変わるため、型ごとの組合せテストが必要
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>複雑度メトリクス（第16章対応）</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>レベル</th>
+                                        <th>メトリクス</th>
+                                        <th>概要</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>単体</td>
+                                        <td>サイクロマティック複雑度</td>
+                                        <td>独立パス数（Step 2 参照）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>単体</td>
+                                        <td>Halsteadのメトリクス</td>
+                                        <td>オペランド・オペレータの数から複雑さを推定</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OO</td>
+                                        <td>WMC（Weighted Methods per Class）</td>
+                                        <td>クラス内メソッドの複雑度の総和</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OO</td>
+                                        <td>DIT（Depth of Inheritance Tree）</td>
+                                        <td>継承階層の深さ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OO</td>
+                                        <td>CBO（Coupling Between Objects）</td>
+                                        <td>クラス間結合度</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OO</td>
+                                        <td>LCOM（Lack of Cohesion on Methods）</td>
+                                        <td>メソッド間の凝集度の低さ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 8 ===================== -->
+                <section class="section" id="step8">
+                    <h2>
+                        <span class="step-num">Step 8</span
+                        >テストケース自体の品質を評価する高度な技法（第18〜21章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            ここまでの技法は「どんなテストケースを作るか」でした。ここからは「作ったテストケース（あるいはテストプロセスそのもの）は本当に有効か」を問う、一段メタなレベルの技法です。
+                        </p>
+
+                        <h3>探索的テスト（Exploratory Testing）</h3>
+                        <p>
+                            あらかじめテストケースを書き切るのではなく、<strong>学習・テスト設計・テスト実行を同時並行で進める</strong>アプローチです。1980年代に
+                            Cem Kaner が提唱し、James Bach・Jonathan Bach・Michael Bolton
+                            らによって「セッションベーステストマネジメント（Session-Based Test
+                            Management, SBTM）」として体系化されました。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-7"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-7">
+                            flowchart LR
+                                A["チャーター設定<br/>（このセッションで何を調べるか）"] --> B["セッション実行<br/>（90分程度、学習・設計・実行を並行）"]
+                                B --> C["セッションレポート作成"]
+                                C --> D["デブリーフィング（振り返り）"]
+                                D --> E{"次のチャーターへ"}
+                                E --> A
+                        </script>
+
+                        <div class="callout tip">
+                            <strong>コラム（現在の到達点）</strong>：James Bach と Michael Bolton
+                            は現在も「Rapid Software
+                            Testing（RST）」として探索的テストの方法論を更新し続けており、2026年時点でも「Exploratory
+                            Testing
+                            3.0」といった発展形が発信されています。探索的テストは自動化テストでは拾いきれない「想定外の使われ方」を発見する手段として、アジャイル開発で標準的に併用されています。
+                        </div>
+
+                        <h3>テスト駆動開発（TDD）と Test Desiderata</h3>
+                        <p>
+                            TDDは「テストファースト」でコードを書く開発手法で、Kent Beck
+                            の著書『Test-Driven Development: By
+                            Example』（2002年）で体系化されました。Beckは2019年に、良いテストが持つべき12の性質をまとめた<strong
+                                >Test Desiderata</strong
+                            >を発表しています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>主な性質（一部抜粋）</th>
+                                        <th>意味</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Isolated（独立）</td>
+                                        <td>他のテストの結果に影響されない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Composable（構成可能）</td>
+                                        <td>
+                                            複数のテストを組み合わせて実行しても結果が変わらない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deterministic（決定的）</td>
+                                        <td>何度実行しても同じ結果になる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fast（高速）</td>
+                                        <td>実行が速く、頻繁に回せる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Readable（可読）</td>
+                                        <td>何を検証しているかが読んで分かる</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout tip">
+                            <strong>コラム（2025〜2026年のアップデート）</strong
+                            >：スウェーデンのテストコーチ Emily Bache は2025年12月に「Test
+                            Desiderata 2.0」を提案しました。これは Arlo Belshee、Kent C.
+                            Dodds、Michael Feathers、Kevlin Henney、J.B. Rainsberger、James Shore
+                            ら20人以上の著名な開発者・テスト専門家の見解を調査し、Beckの12性質を「テストスイート全体が持つべき4つの上位目標」に再整理したものです。Beckの原則自体は依然として有効であり、2.0はそれを補完する位置づけとされています。
+                        </div>
+
+                        <h3>オールペア法（All-Pairs / Combinatorial Testing）</h3>
+                        <p>
+                            複数のパラメータの全組合せ（直積）をテストするのは現実的でない場合が多いため、「<strong>任意の2つのパラメータの組合せは最低1回は網羅する</strong>」という基準でテストケース数を大幅に削減する技法です。書籍第20章では、NIST（米国立標準技術研究所）の研究を引用しつつ、実際の欠陥の多くが少数パラメータの組合せに起因することを踏まえた適用指針が論じられています。
+                        </p>
+
+                        <h3>ミューテーションテスト（Mutation Testing）</h3>
+                        <p>
+                            「テストスイート自体の実力」を測る技法です。ソースコードに意図的に小さな変更（ミューテーション、例：<code
+                                >&lt;</code
+                            >
+                            を
+                            <code>&lt;=</code>
+                            に変える）を加えた「ミュータント」を大量に生成し、既存のテストがそのミュータントを検出（Kill）できるかを確認します。検出できなかったミュータント（Surviving
+                            Mutant）は、テストの弱点を示します。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-8"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-8">
+                            flowchart TD
+                                A["元のソースコード"] --> B["変異演算子を適用しミュータントを生成"]
+                                B --> C["既存のテストスイートを実行"]
+                                C --> D{"テストは失敗したか?"}
+                                D -->|Yes: Killed| E["そのテストは有効"]
+                                D -->|No: Survived| F["テストの弱点を発見<br/>アサーションを見直す"]
+                        </script>
+
+                        <div class="callout tip">
+                            <strong>コラム（2026年時点で重要性が増している理由）</strong
+                            >：ThoughtWorks社が2026年4月に発行した Technology Radar Vol.34
+                            では、AI支援によるコード生成・テスト生成が一般化したことで、「行カバレッジは高いがアサーションが空、あるいはモックが実装から乖離した“見かけ上グリーンな”テスト」が増えているという課題が指摘されています。同レポートは、ミューテーションテストを「AI生成テストの品質を裏付ける補強レイヤー」として改めて重要視しており、JavaScript/TypeScript向けの
+                            Stryker、Java向けの
+                            PIT（PITest）が代表的なツールとして挙げられています。
+                        </div>
+
+                        <h3>発展：プロパティベーステスト</h3>
+                        <p>
+                            境界値分析・同値分割の発展形として、<strong
+                                >プロパティベーステスト（Property-Based Testing）</strong
+                            >も現代の実務では広く使われています。個別の入出力例を書く代わりに「常に成り立つべき性質（プロパティ）」を定義し、フレームワークが大量のランダムな入力を自動生成して反例を探します。1999年に
+                            Koen Claessen と John Hughes が Haskell 向けに開発した QuickCheck
+                            が起源で、Python向けの Hypothesis、JavaScript向けの fast-check
+                            などに広がっています。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 9 ===================== -->
+                <section class="section" id="step9">
+                    <h2>
+                        <span class="step-num">Step 9</span
+                        >レビューで欠陥を早期に見つける（第22章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            テスト実行の前に、成果物（要求仕様書・設計書・コード）を人の目でチェックする<strong>技術レビュー</strong>も、Jorgensenは欠陥検出の重要な手段として位置づけています。
+                        </p>
+
+                        <h3>レビューの種類</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>形式度</th>
+                                        <th>特徴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ウォークスルー</td>
+                                        <td>低〜中</td>
+                                        <td>作成者が主導し、参加者に説明しながら進める</td>
+                                    </tr>
+                                    <tr>
+                                        <td>技術インスペクション（Fagan Inspection）</td>
+                                        <td>高</td>
+                                        <td>
+                                            定められた役割・手順に従い、記録・追跡まで行う最も厳密な形式
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>監査（Audit）</td>
+                                        <td>高</td>
+                                        <td>標準・規約への準拠を第三者が確認する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>インスペクションにおける役割分担</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>役割</th>
+                                        <th>責務</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Producer（作成者）</td>
+                                        <td>レビュー対象を作成し、質問に答える</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Review Leader（進行役）</td>
+                                        <td>会議を運営し、スコープを管理する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Recorder（記録係）</td>
+                                        <td>指摘事項を記録する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reviewer（レビュアー）</td>
+                                        <td>欠陥を発見し指摘する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout tip">
+                            <strong>コラム（現代の対応物）</strong
+                            >：この技術インスペクションの考え方は、現代のプルリクエスト（PR）ベースのコードレビュー文化に受け継がれています。Googleのエンジニアリングプラクティスに関する公開ドキュメントでも、コードレビューは「品質を保つための必須プロセス」として位置づけられています。さらに2026年時点では、AIエージェントによる一次レビュー（テスト容易性チェック、セキュリティレビューの下読みなど）を人間のレビューの前段に挟む運用も広がりつつあり、Fagan
+                            Inspectionが目指した「役割分担による網羅的な欠陥検出」という思想は形を変えて続いています。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== STEP 10 ===================== -->
+                <section class="section" id="step10">
+                    <h2>
+                        <span class="step-num">Step 10</span
+                        >熟達者（Craftsman）になるためのベストプラクティス（第23章対応）
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            最終章でJorgensenは、自身が選ぶ「テスト優秀性のためのトップ10ベストプラクティス」を提示しています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ベストプラクティス</th>
+                                        <th>要点</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>モデル駆動アジャイル開発</td>
+                                        <td>モデルベース開発とアジャイルの利点を組み合わせる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>テストレベルの慎重な定義</td>
+                                        <td>単体・結合・システムの境界を曖昧にしない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>システムレベルのモデルベーステスト</td>
+                                        <td>上位レベルでもモデルを活用する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>システムテストの拡張</td>
+                                        <td>非機能要件まで含めて広く捉える</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>隣接行列によるリグレッションテストの誘導</td>
+                                        <td>変更影響範囲を可視化し再テスト範囲を絞る</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>MM-Pathによる統合テスト</td>
+                                        <td>呼び出し関係だけでなく実行経路まで検証する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>仕様ベースとコードベースの賢い組合せ</td>
+                                        <td>どちらか一方に偏らない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>ユニットの性質に応じたカバレッジ基準の選択</td>
+                                        <td>一律のカバレッジ目標を機械的に適用しない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>保守フェーズでの探索的テスト</td>
+                                        <td>変更後の想定外の影響を人の目で探る</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>テスト駆動開発</td>
+                                        <td>開発とテストを一体化する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>プロジェクト特性に応じた重点の置き方</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>プロジェクト特性</th>
+                                        <th>重点を置くべき技法</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ミッションクリティカル（人命・安全に関わる）</td>
+                                        <td>
+                                            MC/DCなど厳格なカバレッジ基準、技術インスペクション、モデルベーステスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>タイムクリティカル（納期が厳しい）</td>
+                                        <td>
+                                            オールペア法によるテストケース削減、リスクベーステスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>レガシーコードの保守</td>
+                                        <td>
+                                            探索的テスト、データフローテスト（既存コードの理解を兼ねる）
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===================== TRENDS 2026 ===================== -->
+                <section class="section" id="trends2026">
+                    <h2>2026年時点の実務トレンドとの接続</h2>
+                    <div class="prose">
+                        <p>
+                            Jorgensen
+                            の技法群は「テスト設計の考え方」を支える普遍的な基礎ですが、実際の開発現場でどう使われているかは時代とともに変化します。ここでは2026年8月時点で確認できる、著名な開発者・組織の発信内容を要約します。
+                        </p>
+
+                        <h3>テストピラミッド</h3>
+                        <p>
+                            「単体テストを多く、結合テストを適度に、E2Eテストを少なく」という考え方は、Mike
+                            Cohnが著書『Succeeding with Agile』で提唱し、Martin
+                            Fowlerが自身のサイトの記事「The Practical Test
+                            Pyramid」で体系化したことで広く知られるようになりました。
+                        </p>
+
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-9"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-9">
+                            flowchart TD
+                                A["E2Eテスト（少数・低速・広範囲）"] --> B["結合テスト（中程度の速度・範囲）"]
+                                B --> C["単体テスト（多数・高速・独立）"]
+                        </script>
+
+                        <p>
+                            Googleは、このピラミッドをテストの実行時間・許可される依存範囲によって「Small（60秒以内・ネットワークやDBアクセス禁止）」「Medium（300秒以内・localhostのみ許可）」「Large（900秒以内・制限なし）」という測定可能な基準に落とし込んでおり、抽象的な比喩を運用可能なルールに変換する好例とされています。
+                        </p>
+
+                        <h3>フレーキーテスト（Flaky Tests）への対応</h3>
+                        <p>
+                            Googleは自社のテスト実行の約1.5%がフレーキー（不安定）であり、テスト全体の約16%が何らかの形でフレーキーな挙動を示すことを公表しています。Google
+                            Testing
+                            Blogでは、フレーキーテストを単に「flaky」とラベル付けして無視するのではなく、根本原因（同期処理の不備、共有状態への依存、環境要因など）を追跡することを推奨しています。
+                        </p>
+
+                        <h3>
+                            AIアシスト時代のテスト（ThoughtWorks Technology Radar Vol.34,
+                            2026年4月）
+                        </h3>
+                        <p>
+                            ThoughtWorksは2026年4月発行のTechnology Radar
+                            Vol.34で、AI支援によるコード生成が一般化する中での品質保証上の課題を複数取り上げています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>トピック</th>
+                                        <th>要点</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AI生成テストの信頼性</td>
+                                        <td>
+                                            LLMは構文的に正しいテストを生成できるが、アサーションが空だったりモックが実装と乖離していたりする「見かけ上グリーン」なテストを生む場合がある
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ミューテーションテストの再評価</td>
+                                        <td>
+                                            上記の弱点を検出する補強手段として、ミューテーションテストの重要性が再確認されている
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AI駆動のUIテスト</td>
+                                        <td>
+                                            Playwright・SeleniumがMCP（Model Context
+                                            Protocol）サーバーを提供し始め、コーディングアシスタントがより信頼性の高いUIテストを生成できるようになりつつある（ただしLLMの非決定性に起因するフレーキーさは引き続き課題）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>認知的負債（Cognitive Debt）</td>
+                                        <td>
+                                            AIによる開発加速は、コードベースへの理解の希薄化という新たなリスクを生んでいるとの指摘
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>プロパティベーステストの広がり</h3>
+                        <p>
+                            QuickCheckの生みの親であるJohn
+                            Hughesらの調査によれば、プロパティベーステストはErlangの通信システムにおいて、従来の例示的テストでは見つからなかった200件以上のバグを発見したと報告されています。2026年時点では、Python（Hypothesis）、JavaScript/TypeScript（fast-check）、Java（jqwik）、.NET（FsCheck）など主要言語エコシステムに実装が普及しています。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ===================== ROADMAP ===================== -->
+                <section class="section" id="roadmap">
+                    <h2>学習ロードマップ（初学者向け実践プラン）</h2>
+                    <div class="prose">
+                        <div class="mermaid-wrapper"><pre class="mermaid" id="mmd-10"></pre></div>
+                        <script type="text/plain" class="mermaid-src" data-target="mmd-10">
+                            flowchart TD
+                                S0["Step 0: 全体像を掴む"] --> S1["Step 1: 基本用語とテストレベル"]
+                                S1 --> S2["Step 2: 数学的基盤（グラフ理論の勘所）"]
+                                S2 --> S3["Step 3: 境界値分析を1つの機能で実践"]
+                                S3 --> S4["Step 4: 同値分割を組み合わせる"]
+                                S4 --> S5["Step 5: デシジョンテーブルで複雑な条件を整理"]
+                                S5 --> S6["Step 6: 自分のコードにパス・データフローテストを適用"]
+                                S6 --> S7["Step 7: 結合・システムテストの設計に挑戦"]
+                                S7 --> S8["Step 8: TDD・探索的テスト・ミューテーションテストを体験"]
+                                S8 --> S9["Step 9: チームでコードレビューの型を作る"]
+                                S9 --> S10["Step 10: プロジェクト特性に応じて技法を選ぶ"]
+                        </script>
+
+                        <p>
+                            <strong>実践のコツ</strong
+                            >：いきなり全ての技法を使おうとせず、まずは自分が今書いているコードに対して「境界値分析＋同値分割」だけを丁寧に適用してみることをお勧めします。慣れてきたら、パステスト（カバレッジ確認）、そしてTDDやミューテーションテストへと段階的に広げていくと挫折しにくくなります。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ===================== SUMMARY ===================== -->
+                <section class="section" id="summary">
+                    <h2>まとめ</h2>
+                    <div class="prose">
+                        <p>
+                            Jorgensenの『Software Testing: A Craftsman's
+                            Approach』は、境界値分析や同値分割といった「手を動かす技法」と、グラフ理論・集合論という「技法を支える理論」を同じ本の中で往復させることで、テスト設計を「勘と経験の職人芸」から「説明可能な工学」に引き上げようとする一冊です。
+                        </p>
+                        <p>
+                            一方で、テストピラミッドやミューテーションテスト、AI支援開発時代の品質保証の課題など、2026年現在の実務は書籍の初版が想定していなかった環境変化（クラウドネイティブ、CI/CD、生成AIによるコード生成）の中で進化を続けています。書籍が提供する「技法の原理」と、本ガイドで補足した「現在の実務動向」を両輪として学ぶことで、単なる技法の暗記ではなく、状況に応じて技法を選び取れる<strong>テストの職人（Craftsman）</strong>へと近づくことができるはずです。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ===================== REFERENCES ===================== -->
+                <section class="section" id="references">
+                    <h2>参考文献・出典</h2>
+                    <div class="prose">
+                        <div class="ref-group-title">書籍・出版社情報</div>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Software Testing, 4th Edition（O'Reilly / Auerbach
+                                    Publications, Paul C. Jorgensen） 目次・概要</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.oreilly.com/library/view/software-testing-4th/9781466560680/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.oreilly.com/library/view/software-testing-4th/9781466560680/</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Software Testing: A Craftsman's Approach（Goodreads）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.goodreads.com/book/show/38898386-software-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.goodreads.com/book/show/38898386-software-testing</a
+                                >
+                            </li>
+                        </ul>
+
+                        <div class="ref-group-title">
+                            現代の実務トレンド（著名な開発者・組織の一次情報）
+                        </div>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Martin Fowler's Blog（testingタグ、Test
+                                    Pyramid関連記事一覧）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://martinfowler.com/tags/testing.html"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://martinfowler.com/tags/testing.html</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Kent Beck「Test Desiderata」（Medium, 2019年）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Kent Beck「Desirable Unit Tests」「Composable
+                                    Tests」（Substack, 2025年）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://tidyfirst.substack.com/p/desirable-unit-tests"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://tidyfirst.substack.com/p/desirable-unit-tests</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Emily Bache「Test Desiderata 2.0」（2025年12月）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Test Desiderata Framework
+                                    解説（Beck以降20名以上の専門家の見解を整理）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://lidonis.github.io/Test-Desiderata/framework.html"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://lidonis.github.io/Test-Desiderata/framework.html</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Kent Beck（Wikipedia、経歴・TDD確立の経緯）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://en.wikipedia.org/wiki/Kent_Beck"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://en.wikipedia.org/wiki/Kent_Beck</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Google Testing Blog「Flaky Tests at Google and How We Mitigate
+                                    Them」</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >ThoughtWorks Technology Radar Vol.34（2026年4月, PDF）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2026/04/tr_technology_radar_vol_34_en.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2026/04/tr_technology_radar_vol_34_en.pdf</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >ThoughtWorks Technology
+                                    Radar「Techniques」（ミューテーションテスト解説）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.thoughtworks.com/radar/techniques"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.thoughtworks.com/radar/techniques</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >ThoughtWorks「Macro trends in the tech
+                                    industry」（2026年4月）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.thoughtworks.com/en-us/insights/blog/technology-strategy/macro-trends-tech-industry-april-2026"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.thoughtworks.com/en-us/insights/blog/technology-strategy/macro-trends-tech-industry-april-2026</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >ThoughtWorks Technology Radar「AI-powered UI testing」</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Software Testing Strategy 2026: The Engineering
+                                    Guide（テストピラミッド・Google test size解説）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.digitalapplied.com/blog/software-testing-strategy-2026-engineering-reference"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.digitalapplied.com/blog/software-testing-strategy-2026-engineering-reference</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Rapid Software Testing（James Bach & Michael Bolton,
+                                    探索的テストの現在の到達点）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://rapid-software-testing.com/what-is-testing-a-conversation-with-james-bach-and-michael-bolton/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://rapid-software-testing.com/what-is-testing-a-conversation-with-james-bach-and-michael-bolton/</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Session-based testing（Wikipedia, James & Jonathan Bach）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://en.wikipedia.org/wiki/Session-based_testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://en.wikipedia.org/wiki/Session-based_testing</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-title"
+                                    >Property-Based Testing 解説（John
+                                    HughesのErlang調査の引用元）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://yrkan.com/blog/property-based-testing/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://yrkan.com/blog/property-based-testing/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer">
+                        検索は2026年8月30日時点の情報に基づいて実施しています。特にAI支援開発関連のトレンドは変化が速い領域のため、最新情報は各ソースの公式サイトを直接ご確認ください。
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script>
+            function dedent(str) {
+                var lines = str
+                    .replace(/^\n/, '')
+                    .replace(/\n[ \t]*$/, '')
+                    .split('\n');
+                var nonEmpty = lines.filter(function (l) {
+                    return l.trim().length > 0;
+                });
+                var indents = nonEmpty.map(function (l) {
+                    return l.match(/^[ \t]*/)[0].length;
+                });
+                var min = indents.length ? Math.min.apply(null, indents) : 0;
+                return lines
+                    .map(function (l) {
+                        return l.slice(min);
+                    })
+                    .join('\n');
+            }
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'dark',
+                themeVariables: {
+                    fontSize: '16px',
+                    primaryColor: '#122135',
+                    primaryTextColor: '#e6edf7',
+                    primaryBorderColor: '#7c9eff',
+                    lineColor: '#7c9eff',
+                    secondaryColor: '#0d1b2e',
+                    tertiaryColor: '#0a1524',
+                    fontFamily: '"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif',
+                },
+                flowchart: {
+                    useMaxWidth: false,
+                    htmlLabels: true,
+                    subGraphTitleMargin: { top: 10, bottom: 28 },
+                },
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('script.mermaid-src').forEach(function (scriptEl) {
+                    var target = document.getElementById(scriptEl.dataset.target);
+                    if (target) {
+                        target.textContent = dedent(scriptEl.textContent);
+                    }
+                });
+
+                mermaid.run({ querySelector: '.mermaid' });
+
+                var sections = document.querySelectorAll('.section, .hero');
+                var links = document.querySelectorAll('.sidebar a');
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                links.forEach(function (l) {
+                                    l.classList.remove('active');
+                                });
+                                var activeLink = document.querySelector(
+                                    '.sidebar a[href="#' + entry.target.id + '"]',
+                                );
+                                if (activeLink) {
+                                    activeLink.classList.add('active');
+                                }
+                            }
+                        });
+                    },
+                    { rootMargin: '-20% 0px -70% 0px' },
+                );
+                sections.forEach(function (s) {
+                    observer.observe(s);
+                });
+            });
+        </script>
+    </body>
+</html>
