@@ -6,8 +6,6 @@ import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-14496-22-guide.json';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-14496-22-guide';
-// レビューで意図的にノード構成を改訂した図（データを保持する表とそれ以外の SQL-object を区別）
-const REVISED_DIAGRAMS = new Set<string>();
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
 const globals = readFileSync('app/globals.css', 'utf8');
@@ -49,7 +47,7 @@ for (const width of [390,900,901,1440]) {
             }
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height','0px');
-            await expect(page.locator('.nav-toggle')).toHaveCSS('display', width <= 960 ? 'block' : 'none');
+            await expect(page.locator('.nav-toggle')).toHaveCSS('display', width <= 900 ? 'block' : 'none');
             for (const pseudo of ['::before','::after']) {
                 const props = ['content','backgroundImage','width','height','position','top','right'];
                 const snapshot = (el: Element, { pseudo, props }: { pseudo: string; props: string[] }) => Object.fromEntries(props.map(prop => [prop, getComputedStyle(el, pseudo)[prop as keyof CSSStyleDeclaration]]));
@@ -87,14 +85,9 @@ for (const width of [390,900,901,1440]) {
                 Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'), chart);
             }, { id, chart: DIAGRAMS[id]!, globalConfig, fixups });
             const actual = await page.locator('#'+id).evaluate(collect);
-            if (REVISED_DIAGRAMS.has(id)) {
-                // 元SVGとはノード構成が異なるため、意味はインベントリ、配色は元SVGの先頭ノードを正とする
-                const palette = expected.nodes[0]!;
-                expect(actual.nodes).toEqual(diagram.nodes.map(n => ({ id: n.id, label: n.label.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim(), color: palette.color, fill: palette.fill })));
-                expect(actual.labels).toEqual(diagram.edges.map(e => e.label));
-            } else expect(actual).toEqual(expected);
-            const edges = await page.locator('#'+id+' path.flowchart-link').evaluateAll(els => els.map(el => ({ id: el.id.replace(/^sql-diagram-\d+-/,''), dotted: el.classList.contains('edge-pattern-dotted') })));
-            expect(edges).toEqual(diagram.edges.map(e => ({ id: `L_${e.from}_${e.to}_0`, dotted: e.dotted })));
+            expect(actual).toEqual(expected);
+            const edges = await page.locator('#'+id+' path.flowchart-link').evaluateAll(els => els.map(el => ({ id: el.id.replace(/^sql-mmd-\d+-/,''), dotted: el.classList.contains('edge-pattern-dotted'), start: !!el.getAttribute('marker-start'), end: !!el.getAttribute('marker-end') })));
+            expect(edges).toEqual(diagram.edges);
             const reach = await page.locator('#'+id).evaluate(el => { const svg = el.querySelector('svg')!; const initial = svg.getBoundingClientRect().left; el.scrollLeft = el.scrollWidth; return { initial, left: el.getBoundingClientRect().left, movement: initial-svg.getBoundingClientRect().left, scroll: el.scrollLeft, required: el.scrollWidth-el.clientWidth }; });
             expect(reach.initial).toBeGreaterThanOrEqual(reach.left); expect(Math.abs(reach.scroll-reach.required)).toBeLessThanOrEqual(1); expect(Math.abs(reach.movement-reach.scroll)).toBeLessThanOrEqual(1);
             await expect(page.locator('#'+id+' .mermaid-wrapper')).toHaveCSS('background-color','rgba(0, 0, 0, 0)');
