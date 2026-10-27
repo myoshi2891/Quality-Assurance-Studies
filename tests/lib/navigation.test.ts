@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 110 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 5 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(110);
+  it('contains 111 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 6 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(111);
   });
 
   it('every item has a unique href', () => {
@@ -306,9 +306,9 @@ describe('groupByCategory', () => {
     ]);
   });
 
-  it('places 5 items in the iso group', () => {
+  it('places 6 items in the iso group', () => {
     const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
-    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide']);
+    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide']);
     expect(iso?.title).toBe('ISO 国際規格');
   });
 
