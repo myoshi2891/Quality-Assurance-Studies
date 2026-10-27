@@ -10,6 +10,9 @@ const source = 'archive/html-archive/books/Software-testing-craftsmans-approach-
 const sourceText = readFileSync(existsSync(source) ? source : 'Software-testing-craftsmans-approach-guide.html','utf8');
 const sourceInitialization = sourceText.split('mermaid.initialize(')[1]!.split(');')[0]!;
 const sourceConfig = Function('return ('+sourceInitialization+')')() as object;
+// Reproduce the shared component's complete initialization, including inherited dark colors.
+const sharedInitialization = readFileSync('components/Mermaid.tsx', 'utf8').match(/mermaid\.initialize\((\{[\s\S]*?\n\})\);/)![1];
+const sharedConfig = Function('return ('+sharedInitialization+')')() as object;
 const original = load(sourceText);
 const originalCss = original('style').text(); original('script,link').remove();
 // Original document styles form the reference for computed design checks.
@@ -46,11 +49,11 @@ for(const width of [390,1440]) for(const id of Object.keys(inventory.diagrams)) 
     test(`${width}px ${id}: original SVG labels, edges, palette and scroll ends`,async({page})=>{
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${preflight+globals+own()}</style>${markup()}`);await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
         const {DIAGRAMS} = sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:Record<string,string>};
-        const result = await page.evaluate(async({chart,originalChart,id,sourceConfig})=>{
+        const result = await page.evaluate(async({chart,originalChart,id,sourceConfig,sharedConfig})=>{
             const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;
             const snapshot=(el:Element)=>({nodes:Array.from(el.querySelectorAll('g.node'),n=>({label:n.querySelector('.nodeLabel')?.textContent,fill:getComputedStyle(n.querySelector('rect,path,polygon')!).fill,color:getComputedStyle(n.querySelector('.nodeLabel')!).color})),edges:Array.from(el.querySelectorAll('path.flowchart-link'),e=>({id:e.id.replace(/^.*L_/, 'L_'),dotted:e.classList.contains('edge-pattern-dotted')})),labels:Array.from(el.querySelectorAll('g.edgeLabels > g.edgeLabel'),e=>e.textContent)});
             mermaid.initialize(sourceConfig);const ref=document.createElement('div');document.body.append(ref);ref.innerHTML=(await mermaid.render('source-'+id,originalChart)).svg;const expected=snapshot(ref);ref.remove();
-            mermaid.initialize({startOnLoad:false,theme:'dark'});const inner=document.querySelector('#'+id+' .mermaid-wrapper')!;inner.innerHTML=(await mermaid.render('migrated-'+id,chart)).svg;
+            mermaid.initialize(sharedConfig);const inner=document.querySelector('#'+id+' .mermaid-wrapper')!;inner.innerHTML=(await mermaid.render('migrated-'+id,chart)).svg;
             const svg=inner.querySelector('svg')!;
             // components/Mermaid.tsx の applySvgFixups と同じ寸法指定（ページ CSS の max-width: none !important が maxWidth:100% に勝つことも検証する）
             svg.removeAttribute('width');svg.removeAttribute('height');Object.assign(svg.style,{height:'auto',overflow:'visible',display:'block',margin:'0 auto',marginBottom:'10px'});
@@ -58,7 +61,7 @@ for(const width of [390,1440]) for(const id of Object.keys(inventory.diagrams)) 
             const style=getComputedStyle(inner);const content=inner.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight);
             const actual=snapshot(inner);const initial=svg.getBoundingClientRect().left;inner.scrollLeft=inner.scrollWidth;
             return {actual,expected,left:inner.getBoundingClientRect().left,initial,moved:initial-svg.getBoundingClientRect().left,scroll:inner.scrollLeft,required:inner.scrollWidth-inner.clientWidth,overflowing:svg.viewBox.baseVal.width>content+1,rendered:svg.getBoundingClientRect().width,natural:box.width};
-        },{chart:DIAGRAMS[id]!,originalChart:inventory.diagrams[id as keyof typeof inventory.diagrams],id,sourceConfig});
+        },{chart:DIAGRAMS[id]!,originalChart:inventory.diagrams[id as keyof typeof inventory.diagrams],id,sourceConfig,sharedConfig});
         expect(result.actual).toEqual(result.expected);expect(Math.abs(result.rendered-result.natural)).toBeLessThanOrEqual(1);if(result.overflowing)expect(result.required).toBeGreaterThan(0);expect(result.initial).toBeGreaterThanOrEqual(result.left);expect(Math.abs(result.scroll-result.required)).toBeLessThanOrEqual(1);expect(Math.abs(result.moved-result.scroll)).toBeLessThanOrEqual(1);
     });
 }
