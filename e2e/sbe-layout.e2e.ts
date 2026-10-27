@@ -13,6 +13,9 @@ const sourceText = readFileSync(
 );
 const sourceInitialization = sourceText.split('mermaid.initialize(')[1]!.split(');')[0]!;
 const sourceConfig = Function('return (' + sourceInitialization + ')')() as object;
+// Reproduce the shared component's complete initialization, including inherited dark colors.
+const sharedInitialization = readFileSync('components/Mermaid.tsx', 'utf8').match(/mermaid\.initialize\((\{[\s\S]*?\n\})\);/)![1];
+const sharedConfig = Function('return (' + sharedInitialization + ')')() as object;
 const original = load(sourceText);
 const originalCss = inventory.highlightCss + original('style').text();
 original('pre code').html(inventory.highlight).addClass('hljs');
@@ -210,7 +213,7 @@ for (const width of [390, 1440])
                 DIAGRAMS: Record<string, string>;
             };
             const result = await page.evaluate(
-                async ({ chart, originalChart, id, sourceConfig }) => {
+                async ({ chart, originalChart, id, sourceConfig, sharedConfig }) => {
                     const mermaid = (
                         window as unknown as {
                             mermaid: {
@@ -240,7 +243,7 @@ for (const width of [390, 1440])
                     ref.innerHTML = (await mermaid.render('source-' + id, originalChart)).svg;
                     const expected = snapshot(ref);
                     ref.remove();
-                    mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+                    mermaid.initialize(sharedConfig);
                     const inner = document.querySelector('#' + id + ' .mermaid-wrapper')!;
                     inner.innerHTML = (await mermaid.render('migrated-' + id, chart)).svg;
                     const svg = inner.querySelector('svg')!;
@@ -287,6 +290,7 @@ for (const width of [390, 1440])
                     originalChart: inventory.diagrams[id as keyof typeof inventory.diagrams],
                     id,
                     sourceConfig,
+                    sharedConfig,
                 },
             );
             expect(result.actual).toEqual(result.expected);

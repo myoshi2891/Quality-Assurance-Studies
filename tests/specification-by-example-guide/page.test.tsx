@@ -392,3 +392,15 @@ describe('navigation lifecycle and controls', () => {
         expect(document.activeElement).toBe(button);
     });
 });
+
+describe('shared dark initialization isolation', () => {
+    it('overrides every inherited dark surface, border and label color in the page config', async () => {
+        const entry = '../../app/specification-by-example-guide/diagrams';
+        const { MERMAID_CONFIG } = await import(entry);
+        const config = JSON.parse(MERMAID_CONFIG.slice('%%{init: '.length, -'}%%'.length));
+        expect(config.themeVariables).toMatchObject({
+            mainBkg: '#fffaf0', nodeBorder: '#3b4a91', clusterBkg: '#efe4c9',
+            titleColor: '#2b2620', edgeLabelBackground: '#fffcf6',
+        });
+    });
+});
