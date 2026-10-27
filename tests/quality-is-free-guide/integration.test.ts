@@ -10,7 +10,7 @@ describe('quality is free registration and source archives', () => {
         expect(NAV_ITEMS.filter(item => item.href === href)).toHaveLength(1);
         const books = groupByCategory(NAV_ITEMS).find(group => group.category === 'books-practices');
         expect(books?.items.at(-1)?.href).toBe(href);
-        expect(books?.items).toHaveLength(25);
+        expect(books?.items).toHaveLength(26);
     });
     it('synchronizes 108 routes and the real chapter heading', () => {
         expect(EXPECTED_PAGE_COUNT).toBe(108); expect(NAV_ITEMS).toHaveLength(108); expect(PAGES).toHaveLength(108);
