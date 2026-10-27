@@ -120,8 +120,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iec-62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-9075-1-guide', h1: /ISO\/IEC 9075-1:2023（SQL\/Framework）初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-11179-1-2023-guide', h1: /ISO\/IEC 11179-1:2023 初学者向けステップバイステップ解説ガイド/ },
+  { path: '/software-testing-craftsmans-approach-guide', h1: /Software Testing: A Craftsman's Approach 入門ガイド/ },
+  { path: '/specification-by-example-guide', h1: /Specification by Example 実践ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 107;
+export const EXPECTED_PAGE_COUNT = 109;
 
 

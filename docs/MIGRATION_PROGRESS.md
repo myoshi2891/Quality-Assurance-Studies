@@ -1,22 +1,49 @@
 # Migration Progress
 
-Updated 2026-10-25
+Updated 2026-10-27
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 107 ルート = ガイドライブラリ index + 106 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 109 ルート = ガイドライブラリ index + 108 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-10-27: SbEのMermaid黒塗り修正
+
+- `/specification-by-example-guide`で共有Mermaidのダーク設定にある`mainBkg: #0f2040`が残り、暗い文字と重なっていた問題を修正。ページ側で`mainBkg`・`nodeBorder`・`clusterBkg`・`titleColor`・`edgeLabelBackground`を原本のライト配色へ明示上書き。共有コンポーネントは変更していない。
+- 前回のブラウザー検証は共有初期化の`themeVariables`を省略していたため検知できなかった。`components/Mermaid.tsx`の実際の初期化設定を読み、全6図×2幅で原本SVGと配色を比較するよう強化。濃紺ノードで失敗するRedを確認・先行コミットしてから修正。
+- ページ対象446件とMermaid契約を含む619件、Chromium22件、全体7067件（142ファイル）、lint、対象型検査が成功。ビルドは実施していない。追加のページ設定回帰テストで、共有ダーク色の上書き漏れを防止。
+
+## 2026-10-27: Specification by Example実践ガイドの移行
+
+- 移行先は`/specification-by-example-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を109ルートへ同期。
+- 全11セクション・ヒーロー・フッター、31見出し、階層目次18リンク、7表の全セル、6図、Gherkinコード1例、注記29件、参考文献21件、外部リンク61件、アイコン96件、チェック8項目を固定インベントリで出現順に照合。Next.js/SWCの開発・本番変換でも全文とDOMを検証。
+- 原本CSS87ルールと900px条件、紙色配色・セリフ体見出し・固定目次・モバイルバー・罫線・コード構文色・図キャプション・参考文献カードを保持。共有/残留CSSによる本文色、表、コード余白、注記、リスト、フッターの干渉を補正。原本のWebフォント指定も継続し、ビルド時の外部取得は追加していない。
+- 6図のラベル・接続・配色と左右スクロールを原本SVGと比較。Gherkinは原本指定highlight.js 11.10.0のトークンを固定化し、改行・空行・字下げ・キーワード/文字列の構文色をJSXで再現。ランタイムのhighlight.jsや追加依存は不要。
+- チェック全8項目のクリック・Enter・Space・アイコン・取消線・完了数・保存・再読込・不正データ・保存拒否を検証。階層目次の開閉・Escape・フォーカス復帰・全18アンカー追従とObserver解除、子見出し追従中の親章強調も検証。
+- npm経由で対象446件、関連692件、全体7067件（142ファイル）、ビルド・サーバー不要のChromium22件（4幅×CSS2順序、2幅×6図、2幅×コード/チェック表示）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
+- Red先行、CSS、図、Gherkin、チェック保存、実践7ステップ、各本文カテゴリー、目次、ページ構成、ナビ登録、原本アーカイブ、デザイン補正、最終整理、仕様書同期を分割コミット。各コミット直前にPII検査。
+- 原本HTML・Markdownを`archive/html-archive/books/Specification-by-example-guide.html`・`archive/md-archive/books/Specification-by-example-guide.md`へ同名で移動。Gitのrename検出100%、SHA-256一致、Git追跡を確認。書籍HTML/MDの残存2ペアはCraftsmanとSbEの移行により解消。
+
+## 2026-10-27: Software Testing: A Craftsman’s Approach入門ガイドの移行
+
+- 移行先は`/software-testing-craftsmans-approach-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を108ルートへ同期。
+- 全16セクション・46見出し・目次16リンク・22表の全セル・11図・コールアウト10件・参考文献17件・外部リンク18件・全文DOMを固定インベントリで出現順に照合。通常コードブロックは原本どおり0件。Next.js/SWCの開発・本番変換でも本文構造を検証。
+- 原本CSS全55ルールと900px条件を保持。ダーク配色、固定目次、文字グラデーション、表の余白・罫線・ホバー、ステップ番号と参考文献の書体を再現。共有/残留CSSによる干渉と横長SVGの左端切れを補正。
+- 目次のモバイル開閉・Escape・フォーカス復帰・全16セクション追従とObserver解除を検証。共有Mermaidへ原本順に11図が渡ることと実パーサーを確認。ビルド・サーバー不要のChromium30件で4幅×CSS2順序と2幅×11図のラベル・接続・配色・横スクロール両端を比較。
+- 原本HTML・Markdownを`archive/html-archive/books/Software-testing-craftsmans-approach-guide.html`・`archive/md-archive/books/Software-testing-craftsmans-approach-guide.md`へ同名で保存。SHA-256一致とGit追跡を検証。既存のTesting Computer SoftwareとWEwLCの原本4ファイルにもGit追跡漏れが見つかり、既存ハッシュ検証を通して別コミットで登録。
+- npm経由で対象259件、関連501件、全体6617件（140ファイル）、Chromium30件、lint、対象型検査が成功。全体型検査には既存のテスト等の型エラーが残る。本番ビルド未実施、目視確認はユーザー担当。
+- カテゴリー別コミットを実施。追加デザインRedテストのコミット失敗後にCSS補正を書いた手順違反を報告し、ユーザーの「対応して」を受けて復旧。履歴を書き換えず、コミット済みCSSでRedを再現してテストを先行コミットし、Green補正・仕様書同期を分割。各コミット直前にPII検査。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync Testing Computer Software migration and validation status` |
-| 次の作業 | `/testing-computer-software-guide`の目視確認はユーザー担当。ビルドは指示により未実施。従来のWEwLC・ホーム・ISOの確認も保留。 |
-| ビルド状態 | Testing Computer Software移行完了。npm経由で対象295件・全体6321件（138ファイル）・ブラウザー26件・lint・対象型検査成功。本番ビルド未実施、目視確認はユーザー担当。 |
+| 最新コミット内容 | `chore(docs): record SbE Mermaid color regression fix` |
+| 次の作業 | `/specification-by-example-guide`の目視確認はユーザー担当。本番ビルドは指示により未実施。 |
+| ビルド状態 | npm経由で対象446件・関連692件・全体7067件（142ファイル）・Chromium22件・lint・対象型検査成功。本番ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1580,6 +1607,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Iso-11179-1-2023-guide.html` | `/iso-11179-1-2023-guide` | ✅ ダーク配色・58見出し・目次57リンク・32表・14図・YAML1例・チェック6項目・15注記・外部21リンク (archive/、HTML・MD両方) |
 | `Working-effectively-with-legacy-code-guide.html` | `/working-effectively-with-legacy-code-guide` | ✅ 紙色テーマ・目次19リンク・全19セクション・9表・Mermaid11図・チェック8項目・参考文献26件 (archive/、HTML・MD両方) |
 | `Testing-computer-software-guide.html` | `/testing-computer-software-guide` | ✅ 紙色テーマ・18セクション・目次18リンク・10表・9図・チェック10項目・参考文献16件 (archive/、HTML・MD両方) |
+| `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
+| `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1590,7 +1619,6 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 2 ペア = 4 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -1606,16 +1634,20 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 107 ルート（ガイドライブラリ index + 106 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト6321件すべて成功（138ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
+- 合計 109 ルート（ガイドライブラリ index + 108 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 全体テスト7067件すべて成功（142ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
+- 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
+- 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
 - 新規追加「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。保留中の作業（ユーザー担当）:
-  1. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
-  2. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
-  3. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
-  4. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
-  5. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
+  1. `/specification-by-example-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  2. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  3. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
+  4. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
+  5. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
+  6. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
+  6. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

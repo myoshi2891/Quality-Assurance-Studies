@@ -1,0 +1,151 @@
+import React from 'react';
+
+export default function Section07() {
+    return (
+        <>
+            <section className="section prose" id="s7">
+                <h2>
+                    <i className="ti ti-bug"></i>
+                    {'7. よくあるアンチパターンと回避策'}
+                </h2>
+                <p>
+                    {
+                        '\n                        Cucumberの中核開発者であるSteve Tooke氏・Aslak Hellesøy氏・Matt\n                        Wynne氏によるポッドキャストを基にした公式ブログ記事「Cucumber\n                        anti-patterns」では、現場で頻発する失敗パターンが具体的に整理されています。\n                    '
+                    }
+                </p>
+                <p className="callout source">
+                    <i className="ti ti-link"></i>
+                    {'出典:\n                        '}
+                    <a
+                        href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {'Cucumber公式ブログ「Cucumber anti-patterns (part #1)」'}
+                    </a>
+                    {'\n                        /\n                        '}
+                    <a
+                        href="https://cucumber.io/blog/bdd/cucumber-anti-patterns-part-two/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {'「Cucumber anti-patterns (part #2)」'}
+                    </a>
+                    {'\n                        /\n                        '}
+                    <a
+                        href="https://cucumber.io/docs/guides/anti-patterns/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {'Cucumber公式「Anti-patterns」ドキュメント'}
+                    </a>
+                </p>
+                <div className="table-wrap">
+                    <div className="table-title">
+                        <i className="ti ti-bug"></i>
+                        {'よくあるアンチパターンと回避策\n                        '}
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{'アンチパターン'}</th>
+                                <th>{'何が問題か'}</th>
+                                <th>{'回避策'}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{'非技術者だけでシナリオを書く'}</td>
+                                <td>
+                                    {
+                                        '\n                                        自動化の段階で書き直しが必要になり、プロダクトオーナーが「自分が書いた内容と違う」と感じ、仕様への当事者意識を失う\n                                    '
+                                    }
+                                </td>
+                                <td>{'Three Amigosで最初から共同執筆する'}</td>
+                            </tr>
+                            <tr>
+                                <td>{'1シナリオに複数の検証結果を詰め込む'}</td>
+                                <td>
+                                    {
+                                        '\n                                        何を検証しているのかが不明瞭になり、ドキュメントとしても機能しなくなる\n                                    '
+                                    }
+                                </td>
+                                <td>{'1シナリオ＝1つのふるまいに分割する'}</td>
+                            </tr>
+                            <tr>
+                                <td>{'UI操作をそのままシナリオに書く(実装への依存)'}</td>
+                                <td>
+                                    {
+                                        '\n                                        UIの変更のたびにシナリオが壊れる。E2Eテストに依存するため実行が遅く不安定になる\n                                    '
+                                    }
+                                </td>
+                                <td>
+                                    {
+                                        '\n                                        ふるまい(What)を記述し、UI操作の詳細はステップ定義側に隠蔽する\n                                    '
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{'抽象的すぎるシナリオ(ビジネスルールの言い換えに留まる)'}</td>
+                                <td>
+                                    {
+                                        '\n                                        実装者が「裏側で何が起きるべきか」を具体的に判断できない\n                                    '
+                                    }
+                                </td>
+                                <td>{'具体的な入力値・期待値を明記する'}</td>
+                            </tr>
+                            <tr>
+                                <td>{'冗長で長すぎるシナリオ'}</td>
+                                <td>
+                                    {
+                                        '\n                                        本質的でない詳細(incidental\n                                        detail)でストーリーの意図が埋もれる\n                                    '
+                                    }
+                                </td>
+                                <td>
+                                    {
+                                        '\n                                        Example Mappingの段階で本質的なルールと具体例だけに絞り込む\n                                    '
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p className="callout source">
+                    <i className="ti ti-link"></i>
+                    {'出典:\n                        '}
+                    <a
+                        href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {'Cucumber公式ブログ「Cucumber anti-patterns (part #1)」'}
+                    </a>
+                    {'\n                        /\n                        '}
+                    <a
+                        href="https://cucumber.io/blog/bdd/cucumber-anti-patterns-part-two/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {'「Cucumber anti-patterns (part #2)」'}
+                    </a>
+                </p>
+                <p>
+                    {
+                        '\n                        同記事では、Cucumberは本質的には「テストツール」である以前に「ドメインに対する自分たちの理解を検証するためのツール」であるという考え方が繰り返し強調されています。全員がGherkinの文面に合意して初めて実装に着手できる、という順序を守ることが、これらのアンチパターンを避ける最大のポイントです。\n                    '
+                    }
+                </p>
+                <p className="callout source">
+                    <i className="ti ti-link"></i>
+                    {'出典:\n                        '}
+                    <a
+                        href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {'Cucumber公式ブログ「Cucumber anti-patterns (part #1)」'}
+                    </a>
+                </p>
+            </section>
+        </>
+    );
+}

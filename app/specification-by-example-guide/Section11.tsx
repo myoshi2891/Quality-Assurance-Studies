@@ -1,0 +1,297 @@
+import React from 'react';
+
+export default function Section11() {
+    return (
+        <>
+            <section className="section prose" id="s11">
+                <h2>
+                    <i className="ti ti-link"></i>
+                    {'11. 参考文献・出典'}
+                </h2>
+                <p>
+                    {
+                        '\n                        本ガイドの作成にあたり、2026年9月5日時点で以下の一次情報源をウェブ調査し参照しました。\n                    '
+                    }
+                </p>
+                <div className="ref-group">
+                    <h4>
+                        <i className="ti ti-user"></i>
+                        {
+                            'Gojko Adzic(Specification by\n                            Exampleの提唱者・Neuri Consulting LLPパートナー)\n                        '
+                        }
+                    </h4>
+                    <ul className="ref-list">
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {"Specification by Example(O'Reilly掲載ページ)"}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://gojko.net/books/specification-by-example/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Gojko Adzic公式サイト: 書籍紹介ページ'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://gist.github.com/rpivo/1469476d9c4cd3ea41f8709eaae94920"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {
+                                    'The Key Process Patterns From Specification by\n                                    Example(要約まとめ、GitHub Gist)'
+                                }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="ref-group">
+                    <h4>
+                        <i className="ti ti-user"></i>
+                        {
+                            'Martin\n                            Fowler(ThoughtWorks、著名なソフトウェア開発者・国際的講演者)\n                        '
+                        }
+                    </h4>
+                    <ul className="ref-list">
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://martinfowler.com/bliki/SpecificationByExample.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'bliki: Specification By Example'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://martinfowler.com/bliki/GivenWhenThen.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'bliki: Given When Then'}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="ref-group">
+                    <h4>
+                        <i className="ti ti-user"></i>
+                        {
+                            'Dan North / Cucumber開発チーム(Matt\n                            Wynne、Aslak Hellesøy、Steve Tooke)\n                        '
+                        }
+                    </h4>
+                    <ul className="ref-list">
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://dannorth.net/blog/introducing-bdd/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Dan North「Introducing BDD」(本人ブログ)'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/docs/bdd/history/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Cucumber公式「History of BDD」'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/docs/bdd/example-mapping/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Cucumber公式「Example Mapping」ドキュメント'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/blog/bdd/example-mapping-introduction/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {
+                                    'Matt Wynne「Introducing Example\n                                    Mapping」(Cucumber公式ブログ)'
+                                }
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://medium.com/@mattwynne/introducing-example-mapping-42ccd15f8adf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Matt Wynne「Introducing Example Mapping」(Medium転載版)'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://mattwynne.net/about"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Matt Wynne「About」(本人プロフィール)'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/docs/bdd/better-gherkin/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Cucumber公式「Writing better Gherkin」'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/docs/guides/anti-patterns/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Cucumber公式「Anti-patterns」ドキュメント'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Cucumber公式ブログ「Cucumber anti-patterns (part #1)」'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://cucumber.io/blog/bdd/cucumber-anti-patterns-part-two/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Cucumber公式ブログ「Cucumber anti-patterns (part #2)」'}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="ref-group">
+                    <h4>
+                        <i className="ti ti-user"></i>
+                        {
+                            'George Dinwiddie(アジャイルコーチ、Three\n                            Amigosの提唱者)\n                        '
+                        }
+                    </h4>
+                    <ul className="ref-list">
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://agilealliance.org/glossary/three-amigos/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Agile Alliance「What are the Three Amigos in Agile?」'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://johnfergusonsmart.com/three-amigos-requirements-discovery/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {
+                                    'John Ferguson Smart「The anatomy of a Three Amigos Requirements\n                                    Discovery workshop」'
+                                }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="ref-group">
+                    <h4>
+                        <i className="ti ti-user"></i>
+                        {
+                            'Cyrille\n                            Martraire(Arolla社CTO・共同創業者、Paris Software Crafters\n                            community創設者)\n                        '
+                        }
+                    </h4>
+                    <ul className="ref-list">
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://www.oreilly.com/library/view/living-documentation-continuous/9780134689418/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {
+                                    "Living Documentation: Continuous Knowledge Sharing by\n                                    Design(O'Reilly掲載ページ)"
+                                }
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://www.infoq.com/articles/book-review-living-documentation/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {
+                                    'InfoQ「Q&A with Cyrille Martraire on the Book Living\n                                    Documentation」'
+                                }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="ref-group">
+                    <h4>
+                        <i className="ti ti-tools"></i>
+                        {'ツールエコシステム関連'}
+                    </h4>
+                    <ul className="ref-list">
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://reqnroll.net/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Reqnroll公式サイト'}
+                            </a>
+                        </li>
+                        <li className="ref-item">
+                            <i className="ti ti-external-link"></i>
+                            <a
+                                href="https://reqnroll.net/news/2025/01/specflow-end-of-life-has-been-announced/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {'Reqnroll公式「SpecFlow end-of-life has been announced」'}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </>
+    );
+}

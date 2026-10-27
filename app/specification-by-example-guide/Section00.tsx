@@ -1,0 +1,42 @@
+import React from 'react';
+
+export default function Section00() {
+    return (
+        <>
+            <header className="hero">
+                <h1>
+                    {
+                        '\n                        Specification by Example 実践ガイド ― 初学者のためのステップバイステップ入門\n                    '
+                    }
+                </h1>
+                <p className="lede">
+                    {
+                        '\n                        本ガイドは、Gojko Adzic著『Specification by Example: How Successful Teams\n                        Deliver the Right Software』('
+                    }
+                    <a
+                        href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {"O'Reilly掲載ページ"}
+                    </a>
+                    {
+                        ')を軸に、Martin Fowler、Dan North、Cucumber開発チーム(Matt Wynne / Aslak\n                        Hellesøy)、George Dinwiddie、Cyrille\n                        Martraireなど、著名かつ国際的に活動するソフトウェア開発者・専門家の一次情報を2026年9月5日時点でウェブ調査したうえで作成しています。各主張の根拠URLは本文中のリンクおよび末尾の「参考文献・出典」に明記しています。\n                    '
+                    }
+                </p>
+                <div className="audience">
+                    <h4>{'対象読者'}</h4>
+                    <ul>
+                        <li>{'Specification by Example(以下、SbE)という言葉を初めて聞いた方'}</li>
+                        <li>{'BDD(ふるまい駆動開発)やGherkin記法との関係が曖昧なままの方'}</li>
+                        <li>
+                            {
+                                '\n                                「仕様書がすぐ陳腐化する」「QA・開発・ビジネスの認識がズレる」という課題を抱えるチームのメンバー\n                            '
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </header>
+        </>
+    );
+}

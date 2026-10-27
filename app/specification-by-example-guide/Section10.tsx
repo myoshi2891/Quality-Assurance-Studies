@@ -1,0 +1,28 @@
+import React from 'react';
+
+export default function Section10() {
+    return (
+        <>
+            <section className="section prose" id="s10">
+                <h2>
+                    <i className="ti ti-flag-check"></i>
+                    {'10. まとめ'}
+                </h2>
+                <p>
+                    {
+                        '\n                        Specification by\n                        Exampleは、「具体例を使って仕様をすり合わせ、その例をそのまま自動テストとして走らせ続けることで、常に正しいドキュメントを保つ」という一貫した思想です。Gojko\n                        Adzic氏が体系化した7つのプロセスパターンは、ゴール設定から始まり、Three\n                        AmigosやExample\n                        Mappingによる協働、Gherkinによる仕様の洗練、自動化、頻繁な検証、そしてLiving\n                        Documentationへの進化という一連の流れとしてつながっています。\n                    '
+                    }
+                </p>
+                <p>
+                    {'\n                        重要なのは、どのツールを使うかではなく、'}
+                    <strong>
+                        {'「実装の前に、具体例を使って認識を揃える」という順序を守ること'}
+                    </strong>
+                    {
+                        'です。この順序さえ守れれば、Gherkinを使わずとも、あるいは別のツールを使っても、SbEの本質的な価値(生きたドキュメント、手戻りの削減、正しいものを作れているという確信)を得ることができます。\n                    '
+                    }
+                </p>
+            </section>
+        </>
+    );
+}

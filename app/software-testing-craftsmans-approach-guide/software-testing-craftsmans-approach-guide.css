@@ -1,0 +1,373 @@
+
+            .craftsmans-page {
+                --bg: #07111e;
+                --surface: #0d1b2e;
+                --surface-2: #122135;
+                --text: #e6edf7;
+                --text-dim: #9fb0c9;
+                --accent: #7c9eff;
+                --accent-2: #5fd3ff;
+                --border: #1e2f47;
+                --code-bg: #0a1524;
+            }
+            .craftsmans-page * {
+                box-sizing: border-box;
+            }
+            .craftsmans-page, .craftsmans-page {
+                margin: 0;
+                padding: 0;
+            }
+            .craftsmans-page {
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic',
+                    'Segoe UI', sans-serif;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+                font-size: 16px;
+            }
+            .craftsmans-page a {
+                color: var(--accent);
+            }
+            .craftsmans-page .layout {
+                display: block;
+            }
+
+            /* ---- Sidebar ---- */
+            .craftsmans-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 290px;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--surface);
+                border-right: 1px solid var(--border);
+                padding: 28px 18px;
+                z-index: 10;
+            }
+            .craftsmans-page .sidebar .brand {
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--text);
+                margin: 0 0 4px;
+            }
+            .craftsmans-page .sidebar .brand-sub {
+                font-size: 1rem;
+                color: var(--text-dim);
+                margin: 0 0 24px;
+            }
+            .craftsmans-page .sidebar h2 {
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--text-dim);
+                margin: 0 0 14px;
+                font-weight: 700;
+            }
+            .craftsmans-page .sidebar ul {
+                list-style: none;
+                margin: 0 0 22px;
+                padding: 0;
+            }
+            .craftsmans-page .sidebar li {
+                margin-bottom: 2px;
+            }
+            .craftsmans-page .sidebar a {
+                display: block;
+                padding: 9px 12px;
+                border-radius: 8px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 1rem;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .craftsmans-page .sidebar a:hover {
+                background: var(--surface-2);
+                color: var(--text);
+            }
+            .craftsmans-page .sidebar a.active {
+                background: rgba(124, 158, 255, 0.16);
+                color: var(--accent);
+                font-weight: 700;
+            }
+
+            /* ---- Main content (full width beside sidebar; no narrow max-width) ---- */
+            .craftsmans-page .content {
+                margin-left: 290px;
+                padding: 56px 64px 140px;
+                max-width: none;
+            }
+
+            .craftsmans-page .hero {
+                max-width: none;
+                padding-bottom: 40px;
+                border-bottom: 1px solid var(--border);
+            }
+            .craftsmans-page .hero .eyebrow {
+                color: var(--accent-2);
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                margin-bottom: 14px;
+            }
+            .craftsmans-page .hero h1 {
+                font-size: 2.3rem;
+                line-height: 1.5;
+                margin: 0 0 16px;
+                background: linear-gradient(90deg, var(--accent), var(--accent-2));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .craftsmans-page .hero .subtitle {
+                font-size: 1.2rem;
+                color: var(--text-dim);
+                margin: 0 0 24px;
+            }
+            .craftsmans-page .hero .source-line {
+                font-size: 1rem;
+                color: var(--text-dim);
+            }
+
+            .craftsmans-page .section {
+                padding: 56px 0;
+                border-bottom: 1px solid var(--border);
+                max-width: none;
+            }
+            .craftsmans-page .section:last-of-type {
+                border-bottom: none;
+            }
+            .craftsmans-page .section h2 {
+                font-size: 1.65rem;
+                margin: 0 0 22px;
+                color: var(--text);
+            }
+            .craftsmans-page .section h2 .step-num {
+                color: var(--accent);
+                margin-right: 12px;
+            }
+            .craftsmans-page .section h3 {
+                font-size: 1.25rem;
+                margin: 34px 0 14px;
+                color: var(--accent-2);
+            }
+
+            .craftsmans-page .prose p, .craftsmans-page .prose li {
+                overflow-wrap: break-word;
+            }
+            .craftsmans-page .prose p {
+                margin: 0 0 16px;
+            }
+            .craftsmans-page .prose ul, .craftsmans-page .prose ol {
+                margin: 0 0 18px;
+                padding-left: 1.5em;
+            }
+            .craftsmans-page .prose li {
+                margin-bottom: 6px;
+            }
+
+            /* ---- Tables ---- */
+            .craftsmans-page .table-wrap {
+                overflow-x: auto;
+                margin: 22px 0;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            .craftsmans-page table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 520px;
+                font-size: 1rem;
+            }
+            .craftsmans-page th, .craftsmans-page td {
+                padding: 11px 16px;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+            }
+            .craftsmans-page th {
+                background: var(--surface-2);
+                color: var(--accent);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .craftsmans-page tr:last-child td {
+                border-bottom: none;
+            }
+            .craftsmans-page tbody tr:hover {
+                background: rgba(124, 158, 255, 0.05);
+            }
+
+            /* ---- Callouts ---- */
+            .craftsmans-page .callout {
+                background: var(--surface);
+                border-left: 4px solid var(--accent);
+                border-radius: 8px;
+                padding: 18px 22px;
+                margin: 22px 0;
+                color: var(--text-dim);
+            }
+            .craftsmans-page .callout strong {
+                color: var(--text);
+            }
+            .craftsmans-page .callout.tip {
+                border-left-color: var(--accent-2);
+            }
+
+            /* ---- Mermaid ---- */
+            .craftsmans-page .diagram-frame {
+                width: 100%;
+                overflow-x: auto;
+                margin: 26px 0;
+            }
+            .craftsmans-page .mermaid {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                margin: 0;
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+            .craftsmans-page .mermaid svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .craftsmans-page .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            .craftsmans-page code {
+                background: var(--code-bg);
+                color: var(--accent-2);
+                padding: 3px 7px;
+                border-radius: 5px;
+                font-size: 1em;
+                font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+            }
+
+            /* ---- References ---- */
+            .craftsmans-page .ref-group-title {
+                font-size: 1.05rem;
+                color: var(--text);
+                font-weight: 700;
+                margin: 28px 0 12px;
+            }
+            .craftsmans-page .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .craftsmans-page .ref-item {
+                padding: 14px 0;
+                border-bottom: 1px solid var(--border);
+            }
+            .craftsmans-page .ref-item:last-child {
+                border-bottom: none;
+            }
+            .craftsmans-page .ref-item .ref-title {
+                display: block;
+                color: var(--text);
+                margin-bottom: 6px;
+                font-size: 1rem;
+            }
+            .craftsmans-page .ref-item .ref-url {
+                display: block;
+                color: var(--accent);
+                font-size: 1rem;
+                word-break: break-all;
+                text-decoration: none;
+            }
+            .craftsmans-page .ref-item .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            .craftsmans-page .footer {
+                padding: 44px 0 10px;
+                color: var(--text-dim);
+                font-size: 1rem;
+                max-width: none;
+            }
+
+            @media (max-width: 900px) {
+                .craftsmans-page .sidebar {
+                    position: static;
+                    width: 100%;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                }
+                .craftsmans-page .content {
+                    margin-left: 0;
+                    padding: 36px 20px 90px;
+                }
+                .craftsmans-page .hero h1 {
+                    font-size: 1.7rem;
+                }
+            }
+        
+/* App chrome and shared stylesheet compensation. Original geometry stays above. */
+.craftsmans-page { min-height: 100vh; width: 100%; }
+.craftsmans-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); height: calc(100vh - 60px - var(--disclaimer-height, 0px)); }
+.craftsmans-page main.content { min-width: 0; max-width: none; }
+.craftsmans-page .hero { min-height: 0; display: block; overflow: visible; padding-top: 0; }
+.craftsmans-page .hero::after { content: none; }
+.craftsmans-page .hero h1 { font-family: inherit; font-weight: 700; }
+.craftsmans-page section + section { border-top: none; }
+.craftsmans-page section, .craftsmans-page .hero { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.craftsmans-page .prose ul { list-style-type: disc; }
+.craftsmans-page .prose ol { list-style-type: decimal; }
+.craftsmans-page .prose .ref-list { list-style: none; padding: 0; margin: 0; }
+.craftsmans-page th, .craftsmans-page td { font-family: inherit; font-size: 1rem; letter-spacing: normal; line-height: inherit; }
+.craftsmans-page td { color: var(--text); }
+.craftsmans-page td strong { color: var(--text); font-weight: 700; }
+.craftsmans-page thead tr { background: transparent; border-bottom: none; }
+.craftsmans-page tr:hover td { background: transparent; }
+.craftsmans-page .callout { font-size: inherit; line-height: inherit; }
+.craftsmans-page .callout p + p { margin-top: 0; }
+.craftsmans-page :not(pre) > code { white-space: normal; overflow-wrap: break-word; }
+.craftsmans-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; }
+.craftsmans-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.craftsmans-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.craftsmans-page .mermaid-wrapper foreignObject p, .craftsmans-page .mermaid-wrapper foreignObject span, .craftsmans-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; word-break: break-word !important; }
+.craftsmans-page .mermaid-wrapper .edgeLabels rect, .craftsmans-page .mermaid-wrapper .edgeLabel rect { fill: #0d1b2e !important; stroke: none !important; }
+.craftsmans-page .mermaid-wrapper .edgeLabel, .craftsmans-page .mermaid-wrapper .edgeLabel span, .craftsmans-page .mermaid-wrapper .edgeLabel p, .craftsmans-page .mermaid-wrapper .edgeLabel text, .craftsmans-page .mermaid-wrapper .edgeLabels .label { background-color: #0d1b2e !important; color: #e6edf7 !important; fill: #e6edf7 !important; }
+.craftsmans-page * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.craftsmans-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.craftsmans-page *::-webkit-scrollbar-track { background: transparent; }
+.craftsmans-page *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.craftsmans-page .toc-toggle { display: none; }
+@media (max-width: 900px) {
+ .craftsmans-page .sidebar { top: auto; height: auto; }
+ .craftsmans-page .toc-toggle { display: block; width: 100%; padding: 12px; color: var(--text); background: var(--surface); border: 1px solid var(--border); text-align: left; cursor: pointer; }
+ .craftsmans-page .sidebar ul { display: none; }
+ .craftsmans-page .sidebar.open ul { display: block; }
+}
+
+/* Preserve inherited source styles even when other route styles remain loaded. */
+body:has(.craftsmans-page)::before, body:has(.craftsmans-page)::after { content: none !important; }
+.craftsmans-page h1, .craftsmans-page h2, .craftsmans-page h3, .craftsmans-page h4 { font-family: inherit; }
+.craftsmans-page .hero h1 { color: var(--text); }
+.craftsmans-page .section h2 .step-num { background: none; border: none; border-radius: 0; display: inline; width: auto; height: auto; font-family: inherit; font-size: inherit; line-height: inherit; }
+.craftsmans-page .prose p, .craftsmans-page .prose ul, .craftsmans-page .prose ol, .craftsmans-page .prose li { color: inherit; }
+.craftsmans-page .prose .ref-list { margin: 0 0 18px; padding-left: 1.5em; }
+.craftsmans-page strong { color: inherit; font-weight: 700; }
+.craftsmans-page table { color: var(--text); }
+.craftsmans-page th { text-transform: none; }
+.craftsmans-page .ref-item .ref-title { font-weight: 400; }
+.craftsmans-page .ref-item .ref-url { font-family: inherit; }
+
+/* More specific table rules protect against retained .prose table/th/td styles. */
+.craftsmans-page .prose table { min-width: 520px; font-size: 1rem; }
+.craftsmans-page .prose th, .craftsmans-page .prose td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-family: inherit; font-size: 1rem; letter-spacing: normal; line-height: inherit; text-transform: none; }
+.craftsmans-page .prose th { background: var(--surface-2); color: var(--accent); }
+.craftsmans-page .prose td { color: var(--text); }
+.craftsmans-page .prose tr:last-child td { border-bottom: none; }
+.craftsmans-page .prose tr:hover td { background: transparent; }
+/* A block wrapper keeps wide SVGs reachable from the horizontal scroll origin. */
+.craftsmans-page .mermaid-wrapper { display: block; }
