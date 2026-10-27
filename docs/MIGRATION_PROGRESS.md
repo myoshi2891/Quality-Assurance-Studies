@@ -9,6 +9,12 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-10-27: SbEのMermaid黒塗り修正
+
+- `/specification-by-example-guide`で共有Mermaidのダーク設定にある`mainBkg: #0f2040`が残り、暗い文字と重なっていた問題を修正。ページ側で`mainBkg`・`nodeBorder`・`clusterBkg`・`titleColor`・`edgeLabelBackground`を原本のライト配色へ明示上書き。共有コンポーネントは変更していない。
+- 前回のブラウザー検証は共有初期化の`themeVariables`を省略していたため検知できなかった。`components/Mermaid.tsx`の実際の初期化設定を読み、全6図×2幅で原本SVGと配色を比較するよう強化。濃紺ノードで失敗するRedを確認・先行コミットしてから修正。
+- ページ対象446件とMermaid契約を含む619件、Chromium22件、全体7067件（142ファイル）、lint、対象型検査が成功。ビルドは実施していない。追加のページ設定回帰テストで、共有ダーク色の上書き漏れを防止。
+
 ## 2026-10-27: Specification by Example実践ガイドの移行
 
 - 移行先は`/specification-by-example-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を109ルートへ同期。
@@ -16,7 +22,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 原本CSS87ルールと900px条件、紙色配色・セリフ体見出し・固定目次・モバイルバー・罫線・コード構文色・図キャプション・参考文献カードを保持。共有/残留CSSによる本文色、表、コード余白、注記、リスト、フッターの干渉を補正。原本のWebフォント指定も継続し、ビルド時の外部取得は追加していない。
 - 6図のラベル・接続・配色と左右スクロールを原本SVGと比較。Gherkinは原本指定highlight.js 11.10.0のトークンを固定化し、改行・空行・字下げ・キーワード/文字列の構文色をJSXで再現。ランタイムのhighlight.jsや追加依存は不要。
 - チェック全8項目のクリック・Enter・Space・アイコン・取消線・完了数・保存・再読込・不正データ・保存拒否を検証。階層目次の開閉・Escape・フォーカス復帰・全18アンカー追従とObserver解除、子見出し追従中の親章強調も検証。
-- npm経由で対象445件、関連691件、全体7066件（142ファイル）、ビルド・サーバー不要のChromium22件（4幅×CSS2順序、2幅×6図、2幅×コード/チェック表示）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
+- npm経由で対象446件、関連692件、全体7067件（142ファイル）、ビルド・サーバー不要のChromium22件（4幅×CSS2順序、2幅×6図、2幅×コード/チェック表示）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
 - Red先行、CSS、図、Gherkin、チェック保存、実践7ステップ、各本文カテゴリー、目次、ページ構成、ナビ登録、原本アーカイブ、デザイン補正、最終整理、仕様書同期を分割コミット。各コミット直前にPII検査。
 - 原本HTML・Markdownを`archive/html-archive/books/Specification-by-example-guide.html`・`archive/md-archive/books/Specification-by-example-guide.md`へ同名で移動。Gitのrename検出100%、SHA-256一致、Git追跡を確認。書籍HTML/MDの残存2ペアはCraftsmanとSbEの移行により解消。
 
@@ -35,9 +41,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync Specification by Example migration and validation status` |
+| 最新コミット内容 | `chore(docs): record SbE Mermaid color regression fix` |
 | 次の作業 | `/specification-by-example-guide`の目視確認はユーザー担当。本番ビルドは指示により未実施。 |
-| ビルド状態 | npm経由で対象445件・関連691件・全体7066件（142ファイル）・Chromium22件・lint・対象型検査成功。本番ビルド未実施。 |
+| ビルド状態 | npm経由で対象446件・関連692件・全体7067件（142ファイル）・Chromium22件・lint・対象型検査成功。本番ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1630,8 +1636,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 109 ルート（ガイドライブラリ index + 108 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト7066件すべて成功（142ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
-- 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象445件・関連691件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
+- 全体テスト7067件すべて成功（142ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
+- 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
 - 新規追加「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。保留中の作業（ユーザー担当）:

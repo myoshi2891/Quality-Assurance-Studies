@@ -4,6 +4,12 @@ Updated 2026-10-27
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-10-27: SbEのMermaid黒塗り修正
+
+- `/specification-by-example-guide`で共有Mermaidのダーク設定にある`mainBkg: #0f2040`が残り、暗い文字と重なっていた問題を修正。ページ側で`mainBkg`・`nodeBorder`・`clusterBkg`・`titleColor`・`edgeLabelBackground`を原本のライト配色へ明示上書き。共有コンポーネントは変更していない。
+- 前回のブラウザー検証は共有初期化の`themeVariables`を省略していたため検知できなかった。`components/Mermaid.tsx`の実際の初期化設定を読み、全6図×2幅で原本SVGと配色を比較するよう強化。濃紺ノードで失敗するRedを確認・先行コミットしてから修正。
+- ページ対象446件とMermaid契約を含む619件、Chromium22件、全体7067件（142ファイル）、lint、対象型検査が成功。ビルドは実施していない。追加のページ設定回帰テストで、共有ダーク色の上書き漏れを防止。
+
 ## 2026-10-27: Specification by Example実践ガイドの移行
 
 - 移行先は`/specification-by-example-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を109ルートへ同期。
@@ -11,7 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 原本CSS87ルールと900px条件、紙色配色・セリフ体見出し・固定目次・モバイルバー・罫線・コード構文色・図キャプション・参考文献カードを保持。共有/残留CSSによる本文色、表、コード余白、注記、リスト、フッターの干渉を補正。原本のWebフォント指定も継続し、ビルド時の外部取得は追加していない。
 - 6図のラベル・接続・配色と左右スクロールを原本SVGと比較。Gherkinは原本指定highlight.js 11.10.0のトークンを固定化し、改行・空行・字下げ・キーワード/文字列の構文色をJSXで再現。ランタイムのhighlight.jsや追加依存は不要。
 - チェック全8項目のクリック・Enter・Space・アイコン・取消線・完了数・保存・再読込・不正データ・保存拒否を検証。階層目次の開閉・Escape・フォーカス復帰・全18アンカー追従とObserver解除、子見出し追従中の親章強調も検証。
-- npm経由で対象445件、関連691件、全体7066件（142ファイル）、ビルド・サーバー不要のChromium22件（4幅×CSS2順序、2幅×6図、2幅×コード/チェック表示）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
+- npm経由で対象446件、関連692件、全体7067件（142ファイル）、ビルド・サーバー不要のChromium22件（4幅×CSS2順序、2幅×6図、2幅×コード/チェック表示）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
 - Red先行、CSS、図、Gherkin、チェック保存、実践7ステップ、各本文カテゴリー、目次、ページ構成、ナビ登録、原本アーカイブ、デザイン補正、最終整理、仕様書同期を分割コミット。各コミット直前にPII検査。
 - 原本HTML・Markdownを`archive/html-archive/books/Specification-by-example-guide.html`・`archive/md-archive/books/Specification-by-example-guide.md`へ同名で移動。Gitのrename検出100%、SHA-256一致、Git追跡を確認。書籍HTML/MDの残存2ペアはCraftsmanとSbEの移行により解消。
 
@@ -59,7 +65,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 142 ファイル・7066 tests)
+bun test             # ユニットテスト (bun test 全体, 142 ファイル・7067 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -550,7 +556,7 @@ Next.js App Router 構成:
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
 - `app/working-effectively-with-legacy-code-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`SourceCode.tsx`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Introduction.tsx` / `Foundations.tsx` / `FiveSteps.tsx` / `Techniques.tsx` / `Practice.tsx`。紙色テーマと原本照合283件。
 - `app/testing-computer-software-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Book.tsx` / `Fundamentals.tsx` / `Strategies.tsx` / `Management.tsx` / `Practice.tsx` / `References.tsx`。原本照合295件・CSS88ルール・9図・チェック10項目。
-- `app/specification-by-example-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section12.tsx`、`Practice01.tsx`〜`Practice07.tsx`、`NavBar.tsx` / `toc.ts`、`Checklist.tsx` / `checklist-items.ts`、`CodeExample.tsx`、`Diagram.tsx` / `diagrams.ts`。原本445件・Chromium22件。
+- `app/specification-by-example-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section12.tsx`、`Practice01.tsx`〜`Practice07.tsx`、`NavBar.tsx` / `toc.ts`、`Checklist.tsx` / `checklist-items.ts`、`CodeExample.tsx`、`Diagram.tsx` / `diagrams.ts`。原本446件・Chromium22件。
 - `app/software-testing-craftsmans-approach-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section15.tsx`、`NavBar.tsx`、`toc.ts`、`Diagram.tsx`、`diagrams.ts`。原本照合259件とChromium30件。
 - `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 109 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
