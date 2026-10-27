@@ -1,0 +1,114 @@
+
+.off-page{
+  --bg:#07111e; --bg-card:#0d1c30; --bg-card2:#12263f; --border:#1e3552;
+  --accent:#7c9eff; --accent2:#6fe09a; --warn:#e0a458;
+  --text:#e6eefc; --text-dim:#c7d6ec; --text-faint:#9cb0cf;
+  --sidebar-w:296px;
+}
+.off-page *{box-sizing:border-box}
+.off-page{scroll-behavior:smooth;overflow-x:hidden}
+.off-page{margin:0;background:var(--bg);color:var(--text);overflow-x:hidden;
+  font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+  font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
+.off-page .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);overflow-y:auto;
+  background:#0a1626;border-right:1px solid var(--border);padding:24px 16px 40px;z-index:50}
+.off-page .sidebar-title{font-weight:800;font-size:15px;color:#fff;line-height:1.5;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.off-page .sidebar-title span{display:block;font-weight:500;font-size:12.5px;color:var(--text-faint)}
+.off-page .nav-list, .off-page .nav-list ul{list-style:none;margin:0;padding:0}
+.off-page .nav-list a{display:block;color:var(--text-dim);text-decoration:none;font-size:13.5px;line-height:1.5;padding:6px 10px;border-radius:6px;border-left:2px solid transparent}
+.off-page .nav-list a:hover{background:#12263f;color:#fff}
+.off-page .nav-list a.active{background:#162f52;color:#fff;border-left-color:var(--accent)}
+.off-page .nav-h3 a{font-size:12.5px;padding-left:22px;color:var(--text-faint)}
+.off-page .nav-toggle{display:none;position:fixed;top:12px;left:12px;z-index:60;background:#12263f;color:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font:600 13px "Noto Sans JP",sans-serif;cursor:pointer}
+.off-page .main{margin-left:var(--sidebar-w);padding:48px 56px 80px}
+.off-page .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0d1c30,#0a1626);border:1px solid var(--border);border-radius:16px;padding:36px 36px 28px;margin-bottom:40px}
+.off-page .hero::before{content:"";position:absolute;top:-120px;right:-120px;width:380px;height:380px;background:radial-gradient(circle,rgba(124,158,255,.28),transparent 65%);pointer-events:none}
+.off-page .eyebrow{display:inline-block;background:rgba(124,158,255,.14);color:var(--accent);border:1px solid rgba(124,158,255,.4);border-radius:999px;padding:3px 14px;font-size:12.5px;font-weight:700;margin-bottom:14px}
+.off-page .hero-title{margin:0 0 22px;font-size:28px;font-weight:800;color:#fff;line-height:1.4;position:relative}
+.off-page .meta-row{display:block;position:relative;border-top:1px solid var(--border)}
+.off-page .meta-item{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--border)}
+.off-page .meta-item:last-child{border-bottom:none}
+.off-page .meta-label{font-size:12px;letter-spacing:.08em;color:var(--text-faint);font-weight:700}
+.off-page .meta-value{font-size:14.5px;color:var(--text)}
+.off-page h2{font-size:25px;font-weight:800;color:#fff;margin:64px 0 18px;padding-bottom:10px;border-bottom:2px solid var(--border);scroll-margin-top:24px;line-height:1.45}
+.off-page h2::before{content:"";display:inline-block;width:6px;height:22px;background:var(--accent);border-radius:3px;margin-right:12px;vertical-align:-3px}
+.off-page h3{font-size:19px;font-weight:700;color:#dbe7ff;margin:38px 0 12px;scroll-margin-top:24px}
+.off-page p, .off-page li{color:var(--text)}
+.off-page a{color:var(--accent)}
+.off-page strong{color:#fff}
+.off-page ul, .off-page ol{padding-left:1.4em}
+.off-page li{margin:4px 0}
+.off-page code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:#12263f;color:#ffd9a0;padding:2px 6px;border-radius:5px;overflow-wrap:break-word;word-break:break-word}
+.off-page pre{background:#050d18;border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow-x:auto;line-height:1.6;margin:16px 0}
+.off-page pre code{background:none;color:#d6e4ff;padding:0;font-size:13.5px;word-break:normal;overflow-wrap:normal}
+.off-page .table-scroll{overflow-x:auto;margin:18px 0;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)}
+.off-page table{border-collapse:collapse;width:100%;font-size:14.5px}
+.off-page th{background:#12263f;color:#fff;text-align:left;font-weight:700;white-space:nowrap}
+.off-page th, .off-page td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.65}
+.off-page tr:last-child td{border-bottom:none}
+.off-page td{color:var(--text)}
+.off-page td a{overflow-wrap:anywhere;word-break:break-all}
+.off-page .callout{border:1px solid var(--border);border-left:4px solid var(--accent);background:var(--bg-card);border-radius:10px;padding:14px 20px;margin:20px 0}
+.off-page .callout p{margin:6px 0}
+.off-page .callout-tip, .off-page .callout-key{border-left-color:var(--accent2);background:#0c2430}
+.off-page .callout-new{border-left-color:var(--accent)}
+.off-page .callout-warn{border-left-color:var(--warn);background:#221b10}
+.off-page .callout-note{border-left-color:#5b7db8}
+.off-page .mermaid-diagram{display:block;overflow-x:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 16px;margin:22px 0}
+.off-page .mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
+.off-page .mermaid-diagram p{color:inherit;margin:0}
+.off-page .page-footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--border);color:var(--text-faint);font-size:13.5px;line-height:1.8}
+@media (max-width:900px){
+  .off-page .sidebar{transform:translateX(-100%);transition:transform .25s}
+  .off-page .sidebar.open{transform:none;box-shadow:0 0 40px rgba(0,0,0,.6)}
+  .off-page .nav-toggle{display:block}
+  .off-page .main{margin-left:0;padding:64px 16px 60px}
+  .off-page .hero{padding:26px 20px 20px}
+  .off-page .hero-title{font-size:23px}
+  .off-page .meta-item{grid-template-columns:1fr;gap:2px}
+  .off-page h2{font-size:21px}
+}
+
+
+/* Keep the original document design inside the application shell. */
+.off-page { min-height: 100vh; width: 100%; }
+.off-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
+.off-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 45; }
+.off-page [id] { scroll-margin-top: calc(84px + var(--disclaimer-height, 0px)); }
+.off-page .main { max-width: none; width: auto; }
+.off-page .hero { min-height: 0; display: block; text-align: start; }
+.off-page .hero::after { content: none; background: none; width: auto; height: auto; position: static; top: auto; right: auto; }
+.off-page .hero-title { background: none; background-clip: border-box; -webkit-text-fill-color: #fff; }
+.off-page h1, .off-page h2, .off-page h3 { font-family: inherit; letter-spacing: normal; }
+.off-page h3::before { content: none; }
+.off-page p { margin: 1em 0; max-width: none; }
+.off-page ul { list-style-type: disc; }
+.off-page ol { list-style-type: decimal; }
+.off-page ul, .off-page ol { margin: 1em 0; }
+.off-page .nav-list, .off-page .nav-list ul { list-style: none; margin: 0; padding: 0; }
+.off-page table { font-family: inherit; color: inherit; margin: 0; border-color: gray; min-width: 0; }
+.off-page th, .off-page td { font-family: inherit; font-size: inherit; letter-spacing: normal; text-transform: none; border: 0; border-bottom: 1px solid var(--border); }
+.off-page td { background: transparent; color: var(--text); }
+.off-page td strong, .off-page .callout strong { color: #fff; }
+.off-page tbody tr:hover td { background: transparent; }
+.off-page .callout { font-size: inherit; line-height: inherit; }
+.off-page .callout p { font-size: inherit; color: var(--text); }
+.off-page .callout p + p { margin-top: 6px; }
+.off-page .page-footer { background: transparent; border-radius: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; font-family: inherit; text-align: start; }
+.off-page code { border: none; white-space: normal; }
+.off-page pre { white-space: pre; font-family: monospace; color: var(--text); font-size: 16px; }
+.off-page pre code { white-space: pre; display: inline; line-height: inherit; }
+.off-page hr { border: 1px inset; color: gray; margin: .5em auto; }
+.off-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
+.off-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.off-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.off-page .mermaid-wrapper foreignObject p, .off-page .mermaid-wrapper foreignObject span, .off-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.5 !important; word-break: break-word !important; }
+.off-page .mermaid-wrapper .edgeLabels rect, .off-page .mermaid-wrapper .edgeLabel rect { fill: #07111e !important; stroke: none !important; }
+.off-page .mermaid-wrapper .edgeLabel, .off-page .mermaid-wrapper .edgeLabel span, .off-page .mermaid-wrapper .edgeLabel p, .off-page .mermaid-wrapper .edgeLabel text { background-color: #07111e !important; color: #e6eefc !important; fill: #e6eefc !important; }
+.off-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.off-page *::-webkit-scrollbar-track { background: transparent !important; }
+.off-page *::-webkit-scrollbar-thumb { background: var(--border) !important; border-radius: 3px; }
+@media (max-width:900px) {
+.off-page .sidebar { visibility: hidden; transition: transform .25s, visibility 0s linear .25s; }
+.off-page .sidebar.open { visibility: visible; transition: transform .25s, visibility 0s; }
+}
