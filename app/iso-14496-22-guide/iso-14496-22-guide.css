@@ -82,6 +82,9 @@
 .off-page h1, .off-page h2, .off-page h3 { font-family: inherit; letter-spacing: normal; }
 .off-page h3::before { content: none; }
 .off-page p { margin: 1em 0; max-width: none; }
+.off-page ul, .off-page ol { color: var(--text); }
+.off-page strong, .off-page td strong, .off-page .callout strong { font-weight: 700; }
+.off-page .sidebar nav { padding: 0; }
 .off-page ul { list-style-type: disc; }
 .off-page ol { list-style-type: decimal; }
 .off-page ul, .off-page ol { margin: 1em 0; }
@@ -98,6 +101,7 @@
 .off-page code { border: none; white-space: normal; }
 .off-page pre { white-space: pre; font-family: monospace; color: var(--text); font-size: 16px; }
 .off-page pre code { white-space: pre; display: inline; line-height: inherit; }
+.off-page th code { white-space: nowrap; }
 .off-page hr { border: 1px inset; color: gray; margin: .5em auto; }
 .off-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
 .off-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
