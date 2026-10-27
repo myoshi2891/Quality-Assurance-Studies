@@ -7,7 +7,7 @@ import inventory from '../../docs/migration-inventory/iso-11179-1-2023-guide.jso
 const href = '/iso-11179-1-2023-guide';
 it('registers the Metadata Registry guide in the ISO category once', () => {
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
-    expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide','/iso-9075-1-guide',href]);
+    expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide','/iso-9075-1-guide',href,'/iso-14496-22-guide']);
 });
 it('registers exactly 110 routes and the original H1 in E2E', () => {
     expect(EXPECTED_PAGE_COUNT).toBe(110); expect(PAGES).toHaveLength(110); expect(NAV_ITEMS).toHaveLength(110);
