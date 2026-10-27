@@ -244,6 +244,29 @@ export default function Section4() { return <>
 
 </tr>
 
+<tr className="odd">
+
+<td>
+<strong>
+{"19770-11"}
+</strong>
+{":2021"}
+</td>
+
+<td>
+{"ITAMシステムの審査・認証を行う機関への要求事項"}
+</td>
+
+<td>
+{"国際規格（第1版 / Edition 1）"}
+</td>
+
+<td>
+{"19770-1に基づくITAMシステムの審査・認証を行う機関への要求事項と指針"}
+</td>
+
+</tr>
+
 </tbody>
 
 </table>
@@ -362,7 +385,7 @@ export default function Section4() { return <>
 <tr className="odd">
 
 <td>
-{"19770-11"}
+{"19770-11（第2版）"}
 </td>
 
 <td>
