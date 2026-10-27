@@ -179,6 +179,29 @@ export default function Section4() { return <>
 
 <td>
 <strong>
+{"19770-6"}
+</strong>
+{":2024"}
+</td>
+
+<td>
+{"ハードウェア識別タグ"}
+</td>
+
+<td>
+{"データ標準"}
+</td>
+
+<td>
+{"ハードウェアを識別・説明するためのデータ形式"}
+</td>
+
+</tr>
+
+<tr className="odd">
+
+<td>
+<strong>
 {"19770-8"}
 </strong>
 {":2020"}
@@ -198,7 +221,7 @@ export default function Section4() { return <>
 
 </tr>
 
-<tr className="odd">
+<tr className="even">
 
 <td>
 <strong>
@@ -252,7 +275,10 @@ export default function Section4() { return <>
 <h3 id="4-2-ファミリーの関係図">
 {"4-2. ファミリーの関係図"}
 </h3>
-<div className="mermaid-diagram" id="mmd-4" role="img" aria-label="図4"><Mermaid chart={DIAGRAMS["mmd-4"]!} /></div>
+<div className="mermaid-diagram" id="mmd-4" role="img" aria-label="19770ファミリー各パートの関係図" aria-describedby="mmd-4-desc"><Mermaid chart={DIAGRAMS["mmd-4"]!} /></div>
+<p id="mmd-4-desc">
+{"19770-5（概要と用語・全体の共通言語）から、19770-1（ITAMシステム要求事項）、19770-2（SWID）、19770-3（ENT）、19770-4（RUM）、19770-8（マッピング指針）の各パートへ矢印が伸びています。さらに、19770-1から19770-2へは「プロセスがデータを活用」する点線、19770-2と19770-3の間は「識別情報を整合」、19770-3と19770-4の間は「権利情報を整合」する双方向の矢印で結ばれています。"}
+</p>
 <h3 id="4-3-今後追加が計画されているパート">
 {"\n                        4-3. 今後追加が計画されているパート\n                    "}
 </h3>
@@ -312,18 +338,6 @@ export default function Section4() { return <>
 <tr className="odd">
 
 <td>
-{"19770-6"}
-</td>
-
-<td>
-{"ハードウェア識別タグ"}
-</td>
-
-</tr>
-
-<tr className="even">
-
-<td>
 {"19770-7"}
 </td>
 
@@ -333,7 +347,7 @@ export default function Section4() { return <>
 
 </tr>
 
-<tr className="odd">
+<tr className="even">
 
 <td>
 {"19770-8の次版"}
@@ -345,7 +359,7 @@ export default function Section4() { return <>
 
 </tr>
 
-<tr className="even">
+<tr className="odd">
 
 <td>
 {"19770-11"}
