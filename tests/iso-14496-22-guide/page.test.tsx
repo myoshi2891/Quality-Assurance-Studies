@@ -1,0 +1,107 @@
+import { afterEach, describe, expect, it, mock } from 'bun:test';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { readFileSync } from 'node:fs';
+import { load } from 'cheerio';
+import { isTag, type AnyNode } from 'domhandler';
+import postcss from 'postcss';
+import mermaid from 'mermaid';
+import inventory from '../../docs/migration-inventory/iso-14496-22-guide.json';
+import { sourceModule } from '../helpers/source-module';
+const base = 'app/iso-14496-22-guide';
+const scope = '.off-page';
+const pageEntry = '../../app/iso-14496-22-guide/page';
+const diagramsEntry = '../../app/iso-14496-22-guide/diagrams';
+const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
+async function page() { return (await import(pageEntry)).default as React.ComponentType; }
+async function html() { return load(renderToStaticMarkup(React.createElement(await page()))); }
+function tree(node: AnyNode | undefined): unknown {
+    if (!node) throw new Error('Missing element');
+    if (node.type === 'text') return norm(node.data) || null;
+    if (!isTag(node)) return null;
+    const attrs = { ...node.attribs }; delete attrs['aria-current']; delete attrs['aria-labelledby'];
+    if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '').replace(/\s+open\b/g, '');
+    if (attrs.class === 'mermaid-diagram') { delete attrs.role; delete attrs['aria-label']; delete attrs['aria-describedby']; return { tag: node.tagName, attrs, children: [] }; }
+    if (node.tagName === 'pre') return { tag: 'pre', attrs, code: load(node).text() };
+    return { tag: node.tagName, attrs, children: node.children.map(tree).filter(x => x !== null) };
+}
+const css = () => postcss.parse(readFileSync(`${base}/iso-14496-22-guide.css`, 'utf8'));
+const scoped = (s: string) => s.split(',').map(s => [':root','html','body'].includes(s.trim()) ? scope : `${scope} ${s.trim()}`).join(', ');
+afterEach(cleanup);
+describe('exact original inventory', () => {
+    for (const [category, group] of Object.entries(inventory.groups)) {
+        it(`${category}: exact ordered count`, async () => expect((await html())(group.selector).length).toBe(group.items.length));
+        group.items.forEach((expected, index) => it(`${category}[${index}]: full text, attributes and nested structure`, async () => {
+            const $ = await html(); expect(tree($(group.selector)[index])).toEqual(expected);
+        }));
+    }
+    for (const development of [false, true]) it(`complete body order after Next.js/SWC development=${development}`, () => {
+        const Page = sourceModule(`${base}/page.tsx`, { development }).default as React.ComponentType;
+        const $ = load(renderToStaticMarkup(<Page />));
+        expect($('main').contents().toArray().map(tree).filter(Boolean)).toEqual(inventory.main);
+    });
+    it('all heading IDs are unique and every TOC anchor resolves exactly once', async () => {
+        const $ = await html(); const ids = $('[id]').map((_, el) => $(el).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
+        $('.sidebar a').each((_, el) => expect($($(el).attr('href')!)).toHaveLength(1));
+    });
+});
+describe('every original CSS declaration', () => {
+    inventory.css.forEach((rule, i) => it(`CSS[${i}] ${rule.media ?? 'desktop'} ${rule.selector}`, () => {
+        const found: unknown[] = []; css().walkRules(r => {
+            if (r.selector === scoped(rule.selector) && (r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params : null) === rule.media)
+                found.push(r.nodes.filter(n => n.type === 'decl').map(d => { const n = d as postcss.Declaration; return [n.prop, n.value, n.important ?? null]; }));
+        }); expect(found).toContainEqual(rule.decls);
+    }));
+    it('scopes every selector, imports the CSS and 800 font and compensates fixed app chrome', () => {
+        css().walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
+        const entry = readFileSync(`${base}/page.tsx`, 'utf8'); expect(entry).toContain("import './iso-14496-22-guide.css'"); expect(entry).toContain("import '../fonts/noto-sans-jp-800.css'");
+        expect(css().toString()).toContain('var(--disclaimer-height, 0px)');
+    });
+});
+describe('all original diagrams', () => {
+    for (const [id, diagram] of Object.entries(inventory.diagrams)) it(`${id}: exact HTML-derived definition and actual Mermaid parser`, async () => {
+        const { DIAGRAMS, MERMAID_CONFIG } = await import(diagramsEntry);
+        expect(DIAGRAMS[id].slice(MERMAID_CONFIG.length).trim()).toBe(diagram.chart);
+        expect(MERMAID_CONFIG).not.toContain("'");
+        const entry: string = 'mermaid/dist/mermaid.esm.mjs'; const real = (await import(entry)).default;
+        expect((await real.parse(DIAGRAMS[id])).diagramType).toBe('flowchart-v2');
+    });
+    it('uses the shared renderer for all ten definitions in order', async () => {
+        const original = mermaid.render; const calls: string[] = [];
+        mermaid.render = mock(async (_id: string, chart: string) => { calls.push(chart); return { svg: '<svg viewBox="0 0 200 100"><text>diagram</text></svg>' }; }) as unknown as typeof mermaid.render;
+        try { const Page = await page(); const result = render(<Page />);
+            await waitFor(() => expect(result.container.querySelectorAll('.mermaid-diagram svg')).toHaveLength(10));
+            const { DIAGRAMS } = await import(diagramsEntry); expect(calls).toEqual(Object.values(DIAGRAMS));
+        } finally { cleanup(); mermaid.render = original; }
+    });
+});
+describe('TOC interactions', () => {
+    it('toggles, closes on anchor, closes on Escape and restores focus', async () => {
+        const entry = '../../app/iso-14496-22-guide/NavBar'; const Nav = (await import(entry)).default;
+        const view = render(<Nav />); const button = view.getByRole('button', { name: '目次を開く' });
+        expect(button.getAttribute('aria-expanded')).toBe('false'); fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true'); expect(view.container.querySelector('.sidebar.open')).not.toBeNull();
+        fireEvent.click(view.container.querySelector('a')!); expect(button.getAttribute('aria-expanded')).toBe('false');
+        fireEvent.click(button); fireEvent.keyDown(document, { key: 'Escape' }); expect(button.getAttribute('aria-expanded')).toBe('false'); expect(document.activeElement).toBe(button);
+    });
+    it('returns focus to the toggle only when a link closes the open TOC', async () => {
+        const entry = '../../app/iso-14496-22-guide/NavBar'; const Nav = (await import(entry)).default;
+        const view = render(<Nav />); const button = view.getByRole('button', { name: '目次を開く' }); const anchor = view.container.querySelector('a')!;
+        anchor.focus(); fireEvent.click(anchor); expect(document.activeElement).toBe(anchor);
+        fireEvent.click(button); anchor.focus(); fireEvent.click(anchor);
+        expect(document.activeElement).toBe(button); expect(button.getAttribute('aria-expanded')).toBe('false');
+    });
+    it('observes all 46 anchors, selects each link and disconnects on unmount', async () => {
+        const previous = globalThis.IntersectionObserver; let callback: IntersectionObserverCallback | undefined; const observed: Element[] = []; const disconnect = mock(() => {});
+        globalThis.IntersectionObserver = class { constructor(cb: IntersectionObserverCallback) { callback = cb; } observe(el: Element) { observed.push(el); } disconnect = disconnect; } as unknown as typeof IntersectionObserver;
+        const targets = document.createElement('div'); targets.innerHTML = inventory.groups.toc.items.map(a => `<h2 id="${a.attrs['data-target']}">target</h2>`).join(''); document.body.appendChild(targets);
+        // 前のテストのリンククリックで残ったハッシュがマウント時の選択として扱われないよう初期化する
+        history.replaceState(null, '', '#');
+        try {
+            const entry = '../../app/iso-14496-22-guide/NavBar'; const Nav = (await import(entry)).default; const view = render(<Nav />);
+            expect(observed.map(el => el.id)).toEqual(inventory.groups.toc.items.map(a => a.attrs['data-target']));
+            for (const target of observed) { act(() => callback!([{ isIntersecting: true, target }] as IntersectionObserverEntry[], {} as IntersectionObserver)); expect(view.container.querySelectorAll('a.active')).toHaveLength(1); expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe('#'+target.id); }
+            view.unmount(); expect(disconnect).toHaveBeenCalledTimes(1);
+        } finally { targets.remove(); globalThis.IntersectionObserver = previous; }
+    });
+});
