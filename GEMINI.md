@@ -4,6 +4,16 @@ Updated 2026-10-27
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-10-27: ISO/IEC 19770-5 IT資産管理の概要と用語ガイドの移行
+
+- 移行先は`/iso-19770-5-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を111ルートへ同期。
+- 全30見出し・階層目次29リンク・19表の全セル・9図・コールアウト8件・外部リンク18件・チェック8項目・メタ情報3件・注記アイコン8件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。原本どおりコードブロックは0件。CSS全86ルールと980px境界を保持。
+- HTML内の実SVGからラベルの明示改行・形状・接続・点線・双方向矢印・配色を抽出し、共有Mermaidで描画。4幅×CSS読込2順序の8件、9図×4幅の36件、チェック完了表示2件で原本と比較。ノード枠線・接続線の色と太さ・ラベル背景・横スクロールも照合。
+- 目次全29アンカーの追従、開閉・背景クリック・Escape・フォーカス復帰・Observer解除を検証。チェック入力・ラベル・行クリックの各操作が一度だけ反転することと、全8項目の完了数・割合・取消線・全解除を確認。SWC開発/本番変換後の全文と構造、Reactの不正DOM警告なしも検証。
+- 原本HTMLは`archive/html-archive/iso/Iso-19770-5-guide.html`、MDは`archive/md-archive/iso/Iso-19770-5-guide.md`へ同名で移動。Gitのrename検出100％・追跡登録とSHA-256一致を確認。
+- Red先行、CSS、図、チェック操作、目次、ヒーロー、導入、Step 1〜8、Q&A、チェック節、参考資料、調査範囲、フッター、ページ構成、登録、デザイン補正、アーカイブ、仕様書を分割コミット。実装・検証・ステージ・コミットを直列化し、ステージ前の空のインデックスと、各コミット直前の予定パス完全一致・PIIを検査。
+- npm経由で対象282件・関連536件・全体7662件（153ファイル）、ビルド・サーバー不要のChromium46件、lint、対象型検査が成功。ビルドは指示により未実施、目視確認はユーザー担当。
+
 ## 2026-10-27: ISO/IEC 14496-22 Open Font Formatガイドの移行
 
 - 移行先は`/iso-14496-22-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を110ルートへ同期。
@@ -279,7 +289,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（110 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（111 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -498,9 +508,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 110 ルート（ガイドライブラリ index + 109 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 111 ルート（ガイドライブラリ index + 110 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 7376件（npm経由の全体テスト・147ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 7662件（npm経由の全体テスト・153ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide` の目視確認をユーザーに依頼する。

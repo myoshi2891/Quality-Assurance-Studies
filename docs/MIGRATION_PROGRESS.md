@@ -5,9 +5,19 @@ Updated 2026-10-27
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 110 ルート = ガイドライブラリ index + 109 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 111 ルート = ガイドライブラリ index + 110 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-10-27: ISO/IEC 19770-5 IT資産管理の概要と用語ガイドの移行
+
+- 移行先は`/iso-19770-5-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を111ルートへ同期。
+- 全30見出し・階層目次29リンク・19表の全セル・9図・コールアウト8件・外部リンク18件・チェック8項目・メタ情報3件・注記アイコン8件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。原本どおりコードブロックは0件。CSS全86ルールと980px境界を保持。
+- HTML内の実SVGからラベルの明示改行・形状・接続・点線・双方向矢印・配色を抽出し、共有Mermaidで描画。4幅×CSS読込2順序の8件、9図×4幅の36件、チェック完了表示2件で原本と比較。ノード枠線・接続線の色と太さ・ラベル背景・横スクロールも照合。
+- 目次全29アンカーの追従、開閉・背景クリック・Escape・フォーカス復帰・Observer解除を検証。チェック入力・ラベル・行クリックの各操作が一度だけ反転することと、全8項目の完了数・割合・取消線・全解除を確認。SWC開発/本番変換後の全文と構造、Reactの不正DOM警告なしも検証。
+- 原本HTMLは`archive/html-archive/iso/Iso-19770-5-guide.html`、MDは`archive/md-archive/iso/Iso-19770-5-guide.md`へ同名で移動。Gitのrename検出100％・追跡登録とSHA-256一致を確認。
+- Red先行、CSS、図、チェック操作、目次、ヒーロー、導入、Step 1〜8、Q&A、チェック節、参考資料、調査範囲、フッター、ページ構成、登録、デザイン補正、アーカイブ、仕様書を分割コミット。実装・検証・ステージ・コミットを直列化し、ステージ前の空のインデックスと、各コミット直前の予定パス完全一致・PIIを検査。
+- npm経由で対象282件・関連536件・全体7662件（153ファイル）、ビルド・サーバー不要のChromium46件、lint、対象型検査が成功。ビルドは指示により未実施、目視確認はユーザー担当。
 
 ## 2026-10-27: ISO/IEC 14496-22 Open Font Formatガイドの移行
 
@@ -50,9 +60,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync Open Font Format migration and verification records` |
-| 次の作業 | `/iso-14496-22-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | npm経由で対象304件・関連554件・全体7376件（147ファイル）・Chromium48件・lint・対象型検査成功。ビルド未実施。 |
+| 最新コミット内容 | `chore(docs): sync ISO 19770-5 migration and verification records` |
+| 次の作業 | `/iso-19770-5-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | npm経由で対象282件・関連536件・全体7662件（153ファイル）・Chromium46件・lint・対象型検査成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1619,6 +1629,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
 | `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
+| `Iso-19770-5-guide.html` | `/iso-19770-5-guide` | ✅ ダーク配色・30見出し・目次29リンク・19表・9図・8注記・外部18リンク・チェック8項目 (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -1644,9 +1655,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 110 ルート（ガイドライブラリ index + 109 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 111 ルート（ガイドライブラリ index + 110 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト7376件すべて成功（147ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
+- 全体テスト7662件すべて成功（153ファイル）。ホーム・メニューの対象64件、ブラウザー12件（4幅）、lint、変更範囲の型検査も成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
