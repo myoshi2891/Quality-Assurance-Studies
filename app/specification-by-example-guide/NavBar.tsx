@@ -61,7 +61,7 @@ export default function NavBar() {
                     {TOC.map((item) => (
                         <li key={item.id}>
                             <a
-                                className={`nav-a${active === item.id ? ' active' : ''}`}
+                                className={`nav-a${active === item.id || item.children.some((child) => child.id === active) ? ' active' : ''}`}
                                 href={`#${item.id}`}
                                 aria-current={active === item.id ? 'location' : undefined}
                                 onClick={() => select(item.id)}
