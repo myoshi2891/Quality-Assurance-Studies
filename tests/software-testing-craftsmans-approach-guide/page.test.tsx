@@ -37,7 +37,7 @@ describe('complete page inventory', () => {
         it(`${category}: exact count including surplus detection`, () => expect(html()(selector)).toHaveLength(group.items.length));
         group.items.forEach((expected, i) => it(`${category}[${i}]: ordered original element`, () => {
             const $ = html(); const n = $(selector)[i];
-            if (category === 'toc') { expect({ href: $(n).attr('href'), text: norm($(n).text()) }).toEqual({ href: expected && 'attrs' in expected ? expected.attrs.href : '', text: expected && 'children' in expected ? expected.children.join('') : '' }); }
+            if (category === 'toc') { expect({ href: $(n).attr('href'), text: norm($(n).text()) }).toEqual({ href: expected && 'attrs' in expected ? (expected.attrs as Record<string, string>).href : '', text: expected && 'children' in expected ? expected.children.join('') : '' }); }
             else expect(tree(n)).toEqual(expected);
         }));
     }
@@ -59,7 +59,7 @@ describe('original design: every CSS rule and declaration', () => {
     }));
     it('imports scoped CSS and compensates fixed app chrome; restores global collisions', () => {
         const css=readFileSync(`${base}/software-testing-craftsmans-approach-guide.css`,'utf8');
-        postcss.parse(css).walkRules(r=>r.selectors.forEach(s=>expect(s.startsWith(scope)).toBe(true)));
+        postcss.parse(css).walkRules(r=>r.selectors.forEach(s=>expect(s.startsWith(scope) || s.startsWith('body:has(.craftsmans-page)')).toBe(true)));
         expect(readFileSync(`${base}/page.tsx`,'utf8')).toContain("import './software-testing-craftsmans-approach-guide.css'");
         for(const text of ['var(--disclaimer-height, 0px)','min-height: 0','display: block','content: none','list-style-type: disc','list-style-type: decimal','foreignObject','edgeLabel','max-width: none','scroll-margin-top']) expect(css).toContain(text);
     });
@@ -80,7 +80,7 @@ describe('TOC interaction and lifecycle', () => {
         globalThis.IntersectionObserver=class { constructor(cb: IntersectionObserverCallback){callback=cb;} observe=observe;disconnect=disconnect; } as unknown as typeof IntersectionObserver;
         try { const result=render(<><Nav/>{inventory.sections.map(s=><section key={s.id} id={s.id}/>)}</>);
             expect(observe.mock.calls.length).toBe(inventory.sections.length);
-            for(const s of inventory.sections){act(()=>callback([{isIntersecting:true,target:document.getElementById(s.id)!} as IntersectionObserverEntry], {} as IntersectionObserver));expect(result.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe(`#${s.id}`);}
+            for(const s of inventory.sections){act(()=>callback([{isIntersecting:true,target:document.getElementById(s.id)!} as unknown as IntersectionObserverEntry], {} as IntersectionObserver));expect(result.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe(`#${s.id}`);}
             result.unmount();expect(disconnect).toHaveBeenCalledTimes(1);
         } finally {globalThis.IntersectionObserver=original;}
     });
