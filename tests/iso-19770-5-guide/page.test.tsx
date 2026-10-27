@@ -125,7 +125,19 @@ describe('review fixes', () => {
             'ITAMを実装するための実践的な指針（Technical Specification）',
         ]);
         const plannedParts = $('#4-3-今後追加が計画されているパート').nextAll('.table-scroll').first().find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
-        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-6', '19770-7', '19770-8の次版', '19770-11']);
+        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-7', '19770-8の次版', '19770-11']);
+        const existingParts = $('#4-1-各パートの役割').next('.table-scroll').find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
+        expect(existingParts).toContain('19770-6:2024');
+    });
+    it('gives mmd-4 a descriptive accessible name and nearby text explaining every relationship', async () => {
+        const $ = await html();
+        const mmd4 = $('#mmd-4');
+        expect(mmd4.attr('aria-label')).toBe('19770ファミリー各パートの関係図');
+        expect(mmd4.attr('aria-describedby')).toBe('mmd-4-desc');
+        const desc = mmd4.next('p#mmd-4-desc');
+        expect(desc).toHaveLength(1);
+        const text = norm(desc.text());
+        for (const part of ['19770-5', '19770-1', '19770-2', '19770-3', '19770-4', '19770-8', 'プロセスがデータを活用', '識別情報を整合', '権利情報を整合']) expect(text).toContain(part);
     });
     it('gives mmd-9 a concise accessible name and nearby text describing all five learning-goal routes', async () => {
         const $ = await html();
