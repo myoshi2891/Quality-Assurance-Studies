@@ -2,8 +2,7 @@ import { afterEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
-import { readFileSync, existsSync } from 'node:fs';
-import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
 import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
@@ -17,6 +16,7 @@ function tree(n: AnyNode | undefined): unknown {
     if (n.type === 'text') return norm(n.data) || null;
     if (!isTag(n)) return null;
     const attrs = { ...n.attribs };
+    if (attrs.style) attrs.style = attrs.style.replace(/\s*([:;])\s*/g, '$1');
     if (attrs.class === 'mermaid') return { diagram: attrs.id };
     if (attrs.class === 'diagram-frame') attrs.class = 'mermaid-wrapper';
     return { tag: n.tagName, attrs, children: n.children.map(tree).filter(x => x !== null) };

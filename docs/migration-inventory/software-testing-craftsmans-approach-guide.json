@@ -5422,7 +5422,7 @@
                 {
                   "tag": "p",
                   "attrs": {
-                    "style": "font-size: 1rem; color: var(--text-dim)"
+                    "style": "font-size:1rem;color:var(--text-dim)"
                   },
                   "children": [
                     "補足：上図のノードラベル内の改行は Mermaid の",
@@ -12351,7 +12351,7 @@
               {
                 "tag": "p",
                 "attrs": {
-                  "style": "font-size: 1rem; color: var(--text-dim)"
+                  "style": "font-size:1rem;color:var(--text-dim)"
                 },
                 "children": [
                   "補足：上図のノードラベル内の改行は Mermaid の",
@@ -18098,7 +18098,7 @@
             {
               "tag": "p",
               "attrs": {
-                "style": "font-size: 1rem; color: var(--text-dim)"
+                "style": "font-size:1rem;color:var(--text-dim)"
               },
               "children": [
                 "補足：上図のノードラベル内の改行は Mermaid の",
