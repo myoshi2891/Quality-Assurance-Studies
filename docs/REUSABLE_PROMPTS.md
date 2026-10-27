@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-25
+最終更新日: 2026-10-27
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -146,7 +146,9 @@
 
 `/testing-computer-software-guide`も`books-practices`へ登録済みです。全18目次リンク・開閉・スクロール追従・キーボード操作を移行し、HTML・MDをアーカイブしました。対象295テストとビルド不要のブラウザー26件で検証しています。
 
-現在の登録は107ルート（2026-10-25）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+`/software-testing-craftsmans-approach-guide`も`books-practices`へ登録済みです。原本の全16目次リンク・モバイル開閉・スクロール追従・Escapeとフォーカス復帰を移行し、HTML・MDをアーカイブしました。対象259テストとビルド不要のChromium30件で検証。サンドボックスではnpmを使用し、目視確認はユーザー担当です。
+
+現在の登録は108ルート（2026-10-27）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 

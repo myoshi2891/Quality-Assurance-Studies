@@ -1,8 +1,18 @@
 # Project Overview
 
-Updated 2026-10-26
+Updated 2026-10-27
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-10-27: Software Testing: A Craftsman’s Approach入門ガイドの移行
+
+- 移行先は`/software-testing-craftsmans-approach-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を108ルートへ同期。
+- 全16セクション・46見出し・目次16リンク・22表の全セル・11図・コールアウト10件・参考文献17件・外部リンク18件・全文DOMを固定インベントリで出現順に照合。通常コードブロックは原本どおり0件。Next.js/SWCの開発・本番変換でも本文構造を検証。
+- 原本CSS全55ルールと900px条件を保持。ダーク配色、固定目次、文字グラデーション、表の余白・罫線・ホバー、ステップ番号と参考文献の書体を再現。共有/残留CSSによる干渉と横長SVGの左端切れを補正。
+- 目次のモバイル開閉・Escape・フォーカス復帰・全16セクション追従とObserver解除を検証。共有Mermaidへ原本順に11図が渡ることと実パーサーを確認。ビルド・サーバー不要のChromium30件で4幅×CSS2順序と2幅×11図のラベル・接続・配色・横スクロール両端を比較。
+- 原本HTML・Markdownを`archive/html-archive/books/Software-testing-craftsmans-approach-guide.html`・`archive/md-archive/books/Software-testing-craftsmans-approach-guide.md`へ同名で保存。SHA-256一致とGit追跡を検証。既存のTesting Computer SoftwareとWEwLCの原本4ファイルにもGit追跡漏れが見つかり、既存ハッシュ検証を通して別コミットで登録。
+- npm経由で対象259件、関連501件、全体6617件（140ファイル）、Chromium30件、lint、対象型検査が成功。全体型検査には既存のテスト等の型エラーが残る。本番ビルド未実施、目視確認はユーザー担当。
+- カテゴリー別コミットを実施。追加デザインRedテストのコミット失敗後にCSS補正を書いた手順違反を報告し、ユーザーの「対応して」を受けて復旧。履歴を書き換えず、コミット済みCSSでRedを再現してテストを先行コミットし、Green補正・仕様書同期を分割。各コミット直前にPII検査。
 
 ## Core Technologies
 
@@ -104,6 +114,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
+- `app/software-testing-craftsmans-approach-guide/page.tsx`（同名CSS、`Section00.tsx`〜`Section15.tsx`、`NavBar.tsx`、`toc.ts`、`Diagram.tsx`、`diagrams.ts`。ダーク配色・16目次リンク・11図・原本照合259件）
 - `app/testing-computer-software-guide/page.tsx`（`NavBar.tsx`・同名CSS・6カテゴリー・紙色テーマ・9図・チェック10項目。HTML/MDは`archive/`へ移動済み）
 
 - `app/working-effectively-with-legacy-code-guide/page.tsx`（紙色テーマ、`NavBar.tsx`、同名CSS、5カテゴリー・11図・8チェック。原本HTML/MDは`archive/`へ移動済み）
@@ -241,7 +252,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（107 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（108 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -445,7 +456,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 2 ペア = 4 ファイル）: `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 1 ペア = 2 ファイル）: `Specification-by-example-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -461,9 +472,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 107 ルート（ガイドライブラリ index + 106 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 108 ルート（ガイドライブラリ index + 107 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（書籍ガイド、`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 6321件（`npm test` 全体・138ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 6617件（`npm test` 全体・140ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide` の目視確認をユーザーに依頼する。
