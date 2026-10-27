@@ -11,7 +11,7 @@ export const MERMAID_CONFIG = `%%{init: {
     "secondaryColor": "#12263f",
     "tertiaryColor": "#12263f",
     "nodeBorder": "#7c9eff",
-    "clusterBkg": "#12263f",
+    "clusterBkg": "#0d1f36",
     "clusterBorder": "#7c9eff",
     "edgeLabelBackground": "#07111e",
     "actorBkg": "#12263f",
