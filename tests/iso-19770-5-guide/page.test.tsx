@@ -22,7 +22,7 @@ function tree(node: AnyNode | undefined): unknown {
     if (!isTag(node)) return null;
     const attrs = { ...node.attribs }; if (attrs.style) attrs.style = attrs.style.replace(/\s+/g, '').replace(/;$/, ''); delete attrs['aria-current']; delete attrs['aria-labelledby'];
     if (attrs.class) attrs.class = attrs.class.replace(/(^|\s)active\b/g, '').trim().replace(/\s+open\b/g, '');
-    if (attrs.class === 'mermaid-diagram') { delete attrs['aria-label']; delete attrs['aria-describedby']; return { tag: node.tagName, attrs, children: [] }; }
+    if (attrs.class === 'mermaid-diagram') { return { tag: node.tagName, attrs, children: [] }; }
     if (node.tagName === 'pre') return { tag: 'pre', attrs, code: load(node).text() };
     return { tag: node.tagName, attrs, children: node.children.map(tree).filter(x => x !== null) };
 }
