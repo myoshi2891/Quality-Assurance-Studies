@@ -153,6 +153,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/beyond-legacy-code-guide', label: 'レガシーコードからの脱却 実践ガイド', description: 'Beyond Legacy Codeの9つのプラクティス、CLEANなコード、TDD、継続的統合と4週間の実践ロードマップ。', category: 'books-practices' },
   { href: '/automating-data-quality-monitoring-guide', label: 'データ品質モニタリング自動化ガイド', description: 'Stanley/Schwartz著に基づく、教師なしMLでデータ品質を自動監視する初学者向け解説。', category: 'books-practices' },
   { href: '/software-testing-craftsmans-approach-guide', label: 'Software Testing: A Craftsman’s Approach 入門ガイド', description: 'Jorgensenの名著で境界値分析・同値分割・パスとデータフロー・高度な評価技法を学ぶ。', category: 'books-practices' },
+  { href: '/specification-by-example-guide', label: 'Specification by Example 実践ガイド', description: '具体例を中心に仕様を協働で定義し、Three Amigos・Gherkin・生きたドキュメントを実践する。', category: 'books-practices' },
   { href: '/quality-is-free-guide', label: 'Quality Is Free 入門ガイド', description: 'Crosbyの品質の4原則・品質コスト・14ステップ改善・成熟度グリッドをソフトウェア開発へ応用。', category: 'books-practices' },
 
   { href: '/iso-29119-1-2022-guide', label: 'ISO 29119-1:2022 ガイド', description: '国際テスト規格ISO/IEC/IEEE 29119-1:2022の一般概念、プロセス階層、リスクベースドテストを初学者向けに体系解説。', category: 'iso' },
