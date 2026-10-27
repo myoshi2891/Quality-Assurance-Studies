@@ -104,7 +104,7 @@ export default function Section5() { return <>
 <p>
 {"\n                        3つを突き合わせれば、「権利は足りているか（過不足）」「使われていないものはないか」を定量的に判断できます。19770-4は、識別情報（19770-2）や権利情報（19770-3）と整合するよう設計されている、と説明されています。\n                    "}
 </p>
-<div className="mermaid-diagram" id="mmd-5" role="img" aria-label="図5"><Mermaid chart={DIAGRAMS["mmd-5"]!} /></div>
+<div className="mermaid-diagram" id="mmd-5" role="img" aria-label="SWID・ENT・RUMの突き合わせによる判定フロー図" aria-describedby="mmd-5-desc"><p id="mmd-5-desc" hidden>{"SWID（何が入っているか）、ENT（何を使ってよいか）、RUM（どれだけ使ったか）の3つのデータを突き合わせてライセンスの過不足を判定し、その結果をコンプライアンスの証明とコスト最適化に活用します。"}</p><Mermaid chart={DIAGRAMS["mmd-5"]!} /></div>
 <h3 id="swidタグのライフサイクル補足">
 {"SWIDタグのライフサイクル（補足）"}
 </h3>
@@ -206,7 +206,7 @@ export default function Section5() { return <>
 </table>
 
 </div>
-<div className="mermaid-diagram" id="mmd-6" role="img" aria-label="図6"><Mermaid chart={DIAGRAMS["mmd-6"]!} /></div>
+<div className="mermaid-diagram" id="mmd-6" role="img" aria-label="SWIDタグ種別（コーパス・プライマリ・パッチ・サプリメンタル）の関係図" aria-describedby="mmd-6-desc"><p id="mmd-6-desc" hidden>{"コーパスタグ（配布前）はインストールによってプライマリタグ（インストール済み）になり、更新によってパッチタグ（修正適用）が加わります。サプリメンタルタグ（利用者が情報を追加）からプライマリタグへは、元のタグを変更せずに補足する点線の関係があります。"}</p><Mermaid chart={DIAGRAMS["mmd-6"]!} /></div>
 <div className="callout callout-practice">
 
 <div className="callout-icon">

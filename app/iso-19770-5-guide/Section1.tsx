@@ -210,5 +210,5 @@ export default function Section1() { return <>
 </strong>
 {"を管理する事業活動として説明されます。\n                    "}
 </p>
-<div className="mermaid-diagram" id="mmd-1" role="img" aria-label="図1"><Mermaid chart={DIAGRAMS["mmd-1"]!} /></div>
+<div className="mermaid-diagram" id="mmd-1" role="img" aria-label="IT資産ライフサイクルの流れ図" aria-describedby="mmd-1-desc"><p id="mmd-1-desc" hidden>{"調達（購入・契約）、導入（配備・設定）、運用（利用状況の把握）、保守（更新・パッチ）、廃棄・返却（権利の整理）の順に進みます。廃棄・返却から調達へは、棚卸しの結果を次の調達へ生かす点線の戻り経路があります。"}</p><Mermaid chart={DIAGRAMS["mmd-1"]!} /></div>
 </>; }

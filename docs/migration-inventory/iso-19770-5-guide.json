@@ -5627,7 +5627,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-1",
             "role": "img",
-            "aria-label": "図1"
+            "aria-label": "IT資産ライフサイクルの流れ図",
+            "aria-describedby": "mmd-1-desc"
           },
           "children": []
         },
@@ -5668,7 +5669,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-5",
             "role": "img",
-            "aria-label": "図5"
+            "aria-label": "SWID・ENT・RUMの突き合わせによる判定フロー図",
+            "aria-describedby": "mmd-5-desc"
           },
           "children": []
         },
@@ -5678,7 +5680,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-6",
             "role": "img",
-            "aria-label": "図6"
+            "aria-label": "SWIDタグ種別（コーパス・プライマリ・パッチ・サプリメンタル）の関係図",
+            "aria-describedby": "mmd-6-desc"
           },
           "children": []
         },
@@ -9823,7 +9826,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-1",
             "role": "img",
-            "aria-label": "図1"
+            "aria-label": "IT資産ライフサイクルの流れ図",
+            "aria-describedby": "mmd-1-desc"
           },
           "children": []
         }
@@ -11711,7 +11715,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-5",
             "role": "img",
-            "aria-label": "図5"
+            "aria-label": "SWID・ENT・RUMの突き合わせによる判定フロー図",
+            "aria-describedby": "mmd-5-desc"
           },
           "children": []
         },
@@ -11908,7 +11913,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-6",
             "role": "img",
-            "aria-label": "図6"
+            "aria-label": "SWIDタグ種別（コーパス・プライマリ・パッチ・サプリメンタル）の関係図",
+            "aria-describedby": "mmd-6-desc"
           },
           "children": []
         },
@@ -15584,7 +15590,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-1",
             "role": "img",
-            "aria-label": "図1"
+            "aria-label": "IT資産ライフサイクルの流れ図",
+            "aria-describedby": "mmd-1-desc"
           },
           "children": []
         },
@@ -17448,7 +17455,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-5",
             "role": "img",
-            "aria-label": "図5"
+            "aria-label": "SWID・ENT・RUMの突き合わせによる判定フロー図",
+            "aria-describedby": "mmd-5-desc"
           },
           "children": []
         },
@@ -17645,7 +17653,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-6",
             "role": "img",
-            "aria-label": "図6"
+            "aria-label": "SWIDタグ種別（コーパス・プライマリ・パッチ・サプリメンタル）の関係図",
+            "aria-describedby": "mmd-6-desc"
           },
           "children": []
         },
