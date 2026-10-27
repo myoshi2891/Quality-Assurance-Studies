@@ -1,11 +1,12 @@
 import { afterEach, describe, expect, it, mock } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { act, cleanup, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
 import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
+import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/software-testing-craftsmans-approach-guide.json';
 import { sourceModule } from '../helpers/source-module';
 const base = 'app/software-testing-craftsmans-approach-guide';
@@ -89,5 +90,23 @@ describe('TOC interaction and lifecycle', () => {
         const button=r.getByRole('button'); expect(button.getAttribute('aria-expanded')).toBe('false');
         fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('true');fireEvent.keyDown(document,{key:'Escape'});expect(button.getAttribute('aria-expanded')).toBe('false');expect(document.activeElement).toBe(button);
         fireEvent.click(button);fireEvent.click(r.getByRole('link',{name:'Step 3：境界値分析'}));expect(button.getAttribute('aria-expanded')).toBe('false');expect(r.container.querySelector('a[aria-current="location"]')?.getAttribute('href')).toBe('#step3');
+    });
+});
+
+describe('shared Mermaid renderer wiring', () => {
+    it('passes all eleven themed definitions to the shared renderer in original order', async () => {
+        const original = mermaid.render; const calls: string[] = [];
+        mermaid.render = mock(async (_id: string, chart: string) => {
+            calls.push(chart); return { svg: '<svg viewBox="0 0 200 100"><text>diagram</text></svg>' };
+        }) as unknown as typeof mermaid.render;
+        try {
+            const pageEntry = '../../app/software-testing-craftsmans-approach-guide/page';
+            const diagramsEntry = '../../app/software-testing-craftsmans-approach-guide/diagrams';
+            const Page = (await import(pageEntry)).default;
+            const { DIAGRAMS } = await import(diagramsEntry);
+            const result = render(<Page />);
+            await waitFor(() => expect(result.container.querySelectorAll('.diagram-frame svg')).toHaveLength(11));
+            expect(calls).toEqual(Object.values(DIAGRAMS));
+        } finally { cleanup(); mermaid.render = original; }
     });
 });
