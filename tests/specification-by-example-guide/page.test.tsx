@@ -404,3 +404,16 @@ describe('shared dark initialization isolation', () => {
         });
     });
 });
+
+describe('mobile sidebar keyboard reachability', () => {
+    it('hides the closed off-canvas sidebar from focus and restores it only when open', () => {
+        const visibility: Record<string, string[]> = {};
+        postcss.parse(readFileSync(`${base}/specification-by-example-guide.css`, 'utf8')).walkDecls('visibility', (d) => {
+            const rule = d.parent as postcss.Rule;
+            const media = rule.parent?.type === 'atrule' ? (rule.parent as postcss.AtRule).params : null;
+            if (media === '(max-width: 900px)') (visibility[rule.selector] ??= []).push(d.value);
+        });
+        expect(visibility[`${scope} .sidebar`]).toEqual(['hidden']);
+        expect(visibility[`${scope} .sidebar.open`]).toEqual(['visible']);
+    });
+});
