@@ -348,3 +348,26 @@
  .craftsmans-page .sidebar ul { display: none; }
  .craftsmans-page .sidebar.open ul { display: block; }
 }
+
+/* Preserve inherited source styles even when other route styles remain loaded. */
+body:has(.craftsmans-page)::before, body:has(.craftsmans-page)::after { content: none !important; }
+.craftsmans-page h1, .craftsmans-page h2, .craftsmans-page h3, .craftsmans-page h4 { font-family: inherit; }
+.craftsmans-page .hero h1 { color: var(--text); }
+.craftsmans-page .section h2 .step-num { background: none; border: none; border-radius: 0; display: inline; width: auto; height: auto; font-family: inherit; font-size: inherit; line-height: inherit; }
+.craftsmans-page .prose p, .craftsmans-page .prose ul, .craftsmans-page .prose ol, .craftsmans-page .prose li { color: inherit; }
+.craftsmans-page .prose .ref-list { margin: 0 0 18px; padding-left: 1.5em; }
+.craftsmans-page strong { color: inherit; font-weight: 700; }
+.craftsmans-page table { color: var(--text); }
+.craftsmans-page th { text-transform: none; }
+.craftsmans-page .ref-item .ref-title { font-weight: 400; }
+.craftsmans-page .ref-item .ref-url { font-family: inherit; }
+
+/* More specific table rules protect against retained .prose table/th/td styles. */
+.craftsmans-page .prose table { min-width: 520px; font-size: 1rem; }
+.craftsmans-page .prose th, .craftsmans-page .prose td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-family: inherit; font-size: 1rem; letter-spacing: normal; line-height: inherit; text-transform: none; }
+.craftsmans-page .prose th { background: var(--surface-2); color: var(--accent); }
+.craftsmans-page .prose td { color: var(--text); }
+.craftsmans-page .prose tr:last-child td { border-bottom: none; }
+.craftsmans-page .prose tr:hover td { background: transparent; }
+/* A block wrapper keeps wide SVGs reachable from the horizontal scroll origin. */
+.craftsmans-page .mermaid-wrapper { display: block; }
