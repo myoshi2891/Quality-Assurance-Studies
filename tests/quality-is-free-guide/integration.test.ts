@@ -12,8 +12,8 @@ describe('quality is free registration and source archives', () => {
         expect(books?.items.at(-1)?.href).toBe(href);
         expect(books?.items).toHaveLength(27);
     });
-    it('synchronizes 109 routes and the real chapter heading', () => {
-        expect(EXPECTED_PAGE_COUNT).toBe(109); expect(NAV_ITEMS).toHaveLength(109); expect(PAGES).toHaveLength(109);
+    it('synchronizes 110 routes and the real chapter heading', () => {
+        expect(EXPECTED_PAGE_COUNT).toBe(110); expect(NAV_ITEMS).toHaveLength(110); expect(PAGES).toHaveLength(110);
         const entry = PAGES.filter(p => p.path === href); expect(entry).toHaveLength(1);
         expect(entry[0]?.h1.test('Quality Is Free 入門ガイド 品質はなぜ「タダ」なのか、ソフトウェアエンジニアのための実践ステップ')).toBe(true);
     });
