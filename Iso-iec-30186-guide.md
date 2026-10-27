@@ -617,7 +617,7 @@ A. ISOストア（CHF 159）、BSI、DIN Media、VDEなどの各国窓口で購�
 | # | 内容 | URL |
 |---|---|---|
 | 11 | Asset Dynamics「Digital Twin Maturity Assessments Using ISO/IEC 30186」（アスペクト数や収束の説明に規格との食い違いあり） | <a href="https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments" target="_blank" rel="noopener noreferrer">https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments</a> |
-| 12 | Robert Suansri氏（LinkedIn）の紹介投稿（検索結果のスニペットのみ確認） | <a href="https://www.linkedin.com/in/robert-suansri/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/robert-suansri/</a> |
+| 12 | Robert Suansri氏のLinkedInプロフィール（30186の紹介投稿は検索結果のスニペットのみ確認。投稿自体のURLは未特定） | <a href="https://www.linkedin.com/in/robert-suansri/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/robert-suansri/</a> |
 | 13 | 標準化リポジトリ（ICT Rolling Plan） | <a href="https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment" target="_blank" rel="noopener noreferrer">https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment</a> |
 
 ---
