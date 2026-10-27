@@ -105,3 +105,29 @@ describe('TOC interactions', () => {
         } finally { targets.remove(); globalThis.IntersectionObserver = previous; }
     });
 });
+describe('diagram accessible names and descriptions', () => {
+    const inOrder = (text: string, steps: string[]) => steps.map(s => text.indexOf(s)).every((p, i, a) => p >= 0 && (i === 0 || p > a[i - 1]!));
+    it('gives all ten diagrams a concise aria-label and links each to a non-empty hidden description', async () => {
+        const $ = await html(); const diagrams = $('.mermaid-diagram');
+        expect(diagrams).toHaveLength(10);
+        diagrams.each((_, el) => {
+            const id = $(el).attr('id')!;
+            expect($(el).attr('role')).toBe('img');
+            expect($(el).attr('aria-label')?.trim()).toBeTruthy();
+            expect($(el).attr('aria-describedby')).toBe(`${id}-desc`);
+            const desc = $(el).find(`[id="${id}-desc"]`);
+            expect(desc).toHaveLength(1);
+            expect(desc.attr('hidden')).toBeDefined();
+            expect(norm(desc.text())).not.toBe('');
+        });
+    });
+    it('describes key relationships and steps not stated in nearby text', async () => {
+        const $ = await html();
+        expect(inOrder(norm($('#mmd-1-desc').text()), ['2024-12-20', '2025-02-24', '12週間', '2025-05-20', '2025-10-11', '2026-03-03', '8週間', '2026-04-29', '2026-07-16'])).toBe(true);
+        expect(inOrder(norm($('#mmd-2-desc').text()), ['TrueType', 'PostScript Type 1 / CFF', 'OpenType', 'OFF', 'WOFF / WOFF2'])).toBe(true);
+        expect(inOrder(norm($('#mmd-5-desc').text()), ['Unicode', 'cmap', 'GSUB', 'GPOS', 'hmtx', 'glyf / CFF', 'ラスタライズ', '画面に表示'])).toBe(true);
+        expect(inOrder(norm($('#mmd-6-desc').text()), ['ビットマップ方式', '拡大に弱い', 'レイヤー方式', '拡大に強い', 'SVG方式', 'XML準拠が必須'])).toBe(true);
+        expect(inOrder(norm($('#mmd-8-desc').text()), ['ISO/IEC 14496-22:2026', 'fontTools', 'HarfBuzz / harfrust', 'fontations', 'OS・ブラウザ・アプリ'])).toBe(true);
+        expect(inOrder(norm($('#mmd-9-desc').text()), ['ttx -l', '小文字のみ', '最大65,535グリフ', '大文字を含む', '第5版の拡張形式'])).toBe(true);
+    });
+});

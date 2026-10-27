@@ -16,7 +16,52 @@ const globalConfig = Function(`return (${initialization});`)() as object;
 const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
-const reviewedBody = inventory.originalBody;
+// レビューで更新した 19770-10 の発行状態と mmd-9 のテキスト代替を原本にも反映し、CSS差だけを比較する
+const reviewedBody = ([
+    [
+        `                                <tr class="even">
+                                    <td><strong>19770-8</strong>:2020</td>
+                                    <td>業界プラクティスのマッピング指針</td>
+                                    <td>ガイドライン</td>
+                                    <td>他の業界慣行と19770シリーズを対応づける文書の作り方</td>
+                                </tr>`,
+        `                                <tr class="even">
+                                    <td><strong>19770-8</strong>:2020</td>
+                                    <td>業界プラクティスのマッピング指針</td>
+                                    <td>ガイドライン</td>
+                                    <td>他の業界慣行と19770シリーズを対応づける文書の作り方</td>
+                                </tr>
+                                <tr class="odd">
+                                    <td><strong>19770-10</strong>:2025</td>
+                                    <td>ITAM実装ガイダンス（Guidance for implementing ITAM）</td>
+                                    <td>技術仕様書（TS・第1版 / Edition 1）</td>
+                                    <td>ITAMを実装するための実践的な指針（Technical Specification）</td>
+                                </tr>`,
+    ],
+    [
+        `                                <tr class="even">
+                                    <td>19770-10</td>
+                                    <td>
+                                        19770-1とMSS（マネジメントシステム規格）のガイダンス（技術報告書の可能性）
+                                    </td>
+                                </tr>
+                                <tr class="odd">
+                                    <td>19770-11</td>
+                                    <td>ITAMシステムの審査・認証を行う機関への要求事項</td>
+                                </tr>`,
+        `                                <tr class="even">
+                                    <td>19770-11</td>
+                                    <td>ITAMシステムの審査・認証を行う機関への要求事項</td>
+                                </tr>`,
+    ],
+    [
+        `                    <h3 id="8-2-初学者向け5ステップ学習プラン">`,
+        `                    <p id="mmd-9-desc">「何を知りたいですか？」という問いから、5つの目的ごとに読む規格へ進みます。まず全体を知りたい場合は全体像と用語（19770-5を読む）、運用体制・認証は組織の仕組みを作る（19770-1を読む）、インストール状況はソフトの識別データ（19770-2とNISTIR 8060）、ライセンス条件はライセンス権利のデータ（19770-3を読む）、利用量の測定は利用実績の計測データ（19770-4を読む）へ進みます。</p>\n                    <h3 id="8-2-初学者向け5ステップ学習プラン">`,
+    ],
+] as const).reduce((body, [from, to]) => {
+    if (body.split(from).length !== 2) throw new Error(`Missing or ambiguous reviewed source text: ${from}`);
+    return body.replace(from, to);
+}, inventory.originalBody);
 const selectors = ['.main','main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hero-meta .m','.hero-meta .k','.hero-meta .v','h2','h3','main p','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.callout-icon','.callout-body','.page-footer','.brand','.brand .dot','.brand span','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','.scrim','main code','.checklist-card','.checklist-progress','.cp-label','.cp-bar','.cp-fill','.cp-count','.checklist label','.checklist input'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,980,981,1440]) {

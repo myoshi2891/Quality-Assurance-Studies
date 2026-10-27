@@ -112,3 +112,41 @@ it('closes the mobile scrim and returns focus without leaving the overlay open',
     fireEvent.click(toggle); expect(view.container.querySelector('.scrim.show')).not.toBeNull();
     fireEvent.click(view.container.querySelector('.scrim')!); expect(toggle.getAttribute('aria-expanded')).toBe('false'); expect(view.container.querySelector('.scrim.show')).toBeNull(); expect(document.activeElement).toBe(toggle);
 });
+
+describe('review fixes', () => {
+    const inOrder = (text: string, steps: string[]) => steps.map(s => text.indexOf(s)).every((p, i, a) => p >= 0 && (i === 0 || p > a[i - 1]!));
+    it('lists 19770-10:2025 in the existing parts table with published title, Edition 1 and Technical Specification status, and removes it from planned parts', async () => {
+        const $ = await html();
+        const lastExistingRow = $('#4-1-各パートの役割').next('.table-scroll').find('tbody tr').last().find('td').map((_, td) => norm($(td).text())).get();
+        expect(lastExistingRow).toEqual([
+            '19770-10:2025',
+            'ITAM実装ガイダンス（Guidance for implementing ITAM）',
+            '技術仕様書（TS・第1版 / Edition 1）',
+            'ITAMを実装するための実践的な指針（Technical Specification）',
+        ]);
+        const plannedParts = $('#4-3-今後追加が計画されているパート').nextAll('.table-scroll').first().find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
+        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-6', '19770-7', '19770-8の次版', '19770-11']);
+    });
+    it('gives mmd-9 a concise accessible name and nearby text describing all five learning-goal routes', async () => {
+        const $ = await html();
+        const mmd9 = $('#mmd-9');
+        expect(mmd9.attr('aria-label')).toBe('学びたい目的から次に読む規格への対応フロー図');
+        expect(mmd9.attr('aria-describedby')).toBe('mmd-9-desc');
+        const desc = mmd9.next('p#mmd-9-desc');
+        expect(desc).toHaveLength(1);
+        const text = norm(desc.text());
+        expect(inOrder(text, [
+            '何を知りたいですか？',
+            'まず全体を知りたい',
+            '19770-5',
+            '運用体制・認証',
+            '19770-1',
+            'インストール状況',
+            '19770-2とNISTIR 8060',
+            'ライセンス条件',
+            '19770-3',
+            '利用量の測定',
+            '19770-4',
+        ])).toBe(true);
+    });
+});

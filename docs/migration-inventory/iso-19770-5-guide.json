@@ -2094,6 +2094,49 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
+                            "19770-10"
+                          ]
+                        },
+                        ":2025"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "ITAM実装ガイダンス（Guidance for implementing ITAM）"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "技術仕様書（TS・第1版 / Edition 1）"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "ITAMを実装するための実践的な指針（Technical Specification）"
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -2249,28 +2292,6 @@
                   "tag": "tr",
                   "attrs": {
                     "class": "even"
-                  },
-                  "children": [
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "19770-10"
-                      ]
-                    },
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "19770-1とMSS（マネジメントシステム規格）のガイダンス（技術報告書の可能性）"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "tag": "tr",
-                  "attrs": {
-                    "class": "odd"
                   },
                   "children": [
                     {
@@ -5665,7 +5686,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-9",
             "role": "img",
-            "aria-label": "図9"
+            "aria-label": "学びたい目的から次に読む規格への対応フロー図",
+            "aria-describedby": "mmd-9-desc"
           },
           "children": []
         }
@@ -11110,6 +11132,49 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "tag": "tr",
+                      "attrs": {
+                        "class": "odd"
+                      },
+                      "children": [
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                "19770-10"
+                              ]
+                            },
+                            ":2025"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ITAM実装ガイダンス（Guidance for implementing ITAM）"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "技術仕様書（TS・第1版 / Edition 1）"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ITAMを実装するための実践的な指針（Technical Specification）"
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -11363,28 +11428,6 @@
                       "tag": "tr",
                       "attrs": {
                         "class": "even"
-                      },
-                      "children": [
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
-                            "19770-10"
-                          ]
-                        },
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
-                            "19770-1とMSS（マネジメントシステム規格）のガイダンス（技術報告書の可能性）"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "tag": "tr",
-                      "attrs": {
-                        "class": "odd"
                       },
                       "children": [
                         {
@@ -12659,9 +12702,19 @@
             "class": "mermaid-diagram",
             "id": "mmd-9",
             "role": "img",
-            "aria-label": "図9"
+            "aria-label": "学びたい目的から次に読む規格への対応フロー図",
+            "aria-describedby": "mmd-9-desc"
           },
           "children": []
+        },
+        {
+          "tag": "p",
+          "attrs": {
+            "id": "mmd-9-desc"
+          },
+          "children": [
+            "「何を知りたいですか？」という問いから、5つの目的ごとに読む規格へ進みます。まず全体を知りたい場合は全体像と用語（19770-5を読む）、運用体制・認証は組織の仕組みを作る（19770-1を読む）、インストール状況はソフトの識別データ（19770-2とNISTIR 8060）、ライセンス条件はライセンス権利のデータ（19770-3を読む）、利用量の測定は利用実績の計測データ（19770-4を読む）へ進みます。"
+          ]
         },
         {
           "tag": "h3",
@@ -16791,6 +16844,49 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "tag": "tr",
+                      "attrs": {
+                        "class": "odd"
+                      },
+                      "children": [
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
+                                "19770-10"
+                              ]
+                            },
+                            ":2025"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ITAM実装ガイダンス（Guidance for implementing ITAM）"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "技術仕様書（TS・第1版 / Edition 1）"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ITAMを実装するための実践的な指針（Technical Specification）"
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -17044,28 +17140,6 @@
                       "tag": "tr",
                       "attrs": {
                         "class": "even"
-                      },
-                      "children": [
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
-                            "19770-10"
-                          ]
-                        },
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
-                            "19770-1とMSS（マネジメントシステム規格）のガイダンス（技術報告書の可能性）"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "tag": "tr",
-                      "attrs": {
-                        "class": "odd"
                       },
                       "children": [
                         {
@@ -18316,9 +18390,19 @@
             "class": "mermaid-diagram",
             "id": "mmd-9",
             "role": "img",
-            "aria-label": "図9"
+            "aria-label": "学びたい目的から次に読む規格への対応フロー図",
+            "aria-describedby": "mmd-9-desc"
           },
           "children": []
+        },
+        {
+          "tag": "p",
+          "attrs": {
+            "id": "mmd-9-desc"
+          },
+          "children": [
+            "「何を知りたいですか？」という問いから、5つの目的ごとに読む規格へ進みます。まず全体を知りたい場合は全体像と用語（19770-5を読む）、運用体制・認証は組織の仕組みを作る（19770-1を読む）、インストール状況はソフトの識別データ（19770-2とNISTIR 8060）、ライセンス条件はライセンス権利のデータ（19770-3を読む）、利用量の測定は利用実績の計測データ（19770-4を読む）へ進みます。"
+          ]
         },
         {
           "tag": "h3",
