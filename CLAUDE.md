@@ -4,6 +4,15 @@ Updated 2026-10-27
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-10-27: ISO/IEC 14496-22 Open Font Formatガイドの移行
+
+- 移行先は`/iso-14496-22-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を110ルートへ同期。
+- 全47見出し・階層目次46リンク・27表の全セル・10図・コード2例・コールアウト16件・参考リンク22件・ヒーロー・本文・フッターを固定インベントリで出現順に照合。CSS全59ルールと900px境界を保存。
+- 原本HTMLの図の接続・ラベルを優先し、共有Mermaidで描画。4幅×CSS読込2順序の8件と、10図×4幅の40件で、原本の計算済みスタイル・ノード形状・配色・グループ背景・接続・矢印・横スクロールを検証。目次全46アンカーの追従・開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文とコード改行も確認。
+- 原本HTMLは`archive/html-archive/iso/Iso-14496-22-guide.html`、MDは`archive/md-archive/iso/Iso-14496-22-guide.md`へ同名で移動。Git追跡とSHA-256一致を確認。同規格の別原稿`Iso-iec-14496-22-2026-beginner-guide.*`は今回の対象外。
+- Red先行とカテゴリー別コミットを実施。用語集と目次の混在コミットはユーザー承認を得て分割修復し、修復前後のGitツリー一致を確認。以後はステージ操作を直列化し、各コミット直前に予定パスの完全一致とPIIを検査。
+- npm経由で対象304件・関連554件・全体7376件（147ファイル）、ビルド・サーバー不要のChromium48件、lint、対象型検査が成功。ビルドは指示により未実施、目視確認はユーザー担当。全体型検査は他ページのテスト等のエラーで失敗し、今回の移行ファイルには型診断なし。
+
 ## 2026-10-27: SbEのMermaid黒塗り修正
 
 - `/specification-by-example-guide`で共有Mermaidのダーク設定にある`mainBkg: #0f2040`が残り、暗い文字と重なっていた問題を修正。ページ側で`mainBkg`・`nodeBorder`・`clusterBkg`・`titleColor`・`edgeLabelBackground`を原本のライト配色へ明示上書き。共有コンポーネントは変更していない。
@@ -65,14 +74,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 142 ファイル・7067 tests)
+bun test             # ユニットテスト (bun test 全体, 147 ファイル・7376 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 109 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 110 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -549,6 +558,7 @@ Next.js App Router 構成:
 - `tests/beyond-legacy-code-guide/page.test.tsx` — 501テスト。本文全文・DOM順序・全表セル・図構文と配置・CSS全宣言・目次動作・原本ハッシュを照合
 - `docs/migration-inventory/beyond-legacy-code-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
 - `app/iso-29119-1-2022-guide/page.tsx` — ISO/IEC/IEEE 29119-1:2022 完全解説ガイド（新設カテゴリ「ISO 国際規格」）
+- `app/iso-14496-22-guide/page.tsx` / `iso-14496-22-guide.css` — OFFガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section14.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次、`diagrams.ts`で10図を管理。
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
 - `app/iso-29119-1-2022-guide/NavBar.tsx` — 階層目次69リンク、`scroll` イベント + `getBoundingClientRect()` によるアクティブ節追従、モバイルトグル対応のスティッキー目次
 - `app/iso-29119-1-2022-guide/diagrams.ts` — 元19図のソースとMermaid構文設定
@@ -558,7 +568,7 @@ Next.js App Router 構成:
 - `app/testing-computer-software-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Book.tsx` / `Fundamentals.tsx` / `Strategies.tsx` / `Management.tsx` / `Practice.tsx` / `References.tsx`。原本照合295件・CSS88ルール・9図・チェック10項目。
 - `app/specification-by-example-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section12.tsx`、`Practice01.tsx`〜`Practice07.tsx`、`NavBar.tsx` / `toc.ts`、`Checklist.tsx` / `checklist-items.ts`、`CodeExample.tsx`、`Diagram.tsx` / `diagrams.ts`。原本446件・Chromium22件。
 - `app/software-testing-craftsmans-approach-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section15.tsx`、`NavBar.tsx`、`toc.ts`、`Diagram.tsx`、`diagrams.ts`。原本照合259件とChromium30件。
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 109 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 110 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -915,6 +925,7 @@ bun test        # ユニットテスト成功
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
 | `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
+| `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -938,7 +949,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 109 ルート（ガイドライブラリ index + 108 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 110 ルート（ガイドライブラリ index + 109 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
