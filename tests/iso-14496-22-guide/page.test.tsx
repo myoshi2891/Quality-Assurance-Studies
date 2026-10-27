@@ -128,6 +128,6 @@ describe('diagram accessible names and descriptions', () => {
         expect(inOrder(norm($('#mmd-5-desc').text()), ['Unicode', 'cmap', 'GSUB', 'GPOS', 'hmtx', 'glyf / CFF', 'ラスタライズ', '画面に表示'])).toBe(true);
         expect(inOrder(norm($('#mmd-6-desc').text()), ['ビットマップ方式', '拡大に弱い', 'レイヤー方式', '拡大に強い', 'SVG方式', 'XML準拠が必須'])).toBe(true);
         expect(inOrder(norm($('#mmd-8-desc').text()), ['ISO/IEC 14496-22:2026', 'fontTools', 'HarfBuzz / harfrust', 'fontations', 'OS・ブラウザ・アプリ'])).toBe(true);
-        expect(inOrder(norm($('#mmd-9-desc').text()), ['ttx -l', '小文字のみ', '最大65,535グリフ', '大文字を含む', '第5版の拡張形式'])).toBe(true);
+        expect(inOrder(norm($('#mmd-9-desc').text()), ['ttx -l', 'MAXP', 'HHEA', 'HMTX', 'VHEA', 'VMTX', 'GLYF', 'LOCA', 'GVAR', '最大65,535グリフ', '第5版の拡張形式'])).toBe(true);
     });
 });
