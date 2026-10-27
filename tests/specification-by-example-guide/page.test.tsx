@@ -362,6 +362,9 @@ describe('navigation lifecycle and controls', () => {
                 expect(
                     r.container.querySelector('a[aria-current="location"]')?.getAttribute('href'),
                 ).toBe('#' + id);
+                if (id.startsWith('s5-')) {
+                    expect(r.container.querySelector('.nav-a[href="#s5"]')?.classList.contains('active')).toBe(true);
+                }
             }
             r.unmount();
             expect(disconnect).toHaveBeenCalledTimes(1);
