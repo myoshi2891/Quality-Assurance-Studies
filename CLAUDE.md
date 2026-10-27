@@ -4,6 +4,17 @@ Updated 2026-10-27
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-10-27: Specification by Example実践ガイドの移行
+
+- 移行先は`/specification-by-example-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を109ルートへ同期。
+- 全11セクション・ヒーロー・フッター、31見出し、階層目次18リンク、7表の全セル、6図、Gherkinコード1例、注記29件、参考文献21件、外部リンク61件、アイコン96件、チェック8項目を固定インベントリで出現順に照合。Next.js/SWCの開発・本番変換でも全文とDOMを検証。
+- 原本CSS87ルールと900px条件、紙色配色・セリフ体見出し・固定目次・モバイルバー・罫線・コード構文色・図キャプション・参考文献カードを保持。共有/残留CSSによる本文色、表、コード余白、注記、リスト、フッターの干渉を補正。原本のWebフォント指定も継続し、ビルド時の外部取得は追加していない。
+- 6図のラベル・接続・配色と左右スクロールを原本SVGと比較。Gherkinは原本指定highlight.js 11.10.0のトークンを固定化し、改行・空行・字下げ・キーワード/文字列の構文色をJSXで再現。ランタイムのhighlight.jsや追加依存は不要。
+- チェック全8項目のクリック・Enter・Space・アイコン・取消線・完了数・保存・再読込・不正データ・保存拒否を検証。階層目次の開閉・Escape・フォーカス復帰・全18アンカー追従とObserver解除、子見出し追従中の親章強調も検証。
+- npm経由で対象445件、関連691件、全体7066件（142ファイル）、ビルド・サーバー不要のChromium22件（4幅×CSS2順序、2幅×6図、2幅×コード/チェック表示）、lint、対象型検査が成功。本番ビルド未実施、目視確認はユーザー担当。全体型検査の既存エラーは従来どおり対象外。
+- Red先行、CSS、図、Gherkin、チェック保存、実践7ステップ、各本文カテゴリー、目次、ページ構成、ナビ登録、原本アーカイブ、デザイン補正、最終整理、仕様書同期を分割コミット。各コミット直前にPII検査。
+- 原本HTML・Markdownを`archive/html-archive/books/Specification-by-example-guide.html`・`archive/md-archive/books/Specification-by-example-guide.md`へ同名で移動。Gitのrename検出100%、SHA-256一致、Git追跡を確認。書籍HTML/MDの残存2ペアはCraftsmanとSbEの移行により解消。
+
 ## 2026-10-27: Software Testing: A Craftsman’s Approach入門ガイドの移行
 
 - 移行先は`/software-testing-craftsmans-approach-guide`。書籍カテゴリーへ登録し、ナビゲーション・E2E一覧を108ルートへ同期。
@@ -48,14 +59,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 140 ファイル・6617 tests)
+bun test             # ユニットテスト (bun test 全体, 142 ファイル・7066 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 108 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 109 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -539,8 +550,9 @@ Next.js App Router 構成:
 - `docs/migration-inventory/iso-29119-1-2022-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
 - `app/working-effectively-with-legacy-code-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`SourceCode.tsx`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Introduction.tsx` / `Foundations.tsx` / `FiveSteps.tsx` / `Techniques.tsx` / `Practice.tsx`。紙色テーマと原本照合283件。
 - `app/testing-computer-software-guide/` — `page.tsx`、同名CSS、`NavBar.tsx`、`toc.ts`、`diagrams.ts`、`Checklist.tsx`、`Hero.tsx`、カテゴリー別`Book.tsx` / `Fundamentals.tsx` / `Strategies.tsx` / `Management.tsx` / `Practice.tsx` / `References.tsx`。原本照合295件・CSS88ルール・9図・チェック10項目。
+- `app/specification-by-example-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section12.tsx`、`Practice01.tsx`〜`Practice07.tsx`、`NavBar.tsx` / `toc.ts`、`Checklist.tsx` / `checklist-items.ts`、`CodeExample.tsx`、`Diagram.tsx` / `diagrams.ts`。原本445件・Chromium22件。
 - `app/software-testing-craftsmans-approach-guide/` — `page.tsx`、同名CSS、`Section00.tsx`〜`Section15.tsx`、`NavBar.tsx`、`toc.ts`、`Diagram.tsx`、`diagrams.ts`。原本照合259件とChromium30件。
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 108 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 109 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -896,6 +908,7 @@ bun test        # ユニットテスト成功
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
+| `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -906,7 +919,6 @@ bun test        # ユニットテスト成功
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 1 ペア = 2 ファイル）: `Specification-by-example-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
@@ -920,8 +932,8 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 108 ルート（ガイドライブラリ index + 107 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（書籍ガイド、`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 109 ルート（ガイドライブラリ index + 108 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:

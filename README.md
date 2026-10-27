@@ -6,11 +6,12 @@
 
 ## 直近の移行検証（2026-10-27）
 
-`/software-testing-craftsmans-approach-guide`を追加。対象259件・関連501件・全体6617件（140ファイル）が成功。原本の16セクション・46見出し・CSS55ルール・11図・22表を照合し、HTML・Markdownを同名でアーカイブしました。Chromium30件で原本スタイル・SVG・スクロール端を比較。lintと対象型検査も成功しています。全体型検査には既存エラーが残ります。サンドボックスではユーザー指定によりnpmを使用し、本番ビルドは行っていません。目視確認はユーザー担当です。
+`/specification-by-example-guide`を追加。対象445件・関連691件・全体7066件（142ファイル）が成功。原本の11セクション・31見出し・CSS87ルール・6図・7表・Gherkin1例・保存チェック8項目を照合し、HTML・Markdownを同名でアーカイブしました。Chromium22件で原本スタイル・SVG・コード・チェック表示を比較。lintと対象型検査も成功しています。全体型検査の既存エラーは従来どおり対象外です。サンドボックスではユーザー指定によりnpmを使用し、本番ビルドは行っていません。目視確認はユーザー担当です。
 
 * `npm test` — ユニットテスト。
 * `npm run lint` — ESLint。
-* `npm exec -- playwright test --config=playwright.craftsman.config.ts` — サーバー・ビルド不要の原本スタイル比較8件と実SVG検証22件。
+* `npm exec -- playwright test --config=playwright.sbe.config.ts` — サーバー・ビルド不要の原本スタイル比較8件・実SVG検証12件・コード/チェック表示2件。
+* `npm exec -- playwright test --config=playwright.craftsman.config.ts` — Craftsmanの原本スタイル比較8件と実SVG検証22件。
 * `npm exec -- playwright test --config=playwright.tcs.config.ts` — Testing Computer Softwareの原本スタイル比較8件と実SVG検証18件。
 * `npm exec -- playwright test --config=playwright.wewlc.config.ts` — Working Effectively with Legacy Codeの原本スタイル比較12件と実SVG検証22件。
 

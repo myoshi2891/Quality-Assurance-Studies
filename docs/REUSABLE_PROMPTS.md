@@ -148,7 +148,9 @@
 
 `/software-testing-craftsmans-approach-guide`も`books-practices`へ登録済みです。原本の全16目次リンク・モバイル開閉・スクロール追従・Escapeとフォーカス復帰を移行し、HTML・MDをアーカイブしました。対象259テストとビルド不要のChromium30件で検証。サンドボックスではnpmを使用し、目視確認はユーザー担当です。
 
-現在の登録は108ルート（2026-10-27）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+`/specification-by-example-guide`も`books-practices`へ登録済みです。階層目次18リンク・モバイル開閉・スクロール追従・Escapeとフォーカス復帰を移行し、保存機能付きチェック8項目とGherkinコードの構文色を保持。HTML・MDは同名でアーカイブ済みです。対象445テストとビルド不要のChromium22件で検証。サンドボックスではnpmを使用し、目視確認はユーザー担当です。
+
+現在の登録は109ルート（2026-10-27）です。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
