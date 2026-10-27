@@ -2066,6 +2066,49 @@
                           "tag": "strong",
                           "attrs": {},
                           "children": [
+                            "19770-6"
+                          ]
+                        },
+                        ":2024"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "ハードウェア識別タグ"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "データ標準"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "ハードウェアを識別・説明するためのデータ形式"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        {
+                          "tag": "strong",
+                          "attrs": {},
+                          "children": [
                             "19770-8"
                           ]
                         },
@@ -2098,7 +2141,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -2232,28 +2275,6 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "19770-6"
-                      ]
-                    },
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "ハードウェア識別タグ"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "tag": "tr",
-                  "attrs": {
-                    "class": "even"
-                  },
-                  "children": [
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
                         "19770-7"
                       ]
                     },
@@ -2269,7 +2290,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "odd"
+                    "class": "even"
                   },
                   "children": [
                     {
@@ -2291,7 +2312,7 @@
                 {
                   "tag": "tr",
                   "attrs": {
-                    "class": "even"
+                    "class": "odd"
                   },
                   "children": [
                     {
@@ -5636,7 +5657,8 @@
             "class": "mermaid-diagram",
             "id": "mmd-4",
             "role": "img",
-            "aria-label": "図4"
+            "aria-label": "19770ファミリー各パートの関係図",
+            "aria-describedby": "mmd-4-desc"
           },
           "children": []
         },
@@ -11104,6 +11126,49 @@
                               "tag": "strong",
                               "attrs": {},
                               "children": [
+                                "19770-6"
+                              ]
+                            },
+                            ":2024"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ハードウェア識別タグ"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "データ標準"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ハードウェアを識別・説明するためのデータ形式"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "attrs": {
+                        "class": "odd"
+                      },
+                      "children": [
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
                                 "19770-8"
                               ]
                             },
@@ -11136,7 +11201,7 @@
                     {
                       "tag": "tr",
                       "attrs": {
-                        "class": "odd"
+                        "class": "even"
                       },
                       "children": [
                         {
@@ -11244,9 +11309,19 @@
             "class": "mermaid-diagram",
             "id": "mmd-4",
             "role": "img",
-            "aria-label": "図4"
+            "aria-label": "19770ファミリー各パートの関係図",
+            "aria-describedby": "mmd-4-desc"
           },
           "children": []
+        },
+        {
+          "tag": "p",
+          "attrs": {
+            "id": "mmd-4-desc"
+          },
+          "children": [
+            "19770-5（概要と用語・全体の共通言語）から、19770-1（ITAMシステム要求事項）、19770-2（SWID）、19770-3（ENT）、19770-4（RUM）、19770-8（マッピング指針）の各パートへ矢印が伸びています。さらに、19770-1から19770-2へは「プロセスがデータを活用」する点線、19770-2と19770-3の間は「識別情報を整合」、19770-3と19770-4の間は「権利情報を整合」する双方向の矢印で結ばれています。"
+          ]
         },
         {
           "tag": "h3",
@@ -11368,28 +11443,6 @@
                           "tag": "td",
                           "attrs": {},
                           "children": [
-                            "19770-6"
-                          ]
-                        },
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
-                            "ハードウェア識別タグ"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "tag": "tr",
-                      "attrs": {
-                        "class": "even"
-                      },
-                      "children": [
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
                             "19770-7"
                           ]
                         },
@@ -11405,7 +11458,7 @@
                     {
                       "tag": "tr",
                       "attrs": {
-                        "class": "odd"
+                        "class": "even"
                       },
                       "children": [
                         {
@@ -11427,7 +11480,7 @@
                     {
                       "tag": "tr",
                       "attrs": {
-                        "class": "even"
+                        "class": "odd"
                       },
                       "children": [
                         {
@@ -16816,6 +16869,49 @@
                               "tag": "strong",
                               "attrs": {},
                               "children": [
+                                "19770-6"
+                              ]
+                            },
+                            ":2024"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ハードウェア識別タグ"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "データ標準"
+                          ]
+                        },
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            "ハードウェアを識別・説明するためのデータ形式"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "tr",
+                      "attrs": {
+                        "class": "odd"
+                      },
+                      "children": [
+                        {
+                          "tag": "td",
+                          "attrs": {},
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "attrs": {},
+                              "children": [
                                 "19770-8"
                               ]
                             },
@@ -16848,7 +16944,7 @@
                     {
                       "tag": "tr",
                       "attrs": {
-                        "class": "odd"
+                        "class": "even"
                       },
                       "children": [
                         {
@@ -16956,9 +17052,19 @@
             "class": "mermaid-diagram",
             "id": "mmd-4",
             "role": "img",
-            "aria-label": "図4"
+            "aria-label": "19770ファミリー各パートの関係図",
+            "aria-describedby": "mmd-4-desc"
           },
           "children": []
+        },
+        {
+          "tag": "p",
+          "attrs": {
+            "id": "mmd-4-desc"
+          },
+          "children": [
+            "19770-5（概要と用語・全体の共通言語）から、19770-1（ITAMシステム要求事項）、19770-2（SWID）、19770-3（ENT）、19770-4（RUM）、19770-8（マッピング指針）の各パートへ矢印が伸びています。さらに、19770-1から19770-2へは「プロセスがデータを活用」する点線、19770-2と19770-3の間は「識別情報を整合」、19770-3と19770-4の間は「権利情報を整合」する双方向の矢印で結ばれています。"
+          ]
         },
         {
           "tag": "h3",
@@ -17080,28 +17186,6 @@
                           "tag": "td",
                           "attrs": {},
                           "children": [
-                            "19770-6"
-                          ]
-                        },
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
-                            "ハードウェア識別タグ"
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "tag": "tr",
-                      "attrs": {
-                        "class": "even"
-                      },
-                      "children": [
-                        {
-                          "tag": "td",
-                          "attrs": {},
-                          "children": [
                             "19770-7"
                           ]
                         },
@@ -17117,7 +17201,7 @@
                     {
                       "tag": "tr",
                       "attrs": {
-                        "class": "odd"
+                        "class": "even"
                       },
                       "children": [
                         {
@@ -17139,7 +17223,7 @@
                     {
                       "tag": "tr",
                       "attrs": {
-                        "class": "even"
+                        "class": "odd"
                       },
                       "children": [
                         {
