@@ -1,0 +1,539 @@
+
+            .itam-page {
+                --bg: #07111e;
+                --bg-2: #0b1a2e;
+                --bg-3: #10243d;
+                --line: #1f3555;
+                --line-2: #2b4670;
+                --text: #e6eefc;
+                --text-dim: #c7d6ec;
+                --text-faint: #9cb0cf;
+                --accent: #7c9eff;
+                --accent-2: #a9bfff;
+                --ok: #5fd3a2;
+                --warn: #f2c35c;
+                --info: #7c9eff;
+                --sidebar-w: 300px;
+                --font:
+                    'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+                --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            }
+            .itam-page * {
+                box-sizing: border-box;
+            }
+            .itam-page {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+                scroll-padding-top: 24px;
+            }
+            .itam-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font);
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
+            .itam-page a {
+                color: var(--accent-2);
+                text-decoration: none;
+                border-bottom: 1px solid rgba(124, 158, 255, 0.35);
+                overflow-wrap: anywhere;
+            }
+            .itam-page a:hover {
+                color: #fff;
+                border-bottom-color: var(--accent);
+            }
+            .itam-page .layout {
+                display: block;
+            }
+            /* sidebar */
+            .itam-page .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: var(--sidebar-w);
+                background: #050d18;
+                border-right: 1px solid var(--line);
+                overflow-y: auto;
+                padding: 24px 14px 40px;
+                z-index: 50;
+            }
+            .itam-page .sidebar .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 0 10px 18px;
+                border-bottom: 1px solid var(--line);
+                margin-bottom: 14px;
+            }
+            .itam-page .sidebar .brand .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: var(--accent);
+                box-shadow: 0 0 12px var(--accent);
+            }
+            .itam-page .sidebar .brand span {
+                font-size: 12px;
+                letter-spacing: 0.08em;
+                color: var(--text-faint);
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+            .itam-page .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .itam-page .sidebar li {
+                margin: 0;
+            }
+            .itam-page .sidebar a {
+                display: block;
+                border: 0;
+                color: var(--text-dim);
+                font-size: 13.5px;
+                line-height: 1.55;
+                padding: 7px 10px;
+                border-radius: 8px;
+                border-left: 2px solid transparent;
+            }
+            .itam-page .sidebar a:hover {
+                background: var(--bg-2);
+                color: #fff;
+            }
+            .itam-page .sidebar a.active {
+                background: rgba(124, 158, 255, 0.14);
+                color: #fff;
+                border-left-color: var(--accent);
+            }
+            .itam-page .sidebar ul ul {
+                margin: 2px 0 6px 12px;
+            }
+            .itam-page .sidebar a.sub {
+                font-size: 12.5px;
+                color: var(--text-faint);
+                padding: 4px 10px;
+            }
+            .itam-page .sidebar a.sub.active {
+                color: #fff;
+            }
+            .itam-page .nav-toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 60;
+                background: var(--bg-3);
+                color: #fff;
+                border: 1px solid var(--line-2);
+                border-radius: 10px;
+                padding: 8px 12px;
+                font: inherit;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            .itam-page .scrim {
+                display: none;
+            }
+            /* main */
+            .itam-page .main {
+                margin-left: var(--sidebar-w);
+                padding: 0 56px 80px;
+            }
+            .itam-page .hero {
+                position: relative;
+                padding: 64px 0 36px;
+                border-bottom: 1px solid var(--line);
+                margin-bottom: 12px;
+                overflow: hidden;
+            }
+            .itam-page .hero::before {
+                content: '';
+                position: absolute;
+                right: -120px;
+                top: -160px;
+                width: 560px;
+                height: 560px;
+                background: radial-gradient(
+                    circle,
+                    rgba(124, 158, 255, 0.22),
+                    rgba(124, 158, 255, 0) 65%
+                );
+                pointer-events: none;
+            }
+            .itam-page .eyebrow {
+                display: inline-block;
+                padding: 5px 14px;
+                border: 1px solid var(--line-2);
+                border-radius: 999px;
+                background: rgba(124, 158, 255, 0.1);
+                color: var(--accent-2);
+                font-size: 12.5px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                margin-bottom: 18px;
+            }
+            .itam-page .hero-title {
+                margin: 0 0 10px;
+                font-size: 28px;
+                line-height: 1.35;
+                font-weight: 800;
+                color: #fff;
+                position: relative;
+            }
+            .itam-page .hero-sub {
+                margin: 0 0 26px;
+                font-size: 17px;
+                color: var(--text-dim);
+                position: relative;
+            }
+            .itam-page .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                position: relative;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: rgba(11, 26, 46, 0.7);
+            }
+            .itam-page .hero-meta .m {
+                padding: 14px 22px;
+                border-right: 1px solid var(--line);
+                min-width: 0;
+                flex: 1 1 200px;
+            }
+            .itam-page .hero-meta .m:last-child {
+                border-right: 0;
+            }
+            .itam-page .hero-meta .k {
+                display: block;
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--text-faint);
+                font-weight: 700;
+            }
+            .itam-page .hero-meta .v {
+                display: block;
+                font-size: 14.5px;
+                color: var(--text);
+                overflow-wrap: anywhere;
+            }
+            .itam-page .hero-note {
+                position: relative;
+                margin-top: 20px;
+            }
+            /* headings */
+            .itam-page .main h2 {
+                font-size: 23px;
+                font-weight: 800;
+                color: #fff;
+                margin: 56px 0 18px;
+                padding: 0 0 12px;
+                border-bottom: 1px solid var(--line);
+                line-height: 1.4;
+            }
+            .itam-page .main h3 {
+                font-size: 18.5px;
+                font-weight: 700;
+                color: var(--accent-2);
+                margin: 34px 0 12px;
+                line-height: 1.5;
+                padding-left: 12px;
+                border-left: 3px solid var(--accent);
+            }
+            .itam-page .main p {
+                margin: 0 0 16px;
+                color: var(--text);
+            }
+            .itam-page .main strong {
+                color: #fff;
+                font-weight: 700;
+            }
+            .itam-page .main ul, .itam-page .main ol {
+                padding-left: 1.4em;
+                margin: 0 0 16px;
+            }
+            .itam-page .main li {
+                margin: 4px 0;
+            }
+            .itam-page .main code:not(pre code) {
+                font-family: var(--mono);
+                font-size: 0.9em;
+                background: var(--bg-3);
+                border: 1px solid var(--line);
+                padding: 1px 6px;
+                border-radius: 6px;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+            /* tables */
+            .itam-page .table-scroll {
+                overflow-x: auto;
+                margin: 0 0 24px;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: var(--bg-2);
+            }
+            .itam-page .main table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+                line-height: 1.7;
+            }
+            .itam-page .main th {
+                background: var(--bg-3);
+                color: #fff;
+                text-align: left;
+                font-weight: 700;
+                padding: 11px 16px;
+                border-bottom: 1px solid var(--line-2);
+                white-space: nowrap;
+            }
+            .itam-page .main td {
+                padding: 11px 16px;
+                border-bottom: 1px solid var(--line);
+                color: var(--text-dim);
+                vertical-align: top;
+            }
+            .itam-page .main tr:last-child td {
+                border-bottom: 0;
+            }
+            .itam-page .main tbody tr:hover td {
+                background: rgba(124, 158, 255, 0.05);
+            }
+            .itam-page .main td strong {
+                color: #fff;
+            }
+            .itam-page .main td a {
+                word-break: break-all;
+            }
+            /* callouts */
+            .itam-page .callout {
+                display: flex;
+                gap: 14px;
+                margin: 0 0 22px;
+                padding: 16px 20px;
+                border: 1px solid var(--line-2);
+                border-left-width: 4px;
+                border-radius: 12px;
+                background: var(--bg-2);
+            }
+            .itam-page .callout-icon {
+                font-size: 20px;
+                line-height: 1.6;
+                flex: 0 0 auto;
+            }
+            .itam-page .callout-body {
+                min-width: 0;
+                flex: 1;
+            }
+            .itam-page .callout-body p:last-child {
+                margin-bottom: 0;
+            }
+            .itam-page .callout-practice {
+                border-left-color: var(--accent);
+                background: rgba(124, 158, 255, 0.08);
+            }
+            .itam-page .callout-warn {
+                border-left-color: var(--warn);
+                background: rgba(242, 195, 92, 0.08);
+            }
+            .itam-page .callout-note {
+                border-left-color: var(--ok);
+                background: rgba(95, 211, 162, 0.07);
+            }
+            .itam-page .hero-note.callout {
+                margin-bottom: 0;
+            }
+            /* mermaid */
+            .itam-page .mermaid-diagram {
+                display: block;
+                overflow-x: auto;
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                padding: 22px 18px;
+                margin: 0 0 26px;
+                background: linear-gradient(180deg, #0a1626, #08121f);
+            }
+            .itam-page .mermaid-diagram svg {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: none;
+                flex-shrink: 0;
+            }
+            .itam-page .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .itam-page .mermaid-diagram foreignObject div, .itam-page .mermaid-diagram foreignObject span, .itam-page .mermaid-diagram foreignObject p {
+                white-space: normal !important;
+            }
+            .itam-page .mermaid-diagram p {
+                color: inherit;
+                margin: 0;
+            }
+            .itam-page .mermaid-diagram .edgeLabel, .itam-page .mermaid-diagram .edgeLabel p, .itam-page .mermaid-diagram .edgeLabel span {
+                color: #dbe7ff !important;
+                background-color: #0b1a2e !important;
+            }
+            .itam-page .mermaid-diagram .edgeLabel rect {
+                fill: #0b1a2e !important;
+                opacity: 1;
+            }
+            .itam-page .mermaid-diagram .nodeLabel, .itam-page .mermaid-diagram .nodeLabel p {
+                margin: 0;
+            }
+            /* checklist */
+            .itam-page .checklist-card {
+                border: 1px solid var(--line-2);
+                border-radius: 14px;
+                background: var(--bg-2);
+                padding: 18px 22px;
+                margin: 0 0 24px;
+            }
+            .itam-page .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 12px;
+            }
+            .itam-page .cp-label {
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                color: var(--text-faint);
+                font-weight: 700;
+            }
+            .itam-page .cp-bar {
+                flex: 1;
+                height: 8px;
+                border-radius: 99px;
+                background: var(--bg-3);
+                overflow: hidden;
+            }
+            .itam-page .cp-fill {
+                height: 100%;
+                background: linear-gradient(90deg, var(--accent), var(--ok));
+                transition: width 0.25s;
+            }
+            .itam-page .cp-count {
+                font-size: 13.5px;
+                color: var(--text-dim);
+                white-space: nowrap;
+            }
+            .itam-page .checklist {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .itam-page .checklist li {
+                padding: 9px 0;
+                border-bottom: 1px dashed var(--line);
+            }
+            .itam-page .checklist li:last-child {
+                border-bottom: 0;
+            }
+            .itam-page .checklist label, .itam-page .checklist li {
+                cursor: pointer;
+            }
+            .itam-page .checklist input {
+                accent-color: var(--accent);
+                width: 17px;
+                height: 17px;
+                vertical-align: -3px;
+                margin-right: 10px;
+            }
+            .itam-page .checklist li.done {
+                color: var(--text-faint);
+                text-decoration: line-through;
+                text-decoration-color: rgba(156, 176, 207, 0.5);
+            }
+            .itam-page .page-footer {
+                margin-top: 64px;
+                padding-top: 22px;
+                border-top: 1px solid var(--line);
+                color: var(--text-faint);
+                font-size: 13.5px;
+            }
+            @media (max-width: 980px) {
+                .itam-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+                }
+                .itam-page .sidebar.open {
+                    transform: none;
+                }
+                .itam-page .nav-toggle {
+                    display: block;
+                }
+                .itam-page .scrim.show {
+                    display: block;
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.55);
+                    z-index: 40;
+                }
+                .itam-page .main {
+                    margin-left: 0;
+                    padding: 0 18px 60px;
+                }
+                .itam-page .hero {
+                    padding-top: 70px;
+                }
+                .itam-page .hero-title {
+                    font-size: 23px;
+                }
+                .itam-page .hero-meta .m {
+                    border-right: 0;
+                    border-bottom: 1px solid var(--line);
+                }
+                .itam-page .hero-meta .m:last-child {
+                    border-bottom: 0;
+                }
+            }
+        
+/* Preserve the original page within the shared header and disclaimer. */
+.itam-page { min-height: 100vh; width: 100%; }
+.itam-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
+.itam-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 45; }
+.itam-page .scrim.show { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 35; }
+.itam-page [id] { scroll-margin-top: calc(84px + var(--disclaimer-height, 0px)); }
+.itam-page main { max-width: none; margin: 0; padding: 0; }
+.itam-page .hero { min-height: 0; display: block; text-align: start; }
+.itam-page .hero::after { content: none; background: none; width: auto; height: auto; position: static; top: auto; right: auto; }
+.itam-page .hero-title { background: none; background-clip: border-box; -webkit-text-fill-color: #fff; }
+.itam-page h1, .itam-page h2, .itam-page h3 { font-family: inherit; letter-spacing: normal; }
+.itam-page h2::before, .itam-page h3::before { content: none; }
+.itam-page p { max-width: none; }
+.itam-page ul, .itam-page ol { color: inherit; }
+.itam-page ul { list-style-type: disc; }
+.itam-page ol { list-style-type: decimal; }
+.itam-page .sidebar ul, .itam-page .checklist { list-style-type: none; }
+.itam-page table { font-family: inherit; color: inherit; margin: 0; border-color: gray; min-width: 0; }
+.itam-page .main th, .itam-page .main td { font-family: inherit; font-size: inherit; line-height: inherit; letter-spacing: normal; text-transform: none; border-left: 0; border-right: 0; border-top: 0; }
+.itam-page td { background: transparent; }
+.itam-page .callout { font-size: inherit; line-height: inherit; }
+.itam-page .callout p { font-size: inherit; line-height: inherit; }
+.itam-page .callout p + p { margin-top: 0; }
+.itam-page .page-footer { background: transparent; border-radius: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; font-family: inherit; text-align: start; }
+.itam-page .main code { color: inherit; white-space: normal; }
+.itam-page .checklist input { appearance: auto; }
+.itam-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
+.itam-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.itam-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.itam-page .mermaid-wrapper foreignObject p, .itam-page .mermaid-wrapper foreignObject span, .itam-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.5 !important; word-break: break-word !important; }
+.itam-page .mermaid-wrapper .edgeLabels rect, .itam-page .mermaid-wrapper .edgeLabel rect { fill: #0b1a2e !important; stroke: none !important; }
+.itam-page .mermaid-wrapper .edgeLabel, .itam-page .mermaid-wrapper .edgeLabel span, .itam-page .mermaid-wrapper .edgeLabel p, .itam-page .mermaid-wrapper .edgeLabel text { background-color: #0b1a2e !important; color: #dbe7ff !important; fill: #dbe7ff !important; }
+.itam-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.itam-page *::-webkit-scrollbar-track { background: transparent !important; }
+.itam-page *::-webkit-scrollbar-thumb { background: var(--line-2) !important; border-radius: 3px; }
+@media (max-width:980px) {
+.itam-page .sidebar { visibility: hidden; transition: transform .25s, visibility 0s linear .25s; }
+.itam-page .sidebar.open { visibility: visible; transition: transform .25s, visibility 0s; }
+}
