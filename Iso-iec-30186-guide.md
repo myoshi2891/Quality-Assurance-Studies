@@ -486,7 +486,7 @@ Asset Dynamics 社の解説によれば、KOENはスコープ設定、指標の�
 | 規格の試読版 | VDE／iTeh の試読PDF | 定義、構成、注記の根拠（箇条5.2冒頭まで） |
 | 標準化団体の資料 | BSI の公開ウェビナー資料（2026年4月23日） | レベル名と各レベルの特徴の根拠。**スライド要約であり規格本文ではない** |
 | 研究・学術 | Taylor & Francis の論文、MDPI の論文 | 規格が5アスペクト×5レベルであることの傍証 |
-| 実務者の解説 | Asset Dynamics、LinkedInの投稿 | 実務上の見方の参考。**規格との食い違いに注意** |
+| 実務者の解説 | Asset Dynamics、LinkedInの投稿（URL未特定の未検証の手がかり） | 実務上の見方の参考。**規格との食い違いに注意** |
 
 ### 10.2 食い違いの例
 
@@ -617,7 +617,7 @@ A. ISOストア（CHF 159）、BSI、DIN Media、VDEなどの各国窓口で購�
 | # | 内容 | URL |
 |---|---|---|
 | 11 | Asset Dynamics「Digital Twin Maturity Assessments Using ISO/IEC 30186」（アスペクト数や収束の説明に規格との食い違いあり） | <a href="https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments" target="_blank" rel="noopener noreferrer">https://www.assetdynamics.co.nz/news-articles/digital-twin-maturity-assessments</a> |
-| 12 | Robert Suansri氏のLinkedInプロフィール（30186の紹介投稿は検索結果のスニペットのみ確認。投稿自体のURLは未特定） | <a href="https://www.linkedin.com/in/robert-suansri/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/robert-suansri/</a> |
+| 12 | **【未検証の手がかり・根拠として不使用】** Robert Suansri氏のLinkedIn投稿（30186の紹介。検索結果のスニペットのみ確認） | 投稿URL未特定のため掲載しない（特定できるまで検証可能な出典として扱わない） |
 | 13 | 標準化リポジトリ（ICT Rolling Plan） | <a href="https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment" target="_blank" rel="noopener noreferrer">https://standict.eu/standards-repository/digital-twin-maturity-model-and-guidance-maturity-assessment</a> |
 
 ---
