@@ -511,6 +511,8 @@
 .itam-page h1, .itam-page h2, .itam-page h3 { font-family: inherit; letter-spacing: normal; }
 .itam-page h2::before, .itam-page h3::before { content: none; }
 .itam-page p { max-width: none; }
+.itam-page .hero-sub { line-height: inherit; }
+.itam-page .hero-meta { gap: 0; }
 .itam-page ul, .itam-page ol { color: inherit; }
 .itam-page ul { list-style-type: disc; }
 .itam-page ol { list-style-type: decimal; }
@@ -523,7 +525,7 @@
 .itam-page .callout p + p { margin-top: 0; }
 .itam-page .page-footer { background: transparent; border-radius: 0; padding-bottom: 0; padding-left: 0; padding-right: 0; font-family: inherit; text-align: start; }
 .itam-page .main code { color: inherit; white-space: normal; }
-.itam-page .checklist input { appearance: auto; }
+.itam-page .checklist input { appearance: auto; color: revert; font: revert; margin-top: revert; margin-bottom: revert; margin-left: revert; }
 .itam-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
 .itam-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
 .itam-page .mermaid-wrapper foreignObject { overflow: visible !important; }
