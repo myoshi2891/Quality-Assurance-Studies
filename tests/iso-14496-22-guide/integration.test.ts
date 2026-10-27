@@ -1,4 +1,5 @@
 import { expect, it } from 'bun:test';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { NAV_ITEMS } from '../../lib/navigation';
@@ -16,6 +17,8 @@ it('registers exactly 110 routes and the original H1 in E2E', () => {
 for (const ext of ['html', 'md'] as const) {
     it(`archives original ${ext} out of the root and preserves tracked bytes`, () => {
         expect(existsSync(`${inventory.source}.${ext}`)).toBe(false);
+        const archived = `archive/${ext}-archive/iso/${inventory.source}.${ext}`;
+        expect(execFileSync('git', ['ls-files', '--', archived], { encoding: 'utf8' }).trim()).toBe(archived);
         expect(createHash('sha256').update(readFileSync(`archive/${ext}-archive/iso/${inventory.source}.${ext}`)).digest('hex')).toBe(inventory.hashes[ext]);
     });
 }
