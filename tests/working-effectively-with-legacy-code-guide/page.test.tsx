@@ -189,7 +189,7 @@ describe('checklist and navigation behavior', () => {
 describe('registration and untouched tracked archives', () => {
     it('registers in books and the E2E route list', async () => {
         const {NAV_ITEMS} = await import('../../lib/navigation'); const {PAGES,EXPECTED_PAGE_COUNT} = await import('../../e2e/pages');
-        expect(NAV_ITEMS.find(n=>n.href==='/working-effectively-with-legacy-code-guide')?.category).toBe('books-practices');expect(NAV_ITEMS).toHaveLength(108);expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
+        expect(NAV_ITEMS.find(n=>n.href==='/working-effectively-with-legacy-code-guide')?.category).toBe('books-practices');expect(NAV_ITEMS).toHaveLength(109);expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
         expect(PAGES.find(p=>p.path==='/working-effectively-with-legacy-code-guide')?.h1.test('Working Effectively with Legacy Code 完全ガイド')).toBe(true);
     });
     for (const ext of ['html','md'] as const) it(`${ext}: identical source hash, moved from root and Git tracked`, () => {
