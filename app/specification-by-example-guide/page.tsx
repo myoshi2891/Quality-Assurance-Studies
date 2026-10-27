@@ -16,25 +16,40 @@ import Section10 from './Section10';
 import Section11 from './Section11';
 import Section12 from './Section12';
 
-export const metadata: Metadata = { title: 'Specification by Example 実践ガイド', description: '具体例を中心に仕様を協働で定義し、Gherkin・継続的検証・生きたドキュメントを実践する入門ガイド。' };
+export const metadata: Metadata = {
+    title: 'Specification by Example 実践ガイド',
+    description:
+        '具体例を中心に仕様を協働で定義し、Gherkin・継続的検証・生きたドキュメントを実践する入門ガイド。',
+};
 
 export default function Page() {
-    return <>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" precedence="sbe-fonts" />
-        <div className="sbe-page"><div className="layout"><NavBar /><main className="main">
-            <Section00 />
-            <Section01 />
-            <Section02 />
-            <Section03 />
-            <Section04 />
-            <Section05 />
-            <Section06 />
-            <Section07 />
-            <Section08 />
-            <Section09 />
-            <Section10 />
-            <Section11 />
-            <Section12 />
-        </main></div></div>
-    </>;
+    return (
+        <>
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+                precedence="sbe-fonts"
+            />
+            <div className="sbe-page">
+                <div className="layout">
+                    <NavBar />
+                    <main className="main">
+                        <Section00 />
+                        <Section01 />
+                        <Section02 />
+                        <Section03 />
+                        <Section04 />
+                        <Section05 />
+                        <Section06 />
+                        <Section07 />
+                        <Section08 />
+                        <Section09 />
+                        <Section10 />
+                        <Section11 />
+                        <Section12 />
+                    </main>
+                </div>
+            </div>
+        </>
+    );
 }
