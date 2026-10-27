@@ -74,6 +74,8 @@ for(const width of [390,1440])test(`${width}px code lines and checked appearance
     expect(await page.locator('pre').evaluate(snap)).toEqual(await reference.locator('pre').evaluate(snap));
     const checked=(el:Element)=>{el.classList.add('checked');el.setAttribute('aria-checked','true');el.querySelector('.check-icon')!.className='ti check-icon ti-circle-check';};
     await page.locator('.check-item').first().evaluate(checked);await reference.locator('.check-item').first().evaluate(checked);
+    // Compare the settled state after the original 150ms color transition on both pages.
+    for(const browser of [page,reference]){await expect(browser.locator('.check-item').first()).toHaveCSS('background-color','rgb(239, 228, 201)');await expect(browser.locator('.check-item').first()).toHaveCSS('border-top-color','rgb(63, 107, 74)');}
     for(const selector of ['.check-item','.check-icon','.check-text']){const styles=(el:Element)=>{const cs=getComputedStyle(el);return {color:cs.color,background:cs.backgroundColor,border:cs.borderColor,decoration:cs.textDecorationLine,decorationColor:cs.textDecorationColor};};expect(await page.locator(selector).first().evaluate(styles)).toEqual(await reference.locator(selector).first().evaluate(styles));}
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await reference.close();
 });
