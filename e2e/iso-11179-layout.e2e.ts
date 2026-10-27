@@ -16,13 +16,16 @@ const globalConfig = Function(`return (${initialization});`)() as object;
 const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
-// レビューで追加した diagram-12 / diagram-14 のテキスト代替を原本にも挿入し、追加分ではなく CSS 差だけを比較する
+// レビューで追加した diagram-1 / 5 / 8 / 12 / 14 のテキスト代替を原本にも挿入し、追加分ではなく CSS 差だけを比較する
 const textAlternativesBody = ([
+    ['Section01.tsx', '\n<h3 id="0-2-先に押さえる3行まとめ">'],
+    ['Section05.tsx', '\n<h3 id="4-4-学習者への影響">'],
+    ['Section06.tsx', '\n<h3 id="5-5-step-5-dデータエレメントde-dec--vd">'],
     ['Section08.tsx', '\n<h3 id="7-3-命名定義のルールは別パートへ">'],
     ['Section10.tsx', '\n<h3 id="9-2-設計時のチェックリスト">'],
 ] as const).reduce((body, [file, anchor]) => {
     const Section = sourceModule(`${base}/${file}`).default as React.ComponentType;
-    const list = renderToStaticMarkup(React.createElement(Section)).match(/<ol>[\s\S]*?<\/ol>/)?.[0];
+    const list = renderToStaticMarkup(React.createElement(Section)).match(/<(ol|ul)>[\s\S]*?<\/\1>/)?.[0];
     if (!list || !body.includes(anchor)) throw new Error(`Missing ${file} text alternative or source anchor`);
     return body.replace(anchor, `\n${list}${anchor}`);
 }, inventory.originalBody);

@@ -1,0 +1,654 @@
+
+            .tcs-page {
+                --paper: #faf6ee;
+                --paper-alt: #f2ecdc;
+                --paper-card: #fffdf8;
+                --ink: #241f1a;
+                --ink-soft: #5a5348;
+                --border: #e4dac3;
+                --indigo: #33469b;
+                --indigo-dark: #212f6e;
+                --gold: #b07f2c;
+                --gold-soft: #f4e4c2;
+                --forest: #2f6f4e;
+                --forest-soft: #dcefe2;
+                --plum: #6a3f8f;
+                --plum-soft: #ece1f5;
+                --font-display: 'Noto Serif JP', serif;
+                --font-body: 'Noto Sans JP', sans-serif;
+                --sidebar-w: 300px;
+                --radius: 14px;
+                --shadow: 0 6px 24px rgba(52, 42, 20, 0.08);
+            }
+            .tcs-page * {
+                box-sizing: border-box;
+            }
+            .tcs-page {
+                scroll-behavior: smooth;
+            }
+            .tcs-page {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: var(--font-body);
+                font-size: 1rem;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+            }
+            .tcs-page h1, .tcs-page h2, .tcs-page h3, .tcs-page h4 {
+                font-family: var(--font-display);
+                color: var(--indigo-dark);
+                line-height: 1.5;
+                font-weight: 700;
+            }
+            .tcs-page a {
+                color: var(--indigo);
+            }
+            .tcs-page .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .tcs-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-w);
+                background: var(--paper-alt);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 1.75rem 1.25rem 3rem;
+                z-index: 50;
+            }
+            .tcs-page .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-family: var(--font-display);
+                font-weight: 900;
+                font-size: 1.15rem;
+                color: var(--indigo-dark);
+                margin-bottom: 1.6rem;
+                padding-bottom: 1.2rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .tcs-page .sidebar-brand i {
+                font-size: 1.5rem;
+                color: var(--gold);
+            }
+            .tcs-page .nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .tcs-page .nav-list li {
+                margin: 0.15rem 0;
+            }
+            .tcs-page .nav-a {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding: 0.5rem 0.6rem;
+                border-radius: 9px;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 500;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .tcs-page .nav-a .n-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 1.6rem;
+                height: 1.6rem;
+                border-radius: 50%;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--indigo);
+                flex: none;
+            }
+            .tcs-page .nav-a:hover {
+                background: var(--paper-card);
+                color: var(--indigo-dark);
+            }
+            .tcs-page .nav-a.active {
+                background: var(--indigo);
+                color: #fff;
+            }
+            .tcs-page .nav-a.active .n-num {
+                background: var(--gold);
+                border-color: var(--gold);
+                color: #fff;
+            }
+            .tcs-page .mobile-bar {
+                display: none;
+            }
+            .tcs-page .mobile-bar, .tcs-page .mobile-bar * {
+                font-size: 1rem;
+            }
+
+            /* ---------- Main ---------- */
+            .tcs-page .main {
+                margin-left: var(--sidebar-w);
+                padding: 0 3.5rem 6rem;
+            }
+            .tcs-page .hero {
+                padding: 4.5rem 0 2.5rem;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 2.5rem;
+            }
+            .tcs-page .hero .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--gold);
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            .tcs-page .hero h1 {
+                font-size: 2.5rem;
+                margin: 0 0 1.2rem;
+                background: linear-gradient(90deg, var(--indigo-dark), var(--plum));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .tcs-page .hero p.lead {
+                font-size: 1.2rem;
+                color: var(--ink-soft);
+                max-width: none;
+            }
+            .tcs-page .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                margin-top: 1.5rem;
+            }
+            .tcs-page .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                padding: 0.4rem 0.9rem;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                font-weight: 500;
+            }
+            .tcs-page .chip i {
+                color: var(--indigo);
+            }
+
+            .tcs-page .section {
+                padding: 2.6rem 0;
+                border-bottom: 1px solid var(--border);
+                max-width: none;
+            }
+            .tcs-page .section:last-of-type {
+                border-bottom: none;
+            }
+            .tcs-page .section-head {
+                display: flex;
+                align-items: center;
+                gap: 0.9rem;
+                margin-bottom: 1.4rem;
+            }
+            .tcs-page .section-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 12px;
+                background: var(--indigo);
+                color: #fff;
+                font-size: 1.5rem;
+                flex: none;
+            }
+            .tcs-page .section h2 {
+                font-size: 1.7rem;
+                margin: 0;
+            }
+            .tcs-page .section h3 {
+                font-size: 1.3rem;
+                margin: 1.8rem 0 0.8rem;
+                color: var(--plum);
+            }
+            .tcs-page .prose {
+                max-width: none;
+            }
+            .tcs-page .prose p, .tcs-page .prose li {
+                max-width: none;
+                overflow-wrap: break-word;
+            }
+            .tcs-page .prose p {
+                margin: 0 0 1.1rem;
+            }
+            .tcs-page .prose ul, .tcs-page .prose ol {
+                padding-left: 1.4rem;
+            }
+            .tcs-page .prose li {
+                margin-bottom: 0.5rem;
+            }
+
+            /* ---------- Tables ---------- */
+            .tcs-page .table-wrap {
+                overflow-x: auto;
+                margin: 1.4rem 0;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+            .tcs-page table {
+                border-collapse: collapse;
+                width: 100%;
+                background: var(--paper-card);
+                font-size: 1rem;
+            }
+            .tcs-page thead th {
+                background: var(--indigo);
+                color: #fff;
+                text-align: left;
+                padding: 0.75rem 1rem;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .tcs-page tbody td {
+                padding: 0.7rem 1rem;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            .tcs-page tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .tcs-page tbody tr:nth-child(even) {
+                background: var(--paper-alt);
+            }
+
+            /* ---------- Callouts ---------- */
+            .tcs-page .callout {
+                display: flex;
+                gap: 0.9rem;
+                border-radius: var(--radius);
+                padding: 1.1rem 1.3rem;
+                margin: 1.4rem 0;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+            }
+            .tcs-page .callout i {
+                font-size: 1.4rem;
+                flex: none;
+                margin-top: 0.15rem;
+            }
+            .tcs-page .callout .callout-title {
+                font-weight: 700;
+                margin-bottom: 0.3rem;
+                display: block;
+            }
+            .tcs-page .callout p {
+                margin: 0;
+            }
+            .tcs-page .callout.source {
+                background: var(--plum-soft);
+                border-color: #d8c3ea;
+            }
+            .tcs-page .callout.source i {
+                color: var(--plum);
+            }
+            .tcs-page .callout.source .callout-title {
+                color: var(--plum);
+            }
+            .tcs-page .callout.note {
+                background: var(--gold-soft);
+                border-color: #e6cd94;
+            }
+            .tcs-page .callout.note i {
+                color: var(--gold);
+            }
+            .tcs-page .callout.note .callout-title {
+                color: #8a611f;
+            }
+
+            /* ---------- Mermaid ---------- */
+            .tcs-page .diagram-block {
+                margin: 1.8rem 0;
+            }
+            .tcs-page .mermaid-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.4rem 1rem;
+                box-shadow: var(--shadow);
+            }
+            .tcs-page .mermaid-wrapper svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .tcs-page .diagram-caption {
+                text-align: center;
+                color: var(--ink-soft);
+                font-size: 1rem;
+                margin-top: 0.6rem;
+                font-weight: 500;
+            }
+
+            /* ---------- Step list ---------- */
+            .tcs-page .step-list {
+                list-style: none;
+                margin: 1.6rem 0;
+                padding: 0;
+                counter-reset: step;
+            }
+            .tcs-page .step-list li {
+                counter-increment: step;
+                position: relative;
+                padding: 1rem 1.2rem 1rem 3.6rem;
+                margin-bottom: 0.9rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+            }
+            .tcs-page .step-list li::before {
+                content: counter(step);
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                background: var(--indigo);
+                color: #fff;
+                font-weight: 700;
+                font-size: 1rem;
+            }
+            .tcs-page .step-list li b {
+                color: var(--indigo-dark);
+            }
+
+            /* ---------- Checklist ---------- */
+            .tcs-page .checklist {
+                list-style: none;
+                margin: 1.4rem 0;
+                padding: 0;
+            }
+            .tcs-page .checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 0.85rem 1.1rem;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                margin-bottom: 0.7rem;
+                background: var(--paper-card);
+                transition:
+                    background 0.15s,
+                    border-color 0.15s;
+            }
+            .tcs-page .checklist li.done {
+                background: var(--forest-soft);
+                border-color: #b7ddc4;
+            }
+            .tcs-page .checklist label {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.8rem;
+                cursor: pointer;
+                width: 100%;
+            }
+            .tcs-page .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 1.35rem;
+                height: 1.35rem;
+                border: 2px solid var(--indigo);
+                border-radius: 6px;
+                flex: none;
+                margin-top: 0.15rem;
+                position: relative;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+            .tcs-page .checklist input[type='checkbox']:checked {
+                background: var(--forest);
+                border-color: var(--forest);
+            }
+            .tcs-page .checklist input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 0.35rem;
+                top: 0.05rem;
+                width: 0.4rem;
+                height: 0.75rem;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .tcs-page .checklist span.txt {
+                font-size: 1rem;
+            }
+            .tcs-page .checklist-counter {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--indigo);
+                color: #fff;
+                padding: 0.5rem 1rem;
+                border-radius: 999px;
+                font-weight: 700;
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            /* ---------- Reference list ---------- */
+            .tcs-page .ref-group {
+                margin-bottom: 1.6rem;
+            }
+            .tcs-page .ref-group h4 {
+                color: var(--gold);
+                font-family: var(--font-body);
+                font-weight: 700;
+                font-size: 1.05rem;
+                margin-bottom: 0.6rem;
+            }
+            .tcs-page .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .tcs-page .ref-list li {
+                padding: 0.9rem 1.1rem;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                margin-bottom: 0.7rem;
+                background: var(--paper-card);
+                box-shadow: var(--shadow);
+            }
+            .tcs-page .ref-list .ref-title {
+                font-weight: 700;
+                color: var(--ink);
+                display: block;
+                margin-bottom: 0.3rem;
+            }
+            .tcs-page .ref-url {
+                font-size: 1rem;
+                color: var(--indigo);
+                word-break: break-all;
+                text-decoration: none;
+            }
+            .tcs-page .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            .tcs-page .footer {
+                padding: 3rem 0 1rem;
+                color: var(--ink-soft);
+                font-size: 1rem;
+                max-width: none;
+            }
+
+            /* ---------- Mobile ---------- */
+            @media (max-width: 960px) {
+                .tcs-page .sidebar {
+                    left: -100%;
+                    transition: left 0.25s ease;
+                    box-shadow: var(--shadow);
+                }
+                .tcs-page .sidebar.open {
+                    left: 0;
+                }
+                .tcs-page .main {
+                    margin-left: 0;
+                    padding: 0 1.25rem 4rem;
+                }
+                .tcs-page .mobile-bar {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.7rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 60;
+                    background: var(--paper-alt);
+                    border-bottom: 1px solid var(--border);
+                    padding: 0.9rem 1.1rem;
+                }
+                .tcs-page .mobile-bar button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 2.4rem;
+                    height: 2.4rem;
+                    border-radius: 9px;
+                    border: 1px solid var(--border);
+                    background: var(--paper-card);
+                    color: var(--indigo-dark);
+                    font-size: 1.3rem;
+                    cursor: pointer;
+                }
+                .tcs-page .mobile-bar .mobile-title {
+                    font-weight: 700;
+                    color: var(--indigo-dark);
+                }
+                .tcs-page .hero {
+                    padding-top: 2rem;
+                }
+                .tcs-page .hero h1 {
+                    font-size: 1.7rem;
+                }
+            }
+
+            /* ---------- misc safety ---------- */
+            .tcs-page .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+        
+
+/* Restore source defaults after Tailwind preflight and shared guide styles. */
+.tcs-page { width: 100%; min-height: 100vh; isolation: isolate; }
+.tcs-page p { font-size: 1rem; color: inherit; margin: 1em 0; }
+.tcs-page ul { list-style-type: disc; margin: 1em 0; padding-left: 40px; color: inherit; }
+.tcs-page ol { list-style-type: decimal; margin: 1em 0; padding-left: 40px; color: inherit; }
+.tcs-page li { font-size: inherit; color: inherit; margin-bottom: 0; }
+.tcs-page strong, .tcs-page b { color: inherit; font-weight: 700; }
+.tcs-page h1, .tcs-page h2, .tcs-page h3, .tcs-page h4 { letter-spacing: normal; }
+.tcs-page h4 { margin-top: 1.33em; }
+.tcs-page a { text-decoration: underline; }
+.tcs-page a:hover { color: var(--indigo); }
+.tcs-page .nav-a, .tcs-page .ref-url { text-decoration: none; }
+.tcs-page .nav-a:not(.active):hover { color: var(--indigo-dark); }
+.tcs-page .ref-url:hover { text-decoration: underline; }
+.tcs-page main.main { max-width: none !important; margin: 0 0 0 var(--sidebar-w); width: auto; padding: 0 3.5rem 6rem; }
+.tcs-page .hero { min-height: 0 !important; display: block !important; overflow: visible !important; background: transparent; }
+.tcs-page .hero::before, .tcs-page .hero::after { content: none; }
+.tcs-page .hero h1 { letter-spacing: normal; }
+.tcs-page section.section { padding: 2.6rem 0; border-top: none; scroll-margin-top: calc(76px + var(--disclaimer-height, 0px)); }
+.tcs-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
+.tcs-page .prose p { color: var(--ink); margin: 0 0 1.1rem; font-size: 1rem; }
+.tcs-page .prose ul, .tcs-page .prose ol { padding-left: 1.4rem; color: var(--ink); }
+.tcs-page .prose li { margin-bottom: 0.5rem; }
+.tcs-page .callout { font-size: 1rem; line-height: inherit; color: var(--ink); }
+.tcs-page .callout::before { content: none; }
+.tcs-page .callout p { margin: 0; color: var(--ink); font-size: 1rem; }
+.tcs-page .callout strong { color: inherit; font-weight: 700; }
+.tcs-page .table-wrap table { min-width: 0; margin: 0; color: var(--ink); font-size: 1rem; border-radius: 0; overflow: visible; }
+.tcs-page .table-wrap thead tr { background: transparent; border: 0; }
+.tcs-page .table-wrap thead th { font-family: inherit; font-size: 1rem; letter-spacing: normal; text-transform: none; padding: 0.75rem 1rem; border: 0; line-height: inherit; }
+.tcs-page .table-wrap tbody td { color: var(--ink) !important; font-family: inherit; font-size: 1rem !important; line-height: inherit; text-align: start; padding: 0.7rem 1rem; }
+.tcs-page .table-wrap td { color: var(--ink) !important; font-size: 1rem !important; }
+.tcs-page .table-wrap td code { color: inherit; font-size: inherit; font-family: inherit; background: transparent; }
+.tcs-page .table-wrap td strong { color: var(--ink); font-weight: 700; }
+.tcs-page .table-wrap tbody tr:hover td { background: transparent; }
+.tcs-page .prose .step-list { padding: 0; margin: 1.6rem 0; list-style: none; }
+.tcs-page .prose .step-list li { margin-bottom: 0.9rem; }
+.tcs-page .prose .checklist { list-style: none; padding: 0; margin: 1.4rem 0; }
+.tcs-page .prose .checklist li { margin-bottom: 0.7rem; }
+.tcs-page .prose .ref-list { padding: 0; margin: 0; list-style: none; }
+.tcs-page .prose .ref-list li { margin-bottom: 0.7rem; }
+.tcs-page .ref-list .ref-title { font-size: 1rem; }
+.tcs-page .ref-url { font-family: inherit; }
+.tcs-page .nav-list { list-style: none; margin: 0; padding: 0; }
+.tcs-page .nav-list li { margin: 0.15rem 0; }
+.tcs-page .footer { font-family: inherit; padding: 3rem 0 1rem; text-align: start; border: 0; margin: 0; }
+.tcs-page .checklist input { font-family: initial; color: #000; line-height: normal; margin-bottom: 3px; }
+.tcs-page .mermaid-wrapper { max-width: none !important; background: var(--paper-card) !important; margin: 0; }
+.tcs-page .mermaid-wrapper .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: none !important; }
+.tcs-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.tcs-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.tcs-page .mermaid-wrapper foreignObject p, .tcs-page .mermaid-wrapper foreignObject span, .tcs-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; word-break: break-word; }
+.tcs-page .mermaid-wrapper .edgeLabels rect, .tcs-page .mermaid-wrapper .edgeLabel rect { fill: #fffdf8 !important; stroke: none !important; }
+.tcs-page .mermaid-wrapper .edgeLabel, .tcs-page .mermaid-wrapper .edgeLabel span, .tcs-page .mermaid-wrapper .edgeLabel p, .tcs-page .mermaid-wrapper .edgeLabel text, .tcs-page .mermaid-wrapper .edgeLabels .label { background-color: #fffdf8 !important; color: #241f1a !important; fill: #241f1a !important; }
+.tcs-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.tcs-page *::-webkit-scrollbar-track { background: transparent !important; }
+.tcs-page *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+html:has(.tcs-page) { scroll-behavior: smooth; }
+body:has(.tcs-page)::before, body:has(.tcs-page)::after { content: none !important; }
+@media (max-width: 960px) {
+.tcs-page main.main { margin-left: 0; padding: 0 1.25rem 4rem; }
+.tcs-page .mobile-bar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 41; }
+.tcs-page .mobile-bar button { font-family: Arial, sans-serif; line-height: normal; padding: 2px 6px; }
+.tcs-page .sidebar { visibility: hidden; transition: left 0.25s ease, visibility 0s linear 0.25s; max-width: 90vw; }
+.tcs-page .sidebar.open { visibility: visible; transition: left 0.25s ease, visibility 0s; }
+.tcs-page section.section { scroll-margin-top: calc(138px + var(--disclaimer-height, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+html:has(.tcs-page) { scroll-behavior: auto; }
+.tcs-page .sidebar { transition: none; }
+}
+
+/* Darken the source gold so eyebrow, reference headings and the white badge number reach 4.5:1. */
+.tcs-page { --gold: #8a611f; }
+
+/* Preserve the source cascade: prose indentation also applies to decorated lists. */
+.tcs-page .prose .step-list,
+.tcs-page .prose .checklist,
+.tcs-page .prose .ref-list { padding-left: 1.4rem; }
+.tcs-page .prose .step-list { display: block; }
+.tcs-page .callout .callout-title { font-family: var(--font-body); font-size: 1rem; line-height: inherit; letter-spacing: normal; text-transform: none; }
+.tcs-page .ref-url { display: inline; }
+.tcs-page .checklist input { font-family: Arial; }
+@media (max-width: 960px) {
+    .tcs-page .mobile-bar button { font-family: Arial; padding: 1px 6px; }
+    /* 長いタイトルの折り返しでバーが高くならないよう 1 行に収めて省略する */
+    .tcs-page .mobile-bar .mobile-title { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+@media (min-width: 961px) {
+    .tcs-page .mobile-bar button { all: revert; font-size: 1rem; }
+}

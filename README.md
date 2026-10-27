@@ -1,8 +1,17 @@
 # ソフトウェアテスト実施概要
 
-最終更新日: 2026-10-23
+最終更新日: 2026-10-25
 
 本プロジェクトにおいて、システムの品質（正しく動くか・快適に使えるか）を担保するために実施するテスト項目の概要と目的を以下に定義します。
+
+## 直近の移行検証（2026-10-25）
+
+`/testing-computer-software-guide`を追加。対象295件・全体6321件（138ファイル）が成功。原本の全18セクション・CSS88ルール・9図・10表・チェック10項目を照合しました。HTML・Markdownは同名でアーカイブし、内容一致を確認しています。ユーザー指定によりサンドボックスではnpmを使用し、ビルドは行っていません。目視確認はユーザー担当です。
+
+* `npm test` — ユニットテスト。
+* `npm run lint` — ESLint。
+* `npm exec -- playwright test --config=playwright.tcs.config.ts` — サーバー・ビルド不要の原本スタイル比較8件と実SVG検証18件。
+* `npm exec -- playwright test --config=playwright.wewlc.config.ts` — 前回のWorking Effectively with Legacy Code移行の原本スタイル比較12件と実SVG検証22件。
 
 ## 1. 機能テスト
 

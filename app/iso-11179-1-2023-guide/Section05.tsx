@@ -15,6 +15,12 @@ export default function Section() { return <>
 
 <Diagram id="diagram-5" />
 
+<ul>
+<li>{"従来の Part 3（基本属性・データ記述・共通機能など）は、2023年版で Part 3（共通機能）・Part 30（基本属性）・Part 31（データ仕様）・Part 32（概念体系）に分割された。"}</li>
+<li>{"従来の Part 7:2019（データセット登録）は、2023年版の Part 33（データセット）に対応する。"}</li>
+<li>{"従来の ISO/IEC 19763-10:2014（Core model and basic mapping）は、ISO/IEC 19763-10:2023 と 2023年版の Part 35（ISO/IEC 11179-35:2023、モデル）に引き継がれた。"}</li>
+</ul>
+
 <h3 id="4-4-学習者への影響">{"4-4. 学習者への影響"}</h3>
 
 <div className="table-scroll"><table aria-labelledby="4-4-学習者への影響"><thead><tr className="header"><th>{"立場"}</th><th>{"影響"}</th></tr></thead><tbody><tr className="odd"><td>{"規格を初めて読む人"}</td><td>{"「どのパートに何が書いてあるか」を Part 1\nで俯瞰できるので入りやすい"}</td></tr><tr className="even"><td>{"旧版（2013年版 Part 3 等）で実装した人"}</td><td>{"条項番号の参照先が変わるため、"}<strong>{"参照対応表の更新"}</strong>{"が必要になり得る"}</td></tr><tr className="odd"><td>{"実装者"}</td><td>{"必要な拡張パートだけを選んで採用しやすい（例：基本属性だけなら Part\n30）"}</td></tr></tbody></table></div>
