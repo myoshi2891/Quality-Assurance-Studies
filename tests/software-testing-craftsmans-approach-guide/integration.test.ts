@@ -1,6 +1,7 @@
 import { expect, it } from 'bun:test';
 import { existsSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { EXPECTED_PAGE_COUNT, PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/software-testing-craftsmans-approach-guide.json';
@@ -14,4 +15,8 @@ it('synchronizes navigation and smoke registry at 108 routes with original H1', 
 for(const ext of ['html','md'] as const) it(`archives original ${ext} with byte-for-byte fidelity`, () => {
     expect(existsSync(`${inventory.source}.${ext}`)).toBe(false);
     expect(createHash('sha256').update(readFileSync(`archive/${ext}-archive/books/${inventory.source}.${ext}`)).digest('hex')).toBe(inventory.hashes[ext]);
+});
+
+it('tracks both archived originals in Git despite the archive ignore rule', () => {
+    for(const ext of ['html','md']) expect(execFileSync('git',['ls-files',`archive/${ext}-archive/books/${inventory.source}.${ext}`],{encoding:'utf8'}).trim()).toBe(`archive/${ext}-archive/books/${inventory.source}.${ext}`);
 });
