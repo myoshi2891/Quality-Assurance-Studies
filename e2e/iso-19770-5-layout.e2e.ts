@@ -64,12 +64,14 @@ for (const width of [390,980,981,1440]) {
             const reference = await page.context().newPage(); await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
             const collect = (outer: Element) => {
                 const norm = (s: string | null) => (s ?? '').replace(/\s+/g,' ').trim();
-                const nodes = Array.from(outer.querySelectorAll('g.node'), node => ({ id: node.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''), label: (node.querySelector('.nodeLabel p')!.innerHTML).split(/<br\s*\/?\s*>/i).map(line => { const span = document.createElement('span'); span.innerHTML = line; return norm(span.textContent); }), shape: node.firstElementChild!.tagName.toLowerCase(), color: getComputedStyle(node.querySelector('.nodeLabel')!).color, fill: getComputedStyle(node.firstElementChild!).fill }));
+                const nodes = Array.from(outer.querySelectorAll('g.node'), node => ({ id: node.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''), label: (node.querySelector('.nodeLabel p')!.innerHTML).split(/<br\s*\/?\s*>/i).map(line => { const span = document.createElement('span'); span.innerHTML = line; return norm(span.textContent); }), shape: node.firstElementChild!.tagName.toLowerCase(), color: getComputedStyle(node.querySelector('.nodeLabel')!).color, fill: getComputedStyle(node.firstElementChild!).fill, stroke: getComputedStyle(node.firstElementChild!).stroke }));
                 const messages = Array.from(outer.querySelectorAll('.messageText'), el => ({ label: norm(el.textContent), fill: getComputedStyle(el).fill }));
                 const actors = Array.from(outer.querySelectorAll('text.actor'), el => ({ label: norm(el.textContent), fill: getComputedStyle(el).fill }));
                 const labels = Array.from(outer.querySelectorAll('g.edgeLabels > g.edgeLabel'), el => norm(el.textContent)).filter(Boolean);
                 const clusters = Array.from(outer.querySelectorAll('g.cluster'), cluster => ({ label: norm(cluster.querySelector('.cluster-label')?.textContent ?? ''), fill: getComputedStyle(cluster.querySelector('rect')!).fill, stroke: getComputedStyle(cluster.querySelector('rect')!).stroke }));
-                return { nodes, labels, actors, messages, clusters };
+                const paths = Array.from(outer.querySelectorAll('path.flowchart-link'), path => { const style = getComputedStyle(path); return {stroke: style.stroke, width: style.strokeWidth, dash: style.strokeDasharray}; });
+                const labelColors = Array.from(outer.querySelectorAll('g.edgeLabels > g.edgeLabel'), label => { const span=label.querySelector('span'); return norm(label.textContent) && span ? { color: getComputedStyle(span).color, background: getComputedStyle(span).backgroundColor } : null; }).filter(Boolean);
+                return { nodes, labels, actors, messages, clusters, paths, labelColors };
             };
             const expected = await reference.locator('#'+id).evaluate(collect);
             await page.evaluate(async ({ id, chart, globalConfig, fixups }) => {
