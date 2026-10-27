@@ -97,6 +97,8 @@ for (const width of [390,1440]) test(`${width}px completed checklist preserves s
     await page.setContent(`<style>${preflight+globals+retained+own}</style>${markup()}`);
     const complete = () => { document.querySelectorAll('.checklist li').forEach(li=> { li.classList.add('done'); (li.querySelector('input') as HTMLInputElement).checked = true; }); (document.querySelector('.cp-fill') as HTMLElement).style.width='100%'; document.querySelector('.cp-count b')!.textContent='8'; };
     await page.evaluate(complete); await reference.evaluate(complete);
+    const finishProgress = (el: Element) => { void getComputedStyle(el).width; el.getAnimations().forEach(animation => animation.finish()); };
+    await page.locator('.cp-fill').evaluate(finishProgress); await reference.locator('.cp-fill').evaluate(finishProgress);
     const snapshot = () => Array.from(document.querySelectorAll('.checklist li, .checklist label, .checklist input, .cp-fill, .cp-count'), el => {const style=getComputedStyle(el);return [style.color,style.textDecorationLine,style.textDecorationColor,style.backgroundImage,style.width,style.fontSize,style.marginTop,style.marginBottom];});
     expect(await page.evaluate(snapshot)).toEqual(await reference.evaluate(snapshot));
     await reference.close();
