@@ -71,7 +71,7 @@ export default function Section1() { return <>
 </tbody>
 </table></div>
 <h3 id="1-2-発行までの経緯isoの公開ライフサイクル">{"1-2.\n発行までの経緯（ISOの公開ライフサイクル）"}</h3>
-<div className="mermaid-diagram" id="mmd-1" role="img"><Mermaid chart={DIAGRAMS["mmd-1"]!} /></div>
+<div className="mermaid-diagram" id="mmd-1" role="img" aria-label="試験・投票から発行までのISO/IEC 14496-22第5版の策定スケジュール図" aria-describedby="mmd-1-desc"><p id="mmd-1-desc" hidden>{"DIS登録（2024-12-20）からDIS投票開始（2025-02-24、12週間）、DIS投票終了（2025-05-20）、FDIS登録（2025-10-11）、FDIS投票開始（2026-03-03、8週間）、投票終了（2026-04-29）を経て、発行（2026-07-16）に至る。"}</p><Mermaid chart={DIAGRAMS["mmd-1"]!} /></div>
 <div className="callout callout-note">
 <p>{"用語："}
 <strong>{"DIS"}</strong>

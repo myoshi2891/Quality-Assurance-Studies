@@ -107,5 +107,5 @@ export default function Section8() { return <>
 <p>{"HarfBuzz PR #5655\nのコメントで、実装者は「提案仕様では、拡張LookupListのLookupへのオフセットが16ビットのままで、目的を損なう。そこでオフセットを32ビットに広げたところ、fontTools.mergeでの統合が高速に成功した」と報告しています。これは"}
 <strong>{"提案段階の議論"}</strong>
 {"であり、最終版の文面での扱いは本稿では確認できていません。"}</p>
-<div className="mermaid-diagram" id="mmd-8" role="img"><Mermaid chart={DIAGRAMS["mmd-8"]!} /></div>
+<div className="mermaid-diagram" id="mmd-8" role="img" aria-label="規格から各ツール、24ビット対応フォント、OS・ブラウザ・アプリでの利用までの関係図" aria-describedby="mmd-8-desc"><p id="mmd-8-desc" hidden>{"規格（ISO/IEC 14496-22:2026）に基づき、フォント制作のfontToolsが24ビット対応フォントを生成し、シェーピングのHarfBuzz / harfrustが24ビット対応フォントを整形し、読み書き・描画のfontationsが24ビット対応フォントを描画して、OS・ブラウザ・アプリでの利用に至る。"}</p><Mermaid chart={DIAGRAMS["mmd-8"]!} /></div>
 </>; }

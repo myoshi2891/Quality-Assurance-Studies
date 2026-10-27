@@ -127,7 +127,7 @@ export default function Section7() { return <>
 </tr>
 </tbody>
 </table></div>
-<div className="mermaid-diagram" id="mmd-7" role="img"><Mermaid chart={DIAGRAMS["mmd-7"]!} /></div>
+<div className="mermaid-diagram" id="mmd-7" role="img" aria-label="GLYFの有無による24ビットGIDと16ビットGIDの判定フロー図" aria-describedby="mmd-7-desc"><p id="mmd-7-desc" hidden>{"フォントを読み込み、GLYFが存在する場合は「はい」へ進んでGLYFとLOCAをペアで採用し24ビットGIDで字形を取得して描画へ進み、「いいえ」の場合は従来のglyfとlocaを採用し16ビットGIDで字形を取得して描画へ進む。"}</p><Mermaid chart={DIAGRAMS["mmd-7"]!} /></div>
 <div className="callout callout-note">
 <p>{"上の分岐は、実装者（HarfBuzzの作者でもある Behdad Esfahbod\n氏）がfontationsへ出したPRの説明に基づく"}
 <strong>{"実装上の選択ルール"}</strong>

@@ -4,7 +4,7 @@ import { DIAGRAMS } from './diagrams';
 
 export default function Section11() { return <>
 <h2 id="roadmap">{"学習ロードマップ"}</h2>
-<div className="mermaid-diagram" id="mmd-10" role="img"><Mermaid chart={DIAGRAMS["mmd-10"]!} /></div>
+<div className="mermaid-diagram" id="mmd-10" role="img" aria-label="基礎から実践までの学習ロードマップ図" aria-describedby="mmd-10-desc"><p id="mmd-10-desc" hidden>{"基礎（グリフとGIDを理解）から構造（テーブルを読む）、描画の流れ（cmap・GSUB・GPOS）、発展（バリアブル・カラー）、最新（第5版の24ビット化）を経て、実践（fontToolsで検証）へ進む。"}</p><Mermaid chart={DIAGRAMS["mmd-10"]!} /></div>
 <div className="table-scroll"><table>
 <thead>
 <tr className="header">

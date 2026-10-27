@@ -76,7 +76,7 @@ export default function Section3() { return <>
 </tr>
 </tbody>
 </table></div>
-<div className="mermaid-diagram" id="mmd-3" role="img"><Mermaid chart={DIAGRAMS["mmd-3"]!} /></div>
+<div className="mermaid-diagram" id="mmd-3" role="img" aria-label="第1版から第5版までのOFF規格の版の変遷図" aria-describedby="mmd-3-desc"><p id="mmd-3-desc" hidden>{"第1版（2007）から第2版（2009）、第3版（2015、カラー・MATH）、第4版（2019、バリアブル）、Amd 1 / Amd 2（2020 / 2023）を経て、第5版（2026、24ビット GID）へ改訂された。"}</p><Mermaid chart={DIAGRAMS["mmd-3"]!} /></div>
 <h3 id="3-2-第3版でカラーフォントが入った背景">{"3-2.\n第3版でカラーフォントが入った背景"}</h3>
 <p>{"業界各社が独自に提案したカラー表現を、ISOの枠組みで標準化した経緯があります。"}</p>
 <div className="table-scroll"><table>

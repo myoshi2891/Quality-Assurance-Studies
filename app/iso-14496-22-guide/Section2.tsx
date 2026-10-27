@@ -45,7 +45,7 @@ export default function Section2() { return <>
 </tr>
 </tbody>
 </table></div>
-<div className="mermaid-diagram" id="mmd-2" role="img"><Mermaid chart={DIAGRAMS["mmd-2"]!} /></div>
+<div className="mermaid-diagram" id="mmd-2" role="img" aria-label="TrueTypeとPostScript/CFFからOpenType、OFF、Web配信のWOFFへ至る関係図" aria-describedby="mmd-2-desc"><p id="mmd-2-desc" hidden>{"元になった技術であるTrueType（Apple / Microsoft）とPostScript Type 1 / CFF（Adobe）が統合された仕様であるOpenType（業界仕様）になり、OpenTypeとOFF（ISO/IEC 14496-22、国際標準）は内容を同期して維持され、OpenTypeからWeb配信用の圧縮ラッパーであるWOFF / WOFF2へ圧縮して配信される。"}</p><Mermaid chart={DIAGRAMS["mmd-2"]!} /></div>
 <h3 id="2-2-同期の仕組み">{"2-2. 同期の仕組み"}</h3>
 <ul>
 <li>{"2007年の初版は、技術的に "}

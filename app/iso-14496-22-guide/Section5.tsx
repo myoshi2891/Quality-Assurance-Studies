@@ -5,7 +5,7 @@ import { DIAGRAMS } from './diagrams';
 export default function Section5() { return <>
 <h2 id="step-5">{"Step\n5：文字が画面に出るまでの流れを知る"}</h2>
 <p>{"規格は「フォント描画エンジンとテキストシェーピングエンジンを、規格準拠で作るための詳細」を定義する、と明記されています。実際の流れを追うと、テーブルの役割がつかめます。"}</p>
-<div className="mermaid-diagram" id="mmd-5" role="img"><Mermaid chart={DIAGRAMS["mmd-5"]!} /></div>
+<div className="mermaid-diagram" id="mmd-5" role="img" aria-label="文字列入力から画面表示までのテキスト描画の流れ図" aria-describedby="mmd-5-desc"><p id="mmd-5-desc" hidden>{"入力された文字列（Unicode）は、cmapで文字からGIDに変換され、GSUBで合字・異体字へ置換、GPOSでカーニング等の位置調整、hmtxで文字送り幅を取得、glyf / CFFで輪郭データを取得し、ラスタライズで画素へ変換されて画面に表示される。"}</p><Mermaid chart={DIAGRAMS["mmd-5"]!} /></div>
 <div className="table-scroll"><table>
 <thead>
 <tr className="header">

@@ -198,6 +198,29 @@ export default function Section4() { return <>
 
 </tr>
 
+<tr className="odd">
+
+<td>
+<strong>
+{"19770-10"}
+</strong>
+{":2025"}
+</td>
+
+<td>
+{"ITAM実装ガイダンス（Guidance for implementing ITAM）"}
+</td>
+
+<td>
+{"技術仕様書（TS・第1版 / Edition 1）"}
+</td>
+
+<td>
+{"ITAMを実装するための実践的な指針（Technical Specification）"}
+</td>
+
+</tr>
+
 </tbody>
 
 </table>
@@ -323,18 +346,6 @@ export default function Section4() { return <>
 </tr>
 
 <tr className="even">
-
-<td>
-{"19770-10"}
-</td>
-
-<td>
-{"\n                                        19770-1とMSS（マネジメントシステム規格）のガイダンス（技術報告書の可能性）\n                                    "}
-</td>
-
-</tr>
-
-<tr className="odd">
 
 <td>
 {"19770-11"}

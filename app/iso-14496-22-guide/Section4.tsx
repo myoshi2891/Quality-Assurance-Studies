@@ -12,7 +12,7 @@ export default function Section4() { return <>
 {"（専門データの入れ物）の集まりで、各テーブルは4文字の"}
 <strong>{"タグ"}</strong>
 {"で呼ばれます。"}</p>
-<div className="mermaid-diagram" id="mmd-4" role="img"><Mermaid chart={DIAGRAMS["mmd-4"]!} /></div>
+<div className="mermaid-diagram" id="mmd-4" role="img" aria-label="OFFフォントファイルのsfntヘッダー、テーブルディレクトリと各テーブル群の構成図" aria-describedby="mmd-4-desc"><p id="mmd-4-desc" hidden>{"OFFフォントファイルはsfntヘッダー（形式識別子・テーブル数）とテーブルディレクトリ（タグ・位置・長さの一覧）を持ち、そこから必須テーブル群（cmap / head / hhea / hmtx / maxp / name / OS/2 / post）、アウトラインテーブル群（TrueType形式のglyf+loca、PostScript形式のCFF / CFF2）、レイアウトテーブル群（GSUB / GPOS / GDEF）、カラーテーブル群（COLR / CPAL / SVG / CBDT / CBLC）、バリエーションテーブル群（fvar / gvar / avar / STAT など）に分かれる。"}</p><Mermaid chart={DIAGRAMS["mmd-4"]!} /></div>
 <h3 id="4-2-ファイル先頭のテーブルディレクトリ">{"4-2.\nファイル先頭の「テーブルディレクトリ」"}</h3>
 <div className="table-scroll"><table>
 <thead>

@@ -127,7 +127,7 @@ export default function Section6() { return <>
 {" 機能が Amd 1\nで追加）が重要になります。"}</p>
 </div>
 <h3 id="6-3-カラーフォント">{"6-3. カラーフォント"}</h3>
-<div className="mermaid-diagram" id="mmd-6" role="img"><Mermaid chart={DIAGRAMS["mmd-6"]!} /></div>
+<div className="mermaid-diagram" id="mmd-6" role="img" aria-label="ビットマップ・レイヤー・SVGの3方式によるカラーフォントの分類図" aria-describedby="mmd-6-desc"><p id="mmd-6-desc" hidden>{"カラーフォントは、ビットマップ方式（CBDT / CBLC：絵文字など、拡大に弱い）、レイヤー方式（COLR / CPAL：ベクターで拡大に強い）、SVG方式（SVG テーブル：表現力が高い、XML準拠が必須）の3方式に分かれる。"}</p><Mermaid chart={DIAGRAMS["mmd-6"]!} /></div>
 <div className="callout callout-note">
 <p>{"Amd 1:2020 では、SVGテーブルは TrueType・CFF・CFF2\nのいずれのアウトラインを持つフォントでも使え、SVG文書はXML定義に準拠しなければならない、と整理されています。"}</p>
 </div>
