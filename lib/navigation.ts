@@ -160,6 +160,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iec-62304-beginner-guide', label: 'IEC 62304 初学者向けガイド', description: '医療機器ソフトウェアの安全クラス、開発・保守・リスク管理、SOUPとQAの実践を段階的に解説。', category: 'iso' },
   { href: '/iso-9075-1-guide', label: 'ISO 9075-1 SQL/Framework ガイド', description: 'SQL標準の全体像、Part 1の役割、適合性、SQL:2023・JSON・PGQとQAの活用を段階的に解説。', category: 'iso' },
   { href: '/iso-11179-1-2023-guide', label: 'ISO 11179-1 メタデータレジストリ ガイド', description: '意味と表現の分離、11179ファミリー、登録運用・メタデータ設計とQAへの活用を段階的に解説。', category: 'iso' },
+  { href: '/iso-14496-22-guide', label: 'ISO 14496-22 Open Font Format ガイド', description: 'OFFとOpenTypeの関係、フォント構造・描画、第5版の24ビットGID拡張とQA観点を段階的に解説。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
