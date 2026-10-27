@@ -8,6 +8,11 @@ export const MERMAID_CONFIG = `%%{init: {
     "lineColor": "#6b6152",
     "secondaryColor": "#efe4c9",
     "tertiaryColor": "#fffaf0",
+    "mainBkg": "#fffaf0",
+    "nodeBorder": "#3b4a91",
+    "clusterBkg": "#efe4c9",
+    "titleColor": "#2b2620",
+    "edgeLabelBackground": "#fffcf6",
     "fontFamily": "Noto Sans JP, Hiragino Sans, Yu Gothic, sans-serif",
     "fontSize": "16px"
   },
