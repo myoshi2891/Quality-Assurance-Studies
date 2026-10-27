@@ -117,7 +117,7 @@ describe('review fixes', () => {
     const inOrder = (text: string, steps: string[]) => steps.map(s => text.indexOf(s)).every((p, i, a) => p >= 0 && (i === 0 || p > a[i - 1]!));
     it('lists 19770-10:2025 in the existing parts table with published title, Edition 1 and Technical Specification status, and removes it from planned parts', async () => {
         const $ = await html();
-        const lastExistingRow = $('#4-1-各パートの役割').next('.table-scroll').find('tbody tr').last().find('td').map((_, td) => norm($(td).text())).get();
+        const lastExistingRow = $('#4-1-各パートの役割').next('.table-scroll').find('tbody tr').filter((_, row) => norm($(row).find('td').first().text()) === '19770-10:2025').find('td').map((_, td) => norm($(td).text())).get();
         expect(lastExistingRow).toEqual([
             '19770-10:2025',
             'ITAM実装ガイダンス（Guidance for implementing ITAM）',
@@ -125,9 +125,10 @@ describe('review fixes', () => {
             'ITAMを実装するための実践的な指針（Technical Specification）',
         ]);
         const plannedParts = $('#4-3-今後追加が計画されているパート').nextAll('.table-scroll').first().find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
-        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-7', '19770-8の次版', '19770-11']);
+        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-7', '19770-8の次版', '19770-11（第2版）']);
         const existingParts = $('#4-1-各パートの役割').next('.table-scroll').find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
         expect(existingParts).toContain('19770-6:2024');
+        expect(existingParts).toContain('19770-11:2021');
     });
     it('gives mmd-4 a descriptive accessible name and nearby text explaining every relationship', async () => {
         const $ = await html();
