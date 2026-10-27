@@ -563,6 +563,9 @@ body:has(.sbe-page)::before, body:has(.sbe-page)::after { content: none !importa
 @media (max-width: 900px) {
  .sbe-page .sidebar { top: calc(116px + var(--disclaimer-height, 0px)); height: calc(100vh - 116px - var(--disclaimer-height, 0px)); }
  .sbe-page section, .sbe-page h3[id] { scroll-margin-top: calc(136px + var(--disclaimer-height, 0px)); }
+ /* Closed off-canvas links stay out of the tab order; the delay keeps the slide-out animation visible. */
+ .sbe-page .sidebar { visibility: hidden; transition: transform 0.25s ease, visibility 0s linear 0.25s; }
+ .sbe-page .sidebar.open { visibility: visible; transition: transform 0.25s ease, visibility 0s linear 0s; }
 }
 
 /* Restore inherited values that shared and retained route rules supply explicitly. */
