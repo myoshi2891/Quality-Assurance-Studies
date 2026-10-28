@@ -328,7 +328,7 @@ export default function Section4() { return <>
 <tr className="header">
 
 <th>
-{"計画中のパート"}
+{"パート（現行計画・過去の計画）"}
 </th>
 
 <th>
@@ -348,7 +348,7 @@ export default function Section4() { return <>
 </td>
 
 <td>
-{"SWID 第3版の改訂"}
+{"過去の計画（現行の改訂計画は未確認）：SWID 第3版の改訂"}
 </td>
 
 </tr>
@@ -380,11 +380,11 @@ export default function Section4() { return <>
 <tr className="even">
 
 <td>
-{"19770-8の次版"}
+{"19770-8"}
 </td>
 
 <td>
-{"\n                                        業界プラクティスと19770ファミリーを相互にマッピングするための指針\n                                    "}
+{"過去の計画：業界プラクティスと19770ファミリーを相互にマッピングするための指針（2020年版は発行済み。次版の改訂計画は未確認）"}
 </td>
 
 </tr>
