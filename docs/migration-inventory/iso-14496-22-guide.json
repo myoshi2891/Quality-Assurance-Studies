@@ -6157,7 +6157,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "ISO公式：ISO/IEC 14496-22:2026（ご指定のページ）"
+                        "ISO公式：ISO/IEC 14496-22:2026（ライフサイクル・1,003ページの記載）"
                       ]
                     },
                     {
@@ -6167,7 +6167,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/14496-22"
+                            "href": "https://www.iso.org/standard/14496-22",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://www.iso.org/standard/14496-22"
@@ -6194,7 +6196,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "ISO公式：FDIS 14496-22（最終国際規格案、ライフサイクルと1,003ページの記載）"
+                        "ISO公式：ISO/IEC 14496-22:2009（第2版の概要・目標）"
                       ]
                     },
                     {
@@ -6204,10 +6206,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/87621.html"
+                            "href": "https://www.iso.org/standard/52136.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://www.iso.org/standard/87621.html"
+                            "https://www.iso.org/standard/52136.html"
                           ]
                         }
                       ]
@@ -6231,7 +6235,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "ISO公式：ISO/IEC 14496-22:2009（第2版の概要・目標）"
+                        "IEC Webstore：ISO/IEC 14496-22:2019（第4版、628ページ、撤回日）"
                       ]
                     },
                     {
@@ -6241,10 +6245,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/52136.html"
+                            "href": "https://webstore.iec.ch/en/publication/64608",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://www.iso.org/standard/52136.html"
+                            "https://webstore.iec.ch/en/publication/64608"
                           ]
                         }
                       ]
@@ -6268,7 +6274,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "IEC Webstore：ISO/IEC 14496-22:2019（第4版、628ページ、撤回日）"
+                        "MPEG公式：Open Font Format の標準ページ"
                       ]
                     },
                     {
@@ -6278,10 +6284,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://webstore.iec.ch/en/publication/64608"
+                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://webstore.iec.ch/en/publication/64608"
+                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
                           ]
                         }
                       ]
@@ -6305,7 +6313,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "MPEG公式：Open Font Format の標準ページ"
+                        "MPEG公式：カラーフォント・MATH対応の提案募集"
                       ]
                     },
                     {
@@ -6315,10 +6323,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
+                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
+                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
                           ]
                         }
                       ]
@@ -6342,7 +6352,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "MPEG公式：カラーフォント・MATH対応の提案募集"
+                        "MPEG公式GitHub：OpenFontFormat（課題の議論リポジトリ）"
                       ]
                     },
                     {
@@ -6352,10 +6362,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
+                            "href": "https://github.com/MPEGGroup/OpenFontFormat",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
+                            "https://github.com/MPEGGroup/OpenFontFormat"
                           ]
                         }
                       ]
@@ -6379,7 +6391,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "MPEG公式GitHub：OpenFontFormat（課題の議論リポジトリ）"
+                        "Microsoft：OpenType 仕様 1.9.1（第5版予備草案の取り込みを明記）"
                       ]
                     },
                     {
@@ -6389,10 +6401,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/MPEGGroup/OpenFontFormat"
+                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://github.com/MPEGGroup/OpenFontFormat"
+                            "https://learn.microsoft.com/en-us/typography/opentype/spec/"
                           ]
                         }
                       ]
@@ -6416,7 +6430,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "Microsoft：OpenType 仕様 1.9.1（第5版予備草案の取り込みを明記）"
+                        "Microsoft：OpenType 変更履歴"
                       ]
                     },
                     {
@@ -6426,10 +6440,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/"
+                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://learn.microsoft.com/en-us/typography/opentype/spec/"
+                            "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
                           ]
                         }
                       ]
@@ -6447,43 +6463,6 @@
                       "attrs": {},
                       "children": [
                         "9"
-                      ]
-                    },
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "Microsoft：OpenType 変更履歴"
-                      ]
-                    },
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        {
-                          "tag": "a",
-                          "attrs": {
-                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
-                          },
-                          "children": [
-                            "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "tag": "tr",
-                  "attrs": {
-                    "class": "even"
-                  },
-                  "children": [
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "10"
                       ]
                     },
                     {
@@ -6508,7 +6487,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
+                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
@@ -6582,7 +6563,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "11"
+                        "10"
                       ]
                     },
                     {
@@ -6606,7 +6587,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655"
+                            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/harfbuzz/harfbuzz/pull/5655"
@@ -6626,7 +6609,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "12"
+                        "11"
                       ]
                     },
                     {
@@ -6650,7 +6633,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/fonttools/fonttools/pull/4097"
+                            "href": "https://github.com/fonttools/fonttools/pull/4097",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/fonttools/fonttools/pull/4097"
@@ -6670,7 +6655,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "13"
+                        "12"
                       ]
                     },
                     {
@@ -6710,7 +6695,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/googlefonts/fontations/pull/2209"
+                            "href": "https://github.com/googlefonts/fontations/pull/2209",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/googlefonts/fontations/pull/2209"
@@ -6730,7 +6717,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "14"
+                        "13"
                       ]
                     },
                     {
@@ -6762,7 +6749,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/googlefonts/fontations/pull/2208"
+                            "href": "https://github.com/googlefonts/fontations/pull/2208",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/googlefonts/fontations/pull/2208"
@@ -6782,7 +6771,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "15"
+                        "14"
                       ]
                     },
                     {
@@ -6813,7 +6802,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/googlefonts/fontations/pull/2210"
+                            "href": "https://github.com/googlefonts/fontations/pull/2210",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/googlefonts/fontations/pull/2210"
@@ -6833,7 +6824,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "16"
+                        "15"
                       ]
                     },
                     {
@@ -6857,7 +6848,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
+                            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
@@ -6877,7 +6870,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "17"
+                        "16"
                       ]
                     },
                     {
@@ -6909,7 +6902,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
+                            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
@@ -6976,7 +6971,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "18"
+                        "17"
                       ]
                     },
                     {
@@ -6993,7 +6988,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://ja.wikipedia.org/wiki/OpenType"
+                            "href": "https://ja.wikipedia.org/wiki/OpenType",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://ja.wikipedia.org/wiki/OpenType"
@@ -7013,7 +7010,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "19"
+                        "18"
                       ]
                     },
                     {
@@ -7030,7 +7027,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://en.wikipedia.org/wiki/OpenType"
+                            "href": "https://en.wikipedia.org/wiki/OpenType",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://en.wikipedia.org/wiki/OpenType"
@@ -7050,7 +7049,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "20"
+                        "19"
                       ]
                     },
                     {
@@ -7067,7 +7066,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
+                            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
@@ -7087,7 +7088,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "21"
+                        "20"
                       ]
                     },
                     {
@@ -7104,7 +7105,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
+                            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
@@ -7124,7 +7127,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "22"
+                        "21"
                       ]
                     },
                     {
@@ -7141,7 +7144,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
+                            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
@@ -7701,7 +7706,7 @@
                   "tag": "code",
                   "attrs": {},
                   "children": [
-                    "glyf"
+                    "GLYF"
                   ]
                 },
                 "側でも",
@@ -7943,7 +7948,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.iso.org/standard/14496-22"
+            "href": "https://www.iso.org/standard/14496-22",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://www.iso.org/standard/14496-22"
@@ -7952,16 +7959,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.iso.org/standard/87621.html"
-          },
-          "children": [
-            "https://www.iso.org/standard/87621.html"
-          ]
-        },
-        {
-          "tag": "a",
-          "attrs": {
-            "href": "https://www.iso.org/standard/52136.html"
+            "href": "https://www.iso.org/standard/52136.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://www.iso.org/standard/52136.html"
@@ -7970,7 +7970,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://webstore.iec.ch/en/publication/64608"
+            "href": "https://webstore.iec.ch/en/publication/64608",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://webstore.iec.ch/en/publication/64608"
@@ -7979,7 +7981,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
+            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
@@ -7988,7 +7992,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
+            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
@@ -7997,7 +8003,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/MPEGGroup/OpenFontFormat"
+            "href": "https://github.com/MPEGGroup/OpenFontFormat",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/MPEGGroup/OpenFontFormat"
@@ -8006,7 +8014,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/"
+            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://learn.microsoft.com/en-us/typography/opentype/spec/"
@@ -8015,7 +8025,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
+            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
@@ -8024,7 +8036,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
+            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
@@ -8033,7 +8047,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655"
+            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/harfbuzz/harfbuzz/pull/5655"
@@ -8042,7 +8058,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/fonttools/fonttools/pull/4097"
+            "href": "https://github.com/fonttools/fonttools/pull/4097",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/fonttools/fonttools/pull/4097"
@@ -8051,7 +8069,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/googlefonts/fontations/pull/2209"
+            "href": "https://github.com/googlefonts/fontations/pull/2209",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/googlefonts/fontations/pull/2209"
@@ -8060,7 +8080,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/googlefonts/fontations/pull/2208"
+            "href": "https://github.com/googlefonts/fontations/pull/2208",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/googlefonts/fontations/pull/2208"
@@ -8069,7 +8091,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/googlefonts/fontations/pull/2210"
+            "href": "https://github.com/googlefonts/fontations/pull/2210",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/googlefonts/fontations/pull/2210"
@@ -8078,7 +8102,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
+            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
@@ -8087,7 +8113,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
+            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
@@ -8096,7 +8124,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://ja.wikipedia.org/wiki/OpenType"
+            "href": "https://ja.wikipedia.org/wiki/OpenType",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://ja.wikipedia.org/wiki/OpenType"
@@ -8105,7 +8135,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://en.wikipedia.org/wiki/OpenType"
+            "href": "https://en.wikipedia.org/wiki/OpenType",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://en.wikipedia.org/wiki/OpenType"
@@ -8114,7 +8146,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
+            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
@@ -8123,7 +8157,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
+            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
@@ -8132,7 +8168,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
+            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
@@ -8146,7 +8184,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.iso.org/standard/14496-22"
+            "href": "https://www.iso.org/standard/14496-22",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://www.iso.org/standard/14496-22"
@@ -8155,16 +8195,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.iso.org/standard/87621.html"
-          },
-          "children": [
-            "https://www.iso.org/standard/87621.html"
-          ]
-        },
-        {
-          "tag": "a",
-          "attrs": {
-            "href": "https://www.iso.org/standard/52136.html"
+            "href": "https://www.iso.org/standard/52136.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://www.iso.org/standard/52136.html"
@@ -8173,7 +8206,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://webstore.iec.ch/en/publication/64608"
+            "href": "https://webstore.iec.ch/en/publication/64608",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://webstore.iec.ch/en/publication/64608"
@@ -8182,7 +8217,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
+            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
@@ -8191,7 +8228,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
+            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
@@ -8200,7 +8239,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/MPEGGroup/OpenFontFormat"
+            "href": "https://github.com/MPEGGroup/OpenFontFormat",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/MPEGGroup/OpenFontFormat"
@@ -8209,7 +8250,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/"
+            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://learn.microsoft.com/en-us/typography/opentype/spec/"
@@ -8218,7 +8261,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
+            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
@@ -8227,7 +8272,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
+            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
@@ -8236,7 +8283,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655"
+            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/harfbuzz/harfbuzz/pull/5655"
@@ -8245,7 +8294,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/fonttools/fonttools/pull/4097"
+            "href": "https://github.com/fonttools/fonttools/pull/4097",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/fonttools/fonttools/pull/4097"
@@ -8254,7 +8305,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/googlefonts/fontations/pull/2209"
+            "href": "https://github.com/googlefonts/fontations/pull/2209",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/googlefonts/fontations/pull/2209"
@@ -8263,7 +8316,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/googlefonts/fontations/pull/2208"
+            "href": "https://github.com/googlefonts/fontations/pull/2208",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/googlefonts/fontations/pull/2208"
@@ -8272,7 +8327,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/googlefonts/fontations/pull/2210"
+            "href": "https://github.com/googlefonts/fontations/pull/2210",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/googlefonts/fontations/pull/2210"
@@ -8281,7 +8338,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
+            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
@@ -8290,7 +8349,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
+            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
@@ -8299,7 +8360,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://ja.wikipedia.org/wiki/OpenType"
+            "href": "https://ja.wikipedia.org/wiki/OpenType",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://ja.wikipedia.org/wiki/OpenType"
@@ -8308,7 +8371,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://en.wikipedia.org/wiki/OpenType"
+            "href": "https://en.wikipedia.org/wiki/OpenType",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://en.wikipedia.org/wiki/OpenType"
@@ -8317,7 +8382,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
+            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
@@ -8326,7 +8393,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
+            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
@@ -8335,7 +8404,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
+            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
           },
           "children": [
             "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
@@ -13991,7 +14062,7 @@
               "tag": "code",
               "attrs": {},
               "children": [
-                "glyf"
+                "GLYF"
               ]
             },
             "側でも",
@@ -17909,7 +17980,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "ISO公式：ISO/IEC 14496-22:2026（ご指定のページ）"
+                        "ISO公式：ISO/IEC 14496-22:2026（ライフサイクル・1,003ページの記載）"
                       ]
                     },
                     {
@@ -17919,7 +17990,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/14496-22"
+                            "href": "https://www.iso.org/standard/14496-22",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://www.iso.org/standard/14496-22"
@@ -17946,7 +18019,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "ISO公式：FDIS 14496-22（最終国際規格案、ライフサイクルと1,003ページの記載）"
+                        "ISO公式：ISO/IEC 14496-22:2009（第2版の概要・目標）"
                       ]
                     },
                     {
@@ -17956,10 +18029,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/87621.html"
+                            "href": "https://www.iso.org/standard/52136.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://www.iso.org/standard/87621.html"
+                            "https://www.iso.org/standard/52136.html"
                           ]
                         }
                       ]
@@ -17983,7 +18058,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "ISO公式：ISO/IEC 14496-22:2009（第2版の概要・目標）"
+                        "IEC Webstore：ISO/IEC 14496-22:2019（第4版、628ページ、撤回日）"
                       ]
                     },
                     {
@@ -17993,10 +18068,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/52136.html"
+                            "href": "https://webstore.iec.ch/en/publication/64608",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://www.iso.org/standard/52136.html"
+                            "https://webstore.iec.ch/en/publication/64608"
                           ]
                         }
                       ]
@@ -18020,7 +18097,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "IEC Webstore：ISO/IEC 14496-22:2019（第4版、628ページ、撤回日）"
+                        "MPEG公式：Open Font Format の標準ページ"
                       ]
                     },
                     {
@@ -18030,10 +18107,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://webstore.iec.ch/en/publication/64608"
+                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://webstore.iec.ch/en/publication/64608"
+                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
                           ]
                         }
                       ]
@@ -18057,7 +18136,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "MPEG公式：Open Font Format の標準ページ"
+                        "MPEG公式：カラーフォント・MATH対応の提案募集"
                       ]
                     },
                     {
@@ -18067,10 +18146,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
+                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format"
+                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
                           ]
                         }
                       ]
@@ -18094,7 +18175,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "MPEG公式：カラーフォント・MATH対応の提案募集"
+                        "MPEG公式GitHub：OpenFontFormat（課題の議論リポジトリ）"
                       ]
                     },
                     {
@@ -18104,10 +18185,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
+                            "href": "https://github.com/MPEGGroup/OpenFontFormat",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://mpeg.chiariglione.org/standards/mpeg-4/open-font-format/call-proposals-isoiec-14496-22-open-font-format-color-font.html"
+                            "https://github.com/MPEGGroup/OpenFontFormat"
                           ]
                         }
                       ]
@@ -18131,7 +18214,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "MPEG公式GitHub：OpenFontFormat（課題の議論リポジトリ）"
+                        "Microsoft：OpenType 仕様 1.9.1（第5版予備草案の取り込みを明記）"
                       ]
                     },
                     {
@@ -18141,10 +18224,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/MPEGGroup/OpenFontFormat"
+                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://github.com/MPEGGroup/OpenFontFormat"
+                            "https://learn.microsoft.com/en-us/typography/opentype/spec/"
                           ]
                         }
                       ]
@@ -18168,7 +18253,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "Microsoft：OpenType 仕様 1.9.1（第5版予備草案の取り込みを明記）"
+                        "Microsoft：OpenType 変更履歴"
                       ]
                     },
                     {
@@ -18178,10 +18263,12 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/"
+                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
-                            "https://learn.microsoft.com/en-us/typography/opentype/spec/"
+                            "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
                           ]
                         }
                       ]
@@ -18199,43 +18286,6 @@
                       "attrs": {},
                       "children": [
                         "9"
-                      ]
-                    },
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "Microsoft：OpenType 変更履歴"
-                      ]
-                    },
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        {
-                          "tag": "a",
-                          "attrs": {
-                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
-                          },
-                          "children": [
-                            "https://learn.microsoft.com/en-us/typography/opentype/spec/changes"
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "tag": "tr",
-                  "attrs": {
-                    "class": "even"
-                  },
-                  "children": [
-                    {
-                      "tag": "td",
-                      "attrs": {},
-                      "children": [
-                        "10"
                       ]
                     },
                     {
@@ -18260,7 +18310,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
+                            "href": "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://learn.microsoft.com/en-us/typography/opentype/spec/glyf"
@@ -18351,7 +18403,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "11"
+                        "10"
                       ]
                     },
                     {
@@ -18375,7 +18427,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655"
+                            "href": "https://github.com/harfbuzz/harfbuzz/pull/5655",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/harfbuzz/harfbuzz/pull/5655"
@@ -18395,7 +18449,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "12"
+                        "11"
                       ]
                     },
                     {
@@ -18419,7 +18473,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/fonttools/fonttools/pull/4097"
+                            "href": "https://github.com/fonttools/fonttools/pull/4097",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/fonttools/fonttools/pull/4097"
@@ -18439,7 +18495,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "13"
+                        "12"
                       ]
                     },
                     {
@@ -18479,7 +18535,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/googlefonts/fontations/pull/2209"
+                            "href": "https://github.com/googlefonts/fontations/pull/2209",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/googlefonts/fontations/pull/2209"
@@ -18499,7 +18557,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "14"
+                        "13"
                       ]
                     },
                     {
@@ -18531,7 +18589,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/googlefonts/fontations/pull/2208"
+                            "href": "https://github.com/googlefonts/fontations/pull/2208",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/googlefonts/fontations/pull/2208"
@@ -18551,7 +18611,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "15"
+                        "14"
                       ]
                     },
                     {
@@ -18582,7 +18642,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/googlefonts/fontations/pull/2210"
+                            "href": "https://github.com/googlefonts/fontations/pull/2210",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/googlefonts/fontations/pull/2210"
@@ -18602,7 +18664,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "16"
+                        "15"
                       ]
                     },
                     {
@@ -18626,7 +18688,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
+                            "href": "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://github.com/harfbuzz/boring-expansion-spec/blob/main/iso_docs/WG03_otf-improvements.pdf?raw=true"
@@ -18646,7 +18710,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "17"
+                        "16"
                       ]
                     },
                     {
@@ -18678,7 +18742,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
+                            "href": "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://fonttools.readthedocs.io/en/latest/ttLib/tables/G_V_A_R_.html"
@@ -18762,7 +18828,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "18"
+                        "17"
                       ]
                     },
                     {
@@ -18779,7 +18845,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://ja.wikipedia.org/wiki/OpenType"
+                            "href": "https://ja.wikipedia.org/wiki/OpenType",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://ja.wikipedia.org/wiki/OpenType"
@@ -18799,7 +18867,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "19"
+                        "18"
                       ]
                     },
                     {
@@ -18816,7 +18884,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://en.wikipedia.org/wiki/OpenType"
+                            "href": "https://en.wikipedia.org/wiki/OpenType",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://en.wikipedia.org/wiki/OpenType"
@@ -18836,7 +18906,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "20"
+                        "19"
                       ]
                     },
                     {
@@ -18853,7 +18923,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
+                            "href": "https://nisp.nw3.dk/standard/iso-iec-14496-22.html",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://nisp.nw3.dk/standard/iso-iec-14496-22.html"
@@ -18873,7 +18945,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "21"
+                        "20"
                       ]
                     },
                     {
@@ -18890,7 +18962,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
+                            "href": "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://ia801609.us.archive.org/view_archive.php?archive=%2F25%2Fitems%2Fopentype-1.9%2Fc074461_ISO_IEC_14496-22_2019.zip&file=C074461e.pdf"
@@ -18910,7 +18984,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "22"
+                        "21"
                       ]
                     },
                     {
@@ -18927,7 +19001,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"
+                            "href": "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf",
+                            "target": "_blank",
+                            "rel": "noopener noreferrer"
                           },
                           "children": [
                             "https://archive.org/download/opentype-1.9/ISO_IEC_14496-22_2019_Amd_1_2020-Character_PDF_document(en).pdf"

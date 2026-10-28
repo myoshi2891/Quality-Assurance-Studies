@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import React from 'react';
+import { load } from 'cheerio';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
@@ -16,7 +17,20 @@ const globalConfig = Function(`return (${initialization});`)() as object;
 const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
-const reviewedBody = inventory.originalBody;
+// Apply the reviewed content changes to the archived comparison document.
+const reviewedSource = load(inventory.originalBody);
+reviewedSource('a[href="https://www.iso.org/standard/87621.html"]').closest('tr').remove();
+const references = reviewedSource('#sources ~ .table-scroll');
+references.find('a[href^="http"]').attr('target', '_blank').attr('rel', 'noopener noreferrer');
+references.find('tbody tr').each((index, row) => {
+    reviewedSource(row).find('td').first().text(String(index + 1));
+});
+references.find('tbody').each((_, body) => reviewedSource(body).find('tr').each((index, row) => {
+    reviewedSource(row).attr('class', index % 2 === 0 ? 'odd' : 'even');
+}));
+references.first().find('tbody tr').first().find('td').eq(1).text('ISO公式：ISO/IEC 14496-22:2026（ライフサイクル・1,003ページの記載）');
+reviewedSource('.callout-new').filter((_, el) => reviewedSource(el).text().includes('3次ベジェ曲線')).find('code').text('GLYF');
+const reviewedBody = reviewedSource('body').html()!;
 const selectors = ['.main','.hero','.eyebrow','.hero-title','.meta-row','.meta-item','.meta-label','.meta-value','h2','h3','main p:not([hidden])','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.sidebar-title','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','hr','main code','pre'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,900,901,1440]) {

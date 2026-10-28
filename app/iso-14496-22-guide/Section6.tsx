@@ -57,7 +57,7 @@ export default function Section6() { return <>
 <p>{"🆕 "}
 <strong>{"第5版"}</strong>
 {"では、"}
-<code>{"glyf"}</code>
+<code>{"GLYF"}</code>
 {"\n側でも"}
 <strong>{"3次ベジェ曲線"}</strong>
 {"を扱えるようにする拡張が入りました（Step\n7）。"}</p>
