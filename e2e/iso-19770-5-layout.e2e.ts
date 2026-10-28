@@ -87,6 +87,11 @@ publishedParts.append(`<tr class="even">
 const plannedParts = reviewedSource('#4-3-今後追加が計画されているパート');
 plannedParts.next('p').html('ITAM Standardsの「Coming Soon」ページは古い計画資料です。以下では現行の改訂計画と過去の計画を区別しています。現行の改訂計画として確認できるのは19770-5と19770-11（第2版）です。19770-7などの過去の計画は現行計画ではなく、最新状況はISO公式で確認してください（<strong>計画段階のため変更・中止の可能性あり</strong>）。');
 const plannedTable = plannedParts.nextAll('.table-scroll').first();
+plannedTable.find('th').first().text('パート（現行計画・過去の計画）');
+plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-2').find('td').last().text('過去の計画（現行の改訂計画は未確認）：SWID 第3版の改訂');
+const historicalPart8 = plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-8の次版');
+historicalPart8.find('td').first().text('19770-8');
+historicalPart8.find('td').last().text('過去の計画：業界プラクティスと19770ファミリーを相互にマッピングするための指針（2020年版は発行済み。次版の改訂計画は未確認）');
 plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-6').remove();
 plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-7').find('td').last().text('過去の計画（現行計画ではない）：ITAMデータ構造要素のオーケストレーション（技術報告書の可能性）');
 plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-11').find('td').first().text('19770-11（第2版）');

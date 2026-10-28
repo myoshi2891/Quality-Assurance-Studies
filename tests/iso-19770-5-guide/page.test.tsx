@@ -125,7 +125,7 @@ describe('review fixes', () => {
             'ITAMを実装するための実践的な指針（Technical Specification）',
         ]);
         const plannedParts = $('#4-3-今後追加が計画されているパート').nextAll('.table-scroll').first().find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
-        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-7', '19770-8の次版', '19770-11（第2版）']);
+        expect(plannedParts).toEqual(['19770-2', '19770-5', '19770-7', '19770-8', '19770-11（第2版）']);
         const existingParts = $('#4-1-各パートの役割').next('.table-scroll').find('tbody tr td:first-child').map((_, td) => norm($(td).text())).get();
         expect(existingParts).toContain('19770-6:2024');
         expect(existingParts).toContain('19770-11:2021');
