@@ -25,9 +25,11 @@ references.find('a[href^="http"]').attr('target', '_blank').attr('rel', 'noopene
 references.find('tbody tr').each((index, row) => {
     reviewedSource(row).find('td').first().text(String(index + 1));
 });
-references.find('tbody').each((_, body) => reviewedSource(body).find('tr').each((index, row) => {
-    reviewedSource(row).attr('class', index % 2 === 0 ? 'odd' : 'even');
-}));
+references.find('tbody').each((_, body) => {
+    reviewedSource(body).find('tr').each((index, row) => {
+        reviewedSource(row).attr('class', index % 2 === 0 ? 'odd' : 'even');
+    });
+});
 references.first().find('tbody tr').first().find('td').eq(1).text('ISO公式：ISO/IEC 14496-22:2026（ライフサイクル・1,003ページの記載）');
 reviewedSource('.callout-new').filter((_, el) => reviewedSource(el).text().includes('3次ベジェ曲線')).find('code').text('GLYF');
 const reviewedBody = reviewedSource('body').html()!;
