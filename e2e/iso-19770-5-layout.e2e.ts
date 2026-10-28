@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import React from 'react';
+import { load } from 'cheerio';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
@@ -17,7 +18,7 @@ const start = shared.indexOf('function applySvgFixups');
 const fixups = transformSync(shared.slice(start, shared.indexOf('/**', start)), { filename: 'fixups.ts', jsc: { parser: { syntax: 'typescript' } } }).code as string;
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 // レビューで更新した 19770-10 の発行状態と mmd-9 のテキスト代替を原本にも反映し、CSS差だけを比較する
-const reviewedBody = ([
+const previouslyReviewedBody = ([
     [
         `                                <tr class="even">
                                     <td><strong>19770-8</strong>:2020</td>
@@ -62,6 +63,17 @@ const reviewedBody = ([
     if (body.split(from).length !== 2) throw new Error(`Missing or ambiguous reviewed source text: ${from}`);
     return body.replace(from, to);
 }, inventory.originalBody);
+// Keep the archived CSS comparison aligned with the additional reviewed content.
+const reviewedSource = load(previouslyReviewedBody);
+reviewedSource('#4-1-各パートの役割').next('.table-scroll').find('tbody').append(`<tr class="even">
+<td><strong>19770-13</strong>:2026</td>
+<td>ITAMシステムへの持続可能性の組込みに関する指針</td>
+<td>発行済み・技術仕様書（TS・第1版 / Edition 1）</td>
+<td>IT資産マネジメントシステム（ITAMS）に持続可能性の観点を組み込むためのガイダンス</td>
+</tr>`);
+reviewedSource('a[href="https://itamstandards.org/coming-soon/"]').closest('tr').find('td').last().text('古い計画資料。19770-6:2024、TS 19770-10:2025、19770-11:2021は発行済み。今後の改訂として確認できるのは19770-5と19770-11（第2版）で、19770-7等の過去の計画は現行計画と区別し、最新状況はISO公式で確認する');
+reviewedSource('#mmd-7').attr('aria-label', '正確なIT資産データが支える管理活動の関係図').attr('aria-describedby', 'mmd-7-desc').after('<p id="mmd-7-desc">正確なIT資産データ（台帳・SWID等）から、脆弱性管理（影響範囲の特定）、パッチ管理（適用漏れの発見）、ライセンス遵守（監査対応）、コスト最適化へ矢印が伸びています。資産ごとのソフトウェアを把握することで、必要なパッチと未適用の資産を特定できます。</p>');
+const reviewedBody = reviewedSource('body').html()!;
 const selectors = ['.main','main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hero-meta .m','.hero-meta .k','.hero-meta .v','h2','h3','main p:not([id$="-desc"])','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.callout-icon','.callout-body','.page-footer','.brand','.brand .dot','.brand span','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','.scrim','main code','.checklist-card','.checklist-progress','.cp-label','.cp-bar','.cp-fill','.cp-count','.checklist label','.checklist input'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,980,981,1440]) {

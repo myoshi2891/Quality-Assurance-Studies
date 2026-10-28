@@ -267,6 +267,13 @@ export default function Section4() { return <>
 
 </tr>
 
+<tr className="even">
+<td><strong>{"19770-13"}</strong>{":2026"}</td>
+<td>{"ITAMシステムへの持続可能性の組込みに関する指針"}</td>
+<td>{"発行済み・技術仕様書（TS・第1版 / Edition 1）"}</td>
+<td>{"IT資産マネジメントシステム（ITAMS）に持続可能性の観点を組み込むためのガイダンス"}</td>
+</tr>
+
 </tbody>
 
 </table>

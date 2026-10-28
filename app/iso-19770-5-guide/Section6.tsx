@@ -92,7 +92,8 @@ export default function Section6() { return <>
 </table>
 
 </div>
-<div className="mermaid-diagram" id="mmd-7" role="img" aria-label="図7"><Mermaid chart={DIAGRAMS["mmd-7"]!} /></div>
+<div className="mermaid-diagram" id="mmd-7" role="img" aria-label="正確なIT資産データが支える管理活動の関係図" aria-describedby="mmd-7-desc"><Mermaid chart={DIAGRAMS["mmd-7"]!} /></div>
+<p id="mmd-7-desc">{"正確なIT資産データ（台帳・SWID等）から、脆弱性管理（影響範囲の特定）、パッチ管理（適用漏れの発見）、ライセンス遵守（監査対応）、コスト最適化へ矢印が伸びています。資産ごとのソフトウェアを把握することで、必要なパッチと未適用の資産を特定できます。"}</p>
 <div className="callout callout-note">
 
 <div className="callout-icon">
