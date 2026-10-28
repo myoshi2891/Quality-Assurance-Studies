@@ -37,7 +37,17 @@ export default function Section12() { return <>
 
 <td>{"Microsoft OpenType 仕様ページ"}</td>
 </tr>
-
+</tbody>
+</table></div>
+<h3 id="二次情報に基づく事項">{"二次情報に基づく事項"}</h3>
+<div className="table-scroll"><table>
+<thead>
+<tr className="header">
+<th>{"事項"}</th>
+<th>{"根拠"}</th>
+</tr>
+</thead>
+<tbody>
 <tr className="odd">
 <td>{"初版2007年〜第5版2026年の発行年"}</td>
 
