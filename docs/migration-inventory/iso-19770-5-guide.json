@@ -8919,13 +8919,43 @@
       "direction": "LR"
     },
     "mmd-6": {
-      "chart": "flowchart LR\nTG1[\"コーパスタグ<br/>配布前\"]\nTG2[\"プライマリタグ<br/>インストール済み\"]\nTG3[\"パッチタグ<br/>修正適用\"]\nTG4[\"サプリメンタルタグ<br/>利用者が情報を追加\"]\nTG1 -->|\"インストール\"| TG2\nTG2 -->|\"更新\"| TG3\nTG4 -.->|\"元のタグは変更せず補足\"| TG2\nstyle TG1 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d\nstyle TG2 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d\nstyle TG3 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d\nstyle TG4 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d",
+      "chart": "flowchart LR\nLC1[\"配布前のソフトウェア\"]\nLC2[\"インストール済みのソフトウェア\"]\nLC3[\"パッチ適用済みのソフトウェア\"]\nTG1[\"コーパスタグ<br/>インストール媒体を識別\"]\nTG2[\"プライマリタグ<br/>インストール済み製品を識別\"]\nTG3[\"パッチタグ<br/>適用したパッチを識別\"]\nTG4[\"サプリメンタルタグ<br/>利用者が情報を追加\"]\nLC1 -->|\"インストール\"| LC2\nLC2 -->|\"パッチ適用\"| LC3\nLC1 -.->|\"媒体の情報\"| TG1\nLC2 -.->|\"別のタグをインストールまたは作成\"| TG2\nLC3 -.->|\"別のタグを追加\"| TG3\nTG2 ---|\"併存\"| TG3\nTG4 -.->|\"元のタグは変更せず補足\"| TG2\nstyle LC1 fill:#fff7e0,stroke:#b7791f,color:#3d2a00\nstyle LC2 fill:#fff7e0,stroke:#b7791f,color:#3d2a00\nstyle LC3 fill:#fff7e0,stroke:#b7791f,color:#3d2a00\nstyle TG1 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d\nstyle TG2 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d\nstyle TG3 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d\nstyle TG4 fill:#e8f0fe,stroke:#3b6fd4,color:#0b1f4d",
       "nodes": [
+        {
+          "id": "LC1",
+          "labelLines": [
+            "配布前のソフトウェア"
+          ],
+          "shape": "rect",
+          "fill": "#fff7e0",
+          "stroke": "#b7791f",
+          "color": "#3d2a00"
+        },
+        {
+          "id": "LC2",
+          "labelLines": [
+            "インストール済みのソフトウェア"
+          ],
+          "shape": "rect",
+          "fill": "#fff7e0",
+          "stroke": "#b7791f",
+          "color": "#3d2a00"
+        },
+        {
+          "id": "LC3",
+          "labelLines": [
+            "パッチ適用済みのソフトウェア"
+          ],
+          "shape": "rect",
+          "fill": "#fff7e0",
+          "stroke": "#b7791f",
+          "color": "#3d2a00"
+        },
         {
           "id": "TG1",
           "labelLines": [
             "コーパスタグ",
-            "配布前"
+            "インストール媒体を識別"
           ],
           "shape": "rect",
           "fill": "#e8f0fe",
@@ -8936,7 +8966,7 @@
           "id": "TG2",
           "labelLines": [
             "プライマリタグ",
-            "インストール済み"
+            "インストール済み製品を識別"
           ],
           "shape": "rect",
           "fill": "#e8f0fe",
@@ -8947,7 +8977,7 @@
           "id": "TG3",
           "labelLines": [
             "パッチタグ",
-            "修正適用"
+            "適用したパッチを識別"
           ],
           "shape": "rect",
           "fill": "#e8f0fe",
@@ -8968,18 +8998,46 @@
       ],
       "edges": [
         {
-          "id": "L_TG1_TG2_0",
+          "id": "L_LC1_LC2_0",
           "dotted": false,
           "start": false,
           "end": true,
           "label": "インストール"
         },
         {
-          "id": "L_TG2_TG3_0",
+          "id": "L_LC2_LC3_0",
           "dotted": false,
           "start": false,
           "end": true,
-          "label": "更新"
+          "label": "パッチ適用"
+        },
+        {
+          "id": "L_LC1_TG1_0",
+          "dotted": true,
+          "start": false,
+          "end": true,
+          "label": "媒体の情報"
+        },
+        {
+          "id": "L_LC2_TG2_0",
+          "dotted": true,
+          "start": false,
+          "end": true,
+          "label": "別のタグをインストールまたは作成"
+        },
+        {
+          "id": "L_LC3_TG3_0",
+          "dotted": true,
+          "start": false,
+          "end": true,
+          "label": "別のタグを追加"
+        },
+        {
+          "id": "L_TG2_TG3_0",
+          "dotted": false,
+          "start": false,
+          "end": false,
+          "label": "併存"
         },
         {
           "id": "L_TG4_TG2_0",
