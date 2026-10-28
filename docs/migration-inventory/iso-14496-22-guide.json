@@ -371,6 +371,15 @@
         {
           "tag": "h3",
           "attrs": {
+            "id": "二次情報に基づく事項"
+          },
+          "children": [
+            "二次情報に基づく事項"
+          ]
+        },
+        {
+          "tag": "h3",
+          "attrs": {
             "id": "-実装者の一次発言から読み取った事項"
           },
           "children": [
@@ -5762,7 +5771,47 @@
                       ]
                     }
                   ]
-                },
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "table",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "thead",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "header"
+                  },
+                  "children": [
+                    {
+                      "tag": "th",
+                      "attrs": {},
+                      "children": [
+                        "事項"
+                      ]
+                    },
+                    {
+                      "tag": "th",
+                      "attrs": {},
+                      "children": [
+                        "根拠"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "tbody",
+              "attrs": {},
+              "children": [
                 {
                   "tag": "tr",
                   "attrs": {
@@ -17502,7 +17551,64 @@
                       ]
                     }
                   ]
-                },
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "h3",
+      "attrs": {
+        "id": "二次情報に基づく事項"
+      },
+      "children": [
+        "二次情報に基づく事項"
+      ]
+    },
+    {
+      "tag": "div",
+      "attrs": {
+        "class": "table-scroll"
+      },
+      "children": [
+        {
+          "tag": "table",
+          "attrs": {},
+          "children": [
+            {
+              "tag": "thead",
+              "attrs": {},
+              "children": [
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "header"
+                  },
+                  "children": [
+                    {
+                      "tag": "th",
+                      "attrs": {},
+                      "children": [
+                        "事項"
+                      ]
+                    },
+                    {
+                      "tag": "th",
+                      "attrs": {},
+                      "children": [
+                        "根拠"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "tbody",
+              "attrs": {},
+              "children": [
                 {
                   "tag": "tr",
                   "attrs": {
