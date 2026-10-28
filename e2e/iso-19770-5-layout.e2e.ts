@@ -65,12 +65,32 @@ const previouslyReviewedBody = ([
 }, inventory.originalBody);
 // Keep the archived CSS comparison aligned with the additional reviewed content.
 const reviewedSource = load(previouslyReviewedBody);
-reviewedSource('#4-1-各パートの役割').next('.table-scroll').find('tbody').append(`<tr class="even">
+const publishedParts = reviewedSource('#4-1-各パートの役割').next('.table-scroll').find('tbody');
+publishedParts.find('tr').filter((_, row) => reviewedSource(row).find('strong').first().text() === '19770-8').attr('class', 'odd').before(`<tr class="even">
+<td><strong>19770-6</strong>:2024</td>
+<td>ハードウェア識別タグ</td>
+<td>データ標準</td>
+<td>ハードウェアを識別・説明するためのデータ形式</td>
+</tr>`);
+publishedParts.find('tr').filter((_, row) => reviewedSource(row).find('strong').first().text() === '19770-10').attr('class', 'even').after(`<tr class="odd">
+<td><strong>19770-11</strong>:2021</td>
+<td>ITAMシステムの審査・認証を行う機関への要求事項</td>
+<td>国際規格（第1版 / Edition 1）</td>
+<td>19770-1に基づくITAMシステムの審査・認証を行う機関への要求事項と指針</td>
+</tr>`);
+publishedParts.append(`<tr class="even">
 <td><strong>19770-13</strong>:2026</td>
 <td>ITAMシステムへの持続可能性の組込みに関する指針</td>
 <td>発行済み・技術仕様書（TS・第1版 / Edition 1）</td>
 <td>IT資産マネジメントシステム（ITAMS）に持続可能性の観点を組み込むためのガイダンス</td>
 </tr>`);
+const plannedParts = reviewedSource('#4-3-今後追加が計画されているパート');
+plannedParts.next('p').html('ITAM Standardsの「Coming Soon」ページは古い計画資料です。以下では現行の改訂計画と過去の計画を区別しています。現行の改訂計画として確認できるのは19770-5と19770-11（第2版）です。19770-7などの過去の計画は現行計画ではなく、最新状況はISO公式で確認してください（<strong>計画段階のため変更・中止の可能性あり</strong>）。');
+const plannedTable = plannedParts.nextAll('.table-scroll').first();
+plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-6').remove();
+plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-7').find('td').last().text('過去の計画（現行計画ではない）：ITAMデータ構造要素のオーケストレーション（技術報告書の可能性）');
+plannedTable.find('tbody tr').filter((_, row) => reviewedSource(row).find('td').first().text().trim() === '19770-11').find('td').first().text('19770-11（第2版）');
+plannedTable.find('tbody tr').each((index, row) => { reviewedSource(row).attr('class', index % 2 === 0 ? 'odd' : 'even'); });
 reviewedSource('a[href="https://itamstandards.org/coming-soon/"]').closest('tr').find('td').last().text('古い計画資料。19770-6:2024、TS 19770-10:2025、19770-11:2021は発行済み。今後の改訂として確認できるのは19770-5と19770-11（第2版）で、19770-7等の過去の計画は現行計画と区別し、最新状況はISO公式で確認する');
 reviewedSource('#mmd-7').attr('aria-label', '正確なIT資産データが支える管理活動の関係図').attr('aria-describedby', 'mmd-7-desc').after('<p id="mmd-7-desc">正確なIT資産データ（台帳・SWID等）から、脆弱性管理（影響範囲の特定）、パッチ管理（適用漏れの発見）、ライセンス遵守（監査対応）、コスト最適化へ矢印が伸びています。資産ごとのソフトウェアを把握することで、必要なパッチと未適用の資産を特定できます。</p>');
 const reviewedBody = reviewedSource('body').html()!;
