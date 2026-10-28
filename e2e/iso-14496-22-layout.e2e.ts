@@ -35,6 +35,10 @@ reviewedSource('.callout-new').filter((_, el) => reviewedSource(el).text().inclu
 reviewedSource('.callout-note').filter((_, el) => reviewedSource(el).text().includes('2段階を担う')).find('p').html('この「<strong>シェーピング（GSUB/GPOS）→\n描画</strong>」のうち、シェーピングを担う代表的なオープンソース実装が\n<strong>HarfBuzz</strong>です。描画は別の段階で、レンダラーが担います。Step 8 で触れます。');
 reviewedSource('td').filter((_, el) => reviewedSource(el).text() === '65,536通り（GIDは最大65,535）').text('値は65,536通り。従来のグリフ数は最大65,535個（有効なGIDは0–65,534）');
 reviewedSource('td').filter((_, el) => reviewedSource(el).text() === 'FDIS時点の掲載値が1,003ページ。発行版の値は未確認').text('発行版はISO公式ページで1,003ページと確認済み。ただし、規格本文は未確認');
+const officialTable = reviewedSource('#-公式情報で確認できたこと').next('.table-scroll');
+const secondaryTable = officialTable.clone();
+secondaryTable.find('tbody').empty().append(officialTable.find('tbody tr').last());
+officialTable.after('<h3 id="二次情報に基づく事項">二次情報に基づく事項</h3>', secondaryTable);
 const reviewedBody = reviewedSource('body').html()!;
 const selectors = ['.main','.hero','.eyebrow','.hero-title','.meta-row','.meta-item','.meta-label','.meta-value','h2','h3','main p:not([hidden])','main ul','main ol','main li','strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.sidebar-title','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','hr','main code','pre'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
