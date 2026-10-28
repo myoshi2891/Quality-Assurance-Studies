@@ -163,7 +163,19 @@ for (const width of [390,980,981,1440]) {
                 Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'), chart);
             }, { id, chart: DIAGRAMS[id]!, globalConfig, fixups });
             const actual = await page.locator('#'+id).evaluate(collect);
-            expect(actual).toEqual(expected);
+            if (id === 'mmd-6') {
+                // This diagram intentionally corrects the archived tag-to-tag lifecycle.
+                const rgb = (hex: string) => `rgb(${[1,3,5].map(i => parseInt(hex.slice(i,i+2),16)).join(', ')})`;
+                expect(actual.nodes).toEqual(diagram.nodes.map(node => ({
+                    id: node.id, label: node.labelLines, shape: node.shape,
+                    color: rgb(node.color), fill: rgb(node.fill), stroke: rgb(node.stroke),
+                })));
+                expect(actual.labels).toEqual(diagram.edges.map(edge => edge.label));
+                expect(actual.paths).toEqual(diagram.edges.map(edge => expected.paths[edge.dotted ? 2 : 0]));
+                expect(actual.labelColors).toEqual(diagram.edges.map(() => expected.labelColors[0]));
+            } else {
+                expect(actual).toEqual(expected);
+            }
             const edges = await page.locator('#'+id+' path.flowchart-link').evaluateAll(els => els.map(el => ({ id: el.id.replace(/^sql-mmd-\d+-/,''), dotted: el.classList.contains('edge-pattern-dotted'), start: !!el.getAttribute('marker-start'), end: !!el.getAttribute('marker-end') })));
             expect(edges).toEqual(diagram.edges.map(({id,dotted,start,end})=>({id,dotted,start,end})));
             const reach = await page.locator('#'+id).evaluate(el => { const svg = el.querySelector('svg')!; const initial = svg.getBoundingClientRect().left; el.scrollLeft = el.scrollWidth; return { initial, left: el.getBoundingClientRect().left, movement: initial-svg.getBoundingClientRect().left, scroll: el.scrollLeft, required: el.scrollWidth-el.clientWidth }; });

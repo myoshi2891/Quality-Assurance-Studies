@@ -66,6 +66,13 @@ describe('all original diagrams', () => {
         expect(MERMAID_CONFIG).not.toContain("'");
         const entry: string = 'mermaid/dist/mermaid.esm.mjs'; const real = (await import(entry)).default;
         expect((await real.parse(DIAGRAMS[id])).diagramType).toBe('flowchart-v2');
+        if (id === 'mmd-6') {
+            const $ = await html();
+            const description = norm($('#' + $('#mmd-6').attr('aria-describedby')).text());
+            for (const relationship of ['別のプライマリタグをインストールまたは作成', '別のパッチタグを追加', 'プライマリタグとパッチタグは併存', '元のタグを変更せずに補足']) {
+                expect(description).toContain(relationship);
+            }
+        }
     });
     it('uses the shared renderer for all nine definitions in order', async () => {
         const original = mermaid.render; const calls: string[] = [];
