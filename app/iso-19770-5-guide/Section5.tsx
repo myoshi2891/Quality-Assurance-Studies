@@ -206,7 +206,7 @@ export default function Section5() { return <>
 </table>
 
 </div>
-<div className="mermaid-diagram" id="mmd-6" role="img" aria-label="SWIDタグ種別（コーパス・プライマリ・パッチ・サプリメンタル）の関係図" aria-describedby="mmd-6-desc"><p id="mmd-6-desc" hidden>{"コーパスタグ（配布前）はインストールによってプライマリタグ（インストール済み）になり、更新によってパッチタグ（修正適用）が加わります。サプリメンタルタグ（利用者が情報を追加）からプライマリタグへは、元のタグを変更せずに補足する点線の関係があります。"}</p><Mermaid chart={DIAGRAMS["mmd-6"]!} /></div>
+<div className="mermaid-diagram" id="mmd-6" role="img" aria-label="SWIDタグ種別（コーパス・プライマリ・パッチ・サプリメンタル）の関係図" aria-describedby="mmd-6-desc"><p id="mmd-6-desc" hidden>{"ソフトウェアの工程は配布前、インストール済み、パッチ適用済みの順に進みます。コーパスタグはインストール媒体を識別します。インストール時には別のプライマリタグをインストールまたは作成し、インストール済み製品を識別します。パッチ適用時には別のパッチタグを追加し、適用したパッチを識別します。プライマリタグとパッチタグは併存します。サプリメンタルタグ（利用者が情報を追加）からプライマリタグへは、元のタグを変更せずに補足する点線の関係があります。"}</p><Mermaid chart={DIAGRAMS["mmd-6"]!} /></div>
 <div className="callout callout-practice">
 
 <div className="callout-icon">
