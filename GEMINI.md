@@ -1,8 +1,14 @@
 # Project Overview
 
-Updated 2026-10-27
+Updated 2026-10-28
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-10-28: ISOガイドのレビュー修正
+
+- OFFの発行年の行を二次情報の小節へ移動し、年の記載を保持。SWID図とテキスト代替では工程とタグを分け、インストール時の別タグの配置・作成、パッチタグの追加・併存、元タグを変えない補足を明示。
+- OFFのhydrationテストをSSR HTMLからの復元へ変更し、回復可能エラー・console診断を検査。関連ユニット591件、対象型検査、lint、SWID図の4幅のブラウザー検証が成功。
+- OFFのCSS比較8件は失敗。変更前の390pxケースでも表の罫線色・一部の列幅の差分が再現したため、既存のスタイル差分は今回の対象外。
 
 ## 2026-10-27: ISO/IEC 19770-5 IT資産管理の概要と用語ガイドの移行
 
