@@ -64,8 +64,8 @@ export default function Section5() { return <>
 <div className="callout callout-note">
 <p>{"この「"}
 <strong>{"シェーピング（GSUB/GPOS）→\n描画"}</strong>
-{"」の2段階を担う代表的なオープンソース実装が\n"}
+{"」のうち、シェーピングを担う代表的なオープンソース実装が\n"}
 <strong>{"HarfBuzz"}</strong>
-{"（シェーピング）です。Step 8 で触れます。"}</p>
+{"です。描画は別の段階で、レンダラーが担います。Step 8 で触れます。"}</p>
 </div>
 </>; }

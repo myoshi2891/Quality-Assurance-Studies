@@ -26,7 +26,7 @@ export default function Section7() { return <>
 <tr className="odd">
 <td>{"16ビット（従来）"}</td>
 
-<td>{"65,536通り（GIDは最大65,535）"}</td>
+<td>{"値は65,536通り。従来のグリフ数は最大65,535個（有効なGIDは0–65,534）"}</td>
 
 <td>{"多言語統合フォントで足りない"}</td>
 </tr>

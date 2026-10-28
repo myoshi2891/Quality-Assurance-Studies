@@ -98,7 +98,7 @@ export default function Section12() { return <>
 <tr className="even">
 <td>{"最終ページ数"}</td>
 
-<td>{"FDIS時点の掲載値が1,003ページ。発行版の値は未確認"}</td>
+<td>{"発行版はISO公式ページで1,003ページと確認済み。ただし、規格本文は未確認"}</td>
 </tr>
 
 <tr className="odd">
