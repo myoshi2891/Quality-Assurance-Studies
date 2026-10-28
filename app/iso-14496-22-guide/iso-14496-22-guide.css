@@ -89,7 +89,7 @@
 .off-page ol { list-style-type: decimal; }
 .off-page ul, .off-page ol { margin: 1em 0; }
 .off-page .nav-list, .off-page .nav-list ul { list-style: none; margin: 0; padding: 0; }
-.off-page table { font-family: inherit; color: inherit; margin: 0; border-color: gray; min-width: 0; }
+.off-page table { font-family: inherit; color: inherit; margin: 0; border-color: currentColor; min-width: 0; }
 .off-page th, .off-page td { font-family: inherit; font-size: inherit; letter-spacing: normal; text-transform: none; border: 0; border-bottom: 1px solid var(--border); }
 .off-page td { background: transparent; color: var(--text); }
 .off-page td strong, .off-page .callout strong { color: #fff; }
