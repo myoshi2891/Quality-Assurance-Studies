@@ -20,7 +20,8 @@ function markup() { const Page = sourceModule(`${base}/page.tsx`).default as Rea
 // Apply the reviewed content changes to the archived comparison document.
 const reviewedSource = load(inventory.originalBody);
 reviewedSource('a[href="https://www.iso.org/standard/87621.html"]').closest('tr').remove();
-const references = reviewedSource('#sources ~ .table-scroll');
+// Stop at the glossary so bibliography numbering cannot replace its terms.
+const references = reviewedSource('#sources').nextUntil('#用語集', '.table-scroll');
 references.find('a[href^="http"]').attr('target', '_blank').attr('rel', 'noopener noreferrer');
 references.find('tbody tr').each((index, row) => {
     reviewedSource(row).find('td').first().text(String(index + 1));
