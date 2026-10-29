@@ -8933,7 +8933,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：表記ルール",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -9139,7 +9142,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：1. 規格の基本情報（早見表）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -9586,7 +9592,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 2：規格ファミリー（ISO/IEC 23009）の中での Part 1 の位置づけ",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -9984,7 +9993,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：② セグメント形式",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10196,7 +10208,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：各階層の意味",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10494,7 +10509,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 5：セグメントの場所を示す 4 つの方法（アドレッシング）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10705,7 +10723,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "code-block"
+        "class": "code-block",
+        "aria-label": "コード例：5-1. オンデマンド向けの最小例（学習用に簡略化）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10729,7 +10750,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "code-block"
+        "class": "code-block",
+        "aria-label": "コード例：5-2. ライブ向けの最小例（SegmentTemplate + SegmentTimeline）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10933,7 +10957,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 6：オンデマンド（static）とライブ（dynamic）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11195,7 +11222,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 7：プロファイルとは何か",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11452,7 +11482,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 9：版の歴史（第1版〜第6版）（1）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11762,7 +11795,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 9：版の歴史（第1版〜第6版）（2）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11892,7 +11928,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：第6版に至るまでの流れ（MPEG 会合ベース）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12185,7 +12224,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：Step 10：第6版（2026）の主な強化点",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12522,7 +12564,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：追加で確認できた採択内容（第145回会合・2024年1月）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12722,7 +12767,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：11-1. 発行後も規格は進化している",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12924,7 +12972,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：11-2. 代表的な実装での扱い",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13151,7 +13202,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：12-1. MPD そのものの検証",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13325,7 +13379,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：12-2. 再生・ABR の検証",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13492,7 +13549,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：12-3. ライブ特有の検証",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13651,7 +13711,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：12-4. 第6版の新機能に関する検証（導入する場合）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13818,7 +13881,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：用語集",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14236,7 +14302,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：A. 規格・標準化団体の一次情報",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14522,7 +14591,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：B. 国際的な開発者・研究者の発信（規格編集者・業界団体・主要 OSS）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15030,7 +15102,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：C. 二次情報（参考。導入判断は一次情報で再確認してください）",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15242,7 +15317,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "class": "table-scroll",
+        "aria-label": "表：調査の限界と注意事項",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15703,7 +15781,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：表記ルール",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -15915,7 +15996,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：1. 規格の基本情報（早見表）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -16374,7 +16458,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 2：規格ファミリー（ISO/IEC 23009）の中での Part 1 の位置づけ",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -16778,7 +16865,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：② セグメント形式",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -16996,7 +17086,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：各階層の意味",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -17300,7 +17393,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 5：セグメントの場所を示す 4 つの方法（アドレッシング）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -17511,7 +17607,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "code-block"
+            "class": "code-block",
+            "aria-label": "コード例：5-1. オンデマンド向けの最小例（学習用に簡略化）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -17535,7 +17634,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "code-block"
+            "class": "code-block",
+            "aria-label": "コード例：5-2. ライブ向けの最小例（SegmentTemplate + SegmentTimeline）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -17745,7 +17847,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 6：オンデマンド（static）とライブ（dynamic）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -18013,7 +18118,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 7：プロファイルとは何か",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -18282,7 +18390,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 9：版の歴史（第1版〜第6版）（1）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -18592,7 +18703,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 9：版の歴史（第1版〜第6版）（2）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -18722,7 +18836,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：第6版に至るまでの流れ（MPEG 会合ベース）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -19021,7 +19138,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：Step 10：第6版（2026）の主な強化点",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -19358,7 +19478,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：追加で確認できた採択内容（第145回会合・2024年1月）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -19564,7 +19687,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：11-1. 発行後も規格は進化している",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -19766,7 +19892,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：11-2. 代表的な実装での扱い",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -19999,7 +20128,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：12-1. MPD そのものの検証",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -20173,7 +20305,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：12-2. 再生・ABR の検証",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -20340,7 +20475,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：12-3. ライブ特有の検証",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -20499,7 +20637,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：12-4. 第6版の新機能に関する検証（導入する場合）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -20672,7 +20813,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：用語集",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -21096,7 +21240,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：A. 規格・標準化団体の一次情報",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -21382,7 +21529,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：B. 国際的な開発者・研究者の発信（規格編集者・業界団体・主要 OSS）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -21890,7 +22040,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：C. 二次情報（参考。導入判断は一次情報で再確認してください）",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -22108,7 +22261,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "class": "table-scroll",
+            "aria-label": "表：調査の限界と注意事項",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
