@@ -31,7 +31,7 @@ for (const width of [390,900,901,1440]) {
             await page.setContent(`<style>${css}</style>${markup()}`);
             const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) => Object.fromEntries(selectors.map(selector => [selector, Array.from(document.querySelectorAll(root + selector)).filter(el => !el.closest('svg')).map(el => { const style = getComputedStyle(el); return Object.fromEntries(properties.map(key => [key, style[key as keyof CSSStyleDeclaration]])); })]));
             const expected = await reference.evaluate(collect, { selectors, properties, root: '' });
-            const actual = await page.evaluate(collect, { selectors, properties, root: '.itam-page ' });
+            const actual = await page.evaluate(collect, { selectors, properties, root: '.dash-page ' });
             const differences: unknown[] = [];
             for (const selector of selectors) {
                 const a = actual[selector]!, e = expected[selector]!;
@@ -41,7 +41,7 @@ for (const width of [390,900,901,1440]) {
             expect(differences).toEqual([]);
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height','0px');
-            await expect(page.locator('.nav-toggle')).toHaveCSS('display', width <= 980 ? 'block' : 'none');
+            await expect(page.locator('.nav-toggle')).toHaveCSS('display', width <= 900 ? 'block' : 'none');
             for (const pseudo of ['::before','::after']) {
                 const props = ['content','backgroundImage','width','height','position','top','right'];
                 const snapshot = (el: Element, { pseudo, props }: { pseudo: string; props: string[] }) => Object.fromEntries(props.map(prop => [prop, getComputedStyle(el, pseudo)[prop as keyof CSSStyleDeclaration]]));
