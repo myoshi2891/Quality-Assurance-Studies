@@ -985,7 +985,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">201<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">202<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">201 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">202 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">143 files</span>
+          <span class="inv-count" id="inv-count-pages">144 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1430,6 +1430,7 @@ const DATA = {
 
   inventory: {
     pages: [
+      'tests/iso-27799-2025-guide/hydration.test.tsx',
       'tests/iso-27799-2025-guide/page.test.tsx',
       'tests/iso-27799-2025-guide/categories.test.tsx',
       'tests/iso-27799-2025-guide/navigation.test.tsx',
