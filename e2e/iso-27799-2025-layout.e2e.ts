@@ -86,6 +86,12 @@ for (const width of [390,960,961,1200,1201,1440]) {
                 return { nodes, labels, actors, messages, clusters, paths, labelColors };
             };
             const expected = await reference.locator('#'+id).evaluate(collect);
+            // レビューで追加した「なし」経路（C5 → C8）は原本SVGにないため、既存の実線経路と同じ描画で期待値へ加える
+            if (id === 'mermaid-diagram-6') {
+                expected.labels.push('なし'); expected.labelColors.push(expected.labelColors[0]!);
+                const at = expected.paths.findIndex(path => path.id === 'L_C7_C8_0');
+                expected.paths.splice(at + 1, 0, { ...expected.paths[at]!, id: 'L_C5_C8_0' });
+            }
             await page.evaluate(async ({ id, chart, globalConfig, fixups }) => {
                 const mermaid = (window as unknown as { mermaid: { initialize: (config: object) => void; render: (id: string, chart: string) => Promise<{ svg: string }> } }).mermaid;
                 mermaid.initialize(globalConfig); const { svg } = await mermaid.render(`sql-${id}`, chart);
