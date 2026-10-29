@@ -6,7 +6,7 @@ export default function Section13() { return <>
 
 <h3 id="12-1-mpd-そのものの検証">{"12-1. MPD そのものの検証"}</h3>
 
-<div aria-label="表：12-1. MPD そのものの検証" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"確認内容"}</th></tr></thead><tbody><tr className="odd"><td>{"スキーマ妥当性"}</td><td>{"XML が MPD のスキーマに沿っているか"}</td></tr><tr className="even"><td><code>{"profiles"}</code>{" 宣言の整合"}</td><td>{"宣言したプロファイルの範囲を超える機能を使っていないか"}</td></tr><tr className="odd"><td>{"Period の連続性"}</td><td>{"Period の境目で時間が欠落・重複していないか"}</td></tr><tr className="even"><td>{"セグメント URL"}</td><td>{"テンプレートから生成される URL が全て 200 で取得できるか"}</td></tr><tr className="odd"><td>{"セグメント長の整合"}</td><td>{"SegmentTimeline の合計と実ファイルの長さが一致するか"}</td></tr></tbody></table></div>
+<div aria-label="表：12-1. MPD そのものの検証" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"確認内容"}</th></tr></thead><tbody><tr className="odd"><td>{"スキーマ妥当性"}</td><td>{"XML が MPD のスキーマに沿っているか"}</td></tr><tr className="even"><td><code>{"profiles"}</code>{" 宣言の整合"}</td><td>{"宣言したプロファイルの範囲を超える機能を使っていないか"}</td></tr><tr className="odd"><td>{"Period の連続性"}</td><td>{"Period の境目で時間が欠落・重複していないか"}</td></tr><tr className="even"><td>{"セグメント URL"}</td><td>{"テンプレートから生成される URL が、要求の種類と可用性ウィンドウに応じた期待どおりの応答を返すか（全体取得は 200、バイト範囲要求は 206。可用性ウィンドウ外のセグメントは取得できない扱い）"}</td></tr><tr className="odd"><td>{"セグメント長の整合"}</td><td>{"SegmentTimeline の合計と実ファイルの長さが一致するか"}</td></tr></tbody></table></div>
 
 <h3 id="12-2-再生abr-の検証">{"12-2. 再生・ABR の検証"}</h3>
 
