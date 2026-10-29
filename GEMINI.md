@@ -4,6 +4,17 @@ Updated 2026-10-29
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-10-29: ISO 27799:2025 医療情報セキュリティガイドの移行
+
+- 移行先は`/iso-27799-2025-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を113ルートへ同期。
+- 全46見出し・目次19リンク・31表の全セル・11図・コールアウト12件・外部リンク13件・メタ情報9件・注記アイコン12件・チェック10項目・ヒーロー・全文・フッターを固定インベントリで出現順に照合。コードブロックは原本どおり0件。CSS全89ルールと960px・1200px境界を保持。
+- MDの図定義をHTML内SVGのラベルと照合して再構築し、全ノード形状・配色、接続先・矢印・点線を共有Mermaidで検証。共有CSSの中央寄せが横長図の左端を隠す問題をページ側で補正。
+- 6幅×CSS読込2順序の12件、11図×6幅の66件、チェック完了・リセット表示2件で、原本の計算済みスタイル、ヒーロー疑似要素、見出しマーク、ホバー、SVGの配色・接続と左右スクロール、チェックの進捗・印を比較。ビルド・サーバー不要のChromium計80件が成功。
+- チェック全10項目の入力・ラベル操作、進捗・完了色・リセット、目次全19アンカーの追従・開閉・Escape・フォーカス復帰・Observer解除を検証。SWC開発/本番変換後の全文DOMと、SSR復元時の回復可能エラー・DOM警告なし、チェック操作の接続も確認。
+- 原本HTMLは`archive/html-archive/iso/Iso-27799-2025-guide.html`、MDは`archive/md-archive/iso/Iso-27799-2025-guide.md`へ同名で移動。SHA-256一致・Git追跡・rename検出100%を確認。
+- Red319件を先行コミット後、CSS、図、チェック操作、目次、ヒーロー、Step 0〜16、付録A/B、フッター、ページ構成、ナビ登録、アーカイブ、表示補正、追加回帰テスト、仕様書を個別コミット。各コミット直前に予定パス完全一致とPIIを検査。
+- npm経由で対象321件・関連581件・全体8263件（165ファイル）、Chromium80件、lint、対象型検査、Markdown lintが成功。ビルドは指示により未実施、目視確認はユーザー担当。
+
 ## 2026-10-29: ISO/IEC 23009-1:2026 MPEG-DASHガイドの移行
 
 - 移行先は`/iso-23009-1-2026-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を112ルートへ同期。
@@ -166,6 +177,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - npm経由で対象283件、全体6024件（137ファイル）、ビルド・サーバー不要のブラウザー34件（6幅×CSS読込2順序＋2幅×11図）、lint、対象型検査が成功。全体型検査には既存の型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
 
 ## Migrated Pages (Tracking)
+
+- `app/iso-27799-2025-guide/page.tsx`（医療情報セキュリティ、`NavBar.tsx`・専用CSS、全19本文カテゴリー・ヒーロー・フッター、チェック10項目、Mermaid11図）
 
 - `app/iso-23009-1-2026-guide/page.tsx`（MPEG-DASH第6版、`NavBar.tsx`・専用CSS、全17本文カテゴリー・ヒーロー・フッター、XML2例、Mermaid6図）
 
@@ -527,9 +540,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 112 ルート（ガイドライブラリ index + 111 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 113 ルート（ガイドライブラリ index + 112 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 7938件（npm経由の全体テスト・158ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 8263件（npm経由の全体テスト・165ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide` の目視確認をユーザーに依頼する。
