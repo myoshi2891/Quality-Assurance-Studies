@@ -14,7 +14,7 @@ export default function Section13() { return <>
 
 <h3 id="12-3-ライブ特有の検証">{"12-3. ライブ特有の検証"}</h3>
 
-<div aria-label="表：12-3. ライブ特有の検証" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"確認内容"}</th></tr></thead><tbody><tr className="odd"><td>{"時刻同期"}</td><td>{"クライアント時刻がずれても、取得可能なセグメントを正しく計算できるか"}</td></tr><tr className="even"><td>{"MPD 更新"}</td><td><code>{"minimumUpdatePeriod"}</code>{" に沿って更新を取得できているか"}</td></tr><tr className="odd"><td>{"低遅延"}</td><td>{"目標レイテンシと再生レートの調整が機能しているか"}</td></tr><tr className="even"><td>{"DVR"}</td><td><code>{"timeShiftBufferDepth"}</code>{" の範囲でシークできるか"}</td></tr></tbody></table></div>
+<div aria-label="表：12-3. ライブ特有の検証" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"確認内容"}</th></tr></thead><tbody><tr className="odd"><td>{"時刻同期"}</td><td>{"クライアント時刻がずれても、取得可能なセグメントを正しく計算できるか"}</td></tr><tr className="even"><td>{"MPD 更新"}</td><td><code>{"minimumUpdatePeriod"}</code>{" に沿って更新を取得できているか"}</td></tr><tr className="odd"><td>{"低遅延"}</td><td>{"目標レイテンシと再生レートの調整が機能しているか"}</td></tr><tr className="even"><td>{"DVR"}</td><td><code>{"timeShiftBufferDepth"}</code>{" の範囲でシークできるか（省略時は、有効な利用可能開始時刻から始まるタイムシフトバッファ内でシークできるか）"}</td></tr></tbody></table></div>
 
 <h3 id="12-4-第6版の新機能に関する検証導入する場合">{"12-4.\n第6版の新機能に関する検証（導入する場合）"}</h3>
 

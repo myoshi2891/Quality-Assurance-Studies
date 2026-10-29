@@ -2064,7 +2064,7 @@
                             "timeShiftBufferDepth"
                           ]
                         },
-                        "の範囲内"
+                        "の範囲内（属性があればその長さに限られる）。省略時は、有効な利用可能開始時刻からタイムシフトバッファが始まる"
                       ]
                     }
                   ]
@@ -4042,7 +4042,7 @@
                             "timeShiftBufferDepth"
                           ]
                         },
-                        "の範囲でシークできるか"
+                        "の範囲でシークできるか（省略時は、有効な利用可能開始時刻から始まるタイムシフトバッファ内でシークできるか）"
                       ]
                     }
                   ]
@@ -6666,7 +6666,7 @@
       ]
     },
     "mermaid-diagram-3": {
-      "chart": "flowchart TB\ndQ{\"MPD の type 属性は？\"}\ndQ -->|\"static\"| dS[\"オンデマンド配信<br>全セグメントが既に存在する\"]\ndQ -->|\"dynamic\"| dD[\"ライブ配信<br>セグメントが時間とともに増える\"]\ndS --> dS2[\"mediaPresentationDuration で<br>総再生時間が分かる\"]\ndD --> dD2[\"availabilityStartTime を基準に<br>今取得できるセグメントを計算する\"]\ndD2 --> dD3[\"minimumUpdatePeriod があれば<br>その間隔で MPD の更新を確認する<br>省略時は MPD が変わらない\"]",
+      "chart": "flowchart TB\ndQ{\"MPD の type 属性は？\"}\ndQ -->|\"static\"| dS[\"オンデマンド配信<br>全セグメントが既に存在する\"]\ndQ -->|\"dynamic\"| dD[\"ライブ配信<br>セグメントが時間とともに増える\"]\ndS --> dS2[\"mediaPresentationDuration があれば<br>それが総再生時間<br>省略時は各 Period から導出できる\"]\ndD --> dD2[\"availabilityStartTime を基準に<br>今取得できるセグメントを計算する\"]\ndD2 --> dD3[\"minimumUpdatePeriod があれば<br>その間隔で MPD の更新を確認する<br>省略時は MPD が変わらない\"]",
       "nodes": [
         {
           "id": "dQ",
@@ -6685,7 +6685,7 @@
         },
         {
           "id": "dS2",
-          "label": "mediaPresentationDuration で<br>総再生時間が分かる",
+          "label": "mediaPresentationDuration があれば<br>それが総再生時間<br>省略時は各 Period から導出できる",
           "shape": "RECT"
         },
         {
@@ -11095,7 +11095,7 @@
                             "timeShiftBufferDepth"
                           ]
                         },
-                        "の範囲内"
+                        "の範囲内（属性があればその長さに限られる）。省略時は、有効な利用可能開始時刻からタイムシフトバッファが始まる"
                       ]
                     }
                   ]
@@ -13688,7 +13688,7 @@
                             "timeShiftBufferDepth"
                           ]
                         },
-                        "の範囲でシークできるか"
+                        "の範囲でシークできるか（省略時は、有効な利用可能開始時刻から始まるタイムシフトバッファ内でシークできるか）"
                       ]
                     }
                   ]
@@ -17985,7 +17985,7 @@
                                 "timeShiftBufferDepth"
                               ]
                             },
-                            "の範囲内"
+                            "の範囲内（属性があればその長さに限られる）。省略時は、有効な利用可能開始時刻からタイムシフトバッファが始まる"
                           ]
                         }
                       ]
@@ -20614,7 +20614,7 @@
                                 "timeShiftBufferDepth"
                               ]
                             },
-                            "の範囲でシークできるか"
+                            "の範囲でシークできるか（省略時は、有効な利用可能開始時刻から始まるタイムシフトバッファ内でシークできるか）"
                           ]
                         }
                       ]
