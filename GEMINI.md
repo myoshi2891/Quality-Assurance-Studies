@@ -1,8 +1,33 @@
 # Project Overview
 
-Updated 2026-10-27
+Updated 2026-10-28
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-10-28: ISOガイドのレビュー修正
+
+- OFFの発行年の行を二次情報の小節へ移動し、年の記載を保持。SWID図とテキスト代替では工程とタグを分け、インストール時の別タグの配置・作成、パッチタグの追加・併存、元タグを変えない補足を明示。
+- OFFのhydrationテストをSSR HTMLからの復元へ変更し、回復可能エラー・console診断を検査。関連ユニット591件、対象型検査、lint、SWID図の4幅のブラウザー検証が成功。
+- OFFのCSS比較8件を修正。表の罫線色を原本の`currentColor`へ戻し、比較用原本の参考文献採番を用語集の直前で止めて用語と列幅を保持。専用Playwright設定で4幅×CSS読込2順序の8件、対象ユニット306件（型検査を含む）、編集したE2Eのlintが成功。比較項目・アサーションは変更なし。
+
+## 2026-10-27: ISO/IEC 19770-5 IT資産管理の概要と用語ガイドの移行
+
+- 移行先は`/iso-19770-5-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を111ルートへ同期。
+- 全30見出し・階層目次29リンク・19表の全セル・9図・コールアウト8件・外部リンク18件・チェック8項目・メタ情報3件・注記アイコン8件・ヒーロー・全本文・フッターを固定インベントリで出現順に照合。原本どおりコードブロックは0件。CSS全86ルールと980px境界を保持。
+- HTML内の実SVGからラベルの明示改行・形状・接続・点線・双方向矢印・配色を抽出し、共有Mermaidで描画。4幅×CSS読込2順序の8件、9図×4幅の36件、チェック完了表示2件で原本と比較。ノード枠線・接続線の色と太さ・ラベル背景・横スクロールも照合。
+- 目次全29アンカーの追従、開閉・背景クリック・Escape・フォーカス復帰・Observer解除を検証。チェック入力・ラベル・行クリックの各操作が一度だけ反転することと、全8項目の完了数・割合・取消線・全解除を確認。SWC開発/本番変換後の全文と構造、Reactの不正DOM警告なしも検証。
+- 原本HTMLは`archive/html-archive/iso/Iso-19770-5-guide.html`、MDは`archive/md-archive/iso/Iso-19770-5-guide.md`へ同名で移動。Gitのrename検出100％・追跡登録とSHA-256一致を確認。
+- Red先行、CSS、図、チェック操作、目次、ヒーロー、導入、Step 1〜8、Q&A、チェック節、参考資料、調査範囲、フッター、ページ構成、登録、デザイン補正、アーカイブ、仕様書を分割コミット。実装・検証・ステージ・コミットを直列化し、ステージ前の空のインデックスと、各コミット直前の予定パス完全一致・PIIを検査。
+- npm経由で対象282件・関連536件・全体7662件（153ファイル）、ビルド・サーバー不要のChromium46件、lint、対象型検査が成功。ビルドは指示により未実施、目視確認はユーザー担当。
+
+## 2026-10-27: ISO/IEC 14496-22 Open Font Formatガイドの移行
+
+- 移行先は`/iso-14496-22-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を110ルートへ同期。
+- 全47見出し・階層目次46リンク・27表の全セル・10図・コード2例・コールアウト16件・参考リンク22件・ヒーロー・本文・フッターを固定インベントリで出現順に照合。CSS全59ルールと900px境界を保存。
+- 原本HTMLの図の接続・ラベルを優先し、共有Mermaidで描画。4幅×CSS読込2順序の8件と、10図×4幅の40件で、原本の計算済みスタイル・ノード形状・配色・グループ背景・接続・矢印・横スクロールを検証。目次全46アンカーの追従・開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文とコード改行も確認。
+- 原本HTMLは`archive/html-archive/iso/Iso-14496-22-guide.html`、MDは`archive/md-archive/iso/Iso-14496-22-guide.md`へ同名で移動。Git追跡とSHA-256一致を確認。同規格の別原稿`Iso-iec-14496-22-2026-beginner-guide.*`は今回の対象外。
+- Red先行とカテゴリー別コミットを実施。用語集と目次の混在コミットはユーザー承認を得て分割修復し、修復前後のGitツリー一致を確認。以後はステージ操作を直列化し、各コミット直前に予定パスの完全一致とPIIを検査。
+- npm経由で対象304件・関連554件・全体7376件（147ファイル）、ビルド・サーバー不要のChromium48件、lint、対象型検査が成功。ビルドは指示により未実施、目視確認はユーザー担当。全体型検査は他ページのテスト等のエラーで失敗し、今回の移行ファイルには型診断なし。
 
 ## 2026-10-27: SbEのMermaid黒塗り修正
 
@@ -270,7 +295,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（109 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（111 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -489,9 +514,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 109 ルート（ガイドライブラリ index + 108 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 111 ルート（ガイドライブラリ index + 110 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 7067件（`npm test` 全体・142ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 7662件（npm経由の全体テスト・153ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide` の目視確認をユーザーに依頼する。

@@ -253,7 +253,7 @@ describe('checklist and navigation behavior', () => {
 describe('registration and untouched tracked archives', () => {
     it('registers in books and the E2E route list', async () => {
         const {NAV_ITEMS} = await import('../../lib/navigation'); const {PAGES,EXPECTED_PAGE_COUNT} = await import('../../e2e/pages');
-        expect(NAV_ITEMS.find(n=>n.href==='/testing-computer-software-guide')?.category).toBe('books-practices');expect(NAV_ITEMS).toHaveLength(109);expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
+        expect(NAV_ITEMS.find(n=>n.href==='/testing-computer-software-guide')?.category).toBe('books-practices');expect(NAV_ITEMS).toHaveLength(111);expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
         expect(PAGES.find(p=>p.path==='/testing-computer-software-guide')?.h1.test('Testing Computer Software 入門ガイド')).toBe(true);
     });
     for (const ext of ['html','md'] as const) it(`${ext}: identical source hash, moved from root and Git tracked`, () => {
