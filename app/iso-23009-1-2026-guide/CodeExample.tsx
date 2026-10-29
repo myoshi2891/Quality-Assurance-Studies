@@ -12,5 +12,5 @@ return kind ? <span key={i} className={kind}>{token}</span> : token;
 }
 export default function CodeExample({ index }: { index: number }) {
 const lines = EXAMPLES[index]!.split('\n');
-return <pre><code>{lines.map((line, i) => <div className="code-line" key={i}>{highlight(line)}{i < lines.length - 1 ? '\n' : null}</div>)}</code></pre>;
+return <pre className="xml"><code>{lines.map((line, i) => <div className="code-line" key={i}>{highlight(line)}{i < lines.length - 1 ? '\n' : null}</div>)}</code></pre>;
 }
