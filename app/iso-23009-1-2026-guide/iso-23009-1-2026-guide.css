@@ -105,3 +105,24 @@
 .dash-page .sidebar { visibility:hidden; transition:transform .2s, visibility 0s linear .2s; }
 .dash-page .sidebar.open { visibility:visible; transition:transform .2s, visibility 0s; }
 }
+/* Browser comparisons catch inherited typography and unrelated route selectors. */
+.dash-page h1, .dash-page h2, .dash-page h3, .dash-page h4 { font-family:inherit; }
+.dash-page .hero { text-align:start; }
+.dash-page .hero .hero-title { background:none; -webkit-text-fill-color:currentColor; font-family:inherit; }
+.dash-page .hero-sub { max-width:none; line-height:1.85; }
+.dash-page ul, .dash-page ol, .dash-page li { color:var(--text); }
+.dash-page .main ul { list-style-type:disc; }
+.dash-page .main ol { list-style-type:decimal; }
+.dash-page .main strong { font-weight:700; }
+.dash-page .table-scroll table { color:var(--text); border-color:currentColor; line-height:normal; }
+.dash-page .table-scroll th { font-family:inherit; font-size:inherit; letter-spacing:normal; text-transform:none; }
+.dash-page .table-scroll td { border-bottom:0; line-height:normal; }
+.dash-page .table-scroll td strong { font-weight:700; }
+.dash-page .callout { font-size:16px; line-height:1.85; }
+.dash-page .callout p { font-size:inherit; line-height:inherit; }
+.dash-page .page-footer { font-family:inherit; padding-right:0; padding-bottom:0; padding-left:0; text-align:start; }
+.dash-page .sidebar nav { padding:0; }
+.dash-page .sidebar li { margin:0; }
+.dash-page .nav-toggle { font-size:13.3333px; line-height:normal; }
+.dash-page .main code:not(pre code) { white-space:normal; }
+.dash-page .hero::after { all:unset; content:none; }
