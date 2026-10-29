@@ -125,8 +125,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/software-testing-craftsmans-approach-guide', h1: /Software Testing: A Craftsman's Approach 入門ガイド/ },
   { path: '/specification-by-example-guide', h1: /Specification by Example 実践ガイド/ },
   { path: '/iso-23009-1-2026-guide', h1: /ISO\/IEC 23009-1:2026\s+初学者向け解説ガイド/ },
+  { path: '/iso-27799-2025-guide', h1: /ISO 27799:2025 初学者向けステップバイステップ解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 112;
+export const EXPECTED_PAGE_COUNT = 113;
 
 

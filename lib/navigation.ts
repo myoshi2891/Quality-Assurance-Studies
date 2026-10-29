@@ -163,6 +163,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-14496-22-guide', label: 'ISO 14496-22 Open Font Format ガイド', description: 'OFFとOpenTypeの関係、フォント構造・描画、第5版の24ビットGID拡張とQA観点を段階的に解説。', category: 'iso' },
   { href: '/iso-19770-5-guide', label: 'ISO 19770-5 IT資産管理の概要と用語 ガイド', description: 'ITAM・SAMの基本用語、19770ファミリー、SWID・ENT・RUMの関係と学習手順を段階的に解説。', category: 'iso' },
   { href: '/iso-23009-1-2026-guide', label: 'ISO 23009-1 MPEG-DASH ガイド', description: 'MPEG-DASH第6版のMPD階層、セグメント、ライブ配信、新機能とQAテスト観点を段階的に解説。', category: 'iso' },
+  { href: '/iso-27799-2025-guide', label: 'ISO 27799 医療情報セキュリティ ガイド', description: '医療向け情報セキュリティ管理策、27002との関係、HLT管理策、付録と導入・QA観点を段階的に解説。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
