@@ -552,7 +552,7 @@
                     font-size: 20px;
                 }
             }
-        
+
 /* Preserve the source design while clearing shared application defaults. */
 .health-page { min-height:100vh; width:100%; }
 .health-page .main { max-width:none; width:auto; min-width:0; }
@@ -581,7 +581,7 @@
 .health-page .main ul.task-list { list-style:none; padding-left:0; margin:0 0 12px; }
 .health-page .main ul.task-list li { margin:0; }
 .health-page .mermaid-wrapper { background:transparent !important; border:none !important; border-radius:0 !important; box-shadow:none !important; margin:0 !important; padding:0 !important; width:100% !important; max-width:none !important; }
-.health-page .mermaid-wrapper svg { max-width:none !important; height:auto !important; margin:0 !important; }
+.health-page .mermaid-wrapper svg { max-width:none !important; height:auto !important; margin:0 auto !important; }
 .health-page .mermaid-wrapper foreignObject { overflow:visible !important; }
 .health-page .mermaid-wrapper foreignObject p,
 .health-page .mermaid-wrapper foreignObject span,
@@ -592,3 +592,9 @@
 .health-page .sidebar { visibility:hidden; transition:transform .25s, visibility 0s linear .25s; }
 .health-page .sidebar.open { visibility:visible; transition:transform .25s, visibility 0s; }
 }
+
+/* Clear retained callout typography and preflight input inheritance. */
+.health-page .callout-title { font-family:inherit; text-transform:none; letter-spacing:normal; }
+.health-page ul.task-list input { font:revert; color:revert; line-height:normal; }
+/* A flex-centered oversized SVG otherwise loses its left edge before scrolling. */
+.health-page .mermaid-wrapper { display:block !important; }
