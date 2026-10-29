@@ -10,8 +10,8 @@ it('registers the health information security guide in the ISO category once', (
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
 
 });
-it('registers exactly 113 routes and the original H1 in E2E', () => {
-    expect(EXPECTED_PAGE_COUNT).toBe(113); expect(PAGES).toHaveLength(113); expect(NAV_ITEMS).toHaveLength(113);
+it('keeps E2E routes in sync with navigation and registers the original H1', () => {
+    expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT); expect(NAV_ITEMS).toHaveLength(EXPECTED_PAGE_COUNT);
     const entry = PAGES.filter(i => i.path === href); expect(entry).toHaveLength(1); expect(entry[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
 });
 for (const ext of ['html', 'md'] as const) {

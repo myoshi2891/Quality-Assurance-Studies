@@ -100,6 +100,8 @@
 .dash-page .code-line { display:inline; }
 .dash-page .sidebar a:focus-visible,
 .dash-page .nav-toggle:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.dash-page .table-scroll:focus-visible,
+.dash-page .code-block:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 @media (max-width:900px) {
 .dash-page .hero { padding-top:24px; }
 .dash-page .sidebar { visibility:hidden; transition:transform .2s, visibility 0s linear .2s; }

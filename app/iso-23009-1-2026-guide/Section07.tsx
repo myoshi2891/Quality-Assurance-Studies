@@ -7,7 +7,7 @@ export default function Section07() { return <>
 
 <Diagram id="mermaid-diagram-3" />
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"比較項目"}</th><th>{"static（オンデマンド）"}</th><th>{"dynamic（ライブ）"}</th></tr></thead><tbody><tr className="odd"><td>{"MPD の更新"}</td><td>{"基本的に不要"}</td><td>{"必要（または Patch で差分更新）"}</td></tr><tr className="even"><td>{"総再生時間"}</td><td>{"決まっている"}</td><td>{"決まっていない（無制限もある）"}</td></tr><tr className="odd"><td>{"シーク"}</td><td>{"全区間に可能"}</td><td><code>{"timeShiftBufferDepth"}</code>{" の範囲内"}</td></tr><tr className="even"><td>{"時刻同期"}</td><td>{"ほぼ不要"}</td><td><strong>{"重要"}</strong>{"（クライアントとサーバーの時刻ずれが問題になる）"}</td></tr></tbody></table></div>
+<div aria-label="表：Step 6：オンデマンド（static）とライブ（dynamic）" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"比較項目"}</th><th>{"static（オンデマンド）"}</th><th>{"dynamic（ライブ）"}</th></tr></thead><tbody><tr className="odd"><td>{"MPD の更新"}</td><td>{"基本的に不要"}</td><td>{"必要（または Patch で差分更新）"}</td></tr><tr className="even"><td>{"総再生時間"}</td><td>{"決まっている"}</td><td>{"決まっていない（無制限もある）"}</td></tr><tr className="odd"><td>{"シーク"}</td><td>{"全区間に可能"}</td><td><code>{"timeShiftBufferDepth"}</code>{" の範囲内"}</td></tr><tr className="even"><td>{"時刻同期"}</td><td>{"ほぼ不要"}</td><td><strong>{"重要"}</strong>{"（クライアントとサーバーの時刻ずれが問題になる）"}</td></tr></tbody></table></div>
 
 <p><strong>{"【根拠あり】"}</strong>{" Bitmovin のブログ（Timmerer\n氏）によると、第4版（2019）の第1アメンドメントで "}<strong>{"DASH と CMAF\nの調和"}</strong>{"、"}<strong>{"イベントとタイムドメタデータのタイミング／処理モデル"}</strong>{"、"}<strong>{"XML\nPatch（IETF RFC 5261）を使った MPD の部分更新（MPD Patch）"}</strong>{"\nなどが整備されました。"}</p>
 
