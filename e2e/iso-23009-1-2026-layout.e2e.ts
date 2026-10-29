@@ -28,7 +28,7 @@ for (const width of [390,900,901,1440]) {
             const own = readFileSync(`${base}/iso-23009-1-2026-guide.css`, 'utf8');
             const css = preflight + globals + (order === 'before' ? retained + own : own + retained);
             await page.setContent(`<style>${css}</style>${markup()}`);
-            const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) => Object.fromEntries(selectors.map(selector => [selector, Array.from(document.querySelectorAll(root + selector)).filter(el => !el.closest('svg')).map(el => { const style = getComputedStyle(el); return Object.fromEntries(properties.map(key => [key, style[key as keyof CSSStyleDeclaration]])); })]));
+            const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) => Object.fromEntries(selectors.map(selector => [selector, Array.from(document.querySelectorAll(root + selector)).filter(el => !el.closest('svg') && !el.closest('[hidden]')).map(el => { const style = getComputedStyle(el); return Object.fromEntries(properties.map(key => [key, style[key as keyof CSSStyleDeclaration]])); })]));
             const expected = await reference.evaluate(collect, { selectors, properties, root: '' });
             const actual = await page.evaluate(collect, { selectors, properties, root: '.dash-page ' });
             const differences: unknown[] = [];

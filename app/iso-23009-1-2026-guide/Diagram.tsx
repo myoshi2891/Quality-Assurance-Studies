@@ -21,5 +21,5 @@ const DESCRIPTIONS: Record<string, string> = {
 };
 export default function Diagram({ id }: { id: string }) {
 const descId = `${id}-desc`;
-return <div aria-describedby={descId} aria-label={LABELS[id]} className="mermaid-diagram" id={id} role="img"><p hidden id={descId}>{DESCRIPTIONS[id]}</p><Mermaid chart={DIAGRAMS[id]!} /></div>;
+return <div aria-describedby={descId} aria-label={LABELS[id]} className="mermaid-diagram" id={id} role="img" tabIndex={0}><p hidden id={descId}>{DESCRIPTIONS[id]}</p><Mermaid chart={DIAGRAMS[id]!} /></div>;
 }

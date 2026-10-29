@@ -28,7 +28,7 @@ for (const width of [390,960,961,1200,1201,1440]) {
             const own = readFileSync(`${base}/iso-27799-2025-guide.css`, 'utf8');
             const css = preflight + globals + (order === 'before' ? retained + own : own + retained);
             await page.setContent(`<style>${css}</style>${markup()}`);
-            const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) => Object.fromEntries(selectors.map(selector => [selector, Array.from(document.querySelectorAll(root + selector)).filter(el => !el.closest('svg')).map(el => { const style = getComputedStyle(el); return Object.fromEntries(properties.map(key => [key, style[key as keyof CSSStyleDeclaration]])); })]));
+            const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) => Object.fromEntries(selectors.map(selector => [selector, Array.from(document.querySelectorAll(root + selector)).filter(el => !el.closest('svg') && !el.closest('[hidden]')).map(el => { const style = getComputedStyle(el); return Object.fromEntries(properties.map(key => [key, style[key as keyof CSSStyleDeclaration]])); })]));
             const expected = await reference.evaluate(collect, { selectors, properties, root: '' });
             const actual = await page.evaluate(collect, { selectors, properties, root: '.health-page ' });
             const differences: unknown[] = [];
@@ -53,6 +53,17 @@ for (const width of [390,960,961,1200,1201,1440]) {
         });
     }
 }
+for (const width of [390,1440]) test(`${width}px every table wrapper is keyboard-focusable with a visible focus outline`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.setContent(`<style>${preflight + globals + retained + readFileSync(`${base}/iso-27799-2025-guide.css`, 'utf8')}</style>${markup()}`);
+    const wrappers = page.locator('.health-page .table-scroll'); await expect(wrappers).toHaveCount(31);
+    for (let i = 0; i < 31; i++) {
+        const wrapper = wrappers.nth(i); await expect(wrapper).toHaveAttribute('tabindex', '0');
+        await page.keyboard.press('Tab'); await wrapper.focus(); await expect(wrapper).toBeFocused();
+        const focus = await wrapper.evaluate(el => { const s = getComputedStyle(el); return { visible: el.matches(':focus-visible'), style: s.outlineStyle, width: s.outlineWidth, color: s.outlineColor }; });
+        expect(focus).toEqual({ visible: true, style: 'solid', width: '2px', color: 'rgb(124, 158, 255)' });
+    }
+});
 for (const width of [390,960,961,1200,1201,1440]) {
     for (const id of Object.keys(inventory.diagrams)) {
         test(`${width}px ${id}: source SVG semantics palette and horizontal reachability`, async ({ page }) => {

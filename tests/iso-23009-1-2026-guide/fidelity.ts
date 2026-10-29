@@ -8,7 +8,7 @@ export function tree(node: AnyNode | undefined): unknown {
     const attrs = { ...node.attribs };
     delete attrs.target; delete attrs.rel; delete attrs['aria-current'];
     if (attrs.class) attrs.class = attrs.class.replace(/\s+(active|open)\b/g, '');
-    if (attrs.class === 'mermaid-diagram') { delete attrs['aria-label']; delete attrs['aria-describedby']; return { tag: node.tagName, attrs, children: [] }; }
+    if (attrs.class === 'mermaid-diagram') { delete attrs['aria-label']; delete attrs['aria-describedby']; delete attrs.tabindex; return { tag: node.tagName, attrs, children: [] }; }
     if (node.tagName === 'pre') return { tag: 'pre', attrs, code: load(node).text() };
     return { tag: node.tagName, attrs, children: node.children.map(tree).filter(x => x !== null) };
 }

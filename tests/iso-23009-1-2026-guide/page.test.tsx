@@ -32,7 +32,7 @@ describe('exact original inventory', () => {
         expect(wrappers).toHaveLength(26);
         const names = wrappers.map(el => { expect($(el).attr('tabindex')).toBe('0'); expect($(el).attr('role')).toBe('region'); return $(el).attr('aria-label') ?? ''; });
         names.forEach(n => expect(n).toMatch(/^(表|コード例)：\S/)); expect(new Set(names).size).toBe(names.length);
-        expect(css().toString()).toMatch(/\.dash-page \.table-scroll:focus-visible,\s*\.dash-page \.code-block:focus-visible\s*\{[^}]*outline:2px solid var\(--accent\)/);
+        expect(css().toString()).toMatch(/\.dash-page \.table-scroll:focus-visible,\s*\.dash-page \.mermaid-diagram:focus-visible,\s*\.dash-page \.code-block:focus-visible\s*\{[^}]*outline:2px solid var\(--accent\)/);
     });
     it('unique IDs and every internal reference resolves once', async () => {
         const $ = await html(); const ids = $('[id]').map((_, el) => $(el).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
@@ -85,7 +85,7 @@ describe('diagram accessible names and descriptions', () => {
         expect(new Set(labels).size).toBe(labels.length);
         diagrams.each((_, el) => {
             const id = $(el).attr('id')!; const label = $(el).attr('aria-label') ?? '';
-            expect($(el).attr('role')).toBe('img');
+            expect($(el).attr('role')).toBe('img'); expect($(el).attr('tabindex')).toBe('0');
             expect(label).not.toMatch(/^図\d+$/);
             expect(label.length).toBeGreaterThan(5); expect(label.length).toBeLessThanOrEqual(40);
             expect($(el).attr('aria-describedby')).toBe(`${id}-desc`);

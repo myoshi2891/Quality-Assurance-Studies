@@ -594,6 +594,7 @@
 .health-page .mermaid-wrapper foreignObject span,
 .health-page .mermaid-wrapper foreignObject div { margin:0 !important; line-height:1.5 !important; }
 .health-page .sidebar a:focus-visible, .health-page .sidebar-toggle:focus-visible, .health-page .cp-reset:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.health-page .table-scroll:focus-visible, .health-page .mermaid-diagram:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 @media (max-width:960px) {
 .health-page .hero { padding-top:24px; }
 .health-page .sidebar { visibility:hidden; transition:transform .25s, visibility 0s linear .25s; }
