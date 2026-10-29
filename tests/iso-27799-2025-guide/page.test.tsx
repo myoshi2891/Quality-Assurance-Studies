@@ -27,6 +27,20 @@ describe('exact original inventory', () => {
         const Page = sourceModule(`${base}/page.tsx`, { development }).default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Page />)); expect($('main').contents().toArray().map(tree).filter(Boolean)).toEqual(inventory.main);
     });
+    it('every diagram is described by its own text summary', async () => {
+        const $ = await html(); const diagrams = $('main .mermaid-diagram[role="img"]').toArray(); expect(diagrams).toHaveLength(11);
+        const summaries = diagrams.map(el => {
+            const id = $(el).attr('id')!; expect($(el).attr('aria-describedby')).toBe(`${id}-desc`);
+            const desc = $('[id]').filter((_, d) => $(d).attr('id') === `${id}-desc`); expect(desc).toHaveLength(1);
+            const text = desc.text().trim(); expect(text.length).toBeGreaterThan(40); return text;
+        });
+        expect(new Set(summaries).size).toBe(11);
+        const flow = summaries[9]!; for (const step of ['対象範囲', '棚卸し', 'リスクアセスメント', '管理策', 'Comply or Explain', '適用宣言書', '教育訓練', '監視', 'レビュー', '継続的改善']) expect(flow).toContain(step);
+    });
+    it('heading anchors are revealed and outlined on keyboard focus', () => {
+        const text = css().toString();
+        expect(text).toMatch(/\.health-page h2 \.anchor:focus-visible,\s*\.health-page h3 \.anchor:focus-visible\s*\{[^}]*opacity:\s*0\.8[^}]*outline:\s*2px solid/);
+    });
     it('unique IDs and every internal reference resolves once', async () => {
         const $ = await html(); const ids = $('[id]').map((_, el) => $(el).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
         $('a[href^="#"]').each((_, a) => expect($('[id]').filter((_, el) => $(el).attr('id') === $(a).attr('href')!.slice(1)).length).toBe(1));
