@@ -8,7 +8,7 @@ import inventory from '../../docs/migration-inventory/iso-23009-1-2026-guide.jso
 const href = '/iso-23009-1-2026-guide';
 it('registers the MPEG-DASH guide in the ISO category once', () => {
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
-    
+
 });
 it('registers exactly 112 routes and the original H1 in E2E', () => {
     expect(EXPECTED_PAGE_COUNT).toBe(112); expect(PAGES).toHaveLength(112); expect(NAV_ITEMS).toHaveLength(112);
