@@ -90,3 +90,23 @@ for (const width of [390,900,901,1440]) {
         });
     }
 }
+for (const width of [390,1440]) {
+    for (const [index, source] of inventory.codes.entries()) test(`${width}px XML ${index}: exact lines syntax colors and horizontal reachability`, async ({ page }) => {
+        await page.setViewportSize({ width, height:900 });
+        await page.setContent(`<style>${preflight+globals+retained+readFileSync(`${base}/iso-23009-1-2026-guide.css`, 'utf8')}</style>${markup()}`);
+        const pre = page.locator('pre').nth(index);
+        expect(await pre.textContent()).toBe(source);
+        await expect(pre).toHaveCSS('font-size', '13.5px');
+        await expect(pre.locator('code')).toHaveCSS('white-space','pre');
+        await expect(pre).toHaveCSS('padding','16px 18px');
+        expect(await pre.locator('.code-line').allTextContents()).toEqual(source.split('\n').map((line,i,lines)=>line+(i<lines.length-1?'\n':'')));
+        for (const [selector,color] of [['.t-tag','rgb(124, 196, 255)'],['.t-attr','rgb(240, 178, 122)'],['.t-str','rgb(155, 226, 155)']] as const) {
+            const colors = await pre.locator(selector).evaluateAll(els=>els.map(el=>getComputedStyle(el).color));
+            expect(colors.length).toBeGreaterThan(0); expect(colors.every(value=>value===color)).toBe(true);
+        }
+        const metrics = await pre.evaluate(el=>({height:el.getBoundingClientRect().height,line:parseFloat(getComputedStyle(el).lineHeight)}));
+        expect(Math.abs(metrics.height-(source.split('\n').length*metrics.line+32))).toBeLessThan(1);
+        const reach = await pre.evaluate(el=>{const outer=el.closest('.code-block')!;outer.scrollLeft=outer.scrollWidth;return {scroll:outer.scrollLeft,required:outer.scrollWidth-outer.clientWidth};});
+        expect(Math.abs(reach.scroll-reach.required)).toBeLessThanOrEqual(1);
+    });
+}
