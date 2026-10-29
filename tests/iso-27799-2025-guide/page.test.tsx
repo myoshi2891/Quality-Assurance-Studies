@@ -37,6 +37,12 @@ describe('exact original inventory', () => {
         expect(new Set(summaries).size).toBe(11);
         const flow = summaries[9]!; for (const step of ['対象範囲', '棚卸し', 'リスクアセスメント', '管理策', 'Comply or Explain', '適用宣言書', '教育訓練', '監視', 'レビュー', '継続的改善']) expect(flow).toContain(step);
     });
+    it('scrollable table and diagram wrappers are keyboard-focusable with a visible focus outline', async () => {
+        const $ = await html(); const tables = $('main .table-scroll').toArray(); const diagrams = $('main .mermaid-diagram').toArray();
+        expect(tables).toHaveLength(31); expect(diagrams).toHaveLength(11);
+        for (const el of [...tables, ...diagrams]) expect($(el).attr('tabindex')).toBe('0');
+        expect(css().toString()).toMatch(/\.health-page \.table-scroll:focus-visible,\s*\.health-page \.mermaid-diagram:focus-visible\s*\{[^}]*outline:2px solid var\(--accent\)/);
+    });
     it('heading anchors are revealed and outlined on keyboard focus', () => {
         const text = css().toString();
         expect(text).toMatch(/\.health-page h2 \.anchor:focus-visible,\s*\.health-page h3 \.anchor:focus-visible\s*\{[^}]*opacity:\s*0\.8[^}]*outline:\s*2px solid/);

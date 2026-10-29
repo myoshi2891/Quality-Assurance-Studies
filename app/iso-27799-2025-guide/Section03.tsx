@@ -7,7 +7,7 @@ export default function Section03() { return <>
 
 <h3 id="3-1-対象となるもの">{"\n                    3-1. 対象となる「もの」"}<a aria-label="リンク" className="anchor" href="#3-1-対象となるもの">{"#"}</a></h3>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"区分"}</th><th>{"例"}</th></tr></thead><tbody><tr className="odd"><td>{"汎用ICT機器・ソフトウェア"}</td><td>{"PC、サーバ、ネットワーク機器、一般業務ソフト"}</td></tr><tr className="even"><td>{"医療専用のソフト・システム"}</td><td><strong>{"電子カルテ（EHR）システム"}</strong>{"、ソフトウェアを組み込んだ"}<strong>{"医療機器"}</strong>{"（プログラム済み／プログラム可能、ソフトウェアやファームウェアを含む）\n                                "}</td></tr><tr className="odd"><td>{"医療現場にあるその他のデジタル機器"}</td><td>{"環境・感染制御、ビル管理、物理セキュリティ用の機器"}</td></tr></tbody></table></div>
+<div className="table-scroll" tabIndex={0}><table><thead><tr className="header"><th>{"区分"}</th><th>{"例"}</th></tr></thead><tbody><tr className="odd"><td>{"汎用ICT機器・ソフトウェア"}</td><td>{"PC、サーバ、ネットワーク機器、一般業務ソフト"}</td></tr><tr className="even"><td>{"医療専用のソフト・システム"}</td><td><strong>{"電子カルテ（EHR）システム"}</strong>{"、ソフトウェアを組み込んだ"}<strong>{"医療機器"}</strong>{"（プログラム済み／プログラム可能、ソフトウェアやファームウェアを含む）\n                                "}</td></tr><tr className="odd"><td>{"医療現場にあるその他のデジタル機器"}</td><td>{"環境・感染制御、ビル管理、物理セキュリティ用の機器"}</td></tr></tbody></table></div>
 
 <h3 id="3-2-対象となる情報">{"\n                    3-2. 対象となる「情報」"}<a aria-label="リンク" className="anchor" href="#3-2-対象となる情報">{"#"}</a></h3>
 
@@ -15,7 +15,7 @@ export default function Section03() { return <>
 
 <h3 id="3-3-対象となる組織と場所">{"\n                    3-3. 対象となる「組織」と「場所」"}<a aria-label="リンク" className="anchor" href="#3-3-対象となる組織と場所">{"#"}</a></h3>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"観点"}</th><th>{"範囲"}</th></tr></thead><tbody><tr className="odd"><td>{"組織"}</td><td>{"\n                                    医療を提供する組織、または他の理由で"}<strong>{"個人の健康情報の管理者"}</strong>{"（"}<strong>{"カストディアン"}</strong>{"）となっている、あらゆる種類・規模の組織\n                                "}</td></tr><tr className="even"><td>{"情報の置き場所"}</td><td>{"オンプレミスでもクラウドでも対象"}</td></tr><tr className="odd"><td>{"物理的な場所"}</td><td>{"病院、診療所、救急車、移動式の画像診断／検査ユニットなど"}</td></tr><tr className="even"><td>{"医療が行われる他の場所"}</td><td>{"居住施設・在宅など"}</td></tr><tr className="odd"><td>{"サービスの提供方法"}</td><td><strong>{"遠隔医療・バーチャルな医療"}</strong>{"を含む"}</td></tr></tbody></table></div>
+<div className="table-scroll" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"範囲"}</th></tr></thead><tbody><tr className="odd"><td>{"組織"}</td><td>{"\n                                    医療を提供する組織、または他の理由で"}<strong>{"個人の健康情報の管理者"}</strong>{"（"}<strong>{"カストディアン"}</strong>{"）となっている、あらゆる種類・規模の組織\n                                "}</td></tr><tr className="even"><td>{"情報の置き場所"}</td><td>{"オンプレミスでもクラウドでも対象"}</td></tr><tr className="odd"><td>{"物理的な場所"}</td><td>{"病院、診療所、救急車、移動式の画像診断／検査ユニットなど"}</td></tr><tr className="even"><td>{"医療が行われる他の場所"}</td><td>{"居住施設・在宅など"}</td></tr><tr className="odd"><td>{"サービスの提供方法"}</td><td><strong>{"遠隔医療・バーチャルな医療"}</strong>{"を含む"}</td></tr></tbody></table></div>
 
 <Diagram id="mermaid-diagram-2" />
 
