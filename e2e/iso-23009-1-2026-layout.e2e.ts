@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import React from 'react';
-import { load } from 'cheerio';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
@@ -55,7 +54,7 @@ for (const width of [390,900,901,1440]) {
     }
 }
 for (const width of [390,900,901,1440]) {
-    for (const [id, diagram] of Object.entries(inventory.diagrams)) {
+    for (const id of Object.keys(inventory.diagrams)) {
         test(`${width}px ${id}: source SVG semantics palette and horizontal reachability`, async ({ page }) => {
             await page.setViewportSize({ width, height: 900 });
             const { DIAGRAMS } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string> };
@@ -70,7 +69,8 @@ for (const width of [390,900,901,1440]) {
                 const actors = Array.from(outer.querySelectorAll('text.actor'), el => ({ label: norm(el.textContent), fill: getComputedStyle(el).fill }));
                 const labels = Array.from(outer.querySelectorAll('g.edgeLabels > g.edgeLabel'), el => norm(el.textContent)).filter(Boolean);
                 const clusters = Array.from(outer.querySelectorAll('g.cluster'), cluster => ({ label: norm(cluster.querySelector('.cluster-label')?.textContent ?? ''), fill: getComputedStyle(cluster.querySelector('rect')!).fill, stroke: getComputedStyle(cluster.querySelector('rect')!).stroke }));
-                const paths = Array.from(outer.querySelectorAll('path.flowchart-link'), path => { const style = getComputedStyle(path); return {stroke: style.stroke, width: style.strokeWidth, dash: style.strokeDasharray}; });
+                // Solid-edge endpoint clipping depends on export geometry; compare line type plus endpoints/arrows.
+                const paths = Array.from(outer.querySelectorAll('path.flowchart-link'), path => { const style = getComputedStyle(path); return {id: path.id.replace(/^.*?(?=L_)/, ''), start: !!path.getAttribute('marker-start'), end: !!path.getAttribute('marker-end'), stroke: style.stroke, width: style.strokeWidth, dash: path.classList.contains('edge-pattern-solid') ? 'solid' : style.strokeDasharray}; });
                 const labelColors = Array.from(outer.querySelectorAll('g.edgeLabels > g.edgeLabel'), label => { const span=label.querySelector('span'); return norm(label.textContent) && span ? { color: getComputedStyle(span).color, background: getComputedStyle(span).backgroundColor } : null; }).filter(Boolean);
                 return { nodes, labels, actors, messages, clusters, paths, labelColors };
             };
