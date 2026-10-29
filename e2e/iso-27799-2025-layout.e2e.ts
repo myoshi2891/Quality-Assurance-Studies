@@ -90,3 +90,13 @@ for (const width of [390,960,961,1200,1201,1440]) {
         });
     }
 }
+for (const width of [390,1440]) test(`${width}px completed checks and reset preserve source progress and checkbox marks`, async ({ page }) => {
+    await page.setViewportSize({width,height:900}); const reference=await page.context().newPage(); await reference.setViewportSize({width,height:900});
+    await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+    await page.setContent(`<style>${preflight+globals+retained+readFileSync(`${base}/iso-27799-2025-guide.css`,'utf8')}</style>${markup()}`);
+    const setState=(done:boolean)=>{document.querySelectorAll('.task-list li').forEach(li=>{li.classList.toggle('done',done);(li.querySelector('input') as HTMLInputElement).checked=done;});const count=document.querySelector('.cp-count')!;count.textContent=done?'10 / 10':'0 / 10';count.classList.toggle('cp-done',done);const fill=document.querySelector('.cp-fill') as HTMLElement;fill.style.width=done?'100%':'0%';void getComputedStyle(fill).width;fill.getAnimations().forEach(a=>a.finish());document.querySelectorAll('.task-list input,.task-list label').forEach(input=>{void getComputedStyle(input).backgroundColor;input.getAnimations({subtree:true}).forEach(a=>a.finish());});};
+    const snapshot=()=>Array.from(document.querySelectorAll('.task-list li,.task-list label,.task-list input,.cp-fill,.cp-count'),el=>{const s=getComputedStyle(el),mark=getComputedStyle(el,'::after');return {color:s.color,background:s.backgroundImage,border:s.borderColor,width:s.width,height:s.height,opacity:s.opacity,fontWeight:s.fontWeight,mark:mark.transform,markBorder:mark.borderColor};});
+    for(const done of [true,false]){await reference.evaluate(setState,done);await page.evaluate(setState,done);expect(await page.evaluate(snapshot)).toEqual(await reference.evaluate(snapshot));}
+    expect(await page.locator('h3').evaluateAll(els=>els.map(el=>{const s=getComputedStyle(el,'::before');return [s.content,s.width,s.height,s.backgroundColor,s.marginRight];}))).toEqual(await reference.locator('h3').evaluateAll(els=>els.map(el=>{const s=getComputedStyle(el,'::before');return [s.content,s.width,s.height,s.backgroundColor,s.marginRight];})));
+    await reference.close();
+});
