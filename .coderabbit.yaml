@@ -6,3 +6,5 @@ reviews:
         - '!.coderabbit.yaml'
         - '!.gitignore'
         - '!app/fonts/**'
+        - '!docs/REUSABLE_PROMPTS.md'
+        - '!README.md'
