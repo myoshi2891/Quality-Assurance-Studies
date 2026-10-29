@@ -60,6 +60,34 @@ describe('diagrams', () => {
         try { const Page = (await import(entry)).default; const view = render(<Page />); await waitFor(() => expect(view.container.querySelectorAll('.mermaid-diagram svg')).toHaveLength(6)); const { DIAGRAMS } = await import(diagramsEntry); expect(calls).toEqual(Object.values(DIAGRAMS)); } finally { cleanup(); mermaid.render = previous; }
     });
 });
+describe('diagram accessible names and descriptions', () => {
+    // 図ごとに関係・順序を伝える要素（出現順）。汎用の「図N」では内容が伝わらないため個別に検証する
+    const steps: Record<string, string[]> = {
+        'mermaid-diagram-1': ['エンコード', 'セグメント化', 'CDN', 'プレーヤー', '回線状況'],
+        'mermaid-diagram-2': ['MPD', 'Period', 'AdaptationSet', 'Representation', 'Segment'],
+        'mermaid-diagram-3': ['type', 'static', 'mediaPresentationDuration', 'dynamic', 'availabilityStartTime', 'minimumUpdatePeriod'],
+        'mermaid-diagram-4': ['MPD を HTTP で取得', '解析', 'Representation を選ぶ', '初期化セグメント', 'メディアセグメント', '高いビットレート', '低いビットレート', 'Patch'],
+        'mermaid-diagram-5': ['第6版', '代替メディア', 'コンテンツステアリング', 'セグメントシーケンス', 'パターン', 'CMCD', '非線形再生'],
+        'mermaid-diagram-6': ['CDN A', '制御サーバー', '劣化', 'CDN B', '再生は継続'],
+    };
+    const inOrder = (text: string, words: string[]) => words.map(w => text.indexOf(w)).every((p, i, a) => p >= 0 && (i === 0 || p > a[i - 1]!));
+    it('gives each diagram a concise specific aria-label and a hidden description conveying its relationships', async () => {
+        const $ = await html(); const diagrams = $('.mermaid-diagram');
+        expect(diagrams.map((_, el) => $(el).attr('id')).get()).toEqual(Object.keys(steps));
+        const labels = diagrams.map((_, el) => $(el).attr('aria-label') ?? '').get();
+        expect(new Set(labels).size).toBe(labels.length);
+        diagrams.each((_, el) => {
+            const id = $(el).attr('id')!; const label = $(el).attr('aria-label') ?? '';
+            expect($(el).attr('role')).toBe('img');
+            expect(label).not.toMatch(/^図\d+$/);
+            expect(label.length).toBeGreaterThan(5); expect(label.length).toBeLessThanOrEqual(40);
+            expect($(el).attr('aria-describedby')).toBe(`${id}-desc`);
+            const desc = $(el).find(`[id="${id}-desc"]`);
+            expect(desc).toHaveLength(1); expect(desc.attr('hidden')).toBeDefined();
+            expect(inOrder(desc.text(), steps[id]!)).toBe(true);
+        });
+    });
+});
 describe('XML fidelity to undamaged Markdown original', () => {
     inventory.codes.forEach((code, i) => it(`XML[${i}]: exact indentation, blank lines and syntax tokens`, async () => {
         const $ = await html(); const pre = $('pre').eq(i); expect(pre.text()).toBe(code);

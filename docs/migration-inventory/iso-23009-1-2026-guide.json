@@ -6312,7 +6312,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図1",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-1",
             "role": "img"
@@ -6322,7 +6321,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図2",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-2",
             "role": "img"
@@ -6332,7 +6330,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図3",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-3",
             "role": "img"
@@ -6342,7 +6339,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図4",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-4",
             "role": "img"
@@ -6352,7 +6348,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図5",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-5",
             "role": "img"
@@ -6362,7 +6357,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図6",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-6",
             "role": "img"
@@ -9560,7 +9554,6 @@
     {
       "tag": "div",
       "attrs": {
-        "aria-label": "図1",
         "class": "mermaid-diagram",
         "id": "mermaid-diagram-1",
         "role": "img"
@@ -10185,7 +10178,6 @@
     {
       "tag": "div",
       "attrs": {
-        "aria-label": "図2",
         "class": "mermaid-diagram",
         "id": "mermaid-diagram-2",
         "role": "img"
@@ -10932,7 +10924,6 @@
     {
       "tag": "div",
       "attrs": {
-        "aria-label": "図3",
         "class": "mermaid-diagram",
         "id": "mermaid-diagram-3",
         "role": "img"
@@ -11412,7 +11403,6 @@
     {
       "tag": "div",
       "attrs": {
-        "aria-label": "図4",
         "class": "mermaid-diagram",
         "id": "mermaid-diagram-4",
         "role": "img"
@@ -12186,7 +12176,6 @@
     {
       "tag": "div",
       "attrs": {
-        "aria-label": "図5",
         "class": "mermaid-diagram",
         "id": "mermaid-diagram-5",
         "role": "img"
@@ -12692,7 +12681,6 @@
     {
       "tag": "div",
       "attrs": {
-        "aria-label": "図6",
         "class": "mermaid-diagram",
         "id": "mermaid-diagram-6",
         "role": "img"
@@ -16348,7 +16336,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図1",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-1",
             "role": "img"
@@ -16991,7 +16978,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図2",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-2",
             "role": "img"
@@ -17750,7 +17736,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図3",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-3",
             "role": "img"
@@ -18242,7 +18227,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図4",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-4",
             "role": "img"
@@ -19028,7 +19012,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図5",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-5",
             "role": "img"
@@ -19534,7 +19517,6 @@
         {
           "tag": "div",
           "attrs": {
-            "aria-label": "図6",
             "class": "mermaid-diagram",
             "id": "mermaid-diagram-6",
             "role": "img"
