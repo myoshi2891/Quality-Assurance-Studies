@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">186 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">193 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">132 files</span>
+          <span class="inv-count" id="inv-count-pages">137 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1093,7 +1093,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">20 files</span>
+          <span class="inv-count" id="inv-count-e2e">21 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
@@ -1429,6 +1429,12 @@ const DATA = {
 
   inventory: {
     pages: [
+      'tests/iso-23009-1-2026-guide/page.test.tsx',
+      'tests/iso-23009-1-2026-guide/categories.test.tsx',
+      'tests/iso-23009-1-2026-guide/navigation.test.tsx',
+      'tests/iso-23009-1-2026-guide/integration.test.ts',
+      'tests/iso-23009-1-2026-guide/typecheck.test.ts',
+
       'tests/iso-19770-5-guide/page.test.tsx',
       'tests/iso-19770-5-guide/integration.test.ts',
       'tests/iso-19770-5-guide/categories.test.tsx',
@@ -1590,6 +1596,7 @@ const DATA = {
       'tests/scripts/validate-fences.test.ts'
     ],
     e2e: [
+      'e2e/iso-23009-1-2026-layout.e2e.ts',
       'e2e/iso-19770-5-layout.e2e.ts',
       'e2e/iso-14496-22-layout.e2e.ts',
       'e2e/sbe-layout.e2e.ts',
@@ -1612,6 +1619,7 @@ const DATA = {
       'e2e/tcs-layout.e2e.ts'
     ],
     tooling: [
+      'playwright.iso-23009-1-2026.config.ts',
       'playwright.iso-19770-5.config.ts',
       'playwright.iso-14496-22.config.ts',
       'playwright.sbe.config.ts',
