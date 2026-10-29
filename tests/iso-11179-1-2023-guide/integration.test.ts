@@ -7,10 +7,10 @@ import inventory from '../../docs/migration-inventory/iso-11179-1-2023-guide.jso
 const href = '/iso-11179-1-2023-guide';
 it('registers the Metadata Registry guide in the ISO category once', () => {
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
-    expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide','/iso-9075-1-guide',href,'/iso-14496-22-guide','/iso-19770-5-guide','/iso-23009-1-2026-guide']);
+    expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide','/iso-9075-1-guide',href,'/iso-14496-22-guide','/iso-19770-5-guide','/iso-23009-1-2026-guide','/iso-27799-2025-guide']);
 });
-it('registers exactly 112 routes and the original H1 in E2E', () => {
-    expect(EXPECTED_PAGE_COUNT).toBe(112); expect(PAGES).toHaveLength(112); expect(NAV_ITEMS).toHaveLength(112);
+it('registers exactly 113 routes and the original H1 in E2E', () => {
+    expect(EXPECTED_PAGE_COUNT).toBe(113); expect(PAGES).toHaveLength(113); expect(NAV_ITEMS).toHaveLength(113);
     const entry = PAGES.filter(i => i.path === href); expect(entry).toHaveLength(1); expect(entry[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
 });
 for (const ext of ['html', 'md'] as const) {
