@@ -12,7 +12,7 @@ describe('IEC 62304 registration and original archives', () => {
         expect(groupByCategory(NAV_ITEMS).find(g => g.category === 'iso')?.items.map(i => i.href)).toEqual(['/iso-29119-1-2022-guide', href, '/iso-9075-1-guide', '/iso-11179-1-2023-guide','/iso-14496-22-guide','/iso-19770-5-guide']);
     });
     it('synchronizes 111 registered routes and the source H1', () => {
-        expect(EXPECTED_PAGE_COUNT).toBe(111); expect(NAV_ITEMS).toHaveLength(111); expect(PAGES).toHaveLength(111);
+        expect(EXPECTED_PAGE_COUNT).toBe(112); expect(NAV_ITEMS).toHaveLength(112); expect(PAGES).toHaveLength(112);
         const entries = PAGES.filter(p => p.path === href); expect(entries).toHaveLength(1); expect(entries[0]?.h1.test('IEC 62304:2006 初学者向けステップバイステップ解説ガイド')).toBe(true);
     });
     for (const ext of ['html', 'md'] as const) {
