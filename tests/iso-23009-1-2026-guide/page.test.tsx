@@ -27,6 +27,13 @@ describe('exact original inventory', () => {
         const Page = sourceModule(`${base}/page.tsx`, { development }).default as React.ComponentType;
         const $ = load(renderToStaticMarkup(<Page />)); expect($('main').contents().toArray().map(tree).filter(Boolean)).toEqual(inventory.main);
     });
+    it('scrollable table and code wrappers are keyboard-focusable named regions', async () => {
+        const $ = await html(); const wrappers = $('main .table-scroll, main .code-block').toArray();
+        expect(wrappers).toHaveLength(26);
+        const names = wrappers.map(el => { expect($(el).attr('tabindex')).toBe('0'); expect($(el).attr('role')).toBe('region'); return $(el).attr('aria-label') ?? ''; });
+        names.forEach(n => expect(n).toMatch(/^(表|コード例)：\S/)); expect(new Set(names).size).toBe(names.length);
+        expect(css().toString()).toMatch(/\.dash-page \.table-scroll:focus-visible,\s*\.dash-page \.code-block:focus-visible\s*\{[^}]*outline:2px solid var\(--accent\)/);
+    });
     it('unique IDs and every internal reference resolves once', async () => {
         const $ = await html(); const ids = $('[id]').map((_, el) => $(el).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
         $('a[href^="#"]').each((_, a) => expect($('[id]').filter((_, el) => $(el).attr('id') === $(a).attr('href')!.slice(1)).length).toBe(1));
