@@ -65,3 +65,16 @@
 .iso30130-page *::-webkit-scrollbar-thumb { background:var(--line); }
 .iso30130-page .page-footer { background:none; padding:18px 0 0; text-align:left; }
 @media(max-width:900px){.iso30130-page .main{margin-left:0;padding:64px 16px 60px}.iso30130-page .hero{padding:24px 18px}.iso30130-page .hero h1{font-size:23px}}
+/* Computed-style parity: inherited headings, lists, table metrics and callouts. */
+.iso30130-page .hero, .iso30130-page .page-footer { text-align:start; }
+.iso30130-page h1, .iso30130-page h2, .iso30130-page h3, .iso30130-page th, .iso30130-page .page-footer { font-family:inherit; }
+.iso30130-page strong, .iso30130-page td strong { font-weight:700; }
+.iso30130-page .main ol, .iso30130-page .main ul { color:var(--text); margin:1em 0; }
+.iso30130-page .sidebar ul, .iso30130-page .sidebar li { color:var(--text); }
+.iso30130-page .sidebar nav { padding:0; margin:0; }
+.iso30130-page table { color:var(--text); border-color:currentColor; }
+.iso30130-page th, .iso30130-page td { line-height:normal; letter-spacing:normal; }
+.iso30130-page .callout { font-size:16px; line-height:1.85; }
+.iso30130-page .callout p { font-size:inherit; }
+.iso30130-page .hero::after { all:unset; content:none; }
+.iso30130-page tbody tr:hover td { background:transparent; }
