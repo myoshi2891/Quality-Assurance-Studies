@@ -1,8 +1,30 @@
 # CLAUDE.md
 
-Updated 2026-10-28
+Updated 2026-10-30
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-10-29: ISO 27799:2025 医療情報セキュリティガイドの移行
+
+- 移行先は`/iso-27799-2025-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を113ルートへ同期。
+- 全46見出し・目次19リンク・31表の全セル・11図・コールアウト12件・外部リンク13件・メタ情報9件・注記アイコン12件・チェック10項目・ヒーロー・全文・フッターを固定インベントリで出現順に照合。コードブロックは原本どおり0件。CSS全89ルールと960px・1200px境界を保持。
+- MDの図定義をHTML内SVGのラベルと照合して再構築し、全ノード形状・配色、接続先・矢印・点線を共有Mermaidで検証。共有CSSの中央寄せが横長図の左端を隠す問題をページ側で補正。
+- 6幅×CSS読込2順序の12件、11図×6幅の66件、チェック完了・リセット表示2件で、原本の計算済みスタイル、ヒーロー疑似要素、見出しマーク、ホバー、SVGの配色・接続と左右スクロール、チェックの進捗・印を比較。ビルド・サーバー不要のChromium計80件が成功。
+- チェック全10項目の入力・ラベル操作、進捗・完了色・リセット、目次全19アンカーの追従・開閉・Escape・フォーカス復帰・Observer解除を検証。SWC開発/本番変換後の全文DOMと、SSR復元時の回復可能エラー・DOM警告なし、チェック操作の接続も確認。
+- 原本HTMLは`archive/html-archive/iso/Iso-27799-2025-guide.html`、MDは`archive/md-archive/iso/Iso-27799-2025-guide.md`へ同名で移動。SHA-256一致・Git追跡・rename検出100%を確認。
+- Red319件を先行コミット後、CSS、図、チェック操作、目次、ヒーロー、Step 0〜16、付録A/B、フッター、ページ構成、ナビ登録、アーカイブ、表示補正、追加回帰テスト、仕様書を個別コミット。各コミット直前に予定パス完全一致とPIIを検査。
+- npm経由で対象321件・関連581件・全体8263件（165ファイル）、Chromium80件、lint、対象型検査、Markdown lintが成功。ビルドは指示により未実施、目視確認はユーザー担当。
+
+## 2026-10-29: ISO/IEC 23009-1:2026 MPEG-DASHガイドの移行
+
+- 移行先は`/iso-23009-1-2026-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を112ルートへ同期。
+- 全41見出し・階層目次40リンク・24表の全セル・6図・XML2例・コールアウト9件・外部リンク23件・メタ情報5件・ヒーロー・全文・フッターを固定インベントリで順序まで照合。CSS全71ルールと900px境界を保持。
+- 元HTMLのXML例にはハイライト用タグの混入があるため、MD原稿を正として復元。タグ・属性・文字列の配色、改行・字下げ・行数・高さ・横スクロールを検証。図はHTML内SVGのラベル・接続を保持し、共有Mermaidで描画。
+- 4幅×CSS読込2順序の8件、6図×4幅の24件、XML2例×2幅の4件で原本の計算済みスタイル、疑似要素、ホバー、ノード形状・配色、接続・矢印、左右スクロールを検証。書き出しSVGの実線末端クリップは線種として比較し、接続先・矢印を個別に照合。
+- 目次40アンカーの追従・開閉・Escape・フォーカス復帰・Observer解除と、SWC開発/本番変換後の全文DOMを検証。共有CSSによるヒーロー、表、箇条書き、注記、目次、フッターへの干渉を補正。
+- 元HTMLは`archive/html-archive/iso/Iso-23009-1-2026-guide.html`、MDは`archive/md-archive/iso/Iso-23009-1-2026-guide.md`へ同名で移動。SHA-256一致、Git追跡、rename検出100%を確認。
+- Red269件を先行コミット後、CSS、図、XML、目次、ヒーロー、導入、Step 1〜12、用語集、参考資料、注意事項、フッター、ページ構成、ナビ登録、アーカイブ、デザイン補正、仕様書を個別コミット。各コミットで予定パスの完全一致とPIIを検査。
+- npm経由で対象269件・関連525件・全体7938件（158ファイル）、ビルド・サーバー不要のChromium36件、lint、対象型検査が成功。ビルドは指示により未実施、目視確認はユーザー担当。
 
 ## 2026-10-28: ISOガイドのレビュー修正
 
@@ -90,14 +112,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 153 ファイル・7662 tests)
+bun test             # ユニットテスト (bun test 全体, 165 ファイル・8263 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 111 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 113 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -575,6 +597,8 @@ Next.js App Router 構成:
 - `docs/migration-inventory/beyond-legacy-code-guide.json` — 元HTML/MDのハッシュと全構成要素を固定記録
 - `app/iso-29119-1-2022-guide/page.tsx` — ISO/IEC/IEEE 29119-1:2022 完全解説ガイド（新設カテゴリ「ISO 国際規格」）
 - `app/iso-14496-22-guide/page.tsx` / `iso-14496-22-guide.css` — OFFガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section14.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次、`diagrams.ts`で10図を管理。
+- `app/iso-27799-2025-guide/page.tsx` / `iso-27799-2025-guide.css` — 医療情報セキュリティガイド。`Hero.tsx`・`Section00.tsx`〜`Section18.tsx`・`Footer.tsx`で全文を分割。`NavBar.tsx`で目次19リンク、`Checklist.tsx`でチェック10項目・進捗・リセット、`Diagram.tsx`・`diagrams.ts`で11図を管理。
+- `app/iso-23009-1-2026-guide/page.tsx` / `iso-23009-1-2026-guide.css` — MPEG-DASH第6版ガイド。`Hero.tsx`・`Section00.tsx`〜`Section16.tsx`・`Footer.tsx`で全文を分割。`NavBar.tsx`で40リンクの階層目次、`CodeExample.tsx`でXML2例、`Diagram.tsx`・`diagrams.ts`で6図を管理。
 - `app/iso-19770-5-guide/page.tsx` / `iso-19770-5-guide.css` — ITAM用語ガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section12.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次と背景操作、`Checklist.tsx`で8項目の進捗、`diagrams.ts`で9図を管理。
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
 - `app/iso-29119-1-2022-guide/NavBar.tsx` — 階層目次69リンク、`scroll` イベント + `getBoundingClientRect()` によるアクティブ節追従、モバイルトグル対応のスティッキー目次
@@ -944,6 +968,8 @@ bun test        # ユニットテスト成功
 | `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
 | `Iso-19770-5-guide.html` | `/iso-19770-5-guide` | ✅ ダーク配色・30見出し・目次29リンク・19表・9図・8注記・外部18リンク・チェック8項目 (archive/、HTML・MD両方) |
+| `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -956,7 +982,8 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026と27799:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
 
@@ -967,12 +994,12 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 111 ルート（ガイドライブラリ index + 110 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 113 ルート（ガイドライブラリ index + 112 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
-  1. `/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide` の目視確認をユーザーに依頼する。
+  1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   2. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
   3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。

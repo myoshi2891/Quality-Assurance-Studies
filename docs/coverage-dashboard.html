@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-10-29">2026-10-29</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 111 pages · 3 components · 13 libs · 5 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 113 pages · 3 components · 13 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">186<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">202<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num" id="kpi-pages-tested">111<span class="unit">/ 111</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">113<span class="unit">/ 113</span></div>
       <div class="kpi-lbl">Pages Tested · 100%</div>
-      <p class="kpi-desc"><span id="kpi-pages-desc-count">109</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 111 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
+      <p class="kpi-desc"><span id="kpi-pages-desc-count">113</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 113 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">186 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">202 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">132 files</span>
+          <span class="inv-count" id="inv-count-pages">144 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1093,14 +1093,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">20 files</span>
+          <span class="inv-count" id="inv-count-e2e">22 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>Test Tooling &amp; Config</span>
-          <span class="inv-count" id="inv-count-tooling">13 files</span>
+          <span class="inv-count" id="inv-count-tooling">15 files</span>
         </summary>
         <ul id="inv-tooling"></ul>
       </details>
@@ -1285,6 +1285,8 @@ const pages = [
   { path: '/working-effectively-with-legacy-code-guide', topic: 'Working Effectively with Legacy Code 完全ガイド', tested: true },
   { path: '/testing-computer-software-guide', topic: 'Testing Computer Software 入門ガイド', tested: true },
   { path: '/software-testing-craftsmans-approach-guide', topic: 'Software Testing: A Craftsman’s Approach 入門ガイド', tested: true },
+  { path: '/iso-27799-2025-guide', topic: 'ISO 27799 医療情報セキュリティ ガイド', tested: true },
+  { path: '/iso-23009-1-2026-guide', topic: 'ISO 23009-1 MPEG-DASH ガイド', tested: true },
   { path: '/iso-19770-5-guide', topic: 'ISO 19770-5 IT資産管理の概要と用語 ガイド', tested: true },
   { path: '/iso-14496-22-guide', topic: 'ISO 14496-22 Open Font Format ガイド', tested: true },
   { path: '/specification-by-example-guide', topic: 'Specification by Example 実践ガイド', tested: true }
@@ -1295,7 +1297,7 @@ const DATA = {
       category: 'Pages',
       hint: `${pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. CTAL-TAE Ch8 verifies 77 source CSS rules, 14 highlight rules, 71 headings, 70 TOC links, 36 tables, 16 parsed charts, six exact highlighted examples and all source DOM; 484 chapter tests pass, including safe external references and final diagram/footer cascade protections. Real browser SVG color and contrast checks cover all 11 Ch6 diagrams (page CSS and config-only variants, 44 cases) and all 11 Ch7 diagrams (22 cases) at 390px and 1440px without a server/build; the suite now registers 208 Chromium cases, including six optional live-server cases. The code fix verified 88 cases: 78 SWC-based Ch7/Ch8 code layouts, six Ch7 learning UI cases and four live Next.js cases. SWC dev/prod compilation also verifies exact newlines and indentation in 26 unit cases. Quality Is Free adds 295 source-contract unit tests (79 CSS rules, 16 sections, 22 headings, 15 TOC links, six tables, eight diagrams, eleven checks, sixteen reference cards), eight computed-style/dimension/hover comparisons, 32 real SVG checks and two live Next.js interaction cases; all 42 browser cases passed. IEC 62304 adds 351 source-contract tests: 22 sections, 59 headings, 50 hierarchical links, 37 complete tables, 18 diagrams, 13 callouts, 30 external links, all 65 source CSS rules, SWC dev/prod fidelity and archive hashes. Eight computed-style cases cover 390/960/961/1440px and two retained-CSS orders; 72 browser SVG cases verify every original node, decision shape, edge, label, cluster, source palette and both scroll ends. The dedicated config starts no server/build; manual visual review is user-owned. ISO 9075-1 adds 218 source-contract tests (35 headings, 34 TOC links, 19 complete tables, nine parsed diagrams, three SQL blocks, 11 callouts, 20 external links, all 63 original CSS rules, SWC dev/prod fidelity, navigation and tracked archive hashes). Forty-four browser cases compare every source design element at four widths in two CSS orders and all nine real SVG semantics/palettes/scroll ends; SQL text, block height and horizontal reachability are checked. ISO 11179-1 adds 325 source-contract tests (58 headings, 57 TOC links, 32 complete tables, 14 diagrams including class and sequence, one YAML example, 15 callouts, 21 external links, six interactive checks, all 80 original CSS rules, per-category rendering, SWC dev/prod fidelity and tracked archive hashes). Sixty-four browser cases compare source computed styles at four widths and two CSS orders plus every real SVG node shape/palette/edge/cluster/relation/message and both scroll ends; YAML text, tokens, block height and horizontal reachability are checked. Working Effectively with Legacy Code adds 283 unit contracts: all 19 sections, 20 headings, 19 TOC links, nine complete tables, 11 parsed diagrams, one highlighted JavaScript example, four callouts, 26 references, eight interactive checks, 84 source CSS rules, SWC dev/prod fidelity and tracked archive hashes. Thirty-four server/build-free browser cases compare computed styles at six widths in both retained-CSS orders and all 11 SVG labels, edges, palettes and scroll ends at two widths. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Testing Computer Software adds 295 source contracts covering all 18 sections, 30 headings, 18 TOC links, ten tables, nine parsed diagrams and shared-renderer calls, eight callouts, sixteen references, ten interactive checks, eight practice steps, all 88 source CSS rules, SWC dev/prod DOM fidelity and tracked archive hashes. Twenty-six server/build-free browser cases compare computed styles at four widths in both CSS orders, step-number pseudo-elements, table hover and all nine SVG labels, edges, dotted links, palettes and horizontal scroll ends at two widths. Craftsman adds 259 source contracts covering 16 sections, 46 headings, 16 TOC links, 22 complete tables, 11 parsed diagrams and shared-renderer calls, ten callouts, seventeen references, eighteen external links, all 55 source CSS rules, SWC dev/prod DOM fidelity and tracked archive hashes. Thirty server/build-free Chromium cases compare computed styles and table hover at four widths in both retained-CSS orders, and all eleven SVG labels, edges, palettes and horizontal scroll ends at two widths. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Specification by Example adds 446 source contracts for all eleven sections, hero and footer, 31 headings, 18 hierarchical links, seven tables, six real parsed charts and shared-renderer calls, one highlighted Gherkin example, 29 callouts, 21 references, 61 external links, 96 icons, eight persisted checks and all 87 CSS rules. The SVG tests now read the complete shared Mermaid initialization, including dark themeVariables, to catch inherited dark mainBkg/nodeBorder/cluster colors. Page config explicitly overrides all five inherited surface/border/label colors. Twenty-two server/build-free Chromium cases compare four widths in two CSS orders, six real SVGs at two widths, code geometry and completed-check appearance. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Open Font Format adds 304 contracts covering 47 headings, 46 TOC links, 27 complete tables, ten parsed charts, two exact code examples, sixteen callouts, 22 reference links, all 59 CSS rules and original archive hashes plus Git tracking. Forty-eight server/build-free Chromium cases compare four widths in two CSS orders and ten real SVGs at all four widths, including node shapes, cluster backgrounds and arrow directions. Full suite: 7376 tests across 147 files; scoped TypeScript and lint pass. ISO 19770-5 adds 282 contracts covering 30 headings, 29 TOC links, 19 complete tables, nine HTML-derived diagrams, eight callouts, eighteen external references, eight native learning checks, all 86 CSS rules, complete SWC dev/prod DOM fidelity and tracked archive hashes. Forty-six server/build-free Chromium cases compare four widths in two CSS orders, nine real SVGs at four widths, node shapes/palettes/strokes, edge colors/widths/dashes, label backgrounds, arrows and horizontal reachability, plus two completed checklist comparisons. Full suite: 7662 tests across 153 files; scoped TypeScript and lint pass. Review follow-up (2026-10-28): 591 targeted ISO unit tests pass, including OFF SSR hydration with onRecoverableError and console checks, secondary-source row relocation, and SWID lifecycle/tag separation with accessible text. Four corrected SWID SVG viewport checks pass. All eight OFF CSS comparisons (four widths in two CSS orders) now pass after restoring the source currentColor table borders and stopping the comparison source's reference numbering before the glossary to keep terms and column widths; 306 targeted unit tests (including type checks) and lint on the edited E2E pass. Manual visual review is user-owned.` },
+        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. CTAL-TAE Ch8 verifies 77 source CSS rules, 14 highlight rules, 71 headings, 70 TOC links, 36 tables, 16 parsed charts, six exact highlighted examples and all source DOM; 484 chapter tests pass, including safe external references and final diagram/footer cascade protections. Real browser SVG color and contrast checks cover all 11 Ch6 diagrams (page CSS and config-only variants, 44 cases) and all 11 Ch7 diagrams (22 cases) at 390px and 1440px without a server/build; the suite now registers 208 Chromium cases, including six optional live-server cases. The code fix verified 88 cases: 78 SWC-based Ch7/Ch8 code layouts, six Ch7 learning UI cases and four live Next.js cases. SWC dev/prod compilation also verifies exact newlines and indentation in 26 unit cases. Quality Is Free adds 295 source-contract unit tests (79 CSS rules, 16 sections, 22 headings, 15 TOC links, six tables, eight diagrams, eleven checks, sixteen reference cards), eight computed-style/dimension/hover comparisons, 32 real SVG checks and two live Next.js interaction cases; all 42 browser cases passed. IEC 62304 adds 351 source-contract tests: 22 sections, 59 headings, 50 hierarchical links, 37 complete tables, 18 diagrams, 13 callouts, 30 external links, all 65 source CSS rules, SWC dev/prod fidelity and archive hashes. Eight computed-style cases cover 390/960/961/1440px and two retained-CSS orders; 72 browser SVG cases verify every original node, decision shape, edge, label, cluster, source palette and both scroll ends. The dedicated config starts no server/build; manual visual review is user-owned. ISO 9075-1 adds 218 source-contract tests (35 headings, 34 TOC links, 19 complete tables, nine parsed diagrams, three SQL blocks, 11 callouts, 20 external links, all 63 original CSS rules, SWC dev/prod fidelity, navigation and tracked archive hashes). Forty-four browser cases compare every source design element at four widths in two CSS orders and all nine real SVG semantics/palettes/scroll ends; SQL text, block height and horizontal reachability are checked. ISO 11179-1 adds 325 source-contract tests (58 headings, 57 TOC links, 32 complete tables, 14 diagrams including class and sequence, one YAML example, 15 callouts, 21 external links, six interactive checks, all 80 original CSS rules, per-category rendering, SWC dev/prod fidelity and tracked archive hashes). Sixty-four browser cases compare source computed styles at four widths and two CSS orders plus every real SVG node shape/palette/edge/cluster/relation/message and both scroll ends; YAML text, tokens, block height and horizontal reachability are checked. Working Effectively with Legacy Code adds 283 unit contracts: all 19 sections, 20 headings, 19 TOC links, nine complete tables, 11 parsed diagrams, one highlighted JavaScript example, four callouts, 26 references, eight interactive checks, 84 source CSS rules, SWC dev/prod fidelity and tracked archive hashes. Thirty-four server/build-free browser cases compare computed styles at six widths in both retained-CSS orders and all 11 SVG labels, edges, palettes and scroll ends at two widths. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Testing Computer Software adds 295 source contracts covering all 18 sections, 30 headings, 18 TOC links, ten tables, nine parsed diagrams and shared-renderer calls, eight callouts, sixteen references, ten interactive checks, eight practice steps, all 88 source CSS rules, SWC dev/prod DOM fidelity and tracked archive hashes. Twenty-six server/build-free browser cases compare computed styles at four widths in both CSS orders, step-number pseudo-elements, table hover and all nine SVG labels, edges, dotted links, palettes and horizontal scroll ends at two widths. Craftsman adds 259 source contracts covering 16 sections, 46 headings, 16 TOC links, 22 complete tables, 11 parsed diagrams and shared-renderer calls, ten callouts, seventeen references, eighteen external links, all 55 source CSS rules, SWC dev/prod DOM fidelity and tracked archive hashes. Thirty server/build-free Chromium cases compare computed styles and table hover at four widths in both retained-CSS orders, and all eleven SVG labels, edges, palettes and horizontal scroll ends at two widths. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Specification by Example adds 446 source contracts for all eleven sections, hero and footer, 31 headings, 18 hierarchical links, seven tables, six real parsed charts and shared-renderer calls, one highlighted Gherkin example, 29 callouts, 21 references, 61 external links, 96 icons, eight persisted checks and all 87 CSS rules. The SVG tests now read the complete shared Mermaid initialization, including dark themeVariables, to catch inherited dark mainBkg/nodeBorder/cluster colors. Page config explicitly overrides all five inherited surface/border/label colors. Twenty-two server/build-free Chromium cases compare four widths in two CSS orders, six real SVGs at two widths, code geometry and completed-check appearance. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Open Font Format adds 304 contracts covering 47 headings, 46 TOC links, 27 complete tables, ten parsed charts, two exact code examples, sixteen callouts, 22 reference links, all 59 CSS rules and original archive hashes plus Git tracking. Forty-eight server/build-free Chromium cases compare four widths in two CSS orders and ten real SVGs at all four widths, including node shapes, cluster backgrounds and arrow directions. Full suite: 7376 tests across 147 files; scoped TypeScript and lint pass. ISO 19770-5 adds 282 contracts covering 30 headings, 29 TOC links, 19 complete tables, nine HTML-derived diagrams, eight callouts, eighteen external references, eight native learning checks, all 86 CSS rules, complete SWC dev/prod DOM fidelity and tracked archive hashes. Forty-six server/build-free Chromium cases compare four widths in two CSS orders, nine real SVGs at four widths, node shapes/palettes/strokes, edge colors/widths/dashes, label backgrounds, arrows and horizontal reachability, plus two completed checklist comparisons. Full suite: 7662 tests across 153 files; scoped TypeScript and lint pass. Review follow-up (2026-10-28): 591 targeted ISO unit tests pass, including OFF SSR hydration with onRecoverableError and console checks, secondary-source row relocation, and SWID lifecycle/tag separation with accessible text. Four corrected SWID SVG viewport checks pass. MPEG-DASH adds 269 contracts covering 41 headings, 40 TOC links, 24 complete tables, six source-SVG diagrams, two repaired XML examples from Markdown, nine callouts, 23 external links, five metadata fields, all 71 CSS rules, complete SWC dev/prod DOM and tracked archive hashes. Thirty-six server/build-free Chromium cases compare four widths in both retained-CSS orders, all six SVGs at four widths with node shapes, palettes, endpoints and arrows, and both XML examples at two widths with exact lines, syntax colors, height and horizontal reachability. Full suite: 7938 tests across 158 files; 525 related tests, scoped TypeScript and lint pass. Manual visual review is user-owned. ISO 27799 adds 321 contracts: all 46 headings, 19 TOC links, 31 full tables, eleven source-SVG diagrams, twelve callouts, thirteen external references, nine metadata fields, twelve icons, ten learning checks, all 89 CSS rules, complete SWC dev/prod DOM, real SSR hydration and tracked archive hashes. Eighty server/build-free Chromium cases compare six widths in both retained-CSS orders, all eleven SVGs at six widths with shapes, palettes, endpoints, arrows, dotted lines and horizontal reachability, plus completed/reset checkbox marks and progress at two widths. Shared callout typography, preflight input inheritance and flex-centered oversized SVG clipping are explicitly reset. Full suite: 8263 tests across 165 files; 581 related tests, scoped TypeScript, lint and Markdown lint pass. Manual visual review is user-owned. All eight OFF CSS comparisons (four widths in two CSS orders) now pass after restoring the source currentColor table borders and stopping the comparison source's reference numbering before the glossary to keep terms and column widths; 306 targeted unit tests (including type checks) and lint on the edited E2E pass. Manual visual review is user-owned.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'partial', value: '80', label: 'IEC 62304 CSS/SVG', note: 'IEC 62304: eight computed-style comparisons and 72 real SVG cases passed across four viewport widths without a server/build. Earlier CT-GenAI coverage includes 12 scroll-edge and centering cases; other guide-specific suites remain listed in the inventory. Screenshot baselines are absent; manual visual review is user-owned.' },
@@ -1331,11 +1333,11 @@ const DATA = {
       category: 'Interactive Behaviors',
       hint: 'Header drawer · NavBar IntersectionObserver · Mermaid async render',
       cells: [
-        { state: 'full', value: '3/3', label: '100%', note: 'Header drawer, CT-GenAI study NavBar observer/cleanup/mobile/Escape and Mermaid async render covered.' },
+        { state: 'full', value: '3/3', label: '100%', note: 'Header drawer, CT-GenAI study NavBar observer/cleanup/mobile/Escape and Mermaid async render covered. ISO 27799 additionally verifies all 19 TOC targets, focus restoration, ten live learning checks, progress and reset, and SSR hydration.' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap', note: 'Scroll-spy behavior requires real browser.' },
         { state: 'gap', value: '0', label: 'Gap' },
-        { state: 'gap', value: '0', label: 'Gap', note: 'Focus management not asserted.' },
+        { state: 'partial', value: '19', label: 'Focus', note: 'ISO 27799 unit contracts assert aria-expanded, aria-current, all 19 observer targets, Escape and focus restoration; real browser keyboard traversal remains unverified.' },
         { state: 'na', value: '—', label: 'N/A' }
       ]
     },
@@ -1395,7 +1397,7 @@ const DATA = {
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'na', value: '—', label: 'N/A' },
-        { state: 'partial', value: 'manual', label: 'Manual', note: 'Coded with intent but unverified by tools.' },
+        { state: 'partial', value: 'manual', label: 'Manual', note: 'ISO 27799 unit tests verify mobile toggle semantics, Escape focus restoration, current TOC location and polite progress announcements. Whole-page axe and browser keyboard traversal remain unverified.' },
         { state: 'na', value: '—', label: 'N/A' }
       ]
     },
@@ -1429,6 +1431,20 @@ const DATA = {
 
   inventory: {
     pages: [
+      'tests/iso-27799-2025-guide/hydration.test.tsx',
+      'tests/iso-27799-2025-guide/page.test.tsx',
+      'tests/iso-27799-2025-guide/categories.test.tsx',
+      'tests/iso-27799-2025-guide/navigation.test.tsx',
+      'tests/iso-27799-2025-guide/checklist.test.tsx',
+      'tests/iso-27799-2025-guide/integration.test.ts',
+      'tests/iso-27799-2025-guide/typecheck.test.ts',
+
+      'tests/iso-23009-1-2026-guide/page.test.tsx',
+      'tests/iso-23009-1-2026-guide/categories.test.tsx',
+      'tests/iso-23009-1-2026-guide/navigation.test.tsx',
+      'tests/iso-23009-1-2026-guide/integration.test.ts',
+      'tests/iso-23009-1-2026-guide/typecheck.test.ts',
+
       'tests/iso-19770-5-guide/page.test.tsx',
       'tests/iso-19770-5-guide/integration.test.ts',
       'tests/iso-19770-5-guide/categories.test.tsx',
@@ -1590,6 +1606,8 @@ const DATA = {
       'tests/scripts/validate-fences.test.ts'
     ],
     e2e: [
+      'e2e/iso-27799-2025-layout.e2e.ts',
+      'e2e/iso-23009-1-2026-layout.e2e.ts',
       'e2e/iso-19770-5-layout.e2e.ts',
       'e2e/iso-14496-22-layout.e2e.ts',
       'e2e/sbe-layout.e2e.ts',
@@ -1612,6 +1630,8 @@ const DATA = {
       'e2e/tcs-layout.e2e.ts'
     ],
     tooling: [
+      'playwright.iso-27799-2025.config.ts',
+      'playwright.iso-23009-1-2026.config.ts',
       'playwright.iso-19770-5.config.ts',
       'playwright.iso-14496-22.config.ts',
       'playwright.sbe.config.ts',

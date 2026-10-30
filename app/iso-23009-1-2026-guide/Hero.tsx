@@ -1,0 +1,6 @@
+import React from 'react';
+export default function Hero() { return <>
+
+<header className="hero"><span className="eyebrow">{"ISO/IEC 23009-1:2026 · MPEG-DASH · Edition 6"}</span><h1 className="hero-title">{"ISO/IEC 23009-1:2026\n初学者向け解説ガイド"}</h1><p className="hero-sub">{"Dynamic adaptive streaming over HTTP（DASH）— Part 1: Media presentation description and segment formats（MPD とセグメント形式）"}</p><p className="hero-lead">{"一般に MPEG-DASH と呼ばれる、インターネット動画配信の中核となる国際規格の「第6版（Edition 6）」を、初学者向けにステップバイステップで解説します。 調査時点は 2026年10月8日 です。ウェブ検索で確認できた一次情報（ISO・MPEG公式）と、MPEG-DASH の編集者である Christian Timmerer 氏（Bitmovin / クラーゲンフルト大学）らの発信、Shaka Player・dash.js といった代表的な OSS の公開情報を根拠にしています。"}</p><div className="hero-meta"><div className="meta-item"><span className="meta-label">{"規格"}</span><span className="meta-value">{"ISO/IEC 23009-1:2026"}</span></div><div className="meta-item"><span className="meta-label">{"版"}</span><span className="meta-value">{"第6版（Edition 6）"}</span></div><div className="meta-item"><span className="meta-label">{"発行"}</span><span className="meta-value">{"2026年7月"}</span></div><div className="meta-item"><span className="meta-label">{"ページ数"}</span><span className="meta-value">{"375"}</span></div><div className="meta-item"><span className="meta-label">{"調査時点"}</span><span className="meta-value">{"2026-10-08"}</span></div></div></header>
+
+</>; }
