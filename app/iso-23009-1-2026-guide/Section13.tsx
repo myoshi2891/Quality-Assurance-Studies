@@ -10,7 +10,7 @@ export default function Section13() { return <>
 
 <h3 id="12-2-再生abr-の検証">{"12-2. 再生・ABR の検証"}</h3>
 
-<div aria-label="表：12-2. 再生・ABR の検証" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"確認内容"}</th></tr></thead><tbody><tr className="odd"><td>{"初期画質"}</td><td>{"起動直後の Representation 選択が妥当か"}</td></tr><tr className="even"><td>{"帯域低下"}</td><td>{"帯域を制限したとき、リバッファを起こさず画質を下げるか"}</td></tr><tr className="odd"><td>{"帯域回復"}</td><td>{"回復後に画質が適切に戻るか（過度な振動がないか）"}</td></tr><tr className="even"><td>{"シーク"}</td><td>{"シーク後の再開時間は許容範囲か"}</td></tr><tr className="odd"><td>{"音声・字幕切替"}</td><td>{"AdaptationSet の切替が映像と同期しているか"}</td></tr></tbody></table></div>
+<div aria-label="表：12-2. 再生・ABR の検証" className="table-scroll" role="region" tabIndex={0}><table><thead><tr className="header"><th>{"観点"}</th><th>{"確認内容"}</th></tr></thead><tbody><tr className="odd"><td>{"初期画質"}</td><td>{"起動直後の Representation 選択が妥当か"}</td></tr><tr className="even"><td>{"帯域低下"}</td><td>{"帯域を制限しても最低ビットレートの Representation を再生できる帯域が残るとき、リバッファを起こさず画質を下げるか（最低 Representation のビットレートを下回る大幅な帯域低下は、リバッファの頻度・復帰時間・エラー表示を別観点として評価する）"}</td></tr><tr className="odd"><td>{"帯域回復"}</td><td>{"回復後に画質が適切に戻るか（過度な振動がないか）"}</td></tr><tr className="even"><td>{"シーク"}</td><td>{"シーク後の再開時間は許容範囲か"}</td></tr><tr className="odd"><td>{"音声・字幕切替"}</td><td>{"AdaptationSet の切替が映像と同期しているか"}</td></tr></tbody></table></div>
 
 <h3 id="12-3-ライブ特有の検証">{"12-3. ライブ特有の検証"}</h3>
 

@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-10-29
+Updated 2026-10-30
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -1673,6 +1673,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026と27799:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
 

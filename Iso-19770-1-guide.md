@@ -106,14 +106,14 @@ flowchart TB
     A --> E["Annex B（参考）<br/>3つのティア"]
     A --> F["Annex C（参考）<br/>IT資産の特性と追加要求の理由"]
     C --> C1["ISO 55001の要求事項を<br/>ベースに拡張"]
-    D --> D1["組織が運用すべき<br/>ITAMプロセス"]
+    D --> D1["適用するITAMプロセスを<br/>組織が決定し適用宣言書に記録"]
     E --> E1["導入順序の推奨"]
 ```
 
 | 部分 | 区分 | 役割 |
 |---|---|---|
 | 箇条4〜10 | 規定（必須） | マネジメントシステムとしての枠組み |
-| **Annex A** | 規定（必須） | 組織が運用することが期待されるITAMプロセス領域 |
+| **Annex A** | 規定（必須） | ITAMプロセス領域。組織は適用するプロセスを決定し、除外の正当化とともに適用宣言書（Statement of Applicability）に記録する（全領域が一律に必須ではない） |
 | **Annex B** | 参考 | プロセス目的を3ティアに束ね、段階導入と評価の目安を示す |
 | **Annex C** | 参考 | ISO 55001にはない追加要求が必要になる、IT資産の特性の説明 |
 
@@ -194,7 +194,7 @@ flowchart LR
 
 ## Step 7. Annex A：ITAMプロセス領域
 
-Annex A（規定）は、**組織が運用することが期待されるITAMプロセス領域**を定めます。ISO JTC 1/SC 7の公式プロジェクトページでは**15のプロセス領域**と説明されています。
+Annex A（規定）は、**ITAMプロセス領域**を定めます。すべての領域の運用が一律に必須なのではなく、ISO/IEC 19770-1:2017 の要求事項に基づき、組織は自らに適用するITAMの運用プロセスを決定し、除外する場合はその正当性を示したうえで、決定内容を**適用宣言書（Statement of Applicability）**に記録します。ISO JTC 1/SC 7の公式プロジェクトページでは**15のプロセス領域**と説明されています。
 
 一方、Flexera社の解説ブログでは、実務上の整理として**14の主要能力領域**を3カテゴリに分けて紹介しています。以下はそれに基づく整理です。
 
@@ -383,7 +383,7 @@ Boerger氏の講演でも、ISO/IECが示す関連規格（19770、20000、27001
 <details>
 <summary><strong>Q3. Annex AとAnnex Bの位置づけの違いは？</strong></summary>
 
-Annex Aは**規定**（運用が期待されるプロセス領域）、Annex Bは**参考**（ティアによる導入順序の目安）。
+Annex Aは**規定**（適用するプロセスを組織が決定し、除外の正当化とともに適用宣言書に記録する）、Annex Bは**参考**（ティアによる導入順序の目安）。
 </details>
 
 <details>
@@ -412,34 +412,34 @@ ITAMプロセスの詳細な方法・手順、実施ステップの順序、文�
 
 | No. | ソース | URL | 参照した内容 |
 |---|---|---|---|
-| 1 | ISO 公式（規格ページ） | https://www.iso.org/standard/68531.html | 版、発行年月、ステータス、Amd 1:2024 |
-| 2 | ISO 公式（仏語版ページ） | https://www.iso.org/fr/standard/68531.html | 2024年に確認済み、現行である旨 |
-| 3 | ISO 公式（依頼されたURL） | https://www.iso.org/cms/live/live/en/sites/isoorg/contents/data/standard/06/85/68531.html | 対象規格の公式ページ |
-| 4 | ISO/IEC JTC 1/SC 7 公式委員会ページ | https://committee.iso.org/sites/jtc1sc7/home/projects/flagship-standards/isoiec-19770-12017.html | ITAMSの定義、PDCA、Annex A 15領域、Annex Bの3ティア |
-| 5 | VDE Verlag（規格プレビューPDF） | https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec19770-1{ed3.0}en.pdf | 目次（箇条4〜7の節構成） |
-| 6 | IEC Webstore | https://webstore.iec.ch/publication/62222 | 抄録、版、ページ数、担当委員会 |
-| 7 | カナダ標準評議会（SCC）規格DB | https://scc-ccn.ca/standardsdb/standards/2029763 | 適用範囲の補足（組込み・情報資産の扱い） |
-| 8 | チリ国家規格機関（INN）ストア | https://ecommerce.inn.cl/isoiec-19770-1201770152 | ISO 55001の拡張、適用範囲、制限事項 |
-| 9 | AFNOR | https://www.boutique.afnor.org/en-gb/standard/iso-iec-1977012017/information-technology-it-asset-management-part-1-it-asset-management-syste/xs128745/127436 | 55001適合との関係 |
+| 1 | ISO 公式（規格ページ） | [ISO 公式（規格ページ）](https://www.iso.org/standard/68531.html) | 版、発行年月、ステータス、Amd 1:2024 |
+| 2 | ISO 公式（仏語版ページ） | [ISO 公式（仏語版ページ）](https://www.iso.org/fr/standard/68531.html) | 2024年に確認済み、現行である旨 |
+| 3 | ISO 公式（依頼されたURL） | [ISO 公式（依頼されたURL）](https://www.iso.org/cms/live/live/en/sites/isoorg/contents/data/standard/06/85/68531.html) | 対象規格の公式ページ |
+| 4 | ISO/IEC JTC 1/SC 7 公式委員会ページ | [ISO/IEC JTC 1/SC 7 公式委員会ページ](https://committee.iso.org/sites/jtc1sc7/home/projects/flagship-standards/isoiec-19770-12017.html) | ITAMSの定義、PDCA、Annex A 15領域、Annex Bの3ティア |
+| 5 | VDE Verlag（規格プレビューPDF） | [VDE Verlag（規格プレビューPDF）](https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec19770-1{ed3.0}en.pdf) | 目次（箇条4〜7の節構成） |
+| 6 | IEC Webstore | [IEC Webstore](https://webstore.iec.ch/publication/62222) | 抄録、版、ページ数、担当委員会 |
+| 7 | カナダ標準評議会（SCC）規格DB | [カナダ標準評議会（SCC）規格DB](https://scc-ccn.ca/standardsdb/standards/2029763) | 適用範囲の補足（組込み・情報資産の扱い） |
+| 8 | チリ国家規格機関（INN）ストア | [チリ国家規格機関（INN）ストア](https://ecommerce.inn.cl/isoiec-19770-1201770152) | ISO 55001の拡張、適用範囲、制限事項 |
+| 9 | AFNOR | [AFNOR](https://www.boutique.afnor.org/en-gb/standard/iso-iec-1977012017/information-technology-it-asset-management-part-1-it-asset-management-syste/xs128745/127436) | 55001適合との関係 |
 
 ### B. 著名な実務家・ベンダー・業界団体の解説
 
 | No. | ソース（発信者） | URL | 参照した内容 |
 |---|---|---|---|
-| 10 | Flexera — Kareen Tan「The 14 Key Competencies of SAM (and ISO 19770-1:2017)」 | https://www.flexera.com/blog/it-asset-management/14-key-competencies-of-sam/ | 改訂の狙い、14の能力領域、実務4ステップ |
-| 11 | IAITAM ACE 2022 — Jeremy Boerger（Boerger Consulting）「Trustworthy Data」 | https://ace.iaitam.org/wp-content/uploads/sites/19/2022/05/Jeremy-Boerger.pdf | 成熟度モデル3ティア、Trustworthy Dataの考え方 |
-| 12 | Jamf（Boerger Consultingとの講演紹介） | https://www.jamf.com/resources/videos/achieving-trustworthy-data-how-to-satisfy-iso-iec-197702017-with-jamf/ | 2017年にティアが3段階に整理された旨 |
-| 13 | Noventiq — Moving from SAM to ITAM（Part 3） | https://knowledgebase.noventiq.co.uk/moving-from-sam-to-itam-repositioning-of-processes-and-tiers-part-3-of-3 | ティアの責任分担、旧版からの再配置 |
-| 14 | ITAssetManagement.net（業界メディア） | https://itassetmanagement.net/?p=24955 | 第3版の評価（MSS互換、ティア） |
-| 15 | SmartSuite（フレームワーク解説） | https://www.smartsuite.com/frameworks/iso-iec-19770-1-2017-it-asset-management-systems-requirements | Annex A/B/Cの役割整理 |
-| 16 | Wikipedia — ISO/IEC 19770 | https://en.wikipedia.org/wiki/ISO/IEC_19770 | シリーズ全体の構成、旧版のティア |
+| 10 | Flexera — Kareen Tan「The 14 Key Competencies of SAM (and ISO 19770-1:2017)」 | [Flexera — Kareen Tan「The 14 Key Competencies of SAM (and ISO 19770-1:2017)」](https://www.flexera.com/blog/it-asset-management/14-key-competencies-of-sam/) | 改訂の狙い、14の能力領域、実務4ステップ |
+| 11 | IAITAM ACE 2022 — Jeremy Boerger（Boerger Consulting）「Trustworthy Data」 | [IAITAM ACE 2022 — Jeremy Boerger（Boerger Consulting）「Trustworthy Data」](https://ace.iaitam.org/wp-content/uploads/sites/19/2022/05/Jeremy-Boerger.pdf) | 成熟度モデル3ティア、Trustworthy Dataの考え方 |
+| 12 | Jamf（Boerger Consultingとの講演紹介） | [Jamf（Boerger Consultingとの講演紹介）](https://www.jamf.com/resources/videos/achieving-trustworthy-data-how-to-satisfy-iso-iec-197702017-with-jamf/) | 2017年にティアが3段階に整理された旨 |
+| 13 | Noventiq — Moving from SAM to ITAM（Part 3） | [Noventiq — Moving from SAM to ITAM（Part 3）](https://knowledgebase.noventiq.co.uk/moving-from-sam-to-itam-repositioning-of-processes-and-tiers-part-3-of-3) | ティアの責任分担、旧版からの再配置 |
+| 14 | ITAssetManagement.net（業界メディア） | [ITAssetManagement.net（業界メディア）](https://itassetmanagement.net/?p=24955) | 第3版の評価（MSS互換、ティア） |
+| 15 | SmartSuite（フレームワーク解説） | [SmartSuite（フレームワーク解説）](https://www.smartsuite.com/frameworks/iso-iec-19770-1-2017-it-asset-management-systems-requirements) | Annex A/B/Cの役割整理 |
+| 16 | Wikipedia — ISO/IEC 19770 | [Wikipedia — ISO/IEC 19770](https://en.wikipedia.org/wiki/ISO/IEC_19770) | シリーズ全体の構成、旧版のティア |
 
 ### C. 関連規格（実装ガイダンス）
 
 | No. | ソース | URL | 参照した内容 |
 |---|---|---|---|
-| 17 | ISO — ISO/IEC TS 19770-10:2025 | https://www.iso.org/standard/86588.html | 実装ガイダンス（2025年6月発行、144ページ） |
-| 18 | BSI Knowledge — ISO/IEC TS 19770-10 | https://knowledge.bsigroup.com/products/information-technology-it-asset-management-guidance-for-implementing-itam | スコープ（ライフサイクルプロセス等） |
+| 17 | ISO — ISO/IEC TS 19770-10:2025 | [ISO — ISO/IEC TS 19770-10:2025](https://www.iso.org/standard/86588.html) | 実装ガイダンス（2025年6月発行、144ページ） |
+| 18 | BSI Knowledge — ISO/IEC TS 19770-10 | [BSI Knowledge — ISO/IEC TS 19770-10](https://knowledge.bsigroup.com/products/information-technology-it-asset-management-guidance-for-implementing-itam) | スコープ（ライフサイクルプロセス等） |
 
 ---
 

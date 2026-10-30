@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-10-29
+Updated 2026-10-30
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -473,6 +473,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
+| `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
 ### ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」の追加移行（2026-10-16）
 
@@ -527,7 +529,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026と27799:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
 
@@ -545,7 +548,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - 全体テストすべて成功（直近 8263件（npm経由の全体テスト・165ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
-  1. `/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide` の目視確認をユーザーに依頼する。
+  1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   2. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
   3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
 
