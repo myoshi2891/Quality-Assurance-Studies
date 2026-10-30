@@ -6,7 +6,7 @@ export default function Category10() { return <>
 
 <h3 id="9-1-関連規格の全体マップ">{"9-1. 関連規格の全体マップ"}</h3>
 
-<div className="mermaid-diagram" id="diagram-9" role="img"><Mermaid chart={DIAGRAM_8} /></div>
+<div className="mermaid-diagram" id="diagram-9" role="img" aria-label="ISO/IEC 5338と15288・12207・22989・23053など関連規格の全体マップ"><Mermaid chart={DIAGRAM_8} /></div>
 
 <h3 id="9-2-役割の違い比較表">{"9-2. 役割の違い（比較表）"}</h3>
 

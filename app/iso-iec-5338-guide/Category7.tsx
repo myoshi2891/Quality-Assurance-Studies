@@ -6,7 +6,7 @@ export default function Category7() { return <>
 
 <p>{"第6章は、プロセスを"}<strong>{"4つのグループ"}</strong>{"に分けて説明します。全体で "}<strong>{"合計 33 プロセス"}</strong>{"（2 + 6 + 8 + 17）が定義されています。"}</p>
 
-<div className="mermaid-diagram" id="diagram-5" role="img"><Mermaid chart={DIAGRAM_4} /></div>
+<div className="mermaid-diagram" id="diagram-5" role="img" aria-label="第6章のAIシステムライフサイクルプロセスを4つのプロセスグループに分けた構成図"><Mermaid chart={DIAGRAM_4} /></div>
 
 <h3 id="6-1-61agreement-processes合意プロセス">{"6-1. 【6.1】Agreement processes（合意プロセス）"}</h3>
 

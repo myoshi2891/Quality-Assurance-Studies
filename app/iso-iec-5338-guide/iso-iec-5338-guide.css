@@ -120,3 +120,9 @@
 .iso5338-page .hero::after { all:initial; content:none; }
 /* The source outer diagram owns scrolling; avoid a second inner scroll viewport. */
 .iso5338-page .mermaid-wrapper { overflow:visible !important; }
+/* Keep links in the closed mobile sidebar out of the Tab sequence; restore them when open. */
+@media (max-width:960px){
+  .iso5338-page .sidebar{visibility:hidden;transition:transform .25s,visibility .25s}
+  .iso5338-page .sidebar.open{visibility:visible}
+}
+@media (max-width:960px) and (prefers-reduced-motion: reduce){ .iso5338-page .sidebar{transition:none} }

@@ -20,7 +20,7 @@ export default function Category2() { return <>
 
 <p>{"この規格は「このAIモデルは精度○○%以上であること」のような"}<strong>{"成果物の品質基準を決める規格ではありません"}</strong>{"。 「どんな活動を、どんな順序・観点で行えば、AIシステムを適切に作り・運用できるか」という"}<strong>{"活動の枠組み"}</strong>{"を提供します。"}</p>
 
-<div className="mermaid-diagram" id="diagram-2" role="img"><Mermaid chart={DIAGRAM_1} /></div>
+<div className="mermaid-diagram" id="diagram-2" role="img" aria-label="ISO/IEC 5338がプロセス規格であり製品品質規格やマネジメントシステム規格ではないことを示す判断図"><Mermaid chart={DIAGRAM_1} /></div>
 
 <hr />
 

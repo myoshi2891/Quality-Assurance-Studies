@@ -6,7 +6,7 @@ export default function Category11() { return <>
 
 <h3 id="10-1-導入のステップ">{"10-1. 導入のステップ"}</h3>
 
-<div className="mermaid-diagram" id="diagram-10" role="img"><Mermaid chart={DIAGRAM_9} /></div>
+<div className="mermaid-diagram" id="diagram-10" role="img" aria-label="ISO/IEC 5338を現場へ導入するステップ（範囲定義から運用開始・継続的改善まで）のフロー"><Mermaid chart={DIAGRAM_9} /></div>
 
 <h3 id="10-2-実務で整備したい項目チェックリスト">{"10-2. 実務で整備したい項目（チェックリスト）"}</h3>
 

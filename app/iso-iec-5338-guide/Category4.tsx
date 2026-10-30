@@ -10,7 +10,7 @@ export default function Category4() { return <>
 
 <h3 id="3-1-特に重要な2つドリフトとデータ依存">{"3-1. 特に重要な2つ：ドリフトとデータ依存"}</h3>
 
-<div className="mermaid-diagram" id="diagram-3" role="img"><Mermaid chart={DIAGRAM_2} /></div>
+<div className="mermaid-diagram" id="diagram-3" role="img" aria-label="AIモデルのリリース後にデータドリフトで性能が低下し継続的検証で検知する流れ"><Mermaid chart={DIAGRAM_2} /></div>
 
 <blockquote className="callout-practice"><p>{"💡 "}<strong>{"初学者向けポイント"}</strong>{" 従来のソフトウェアは「コードを変えない限り挙動は変わらない」のが基本でした。AI は"}<strong>{"コードが同じでも、世界が変われば性能が劣化する"}</strong>{"点が最大の違いです。"}</p></blockquote>
 

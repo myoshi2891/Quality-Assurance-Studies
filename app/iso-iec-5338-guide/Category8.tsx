@@ -18,7 +18,7 @@ export default function Category8() { return <>
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"項目"}</th><th>{"内容"}</th></tr></thead><tbody><tr className="odd"><td>{"目的"}</td><td><strong>{"展開後"}</strong>{"も、AIシステムが期待どおりに振る舞い続けているかを確認する"}</td></tr><tr className="even"><td>{"検出対象"}</td><td>{"データドリフト、コンセプトドリフト、技術的な不具合"}</td></tr><tr className="odd"><td>{"適用範囲"}</td><td><strong>{"継続学習（continuous learning）をしていないシステムにも適用"}</strong>{"される"}</td></tr><tr className="even"><td>{"位置づけ"}</td><td>{"22989 のライフサイクル例では「継続学習の場合のみ」とされていた段階を、5338 では"}<strong>{"常に対象"}</strong>{"に拡張している"}</td></tr></tbody></table></div>
 
-<div className="mermaid-diagram" id="diagram-6" role="img"><Mermaid chart={DIAGRAM_5} /></div>
+<div className="mermaid-diagram" id="diagram-6" role="img" aria-label="展開済みモデルを監視しドリフト検知時に原因分析と再学習へつなぐ継続的検証の流れ"><Mermaid chart={DIAGRAM_5} /></div>
 
 <hr />
 

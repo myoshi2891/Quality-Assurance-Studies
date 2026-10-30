@@ -8,7 +8,7 @@ export default function Category1() { return <>
 
 <h3 id="全体ロードマップ">{"全体ロードマップ"}</h3>
 
-<div className="mermaid-diagram" id="diagram-1" role="img"><Mermaid chart={DIAGRAM_0} /></div>
+<div className="mermaid-diagram" id="diagram-1" role="img" aria-label="ISO/IEC 5338ガイドの全体ロードマップ（Step 1〜10の学習順序）"><Mermaid chart={DIAGRAM_0} /></div>
 
 <hr />
 

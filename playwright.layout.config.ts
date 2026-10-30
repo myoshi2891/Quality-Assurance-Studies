@@ -37,8 +37,7 @@ const LAYOUT_SUITES: ReadonlyArray<{ name: string; testMatch: string | string[];
   { name: 'iso-23009-1-2026', testMatch: 'iso-23009-1-2026-layout.e2e.ts' },
   { name: 'iso-27799-2025', testMatch: 'iso-27799-2025-layout.e2e.ts' },
   { name: 'iso-30130', testMatch: 'iso-30130-layout.e2e.ts' },
-  // 移行時の検証環境に合わせ、インストール済み Chrome で実行する
-  { name: 'iso-iec-5338', testMatch: 'iso-iec-5338-layout.e2e.ts', use: { channel: 'chrome' } },
+  { name: 'iso-iec-5338', testMatch: 'iso-iec-5338-layout.e2e.ts' },
 ];
 
 export default defineConfig({

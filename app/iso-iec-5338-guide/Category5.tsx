@@ -8,7 +8,7 @@ export default function Category5() { return <>
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"種類"}</th><th>{"意味"}</th><th>{"初学者向けのたとえ"}</th></tr></thead><tbody><tr className="odd"><td><strong>{"Generic（汎用）"}</strong></td><td>{"15288/12207 と"}<strong>{"同一"}</strong>{"のプロセス"}</td><td>{"既存のレシピをそのまま使う"}</td></tr><tr className="even"><td><strong>{"Modified（修正）"}</strong></td><td>{"15288/12207 の要素を"}<strong>{"追加・変更・削除"}</strong>{"したもの。各節に「AI-specific particularities（AI特有の留意点）」の小節がある"}</td><td>{"既存のレシピに AI 用の注意書きを足す"}</td></tr><tr className="odd"><td><strong>{"AI-specific（AI固有）"}</strong></td><td>{"15288/12207 に直接対応するものがない、AI 特有のプロセス"}</td><td>{"新しいレシピを追加する"}</td></tr></tbody></table></div>
 
-<div className="mermaid-diagram" id="diagram-4" role="img"><Mermaid chart={DIAGRAM_3} /></div>
+<div className="mermaid-diagram" id="diagram-4" role="img" aria-label="15288・12207のプロセスをGeneric・Modified・AI-specificの3種類に分類する関係図"><Mermaid chart={DIAGRAM_3} /></div>
 
 <h3 id="4-1-この設計の意味">{"4-1. この設計の意味"}</h3>
 
