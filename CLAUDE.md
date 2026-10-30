@@ -4,6 +4,12 @@ Updated 2026-10-30
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-10-30: Playwright設定の集約
+
+- ページ別の15設定を`playwright.config.ts`（サーバー必須）と`playwright.layout.config.ts`（サーバー不要・14プロジェクト）の2ファイルへ集約。個別実行は`--project=<suite>`。統合前後の収集テスト一覧は全プロジェクトで1対1一致（レイアウト763件・サーバー側309件）。
+- 旧`playwright.library.config.ts`の開発サーバー（:3001）は廃止し、本番サーバー側の`library`プロジェクトへ統合。旧設定で`PLAYWRIGHT_CHROMIUM_EXECUTABLE`を無視していたiso-30130も共通設定で解消。
+- 再発防止として`.claude/rules/playwright-config-consolidation.md`と`tests/e2e/playwright-config-registry.test.ts`（設定2ファイル限定・全e2eファイルが1プロジェクトに所属）を追加。
+
 ## 2026-10-30: ISO/IEC 5338:2023 AIライフサイクルガイドの移行
 
 - `app/iso-iec-5338-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・16本文カテゴリーで`/iso-iec-5338-guide`へ移行し、ISOカテゴリーとE2E一覧を115ルートへ同期。
@@ -139,6 +145,7 @@ bun test             # ユニットテスト (bun test 全体, 167 ファイル�
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
 bun run e2e          # 全 115 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -542,7 +549,7 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/page.tsx` — 元HTMLの全5章・試験概要・ロードマップ・参考資料を既存画面と併存する新規ルートへ移行
 - `app/istqb-ct-genai-study-guide/istqb-ct-genai-study-guide.css` — 全55CSSルール・白背景と青の配色・880pxモバイル境界を保持し、共有スタイルをページ内でリセット
 - `app/istqb-ct-genai-study-guide/NavBar.tsx` — 目次25リンク、開閉・Escape・スクロール追従・IntersectionObserver解除
-- `playwright.mermaid-css.config.ts` / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
+- `playwright.layout.config.ts`（`--project=mermaid-css`） / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
 - `e2e/ctal-tae-code-layout.e2e.ts` — 第7・8章の13コードをSWC経由で描画し、改行・字下げ・横スクロールを検証。`CTAL_CODE_ORIGIN`指定時は起動済みNext.jsの実ページ4ケースも検証
 - `e2e/quality-is-free-layout.e2e.ts` / `tests/helpers/source-module.ts` — SWC出力と原本の実スタイル比較、実SVG検証、任意の起動済みNext.js操作検証
 - `app/istqb-ct-genai-study-guide/diagrams.ts` — 元配色・ノード・接続を保持するMermaid図13件
@@ -578,7 +585,7 @@ Next.js App Router 構成:
 - `app/iec-62304-beginner-guide/page.tsx` — 22セクションの組み立て・metadata・800ウェイト
 - `app/iec-62304-beginner-guide/toc.ts` — 全50リンクの原本順序
 - `tests/iec-62304-beginner-guide/page.test.tsx` / `integration.test.ts` — 原本全量・操作・CSS・登録・原本ハッシュの351件
-- `e2e/iec-62304-layout.e2e.ts` / `playwright.iec-62304.config.ts` — ビルド/サーバー不要の実スタイル比較・実SVGの80件
+- `e2e/iec-62304-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iec-62304`） — ビルド/サーバー不要の実スタイル比較・実SVGの80件
 - `app/quality-is-free-guide/ChapterDiagram.tsx` — Quality Is Free、原本カードと共有Mermaidの接続
 - `app/quality-is-free-guide/NavBar.tsx` — Quality Is Free、15目次リンク・開閉・追従・サーバー本文のchildrenスロット
 - `app/quality-is-free-guide/Section00.tsx` — Quality Is Free、カテゴリー別の原本本文
@@ -1044,7 +1051,7 @@ bun test        # ユニットテスト成功
 - 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
 - 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
 
@@ -1056,7 +1063,7 @@ bun test        # ユニットテスト成功
 
 - 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-20: CTAL-TAE第8章 継続的改善の移行
 
@@ -1119,7 +1126,7 @@ bun test        # ユニットテスト成功
 - `app/iso-9075-1-guide/CodeExample.tsx` — SQLの構文色と改行
 - `app/iso-9075-1-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の9図
 - `tests/iso-9075-1-guide/page.test.tsx` / `integration.test.ts` — 225件の原本・登録・アーカイブ契約
-- `e2e/iso-9075-layout.e2e.ts` / `playwright.iso-9075.config.ts` — ビルド・サーバー不要の44件
+- `e2e/iso-9075-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-9075`） — ビルド・サーバー不要の44件
 
 ## 2026-10-22: ISO/IEC 11179-1:2023メタデータレジストリガイドの移行
 
@@ -1142,7 +1149,7 @@ bun test        # ユニットテスト成功
 - `app/iso-11179-1-2023-guide/CodeExample.tsx` — 原本のYAML構文色と改行
 - `app/iso-11179-1-2023-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の14図
 - `tests/iso-11179-1-2023-guide/page.test.tsx` / `integration.test.ts` — 328件の原本・操作・登録・アーカイブ契約
-- `e2e/iso-11179-layout.e2e.ts` / `playwright.iso-11179.config.ts` — ビルド・サーバー不要の64件
+- `e2e/iso-11179-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-11179`） — ビルド・サーバー不要の64件
 
 ## 2026-10-23: ホームとグローバルメニュー
 

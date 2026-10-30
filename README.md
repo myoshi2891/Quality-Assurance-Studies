@@ -17,13 +17,13 @@
 `/specification-by-example-guide`を追加。対象446件・関連692件・全体7067件（142ファイル）が成功。原本の11セクション・31見出し・CSS87ルール・6図・7表・Gherkin1例・保存チェック8項目を照合し、HTML・Markdownを同名でアーカイブしました。Chromium22件で原本スタイル・SVG・コード・チェック表示を比較。lintと対象型検査も成功しています。全体型検査の既存エラーは従来どおり対象外です。サンドボックスではユーザー指定によりnpmを使用し、本番ビルドは行っていません。目視確認はユーザー担当です。
 
 * `npm exec -- bun test` — ユニットテスト。
-* `npm exec -- playwright test --config=playwright.iso-27799-2025.config.ts` — ISO 27799のCSS比較12件、実SVG検証66件、チェック完了・リセット表示2件（ビルド・サーバー不要）。
-* `npm exec -- playwright test --config=playwright.iso-23009-1-2026.config.ts` — DASHのCSS比較8件、実SVG検証24件、XML表示4件（ビルド・サーバー不要）。
+* `npm exec -- playwright test --config=playwright.layout.config.ts --project=iso-27799-2025` — ISO 27799のCSS比較12件、実SVG検証66件、チェック完了・リセット表示2件（ビルド・サーバー不要）。
+* `npm exec -- playwright test --config=playwright.layout.config.ts --project=iso-23009-1-2026` — DASHのCSS比較8件、実SVG検証24件、XML表示4件（ビルド・サーバー不要）。
 * `npm run lint` — ESLint。
-* `npm exec -- playwright test --config=playwright.sbe.config.ts` — サーバー・ビルド不要の原本スタイル比較8件・実SVG検証12件・コード/チェック表示2件。
-* `npm exec -- playwright test --config=playwright.craftsman.config.ts` — Craftsmanの原本スタイル比較8件と実SVG検証22件。
-* `npm exec -- playwright test --config=playwright.tcs.config.ts` — Testing Computer Softwareの原本スタイル比較8件と実SVG検証18件。
-* `npm exec -- playwright test --config=playwright.wewlc.config.ts` — Working Effectively with Legacy Codeの原本スタイル比較12件と実SVG検証22件。
+* `npm exec -- playwright test --config=playwright.layout.config.ts --project=sbe` — サーバー・ビルド不要の原本スタイル比較8件・実SVG検証12件・コード/チェック表示2件。
+* `npm exec -- playwright test --config=playwright.layout.config.ts --project=craftsman` — Craftsmanの原本スタイル比較8件と実SVG検証22件。
+* `npm exec -- playwright test --config=playwright.layout.config.ts --project=tcs` — Testing Computer Softwareの原本スタイル比較8件と実SVG検証18件。
+* `npm exec -- playwright test --config=playwright.layout.config.ts --project=wewlc` — Working Effectively with Legacy Codeの原本スタイル比較12件と実SVG検証22件。
 
 ## 1. 機能テスト
 
@@ -113,7 +113,7 @@ This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) 
 
 今回のサンドボックス検証は`bun test`と`bun run lint`で実施します。ビルドとブラウザの目視確認はユーザーが実施します。
 
-Mermaidの左右スクロールは、`bunx playwright test --config playwright.mermaid-css.config.ts`でサーバー・ビルドなしに検証できます。実際のChromiumで画面幅390/880/881/1440pxと図幅240/1800/3200pxの12ケースを検証します。これは共有・ページ固有CSSと描画済みSVGの構造を用いるレイアウト検証で、実ページの目視確認は別途行います。
+Mermaidの左右スクロールは、`bunx playwright test --config=playwright.layout.config.ts --project=mermaid-css`でサーバー・ビルドなしに検証できます。実際のChromiumで画面幅390/880/881/1440pxと図幅240/1800/3200pxの12ケースを検証します。これは共有・ページ固有CSSと描画済みSVGの構造を用いるレイアウト検証で、実ページの目視確認は別途行います。
 
 ## Beyond Legacy Code実践ガイド
 
@@ -132,7 +132,7 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 * 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
 * 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
 * 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
-* 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+* 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
 
@@ -144,7 +144,7 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 
 * 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 * 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
-* 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+* 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-20: CTAL-TAE第8章 継続的改善の移行
 
@@ -189,4 +189,4 @@ Mermaidの左右スクロールは、`bunx playwright test --config playwright.m
 
 ## ホームとグローバルメニューの検証
 
-`bunx playwright test --config playwright.library.config.ts` は320・390・768・1440pxの検索・カテゴリ絞り込み・メニュー操作とアクセシビリティを検証します。localhost:3001の開発サーバーを再利用し、未起動なら起動します。設計・ガイド追加時の反映範囲は [ホーム・メニュー設計](docs/LIBRARY_DESIGN.md) を参照してください。
+`bunx playwright test --project=library` は320・390・768・1440pxの検索・カテゴリ絞り込み・メニュー操作とアクセシビリティを検証します。`playwright.config.ts`の本番サーバー（127.0.0.1:3000）を再利用し、未起動ならビルドして起動します。設計・ガイド追加時の反映範囲は [ホーム・メニュー設計](docs/LIBRARY_DESIGN.md) を参照してください。

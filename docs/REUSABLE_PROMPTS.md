@@ -283,7 +283,7 @@
 
 `/istqb-ct-genai-study-guide`を追加済み。既存の総合・第1〜5章画面は保持する。目視確認はユーザーが行い、ビルドは自動実行しない。元HTML・MDは`archive/html-archive/ct-specialist/`・`archive/md-archive/ct-specialist/`で追跡管理し、固定インベントリと305テストで内容・図・デザインを照合する。CSSコミットの復旧承認の状況は`MIGRATION_PROGRESS.md`を参照。
 
-Mermaidの左端切れの再発確認は`bunx playwright test --config playwright.mermaid-css.config.ts`で行う。外側コンテナに横スクロールを集約し、内側の共有ラッパーのflex中央寄せ・横スクロールをページ内で解除する。CSS単独テストのためサーバーと本番ビルドは起動しない。
+Mermaidの左端切れの再発確認は`bunx playwright test --config=playwright.layout.config.ts --project=mermaid-css`で行う。外側コンテナに横スクロールを集約し、内側の共有ラッパーのflex中央寄せ・横スクロールをページ内で解除する。CSS単独テストのためサーバーと本番ビルドは起動しない。
 
 ## CTAL-TAEコードの改行検証
 
@@ -292,7 +292,7 @@ Mermaidの左端切れの再発確認は`bunx playwright test --config playwrigh
 既存devサーバーに対する検証は、次のコマンドで実行する。サーバー起動と本番ビルドは行わない。
 
 ```sh
-CTAL_CODE_ORIGIN=http://127.0.0.1:3000 bunx playwright test --config playwright.mermaid-css.config.ts e2e/ctal-tae-code-layout.e2e.ts
+CTAL_CODE_ORIGIN=http://127.0.0.1:3000 bunx playwright test --config=playwright.layout.config.ts --project=mermaid-css e2e/ctal-tae-code-layout.e2e.ts
 ```
 
 `CTAL_CODE_ORIGIN`を省略すると実ページ4ケースはスキップし、SWC経由のCSS・行配置78ケースを実行する。必要に応じて`PLAYWRIGHT_CHROMIUM_EXECUTABLE`で利用するブラウザーを指定する。
@@ -302,8 +302,8 @@ CTAL_CODE_ORIGIN=http://127.0.0.1:3000 bunx playwright test --config playwright.
 Quality Is Freeは、固定インベントリ・SWC出力に加え、原本と移行後の計算済みスタイル、寸法、表ホバーを390/960/961/1440pxで比較する。残留CSSを前後両順序で読み込み、全8図の実SVG配色とスクロール端も検証する。
 
 ```sh
-bunx playwright test --config playwright.mermaid-css.config.ts e2e/quality-is-free-layout.e2e.ts
-QIF_ORIGIN=http://localhost:3000 bunx playwright test --config playwright.mermaid-css.config.ts e2e/quality-is-free-layout.e2e.ts --grep 'live quality-is-free'
+bunx playwright test --config=playwright.layout.config.ts --project=mermaid-css e2e/quality-is-free-layout.e2e.ts
+QIF_ORIGIN=http://localhost:3000 bunx playwright test --config=playwright.layout.config.ts --project=mermaid-css e2e/quality-is-free-layout.e2e.ts --grep 'live quality-is-free'
 ```
 
 最初のコマンドは40ケースをサーバー・ビルドなしで実行する。実ページ2ケースは、既存devサーバーがある場合に`QIF_ORIGIN`を指定する。この環境では`localhost`を維持してHMRの初期化を確認し、テスト内でIPv4へ解決する。目視確認は別途実施する。
@@ -314,21 +314,21 @@ QIF_ORIGIN=http://localhost:3000 bunx playwright test --config playwright.mermai
 
 ```bash
 npm exec -- bun test tests/iec-62304-beginner-guide
-npm exec -- playwright test --config playwright.iec-62304.config.ts
+npm exec -- playwright test --config=playwright.layout.config.ts --project=iec-62304
 npm run lint
 ```
 
 ## ISO 9075-1移行後の確認（2026-10-21）
 
-`/iso-9075-1-guide`は階層目次34リンク・モバイル開閉・スクロール追従を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-9075-1-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config playwright.iso-9075.config.ts`でビルド・サーバー不要の実スタイル・図検証44件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
+`/iso-9075-1-guide`は階層目次34リンク・モバイル開閉・スクロール追従を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-9075-1-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config=playwright.layout.config.ts --project=iso-9075`でビルド・サーバー不要の実スタイル・図検証44件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
 
 ## ISO 11179-1移行後の確認（2026-10-22）
 
-`/iso-11179-1-2023-guide`は階層目次57リンク・モバイル開閉・スクロール追従とチェック6項目を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-11179-1-2023-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config playwright.iso-11179.config.ts`でビルド・サーバー不要の実スタイル・YAML・図検証64件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
+`/iso-11179-1-2023-guide`は階層目次57リンク・モバイル開閉・スクロール追従とチェック6項目を実装済み。サンドボックスではユーザー指定により`npm test -- tests/iso-11179-1-2023-guide`と`npm run lint`で検証し、`npm exec -- playwright test --config=playwright.layout.config.ts --project=iso-11179`でビルド・サーバー不要の実スタイル・YAML・図検証64件を実行できます。目視確認はユーザーが担当し、本番ビルドは実行しません。
 
 ## ホーム・メニューの拡張
 
-ガイドを追加するときは `lib/navigation.ts` の `NAV_ITEMS` を更新し、ホーム・マップ・カテゴリ件数・メニューへの自動反映を確認してください。カテゴリ追加時の定義・配色・資格トラックの扱いは [LIBRARY_DESIGN.md](LIBRARY_DESIGN.md) を参照してください。回帰検証は `bun test tests/index/page.test.tsx tests/components/Header.test.tsx` と `bunx playwright test --config playwright.library.config.ts` で行います。
+ガイドを追加するときは `lib/navigation.ts` の `NAV_ITEMS` を更新し、ホーム・マップ・カテゴリ件数・メニューへの自動反映を確認してください。カテゴリ追加時の定義・配色・資格トラックの扱いは [LIBRARY_DESIGN.md](LIBRARY_DESIGN.md) を参照してください。回帰検証は `bun test tests/index/page.test.tsx tests/components/Header.test.tsx` と `bunx playwright test --project=library` で行います。
 
 ## ISO 30130 移行後の確認
 

@@ -202,7 +202,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
 
@@ -215,7 +215,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
 - 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026/10/17: CTAL-TAE 第7章 テスト自動化ソリューションの検証の移行
 
@@ -325,7 +325,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - 原因は共有CSSの内側`.mermaid-wrapper`に残る`display: flex; justify-content: center; overflow-x: auto`と、ページ側の縮小解除・`flex-shrink: 0`の組み合わせ。外側の`safe center`では内側の負の配置を防げなかった。
 - ページ固有CSSのみで内側を`display: block !important; overflow: visible !important`に変更し、横スクロールを外側に集約。共有Mermaidコンポーネント、既存画面、図ソースは保持。
 - 失敗テストを`1a66ad5`、修正を`51f8a96`で独立コミット。ページ305テスト（CSS契約を含む）と共有テーマ契約が成功。
-- `playwright.mermaid-css.config.ts`はサーバー・ビルドを起動しない。`e2e/ct-genai-study-mermaid-css.e2e.ts`が実CSS・描画済みSVGと同じDOMをChromiumで計測し、4画面幅×3図幅の12ケースで両端到達性・自然幅・小図中央寄せ・ページ全体の横はみ出しを検証。修正前12 fail、修正後12 pass。
+- `playwright.layout.config.ts`（`--project=mermaid-css`）はサーバー・ビルドを起動しない。`e2e/ct-genai-study-mermaid-css.e2e.ts`が実CSS・描画済みSVGと同じDOMをChromiumで計測し、4画面幅×3図幅の12ケースで両端到達性・自然幅・小図中央寄せ・ページ全体の横はみ出しを検証。修正前12 fail、修正後12 pass。
 - 実ページの目視確認はユーザーが行う。先のCSS末尾空白の履歴保持復旧は引き続き承認待ちで、今回の修正には含めない。
 
 ## 2026/10/07: CT-GenAI完全学習ガイドの追加移行
