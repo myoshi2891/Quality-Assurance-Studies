@@ -22291,52 +22291,62 @@
         {
           "id": "N1_S8",
           "label": "Step 8<br/>MLモデル開発の流れ",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW3"
         },
         {
           "id": "N1_S9",
           "label": "Step 9<br/>他規格との関係",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW3"
         },
         {
           "id": "N1_S10",
           "label": "Step 10<br/>導入手順と注意点",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW3"
         },
         {
           "id": "N1_S5",
           "label": "Step 5<br/>規格の構成",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW2"
         },
         {
           "id": "N1_S6",
           "label": "Step 6<br/>4グループの詳細",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW2"
         },
         {
           "id": "N1_S7",
           "label": "Step 7<br/>AI固有プロセス",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW2"
         },
         {
           "id": "N1_S1",
           "label": "Step 1<br/>規格の全体像",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW1"
         },
         {
           "id": "N1_S2",
           "label": "Step 2<br/>背景と位置づけ",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW1"
         },
         {
           "id": "N1_S3",
           "label": "Step 3<br/>AIが特別な理由",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW1"
         },
         {
           "id": "N1_S4",
           "label": "Step 4<br/>3種類のプロセス",
-          "shape": "rect"
+          "shape": "rect",
+          "cluster": "N1_ROW1"
         }
       ],
       "clusters": [
@@ -22808,7 +22818,7 @@
           "id": "L_N3_C_N3_D_0",
           "from": "N3_C",
           "to": "N3_D",
-          "label": "データドリフト入力分布が変化",
+          "label": "データドリフト<br/>入力分布が変化",
           "dotted": false,
           "invisible": false,
           "points": [
@@ -22830,7 +22840,7 @@
           "id": "L_N3_C_N3_D_2",
           "from": "N3_C",
           "to": "N3_D",
-          "label": "コンセプトドリフト正解の基準が変化",
+          "label": "コンセプトドリフト<br/>正解の基準が変化",
           "dotted": false,
           "invisible": false,
           "points": [

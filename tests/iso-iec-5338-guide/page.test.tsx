@@ -43,7 +43,11 @@ inventory.diagrams.forEach((d, i) => it('diagram ' + i + ' preserves every node,
     const chart = charts['DIAGRAM_' + i]!;
     expect(chart.startsWith(charts.MERMAID_CONFIG! + '\n')).toBe(true);
     for (const node of d.nodes) expect(chart).toContain(node.id + (node.shape === 'polygon' ? '{"' : '["') + node.label);
-    for (const cluster of d.clusters) expect(chart).toContain('subgraph ' + cluster.id);
+    for (const cluster of d.clusters) {
+        const body = chart.split('subgraph ' + cluster.id)[1]?.split('end')[0];
+        expect(body).toBeDefined();
+        for (const node of d.nodes.filter(n => 'cluster' in n && n.cluster === cluster.id)) expect(body).toContain(node.id + '[');
+    }
     for (const edge of d.edges) expect(chart).toContain(edge.from + (edge.invisible ? ' ~~~ ' : edge.dotted ? ' -.->' : ' -->') + (edge.label ? '|' + JSON.stringify(edge.label) + '| ' : ' ') + edge.to);
 }));
 for (const ext of ['html', 'md'] as const) it('archive ' + ext + ' exact bytes and tracked relocation', () => {
