@@ -59,10 +59,10 @@ for (const width of [390,1440]) for(let i=0;i<10;i++) test(`${width}px diagram $
   const normal=(s:string|null)=> (s??'').replace(/\s+/g,' ').trim();
   const style=(e:Element|null,keys:string[])=>e?Object.fromEntries(keys.map(k=>[k,getComputedStyle(e)[k as keyof CSSStyleDeclaration]])):null;
   return {
-   nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:normal(n.querySelector('.nodeLabel')?.textContent??''),html:n.querySelector('.nodeLabel')?.innerHTML.replace(/<br\s*\/?\s*>/g,'<br/>'),shape:n.querySelector('rect,polygon,circle,path')?.tagName,colors:style(n.querySelector('rect,polygon,circle,path'),['fill','stroke']),text:style(n.querySelector('.nodeLabel'),['color']),cluster:n.closest('g.root')?.querySelector(':scope > .clusters > .cluster')?.id??null})).sort((a,b)=>a.id.localeCompare(b.id)),
+   nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:normal(n.querySelector('.nodeLabel')?.textContent??''),html:n.querySelector('.nodeLabel')?.innerHTML.replace(/<br\s*\/?\s*>/g,'<br/>'),shape:n.querySelector('rect,polygon,circle,path')?.tagName,colors:style(n.querySelector('rect,polygon,circle,path'),['fill','stroke']),text:style(n.querySelector('.nodeLabel'),['color']),cluster:n.closest('g.root')?.querySelector(':scope > .clusters > .cluster')?.id.replace(/^diagram-check-/,'')??null})).sort((a,b)=>a.id.localeCompare(b.id)),
    edges:Array.from(el.querySelectorAll('.edgePaths path'),e=>({id:e.getAttribute('data-id'),colors:style(e,['stroke','strokeDasharray']),arrow:!!e.getAttribute('marker-end')})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
    labels:Array.from(el.querySelectorAll('.edgeLabel .label'),e=>({id:e.getAttribute('data-id'),html:e.querySelector('span.edgeLabel')?.innerHTML.replace(/<br\s*\/?\s*>/g,'<br/>')})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
-   clusters:Array.from(el.querySelectorAll('.cluster'),e=>({id:e.id,colors:style(e.querySelector('rect'),['fill','stroke']),label:normal(e.querySelector('.cluster-label')?.textContent??'')})).sort((a,b)=>a.id.localeCompare(b.id))
+   clusters:Array.from(el.querySelectorAll('.cluster'),e=>({id:e.id.replace(/^diagram-check-/,''),colors:style(e.querySelector('rect'),['fill','stroke']),label:normal(e.querySelector('.cluster-label')?.textContent??'')})).sort((a,b)=>a.id.localeCompare(b.id))
   };
  };
  const expected=await page.locator(`#diagram-${i+1}`).evaluate(collect);
