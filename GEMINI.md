@@ -4,6 +4,16 @@ Updated 2026-10-30
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-10-30: ISO/IEC 5338:2023 AIライフサイクルガイドの移行
+
+- `app/iso-iec-5338-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・16本文カテゴリーで`/iso-iec-5338-guide`へ移行し、ISOカテゴリーとE2E一覧を115ルートへ同期。
+- 46見出し・目次14リンク・23表の全セル・10図・8注記・19外部リンク・理解度チェックの解答・ヒーロー・フッター・全本文を固定インベントリで順序と構造まで照合。コードブロックは原本どおり0件。
+- CSS全67ルールと960px境界を保持。共有・残留CSSによる見出し書体、ヒーロー文字グラデーション・中央寄せ、リスト色、強調、表、フッター、装飾疑似要素への干渉を補正。
+- 図はHTML内SVGから全ノード・形状・グループ所属・接続・辺ラベル改行・配色を復元。空グループ名の構文と、共有Mermaid内部の二重スクロールをページ側で補正し、左右端への到達を検証。
+- 237件のRedテストを先行コミットし、CSS・図・16本文カテゴリー・目次・ページ構成・登録・原本移動・補正を個別コミット。目次全14見出しの追従・開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本は`archive/html-archive/iso/Iso-iec-5338-guide.html`と`archive/md-archive/iso/Iso-iec-5338-guide.md`へ同名で移動。SHA-256一致・Git追跡・rename検出100%を確認。
+- npm経由で対象237件・関連503件・全体8725件（169ファイル）、ビルド・サーバー不要のChromium28件（4幅×CSS2読込順＋2幅×10図）、lint・対象型検査が成功。全体型検査には既存テスト等のエラーが残るが変更範囲にはエラーなし。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-10-30: ISO/IEC 30130:2016 テストツール能力ガイドの移行
 
 - `app/iso-30130-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリーで`/iso-30130-guide`へ移行し、ISOカテゴリーとE2E一覧を114ルートへ同期。
@@ -483,6 +493,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -553,7 +564,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 114 ルート（ガイドライブラリ index + 113 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 115 ルート（ガイドライブラリ index + 114 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（直近 8482件（npm経由の全体テスト・167ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
