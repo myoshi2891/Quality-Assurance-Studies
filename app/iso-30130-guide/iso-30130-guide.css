@@ -36,8 +36,8 @@
 /* Reset shared site styles to the source page values. */
 .iso30130-page { isolation:isolate; min-height:100vh; }
 .iso30130-page .main { max-width:none; width:auto; margin:0 0 0 280px; padding:40px 48px 80px; }
-.iso30130-page .sidebar { top:var(--disclaimer-height,0px); }
-.iso30130-page .nav-toggle { top:calc(var(--disclaimer-height,0px) + 12px); }
+.iso30130-page .sidebar { top:calc(60px + var(--disclaimer-height,0px)); }
+.iso30130-page .nav-toggle { top:calc(60px + var(--disclaimer-height,0px) + 12px); }
 .iso30130-page .hero { min-height:0; display:block; text-align:left; padding:34px 36px; }
 .iso30130-page .hero::after { content:none; }
 .iso30130-page .hero h1 { font-size:28px; font-weight:800; line-height:1.4; margin:16px 0 4px; letter-spacing:normal; background:none; -webkit-text-fill-color:#fff; }
@@ -55,7 +55,7 @@
 .iso30130-page td strong { color:#fff; }
 .iso30130-page thead th { color:#fff; white-space:nowrap; }
 .iso30130-page .main h2, .iso30130-page .main h3 { letter-spacing:normal; }
-.iso30130-page .main h2 { scroll-margin-top:calc(var(--disclaimer-height,0px) + 20px); }
+.iso30130-page .main h2, .iso30130-page .main h3 { scroll-margin-top:calc(60px + var(--disclaimer-height,0px) + 20px); }
 .iso30130-page .mermaid-wrapper { display:block; background:transparent; border:none; border-radius:0; box-shadow:none; margin:0; padding:0; width:100%; max-width:none; }
 .iso30130-page .mermaid-wrapper svg { max-width:none; height:auto; margin-left:auto !important; margin-right:auto !important; }
 .iso30130-page .mermaid-wrapper foreignObject { overflow:visible; }
@@ -64,7 +64,7 @@
 .iso30130-page *::-webkit-scrollbar-track { background:transparent; }
 .iso30130-page *::-webkit-scrollbar-thumb { background:var(--line); }
 .iso30130-page .page-footer { background:none; padding:18px 0 0; text-align:left; }
-@media(max-width:900px){.iso30130-page .main{margin-left:0;padding:64px 16px 60px}.iso30130-page .hero{padding:24px 18px}.iso30130-page .hero h1{font-size:23px}}
+@media(max-width:900px){.iso30130-page .main{margin-left:0;padding:64px 16px 60px}.iso30130-page .hero{padding:24px 18px}.iso30130-page .hero h1{font-size:23px}.iso30130-page .sidebar{visibility:hidden;transition:transform .2s,visibility .2s}.iso30130-page .sidebar.open{visibility:visible}}
 /* Computed-style parity: inherited headings, lists, table metrics and callouts. */
 .iso30130-page .hero, .iso30130-page .page-footer { text-align:start; }
 .iso30130-page h1, .iso30130-page h2, .iso30130-page h3, .iso30130-page th, .iso30130-page .page-footer { font-family:inherit; }
