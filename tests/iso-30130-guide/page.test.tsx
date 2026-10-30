@@ -27,3 +27,5 @@ for(const item of inventory.main){if(['h2','footer'].includes(item.tag)&&categor
 categories.forEach((nodes,i)=>it('category '+i+' complete structure',()=>{const Category=sourceModule(base+'/Category'+i+'.tsx').default as React.ComponentType;expect(load(renderToStaticMarkup(<Category/>))('body').contents().toArray().map(tree).filter(Boolean)).toEqual(nodes);}));
 // 表の構造要素直下の空白テキストはハイドレーション警告となり、Next.js開発サーバーのコードフレーム生成が日本語で異常終了する
 it('no whitespace text directly inside table structure elements',()=>{const $=html();const bad=$('table,thead,tbody,tfoot,tr').toArray().filter(e=>e.children.some(c=>c.type==='text'));expect(bad.map(e=>e.name)).toEqual([]);});
+// 共有Mermaidの描画後も図を中央寄せにする。auto余白は図が枠より広い場合に0となり、左端は隠れない
+it('diagram SVG is centered inside shared wrapper',()=>{const decls:Record<string,string>={};postcss.parse(readFileSync(base+'/iso-30130-guide.css','utf8')).walkRules('.iso30130-page .mermaid-wrapper svg',rule=>rule.walkDecls(d=>{decls[d.prop]=d.value+(d.important?' !important':'');}));expect([decls['margin-left'],decls['margin-right']]).toEqual(['auto !important','auto !important']);});
