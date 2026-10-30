@@ -58,3 +58,16 @@ for(let i=0;i<7;i++)test(`diagram ${i}: rendered labels, shapes and connections 
  await page.setContent(`<div id="rendered">${svg}</div>`);
  expect(await page.locator('#rendered').evaluate(collect)).toEqual(expected);
 });
+for(let i=0;i<7;i++)test(`390px diagram ${i}: wide SVG keeps natural width and stays horizontally reachable`,async({page})=>{
+ await page.setViewportSize({width:390,height:900});
+ const charts=sourceModule(base+'/diagrams.ts') as Record<string,string>;
+ await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
+ const svg=await page.evaluate(async chart=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize({startOnLoad:false,securityLevel:'loose'});return (await m.render('diagram-check',chart)).svg;},charts[`DIAGRAM_${i}`]!);
+ const own=readFileSync(base+'/iso-30130-guide.css','utf8');
+ await page.setContent(`<style>${preflight+globals+own}</style><div class="iso30130-page"><div class="mermaid-diagram"><div class="mermaid-wrapper">${svg}</div></div></div>`);
+ // Mirror the shared renderer's post-render inline sizing (width:<viewBox>px; max-width:100%).
+ const natural=await page.locator('.mermaid-wrapper svg').evaluate(el=>{const s=el as SVGSVGElement;const w=Number(s.getAttribute('viewBox')!.split(/\s+/)[2]);s.removeAttribute('width');s.removeAttribute('height');s.style.width=w+'px';s.style.maxWidth='100%';return w;});
+ const result=await page.locator('.mermaid-wrapper').evaluate(el=>{const svg=el.querySelector('svg')!;el.scrollLeft=0;const left=svg.getBoundingClientRect().left>=el.getBoundingClientRect().left-1;el.scrollLeft=el.scrollWidth;const right=svg.getBoundingClientRect().right<=el.getBoundingClientRect().right+1;return {width:svg.getBoundingClientRect().width,left,right};});
+ expect(Math.abs(result.width-natural)).toBeLessThanOrEqual(1);
+ expect({left:result.left,right:result.right}).toEqual({left:true,right:true});
+});
