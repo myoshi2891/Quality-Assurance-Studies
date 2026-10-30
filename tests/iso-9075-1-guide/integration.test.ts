@@ -7,10 +7,10 @@ import inventory from '../../docs/migration-inventory/iso-9075-1-guide.json';
 const href = '/iso-9075-1-guide';
 it('registers the SQL Framework guide in the ISO category once', () => {
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
-    expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide',href,'/iso-11179-1-2023-guide','/iso-14496-22-guide','/iso-19770-5-guide','/iso-23009-1-2026-guide','/iso-27799-2025-guide']);
+    expect(NAV_ITEMS.filter(i => i.category === 'iso').map(i => i.href)).toEqual(['/iso-29119-1-2022-guide','/iec-62304-beginner-guide',href,'/iso-11179-1-2023-guide','/iso-14496-22-guide','/iso-19770-5-guide','/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide']);
 });
-it('registers exactly 113 routes and the original H1 in E2E', () => {
-    expect(EXPECTED_PAGE_COUNT).toBe(113); expect(PAGES).toHaveLength(113); expect(NAV_ITEMS).toHaveLength(113);
+it('registers exactly 114 routes and the original H1 in E2E', () => {
+    expect(EXPECTED_PAGE_COUNT).toBe(114); expect(PAGES).toHaveLength(114); expect(NAV_ITEMS).toHaveLength(114);
     const entry = PAGES.filter(i => i.path === href); expect(entry).toHaveLength(1); expect(entry[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
 });
 for (const ext of ['html', 'md'] as const) {
