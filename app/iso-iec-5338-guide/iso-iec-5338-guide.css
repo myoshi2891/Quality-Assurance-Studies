@@ -109,3 +109,14 @@
 .iso5338-page *::-webkit-scrollbar-track { background:transparent; }
 .iso5338-page *::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
 @media (prefers-reduced-motion: reduce) { .iso5338-page .sidebar { transition:none; } }
+/* Preserve inherited source typography against globals and retained page CSS. */
+.iso5338-page .hero { text-align:start; }
+.iso5338-page .hero-title { background-image:none; -webkit-text-fill-color:currentColor; }
+.iso5338-page h2, .iso5338-page h3, .iso5338-page h4 { font-family:var(--font); }
+.iso5338-page ul, .iso5338-page ol, .iso5338-page li { color:var(--text); }
+.iso5338-page strong { font-weight:700; }
+.iso5338-page table { color:var(--text); border-color:currentColor; }
+.iso5338-page .page-footer { font-family:var(--font); padding-right:0; padding-bottom:0; padding-left:0; text-align:start; }
+.iso5338-page .hero::after { all:initial; content:none; }
+/* The source outer diagram owns scrolling; avoid a second inner scroll viewport. */
+.iso5338-page .mermaid-wrapper { overflow:visible !important; }
