@@ -5,9 +5,18 @@ Updated 2026-10-30
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 113 ルート = ガイドライブラリ index + 112 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 114 ルート = ガイドライブラリ index + 113 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-10-30: ISO/IEC 30130:2016 テストツール能力ガイドの移行
+
+- `/iso-30130-guide`へ移行し、ISOカテゴリーとE2E一覧を114ルートへ同期。
+- 43見出し・目次13リンク・24表の全セル・7図・注記8件・外部リンク20件・ヒーロー・フッター・全本文を固定インベントリで照合。原本のコードブロックは0件。
+- CSS全57ルールと900px境界を保持。共有CSSによるフォント・表・リスト・注記・目次への干渉を補正。
+- Red先行後、CSS・図・目次・15本文カテゴリー・ページ構成・登録・アーカイブを個別コミット。対象212件、目次の開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本HTML・MDは`archive/html-archive/iso/Iso-30130-guide.html`と`archive/md-archive/iso/Iso-30130-guide.md`へ移動。SHA-256一致とGitのrename検出100%を確認。
+- npm経由で対象212件・関連474件・全体8482件（167ファイル）、ChromiumのCSS比較8件と図描画7件、lint・対象型検査・Markdown lintが成功。ビルド未実施。目視確認はユーザー担当。
 
 ## 2026-10-29: ISO 27799:2025 医療情報セキュリティガイドの移行
 
@@ -88,9 +97,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync ISO 27799 migration and verification records` |
-| 次の作業 | `/iso-27799-2025-guide`と`/iso-23009-1-2026-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | npm経由で対象321件・関連581件・全体8263件（165ファイル）・Chromium80件・lint・対象型検査成功。ビルド未実施。 |
+| 最新コミット内容 | `chore(docs): sync ISO 30130 migration and verification records` |
+| 次の作業 | `/iso-30130-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | npm経由で対象212件・関連474件・全体8482件（167ファイル）・Chromium15件・lint・対象型検査成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1659,6 +1668,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
 | `Iso-19770-5-guide.html` | `/iso-19770-5-guide` | ✅ ダーク配色・30見出し・目次29リンク・19表・9図・8注記・外部18リンク・チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
@@ -1686,9 +1696,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 113 ルート（ガイドライブラリ index + 112 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 114 ルート（ガイドライブラリ index + 113 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト8263件すべて成功（165ファイル）。ISO 27799対象321件・関連581件・ブラウザー80件、lint、対象型検査も成功。
+- 全体テスト8482件すべて成功（167ファイル）。ISO 30130対象212件・関連474件・ブラウザー15件、lint、対象型検査も成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

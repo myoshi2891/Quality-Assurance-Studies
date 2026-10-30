@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-10-29
+最終更新日: 2026-10-30
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -150,7 +150,7 @@
 
 `/specification-by-example-guide`も`books-practices`へ登録済みです。階層目次18リンク・モバイル開閉・スクロール追従・Escapeとフォーカス復帰を移行し、保存機能付きチェック8項目とGherkinコードの構文色を保持。HTML・MDは同名でアーカイブ済みです。対象446テストとビルド不要のChromium22件で検証。共有ダーク設定の背景継承による黒塗りを修正し、SVG比較では実際の共有初期化設定を使います。サンドボックスではnpmを使用し、目視確認はユーザー担当です。
 
-現在の登録は113ルート（2026-10-29）です。`/iso-27799-2025-guide`はISOカテゴリーへ追加済みで、目次19リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-23009-1-2026-guide`はISOカテゴリーへ追加済みで、階層目次40リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-19770-5-guide`はISOカテゴリーへ追加済みで、目次29リンク・モバイル開閉・背景クリック・スクロール追従を実装しています。`/iso-14496-22-guide`はISOカテゴリーへ追加済みで、階層目次46リンク・モバイル開閉・スクロール追従を実装しています。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は114ルート（2026-10-30）です。`/iso-27799-2025-guide`はISOカテゴリーへ追加済みで、目次19リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-23009-1-2026-guide`はISOカテゴリーへ追加済みで、階層目次40リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-19770-5-guide`はISOカテゴリーへ追加済みで、目次29リンク・モバイル開閉・背景クリック・スクロール追従を実装しています。`/iso-14496-22-guide`はISOカテゴリーへ追加済みで、階層目次46リンク・モバイル開閉・スクロール追従を実装しています。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -329,3 +329,7 @@ npm run lint
 ## ホーム・メニューの拡張
 
 ガイドを追加するときは `lib/navigation.ts` の `NAV_ITEMS` を更新し、ホーム・マップ・カテゴリ件数・メニューへの自動反映を確認してください。カテゴリ追加時の定義・配色・資格トラックの扱いは [LIBRARY_DESIGN.md](LIBRARY_DESIGN.md) を参照してください。回帰検証は `bun test tests/index/page.test.tsx tests/components/Header.test.tsx` と `bunx playwright test --config playwright.library.config.ts` で行います。
+
+## ISO 30130 移行後の確認
+
+`/iso-30130-guide`は移行・原本HTML/MDアーカイブ済み。目視確認はユーザー担当。ビルドは未実施。

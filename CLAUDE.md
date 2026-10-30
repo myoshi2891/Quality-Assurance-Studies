@@ -4,6 +4,15 @@ Updated 2026-10-30
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-10-30: ISO/IEC 30130:2016 テストツール能力ガイドの移行
+
+- `app/iso-30130-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリーで`/iso-30130-guide`へ移行し、ISOカテゴリーとE2E一覧を114ルートへ同期。
+- 43見出し・目次13リンク・24表の全セル・7図・注記8件・外部リンク20件・ヒーロー・フッター・全本文を固定インベントリで照合。原本のコードブロックは0件。
+- CSS全57ルールと900px境界を保持。共有CSSによるフォント・表・リスト・注記・目次への干渉を補正。
+- Red先行後、CSS・図・目次・15本文カテゴリー・ページ構成・登録・アーカイブを個別コミット。対象212件、目次の開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本HTML・MDは`archive/html-archive/iso/Iso-30130-guide.html`と`archive/md-archive/iso/Iso-30130-guide.md`へ移動。SHA-256一致とGitのrename検出100%を確認。
+- npm経由で対象212件・関連474件・全体8482件（167ファイル）、ChromiumのCSS比較8件と図描画7件、lint・対象型検査・Markdown lintが成功。ビルド未実施。目視確認はユーザー担当。
+
 ## 2026-10-29: ISO 27799:2025 医療情報セキュリティガイドの移行
 
 - 移行先は`/iso-27799-2025-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を113ルートへ同期。
@@ -112,14 +121,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 165 ファイル・8263 tests)
+bun test             # ユニットテスト (bun test 全体, 167 ファイル・8482 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 113 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 114 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -969,6 +978,7 @@ bun test        # ユニットテスト成功
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
 | `Iso-19770-5-guide.html` | `/iso-19770-5-guide` | ✅ ダーク配色・30見出し・目次29リンク・19表・9図・8注記・外部18リンク・チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
@@ -994,7 +1004,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 113 ルート（ガイドライブラリ index + 112 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 114 ルート（ガイドライブラリ index + 113 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
