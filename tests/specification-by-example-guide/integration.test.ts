@@ -11,7 +11,7 @@ it('registers SbE once under books-practices with a short description', () => {
     expect(items[0]?.category).toBe('books-practices');
     expect(items[0]?.description.length).toBeLessThanOrEqual(80);
 });
-it('synchronizes 111 routes and the source H1', () => {
+it('synchronizes 113 routes and the source H1', () => {
     expect(NAV_ITEMS).toHaveLength(113);
     expect(PAGES).toHaveLength(113);
     expect(EXPECTED_PAGE_COUNT).toBe(113);
