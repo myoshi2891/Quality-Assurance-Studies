@@ -57,7 +57,7 @@
 .iso30130-page .main h2, .iso30130-page .main h3 { letter-spacing:normal; }
 .iso30130-page .main h2 { scroll-margin-top:calc(var(--disclaimer-height,0px) + 20px); }
 .iso30130-page .mermaid-wrapper { display:block; background:transparent; border:none; border-radius:0; box-shadow:none; margin:0; padding:0; width:100%; max-width:none; }
-.iso30130-page .mermaid-wrapper svg { max-width:none; height:auto; margin-left:0 !important; }
+.iso30130-page .mermaid-wrapper svg { max-width:none; height:auto; margin-left:auto !important; margin-right:auto !important; }
 .iso30130-page .mermaid-wrapper foreignObject { overflow:visible; }
 .iso30130-page .mermaid-wrapper foreignObject p, .iso30130-page .mermaid-wrapper foreignObject span, .iso30130-page .mermaid-wrapper foreignObject div { margin:0; line-height:1.4; }
 .iso30130-page .mermaid-wrapper .edgeLabel { background:#0d1b2e; color:#e8f0ff; }
