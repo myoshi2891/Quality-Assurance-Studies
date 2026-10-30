@@ -118,6 +118,7 @@ main.my-page {
 
 1. `lib/navigation.ts` の `NAV_ITEMS` に新規ページを追加（80文字以内の `description` 必須）
 2. `tests/lib/navigation.test.ts` と `e2e/pages.ts`（`PAGES` 配列および `EXPECTED_PAGE_COUNT`）を同期
+   - 原本比較のブラウザー検証（`e2e/<slug>-layout.e2e.ts`）は専用の `playwright.<slug>.config.ts` を作らず、`playwright.layout.config.ts` の `LAYOUT_SUITES` に 1 件追加し `bun run e2e:layout --project=<slug>` で実行する（`.claude/rules/playwright-config-consolidation.md`）
 3. 元 HTML を `archive/html-archive/` へ移動
 4. `docs/MIGRATION_PROGRESS.md` の移行テーブル・現在地を更新し、進捗記録としてコミットする（`.claude/rules/migration-progress-sync.md` 参照）
 
