@@ -20,3 +20,7 @@ inventory.charts.forEach((chart,i)=>it('diagram '+i+' original definition',()=>{
 for(const ext of ['html','md'] as const)it('archive '+ext+' exact bytes',()=>expect(createHash('sha256').update(readFileSync('archive/'+ext+'-archive/iso/Iso-30130-guide.'+ext)).digest('hex')).toBe(inventory.hashes[ext]));
 it('route registered',()=>expect(readFileSync('lib/navigation.ts','utf8')).toContain("href: '/iso-30130-guide'"));
 it('unique IDs and resolving anchors',()=>{const $=html();const ids=$('[id]').map((_,e)=>$(e).attr('id')).get();expect(new Set(ids).size).toBe(ids.length);$('a[href^="#"]').each((_,a)=>expect(ids.filter(id=>id===$(a).attr('href')!.slice(1))).toHaveLength(1));});
+
+const categories: any[][]=[];
+for(const item of inventory.main){if(['h2','footer'].includes(item.tag)&&categories.length)categories.push([]);if(!categories.length)categories.push([]);categories[categories.length-1]!.push(item);}
+categories.forEach((nodes,i)=>it('category '+i+' complete structure',()=>{const Category=sourceModule(base+'/Category'+i+'.tsx').default as React.ComponentType;expect(load(renderToStaticMarkup(<Category/>))('body').contents().toArray().map(tree).filter(Boolean)).toEqual(nodes);}));
