@@ -306,7 +306,7 @@ describe('groupByCategory', () => {
     ]);
   });
 
-  it('places 8 items in the iso group', () => {
+  it('places 10 items in the iso group', () => {
     const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
     expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-5338-guide']);
     expect(iso?.title).toBe('ISO 国際規格');

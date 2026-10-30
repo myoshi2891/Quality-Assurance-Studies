@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'bun:test';
 import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
+import { Glob } from 'bun';
 import type { PlaywrightTestConfig } from '@playwright/test';
 import serverConfig from '../../playwright.config';
 import layoutConfig from '../../playwright.layout.config';
@@ -21,8 +22,17 @@ const toList = (matcher: Matcher): ReadonlyArray<string | RegExp> => {
   return matcher;
 };
 
-const matches = (file: string, matcher: Matcher): boolean =>
-  toList(matcher).some((m) => (typeof m === 'string' ? m === file : m.test(file)));
+// Playwright と同じく絶対パスに対して照合する。文字列は glob として扱い、
+// 絶対パスでも `**/` 始まりでもなければ `**/` を前置して任意の深さで一致させる。
+const toGlob = (pattern: string): Glob =>
+  new Glob(isAbsolute(pattern) || pattern.startsWith('**/') ? pattern : `**/${pattern}`);
+
+const matches = (absolutePath: string, matcher: Matcher): boolean =>
+  toList(matcher).some((m) => {
+    if (typeof m === 'string') return toGlob(m).match(absolutePath);
+    m.lastIndex = 0;
+    return m.test(absolutePath);
+  });
 
 // プロジェクトの testMatch が未指定ならトップレベルの testMatch を継承する
 const projectMatchers = (config: PlaywrightTestConfig, label: string) =>
@@ -46,7 +56,7 @@ describe('Playwright config registry', () => {
   it('assigns every e2e file to exactly one project', () => {
     const owners = e2eFiles.map((file) => ({
       file,
-      projects: projects.filter((p) => matches(file, p.testMatch)).map((p) => p.name),
+      projects: projects.filter((p) => matches(join(ROOT, 'e2e', file), p.testMatch)).map((p) => p.name),
     }));
     expect(owners.filter((o) => o.projects.length !== 1)).toEqual([]);
   });
