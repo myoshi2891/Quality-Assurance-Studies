@@ -2,19 +2,19 @@ export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"backg
 export const DIAGRAM_0 = `${MERMAID_CONFIG}
 flowchart TD
 
-subgraph N1_ROW3[""]
+subgraph N1_ROW3[" "]
 direction LR
 N1_S8["Step 8<br/>MLモデル開発の流れ"]
 N1_S9["Step 9<br/>他規格との関係"]
 N1_S10["Step 10<br/>導入手順と注意点"]
 end
-subgraph N1_ROW2[""]
+subgraph N1_ROW2[" "]
 direction LR
 N1_S5["Step 5<br/>規格の構成"]
 N1_S6["Step 6<br/>4グループの詳細"]
 N1_S7["Step 7<br/>AI固有プロセス"]
 end
-subgraph N1_ROW1[""]
+subgraph N1_ROW1[" "]
 direction LR
 N1_S1["Step 1<br/>規格の全体像"]
 N1_S2["Step 2<br/>背景と位置づけ"]
