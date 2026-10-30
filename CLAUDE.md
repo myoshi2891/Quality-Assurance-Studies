@@ -137,7 +137,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 167 ファイル・8482 tests)
+bun test             # ユニットテスト (bun test 全体, 169 ファイル・8725 tests)
 ```
 
 ### E2E テスト (Playwright)
