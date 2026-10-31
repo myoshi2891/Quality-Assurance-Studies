@@ -1,229 +1,191 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_7, DIAGRAM_8 } from './diagrams';
+import { DIAGRAM_09, DIAGRAM_10 } from './diagrams';
 
 export default function Section6() {
   return (
-    <>
-<h2 id="6-テスト計画とテスト戦略42step-6">6.
-テスト計画とテスト戦略（4.2）（Step 6）</h2>
-<h3 id="61-ここが29119の核心-リスクベースドテスト">6.1
-ここが29119の核心: リスクベースドテスト</h3>
-<p>序文は、リスクベースドテストを「テスト戦略立案とテスト管理の<strong>推奨アプローチ</strong>であり、テストの優先順位づけと焦点の基礎になる」と説明しています。また「テストはソフトウェア開発におけるリスク対応の主要な手段」とも述べています。</p>
-<p>規格策定作業部会（WG26）の議長 Stuart Reid 氏は、公開記事で「29119
-シリーズはすべてのテストがリスクベースであることを求める」旨を述べています。</p>
-<h3 id="62-2種類のリスク">6.2 2種類のリスク</h3>
-<div className="table-scroll"><table aria-labelledby="62-2種類のリスク">
-<thead>
-<tr className="header">
-<th>種類</th>
-<th>定義（要約）</th>
-<th>例</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<td><strong>プロダクトリスク</strong></td>
-<td>製品が機能・品質・構造の面で欠陥を持つリスク</td>
-<td>決済の二重請求、個人情報の漏えい</td>
-</tr>
-<tr className="even">
-<td><strong>プロジェクトリスク</strong></td>
-<td>プロジェクトの管理に関するリスク（用語定義の例：人員不足、厳しい納期、要求の変更）</td>
-<td>メンバーの離脱、納期短縮</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="63-リスクベースドテストの基本の流れ">6.3
-リスクベースドテストの基本の流れ</h3>
-<p>Reid
-氏の解説では、リスクの扱いは「特定・見積り・対応」の3段階で説明されています。</p>
-<div className="mermaid-diagram" id="mermaid-7">
-  <Mermaid chart={DIAGRAM_7} />
-</div>
-<h3 id="64-リスクの見積り例筆者の作例">6.4
-リスクの見積り例（筆者の作例）</h3>
-<div className="table-scroll"><table aria-labelledby="64-リスクの見積り例筆者の作例">
-<thead>
-<tr className="header">
-<th>機能</th>
-<th>起こりやすさ</th>
-<th>影響</th>
-<th>優先度</th>
-<th>方針</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<th scope="row">ログイン</th>
-<td>中</td>
-<td>大</td>
-<td>高</td>
-<td>詳細に設計、自動化</td>
-</tr>
-<tr className="even">
-<th scope="row">決済</th>
-<td>中</td>
-<td>特大</td>
-<td>最高</td>
-<td>複数技法を組合せ、独立性を高める</td>
-</tr>
-<tr className="odd">
-<th scope="row">プロフィール画像の変更</th>
-<td>低</td>
-<td>小</td>
-<td>低</td>
-<td>簡易な確認のみ</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="65-テスト計画とテスト戦略の違い">6.5
-テスト計画とテスト戦略の違い</h3>
-<div className="table-scroll"><table aria-labelledby="65-テスト計画とテスト戦略の違い">
-<thead>
-<tr className="header">
-<th>項目</th>
-<th>テスト戦略</th>
-<th>テスト計画</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<td>主な問い</td>
-<td><strong>どういう考え方・方針</strong>でテストするか</td>
-<td><strong>具体的に</strong>いつ・誰が・何を・どこまでやるか</td>
-</tr>
-<tr className="even">
-<td>性質</td>
-<td>方針（アプローチ、優先度、技法の選択）</td>
-<td>実行計画（スケジュール、体制、環境、完了基準）</td>
-</tr>
-<tr className="odd">
-<td>関係</td>
-<td>テスト計画に含まれる、テストのアプローチ</td>
-<td>戦略を具体化する</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="66-テストアプローチ424">6.6 テストアプローチ（4.2.4）</h3>
-<p><strong>テストアプローチ</strong>とは、テストをどう進めるかの方針のことです。テストレベル、テストタイプ、テスト設計技法（およびその測定指標）は、この戦略の中に含まれる要素として説明されます。</p>
-<h4 id="テストレベル一般的な例">テストレベル（一般的な例）</h4>
-<div className="mermaid-diagram" id="mermaid-8">
-  <Mermaid chart={DIAGRAM_8} />
-</div>
-<h4 id="テストタイプ用語定義に登場するものの例">テストタイプ（用語定義に登場するものの例）</h4>
-<div className="table-scroll"><table aria-labelledby="テストタイプ用語定義に登場するものの例">
-<thead>
-<tr className="header">
-<th>テストタイプ</th>
-<th>何を評価するか</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<td>性能テスト</td>
-<td>時間やリソースの制約の中で機能を果たす度合い</td>
-</tr>
-<tr className="even">
-<td>負荷テスト</td>
-<td>低・通常・ピーク時の負荷での振る舞い</td>
-</tr>
-<tr className="odd">
-<td>互換性テスト</td>
-<td>他製品との共存や情報交換（相互運用性）</td>
-</tr>
-<tr className="even">
-<td>保守性テスト</td>
-<td>修正のしやすさ</td>
-</tr>
-<tr className="odd">
-<td>移植性テスト</td>
-<td>別の環境へ移せる容易さ</td>
-</tr>
-<tr className="even">
-<td>アクセシビリティテスト</td>
-<td>多様な利用者が操作できる度合い</td>
-</tr>
-<tr className="odd">
-<td>手順テスト</td>
-<td>操作手順の指示が利用者の要求に合うか</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="67-開発保守ライフサイクルでのテスト425">6.7
-開発・保守ライフサイクルでのテスト（4.2.5）</h3>
-<p>2022年版では、ライフサイクルを説明していた附属書は削除されました。序文でも、オブジェクト指向、従来型、アジャイル、DevOps
-など多様な方法論のもとで使えることが強調されています。</p>
-<div className="table-scroll"><table aria-labelledby="67-開発保守ライフサイクルでのテスト425">
-<thead>
-<tr className="header">
-<th>開発スタイル</th>
-<th>テストの考え方（筆者の整理）</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<td>ウォーターフォール / V字</td>
-<td>フェーズごとにレベル別のテストを計画</td>
-</tr>
-<tr className="even">
-<td>アジャイル</td>
-<td>反復ごとに小さく回し、継続的に見直す</td>
-</tr>
-<tr className="odd">
-<td>DevOps</td>
-<td>自動化と継続的テストでフィードバックを高速化</td>
-</tr>
-<tr className="even">
-<td>保守</td>
-<td>変更影響の範囲を見極め、回帰テストを重視</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="68-領域とシステム特性426">6.8 領域とシステム特性（4.2.6）</h3>
-<p>システムの種類（IT、PC、組込み、モバイル、科学技術計算など）や特性によって、必要なテストは変わります。詳細は附属書Aで例示されます（9章）。</p>
-<h3 id="69-テスト戦略に含まれる内容427">6.9
-テスト戦略に含まれる内容（4.2.7）</h3>
-<p>2022年版では「戦略に期待される内容」が明確化されました。正確な項目は規格本文を参照してください。ここでは、序文と本文構成から読み取れる<strong>戦略の主な構成要素</strong>を整理します（筆者の整理であり、規格の項目リストそのものではありません）。</p>
-<div className="table-scroll"><table aria-labelledby="69-テスト戦略に含まれる内容427">
-<thead>
-<tr className="header">
-<th>構成要素</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<td>リスクと優先順位</td>
-<td>何を重点的にテストするか</td>
-</tr>
-<tr className="even">
-<td>テストレベル・テストタイプ</td>
-<td>何の観点で、どの範囲を見るか</td>
-</tr>
-<tr className="odd">
-<td>テスト設計技法と測定指標</td>
-<td>どの技法で、どこまで網羅するか</td>
-</tr>
-<tr className="even">
-<td>自動化・ツールの方針</td>
-<td>何を自動化するか</td>
-</tr>
-<tr className="odd">
-<td>テスト環境・データ</td>
-<td>どこで、どのデータを使うか</td>
-</tr>
-<tr className="even">
-<td>独立性</td>
-<td>誰がテストするか</td>
-</tr>
-<tr className="odd">
-<td>完了基準</td>
-<td>どうなれば完了とするか（完了基準は用語定義にも登場）</td>
-</tr>
-</tbody>
-</table></div>
-<hr />
-    </>
+    <section>
+      <h2 id="step-6テストフレームワーク43節">
+        STEP 6：テストフレームワーク（4.3節）
+      </h2>
+      <p>
+        序文は、テストプロセス（およびプロセス改善）、テストメトリクス、テスト文書、構成管理、ツール支援を「テストフレームワーク」として紹介すると述べています。
+      </p>
+      <h3 id="6-1-テストプロセスの3層モデル">6-1. テストプロセスの3層モデル</h3>
+      <p>
+        Part 2
+        が詳細を定めるテストプロセスは、<strong>組織レベル・テスト管理レベル・動的テストレベル</strong>の3層で捉えます（Part
+        1 序文・ISO/ANSI等の Part 2 解説）。
+      </p>
+      <div aria-label="図解9" className="mermaid-diagram" id="mmd09" role="img">
+        <Mermaid chart={DIAGRAM_09} />
+      </div>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr className="header">
+              <th>層</th>
+              <th>役割</th>
+              <th>具体例（学習用）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd">
+              <td>組織レベル</td>
+              <td>組織共通のルールを決める</td>
+              <td>
+                「全プロジェクトでリスクベースドテストを採る」というポリシー
+              </td>
+            </tr>
+            <tr className="even">
+              <td>テスト管理レベル</td>
+              <td>プロジェクトやテストレベル単位で計画・監視・完了させる</td>
+              <td>結合テスト計画の作成、進捗の監視、完了判断</td>
+            </tr>
+            <tr className="odd">
+              <td>動的テストレベル</td>
+              <td>実際にテストを設計・実行する</td>
+              <td>テストケースを作り、環境を用意して実行し、不具合を報告</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="6-2-プロセスのインスタンス化とプロジェクトベース">
+        6-2. プロセスの「インスタンス化」と「プロジェクトベース」
+      </h3>
+      <p>
+        2022年版では、テストサブプロセスの概念を削除し、代わりに<strong>テストプロセスのインスタンス化（現場に合わせた具体化）</strong>の説明が加わりました。目次には、プロジェクト単位のテスト（project-based
+        testing）を扱う項目もあります。
+      </p>
+      <div aria-label="図解10" className="mermaid-diagram" id="mmd10" role="img">
+        <Mermaid chart={DIAGRAM_10} />
+      </div>
+      <h3 id="6-3-テスト文書3つのレベル">6-3. テスト文書（3つのレベル）</h3>
+      <p>
+        目次で確認できる文書名を、層ごとに整理します。テンプレートや記載例は Part 3
+        が定めます。
+      </p>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr className="header">
+              <th>レベル</th>
+              <th>文書（目次で確認できるもの）</th>
+              <th>概要</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd">
+              <td>組織レベル</td>
+              <td>テストポリシー、組織テストプラクティス</td>
+              <td>組織としてのテストの方針と、推奨するやり方</td>
+            </tr>
+            <tr className="even">
+              <td>テスト管理レベル</td>
+              <td>
+                テスト計画、テスト状況報告（ほかに完了報告などが Part 3
+                に存在）
+              </td>
+              <td>計画と進捗の共有</td>
+            </tr>
+            <tr className="odd">
+              <td>動的テストレベル</td>
+              <td>
+                テスト仕様、テスト環境要求・テストデータ要求、テスト環境報告・テストデータ準備状況報告
+              </td>
+              <td>何をどう試すか、環境とデータの準備状況</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <aside className="callout callout-note">
+        <div className="callout-body">
+          <p>
+            規格の用語定義：<strong>組織テストプラクティス</strong>は「組織内で行うテストに推奨される方法・やり方を記した文書」で、テストポリシーと整合させます。モバイルアプリ用と安全重視システム用など、<strong>複数持ってもよい</strong>と注記されています。
+          </p>
+        </div>
+      </aside>
+      <h3 id="6-4-43節のその他の項目">6-4. 4.3節のその他の項目</h3>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr className="header">
+              <th>節</th>
+              <th>内容</th>
+              <th>ポイント（学習用の整理）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd">
+              <td>4.3.3 文書化の要求</td>
+              <td>文書に何を求めるか</td>
+              <td>必要十分な量に調整する</td>
+            </tr>
+            <tr className="even">
+              <td>4.3.4 構成管理とテスト</td>
+              <td>テスト資産の版管理</td>
+              <td>テストケースと対象ソフトのバージョンを対応づける</td>
+            </tr>
+            <tr className="odd">
+              <td>4.3.5 ツール支援</td>
+              <td>テストの自動化・管理ツール</td>
+              <td>ツールは目的に合わせて選ぶ</td>
+            </tr>
+            <tr className="even">
+              <td>4.3.6 プロセス改善とテスト</td>
+              <td>テスト自体を継続的に改善</td>
+              <td>実績を測って見直す</td>
+            </tr>
+            <tr className="odd">
+              <td>4.3.7 テストメトリクス</td>
+              <td>テストの測定</td>
+              <td>2022年版で<strong>附属書から本文へ移動</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="6-5-メトリクスの例学習用">6-5. メトリクスの例（学習用）</h3>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr className="header">
+              <th>測定対象</th>
+              <th>指標の例</th>
+              <th>読み取り方</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd">
+              <td>進捗</td>
+              <td>実行済みテストケース数／計画数</td>
+              <td>計画との差を把握</td>
+            </tr>
+            <tr className="even">
+              <td>結果</td>
+              <td>合格率、失敗数</td>
+              <td>品質の傾向を把握</td>
+            </tr>
+            <tr className="odd">
+              <td>欠陥</td>
+              <td>重大度別の欠陥数、再発率</td>
+              <td>リスクの高い領域を把握</td>
+            </tr>
+            <tr className="even">
+              <td>カバレッジ</td>
+              <td>要求カバレッジ、分岐カバレッジ</td>
+              <td>テストの網羅度を把握</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <aside className="callout callout-warn">
+        <div className="callout-title">注意</div>
+        <div className="callout-body">
+          <p>
+            数値は目的ではなく<strong>意思決定の材料</strong>です。「合格率100%」だけで安心せず、何を試していないかも併せて確認します。
+          </p>
+        </div>
+      </aside>
+    </section>
   );
 }
