@@ -72,5 +72,23 @@ describe('ISO/IEC/IEEE 29119-1:2022 Foundation (CSS & Diagrams)', () => {
       expect(cssContent).toContain('.iso-29119-1-page td');
       expect(cssContent).toContain('.mermaid-wrapper');
     });
+
+    it('positions sidebar and toggle below global header and disclaimer banner, and resets mermaid wrapper', () => {
+      const liveCss = fs.readFileSync(cssPath, 'utf-8');
+      // Sidebar must start below global header (60px) + disclaimer banner
+      expect(liveCss).toMatch(/\.iso-29119-1-page\s+\.sidebar\s*\{[^}]*top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height,\s*0px\)\)/);
+      expect(liveCss).toMatch(/\.iso-29119-1-page\s+\.sidebar\s*\{[^}]*z-index:\s*30/);
+
+      // Mobile nav-toggle must position below header and disclaimer
+      expect(liveCss).toMatch(/\.iso-29119-1-page\s+\.nav-toggle\s*\{[^}]*top:\s*calc\(72px\s*\+\s*var\(--disclaimer-height,\s*0px\)\)/);
+      expect(liveCss).toMatch(/\.iso-29119-1-page\s+\.nav-toggle\s*\{[^}]*z-index:\s*35/);
+
+      // Scroll margin top must account for header + disclaimer banner
+      expect(liveCss).toContain('calc(80px + var(--disclaimer-height, 0px))');
+
+      // Mermaid wrapper must be block with visible overflow to avoid left-edge clipping
+      expect(liveCss).toMatch(/\.iso-29119-1-page\s+\.mermaid-wrapper\s*\{[^}]*display:\s*block\s*!important/);
+      expect(liveCss).toMatch(/\.iso-29119-1-page\s+\.mermaid-wrapper\s*\{[^}]*overflow:\s*visible\s*!important/);
+    });
   });
 });
