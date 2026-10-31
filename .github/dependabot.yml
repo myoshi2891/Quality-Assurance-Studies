@@ -1,0 +1,8 @@
+# Bun 管理（bun.lock のみ）のため npm_and_yarn ではなく bun エコシステムを指定する。
+# 未指定だと Dependabot は npm_and_yarn として bun.lock を扱えず、セキュリティ更新が失敗する。
+version: 2
+updates:
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "weekly"
