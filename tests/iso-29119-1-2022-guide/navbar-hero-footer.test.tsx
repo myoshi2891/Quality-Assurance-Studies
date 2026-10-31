@@ -171,7 +171,7 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 2 (Hero, Footer, NavBar)', () => {
       const dts = Array.from(container.querySelectorAll('.hero-meta dt')).map(el => el.textContent?.trim());
       const dds = Array.from(container.querySelectorAll('.hero-meta dd')).map(el => el.textContent?.trim());
 
-      expect(dts).toEqual(['規格番号', '発行', '適用範囲', '対象読者', '基準日']);
+      expect(dts).toEqual(['規格番号', '発行', '位置付け', '対象読者', '基準日']);
       expect(dds).toEqual([
         'ISO/IEC/IEEE 29119-1:2022',
         '2022年1月（第2版）',
