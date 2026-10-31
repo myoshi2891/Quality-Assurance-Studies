@@ -29,7 +29,9 @@ describe('ISO 14496-22:2026 Guide - Sections 2 & 3', () => {
     // Glossary
     const glossary = section?.querySelector('.glossary');
     expect(glossary?.textContent).toContain('TrueType');
-    expect(glossary?.textContent).toContain('フォントコレクション');
+    expect(glossary?.textContent).toContain('CFF（Compact Font Format）');
+    expect(glossary?.textContent).toContain('sfnt');
+    expect(glossary?.textContent).toContain('拡張子');
   });
 
   it('renders Section 3 with H2, 2 H3s, table, DIAGRAM_02, callout, why-note, and glossary', () => {
@@ -41,7 +43,7 @@ describe('ISO 14496-22:2026 Guide - Sections 2 & 3', () => {
     expect(h2?.textContent).toContain('3. 規格の基本情報と改訂の流れ');
 
     const callout = section?.querySelector('.callout-practice');
-    expect(callout?.textContent).toContain('発行年・版・ページ数');
+    expect(callout?.textContent).toContain('版・日付・ページ数');
 
     const table = section?.querySelector('table');
     expect(table).not.toBeNull();
@@ -50,17 +52,19 @@ describe('ISO 14496-22:2026 Guide - Sections 2 & 3', () => {
 
     const h3s = section?.querySelectorAll('h3');
     expect(h3s?.length).toBe(2);
-    expect(h3s?.[0].textContent).toContain('改訂の経緯');
-    expect(h3s?.[1].textContent).toContain('注意：規格番号の後ろの西暦の意味');
+    expect(h3s?.[0].textContent).toContain('3-1. 基本情報');
+    expect(h3s?.[1].textContent).toContain('3-2. 第5版ができるまで');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
 
     const whyNote = section?.querySelector('.why-note');
-    expect(whyNote?.textContent).toContain('発行年の違いによる混乱を防ぐ');
+    expect(whyNote?.textContent).toContain('なぜ表にするのか');
 
     const glossary = section?.querySelector('.glossary');
-    expect(glossary?.textContent).toContain('ISO/IEC JTC 1/SC 29');
-    expect(glossary?.textContent).toContain('FDIS');
+    expect(glossary?.textContent).toContain('JTC 1/SC 29');
+    expect(glossary?.textContent).toContain('段階コード');
+    expect(glossary?.textContent).toContain('Amendment（Amd）');
+    expect(glossary?.textContent).toContain('廃止（Withdrawn）');
   });
 });
