@@ -21,11 +21,12 @@ describe('ISO 14496-22:2026 Guide - Sections 0 & 1', () => {
 
     // Tables
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(2);
-    expect(tables?.[0].textContent).toContain('区分');
-    expect(tables?.[0].textContent).toContain('Microsoft OpenType 1.9.1 仕様書の記載');
-    expect(tables?.[1].textContent).toContain('読み方の目安');
-    expect(tables?.[1].textContent).toContain('1〜3');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(2);
+    expect(tables![0]!.textContent).toContain('区分');
+    expect(tables![0]!.textContent).toContain('Microsoft OpenType 1.9.1 仕様書の記載');
+    expect(tables![1]!.textContent).toContain('読み方の目安');
+    expect(tables![1]!.textContent).toContain('1〜3');
 
     // Glossary
     const glossary = section?.querySelector('.glossary');
@@ -60,3 +61,4 @@ describe('ISO 14496-22:2026 Guide - Sections 0 & 1', () => {
     expect(glossary?.textContent).toContain('シェーピング');
   });
 });
+

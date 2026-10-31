@@ -51,21 +51,23 @@ describe('ISO 14496-22:2026 Guide - Sections 4 & 5', () => {
     expect(diagram).not.toBeNull();
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(6);
-    expect(h3s?.[0].textContent).toContain('5-1. ファイル先頭のテーブルディレクトリ');
-    expect(h3s?.[1].textContent).toContain('5-2. 各テーブルの目次');
-    expect(h3s?.[2].textContent).toContain('5-3. 実際に Python で先頭12バイトを読んでみる');
-    expect(h3s?.[3].textContent).toContain('5-4. 2種類の sfntVersion：TrueType か CFF か');
-    expect(h3s?.[4].textContent).toContain('5-5. テーブルレコードの並び順と実例');
-    expect(h3s?.[5].textContent).toContain('5-6. チェックサムの考え方');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(6);
+    expect(h3s![0]!.textContent).toContain('5-1. ファイル先頭のテーブルディレクトリ');
+    expect(h3s![1]!.textContent).toContain('5-2. 各テーブルの目次');
+    expect(h3s![2]!.textContent).toContain('5-3. 実際に Python で先頭12バイトを読んでみる');
+    expect(h3s![3]!.textContent).toContain('5-4. 2種類の sfntVersion：TrueType か CFF か');
+    expect(h3s![4]!.textContent).toContain('5-5. テーブルレコードの並び順と実例');
+    expect(h3s![5]!.textContent).toContain('5-6. チェックサムの考え方');
 
     // 4 tables
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(4);
-    expect(tables?.[0].textContent).toContain('numTables');
-    expect(tables?.[1].textContent).toContain('tableTag');
-    expect(tables?.[2].textContent).toContain('0x00010000');
-    expect(tables?.[3].textContent).toContain('GSUB');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(4);
+    expect(tables![0]!.textContent).toContain('numTables');
+    expect(tables![1]!.textContent).toContain('tableTag');
+    expect(tables![2]!.textContent).toContain('0x00010000');
+    expect(tables![3]!.textContent).toContain('GSUB');
 
     // Python code block with syntax tokens
     const pre = section?.querySelector('pre');

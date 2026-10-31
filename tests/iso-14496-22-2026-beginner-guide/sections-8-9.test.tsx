@@ -20,22 +20,24 @@ describe('ISO 14496-22:2026 Guide - Sections 8 & 9', () => {
     expect(whyNote?.textContent).toContain('なぜ取り上げるのか');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(3);
-    expect(h3s?.[0].textContent).toContain('8-1. GSUB と GPOS の共通の骨組み');
-    expect(h3s?.[1].textContent).toContain('8-2. 処理の種類の数');
-    expect(h3s?.[2].textContent).toContain('8-3. 日本語に関係する機能タグの例');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(3);
+    expect(h3s![0]!.textContent).toContain('8-1. GSUB と GPOS の共通の骨組み');
+    expect(h3s![1]!.textContent).toContain('8-2. 処理の種類の数');
+    expect(h3s![2]!.textContent).toContain('8-3. 日本語に関係する機能タグの例');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
 
     // 2 tables
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(2);
-    expect(tables?.[0].textContent).toContain('GSUB');
-    expect(tables?.[0].textContent).toContain('GPOS');
-    expect(tables?.[0].textContent).toContain('GDEF');
-    expect(tables?.[1].textContent).toContain('vert');
-    expect(tables?.[1].textContent).toContain('jp04');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(2);
+    expect(tables![0]!.textContent).toContain('GSUB');
+    expect(tables![0]!.textContent).toContain('GPOS');
+    expect(tables![0]!.textContent).toContain('GDEF');
+    expect(tables![1]!.textContent).toContain('vert');
+    expect(tables![1]!.textContent).toContain('jp04');
 
     const glossary = section?.querySelector('.glossary');
     expect(glossary?.textContent).toContain('ScriptList');
@@ -55,24 +57,26 @@ describe('ISO 14496-22:2026 Guide - Sections 8 & 9', () => {
     expect(callout?.textContent).toContain('可変フォント');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(5);
-    expect(h3s?.[0].textContent).toContain('9-1. 例え話：音量つまみ');
-    expect(h3s?.[1].textContent).toContain('9-2. 仕組みの骨組み');
-    expect(h3s?.[2].textContent).toContain('9-3. 値を計算する例');
-    expect(h3s?.[3].textContent).toContain('9-4. 可変フォントで必要になる追加テーブル');
-    expect(h3s?.[4].textContent).toContain('9-5. 来歴');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(5);
+    expect(h3s![0]!.textContent).toContain('9-1. 例え話：音量つまみ');
+    expect(h3s![1]!.textContent).toContain('9-2. 仕組みの骨組み');
+    expect(h3s![2]!.textContent).toContain('9-3. 値を計算する例');
+    expect(h3s![3]!.textContent).toContain('9-4. 可変フォントで必要になる追加テーブル');
+    expect(h3s![4]!.textContent).toContain('9-5. 来歴');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
 
     // 2 tables
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(2);
-    expect(tables?.[0].textContent).toContain('ステップ');
-    expect(tables?.[0].textContent).toContain('計算');
-    expect(tables?.[0].textContent).toContain('結果');
-    expect(tables?.[1].textContent).toContain('TrueType 輪郭');
-    expect(tables?.[1].textContent).toContain('CFF2 輪郭');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(2);
+    expect(tables![0]!.textContent).toContain('ステップ');
+    expect(tables![0]!.textContent).toContain('計算');
+    expect(tables![0]!.textContent).toContain('結果');
+    expect(tables![1]!.textContent).toContain('TrueType 輪郭');
+    expect(tables![1]!.textContent).toContain('CFF2 輪郭');
 
     const glossary = section?.querySelector('.glossary');
     expect(glossary?.textContent).toContain('軸（axis）');

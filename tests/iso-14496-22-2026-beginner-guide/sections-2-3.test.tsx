@@ -51,9 +51,10 @@ describe('ISO 14496-22:2026 Guide - Sections 2 & 3', () => {
     expect(table?.textContent).toContain('第5版');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(2);
-    expect(h3s?.[0].textContent).toContain('3-1. 基本情報');
-    expect(h3s?.[1].textContent).toContain('3-2. 第5版ができるまで');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(2);
+    expect(h3s![0]!.textContent).toContain('3-1. 基本情報');
+    expect(h3s![1]!.textContent).toContain('3-2. 第5版ができるまで');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();

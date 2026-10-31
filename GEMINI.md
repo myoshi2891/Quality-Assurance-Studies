@@ -4,6 +4,15 @@ Updated 2026-10-31
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-10-31: ISO/IEC 14496-22:2026（Open Font Format 第5版）初学者向け解説ガイドの移行
+
+- 2026年7月発行の第5版Open Font Format（ISO/IEC 14496-22:2026）を解説する `Iso-iec-14496-22-2026-beginner-guide.html`（11,403行）に基づき、`/iso-14496-22-2026-beginner-guide` の全コンポーネント（Hero, NavBar, Section0〜15, Footer）およびCSS・diagramsを完全移行。ISOカテゴリーとE2E一覧を116ルートへ同期。
+- 全16見出し（H2）、42見出し（H3）、サイドバー目次16リンク（IntersectionObserver追従・モバイル開閉）、23表の全セル、11図のMermaidダイアグラム、15コールアウト、18注記（why-note）、15用語集（dl/dt/dd）、Pythonコードブロック（シンタックスハイライト）、外部リンク18件（`target="_blank" rel="noopener noreferrer"`）を網羅。
+- CSS全セレクタと900px境界を保持し、`.iso-14496-22-2026-page` 配下に完全スコープ。`globals.css` 干渉（ヒーロー余白、テーブル文字色、スクロールバー、Mermaidカード等）をリセット。
+- Mermaid図は全11図（DIAGRAM_01〜11）を定義し、正準 `MERMAID_CONFIG` でダークネイビー配色・アクセシビリティ（accTitle / accDescr）を設定。
+- カテゴリー単位でのTDD（Category 0〜8、ページ統合）を実施し、全11テストファイル・22テスト（443 expect calls）すべてパス。
+- 原本HTML・MDは `archive/html-archive/iso/Iso-iec-14496-22-2026-beginner-guide.html` および `archive/md-archive/iso/Iso-iec-14496-22-2026-beginner-guide.md` へ同名で移動（rename検出100%）。
+
 ## 2026-10-31: ISO/IEC/IEEE 29119-1:2022 初学者向け解説ガイド（2026年10月新版）への全面刷新・完全移行
 
 - 2026年10月改訂の新版HTML（18,926行）に基づき、`/iso-29119-1-2022-guide` の全コンポーネント（Hero, NavBar, Section0〜14, Footer）およびCSS・diagramsを全面刷新。旧版固有のAnnex A/Bファイルを削除し、新構成（STEP 0〜12、用語集、根拠ソース一覧）へ移行。

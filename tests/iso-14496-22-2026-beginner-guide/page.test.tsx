@@ -39,3 +39,4 @@ describe('ISO 14496-22:2026 Guide - Full Page Integration', () => {
     expect(container.querySelector('footer.page-footer')).not.toBeNull();
   });
 });
+

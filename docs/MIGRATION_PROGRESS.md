@@ -5,9 +5,18 @@ Updated 2026-10-31
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 115 ルート = ガイドライブラリ index + 114 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 116 ルート = ガイドライブラリ index + 115 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-10-31: ISO/IEC 14496-22:2026（Open Font Format 第5版）初学者向け解説ガイドの移行
+
+- 2026年7月発行の第5版Open Font Format（ISO/IEC 14496-22:2026）を解説する `Iso-iec-14496-22-2026-beginner-guide.html`（11,403行）に基づき、`/iso-14496-22-2026-beginner-guide` の全コンポーネント（Hero, NavBar, Section0〜15, Footer）およびCSS・diagramsを完全移行。ISOカテゴリーとE2E一覧を116ルートへ同期。
+- 全16見出し（H2）、42見出し（H3）、サイドバー目次16リンク（IntersectionObserver追従・モバイル開閉）、23表の全セル、11図のMermaidダイアグラム、15コールアウト、18注記（why-note）、15用語集（dl/dt/dd）、Pythonコードブロック（シンタックスハイライト）、外部リンク18件（`target="_blank" rel="noopener noreferrer"`）を網羅。
+- CSS全セレクタと900px境界を保持し、`.iso-14496-22-2026-page` 配下に完全スコープ。`globals.css` 干渉（ヒーロー余白、テーブル文字色、スクロールバー、Mermaidカード等）をリセット。
+- Mermaid図は全11図（DIAGRAM_01〜11）を定義し、正準 `MERMAID_CONFIG` でダークネイビー配色・アクセシビリティ（accTitle / accDescr）を設定。
+- カテゴリー単位でのTDD（Category 0〜8、ページ統合）を実施し、全11テストファイル・22テスト（443 expect calls）すべてパス。
+- 原本HTML・MDは `archive/html-archive/iso/Iso-iec-14496-22-2026-beginner-guide.html` および `archive/md-archive/iso/Iso-iec-14496-22-2026-beginner-guide.md` へ同名で移動（rename検出100%）。
 
 ## 2026-10-31: ISO/IEC/IEEE 29119-1:2022 初学者向け解説ガイド（2026年10月新版）への全面刷新・完全移行
 
@@ -1690,6 +1699,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
+| `Iso-iec-14496-22-2026-beginner-guide.html` | `/iso-14496-22-2026-beginner-guide` | ✅ ダーク配色・16章・42見出し・目次16リンク・23表・11図・15コールアウト・18注記・15用語集・Pythonコード・外部18リンク (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
 

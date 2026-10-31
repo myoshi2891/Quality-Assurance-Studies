@@ -42,3 +42,4 @@ describe('ISO 14496-22:2026 Guide - Foundation', () => {
     }
   });
 });
+

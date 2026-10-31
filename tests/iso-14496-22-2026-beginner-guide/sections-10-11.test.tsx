@@ -48,10 +48,11 @@ describe('ISO 14496-22:2026 Guide - Sections 10 & 11', () => {
     expect(whyNote?.textContent).toContain('なぜ日本語に注目するのか');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(3);
-    expect(h3s?.[0].textContent).toContain('11-1. フォントコレクション（.ttc / .otc）で漢字を共有する');
-    expect(h3s?.[1].textContent).toContain('11-2. 縦書き');
-    expect(h3s?.[2].textContent).toContain('11-3. 字形の切り替え');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(3);
+    expect(h3s![0]!.textContent).toContain('11-1. フォントコレクション（.ttc / .otc）で漢字を共有する');
+    expect(h3s![1]!.textContent).toContain('11-2. 縦書き');
+    expect(h3s![2]!.textContent).toContain('11-3. 字形の切り替え');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
@@ -63,3 +64,4 @@ describe('ISO 14496-22:2026 Guide - Sections 10 & 11', () => {
     expect(glossary?.textContent).toContain('字形');
   });
 });
+

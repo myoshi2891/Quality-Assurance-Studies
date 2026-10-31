@@ -17,18 +17,20 @@ describe('ISO 14496-22:2026 Guide - Sections 6 & 7', () => {
     expect(callout?.textContent).toContain('テーブルを「役割ごと」に分けた地図');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(3);
-    expect(h3s?.[0].textContent).toContain('6-1. 必須テーブル');
-    expect(h3s?.[1].textContent).toContain('6-2. 役割別のグループ');
-    expect(h3s?.[2].textContent).toContain('6-3. グリフのアウトライン');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(3);
+    expect(h3s![0]!.textContent).toContain('6-1. 必須テーブル');
+    expect(h3s![1]!.textContent).toContain('6-2. 役割別のグループ');
+    expect(h3s![2]!.textContent).toContain('6-3. グリフのアウトライン');
 
     // 2 tables
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(2);
-    expect(tables?.[0].textContent).toContain('cmap');
-    expect(tables?.[0].textContent).toContain('Character to glyph mapping');
-    expect(tables?.[1].textContent).toContain('TrueType');
-    expect(tables?.[1].textContent).toContain('CFF2');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(2);
+    expect(tables![0]!.textContent).toContain('cmap');
+    expect(tables![0]!.textContent).toContain('Character to glyph mapping');
+    expect(tables![1]!.textContent).toContain('TrueType');
+    expect(tables![1]!.textContent).toContain('CFF2');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
@@ -52,10 +54,11 @@ describe('ISO 14496-22:2026 Guide - Sections 6 & 7', () => {
     expect(callout?.textContent).toContain('画面のピクセルになるまで');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(3);
-    expect(h3s?.[0].textContent).toContain('7-1. 全体の流れ');
-    expect(h3s?.[1].textContent).toContain('7-2. 各ステップで何が起きているか');
-    expect(h3s?.[2].textContent).toContain('7-3. 「規格が定めること」と「アプリが決めること」');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(3);
+    expect(h3s![0]!.textContent).toContain('7-1. 全体の流れ');
+    expect(h3s![1]!.textContent).toContain('7-2. 各ステップで何が起きているか');
+    expect(h3s![2]!.textContent).toContain('7-3. 「規格が定めること」と「アプリが決めること」');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();

@@ -20,21 +20,23 @@ describe('ISO 14496-22:2026 Guide - Sections 12 & 13', () => {
     expect(whyNote?.textContent).toContain('なぜ実装を見るのか');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(4);
-    expect(h3s?.[0].textContent).toContain('12-1. HarfBuzz');
-    expect(h3s?.[1].textContent).toContain('12-2. Fontations と Skrifa');
-    expect(h3s?.[2].textContent).toContain('12-3. Chrome が FreeType から Fontations へ移行した経緯');
-    expect(h3s?.[3].textContent).toContain('12-4. 実装の地図');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(4);
+    expect(h3s![0]!.textContent).toContain('12-1. HarfBuzz');
+    expect(h3s![1]!.textContent).toContain('12-2. Fontations と Skrifa');
+    expect(h3s![2]!.textContent).toContain('12-3. Chrome が FreeType から Fontations へ移行した経緯');
+    expect(h3s![3]!.textContent).toContain('12-4. 実装の地図');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
 
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(2);
-    expect(tables?.[0].textContent).toContain('font-types');
-    expect(tables?.[0].textContent).toContain('skrifa');
-    expect(tables?.[1].textContent).toContain('ファイル解析');
-    expect(tables?.[1].textContent).toContain('シェーピング');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(2);
+    expect(tables![0]!.textContent).toContain('font-types');
+    expect(tables![0]!.textContent).toContain('skrifa');
+    expect(tables![1]!.textContent).toContain('ファイル解析');
+    expect(tables![1]!.textContent).toContain('シェーピング');
 
     const glossary = section?.querySelector('.glossary');
     expect(glossary?.textContent).toContain('HarfBuzz');
@@ -58,10 +60,11 @@ describe('ISO 14496-22:2026 Guide - Sections 12 & 13', () => {
     expect(whyNote?.textContent).toContain('なぜこの章を入れるのか');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(3);
-    expect(h3s?.[0].textContent).toContain('13-1. パイプライン段階別のテスト観点');
-    expect(h3s?.[1].textContent).toContain('13-2. セキュリティ・堅牢性のテスト観点');
-    expect(h3s?.[2].textContent).toContain('13-3. 回帰テストの比較方法');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(3);
+    expect(h3s![0]!.textContent).toContain('13-1. パイプライン段階別のテスト観点');
+    expect(h3s![1]!.textContent).toContain('13-2. セキュリティ・堅牢性のテスト観点');
+    expect(h3s![2]!.textContent).toContain('13-3. 回帰テストの比較方法');
 
     const table = section?.querySelector('table');
     expect(table).not.toBeNull();
@@ -80,3 +83,4 @@ describe('ISO 14496-22:2026 Guide - Sections 12 & 13', () => {
     expect(glossary?.textContent).toContain('画素比較');
   });
 });
+

@@ -53,3 +53,4 @@ describe('ISO 14496-22:2026 Guide - Hero, NavBar, Footer', () => {
     expect(footer?.textContent).toContain('規格本文の全文は未確認です');
   });
 });
+

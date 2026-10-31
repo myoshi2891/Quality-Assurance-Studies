@@ -17,9 +17,10 @@ describe('ISO 14496-22:2026 Guide - Sections 14 & 15', () => {
     expect(callout?.textContent).toContain('次に何を学ぶかの順序');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(2);
-    expect(h3s?.[0].textContent).toContain('14-1. 要点の整理');
-    expect(h3s?.[1].textContent).toContain('14-2. 学習ロードマップ');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(2);
+    expect(h3s![0]!.textContent).toContain('14-1. 要点の整理');
+    expect(h3s![1]!.textContent).toContain('14-2. 学習ロードマップ');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
@@ -41,14 +42,16 @@ describe('ISO 14496-22:2026 Guide - Sections 14 & 15', () => {
     expect(h2?.textContent).toContain('15. 根拠ソース一覧（URL）');
 
     const h3s = section?.querySelectorAll('h3');
-    expect(h3s?.length).toBe(4);
-    expect(h3s?.[0].textContent).toContain('15-1. 規格の公式情報');
-    expect(h3s?.[1].textContent).toContain('15-2. 実装関連の一次情報');
-    expect(h3s?.[2].textContent).toContain('15-3. 参考（二次情報）');
-    expect(h3s?.[3].textContent).toContain('15-4. 未確認事項（再掲）');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(4);
+    expect(h3s![0]!.textContent).toContain('15-1. 規格の公式情報');
+    expect(h3s![1]!.textContent).toContain('15-2. 実装関連の一次情報');
+    expect(h3s![2]!.textContent).toContain('15-3. 参考（二次情報）');
+    expect(h3s![3]!.textContent).toContain('15-4. 未確認事項（再掲）');
 
     const tables = section?.querySelectorAll('table');
-    expect(tables?.length).toBe(3);
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(3);
 
     // External links
     const links = section?.querySelectorAll('a');
@@ -63,3 +66,4 @@ describe('ISO 14496-22:2026 Guide - Sections 14 & 15', () => {
     expect(ul?.children.length).toBe(3);
   });
 });
+
