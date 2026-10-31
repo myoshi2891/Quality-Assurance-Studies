@@ -56,3 +56,4 @@ export default function Iso1449622BeginnerGuidePage() {
     </div>
   );
 }
+

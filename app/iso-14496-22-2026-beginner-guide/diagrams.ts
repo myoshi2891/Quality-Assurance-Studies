@@ -137,3 +137,4 @@ flowchart TD
     S3 --> S4["ステップ4 可変フォントの fvar を読み 輪郭の差分を読む TrueType 輪郭は gvar CFF2 輪郭は CFF2 テーブル"]
     S4 --> S5["ステップ5 HarfBuzz で シェーピング結果を確認する"]
     S5 --> S6["ステップ6 ISO 本文と OpenType 1.9.1 を照合する"]`;
+
