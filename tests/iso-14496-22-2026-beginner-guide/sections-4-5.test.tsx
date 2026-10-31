@@ -14,24 +14,25 @@ describe('ISO 14496-22:2026 Guide - Sections 4 & 5', () => {
     expect(h2?.textContent).toContain('4. ISO 規格と OpenType 仕様の関係');
 
     const callout = section?.querySelector('.callout-practice');
-    expect(callout?.textContent).toContain('ISO 規格と Microsoft 仕様書のどちらをどう読むべきか');
+    expect(callout?.textContent).toContain('Microsoft の OpenType 仕様');
 
     const whyNote = section?.querySelector('.why-note');
-    expect(whyNote?.textContent).toContain('なぜ2つの文書を行き来するのか');
+    expect(whyNote?.textContent).toContain('なぜ整理するのか');
 
     const h3 = section?.querySelector('h3');
-    expect(h3?.textContent).toContain('対応関係のまとめ');
+    expect(h3?.textContent).toContain('実務での使い分け');
 
     const table = section?.querySelector('table');
     expect(table).not.toBeNull();
-    expect(table?.textContent).toContain('ISO/IEC 14496-22');
-    expect(table?.textContent).toContain('Microsoft OpenType 仕様書');
+    expect(table?.textContent).toContain('目的');
+    expect(table?.textContent).toContain('Microsoft OpenType 1.9.1');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
 
     const glossary = section?.querySelector('.glossary');
-    expect(glossary?.textContent).toContain('作業草案（WD）');
+    expect(glossary?.textContent).toContain('適合性（コンフォーマンス）');
+    expect(glossary?.textContent).toContain('作業草案（preliminary working draft）');
     expect(glossary?.textContent).toContain('スクリプトタグ');
   });
 
@@ -44,7 +45,7 @@ describe('ISO 14496-22:2026 Guide - Sections 4 & 5', () => {
     expect(h2?.textContent).toContain('5. フォントファイルの構造：sfnt コンテナを読んでみる');
 
     const callout = section?.querySelector('.callout-practice');
-    expect(callout?.textContent).toContain('フォントファイルをバイナリとして開いたときの先頭');
+    expect(callout?.textContent).toContain('最初の数バイト');
 
     const diagram = section?.querySelector('.mermaid-diagram');
     expect(diagram).not.toBeNull();
@@ -52,19 +53,19 @@ describe('ISO 14496-22:2026 Guide - Sections 4 & 5', () => {
     const h3s = section?.querySelectorAll('h3');
     expect(h3s?.length).toBe(6);
     expect(h3s?.[0].textContent).toContain('5-1. ファイル先頭のテーブルディレクトリ');
-    expect(h3s?.[1].textContent).toContain('5-2. 各テーブルの目次（TableRecord）');
+    expect(h3s?.[1].textContent).toContain('5-2. 各テーブルの目次');
     expect(h3s?.[2].textContent).toContain('5-3. 実際に Python で先頭12バイトを読んでみる');
-    expect(h3s?.[3].textContent).toContain('5-4. TTC（フォントコレクション）の場合');
-    expect(h3s?.[4].textContent).toContain('5-5. sfntVersion による TrueType と CFF の区別');
-    expect(h3s?.[5].textContent).toContain('5-6. バイナリの読み方の共通ルール');
+    expect(h3s?.[3].textContent).toContain('5-4. 2種類の sfntVersion：TrueType か CFF か');
+    expect(h3s?.[4].textContent).toContain('5-5. テーブルレコードの並び順と実例');
+    expect(h3s?.[5].textContent).toContain('5-6. チェックサムの考え方');
 
     // 4 tables
     const tables = section?.querySelectorAll('table');
     expect(tables?.length).toBe(4);
     expect(tables?.[0].textContent).toContain('numTables');
     expect(tables?.[1].textContent).toContain('tableTag');
-    expect(tables?.[2].textContent).toContain('ttcTag');
-    expect(tables?.[3].textContent).toContain('0x00010000');
+    expect(tables?.[2].textContent).toContain('0x00010000');
+    expect(tables?.[3].textContent).toContain('GSUB');
 
     // Python code block with syntax tokens
     const pre = section?.querySelector('pre');
@@ -78,7 +79,7 @@ describe('ISO 14496-22:2026 Guide - Sections 4 & 5', () => {
     // Glossary
     const glossary = section?.querySelector('.glossary');
     expect(glossary?.textContent).toContain('ビッグエンディアン');
-    expect(glossary?.textContent).toContain('4文字タグ（Tag）');
-    expect(glossary?.textContent).toContain('パディング');
+    expect(glossary?.textContent).toContain('オフセット');
+    expect(glossary?.textContent).toContain('チェックサム');
   });
 });
