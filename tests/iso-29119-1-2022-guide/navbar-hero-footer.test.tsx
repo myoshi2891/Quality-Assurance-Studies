@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, afterEach } from 'bun:test';
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import Hero from '../../app/iso-29119-1-2022-guide/Hero';
 import Footer from '../../app/iso-29119-1-2022-guide/Footer';
 import NavBar from '../../app/iso-29119-1-2022-guide/NavBar';
@@ -148,6 +148,10 @@ const NAV_DATA = [
   }
 ];
 
+afterEach(() => {
+  cleanup();
+});
+
 describe('ISO/IEC/IEEE 29119-1:2022 Category 2 (Hero, Footer, NavBar)', () => {
   describe('Hero Component', () => {
     it('renders eyebrow, h1, lead, and 5 meta items correctly', () => {
@@ -191,16 +195,15 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 2 (Hero, Footer, NavBar)', () => {
 
   describe('NavBar Component', () => {
     it('renders navigation landmark with aria-label="目次"', () => {
-      const { container } = render(<NavBar />);
-      const nav = container.querySelector('nav.sidebar');
-      expect(nav).not.toBeNull();
-      expect(nav?.getAttribute('aria-label')).toBe('目次');
+      const { getByRole } = render(<NavBar />);
+      const nav = getByRole('navigation', { name: '目次' });
+      expect(nav).toBeDefined();
     });
 
     it('renders mobile nav-toggle button', () => {
-      const { container } = render(<NavBar />);
-      const toggle = container.querySelector('.nav-toggle');
-      expect(toggle).not.toBeNull();
+      const { getByRole } = render(<NavBar />);
+      const toggle = getByRole('button', { name: '目次の表示切替' });
+      expect(toggle).toBeDefined();
     });
 
     it('renders exactly 67 links matching original hierarchy and targets', () => {
