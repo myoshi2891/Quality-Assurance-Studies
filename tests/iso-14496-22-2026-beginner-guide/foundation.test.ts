@@ -21,6 +21,23 @@ describe('ISO 14496-22:2026 Guide - Foundation', () => {
     expect(css).toContain('max-width: none !important');
   });
 
+  it('resets mermaid-wrapper to prevent left-side scroll clipping and resolves global header collisions', () => {
+    const css = readFileSync(cssPath, 'utf-8');
+
+    // Mermaid wrapper must be block with visible overflow to avoid flex-center left clipping and dual scrollbars
+    expect(css).toMatch(/\.iso-14496-22-2026-page\s+\.mermaid-wrapper\s*\{[^}]*display:\s*block\s*!important/);
+    expect(css).toMatch(/\.iso-14496-22-2026-page\s+\.mermaid-wrapper\s*\{[^}]*overflow:\s*visible\s*!important/);
+
+    // Sidebar and toggle must position below the global nav header and disclaimer banner
+    expect(css).toMatch(/\.iso-14496-22-2026-page\s+\.sidebar\s*\{[^}]*top:\s*calc\(60px\s*\+\s*var\(--disclaimer-height,\s*0px\)\)/);
+    expect(css).toMatch(/\.iso-14496-22-2026-page\s+\.sidebar\s*\{[^}]*z-index:\s*30/);
+    expect(css).toMatch(/\.iso-14496-22-2026-page\s+\.toggle\s*\{[^}]*top:\s*calc\(72px\s*\+\s*var\(--disclaimer-height,\s*0px\)\)/);
+    expect(css).toMatch(/\.iso-14496-22-2026-page\s+\.toggle\s*\{[^}]*z-index:\s*35/);
+
+    // Scroll margin top must account for header + disclaimer banner
+    expect(css).toContain('calc(80px + var(--disclaimer-height, 0px))');
+  });
+
   it('has diagrams.ts with MERMAID_CONFIG and all 11 diagrams', async () => {
     expect(existsSync(diagramsPath)).toBe(true);
     const diagrams = await import('../../app/iso-14496-22-2026-beginner-guide/diagrams');
