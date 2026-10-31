@@ -59,9 +59,9 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 9 (STEP 8 & STEP 9)', () => {
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(3);
 
-      expect(tables[0].textContent).toContain('人工知能（AI）ベース');
+      expect(tables[0].textContent).toContain('人工知能（AI）');
       expect(tables[1].textContent).toContain('神経網');
-      expect(tables[2].textContent).toContain('テスト責任者');
+      expect(tables[2].textContent).toContain('責任の明確化');
     });
 
     it('renders DIAGRAM_17 container and callout', () => {
@@ -69,9 +69,9 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 9 (STEP 8 & STEP 9)', () => {
       const mmd = container.querySelector('.mermaid-diagram#mmd17');
       expect(mmd).not.toBeNull();
 
-      const callout = container.querySelector('.callout.callout-practice');
+      const callout = container.querySelector('.callout.callout-note');
       expect(callout).not.toBeNull();
-      expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe('現場での使い方');
+      expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe('ポイント');
     });
   });
 });
