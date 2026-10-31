@@ -19,8 +19,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - 2026年10月改訂の新版HTML（18,926行）に基づき、`/iso-29119-1-2022-guide` の全コンポーネント（Hero, NavBar, Section0〜14, Footer）およびCSS・diagramsを全面刷新。旧版固有のAnnex A/Bファイルを削除し、新構成（STEP 0〜12、用語集、根拠ソース一覧）へ移行。
 - 全15見出し（H2）、50見出し（H3）、目次67リンク（2階層）、44表の全セル、18図のMermaidダイアグラム、31コールアウト、理解度チェック10問（details/summary）、外部リンク20件（`target="_blank" rel="noopener noreferrer"`）を網羅。
 - CSS全77セレクタと900px境界を保持し、`.iso-29119-1-page` 配下に完全スコープ。`globals.css` 干渉（ヒーロー余白、テーブル文字色、スクロールバー、Mermaidカード等）をリセット。
-- Mermaid図はMD定義から全18図（DIAGRAM_01〜18）を復元し、`MERMAID_CONFIG` でダークブルー配色・アクセシビリティ（accTitle / accDescr）を設定。
-- カテゴリー単位でのTDD（Category 1〜12）を実施し、全12テストファイル・72テスト（552 expect calls）すべてパス。
+- Mermaid図はMD定義から全18図（DIAGRAM_01〜18）を復元し、`MERMAID_CONFIG` でダークブルー配色・アクセシビリティ（accTitle / accDescr）を設定。`.mermaid-wrapper` の `display: block !important; overflow: visible !important;` により横スクロールの負方向オーバーフローを解消。
+- サイドバーおよび目次トグルの配置をグローバルヘッダー（60px）および免責バナー（`--disclaimer-height`）に追従するよう `top: calc(60px + var(--disclaimer-height, 0px));`、`z-index: 30`、各見出しの `scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)) !important;` に補正し、ヘッダーとの重なり・衝突を解消。
+- カテゴリー単位でのTDD（Category 1〜12、表示補正）を実施し、全12テストファイル・73テスト（574 expect calls）すべてパス。
 - 原本HTML・MDは `archive/html-archive/iso/Iso-29119-1-2022-guide.html` および `archive/md-archive/iso/Iso-29119-1-2022-guide.md` へ同名で上書き移動（rename検出100%）。
 
 ## 2026-10-30: ISO/IEC 5338:2023 AIライフサイクルガイドの移行
