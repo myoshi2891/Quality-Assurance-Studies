@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Section0 from '../../app/iso-29119-1-2022-guide/Section0';
 import Section1 from '../../app/iso-29119-1-2022-guide/Section1';
-import { DIAGRAM_01, DIAGRAM_02 } from '../../app/iso-29119-1-2022-guide/diagrams';
 
 // Mock Mermaid component
 declare global {
