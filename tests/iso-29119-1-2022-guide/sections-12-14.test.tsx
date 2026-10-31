@@ -16,7 +16,7 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 11 (STEP 12, Glossary, Sources)', (
       expect(details.length).toBe(2);
 
       const summaries = details.map(d => d.querySelector('summary')?.textContent?.trim());
-      expect(summaries).toEqual(['問題を表示', '解答を表示']);
+      expect(summaries).toEqual(['問題を表示', '解答例を表示']);
 
       const lis = Array.from(container.querySelectorAll('ol li'));
       expect(lis.length).toBe(20);
@@ -36,7 +36,7 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 11 (STEP 12, Glossary, Sources)', (
       const rows = Array.from(table?.querySelectorAll('tbody tr') || []);
       expect(rows.length).toBe(24);
       expect(rows[0].textContent).toContain('A/Bテスト');
-      expect(rows[23].textContent).toContain('網羅テスト');
+      expect(rows[23].textContent).toContain('テストプラクティス');
     });
   });
 
