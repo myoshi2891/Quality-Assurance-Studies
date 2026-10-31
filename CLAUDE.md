@@ -4,6 +4,31 @@ Updated 2026-10-30
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-10-30: Playwright設定の集約
+
+- ページ別の15設定を`playwright.config.ts`（サーバー必須）と`playwright.layout.config.ts`（サーバー不要・14プロジェクト）の2ファイルへ集約。個別実行は`--project=<suite>`。統合前後の収集テスト一覧は全プロジェクトで1対1一致（レイアウト763件・サーバー側309件）。
+- 旧`playwright.library.config.ts`の開発サーバー（:3001）は廃止し、本番サーバー側の`library`プロジェクトへ統合。旧設定で`PLAYWRIGHT_CHROMIUM_EXECUTABLE`を無視していたiso-30130も共通設定で解消。
+- 再発防止として`.claude/rules/playwright-config-consolidation.md`と`tests/e2e/playwright-config-registry.test.ts`（設定2ファイル限定・全e2eファイルが1プロジェクトに所属）を追加。
+
+## 2026-10-30: ISO/IEC 5338:2023 AIライフサイクルガイドの移行
+
+- `app/iso-iec-5338-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・16本文カテゴリーで`/iso-iec-5338-guide`へ移行し、ISOカテゴリーとE2E一覧を115ルートへ同期。
+- 46見出し・目次14リンク・23表の全セル・10図・8注記・19外部リンク・理解度チェックの解答・ヒーロー・フッター・全本文を固定インベントリで順序と構造まで照合。コードブロックは原本どおり0件。
+- CSS全67ルールと960px境界を保持。共有・残留CSSによる見出し書体、ヒーロー文字グラデーション・中央寄せ、リスト色、強調、表、フッター、装飾疑似要素への干渉を補正。
+- 図はHTML内SVGから全ノード・形状・グループ所属・接続・辺ラベル改行・配色を復元。空グループ名の構文と、共有Mermaid内部の二重スクロールをページ側で補正し、左右端への到達を検証。
+- 237件のRedテストを先行コミットし、CSS・図・16本文カテゴリー・目次・ページ構成・登録・原本移動・補正を個別コミット。目次全14見出しの追従・開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本は`archive/html-archive/iso/Iso-iec-5338-guide.html`と`archive/md-archive/iso/Iso-iec-5338-guide.md`へ同名で移動。SHA-256一致・Git追跡・rename検出100%を確認。
+- npm経由で対象237件・関連503件・全体8725件（169ファイル）、ビルド・サーバー不要のChromium28件（4幅×CSS2読込順＋2幅×10図）、lint・対象型検査が成功。全体型検査には既存テスト等のエラーが残るが変更範囲にはエラーなし。ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-30: ISO/IEC 30130:2016 テストツール能力ガイドの移行
+
+- `app/iso-30130-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリーで`/iso-30130-guide`へ移行し、ISOカテゴリーとE2E一覧を114ルートへ同期。
+- 43見出し・目次13リンク・24表の全セル・7図・注記8件・外部リンク20件・ヒーロー・フッター・全本文を固定インベントリで照合。原本のコードブロックは0件。
+- CSS全57ルールと900px境界を保持。共有CSSによるフォント・表・リスト・注記・目次への干渉を補正。
+- Red先行後、CSS・図・目次・15本文カテゴリー・ページ構成・登録・アーカイブを個別コミット。対象212件、目次の開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本HTML・MDは`archive/html-archive/iso/Iso-30130-guide.html`と`archive/md-archive/iso/Iso-30130-guide.md`へ移動。SHA-256一致とGitのrename検出100%を確認。
+- npm経由で対象212件・関連474件・全体8482件（167ファイル）、ChromiumのCSS比較8件と図描画7件、lint・対象型検査・Markdown lintが成功。ビルド未実施。目視確認はユーザー担当。
+
 ## 2026-10-29: ISO 27799:2025 医療情報セキュリティガイドの移行
 
 - 移行先は`/iso-27799-2025-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を113ルートへ同期。
@@ -112,14 +137,15 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 165 ファイル・8263 tests)
+bun test             # ユニットテスト (bun test 全体, 169 ファイル・8725 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 113 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 115 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -523,7 +549,7 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/page.tsx` — 元HTMLの全5章・試験概要・ロードマップ・参考資料を既存画面と併存する新規ルートへ移行
 - `app/istqb-ct-genai-study-guide/istqb-ct-genai-study-guide.css` — 全55CSSルール・白背景と青の配色・880pxモバイル境界を保持し、共有スタイルをページ内でリセット
 - `app/istqb-ct-genai-study-guide/NavBar.tsx` — 目次25リンク、開閉・Escape・スクロール追従・IntersectionObserver解除
-- `playwright.mermaid-css.config.ts` / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
+- `playwright.layout.config.ts`（`--project=mermaid-css`） / `e2e/ct-genai-study-mermaid-css.e2e.ts` — サーバー・ビルド不要のChromium座標検証（4画面幅×3図幅、両端到達性と小図の中央寄せ）
 - `e2e/ctal-tae-code-layout.e2e.ts` — 第7・8章の13コードをSWC経由で描画し、改行・字下げ・横スクロールを検証。`CTAL_CODE_ORIGIN`指定時は起動済みNext.jsの実ページ4ケースも検証
 - `e2e/quality-is-free-layout.e2e.ts` / `tests/helpers/source-module.ts` — SWC出力と原本の実スタイル比較、実SVG検証、任意の起動済みNext.js操作検証
 - `app/istqb-ct-genai-study-guide/diagrams.ts` — 元配色・ノード・接続を保持するMermaid図13件
@@ -559,7 +585,7 @@ Next.js App Router 構成:
 - `app/iec-62304-beginner-guide/page.tsx` — 22セクションの組み立て・metadata・800ウェイト
 - `app/iec-62304-beginner-guide/toc.ts` — 全50リンクの原本順序
 - `tests/iec-62304-beginner-guide/page.test.tsx` / `integration.test.ts` — 原本全量・操作・CSS・登録・原本ハッシュの351件
-- `e2e/iec-62304-layout.e2e.ts` / `playwright.iec-62304.config.ts` — ビルド/サーバー不要の実スタイル比較・実SVGの80件
+- `e2e/iec-62304-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iec-62304`） — ビルド/サーバー不要の実スタイル比較・実SVGの80件
 - `app/quality-is-free-guide/ChapterDiagram.tsx` — Quality Is Free、原本カードと共有Mermaidの接続
 - `app/quality-is-free-guide/NavBar.tsx` — Quality Is Free、15目次リンク・開閉・追従・サーバー本文のchildrenスロット
 - `app/quality-is-free-guide/Section00.tsx` — Quality Is Free、カテゴリー別の原本本文
@@ -969,6 +995,8 @@ bun test        # ユニットテスト成功
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
 | `Iso-19770-5-guide.html` | `/iso-19770-5-guide` | ✅ ダーク配色・30見出し・目次29リンク・19表・9図・8注記・外部18リンク・チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
 ### 未移行（プロジェクトルートに残存）
@@ -994,7 +1022,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 113 ルート（ガイドライブラリ index + 112 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 115 ルート（ガイドライブラリ index + 114 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
@@ -1023,7 +1051,7 @@ bun test        # ユニットテスト成功
 - 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
 - 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
 
@@ -1035,7 +1063,7 @@ bun test        # ユニットテスト成功
 
 - 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-20: CTAL-TAE第8章 継続的改善の移行
 
@@ -1098,7 +1126,7 @@ bun test        # ユニットテスト成功
 - `app/iso-9075-1-guide/CodeExample.tsx` — SQLの構文色と改行
 - `app/iso-9075-1-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の9図
 - `tests/iso-9075-1-guide/page.test.tsx` / `integration.test.ts` — 225件の原本・登録・アーカイブ契約
-- `e2e/iso-9075-layout.e2e.ts` / `playwright.iso-9075.config.ts` — ビルド・サーバー不要の44件
+- `e2e/iso-9075-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-9075`） — ビルド・サーバー不要の44件
 
 ## 2026-10-22: ISO/IEC 11179-1:2023メタデータレジストリガイドの移行
 
@@ -1121,7 +1149,7 @@ bun test        # ユニットテスト成功
 - `app/iso-11179-1-2023-guide/CodeExample.tsx` — 原本のYAML構文色と改行
 - `app/iso-11179-1-2023-guide/Diagram.tsx` / `diagrams.ts` — 原本由来の14図
 - `tests/iso-11179-1-2023-guide/page.test.tsx` / `integration.test.ts` — 328件の原本・操作・登録・アーカイブ契約
-- `e2e/iso-11179-layout.e2e.ts` / `playwright.iso-11179.config.ts` — ビルド・サーバー不要の64件
+- `e2e/iso-11179-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-11179`） — ビルド・サーバー不要の64件
 
 ## 2026-10-23: ホームとグローバルメニュー
 

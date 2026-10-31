@@ -4,6 +4,25 @@ Updated 2026-10-30
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-10-30: ISO/IEC 5338:2023 AIライフサイクルガイドの移行
+
+- `app/iso-iec-5338-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・16本文カテゴリーで`/iso-iec-5338-guide`へ移行し、ISOカテゴリーとE2E一覧を115ルートへ同期。
+- 46見出し・目次14リンク・23表の全セル・10図・8注記・19外部リンク・理解度チェックの解答・ヒーロー・フッター・全本文を固定インベントリで順序と構造まで照合。コードブロックは原本どおり0件。
+- CSS全67ルールと960px境界を保持。共有・残留CSSによる見出し書体、ヒーロー文字グラデーション・中央寄せ、リスト色、強調、表、フッター、装飾疑似要素への干渉を補正。
+- 図はHTML内SVGから全ノード・形状・グループ所属・接続・辺ラベル改行・配色を復元。空グループ名の構文と、共有Mermaid内部の二重スクロールをページ側で補正し、左右端への到達を検証。
+- 237件のRedテストを先行コミットし、CSS・図・16本文カテゴリー・目次・ページ構成・登録・原本移動・補正を個別コミット。目次全14見出しの追従・開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本は`archive/html-archive/iso/Iso-iec-5338-guide.html`と`archive/md-archive/iso/Iso-iec-5338-guide.md`へ同名で移動。SHA-256一致・Git追跡・rename検出100%を確認。
+- npm経由で対象237件・関連503件・全体8725件（169ファイル）、ビルド・サーバー不要のChromium28件（4幅×CSS2読込順＋2幅×10図）、lint・対象型検査が成功。全体型検査には既存テスト等のエラーが残るが変更範囲にはエラーなし。ビルド未実施、目視確認はユーザー担当。
+
+## 2026-10-30: ISO/IEC 30130:2016 テストツール能力ガイドの移行
+
+- `app/iso-30130-guide/page.tsx`・専用CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリーで`/iso-30130-guide`へ移行し、ISOカテゴリーとE2E一覧を114ルートへ同期。
+- 43見出し・目次13リンク・24表の全セル・7図・注記8件・外部リンク20件・ヒーロー・フッター・全本文を固定インベントリで照合。原本のコードブロックは0件。
+- CSS全57ルールと900px境界を保持。共有CSSによるフォント・表・リスト・注記・目次への干渉を補正。
+- Red先行後、CSS・図・目次・15本文カテゴリー・ページ構成・登録・アーカイブを個別コミット。対象212件、目次の開閉・Escape・フォーカス復帰・Observer解除、SWC開発/本番変換後の全文DOMを検証。
+- 原本HTML・MDは`archive/html-archive/iso/Iso-30130-guide.html`と`archive/md-archive/iso/Iso-30130-guide.md`へ移動。SHA-256一致とGitのrename検出100%を確認。
+- npm経由で対象212件・関連474件・全体8482件（167ファイル）、ChromiumのCSS比較8件と図描画7件、lint・対象型検査・Markdown lintが成功。ビルド未実施。目視確認はユーザー担当。
+
 ## 2026-10-29: ISO 27799:2025 医療情報セキュリティガイドの移行
 
 - 移行先は`/iso-27799-2025-guide`。ISOカテゴリーへ追加し、ナビゲーション・E2E一覧を113ルートへ同期。
@@ -295,7 +314,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/iso-9075-1-guide/page.tsx` (ISO/IEC 9075-1 SQL/Framework ガイド、ダーク配色・目次34リンク・9図・19表・SQLコード3例。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成)
 - `app/iso-11179-1-2023-guide/page.tsx` (ISO/IEC 11179-1:2023 メタデータレジストリガイド、ダーク配色・目次57リンク・14図・32表・YAMLコード1例・チェック6項目。`NavBar.tsx`・`toc.ts`・`Checklist.tsx`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成)
 
-CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集約し、内側`.mermaid-wrapper`を`display: block; overflow: visible`にする。広いSVGの中央寄せによる負のスクロール原点を防止する。`bunx playwright test --config playwright.mermaid-css.config.ts`でビルドなしのCSS座標検証を実行できる。
+CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集約し、内側`.mermaid-wrapper`を`display: block; overflow: visible`にする。広いSVGの中央寄せによる負のスクロール原点を防止する。`bunx playwright test --config=playwright.layout.config.ts --project=mermaid-css`でビルドなしのCSS座標検証を実行できる。
 
 ## HTML → Next.js 移行 注意事項
 
@@ -474,6 +493,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
+| `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
 ### ISTQB CTAL-TAE 第4章「Implementing Test Automation（テスト自動化の実装）」の追加移行（2026-10-16）
@@ -543,9 +564,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 113 ルート（ガイドライブラリ index + 112 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 115 ルート（ガイドライブラリ index + 114 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 8263件（npm経由の全体テスト・165ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近 8725件（npm経由の全体テスト・169ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
@@ -587,7 +608,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - 原因: ページのライト設定は共通Mermaidの`themeVariables`とマージされるため、`primaryColor`だけでは共通の`mainBkg: #0f2040`が残る。文字色`#1c2536`とのコントラストは約1.05となり判読困難だった。
 - 対応: 第7章のページ設定に`mainBkg: #eaf0ff`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch7-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・ページCSSを組み合わせ、390px／1440pxの全11図を検査。背景色と実際の文字を描くSVG／HTML要素のコントラスト比4.5以上を確認。シーケンス図は親`text`と子`tspan`の描画色を区別する。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証34件（第7章22件＋既存レイアウト12件）、関連ユニット555件、lintが成功。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-17: CTAL-TAE第7章 チェックリストとコード表示の改善
 
@@ -599,7 +620,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 
 - 対応: 第6章のページ設定に`mainBkg: #dbeafe`を追加。共通コンポーネントと図の内容は変更しない。
 - 回帰検証: `e2e/ctal-tae-ch6-mermaid-colors.e2e.ts`で共通の初期設定・実Mermaid・CSSを組み合わせ、ページCSSあり／初期設定のみの2バリアント×390px／1440px×全11図の44ケースを検査。classDefのないノードは`#dbeafe`、classDefのあるノードは原本の塗り色を保ち、文字のコントラスト比4.5以上を確認。
-- 結果: `playwright.mermaid-css.config.ts`によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
+- 結果: `playwright.layout.config.ts`（`--project=mermaid-css`）によるビルド・サーバー不要のブラウザ検証で、Playwrightテストケース84件（第6章44件＋第7章22件＋第7章学習UI 6件＋既存レイアウト12件）が成功。第7章学習UIはテストケース6件で対象項目40件（コード例28件＋チェックリスト12件）を検証。ページ全体の目視確認と本番ビルドは未実施。
 
 ## 2026-10-20: CTAL-TAE第8章 継続的改善の移行
 

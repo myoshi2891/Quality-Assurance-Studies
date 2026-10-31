@@ -1,0 +1,6 @@
+{
+  // next build 専用。Bun のユニットテスト（tests/）はアプリに含まれないため型検査対象から外す。
+  // エディター・tsc の通常検査は tsconfig.json（tests/ を含む）を引き続き使う。
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "tests"]
+}
