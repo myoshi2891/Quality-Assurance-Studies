@@ -172,18 +172,20 @@ export default function NavBar() {
 
       const scrollPosition = window.scrollY + 100;
 
+      // 該当なし（最初の見出しより上）の場合も空文字で更新し、前回のアクティブ表示を残さない
+      let currentId = '';
       for (let i = allIds.length - 1; i >= 0; i--) {
         const id = allIds[i];
         if (!id) continue;
         const el = document.getElementById(id);
-        if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY;
-          if (scrollPosition >= top) {
-            setActiveId(id);
-            break;
-          }
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (scrollPosition >= top) {
+          currentId = id;
+          break;
         }
       }
+      setActiveId(currentId);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

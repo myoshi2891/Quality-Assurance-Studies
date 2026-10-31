@@ -19,7 +19,7 @@ export default function Hero() {
           <dd>2022年1月（第2版）</dd>
         </div>
         <div>
-          <dt>適用範囲</dt>
+          <dt>位置付け</dt>
           <dd>情報提供（informative）</dd>
         </div>
         <div>
