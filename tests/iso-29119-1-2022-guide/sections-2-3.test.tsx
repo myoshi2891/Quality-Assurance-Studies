@@ -21,10 +21,10 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 4 (STEP 2 & STEP 3)', () => {
       expect(table).not.toBeNull();
       const rows = Array.from(table?.querySelectorAll('tbody tr') || []);
       expect(rows.length).toBe(8);
-      expect(rows[0].textContent).toContain('Concepts and definitions');
-      expect(rows[0].textContent).toContain('General concepts');
-      expect(rows[2].textContent).toContain('テストサブプロセス');
-      expect(rows[7].textContent).toContain('附属書A');
+      expect(rows[0]?.textContent).toContain('Concepts and definitions');
+      expect(rows[0]?.textContent).toContain('General concepts');
+      expect(rows[2]?.textContent).toContain('テストサブプロセス');
+      expect(rows[7]?.textContent).toContain('附属書A');
     });
 
     it('renders DIAGRAM_03 container', () => {
@@ -57,11 +57,11 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 4 (STEP 2 & STEP 3)', () => {
       expect(table).not.toBeNull();
       const rows = Array.from(table?.querySelectorAll('tbody tr') || []);
       expect(rows.length).toBe(10);
-      expect(rows[0].textContent).toContain('1 適用範囲');
-      expect(rows[1].textContent).toContain('2 規範的参照');
-      expect(rows[2].textContent).toContain('3 用語と定義');
-      expect(rows[8].textContent).toContain('附属書A');
-      expect(rows[9].textContent).toContain('附属書B');
+      expect(rows[0]?.textContent).toContain('1 適用範囲');
+      expect(rows[1]?.textContent).toContain('2 規範的参照');
+      expect(rows[2]?.textContent).toContain('3 用語と定義');
+      expect(rows[8]?.textContent).toContain('附属書A');
+      expect(rows[9]?.textContent).toContain('附属書B');
     });
 
     it('renders DIAGRAM_04 and note callout', () => {
@@ -76,3 +76,4 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 4 (STEP 2 & STEP 3)', () => {
     });
   });
 });
+

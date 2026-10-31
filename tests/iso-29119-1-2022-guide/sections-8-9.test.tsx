@@ -25,9 +25,9 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 9 (STEP 8 & STEP 9)', () => {
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(2);
 
-      expect(tables[0].textContent).toContain('4.5');
-      expect(tables[0].textContent).toContain('プロジェクト管理');
-      expect(tables[1].textContent).toContain('再現手順');
+      expect(tables[0]?.textContent).toContain('4.5');
+      expect(tables[0]?.textContent).toContain('プロジェクト管理');
+      expect(tables[1]?.textContent).toContain('再現手順');
 
       const mmd = container.querySelector('.mermaid-diagram#mmd16');
       expect(mmd).not.toBeNull();
@@ -59,9 +59,9 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 9 (STEP 8 & STEP 9)', () => {
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(3);
 
-      expect(tables[0].textContent).toContain('人工知能（AI）');
-      expect(tables[1].textContent).toContain('神経網');
-      expect(tables[2].textContent).toContain('責任の明確化');
+      expect(tables[0]?.textContent).toContain('人工知能（AI）');
+      expect(tables[1]?.textContent).toContain('神経網');
+      expect(tables[2]?.textContent).toContain('責任の明確化');
     });
 
     it('renders DIAGRAM_17 container and callout', () => {

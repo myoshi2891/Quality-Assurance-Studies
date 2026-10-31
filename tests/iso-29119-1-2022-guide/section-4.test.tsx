@@ -30,18 +30,18 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 5 (Section 4 - STEP 4)', () => {
     expect(tables.length).toBe(2);
 
     // Table 1: 10 concepts
-    const t1Rows = Array.from(tables[0].querySelectorAll('tbody tr'));
+    const t1Rows = Array.from(tables[0]?.querySelectorAll('tbody tr') || []);
     expect(t1Rows.length).toBe(10);
-    expect(t1Rows[0].textContent).toContain('4.1.2');
-    expect(t1Rows[0].textContent).toContain('品質マネジメント');
-    expect(t1Rows[9].textContent).toContain('4.1.11');
-    expect(t1Rows[9].textContent).toContain('テスト独立性');
+    expect(t1Rows[0]?.textContent).toContain('4.1.2');
+    expect(t1Rows[0]?.textContent).toContain('品質マネジメント');
+    expect(t1Rows[9]?.textContent).toContain('4.1.11');
+    expect(t1Rows[9]?.textContent).toContain('テスト独立性');
 
     // Table 2: Exhaustive testing calculation
-    const t2Rows = Array.from(tables[1].querySelectorAll('tbody tr'));
+    const t2Rows = Array.from(tables[1]?.querySelectorAll('tbody tr') || []);
     expect(t2Rows.length).toBe(4);
-    expect(t2Rows[1].textContent).toContain('2の64乗');
-    expect(t2Rows[3].textContent).toContain('約 585 年');
+    expect(t2Rows[1]?.textContent).toContain('2の64乗');
+    expect(t2Rows[3]?.textContent).toContain('約 585 年');
   });
 
   it('renders DIAGRAM_05 and DIAGRAM_06 containers and note callout', () => {
@@ -57,3 +57,4 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 5 (Section 4 - STEP 4)', () => {
     expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe('補足');
   });
 });
+

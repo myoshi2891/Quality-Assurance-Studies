@@ -213,6 +213,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 2 (Hero, Footer, NavBar)', () => {
 
       NAV_DATA.forEach((sec, i) => {
         const topLi = topLis[i];
+        expect(topLi).toBeDefined();
+        if (!topLi) return;
         const topA = topLi.querySelector(':scope > a');
         expect(topA?.getAttribute('href')).toBe(sec.href);
         expect(topA?.textContent?.replace(/\s+/g, ' ').trim()).toBe(sec.text);
@@ -220,8 +222,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 2 (Hero, Footer, NavBar)', () => {
         const subAs = Array.from(topLi.querySelectorAll(':scope > ul.sub > li > a'));
         expect(subAs.length).toBe(sec.subLinks.length);
         sec.subLinks.forEach((sub, j) => {
-          expect(subAs[j].getAttribute('href')).toBe(sub.href);
-          expect(subAs[j].textContent?.replace(/\s+/g, ' ').trim()).toBe(sub.text);
+          expect(subAs[j]?.getAttribute('href')).toBe(sub.href);
+          expect(subAs[j]?.textContent?.replace(/\s+/g, ' ').trim()).toBe(sub.text);
         });
       });
     });

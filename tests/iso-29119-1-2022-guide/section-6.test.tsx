@@ -32,28 +32,28 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 7 (Section 6 - STEP 6)', () => {
     expect(tables.length).toBe(4);
 
     // Table 1: 3-tier model
-    const t1Rows = Array.from(tables[0].querySelectorAll('tbody tr'));
+    const t1Rows = Array.from(tables[0]?.querySelectorAll('tbody tr') || []);
     expect(t1Rows.length).toBe(3);
-    expect(t1Rows[0].textContent).toContain('組織レベル');
-    expect(t1Rows[1].textContent).toContain('テスト管理レベル');
-    expect(t1Rows[2].textContent).toContain('動的テストレベル');
+    expect(t1Rows[0]?.textContent).toContain('組織レベル');
+    expect(t1Rows[1]?.textContent).toContain('テスト管理レベル');
+    expect(t1Rows[2]?.textContent).toContain('動的テストレベル');
 
     // Table 2: 3 levels of documents
-    const t2Rows = Array.from(tables[1].querySelectorAll('tbody tr'));
+    const t2Rows = Array.from(tables[1]?.querySelectorAll('tbody tr') || []);
     expect(t2Rows.length).toBe(3);
-    expect(t2Rows[0].textContent).toContain('テストポリシー');
+    expect(t2Rows[0]?.textContent).toContain('テストポリシー');
 
     // Table 3: 4.3 other items
-    const t3Rows = Array.from(tables[2].querySelectorAll('tbody tr'));
+    const t3Rows = Array.from(tables[2]?.querySelectorAll('tbody tr') || []);
     expect(t3Rows.length).toBe(5);
-    expect(t3Rows[0].textContent).toContain('4.3.3');
-    expect(t3Rows[4].textContent).toContain('4.3.7');
+    expect(t3Rows[0]?.textContent).toContain('4.3.3');
+    expect(t3Rows[4]?.textContent).toContain('4.3.7');
 
     // Table 4: Metrics example
-    const t4Rows = Array.from(tables[3].querySelectorAll('tbody tr'));
+    const t4Rows = Array.from(tables[3]?.querySelectorAll('tbody tr') || []);
     expect(t4Rows.length).toBe(4);
-    expect(t4Rows[0].textContent).toContain('進捗');
-    expect(t4Rows[3].textContent).toContain('カバレッジ');
+    expect(t4Rows[0]?.textContent).toContain('進捗');
+    expect(t4Rows[3]?.textContent).toContain('カバレッジ');
   });
 
   it('renders DIAGRAM_09 and DIAGRAM_10 and 2 callouts', () => {
@@ -73,3 +73,4 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 7 (Section 6 - STEP 6)', () => {
     expect(calloutWarn?.querySelector('.callout-title')?.textContent?.trim()).toBe('注意');
   });
 });
+

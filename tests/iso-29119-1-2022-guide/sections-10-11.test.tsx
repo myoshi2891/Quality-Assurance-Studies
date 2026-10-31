@@ -26,10 +26,10 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 10 (STEP 10 & STEP 11)', () => {
 
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(2);
-      expect(tables[0].textContent).toContain('場面');
-      expect(tables[0].textContent).toContain('活かし方');
-      expect(tables[1].textContent).toContain('テストアプローチ表');
-      expect(tables[1].textContent).toContain('用語の統一');
+      expect(tables[0]?.textContent).toContain('場面');
+      expect(tables[0]?.textContent).toContain('活かし方');
+      expect(tables[1]?.textContent).toContain('テストアプローチ表');
+      expect(tables[1]?.textContent).toContain('用語の統一');
     });
   });
 
@@ -51,8 +51,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 10 (STEP 10 & STEP 11)', () => {
       const { container } = render(<Section11 />);
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(2);
-      expect(tables[0].textContent).toContain('コンテキスト駆動テスト');
-      expect(tables[1].textContent).toContain('探索的テスト');
+      expect(tables[0]?.textContent).toContain('コンテキスト駆動テスト');
+      expect(tables[1]?.textContent).toContain('探索的テスト');
       expect(container.textContent).toContain('ISTQB');
 
       const callout = container.querySelector('.callout.callout-warn');

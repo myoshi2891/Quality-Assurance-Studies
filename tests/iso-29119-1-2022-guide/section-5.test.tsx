@@ -34,27 +34,27 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 6 (Section 5 - STEP 5)', () => {
     expect(tables.length).toBe(4);
 
     // Table 1: 2 risks
-    const t1Rows = Array.from(tables[0].querySelectorAll('tbody tr'));
+    const t1Rows = Array.from(tables[0]?.querySelectorAll('tbody tr') || []);
     expect(t1Rows.length).toBe(2);
-    expect(t1Rows[0].textContent).toContain('プロダクトリスク');
-    expect(t1Rows[1].textContent).toContain('プロジェクトリスク');
+    expect(t1Rows[0]?.textContent).toContain('プロダクトリスク');
+    expect(t1Rows[1]?.textContent).toContain('プロジェクトリスク');
 
     // Table 2: Risk analysis example
-    const t2Rows = Array.from(tables[1].querySelectorAll('tbody tr'));
+    const t2Rows = Array.from(tables[1]?.querySelectorAll('tbody tr') || []);
     expect(t2Rows.length).toBe(4);
-    expect(t2Rows[0].textContent).toContain('決済処理');
-    expect(t2Rows[0].textContent).toContain('高');
+    expect(t2Rows[0]?.textContent).toContain('決済処理');
+    expect(t2Rows[0]?.textContent).toContain('高');
 
     // Table 3: Strategy vs Plan
-    const t3Rows = Array.from(tables[2].querySelectorAll('tbody tr'));
+    const t3Rows = Array.from(tables[2]?.querySelectorAll('tbody tr') || []);
     expect(t3Rows.length).toBe(3);
-    expect(t3Rows[0].textContent).toContain('主な問い');
+    expect(t3Rows[0]?.textContent).toContain('主な問い');
 
     // Table 4: Remaining 2 items
-    const t4Rows = Array.from(tables[3].querySelectorAll('tbody tr'));
+    const t4Rows = Array.from(tables[3]?.querySelectorAll('tbody tr') || []);
     expect(t4Rows.length).toBe(2);
-    expect(t4Rows[0].textContent).toContain('4.2.5');
-    expect(t4Rows[1].textContent).toContain('4.2.6');
+    expect(t4Rows[0]?.textContent).toContain('4.2.5');
+    expect(t4Rows[1]?.textContent).toContain('4.2.6');
   });
 
   it('renders DIAGRAM_07 and DIAGRAM_08 and note callout', () => {
@@ -70,3 +70,4 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 6 (Section 5 - STEP 5)', () => {
     expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe('ポイント');
   });
 });
+

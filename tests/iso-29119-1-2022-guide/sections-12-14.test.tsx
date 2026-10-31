@@ -20,8 +20,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 11 (STEP 12, Glossary, Sources)', (
 
       const lis = Array.from(container.querySelectorAll('ol li'));
       expect(lis.length).toBe(20);
-      expect(lis[0].textContent).toContain('ISO/IEC/IEEE 29119-1:2022');
-      expect(lis[10].textContent).toContain('情報提供（informative）');
+      expect(lis[0]?.textContent).toContain('ISO/IEC/IEEE 29119-1:2022');
+      expect(lis[10]?.textContent).toContain('情報提供（informative）');
     });
   });
 
@@ -35,8 +35,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 11 (STEP 12, Glossary, Sources)', (
       expect(table).not.toBeNull();
       const rows = Array.from(table?.querySelectorAll('tbody tr') || []);
       expect(rows.length).toBe(24);
-      expect(rows[0].textContent).toContain('A/Bテスト');
-      expect(rows[23].textContent).toContain('テストプラクティス');
+      expect(rows[0]?.textContent).toContain('A/Bテスト');
+      expect(rows[23]?.textContent).toContain('テストプラクティス');
     });
   });
 

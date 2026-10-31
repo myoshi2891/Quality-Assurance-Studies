@@ -38,8 +38,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 3 (STEP 0 & STEP 1)', () => {
       expect(table).not.toBeNull();
       const rows = Array.from(table?.querySelectorAll('tbody tr') || []);
       expect(rows.length).toBe(7);
-      expect(rows[0].textContent).toContain('規格本文の入手性');
-      expect(rows[0].textContent).toContain('無償提供');
+      expect(rows[0]?.textContent).toContain('規格本文の入手性');
+      expect(rows[0]?.textContent).toContain('無償提供');
     });
 
     it('renders practice callout', () => {
@@ -81,19 +81,19 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 3 (STEP 0 & STEP 1)', () => {
       expect(tables.length).toBe(3);
 
       // Table 1: Basic info
-      const t1Rows = Array.from(tables[0].querySelectorAll('tbody tr'));
+      const t1Rows = Array.from(tables[0]?.querySelectorAll('tbody tr') || []);
       expect(t1Rows.length).toBe(11);
-      expect(t1Rows[0].textContent).toContain('ISO/IEC/IEEE 29119-1:2022');
+      expect(t1Rows[0]?.textContent).toContain('ISO/IEC/IEEE 29119-1:2022');
 
       // Table 2: 29119 series
-      const t2Rows = Array.from(tables[1].querySelectorAll('tbody tr'));
+      const t2Rows = Array.from(tables[1]?.querySelectorAll('tbody tr') || []);
       expect(t2Rows.length).toBe(6);
-      expect(t2Rows[0].textContent).toContain('Part 1');
+      expect(t2Rows[0]?.textContent).toContain('Part 1');
 
       // Table 3: Related standards
-      const t3Rows = Array.from(tables[2].querySelectorAll('tbody tr'));
+      const t3Rows = Array.from(tables[2]?.querySelectorAll('tbody tr') || []);
       expect(t3Rows.length).toBe(4);
-      expect(t3Rows[0].textContent).toContain('12207 / 15288');
+      expect(t3Rows[0]?.textContent).toContain('12207 / 15288');
     });
 
     it('renders warn callout', () => {

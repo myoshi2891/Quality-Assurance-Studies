@@ -9,9 +9,9 @@ describe('ISO/IEC/IEEE 29119-1:2022 Foundation (CSS & Diagrams)', () => {
       expect(diagrams.MERMAID_CONFIG).toBeDefined();
       const jsonMatch = diagrams.MERMAID_CONFIG.match(/%%\{init:\s*(\{[\s\S]*?\})\s*\}%%/);
       expect(jsonMatch).not.toBeNull();
-      if (jsonMatch) {
+      if (jsonMatch && jsonMatch[1]) {
         expect(jsonMatch[1]).not.toContain("'");
-        expect(() => JSON.parse(jsonMatch[1])).not.toThrow();
+        expect(() => JSON.parse(jsonMatch[1]!)).not.toThrow();
       }
     });
 
