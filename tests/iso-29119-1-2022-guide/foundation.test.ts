@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import * as diagrams from '@/app/iso-29119-1-2022-guide/diagrams';
+import * as diagrams from '../../app/iso-29119-1-2022-guide/diagrams';
 import fs from 'fs';
 import path from 'path';
 
