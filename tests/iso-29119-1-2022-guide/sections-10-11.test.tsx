@@ -26,8 +26,10 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 10 (STEP 10 & STEP 11)', () => {
 
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(2);
-      expect(tables[0].textContent).toContain('手順1');
-      expect(tables[1].textContent).toContain('用語を揃える');
+      expect(tables[0].textContent).toContain('場面');
+      expect(tables[0].textContent).toContain('活かし方');
+      expect(tables[1].textContent).toContain('テストアプローチ表');
+      expect(tables[1].textContent).toContain('用語の統一');
     });
   });
 
@@ -45,16 +47,17 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 10 (STEP 10 & STEP 11)', () => {
       ]);
     });
 
-    it('renders 2 tables covering controversy and ISTQB relation, and note callout', () => {
+    it('renders 2 tables covering controversy and 2022 edition points, and warn callout', () => {
       const { container } = render(<Section11 />);
       const tables = Array.from(container.querySelectorAll('.table-scroll table'));
       expect(tables.length).toBe(2);
       expect(tables[0].textContent).toContain('コンテキスト駆動テスト');
-      expect(tables[1].textContent).toContain('ISTQB');
+      expect(tables[1].textContent).toContain('探索的テスト');
+      expect(container.textContent).toContain('ISTQB');
 
-      const callout = container.querySelector('.callout.callout-note');
+      const callout = container.querySelector('.callout.callout-warn');
       expect(callout).not.toBeNull();
-      expect(callout?.textContent).toContain('教条主義');
+      expect(callout?.querySelector('.callout-title')?.textContent?.trim()).toBe('重要');
     });
   });
 });
