@@ -2,7 +2,7 @@ import { describe, it, expect, afterEach } from 'bun:test';
 import React from 'react';
 import fs from 'fs';
 import path from 'path';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, within } from '@testing-library/react';
 import NavBar from '../../app/iso-29119-1-2022-guide/NavBar';
 import Section8 from '../../app/iso-29119-1-2022-guide/Section8';
 import Section9 from '../../app/iso-29119-1-2022-guide/Section9';
@@ -24,7 +24,8 @@ describe('ISO 29119-1 review fixes: accessibility & heading separators', () => {
   describe('NavBar toggle disclosure state', () => {
     it('exposes aria-expanded bound to open state and aria-controls="sidebar"', () => {
       // Arrange
-      const { getByRole } = render(<NavBar />);
+      const { container } = render(<NavBar />);
+      const { getByRole } = within(container);
       const toggle = getByRole('button', { name: '目次の表示切替' });
 
       // Assert（初期状態）

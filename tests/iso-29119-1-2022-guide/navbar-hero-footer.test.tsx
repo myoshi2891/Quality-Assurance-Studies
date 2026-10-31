@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'bun:test';
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, within } from '@testing-library/react';
 import Hero from '../../app/iso-29119-1-2022-guide/Hero';
 import Footer from '../../app/iso-29119-1-2022-guide/Footer';
 import NavBar from '../../app/iso-29119-1-2022-guide/NavBar';
@@ -195,13 +195,15 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 2 (Hero, Footer, NavBar)', () => {
 
   describe('NavBar Component', () => {
     it('renders navigation landmark with aria-label="目次"', () => {
-      const { getByRole } = render(<NavBar />);
+      const { container } = render(<NavBar />);
+      const { getByRole } = within(container);
       const nav = getByRole('navigation', { name: '目次' });
       expect(nav).toBeDefined();
     });
 
     it('renders mobile nav-toggle button', () => {
-      const { getByRole } = render(<NavBar />);
+      const { container } = render(<NavBar />);
+      const { getByRole } = within(container);
       const toggle = getByRole('button', { name: '目次の表示切替' });
       expect(toggle).toBeDefined();
     });
