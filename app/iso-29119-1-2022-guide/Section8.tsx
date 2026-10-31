@@ -52,11 +52,14 @@ export default function Section8() {
                     <p>
                         以下は一般的な運用例の図解であり、規格が定める必須の状態遷移ではありません。
                     </p>
-                    <div aria-label="図解16" className="mermaid-diagram" id="mmd16" role="img">
-                        
+                    <div aria-label="図解16" aria-describedby="mmd16-desc" className="mermaid-diagram" id="mmd16" role="img">
+
 <Mermaid chart={DIAGRAM_16} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd16-desc">
+                        検出から報告、分析、修正、再テストを経てクローズに至るライフサイクル。再テストで未解決の場合は修正に戻る。
+                    </p>
                     <h3 id="8-4-良いインシデント報告の項目学習用チェックリスト">
                         8-4. 良いインシデント報告の項目（学習用チェックリスト）
                     </h3>

@@ -205,6 +205,8 @@ export default function NavBar() {
         className="nav-toggle"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="目次の表示切替"
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
       >
         {isOpen ? '✕ 閉じる' : '☰ 目次'}
       </button>

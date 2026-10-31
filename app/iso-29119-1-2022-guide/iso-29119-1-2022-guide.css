@@ -105,6 +105,19 @@ main.iso-29119-1-page {
     text-decoration: underline;
 }
 
+/* 図解の説明文など、支援技術向けにのみ提供するテキスト */
+.iso-29119-1-page .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
 .iso-29119-1-page :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -317,7 +330,8 @@ main.iso-29119-1-page {
     scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)) !important;
 }
 
-.iso-29119-1-page .content h2:first-child {
+/* 各 STEP の h2 は自セクションの先頭子要素なので、区切り線の解除は最初のセクションに限定する */
+.iso-29119-1-page .content > section:first-child > h2:first-child {
     margin-top: 28px;
     border-top: 0;
     padding-top: 0;

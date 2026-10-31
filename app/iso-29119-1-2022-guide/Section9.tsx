@@ -152,11 +152,14 @@ export default function Section9() {
                     <h3 id="9-2-システム特性から戦略を考える流れ">
                         9-2. システム特性から戦略を考える流れ
                     </h3>
-                    <div aria-label="図解17" className="mermaid-diagram" id="mmd17" role="img">
-                        
+                    <div aria-label="図解17" aria-describedby="mmd17-desc" className="mermaid-diagram" id="mmd17" role="img">
+
 <Mermaid chart={DIAGRAM_17} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd17-desc">
+                        附属書Aの13特性と照合して該当する特性を特定し、専門的なテスト手法を確認、リスクに照らして戦略へ反映する。
+                    </p>
                     <h3 id="9-3-附属書bテストの役割">9-3. 附属書B：テストの役割</h3>
                     <p>
                         附属書B（参考）は、<strong>汎用的なテストの役割とその責任の概要</strong>を紹介します。組織では「役職名」ではなく「役割」でテスト活動を捉えると、小規模チームやアジャイル開発でも責務の整理に役立ちます。

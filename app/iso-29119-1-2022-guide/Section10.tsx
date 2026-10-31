@@ -7,11 +7,14 @@ export default function Section10() {
     <section>
 <h2 id="step-10実務への適用手順">STEP 10：実務への適用手順</h2>
                     <h3 id="10-1-導入ステップ">10-1. 導入ステップ</h3>
-                    <div aria-label="図解18" className="mermaid-diagram" id="mmd18" role="img">
-                        
+                    <div aria-label="図解18" aria-describedby="mmd18-desc" className="mermaid-diagram" id="mmd18" role="img">
+
 <Mermaid chart={DIAGRAM_18} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd18-desc">
+                        手順1 システム特性整理、手順2 リスク分析、手順3 テスト戦略設計、手順4 計画作成、手順5 モデル設計と実行、手順6 状況可視化、手順7 改善へのループ。
+                    </p>
                     <h3 id="10-2-現場での使い方の指針">10-2. 現場での使い方の指針</h3>
                     <div className="table-scroll">
                         <table>
