@@ -1,71 +1,103 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
-import { DIAGRAM_2 } from './diagrams';
+import { DIAGRAM_04 } from './diagrams';
 
 export default function Section3() {
   return (
-    <>
-<h2 id="3-2013年版から何が変わったかstep-3">3.
-2013年版から何が変わったか（Step 3）</h2>
-<p>まえがきに列挙されている主な変更点は次のとおりです。</p>
-<div className="table-scroll"><table aria-labelledby="3-2013年版から何が変わったかstep-3">
-<thead>
-<tr className="header">
-<th>#</th>
-<th>変更点</th>
-<th>初学者向けの意味</th>
-</tr>
-</thead>
-<tbody>
-<tr className="odd">
-<td>1</td>
-<td>他パートで扱わない用語定義を削除。<strong>タイトルを「Concepts and
-definitions」から「General concepts」へ変更</strong></td>
-<td>「用語集」から「概念の解説書」へ性格が変わった</td>
-</tr>
-<tr className="even">
-<td>2</td>
-<td>テスト概念の扱いをより簡潔にし、並べ替え</td>
-<td>読みやすく整理された</td>
-</tr>
-<tr className="odd">
-<td>3</td>
-<td><strong>テストサブプロセスの概念を削除</strong>（複雑なため）。代わりに「テストプロセスのインスタンス化」の説明を追加</td>
-<td>プロセスをプロジェクトに合わせて当てはめる考え方が中心に</td>
-</tr>
-<tr className="even">
-<td>4</td>
-<td><strong>テスト戦略に期待される内容を明確化</strong></td>
-<td>戦略に何を書くべきかが分かりやすくなった</td>
-</tr>
-<tr className="odd">
-<td>5</td>
-<td><strong>簡略化されたテスト設計プロセス</strong>。テストケースは「テスト条件」ではなく「テストモデル」から導出</td>
-<td>設計の流れがシンプルになった（8章で詳述）</td>
-</tr>
-<tr className="even">
-<td>6</td>
-<td><strong>メトリクスと測定の説明を附属書から本文へ移動</strong></td>
-<td>測定が本編の重要事項になった</td>
-</tr>
-<tr className="odd">
-<td>7</td>
-<td>ライフサイクルモデルとテストの関係を説明していた附属書を削除</td>
-<td>特定モデルに寄りすぎない方針</td>
-</tr>
-<tr className="even">
-<td>8</td>
-<td><strong>新附属書</strong>:
-各領域のシステムの特性と、関連するテストアプローチの例</td>
-<td>「この種のシステムならこのテストを検討」の手がかり</td>
-</tr>
-</tbody>
-</table></div>
-<h3 id="31-変更の流れ">3.1 変更の流れ</h3>
-<div className="mermaid-diagram" id="mermaid-2">
-  <Mermaid chart={DIAGRAM_2} />
-</div>
-<hr />
-    </>
+    <section>
+      <h2 id="step-3規格の構成を地図で把握する">STEP 3：規格の構成を地図で把握する</h2>
+      <h3 id="3-1-章立て2022年版">3-1. 章立て（2022年版）</h3>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr className="header">
+              <th>章・節</th>
+              <th>内容</th>
+              <th>本ガイドでの扱い</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="odd">
+              <td>1 適用範囲</td>
+              <td>すべての組織・開発方式・テストに適用できることを規定し、シリーズの鍵概念を示す</td>
+              <td>STEP 1</td>
+            </tr>
+            <tr className="even">
+              <td>2 規範的参照</td>
+              <td><strong>なし</strong>（規範的参照文書を持たない）</td>
+              <td>－</td>
+            </tr>
+            <tr className="odd">
+              <td>3 用語と定義</td>
+              <td>
+                A/Bテストから静的テストまでの用語（神経網・ニューロンカバレッジなどAI関連語を含む）
+              </td>
+              <td>用語集</td>
+            </tr>
+            <tr className="even">
+              <td>4.1 ソフトウェアテスト入門</td>
+              <td>
+                品質マネジメントとの関係、V&amp;V、静的/動的、網羅テスト、ヒューリスティック、テストベース、テストオラクル、独立性
+              </td>
+              <td>STEP 4</td>
+            </tr>
+            <tr className="odd">
+              <td>4.2 テスト計画とテスト戦略</td>
+              <td>
+                リスク、テストアプローチ、ライフサイクル、ドメインとシステム特性、戦略の内容
+              </td>
+              <td>STEP 5</td>
+            </tr>
+            <tr className="even">
+              <td>4.3 テストフレームワーク</td>
+              <td>
+                テストプロセス、文書、構成管理、ツール、プロセス改善、メトリクス
+              </td>
+              <td>STEP 6</td>
+            </tr>
+            <tr className="odd">
+              <td>4.4 テスト設計と実行</td>
+              <td>
+                テストモデル、MBT、スクリプト/探索、技法、経験ベース、回帰、自動化、継続的テスト、A/B、ファズ、環境、データ
+              </td>
+              <td>STEP 7</td>
+            </tr>
+            <tr className="even">
+              <td>4.5〜4.7</td>
+              <td>
+                プロジェクト管理、コミュニケーションと報告、欠陥・インシデント管理
+              </td>
+              <td>STEP 8</td>
+            </tr>
+            <tr className="odd">
+              <td>附属書A（参考）</td>
+              <td>
+                システム特性とテスト：例（AI、自律、組込み、IoT、科学技術
+                など13特性）
+              </td>
+              <td>STEP 9</td>
+            </tr>
+            <tr className="even">
+              <td>附属書B（参考）</td>
+              <td>テストの役割</td>
+              <td>STEP 9</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="3-2-構成図">3-2. 構成図</h3>
+      <div aria-label="図解4" className="mermaid-diagram" id="mmd04" role="img">
+        <Mermaid chart={DIAGRAM_04} />
+      </div>
+      <aside className="callout callout-note">
+        <div className="callout-title">ポイント</div>
+        <div className="callout-body">
+          <p>
+            目次の節番号は、ISO/IEC/IEEE 29119-1:2022
+            の公開目次（各国規格機関・プレビュー）で確認できる範囲に基づいています。
+          </p>
+        </div>
+      </aside>
+    </section>
   );
 }
