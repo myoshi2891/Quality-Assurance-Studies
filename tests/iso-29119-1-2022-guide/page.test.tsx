@@ -57,6 +57,19 @@ describe('ISO/IEC/IEEE 29119-1:2022 Full Page Integration Test', () => {
     const { container } = render(<Iso29119_1_GuidePage />);
     const sidebarLinks = Array.from(container.querySelectorAll('nav.sidebar a'));
     expect(sidebarLinks.length).toBe(67);
+
+    // 全フラグメントリンクの遷移先が本文に存在すること
+    // （日本語・数字始まりの ID は CSS セレクターで扱いにくく、他テストの DOM も残り得るため本文内の ID 集合で照合）
+    const content = container.querySelector('article.content');
+    expect(content).not.toBeNull();
+    const contentIds = new Set(
+      Array.from(content?.querySelectorAll('[id]') ?? []).map((el) => el.id)
+    );
+    const unresolved = sidebarLinks
+      .map((a) => decodeURIComponent((a.getAttribute('href') ?? '').replace(/^#/, '')))
+      .filter((id) => id !== '')
+      .filter((id) => !contentIds.has(id));
+    expect(unresolved).toEqual([]);
   });
 
   it('validates that every diagram definition in diagrams.ts includes config and accessibility description', () => {
