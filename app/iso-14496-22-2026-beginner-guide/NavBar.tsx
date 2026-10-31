@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const NAV_LINKS = [
   { id: 'ch0', label: '0. このガイドの読み方と、調査の限界（先に必ず読んでください）' },
@@ -24,6 +24,7 @@ const NAV_LINKS = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeId, setActiveId] = useState('ch0');
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const sections = document.querySelectorAll('section.chapter');
@@ -48,18 +49,22 @@ export default function NavBar() {
   }, []);
 
   const handleLinkClick = () => {
-    if (window.innerWidth <= 900) {
-      setIsOpen(false);
-    }
+    if (window.innerWidth > 900) return;
+    setIsOpen(false);
+    // 閉じた目次内にフォーカスが残らないよう、開閉ボタンへ戻す（アンカー遷移のスクロールは妨げない）
+    toggleRef.current?.focus({ preventScroll: true });
   };
 
   return (
     <>
       <button
+        ref={toggleRef}
         className="toggle"
         id="toggle"
         type="button"
         aria-label="目次を開閉"
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         ☰ 目次
