@@ -128,8 +128,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-27799-2025-guide', h1: /ISO 27799:2025 初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-30130-guide', h1: /ISO\/IEC 30130:2016.*初学者向け概要ガイド/s },
   { path: '/iso-iec-5338-guide', h1: /ISO\/IEC 5338:2023 初学者向け完全ガイド/ },
+  { path: '/iso-14496-22-2026-beginner-guide', h1: /ISO\/IEC 14496-22:2026（Open Font Format）/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 115;
+export const EXPECTED_PAGE_COUNT = 116;
 
 
