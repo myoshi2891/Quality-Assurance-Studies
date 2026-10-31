@@ -31,8 +31,8 @@ describe('ISO/IEC/IEEE 29119-1:2022 Category 8 (Section 7 - STEP 7)', () => {
     expect(tables.length).toBe(14);
 
     // Table 1: Model-based testing
-    expect(tables[0].textContent).toContain('4.4.1');
     expect(tables[0].textContent).toContain('テストモデル');
+    expect(tables[0].textContent).toContain('モデルベーステスト（MBT）');
 
     // Table 2: Scripted vs Exploratory
     expect(tables[1].textContent).toContain('スクリプト化テスト');
