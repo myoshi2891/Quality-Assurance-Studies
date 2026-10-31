@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-10-30
+Updated 2026-10-31
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -8,6 +8,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 > **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 115 ルート = ガイドライブラリ index + 114 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-10-31: ISO/IEC/IEEE 29119-1:2022 初学者向け解説ガイド（2026年10月新版）への全面刷新・完全移行
+
+- 2026年10月改訂の新版HTML（18,926行）に基づき、`/iso-29119-1-2022-guide` の全コンポーネント（Hero, NavBar, Section0〜14, Footer）およびCSS・diagramsを全面刷新。旧版固有のAnnex A/Bファイルを削除し、新構成（STEP 0〜12、用語集、根拠ソース一覧）へ移行。
+- 全15見出し（H2）、50見出し（H3）、目次67リンク（2階層）、44表の全セル、18図のMermaidダイアグラム、31コールアウト、理解度チェック10問（details/summary）、外部リンク20件（`target="_blank" rel="noopener noreferrer"`）を網羅。
+- CSS全77セレクタと900px境界を保持し、`.iso-29119-1-page` 配下に完全スコープ。`globals.css` 干渉（ヒーロー余白、テーブル文字色、スクロールバー、Mermaidカード等）をリセット。
+- Mermaid図はMD定義から全18図（DIAGRAM_01〜18）を復元し、`MERMAID_CONFIG` でダークブルー配色・アクセシビリティ（accTitle / accDescr）を設定。
+- カテゴリー単位でのTDD（Category 1〜12）を実施し、全12テストファイル・72テスト（552 expect calls）すべてパス。
+- 原本HTML・MDは `archive/html-archive/iso/Iso-29119-1-2022-guide.html` および `archive/md-archive/iso/Iso-29119-1-2022-guide.md` へ同名で上書き移動（rename検出100%）。
 
 ## 2026-10-30: ISO/IEC 5338:2023 AIライフサイクルガイドの移行
 
@@ -1658,7 +1667,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ct-genai-chapter3.html` | `/istqb-ct-genai-chapter3-risk-management` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ctgenai-ch4-llm-powered-solutions-guide.html` | `/istqb-ct-genai-chapter4-llm-powered-solutions` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
 | `Ct-genai-chapter5.html` | `/istqb-ct-genai-chapter5-deploying-and-integrating` | ✅ NavBar + aria-current あり (archive/html-archive/ct-specialist/) |
-| `Iso-29119-1-2022-guide.html` | `/iso-29119-1-2022-guide` | ✅ スティッキーNavBar + Mermaid図19件 + 全39表 + 目次69リンク (archive/html-archive/iso/) |
+| `Iso-29119-1-2022-guide.html` | `/iso-29119-1-2022-guide` | ✅ スティッキーNavBar + Mermaid図18件 + 全44表 + 目次67リンク (archive/html-archive/iso/) |
 | `Ctal-tae-ch3-test-automation-architecture.html` | `/istqb-ctal-tae-chapter3-test-automation-architecture` | ✅ スティッキーNavBar + Mermaid図9件 + 全8表 + 目次11リンク (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch1-introduction-and-objectives.html` | `/istqb-ctal-tae-chapter1-introduction-and-objectives` | ✅ スティッキーNavBar + Mermaid図7件 + 全5表 + 目次8リンク + チェックリスト (archive/html-archive/ctal/) |
 | `Ctal-tae-v2.0-ch2.html` | `/istqb-ctal-tae-chapter2-preparing-for-test-automation` | ✅ スティッキーNavBar + Mermaid図6件 + 全7表 + 目次 + チェックリスト (archive/html-archive/ctal/) |
