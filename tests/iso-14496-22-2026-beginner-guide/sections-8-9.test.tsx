@@ -68,7 +68,9 @@ describe('ISO 14496-22:2026 Guide - Sections 8 & 9', () => {
     // 2 tables
     const tables = section?.querySelectorAll('table');
     expect(tables?.length).toBe(2);
-    expect(tables?.[0].textContent).toContain('計算の手順');
+    expect(tables?.[0].textContent).toContain('ステップ');
+    expect(tables?.[0].textContent).toContain('計算');
+    expect(tables?.[0].textContent).toContain('結果');
     expect(tables?.[1].textContent).toContain('TrueType 輪郭');
     expect(tables?.[1].textContent).toContain('CFF2 輪郭');
 
