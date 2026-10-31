@@ -37,7 +37,7 @@ describe('ISO 14496-22:2026 Guide - Sections 6 & 7', () => {
     expect(glossary?.textContent).toContain('GSUB');
     expect(glossary?.textContent).toContain('GPOS');
     expect(glossary?.textContent).toContain('fvar');
-    expect(glossary?.textContent).toContain('COLR/CPAL');
+    expect(glossary?.textContent).toContain('COLR / CPAL');
   });
 
   it('renders Section 7 with H2, 3 H3s, table, DIAGRAM_06, callout, why-notes, and glossary', () => {
