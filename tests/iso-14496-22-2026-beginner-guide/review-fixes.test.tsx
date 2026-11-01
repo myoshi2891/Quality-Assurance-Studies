@@ -2,6 +2,7 @@ import { describe, it, expect, afterEach } from 'bun:test';
 import React from 'react';
 import { render, fireEvent, cleanup, within } from '@testing-library/react';
 import NavBar from '../../app/iso-14496-22-2026-beginner-guide/NavBar';
+import Section5 from '../../app/iso-14496-22-2026-beginner-guide/Section5';
 import Section9 from '../../app/iso-14496-22-2026-beginner-guide/Section9';
 
 const ORIGINAL_INNER_WIDTH = window.innerWidth;
@@ -84,5 +85,35 @@ describe('ISO 14496-22:2026 review fixes: variable font table requirements', () 
     expect(requirement).toBe(
       'gvar（グリフの輪郭が変化する場合に、その輪郭の差分を持つ）、HVAR 推奨（横幅の計算を速くするため）'
     );
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: table directory reader invocation', () => {
+  it('follows read_table_directory with a command-line invocation that takes a font path and prints the directory', () => {
+    // Arrange
+    const { container } = render(<Section5 />);
+    const code = container.querySelector('pre.py code')?.textContent ?? '';
+    const lines = code.split('\n').map((line) => line.replace(/\s+$/, ''));
+
+    // Act
+    const returnIndex = lines.findIndex((line) => line.trim() === 'return sfnt_version, records');
+    const invocation = lines.slice(returnIndex + 1);
+
+    // Assert
+    expect(returnIndex).toBeGreaterThan(-1);
+    expect(invocation).toEqual([
+      '',
+      'if __name__ == "__main__":',
+      '    import sys  # コマンドライン引数を受け取る標準ライブラリ',
+      '',
+      '    # 使い方: python read_table_directory.py MyFont.ttf',
+      '    if len(sys.argv) != 2:',
+      '        raise SystemExit("使い方: python read_table_directory.py <フォントファイルのパス>")',
+      '',
+      '    version, records = read_table_directory(sys.argv[1])',
+      '    print("sfntVersion:", version)',
+      '    for record in records:',
+      '        print(record["tag"], record["offset"], record["length"], hex(record["checksum"]))',
+    ]);
   });
 });
