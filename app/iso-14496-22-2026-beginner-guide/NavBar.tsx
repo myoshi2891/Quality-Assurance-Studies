@@ -82,6 +82,7 @@ export default function NavBar() {
                 href={`#${item.id}`}
                 data-target={item.id}
                 className={activeId === item.id ? 'active' : ''}
+                aria-current={activeId === item.id ? 'location' : undefined}
                 onClick={handleLinkClick}
               >
                 {item.label}

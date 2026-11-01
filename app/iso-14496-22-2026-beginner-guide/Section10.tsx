@@ -37,7 +37,7 @@ export default function Section10() {
               <td>軽量。COLR は v0 と v1 がある</td>
             </tr>
             <tr className="even">
-              <td>SVG</td>
+              <td>{"'SVG '"}</td>
               <td>SVG 文書でグリフを描く</td>
               <td>表現力が高い</td>
             </tr>

@@ -92,7 +92,7 @@ export default function Section6() {
           <code>CFF2</code>
         </li>
         <li>
-          「SVG」：<code>SVG</code> テーブル。文字の形を SVG
+          「SVG」：<code>{"'SVG '"}</code> テーブル。文字の形を SVG
           で提供できる。基本輪郭と共存する
         </li>
         <li>
