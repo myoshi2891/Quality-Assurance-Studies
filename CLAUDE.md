@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-10-31
+Updated 2026-11-01
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - CSS全セレクタと900px境界を保持し、`.iso-14496-22-2026-page` 配下に完全スコープ。`globals.css` 干渉（ヒーロー余白、テーブル文字色、スクロールバー、Mermaidカード等）をリセット。
 - Mermaid図は全11図（DIAGRAM_01〜11）を定義し、正準 `MERMAID_CONFIG` でダークネイビー配色・アクセシビリティ（accTitle / accDescr）を設定。`.mermaid-wrapper` の `display: block !important; overflow: visible !important;` により、横スクロールが必要な横長図で左側がスクロールしても見えなくなる負方向オーバーフローを解消。
 - サイドバーおよび目次トグルの配置をグローバルヘッダー（60px）および免責バナー（`--disclaimer-height`）に追従するよう `top: calc(60px + var(--disclaimer-height, 0px));`、`z-index: 30`、各見出しの `scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)) !important;` に補正し、ヘッダーとの重なり・衝突を解消。
-- カテゴリー単位でのTDD（Category 0〜8、ページ統合、表示補正）を実施し、全11テストファイル・23テスト（468 expect calls）すべてパス。
+- カテゴリー単位でのTDD（Category 0〜8、ページ統合、表示補正）を実施し、全12テストファイル（レビュー修正の`review-fixes.test.tsx`を含む）・27テスト（479 expect calls）すべてパス。
 - 原本HTML・MDは `archive/html-archive/iso/Iso-iec-14496-22-2026-beginner-guide.html` および `archive/md-archive/iso/Iso-iec-14496-22-2026-beginner-guide.md` へ同名で移動（rename検出100%）。
 
 ## 2026-10-31: ISO/IEC/IEEE 29119-1:2022 初学者向け解説ガイド（2026年10月新版）への全面刷新・完全移行
