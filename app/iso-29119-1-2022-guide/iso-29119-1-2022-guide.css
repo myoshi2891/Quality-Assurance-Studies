@@ -635,7 +635,8 @@ main.iso-29119-1-page {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .iso-29119-1-page .sidebar {
+    .iso-29119-1-page .sidebar,
+    .iso-29119-1-page .sidebar.open {
         transition: none;
     }
 }
