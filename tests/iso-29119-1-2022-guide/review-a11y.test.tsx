@@ -169,4 +169,21 @@ describe('ISO 29119-1 review fixes: accessibility & heading separators', () => {
       expect(css).toMatch(/\.iso-29119-1-page tbody tr:hover td\s*\{[^}]*background:\s*transparent/);
     });
   });
+
+  describe('CSS reduced-motion sidebar', () => {
+    const css = fs.readFileSync(
+      path.resolve(process.cwd(), 'app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css'),
+      'utf-8',
+    );
+
+    it('disables the transition for both closed and open sidebar states', () => {
+      // Arrange
+      const block = css.match(/@media \(prefers-reduced-motion: reduce\)\s*\{([\s\S]*?)\n\}/);
+
+      // Assert（.sidebar.open は 900px 以下で詳細度が高いため、明示的に含める必要がある）
+      expect(block?.[1]).toMatch(
+        /\.iso-29119-1-page \.sidebar,\s*\.iso-29119-1-page \.sidebar\.open\s*\{[^}]*transition:\s*none/,
+      );
+    });
+  });
 });
