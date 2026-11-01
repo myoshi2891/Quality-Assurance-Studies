@@ -23,7 +23,10 @@ afterEach(() => {
 
 describe('ISO 29119-1 NavBar active section tracking', () => {
   it('clears the active link when scrolled back above the first target', () => {
-    // Arrange: 文書上の絶対位置 FIRST_TOP にある最初の見出しを用意する
+    // Arrange: 他テストが残した ID がアクティブ判定に混ざらないよう、共有 document を空にしてから
+    // 文書上の絶対位置 FIRST_TOP にある最初の見出しを用意する
+    cleanup();
+    document.body.replaceChildren();
     const heading = document.createElement('h2');
     heading.id = FIRST_ID;
     heading.getBoundingClientRect = () => {
