@@ -100,7 +100,7 @@ export default function Section9() {
             <tr className="odd">
               <td>TrueType 輪郭</td>
               <td>
-                gvar（輪郭の差分）、HVAR 推奨（横幅の計算を速くするため）
+                gvar（グリフの輪郭が変化する場合に、その輪郭の差分を持つ）、HVAR 推奨（横幅の計算を速くするため）
               </td>
             </tr>
             <tr className="even">
