@@ -2,6 +2,7 @@ import { describe, it, expect, afterEach } from 'bun:test';
 import React from 'react';
 import { render, fireEvent, cleanup, within } from '@testing-library/react';
 import NavBar from '../../app/iso-14496-22-2026-beginner-guide/NavBar';
+import Section9 from '../../app/iso-14496-22-2026-beginner-guide/Section9';
 
 const ORIGINAL_INNER_WIDTH = window.innerWidth;
 
@@ -66,5 +67,22 @@ describe('ISO 14496-22:2026 review fixes: NavBar disclosure & focus', () => {
     // Assert
     expect(document.activeElement).toBe(link);
     expect(document.activeElement).not.toBe(toggle);
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: variable font table requirements', () => {
+  it('states that gvar carries outline deltas only when TrueType glyph outlines vary, keeping HVAR guidance', () => {
+    // Arrange
+    const { container } = render(<Section9 />);
+    const rows = Array.from(container.querySelectorAll('tbody tr'));
+
+    // Act
+    const trueTypeRow = rows.find((row) => row.querySelector('td')?.textContent?.trim() === 'TrueType 輪郭');
+    const requirement = trueTypeRow?.querySelectorAll('td')[1]?.textContent?.replace(/\s+/g, ' ').trim();
+
+    // Assert
+    expect(requirement).toBe(
+      'gvar（グリフの輪郭が変化する場合に、その輪郭の差分を持つ）、HVAR 推奨（横幅の計算を速くするため）'
+    );
   });
 });
