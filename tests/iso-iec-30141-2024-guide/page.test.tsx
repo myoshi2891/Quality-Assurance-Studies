@@ -27,3 +27,4 @@ it('no invalid table whitespace or nested anchors',()=>{const $=html();expect($(
 it('CSS imported and 800 weight provided',()=>{const source=readFileSync(base+'/page.tsx','utf8');expect(source).toContain("import './iso-iec-30141-2024-guide.css'");expect(source).toContain('noto-sans-jp-800.css');});
 it('metadata preserves source title',()=>expect(sourceModule(base+'/page.tsx').metadata).toMatchObject({title:'ISO/IEC 30141:2024 初学者向けステップバイステップ解説ガイド'}));
 it('all diagram wrappers have accessible descriptions',()=>{const $=html();expect($('.mermaid-diagram[role="img"][aria-label]').length).toBe(inventory.charts.length);});
+it('preserves whitespace between inline elements in every paragraph and table cell',()=>{const $=html();expect($(inventory.inlineText.selector).toArray().filter(el=>!$(el).closest('svg').length).map(el=>$(el).text().replace(/\s+/g,' ').trim())).toEqual(inventory.inlineText.items);});
