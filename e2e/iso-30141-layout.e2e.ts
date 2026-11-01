@@ -52,7 +52,11 @@ for (const width of [390,960,961,1440]) {
 for(let i=0;i<11;i++)test(`diagram ${i}: rendered labels, shapes and connections match source SVG`,async({page})=>{
  const charts=sourceModule(base+'/diagrams.ts') as Record<string,string>;
  await page.setContent(reviewedBody);
- const collect=(el:Element)=>({nodes:Array.from(el.querySelectorAll('g.node'),n=>({label:(n.querySelector('.nodeLabel')?.textContent??'').replace(/\s+/g,' ').trim(),shape:n.querySelector('rect,polygon,circle,path')?.tagName})),edges:el.querySelectorAll('.edgePaths path').length,clusters:Array.from(el.querySelectorAll('.cluster-label'),n=>(n.textContent??'').replace(/\s+/g,' ').trim())});
+ const collect=(el:Element)=>({
+   nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:(n.querySelector('.nodeLabel')?.textContent??'').replace(/\s+/g,' ').trim(),shape:n.querySelector('rect,polygon,circle,path')?.tagName})).sort((a,b)=>a.id.localeCompare(b.id)),
+   edges:Array.from(el.querySelectorAll('.edgePaths path[data-edge]'),e=>({id:e.getAttribute('data-id'),arrow:!!e.getAttribute('marker-end'),label:(el.querySelector('.edgeLabels [data-id="'+e.getAttribute('data-id')+'"]')?.textContent??'').replace(/\s+/g,' ').trim()})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
+   clusters:Array.from(el.querySelectorAll('g.cluster'),c=>({id:c.id.replace(/^.*(?=N\d+_)/,''),label:(c.querySelector('.cluster-label')?.textContent??'').replace(/\s+/g,' ').trim()})).sort((a,b)=>a.id.localeCompare(b.id))
+ });
  const expected=await page.locator(`#diagram-${i+1}`).evaluate(collect);
  await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
  const svg=await page.evaluate(async chart=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize({startOnLoad:false,securityLevel:'loose'});return (await m.render('diagram-check',chart)).svg;},charts[`DIAGRAM_${i}`]!);
