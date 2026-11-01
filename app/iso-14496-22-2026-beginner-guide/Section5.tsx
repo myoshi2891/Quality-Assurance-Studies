@@ -149,6 +149,10 @@ export default function Section5() {
           {'        '}<span className="tok-c"># 構造が違う（TTC ヘッダが先頭に来る）ため、先に弾く。</span>{'\n'}
           {'        '}<span className="tok-k">if</span> sfnt_version == <span className="tok-s">b"ttcf"</span>:{'\n'}
           {'            '}<span className="tok-k">raise</span> ValueError(<span className="tok-s">"フォントコレクションです。TTC ヘッダの読み取りが必要です"</span>){'\n\n'}
+          {'        '}<span className="tok-c"># 単体の sfnt として有効なのは TrueType 輪郭と CFF 輪郭の2種類だけ。</span>{'\n'}
+          {'        '}<span className="tok-c"># それ以外はフォントではないか壊れているため、目次を読む前に止める。</span>{'\n'}
+          {'        '}<span className="tok-k">if</span> sfnt_version <span className="tok-k">not in</span> (<span className="tok-s">b"\x00\x01\x00\x00"</span>, <span className="tok-s">b"OTTO"</span>):{'\n'}
+          {'            '}<span className="tok-k">raise</span> ValueError(<span className="tok-s">f"未対応の sfntVersion です: &#123;sfnt_version!r&#125;"</span>){'\n\n'}
           {'        '}records = []{'\n'}
           {'        '}<span className="tok-k">for</span> _ <span className="tok-k">in</span> range(num_tables):{'\n'}
           {'            '}<span className="tok-c"># TableRecord は1件16バイト（tag 4 + checksum 4 + offset 4 + length 4）。</span>{'\n'}

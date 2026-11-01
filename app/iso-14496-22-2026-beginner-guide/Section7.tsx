@@ -20,7 +20,7 @@ export default function Section7() {
         各テーブルの存在理由は、このパイプラインの「どの段階で使われるか」を知ると自然に理解できるためです。
       </p>
       <h3 id="7-1-全体の流れ">7-1. 全体の流れ</h3>
-      <p>この図は、文字が表示されるまでの処理を左から右へ並べたものです。</p>
+      <p>この図は、文字が表示されるまでの処理を上から下へ並べたものです。</p>
       <div className="mermaid-diagram">
         <Mermaid chart={DIAGRAM_06} />
       </div>
