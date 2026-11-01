@@ -7,6 +7,8 @@ import NavBar from '../../app/iso-29119-1-2022-guide/NavBar';
 import Section8 from '../../app/iso-29119-1-2022-guide/Section8';
 import Section9 from '../../app/iso-29119-1-2022-guide/Section9';
 import Section10 from '../../app/iso-29119-1-2022-guide/Section10';
+import Iso29119_1_GuidePage from '../../app/iso-29119-1-2022-guide/page';
+import * as diagrams from '../../app/iso-29119-1-2022-guide/diagrams';
 import { DIAGRAM_16, DIAGRAM_17, DIAGRAM_18 } from '../../app/iso-29119-1-2022-guide/diagrams';
 
 /** 図定義から accDescr の本文を取り出す */
@@ -61,6 +63,27 @@ describe('ISO 29119-1 review fixes: accessibility & heading separators', () => {
       // Assert
       expect(desc).not.toBeNull();
       expect(img?.contains(desc)).toBe(false);
+      expect(desc?.textContent?.trim()).toBe(extractAccDescr(diagram));
+    });
+
+    const allIds = Array.from({ length: 18 }, (_, i) => String(i + 1).padStart(2, '0'));
+
+    it.each(allIds)('mmd%s is described by the adjacent visually-hidden accDescr paragraph', (num) => {
+      // Arrange
+      const { container } = render(<Iso29119_1_GuidePage />);
+      const img = container.querySelector(`#mmd${num}`);
+      const diagram = (diagrams as Record<string, unknown>)[`DIAGRAM_${num}`];
+      if (typeof diagram !== 'string') throw new Error(`DIAGRAM_${num} not found`);
+
+      // Act
+      const desc = img?.nextElementSibling;
+
+      // Assert
+      expect(img?.getAttribute('role')).toBe('img');
+      expect(img?.getAttribute('aria-describedby')).toBe(`mmd${num}-desc`);
+      expect(desc?.tagName).toBe('P');
+      expect(desc?.id).toBe(`mmd${num}-desc`);
+      expect(desc?.classList.contains('visually-hidden')).toBe(true);
       expect(desc?.textContent?.trim()).toBe(extractAccDescr(diagram));
     });
   });
