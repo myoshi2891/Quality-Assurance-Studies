@@ -957,10 +957,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-10-30">2026-10-30</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-11-02">2026-11-02</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 113 pages · 3 components · 13 libs · 5 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 117 pages · 3 components · 13 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">202<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">226<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num" id="kpi-pages-tested">113<span class="unit">/ 113</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">117<span class="unit">/ 117</span></div>
       <div class="kpi-lbl">Pages Tested · 100%</div>
-      <p class="kpi-desc"><span id="kpi-pages-desc-count">113</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 113 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
+      <p class="kpi-desc"><span id="kpi-pages-desc-count">117</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 117 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">210 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">226 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">148 files</span>
+          <span class="inv-count" id="inv-count-pages">177 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1093,14 +1093,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">24 files</span>
+          <span class="inv-count" id="inv-count-e2e">25 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>Test Tooling &amp; Config</span>
-          <span class="inv-count" id="inv-count-tooling">17 files</span>
+          <span class="inv-count" id="inv-count-tooling">3 files</span>
         </summary>
         <ul id="inv-tooling"></ul>
       </details>
@@ -1161,7 +1161,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
             <p class="foot">
             QA_Studies Coverage Radar
             <span class="sep">·</span>
-            Updated <time datetime="2026-10-30">2026-10-30</time>
+            Updated <time datetime="2026-11-02">2026-11-02</time>
 
     <span class="sep">·</span>
     Single-file, standalone HTML
@@ -1291,7 +1291,9 @@ const pages = [
   { path: '/iso-23009-1-2026-guide', topic: 'ISO 23009-1 MPEG-DASH ガイド', tested: true },
   { path: '/iso-19770-5-guide', topic: 'ISO 19770-5 IT資産管理の概要と用語 ガイド', tested: true },
   { path: '/iso-14496-22-guide', topic: 'ISO 14496-22 Open Font Format ガイド', tested: true },
-  { path: '/specification-by-example-guide', topic: 'Specification by Example 実践ガイド', tested: true }
+  { path: '/specification-by-example-guide', topic: 'Specification by Example 実践ガイド', tested: true },
+  { path: '/iso-14496-22-2026-beginner-guide', topic: 'ISO 14496-22:2026（OFF第5版）初学者向け解説', tested: true },
+  { path: '/iso-iec-30141-2024-guide', topic: 'ISO/IEC 30141:2024 IoT参照アーキテクチャ ガイド', tested: true }
 ];
 const DATA = {
   matrix: [
@@ -1302,7 +1304,7 @@ const DATA = {
         { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `ISO/IEC 5338 adds 237 source contracts covering 46 headings, fourteen TOC links, 23 complete tables, ten SVG-derived diagrams, eight callouts, nineteen external links, one native answer disclosure, all 67 CSS rules, sixteen independent categories, SWC dev/prod DOM fidelity, responsive TOC interactions and original tracked archive hashes. Twenty-eight server/build-free Chromium cases compare source computed styles at four widths in both retained-CSS orders and all ten SVG semantics, palettes and horizontal endpoints at two widths. Full suite: 8725 tests across 169 files; lint and scoped TypeScript pass. Manual visual review is user-owned; no build was run. ISO 30130 adds 212 unit contracts (43 headings, 13 TOC links, 24 tables, seven diagrams, eight callouts, twenty references, 57 CSS rules, complete DOM and original archive hashes); fifteen server/build-free Chromium cases cover source style parity at four widths in both CSS orders and seven rendered diagrams. Full suite: 8725 tests across 169 files. Unit tests on all ${pages.length} pages; CT-GenAI study and Beyond Legacy Code additionally verify all source DOM, tables, diagrams, CSS and navigation. CTAL-TAE Ch5 additionally checks all 89 original CSS rules, complete DOM inventory, real Mermaid parsing, checklist interaction and archive hashes. CTAL-TAE Ch6 covers 160 CSS rules, 31 tables, 11 parsed charts, exact highlighted code and interactive progress. CTAL-TAE Ch7 verifies 99 source CSS rules, 14 highlight rules, 30 tables, 11 charts and all seven original highlighted token streams. CTAL-TAE Ch8 verifies 77 source CSS rules, 14 highlight rules, 71 headings, 70 TOC links, 36 tables, 16 parsed charts, six exact highlighted examples and all source DOM; 484 chapter tests pass, including safe external references and final diagram/footer cascade protections. Real browser SVG color and contrast checks cover all 11 Ch6 diagrams (page CSS and config-only variants, 44 cases) and all 11 Ch7 diagrams (22 cases) at 390px and 1440px without a server/build; the suite now registers 208 Chromium cases, including six optional live-server cases. The code fix verified 88 cases: 78 SWC-based Ch7/Ch8 code layouts, six Ch7 learning UI cases and four live Next.js cases. SWC dev/prod compilation also verifies exact newlines and indentation in 26 unit cases. Quality Is Free adds 295 source-contract unit tests (79 CSS rules, 16 sections, 22 headings, 15 TOC links, six tables, eight diagrams, eleven checks, sixteen reference cards), eight computed-style/dimension/hover comparisons, 32 real SVG checks and two live Next.js interaction cases; all 42 browser cases passed. IEC 62304 adds 351 source-contract tests: 22 sections, 59 headings, 50 hierarchical links, 37 complete tables, 18 diagrams, 13 callouts, 30 external links, all 65 source CSS rules, SWC dev/prod fidelity and archive hashes. Eight computed-style cases cover 390/960/961/1440px and two retained-CSS orders; 72 browser SVG cases verify every original node, decision shape, edge, label, cluster, source palette and both scroll ends. The dedicated config starts no server/build; manual visual review is user-owned. ISO 9075-1 adds 218 source-contract tests (35 headings, 34 TOC links, 19 complete tables, nine parsed diagrams, three SQL blocks, 11 callouts, 20 external links, all 63 original CSS rules, SWC dev/prod fidelity, navigation and tracked archive hashes). Forty-four browser cases compare every source design element at four widths in two CSS orders and all nine real SVG semantics/palettes/scroll ends; SQL text, block height and horizontal reachability are checked. ISO 11179-1 adds 325 source-contract tests (58 headings, 57 TOC links, 32 complete tables, 14 diagrams including class and sequence, one YAML example, 15 callouts, 21 external links, six interactive checks, all 80 original CSS rules, per-category rendering, SWC dev/prod fidelity and tracked archive hashes). Sixty-four browser cases compare source computed styles at four widths and two CSS orders plus every real SVG node shape/palette/edge/cluster/relation/message and both scroll ends; YAML text, tokens, block height and horizontal reachability are checked. Working Effectively with Legacy Code adds 283 unit contracts: all 19 sections, 20 headings, 19 TOC links, nine complete tables, 11 parsed diagrams, one highlighted JavaScript example, four callouts, 26 references, eight interactive checks, 84 source CSS rules, SWC dev/prod fidelity and tracked archive hashes. Thirty-four server/build-free browser cases compare computed styles at six widths in both retained-CSS orders and all 11 SVG labels, edges, palettes and scroll ends at two widths. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Testing Computer Software adds 295 source contracts covering all 18 sections, 30 headings, 18 TOC links, ten tables, nine parsed diagrams and shared-renderer calls, eight callouts, sixteen references, ten interactive checks, eight practice steps, all 88 source CSS rules, SWC dev/prod DOM fidelity and tracked archive hashes. Twenty-six server/build-free browser cases compare computed styles at four widths in both CSS orders, step-number pseudo-elements, table hover and all nine SVG labels, edges, dotted links, palettes and horizontal scroll ends at two widths. Craftsman adds 259 source contracts covering 16 sections, 46 headings, 16 TOC links, 22 complete tables, 11 parsed diagrams and shared-renderer calls, ten callouts, seventeen references, eighteen external links, all 55 source CSS rules, SWC dev/prod DOM fidelity and tracked archive hashes. Thirty server/build-free Chromium cases compare computed styles and table hover at four widths in both retained-CSS orders, and all eleven SVG labels, edges, palettes and horizontal scroll ends at two widths. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Specification by Example adds 446 source contracts for all eleven sections, hero and footer, 31 headings, 18 hierarchical links, seven tables, six real parsed charts and shared-renderer calls, one highlighted Gherkin example, 29 callouts, 21 references, 61 external links, 96 icons, eight persisted checks and all 87 CSS rules. The SVG tests now read the complete shared Mermaid initialization, including dark themeVariables, to catch inherited dark mainBkg/nodeBorder/cluster colors. Page config explicitly overrides all five inherited surface/border/label colors. Twenty-two server/build-free Chromium cases compare four widths in two CSS orders, six real SVGs at two widths, code geometry and completed-check appearance. Full suite: 7067 tests across 142 files; lint and scoped TypeScript pass. Open Font Format adds 304 contracts covering 47 headings, 46 TOC links, 27 complete tables, ten parsed charts, two exact code examples, sixteen callouts, 22 reference links, all 59 CSS rules and original archive hashes plus Git tracking. Forty-eight server/build-free Chromium cases compare four widths in two CSS orders and ten real SVGs at all four widths, including node shapes, cluster backgrounds and arrow directions. Full suite: 7376 tests across 147 files; scoped TypeScript and lint pass. ISO 19770-5 adds 282 contracts covering 30 headings, 29 TOC links, 19 complete tables, nine HTML-derived diagrams, eight callouts, eighteen external references, eight native learning checks, all 86 CSS rules, complete SWC dev/prod DOM fidelity and tracked archive hashes. Forty-six server/build-free Chromium cases compare four widths in two CSS orders, nine real SVGs at four widths, node shapes/palettes/strokes, edge colors/widths/dashes, label backgrounds, arrows and horizontal reachability, plus two completed checklist comparisons. Full suite: 7662 tests across 153 files; scoped TypeScript and lint pass. Review follow-up (2026-10-28): 591 targeted ISO unit tests pass, including OFF SSR hydration with onRecoverableError and console checks, secondary-source row relocation, and SWID lifecycle/tag separation with accessible text. Four corrected SWID SVG viewport checks pass. MPEG-DASH adds 269 contracts covering 41 headings, 40 TOC links, 24 complete tables, six source-SVG diagrams, two repaired XML examples from Markdown, nine callouts, 23 external links, five metadata fields, all 71 CSS rules, complete SWC dev/prod DOM and tracked archive hashes. Thirty-six server/build-free Chromium cases compare four widths in both retained-CSS orders, all six SVGs at four widths with node shapes, palettes, endpoints and arrows, and both XML examples at two widths with exact lines, syntax colors, height and horizontal reachability. Full suite: 7938 tests across 158 files; 525 related tests, scoped TypeScript and lint pass. Manual visual review is user-owned. ISO 27799 adds 321 contracts: all 46 headings, 19 TOC links, 31 full tables, eleven source-SVG diagrams, twelve callouts, thirteen external references, nine metadata fields, twelve icons, ten learning checks, all 89 CSS rules, complete SWC dev/prod DOM, real SSR hydration and tracked archive hashes. Eighty server/build-free Chromium cases compare six widths in both retained-CSS orders, all eleven SVGs at six widths with shapes, palettes, endpoints, arrows, dotted lines and horizontal reachability, plus completed/reset checkbox marks and progress at two widths. Shared callout typography, preflight input inheritance and flex-centered oversized SVG clipping are explicitly reset. Full suite: 8263 tests across 165 files; 581 related tests, scoped TypeScript, lint and Markdown lint pass. Manual visual review is user-owned. All eight OFF CSS comparisons (four widths in two CSS orders) now pass after restoring the source currentColor table borders and stopping the comparison source's reference numbering before the glossary to keep terms and column widths; 306 targeted unit tests (including type checks) and lint on the edited E2E pass. Manual visual review is user-owned.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
-        { state: 'partial', value: '80', label: 'IEC 62304 CSS/SVG', note: 'IEC 62304: eight computed-style comparisons and 72 real SVG cases passed across four viewport widths without a server/build. Earlier CT-GenAI coverage includes 12 scroll-edge and centering cases; other guide-specific suites remain listed in the inventory. Screenshot baselines are absent; manual visual review is user-owned.' },
+        { state: 'partial', value: '80', label: 'IEC 62304 CSS/SVG', note: 'ISO/IEC 30141:2024: 305 source contracts preserve 45 headings, 44 TOC links, 21 full tables, 11 diagrams, nine callouts, eight native answers and all 68 CSS rules. Thirty-two server/build-free Chromium cases compare four viewport widths in two CSS orders, real SVG identities/endpoints/arrows/labels/palettes, horizontal reachability and opened/closed native answers. Full suite: 9065 tests across 198 files; related 579 tests, scoped TypeScript and lint pass. Manual visual review is user-owned; build was not run. IEC 62304: eight computed-style comparisons and 72 real SVG cases passed across four viewport widths without a server/build. Earlier CT-GenAI coverage includes 12 scroll-edge and centering cases; other guide-specific suites remain listed in the inventory. Screenshot baselines are absent; manual visual review is user-owned.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: `axe-core/playwright: Automated accessibility audit on all ${pages.length} routes.` },
         { state: 'full', value: '4/4', label: '100%', note: 'Lighthouse CI: Performance budget (LCP < 2.5s, TBT < 350ms, A11y/SEO >= 0.9) asserted on 4 key routes.' }
       ]
@@ -1432,217 +1434,245 @@ const DATA = {
   pages,
 
   inventory: {
-    pages: [
-      'tests/iso-iec-5338-guide/page.test.tsx',
-      'tests/iso-iec-5338-guide/navigation.test.tsx',
-      'tests/iso-30130-guide/page.test.tsx',
-      'tests/iso-30130-guide/navigation.test.tsx',
-      'tests/iso-27799-2025-guide/hydration.test.tsx',
-      'tests/iso-27799-2025-guide/page.test.tsx',
-      'tests/iso-27799-2025-guide/categories.test.tsx',
-      'tests/iso-27799-2025-guide/navigation.test.tsx',
-      'tests/iso-27799-2025-guide/checklist.test.tsx',
-      'tests/iso-27799-2025-guide/integration.test.ts',
-      'tests/iso-27799-2025-guide/typecheck.test.ts',
-
-      'tests/iso-23009-1-2026-guide/page.test.tsx',
-      'tests/iso-23009-1-2026-guide/categories.test.tsx',
-      'tests/iso-23009-1-2026-guide/navigation.test.tsx',
-      'tests/iso-23009-1-2026-guide/integration.test.ts',
-      'tests/iso-23009-1-2026-guide/typecheck.test.ts',
-
-      'tests/iso-19770-5-guide/page.test.tsx',
-      'tests/iso-19770-5-guide/integration.test.ts',
-      'tests/iso-19770-5-guide/categories.test.tsx',
-      'tests/iso-19770-5-guide/checklist.test.tsx',
-      'tests/iso-19770-5-guide/hydration.test.tsx',
-      'tests/iso-19770-5-guide/typecheck.test.ts',
-      'tests/iso-14496-22-guide/page.test.tsx',
-      'tests/iso-14496-22-guide/integration.test.ts',
-      'tests/iso-14496-22-guide/categories.test.tsx',
-      'tests/iso-14496-22-guide/hydration.test.tsx',
-      'tests/iso-14496-22-guide/typecheck.test.ts',
-      'tests/specification-by-example-guide/page.test.tsx',
-      'tests/specification-by-example-guide/integration.test.ts',
-      'tests/software-testing-craftsmans-approach-guide/page.test.tsx',
-      'tests/software-testing-craftsmans-approach-guide/integration.test.ts',
-      'tests/acceptance-testing-guide/page.test.tsx',
-      'tests/agile-testing-practical-guide/page.test.tsx',
-      'tests/ai-driven-software-testing-guide/page.test.tsx',
-      'tests/ai-test-guide/page.test.tsx',
-      'tests/appium-essentials-guide/page.test.tsx',
-      'tests/art-of-software-testing-guide/page.test.tsx',
-      'tests/bdd-testing-guide/page.test.tsx',
-      'tests/clean-code-cookbook-guide/page.test.tsx',
-      'tests/component-based-testing-qa-guide/page.test.tsx',
-      'tests/cucumber-beginner-guide/page.test.tsx',
-      'tests/cypress-beginner-guide/page.test.tsx',
-      'tests/e2e-testing-guide/page.test.tsx',
-      'tests/explore-it-guide/page.test.tsx',
-      'tests/github-actions-guide/page.test.tsx',
-      'tests/github-actions/page.test.tsx',
-      'tests/how-google-tests-software-guide/page.test.tsx',
-      'tests/index/page.test.tsx',
-      'tests/integration-functional-testing-guide/page.test.tsx',
-      'tests/integration-system-testing-guide/page.test.tsx',
-      'tests/iso-29119-1-2022-guide/page.test.tsx',
-      'tests/istqb-ct-act-complete-guide/page.test.tsx',
-      'tests/istqb-ct-ai-complete-guide/page.test.tsx',
-      'tests/istqb-ct-aut-complete-guide/page.test.tsx',
-      'tests/istqb-ct-ft-complete-guide/page.test.tsx',
-      'tests/istqb-ct-game-complete-guide/page.test.tsx',
-      'tests/istqb-ct-genai-complete-guide/page.test.tsx',
-      'tests/istqb-ct-genai-chapter1-introduction/page.test.tsx',
-      'tests/istqb-ct-genai-chapter2-prompt-engineering/page.test.tsx',
-      'tests/istqb-ct-genai-chapter3-risk-management/page.test.tsx',
-      'tests/istqb-ct-genai-chapter4-llm-powered-solutions/page.test.tsx',
-      'tests/istqb-ct-genai-chapter5-deploying-and-integrating/page.test.tsx',
-      'tests/istqb-ct-gt-complete-guide/page.test.tsx',
-      'tests/istqb-ct-mat-complete-guide/page.test.tsx',
-      'tests/istqb-ct-mbt-complete-guide/page.test.tsx',
-      'tests/istqb-ct-pt-complete-guide/page.test.tsx',
-      'tests/istqb-ct-sec-complete-guide/page.test.tsx',
-      'tests/istqb-ct-ste-complete-guide/page.test.tsx',
-      'tests/istqb-ct-tas-complete-guide/page.test.tsx',
-      'tests/istqb-ct-ut-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-atlas-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-att-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx',
-      'tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx',
-      'tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx',
-      'tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx',
-      'tests/istqb-ctal-ta-chapter5-defect-prevention/page.test.tsx',
-      'tests/istqb-ctal-ta-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-tae-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter3-test-automation-architecture/page.test.tsx',
-      'tests/istqb-ctal-tm-chapter1-managing-the-test-activities/page.test.tsx',
-      'tests/istqb-ctal-tm-chapter2-managing-the-product/page.test.tsx',
-      'tests/istqb-ctal-tm-chapter3-managing-the-team/page.test.tsx',
-      'tests/istqb-ctal-tm-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-tta-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-itp-atp-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-itp-itpi-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-tm-mtt-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-tm-otm-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-tm-sm-complete-guide/page.test.tsx',
-      'tests/istqb-ctfl-at-chapter1-agile-software-development/page.test.tsx',
-      'tests/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/page.test.tsx',
-      'tests/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.test.tsx',
-      'tests/istqb-ctfl-at-complete-guide/page.test.tsx',
-      'tests/istqb-ctfl-complete-guide/page.test.tsx',
-      'tests/istqb-ctfl-v4-chapter1-fundamentals/page.test.tsx',
-      'tests/istqb-ctfl-v4-chapter2-sdlc-and-testing/page.test.tsx',
-      'tests/istqb-ctfl-v4-chapter3-static-testing/page.test.tsx',
-      'tests/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.test.tsx',
-      'tests/istqb-ctfl-v4-chapter5-test-management/page.test.tsx',
-      'tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx',
-      'tests/leading-quality-guide/page.test.tsx',
-      'tests/lessons-learned-in-software-testing-guide/page.test.tsx',
-      'tests/modern-software-testing-complete-guide-2025/page.test.tsx',
-      'tests/owasp-zap-beginner-guide/page.test.tsx',
-      'tests/perfect-software-guide/page.test.tsx',
-      'tests/playwright-beginner-guide/page.test.tsx',
-      'tests/playwright-intermediate-advanced-guide/page.test.tsx',
-      'tests/secure-by-design-guide/page.test.tsx',
-      'tests/selenium-beginner-guide/page.test.tsx',
-      'tests/software-test-design-guide/page.test.tsx',
-      'tests/software-testing-methodologies-guide/page.test.tsx',
-      'tests/software-testing-with-generative-ai-guide/page.test.tsx',
-      'tests/sonarqube-intermediate-guide/page.test.tsx',
-      'tests/test-driven-development-by-example-guide/page.test.tsx',
-      'tests/beyond-legacy-code-guide/page.test.tsx',
-      'tests/automating-data-quality-monitoring-guide/page.test.tsx',
-      'tests/beautiful-testing-guide/page.test.tsx',
-      'tests/istqb-ct-genai-study-guide/page.test.tsx',
-      'tests/langgraph-qa-agent-guide/page.test.tsx',
-      'tests/testing-ai-confidence-engineering-guide/page.test.tsx',
-      'tests/testing-web-apis-guide/page.test.tsx',
-      'tests/the-way-of-the-web-tester-guide/page.test.tsx',
-      'tests/unit-testing-guide/page.test.tsx',
-      'tests/unit-testing-principles-practices-patterns-guide/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/integration.test.ts',
-      'tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/integration.test.ts',
-      'tests/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/integration.test.ts',
-      'tests/istqb-ctal-tae-chapter8-continuous-improvement/page.test.tsx',
-      'tests/istqb-ctal-tae-chapter8-continuous-improvement/integration.test.ts',
-      'tests/quality-is-free-guide/page.test.tsx',
-      'tests/quality-is-free-guide/integration.test.ts',
-      'tests/iec-62304-beginner-guide/page.test.tsx',
-      'tests/iec-62304-beginner-guide/integration.test.ts',
-      'tests/iso-9075-1-guide/page.test.tsx',
-      'tests/iso-9075-1-guide/integration.test.ts',
-      'tests/iso-11179-1-2023-guide/page.test.tsx',
-      'tests/iso-11179-1-2023-guide/integration.test.ts',
-      'tests/index/layout-css.test.ts',
-      'tests/iso-9075-1-guide/typecheck.test.ts',
-      'tests/working-effectively-with-legacy-code-guide/page.test.tsx',
-      'tests/testing-computer-software-guide/page.test.tsx'
-    ],
-    components: [
-      'tests/components/Header.test.tsx',
-      'tests/components/DisclaimerBanner.test.tsx',
-      'tests/components/Mermaid.test.tsx'
-    ],
-    lib: [
-      'tests/lib/navigation.test.ts',
-      'tests/lib/navigation-e2e-sync.test.ts',
-      'tests/lib/dependencies.test.ts',
-      'tests/lib/fix-mermaid-skill-sync.test.ts',
-      'tests/lib/mermaid-init-directive.test.ts',
-      'tests/lib/mermaid-theme-contract.test.ts',
-      'tests/lhci-config.test.ts',
-      'tests/app-icons.test.ts',
-      'tests/mermaid-mock-isolation.test.ts',
-      'tests/tabler-icon-loading.test.ts',
-      'tests/istqb-ctfl-v4-chapter6-test-tools/NavBar.test.tsx',
-      'tests/font-loading.test.ts',
-      'tests/font-display-optional.test.ts'
-    ],
-    scripts: [
-      'tests/scripts/extract-css.test.ts',
-      'tests/scripts/fix-fences.test.ts',
-      'tests/scripts/format-markdown.test.ts',
-      'tests/scripts/html-to-tsx.test.ts',
-      'tests/scripts/validate-fences.test.ts'
-    ],
-    e2e: [
-      'e2e/iso-iec-5338-layout.e2e.ts',
-      'e2e/iso-30130-layout.e2e.ts',
-      'e2e/iso-27799-2025-layout.e2e.ts',
-      'e2e/iso-23009-1-2026-layout.e2e.ts',
-      'e2e/iso-19770-5-layout.e2e.ts',
-      'e2e/iso-14496-22-layout.e2e.ts',
-      'e2e/sbe-layout.e2e.ts',
-      'e2e/craftsman-layout.e2e.ts',
-      'e2e/library.e2e.ts',
-      'e2e/pages.ts',
-      'e2e/smoke.e2e.ts',
-      'e2e/a11y.e2e.ts',
-      'e2e/mermaid-layout.e2e.ts',
-      'e2e/ct-genai-study-mermaid-css.e2e.ts',
-      'e2e/ctal-tae-ch6-mermaid-colors.e2e.ts',
-      'e2e/ctal-tae-ch7-mermaid-colors.e2e.ts',
-      'e2e/ctal-tae-ch7-learning-ui.e2e.ts',
-      'e2e/ctal-tae-code-layout.e2e.ts',
-      'e2e/quality-is-free-layout.e2e.ts',
-      'e2e/iec-62304-layout.e2e.ts',
-      'e2e/iso-9075-layout.e2e.ts',
-      'e2e/iso-11179-layout.e2e.ts',
-      'e2e/wewlc-layout.e2e.ts',
-      'e2e/tcs-layout.e2e.ts'
-    ],
-    tooling: [
-      'playwright.config.ts',
-      'playwright.layout.config.ts',
-      'lighthouserc.json'
-    ]
-  },
+  "pages": [
+    "tests/acceptance-testing-guide/page.test.tsx",
+    "tests/agile-testing-practical-guide/page.test.tsx",
+    "tests/ai-driven-software-testing-guide/page.test.tsx",
+    "tests/ai-test-guide/page.test.tsx",
+    "tests/appium-essentials-guide/page.test.tsx",
+    "tests/art-of-software-testing-guide/page.test.tsx",
+    "tests/automating-data-quality-monitoring-guide/page.test.tsx",
+    "tests/bdd-testing-guide/page.test.tsx",
+    "tests/beautiful-testing-guide/page.test.tsx",
+    "tests/beyond-legacy-code-guide/page.test.tsx",
+    "tests/clean-code-cookbook-guide/page.test.tsx",
+    "tests/component-based-testing-qa-guide/page.test.tsx",
+    "tests/cucumber-beginner-guide/page.test.tsx",
+    "tests/cypress-beginner-guide/page.test.tsx",
+    "tests/e2e-testing-guide/page.test.tsx",
+    "tests/e2e/playwright-config-registry.test.ts",
+    "tests/explore-it-guide/page.test.tsx",
+    "tests/github-actions-guide/page.test.tsx",
+    "tests/github-actions/page.test.tsx",
+    "tests/how-google-tests-software-guide/page.test.tsx",
+    "tests/iec-62304-beginner-guide/integration.test.ts",
+    "tests/iec-62304-beginner-guide/page.test.tsx",
+    "tests/index/layout-css.test.ts",
+    "tests/index/page.test.tsx",
+    "tests/integration-functional-testing-guide/page.test.tsx",
+    "tests/integration-system-testing-guide/page.test.tsx",
+    "tests/iso-11179-1-2023-guide/integration.test.ts",
+    "tests/iso-11179-1-2023-guide/page.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/foundation.test.ts",
+    "tests/iso-14496-22-2026-beginner-guide/navbar-hero-footer.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/page.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/review-fixes.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-0-1.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-10-11.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-12-13.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-14-15.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-2-3.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-4-5.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-6-7.test.tsx",
+    "tests/iso-14496-22-2026-beginner-guide/sections-8-9.test.tsx",
+    "tests/iso-14496-22-guide/categories.test.tsx",
+    "tests/iso-14496-22-guide/hydration.test.tsx",
+    "tests/iso-14496-22-guide/integration.test.ts",
+    "tests/iso-14496-22-guide/page.test.tsx",
+    "tests/iso-14496-22-guide/typecheck.test.ts",
+    "tests/iso-19770-5-guide/categories.test.tsx",
+    "tests/iso-19770-5-guide/checklist.test.tsx",
+    "tests/iso-19770-5-guide/hydration.test.tsx",
+    "tests/iso-19770-5-guide/integration.test.ts",
+    "tests/iso-19770-5-guide/page.test.tsx",
+    "tests/iso-19770-5-guide/typecheck.test.ts",
+    "tests/iso-23009-1-2026-guide/categories.test.tsx",
+    "tests/iso-23009-1-2026-guide/integration.test.ts",
+    "tests/iso-23009-1-2026-guide/navigation.test.tsx",
+    "tests/iso-23009-1-2026-guide/page.test.tsx",
+    "tests/iso-23009-1-2026-guide/typecheck.test.ts",
+    "tests/iso-27799-2025-guide/categories.test.tsx",
+    "tests/iso-27799-2025-guide/checklist.test.tsx",
+    "tests/iso-27799-2025-guide/hydration.test.tsx",
+    "tests/iso-27799-2025-guide/integration.test.ts",
+    "tests/iso-27799-2025-guide/navigation.test.tsx",
+    "tests/iso-27799-2025-guide/page.test.tsx",
+    "tests/iso-27799-2025-guide/typecheck.test.ts",
+    "tests/iso-29119-1-2022-guide/foundation.test.ts",
+    "tests/iso-29119-1-2022-guide/navbar-active.test.tsx",
+    "tests/iso-29119-1-2022-guide/navbar-hero-footer.test.tsx",
+    "tests/iso-29119-1-2022-guide/page.test.tsx",
+    "tests/iso-29119-1-2022-guide/review-a11y.test.tsx",
+    "tests/iso-29119-1-2022-guide/section-4.test.tsx",
+    "tests/iso-29119-1-2022-guide/section-5.test.tsx",
+    "tests/iso-29119-1-2022-guide/section-6.test.tsx",
+    "tests/iso-29119-1-2022-guide/section-7.test.tsx",
+    "tests/iso-29119-1-2022-guide/sections-0-1.test.tsx",
+    "tests/iso-29119-1-2022-guide/sections-10-11.test.tsx",
+    "tests/iso-29119-1-2022-guide/sections-12-14.test.tsx",
+    "tests/iso-29119-1-2022-guide/sections-2-3.test.tsx",
+    "tests/iso-29119-1-2022-guide/sections-8-9.test.tsx",
+    "tests/iso-30130-guide/navigation.test.tsx",
+    "tests/iso-30130-guide/page.test.tsx",
+    "tests/iso-9075-1-guide/integration.test.ts",
+    "tests/iso-9075-1-guide/page.test.tsx",
+    "tests/iso-9075-1-guide/typecheck.test.ts",
+    "tests/iso-iec-30141-2024-guide/navigation.test.tsx",
+    "tests/iso-iec-30141-2024-guide/page.test.tsx",
+    "tests/iso-iec-5338-guide/navigation.test.tsx",
+    "tests/iso-iec-5338-guide/page.test.tsx",
+    "tests/istqb-ct-act-complete-guide/page.test.tsx",
+    "tests/istqb-ct-ai-complete-guide/page.test.tsx",
+    "tests/istqb-ct-aut-complete-guide/page.test.tsx",
+    "tests/istqb-ct-ft-complete-guide/page.test.tsx",
+    "tests/istqb-ct-game-complete-guide/page.test.tsx",
+    "tests/istqb-ct-genai-chapter1-introduction/page.test.tsx",
+    "tests/istqb-ct-genai-chapter2-prompt-engineering/page.test.tsx",
+    "tests/istqb-ct-genai-chapter3-risk-management/page.test.tsx",
+    "tests/istqb-ct-genai-chapter4-llm-powered-solutions/page.test.tsx",
+    "tests/istqb-ct-genai-chapter5-deploying-and-integrating/page.test.tsx",
+    "tests/istqb-ct-genai-complete-guide/page.test.tsx",
+    "tests/istqb-ct-genai-study-guide/page.test.tsx",
+    "tests/istqb-ct-gt-complete-guide/page.test.tsx",
+    "tests/istqb-ct-mat-complete-guide/page.test.tsx",
+    "tests/istqb-ct-mbt-complete-guide/page.test.tsx",
+    "tests/istqb-ct-pt-complete-guide/page.test.tsx",
+    "tests/istqb-ct-sec-complete-guide/page.test.tsx",
+    "tests/istqb-ct-ste-complete-guide/page.test.tsx",
+    "tests/istqb-ct-tas-complete-guide/page.test.tsx",
+    "tests/istqb-ct-ut-complete-guide/page.test.tsx",
+    "tests/istqb-ctal-atlas-complete-guide/page.test.tsx",
+    "tests/istqb-ctal-att-complete-guide/page.test.tsx",
+    "tests/istqb-ctal-ta-chapter1-test-process/page.test.tsx",
+    "tests/istqb-ctal-ta-chapter2-risk-based-testing/page.test.tsx",
+    "tests/istqb-ctal-ta-chapter3-test-analysis-and-design/page.test.tsx",
+    "tests/istqb-ctal-ta-chapter4-quality-characteristics/page.test.tsx",
+    "tests/istqb-ctal-ta-chapter5-defect-prevention/page.test.tsx",
+    "tests/istqb-ctal-ta-complete-guide/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter1-introduction-and-objectives/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter2-preparing-for-test-automation/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter3-test-automation-architecture/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter4-implementing-test-automation/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/integration.test.ts",
+    "tests/istqb-ctal-tae-chapter5-implementation-deployment-strategies/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/integration.test.ts",
+    "tests/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/integration.test.ts",
+    "tests/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution/page.test.tsx",
+    "tests/istqb-ctal-tae-chapter8-continuous-improvement/integration.test.ts",
+    "tests/istqb-ctal-tae-chapter8-continuous-improvement/page.test.tsx",
+    "tests/istqb-ctal-tae-complete-guide/page.test.tsx",
+    "tests/istqb-ctal-tm-chapter1-managing-the-test-activities/page.test.tsx",
+    "tests/istqb-ctal-tm-chapter2-managing-the-product/page.test.tsx",
+    "tests/istqb-ctal-tm-chapter3-managing-the-team/page.test.tsx",
+    "tests/istqb-ctal-tm-complete-guide/page.test.tsx",
+    "tests/istqb-ctal-tta-complete-guide/page.test.tsx",
+    "tests/istqb-ctel-itp-atp-complete-guide/page.test.tsx",
+    "tests/istqb-ctel-itp-itpi-complete-guide/page.test.tsx",
+    "tests/istqb-ctel-tm-mtt-complete-guide/page.test.tsx",
+    "tests/istqb-ctel-tm-otm-complete-guide/page.test.tsx",
+    "tests/istqb-ctel-tm-sm-complete-guide/page.test.tsx",
+    "tests/istqb-ctfl-at-chapter1-agile-software-development/page.test.tsx",
+    "tests/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/page.test.tsx",
+    "tests/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.test.tsx",
+    "tests/istqb-ctfl-at-complete-guide/page.test.tsx",
+    "tests/istqb-ctfl-complete-guide/page.test.tsx",
+    "tests/istqb-ctfl-v4-chapter1-fundamentals/page.test.tsx",
+    "tests/istqb-ctfl-v4-chapter2-sdlc-and-testing/page.test.tsx",
+    "tests/istqb-ctfl-v4-chapter3-static-testing/page.test.tsx",
+    "tests/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.test.tsx",
+    "tests/istqb-ctfl-v4-chapter5-test-management/page.test.tsx",
+    "tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx",
+    "tests/langgraph-qa-agent-guide/page.test.tsx",
+    "tests/leading-quality-guide/page.test.tsx",
+    "tests/lessons-learned-in-software-testing-guide/page.test.tsx",
+    "tests/modern-software-testing-complete-guide-2025/page.test.tsx",
+    "tests/owasp-zap-beginner-guide/page.test.tsx",
+    "tests/perfect-software-guide/page.test.tsx",
+    "tests/playwright-beginner-guide/page.test.tsx",
+    "tests/playwright-intermediate-advanced-guide/page.test.tsx",
+    "tests/quality-is-free-guide/integration.test.ts",
+    "tests/quality-is-free-guide/page.test.tsx",
+    "tests/secure-by-design-guide/page.test.tsx",
+    "tests/selenium-beginner-guide/page.test.tsx",
+    "tests/software-test-design-guide/page.test.tsx",
+    "tests/software-testing-craftsmans-approach-guide/integration.test.ts",
+    "tests/software-testing-craftsmans-approach-guide/page.test.tsx",
+    "tests/software-testing-methodologies-guide/page.test.tsx",
+    "tests/software-testing-with-generative-ai-guide/page.test.tsx",
+    "tests/sonarqube-intermediate-guide/page.test.tsx",
+    "tests/specification-by-example-guide/integration.test.ts",
+    "tests/specification-by-example-guide/page.test.tsx",
+    "tests/test-driven-development-by-example-guide/page.test.tsx",
+    "tests/test-isolation/dom-cleanup.test.ts",
+    "tests/testing-ai-confidence-engineering-guide/page.test.tsx",
+    "tests/testing-computer-software-guide/page.test.tsx",
+    "tests/testing-web-apis-guide/page.test.tsx",
+    "tests/the-way-of-the-web-tester-guide/page.test.tsx",
+    "tests/unit-testing-guide/page.test.tsx",
+    "tests/unit-testing-principles-practices-patterns-guide/page.test.tsx",
+    "tests/working-effectively-with-legacy-code-guide/page.test.tsx"
+  ],
+  "components": [
+    "tests/components/DisclaimerBanner.test.tsx",
+    "tests/components/Header.test.tsx",
+    "tests/components/Mermaid.test.tsx"
+  ],
+  "lib": [
+    "tests/app-icons.test.ts",
+    "tests/font-display-optional.test.ts",
+    "tests/font-loading.test.ts",
+    "tests/istqb-ctfl-v4-chapter6-test-tools/NavBar.test.tsx",
+    "tests/lhci-config.test.ts",
+    "tests/lib/dependencies.test.ts",
+    "tests/lib/fix-mermaid-skill-sync.test.ts",
+    "tests/lib/mermaid-init-directive.test.ts",
+    "tests/lib/mermaid-theme-contract.test.ts",
+    "tests/lib/navigation-e2e-sync.test.ts",
+    "tests/lib/navigation.test.ts",
+    "tests/mermaid-mock-isolation.test.ts",
+    "tests/tabler-icon-loading.test.ts"
+  ],
+  "scripts": [
+    "tests/scripts/extract-css.test.ts",
+    "tests/scripts/fix-fences.test.ts",
+    "tests/scripts/format-markdown.test.ts",
+    "tests/scripts/html-to-tsx.test.ts",
+    "tests/scripts/validate-fences.test.ts"
+  ],
+  "e2e": [
+    "e2e/a11y.e2e.ts",
+    "e2e/craftsman-layout.e2e.ts",
+    "e2e/ct-genai-study-mermaid-css.e2e.ts",
+    "e2e/ctal-tae-ch6-mermaid-colors.e2e.ts",
+    "e2e/ctal-tae-ch7-learning-ui.e2e.ts",
+    "e2e/ctal-tae-ch7-mermaid-colors.e2e.ts",
+    "e2e/ctal-tae-code-layout.e2e.ts",
+    "e2e/iec-62304-layout.e2e.ts",
+    "e2e/iso-11179-layout.e2e.ts",
+    "e2e/iso-14496-22-layout.e2e.ts",
+    "e2e/iso-19770-5-layout.e2e.ts",
+    "e2e/iso-23009-1-2026-layout.e2e.ts",
+    "e2e/iso-27799-2025-layout.e2e.ts",
+    "e2e/iso-30130-layout.e2e.ts",
+    "e2e/iso-30141-layout.e2e.ts",
+    "e2e/iso-9075-layout.e2e.ts",
+    "e2e/iso-iec-5338-layout.e2e.ts",
+    "e2e/library.e2e.ts",
+    "e2e/mermaid-layout.e2e.ts",
+    "e2e/pages.ts",
+    "e2e/quality-is-free-layout.e2e.ts",
+    "e2e/sbe-layout.e2e.ts",
+    "e2e/smoke.e2e.ts",
+    "e2e/tcs-layout.e2e.ts",
+    "e2e/wewlc-layout.e2e.ts"
+  ],
+  "tooling": [
+    "playwright.config.ts",
+    "playwright.layout.config.ts",
+    "lighthouserc.json"
+  ]
+},
 
   actions: [
     {

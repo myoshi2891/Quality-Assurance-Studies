@@ -1,8 +1,19 @@
 # Project Overview
 
-Updated 2026-11-01
+Updated 2026-11-02
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-02: ISO/IEC 30141:2024 IoT参照アーキテクチャガイドの移行
+
+- `/iso-iec-30141-2024-guide`をISOカテゴリーへ追加し、ナビ・E2E一覧を117ルート（ホーム＋116ガイド）へ同期。
+- 原本の45見出し・階層目次44リンク・21表の全セル・11図・9コールアウト・外部リンク43要素・理解度チェック8問・メタ情報4項目・本文全文を固定インベントリと照合。コードブロックは原本どおり0件。
+- CSS全68ルールと960px境界、ダーク配色、ヒーロー装飾、箇条書き、表の列幅・文字色・罫線、注記、回答開閉の疑似要素を保持。共有CSSの干渉とインライン空白欠落による表幅差を補正。
+- 図はMarkdownをHTML内SVGと照合し、HTML側のラベル・接続先・矢印・配色を正として再構築。Mermaidのグラデーション枠を原本の単色へ合わせ、外側コンテナで横スクロール両端へ到達できることを検証。
+- `app/iso-iec-30141-2024-guide/`に`page.tsx`・同名CSS・`NavBar.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category16.tsx`を配置。目次の開閉・Escape・フォーカス復帰・全44見出しの監視・Observer解除を検証。
+- `tests/iso-iec-30141-2024-guide/`の対象305件、関連579件、全体9065件（198ファイル）、対象型検査、lintが成功。`e2e/iso-30141-layout.e2e.ts`のChromium32件で4画面幅×CSS2順序、11実SVGの内容・配色、11図の横スクロール、2幅×8回答の開閉表示を検証。ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。
+- 原本HTML・Markdownは`archive/html-archive/iso/Iso-iec-30141-2024-guide.html`・`archive/md-archive/iso/Iso-iec-30141-2024-guide.md`へ同名で移動。SHA-256一致、Git追跡、rename検出100%を確認。
+- Redテストを先行コミットし、CSS・図・目次・本文17カテゴリー・統合・登録・アーカイブ・補正・仕様書を分割。各コミット直前にPII検査。コマンドはユーザー指定どおりnpm経由。
 
 ## 2026-10-31: ISO/IEC 14496-22:2026（Open Font Format 第5版）初学者向け解説ガイドの移行
 
@@ -216,6 +227,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - npm経由で対象283件、全体6024件（137ファイル）、ビルド・サーバー不要のブラウザー34件（6幅×CSS読込2順序＋2幅×11図）、lint、対象型検査が成功。全体型検査には既存の型エラーが残存。本番ビルド未実施、目視確認はユーザー担当。
 
 ## Migrated Pages (Tracking)
+
+- `app/iso-iec-30141-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・17本文カテゴリー、目次44リンク、Mermaid11図、原本照合305件）。
 
 - `app/iso-27799-2025-guide/page.tsx`（医療情報セキュリティ、`NavBar.tsx`・専用CSS、全19本文カテゴリー・ヒーロー・フッター、チェック10項目、Mermaid11図）
 
@@ -514,6 +527,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -584,9 +598,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 115 ルート（ガイドライブラリ index + 114 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 117 ルート（ガイドライブラリ index + 116 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近 8725件（npm経由の全体テスト・169ファイル））。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9065件、npm経由の全体テスト・198ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
