@@ -6,6 +6,8 @@ import Section5 from '../../app/iso-14496-22-2026-beginner-guide/Section5';
 import Section9 from '../../app/iso-14496-22-2026-beginner-guide/Section9';
 import Section6 from '../../app/iso-14496-22-2026-beginner-guide/Section6';
 import Section10 from '../../app/iso-14496-22-2026-beginner-guide/Section10';
+import Section7 from '../../app/iso-14496-22-2026-beginner-guide/Section7';
+import { DIAGRAM_06 } from '../../app/iso-14496-22-2026-beginner-guide/diagrams';
 
 const ORIGINAL_INNER_WIDTH = window.innerWidth;
 
@@ -156,5 +158,35 @@ describe('ISO 14496-22:2026 review fixes: SVG table tag includes trailing space'
 
     // Assert
     expect(row?.querySelector('td')?.textContent).toBe("'SVG '");
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: sfntVersion signature validation', () => {
+  it('rejects unsupported sfntVersion values after the TTC check and before reading table records', () => {
+    // Arrange & Act
+    const { container } = render(<Section5 />);
+    const code = container.querySelector('section#ch5 pre.py code')?.textContent ?? '';
+    const ttcIdx = code.indexOf('if sfnt_version == b"ttcf":');
+    const checkIdx = code.indexOf('if sfnt_version not in (b"\\x00\\x01\\x00\\x00", b"OTTO"):');
+    const recordsIdx = code.indexOf('records = []');
+
+    // Assert
+    expect(ttcIdx).toBeGreaterThan(-1);
+    expect(checkIdx).toBeGreaterThan(ttcIdx);
+    expect(recordsIdx).toBeGreaterThan(checkIdx);
+    expect(code.slice(checkIdx, recordsIdx)).toContain('raise ValueError(');
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: DIAGRAM_06 direction wording', () => {
+  it('describes the top-to-bottom flowchart as 上から下', () => {
+    // Arrange & Act
+    const { container } = render(<Section7 />);
+    const text = container.querySelector('section#ch7')?.textContent ?? '';
+
+    // Assert
+    expect(DIAGRAM_06).toContain('flowchart TD');
+    expect(text).toContain('この図は、文字が表示されるまでの処理を上から下へ並べたものです。');
+    expect(text).not.toContain('左から右へ');
   });
 });
