@@ -2,7 +2,8 @@ import { expect, it } from 'bun:test';
 import React from 'react';
 import type { AnyNode } from 'domhandler';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import postcss from 'postcss';
@@ -28,3 +29,5 @@ it('CSS imported and 800 weight provided',()=>{const source=readFileSync(base+'/
 it('metadata preserves source title',()=>expect(sourceModule(base+'/page.tsx').metadata).toMatchObject({title:'ISO/IEC 30141:2024 初学者向けステップバイステップ解説ガイド'}));
 it('all diagram wrappers have accessible descriptions',()=>{const $=html();expect($('.mermaid-diagram[role="img"][aria-label]').length).toBe(inventory.charts.length);});
 it('preserves whitespace between inline elements in every paragraph and table cell',()=>{const $=html();expect($(inventory.inlineText.selector).toArray().filter(el=>!$(el).closest('svg').length).map(el=>$(el).text().replace(/\s+/g,' ').trim())).toEqual(inventory.inlineText.items);});
+
+for(const ext of ['html','md'])it('archive '+ext+' is tracked and original root source is removed',()=>{const filename='Iso-iec-30141-2024-guide.'+ext;const path='archive/'+ext+'-archive/iso/'+filename;expect(existsSync(filename)).toBe(false);expect(execFileSync('git',['ls-files','--error-unmatch',path],{encoding:'utf8',stdio:'pipe'}).trim()).toBe(path);});
