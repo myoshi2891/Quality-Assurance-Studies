@@ -94,20 +94,20 @@ export default function Section1() {
           <thead>
             <tr className="header">
               <th>パート</th>
-              <th>名称・テーマ</th>
-              <th>位置付け</th>
+              <th>主題</th>
+              <th>性格</th>
             </tr>
           </thead>
           <tbody>
             <tr className="odd">
-              <td>Part 1（本書）</td>
-              <td>一般概念（General concepts）</td>
-              <td>情報提供（informative）</td>
+              <td>Part 1</td>
+              <td>一般概念（本ガイドの対象）</td>
+              <td>情報提供。適合要求を含まない</td>
             </tr>
             <tr className="even">
               <td>Part 2</td>
-              <td>テストプロセス（組織・管理・動的テスト）</td>
-              <td>規範（normative）</td>
+              <td>テストプロセス（組織・テスト管理・動的テストの3層）</td>
+              <td>規範。適合主張のための要求を含む</td>
             </tr>
             <tr className="odd">
               <td>Part 3</td>

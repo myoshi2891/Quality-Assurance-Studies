@@ -13,13 +13,13 @@ export default function Section3() {
             <tr className="header">
               <th>章・節</th>
               <th>内容</th>
-              <th>本ガイドでの扱い</th>
+              <th>本ガイドの対応STEP</th>
             </tr>
           </thead>
           <tbody>
             <tr className="odd">
               <td>1 適用範囲</td>
-              <td>すべての組織・開発方式・テストに適用できることを規定し、シリーズの鍵概念を示す</td>
+              <td>一般概念を規定し、シリーズの鍵概念を示す</td>
               <td>STEP 1</td>
             </tr>
             <tr className="even">
