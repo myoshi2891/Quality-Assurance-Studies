@@ -2,7 +2,8 @@ import { it, expect, afterEach } from 'bun:test';
 import React from 'react';
 import { render, cleanup, fireEvent, act } from '@testing-library/react';
 import { sourceModule } from '../helpers/source-module';
-afterEach(cleanup);
+const initialUrl=window.location.href;
+afterEach(()=>{cleanup();window.history.replaceState(null,'',initialUrl);});
 it('opens, closes with Escape and restores focus; disconnects observer',()=>{
  let disconnected=false;const observed:string[]=[];const original=globalThis.IntersectionObserver;
  globalThis.IntersectionObserver=class{observe(el:Element){observed.push(el.id)}disconnect(){disconnected=true}} as unknown as typeof IntersectionObserver;
@@ -16,7 +17,7 @@ it('observes every TOC heading, updates active link and releases every observer 
   const seed=render(<Nav/>);const ids=seed.getAllByRole('link').map(a=>a.getAttribute('href')!.slice(1));seed.unmount();
   ids.forEach(id=>{const h=document.createElement('h2');h.id=id;document.body.appendChild(h);headings.push(h);});
   const view=render(<Nav/>);expect(observed).toEqual(ids);
-  act(()=>notify([{isIntersecting:true,target:headings[12]} as IntersectionObserverEntry],{} as IntersectionObserver));
+  act(()=>notify([{isIntersecting:true,target:headings[12]} as unknown as IntersectionObserverEntry],{} as IntersectionObserver));
   expect(view.getAllByRole('link').filter(a=>a.getAttribute('aria-current')==='location').map(a=>a.getAttribute('href'))).toEqual(['#'+ids[12]]);
   view.unmount();expect(disconnected).toBe(2);
  }finally{headings.forEach(h=>h.remove());globalThis.IntersectionObserver=original;}

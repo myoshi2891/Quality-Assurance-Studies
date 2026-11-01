@@ -86,6 +86,7 @@ for(const width of [390,1440])test(`${width}px native learning answers open and 
    const answer=page.locator('details').nth(i),expected=reference.locator('details').nth(i);
    await answer.locator('summary').click();await expected.locator('summary').click();
    expect(await answer.getAttribute('open')).not.toBe(null);
+   for(const element of [answer,expected])await expect.poll(()=>element.locator('summary').evaluate(el=>getComputedStyle(el,'::before').transform)).toBe('matrix(0, 1, -1, 0, 0, 0)');
    const collect=(el:Element)=>({height:el.getBoundingClientRect().height,color:getComputedStyle(el).color,background:getComputedStyle(el).backgroundColor,padding:getComputedStyle(el).padding,marker:getComputedStyle(el.querySelector('summary')!,'::before').transform});
    expect(await answer.evaluate(collect)).toEqual(await expected.evaluate(collect));
    await answer.locator('summary').click();expect(await answer.getAttribute('open')).toBe(null);
