@@ -1,0 +1,87 @@
+import { describe, it, expect } from 'bun:test';
+import { render } from '@testing-library/react';
+import React from 'react';
+import Section4 from '../../app/iso-14496-22-2026-beginner-guide/Section4';
+import Section5 from '../../app/iso-14496-22-2026-beginner-guide/Section5';
+
+describe('ISO 14496-22:2026 Guide - Sections 4 & 5', () => {
+  it('renders Section 4 with H2, H3, table, DIAGRAM_03, callout, why-note, and glossary', () => {
+    const { container } = render(<Section4 />);
+    const section = container.querySelector('section#ch4');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('4. ISO 規格と OpenType 仕様の関係');
+
+    const callout = section?.querySelector('.callout-practice');
+    expect(callout?.textContent).toContain('Microsoft の OpenType 仕様');
+
+    const whyNote = section?.querySelector('.why-note');
+    expect(whyNote?.textContent).toContain('なぜ整理するのか');
+
+    const h3 = section?.querySelector('h3');
+    expect(h3?.textContent).toContain('実務での使い分け');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    expect(table?.textContent).toContain('目的');
+    expect(table?.textContent).toContain('Microsoft OpenType 1.9.1');
+
+    const diagram = section?.querySelector('.mermaid-diagram');
+    expect(diagram).not.toBeNull();
+
+    const glossary = section?.querySelector('.glossary');
+    expect(glossary?.textContent).toContain('適合性（コンフォーマンス）');
+    expect(glossary?.textContent).toContain('作業草案（preliminary working draft）');
+    expect(glossary?.textContent).toContain('スクリプトタグ');
+  });
+
+  it('renders Section 5 with H2, 6 H3s, 4 tables, DIAGRAM_04, Python code block, callout, why-notes, and glossary', () => {
+    const { container } = render(<Section5 />);
+    const section = container.querySelector('section#ch5');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('5. フォントファイルの構造：sfnt コンテナを読んでみる');
+
+    const callout = section?.querySelector('.callout-practice');
+    expect(callout?.textContent).toContain('最初の数バイト');
+
+    const diagram = section?.querySelector('.mermaid-diagram');
+    expect(diagram).not.toBeNull();
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s).toBeDefined();
+    expect(h3s!.length).toBe(6);
+    expect(h3s![0]!.textContent).toContain('5-1. ファイル先頭のテーブルディレクトリ');
+    expect(h3s![1]!.textContent).toContain('5-2. 各テーブルの目次');
+    expect(h3s![2]!.textContent).toContain('5-3. 実際に Python で先頭12バイトを読んでみる');
+    expect(h3s![3]!.textContent).toContain('5-4. 2種類の sfntVersion：TrueType か CFF か');
+    expect(h3s![4]!.textContent).toContain('5-5. テーブルレコードの並び順と実例');
+    expect(h3s![5]!.textContent).toContain('5-6. チェックサムの考え方');
+
+    // 4 tables
+    const tables = section?.querySelectorAll('table');
+    expect(tables).toBeDefined();
+    expect(tables!.length).toBe(4);
+    expect(tables![0]!.textContent).toContain('numTables');
+    expect(tables![1]!.textContent).toContain('tableTag');
+    expect(tables![2]!.textContent).toContain('0x00010000');
+    expect(tables![3]!.textContent).toContain('GSUB');
+
+    // Python code block with syntax tokens
+    const pre = section?.querySelector('pre');
+    expect(pre).not.toBeNull();
+    const code = pre?.querySelector('code');
+    expect(code?.textContent).toContain('import struct');
+    expect(pre?.querySelector('.tok-k')).not.toBeNull();
+    expect(pre?.querySelector('.tok-s')).not.toBeNull();
+    expect(pre?.querySelector('.tok-c')).not.toBeNull();
+
+    // Glossary
+    const glossary = section?.querySelector('.glossary');
+    expect(glossary?.textContent).toContain('ビッグエンディアン');
+    expect(glossary?.textContent).toContain('オフセット');
+    expect(glossary?.textContent).toContain('チェックサム');
+  });
+});

@@ -166,6 +166,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-27799-2025-guide', label: 'ISO 27799 医療情報セキュリティ ガイド', description: '医療向け情報セキュリティ管理策、27002との関係、HLT管理策、付録と導入・QA観点を段階的に解説。', category: 'iso' },
   { href: '/iso-30130-guide', label: 'ISO 30130 テストツール能力 ガイド', description: 'テストツールの能力・カテゴリ化・特性化・対応付けと、関連規格・選定評価を段階的に解説。', category: 'iso' },
   { href: '/iso-iec-5338-guide', label: 'ISO/IEC 5338 AIライフサイクル ガイド', description: 'AIシステムのライフサイクル、4プロセスグループ、AI固有プロセスと導入手順を段階的に解説。', category: 'iso' },
+  { href: '/iso-14496-22-2026-beginner-guide', label: 'ISO 14496-22:2026（OFF第5版）初学者向け解説', description: '2026年7月発行の第5版Open Font Formatをバイナリ構造・表示パイプライン・可変フォントから段階的に解説。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

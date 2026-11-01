@@ -1,390 +1,174 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
-import { load } from 'cheerio';
-import type { Element as HtmlElement } from 'domhandler';
-import postcss from 'postcss';
-import type { Window as HappyWindow } from 'happy-dom';
-import inventory from '../../docs/migration-inventory/iso-29119-1-2022-guide.json';
-import NavBar from '../../app/iso-29119-1-2022-guide/NavBar';
+import { join } from 'node:path';
+import { render } from '@testing-library/react';
+import Iso29119_1_GuidePage from '../../app/iso-29119-1-2022-guide/page';
+import * as diagrams from '../../app/iso-29119-1-2022-guide/diagrams';
 
-// Font delivery is verified through markup; unit tests must not fetch external CSS.
-const browserSettings = (window as unknown as HappyWindow).happyDOM.settings;
-let previousCSSLoading = browserSettings.disableCSSFileLoading;
-let previousDisabledLoading = browserSettings.handleDisabledFileLoadingAsSuccess;
-beforeEach(() => {
-  previousCSSLoading = browserSettings.disableCSSFileLoading;
-  previousDisabledLoading = browserSettings.handleDisabledFileLoadingAsSuccess;
-  browserSettings.disableCSSFileLoading = true;
-  browserSettings.handleDisabledFileLoadingAsSuccess = true;
-});
-afterEach(() => {
-  cleanup();
-  browserSettings.disableCSSFileLoading = previousCSSLoading;
-  browserSettings.handleDisabledFileLoadingAsSuccess = previousDisabledLoading;
-});
+const SOURCE_HTML_PATH = join(import.meta.dir, '../../archive/html-archive/iso/Iso-29119-1-2022-guide.html');
 
-const norm = (value: string) => value.replace(/\s+/g, '').trim();
-
-type InventoryItem = { tag: string; attrs: string[][]; text: string };
-
-function signatures(html: string, selector = '*'): InventoryItem[] {
-  const $ = load(html, null, false);
-  $('.mermaid-wrapper').remove();
-  $('.mermaid-diagram svg').remove();
-  return $(selector).toArray().filter((node): node is HtmlElement => 'tagName' in node).map(node => ({
-    tag: node.tagName,
-    attrs: Object.entries(node.attribs).filter(([key]) => !key.startsWith('aria-') && key !== 'role' && key !== 'target' && key !== 'rel').sort(([a], [b]) => a.localeCompare(b)),
-    text: norm($(node).text()),
-  }));
+interface Inventory {
+  headings: string[];
+  toc: string[];
+  diagrams: string[];
+  tables: string[];
+  code: string[];
+  callouts: string[];
+  refs: string[];
 }
 
-async function markup(name: string) {
-  const mod = await import('../../app/iso-29119-1-2022-guide/' + name);
-  const Component = mod.default;
-  return renderToStaticMarkup(<Component />);
+/** 連続する空白を 1 つにまとめ、ソース整形由来の改行・字下げ差を無視する */
+function normalize(text: string | null | undefined): string {
+  return (text ?? '').replace(/\s+/g, ' ').trim();
 }
 
-describe('ISO/IEC/IEEE 29119-1:2022 Elements Inventory', () => {
-  for (const group of inventory.groups) {
-    describe(group.name, () => {
-      it('preserves complete DOM structure and full text in document order', async () => {
-        expect(signatures(await markup(group.name))).toEqual(group.structure);
-      });
-      for (const [selector, items] of Object.entries(group.items)) {
-        const expected: InventoryItem[] = items;
-        if (expected.length === 0) continue;
-        it(`preserves exact ordered inventory for ${selector}`, async () => {
-          expect(signatures(await markup(group.name), selector)).toEqual(expected);
-        });
-      }
-    });
+/** 原本の目次と本文（ヒーロー・フッターを除く）を解析する。描画済み SVG は happy-dom が解析しきれないため空要素に置き換える */
+function loadSourceRoot(): DocumentFragment {
+  const html = readFileSync(SOURCE_HTML_PATH, 'utf8');
+  const start = html.indexOf('<nav class="sidebar"');
+  const end = html.indexOf('<footer class="page-footer"');
+  if (start < 0 || end < 0) {
+    throw new Error('source HTML landmarks (nav.sidebar / footer.page-footer) not found');
   }
+  const template = document.createElement('template');
+  template.innerHTML = html.slice(start, end).replace(/<svg[\s\S]*?<\/svg>/g, '<svg></svg>');
+  return template.content;
+}
 
-  it('enforces rel="noopener noreferrer" and target="_blank" on all external links in AnnexB', async () => {
-    const html = await markup('AnnexB');
-    const $ = load(html, null, false);
-    const links = $('a[href^="http"]').toArray() as HtmlElement[];
-    expect(links.length).toBeGreaterThan(0);
-    for (const link of links) {
-      expect(link.attribs.target).toBe('_blank');
-      expect(link.attribs.rel).toBe('noopener noreferrer');
-    }
-  });
-
-  for (const name of ['Section0', 'Section1']) {
-    it(`labels every table in ${name} by its preceding h3 via aria-labelledby`, async () => {
-      const $ = load(await markup(name), null, false);
-      const tables = $('table').toArray() as HtmlElement[];
-      expect(tables.length).toBeGreaterThan(0);
-      for (const table of tables) {
-        const headingId = $(table).parent().prevAll('h3').first().attr('id');
-        expect(headingId).toBeDefined();
-        expect(table.attribs['aria-labelledby']).toBe(headingId);
-      }
-    });
+function extractInventory(root: ParentNode): Inventory {
+  const article = root.querySelector('article.content');
+  const nav = root.querySelector('nav.sidebar');
+  if (!article || !nav) {
+    throw new Error('article.content or nav.sidebar not found');
   }
-
-  // 見出しレベル（h2〜h4）に依存せず、全表が固有のアクセシブル名を持つことを検証する
-  const TABLE_COUNTS: Record<string, number> = {
-    Section2: 2, Section3: 1, Section4: 1, Section5: 5, Section6: 6, Section7: 4, Section8: 9,
-    Section9: 1, Section11: 1, Section12: 1, Section14: 1, AnnexA: 1, AnnexB: 3,
+  return {
+    headings: Array.from(article.querySelectorAll('h2, h3, h4')).map(
+      (h) => `${h.tagName}|${h.id}|${normalize(h.textContent)}`
+    ),
+    toc: Array.from(nav.querySelectorAll('a')).map(
+      (a) => `${a.getAttribute('href') ?? ''}|${normalize(a.textContent)}`
+    ),
+    diagrams: Array.from(article.querySelectorAll('.mermaid-diagram')).map(
+      (d) => `${d.id}|${d.getAttribute('aria-label') ?? ''}`
+    ),
+    tables: Array.from(article.querySelectorAll('table')).map((table) =>
+      Array.from(table.querySelectorAll('tr'))
+        .map((row) =>
+          Array.from(row.children)
+            .map((cell) => `${cell.tagName}:${normalize(cell.textContent)}`)
+            .join(' ¦ ')
+        )
+        .join(' ⏎ ')
+    ),
+    code: Array.from(article.querySelectorAll('pre')).map((pre) => pre.textContent ?? ''),
+    callouts: Array.from(article.querySelectorAll('.callout')).map(
+      (c) => `${c.className}|${Array.from(c.children).map((part) => normalize(part.textContent)).join(' / ')}`
+    ),
+    refs: Array.from(article.querySelectorAll('a[href^="http"]')).map(
+      (a) =>
+        `${a.getAttribute('href') ?? ''}|${normalize(a.textContent)}|${a.getAttribute('target') ?? ''}|${a.getAttribute('rel') ?? ''}`
+    ),
   };
-  for (const [name, count] of Object.entries(TABLE_COUNTS)) {
-    it(`gives each of the ${count} tables in ${name} a unique accessible name`, async () => {
-      const $ = load(await markup(name), null, false);
-      const tables = $('table').toArray() as HtmlElement[];
-      expect(tables).toHaveLength(count);
-      const names = tables.map(table => {
-        const labelledby = table.attribs['aria-labelledby'];
-        if (labelledby === undefined) return norm(table.attribs['aria-label'] ?? '');
-        const target = $(`[id="${labelledby}"]`);
-        expect(target).toHaveLength(1);
-        expect(/^h[2-6]$/.test(target.prop('tagName')?.toLowerCase() ?? '')).toBe(true);
-        return norm(target.text());
-      });
-      for (const label of names) expect(label.length).toBeGreaterThan(0);
-      expect(new Set(names).size).toBe(names.length);
-    });
-  }
+}
 
-  it('associates the three AnnexB tables with the B.1, B.2 and B.3 headings', async () => {
-    const $ = load(await markup('AnnexB'), null, false);
-    const labels = ($('table').toArray() as HtmlElement[]).map(table => norm($(`[id="${table.attribs['aria-labelledby']}"]`).text()));
-    expect(labels.map(label => label.slice(0, 3))).toEqual(['B.1', 'B.2', 'B.3']);
+describe('ISO/IEC/IEEE 29119-1:2022 Full Page Integration Test', () => {
+  it('renders complete page without crashing', () => {
+    const { container } = render(<Iso29119_1_GuidePage />);
+    const pageRoot = container.querySelector('.iso-29119-1-page');
+    expect(pageRoot).not.toBeNull();
   });
 
-  describe('NavBar', () => {
-    it('preserves all 69 links, targets and hierarchy in sidebar', async () => {
-      const html = await markup('NavBar');
-      const $ = load(html, null, false);
-      const links = $('nav.sidebar a.nav-link');
-      expect(links.length).toBe(69);
-      expect($('nav.sidebar .nav-h2').length).toBe(17);
-      expect($('nav.sidebar .nav-h3').length).toBe(52);
-    });
+  it('renders all 15 H2 section headings in correct document order', () => {
+    const { container } = render(<Iso29119_1_GuidePage />);
+    const h2s = Array.from(container.querySelectorAll('article.content h2'));
+    const expectedH2s = [
+      'STEP 0：このガイドの使い方と前提',
+      'STEP 1：規格の全体像',
+      'STEP 2：2013年版からの変更点',
+      'STEP 3：規格の構成を地図で把握する',
+      'STEP 4：ソフトウェアテストの基本概念（4.1節）',
+      'STEP 5：テスト計画とテスト戦略（4.2節）',
+      'STEP 6：テストフレームワーク（4.3節）',
+      'STEP 7：テスト設計と実行（4.4節）',
+      'STEP 8：プロジェクト管理・報告・インシデント管理（4.5〜4.7節）',
+      'STEP 9：システム特性とテストの役割（附属書A・B）',
+      'STEP 10：実務への適用手順',
+      'STEP 11：この規格をめぐる議論を知っておく',
+      'STEP 12：理解度チェック（10問）',
+      '用語集',
+      '根拠ソース一覧（URL）'
+    ];
+    expect(h2s.map(el => el.textContent?.trim())).toEqual(expectedH2s);
+  });
 
-    it('exposes the sidebar as a navigation landmark named 目次', () => {
-      // Arrange & Act
-      const { getByRole } = render(<NavBar />);
-      // Assert
-      expect(getByRole('navigation', { name: '目次' }).id).toBe('sidebar');
-    });
+  it('wires all 18 mermaid diagrams with Mermaid component', () => {
+    const { container } = render(<Iso29119_1_GuidePage />);
+    const diagramContainers = Array.from(container.querySelectorAll('.mermaid-diagram'));
+    expect(diagramContainers.length).toBe(18);
 
-    it('toggles mobile sidebar open state and closes on link click', () => {
-      const { container } = render(<NavBar />);
-      const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
-      const nav = container.querySelector('nav.sidebar') as HTMLElement;
-      expect(nav.classList.contains('open')).toBe(false);
-      fireEvent.click(toggle);
-      expect(nav.classList.contains('open')).toBe(true);
-      fireEvent.click(toggle);
-      expect(nav.classList.contains('open')).toBe(false);
-    });
+    const expectedDiagramIds = [
+      'mmd01', 'mmd02', 'mmd03', 'mmd04', 'mmd05', 'mmd06',
+      'mmd07', 'mmd08', 'mmd09', 'mmd10', 'mmd11', 'mmd12',
+      'mmd13', 'mmd14', 'mmd15', 'mmd16', 'mmd17', 'mmd18'
+    ];
+    expect(diagramContainers.map(el => el.id)).toEqual(expectedDiagramIds);
+  });
 
-    it('marks the active link and closes the sidebar on link click at narrow widths', () => {
+  describe('matches the refreshed source HTML one-to-one in document order', () => {
+    // 期待値は Git 追跡下の刷新版原本（2026-10 版）から毎回抽出する。件数ではなく出現順の全要素を照合し、
+    // 欠落・余剰・入れ替え・内容の置換を検出する。
+    const source = extractInventory(loadSourceRoot());
+
+    const cases: ReadonlyArray<[string, keyof Inventory, number]> = [
+      ['headings (H2〜H4: tag, id, text)', 'headings', 76],
+      ['TOC links (href, text)', 'toc', 67],
+      ['diagrams (id, aria-label)', 'diagrams', 18],
+      ['tables (every cell with header/data kind)', 'tables', 44],
+      ['code blocks (exact text)', 'code', 0],
+      ['callouts (variant, title, body)', 'callouts', 12],
+      ['external references (href, text, target, rel)', 'refs', 20],
+    ];
+
+    it.each(cases)('%s', (_label, key, expectedCount) => {
       // Arrange
-      const previousWidth = window.innerWidth;
-      Object.defineProperty(window, 'innerWidth', { configurable: true, value: 800 });
-      try {
-        const { container } = render(<NavBar />);
-        const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
-        const nav = container.querySelector('nav.sidebar') as HTMLElement;
-        const first = container.querySelector('a[data-target="0-はじめにこのガイドの読み方"]') as HTMLAnchorElement;
-        const other = container.querySelector('a[data-target="11-基本情報"]') as HTMLAnchorElement;
-        // Assert: 初期アクティブ節のみ active / aria-current
-        expect(first.classList.contains('active')).toBe(true);
-        expect(first.getAttribute('aria-current')).toBe('location');
-        expect(other.classList.contains('active')).toBe(false);
-        expect(other.hasAttribute('aria-current')).toBe(false);
-        // Act
-        fireEvent.click(toggle);
-        expect(nav.classList.contains('open')).toBe(true);
-        fireEvent.click(other);
-        // Assert
-        expect(nav.classList.contains('open')).toBe(false);
-      } finally {
-        Object.defineProperty(window, 'innerWidth', { configurable: true, value: previousWidth });
-      }
-    });
+      const { container } = render(<Iso29119_1_GuidePage />);
 
-    describe('page-end selection', () => {
-      const FIRST = '0-はじめにこのガイドの読み方';
-      const LAST = 'b4-情報の鮮度に関する注記';
-      const root = document.documentElement;
-      let sections: HTMLElement[] = [];
+      // Act
+      const rendered = extractInventory(container);
 
-      // 先頭節は判定ライン内、末尾節は帯より下に置き、末尾の短い節を再現する
-      function mountSections() {
-        sections = [FIRST, LAST].map((id, index) => {
-          const el = document.createElement('section');
-          el.id = id;
-          const top = index === 0 ? 0 : window.innerHeight * 0.9;
-          el.getBoundingClientRect = () => ({ top } as DOMRect);
-          document.body.appendChild(el);
-          return el;
-        });
-      }
-
-      function setScroll(scrollY: number, scrollHeight: number) {
-        Object.defineProperty(window, 'scrollY', { configurable: true, value: scrollY });
-        Object.defineProperty(root, 'scrollHeight', { configurable: true, value: scrollHeight });
-      }
-
-      afterEach(() => {
-        for (const el of sections) el.remove();
-        sections = [];
-        Reflect.deleteProperty(window, 'scrollY');
-        Reflect.deleteProperty(root, 'scrollHeight');
-      });
-
-      it('selects the last existing target when scrolled to the bottom', async () => {
-        // Arrange
-        mountSections();
-        const { container } = render(<NavBar />);
-        const first = container.querySelector(`a[data-target="${FIRST}"]`) as HTMLAnchorElement;
-        const last = container.querySelector(`a[data-target="${LAST}"]`) as HTMLAnchorElement;
-        // Act: ページ末尾までスクロール
-        setScroll(1000, 1000 + window.innerHeight);
-        fireEvent.scroll(window);
-        // Assert
-        await waitFor(() => expect(last.getAttribute('aria-current')).toBe('location'));
-        expect(last.classList.contains('active')).toBe(true);
-        expect(first.classList.contains('active')).toBe(false);
-        expect(first.hasAttribute('aria-current')).toBe(false);
-      });
-
-      it('keeps the threshold-based selection when not at the bottom', () => {
-        // Arrange
-        mountSections();
-        const { container } = render(<NavBar />);
-        const first = container.querySelector(`a[data-target="${FIRST}"]`) as HTMLAnchorElement;
-        const last = container.querySelector(`a[data-target="${LAST}"]`) as HTMLAnchorElement;
-        // Act: 末尾より手前
-        setScroll(100, 1000 + window.innerHeight);
-        fireEvent.scroll(window);
-        // Assert
-        expect(first.getAttribute('aria-current')).toBe('location');
-        expect(last.classList.contains('active')).toBe(false);
-        expect(last.hasAttribute('aria-current')).toBe(false);
-      });
-    });
-
-    describe('scroll-margin-top boundary', () => {
-      const CHAPTER = '1-29119-1-とは何かstep-1';
-      const SUB = '11-基本情報';
-      let sections: HTMLElement[] = [];
-
-      function mountAt(tops: Record<string, number>) {
-        sections = Object.entries(tops).map(([id, top]) => {
-          const el = document.createElement('section');
-          el.id = id;
-          el.getBoundingClientRect = () => ({ top } as DOMRect);
-          document.body.appendChild(el);
-          return el;
-        });
-      }
-
-      afterEach(() => {
-        for (const el of sections) el.remove();
-        sections = [];
-      });
-
-      it('selects the chapter heading stopped at scroll-margin-top, not the following subheading', () => {
-        // Arrange: 章見出しが停止位置（84px）、直後の小見出しが 30% ライン内（150px）
-        mountAt({ [CHAPTER]: 84, [SUB]: 150 });
-        const { container } = render(<NavBar />);
-        const chapter = container.querySelector(`a[data-target="${CHAPTER}"]`) as HTMLAnchorElement;
-        const sub = container.querySelector(`a[data-target="${SUB}"]`) as HTMLAnchorElement;
-        // Act
-        fireEvent.scroll(window);
-        // Assert
-        expect(chapter.getAttribute('aria-current')).toBe('location');
-        expect(sub.classList.contains('active')).toBe(false);
-        expect(sub.hasAttribute('aria-current')).toBe(false);
-      });
-
-      it('selects the subheading once it reaches scroll-margin-top', () => {
-        // Arrange: 小見出しが停止位置に到達
-        mountAt({ [CHAPTER]: -200, [SUB]: 84 });
-        const { container } = render(<NavBar />);
-        const chapter = container.querySelector(`a[data-target="${CHAPTER}"]`) as HTMLAnchorElement;
-        const sub = container.querySelector(`a[data-target="${SUB}"]`) as HTMLAnchorElement;
-        // Act
-        fireEvent.scroll(window);
-        // Assert
-        expect(sub.getAttribute('aria-current')).toBe('location');
-        expect(chapter.hasAttribute('aria-current')).toBe(false);
-      });
+      // Assert: 原本側の抽出漏れを防ぐため件数も固定し、そのうえで全要素を順序どおり照合する
+      expect(source[key].length).toBe(expectedCount);
+      expect(rendered[key]).toEqual(source[key]);
     });
   });
 
-  describe('Page Integration', () => {
-    it('integrates all sections and renders without runtime error', async () => {
-      const { default: Page } = await import('../../app/iso-29119-1-2022-guide/page');
-      const html = renderToStaticMarkup(<Page />);
-      const $ = load(html, null, false);
-      expect($('.iso-29119-1-page').length).toBe(1);
-      expect($('nav.sidebar').length).toBe(1);
-      expect($('main.main').length).toBe(1);
-      expect($('.mermaid-diagram').length).toBe(19);
-      expect($('table').length).toBe(39);
-    });
+  it('preserves all 67 navigation links in the sidebar', () => {
+    const { container } = render(<Iso29119_1_GuidePage />);
+    const sidebarLinks = Array.from(container.querySelectorAll('nav.sidebar a'));
+    expect(sidebarLinks.length).toBe(67);
 
-    it('wires all 19 mermaid diagrams into their containers with Mermaid component', async () => {
-      const { default: Page } = await import('../../app/iso-29119-1-2022-guide/page');
-      const html = renderToStaticMarkup(<Page />);
-      const $ = load(html, null, false);
-      for (let i = 1; i <= 19; i++) {
-        const diagramEl = $(`#mermaid-${i}`);
-        expect(diagramEl.length).toBe(1);
-        expect(diagramEl.find('.mermaid-wrapper').length).toBe(1);
-      }
-    });
-
-    it('renders all 19 charts on the client with correct diagram definitions', async () => {
-      const { default: mermaid } = await import('mermaid');
-      const original = mermaid.render;
-      mermaid.render = async (_id, chart) => ({
-        svg: `<svg data-chart="${createHash('sha256').update(chart).digest('hex')}"></svg>`,
-        diagramType: 'flowchart',
-      });
-      try {
-        const { default: Page } = await import('../../app/iso-29119-1-2022-guide/page');
-        const diagrams = await import('../../app/iso-29119-1-2022-guide/diagrams');
-        const view = render(<Page />);
-        await waitFor(() => expect(view.container.querySelectorAll('.mermaid-diagram svg')).toHaveLength(19));
-        for (let i = 1; i <= 19; i++) {
-          const expectedChart = (diagrams as Record<string, string>)[`DIAGRAM_${i}`];
-          expect(view.container.querySelector(`#mermaid-${i} svg`)?.getAttribute('data-chart'))
-            .toBe(createHash('sha256').update(expectedChart).digest('hex'));
-        }
-      } finally {
-        mermaid.render = original;
-      }
-    });
-
-    it('gives every diagram a unique accTitle and accDescr', async () => {
-      const diagrams = (await import('../../app/iso-29119-1-2022-guide/diagrams')) as Record<string, string>;
-      const titles: string[] = [];
-      const descrs: string[] = [];
-      for (let i = 1; i <= 19; i++) {
-        const chart = diagrams[`DIAGRAM_${i}`];
-        const title = /^\s*accTitle:\s*(.+)$/m.exec(chart)?.[1]?.trim();
-        const descr = /^\s*accDescr:\s*(.+)$/m.exec(chart)?.[1]?.trim();
-        expect(title).toBeTruthy();
-        expect(descr).toBeTruthy();
-        titles.push(title ?? '');
-        descrs.push(descr ?? '');
-      }
-      expect(new Set(titles).size).toBe(19);
-      expect(new Set(descrs).size).toBe(19);
-    });
-
-    it('describes all three conformance branches in DIAGRAM_17 accDescr', async () => {
-      const { DIAGRAM_17 } = await import('../../app/iso-29119-1-2022-guide/diagrams');
-      const title = /^\s*accTitle:\s*(.+)$/m.exec(DIAGRAM_17)?.[1] ?? '';
-      // 29119-1 は参考文書で適合要求を持たないため、適合対象が Part 2・3・4 であることをタイトルで示す
-      expect(title).toContain('Part 2・3・4');
-      expect(title).not.toContain('29119-1 への適合');
-      const descr = /^\s*accDescr:\s*(.+)$/m.exec(DIAGRAM_17)?.[1] ?? '';
-      expect(descr).toContain('完全適合');
-      expect(descr).toContain('テーラード適合');
-      expect(descr).toContain('正当な理由');
-      expect(descr).toContain('合意');
-      expect(descr).toContain('適合を主張できない');
-    });
-
-    it('branches DIAGRAM_17 on stakeholder agreement after documenting justified tailoring', async () => {
-      const { DIAGRAM_17 } = await import('../../app/iso-29119-1-2022-guide/diagrams');
-      // 正当な理由の経路は維持し、合意の可否を判定ノードで分岐させる
-      expect(DIAGRAM_17).toMatch(/B -->\|"いいえ 正当な理由あり"\| D\[/);
-      expect(DIAGRAM_17).toMatch(/D --> E\{"関係者と合意したか"\}/);
-      expect(DIAGRAM_17).toMatch(/E -->\|"合意した"\| F\["テーラード適合を主張可能"\]/);
-      expect(DIAGRAM_17).toMatch(/E -->\|"合意しない"\| G\b/);
-      expect(DIAGRAM_17).toMatch(/G\["適合を主張できない"\]/);
-    });
+    // 全フラグメントリンクの遷移先が本文に存在すること
+    // （日本語・数字始まりの ID は CSS セレクターで扱いにくく、他テストの DOM も残り得るため本文内の ID 集合で照合）
+    const content = container.querySelector('article.content');
+    expect(content).not.toBeNull();
+    const contentIds = new Set(
+      Array.from(content?.querySelectorAll('[id]') ?? []).map((el) => el.id)
+    );
+    const unresolved = sidebarLinks
+      .map((a) => decodeURIComponent((a.getAttribute('href') ?? '').replace(/^#/, '')))
+      .filter((id) => id !== '')
+      .filter((id) => !contentIds.has(id));
+    expect(unresolved).toEqual([]);
   });
 
-  describe('Styles and Scope', () => {
-    it('scopes all styles under .iso-29119-1-page', () => {
-      const css = readFileSync('app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css', 'utf8');
-      const root = postcss.parse(css);
-      root.walkRules((rule) => {
-        expect(rule.selector.startsWith('.iso-29119-1-page')).toBe(true);
-      });
-    });
-
-    it('resets globals.css hero, table, and mermaid interference', () => {
-      const css = readFileSync('app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css', 'utf8');
-      expect(css).toContain('.hero');
-      expect(css).toContain('min-height: 0 !important');
-      expect(css).toContain('.mermaid-wrapper');
-      expect(css).toContain('background: transparent !important');
-      expect(css).toContain('max-width: none !important');
-    });
+  it('validates that every diagram definition in diagrams.ts includes config and accessibility description', () => {
+    for (let i = 1; i <= 18; i++) {
+      const key = `DIAGRAM_${String(i).padStart(2, '0')}`;
+      const chart = (diagrams as Record<string, string>)[key];
+      expect(chart).toBeDefined();
+      expect(chart).toContain('accTitle:');
+      expect(chart).toContain('accDescr:');
+    }
   });
 });

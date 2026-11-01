@@ -1,7 +1,15 @@
 import { GlobalRegistrator } from '@happy-dom/global-registrator';
-import { mock } from 'bun:test';
+import { afterEach, mock } from 'bun:test';
 
 GlobalRegistrator.register();
+
+// RTL の自動 cleanup は最初に import したテストファイルにしか登録されない（bun はモジュールを全ファイルで共有する）。
+// 全ファイル共通で描画結果を片付け、後続ファイルへの DOM 残留による実行順依存の失敗を防ぐ。
+// RTL は GlobalRegistrator.register() の後に読み込む必要があるため動的 import とする。
+const { cleanup } = await import('@testing-library/react');
+afterEach(() => {
+  cleanup();
+});
 
 mock.module('mermaid', () => ({
   default: {
