@@ -10,6 +10,7 @@
     --accent: #7c9eff;
     --accent-soft: rgba(124, 158, 255, 0.14);
     --text: #e4ecfb;
+    --ink: #e4ecfb;
     --text-dim: #c7d6ec;
     --text-faint: #9cb0cf;
     --sidebar-w: 300px;
@@ -64,8 +65,20 @@ main.iso-29119-1-page {
 
 .iso-29119-1-page tbody td,
 .iso-29119-1-page td {
-    color: var(--text) !important;
-    font-size: 14.5px !important;
+    color: var(--ink) !important;
+    font-size: 1rem !important;
+}
+
+/* 表セル内のインラインコード（globals の td 色・書体を継承させない） */
+.iso-29119-1-page td code {
+    font-family: var(--mono) !important;
+    color: #cfe0ff !important;
+    font-size: 0.88em !important;
+}
+
+/* globals の tr:hover td 背景をリセット（偶数行の縞模様は詳細度で維持） */
+.iso-29119-1-page tbody tr:hover td {
+    background: transparent;
 }
 
 .iso-29119-1-page td strong {

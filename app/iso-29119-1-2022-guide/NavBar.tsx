@@ -237,6 +237,7 @@ export default function NavBar() {
                 <a
                   href={sec.href}
                   className={isSecActive ? 'active' : ''}
+                  aria-current={isSecActive ? 'location' : undefined}
                   onClick={handleLinkClick}
                 >
                   {sec.text}
@@ -251,6 +252,7 @@ export default function NavBar() {
                           <a
                             href={sub.href}
                             className={isSubActive ? 'active' : ''}
+                            aria-current={isSubActive ? 'location' : undefined}
                             onClick={handleLinkClick}
                           >
                             {sub.text}
