@@ -1,8 +1,76 @@
 import { describe, expect, it } from 'bun:test';
 import React from 'react';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { render } from '@testing-library/react';
 import Iso29119_1_GuidePage from '../../app/iso-29119-1-2022-guide/page';
 import * as diagrams from '../../app/iso-29119-1-2022-guide/diagrams';
+
+const SOURCE_HTML_PATH = join(import.meta.dir, '../../archive/html-archive/iso/Iso-29119-1-2022-guide.html');
+
+interface Inventory {
+  headings: string[];
+  toc: string[];
+  diagrams: string[];
+  tables: string[];
+  code: string[];
+  callouts: string[];
+  refs: string[];
+}
+
+/** 連続する空白を 1 つにまとめ、ソース整形由来の改行・字下げ差を無視する */
+function normalize(text: string | null | undefined): string {
+  return (text ?? '').replace(/\s+/g, ' ').trim();
+}
+
+/** 原本の目次と本文（ヒーロー・フッターを除く）を解析する。描画済み SVG は happy-dom が解析しきれないため空要素に置き換える */
+function loadSourceRoot(): DocumentFragment {
+  const html = readFileSync(SOURCE_HTML_PATH, 'utf8');
+  const start = html.indexOf('<nav class="sidebar"');
+  const end = html.indexOf('<footer class="page-footer"');
+  if (start < 0 || end < 0) {
+    throw new Error('source HTML landmarks (nav.sidebar / footer.page-footer) not found');
+  }
+  const template = document.createElement('template');
+  template.innerHTML = html.slice(start, end).replace(/<svg[\s\S]*?<\/svg>/g, '<svg></svg>');
+  return template.content;
+}
+
+function extractInventory(root: ParentNode): Inventory {
+  const article = root.querySelector('article.content');
+  const nav = root.querySelector('nav.sidebar');
+  if (!article || !nav) {
+    throw new Error('article.content or nav.sidebar not found');
+  }
+  return {
+    headings: Array.from(article.querySelectorAll('h2, h3, h4')).map(
+      (h) => `${h.tagName}|${h.id}|${normalize(h.textContent)}`
+    ),
+    toc: Array.from(nav.querySelectorAll('a')).map(
+      (a) => `${a.getAttribute('href') ?? ''}|${normalize(a.textContent)}`
+    ),
+    diagrams: Array.from(article.querySelectorAll('.mermaid-diagram')).map(
+      (d) => `${d.id}|${d.getAttribute('aria-label') ?? ''}`
+    ),
+    tables: Array.from(article.querySelectorAll('table')).map((table) =>
+      Array.from(table.querySelectorAll('tr'))
+        .map((row) =>
+          Array.from(row.children)
+            .map((cell) => `${cell.tagName}:${normalize(cell.textContent)}`)
+            .join(' ¦ ')
+        )
+        .join(' ⏎ ')
+    ),
+    code: Array.from(article.querySelectorAll('pre')).map((pre) => pre.textContent ?? ''),
+    callouts: Array.from(article.querySelectorAll('.callout')).map(
+      (c) => `${c.className}|${Array.from(c.children).map((part) => normalize(part.textContent)).join(' / ')}`
+    ),
+    refs: Array.from(article.querySelectorAll('a[href^="http"]')).map(
+      (a) =>
+        `${a.getAttribute('href') ?? ''}|${normalize(a.textContent)}|${a.getAttribute('target') ?? ''}|${a.getAttribute('rel') ?? ''}`
+    ),
+  };
+}
 
 describe('ISO/IEC/IEEE 29119-1:2022 Full Page Integration Test', () => {
   it('renders complete page without crashing', () => {
@@ -47,10 +115,32 @@ describe('ISO/IEC/IEEE 29119-1:2022 Full Page Integration Test', () => {
     expect(diagramContainers.map(el => el.id)).toEqual(expectedDiagramIds);
   });
 
-  it('renders all 44 tables across the full document', () => {
-    const { container } = render(<Iso29119_1_GuidePage />);
-    const tables = Array.from(container.querySelectorAll('.table-scroll table'));
-    expect(tables.length).toBe(44);
+  describe('matches the refreshed source HTML one-to-one in document order', () => {
+    // 期待値は Git 追跡下の刷新版原本（2026-10 版）から毎回抽出する。件数ではなく出現順の全要素を照合し、
+    // 欠落・余剰・入れ替え・内容の置換を検出する。
+    const source = extractInventory(loadSourceRoot());
+
+    const cases: ReadonlyArray<[string, keyof Inventory, number]> = [
+      ['headings (H2〜H4: tag, id, text)', 'headings', 76],
+      ['TOC links (href, text)', 'toc', 67],
+      ['diagrams (id, aria-label)', 'diagrams', 18],
+      ['tables (every cell with header/data kind)', 'tables', 44],
+      ['code blocks (exact text)', 'code', 0],
+      ['callouts (variant, title, body)', 'callouts', 12],
+      ['external references (href, text, target, rel)', 'refs', 20],
+    ];
+
+    it.each(cases)('%s', (_label, key, expectedCount) => {
+      // Arrange
+      const { container } = render(<Iso29119_1_GuidePage />);
+
+      // Act
+      const rendered = extractInventory(container);
+
+      // Assert: 原本側の抽出漏れを防ぐため件数も固定し、そのうえで全要素を順序どおり照合する
+      expect(source[key].length).toBe(expectedCount);
+      expect(rendered[key]).toEqual(source[key]);
+    });
   });
 
   it('preserves all 67 navigation links in the sidebar', () => {
