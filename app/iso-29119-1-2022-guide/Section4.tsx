@@ -113,9 +113,12 @@ export default function Section4() {
       <p>
         規格の用語定義では、<strong>動的テスト</strong>は「テストアイテムを実行して評価するテスト」、<strong>静的テスト</strong>は「実行せずに品質基準などに照らして調べるテスト」で、例にレビューと静的解析が挙げられています。
       </p>
-      <div aria-label="図解5" className="mermaid-diagram" id="mmd05" role="img">
+      <div aria-label="図解5" aria-describedby="mmd05-desc" className="mermaid-diagram" id="mmd05" role="img">
         <Mermaid chart={DIAGRAM_05} />
       </div>
+      <p className="visually-hidden" id="mmd05-desc">
+        テストは静的テスト（実行せず検査）と動的テスト（実行して評価）に分かれ、動的テストには仕様ベース、構造ベース、経験ベースの技法がある。
+      </p>
       <h3 id="4-3-なぜ網羅テストは不可能か計算例">
         4-3. なぜ網羅テストは不可能か（計算例）
       </h3>
@@ -157,9 +160,12 @@ export default function Section4() {
       <h3 id="4-4-テストベースとテストオラクルの関係">
         4-4. テストベースとテストオラクルの関係
       </h3>
-      <div aria-label="図解6" className="mermaid-diagram" id="mmd06" role="img">
+      <div aria-label="図解6" aria-describedby="mmd06-desc" className="mermaid-diagram" id="mmd06" role="img">
         <Mermaid chart={DIAGRAM_06} />
       </div>
+      <p className="visually-hidden" id="mmd06-desc">
+        テストベースからテストケースを設計しテストを実行、実際の結果をテストオラクル（期待結果の拠り所）と比較して合否を判定する。
+      </p>
     </section>
   );
 }

@@ -86,9 +86,12 @@ export default function Section3() {
         </table>
       </div>
       <h3 id="3-2-構成図">3-2. 構成図</h3>
-      <div aria-label="図解4" className="mermaid-diagram" id="mmd04" role="img">
+      <div aria-label="図解4" aria-describedby="mmd04-desc" className="mermaid-diagram" id="mmd04" role="img">
         <Mermaid chart={DIAGRAM_04} />
       </div>
+      <p className="visually-hidden" id="mmd04-desc">
+        本文は1〜3章（適用範囲・用語）、4章（ソフトウェアテストの概念：4.1〜4.7）、附属書A（システム特性とテスト例）、附属書B（テストの役割）から構成される。
+      </p>
       <aside className="callout callout-note">
         <div className="callout-title">ポイント</div>
         <div className="callout-body">

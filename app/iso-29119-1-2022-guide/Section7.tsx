@@ -15,11 +15,14 @@ export default function Section7() {
                     <p>
                         2022年版では、テストケースの導出元が「テスト条件」から<strong>「テストモデル」</strong>に変わりました。
                     </p>
-                    <div aria-label="図解11" className="mermaid-diagram" id="mmd11" role="img">
+                    <div aria-label="図解11" aria-describedby="mmd11-desc" className="mermaid-diagram" id="mmd11" role="img">
                         
 <Mermaid chart={DIAGRAM_11} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd11-desc">
+                      テストベースからテストモデルを作成し、テストカバレッジ項目を決定、テストケースを導出して実行し結果を評価・報告する。
+                    </p>
                     <aside className="callout callout-note">
                         <div className="callout-title">ポイント</div>
                         <div className="callout-body">
@@ -102,11 +105,14 @@ export default function Section7() {
                     <p>
                         2022年版は両者を並べて紹介しており、どちらか一方に固定するものでも、両方の使用を前提とするものでもありません。テストベースの安定性や証跡の要否などの状況に応じて、スクリプト化テスト・探索的テストのいずれか、または<strong>併用を選択肢として検討</strong>します。
                     </p>
-                    <div aria-label="図解12" className="mermaid-diagram" id="mmd12" role="img">
+                    <div aria-label="図解12" aria-describedby="mmd12-desc" className="mermaid-diagram" id="mmd12" role="img">
                         
 <Mermaid chart={DIAGRAM_12} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd12-desc">
+                      テストベースの安定性や監査証跡の要否に応じて、スクリプト化テスト中心、探索的テスト中心、あるいは両方の組み合わせを選択する。
+                    </p>
                     <h3 id="7-4-テスト技法3つの分類と代表例444">
                         7-4. テスト技法：3つの分類と代表例（4.4.4）
                     </h3>
@@ -494,11 +500,14 @@ export default function Section7() {
                             </tbody>
                         </table>
                     </div>
-                    <div aria-label="図解13" className="mermaid-diagram" id="mmd13" role="img">
+                    <div aria-label="図解13" aria-describedby="mmd13-desc" className="mermaid-diagram" id="mmd13" role="img">
                         
 <Mermaid chart={DIAGRAM_13} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd13-desc">
+                      欠陥検出後に修正を行い、修正箇所が直ったか確認する再テスト、他への波及がないか確認する回帰テストを経てリリース判断を行う。
+                    </p>
                     <h3 id="7-7-手動テストと自動テスト447継続的テスト448">
                         7-7. 手動テストと自動テスト（4.4.7）、継続的テスト（4.4.8）
                     </h3>
@@ -573,11 +582,14 @@ export default function Section7() {
                     <p>
                         規格は、<strong>2つのシステム（またはコンポーネント）のどちらがより良く機能するかを統計的に判断する</strong>テストアプローチと定義しています（別名：スプリットラン）。
                     </p>
-                    <div aria-label="図解14" className="mermaid-diagram" id="mmd14" role="img">
+                    <div aria-label="図解14" aria-describedby="mmd14-desc" className="mermaid-diagram" id="mmd14" role="img">
                         
 <Mermaid chart={DIAGRAM_14} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd14-desc">
+                      ユーザー群をランダムにバージョンAとBへ半数ずつ割り当て、指標を統計的に比較して優劣を判断する。
+                    </p>
                     <p>例（学習用）：購入ボタンの色を2案用意し、購入率を比較する。</p>
                     <h3 id="7-10-数学ベースのテストとファズテスト4411">
                         7-10. 数学ベースのテストとファズテスト（4.4.11）
@@ -585,11 +597,14 @@ export default function Section7() {
                     <p>
                         規格の用語定義では、<strong>ファズテスト</strong>は大量のランダム（またはランダムに近い）データ（fuzz）をテストアイテムの入力に使うアプローチです。
                     </p>
-                    <div aria-label="図解15" className="mermaid-diagram" id="mmd15" role="img">
+                    <div aria-label="図解15" aria-describedby="mmd15-desc" className="mermaid-diagram" id="mmd15" role="img">
                         
 <Mermaid chart={DIAGRAM_15} />
 
                     </div>
+                    <p className="visually-hidden" id="mmd15-desc">
+                      ランダムに近い入力を大量生成して投入し、クラッシュや異常挙動を検出してインシデント報告を行う。
+                    </p>
                     <h3 id="7-11-テスト環境とテストデータ管理44124413">
                         7-11. テスト環境とテストデータ管理（4.4.12／4.4.13）
                     </h3>

@@ -39,9 +39,12 @@ export default function Section5() {
       <p>
         規格は、<strong>テスト活動と資源の管理・選択・優先順位付け・使用が、分析されたリスクの種類とレベルに意識的に基づいているテスト</strong>と定義しています。
       </p>
-      <div aria-label="図解7" className="mermaid-diagram" id="mmd07" role="img">
+      <div aria-label="図解7" aria-describedby="mmd07-desc" className="mermaid-diagram" id="mmd07" role="img">
         <Mermaid chart={DIAGRAM_07} />
       </div>
+      <p className="visually-hidden" id="mmd07-desc">
+        リスク特定、リスク分析（発生頻度と影響度）、優先順位付け、テスト戦略反映、テスト実施、リスク再評価のループサイクル。
+      </p>
       <h3 id="5-3-具体例リスク分析からテストの深さを決める学習用">
         5-3. 具体例：リスク分析からテストの深さを決める（学習用）
       </h3>
@@ -95,9 +98,12 @@ export default function Section5() {
       <p>
         規格の定義では、<strong>テストアプローチ</strong>は「テスト戦略を設計する活動の中で通常行う、高レベルのテスト実装上の選択」で、典型的にはテストレベル・テストタイプ・テスト技法・テストプラクティス・静的テストの形態を選びます。
       </p>
-      <div aria-label="図解8" className="mermaid-diagram" id="mmd08" role="img">
+      <div aria-label="図解8" aria-describedby="mmd08-desc" className="mermaid-diagram" id="mmd08" role="img">
         <Mermaid chart={DIAGRAM_08} />
       </div>
+      <p className="visually-hidden" id="mmd08-desc">
+        テスト戦略の下にテストアプローチがあり、テストレベル、テストタイプ、テスト技法、テストプラクティス、静的テストの形態を定義する。
+      </p>
       <h3 id="5-5-テスト戦略とテスト計画の違い整理">
         5-5. テスト戦略とテスト計画の違い（整理）
       </h3>

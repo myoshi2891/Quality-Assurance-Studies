@@ -17,9 +17,12 @@ export default function Section6() {
         が詳細を定めるテストプロセスは、<strong>組織レベル・テスト管理レベル・動的テストレベル</strong>の3層で捉えます（Part
         1 序文・ISO/ANSI等の Part 2 解説）。
       </p>
-      <div aria-label="図解9" className="mermaid-diagram" id="mmd09" role="img">
+      <div aria-label="図解9" aria-describedby="mmd09-desc" className="mermaid-diagram" id="mmd09" role="img">
         <Mermaid chart={DIAGRAM_09} />
       </div>
+      <p className="visually-hidden" id="mmd09-desc">
+        最上位の組織テストプロセス、中間のテストマネジメントプロセス、実行層の動的テストプロセスの3階層と相互フィードバック関係。
+      </p>
       <div className="table-scroll">
         <table>
           <thead>
@@ -57,9 +60,12 @@ export default function Section6() {
         2022年版では、テストサブプロセスの概念を削除し、代わりに<strong>テストプロセスのインスタンス化（現場に合わせた具体化）</strong>の説明が加わりました。目次には、プロジェクト単位のテスト（project-based
         testing）を扱う項目もあります。
       </p>
-      <div aria-label="図解10" className="mermaid-diagram" id="mmd10" role="img">
+      <div aria-label="図解10" aria-describedby="mmd10-desc" className="mermaid-diagram" id="mmd10" role="img">
         <Mermaid chart={DIAGRAM_10} />
       </div>
+      <p className="visually-hidden" id="mmd10-desc">
+        Part 2の汎用テストプロセスに対し自組織の状況（規模・リスク・開発方式）を反映して具体化されたプロセスインスタンスを導出し各プロジェクトで実行する。
+      </p>
       <h3 id="6-3-テスト文書3つのレベル">6-3. テスト文書（3つのレベル）</h3>
       <p>
         目次で確認できる文書名を、層ごとに整理します。テンプレートや記載例は Part 3

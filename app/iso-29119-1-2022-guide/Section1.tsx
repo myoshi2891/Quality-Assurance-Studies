@@ -86,9 +86,12 @@ export default function Section1() {
       <h3 id="1-3-29119シリーズの中での位置付け">
         1-3. 29119シリーズの中での位置付け
       </h3>
-      <div aria-label="図解2" className="mermaid-diagram" id="mmd02" role="img">
+      <div aria-label="図解2" aria-describedby="mmd02-desc" className="mermaid-diagram" id="mmd02" role="img">
         <Mermaid chart={DIAGRAM_02} />
       </div>
+      <p className="visually-hidden" id="mmd02-desc">
+        Part 1 一般概念が中心となり、Part 2 テストプロセス、Part 3 テスト文書化、Part 4 テスト技法に概念と用語を提供し、Part 5 キーワード駆動テストや技術報告TR（Part 6 アジャイル、Part 11 AI）とも連携する。
+      </p>
       <div className="table-scroll">
         <table>
           <thead>

@@ -11,9 +11,12 @@ export default function Section0() {
         規格の章立て（4.1 → 4.7 → 附属書）に沿って進みます。各STEPは「結論 → 図解 →
         具体例 → 確認」の順で読めます。
       </p>
-      <div aria-label="図解1" className="mermaid-diagram" id="mmd01" role="img">
+      <div aria-label="図解1" aria-describedby="mmd01-desc" className="mermaid-diagram" id="mmd01" role="img">
         <Mermaid chart={DIAGRAM_01} />
       </div>
+      <p className="visually-hidden" id="mmd01-desc">
+        STEP 1 規格の全体像から、STEP 4 基本概念、STEP 5 計画と戦略、STEP 6 フレームワーク、STEP 7 設計と実行、STEP 8 支援活動、STEP 9 システム特性と役割、STEP 10 実務への適用へと進む学習順序。
+      </p>
       <h3 id="0-2-このガイドの根拠と限界重要">0-2. このガイドの根拠と限界（重要）</h3>
       <div className="table-scroll">
         <table>

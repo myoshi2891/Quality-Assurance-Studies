@@ -71,9 +71,12 @@ export default function Section2() {
         </table>
       </div>
       <h3 id="変更の読み取り方図解">変更の読み取り方（図解）</h3>
-      <div aria-label="図解3" className="mermaid-diagram" id="mmd03" role="img">
+      <div aria-label="図解3" aria-describedby="mmd03-desc" className="mermaid-diagram" id="mmd03" role="img">
         <Mermaid chart={DIAGRAM_03} />
       </div>
+      <p className="visually-hidden" id="mmd03-desc">
+        2013年版 Concepts and definitions から整理・簡素化を経て2022年版 General concepts へ改訂され、テストモデル中心の設計やメトリクス本文化、附属書Aシステム特性の追加など新しい視点が加わった。
+      </p>
     </section>
   );
 }
