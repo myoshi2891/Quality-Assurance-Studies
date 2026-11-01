@@ -103,4 +103,70 @@ describe('ISO 29119-1 review fixes: accessibility & heading separators', () => {
       expect(cssContent).toMatch(/\.iso-29119-1-page \.visually-hidden\s*\{[^}]*clip: rect\(0, 0, 0, 0\)/);
     });
   });
+
+  describe('NavBar aria-current', () => {
+    function mountHeading(id: string, top: number): void {
+      const el = document.createElement('h3');
+      el.id = id;
+      el.getBoundingClientRect = () => {
+        const t = top - window.scrollY;
+        return { top: t, bottom: t, left: 0, right: 0, width: 0, height: 0, x: 0, y: t, toJSON: () => ({}) };
+      };
+      document.body.appendChild(el);
+    }
+
+    afterEach(() => {
+      document.getElementById('step-1規格の全体像')?.remove();
+      document.getElementById('1-1-一言でいうと')?.remove();
+      Object.defineProperty(window, 'scrollY', { value: 0, configurable: true, writable: true });
+    });
+
+    it('sets aria-current="location" only on the active section link', () => {
+      // Arrange: スクロール位置 0 で STEP 1 見出しのみ通過済み
+      mountHeading('step-1規格の全体像', 0);
+      const { container } = render(<NavBar />);
+
+      // Assert
+      const current = Array.from(container.querySelectorAll('#sidebar a[aria-current]'));
+      expect(current.map((a) => a.getAttribute('href'))).toEqual(['#step-1規格の全体像']);
+      expect(current[0]?.getAttribute('aria-current')).toBe('location');
+    });
+
+    it('sets aria-current="location" only on the active subsection link', () => {
+      // Arrange: STEP 1 と 1-1 の両方を通過済み（1-1 がアクティブ）
+      mountHeading('step-1規格の全体像', 0);
+      mountHeading('1-1-一言でいうと', 50);
+      const { container } = render(<NavBar />);
+
+      // Assert
+      const current = Array.from(container.querySelectorAll('#sidebar a[aria-current]'));
+      expect(current.map((a) => a.getAttribute('href'))).toEqual(['#1-1-一言でいうと']);
+      expect(current[0]?.getAttribute('aria-current')).toBe('location');
+    });
+  });
+
+  describe('CSS table interference resets', () => {
+    const css = fs.readFileSync(
+      path.resolve(process.cwd(), 'app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css'),
+      'utf-8',
+    );
+
+    it('defines the page-local --ink token', () => {
+      expect(css).toMatch(/\.iso-29119-1-page\s*\{[^}]*--ink:\s*#e4ecfb;/);
+    });
+
+    it('forces table cell color to var(--ink) and font-size to 1rem', () => {
+      expect(css).toMatch(
+        /\.iso-29119-1-page tbody td,\s*\.iso-29119-1-page td\s*\{[^}]*color:\s*var\(--ink\)\s*!important;[^}]*font-size:\s*1rem\s*!important;/,
+      );
+    });
+
+    it('styles inline code inside table cells', () => {
+      expect(css).toMatch(/\.iso-29119-1-page td code\s*\{[^}]*color:[^}]*!important/);
+    });
+
+    it('resets the global tbody row-hover cell background', () => {
+      expect(css).toMatch(/\.iso-29119-1-page tbody tr:hover td\s*\{[^}]*background:\s*transparent/);
+    });
+  });
 });
