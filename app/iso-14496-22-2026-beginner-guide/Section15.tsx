@@ -92,11 +92,11 @@ export default function Section15() {
               <td>developer.chrome.com</td>
               <td>
                 <a
-                  href="https://developer.chrome.com/blog/chrome-128-beta"
+                  href="https://developer.chrome.com/blog/memory-safety-fonts"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  https://developer.chrome.com/blog/chrome-128-beta
+                  https://developer.chrome.com/blog/memory-safety-fonts
                 </a>
               </td>
             </tr>
@@ -105,11 +105,11 @@ export default function Section15() {
               <td>developer.chrome.com</td>
               <td>
                 <a
-                  href="https://developer.chrome.com/blog/chrome-133-beta"
+                  href="https://developer.chrome.com/blog/memory-safety-fonts"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  https://developer.chrome.com/blog/chrome-133-beta
+                  https://developer.chrome.com/blog/memory-safety-fonts
                 </a>
               </td>
             </tr>
@@ -233,11 +233,11 @@ export default function Section15() {
               <td>SkiaSharp 4.150.0（HarfBuzz 14.2.1 を同梱）</td>
               <td>
                 <a
-                  href="https://mono.github.io/SkiaSharp/staging/4372/docs/releases/4.150.0.html"
+                  href="https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  https://mono.github.io/SkiaSharp/staging/4372/docs/releases/4.150.0.html
+                  https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html
                 </a>
               </td>
             </tr>
