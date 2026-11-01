@@ -4,6 +4,8 @@ import { render, fireEvent, cleanup, within } from '@testing-library/react';
 import NavBar from '../../app/iso-14496-22-2026-beginner-guide/NavBar';
 import Section5 from '../../app/iso-14496-22-2026-beginner-guide/Section5';
 import Section9 from '../../app/iso-14496-22-2026-beginner-guide/Section9';
+import Section6 from '../../app/iso-14496-22-2026-beginner-guide/Section6';
+import Section10 from '../../app/iso-14496-22-2026-beginner-guide/Section10';
 
 const ORIGINAL_INNER_WIDTH = window.innerWidth;
 
@@ -115,5 +117,44 @@ describe('ISO 14496-22:2026 review fixes: table directory reader invocation', ()
       '    for record in records:',
       '        print(record["tag"], record["offset"], record["length"], hex(record["checksum"]))',
     ]);
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: NavBar aria-current', () => {
+  it('marks only the active link with aria-current="location"', () => {
+    // Arrange & Act（初期アクティブは ch0）
+    const { container } = render(<NavBar />);
+    const links = Array.from(container.querySelectorAll<HTMLAnchorElement>('#sidebar a'));
+
+    // Assert
+    expect(links.length).toBe(16);
+    const current = links.filter((a) => a.hasAttribute('aria-current'));
+    expect(current.map((a) => a.getAttribute('href'))).toEqual(['#ch0']);
+    expect(current[0]?.getAttribute('aria-current')).toBe('location');
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: SVG table tag includes trailing space', () => {
+  it('shows the full tag \'SVG \' in the Section 6 role list while keeping the 「SVG」 label', () => {
+    // Arrange & Act
+    const { container } = render(<Section6 />);
+    const item = Array.from(container.querySelectorAll('section#ch6 li')).find((li) =>
+      li.textContent?.startsWith('「SVG」'),
+    );
+
+    // Assert
+    expect(item).toBeDefined();
+    expect(item?.querySelector('code')?.textContent).toBe("'SVG '");
+  });
+
+  it('shows the full tag \'SVG \' in the Section 10 color table', () => {
+    // Arrange & Act
+    const { container } = render(<Section10 />);
+    const row = Array.from(container.querySelectorAll('section#ch10 tbody tr')).find((tr) =>
+      tr.querySelectorAll('td')[1]?.textContent === 'SVG 文書でグリフを描く',
+    );
+
+    // Assert
+    expect(row?.querySelector('td')?.textContent).toBe("'SVG '");
   });
 });
