@@ -1,0 +1,23 @@
+import React from 'react';
+import './iso-iec-30141-2024-guide.css';
+import '../fonts/noto-sans-jp-800.css';
+import NavBar from './NavBar';
+import Category0 from './Category0';
+import Category1 from './Category1';
+import Category2 from './Category2';
+import Category3 from './Category3';
+import Category4 from './Category4';
+import Category5 from './Category5';
+import Category6 from './Category6';
+import Category7 from './Category7';
+import Category8 from './Category8';
+import Category9 from './Category9';
+import Category10 from './Category10';
+import Category11 from './Category11';
+import Category12 from './Category12';
+import Category13 from './Category13';
+import Category14 from './Category14';
+import Category15 from './Category15';
+import Category16 from './Category16';
+export const metadata = { title: 'ISO/IEC 30141:2024 初学者向けステップバイステップ解説ガイド', description: 'IoT参照アーキテクチャの6つのビュー、構築パターン、関連規格と実務での活用を段階的に解説。' };
+export default function Page() { return <div className="iso30141-page"><NavBar /><main className="main"><Category0 /><Category1 /><Category2 /><Category3 /><Category4 /><Category5 /><Category6 /><Category7 /><Category8 /><Category9 /><Category10 /><Category11 /><Category12 /><Category13 /><Category14 /><Category15 /><Category16 /></main></div>; }
