@@ -159,7 +159,16 @@ export default function Section5() {
           {'                '}<span className="tok-s">"offset"</span>: offset,{'\n'}
           {'                '}<span className="tok-s">"length"</span>: length,{'\n'}
           {'            '}&#125;){'\n'}
-          {'        '}<span className="tok-k">return</span> sfnt_version, records
+          {'        '}<span className="tok-k">return</span> sfnt_version, records{'\n\n'}
+          <span className="tok-k">if</span> __name__ == <span className="tok-s">"__main__"</span>:{'\n'}
+          {'    '}<span className="tok-k">import</span> sys  <span className="tok-c"># コマンドライン引数を受け取る標準ライブラリ</span>{'\n\n'}
+          {'    '}<span className="tok-c"># 使い方: python read_table_directory.py MyFont.ttf</span>{'\n'}
+          {'    '}<span className="tok-k">if</span> len(sys.argv) != <span className="tok-n">2</span>:{'\n'}
+          {'        '}<span className="tok-k">raise</span> SystemExit(<span className="tok-s">"使い方: python read_table_directory.py &lt;フォントファイルのパス&gt;"</span>){'\n\n'}
+          {'    '}version, records = read_table_directory(sys.argv[<span className="tok-n">1</span>]){'\n'}
+          {'    '}print(<span className="tok-s">"sfntVersion:"</span>, version){'\n'}
+          {'    '}<span className="tok-k">for</span> record <span className="tok-k">in</span> records:{'\n'}
+          {'        '}print(record[<span className="tok-s">"tag"</span>], record[<span className="tok-s">"offset"</span>], record[<span className="tok-s">"length"</span>], hex(record[<span className="tok-s">"checksum"</span>]))
         </code>
       </pre>
       <h3 id="5-4-2種類の-sfntversiontruetype-か-cff-か">
