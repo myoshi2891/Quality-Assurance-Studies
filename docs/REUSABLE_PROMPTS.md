@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-11-02
+最終更新日: 2026-11-03
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -70,7 +70,7 @@
 **参照実装**: `app/istqb-ct-ai-complete-guide/` — NavBar.tsx・CSS・page.tsx の 3 点セット  
 **NavBar 未実装のページ（2026-11-02 時点）**:
 
-- なし（すべて実装完了）。ISO/IEC 30141も`app/iso-iec-30141-2024-guide/NavBar.tsx`で階層目次44リンクの開閉・追従・Escape・フォーカス復帰・Observer解除に対応。ナビ・E2E一覧は118ルート。Quality Is Freeも`app/quality-is-free-guide/NavBar.tsx`で対応済み。960px以下のモバイルバー・固定目次の開閉とスクロール追従を保持。IEC 62304も`app/iec-62304-beginner-guide/NavBar.tsx`で階層目次50リンクの開閉・追従に対応済み。
+- なし（すべて実装完了）。ISO/IEC 30141も`app/iso-iec-30141-2024-guide/NavBar.tsx`で階層目次44リンクの開閉・追従・Escape・フォーカス復帰・Observer解除に対応。ナビ・E2E一覧は119ルート。Quality Is Freeも`app/quality-is-free-guide/NavBar.tsx`で対応済み。960px以下のモバイルバー・固定目次の開閉とスクロール追従を保持。IEC 62304も`app/iec-62304-beginner-guide/NavBar.tsx`で階層目次50リンクの開閉・追従に対応済み。
 
 > 以下の画面にページ内のスティッキーナビゲーションを新規追加してください。
 > /istqb-ct-ai-complete-guide の実装を参考にしてください。
@@ -150,7 +150,7 @@
 
 `/specification-by-example-guide`も`books-practices`へ登録済みです。階層目次18リンク・モバイル開閉・スクロール追従・Escapeとフォーカス復帰を移行し、保存機能付きチェック8項目とGherkinコードの構文色を保持。HTML・MDは同名でアーカイブ済みです。対象446テストとビルド不要のChromium22件で検証。共有ダーク設定の背景継承による黒塗りを修正し、SVG比較では実際の共有初期化設定を使います。サンドボックスではnpmを使用し、目視確認はユーザー担当です。
 
-現在の登録は118ルート（2026-11-02）です。`/iso-iec-5338-guide`はISOカテゴリーへ追加済みで、目次14リンク・モバイル開閉・Escape・フォーカス復帰・全見出し追従を実装しています。`/iso-27799-2025-guide`はISOカテゴリーへ追加済みで、目次19リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-23009-1-2026-guide`はISOカテゴリーへ追加済みで、階層目次40リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-19770-5-guide`はISOカテゴリーへ追加済みで、目次29リンク・モバイル開閉・背景クリック・スクロール追従を実装しています。`/iso-14496-22-guide`はISOカテゴリーへ追加済みで、階層目次46リンク・モバイル開閉・スクロール追従を実装しています。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
+現在の登録は119ルート（2026-11-03）です。`/iso-iec-5338-guide`はISOカテゴリーへ追加済みで、目次14リンク・モバイル開閉・Escape・フォーカス復帰・全見出し追従を実装しています。`/iso-27799-2025-guide`はISOカテゴリーへ追加済みで、目次19リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-23009-1-2026-guide`はISOカテゴリーへ追加済みで、階層目次40リンク・モバイル開閉・Escape・フォーカス復帰・スクロール追従を実装しています。`/iso-19770-5-guide`はISOカテゴリーへ追加済みで、目次29リンク・モバイル開閉・背景クリック・スクロール追従を実装しています。`/iso-14496-22-guide`はISOカテゴリーへ追加済みで、階層目次46リンク・モバイル開閉・スクロール追従を実装しています。`/beyond-legacy-code-guide`は`books-practices`に追加済みで、目次18リンク・モバイル開閉・スクロール追従を実装しています。全体の目次登録とE2E対象の整合性は`bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts`で確認します。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
@@ -337,3 +337,7 @@ npm run lint
 ## ISO/IEC TR 29138-2:2009移行後の確認（2026-11-02）
 
 `/iso-iec-tr-29138-2-2009-guide`は階層目次42リンク・モバイル開閉・Escape・フォーカス復帰・全見出し追従を実装済み。原本HTML・MDはアーカイブ済み。`npm test -- tests/iso-iec-tr-29138-2-2009-guide`で263件、関連546件が成功。`npm run e2e:layout -- --project=iso-29138-2`でビルド・サーバー不要の原本比較20件を実行可能。Playwright付属Chromium未導入時は`PLAYWRIGHT_CHROMIUM_EXECUTABLE`へ利用可能なChrome実行ファイルを指定。目視確認はユーザー担当、ビルドは未実施。
+
+## ISO/IEC TS 30149:2024移行後の確認（2026-11-03）
+
+`/iso-iec-ts-30149-2024-guide`は階層目次33リンク・モバイル開閉・Escape・フォーカス復帰・全見出し追従、自己点検7項目の進捗更新を実装済み。原本HTML・MDはISOアーカイブへ同名で移動済み。`npm exec -- bun test tests/iso-iec-ts-30149-2024-guide`で275件、関連563件が成功。`npm run e2e:layout -- --project=iso-30149`でビルド・サーバー不要の原本比較35件を実行可能。目視確認はユーザー担当、ビルドは未実施。

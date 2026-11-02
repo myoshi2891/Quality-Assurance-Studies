@@ -1,8 +1,19 @@
 # Project Overview
 
-Updated 2026-11-02
+Updated 2026-11-03
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-03: ISO/IEC TS 30149:2024 IoT信頼に足る性質ガイドの移行
+
+- `/iso-iec-ts-30149-2024-guide`をISOカテゴリーに登録し、ナビ・E2E一覧を119ルート（ホーム＋118ガイド）へ同期。
+- 原本の34見出し、階層目次33リンク、23表の全セル、11図、注記9件、外部リンク24要素、メタ情報2項目、理解度チェック5問、自己点検7項目、本文全文・フッターを固定インベントリと出現順で照合。コードブロックは原本どおり0件。
+- `app/iso-iec-ts-30149-2024-guide/`へ`page.tsx`・同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category16.tsx`を配置。ヒーロー、本文15カテゴリー、フッターを順に実装・照合・個別コミット。目次全33リンクの追従・開閉・Escape・フォーカス復帰・Observer解除、チェック全7項目の入力・ラベル操作と進捗の往復更新を検証。
+- CSS全79ルールと900px境界、ダーク配色、ヒーロー装飾、表、注記、チェック、クイズの疑似要素を保持。共有CSS・Tailwindによる表の列幅・文字色、注記書体、目次の階層余白、チェック入力の干渉を補正。Noto Sans JP 800とJetBrains Mono 600をページで読み込み、目次・見出しの位置を共有ヘッダーと免責バナーに合わせる。
+- HTML内SVGとMarkdownのラベル・識別子・形状・接続を照合して11図を共有Mermaidへ移行。接続線と辺ラベルの文字色・背景色を原本に合わせ、図3の`root`クラスとMermaid内部クラスの衝突も解消。横スクロールの両端への到達を検証。
+- 対象275件、関連563件、既存一覧同期723件、全体9637件（204ファイル）、対象ソース・E2EのTypeScript検査、lintが成功。Chrome35件で390/900/901/1440px×CSS2順序、11図×2幅の実SVG、目次のキーボード到達、5問のクイズ開閉、4幅のヘッダー・免責バナー下の見出し位置を比較。SWC開発/本番変換後の全文DOM、インライン空白、SSR復元エラー・DOM警告なしとチェック操作の接続も検証。
+- 原本は`archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html`・`archive/md-archive/iso/Iso-iec-ts-30149-2024-guide.md`へ同名で移動。SHA-256一致、元ファイルの不存在、Git追跡、rename検出100%を確認。
+- Redテスト先行後、CSS・図・目次・チェック操作・17カテゴリー・統合・登録・アーカイブ・補正・仕様書を分離してコミット。各コミット直前にPII検査。検証はnpm経由、ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。
 
 ## 2026-11-02: ISO/IEC TR 29138-2:2009 アクセシビリティ規格インベントリガイドの移行
 
@@ -238,6 +249,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
+- `app/iso-iec-ts-30149-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・17カテゴリー、目次33リンク、Mermaid11図、原本照合275件）。
 - `app/iso-iec-tr-29138-2-2009-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリー、目次42リンク、Mermaid5図、原本照合263件）。
 
 - `app/iso-iec-30141-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・17本文カテゴリー、目次44リンク、Mermaid11図、原本照合305件）。
@@ -541,6 +553,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-tr-29138-2-2009-guide.html` | `/iso-iec-tr-29138-2-2009-guide` | ✅ 43見出し・目次42リンク・19表・5図・YAML1件・注記13件・59 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-ts-30149-2024-guide.html` | `/iso-iec-ts-30149-2024-guide` | ✅ 34見出し・目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・79 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -611,9 +624,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 118 ルート（ガイドライブラリ index + 117 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 119 ルート（ガイドライブラリ index + 118 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9314件、npm経由の全体テスト・200ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9637件、npm経由の全体テスト・204ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
