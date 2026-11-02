@@ -11,10 +11,10 @@ it('registers SbE once under books-practices with a short description', () => {
     expect(items[0]?.category).toBe('books-practices');
     expect(items[0]?.description.length).toBeLessThanOrEqual(80);
 });
-it('synchronizes 117 routes and the source H1', () => {
-    expect(NAV_ITEMS).toHaveLength(117);
-    expect(PAGES).toHaveLength(117);
-    expect(EXPECTED_PAGE_COUNT).toBe(117);
+it('synchronizes 118 routes and the source H1', () => {
+    expect(NAV_ITEMS).toHaveLength(118);
+    expect(PAGES).toHaveLength(118);
+    expect(EXPECTED_PAGE_COUNT).toBe(118);
     const items = PAGES.filter((i) => i.path === `/${inventory.slug}`);
     expect(items).toHaveLength(1);
     expect(items[0]?.h1.test('Specification by Example 実践ガイド')).toBe(true);
