@@ -1,4 +1,4 @@
-export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"background":"#0d1b2e","primaryColor":"#e8f0ff","primaryBorderColor":"#3b5bdb","primaryTextColor":"#102a63","lineColor":"#7c9eff","secondaryColor":"#0b1a2e","tertiaryColor":"#0d1b2e","clusterBkg":"#0b1a2e","clusterBorder":"#1c3050","edgeLabelBackground":"#0d1b2e","fontFamily":"Noto Sans JP, sans-serif","fontSize":"16px"},"htmlLabels":true,"flowchart":{"curve":"basis"}}}%%`;
+export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"background":"#0d1b2e","primaryColor":"#e8f0ff","primaryBorderColor":"#3b5bdb","primaryTextColor":"#102a63","lineColor":"#9db4de","secondaryColor":"#0b1a2e","tertiaryColor":"#0d1b2e","clusterBkg":"#0b1a2e","clusterBorder":"#1c3050","edgeLabelBackground":"#0d1b2e","fontFamily":"Noto Sans JP, sans-serif","fontSize":"16px"},"htmlLabels":true,"flowchart":{"curve":"basis"}}}%%`;
 export const DIAGRAM_0 = `${MERMAID_CONFIG}
 flowchart LR
 N1_P1["ISO/IEC 30141<br/>IoT参照アーキテクチャ"] --> N1_P2["信頼に足る性質の視点<br/>trustworthiness view"]
