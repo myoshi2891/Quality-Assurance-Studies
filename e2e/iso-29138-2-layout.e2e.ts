@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync, existsSync } from 'node:fs';
 import { load } from 'cheerio';
 import { sourceModule } from '../tests/helpers/source-module';
+import { correct, correctNormalized } from '../tests/iso-iec-tr-29138-2-2009-guide/reviewed-corrections';
 const base='app/iso-iec-tr-29138-2-2009-guide';
 const preflight=readFileSync('node_modules/tailwindcss/preflight.css','utf8');
 const globals=readFileSync('app/globals.css','utf8');
@@ -11,6 +12,9 @@ const retained=readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-comp
 const original=load(readFileSync(existsSync('Iso-iec-tr-29138-2-2009-guide.html')?'Iso-iec-tr-29138-2-2009-guide.html':'archive/html-archive/iso/Iso-iec-tr-29138-2-2009-guide.html','utf8'));
 const inventory={originalCss:original('head style').html()};
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
+// レビュー修正を比較用の原本にも適用し、訂正による文字量・列幅の変化を原本側にも反映する
+original('body *').contents().each((_, node) => { if (node.type === 'text') node.data = correctNormalized(node.data); });
+original('a[href]').each((_, a) => { original(a).attr('href', correct(original(a).attr('href')!)); });
 const reviewedBody = original('body').html()!;
 const selectors=['.main','.hero','.eyebrow','.hero-title','.hero-sub','.meta','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','blockquote','h4','details','summary','.page-footer','.side-title','.sidebar ul','.sidebar li','.sidebar a','.menu-btn','main code','.meta-item','.ml','.mv','.gloss-title','.gloss-list','.callout-practice','main hr'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];

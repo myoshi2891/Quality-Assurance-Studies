@@ -1,0 +1,22 @@
+// レビュー修正: 原本（インベントリ・アーカイブHTML）へ重ねる検証済みの訂正。
+// 原本の記録とハッシュは変更せず、意図した差分だけをここで明示する（ユニットとレイアウトE2Eで共用）。
+export const corrections: ReadonlyArray<readonly [string, string]> = [
+    ['https://www.iso.org/ru/standard/33987.html', 'https://www.iso.org/standard/57385.html'],
+    ['V3.2.1（2021年3月）がWCAG 2.1 AAを取り込む。V4.1.1 でWCAG 2.2 に更新予定', 'V3.2.1（2021年3月）がWCAG 2.1 AAを取り込む。WCAG 2.2 に更新した V4.1.1 は2026年9月にETSIが公表した。EU官報（Official Journal）への引用は公表とは別の手続きで、2026年11月2日時点では確認できていない'],
+    ['注：EN 301 549 V4.1.1 の公表時期については、「2026年10月に公報掲載の見込み」とする情報があります（accessible.org）。2026年10月13日時点で実際に公表されたかは、今回は確認できていません。使う前にETSIや欧州委員会の公式情報で確認してください。', '注：EN 301 549 V4.1.1 は、2026年9月にETSIから公表されました。ETSIによる公表と、EU官報（Official Journal）への引用は別の段階です。官報に引用されるまでは、EU法令上の整合規格としての効力を持ちません。2026年11月2日時点で引用は確認できていないため、使う前にETSIや欧州委員会の公式情報で確認してください。'],
+    ['EN 301 549 V4.1.1 の公表状況は、2026年10月13日時点で未確認です', 'EN 301 549 V4.1.1 は2026年9月に公表済みです。EU官報への引用は、2026年11月2日時点で未確認です'],
+    ['規格の全文は有償で、読めたのは無料サンプルの範囲です。', '読めたのは無料サンプルの範囲です（全文のPDFは、ISO公式ページから無償で入手できます）。'],
+];
+export function correct<T>(value: T): T {
+    if (typeof value === 'string') return corrections.reduce((text, [from, to]) => text.split(from).join(to), value as string) as T;
+    if (Array.isArray(value)) return value.map(correct) as T;
+    if (value !== null && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, correct(v)])) as T;
+    return value;
+}
+
+/** 空白を正規化した文字列で訂正を適用する（HTML原本の改行・字下げに依存しない） */
+export function correctNormalized(text: string): string {
+    const normalized = text.replace(/\s+/g, ' ');
+    const fixed = correct(normalized);
+    return fixed === normalized ? text : fixed;
+}
