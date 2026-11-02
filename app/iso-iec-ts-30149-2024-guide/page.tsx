@@ -1,6 +1,7 @@
 import React from 'react';
 import './iso-iec-ts-30149-2024-guide.css';
 import '../fonts/noto-sans-jp-800.css';
+import '../fonts/jetbrains-mono-600.css';
 import NavBar from './NavBar';
 import Category0 from './Category0';
 import Category1 from './Category1';
