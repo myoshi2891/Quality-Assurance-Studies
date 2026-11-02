@@ -8,7 +8,22 @@ export const corrections: ReadonlyArray<readonly [string, string]> = [
     ['規格の全文は有償で、読めたのは無料サンプルの範囲です。', '読めたのは無料サンプルの範囲です（全文のPDFは、ISO公式ページから無償で入手できます）。'],
     // V4.1.1 自体は公表済み。未確認なのはEU官報への引用だけ
     ['# V4.1.1 の状況が未確認のため、確認が要る', '# V4.1.1 のEU官報への引用が未確認のため、確認が要る'],
+    // 29138-3:2022 が意図しないのは「規格・ガイドラインそのもの」の評価・認証。製品の評価を妨げるものではない
+    ['29138-3:2022 は、対応付けを認証や評価に使うことは意図していないと述べている', '29138-3:2022 は、対応付けを使って規格やガイドラインそのものを評価・認証することは意図していないと述べている（製品の評価に使うことまで否定するものではない）'],
+    // WCAG 3.0 の最新 Working Draft は 2026年9月10日。出典は日付を確認できる W3C の公開履歴へ
+    ['2026年3月3日にWorking Draftが更新された', '2026年9月10日にWorking Draftが更新された'],
+    ['WCAG 3.0 ドラフトの最新状況（2026年3月）', 'WCAG 3.0 ドラフトの最新状況（2026年9月）'],
+    ['https://www.w3.org/WAI/Technical/Activity', 'https://www.w3.org/standards/history/wcag-3.0/'],
 ];
+/** 外部リンク（http/https）には新しいタブで開くための target と rel を付ける（プロジェクトの外部リンク規約） */
+export function withExternalLinkAttrs<T>(value: T): T {
+    if (Array.isArray(value)) return value.map(withExternalLinkAttrs) as T;
+    if (value === null || typeof value !== 'object') return value;
+    const node = Object.fromEntries(Object.entries(value).map(([k, v]) => [k, withExternalLinkAttrs(v)])) as Record<string, unknown>;
+    const attrs = node.attrs as Record<string, unknown> | undefined;
+    if (node.tag === 'a' && attrs && typeof attrs.href === 'string' && /^https?:/.test(attrs.href)) node.attrs = { ...attrs, target: '_blank', rel: 'noopener noreferrer' };
+    return node as T;
+}
 export function correct<T>(value: T): T {
     if (typeof value === 'string') return corrections.reduce((text, [from, to]) => text.split(from).join(to), value as string) as T;
     if (Array.isArray(value)) return value.map(correct) as T;

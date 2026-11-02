@@ -9,9 +9,14 @@ import { load } from 'cheerio';
 import postcss from 'postcss';
 import rawInventory from '../../docs/migration-inventory/iso-iec-tr-29138-2-2009-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { corrections, correct } from './reviewed-corrections';
+import { corrections, correct, withExternalLinkAttrs } from './reviewed-corrections';
 const base = 'app/iso-iec-tr-29138-2-2009-guide';
-const inventory = { ...correct(rawInventory), hashes: rawInventory.hashes };
+const inventory = { ...withExternalLinkAttrs(correct(rawInventory)), hashes: rawInventory.hashes };
+it('every external link opens in a new tab with noopener noreferrer', () => {
+    const $ = html(); const links = $('a[href^="http"]').toArray();
+    expect(links.length).toBeGreaterThan(0);
+    expect(links.filter(a => a.attribs.target !== '_blank' || a.attribs.rel !== 'noopener noreferrer').map(a => a.attribs.href)).toEqual([]);
+});
 // レビュー修正: 図4（WK5）は後継版の採用後に④の確認へ戻り、⑥へ進む（原本は③と2009年の一覧へ戻っていた）
 const reviewedEdges: Record<number, Record<string, string>> = { 4: { 'WK5 --> WK3': 'WK5 --> WK4' } };
 corrections.forEach(([from, to]) => it('reviewed correction is applied exactly: ' + to.slice(0, 24), () => {
