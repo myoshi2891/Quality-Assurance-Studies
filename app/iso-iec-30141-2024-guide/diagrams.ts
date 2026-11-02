@@ -15,9 +15,9 @@ N1_VP -->|"支配・規定する"| N1_VW["ビュー<br/>（実際の図や記述
 N1_VW -->|"答える"| N1_CN`;
 export const DIAGRAM_2 = `${MERMAID_CONFIG}
 flowchart TB
-N2_RA["ISO/IEC 30141<br/>IoT参照アーキテクチャ"] -->|"規範的参照"| N2_DSRA["IoT領域別参照アーキテクチャ<br/>（DSRA：スマート製造、スマートシティなど）"]
-N2_RA -->|"参考にする"| N2_SA["個別のIoTソリューション<br/>アーキテクチャ"]
-N2_DSRA -->|"具体化"| N2_SA
+N2_RA["ISO/IEC 30141<br/>IoT参照アーキテクチャ"] -->|"規範的参照（任意）"| N2_DSRA["IoT領域別参照アーキテクチャ<br/>（DSRA：スマート製造、スマートシティなど）"]
+N2_RA -->|"直接参照（任意）"| N2_SA["個別のIoTソリューション<br/>アーキテクチャ"]
+N2_DSRA -->|"DSRAに基づく（任意）"| N2_SA
 N2_SA -->|"導く"| N2_IMP["IoTシステムの実装"]`;
 export const DIAGRAM_3 = `${MERMAID_CONFIG}
 flowchart LR

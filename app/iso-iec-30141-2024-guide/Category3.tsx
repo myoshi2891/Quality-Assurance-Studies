@@ -14,7 +14,7 @@ export default function Category3() { return <>
 
 <p>{" 序文（Introduction）の0.4によると、この規格の主目的は「IoTシステムの**アーキテクチャを設計する人（アーキテクト）**を支援すること」です。規格の規範的な部分を、より実装に近いアーキテクチャへ取り込めます。 "}</p>
 
-<div className="mermaid-diagram" id="diagram-3" role="img" aria-label="図3: IoT領域別参照アーキテクチャ（DSRA：スマート製造、スマートシティなど）は、ISO/IEC 30141 IoT参照アーキテクチャを規範的参照とする。個別のIoTソリューションアーキテクチャは、ISO/IEC 30141を参考にし、DSRAを具体化したものである。個別のIoTソリューションアーキテクチャが、IoTシステムの実装を導く。"><Mermaid chart={DIAGRAM_2} /></div>
+<div className="mermaid-diagram" id="diagram-3" role="img" aria-label="図3: IoT領域別参照アーキテクチャ（DSRA：スマート製造、スマートシティなど）は、ISO/IEC 30141 IoT参照アーキテクチャを規範的参照として用いることができる（任意）。個別のIoTソリューションアーキテクチャは、ISO/IEC 30141を直接参照することも、DSRAに基づくこともできる（いずれも任意）。個別のIoTソリューションアーキテクチャが、IoTシステムの実装を導く。"><Mermaid chart={DIAGRAM_2} /></div>
 
 <p><strong>{"DSRA（Domain Specific Reference Architecture）"}</strong>{" は、特定の分野向けの参照アーキテクチャです。規格によれば、DSRAは本規格をIoT部分の土台として使い、アプリケーション固有の関心事やユースケースはDSRA側に任せることができます。 "}</p>
 
