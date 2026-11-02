@@ -318,3 +318,5 @@
  html:has(.iso291193-page), .iso291193-page { scroll-behavior:auto; }
  .iso291193-page *, .iso291193-page .sidebar, .iso291193-page .sidebar.open { transition:none; }
 }
+/* Source prose inherits its surrounding ink color; shared p rules use a different grey. */
+.iso291193-page p { color:inherit; }
