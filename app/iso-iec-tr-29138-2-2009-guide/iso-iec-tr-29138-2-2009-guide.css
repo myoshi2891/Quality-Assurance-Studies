@@ -390,3 +390,18 @@
 .iso29138-page *::-webkit-scrollbar { width:6px; height:6px; }
 .iso29138-page *::-webkit-scrollbar-track { background:transparent; }
 .iso29138-page *::-webkit-scrollbar-thumb { background:var(--line); border-radius:3px; }
+
+/* Computed-style parity for shared heading, table, list, footer and mobile-nav rules. */
+.iso29138-page .hero { text-align:start; }
+.iso29138-page .hero-title { background:none; -webkit-text-fill-color:#fff; }
+.iso29138-page h2, .iso29138-page h3, .iso29138-page h4 { font-family:inherit; }
+.iso29138-page ul, .iso29138-page ol { color:inherit; }
+.iso29138-page table { color:var(--text); border-color:currentColor; }
+.iso29138-page td { color:var(--text); }
+.iso29138-page .page-footer { font-family:inherit; padding-right:0; padding-bottom:0; padding-left:0; text-align:start; }
+.iso29138-page .sidebar nav { padding:0; }
+.iso29138-page hr { color:gray; }
+.iso29138-page .mermaid-wrapper .edgeLabel, .iso29138-page .mermaid-wrapper .edgeLabel p, .iso29138-page .mermaid-wrapper .edgeLabel span { background:#07111e !important; }
+.iso29138-page .mermaid-wrapper .edgeLabel rect, .iso29138-page .mermaid-wrapper .edgeLabels rect { fill:#07111e !important; }
+.iso29138-page .mermaid-wrapper .labelBkg { background:rgba(7,17,30,.5) !important; }
+.iso29138-page .hero::after { background:none; width:auto; height:auto; position:static; top:auto; right:auto; }
