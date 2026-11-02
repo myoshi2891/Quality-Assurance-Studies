@@ -62,3 +62,20 @@ it('imports scoped CSS and exact title metadata', () => {
     expect(readFileSync(base + '/page.tsx', 'utf8')).toContain("import './iso-iec-tr-29138-2-2009-guide.css'");
     expect(sourceModule(base + '/page.tsx').metadata).toEqual({ title: "ISO/IEC TR 29138-2:2009 初学者向けステップバイステップ解説ガイド" });
 });
+
+it('passes every original chart to the shared renderer in document order', () => {
+    const charts = sourceModule(base + '/diagrams.ts') as Record<string,string>;
+    const actual: string[] = [];
+    function visit(value: React.ReactNode): void {
+        React.Children.forEach(value, child => {
+            if (!React.isValidElement<{ chart?: string; children?: React.ReactNode }>(child)) return;
+            if (child.props.chart) actual.push(child.props.chart);
+            if (child.props.children) visit(child.props.children);
+        });
+    }
+    inventory.categories.forEach((_,i)=> {
+        const Category = sourceModule(base + '/Category' + i + '.tsx').default as () => React.ReactNode;
+        visit(Category());
+    });
+    expect(actual).toEqual(inventory.diagrams.map((_, i)=>charts['DIAGRAM_'+i]));
+});

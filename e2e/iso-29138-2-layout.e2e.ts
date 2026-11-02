@@ -76,3 +76,22 @@ for (const width of [390,1440]) for(let i=0;i<5;i++) test(`${width}px diagram ${
  const reach=await page.locator('.mermaid-diagram').evaluate(el=>{const svg=el.querySelector('svg')!;el.scrollLeft=0;const left=svg.getBoundingClientRect().left>=el.getBoundingClientRect().left;el.scrollLeft=el.scrollWidth;const right=svg.getBoundingClientRect().right<=el.getBoundingClientRect().right+1;return {left,right};});
  expect(reach).toEqual({left:true,right:true});
 });
+
+for (const width of [390,1440]) test(`${width}px YAML preserves exact content, block dimensions and scroll reachability`, async ({ page }) => {
+    await page.setViewportSize({ width, height:900 });
+    const reference = await page.context().newPage();
+    await reference.setViewportSize({ width, height:900 });
+    await reference.setContent(`<style>${inventory.originalCss}</style>${reviewedBody}`);
+    const own=readFileSync(base+'/iso-iec-tr-29138-2-2009-guide.css','utf8');
+    await page.setContent(`<style>${preflight+globals+retained+own}</style>${markup()}`);
+    const collect=(el:Element)=> {
+        const code=el.querySelector('code')!;
+        const style=getComputedStyle(el), text=getComputedStyle(code);
+        return { text:code.textContent, height:el.getBoundingClientRect().height, width:el.getBoundingClientRect().width,
+            padding:style.padding, background:style.backgroundColor, border:style.border, radius:style.borderRadius,
+            font:text.fontFamily, fontSize:text.fontSize, lineHeight:text.lineHeight, whiteSpace:text.whiteSpace, color:text.color };
+    };
+    expect(await page.locator('pre.yaml').evaluate(collect)).toEqual(await reference.locator('pre.yaml').evaluate(collect));
+    expect(await page.locator('pre.yaml').evaluate(el=>{el.scrollLeft=el.scrollWidth;return el.scrollLeft+el.clientWidth>=el.scrollWidth-1;})).toBe(true);
+    await reference.close();
+});
