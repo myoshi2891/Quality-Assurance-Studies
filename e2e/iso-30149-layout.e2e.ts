@@ -62,7 +62,7 @@ for (const width of [390,1440]) for(let i=0;i<11;i++) test(`${width}px diagram $
   return {
    nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:normal(n.querySelector('.nodeLabel')?.textContent??''),shape:n.querySelector('rect,polygon,circle,path')?.tagName,colors:style(n.querySelector('rect,polygon,circle,path'),['fill','stroke']),text:style(n.querySelector('.nodeLabel'),['color']),cluster:n.closest('g.root')?.querySelector(':scope > .clusters > .cluster')?.id.replace(/^diagram-check-/,'')??null})).sort((a,b)=>a.id.localeCompare(b.id)),
    edges:Array.from(el.querySelectorAll('.edgePaths path'),e=>({id:e.getAttribute('data-id'),colors:style(e,['stroke','strokeDasharray']),arrow:!!e.getAttribute('marker-end')})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
-   labels:Array.from(el.querySelectorAll('.edgeLabel .label'),e=>({id:e.getAttribute('data-id'),label:normal(e.querySelector('span.edgeLabel')?.textContent??'')})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
+   labels:Array.from(el.querySelectorAll('.edgeLabel .label'),e=>({id:e.getAttribute('data-id'),label:normal(e.querySelector('span.edgeLabel')?.textContent??''),text:style(e.querySelector('span.edgeLabel'),['color','backgroundColor']),background:style(e.querySelector('.labelBkg'),['backgroundColor'])})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
    clusters:Array.from(el.querySelectorAll('.cluster'),e=>({id:e.id.replace(/^diagram-check-/,''),colors:style(e.querySelector('rect'),['fill','stroke']),label:normal(e.querySelector('.cluster-label')?.textContent??'')})).sort((a,b)=>a.id.localeCompare(b.id))
   };
  };
