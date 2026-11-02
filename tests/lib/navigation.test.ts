@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 119 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 14 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(119);
+  it('contains 120 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 15 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(120);
   });
 
   it('every item has a unique href', () => {
@@ -306,9 +306,9 @@ describe('groupByCategory', () => {
     ]);
   });
 
-  it('places 14 items in the iso group', () => {
+  it('places 15 items in the iso group', () => {
     const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
-    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide', '/iso-14496-22-2026-beginner-guide', '/iso-iec-30141-2024-guide', '/iso-iec-ts-30149-2024-guide']);
+    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide', '/iso-14496-22-2026-beginner-guide', '/iso-iec-30141-2024-guide', '/iso-iec-ts-30149-2024-guide','/iso-iec-ieee-29119-3-2021-guide']);
     expect(iso?.title).toBe('ISO 国際規格');
   });
 
@@ -502,4 +502,8 @@ it('registers ISO/IEC TR 29138-2 under ISO', () => {
 
 it('registers ISO/IEC TS 30149 under ISO', () => {
   expect(NAV_ITEMS.find(item => item.href === '/iso-iec-ts-30149-2024-guide')?.category).toBe('iso');
+});
+
+it('registers ISO IEC IEEE 29119-3 under ISO with its learning summary', () => {
+  expect(NAV_ITEMS.find(item => item.href === '/iso-iec-ieee-29119-3-2021-guide')).toEqual({ href: '/iso-iec-ieee-29119-3-2021-guide', label: 'ISO/IEC/IEEE 29119-3:2021 初学者ガイド', description: 'テスト文書の役割・記載項目・適合とテーラリングを、実務例から段階的に学ぶ。', category: 'iso' });
 });
