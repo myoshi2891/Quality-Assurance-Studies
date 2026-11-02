@@ -230,7 +230,7 @@ export default function Section15() {
               </td>
             </tr>
             <tr className="even">
-              <td>SkiaSharp 4.150.0（HarfBuzz 14.2.1 を同梱）</td>
+              <td>SkiaSharp 4.150.0 と、同時に公開された別リリースの HarfBuzzSharp 14.2.1</td>
               <td>
                 <a
                   href="https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html"

@@ -18,7 +18,7 @@ export default function Category2() { return <>
 
 <ul><li><strong>{"センサー"}</strong>{"が物理世界の情報を集める"}</li><li><strong>{"アクチュエータ"}</strong>{"が物理世界に働きかける"}</li><li>{"これらのフィールドデバイスがネットワーク経由でデジタル世界につながる"}</li><li>{" IoTは、デジタルツイン、AI、クラウド、ビッグデータ、データ分析などを支える基盤になる "}</li></ul>
 
-<div className="mermaid-diagram" id="diagram-1" role="img" aria-label="図1: 物理世界の対象（機械・環境・人など）、センサー、ネットワーク、クラウド／エッジ／アプリ（分析・判断）、ネットワーク、アクチュエータ、物理世界の対象"><Mermaid chart={DIAGRAM_0} /></div>
+<div className="mermaid-diagram" id="diagram-1" role="img" aria-label="図1: センサーが物理世界の対象（機械・環境・人など）を計測し、そのデータをネットワーク経由でクラウド／エッジ／アプリ（分析・判断）へ送る。クラウド／エッジ／アプリは指令をネットワーク経由でアクチュエータへ送り、アクチュエータが物理世界の対象に作用する。"><Mermaid chart={DIAGRAM_0} /></div>
 
 <div className="callout"><p>{" この図は、序文の説明を初学者向けに"}<strong>{"解説者が一般化して描いた概念図"}</strong>{"です。規格内の図そのものではありません。 "}</p></div>
 
@@ -28,7 +28,7 @@ export default function Category2() { return <>
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"用語"}</th><th>{"意味"}</th><th>{"身近な例え"}</th></tr></thead><tbody><tr className="odd"><td><strong>{"ステークホルダー"}</strong></td><td>{"システムに関心を持つ人・組織"}</td><td>{"家の施主、設計士、施工業者"}</td></tr><tr className="even"><td><strong>{"関心事（Concern）"}</strong></td><td>{"ステークホルダーが気にしていること"}</td><td>{"「耐震性は大丈夫？」「予算は？」"}</td></tr><tr className="odd"><td><strong>{"ビューポイント（視点）"}</strong></td><td>{"関心事に答えるための\"見方のルール\""}</td><td>{"「配線図の描き方のルール」"}</td></tr><tr className="even"><td><strong>{"ビュー（視点から見た図・記述）"}</strong></td><td>{"ビューポイントに従って作った実物の記述"}</td><td>{"「実際に描いた配線図」"}</td></tr></tbody></table></div>
 
-<div className="mermaid-diagram" id="diagram-2" role="img" aria-label="図2: ステークホルダー、関心事、ビューポイント（見方のルール）、ビュー（実際の図や記述）"><Mermaid chart={DIAGRAM_1} /></div>
+<div className="mermaid-diagram" id="diagram-2" role="img" aria-label="図2: ステークホルダーは関心事を持つ。関心事はビューポイント（見方のルール）として整理される。ビューポイントはビュー（実際の図や記述）を支配・規定し、ビューは関心事に答える。"><Mermaid chart={DIAGRAM_1} /></div>
 
 <hr />
 </>; }

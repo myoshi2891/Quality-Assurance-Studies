@@ -22,5 +22,5 @@ export default function Category15() { return <>
 
 <h3 id="155-情報の限界と確認のすすめ">{"15.5 情報の限界と確認のすすめ"}</h3>
 
-<ul><li>{" 本ガイドの記述は、"}<strong>{"公開目次・抄録・プレビュー"}</strong>{"で確認できる範囲に基づきます。図の細部（例: Figure 2〜8の具体的な内容、Table 9〜12の中身）は有料部分にあり、"}<strong>{"本文を直接確認していません"}</strong>{"。 "}</li><li>{" 第1版の知識（ドメインモデルなど）が第2版でどう再編されたかは、"}<strong>{"正規版で必ず確認してください"}</strong>{"。 "}</li><li>{" 実務で規格を根拠にする場合は、ISO、IEC、各国規格協会（JSAなど）から正規版を入手してください。 "}</li><li>{" ISOのステージは**90.92（改訂予定）**です。最新状況は "}<a href="https://www.iso.org/standard/88800.html" rel="noopener noreferrer" target="_blank">{"https://www.iso.org/standard/88800.html"}</a>{" で確認してください。 "}</li></ul>
+<ul><li>{" 本ガイドの記述は、"}<strong>{"公開目次・抄録・プレビュー"}</strong>{"で確認できる範囲に基づきます。図の細部（例: Figure 2〜8の具体的な内容、Table 9〜12の中身）は有料部分にあり、"}<strong>{"本文を直接確認していません"}</strong>{"。 "}</li><li>{" 第1版の知識（ドメインモデルなど）が第2版でどう再編されたかは、"}<strong>{"正規版で必ず確認してください"}</strong>{"。 "}</li><li>{" 実務で規格を根拠にする場合は、ISO、IEC、各国規格協会（JSAなど）から正規版を入手してください。 "}</li><li>{" ISOのステージは"}<strong>{"90.92（改訂予定）"}</strong>{"です。最新状況は "}<a href="https://www.iso.org/standard/88800.html" rel="noopener noreferrer" target="_blank">{"https://www.iso.org/standard/88800.html"}</a>{" で確認してください。 "}</li></ul>
 </>; }
