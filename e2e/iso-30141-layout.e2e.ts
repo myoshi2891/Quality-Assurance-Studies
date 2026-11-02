@@ -58,6 +58,8 @@ for(let i=0;i<11;i++)test(`diagram ${i}: rendered labels, shapes and connections
    clusters:Array.from(el.querySelectorAll('g.cluster'),c=>({id:c.id.replace(/^.*(?=N\d+_)/,''),fill:getComputedStyle(c.querySelector('rect')!).fill,stroke:getComputedStyle(c.querySelector('rect')!).stroke,label:(c.querySelector('.cluster-label')?.textContent??'').replace(/\s+/g,' ').trim()})).sort((a,b)=>a.id.localeCompare(b.id))
  });
  const expected=await page.locator(`#diagram-${i+1}`).evaluate(collect);
+ // レビュー修正: 図3（DIAGRAM_2）は2経路とも任意である旨を辺ラベルに明記したため、原本SVGの辺ラベルを置き換えて比較する
+ if(i===2){const reviewed:Record<string,string>={'規範的参照':'規範的参照（任意）','参考にする':'直接参照（任意）','具体化':'DSRAに基づく（任意）'};expected.edges=expected.edges.map(e=>({...e,label:reviewed[e.label]??e.label}));}
  await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
  const svg=await page.evaluate(async chart=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize({startOnLoad:false,securityLevel:'loose'});return (await m.render('diagram-check',chart)).svg;},charts[`DIAGRAM_${i}`]!);
  await page.setContent(`<div id="rendered">${svg}</div>`);
