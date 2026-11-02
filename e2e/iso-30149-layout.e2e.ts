@@ -104,7 +104,7 @@ for (const width of [390,1440]) test(`${width}px every quiz preserves closed/ope
     await page.setContent(`<style>${preflight+globals+retained+own}</style>${markup()}`);
     const collect=(el:Element)=>Array.from(el.querySelectorAll('summary,p'), n=>{
         const s=getComputedStyle(n); const marker=getComputedStyle(n,'::before');
-        return {text:n.textContent,visible:!!n.getBoundingClientRect().height,color:s.color,background:s.backgroundColor,padding:s.padding,margin:s.margin,lineHeight:s.lineHeight,content:marker.content,marker:marker.color};
+        return {text:n.textContent?.replace(/\s+/g,' ').trim(),visible:!!n.getBoundingClientRect().height,color:s.color,background:s.backgroundColor,padding:s.padding,margin:s.margin,lineHeight:s.lineHeight,content:marker.content,marker:marker.color};
     });
     expect(await page.locator('details.quiz').count()).toBe(5);
     for (let i=0;i<5;i++) for (const open of [false,true,false]) {
@@ -116,4 +116,15 @@ for (const width of [390,1440]) test(`${width}px every quiz preserves closed/ope
         expect(await target.evaluate(el=>(el as HTMLDetailsElement).open)).toBe(open);
     }
     await reference.close();
+});
+
+test('TOC and headings clear the shared header and disclaimer at every source breakpoint', async ({ page }) => {
+    const own=readFileSync(base+'/iso-iec-ts-30149-2024-guide.css','utf8');
+    for (const width of [390,900,901,1440]) {
+        await page.setViewportSize({ width,height:900 });
+        await page.setContent(`<style>${preflight+globals+own}:root{--disclaimer-height:35px}</style>${markup()}`);
+        await expect(page.locator('.sidebar')).toHaveCSS('top','95px');
+        if (width <= 900) await expect(page.locator('.nav-toggle')).toHaveCSS('top','105px');
+        for (const heading of await page.locator('.content h2[id],.content h3[id]').all()) await expect(heading).toHaveCSS('scroll-margin-top','115px');
+    }
 });
