@@ -127,7 +127,7 @@ const EXPECTED_REFERENCES = [
   'https://developer.chrome.com/blog/memory-safety-fonts',
   'https://developer.chrome.com/blog/memory-safety-fonts',
   'https://issues.chromium.org/issues/40228383',
-  'https://chromium.googlesource.com/chromium/src/',
+  'https://developer.chrome.com/blog/memory-safety-fonts',
   'https://github.com/googlefonts/fontations',
   'https://pypi.org/project/fontc/',
   'https://github.com/harfbuzz/harfbuzz',

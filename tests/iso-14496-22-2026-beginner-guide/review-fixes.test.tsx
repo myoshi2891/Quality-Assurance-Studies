@@ -234,6 +234,23 @@ describe('ISO 14496-22:2026 review fixes: Section 15 source links', () => {
     }
   });
 
+  it('labels the Chrome 145 FreeType removal as completed and cites the Chrome article confirming it', () => {
+    // Arrange & Act
+    const { container } = render(<Section15 />);
+    const row = Array.from(container.querySelectorAll('section#ch15 tbody tr')).find((tr) =>
+      tr.querySelector('td')?.textContent?.startsWith('Chrome 145'),
+    );
+    const cells = Array.from(row?.querySelectorAll('td') ?? []).map((td) => td.textContent?.trim());
+    const link = row?.querySelector('a');
+
+    // Assert（状態は「計画」ではなく「完了」、根拠は削除を追記で報告した Chrome 公式記事）
+    expect(cells[0]).toBe('Chrome 145（Blink からの FreeType 削除完了）');
+    expect(cells[0]).not.toContain('計画');
+    expect(cells[1]).toBe('developer.chrome.com');
+    expect(link?.getAttribute('href')).toBe('https://developer.chrome.com/blog/memory-safety-fonts');
+    expect(link?.textContent?.trim()).toBe('https://developer.chrome.com/blog/memory-safety-fonts');
+  });
+
   it('links the canonical SkiaSharp 4.150.0 release notes page', () => {
     // Arrange & Act
     const { container } = render(<Section15 />);
