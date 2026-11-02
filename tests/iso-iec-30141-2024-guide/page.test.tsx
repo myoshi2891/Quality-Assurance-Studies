@@ -27,6 +27,8 @@ inventory.categories.forEach((nodes,i)=>it('category '+i+' complete structure',(
 it('no invalid table whitespace or nested anchors',()=>{const $=html();expect($('table,thead,tbody,tfoot,tr').toArray().filter(e=>e.children.some(c=>c.type==='text'))).toEqual([]);expect($('a a').length).toBe(0);});
 it('CSS imported and 800 weight provided',()=>{const source=readFileSync(base+'/page.tsx','utf8');expect(source).toContain("import './iso-iec-30141-2024-guide.css'");expect(source).toContain('noto-sans-jp-800.css');});
 it('metadata preserves source title',()=>expect(sourceModule(base+'/page.tsx').metadata).toMatchObject({title:'ISO/IEC 30141:2024 初学者向けステップバイステップ解説ガイド'}));
+// 図3（DIAGRAM_2）の代替テキストは、ノードだけでなく辺ラベル（規範的参照・参考にする・具体化・導く）の関係も伝える
+it('diagram 3 description states every labeled relationship of DIAGRAM_2',()=>{const $=html();expect($('#diagram-3').attr('aria-label')).toBe('図3: IoT領域別参照アーキテクチャ（DSRA：スマート製造、スマートシティなど）は、ISO/IEC 30141 IoT参照アーキテクチャを規範的参照とする。個別のIoTソリューションアーキテクチャは、ISO/IEC 30141を参考にし、DSRAを具体化したものである。個別のIoTソリューションアーキテクチャが、IoTシステムの実装を導く。');});
 it('all diagram wrappers have accessible descriptions',()=>{const $=html();expect($('.mermaid-diagram[role="img"][aria-label]').length).toBe(inventory.charts.length);});
 it('preserves whitespace between inline elements in every paragraph and table cell',()=>{const $=html();expect($(inventory.inlineText.selector).toArray().filter(el=>!$(el).closest('svg').length).map(el=>$(el).text().replace(/\s+/g,' ').trim())).toEqual(inventory.inlineText.items);});
 
