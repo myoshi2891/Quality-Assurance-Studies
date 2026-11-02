@@ -127,15 +127,15 @@ export default function Section15() {
               </td>
             </tr>
             <tr className="odd">
-              <td>Chrome 145（FreeType の削除計画）</td>
-              <td>Chromium source tree</td>
+              <td>Chrome 145（Blink からの FreeType 削除完了）</td>
+              <td>developer.chrome.com</td>
               <td>
                 <a
-                  href="https://chromium.googlesource.com/chromium/src/"
+                  href="https://developer.chrome.com/blog/memory-safety-fonts"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  https://chromium.googlesource.com/chromium/src/
+                  https://developer.chrome.com/blog/memory-safety-fonts
                 </a>
               </td>
             </tr>
