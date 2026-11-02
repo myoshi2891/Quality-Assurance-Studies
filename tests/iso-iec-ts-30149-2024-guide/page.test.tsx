@@ -46,7 +46,7 @@ inventory.diagrams.forEach((d, i) => it('diagram ' + i + ' exact original node l
  for (const n of d.nodes) expect(chart).toContain(n.id + (n.shape === 'polygon' ? '{"' : '["') + n.html?.replace(/<br\s*\/?\s*>/g,'<br/>') + (n.shape === 'polygon' ? '"}' : '"]'));
  const md = readFileSync(existsSync('Iso-iec-ts-30149-2024-guide.md') ? 'Iso-iec-ts-30149-2024-guide.md' : 'archive/md-archive/iso/Iso-iec-ts-30149-2024-guide.md','utf8');
  const original = [...md.matchAll(/```mermaid\n([\s\S]*?)```/g)][i]![1]!;
- expect(chart.split('\n').filter(line => /(?:-->|-\.->)/.test(line))).toEqual(original.split('\n').filter(line=>/(?:-->|-\.->)/.test(line)).map(line=>line.trim().replace(/\b([A-Z]+\d+)\b/g, id => 'N' + (i+1) + '_' + id)));
+ expect(chart.split('\n').filter(line => /(?:-->|-\.->)/.test(line))).toEqual(original.split('\n').filter(line=>/(?:-->|-\.->)/.test(line)).map(line=>line.trim().replace(/\b[A-Z][A-Z0-9]*\b/g, id => d.nodes.some(n => n.id === 'N' + (i+1) + '_' + id) ? 'N' + (i+1) + '_' + id : id)));
  const mermaid = (await import('mermaid/dist/mermaid.esm.min.mjs')).default;
  expect(await mermaid.parse(chart)).toBeTruthy();
 }));
