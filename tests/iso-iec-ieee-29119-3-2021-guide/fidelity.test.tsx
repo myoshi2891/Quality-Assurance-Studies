@@ -6,10 +6,12 @@ import { hydrateRoot, type Root } from 'react-dom/client';
 import { fireEvent } from '@testing-library/react';
 import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
+import { applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-iec-ieee-29119-3-2021-guide';
 it('preserves every text block including whitespace between inline elements', () => {
     const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
     const original = load(readFileSync(existsSync('Iso-iec-ieee-29119-3-2021-guide.html')?'Iso-iec-ieee-29119-3-2021-guide.html':'archive/html-archive/iso/Iso-iec-ieee-29119-3-2021-guide.html', 'utf8'));
+    applyReviewCorrections(original);
     const current = load(renderToString(<Page />));
     for (const $ of [original, current]) $('.mermaid-container').remove();
     const normal = (s: string) => s.replace(/\s+/g, ' ').trim();
