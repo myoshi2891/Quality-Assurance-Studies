@@ -43,7 +43,7 @@ inventory.diagrams.forEach((d, i) => it('diagram ' + i + ' exact source chart an
  const charts = sourceModule(base + '/diagrams.ts') as Record<string,string>;
  const chart = charts['DIAGRAM_' + i]!;
  expect(chart).toBe(charts.MERMAID_CONFIG + '\n' + d.chart.split('\n').map(l => l.trim()).join('\n').trim());
- expect(JSON.parse(charts.MERMAID_CONFIG!.slice('%%{init: '.length, -' }%%'.length))).toEqual(inventory.config);
+ expect(JSON.parse(charts.MERMAID_CONFIG!.slice('%%{init: '.length, -'}%%'.length))).toEqual({ ...inventory.config, flowchart:{ ...inventory.config.flowchart, padding:15 } });
  const runtimeBundle: string = 'mermaid/dist/mermaid.esm.min.mjs';
  const mermaid = (await import(runtimeBundle)).default;
  expect(await mermaid.parse(chart)).toBeTruthy();

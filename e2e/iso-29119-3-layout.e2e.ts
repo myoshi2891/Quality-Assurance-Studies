@@ -14,7 +14,7 @@ const inventory={originalCss:original('head style').html()};
 original('script').remove();
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 const reviewedBody = original('body').html()!;
-const selectors=['.layout','.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hero-meta div','.hero-meta small','.hero-meta span','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','blockquote','h4','details','summary','.brand','.sidebar ul','.sidebar li','.sidebar a','.toggle','main code','main hr'];
+const selectors=['.layout','.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hero-meta div','.hero-meta small','.hero-meta span','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','blockquote','h4','details','summary','.brand','.sidebar ul','.sidebar li','.sidebar a','.toggle','main code','main hr','.mermaid-container'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,900,901,1440]) {
     for (const order of ['before','after'] as const) {
@@ -62,10 +62,12 @@ for (const width of [390,1440]) for(let i=0;i<12;i++) test(`${width}px diagram $
   const normal=(s:string|null)=> (s??'').replace(/\s+/g,' ').trim();
   const style=(e:Element|null,keys:string[])=>e?Object.fromEntries(keys.map(k=>[k,getComputedStyle(e)[k as keyof CSSStyleDeclaration]])):null;
   return {
-   nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:normal(n.querySelector('.nodeLabel')?.textContent??''),shape:n.querySelector('rect,polygon,circle,path')?.tagName,colors:style(n.querySelector('rect,polygon,circle,path'),['fill','stroke']),text:style(n.querySelector('.nodeLabel'),['color']),cluster:n.closest('g.root')?.querySelector(':scope > .clusters > .cluster')?.id.replace(/^diagram-(check|reference)-/,'')??null})).sort((a,b)=>a.id.localeCompare(b.id)),
-   edges:Array.from(el.querySelectorAll('.edgePaths path'),e=>({id:e.getAttribute('data-id'),colors:style(e,['stroke','strokeDasharray']),arrow:!!e.getAttribute('marker-end')})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
+   viewBox:el.querySelector('svg')?.getAttribute('viewBox'),
+   markers:Array.from(el.querySelectorAll('marker path'),p=>({path:p.getAttribute('d'),colors:style(p,['fill','stroke'])})),
+   nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:normal(n.querySelector('.nodeLabel')?.textContent??''),shape:n.querySelector('rect,polygon,circle,path')?.tagName,colors:style(n.querySelector('rect,polygon,circle,path'),['fill','stroke','strokeWidth']),text:style(n.querySelector('.nodeLabel'),['color']),cluster:n.closest('g.root')?.querySelector(':scope > .clusters > .cluster')?.id.replace(/^diagram-(check|reference)-/,'')??null})).sort((a,b)=>a.id.localeCompare(b.id)),
+   edges:Array.from(el.querySelectorAll('.edgePaths path'),e=>({id:e.getAttribute('data-id'),colors:style(e,['stroke','strokeDasharray','strokeWidth']),arrow:!!e.getAttribute('marker-end')})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
    labels:Array.from(el.querySelectorAll('.edgeLabel .label'),e=>({id:e.getAttribute('data-id'),label:normal(e.querySelector('span.edgeLabel')?.textContent??''),text:style(e.querySelector('span.edgeLabel'),['color','backgroundColor']),background:style(e.querySelector('.labelBkg'),['backgroundColor'])})).sort((a,b)=>(a.id??'').localeCompare(b.id??'')),
-   clusters:Array.from(el.querySelectorAll('.cluster'),e=>({id:e.id.replace(/^diagram-(check|reference)-/,''),colors:style(e.querySelector('rect'),['fill','stroke']),label:normal(e.querySelector('.cluster-label')?.textContent??'')})).sort((a,b)=>a.id.localeCompare(b.id))
+   clusters:Array.from(el.querySelectorAll('.cluster'),e=>({id:e.id.replace(/^diagram-(check|reference)-/,''),colors:style(e.querySelector('rect'),['fill','stroke','strokeWidth']),label:normal(e.querySelector('.cluster-label')?.textContent??'')})).sort((a,b)=>a.id.localeCompare(b.id))
   };
  };
  await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
@@ -74,7 +76,7 @@ for (const width of [390,1440]) for(let i=0;i<12;i++) test(`${width}px diagram $
  const expected=await page.locator('#mermaid-diagram-'+(i+1)).evaluate(collect);
  const svg=await page.evaluate(async({chart,init})=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(Function('return ('+init+')')());return (await m.render('diagram-check',chart)).svg;},{chart:charts[`DIAGRAM_${i}`]!,init:sharedInit});
  const own=readFileSync(base+'/iso-iec-ieee-29119-3-2021-guide.css','utf8');
- await page.setContent(`<style>${preflight+globals+own}</style><div class="iso291193-page"><div class="mermaid-diagram"><div class="mermaid-wrapper">${svg}</div></div></div>`);
+ await page.setContent(`<style>${preflight+globals+own}</style><div class="iso291193-page"><div class="mermaid-container"><div class="mermaid-wrapper">${svg}</div></div></div>`);
  // Mirror the shared renderer's post-render sizing without a server or build.
  await page.locator('.mermaid-wrapper svg').evaluate(svg=>{const box=svg.getAttribute('viewBox')!.split(/\s+/).map(Number);svg.removeAttribute('width');svg.removeAttribute('height');(svg as SVGElement).style.width=box[2]+'px';});
  expect(await page.locator('.mermaid-wrapper').evaluate(collect)).toEqual(expected);
@@ -108,7 +110,7 @@ for (const width of [390,1440]) test(`${width}px every quiz preserves closed/ope
     await page.setContent(`<style>${preflight+globals+retained+own}</style>${markup()}`);
     const collect=(el:Element)=>[el,...Array.from(el.querySelectorAll('summary,p'))].map(n=>{
         const s=getComputedStyle(n); const marker=getComputedStyle(n,'::before');
-        return {text:n.textContent?.replace(/\s+/g,' ').trim(),visible:!!n.getBoundingClientRect().height,color:s.color,background:s.backgroundColor,padding:s.padding,margin:s.margin,lineHeight:s.lineHeight,content:marker.content,marker:marker.color};
+        return {height:n.getBoundingClientRect().height,width:n.getBoundingClientRect().width,text:n.textContent?.replace(/\s+/g,' ').trim(),visible:!!n.getBoundingClientRect().height,color:s.color,background:s.backgroundColor,padding:s.padding,margin:s.margin,lineHeight:s.lineHeight,content:marker.content,marker:marker.color};
     });
     expect(await page.locator('details').count()).toBe(8);
     for (let i=0;i<8;i++) for (const open of [false,true,false]) {
