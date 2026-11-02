@@ -1,13 +1,24 @@
 # Migration Progress
 
-Updated 2026-11-02
+Updated 2026-11-03
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 118 ルート = ガイドライブラリ index + 117 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 119 ルート = ガイドライブラリ index + 118 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-11-03: ISO/IEC TS 30149:2024 IoT信頼に足る性質ガイドの移行
+
+- `/iso-iec-ts-30149-2024-guide`をISOカテゴリーに登録し、ナビ・E2E一覧を119ルート（ホーム＋118ガイド）へ同期。
+- 原本の34見出し、階層目次33リンク、23表の全セル、11図、注記9件、外部リンク24要素、メタ情報2項目、理解度チェック5問、自己点検7項目、本文全文・フッターを固定インベントリと出現順で照合。コードブロックは原本どおり0件。
+- `app/iso-iec-ts-30149-2024-guide/`へ`page.tsx`・同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category16.tsx`を配置。ヒーロー、本文15カテゴリー、フッターを順に実装・照合・個別コミット。目次全33リンクの追従・開閉・Escape・フォーカス復帰・Observer解除、チェック全7項目の入力・ラベル操作と進捗の往復更新を検証。
+- CSS全79ルールと900px境界、ダーク配色、ヒーロー装飾、表、注記、チェック、クイズの疑似要素を保持。共有CSS・Tailwindによる表の列幅・文字色、注記書体、目次の階層余白、チェック入力の干渉を補正。Noto Sans JP 800とJetBrains Mono 600をページで読み込み、目次・見出しの位置を共有ヘッダーと免責バナーに合わせる。
+- HTML内SVGとMarkdownのラベル・識別子・形状・接続を照合して11図を共有Mermaidへ移行。接続線と辺ラベルの文字色・背景色を原本に合わせ、図3の`root`クラスとMermaid内部クラスの衝突も解消。横スクロールの両端への到達を検証。
+- 対象275件、関連563件、既存一覧同期723件、全体9637件（204ファイル）、対象ソース・E2EのTypeScript検査、lintが成功。Chrome35件で390/900/901/1440px×CSS2順序、11図×2幅の実SVG、目次のキーボード到達、5問のクイズ開閉、4幅のヘッダー・免責バナー下の見出し位置を比較。SWC開発/本番変換後の全文DOM、インライン空白、SSR復元エラー・DOM警告なしとチェック操作の接続も検証。
+- 原本は`archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html`・`archive/md-archive/iso/Iso-iec-ts-30149-2024-guide.md`へ同名で移動。SHA-256一致、元ファイルの不存在、Git追跡、rename検出100%を確認。
+- Redテスト先行後、CSS・図・目次・チェック操作・17カテゴリー・統合・登録・アーカイブ・補正・仕様書を分離してコミット。各コミット直前にPII検査。検証はnpm経由、ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。
 
 ## 2026-11-02: ISO/IEC TR 29138-2:2009 アクセシビリティ規格インベントリガイドの移行
 
@@ -148,9 +159,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync ISO IEC TR 29138-2 migration and verification records` |
-| 次の作業 | `/iso-iec-tr-29138-2-2009-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | npm経由で対象263件・関連546件・全体9314件（200ファイル）・Chrome20件・lint・対象型検査成功。ビルド未実施。 |
+| 最新コミット内容 | `chore(docs): record ISO IEC TS 30149 migration completion` |
+| 次の作業 | `/iso-iec-ts-30149-2024-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | npm経由で対象275件・関連563件・既存一覧同期723件・全体9637件（204ファイル）・Chrome35件・lint・対象ソース/E2E型検査成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1722,6 +1733,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-tr-29138-2-2009-guide.html` | `/iso-iec-tr-29138-2-2009-guide` | ✅ 43見出し・目次42リンク・19表・5図・YAML1件・注記13件・59 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-ts-30149-2024-guide.html` | `/iso-iec-ts-30149-2024-guide` | ✅ 34見出し・目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・79 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-14496-22-2026-beginner-guide.html` | `/iso-14496-22-2026-beginner-guide` | ✅ ダーク配色・16章・42見出し・目次16リンク・23表・11図・15コールアウト・18注記・15用語集・Pythonコード・外部18リンク (archive/、HTML・MD両方) |
@@ -1737,7 +1749,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026と27799:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 | 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
@@ -1751,9 +1763,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 118 ルート（ガイドライブラリ index + 117 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 119 ルート（ガイドライブラリ index + 118 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト9314件すべて成功（200ファイル）。ISO 29138-2対象263件・関連546件・Chrome20件、lint、対象型検査も成功。
+- 全体テスト9637件すべて成功（204ファイル）。ISO TS 30149対象275件・関連563件・既存一覧同期723件・Chrome35件、lint、対象ソース/E2E型検査も成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
