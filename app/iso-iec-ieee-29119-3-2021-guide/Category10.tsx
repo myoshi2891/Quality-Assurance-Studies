@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_8 } from './diagrams';
 
 export default function Category10() {
@@ -12,7 +12,7 @@ export default function Category10() {
 {" "}
 <blockquote>{" "}<p>{" "}<strong>{"「テスト条件」の概念を「テストモデル」に置き換えた。"}</strong>{" 理由: 旧版へのフィードバックで、テスト条件の意味と、そこからテストケースを導く方法が利用者にわかりにくいという問題が指摘されたため。 "}</p>{" "}</blockquote>
 {" "}
-<div className="mermaid-container" data-key="mm9" id="mermaid-diagram-9"><Mermaid chart={DIAGRAM_8} /></div>
+<Diagram diagramKey="mm9" id="mermaid-diagram-9" chart={DIAGRAM_8} />
 {" "}
 <h3 id="9-2-テストモデルとは">{"9-2. テストモデルとは"}</h3>
 {" "}

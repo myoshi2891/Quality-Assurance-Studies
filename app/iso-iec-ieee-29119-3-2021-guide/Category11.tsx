@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_9 } from './diagrams';
 
 export default function Category11() {
@@ -8,7 +8,7 @@ export default function Category11() {
 {" "}
 <h3 id="10-1-全体の依存関係">{"10-1. 全体の依存関係"}</h3>
 {" "}
-<div className="mermaid-container" data-key="mm10" id="mermaid-diagram-10"><Mermaid chart={DIAGRAM_9} /></div>
+<Diagram diagramKey="mm10" id="mermaid-diagram-10" chart={DIAGRAM_9} />
 {" "}
 <h3 id="10-2-テストトレーサビリティマトリクス">{" 10-2. テストトレーサビリティマトリクス "}</h3>
 {" "}

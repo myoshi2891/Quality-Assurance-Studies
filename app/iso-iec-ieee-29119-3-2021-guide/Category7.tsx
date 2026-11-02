@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_4 } from './diagrams';
 
 export default function Category7() {
@@ -8,7 +8,7 @@ export default function Category7() {
 {" "}
 <p>{"「プロジェクトを超えて、組織全体に共通する」文書です。"}</p>
 {" "}
-<div className="mermaid-container" data-key="mm5" id="mermaid-diagram-5"><Mermaid chart={DIAGRAM_4} /></div>
+<Diagram diagramKey="mm5" id="mermaid-diagram-5" chart={DIAGRAM_4} />
 {" "}
 <h3 id="6-1-テストポリシーtest-policy-62">{" 6-1. テストポリシー（Test policy, 6.2） "}</h3>
 {" "}

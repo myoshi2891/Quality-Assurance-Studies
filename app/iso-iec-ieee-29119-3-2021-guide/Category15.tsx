@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_11 } from './diagrams';
 
 export default function Category15() {
@@ -8,7 +8,7 @@ export default function Category15() {
 {" "}
 <h3 id="14-1-学習ロードマップ">{"14-1. 学習ロードマップ"}</h3>
 {" "}
-<div className="mermaid-container" data-key="mm12" id="mermaid-diagram-12"><Mermaid chart={DIAGRAM_11} /></div>
+<Diagram diagramKey="mm12" id="mermaid-diagram-12" chart={DIAGRAM_11} />
 {" "}
 <div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"段階"}</th><th>{"ゴール"}</th><th>{"次にやること"}</th></tr></thead><tbody><tr className="odd"><td>{"1"}</td><td>{"Part 1〜4 の役割を説明できる"}</td><td>{"Part 2 のプロセス図と Part 3 の文書を対応づける"}</td></tr><tr className="even"><td>{"2"}</td><td>{"適合の2種類と shall/should/may を説明できる"}</td><td>{"自組織の文書を Annex A と照らす"}</td></tr><tr className="odd"><td>{"3"}</td><td>{"各文書の目的を1行で言える"}</td><td>{"自プロジェクトの既存成果物とマッピングする"}</td></tr><tr className="even"><td>{"4"}</td><td>{" テストモデルからカバレッジアイテム、テストケースまでを説明できる "}</td><td>{"Part 4 の技法を1つ選んで例を作る"}</td></tr><tr className="odd"><td>{"5"}</td><td>{"トレーサビリティの取り方を設計できる"}</td><td>{"ツールのリンク機能で追跡を試す"}</td></tr></tbody></table>{" "}</div>
 {" "}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_0 } from './diagrams';
 
 export default function Category1() {
@@ -10,7 +10,7 @@ export default function Category1() {
 {" "}
 <ul>{" "}<li>{" 「何をどうテストするか（プロセス）」を定めるのは "}<strong>{"Part 2"}</strong>{"。 "}</li>{" "}<li>{" その各プロセスの"}<strong>{"成果物（アウトプット）として、どんな情報を文書に書くか"}</strong>{"を定めるのが "}<strong>{"Part 3"}</strong>{"。 "}</li>{" "}<li>{" 文書は紙でも、テスト管理ツールの記録、スプレッドシート、マインドマップ、ホワイトボード写真でもよい、とされています。 "}</li>{" "}<li>{" すべてを作る必要はなく、**プロジェクトに合わせて選んで使う（テーラリング）**ことが前提です。 "}</li>{" "}</ul>
 {" "}
-<div className="mermaid-container" data-key="mm1" id="mermaid-diagram-1"><Mermaid chart={DIAGRAM_0} /></div>
+<Diagram diagramKey="mm1" id="mermaid-diagram-1" chart={DIAGRAM_0} />
 {" "}
 <h3 id="用語の最低限セット">{"用語の最低限セット"}</h3>
 {" "}

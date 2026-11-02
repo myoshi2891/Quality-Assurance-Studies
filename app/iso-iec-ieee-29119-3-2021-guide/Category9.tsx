@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_6, DIAGRAM_7 } from './diagrams';
 
 export default function Category9() {
@@ -8,7 +8,7 @@ export default function Category9() {
 {" "}
 <p>{" 実際のテストの"}<strong>{"設計 → 準備 → 実行 → 問題報告"}</strong>{"で作られる文書群です。11種類の項目があり、初学者は最初に全体の流れをつかむと整理しやすくなります。 "}</p>
 {" "}
-<div className="mermaid-container" data-key="mm7" id="mermaid-diagram-7"><Mermaid chart={DIAGRAM_6} /></div>
+<Diagram diagramKey="mm7" id="mermaid-diagram-7" chart={DIAGRAM_6} />
 {" "}
 <h3 id="8-1-テストモデル仕様82">{"8-1. テストモデル仕様（8.2）"}</h3>
 {" "}
@@ -54,7 +54,7 @@ export default function Category9() {
 {" "}
 <div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"項番"}</th><th>{"項目"}</th><th>{"説明"}</th></tr></thead><tbody><tr className="odd"><td>{"8.11.2"}</td><td>{"Timing information"}</td><td>{"いつ起きたか"}</td></tr><tr className="even"><td>{"8.11.3"}</td><td>{"Originator"}</td><td>{"報告者"}</td></tr><tr className="odd"><td>{"8.11.4"}</td><td>{"Context"}</td><td>{"発生時の状況"}</td></tr><tr className="even"><td>{"8.11.5"}</td><td>{"Description of the incident"}</td><td>{"事象の説明"}</td></tr><tr className="odd"><td>{"8.11.6"}</td><td>{"Originator's assessment of severity"}</td><td>{"報告者の判断による深刻度"}</td></tr><tr className="even"><td>{"8.11.7"}</td><td>{"Originator's assessment of priority"}</td><td>{"報告者の判断による優先度"}</td></tr><tr className="odd"><td>{"8.11.8"}</td><td>{"Risk"}</td><td>{"リスク"}</td></tr><tr className="even"><td>{"8.11.9"}</td><td>{"Status of the incident"}</td><td>{"インシデントの状態"}</td></tr></tbody></table>{" "}</div>
 {" "}
-<div className="mermaid-container" data-key="mm8" id="mermaid-diagram-8"><Mermaid chart={DIAGRAM_7} /></div>
+<Diagram diagramKey="mm8" id="mermaid-diagram-8" chart={DIAGRAM_7} />
 {" "}
     </>;
 }

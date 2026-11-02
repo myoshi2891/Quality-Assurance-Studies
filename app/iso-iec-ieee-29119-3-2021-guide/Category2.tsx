@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_1 } from './diagrams';
 
 export default function Category2() {
@@ -10,7 +10,7 @@ export default function Category2() {
 {" "}
 <h3 id="版の変遷">{"版の変遷"}</h3>
 {" "}
-<div className="mermaid-container" data-key="mm2" id="mermaid-diagram-2"><Mermaid chart={DIAGRAM_1} /></div>
+<Diagram diagramKey="mm2" id="mermaid-diagram-2" chart={DIAGRAM_1} />
 {" "}
 <div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"時期"}</th><th>{"出来事"}</th><th>{"意味"}</th></tr></thead><tbody><tr className="odd"><td>{"2013年"}</td><td>{"第1版 発行"}</td><td>{"シリーズ初のテスト文書化標準（IEEE 829 の後継的位置づけ）"}</td></tr><tr className="even"><td>{"2019年"}</td><td>{"IEEE PAR 承認"}</td><td>{"IEEE 側で改訂作業が正式に始まる"}</td></tr><tr className="odd"><td>{"2020年"}</td><td>{"ISO で改訂プロジェクト承認、DIS 投票"}</td><td>{"ISO 側で改訂案の国際投票が行われる"}</td></tr><tr className="even"><td>{"2021年9月23日"}</td><td>{"IEEE 標準委員会承認"}</td><td>{"IEEE 側の承認完了"}</td></tr><tr className="odd"><td>{"2021年10月28日"}</td><td>{"第2版 発行"}</td><td>{"現行版。テスト条件の概念がテストモデルに置き換わる"}</td></tr></tbody></table>{" "}</div>
 {" "}

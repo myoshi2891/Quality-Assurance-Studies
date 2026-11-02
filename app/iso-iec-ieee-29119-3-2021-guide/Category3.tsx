@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_2 } from './diagrams';
 
 export default function Category3() {
@@ -12,7 +12,7 @@ export default function Category3() {
 {" "}
 <blockquote>{" "}<p>{" 関連: IEEE SA の同ワーキンググループのページには、インシデント管理の標準 "}<strong>{"23612-2026"}</strong>{" も掲載されています（別規格）。 "}</p>{" "}</blockquote>
 {" "}
-<div className="mermaid-container" data-key="mm3" id="mermaid-diagram-3"><Mermaid chart={DIAGRAM_2} /></div>
+<Diagram diagramKey="mm3" id="mermaid-diagram-3" chart={DIAGRAM_2} />
 {" "}
 <h3 id="part-2-と-part-3-の対応重要">{"Part 2 と Part 3 の対応（重要）"}</h3>
 {" "}

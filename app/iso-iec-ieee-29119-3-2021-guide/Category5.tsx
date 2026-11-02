@@ -1,5 +1,5 @@
 import React from 'react';
-import Mermaid from '../../components/Mermaid';
+import Diagram from './Diagram';
 import { DIAGRAM_3 } from './diagrams';
 
 export default function Category5() {
@@ -18,7 +18,7 @@ export default function Category5() {
 {" "}
 <ul>{" "}<li>{" 組織は"}<strong>{"完全適合とテーラード適合のどちらを主張するかを明言する"}</strong>{"（shall）。 "}</li>{" "}<li>{" 文書名・見出し・レイアウトは"}<strong>{"変更してよい"}</strong>{"（追加、統合、名称変更など）。この規格の呼び名の使用は必須ではありません。 "}</li>{" "}<li>{"電子データ、複数文書への分割、他文書との統合でも適合と見なされます。"}</li>{" "}<li>{" 発注者と供給者の契約に使う場合は、規格への適合ではなく"}<strong>{"契約への準拠"}</strong>{"を主張するほうが適切、という注記があります。 "}</li>{" "}</ul>
 {" "}
-<div className="mermaid-container" data-key="mm4" id="mermaid-diagram-4"><Mermaid chart={DIAGRAM_3} /></div>
+<Diagram diagramKey="mm4" id="mermaid-diagram-4" chart={DIAGRAM_3} />
 {" "}
     </>;
 }
