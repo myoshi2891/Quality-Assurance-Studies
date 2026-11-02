@@ -178,14 +178,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 198 ファイル・9065 tests)
+bun test             # ユニットテスト (bun test 全体, 200 ファイル・9320 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 117 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 118 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
