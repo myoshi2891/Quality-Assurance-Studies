@@ -12,7 +12,7 @@ export default function Category6() { return <>
 
 <p>{" 「どの章から読めばいいか分からない」ときは、"}<strong>{"自分の役割と悩み"}</strong>{"から逆引きします。 "}</p>
 
-<div className="mermaid-diagram" id="diagram-6" role="img" aria-label="図6: 今の悩みは？、基礎ビュー（6.2）、ビジネスビュー（6.3）、利用ビュー（6.4）、機能ビュー（6.5）、信頼性ビュー（6.6）、構築ビュー（6.7）と附属書A"><Mermaid chart={DIAGRAM_5} /></div>
+<div className="mermaid-diagram" id="diagram-6" role="img" aria-label="図6: 今の悩みから読むべきビューポイントを逆引きする。IoTの定義・特性を知りたい→基礎ビュー（6.2）、事業価値・ビジネスモデル→ビジネスビュー（6.3）、誰がどう使うか→利用ビュー（6.4）、必要な機能の分類→機能ビュー（6.5）、セキュリティ・信頼性→信頼性ビュー（6.6）、作り方の型・パターン→構築ビュー（6.7）と附属書A"><Mermaid chart={DIAGRAM_5} /></div>
 
 <hr />
 </>; }

@@ -26,7 +26,7 @@ export default function Category10() {
 {" "}
 <p>{" この雛形は、一覧が古くなる問題を避けるために、"}<strong>{"自社で状況を管理する"}</strong>{"ための例です。各行に、なぜその項目が必要かを書いています。 "}</p>
 {" "}
-<pre className="yaml"><code>{"# 自社プロダクト用「アクセシビリティ規格インベントリ」の雛形\n# 理由：TR 29138-2 は 2009 年時点の一覧なので、\n#       自社が参照する版と最新状況を、自分たちで管理する必要があるため\nproduct: 社内向け勤怠Webアプリ        # 対象の製品（例）\nreviewed_on: 2026-10-13               # 見直した日。古くなったことを検知するため\nstandards:\n  - id: \"ISO/IEC 40500:2025\"          # WCAG 2.2 に対応する国際規格\n    category: software                # 4.3 ソフトウェア・サービス系\n    focus: accessibility              # 区分A：主題がアクセシビリティ\n    status_checked: true              # 版と状況を確認済みか\n  - id: \"EN 301 549 V3.2.1\"           # 欧州向けに出す場合の参照先\n    category: software\n    focus: accessibility\n    status_checked: false             # V4.1.1 の状況が未確認のため、確認が要る"}</code></pre>
+<pre className="yaml"><code>{"# 自社プロダクト用「アクセシビリティ規格インベントリ」の雛形\n# 理由：TR 29138-2 は 2009 年時点の一覧なので、\n#       自社が参照する版と最新状況を、自分たちで管理する必要があるため\nproduct: 社内向け勤怠Webアプリ        # 対象の製品（例）\nreviewed_on: 2026-10-13               # 見直した日。古くなったことを検知するため\nstandards:\n  - id: \"ISO/IEC 40500:2025\"          # WCAG 2.2 に対応する国際規格\n    category: software                # 4.3 ソフトウェア・サービス系\n    focus: accessibility              # 区分A：主題がアクセシビリティ\n    status_checked: true              # 版と状況を確認済みか\n  - id: \"EN 301 549 V3.2.1\"           # 欧州向けに出す場合の参照先\n    category: software\n    focus: accessibility\n    status_checked: false             # V4.1.1 のEU官報への引用が未確認のため、確認が要る"}</code></pre>
 {" "}
 <p className="gloss-title">{"📖 このセクションで登場した用語"}</p>
 {" "}
