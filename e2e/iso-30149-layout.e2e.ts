@@ -12,7 +12,7 @@ const original=load(readFileSync(existsSync('Iso-iec-ts-30149-2024-guide.html')?
 const inventory={originalCss:original('head style').html()};
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 const reviewedBody = original('body').html()!;
-const selectors=['.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','blockquote','h4','details','summary','.page-footer','.sidebar-title','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','main code','.meta-item','.meta-k','.meta-v','.checklist-card','.checklist-progress','.cp-label','.cp-bar','.cp-fill','.cp-count','.task-list label','.task-list input','main hr'];
+const selectors=['.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','blockquote','h4','details','summary','.page-footer','.sidebar-title','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','main code','.meta-item','.meta-k','.meta-v','.checklist-card','.checklist-progress','.cp-label','.cp-bar','.cp-fill','.cp-count','.task-list label','.task-list input','main hr','.content','.hero-meta','.callout','.callout-info','.callout-warn','.callout-tip'];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,900,901,1440]) {
     for (const order of ['before','after'] as const) {
@@ -32,6 +32,7 @@ for (const width of [390,900,901,1440]) {
                 if (a.length !== e.length) differences.push([selector, 'count', a.length, e.length]);
                 for (let i=0; i<Math.min(a.length,e.length); i++) for (const prop of properties) if (a[i]![prop] !== e[i]![prop]) differences.push([selector,i,prop,a[i]![prop],e[i]![prop]]);
             }
+            if (differences.length) console.log('DESIGN_DIFFS='+JSON.stringify(differences));
             expect(differences).toEqual([]);
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height','0px');
@@ -93,4 +94,26 @@ for (const width of [390,1440]) test(`${width}px sidebar: closed mobile TOC is u
     } else {
         await expect(sidebar).toHaveCSS('visibility','visible');
     }
+});
+
+for (const width of [390,1440]) test(`${width}px every quiz preserves closed/open answer styles and symbols`, async ({ page }) => {
+    await page.setViewportSize({ width, height:900 });
+    const reference=await page.context().newPage(); await reference.setViewportSize({ width, height:900 });
+    await reference.setContent(`<style>${inventory.originalCss}</style>${reviewedBody}`);
+    const own=readFileSync(base+'/iso-iec-ts-30149-2024-guide.css','utf8');
+    await page.setContent(`<style>${preflight+globals+retained+own}</style>${markup()}`);
+    const collect=(el:Element)=>Array.from(el.querySelectorAll('summary,p'), n=>{
+        const s=getComputedStyle(n); const marker=getComputedStyle(n,'::before');
+        return {text:n.textContent,visible:!!n.getBoundingClientRect().height,color:s.color,background:s.backgroundColor,padding:s.padding,margin:s.margin,lineHeight:s.lineHeight,content:marker.content,marker:marker.color};
+    });
+    expect(await page.locator('details.quiz').count()).toBe(5);
+    for (let i=0;i<5;i++) for (const open of [false,true,false]) {
+        const target=page.locator('details.quiz').nth(i), source=reference.locator('details.quiz').nth(i);
+        if (open!==await target.evaluate(el=>(el as HTMLDetailsElement).open)) {
+            await target.locator('summary').click(); await source.locator('summary').click();
+        }
+        expect(await target.evaluate(collect)).toEqual(await source.evaluate(collect));
+        expect(await target.evaluate(el=>(el as HTMLDetailsElement).open)).toBe(open);
+    }
+    await reference.close();
 });
