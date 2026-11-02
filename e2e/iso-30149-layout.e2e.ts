@@ -4,11 +4,13 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync, existsSync } from 'node:fs';
 import { load } from 'cheerio';
 import { sourceModule } from '../tests/helpers/source-module';
+import { applyReviewCorrections } from '../tests/iso-iec-ts-30149-2024-guide/review-corrections';
 const base='app/iso-iec-ts-30149-2024-guide';
 const preflight=readFileSync('node_modules/tailwindcss/preflight.css','utf8');
 const globals=readFileSync('app/globals.css','utf8');
 const retained=readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css','utf8');
 const original=load(readFileSync(existsSync('Iso-iec-ts-30149-2024-guide.html')?'Iso-iec-ts-30149-2024-guide.html':'archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html','utf8'));
+applyReviewCorrections(original);
 const inventory={originalCss:original('head style').html()};
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 const reviewedBody = original('body').html()!;

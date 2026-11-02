@@ -6,6 +6,7 @@ import { hydrateRoot, type Root } from 'react-dom/client';
 import { fireEvent } from '@testing-library/react';
 import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
+import { applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-iec-ts-30149-2024-guide';
 it('loads both extra source font weights at the page boundary', () => {
     const page = readFileSync(base + '/page.tsx', 'utf8');
@@ -15,6 +16,7 @@ it('loads both extra source font weights at the page boundary', () => {
 it('preserves every text block including whitespace between inline elements', () => {
     const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
     const original = load(readFileSync('archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html', 'utf8'));
+    applyReviewCorrections(original);
     const current = load(renderToString(<Page />));
     for (const $ of [original, current]) $('.mermaid-diagram').remove();
     const normal = (s: string) => s.replace(/\s+/g, ' ').trim();
