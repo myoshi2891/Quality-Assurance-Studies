@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 118 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 13 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(118);
+  it('contains 119 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 14 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(119);
   });
 
   it('every item has a unique href', () => {
@@ -308,7 +308,7 @@ describe('groupByCategory', () => {
 
   it('places 13 items in the iso group', () => {
     const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
-    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide', '/iso-14496-22-2026-beginner-guide', '/iso-iec-30141-2024-guide']);
+    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide', '/iso-14496-22-2026-beginner-guide', '/iso-iec-30141-2024-guide', '/iso-iec-ts-30149-2024-guide']);
     expect(iso?.title).toBe('ISO 国際規格');
   });
 
@@ -498,4 +498,8 @@ describe('matchesQuery', () => {
 
 it('registers ISO/IEC TR 29138-2 under ISO', () => {
   expect(NAV_ITEMS.find(item => item.href === '/iso-iec-tr-29138-2-2009-guide')).toEqual({ href: '/iso-iec-tr-29138-2-2009-guide', label: 'ISO/IEC TR 29138-2:2009 初学者ガイド', description: 'アクセシビリティ規格インベントリの7分類と、実務での利用方法を学ぶ。', category: 'iso' });
+});
+
+it('registers ISO/IEC TS 30149 under ISO', () => {
+  expect(NAV_ITEMS.find(item => item.href === '/iso-iec-ts-30149-2024-guide')?.category).toBe('iso');
 });
