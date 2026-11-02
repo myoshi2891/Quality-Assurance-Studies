@@ -514,7 +514,7 @@
 .iso30149-page .mermaid-wrapper svg { max-width:none !important; height:auto !important; margin-left:auto !important; margin-right:auto !important; }
 .iso30149-page .mermaid-wrapper foreignObject { overflow:visible !important; }
 .iso30149-page .mermaid-wrapper foreignObject p, .iso30149-page .mermaid-wrapper foreignObject span, .iso30149-page .mermaid-wrapper foreignObject div { margin:0 !important; line-height:1.5 !important; word-break:normal !important; }
-.iso30149-page .mermaid-wrapper .edgeLabel, .iso30149-page .mermaid-wrapper .edgeLabel p, .iso30149-page .mermaid-wrapper .edgeLabel span, .iso30149-page .mermaid-wrapper .labelBkg { background:#0d1b2e !important; color:#e6edf7 !important; fill:#e6edf7 !important; }
+.iso30149-page .mermaid-wrapper .edgeLabel, .iso30149-page .mermaid-wrapper .edgeLabel p, .iso30149-page .mermaid-wrapper .edgeLabel span, .iso30149-page .mermaid-wrapper .labelBkg { background:#0d1b2e !important; color:#dbe6ff !important; fill:#dbe6ff !important; }
 .iso30149-page .mermaid-wrapper .edgeLabel rect, .iso30149-page .mermaid-wrapper .edgeLabels rect { fill:#0d1b2e !important; stroke:none !important; }
 .iso30149-page *::-webkit-scrollbar { width:6px; height:6px; }
 .iso30149-page *::-webkit-scrollbar-track { background:transparent; }
@@ -530,9 +530,9 @@
 .iso30149-page .page-footer { font-family:inherit; padding-right:0; padding-bottom:0; padding-left:0; text-align:start; }
 .iso30149-page .sidebar nav { padding:0; }
 .iso30149-page hr { color:gray; }
-.iso30149-page .mermaid-wrapper .edgeLabel, .iso30149-page .mermaid-wrapper .edgeLabel p, .iso30149-page .mermaid-wrapper .edgeLabel span { background:#07111e !important; }
-.iso30149-page .mermaid-wrapper .edgeLabel rect, .iso30149-page .mermaid-wrapper .edgeLabels rect { fill:#07111e !important; }
-.iso30149-page .mermaid-wrapper .labelBkg { background:rgba(7,17,30,.5) !important; }
+.iso30149-page .mermaid-wrapper .edgeLabel, .iso30149-page .mermaid-wrapper .edgeLabel p, .iso30149-page .mermaid-wrapper .edgeLabel span { background:#0d1b2e !important; }
+.iso30149-page .mermaid-wrapper .edgeLabel rect, .iso30149-page .mermaid-wrapper .edgeLabels rect { fill:#0d1b2e !important; }
+.iso30149-page .mermaid-wrapper .labelBkg { background:#0d1b2e !important; }
 .iso30149-page .hero::after { background:none; width:auto; height:auto; position:static; top:auto; right:auto; }
 
 /* モバイルの閉じた目次をキーボードフォーカスから外す。開くと即座に表示し、閉じるときはスライド完了後に非表示にする */

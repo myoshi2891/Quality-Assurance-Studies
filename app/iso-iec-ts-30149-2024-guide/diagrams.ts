@@ -25,9 +25,9 @@ N3_TW --> N3_C2["Security<br/>セキュリティ"]
 N3_TW --> N3_C3["Privacy<br/>プライバシー"]
 N3_TW --> N3_C4["Resilience<br/>レジリエンス"]
 N3_TW --> N3_C5["Reliability<br/>信頼性"]
-classDef root fill:#fff3d6,stroke:#d9822b,color:#4a2a00
+classDef trustworthinessRoot fill:#fff3d6,stroke:#d9822b,color:#4a2a00
 classDef leaf fill:#e8f0ff,stroke:#3b5bdb,color:#102a63
-class N3_TW root
+class N3_TW trustworthinessRoot
 class N3_C1,N3_C2,N3_C3,N3_C4,N3_C5 leaf`;
 export const DIAGRAM_3 = `${MERMAID_CONFIG}
 flowchart LR
