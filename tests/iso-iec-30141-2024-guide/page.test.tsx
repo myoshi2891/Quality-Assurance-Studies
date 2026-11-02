@@ -50,6 +50,8 @@ it('diagram 1 description states every directed relationship of DIAGRAM_0',()=>{
 it('diagram 2 description states every directed relationship of DIAGRAM_1',()=>{const $=html();expect($('#diagram-2').attr('aria-label')).toBe('図2: ステークホルダーは関心事を持つ。関心事はビューポイント（見方のルール）として整理される。ビューポイントはビュー（実際の図や記述）を支配・規定し、ビューは関心事に答える。');});
 // 図4（DIAGRAM_3）の代替テキストは、2018年版と2024年版の2グループを分け、技術的改訂の関係を伝える
 it('diagram 4 description separates the 2018 and 2024 groups of DIAGRAM_3 and their revision relationship',()=>{const $=html();expect($('#diagram-4').attr('aria-label')).toBe('図4: 第1版（2018年8月）では、概念モデル＋参照モデルから、機能ビュー、システム（配置）ビュー、ネットワークビュー、利用ビューへ分かれる。第2版（2024年8月）では、基礎（Foundational）から、ビジネス、利用、機能、信頼性（Trustworthiness）、構築（Construction）の各ビューへ分かれる。第1版は技術的改訂により第2版へ置き換えられた。');});
+// 図7（DIAGRAM_6）の代替テキストは、基礎ビューから5つのビューへの接続を伝える（図8の DIAGRAM_7 は対象外）
+it('diagram 7 description states that the foundational view connects to the five other views of DIAGRAM_6',()=>{const $=html();expect($('#diagram-7').attr('aria-label')).toBe('図7: 6.2 基礎（Foundational）ビュー（IoTとは何かの土台）は、6.3 ビジネス（事業価値）、6.4 利用（人・デジタルの関わり）、6.5 機能（抽象的な機能クラス）、6.6 信頼性（信頼できる設計と保証）、6.7 構築（パターンによる実装の型）の各ビューにつながる。');});
 it('all diagram wrappers have accessible descriptions',()=>{const $=html();expect($('.mermaid-diagram[role="img"][aria-label]').length).toBe(inventory.charts.length);});
 it('preserves whitespace between inline elements in every paragraph and table cell',()=>{const $=html();expect($(inventory.inlineText.selector).toArray().filter(el=>!$(el).closest('svg').length).map(el=>$(el).text().replace(/\s+/g,' ').trim())).toEqual(inventory.inlineText.items);});
 

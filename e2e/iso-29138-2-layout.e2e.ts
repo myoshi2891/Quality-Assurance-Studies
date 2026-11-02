@@ -70,8 +70,18 @@ for (const width of [390,1440]) for(let i=0;i<5;i++) test(`${width}px diagram ${
   };
  };
  const expected=await page.locator(`#mmd-${i}`).evaluate(collect);
- // レビュー修正: 図4（WK5）は③ではなく④の確認へ戻るため、原本SVGの該当エッジIDを置き換えて比較する
- if(i===4){const fix=(id:string|null)=>id?.replace(/^L_WK5_WK3_/,'L_WK5_WK4_')??null;const byId=(a:{id:string|null},b:{id:string|null})=>(a.id??'').localeCompare(b.id??'');expected.edges=expected.edges.map(e=>({...e,id:fix(e.id)})).sort(byId);expected.labels=expected.labels.map(e=>({...e,id:fix(e.id)})).sort(byId);}
+ // レビュー修正: 図4（WK5）は後継の有無を判断するWK8へ進み、ある→④の再確認、ない→WK9（対象外または別規格）→⑥。
+ // 原本SVGのWK5→WK3を置き換え、追加ノード・エッジは原本の同種要素（判断＝WK4、処理＝WK5、エッジ＝WK5発）の配色を引き継いで比較する
+ if(i===4){
+  const byId=(a:{id:string|null},b:{id:string|null})=>(a.id??'').localeCompare(b.id??'');
+  const fix=(id:string|null)=>id?.replace(/^L_WK5_WK3_/,'L_WK5_WK8_')??null;
+  const edge=expected.edges.find(e=>e.id?.startsWith('L_WK5_WK3_'))!;
+  const added=[['L_WK8_WK4_0','ある 後継版を採用'],['L_WK8_WK9_0','ない'],['L_WK9_WK6_0','']] as const;
+  expected.edges=[...expected.edges.map(e=>({...e,id:fix(e.id)})),...added.map(([id])=>({...edge,id}))].sort(byId);
+  expected.labels=[...expected.labels.map(e=>({...e,id:fix(e.id)})),...added.map(([id,label])=>({id,label}))].sort(byId);
+  const decision=expected.nodes.find(n=>n.id==='WK4')!, step=expected.nodes.find(n=>n.id==='WK5')!;
+  expected.nodes=[...expected.nodes,{...decision,id:'WK8',label:'後継の規格や法令はあるか'},{...step,id:'WK9',label:'対象から外す または ほかに当てはまる規格を選ぶ'}].sort((a,b)=>a.id.localeCompare(b.id));
+ }
  await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
  const svg=await page.evaluate(async({chart,init})=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(Function('return ('+init+')')());return (await m.render('diagram-check',chart)).svg;},{chart:charts[`DIAGRAM_${i}`]!,init:sharedInit});
  const own=readFileSync(base+'/iso-iec-tr-29138-2-2009-guide.css','utf8');
