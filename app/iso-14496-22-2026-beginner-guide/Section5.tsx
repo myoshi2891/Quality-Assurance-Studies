@@ -236,14 +236,14 @@ export default function Section5() {
           </thead>
           <tbody>
             <tr className="odd">
-              <td>OS/2</td>
-              <td>408</td>
-              <td>96</td>
-            </tr>
-            <tr className="even">
               <td>GSUB</td>
               <td>6336</td>
               <td>1420</td>
+            </tr>
+            <tr className="even">
+              <td>OS/2</td>
+              <td>408</td>
+              <td>96</td>
             </tr>
             <tr className="odd">
               <td>cmap</td>

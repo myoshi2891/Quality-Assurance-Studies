@@ -7,6 +7,8 @@ import Section9 from '../../app/iso-14496-22-2026-beginner-guide/Section9';
 import Section6 from '../../app/iso-14496-22-2026-beginner-guide/Section6';
 import Section10 from '../../app/iso-14496-22-2026-beginner-guide/Section10';
 import Section7 from '../../app/iso-14496-22-2026-beginner-guide/Section7';
+import Section12 from '../../app/iso-14496-22-2026-beginner-guide/Section12';
+import Section15 from '../../app/iso-14496-22-2026-beginner-guide/Section15';
 import { DIAGRAM_06 } from '../../app/iso-14496-22-2026-beginner-guide/diagrams';
 
 const ORIGINAL_INNER_WIDTH = window.innerWidth;
@@ -188,5 +190,113 @@ describe('ISO 14496-22:2026 review fixes: DIAGRAM_06 direction wording', () => {
     expect(DIAGRAM_06).toContain('flowchart TD');
     expect(text).toContain('この図は、文字が表示されるまでの処理を上から下へ並べたものです。');
     expect(text).not.toContain('左から右へ');
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: Section 12 implementation facts', () => {
+  it('describes the Chrome 145 FreeType removal from Blink as completed', () => {
+    // Arrange & Act
+    const { container } = render(<Section12 />);
+    const item = Array.from(container.querySelectorAll('section#ch12 li')).find((li) =>
+      li.textContent?.startsWith('「Chrome 145」'),
+    );
+    const text = item?.textContent?.replace(/\s+/g, ' ').trim();
+
+    // Assert
+    expect(text).toBe('「Chrome 145」：Chrome の描画基盤（Blink）から FreeType が完全に削除された');
+  });
+
+  it('does not list macOS as a HarfBuzz adopter in the implementation map', () => {
+    // Arrange & Act
+    const { container } = render(<Section12 />);
+    const row = Array.from(container.querySelectorAll('section#ch12 tbody tr')).find(
+      (tr) => tr.querySelector('td')?.textContent === 'シェーピング',
+    );
+
+    // Assert
+    expect(row?.querySelectorAll('td')[3]?.textContent).toBe('Chrome、Firefox、Android、各種GUI');
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: Section 15 source links', () => {
+  it('cites the "Memory safety for web fonts" article for the Chrome 128 and 133 milestones', () => {
+    // Arrange & Act
+    const { container } = render(<Section15 />);
+    const rows = Array.from(container.querySelectorAll('section#ch15 tbody tr'));
+    const linkOf = (label: string) =>
+      rows.find((tr) => tr.querySelector('td')?.textContent?.startsWith(label))?.querySelector('a');
+
+    // Assert
+    for (const label of ['Chrome 128', 'Chrome 133']) {
+      const link = linkOf(label);
+      expect(link?.getAttribute('href')).toBe('https://developer.chrome.com/blog/memory-safety-fonts');
+      expect(link?.textContent?.trim()).toBe('https://developer.chrome.com/blog/memory-safety-fonts');
+    }
+  });
+
+  it('labels the Chrome 145 FreeType removal as completed and cites the Chrome article confirming it', () => {
+    // Arrange & Act
+    const { container } = render(<Section15 />);
+    const row = Array.from(container.querySelectorAll('section#ch15 tbody tr')).find((tr) =>
+      tr.querySelector('td')?.textContent?.startsWith('Chrome 145'),
+    );
+    const cells = Array.from(row?.querySelectorAll('td') ?? []).map((td) => td.textContent?.trim());
+    const link = row?.querySelector('a');
+
+    // Assert（状態は「計画」ではなく「完了」、根拠は削除を追記で報告した Chrome 公式記事）
+    expect(cells[0]).toBe('Chrome 145（Blink からの FreeType 削除完了）');
+    expect(cells[0]).not.toContain('計画');
+    expect(cells[1]).toBe('developer.chrome.com');
+    expect(link?.getAttribute('href')).toBe('https://developer.chrome.com/blog/memory-safety-fonts');
+    expect(link?.textContent?.trim()).toBe('https://developer.chrome.com/blog/memory-safety-fonts');
+  });
+
+  it('links the canonical SkiaSharp 4.150.0 release notes page', () => {
+    // Arrange & Act
+    const { container } = render(<Section15 />);
+    const link = Array.from(container.querySelectorAll<HTMLAnchorElement>('section#ch15 a')).find((a) =>
+      a.getAttribute('href')?.includes('SkiaSharp'),
+    );
+
+    // Assert
+    expect(link?.getAttribute('href')).toBe('https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html');
+    expect(link?.textContent?.trim()).toBe('https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html');
+  });
+
+  it('describes HarfBuzzSharp 14.2.1 as a separate accompanying release, not bundled in SkiaSharp 4.150.0', () => {
+    // Arrange & Act
+    const { container } = render(<Section15 />);
+    const row = Array.from(container.querySelectorAll('section#ch15 tbody tr')).find((tr) =>
+      tr.querySelector('a')?.getAttribute('href')?.includes('SkiaSharp'),
+    );
+    const label = row?.querySelector('td')?.textContent?.trim();
+
+    // Assert（HarfBuzzSharp は SkiaSharp とは別パッケージとして同時に公開されたリリース）
+    expect(label).toBe('SkiaSharp 4.150.0 と、同時に公開された別リリースの HarfBuzzSharp 14.2.1');
+    expect(label).not.toContain('同梱');
+  });
+});
+
+describe('ISO 14496-22:2026 review fixes: Section 5 directory example order', () => {
+  it('lists table tags in ascending code-unit order with their original offset and length', () => {
+    // Arrange & Act
+    const { container } = render(<Section5 />);
+    const table = Array.from(container.querySelectorAll('section#ch5 table')).find((t) =>
+      t.querySelector('thead th')?.textContent?.startsWith('tableTag'),
+    );
+    const rows = Array.from(table?.querySelectorAll('tbody tr') ?? []).map((tr) =>
+      Array.from(tr.querySelectorAll('td')).map((td) => td.textContent),
+    );
+    const tags = rows.map((r) => r[0] ?? '');
+
+    // Assert
+    expect(rows).toEqual([
+      ['GSUB', '6336', '1420'],
+      ['OS/2', '408', '96'],
+      ['cmap', '7756', '902'],
+      ['glyf', '8660', '91204'],
+      ['head', '100', '54'],
+    ]);
+    expect(tags).toEqual([...tags].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
   });
 });

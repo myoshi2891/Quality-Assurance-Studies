@@ -114,7 +114,7 @@ export default function Section12() {
         </li>
         <li>
           「Chrome 145」：Chrome の描画基盤（Blink）から FreeType
-          が完全に削除される見込み
+          が完全に削除された
         </li>
       </ul>
       <p>
@@ -145,7 +145,7 @@ export default function Section12() {
               <td>シェーピング</td>
               <td>HarfBuzz</td>
               <td>C++</td>
-              <td>Chrome、Firefox、Android、macOS、各種GUI</td>
+              <td>Chrome、Firefox、Android、各種GUI</td>
             </tr>
             <tr className="odd">
               <td>ラスタライズ</td>

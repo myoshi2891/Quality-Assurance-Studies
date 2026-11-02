@@ -1,8 +1,29 @@
 # CLAUDE.md
 
-Updated 2026-11-01
+Updated 2026-11-02
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-02: ISO/IEC TR 29138-2:2009 アクセシビリティ規格インベントリガイドの移行
+
+- `/iso-iec-tr-29138-2-2009-guide`をISOカテゴリーに登録し、ナビ・E2E一覧を118ルート（ホーム＋117ガイド）へ同期。
+- 原本の43見出し、階層目次42リンク、19表の全セル、5図、YAML1件、注記13件、用語欄12件、外部リンク23要素、メタ情報5項目、本文全文・フッターを固定インベントリと出現順で照合。各項目の独立テストと総数照合で欠落・余剰を検出。
+- `app/iso-iec-tr-29138-2-2009-guide/`へ`page.tsx`・同名CSS・`NavBar.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category14.tsx`を配置。ヒーロー、Step 0〜12、フッターを一つずつ実装・照合・コミット。目次の全見出し監視、開閉、Escape、フォーカス復帰、Observer解除を検証。
+- CSS全59ルール、900px境界、配色、ヒーロー装飾、表、箇条書き、用語欄、余白を維持。共有CSSによる見出しグラデーション、文字色、フッター、目次幅の干渉を補正。共有Mermaidで全5図を描画し、実パーサー・レンダラーへ渡す順序を検証。
+- 対象263件、関連546件、全体9314件（200ファイル）、対象TypeScript検査、lintが成功。Chrome20件で390/900/901/1440px×CSS2順序、5図×2幅のラベル・形状・接続・矢印・点線・配色・横スクロール両端、YAMLの全文・寸法・書体・スクロールを比較。ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。検証コマンドはnpm経由。
+- 原本は`archive/html-archive/iso/Iso-iec-tr-29138-2-2009-guide.html`・`archive/md-archive/iso/Iso-iec-tr-29138-2-2009-guide.md`へ同名で移動。元ファイルの不存在、SHA-256一致、Git追跡を検証。アーカイブ除外設定により削除と追加は別コミットで記録。
+- 実装前にRedテストをコミットし、CSS・図・目次・本文15カテゴリー・統合・登録・アーカイブ・デザイン補正・仕様書を分離。各コミット直前にPII検査。
+
+## 2026-11-02: ISO/IEC 30141:2024 IoT参照アーキテクチャガイドの移行
+
+- `/iso-iec-30141-2024-guide`をISOカテゴリーへ追加し、ナビ・E2E一覧を117ルート（ホーム＋116ガイド）へ同期。
+- 原本の45見出し・階層目次44リンク・21表の全セル・11図・9コールアウト・外部リンク43要素・理解度チェック8問・メタ情報4項目・本文全文を固定インベントリと照合。コードブロックは原本どおり0件。
+- CSS全68ルールと960px境界、ダーク配色、ヒーロー装飾、箇条書き、表の列幅・文字色・罫線、注記、回答開閉の疑似要素を保持。共有CSSの干渉とインライン空白欠落による表幅差を補正。
+- 図はMarkdownをHTML内SVGと照合し、HTML側のラベル・接続先・矢印・配色を正として再構築。Mermaidのグラデーション枠を原本の単色へ合わせ、外側コンテナで横スクロール両端へ到達できることを検証。
+- `app/iso-iec-30141-2024-guide/`に`page.tsx`・同名CSS・`NavBar.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category16.tsx`を配置。目次の開閉・Escape・フォーカス復帰・全44見出しの監視・Observer解除を検証。
+- `tests/iso-iec-30141-2024-guide/`の対象305件、関連579件、全体9065件（198ファイル）、対象型検査、lintが成功。`e2e/iso-30141-layout.e2e.ts`のChromium32件で4画面幅×CSS2順序、11実SVGの内容・配色、11図の横スクロール、2幅×8回答の開閉表示を検証。ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。
+- 原本HTML・Markdownは`archive/html-archive/iso/Iso-iec-30141-2024-guide.html`・`archive/md-archive/iso/Iso-iec-30141-2024-guide.md`へ同名で移動。SHA-256一致、Git追跡、rename検出100%を確認。
+- Redテストを先行コミットし、CSS・図・目次・本文17カテゴリー・統合・登録・アーカイブ・補正・仕様書を分割。各コミット直前にPII検査。コマンドはユーザー指定どおりnpm経由。
 
 ## 2026-10-31: ISO/IEC 14496-22:2026（Open Font Format 第5版）初学者向け解説ガイドの移行
 
@@ -157,14 +178,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 169 ファイル・8725 tests)
+bun test             # ユニットテスト (bun test 全体, 200 ファイル・9345 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 115 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 118 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
@@ -1016,6 +1037,8 @@ bun test        # ユニットテスト成功
 | `Iso-19770-5-guide.html` | `/iso-19770-5-guide` | ✅ ダーク配色・30見出し・目次29リンク・19表・9図・8注記・外部18リンク・チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-tr-29138-2-2009-guide.html` | `/iso-iec-tr-29138-2-2009-guide` | ✅ 43見出し・目次42リンク・19表・5図・YAML1件・注記13件・59 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -1042,7 +1065,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 115 ルート（ガイドライブラリ index + 114 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 118 ルート（ガイドライブラリ index + 117 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
