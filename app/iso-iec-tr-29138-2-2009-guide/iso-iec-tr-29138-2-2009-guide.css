@@ -411,3 +411,10 @@
 .iso29138-page .sidebar { visibility:hidden; transition:transform 0.2s, visibility 0s linear 0.2s; }
 .iso29138-page .sidebar.open { visibility:visible; transition:transform 0.2s, visibility 0s; }
 }
+
+/* 視差効果を減らす設定: スムーズスクロールと目次のスライドを止める。visibility は上の規則のまま（閉じた目次は hidden） */
+@media (prefers-reduced-motion: reduce) {
+html:has(.iso29138-page), .iso29138-page { scroll-behavior:auto; }
+.iso29138-page * { transition:none; }
+.iso29138-page .sidebar, .iso29138-page .sidebar.open { transition:none; }
+}

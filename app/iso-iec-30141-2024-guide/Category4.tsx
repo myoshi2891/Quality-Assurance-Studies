@@ -6,7 +6,7 @@ export default function Category4() { return <>
 
 <p>{" ISO公式ページには、第1版（2018）から次の"}<strong>{"3つの大きな技術的変更"}</strong>{"が明記されています。 "}</p>
 
-<div className="table-scroll"><table><thead><tr className="header"><th>{"変更点"}</th><th>{"初学者向けの意味"}</th></tr></thead><tbody><tr className="odd"><td>{"① ISO/IEC/IEEE 42010:2022 への準拠"}</td><td>{" アーキテクチャ記述の国際ルールに沿った構造になり、他の参照アーキテクチャと整合しやすくなった "}</td></tr><tr className="even"><td>{"② 使いやすさの向上"}</td><td>{" 利用者（設計者）が自分の関心事から必要な箇所に辿り着きやすくなった "}</td></tr><tr className="odd"><td>{"③ 実装パターンのサポート"}</td><td><strong>{"構築ビュー"}</strong>{"が加わり、IoT部品やシステムの作り方の型（パターン）が示された "}</td></tr></tbody></table></div>
+<div className="table-scroll"><table><thead><tr className="header"><th>{"変更点"}</th><th>{"初学者向けの意味"}</th></tr></thead><tbody><tr className="odd"><td>{"① ISO/IEC/IEEE 42010:2022 に準拠（アスペクト、パースペクティブ、決定事項、根拠を除く）"}</td><td>{" アーキテクチャ記述の国際ルールに沿った構造になり、他の参照アーキテクチャと整合しやすくなった "}</td></tr><tr className="even"><td>{"② 使いやすさの向上"}</td><td>{" 利用者（設計者）が自分の関心事から必要な箇所に辿り着きやすくなった "}</td></tr><tr className="odd"><td>{"③ 実装パターンのサポート"}</td><td><strong>{"構築ビュー"}</strong>{"が加わり、IoT部品やシステムの作り方の型（パターン）が示された "}</td></tr></tbody></table></div>
 
 <div className="mermaid-diagram" id="diagram-4" role="img" aria-label="図4: 第1版（2018年8月）では、概念モデル＋参照モデルから、機能ビュー、システム（配置）ビュー、ネットワークビュー、利用ビューへ分かれる。第2版（2024年8月）では、基礎（Foundational）から、ビジネス、利用、機能、信頼性（Trustworthiness）、構築（Construction）の各ビューへ分かれる。第1版は技術的改訂により第2版へ置き換えられた。"><Mermaid chart={DIAGRAM_3} /></div>
 

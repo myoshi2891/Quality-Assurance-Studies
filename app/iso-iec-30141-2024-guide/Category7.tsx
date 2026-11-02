@@ -6,7 +6,7 @@ export default function Category7() { return <>
 
 <p>{" 規格は「"}<strong>{"6つのアーキテクチャビューと、それを規定する6つのビューポイント"}</strong>{"」を示します。 "}</p>
 
-<div className="mermaid-diagram" id="diagram-7" role="img" aria-label="図7: 6.2 基礎（Foundational）IoTとは何かの土台、6.3 ビジネス事業価値、6.4 利用人・デジタルの関わり、6.5 機能抽象的な機能クラス、6.6 信頼性信頼できる設計と保証、6.7 構築パターンによる実装の型"><Mermaid chart={DIAGRAM_6} /></div>
+<div className="mermaid-diagram" id="diagram-7" role="img" aria-label="図7: 6.2 基礎（Foundational）ビュー（IoTとは何かの土台）は、6.3 ビジネス（事業価値）、6.4 利用（人・デジタルの関わり）、6.5 機能（抽象的な機能クラス）、6.6 信頼性（信頼できる設計と保証）、6.7 構築（パターンによる実装の型）の各ビューにつながる。"><Mermaid chart={DIAGRAM_6} /></div>
 
 <h3 id="71-基礎foundational-iotビュー62">{"7.1 基礎（Foundational IoT）ビュー（6.2）"}</h3>
 
@@ -26,7 +26,7 @@ export default function Category7() { return <>
 
 <h3 id="73-利用ビュー64">{"7.3 利用ビュー（6.4）"}</h3>
 
-<p><strong>{"役割"}</strong>{": 利用者（人・デジタルの両方）がIoTシステムとどう関わり、物理的な実体とどう関わるかを示します。 "}</p>
+<p><strong>{"役割"}</strong>{": 利用者（人・デジタルの両方）がIoTシステムとどう関わり、IoTシステムが物理的な実体とどう関わるかを示します。 "}</p>
 
 <ul><li>{" 目次には "}<strong>{"Figure 4: 外部に向けた機能（External facing functions）"}</strong>{" があります。 "}</li><li><strong>{"IoTシステムの\"外側から見える機能\""}</strong>{" を整理する図と読み取れます。 "}</li></ul>
 

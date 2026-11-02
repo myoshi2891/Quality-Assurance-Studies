@@ -24,7 +24,7 @@ export default function Category2() { return <>
 
 <h3 id="23-isoiecieee-42010-の基本用語読むうえで必須">{" 2.3 ISO/IEC/IEEE 42010 の基本用語（読むうえで必須） "}</h3>
 
-<p>{" 本規格は、アーキテクチャ記述の国際規格 "}<strong>{"ISO/IEC/IEEE 42010:2022"}</strong>{" に準拠しています。次の4語だけ押さえてください。 "}</p>
+<p>{" 本規格は、アーキテクチャ記述の国際規格 "}<strong>{"ISO/IEC/IEEE 42010:2022"}</strong>{" に、アスペクト、パースペクティブ、決定事項、根拠を除き準拠しています。次の4語だけ押さえてください。 "}</p>
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"用語"}</th><th>{"意味"}</th><th>{"身近な例え"}</th></tr></thead><tbody><tr className="odd"><td><strong>{"ステークホルダー"}</strong></td><td>{"システムに関心を持つ人・組織"}</td><td>{"家の施主、設計士、施工業者"}</td></tr><tr className="even"><td><strong>{"関心事（Concern）"}</strong></td><td>{"ステークホルダーが気にしていること"}</td><td>{"「耐震性は大丈夫？」「予算は？」"}</td></tr><tr className="odd"><td><strong>{"ビューポイント（視点）"}</strong></td><td>{"関心事に答えるための\"見方のルール\""}</td><td>{"「配線図の描き方のルール」"}</td></tr><tr className="even"><td><strong>{"ビュー（視点から見た図・記述）"}</strong></td><td>{"ビューポイントに従って作った実物の記述"}</td><td>{"「実際に描いた配線図」"}</td></tr></tbody></table></div>
 

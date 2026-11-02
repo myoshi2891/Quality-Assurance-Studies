@@ -4,7 +4,7 @@ export default function Category14() { return <>
 
 <details><summary>{"Q1. ISO/IEC 30141 は一言でいうと何ですか？"}</summary><p>{" IoTシステムを設計する際の共通の語彙・構造・設計パターンを提供する、IoT参照アーキテクチャの国際規格です。 "}</p></details>
 
-<details><summary>{"Q2. 第2版（2024）の主な技術的変更点を3つ挙げてください。"}</summary><p>{" ISO/IEC/IEEE 42010:2022への準拠、使いやすさの向上、実装パターンのサポートです。 "}</p></details>
+<details><summary>{"Q2. 第2版（2024）の主な技術的変更点を3つ挙げてください。"}</summary><p>{" ISO/IEC/IEEE 42010:2022への準拠（アスペクト、パースペクティブ、決定事項、根拠を除く）、使いやすさの向上、実装パターンのサポートです。 "}</p></details>
 
 <details><summary>{"Q3. 第2版が定める6つのビューポイントは？"}</summary><p>{" 基礎（Foundational）、ビジネス、利用、機能、信頼性（Trustworthiness）、構築（Construction）です。 "}</p></details>
 
