@@ -10,8 +10,8 @@ it('registers the MPEG-DASH guide in the ISO category once', () => {
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
 
 });
-it('registers exactly 118 routes and the original H1 in E2E', () => {
-    expect(EXPECTED_PAGE_COUNT).toBe(118); expect(PAGES).toHaveLength(118); expect(NAV_ITEMS).toHaveLength(118);
+it('registers exactly 119 routes and the original H1 in E2E', () => {
+    expect(EXPECTED_PAGE_COUNT).toBe(119); expect(PAGES).toHaveLength(119); expect(NAV_ITEMS).toHaveLength(119);
     const entry = PAGES.filter(i => i.path === href); expect(entry).toHaveLength(1); expect(entry[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
 });
 for (const ext of ['html', 'md'] as const) {
