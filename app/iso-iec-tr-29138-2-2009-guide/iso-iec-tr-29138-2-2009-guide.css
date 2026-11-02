@@ -349,7 +349,7 @@
                     font-size: 23px;
                 }
             }
-        
+
 /* Isolate the source design from shared app styles and Tailwind preflight. */
 .iso29138-page { width:100%; min-height:100vh; }
 .iso29138-page main.main { max-width:none; width:auto; margin-top:0; margin-right:0; margin-bottom:0; }
