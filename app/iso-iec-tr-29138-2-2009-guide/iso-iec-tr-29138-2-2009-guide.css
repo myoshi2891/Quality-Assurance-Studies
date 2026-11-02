@@ -405,3 +405,9 @@
 .iso29138-page .mermaid-wrapper .edgeLabel rect, .iso29138-page .mermaid-wrapper .edgeLabels rect { fill:#07111e !important; }
 .iso29138-page .mermaid-wrapper .labelBkg { background:rgba(7,17,30,.5) !important; }
 .iso29138-page .hero::after { background:none; width:auto; height:auto; position:static; top:auto; right:auto; }
+
+/* モバイルの閉じた目次をキーボードフォーカスから外す。開くと即座に表示し、閉じるときはスライド完了後に非表示にする */
+@media (max-width: 900px) {
+.iso29138-page .sidebar { visibility:hidden; transition:transform 0.2s, visibility 0s linear 0.2s; }
+.iso29138-page .sidebar.open { visibility:visible; transition:transform 0.2s, visibility 0s; }
+}

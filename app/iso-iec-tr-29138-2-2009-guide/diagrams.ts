@@ -73,6 +73,6 @@ WK1 --> WK2
 WK2 --> WK3
 WK3 --> WK4
 WK4 -->|"いいえ"| WK5
-WK5 --> WK3
+WK5 --> WK4
 WK4 -->|"はい"| WK6
 WK6 --> WK7`;
