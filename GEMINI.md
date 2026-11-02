@@ -238,6 +238,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
+- `app/iso-iec-tr-29138-2-2009-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリー、目次42リンク、Mermaid5図、原本照合263件）。
+
 - `app/iso-iec-30141-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・17本文カテゴリー、目次44リンク、Mermaid11図、原本照合305件）。
 
 - `app/iso-27799-2025-guide/page.tsx`（医療情報セキュリティ、`NavBar.tsx`・専用CSS、全19本文カテゴリー・ヒーロー・フッター、チェック10項目、Mermaid11図）
