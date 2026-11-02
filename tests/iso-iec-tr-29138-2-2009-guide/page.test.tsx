@@ -46,7 +46,7 @@ inventory.diagrams.forEach((d, i) => it('diagram ' + i + ' exact original node l
  const md = readFileSync(existsSync('Iso-iec-tr-29138-2-2009-guide.md') ? 'Iso-iec-tr-29138-2-2009-guide.md' : 'archive/md-archive/iso/Iso-iec-tr-29138-2-2009-guide.md','utf8');
  const original = [...md.matchAll(/```mermaid\n([\s\S]*?)```/g)][i]![1]!;
  expect(chart.split('\n').filter(line => /(?:-->|-\.->)/.test(line))).toEqual(original.split('\n').filter(line=>/(?:-->|-\.->)/.test(line)).map(line=>line.trim()));
- const mermaid = (await import('mermaid')).default;
+ const mermaid = (await import('mermaid/dist/mermaid.esm.min.mjs')).default;
  expect(await mermaid.parse(chart)).toBeTruthy();
 }));
 for (const ext of ['html', 'md'] as const) it('archive ' + ext + ' exact bytes and tracked relocation', () => {
