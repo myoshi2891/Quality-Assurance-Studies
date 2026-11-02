@@ -438,5 +438,7 @@
     .iso30141-page .sidebar.open { visibility: visible; }
 }
 @media (prefers-reduced-motion: reduce) {
+    /* ビューポートのスクロールはルート html が担う（globals.css の smooth を、このページの表示中だけ解除する） */
+    html:has(.iso30141-page) { scroll-behavior: auto; }
     .iso30141-page *, .iso30141-page *::before { scroll-behavior: auto; transition: none; }
 }
