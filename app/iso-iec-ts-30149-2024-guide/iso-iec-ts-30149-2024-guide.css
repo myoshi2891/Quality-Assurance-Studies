@@ -495,11 +495,11 @@
 .iso30149-page a { text-decoration:underline; }
 .iso30149-page .sidebar a { text-decoration:none; }
 .iso30149-page .sidebar ul { list-style:none; margin:0; padding:0; }
-.iso30149-page .sidebar li > ul { padding-left:12px; margin:2px 0 6px 10px; }
+
 .iso30149-page strong { font-weight:bolder; }
-.iso30149-page th { font-family:inherit; font-size:inherit; letter-spacing:normal; white-space:normal; }
+.iso30149-page th { font-family:inherit; font-size:inherit; letter-spacing:normal; white-space:nowrap; }
 .iso30149-page td { color:var(--text-dim); font-size:inherit; line-height:inherit; }
-.iso30149-page td:first-child, .iso30149-page td strong { color:#fff; }
+.iso30149-page td strong { color:#fff; }
 .iso30149-page thead tr { background:transparent; border-bottom:0; }
 .iso30149-page tbody tr:hover td { background:transparent; }
 .iso30149-page code { color:inherit; border:0; }
@@ -537,8 +537,8 @@
 
 /* モバイルの閉じた目次をキーボードフォーカスから外す。開くと即座に表示し、閉じるときはスライド完了後に非表示にする */
 @media (max-width: 900px) {
-.iso30149-page .sidebar { visibility:hidden; transition:transform 0.2s, visibility 0s linear 0.2s; }
-.iso30149-page .sidebar.open { visibility:visible; transition:transform 0.2s, visibility 0s; }
+.iso30149-page .sidebar { visibility:hidden; transition:transform 0.25s, visibility 0s linear 0.25s; }
+.iso30149-page .sidebar.open { visibility:visible; transition:transform 0.25s, visibility 0s; }
 }
 
 /* 視差効果を減らす設定: スムーズスクロールと目次のスライドを止める。visibility は上の規則のまま（閉じた目次は hidden） */
@@ -547,3 +547,9 @@ html:has(.iso30149-page), .iso30149-page { scroll-behavior:auto; }
 .iso30149-page * { transition:none; }
 .iso30149-page .sidebar, .iso30149-page .sidebar.open { transition:none; }
 }
+
+/* Restore native checkbox metrics after preflight and source callout typography. */
+.iso30149-page .callout { font-size:16px; line-height:1.85; }
+.iso30149-page .callout p { font-size:inherit; line-height:inherit; }
+.iso30149-page .task-list input[type="checkbox"] { color:black; font:400 13.3333px Arial; margin:7px 3px 3px 4px; }
+.iso30149-page .sidebar .nav-sub { margin:2px 0 6px 10px; }
