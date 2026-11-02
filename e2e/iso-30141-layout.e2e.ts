@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync, existsSync } from 'node:fs';
 import { load } from 'cheerio';
 import { sourceModule } from '../tests/helpers/source-module';
-import { correctNormalized } from '../tests/iso-iec-30141-2024-guide/reviewed-corrections';
+import { correctNormalized, emphasizeHtml } from '../tests/iso-iec-30141-2024-guide/reviewed-corrections';
 const base='app/iso-iec-30141-2024-guide';
 const preflight=readFileSync('node_modules/tailwindcss/preflight.css','utf8');
 const globals=readFileSync('app/globals.css','utf8');
@@ -14,7 +14,7 @@ const inventory={originalCss:original('head style').html()};
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 // レビュー修正を比較用の原本にも適用し、訂正による文字量の変化を原本側にも反映する
 original('body *').contents().each((_, node) => { if (node.type === 'text') node.data = correctNormalized(node.data); });
-const reviewedBody = original('body').html()!;
+const reviewedBody = emphasizeHtml(original('body').html()!);
 const selectors=['.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hero-meta > div','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.side-title','.side-title span','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','main code'];
 selectors.push('h4','details','summary','.nav-list','.nav-sub','main hr');
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','textTransform','verticalAlign','lineHeight','letterSpacing','marginTop','marginBottom','marginLeft','marginRight','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderBottomWidth','borderLeftWidth','borderRightWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];

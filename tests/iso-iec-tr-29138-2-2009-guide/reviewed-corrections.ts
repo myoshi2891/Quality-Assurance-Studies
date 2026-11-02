@@ -14,6 +14,8 @@ export const corrections: ReadonlyArray<readonly [string, string]> = [
     ['2026年3月3日にWorking Draftが更新された', '2026年9月10日にWorking Draftが更新された'],
     ['WCAG 3.0 ドラフトの最新状況（2026年3月）', 'WCAG 3.0 ドラフトの最新状況（2026年9月）'],
     ['https://www.w3.org/WAI/Technical/Activity', 'https://www.w3.org/standards/history/wcag-3.0/'],
+    // 調査時点（10月13日）と、後から再確認した一部の状況（11月2日）を区別して、本文の日付と矛盾させない
+    ['本ガイドは2026年10月13日時点の公開情報をもとにした学習用の解説です。', '本ガイドは2026年10月13日時点の公開情報をもとにした学習用の解説です（EN 301 549 V4.1.1 の公表状況など、一部は2026年11月2日時点で再確認しています）。'],
 ];
 /** 外部リンク（http/https）には新しいタブで開くための target と rel を付ける（プロジェクトの外部リンク規約） */
 export function withExternalLinkAttrs<T>(value: T): T {

@@ -262,6 +262,19 @@ describe('ISO 14496-22:2026 review fixes: Section 15 source links', () => {
     expect(link?.getAttribute('href')).toBe('https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html');
     expect(link?.textContent?.trim()).toBe('https://mono.github.io/SkiaSharp/docs/releases/4.150.0.html');
   });
+
+  it('describes HarfBuzzSharp 14.2.1 as a separate accompanying release, not bundled in SkiaSharp 4.150.0', () => {
+    // Arrange & Act
+    const { container } = render(<Section15 />);
+    const row = Array.from(container.querySelectorAll('section#ch15 tbody tr')).find((tr) =>
+      tr.querySelector('a')?.getAttribute('href')?.includes('SkiaSharp'),
+    );
+    const label = row?.querySelector('td')?.textContent?.trim();
+
+    // Assert（HarfBuzzSharp は SkiaSharp とは別パッケージとして同時に公開されたリリース）
+    expect(label).toBe('SkiaSharp 4.150.0 と、同時に公開された別リリースの HarfBuzzSharp 14.2.1');
+    expect(label).not.toContain('同梱');
+  });
 });
 
 describe('ISO 14496-22:2026 review fixes: Section 5 directory example order', () => {

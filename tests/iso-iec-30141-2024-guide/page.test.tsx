@@ -9,8 +9,8 @@ import { load } from 'cheerio';
 import postcss from 'postcss';
 import rawInventory from '../../docs/migration-inventory/iso-iec-30141-2024-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { corrections, correct } from './reviewed-corrections';
-const inventory = { ...correct(rawInventory), hashes: rawInventory.hashes };
+import { corrections, correct, emphasize, boldPhrases } from './reviewed-corrections';
+const inventory = { ...emphasize(correct(rawInventory)), hashes: rawInventory.hashes };
 corrections.forEach(([from, to]) => it('reviewed correction is applied exactly: ' + to.slice(0, 24), () => {
     const raw = JSON.stringify(rawInventory), fixed = JSON.stringify(inventory);
     expect(raw).toContain(from); expect(fixed).not.toContain(from); expect(fixed).toContain(to);
@@ -42,6 +42,14 @@ it('diagram 3 description states every labeled relationship of DIAGRAM_2',()=>{c
 it('diagram 6 description states every concern-to-viewpoint mapping of DIAGRAM_5',()=>{const $=html();expect($('#diagram-6').attr('aria-label')).toBe('図6: 今の悩みから読むべきビューポイントを逆引きする。IoTの定義・特性を知りたい→基礎ビュー（6.2）、事業価値・ビジネスモデル→ビジネスビュー（6.3）、誰がどう使うか→利用ビュー（6.4）、必要な機能の分類→機能ビュー（6.5）、セキュリティ・信頼性→信頼性ビュー（6.6）、作り方の型・パターン→構築ビュー（6.7）と附属書A');});
 // 視差効果を減らす設定では、ビューポートのスクロール（ルート html 要素。globals.css で smooth）もアニメーションさせない
 it('reduced motion disables smooth scrolling on the root html element',()=>{const found:string[]=[];postcss.parse(readFileSync(base+'/iso-iec-30141-2024-guide.css','utf8')).walkAtRules('media',at=>{if(!/prefers-reduced-motion:\s*reduce/.test(at.params))return;at.walkRules(rule=>{if(rule.selectors.includes('html:has(.iso30141-page)'))rule.walkDecls('scroll-behavior',d=>{found.push(d.value);});});});expect(found).toEqual(['auto']);});
+// 原本に文字のまま残っていた Markdown の太字記法（**…**）は、記号を出さず strong 要素で強調する
+boldPhrases.forEach(phrase=>it('renders '+phrase+' as strong emphasis without literal asterisks',()=>{const $=html();expect($('main').text()).not.toContain('**');expect($('main strong').toArray().map(e=>$(e).text())).toContain(phrase);}));
+// 図1（DIAGRAM_0）の代替テキストは、矢印の向きと辺ラベル（計測・データ・指令・作用）による流れを伝える
+it('diagram 1 description states every directed relationship of DIAGRAM_0',()=>{const $=html();expect($('#diagram-1').attr('aria-label')).toBe('図1: センサーが物理世界の対象（機械・環境・人など）を計測し、そのデータをネットワーク経由でクラウド／エッジ／アプリ（分析・判断）へ送る。クラウド／エッジ／アプリは指令をネットワーク経由でアクチュエータへ送り、アクチュエータが物理世界の対象に作用する。');});
+// 図2（DIAGRAM_1）の代替テキストは、ビューポイントがビューを支配・規定し、ビューが関心事に答えることを伝える
+it('diagram 2 description states every directed relationship of DIAGRAM_1',()=>{const $=html();expect($('#diagram-2').attr('aria-label')).toBe('図2: ステークホルダーは関心事を持つ。関心事はビューポイント（見方のルール）として整理される。ビューポイントはビュー（実際の図や記述）を支配・規定し、ビューは関心事に答える。');});
+// 図4（DIAGRAM_3）の代替テキストは、2018年版と2024年版の2グループを分け、技術的改訂の関係を伝える
+it('diagram 4 description separates the 2018 and 2024 groups of DIAGRAM_3 and their revision relationship',()=>{const $=html();expect($('#diagram-4').attr('aria-label')).toBe('図4: 第1版（2018年8月）では、概念モデル＋参照モデルから、機能ビュー、システム（配置）ビュー、ネットワークビュー、利用ビューへ分かれる。第2版（2024年8月）では、基礎（Foundational）から、ビジネス、利用、機能、信頼性（Trustworthiness）、構築（Construction）の各ビューへ分かれる。第1版は技術的改訂により第2版へ置き換えられた。');});
 it('all diagram wrappers have accessible descriptions',()=>{const $=html();expect($('.mermaid-diagram[role="img"][aria-label]').length).toBe(inventory.charts.length);});
 it('preserves whitespace between inline elements in every paragraph and table cell',()=>{const $=html();expect($(inventory.inlineText.selector).toArray().filter(el=>!$(el).closest('svg').length).map(el=>$(el).text().replace(/\s+/g,' ').trim())).toEqual(inventory.inlineText.items);});
 

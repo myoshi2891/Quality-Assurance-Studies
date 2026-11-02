@@ -8,6 +8,23 @@ export const corrections: ReadonlyArray<readonly [string, string]> = [
     // 第1版での説明（歴史的経緯）は残し、現行の定義を併記する
     ['という趣旨で説明されています。セキュリティ', 'という趣旨で説明されています。現行の ISO/IEC 20924:2024 では、「ステークホルダーの期待に、実証でき、検証でき、測定できる形で応えられる能力」と定義されています。セキュリティ'],
 ];
+// 原本に Markdown の太字記法（**…**）が文字のまま残っていた語句。移行先では <strong> で強調する
+export const boldPhrases: ReadonlyArray<string> = ['アーキテクチャを設計する人（アーキテクト）', '90.92（改訂予定）'];
+const BOLD_PATTERN = new RegExp('\\*\\*(' + boldPhrases.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\*\\*');
+/** インベントリの木構造へ太字の構造訂正を重ねる（children 内の文字列は strong 要素へ分割し、それ以外の文字列は記号だけ除く） */
+export function emphasize<T>(value: T): T {
+    if (typeof value === 'string') return value.split(BOLD_PATTERN).join('') as T;
+    if (Array.isArray(value)) return value.map(emphasize) as T;
+    if (value === null || typeof value !== 'object') return value;
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => {
+        if (k !== 'children' || !Array.isArray(v)) return [k, emphasize(v)];
+        return [k, v.flatMap((child: unknown) => typeof child !== 'string' ? [emphasize(child)] : child.split(BOLD_PATTERN).map((part, i) => i % 2 === 1 ? { tag: 'strong', attrs: {}, children: [part] } : part.trim()).filter(part => part !== ''))];
+    })) as T;
+}
+/** 比較用の原本HTMLへ同じ太字の構造訂正を重ねる（レイアウトE2Eで使用） */
+export function emphasizeHtml(html: string): string {
+    return html.split(BOLD_PATTERN).map((part, i) => i % 2 === 1 ? '<strong>' + part + '</strong>' : part).join('');
+}
 export function correct<T>(value: T): T {
     if (typeof value === 'string') return corrections.reduce((text, [from, to]) => text.split(from).join(to), value as string) as T;
     if (Array.isArray(value)) return value.map(correct) as T;
