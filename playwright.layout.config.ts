@@ -38,6 +38,7 @@ const LAYOUT_SUITES: ReadonlyArray<{ name: string; testMatch: string | string[];
   { name: 'iso-27799-2025', testMatch: 'iso-27799-2025-layout.e2e.ts' },
   { name: 'iso-30141', testMatch: 'iso-30141-layout.e2e.ts' },
   { name: 'iso-30130', testMatch: 'iso-30130-layout.e2e.ts' },
+  { name: 'iso-29138-2', testMatch: 'iso-29138-2-layout.e2e.ts' },
   { name: 'iso-iec-5338', testMatch: 'iso-iec-5338-layout.e2e.ts' },
 ];
 

@@ -165,6 +165,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-23009-1-2026-guide', label: 'ISO 23009-1 MPEG-DASH ガイド', description: 'MPEG-DASH第6版のMPD階層、セグメント、ライブ配信、新機能とQAテスト観点を段階的に解説。', category: 'iso' },
   { href: '/iso-27799-2025-guide', label: 'ISO 27799 医療情報セキュリティ ガイド', description: '医療向け情報セキュリティ管理策、27002との関係、HLT管理策、付録と導入・QA観点を段階的に解説。', category: 'iso' },
   { href: '/iso-30130-guide', label: 'ISO 30130 テストツール能力 ガイド', description: 'テストツールの能力・カテゴリ化・特性化・対応付けと、関連規格・選定評価を段階的に解説。', category: 'iso' },
+  { href: '/iso-iec-tr-29138-2-2009-guide', label: 'ISO/IEC TR 29138-2:2009 初学者ガイド', description: 'アクセシビリティ規格インベントリの7分類と、実務での利用方法を学ぶ。', category: 'iso' },
   { href: '/iso-iec-5338-guide', label: 'ISO/IEC 5338 AIライフサイクル ガイド', description: 'AIシステムのライフサイクル、4プロセスグループ、AI固有プロセスと導入手順を段階的に解説。', category: 'iso' },
   { href: '/iso-14496-22-2026-beginner-guide', label: 'ISO 14496-22:2026（OFF第5版）初学者向け解説', description: '2026年7月発行の第5版Open Font Formatをバイナリ構造・表示パイプライン・可変フォントから段階的に解説。', category: 'iso' },
   { href: '/iso-iec-30141-2024-guide', label: 'ISO/IEC 30141:2024 IoT参照アーキテクチャ ガイド', description: 'IoTの6つのビュー、構築パターン、関連規格と設計・開発・QAでの活用を段階的に解説。', category: 'iso' },
