@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { load } from 'cheerio';
+import { load, type CheerioAPI } from 'cheerio';
 import postcss from 'postcss';
 import rawInventory from '../../docs/migration-inventory/iso-iec-ts-30149-2024-guide.json';
 import { sourceModule } from '../helpers/source-module';
@@ -18,7 +18,14 @@ function tree(n: AnyNode): unknown {
     const attrs = { ...n.attribs }; delete attrs['aria-current'];
     return { tag: n.name, attrs, children: n.children.map(tree).filter(Boolean) };
 }
-function html() { const Page = sourceModule(base + '/page.tsx').default as React.ComponentType; return load(renderToStaticMarkup(<Page />)); }
+// 読み取り専用の検証で共有するため、ソース変換・描画・解析は初回の 1 回だけ行う
+let cachedDocument: CheerioAPI | undefined;
+function html(): CheerioAPI {
+    if (cachedDocument) return cachedDocument;
+    const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
+    cachedDocument = load(renderToStaticMarkup(<Page />));
+    return cachedDocument;
+}
 for (const [key, group] of Object.entries(inventory.groups)) {
     it(key + ' exact count and order', () => expect(html()(group.selector).toArray().map(tree)).toEqual(group.items));
     group.items.forEach((item, i) => it(key + ' ' + i, () => expect(tree(html()(group.selector)[i]!)).toEqual(item)));
