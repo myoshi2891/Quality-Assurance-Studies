@@ -3,6 +3,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync, existsSync } from 'node:fs';
 import { load } from 'cheerio';
+import { transformSync } from 'next/dist/build/swc';
 import { sourceModule } from '../tests/helpers/source-module';
 const base='app/iso-iec-ieee-29119-3-2021-guide';
 const preflight=readFileSync('node_modules/tailwindcss/preflight.css','utf8');
@@ -53,7 +54,10 @@ for (const width of [390,900,901,1440]) {
 }
 
 // Use the shared Mermaid initialization so inherited global theme settings cannot mask regressions.
-const sharedInit = readFileSync('components/Mermaid.tsx','utf8').match(/mermaid.initialize\(([\s\S]*?)\);/)![1]!;
+const sharedSource=readFileSync('components/Mermaid.tsx','utf8');
+const fixupSource=sharedSource.slice(sharedSource.indexOf('function applySvgFixups'),sharedSource.indexOf('/**\n * Renders a Mermaid'));
+const compiledFixups=transformSync(fixupSource,{filename:'svg-fixups.ts',jsc:{parser:{syntax:'typescript'}}}).code;
+const sharedInit = sharedSource.match(/mermaid.initialize\(([\s\S]*?)\);/)![1]!;
 for (const width of [390,1440]) for(let i=0;i<12;i++) test(`${width}px diagram ${i}: exact source SVG semantics, palette and horizontal reachability`,async({page})=>{
  await page.setViewportSize({width,height:900});
  const charts=sourceModule(base+'/diagrams.ts') as Record<string,string>;
@@ -77,8 +81,9 @@ for (const width of [390,1440]) for(let i=0;i<12;i++) test(`${width}px diagram $
  const svg=await page.evaluate(async({chart,init})=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(Function('return ('+init+')')());return (await m.render('diagram-check',chart)).svg;},{chart:charts[`DIAGRAM_${i}`]!,init:sharedInit});
  const own=readFileSync(base+'/iso-iec-ieee-29119-3-2021-guide.css','utf8');
  await page.setContent(`<style>${preflight+globals+own}</style><div class="iso291193-page"><div class="mermaid-container"><div class="mermaid-wrapper">${svg}</div></div></div>`);
- // Mirror the shared renderer's post-render sizing without a server or build.
- await page.locator('.mermaid-wrapper svg').evaluate(svg=>{const box=svg.getAttribute('viewBox')!.split(/\s+/).map(Number);svg.removeAttribute('width');svg.removeAttribute('height');(svg as SVGElement).style.width=box[2]+'px';});
+ // Execute the actual shared fixup function, then the page's actual viewport restoration.
+ const restore=(sourceModule(base+'/Diagram.tsx').restoreSourceViewport as (svg:SVGSVGElement)=>void).toString();
+ await page.locator('.mermaid-wrapper svg').evaluate((svg,{fixups,chart,restore})=>{Function(fixups+'; return applySvgFixups;')()(svg,chart);Function('return ('+restore+')')()(svg);},{fixups:compiledFixups,chart:charts[`DIAGRAM_${i}`]!,restore});
  expect(await page.locator('.mermaid-wrapper').evaluate(collect)).toEqual(expected);
  const reach=await page.locator('.mermaid-container').evaluate(el=>{const svg=el.querySelector('svg')!;el.scrollLeft=0;const left=svg.getBoundingClientRect().left>=el.getBoundingClientRect().left;el.scrollLeft=el.scrollWidth;const right=svg.getBoundingClientRect().right<=el.getBoundingClientRect().right+1;return {left,right};});
  expect(reach).toEqual({left:true,right:true});
