@@ -7,8 +7,14 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import postcss from 'postcss';
-import inventory from '../../docs/migration-inventory/iso-iec-30141-2024-guide.json';
+import rawInventory from '../../docs/migration-inventory/iso-iec-30141-2024-guide.json';
 import { sourceModule } from '../helpers/source-module';
+import { corrections, correct } from './reviewed-corrections';
+const inventory = { ...correct(rawInventory), hashes: rawInventory.hashes };
+corrections.forEach(([from, to]) => it('reviewed correction is applied exactly: ' + to.slice(0, 24), () => {
+    const raw = JSON.stringify(rawInventory), fixed = JSON.stringify(inventory);
+    expect(raw).toContain(from); expect(fixed).not.toContain(from); expect(fixed).toContain(to);
+}));
 const base='app/iso-iec-30141-2024-guide';
 function tree(n: AnyNode): unknown { if(n.type==='text')return n.data.replace(/\s+/g,' ').trim()||null; if(n.type!=='tag')return null; const $=load(''); if($(n).hasClass('mermaid-diagram'))return {tag:'diagram',id:n.attribs.id}; if(!('attribs' in n))return null; const attrs={...n.attribs}; delete attrs['aria-current']; if(attrs.class==='')delete attrs.class; return {tag:n.name,attrs,children:(n.children||[]).map(tree).filter(Boolean)}; }
 function html(){const Page=sourceModule(base+'/page.tsx').default as React.ComponentType;return load(renderToStaticMarkup(<Page/>));}
@@ -32,6 +38,8 @@ it('CSS imported and 800 weight provided',()=>{const source=readFileSync(base+'/
 it('metadata preserves source title',()=>expect(sourceModule(base+'/page.tsx').metadata).toMatchObject({title:'ISO/IEC 30141:2024 初学者向けステップバイステップ解説ガイド'}));
 // 図3（DIAGRAM_2）の代替テキストは、辺ラベルの関係と、DSRA経由・直接参照の両経路が任意であることを伝える
 it('diagram 3 description states every labeled relationship of DIAGRAM_2',()=>{const $=html();expect($('#diagram-3').attr('aria-label')).toBe('図3: IoT領域別参照アーキテクチャ（DSRA：スマート製造、スマートシティなど）は、ISO/IEC 30141 IoT参照アーキテクチャを規範的参照として用いることができる（任意）。個別のIoTソリューションアーキテクチャは、ISO/IEC 30141を直接参照することも、DSRAに基づくこともできる（いずれも任意）。個別のIoTソリューションアーキテクチャが、IoTシステムの実装を導く。');});
+// 図6（DIAGRAM_5）の代替テキストは、6本の矢印が示す「悩み→ビューポイント」の対応をすべて伝える
+it('diagram 6 description states every concern-to-viewpoint mapping of DIAGRAM_5',()=>{const $=html();expect($('#diagram-6').attr('aria-label')).toBe('図6: 今の悩みから読むべきビューポイントを逆引きする。IoTの定義・特性を知りたい→基礎ビュー（6.2）、事業価値・ビジネスモデル→ビジネスビュー（6.3）、誰がどう使うか→利用ビュー（6.4）、必要な機能の分類→機能ビュー（6.5）、セキュリティ・信頼性→信頼性ビュー（6.6）、作り方の型・パターン→構築ビュー（6.7）と附属書A');});
 it('all diagram wrappers have accessible descriptions',()=>{const $=html();expect($('.mermaid-diagram[role="img"][aria-label]').length).toBe(inventory.charts.length);});
 it('preserves whitespace between inline elements in every paragraph and table cell',()=>{const $=html();expect($(inventory.inlineText.selector).toArray().filter(el=>!$(el).closest('svg').length).map(el=>$(el).text().replace(/\s+/g,' ').trim())).toEqual(inventory.inlineText.items);});
 

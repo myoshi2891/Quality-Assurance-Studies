@@ -6,6 +6,8 @@ export const corrections: ReadonlyArray<readonly [string, string]> = [
     ['注：EN 301 549 V4.1.1 の公表時期については、「2026年10月に公報掲載の見込み」とする情報があります（accessible.org）。2026年10月13日時点で実際に公表されたかは、今回は確認できていません。使う前にETSIや欧州委員会の公式情報で確認してください。', '注：EN 301 549 V4.1.1 は、2026年9月にETSIから公表されました。ETSIによる公表と、EU官報（Official Journal）への引用は別の段階です。官報に引用されるまでは、EU法令上の整合規格としての効力を持ちません。2026年11月2日時点で引用は確認できていないため、使う前にETSIや欧州委員会の公式情報で確認してください。'],
     ['EN 301 549 V4.1.1 の公表状況は、2026年10月13日時点で未確認です', 'EN 301 549 V4.1.1 は2026年9月に公表済みです。EU官報への引用は、2026年11月2日時点で未確認です'],
     ['規格の全文は有償で、読めたのは無料サンプルの範囲です。', '読めたのは無料サンプルの範囲です（全文のPDFは、ISO公式ページから無償で入手できます）。'],
+    // V4.1.1 自体は公表済み。未確認なのはEU官報への引用だけ
+    ['# V4.1.1 の状況が未確認のため、確認が要る', '# V4.1.1 のEU官報への引用が未確認のため、確認が要る'],
 ];
 export function correct<T>(value: T): T {
     if (typeof value === 'string') return corrections.reduce((text, [from, to]) => text.split(from).join(to), value as string) as T;
@@ -16,6 +18,9 @@ export function correct<T>(value: T): T {
 
 /** 空白を正規化した文字列で訂正を適用する（HTML原本の改行・字下げに依存しない） */
 export function correctNormalized(text: string): string {
+    // 原文のまま訂正できる場合は空白を保つ（YAMLなど white-space: pre の本文を崩さない）
+    const direct = correct(text);
+    if (direct !== text) return direct;
     const normalized = text.replace(/\s+/g, ' ');
     const fixed = correct(normalized);
     return fixed === normalized ? text : fixed;
