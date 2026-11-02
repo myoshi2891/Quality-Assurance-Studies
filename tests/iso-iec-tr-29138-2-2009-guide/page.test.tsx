@@ -50,9 +50,9 @@ inventory.diagrams.forEach((d, i) => it('diagram ' + i + ' exact original node l
  expect(await mermaid.parse(chart)).toBeTruthy();
 }));
 for (const ext of ['html', 'md'] as const) it('archive ' + ext + ' exact bytes and tracked relocation', () => {
-    const path = 'archive/' + ext + '-archive/iso/Iso-iec-5338-guide.' + ext;
+    const path = 'archive/' + ext + '-archive/iso/Iso-iec-tr-29138-2-2009-guide.' + ext;
     expect(createHash('sha256').update(readFileSync(path)).digest('hex')).toBe(inventory.hashes[ext]);
-    expect(existsSync('Iso-iec-5338-guide.' + ext)).toBe(false);
+    expect(existsSync('Iso-iec-tr-29138-2-2009-guide.' + ext)).toBe(false);
     expect(execFileSync('git', ['ls-files', '--', path], { encoding: 'utf8' }).trim()).toBe(path);
 });
 it('route registered', () => expect(readFileSync('lib/navigation.ts', 'utf8')).toContain("href: '/iso-iec-tr-29138-2-2009-guide'"));
