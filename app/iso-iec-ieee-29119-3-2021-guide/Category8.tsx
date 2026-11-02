@@ -12,7 +12,7 @@ export default function Category8() {
 {" "}
 <h3 id="7-1-テスト計画test-plan-72">{"7-1. テスト計画（Test plan, 7.2）"}</h3>
 {" "}
-<p>{" **「何を、どこまで、どの方針で、誰が、いつまでにテストするか」**をまとめる中心文書です。 "}</p>
+<p>{" "}<strong>{"「何を、どこまで、どの方針で、誰が、いつまでにテストするか」"}</strong>{"をまとめる中心文書です。 "}</p>
 {" "}
 <div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"項番"}</th><th>{"項目"}</th><th>{"何を書くか（要点）"}</th></tr></thead><tbody><tr className="odd"><td>{"7.2.2"}</td><td>{"Context of testing"}</td><td>{"テストの背景・前提"}</td></tr><tr className="even"><td>{"7.2.3"}</td><td>{"Assumptions and constraints"}</td><td>{"前提条件と制約"}</td></tr><tr className="odd"><td>{"7.2.4"}</td><td>{"Stakeholders"}</td><td>{"ステークホルダー"}</td></tr><tr className="even"><td>{"7.2.5"}</td><td>{"Testing communication"}</td><td>{"関係者との連絡方法"}</td></tr><tr className="odd"><td>{"7.2.6"}</td><td>{"Risk register"}</td><td>{"リスク登録簿"}</td></tr><tr className="even"><td>{"7.2.7"}</td><td>{"Test strategy"}</td><td>{"テスト戦略（下記参照）"}</td></tr><tr className="odd"><td>{"7.2.8"}</td><td>{"Testing activities and estimates"}</td><td>{"作業項目と見積り"}</td></tr><tr className="even"><td>{"7.2.9"}</td><td>{"Staffing"}</td><td>{"要員計画"}</td></tr><tr className="odd"><td>{"7.2.10"}</td><td>{"Schedule"}</td><td>{"スケジュール"}</td></tr></tbody></table>{" "}</div>
 {" "}
@@ -26,7 +26,7 @@ export default function Category8() {
 {" "}
 <h3 id="7-2-テストステータスレポートtest-status-report-73">{" 7-2. テストステータスレポート（Test status report, 7.3） "}</h3>
 {" "}
-<p>{"**指定した報告期間の「いまの状況」**を伝える文書です。"}</p>
+<p><strong>{"指定した報告期間の「いまの状況」"}</strong>{"を伝える文書です。"}</p>
 {" "}
 <div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"項番"}</th><th>{"項目"}</th><th>{"何を書くか"}</th></tr></thead><tbody><tr className="odd"><td>{"7.3.2"}</td><td>{"Test status"}</td><td>{"現在のステータス"}</td></tr><tr className="even"><td>{"7.3.3"}</td><td>{"Reporting period"}</td><td>{"報告期間"}</td></tr><tr className="odd"><td>{"7.3.4"}</td><td>{"Progress against test plan"}</td><td>{"計画に対する進捗"}</td></tr><tr className="even"><td>{"7.3.5"}</td><td>{"Factors blocking progress"}</td><td>{"進捗を妨げている要因"}</td></tr><tr className="odd"><td>{"7.3.6"}</td><td>{"Test measures"}</td><td>{"テストの測定値"}</td></tr><tr className="even"><td>{"7.3.7"}</td><td>{"New and changed risks"}</td><td>{"新規・変更されたリスク"}</td></tr><tr className="odd"><td>{"7.3.8"}</td><td>{"Planned testing"}</td><td>{"次に予定しているテスト"}</td></tr></tbody></table>{" "}</div>
 {" "}
