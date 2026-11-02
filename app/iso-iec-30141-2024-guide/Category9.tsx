@@ -4,7 +4,7 @@ export default function Category9() { return <>
 
 <h3 id="91-附属書a規範-追加のiot構築パターン">{" 9.1 附属書A（規範）: 追加のIoT構築パターン "}</h3>
 
-<p>{" 「規範」は、この規格の一部として"}<strong>{"従うべき内容"}</strong>{"という位置づけです。目次から次の5つが確認できます。 "}</p>
+<p>{" 「規範」は、この規格の一部として"}<strong>{"従うべき内容"}</strong>{"という位置づけです。ただし、実際にどの適合要求が当てはまるかは、規格をどう使うか（何について適合を主張するか）によって決まります。すべてのIoT設計が附属書Aの5つのパターンをすべて実装しなければならない、という意味ではありません。目次から次の5つが確認できます。 "}</p>
 
 <div className="table-scroll"><table><thead><tr className="header"><th>{"附属書"}</th><th>{"パターン"}</th><th>{"学習のポイント"}</th></tr></thead><tbody><tr className="odd"><td>{"A.2"}</td><td>{"RAMI 4.0 パターン"}</td><td>{" 製造業（インダストリー4.0）の参照モデルとIoT RAをどう対応づけるか "}</td></tr><tr className="even"><td>{"A.3"}</td><td>{"動的IoTシステムパターン"}</td><td>{" 状況に応じてサービスを組み合わせる仕組み（DSC）と、そのメッセージフロー "}</td></tr><tr className="odd"><td>{"A.4"}</td><td>{"IoTエンタープライズシステムパターン"}</td><td>{"システム配置のモデル（Figure A.5）"}</td></tr><tr className="even"><td>{"A.5"}</td><td>{"IoTエンタープライズネットワーキングパターン"}</td><td>{"ネットワークのモデル（Figure A.6）"}</td></tr><tr className="odd"><td>{"A.6"}</td><td>{"IoTエンタープライズ利用パターン"}</td><td>{" 運用時の役割と活動（IoTサービス提供者、サービス開発者、デバイス・アプリ開発の活動、セキュリティ分析での利用など） "}</td></tr></tbody></table></div>
 
