@@ -66,6 +66,8 @@ for (const width of [390,1440]) for(let i=0;i<5;i++) test(`${width}px diagram ${
   };
  };
  const expected=await page.locator(`#mmd-${i}`).evaluate(collect);
+ // レビュー修正: 図4（WK5）は③ではなく④の確認へ戻るため、原本SVGの該当エッジIDを置き換えて比較する
+ if(i===4){const fix=(id:string|null)=>id?.replace(/^L_WK5_WK3_/,'L_WK5_WK4_')??null;const byId=(a:{id:string|null},b:{id:string|null})=>(a.id??'').localeCompare(b.id??'');expected.edges=expected.edges.map(e=>({...e,id:fix(e.id)})).sort(byId);expected.labels=expected.labels.map(e=>({...e,id:fix(e.id)})).sort(byId);}
  await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
  const svg=await page.evaluate(async({chart,init})=>{const m=(window as unknown as {mermaid:{initialize:(config:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(Function('return ('+init+')')());return (await m.render('diagram-check',chart)).svg;},{chart:charts[`DIAGRAM_${i}`]!,init:sharedInit});
  const own=readFileSync(base+'/iso-iec-tr-29138-2-2009-guide.css','utf8');
@@ -94,4 +96,22 @@ for (const width of [390,1440]) test(`${width}px YAML preserves exact content, b
     expect(await page.locator('pre.yaml').evaluate(collect)).toEqual(await reference.locator('pre.yaml').evaluate(collect));
     expect(await page.locator('pre.yaml').evaluate(el=>{el.scrollLeft=el.scrollWidth;return el.scrollLeft+el.clientWidth>=el.scrollWidth-1;})).toBe(true);
     await reference.close();
+});
+
+for (const width of [390,1440]) test(`${width}px sidebar: closed mobile TOC is unreachable by keyboard; open TOC is visible`, async ({ page }) => {
+    await page.setViewportSize({ width, height:900 });
+    const own=readFileSync(base+'/iso-iec-tr-29138-2-2009-guide.css','utf8');
+    await page.setContent(`<style>${preflight+globals+retained+own}</style>${markup()}`);
+    const sidebar=page.locator('#sidebar');
+    const focusedInSidebar=async()=>{ await page.locator('#menuBtn').focus(); for(let i=0;i<3;i++) await page.keyboard.press('Tab'); return page.evaluate(()=>!!document.activeElement?.closest('#sidebar')); };
+    if (width <= 900) {
+        await expect(sidebar).toHaveCSS('visibility','hidden');
+        expect(await focusedInSidebar()).toBe(false);
+        await sidebar.evaluate(el=>el.classList.add('open'));
+        await expect(sidebar).toHaveCSS('visibility','visible');
+        await expect(sidebar).toHaveCSS('transform','none');
+        expect(await focusedInSidebar()).toBe(true);
+    } else {
+        await expect(sidebar).toHaveCSS('visibility','visible');
+    }
 });
