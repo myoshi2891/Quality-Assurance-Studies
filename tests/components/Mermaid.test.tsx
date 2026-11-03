@@ -39,6 +39,37 @@ describe('Mermaid component', () => {
     });
   });
 
+  // 同一ミリ秒・同一乱数でも、並行する描画試行ごとに衝突しない ID を mermaid.render へ渡す
+  it('passes a collision-free id to every concurrent mermaid.render attempt', async () => {
+    // Arrange: 時刻と乱数を固定し、旧実装（Date.now + 乱数）なら必ず衝突する条件を作る
+    const ids: string[] = [];
+    renderImpl = async (id) => {
+      ids.push(id);
+      return { svg: DEFAULT_SVG };
+    };
+    const originalNow = Date.now;
+    const originalRandom = Math.random;
+    Date.now = () => 1_700_000_000_000;
+    Math.random = () => 0.5;
+    try {
+      // Act: 3 つの図を同時にマウントし、描画試行を並行させる
+      render(
+        <>
+          <Mermaid chart="graph TD; A-->B" />
+          <Mermaid chart="graph TD; C-->D" />
+          <Mermaid chart="graph TD; E-->F" />
+        </>,
+      );
+      await waitFor(() => expect(ids).toHaveLength(3));
+    } finally {
+      Date.now = originalNow;
+      Math.random = originalRandom;
+    }
+
+    // Assert
+    expect(new Set(ids).size).toBe(3);
+  });
+
   it('does not call mermaid.render for an empty chart', async () => {
     let called = false;
     renderImpl = async (id, chart) => {
