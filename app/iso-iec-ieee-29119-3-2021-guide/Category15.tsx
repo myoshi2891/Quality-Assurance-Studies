@@ -28,7 +28,7 @@ export default function Category15() {
 {" "}
 <p><strong>{"Q4."}</strong>{" テスト戦略は独立した文書ですか？"}</p>
 {" "}
-<details>{" "}<summary>{"答え"}</summary>{" いいえ。テスト計画の一部です。 "}</details>
+<details>{" "}<summary>{"答え"}</summary>{" いいえ。論理的にはテスト計画の一部ですが、別の文書として管理してもかまいません。 "}</details>
 {" "}
 <p><strong>{"Q5."}</strong>{" 「実際の結果」と「テスト結果」の違いは？"}</p>
 {" "}

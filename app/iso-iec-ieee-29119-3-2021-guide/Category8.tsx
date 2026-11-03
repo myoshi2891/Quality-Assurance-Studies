@@ -16,7 +16,7 @@ export default function Category8() {
 {" "}
 <div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"項番"}</th><th>{"項目"}</th><th>{"何を書くか（要点）"}</th></tr></thead><tbody><tr className="odd"><td>{"7.2.2"}</td><td>{"Context of testing"}</td><td>{"テストの背景・前提"}</td></tr><tr className="even"><td>{"7.2.3"}</td><td>{"Assumptions and constraints"}</td><td>{"前提条件と制約"}</td></tr><tr className="odd"><td>{"7.2.4"}</td><td>{"Stakeholders"}</td><td>{"ステークホルダー"}</td></tr><tr className="even"><td>{"7.2.5"}</td><td>{"Testing communication"}</td><td>{"関係者との連絡方法"}</td></tr><tr className="odd"><td>{"7.2.6"}</td><td>{"Risk register"}</td><td>{"リスク登録簿"}</td></tr><tr className="even"><td>{"7.2.7"}</td><td>{"Test strategy"}</td><td>{"テスト戦略（下記参照）"}</td></tr><tr className="odd"><td>{"7.2.8"}</td><td>{"Testing activities and estimates"}</td><td>{"作業項目と見積り"}</td></tr><tr className="even"><td>{"7.2.9"}</td><td>{"Staffing"}</td><td>{"要員計画"}</td></tr><tr className="odd"><td>{"7.2.10"}</td><td>{"Schedule"}</td><td>{"スケジュール"}</td></tr></tbody></table>{" "}</div>
 {" "}
-<p>{" "}<strong>{"テスト戦略はテスト計画の一部"}</strong>{"です（別の独立文書ではありません）。用語定義の注記によると、戦略には通常、次のような内容が含まれます。 "}</p>
+<p>{" "}<strong>{"テスト戦略は論理的にはテスト計画の一部"}</strong>{"です。ただし文書の形式としては複数文書への分割が認められるため、別の文書で管理してもかまいません。用語定義の注記によると、戦略には通常、次のような内容が含まれます。 "}</p>
 {" "}
 <ul>{" "}<li>{"実施するテストレベルとテストタイプ"}</li>{" "}<li>{"再テストと回帰テストの方針"}</li>{" "}<li>{"使うテスト設計技法と、対応する完了基準"}</li>{" "}<li>{"テストデータ、テスト環境、ツールの要求"}</li>{" "}<li>{"成果物に対する期待"}</li>{" "}</ul>
 {" "}
