@@ -21,4 +21,15 @@ export function applyReviewCorrections($: CheerioAPI): void {
     });
     // 進捗件数の更新をスクリーンリーダーへ通知する（原本は aria-live なし）
     $('main .cp-count').attr('aria-live', 'polite');
+    // 本文全体は有料で未確認のため、「適合性評価の要求事項を定めない」との断定を公開プレビューの範囲での確認に改める
+    $('main td').contents().each((_, node) => {
+        if (node.type !== 'text') return;
+        for (const [before, after] of CONFORMITY_CLAIMS) node.data = node.data.replace(before, after);
+    });
 }
+
+export const CONFORMITY_CLAIMS = [
+    ['TSは規範的規定（要求事項等）を含み得る文書区分だが、本書は信頼に足る性質の原則・要素と構築パターンを整理し、適合性評価の要求事項を定めるものではない', 'TSは規範的規定（要求事項等）を含み得る文書区分。本書は信頼に足る性質の原則・要素と構築パターンを整理した文書で、公開プレビュー（目次・序文・Scope）の範囲では適合性評価の要求事項は確認できなかった（本文全体は未確認）'],
+    ['を示し、適合性評価用の要求事項は定めない', 'を示す。公開プレビューの範囲では適合性評価用の要求事項は確認できなかった（本文全体は未確認）'],
+    ['を示す文書であり、適合性評価用の要求事項を定めていない（またISO/IEC自身は認証を行わない）', 'を示す文書。公開プレビューの範囲では適合性評価用の要求事項は確認できなかった（本文全体は未確認）。なおISO/IEC自身は認証を行わない'],
+] as const;
