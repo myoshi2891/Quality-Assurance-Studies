@@ -5941,7 +5941,8 @@
                 {
                   "tag": "span",
                   "attrs": {
-                    "class": "cp-count"
+                    "class": "cp-count",
+                    "aria-live": "polite"
                   },
                   "children": [
                     "0 / 7"
@@ -10845,7 +10846,8 @@
                 {
                   "tag": "span",
                   "attrs": {
-                    "class": "cp-count"
+                    "class": "cp-count",
+                    "aria-live": "polite"
                   },
                   "children": [
                     "0 / 7"
@@ -17117,7 +17119,8 @@
               {
                 "tag": "span",
                 "attrs": {
-                  "class": "cp-count"
+                  "class": "cp-count",
+                  "aria-live": "polite"
                 },
                 "children": [
                   "0 / 7"

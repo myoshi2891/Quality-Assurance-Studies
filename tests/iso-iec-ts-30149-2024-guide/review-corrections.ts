@@ -19,4 +19,6 @@ export function applyReviewCorrections($: CheerioAPI): void {
         const inner = $(el).html();
         if (inner?.includes('**')) $(el).html(inner.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'));
     });
+    // 進捗件数の更新をスクリーンリーダーへ通知する（原本は aria-live なし）
+    $('main .cp-count').attr('aria-live', 'polite');
 }

@@ -10,6 +10,7 @@ it('all seven checkboxes and labels update progress in both directions without a
     const count = view.container.querySelector('.cp-count')!;
     const fill = view.container.querySelector('.cp-fill') as HTMLElement;
     expect(count.textContent).toBe('0 / 7'); expect(fill.style.width).toBe('0%');
+    expect(count.getAttribute('aria-live')).toBe('polite');
     boxes.forEach((box, i) => {
         fireEvent.click(box);
         expect(box.checked).toBe(true);
