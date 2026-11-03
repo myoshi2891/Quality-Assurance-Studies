@@ -557,3 +557,9 @@ html:has(.iso30149-page), .iso30149-page { scroll-behavior:auto; }
 .iso30149-page .content h2[id], .iso30149-page .content h3[id] {
     scroll-margin-top:calc(80px + var(--disclaimer-height, 0px));
 }
+/* モバイルでは固定の目次ボタン（top 70px・高さ約36px）の下端より下へ見出しを着地させる */
+@media (max-width: 900px) {
+.iso30149-page .content h2[id], .iso30149-page .content h3[id] {
+    scroll-margin-top:calc(120px + var(--disclaimer-height, 0px));
+}
+}
