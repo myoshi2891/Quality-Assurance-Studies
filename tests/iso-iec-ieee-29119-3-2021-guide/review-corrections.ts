@@ -16,7 +16,20 @@ export function applyReviewCorrections($: CheerioAPI): void {
     loginTable.find('tbody tr').each((row, tr) => {
         $(tr).find('td').each((col, td) => { $(td).text(LOGIN_TEST_CASES[row]![col]!); });
     });
+    // テスト戦略は論理的にはテスト計画の一部だが、文書の分割が認められるため別文書での管理も可能（原本は「独立文書ではない」と断定していた）
+    $('main strong').filter((_, el) => $(el).text() === 'テスト戦略はテスト計画の一部').each((_, el) => {
+        $(el).text(STRATEGY_EMPHASIS);
+        const tail = el.next;
+        if (tail?.type === 'text') tail.data = tail.data.replace('です（別の独立文書ではありません）。', STRATEGY_TAIL);
+    });
+    $('main details').contents().each((_, node) => {
+        if (node.type === 'text') node.data = node.data.replace('いいえ。テスト計画の一部です。', STRATEGY_ANSWER);
+    });
 }
+
+export const STRATEGY_EMPHASIS = 'テスト戦略は論理的にはテスト計画の一部';
+export const STRATEGY_TAIL = 'です。ただし文書の形式としては複数文書への分割が認められるため、別の文書で管理してもかまいません。';
+export const STRATEGY_ANSWER = 'いいえ。論理的にはテスト計画の一部ですが、別の文書として管理してもかまいません。';
 
 export const LOGIN_TEST_CASES = [
     ['状態遷移図（未ログイン→ログイン中／未ログイン→ロック）', '遷移「未ログイン→ロック（認証失敗が5回）」', '未ログイン状態で誤パスワードを5回連続入力', 'アカウントがロックされる'],
