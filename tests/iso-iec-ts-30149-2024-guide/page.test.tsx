@@ -14,7 +14,11 @@ const inventory = rawInventory;
 function tree(n: AnyNode): unknown {
     if (n.type === 'text') return n.data.replace(/\s+/g, ' ').trim() || null;
     if (n.type !== 'tag') return null;
-    if (n.attribs.class === 'mermaid-diagram') return { tag: 'diagram', id: n.attribs.id };
+    if (n.attribs.class === 'mermaid-diagram') {
+        // 図の中身は図ごとの検証で扱う。ラッパーに class・id 以外の属性（領域名など）があれば照合する
+        const { class: _class, id, ...attrs } = n.attribs;
+        return Object.keys(attrs).length ? { tag: 'diagram', id, attrs } : { tag: 'diagram', id };
+    }
     const attrs = { ...n.attribs }; delete attrs['aria-current'];
     return { tag: n.name, attrs, children: n.children.map(tree).filter(Boolean) };
 }

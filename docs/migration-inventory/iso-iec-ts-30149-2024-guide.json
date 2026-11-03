@@ -5693,11 +5693,21 @@
         },
         {
           "tag": "diagram",
-          "id": "mmd-7"
+          "id": "mmd-7",
+          "attrs": {
+            "aria-label": "図：8 3つの視点の運用化",
+            "role": "region",
+            "tabindex": "0"
+          }
         },
         {
           "tag": "diagram",
-          "id": "mmd-8"
+          "id": "mmd-8",
+          "attrs": {
+            "aria-label": "図：8.1 保証の核心となる主張・論拠・証拠",
+            "role": "region",
+            "tabindex": "0"
+          }
         },
         {
           "tag": "diagram",
@@ -7715,7 +7725,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：5 規格の全体構成マップ（箇条）",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -8144,7 +8157,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：5 規格の全体構成マップ（図表）",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -9786,7 +9802,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：8 箇条8の3つの視点",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -9991,7 +10010,12 @@
         },
         {
           "tag": "diagram",
-          "id": "mmd-7"
+          "id": "mmd-7",
+          "attrs": {
+            "aria-label": "図：8 3つの視点の運用化",
+            "role": "region",
+            "tabindex": "0"
+          }
         },
         {
           "tag": "h3",
@@ -10019,12 +10043,20 @@
         },
         {
           "tag": "diagram",
-          "id": "mmd-8"
+          "id": "mmd-8",
+          "attrs": {
+            "aria-label": "図：8.1 保証の核心となる主張・論拠・証拠",
+            "role": "region",
+            "tabindex": "0"
+          }
         },
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：8.1 根拠のない主張と証拠に裏づけられた主張",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -13981,7 +14013,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：5 規格の全体構成マップ（箇条）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -14410,7 +14445,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：5 規格の全体構成マップ（図表）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -16058,7 +16096,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8 箇条8の3つの視点",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -16263,7 +16304,12 @@
       },
       {
         "tag": "diagram",
-        "id": "mmd-7"
+        "id": "mmd-7",
+        "attrs": {
+          "aria-label": "図：8 3つの視点の運用化",
+          "role": "region",
+          "tabindex": "0"
+        }
       },
       {
         "tag": "h3",
@@ -16291,12 +16337,20 @@
       },
       {
         "tag": "diagram",
-        "id": "mmd-8"
+        "id": "mmd-8",
+        "attrs": {
+          "aria-label": "図：8.1 保証の核心となる主張・論拠・証拠",
+          "role": "region",
+          "tabindex": "0"
+        }
       },
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8.1 根拠のない主張と証拠に裏づけられた主張",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
