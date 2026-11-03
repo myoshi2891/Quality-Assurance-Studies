@@ -50,6 +50,8 @@ inventory.diagrams.forEach((d, i) => it('diagram ' + i + ' exact original node l
  const charts = sourceModule(base + '/diagrams.ts') as Record<string,string>;
  const chart = charts['DIAGRAM_' + i]!;
  expect(chart.startsWith(charts.MERMAID_CONFIG! + '\n')).toBe(true);
+ // 支援技術向けに、図の内容と流れを説明する accTitle / accDescr を図種別の直後に置く（原本は未設定）
+ expect(chart.split('\n').slice(2, 4)).toEqual(['accTitle: ' + d.accTitle, 'accDescr: ' + d.accDescr]);
  for (const n of d.nodes) expect(chart).toContain(n.id + (n.shape === 'polygon' ? '{"' : '["') + n.html?.replace(/<br\s*\/?\s*>/g,'<br/>') + (n.shape === 'polygon' ? '"}' : '"]'));
  const md = readFileSync(existsSync('Iso-iec-ts-30149-2024-guide.md') ? 'Iso-iec-ts-30149-2024-guide.md' : 'archive/md-archive/iso/Iso-iec-ts-30149-2024-guide.md','utf8');
  const original = [...md.matchAll(/```mermaid\n([\s\S]*?)```/g)][i]![1]!;
