@@ -16,7 +16,8 @@ function tree(n: AnyNode): unknown {
     if (n.type !== 'tag') return null;
     if (n.attribs.class === 'mermaid-diagram') {
         // 図の中身は図ごとの検証で扱う。ラッパーに class・id 以外の属性（領域名など）があれば照合する
-        const { class: _class, id, ...attrs } = n.attribs;
+        const id = n.attribs.id;
+        const attrs = { ...n.attribs }; delete attrs.class; delete attrs.id;
         return Object.keys(attrs).length ? { tag: 'diagram', id, attrs } : { tag: 'diagram', id };
     }
     const attrs = { ...n.attribs }; delete attrs['aria-current'];
