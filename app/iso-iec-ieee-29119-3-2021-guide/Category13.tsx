@@ -12,7 +12,7 @@ export default function Category13() {
 {" "}
 <h3 id="12-2-テストモデル--テストケース">{"12-2. テストモデル → テストケース"}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"テストモデル"}</th><th>{"カバレッジアイテム"}</th><th>{"テストケース例"}</th><th>{"期待結果"}</th></tr></thead><tbody><tr className="odd"><td>{"状態遷移図（未ログイン→ログイン中→ロック）"}</td><td>{"遷移「認証失敗が5回」"}</td><td>{"誤パスワードを5回入力"}</td><td>{"アカウントがロックされる"}</td></tr><tr className="even"><td>{"同値分割（パスワード長）"}</td><td>{"8〜16文字（有効）"}</td><td>{"10文字で登録"}</td><td>{"登録成功"}</td></tr><tr className="odd"><td>{"同値分割（パスワード長）"}</td><td>{"7文字以下（無効）"}</td><td>{"5文字で登録"}</td><td>{"エラー表示"}</td></tr></tbody></table>{" "}</div>
+<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"テストモデル"}</th><th>{"カバレッジアイテム"}</th><th>{"テストケース例"}</th><th>{"期待結果"}</th></tr></thead><tbody><tr className="odd"><td>{"状態遷移図（未ログイン→ログイン中／未ログイン→ロック）"}</td><td>{"遷移「未ログイン→ロック（認証失敗が5回）」"}</td><td>{"未ログイン状態で誤パスワードを5回連続入力"}</td><td>{"アカウントがロックされる"}</td></tr><tr className="even"><td>{"同値分割（ログイン時のパスワード）"}</td><td>{"登録済みパスワードと一致（有効）"}</td><td>{"正しいIDとパスワードでログイン"}</td><td>{"ログイン成功（ログイン中へ遷移）"}</td></tr><tr className="odd"><td>{"同値分割（ログイン時のパスワード）"}</td><td>{"登録済みパスワードと不一致（無効）"}</td><td>{"誤ったパスワードでログイン"}</td><td>{"認証エラー表示（未ログインのまま、失敗回数+1）"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <h3 id="12-3-インシデントレポート抜粋">{"12-3. インシデントレポート（抜粋）"}</h3>
 {" "}
