@@ -65,6 +65,13 @@ for (const ext of ['html', 'md'] as const) it('archive ' + ext + ' exact bytes a
     expect(existsSync('Iso-iec-ts-30149-2024-guide.' + ext)).toBe(false);
     expect(execFileSync('git', ['ls-files', '--', path], { encoding: 'utf8' }).trim()).toBe(path);
 });
+it('mobile heading anchors land below the fixed TOC button and the disclaimer', () => {
+    const found: string[] = [];
+    postcss.parse(readFileSync(base + '/iso-iec-ts-30149-2024-guide.css', 'utf8')).walkRules('.iso30149-page .content h2[id], .iso30149-page .content h3[id]', rule => {
+        if (rule.parent?.type === 'atrule' && (rule.parent as postcss.AtRule).params === '(max-width: 900px)') rule.walkDecls('scroll-margin-top', d => { found.push(d.value); });
+    });
+    expect(found).toEqual(['calc(120px + var(--disclaimer-height, 0px))']);
+});
 it('route registered', () => expect(readFileSync('lib/navigation.ts', 'utf8')).toContain("href: '/iso-iec-ts-30149-2024-guide'"));
 it('unique IDs and resolving anchors', () => { const $ = html(); const ids = $('[id]').map((_, e) => $(e).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length); $('a[href^="#"]').each((_, a) => expect(ids.filter(id => id === $(a).attr('href')!.slice(1))).toHaveLength(1)); });
 it('no whitespace text inside table structure', () => { const $ = html(); expect($('table,thead,tbody,tfoot,tr').toArray().filter(e => e.children.some(c => c.type === 'text'))).toEqual([]); });
