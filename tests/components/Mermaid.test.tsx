@@ -70,6 +70,33 @@ describe('Mermaid component', () => {
     expect(new Set(ids).size).toBe(3);
   });
 
+  // モジュールが再読み込みされ連番が初期化されても、以前のインスタンスと ID が重ならない
+  it('keeps render ids unique across separately loaded module instances', async () => {
+    // Arrange: 連番の状態を共有しない 2 つのモジュールインスタンスを読み込む
+    const ids: string[] = [];
+    renderImpl = async (id) => {
+      ids.push(id);
+      return { svg: DEFAULT_SVG };
+    };
+    const modulePath = '../../components/Mermaid.tsx';
+    const first = (await import(`${modulePath}?instance=first`)) as { default: typeof Mermaid };
+    const second = (await import(`${modulePath}?instance=second`)) as { default: typeof Mermaid };
+    const FirstMermaid = first.default;
+    const SecondMermaid = second.default;
+
+    // Act: 各インスタンスで最初の描画を行う（旧実装ではどちらも連番 1 になる）
+    render(
+      <>
+        <FirstMermaid chart="graph TD; A-->B" />
+        <SecondMermaid chart="graph TD; C-->D" />
+      </>,
+    );
+    await waitFor(() => expect(ids).toHaveLength(2));
+
+    // Assert
+    expect(new Set(ids).size).toBe(2);
+  });
+
   it('does not call mermaid.render for an empty chart', async () => {
     let called = false;
     renderImpl = async (id, chart) => {
