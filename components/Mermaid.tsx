@@ -31,6 +31,15 @@ interface MermaidProps {
     chart: string;
 }
 
+// 描画試行ごとに単調増加する連番。採番は同期的に行うため、
+// 同一ミリ秒に並行して始まった描画同士でも ID が衝突しない。
+let renderSequence = 0;
+
+function nextRenderId(): string {
+    renderSequence += 1;
+    return `mermaid-svg-${renderSequence}`;
+}
+
 /**
  * Adjusts a rendered Mermaid SVG for layout and sizing.
  *
@@ -94,7 +103,7 @@ export default function Mermaid({ chart }: MermaidProps) {
                     await document.fonts.ready;
                 }
                 if (!isMounted) return;
-                const id = `mermaid-svg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                const id = nextRenderId();
                 const { svg } = await mermaid.render(id, chart);
                 if (isMounted) setSvgStr(svg);
             } catch (error) {
