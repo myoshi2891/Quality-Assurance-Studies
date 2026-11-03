@@ -26,6 +26,8 @@ export function applyReviewCorrections($: CheerioAPI): void {
         if (node.type !== 'text') return;
         for (const [before, after] of CONFORMITY_CLAIMS) node.data = node.data.replace(before, after);
     });
+    // 横スクロールする表をキーボードで操作できるよう、名前付きのフォーカス可能な領域にする（原本は属性なし）
+    $('main h3[id="61-5特性の早見表"]').nextAll('.table-scroll').first().attr({ 'aria-label': '表：6.1 5特性の早見表', role: 'region', tabindex: '0' });
 }
 
 export const CONFORMITY_CLAIMS = [

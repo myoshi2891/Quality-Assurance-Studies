@@ -8628,7 +8628,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：6.1 5特性の早見表",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -14893,7 +14896,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：6.1 5特性の早見表",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
