@@ -14,4 +14,9 @@ export function applyReviewCorrections($: CheerioAPI): void {
         visible.remove();
         empty.text(href);
     });
+    // 原本に Markdown の強調記法がそのまま残っていた段落（附属書A の導入文）を <strong> として扱う
+    $('main p').each((_, el) => {
+        const inner = $(el).html();
+        if (inner?.includes('**')) $(el).html(inner.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'));
+    });
 }
