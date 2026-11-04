@@ -34,7 +34,18 @@ export function applyReviewCorrections($: CheerioAPI): void {
             .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
             .attr({ 'aria-label': label, role: 'region', tabindex: '0' });
     }
+    // 図はクライアント描画のため、適用フローの全手順と戻りの流れを図の直後に本文としても示す（原本は図のみ）
+    $('main #mmd-10').after(`<ol type="1">${APPLICATION_STEPS.map(step => `<li>${step}</li>`).join('')}</ol>`);
 }
+
+export const APPLICATION_STEPS = [
+    '対象IoTシステムを30141のビューで整理する',
+    '5特性ごとに目標を言語化する',
+    '前提とリスクを洗い出す',
+    '主張・論拠・証拠の対応表を作る',
+    '設計・実装・テストで証拠を作る',
+    '運用で証拠を更新し成熟度を高める。運用で得た結果をもとに手順3へ戻り、前提とリスクを見直す',
+] as const;
 
 export const TABLE_SCROLL_REGIONS = [
     [['箇条', 'タイトル', '内容の概要', '本ガイドの対応Step'], '表：5 規格の全体構成マップ（箇条）'],
