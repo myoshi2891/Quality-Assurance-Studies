@@ -1,4 +1,4 @@
-export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"background":"#0d1b2e","primaryColor":"#e8f0ff","primaryBorderColor":"#3b5bdb","primaryTextColor":"#102a63","lineColor":"#9db4de","secondaryColor":"#0b1a2e","tertiaryColor":"#0d1b2e","clusterBkg":"#0b1a2e","clusterBorder":"#1c3050","edgeLabelBackground":"#0d1b2e","fontFamily":"Noto Sans JP, sans-serif","fontSize":"16px"},"htmlLabels":true,"flowchart":{"curve":"basis"}}}%%`;
+export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"background":"#0d1b2e","mainBkg":"#e8f0ff","primaryColor":"#e8f0ff","primaryBorderColor":"#3b5bdb","primaryTextColor":"#102a63","lineColor":"#9db4de","secondaryColor":"#0b1a2e","tertiaryColor":"#0d1b2e","clusterBkg":"#0b1a2e","clusterBorder":"#1c3050","edgeLabelBackground":"#0d1b2e","fontFamily":"Noto Sans JP, sans-serif","fontSize":"16px"},"htmlLabels":true,"flowchart":{"curve":"basis"}}}%%`;
 export const DIAGRAM_0 = `${MERMAID_CONFIG}
 flowchart LR
 accTitle: ISO/IEC 30141とTS 30149の位置づけ
