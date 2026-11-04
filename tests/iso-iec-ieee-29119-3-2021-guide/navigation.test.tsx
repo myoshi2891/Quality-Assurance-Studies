@@ -3,7 +3,12 @@ import React from 'react';
 import { render, cleanup, fireEvent, act } from '@testing-library/react';
 import inventory from '../../docs/migration-inventory/iso-iec-ieee-29119-3-2021-guide.json';
 import { sourceModule } from '../helpers/source-module';
-afterEach(cleanup);
+// リンククリックやハッシュ同期のテストで残ったハッシュを次のテストへ持ち越さない
+const originalUrl = window.location.href;
+afterEach(() => {
+    cleanup();
+    window.history.replaceState(null, '', originalUrl);
+});
 it('all targets are observed; every heading activates its link; Escape restores focus and unmount disconnects', () => {
     let disconnected = false;
     let callback: IntersectionObserverCallback;
@@ -58,4 +63,51 @@ it('makes the TOC inert only while the mobile sidebar is closed', async () => {
         expect(nav.hasAttribute('inert')).toBe(false);
         view.unmount(); expect(removed).toBe(true);
     } finally { window.matchMedia = original; }
+});
+it('moves the highlight back to the previous heading when the active heading leaves the band downward', () => {
+    let callback: IntersectionObserverCallback;
+    const original = globalThis.IntersectionObserver;
+    globalThis.IntersectionObserver = class {
+        constructor(cb: IntersectionObserverCallback) { callback = cb; }
+        observe() {}
+        disconnect() {}
+    } as unknown as typeof IntersectionObserver;
+    const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
+    const tops = new Map<string, number>();
+    const host = document.createElement('div');
+    const headings = ids.map(id => {
+        const heading = document.createElement('h2');
+        heading.id = id;
+        heading.getBoundingClientRect = () => ({ top: tops.get(id) ?? window.innerHeight * 2 }) as DOMRect;
+        host.append(heading);
+        return heading;
+    });
+    document.body.append(host);
+    try {
+        const Nav = sourceModule('app/iso-iec-ieee-29119-3-2021-guide/NavBar.tsx').default as React.ComponentType;
+        const view = render(<Nav />);
+        const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target');
+        const notify = (el: Element, isIntersecting: boolean) => act(() => callback!([{ target: el, isIntersecting } as IntersectionObserverEntry], {} as IntersectionObserver));
+        const [first, second] = headings as [HTMLElement, HTMLElement];
+
+        // Step 2 の見出しが帯の中、Step 1 は通過済み
+        tops.set(first.id, -500); tops.set(second.id, window.innerHeight * 0.2);
+        notify(second, true);
+        expect(current()).toBe(second.id);
+
+        // 下へ読み進めて見出しが帯の上へ抜けた場合は、その節を読み続けている
+        tops.set(second.id, -100);
+        notify(second, false);
+        expect(current()).toBe(second.id);
+
+        // 上へ戻して見出しが帯の下へ抜けた場合は、直前の節へ戻る
+        tops.set(second.id, window.innerHeight * 0.6);
+        notify(second, false);
+        expect(current()).toBe(first.id);
+
+        // 最初の見出しより上（ヒーロー）へ戻ると、どの節も強調しない
+        tops.set(first.id, window.innerHeight * 0.6);
+        notify(first, false);
+        expect(current()).toBeUndefined();
+    } finally { globalThis.IntersectionObserver = original; host.remove(); }
 });
