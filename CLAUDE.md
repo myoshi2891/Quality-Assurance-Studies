@@ -4,6 +4,16 @@ Updated 2026-11-04
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-04: ISO 29119-3・TS 30149の目次・表領域とダッシュボードのレビュー修正
+
+- 29119-3: 見出しが読み取り帯から出た通知でも、帯の下端より上にある最後の見出しを選び直すよう変更し、上へ戻るときの目次の強調の取り残しを解消。最初の見出しより上では強調を外す。`lib/useScrollSpy.ts`は見出しだけの監視では同じ取り残しが起き、目次クリック後の保留も持たないため不採用。900px超へ広げたら目次を閉じ、モバイル幅へ戻ったときに開いたまま表示されないよう変更。
+- TS 30149: 900px以下の閉じた目次へ`inert`を付与し、閉じた瞬間からフォーカス対象外に変更（ブレークポイントでの閉じる処理も同様）。第1節の表を名前付きのキーボード操作領域に変更。
+- ダッシュボード: Pages Testedの割合を`renderPages()`で算出し、ラベルへ`id="kpi-pages-label"`を付与。
+- テスト: `tests/coverage-dashboard.test.ts`は`path`のレコード単位で集計し、`tested`が不正なら失敗。カードの経路の重複と`e2e/pages.ts`との一致を照合。埋め込みスクリプトを実行して割合の再計算を検証。29119-3はマウント時と`hashchange`のハッシュ同期、進入と退出が同時に来る通知を追加。
+- 見送り: `IntersectionObserver`非対応時のフォールバックは、Next.js 16の対象ブラウザ（Chrome/Edge/Firefox 111、Safari 16.4以上）がすべて対応しており到達しないため追加せず。
+- 検証: 全体9925件（209ファイル）、29119-3対象263件、TS 30149対象268件、lintが成功。Chrome72件はシステムChrome 156（`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定）で成功。バンドル版`chromium-1223`では`iso-30149`の8件が表の罫線色の差で失敗。390px・CSS先読みの1ケースは変更前の`NavBar.tsx`でも差分が同一で、全幅の比較と原因の特定は未実施。本番ビルドは未実施。
+- 手順違反の記録: 割合のRed`0e2273e7`は`DOMContentLoaded`を発火せず、`renderPages()`が動かないまま失敗していた。Green`3604f4fa`はテスト失敗のままコミットした（成否をコミットの条件にしていなかった）。履歴を書き換えず`df949aa8`でテストを修正し、JSを外すと失敗することを確認。第1節のRed`d2c41026`はインベントリの更新が漏れたため`b5364b2c`で補い、以後はテスト成否をコミットの条件にした。
+
 ## 2026-11-04: ISO 29119-3・TS 30149のキーボード操作レビュー修正
 
 - 29119-3: 全39表を名前付きのキーボード操作領域にし、`.table-scroll:focus-visible`の輪郭を追加。900px以下の閉じた目次へ`inert`を付与し、閉じた瞬間からフォーカス対象外に変更。
@@ -231,7 +241,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9919 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9925 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1257,12 +1267,12 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ts-30149-2024-guide/page.tsx` / 同名CSS — ヒーロー・本文15カテゴリー・フッター、原本の79 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Checklist.tsx` / `diagrams.ts` — 階層目次33リンク・進捗7項目・共有Mermaid11図。
-- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの267契約。
+- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの268契約。
 - `e2e/iso-30149-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-30149`） — ビルド・サーバー不要の35検証。
 
 ## ISO/IEC/IEEE 29119-3:2021の構成（2026-11-03）
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx` / 同名CSS — 導入・Step 0〜14・参考資料の17カテゴリー、原本の47 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
-- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの260契約。
+- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの263契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。
