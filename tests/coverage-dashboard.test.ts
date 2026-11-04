@@ -61,6 +61,21 @@ describe('coverage dashboard static totals', () => {
         expect($('#mc-scope').text()).toMatch(new RegExp(`\\b${total} pages?\\b`));
         expect($('#kpi-pages-tested').text()).toBe(`${tested}/ ${total}`);
         expect($('#kpi-pages-desc-count').text()).toBe(String(total));
+        expect($('#kpi-pages-label').text()).toBe(`Pages Tested · ${Math.round((tested / total) * 100)}%`);
+    });
+
+    it('recalculates the page percentage from the embedded data when rendering', () => {
+        const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+        if (!script) throw new Error('埋め込みスクリプトが見つからない');
+        const body = html.match(/<body[^>]*>([\s\S]*)<\/body>/)?.[1];
+        if (!body) throw new Error('body が見つからない');
+        const { total, tested } = pageCounts();
+        document.body.innerHTML = body.replace(/<script>[\s\S]*?<\/script>/, '');
+        // 1 件を未テストにして実スクリプトを動かし、静的な値のままなら失敗させる
+        new Function(script.replace('tested: true', 'tested: false'))();
+        const label = document.getElementById('kpi-pages-label')?.textContent;
+        document.body.innerHTML = '';
+        expect(label).toBe(`Pages Tested · ${Math.round(((tested - 1) / total) * 100)}%`);
     });
 
     // カードは DATA.pages から描画されるため、欠落・重複があればルート一覧との差として検出する
