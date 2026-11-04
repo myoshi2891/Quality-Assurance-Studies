@@ -111,3 +111,27 @@ it('moves the highlight back to the previous heading when the active heading lea
         expect(current()).toBeUndefined();
     } finally { globalThis.IntersectionObserver = original; host.remove(); }
 });
+it('closes the mobile sidebar when the viewport leaves the breakpoint so it stays closed on return', async () => {
+    const original = window.matchMedia;
+    let handler: (() => void) | undefined;
+    const query = { matches: true, addEventListener: (_: string, fn: () => void) => { handler = fn; }, removeEventListener: () => {} };
+    window.matchMedia = (() => query) as unknown as typeof window.matchMedia;
+    try {
+        const Nav = sourceModule('app/iso-iec-ieee-29119-3-2021-guide/NavBar.tsx').default as React.ComponentType;
+        const view = render(<Nav />);
+        const nav = view.container.querySelector('nav')!;
+        const button = view.getByRole('button');
+        fireEvent.click(button);
+        expect(button.getAttribute('aria-expanded')).toBe('true');
+
+        query.matches = false;
+        await act(async () => { handler?.(); });
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(nav.classList.contains('open')).toBe(false);
+
+        query.matches = true;
+        await act(async () => { handler?.(); });
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(nav.hasAttribute('inert')).toBe(true);
+    } finally { window.matchMedia = original; }
+});
