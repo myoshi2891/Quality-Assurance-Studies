@@ -18,7 +18,7 @@ export default function Category6() {
 {" "}
 <h3 id="62-reliabilityとresilienceの違い初学者がつまずく点">{" 6.2 ReliabilityとResilienceの違い（初学者がつまずく点） "}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"観点"}</th><th>{"Reliability"}</th><th>{"Resilience"}</th></tr></thead><tbody><tr className="odd"><td>{"定義の軸"}</td><td>{" "}<strong>{"定められた条件"}</strong>{"のもとで、"}<strong>{"定められた期間"}</strong>{"、機能を果たすこと "}</td><td>{" 混乱を引き起こす事象（disruptive events）に"}<strong>{"抵抗し、適応し、回復する"}</strong>{"こと "}</td></tr><tr className="even"><td>{"目的"}</td><td>{"必要な機能を所定の期間果たし続ける"}</td><td>{"混乱の影響を抑え、サービスを保ち、回復させる"}</td></tr><tr className="odd"><td>{"例"}</td><td>{"規定温度範囲での所定期間の稼働"}</td><td>{"地震・停電・攻撃の最中の縮退運転と、その後の復旧"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：6.2 ReliabilityとResilienceの違い" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"観点"}</th><th>{"Reliability"}</th><th>{"Resilience"}</th></tr></thead><tbody><tr className="odd"><td>{"定義の軸"}</td><td>{" "}<strong>{"定められた条件"}</strong>{"のもとで、"}<strong>{"定められた期間"}</strong>{"、機能を果たすこと "}</td><td>{" 混乱を引き起こす事象（disruptive events）に"}<strong>{"抵抗し、適応し、回復する"}</strong>{"こと "}</td></tr><tr className="even"><td>{"目的"}</td><td>{"必要な機能を所定の期間果たし続ける"}</td><td>{"混乱の影響を抑え、サービスを保ち、回復させる"}</td></tr><tr className="odd"><td>{"例"}</td><td>{"規定温度範囲での所定期間の稼働"}</td><td>{"地震・停電・攻撃の最中の縮退運転と、その後の復旧"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <div className="callout callout-warn">{" "}<p>{" 注: 「想定内か想定外か」だけで区別するのは不正確です。Resilience が扱う事象には、あらかじめ想定して備えておくものも含まれます。 "}</p>{" "}</div>
 {" "}
