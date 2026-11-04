@@ -4,6 +4,13 @@ Updated 2026-11-04
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-04: ISO 29119-3・TS 30149のキーボード操作レビュー修正
+
+- 29119-3: 全39表を名前付きのキーボード操作領域にし、`.table-scroll:focus-visible`の輪郭を追加。900px以下の閉じた目次へ`inert`を付与し、閉じた瞬間からフォーカス対象外に変更。
+- TS 30149: 箇条11の表を名前付きのキーボード操作領域に変更。`review-corrections.ts`で表領域の補正を附属書Aのセル名補正の後へ移し、補正後の原本とページの領域一覧を比較するテストを追加。
+- テスト: ダッシュボードの静的なページ数（`#mc-scope`・`#kpi-pages-tested`・`#kpi-pages-desc-count`）を埋め込み`pages`と照合。チェックリストの進捗がカード間で独立することを検証。
+- 検証: 全体9919件（209ファイル）、29119-3対象260件、TS 30149対象267件、Chrome72件、lintが成功。`e2e/mermaid-layout.e2e.ts`は2ガイドを開発サーバーで再確認。本番ビルドは未実施。
+
 ## 2026-11-04: ISO 29119-3・TS 30149の追加レビュー修正
 
 - 29119-3: Q4を「別文書での管理が必須か」を問う形へ修正。依存関係図のインシデント接続を条件付きに変更し、`accDescr`も同期。Step 11の表と判断フローへ、リスクを考慮したテーラリング決定の記録とステークホルダーの合意を追加。学習ロードマップの表へ段階6・7を追加。
@@ -663,7 +670,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9914件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9919件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。

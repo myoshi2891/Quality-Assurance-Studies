@@ -4,6 +4,13 @@ Updated 2026-11-04
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-04: ISO 29119-3・TS 30149のキーボード操作レビュー修正
+
+- 29119-3: 全39表を名前付きのキーボード操作領域にし、`.table-scroll:focus-visible`の輪郭を追加。900px以下の閉じた目次へ`inert`を付与し、閉じた瞬間からフォーカス対象外に変更。
+- TS 30149: 箇条11の表を名前付きのキーボード操作領域に変更。`review-corrections.ts`で表領域の補正を附属書Aのセル名補正の後へ移し、補正後の原本とページの領域一覧を比較するテストを追加。
+- テスト: ダッシュボードの静的なページ数（`#mc-scope`・`#kpi-pages-tested`・`#kpi-pages-desc-count`）を埋め込み`pages`と照合。チェックリストの進捗がカード間で独立することを検証。
+- 検証: 全体9919件（209ファイル）、29119-3対象260件、TS 30149対象267件、Chrome72件、lintが成功。`e2e/mermaid-layout.e2e.ts`は2ガイドを開発サーバーで再確認。本番ビルドは未実施。
+
 ## 2026-11-04: ISO 29119-3・TS 30149の追加レビュー修正
 
 - 29119-3: Q4を「別文書での管理が必須か」を問う形へ修正。依存関係図のインシデント接続を条件付きに変更し、`accDescr`も同期。Step 11の表と判断フローへ、リスクを考慮したテーラリング決定の記録とステークホルダーの合意を追加。学習ロードマップの表へ段階6・7を追加。
@@ -224,7 +231,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9914 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9919 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1250,12 +1257,12 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ts-30149-2024-guide/page.tsx` / 同名CSS — ヒーロー・本文15カテゴリー・フッター、原本の79 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Checklist.tsx` / `diagrams.ts` — 階層目次33リンク・進捗7項目・共有Mermaid11図。
-- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの265契約。
+- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの267契約。
 - `e2e/iso-30149-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-30149`） — ビルド・サーバー不要の35検証。
 
 ## ISO/IEC/IEEE 29119-3:2021の構成（2026-11-03）
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx` / 同名CSS — 導入・Step 0〜14・参考資料の17カテゴリー、原本の47 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
-- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの258契約。
+- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの260契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。
