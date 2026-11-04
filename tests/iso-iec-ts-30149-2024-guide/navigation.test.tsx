@@ -28,6 +28,13 @@ it('all targets are observed; every heading activates its link; Escape restores 
             act(() => callback!([{ target: el, isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver));
             expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target')).toBe(el.id);
         }
+        // 1 回の通知に隣接する見出しが並ぶ場合は、帯の中にある最後の見出しを選ぶ
+        act(() => callback!([
+            { target: observed[2]!, isIntersecting: true },
+            { target: observed[3]!, isIntersecting: true },
+            { target: observed[4]!, isIntersecting: false },
+        ] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
+        expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target')).toBe(observed[3]!.id);
         fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true');
         fireEvent.keyDown(document, { key: 'Escape' }); expect(button.getAttribute('aria-expanded')).toBe('false');
         expect(document.activeElement).toBe(button);
