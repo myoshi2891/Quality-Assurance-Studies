@@ -135,3 +135,16 @@ it('closes the mobile sidebar when the viewport leaves the breakpoint so it stay
         expect(nav.hasAttribute('inert')).toBe(true);
     } finally { window.matchMedia = original; }
 });
+it('syncs the active link with the location hash on mount and on hashchange', () => {
+    const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
+    const [mounted, changed] = ids as [string, string];
+    window.history.replaceState(null, '', `#${encodeURIComponent(mounted)}`);
+    const Nav = sourceModule('app/iso-iec-ieee-29119-3-2021-guide/NavBar.tsx').default as React.ComponentType;
+    const view = render(<Nav />);
+    const current = () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target');
+    expect(current()).toBe(mounted);
+
+    window.history.replaceState(null, '', `#${encodeURIComponent(changed)}`);
+    act(() => { window.dispatchEvent(new HashChangeEvent('hashchange')); });
+    expect(current()).toBe(changed);
+});
