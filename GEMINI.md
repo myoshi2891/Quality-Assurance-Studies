@@ -4,6 +4,19 @@ Updated 2026-11-04
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-04: ISO 29119-3・TS 30149の追加レビュー修正
+
+- 29119-3: Q4を「別文書での管理が必須か」を問う形へ修正。依存関係図のインシデント接続を条件付きに変更し、`accDescr`も同期。Step 11の表と判断フローへ、リスクを考慮したテーラリング決定の記録とステークホルダーの合意を追加。学習ロードマップの表へ段階6・7を追加。
+- 29119-3: 図コンテナを`tabIndex={0}`にし、Safariのキーボード操作でも横スクロール可能に。900px以下の見出し余白を`120px + バナー高さ`へ変更し、固定の目次ボタンの下へ着地することをE2Eで実測比較。
+- TS 30149: 箇条5の表でTable A.1を実装アーキテクチャの関心事、A.2〜A.6を雛形として区別。6.2・箇条7・7.1・箇条9の表を名前付きのキーボード操作領域に変更。ページ末尾で最後の目次項目を選択（目次クリック後の保留を優先）。
+- 共有Mermaid: `moduleSessionId`をUUID全体に変更し、`crypto.randomUUID`がない場合のフォールバックもインスタンス間の一意性を検証。
+- テスト: `sourceModule`へ`onMermaidChart`を追加し、`Diagram`から共有レンダラーへ渡るchartを検証。30149のE2Eは実物の`applySvgFixups`を実行。`tests/coverage-dashboard.test.ts`は6グループの静的件数まで照合。ナビ登録は全項目を照合。
+- `e2e/mermaid-layout.e2e.ts`の手動一覧を廃止し、`page.tsx`からの相対importを辿って94ルートを導出。`"theme":"base"`でも文字色が明るい配色はライト配色の検査対象から除外。
+- 検証: 全体9902件（209ファイル）、29119-3対象258件、TS 30149対象265件、Chrome72件、lint、変更ファイルの型検査が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功。本番ビルドでの実行は未実施。
+- 既知の未修正: `/perfect-software-guide`の図1、`/software-testing-with-generative-ai-guide`の図1、`/istqb-ctel-tm-otm-complete-guide`の図3で左端切れを検出（順に-29px・-331px・-70px）。いずれも既存ルートで今回の修正範囲外。
+- 開発サーバーで同テストを流す場合は`bun run dev --hostname 127.0.0.1`で起動する（`baseURL`が`127.0.0.1`のため、未指定では開発用リソースが遮断され図が描画されない）。多数のルートを続けて開くと`.next`とメモリが膨らむため、少数ずつサーバーと`.next`を入れ替えて実行する。
+- 手順違反の記録: 6.2の表はRedコミットが失敗した状態でGreenの`7a580ce6`が先行した。ユーザーへ報告し、承認を得て履歴を書き換えず`1ffb5195`で仕様を追加。Q4と依存関係図のRedはコミット時にテスト未実行で、直後に失敗を確認。
+
 ## 2026-11-04: ISO 29119-3・TS 30149のレビュー修正
 
 - 29119-3の図9（2013年版と2021年版の比較）と図12（学習ロードマップ全7段階）へ`accTitle`・`accDescr`を追加。
@@ -648,7 +661,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9892件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9902件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。

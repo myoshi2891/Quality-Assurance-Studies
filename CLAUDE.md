@@ -4,6 +4,19 @@ Updated 2026-11-04
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-04: ISO 29119-3・TS 30149の追加レビュー修正
+
+- 29119-3: Q4を「別文書での管理が必須か」を問う形へ修正。依存関係図のインシデント接続を条件付きに変更し、`accDescr`も同期。Step 11の表と判断フローへ、リスクを考慮したテーラリング決定の記録とステークホルダーの合意を追加。学習ロードマップの表へ段階6・7を追加。
+- 29119-3: 図コンテナを`tabIndex={0}`にし、Safariのキーボード操作でも横スクロール可能に。900px以下の見出し余白を`120px + バナー高さ`へ変更し、固定の目次ボタンの下へ着地することをE2Eで実測比較。
+- TS 30149: 箇条5の表でTable A.1を実装アーキテクチャの関心事、A.2〜A.6を雛形として区別。6.2・箇条7・7.1・箇条9の表を名前付きのキーボード操作領域に変更。ページ末尾で最後の目次項目を選択（目次クリック後の保留を優先）。
+- 共有Mermaid: `moduleSessionId`をUUID全体に変更し、`crypto.randomUUID`がない場合のフォールバックもインスタンス間の一意性を検証。
+- テスト: `sourceModule`へ`onMermaidChart`を追加し、`Diagram`から共有レンダラーへ渡るchartを検証。30149のE2Eは実物の`applySvgFixups`を実行。`tests/coverage-dashboard.test.ts`は6グループの静的件数まで照合。ナビ登録は全項目を照合。
+- `e2e/mermaid-layout.e2e.ts`の手動一覧を廃止し、`page.tsx`からの相対importを辿って94ルートを導出。`"theme":"base"`でも文字色が明るい配色はライト配色の検査対象から除外。
+- 検証: 全体9902件（209ファイル）、29119-3対象258件、TS 30149対象265件、Chrome72件、lint、変更ファイルの型検査が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功。本番ビルドでの実行は未実施。
+- 既知の未修正: `/perfect-software-guide`の図1、`/software-testing-with-generative-ai-guide`の図1、`/istqb-ctel-tm-otm-complete-guide`の図3で左端切れを検出（順に-29px・-331px・-70px）。いずれも既存ルートで今回の修正範囲外。
+- 開発サーバーで同テストを流す場合は`bun run dev --hostname 127.0.0.1`で起動する（`baseURL`が`127.0.0.1`のため、未指定では開発用リソースが遮断され図が描画されない）。多数のルートを続けて開くと`.next`とメモリが膨らむため、少数ずつサーバーと`.next`を入れ替えて実行する。
+- 手順違反の記録: 6.2の表はRedコミットが失敗した状態でGreenの`7a580ce6`が先行した。ユーザーへ報告し、承認を得て履歴を書き換えず`1ffb5195`で仕様を追加。Q4と依存関係図のRedはコミット時にテスト未実行で、直後に失敗を確認。
+
 ## 2026-11-04: ISO 29119-3・TS 30149のレビュー修正
 
 - 29119-3の図9（2013年版と2021年版の比較）と図12（学習ロードマップ全7段階）へ`accTitle`・`accDescr`を追加。
@@ -209,7 +222,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9892 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9902 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1235,12 +1248,12 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ts-30149-2024-guide/page.tsx` / 同名CSS — ヒーロー・本文15カテゴリー・フッター、原本の79 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Checklist.tsx` / `diagrams.ts` — 階層目次33リンク・進捗7項目・共有Mermaid11図。
-- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの275契約。
+- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの265契約。
 - `e2e/iso-30149-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-30149`） — ビルド・サーバー不要の35検証。
 
 ## ISO/IEC/IEEE 29119-3:2021の構成（2026-11-03）
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx` / 同名CSS — 導入・Step 0〜14・参考資料の17カテゴリー、原本の47 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
-- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの257契約。
+- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの258契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。
