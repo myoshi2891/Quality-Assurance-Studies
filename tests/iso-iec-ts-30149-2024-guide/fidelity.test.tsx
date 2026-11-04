@@ -23,6 +23,14 @@ it('preserves every text block including whitespace between inline elements', ()
     const selector = 'main h1,main h2,main h3,main h4,main p,main li,main td,main th,main footer,main label,main summary,.meta-item';
     expect(current(selector).toArray().map(el => normal(current(el).text()))).toEqual(original(selector).toArray().map(el => normal(original(el).text())));
 });
+it('gives the reviewed source the same named table regions as the page', () => {
+    const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
+    const original = load(readFileSync('archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html', 'utf8'));
+    applyReviewCorrections(original);
+    const current = load(renderToString(<Page />));
+    const regions = ($: typeof current) => $('main .table-scroll[role="region"]').toArray().map(el => [$(el).attr('aria-label'), $(el).attr('tabindex')]);
+    expect(regions(original)).toEqual(regions(current));
+});
 it('hydrates without recoverable errors or DOM warnings and attaches checklist events', async () => {
     const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
     const host = document.createElement('div');

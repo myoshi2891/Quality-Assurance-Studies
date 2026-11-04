@@ -28,18 +28,18 @@ export function applyReviewCorrections($: CheerioAPI): void {
     });
     // 横スクロールする表をキーボードで操作できるよう、名前付きのフォーカス可能な領域にする（原本は属性なし）
     $('main h3[id="61-5特性の早見表"]').nextAll('.table-scroll').first().attr({ 'aria-label': '表：6.1 5特性の早見表', role: 'region', tabindex: '0' });
-    // 箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定する）
-    for (const [headers, label] of TABLE_SCROLL_REGIONS) {
-        $('main .table-scroll')
-            .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
-            .attr({ 'aria-label': label, role: 'region', tabindex: '0' });
-    }
     // 附属書Aの A.1・A.2 はパターンではなく、Table A.1 も関心事の表なので、パターンと読める見出し・セルを改める
     $('main th, main td').each((_, el) => {
         const cell = $(el);
         const corrected = ANNEX_A_CELLS[cell.text().trim()];
         if (corrected) cell.text(corrected);
     });
+    // 箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定するため、セル名の補正より後に行う）
+    for (const [headers, label] of TABLE_SCROLL_REGIONS) {
+        $('main .table-scroll')
+            .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
+            .attr({ 'aria-label': label, role: 'region', tabindex: '0' });
+    }
     // 図はクライアント描画のため、適用フローの全手順と戻りの流れを図の直後に本文としても示す（原本は図のみ）
     $('main #mmd-10').after(`<ol type="1">${APPLICATION_STEPS.map(step => `<li>${step}</li>`).join('')}</ol>`);
 }
