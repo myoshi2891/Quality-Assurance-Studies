@@ -39,3 +39,23 @@ it('all targets are observed; every heading activates its link; Escape restores 
         view.unmount(); expect(disconnected).toBe(true);
     } finally { globalThis.IntersectionObserver = original; host.remove(); }
 });
+it('makes the TOC inert only while the mobile sidebar is closed', async () => {
+    const original = window.matchMedia;
+    let handler: (() => void) | undefined;
+    let removed = false;
+    const query = { matches: true, addEventListener: (_: string, fn: () => void) => { handler = fn; }, removeEventListener: () => { removed = true; } };
+    window.matchMedia = (() => query) as unknown as typeof window.matchMedia;
+    try {
+        const Nav = sourceModule('app/iso-iec-ieee-29119-3-2021-guide/NavBar.tsx').default as React.ComponentType;
+        const view = render(<Nav />);
+        const nav = view.container.querySelector('nav')!;
+        const button = view.getByRole('button');
+        expect(nav.hasAttribute('inert')).toBe(true);
+        fireEvent.click(button); expect(nav.hasAttribute('inert')).toBe(false);
+        fireEvent.keyDown(document, { key: 'Escape' }); expect(nav.hasAttribute('inert')).toBe(true);
+        query.matches = false;
+        await act(async () => { handler?.(); });
+        expect(nav.hasAttribute('inert')).toBe(false);
+        view.unmount(); expect(removed).toBe(true);
+    } finally { window.matchMedia = original; }
+});
