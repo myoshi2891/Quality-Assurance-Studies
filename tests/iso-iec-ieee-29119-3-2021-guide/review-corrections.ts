@@ -25,6 +25,8 @@ export function applyReviewCorrections($: CheerioAPI): void {
     $('main details').contents().each((_, node) => {
         if (node.type === 'text') node.data = node.data.replace('いいえ。テスト計画の一部です。', STRATEGY_ANSWER);
     });
+    // テーラード適合の要約に、理由だけでなく決定の記録とステークホルダーの合意も含める（Step 3・Q3 の説明と揃える）
+    $('main td').filter((_, el) => $(el).text().trim() === TAILORED_ROW_BEFORE).text(TAILORED_ROW);
     // 答えの「別文書で管理してもよい」と矛盾しないよう、Q4 を別文書での管理が必須かどうかを問う形に改める
     $('main p').contents().each((_, node) => {
         if (node.type === 'text') node.data = node.data.replace(STRATEGY_QUESTION_BEFORE, STRATEGY_QUESTION);
@@ -42,3 +44,6 @@ export const LOGIN_TEST_CASES = [
     ['同値分割（ログイン時のパスワード）', '登録済みパスワードと一致（有効）', '正しいIDとパスワードでログイン', 'ログイン成功（ログイン中へ遷移）'],
     ['同値分割（ログイン時のパスワード）', '登録済みパスワードと不一致（無効）', '失敗回数0の状態で誤ったパスワードでログイン', '認証エラー表示（未ログインのまま、失敗回数+1）'],
 ] as const;
+
+export const TAILORED_ROW_BEFORE = '使う文書を選び、外した理由を示す（テーラード適合）';
+export const TAILORED_ROW = '使う文書を選び、外した理由を示し、すべてのテーラリング決定をリスクを考慮した根拠とともに記録して、関係するステークホルダーの合意を得る（テーラード適合）';
