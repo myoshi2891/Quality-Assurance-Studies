@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 /**
  * Mermaid 図の「実際に描画された結果」を検証する E2E。
@@ -28,37 +28,45 @@ interface MermaidRoute {
 }
 
 const LIGHT_THEME_PATTERN = /"theme"\s*:\s*"base"/;
+/** base テーマでも文字色が明るければ暗い配色のページであり、ライト配色の検査対象にしない。 */
+const DARK_PALETTE_PATTERN = /"primaryTextColor"\s*:\s*"#[c-f]/i;
 
-/** page.tsx が直接 import せず、ページ固有の Diagram やカテゴリー別ファイル経由で共有 Mermaid を使うルート。 */
-const INDIRECT_MERMAID_GUIDES = ['iso-iec-ieee-29119-3-2021-guide', 'iso-iec-ts-30149-2024-guide'] as const;
+const RELATIVE_IMPORT_PATTERN = /(?:from\s+|import\s*\(?\s*)['"](\.{1,2}\/[^'"]+)['"]/g;
 
-function indirectMermaidRoutes(): MermaidRoute[] {
-    return INDIRECT_MERMAID_GUIDES.map((guide) => ({
-        path: `/${guide}`,
-        expectsLightTheme: LIGHT_THEME_PATTERN.test(readFileSync(join(APP_DIR, guide, 'diagrams.ts'), 'utf8')),
-    }));
+/** page.tsx から相対 import で到達できるソースを集める。図はカテゴリー別ファイルやページ固有の Diagram 経由で描画されることがある。 */
+function reachableSources(pagePath: string): string[] {
+    const sources = new Map<string, string>();
+    const visit = (file: string): void => {
+        if (sources.has(file)) return;
+        const source = readFileSync(file, 'utf8');
+        sources.set(file, source);
+        for (const [, specifier] of source.matchAll(RELATIVE_IMPORT_PATTERN)) {
+            const target = ['.tsx', '.ts'].map((ext) => resolve(dirname(file), specifier + ext)).find(existsSync);
+            if (target) visit(target);
+        }
+    };
+    visit(pagePath);
+    return [...sources.values()];
 }
 
-/** components/Mermaid を使うページを app/ から収集する。 */
+/** components/Mermaid へ到達するページを app/ から収集する。 */
 function mermaidRoutes(): MermaidRoute[] {
     const routes: MermaidRoute[] = [];
     for (const entry of readdirSync(APP_DIR, { withFileTypes: true })) {
         if (!entry.isDirectory()) continue;
         const pagePath = join(APP_DIR, entry.name, 'page.tsx');
         if (!existsSync(pagePath)) continue;
-        const source = readFileSync(pagePath, 'utf8');
-        if (!source.includes('components/Mermaid')) continue;
+        const sources = reachableSources(pagePath);
+        if (!sources.some((source) => source.includes('components/Mermaid'))) continue;
         routes.push({
             path: `/${entry.name}`,
-            expectsLightTheme: LIGHT_THEME_PATTERN.test(source),
+            expectsLightTheme: sources.some((source) => LIGHT_THEME_PATTERN.test(source) && !DARK_PALETTE_PATTERN.test(source)),
         });
     }
     return routes;
 }
 
-const ROUTES = [
-    ...new Map([...mermaidRoutes(), ...indirectMermaidRoutes()].map((route) => [route.path, route])).values(),
-];
+const ROUTES = mermaidRoutes();
 
 test.describe('mermaid: rendered layout and theme', () => {
     for (const route of ROUTES) {
