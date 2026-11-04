@@ -83,3 +83,30 @@ it('activates the final TOC entry at the page bottom unless a TOC jump is still 
         }
     }
 });
+it('makes the TOC inert while the mobile sidebar is closed and resets it at the breakpoint', async () => {
+    const original = window.matchMedia;
+    let handler: (() => void) | undefined;
+    let removed = false;
+    const query = { matches: true, addEventListener: (_: string, fn: () => void) => { handler = fn; }, removeEventListener: () => { removed = true; } };
+    window.matchMedia = (() => query) as unknown as typeof window.matchMedia;
+    try {
+        const Nav = sourceModule('app/iso-iec-ts-30149-2024-guide/NavBar.tsx').default as React.ComponentType;
+        const view = render(<Nav />);
+        const aside = view.container.querySelector('aside')!;
+        const button = view.getByRole('button');
+        expect(aside.hasAttribute('inert')).toBe(true);
+        fireEvent.click(button); expect(aside.hasAttribute('inert')).toBe(false);
+        fireEvent.keyDown(document, { key: 'Escape' }); expect(aside.hasAttribute('inert')).toBe(true);
+
+        fireEvent.click(button);
+        query.matches = false;
+        await act(async () => { handler?.(); });
+        expect(aside.hasAttribute('inert')).toBe(false);
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+
+        query.matches = true;
+        await act(async () => { handler?.(); });
+        expect(aside.hasAttribute('inert')).toBe(true);
+        view.unmount(); expect(removed).toBe(true);
+    } finally { window.matchMedia = original; }
+});
