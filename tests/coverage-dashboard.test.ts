@@ -8,6 +8,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null;
 }
 
+/** 埋め込みの pages 配列から全ページ数とテスト済みページ数を求める。 */
+function pageCounts(): { total: number; tested: number } {
+    const block = html.match(/const pages = \[([\s\S]*?)\n\];/)?.[1];
+    if (!block) throw new Error('pages 配列が見つからない');
+    const flags = [...block.matchAll(/\btested:\s*(true|false)/g)].map((match) => match[1]);
+    return { total: flags.length, tested: flags.filter((flag) => flag === 'true').length };
+}
+
 /** 埋め込みデータからグループごとのファイル数を求める。 */
 function inventoryCounts(): Record<string, number> {
     const block = html.match(/inventory:\s*(\{[\s\S]*?\n\})/)?.[1];
@@ -29,6 +37,15 @@ describe('coverage dashboard static totals', () => {
     it.each(['#kpi-total-files', '#inv-total'])('%s matches the embedded inventory', (selector) => {
         const $ = load(html);
         expect($(selector).text()).toBe(`${inventoryTotal()}${selector === '#inv-total' ? ' ' : ''}files`);
+    });
+
+    it('keeps the static page figures in step with the embedded pages array', () => {
+        const $ = load(html);
+        const { total, tested } = pageCounts();
+        expect(total).toBeGreaterThan(0);
+        expect($('#mc-scope').text()).toMatch(new RegExp(`\\b${total} pages?\\b`));
+        expect($('#kpi-pages-tested').text()).toBe(`${tested}/ ${total}`);
+        expect($('#kpi-pages-desc-count').text()).toBe(String(total));
     });
 
     it.each(['pages', 'components', 'lib', 'scripts', 'e2e', 'tooling'])('#inv-count-%s matches its embedded group', (group) => {
