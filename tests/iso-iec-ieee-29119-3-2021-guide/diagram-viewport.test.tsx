@@ -27,6 +27,8 @@ it('watches replacement SVGs and shared viewport updates, then disconnects on un
         const view=render(<Diagram chart="flowchart LR\nA --> B" id="mermaid-diagram-1" diagramKey="mm1" />);
         const container=view.container.querySelector('.mermaid-container')!;
         expect(target).toBe(container);
+        // Safari は overflow 要素を自動でフォーカス対象にしないため、横スクロールできるよう明示する
+        expect(container.getAttribute('tabindex')).toBe('0');
         expect(options).toEqual({childList:true,subtree:true,attributes:true,attributeFilter:['viewBox','style']});
         for (const height of [239,400]) {
             container.querySelector('.mermaid-wrapper')!.innerHTML=`<svg viewBox="0 15 1024.8125 ${height+15}" style="margin-bottom:10px"></svg>`;
