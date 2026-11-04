@@ -34,9 +34,22 @@ export function applyReviewCorrections($: CheerioAPI): void {
             .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
             .attr({ 'aria-label': label, role: 'region', tabindex: '0' });
     }
+    // 附属書Aの A.1・A.2 はパターンではなく、Table A.1 も関心事の表なので、パターンと読める見出し・セルを改める
+    $('main th, main td').each((_, el) => {
+        const cell = $(el);
+        const corrected = ANNEX_A_CELLS[cell.text().trim()];
+        if (corrected) cell.text(corrected);
+    });
     // 図はクライアント描画のため、適用フローの全手順と戻りの流れを図の直後に本文としても示す（原本は図のみ）
     $('main #mmd-10').after(`<ol type="1">${APPLICATION_STEPS.map(step => `<li>${step}</li>`).join('')}</ol>`);
 }
+
+export const ANNEX_A_CELLS: Readonly<Record<string, string>> = {
+    'パターン名': '節の名称',
+    'Relation with ISO/IEC 30141': 'Relation with ISO/IEC 30141（パターンではない節）',
+    'Concerns': 'Concerns（パターンではない節）',
+    '附属書Aの各パターン表': '附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）',
+};
 
 export const APPLICATION_STEPS = [
     '対象IoTシステムを30141のビューで整理する',

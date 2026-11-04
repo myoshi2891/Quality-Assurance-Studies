@@ -2534,7 +2534,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "附属書Aの各パターン表"
+                        "附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）"
                       ]
                     },
                     {
@@ -3727,7 +3727,7 @@
                       "tag": "th",
                       "attrs": {},
                       "children": [
-                        "パターン名"
+                        "節の名称"
                       ]
                     },
                     {
@@ -3769,7 +3769,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "Relation with ISO/IEC 30141"
+                        "Relation with ISO/IEC 30141（パターンではない節）"
                       ]
                     },
                     {
@@ -3805,7 +3805,7 @@
                       "tag": "td",
                       "attrs": {},
                       "children": [
-                        "Concerns"
+                        "Concerns（パターンではない節）"
                       ]
                     },
                     {
@@ -8571,7 +8571,7 @@
                           "tag": "td",
                           "attrs": {},
                           "children": [
-                            "附属書Aの各パターン表"
+                            "附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）"
                           ]
                         },
                         {
@@ -10232,7 +10232,7 @@
                           "tag": "th",
                           "attrs": {},
                           "children": [
-                            "パターン名"
+                            "節の名称"
                           ]
                         },
                         {
@@ -10274,7 +10274,7 @@
                           "tag": "td",
                           "attrs": {},
                           "children": [
-                            "Relation with ISO/IEC 30141"
+                            "Relation with ISO/IEC 30141（パターンではない節）"
                           ]
                         },
                         {
@@ -10310,7 +10310,7 @@
                           "tag": "td",
                           "attrs": {},
                           "children": [
-                            "Concerns"
+                            "Concerns（パターンではない節）"
                           ]
                         },
                         {
@@ -14912,7 +14912,7 @@
                         "tag": "td",
                         "attrs": {},
                         "children": [
-                          "附属書Aの各パターン表"
+                          "附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）"
                         ]
                       },
                       {
@@ -16581,7 +16581,7 @@
                         "tag": "th",
                         "attrs": {},
                         "children": [
-                          "パターン名"
+                          "節の名称"
                         ]
                       },
                       {
@@ -16623,7 +16623,7 @@
                         "tag": "td",
                         "attrs": {},
                         "children": [
-                          "Relation with ISO/IEC 30141"
+                          "Relation with ISO/IEC 30141（パターンではない節）"
                         ]
                       },
                       {
@@ -16659,7 +16659,7 @@
                         "tag": "td",
                         "attrs": {},
                         "children": [
-                          "Concerns"
+                          "Concerns（パターンではない節）"
                         ]
                       },
                       {
