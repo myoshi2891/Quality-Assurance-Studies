@@ -16,9 +16,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - TS 30149: 箇条5の表でTable A.1を実装アーキテクチャの関心事、A.2〜A.6を雛形として区別。6.2・箇条7・7.1・箇条9の表を名前付きのキーボード操作領域に変更。ページ末尾で最後の目次項目を選択（目次クリック後の保留を優先）。
 - 共有Mermaid: `moduleSessionId`をUUID全体に変更し、`crypto.randomUUID`がない場合のフォールバックもインスタンス間の一意性を検証。
 - テスト: `sourceModule`へ`onMermaidChart`を追加し、`Diagram`から共有レンダラーへ渡るchartを検証。30149のE2Eは実物の`applySvgFixups`を実行。`tests/coverage-dashboard.test.ts`は6グループの静的件数まで照合。ナビ登録は全項目を照合。
-- `e2e/mermaid-layout.e2e.ts`の手動一覧を廃止し、`page.tsx`からの相対importを辿って94ルートを導出。`"theme":"base"`でも文字色が明るい配色はライト配色の検査対象から除外。
-- 検証: 全体9902件（209ファイル）、29119-3対象258件、TS 30149対象265件、Chrome72件、lint、変更ファイルの型検査が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功。本番ビルドでの実行は未実施。
-- 既知の未修正: `/perfect-software-guide`の図1、`/software-testing-with-generative-ai-guide`の図1、`/istqb-ctel-tm-otm-complete-guide`の図3で左端切れを検出（順に-29px・-331px・-70px）。いずれも既存ルートで今回の修正範囲外。
+- `e2e/mermaid-layout.e2e.ts`の手動一覧を廃止し、`page.tsx`からの相対importを辿って94ルートを導出。
+- 検証: 全体9914件（209ファイル）、29119-3対象258件、TS 30149対象265件、Chrome72件（`iso-30149`・`iso-29119-3`）、`iso-30141`32件、lintが成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功（92件は一括実行で成功。`page.goto`がタイムアウトした2ルートは単独の再実行で成功）。本番ビルドでの実行は未実施。
+- 図の左端切れを修正: `/perfect-software-guide`の図1、`/software-testing-with-generative-ai-guide`の図1、`/istqb-ctel-tm-otm-complete-guide`の図3が親より広いと`justify-content: center`で左へはみ出していた（順に-29px・-331px・-70px）。`safe center`へ変更し、`tests/lib/mermaid-theme-contract.test.ts`で再発を検知。素の`center`は他にも残るが、再現した3ルートのみ修正。
+- 図の既定ノード色を修正: `"theme":"base"`で`mainBkg`がない8ガイドは、共有初期化の`#0f2040`が`primaryColor`より優先されていた。各ページで`mainBkg`を`primaryColor`と同じ値に指定し、契約テストで検知。
+- `e2e/iso-30141-layout.e2e.ts`の8件失敗を修正: レビュー`cc89a2ff`で承認済みの空リンク削除が比較用の原本に未適用だった。ページの変更はなし。
 - 開発サーバーで同テストを流す場合は`bun run dev --hostname 127.0.0.1`で起動する（`baseURL`が`127.0.0.1`のため、未指定では開発用リソースが遮断され図が描画されない）。多数のルートを続けて開くと`.next`とメモリが膨らむため、少数ずつサーバーと`.next`を入れ替えて実行する。
 - 手順違反の記録: 6.2の表はRedコミットが失敗した状態でGreenの`7a580ce6`が先行した。ユーザーへ報告し、承認を得て履歴を書き換えず`1ffb5195`で仕様を追加。Q4と依存関係図のRedはコミット時にテスト未実行で、直後に失敗を確認。
 
@@ -192,9 +194,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync spec files — additional ISO 29119-3 and TS 30149 review fixes` |
-| 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。既知の左端切れ3ルートの修正は未着手。ビルドは指示により未実施。 |
-| ビルド状態 | 全体9902件（209ファイル）・ISO IEC IEEE 29119-3対象258件・TS 30149対象265件・Chrome72件（iso-30149・iso-29119-3）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功（既知の3件は左端切れ）。ビルド未実施。 |
+| 最新コミット内容 | `chore(docs): sync spec files — Mermaid layout and palette fixes` |
+| 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | 全体9914件（209ファイル）・ISO IEC IEEE 29119-3対象258件・TS 30149対象265件・Chrome72件（iso-30149・iso-29119-3）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1799,7 +1801,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト9902件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象258件、TS 30149対象265件、Chrome72件、lintも成功。
+- 全体テスト9914件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象258件、TS 30149対象265件、Chrome72件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
@@ -1813,9 +1815,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
   7. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
   8. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
   9. `e2e/mermaid-layout.e2e.ts`全94ルートの本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
-  10. `/perfect-software-guide`・`/software-testing-with-generative-ai-guide`・`/istqb-ctel-tm-otm-complete-guide`の図の左端切れの修正要否の判断。
-  11. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
-  12. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
+  10. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
+  11. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

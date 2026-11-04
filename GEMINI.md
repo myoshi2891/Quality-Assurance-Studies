@@ -11,9 +11,11 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - TS 30149: 箇条5の表でTable A.1を実装アーキテクチャの関心事、A.2〜A.6を雛形として区別。6.2・箇条7・7.1・箇条9の表を名前付きのキーボード操作領域に変更。ページ末尾で最後の目次項目を選択（目次クリック後の保留を優先）。
 - 共有Mermaid: `moduleSessionId`をUUID全体に変更し、`crypto.randomUUID`がない場合のフォールバックもインスタンス間の一意性を検証。
 - テスト: `sourceModule`へ`onMermaidChart`を追加し、`Diagram`から共有レンダラーへ渡るchartを検証。30149のE2Eは実物の`applySvgFixups`を実行。`tests/coverage-dashboard.test.ts`は6グループの静的件数まで照合。ナビ登録は全項目を照合。
-- `e2e/mermaid-layout.e2e.ts`の手動一覧を廃止し、`page.tsx`からの相対importを辿って94ルートを導出。`"theme":"base"`でも文字色が明るい配色はライト配色の検査対象から除外。
-- 検証: 全体9902件（209ファイル）、29119-3対象258件、TS 30149対象265件、Chrome72件、lint、変更ファイルの型検査が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功。本番ビルドでの実行は未実施。
-- 既知の未修正: `/perfect-software-guide`の図1、`/software-testing-with-generative-ai-guide`の図1、`/istqb-ctel-tm-otm-complete-guide`の図3で左端切れを検出（順に-29px・-331px・-70px）。いずれも既存ルートで今回の修正範囲外。
+- `e2e/mermaid-layout.e2e.ts`の手動一覧を廃止し、`page.tsx`からの相対importを辿って94ルートを導出。
+- 検証: 全体9914件（209ファイル）、29119-3対象258件、TS 30149対象265件、Chrome72件（`iso-30149`・`iso-29119-3`）、`iso-30141`32件、lintが成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功（92件は一括実行で成功。`page.goto`がタイムアウトした2ルートは単独の再実行で成功）。本番ビルドでの実行は未実施。
+- 図の左端切れを修正: `/perfect-software-guide`の図1、`/software-testing-with-generative-ai-guide`の図1、`/istqb-ctel-tm-otm-complete-guide`の図3が親より広いと`justify-content: center`で左へはみ出していた（順に-29px・-331px・-70px）。`safe center`へ変更し、`tests/lib/mermaid-theme-contract.test.ts`で再発を検知。素の`center`は他にも残るが、再現した3ルートのみ修正。
+- 図の既定ノード色を修正: `"theme":"base"`で`mainBkg`がない8ガイドは、共有初期化の`#0f2040`が`primaryColor`より優先されていた。各ページで`mainBkg`を`primaryColor`と同じ値に指定し、契約テストで検知。
+- `e2e/iso-30141-layout.e2e.ts`の8件失敗を修正: レビュー`cc89a2ff`で承認済みの空リンク削除が比較用の原本に未適用だった。ページの変更はなし。
 - 開発サーバーで同テストを流す場合は`bun run dev --hostname 127.0.0.1`で起動する（`baseURL`が`127.0.0.1`のため、未指定では開発用リソースが遮断され図が描画されない）。多数のルートを続けて開くと`.next`とメモリが膨らむため、少数ずつサーバーと`.next`を入れ替えて実行する。
 - 手順違反の記録: 6.2の表はRedコミットが失敗した状態でGreenの`7a580ce6`が先行した。ユーザーへ報告し、承認を得て履歴を書き換えず`1ffb5195`で仕様を追加。Q4と依存関係図のRedはコミット時にテスト未実行で、直後に失敗を確認。
 
@@ -661,7 +663,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9902件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9914件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
