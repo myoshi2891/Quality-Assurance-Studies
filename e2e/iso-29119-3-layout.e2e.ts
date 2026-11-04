@@ -138,6 +138,12 @@ test('TOC and headings clear the shared header and disclaimer at every source br
         await page.setContent(`<style>${preflight+globals+own}:root{--disclaimer-height:35px}</style>${markup()}`);
         await expect(page.locator('.sidebar')).toHaveCSS('top','95px');
         if (width <= 900) await expect(page.locator('.toggle')).toHaveCSS('top','105px');
-        for (const heading of await page.locator('main h2[id],main h3[id]').all()) await expect(heading).toHaveCSS('scroll-margin-top','115px');
+        // モバイルでは固定の目次ボタン（top 70px + 免責バナー）の下端より下へ見出しを着地させる
+        for (const heading of await page.locator('main h2[id],main h3[id]').all()) await expect(heading).toHaveCSS('scroll-margin-top', width <= 900 ? '155px' : '115px');
+        if (width <= 900) {
+            const toggle = (await page.locator('.toggle').boundingBox())!;
+            const margin = parseFloat(await page.locator('main h2[id]').first().evaluate(el => getComputedStyle(el).scrollMarginTop));
+            expect(margin).toBeGreaterThanOrEqual(toggle.y + toggle.height + 8);
+        }
     }
 });

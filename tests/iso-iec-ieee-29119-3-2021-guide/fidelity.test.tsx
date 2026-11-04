@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { hydrateRoot, type Root } from 'react-dom/client';
 import { fireEvent } from '@testing-library/react';
 import { load } from 'cheerio';
+import postcss from 'postcss';
 import { sourceModule } from '../helpers/source-module';
 import { applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-iec-ieee-29119-3-2021-guide';
@@ -17,6 +18,13 @@ it('preserves every text block including whitespace between inline elements', ()
     const normal = (s: string) => s.replace(/\s+/g, ' ').trim();
     const selector = 'main h1,main h2,main h3,main h4,main p,main li,main td,main th,main footer,main label,main summary,.meta-item';
     expect(current(selector).toArray().map(el => normal(current(el).text()))).toEqual(original(selector).toArray().map(el => normal(original(el).text())));
+});
+it('lands mobile heading anchors below the fixed TOC toggle and keeps the wide offset', () => {
+    const margins: [string | null, string][] = [];
+    postcss.parse(readFileSync(base + '/iso-iec-ieee-29119-3-2021-guide.css', 'utf8')).walkRules('.iso291193-page main h2[id], .iso291193-page main h3[id]', rule => {
+        rule.walkDecls('scroll-margin-top', decl => { margins.push([rule.parent?.type === 'atrule' ? (rule.parent as postcss.AtRule).params : null, decl.value]); });
+    });
+    expect(margins).toEqual([[null, 'calc(80px + var(--disclaimer-height, 0px))'], ['(max-width:900px)', 'calc(120px + var(--disclaimer-height, 0px))']]);
 });
 it('hydrates without recoverable errors or DOM warnings and attaches TOC events', async () => {
     const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
