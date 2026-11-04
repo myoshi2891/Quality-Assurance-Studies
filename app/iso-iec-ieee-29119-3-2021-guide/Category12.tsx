@@ -8,7 +8,7 @@ export default function Category12() {
 {" "}
 <p>{"規格自体が、次のような柔軟な使い方を前提にしています。"}</p>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"規格の記載（要旨）"}</th><th>{"実務での意味"}</th></tr></thead><tbody><tr className="odd"><td>{" 任意のライフサイクル（ウォーターフォール、反復、アジャイル、DevOps）で採用できる "}</td><td>{"開発手法を理由に対象外とはならない"}</td></tr><tr className="even"><td>{" 文書は紙でも電子でもよい（ツール記録、スプレッドシート、マインドマップ、ホワイトボード写真） "}</td><td>{"軽量な形式で満たせる"}</td></tr><tr className="odd"><td>{"見出しや名称は変更・統合してよい"}</td><td>{"既存のテンプレートに合わせられる"}</td></tr><tr className="even"><td>{"「プロジェクト」を「プロダクト」に読み替えてよい"}</td><td>{"長期のプロダクトチームでも使える"}</td></tr><tr className="odd"><td>{"使う文書を選び、外した理由を示す（テーラード適合）"}</td><td>{"必要最小限の運用ができる"}</td></tr></tbody></table>{" "}</div>
+<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"規格の記載（要旨）"}</th><th>{"実務での意味"}</th></tr></thead><tbody><tr className="odd"><td>{" 任意のライフサイクル（ウォーターフォール、反復、アジャイル、DevOps）で採用できる "}</td><td>{"開発手法を理由に対象外とはならない"}</td></tr><tr className="even"><td>{" 文書は紙でも電子でもよい（ツール記録、スプレッドシート、マインドマップ、ホワイトボード写真） "}</td><td>{"軽量な形式で満たせる"}</td></tr><tr className="odd"><td>{"見出しや名称は変更・統合してよい"}</td><td>{"既存のテンプレートに合わせられる"}</td></tr><tr className="even"><td>{"「プロジェクト」を「プロダクト」に読み替えてよい"}</td><td>{"長期のプロダクトチームでも使える"}</td></tr><tr className="odd"><td>{"使う文書を選び、外した理由を示し、すべてのテーラリング決定をリスクを考慮した根拠とともに記録して、関係するステークホルダーの合意を得る（テーラード適合）"}</td><td>{"必要最小限の運用ができる"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <h3 id="文書を選ぶ判断フロー筆者の実務向け提案">{" 文書を選ぶ判断フロー（筆者の実務向け提案） "}</h3>
 {" "}
