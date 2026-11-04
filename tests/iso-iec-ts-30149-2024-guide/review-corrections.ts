@@ -49,6 +49,7 @@ export const ANNEX_A_CELLS: Readonly<Record<string, string>> = {
     'Relation with ISO/IEC 30141': 'Relation with ISO/IEC 30141（パターンではない節）',
     'Concerns': 'Concerns（パターンではない節）',
     '附属書Aの各パターン表': '附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）',
+    '実践手順の雛形': '実装アーキテクチャの関心事（Table A.1）と実践手順の雛形（Table A.2〜A.6）',
 };
 
 export const APPLICATION_STEPS = [
