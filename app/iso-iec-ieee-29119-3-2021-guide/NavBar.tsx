@@ -55,7 +55,11 @@ export default function NavBar() {
     // CSS の 900px 境界と対応。visibility は閉じる動きの完了まで遅れるため、閉じた瞬間からフォーカスを外す
     useEffect(() => {
         const query = window.matchMedia('(max-width: 900px)');
-        const update = () => setIsMobile(query.matches);
+        const update = () => {
+            setIsMobile(query.matches);
+            // 広い画面でも open が残ると、モバイル幅へ戻ったときに開いたまま表示される
+            if (!query.matches) setIsOpen(false);
+        };
         update();
         query.addEventListener('change', update);
         return () => query.removeEventListener('change', update);
