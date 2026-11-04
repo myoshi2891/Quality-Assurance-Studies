@@ -8,16 +8,20 @@ function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null;
 }
 
-/** renderInventory() が描画時に算出する総数を、埋め込みデータから同じ手順で求める。 */
-function inventoryTotal(): number {
+/** 埋め込みデータからグループごとのファイル数を求める。 */
+function inventoryCounts(): Record<string, number> {
     const block = html.match(/inventory:\s*(\{[\s\S]*?\n\})/)?.[1];
     if (!block) throw new Error('DATA.inventory が見つからない');
     const inventory: unknown = JSON.parse(block);
     if (!isRecord(inventory)) throw new Error('DATA.inventory がオブジェクトではない');
-    return Object.values(inventory).reduce<number>(
-        (total, files) => total + (Array.isArray(files) ? files.length : 0),
-        0
+    return Object.fromEntries(
+        Object.entries(inventory).map(([group, files]) => [group, Array.isArray(files) ? files.length : 0])
     );
+}
+
+/** renderInventory() が描画時に算出する総数を、埋め込みデータから同じ手順で求める。 */
+function inventoryTotal(): number {
+    return Object.values(inventoryCounts()).reduce((total, count) => total + count, 0);
 }
 
 describe('coverage dashboard static totals', () => {
@@ -25,5 +29,12 @@ describe('coverage dashboard static totals', () => {
     it.each(['#kpi-total-files', '#inv-total'])('%s matches the embedded inventory', (selector) => {
         const $ = load(html);
         expect($(selector).text()).toBe(`${inventoryTotal()}${selector === '#inv-total' ? ' ' : ''}files`);
+    });
+
+    it.each(['pages', 'components', 'lib', 'scripts', 'e2e', 'tooling'])('#inv-count-%s matches its embedded group', (group) => {
+        const $ = load(html);
+        const count = inventoryCounts()[group];
+        if (count === undefined) throw new Error(`DATA.inventory に ${group} がない`);
+        expect($(`#inv-count-${group}`).text()).toBe(`${count} file${count === 1 ? '' : 's'}`);
     });
 });
