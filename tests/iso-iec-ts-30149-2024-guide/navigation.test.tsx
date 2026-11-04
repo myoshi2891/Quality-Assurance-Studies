@@ -39,3 +39,37 @@ it('all targets are observed; every heading activates its link; Escape restores 
         view.unmount(); expect(disconnected).toBe(true);
     } finally { globalThis.IntersectionObserver = original; host.remove(); }
 });
+it('activates the final TOC entry at the page bottom unless a TOC jump is still settling', () => {
+    const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
+    const root = document.documentElement;
+    const originals = { innerHeight: Object.getOwnPropertyDescriptor(window, 'innerHeight'), scrollY: Object.getOwnPropertyDescriptor(window, 'scrollY') };
+    const scrollTo = (y: number) => {
+        Object.defineProperty(window, 'scrollY', { configurable: true, value: y });
+        fireEvent.scroll(window);
+    };
+    const current = (container: HTMLElement) => container.querySelector('a[aria-current="location"]')?.getAttribute('data-target');
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: 800 });
+    Object.defineProperty(root, 'scrollHeight', { configurable: true, value: 2000 });
+    try {
+        const Nav = sourceModule('app/iso-iec-ts-30149-2024-guide/NavBar.tsx').default as React.ComponentType;
+        const view = render(<Nav />);
+        scrollTo(100);
+        expect(current(view.container)).toBeUndefined();
+        scrollTo(1200);
+        expect(current(view.container)).toBe(ids.at(-1));
+        // 目次クリックのスクロール完了待ちの間は、末尾に達しても選んだ見出しを保つ
+        fireEvent.click(view.getAllByRole('link')[0]!);
+        scrollTo(1200);
+        expect(current(view.container)).toBe(ids[0]);
+        fireEvent(window, new Event('scrollend'));
+        expect(current(view.container)).toBe(ids[0]);
+        scrollTo(1200);
+        expect(current(view.container)).toBe(ids.at(-1));
+    } finally {
+        Reflect.deleteProperty(root, 'scrollHeight');
+        for (const [key, descriptor] of Object.entries(originals)) {
+            if (descriptor) Object.defineProperty(window, key, descriptor);
+            else Reflect.deleteProperty(window, key);
+        }
+    }
+});
