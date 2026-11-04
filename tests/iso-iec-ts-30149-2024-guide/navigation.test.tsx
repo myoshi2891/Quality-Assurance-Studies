@@ -1,4 +1,4 @@
-import { it, expect, afterEach } from 'bun:test';
+import { describe, it, expect, afterEach } from 'bun:test';
 import React from 'react';
 import { render, cleanup, fireEvent, act } from '@testing-library/react';
 import inventory from '../../docs/migration-inventory/iso-iec-ts-30149-2024-guide.json';
@@ -109,4 +109,74 @@ it('makes the TOC inert while the mobile sidebar is closed and resets it at the 
         expect(aside.hasAttribute('inert')).toBe(true);
         view.unmount(); expect(removed).toBe(true);
     } finally { window.matchMedia = original; }
+});
+describe('where the highlight lands when a clicked scroll settles', () => {
+    const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
+    const height = window.innerHeight;
+    /** 見出しの位置を固定してクリックし、スクロール完了を通知したあとの強調先を返す。 */
+    const settleAfterClick = (
+        clicked: string,
+        tops: Record<string, number>,
+        options: { scrollHeight?: number; margins?: Record<string, string> } = {}
+    ) => {
+        const original = globalThis.IntersectionObserver;
+        globalThis.IntersectionObserver = class {
+            observe() {}
+            disconnect() {}
+        } as unknown as typeof IntersectionObserver;
+        // 未指定は途中まで読んだ長いページ。ページ末尾の判定へ入らない高さにする
+        Object.defineProperty(document.documentElement, 'scrollHeight', { configurable: true, value: options.scrollHeight ?? height * 20 });
+        const host = document.createElement('div');
+        for (const id of ids) {
+            const heading = document.createElement('h2');
+            heading.id = id;
+            const margin = options.margins?.[id];
+            if (margin) heading.style.scrollMarginTop = margin;
+            heading.getBoundingClientRect = () => ({ top: tops[id] ?? height * 2 }) as DOMRect;
+            host.append(heading);
+        }
+        document.body.append(host);
+        try {
+            const Nav = sourceModule('app/iso-iec-ts-30149-2024-guide/NavBar.tsx').default as React.ComponentType;
+            const view = render(<Nav />);
+            fireEvent.click(view.container.querySelector(`a[data-target="${clicked}"]`)!);
+            act(() => { window.dispatchEvent(new Event('scrollend')); });
+            return view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target');
+        } finally {
+            window.location.hash = '';
+            globalThis.IntersectionObserver = original;
+            Reflect.deleteProperty(document.documentElement, 'scrollHeight');
+            host.remove();
+        }
+    };
+
+    it('falls back to the section in view when a downward scroll stops before the destination', () => {
+        const [, passed, inView, , , destination] = ids as [string, string, string, string, string, string];
+        expect(settleAfterClick(destination, { [passed]: -200, [inView]: 100 })).toBe(inView);
+    });
+    it('falls back to the section in view when an upward scroll stops before the destination', () => {
+        const [destination, , , inView] = ids as [string, string, string, string];
+        const passed = Object.fromEntries(ids.slice(0, 3).map(id => [id, -2000]));
+        expect(settleAfterClick(destination, { ...passed, [inView]: 100 })).toBe(inView);
+    });
+    it('keeps the destination when the next short section also sits in the band', () => {
+        const [destination, next] = ids as [string, string];
+        expect(settleAfterClick(destination, { [destination]: 100, [next]: 150 })).toBe(destination);
+    });
+    it('keeps a destination landing below the band because of its scroll margin', () => {
+        const [destination] = ids as [string];
+        const landing = Math.ceil(height * 0.25) + 100;
+        expect(settleAfterClick(destination, { [destination]: landing }, { margins: { [destination]: `${landing}px` } })).toBe(destination);
+    });
+    it('keeps the last destination at the page end even though it cannot rise to the band', () => {
+        const last = ids[ids.length - 1]!;
+        const previous = ids[ids.length - 2]!;
+        expect(settleAfterClick(last, { [previous]: -100, [last]: height * 0.6 }, { scrollHeight: height })).toBe(last);
+    });
+    it('selects the final section when a clicked scroll overshoots to the page end', () => {
+        const [destination] = ids as [string];
+        const last = ids[ids.length - 1]!;
+        const previous = ids[ids.length - 2]!;
+        expect(settleAfterClick(destination, { [destination]: -2000, [previous]: -100, [last]: height * 0.6 }, { scrollHeight: height })).toBe(last);
+    });
 });
