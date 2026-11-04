@@ -1,8 +1,17 @@
 # Project Overview
 
-Updated 2026-11-03
+Updated 2026-11-04
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-04: ISO 29119-3・TS 30149のレビュー修正
+
+- 29119-3の図9（2013年版と2021年版の比較）と図12（学習ロードマップ全7段階）へ`accTitle`・`accDescr`を追加。
+- TS 30149の10.1へ適用フロー全6手順と運用から手順3へ戻る流れの番号付きリストを追加。10.2の表をキーボード操作できる名前付き領域に変更。
+- 附属書Aの表で列名を「節の名称」とし、A.1・A.2を「パターンではない節」と明記。箇条5の表ではTable A.1を関心事の表、Table A.2〜A.6をパターン表として区別。A.3の各パターンは維持。
+- `docs/coverage-dashboard.html`の静的な総数を埋め込み一覧と一致させ、`tests/coverage-dashboard.test.ts`で再発を検知。
+- `e2e/mermaid-layout.e2e.ts`の対象へ、`page.tsx`から共有Mermaidを直接importしない2ガイドを追加（`bunx playwright test --list`で68件）。
+- 全体9892件（209ファイル）、lint、Chrome72件（`iso-30149`・`iso-29119-3`）が成功。追加2ルートは一時設定により`localhost`のdevサーバーとシステムChromeで成功。本番構成の`playwright.config.ts`での実行は未実施。
 
 ## 2026-11-03: ISO/IEC/IEEE 29119-3:2021 テスト文書化ガイドの移行
 
@@ -639,7 +648,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9899件、npm経由の全体テスト・208ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9892件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。

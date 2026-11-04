@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-11-03
+Updated 2026-11-04
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -8,6 +8,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 > **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 120 ルート = ガイドライブラリ index + 119 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-11-04: ISO 29119-3・TS 30149のレビュー修正
+
+- 29119-3の図9（2013年版と2021年版の比較）と図12（学習ロードマップ全7段階）へ`accTitle`・`accDescr`を追加。
+- TS 30149の10.1へ適用フロー全6手順と運用から手順3へ戻る流れの番号付きリストを追加。10.2の表をキーボード操作できる名前付き領域に変更。
+- 附属書Aの表で列名を「節の名称」とし、A.1・A.2を「パターンではない節」と明記。箇条5の表ではTable A.1を関心事の表、Table A.2〜A.6をパターン表として区別。A.3の各パターンは維持。
+- `docs/coverage-dashboard.html`の静的な総数を埋め込み一覧と一致させ、`tests/coverage-dashboard.test.ts`で再発を検知。
+- `e2e/mermaid-layout.e2e.ts`の対象へ、`page.tsx`から共有Mermaidを直接importしない2ガイドを追加（`bunx playwright test --list`で68件）。
+- 全体9892件（209ファイル）、lint、Chrome72件（`iso-30149`・`iso-29119-3`）が成功。追加2ルートは一時設定により`localhost`のdevサーバーとシステムChromeで成功。本番構成の`playwright.config.ts`での実行は未実施。
 
 ## 2026-11-03: ISO/IEC/IEEE 29119-3:2021 テスト文書化ガイドの移行
 
@@ -170,9 +179,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): record ISO IEC IEEE 29119-3 migration completion` |
-| 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`の目視確認はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | npm経由で対象257件・関連550件・既存一覧同期724件・全体9899件（208ファイル）・Chrome37件・lint・対象ソース/E2E型検査成功。ビルド未実施。 |
+| 最新コミット内容 | `chore(docs): sync spec files — ISO 29119-3 and TS 30149 review fixes` |
+| 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`の追加2ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | 全体9892件（209ファイル）・Chrome72件（iso-30149・iso-29119-3）・lint成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1777,7 +1786,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト9899件すべて成功（208ファイル）。ISO IEC IEEE 29119-3対象257件・関連550件・既存一覧同期724件・Chrome37件、lint、対象ソース/E2E型検査も成功。
+- 全体テスト9892件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象257件、TS 30149対象264件、Chrome72件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

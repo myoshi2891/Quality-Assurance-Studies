@@ -985,7 +985,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">239<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">240<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
@@ -1058,7 +1058,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">239 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">240 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
@@ -1079,7 +1079,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv">
         <summary>
           <span>Library &amp; Dependency Tests</span>
-          <span class="inv-count" id="inv-count-lib">13 files</span>
+          <span class="inv-count" id="inv-count-lib">14 files</span>
         </summary>
         <ul id="inv-lib"></ul>
       </details>
@@ -1633,6 +1633,7 @@ const DATA = {
   ],
   "lib": [
     "tests/app-icons.test.ts",
+    "tests/coverage-dashboard.test.ts",
     "tests/font-display-optional.test.ts",
     "tests/font-loading.test.ts",
     "tests/istqb-ctfl-v4-chapter6-test-tools/NavBar.test.tsx",

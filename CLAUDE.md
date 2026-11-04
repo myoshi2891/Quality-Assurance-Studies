@@ -1,8 +1,17 @@
 # CLAUDE.md
 
-Updated 2026-11-03
+Updated 2026-11-04
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-04: ISO 29119-3・TS 30149のレビュー修正
+
+- 29119-3の図9（2013年版と2021年版の比較）と図12（学習ロードマップ全7段階）へ`accTitle`・`accDescr`を追加。
+- TS 30149の10.1へ適用フロー全6手順と運用から手順3へ戻る流れの番号付きリストを追加。10.2の表をキーボード操作できる名前付き領域に変更。
+- 附属書Aの表で列名を「節の名称」とし、A.1・A.2を「パターンではない節」と明記。箇条5の表ではTable A.1を関心事の表、Table A.2〜A.6をパターン表として区別。A.3の各パターンは維持。
+- `docs/coverage-dashboard.html`の静的な総数を埋め込み一覧と一致させ、`tests/coverage-dashboard.test.ts`で再発を検知。
+- `e2e/mermaid-layout.e2e.ts`の対象へ、`page.tsx`から共有Mermaidを直接importしない2ガイドを追加（`bunx playwright test --list`で68件）。
+- 全体9892件（209ファイル）、lint、Chrome72件（`iso-30149`・`iso-29119-3`）が成功。追加2ルートは一時設定により`localhost`のdevサーバーとシステムChromeで成功。本番構成の`playwright.config.ts`での実行は未実施。
 
 ## 2026-11-03: ISO/IEC/IEEE 29119-3:2021 テスト文書化ガイドの移行
 
@@ -200,7 +209,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 208 ファイル・9899 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9892 tests)
 ```
 
 ### E2E テスト (Playwright)
