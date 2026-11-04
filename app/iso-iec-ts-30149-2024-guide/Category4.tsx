@@ -18,7 +18,7 @@ export default function Category4() {
 {" "}
 <h3 id="42-規格が整理する3つの関係箇条5">{"4.2 規格が整理する3つの関係（箇条5）"}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"箇条"}</th><th>{"論点"}</th><th>{"初学者向けの理解"}</th></tr></thead><tbody><tr className="odd"><td>{"5.1"}</td><td>{"Relation to trust（信頼との関係）"}</td><td>{" 信頼は「相手を信じる側」の話、信頼に足る性質は「相手が示す側」の話 "}</td></tr><tr className="even"><td>{"5.2"}</td><td>{"Relation to context（文脈との関係）"}</td><td>{" 同じIoT機器でも、家庭用と工場用では「十分に信頼できる」の水準が違う "}</td></tr><tr className="odd"><td>{"5.3"}</td><td>{" Relation to characteristics, behaviour, assurance and confidence "}</td><td>{"特性・振る舞い・保証・確信がどうつながるか"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：4.2 規格が整理する3つの関係" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"箇条"}</th><th>{"論点"}</th><th>{"初学者向けの理解"}</th></tr></thead><tbody><tr className="odd"><td>{"5.1"}</td><td>{"Relation to trust（信頼との関係）"}</td><td>{" 信頼は「相手を信じる側」の話、信頼に足る性質は「相手が示す側」の話 "}</td></tr><tr className="even"><td>{"5.2"}</td><td>{"Relation to context（文脈との関係）"}</td><td>{" 同じIoT機器でも、家庭用と工場用では「十分に信頼できる」の水準が違う "}</td></tr><tr className="odd"><td>{"5.3"}</td><td>{" Relation to characteristics, behaviour, assurance and confidence "}</td><td>{"特性・振る舞い・保証・確信がどうつながるか"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <h3 id="43-重要用語箇条3の定義を要約">{"4.3 重要用語（箇条3の定義を要約）"}</h3>
 {" "}
