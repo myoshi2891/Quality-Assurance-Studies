@@ -69,20 +69,11 @@ it('imports scoped CSS and exact title metadata', () => {
     expect(sourceModule(base + '/page.tsx').metadata).toEqual({ title: inventory.title });
 });
 
-it('passes every original chart to the shared renderer in document order', () => {
+it('passes every original chart through Diagram to the shared renderer in document order', () => {
     const charts = sourceModule(base + '/diagrams.ts') as Record<string,string>;
-    const actual: string[] = [];
-    function visit(value: React.ReactNode): void {
-        React.Children.forEach(value, child => {
-            if (!React.isValidElement<{ chart?: string; children?: React.ReactNode }>(child)) return;
-            if (child.props.chart) actual.push(child.props.chart);
-            if (child.props.children) visit(child.props.children);
-        });
-    }
-    inventory.categories.forEach((_,i)=> {
-        const Category = sourceModule(base + '/Category' + i + '.tsx').default as () => React.ReactNode;
-        visit(Category());
-    });
-    expect(actual).toEqual(inventory.diagrams.map((_, i)=>charts['DIAGRAM_'+i]));
+    const rendered: string[] = [];
+    const Page = sourceModule(base + '/page.tsx', { onMermaidChart: chart => { rendered.push(chart); } }).default as React.ComponentType;
+    renderToStaticMarkup(<Page />);
+    expect(rendered).toEqual(inventory.diagrams.map((_, i) => charts['DIAGRAM_' + i]!));
 });
 
