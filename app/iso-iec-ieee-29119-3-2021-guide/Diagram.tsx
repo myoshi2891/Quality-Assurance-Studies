@@ -25,5 +25,5 @@ export default function Diagram({ chart, id, diagramKey }: { chart: string; id: 
         restore();
         return () => observer.disconnect();
     }, []);
-    return <div className="mermaid-container" data-key={diagramKey} id={id} ref={ref}><Mermaid chart={chart} /></div>;
+    return <div className="mermaid-container" data-key={diagramKey} id={id} ref={ref} tabIndex={0}><Mermaid chart={chart} /></div>;
 }
