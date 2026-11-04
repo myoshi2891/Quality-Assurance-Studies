@@ -28,8 +28,6 @@ interface MermaidRoute {
 }
 
 const LIGHT_THEME_PATTERN = /"theme"\s*:\s*"base"/;
-/** base テーマでも文字色が明るければ暗い配色のページであり、ライト配色の検査対象にしない。 */
-const DARK_PALETTE_PATTERN = /"primaryTextColor"\s*:\s*"#[c-f]/i;
 
 const RELATIVE_IMPORT_PATTERN = /(?:from\s+|import\s*\(?\s*)['"](\.{1,2}\/[^'"]+)['"]/g;
 
@@ -60,7 +58,7 @@ function mermaidRoutes(): MermaidRoute[] {
         if (!sources.some((source) => source.includes('components/Mermaid'))) continue;
         routes.push({
             path: `/${entry.name}`,
-            expectsLightTheme: sources.some((source) => LIGHT_THEME_PATTERN.test(source) && !DARK_PALETTE_PATTERN.test(source)),
+            expectsLightTheme: sources.some((source) => LIGHT_THEME_PATTERN.test(source)),
         });
     }
     return routes;
