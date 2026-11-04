@@ -991,7 +991,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     </article>
     <article class="kpi" data-tone="ok">
       <div class="kpi-num" id="kpi-pages-tested">120<span class="unit">/ 120</span></div>
-      <div class="kpi-lbl">Pages Tested · 100%</div>
+      <div class="kpi-lbl" id="kpi-pages-label">Pages Tested · 100%</div>
       <p class="kpi-desc"><span id="kpi-pages-desc-count">120</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 120 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
@@ -1893,6 +1893,12 @@ function renderPages() {
   
   const pagesKpi = document.getElementById('kpi-pages-tested');
   if (pagesKpi) pagesKpi.innerHTML = `${tested}<span class="unit">/ ${DATA.pages.length}</span>`;
+
+  const pagesLabel = document.getElementById('kpi-pages-label');
+  if (pagesLabel) {
+    const percent = DATA.pages.length ? Math.round((tested / DATA.pages.length) * 100) : 0;
+    pagesLabel.textContent = `Pages Tested · ${percent}%`;
+  }
   
   const pagesDesc = document.getElementById('kpi-pages-desc-count');
   if (pagesDesc) pagesDesc.textContent = DATA.pages.length;
