@@ -8,6 +8,7 @@ type TocLink = { readonly id: string; readonly label: string; readonly sub?: boo
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
     const sidebarRef = useRef<HTMLElement>(null);
     const toggleRef = useRef<HTMLButtonElement>(null);
     // 目次クリックで選んだ見出し。スムーススクロール中に通過する見出しで active が揺れないよう、完了まで保持する
@@ -44,6 +45,19 @@ export default function NavBar() {
             clearTimeout(settleTimerRef.current);
         };
     }, [settle, scheduleSettle]);
+
+    // CSS の 900px 境界と対応。visibility は閉じる動きの完了まで遅れるため、閉じた瞬間からフォーカスを外す
+    useEffect(() => {
+        const query = window.matchMedia('(max-width: 900px)');
+        const update = () => {
+            setIsMobile(query.matches);
+            // 広い画面でも open が残ると、モバイル幅へ戻ったときに開いたまま表示される
+            if (!query.matches) setIsOpen(false);
+        };
+        update();
+        query.addEventListener('change', update);
+        return () => query.removeEventListener('change', update);
+    }, []);
 
     useEffect(() => {
         if (typeof IntersectionObserver === 'undefined') return;
@@ -124,7 +138,7 @@ export default function NavBar() {
 
     return <>
 <button className="nav-toggle" id="navToggle" type="button" ref={toggleRef} aria-label={isOpen?'目次を閉じる':'目次を開く'} aria-controls="sidebar" aria-expanded={isOpen} onClick={()=>setIsOpen(open=>!open)}>目次</button>
-<aside aria-label="目次" className={isOpen?'sidebar open':'sidebar'} id="sidebar" ref={sidebarRef}>
+<aside aria-label="目次" className={isOpen?'sidebar open':'sidebar'} id="sidebar" inert={isMobile && !isOpen} ref={sidebarRef}>
 <div className="sidebar-title">ISO/IEC TS 30149:2024</div>
 <nav aria-label="目次">
 <ul className="nav-list">{TOC_GROUPS.map(item=><li className="nav-h2" key={item.id}>{link(item)}{item.children.length > 0 && <ul className="nav-sub">{item.children.map(child => <li className="nav-h3" key={child.id}>{link(child)}</li>)}</ul>}</li>)}</ul>
