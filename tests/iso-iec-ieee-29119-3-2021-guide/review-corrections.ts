@@ -32,6 +32,11 @@ export function applyReviewCorrections($: CheerioAPI): void {
     ROADMAP_ROWS.forEach((cells, i) => {
         roadmap.append(`<tr class="${i === 0 ? 'even' : 'odd'}">${cells.map(cell => `<td>${cell}</td>`).join('')}</tr>`);
     });
+    // 横スクロールする表をキーボードで操作できるよう、直前の見出しを名前にしたフォーカス可能な領域にする（原本は属性なし）
+    $('main .table-scroll').each((_, el) => {
+        const heading = $(el).prevAll('h2, h3').first().text().replace(/\s+/g, ' ').trim();
+        $(el).attr({ 'aria-label': `表：${heading}`, role: 'region', tabindex: '0' });
+    });
     // 答えの「別文書で管理してもよい」と矛盾しないよう、Q4 を別文書での管理が必須かどうかを問う形に改める
     $('main p').contents().each((_, node) => {
         if (node.type === 'text') node.data = node.data.replace(STRATEGY_QUESTION_BEFORE, STRATEGY_QUESTION);

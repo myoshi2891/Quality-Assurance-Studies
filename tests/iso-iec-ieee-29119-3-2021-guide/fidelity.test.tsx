@@ -26,6 +26,20 @@ it('lands mobile heading anchors below the fixed TOC toggle and keeps the wide o
     });
     expect(margins).toEqual([[null, 'calc(80px + var(--disclaimer-height, 0px))'], ['(max-width:900px)', 'calc(120px + var(--disclaimer-height, 0px))']]);
 });
+it('names every scrollable table like the reviewed source and shows keyboard focus', () => {
+    const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
+    const original = load(readFileSync(existsSync('Iso-iec-ieee-29119-3-2021-guide.html')?'Iso-iec-ieee-29119-3-2021-guide.html':'archive/html-archive/iso/Iso-iec-ieee-29119-3-2021-guide.html', 'utf8'));
+    applyReviewCorrections(original);
+    const current = load(renderToString(<Page />));
+    const regions = ($: typeof current) => $('main .table-scroll').toArray().map(el => [$(el).attr('aria-label'), $(el).attr('role'), $(el).attr('tabindex')]);
+    expect(regions(current)).toHaveLength(39);
+    expect(regions(current)).toEqual(regions(original));
+    const outlines: string[] = [];
+    postcss.parse(readFileSync(base + '/iso-iec-ieee-29119-3-2021-guide.css', 'utf8')).walkRules('.iso291193-page .table-scroll:focus-visible', rule => {
+        rule.walkDecls('outline', decl => { outlines.push(decl.value); });
+    });
+    expect(outlines).toEqual(['2px solid var(--accent)']);
+});
 it('hydrates without recoverable errors or DOM warnings and attaches TOC events', async () => {
     const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
     const host = document.createElement('div');

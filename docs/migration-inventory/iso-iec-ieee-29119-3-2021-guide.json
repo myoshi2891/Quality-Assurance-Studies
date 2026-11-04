@@ -9585,7 +9585,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：用語の最低限セット",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -9774,7 +9777,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：Step 1: 規格の基本情報",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10162,7 +10168,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：版の変遷",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10411,7 +10420,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：各パートの役割",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10737,7 +10749,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：Part 2 と Part 3 の対応（重要）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -10904,7 +10919,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：本編",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11208,7 +11226,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：附属書",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11447,7 +11468,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：4-1. 動詞の意味",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11570,7 +11594,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：4-2. 2つの適合方法",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -11784,7 +11811,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：Step 5: すべての文書に共通する情報項目",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12165,7 +12195,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：6-1. テストポリシー（Test policy, 6.2）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12533,7 +12566,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：6-2. 組織テストプラクティス（Organizational test practices, 6.3）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12682,7 +12718,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：ポリシーとプラクティスの違い",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -12905,7 +12944,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：7-1. テスト計画（Test plan, 7.2）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13342,7 +13384,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：7-2. テストステータスレポート（Test status report, 7.3）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13623,7 +13668,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：7-3. テスト完了報告書（Test completion report, 7.4）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -13948,7 +13996,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：ステータスレポートと完了報告書の比較",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14164,7 +14215,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-1. テストモデル仕様（8.2）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14402,7 +14456,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-2. テストケース仕様（8.3）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14539,7 +14596,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-3. テスト手順仕様（8.4）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14827,7 +14887,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-4. テストデータ要求（8.5）とテスト環境要求（8.6）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -14943,7 +15006,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-5. レディネスレポート（8.7、8.8）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15081,7 +15147,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-6. 実際の結果とテスト結果（8.9）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15246,7 +15315,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-7. テスト実行ログ（8.10）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15406,7 +15478,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：8-8. テストインシデントレポート（8.11）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -15771,7 +15846,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：9-2. テストモデルとは",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -16135,7 +16213,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：9-3. 「テストベース → テストモデル → テストケース」の具体例",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -16353,7 +16434,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：10-2. テストトレーサビリティマトリクス",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -16483,7 +16567,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：Step 11: アジャイル／DevOps での使い方（テーラリング）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -16664,7 +16751,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：既存ツールへの当てはめ例（筆者の提案・規格の要求ではありません）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -16905,7 +16995,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：12-1. テスト計画（抜粋）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -17138,7 +17231,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：12-2. テストモデル → テストケース",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -17317,7 +17413,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：12-3. インシデントレポート（抜粋）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -17559,7 +17658,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：13-1. よくある誤解",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -17763,7 +17865,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：13-2. 標準化をめぐる議論（背景知識）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -17994,7 +18099,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：14-1. 学習ロードマップ",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -18503,7 +18611,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：一次情報（規格の発行元）",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -18750,7 +18861,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：規格策定関係者・国際的な実務家の情報",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -19236,7 +19350,10 @@
     {
       "tag": "div",
       "attrs": {
-        "class": "table-scroll"
+        "aria-label": "表：参考にした旧版資料",
+        "class": "table-scroll",
+        "role": "region",
+        "tabindex": "0"
       },
       "children": [
         {
@@ -19645,7 +19762,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：用語の最低限セット",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -19836,7 +19956,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：Step 1: 規格の基本情報",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -20224,7 +20347,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：版の変遷",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -20475,7 +20601,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：各パートの役割",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -20801,7 +20930,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：Part 2 と Part 3 の対応（重要）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -20970,7 +21102,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：本編",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -21274,7 +21409,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：附属書",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -21515,7 +21653,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：4-1. 動詞の意味",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -21638,7 +21779,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：4-2. 2つの適合方法",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -21854,7 +21998,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：Step 5: すべての文書に共通する情報項目",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -22237,7 +22384,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：6-1. テストポリシー（Test policy, 6.2）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -22605,7 +22755,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：6-2. 組織テストプラクティス（Organizational test practices, 6.3）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -22754,7 +22907,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：ポリシーとプラクティスの違い",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -22979,7 +23135,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：7-1. テスト計画（Test plan, 7.2）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -23416,7 +23575,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：7-2. テストステータスレポート（Test status report, 7.3）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -23697,7 +23859,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：7-3. テスト完了報告書（Test completion report, 7.4）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -24022,7 +24187,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：ステータスレポートと完了報告書の比較",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -24240,7 +24408,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-1. テストモデル仕様（8.2）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -24478,7 +24649,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-2. テストケース仕様（8.3）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -24615,7 +24789,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-3. テスト手順仕様（8.4）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -24903,7 +25080,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-4. テストデータ要求（8.5）とテスト環境要求（8.6）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -25019,7 +25199,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-5. レディネスレポート（8.7、8.8）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -25157,7 +25340,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-6. 実際の結果とテスト結果（8.9）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -25322,7 +25508,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-7. テスト実行ログ（8.10）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -25482,7 +25671,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：8-8. テストインシデントレポート（8.11）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -25849,7 +26041,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：9-2. テストモデルとは",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -26213,7 +26408,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：9-3. 「テストベース → テストモデル → テストケース」の具体例",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -26433,7 +26631,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：10-2. テストトレーサビリティマトリクス",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -26565,7 +26766,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：Step 11: アジャイル／DevOps での使い方（テーラリング）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -26746,7 +26950,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：既存ツールへの当てはめ例（筆者の提案・規格の要求ではありません）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -26989,7 +27196,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：12-1. テスト計画（抜粋）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -27222,7 +27432,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：12-2. テストモデル → テストケース",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -27401,7 +27614,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：12-3. インシデントレポート（抜粋）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -27645,7 +27861,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：13-1. よくある誤解",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -27849,7 +28068,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：13-2. 標準化をめぐる議論（背景知識）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -28082,7 +28304,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：14-1. 学習ロードマップ",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -28593,7 +28818,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：一次情報（規格の発行元）",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -28840,7 +29068,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：規格策定関係者・国際的な実務家の情報",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -29326,7 +29557,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：参考にした旧版資料",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
