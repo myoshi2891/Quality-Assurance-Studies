@@ -78,8 +78,8 @@ export const DIAGRAM_7 = `${MERMAID_CONFIG}
 flowchart LR
 accTitle: 保証の核心となる主張・論拠・証拠
 accDescr: 主張（例として、この機器は安全に停止する）を論拠（なぜ主張が成り立つと言えるか）が支え、論拠を証拠（試験結果・レビュー記録・設計書）が裏づける流れ。
-N8_CL["主張 claim<br/>この機器は安全に停止する"] --> N8_AR["論拠 argument<br/>なぜ主張が成り立つと言えるか"]
-N8_AR --> N8_EV["証拠 evidence<br/>試験結果・レビュー記録・設計書"]
+N8_EV["証拠 evidence<br/>試験結果・レビュー記録・設計書"] --> N8_AR["論拠 argument<br/>なぜ主張が成り立つと言えるか"]
+N8_AR --> N8_CL["主張 claim<br/>この機器は安全に停止する"]
 classDef c fill:#fff3d6,stroke:#d9822b,color:#4a2a00
 classDef a fill:#e8f0ff,stroke:#3b5bdb,color:#102a63
 classDef e fill:#e6f7ec,stroke:#2f9e44,color:#0b3d1c
