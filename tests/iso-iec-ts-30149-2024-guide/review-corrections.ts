@@ -40,6 +40,11 @@ export function applyReviewCorrections($: CheerioAPI): void {
             .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
             .attr({ 'aria-label': label, role: 'region', tabindex: '0' });
     }
+    // 図8の矢印は「支える側 → 支えられる側」へ改める（図2の証拠 → 信頼に足る性質と同じ向き。原本は主張 → 論拠 → 証拠）
+    $('main #mmd-8 [data-id]').each((_, el) => {
+        const id = $(el).attr('data-id') ?? '';
+        $(el).attr('data-id', ASSURANCE_EDGE_IDS[id] ?? id);
+    });
     // 図はクライアント描画のため、適用フローの全手順と戻りの流れを図の直後に本文としても示す（原本は図のみ）
     $('main #mmd-10').after(`<ol type="1">${APPLICATION_STEPS.map(step => `<li>${step}</li>`).join('')}</ol>`);
 }
@@ -50,6 +55,19 @@ export const ANNEX_A_CELLS: Readonly<Record<string, string>> = {
     'Concerns': 'Concerns（パターンではない節）',
     '附属書Aの各パターン表': '附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）',
     '実践手順の雛形': '実装アーキテクチャの関心事（Table A.1）と実践手順の雛形（Table A.2〜A.6）',
+};
+
+export const ASSURANCE_EDGE_IDS: Readonly<Record<string, string>> = {
+    L_N8_CL_N8_AR_0: 'L_N8_AR_N8_CL_0',
+    L_N8_AR_N8_EV_0: 'L_N8_EV_N8_AR_0',
+};
+
+// 図の番号（DIAGRAM_n）ごとの、原本と異なる接続。ここにない図は原本の Markdown と一致させる
+export const DIAGRAM_EDGE_CORRECTIONS: Readonly<Record<number, readonly string[]>> = {
+    7: [
+        'N8_EV["証拠 evidence<br/>試験結果・レビュー記録・設計書"] --> N8_AR["論拠 argument<br/>なぜ主張が成り立つと言えるか"]',
+        'N8_AR --> N8_CL["主張 claim<br/>この機器は安全に停止する"]',
+    ],
 };
 
 export const APPLICATION_STEPS = [
