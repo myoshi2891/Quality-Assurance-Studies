@@ -27,6 +27,11 @@ export function applyReviewCorrections($: CheerioAPI): void {
     });
     // テーラード適合の要約に、理由だけでなく決定の記録とステークホルダーの合意も含める（Step 3・Q3 の説明と揃える）
     $('main td').filter((_, el) => $(el).text().trim() === TAILORED_ROW_BEFORE).text(TAILORED_ROW);
+    // 図は学習ロードマップ全7段階を示すため、表にも段階6・7を加えて図と揃える（原本の表は段階5まで）
+    const roadmap = $('main table').filter((_, el) => $(el).find('thead th').first().text().trim() === '段階').find('tbody');
+    ROADMAP_ROWS.forEach((cells, i) => {
+        roadmap.append(`<tr class="${i === 0 ? 'even' : 'odd'}">${cells.map(cell => `<td>${cell}</td>`).join('')}</tr>`);
+    });
     // 答えの「別文書で管理してもよい」と矛盾しないよう、Q4 を別文書での管理が必須かどうかを問う形に改める
     $('main p').contents().each((_, node) => {
         if (node.type === 'text') node.data = node.data.replace(STRATEGY_QUESTION_BEFORE, STRATEGY_QUESTION);
@@ -47,3 +52,8 @@ export const LOGIN_TEST_CASES = [
 
 export const TAILORED_ROW_BEFORE = '使う文書を選び、外した理由を示す（テーラード適合）';
 export const TAILORED_ROW = '使う文書を選び、外した理由を示し、すべてのテーラリング決定をリスクを考慮した根拠とともに記録して、関係するステークホルダーの合意を得る（テーラード適合）';
+
+export const ROADMAP_ROWS = [
+    ['6', '実践ミニ例をたどり、よくある誤解と批判的視点を説明できる', '自チームの機能で計画・テストケース・インシデントの小さな例を書く'],
+    ['7', 'Part 2 のプロセスと Part 4 の技法へ学習を広げられる', 'Part 2 のプロセスを自組織の流れと比べ、Part 4 の技法を深める'],
+] as const;

@@ -7766,6 +7766,64 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "even"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "6"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "実践ミニ例をたどり、よくある誤解と批判的視点を説明できる"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "自チームの機能で計画・テストケース・インシデントの小さな例を書く"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "7"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "Part 2 のプロセスと Part 4 の技法へ学習を広げられる"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "Part 2 のプロセスを自組織の流れと比べ、Part 4 の技法を深める"
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -18126,6 +18184,64 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "even"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "6"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "実践ミニ例をたどり、よくある誤解と批判的視点を説明できる"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "自チームの機能で計画・テストケース・インシデントの小さな例を書く"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "tr",
+                  "attrs": {
+                    "class": "odd"
+                  },
+                  "children": [
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "7"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "Part 2 のプロセスと Part 4 の技法へ学習を広げられる"
+                      ]
+                    },
+                    {
+                      "tag": "td",
+                      "attrs": {},
+                      "children": [
+                        "Part 2 のプロセスを自組織の流れと比べ、Part 4 の技法を深める"
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -28153,6 +28269,64 @@
                         "attrs": {},
                         "children": [
                           "ツールのリンク機能で追跡を試す"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "tr",
+                    "attrs": {
+                      "class": "even"
+                    },
+                    "children": [
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "6"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "実践ミニ例をたどり、よくある誤解と批判的視点を説明できる"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "自チームの機能で計画・テストケース・インシデントの小さな例を書く"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "tr",
+                    "attrs": {
+                      "class": "odd"
+                    },
+                    "children": [
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "7"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "Part 2 のプロセスと Part 4 の技法へ学習を広げられる"
+                        ]
+                      },
+                      {
+                        "tag": "td",
+                        "attrs": {},
+                        "children": [
+                          "Part 2 のプロセスを自組織の流れと比べ、Part 4 の技法を深める"
                         ]
                       }
                     ]
