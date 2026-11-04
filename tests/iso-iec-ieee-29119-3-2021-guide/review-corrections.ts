@@ -37,6 +37,8 @@ export function applyReviewCorrections($: CheerioAPI): void {
         const heading = $(el).prevAll('h2, h3').first().text().replace(/\s+/g, ' ').trim();
         $(el).attr({ 'aria-label': `表：${heading}`, role: 'region', tabindex: '0' });
     });
+    // 外部リンクは新しいタブで開き、遷移先からの opener 参照を遮断する（原本は属性なし）
+    $('main a[href^="http"]').attr({ rel: 'noopener noreferrer', target: '_blank' });
     // 答えの「別文書で管理してもよい」と矛盾しないよう、Q4 を別文書での管理が必須かどうかを問う形に改める
     $('main p').contents().each((_, node) => {
         if (node.type === 'text') node.data = node.data.replace(STRATEGY_QUESTION_BEFORE, STRATEGY_QUESTION);

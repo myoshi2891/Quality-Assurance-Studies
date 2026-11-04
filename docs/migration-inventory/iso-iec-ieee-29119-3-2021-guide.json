@@ -7913,7 +7913,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/79429.html"
+                            "href": "https://www.iso.org/standard/79429.html",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.iso.org/standard/79429.html"
@@ -7957,7 +7959,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://standards.ieee.org/ieee/29119-3/7499/"
+                            "href": "https://standards.ieee.org/ieee/29119-3/7499/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://standards.ieee.org/ieee/29119-3/7499/"
@@ -8001,7 +8005,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://ieeexplore.ieee.org/document/9687477"
+                            "href": "https://ieeexplore.ieee.org/document/9687477",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://ieeexplore.ieee.org/document/9687477"
@@ -8045,7 +8051,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
+                            "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
@@ -8157,7 +8165,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
+                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
@@ -8208,7 +8218,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
+                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
@@ -8259,7 +8271,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
+                            "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
@@ -8310,7 +8324,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://sdtimes.com/applause/software-testing-schism/"
+                            "href": "https://sdtimes.com/applause/software-testing-schism/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://sdtimes.com/applause/software-testing-schism/"
@@ -8361,7 +8377,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.satisfice.com/blog/archives/1464"
+                            "href": "https://www.satisfice.com/blog/archives/1464",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.satisfice.com/blog/archives/1464"
@@ -8412,7 +8430,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
+                            "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
@@ -8463,7 +8483,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
+                            "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
@@ -8514,7 +8536,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119"
+                            "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://en.wikipedia.org/wiki/ISO/IEC_29119"
@@ -8598,7 +8622,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/56737.html"
+                            "href": "https://www.iso.org/standard/56737.html",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.iso.org/standard/56737.html"
@@ -8958,7 +8984,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.iso.org/standard/79429.html"
+            "href": "https://www.iso.org/standard/79429.html",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://www.iso.org/standard/79429.html"
@@ -8967,7 +8995,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://standards.ieee.org/ieee/29119-3/7499/"
+            "href": "https://standards.ieee.org/ieee/29119-3/7499/",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://standards.ieee.org/ieee/29119-3/7499/"
@@ -8976,7 +9006,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://ieeexplore.ieee.org/document/9687477"
+            "href": "https://ieeexplore.ieee.org/document/9687477",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://ieeexplore.ieee.org/document/9687477"
@@ -8985,7 +9017,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
+            "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
@@ -8994,7 +9028,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
+            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
@@ -9003,7 +9039,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
+            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
@@ -9012,7 +9050,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
+            "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
@@ -9021,7 +9061,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://sdtimes.com/applause/software-testing-schism/"
+            "href": "https://sdtimes.com/applause/software-testing-schism/",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://sdtimes.com/applause/software-testing-schism/"
@@ -9030,7 +9072,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.satisfice.com/blog/archives/1464"
+            "href": "https://www.satisfice.com/blog/archives/1464",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://www.satisfice.com/blog/archives/1464"
@@ -9039,7 +9083,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
+            "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
@@ -9048,7 +9094,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
+            "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
@@ -9057,7 +9105,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119"
+            "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://en.wikipedia.org/wiki/ISO/IEC_29119"
@@ -9066,7 +9116,9 @@
         {
           "tag": "a",
           "attrs": {
-            "href": "https://www.iso.org/standard/56737.html"
+            "href": "https://www.iso.org/standard/56737.html",
+            "rel": "noopener noreferrer",
+            "target": "_blank"
           },
           "children": [
             "https://www.iso.org/standard/56737.html"
@@ -18701,7 +18753,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/79429.html"
+                            "href": "https://www.iso.org/standard/79429.html",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.iso.org/standard/79429.html"
@@ -18745,7 +18799,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://standards.ieee.org/ieee/29119-3/7499/"
+                            "href": "https://standards.ieee.org/ieee/29119-3/7499/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://standards.ieee.org/ieee/29119-3/7499/"
@@ -18789,7 +18845,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://ieeexplore.ieee.org/document/9687477"
+                            "href": "https://ieeexplore.ieee.org/document/9687477",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://ieeexplore.ieee.org/document/9687477"
@@ -18833,7 +18891,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
+                            "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
@@ -18965,7 +19025,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
+                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
@@ -19016,7 +19078,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
+                            "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
@@ -19067,7 +19131,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
+                            "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
@@ -19118,7 +19184,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://sdtimes.com/applause/software-testing-schism/"
+                            "href": "https://sdtimes.com/applause/software-testing-schism/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://sdtimes.com/applause/software-testing-schism/"
@@ -19169,7 +19237,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.satisfice.com/blog/archives/1464"
+                            "href": "https://www.satisfice.com/blog/archives/1464",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.satisfice.com/blog/archives/1464"
@@ -19220,7 +19290,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
+                            "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
@@ -19271,7 +19343,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
+                            "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
@@ -19322,7 +19396,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119"
+                            "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://en.wikipedia.org/wiki/ISO/IEC_29119"
@@ -19426,7 +19502,9 @@
                         {
                           "tag": "a",
                           "attrs": {
-                            "href": "https://www.iso.org/standard/56737.html"
+                            "href": "https://www.iso.org/standard/56737.html",
+                            "rel": "noopener noreferrer",
+                            "target": "_blank"
                           },
                           "children": [
                             "https://www.iso.org/standard/56737.html"
@@ -28908,7 +28986,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://www.iso.org/standard/79429.html"
+                              "href": "https://www.iso.org/standard/79429.html",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://www.iso.org/standard/79429.html"
@@ -28952,7 +29032,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://standards.ieee.org/ieee/29119-3/7499/"
+                              "href": "https://standards.ieee.org/ieee/29119-3/7499/",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://standards.ieee.org/ieee/29119-3/7499/"
@@ -28996,7 +29078,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://ieeexplore.ieee.org/document/9687477"
+                              "href": "https://ieeexplore.ieee.org/document/9687477",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://ieeexplore.ieee.org/document/9687477"
@@ -29040,7 +29124,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
+                              "href": "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://cdn.standards.iteh.ai/samples/79429/27623aa24dba41a2876884c0ec57f5d7/ISO-IEC-IEEE-29119-3-2021.pdf"
@@ -29172,7 +29258,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
+                              "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://www.stureid.info/stuart-reid-software-testing/software-testing-white-papers/iso-29119-testing-standards/"
@@ -29223,7 +29311,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
+                              "href": "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://www.stureid.info/stuart-reid-software-testing/software-testing-workshops-seminars/workshop-isoiecieee-software-testing-standards/"
@@ -29274,7 +29364,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
+                              "href": "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://www.stureid.info/wp-content/uploads/2019/11/29119-Odin-Slides.pdf"
@@ -29325,7 +29417,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://sdtimes.com/applause/software-testing-schism/"
+                              "href": "https://sdtimes.com/applause/software-testing-schism/",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://sdtimes.com/applause/software-testing-schism/"
@@ -29376,7 +29470,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://www.satisfice.com/blog/archives/1464"
+                              "href": "https://www.satisfice.com/blog/archives/1464",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://www.satisfice.com/blog/archives/1464"
@@ -29427,7 +29523,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
+                              "href": "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://developsense.com/blog/2014/09/frequently-asked-questions-about-the-29119-controversy"
@@ -29478,7 +29576,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
+                              "href": "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://context-driven-testing.com/please-sign-the-petition-to-stop-iso-29119/"
@@ -29529,7 +29629,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119"
+                              "href": "https://en.wikipedia.org/wiki/ISO/IEC_29119",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://en.wikipedia.org/wiki/ISO/IEC_29119"
@@ -29633,7 +29735,9 @@
                           {
                             "tag": "a",
                             "attrs": {
-                              "href": "https://www.iso.org/standard/56737.html"
+                              "href": "https://www.iso.org/standard/56737.html",
+                              "rel": "noopener noreferrer",
+                              "target": "_blank"
                             },
                             "children": [
                               "https://www.iso.org/standard/56737.html"

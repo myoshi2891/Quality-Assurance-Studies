@@ -61,6 +61,10 @@ for (const ext of ['html', 'md'] as const) it('archive ' + ext + ' exact bytes a
     expect(existsSync('Iso-iec-ieee-29119-3-2021-guide.' + ext)).toBe(false);
     expect(execFileSync('git', ['ls-files', '--', path], { encoding: 'utf8' }).trim()).toBe(path);
 });
+it('opens every external link in a new tab with opener protections', () => {
+    const links = html()('main a[href^="http"]').toArray().map(a => [a.attribs.target, a.attribs.rel]);
+    expect(links).toEqual(inventory.groups.references.items.map(() => ['_blank', 'noopener noreferrer']));
+});
 it('route registered', () => expect(readFileSync('lib/navigation.ts', 'utf8')).toContain("href: '/iso-iec-ieee-29119-3-2021-guide'"));
 it('unique IDs and resolving anchors', () => { const $ = html(); const ids = $('[id]').map((_, e) => $(e).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length); $('a[href^="#"]').each((_, a) => expect(ids.filter(id => id === $(a).attr('href')!.slice(1))).toHaveLength(1)); });
 it('no whitespace text inside table structure', () => { const $ = html(); expect($('table,thead,tbody,tfoot,tr').toArray().filter(e => e.children.some(c => c.type === 'text'))).toEqual([]); });
