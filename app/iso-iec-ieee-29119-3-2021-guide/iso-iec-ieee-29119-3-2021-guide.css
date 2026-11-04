@@ -313,6 +313,8 @@
 @media (max-width:900px) {
  .iso291193-page .sidebar { visibility:hidden; transition:transform .2s, visibility 0s linear .2s; }
  .iso291193-page .sidebar.open { visibility:visible; transition:transform .2s, visibility 0s; }
+ /* Land anchors below the fixed TOC toggle, which sits lower than the wide-layout offset. */
+ .iso291193-page main h2[id], .iso291193-page main h3[id] { scroll-margin-top:calc(120px + var(--disclaimer-height, 0px)); }
 }
 @media (prefers-reduced-motion:reduce) {
  html:has(.iso291193-page), .iso291193-page { scroll-behavior:auto; }
