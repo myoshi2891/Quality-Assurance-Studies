@@ -15,7 +15,7 @@ export default function Category10() {
 {" "}
 <h3 id="102-特性別のテスト観点の例独自整理">{" 10.2 特性別のテスト観点の例（独自整理） "}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"特性"}</th><th>{"主なテスト・検証の観点"}</th><th>{"証拠の例"}</th></tr></thead><tbody><tr className="odd"><td>{"Safety"}</td><td>{"故障注入、異常時の安全側動作、ハザード分析との整合"}</td><td>{"故障注入試験記録、FMEA/FTA"}</td></tr><tr className="even"><td>{"Security"}</td><td>{"脆弱性診断、認証・認可、ファームウェア更新の改ざん耐性"}</td><td>{"ペネトレーションテスト報告、脅威モデル"}</td></tr><tr className="odd"><td>{"Privacy"}</td><td>{"データ収集範囲の確認、保存期間・削除の動作確認"}</td><td>{"データフロー図、プライバシー影響評価"}</td></tr><tr className="even"><td>{"Resilience"}</td><td>{"通信断・電源断・過負荷での縮退運転と復旧"}</td><td>{"カオステスト結果、復旧時間の実測"}</td></tr><tr className="odd"><td>{"Reliability"}</td><td>{"長時間稼働、環境条件ストレス"}</td><td>{"耐久試験データ、故障率の推定"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：10.2 特性別のテスト観点の例" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"特性"}</th><th>{"主なテスト・検証の観点"}</th><th>{"証拠の例"}</th></tr></thead><tbody><tr className="odd"><td>{"Safety"}</td><td>{"故障注入、異常時の安全側動作、ハザード分析との整合"}</td><td>{"故障注入試験記録、FMEA/FTA"}</td></tr><tr className="even"><td>{"Security"}</td><td>{"脆弱性診断、認証・認可、ファームウェア更新の改ざん耐性"}</td><td>{"ペネトレーションテスト報告、脅威モデル"}</td></tr><tr className="odd"><td>{"Privacy"}</td><td>{"データ収集範囲の確認、保存期間・削除の動作確認"}</td><td>{"データフロー図、プライバシー影響評価"}</td></tr><tr className="even"><td>{"Resilience"}</td><td>{"通信断・電源断・過負荷での縮退運転と復旧"}</td><td>{"カオステスト結果、復旧時間の実測"}</td></tr><tr className="odd"><td>{"Reliability"}</td><td>{"長時間稼働、環境条件ストレス"}</td><td>{"耐久試験データ、故障率の推定"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <h3 id="103-自己点検チェックリスト">{"10.3 自己点検チェックリスト"}</h3>
 {" "}
