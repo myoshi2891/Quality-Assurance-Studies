@@ -173,6 +173,11 @@ describe('where the highlight lands when a clicked scroll settles', () => {
         const previous = ids[ids.length - 2]!;
         expect(settleAfterClick(last, { [previous]: -100, [last]: height * 0.6 }, { scrollHeight: height })).toBe(last);
     });
+    it('keeps a visible earlier destination at the page end instead of the final section', () => {
+        const last = ids[ids.length - 1]!;
+        const destination = ids[ids.length - 2]!;
+        expect(settleAfterClick(destination, { [destination]: height * 0.6, [last]: height * 0.8 }, { scrollHeight: height })).toBe(destination);
+    });
     it('selects the final section when a clicked scroll overshoots to the page end', () => {
         const [destination] = ids as [string];
         const last = ids[ids.length - 1]!;
