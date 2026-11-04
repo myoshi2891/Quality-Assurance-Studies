@@ -28,7 +28,14 @@ export default function NavBar() {
     }, [settle]);
 
     useEffect(() => {
-        const onScroll = () => { if (pendingRef.current) scheduleSettle(); };
+        const onScroll = () => {
+            if (pendingRef.current) {
+                scheduleSettle();
+                return;
+            }
+            // 最後の節が短いと見出しが監視帯へ届かないため、ページ末尾では最後の目次項目を選ぶ
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1) setActive(TOC_IDS[TOC_IDS.length - 1]!);
+        };
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('scrollend', settle);
         return () => {
