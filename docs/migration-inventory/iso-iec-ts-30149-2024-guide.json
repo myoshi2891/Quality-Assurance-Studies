@@ -6297,7 +6297,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：1 この規格が答える疑問",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -12645,7 +12648,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：1 この規格が答える疑問",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
