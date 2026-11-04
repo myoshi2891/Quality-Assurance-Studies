@@ -97,6 +97,19 @@ describe('Mermaid component', () => {
     expect(new Set(ids).size).toBe(2);
   });
 
+  it('keeps the full UUID in the render id', async () => {
+    const ids: string[] = [];
+    renderImpl = async (id) => {
+      ids.push(id);
+      return { svg: DEFAULT_SVG };
+    };
+
+    render(<Mermaid chart="graph TD; A-->B" />);
+    await waitFor(() => expect(ids).toHaveLength(1));
+
+    expect(ids[0]).toMatch(/^mermaid-svg-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-\d+$/);
+  });
+
   it('does not call mermaid.render for an empty chart', async () => {
     let called = false;
     renderImpl = async (id, chart) => {
