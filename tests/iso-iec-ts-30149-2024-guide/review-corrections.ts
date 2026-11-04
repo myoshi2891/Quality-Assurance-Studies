@@ -28,7 +28,7 @@ export function applyReviewCorrections($: CheerioAPI): void {
     });
     // 横スクロールする表をキーボードで操作できるよう、名前付きのフォーカス可能な領域にする（原本は属性なし）
     $('main h3[id="61-5特性の早見表"]').nextAll('.table-scroll').first().attr({ 'aria-label': '表：6.1 5特性の早見表', role: 'region', tabindex: '0' });
-    // 箇条5・箇条8・10.2の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定する）
+    // 箇条5・6.2・箇条8・10.2の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定する）
     for (const [headers, label] of TABLE_SCROLL_REGIONS) {
         $('main .table-scroll')
             .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
@@ -64,6 +64,7 @@ export const APPLICATION_STEPS = [
 export const TABLE_SCROLL_REGIONS = [
     [['箇条', 'タイトル', '内容の概要', '本ガイドの対応Step'], '表：5 規格の全体構成マップ（箇条）'],
     [['図表', 'タイトル', '読む目的'], '表：5 規格の全体構成マップ（図表）'],
+    [['観点', 'Reliability', 'Resilience'], '表：6.2 ReliabilityとResilienceの違い'],
     [['節', '視点', '対応する図', '問い'], '表：8 箇条8の3つの視点'],
     [['悪い例（根拠のない主張）', '良い例（証拠に裏づけられた主張）'], '表：8.1 根拠のない主張と証拠に裏づけられた主張'],
     [['特性', '主なテスト・検証の観点', '証拠の例'], '表：10.2 特性別のテスト観点の例'],
