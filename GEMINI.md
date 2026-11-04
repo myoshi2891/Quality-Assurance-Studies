@@ -4,6 +4,14 @@ Updated 2026-11-04
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-04: ISO 29119-3の目次クリック後の強調とダッシュボードのPages行のレビュー修正
+
+- 29119-3: 目次クリック後にスクロールが宛先の手前で止まった場合、宛先ではなく実際に表示している節を強調するよう変更。到達は宛先見出し自身の位置で判定し、帯の中または`scroll-margin-top`の着地位置までを到達とする。ページ末尾で帯まで上がれない最後の節は、見えていれば到達とみなす。`headingAboveBandBottom() === id`で判定すると、短い節で次の見出しが帯に入ったときに宛先を失うため不採用。
+- ダッシュボード: Pages行の先頭セルの`state`・`label`を`testedPages`から算出し、全ページがテスト済みのときだけ`full`、それ以外は`partial`に変更。`aria-label`に含まれる注記も「Unit tests on all」から件数表記へ変更。
+- テスト: 29119-3は下方向・上方向の中断、短い節、着地位置、ページ末尾の5件を追加。到達時の3分岐はそれぞれ外すと失敗することを確認。`tests/coverage-dashboard.test.ts`は`renderDashboard`へ共通化し、Pages行の全件テスト済み・1件未テストの状態を検証。
+- 検証: 全体9931件（209ファイル）、29119-3対象268件、lintが成功。`iso-29119-3`のChrome37件はシステムChrome（`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定）で成功。スクロールの中断は実ブラウザーでは未検証。本番ビルドは未実施。
+- 対象外: `app/iso-iec-ts-30149-2024-guide/NavBar.tsx`の`settle`も宛先を無条件に選ぶ同じ構造だが、今回の指摘の範囲外のため未変更。
+
 ## 2026-11-04: ISO 29119-3・TS 30149の目次・表領域とダッシュボードのレビュー修正
 
 - 29119-3: 見出しが読み取り帯から出た通知でも、帯の下端より上にある最後の見出しを選び直すよう変更し、上へ戻るときの目次の強調の取り残しを解消。最初の見出しより上では強調を外す。`lib/useScrollSpy.ts`は見出しだけの監視では同じ取り残しが起き、目次クリック後の保留も持たないため不採用。900px超へ広げたら目次を閉じ、モバイル幅へ戻ったときに開いたまま表示されないよう変更。
@@ -680,7 +688,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9925件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9931件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
