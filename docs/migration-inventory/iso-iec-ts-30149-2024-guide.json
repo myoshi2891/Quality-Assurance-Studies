@@ -7434,7 +7434,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：4.2 規格が整理する3つの関係",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -13791,7 +13794,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：4.2 規格が整理する3つの関係",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {

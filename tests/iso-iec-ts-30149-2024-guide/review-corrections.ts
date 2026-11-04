@@ -34,7 +34,7 @@ export function applyReviewCorrections($: CheerioAPI): void {
         const corrected = ANNEX_A_CELLS[cell.text().trim()];
         if (corrected) cell.text(corrected);
     });
-    // 第1節・箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2・箇条11の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定するため、セル名の補正より後に行う）
+    // 第1節・4.2・箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2・箇条11の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定するため、セル名の補正より後に行う）
     for (const [headers, label] of TABLE_SCROLL_REGIONS) {
         $('main .table-scroll')
             .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
@@ -63,6 +63,7 @@ export const APPLICATION_STEPS = [
 
 export const TABLE_SCROLL_REGIONS = [
     [['疑問', 'この規格が与える答えの方向性'], '表：1 この規格が答える疑問'],
+    [['箇条', '論点', '初学者向けの理解'], '表：4.2 規格が整理する3つの関係'],
     [['箇条', 'タイトル', '内容の概要', '本ガイドの対応Step'], '表：5 規格の全体構成マップ（箇条）'],
     [['図表', 'タイトル', '読む目的'], '表：5 規格の全体構成マップ（図表）'],
     [['観点', 'Reliability', 'Resilience'], '表：6.2 ReliabilityとResilienceの違い'],
