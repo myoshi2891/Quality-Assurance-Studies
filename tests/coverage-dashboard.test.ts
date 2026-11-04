@@ -47,6 +47,24 @@ function inventoryTotal(): number {
     return Object.values(inventoryCounts()).reduce((total, count) => total + count, 0);
 }
 
+/** 実スクリプトを文書へ描画して read の結果を返す。script の差し替えで埋め込みデータを変更できる。 */
+function renderDashboard<T>(mutate: (script: string) => string, read: () => T): T {
+    const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+    if (!script) throw new Error('埋め込みスクリプトが見つからない');
+    const body = html.match(/<body[^>]*>([\s\S]*)<\/body>/)?.[1];
+    if (!body) throw new Error('body が見つからない');
+    document.body.innerHTML = body.replace(/<script>[\s\S]*?<\/script>/, '');
+    const listen = spyOn(document, 'addEventListener');
+    new Function(mutate(script))();
+    // 描画は DOMContentLoaded で始まるため明示的に発火し、登録したリスナーは他のテストへ残さない
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    for (const [type, listener] of listen.mock.calls) document.removeEventListener(type, listener);
+    listen.mockRestore();
+    const result = read();
+    document.body.innerHTML = '';
+    return result;
+}
+
 describe('coverage dashboard static totals', () => {
     // JS 実行前に見える初期値が描画後の値と食い違わないよう、静的 HTML の総数を埋め込みデータと一致させる
     it.each(['#kpi-total-files', '#inv-total'])('%s matches the embedded inventory', (selector) => {
@@ -65,22 +83,34 @@ describe('coverage dashboard static totals', () => {
     });
 
     it('recalculates the page percentage from the embedded data when rendering', () => {
-        const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
-        if (!script) throw new Error('埋め込みスクリプトが見つからない');
-        const body = html.match(/<body[^>]*>([\s\S]*)<\/body>/)?.[1];
-        if (!body) throw new Error('body が見つからない');
         const { total, tested } = pageCounts();
-        document.body.innerHTML = body.replace(/<script>[\s\S]*?<\/script>/, '');
         // 1 件を未テストにして実スクリプトを動かし、静的な値のままなら失敗させる
-        const listen = spyOn(document, 'addEventListener');
-        new Function(script.replace('tested: true', 'tested: false'))();
-        // 描画は DOMContentLoaded で始まるため明示的に発火し、登録したリスナーは他のテストへ残さない
-        document.dispatchEvent(new Event('DOMContentLoaded'));
-        for (const [type, listener] of listen.mock.calls) document.removeEventListener(type, listener);
-        listen.mockRestore();
-        const label = document.getElementById('kpi-pages-label')?.textContent;
-        document.body.innerHTML = '';
+        const label = renderDashboard((script) => script.replace('tested: true', 'tested: false'), () =>
+            document.getElementById('kpi-pages-label')?.textContent);
         expect(label).toBe(`Pages Tested · ${Math.round(((tested - 1) / total) * 100)}%`);
+    });
+
+    it('marks the Pages row complete only while every page is tested', () => {
+        const { total, tested } = pageCounts();
+        const readCell = () => {
+            const cell = document.querySelector('#matrix-body tr td');
+            return {
+                state: cell?.getAttribute('data-state'),
+                dot: cell?.querySelector('.cell')?.getAttribute('data-state'),
+                value: cell?.querySelector('.lbl')?.textContent,
+                label: cell?.getAttribute('aria-label') ?? ''
+            };
+        };
+
+        const complete = renderDashboard((script) => script, readCell);
+        const partial = renderDashboard((script) => script.replace('tested: true', 'tested: false'), readCell);
+
+        expect(complete).toMatchObject({ state: 'full', dot: 'full', value: `${tested}/${total}` });
+        expect(complete.label).toContain(': 完全 — ');
+        expect(complete.label).toContain(`Unit tests on ${tested}/${total} pages`);
+        expect(partial).toMatchObject({ state: 'partial', dot: 'partial', value: `${tested - 1}/${total}` });
+        expect(partial.label).toContain(': 部分 — ');
+        expect(partial.label).toContain(`Unit tests on ${tested - 1}/${total} pages`);
     });
 
     // カードは DATA.pages から描画されるため、欠落・重複があればルート一覧との差として検出する
