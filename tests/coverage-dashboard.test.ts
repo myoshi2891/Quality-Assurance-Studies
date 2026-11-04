@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test';
+import { describe, expect, it, spyOn } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
 import { PAGES } from '../e2e/pages';
@@ -72,7 +72,12 @@ describe('coverage dashboard static totals', () => {
         const { total, tested } = pageCounts();
         document.body.innerHTML = body.replace(/<script>[\s\S]*?<\/script>/, '');
         // 1 件を未テストにして実スクリプトを動かし、静的な値のままなら失敗させる
+        const listen = spyOn(document, 'addEventListener');
         new Function(script.replace('tested: true', 'tested: false'))();
+        // 描画は DOMContentLoaded で始まるため明示的に発火し、登録したリスナーは他のテストへ残さない
+        document.dispatchEvent(new Event('DOMContentLoaded'));
+        for (const [type, listener] of listen.mock.calls) document.removeEventListener(type, listener);
+        listen.mockRestore();
         const label = document.getElementById('kpi-pages-label')?.textContent;
         document.body.innerHTML = '';
         expect(label).toBe(`Pages Tested · ${Math.round(((tested - 1) / total) * 100)}%`);
