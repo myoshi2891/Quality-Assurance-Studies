@@ -27,6 +27,18 @@ interface MermaidRoute {
     readonly expectsLightTheme: boolean;
 }
 
+const LIGHT_THEME_PATTERN = /"theme"\s*:\s*"base"/;
+
+/** page.tsx が直接 import せず、ページ固有の Diagram やカテゴリー別ファイル経由で共有 Mermaid を使うルート。 */
+const INDIRECT_MERMAID_GUIDES = ['iso-iec-ieee-29119-3-2021-guide', 'iso-iec-ts-30149-2024-guide'] as const;
+
+function indirectMermaidRoutes(): MermaidRoute[] {
+    return INDIRECT_MERMAID_GUIDES.map((guide) => ({
+        path: `/${guide}`,
+        expectsLightTheme: LIGHT_THEME_PATTERN.test(readFileSync(join(APP_DIR, guide, 'diagrams.ts'), 'utf8')),
+    }));
+}
+
 /** components/Mermaid を使うページを app/ から収集する。 */
 function mermaidRoutes(): MermaidRoute[] {
     const routes: MermaidRoute[] = [];
@@ -38,13 +50,15 @@ function mermaidRoutes(): MermaidRoute[] {
         if (!source.includes('components/Mermaid')) continue;
         routes.push({
             path: `/${entry.name}`,
-            expectsLightTheme: /"theme"\s*:\s*"base"/.test(source),
+            expectsLightTheme: LIGHT_THEME_PATTERN.test(source),
         });
     }
     return routes;
 }
 
-const ROUTES = mermaidRoutes();
+const ROUTES = [
+    ...new Map([...mermaidRoutes(), ...indirectMermaidRoutes()].map((route) => [route.path, route])).values(),
+];
 
 test.describe('mermaid: rendered layout and theme', () => {
     for (const route of ROUTES) {
