@@ -97,6 +97,48 @@ describe('Mermaid component', () => {
     expect(new Set(ids).size).toBe(2);
   });
 
+  // crypto.randomUUID が使えない環境でも、乱数のフォールバックでインスタンスごとに別の ID になる
+  it('keeps render ids unique through the fallback without crypto.randomUUID', async () => {
+    // Arrange
+    const ids: string[] = [];
+    renderImpl = async (id) => {
+      ids.push(id);
+      return { svg: DEFAULT_SVG };
+    };
+    const descriptor = Object.getOwnPropertyDescriptor(crypto, 'randomUUID');
+    const originalRandom = Math.random;
+    let draws = 0;
+    Object.defineProperty(crypto, 'randomUUID', { configurable: true, value: undefined });
+    Math.random = () => {
+      draws += 1;
+      return draws / 10;
+    };
+    let FirstMermaid: typeof Mermaid;
+    let SecondMermaid: typeof Mermaid;
+    try {
+      const modulePath = '../../components/Mermaid.tsx';
+      FirstMermaid = ((await import(`${modulePath}?instance=fallback-first`)) as { default: typeof Mermaid }).default;
+      SecondMermaid = ((await import(`${modulePath}?instance=fallback-second`)) as { default: typeof Mermaid }).default;
+    } finally {
+      Math.random = originalRandom;
+      if (descriptor) Object.defineProperty(crypto, 'randomUUID', descriptor);
+      else Reflect.deleteProperty(crypto, 'randomUUID');
+    }
+
+    // Act
+    render(
+      <>
+        <FirstMermaid chart="graph TD; A-->B" />
+        <SecondMermaid chart="graph TD; C-->D" />
+      </>,
+    );
+    await waitFor(() => expect(ids).toHaveLength(2));
+
+    // Assert: UUID 形式ではなくフォールバックの ID で、かつ互いに異なる
+    expect(new Set(ids).size).toBe(2);
+    for (const id of ids) expect(id).toMatch(/^mermaid-svg-[a-z0-9]{8}-1$/);
+  });
+
   it('keeps the full UUID in the render id', async () => {
     const ids: string[] = [];
     renderImpl = async (id) => {
