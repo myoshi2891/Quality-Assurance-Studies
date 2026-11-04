@@ -501,7 +501,7 @@ it('registers ISO/IEC TR 29138-2 under ISO', () => {
 });
 
 it('registers ISO/IEC TS 30149 under ISO', () => {
-  expect(NAV_ITEMS.find(item => item.href === '/iso-iec-ts-30149-2024-guide')?.category).toBe('iso');
+  expect(NAV_ITEMS.find(item => item.href === '/iso-iec-ts-30149-2024-guide')).toEqual({ href: '/iso-iec-ts-30149-2024-guide', label: 'ISO/IEC TS 30149:2024 初学者ガイド', description: 'IoTの信頼に足る性質を、5特性・管理・保証・実務チェックから段階的に学ぶ。', category: 'iso' });
 });
 
 it('registers ISO IEC IEEE 29119-3 under ISO with its learning summary', () => {
