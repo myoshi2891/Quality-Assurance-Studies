@@ -9402,7 +9402,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：7 箇条7の管理要素",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -9682,7 +9685,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：7.1 合成で起きがちな問題",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -10207,7 +10213,10 @@
         {
           "tag": "div",
           "attrs": {
-            "class": "table-scroll"
+            "aria-label": "表：9 附属書Aの節と対応表",
+            "class": "table-scroll",
+            "role": "region",
+            "tabindex": "0"
           },
           "children": [
             {
@@ -15750,7 +15759,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：7 箇条7の管理要素",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -16030,7 +16042,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：7.1 合成で起きがちな問題",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
@@ -16559,7 +16574,10 @@
       {
         "tag": "div",
         "attrs": {
-          "class": "table-scroll"
+          "aria-label": "表：9 附属書Aの節と対応表",
+          "class": "table-scroll",
+          "role": "region",
+          "tabindex": "0"
         },
         "children": [
           {
