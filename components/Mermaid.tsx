@@ -35,7 +35,7 @@ interface MermaidProps {
 // 初期化されても、以前のインスタンスが描画した SVG と ID が重ならない。
 const moduleSessionId =
     typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-        ? crypto.randomUUID().slice(0, 8)
+        ? crypto.randomUUID()
         : Math.random().toString(36).slice(2, 10);
 
 // 描画試行ごとに単調増加する連番。採番は同期的に行うため、
