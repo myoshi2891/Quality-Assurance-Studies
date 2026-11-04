@@ -6,6 +6,8 @@ const TOC_GROUPS = [{"id":"step-0-まず全体像をつかむ30秒サマリー",
 type TocLink = { readonly id: string; readonly label: string; readonly sub?: boolean };
 // IntersectionObserver の rootMargin 下端（-75%）と対応する読み取り帯の下端
 const BAND_BOTTOM_RATIO = 0.25;
+// スクロール位置の丸めで生じる端数を吸収する
+const LANDING_TOLERANCE_PX = 2;
 
 // 帯の下端より上にある最後の見出しが、いま読んでいる節。最初の見出しより上では空文字を返す
 const headingAboveBandBottom = (): string => {
@@ -16,6 +18,18 @@ const headingAboveBandBottom = (): string => {
         if (heading && heading.getBoundingClientRect().top < bandBottom) current = id;
     }
     return current;
+};
+
+// クリック先の見出しが読み取り位置まで来たか。読み飛ばして上へ残った場合や、手前で止まった場合は到達していない
+const reachedDestination = (heading: HTMLElement): boolean => {
+    const { top } = heading.getBoundingClientRect();
+    if (top < 0) return false;
+    // 背の低い画面では scroll-margin-top の着地位置が帯より下になるため、着地位置まで許容する
+    const landing = (Number.parseFloat(getComputedStyle(heading).scrollMarginTop) || 0) + LANDING_TOLERANCE_PX;
+    if (top <= Math.max(window.innerHeight * BAND_BOTTOM_RATIO, landing)) return true;
+    // 終盤の節が短いと見出しは帯まで上がれないため、ページ末尾で見えていれば到達とみなす
+    const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+    return atPageEnd && top < window.innerHeight;
 };
 
 export default function NavBar() {
@@ -33,7 +47,9 @@ export default function NavBar() {
         const id = pendingRef.current;
         if (!id) return;
         pendingRef.current = null;
-        setActive(id);
+        const heading = document.getElementById(id);
+        // ユーザー操作などで手前に止まった場合は、実際に表示している節を示す
+        setActive(!heading || reachedDestination(heading) ? id : headingAboveBandBottom());
     }, []);
     // scrollend 非対応ブラウザやスクロールが発生しない場合に備え、最後のスクロールから一定時間で完了とみなす
     const scheduleSettle = useCallback(() => {
