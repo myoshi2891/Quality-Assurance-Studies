@@ -1,8 +1,18 @@
 # Project Overview
 
-Updated 2026-11-04
+Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-05: ISO 29119-3・TS 30149とMermaid契約のレビュー修正
+
+- 29119-3: 参考ソースの外部リンク全13件へ`target="_blank"`と`rel="noopener noreferrer"`を付与。`href`と表示文字列は維持。
+- TS 30149: 4.2の表を名前付きのキーボード操作領域に変更。図8（`DIAGRAM_7`）の矢印を証拠→論拠→主張へ反転し、図2の「支える側→支えられる側」と統一。ノードのラベルと`accDescr`は維持し、証拠が左端になる。
+- TS 30149: `settle`を29119-3と同じ到達判定へ変更し、目次クリック後にスクロールが宛先の手前で止まったら実際に表示している節を強調。到達しないままページ末尾で止まった場合は、末尾の挙動に合わせて最後の項目を選ぶ。
+- Mermaid契約: `mainBkg`の検査を固定一覧からディレクティブ単位の検出へ変更。`primaryColor`との一致検査は従来の8ファイルに限定。`\"theme\"`形式の設定も検出対象にした結果、`/beautiful-testing-guide`と`/iso-30130-guide`の`mainBkg`漏れが判明。既定ノードが共有初期化の`#0f2040`になっていたため、原本の`#12233a`・`#16294a`を指定（30130は原本のノード色が`primaryColor`と異なる）。
+- テスト: 図の接続は`DIAGRAM_EDGE_CORRECTIONS`、原本SVGの`data-id`は`ASSURANCE_EDGE_IDS`で補正し、比較自体は緩めていない。`settle`は到達判定の各分岐と末尾の代替分岐を外すと失敗することを確認。移植した5件だけでは末尾の到達判定を外しても検知できなかったため、末尾で見えている手前の節を宛先にするケースを追加。`mainBkg`の検出は対象外ファイルから値を除くと失敗することを確認。
+- 検証: 全体9941件（209ファイル）、29119-3対象269件、TS 30149対象275件、lintが成功。Chrome94件（`iso-30149`35件・`iso-29119-3`37件・`iso-30130`22件、システムChrome、`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定）が成功。スクロールの中断、および`mainBkg`を追加した2ガイドの共有初期化下のノード色は実ブラウザーでは未検証。本番ビルドは未実施。
+- 対象外: TS 30149の残り10表（2の2表、3、4.1、4.3、6.3、12、14.1、14.2、15）は領域化していない。今回の指摘の範囲外のため未変更。
 
 ## 2026-11-04: ISO 29119-3の目次クリック後の強調とダッシュボードのPages行のレビュー修正
 
@@ -688,7 +698,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9931件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9941件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。

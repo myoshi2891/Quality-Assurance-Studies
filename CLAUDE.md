@@ -1,8 +1,18 @@
 # CLAUDE.md
 
-Updated 2026-11-04
+Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-05: ISO 29119-3・TS 30149とMermaid契約のレビュー修正
+
+- 29119-3: 参考ソースの外部リンク全13件へ`target="_blank"`と`rel="noopener noreferrer"`を付与。`href`と表示文字列は維持。
+- TS 30149: 4.2の表を名前付きのキーボード操作領域に変更。図8（`DIAGRAM_7`）の矢印を証拠→論拠→主張へ反転し、図2の「支える側→支えられる側」と統一。ノードのラベルと`accDescr`は維持し、証拠が左端になる。
+- TS 30149: `settle`を29119-3と同じ到達判定へ変更し、目次クリック後にスクロールが宛先の手前で止まったら実際に表示している節を強調。到達しないままページ末尾で止まった場合は、末尾の挙動に合わせて最後の項目を選ぶ。
+- Mermaid契約: `mainBkg`の検査を固定一覧からディレクティブ単位の検出へ変更。`primaryColor`との一致検査は従来の8ファイルに限定。`\"theme\"`形式の設定も検出対象にした結果、`/beautiful-testing-guide`と`/iso-30130-guide`の`mainBkg`漏れが判明。既定ノードが共有初期化の`#0f2040`になっていたため、原本の`#12233a`・`#16294a`を指定（30130は原本のノード色が`primaryColor`と異なる）。
+- テスト: 図の接続は`DIAGRAM_EDGE_CORRECTIONS`、原本SVGの`data-id`は`ASSURANCE_EDGE_IDS`で補正し、比較自体は緩めていない。`settle`は到達判定の各分岐と末尾の代替分岐を外すと失敗することを確認。移植した5件だけでは末尾の到達判定を外しても検知できなかったため、末尾で見えている手前の節を宛先にするケースを追加。`mainBkg`の検出は対象外ファイルから値を除くと失敗することを確認。
+- 検証: 全体9941件（209ファイル）、29119-3対象269件、TS 30149対象275件、lintが成功。Chrome94件（`iso-30149`35件・`iso-29119-3`37件・`iso-30130`22件、システムChrome、`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定）が成功。スクロールの中断、および`mainBkg`を追加した2ガイドの共有初期化下のノード色は実ブラウザーでは未検証。本番ビルドは未実施。
+- 対象外: TS 30149の残り10表（2の2表、3、4.1、4.3、6.3、12、14.1、14.2、15）は領域化していない。今回の指摘の範囲外のため未変更。
 
 ## 2026-11-04: ISO 29119-3の目次クリック後の強調とダッシュボードのPages行のレビュー修正
 
@@ -249,7 +259,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9931 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9941 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1275,12 +1285,12 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ts-30149-2024-guide/page.tsx` / 同名CSS — ヒーロー・本文15カテゴリー・フッター、原本の79 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Checklist.tsx` / `diagrams.ts` — 階層目次33リンク・進捗7項目・共有Mermaid11図。
-- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの268契約。
+- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの275契約。
 - `e2e/iso-30149-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-30149`） — ビルド・サーバー不要の35検証。
 
 ## ISO/IEC/IEEE 29119-3:2021の構成（2026-11-03）
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx` / 同名CSS — 導入・Step 0〜14・参考資料の17カテゴリー、原本の47 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
-- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの268契約。
+- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの269契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。
