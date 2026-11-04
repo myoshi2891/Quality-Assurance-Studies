@@ -48,6 +48,8 @@ it('activates the final TOC entry at the page bottom unless a TOC jump is still 
         fireEvent.scroll(window);
     };
     const current = (container: HTMLElement) => container.querySelector('a[aria-current="location"]')?.getAttribute('data-target');
+    // 先行テストのリンク操作で残ったハッシュがマウント時の判定に使われないようにする
+    window.location.hash = '';
     Object.defineProperty(window, 'innerHeight', { configurable: true, value: 800 });
     Object.defineProperty(root, 'scrollHeight', { configurable: true, value: 2000 });
     try {
@@ -66,6 +68,7 @@ it('activates the final TOC entry at the page bottom unless a TOC jump is still 
         scrollTo(1200);
         expect(current(view.container)).toBe(ids.at(-1));
     } finally {
+        window.location.hash = '';
         Reflect.deleteProperty(root, 'scrollHeight');
         for (const [key, descriptor] of Object.entries(originals)) {
             if (descriptor) Object.defineProperty(window, key, descriptor);
