@@ -25,3 +25,15 @@ it('all seven checkboxes and labels update progress in both directions without a
         expect(fill.style.width).toBe(Math.round((6-i)*100/7)+'%');
     });
 });
+it('keeps checkbox progress local to the card that changed', () => {
+    const Checklist = sourceModule('app/iso-iec-ts-30149-2024-guide/Checklist.tsx').default as React.ComponentType<{ children: React.ReactNode }>;
+    const card = (name: string) => <Checklist><span className="cp-count" /><div className="cp-fill" /><input type="checkbox" aria-label={`${name} 1`} /><input type="checkbox" aria-label={`${name} 2`} /></Checklist>;
+    const view = render(<>{card('A')}{card('B')}</>);
+    const [first, second] = view.container.querySelectorAll('.checklist-card');
+    const progress = (el: Element) => [el.querySelector('.cp-count')?.textContent, el.querySelector<HTMLElement>('.cp-fill')?.style.width];
+    expect(progress(first!)).toEqual(['0 / 2', '0%']);
+    expect(progress(second!)).toEqual(['0 / 2', '0%']);
+    fireEvent.click(view.getByRole('checkbox', { name: 'A 1' }));
+    expect(progress(first!)).toEqual(['1 / 2', '50%']);
+    expect(progress(second!)).toEqual(['0 / 2', '0%']);
+});
