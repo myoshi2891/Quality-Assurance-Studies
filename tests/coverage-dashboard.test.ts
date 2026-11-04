@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
+import { PAGES } from '../e2e/pages';
 
 const html = readFileSync('docs/coverage-dashboard.html', 'utf8');
 
@@ -8,12 +9,26 @@ function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null;
 }
 
-/** 埋め込みの pages 配列から全ページ数とテスト済みページ数を求める。 */
-function pageCounts(): { total: number; tested: number } {
+/** 埋め込みの pages 配列を、path を持つレコード単位で読み取る。tested が不正なレコードは例外にする。 */
+function pageRecords(): { path: string; tested: boolean }[] {
     const block = html.match(/const pages = \[([\s\S]*?)\n\];/)?.[1];
     if (!block) throw new Error('pages 配列が見つからない');
-    const flags = [...block.matchAll(/\btested:\s*(true|false)/g)].map((match) => match[1]);
-    return { total: flags.length, tested: flags.filter((flag) => flag === 'true').length };
+    const records = [...block.matchAll(/\{([^{}]*)\}/g)].map((match) => {
+        const body = match[1] ?? '';
+        const path = body.match(/\bpath:\s*'([^']+)'/)?.[1];
+        const flag = body.match(/\btested:\s*(true|false)\s*$/)?.[1];
+        if (!path) throw new Error(`path のないレコード: ${body}`);
+        if (!flag) throw new Error(`tested が不正なレコード: ${path}`);
+        return { path, tested: flag === 'true' };
+    });
+    if (records.length !== [...block.matchAll(/\bpath:/g)].length) throw new Error('レコード外に path がある');
+    return records;
+}
+
+/** 埋め込みの pages 配列から全ページ数とテスト済みページ数を求める。 */
+function pageCounts(): { total: number; tested: number } {
+    const records = pageRecords();
+    return { total: records.length, tested: records.filter((record) => record.tested).length };
 }
 
 /** 埋め込みデータからグループごとのファイル数を求める。 */
@@ -46,6 +61,13 @@ describe('coverage dashboard static totals', () => {
         expect($('#mc-scope').text()).toMatch(new RegExp(`\\b${total} pages?\\b`));
         expect($('#kpi-pages-tested').text()).toBe(`${tested}/ ${total}`);
         expect($('#kpi-pages-desc-count').text()).toBe(String(total));
+    });
+
+    // カードは DATA.pages から描画されるため、欠落・重複があればルート一覧との差として検出する
+    it('lists every registered route exactly once', () => {
+        const paths = pageRecords().map((record) => record.path);
+        expect(new Set(paths).size).toBe(paths.length);
+        expect([...paths].sort()).toEqual(PAGES.map((page) => page.path).sort());
     });
 
     it.each(['pages', 'components', 'lib', 'scripts', 'e2e', 'tooling'])('#inv-count-%s matches its embedded group', (group) => {
