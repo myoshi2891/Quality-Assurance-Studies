@@ -34,7 +34,7 @@ export function applyReviewCorrections($: CheerioAPI): void {
         const corrected = ANNEX_A_CELLS[cell.text().trim()];
         if (corrected) cell.text(corrected);
     });
-    // 箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定するため、セル名の補正より後に行う）
+    // 箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2・箇条11の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定するため、セル名の補正より後に行う）
     for (const [headers, label] of TABLE_SCROLL_REGIONS) {
         $('main .table-scroll')
             .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
@@ -71,6 +71,7 @@ export const TABLE_SCROLL_REGIONS = [
     [['悪い例（根拠のない主張）', '良い例（証拠に裏づけられた主張）'], '表：8.1 根拠のない主張と証拠に裏づけられた主張'],
     [['節', '節の名称', '対応表', '目的（名称からの一般的な解釈）'], '表：9 附属書Aの節と対応表'],
     [['特性', '主なテスト・検証の観点', '証拠の例'], '表：10.2 特性別のテスト観点の例'],
+    [['文書', '発行元', '位置づけ', 'TS 30149との関係'], '表：11 関連する規格・フレームワークとの違い'],
 ] as const;
 
 export const CONFORMITY_CLAIMS = [
