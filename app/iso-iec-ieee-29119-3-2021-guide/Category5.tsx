@@ -8,11 +8,11 @@ export default function Category5() {
 {" "}
 <h3 id="4-1-動詞の意味">{"4-1. 動詞の意味"}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"動詞"}</th><th>{"意味"}</th></tr></thead><tbody><tr className="odd"><td>{"shall"}</td><td>{"要求"}</td></tr><tr className="even"><td>{"should"}</td><td>{"推奨"}</td></tr><tr className="odd"><td>{"may"}</td><td>{"許可"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：4-1. 動詞の意味" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"動詞"}</th><th>{"意味"}</th></tr></thead><tbody><tr className="odd"><td>{"shall"}</td><td>{"要求"}</td></tr><tr className="even"><td>{"should"}</td><td>{"推奨"}</td></tr><tr className="odd"><td>{"may"}</td><td>{"許可"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <h3 id="4-2-2つの適合方法">{"4-2. 2つの適合方法"}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"方法"}</th><th>{"内容"}</th></tr></thead><tbody><tr className="odd"><td><strong>{"Full conformance（完全適合）"}</strong></td><td>{" Clause 5〜8 と Annex A のすべての要求（shall）を満たした証拠を示す "}</td></tr><tr className="even"><td><strong>{"Tailored conformance（テーラード適合）"}</strong></td><td>{" 使う文書のサブセットを記録し、そのサブセットの shall をすべて満たす。"}<strong>{"要求を外す場合は理由（正当化）の提示が必要"}</strong>{"。さらに、"}<strong>{"適用可能なリスクの考慮を含む根拠とともにすべてのテーラリング決定を記録し、関係するステークホルダーの合意を得る"}</strong>{"ことが必要 "}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：4-2. 2つの適合方法" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"方法"}</th><th>{"内容"}</th></tr></thead><tbody><tr className="odd"><td><strong>{"Full conformance（完全適合）"}</strong></td><td>{" Clause 5〜8 と Annex A のすべての要求（shall）を満たした証拠を示す "}</td></tr><tr className="even"><td><strong>{"Tailored conformance（テーラード適合）"}</strong></td><td>{" 使う文書のサブセットを記録し、そのサブセットの shall をすべて満たす。"}<strong>{"要求を外す場合は理由（正当化）の提示が必要"}</strong>{"。さらに、"}<strong>{"適用可能なリスクの考慮を含む根拠とともにすべてのテーラリング決定を記録し、関係するステークホルダーの合意を得る"}</strong>{"ことが必要 "}</td></tr></tbody></table>{" "}</div>
 {" "}
 <p>{"さらに重要な点:"}</p>
 {" "}

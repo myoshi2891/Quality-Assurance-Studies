@@ -322,3 +322,5 @@
 }
 /* Source prose inherits its surrounding ink color; shared p rules use a different grey. */
 .iso291193-page p { color:inherit; }
+/* 横スクロールの表はキーボードでフォーカスできるため、位置が分かるように示す */
+.iso291193-page .table-scroll:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }

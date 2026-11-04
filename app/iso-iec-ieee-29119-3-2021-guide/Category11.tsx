@@ -14,7 +14,7 @@ export default function Category11() {
 {" "}
 <p>{" 規格の用語定義では、"}<strong>{"要求とそれに対応するテストなど、文書とソフトウェアの関連する項目を結びつける文書・スプレッドシート・ツール"}</strong>{"を「テストトレーサビリティマトリクス」と呼んでいます（別名: 検証相互参照マトリクス、要求テストマトリクス、要求検証表）。形式や詳細度は用途によって異なってよい、とされています。 "}</p>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"追跡の方向"}</th><th>{"何がわかるか"}</th></tr></thead><tbody><tr className="odd"><td>{"要求 → テストモデル → テストケース"}</td><td>{"要求がテストされているか（抜け漏れ）"}</td></tr><tr className="even"><td>{"テストケース → 実行結果 → インシデント"}</td><td>{"不合格の影響範囲"}</td></tr><tr className="odd"><td>{"インシデント → 要求"}</td><td>{"不具合がどの要求に関わるか"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：10-2. テストトレーサビリティマトリクス" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"追跡の方向"}</th><th>{"何がわかるか"}</th></tr></thead><tbody><tr className="odd"><td>{"要求 → テストモデル → テストケース"}</td><td>{"要求がテストされているか（抜け漏れ）"}</td></tr><tr className="even"><td>{"テストケース → 実行結果 → インシデント"}</td><td>{"不合格の影響範囲"}</td></tr><tr className="odd"><td>{"インシデント → 要求"}</td><td>{"不具合がどの要求に関わるか"}</td></tr></tbody></table>{" "}</div>
 {" "}
     </>;
 }

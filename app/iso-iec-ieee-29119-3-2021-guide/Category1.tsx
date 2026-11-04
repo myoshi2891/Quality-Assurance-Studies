@@ -14,7 +14,7 @@ export default function Category1() {
 {" "}
 <h3 id="用語の最低限セット">{"用語の最低限セット"}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"用語"}</th><th>{"ひとことで言うと"}</th></tr></thead><tbody><tr className="odd"><td>{"テストポリシー"}</td><td>{"組織がテストで何を目指すかを示す経営層向けの方針文書"}</td></tr><tr className="even"><td>{"テスト計画（テストプラン）"}</td><td>{" 目的・進め方・スケジュールをまとめた計画書。テスト戦略を含む "}</td></tr><tr className="odd"><td>{"テストモデル"}</td><td>{" テスト対象をテストしやすい形で表現したもの（状態遷移図、デシジョンテーブル等） "}</td></tr><tr className="even"><td>{"テストケース仕様"}</td><td>{"テストケースの集まりを記述した文書"}</td></tr><tr className="odd"><td>{"テスト手順仕様"}</td><td>{" テストケースを実行する順序・手順を記述した文書（テストスクリプトとも） "}</td></tr><tr className="even"><td>{"インシデント"}</td><td>{"テスト実行中などに起きた「調査が必要な、予期しない出来事」"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：用語の最低限セット" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"用語"}</th><th>{"ひとことで言うと"}</th></tr></thead><tbody><tr className="odd"><td>{"テストポリシー"}</td><td>{"組織がテストで何を目指すかを示す経営層向けの方針文書"}</td></tr><tr className="even"><td>{"テスト計画（テストプラン）"}</td><td>{" 目的・進め方・スケジュールをまとめた計画書。テスト戦略を含む "}</td></tr><tr className="odd"><td>{"テストモデル"}</td><td>{" テスト対象をテストしやすい形で表現したもの（状態遷移図、デシジョンテーブル等） "}</td></tr><tr className="even"><td>{"テストケース仕様"}</td><td>{"テストケースの集まりを記述した文書"}</td></tr><tr className="odd"><td>{"テスト手順仕様"}</td><td>{" テストケースを実行する順序・手順を記述した文書（テストスクリプトとも） "}</td></tr><tr className="even"><td>{"インシデント"}</td><td>{"テスト実行中などに起きた「調査が必要な、予期しない出来事」"}</td></tr></tbody></table>{" "}</div>
 {" "}
     </>;
 }

@@ -18,7 +18,7 @@ export default function Category10() {
 {" "}
 <p>{" "}<strong>{"テスト対象を、特定の性質や品質特性に焦点を当ててテストできるように表現したもの"}</strong>{"です。規格が挙げる例は次のとおりです。 "}</p>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"例"}</th><th>{"関連するテスト設計の発想"}</th></tr></thead><tbody><tr className="odd"><td>{"要求記述"}</td><td>{"要求ベースのテスト"}</td></tr><tr className="even"><td>{"同値分割"}</td><td>{"同値分割法"}</td></tr><tr className="odd"><td>{"状態遷移図"}</td><td>{"状態遷移テスト"}</td></tr><tr className="even"><td>{"ユースケース記述"}</td><td>{"ユースケーステスト"}</td></tr><tr className="odd"><td>{"デシジョンテーブル"}</td><td>{"デシジョンテーブルテスト"}</td></tr><tr className="even"><td>{"入力構文"}</td><td>{"構文テスト"}</td></tr><tr className="odd"><td>{"ソースコード"}</td><td>{"構造ベースのテスト"}</td></tr><tr className="even"><td>{"制御フローグラフ"}</td><td>{"分岐・パスの網羅"}</td></tr><tr className="odd"><td>{"パラメータと値"}</td><td>{"組合せテスト"}</td></tr><tr className="even"><td>{"分類ツリー"}</td><td>{"分類木法"}</td></tr><tr className="odd"><td>{"自然言語"}</td><td>{"記述ベースの設計"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：9-2. テストモデルとは" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"例"}</th><th>{"関連するテスト設計の発想"}</th></tr></thead><tbody><tr className="odd"><td>{"要求記述"}</td><td>{"要求ベースのテスト"}</td></tr><tr className="even"><td>{"同値分割"}</td><td>{"同値分割法"}</td></tr><tr className="odd"><td>{"状態遷移図"}</td><td>{"状態遷移テスト"}</td></tr><tr className="even"><td>{"ユースケース記述"}</td><td>{"ユースケーステスト"}</td></tr><tr className="odd"><td>{"デシジョンテーブル"}</td><td>{"デシジョンテーブルテスト"}</td></tr><tr className="even"><td>{"入力構文"}</td><td>{"構文テスト"}</td></tr><tr className="odd"><td>{"ソースコード"}</td><td>{"構造ベースのテスト"}</td></tr><tr className="even"><td>{"制御フローグラフ"}</td><td>{"分岐・パスの網羅"}</td></tr><tr className="odd"><td>{"パラメータと値"}</td><td>{"組合せテスト"}</td></tr><tr className="even"><td>{"分類ツリー"}</td><td>{"分類木法"}</td></tr><tr className="odd"><td>{"自然言語"}</td><td>{"記述ベースの設計"}</td></tr></tbody></table>{" "}</div>
 {" "}
 <p>{"規格の注記から押さえておきたいポイント:"}</p>
 {" "}
@@ -26,7 +26,7 @@ export default function Category10() {
 {" "}
 <h3 id="9-3-テストベース--テストモデル--テストケースの具体例">{" 9-3. 「テストベース → テストモデル → テストケース」の具体例 "}</h3>
 {" "}
-<div className="table-scroll">{" "}<table><thead><tr className="header"><th>{"ステップ"}</th><th>{"成果物"}</th><th>{"例（パスワード入力欄「8〜16文字」）"}</th></tr></thead><tbody><tr className="odd"><td>{"① テストベース"}</td><td>{"要求・仕様"}</td><td>{"「パスワードは8文字以上16文字以下」"}</td></tr><tr className="even"><td>{"② テストモデル"}</td><td>{"同値分割"}</td><td>{" 分割: 7文字以下（無効）／8〜16文字（有効）／17文字以上（無効） "}</td></tr><tr className="odd"><td>{"③ カバレッジアイテム"}</td><td>{"各分割"}</td><td>{"3つの分割それぞれ"}</td></tr><tr className="even"><td>{"④ テストケース"}</td><td>{"具体的入力と期待結果"}</td><td>{"5文字→エラー、10文字→成功、20文字→エラー"}</td></tr></tbody></table>{" "}</div>
+<div aria-label="表：9-3. 「テストベース → テストモデル → テストケース」の具体例" className="table-scroll" role="region" tabIndex={0}>{" "}<table><thead><tr className="header"><th>{"ステップ"}</th><th>{"成果物"}</th><th>{"例（パスワード入力欄「8〜16文字」）"}</th></tr></thead><tbody><tr className="odd"><td>{"① テストベース"}</td><td>{"要求・仕様"}</td><td>{"「パスワードは8文字以上16文字以下」"}</td></tr><tr className="even"><td>{"② テストモデル"}</td><td>{"同値分割"}</td><td>{" 分割: 7文字以下（無効）／8〜16文字（有効）／17文字以上（無効） "}</td></tr><tr className="odd"><td>{"③ カバレッジアイテム"}</td><td>{"各分割"}</td><td>{"3つの分割それぞれ"}</td></tr><tr className="even"><td>{"④ テストケース"}</td><td>{"具体的入力と期待結果"}</td><td>{"5文字→エラー、10文字→成功、20文字→エラー"}</td></tr></tbody></table>{" "}</div>
 {" "}
     </>;
 }
