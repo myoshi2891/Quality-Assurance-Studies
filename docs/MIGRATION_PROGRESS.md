@@ -49,7 +49,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/iso-iec-ts-30149-2024-guide/`へ`page.tsx`・同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category16.tsx`を配置。ヒーロー、本文15カテゴリー、フッターを順に実装・照合・個別コミット。目次全33リンクの追従・開閉・Escape・フォーカス復帰・Observer解除、チェック全7項目の入力・ラベル操作と進捗の往復更新を検証。
 - CSS全79ルールと900px境界、ダーク配色、ヒーロー装飾、表、注記、チェック、クイズの疑似要素を保持。共有CSS・Tailwindによる表の列幅・文字色、注記書体、目次の階層余白、チェック入力の干渉を補正。Noto Sans JP 800とJetBrains Mono 600をページで読み込み、目次・見出しの位置を共有ヘッダーと免責バナーに合わせる。
 - HTML内SVGとMarkdownのラベル・識別子・形状・接続を照合して11図を共有Mermaidへ移行。接続線と辺ラベルの文字色・背景色を原本に合わせ、図3の`root`クラスとMermaid内部クラスの衝突も解消。横スクロールの両端への到達を検証。
-- 対象275件、関連563件、既存一覧同期723件、全体9637件（204ファイル）、対象ソース・E2EのTypeScript検査、lintが成功。Chrome35件で390/900/901/1440px×CSS2順序、11図×2幅の実SVG、目次のキーボード到達、5問のクイズ開閉、4幅のヘッダー・免責バナー下の見出し位置を比較。SWC開発/本番変換後の全文DOM、インライン空白、SSR復元エラー・DOM警告なしとチェック操作の接続も検証。
+- 対象275件（移行完了時点。レビュー修正後の現時点件数は「現在地」を参照）、関連563件、既存一覧同期723件、全体9637件（204ファイル）、対象ソース・E2EのTypeScript検査、lintが成功。Chrome35件で390/900/901/1440px×CSS2順序、11図×2幅の実SVG、目次のキーボード到達、5問のクイズ開閉、4幅のヘッダー・免責バナー下の見出し位置を比較。SWC開発/本番変換後の全文DOM、インライン空白、SSR復元エラー・DOM警告なしとチェック操作の接続も検証。
 - 原本は`archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html`・`archive/md-archive/iso/Iso-iec-ts-30149-2024-guide.md`へ同名で移動。SHA-256一致、元ファイルの不存在、Git追跡、rename検出100%を確認。
 - Redテスト先行後、CSS・図・目次・チェック操作・17カテゴリー・統合・登録・アーカイブ・補正・仕様書を分離してコミット。各コミット直前にPII検査。検証はnpm経由、ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。
 
@@ -194,7 +194,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
 | 最新コミット内容 | `chore(docs): sync spec files — additional ISO 29119-3 and TS 30149 review fixes` |
 | 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。既知の左端切れ3ルートの修正は未着手。ビルドは指示により未実施。 |
-| ビルド状態 | 全体9902件（209ファイル）・Chrome72件（iso-30149・iso-29119-3）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功（既知の3件は左端切れ）。ビルド未実施。 |
+| ビルド状態 | 全体9902件（209ファイル）・ISO IEC IEEE 29119-3対象258件・TS 30149対象265件・Chrome72件（iso-30149・iso-29119-3）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで94件中91件成功（既知の3件は左端切れ）。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 

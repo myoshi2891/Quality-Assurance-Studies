@@ -44,7 +44,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `app/iso-iec-ts-30149-2024-guide/`へ`page.tsx`・同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・`Category0.tsx`〜`Category16.tsx`を配置。ヒーロー、本文15カテゴリー、フッターを順に実装・照合・個別コミット。目次全33リンクの追従・開閉・Escape・フォーカス復帰・Observer解除、チェック全7項目の入力・ラベル操作と進捗の往復更新を検証。
 - CSS全79ルールと900px境界、ダーク配色、ヒーロー装飾、表、注記、チェック、クイズの疑似要素を保持。共有CSS・Tailwindによる表の列幅・文字色、注記書体、目次の階層余白、チェック入力の干渉を補正。Noto Sans JP 800とJetBrains Mono 600をページで読み込み、目次・見出しの位置を共有ヘッダーと免責バナーに合わせる。
 - HTML内SVGとMarkdownのラベル・識別子・形状・接続を照合して11図を共有Mermaidへ移行。接続線と辺ラベルの文字色・背景色を原本に合わせ、図3の`root`クラスとMermaid内部クラスの衝突も解消。横スクロールの両端への到達を検証。
-- 対象275件、関連563件、既存一覧同期723件、全体9637件（204ファイル）、対象ソース・E2EのTypeScript検査、lintが成功。Chrome35件で390/900/901/1440px×CSS2順序、11図×2幅の実SVG、目次のキーボード到達、5問のクイズ開閉、4幅のヘッダー・免責バナー下の見出し位置を比較。SWC開発/本番変換後の全文DOM、インライン空白、SSR復元エラー・DOM警告なしとチェック操作の接続も検証。
+- 対象275件（移行完了時点。レビュー修正後の現時点件数は`docs/MIGRATION_PROGRESS.md`の「現在地」を参照）、関連563件、既存一覧同期723件、全体9637件（204ファイル）、対象ソース・E2EのTypeScript検査、lintが成功。Chrome35件で390/900/901/1440px×CSS2順序、11図×2幅の実SVG、目次のキーボード到達、5問のクイズ開閉、4幅のヘッダー・免責バナー下の見出し位置を比較。SWC開発/本番変換後の全文DOM、インライン空白、SSR復元エラー・DOM警告なしとチェック操作の接続も検証。
 - 原本は`archive/html-archive/iso/Iso-iec-ts-30149-2024-guide.html`・`archive/md-archive/iso/Iso-iec-ts-30149-2024-guide.md`へ同名で移動。SHA-256一致、元ファイルの不存在、Git追跡、rename検出100%を確認。
 - Redテスト先行後、CSS・図・目次・チェック操作・17カテゴリー・統合・登録・アーカイブ・補正・仕様書を分離してコミット。各コミット直前にPII検査。検証はnpm経由、ビルド・サーバー不要。目視確認はユーザー担当、ビルドは指示により未実施。
 
@@ -236,7 +236,7 @@ bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予�
 bun run e2e:report   # 直近の HTML レポートを表示
 ```
 
-`playwright.config.ts` の `webServer` が `bun run build && bun run start` を auto-start する。ローカルでは `reuseExistingServer: !CI` で既存サーバーを再利用するため、`bun run dev` を別タブで起動済みなら高速反復が可能。
+`playwright.config.ts` の `webServer` が `bun run build && bun run start` を auto-start する。ローカルでは `reuseExistingServer: !CI` で既存サーバーを再利用するため、`bun run dev --hostname 127.0.0.1` を別タブで起動済みなら高速反復が可能（`baseURL` が `127.0.0.1` のため、`--hostname` なしでは開発用リソースが遮断され、Mermaid 図などのクライアント描画が動かない）。
 
 **port 3000 衝突時のリカバリ**:
 

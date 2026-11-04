@@ -11,7 +11,7 @@
 * `npm exec -- bun test tests/iso-iec-ieee-29119-3-2021-guide` — 原本DOM・CSS・図・目次・SSR復元・SVG寸法復元・アーカイブの検証。
 * `npm run e2e:layout -- --project=iso-29119-3` — ビルド・サーバー不要の原本CSS・実SVG・クイズ開閉・見出し位置の比較。付属Chromium未導入時は`PLAYWRIGHT_CHROMIUM_EXECUTABLE`で利用可能なChromeを指定。
 
-`/iso-iec-ts-30149-2024-guide`を追加し、119ルートへ同期しました。34見出し・階層目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・全79 CSSルールを原本と照合。17カテゴリーを個別にテスト・コミットし、元HTML・MDを同一内容でアーカイブ済み。npm経由で対象275件・関連563件・既存一覧同期723件・全体9637件（204ファイル）・Chrome35件・lint・対象ソース/E2E型検査が成功。ビルド未実施、目視確認はユーザー担当です。
+`/iso-iec-ts-30149-2024-guide`を追加し、119ルートへ同期しました。34見出し・階層目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・全79 CSSルールを原本と照合。17カテゴリーを個別にテスト・コミットし、元HTML・MDを同一内容でアーカイブ済み。npm経由で対象275件（移行完了時点。レビュー修正後の現時点件数は`docs/MIGRATION_PROGRESS.md`の「現在地」を参照）・関連563件・既存一覧同期723件・全体9637件（204ファイル）・Chrome35件・lint・対象ソース/E2E型検査が成功。ビルド未実施、目視確認はユーザー担当です。
 
 * `npm exec -- bun test tests/iso-iec-ts-30149-2024-guide` — 原本DOM・CSS・図・目次・進捗・SSR復元・アーカイブの検証。
 * `npm run e2e:layout -- --project=iso-30149` — ビルド・サーバー不要の原本CSS・実SVG・クイズ開閉・見出し位置の比較。付属Chromium未導入時は`PLAYWRIGHT_CHROMIUM_EXECUTABLE`で利用可能なChromeを指定。
