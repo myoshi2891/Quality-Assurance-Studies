@@ -25,11 +25,17 @@ export function applyReviewCorrections($: CheerioAPI): void {
     $('main details').contents().each((_, node) => {
         if (node.type === 'text') node.data = node.data.replace('いいえ。テスト計画の一部です。', STRATEGY_ANSWER);
     });
+    // 答えの「別文書で管理してもよい」と矛盾しないよう、Q4 を別文書での管理が必須かどうかを問う形に改める
+    $('main p').contents().each((_, node) => {
+        if (node.type === 'text') node.data = node.data.replace(STRATEGY_QUESTION_BEFORE, STRATEGY_QUESTION);
+    });
 }
 
 export const STRATEGY_EMPHASIS = 'テスト戦略は論理的にはテスト計画の一部';
 export const STRATEGY_TAIL = 'です。ただし文書の形式としては複数文書への分割が認められるため、別の文書で管理してもかまいません。';
 export const STRATEGY_ANSWER = 'いいえ。論理的にはテスト計画の一部ですが、別の文書として管理してもかまいません。';
+export const STRATEGY_QUESTION_BEFORE = 'テスト戦略は独立した文書ですか？';
+export const STRATEGY_QUESTION = 'テスト戦略は独立した文書として管理しなければなりませんか？';
 
 export const LOGIN_TEST_CASES = [
     ['状態遷移図（未ログイン→ログイン中／未ログイン→ロック）', '遷移「未ログイン→ロック（認証失敗が5回）」', '未ログイン状態で誤パスワードを5回連続入力', 'アカウントがロックされる'],
