@@ -9,6 +9,14 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-05: SQLフレームワークの表hydration警告とスクロール宣言の修正
+
+- 表の`table`・`thead`・`tbody`・`tr`直下に残った整形用空白814か所を12カテゴリーから除去。セル内・インライン要素間・SQLの空白は保持。
+- 従来の原本比較は空白を正規化していたためReactの警告を検出できなかった。全16表の構造タグ直下にテキストノードがないこと、SWC開発・本番変換後の実hydrationでDOM警告・回復可能エラーがゼロで、目次と学習チェックが操作できることを追加検証。
+- `app/layout.tsx`のルート`html`へ`data-scroll-behavior="smooth"`を追加。共通CSSのsmooth設定をNext.jsへ宣言する契約テストを追加。
+- SQLフレームワーク対象330件とルートCSS契約6件、原本CSS・SVG・アンカーのブラウザー32件、lintが成功。全体10292件（212ファイル）も成功。ビルド・目視確認は未実施。
+- Red・修正・仕様書同期の3コミットに集約。
+
 ## 2026-11-05: ISO/IEC 9075-1:2023 SQLフレームワーク追加原本の移行
 
 - 移行先は`/iso-iec-9075-1-2023-guide`。旧`/iso-9075-1-guide`とは別原本としてISOカテゴリーへ登録し、ナビ・E2Eを121ルートへ同期。
@@ -264,9 +272,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync SQL Framework migration status and validation` |
+| 最新コミット内容 | `chore(docs): sync SQL Framework hydration and scrolling regression results` |
 | 次の作業 | `/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | SQLフレームワーク対象327件・原本CSS/SVG/アンカーのブラウザー32件・全体10288件（212ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
+| ビルド状態 | SQLフレームワーク対象330件・原本CSS/SVG/アンカーのブラウザー32件・全体10292件（212ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1872,7 +1880,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 121 ルート（ガイドライブラリ index + 120 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト10288件すべて成功（212ファイル）。SQLフレームワーク対象327件・ブラウザー32件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体テスト10292件すべて成功（212ファイル）。SQLフレームワーク対象330件・ブラウザー32件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

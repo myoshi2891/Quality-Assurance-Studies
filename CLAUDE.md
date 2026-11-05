@@ -4,6 +4,14 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: SQLフレームワークの表hydration警告とスクロール宣言の修正
+
+- 表の`table`・`thead`・`tbody`・`tr`直下に残った整形用空白814か所を12カテゴリーから除去。セル内・インライン要素間・SQLの空白は保持。
+- 従来の原本比較は空白を正規化していたためReactの警告を検出できなかった。全16表の構造タグ直下にテキストノードがないこと、SWC開発・本番変換後の実hydrationでDOM警告・回復可能エラーがゼロで、目次と学習チェックが操作できることを追加検証。
+- `app/layout.tsx`のルート`html`へ`data-scroll-behavior="smooth"`を追加。共通CSSのsmooth設定をNext.jsへ宣言する契約テストを追加。
+- SQLフレームワーク対象330件とルートCSS契約6件、原本CSS・SVG・アンカーのブラウザー32件、lintが成功。全体10292件（212ファイル）も成功。ビルド・目視確認は未実施。
+- Red・修正・仕様書同期の3コミットに集約。
+
 ## 2026-11-05: ISO/IEC 9075-1:2023 SQLフレームワーク追加原本の移行
 
 - 移行先は`/iso-iec-9075-1-2023-guide`。旧`/iso-9075-1-guide`とは別原本としてISOカテゴリーへ登録し、ナビ・E2Eを121ルートへ同期。
@@ -294,7 +302,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 212 ファイル・10288 tests)
+bun test             # ユニットテスト (bun test 全体, 212 ファイル・10292 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1341,5 +1349,5 @@ bun test        # ユニットテスト成功
 - `NavBar.tsx` / `toc.ts` — 目次開閉、scrim、Escape、実測スクロール追従、Observer解除。
 - `Diagram.tsx` / `diagrams.ts` — HTML由来の図1とMarkdown由来の9図、共有レンダラーへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
-- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・登録・アーカイブ・対象型検査の327件。
+- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の330件。
 - `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で32件。ビルド・サーバー不要。

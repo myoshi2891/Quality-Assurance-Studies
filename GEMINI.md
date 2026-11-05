@@ -4,6 +4,14 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: SQLフレームワークの表hydration警告とスクロール宣言の修正
+
+- 表の`table`・`thead`・`tbody`・`tr`直下に残った整形用空白814か所を12カテゴリーから除去。セル内・インライン要素間・SQLの空白は保持。
+- 従来の原本比較は空白を正規化していたためReactの警告を検出できなかった。全16表の構造タグ直下にテキストノードがないこと、SWC開発・本番変換後の実hydrationでDOM警告・回復可能エラーがゼロで、目次と学習チェックが操作できることを追加検証。
+- `app/layout.tsx`のルート`html`へ`data-scroll-behavior="smooth"`を追加。共通CSSのsmooth設定をNext.jsへ宣言する契約テストを追加。
+- SQLフレームワーク対象330件とルートCSS契約6件、原本CSS・SVG・アンカーのブラウザー32件、lintが成功。全体10292件（212ファイル）も成功。ビルド・目視確認は未実施。
+- Red・修正・仕様書同期の3コミットに集約。
+
 ## 2026-11-05: ISO/IEC 9075-1:2023 SQLフレームワーク追加原本の移行
 
 - 移行先は`/iso-iec-9075-1-2023-guide`。旧`/iso-9075-1-guide`とは別原本としてISOカテゴリーへ登録し、ナビ・E2Eを121ルートへ同期。
