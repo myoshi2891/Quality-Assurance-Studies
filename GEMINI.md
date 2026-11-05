@@ -4,6 +4,14 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: SQLフレームワークの図が見えない問題の修正
+
+- 原因はページの全称`all: revert`。MermaidのSVG生成自体は成功していたが、SVG内のtransform・幅・高さの提示属性までリセットし、実ページでノードの寸法が0になっていた。
+- `app/iso-iec-9075-1-2023-guide/guide.css`のリセットから`svg`とその全子孫を除外。HTMLの原本スタイル補正は維持。
+- `e2e/iso-iec-9075-1-2023-layout.e2e.ts`で全10図×2幅の全ノードに正の幅・高さを要求し、属性の変換行列と実際の変換行列を照合。CSSOM文字列の丸めを避け、親とノードの`getCTM()`から局所行列を取得する。
+- 検証: 原本比較32件、対象330件＋Mermaid契約229件の559件、変更テストの型検査、lint成功。既存開発サーバーの実ページを390/1440pxで再読み込みし、10図ともSVGあり・全ノード寸法正常・ブラウザーエラー0件。全体テストは今回再実行せず（直前10292件成功）。ビルド・目視確認は未実施。
+- 再発防止: SVGコンテナやラベルの存在だけでは図の表示を保証できない。実ノードの寸法と位置も検証する。Red・修正・仕様書同期の3コミットに集約。
+
 ## 2026-11-05: SQLフレームワークの表hydration警告とスクロール宣言の修正
 
 - 表の`table`・`thead`・`tbody`・`tr`直下に残った整形用空白814か所を12カテゴリーから除去。セル内・インライン要素間・SQLの空白は保持。
