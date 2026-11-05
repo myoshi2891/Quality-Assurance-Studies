@@ -3,9 +3,9 @@ const TOKEN = /('[^']*'|--.*$|\b(?:0x[0-9A-Fa-f]+|0b[01]+|\d[\d_]*|CREATE|TABLE|
 const FUNCTIONS = new Set(['GREATEST','LPAD','ANY_VALUE','COUNT','GRAPH_TABLE']);
 export default function CodeExample({ code }: { code: string }) {
     const lines = code.split('\n');
-    return <pre className="sql"><code>{lines.map((line, i) => <React.Fragment key={i}><span className="code-line">{line.split(TOKEN).map((part, j) => {
+    return <pre className="sql"><code>{lines.map((line, i) => <div key={i} className="code-line">{line.split(TOKEN).map((part, j) => {
         if (j % 2 === 0) return part;
         const kind = part.startsWith('--') ? 'c' : part.startsWith("'") ? 's' : /^\d/.test(part) ? 'n' : FUNCTIONS.has(part) ? 'f' : 'k';
         return <span key={j} className={`tok-${kind}`}>{part}</span>;
-    })}</span>{i < lines.length - 1 ? '\n' : null}</React.Fragment>)}</code></pre>;
+    })}{i < lines.length - 1 ? '\n' : null}</div>)}</code></pre>;
 }

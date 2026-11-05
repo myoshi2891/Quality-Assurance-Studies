@@ -1,3 +1,5 @@
+/* Restore browser defaults before applying the complete source stylesheet. */
+.sql-framework-page *, .sql-framework-page *::before, .sql-framework-page *::after { all: revert; }
 
             .sql-framework-page {
                 --bg: #07111e;
@@ -736,13 +738,11 @@
 .sql-framework-page h1, .sql-framework-page h2, .sql-framework-page h3 { font-family: inherit; letter-spacing: normal; }
 .sql-framework-page h2::before { content: none; }
 .sql-framework-page .main p { max-width: none; }
-.sql-framework-page .main ul { list-style-type: disc; }
-.sql-framework-page .main ol { list-style-type: decimal; }
-.sql-framework-page table { margin: 0; font-family: inherit; border-color: revert; }
+.sql-framework-page table { margin: 0; font-family: inherit; color: inherit; border-color: revert; }
 .sql-framework-page th, .sql-framework-page td { font-family: inherit; font-size: inherit; line-height: inherit; letter-spacing: normal; text-transform: none; border-top: 0; border-left: 0; border-right: 0; }
 .sql-framework-page td { background: transparent; }
-.sql-framework-page pre { font-family: var(--mono); white-space: pre; }
-.sql-framework-page pre code { display: block; line-height: inherit; }
+.sql-framework-page pre { font-family: monospace; white-space: pre; }
+.sql-framework-page pre code { line-height: inherit; }
 .sql-framework-page .code-line { display: block; min-height: 1.65em; }
 .sql-framework-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
 .sql-framework-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
@@ -754,3 +754,5 @@
 .sql-framework-page .page-footer { background: transparent; padding-right: 0; padding-bottom: 0; padding-left: 0; border-radius: 0; font-family: inherit; }
 .sql-framework-page .ck-done[hidden] { display: none; }
 @media (max-width: 900px) { .sql-framework-page [id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
+
+.sql-framework-page .ref-table td:first-child { color: var(--dim); font-weight: 400; white-space: normal; }
