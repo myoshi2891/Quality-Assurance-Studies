@@ -26,7 +26,7 @@ function tree(n: AnyNode | undefined): unknown {
     const attrs = { ...n.attribs };
     for (const key of ['aria-current','aria-controls','aria-expanded','inert','tabindex','role','aria-label','aria-labelledby','aria-describedby','aria-valuemin','aria-valuemax','aria-valuenow']) delete attrs[key];
     if (attrs.class === 'mermaid-diagram') return { tag: n.tagName, attrs, children: [] };
-    if (n.tagName === 'pre') return { tag: n.tagName, attrs, code: load(n).text() };
+    if (n.tagName === 'pre') return { tag: n.tagName, attrs, code: load('')(n).text() };
     if (attrs.class === 'fill') delete attrs.style;
     return { tag: n.tagName, attrs, children: n.children.map(tree).filter(x => x !== null) };
 }
