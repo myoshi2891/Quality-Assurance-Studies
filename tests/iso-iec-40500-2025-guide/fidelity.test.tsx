@@ -8,6 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
 import { sourceModule } from '../helpers/source-module';
+import { applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-iec-40500-2025-guide';
 const scope = '.wcag-40500-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -22,8 +23,6 @@ function correct(html: string) {
     $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_, node) => node.type === 'text' && /^\s*$/.test(node.data)).remove();
     return $;
 }
-// Reviewed source fix: the original leaked literal Markdown emphasis. Applied to the source only, so an unfixed page fails.
-const reviewed = (html: string) => html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 function tree(n: AnyNode | undefined): unknown {
     if (!n) throw new Error('Missing source element');
     if (n.type === 'text') return norm(n.data) || null;
@@ -39,12 +38,12 @@ function renderFile(file: string, development = false) {
     const Component = sourceModule(`${base}/${file}.tsx`, { development }).default as React.ComponentType;
     return correct(renderToStaticMarkup(<Component />));
 }
-const source = correct(reviewed(inventory.originalBody));
+const source = correct(applyReviewCorrections(inventory.originalBody));
 for (const [i, category] of inventory.sections.entries()) {
     describe(`category ${String(i).padStart(2, '0')}: ${category.name}`, () => {
         for (const development of [false, true]) it(`exact complete structure, text, attributes and order (SWC development=${development})`, () => {
             const actual = renderFile(`Section${String(i).padStart(2, '0')}`, development);
-            const expected = correct(reviewed(category.html));
+            const expected = correct(applyReviewCorrections(category.html));
             expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));
             // Full text also detects whitespace lost between adjacent inline elements.
             actual('.mermaid-diagram').empty(); expected('.mermaid-diagram').empty();

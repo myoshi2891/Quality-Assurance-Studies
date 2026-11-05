@@ -8,6 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-9075-1-2023-guide.json';
 import { sourceModule } from '../helpers/source-module';
+import { CLAUSE_8, applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-iec-9075-1-2023-guide';
 const scope = '.sql-framework-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -22,9 +23,6 @@ function correct(html: string) {
     $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_, node) => node.type === 'text' && /^\s*$/.test(node.data)).remove();
     return $;
 }
-// Reviewed source fix: the public contents page lists clause 8. Applied to the source only, so an unfixed page fails.
-const CLAUSE_8 = /<td>8<\/td>\s*<td><strong>未確認<\/strong>（プレビューに掲載なし）<\/td>\s*<td>原文で確認してください<\/td>/;
-const reviewed = (html: string) => html.replace(CLAUSE_8, '<td>8 Status codes</td><td>8.1 SQLSTATE</td><td>SQL文の実行状態を示す値と、その返し方を定める章</td>');
 function tree(n: AnyNode | undefined): unknown {
     if (!n) throw new Error('Missing source element');
     if (n.type === 'text') return norm(n.data) || null;
@@ -40,12 +38,12 @@ function renderFile(file: string, development = false) {
     const Component = sourceModule(`${base}/${file}.tsx`, { development }).default as React.ComponentType;
     return correct(renderToStaticMarkup(<Component />));
 }
-const source = correct(reviewed(inventory.originalBody));
+const source = correct(applyReviewCorrections(inventory.originalBody));
 for (const [i, category] of inventory.sections.entries()) {
     describe(`category ${String(i).padStart(2, '0')}: ${category.name}`, () => {
         for (const development of [false, true]) it(`exact complete structure, text, attributes and order (SWC development=${development})`, () => {
             const actual = renderFile(`Section${String(i).padStart(2, '0')}`, development);
-            const expected = correct(reviewed(category.html));
+            const expected = correct(applyReviewCorrections(category.html));
             expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));
             // Full text also detects whitespace lost between adjacent inline elements.
             actual('.mermaid-diagram').empty(); expected('.mermaid-diagram').empty();

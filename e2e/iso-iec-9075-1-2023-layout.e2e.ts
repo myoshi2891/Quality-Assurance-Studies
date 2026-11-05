@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-iec-9075-1-2023-guide.json';
+import { applyReviewCorrections } from '../tests/iso-iec-9075-1-2023-guide/review-corrections';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-iec-9075-1-2023-guide';
 const globals = readFileSync('node_modules/tailwindcss/preflight.css','utf8') + readFileSync('app/globals.css','utf8');
@@ -20,7 +21,7 @@ const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeigh
 for (const width of [390,900,901,1440]) for (const order of ['before','after'] as const) {
     test(`${width}px CSS ${order}: every original design element, SQL line height, FAQ and hover`, async ({page}) => {
         await page.setViewportSize({width,height:900}); const reference=await page.context().newPage(); await reference.setViewportSize({width,height:900});
-        await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+        await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody)}`);
         const own=readFileSync(`${base}/guide.css`,'utf8');
         await page.setContent(`<style>${globals}${order==='before'?retained+own:own+retained}</style>${markup()}`);
         const collect=({root,selectors,properties}:{root:string;selectors:string[];properties:string[]})=>Object.fromEntries(selectors.map(selector=>[selector,Array.from(document.querySelectorAll(root+selector)).filter(el=>!el.closest('svg')).map(el=>{const style=getComputedStyle(el);return Object.fromEntries(properties.map(key=>[key,style[key as keyof CSSStyleDeclaration]]));})]));
@@ -46,7 +47,7 @@ for(const width of [390,1440])for(const [id,diagram]of Object.entries(inventory.
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
         await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
         const {DIAGRAMS}=sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:Record<string,string>};
-        const reference=await page.context().newPage();await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+        const reference=await page.context().newPage();await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody)}`);
         const collect=(outer:Element)=>{
             const norm=(s:string|null)=>(s??'').replace(/\s+/g,' ').trim();
             const nodes=Array.from(outer.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:norm(n.querySelector('.nodeLabel')?.textContent??''),color:getComputedStyle(n.querySelector('.nodeLabel')!).color,fill:getComputedStyle(n.firstElementChild!).fill}));
