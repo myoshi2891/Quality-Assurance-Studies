@@ -1,6 +1,11 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { TOC } from './toc';
+// スクロール位置の丸めで生じる端数を吸収する
+const LANDING_TOLERANCE_PX = 2;
+// 目次リンクの着地位置（scroll-margin-top）まで上がった見出しを、読んでいる節として扱う
+const reachedLanding = (heading: HTMLElement): boolean =>
+    heading.getBoundingClientRect().top <= (Number.parseFloat(getComputedStyle(heading).scrollMarginTop) || 0) + LANDING_TOLERANCE_PX;
 export default function NavBar() {
     const [open, setOpen] = useState(false);
     const [mobile, setMobile] = useState(false);
@@ -17,7 +22,7 @@ export default function NavBar() {
             if (pending.current) return;
             // Recompute positions on every scroll; large jumps can skip observer bands.
             let current = '';
-            for (const heading of headings) if (heading.getBoundingClientRect().top <= window.innerHeight * 0.25) current = heading.id;
+            for (const heading of headings) if (reachedLanding(heading)) current = heading.id;
             setActive(current);
         }
         function schedule() { if (!frame) frame = requestAnimationFrame(update); }
@@ -26,7 +31,11 @@ export default function NavBar() {
             try { const id = decodeURIComponent(window.location.hash.slice(1)); if (TOC.some(item => item.id === id)) setActive(id); }
             catch (error) { if (!(error instanceof URIError)) throw error; }
         }
-        function escape(event: KeyboardEvent) { if (event.key === 'Escape') { setOpen(false); button.current?.focus(); } }
+        // 効果内の open は初回の値のままなので、現在の開閉状態はボタンの属性から読む
+        function escape(event: KeyboardEvent) {
+            if (event.key !== 'Escape' || button.current?.getAttribute('aria-expanded') !== 'true') return;
+            setOpen(false); button.current.focus();
+        }
         const observer = new IntersectionObserver(schedule, { rootMargin: '-15% 0px -75% 0px' });
         headings.forEach(h => observer.observe(h));
         resize(); update(); hash();
@@ -37,6 +46,15 @@ export default function NavBar() {
             window.removeEventListener('scroll', schedule); window.removeEventListener('resize', resize); window.removeEventListener('hashchange', hash); document.removeEventListener('keydown', escape);
         };
     }, []);
+    // 本文は scrim で隠れるだけなので、開いている間はキーボードでも到達できないようにする
+    useEffect(() => {
+        if (!mobile || !open) return;
+        const main = document.querySelector('main.main');
+        if (!main) return;
+        const wasInert = main.hasAttribute('inert');
+        main.setAttribute('inert', '');
+        return () => { if (!wasInert) main.removeAttribute('inert'); };
+    }, [mobile, open]);
     function choose(id: string) {
         close(open); setActive(id); pending.current = id;
         if (pendingTimer.current) clearTimeout(pendingTimer.current);
