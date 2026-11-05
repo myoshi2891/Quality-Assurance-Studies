@@ -425,3 +425,4 @@
 .wcag-40500-page *::-webkit-scrollbar-track { background: transparent; }
 .wcag-40500-page *::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
 @media (max-width: 900px) { .wcag-40500-page .main h2[id], .wcag-40500-page .main h3[id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
+.wcag-40500-page .hero-title { font-family: inherit; }
