@@ -4,6 +4,15 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: ISO 40500のスクロール領域・フォーム例・2.5.8の追加レビュー修正
+
+- 表・コード: 全22表のラッパーと全5コード例の`pre`へ、`tabIndex={0}`・`role="region"`・内容が分かる`aria-label`を付与。CSSは変更なし。`CodeExample`の`label`は必須にし、ラベル漏れを型で検知。
+- フォーム例: 郵便番号とパスワードの例へ、`for`で関連付けた可視ラベルを追加。チェックボックスのラベルは維持。
+- 2.5.8: 6.4の合否の目安を、24×24 CSS pxの正方形が対象の内側に完全に収まることへ変更。例外・間隔条件は維持。
+- SQLフレームワーク: インタラクションテストの`afterEach`で`window.innerWidth`を初期値へ戻し、他のテストファイルへの漏れを防止。
+- テスト: 補正は`review-corrections.ts`で原本側だけへ適用し、コード文字列とエスケープ済み本文の両方を更新。領域は出現順の固定配列で照合。ブラウザー比較も補正後の原本を基準にする。
+- 検証: ISO 40500対象323件、SQLフレームワーク対象343件、ブラウザー66件、対象の型検査、lint、全体10630件（215ファイル）が成功。実ページのTab移動、本番ビルド、目視確認は未実施。
+
 ## 2026-11-05: ISO 40500の図・目次・強調とSQLフレームワーク第8章のレビュー修正
 
 - 図: `Diagram.tsx`の「図1」〜「図9」だけだった名前を、図番号を残した文章へ変更。全ノード・グループ・辺ラベルの文言が含まれることをテストで要求し、図6は判定の「はい」「いいえ」の分岐先も順序まで検証。
