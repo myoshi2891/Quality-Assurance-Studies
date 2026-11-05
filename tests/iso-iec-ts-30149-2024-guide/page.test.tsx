@@ -104,3 +104,8 @@ it('passes every original chart to the shared renderer in document order', () =>
     expect(actual).toEqual(inventory.diagrams.map((_, i)=>charts['DIAGRAM_'+i]));
 });
 
+// 原本の表は罫線色をブラウザー既定に任せており、既定値はブラウザーの版で異なるため、特定の色へ固定しない
+it('leaves the table border colour to the browser default like the source', () => {
+    const css = readFileSync('app/iso-iec-ts-30149-2024-guide/iso-iec-ts-30149-2024-guide.css', 'utf8');
+    expect(css).toContain('.iso30149-page table { color:var(--text); border-color:revert; }');
+});
