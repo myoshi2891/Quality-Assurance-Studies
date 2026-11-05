@@ -51,8 +51,8 @@ it('all targets are observed; every heading activates its link; Escape restores 
 describe('which heading the observer activates from the reading band', () => {
     const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
     type Change = readonly [index: number, isIntersecting: boolean];
-    /** 見出しを監視した NavBar を描画し、Observer の通知と現在の強調先の取得を返す。 */
-    const mountWithObserver = (scrollHeight = window.innerHeight * 20) => {
+    /** 見出しを監視した NavBar を描画し、Observer の通知と現在の強調先の取得を返す。tops を渡すと見出しの位置を固定する。 */
+    const mountWithObserver = (scrollHeight = window.innerHeight * 20, tops?: Record<string, number>) => {
         // 先行テストのリンク操作で残ったハッシュがマウント時の判定に使われないようにする
         window.location.hash = '';
         let callback: IntersectionObserverCallback;
@@ -65,7 +65,12 @@ describe('which heading the observer activates from the reading band', () => {
         } as unknown as typeof IntersectionObserver;
         Object.defineProperty(document.documentElement, 'scrollHeight', { configurable: true, value: scrollHeight });
         const host = document.createElement('div');
-        for (const id of ids) { const heading = document.createElement('h2'); heading.id = id; host.append(heading); }
+        for (const id of ids) {
+            const heading = document.createElement('h2');
+            heading.id = id;
+            if (tops) heading.getBoundingClientRect = () => ({ top: tops[id] ?? window.innerHeight * 2 }) as DOMRect;
+            host.append(heading);
+        }
         document.body.append(host);
         const Nav = sourceModule('app/iso-iec-ts-30149-2024-guide/NavBar.tsx').default as React.ComponentType;
         const view = render(<Nav />);
@@ -105,12 +110,30 @@ describe('which heading the observer activates from the reading band', () => {
             expect(nav.current()).toBe(ids[2]);
         } finally { nav.restore(); }
     });
-    it('keeps the current heading when every heading has left the band', () => {
-        const nav = mountWithObserver();
+    it('reads the heading positions when every heading has left the band', () => {
+        const [first, , third] = ids as [string, string, string];
+        const tops: Record<string, number> = { [first]: -500, [third]: window.innerHeight * 0.2 };
+        const nav = mountWithObserver(undefined, tops);
         try {
             nav.notify([[2, true]]);
+            expect(nav.current()).toBe(third);
+
+            // 下へ読み進めて見出しが帯の上へ抜けた場合は、その節を読み続けている
+            tops[third] = -100;
             nav.notify([[2, false]]);
-            expect(nav.current()).toBe(ids[2]);
+            expect(nav.current()).toBe(third);
+
+            // 上へ戻して見出しが帯の下へ抜けた場合は、直前の見出しの節へ戻る
+            tops[third] = window.innerHeight * 0.6;
+            nav.notify([[2, true]]);
+            nav.notify([[2, false]]);
+            expect(nav.current()).toBe(first);
+
+            // 最初の見出しより上へ戻ると、どの節も強調しない
+            tops[first] = window.innerHeight * 0.6;
+            nav.notify([[0, true]]);
+            nav.notify([[0, false]]);
+            expect(nav.current()).toBeUndefined();
         } finally { nav.restore(); }
     });
     it('records band changes that arrive while a clicked scroll is settling', () => {
