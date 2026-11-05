@@ -10,7 +10,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - テスト: 8図の全文を固定し、図の定義から導いた全ノード・グループ・辺ラベルの語句が含まれること、図4の出現順、図1・図6に順序語がないことを検証。
 - 仕様書: `CLAUDE.md`のポート3000の解放手順を、LISTENのみの確認→PIDの確認→そのPIDだけ停止へ変更。再開チェックリスト3か所へ`/iso-iec-40500-2025-guide`の目視確認を追加。
 - 検証: SQLフレームワーク対象354件、lint、全体10641件（215ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
-- 残課題: `Makefile`の`css-reset`と`.claude/rules/css-cache-reset.md`は同じ`lsof -ti:3000`のまま（指摘の範囲外のため未変更）。
+- 追補: `Makefile`の`css-reset`と`.claude/rules/css-cache-reset.md`も`lsof -tiTCP:3000 -sTCP:LISTEN`へ変更し、LISTENのプロセスだけを停止する。
 
 ## 2026-11-05: ISO 40500のスクロール領域・フォーム例・2.5.8の追加レビュー修正
 
@@ -28,7 +28,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - 本文: 原本に残っていたMarkdownの`**`を、`Section02.tsx`・`Section11.tsx`の2か所で`<strong>`へ変更。
 - SQLフレームワーク: 第8章の行を`8 Status codes`・`8.1 SQLSTATE`へ変更し、「未確認」と原文確認の案内を削除。ANSIのプレビューは403で読めなかったため、iTehの公開サンプルの目次と第8章の説明文で確認。
 - テスト: 補正は各ガイドの`review-corrections.ts`で原本側だけへ適用し、未修正のページが失敗する形にした。ブラウザー比較も同じ補正後の原本を基準にする。`strong`の増減で比較16件が失敗したが、要素の対応がずれただけで、補正前のコミットでは成功することを確認済み。比較は緩めていない。
-- 検証: ISO 40500対象318件、SQLフレームワーク対象343件、ブラウザー66件（32件＋34件）、対象の型検査、lint、全体10625件（215ファイル）が成功。実ページの開発サーバー確認、本番ビルド、目視確認は未実施。
+- 検証: ISO 40500対象318件、SQLフレームワーク対象343件、ブラウザー66件（40500は32件、9075-1-2023は32件＋用語カード2件＝34件）、対象の型検査、lint、全体10625件（215ファイル）が成功。実ページの開発サーバー確認、本番ビルド、目視確認は未実施。
 
 ## 2026-11-05: ISO/IEC 40500:2025 WCAG 2.2ガイドの移行
 
@@ -801,7 +801,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 122 ルート（ガイドライブラリ index + 121 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9959件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
@@ -810,7 +810,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
   4. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   5. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   6. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  7. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  7. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  8. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。

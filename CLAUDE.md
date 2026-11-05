@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - テスト: 8図の全文を固定し、図の定義から導いた全ノード・グループ・辺ラベルの語句が含まれること、図4の出現順、図1・図6に順序語がないことを検証。
 - 仕様書: `CLAUDE.md`のポート3000の解放手順を、LISTENのみの確認→PIDの確認→そのPIDだけ停止へ変更。再開チェックリスト3か所へ`/iso-iec-40500-2025-guide`の目視確認を追加。
 - 検証: SQLフレームワーク対象354件、lint、全体10641件（215ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
-- 残課題: `Makefile`の`css-reset`と`.claude/rules/css-cache-reset.md`は同じ`lsof -ti:3000`のまま（指摘の範囲外のため未変更）。
+- 追補: `Makefile`の`css-reset`と`.claude/rules/css-cache-reset.md`も`lsof -tiTCP:3000 -sTCP:LISTEN`へ変更し、LISTENのプロセスだけを停止する。
 
 ## 2026-11-05: ISO 40500のスクロール領域・フォーム例・2.5.8の追加レビュー修正
 
@@ -28,7 +28,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 本文: 原本に残っていたMarkdownの`**`を、`Section02.tsx`・`Section11.tsx`の2か所で`<strong>`へ変更。
 - SQLフレームワーク: 第8章の行を`8 Status codes`・`8.1 SQLSTATE`へ変更し、「未確認」と原文確認の案内を削除。ANSIのプレビューは403で読めなかったため、iTehの公開サンプルの目次と第8章の説明文で確認。
 - テスト: 補正は各ガイドの`review-corrections.ts`で原本側だけへ適用し、未修正のページが失敗する形にした。ブラウザー比較も同じ補正後の原本を基準にする。`strong`の増減で比較16件が失敗したが、要素の対応がずれただけで、補正前のコミットでは成功することを確認済み。比較は緩めていない。
-- 検証: ISO 40500対象318件、SQLフレームワーク対象343件、ブラウザー66件（32件＋34件）、対象の型検査、lint、全体10625件（215ファイル）が成功。実ページの開発サーバー確認、本番ビルド、目視確認は未実施。
+- 検証: ISO 40500対象318件、SQLフレームワーク対象343件、ブラウザー66件（40500は32件、9075-1-2023は32件＋用語カード2件＝34件）、対象の型検査、lint、全体10625件（215ファイル）が成功。実ページの開発サーバー確認、本番ビルド、目視確認は未実施。
 
 ## 2026-11-05: ISO/IEC 40500:2025 WCAG 2.2ガイドの移行
 
@@ -1261,7 +1261,8 @@ bun test        # ユニットテスト成功
   4. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   5. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   6. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  7. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  7. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  8. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -1409,7 +1410,7 @@ bun test        # ユニットテスト成功
 - `Diagram.tsx` / `diagrams.ts` — HTML由来の図1とMarkdown由来の9図、共有レンダラーへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
 - `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の354件。
-- `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で34件。ビルド・サーバー不要。
+- `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `bun run e2e:layout -- --project=iso-iec-9075-1-2023`で32件＋用語カード2件（320px・335px）＝34件。ビルド・サーバー不要。
 
 ### ISO/IEC 40500:2025ガイドの配置
 
@@ -1419,4 +1420,4 @@ bun test        # ユニットテスト成功
 - `Diagram.tsx` / `diagrams.ts` — 原本HTMLの全9図と共有Mermaidへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — CSS/HTML5例の正確な改行、学習チェック10項目の進捗。
 - `tests/iso-iec-40500-2025-guide/` — 原本・操作・hydration・登録・アーカイブ・型検査323件。
-- `e2e/iso-iec-40500-2025-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-40500-2025`でビルド・サーバー不要の32件。
+- `e2e/iso-iec-40500-2025-layout.e2e.ts` — `bun run e2e:layout -- --project=iso-iec-40500-2025`でビルド・サーバー不要の32件。
