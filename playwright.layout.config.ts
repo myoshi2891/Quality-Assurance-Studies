@@ -27,6 +27,7 @@ const LAYOUT_SUITES: ReadonlyArray<{ name: string; testMatch: string | string[];
   },
   { name: 'iec-62304', testMatch: 'iec-62304-layout.e2e.ts' },
   { name: 'iso-9075', testMatch: 'iso-9075-layout.e2e.ts' },
+  { name: 'iso-iec-9075-1-2023', testMatch: 'iso-iec-9075-1-2023-layout.e2e.ts' },
   { name: 'iso-11179', testMatch: 'iso-11179-layout.e2e.ts' },
   { name: 'wewlc', testMatch: 'wewlc-layout.e2e.ts' },
   { name: 'tcs', testMatch: 'tcs-layout.e2e.ts' },
