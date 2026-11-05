@@ -94,6 +94,16 @@ describe('diagram semantics', () => {
         const labels = original.chart.match(/\["([^"\n]+)"\]|\{"([^"\n]+)"\}/g) ?? [];
         expect(labels.length).toBeGreaterThan(0);
     });
+    const accessibleName = (id: string) => {
+        const Component = sourceModule(`${base}/Diagram.tsx`).default as React.ComponentType<{ id: string }>;
+        return load(renderToStaticMarkup(<Component id={id} />))('[role="img"]').attr('aria-label');
+    };
+    it('mmd-5: names each conformance decision and the outcome of both branches', () => {
+        expect(accessibleName('mmd-5')).toBe('標準準拠を主張したい場合の判断フロー。Core SQLの必須機能を満たすか判定する。満たさない場合（いいえ）は準拠を主張できない。満たす場合（はい）は最小適合の要件を確認し、追加機能も主張するか判定する。追加機能も主張する場合（はい）は機能ID単位で対応を宣言し、実装定義の要素は実装側で決めて文書化する。追加機能を主張しない場合（いいえ）はCore SQLの範囲で主張し、実装定義の要素は実装側で決めて文書化する。');
+    });
+    it('mmd-10: separates the standard-syntax and dialect-syntax paths with their follow-up tests', () => {
+        expect(accessibleName('mmd-10')).toBe('DBMSの対応状況に応じた構文選択フロー。対象DBMSの適合性一覧を確認し、使いたい機能の機能IDを特定して、DBMSが対応しているか判定する。対応している場合（はい）は標準構文を採用し、標準構文の移植テストを作成する。対応していない場合（いいえ）は方言構文を分離して隔離し、方言差を吸収するテストを作成する。');
+    });
     it('passes all ten definitions to the shared renderer in source order', () => {
         const charts: string[] = [];
         const Component = sourceModule(`${base}/page.tsx`, { onMermaidChart: chart => charts.push(chart) }).default as React.ComponentType;

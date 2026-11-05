@@ -77,12 +77,67 @@ describe('responsive TOC', () => {
         Object.defineProperty(window,'innerWidth',{ configurable:true,value:900 }); fireEvent(window,new Event('resize'));
         expect(view.container.querySelector('nav')!.hasAttribute('inert')).toBe(true);
     });
+    it('keeps focus where it is when Escape is pressed while the TOC is closed', async () => {
+        await setup(); const input = document.createElement('input'); document.body.append(input);
+        try { input.focus(); fireEvent.keyDown(document, { key:'Escape' }); expect(document.activeElement === input).toBe(true); }
+        finally { input.remove(); }
+    });
+    describe('page content behind the open mobile TOC', () => {
+        function mountMain(inert = false) {
+            const main = document.createElement('main'); main.className = 'main'; if (inert) main.setAttribute('inert', ''); document.body.append(main); return main;
+        }
+        it('is inert only while the mobile TOC is open', async () => {
+            const main = mountMain();
+            try {
+                const view = await setup(), button = view.getByRole('button', { name:'目次を開閉' }); expect(main.hasAttribute('inert')).toBe(false);
+                fireEvent.click(button); expect(main.hasAttribute('inert')).toBe(true);
+                fireEvent.keyDown(document, { key:'Escape' }); expect(main.hasAttribute('inert')).toBe(false);
+            } finally { main.remove(); }
+        });
+        it('restores the prior state when closing or unmounting', async () => {
+            const alreadyInert = mountMain(true);
+            try {
+                const view = await setup(), button = view.getByRole('button', { name:'目次を開閉' });
+                fireEvent.click(button); fireEvent.click(button); expect(alreadyInert.hasAttribute('inert')).toBe(true);
+                view.unmount();
+            } finally { alreadyInert.remove(); }
+            const main = mountMain();
+            try {
+                const view = await setup(); fireEvent.click(view.getByRole('button', { name:'目次を開閉' })); expect(main.hasAttribute('inert')).toBe(true);
+                view.unmount(); expect(main.hasAttribute('inert')).toBe(false);
+            } finally { main.remove(); }
+        });
+        it('stays interactive at desktop width', async () => {
+            const main = mountMain();
+            try {
+                const view = await setup(); Object.defineProperty(window,'innerWidth',{ configurable:true,value:901 }); fireEvent(window,new Event('resize'));
+                fireEvent.click(view.getByRole('button', { name:'目次を開閉' })); expect(main.hasAttribute('inert')).toBe(false);
+            } finally { main.remove(); }
+        });
+    });
+    describe('active heading after the pending timer', () => {
+        const cases = [
+            { name:'lands below 25% of a short viewport', innerHeight:400, tops:[-500,196,1000], margin:'196px' },
+            { name:'lands while the next short section is inside the upper 25% of the viewport', innerHeight:900, tops:[-500,118,200], margin:'118px' },
+        ];
+        for (const { name, innerHeight, tops, margin } of cases) it(`keeps the clicked heading when it ${name}`, async () => {
+            const originalHeight = window.innerHeight; Object.defineProperty(window,'innerHeight',{ configurable:true,value:innerHeight });
+            const ids = inventory.groups.toc.items.map(n => n.attrs['data-target']);
+            const root = document.createElement('div'); root.innerHTML = ids.slice(3,6).map(id => `<h2 id="${id}"></h2>`).join(''); document.body.append(root);
+            root.querySelectorAll('h2').forEach((h,i) => { h.style.scrollMarginTop = margin; h.getBoundingClientRect = () => ({ top: tops[i] }) as DOMRect; });
+            try {
+                const view = await setup(), target = view.container.querySelector(`a[data-target="${ids[4]}"]`)!;
+                await act(async () => { fireEvent.click(target); await new Promise(r => setTimeout(r,1000)); });
+                expect(view.container.querySelector('[aria-current="location"]')?.getAttribute('data-target')).toBe(ids[4]);
+            } finally { root.remove(); Object.defineProperty(window,'innerHeight',{ configurable:true,value:originalHeight }); }
+        });
+    });
     it('tracks actual heading position after scrolling and disconnects the observer', async () => {
         const original = globalThis.IntersectionObserver, disconnect = mock(() => {}), observe = mock(() => {});
         globalThis.IntersectionObserver = class { observe=observe; disconnect=disconnect; unobserve(){} } as unknown as typeof IntersectionObserver;
         const ids = inventory.groups.toc.items.map(n => n.attrs['data-target']);
         const root = document.createElement('div'); root.innerHTML = ids.map(id => `<h2 id="${id}"></h2>`).join(''); document.body.append(root);
-        let active = 0; root.querySelectorAll('h2').forEach((h,i) => { h.getBoundingClientRect = () => ({ top: (i-active)*400+140 }) as DOMRect; });
+        let active = 0; root.querySelectorAll('h2').forEach((h,i) => { h.style.scrollMarginTop = '140px'; h.getBoundingClientRect = () => ({ top: (i-active)*400+140 }) as DOMRect; });
         try {
             const view = await setup(); expect(observe.mock.calls).toHaveLength(13);
             active = 4; await act(async () => { fireEvent.scroll(window); await new Promise(r => setTimeout(r,30)); });
