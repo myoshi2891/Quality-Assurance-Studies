@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-iec-40500-2025-guide.json';
-import { applyReviewCodeCorrections, applyReviewCorrections } from '../tests/iso-iec-40500-2025-guide/review-corrections';
+import { DIAGRAM_NODE_ADDITIONS, applyReviewCodeCorrections, applyReviewCorrections } from '../tests/iso-iec-40500-2025-guide/review-corrections';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-iec-40500-2025-guide';
 const globals = readFileSync('node_modules/tailwindcss/preflight.css','utf8') + readFileSync('app/globals.css','utf8');
@@ -55,6 +55,9 @@ for(const width of [390,1440])for(const [id,diagram]of Object.entries(inventory.
             return {nodes,labels,edges,clusters};
         };
         const expected=await reference.locator('#'+id).evaluate(collect);
+        // 承認済みの追加ノードだけを、同じグループの直前ノードと同じ配色で期待値へ加える。
+        const additions=DIAGRAM_NODE_ADDITIONS[id]??[];
+        for(const {after,id:nodeId,label} of additions){const index=expected.nodes.findIndex(node=>node.id===after);expected.nodes.splice(index+1,0,{...expected.nodes[index]!,id:nodeId,label});}
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('sql-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
         // An SVG can exist with correct labels/palette while a CSS reset makes every node zero-sized.
@@ -75,7 +78,7 @@ for(const width of [390,1440])for(const [id,diagram]of Object.entries(inventory.
             node.expected!.forEach((value,index) => expect(node.actual[index]).toBeCloseTo(value,3));
         }
 
-        expect(await page.locator('#'+id+' .nodeLabel').count()).toBe(diagram.labels.length);
+        expect(await page.locator('#'+id+' .nodeLabel').count()).toBe(diagram.labels.length+additions.length);
         const reach=await page.locator('#'+id).evaluate(el=>{const svg=el.querySelector('svg')!,initial=svg.getBoundingClientRect().left;el.scrollLeft=el.scrollWidth;return {initial,left:el.getBoundingClientRect().left,movement:initial-svg.getBoundingClientRect().left,scroll:el.scrollLeft,required:el.scrollWidth-el.clientWidth};});
         expect(reach.initial).toBeGreaterThanOrEqual(reach.left);expect(Math.abs(reach.scroll-reach.required)).toBeLessThanOrEqual(1);expect(Math.abs(reach.movement-reach.scroll)).toBeLessThanOrEqual(1);
         await expect(page.locator('#'+id+' .mermaid-wrapper')).toHaveCSS('background-color','rgba(0, 0, 0, 0)');await reference.close();

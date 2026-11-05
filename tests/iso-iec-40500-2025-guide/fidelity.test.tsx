@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections } from './review-corrections';
+import { COMPATIBILITY_EXCEPTION, COMPATIBILITY_SENTENCE_END, DIAGRAM_NODE_ADDITIONS, SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections, applyReviewDiagramCorrections } from './review-corrections';
 const base = 'app/iso-iec-40500-2025-guide';
 const scope = '.wcag-40500-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -98,7 +98,7 @@ describe('rendered page before test corrections', () => {
 describe('diagram semantics', () => {
     for (const [id, original] of Object.entries(inventory.diagrams)) it(`${id}: HTML-derived source, SVG node order and actual Mermaid parsing`, async () => {
         const { DIAGRAMS, MERMAID_CONFIG } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string>; MERMAID_CONFIG: string };
-        expect(DIAGRAMS[id]).toBe(`${MERMAID_CONFIG}\n${original.chart.split('\n').map(s => s.trim()).join('\n')}`);
+        expect(DIAGRAMS[id]).toBe(`${MERMAID_CONFIG}\n${applyReviewDiagramCorrections(id, original.chart).split('\n').map(s => s.trim()).join('\n')}`);
         expect(MERMAID_CONFIG).not.toContain("'");
         const entry: string = 'mermaid/dist/mermaid.esm.mjs'; const mermaid = (await import(entry)).default;
         expect((await mermaid.parse(DIAGRAMS[id])).diagramType).toBe('flowchart-v2');
@@ -112,8 +112,22 @@ describe('diagram semantics', () => {
     for (const [id, original] of Object.entries(inventory.diagrams)) it(`${id}: text alternative keeps the figure number and conveys every node, group and edge label`, () => {
         const name = norm(accessibleName(id) ?? '');
         expect(name.startsWith(`${source(`[id="${id}"]`).attr('aria-label')}：`)).toBe(true);
-        const labels = Array.from(original.chart.matchAll(/\["([^"\n]+)"\]|\{"([^"\n]+)"\}|\|"([^"\n]+)"\|/g), m => m[1] ?? m[2] ?? m[3] ?? '');
+        const labels = Array.from(applyReviewDiagramCorrections(id, original.chart).matchAll(/\["([^"\n]+)"\]|\{"([^"\n]+)"\}|\|"([^"\n]+)"\|/g), m => m[1] ?? m[2] ?? m[3] ?? '');
         expect(labels.flatMap(label => label.split('<br/>')).map(norm).filter(part => !name.includes(part))).toEqual([]);
+    });
+    it('mermaid-diagram-4: maps all nine new criteria, each once, in the diagram and its text alternative', () => {
+        const criteria = ['2.4.11', '2.4.12', '2.4.13', '2.5.7', '2.5.8', '3.2.6', '3.3.7', '3.3.8', '3.3.9'];
+        const { DIAGRAMS } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string> };
+        const shown = [...(DIAGRAMS['mermaid-diagram-4'] ?? '').matchAll(/\["(\d\.\d\.\d+) /g)].map(m => m[1]).sort();
+        expect(shown).toEqual(criteria);
+        const name = accessibleName('mermaid-diagram-4') ?? '';
+        expect(name).toMatch(/見た目・UIの修正が中心：[^。]*2\.4\.12[^。]*。/);
+        expect(name).toMatch(/フロー・認証設計に影響：[^。]*3\.3\.9[^。]*。/);
+        expect(criteria.filter(sc => !name.includes(sc))).toEqual([]);
+    });
+    it('each diagram correction targets one existing original node', () => {
+        for (const [id, additions] of Object.entries(DIAGRAM_NODE_ADDITIONS)) for (const { after } of additions)
+            expect(inventory.diagrams[id as keyof typeof inventory.diagrams].chart.match(new RegExp(`^${after}\\[`, 'gm'))).toHaveLength(1);
     });
     it('describes the branch outcomes of the conformance decision flow in order', () => {
         const name = accessibleName('mermaid-diagram-5') ?? '';
@@ -125,6 +139,15 @@ describe('diagram semantics', () => {
         renderToStaticMarkup(<Component />);
         const { DIAGRAMS } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string> };
         expect(charts).toEqual(Object.values(DIAGRAMS));
+    });
+});
+describe('reviewed compatibility claim', () => {
+    it('applies to the original source exactly once', () => expect(inventory.originalBody.split(COMPATIBILITY_SENTENCE_END)).toHaveLength(2));
+    it('states the 4.1.1 exception right after the compatibility claim, matching the 6.2 callout', () => {
+        const claim = renderFile('Section03')('ul li').first().text();
+        expect(norm(claim)).toContain('WCAG 2.0 と 2.1 にも適合します');
+        expect(claim).toContain(COMPATIBILITY_EXCEPTION);
+        expect(norm(renderFile('Section07')('blockquote.callout').text())).toContain('引き続き 4.1.1 の試験と報告が求められることがあります');
     });
 });
 const TABLE_REGIONS = [
