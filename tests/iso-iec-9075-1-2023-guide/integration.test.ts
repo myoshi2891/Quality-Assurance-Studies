@@ -9,7 +9,7 @@ it('registers this distinct source once in ISO while retaining the older guide',
     expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
     expect(NAV_ITEMS.filter(n => n.href === '/iso-9075-1-guide')).toHaveLength(1);
     expect(PAGES.filter(p => p.path === '/iso-iec-9075-1-2023-guide')[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
-    expect(EXPECTED_PAGE_COUNT).toBe(121); expect(PAGES).toHaveLength(121); expect(NAV_ITEMS).toHaveLength(121);
+    expect(EXPECTED_PAGE_COUNT).toBe(122); expect(PAGES).toHaveLength(122); expect(NAV_ITEMS).toHaveLength(122);
 });
 it('typechecks every page module without a production build', () => {
     const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile);
