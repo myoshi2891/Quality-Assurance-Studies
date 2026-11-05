@@ -1,0 +1,756 @@
+
+            .sql-framework-page {
+                --bg: #07111e;
+                --panel: #0b1829;
+                --card: #0f2036;
+                --card2: #13294a;
+                --border: #1f3350;
+                --text: #e6edf7;
+                --dim: #c7d6ec;
+                --faint: #9cb0cf;
+                --accent: #7c9eff;
+                --accent2: #4a6fd6;
+                --ok: #86efac;
+                --warn: #fdba74;
+                --ng: #fca5a5;
+                --sw: 280px;
+                --font:
+                    'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+                --mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+            }
+            .sql-framework-page * {
+                box-sizing: border-box;
+            }
+            .sql-framework-page {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+            }
+            .sql-framework-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font);
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
+            .sql-framework-page a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+            .sql-framework-page a:hover {
+                text-decoration: underline;
+            }
+            .sql-framework-page .layout {
+                display: block;
+            }
+            .sql-framework-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sw);
+                background: var(--panel);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 22px 14px 40px;
+                z-index: 50;
+                transition: transform 0.25s;
+            }
+            .sql-framework-page .side-title {
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                color: var(--accent);
+                text-transform: uppercase;
+                margin: 0 8px 4px;
+            }
+            .sql-framework-page .side-sub {
+                font-size: 13px;
+                color: var(--faint);
+                margin: 0 8px 16px;
+                line-height: 1.5;
+            }
+            .sql-framework-page .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sql-framework-page .sidebar li {
+                margin: 2px 0;
+            }
+            .sql-framework-page .sidebar a {
+                display: block;
+                padding: 7px 10px;
+                border-radius: 8px;
+                color: var(--dim);
+                font-size: 13.5px;
+                line-height: 1.45;
+                border-left: 3px solid transparent;
+            }
+            .sql-framework-page .sidebar a:hover {
+                background: var(--card);
+                text-decoration: none;
+                color: #fff;
+            }
+            .sql-framework-page .sidebar a.active {
+                background: var(--card2);
+                color: #fff;
+                border-left-color: var(--accent);
+                font-weight: 700;
+            }
+            .sql-framework-page .nav-toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 60;
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--panel);
+                color: var(--text);
+                font-size: 20px;
+                cursor: pointer;
+            }
+            .sql-framework-page .scrim {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.55);
+                z-index: 40;
+            }
+            .sql-framework-page .main {
+                margin-left: var(--sw);
+                padding: 0 48px 80px;
+            }
+            .sql-framework-page .hero {
+                position: relative;
+                padding: 56px 0 32px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 28px;
+                overflow: hidden;
+            }
+            .sql-framework-page .hero::before {
+                content: '';
+                position: absolute;
+                top: -120px;
+                right: -80px;
+                width: 520px;
+                height: 420px;
+                background: radial-gradient(circle, rgba(124, 158, 255, 0.22), transparent 65%);
+                pointer-events: none;
+            }
+            .sql-framework-page .eyebrow {
+                display: inline-block;
+                padding: 5px 14px;
+                border-radius: 999px;
+                border: 1px solid var(--accent2);
+                background: rgba(124, 158, 255, 0.12);
+                color: var(--accent);
+                font-size: 12.5px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                margin-bottom: 16px;
+            }
+            .sql-framework-page .hero-title {
+                text-wrap: balance;
+                font-size: 28px;
+                font-weight: 800;
+                color: #fff;
+                line-height: 1.4;
+                margin: 0 0 20px;
+            }
+            .sql-framework-page .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0;
+                margin: 0 0 18px;
+            }
+            .sql-framework-page .hero-meta .m {
+                padding: 4px 22px 4px 0;
+                margin-right: 22px;
+                border-right: 1px solid var(--border);
+            }
+            .sql-framework-page .hero-meta .m:last-child {
+                border-right: none;
+            }
+            .sql-framework-page .hero-meta .l {
+                display: block;
+                font-size: 11px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--faint);
+            }
+            .sql-framework-page .hero-meta .v {
+                display: block;
+                font-size: 14.5px;
+                color: var(--text);
+            }
+            .sql-framework-page .hero-links {
+                border-top: 1px solid var(--border);
+                padding-top: 14px;
+                font-size: 14px;
+                color: var(--dim);
+            }
+            .sql-framework-page .main h2 {
+                font-size: 24px;
+                font-weight: 800;
+                color: #fff;
+                margin: 56px 0 18px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--border);
+                scroll-margin-top: 20px;
+            }
+            .sql-framework-page .main h3 {
+                font-size: 19px;
+                font-weight: 700;
+                color: #dfe9fb;
+                margin: 34px 0 12px;
+                scroll-margin-top: 20px;
+            }
+            .sql-framework-page .main h3::before {
+                content: '';
+                display: inline-block;
+                width: 4px;
+                height: 1em;
+                background: var(--accent);
+                border-radius: 2px;
+                margin-right: 10px;
+                vertical-align: -2px;
+            }
+            .sql-framework-page .main p, .sql-framework-page .main li {
+                color: var(--dim);
+            }
+            .sql-framework-page .main strong {
+                color: #fff;
+            }
+            .sql-framework-page .main ul, .sql-framework-page .main ol {
+                padding-left: 1.4em;
+            }
+            .sql-framework-page .main hr {
+                border: none;
+                border-top: 1px solid var(--border);
+                margin: 36px 0;
+            }
+            .sql-framework-page code {
+                font-family: var(--mono);
+                font-size: 0.88em;
+                background: #0d2038;
+                border: 1px solid var(--border);
+                border-radius: 5px;
+                padding: 1px 6px;
+                color: #cfe0ff;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+            .sql-framework-page pre {
+                background: #050d18;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 16px 18px;
+                overflow-x: auto;
+                margin: 18px 0;
+                line-height: 1.65;
+            }
+            .sql-framework-page pre code {
+                background: none;
+                border: none;
+                padding: 0;
+                font-size: 13.5px;
+                color: #dbe7ff;
+                word-break: normal;
+                overflow-wrap: normal;
+                white-space: pre;
+            }
+            .sql-framework-page .tok-k {
+                color: #7c9eff;
+                font-weight: 500;
+            }
+            .sql-framework-page .tok-c {
+                color: #7b8fae;
+                font-style: italic;
+            }
+            .sql-framework-page .tok-s {
+                color: #86efac;
+            }
+            .sql-framework-page .tok-n {
+                color: #fdba74;
+            }
+            .sql-framework-page .tok-f {
+                color: #c4b5fd;
+            }
+            .sql-framework-page .table-scroll {
+                overflow-x: auto;
+                margin: 18px 0;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: var(--card);
+            }
+            .sql-framework-page table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+            }
+            .sql-framework-page th, .sql-framework-page td {
+                padding: 10px 14px;
+                text-align: left;
+                vertical-align: top;
+                border-bottom: 1px solid var(--border);
+                color: var(--dim);
+                min-width: 80px;
+            }
+            .sql-framework-page th {
+                background: var(--card2);
+                color: #fff;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .sql-framework-page tr:last-child td {
+                border-bottom: none;
+            }
+            .sql-framework-page tbody tr:hover td {
+                background: rgba(124, 158, 255, 0.06);
+            }
+            .sql-framework-page table.ref-table td:nth-child(3) {
+                word-break: break-all;
+                min-width: 260px;
+            }
+            .sql-framework-page tr:target td {
+                background: rgba(124, 158, 255, 0.18);
+            }
+            .sql-framework-page .cite {
+                font-size: 0.82em;
+                font-family: var(--mono);
+                padding: 0 2px;
+            }
+            .sql-framework-page .mermaid-diagram {
+                display: block;
+                overflow-x: auto;
+                margin: 22px 0;
+                padding: 22px 16px;
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+            }
+            .sql-framework-page .mermaid-diagram svg {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: none;
+                flex-shrink: 0;
+            }
+            .sql-framework-page .mermaid-diagram p {
+                color: inherit;
+                margin: 0;
+            }
+            .sql-framework-page .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .sql-framework-page .mermaid-diagram foreignObject div, .sql-framework-page .mermaid-diagram foreignObject span, .sql-framework-page .mermaid-diagram foreignObject p {
+                white-space: normal !important;
+            }
+            .sql-framework-page .callout-tip, .sql-framework-page .callout-warn, .sql-framework-page .callout-note {
+                border-radius: 12px;
+                padding: 14px 18px 14px 16px;
+                margin: 20px 0;
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid var(--border);
+                border-left-width: 4px;
+            }
+            .sql-framework-page .callout-tip {
+                background: rgba(134, 239, 172, 0.07);
+                border-left-color: var(--ok);
+            }
+            .sql-framework-page .callout-warn {
+                background: rgba(253, 186, 116, 0.08);
+                border-left-color: var(--warn);
+            }
+            .sql-framework-page .callout-note {
+                background: rgba(124, 158, 255, 0.08);
+                border-left-color: var(--accent);
+            }
+            .sql-framework-page .callout-icon {
+                font-size: 20px;
+                line-height: 1.6;
+                flex: none;
+            }
+            .sql-framework-page .callout-body {
+                min-width: 0;
+            }
+            .sql-framework-page .callout-body p {
+                margin: 0 0 6px;
+            }
+            .sql-framework-page .callout-body p:last-child {
+                margin-bottom: 0;
+            }
+            .sql-framework-page .gloss-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 14px;
+                margin: 18px 0;
+            }
+            .sql-framework-page .gloss-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 16px 18px;
+                transition:
+                    border-color 0.2s,
+                    transform 0.2s;
+                min-width: 0;
+            }
+            .sql-framework-page .gloss-card:hover {
+                border-color: var(--accent2);
+                transform: translateY(-2px);
+            }
+            .sql-framework-page .gloss-top {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 8px;
+            }
+            .sql-framework-page .gloss-icon {
+                flex: none;
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                background: rgba(124, 158, 255, 0.14);
+                border: 1px solid var(--accent2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 19px;
+            }
+            .sql-framework-page .gloss-term {
+                font-weight: 800;
+                color: #fff;
+                font-size: 15.5px;
+                line-height: 1.4;
+                overflow-wrap: anywhere;
+            }
+            .sql-framework-page .gloss-term code {
+                font-size: 0.9em;
+            }
+            .sql-framework-page .gloss-def {
+                margin: 0;
+                font-size: 14.5px;
+                line-height: 1.75;
+                color: var(--dim);
+                overflow-wrap: anywhere;
+            }
+            .sql-framework-page .faq-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin: 18px 0;
+            }
+            .sql-framework-page .faq-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                overflow: hidden;
+            }
+            .sql-framework-page .faq-card[open] {
+                border-color: var(--accent2);
+            }
+            .sql-framework-page .faq-card summary {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 14px 18px;
+                cursor: pointer;
+                font-weight: 700;
+                color: #fff;
+                background: rgba(124, 158, 255, 0.06);
+            }
+            .sql-framework-page .faq-card summary::-webkit-details-marker {
+                display: none;
+            }
+            .sql-framework-page .faq-card summary:hover {
+                background: rgba(124, 158, 255, 0.12);
+            }
+            .sql-framework-page .faq-q {
+                flex: 1;
+                min-width: 0;
+                line-height: 1.55;
+            }
+            .sql-framework-page .faq-chev {
+                flex: none;
+                color: var(--accent);
+                transition: transform 0.2s;
+            }
+            .sql-framework-page .faq-card:not([open]) .faq-chev {
+                transform: rotate(-90deg);
+            }
+            .sql-framework-page .faq-a {
+                display: flex;
+                gap: 12px;
+                padding: 14px 18px 16px;
+                border-top: 1px solid var(--border);
+            }
+            .sql-framework-page .faq-a-text {
+                flex: 1;
+                min-width: 0;
+                color: var(--dim);
+                line-height: 1.8;
+            }
+            .sql-framework-page .qa-badge {
+                flex: none;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 13px;
+            }
+            .sql-framework-page .qa-badge.q {
+                background: var(--accent);
+                color: #07111e;
+            }
+            .sql-framework-page .qa-badge.a {
+                background: rgba(134, 239, 172, 0.16);
+                color: var(--ok);
+                border: 1px solid var(--ok);
+            }
+            .sql-framework-page .checklist-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 20px 22px;
+                margin: 18px 0;
+            }
+            .sql-framework-page .checklist-progress {
+                margin-bottom: 14px;
+            }
+            .sql-framework-page .cp-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+            }
+            .sql-framework-page .cp-title {
+                font-weight: 800;
+                color: #fff;
+            }
+            .sql-framework-page .cp-right {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .sql-framework-page .cp-pct {
+                font-family: var(--mono);
+                font-size: 20px;
+                font-weight: 500;
+                color: var(--accent);
+            }
+            .sql-framework-page .cnt {
+                font-size: 13px;
+                color: var(--faint);
+            }
+            .sql-framework-page .cp-reset {
+                font: inherit;
+                font-size: 12.5px;
+                color: var(--dim);
+                background: transparent;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 4px 12px;
+                cursor: pointer;
+            }
+            .sql-framework-page .cp-reset:hover {
+                border-color: var(--accent);
+                color: #fff;
+            }
+            .sql-framework-page .checklist-progress .bar {
+                display: block;
+                height: 10px;
+                background: #0a1626;
+                border-radius: 999px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+            }
+            .sql-framework-page .checklist-progress .fill {
+                display: block;
+                height: 100%;
+                width: 0;
+                background: linear-gradient(90deg, var(--accent2), var(--accent));
+                transition: width 0.3s;
+            }
+            .sql-framework-page .checklist-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .sql-framework-page .checklist-card li {
+                margin: 0;
+            }
+            .sql-framework-page .ck-row {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 11px 14px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: #0b1829;
+                cursor: pointer;
+                transition:
+                    border-color 0.2s,
+                    background 0.2s;
+            }
+            .sql-framework-page .ck-row:hover {
+                border-color: var(--accent2);
+                background: #0e2038;
+            }
+            .sql-framework-page .ck-row input {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            .sql-framework-page .ck-box {
+                flex: none;
+                width: 22px;
+                height: 22px;
+                margin-top: 3px;
+                border-radius: 7px;
+                border: 2px solid var(--accent2);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: transparent;
+                font-size: 14px;
+                font-weight: 800;
+                transition: all 0.15s;
+            }
+            .sql-framework-page .ck-box::after {
+                content: '✓';
+            }
+            .sql-framework-page .ck-row input:checked ~ .ck-box {
+                background: var(--accent);
+                border-color: var(--accent);
+                color: #07111e;
+            }
+            .sql-framework-page .ck-row input:focus-visible ~ .ck-box {
+                outline: 2px solid #fff;
+                outline-offset: 2px;
+            }
+            .sql-framework-page .ck-num {
+                flex: none;
+                font-family: var(--mono);
+                font-size: 12.5px;
+                color: var(--faint);
+                margin-top: 5px;
+            }
+            .sql-framework-page .ck-text {
+                flex: 1;
+                min-width: 0;
+                color: var(--dim);
+                line-height: 1.7;
+            }
+            .sql-framework-page .checklist-card li.done .ck-row {
+                background: rgba(124, 158, 255, 0.08);
+                border-color: var(--accent2);
+            }
+            .sql-framework-page .checklist-card li.done .ck-text {
+                color: var(--faint);
+                text-decoration: line-through;
+                text-decoration-color: var(--accent2);
+            }
+            .sql-framework-page .checklist-card li.done .ck-text strong, .sql-framework-page .checklist-card li.done .ck-text code {
+                color: inherit;
+            }
+            .sql-framework-page .ck-done {
+                margin-top: 14px;
+                padding: 12px 16px;
+                border-radius: 12px;
+                background: rgba(134, 239, 172, 0.1);
+                border: 1px solid var(--ok);
+                color: var(--ok);
+                font-size: 14.5px;
+            }
+            .sql-framework-page .page-footer {
+                margin-top: 60px;
+                padding-top: 20px;
+                border-top: 1px solid var(--border);
+                font-size: 13px;
+                color: var(--faint);
+            }
+            @media (max-width: 900px) {
+                .sql-framework-page .sidebar {
+                    transform: translateX(-100%);
+                }
+                .sql-framework-page .sidebar.open {
+                    transform: none;
+                }
+                .sql-framework-page .scrim.show {
+                    display: block;
+                }
+                .sql-framework-page .nav-toggle {
+                    display: block;
+                }
+                .sql-framework-page .main {
+                    margin-left: 0;
+                    padding: 0 18px 60px;
+                }
+                .sql-framework-page .hero {
+                    padding-top: 70px;
+                }
+                .sql-framework-page .hero-title {
+                    font-size: 23px;
+                }
+                .sql-framework-page .hero-meta .m {
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                    width: 100%;
+                    margin-right: 0;
+                    padding: 8px 0;
+                }
+                .sql-framework-page .hero-meta .m:last-child {
+                    border-bottom: none;
+                }
+            }
+        
+/* Application chrome and global CSS isolation; source declarations above remain intact. */
+.sql-framework-page { min-height: 100vh; width: 100%; }
+.sql-framework-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
+.sql-framework-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 45; }
+.sql-framework-page .scrim { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 35; }
+.sql-framework-page [id] { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.sql-framework-page .main { max-width: none; width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; }
+.sql-framework-page .hero { min-height: 0; display: block; text-align: start; background: transparent; border-radius: 0; }
+.sql-framework-page .hero::after { content: none; }
+.sql-framework-page .hero-title { background: none; background-clip: border-box; -webkit-text-fill-color: #fff; }
+.sql-framework-page h1, .sql-framework-page h2, .sql-framework-page h3 { font-family: inherit; letter-spacing: normal; }
+.sql-framework-page h2::before { content: none; }
+.sql-framework-page .main p { max-width: none; }
+.sql-framework-page .main ul { list-style-type: disc; }
+.sql-framework-page .main ol { list-style-type: decimal; }
+.sql-framework-page table { margin: 0; font-family: inherit; border-color: revert; }
+.sql-framework-page th, .sql-framework-page td { font-family: inherit; font-size: inherit; line-height: inherit; letter-spacing: normal; text-transform: none; border-top: 0; border-left: 0; border-right: 0; }
+.sql-framework-page td { background: transparent; }
+.sql-framework-page pre { font-family: var(--mono); white-space: pre; }
+.sql-framework-page pre code { display: block; line-height: inherit; }
+.sql-framework-page .code-line { display: block; min-height: 1.65em; }
+.sql-framework-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
+.sql-framework-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.sql-framework-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.sql-framework-page .mermaid-wrapper foreignObject p, .sql-framework-page .mermaid-wrapper foreignObject span, .sql-framework-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; word-break: break-word !important; }
+.sql-framework-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.sql-framework-page *::-webkit-scrollbar-track { background: transparent; }
+.sql-framework-page *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.sql-framework-page .page-footer { background: transparent; padding-right: 0; padding-bottom: 0; padding-left: 0; border-radius: 0; font-family: inherit; }
+.sql-framework-page .ck-done[hidden] { display: none; }
+@media (max-width: 900px) { .sql-framework-page [id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
