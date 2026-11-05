@@ -1,6 +1,8 @@
 export const MERMAID_CONFIG = "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"background\":\"#07111e\",\"primaryColor\":\"#1e293b\",\"mainBkg\":\"#1e293b\",\"primaryBorderColor\":\"#7c9eff\",\"primaryTextColor\":\"#e6edf7\",\"lineColor\":\"#7c9eff\",\"secondaryColor\":\"#13294a\",\"tertiaryColor\":\"#0f2036\",\"nodeBorder\":\"#7c9eff\",\"clusterBkg\":\"#0f1d33\",\"clusterBorder\":\"#4a6fd6\",\"edgeLabelBackground\":\"#07111e\",\"fontFamily\":\"Noto Sans JP, Noto Sans CJK JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif\",\"fontSize\":\"16px\"},\"htmlLabels\":true,\"flowchart\":{\"curve\":\"basis\",\"padding\":15}}}%%";
 export const DIAGRAMS: Record<string, string> = {
-"mmd-1": `${MERMAID_CONFIG}\nflowchart TB
+"mmd-1": `${MERMAID_CONFIG}\nflowchart LR
+subgraph SERIES["ISO/IEC 9075 の各パート"]
+direction LR
 P1["Part 1<br/>Framework<br/>本ガイドの対象"]
 P2["Part 2<br/>Foundation<br/>中核言語"]
 P3["Part 3<br/>CLI"]
@@ -12,16 +14,17 @@ P13["Part 13<br/>JRT"]
 P14["Part 14<br/>XML"]
 P15["Part 15<br/>MDA"]
 P16["Part 16<br/>PGQ<br/>2023で新設"]
-P1 --> P2
-P1 --> P3
-P1 --> P4
-P1 --> P9
-P1 --> P10
-P1 --> P11
-P1 --> P13
-P1 --> P14
-P1 --> P15
-P1 --> P16
+P1 ~~~ P2
+P1 ~~~ P3
+P1 ~~~ P4
+P1 ~~~ P9
+P1 ~~~ P10
+P2 ~~~ P11
+P3 ~~~ P13
+P4 ~~~ P14
+P9 ~~~ P15
+P10 ~~~ P16
+end
 classDef target fill:#1e3a8a,stroke:#7c9eff,color:#ffffff
 classDef core fill:#14532d,stroke:#86efac,color:#ffffff
 classDef other fill:#334155,stroke:#94a3b8,color:#ffffff
