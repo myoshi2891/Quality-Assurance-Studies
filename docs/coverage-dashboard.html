@@ -992,7 +992,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <article class="kpi" data-tone="ok">
       <div class="kpi-num" id="kpi-pages-tested">120<span class="unit">/ 120</span></div>
       <div class="kpi-lbl" id="kpi-pages-label">Pages Tested · 100%</div>
-      <p class="kpi-desc"><span id="kpi-pages-desc-count">120</span> ページに render-only スモークテスト完備（P0 完了）。E2E スモークは全 120 ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
+      <p class="kpi-desc">render-only スモークテストは <span id="kpi-pages-desc-tested">120</span> / <span id="kpi-pages-desc-count">120</span> ページ（P0 <span id="kpi-pages-desc-status">完了</span>）。E2E スモークは e2e/pages.ts の登録ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1903,6 +1903,10 @@ function renderPages() {
   
   const pagesDesc = document.getElementById('kpi-pages-desc-count');
   if (pagesDesc) pagesDesc.textContent = DATA.pages.length;
+  const pagesDescTested = document.getElementById('kpi-pages-desc-tested');
+  if (pagesDescTested) pagesDescTested.textContent = tested;
+  const pagesDescStatus = document.getElementById('kpi-pages-desc-status');
+  if (pagesDescStatus) pagesDescStatus.textContent = tested === DATA.pages.length ? '完了' : '未完了';
 }
 
 function renderInventory() {
