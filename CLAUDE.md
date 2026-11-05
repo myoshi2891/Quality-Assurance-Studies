@@ -4,6 +4,15 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: ISO 40500の図・目次・強調とSQLフレームワーク第8章のレビュー修正
+
+- 図: `Diagram.tsx`の「図1」〜「図9」だけだった名前を、図番号を残した文章へ変更。全ノード・グループ・辺ラベルの文言が含まれることをテストで要求し、図6は判定の「はい」「いいえ」の分岐先も順序まで検証。
+- 目次: モバイルで開いている間だけ`main.main`を`inert`にし、閉じる・アンマウント時に元の状態へ戻す。SQLフレームワークと同じ実装で、デスクトップの挙動は変更なし。
+- 本文: 原本に残っていたMarkdownの`**`を、`Section02.tsx`・`Section11.tsx`の2か所で`<strong>`へ変更。
+- SQLフレームワーク: 第8章の行を`8 Status codes`・`8.1 SQLSTATE`へ変更し、「未確認」と原文確認の案内を削除。ANSIのプレビューは403で読めなかったため、iTehの公開サンプルの目次と第8章の説明文で確認。
+- テスト: 補正は各ガイドの`review-corrections.ts`で原本側だけへ適用し、未修正のページが失敗する形にした。ブラウザー比較も同じ補正後の原本を基準にする。`strong`の増減で比較16件が失敗したが、要素の対応がずれただけで、補正前のコミットでは成功することを確認済み。比較は緩めていない。
+- 検証: ISO 40500対象318件、SQLフレームワーク対象343件、ブラウザー66件（32件＋34件）、対象の型検査、lint、全体10625件（215ファイル）が成功。実ページの開発サーバー確認、本番ビルド、目視確認は未実施。
+
 ## 2026-11-05: ISO/IEC 40500:2025 WCAG 2.2ガイドの移行
 
 - `/iso-iec-40500-2025-guide`をISOカテゴリーへ追加し、ナビ・E2E・ダッシュボードを122ルート（ホーム＋121ガイド）へ同期。
@@ -332,7 +341,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 215 ファイル・10618 tests)
+bun test             # ユニットテスト (bun test 全体, 215 ファイル・10625 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1380,7 +1389,7 @@ bun test        # ユニットテスト成功
 - `NavBar.tsx` / `toc.ts` — 目次開閉、scrim、Escape、実測スクロール追従、Observer解除。
 - `Diagram.tsx` / `diagrams.ts` — HTML由来の図1とMarkdown由来の9図、共有レンダラーへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
-- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の341件。
+- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の343件。
 - `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で34件。ビルド・サーバー不要。
 
 ### ISO/IEC 40500:2025ガイドの配置
@@ -1390,5 +1399,5 @@ bun test        # ユニットテスト成功
 - `NavBar.tsx` / `toc.ts` — 目次50リンクの階層と実測追従・モバイル開閉・Observer解除。
 - `Diagram.tsx` / `diagrams.ts` — 原本HTMLの全9図と共有Mermaidへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — CSS/HTML5例の正確な改行、学習チェック10項目の進捗。
-- `tests/iso-iec-40500-2025-guide/` — 原本・操作・hydration・登録・アーカイブ・型検査313件。
+- `tests/iso-iec-40500-2025-guide/` — 原本・操作・hydration・登録・アーカイブ・型検査318件。
 - `e2e/iso-iec-40500-2025-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-40500-2025`でビルド・サーバー不要の32件。

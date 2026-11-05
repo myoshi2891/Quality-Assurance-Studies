@@ -4,6 +4,15 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: ISO 40500の図・目次・強調とSQLフレームワーク第8章のレビュー修正
+
+- 図: `Diagram.tsx`の「図1」〜「図9」だけだった名前を、図番号を残した文章へ変更。全ノード・グループ・辺ラベルの文言が含まれることをテストで要求し、図6は判定の「はい」「いいえ」の分岐先も順序まで検証。
+- 目次: モバイルで開いている間だけ`main.main`を`inert`にし、閉じる・アンマウント時に元の状態へ戻す。SQLフレームワークと同じ実装で、デスクトップの挙動は変更なし。
+- 本文: 原本に残っていたMarkdownの`**`を、`Section02.tsx`・`Section11.tsx`の2か所で`<strong>`へ変更。
+- SQLフレームワーク: 第8章の行を`8 Status codes`・`8.1 SQLSTATE`へ変更し、「未確認」と原文確認の案内を削除。ANSIのプレビューは403で読めなかったため、iTehの公開サンプルの目次と第8章の説明文で確認。
+- テスト: 補正は各ガイドの`review-corrections.ts`で原本側だけへ適用し、未修正のページが失敗する形にした。ブラウザー比較も同じ補正後の原本を基準にする。`strong`の増減で比較16件が失敗したが、要素の対応がずれただけで、補正前のコミットでは成功することを確認済み。比較は緩めていない。
+- 検証: ISO 40500対象318件、SQLフレームワーク対象343件、ブラウザー66件（32件＋34件）、対象の型検査、lint、全体10625件（215ファイル）が成功。実ページの開発サーバー確認、本番ビルド、目視確認は未実施。
+
 ## 2026-11-05: ISO/IEC 40500:2025 WCAG 2.2ガイドの移行
 
 - `/iso-iec-40500-2025-guide`をISOカテゴリーへ追加し、ナビ・E2E・ダッシュボードを122ルート（ホーム＋121ガイド）へ同期。
