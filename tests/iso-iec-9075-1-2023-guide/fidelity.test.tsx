@@ -24,7 +24,7 @@ function tree(n: AnyNode | undefined): unknown {
     if (n.type === 'text') return norm(n.data) || null;
     if (!isTag(n)) return null;
     const attrs = { ...n.attribs };
-    for (const key of ['aria-current','aria-controls','aria-expanded','inert','tabindex','role','aria-label','aria-labelledby','aria-describedby']) delete attrs[key];
+    for (const key of ['aria-current','aria-controls','aria-expanded','inert','tabindex','role','aria-label','aria-labelledby','aria-describedby','aria-valuemin','aria-valuemax','aria-valuenow']) delete attrs[key];
     if (attrs.class === 'mermaid-diagram') return { tag: n.tagName, attrs, children: [] };
     if (n.tagName === 'pre') return { tag: n.tagName, attrs, code: load(n).text() };
     if (attrs.class === 'fill') delete attrs.style;
