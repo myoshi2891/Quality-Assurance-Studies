@@ -64,3 +64,11 @@ for(const width of [390,1440])for(const [id,diagram]of Object.entries(inventory.
         await expect(page.locator('#'+id+' .mermaid-wrapper')).toHaveCSS('background-color','rgba(0, 0, 0, 0)');await reference.close();
     });
 }
+for (const width of [390,900,901,1440]) test(`${width}px: every anchor clears the fixed header, disclaimer and mobile toggle`,async({page})=>{
+    await page.setViewportSize({width,height:900});
+    const banner=width<=900?76:38;
+    await page.setContent(`<style>:root{--disclaimer-height:${banner}px}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
+    expect(await page.locator('main h2[id],main h3[id]').evaluateAll(els=>els.map(el=>getComputedStyle(el).scrollMarginTop))).toEqual(Array(45).fill(`${(width<=900?120:80)+banner}px`));
+    await expect(page.locator('.sidebar')).toHaveCSS('top',`${60+banner}px`);
+    await expect(page.locator('.nav-toggle')).toHaveCSS('top',`${72+banner}px`);
+});
