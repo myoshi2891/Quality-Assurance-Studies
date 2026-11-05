@@ -79,6 +79,8 @@ describe('coverage dashboard static totals', () => {
         expect($('#mc-scope').text()).toMatch(new RegExp(`\\b${total} pages?\\b`));
         expect($('#kpi-pages-tested').text()).toBe(`${tested}/ ${total}`);
         expect($('#kpi-pages-desc-count').text()).toBe(String(total));
+        expect($('#kpi-pages-desc-tested').text()).toBe(String(tested));
+        expect($('#kpi-pages-desc-status').text()).toBe(tested === total ? '完了' : '未完了');
         expect($('#kpi-pages-label').text()).toBe(`Pages Tested · ${Math.round((tested / total) * 100)}%`);
     });
 
@@ -88,6 +90,26 @@ describe('coverage dashboard static totals', () => {
         const label = renderDashboard((script) => script.replace('tested: true', 'tested: false'), () =>
             document.getElementById('kpi-pages-label')?.textContent);
         expect(label).toBe(`Pages Tested · ${Math.round(((tested - 1) / total) * 100)}%`);
+    });
+
+    it('states render and E2E coverage in the Pages Tested description without claiming a partial count is complete', () => {
+        const { total, tested } = pageCounts();
+        const readDescription = () => document.getElementById('kpi-pages-desc-count')?.closest('p')?.textContent ?? '';
+
+        const complete = renderDashboard((script) => script, readDescription);
+        const partial = renderDashboard((script) => script.replace('tested: true', 'tested: false'), readDescription);
+
+        expect(complete).toContain(`${tested} / ${total} ページ`);
+        expect(complete).toContain('P0 完了');
+        expect(partial).toContain(`${tested - 1} / ${total} ページ`);
+        expect(partial).toContain('P0 未完了');
+        for (const text of [complete, partial]) {
+            expect(text).not.toContain('完備');
+            expect(text).not.toContain(`全 ${total} ルート`);
+            expect(text).toContain('e2e/pages.ts');
+            // a11y とビジュアル検証の記述は件数に依存しないため、そのまま残す
+            expect(text).toContain('a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。');
+        }
     });
 
     it('marks the Pages row complete only while every page is tested', () => {
