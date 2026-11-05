@@ -5,15 +5,18 @@ Updated 2026-11-05
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 120 ルート = ガイドライブラリ index + 119 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 121 ルート = ガイドライブラリ index + 120 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
-## 2026-11-05: SQLフレームワーク追加原本の移行（進行中）
+## 2026-11-05: ISO/IEC 9075-1:2023 SQLフレームワーク追加原本の移行
 
-- `Iso-iec-9075-1-2023-guide.html`は旧`Iso-9075-1-guide.html`とは異なる原本。`/iso-iec-9075-1-2023-guide`へ独立して移行する。
-- `tests/iso-iec-9075-1-2023-guide/fidelity.test.tsx`に315件のRedを追加。46見出し・13目次・16表・10図・SQL2例・12注記・外部22リンク・用語9件・FAQ6件・チェック9項目とCSS123ルールを固定。
-- 着手前の全体検証は9959件（209ファイル）成功。追加原本はカテゴリーごとに順次実装中。ビルド・目視確認は未実施。
+- 移行先は`/iso-iec-9075-1-2023-guide`。旧`/iso-9075-1-guide`とは別原本としてISOカテゴリーへ登録し、ナビ・E2Eを121ルートへ同期。
+- ヒーローと本文13カテゴリーを一つずつ実装・照合・個別コミット。46見出し、目次13リンク、16表の全セル、10図、SQL2例、注記12件、外部22リンク、用語9件、FAQ6件、チェック9項目、メタ情報4件を固定インベントリで出現順に照合。
+- CSS123ルールと900px境界を保持。段落余白、出典表の先頭列、SQLの行高、ヒーロー疑似要素などの共通CSS干渉を原本の計算済みCSSと比較して補正。FAQの初期open状態も照合。
+- 図1はMarkdownとHTMLで構成が異なるため、HTMLのグループ枠・不可視の配置用リンクを再構成。他9図はMarkdownから復元。全図を共有Mermaidへ渡し、実パーサー、SVGの全ノード・辺・配色・横スクロール両端を検証。
+- 対象327件、ビルド・サーバー不要のブラウザー比較32件（390/900/901/1440px×CSS読込2順序＋10図×390/1440px＋アンカー余白4幅）、対象型検査、lintが成功。全体10288件（212ファイル）が成功。ビルド未実施、目視確認はユーザー担当。
+- 原本HTML・MDを`archive/html-archive/iso/Iso-iec-9075-1-2023-guide.html`・`archive/md-archive/iso/Iso-iec-9075-1-2023-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
 
 ## 2026-11-05: ISO 29119-3の表の罫線色のレビュー修正
 
@@ -261,9 +264,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync spec files — ISO 29119-3 table border review fix` |
-| 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | 全体9959件（209ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
+| 最新コミット内容 | `chore(docs): sync SQL Framework migration status and validation` |
+| 次の作業 | `/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | SQLフレームワーク対象327件・原本CSS/SVG/アンカーのブラウザー32件・全体10288件（212ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1837,6 +1840,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Iso-iec-tr-29138-2-2009-guide.html` | `/iso-iec-tr-29138-2-2009-guide` | ✅ 43見出し・目次42リンク・19表・5図・YAML1件・注記13件・59 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ts-30149-2024-guide.html` | `/iso-iec-ts-30149-2024-guide` | ✅ 34見出し・目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・79 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ieee-29119-3-2021-guide.html` | `/iso-iec-ieee-29119-3-2021-guide` | ✅ 57見出し・目次16リンク・39表・12図・注記10件・理解度8問・47 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-9075-1-2023-guide.html` | `/iso-iec-9075-1-2023-guide` | ✅ 46見出し・目次13リンク・16表・10図・SQL2例・注記12件・用語9件・FAQ6件・チェック9項目・123 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-14496-22-2026-beginner-guide.html` | `/iso-14496-22-2026-beginner-guide` | ✅ ダーク配色・16章・42見出し・目次16リンク・23表・11図・15コールアウト・18注記・15用語集・Pythonコード・外部18リンク (archive/、HTML・MD両方) |
@@ -1852,7 +1856,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 | 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
@@ -1866,9 +1870,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 121 ルート（ガイドライブラリ index + 120 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト9959件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体テスト10288件すべて成功（212ファイル）。SQLフレームワーク対象327件・ブラウザー32件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
@@ -1877,7 +1881,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
   2. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
   3. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
   4. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
-  5. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
+  5. `/iso-iec-9075-1-2023-guide`の目視確認（ビルド未実施、自動ブラウザー32件成功）。
+  6. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
   6. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
   7. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
   8. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
