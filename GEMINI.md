@@ -704,6 +704,9 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   2. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
   3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
+  4. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  5. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  6. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
