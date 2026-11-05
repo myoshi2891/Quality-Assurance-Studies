@@ -4,6 +4,14 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: SQLフレームワークの図の名前とポート解放手順のレビュー修正
+
+- 図: `mmd-1`〜`mmd-4`・`mmd-6`〜`mmd-9`のアクセシブル名を、ノード文字列を矢印でつないだ形から文章へ変更。図1は一覧、図6は分類として説明し、順序を示唆しない。図4はSQL-agent→SQL-client→SQL-serverの流れに合わせ、辺ラベルも含める。`mmd-5`・`mmd-10`は変更なし。
+- テスト: 8図の全文を固定し、図の定義から導いた全ノード・グループ・辺ラベルの語句が含まれること、図4の出現順、図1・図6に順序語がないことを検証。
+- 仕様書: `CLAUDE.md`のポート3000の解放手順を、LISTENのみの確認→PIDの確認→そのPIDだけ停止へ変更。再開チェックリスト3か所へ`/iso-iec-40500-2025-guide`の目視確認を追加。
+- 検証: SQLフレームワーク対象354件、lint、全体10641件（215ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
+- 残課題: `Makefile`の`css-reset`と`.claude/rules/css-cache-reset.md`は同じ`lsof -ti:3000`のまま（指摘の範囲外のため未変更）。
+
 ## 2026-11-05: ISO 40500のスクロール領域・フォーム例・2.5.8の追加レビュー修正
 
 - 表・コード: 全22表のラッパーと全5コード例の`pre`へ、`tabIndex={0}`・`role="region"`・内容が分かる`aria-label`を付与。CSSは変更なし。`CodeExample`の`label`は必須にし、ラベル漏れを型で検知。
@@ -801,7 +809,8 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
   3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
   4. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   5. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  6. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  6. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  7. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。

@@ -4,6 +4,14 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: SQLフレームワークの図の名前とポート解放手順のレビュー修正
+
+- 図: `mmd-1`〜`mmd-4`・`mmd-6`〜`mmd-9`のアクセシブル名を、ノード文字列を矢印でつないだ形から文章へ変更。図1は一覧、図6は分類として説明し、順序を示唆しない。図4はSQL-agent→SQL-client→SQL-serverの流れに合わせ、辺ラベルも含める。`mmd-5`・`mmd-10`は変更なし。
+- テスト: 8図の全文を固定し、図の定義から導いた全ノード・グループ・辺ラベルの語句が含まれること、図4の出現順、図1・図6に順序語がないことを検証。
+- 仕様書: `CLAUDE.md`のポート3000の解放手順を、LISTENのみの確認→PIDの確認→そのPIDだけ停止へ変更。再開チェックリスト3か所へ`/iso-iec-40500-2025-guide`の目視確認を追加。
+- 検証: SQLフレームワーク対象354件、lint、全体10641件（215ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
+- 残課題: `Makefile`の`css-reset`と`.claude/rules/css-cache-reset.md`は同じ`lsof -ti:3000`のまま（指摘の範囲外のため未変更）。
+
 ## 2026-11-05: ISO 40500のスクロール領域・フォーム例・2.5.8の追加レビュー修正
 
 - 表・コード: 全22表のラッパーと全5コード例の`pre`へ、`tabIndex={0}`・`role="region"`・内容が分かる`aria-label`を付与。CSSは変更なし。`CodeExample`の`label`は必須にし、ラベル漏れを型で検知。
@@ -350,7 +358,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 215 ファイル・10630 tests)
+bun test             # ユニットテスト (bun test 全体, 215 ファイル・10641 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -369,8 +377,9 @@ bun run e2e:report   # 直近の HTML レポートを表示
 **port 3000 衝突時のリカバリ**:
 
 ```sh
-lsof -i :3000        # 占有プロセスを確認
-kill $(lsof -ti:3000) # 解放
+lsof -nP -iTCP:3000 -sTCP:LISTEN # LISTEN中のプロセスだけを確認（接続中のクライアントを含めない）
+ps -p <PID> -o pid,command       # 上のPIDが停止したいサーバーか確認
+kill <PID>                       # 確認したPIDだけを停止
 ```
 
 `bun test` と `bun run e2e` は別ランナー (Bun test runner vs `@playwright/test`)。e2e ファイルは `.e2e.ts` 拡張子を採用しており、`bun test` のデフォルト検出 (`*.test.ts` / `*.spec.ts`) からは自然に除外される。両者を独立して実行できる。
@@ -1251,7 +1260,8 @@ bun test        # ユニットテスト成功
   3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
   4. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   5. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  6. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  6. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  7. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -1398,7 +1408,7 @@ bun test        # ユニットテスト成功
 - `NavBar.tsx` / `toc.ts` — 目次開閉、scrim、Escape、実測スクロール追従、Observer解除。
 - `Diagram.tsx` / `diagrams.ts` — HTML由来の図1とMarkdown由来の9図、共有レンダラーへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
-- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の343件。
+- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の354件。
 - `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で34件。ビルド・サーバー不要。
 
 ### ISO/IEC 40500:2025ガイドの配置
