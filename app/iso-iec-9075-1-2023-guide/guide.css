@@ -1,5 +1,7 @@
-/* Restore browser defaults before applying the complete source stylesheet. */
-.sql-framework-page *, .sql-framework-page *::before, .sql-framework-page *::after { all: revert; }
+/* Restore HTML defaults without overriding SVG geometry/presentation attributes. */
+.sql-framework-page :not(:where(svg, svg *)),
+.sql-framework-page :not(:where(svg, svg *))::before,
+.sql-framework-page :not(:where(svg, svg *))::after { all: revert; }
 
             .sql-framework-page {
                 --bg: #07111e;
