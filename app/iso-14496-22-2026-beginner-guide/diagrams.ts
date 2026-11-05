@@ -2,6 +2,7 @@ export const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
     "background": "#0b1a2e",
+    "mainBkg": "#12294a",
     "primaryColor": "#12294a",
     "primaryBorderColor": "#7c9eff",
     "primaryTextColor": "#e6eefc",

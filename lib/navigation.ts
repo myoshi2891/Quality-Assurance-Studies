@@ -169,6 +169,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-iec-5338-guide', label: 'ISO/IEC 5338 AIライフサイクル ガイド', description: 'AIシステムのライフサイクル、4プロセスグループ、AI固有プロセスと導入手順を段階的に解説。', category: 'iso' },
   { href: '/iso-14496-22-2026-beginner-guide', label: 'ISO 14496-22:2026（OFF第5版）初学者向け解説', description: '2026年7月発行の第5版Open Font Formatをバイナリ構造・表示パイプライン・可変フォントから段階的に解説。', category: 'iso' },
   { href: '/iso-iec-30141-2024-guide', label: 'ISO/IEC 30141:2024 IoT参照アーキテクチャ ガイド', description: 'IoTの6つのビュー、構築パターン、関連規格と設計・開発・QAでの活用を段階的に解説。', category: 'iso' },
+  { href: '/iso-iec-ts-30149-2024-guide', label: 'ISO/IEC TS 30149:2024 初学者ガイド', description: 'IoTの信頼に足る性質を、5特性・管理・保証・実務チェックから段階的に学ぶ。', category: 'iso' },
+  { href: '/iso-iec-ieee-29119-3-2021-guide', label: 'ISO/IEC/IEEE 29119-3:2021 初学者ガイド', description: 'テスト文書の役割・記載項目・適合とテーラリングを、実務例から段階的に学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

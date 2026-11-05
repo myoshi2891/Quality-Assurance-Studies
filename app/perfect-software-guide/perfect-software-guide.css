@@ -579,7 +579,7 @@
   width: 100% !important;
   max-width: none !important;
   display: flex !important;
-  justify-content: center !important;
+  justify-content: safe center !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;

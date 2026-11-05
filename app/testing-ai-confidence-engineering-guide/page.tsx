@@ -16,6 +16,7 @@ const MERMAID_CONFIG = `%%{init: {
   "themeVariables": {
     "fontFamily": "Noto Serif JP, Georgia, serif",
     "fontSize": "15px",
+    "mainBkg": "#efeaf9",
     "primaryColor": "#efeaf9",
     "primaryTextColor": "#221f2e",
     "primaryBorderColor": "#9d95d1",

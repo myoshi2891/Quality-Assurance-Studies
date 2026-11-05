@@ -9,7 +9,7 @@ export const metadata = {
   description: 'Vladimir Khorikov著『Unit Testing Principles, Practices, and Patterns』に基づく単体テスト実践ガイド。4本柱、AAAパターン、古典派vsロンドン派、モックの正しい使い方まで。',
 };
 
-const MERMAID_CONFIG = `%%{init: { "theme": "base", "themeVariables": { "fontFamily": "Inter, sans-serif", "fontSize": "16px", "primaryColor": "#eef0fb", "primaryBorderColor": "#34419e", "primaryTextColor": "#2b2318", "lineColor": "#8a8170", "secondaryColor": "#f8ecd3", "tertiaryColor": "#fffdf7", "clusterBkg": "#f3ecd8", "clusterBorder": "#c9b98a", "edgeLabelBackground": "#fffdf7" }, "flowchart": { "htmlLabels": true, "curve": "basis", "subGraphTitleMargin": { "top": 15, "bottom": 70 } } }}%%`;
+const MERMAID_CONFIG = `%%{init: { "theme": "base", "themeVariables": { "fontFamily": "Inter, sans-serif", "fontSize": "16px", "mainBkg": "#eef0fb", "primaryColor": "#eef0fb", "primaryBorderColor": "#34419e", "primaryTextColor": "#2b2318", "lineColor": "#8a8170", "secondaryColor": "#f8ecd3", "tertiaryColor": "#fffdf7", "clusterBkg": "#f3ecd8", "clusterBorder": "#c9b98a", "edgeLabelBackground": "#fffdf7" }, "flowchart": { "htmlLabels": true, "curve": "basis", "subGraphTitleMargin": { "top": 15, "bottom": 70 } } }}%%`;
 
 const DIAGRAM_0 = `${MERMAID_CONFIG}
 flowchart TB

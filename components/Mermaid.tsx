@@ -31,6 +31,22 @@ interface MermaidProps {
     chart: string;
 }
 
+// モジュールの読み込みごとに 1 回だけ決まる識別子。HMR 等で再読み込みされ連番が
+// 初期化されても、以前のインスタンスが描画した SVG と ID が重ならない。
+const moduleSessionId =
+    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2, 10);
+
+// 描画試行ごとに単調増加する連番。採番は同期的に行うため、
+// 同一ミリ秒に並行して始まった描画同士でも ID が衝突しない。
+let renderSequence = 0;
+
+function nextRenderId(): string {
+    renderSequence += 1;
+    return `mermaid-svg-${moduleSessionId}-${renderSequence}`;
+}
+
 /**
  * Adjusts a rendered Mermaid SVG for layout and sizing.
  *
@@ -94,7 +110,7 @@ export default function Mermaid({ chart }: MermaidProps) {
                     await document.fonts.ready;
                 }
                 if (!isMounted) return;
-                const id = `mermaid-svg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                const id = nextRenderId();
                 const { svg } = await mermaid.render(id, chart);
                 if (isMounted) setSvgStr(svg);
             } catch (error) {

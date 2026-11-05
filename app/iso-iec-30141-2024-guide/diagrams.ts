@@ -1,4 +1,4 @@
-export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"background":"#07111e","primaryColor":"#13233a","primaryBorderColor":"#7c9eff","primaryTextColor":"#e6edf7","lineColor":"#7c9eff","secondaryColor":"#0d1b2e","tertiaryColor":"#10203a","clusterBkg":"#0d1b2e","clusterBorder":"#7c9eff","edgeLabelBackground":"#0d1b2e","fontFamily":"Noto Sans JP, sans-serif","fontSize":"16px"},"look":"classic","htmlLabels":true,"flowchart":{"curve":"basis"}}}%%`;
+export const MERMAID_CONFIG = `%%{init: {"theme":"base","themeVariables":{"background":"#07111e","mainBkg":"#13233a","primaryColor":"#13233a","primaryBorderColor":"#7c9eff","primaryTextColor":"#e6edf7","lineColor":"#7c9eff","secondaryColor":"#0d1b2e","tertiaryColor":"#10203a","clusterBkg":"#0d1b2e","clusterBorder":"#7c9eff","edgeLabelBackground":"#0d1b2e","fontFamily":"Noto Sans JP, sans-serif","fontSize":"16px"},"look":"classic","htmlLabels":true,"flowchart":{"curve":"basis"}}}%%`;
 export const DIAGRAM_0 = `${MERMAID_CONFIG}
 flowchart LR
 N0_P1["物理世界の対象<br/>（機械・環境・人など）"] -->|"計測"| N0_SN["センサー"]
