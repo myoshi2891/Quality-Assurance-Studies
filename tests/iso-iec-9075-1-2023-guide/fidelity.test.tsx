@@ -68,10 +68,13 @@ describe('foundation CSS', () => {
     });
 });
 describe('assembled page', () => {
+    // 読み取りだけの生成テストで1回の描画を共有する。失敗が各テストに出るよう、describe の収集時には描画しない。
+    let inventoryPage: ReturnType<typeof renderFile> | undefined;
+    const renderedInventoryPage = () => (inventoryPage ??= renderFile('page'));
     for (const [name, group] of Object.entries(inventory.groups)) {
-        it(`${name}: exact ordered inventory length`, () => expect(renderFile('page')(group.selector)).toHaveLength(group.items.length));
+        it(`${name}: exact ordered inventory length`, () => expect(renderedInventoryPage()(group.selector)).toHaveLength(group.items.length));
         group.items.forEach((_, i) => it(`${name} ${i}: exact source structure`, () => {
-            const $ = renderFile('page'); expect(tree($(group.selector)[i])).toEqual(tree(source(group.selector)[i]));
+            const $ = renderedInventoryPage(); expect(tree($(group.selector)[i])).toEqual(tree(source(group.selector)[i]));
         }));
     }
     it('preserves complete body content order, heading IDs, footer and all citation destinations', () => {
