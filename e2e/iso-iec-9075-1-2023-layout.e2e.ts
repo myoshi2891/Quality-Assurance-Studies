@@ -58,6 +58,24 @@ for(const width of [390,1440])for(const [id,diagram]of Object.entries(inventory.
         const expected=await reference.locator('#'+id).evaluate(collect);
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('sql-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
+        // An SVG can exist with correct labels/palette while a CSS reset makes every node zero-sized.
+        const geometry = await page.locator('#'+id+' g.node').evaluateAll(nodes => nodes.map(node => {
+            const bounds = node.getBoundingClientRect();
+            const attribute = (node as SVGGraphicsElement).transform.baseVal.consolidate()?.matrix;
+            // Use matrices directly: CSSOM serializes transform strings to six significant digits.
+            const parentMatrix = (node.parentElement as unknown as SVGGraphicsElement).getCTM()!;
+            const computed = parentMatrix.inverse().multiply((node as SVGGraphicsElement).getCTM()!);
+            return { width: bounds.width, height: bounds.height,
+                expected: attribute ? [attribute.a,attribute.b,attribute.c,attribute.d,attribute.e,attribute.f] : null,
+                actual: [computed.a,computed.b,computed.c,computed.d,computed.e,computed.f] };
+        }));
+        expect(geometry).not.toHaveLength(0);
+        for (const node of geometry) {
+            expect(node.width).toBeGreaterThan(0); expect(node.height).toBeGreaterThan(0);
+            expect(node.expected).not.toBeNull();
+            node.expected!.forEach((value,index) => expect(node.actual[index]).toBeCloseTo(value,3));
+        }
+
         expect(await page.locator('#'+id+' .nodeLabel').count()).toBe(diagram.labels.length);
         const reach=await page.locator('#'+id).evaluate(el=>{const svg=el.querySelector('svg')!,initial=svg.getBoundingClientRect().left;el.scrollLeft=el.scrollWidth;return {initial,left:el.getBoundingClientRect().left,movement:initial-svg.getBoundingClientRect().left,scroll:el.scrollLeft,required:el.scrollWidth-el.clientWidth};});
         expect(reach.initial).toBeGreaterThanOrEqual(reach.left);expect(Math.abs(reach.scroll-reach.required)).toBeLessThanOrEqual(1);expect(Math.abs(reach.movement-reach.scroll)).toBeLessThanOrEqual(1);
