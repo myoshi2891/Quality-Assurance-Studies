@@ -1,5 +1,6 @@
 import { describe, expect, it, spyOn } from 'bun:test';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { load } from 'cheerio';
 import { PAGES } from '../e2e/pages';
 
@@ -31,12 +32,18 @@ function pageCounts(): { total: number; tested: number } {
     return { total: records.length, tested: records.filter((record) => record.tested).length };
 }
 
-/** 埋め込みデータからグループごとのファイル数を求める。 */
-function inventoryCounts(): Record<string, number> {
+/** 埋め込みの DATA.inventory を読み取る。 */
+function embeddedInventory(): Record<string, unknown> {
     const block = html.match(/inventory:\s*(\{[\s\S]*?\n\})/)?.[1];
     if (!block) throw new Error('DATA.inventory が見つからない');
     const inventory: unknown = JSON.parse(block);
     if (!isRecord(inventory)) throw new Error('DATA.inventory がオブジェクトではない');
+    return inventory;
+}
+
+/** 埋め込みデータからグループごとのファイル数を求める。 */
+function inventoryCounts(): Record<string, number> {
+    const inventory = embeddedInventory();
     return Object.fromEntries(
         Object.entries(inventory).map(([group, files]) => [group, Array.isArray(files) ? files.length : 0])
     );
@@ -147,5 +154,19 @@ describe('coverage dashboard static totals', () => {
         const count = inventoryCounts()[group];
         if (count === undefined) throw new Error(`DATA.inventory に ${group} がない`);
         expect($(`#inv-count-${group}`).text()).toBe(`${count} file${count === 1 ? '' : 's'}`);
+    });
+
+    // 件数の照合だけではパスの誤記や削除済みファイルを検出できない
+    it('lists only paths that exist in the repository', () => {
+        const paths = Object.values(embeddedInventory()).flatMap((files) => {
+            if (!Array.isArray(files)) throw new Error('DATA.inventory のグループが配列ではない');
+            return files.map((file: unknown) => {
+                if (typeof file !== 'string') throw new Error(`パスが文字列ではない: ${String(file)}`);
+                return file;
+            });
+        });
+        expect(paths.length).toBeGreaterThan(0);
+        const repositoryRoot = resolve(import.meta.dir, '..');
+        expect(paths.filter((path) => !existsSync(resolve(repositoryRoot, path)))).toEqual([]);
     });
 });
