@@ -26,7 +26,8 @@ getComputedStyle(document.documentElement).getPropertyValue('--color-bg-primary'
 
 ```bash
 # 1. dev サーバーを停止（ポート 3000 を使用中の場合）
-kill $(lsof -ti:3000) 2>/dev/null
+lsof -nP -iTCP:3000 -sTCP:LISTEN   # LISTEN中のPIDを確認
+kill $(lsof -tiTCP:3000 -sTCP:LISTEN) 2>/dev/null  # 確認したリスナーだけ停止
 
 # 2. キャッシュ削除
 rm -rf .next
