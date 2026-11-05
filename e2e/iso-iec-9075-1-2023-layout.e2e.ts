@@ -68,6 +68,7 @@ for (const width of [390,900,901,1440]) test(`${width}px: every anchor clears th
     await page.setViewportSize({width,height:900});
     const banner=width<=900?76:38;
     await page.setContent(`<style>:root{--disclaimer-height:${banner}px}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
+    await page.evaluate(banner => document.documentElement.style.setProperty('--disclaimer-height', `${banner}px`), banner);
     expect(await page.locator('main h2[id],main h3[id]').evaluateAll(els=>els.map(el=>getComputedStyle(el).scrollMarginTop))).toEqual(Array(45).fill(`${(width<=900?120:80)+banner}px`));
     await expect(page.locator('.sidebar')).toHaveCSS('top',`${60+banner}px`);
     await expect(page.locator('.nav-toggle')).toHaveCSS('top',`${72+banner}px`);
