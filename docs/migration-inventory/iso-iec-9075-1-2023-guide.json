@@ -17464,7 +17464,7 @@
   ],
   "diagrams": {
     "mmd-1": {
-      "chart": "flowchart TB\n    P1[\"Part 1<br/>Framework<br/>本ガイドの対象\"]\n    P2[\"Part 2<br/>Foundation<br/>中核言語\"]\n    P3[\"Part 3<br/>CLI\"]\n    P4[\"Part 4<br/>PSM\"]\n    P9[\"Part 9<br/>MED\"]\n    P10[\"Part 10<br/>OLB\"]\n    P11[\"Part 11<br/>Schemata\"]\n    P13[\"Part 13<br/>JRT\"]\n    P14[\"Part 14<br/>XML\"]\n    P15[\"Part 15<br/>MDA\"]\n    P16[\"Part 16<br/>PGQ<br/>2023で新設\"]\n    P1 --> P2\n    P1 --> P3\n    P1 --> P4\n    P1 --> P9\n    P1 --> P10\n    P1 --> P11\n    P1 --> P13\n    P1 --> P14\n    P1 --> P15\n    P1 --> P16\n    classDef target fill:#1e3a8a,stroke:#7c9eff,color:#ffffff\n    classDef core fill:#14532d,stroke:#86efac,color:#ffffff\n    classDef other fill:#334155,stroke:#94a3b8,color:#ffffff\n    classDef newpart fill:#7c2d12,stroke:#fdba74,color:#ffffff\n    class P1 target\n    class P2 core\n    class P3,P4,P9,P10,P11,P13,P14,P15 other\n    class P16 newpart",
+      "chart": "flowchart LR\nsubgraph SERIES[\"ISO/IEC 9075 の各パート\"]\ndirection LR\nP1[\"Part 1<br/>Framework<br/>本ガイドの対象\"]\nP2[\"Part 2<br/>Foundation<br/>中核言語\"]\nP3[\"Part 3<br/>CLI\"]\nP4[\"Part 4<br/>PSM\"]\nP9[\"Part 9<br/>MED\"]\nP10[\"Part 10<br/>OLB\"]\nP11[\"Part 11<br/>Schemata\"]\nP13[\"Part 13<br/>JRT\"]\nP14[\"Part 14<br/>XML\"]\nP15[\"Part 15<br/>MDA\"]\nP16[\"Part 16<br/>PGQ<br/>2023で新設\"]\nP1 ~~~ P2\nP1 ~~~ P3\nP1 ~~~ P4\nP1 ~~~ P9\nP1 ~~~ P10\nP2 ~~~ P11\nP3 ~~~ P13\nP4 ~~~ P14\nP9 ~~~ P15\nP10 ~~~ P16\nend\nclassDef target fill:#1e3a8a,stroke:#7c9eff,color:#ffffff\nclassDef core fill:#14532d,stroke:#86efac,color:#ffffff\nclassDef other fill:#334155,stroke:#94a3b8,color:#ffffff\nclassDef newpart fill:#7c2d12,stroke:#fdba74,color:#ffffff\nclass P1 target\nclass P2 core\nclass P3,P4,P9,P10,P11,P13,P14,P15 other\nclass P16 newpart",
       "svg": "\n                    <svg id=\"mmdsvg1\" width=\"768.890625\" xmlns=\"http://www.w3.org/2000/svg\" class=\"flowchart\" height=\"834\" viewBox=\"0 15 768.890625 834\" role=\"graphics-document document\" aria-roledescription=\"flowchart-v2\">\n                        <style>\n                            #mmdsvg1 {\n                                font-family:\n                                    'Noto Sans JP', 'Noto Sans CJK JP', 'Hiragino Kaku Gothic ProN',\n                                    'Yu Gothic', Meiryo, sans-serif;\n                                font-size: 16px;\n                                fill: #e6edf7;\n                            }\n                            @keyframes edge-animation-frame {\n                                from {\n                                    stroke-dashoffset: 0;\n                                }\n                            }\n                            @keyframes dash {\n                                to {\n                                    stroke-dashoffset: 0;\n                                }\n                            }\n                            #mmdsvg1 .edge-animation-slow {\n                                stroke-dasharray: 9, 5 !important;\n                                stroke-dashoffset: 900;\n                                animation: dash 50s linear infinite;\n                                stroke-linecap: round;\n                            }\n                            #mmdsvg1 .edge-animation-fast {\n                                stroke-dasharray: 9, 5 !important;\n                                stroke-dashoffset: 900;\n                                animation: dash 20s linear infinite;\n                                stroke-linecap: round;\n                            }\n                            #mmdsvg1 .error-icon {\n                                fill: #0f1d33;\n                            }\n                            #mmdsvg1 .error-text {\n                                fill: #f0e2cc;\n                                stroke: #f0e2cc;\n                            }\n                            #mmdsvg1 .edge-thickness-normal {\n                                stroke-width: 1px;\n                            }\n                            #mmdsvg1 .edge-thickness-thick {\n                                stroke-width: 3.5px;\n                            }\n                            #mmdsvg1 .edge-pattern-solid {\n                                stroke-dasharray: 0;\n                            }\n                            #mmdsvg1 .edge-thickness-invisible {\n                                stroke-width: 0;\n                                fill: none;\n                            }\n                            #mmdsvg1 .edge-pattern-dashed {\n                                stroke-dasharray: 3;\n                            }\n                            #mmdsvg1 .edge-pattern-dotted {\n                                stroke-dasharray: 2;\n                            }\n                            #mmdsvg1 .marker {\n                                fill: #7c9eff;\n                                stroke: #7c9eff;\n                            }\n                            #mmdsvg1 .marker.cross {\n                                stroke: #7c9eff;\n                            }\n                            #mmdsvg1 svg {\n                                font-family:\n                                    'Noto Sans JP', 'Noto Sans CJK JP', 'Hiragino Kaku Gothic ProN',\n                                    'Yu Gothic', Meiryo, sans-serif;\n                                font-size: 16px;\n                            }\n                            #mmdsvg1 p {\n                                margin: 0;\n                            }\n                            #mmdsvg1 .label {\n                                font-family:\n                                    'Noto Sans JP', 'Noto Sans CJK JP', 'Hiragino Kaku Gothic ProN',\n                                    'Yu Gothic', Meiryo, sans-serif;\n                                color: #e6edf7;\n                            }\n                            #mmdsvg1 .cluster-label text {\n                                fill: #e6edf7;\n                            }\n                            #mmdsvg1 .cluster-label span {\n                                color: #e6edf7;\n                            }\n                            #mmdsvg1 .cluster-label span p {\n                                background-color: transparent;\n                            }\n                            #mmdsvg1 .label text,\n                            #mmdsvg1 span {\n                                fill: #e6edf7;\n                                color: #e6edf7;\n                            }\n                            #mmdsvg1 .node rect,\n                            #mmdsvg1 .node circle,\n                            #mmdsvg1 .node ellipse,\n                            #mmdsvg1 .node polygon,\n                            #mmdsvg1 .node path {\n                                fill: #1e293b;\n                                stroke: #7c9eff;\n                                stroke-width: 1px;\n                            }\n                            #mmdsvg1 .rough-node .label text,\n                            #mmdsvg1 .node .label text,\n                            #mmdsvg1 .image-shape .label,\n                            #mmdsvg1 .icon-shape .label {\n                                text-anchor: middle;\n                            }\n                            #mmdsvg1 .node .katex path {\n                                fill: #000;\n                                stroke: #000;\n                                stroke-width: 1px;\n                            }\n                            #mmdsvg1 .rough-node .label,\n                            #mmdsvg1 .node .label,\n                            #mmdsvg1 .image-shape .label,\n                            #mmdsvg1 .icon-shape .label {\n                                text-align: center;\n                            }\n                            #mmdsvg1 .node.clickable {\n                                cursor: pointer;\n                            }\n                            #mmdsvg1 .root .anchor path {\n                                fill: #7c9eff !important;\n                                stroke-width: 0;\n                                stroke: #7c9eff;\n                            }\n                            #mmdsvg1 .arrowheadPath {\n                                fill: rgba(255, 255, 255, 0);\n                            }\n                            #mmdsvg1 .edgePath .path {\n                                stroke: #7c9eff;\n                                stroke-width: 2px;\n                            }\n                            #mmdsvg1 .flowchart-link {\n                                stroke: #7c9eff;\n                                fill: none;\n                            }\n                            #mmdsvg1 .edgeLabel {\n                                background-color: #07111e;\n                                text-align: center;\n                            }\n                            #mmdsvg1 .edgeLabel p {\n                                background-color: #07111e;\n                            }\n                            #mmdsvg1 .edgeLabel rect {\n                                opacity: 0.5;\n                                background-color: #07111e;\n                                fill: #07111e;\n                            }\n                            #mmdsvg1 .labelBkg {\n                                background-color: rgba(7, 17, 30, 0.5);\n                            }\n                            #mmdsvg1 .cluster rect {\n                                fill: #0f1d33;\n                                stroke: #4a6fd6;\n                                stroke-width: 1px;\n                            }\n                            #mmdsvg1 .cluster text {\n                                fill: #e6edf7;\n                            }\n                            #mmdsvg1 .cluster span {\n                                color: #e6edf7;\n                            }\n                            #mmdsvg1 div.mermaidTooltip {\n                                position: absolute;\n                                text-align: center;\n                                max-width: 200px;\n                                padding: 2px;\n                                font-family:\n                                    'Noto Sans JP', 'Noto Sans CJK JP', 'Hiragino Kaku Gothic ProN',\n                                    'Yu Gothic', Meiryo, sans-serif;\n                                font-size: 12px;\n                                background: #0f1d33;\n                                border: 1px solid hsl(216.6666666667, 14.5454545455%, 2.9411764706%);\n                                border-radius: 2px;\n                                pointer-events: none;\n                                z-index: 100;\n                            }\n                            #mmdsvg1 .flowchartTitleText {\n                                text-anchor: middle;\n                                font-size: 18px;\n                                fill: #e6edf7;\n                            }\n                            #mmdsvg1 rect.text {\n                                fill: none;\n                                stroke-width: 0;\n                            }\n                            #mmdsvg1 .icon-shape,\n                            #mmdsvg1 .image-shape {\n                                background-color: #07111e;\n                                text-align: center;\n                            }\n                            #mmdsvg1 .icon-shape p,\n                            #mmdsvg1 .image-shape p {\n                                background-color: #07111e;\n                                padding: 2px;\n                            }\n                            #mmdsvg1 .icon-shape rect,\n                            #mmdsvg1 .image-shape rect {\n                                opacity: 0.5;\n                                background-color: #07111e;\n                                fill: #07111e;\n                            }\n                            #mmdsvg1 .label-icon {\n                                display: inline-block;\n                                height: 1em;\n                                overflow: visible;\n                                vertical-align: -0.125em;\n                            }\n                            #mmdsvg1 .node .label-icon path {\n                                fill: currentColor;\n                                stroke: revert;\n                                stroke-width: revert;\n                            }\n                            #mmdsvg1 :root {\n                                --mermaid-font-family:\n                                    'Noto Sans JP', 'Noto Sans CJK JP', 'Hiragino Kaku Gothic ProN',\n                                    'Yu Gothic', Meiryo, sans-serif;\n                            }\n                            #mmdsvg1 .target &gt; * {\n                                fill: #1e3a8a !important;\n                                stroke: #7c9eff !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .target span {\n                                fill: #1e3a8a !important;\n                                stroke: #7c9eff !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .target tspan {\n                                fill: #ffffff !important;\n                            }\n                            #mmdsvg1 .core &gt; * {\n                                fill: #14532d !important;\n                                stroke: #86efac !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .core span {\n                                fill: #14532d !important;\n                                stroke: #86efac !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .core tspan {\n                                fill: #ffffff !important;\n                            }\n                            #mmdsvg1 .other &gt; * {\n                                fill: #334155 !important;\n                                stroke: #94a3b8 !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .other span {\n                                fill: #334155 !important;\n                                stroke: #94a3b8 !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .other tspan {\n                                fill: #ffffff !important;\n                            }\n                            #mmdsvg1 .newpart &gt; * {\n                                fill: #7c2d12 !important;\n                                stroke: #fdba74 !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .newpart span {\n                                fill: #7c2d12 !important;\n                                stroke: #fdba74 !important;\n                                color: #ffffff !important;\n                            }\n                            #mmdsvg1 .newpart tspan {\n                                fill: #ffffff !important;\n                            }\n                        </style>\n                        <g>\n                            <marker id=\"mmdsvg1_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\">\n                                <path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0\"></path>\n                            </marker>\n                            <marker id=\"mmdsvg1_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\">\n                                <path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0\"></path>\n                            </marker>\n                            <marker id=\"mmdsvg1_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\">\n                                <circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0\"></circle>\n                            </marker>\n                            <marker id=\"mmdsvg1_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\">\n                                <circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0\"></circle>\n                            </marker>\n                            <marker id=\"mmdsvg1_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\">\n                                <path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0\"></path>\n                            </marker>\n                            <marker id=\"mmdsvg1_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\">\n                                <path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0\"></path>\n                            </marker>\n                            <g class=\"root\">\n                                <g class=\"clusters\"></g>\n                                <g class=\"edgePaths\"></g>\n                                <g class=\"edgeLabels\"></g>\n                                <g class=\"nodes\">\n                                    <g class=\"root\" transform=\"translate(0, 30)\">\n                                        <g class=\"clusters\">\n                                            <g class=\"cluster\" id=\"SERIES\" data-look=\"classic\">\n                                                <rect style=\"\" x=\"8\" y=\"-7\" width=\"752.890625\" height=\"818\"></rect>\n                                                <g class=\"cluster-label\" transform=\"translate(294.9140625, 5)\">\n                                                    <foreignObject width=\"179.0625\" height=\"24\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"nodeLabel\"><p>\n                                                                    ISO/IEC 9075 の各パート\n                                                                </p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                        </g>\n                                        <g class=\"edgePaths\">\n                                            <path d=\"M166.719,363L185.102,322C203.485,281,240.25,199,265.716,158C291.182,117,305.349,117,312.432,117L319.516,117\" id=\"L_P1_P2_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P1_P2_0\" data-points=\"W3sieCI6MTY2LjcxOTIxODc1LCJ5IjozNjN9LHsieCI6Mjc3LjAxNTYyNSwieSI6MTE3fSx7IngiOjMxOS41MTU2MjUsInkiOjExN31d\"></path>\n                                            <path d=\"M192.948,363L206.959,348C220.971,333,248.993,303,273.693,288C298.393,273,319.771,273,330.46,273L341.148,273\" id=\"L_P1_P3_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P1_P3_0\" data-points=\"W3sieCI6MTkyLjk0ODI0MjE4NzUsInkiOjM2M30seyJ4IjoyNzcuMDE1NjI1LCJ5IjoyNzN9LHsieCI6MzQxLjE0ODQzNzUsInkiOjI3M31d\"></path>\n                                            <path d=\"M234.516,417L241.599,417C248.682,417,262.849,417,280.621,417C298.393,417,319.771,417,330.46,417L341.148,417\" id=\"L_P1_P4_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P1_P4_0\" data-points=\"W3sieCI6MjM0LjUxNTYyNSwieSI6NDE3fSx7IngiOjI3Ny4wMTU2MjUsInkiOjQxN30seyJ4IjozNDEuMTQ4NDM3NSwieSI6NDE3fV0=\"></path>\n                                            <path d=\"M192.948,471L206.959,486C220.971,501,248.993,531,273.693,546C298.393,561,319.771,561,330.46,561L341.148,561\" id=\"L_P1_P9_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P1_P9_0\" data-points=\"W3sieCI6MTkyLjk0ODI0MjE4NzUsInkiOjQ3MX0seyJ4IjoyNzcuMDE1NjI1LCJ5Ijo1NjF9LHsieCI6MzQxLjE0ODQzNzUsInkiOjU2MX1d\"></path>\n                                            <path d=\"M166.719,471L185.102,512C203.485,553,240.25,635,268.582,676C296.914,717,316.813,717,326.762,717L336.711,717\" id=\"L_P1_P10_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P1_P10_0\" data-points=\"W3sieCI6MTY2LjcxOTIxODc1LCJ5Ijo0NzF9LHsieCI6Mjc3LjAxNTYyNSwieSI6NzE3fSx7IngiOjMzNi43MTA5Mzc1LCJ5Ijo3MTd9XQ==\"></path>\n                                            <path d=\"M477.859,117L484.943,117C492.026,117,506.193,117,521.111,117C536.029,117,551.698,117,559.533,117L567.367,117\" id=\"L_P2_P11_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P2_P11_0\" data-points=\"W3sieCI6NDc3Ljg1OTM3NSwieSI6MTE3fSx7IngiOjUyMC4zNTkzNzUsInkiOjExN30seyJ4Ijo1NjcuMzY3MTg3NSwieSI6MTE3fV0=\"></path>\n                                            <path d=\"M456.227,273L466.915,273C477.604,273,498.982,273,519.385,273C539.789,273,559.219,273,568.934,273L578.648,273\" id=\"L_P3_P13_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P3_P13_0\" data-points=\"W3sieCI6NDU2LjIyNjU2MjUsInkiOjI3M30seyJ4Ijo1MjAuMzU5Mzc1LCJ5IjoyNzN9LHsieCI6NTc4LjY0ODQzNzUsInkiOjI3M31d\"></path>\n                                            <path d=\"M456.227,417L466.915,417C477.604,417,498.982,417,519.385,417C539.789,417,559.219,417,568.934,417L578.648,417\" id=\"L_P4_P14_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P4_P14_0\" data-points=\"W3sieCI6NDU2LjIyNjU2MjUsInkiOjQxN30seyJ4Ijo1MjAuMzU5Mzc1LCJ5Ijo0MTd9LHsieCI6NTc4LjY0ODQzNzUsInkiOjQxN31d\"></path>\n                                            <path d=\"M456.227,561L466.915,561C477.604,561,498.982,561,519.385,561C539.789,561,559.219,561,568.934,561L578.648,561\" id=\"L_P9_P15_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P9_P15_0\" data-points=\"W3sieCI6NDU2LjIyNjU2MjUsInkiOjU2MX0seyJ4Ijo1MjAuMzU5Mzc1LCJ5Ijo1NjF9LHsieCI6NTc4LjY0ODQzNzUsInkiOjU2MX1d\"></path>\n                                            <path d=\"M460.664,717L470.613,717C480.563,717,500.461,717,517.493,717C534.526,717,548.693,717,555.776,717L562.859,717\" id=\"L_P10_P16_0\" class=\"edge-thickness-invisible edge-pattern-solid\" style=\"\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_P10_P16_0\" data-points=\"W3sieCI6NDYwLjY2NDA2MjUsInkiOjcxN30seyJ4Ijo1MjAuMzU5Mzc1LCJ5Ijo3MTd9LHsieCI6NTYyLjg1OTM3NSwieSI6NzE3fV0=\"></path>\n                                        </g>\n                                        <g class=\"edgeLabels\">\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P1_P2_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P1_P3_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P1_P4_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P1_P9_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P1_P10_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P2_P11_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P3_P13_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P4_P14_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P9_P15_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"edgeLabel\">\n                                                <g class=\"label\" data-id=\"L_P10_P16_0\" transform=\"translate(0, 0)\">\n                                                    <foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\" style=\"\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \">\n                                                            <span class=\"edgeLabel\"></span></div></foreignObject>\n                                                </g>\n                                            </g>\n                                        </g>\n                                        <g class=\"nodes\">\n                                            <g class=\"node default target\" id=\"flowchart-P1-0\" transform=\"translate(142.5078125, 417)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #1e3a8a !important;\n                                                        stroke: #7c9eff !important;\n                                                    \" x=\"-92.0078125\" y=\"-54\" width=\"184.015625\" height=\"108\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-56.0078125, -36)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"112.015625\" height=\"72\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>\n                                                                    Part 1<br>Framework<br>本ガイドの対象\n                                                                </p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default core\" id=\"flowchart-P2-1\" transform=\"translate(398.6875, 117)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #14532d !important;\n                                                        stroke: #86efac !important;\n                                                    \" x=\"-79.171875\" y=\"-54\" width=\"158.34375\" height=\"108\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-43.171875, -36)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"86.34375\" height=\"72\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>\n                                                                    Part 2<br>Foundation<br>中核言語\n                                                                </p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P3-2\" transform=\"translate(398.6875, 273)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-57.5390625\" y=\"-42\" width=\"115.078125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-21.5390625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"43.078125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 3<br>CLI</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P4-3\" transform=\"translate(398.6875, 417)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-57.5390625\" y=\"-42\" width=\"115.078125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-21.5390625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"43.078125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 4<br>PSM</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P9-4\" transform=\"translate(398.6875, 561)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-57.5390625\" y=\"-42\" width=\"115.078125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-21.5390625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"43.078125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 9<br>MED</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P10-5\" transform=\"translate(398.6875, 717)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-61.9765625\" y=\"-42\" width=\"123.953125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-25.9765625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"51.953125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 10<br>OLB</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P11-6\" transform=\"translate(640.625, 117)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-73.2578125\" y=\"-42\" width=\"146.515625\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-37.2578125, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"74.515625\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 11<br>Schemata</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P13-7\" transform=\"translate(640.625, 273)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-61.9765625\" y=\"-42\" width=\"123.953125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-25.9765625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"51.953125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 13<br>JRT</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P14-8\" transform=\"translate(640.625, 417)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-61.9765625\" y=\"-42\" width=\"123.953125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-25.9765625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"51.953125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 14<br>XML</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default other\" id=\"flowchart-P15-9\" transform=\"translate(640.625, 561)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #334155 !important;\n                                                        stroke: #94a3b8 !important;\n                                                    \" x=\"-61.9765625\" y=\"-42\" width=\"123.953125\" height=\"84\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-25.9765625, -24)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"51.953125\" height=\"48\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>Part 15<br>MDA</p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                            <g class=\"node default newpart\" id=\"flowchart-P16-10\" transform=\"translate(640.625, 717)\">\n                                                <rect class=\"basic label-container\" style=\"\n                                                        fill: #7c2d12 !important;\n                                                        stroke: #fdba74 !important;\n                                                    \" x=\"-77.765625\" y=\"-54\" width=\"155.53125\" height=\"108\"></rect>\n                                                <g class=\"label\" style=\"color: #ffffff !important\" transform=\"translate(-41.765625, -36)\">\n                                                    <rect></rect>\n                                                    <foreignObject width=\"83.53125\" height=\"72\"><div style=\"\n                                                                color: rgb(\n                                                                    255,\n                                                                    255,\n                                                                    255\n                                                                ) !important;\n                                                                display: table-cell;\n                                                                white-space: nowrap;\n                                                                line-height: 1.5;\n                                                                max-width: 200px;\n                                                                text-align: center;\n                                                            \" xmlns=\"http://www.w3.org/1999/xhtml\">\n                                                            <span style=\"color: #ffffff !important\" class=\"nodeLabel\"><p>\n                                                                    Part 16<br>PGQ<br>2023で新設\n                                                                </p></span>\n                                                        </div></foreignObject>\n                                                </g>\n                                            </g>\n                                        </g>\n                                    </g>\n                                </g>\n                            </g>\n                        </g>\n                    </svg>\n                ",
       "labels": [
         "ISO/IEC 9075 の各パート",
@@ -17480,7 +17480,59 @@
         "Part 15MDA",
         "Part 16PGQ2023で新設"
       ],
-      "edges": []
+      "edges": [
+        {
+          "id": "L_P1_P2_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P1_P3_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P1_P4_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P1_P9_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P1_P10_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P2_P11_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P3_P13_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P4_P14_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P9_P15_0",
+          "dotted": false,
+          "invisible": true
+        },
+        {
+          "id": "L_P10_P16_0",
+          "dotted": false,
+          "invisible": true
+        }
+      ],
+      "markdownChart": "flowchart TB\n    P1[\"Part 1<br/>Framework<br/>本ガイドの対象\"]\n    P2[\"Part 2<br/>Foundation<br/>中核言語\"]\n    P3[\"Part 3<br/>CLI\"]\n    P4[\"Part 4<br/>PSM\"]\n    P9[\"Part 9<br/>MED\"]\n    P10[\"Part 10<br/>OLB\"]\n    P11[\"Part 11<br/>Schemata\"]\n    P13[\"Part 13<br/>JRT\"]\n    P14[\"Part 14<br/>XML\"]\n    P15[\"Part 15<br/>MDA\"]\n    P16[\"Part 16<br/>PGQ<br/>2023で新設\"]\n    P1 --> P2\n    P1 --> P3\n    P1 --> P4\n    P1 --> P9\n    P1 --> P10\n    P1 --> P11\n    P1 --> P13\n    P1 --> P14\n    P1 --> P15\n    P1 --> P16\n    classDef target fill:#1e3a8a,stroke:#7c9eff,color:#ffffff\n    classDef core fill:#14532d,stroke:#86efac,color:#ffffff\n    classDef other fill:#334155,stroke:#94a3b8,color:#ffffff\n    classDef newpart fill:#7c2d12,stroke:#fdba74,color:#ffffff\n    class P1 target\n    class P2 core\n    class P3,P4,P9,P10,P11,P13,P14,P15 other\n    class P16 newpart"
     },
     "mmd-2": {
       "chart": "flowchart LR\n    R1[\"Part 1<br/>Framework\"]\n    R2[\"他パートを<br/>日付なしで引用\"]\n    R3[\"常に最新版の<br/>他パートと整合\"]\n    R4[\"Part 1だけでは<br/>仕様が完結しない\"]\n    R1 --> R2\n    R2 --> R3\n    R3 --> R4\n    classDef step fill:#1e293b,stroke:#7c9eff,color:#ffffff\n    class R1,R2,R3,R4 step",
@@ -17494,15 +17546,18 @@
       "edges": [
         {
           "id": "L_R1_R2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_R2_R3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_R3_R4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17519,19 +17574,23 @@
       "edges": [
         {
           "id": "L_S1_S2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_S2_S3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_S3_S4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_S4_S5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17549,19 +17608,23 @@
       "edges": [
         {
           "id": "L_E1_E2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_E2_E3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_E3_E4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_E4_E5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17582,35 +17645,43 @@
       "edges": [
         {
           "id": "L_C1_C2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C2_C3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C2_C4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C4_C5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C5_C6_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C5_C7_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C6_C8_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_C7_C9_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17634,47 +17705,58 @@
       "edges": [
         {
           "id": "L_W0_W1_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W0_W2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W0_W3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W1_W11_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W1_W12_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W1_W13_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W2_W21_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W2_W22_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W2_W23_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W3_W31_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_W3_W32_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17691,19 +17773,23 @@
       "edges": [
         {
           "id": "L_G1_G2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_G2_G3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_G3_G4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_G4_G5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17721,23 +17807,28 @@
       "edges": [
         {
           "id": "L_Q1_Q2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_Q2_Q3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_Q3_Q4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_Q4_Q5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_Q5_Q6_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17755,23 +17846,28 @@
       "edges": [
         {
           "id": "L_V1_V2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_V2_V3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_V3_V4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_V4_V5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_V5_V6_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     },
@@ -17790,27 +17886,33 @@
       "edges": [
         {
           "id": "L_U1_U2_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_U2_U3_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_U3_U4_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_U3_U5_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_U4_U6_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         },
         {
           "id": "L_U5_U7_0",
-          "dotted": false
+          "dotted": false,
+          "invisible": false
         }
       ]
     }
