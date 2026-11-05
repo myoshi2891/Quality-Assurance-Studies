@@ -292,7 +292,7 @@
 .iso291193-page li::marker { color:inherit; }
 .iso291193-page a { text-decoration:underline; }
 .iso291193-page strong { color:inherit; font-weight:bolder; }
-.iso291193-page table { color:var(--text); border-color:currentColor; }
+.iso291193-page table { color:var(--text); border-color:revert; }
 .iso291193-page th { font-family:inherit; font-size:inherit; font-weight:bold; letter-spacing:normal; line-height:inherit; }
 .iso291193-page td { color:inherit; font-size:inherit; line-height:inherit; }
 .iso291193-page thead tr { background:transparent; border-bottom:0; }
