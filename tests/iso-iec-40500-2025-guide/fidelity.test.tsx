@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { applyReviewCorrections } from './review-corrections';
+import { SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-iec-40500-2025-guide';
 const scope = '.wcag-40500-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -125,6 +125,42 @@ describe('diagram semantics', () => {
         renderToStaticMarkup(<Component />);
         const { DIAGRAMS } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string> };
         expect(charts).toEqual(Object.values(DIAGRAMS));
+    });
+});
+const TABLE_REGIONS = [
+    '表：0.1 ゴールの問いと対応する章','表：0.3 用語のミニ辞書','表：1.4 基本情報（ISO 公式ページの記載）','表：2.2 いちばん大事な注意点の質問と答え',
+    '表：3.2 4つの原則（POUR）','表：3.3 3つの適合レベル','表：3.4 達成基準の数（WCAG 2.2）','表：3.5 適合の5つの要件',
+    '表：4.1 新規達成基準の一覧','表：4.2 削除された達成基準','表：5.2 2.5.8 ターゲットのサイズの例外','表：5.4 3.2.6 一貫したヘルプのNGとOK',
+    '表：5.6 3.3.8 アクセシブルな認証のやってよいことと避けるべきこと','表：6.3 テストの種類と役割','表：6.4 QAエンジニア向けチェック表（新規基準）',
+    '表：7.2 EN 301 549 の最新状況（2026年10月時点）','表：8.2 WCAG 3.0 はいつ使えるのか','表：補足 よくある誤解 Q&A','表：情報の確度と注意点',
+    '表：一次情報（ISO / W3C）','表：実務家・専門組織の解説','表：補助的な情報源（ベンダー記事。参考扱い）',
+];
+const CODE_REGIONS = [
+    'コード例：固定ヘッダー分のスクロール余白とフォーカス表示のCSS','コード例：アイコンボタンの最小サイズを確保するCSS','コード例：上下移動ボタンを併設したリスト項目のHTML',
+    'コード例：請求先の同一チェックボックスと郵便番号入力のHTML','コード例：パスワード入力のHTML',
+];
+describe('keyboard-reachable scroll regions', () => {
+    const regions = (selector: string) => { const $ = renderFile('page'); return $(selector).toArray().map(n => [$(n).attr('aria-label'),$(n).attr('role'),$(n).attr('tabindex')]); };
+    it('names all 22 table wrappers in source order', () => expect(regions('main .table-scroll')).toEqual(TABLE_REGIONS.map(label => [label,'region','0'])));
+    it('names all five code examples in source order', () => expect(regions('main pre')).toEqual(CODE_REGIONS.map(label => [label,'region','0'])));
+});
+describe('reviewed form examples', () => {
+    it('updates exactly the two inventory examples that lacked labels', () => {
+        const changed = inventory.groups.codes.items.map(item => item.code).filter(code => applyReviewCodeCorrections(code) !== code);
+        expect(changed).toHaveLength(2);
+    });
+    it('associates a visible label with every input and keeps the checkbox label', () => {
+        const $ = renderFile('page'), forms = $('main pre').toArray().map(n => load($(n).text())).filter(code => code('input').length > 0);
+        expect(forms).toHaveLength(2);
+        const inputs = forms.flatMap(code => code('input').toArray().map(n => { const input = code(n), label = input.closest('label').length ? input.closest('label') : code(`label[for="${input.attr('id')}"]`); return [input.attr('id'),norm(label.text())]; }));
+        expect(inputs).toEqual([['same-address','請求先は配送先と同じ'],['postal','郵便番号'],['pw','パスワード']]);
+    });
+});
+describe('reviewed SC 2.5.8 pass criterion', () => {
+    it('checks that the 24 by 24 square fits inside the target and keeps the exceptions', () => {
+        const $ = renderFile('Section07'), cells = $('tbody tr').filter((_, n) => $(n).find('td').first().text() === '2.5.8').find('td');
+        expect(norm(cells.last().text())).toBe(SC_258_REVIEWED);
+        expect(SC_258_REVIEWED).toContain('例外・間隔条件');
     });
 });
 describe('reviewed Markdown emphasis', () => {

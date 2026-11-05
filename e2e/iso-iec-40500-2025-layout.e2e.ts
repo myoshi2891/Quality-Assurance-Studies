@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-iec-40500-2025-guide.json';
-import { applyReviewCorrections } from '../tests/iso-iec-40500-2025-guide/review-corrections';
+import { applyReviewCodeCorrections, applyReviewCorrections } from '../tests/iso-iec-40500-2025-guide/review-corrections';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-iec-40500-2025-guide';
 const globals = readFileSync('node_modules/tailwindcss/preflight.css','utf8') + readFileSync('app/globals.css','utf8');
@@ -29,7 +29,7 @@ for (const width of [390,900,901,1440]) for (const order of ['before','after'] a
         const differences: unknown[]=[];
         for(const selector of selectors){const a=actual[selector]!,e=expected[selector]!;if(a.length!==e.length)differences.push([selector,'count',a.length,e.length]);for(let i=0;i<Math.min(a.length,e.length);i++)for(const prop of properties)if(a[i]![prop]!==e[i]![prop])differences.push([selector,i,prop,a[i]![prop],e[i]![prop]]);}
         expect(differences).toEqual([]);
-        for (let i=0;i<inventory.groups.codes.items.length;i++) { const block=page.locator('pre').nth(i),source=reference.locator('pre').nth(i);expect(await block.textContent()).toBe(inventory.groups.codes.items[i]!.code);expect((await block.boundingBox())!.height).toBe((await source.boundingBox())!.height); }
+        for (let i=0;i<inventory.groups.codes.items.length;i++) { const block=page.locator('pre').nth(i),source=reference.locator('pre').nth(i);expect(await block.textContent()).toBe(applyReviewCodeCorrections(inventory.groups.codes.items[i]!.code));expect((await block.boundingBox())!.height).toBe((await source.boundingBox())!.height); }
         expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
         for (const selector of ['.hero','h3']) for(const pseudo of ['::before','::after']) {
             const snapshot=(el:Element,pseudo:string)=>{const s=getComputedStyle(el,pseudo);return [s.content,s.width,s.height,s.backgroundImage,s.backgroundColor,s.position,s.transform];};
