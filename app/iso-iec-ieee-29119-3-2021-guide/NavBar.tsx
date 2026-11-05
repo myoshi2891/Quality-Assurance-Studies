@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 const TOC_IDS: readonly string[] = ["step-0-まず全体像をつかむ30秒サマリー","step-1-規格の基本情報","step-2-29119-シリーズ内での位置づけ","step-3-規格の構成章附属書を読む地図","step-4-適合conformanceの考え方","step-5-すべての文書に共通する情報項目","step-6-組織レベルの文書clause-6","step-7-テストマネジメントの文書clause-7","step-8-動的テストの文書clause-8","step-9-2021年版の最大の変更点テストモデル","step-10-文書どうしのつながりトレーサビリティ","step-11-アジャイルdevops-での使い方テーラリング","step-12-実践ミニ例ログイン機能","step-13-よくある誤解と批判的視点","step-14-学習ロードマップと理解度チェック","参考ソース一覧url"];
 const TOC_GROUPS = [{"id":"step-0-まず全体像をつかむ30秒サマリー","label":"Step 0: まず全体像をつかむ（30秒サマリー）"},{"id":"step-1-規格の基本情報","label":"Step 1: 規格の基本情報"},{"id":"step-2-29119-シリーズ内での位置づけ","label":"Step 2: 29119 シリーズ内での位置づけ"},{"id":"step-3-規格の構成章附属書を読む地図","label":"Step 3: 規格の構成（章・附属書）を読む地図"},{"id":"step-4-適合conformanceの考え方","label":"Step 4: 適合（Conformance）の考え方"},{"id":"step-5-すべての文書に共通する情報項目","label":"Step 5: すべての文書に共通する情報項目"},{"id":"step-6-組織レベルの文書clause-6","label":"Step 6: 組織レベルの文書（Clause 6）"},{"id":"step-7-テストマネジメントの文書clause-7","label":"Step 7: テストマネジメントの文書（Clause 7）"},{"id":"step-8-動的テストの文書clause-8","label":"Step 8: 動的テストの文書（Clause 8）"},{"id":"step-9-2021年版の最大の変更点テストモデル","label":"Step 9: 2021年版の最大の変更点「テストモデル」"},{"id":"step-10-文書どうしのつながりトレーサビリティ","label":"Step 10: 文書どうしのつながり（トレーサビリティ）"},{"id":"step-11-アジャイルdevops-での使い方テーラリング","label":"Step 11: アジャイル／DevOps での使い方（テーラリング）"},{"id":"step-12-実践ミニ例ログイン機能","label":"Step 12: 実践ミニ例（ログイン機能）"},{"id":"step-13-よくある誤解と批判的視点","label":"Step 13: よくある誤解と批判的視点"},{"id":"step-14-学習ロードマップと理解度チェック","label":"Step 14: 学習ロードマップと理解度チェック"},{"id":"参考ソース一覧url","label":"参考ソース一覧（URL）"}];
 type TocLink = { readonly id: string; readonly label: string; readonly sub?: boolean };
-// IntersectionObserver の rootMargin 下端（-75%）と対応する読み取り帯の下端
+// 読み取り帯の下端。画面高さに対する割合
 const BAND_BOTTOM_RATIO = 0.25;
 // スクロール位置の丸めで生じる端数を吸収する
 const LANDING_TOLERANCE_PX = 2;
@@ -58,11 +58,21 @@ export default function NavBar() {
     }, [settle]);
 
     useEffect(() => {
-        const onScroll = () => { if (pendingRef.current) scheduleSettle(); };
+        // IntersectionObserver は見出しが帯を 1 フレームで飛び越えると通知しないため、スクロールごとに位置を実測する
+        const onScroll = () => {
+            if (pendingRef.current) {
+                scheduleSettle();
+                return;
+            }
+            setActive(headingAboveBandBottom());
+        };
+        onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
         window.addEventListener('scrollend', settle);
         return () => {
             window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
             window.removeEventListener('scrollend', settle);
             clearTimeout(settleTimerRef.current);
         };
@@ -79,22 +89,6 @@ export default function NavBar() {
         update();
         query.addEventListener('change', update);
         return () => query.removeEventListener('change', update);
-    }, []);
-
-    useEffect(() => {
-        if (typeof IntersectionObserver === 'undefined') return;
-        const observer = new IntersectionObserver(entries => {
-            if (pendingRef.current) return;
-            const entered = entries.filter(entry => entry.isIntersecting);
-            for (const entry of entered) setActive(entry.target.id);
-            // 上へ戻ると見出しは帯の下へ抜け、前の見出しが帯に入るまで通知が来ないため、退出時にも読み直す
-            if (entered.length === 0) setActive(headingAboveBandBottom());
-        }, { rootMargin: '-15% 0px -75% 0px' });
-        for (const id of TOC_IDS) {
-            const heading = document.getElementById(id);
-            if (heading) observer.observe(heading);
-        }
-        return () => observer.disconnect();
     }, []);
 
     // ブラウザ履歴（戻る/進む）によるハッシュ変更にも追従する。直後のスクロール中はクリック時と同様に保持する
