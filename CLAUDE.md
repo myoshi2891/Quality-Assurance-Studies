@@ -4,6 +4,13 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: ISO 29119-3の表の罫線色のレビュー修正
+
+- 29119-3: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、TS 30149と同じ扱いに統一。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
+- テスト: `tests/iso-iec-ieee-29119-3-2021-guide/fidelity.test.tsx`へ1件追加。修正前の失敗を確認してからコミット。
+- 検証: 全体9959件（209ファイル）、29119-3対象274件、lintが成功。同梱Chromiumは`iso-29119-3`37件が成功。本番ビルドは未実施。
+- 残課題: 同梱Chromiumの`iso-30130`8件は同種の差で失敗（指摘の範囲外のため未修正）。
+
 ## 2026-11-05: ISO 29119-3の目次の実測追従、TS 30149の帯とテーブル、E2E検出のレビュー修正
 
 - 29119-3: 目次の追従を`IntersectionObserver`から、`scroll`・`resize`ごとの見出し位置の実測へ変更。実ブラウザーで瞬時のスクロールでは帯を飛び越えた見出しの通知が1件も来ず、強調が古いまま残ることを確認したため。帯の下端は`window.innerHeight`から都度算出し、目次クリック後の保留とページ末尾の扱いは維持。
@@ -278,7 +285,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9958 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9959 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1314,5 +1321,5 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx` / 同名CSS — 導入・Step 0〜14・参考資料の17カテゴリー、原本の47 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
-- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの273契約。
+- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの274契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。

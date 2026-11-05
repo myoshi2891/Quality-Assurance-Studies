@@ -9,6 +9,13 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-05: ISO 29119-3の表の罫線色のレビュー修正
+
+- 29119-3: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、TS 30149と同じ扱いに統一。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
+- テスト: `tests/iso-iec-ieee-29119-3-2021-guide/fidelity.test.tsx`へ1件追加。修正前の失敗を確認してからコミット。
+- 検証: 全体9959件（209ファイル）、29119-3対象274件、lintが成功。同梱Chromiumは`iso-29119-3`37件が成功。本番ビルドは未実施。
+- 残課題: 同梱Chromiumの`iso-30130`8件は同種の差で失敗（指摘の範囲外のため未修正）。
+
 ## 2026-11-05: ISO 29119-3の目次の実測追従、TS 30149の帯とテーブル、E2E検出のレビュー修正
 
 - 29119-3: 目次の追従を`IntersectionObserver`から、`scroll`・`resize`ごとの見出し位置の実測へ変更。実ブラウザーで瞬時のスクロールでは帯を飛び越えた見出しの通知が1件も来ず、強調が古いまま残ることを確認したため。帯の下端は`window.innerHeight`から都度算出し、目次クリック後の保留とページ末尾の扱いは維持。
@@ -248,9 +255,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync spec files — measured TOC tracking, table border and E2E detection review fixes` |
+| 最新コミット内容 | `chore(docs): sync spec files — ISO 29119-3 table border review fix` |
 | 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | 全体9958件（209ファイル）・ISO IEC IEEE 29119-3対象273件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
+| ビルド状態 | 全体9959件（209ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1855,7 +1862,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト9958件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象273件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体テスト9959件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

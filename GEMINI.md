@@ -4,6 +4,13 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: ISO 29119-3の表の罫線色のレビュー修正
+
+- 29119-3: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、TS 30149と同じ扱いに統一。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
+- テスト: `tests/iso-iec-ieee-29119-3-2021-guide/fidelity.test.tsx`へ1件追加。修正前の失敗を確認してからコミット。
+- 検証: 全体9959件（209ファイル）、29119-3対象274件、lintが成功。同梱Chromiumは`iso-29119-3`37件が成功。本番ビルドは未実施。
+- 残課題: 同梱Chromiumの`iso-30130`8件は同種の差で失敗（指摘の範囲外のため未修正）。
+
 ## 2026-11-05: ISO 29119-3の目次の実測追従、TS 30149の帯とテーブル、E2E検出のレビュー修正
 
 - 29119-3: 目次の追従を`IntersectionObserver`から、`scroll`・`resize`ごとの見出し位置の実測へ変更。実ブラウザーで瞬時のスクロールでは帯を飛び越えた見出しの通知が1件も来ず、強調が古いまま残ることを確認したため。帯の下端は`window.innerHeight`から都度算出し、目次クリック後の保留とページ末尾の扱いは維持。
@@ -717,7 +724,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9958件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9959件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
