@@ -84,6 +84,16 @@ describe('assembled page', () => {
         expect($('.ck-row label')).toHaveLength(0);
     });
 });
+// correct() rewrites these attributes, so only the uncorrected output can detect a regression.
+describe('rendered page before test corrections', () => {
+    const raw = () => load(renderToStaticMarkup(React.createElement(sourceModule(`${base}/page.tsx`).default as React.ComponentType)));
+    it('marks every external link as safe', () => {
+        const links = raw()('a[href^="http"]').toArray();
+        expect(links.length).toBeGreaterThan(0);
+        expect(links.filter(link => link.attribs.target !== '_blank' || link.attribs.rel !== 'noopener noreferrer').map(link => link.attribs.href)).toEqual([]);
+    });
+    it('does not nest labels inside the checklist text', () => expect(raw()('.ck-text > label')).toHaveLength(0));
+});
 describe('diagram semantics', () => {
     for (const [id, original] of Object.entries(inventory.diagrams)) it(`${id}: Markdown source, SVG node order and actual Mermaid parsing`, async () => {
         const { DIAGRAMS, MERMAID_CONFIG } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string>; MERMAID_CONFIG: string };
@@ -113,6 +123,10 @@ describe('diagram semantics', () => {
     });
 });
 describe('original archives', () => {
+    // The archive is formatted differently, so both sides are compared as parsed and re-serialized HTML.
+    it('inventory body is exactly the parsed body of the archived HTML', () => {
+        expect(load(readFileSync(`archive/html-archive/iso/${inventory.source}.html`, 'utf8'))('body').html()).toBe(inventory.originalBody);
+    });
     for (const ext of ['html','md'] as const) it(`${ext}: moved out of root with identical SHA-256`, () => {
         expect(existsSync(`${inventory.source}.${ext}`)).toBe(false);
         expect(createHash('sha256').update(readFileSync(`archive/${ext}-archive/iso/${inventory.source}.${ext}`)).digest('hex')).toBe(inventory.hashes[ext]);
