@@ -30,6 +30,15 @@ export default function NavBar() {
         const bounds = link.getBoundingClientRect(), container = nav.current.getBoundingClientRect();
         if (bounds.top < container.top || bounds.bottom > container.bottom) link.scrollIntoView?.({block:'nearest',behavior:'instant'});
     },[active,mobile,open]);
+    // 本文は背面に残るだけなので、開いている間はキーボードでも到達できないようにする
+    useEffect(() => {
+        if (!mobile || !open) return;
+        const main = document.querySelector('main.main');
+        if (!main) return;
+        const wasInert = main.hasAttribute('inert');
+        main.setAttribute('inert','');
+        return () => { if (!wasInert) main.removeAttribute('inert'); };
+    },[mobile,open]);
     function choose(id: string) { close(open); setActive(id); pending.current = id; if (timer.current) clearTimeout(timer.current); timer.current = setTimeout(() => { pending.current = null; window.dispatchEvent(new Event('scroll')); },900); }
     function link(item: {id:string;label:string}, heading: boolean) { return <a className={[heading ? 'nav-h2' : '',active === item.id ? 'active' : ''].filter(Boolean).join(' ') || undefined} href={`#${item.id}`} data-target={item.id} aria-current={active === item.id ? 'location' : undefined} onClick={() => choose(item.id)}>{item.label}</a>; }
     return <>
