@@ -29,6 +29,9 @@ interface MermaidRoute {
 
 const LIGHT_THEME_PATTERN = /"theme"\s*:\s*"base"/;
 
+/** テンプレート文字列内の \" で書かれた設定も検出できるよう、引用符のエスケープを外す。 */
+const unescapeQuotes = (source: string): string => source.replaceAll('\\"', '"');
+
 const RELATIVE_IMPORT_PATTERN = /(?:from\s+|import\s*\(?\s*)['"](\.{1,2}\/[^'"]+)['"]/g;
 
 /** page.tsx から相対 import で到達できるソースを集める。図はカテゴリー別ファイルやページ固有の Diagram 経由で描画されることがある。 */
@@ -58,7 +61,7 @@ function mermaidRoutes(): MermaidRoute[] {
         if (!sources.some((source) => source.includes('components/Mermaid'))) continue;
         routes.push({
             path: `/${entry.name}`,
-            expectsLightTheme: sources.some((source) => LIGHT_THEME_PATTERN.test(source)),
+            expectsLightTheme: sources.some((source) => LIGHT_THEME_PATTERN.test(unescapeQuotes(source))),
         });
     }
     return routes;
