@@ -525,7 +525,7 @@
 .iso30149-page .hero-title { background:none; -webkit-text-fill-color:#fff; }
 .iso30149-page h2, .iso30149-page h3, .iso30149-page h4 { font-family:inherit; }
 .iso30149-page ul, .iso30149-page ol { color:inherit; }
-.iso30149-page table { color:var(--text); border-color:currentColor; }
+.iso30149-page table { color:var(--text); border-color:revert; }
 .iso30149-page td { color:var(--text); }
 .iso30149-page .page-footer { font-family:inherit; padding-right:0; padding-bottom:0; padding-left:0; text-align:start; }
 .iso30149-page .sidebar nav { padding:0; }
