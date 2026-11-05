@@ -14,6 +14,8 @@ it('all targets are observed; every heading activates its link; Escape restores 
         observe(el: Element) { observed.push(el); }
         disconnect() { disconnected = true; }
     } as unknown as typeof IntersectionObserver;
+    // 未指定だと scrollHeight が 0 でページ末尾と判定されるため、途中まで読んだ長いページにする
+    Object.defineProperty(document.documentElement, 'scrollHeight', { configurable: true, value: window.innerHeight * 20 });
     const host = document.createElement('div');
     const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
     for (const id of ids) { const h = document.createElement('h2'); h.id = id; host.append(h); }
@@ -24,17 +26,13 @@ it('all targets are observed; every heading activates its link; Escape restores 
         expect(observed.map(el => el.id)).toEqual(ids);
         expect(button.getAttribute('aria-controls')).toBe('sidebar');
         expect(button.getAttribute('aria-expanded')).toBe('false');
-        for (const el of observed) {
-            act(() => callback!([{ target: el, isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver));
+        // 実際の Observer は状態が変わった見出しだけを通知するため、前の見出しの退出も一緒に通知する
+        observed.forEach((el, i) => {
+            const previous = observed[i - 1];
+            const entries = [{ target: el, isIntersecting: true }, ...(previous ? [{ target: previous, isIntersecting: false }] : [])];
+            act(() => callback!(entries as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
             expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target')).toBe(el.id);
-        }
-        // 1 回の通知に隣接する見出しが並ぶ場合は、帯の中にある最後の見出しを選ぶ
-        act(() => callback!([
-            { target: observed[2]!, isIntersecting: true },
-            { target: observed[3]!, isIntersecting: true },
-            { target: observed[4]!, isIntersecting: false },
-        ] as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
-        expect(view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target')).toBe(observed[3]!.id);
+        });
         fireEvent.click(button); expect(button.getAttribute('aria-expanded')).toBe('true');
         fireEvent.keyDown(document, { key: 'Escape' }); expect(button.getAttribute('aria-expanded')).toBe('false');
         expect(document.activeElement).toBe(button);
@@ -44,7 +42,100 @@ it('all targets are observed; every heading activates its link; Escape restores 
             expect(link.getAttribute('aria-current')).toBe('location');
         }
         view.unmount(); expect(disconnected).toBe(true);
-    } finally { globalThis.IntersectionObserver = original; host.remove(); }
+    } finally {
+        globalThis.IntersectionObserver = original;
+        Reflect.deleteProperty(document.documentElement, 'scrollHeight');
+        host.remove();
+    }
+});
+describe('which heading the observer activates from the reading band', () => {
+    const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
+    type Change = readonly [index: number, isIntersecting: boolean];
+    /** 見出しを監視した NavBar を描画し、Observer の通知と現在の強調先の取得を返す。 */
+    const mountWithObserver = (scrollHeight = window.innerHeight * 20) => {
+        // 先行テストのリンク操作で残ったハッシュがマウント時の判定に使われないようにする
+        window.location.hash = '';
+        let callback: IntersectionObserverCallback;
+        const observed: Element[] = [];
+        const original = globalThis.IntersectionObserver;
+        globalThis.IntersectionObserver = class {
+            constructor(cb: IntersectionObserverCallback) { callback = cb; }
+            observe(el: Element) { observed.push(el); }
+            disconnect() {}
+        } as unknown as typeof IntersectionObserver;
+        Object.defineProperty(document.documentElement, 'scrollHeight', { configurable: true, value: scrollHeight });
+        const host = document.createElement('div');
+        for (const id of ids) { const heading = document.createElement('h2'); heading.id = id; host.append(heading); }
+        document.body.append(host);
+        const Nav = sourceModule('app/iso-iec-ts-30149-2024-guide/NavBar.tsx').default as React.ComponentType;
+        const view = render(<Nav />);
+        return {
+            view,
+            notify: (changes: readonly Change[]) => {
+                const entries = changes.map(([index, isIntersecting]) => ({ target: observed[index]!, isIntersecting }));
+                act(() => callback!(entries as unknown as IntersectionObserverEntry[], {} as IntersectionObserver));
+            },
+            current: () => view.container.querySelector('a[aria-current="location"]')?.getAttribute('data-target'),
+            restore: () => {
+                window.location.hash = '';
+                globalThis.IntersectionObserver = original;
+                Reflect.deleteProperty(document.documentElement, 'scrollHeight');
+                host.remove();
+            }
+        };
+    };
+
+    const orders: readonly (readonly [string, readonly Change[]])[] = [
+        ['document order', [[2, true], [3, true], [4, false]]],
+        ['reverse order', [[4, false], [3, true], [2, true]]],
+    ];
+    it.each(orders)('picks the last heading in the band when entries arrive in %s', (_, entries) => {
+        const nav = mountWithObserver();
+        try {
+            nav.notify([[4, true]]);
+            nav.notify(entries);
+            expect(nav.current()).toBe(ids[3]);
+        } finally { nav.restore(); }
+    });
+    it('keeps a heading that stays in the band although it is absent from the notification', () => {
+        const nav = mountWithObserver();
+        try {
+            nav.notify([[2, true], [3, true]]);
+            nav.notify([[3, false]]);
+            expect(nav.current()).toBe(ids[2]);
+        } finally { nav.restore(); }
+    });
+    it('keeps the current heading when every heading has left the band', () => {
+        const nav = mountWithObserver();
+        try {
+            nav.notify([[2, true]]);
+            nav.notify([[2, false]]);
+            expect(nav.current()).toBe(ids[2]);
+        } finally { nav.restore(); }
+    });
+    it('records band changes that arrive while a clicked scroll is settling', () => {
+        const nav = mountWithObserver();
+        try {
+            nav.notify([[2, true]]);
+            fireEvent.click(nav.view.getAllByRole('link')[0]!);
+            nav.notify([[2, false], [7, true]]);
+            expect(nav.current()).toBe(ids[0]);
+            act(() => { window.dispatchEvent(new Event('scrollend')); });
+            nav.notify([[8, true]]);
+            nav.notify([[8, false]]);
+            expect(nav.current()).toBe(ids[7]);
+        } finally { nav.restore(); }
+    });
+    it('does not replace the final entry at the page end when a heading leaves the band', () => {
+        const nav = mountWithObserver(0);
+        try {
+            fireEvent.scroll(window);
+            expect(nav.current()).toBe(ids.at(-1));
+            nav.notify([[2, true], [3, true]]);
+            nav.notify([[3, false]]);
+            expect(nav.current()).toBe(ids.at(-1));
+        } finally { nav.restore(); }
+    });
 });
 it('activates the final TOC entry at the page bottom unless a TOC jump is still settling', () => {
     const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
