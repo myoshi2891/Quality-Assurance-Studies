@@ -40,6 +40,11 @@ it('names every scrollable table like the reviewed source and shows keyboard foc
     });
     expect(outlines).toEqual(['2px solid var(--accent)']);
 });
+// 原本の表は罫線色をブラウザー既定に任せており、既定値はブラウザーの版で異なるため、特定の色へ固定しない
+it('leaves the table border colour to the browser default like the source', () => {
+    const css = readFileSync(base + '/iso-iec-ieee-29119-3-2021-guide.css', 'utf8');
+    expect(css).toContain('.iso291193-page table { color:var(--text); border-color:revert; }');
+});
 it('hydrates without recoverable errors or DOM warnings and attaches TOC events', async () => {
     const Page = sourceModule(base + '/page.tsx').default as React.ComponentType;
     const host = document.createElement('div');
