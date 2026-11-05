@@ -18,7 +18,7 @@ const markup = () => { const Page = sourceModule(`${base}/page.tsx`).default as 
 const selectors = [...new Set(inventory.css.flatMap(rule => rule.selector.split(',').map(s => s.trim())).filter(s => ![':root','html','body','*'].includes(s) && !s.includes('::')))];
 const properties = ['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','marginTop','marginRight','marginBottom','marginLeft','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth','borderTopColor','borderBottomColor','borderRadius','display','listStyleType','textAlign','textTransform','verticalAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','backgroundImage','position','overflowX','webkitTextFillColor'];
 for (const width of [390,900,901,1440]) for (const order of ['before','after'] as const) {
-    test(`${width}px CSS ${order}: every original design element, SQL line height, FAQ and hover`, async ({page}) => {
+    test(`${width}px CSS ${order}: every original design element, code line height and hover`, async ({page}) => {
         await page.setViewportSize({width,height:900}); const reference=await page.context().newPage(); await reference.setViewportSize({width,height:900});
         await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
         const own=readFileSync(`${base}/guide.css`,'utf8');
@@ -86,13 +86,15 @@ for (const width of [390,900,901,1440]) test(`${width}px: every anchor clears th
     await page.setContent(`<style>:root{--disclaimer-height:${banner}px}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
     await page.evaluate(banner => document.documentElement.style.setProperty('--disclaimer-height', `${banner}px`), banner);
     expect(await page.locator('main h2[id],main h3[id]').evaluateAll(els=>els.map(el=>getComputedStyle(el).scrollMarginTop))).toEqual(Array(50).fill(`${(width<=900?120:80)+banner}px`));
-    expect(await page.locator('main tr[id^="ref-"]').evaluateAll(els=>els.map(el=>getComputedStyle(el).scrollMarginTop))).toEqual(Array(21).fill(`${(width<=900?120:80)+banner}px`));
     await expect(page.locator('.sidebar')).toHaveCSS('top',`${60+banner}px`);
     await expect(page.locator('.toggle')).toHaveCSS('top',`${72+banner}px`);
 });
-for (const width of [320,335]) test(`${width}px: glossary cards fit the content column`,async({page})=>{
+for (const width of [320,335]) test(`${width}px: tables and code retain reachable horizontal overflow`,async({page})=>{
     await page.setViewportSize({width,height:900});
     await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
-    const overflowing=await page.locator('.gloss-card').evaluateAll(cards=>{const main=document.querySelector('.main')!,right=main.getBoundingClientRect().right-Number.parseFloat(getComputedStyle(main).paddingRight);return cards.filter(card=>card.getBoundingClientRect().right>right+0.5).length;});
-    expect(overflowing).toBe(0);
+    const containers=page.locator('.table-scroll,pre');
+    expect(await containers.count()).toBe(27);
+    const reach=await containers.evaluateAll(els=>els.map(el=>{el.scrollLeft=el.scrollWidth;return {actual:el.scrollLeft,required:el.scrollWidth-el.clientWidth};}));
+    for(const end of reach)expect(Math.abs(end.actual-end.required)).toBeLessThanOrEqual(1);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
