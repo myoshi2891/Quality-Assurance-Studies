@@ -4,6 +4,15 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: ISO 29119-3の文書選択、TS 30149の目次追従、ダッシュボードのレビュー修正
+
+- 29119-3: 図11（`DIAGRAM_10`）の軽量な文書選択の後へ、テスト環境・データ依存のリスク評価を追加。文書の拡大を要しなければ軽量のまま、要する場合は既存の`MID`・`FULL`の分岐へ見直す。`LIGHT --> TAILOR`の直接の辺は削除し、`accDescr`も同期。
+- TS 30149: `IntersectionObserver`の通知順ではなく、帯の中にある見出しの状態から強調先を選ぶよう変更。通知には状態が変わった見出ししか含まれないため、通知をまたいで`Set`に保持し、`false`を反映してから目次順で最後の見出しを選ぶ。帯が空なら現在の強調を維持。
+- TS 30149: 目次クリック後の保留中も帯の状態は更新する。`false`だけの通知でも選び直すようになったため、ページ末尾では`onScroll`が選んだ最後の項目を上書きしない。
+- ダッシュボード: Pages Testedの説明を描画時の件数から算出し、部分的な件数で完了と読めないよう変更。E2Eは「全N」ではなく`e2e/pages.ts`の登録ルートと表記。a11yとビジュアル検証の記述は維持。
+- テスト: 29119-3は前例どおり`inventory`の図定義を先に更新してRedを確認。TS 30149は順序、残留、保留中、末尾の分岐を追加し、既存のfixtureは前の見出しの退出も通知する形に変更。`tests/coverage-dashboard.test.ts`は`DATA.inventory`の全パスの存在を検証し、誤記で失敗することを確認。`tests/components/Mermaid.test.tsx`は2つのimportが別インスタンスであることを描画前に検証。
+- 検証: 全体9949件（209ファイル）、29119-3対象269件、TS 30149対象281件、lintが成功。Chrome94件（`iso-30149`35件・`iso-29119-3`37件・`iso-30130`22件、システムChrome、`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定）が成功。目次追従の実スクロールは実ブラウザーでは未検証。本番ビルドは未実施。
+
 ## 2026-11-05: ISO 29119-3・TS 30149とMermaid契約のレビュー修正
 
 - 29119-3: 参考ソースの外部リンク全13件へ`target="_blank"`と`rel="noopener noreferrer"`を付与。`href`と表示文字列は維持。
@@ -259,7 +268,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9941 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9949 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1156,6 +1165,9 @@ bun test        # ユニットテスト成功
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   2. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
   3. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
+  4. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  5. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  6. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
@@ -1285,7 +1297,7 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ts-30149-2024-guide/page.tsx` / 同名CSS — ヒーロー・本文15カテゴリー・フッター、原本の79 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Checklist.tsx` / `diagrams.ts` — 階層目次33リンク・進捗7項目・共有Mermaid11図。
-- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの275契約。
+- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの281契約。
 - `e2e/iso-30149-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-30149`） — ビルド・サーバー不要の35検証。
 
 ## ISO/IEC/IEEE 29119-3:2021の構成（2026-11-03）
