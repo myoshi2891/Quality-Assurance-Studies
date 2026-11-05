@@ -985,7 +985,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">244<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">248<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">244 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">248 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">190 files</span>
+          <span class="inv-count" id="inv-count-pages">193 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1093,7 +1093,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">29 files</span>
+          <span class="inv-count" id="inv-count-e2e">30 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
@@ -1524,6 +1524,9 @@ const DATA = {
     "tests/iso-9075-1-guide/typecheck.test.ts",
     "tests/iso-iec-30141-2024-guide/navigation.test.tsx",
     "tests/iso-iec-30141-2024-guide/page.test.tsx",
+    "tests/iso-iec-40500-2025-guide/fidelity.test.tsx",
+    "tests/iso-iec-40500-2025-guide/integration.test.ts",
+    "tests/iso-iec-40500-2025-guide/interactions.test.tsx",
     "tests/iso-iec-5338-guide/navigation.test.tsx",
     "tests/iso-iec-5338-guide/page.test.tsx",
     "tests/iso-iec-9075-1-2023-guide/fidelity.test.tsx",
@@ -1679,6 +1682,7 @@ const DATA = {
     "e2e/iso-30141-layout.e2e.ts",
     "e2e/iso-30149-layout.e2e.ts",
     "e2e/iso-9075-layout.e2e.ts",
+    "e2e/iso-iec-40500-2025-layout.e2e.ts",
     "e2e/iso-iec-5338-layout.e2e.ts",
     "e2e/iso-iec-9075-1-2023-layout.e2e.ts",
     "e2e/library.e2e.ts",

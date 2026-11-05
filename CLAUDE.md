@@ -4,6 +4,12 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: ISO/IEC 40500:2025移行の棚卸しとRed
+
+- `Iso-iec-40500-2025-guide.html`を`/iso-iec-40500-2025-guide`へ移行中。51見出し・目次50リンク・22表・9図・コード5例・注記9件・外部リンク25件・チェック10項目・CSS64ルールを固定インベントリへ記録。
+- `tests/iso-iec-40500-2025-guide/`の原本・操作・hydration・登録・型検査、および`e2e/iso-iec-40500-2025-layout.e2e.ts`の原本CSS・SVG実寸法・位置・アンカー比較を作成。未実装によるRedを確認。カテゴリーごとに実装・検証・個別コミットする。
+- 着手前は全体10303件（212ファイル）とlintが成功。ビルド・目視確認は未実施。
+
 ## 2026-11-05: SQLフレームワークの目次・アンカー・図の名前のレビュー修正
 
 - 図: `mmd-5`・`mmd-10`のアクセシブル名を、判定条件と「はい」「いいえ」の分岐先・後続作業が分かる文章へ変更。
