@@ -95,11 +95,18 @@ export default function NavBar() {
 
     useEffect(() => {
         if (typeof IntersectionObserver === 'undefined') return;
+        // 通知には状態が変わった見出ししか含まれないため、帯の中の見出しを通知をまたいで保持する
+        const inBand = new Set<string>();
         const observer = new IntersectionObserver(entries => {
-            if (pendingRef.current) return;
+            // 保留中の変化も取りこぼさないよう、強調の更新より先に反映する
             for (const entry of entries) {
-                if (entry.isIntersecting) setActive(entry.target.id);
+                if (entry.isIntersecting) inBand.add(entry.target.id);
+                else inBand.delete(entry.target.id);
             }
+            // ページ末尾では onScroll が選んだ最後の目次項目を保つ
+            if (pendingRef.current || isAtPageEnd()) return;
+            const current = TOC_IDS.filter(id => inBand.has(id)).at(-1);
+            if (current) setActive(current);
         }, { rootMargin: '-15% 0px -75% 0px' });
         for (const id of TOC_IDS) {
             const heading = document.getElementById(id);
