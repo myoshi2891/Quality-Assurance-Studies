@@ -730,7 +730,7 @@
 .sql-framework-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
 .sql-framework-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 45; }
 .sql-framework-page .scrim { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 35; }
-.sql-framework-page [id] { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.sql-framework-page .main h2[id], .sql-framework-page .main h3[id] { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
 .sql-framework-page .main { max-width: none; width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; }
 .sql-framework-page .hero { min-height: 0; display: block; text-align: start; background: transparent; border-radius: 0; }
 .sql-framework-page .hero::after { content: none; }
@@ -753,6 +753,6 @@
 .sql-framework-page *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 .sql-framework-page .page-footer { background: transparent; padding-right: 0; padding-bottom: 0; padding-left: 0; border-radius: 0; font-family: inherit; }
 .sql-framework-page .ck-done[hidden] { display: none; }
-@media (max-width: 900px) { .sql-framework-page [id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
+@media (max-width: 900px) { .sql-framework-page .main h2[id], .sql-framework-page .main h3[id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
 
 .sql-framework-page .ref-table td:first-child { color: var(--dim); font-weight: 400; white-space: normal; }
