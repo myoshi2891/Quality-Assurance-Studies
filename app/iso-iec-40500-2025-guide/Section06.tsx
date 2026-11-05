@@ -39,13 +39,13 @@ export default function Category() { return <>
 {"\n            "}
 <p>{"\n                同じプロセス内で"}<strong>{"すでに入力した情報"}</strong>{"は、自動入力するか選択肢として提示します（セキュリティ上の再入力が必要な場合などは例外）。\n            "}</p>
 {"\n            "}
-<CodeExample label="コード例：請求先の同一チェックボックスと郵便番号入力のHTML" language="html" code={"<!-- 配送先と請求先が同じ場合のチェックボックス -->\n<label>\n  <input type=\"checkbox\" id=\"same-address\">\n  請求先は配送先と同じ\n</label>\n\n<!-- 標準的な属性値で、ブラウザの自動入力を助ける -->\n<input type=\"text\" id=\"postal\" name=\"postal-code\" autocomplete=\"postal-code\">"} />
+<CodeExample label="コード例：請求先の同一チェックボックスと郵便番号入力のHTML" language="html" code={"<!-- 配送先と請求先が同じ場合のチェックボックス -->\n<label>\n  <input type=\"checkbox\" id=\"same-address\">\n  請求先は配送先と同じ\n</label>\n\n<!-- 標準的な属性値で、ブラウザの自動入力を助ける -->\n<label for=\"postal\">郵便番号</label>\n<input type=\"text\" id=\"postal\" name=\"postal-code\" autocomplete=\"postal-code\">"} />
 {"\n            "}
 <h3 id="56-338-アクセシブルな認証最小">{"5.6 3.3.8 アクセシブルな認証（最小）"}</h3>
 {"\n            "}
 <p>{"\n                認証の手順で、記憶・転記・パズル解決のような"}<strong>{"認知機能テスト"}</strong>{"を、代替なしで求めないようにします。\n            "}</p>
 {"\n            "}
-<CodeExample label="コード例：パスワード入力のHTML" language="html" code={"<!-- パスワードマネージャーと貼り付けを妨げない -->\n<input type=\"password\" id=\"pw\" name=\"password\" autocomplete=\"current-password\">"} />
+<CodeExample label="コード例：パスワード入力のHTML" language="html" code={"<!-- パスワードマネージャーと貼り付けを妨げない -->\n<label for=\"pw\">パスワード</label>\n<input type=\"password\" id=\"pw\" name=\"password\" autocomplete=\"current-password\">"} />
 {"\n            "}
 <div aria-label="表：5.6 3.3.8 アクセシブルな認証のやってよいことと避けるべきこと" className="table-scroll" role="region" tabIndex={0}>{"\n                "}<table><thead><tr className="header"><th>{"やってよい・推奨"}</th><th>{"避けるべき"}</th></tr></thead><tbody><tr className="odd"><td>{"パスワードマネージャー対応"}</td><td>{"貼り付け（ペースト）の禁止"}</td></tr><tr className="even"><td>{"メールリンク、パスキー、SSO などの代替手段"}</td><td>{"画像の文字を読み取って入力させる CAPTCHA のみ"}</td></tr><tr className="odd"><td>{"コピー＆ペーストの許可"}</td><td>{"「前に登録した答え」を記憶で答えさせるのみ"}</td></tr></tbody></table>{"\n            "}</div>
 {"\n            "}
