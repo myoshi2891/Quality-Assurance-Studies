@@ -1,10 +1,14 @@
 import { describe, expect, it, spyOn } from 'bun:test';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { load } from 'cheerio';
 import { PAGES } from '../e2e/pages';
 
 const html = readFileSync('docs/coverage-dashboard.html', 'utf8');
+const repositoryRoot = resolve(import.meta.dir, '..');
+const TEST_FILE_PATTERN = /\.(?:(?:test|spec)\.tsx?|e2e\.ts)$/;
+// 一覧に載せている、テストファイルではない補助ファイルと設定
+const NON_TEST_INVENTORY_ENTRIES = new Set(['e2e/pages.ts', 'playwright.config.ts', 'playwright.layout.config.ts', 'lighthouserc.json']);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null;
@@ -39,6 +43,26 @@ function embeddedInventory(): Record<string, unknown> {
     const inventory: unknown = JSON.parse(block);
     if (!isRecord(inventory)) throw new Error('DATA.inventory がオブジェクトではない');
     return inventory;
+}
+
+/** 埋め込みの DATA.inventory に並ぶ全パスを読み取る。 */
+function inventoryPaths(): string[] {
+    return Object.values(embeddedInventory()).flatMap((files) => {
+        if (!Array.isArray(files)) throw new Error('DATA.inventory のグループが配列ではない');
+        return files.map((file: unknown) => {
+            if (typeof file !== 'string') throw new Error(`パスが文字列ではない: ${String(file)}`);
+            return file;
+        });
+    });
+}
+
+/** tests/ と e2e/ の配下からテストファイルを列挙する。 */
+function discoveredTestFiles(): string[] {
+    return ['tests', 'e2e'].flatMap((directory) =>
+        readdirSync(resolve(repositoryRoot, directory), { recursive: true, encoding: 'utf8' })
+            .filter((file) => TEST_FILE_PATTERN.test(file))
+            .map((file) => `${directory}/${file}`)
+    );
 }
 
 /** 埋め込みデータからグループごとのファイル数を求める。 */
@@ -158,15 +182,14 @@ describe('coverage dashboard static totals', () => {
 
     // 件数の照合だけではパスの誤記や削除済みファイルを検出できない
     it('lists only paths that exist in the repository', () => {
-        const paths = Object.values(embeddedInventory()).flatMap((files) => {
-            if (!Array.isArray(files)) throw new Error('DATA.inventory のグループが配列ではない');
-            return files.map((file: unknown) => {
-                if (typeof file !== 'string') throw new Error(`パスが文字列ではない: ${String(file)}`);
-                return file;
-            });
-        });
+        const paths = inventoryPaths();
         expect(paths.length).toBeGreaterThan(0);
-        const repositoryRoot = resolve(import.meta.dir, '..');
         expect(paths.filter((path) => !existsSync(resolve(repositoryRoot, path)))).toEqual([]);
+    });
+
+    // 件数とパスの存在だけでは、件数ごと更新して載せ忘れたテストファイルを検出できない
+    it('lists every test file under tests/ and e2e/', () => {
+        const listed = inventoryPaths().filter((path) => !NON_TEST_INVENTORY_ENTRIES.has(path));
+        expect([...listed].sort()).toEqual(discoveredTestFiles().sort());
     });
 });
