@@ -60,7 +60,7 @@ describe('responsive TOC', () => {
         const Nav = (await import(entry+'NavBar')).default; return render(<Nav />);
     }
     it('preserves exact TOC order and targets', async () => {
-        const view = await setup(); expect(Array.from(view.container.querySelectorAll('nav a'), n => [n.textContent,n.getAttribute('href')])).toEqual(inventory.groups.toc.items.map(n => [n.children[0],n.attrs.href]));
+        const view = await setup(); expect(Array.from(view.container.querySelectorAll('nav a'), n => [n.textContent,n.getAttribute('href')])).toEqual(inventory.groups.toc.items.map(n => [n.children[0]!,n.attrs.href]));
     });
     it('toggles scrim, removes closed links from focus and closes with Escape, link and scrim', async () => {
         const view = await setup(), button = view.getByRole('button', { name: '目次を開閉' }), nav = view.container.querySelector('nav')!;
