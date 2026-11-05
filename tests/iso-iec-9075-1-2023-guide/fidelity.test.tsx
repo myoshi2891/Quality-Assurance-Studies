@@ -17,6 +17,9 @@ function correct(html: string) {
     $('a[href^="http"]').attr('target', '_blank').attr('rel', 'noopener noreferrer');
     $('.ck-text > label').each((_, el) => { $(el).replaceWith($(el).contents()); });
     $('.cnt').text('0 / 9');
+    // Table indentation is not content: React forbids these whitespace children.
+    // The raw-DOM and hydration regressions independently reject them in the page.
+    $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_, node) => node.type === 'text' && /^\s*$/.test(node.data)).remove();
     return $;
 }
 function tree(n: AnyNode | undefined): unknown {

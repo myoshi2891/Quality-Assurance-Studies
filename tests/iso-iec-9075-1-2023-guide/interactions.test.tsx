@@ -91,3 +91,39 @@ describe('responsive TOC', () => {
         } finally { root.remove(); globalThis.IntersectionObserver=original; }
     });
 });
+
+describe('table hydration regression', () => {
+    it('emits no text nodes directly inside any table structure', async () => {
+        const { sourceModule } = await import('../helpers/source-module');
+        const Page = sourceModule('app/iso-iec-9075-1-2023-guide/page.tsx').default as React.ComponentType;
+        const host = document.createElement('div'); host.innerHTML = renderToStaticMarkup(<Page />);
+        expect(host.querySelectorAll('table')).toHaveLength(16);
+        const violations = Array.from(host.querySelectorAll('table,thead,tbody,tfoot,tr,colgroup')).flatMap((parent, index) =>
+            Array.from(parent.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => ({ index, tag: parent.tagName, text: node.textContent })));
+        expect(violations).toEqual([]);
+    });
+    for (const development of [false,true]) it(`hydrates with zero DOM warnings and recoverable errors (SWC development=${development})`, async () => {
+        const { sourceModule } = await import('../helpers/source-module');
+        const { renderToString } = await import('react-dom/server');
+        const { hydrateRoot } = await import('react-dom/client');
+        const Page = sourceModule('app/iso-iec-9075-1-2023-guide/page.tsx', { development }).default as React.ComponentType;
+        const host = document.createElement('div'); host.innerHTML = renderToString(<Page />); document.body.append(host);
+        const warnings: unknown[][] = [], errors: unknown[] = [];
+        const originalError = console.error;
+        console.error = (...args: unknown[]) => { warnings.push(args); };
+        let root: ReturnType<typeof hydrateRoot> | undefined;
+        try {
+            await act(async () => { root = hydrateRoot(host, <Page />, { onRecoverableError: error => errors.push(error) }); });
+            const button = host.querySelector('.nav-toggle')!;
+            await act(async () => { fireEvent.click(button); });
+            expect(button.getAttribute('aria-expanded')).toBe('true');
+            const checkbox = host.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+            await act(async () => { fireEvent.click(checkbox); });
+            expect(host.querySelector('.cnt')?.textContent).toBe('1 / 9');
+            expect(errors).toEqual([]); expect(warnings).toEqual([]);
+        } finally {
+            if (root) await act(async () => root!.unmount());
+            console.error = originalError; host.remove();
+        }
+    });
+});
