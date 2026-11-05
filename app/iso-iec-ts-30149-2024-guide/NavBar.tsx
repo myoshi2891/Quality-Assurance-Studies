@@ -105,8 +105,8 @@ export default function NavBar() {
             }
             // ページ末尾では onScroll が選んだ最後の目次項目を保つ
             if (pendingRef.current || isAtPageEnd()) return;
-            const current = TOC_IDS.filter(id => inBand.has(id)).at(-1);
-            if (current) setActive(current);
+            // 帯が空になる通知だけでは上下どちらへ抜けたか分からないため、見出しの位置から読み直す
+            setActive(TOC_IDS.filter(id => inBand.has(id)).at(-1) ?? headingAboveBandBottom());
         }, { rootMargin: '-15% 0px -75% 0px' });
         for (const id of TOC_IDS) {
             const heading = document.getElementById(id);
