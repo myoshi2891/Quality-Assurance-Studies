@@ -1,8 +1,16 @@
 # Project Overview
 
-Updated 2026-11-05
+Updated 2026-11-06
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-06: ISO 40500の図5・互換性の説明とSQLフレームワークのテスト整理のレビュー修正
+
+- 図5: 新規9基準の見出しに対して7基準しかなかったため、`2.4.12`を「見た目・UIの修正が中心」、`3.3.9`を「フロー・認証設計に影響」へ追加し、アクセシブル名も同期。
+- 2.3: 2.2適合で2.0・2.1にも適合するという説明へ、4.1.1の例外を6.2の注記と同じ趣旨で追加。W3Cの「may need to continue to test and report 4.1.1」と一致を確認。
+- テスト: 補正は`review-corrections.ts`で原本側だけへ適用し、インベントリは変更せず。ブラウザー比較は追加2ノードだけを期待値へ加える。SQLフレームワークは生成テストの`renderFile('page')`を1回の遅延描画で共有し、`tests/lib/navigation-e2e-sync.test.ts`と重複するページ数の検証を削除。
+- 検証: ISO 40500対象327件、SQLフレームワーク対象354件、ブラウザー32件、lint、全体10645件（215ファイル）が成功。本番ビルド、目視確認は未実施。
+- 残課題: `Section10.tsx`の誤解3の「2.2 に適合すれば 2.0 / 2.1 にも適合」にも同じ4.1.1の留保がない（指摘の範囲外のため未変更）。
 
 ## 2026-11-05: SQLフレームワークの図の名前とポート解放手順のレビュー修正
 
