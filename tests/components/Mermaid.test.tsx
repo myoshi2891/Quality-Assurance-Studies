@@ -83,6 +83,7 @@ describe('Mermaid component', () => {
     const second = (await import(`${modulePath}?instance=second`)) as { default: typeof Mermaid };
     const FirstMermaid = first.default;
     const SecondMermaid = second.default;
+    expect(FirstMermaid).not.toBe(SecondMermaid);
 
     // Act: 各インスタンスで最初の描画を行う（旧実装ではどちらも連番 1 になる）
     render(
