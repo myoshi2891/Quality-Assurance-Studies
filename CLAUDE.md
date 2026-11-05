@@ -4,6 +4,16 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: ISO 29119-3の目次の実測追従、TS 30149の帯とテーブル、E2E検出のレビュー修正
+
+- 29119-3: 目次の追従を`IntersectionObserver`から、`scroll`・`resize`ごとの見出し位置の実測へ変更。実ブラウザーで瞬時のスクロールでは帯を飛び越えた見出しの通知が1件も来ず、強調が古いまま残ることを確認したため。帯の下端は`window.innerHeight`から都度算出し、目次クリック後の保留とページ末尾の扱いは維持。
+- TS 30149: 帯が空になる通知では`headingAboveBandBottom()`で位置を読み直すよう変更し、上へ戻ったときの強調の取り残しを解消。最初の見出しより上では強調を外す。
+- TS 30149: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、既定値がChromeの版で異なるため（同梱`chromium-1223`は`rgb(128, 128, 128)`）。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
+- `e2e/mermaid-layout.e2e.ts`: `\"theme\"`形式の設定も検出し、ライトテーマの検査対象を5ルート追加（49→54ルート）。
+- テスト: `tests/coverage-dashboard.test.ts`で`tests/`・`e2e/`のテストファイルを列挙して一覧と照合（非テストの4件を除く）。TS 30149はマウント時・`hashchange`・不正なエンコードのハッシュを追加。一覧からの欠落と`URIError`処理の除去で失敗することを確認。
+- 検証: 全体9958件（209ファイル）、29119-3対象273件、TS 30149対象285件、lintが成功。Chrome94件（システムChrome）が成功。同梱Chromiumは`iso-30149`35件が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで追加5ルートと2ガイドの7件が成功し、全94ルートは未実行。29119-3の目次追従は実ブラウザーの900px・400pxで全位置が実際の節と一致。本番ビルドは未実施。
+- 残課題: TS 30149は`IntersectionObserver`のままで、実ブラウザーの瞬時のスクロールでは強調が実際の節とずれる（29119-3で解消したものと同じ）。同梱Chromiumでは`iso-29119-3`・`iso-30130`の各8件が表の罫線色と同種の差で失敗（今回の変更前から。`iso-30149`以外は未修正）。
+
 ## 2026-11-05: ISO 29119-3の文書選択、TS 30149の目次追従、ダッシュボードのレビュー修正
 
 - 29119-3: 図11（`DIAGRAM_10`）の軽量な文書選択の後へ、テスト環境・データ依存のリスク評価を追加。文書の拡大を要しなければ軽量のまま、要する場合は既存の`MID`・`FULL`の分岐へ見直す。`LIGHT --> TAILOR`の直接の辺は削除し、`accDescr`も同期。
@@ -268,7 +278,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9949 tests)
+bun test             # ユニットテスト (bun test 全体, 209 ファイル・9958 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1297,12 +1307,12 @@ bun test        # ユニットテスト成功
 
 - `app/iso-iec-ts-30149-2024-guide/page.tsx` / 同名CSS — ヒーロー・本文15カテゴリー・フッター、原本の79 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Checklist.tsx` / `diagrams.ts` — 階層目次33リンク・進捗7項目・共有Mermaid11図。
-- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの281契約。
+- `tests/iso-iec-ts-30149-2024-guide/` — 原本・カテゴリー・操作・SSR復元・アーカイブの285契約。
 - `e2e/iso-30149-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-30149`） — ビルド・サーバー不要の35検証。
 
 ## ISO/IEC/IEEE 29119-3:2021の構成（2026-11-03）
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx` / 同名CSS — 導入・Step 0〜14・参考資料の17カテゴリー、原本の47 CSSルールと共有CSS干渉補正。
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
-- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの269契約。
+- `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの273契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。

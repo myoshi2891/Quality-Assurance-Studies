@@ -9,6 +9,16 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-05: ISO 29119-3の目次の実測追従、TS 30149の帯とテーブル、E2E検出のレビュー修正
+
+- 29119-3: 目次の追従を`IntersectionObserver`から、`scroll`・`resize`ごとの見出し位置の実測へ変更。実ブラウザーで瞬時のスクロールでは帯を飛び越えた見出しの通知が1件も来ず、強調が古いまま残ることを確認したため。帯の下端は`window.innerHeight`から都度算出し、目次クリック後の保留とページ末尾の扱いは維持。
+- TS 30149: 帯が空になる通知では`headingAboveBandBottom()`で位置を読み直すよう変更し、上へ戻ったときの強調の取り残しを解消。最初の見出しより上では強調を外す。
+- TS 30149: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、既定値がChromeの版で異なるため（同梱`chromium-1223`は`rgb(128, 128, 128)`）。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
+- `e2e/mermaid-layout.e2e.ts`: `\"theme\"`形式の設定も検出し、ライトテーマの検査対象を5ルート追加（49→54ルート）。
+- テスト: `tests/coverage-dashboard.test.ts`で`tests/`・`e2e/`のテストファイルを列挙して一覧と照合（非テストの4件を除く）。TS 30149はマウント時・`hashchange`・不正なエンコードのハッシュを追加。一覧からの欠落と`URIError`処理の除去で失敗することを確認。
+- 検証: 全体9958件（209ファイル）、29119-3対象273件、TS 30149対象285件、lintが成功。Chrome94件（システムChrome）が成功。同梱Chromiumは`iso-30149`35件が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで追加5ルートと2ガイドの7件が成功し、全94ルートは未実行。29119-3の目次追従は実ブラウザーの900px・400pxで全位置が実際の節と一致。本番ビルドは未実施。
+- 残課題: TS 30149は`IntersectionObserver`のままで、実ブラウザーの瞬時のスクロールでは強調が実際の節とずれる（29119-3で解消したものと同じ）。同梱Chromiumでは`iso-29119-3`・`iso-30130`の各8件が表の罫線色と同種の差で失敗（今回の変更前から。`iso-30149`以外は未修正）。
+
 ## 2026-11-05: ISO 29119-3の文書選択、TS 30149の目次追従、ダッシュボードのレビュー修正
 
 - 29119-3: 図11（`DIAGRAM_10`）の軽量な文書選択の後へ、テスト環境・データ依存のリスク評価を追加。文書の拡大を要しなければ軽量のまま、要する場合は既存の`MID`・`FULL`の分岐へ見直す。`LIGHT --> TAILOR`の直接の辺は削除し、`accDescr`も同期。
@@ -238,9 +248,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync spec files — document selection, band state and dashboard review fixes` |
+| 最新コミット内容 | `chore(docs): sync spec files — measured TOC tracking, table border and E2E detection review fixes` |
 | 次の作業 | `/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | 全体9949件（209ファイル）・ISO IEC IEEE 29119-3対象269件・TS 30149対象281件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
+| ビルド状態 | 全体9958件（209ファイル）・ISO IEC IEEE 29119-3対象273件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1845,7 +1855,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト9949件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象269件、TS 30149対象281件、Chrome94件、lintも成功。
+- 全体テスト9958件すべて成功（209ファイル）。ISO IEC IEEE 29119-3対象273件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

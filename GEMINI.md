@@ -4,6 +4,16 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: ISO 29119-3の目次の実測追従、TS 30149の帯とテーブル、E2E検出のレビュー修正
+
+- 29119-3: 目次の追従を`IntersectionObserver`から、`scroll`・`resize`ごとの見出し位置の実測へ変更。実ブラウザーで瞬時のスクロールでは帯を飛び越えた見出しの通知が1件も来ず、強調が古いまま残ることを確認したため。帯の下端は`window.innerHeight`から都度算出し、目次クリック後の保留とページ末尾の扱いは維持。
+- TS 30149: 帯が空になる通知では`headingAboveBandBottom()`で位置を読み直すよう変更し、上へ戻ったときの強調の取り残しを解消。最初の見出しより上では強調を外す。
+- TS 30149: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、既定値がChromeの版で異なるため（同梱`chromium-1223`は`rgb(128, 128, 128)`）。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
+- `e2e/mermaid-layout.e2e.ts`: `\"theme\"`形式の設定も検出し、ライトテーマの検査対象を5ルート追加（49→54ルート）。
+- テスト: `tests/coverage-dashboard.test.ts`で`tests/`・`e2e/`のテストファイルを列挙して一覧と照合（非テストの4件を除く）。TS 30149はマウント時・`hashchange`・不正なエンコードのハッシュを追加。一覧からの欠落と`URIError`処理の除去で失敗することを確認。
+- 検証: 全体9958件（209ファイル）、29119-3対象273件、TS 30149対象285件、lintが成功。Chrome94件（システムChrome）が成功。同梱Chromiumは`iso-30149`35件が成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで追加5ルートと2ガイドの7件が成功し、全94ルートは未実行。29119-3の目次追従は実ブラウザーの900px・400pxで全位置が実際の節と一致。本番ビルドは未実施。
+- 残課題: TS 30149は`IntersectionObserver`のままで、実ブラウザーの瞬時のスクロールでは強調が実際の節とずれる（29119-3で解消したものと同じ）。同梱Chromiumでは`iso-29119-3`・`iso-30130`の各8件が表の罫線色と同種の差で失敗（今回の変更前から。`iso-30149`以外は未修正）。
+
 ## 2026-11-05: ISO 29119-3の文書選択、TS 30149の目次追従、ダッシュボードのレビュー修正
 
 - 29119-3: 図11（`DIAGRAM_10`）の軽量な文書選択の後へ、テスト環境・データ依存のリスク評価を追加。文書の拡大を要しなければ軽量のまま、要する場合は既存の`MID`・`FULL`の分岐へ見直す。`LIGHT --> TAILOR`の直接の辺は削除し、`accDescr`も同期。
@@ -329,7 +339,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ## Migrated Pages (Tracking)
 
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx`（同名CSS・`NavBar.tsx`・`Diagram.tsx`・`diagrams.ts`・17カテゴリー、目次16リンク、Mermaid12図、原本照合257件）。
-- `app/iso-iec-ts-30149-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・17カテゴリー、目次33リンク、Mermaid11図、原本照合281件）。
+- `app/iso-iec-ts-30149-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・17カテゴリー、目次33リンク、Mermaid11図、原本照合285件）。
 - `app/iso-iec-tr-29138-2-2009-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリー、目次42リンク、Mermaid5図、原本照合263件）。
 
 - `app/iso-iec-30141-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・17本文カテゴリー、目次44リンク、Mermaid11図、原本照合305件）。
@@ -707,7 +717,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テストすべて成功（直近9949件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
+- 全体テストすべて成功（直近9958件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
   1. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
