@@ -9,6 +9,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-05: SQLフレームワークの目次・アンカー・図の名前のレビュー修正
+
+- 図: `mmd-5`・`mmd-10`のアクセシブル名を、判定条件と「はい」「いいえ」の分岐先・後続作業が分かる文章へ変更。
+- 目次: 追従の基準を画面の25%から各見出しの`scroll-margin-top`（着地位置）へ変更。短い節で次の見出しが帯に入ると強調が1つ先へずれ、背の低い画面では宛先が強調されない問題を解消。最後の目次見出しは1440×900・1440×600・390×844で着地線を1,400px以上追い越せるため、ページ末尾の代替処理は追加せず。
+- 目次: 閉じているときのEscapeでフォーカスを奪わないよう、`aria-expanded`で開閉を判定。モバイルで開いている間は`main.main`を`inert`にし、閉じる・アンマウント時に元の状態へ戻す。
+- CSS: 引用先の`tr[id^="ref-"]`へ見出しと同じ`scroll-margin-top`を900px境界の両方で適用。336px未満は用語カードを1列の`minmax(0, 1fr)`にし、本文からのはみ出しを解消。
+- テスト: 正規化前の出力で外部リンクと`.ck-text > label`を検査。`inventory.originalBody`はアーカイブHTMLをパースした`body`と完全一致で照合。追加分は変異（`rel`削除・ラベル挿入・インベントリ改変）で失敗することを確認。
+- 見送り: Docstring Coverageは`.coderabbit.yaml`に設定がなく既定の参考チェックで、コンポーネント全体への追記は変更の最小化に反するため対応せず。
+- 検証: 対象341件、全体10303件（212ファイル）、ブラウザー34件、lintが成功。開発サーバーの実ページで、閉じた目次のEscape、モバイルの`inert`とTab移動、目次リンクのスクロール、全13項目のクリック後の強調（1440×900・1440×420）、`#ref-S5`の着地を確認。本番ビルド・目視確認は未実施。
+- 手順の注意: `lsof -ti:<port>`は接続中のクライアントも返す。検証用サーバーの停止は`-sTCP:LISTEN`で自分のリスナーだけに限定する。
+
 ## 2026-11-05: SQLフレームワークの図が見えない問題の修正
 
 - 原因はページの全称`all: revert`。MermaidのSVG生成自体は成功していたが、SVG内のtransform・幅・高さの提示属性までリセットし、実ページでノードの寸法が0になっていた。
@@ -280,9 +291,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): record SQL Framework SVG geometry regression and live verification` |
+| 最新コミット内容 | `chore(docs): sync SQL Framework TOC, anchor and label review fixes` |
 | 次の作業 | `/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | 図解表示修正は対象＋Mermaid契約559件・ブラウザー32件・実ページ390/1440px検証成功。全体は今回未再実行（直前10292件成功）。SQLフレームワーク対象330件・原本CSS/SVG/アンカーのブラウザー32件・全体10292件（212ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
+| ビルド状態 | SQLフレームワーク対象341件・原本CSS/SVG/アンカーのブラウザー34件・全体10303件（212ファイル）・ISO IEC IEEE 29119-3対象274件・TS 30149対象285件・Chrome94件（iso-30149 35件・iso-29119-3 37件・iso-30130 22件、システムChrome）・lint成功。`e2e/mermaid-layout.e2e.ts`は開発サーバーで全94ルート成功。ビルド未実施。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1888,7 +1899,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 121 ルート（ガイドライブラリ index + 120 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体テスト10292件すべて成功（212ファイル）。SQLフレームワーク対象330件・ブラウザー32件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体テスト10303件すべて成功（212ファイル）。SQLフレームワーク対象341件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

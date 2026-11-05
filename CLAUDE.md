@@ -4,6 +4,17 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-05: SQLフレームワークの目次・アンカー・図の名前のレビュー修正
+
+- 図: `mmd-5`・`mmd-10`のアクセシブル名を、判定条件と「はい」「いいえ」の分岐先・後続作業が分かる文章へ変更。
+- 目次: 追従の基準を画面の25%から各見出しの`scroll-margin-top`（着地位置）へ変更。短い節で次の見出しが帯に入ると強調が1つ先へずれ、背の低い画面では宛先が強調されない問題を解消。最後の目次見出しは1440×900・1440×600・390×844で着地線を1,400px以上追い越せるため、ページ末尾の代替処理は追加せず。
+- 目次: 閉じているときのEscapeでフォーカスを奪わないよう、`aria-expanded`で開閉を判定。モバイルで開いている間は`main.main`を`inert`にし、閉じる・アンマウント時に元の状態へ戻す。
+- CSS: 引用先の`tr[id^="ref-"]`へ見出しと同じ`scroll-margin-top`を900px境界の両方で適用。336px未満は用語カードを1列の`minmax(0, 1fr)`にし、本文からのはみ出しを解消。
+- テスト: 正規化前の出力で外部リンクと`.ck-text > label`を検査。`inventory.originalBody`はアーカイブHTMLをパースした`body`と完全一致で照合。追加分は変異（`rel`削除・ラベル挿入・インベントリ改変）で失敗することを確認。
+- 見送り: Docstring Coverageは`.coderabbit.yaml`に設定がなく既定の参考チェックで、コンポーネント全体への追記は変更の最小化に反するため対応せず。
+- 検証: 対象341件、全体10303件（212ファイル）、ブラウザー34件、lintが成功。開発サーバーの実ページで、閉じた目次のEscape、モバイルの`inert`とTab移動、目次リンクのスクロール、全13項目のクリック後の強調（1440×900・1440×420）、`#ref-S5`の着地を確認。本番ビルド・目視確認は未実施。
+- 手順の注意: `lsof -ti:<port>`は接続中のクライアントも返す。検証用サーバーの停止は`-sTCP:LISTEN`で自分のリスナーだけに限定する。
+
 ## 2026-11-05: SQLフレームワークの図が見えない問題の修正
 
 - 原因はページの全称`all: revert`。MermaidのSVG生成自体は成功していたが、SVG内のtransform・幅・高さの提示属性までリセットし、実ページでノードの寸法が0になっていた。
@@ -310,7 +321,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 212 ファイル・10292 tests)
+bun test             # ユニットテスト (bun test 全体, 212 ファイル・10303 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1357,5 +1368,5 @@ bun test        # ユニットテスト成功
 - `NavBar.tsx` / `toc.ts` — 目次開閉、scrim、Escape、実測スクロール追従、Observer解除。
 - `Diagram.tsx` / `diagrams.ts` — HTML由来の図1とMarkdown由来の9図、共有レンダラーへの接続。
 - `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
-- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の330件。
-- `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で32件。ビルド・サーバー不要。
+- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の341件。
+- `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で34件。ビルド・サーバー不要。
