@@ -4,11 +4,16 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 2026-11-05: ISO/IEC 40500:2025移行の棚卸しとRed
+## 2026-11-05: ISO/IEC 40500:2025 WCAG 2.2ガイドの移行
 
-- `Iso-iec-40500-2025-guide.html`を`/iso-iec-40500-2025-guide`へ移行中。51見出し・目次50リンク・22表・9図・コード5例・注記9件・外部リンク25件・チェック10項目・CSS64ルールを固定インベントリへ記録。
-- `tests/iso-iec-40500-2025-guide/`の原本・操作・hydration・登録・型検査、および`e2e/iso-iec-40500-2025-layout.e2e.ts`の原本CSS・SVG実寸法・位置・アンカー比較を作成。未実装によるRedを確認。カテゴリーごとに実装・検証・個別コミットする。
-- 着手前は全体10303件（212ファイル）とlintが成功。ビルド・目視確認は未実施。
+- `/iso-iec-40500-2025-guide`をISOカテゴリーへ追加し、ナビ・E2E・ダッシュボードを122ルート（ホーム＋121ガイド）へ同期。
+- ヒーローと本文13カテゴリーを一つずつ実装・検証・個別コミット。51見出し・目次50リンク・22表の全セル・9図・コード5例・注記9件・外部25リンク・チェック10項目・メタ情報4件・CSS64ルールを固定インベントリで出現順に照合。
+- 原本とMarkdownで図の表示文言・接続・辺ラベルに差があるため、HTMLのSVGを基準に全9図を復元。図6はHTMLの11ノード・14辺を維持し、Markdownだけの追加分岐は混在させていない。図7の丸数字、図4の辺ラベルなしも原本通り。
+- 900px境界と暗色デザインを保持。ヒーロー書体の共通CSS干渉を補正。全称リセットはSVGと全子孫を除外し、全図のノード実寸法・変換行列を実ブラウザーで検証。表の構造タグ直下に空白文字列を生成せず、セル内・インライン・コードの空白は保持。
+- 目次50リンクの階層・開閉・Escape・閉じたリンクのinert・着地位置に基づく追従・Observer解除、学習進捗10項目の全選択/解除・独立性、SWC開発/本番変換後の実hydrationと操作を検証。
+- 対象313件、対象＋Mermaid契約544件、登録を含む389件、ブラウザー32件（4幅×CSS2順序＋9図×2幅＋アンカー4幅＋狭幅2件）、対象ソース・追加テストの型検査、lint成功。全体10618件（215ファイル）も成功。
+- 開発サーバーの実ページを390/1440pxで読み込み、9図すべてのノード寸法正常・描画エラー/DOM警告0件を確認。ビルド・目視確認は未実施。
+- 原本HTML・MDは`archive/html-archive/iso/Iso-iec-40500-2025-guide.html`・`archive/md-archive/iso/Iso-iec-40500-2025-guide.md`へ同名で移動し、Git追跡・SHA-256一致・固定インベントリとの一致を確認。
 
 ## 2026-11-05: SQLフレームワークの目次・アンカー・図の名前のレビュー修正
 
@@ -327,14 +332,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 212 ファイル・10303 tests)
+bun test             # ユニットテスト (bun test 全体, 215 ファイル・10618 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 121 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 122 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
@@ -1191,6 +1196,7 @@ bun test        # ユニットテスト成功
 | `Iso-iec-ts-30149-2024-guide.html` | `/iso-iec-ts-30149-2024-guide` | ✅ 34見出し・目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・79 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ieee-29119-3-2021-guide.html` | `/iso-iec-ieee-29119-3-2021-guide` | ✅ 57見出し・目次16リンク・39表・12図・注記10件・理解度8問・47 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-9075-1-2023-guide.html` | `/iso-iec-9075-1-2023-guide` | ✅ 46見出し・目次13リンク・16表・10図・SQL2例・注記12件・用語9件・FAQ6件・チェック9項目・123 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-40500-2025-guide.html` | `/iso-iec-40500-2025-guide` | ✅ 51見出し・目次50リンク・22表・9図・コード5例・注記9件・チェック10項目・64 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -1205,7 +1211,7 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 | 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
@@ -1217,7 +1223,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 121 ルート（ガイドライブラリ index + 120 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 122 ルート（ガイドライブラリ index + 121 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
@@ -1376,3 +1382,13 @@ bun test        # ユニットテスト成功
 - `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
 - `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・hydration・登録・アーカイブ・対象型検査の341件。
 - `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で34件。ビルド・サーバー不要。
+
+### ISO/IEC 40500:2025ガイドの配置
+
+- `app/iso-iec-40500-2025-guide/page.tsx` / `guide.css` — ページ構成・メタデータ・原本CSS64ルールと干渉補正。Noto Sans JP 800・JetBrains Mono 600も既存のローカル配信CSSから読込。
+- `Section00.tsx`〜`Section13.tsx` — ヒーローと本文13カテゴリー。
+- `NavBar.tsx` / `toc.ts` — 目次50リンクの階層と実測追従・モバイル開閉・Observer解除。
+- `Diagram.tsx` / `diagrams.ts` — 原本HTMLの全9図と共有Mermaidへの接続。
+- `CodeExample.tsx` / `Checklist.tsx` — CSS/HTML5例の正確な改行、学習チェック10項目の進捗。
+- `tests/iso-iec-40500-2025-guide/` — 原本・操作・hydration・登録・アーカイブ・型検査313件。
+- `e2e/iso-iec-40500-2025-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-40500-2025`でビルド・サーバー不要の32件。
