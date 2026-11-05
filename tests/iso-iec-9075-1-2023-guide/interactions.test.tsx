@@ -5,7 +5,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { load } from 'cheerio';
 import inventory from '../../docs/migration-inventory/iso-iec-9075-1-2023-guide.json';
 const entry = '../../app/iso-iec-9075-1-2023-guide/';
-afterEach(() => { cleanup(); window.history.replaceState(null, '', '/'); });
+const originalWidth = window.innerWidth;
+afterEach(() => { cleanup(); window.history.replaceState(null, '', '/'); Object.defineProperty(window, 'innerWidth', { configurable: true, value: originalWidth }); });
 describe('learning checklist', () => {
     async function setup() { const Component = (await import(entry+'Checklist')).default; return render(<Component />); }
     it('initializes all nine accessible labels and exposes zero progress', async () => {
