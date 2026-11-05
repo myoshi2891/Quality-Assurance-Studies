@@ -52,9 +52,9 @@ describe('which heading the observer activates from the reading band', () => {
     const ids = inventory.groups.toc.items.map(item => item.attrs['data-target']);
     type Change = readonly [index: number, isIntersecting: boolean];
     /** 見出しを監視した NavBar を描画し、Observer の通知と現在の強調先の取得を返す。tops を渡すと見出しの位置を固定する。 */
-    const mountWithObserver = (scrollHeight = window.innerHeight * 20, tops?: Record<string, number>) => {
+    const mountWithObserver = (scrollHeight = window.innerHeight * 20, tops?: Record<string, number>, hash = '') => {
         // 先行テストのリンク操作で残ったハッシュがマウント時の判定に使われないようにする
-        window.location.hash = '';
+        window.location.hash = hash;
         let callback: IntersectionObserverCallback;
         const observed: Element[] = [];
         const original = globalThis.IntersectionObserver;
@@ -147,6 +147,36 @@ describe('which heading the observer activates from the reading band', () => {
             nav.notify([[8, true]]);
             nav.notify([[8, false]]);
             expect(nav.current()).toBe(ids[7]);
+        } finally { nav.restore(); }
+    });
+    const setHash = (hash: string) => {
+        window.history.replaceState(null, '', hash);
+        act(() => { window.dispatchEvent(new HashChangeEvent('hashchange')); });
+    };
+    it('activates the heading named by the hash on mount', () => {
+        const nav = mountWithObserver(undefined, undefined, `#${encodeURIComponent(ids[2]!)}`);
+        try {
+            expect(nav.current()).toBe(ids[2]);
+            // 直後のスクロール中は、通過する見出しに揺れないよう保持する
+            nav.notify([[5, true]]);
+            expect(nav.current()).toBe(ids[2]);
+        } finally { nav.restore(); }
+    });
+    it('follows a hash change to another heading', () => {
+        const nav = mountWithObserver();
+        try {
+            setHash(`#${encodeURIComponent(ids[4]!)}`);
+            expect(nav.current()).toBe(ids[4]);
+        } finally { nav.restore(); }
+    });
+    it('ignores a malformed encoded hash on mount and on hash change', () => {
+        const nav = mountWithObserver(undefined, undefined, '#%E0%A4%A');
+        try {
+            expect(nav.current()).toBeUndefined();
+            nav.notify([[3, true]]);
+            expect(nav.current()).toBe(ids[3]);
+            setHash('#%E0%A4%A');
+            expect(nav.current()).toBe(ids[3]);
         } finally { nav.restore(); }
     });
     it('does not replace the final entry at the page end when a heading leaves the band', () => {
