@@ -4,11 +4,14 @@ Updated 2026-11-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 2026-11-05: SQLフレームワーク追加原本の移行（進行中）
+## 2026-11-05: ISO/IEC 9075-1:2023 SQLフレームワーク追加原本の移行
 
-- `Iso-iec-9075-1-2023-guide.html`は旧`Iso-9075-1-guide.html`とは異なる原本。`/iso-iec-9075-1-2023-guide`へ独立して移行する。
-- `tests/iso-iec-9075-1-2023-guide/fidelity.test.tsx`に315件のRedを追加。46見出し・13目次・16表・10図・SQL2例・12注記・外部22リンク・用語9件・FAQ6件・チェック9項目とCSS123ルールを固定。
-- 着手前の全体検証は9959件（209ファイル）成功。追加原本はカテゴリーごとに順次実装中。ビルド・目視確認は未実施。
+- 移行先は`/iso-iec-9075-1-2023-guide`。旧`/iso-9075-1-guide`とは別原本としてISOカテゴリーへ登録し、ナビ・E2Eを121ルートへ同期。
+- ヒーローと本文13カテゴリーを一つずつ実装・照合・個別コミット。46見出し、目次13リンク、16表の全セル、10図、SQL2例、注記12件、外部22リンク、用語9件、FAQ6件、チェック9項目、メタ情報4件を固定インベントリで出現順に照合。
+- CSS123ルールと900px境界を保持。段落余白、出典表の先頭列、SQLの行高、ヒーロー疑似要素などの共通CSS干渉を原本の計算済みCSSと比較して補正。FAQの初期open状態も照合。
+- 図1はMarkdownとHTMLで構成が異なるため、HTMLのグループ枠・不可視の配置用リンクを再構成。他9図はMarkdownから復元。全図を共有Mermaidへ渡し、実パーサー、SVGの全ノード・辺・配色・横スクロール両端を検証。
+- 対象327件、ビルド・サーバー不要のブラウザー比較32件（390/900/901/1440px×CSS読込2順序＋10図×390/1440px＋アンカー余白4幅）、対象型検査、lintが成功。全体10288件（212ファイル）が成功。ビルド未実施、目視確認はユーザー担当。
+- 原本HTML・MDを`archive/html-archive/iso/Iso-iec-9075-1-2023-guide.html`・`archive/md-archive/iso/Iso-iec-9075-1-2023-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
 
 ## 2026-11-05: ISO 29119-3の表の罫線色のレビュー修正
 
@@ -291,14 +294,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 209 ファイル・9959 tests)
+bun test             # ユニットテスト (bun test 全体, 212 ファイル・10288 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 120 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 121 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
@@ -1154,6 +1157,7 @@ bun test        # ユニットテスト成功
 | `Iso-iec-tr-29138-2-2009-guide.html` | `/iso-iec-tr-29138-2-2009-guide` | ✅ 43見出し・目次42リンク・19表・5図・YAML1件・注記13件・59 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ts-30149-2024-guide.html` | `/iso-iec-ts-30149-2024-guide` | ✅ 34見出し・目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・79 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ieee-29119-3-2021-guide.html` | `/iso-iec-ieee-29119-3-2021-guide` | ✅ 57見出し・目次16リンク・39表・12図・注記10件・理解度8問・47 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-9075-1-2023-guide.html` | `/iso-iec-9075-1-2023-guide` | ✅ 46見出し・目次13リンク・16表・10図・SQL2例・注記12件・用語9件・FAQ6件・チェック9項目・123 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -1168,7 +1172,7 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 | 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
@@ -1180,7 +1184,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 121 ルート（ガイドライブラリ index + 120 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
@@ -1329,3 +1333,13 @@ bun test        # ユニットテスト成功
 - `NavBar.tsx` / `Diagram.tsx` / `diagrams.ts` — 目次16リンク、原本SVG寸法を保つページ専用の共有Mermaidラッパー、HTML由来12図。
 - `tests/iso-iec-ieee-29119-3-2021-guide/` — 原本・カテゴリー・操作・SSR復元・SVG寸法復元・アーカイブの274契約。
 - `e2e/iso-29119-3-layout.e2e.ts` / `playwright.layout.config.ts`（`--project=iso-29119-3`） — ビルド・サーバー不要の37検証。
+
+### ISO/IEC 9075-1:2023追加原本の配置
+
+- `app/iso-iec-9075-1-2023-guide/page.tsx` / `guide.css` — ページ構成・メタデータ・原本CSSと干渉補正。
+- `Section00.tsx`〜`Section13.tsx` — ヒーローと本文13カテゴリー。
+- `NavBar.tsx` / `toc.ts` — 目次開閉、scrim、Escape、実測スクロール追従、Observer解除。
+- `Diagram.tsx` / `diagrams.ts` — HTML由来の図1とMarkdown由来の9図、共有レンダラーへの接続。
+- `CodeExample.tsx` / `Checklist.tsx` — SQL構文色と正確な改行、学習進捗・全完了表示・リセット。
+- `tests/iso-iec-9075-1-2023-guide/` — 原本照合・操作・登録・アーカイブ・対象型検査の327件。
+- `e2e/iso-iec-9075-1-2023-layout.e2e.ts` — `npm run e2e:layout -- --project=iso-iec-9075-1-2023`で32件。ビルド・サーバー不要。

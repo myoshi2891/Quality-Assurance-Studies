@@ -4,6 +4,15 @@ Updated 2026-11-05
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-05: ISO/IEC 9075-1:2023 SQLフレームワーク追加原本の移行
+
+- 移行先は`/iso-iec-9075-1-2023-guide`。旧`/iso-9075-1-guide`とは別原本としてISOカテゴリーへ登録し、ナビ・E2Eを121ルートへ同期。
+- ヒーローと本文13カテゴリーを一つずつ実装・照合・個別コミット。46見出し、目次13リンク、16表の全セル、10図、SQL2例、注記12件、外部22リンク、用語9件、FAQ6件、チェック9項目、メタ情報4件を固定インベントリで出現順に照合。
+- CSS123ルールと900px境界を保持。段落余白、出典表の先頭列、SQLの行高、ヒーロー疑似要素などの共通CSS干渉を原本の計算済みCSSと比較して補正。FAQの初期open状態も照合。
+- 図1はMarkdownとHTMLで構成が異なるため、HTMLのグループ枠・不可視の配置用リンクを再構成。他9図はMarkdownから復元。全図を共有Mermaidへ渡し、実パーサー、SVGの全ノード・辺・配色・横スクロール両端を検証。
+- 対象327件、ビルド・サーバー不要のブラウザー比較32件（390/900/901/1440px×CSS読込2順序＋10図×390/1440px＋アンカー余白4幅）、対象型検査、lintが成功。全体10288件（212ファイル）が成功。ビルド未実施、目視確認はユーザー担当。
+- 原本HTML・MDを`archive/html-archive/iso/Iso-iec-9075-1-2023-guide.html`・`archive/md-archive/iso/Iso-iec-9075-1-2023-guide.md`へ同名で移動し、Git追跡とSHA-256一致を検証。
+
 ## 2026-11-05: ISO 29119-3の表の罫線色のレビュー修正
 
 - 29119-3: 表の罫線色を`currentColor`から`revert`へ変更。原本はブラウザー既定に任せており、TS 30149と同じ扱いに統一。幅0pxの罫線で見た目は変わらない。同梱Chromiumの8件の失敗を解消し、除外や比較の緩和はしていない。
@@ -345,6 +354,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
+- `app/iso-iec-9075-1-2023-guide/page.tsx`（`guide.css`・14カテゴリー・目次13リンク・Mermaid10図・SQL2例・FAQ6件・チェック9項目。対象327件、ビルド不要のブラウザー32件成功）。
 - `app/iso-iec-ieee-29119-3-2021-guide/page.tsx`（同名CSS・`NavBar.tsx`・`Diagram.tsx`・`diagrams.ts`・17カテゴリー、目次16リンク、Mermaid12図、原本照合257件）。
 - `app/iso-iec-ts-30149-2024-guide/page.tsx`（同名CSS・`NavBar.tsx`・`Checklist.tsx`・`diagrams.ts`・17カテゴリー、目次33リンク、Mermaid11図、原本照合285件）。
 - `app/iso-iec-tr-29138-2-2009-guide/page.tsx`（同名CSS・`NavBar.tsx`・`diagrams.ts`・15本文カテゴリー、目次42リンク、Mermaid5図、原本照合263件）。
@@ -652,6 +662,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iso-iec-tr-29138-2-2009-guide.html` | `/iso-iec-tr-29138-2-2009-guide` | ✅ 43見出し・目次42リンク・19表・5図・YAML1件・注記13件・59 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ts-30149-2024-guide.html` | `/iso-iec-ts-30149-2024-guide` | ✅ 34見出し・目次33リンク・23表・11図・注記9件・理解度5問・自己点検7項目・79 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-ieee-29119-3-2021-guide.html` | `/iso-iec-ieee-29119-3-2021-guide` | ✅ 57見出し・目次16リンク・39表・12図・注記10件・理解度8問・47 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-9075-1-2023-guide.html` | `/iso-iec-9075-1-2023-guide` | ✅ 46見出し・目次13リンク・16表・10図・SQL2例・注記12件・用語9件・FAQ6件・チェック9項目・123 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30130-guide.html` | `/iso-30130-guide` | ✅ 43見出し・24表・7図・57 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27799-2025-guide.html` | `/iso-27799-2025-guide` | ✅ ダーク配色・46見出し・目次19リンク・31表・11図・12注記・外部13リンク・チェック10項目・89 CSSルール (archive/、HTML・MD両方) |
 
@@ -708,7 +719,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 | 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
@@ -722,7 +733,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 120 ルート（ガイドライブラリ index + 119 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 121 ルート（ガイドライブラリ index + 120 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（直近9959件、全体テスト・209ファイル）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
