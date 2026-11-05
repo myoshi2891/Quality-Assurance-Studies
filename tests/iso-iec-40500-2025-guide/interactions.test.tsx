@@ -24,6 +24,39 @@ describe('learning progress', () => {
 });
 describe('hierarchical TOC', () => {
     async function setup() { Object.defineProperty(window,'innerWidth',{configurable:true,value:390}); const Nav = (await import(entry+'NavBar')).default; return render(<Nav />); }
+    describe('page content behind the open mobile TOC', () => {
+        function mountMain(inert = false) {
+            const main = document.createElement('main'); main.className = 'main'; if (inert) main.setAttribute('inert',''); document.body.append(main); return main;
+        }
+        it('is inert only while the mobile TOC is open', async () => {
+            const main = mountMain();
+            try {
+                const view = await setup(), button = view.getByRole('button',{name:'目次を開閉'}); expect(main.hasAttribute('inert')).toBe(false);
+                fireEvent.click(button); expect(main.hasAttribute('inert')).toBe(true);
+                fireEvent.keyDown(document,{key:'Escape'}); expect(main.hasAttribute('inert')).toBe(false);
+            } finally { main.remove(); }
+        });
+        it('restores the prior state when closing or unmounting', async () => {
+            const alreadyInert = mountMain(true);
+            try {
+                const view = await setup(), button = view.getByRole('button',{name:'目次を開閉'});
+                fireEvent.click(button); fireEvent.click(button); expect(alreadyInert.hasAttribute('inert')).toBe(true);
+                view.unmount();
+            } finally { alreadyInert.remove(); }
+            const main = mountMain();
+            try {
+                const view = await setup(); fireEvent.click(view.getByRole('button',{name:'目次を開閉'})); expect(main.hasAttribute('inert')).toBe(true);
+                view.unmount(); expect(main.hasAttribute('inert')).toBe(false);
+            } finally { main.remove(); }
+        });
+        it('stays interactive at desktop width', async () => {
+            const main = mountMain();
+            try {
+                const view = await setup(); Object.defineProperty(window,'innerWidth',{configurable:true,value:901}); fireEvent(window,new Event('resize'));
+                fireEvent.click(view.getByRole('button',{name:'目次を開閉'})); expect(main.hasAttribute('inert')).toBe(false);
+            } finally { main.remove(); }
+        });
+    });
     it('preserves all fifty ordered anchors and their exact hierarchy', async () => {
         const view=await setup(); expect(Array.from(view.container.querySelectorAll('nav a'),n=>[n.textContent,n.getAttribute('href'),n.className])).toEqual(inventory.groups.toc.items.map(n=>[n.children[0]!,n.attrs.href,n.attrs.class??'']));
         expect(view.container.querySelectorAll('.nav-sub')).toHaveLength(10);

@@ -22,6 +22,8 @@ function correct(html: string) {
     $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_, node) => node.type === 'text' && /^\s*$/.test(node.data)).remove();
     return $;
 }
+// Reviewed source fix: the original leaked literal Markdown emphasis. Applied to the source only, so an unfixed page fails.
+const reviewed = (html: string) => html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 function tree(n: AnyNode | undefined): unknown {
     if (!n) throw new Error('Missing source element');
     if (n.type === 'text') return norm(n.data) || null;
@@ -37,12 +39,12 @@ function renderFile(file: string, development = false) {
     const Component = sourceModule(`${base}/${file}.tsx`, { development }).default as React.ComponentType;
     return correct(renderToStaticMarkup(<Component />));
 }
-const source = correct(inventory.originalBody);
+const source = correct(reviewed(inventory.originalBody));
 for (const [i, category] of inventory.sections.entries()) {
     describe(`category ${String(i).padStart(2, '0')}: ${category.name}`, () => {
         for (const development of [false, true]) it(`exact complete structure, text, attributes and order (SWC development=${development})`, () => {
             const actual = renderFile(`Section${String(i).padStart(2, '0')}`, development);
-            const expected = correct(category.html);
+            const expected = correct(reviewed(category.html));
             expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));
             // Full text also detects whitespace lost between adjacent inline elements.
             actual('.mermaid-diagram').empty(); expected('.mermaid-diagram').empty();
@@ -108,8 +110,15 @@ describe('diagram semantics', () => {
         const Component = sourceModule(`${base}/Diagram.tsx`).default as React.ComponentType<{ id: string }>;
         return load(renderToStaticMarkup(<Component id={id} />))('[role="img"]').attr('aria-label');
     };
-    for (const id of Object.keys(inventory.diagrams)) it(`${id}: retains the original accessible figure name`, () => {
-        expect(accessibleName(id)).toBe(source(`[id="${id}"]`).attr('aria-label'));
+    for (const [id, original] of Object.entries(inventory.diagrams)) it(`${id}: text alternative keeps the figure number and conveys every node, group and edge label`, () => {
+        const name = norm(accessibleName(id) ?? '');
+        expect(name.startsWith(`${source(`[id="${id}"]`).attr('aria-label')}：`)).toBe(true);
+        const labels = Array.from(original.chart.matchAll(/\["([^"\n]+)"\]|\{"([^"\n]+)"\}|\|"([^"\n]+)"\|/g), m => m[1] ?? m[2] ?? m[3] ?? '');
+        expect(labels.flatMap(label => label.split('<br/>')).map(norm).filter(part => !name.includes(part))).toEqual([]);
+    });
+    it('describes the branch outcomes of the conformance decision flow in order', () => {
+        const name = accessibleName('mermaid-diagram-5') ?? '';
+        expect(name).toMatch(/すべて満たしたか？.*いいえ.*不備を修正して再テスト.*はい.*プロセス全体を通して確認したか？.*いいえ.*一連の流れで確認.*はい.*アクセシビリティ表明を作成/);
     });
     it('passes all nine definitions to the shared renderer in source order', () => {
         const charts: string[] = [];
@@ -117,6 +126,15 @@ describe('diagram semantics', () => {
         renderToStaticMarkup(<Component />);
         const { DIAGRAMS } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string> };
         expect(charts).toEqual(Object.values(DIAGRAMS));
+    });
+});
+describe('reviewed Markdown emphasis', () => {
+    it('renders both emphases as strong without literal markers', () => {
+        const $ = load(renderToStaticMarkup(React.createElement(sourceModule(`${base}/page.tsx`).default as React.ComponentType)));
+        expect($('main').text()).not.toContain('**');
+        const strong = $('main strong').map((_, n) => norm($(n).text())).get();
+        expect(strong).toContain('「W3C が作った WCAG 2.2 を、ISO/IEC の国際標準として正式に位置づけたもの」');
+        expect(strong).toContain('ISO 規格の本文はライセンスにより転載できません。');
     });
 });
 describe('original archives', () => {
