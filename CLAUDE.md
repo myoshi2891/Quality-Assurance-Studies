@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 2.3: 2.2適合で2.0・2.1にも適合するという説明へ、4.1.1の例外を6.2の注記と同じ趣旨で追加。W3Cの「may need to continue to test and report 4.1.1」と一致を確認。
 - テスト: 補正は`review-corrections.ts`で原本側だけへ適用し、インベントリは変更せず。ブラウザー比較は追加2ノードだけを期待値へ加える。SQLフレームワークは生成テストの`renderFile('page')`を1回の遅延描画で共有し、`tests/lib/navigation-e2e-sync.test.ts`と重複するページ数の検証を削除。
 - 検証: ISO 40500対象327件、SQLフレームワーク対象354件、ブラウザー32件、lint、全体10645件（215ファイル）が成功。本番ビルド、目視確認は未実施。
-- 残課題: `Section10.tsx`の誤解3の「2.2 に適合すれば 2.0 / 2.1 にも適合」にも同じ4.1.1の留保がない（指摘の範囲外のため未変更）。
+- 追補: `Section10.tsx`の誤解3にも2.3と同じ4.1.1の留保を追加。補正は`review-corrections.ts`で原本側だけへ適用し、文言は`COMPATIBILITY_EXCEPTION`を再利用。ISO 40500対象329件、ブラウザー32件、lint、全体10647件（215ファイル）が成功。本番ビルド、目視確認は未実施。
 
 ## 2026-11-05: SQLフレームワークの図の名前とポート解放手順のレビュー修正
 
@@ -366,7 +366,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 215 ファイル・10645 tests)
+bun test             # ユニットテスト (bun test 全体, 215 ファイル・10647 tests)
 ```
 
 ### E2E テスト (Playwright)
