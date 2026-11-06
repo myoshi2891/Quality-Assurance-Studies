@@ -183,7 +183,9 @@ if ! added=$(set -o pipefail; git diff --cached --text | tr '\000' ' ' | awk '/^
   exit 1
 fi
 # grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
-if paths=$(printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])/(User[s]|hom[e]|op[t]|sr[v]|workspac[e])/|C:\\User[s]\\)[^[:space:]"'\''`]*' | sed -E 's/^[^/C]*//'); then
+# pipefail で grep の失敗を sed の終了ステータスに隠さず、下の rc 判定へ渡す
+# file:// URI は境界の文字クラスを緩めず接頭辞として許可し（https URL のパス部分は対象外のまま）、sed で先頭を単一の / に揃えてプレースホルダー判定へ渡す
+if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(User[s]|hom[e]|op[t]|sr[v]|workspac[e])/|C:\\User[s]\\)[^[:space:]"'\''`]*' | sed -E -e 's/^[^/C]*//' -e 's#^//(localhost)?##'); then
   rc=0
 else
   rc=$?
