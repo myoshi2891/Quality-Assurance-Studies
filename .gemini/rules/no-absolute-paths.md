@@ -62,7 +62,7 @@ if ! added=$(set -o pipefail; git diff --cached --text | tr '\000' ' ' | awk '/^
   exit 1
 fi
 # grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
-if paths=$(printf '%s\n' "$added" | grep -oE '(/User[s]/|/hom[e]/|C:\\User[s]\\|(^|[^A-Za-z0-9._~/-])/(op[t]|sr[v]|workspac[e])/)[^[:space:]"'\''`]*'); then
+if paths=$(printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])/(User[s]|hom[e]|op[t]|sr[v]|workspac[e])/|C:\\User[s]\\)[^[:space:]"'\''`]*' | sed -E 's/^[^/C]*//'); then
   rc=0
 else
   rc=$?
