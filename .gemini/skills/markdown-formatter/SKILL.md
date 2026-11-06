@@ -185,6 +185,7 @@ fi
 # grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
 # pipefail で grep の失敗を sed の終了ステータスに隠さず、下の rc 判定へ渡す
 # file:// URI は境界の文字クラスを緩めず接頭辞として許可し（https URL のパス部分は対象外のまま）、sed で先頭を単一の / に揃えてプレースホルダー判定へ渡す
+# Windows の file:// URI はドライブ文字の前に / が付いた形へ揃うため、プレースホルダー判定でもその形を認める
 # 別のパス要素より下にあるユーザーディレクトリ（WSL のドライブマウントや外部ボリューム配下など）も検出する。起点は境界の直後に限り、途中の要素は空にできないため、URL のパス部分と相対パスは対象外のまま
 # opt / srv / workspace は Homebrew の共有ディレクトリなどを誤検出しないよう、ルート直下だけを対象にする
 # Windows のドライブは C: に限らず、大文字・小文字の全ドライブ文字を検出する。ドライブ文字で始まる一致を消さないよう、sed は境界の 1 文字と file:// だけを外す
@@ -203,8 +204,8 @@ if [ "$rc" -gt 1 ]; then
 fi
 if [ "$rc" -eq 0 ]; then
   if ! hits=$(printf '%s\n' "$paths" | awk '/(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
-         !/^(\/User[s]\/|\/hom[e]\/|[A-Za-z]:\\User[s]\\)johndoe([\/\\]|$)/ { print; next }
-         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|[A-Za-z]:\\User[s]\\)johndoe/, ""); if ($0 ~ /[\/\\](User[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
+         !/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/User[s]\/|[A-Za-z]:\\User[s]\\)johndoe([\/\\]|$)/ { print; next }
+         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/User[s]\/|[A-Za-z]:\\User[s]\\)johndoe/, ""); if ($0 ~ /[\/\\](User[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
          '); then
     echo "placeholder filter failed — abort commit" >&2
     exit 1
