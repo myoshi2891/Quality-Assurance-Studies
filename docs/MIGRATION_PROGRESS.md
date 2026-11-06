@@ -9,6 +9,13 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-06: PII検査とカバレッジダッシュボードのレビュー修正
+
+- PII検査: `.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`・`.gemini/skills/markdown-formatter/SKILL.md`の`paths`抽出へ`pipefail`を追加し、grepの失敗がsedに隠れないよう変更。境界の文字クラスは維持したまま`file://`（`localhost`を含む）を接頭辞として検出し、https URLのパス部分は対象外のまま。
+- ダッシュボード: Pagesの注記をISO 40500対象329件・SQLフレームワーク対象354件・全体10647件（215ファイル）へ同期。
+- 検証: 使い捨てリポジトリの9ケースとgrep異常終了を3文書で確認。ダッシュボードテスト15件、全体10647件（215ファイル）、lint、変更Markdownのlintが成功。本番ビルド、目視確認は未実施。
+- 対象外: 別実装の`.claude`・`.agents`のformatter、docs-sync、`tdd-mandatory-cycle.md`、`migration-progress-sync.md`は未変更。formatterはUsers・homeの`file://`を検出済みで、optは未検出。
+
 ## 2026-11-06: ISO 40500の図5・互換性の説明とSQLフレームワークのテスト整理のレビュー修正
 
 - 図5: 新規9基準の見出しに対して7基準しかなかったため、`2.4.12`を「見た目・UIの修正が中心」、`3.3.9`を「フロー・認証設計に影響」へ追加し、アクセシブル名も同期。
@@ -343,7 +350,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `fix(iso-40500): replace deprecated word-break in Mermaid labels` |
+| 最新コミット内容 | `docs(coverage): sync ISO 40500 and SQL framework verification counts` |
 | 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10647件（215ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
