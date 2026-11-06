@@ -343,7 +343,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `chore(docs): sync ISO 9075 diagram name review fixes` |
+| 最新コミット内容 | `fix(iso-40500): replace deprecated word-break in Mermaid labels` |
 | 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10647件（215ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
@@ -1952,7 +1952,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 122 ルート（ガイドライブラリ index + 121 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体10618件（215ファイル）すべて成功。ISO 40500対象313件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象341件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体10647件（215ファイル）すべて成功。ISO 40500対象329件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
