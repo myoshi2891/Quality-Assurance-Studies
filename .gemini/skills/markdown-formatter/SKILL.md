@@ -187,7 +187,12 @@ fi
 # file:// URI は境界の文字クラスを緩めず接頭辞として許可し（https URL のパス部分は対象外のまま）、sed で先頭を単一の / に揃えてプレースホルダー判定へ渡す
 # 別のパス要素より下にあるユーザーディレクトリ（WSL のドライブマウントや外部ボリューム配下など）も検出する。起点は境界の直後に限り、途中の要素は空にできないため、URL のパス部分と相対パスは対象外のまま
 # opt / srv / workspace は Homebrew の共有ディレクトリなどを誤検出しないよう、ルート直下だけを対象にする
-if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(([^/[:space:]"'\''`<>]+/)*(User[s]|hom[e])|op[t]|sr[v]|workspac[e])/|C:\\([^\\[:space:]"'\''`<>]+\\)*User[s]\\)[^[:space:]"'\''`]*' | sed -E -e 's/^[^/C]*//' -e 's#^//(localhost)?##'); then
+# Windows のドライブは C: に限らず、大文字・小文字の全ドライブ文字を検出する。ドライブ文字で始まる一致を消さないよう、sed は境界の 1 文字と file:// だけを外す
+# 空白を含むパス要素も検出する。空白は要素の内側だけに許可し、2 語目以降は ":" を含められない（同じ行の別のドライブや URL スキームまで 1 要素にしないため）。区切り文字が続かない語は末尾の文章とみなして取り込まない
+seg='[^/[:space:]"'\''`<>]+( +[^/:[:space:]"'\''`<>]+)*'
+win='[^\\[:space:]"'\''`<>]+( +[^\\:[:space:]"'\''`<>]+)*'
+word='[^/\\:[:space:]"'\''`<>]+'
+if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*(User[s]|hom[e])|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*User[s]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
   rc=0
 else
   rc=$?
@@ -198,8 +203,8 @@ if [ "$rc" -gt 1 ]; then
 fi
 if [ "$rc" -eq 0 ]; then
   if ! hits=$(printf '%s\n' "$paths" | awk '/(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
-         !/^(\/User[s]\/|\/hom[e]\/|C:\\User[s]\\)johndoe([\/\\]|$)/ { print; next }
-         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|C:\\User[s]\\)johndoe/, ""); if ($0 ~ /[\/\\](User[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
+         !/^(\/User[s]\/|\/hom[e]\/|[A-Za-z]:\\User[s]\\)johndoe([\/\\]|$)/ { print; next }
+         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|[A-Za-z]:\\User[s]\\)johndoe/, ""); if ($0 ~ /[\/\\](User[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
          '); then
     echo "placeholder filter failed — abort commit" >&2
     exit 1
