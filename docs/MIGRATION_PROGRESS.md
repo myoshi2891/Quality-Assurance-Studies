@@ -13,8 +13,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - PII検査: `.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`・`.gemini/skills/markdown-formatter/SKILL.md`の`paths`抽出で、WSLのドライブマウントや外部ボリューム配下など、別のパス要素より下にあるUsers・homeを検出。Windowsの`C:\`配下も同様。パス要素は空にできず、起点を境界の直後に限るため、URLのパス部分と相対パスは対象外のまま。
 - 除外: opt・srv・workspaceはHomebrewなどの共有ディレクトリを誤検出しないようルート直下のみ。ネストしたプレースホルダーは除外せず、先頭のプレースホルダーより下に別のユーザーディレクトリがあるパスも検出。
-- 検証: 使い捨てリポジトリの43ケースを3文書で確認し、修正前は15件失敗。追跡ファイル全体の新旧比較で新規ヒット0件・消失0件、120万バイトの1行も完了。変更Markdownのlint成功。全体テスト、本番ビルド、目視確認は未実施。
-- 対象外: `tdd-mandatory-cycle.md`、`migration-progress-sync.md`、`.claude`のformatter、docs-sync、html-to-nextjs-migrationは境界なしのマッチャーで、ネストしたパスを検出済みのため未変更。Windowsのネストは未検出のまま。
+- Windows: `tdd-mandatory-cycle.md`、`migration-progress-sync.md`（2ブロック）、`.claude`・`.agents`のformatter、docs-syncはPOSIXのネストを検出済みだが、ドライブ直下のUsersしか見ていなかったため、ドライブ直下にパス要素を許可。`html-to-nextjs-migration`は汎用ルールで検出済みのため未変更。
+- 検証: 使い捨てリポジトリの43ケースを3文書で確認し、修正前は15件失敗。他の9ブロックもスクリプト全体を抽出して9ケースを実行し、修正前は7ブロックが3件ずつ失敗、修正後は全件成功。プレースホルダーの扱いは変更なし。追跡ファイル全体の新旧比較で新規ヒット0件・消失0件、120万バイトの1行も完了。変更Markdownのlint成功。全体テスト、本番ビルド、目視確認は未実施。
+- 残課題: `no-absolute-paths.md`の3文書はWindowsのドライブが`C:`固定のままで、他のドライブの`\`区切りは検出しない（今回の指摘の範囲外で、ネストの有無によらない既存の挙動）。
 
 ## 2026-11-06: PII検査とカバレッジダッシュボードのレビュー修正
 
@@ -357,7 +358,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `fix(rules): detect user directories nested under absolute paths` |
+| 最新コミット内容 | `fix(rules): detect Windows user directories nested under drive paths` |
 | 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10647件（215ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
