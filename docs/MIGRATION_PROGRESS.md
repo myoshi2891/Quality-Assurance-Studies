@@ -9,6 +9,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-06: PII検査のプレースホルダー除外とポート停止手順のレビュー修正
+
+- STRIPPED走査: `.claude`・`.agents`の`docs-sync`・`markdown-formatter`計4文書で、ドライブ配下にネストした`Users`のプレースホルダーを除去。途中の要素はキャプチャして残し、手前に実ユーザーのパスがあれば検出を続ける。除去で`..`が隠れないよう、TRAVERSALも同じネスト形式へ拡張。
+- 自己一致: sed行を編集するとルール側の検査がコンテナアクションの作業ルートの記述を検出したため、`workspac[e]`と分割する表記へ変更。正規表現の意味は変わらず、CI作業ルートの除外も確認済み。
+- awkフィルター: `.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`・`.gemini/skills/markdown-formatter/SKILL.md`で、Windowsの`file://` URIを揃えた形（ドライブ文字の前に`/`が付く）のプレースホルダーを除外。`..`の検出を先に行う順序と、プレースホルダーより下のユーザーディレクトリの検出は維持。
+- ポート停止: `css-cache-reset.md`を`CLAUDE.md`と同じ、LISTENの確認→PIDの確認→そのPIDだけ停止の手順へ変更。Gemini側に残っていた`lsof -ti:3000`も同時に解消。`make css-reset`はPIDの確認なしで停止するため、説明文へ明記。`Makefile`は変更なし。
+- 検証: 7文書それぞれから検査ブロックを抽出し、一時リポジトリの実差分で計85ケースが成功（修正前のHEADは旧11ケース版で計21件失敗）。各複製の一致、変更した全Markdownのlint、各コミット直前の両系統のPII検査が成功。文書のみの変更のため、全体テスト、本番ビルド、目視確認は未実施。
+- 残課題: awk側は`Users`がドライブ直下にある形だけを除外するため、ネストしたWindowsのプレースホルダーはコミットが止まる側で検出する（STRIPPED走査とは挙動が異なる）。指摘の範囲外のため未変更。
+
 ## 2026-11-06: PII検査の全ドライブ・空白対応と最新HEADのレビュー修正
 
 - ドライブ: `.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`・`.gemini/skills/markdown-formatter/SKILL.md`のgrep・awkを全ドライブ文字へ拡張し、プレースホルダーの除外とネストの検出も同様に適用。`sed`の`^[^/C]*`は`C`を含まないパスを空文字にして検出を消すため、境界と`file://`だけを外す形へ変更。
@@ -365,8 +374,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `099baf50` — fix(rules): detect any Windows drive and paths containing spaces |
-| 最新コミット内容 | `fix(rules): detect any Windows drive and paths containing spaces` |
+| 最新 HEAD | `9246538a` — fix(rules): strip nested Windows placeholder paths in PII scan |
+| 最新コミット内容 | `fix(rules): strip nested Windows placeholder paths in PII scan` |
 | 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10647件（215ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
