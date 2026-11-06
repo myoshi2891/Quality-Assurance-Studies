@@ -64,7 +64,9 @@ fi
 # grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
 # pipefail で grep の失敗を sed の終了ステータスに隠さず、下の rc 判定へ渡す
 # file:// URI は境界の文字クラスを緩めず接頭辞として許可し（https URL のパス部分は対象外のまま）、sed で先頭を単一の / に揃えてプレースホルダー判定へ渡す
-if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(User[s]|hom[e]|op[t]|sr[v]|workspac[e])/|C:\\User[s]\\)[^[:space:]"'\''`]*' | sed -E -e 's/^[^/C]*//' -e 's#^//(localhost)?##'); then
+# 別のパス要素より下にあるユーザーディレクトリ（WSL のドライブマウントや外部ボリューム配下など）も検出する。起点は境界の直後に限り、途中の要素は空にできないため、URL のパス部分と相対パスは対象外のまま
+# opt / srv / workspace は Homebrew の共有ディレクトリなどを誤検出しないよう、ルート直下だけを対象にする
+if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(([^/[:space:]"'\''`<>]+/)*(User[s]|hom[e])|op[t]|sr[v]|workspac[e])/|C:\\([^\\[:space:]"'\''`<>]+\\)*User[s]\\)[^[:space:]"'\''`]*' | sed -E -e 's/^[^/C]*//' -e 's#^//(localhost)?##'); then
   rc=0
 else
   rc=$?
@@ -75,7 +77,9 @@ if [ "$rc" -gt 1 ]; then
 fi
 if [ "$rc" -eq 0 ]; then
   if ! hits=$(printf '%s\n' "$paths" | awk '/(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
-         !/^(\/User[s]\/|\/hom[e]\/|C:\\User[s]\\)johndoe([\/\\]|$)/'); then
+         !/^(\/User[s]\/|\/hom[e]\/|C:\\User[s]\\)johndoe([\/\\]|$)/ { print; next }
+         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|C:\\User[s]\\)johndoe/, ""); if ($0 ~ /[\/\\](User[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
+         '); then
     echo "placeholder filter failed — abort commit" >&2
     exit 1
   fi
