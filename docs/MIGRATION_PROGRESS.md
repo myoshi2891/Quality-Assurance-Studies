@@ -9,13 +9,21 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-06: PII検査の全ドライブ・空白対応と最新HEADのレビュー修正
+
+- ドライブ: `.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`・`.gemini/skills/markdown-formatter/SKILL.md`のgrep・awkを全ドライブ文字へ拡張し、プレースホルダーの除外とネストの検出も同様に適用。`sed`の`^[^/C]*`は`C`を含まないパスを空文字にして検出を消すため、境界と`file://`だけを外す形へ変更。
+- 空白: POSIX・Windowsのパス要素で内側の空白を許可。2語目以降は`:`を含められず、同じ行の別ドライブやURLスキームを1要素にしない。末尾は区切り文字が続く語だけ取り込み、後続の文章や別パスを巻き込まない。
+- `現在地`: `最新 HEAD`は`migration-progress-sync.md`どおり実値へ戻した。コミットは自身のハッシュを含められないため、値は直前のコード変更のコミットを指す。
+- 検証: 検査ブロック全体を通す57ケースが、BSD grep・ugrepの両方で成功（修正前は22件失敗）。3文書の検査ブロックはバイト単位で一致。追跡中の文書約9.9万行で新旧の検出結果は完全に一致。Markdown lint、全体10647件（215ファイル）が成功。本番ビルド、目視確認は未実施。
+- 残課題: 大文字・小文字が異なる`Users`とUNCパスはこの検査の対象外。`migration-progress-sync.md`など別形式の検査は今回の指摘の範囲外で、Windowsの空白を含むパス要素を検出しない。
+
 ## 2026-11-06: PII検査のネストしたユーザーディレクトリ検出
 
 - PII検査: `.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`・`.gemini/skills/markdown-formatter/SKILL.md`の`paths`抽出で、WSLのドライブマウントや外部ボリューム配下など、別のパス要素より下にあるUsers・homeを検出。Windowsの`C:\`配下も同様。パス要素は空にできず、起点を境界の直後に限るため、URLのパス部分と相対パスは対象外のまま。
 - 除外: opt・srv・workspaceはHomebrewなどの共有ディレクトリを誤検出しないようルート直下のみ。ネストしたプレースホルダーは除外せず、先頭のプレースホルダーより下に別のユーザーディレクトリがあるパスも検出。
 - Windows: `tdd-mandatory-cycle.md`、`migration-progress-sync.md`（2ブロック）、`.claude`・`.agents`のformatter、docs-syncはPOSIXのネストを検出済みだが、ドライブ直下のUsersしか見ていなかったため、ドライブ直下にパス要素を許可。`html-to-nextjs-migration`は汎用ルールで検出済みのため未変更。
 - 検証: 使い捨てリポジトリの43ケースを3文書で確認し、修正前は15件失敗。他の9ブロックもスクリプト全体を抽出して9ケースを実行し、修正前は7ブロックが3件ずつ失敗、修正後は全件成功。プレースホルダーの扱いは変更なし。追跡ファイル全体の新旧比較で新規ヒット0件・消失0件、120万バイトの1行も完了。変更Markdownのlint成功。全体テスト、本番ビルド、目視確認は未実施。
-- 残課題: `no-absolute-paths.md`の3文書はWindowsのドライブが`C:`固定のままで、他のドライブの`\`区切りは検出しない（今回の指摘の範囲外で、ネストの有無によらない既存の挙動）。
+- 残課題（解消済み）: `no-absolute-paths.md`の3文書のドライブが`C:`固定だった点は、次の項目「PII検査の全ドライブ・空白対応」で解消。
 
 ## 2026-11-06: PII検査とカバレッジダッシュボードのレビュー修正
 
@@ -357,8 +365,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | 固定値は記載しない。再開時に `git rev-parse --short HEAD` と `git log -1 --oneline` で現在の HEAD を確認する |
-| 最新コミット内容 | `fix(rules): detect Windows user directories nested under drive paths` |
+| 最新 HEAD | `099baf50` — fix(rules): detect any Windows drive and paths containing spaces |
+| 最新コミット内容 | `fix(rules): detect any Windows drive and paths containing spaces` |
 | 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10647件（215ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
