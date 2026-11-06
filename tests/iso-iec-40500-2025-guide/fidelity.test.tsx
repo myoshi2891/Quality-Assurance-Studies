@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { COMPATIBILITY_EXCEPTION, COMPATIBILITY_SENTENCE_END, DIAGRAM_NODE_ADDITIONS, SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections, applyReviewDiagramCorrections } from './review-corrections';
+import { COMPATIBILITY_EXCEPTION, COMPATIBILITY_QA_CLAIM_END, COMPATIBILITY_SENTENCE_END, DIAGRAM_NODE_ADDITIONS, SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections, applyReviewDiagramCorrections } from './review-corrections';
 const base = 'app/iso-iec-40500-2025-guide';
 const scope = '.wcag-40500-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -148,6 +148,12 @@ describe('reviewed compatibility claim', () => {
         expect(norm(claim)).toContain('WCAG 2.0 と 2.1 にも適合します');
         expect(claim).toContain(COMPATIBILITY_EXCEPTION);
         expect(norm(renderFile('Section07')('blockquote.callout').text())).toContain('引き続き 4.1.1 の試験と報告が求められることがあります');
+    });
+    it('applies to the Q&A claim in the original source exactly once', () => expect(inventory.originalBody.split(COMPATIBILITY_QA_CLAIM_END)).toHaveLength(2));
+    it('repeats the same 4.1.1 exception in the Q&A answer that makes the same claim', () => {
+        const row = renderFile('Section10')('tbody tr').filter((_, tr) => load(tr)('td').first().text() === '3');
+        expect(row).toHaveLength(1);
+        expect(norm(row.find('td').last().text())).toBe(`2.2 に適合すれば 2.0 / 2.1 にも適合。${COMPATIBILITY_EXCEPTION}`);
     });
 });
 const TABLE_REGIONS = [
