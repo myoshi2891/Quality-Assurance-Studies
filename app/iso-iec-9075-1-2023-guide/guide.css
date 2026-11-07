@@ -749,7 +749,7 @@
 .sql-framework-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
 .sql-framework-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
 .sql-framework-page .mermaid-wrapper foreignObject { overflow: visible !important; }
-.sql-framework-page .mermaid-wrapper foreignObject p, .sql-framework-page .mermaid-wrapper foreignObject span, .sql-framework-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; word-break: break-word !important; }
+.sql-framework-page .mermaid-wrapper foreignObject p, .sql-framework-page .mermaid-wrapper foreignObject span, .sql-framework-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; overflow-wrap: anywhere !important; }
 .sql-framework-page *::-webkit-scrollbar { width: 6px; height: 6px; }
 .sql-framework-page *::-webkit-scrollbar-track { background: transparent; }
 .sql-framework-page *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
