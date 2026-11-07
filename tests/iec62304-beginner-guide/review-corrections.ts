@@ -21,7 +21,7 @@ export const FDA_URL = 'https://www.fda.gov/regulatory-information/search-fda-gu
 export const FDA_SOURCE = 'FDA: Content of Premarket Submissions for Device Software Functions（2023年6月）';
 export const FDA_SOURCE_DETAIL = '該当する市販前申請の Basic / Enhanced ドキュメンテーションレベル、2005年ガイダンスの置き換え';
 const FDA_LINK = `<a href="${FDA_URL}">${FDA_URL}</a>`;
-const FDA_ROW = `<tr class="odd"><td>${FDA_SOURCE}</td><td>${FDA_SOURCE_DETAIL}</td><td>${FDA_LINK}</td></tr>`;
+const FDA_ROW = `<tr class="odd"><td>${FDA_SOURCE}</td><td>${FDA_SOURCE_DETAIL}</td><td> ${FDA_LINK} </td></tr>`;
 // 20.1 の JFMDA の行の次へ追加する。外部リンクの一覧でも同じ位置に入る。
 const LAST_PUBLIC_SOURCE_ROW = /c483cd75448d9aa162fd6d5d6657db05\.pdf<\/a>\s*<\/td>\s*<\/tr>/;
 export const withFdaReference = (items: readonly string[]) => {

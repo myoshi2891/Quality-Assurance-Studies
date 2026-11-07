@@ -148,8 +148,8 @@ describe('review corrections',()=>{
         expect(text()).not.toContain('確率で評価するよりも');
     });
     it('sections 6 and 18 describe the Basic and Enhanced documentation levels',()=>{
-        expect(text()).toContain(`${FDA_CLASS_LABEL} ${FDA_CLASS_TEXT}`);
-        expect(text()).toContain(`${FDA_MISTAKE_LABEL} ${FDA_MISTAKE_TEXT}`);
+        const $=render('page');
+        for(const [label,detail] of [[FDA_CLASS_LABEL,FDA_CLASS_TEXT],[FDA_MISTAKE_LABEL,FDA_MISTAKE_TEXT]] as const) expect(norm($(`td:contains("${label}")`).closest('tr').text())).toContain(detail);
         expect(text()).not.toContain('FDA の Level of Concern');
     });
     it('section 20.1 cites the FDA guidance and scopes the IEC exclusion to the medical device',()=>{
