@@ -85,6 +85,7 @@ describe('assembled source inventory', () => {
     for(const development of [false,true]) it(`complete page DOM and text, SWC development=${development}`,()=>{
         const $=render('page',development);
         expect(tree($('main')[0]!)).toEqual(tree(expected('main')[0]!));
+        expect(tree($('.sidebar')[0]!)).toEqual(tree(expected('.sidebar')[0]!));
         $('.mermaid-diagram').empty(); const ref=source(inventory.originalBody); ref('.mermaid-diagram').empty();
         expect(norm($('main').text())).toBe(norm(ref('main').text()));
         const ids=$('[id]').map((_,n)=>$(n).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
