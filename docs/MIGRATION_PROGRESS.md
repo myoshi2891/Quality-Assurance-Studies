@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-11-07
+Updated 2026-11-08
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -8,6 +8,13 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 > **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 124 ルート = ガイドライブラリ index + 123 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-11-08: ISO/IEC 19770-1ガイドのレビュー修正
+
+- 図: `Diagram.tsx`の「図 N」だけだった名前を、全10図とも主題・全ノード・グループ・辺ラベルを示す文章へ変更。図8は①〜⑧の順序と⑧から③へ戻る流れを含む。図5の矢印のない点線は「関連する」と表現し、向きを示さない。
+- 本文: `Section07.tsx`の入れ子の`strong`を解消し、適用宣言書と15のプロセス領域だけを強調。`Section13.tsx`のQ1に残ったMarkdownの`**`を`<strong>`へ変更。
+- テスト: 補正は`tests/iso-19770-1-guide/review-corrections.ts`で原本側だけへ適用し、インベントリとアーカイブは変更せず、この差分を原本からの逸脱として記録する。ブラウザー比較も補正後の原本を基準にする。補正の空振りを防ぐため、補正後の原本に入れ子の`strong`と`**`がないことも検証。
+- 検証: 対象275件、ブラウザー34件、対象のTypeScript、lint、Markdown lint、全体11711件（222ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
 
 ## 2026-11-07: IEC 62304追加原稿のレビュー修正
 
@@ -423,10 +430,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `d2b8e707` — feat(iec62304): make process and pitfall tables keyboard-operable named regions |
-| 最新コミット内容 | `feat(iec62304): make process and pitfall tables keyboard-operable named regions` |
+| 最新 HEAD | `db4d4903` — fix(iso-19770-1): describe all diagrams and correct reviewed emphasis |
+| 最新コミット内容 | `fix(iso-19770-1): describe all diagrams and correct reviewed emphasis` |
 | 次の作業 | `/iso-19770-1-guide`の目視確認（ユーザー担当）。`/iec62304-beginner-guide`の目視確認（ユーザー担当）。`/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | IEC 62304追加原稿対象323件・Chrome45件・型検査・lint・Markdown lint成功。全体11697件（222ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | ISO 19770-1対象275件・Chrome34件・型検査・lint・Markdown lint成功。全体11711件（222ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -2034,7 +2041,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 124 ルート（ガイドライブラリ index + 123 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体11697件（222ファイル）すべて成功。ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体11711件（222ファイル）すべて成功。ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。

@@ -1,8 +1,15 @@
 # CLAUDE.md
 
-Updated 2026-11-07
+Updated 2026-11-08
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-08: ISO/IEC 19770-1ガイドのレビュー修正
+
+- 図: `Diagram.tsx`の「図 N」だけだった名前を、全10図とも主題・全ノード・グループ・辺ラベルを示す文章へ変更。図8は①〜⑧の順序と⑧から③へ戻る流れを含む。図5の矢印のない点線は「関連する」と表現し、向きを示さない。
+- 本文: `Section07.tsx`の入れ子の`strong`を解消し、適用宣言書と15のプロセス領域だけを強調。`Section13.tsx`のQ1に残ったMarkdownの`**`を`<strong>`へ変更。
+- テスト: 補正は`tests/iso-19770-1-guide/review-corrections.ts`で原本側だけへ適用し、インベントリとアーカイブは変更せず、この差分を原本からの逸脱として記録する。ブラウザー比較も補正後の原本を基準にする。補正の空振りを防ぐため、補正後の原本に入れ子の`strong`と`**`がないことも検証。
+- 検証: 対象275件、ブラウザー34件、対象のTypeScript、lint、Markdown lint、全体11711件（222ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
 
 ## 2026-11-07: IEC 62304追加原稿のレビュー修正
 
@@ -415,7 +422,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 222 ファイル・11697 tests)
+bun test             # ユニットテスト (bun test 全体, 222 ファイル・11711 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -953,7 +960,7 @@ Next.js App Router 構成:
 - `app/iso-19770-1-guide/guide.css` — ISO/IEC 19770-1のカテゴリー別移行
 - `app/iso-19770-1-guide/page.tsx` — ISO/IEC 19770-1のカテゴリー別移行
 - `app/iso-19770-1-guide/toc.ts` — ISO/IEC 19770-1のカテゴリー別移行
-- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ261件
+- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ275件
 - `e2e/iso-19770-1-layout.e2e.ts` — 原本CSS・実SVG・回答・アンカー34件（`--project=iso-19770-1`）
 - `app/iso-19770-5-guide/page.tsx` / `iso-19770-5-guide.css` — ITAM用語ガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section12.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次と背景操作、`Checklist.tsx`で8項目の進捗、`diagrams.ts`で9図を管理。
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
