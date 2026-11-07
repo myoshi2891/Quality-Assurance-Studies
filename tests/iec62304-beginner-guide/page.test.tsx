@@ -6,7 +6,6 @@ import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
-import mermaid from 'mermaid';
 import inventory from '../../docs/migration-inventory/iec62304-beginner-guide.json';
 import { sourceModule } from '../helpers/source-module';
 const base = 'app/iec62304-beginner-guide';
@@ -62,6 +61,8 @@ describe('source diagrams', () => {
         const C=sourceModule(`${base}/Diagram.tsx`,{onMermaidChart:chart=>charts.push(chart)}).default as React.ComponentType<{id:string}>;
         renderToStaticMarkup(<C id={diagram.id}/>);
         expect(charts).toHaveLength(1);
+        const entry: string = 'mermaid/dist/mermaid.esm.mjs';
+        const mermaid = (await import(entry)).default;
         await expect(mermaid.parse(charts[0]!)).resolves.toBeTruthy();
         const chart=charts[0]!;
         for(const node of diagram.nodes) expect(chart).toContain(node.shape==='polygon' ? `${node.id}{"${node.label}"}` : `${node.id}["${node.label}"]`);
