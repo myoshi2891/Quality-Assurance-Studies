@@ -917,7 +917,7 @@ Appium は Node.js `^20.19.0 || ^22.12.0 || >=24.0.0` と npm 10 以上を動作
 **対処**: CSS 変更後は必ずキャッシュを削除して dev サーバーを再起動する。
 
 ```bash
-make css-reset   # .next 削除 + dev サーバー再起動（推奨）
+make css-reset   # .next 削除 + dev サーバー再起動（推奨。実行前に `lsof -iTCP:3000 -sTCP:LISTEN` でポート 3000 の LISTEN プロセスが dev サーバーであることを確認する）
 # または手動で:
 rm -rf .next && bun run dev
 ```
