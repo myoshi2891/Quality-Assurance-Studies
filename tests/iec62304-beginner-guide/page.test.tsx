@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iec62304-beginner-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { CLASS_SUMMARY_NOTE, PROCESS_ORDER_NOTE, applyReviewCorrections } from './review-corrections';
+import { CLASS_SUMMARY_NOTE, FDA_CLASS_LABEL, FDA_CLASS_TEXT, FDA_MISTAKE_LABEL, FDA_MISTAKE_TEXT, FDA_SOURCE, FDA_SOURCE_DETAIL, FDA_URL, IEC_SCOPE_REVIEWED, PROCESS_ORDER_NOTE, RISK_REVIEWED_PLAIN, applyReviewCorrections, withFdaReference } from './review-corrections';
 const base = 'app/iec62304-beginner-guide';
 const scope = '.iec62304-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -117,8 +117,9 @@ describe('assembled source inventory', () => {
     const page=()=>cached??=render('page');
     const expected=source(inventory.originalBody);
     for(const [name,group] of Object.entries(inventory.groups)) {
-        it(`${name}: exact ordered count`,()=>expect(page()(group.selector)).toHaveLength(group.items.length));
-        group.items.forEach((html,i)=>it(`${name} ${i}: complete original element`,()=>expect(tree(page()(group.selector)[i]!)).toEqual(tree(source(html)('body').children()[0]!))));
+        const items=name==='references'?withFdaReference(group.items):group.items;
+        it(`${name}: exact ordered count`,()=>expect(page()(group.selector)).toHaveLength(items.length));
+        items.forEach((html,i)=>it(`${name} ${i}: complete original element`,()=>expect(tree(page()(group.selector)[i]!)).toEqual(tree(source(html)('body').children()[0]!))));
     }
     for(const development of [false,true]) it(`complete page DOM and text, SWC development=${development}`,()=>{
         const $=render('page',development);
@@ -131,6 +132,33 @@ describe('assembled source inventory', () => {
         $('a[href^="http"]').each((_,n)=>{expect($(n).attr('rel')).toBe('noopener noreferrer');expect($(n).attr('target')).toBe('_blank');});
         const entry=readFileSync(`${base}/page.tsx`,'utf8'); expect(entry).toContain("import './guide.css'"); expect(entry).toContain('noto-sans-jp-800.css');
         expect(sourceModule(`${base}/page.tsx`).metadata).toMatchObject({title:inventory.title});
+    });
+});
+describe('review corrections',()=>{
+    const text=()=>norm(render('page')('main').text());
+    it('every correction applies to the original body',()=>{
+        const corrected=applyReviewCorrections(inventory.originalBody);
+        for(const value of [FDA_CLASS_LABEL,FDA_CLASS_TEXT,FDA_MISTAKE_LABEL,FDA_MISTAKE_TEXT,FDA_SOURCE,FDA_SOURCE_DETAIL,IEC_SCOPE_REVIEWED,RISK_REVIEWED_PLAIN.replace('深刻度中心の分析','<strong>深刻度中心の分析</strong>')]) expect(corrected).toContain(value);
+        expect(corrected.match(new RegExp(FDA_URL,'g'))).toHaveLength(2);
+    });
+    it('9.2 separates software failure probability from the probability of harm',()=>{
+        const $=render('page'),paragraph=$('h3[id^="92-"]').nextAll('p').first();
+        expect(paragraph.find('strong strong')).toHaveLength(0);
+        expect(norm(paragraph.text())).toContain(RISK_REVIEWED_PLAIN);
+        expect(text()).not.toContain('確率で評価するよりも');
+    });
+    it('sections 6 and 18 describe the Basic and Enhanced documentation levels',()=>{
+        expect(text()).toContain(`${FDA_CLASS_LABEL} ${FDA_CLASS_TEXT}`);
+        expect(text()).toContain(`${FDA_MISTAKE_LABEL} ${FDA_MISTAKE_TEXT}`);
+        expect(text()).not.toContain('FDA の Level of Concern');
+    });
+    it('section 20.1 cites the FDA guidance and scopes the IEC exclusion to the medical device',()=>{
+        const $=render('page'),row=$(`a[href="${FDA_URL}"]`).closest('tr');
+        expect(row.find('td').first().text()).toBe(FDA_SOURCE);
+        expect($(`a[href="${FDA_URL}"]`).attr('rel')).toBe('noopener noreferrer');
+        expect($(`a[href="${FDA_URL}"]`).attr('target')).toBe('_blank');
+        expect(row.prev().text()).toContain('JFMDA');
+        expect(text()).toContain(IEC_SCOPE_REVIEWED);
     });
 });
 describe('original archives',()=>{
