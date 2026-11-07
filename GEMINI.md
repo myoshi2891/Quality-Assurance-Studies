@@ -4,6 +4,15 @@ Updated 2026-11-07
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-07: ISO 40500の図6・動きの抑制・目次の修飾キーとSQLフレームワークのレビュー修正
+
+- 図6（`mermaid-diagram-5`）: 適合の5要件のうち4・5を確認しないまま適合と判断していたため、`D5_Q3`の「はい」の後へ判定`D5_Q4`を追加。「いいえ」は`D5_Fix`、「はい」は`D5_Done`へ進む。アクセシブル名も同じ分岐へ同期。
+- CSS: 900px以下の目次の開閉アニメーションの後へ`prefers-reduced-motion: reduce`の打ち消しを追加。
+- 目次: Ctrl・Cmd・Shift・Altを押したクリックでは`choose`を呼ばず、目次の開閉と強調を変えない。`preventDefault`は呼ばず、ブラウザーの既定動作を維持。
+- SQLフレームワーク: アプリ側で追加したMermaidラベルのルールの`word-break: break-word`を、同じ効果の`overflow-wrap: anywhere`へ置換。原本CSS由来の`code`の宣言は、固定インベントリの照合対象で表示上の不具合もないため維持。
+- テスト: Redは`c4ad84cb`で先行コミット済み。補正は`review-corrections.ts`で原本側だけへ適用し、インベントリは変更せず。
+- 検証: ISO 40500対象336件、SQLフレームワーク対象354件、ブラウザー66件（40500は32件、9075-1-2023は34件）、lint、全体11105件（216ファイル）が成功。本番ビルド、目視確認は未実施。
+
 ## 2026-11-07: PII検査のCRLF回帰とエンコードされた区切り文字のレビュー修正
 
 - 回帰: `31a6c57d`で`.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`の`usr=`・`hm=`の行へCRLFが混入。変数の末尾に`\r`が残り、POSIXの`Users`・`home`の検出が両ルールで停止していた（レビュー指摘外）。CRを除去し、両ファイルをLFへ統一。
