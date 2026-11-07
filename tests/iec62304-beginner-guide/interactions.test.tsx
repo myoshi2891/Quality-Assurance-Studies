@@ -31,6 +31,14 @@ beforeEach(()=>{queued=[];scrollTo(window.innerHeight+5000);
     globalThis.cancelAnimationFrame=()=>{queued=[];};
 });
 afterEach(()=>{restore();globalThis.requestAnimationFrame=realFrame;globalThis.cancelAnimationFrame=realCancel;});
+describe('test isolation',()=>{
+    it('restores window.scrollY so later files in the shared window still read a number',()=>{
+        scrollTo(9000,123);
+        restore();
+        expect(typeof window.scrollY).toBe('number');
+        expect(window.scrollY).not.toBe(123);
+    });
+});
 describe('source TOC interactions',()=>{
     it('opens and closes by link, Escape restores toggle focus',()=>{
         const C=nav(),r=render(<C/>),button=r.getByRole('button',{name:'目次を開く'});
