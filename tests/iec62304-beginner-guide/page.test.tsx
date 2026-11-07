@@ -70,7 +70,7 @@ describe('source diagrams', () => {
         for(const node of diagram.nodes) expect(chart).toContain(node.shape==='polygon' ? `${node.id}{"${node.label}"}` : `${node.id}["${node.label}"]`);
         for(const edge of diagram.edges) expect(chart).toContain(`${edge.from} ${edge.invisible?'~~~':edge.dotted?'-.->':'-->'}${edge.label?`|"${edge.label}"|`:''} ${edge.to}`);
         for(const cluster of diagram.clusters) expect(chart).toContain(`subgraph ${cluster.id}["${cluster.label}"]`);
-        expect(chart).toContain('"mainBkg": "#13253f"');
+        expect(chart).toContain('"mainBkg": "#12233a"');
         expect(chart.split('}%%')[0]).not.toContain("'");
     });
 });
