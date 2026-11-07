@@ -161,6 +161,22 @@ describe('review corrections',()=>{
         expect(text()).toContain(IEC_SCOPE_REVIEWED);
     });
 });
+describe('keyboard-operable table regions',()=>{
+    const REGIONS: Record<string,readonly string[]> = {
+        Section07:['ソフトウェア開発計画に含める内容の表','ソフトウェア要求事項の種類と例の表','アーキテクチャ設計の活動と要点の表','詳細設計のクラス別要求の表','ユニット実装と検証のクラス別要求の表','リリース活動と対象クラスの表','活動別・クラス別の要求サマリの表'],
+        Section18:['よくある失敗と対策の表'],
+    };
+    for(const [file,labels] of Object.entries(REGIONS)) it(`${file}: every table wrapper is a named, focusable region`,()=>{
+        const $=render(file),wrappers=$('.table-scroll').toArray();
+        expect(wrappers.map(n=>$(n).attr('aria-label'))).toEqual([...labels]);
+        for(const wrapper of wrappers){expect($(wrapper).attr('role')).toBe('region');expect($(wrapper).attr('tabindex')).toBe('0');expect($(wrapper).find('table')).toHaveLength(1);}
+    });
+    it('shows the existing focus outline on the regions',()=>{
+        let declarations: string[]=[];
+        postcss.parse(readFileSync(`${base}/guide.css`,'utf8')).walkRules(r=>{if(r.selectors.includes(`${scope} .table-scroll:focus-visible`))declarations=r.nodes.filter(n=>n.type==='decl').map(d=>d.toString());});
+        expect(declarations).toEqual(['outline: 2px solid var(--acc)','outline-offset: 2px']);
+    });
+});
 describe('original archives',()=>{
     for(const ext of ['html','md'] as const) {
         it(`${ext}: root original moved`,()=>expect(existsSync(`${inventory.source}.${ext}`)).toBe(false));

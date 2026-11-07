@@ -25,6 +25,8 @@ for (const width of [390,900,901,1440]) {
             await page.setViewportSize({ width, height: 900 });
             const reference = await page.context().newPage(); await reference.setViewportSize({ width, height: 900 });
             await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody).replace(/<svg[\s\S]*?<\/svg>/g,'')} `);
+            // 読み込み直後は先頭の目次項目を強調する（レビュー修正）。原本のスタイルで同じ状態にして比較する。
+            await reference.locator('.sidebar a').first().evaluate(link => link.classList.add('active'));
             const own = readFileSync(`${base}/guide.css`, 'utf8');
             const css = preflight + globals + (order === 'before' ? retained + own : own + retained);
             await page.setContent(`<style>${css}</style>${markup()}`);
@@ -47,6 +49,22 @@ for (const width of [390,900,901,1440]) {
         });
     }
 }
+test('390px: focused table regions scroll with the arrow keys and show the focus outline',async({page})=>{
+    await page.setViewportSize({width:390,height:900});
+    await page.setContent(`<style>${preflight}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
+    const regions=page.locator('.table-scroll[role="region"]');
+    await expect(regions).toHaveCount(8);
+    const overflowing=await regions.evaluateAll(nodes=>nodes.flatMap((node,index)=>node.scrollWidth>node.clientWidth?[index]:[]));
+    expect(overflowing.length).toBeGreaterThan(0);
+    for(const index of overflowing){
+        const region=regions.nth(index);
+        await region.focus();
+        await page.keyboard.press('ArrowRight');
+        await expect.poll(()=>region.evaluate(node=>node.scrollLeft)).toBeGreaterThan(0);
+    }
+    await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
+    await expect(page.locator('.table-scroll:focus-visible')).toHaveCSS('outline-style','solid');
+});
 for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=>[d.id,d] as const)) {
     test(`${width}px ${id}: exact SVG node and edge semantics, palette and scroll reachability`,async({page})=>{
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
