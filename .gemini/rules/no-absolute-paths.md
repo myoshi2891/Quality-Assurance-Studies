@@ -72,7 +72,7 @@ fi
 seg='[^/[:space:]"'\''`<>]+( +[^/:[:space:]"'\''`<>]+)*'
 win='[^\\[:space:]"'\''`<>]+( +[^\\:[:space:]"'\''`<>]+)*'
 word='[^/\\:[:space:]"'\''`<>]+'
-if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*(User[s]|hom[e])|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*User[s]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
+if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*(User[s]|hom[e])|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
   rc=0
 else
   rc=$?
@@ -82,9 +82,10 @@ if [ "$rc" -gt 1 ]; then
   exit 1
 fi
 if [ "$rc" -eq 0 ]; then
-  if ! hits=$(printf '%s\n' "$paths" | awk '/(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
-         !/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/User[s]\/|[A-Za-z]:\\User[s]\\)johndoe([\/\\]|$)/ { print; next }
-         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/User[s]\/|[A-Za-z]:\\User[s]\\)johndoe/, ""); if ($0 ~ /[\/\\](User[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
+  if ! hits=$(printf '%s\n' "$paths" | awk '{ d = tolower($0); gsub(/%2e/, ".", d); gsub(/%2f|%5c/, "/", d) }  # パーセントエンコードされた ".."・区切りも復号して判定する
+         d ~ /(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
+         !/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/[Uu][Ss][Ee][Rr][Ss]\/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)johndoe([\/\\]|$)/ { print; next }
+         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/[Uu][Ss][Ee][Rr][Ss]\/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)johndoe/, ""); d = tolower($0); if (d ~ /[\/\\](user[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
          '); then
     echo "placeholder filter failed — abort commit" >&2
     exit 1
