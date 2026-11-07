@@ -402,7 +402,9 @@
                     grid-template-columns: 1fr;
                 }
             }
-        
+/* 900px以下の開閉アニメーションより後に置き、動きを減らす設定を優先する。 */
+@media (prefers-reduced-motion: reduce) { .wcag-40500-page .sidebar { transition: none; } }
+
 /* Shared application chrome and renderer integration. */
 .wcag-40500-page { min-height: 100vh; width: 100%; }
 .wcag-40500-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
