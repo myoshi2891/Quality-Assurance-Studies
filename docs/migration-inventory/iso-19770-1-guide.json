@@ -1674,7 +1674,7 @@
   "diagrams": [
     {
       "id": "mermaid-diagram-1",
-      "direction": "LR",
+      "direction": "TD",
       "nodes": [
         {
           "id": "N1_V1",

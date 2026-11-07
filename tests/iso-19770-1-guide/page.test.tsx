@@ -67,10 +67,11 @@ describe('source diagrams', () => {
         const mermaid = (await import(entry)).default;
         await expect(mermaid.parse(charts[0]!)).resolves.toBeTruthy();
         const chart=charts[0]!;
+        expect(chart).toContain(`flowchart ${diagram.direction}\n`);
         const nodeOrder=[...chart.matchAll(/^([A-Za-z0-9_]+)(?:\[|\{)"/gm)].map(match=>match[1]);
         expect(nodeOrder).toEqual(diagram.nodes.map(node=>node.id));
         for(const node of diagram.nodes) expect(chart).toContain(node.shape==='polygon' ? `${node.id}{"${node.label}"}` : `${node.id}["${node.label}"]`);
-        for(const edge of diagram.edges) expect(chart).toContain(`${edge.from} ${edge.invisible?'~~~':edge.dotted?'-.->':edge.arrowStart?'<-->':'-->'}${edge.label?`|"${edge.label}"|`:''} ${edge.to}`);
+        for(const edge of diagram.edges) expect(chart).toContain(`${edge.from} ${edge.invisible?'~~~':edge.dotted?(edge.arrowEnd?'-.->':'-.-'):edge.arrowStart?'<-->':edge.arrowEnd?'-->':'---'}${edge.label?`|"${edge.label}"|`:''} ${edge.to}`);
         for(const cluster of diagram.clusters) expect(chart).toContain(`subgraph ${cluster.id}["${cluster.label}"]`);
         expect(chart).toContain('"mainBkg": "#13294a"');
         expect(chart.split('}%%')[0]).not.toContain("'");
