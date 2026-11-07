@@ -1999,12 +1999,12 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
 - 新規追加「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。保留中の作業（ユーザー担当）:
-  1. `/specification-by-example-guide`の目視確認（ユーザー担当、ビルド未実施）。
-  2. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
-  3. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
-  4. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
-  5. `/iso-iec-9075-1-2023-guide`の目視確認（ビルド未実施、自動ブラウザー32件成功）。
-  6. `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  1. `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  2. `/iso-iec-9075-1-2023-guide`の目視確認（ビルド未実施、自動ブラウザー32件成功）。
+  3. `/specification-by-example-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  4. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  5. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
+  6. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
   7. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
   8. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
   9. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
