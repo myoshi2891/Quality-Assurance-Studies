@@ -10,8 +10,8 @@ it('registers the IT asset management vocabulary guide in the ISO category once'
     const entries = NAV_ITEMS.filter(i => i.href === href); expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
     
 });
-it('registers exactly 123 routes and the original H1 in E2E', () => {
-    expect(EXPECTED_PAGE_COUNT).toBe(123); expect(PAGES).toHaveLength(123); expect(NAV_ITEMS).toHaveLength(123);
+it('registers exactly 124 routes and the original H1 in E2E', () => {
+    expect(EXPECTED_PAGE_COUNT).toBe(124); expect(PAGES).toHaveLength(124); expect(NAV_ITEMS).toHaveLength(124);
     const entry = PAGES.filter(i => i.path === href); expect(entry).toHaveLength(1); expect(entry[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
 });
 for (const ext of ['html', 'md'] as const) {
