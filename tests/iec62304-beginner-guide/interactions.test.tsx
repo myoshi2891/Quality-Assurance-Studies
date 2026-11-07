@@ -16,16 +16,21 @@ const headingList=()=>{
 // index 番目までの見出しが着地線を通過した配置にする。-1 はどの見出しもまだ通過していない状態。
 const place=(headings:Element,index:number)=>Array.from(headings.children).forEach((h,i)=>{h.getBoundingClientRect=()=>({top:(i-index)*300} as DOMRect);});
 const current=(root:Element)=>root.querySelector('[aria-current="location"]')?.getAttribute('data-target');
-// 実時間に依存しないよう、requestAnimationFrame を手動で流す。
+// 実時間に依存しないよう、requestAnimationFrame を手動で流す。happy-dom では window と globalThis が別物なので、モジュールが参照する globalThis 側を差し替える。
 let queued:FrameRequestCallback[]=[];
 const flush=()=>{const callbacks=queued;queued=[];callbacks.forEach(callback=>callback(0));};
-const realFrame=window.requestAnimationFrame,realCancel=window.cancelAnimationFrame;
+const realFrame=globalThis.requestAnimationFrame,realCancel=globalThis.cancelAnimationFrame;
+// 既定はページ末尾ではない状態にする。happy-dom の scrollHeight は 0 で、常に末尾と判定されるため。
+const scrollTo=(scrollHeight:number,scrollY=0)=>{
+    Object.defineProperty(document.documentElement,'scrollHeight',{configurable:true,value:scrollHeight});
+    Object.defineProperty(window,'scrollY',{configurable:true,value:scrollY});
+};
 const restore=()=>{delete (document.documentElement as unknown as {scrollHeight?:number}).scrollHeight;delete (window as unknown as {scrollY?:number}).scrollY;};
-beforeEach(()=>{queued=[];
-    window.requestAnimationFrame=(callback:FrameRequestCallback)=>{queued.push(callback);return queued.length;};
-    window.cancelAnimationFrame=()=>{queued=[];};
+beforeEach(()=>{queued=[];scrollTo(window.innerHeight+5000);
+    globalThis.requestAnimationFrame=(callback:FrameRequestCallback)=>{queued.push(callback);return queued.length;};
+    globalThis.cancelAnimationFrame=()=>{queued=[];};
 });
-afterEach(()=>{window.requestAnimationFrame=realFrame;window.cancelAnimationFrame=realCancel;});
+afterEach(()=>{restore();globalThis.requestAnimationFrame=realFrame;globalThis.cancelAnimationFrame=realCancel;});
 describe('source TOC interactions',()=>{
     it('opens and closes by link, Escape restores toggle focus',()=>{
         const C=nav(),r=render(<C/>),button=r.getByRole('button',{name:'目次を開く'});
@@ -48,14 +53,14 @@ describe('source TOC interactions',()=>{
             act(()=>{callback([{isIntersecting:true,target:observed[3]} as IntersectionObserverEntry],{} as IntersectionObserver);flush();});
             expect(current(r.container)).toBe(observed[3]!.id);
             r.unmount();expect(disconnected).toBe(true);
-        } finally {headings.remove();restore();globalThis.IntersectionObserver=previous;}
+        } finally {headings.remove();globalThis.IntersectionObserver=previous;}
     });
     it('marks the first entry on load, before any heading reaches the landing line',()=>{
         const headings=headingList();place(headings,-1);
         try {const C=nav(),r=render(<C/>);act(flush);
             expect(current(r.container)).toBe(headings.children[0]!.id);
             expect(r.container.querySelector('[aria-current="location"]')?.className).toBe('active');
-        } finally {headings.remove();restore();}
+        } finally {headings.remove();}
     });
     it('follows a scroll that skips the observer band without any intersection notice',()=>{
         const headings=headingList();place(headings,0);
@@ -64,7 +69,7 @@ describe('source TOC interactions',()=>{
             expect(current(r.container)).toBe(headings.children[9]!.id);
             place(headings,2);act(()=>{window.dispatchEvent(new Event('resize'));flush();});
             expect(current(r.container)).toBe(headings.children[2]!.id);
-        } finally {headings.remove();restore();}
+        } finally {headings.remove();}
     });
     it('keeps the first entry when scrolled back above every heading and honours scroll-margin-top',()=>{
         const headings=headingList();place(headings,4);
@@ -76,22 +81,21 @@ describe('source TOC interactions',()=>{
             place(headings,4);headings.children[5]!.getBoundingClientRect=()=>({top:76} as DOMRect);
             act(()=>{window.dispatchEvent(new Event('scroll'));flush();});
             expect(current(r.container)).toBe(headings.children[5]!.id);
-        } finally {headings.remove();restore();}
+        } finally {headings.remove();}
     });
     it('selects the last entry at the end of the page even if its heading cannot reach the landing line',()=>{
         const headings=headingList();place(headings,18);
         const last=headings.children[20]!;last.getBoundingClientRect=()=>({top:500} as DOMRect);
-        Object.defineProperty(document.documentElement,'scrollHeight',{configurable:true,value:window.innerHeight+1000});
-        Object.defineProperty(window,'scrollY',{configurable:true,value:1000});
+        scrollTo(window.innerHeight+1000,1000);
         try {const C=nav(),r=render(<C/>);act(flush);
             expect(current(r.container)).toBe(last.id);
-        } finally {headings.remove();restore();}
+        } finally {headings.remove();}
     });
     it('cancels the pending measurement and removes its listeners on unmount',()=>{
         const headings=headingList();place(headings,0);
         try {const C=nav(),r=render(<C/>);act(flush);r.unmount();
             window.dispatchEvent(new Event('scroll'));expect(queued).toHaveLength(0);
-        } finally {headings.remove();restore();}
+        } finally {headings.remove();}
     });
 });
 for(const development of [false,true]) it(`hydrates real page without recoverable errors or table nesting warnings, SWC=${development}`,async()=>{
