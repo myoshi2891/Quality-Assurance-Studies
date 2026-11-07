@@ -4,11 +4,26 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-// 同じ PII 検査を収録し、レビューで同期を求められている 3 ファイル
-const SOURCES = [
-  '.claude/rules/no-absolute-paths.md',
-  '.gemini/rules/no-absolute-paths.md',
-  '.gemini/skills/markdown-formatter/SKILL.md',
+// 正本。走査本体は `# >>> pii-scan` と `# <<< pii-scan` の間に置き、下の全コピーをこれとバイト単位で一致させる。
+const CANONICAL = '.claude/rules/no-absolute-paths.md';
+
+// 同じ走査を収録する文書と、収録する走査の個数
+const SOURCES: readonly (readonly [source: string, scans: number])[] = [
+  [CANONICAL, 1],
+  ['.gemini/rules/no-absolute-paths.md', 1],
+  ['.gemini/skills/markdown-formatter/SKILL.md', 1],
+  ['.claude/skills/markdown-formatter/SKILL.md', 1],
+  ['.agents/skills/markdown-formatter/SKILL.md', 1],
+  ['.claude/skills/docs-sync/SKILL.md', 1],
+  ['.agents/skills/docs-sync/SKILL.md', 1],
+  ['.claude/rules/migration-progress-sync.md', 2],
+  ['.claude/rules/tdd-mandatory-cycle.md', 1],
+];
+
+// 同期の対象外。PR 全体の差分と未追跡ファイルを走査する別の検査で、staged diff を見る上の走査とは範囲が異なる。
+const EXCLUDED = [
+  '.claude/skills/html-to-nextjs-migration/SKILL.md',
+  '.agents/skills/html-to-nextjs-migration/SKILL.md',
 ];
 
 // このテスト自身が PII 検査に検出されないよう、保護された語は連結で組み立てる
@@ -16,6 +31,7 @@ const USERS = 'User' + 's';
 const HOME = 'hom' + 'e';
 const OPT = 'op' + 't';
 const OTHER = 'ali' + 'ce';
+const USERS_LOWER = 'user' + 's';
 const ENCODED_USERS = '%55' + 'sers';
 const ENCODED_HOME = '%68' + 'ome';
 const ENCODED_HOME_MIXED = '%68' + '%6Fme';
@@ -47,6 +63,15 @@ const DETECTED = [
   `D:\\Data\\${USERS}\\johndoe\\${USERS}\\${OTHER}\\project`,
   `D:\\${USERS}\\${OTHER}\\${USERS}\\johndoe\\project`,
   `/${OPT}/${OTHER}/${USERS}/johndoe/project`,
+  // 空白を含む要素
+  `C:\\Program Files\\${USERS}\\${OTHER}\\project`,
+  // Windows の小文字表記
+  `c:\\${USERS_LOWER}\\${OTHER}\\project`,
+  // 区切り文字がスラッシュの Windows の file URL
+  `file:///C:/${USERS}/${OTHER}/project`,
+  // UNC パス
+  `\\\\server\\${USERS}\\${OTHER}\\project`,
+  `\\\\server\\share\\${USERS}\\${OTHER}\\project`,
 ];
 
 const ALLOWED = [
@@ -63,17 +88,29 @@ const ALLOWED = [
   `https://example.com/${USERS}/${OTHER}/project`,
   `https://example.com/a%2F${USERS}%2F${OTHER}/project`,
   `./relative/${USERS}/project`,
+  // 空白を含む要素・UNC・file URL のプレースホルダー
+  `C:\\Program Files\\${USERS}\\johndoe\\project`,
+  `\\\\server\\${USERS}\\johndoe\\project`,
+  `file:///C:/${USERS}/johndoe/project`,
+  // POSIX の小文字表記は対象外。ガイドの API 例（ユーザー一覧のルート）を誤検出するため、大文字始まりだけを検出する
+  `/${USERS_LOWER}/123/orders`,
 ];
 
-function extractScan(source: string): string {
+function extractScans(source: string): string[] {
   const content = readFileSync(source, 'utf8');
-  const blocks = [...content.matchAll(/```bash\n([\s\S]*?)\n```/g)].map((match) => match[1] ?? '');
-  const scan = blocks.find((block) => block.includes('PII check passed'));
-  if (scan === undefined) throw new Error(`PII 検査が見つかりません: ${source}`);
-  return scan;
+  return [...content.matchAll(/^# >>> pii-scan\n([\s\S]*?)\n# <<< pii-scan$/gm)].map((match) => match[1] ?? '');
 }
 
-describe.each(SOURCES)('PII 検査: %s', (source) => {
+const SCANS = SOURCES.flatMap(([source, scans]) =>
+  Array.from({ length: scans }, (_, index) => [`${source} #${index + 1}`, source, index] as const),
+);
+
+describe.each(SCANS)('PII 検査: %s', (_label, source, index) => {
+  const body = () => {
+    const found = extractScans(source)[index];
+    if (found === undefined) throw new Error(`PII 検査が見つかりません: ${source}`);
+    return found;
+  };
   let repository = '';
   let scriptPath = '';
 
@@ -89,7 +126,7 @@ describe.each(SOURCES)('PII 検査: %s', (source) => {
     scriptPath = join(repository, '.git-scan.sh');
     const initialized = spawnSync('git', ['init', '-q'], { cwd: repository, encoding: 'utf8' });
     if (initialized.status !== 0) throw new Error(initialized.stderr);
-    writeFileSync(scriptPath, `${extractScan(source)}\n`);
+    writeFileSync(scriptPath, `${body()}\n`);
   });
 
   afterAll(() => {
@@ -97,7 +134,7 @@ describe.each(SOURCES)('PII 検査: %s', (source) => {
   });
 
   it('スクリプトに CR が含まれない', () => {
-    expect(extractScan(source)).not.toContain('\r');
+    expect(body()).not.toContain('\r');
   });
 
   it.each(DETECTED)('検出する: %s', (text) => {
@@ -125,8 +162,27 @@ describe.each(SOURCES)('PII 検査: %s', (source) => {
 
 describe('PII 検査の同期', () => {
   it('.claude と .gemini のルールが一致する', () => {
-    const [claude, gemini] = SOURCES.slice(0, 2).map((source) => readFileSync(source));
+    const [claude, gemini] = SOURCES.slice(0, 2).map(([source]) => readFileSync(source));
 
     expect(gemini?.equals(claude as Buffer)).toBe(true);
+  });
+
+  it.each(SOURCES.map(([source, scans]) => [source, scans] as const))('%s は正本と一致する', (source, scans) => {
+    const [canonical] = extractScans(CANONICAL);
+
+    const found = extractScans(source);
+
+    expect(canonical).toBeDefined();
+    expect(found).toEqual(Array.from({ length: scans }, () => canonical as string));
+  });
+
+  it('PII 検査を収録する文書はすべて同期対象か明示的な対象外である', () => {
+    const roots = ['.claude', '.gemini', '.agents'];
+    const listed = spawnSync('git', ['grep', '-l', 'PII check passed', '--', ...roots], { encoding: 'utf8' });
+
+    const documents = listed.stdout.trim().split('\n').sort();
+
+    expect(listed.status).toBe(0);
+    expect(documents).toEqual([...SOURCES.map(([source]) => source), ...EXCLUDED].sort());
   });
 });
