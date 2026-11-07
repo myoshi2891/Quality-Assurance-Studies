@@ -26,7 +26,10 @@ getComputedStyle(document.documentElement).getPropertyValue('--color-bg-primary'
 
 ```bash
 # 1. dev サーバーを停止（ポート 3000 を使用中の場合）
-kill $(lsof -ti:3000) 2>/dev/null
+# 以降の <PID> は、下のlsofで表示された数値のPIDに置き換えてから実行する
+lsof -nP -iTCP:3000 -sTCP:LISTEN # LISTEN中のプロセスだけを確認（接続中のクライアントを含めない）
+ps -p <PID> -o pid,command       # 上のPIDが停止したいサーバーか確認
+kill <PID>                       # 確認したPIDだけを停止
 
 # 2. キャッシュ削除
 rm -rf .next
@@ -37,7 +40,7 @@ bun run dev
 
 ### Makefile ショートカット（推奨）
 
-`make css-reset` で上記を一括実行できる（Makefile に追加済み）。
+`make css-reset` で停止・キャッシュ削除・再起動を一括実行できる（Makefile に追加済み）。ただしポート 3000 の LISTEN プロセスを PID の確認なしで停止するため、dev サーバーだと分かっている場合に使う。
 
 ## 背景
 

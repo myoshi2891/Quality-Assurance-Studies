@@ -1,0 +1,430 @@
+/* Restore HTML defaults; SVG presentation attributes must retain their geometry. */
+.wcag-40500-page :not(:where(svg, svg *)), .wcag-40500-page :not(:where(svg, svg *))::before, .wcag-40500-page :not(:where(svg, svg *))::after { all: revert; }
+
+            .wcag-40500-page {
+                --bg: #07111e;
+                --panel: #0d1b2e;
+                --panel2: #12233b;
+                --line: #22385a;
+                --accent: #7c9eff;
+                --text: #e6edf8;
+                --text-dim: #c7d6ec;
+                --text-faint: #9cb0cf;
+                --ok: #5ee0a0;
+                --warn: #ffcf70;
+                --sb: 288px;
+            }
+            .wcag-40500-page * {
+                box-sizing: border-box;
+            }
+            .wcag-40500-page {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+            }
+            .wcag-40500-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    'Noto Sans JP',
+                    -apple-system,
+                    'Hiragino Kaku Gothic ProN',
+                    'Yu Gothic',
+                    Meiryo,
+                    sans-serif;
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+            }
+            .wcag-40500-page .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sb);
+                background: #091526;
+                border-right: 1px solid var(--line);
+                overflow-y: auto;
+                padding: 22px 16px 40px;
+                z-index: 30;
+            }
+            .wcag-40500-page .sb-title {
+                font-size: 13px;
+                font-weight: 800;
+                color: var(--accent);
+                letter-spacing: 0.04em;
+                margin: 0 0 14px;
+                line-height: 1.5;
+            }
+            .wcag-40500-page .sidebar a {
+                display: block;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                line-height: 1.5;
+                padding: 6px 10px;
+                border-radius: 8px;
+                border-left: 3px solid transparent;
+            }
+            .wcag-40500-page .sidebar a:hover {
+                background: #10223a;
+                color: #fff;
+            }
+            .wcag-40500-page .sidebar a.active {
+                background: #14294a;
+                color: #fff;
+                border-left-color: var(--accent);
+            }
+            .wcag-40500-page .nav-h2 {
+                font-weight: 700;
+                margin-top: 8px;
+            }
+            .wcag-40500-page .nav-sub {
+                list-style: none;
+                margin: 0 0 4px 8px;
+                padding: 0;
+            }
+            .wcag-40500-page .nav-sub a {
+                font-size: 12.5px;
+                color: var(--text-faint);
+            }
+            .wcag-40500-page .toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 40;
+                background: var(--panel2);
+                color: var(--text);
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 8px 12px;
+                font: inherit;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            .wcag-40500-page .main {
+                margin-left: var(--sb);
+                padding: 40px 48px 80px;
+            }
+            .wcag-40500-page .hero {
+                position: relative;
+                background: linear-gradient(180deg, #0e1f38, #0a1729);
+                border: 1px solid var(--line);
+                border-radius: 18px;
+                padding: 34px 36px;
+                margin-bottom: 36px;
+                overflow: hidden;
+            }
+            .wcag-40500-page .hero::before {
+                content: '';
+                position: absolute;
+                top: -120px;
+                right: -80px;
+                width: 360px;
+                height: 360px;
+                background: radial-gradient(circle, rgba(124, 158, 255, 0.28), transparent 65%);
+                pointer-events: none;
+            }
+            .wcag-40500-page .badge {
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--accent);
+                background: rgba(124, 158, 255, 0.12);
+                border: 1px solid rgba(124, 158, 255, 0.4);
+                padding: 3px 12px;
+                border-radius: 999px;
+                margin-bottom: 14px;
+                letter-spacing: 0.05em;
+            }
+            .wcag-40500-page .hero-title {
+                font-size: 28px;
+                font-weight: 800;
+                color: #fff;
+                line-height: 1.4;
+                margin: 0 0 20px;
+            }
+            .wcag-40500-page .meta {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px 32px;
+                position: relative;
+            }
+            .wcag-40500-page .meta-item {
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                padding-left: 14px;
+                border-left: 2px solid var(--line);
+            }
+            .wcag-40500-page .meta-item:first-child {
+                grid-column: 1/-1;
+            }
+            .wcag-40500-page .meta-label {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--text-faint);
+            }
+            .wcag-40500-page .meta-value {
+                font-size: 14.5px;
+                color: var(--text);
+                overflow-wrap: anywhere;
+            }
+            .wcag-40500-page .main h2 {
+                font-size: 24px;
+                font-weight: 800;
+                color: #fff;
+                margin: 56px 0 18px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--line);
+                scroll-margin-top: 20px;
+            }
+            .wcag-40500-page .main h3 {
+                font-size: 19px;
+                font-weight: 700;
+                color: #dfe9ff;
+                margin: 34px 0 12px;
+                scroll-margin-top: 20px;
+            }
+            .wcag-40500-page .main h3::before {
+                content: '';
+                display: inline-block;
+                width: 4px;
+                height: 1em;
+                background: var(--accent);
+                border-radius: 2px;
+                margin-right: 10px;
+                vertical-align: -2px;
+            }
+            .wcag-40500-page .main p {
+                color: var(--text-dim);
+                margin: 12px 0;
+            }
+            .wcag-40500-page .main li {
+                color: var(--text-dim);
+                margin: 4px 0;
+            }
+            .wcag-40500-page .main strong {
+                color: #fff;
+            }
+            .wcag-40500-page .main a {
+                color: var(--accent);
+                overflow-wrap: anywhere;
+            }
+            .wcag-40500-page .main code:not(pre code) {
+                font-family: 'JetBrains Mono', ui-monospace, monospace;
+                font-size: 0.88em;
+                background: #12233b;
+                border: 1px solid var(--line);
+                padding: 1px 6px;
+                border-radius: 5px;
+                color: #bcd0ff;
+                overflow-wrap: anywhere;
+            }
+            .wcag-40500-page .main pre {
+                background: #050d18;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 16px 18px;
+                overflow-x: auto;
+                line-height: 1.6;
+            }
+            .wcag-40500-page .main pre code {
+                font-family: 'JetBrains Mono', ui-monospace, monospace;
+                font-size: 13.5px;
+                color: #d5e2fa;
+                background: none;
+                border: 0;
+                padding: 0;
+                white-space: pre;
+            }
+            .wcag-40500-page .callout {
+                margin: 18px 0;
+                padding: 14px 18px;
+                background: rgba(124, 158, 255, 0.08);
+                border: 1px solid rgba(124, 158, 255, 0.3);
+                border-left: 4px solid var(--accent);
+                border-radius: 10px;
+            }
+            .wcag-40500-page .callout p {
+                margin: 6px 0;
+            }
+            .wcag-40500-page .table-scroll {
+                overflow-x: auto;
+                margin: 16px 0;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: var(--panel);
+            }
+            .wcag-40500-page .main table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+                min-width: 560px;
+            }
+            .wcag-40500-page .main th {
+                background: #13264a;
+                color: #fff;
+                text-align: left;
+                font-weight: 700;
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--line);
+                white-space: nowrap;
+            }
+            .wcag-40500-page .main td {
+                padding: 10px 14px;
+                border-bottom: 1px solid #182c4a;
+                color: var(--text-dim);
+                vertical-align: top;
+            }
+            .wcag-40500-page .main tr:last-child td {
+                border-bottom: none;
+            }
+            .wcag-40500-page .main tr:nth-child(even) td {
+                background: rgba(255, 255, 255, 0.015);
+            }
+            .wcag-40500-page .mermaid-diagram {
+                display: block;
+                overflow-x: auto;
+                margin: 20px 0;
+                padding: 22px 18px;
+                background: var(--panel);
+                border: 1px solid var(--line);
+                border-radius: 14px;
+            }
+            .wcag-40500-page .mermaid-diagram svg {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: none;
+                flex-shrink: 0;
+            }
+            .wcag-40500-page .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .wcag-40500-page .mermaid-diagram foreignObject div, .wcag-40500-page .mermaid-diagram foreignObject span, .wcag-40500-page .mermaid-diagram foreignObject p {
+                white-space: normal !important;
+            }
+            .wcag-40500-page .main .mermaid-diagram p {
+                color: inherit;
+                margin: 0;
+            }
+            .wcag-40500-page .checklist-card {
+                background: var(--panel);
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                padding: 18px 20px;
+                margin: 18px 0;
+            }
+            .wcag-40500-page .checklist-card ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .wcag-40500-page .checklist-card li {
+                padding: 8px 0;
+                border-bottom: 1px solid #182c4a;
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            .wcag-40500-page .checklist-card li:last-child {
+                border-bottom: none;
+            }
+            .wcag-40500-page .checklist-card input {
+                margin-top: 7px;
+                accent-color: var(--accent);
+                width: 16px;
+                height: 16px;
+                flex: none;
+            }
+            .wcag-40500-page .checklist-progress {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 10px;
+            }
+            .wcag-40500-page .cp-label {
+                font-weight: 700;
+                color: #fff;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+            .wcag-40500-page .cp-bar {
+                flex: 1;
+                height: 8px;
+                background: #0a1830;
+                border-radius: 99px;
+                overflow: hidden;
+            }
+            .wcag-40500-page .cp-fill {
+                height: 100%;
+                width: 0;
+                background: linear-gradient(90deg, var(--accent), var(--ok));
+                transition: width 0.25s;
+            }
+            .wcag-40500-page .cp-count {
+                font-size: 13px;
+                color: var(--text-faint);
+                font-variant-numeric: tabular-nums;
+            }
+            .wcag-40500-page .page-footer {
+                margin-top: 60px;
+                padding-top: 20px;
+                border-top: 1px solid var(--line);
+                color: var(--text-faint);
+                font-size: 13.5px;
+            }
+            @media (max-width: 900px) {
+                .wcag-40500-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s;
+                }
+                .wcag-40500-page .sidebar.open {
+                    transform: none;
+                }
+                .wcag-40500-page .toggle {
+                    display: block;
+                }
+                .wcag-40500-page .main {
+                    margin-left: 0;
+                    padding: 64px 18px 60px;
+                }
+                .wcag-40500-page .hero {
+                    padding: 24px 20px;
+                }
+                .wcag-40500-page .hero-title {
+                    font-size: 23px;
+                }
+                .wcag-40500-page .meta {
+                    grid-template-columns: 1fr;
+                }
+            }
+/* 900px以下の開閉アニメーションより後に置き、動きを減らす設定を優先する。 */
+@media (prefers-reduced-motion: reduce) { .wcag-40500-page .sidebar { transition: none; } }
+
+/* Shared application chrome and renderer integration. */
+.wcag-40500-page { min-height: 100vh; width: 100%; }
+.wcag-40500-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40; }
+.wcag-40500-page .toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 45; }
+.wcag-40500-page .main { max-width: none; width: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; }
+.wcag-40500-page .main h2[id], .wcag-40500-page .main h3[id] { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.wcag-40500-page .hero { min-height: 0; display: block; text-align: start; }
+.wcag-40500-page .hero::after { content: none; }
+.wcag-40500-page .hero-title { background: none; background-clip: border-box; -webkit-text-fill-color: #fff; }
+.wcag-40500-page .main table { margin: 0; color: inherit; font-family: inherit; border-color: revert; }
+.wcag-40500-page .main th, .wcag-40500-page .main td { font-family: inherit; font-size: inherit; line-height: inherit; letter-spacing: normal; text-transform: none; border-top: 0; border-left: 0; border-right: 0; }
+.wcag-40500-page .main td { background: transparent; }
+.wcag-40500-page .main pre { white-space: pre; }
+.wcag-40500-page .code-line { display: block; min-height: 1.6em; }
+.wcag-40500-page .mermaid-wrapper { display: block !important; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
+.wcag-40500-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.wcag-40500-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.wcag-40500-page .mermaid-wrapper foreignObject p, .wcag-40500-page .mermaid-wrapper foreignObject span, .wcag-40500-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.4 !important; overflow-wrap: anywhere !important; }
+.wcag-40500-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.wcag-40500-page *::-webkit-scrollbar-track { background: transparent; }
+.wcag-40500-page *::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+@media (max-width: 900px) { .wcag-40500-page .main h2[id], .wcag-40500-page .main h3[id] { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
+.wcag-40500-page .hero-title { font-family: inherit; }
