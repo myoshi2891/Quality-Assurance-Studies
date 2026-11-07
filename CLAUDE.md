@@ -4,6 +4,15 @@ Updated 2026-11-07
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-07: IEC 62304追加原稿の移行
+
+- `Iec62304-beginner-guide.html`を`/iec62304-beginner-guide`へ移行。旧`/iec-62304-beginner-guide`とは別原稿として保持し、ナビ・E2Eを123ルートへ同期。
+- 21カテゴリーを個別実装・個別コミット。見出し58件、目次21リンク、34表の全セル、18図、注記18件、外部リンク20件、ネイティブ回答7件、全49 CSSルールと900px境界、ヒーロー・本文・フッターを固定インベントリで照合。コードブロックは原本どおり0件。
+- 対象305件が成功。SWC開発・本番変換後のDOM・インライン文字列、実ハイドレーション、表構造の警告、目次開閉・Escape・フォーカス復帰・全21見出しの監視と解放、原本SHA-256を検証。
+- ビルド・サーバー不要のChrome比較44件が成功（4幅×CSS前後2順序の8件と、2幅×18実SVGの36件）。表のホバー・文字色、ヒーローの擬似要素・書体・文字グラデーション・追加アニメーションの干渉を補正。SVGのラベル・形状・線幅・色・矢印・接続方向・非ゼロ寸法・横スクロール到達性を原本と比較。
+- 元HTML・Markdownを`archive/html-archive/Iec62304-beginner-guide.html`・`archive/md-archive/Iec62304-beginner-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で検証。対象ソース・テスト・E2EのTypeScriptとlint成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-07: ISO 40500の図6・動きの抑制・目次の修飾キーとSQLフレームワークのレビュー修正
 
 - 図6（`mermaid-diagram-5`）: 適合の5要件のうち4・5を確認しないまま適合と判断していたため、`D5_Q3`の「はい」の後へ判定`D5_Q4`を追加。「いいえ」は`D5_Fix`、「はい」は`D5_Done`へ進む。アクセシブル名も同じ分岐へ同期。
@@ -385,14 +394,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 216 ファイル・11105 tests)
+bun test             # ユニットテスト (bun test 全体, 219 ファイル・11414 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 122 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 123 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
@@ -805,6 +814,35 @@ Next.js App Router 構成:
 - `app/istqb-ct-genai-study-guide/` — Hero・Overview・Chapter1〜5・Roadmap・Referencesのカテゴリー別コンポーネント
 - `tests/istqb-ct-genai-study-guide/page.test.tsx` — 本文・全DOM・表全セル・図の配置・全CSS・既存画面ハッシュ・アーカイブを照合する305テスト
 - `app/beautiful-testing-guide/page.tsx` — Beautiful Testing全15セクションを元HTMLの本文・構造に沿って移行
+- `app/iec62304-beginner-guide/Diagram.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/NavBar.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section01.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section02.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section03.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section04.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section05.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section06.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section07.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section08.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section09.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section10.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section11.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section12.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section13.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section14.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section15.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section16.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section17.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section18.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section19.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section20.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/Section21.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/diagrams.ts` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/guide.css` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/page.tsx` — IEC 62304追加原稿のカテゴリー別移行
+- `app/iec62304-beginner-guide/toc.ts` — IEC 62304追加原稿のカテゴリー別移行
+- `tests/iec62304-beginner-guide/` — 原本照合・操作・hydration・登録・アーカイブ305件
+- `e2e/iec62304-layout.e2e.ts` — 原本CSS・実SVGの44件（`--project=iec62304`）
 - `app/iec-62304-beginner-guide/Diagram.tsx` — 共有Mermaidへの配線
 - `app/iec-62304-beginner-guide/NavBar.tsx` — 階層目次・開閉・追従・親展開・解放
 - `app/iec-62304-beginner-guide/Section01.tsx` — IEC 62304、原本のカテゴリー別本文
@@ -1239,6 +1277,7 @@ bun test        # ユニットテスト成功
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
+| `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
 | `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
@@ -1266,7 +1305,6 @@ bun test        # ユニットテスト成功
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
-| 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
 
@@ -1277,7 +1315,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 122 ルート（ガイドライブラリ index + 121 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 123 ルート（ガイドライブラリ index + 122 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。

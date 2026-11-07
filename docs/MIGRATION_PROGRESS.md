@@ -9,6 +9,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-07: IEC 62304追加原稿の移行
+
+- `Iec62304-beginner-guide.html`を`/iec62304-beginner-guide`へ移行。旧`/iec-62304-beginner-guide`とは別原稿として保持し、ナビ・E2Eを123ルートへ同期。
+- 21カテゴリーを個別実装・個別コミット。見出し58件、目次21リンク、34表の全セル、18図、注記18件、外部リンク20件、ネイティブ回答7件、全49 CSSルールと900px境界、ヒーロー・本文・フッターを固定インベントリで照合。コードブロックは原本どおり0件。
+- 対象305件が成功。SWC開発・本番変換後のDOM・インライン文字列、実ハイドレーション、表構造の警告、目次開閉・Escape・フォーカス復帰・全21見出しの監視と解放、原本SHA-256を検証。
+- ビルド・サーバー不要のChrome比較44件が成功（4幅×CSS前後2順序の8件と、2幅×18実SVGの36件）。表のホバー・文字色、ヒーローの擬似要素・書体・文字グラデーション・追加アニメーションの干渉を補正。SVGのラベル・形状・線幅・色・矢印・接続方向・非ゼロ寸法・横スクロール到達性を原本と比較。
+- 元HTML・Markdownを`archive/html-archive/Iec62304-beginner-guide.html`・`archive/md-archive/Iec62304-beginner-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で検証。対象ソース・テスト・E2EのTypeScriptとlint成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-07: ISO 40500の図6・動きの抑制・目次の修飾キーとSQLフレームワークのレビュー修正
 
 - 図6（`mermaid-diagram-5`）: 適合の5要件のうち4・5を確認しないまま適合と判断していたため、`D5_Q3`の「はい」の後へ判定`D5_Q4`を追加。「いいえ」は`D5_Fix`、「はい」は`D5_Done`へ進む。アクセシブル名も同じ分岐へ同期。
@@ -393,10 +402,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4910f9f7` — refactor(iso-9075-1): replace deprecated word-break in Mermaid labels |
-| 最新コミット内容 | `refactor(iso-9075-1): replace deprecated word-break in Mermaid labels` |
-| 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | ISO 40500対象336件・SQLフレームワーク対象354件・ブラウザー66件・lint成功。全体11105件（216ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
+| 最新 HEAD | `3df1af84` — fix(iec62304): suppress retained hero animation to preserve original static title |
+| 最新コミット内容 | `fix(iec62304): suppress retained hero animation to preserve original static title` |
+| 次の作業 | `/iec62304-beginner-guide`の目視確認（ユーザー担当）。`/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全95ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
+| ビルド状態 | IEC 62304追加原稿: 対象305件、Chrome44件、型検査・lint成功。全体11414件（219ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -1956,6 +1965,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
+| `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-9075-1-guide.html` | `/iso-9075-1-guide` | ✅ ダーク配色・35見出し・目次34リンク・19表・9図・SQL3例・11注記・外部20リンク (archive/、HTML・MD両方) |
 | `Iso-11179-1-2023-guide.html` | `/iso-11179-1-2023-guide` | ✅ ダーク配色・58見出し・目次57リンク・32表・14図・YAML1例・チェック6項目・15注記・外部21リンク (archive/、HTML・MD両方) |
 | `Working-effectively-with-legacy-code-guide.html` | `/working-effectively-with-legacy-code-guide` | ✅ 紙色テーマ・目次19リンク・全19セクション・9表・Mermaid11図・チェック8項目・参考文献26件 (archive/、HTML・MD両方) |
@@ -1988,7 +1998,6 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
-| 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
 
@@ -2001,7 +2010,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 122 ルート（ガイドライブラリ index + 121 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 123 ルート（ガイドライブラリ index + 122 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体11105件（216ファイル）すべて成功。ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
@@ -2018,7 +2027,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
   8. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
   9. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
   10. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
-  11. `e2e/mermaid-layout.e2e.ts`全94ルートの本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
+  11. `e2e/mermaid-layout.e2e.ts`全95ルートの本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
   12. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
   13. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
 

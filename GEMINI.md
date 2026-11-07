@@ -4,6 +4,15 @@ Updated 2026-11-07
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-07: IEC 62304追加原稿の移行
+
+- `Iec62304-beginner-guide.html`を`/iec62304-beginner-guide`へ移行。旧`/iec-62304-beginner-guide`とは別原稿として保持し、ナビ・E2Eを123ルートへ同期。
+- 21カテゴリーを個別実装・個別コミット。見出し58件、目次21リンク、34表の全セル、18図、注記18件、外部リンク20件、ネイティブ回答7件、全49 CSSルールと900px境界、ヒーロー・本文・フッターを固定インベントリで照合。コードブロックは原本どおり0件。
+- 対象305件が成功。SWC開発・本番変換後のDOM・インライン文字列、実ハイドレーション、表構造の警告、目次開閉・Escape・フォーカス復帰・全21見出しの監視と解放、原本SHA-256を検証。
+- ビルド・サーバー不要のChrome比較44件が成功（4幅×CSS前後2順序の8件と、2幅×18実SVGの36件）。表のホバー・文字色、ヒーローの擬似要素・書体・文字グラデーション・追加アニメーションの干渉を補正。SVGのラベル・形状・線幅・色・矢印・接続方向・非ゼロ寸法・横スクロール到達性を原本と比較。
+- 元HTML・Markdownを`archive/html-archive/Iec62304-beginner-guide.html`・`archive/md-archive/Iec62304-beginner-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で検証。対象ソース・テスト・E2EのTypeScriptとlint成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-07: ISO 40500の図6・動きの抑制・目次の修飾キーとSQLフレームワークのレビュー修正
 
 - 図6（`mermaid-diagram-5`）: 適合の5要件のうち4・5を確認しないまま適合と判断していたため、`D5_Q3`の「はい」の後へ判定`D5_Q4`を追加。「いいえ」は`D5_Fix`、「はい」は`D5_Done`へ進む。アクセシブル名も同じ分岐へ同期。
@@ -564,6 +573,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-genai-study-guide/page.tsx` (CT-GenAI完全学習ガイド、既存画面と併存、`NavBar.tsx` 付き)
 - `app/beautiful-testing-guide/page.tsx` (Beautiful Testing ガイド、`NavBar.tsx` 付き)
 - `app/quality-is-free-guide/page.tsx` (Quality Is Free入門、紙色テーマ・全16セクション・目次15リンク・8図・6表・チェック11項目)
+- `app/iec62304-beginner-guide/page.tsx`（追加原稿。21カテゴリー・21目次リンク・34表・18図・7回答。専用CSS・NavBar・toc・Diagram・diagrams）
 - `app/iec-62304-beginner-guide/page.tsx`（ダーク配色・全22セクション・目次50リンク・18図・37表。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成）
 - `app/beyond-legacy-code-guide/page.tsx` (Beyond Legacy Code 実践ガイド、`NavBar.tsx` 付き)
 - `app/iso-29119-1-2022-guide/page.tsx` (ISO/IEC/IEEE 29119-1:2022 完全解説ガイド、`NavBar.tsx` 付き)
@@ -748,6 +758,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Ctal-tae-ch8-continuous-improvement.html` | `/istqb-ctal-tae-chapter8-continuous-improvement` | ✅ 固定サイドバー・モバイル目次70リンク + Mermaid図16件 + 全36表 + 構文色付きコード6件 + 確認問題6件 (archive/html-archive/ctal/) |
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
+| `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
@@ -813,7 +824,6 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 | 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
-| 追加ガイド系（1 ファイル）: `Iec62304-beginner-guide.md` | 未定 | ⏸ 未移行の追加ソース | 移行済み `/iec-62304-beginner-guide` の原本（`tests/fixtures/source-html/Iec-62304-beginner-guide.html`・`.md`）とは別の原稿。ルート化の可否は差分を確認して決定 |
 
 ## 既知の留保事項
 
@@ -826,7 +836,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 122 ルート（ガイドライブラリ index + 121 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 123 ルート（ガイドライブラリ index + 122 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
