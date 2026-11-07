@@ -72,7 +72,10 @@ fi
 seg='[^/[:space:]"'\''`<>]+( +[^/:[:space:]"'\''`<>]+)*'
 win='[^\\[:space:]"'\''`<>]+( +[^\\:[:space:]"'\''`<>]+)*'
 word='[^/\\:[:space:]"'\''`<>]+'
-if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*(User[s]|hom[e])|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
+# file:// URI 内のパーセントエンコードされた保護ディレクトリ名（先頭文字を含む）も検出する
+usr='(U|%55)(s|%73)(e|%65)(r|%72)(s|%73)'
+hm='(h|%68)(o|%[6][fF])(m|%[6][dD])(e|%65)'
+if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*('"$usr"'|'"$hm"')|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
   rc=0
 else
   rc=$?
