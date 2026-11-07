@@ -23,6 +23,8 @@ function tree(n: AnyNode): unknown {
 function source(html: string) {
     const $ = load(html);
     $('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');
+    // React disallows indentation text directly under table structure.
+    $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_,n)=>n.type==='text' && /^\s*$/.test(n.data)).remove();
     return $;
 }
 function render(file: string, development = false) {
