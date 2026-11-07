@@ -209,7 +209,7 @@ fi
 if [ "$rc" -eq 0 ]; then
   # %XX は 1 回だけ復号し、".."・保護ディレクトリ・プレースホルダーの判定をすべて復号後の値で行う（検出時は元の表記を表示する）
   # 16 進数の変換は macOS awk / mawk でも動くよう index() で行い、制御文字と非 ASCII は復号しない
-  # プレースホルダーとして除外するのは、保護ディレクトリがパス全体で 1 つだけで、その直下が johndoe のものに限る（途中の要素に別のユーザーディレクトリがあれば除外しない）
+  # プレースホルダーとして除外するのは、保護ディレクトリがパス全体で 1 つだけで、その直下が johndoe のものに限る（途中の要素に別のユーザーディレクトリがあれば除外しない。opt / srv / workspace はルート直下の要素がユーザー名の場合があるため、配下のプレースホルダーも除外しない）
   if ! hits=$(printf '%s\n' "$paths" | awk '
          function decode(s, out, h, c) {
            out = ""
@@ -223,6 +223,7 @@ if [ "$rc" -eq 0 ]; then
          }
          {
            d = decode($0); gsub(/\\/, "/", d); n = split(d, part, "/"); count = 0; first = 0
+           if (d ~ /^\/(op[t]|sr[v]|workspac[e])\//) { print; next }
            for (i = 1; i <= n; i++) {
              if (part[i] == "..") { print; next }
              if (tolower(part[i]) ~ /^(user[s]|hom[e])$/) { count++; if (first == 0) first = i }
