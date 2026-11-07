@@ -4,6 +4,18 @@ Updated 2026-11-07
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-07: IEC 62304追加原稿のレビュー修正
+
+- 目次: 初期値を先頭項目へ変更し、読み込み直後から強調と`aria-current`を付与。`IntersectionObserver`の通知は再計測の合図にとどめ、`scroll`・`resize`ごとに見出しの位置と`scroll-margin-top`を実測する。帯を飛び越えるスクロール、全見出しより上、ページ末尾で帯に届かない最後の節にも追従。
+- 図: `mmd-4`・`mmd-5`・`mmd-16`のアクセシブル名を、主題と全ノードを示す文章へ変更。`mmd-16`は全8ステップとStep 8からStep 3へのフィードバックを含む。`mmd-4`・`mmd-5`は隣接する注記を`aria-describedby`で参照。
+- 本文: 9.2でソフトウェアの故障確率と危害の発生確率を区別し、原本の入れ子の`strong`を解消。6.4と18をFDAの2023年ガイダンスのBasic / Enhancedへ更新し、旧Level of Concernとの関係を明記。20.1へFDAガイダンスを追加し、IEC Webstoreの行は医療機器のバリデーション・最終リリースが対象外と明確化。
+- 表: `Section07.tsx`の7表と`Section18.tsx`の1表を名前付きのキーボード操作領域にし、`.table-scroll:focus-visible`の輪郭を追加。
+- テスト: 補正は`tests/iec62304-beginner-guide/review-corrections.ts`で原本側だけへ適用し、インベントリとアーカイブは変更せず。組み立て後のページから共有Mermaidへ渡る全18図を、出現順にインベントリと照合。ブラウザー比較も補正後の原本を基準にし、先頭の目次項目は原本側にも`active`を付けて比較。8表は390pxでは折り返しで収まるため、キー操作の検証では表の最小幅をテスト内で900pxにして横スクロールを再現。
+- 仕様書: 再開プロンプトの全体件数を現在地の値へ同期し、`e2e/mermaid-layout.e2e.ts`の固定ルート数を削除。
+- 見送り: Docstring Coverageは`.coderabbit.yaml`に設定がなく既定の参考チェックで、コンポーネント全体への追記は変更の最小化に反するため対応せず。
+- 検証: 対象323件、ブラウザー45件、対象のTypeScript、lint、Markdown lint、全体11697件（222ファイル）が成功。本番ビルド、目視確認は未実施。
+- 対象外: 残り15図のアクセシブル名と残り26表の領域化は、今回の指摘の範囲外のため未変更。
+
 ## 2026-11-07: ISO/IEC 19770-1:2017ガイドの移行
 
 - `Iso-19770-1-guide.html`を`/iso-19770-1-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を124ルートへ同期。
@@ -859,7 +871,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
   5. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
   6. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   7. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  8. `e2e/mermaid-layout.e2e.ts` 全94ルートの本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  8. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
