@@ -27,7 +27,7 @@ export const MERMAID_CONFIG = `%%{init: {
 }}%%`;
 export const DIAGRAMS: Record<string, string> = {
 "mermaid-diagram-1": `${MERMAID_CONFIG}
-flowchart LR
+flowchart TD
 N1_V1["2006：初版<br/>ソフトウェア資産管理のプロセス"]
 N1_V2["2012：第2版<br/>SAMプロセスと段階的適合性評価"]
 N1_V3["2017：第3版<br/>ITAMシステム要求事項へ全面改訂"]
@@ -58,20 +58,27 @@ N2_D --> N2_D1
 N2_E --> N2_E1`,
 "mermaid-diagram-3": `${MERMAID_CONFIG}
 flowchart LR
-subgraph N3_Act["Act 改善"]
-N3_A10["箇条10 改善"]
-end
-subgraph N3_Check["Check 評価"]
-N3_C9["箇条9 パフォーマンス評価"]
-end
-subgraph N3_Do["Do 実行"]
-N3_D8["箇条8 運用<br/>Annex Aプロセス"]
-end
-subgraph N3_Plan["Plan 計画"]
 N3_P4["箇条4 組織の状況"]
 N3_P5["箇条5 リーダーシップ"]
 N3_P6["箇条6 計画"]
 N3_P7["箇条7 支援"]
+N3_D8["箇条8 運用<br/>Annex Aプロセス"]
+N3_C9["箇条9 パフォーマンス評価"]
+N3_A10["箇条10 改善"]
+subgraph N3_Act["Act 改善"]
+N3_A10
+end
+subgraph N3_Check["Check 評価"]
+N3_C9
+end
+subgraph N3_Do["Do 実行"]
+N3_D8
+end
+subgraph N3_Plan["Plan 計画"]
+N3_P4
+N3_P5
+N3_P6
+N3_P7
 end
 N3_P4 --> N3_P5
 N3_P5 --> N3_P6
@@ -107,9 +114,9 @@ RL --> N5_DP
 N5_DP --> N5_OP
 N5_OP --> N5_RT
 N5_RT -.->|"再利用・教訓"| N5_S
-N5_TDA -.-> N5_S
-N5_TDA -.-> N5_OP
-N5_OP2 -.-> N5_OP`,
+N5_TDA -.- N5_S
+N5_TDA -.- N5_OP
+N5_OP2 -.- N5_OP`,
 "mermaid-diagram-6": `${MERMAID_CONFIG}
 flowchart BT
 N6_T1["Tier 1：Trustworthy Data<br/>信頼できるデータ<br/>『持っているものを知る』"]
