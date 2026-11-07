@@ -54,15 +54,24 @@ for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=
         const reference=await page.context().newPage();await reference.setViewportSize({width,height:900});await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
         const collect=(outer:Element)=>{
             const norm=(s:string|null)=>(s??'').replace(/\s+/g,' ').trim();
-            const nodes=Array.from(outer.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:norm(n.querySelector('.nodeLabel')?.textContent??''),color:getComputedStyle(n.querySelector('.nodeLabel')!).color,fill:getComputedStyle(n.firstElementChild!).fill}));
+            const nodes=Array.from(outer.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:norm(n.querySelector('.nodeLabel')?.textContent??''),color:getComputedStyle(n.querySelector('.nodeLabel')!).color,fill:getComputedStyle(n.firstElementChild!).fill,shape:n.firstElementChild!.tagName,stroke:getComputedStyle(n.firstElementChild!).stroke,strokeWidth:getComputedStyle(n.firstElementChild!).strokeWidth}));
             const labels=Array.from(outer.querySelectorAll('g.edgeLabels > g.edgeLabel'),n=>norm(n.textContent));
-            const edges=Array.from(outer.querySelectorAll('g.edgePaths path[data-id]'),n=>({id:n.getAttribute('data-id')||n.id,dotted:n.classList.contains('edge-pattern-dotted'),stroke:getComputedStyle(n).stroke}));
-            const clusters=Array.from(outer.querySelectorAll('g.cluster rect'),n=>({fill:getComputedStyle(n).fill,stroke:getComputedStyle(n).stroke}));
+            const edges=Array.from(outer.querySelectorAll('g.edgePaths path[data-id]'),n=>({id:n.getAttribute('data-id')||n.id,dotted:n.classList.contains('edge-pattern-dotted'),stroke:getComputedStyle(n).stroke,strokeWidth:getComputedStyle(n).strokeWidth,arrowEnd:/pointEnd/.test(n.getAttribute('marker-end')??''),arrowStart:/pointStart/.test(n.getAttribute('marker-start')??'')}));
+            const clusters=Array.from(outer.querySelectorAll('g.cluster rect'),n=>({fill:getComputedStyle(n).fill,stroke:getComputedStyle(n).stroke,strokeWidth:getComputedStyle(n).strokeWidth,arrowEnd:/pointEnd/.test(n.getAttribute('marker-end')??''),arrowStart:/pointStart/.test(n.getAttribute('marker-start')??'')}));
             return {nodes,labels,edges,clusters};
         };
         const expected=await reference.locator('#'+id).evaluate(collect);
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('sql-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
+
+        // Compare each source edge's dominant direction, independently of generated layout coordinates.
+        const centers=(outer:Element)=>Object.fromEntries(Array.from(outer.querySelectorAll('g.node'),n=>{const r=n.getBoundingClientRect();return [n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),{x:r.x+r.width/2,y:r.y+r.height/2}];}));
+        const sourceCenters=await reference.locator('#'+id).evaluate(centers);
+        const actualCenters=await page.locator('#'+id).evaluate(centers);
+        for(const edge of diagram.edges){const from=sourceCenters[edge.from],to=sourceCenters[edge.to];if(!from||!to)continue;
+            const axis=Math.abs(to.x-from.x)>Math.abs(to.y-from.y)?'x':'y';
+            expect(Math.sign(actualCenters[edge.to]![axis]-actualCenters[edge.from]![axis]),`${id} ${edge.from} -> ${edge.to} direction ${axis}`).toBe(Math.sign(to[axis]-from[axis]));
+        }
         // An SVG can exist with correct labels/palette while a CSS reset makes every node zero-sized.
         const geometry = await page.locator('#'+id+' g.node').evaluateAll(nodes => nodes.map(node => {
             const bounds = node.getBoundingClientRect();
