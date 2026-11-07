@@ -297,7 +297,7 @@
 .iec62304-page .mermaid-wrapper foreignObject { overflow: visible !important; }
 .iec62304-page .mermaid-wrapper .edgeLabel, .iec62304-page .mermaid-wrapper .edgeLabel p, .iec62304-page .mermaid-wrapper .edgeLabel span { color: #e6edf7 !important; background-color: #0d1b2e !important; }
 .iec62304-page .mermaid-wrapper .edgeLabel rect { fill: #0d1b2e !important; }
-.iec62304-page .sidebar a:focus-visible, .iec62304-page button:focus-visible, .iec62304-page summary:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.iec62304-page .sidebar a:focus-visible, .iec62304-page button:focus-visible, .iec62304-page summary:focus-visible, .iec62304-page .table-scroll:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 /* Explicit inheritance also covers browser table defaults and retained selectors. */
 .iec62304-page .hero-title { font-family: inherit; }
 .iec62304-page .hero::after { all: revert; }
