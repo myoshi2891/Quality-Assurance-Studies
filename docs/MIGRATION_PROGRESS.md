@@ -402,8 +402,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `3df1af84` — fix(iec62304): suppress retained hero animation to preserve original static title |
-| 最新コミット内容 | `fix(iec62304): suppress retained hero animation to preserve original static title` |
+| 最新 HEAD | `c632c903` — style(iec62304): remove source CSS trailing whitespace |
+| 最新コミット内容 | `style(iec62304): remove source CSS trailing whitespace` |
 | 次の作業 | `/iec62304-beginner-guide`の目視確認（ユーザー担当）。`/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全95ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | IEC 62304追加原稿: 対象305件、Chrome44件、型検査・lint成功。全体11414件（219ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
