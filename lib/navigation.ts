@@ -174,6 +174,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-iec-9075-1-2023-guide', label: 'ISO 9075-1:2023 SQLフレームワーク 初学者ガイド', description: 'SQL標準の全体像・適合性・SQL:2023・実装状況を、図解・FAQ・学習チェックリストで学ぶ。', category: 'iso' },
   { href: '/iso-iec-40500-2025-guide', label: 'ISO/IEC 40500:2025 WCAG 2.2 ガイド', description: 'WCAG 2.2の構造・新規9基準の実装・準拠判断を、図解・コード・QAチェックから段階的に学ぶ。', category: 'iso' },
   { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: '医療機器ソフトウェアの安全クラス、開発・保守、関連規制と導入手順を学ぶ。', category: 'iso' },
+  { href: '/iso-19770-1-guide', label: 'ISO/IEC 19770-1:2017 初学者ガイド', description: 'IT資産管理システムの要求事項、PDCA、プロセス領域、3つのティアと段階的導入を学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

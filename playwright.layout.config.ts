@@ -36,6 +36,7 @@ const LAYOUT_SUITES: ReadonlyArray<{ name: string; testMatch: string | string[];
   { name: 'craftsman', testMatch: 'craftsman-layout.e2e.ts' },
   { name: 'sbe', testMatch: 'sbe-layout.e2e.ts' },
   { name: 'iso-14496-22', testMatch: 'iso-14496-22-layout.e2e.ts' },
+  { name: 'iso-19770-1', testMatch: 'iso-19770-1-layout.e2e.ts' },
   { name: 'iso-19770-5', testMatch: 'iso-19770-5-layout.e2e.ts' },
   { name: 'iso-23009-1-2026', testMatch: 'iso-23009-1-2026-layout.e2e.ts' },
   { name: 'iso-27799-2025', testMatch: 'iso-27799-2025-layout.e2e.ts' },
