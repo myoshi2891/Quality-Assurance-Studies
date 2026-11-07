@@ -1,0 +1,404 @@
+.iso19770-page, .iso19770-page :where(:not(svg, svg *)) { all: revert; }
+
+            .iso19770-page {
+                --bg: #07111e;
+                --panel: #0d1b2e;
+                --panel2: #102038;
+                --line: #223755;
+                --accent: #7c9eff;
+                --text: #e6edf7;
+                --dim: #c7d6ec;
+                --faint: #9cb0cf;
+                --sb: 300px;
+                --warn: #ffcf70;
+                --ok: #6fe0b0;
+            }
+            .iso19770-page * {
+                box-sizing: border-box;
+            }
+            .iso19770-page {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+            }
+            .iso19770-page {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-x: hidden;
+                -webkit-font-smoothing: antialiased;
+            }
+            .iso19770-page .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: var(--sb);
+                background: #050d18;
+                border-right: 1px solid var(--line);
+                overflow-y: auto;
+                padding: 20px 0 40px;
+                z-index: 20;
+            }
+            .iso19770-page .sidebar-title {
+                padding: 0 20px 14px;
+                font-weight: 800;
+                font-size: 15px;
+                color: #fff;
+                border-bottom: 1px solid var(--line);
+                margin-bottom: 10px;
+            }
+            .iso19770-page .sidebar-title small {
+                display: block;
+                font-weight: 400;
+                font-size: 12px;
+                color: var(--faint);
+                margin-top: 2px;
+            }
+            .iso19770-page .sidebar ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .iso19770-page .sidebar a {
+                display: block;
+                padding: 6px 20px;
+                color: var(--dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                line-height: 1.5;
+                border-left: 3px solid transparent;
+            }
+            .iso19770-page .sidebar a:hover {
+                background: #0b1a2d;
+                color: #fff;
+            }
+            .iso19770-page .sidebar a.active {
+                color: #fff;
+                background: #0f2240;
+                border-left-color: var(--accent);
+            }
+            .iso19770-page .sidebar .nav-h3 a {
+                padding-left: 36px;
+                font-size: 12.5px;
+                color: var(--faint);
+            }
+            .iso19770-page .sidebar .nav-h3 a.active {
+                color: #fff;
+            }
+            .iso19770-page .nav-toggle {
+                display: none;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 30;
+                background: var(--panel2);
+                color: var(--text);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 8px 12px;
+                font: inherit;
+                font-size: 13px;
+                cursor: pointer;
+            }
+            .iso19770-page .main {
+                margin-left: var(--sb);
+                padding: 40px 48px 80px;
+            }
+            .iso19770-page .hero {
+                position: relative;
+                background: linear-gradient(180deg, #0b1a2e, #08131f);
+                border: 1px solid var(--line);
+                border-radius: 16px;
+                padding: 36px 36px 28px;
+                margin-bottom: 36px;
+                overflow: hidden;
+            }
+            .iso19770-page .hero::before {
+                content: '';
+                position: absolute;
+                top: -120px;
+                right: -80px;
+                width: 420px;
+                height: 420px;
+                background: radial-gradient(circle, rgba(124, 158, 255, 0.22), transparent 65%);
+                pointer-events: none;
+            }
+            .iso19770-page .eyebrow {
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                color: var(--accent);
+                background: rgba(124, 158, 255, 0.12);
+                border: 1px solid rgba(124, 158, 255, 0.35);
+                border-radius: 999px;
+                padding: 4px 14px;
+                margin-bottom: 16px;
+            }
+            .iso19770-page .hero-title {
+                margin: 0 0 8px;
+                font-size: 28px;
+                font-weight: 800;
+                line-height: 1.4;
+                color: #fff;
+            }
+            .iso19770-page .hero-sub {
+                margin: 0 0 22px;
+                color: var(--dim);
+                font-size: 16px;
+            }
+            .iso19770-page .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                border-top: 1px solid var(--line);
+                padding-top: 16px;
+            }
+            .iso19770-page .hero-meta > div {
+                padding: 2px 24px 2px 0;
+                margin-right: 24px;
+                border-right: 1px solid var(--line);
+            }
+            .iso19770-page .hero-meta > div:last-child {
+                border-right: 0;
+            }
+            .iso19770-page .hero-meta span {
+                display: block;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--faint);
+            }
+            .iso19770-page .hero-meta strong {
+                font-size: 14.5px;
+                color: #fff;
+                font-weight: 600;
+            }
+            .iso19770-page h2 {
+                font-size: 23px;
+                font-weight: 800;
+                color: #fff;
+                margin: 56px 0 18px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--line);
+                line-height: 1.5;
+                scroll-margin-top: 20px;
+            }
+            .iso19770-page h3 {
+                font-size: 18px;
+                font-weight: 700;
+                color: #dfe9ff;
+                margin: 34px 0 12px;
+                scroll-margin-top: 20px;
+            }
+            .iso19770-page .step-num {
+                display: inline-block;
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: 0.08em;
+                color: #07111e;
+                background: var(--accent);
+                border-radius: 6px;
+                padding: 2px 9px;
+                margin-right: 12px;
+                vertical-align: 3px;
+            }
+            .iso19770-page p, .iso19770-page li {
+                color: var(--text);
+            }
+            .iso19770-page ul, .iso19770-page ol {
+                padding-left: 1.5em;
+            }
+            .iso19770-page li {
+                margin: 4px 0;
+            }
+            .iso19770-page strong {
+                color: #fff;
+            }
+            .iso19770-page a {
+                color: var(--accent);
+            }
+            .iso19770-page a.url {
+                word-break: break-all;
+                overflow-wrap: anywhere;
+                font-size: 13px;
+            }
+            .iso19770-page .table-scroll {
+                overflow-x: auto;
+                margin: 16px 0 22px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+            }
+            .iso19770-page table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14.5px;
+                line-height: 1.65;
+            }
+            .iso19770-page th {
+                background: #0f2240;
+                color: #fff;
+                text-align: left;
+                font-weight: 700;
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--line);
+                white-space: nowrap;
+            }
+            .iso19770-page td {
+                padding: 10px 14px;
+                border-bottom: 1px solid #162a45;
+                vertical-align: top;
+                color: var(--text);
+            }
+            .iso19770-page tr:last-child td {
+                border-bottom: 0;
+            }
+            .iso19770-page tbody tr:nth-child(even) td {
+                background: #0a1727;
+            }
+            .iso19770-page .callout {
+                display: flex;
+                gap: 14px;
+                border: 1px solid var(--line);
+                border-left-width: 4px;
+                border-radius: 10px;
+                padding: 14px 18px;
+                margin: 18px 0;
+                background: var(--panel);
+            }
+            .iso19770-page .callout-tip {
+                border-left-color: var(--ok);
+            }
+            .iso19770-page .callout-warn {
+                border-left-color: var(--warn);
+            }
+            .iso19770-page .callout-info {
+                border-left-color: var(--accent);
+            }
+            .iso19770-page .callout-icon {
+                font-size: 20px;
+                line-height: 1.7;
+            }
+            .iso19770-page .callout-body {
+                min-width: 0;
+                flex: 1;
+            }
+            .iso19770-page .callout-body p {
+                margin: 0 0 6px;
+            }
+            .iso19770-page .callout-body p:last-child {
+                margin: 0;
+            }
+            .iso19770-page .mermaid-diagram {
+                display: block;
+                overflow-x: auto;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                background: var(--panel);
+                padding: 22px 16px;
+                margin: 20px 0 26px;
+            }
+            .iso19770-page .mermaid-diagram svg {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: none;
+                flex-shrink: 0;
+            }
+            .iso19770-page .mermaid-diagram p {
+                color: inherit;
+                margin: 0;
+            }
+            .iso19770-page .mermaid-diagram foreignObject {
+                overflow: visible;
+            }
+            .iso19770-page .mermaid-diagram foreignObject div, .iso19770-page .mermaid-diagram foreignObject span, .iso19770-page .mermaid-diagram foreignObject p {
+                white-space: normal !important;
+            }
+            .iso19770-page details {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: var(--panel);
+                margin: 12px 0;
+                padding: 0 18px;
+            }
+            .iso19770-page summary {
+                cursor: pointer;
+                padding: 12px 0;
+                color: #fff;
+            }
+            .iso19770-page details[open] summary {
+                border-bottom: 1px solid var(--line);
+                margin-bottom: 10px;
+            }
+            .iso19770-page details p, .iso19770-page details ol {
+                margin: 6px 0 14px;
+            }
+            .iso19770-page .page-footer {
+                margin-top: 64px;
+                padding-top: 18px;
+                border-top: 1px solid var(--line);
+                color: var(--faint);
+                font-size: 12.5px;
+            }
+            @media (max-width: 900px) {
+                .iso19770-page .nav-toggle {
+                    display: block;
+                }
+                .iso19770-page .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s;
+                }
+                .iso19770-page .sidebar.open {
+                    transform: none;
+                }
+                .iso19770-page .main {
+                    margin-left: 0;
+                    padding: 64px 16px 60px;
+                }
+                .iso19770-page .hero {
+                    padding: 24px 18px;
+                }
+                .iso19770-page .hero-title {
+                    font-size: 22px;
+                }
+                .iso19770-page .hero-meta > div {
+                    border-right: 0;
+                    border-bottom: 1px solid var(--line);
+                    width: 100%;
+                    margin: 0 0 8px;
+                    padding: 0 0 8px;
+                }
+                .iso19770-page h2 {
+                    font-size: 20px;
+                }
+            }
+
+/* Fixed application header and dynamic disclaimer are outside this page. */
+.iso19770-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
+.iso19770-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
+.iso19770-page h2, .iso19770-page h3 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.iso19770-page .main { max-width: none; }
+.iso19770-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; display: block !important; overflow: visible !important; }
+.iso19770-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iso19770-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iso19770-page .mermaid-wrapper .edgeLabel, .iso19770-page .mermaid-wrapper .edgeLabel p, .iso19770-page .mermaid-wrapper .edgeLabel span { color: #e6edf7 !important; background-color: #0a1626 !important; }
+.iso19770-page .mermaid-wrapper .edgeLabel rect { fill: #0a1626 !important; }
+.iso19770-page .sidebar a:focus-visible, .iso19770-page button:focus-visible, .iso19770-page summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.iso19770-page .hero { min-height: 0; display: block; text-align: start; }
+.iso19770-page .hero::after { all: revert; }
+.iso19770-page .hero-title { font-family: inherit; background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.iso19770-page .hero-meta { animation: none; justify-content: normal; gap: normal; }
+.iso19770-page .callout { font-size: inherit; line-height: inherit; }
+.iso19770-page .callout p { font-size: inherit; }
+.iso19770-page table { color: var(--text); }
+.iso19770-page tbody tr:hover td { background: transparent; }
+.iso19770-page tbody tr:nth-child(even):hover td { background: #0a1727; }
+
+/* Retained guide styles must not replace the source step labels or callout text. */
+.iso19770-page .step-num { border: 0; font-family: inherit; width: auto; height: auto; }
+.iso19770-page .callout p { color: var(--text); }

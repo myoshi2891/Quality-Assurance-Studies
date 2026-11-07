@@ -135,8 +135,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-iec-ieee-29119-3-2021-guide', h1: /ISO\/IEC\/IEEE 29119-3:2021/ },
   { path: '/iso-iec-9075-1-2023-guide', h1: /ISO\/IEC 9075-1:2023（SQLフレームワーク）初学者向けステップバイステップ解説/ },
   { path: '/iso-iec-40500-2025-guide', h1: /ISO\/IEC 40500:2025 初学者向けステップバイステップ解説ガイド/ },
+  { path: '/iec62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/ },
+  { path: '/iso-19770-1-guide', h1: /ISO\/IEC 19770-1:2017\s*初学者向けステップバイステップ解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 122;
+export const EXPECTED_PAGE_COUNT = 124;
 
 
