@@ -8,10 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - 回帰: `31a6c57d`で`.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`の`usr=`・`hm=`の行へCRLFが混入。変数の末尾に`\r`が残り、POSIXの`Users`・`home`の検出が両ルールで停止していた（レビュー指摘外）。CRを除去し、両ファイルをLFへ統一。
 - 抽出: grepの前に`%2F`・`%5C`を復号。URLのパス部分は既存の境界の判定により対象外のまま。
-- awkフィルター: `%XX`を1回だけ復号し、`..`・保護ディレクトリ・プレースホルダーの判定を復号後の値へ統一。除外は保護ディレクトリがパス全体で1つだけで、その直下が`johndoe`の場合に限る。ネストしたプレースホルダーを許可しつつ、途中に別のユーザーディレクトリがあれば検出する。大文字・小文字が異なる`JohnDoe`は除外しない。検出時は元の表記を表示する。
+- awkフィルター: `%XX`を1回だけ復号し、`..`・保護ディレクトリ・プレースホルダーの判定を復号後の値へ統一。除外は保護ディレクトリがパス全体で1つだけで、その直下が`johndoe`の場合に限る。ネストしたプレースホルダーを許可しつつ、途中に別のユーザーディレクトリがあれば検出する。大文字・小文字が異なる`JohnDoe`は除外しない。opt・srv・workspaceはルート直下の要素がユーザー名の場合があるため、配下のプレースホルダーも除外しない。検出時は元の表記を表示する。
 - テスト: `tests/rules/no-absolute-paths.test.ts`で3文書の検査ブロックを抽出し、一時リポジトリの実差分で実行。CR混入と`.claude`・`.gemini`のルール一致も検証。保護された語はテスト内でも連結で組み立て、PII検査への自己一致を避ける。
-- 検証: 対象103件（修正前は51件失敗）、全体10750件（216ファイル）、lint、変更Markdownのlintが成功。ケース表はBSD grep・ugrep・GNU grep＋mawk・BusyBox grep＋gawkで一致。本番ビルド、目視確認は未実施。
-- 残課題: `31a6c57d`から修正までのコミットは、両ルールの検査では`Users`・`home`を検出できなかった（`tdd-mandatory-cycle.md`など別実装の検査は対象外）。`.gemini`のSKILLのWindows抽出は`User[s]`のまま大文字・小文字を区別する。`.claude`・`.agents`の別実装の検査は`%2F`を復号しない。いずれも指摘の範囲外のため未変更。
+- 検証: 対象106件（修正前は54件失敗）、全体10753件（216ファイル）、lint、変更Markdownのlintが成功。ケース表はBSD grep・ugrep・GNU grep＋mawk・BusyBox grep＋gawkで一致。本番ビルド、目視確認は未実施。
+- 監査: 回帰の期間（`31a6c57d`〜`cc514bcf`の3コミット）の差分を修正後の検査へ通し、実パスの混入がないことを確認。
+- 残課題:`.gemini`のSKILLのWindows抽出は`User[s]`のまま大文字・小文字を区別する。`.claude`・`.agents`の別実装の検査は`%2F`を復号しない。いずれも指摘の範囲外のため未変更。
 
 ## 2026-11-06: ISO 40500の図5・互換性の説明とSQLフレームワークのテスト整理のレビュー修正
 
@@ -375,7 +376,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 216 ファイル・10750 tests)
+bun test             # ユニットテスト (bun test 全体, 216 ファイル・10753 tests)
 ```
 
 ### E2E テスト (Playwright)
