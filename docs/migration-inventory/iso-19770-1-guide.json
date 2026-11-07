@@ -1706,6 +1706,8 @@
         {
           "from": "N1_V1",
           "to": "N1_V2",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1713,6 +1715,8 @@
         {
           "from": "N1_V2",
           "to": "N1_V3",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1720,6 +1724,8 @@
         {
           "from": "N1_V3",
           "to": "N1_V4",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1727,6 +1733,8 @@
         {
           "from": "N1_V4",
           "to": "N1_V5",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1789,6 +1797,8 @@
         {
           "from": "N2_A",
           "to": "N2_B",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1796,6 +1806,8 @@
         {
           "from": "N2_A",
           "to": "N2_C",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1803,6 +1815,8 @@
         {
           "from": "N2_A",
           "to": "N2_D",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1810,6 +1824,8 @@
         {
           "from": "N2_A",
           "to": "N2_E",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1817,6 +1833,8 @@
         {
           "from": "N2_A",
           "to": "N2_F",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1824,6 +1842,8 @@
         {
           "from": "N2_C",
           "to": "N2_C1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1831,6 +1851,8 @@
         {
           "from": "N2_D",
           "to": "N2_D1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1838,6 +1860,8 @@
         {
           "from": "N2_E",
           "to": "N2_E1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1890,6 +1914,8 @@
         {
           "from": "N3_P4",
           "to": "N3_P5",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1897,6 +1923,8 @@
         {
           "from": "N3_P5",
           "to": "N3_P6",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1904,6 +1932,8 @@
         {
           "from": "N3_P6",
           "to": "N3_P7",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1911,6 +1941,8 @@
         {
           "from": "N3_P7",
           "to": "N3_D8",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1918,6 +1950,8 @@
         {
           "from": "N3_D8",
           "to": "N3_C9",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1925,6 +1959,8 @@
         {
           "from": "N3_C9",
           "to": "N3_A10",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -1932,6 +1968,8 @@
         {
           "from": "N3_A10",
           "to": "N3_P4",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": true,
           "invisible": false,
           "label": "継続的改善"
@@ -2001,6 +2039,8 @@
         {
           "from": "N4_A",
           "to": "N4_B",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": "変更を加えて拡張"
@@ -2008,6 +2048,8 @@
         {
           "from": "N4_B",
           "to": "N4_C",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2015,6 +2057,8 @@
         {
           "from": "N4_B",
           "to": "N4_D",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": true,
           "invisible": false,
           "label": "注意"
@@ -2077,6 +2121,8 @@
         {
           "from": "N5_S",
           "to": "N5_AQ",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2084,6 +2130,8 @@
         {
           "from": "N5_AQ",
           "to": "N5_DV",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2091,6 +2139,8 @@
         {
           "from": "N5_DV",
           "to": "RL",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2098,6 +2148,8 @@
         {
           "from": "RL",
           "to": "N5_DP",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2105,6 +2157,8 @@
         {
           "from": "N5_DP",
           "to": "N5_OP",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2112,6 +2166,8 @@
         {
           "from": "N5_OP",
           "to": "N5_RT",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2119,6 +2175,8 @@
         {
           "from": "N5_RT",
           "to": "N5_S",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": true,
           "invisible": false,
           "label": "再利用・教訓"
@@ -2126,6 +2184,8 @@
         {
           "from": "N5_TDA",
           "to": "N5_S",
+          "arrowStart": false,
+          "arrowEnd": false,
           "dotted": true,
           "invisible": false,
           "label": ""
@@ -2133,6 +2193,8 @@
         {
           "from": "N5_TDA",
           "to": "N5_OP",
+          "arrowStart": false,
+          "arrowEnd": false,
           "dotted": true,
           "invisible": false,
           "label": ""
@@ -2140,6 +2202,8 @@
         {
           "from": "N5_OP2",
           "to": "N5_OP",
+          "arrowStart": false,
+          "arrowEnd": false,
           "dotted": true,
           "invisible": false,
           "label": ""
@@ -2177,6 +2241,8 @@
         {
           "from": "N6_T1",
           "to": "N6_T2",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2184,6 +2250,8 @@
         {
           "from": "N6_T2",
           "to": "N6_T3",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2191,6 +2259,8 @@
         {
           "from": "N6_MS",
           "to": "N6_T1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2238,6 +2308,8 @@
         {
           "from": "N7_X",
           "to": "N7_Y",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2245,6 +2317,8 @@
         {
           "from": "N7_Y",
           "to": "N7_Z",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2252,6 +2326,8 @@
         {
           "from": "N7_W",
           "to": "N7_V",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2259,6 +2335,8 @@
         {
           "from": "N7_V",
           "to": "N7_U",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2316,6 +2394,8 @@
         {
           "from": "N8_S1",
           "to": "N8_S2",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2323,6 +2403,8 @@
         {
           "from": "N8_S2",
           "to": "N8_S3",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2330,6 +2412,8 @@
         {
           "from": "N8_S3",
           "to": "N8_S4",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2337,6 +2421,8 @@
         {
           "from": "N8_S4",
           "to": "N8_S5",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2344,6 +2430,8 @@
         {
           "from": "N8_S5",
           "to": "N8_S6",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2351,6 +2439,8 @@
         {
           "from": "N8_S6",
           "to": "N8_S7",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2358,6 +2448,8 @@
         {
           "from": "N8_S7",
           "to": "N8_S8",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2365,6 +2457,8 @@
         {
           "from": "N8_S8",
           "to": "N8_S3",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": true,
           "invisible": false,
           "label": "継続"
@@ -2417,6 +2511,8 @@
         {
           "from": "N9_F",
           "to": "N9_P1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2424,6 +2520,8 @@
         {
           "from": "N9_F",
           "to": "N9_P2",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2431,6 +2529,8 @@
         {
           "from": "N9_F",
           "to": "N9_P3",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2438,6 +2538,8 @@
         {
           "from": "N9_F",
           "to": "N9_P4",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2445,6 +2547,8 @@
         {
           "from": "N9_F",
           "to": "N9_P5",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2452,6 +2556,8 @@
         {
           "from": "N9_F",
           "to": "N9_P10",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2459,6 +2565,8 @@
         {
           "from": "N9_P5",
           "to": "N9_P1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": true,
           "invisible": false,
           "label": "用語を定義"
@@ -2466,6 +2574,8 @@
         {
           "from": "N9_P10",
           "to": "N9_P1",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": true,
           "invisible": false,
           "label": "実装の手引き"
@@ -2508,6 +2618,8 @@
         {
           "from": "N10_A",
           "to": "N10_B",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2515,6 +2627,8 @@
         {
           "from": "N10_A",
           "to": "N10_C",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2522,6 +2636,8 @@
         {
           "from": "N10_A",
           "to": "N10_D",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2529,6 +2645,8 @@
         {
           "from": "N10_A",
           "to": "N10_E",
+          "arrowStart": false,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": ""
@@ -2536,6 +2654,8 @@
         {
           "from": "N10_B",
           "to": "N10_C",
+          "arrowStart": true,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": "資産台帳・変更履歴を共有"
@@ -2543,6 +2663,8 @@
         {
           "from": "N10_B",
           "to": "N10_D",
+          "arrowStart": true,
+          "arrowEnd": true,
           "dotted": false,
           "invisible": false,
           "label": "構成情報・SLAを共有"
