@@ -181,22 +181,77 @@ test_rc=0; lint_rc=0
 
 ```bash
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/ .agents/skills/ .claude/rules/ .gemini/rules/
-# markdown-formatter/SKILL.md Step 3 と同一の PII・ローカル絶対パス検査（staged diff 対象）。
-# Step 3 を変更した場合はここも同期する
+# 走査本体は .claude/rules/no-absolute-paths.md の正本と同一（tests/rules/no-absolute-paths.test.ts が一致を検証する）。
+# 正本を変更した場合はここも同期する。exit はサブシェルの関数内で完結する
 pii_check() (
-  abort() { echo "❌ $1 ため PII 検査を中止します" >&2; exit 2; }
-  SCAN=$(mktemp) && STRIPPED=$(mktemp) || abort "一時ファイルを作成できない"
-  trap 'rm -f "$SCAN" "$STRIPPED"' EXIT
-  DIFF=$(git diff --cached --text --no-color) || abort "git diff --cached に失敗した"
-  printf '%s\n' "$DIFF" | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}' > "$SCAN" || abort "差分の抽出に失敗した"
-  if grep -E '(/[Uu][Ss][Ee][Rr][Ss]/johndoe|/ho[m]e/johndoe|[A-Za-z]:[\\/]([^\\/[:space:]]+[\\/])*[Uu][Ss][Ee][Rr][Ss][\\/]johndoe|/ho[m]e/runner/work|/[Uu][Ss][Ee][Rr][Ss]/runner/work|/ho[m]e/circleci/project|/githu[b]/workspace).*[/\\]\.\.([/\\]|$)' "$SCAN"; then TRAVERSAL=0; else TRAVERSAL=$?; fi
-  sed -E -e 's#(/[Uu][Ss][Ee][Rr][Ss]/johndoe/|/ho[m]e/johndoe/|[A-Za-z]:[\\/][Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/])##g' -e 's#([A-Za-z]:[\\/]([^\\/[:space:]]+[\\/])*)[Uu][Ss][Ee][Rr][Ss][\\/]johndoe[\\/]#\1#g' -e 's#(^|[^A-Za-z0-9._~/-])(/ho[m]e/runner/work/|/[Uu][Ss][Ee][Rr][Ss]/runner/work/|/ho[m]e/circleci/project/|/githu[b]/workspac[e]/)#\1#g' "$SCAN" > "$STRIPPED" || abort "プレースホルダーの除去に失敗した"
-  PII_USER=$(id -un) && [ -n "$PII_USER" ] || abort "実行ユーザー名を取得できない"
-  PII_USER_RE=$(printf '%s' "$PII_USER" | sed 's/[][\.*^$+?(){}|]/\\&/g') || abort "ユーザー名をエスケープできない"
-  if grep -E "(/[Uu][Ss][Ee][Rr][Ss]/|/ho[m]e/|[A-Za-z]:[\\\\/]([^\\\\/]+[\\\\/])*[Uu][Ss][Ee][Rr][Ss][\\\\/]|/${PII_USER_RE}(/|\$)|(^|[^A-Za-z0-9._~/-])(/ro[o]t(/|\$)|/medi[a]/[^/[:space:]]+/|/ru[n]/user/[0-9]+(/|\$)|/Volume[s]/[^/]+/|/op[t]/[^/[:space:]\"'\`]+([/[:space:]\"'\`]|\$)|/sr[v]/[^/[:space:]\"'\`]+([/[:space:]\"'\`]|\$)|/workspac[e]/[^/[:space:]\"'\`]+([/[:space:]\"'\`]|\$)))" "$STRIPPED"; then ABSOLUTE=0; else ABSOLUTE=$?; fi
-  [ "$TRAVERSAL" -le 1 ] && [ "$ABSOLUTE" -le 1 ] || abort "grep による走査に失敗した"
-  if [ "$TRAVERSAL" -eq 0 ] || [ "$ABSOLUTE" -eq 0 ]; then echo "❌ PII detected" >&2; exit 1; fi
-  echo "PII check passed"
+# >>> pii-scan
+# 各段階の失敗を「該当なし」と区別する: git / awk の失敗は pipefail で検出し、grep は 1（該当なし）のみを正常とみなす
+# --text でバイナリ扱いのファイルも中身を差分に含め、NUL は空白に置き換えて awk が行を途中で打ち切らないようにする（走査から漏らさない）
+if ! added=$(set -o pipefail; git diff --cached --text | tr '\000' ' ' | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+  echo "diff extraction failed — abort commit" >&2
+  exit 1
+fi
+# grep を if の条件に置き、errexit（set -e）下でも終了ステータスを記録する前にシェルが終了しないようにする
+# pipefail で grep の失敗を sed の終了ステータスに隠さず、下の rc 判定へ渡す
+# file:// URI は境界の文字クラスを緩めず接頭辞として許可し（https URL のパス部分は対象外のまま）、sed で先頭を単一の / に揃えてプレースホルダー判定へ渡す
+# Windows の file:// URI はドライブ文字の前に / が付いた形へ揃うため、プレースホルダー判定でもその形を認める
+# 別のパス要素より下にあるユーザーディレクトリ（WSL のドライブマウントや外部ボリューム配下など）も検出する。起点は境界の直後に限り、途中の要素は空にできないため、URL のパス部分と相対パスは対象外のまま
+# opt / srv / workspace は Homebrew の共有ディレクトリなどを誤検出しないよう、ルート直下だけを対象にする
+# Windows のドライブは C: に限らず、大文字・小文字の全ドライブ文字を検出する。ドライブ文字で始まる一致を消さないよう、sed は境界の 1 文字と file:// だけを外す
+# UNC パスも Windows のドライブと同じ規則で検出する（サーバー名と共有名は途中の要素として扱う）
+# 空白を含むパス要素も検出する。空白は要素の内側だけに許可し、2 語目以降は ":" を含められない（同じ行の別のドライブや URL スキームまで 1 要素にしないため）。区切り文字が続かない語は末尾の文章とみなして取り込まない
+seg='[^/[:space:]"'\''`<>]+( +[^/:[:space:]"'\''`<>]+)*'
+win='[^\\[:space:]"'\''`<>]+( +[^\\:[:space:]"'\''`<>]+)*'
+word='[^/\\:[:space:]"'\''`<>]+'
+# file:// URI 内のパーセントエンコードされた保護ディレクトリ名（先頭文字を含む）も検出する
+usr='(U|%55)(s|%73)(e|%65)(r|%72)(s|%73)'
+hm='(h|%68)(o|%[6][fF])(m|%[6][dD])(e|%65)'
+# %2F・%5C でエンコードされた区切り文字は抽出前に復号する（URL のパス部分は境界の判定により対象外のまま）
+if paths=$(set -o pipefail; printf '%s\n' "$added" | sed -E -e 's#%2[fF]#/#g' -e 's#%5[cC]#\\#g' | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*('"$usr"'|'"$hm"')|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\|\\\\[^\\[:space:]]+\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
+  rc=0
+else
+  rc=$?
+fi
+if [ "$rc" -gt 1 ]; then
+  echo "grep failed (exit $rc) — abort commit" >&2
+  exit 1
+fi
+if [ "$rc" -eq 0 ]; then
+  # %XX は 1 回だけ復号し、".."・保護ディレクトリ・プレースホルダーの判定をすべて復号後の値で行う（検出時は元の表記を表示する）
+  # 16 進数の変換は macOS awk / mawk でも動くよう index() で行い、制御文字と非 ASCII は復号しない
+  # プレースホルダーとして除外するのは、保護ディレクトリがパス全体で 1 つだけで、その直下が johndoe のものに限る（途中の要素に別のユーザーディレクトリがあれば除外しない。opt / srv / workspace はルート直下の要素がユーザー名の場合があるため、配下のプレースホルダーも除外しない）
+  if ! hits=$(printf '%s\n' "$paths" | awk '
+         function decode(s, out, h, c) {
+           out = ""
+           while (match(s, /%[0-9A-Fa-f][0-9A-Fa-f]/)) {
+             h = tolower(substr(s, RSTART + 1, 2))
+             c = (index("0123456789abcdef", substr(h, 1, 1)) - 1) * 16 + index("0123456789abcdef", substr(h, 2, 1)) - 1
+             out = out substr(s, 1, RSTART - 1) (c >= 32 && c < 127 ? sprintf("%c", c) : substr(s, RSTART, 3))
+             s = substr(s, RSTART + RLENGTH)
+           }
+           return out s
+         }
+         {
+           d = decode($0); gsub(/\\/, "/", d); n = split(d, part, "/"); count = 0; first = 0
+           if (d ~ /^\/(op[t]|sr[v]|workspac[e])\//) { print; next }
+           for (i = 1; i <= n; i++) {
+             if (part[i] == "..") { print; next }
+             if (tolower(part[i]) ~ /^(user[s]|hom[e])$/) { count++; if (first == 0) first = i }
+           }
+           if (count != 1 || part[first + 1] != "johndoe") print
+         }
+         '); then
+    echo "placeholder filter failed — abort commit" >&2
+    exit 1
+  fi
+  if [ -n "$hits" ]; then
+    printf '%s\n' "$hits"
+    echo "PII detected — abort commit" >&2
+    exit 1
+  fi
+fi
+echo "PII check passed"
+# <<< pii-scan
 )
 # 許可されたドキュメントパス以外がステージされていたらコミットを中止する
 # git diff の失敗や grep の走査エラー（終了コード 2 以上）でもコミットへ進まないよう fail closed にする
@@ -220,7 +275,7 @@ else
 fi
 ```
 
-コミット前には必ず staged diff に対する PII・ローカル絶対パス検査（`markdown-formatter/SKILL.md` Step 3、`.claude/rules/no-absolute-paths.md`）を実行し、検出（終了コード 1）または検査中止（終了コード 2）の場合はコミットしないでください。
+コミット前には必ず staged diff に対する PII・ローカル絶対パス検査（`markdown-formatter/SKILL.md` Step 3、`.claude/rules/no-absolute-paths.md`）を実行し、検出または検査の中止（どちらも終了コード 1）の場合はコミットしないでください。
 
 ---
 
