@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-11-06
+Updated 2026-11-07
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -8,6 +8,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 > **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 122 ルート = ガイドライブラリ index + 121 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-11-07: PII検査のCRLF回帰とエンコードされた区切り文字のレビュー修正
+
+- 回帰: `31a6c57d`で`.claude/rules/no-absolute-paths.md`・`.gemini/rules/no-absolute-paths.md`の`usr=`・`hm=`の行へCRLFが混入。変数の末尾に`\r`が残り、POSIXの`Users`・`home`の検出が両ルールで停止していた（レビュー指摘外）。CRを除去し、両ファイルをLFへ統一。
+- 抽出: grepの前に`%2F`・`%5C`を復号。URLのパス部分は既存の境界の判定により対象外のまま。
+- awkフィルター: `%XX`を1回だけ復号し、`..`・保護ディレクトリ・プレースホルダーの判定を復号後の値へ統一。除外は保護ディレクトリがパス全体で1つだけで、その直下が`johndoe`の場合に限る。ネストしたプレースホルダーを許可しつつ、途中に別のユーザーディレクトリがあれば検出する。大文字・小文字が異なる`JohnDoe`は除外しない。検出時は元の表記を表示する。
+- テスト: `tests/rules/no-absolute-paths.test.ts`で3文書の検査ブロックを抽出し、一時リポジトリの実差分で実行。CR混入と`.claude`・`.gemini`のルール一致も検証。保護された語はテスト内でも連結で組み立て、PII検査への自己一致を避ける。
+- 検証: 対象103件（修正前は51件失敗）、全体10750件（216ファイル）、lint、変更Markdownのlintが成功。ケース表はBSD grep・ugrep・GNU grep＋mawk・BusyBox grep＋gawkで一致。本番ビルド、目視確認は未実施。
+- 残課題: `31a6c57d`から修正までのコミットは、両ルールの検査では`Users`・`home`を検出できなかった（`tdd-mandatory-cycle.md`など別実装の検査は対象外）。`.gemini`のSKILLのWindows抽出は`User[s]`のまま大文字・小文字を区別する。`.claude`・`.agents`の別実装の検査は`%2F`を復号しない。いずれも指摘の範囲外のため未変更。
 
 ## 2026-11-06: PII検査のプレースホルダー除外とポート停止手順のレビュー修正
 
@@ -374,10 +383,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `9246538a` — fix(rules): strip nested Windows placeholder paths in PII scan |
-| 最新コミット内容 | `fix(rules): strip nested Windows placeholder paths in PII scan` |
+| 最新 HEAD | `adf3a261` — fix(rules): restore PII scan and decode paths before checks |
+| 最新コミット内容 | `fix(rules): restore PII scan and decode paths before checks` |
 | 次の作業 | `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`全94ルートの本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10647件（215ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | ISO 40500対象329件・SQLフレームワーク対象354件・lint成功。全体10750件（216ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
