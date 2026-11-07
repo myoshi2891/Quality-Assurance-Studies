@@ -46,6 +46,7 @@ const DETECTED = [
   `D:\\Data\\${USERS}\\${OTHER}\\project`,
   `D:\\Data\\${USERS}\\johndoe\\${USERS}\\${OTHER}\\project`,
   `D:\\${USERS}\\${OTHER}\\${USERS}\\johndoe\\project`,
+  `/${OPT}/${OTHER}/${USERS}/johndoe/project`,
 ];
 
 const ALLOWED = [
