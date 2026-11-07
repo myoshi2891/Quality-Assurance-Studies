@@ -398,3 +398,7 @@
 .iso19770-page table { color: var(--text); }
 .iso19770-page tbody tr:hover td { background: transparent; }
 .iso19770-page tbody tr:nth-child(even):hover td { background: #0a1727; }
+
+/* Retained guide styles must not replace the source step labels or callout text. */
+.iso19770-page .step-num { border: 0; font-family: inherit; width: auto; height: auto; }
+.iso19770-page .callout p { color: var(--text); }
