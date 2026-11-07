@@ -54,8 +54,10 @@ test('390px: focused table regions scroll with the arrow keys and show the focus
     await page.setContent(`<style>${preflight}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
     const regions=page.locator('.table-scroll[role="region"]');
     await expect(regions).toHaveCount(8);
+    // 390px の8表は折り返しで収まるため、文字拡大などで表が容器を超えた状態を再現してキー操作を検証する。
+    await page.addStyleTag({content:'.iec62304-page table { min-width: 900px; }'});
     const overflowing=await regions.evaluateAll(nodes=>nodes.flatMap((node,index)=>node.scrollWidth>node.clientWidth?[index]:[]));
-    expect(overflowing.length).toBeGreaterThan(0);
+    expect(overflowing).toEqual([0,1,2,3,4,5,6,7]);
     for(const index of overflowing){
         const region=regions.nth(index);
         await region.focus();
