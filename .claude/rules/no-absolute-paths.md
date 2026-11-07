@@ -75,7 +75,8 @@ word='[^/\\:[:space:]"'\''`<>]+'
 # file:// URI 内のパーセントエンコードされた保護ディレクトリ名（先頭文字を含む）も検出する
 usr='(U|%55)(s|%73)(e|%65)(r|%72)(s|%73)'
 hm='(h|%68)(o|%[6][fF])(m|%[6][dD])(e|%65)'
-if paths=$(set -o pipefail; printf '%s\n' "$added" | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*('"$usr"'|'"$hm"')|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
+# %2F・%5C でエンコードされた区切り文字は抽出前に復号する（URL のパス部分は境界の判定により対象外のまま）
+if paths=$(set -o pipefail; printf '%s\n' "$added" | sed -E -e 's#%2[fF]#/#g' -e 's#%5[cC]#\\#g' | grep -oE '((^|[^A-Za-z0-9._~/-])(file://(localhost)?)?/(('"$seg"'/)*('"$usr"'|'"$hm"')|op[t]|sr[v]|workspac[e])/|[A-Za-z]:\\('"$win"'\\)*[Uu][Ss][Ee][Rr][Ss]\\)[^[:space:]"'\''`]*( +('"$word"' +)*'"$word"'[/\\][^[:space:]"'\''`]*)*' | sed -E -e 's#^[^/A-Za-z]*##' -e 's#^file://(localhost)?##'); then
   rc=0
 else
   rc=$?
@@ -85,10 +86,28 @@ if [ "$rc" -gt 1 ]; then
   exit 1
 fi
 if [ "$rc" -eq 0 ]; then
-  if ! hits=$(printf '%s\n' "$paths" | awk '{ d = tolower($0); gsub(/%2e/, ".", d); gsub(/%2f|%5c/, "/", d) }  # パーセントエンコードされた ".."・区切りも復号して判定する
-         d ~ /(^|[\/\\])\.\.([\/\\]|$)/ { print; next }  # ".." を含むパスはプレースホルダー除外より先に必ず検出する
-         !/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/[Uu][Ss][Ee][Rr][Ss]\/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)johndoe([\/\\]|$)/ { print; next }
-         { p = $0; sub(/^(\/User[s]\/|\/hom[e]\/|\/[A-Za-z]:\/[Uu][Ss][Ee][Rr][Ss]\/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\)johndoe/, ""); d = tolower($0); if (d ~ /[\/\\](user[s]|hom[e])[\/\\]/) print p }  # プレースホルダーより下に別のユーザーディレクトリがあるパスも検出する
+  # %XX は 1 回だけ復号し、".."・保護ディレクトリ・プレースホルダーの判定をすべて復号後の値で行う（検出時は元の表記を表示する）
+  # 16 進数の変換は macOS awk / mawk でも動くよう index() で行い、制御文字と非 ASCII は復号しない
+  # プレースホルダーとして除外するのは、保護ディレクトリがパス全体で 1 つだけで、その直下が johndoe のものに限る（途中の要素に別のユーザーディレクトリがあれば除外しない）
+  if ! hits=$(printf '%s\n' "$paths" | awk '
+         function decode(s, out, h, c) {
+           out = ""
+           while (match(s, /%[0-9A-Fa-f][0-9A-Fa-f]/)) {
+             h = tolower(substr(s, RSTART + 1, 2))
+             c = (index("0123456789abcdef", substr(h, 1, 1)) - 1) * 16 + index("0123456789abcdef", substr(h, 2, 1)) - 1
+             out = out substr(s, 1, RSTART - 1) (c >= 32 && c < 127 ? sprintf("%c", c) : substr(s, RSTART, 3))
+             s = substr(s, RSTART + RLENGTH)
+           }
+           return out s
+         }
+         {
+           d = decode($0); gsub(/\\/, "/", d); n = split(d, part, "/"); count = 0; first = 0
+           for (i = 1; i <= n; i++) {
+             if (part[i] == "..") { print; next }
+             if (tolower(part[i]) ~ /^(user[s]|hom[e])$/) { count++; if (first == 0) first = i }
+           }
+           if (count != 1 || part[first + 1] != "johndoe") print
+         }
          '); then
     echo "placeholder filter failed — abort commit" >&2
     exit 1
