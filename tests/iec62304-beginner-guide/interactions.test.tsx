@@ -25,7 +25,13 @@ const scrollTo=(scrollHeight:number,scrollY=0)=>{
     Object.defineProperty(document.documentElement,'scrollHeight',{configurable:true,value:scrollHeight});
     Object.defineProperty(window,'scrollY',{configurable:true,value:scrollY});
 };
-const restore=()=>{delete (document.documentElement as unknown as {scrollHeight?:number}).scrollHeight;delete (window as unknown as {scrollY?:number}).scrollY;};
+// window は全テストファイルで共有される。scrollY は window 自身の値なので、削除すると後続ファイルで undefined になる。元の定義へ戻す。
+const realScrollY=Object.getOwnPropertyDescriptor(window,'scrollY');
+const restore=()=>{
+    delete (document.documentElement as unknown as {scrollHeight?:number}).scrollHeight;
+    delete (window as unknown as {scrollY?:number}).scrollY;
+    if(realScrollY)Object.defineProperty(window,'scrollY',realScrollY);
+};
 beforeEach(()=>{queued=[];scrollTo(window.innerHeight+5000);
     globalThis.requestAnimationFrame=(callback:FrameRequestCallback)=>{queued.push(callback);return queued.length;};
     globalThis.cancelAnimationFrame=()=>{queued=[];};
