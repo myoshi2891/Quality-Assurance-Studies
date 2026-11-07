@@ -286,7 +286,7 @@
                     font-size: 23px;
                 }
             }
-        
+
 /* Fixed application header and dynamic disclaimer are outside this page. */
 .iec62304-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
 .iec62304-page .nav-toggle { top: calc(70px + var(--disclaimer-height, 0px)); }
