@@ -16,7 +16,7 @@ function tree(n: AnyNode): unknown {
     if (!isTag(n)) return null;
     const attrs = { ...n.attribs };
     for (const k of ['role','aria-label','aria-current','aria-expanded','aria-controls','tabindex','type']) delete attrs[k];
-    if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '');
+    if (attrs.class) { attrs.class = attrs.class.replace(/(^|\s+)active\b/g, '').trim(); if (!attrs.class) delete attrs.class; }
     if (attrs.style) attrs.style = attrs.style.replace(/\s+/g,'').replace(/;$/,'');
     return { tag: n.tagName, attrs, children: attrs.class === 'mermaid-diagram' ? [] : n.children.map(tree).filter(Boolean) };
 }

@@ -1,4 +1,4 @@
-import { describe, expect, it, afterEach } from 'bun:test';
+import { describe, expect, it, afterEach, beforeEach } from 'bun:test';
 import React from 'react';
 import { render, fireEvent, cleanup, act } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
@@ -8,6 +8,24 @@ import inventory from '../../docs/migration-inventory/iec62304-beginner-guide.js
 const base='app/iec62304-beginner-guide';
 afterEach(cleanup);
 const nav=()=>sourceModule(`${base}/NavBar.tsx`).default as React.ComponentType;
+const headingList=()=>{
+    const headings=document.createElement('div');
+    headings.innerHTML=inventory.groups.toc.items.map(html=>`<h2 id="${html.match(/data-target="([^"]+)"/)![1]}"></h2>`).join('');
+    document.body.append(headings);return headings;
+};
+// index 番目までの見出しが着地線を通過した配置にする。-1 はどの見出しもまだ通過していない状態。
+const place=(headings:Element,index:number)=>Array.from(headings.children).forEach((h,i)=>{h.getBoundingClientRect=()=>({top:(i-index)*300} as DOMRect);});
+const current=(root:Element)=>root.querySelector('[aria-current="location"]')?.getAttribute('data-target');
+// 実時間に依存しないよう、requestAnimationFrame を手動で流す。
+let queued:FrameRequestCallback[]=[];
+const flush=()=>{const callbacks=queued;queued=[];callbacks.forEach(callback=>callback(0));};
+const realFrame=window.requestAnimationFrame,realCancel=window.cancelAnimationFrame;
+const restore=()=>{delete (document.documentElement as unknown as {scrollHeight?:number}).scrollHeight;delete (window as unknown as {scrollY?:number}).scrollY;};
+beforeEach(()=>{queued=[];
+    window.requestAnimationFrame=(callback:FrameRequestCallback)=>{queued.push(callback);return queued.length;};
+    window.cancelAnimationFrame=()=>{queued=[];};
+});
+afterEach(()=>{window.requestAnimationFrame=realFrame;window.cancelAnimationFrame=realCancel;});
 describe('source TOC interactions',()=>{
     it('opens and closes by link, Escape restores toggle focus',()=>{
         const C=nav(),r=render(<C/>),button=r.getByRole('button',{name:'目次を開く'});
@@ -24,12 +42,56 @@ describe('source TOC interactions',()=>{
             constructor(cb:IntersectionObserverCallback,options:IntersectionObserverInit){callback=cb;expect(options.rootMargin).toBe('-15% 0px -75% 0px');}
             observe(n:Element){observed.push(n);} disconnect(){disconnected=true;}
         } as unknown as typeof IntersectionObserver;
-        const headings=document.createElement('div');headings.innerHTML=inventory.groups.toc.items.map(html=>{const id=html.match(/data-target="([^"]+)"/)![1];return `<h2 id="${id}"></h2>`;}).join('');document.body.append(headings);
+        const headings=headingList();place(headings,0);
         try {const C=nav(),r=render(<C/>);expect(observed.map(n=>n.id)).toEqual(Array.from(headings.children).map(n=>n.id));
-            act(()=>callback([{isIntersecting:true,target:observed[3]} as IntersectionObserverEntry],{} as IntersectionObserver));
-            expect(r.container.querySelector('[aria-current="location"]')?.getAttribute('data-target')).toBe(observed[3]!.id);
+            place(headings,3);
+            act(()=>{callback([{isIntersecting:true,target:observed[3]} as IntersectionObserverEntry],{} as IntersectionObserver);flush();});
+            expect(current(r.container)).toBe(observed[3]!.id);
             r.unmount();expect(disconnected).toBe(true);
-        } finally {headings.remove();globalThis.IntersectionObserver=previous;}
+        } finally {headings.remove();restore();globalThis.IntersectionObserver=previous;}
+    });
+    it('marks the first entry on load, before any heading reaches the landing line',()=>{
+        const headings=headingList();place(headings,-1);
+        try {const C=nav(),r=render(<C/>);act(flush);
+            expect(current(r.container)).toBe(headings.children[0]!.id);
+            expect(r.container.querySelector('[aria-current="location"]')?.className).toBe('active');
+        } finally {headings.remove();restore();}
+    });
+    it('follows a scroll that skips the observer band without any intersection notice',()=>{
+        const headings=headingList();place(headings,0);
+        try {const C=nav(),r=render(<C/>);act(flush);
+            place(headings,9);act(()=>{window.dispatchEvent(new Event('scroll'));flush();});
+            expect(current(r.container)).toBe(headings.children[9]!.id);
+            place(headings,2);act(()=>{window.dispatchEvent(new Event('resize'));flush();});
+            expect(current(r.container)).toBe(headings.children[2]!.id);
+        } finally {headings.remove();restore();}
+    });
+    it('keeps the first entry when scrolled back above every heading and honours scroll-margin-top',()=>{
+        const headings=headingList();place(headings,4);
+        try {const C=nav(),r=render(<C/>);act(flush);
+            place(headings,-1);act(()=>{window.dispatchEvent(new Event('scroll'));flush();});
+            expect(current(r.container)).toBe(headings.children[0]!.id);
+            // 着地位置（scroll-margin-top）ちょうどの見出しは通過済みとして扱う。
+            (headings.children[5] as HTMLElement).style.scrollMarginTop='76px';
+            place(headings,4);headings.children[5]!.getBoundingClientRect=()=>({top:76} as DOMRect);
+            act(()=>{window.dispatchEvent(new Event('scroll'));flush();});
+            expect(current(r.container)).toBe(headings.children[5]!.id);
+        } finally {headings.remove();restore();}
+    });
+    it('selects the last entry at the end of the page even if its heading cannot reach the landing line',()=>{
+        const headings=headingList();place(headings,18);
+        const last=headings.children[20]!;last.getBoundingClientRect=()=>({top:500} as DOMRect);
+        Object.defineProperty(document.documentElement,'scrollHeight',{configurable:true,value:window.innerHeight+1000});
+        Object.defineProperty(window,'scrollY',{configurable:true,value:1000});
+        try {const C=nav(),r=render(<C/>);act(flush);
+            expect(current(r.container)).toBe(last.id);
+        } finally {headings.remove();restore();}
+    });
+    it('cancels the pending measurement and removes its listeners on unmount',()=>{
+        const headings=headingList();place(headings,0);
+        try {const C=nav(),r=render(<C/>);act(flush);r.unmount();
+            window.dispatchEvent(new Event('scroll'));expect(queued).toHaveLength(0);
+        } finally {headings.remove();restore();}
     });
 });
 for(const development of [false,true]) it(`hydrates real page without recoverable errors or table nesting warnings, SWC=${development}`,async()=>{
