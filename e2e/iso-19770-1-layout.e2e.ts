@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-19770-1-guide.json';
+import { applyReviewCorrections } from '../tests/iso-19770-1-guide/review-corrections';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-19770-1-guide';
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
@@ -23,7 +24,7 @@ for (const width of [390,900,901,1440]) {
         test(`${width}px CSS ${order}: every source design element matches computed styles`, async ({ page }) => {
             await page.setViewportSize({ width, height: 900 });
             const reference = await page.context().newPage(); await reference.setViewportSize({ width, height: 900 });
-            await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody.replace(/<svg[\s\S]*?<\/svg>/g,'')} `);
+            await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody).replace(/<svg[\s\S]*?<\/svg>/g,'')} `);
             const own = readFileSync(`${base}/guide.css`, 'utf8');
             const css = preflight + globals + (order === 'before' ? retained + own : own + retained);
             await page.setContent(`<style>${css}</style>${markup()}`);
@@ -51,7 +52,7 @@ for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
         await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
         const {DIAGRAMS}=sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:Record<string,string>};
-        const reference=await page.context().newPage();await reference.setViewportSize({width,height:900});await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+        const reference=await page.context().newPage();await reference.setViewportSize({width,height:900});await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody)}`);
         const collect=(outer:Element)=>{
             const norm=(s:string|null)=>(s??'').replace(/\s+/g,' ').trim();
             const nodes=Array.from(outer.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),label:norm(n.querySelector('.nodeLabel')?.textContent??''),color:getComputedStyle(n.querySelector('.nodeLabel')!).color,fill:getComputedStyle(n.firstElementChild!).fill,shape:n.firstElementChild!.tagName,stroke:getComputedStyle(n.firstElementChild!).stroke,strokeWidth:getComputedStyle(n.firstElementChild!).strokeWidth}));
@@ -100,7 +101,7 @@ for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=
 for(const width of [390,1440]) test(`${width}px: all six native answers retain original closed and opened styles`,async({page})=>{
     await page.setViewportSize({width,height:900});
     const reference=await page.context().newPage();await reference.setViewportSize({width,height:900});
-    await reference.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody.replace(/<svg[\s\S]*?<\/svg>/g,'')}`);
+    await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody).replace(/<svg[\s\S]*?<\/svg>/g,'')}`);
     await page.setContent(`<style>${preflight}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
     const collect=(el:Element)=>Array.from(el.querySelectorAll('summary,p,ol,li'),n=>{const c=getComputedStyle(n);return {tag:n.tagName,color:c.color,background:c.backgroundColor,fontSize:c.fontSize,lineHeight:c.lineHeight,padding:c.padding,margin:c.margin,border:c.borderBottom};});
     for(let i=0;i<6;i++){

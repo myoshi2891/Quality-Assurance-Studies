@@ -8,6 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-19770-1-guide.json';
 import { sourceModule } from '../helpers/source-module';
+import { applyReviewCorrections } from './review-corrections';
 const base = 'app/iso-19770-1-guide';
 const scope = '.iso19770-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -21,7 +22,7 @@ function tree(n: AnyNode): unknown {
     return { tag: n.tagName, attrs, children: attrs.class === 'mermaid-diagram' ? [] : n.children.map(tree).filter(Boolean) };
 }
 function source(html: string) {
-    const $ = load(html);
+    const $ = load(applyReviewCorrections(html));
     $('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');
     // React disallows indentation text directly under table structure.
     $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_,n)=>n.type==='text' && /^\s*$/.test(n.data)).remove();
@@ -97,6 +98,48 @@ describe('assembled source inventory', () => {
         $('a[href^="http"]').each((_,n)=>{expect($(n).attr('rel')).toBe('noopener noreferrer');expect($(n).attr('target')).toBe('_blank');});
         const entry=readFileSync(`${base}/page.tsx`,'utf8'); expect(entry).toContain("import './guide.css'"); expect(entry).toContain('noto-sans-jp-800.css');
         expect(sourceModule(`${base}/page.tsx`).metadata).toMatchObject({title:inventory.title});
+    });
+});
+describe('review corrections',()=>{
+    it('removes the nested strong and the literal Markdown asterisks from the reference',()=>{
+        const corrected=applyReviewCorrections(inventory.originalBody);
+        expect(inventory.originalBody).toMatch(/<strong>[^<]*<strong>/);
+        expect(inventory.originalBody).toContain('**');
+        expect(corrected).not.toMatch(/<strong>[^<]*<strong>/);
+        expect(corrected).not.toContain('**');
+    });
+    it('emphasizes only the intended phrases',()=>{
+        expect(render('Section07')('p:has(strong) strong').map((_,n)=>load(n).text()).get()).toEqual(expect.arrayContaining(['適用宣言書（Statement of Applicability）','15のプロセス領域']));
+        expect(render('Section07')('strong strong')).toHaveLength(0);
+        const q1=render('Section13')('details').first();
+        expect(q1.find('p strong').text()).toBe('IT資産全般のマネジメントシステム（ITAMS）');
+        expect(q1.text()).not.toContain('**');
+    });
+});
+describe('diagram accessible names',()=>{
+    const accessibleName=(id:string)=>{
+        const C=sourceModule(`${base}/Diagram.tsx`).default as React.ComponentType<{id:string}>;
+        return load(renderToStaticMarkup(<C id={id}/>))('[role="img"]').attr('aria-label') ?? '';
+    };
+    inventory.diagrams.forEach((diagram,i)=>it(`${diagram.id}: states the subject, every node, cluster and edge label`,()=>{
+        const name=accessibleName(diagram.id);
+        expect(name.startsWith(`ISO/IEC 19770-1 図 ${i+1}：`)).toBe(true);
+        const labels=[...diagram.nodes.map(n=>n.label),...diagram.clusters.map(c=>c.label),...diagram.edges.flatMap(e=>e.label?[e.label]:[])];
+        for(const fragment of labels.flatMap(label=>label.split('<br/>'))) expect(name).toContain(fragment);
+    }));
+    it('roadmap: lists the eight steps in order and the feedback from step 8 to step 3',()=>{
+        const name=accessibleName('mermaid-diagram-8');
+        const positions=[...'①②③④⑤⑥⑦⑧'].map(step=>name.indexOf(step));
+        expect(positions.every(position=>position>=0)).toBe(true);
+        expect(positions).toEqual([...positions].sort((a,b)=>a-b));
+        expect(name).toContain('⑧から点線で③へ戻り、継続する');
+    });
+    it('cycle and lifecycle: state the return path, and undirected links imply no direction',()=>{
+        expect(accessibleName('mermaid-diagram-3')).toContain('箇条10から箇条4へ点線で戻る（継続的改善）');
+        const lifecycle=accessibleName('mermaid-diagram-5');
+        expect(lifecycle).toContain('廃棄から仕様策定へ点線で戻る（再利用・教訓）');
+        expect(lifecycle).toContain('Trustworthy Data（変更・データ・ライセンス・セキュリティ）は仕様策定と運用に関連し');
+        expect(lifecycle).toContain('Optimization（関係・財務・SLA）は運用に関連する');
     });
 });
 describe('original archives',()=>{
