@@ -4,6 +4,13 @@ Updated 2026-11-08
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-08: CIの実行順依存によるテスト失敗の修正
+
+- 症状: CIで`tests/iso-29119-1-2022-guide/review-a11y.test.tsx`の`aria-current`のテスト1件だけが失敗。ローカルは成功。
+- 原因: `tests/iec62304-beginner-guide/interactions.test.tsx`の`restore`が`window.scrollY`を`delete`していた。`scrollY`は`window`自身の値で、削除すると`window`を共有する後続ファイルで`undefined`になる。NavBarの`scrollY + 100`が`NaN`になり、強調先を失う。`bun test`の処理順はOSで異なり、ローカルではiso-29119-1が先に動くため表面化しない。次のテストは`afterEach`が`scrollY`を0へ戻すため成功する。製品コードの不具合ではない。
+- 修正: 読み込み時に`scrollY`の定義を保存し、`restore`で元へ戻す。回帰テストを1件追加。
+- 検証: `scrollY`を消した状態を一時preloadで再現し、CIと同じ1件の失敗を確認。修正後は全テスト開始時の状態を記録する一時preloadで`document.body`と`scrollY`の漏れがないことを確認。対象324件、lint、全体11712件（222ファイル）が成功。CIでの再実行は未確認。
+
 ## 2026-11-08: ISO/IEC 19770-1ガイドのレビュー修正
 
 - 図: `Diagram.tsx`の「図 N」だけだった名前を、全10図とも主題・全ノード・グループ・辺ラベルを示す文章へ変更。図8は①〜⑧の順序と⑧から③へ戻る流れを含む。図5の矢印のない点線は「関連する」と表現し、向きを示さない。
