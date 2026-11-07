@@ -4,6 +4,15 @@ Updated 2026-11-07
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-07: ISO/IEC 19770-1:2017ガイドの移行
+
+- `Iso-19770-1-guide.html`を`/iso-19770-1-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を124ルートへ同期。
+- 14カテゴリーを順に個別実装・個別コミット。見出し31件、階層目次30リンク、16表の全セル、10図、注記7件、外部リンク18件、開閉式回答6件、メタ情報4件、STEPラベル13件、全66 CSSルールと900px境界、ヒーロー・本文・フッターを固定インベントリと一対一照合。コードブロックは原本どおり0件。
+- 対象261件が成功。SWC開発・本番変換後の完全DOM・インライン文字列、実ハイドレーションと表の警告、目次の開閉・Escape・フォーカス復帰・全30見出しの監視と解除・選択リンクへのスクロールを検証。
+- ビルド・サーバー不要のChrome比較34件が成功（4幅×CSS前後2順序の8件、2幅×10実SVGの20件、2幅の回答開閉、4幅のヘッダー・Disclaimer下のアンカー余白）。STEPラベルの枠・書体・寸法と注記文字色の残留CSS干渉を補正。図はHTML内SVGを基準に、縦配置の履歴、PDCAクラスターの所属とノード順、双方向矢印と矢印なし点線、全ラベル・形状・線幅・配色・接続方向・非ゼロ寸法・横スクロール到達性を照合。
+- 元HTML・Markdownを`archive/html-archive/Iso-19770-1-guide.html`・`archive/md-archive/Iso-19770-1-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で全体11679件（222ファイル）、対象ソース・テスト・E2EのTypeScript、lint、Markdown lintが成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-07: IEC 62304追加原稿の移行
 
 - `Iec62304-beginner-guide.html`を`/iec62304-beginner-guide`へ移行。旧`/iec-62304-beginner-guide`とは別原稿として保持し、ナビ・E2Eを123ルートへ同期。
@@ -573,6 +582,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-genai-study-guide/page.tsx` (CT-GenAI完全学習ガイド、既存画面と併存、`NavBar.tsx` 付き)
 - `app/beautiful-testing-guide/page.tsx` (Beautiful Testing ガイド、`NavBar.tsx` 付き)
 - `app/quality-is-free-guide/page.tsx` (Quality Is Free入門、紙色テーマ・全16セクション・目次15リンク・8図・6表・チェック11項目)
+- `app/iso-19770-1-guide/page.tsx`（14カテゴリー・階層目次30リンク・16表・10図・回答6件。NavBar・toc・Diagram・diagrams・専用CSS）
 - `app/iec62304-beginner-guide/page.tsx`（追加原稿。21カテゴリー・21目次リンク・34表・18図・7回答。専用CSS・NavBar・toc・Diagram・diagrams）
 - `app/iec-62304-beginner-guide/page.tsx`（ダーク配色・全22セクション・目次50リンク・18図・37表。`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・専用CSSで構成）
 - `app/beyond-legacy-code-guide/page.tsx` (Beyond Legacy Code 実践ガイド、`NavBar.tsx` 付き)
@@ -759,6 +769,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
@@ -836,7 +847,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 123 ルート（ガイドライブラリ index + 122 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 124 ルート（ガイドライブラリ index + 123 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。

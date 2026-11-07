@@ -4,6 +4,15 @@ Updated 2026-11-07
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-07: ISO/IEC 19770-1:2017ガイドの移行
+
+- `Iso-19770-1-guide.html`を`/iso-19770-1-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を124ルートへ同期。
+- 14カテゴリーを順に個別実装・個別コミット。見出し31件、階層目次30リンク、16表の全セル、10図、注記7件、外部リンク18件、開閉式回答6件、メタ情報4件、STEPラベル13件、全66 CSSルールと900px境界、ヒーロー・本文・フッターを固定インベントリと一対一照合。コードブロックは原本どおり0件。
+- 対象261件が成功。SWC開発・本番変換後の完全DOM・インライン文字列、実ハイドレーションと表の警告、目次の開閉・Escape・フォーカス復帰・全30見出しの監視と解除・選択リンクへのスクロールを検証。
+- ビルド・サーバー不要のChrome比較34件が成功（4幅×CSS前後2順序の8件、2幅×10実SVGの20件、2幅の回答開閉、4幅のヘッダー・Disclaimer下のアンカー余白）。STEPラベルの枠・書体・寸法と注記文字色の残留CSS干渉を補正。図はHTML内SVGを基準に、縦配置の履歴、PDCAクラスターの所属とノード順、双方向矢印と矢印なし点線、全ラベル・形状・線幅・配色・接続方向・非ゼロ寸法・横スクロール到達性を照合。
+- 元HTML・Markdownを`archive/html-archive/Iso-19770-1-guide.html`・`archive/md-archive/Iso-19770-1-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で全体11679件（222ファイル）、対象ソース・テスト・E2EのTypeScript、lint、Markdown lintが成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-07: IEC 62304追加原稿の移行
 
 - `Iec62304-beginner-guide.html`を`/iec62304-beginner-guide`へ移行。旧`/iec-62304-beginner-guide`とは別原稿として保持し、ナビ・E2Eを123ルートへ同期。
@@ -394,14 +403,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 219 ファイル・11414 tests)
+bun test             # ユニットテスト (bun test 全体, 222 ファイル・11679 tests)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 123 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 124 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
@@ -912,6 +921,28 @@ Next.js App Router 構成:
 - `app/iso-14496-22-guide/page.tsx` / `iso-14496-22-guide.css` — OFFガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section14.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次、`diagrams.ts`で10図を管理。
 - `app/iso-27799-2025-guide/page.tsx` / `iso-27799-2025-guide.css` — 医療情報セキュリティガイド。`Hero.tsx`・`Section00.tsx`〜`Section18.tsx`・`Footer.tsx`で全文を分割。`NavBar.tsx`で目次19リンク、`Checklist.tsx`でチェック10項目・進捗・リセット、`Diagram.tsx`・`diagrams.ts`で11図を管理。
 - `app/iso-23009-1-2026-guide/page.tsx` / `iso-23009-1-2026-guide.css` — MPEG-DASH第6版ガイド。`Hero.tsx`・`Section00.tsx`〜`Section16.tsx`・`Footer.tsx`で全文を分割。`NavBar.tsx`で40リンクの階層目次、`CodeExample.tsx`でXML2例、`Diagram.tsx`・`diagrams.ts`で6図を管理。
+- `app/iso-19770-1-guide/Diagram.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/NavBar.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section01.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section02.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section03.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section04.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section05.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section06.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section07.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section08.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section09.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section10.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section11.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section12.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section13.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/Section14.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/diagrams.ts` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/guide.css` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/page.tsx` — ISO/IEC 19770-1のカテゴリー別移行
+- `app/iso-19770-1-guide/toc.ts` — ISO/IEC 19770-1のカテゴリー別移行
+- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ261件
+- `e2e/iso-19770-1-layout.e2e.ts` — 原本CSS・実SVG・回答・アンカー34件（`--project=iso-19770-1`）
 - `app/iso-19770-5-guide/page.tsx` / `iso-19770-5-guide.css` — ITAM用語ガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section12.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次と背景操作、`Checklist.tsx`で8項目の進捗、`diagrams.ts`で9図を管理。
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
 - `app/iso-29119-1-2022-guide/NavBar.tsx` — 階層目次69リンク、`scroll` イベント + `getBoundingClientRect()` によるアクティブ節追従、モバイルトグル対応のスティッキー目次
@@ -1278,6 +1309,7 @@ bun test        # ユニットテスト成功
 | `Quality-is-free-guide.html` | `/quality-is-free-guide` | ✅ 紙色テーマ・目次15リンク・全16セクション・6表・Mermaid8図・チェック11項目・参考文献16カード (archive/html-archive/books/) |
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
 | `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
 | `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
@@ -1315,7 +1347,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 123 ルート（ガイドライブラリ index + 122 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 124 ルート（ガイドライブラリ index + 123 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
