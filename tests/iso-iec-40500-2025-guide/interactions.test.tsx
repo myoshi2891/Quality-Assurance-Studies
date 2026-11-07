@@ -67,6 +67,15 @@ describe('hierarchical TOC', () => {
         fireEvent.keyDown(document,{key:'Escape'}); expect(button.getAttribute('aria-expanded')).toBe('false'); expect(document.activeElement).toBe(button);
         fireEvent.click(button); fireEvent.click(nav.querySelector('a')!); expect(button.getAttribute('aria-expanded')).toBe('false');
     });
+    for (const modifier of ['metaKey','ctrlKey','shiftKey','altKey'] as const) it(`leaves the page state alone on a ${modifier} click, which opens the link elsewhere`, async () => {
+        const view = await setup(), nav = view.container.querySelector('nav')!, button = view.getByRole('button',{name:'目次を開閉'});
+        fireEvent.click(button);
+        const link = nav.querySelectorAll('a')[2]!;
+        fireEvent.click(link,{[modifier]:true});
+        expect(button.getAttribute('aria-expanded')).toBe('true');
+        expect(link.getAttribute('aria-current')).toBeNull();
+        view.unmount();
+    });
     it('does not steal focus for Escape when the TOC is closed', async () => {
         const view=await setup(),input=document.createElement('input');document.body.append(input);input.focus();fireEvent.keyDown(document,{key:'Escape'});expect(document.activeElement).toBe(input);input.remove();view.unmount();
     });

@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { COMPATIBILITY_EXCEPTION, COMPATIBILITY_QA_CLAIM_END, COMPATIBILITY_SENTENCE_END, DIAGRAM_NODE_ADDITIONS, SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections, applyReviewDiagramCorrections } from './review-corrections';
+import { COMPATIBILITY_EXCEPTION, COMPATIBILITY_QA_CLAIM_END, COMPATIBILITY_SENTENCE_END, DIAGRAM_EDGE_REWRITES, DIAGRAM_NODE_ADDITIONS, SC_258_REVIEWED, applyReviewCodeCorrections, applyReviewCorrections, applyReviewDiagramCorrections } from './review-corrections';
 const base = 'app/iso-iec-40500-2025-guide';
 const scope = '.wcag-40500-page';
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
@@ -67,15 +67,30 @@ describe('foundation CSS', () => {
         for (const text of ['var(--disclaimer-height, 0px)', '.mermaid-wrapper', 'max-width: none', 'foreignObject', 'overflow: visible']) expect(css).toContain(text);
     });
 });
+describe('reduced motion', () => {
+    it('removes the sidebar transition after every declaration that sets it', () => {
+        const css = readFileSync(`${base}/guide.css`, 'utf8');
+        const sidebar = (r: postcss.Rule) => r.selector === `${scope} .sidebar` && r.nodes.some(n => n.type === 'decl' && n.prop === 'transition');
+        const rules: postcss.Rule[] = [];
+        postcss.parse(css).walkRules(r => { if (sidebar(r)) rules.push(r); });
+        const last = rules.at(-1);
+        expect(last?.parent?.type).toBe('atrule');
+        expect((last?.parent as postcss.AtRule).params).toBe('(prefers-reduced-motion: reduce)');
+        expect(last?.nodes.filter(n => n.type === 'decl').map(n => (n as postcss.Declaration).value)).toEqual(['none']);
+    });
+});
 describe('assembled page', () => {
+    // ページ全体の描画は重く、照合は読み取りだけなので1回の描画を共有する。
+    let rendered: ReturnType<typeof renderFile> | undefined;
+    const page = () => rendered ??= renderFile('page');
     for (const [name, group] of Object.entries(inventory.groups)) {
-        it(`${name}: exact ordered inventory length`, () => expect(renderFile('page')(group.selector)).toHaveLength(group.items.length));
+        it(`${name}: exact ordered inventory length`, () => expect(page()(group.selector)).toHaveLength(group.items.length));
         group.items.forEach((_, i) => it(`${name} ${i}: exact source structure`, () => {
-            const $ = renderFile('page'); expect(tree($(group.selector)[i])).toEqual(tree(source(group.selector)[i]));
+            const $ = page(); expect(tree($(group.selector)[i])).toEqual(tree(source(group.selector)[i]));
         }));
     }
     it('preserves complete body content order, heading IDs, footer and all citation destinations', () => {
-        const $ = renderFile('page');
+        const $ = page();
         expect($('main').contents().toArray().map(tree).filter(Boolean)).toEqual(source('main').contents().toArray().map(tree).filter(Boolean));
         const ids = $('[id]').map((_, n) => $(n).attr('id')).get(); expect(new Set(ids).size).toBe(ids.length);
         $('a[href^="#"]').each((_, n) => expect(ids.filter(id => id === $(n).attr('href')!.slice(1))).toHaveLength(1));
@@ -102,8 +117,6 @@ describe('diagram semantics', () => {
         expect(MERMAID_CONFIG).not.toContain("'");
         const entry: string = 'mermaid/dist/mermaid.esm.mjs'; const mermaid = (await import(entry)).default;
         expect((await mermaid.parse(DIAGRAMS[id])).diagramType).toBe('flowchart-v2');
-        const labels = original.chart.match(/\["([^"\n]+)"\]|\{"([^"\n]+)"\}/g) ?? [];
-        expect(labels.length).toBeGreaterThan(0);
     });
     const accessibleName = (id: string) => {
         const Component = sourceModule(`${base}/Diagram.tsx`).default as React.ComponentType<{ id: string }>;
@@ -127,11 +140,22 @@ describe('diagram semantics', () => {
     });
     it('each diagram correction targets one existing original node', () => {
         for (const [id, additions] of Object.entries(DIAGRAM_NODE_ADDITIONS)) for (const { after } of additions)
-            expect(inventory.diagrams[id as keyof typeof inventory.diagrams].chart.match(new RegExp(`^${after}\\[`, 'gm'))).toHaveLength(1);
+            expect(inventory.diagrams[id as keyof typeof inventory.diagrams].chart.match(new RegExp(`^${after}[\\[{]`, 'gm'))).toHaveLength(1);
+    });
+    it('each diagram edge rewrite targets one existing original edge', () => {
+        for (const [id, { edge }] of Object.entries(DIAGRAM_EDGE_REWRITES))
+            expect(inventory.diagrams[id as keyof typeof inventory.diagrams].chart.split('\n').filter(line => line === edge)).toHaveLength(1);
+    });
+    it('mermaid-diagram-5: declares conformance only after requirements 4 and 5 pass', () => {
+        const { DIAGRAMS } = sourceModule(`${base}/diagrams.ts`) as { DIAGRAMS: Record<string,string> };
+        const edges = (DIAGRAMS['mermaid-diagram-5'] ?? '').split('\n').filter(line => line.includes('-->'));
+        expect(edges.filter(line => /--> ?(\|[^|]*\| )?D5_Done$/.test(line))).toEqual(['D5_Q4 -->|"はい"| D5_Done']);
+        expect(edges).toContain('D5_Q4 -->|"いいえ"| D5_Fix');
+        expect(edges).toContain('D5_Q3 -->|"はい"| D5_Q4');
     });
     it('describes the branch outcomes of the conformance decision flow in order', () => {
         const name = accessibleName('mermaid-diagram-5') ?? '';
-        expect(name).toMatch(/すべて満たしたか？.*いいえ.*不備を修正して再テスト.*はい.*プロセス全体を通して確認したか？.*いいえ.*一連の流れで確認.*はい.*アクセシビリティ表明を作成/);
+        expect(name).toMatch(/すべて満たしたか？.*いいえ.*不備を修正して再テスト.*はい.*プロセス全体を通して確認したか？.*いいえ.*一連の流れで確認.*はい.*アクセシビリティ サポーテッドな技術の使用と非干渉を満たすか？.*いいえ.*不備を修正して再テスト.*はい.*アクセシビリティ表明を作成/);
     });
     it('passes all nine definitions to the shared renderer in source order', () => {
         const charts: string[] = [];

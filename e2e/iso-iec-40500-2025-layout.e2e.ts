@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-iec-40500-2025-guide.json';
-import { DIAGRAM_NODE_ADDITIONS, applyReviewCodeCorrections, applyReviewCorrections } from '../tests/iso-iec-40500-2025-guide/review-corrections';
+import { DIAGRAM_EDGE_REWRITES, DIAGRAM_NODE_ADDITIONS, applyReviewCodeCorrections, applyReviewCorrections } from '../tests/iso-iec-40500-2025-guide/review-corrections';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-iec-40500-2025-guide';
 const globals = readFileSync('node_modules/tailwindcss/preflight.css','utf8') + readFileSync('app/globals.css','utf8');
@@ -57,7 +57,10 @@ for(const width of [390,1440])for(const [id,diagram]of Object.entries(inventory.
         const expected=await reference.locator('#'+id).evaluate(collect);
         // 承認済みの追加ノードだけを、同じグループの直前ノードと同じ配色で期待値へ加える。
         const additions=DIAGRAM_NODE_ADDITIONS[id]??[];
-        for(const {after,id:nodeId,label} of additions){const index=expected.nodes.findIndex(node=>node.id===after);expected.nodes.splice(index+1,0,{...expected.nodes[index]!,id:nodeId,label});}
+        for(const {after,id:nodeId,label} of additions){const index=expected.nodes.findIndex(node=>node.id===after);expect(index,`${id}: missing anchor node ${after}`).toBeGreaterThanOrEqual(0);expected.nodes.splice(index+1,0,{...expected.nodes[index]!,id:nodeId,label:label.replace(/<br\/>/g,'')});}
+        // 置き換えた辺は、同じ位置へ新しい辺とラベルを差し替えた形を期待値にする。
+        const rewrite=DIAGRAM_EDGE_REWRITES[id];
+        if(rewrite){const parse=(edge:string)=>{const match=edge.match(/^(\S+) -->\|"([^"]+)"\| (\S+)$/);if(!match)throw new Error(`Unparsable edge: ${edge}`);return {edgeId:`L_${match[1]}_${match[3]}_0`,label:match[2]!};};const index=expected.edges.findIndex(edge=>edge.id===parse(rewrite.edge).edgeId);expect(index,`${id}: missing anchor edge ${rewrite.edge}`).toBeGreaterThanOrEqual(0);const replaced=expected.edges[index]!,parsed=rewrite.with.map(parse);expected.edges.splice(index,1,...parsed.map(({edgeId})=>({...replaced,id:edgeId})));expected.labels.splice(index,1,...parsed.map(({label})=>label));}
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('sql-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
         // An SVG can exist with correct labels/palette while a CSS reset makes every node zero-sized.

@@ -11,16 +11,28 @@ export const COMPATIBILITY_EXCEPTION = 'ただし 4.1.1（構文解析）は 2.2
 // 補足のQ&A（誤解3）も同じ互換性の説明なので、2.3 と同じ文言の留保を続ける。原本のセルは句点なしで終わる。
 export const COMPATIBILITY_QA_CLAIM_END = '<strong>2.0 / 2.1 にも適合</strong>';
 // 図5は見出しどおり新規9基準を示す。原本に欠けていた AAA の2基準を、対応内容が同じグループの末尾へ追加する。
-export const DIAGRAM_NODE_ADDITIONS: Readonly<Record<string, readonly { after: string; id: string; label: string }[]>> = {
+export const DIAGRAM_NODE_ADDITIONS: Readonly<Record<string, readonly { after: string; id: string; label: string; decision?: true }[]>> = {
     'mermaid-diagram-4': [
         { after: 'D4_A3', id: 'D4_A4', label: '2.4.12 フォーカスが隠れない（拡張・AAA）' },
         { after: 'D4_C2', id: 'D4_C3', label: '3.3.9 アクセシブルな認証（拡張・AAA）' },
     ],
+    // 図6は適合の5要件のうち4・5を確認していなかったため、適合と判断する前の判定を追加する。
+    'mermaid-diagram-5': [
+        { after: 'D5_Q3', id: 'D5_Q4', label: 'アクセシビリティ サポーテッドな技術の使用と<br/>非干渉を満たすか？', decision: true },
+    ],
 };
-export const applyReviewDiagramCorrections = (id: string, chart: string) => (DIAGRAM_NODE_ADDITIONS[id] ?? []).reduce(
-    (text, { after, id: nodeId, label }) => text.replace(new RegExp(`^(${after}\\[.*)$`, 'm'), `$1\n${nodeId}["${label}"]`),
-    chart,
-);
+// 追加ノードへ通すために置き換える辺。
+export const DIAGRAM_EDGE_REWRITES: Readonly<Record<string, { edge: string; with: readonly string[] }>> = {
+    'mermaid-diagram-5': { edge: 'D5_Q3 -->|"はい"| D5_Done', with: ['D5_Q3 -->|"はい"| D5_Q4', 'D5_Q4 -->|"いいえ"| D5_Fix', 'D5_Q4 -->|"はい"| D5_Done'] },
+};
+export const applyReviewDiagramCorrections = (id: string, chart: string) => {
+    const rewrite = DIAGRAM_EDGE_REWRITES[id];
+    const withNodes = (DIAGRAM_NODE_ADDITIONS[id] ?? []).reduce(
+        (text, { after, id: nodeId, label, decision }) => text.replace(new RegExp(`^(${after}[\\[{].*)$`, 'm'), `$1\n${nodeId}${decision ? `{"${label}"}` : `["${label}"]`}`),
+        chart,
+    );
+    return rewrite ? withNodes.replace(rewrite.edge, rewrite.with.join('\n')) : withNodes;
+};
 export const applyReviewCorrections = (html: string) => FORM_LABELS.reduce(
     (text, [id, type, label]) => text.replace(`&lt;input type="${type}" id="${id}"`, `&lt;label for="${id}"&gt;${label}&lt;/label&gt;\n&lt;input type="${type}" id="${id}"`),
     html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(SC_258_CRITERION, SC_258_REVIEWED).replace(COMPATIBILITY_SENTENCE_END, `${COMPATIBILITY_SENTENCE_END}${COMPATIBILITY_EXCEPTION}`).replace(COMPATIBILITY_QA_CLAIM_END, `${COMPATIBILITY_QA_CLAIM_END}。${COMPATIBILITY_EXCEPTION}`),
