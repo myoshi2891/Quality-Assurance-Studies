@@ -404,3 +404,9 @@
 /* Retained guide styles must not replace the source step labels or callout text. */
 .iso19770-page .step-num { border: 0; font-family: inherit; width: auto; height: auto; }
 .iso19770-page .callout p { color: var(--text); }
+
+.iso19770-page .callout strong { display: inline; margin: 0; }
+@media (max-width: 900px) {
+.iso19770-page .sidebar { visibility: hidden; transition: transform 0.2s, visibility 0s linear 0.2s; }
+.iso19770-page .sidebar.open { visibility: visible; transition: transform 0.2s, visibility 0s; }
+}
