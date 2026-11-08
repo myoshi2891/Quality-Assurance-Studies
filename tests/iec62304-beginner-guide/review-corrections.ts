@@ -37,6 +37,8 @@ const REPLACEMENTS: readonly (readonly [string | RegExp, string])[] = [
     ['FDA の Level of Concern と混同', FDA_MISTAKE_LABEL],
     ['<td>別の概念で、直接対応しない</td>', `<td>${FDA_MISTAKE_TEXT}</td>`],
     ['バリデーション・最終リリースを対象外とする旨', IEC_SCOPE_REVIEWED],
+    // 5.8.3 既知の残存異常の評価はクラス B・C のみ。
+    [/(既知の残存異常の評価（安全上の影響）<\/td>\s*<td>)A・B・C/, '$1B・C'],
 ];
 export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>(
     (text, [from, to]) => text.replace(from, to),
