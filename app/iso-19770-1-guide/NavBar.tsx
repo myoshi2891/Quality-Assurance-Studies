@@ -7,12 +7,25 @@ export default function NavBar() {
     const toggle=useRef<HTMLButtonElement>(null);
     const sidebar=useRef<HTMLElement>(null);
     useEffect(()=>{
-        if(typeof IntersectionObserver==='undefined')return;
-        const observer=new IntersectionObserver(entries=>{
-            for(const entry of entries)if(entry.isIntersecting)setActive(entry.target.id);
-        },{rootMargin:'-15% 0px -75% 0px'});
-        for(const item of TOC){const heading=document.getElementById(item.id);if(heading)observer.observe(heading);}
-        return ()=>observer.disconnect();
+        let frame=0;
+        const headings=TOC.map(item=>document.getElementById(item.id)).filter((heading):heading is HTMLElement=>heading!==null);
+        // 上へ戻るときは見出しが帯から出るだけで、帯に入る見出しがなく通知が来ない。通知は再計測の合図にとどめ、位置は毎回実測する
+        function update(){
+            frame=0;
+            const last=headings[headings.length-1];
+            if(last&&window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-2){setActive(last.id);return;}
+            // 着地位置（scroll-margin-top）を通過した最後の見出しが、読んでいる節を表す。全見出しより上では強調しない
+            let current='';
+            for(const heading of headings)if(heading.getBoundingClientRect().top<=(Number.parseFloat(getComputedStyle(heading).scrollMarginTop)||0)+2)current=heading.id;
+            setActive(current);
+        }
+        function schedule(){if(!frame)frame=requestAnimationFrame(update);}
+        const observer=typeof IntersectionObserver==='undefined'?null:new IntersectionObserver(schedule,{rootMargin:'-15% 0px -75% 0px'});
+        for(const heading of headings)observer?.observe(heading);
+        schedule();
+        window.addEventListener('scroll',schedule,{passive:true});
+        window.addEventListener('resize',schedule);
+        return ()=>{observer?.disconnect();cancelAnimationFrame(frame);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);};
     },[]);
     useEffect(()=>{
         const panel=sidebar.current,link=panel?.querySelector('[aria-current="location"]');
