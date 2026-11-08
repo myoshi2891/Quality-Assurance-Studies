@@ -291,13 +291,15 @@
 .iec62304-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
 .iec62304-page .nav-toggle { top: calc(70px + var(--disclaimer-height, 0px)); }
 .iec62304-page h2 { scroll-margin-top: calc(76px + var(--disclaimer-height, 0px)); }
+/* 900px 以下では固定の .nav-toggle（top 70px、高さ約 36px）が着地位置に重なるため、下端の外へ着地させる。 */
+@media (max-width: 900px) { .iec62304-page h2 { scroll-margin-top: calc(120px + var(--disclaimer-height, 0px)); } }
 .iec62304-page .main { max-width: none; }
 .iec62304-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; display: block !important; overflow: visible !important; }
 .iec62304-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
 .iec62304-page .mermaid-wrapper foreignObject { overflow: visible !important; }
 .iec62304-page .mermaid-wrapper .edgeLabel, .iec62304-page .mermaid-wrapper .edgeLabel p, .iec62304-page .mermaid-wrapper .edgeLabel span { color: #e6edf7 !important; background-color: #0d1b2e !important; }
 .iec62304-page .mermaid-wrapper .edgeLabel rect { fill: #0d1b2e !important; }
-.iec62304-page .sidebar a:focus-visible, .iec62304-page button:focus-visible, .iec62304-page summary:focus-visible, .iec62304-page .table-scroll:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.iec62304-page .sidebar a:focus-visible, .iec62304-page button:focus-visible, .iec62304-page summary:focus-visible, .iec62304-page .table-scroll:focus-visible, .iec62304-page .mermaid-diagram:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 /* Explicit inheritance also covers browser table defaults and retained selectors. */
 .iec62304-page .hero-title { font-family: inherit; }
 .iec62304-page .hero::after { all: revert; }

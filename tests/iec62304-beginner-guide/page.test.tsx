@@ -94,7 +94,7 @@ describe('source diagrams', () => {
     const NAMES: Record<string,string> = {
         'mmd-4':'IEC 62304 図 5：箇条5の開発プロセスを構成する8つの活動の順序。5.1 開発計画、5.2 要求事項分析、5.3 アーキテクチャ設計、5.4 詳細設計、5.5 ユニット実装と検証、5.6 統合と統合テスト、5.7 システムテスト、5.8 リリースの順に進む。',
         'mmd-5':'IEC 62304 図 6：ソフトウェア安全クラスごとに求められる活動の積み上がり。クラス A は計画・要求・実装・システムテスト・リリース。クラス B は A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト。クラス C は B に加えて 詳細設計・追加受入基準・分離の識別。',
-        'mmd-16':'IEC 62304 図 17：初めて 62304 に取り組む手順の8ステップ。Step 1 製品の意図する用途と規制上の位置づけを確認、Step 2 QMS とリスクマネジメントの土台を確認、Step 3 ソフトウェアシステムを識別し安全クラスを仮決定、Step 4 開発計画 SDP を作成、Step 5 要求 → 設計 → 実装 → テストをトレーサビリティ付きで実施、Step 6 SOUP 一覧と構成管理を整備、Step 7 リリース判定と記録の確認、Step 8 保守・問題解決の運用開始の順に進む。Step 8 からは Step 3 へフィードバックが戻る。',
+        'mmd-16':'IEC 62304 図 17：初めて 62304 に取り組む手順の8ステップ。Step 1 製品の意図する用途と規制上の位置づけを確認、Step 2 QMS とリスクマネジメントの土台を確認、Step 3 ソフトウェアシステムを識別し安全クラスを仮決定、Step 4 開発計画 SDP を作成、Step 5 SOUP の識別・評価と一覧・構成管理を整備、Step 6 要求 → 設計 → 実装 → テストをトレーサビリティ付きで実施、Step 7 リリース判定と記録の確認、Step 8 保守・問題解決の運用開始の順に進む。Step 8 からは Step 3 へフィードバックが戻る。',
     };
     for(const [id,name] of Object.entries(NAMES)) it(`${id}: the accessible name states the topic and every node label in order`,()=>{
         const $=render('page');
@@ -112,6 +112,33 @@ describe('source diagrams', () => {
         expect(reviewed.nodes.find(n=>n.id==='N5_CB')!.label).toBe('クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト');
         expect(reviewed.nodes.filter(n=>n.id!=='N5_CB')).toEqual(original.nodes.filter(n=>n.id!=='N5_CB'));
         expect(reviewed.edges).toEqual(original.edges);
+    });
+    it('mmd-6: safety impact is assessed before the change decision and the no-change branch records its rationale',()=>{
+        const original=inventory.diagrams.find(d=>d.id==='mmd-6')!,reviewed=diagrams.find(d=>d.id==='mmd-6')!;
+        expect(original.edges.some(e=>e.from==='N6_M2'&&e.to==='N6_M3')).toBe(true);
+        const next=(from:string)=>reviewed.edges.filter(e=>e.from===from).map(e=>e.to);
+        expect(next('N6_M2')).toEqual(['N6_M4']);
+        expect(next('N6_M4')).toEqual(['N6_M3']);
+        expect(reviewed.edges.filter(e=>e.to==='N6_M3').map(e=>e.from)).toEqual(['N6_M4']);
+        expect(reviewed.edges.find(e=>e.from==='N6_M3'&&e.label==='不要')!.to).toBe('N6_M9');
+        expect(reviewed.nodes.find(n=>n.id==='N6_M9')!.label).toContain('根拠を記録');
+    });
+    it('mmd-6: the description covers both branches and is wired through aria-describedby',()=>{
+        const $=render('page'),description=$('#mmd-6-description');
+        expect($('#mmd-6').attr('aria-describedby')).toBe('mmd-6-description');
+        expect($('#mmd-6').attr('aria-label')).toBe('IEC 62304 図 7');
+        for(const text of ['変更が不要な場合','リリースには進まない','変更が必要な場合','変更依頼の承認','6.3 変更の実装','変更後のリリース'])expect(description.text()).toContain(text);
+    });
+    it('mmd-16: SOUP identification and evaluation come before the design and implementation step',()=>{
+        const reviewed=diagrams.find(d=>d.id==='mmd-16')!,label=(id:string)=>reviewed.nodes.find(n=>n.id===id)!.label;
+        expect(label('N16_T5')).toContain('SOUP の識別・評価');
+        expect(label('N16_T6')).toContain('設計');
+        expect(reviewed.edges.filter(e=>!e.dotted).map(e=>`${e.from}>${e.to}`)).toContain('N16_T5>N16_T6');
+    });
+    it('every diagram wrapper is keyboard focusable so narrow overflowing charts can scroll',()=>{
+        const $=render('page');
+        expect($('.mermaid-diagram').toArray().every(n=>$(n).attr('tabindex')==='0')).toBe(true);
+        expect(readFileSync(`${base}/guide.css`,'utf8')).toContain('.mermaid-diagram:focus-visible');
     });
     it('mmd-2 references its decision-branch description',()=>{
         const $=render('page');

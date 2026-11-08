@@ -107,7 +107,10 @@ describe('source TOC interactions',()=>{
     });
     it('cancels the pending measurement and removes its listeners on unmount',()=>{
         const headings=headingList();place(headings,0);
-        try {const C=nav(),r=render(<C/>);act(flush);r.unmount();
+        try {const C=nav(),r=render(<C/>);
+            // 計測が保留中のままアンマウントし、保留中のフレームが取り消されることを確かめる。
+            expect(queued.length).toBeGreaterThan(0);
+            r.unmount();expect(queued).toHaveLength(0);
             window.dispatchEvent(new Event('scroll'));expect(queued).toHaveLength(0);
         } finally {headings.remove();}
     });

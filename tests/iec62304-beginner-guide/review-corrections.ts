@@ -42,6 +42,8 @@ const REPLACEMENTS: readonly (readonly [string | RegExp, string])[] = [
     ['<td>別の概念で、直接対応しない</td>', `<td>${FDA_MISTAKE_TEXT}</td>`],
     ['バリデーション・最終リリースを対象外とする旨', IEC_SCOPE_REVIEWED],
     // 5.8.3 既知の残存異常の評価はクラス B・C のみ。
+    // 17.2: 残存異常の文書化は A・B・C、5.8.3 の評価は B・C。
+    ['<td>リリース記録（残存異常の評価を含む）</td>', '<td>リリース記録（残存異常の文書化。B・C は 5.8.3 の評価を含む）</td>'],
     [/(既知の残存異常の評価（安全上の影響）<\/td>\s*<td>)A・B・C/, '$1B・C'],
 ];
 export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>(
@@ -49,10 +51,21 @@ export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<stri
     addDecisionNote(addNoteIds(html)),
 ).replace(LAST_PUBLIC_SOURCE_ROW, match => match + FDA_ROW);
 // mmd-5: クラス B はアーキテクチャをユニットへ分割する（5.4.1）。図の他のノードとクラス C の内容は原本のまま。
+// mmd-6: 安全への影響評価を変更要否の判断より前へ移し、不要の場合も判断の根拠を記録する。
+// mmd-16: SOUP の識別・評価を、要求から実装までの作業（旧 Step 5）より前の Step 5 へ移す。
 export const DIAGRAM_NODE_LABELS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
     'mmd-5': { N5_CB: 'クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト' },
+    'mmd-6': { N6_M9: '判断の根拠を記録して終了' },
+    'mmd-16': { N16_T5: 'Step 5<br/>SOUP の識別・評価と<br/>一覧・構成管理を整備', N16_T6: 'Step 6<br/>要求 → 設計 → 実装 → テストを<br/>トレーサビリティ付きで実施' },
 };
-export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
+export type DiagramEdge = { from: string; to: string; dotted: boolean; invisible: boolean; label: string };
+const solid = (from: string, to: string, label = ''): DiagramEdge => ({ from, to, dotted: false, invisible: false, label });
+export const DIAGRAM_EDGES: Readonly<Record<string, readonly DiagramEdge[]>> = {
+    'mmd-6': [solid('N6_M1', 'N6_M2'), solid('N6_M2', 'N6_M4'), solid('N6_M4', 'N6_M3'), solid('N6_M3', 'N6_M9', '不要'), solid('N6_M3', 'N6_M5', '必要'), solid('N6_M5', 'N6_M6'), solid('N6_M6', 'N6_M7')],
+};
+export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges: readonly DiagramEdge[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
     const labels = DIAGRAM_NODE_LABELS[diagram.id];
-    return labels ? { ...diagram, nodes: diagram.nodes.map(node => ({ ...node, label: labels[node.id] ?? node.label })) } : diagram;
+    const edges = DIAGRAM_EDGES[diagram.id];
+    if (!labels && !edges) return diagram;
+    return { ...diagram, nodes: diagram.nodes.map(node => ({ ...node, label: labels?.[node.id] ?? node.label })), edges: edges ? [...edges] : diagram.edges };
 });
