@@ -381,6 +381,8 @@
 .iso19770-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
 .iso19770-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
 .iso19770-page h2, .iso19770-page h3 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+/* On narrow screens the fixed .nav-toggle (top 72px, about 36px tall) overlaps the landing position, so clear its bottom edge. */
+@media (max-width: 900px) { .iso19770-page h2, .iso19770-page h3 { scroll-margin-top: calc(124px + var(--disclaimer-height, 0px)); } }
 .iso19770-page .main { max-width: none; }
 .iso19770-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; display: block !important; overflow: visible !important; }
 .iso19770-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
@@ -389,7 +391,7 @@
 .iso19770-page .mermaid-wrapper .edgeLabel rect { fill: #0a1626 !important; }
 .iso19770-page .sidebar a:focus-visible, .iso19770-page button:focus-visible, .iso19770-page summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 /* キーボードで横スクロールできる表の領域にも、同じフォーカスの輪郭を出す。 */
-.iso19770-page .table-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.iso19770-page .table-scroll:focus-visible, .iso19770-page .mermaid-diagram:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .iso19770-page .hero { min-height: 0; display: block; text-align: start; }
 .iso19770-page .hero::after { all: revert; }

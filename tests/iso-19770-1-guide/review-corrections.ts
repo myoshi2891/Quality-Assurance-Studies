@@ -20,10 +20,12 @@ const groupTierRows = (body: string) => {
 };
 // STEP 12: 横にはみ出す表を、見出しを名前にしたキーボード操作領域にする。
 export const MISCONCEPTION_HEADING = 'step-12-よくある誤解とつまずきポイント';
-const MISCONCEPTION_TABLE = new RegExp(`(id="${MISCONCEPTION_HEADING}"[\\s\\S]*?)<div class="table-scroll">`);
+// 横にはみ出す全ての表を、直前の見出しを名前にしたキーボード操作領域にする。
+const SCROLL_REGION = /<h[23] id="([^"]+)"|<div class="table-scroll">/g;
+const makeScrollRegions = (html: string) => { let heading = ''; return html.replace(SCROLL_REGION, (match, id?: string) => { if (id) { heading = id; return match; } return `<div class="table-scroll" tabindex="0" role="region" aria-labelledby="${heading}">`; }); };
 export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>((text, [from, to]) => text.replace(from, to), html)
     .replace(TIER_TABLE, (_, head: string, body: string) => head + groupTierRows(body))
-    .replace(MISCONCEPTION_TABLE, `$1<div class="table-scroll" tabindex="0" role="region" aria-labelledby="${MISCONCEPTION_HEADING}">`);
+    .replace(/^[\s\S]*$/, makeScrollRegions);
 // 図の補正。インベントリは原本の記録として変えず、テストと E2E にはこの補正を適用した定義を渡す。
 export type DiagramEdge = { from: string; to: string; arrowStart: boolean; arrowEnd: boolean; dotted: boolean; invisible: boolean; label: string };
 type DiagramCorrection = { nodes?: Readonly<Record<string, string>>; edges: readonly DiagramEdge[] };

@@ -14,4 +14,4 @@ const LABELS: Record<string,string> = {
   'mermaid-diagram-9': 'ISO/IEC 19770-1 図 9：ISO/IEC 19770 ファミリーの構成。19770-1:2017 ITAMシステム要求事項（本書）、19770-2 ソフトウェア識別タグ（SWID）、19770-3 権利（Entitlement）スキーマ、19770-4 リソース使用量、19770-5:2015 概要と用語、19770-10:2025（TS） ITAM実装ガイダンスから成る。19770-5:2015 は 19770-1:2017 の用語を定義し、19770-10:2025（TS） は 19770-1:2017 の実装の手引きとなる。',
   'mermaid-diagram-10': 'ISO/IEC 19770-1 図 10：他のマネジメントシステム規格との統合。共通の骨格（箇条4〜10）から ISO/IEC 19770-1 ITAM、ISO/IEC 27001 ISMS、ISO/IEC 20000-1 ITSM、ISO 9001 QMS が派生する。ISO/IEC 19770-1 と ISO/IEC 27001 は相互に資産台帳・変更履歴を共有し、ISO/IEC 19770-1 と ISO/IEC 20000-1 は相互に構成情報・SLAを共有する。',
 };
-export default function Diagram({id}: {id:string}) { return <div className="mermaid-diagram" id={id} role="img" aria-label={LABELS[id]}><Mermaid chart={DIAGRAMS[id]!} /></div>; }
+export default function Diagram({id}: {id:string}) { return <div className="mermaid-diagram" id={id} tabIndex={0} role="img" aria-label={LABELS[id]}><Mermaid chart={DIAGRAMS[id]!} /></div>; }

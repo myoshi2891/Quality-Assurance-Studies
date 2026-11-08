@@ -22,10 +22,13 @@ export default function NavBar() {
         function schedule(){if(!frame)frame=requestAnimationFrame(update);}
         const observer=typeof IntersectionObserver==='undefined'?null:new IntersectionObserver(schedule,{rootMargin:'-15% 0px -75% 0px'});
         for(const heading of headings)observer?.observe(heading);
+        // 図は描画後に高さが変わるため、スクロールやリサイズがなくても見出しの位置が動く。サイズ変化も再計測の合図にする
+        const resizer=typeof ResizeObserver==='undefined'?null:new ResizeObserver(schedule);
+        for(const diagram of document.querySelectorAll('.mermaid-diagram'))resizer?.observe(diagram);
         schedule();
         window.addEventListener('scroll',schedule,{passive:true});
         window.addEventListener('resize',schedule);
-        return ()=>{observer?.disconnect();cancelAnimationFrame(frame);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);};
+        return ()=>{observer?.disconnect();resizer?.disconnect();cancelAnimationFrame(frame);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);};
     },[]);
     useEffect(()=>{
         const panel=sidebar.current,link=panel?.querySelector('[aria-current="location"]');
