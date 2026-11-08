@@ -108,9 +108,10 @@ N5_RT["廃棄"]
 N5_TDA["Trustworthy Data<br/>変更・データ・ライセンス・セキュリティ"]
 N5_OP2["Optimization<br/>関係・財務・SLA"]
 N5_S --> N5_AQ
-N5_AQ --> N5_DV
+N5_AQ -.->|"開発する場合"| N5_DV
 N5_DV --> RL
 RL --> N5_DP
+N5_AQ -.->|"購入した SaaS・機器など"| N5_DP
 N5_DP --> N5_OP
 N5_OP --> N5_RT
 N5_RT -.->|"再利用・教訓"| N5_S
@@ -147,14 +148,16 @@ N8_S4["④ ITAM方針・目的・役割定義<br/>（箇条5・6）"]
 N8_S5["⑤ Tier 1：Trustworthy Data構築<br/>棚卸し・突合・ライセンス把握"]
 N8_S6["⑥ Tier 2：ライフサイクル統合<br/>調達・展開・廃棄との連携"]
 N8_S7["⑦ Tier 3：最適化<br/>財務・契約・SLA連携"]
-N8_S8["⑧ 評価と改善（箇条9・10）<br/>内部監査・マネジメントレビュー"]
+N8_S8["⑧ 評価と改善（箇条9・10）<br/>各ティアで並行して継続<br/>内部監査・マネジメントレビュー"]
 N8_S1 --> N8_S2
 N8_S2 --> N8_S3
 N8_S3 --> N8_S4
 N8_S4 --> N8_S5
 N8_S5 --> N8_S6
 N8_S6 --> N8_S7
-N8_S7 --> N8_S8
+N8_S5 -.->|"評価・改善"| N8_S8
+N8_S6 -.->|"評価・改善"| N8_S8
+N8_S7 -.->|"評価・改善"| N8_S8
 N8_S8 -.->|"継続"| N8_S3`,
 "mermaid-diagram-9": `${MERMAID_CONFIG}
 flowchart TB
