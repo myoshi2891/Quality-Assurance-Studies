@@ -449,7 +449,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | `git rev-parse --short HEAD`で現在のリビジョンを取得する（固定値は記載しない） |
-| 最新コミット内容 | `fix(iso-19770-1): group process areas by tier and make the STEP 12 table a named region` |
+| 最新コミット内容 | 記録時点のスナップショット（現在の件名は`git log -1 --format=%s`で取得する）: `fix(iso-19770-1): group process areas by tier and make the STEP 12 table a named region` |
 | 次の作業 | `/iso-19770-1-guide`の目視確認（ユーザー担当）。`/iec62304-beginner-guide`の目視確認（ユーザー担当）。`/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
 | ビルド状態 | ISO 19770-1対象281件・Chrome34件・IEC 62304追加原稿対象325件・Chrome45件・lint・Markdown lint成功。全体11719件（222ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
