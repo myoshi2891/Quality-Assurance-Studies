@@ -1,4 +1,8 @@
 import { expect, it } from 'bun:test';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { load } from 'cheerio';
+import { sourceModule } from '../helpers/source-module';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
 it('registers this additional source once, retains the earlier guide, and synchronizes 124 routes',()=>{
@@ -8,6 +12,9 @@ it('registers this additional source once, retains the earlier guide, and synchr
     expect(NAV_ITEMS.find(i=>i.href===href)!.description.length).toBeLessThanOrEqual(80);
     expect(NAV_ITEMS.filter(i=>i.href==='/iec-62304-beginner-guide')).toHaveLength(1);
     expect(PAGES.filter(i=>i.path===href)).toHaveLength(1);
-    expect(PAGES.find(i=>i.path===href)!.h1.test('IEC 62304:2006 初学者向けステップバイステップ解説ガイド')).toBe(true);
+    // 登録されたパターンを固定の見出し文字列ではなく、実際に描画したページの h1 に当てる。
+    const Page=sourceModule('app/iec62304-beginner-guide/page.tsx').default as React.ComponentType;
+    const heading=load(renderToStaticMarkup(React.createElement(Page)))('h1').first().text();
+    expect(PAGES.find(i=>i.path===href)!.h1.test(heading)).toBe(true);
     expect(EXPECTED_PAGE_COUNT).toBe(124);expect(PAGES).toHaveLength(124);expect(NAV_ITEMS).toHaveLength(124);
 });
