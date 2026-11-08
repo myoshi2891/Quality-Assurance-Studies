@@ -33,7 +33,7 @@ export default function NavBar() {
     },[open]);
     return <>
         <button type="button" className="nav-toggle" id="navToggle" ref={toggle} aria-label={open?'目次を閉じる':'目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={()=>setOpen(value=>!value)}>☰ 目次</button>
-        <aside className={open?'sidebar open':'sidebar'} id="sidebar" role="navigation" aria-label="目次">
+        <aside className={open?'sidebar open':'sidebar'} id="sidebar" onBlur={event=>{const next=event.relatedTarget as Node|null;if(next&&!event.currentTarget.contains(next)&&next!==toggle.current)setOpen(false);}} role="navigation" aria-label="目次">
             <div className="side-title">IEC 62304 ガイド</div>
             <ul>{TOC.map(item=><li key={item.id}><a href={`#${item.id}`} data-target={item.id} className={active===item.id?'active':undefined} aria-current={active===item.id?'location':undefined} onClick={()=>setOpen(false)}>{item.label}</a></li>)}</ul>
         </aside>
