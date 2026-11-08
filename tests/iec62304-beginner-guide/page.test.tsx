@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iec62304-beginner-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { CLASS_SUMMARY_NOTE, FDA_CLASS_LABEL, FDA_CLASS_TEXT, FDA_MISTAKE_LABEL, FDA_MISTAKE_TEXT, FDA_SOURCE, FDA_SOURCE_DETAIL, FDA_URL, IEC_SCOPE_REVIEWED, DIAGRAM_NODE_LABELS, PROCESS_ORDER_NOTE, RISK_REVIEWED_PLAIN, applyReviewCorrections, reviewedDiagrams, withFdaReference } from './review-corrections';
+import { CLASS_DECISION_NOTE, CLASS_DECISION_TEXT, CLASS_SUMMARY_NOTE, FDA_CLASS_LABEL, FDA_CLASS_TEXT, FDA_MISTAKE_LABEL, FDA_MISTAKE_TEXT, FDA_SOURCE, FDA_SOURCE_DETAIL, FDA_URL, IEC_SCOPE_REVIEWED, DIAGRAM_NODE_LABELS, PROCESS_ORDER_NOTE, RISK_REVIEWED_PLAIN, applyReviewCorrections, reviewedDiagrams, withFdaReference } from './review-corrections';
 const base = 'app/iec62304-beginner-guide';
 const scope = '.iec62304-page';
 // 図はレビューで承認した補正を適用した定義と照合する。インベントリ自体は原本の記録として変更しない。
@@ -112,6 +112,11 @@ describe('source diagrams', () => {
         expect(reviewed.nodes.find(n=>n.id==='N5_CB')!.label).toBe('クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト');
         expect(reviewed.nodes.filter(n=>n.id!=='N5_CB')).toEqual(original.nodes.filter(n=>n.id!=='N5_CB'));
         expect(reviewed.edges).toEqual(original.edges);
+    });
+    it('mmd-2 references its decision-branch description',()=>{
+        const $=render('page');
+        expect($('#mmd-2').attr('aria-describedby')).toBe(CLASS_DECISION_NOTE);
+        expect($(`#${CLASS_DECISION_NOTE}`).text()).toBe(CLASS_DECISION_TEXT);
     });
     it('mmd-4 and mmd-5 reference their adjacent explanatory callouts',()=>{
         const $=render('page');

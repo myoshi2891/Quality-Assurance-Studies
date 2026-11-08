@@ -2,6 +2,10 @@
 const CALLOUT_OPEN = '<blockquote class="callout">\n                <p>\n                    ';
 // 図の説明として参照できるよう、図に隣接する注記へ id を付ける。
 export const PROCESS_ORDER_NOTE = 'process-order-note';
+// mmd-2: 判定の分岐と結果を、図の直後の説明文として追加する。
+export const CLASS_DECISION_NOTE = 'class-decision-note';
+export const CLASS_DECISION_TEXT = '判定の流れ：ソフトウェアシステムを特定し、危険状態に寄与しうるかを確認する。寄与しない場合はクラス A。寄与しうる場合は、ソフトウェア外のリスクコントロール後も許容できないリスクが残るかを確認する。残らない場合はクラス A。残る場合は、起こりうる危害が死亡または重傷かを確認する。はい（死亡または重傷）ならクラス C、いいえ（重傷ではない）ならクラス B。いずれの場合も最後にクラスの根拠を文書化する。';
+const addDecisionNote = (html: string) => html.replace(/(<\/div>\s*)(<h3 id="64-クラスを決めるときの重要ルール">)/, `$1<p id="${CLASS_DECISION_NOTE}">${CLASS_DECISION_TEXT}</p>\n$2`);
 export const CLASS_SUMMARY_NOTE = 'class-summary-note';
 const NOTE_IDS = [[PROCESS_ORDER_NOTE, 'この順番は<strong>論理的な流れ</strong>'], [CLASS_SUMMARY_NOTE, '<strong>注意</strong>:\n                    この表は理解のための要約です。']] as const;
 const addNoteIds = (html: string) => NOTE_IDS.reduce(
@@ -42,7 +46,7 @@ const REPLACEMENTS: readonly (readonly [string | RegExp, string])[] = [
 ];
 export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>(
     (text, [from, to]) => text.replace(from, to),
-    addNoteIds(html),
+    addDecisionNote(addNoteIds(html)),
 ).replace(LAST_PUBLIC_SOURCE_ROW, match => match + FDA_ROW);
 // mmd-5: クラス B はアーキテクチャをユニットへ分割する（5.4.1）。図の他のノードとクラス C の内容は原本のまま。
 export const DIAGRAM_NODE_LABELS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
