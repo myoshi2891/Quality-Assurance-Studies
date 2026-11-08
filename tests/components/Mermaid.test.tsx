@@ -182,6 +182,24 @@ describe('Mermaid component', () => {
     }
   });
 
+  it('invokes onRenderError and shows the fallback when mermaid.render rejects', async () => {
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      renderImpl = () => Promise.reject(new Error('boom'));
+      const onRenderError = mock(() => {});
+      const { container } = render(
+        <Mermaid chart="graph TD; broken" onRenderError={onRenderError} />,
+      );
+      await waitFor(() => {
+        expect(container.textContent).toContain('図表の描画に失敗しました');
+      });
+      expect(onRenderError).toHaveBeenCalledTimes(1);
+    } finally {
+      console.error = originalError;
+    }
+  });
+
   it('wraps the SVG in a mermaid-wrapper container with overflow handling', async () => {
     const { container } = render(<Mermaid chart="graph TD; A-->B" />);
     await waitFor(() => {
