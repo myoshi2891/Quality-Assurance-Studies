@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iso-19770-1-guide.json';
-import { applyReviewCorrections } from '../tests/iso-19770-1-guide/review-corrections';
+import { DIAGRAM_CORRECTIONS, applyReviewCorrections, reviewedDiagrams } from '../tests/iso-19770-1-guide/review-corrections';
 import { sourceModule } from '../tests/helpers/source-module';
 const base = 'app/iso-19770-1-guide';
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
@@ -47,7 +47,7 @@ for (const width of [390,900,901,1440]) {
         });
     }
 }
-for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=>[d.id,d] as const)) {
+for(const width of [390,1440])for(const [id,diagram]of reviewedDiagrams(inventory.diagrams).map(d=>[d.id,d] as const)) {
     test(`${width}px ${id}: exact SVG node and edge semantics, palette and scroll reachability`,async({page})=>{
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
         await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
@@ -62,6 +62,15 @@ for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=
             return {nodes,labels,edges,clusters};
         };
         const expected=await reference.locator('#'+id).evaluate(collect);
+        // 承認済みの補正だけを期待値へ反映する。ノードは文言だけを替え、辺は補正後の定義から、原本の同種の線（実線・点線）の配色で組み立てる。
+        const correction=DIAGRAM_CORRECTIONS[id];
+        if(correction){
+            for(const [nodeId,label] of Object.entries(correction.nodes??{})){const node=expected.nodes.find(n=>n.id===nodeId);expect(node,`${id}: missing node ${nodeId}`).toBeDefined();node!.label=label.replace(/<br\/>/g,'');}
+            const style=(isDotted:boolean)=>{const edge=expected.edges.find(e=>e.dotted===isDotted);expect(edge,`${id}: no source ${isDotted?'dotted':'solid'} edge`).toBeDefined();return {stroke:edge!.stroke,strokeWidth:edge!.strokeWidth};};
+            const seen=new Map<string,number>();
+            expected.edges=correction.edges.map(edge=>{const key=`${edge.from}_${edge.to}`,n=seen.get(key)??0;seen.set(key,n+1);return {id:`L_${key}_${n}`,dotted:edge.dotted,...style(edge.dotted),arrowEnd:edge.arrowEnd,arrowStart:edge.arrowStart};});
+            expected.labels=correction.edges.map(edge=>edge.label);
+        }
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('itam-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
 

@@ -8,9 +8,11 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-19770-1-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { applyReviewCorrections } from './review-corrections';
+import { DIAGRAM_CORRECTIONS, applyReviewCorrections, reviewedDiagrams } from './review-corrections';
 const base = 'app/iso-19770-1-guide';
 const scope = '.iso19770-page';
+// 図はレビューで承認した補正を適用した定義と照合する。インベントリ自体は原本の記録として変更しない。
+const diagrams = reviewedDiagrams(inventory.diagrams);
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
 function tree(n: AnyNode): unknown {
     if (n.type === 'text') return norm(n.data) || null;
@@ -59,7 +61,7 @@ describe('foundation CSS', () => {
     });
 });
 describe('source diagrams', () => {
-    for(const diagram of inventory.diagrams) it(`${diagram.id}: exact HTML nodes, shapes, edges, labels and clusters reach shared Mermaid`, async () => {
+    for(const diagram of diagrams) it(`${diagram.id}: exact HTML nodes, shapes, edges, labels and clusters reach shared Mermaid`, async () => {
         const charts: string[]=[];
         const C=sourceModule(`${base}/Diagram.tsx`,{onMermaidChart:chart=>charts.push(chart)}).default as React.ComponentType<{id:string}>;
         renderToStaticMarkup(<C id={diagram.id}/>);
@@ -74,6 +76,8 @@ describe('source diagrams', () => {
         for(const node of diagram.nodes) expect(chart).toContain(node.shape==='polygon' ? `${node.id}{"${node.label}"}` : `${node.id}["${node.label}"]`);
         for(const edge of diagram.edges) expect(chart).toContain(`${edge.from} ${edge.invisible?'~~~':edge.dotted?(edge.arrowEnd?'-.->':'-.-'):edge.arrowStart?'<-->':edge.arrowEnd?'-->':'---'}${edge.label?`|"${edge.label}"|`:''} ${edge.to}`);
         for(const cluster of diagram.clusters) expect(chart).toContain(`subgraph ${cluster.id}["${cluster.label}"]`);
+        // 置き換えた辺が残っていないよう、辺の本数も定義と一致させる。
+        expect(chart.split('}%%')[1]!.split('\n').filter(line=>/ (-->|-\.->|-\.-|<-->|---|~~~)[ |]/.test(line))).toHaveLength(diagram.edges.length);
         expect(chart).toContain('"mainBkg": "#13294a"');
         expect(chart.split('}%%')[0]).not.toContain("'");
     });
@@ -121,7 +125,7 @@ describe('diagram accessible names',()=>{
         const C=sourceModule(`${base}/Diagram.tsx`).default as React.ComponentType<{id:string}>;
         return load(renderToStaticMarkup(<C id={id}/>))('[role="img"]').attr('aria-label') ?? '';
     };
-    inventory.diagrams.forEach((diagram,i)=>it(`${diagram.id}: states the subject, every node, cluster and edge label`,()=>{
+    diagrams.forEach((diagram,i)=>it(`${diagram.id}: states the subject, every node, cluster and edge label`,()=>{
         const name=accessibleName(diagram.id);
         expect(name.startsWith(`ISO/IEC 19770-1 図 ${i+1}：`)).toBe(true);
         const labels=[...diagram.nodes.map(n=>n.label),...diagram.clusters.map(c=>c.label),...diagram.edges.flatMap(e=>e.label?[e.label]:[])];
@@ -133,6 +137,7 @@ describe('diagram accessible names',()=>{
         expect(positions.every(position=>position>=0)).toBe(true);
         expect(positions).toEqual([...positions].sort((a,b)=>a-b));
         expect(name).toContain('⑧から点線で③へ戻り、継続する');
+        expect(name).toContain('⑤・⑥・⑦の各ティアの導入中から点線（評価・改善）で⑧へつながり');
     });
     it('cycle and lifecycle: state the return path, and undirected links imply no direction',()=>{
         expect(accessibleName('mermaid-diagram-3')).toContain('箇条10から箇条4へ点線で戻る（継続的改善）');
@@ -140,6 +145,25 @@ describe('diagram accessible names',()=>{
         expect(lifecycle).toContain('廃棄から仕様策定へ点線で戻る（再利用・教訓）');
         expect(lifecycle).toContain('Trustworthy Data（変更・データ・ライセンス・セキュリティ）は仕様策定と運用に関連し');
         expect(lifecycle).toContain('Optimization（関係・財務・SLA）は運用に関連する');
+        expect(lifecycle).toContain('必須の順序ではなく、資産によって該当する段階は異なる');
+        expect(lifecycle).toContain('購入した SaaS・機器など開発やリリースを要しない資産は、調達から点線で展開へ進む');
+    });
+    it('corrections replace existing nodes and edges, keeping every other node unchanged',()=>{
+        for(const [id,correction] of Object.entries(DIAGRAM_CORRECTIONS)){
+            const original=inventory.diagrams.find(d=>d.id===id)!,reviewed=diagrams.find(d=>d.id===id)!;
+            const ids=original.nodes.map(n=>n.id);
+            for(const edge of correction.edges){expect(ids).toContain(edge.from);expect(ids).toContain(edge.to);}
+            for(const nodeId of Object.keys(correction.nodes??{}))expect(ids).toContain(nodeId);
+            expect(reviewed.edges).not.toEqual(original.edges);
+            expect(reviewed.nodes.filter(n=>!(n.id in (correction.nodes??{})))).toEqual(original.nodes.filter(n=>!(n.id in (correction.nodes??{}))));
+        }
+        // 図5: 開発・リリースは条件付きで、購入資産は調達から展開へ直接進む。図8: 各ティアから評価と改善へつながる。
+        const lifecycle=diagrams.find(d=>d.id==='mermaid-diagram-5')!.edges;
+        expect(lifecycle.find(e=>e.from==='N5_AQ'&&e.to==='N5_DV')).toMatchObject({dotted:true,label:'開発する場合'});
+        expect(lifecycle.find(e=>e.from==='N5_AQ'&&e.to==='N5_DP')).toMatchObject({dotted:true,arrowEnd:true});
+        const roadmap=diagrams.find(d=>d.id==='mermaid-diagram-8')!.edges;
+        expect(roadmap.filter(e=>e.to==='N8_S8').map(e=>e.from)).toEqual(['N8_S5','N8_S6','N8_S7']);
+        expect(roadmap.filter(e=>e.to==='N8_S8').every(e=>e.dotted)).toBe(true);
     });
 });
 describe('original archives',()=>{
