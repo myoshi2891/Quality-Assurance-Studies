@@ -157,7 +157,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/quality-is-free-guide', label: 'Quality Is Free 入門ガイド', description: 'Crosbyの品質の4原則・品質コスト・14ステップ改善・成熟度グリッドをソフトウェア開発へ応用。', category: 'books-practices' },
 
   { href: '/iso-29119-1-2022-guide', label: 'ISO 29119-1:2022 ガイド', description: '国際テスト規格ISO/IEC/IEEE 29119-1:2022の一般概念、プロセス階層、リスクベースドテストを初学者向けに体系解説。', category: 'iso' },
-  { href: '/iec-62304-beginner-guide', label: 'IEC 62304 初学者向けガイド', description: '医療機器ソフトウェアの安全クラス、開発・保守・リスク管理、SOUPとQAの実践を段階的に解説。', category: 'iso' },
+  { href: '/iec-62304-beginner-guide', label: 'IEC 62304 初学者向けガイド', description: 'IEC 62304の安全クラス、開発・保守・リスク管理、SOUPを解説する既存ガイド。QAチェックリスト付き。', category: 'iso' },
   { href: '/iso-9075-1-guide', label: 'ISO 9075-1 SQL/Framework ガイド', description: 'SQL標準の全体像、Part 1の役割、適合性、SQL:2023・JSON・PGQとQAの活用を段階的に解説。', category: 'iso' },
   { href: '/iso-11179-1-2023-guide', label: 'ISO 11179-1 メタデータレジストリ ガイド', description: '意味と表現の分離、11179ファミリー、登録運用・メタデータ設計とQAへの活用を段階的に解説。', category: 'iso' },
   { href: '/iso-14496-22-guide', label: 'ISO 14496-22 Open Font Format ガイド', description: 'OFFとOpenTypeの関係、フォント構造・描画、第5版の24ビットGID拡張とQA観点を段階的に解説。', category: 'iso' },
@@ -173,7 +173,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-iec-ieee-29119-3-2021-guide', label: 'ISO/IEC/IEEE 29119-3:2021 初学者ガイド', description: 'テスト文書の役割・記載項目・適合とテーラリングを、実務例から段階的に学ぶ。', category: 'iso' },
   { href: '/iso-iec-9075-1-2023-guide', label: 'ISO 9075-1:2023 SQLフレームワーク 初学者ガイド', description: 'SQL標準の全体像・適合性・SQL:2023・実装状況を、図解・FAQ・学習チェックリストで学ぶ。', category: 'iso' },
   { href: '/iso-iec-40500-2025-guide', label: 'ISO/IEC 40500:2025 WCAG 2.2 ガイド', description: 'WCAG 2.2の構造・新規9基準の実装・準拠判断を、図解・コード・QAチェックから段階的に学ぶ。', category: 'iso' },
-  { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: '医療機器ソフトウェアの安全クラス、開発・保守、関連規制と導入手順を学ぶ。', category: 'iso' },
+  { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: 'IEC 62304の安全クラス、開発・保守を解説する追加原稿ガイド。EU/米国/日本の規制対応表と導入手順付き。', category: 'iso' },
   { href: '/iso-19770-1-guide', label: 'ISO/IEC 19770-1:2017 初学者ガイド', description: 'IT資産管理システムの要求事項、PDCA、プロセス領域、3つのティアと段階的導入を学ぶ。', category: 'iso' },
 ];
 
