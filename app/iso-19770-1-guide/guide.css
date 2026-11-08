@@ -388,6 +388,8 @@
 .iso19770-page .mermaid-wrapper .edgeLabel, .iso19770-page .mermaid-wrapper .edgeLabel p, .iso19770-page .mermaid-wrapper .edgeLabel span { color: #e6edf7 !important; background-color: #0a1626 !important; }
 .iso19770-page .mermaid-wrapper .edgeLabel rect { fill: #0a1626 !important; }
 .iso19770-page .sidebar a:focus-visible, .iso19770-page button:focus-visible, .iso19770-page summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* キーボードで横スクロールできる表の領域にも、同じフォーカスの輪郭を出す。 */
+.iso19770-page .table-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .iso19770-page .hero { min-height: 0; display: block; text-align: start; }
 .iso19770-page .hero::after { all: revert; }
