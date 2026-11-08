@@ -887,7 +887,7 @@ Next.js App Router 構成:
 - `app/iec62304-beginner-guide/guide.css` — IEC 62304追加原稿のカテゴリー別移行
 - `app/iec62304-beginner-guide/page.tsx` — IEC 62304追加原稿のカテゴリー別移行
 - `app/iec62304-beginner-guide/toc.ts` — IEC 62304追加原稿のカテゴリー別移行
-- `tests/iec62304-beginner-guide/` — 原本照合・操作・hydration・登録・アーカイブ324件
+- `tests/iec62304-beginner-guide/` — 原本照合・操作・hydration・登録・アーカイブ325件
 - `e2e/iec62304-layout.e2e.ts` — 原本CSS・実SVG・表領域のキー操作の45件（`--project=iec62304`）
 - `app/iec-62304-beginner-guide/Diagram.tsx` — 共有Mermaidへの配線
 - `app/iec-62304-beginner-guide/NavBar.tsx` — 階層目次・開閉・追従・親展開・解放
@@ -978,7 +978,7 @@ Next.js App Router 構成:
 - `app/iso-19770-1-guide/guide.css` — ISO/IEC 19770-1のカテゴリー別移行
 - `app/iso-19770-1-guide/page.tsx` — ISO/IEC 19770-1のカテゴリー別移行
 - `app/iso-19770-1-guide/toc.ts` — ISO/IEC 19770-1のカテゴリー別移行
-- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ275件
+- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ281件
 - `e2e/iso-19770-1-layout.e2e.ts` — 原本CSS・実SVG・回答・アンカー34件（`--project=iso-19770-1`）
 - `app/iso-19770-5-guide/page.tsx` / `iso-19770-5-guide.css` — ITAM用語ガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section12.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次と背景操作、`Checklist.tsx`で8項目の進捗、`diagrams.ts`で9図を管理。
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット
