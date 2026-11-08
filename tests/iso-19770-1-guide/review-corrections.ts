@@ -4,5 +4,7 @@ const REPLACEMENTS: readonly (readonly [RegExp, string])[] = [
     [/<strong>(適用宣言書（Statement of Applicability）)<strong>([\s\S]*?)<\/strong>(15のプロセス領域)<\/strong>/, '<strong>$1</strong>$2<strong>$3</strong>'],
     // Q1: 原本に残った Markdown の ** を strong へ置き換える。
     [/\*\*(IT資産全般のマネジメントシステム（ITAMS）)\*\*/, '<strong>$1</strong>'],
+    // VDE プレビュー: 波括弧をパーセントエンコードした URL（表示文字列も同じ）へ置き換える。
+    [/19770-1\{ed3\.0\}en\.pdf/g, '19770-1%7Bed3.0%7Den.pdf'],
 ];
 export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>((text, [from, to]) => text.replace(from, to), html);
