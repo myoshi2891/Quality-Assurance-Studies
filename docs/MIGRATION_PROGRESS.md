@@ -9,6 +9,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-08: ISO/IEC 19770-1とIEC 62304追加原稿の追加レビュー修正
+
+- IEC 62304図6（`mmd-5`）: クラス Bのノードへ「ユニットへの分割」（5.4.1）を追加し、アクセシブル名も同期。クラス A・Cのノードと辺は原本のまま。
+- 19770-1図5: ライフサイクルを必須の順序ではなく例示として表現。調達→開発を「開発する場合」の点線にし、「購入した SaaS・機器など」は調達から展開へ進む点線を追加。代替テキストにも、資産によって該当段階が異なり、購入資産は開発・リリースを要しない場合があることを明記。
+- 19770-1図8: ⑦→⑧の実線を、⑤・⑥・⑦の各ティアから⑧への点線（評価・改善）に変更。⑧のノードへ「各ティアで並行して継続」を追加し、代替テキストを同期。⑧→③の戻りは維持。
+- 19770-1目次: IEC 62304と同じく、`IntersectionObserver`の通知は再計測の合図にとどめ、`scroll`・`resize`ごとに見出しの位置と`scroll-margin-top`を実測。Step 2からStep 1へ上がるときのように、帯に入る見出しがなくても選び直す。全見出しより上では強調せず、ページ末尾では最後の項目を選ぶ。
+- 19770-1表: STEP 7の表をティアごとの`tbody`に分け、ティア名を`th scope="rowgroup"`と`rowspan`の見出しに変更（14領域は維持）。STEP 12の表を見出しの`aria-labelledby`で名付けたキーボード操作領域にし、`.table-scroll:focus-visible`の輪郭を追加。
+- テスト: 図の補正は各ガイドの`review-corrections.ts`（`DIAGRAM_NODE_LABELS`・`DIAGRAM_CORRECTIONS`・`reviewedDiagrams`）で定義し、インベントリは原本の記録として変更せず。ユニットテストとE2Eの両方へ補正済みの定義を渡す。E2Eは原本SVGの同種の線の配色から補正後の辺の期待値を組み立てる。表の補正も原本側だけへ適用。19770-1は図の辺の本数も検証し、置き換えた辺の残存を検出。
+- 文書: CLAUDE.md・GEMINI.mdの未移行表の注記へ19770-1:2017を追加し、3つの再開プロンプトへ両ガイドの目視確認を追加。
+- 検証: IEC 62304対象325件・Chrome45件、ISO 19770-1対象281件・Chrome34件（システムChrome）、対象の型検査、lint、全体11719件（222ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
+
 ## 2026-11-08: CIの実行順依存によるテスト失敗の修正
 
 - 症状: CIで`tests/iso-29119-1-2022-guide/review-a11y.test.tsx`の`aria-current`のテスト1件だけが失敗。ローカルは成功。
@@ -438,9 +449,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | `git rev-parse --short HEAD`で現在のリビジョンを取得する（固定値は記載しない） |
-| 最新コミット内容 | `test(iec62304): restore window.scrollY after TOC tests` |
+| 最新コミット内容 | `fix(iso-19770-1): group process areas by tier and make the STEP 12 table a named region` |
 | 次の作業 | `/iso-19770-1-guide`の目視確認（ユーザー担当）。`/iec62304-beginner-guide`の目視確認（ユーザー担当）。`/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | ISO 19770-1対象275件・Chrome34件・IEC 62304追加原稿対象324件・lint・Markdown lint成功。全体11712件（222ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | ISO 19770-1対象281件・Chrome34件・IEC 62304追加原稿対象325件・Chrome45件・lint・Markdown lint成功。全体11719件（222ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -2048,24 +2059,26 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 124 ルート（ガイドライブラリ index + 123 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体11712件（222ファイル）すべて成功。ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 全体11719件（222ファイル）すべて成功。ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
 - 新規追加「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。保留中の作業（ユーザー担当）:
-  1. `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当、ビルド未実施）。
-  2. `/iso-iec-9075-1-2023-guide`の目視確認（ビルド未実施、自動ブラウザー32件成功）。
-  3. `/specification-by-example-guide`の目視確認（ユーザー担当、ビルド未実施）。
-  4. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
-  5. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
-  6. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
-  7. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
-  8. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
-  9. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
-  10. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
-  11. `e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
-  12. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
-  13. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
+  1. `/iso-19770-1-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  2. `/iec62304-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  3. `/iso-iec-40500-2025-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  4. `/iso-iec-9075-1-2023-guide`の目視確認（ビルド未実施、自動ブラウザー32件成功）。
+  5. `/specification-by-example-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  6. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  7. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
+  8. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
+  9. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
+  10. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
+  11. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
+  12. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
+  13. `e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
+  14. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
+  15. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

@@ -4,6 +4,17 @@ Updated 2026-11-08
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-08: ISO/IEC 19770-1とIEC 62304追加原稿の追加レビュー修正
+
+- IEC 62304図6（`mmd-5`）: クラス Bのノードへ「ユニットへの分割」（5.4.1）を追加し、アクセシブル名も同期。クラス A・Cのノードと辺は原本のまま。
+- 19770-1図5: ライフサイクルを必須の順序ではなく例示として表現。調達→開発を「開発する場合」の点線にし、「購入した SaaS・機器など」は調達から展開へ進む点線を追加。代替テキストにも、資産によって該当段階が異なり、購入資産は開発・リリースを要しない場合があることを明記。
+- 19770-1図8: ⑦→⑧の実線を、⑤・⑥・⑦の各ティアから⑧への点線（評価・改善）に変更。⑧のノードへ「各ティアで並行して継続」を追加し、代替テキストを同期。⑧→③の戻りは維持。
+- 19770-1目次: IEC 62304と同じく、`IntersectionObserver`の通知は再計測の合図にとどめ、`scroll`・`resize`ごとに見出しの位置と`scroll-margin-top`を実測。Step 2からStep 1へ上がるときのように、帯に入る見出しがなくても選び直す。全見出しより上では強調せず、ページ末尾では最後の項目を選ぶ。
+- 19770-1表: STEP 7の表をティアごとの`tbody`に分け、ティア名を`th scope="rowgroup"`と`rowspan`の見出しに変更（14領域は維持）。STEP 12の表を見出しの`aria-labelledby`で名付けたキーボード操作領域にし、`.table-scroll:focus-visible`の輪郭を追加。
+- テスト: 図の補正は各ガイドの`review-corrections.ts`（`DIAGRAM_NODE_LABELS`・`DIAGRAM_CORRECTIONS`・`reviewedDiagrams`）で定義し、インベントリは原本の記録として変更せず。ユニットテストとE2Eの両方へ補正済みの定義を渡す。E2Eは原本SVGの同種の線の配色から補正後の辺の期待値を組み立てる。表の補正も原本側だけへ適用。19770-1は図の辺の本数も検証し、置き換えた辺の残存を検出。
+- 文書: CLAUDE.md・GEMINI.mdの未移行表の注記へ19770-1:2017を追加し、3つの再開プロンプトへ両ガイドの目視確認を追加。
+- 検証: IEC 62304対象325件・Chrome45件、ISO 19770-1対象281件・Chrome34件（システムChrome）、対象の型検査、lint、全体11719件（222ファイル）が成功。スクリーンリーダーでの読み上げ、本番ビルド、目視確認は未実施。
+
 ## 2026-11-08: CIの実行順依存によるテスト失敗の修正
 
 - 症状: CIで`tests/iso-29119-1-2022-guide/review-a11y.test.tsx`の`aria-current`のテスト1件だけが失敗。ローカルは成功。
@@ -429,7 +440,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 222 ファイル・11712 tests)
+bun test             # ユニットテスト (bun test 全体, 222 ファイル・11719 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1362,7 +1373,7 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -1378,14 +1389,16 @@ bun test        # ユニットテスト成功
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
-  1. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  2. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  3. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  4. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
-  5. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
-  6. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  7. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  8. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  1. `/iso-19770-1-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  2. `/iec62304-beginner-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  3. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  4. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  5. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  6. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
+  7. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
+  8. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  9. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  10. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】
