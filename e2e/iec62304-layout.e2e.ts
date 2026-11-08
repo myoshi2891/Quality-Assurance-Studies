@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iec62304-beginner-guide.json';
 import { sourceModule } from '../tests/helpers/source-module';
-import { applyReviewCorrections } from '../tests/iec62304-beginner-guide/review-corrections';
+import { DIAGRAM_NODE_LABELS, applyReviewCorrections, reviewedDiagrams } from '../tests/iec62304-beginner-guide/review-corrections';
 const base = 'app/iec62304-beginner-guide';
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
@@ -67,7 +67,7 @@ test('390px: focused table regions scroll with the arrow keys and show the focus
     await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
     await expect(page.locator('.table-scroll:focus-visible')).toHaveCSS('outline-style','solid');
 });
-for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=>[d.id,d] as const)) {
+for(const width of [390,1440])for(const [id,diagram]of reviewedDiagrams(inventory.diagrams).map(d=>[d.id,d] as const)) {
     test(`${width}px ${id}: exact SVG node and edge semantics, palette and scroll reachability`,async({page})=>{
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
         await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
@@ -82,6 +82,8 @@ for(const width of [390,1440])for(const [id,diagram]of inventory.diagrams.map(d=
             return {nodes,labels,edges,clusters};
         };
         const expected=await reference.locator('#'+id).evaluate(collect);
+        // 承認済みのノード文言の補正だけを期待値へ反映する（配色・形状・辺は原本のまま比較する）。
+        for(const [nodeId,label] of Object.entries(DIAGRAM_NODE_LABELS[id]??{})){const node=expected.nodes.find(n=>n.id===nodeId);expect(node,`${id}: missing node ${nodeId}`).toBeDefined();node!.label=label.replace(/<br\/>/g,'');}
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('sql-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
 

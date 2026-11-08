@@ -42,3 +42,11 @@ export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<stri
     (text, [from, to]) => text.replace(from, to),
     addNoteIds(html),
 ).replace(LAST_PUBLIC_SOURCE_ROW, match => match + FDA_ROW);
+// mmd-5: クラス B はアーキテクチャをユニットへ分割する（5.4.1）。図の他のノードとクラス C の内容は原本のまま。
+export const DIAGRAM_NODE_LABELS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
+    'mmd-5': { N5_CB: 'クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト' },
+};
+export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
+    const labels = DIAGRAM_NODE_LABELS[diagram.id];
+    return labels ? { ...diagram, nodes: diagram.nodes.map(node => ({ ...node, label: labels[node.id] ?? node.label })) } : diagram;
+});

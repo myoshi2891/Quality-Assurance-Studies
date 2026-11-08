@@ -8,9 +8,11 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iec62304-beginner-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { CLASS_SUMMARY_NOTE, FDA_CLASS_LABEL, FDA_CLASS_TEXT, FDA_MISTAKE_LABEL, FDA_MISTAKE_TEXT, FDA_SOURCE, FDA_SOURCE_DETAIL, FDA_URL, IEC_SCOPE_REVIEWED, PROCESS_ORDER_NOTE, RISK_REVIEWED_PLAIN, applyReviewCorrections, withFdaReference } from './review-corrections';
+import { CLASS_SUMMARY_NOTE, FDA_CLASS_LABEL, FDA_CLASS_TEXT, FDA_MISTAKE_LABEL, FDA_MISTAKE_TEXT, FDA_SOURCE, FDA_SOURCE_DETAIL, FDA_URL, IEC_SCOPE_REVIEWED, DIAGRAM_NODE_LABELS, PROCESS_ORDER_NOTE, RISK_REVIEWED_PLAIN, applyReviewCorrections, reviewedDiagrams, withFdaReference } from './review-corrections';
 const base = 'app/iec62304-beginner-guide';
 const scope = '.iec62304-page';
+// 図はレビューで承認した補正を適用した定義と照合する。インベントリ自体は原本の記録として変更しない。
+const diagrams = reviewedDiagrams(inventory.diagrams);
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
 function tree(n: AnyNode): unknown {
     if (n.type === 'text') return norm(n.data) || null;
@@ -68,7 +70,7 @@ function expectChartMatches(chart: string, diagram: typeof inventory.diagrams[nu
     expect(body.filter(line=>/ (-->|-\.->|~~~)/.test(line))).toHaveLength(diagram.edges.length);
 }
 describe('source diagrams', () => {
-    for(const diagram of inventory.diagrams) it(`${diagram.id}: exact HTML nodes, shapes, edges, labels and clusters reach shared Mermaid`, async () => {
+    for(const diagram of diagrams) it(`${diagram.id}: exact HTML nodes, shapes, edges, labels and clusters reach shared Mermaid`, async () => {
         const charts: string[]=[];
         const C=sourceModule(`${base}/Diagram.tsx`,{onMermaidChart:chart=>charts.push(chart)}).default as React.ComponentType<{id:string}>;
         renderToStaticMarkup(<C id={diagram.id}/>);
@@ -84,23 +86,32 @@ describe('source diagrams', () => {
         const charts: string[]=[];
         const C=sourceModule(`${base}/page.tsx`,{onMermaidChart:chart=>charts.push(chart)}).default as React.ComponentType;
         renderToStaticMarkup(<C/>);
-        expect(load(inventory.originalBody)('.mermaid-diagram').map((_,n)=>load(n)('.mermaid-diagram').attr('id')).get()).toEqual(inventory.diagrams.map(d=>d.id));
-        expect(charts).toHaveLength(inventory.diagrams.length);
+        expect(load(inventory.originalBody)('.mermaid-diagram').map((_,n)=>load(n)('.mermaid-diagram').attr('id')).get()).toEqual(diagrams.map(d=>d.id));
+        expect(charts).toHaveLength(diagrams.length);
         expect(new Set(charts).size).toBe(charts.length);
-        inventory.diagrams.forEach((diagram,i)=>expectChartMatches(charts[i]!,diagram));
+        diagrams.forEach((diagram,i)=>expectChartMatches(charts[i]!,diagram));
     });
     const NAMES: Record<string,string> = {
         'mmd-4':'IEC 62304 図 5：箇条5の開発プロセスを構成する8つの活動の順序。5.1 開発計画、5.2 要求事項分析、5.3 アーキテクチャ設計、5.4 詳細設計、5.5 ユニット実装と検証、5.6 統合と統合テスト、5.7 システムテスト、5.8 リリースの順に進む。',
-        'mmd-5':'IEC 62304 図 6：ソフトウェア安全クラスごとに求められる活動の積み上がり。クラス A は計画・要求・実装・システムテスト・リリース。クラス B は A に加えて アーキテクチャ・ユニット検証・統合テスト。クラス C は B に加えて 詳細設計・追加受入基準・分離の識別。',
+        'mmd-5':'IEC 62304 図 6：ソフトウェア安全クラスごとに求められる活動の積み上がり。クラス A は計画・要求・実装・システムテスト・リリース。クラス B は A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト。クラス C は B に加えて 詳細設計・追加受入基準・分離の識別。',
         'mmd-16':'IEC 62304 図 17：初めて 62304 に取り組む手順の8ステップ。Step 1 製品の意図する用途と規制上の位置づけを確認、Step 2 QMS とリスクマネジメントの土台を確認、Step 3 ソフトウェアシステムを識別し安全クラスを仮決定、Step 4 開発計画 SDP を作成、Step 5 要求 → 設計 → 実装 → テストをトレーサビリティ付きで実施、Step 6 SOUP 一覧と構成管理を整備、Step 7 リリース判定と記録の確認、Step 8 保守・問題解決の運用開始の順に進む。Step 8 からは Step 3 へフィードバックが戻る。',
     };
     for(const [id,name] of Object.entries(NAMES)) it(`${id}: the accessible name states the topic and every node label in order`,()=>{
         const $=render('page');
         expect($(`#${id}`).attr('role')).toBe('img');
         expect($(`#${id}`).attr('aria-label')).toBe(name);
-        const labels=inventory.diagrams.find(d=>d.id===id)!.nodes.flatMap(node=>node.label.split(/<br\/?>/));
+        const labels=diagrams.find(d=>d.id===id)!.nodes.flatMap(node=>node.label.split(/<br\/?>/));
         let from=0;
         for(const label of labels){const at=name.indexOf(label,from);expect(at,label).toBeGreaterThanOrEqual(from);from=at+label.length;}
+    });
+    it('mmd-5: class B adds unit decomposition and leaves class A and C unchanged',()=>{
+        const original=inventory.diagrams.find(d=>d.id==='mmd-5')!,reviewed=diagrams.find(d=>d.id==='mmd-5')!;
+        // 補正の空振りを防ぐため、補正先のノードが原本に存在し、原本の文言とは異なることを確かめる。
+        expect(Object.keys(DIAGRAM_NODE_LABELS['mmd-5']!)).toEqual(['N5_CB']);
+        expect(original.nodes.find(n=>n.id==='N5_CB')!.label).not.toContain('ユニットへの分割');
+        expect(reviewed.nodes.find(n=>n.id==='N5_CB')!.label).toBe('クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト');
+        expect(reviewed.nodes.filter(n=>n.id!=='N5_CB')).toEqual(original.nodes.filter(n=>n.id!=='N5_CB'));
+        expect(reviewed.edges).toEqual(original.edges);
     });
     it('mmd-4 and mmd-5 reference their adjacent explanatory callouts',()=>{
         const $=render('page');
