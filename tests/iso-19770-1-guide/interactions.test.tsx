@@ -65,6 +65,24 @@ describe('source TOC interactions',()=>{
             r.unmount();expect(disconnected).toBe(true);
         } finally {headings.remove();globalThis.IntersectionObserver=previous;}
     });
+    it('re-measures when a diagram resizes, without any other notification',()=>{
+        const previous=globalThis.ResizeObserver;
+        let notify:ResizeObserverCallback=()=>{};const observed:Element[]=[];let disconnected=false;
+        globalThis.ResizeObserver=class {
+            constructor(cb:ResizeObserverCallback){notify=cb;}
+            observe(n:Element){observed.push(n);} unobserve(){} disconnect(){disconnected=true;}
+        } as unknown as typeof ResizeObserver;
+        const headings=headingList(),ids=Array.from(headings.children,n=>n.id),diagram=document.createElement('div');
+        diagram.className='mermaid-diagram';document.body.append(diagram);place(headings,2);
+        try {const C=nav(),r=render(<C/>);act(flush);
+            expect(observed).toEqual([diagram]);
+            expect(current(r.container)).toBe(ids[2]);
+            // 図の描画で見出しが動いた。リサイズ通知だけで選び直す。
+            place(headings,6);act(()=>{notify([{target:diagram} as unknown as ResizeObserverEntry],{} as ResizeObserver);flush();});
+            expect(current(r.container)).toBe(ids[6]);
+            r.unmount();expect(disconnected).toBe(true);
+        } finally {headings.remove();diagram.remove();globalThis.ResizeObserver=previous;}
+    });
     it('scrolling up from Step 2 to Step 1 re-selects Step 1 even when no heading intersects the band',()=>{
         const headings=headingList(),ids=Array.from(headings.children,n=>n.id);
         const step1=ids.findIndex(id=>id.startsWith('step-1-')),step2=ids.findIndex(id=>id.startsWith('step-2-'));
@@ -92,8 +110,10 @@ describe('source TOC interactions',()=>{
             // ページ末尾では、帯まで上がれない最後の見出しを選ぶ。
             place(headings,20);scrollTo(window.innerHeight+5000,5000);act(()=>{window.dispatchEvent(new Event('scroll'));flush();});
             expect(current(r.container)).toBe(ids[ids.length-1]);
-            r.unmount();
-            const before=queued.length;window.dispatchEvent(new Event('scroll'));expect(queued.length).toBe(before);
+            // 計測が保留中のままアンマウントし、保留中のフレームが取り消されることを確かめる。
+            window.dispatchEvent(new Event('scroll'));expect(queued.length).toBeGreaterThan(0);
+            r.unmount();expect(queued).toHaveLength(0);
+            window.dispatchEvent(new Event('scroll'));expect(queued).toHaveLength(0);
         } finally {headings.remove();}
     });
 });

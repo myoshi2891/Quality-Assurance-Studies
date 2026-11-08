@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Mermaid from '../../components/Mermaid';
 import { DIAGRAMS } from './diagrams';
 // role="img" の下では図の文字を読み上げられないため、図番号だけの名前の代わりに全ノードと接続を文章で示す。
@@ -14,4 +15,10 @@ const LABELS: Record<string,string> = {
   'mermaid-diagram-9': 'ISO/IEC 19770-1 図 9：ISO/IEC 19770 ファミリーの構成。19770-1:2017 ITAMシステム要求事項（本書）、19770-2 ソフトウェア識別タグ（SWID）、19770-3 権利（Entitlement）スキーマ、19770-4 リソース使用量、19770-5:2015 概要と用語、19770-10:2025（TS） ITAM実装ガイダンスから成る。19770-5:2015 は 19770-1:2017 の用語を定義し、19770-10:2025（TS） は 19770-1:2017 の実装の手引きとなる。',
   'mermaid-diagram-10': 'ISO/IEC 19770-1 図 10：他のマネジメントシステム規格との統合。共通の骨格（箇条4〜10）から ISO/IEC 19770-1 ITAM、ISO/IEC 27001 ISMS、ISO/IEC 20000-1 ITSM、ISO 9001 QMS が派生する。ISO/IEC 19770-1 と ISO/IEC 27001 は相互に資産台帳・変更履歴を共有し、ISO/IEC 19770-1 と ISO/IEC 20000-1 は相互に構成情報・SLAを共有する。',
 };
-export default function Diagram({id}: {id:string}) { return <div className="mermaid-diagram" id={id} tabIndex={0} role="img" aria-label={LABELS[id]}><Mermaid chart={DIAGRAMS[id]!} /></div>; }
+// JavaScript が無効でも読めるよう、ロードマップの8ステップはサーバーで描画した文章としても示す。
+const ROADMAP_STEPS = ['① 目的・経営課題の整理（箇条4・5）', '② 適用範囲（スコープ）決定（対象資産・拠点・環境）', '③ 現状把握（ベースライン）（As-Isの台帳・ツール・プロセス）', '④ ITAM方針・目的・役割定義（箇条5・6）', '⑤ Tier 1：Trustworthy Data構築（棚卸し・突合・ライセンス把握）', '⑥ Tier 2：ライフサイクル統合（調達・展開・廃棄との連携）', '⑦ Tier 3：最適化（財務・契約・SLA連携）', '⑧ 評価と改善（箇条9・10）（各ティアで並行して継続）（内部監査・マネジメントレビュー）'];
+export default function Diagram({id}: {id:string}) {
+  // role="img" の内側は読み上げられないため、描画失敗はラッパーの外で通知する。
+  const [failed,setFailed]=useState(false);
+  return <><div className="mermaid-diagram" id={id} tabIndex={0} role="img" aria-label={LABELS[id]}>{id==='mermaid-diagram-8'&&<noscript><ol style={{listStyle:'none',margin:0,padding:0}}>{ROADMAP_STEPS.map(step=><li key={step}>{step}</li>)}</ol></noscript>}<Mermaid chart={DIAGRAMS[id]!} onRenderError={()=>setFailed(true)} /></div>{failed&&<p role="alert">図表の描画に失敗しました。上の説明文と本文を参照してください。</p>}</>;
+}

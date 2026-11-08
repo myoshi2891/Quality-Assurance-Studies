@@ -125,7 +125,7 @@ for(const width of [390,1440]) test(`${width}px: all six native answers retain o
 });
 for(const width of [390,900,901,1440])test(`${width}px: all heading anchors clear fixed header and disclaimer`,async({page})=>{
     await page.setViewportSize({width,height:900});await page.setContent(`<style>${preflight}${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
-    const banner=width<=900?76:38;await page.evaluate(height=>document.documentElement.style.setProperty('--disclaimer-height',height+'px'),banner);
-    expect(await page.locator('main h2[id],main h3[id]').evaluateAll(els=>els.map(el=>getComputedStyle(el).scrollMarginTop))).toEqual(Array(30).fill(`${80+banner}px`));
+    const banner=width<=900?76:38,offset=width<=900?124:80;await page.evaluate(height=>document.documentElement.style.setProperty('--disclaimer-height',height+'px'),banner);
+    expect(await page.locator('main h2[id],main h3[id]').evaluateAll(els=>els.map(el=>getComputedStyle(el).scrollMarginTop))).toEqual(Array(30).fill(`${offset+banner}px`));
     await expect(page.locator('.sidebar')).toHaveCSS('top',`${60+banner}px`);await expect(page.locator('.nav-toggle')).toHaveCSS('top',`${72+banner}px`);
 });
