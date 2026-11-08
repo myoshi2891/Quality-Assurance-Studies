@@ -7,7 +7,23 @@ const REPLACEMENTS: readonly (readonly [RegExp, string])[] = [
     // VDE プレビュー: 波括弧をパーセントエンコードした URL（表示文字列も同じ）へ置き換える。
     [/19770-1\{ed3\.0\}en\.pdf/g, '19770-1%7Bed3.0%7Den.pdf'],
 ];
-export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>((text, [from, to]) => text.replace(from, to), html);
+// STEP 7: ティアごとに行グループ（tbody）へ分け、ティア名を行グループ全体の見出し（th scope="rowgroup"）にする。各領域の行は原本のまま。
+export const TIER_GROUPS = [['Trustworthy Data', 4], ['Life Cycle Integration', 7], ['Optimization', 3]] as const;
+const TIER_TABLE = /(<th>ティア（カテゴリ）<\/th>[\s\S]*?<\/thead>\s*)<tbody>([\s\S]*?)<\/tbody>/;
+const groupTierRows = (body: string) => {
+    const groups: { tier: string; rows: string[] }[] = [];
+    for (const [, className, first, rest] of body.matchAll(/<tr class="(odd|even)">\s*<td>([\s\S]*?)<\/td>([\s\S]*?)<\/tr>/g)) {
+        if (first!.trim()) groups.push({ tier: first!, rows: [] });
+        groups[groups.length - 1]!.rows.push(`<tr class="${className}">${rest}</tr>`);
+    }
+    return groups.map(({ tier, rows }) => `<tbody>${rows.map((row, i) => i === 0 ? row.replace('>', `><th scope="rowgroup" rowspan="${rows.length}">${tier}</th>`) : row).join('')}</tbody>`).join('');
+};
+// STEP 12: 横にはみ出す表を、見出しを名前にしたキーボード操作領域にする。
+export const MISCONCEPTION_HEADING = 'step-12-よくある誤解とつまずきポイント';
+const MISCONCEPTION_TABLE = new RegExp(`(id="${MISCONCEPTION_HEADING}"[\\s\\S]*?)<div class="table-scroll">`);
+export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<string>((text, [from, to]) => text.replace(from, to), html)
+    .replace(TIER_TABLE, (_, head: string, body: string) => head + groupTierRows(body))
+    .replace(MISCONCEPTION_TABLE, `$1<div class="table-scroll" tabindex="0" role="region" aria-labelledby="${MISCONCEPTION_HEADING}">`);
 // 図の補正。インベントリは原本の記録として変えず、テストと E2E にはこの補正を適用した定義を渡す。
 export type DiagramEdge = { from: string; to: string; arrowStart: boolean; arrowEnd: boolean; dotted: boolean; invisible: boolean; label: string };
 type DiagramCorrection = { nodes?: Readonly<Record<string, string>>; edges: readonly DiagramEdge[] };

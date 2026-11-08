@@ -8,7 +8,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-19770-1-guide.json';
 import { sourceModule } from '../helpers/source-module';
-import { DIAGRAM_CORRECTIONS, applyReviewCorrections, reviewedDiagrams } from './review-corrections';
+import { DIAGRAM_CORRECTIONS, MISCONCEPTION_HEADING, TIER_GROUPS, applyReviewCorrections, reviewedDiagrams } from './review-corrections';
 const base = 'app/iso-19770-1-guide';
 const scope = '.iso19770-page';
 // 図はレビューで承認した補正を適用した定義と照合する。インベントリ自体は原本の記録として変更しない。
@@ -18,7 +18,7 @@ function tree(n: AnyNode): unknown {
     if (n.type === 'text') return norm(n.data) || null;
     if (!isTag(n)) return null;
     const attrs = { ...n.attribs };
-    for (const k of ['role','aria-label','aria-current','aria-expanded','aria-controls','tabindex','type']) delete attrs[k];
+    for (const k of ['role','aria-label','aria-labelledby','aria-current','aria-expanded','aria-controls','tabindex','type']) delete attrs[k];
     if (attrs.class) attrs.class = attrs.class.replace(/\s+active\b/g, '');
     if (attrs.style) attrs.style = attrs.style.replace(/\s+/g,'').replace(/;$/,'');
     return { tag: n.tagName, attrs, children: attrs.class === 'mermaid-diagram' ? [] : n.children.map(tree).filter(Boolean) };
@@ -118,6 +118,42 @@ describe('review corrections',()=>{
         const q1=render('Section13')('details').first();
         expect(q1.find('p strong').text()).toBe('IT資産全般のマネジメントシステム（ITAMS）');
         expect(q1.text()).not.toContain('**');
+    });
+});
+describe('table structure',()=>{
+    const tierTable=($:ReturnType<typeof load>)=>$('table').filter((_,n)=>$(n).find('thead th').first().text()==='ティア（カテゴリ）');
+    it('the correction regroups the original tier table and keeps every process area in order',()=>{
+        const original=load(inventory.originalBody),corrected=load(applyReviewCorrections(inventory.originalBody));
+        expect(tierTable(original).find('tbody')).toHaveLength(1);
+        const areas=($:ReturnType<typeof load>)=>tierTable($).find('tbody tr').map((_,tr)=>$(tr).children('td').eq(-2).text()).get();
+        expect(areas(corrected)).toEqual(areas(original));
+        expect(areas(original)).toHaveLength(14);
+    });
+    it('STEP 7: each tier is a row group whose header spans all of its process areas',()=>{
+        const $=render('Section07'),table=tierTable($);
+        expect(table).toHaveLength(1);
+        const groups=table.find('tbody').toArray();
+        expect(groups.map(g=>{const header=$(g).find('tr').first().children().first();return [header.text(),Number(header.attr('rowspan'))];})).toEqual(TIER_GROUPS.map(([tier,rows])=>[tier,rows]));
+        for(const [i,group] of groups.entries()){
+            const rows=$(group).children('tr');
+            expect(rows).toHaveLength(TIER_GROUPS[i]![1]);
+            const header=rows.first().children().first();
+            expect(header.is('th')).toBe(true);expect(header.attr('scope')).toBe('rowgroup');
+            expect(header.find('strong').text()).toBe(TIER_GROUPS[i]![0]);
+            // 2行目以降は見出しを持たず、空のセルも残さない。
+            rows.slice(1).each((_,row)=>{expect($(row).children('th')).toHaveLength(0);expect($(row).children('td')).toHaveLength(2);});
+            expect($(group).find('td').filter((_,td)=>$(td).text().trim()==='')).toHaveLength(0);
+        }
+    });
+    it('STEP 12: the table wrapper is a focusable region named by its heading, with a visible focus outline',()=>{
+        const $=render('Section12'),wrapper=$('.table-scroll');
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.attr('tabindex')).toBe('0');expect(wrapper.attr('role')).toBe('region');
+        expect(wrapper.attr('aria-labelledby')).toBe(MISCONCEPTION_HEADING);
+        expect($(`h2[id="${MISCONCEPTION_HEADING}"]`)).toHaveLength(1);
+        let declarations: string[]=[];
+        postcss.parse(readFileSync(`${base}/guide.css`,'utf8')).walkRules(r=>{if(r.selectors.includes(`${scope} .table-scroll:focus-visible`))declarations=r.nodes.filter(n=>n.type==='decl').map(d=>d.toString());});
+        expect(declarations).toEqual(['outline: 2px solid var(--accent)','outline-offset: 2px']);
     });
 });
 describe('diagram accessible names',()=>{
