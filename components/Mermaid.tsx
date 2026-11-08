@@ -29,6 +29,8 @@ mermaid.initialize({
 
 interface MermaidProps {
     chart: string;
+    /** 描画に失敗したときに呼ばれる。role="img" の外でエラーを通知したい呼び出し側向け。 */
+    onRenderError?: () => void;
 }
 
 // モジュールの読み込みごとに 1 回だけ決まる識別子。HMR 等で再読み込みされ連番が
@@ -89,7 +91,9 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
  *
  * @param chart - Mermaid diagram source code
  */
-export default function Mermaid({ chart }: MermaidProps) {
+export default function Mermaid({ chart, onRenderError }: MermaidProps) {
+    const onRenderErrorRef = useRef(onRenderError);
+    onRenderErrorRef.current = onRenderError;
     const [svgStr, setSvgStr] = useState<string>('');
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -115,6 +119,7 @@ export default function Mermaid({ chart }: MermaidProps) {
                 if (isMounted) setSvgStr(svg);
             } catch (error) {
                 console.error('Mermaid rendering failed:', error);
+                if (isMounted) onRenderErrorRef.current?.();
                 if (isMounted)
                     setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
             }
