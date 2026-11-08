@@ -308,3 +308,9 @@
 .iec62304-page .hero { text-align: start; }
 .iec62304-page .hero-title { background: none; -webkit-text-fill-color: currentColor; }
 .iec62304-page .hero-title { animation: none; background-clip: border-box; -webkit-background-clip: border-box; }
+
+.iec62304-page blockquote.callout strong { display: inline; margin-bottom: 0; }
+@media (max-width: 900px) {
+.iec62304-page .sidebar { visibility: hidden; transition: transform 0.2s, visibility 0s linear 0.2s; }
+.iec62304-page .sidebar.open { visibility: visible; transition: transform 0.2s, visibility 0s; }
+}
