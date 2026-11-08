@@ -10,6 +10,8 @@
 export interface PageMeta {
   readonly path: string;
   readonly h1: RegExp;
+  /** h1 が他ページと共有される場合に、そのページ固有の可視テキストで識別する。 */
+  readonly uniqueText?: RegExp;
 }
 
 export const PAGES: readonly PageMeta[] = [
@@ -135,7 +137,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-iec-ieee-29119-3-2021-guide', h1: /ISO\/IEC\/IEEE 29119-3:2021/ },
   { path: '/iso-iec-9075-1-2023-guide', h1: /ISO\/IEC 9075-1:2023（SQLフレームワーク）初学者向けステップバイステップ解説/ },
   { path: '/iso-iec-40500-2025-guide', h1: /ISO\/IEC 40500:2025 初学者向けステップバイステップ解説ガイド/ },
-  { path: '/iec62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/ },
+  { path: '/iec62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/, uniqueText: /規制上の位置づけ（EU \/ 米国 \/ 日本）/ },
   { path: '/iso-19770-1-guide', h1: /ISO\/IEC 19770-1:2017\s*初学者向けステップバイステップ解説ガイド/ },
 ] as const;
 
