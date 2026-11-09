@@ -1,8 +1,14 @@
 # CLAUDE.md
 
-Updated 2026-11-08
+Updated 2026-11-09
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-09: 図の代替説明とレビュー済み接続の検証
+
+- IEC 62304の不足していた代替説明を補完。図4は全体をクラスCに統一する方法と部品ごとに分類する方法の利点・負担を説明し、既存の名前と説明参照を維持。安全クラスのリリース前再確認と、個別修正の検証から独立した継続的傾向分析も照合。
+- 両ガイドの描画失敗通知が図の外に出ることと、ISO 19770-1のロードマップ説明が失敗時に可視表示されることを回帰検証。IECの補正した接続は、原本ノードとレビュー済みの辺から独立に描画した図を方向比較の基準とする。
+- 全体11728件（222ファイル）、IEC対象331件、ISO対象283件、関連868件、IECブラウザー45件、変更対象の型検査、lintが成功。全体型検査には既存の対象外エラーが残る。ダッシュボードの静的件数は124で一致済み。
 
 ## 2026-11-08: ISO/IEC 19770-1とIEC 62304追加原稿の追加レビュー修正
 
@@ -440,7 +446,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 222 ファイル・11719 tests)
+bun test             # ユニットテスト (bun test 全体, 222 ファイル・11728 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -887,7 +893,7 @@ Next.js App Router 構成:
 - `app/iec62304-beginner-guide/guide.css` — IEC 62304追加原稿のカテゴリー別移行
 - `app/iec62304-beginner-guide/page.tsx` — IEC 62304追加原稿のカテゴリー別移行
 - `app/iec62304-beginner-guide/toc.ts` — IEC 62304追加原稿のカテゴリー別移行
-- `tests/iec62304-beginner-guide/` — 原本照合・操作・hydration・登録・アーカイブ325件
+- `tests/iec62304-beginner-guide/` — 原本照合・操作・hydration・登録・アーカイブ331件
 - `e2e/iec62304-layout.e2e.ts` — 原本CSS・実SVG・表領域のキー操作の45件（`--project=iec62304`）
 - `app/iec-62304-beginner-guide/Diagram.tsx` — 共有Mermaidへの配線
 - `app/iec-62304-beginner-guide/NavBar.tsx` — 階層目次・開閉・追従・親展開・解放
@@ -978,7 +984,7 @@ Next.js App Router 構成:
 - `app/iso-19770-1-guide/guide.css` — ISO/IEC 19770-1のカテゴリー別移行
 - `app/iso-19770-1-guide/page.tsx` — ISO/IEC 19770-1のカテゴリー別移行
 - `app/iso-19770-1-guide/toc.ts` — ISO/IEC 19770-1のカテゴリー別移行
-- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ281件
+- `tests/iso-19770-1-guide/` — 原本照合・操作・hydration・登録・アーカイブ283件
 - `e2e/iso-19770-1-layout.e2e.ts` — 原本CSS・実SVG・回答・アンカー34件（`--project=iso-19770-1`）
 - `app/iso-19770-5-guide/page.tsx` / `iso-19770-5-guide.css` — ITAM用語ガイドの構成と原本スタイル。`Hero.tsx`・`Section0.tsx`〜`Section12.tsx`・`Footer.tsx`で本文を分割し、`NavBar.tsx`で目次と背景操作、`Checklist.tsx`で8項目の進捗、`diagrams.ts`で9図を管理。
 - `app/iso-29119-1-2022-guide/iso-29119-1-2022-guide.css` — 元CSSルール、レスポンシブ条件、共有CSS干渉リセット

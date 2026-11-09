@@ -1,8 +1,14 @@
 # Project Overview
 
-Updated 2026-11-08
+Updated 2026-11-09
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-09: 図の代替説明とレビュー済み接続の検証
+
+- IEC 62304の不足していた代替説明を補完。図4は全体をクラスCに統一する方法と部品ごとに分類する方法の利点・負担を説明し、既存の名前と説明参照を維持。安全クラスのリリース前再確認と、個別修正の検証から独立した継続的傾向分析も照合。
+- 両ガイドの描画失敗通知が図の外に出ることと、ISO 19770-1のロードマップ説明が失敗時に可視表示されることを回帰検証。IECの補正した接続は、原本ノードとレビュー済みの辺から独立に描画した図を方向比較の基準とする。
+- 全体11728件（222ファイル）、IEC対象331件、ISO対象283件、関連868件、IECブラウザー45件、変更対象の型検査、lintが成功。全体型検査には既存の対象外エラーが残る。ダッシュボードの静的件数は124で一致済み。
 
 ## 2026-11-08: ISO/IEC 19770-1とIEC 62304追加原稿の追加レビュー修正
 
