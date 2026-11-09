@@ -182,19 +182,32 @@ describe('Mermaid component', () => {
     }
   });
 
-  it('invokes onRenderError and shows the fallback when mermaid.render rejects', async () => {
+  it('invokes onRenderError and shows the fallback even if the callback throws', async () => {
     const originalError = console.error;
-    console.error = () => {};
     try {
-      renderImpl = () => Promise.reject(new Error('boom'));
-      const onRenderError = mock(() => {});
-      const { container } = render(
-        <Mermaid chart="graph TD; broken" onRenderError={onRenderError} />,
-      );
-      await waitFor(() => {
-        expect(container.textContent).toContain('図表の描画に失敗しました');
-      });
-      expect(onRenderError).toHaveBeenCalledTimes(1);
+      for (const throws of [false, true]) {
+        const renderError = new Error('boom');
+        const callbackError = new Error('callback failed');
+        const reportError = mock(() => {});
+        console.error = reportError;
+        renderImpl = () => Promise.reject(renderError);
+        const onRenderError = mock(() => {
+          if (throws) throw callbackError;
+        });
+        const { container, unmount } = render(
+          <Mermaid chart="graph TD; broken" onRenderError={onRenderError} />,
+        );
+        await waitFor(() => {
+          expect(container.textContent).toContain('図表の描画に失敗しました');
+        });
+        expect(onRenderError).toHaveBeenCalledTimes(1);
+        expect(reportError).toHaveBeenCalledWith('Mermaid rendering failed:', renderError);
+        if (throws) {
+          expect(reportError).toHaveBeenCalledWith('Mermaid onRenderError callback failed:', callbackError);
+        }
+        expect(reportError).toHaveBeenCalledTimes(throws ? 2 : 1);
+        unmount();
+      }
     } finally {
       console.error = originalError;
     }

@@ -119,7 +119,13 @@ export default function Mermaid({ chart, onRenderError }: MermaidProps) {
                 if (isMounted) setSvgStr(svg);
             } catch (error) {
                 console.error('Mermaid rendering failed:', error);
-                if (isMounted) onRenderErrorRef.current?.();
+                if (isMounted) {
+                    try {
+                        onRenderErrorRef.current?.();
+                    } catch (callbackError) {
+                        console.error('Mermaid onRenderError callback failed:', callbackError);
+                    }
+                }
                 if (isMounted)
                     setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
             }
