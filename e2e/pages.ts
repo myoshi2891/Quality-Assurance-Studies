@@ -119,7 +119,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution', h1: /第7章.*Verifying the Test Automation Solution/ },
   { path: '/istqb-ctal-tae-chapter8-continuous-improvement', h1: /第8章.*Continuous Improvement/ },
   { path: '/quality-is-free-guide', h1: /Quality Is Free 入門ガイド/ },
-  { path: '/iec-62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/ },
+  { path: '/iec-62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/, uniqueText: /3分でわかる結論/ },
   { path: '/iso-9075-1-guide', h1: /ISO\/IEC 9075-1:2023（SQL\/Framework）初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-11179-1-2023-guide', h1: /ISO\/IEC 11179-1:2023 初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-14496-22-guide', h1: /ISO\/IEC\s+14496-22:2026（Open Font Format）初学者向け解説ガイド/ },
