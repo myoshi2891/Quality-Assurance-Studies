@@ -83,6 +83,17 @@ export default function NavBar() {
         return () => document.removeEventListener('keydown', escape);
     }, [open]);
 
+    useEffect(() => {
+        if (!mobile || !open) return;
+        const main = document.querySelector<HTMLElement>('main.main');
+        if (!main) return;
+        const hadInert = main.hasAttribute('inert');
+        main.setAttribute('inert', '');
+        return () => {
+            if (!hadInert) main.removeAttribute('inert');
+        };
+    }, [mobile, open]);
+
     return (
         <>
             <button
@@ -119,7 +130,10 @@ export default function NavBar() {
                             data-target={item.target}
                             className={`${item.level === 'h3' ? 'nav-h3' : 'nav-h2'}${active === item.target ? ' active' : ''}`}
                             aria-current={active === item.target ? 'location' : undefined}
-                            onClick={() => setOpen(false)}
+                            onClick={event => {
+                                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                                setOpen(false);
+                            }}
                         >
                             {item.text}
                         </a>
