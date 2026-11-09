@@ -66,10 +66,45 @@ describe('foundation CSS', () => {
         expect(candidates).toContainEqual(original.decls);
     }));
 
-    it('isolates all rules and offsets fixed chrome and headings', () => {
+    it('isolates all rules and offsets fixed chrome and headings without clobbering main margin or hero padding', () => {
         const css = readFileSync(`${base}/guide.css`, 'utf8');
-        postcss.parse(css).walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
-        for (const text of ['scroll-margin-top', 'foreignObject', 'max-width: none', '(max-width: 900px)']) expect(css).toContain(text);
+        const root = postcss.parse(css);
+        root.walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
+        for (const text of [
+            'var(--disclaimer-height, 0px)',
+            '.iso27031-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }',
+            '.iso27031-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }',
+            'scroll-margin-top: calc(80px + var(--disclaimer-height, 0px))',
+            'scroll-margin-top: calc(124px + var(--disclaimer-height, 0px))',
+            'foreignObject',
+            'max-width: none',
+            '(max-width: 900px)',
+            'visibility: hidden',
+            'prefers-reduced-motion: reduce',
+        ]) {
+            expect(css).toContain(text);
+        }
+        // Regression guard: global reset rules must NOT force margin:0 !important or padding:0 !important on <main>,
+        // nor padding-top:0 !important on .hero, which hid main content under the fixed 280px sidebar.
+        const forbiddenMainHeroImportant: string[] = [];
+        root.walkRules(r => {
+            if (r.selectors.some(s => s === `${scope} main` || s === `${scope} .main` || s === `${scope} .hero`)) {
+                r.walkDecls(d => {
+                    if (d.important && ['margin', 'margin-left', 'padding', 'padding-top', 'overflow'].includes(d.prop)) {
+                        forbiddenMainHeroImportant.push(`${r.selector} { ${d.prop}: ${d.value} !important }`);
+                    }
+                });
+            }
+        });
+        expect(forbiddenMainHeroImportant).toEqual([]);
+
+        let focusDeclarations: string[] = [];
+        root.walkRules(r => {
+            if (r.selectors.includes(`${scope} .table-scroll:focus-visible`)) {
+                focusDeclarations = r.nodes.filter(n => n.type === 'decl').map(d => d.toString());
+            }
+        });
+        expect(focusDeclarations).toEqual(['outline: 2px solid var(--accent)', 'outline-offset: 2px']);
     });
 });
 
@@ -105,4 +140,11 @@ describe('assembled source inventory', () => {
     for (const [name, group] of Object.entries(inventory.groups)) {
         it(`${name}: exact ordered count`, () => expect(page()(group.selector)).toHaveLength(group.items.length));
     }
+    it('replaces literal Markdown asterisks with strong emphasis in Section14', () => {
+        expect(inventory.sections[14]!.html).toContain('**');
+        expect(applyReviewCorrections(inventory.sections[14]!.html)).not.toContain('**');
+        const s14 = render('Section14');
+        expect(s14('p strong').map((_, n) => s14(n).text()).get()).toContain('「最低限ここまでは維持できる」という現実的な水準（MBCO）');
+        expect(page()('main').text()).not.toContain('**');
+    });
 });

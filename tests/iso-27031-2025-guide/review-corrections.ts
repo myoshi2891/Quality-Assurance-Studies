@@ -17,7 +17,8 @@ const makeScrollRegions = (html: string) => {
     });
 };
 
-export const applyReviewCorrections = (html: string) => makeScrollRegions(html);
+export const applyReviewCorrections = (html: string) =>
+    makeScrollRegions(html).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
 export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges: readonly DiagramEdge[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
     const correction = DIAGRAM_CORRECTIONS[diagram.id];
