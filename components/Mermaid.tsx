@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 
 mermaid.initialize({
@@ -93,7 +93,9 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
  */
 export default function Mermaid({ chart, onRenderError }: MermaidProps) {
     const onRenderErrorRef = useRef(onRenderError);
-    onRenderErrorRef.current = onRenderError;
+    useLayoutEffect(() => {
+        onRenderErrorRef.current = onRenderError;
+    }, [onRenderError]);
     const [svgStr, setSvgStr] = useState<string>('');
     const wrapperRef = useRef<HTMLDivElement>(null);
 

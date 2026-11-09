@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach, mock } from 'bun:test';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import { Suspense, startTransition } from 'react';
+import { act, render, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import Mermaid from '../../components/Mermaid';
 
@@ -182,7 +183,7 @@ describe('Mermaid component', () => {
     }
   });
 
-  it('invokes onRenderError and shows the fallback even if the callback throws', async () => {
+  it('invokes only the committed onRenderError after an interrupted update and shows the fallback even if it throws', async () => {
     const originalError = console.error;
     try {
       for (const throws of [false, true]) {
@@ -190,17 +191,45 @@ describe('Mermaid component', () => {
         const callbackError = new Error('callback failed');
         const reportError = mock(() => {});
         console.error = reportError;
-        renderImpl = () => Promise.reject(renderError);
+        let rejectRender!: (error: Error) => void;
+        const pendingRender = new Promise<{ svg: string }>((_, reject) => {
+          rejectRender = reject;
+        });
+        const renderStarted = mock(() => pendingRender);
+        renderImpl = renderStarted;
         const onRenderError = mock(() => {
           if (throws) throw callbackError;
         });
-        const { container, unmount } = render(
-          <Mermaid chart="graph TD; broken" onRenderError={onRenderError} />,
+        const interruptedCallback = mock(() => {});
+        const updateAttempted = mock(() => {});
+        const pendingUpdate = new Promise<never>(() => {});
+        function SuspendUpdate({ suspend }: { suspend: boolean }) {
+          if (suspend) {
+            updateAttempted();
+            throw pendingUpdate;
+          }
+          return <span>Committed diagram</span>;
+        }
+        const diagram = (suspend: boolean) => (
+          <Suspense fallback={<span>Updating diagram</span>}>
+            <Mermaid chart="graph TD; broken" onRenderError={suspend ? interruptedCallback : onRenderError} />
+            <SuspendUpdate suspend={suspend} />
+          </Suspense>
         );
+        const { container, rerender, unmount } = render(diagram(false));
+        await waitFor(() => expect(renderStarted).toHaveBeenCalledTimes(1));
+        await act(async () => {
+          startTransition(() => rerender(diagram(true)));
+        });
+        expect(updateAttempted).toHaveBeenCalled();
+        expect(container.textContent).toContain('Committed diagram');
+        expect(container.textContent).not.toContain('Updating diagram');
+        await act(async () => rejectRender(renderError));
         await waitFor(() => {
           expect(container.textContent).toContain('図表の描画に失敗しました');
         });
         expect(onRenderError).toHaveBeenCalledTimes(1);
+        expect(interruptedCallback).not.toHaveBeenCalled();
         expect(reportError).toHaveBeenCalledWith('Mermaid rendering failed:', renderError);
         if (throws) {
           expect(reportError).toHaveBeenCalledWith('Mermaid onRenderError callback failed:', callbackError);
