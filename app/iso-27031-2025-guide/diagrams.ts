@@ -7,13 +7,14 @@ export const MERMAID_CONFIG = `%%{init: {
     "mainBkg": "#12233b",
     "primaryTextColor": "#e6eefc",
     "primaryBorderColor": "#7c9eff",
-    "lineColor": "#7c9eff",
+    "lineColor": "#9cb0cf",
+    "signalColor": "#c7d6ec",
     "secondaryColor": "#0d1b2e",
     "tertiaryColor": "#0d1b2e",
     "nodeBorder": "#7c9eff",
     "clusterBkg": "#0d1b2e",
-    "clusterBorder": "#25405f",
-    "edgeLabelBackground": "#0d1b2e",
+    "clusterBorder": "#3b5a8c",
+    "edgeLabelBackground": "#07111e",
     "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "15px"
   },
@@ -34,6 +35,8 @@ A2["障害発生"]
 A3["ICTサービス復旧"]
 A1 -->|"RPO：失ってよいデータの時間幅"| A2
 A2 -->|"RTO：止まってよい時間"| A3
+classDef pt fill:#1e3a5f,stroke:#7c9eff,color:#ffffff
+class A1,A2,A3 pt
 `,
   "mmd-1": `${MERMAID_CONFIG}
 flowchart TB

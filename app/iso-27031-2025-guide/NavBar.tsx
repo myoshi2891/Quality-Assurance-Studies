@@ -105,7 +105,7 @@ export default function NavBar() {
                 aria-controls="sidebar"
                 onClick={() => setOpen(value => !value)}
             >
-                ☰ 目次
+                目次
             </button>
             <aside
                 ref={sidebar}
