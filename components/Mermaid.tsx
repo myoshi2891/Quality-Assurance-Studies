@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 
 mermaid.initialize({
@@ -29,6 +29,8 @@ mermaid.initialize({
 
 interface MermaidProps {
     chart: string;
+    /** 描画失敗を呼び出し側で通知する。正常に戻ると内側のエラー表示を省略する。 */
+    onRenderError?: () => void;
 }
 
 // モジュールの読み込みごとに 1 回だけ決まる識別子。HMR 等で再読み込みされ連番が
@@ -89,7 +91,11 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
  *
  * @param chart - Mermaid diagram source code
  */
-export default function Mermaid({ chart }: MermaidProps) {
+export default function Mermaid({ chart, onRenderError }: MermaidProps) {
+    const onRenderErrorRef = useRef(onRenderError);
+    useLayoutEffect(() => {
+        onRenderErrorRef.current = onRenderError;
+    }, [onRenderError]);
     const [svgStr, setSvgStr] = useState<string>('');
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -115,8 +121,18 @@ export default function Mermaid({ chart }: MermaidProps) {
                 if (isMounted) setSvgStr(svg);
             } catch (error) {
                 console.error('Mermaid rendering failed:', error);
+                let errorHandled = false;
+                if (isMounted) {
+                    try {
+                        const notify = onRenderErrorRef.current;
+                        notify?.();
+                        errorHandled = !!notify;
+                    } catch (callbackError) {
+                        console.error('Mermaid onRenderError callback failed:', callbackError);
+                    }
+                }
                 if (isMounted)
-                    setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
+                    setSvgStr(errorHandled ? '' : `<p class="text-red-500">図表の描画に失敗しました</p>`);
             }
         };
 

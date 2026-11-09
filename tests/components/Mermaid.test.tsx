@@ -1,7 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach, mock } from 'bun:test';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import { Suspense, startTransition } from 'react';
+import { act, render, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import Mermaid from '../../components/Mermaid';
+import IsoDiagram from '../../app/iso-19770-1-guide/Diagram';
+import IecDiagram from '../../app/iec62304-beginner-guide/Diagram';
 
 // ⚠️ mock.module('mermaid') はモジュールレジストリをプロセス全体で恒久的に差し替えるため、
 //    後続テストファイルが happydom-setup.ts の共有モック（既定 SVG: mock-mermaid）ではなく
@@ -166,17 +169,89 @@ describe('Mermaid component', () => {
     expect(container.querySelector('svg')).toBeNull();
   });
 
-  it('renders an error fallback when mermaid.render throws', async () => {
+  it('renders one failure message, using the caller alert when provided', async () => {
     const originalError = console.error;
     console.error = () => {};
     try {
       renderImpl = async () => {
         throw new Error('boom');
       };
-      const { container } = render(<Mermaid chart="graph TD; broken" />);
-      await waitFor(() => {
-        expect(container.textContent).toContain('図表の描画に失敗しました');
-      });
+      for (const [diagram, callerAlert] of [
+        [<Mermaid chart="graph TD; broken" />, false],
+        [<IsoDiagram id="mermaid-diagram-1" />, true],
+        [<IecDiagram id="mmd-3" />, true],
+      ] as const) {
+        const { container, getAllByText, queryByRole, unmount } = render(diagram);
+        await waitFor(() => {
+          expect(getAllByText(/図表の描画に失敗しました/)).toHaveLength(1);
+        });
+        expect(queryByRole('alert') !== null).toBe(callerAlert);
+        expect(container.querySelector('.mermaid-wrapper')?.textContent).toBe(
+          callerAlert ? '' : '図表の描画に失敗しました',
+        );
+        unmount();
+      }
+    } finally {
+      console.error = originalError;
+    }
+  });
+
+  it('invokes only the committed onRenderError after an interrupted update and retains the fallback if it throws', async () => {
+    const originalError = console.error;
+    try {
+      for (const throws of [false, true]) {
+        const renderError = new Error('boom');
+        const callbackError = new Error('callback failed');
+        const reportError = mock(() => {});
+        console.error = reportError;
+        let rejectRender!: (error: Error) => void;
+        const pendingRender = new Promise<{ svg: string }>((_, reject) => {
+          rejectRender = reject;
+        });
+        const renderStarted = mock(() => pendingRender);
+        renderImpl = renderStarted;
+        const onRenderError = mock(() => {
+          if (throws) throw callbackError;
+        });
+        const interruptedCallback = mock(() => {});
+        const updateAttempted = mock(() => {});
+        const pendingUpdate = new Promise<never>(() => {});
+        function SuspendUpdate({ suspend }: { suspend: boolean }) {
+          if (suspend) {
+            updateAttempted();
+            throw pendingUpdate;
+          }
+          return <span>Committed diagram</span>;
+        }
+        const diagram = (suspend: boolean) => (
+          <Suspense fallback={<span>Updating diagram</span>}>
+            <Mermaid chart="graph TD; broken" onRenderError={suspend ? interruptedCallback : onRenderError} />
+            <SuspendUpdate suspend={suspend} />
+          </Suspense>
+        );
+        const { container, rerender, unmount } = render(diagram(false));
+        await waitFor(() => expect(renderStarted).toHaveBeenCalledTimes(1));
+        await act(async () => {
+          startTransition(() => rerender(diagram(true)));
+        });
+        expect(updateAttempted).toHaveBeenCalled();
+        expect(container.textContent).toContain('Committed diagram');
+        expect(container.textContent).not.toContain('Updating diagram');
+        await act(async () => rejectRender(renderError));
+        await waitFor(() => {
+          expect(container.querySelector('.mermaid-wrapper')?.textContent).toBe(
+            throws ? '図表の描画に失敗しました' : '',
+          );
+        });
+        expect(onRenderError).toHaveBeenCalledTimes(1);
+        expect(interruptedCallback).not.toHaveBeenCalled();
+        expect(reportError).toHaveBeenCalledWith('Mermaid rendering failed:', renderError);
+        if (throws) {
+          expect(reportError).toHaveBeenCalledWith('Mermaid onRenderError callback failed:', callbackError);
+        }
+        expect(reportError).toHaveBeenCalledTimes(throws ? 2 : 1);
+        unmount();
+      }
     } finally {
       console.error = originalError;
     }
