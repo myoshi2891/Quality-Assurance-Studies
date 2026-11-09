@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 事業側の期待とICTサービスの依存関係を把握する手順を説明する。 */
 export default function Section08() {
     return (
         <>

@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 第6〜13章の流れと戦略・計画へのフィードバックを示す。 */
 export default function Section05() {
     return (
         <>

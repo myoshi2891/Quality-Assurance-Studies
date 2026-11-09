@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { TOC_ITEMS } from './toc';
 
+/** Render a responsive TOC with measured active headings, keyboard dismissal and mobile background isolation. */
 export default function NavBar() {
     const [open, setOpen] = useState(false);
     const [mobile, setMobile] = useState(false);
@@ -11,6 +12,7 @@ export default function NavBar() {
 
     useEffect(() => {
         const query = window.matchMedia('(max-width: 900px)');
+        /** Keep TOC visibility in sync with the mobile breakpoint. */
         const update = () => setMobile(query.matches);
         update();
         query.addEventListener('change', update);
@@ -21,6 +23,7 @@ export default function NavBar() {
         let frame = 0;
         const headings = TOC_ITEMS.map(item => document.getElementById(item.target)).filter((heading): heading is HTMLElement => heading !== null);
 
+        /** Select the last heading above the fixed chrome, or the final heading at the document end. */
         function update() {
             frame = 0;
             const last = headings[headings.length - 1];
@@ -37,6 +40,7 @@ export default function NavBar() {
             setActive(current);
         }
 
+        /** Coalesce scroll, resize and observer updates into one animation frame. */
         function schedule() {
             if (!frame) frame = requestAnimationFrame(update);
         }
@@ -73,6 +77,7 @@ export default function NavBar() {
 
     useEffect(() => {
         if (!open) return;
+        /** Close the TOC on Escape and restore focus to its toggle. */
         const escape = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 setOpen(false);

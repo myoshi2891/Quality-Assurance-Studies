@@ -1,5 +1,6 @@
 import React from "react";
 
+/** 資料の確度と正式規格を確認する際の注意点を示す。 */
 export default function Section00() {
     return (
         <>

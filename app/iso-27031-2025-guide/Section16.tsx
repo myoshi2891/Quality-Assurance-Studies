@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 架空の導入例を通してIRBCの準備から評価までの流れを示す。 */
 export default function Section16() {
     return (
         <>

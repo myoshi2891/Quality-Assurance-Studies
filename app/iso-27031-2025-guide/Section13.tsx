@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 試験・演習・監査の結果を戦略と計画の改善につなげる手順を説明する。 */
 export default function Section13() {
     return (
         <>

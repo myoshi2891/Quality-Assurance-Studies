@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 事業継続・情報セキュリティの関連規格との関係を示す。 */
 export default function Section03() {
     return (
         <>

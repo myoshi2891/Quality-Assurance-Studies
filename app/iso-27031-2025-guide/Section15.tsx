@@ -1,5 +1,6 @@
 import React from "react";
 
+/** 附属書の位置づけと読み方を説明する。 */
 export default function Section15() {
     return (
         <>

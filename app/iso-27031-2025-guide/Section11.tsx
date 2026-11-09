@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 規格外の実務補足としてRTO・RPOに応じたクラウドDR方式を比較する。 */
 export default function Section11() {
     return (
         <>

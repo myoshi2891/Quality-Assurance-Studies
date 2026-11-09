@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 正式規格の確認から小さな演習までの学習ロードマップを示す。 */
 export default function Section20() {
     return (
         <>

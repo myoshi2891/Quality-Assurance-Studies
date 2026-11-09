@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 人材・設備・技術・データ・プロセス・供給者の観点でIRBC戦略を説明する。 */
 export default function Section10() {
     return (
         <>

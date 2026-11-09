@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     description: 'ISO/IEC 27031:2025（Cybersecurity — ICT readiness for business continuity）の初学者向けステップバイステップ解説ガイド。',
 };
 
+/** Render the complete ISO/IEC 27031:2025 guide with its TOC and all 21 sections. */
 export default function Page() {
     return (
         <div className="iso27031-page">

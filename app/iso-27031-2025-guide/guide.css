@@ -23,8 +23,7 @@
 }
 
 .iso27031-page {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .iso27031-page {
@@ -39,7 +38,7 @@
                     sans-serif;
     font-size: 16px;
     line-height: 1.85;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .iso27031-page .sidebar {
@@ -536,13 +535,16 @@
     }
 }
 
+/* clip keeps horizontal overflow contained without making this wrapper a sticky scroll container. */
 /* Fixed application header and dynamic disclaimer are outside this page. */
+.iso27031-page .checklist-progress { top: calc(60px + var(--disclaimer-height, 0px)); background: var(--card); z-index: 10; }
 .iso27031-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
 .iso27031-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
 .iso27031-page h2, .iso27031-page h3, .iso27031-page h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
 /* On narrow screens the fixed .nav-toggle (top 72px, about 36px tall) overlaps the landing position, so clear its bottom edge. */
 @media (max-width: 900px) {
     .iso27031-page h2, .iso27031-page h3, .iso27031-page h4 { scroll-margin-top: calc(124px + var(--disclaimer-height, 0px)); }
+    .iso27031-page .checklist-progress { top: calc(124px + var(--disclaimer-height, 0px)); }
     .iso27031-page .sidebar { visibility: hidden; transition: transform 0.2s, visibility 0s linear 0.2s; }
     .iso27031-page .sidebar.open { visibility: visible; transition: transform 0.2s, visibility 0s; }
 }

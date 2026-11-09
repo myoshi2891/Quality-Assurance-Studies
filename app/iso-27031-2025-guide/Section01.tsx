@@ -1,5 +1,6 @@
 import React from "react";
 
+/** IRBCの目的と事業継続との関係を説明する。 */
 export default function Section01() {
     return (
         <>

@@ -1,5 +1,6 @@
 import React from "react";
 
+/** IRBCの導入手順を読むための前提を示す。 */
 export default function Section06() {
     return (
         <>

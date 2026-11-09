@@ -1,5 +1,6 @@
 import React from "react";
 
+/** 本ガイドの参考ソースと正式情報へのリンクを示す。 */
 export default function Section19() {
     return (
         <>

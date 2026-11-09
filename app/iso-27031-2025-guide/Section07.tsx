@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** IRBCをBCMへ統合する第6章の考え方を説明する。 */
 export default function Section07() {
     return (
         <>

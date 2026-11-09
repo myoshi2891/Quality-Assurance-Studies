@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** MBCOを踏まえてRTO・RPOの前提条件と目標を決める手順を説明する。 */
 export default function Section09() {
     return (
         <>

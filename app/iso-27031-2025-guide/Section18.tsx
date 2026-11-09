@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from "react";
 
+/** 9項目の導入チェックリストを表示し、完了数・進捗・完了通知を更新する。 */
 export default function Section18() {
     const [checked, setChecked] = useState<boolean[]>(() => Array(9).fill(false));
     const count = checked.filter(Boolean).length;
+    /** 指定した項目のチェック状態を切り替え、他の項目は保持する。 */
     const toggle = (index: number) =>
         setChecked(prev => prev.map((v, i) => (i === index ? !v : v)));
 

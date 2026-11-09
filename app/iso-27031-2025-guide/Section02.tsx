@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** IRBC、BCM、BIA、RTO、RPO、MBCOの基本用語を説明する。 */
 export default function Section02() {
     return (
         <>

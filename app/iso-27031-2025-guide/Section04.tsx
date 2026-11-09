@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 2011年版から2025年版への変更と外部依存の拡大を説明する。 */
 export default function Section04() {
     return (
         <>

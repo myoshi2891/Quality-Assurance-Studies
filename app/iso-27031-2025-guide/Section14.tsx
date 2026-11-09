@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** 最終MBCOの確定と経営層によるIRBC評価を説明する。 */
 export default function Section14() {
     return (
         <>

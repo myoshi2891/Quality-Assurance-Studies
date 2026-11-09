@@ -1,6 +1,7 @@
 import React from "react";
 import Diagram from "./Diagram";
 
+/** ICT継続計画の発動・連絡・復旧手順を説明する。 */
 export default function Section12() {
     return (
         <>
