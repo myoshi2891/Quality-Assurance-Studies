@@ -1,10 +1,18 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-11-08
+最終更新日: 2026-11-09
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
 ---
+
+## 2026-11-09: ISO/IEC 27031:2025 ガイドの移行
+
+- `Iso-27031-2025-guide.html`を`/iso-27031-2025-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を125ルートへ同期。
+- 全21カテゴリー（Section00〜20）を順に個別実装・個別コミット。33見出し、階層目次33リンク、7表、14 Mermaid図、注記、外部リンク、コード例、全76 CSSルールとレスポンシブ境界、ヒーロー・本文・フッターを固定インベントリと一対一照合。
+- 対象148件（page: 141件, interactions: 4件, integration: 3件）が成功。
+- 元HTML・Markdownを`archive/html-archive/iso/Iso-27031-2025-guide.html`・`archive/md-archive/iso/Iso-27031-2025-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint成功。全体11881件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
 
 ## 2026-11-08: CIの実行順依存によるテスト失敗の修正
 

@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-11-09">2026-11-09</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.11 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 124 pages · 3 components · 14 libs · 5 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 125 pages · 3 components · 14 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 100;" role="img" aria-label="全ルートのユニットテスト登録率100パーセント">
@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">257<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">260<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num" id="kpi-pages-tested">124<span class="unit">/ 124</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">125<span class="unit">/ 125</span></div>
       <div class="kpi-lbl" id="kpi-pages-label">Pages Tested · 100%</div>
-      <p class="kpi-desc">render-only スモークテストは <span id="kpi-pages-desc-tested">124</span> / <span id="kpi-pages-desc-count">124</span> ページ（P0 <span id="kpi-pages-desc-status">完了</span>）。E2E スモークは e2e/pages.ts の登録ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
+      <p class="kpi-desc">render-only スモークテストは <span id="kpi-pages-desc-tested">125</span> / <span id="kpi-pages-desc-count">125</span> ページ（P0 <span id="kpi-pages-desc-status">完了</span>）。E2E スモークは e2e/pages.ts の登録ルートが対象、a11y は e2e/a11y.e2e.ts（axe-core）を一覧に掲載済み、ビジュアル検証は CSS geometry による部分検証のみ（スクリーンショット基準は未整備）。</p>
     </article>
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">2<span class="unit">/ 6</span></div>
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">124</span> routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">125</span> routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">124</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">125</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong id="cnt-total">124</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong id="cnt-e2e">124</strong> with E2E</span>
+      <span class="chip"><strong id="cnt-total">125</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-e2e">125</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">257 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">260 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page, Registration &amp; Interaction Tests</span>
-          <span class="inv-count" id="inv-count-pages">199 files</span>
+          <span class="inv-count" id="inv-count-pages">202 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1177,6 +1177,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
    Update these arrays when tests are added.
    ============================================================ */
 const pages = [
+  { path: '/iso-27031-2025-guide', topic: 'ISO/IEC 27031:2025 初学者ガイド', tested: true },
   { path: '/iso-19770-1-guide', topic: 'ISO/IEC 19770-1:2017 初学者ガイド', tested: true },
   { path: '/iec62304-beginner-guide', topic: 'IEC 62304 初学者ステップガイド', tested: true },
   { path: '/iso-iec-40500-2025-guide', topic: 'ISO/IEC 40500:2025 WCAG 2.2 初学者ガイド', tested: true },
@@ -1505,6 +1506,9 @@ const DATA = {
     "tests/iso-23009-1-2026-guide/navigation.test.tsx",
     "tests/iso-23009-1-2026-guide/page.test.tsx",
     "tests/iso-23009-1-2026-guide/typecheck.test.ts",
+    "tests/iso-27031-2025-guide/integration.test.ts",
+    "tests/iso-27031-2025-guide/interactions.test.tsx",
+    "tests/iso-27031-2025-guide/page.test.tsx",
     "tests/iso-27799-2025-guide/categories.test.tsx",
     "tests/iso-27799-2025-guide/checklist.test.tsx",
     "tests/iso-27799-2025-guide/hydration.test.tsx",

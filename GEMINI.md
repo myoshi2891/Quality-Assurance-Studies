@@ -4,6 +4,14 @@ Updated 2026-11-09
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-09: ISO/IEC 27031:2025 ガイドの移行
+
+- `Iso-27031-2025-guide.html`を`/iso-27031-2025-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を125ルートへ同期。
+- 全21カテゴリー（Section00〜20）を順に個別実装・個別コミット。33見出し、階層目次33リンク、7表、14 Mermaid図、注記、外部リンク、コード例、全76 CSSルールとレスポンシブ境界、ヒーロー・本文・フッターを固定インベントリと一対一照合。
+- 対象148件（page: 141件, interactions: 4件, integration: 3件）が成功。
+- 元HTML・Markdownを`archive/html-archive/iso/Iso-27031-2025-guide.html`・`archive/md-archive/iso/Iso-27031-2025-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint成功。全体11881件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
+
 ## 2026-11-09: 図の代替説明とレビュー済み接続の検証
 
 - IEC 62304の不足していた代替説明を補完。図4は全体をクラスCに統一する方法と部品ごとに分類する方法の利点・負担を説明し、既存の名前と説明参照を維持。安全クラスのリリース前再確認と、個別修正の検証から独立した継続的傾向分析も照合。
@@ -877,7 +885,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -890,21 +898,22 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 124 ルート（ガイドライブラリ index + 123 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 125 ルート（ガイドライブラリ index + 124 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
+- 新規追加「ISO/IEC 27031:2025 初学者ガイド」（`/iso-27031-2025-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
-  1. `/iso-19770-1-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  2. `/iec62304-beginner-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  3. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  4. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  5. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  6. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
-  7. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
-  8. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  9. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  10. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  1. `/iso-27031-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  2. `/iso-19770-1-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  3. `/iec62304-beginner-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  4. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  5. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  6. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  7. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
+  8. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
+  9. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  10. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  11. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 
 【ビルド検証の制約】
 サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。

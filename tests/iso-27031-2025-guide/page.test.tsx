@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
 import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
