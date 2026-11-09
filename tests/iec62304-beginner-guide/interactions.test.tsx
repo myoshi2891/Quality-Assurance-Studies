@@ -7,6 +7,18 @@ import { sourceModule } from '../helpers/source-module';
 import inventory from '../../docs/migration-inventory/iec62304-beginner-guide.json';
 const base='app/iec62304-beginner-guide';
 afterEach(cleanup);
+it('announces render failure outside the diagram while preserving its text alternative',()=>{
+    let fail:(()=>void)|undefined;
+    const C=sourceModule(`${base}/Diagram.tsx`,{onMermaidChart:(_,onError)=>{fail=onError;}}).default as React.ComponentType<{id:string}>;
+    const r=render(<C id="mmd-3"/>),image=r.getByRole('img');
+    expect(r.queryByRole('alert')).toBeNull();
+    expect(image.getAttribute('aria-describedby')).toBe('mmd-3-description');
+    expect(fail).toBeFunction();act(()=>fail!());
+    const alert=r.getByRole('alert');
+    expect(alert.closest('[role="img"]')).toBeNull();
+    expect(image.nextElementSibling).toBe(alert);
+    expect(image.getAttribute('aria-describedby')).toBe('mmd-3-description');
+});
 const nav=()=>sourceModule(`${base}/NavBar.tsx`).default as React.ComponentType;
 const headingList=()=>{
     const headings=document.createElement('div');

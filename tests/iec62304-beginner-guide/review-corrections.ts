@@ -56,12 +56,14 @@ export const applyReviewCorrections = (html: string) => REPLACEMENTS.reduce<stri
 export const DIAGRAM_NODE_LABELS: Readonly<Record<string, Readonly<Record<string, string>>>> = {
     'mmd-5': { N5_CB: 'クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト' },
     'mmd-6': { N6_M9: '判断の根拠を記録して終了' },
-    'mmd-16': { N16_T5: 'Step 5<br/>SOUP の識別・評価と<br/>一覧・構成管理を整備', N16_T6: 'Step 6<br/>要求 → 設計 → 実装 → テストを<br/>トレーサビリティ付きで実施' },
+    'mmd-16': { N16_T7: 'Step 7<br/>安全クラスを再確認し、<br/>クラス別の作業・検証を確認してから<br/>リリース判定と記録の確認', N16_T5: 'Step 5<br/>SOUP の識別・評価と<br/>一覧・構成管理を整備', N16_T6: 'Step 6<br/>要求 → 設計 → 実装 → テストを<br/>トレーサビリティ付きで実施' },
 };
 export type DiagramEdge = { from: string; to: string; dotted: boolean; invisible: boolean; label: string };
+const dotted = (from: string, to: string, label = ''): DiagramEdge => ({ from, to, dotted: true, invisible: false, label });
 const solid = (from: string, to: string, label = ''): DiagramEdge => ({ from, to, dotted: false, invisible: false, label });
 export const DIAGRAM_EDGES: Readonly<Record<string, readonly DiagramEdge[]>> = {
     'mmd-6': [solid('N6_M1', 'N6_M2'), solid('N6_M2', 'N6_M4'), solid('N6_M4', 'N6_M3'), solid('N6_M3', 'N6_M9', '不要'), solid('N6_M3', 'N6_M5', '必要'), solid('N6_M5', 'N6_M6'), solid('N6_M6', 'N6_M7')],
+    'mmd-10': [solid('N10_P1', 'N10_P2'), solid('N10_P2', 'N10_P3'), solid('N10_P3', 'N10_P4'), solid('N10_P4', 'N10_P5'), solid('N10_P5', 'N10_P7'), dotted('N10_P5', 'N10_P6', '並行して継続'), dotted('N10_P6', 'N10_P7', '悪化傾向の反転も確認'),],
 };
 export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges: readonly DiagramEdge[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
     const labels = DIAGRAM_NODE_LABELS[diagram.id];

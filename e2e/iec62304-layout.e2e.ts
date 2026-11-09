@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import inventory from '../docs/migration-inventory/iec62304-beginner-guide.json';
 import { sourceModule } from '../tests/helpers/source-module';
-import { DIAGRAM_NODE_LABELS, applyReviewCorrections, reviewedDiagrams } from '../tests/iec62304-beginner-guide/review-corrections';
+import { DIAGRAM_EDGES, DIAGRAM_NODE_LABELS, applyReviewCorrections, reviewedDiagrams } from '../tests/iec62304-beginner-guide/review-corrections';
 const base = 'app/iec62304-beginner-guide';
 const retained = readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css', 'utf8');
 const preflight = readFileSync('node_modules/tailwindcss/preflight.css', 'utf8');
@@ -71,7 +71,7 @@ for(const width of [390,1440])for(const [id,diagram]of reviewedDiagrams(inventor
     test(`${width}px ${id}: exact SVG node and edge semantics, palette and scroll reachability`,async({page})=>{
         await page.setViewportSize({width,height:900});await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
         await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
-        const {DIAGRAMS}=sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:Record<string,string>};
+        const {DIAGRAMS,MERMAID_CONFIG}=sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:Record<string,string>;MERMAID_CONFIG:string};
         const reference=await page.context().newPage();await reference.setViewportSize({width,height:900});await reference.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody)}`);
         const collect=(outer:Element)=>{
             const norm=(s:string|null)=>(s??'').replace(/\s+/g,' ').trim();
@@ -82,12 +82,25 @@ for(const width of [390,1440])for(const [id,diagram]of reviewedDiagrams(inventor
             return {nodes,labels,edges,clusters};
         };
         const expected=await reference.locator('#'+id).evaluate(collect);
-        // 承認済みのノード文言の補正だけを期待値へ反映する（配色・形状・辺は原本のまま比較する）。
+        // 承認済みのノード文言を期待値へ反映する（ノードの配色・形状は原本のまま比較する）。
         for(const [nodeId,label] of Object.entries(DIAGRAM_NODE_LABELS[id]??{})){const node=expected.nodes.find(n=>n.id===nodeId);expect(node,`${id}: missing node ${nodeId}`).toBeDefined();node!.label=label.replace(/<br\/>/g,'');}
+        // 承認済みの辺の補正（mmd-6・mmd-10）: 原本の辺・辺ラベルを、補正後の接続（配色は原本の実線と同じ）へ置き換える。
+        const reviewedEdges=DIAGRAM_EDGES[id];
+        if(reviewedEdges){const template=expected.edges.find(e=>!e.dotted&&e.arrowEnd);expect(template,`${id}: no solid template edge`).toBeDefined();
+            expected.edges=reviewedEdges.map(e=>({...template!,id:`L_${e.from}_${e.to}_0`,dotted:e.dotted}));expected.labels=reviewedEdges.map(e=>e.label);}
         await page.evaluate(async({id,chart,globalConfig,fixups})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('sql-new-'+id,chart);const inner=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;inner.innerHTML=svg;Function(`${fixups};return applySvgFixups;`)()(inner.querySelector('svg'),chart);},{id,chart:DIAGRAMS[id]!,globalConfig,fixups});
         expect(await page.locator('#'+id).evaluate(collect)).toEqual(expected);
 
-        // Compare each source edge's dominant direction, independently of generated layout coordinates.
+        // 補正した接続は、原本ノードとレビュー済みの辺から独立に描画した配置で方向を比較する。
+        if(reviewedEdges){
+            const chart=[MERMAID_CONFIG,'flowchart TD',
+                ...diagram.nodes.map(node=>`${node.id}${node.shape==='polygon'?`{${JSON.stringify(node.label)}}`:`[${JSON.stringify(node.label)}]`}`),
+                ...reviewedEdges.map(edge=>`${edge.from} ${edge.dotted?'-.->':'-->'}${edge.label?`|${JSON.stringify(edge.label)}|`:''} ${edge.to}`),
+            ].join('\n');
+            await reference.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
+            await reference.evaluate(async({id,chart,globalConfig})=>{const mermaid=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,chart:string)=>Promise<{svg:string}>}}).mermaid;mermaid.initialize(globalConfig);const {svg}=await mermaid.render('reviewed-'+id,chart);document.getElementById(id)!.innerHTML=svg;},{id,chart,globalConfig});
+        }
+        // Other diagrams retain the original SVG direction baseline.
         const centers=(outer:Element)=>Object.fromEntries(Array.from(outer.querySelectorAll('g.node'),n=>{const r=n.getBoundingClientRect();return [n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),{x:r.x+r.width/2,y:r.y+r.height/2}];}));
         const sourceCenters=await reference.locator('#'+id).evaluate(centers);
         const actualCenters=await page.locator('#'+id).evaluate(centers);
