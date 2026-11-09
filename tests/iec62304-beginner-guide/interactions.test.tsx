@@ -63,6 +63,15 @@ describe('source TOC interactions',()=>{
         expect(button.getAttribute('aria-expanded')).toBe('false');
         fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('true');
         expect(r.container.querySelector('.sidebar.open')).not.toBeNull();
+        const sidebar=r.container.querySelector('.sidebar')!,link=sidebar.querySelector('a')!;
+        fireEvent.pointerDown(sidebar.querySelector('.side-title')!);expect(button.getAttribute('aria-expanded')).toBe('true');
+        fireEvent.pointerDown(link);expect(button.getAttribute('aria-expanded')).toBe('true');
+        fireEvent.pointerDown(button);expect(button.getAttribute('aria-expanded')).toBe('true');
+        fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('false');
+        fireEvent.pointerDown(button);fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('true');
+        fireEvent.blur(link,{relatedTarget:null});
+        fireEvent.pointerDown(document.body);expect(button.getAttribute('aria-expanded')).toBe('false');
+        fireEvent.click(button);
         fireEvent.click(r.container.querySelector('.sidebar a')!);expect(button.getAttribute('aria-expanded')).toBe('false');
         fireEvent.click(button);fireEvent.keyDown(document,{key:'Escape'});expect(button.getAttribute('aria-expanded')).toBe('false');expect(document.activeElement).toBe(button);
     });

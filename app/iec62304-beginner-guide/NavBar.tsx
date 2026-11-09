@@ -39,8 +39,10 @@ export default function NavBar() {
     useEffect(()=>{
         if(!open)return;
         const escape=(event:KeyboardEvent)=>{if(event.key==='Escape'){setOpen(false);toggle.current?.focus();}};
+        const outside=(event:PointerEvent)=>{const target=event.target;if(target instanceof Node&&!sidebar.current?.contains(target)&&!toggle.current?.contains(target))setOpen(false);};
         document.addEventListener('keydown',escape);
-        return ()=>document.removeEventListener('keydown',escape);
+        document.addEventListener('pointerdown',outside,true);
+        return ()=>{document.removeEventListener('keydown',escape);document.removeEventListener('pointerdown',outside,true);};
     },[open]);
     return <>
         <button type="button" className="nav-toggle" id="navToggle" ref={toggle} aria-label={open?'目次を閉じる':'目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={()=>setOpen(value=>!value)}>☰ 目次</button>
