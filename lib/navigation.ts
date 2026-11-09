@@ -173,7 +173,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-iec-ieee-29119-3-2021-guide', label: 'ISO/IEC/IEEE 29119-3:2021 初学者ガイド', description: 'テスト文書の役割・記載項目・適合とテーラリングを、実務例から段階的に学ぶ。', category: 'iso' },
   { href: '/iso-iec-9075-1-2023-guide', label: 'ISO 9075-1:2023 SQLフレームワーク 初学者ガイド', description: 'SQL標準の全体像・適合性・SQL:2023・実装状況を、図解・FAQ・学習チェックリストで学ぶ。', category: 'iso' },
   { href: '/iso-iec-40500-2025-guide', label: 'ISO/IEC 40500:2025 WCAG 2.2 ガイド', description: 'WCAG 2.2の構造・新規9基準の実装・準拠判断を、図解・コード・QAチェックから段階的に学ぶ。', category: 'iso' },
-  { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: 'IEC 62304の安全クラス、開発・保守を解説する追加原稿ガイド。EU/米国/日本の規制対応表と導入手順付き。', category: 'iso' },
+  { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: 'IEC 62304の安全クラス、開発・保守・リスク管理・SOUPを解説する追加原稿ガイド。EU/米国/日本の規制対応表と導入手順付き。', category: 'iso' },
   { href: '/iso-19770-1-guide', label: 'ISO/IEC 19770-1:2017 初学者ガイド', description: 'IT資産管理システムの要求事項、PDCA、プロセス領域、3つのティアと段階的導入を学ぶ。', category: 'iso' },
 ];
 
