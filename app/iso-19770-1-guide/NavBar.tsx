@@ -3,9 +3,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { TOC } from './toc';
 export default function NavBar() {
     const [open,setOpen]=useState(false);
+    const [mobile,setMobile]=useState(false);
     const [active,setActive]=useState('');
     const toggle=useRef<HTMLButtonElement>(null);
     const sidebar=useRef<HTMLElement>(null);
+    useEffect(()=>{
+        const query=window.matchMedia('(max-width: 900px)');
+        const update=()=>setMobile(query.matches);
+        update();
+        query.addEventListener('change',update);
+        return ()=>query.removeEventListener('change',update);
+    },[]);
     useEffect(()=>{
         let frame=0;
         const headings=TOC.map(item=>document.getElementById(item.id)).filter((heading):heading is HTMLElement=>heading!==null);
@@ -44,7 +52,7 @@ export default function NavBar() {
     },[open]);
     return <>
         <button type="button" className="nav-toggle" id="navToggle" ref={toggle} aria-label={open?'目次を閉じる':'目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={()=>setOpen(value=>!value)}>☰ 目次</button>
-        <nav ref={sidebar} className={open?'sidebar open':'sidebar'} id="sidebar" onBlur={event=>{const next=event.relatedTarget as Node|null;if(next&&!event.currentTarget.contains(next)&&next!==toggle.current)setOpen(false);}} role="navigation" aria-label="目次">
+        <nav ref={sidebar} className={open?'sidebar open':'sidebar'} inert={mobile&&!open} id="sidebar" onBlur={event=>{const next=event.relatedTarget as Node|null;if(next&&!event.currentTarget.contains(next)&&next!==toggle.current)setOpen(false);}} role="navigation" aria-label="目次">
             <div className="sidebar-title">ISO/IEC 19770-1:2017<small>初学者向け解説ガイド</small></div>
             <ul>{TOC.map(item=><li key={item.id} className={item.className}><a href={`#${item.id}`} data-target={item.id} className={active===item.id?'active':undefined} aria-current={active===item.id?'location':undefined} onClick={()=>setOpen(false)}>{item.label}</a></li>)}</ul>
         </nav>

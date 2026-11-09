@@ -52,13 +52,26 @@ describe('source TOC interactions',()=>{
         globalThis.cancelAnimationFrame=()=>{queued=[];};
     });
     afterEach(()=>{restore();globalThis.requestAnimationFrame=realFrame;globalThis.cancelAnimationFrame=realCancel;});
-    it('opens and closes by link, Escape restores toggle focus',()=>{
-        const C=nav(),r=render(<C/>),button=r.getByRole('button',{name:'目次を開く'});
+    it('opens and closes by link and Escape, making the closed mobile TOC inert immediately',()=>{
+        const original=window.matchMedia;
+        let change:(()=>void)|undefined;
+        const query={matches:true,addEventListener:(_type:string,callback:()=>void)=>{change=callback;},removeEventListener:(_type:string,callback:()=>void)=>{expect(callback).toBe(change);change=undefined;}};
+        window.matchMedia=(()=>query) as unknown as typeof window.matchMedia;
+        try {
+        const C=nav(),r=render(<C/>),button=r.getByRole('button',{name:'目次を開く'}),sidebar=r.container.querySelector('.sidebar')!;
         expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(sidebar.hasAttribute('inert')).toBe(true);
         fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('true');
+        expect(sidebar.hasAttribute('inert')).toBe(false);
         expect(r.container.querySelector('.sidebar.open')).not.toBeNull();
         fireEvent.click(r.container.querySelector('.sidebar a')!);expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(sidebar.hasAttribute('inert')).toBe(true);
         fireEvent.click(button);fireEvent.keyDown(document,{key:'Escape'});expect(button.getAttribute('aria-expanded')).toBe('false');expect(document.activeElement).toBe(button);
+        expect(sidebar.hasAttribute('inert')).toBe(true);
+        query.matches=false;act(()=>change?.());expect(sidebar.hasAttribute('inert')).toBe(false);
+        query.matches=true;act(()=>change?.());expect(sidebar.hasAttribute('inert')).toBe(true);
+        r.unmount();expect(change).toBeUndefined();
+        } finally {window.matchMedia=original;}
     });
     it('observes all 30 source headings, marks active location from measured positions and disconnects',()=>{
         const previous=globalThis.IntersectionObserver;
