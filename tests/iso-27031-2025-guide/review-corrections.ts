@@ -18,7 +18,11 @@ const makeScrollRegions = (html: string) => {
 };
 
 export const applyReviewCorrections = (html: string) =>
-    makeScrollRegions(html).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    makeScrollRegions(html)
+        .replace('<aside class="sidebar">', '<aside class="sidebar" id="sidebar">')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        // 原本HTMLの生成時に $10〜$13 が $1 + '0'〜'3' として展開された末尾のゴミ数字を除去する。
+        .replace(/<\/svg>\s*[0123](\s*<\/div>)/g, '</svg>$1');
 
 export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges: readonly DiagramEdge[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
     const correction = DIAGRAM_CORRECTIONS[diagram.id];

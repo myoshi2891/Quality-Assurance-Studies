@@ -129,7 +129,15 @@ describe('source diagrams', () => {
         if (diagram.direction !== 'sequence') {
             expectChartMatches(charts[0]!, diagram);
         }
+        if (diagram.id === 'mmd-0') {
+            expect(charts[0]!).toContain('classDef pt fill:#1e3a5f,stroke:#7c9eff,color:#ffffff');
+            expect(charts[0]!).toContain('class A1,A2,A3 pt');
+        }
         expect(charts[0]!).toContain('"mainBkg": "#12233b"');
+        expect(charts[0]!).toContain('"lineColor": "#9cb0cf"');
+        expect(charts[0]!).toContain('"signalColor": "#c7d6ec"');
+        expect(charts[0]!).toContain('"clusterBorder": "#3b5a8c"');
+        expect(charts[0]!).toContain('"edgeLabelBackground": "#07111e"');
         expect(charts[0]!.split('}%%')[0]).not.toContain("'");
     });
 });
@@ -137,8 +145,37 @@ describe('source diagrams', () => {
 describe('assembled source inventory', () => {
     let cached: ReturnType<typeof render>;
     const page = () => cached ??= render('page');
+    const expected = source(inventory.originalBody);
     for (const [name, group] of Object.entries(inventory.groups)) {
         it(`${name}: exact ordered count`, () => expect(page()(group.selector)).toHaveLength(group.items.length));
+        group.items.forEach((html, i) =>
+            it(`${name} ${i}: complete original element`, () =>
+                expect(tree(page()(group.selector)[i]!)).toEqual(tree(source(html)('body').children()[0]!))),
+        );
+    }
+    for (const development of [false, true]) {
+        it(`complete page DOM and text, SWC development=${development}`, () => {
+            const $ = render('page', development);
+            expect(tree($('.nav-toggle')[0]!)).toEqual(tree(expected('.nav-toggle')[0]!));
+            expect(tree($('main')[0]!)).toEqual(tree(expected('main')[0]!));
+            expect(tree($('.sidebar')[0]!)).toEqual(tree(expected('.sidebar')[0]!));
+            $('.mermaid-diagram').empty();
+            const ref = source(inventory.originalBody);
+            ref('.mermaid-diagram').empty();
+            expect(norm($('main').text())).toBe(norm(ref('main').text()));
+            const ids = $('[id]').map((_, n) => $(n).attr('id')).get();
+            expect(new Set(ids).size).toBe(ids.length);
+            $('.sidebar a').each((_, n) => expect(ids.filter(id => id === $(n).attr('href')!.slice(1))).toHaveLength(1));
+            expect($('script,style,svg,table > div,tr > div')).toHaveLength(0);
+            $('a[href^="http"]').each((_, n) => {
+                expect($(n).attr('rel')).toBe('noopener noreferrer');
+                expect($(n).attr('target')).toBe('_blank');
+            });
+            const entry = readFileSync(`${base}/page.tsx`, 'utf8');
+            expect(entry).toContain("import './guide.css'");
+            expect(entry).toContain('noto-sans-jp-800.css');
+            expect(sourceModule(`${base}/page.tsx`).metadata).toMatchObject({ title: inventory.title });
+        });
     }
     it('replaces literal Markdown asterisks with strong emphasis in Section14', () => {
         expect(inventory.sections[14]!.html).toContain('**');
