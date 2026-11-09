@@ -3,6 +3,8 @@ import { Suspense, startTransition } from 'react';
 import { act, render, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import Mermaid from '../../components/Mermaid';
+import IsoDiagram from '../../app/iso-19770-1-guide/Diagram';
+import IecDiagram from '../../app/iec62304-beginner-guide/Diagram';
 
 // ⚠️ mock.module('mermaid') はモジュールレジストリをプロセス全体で恒久的に差し替えるため、
 //    後続テストファイルが happydom-setup.ts の共有モック（既定 SVG: mock-mermaid）ではなく
@@ -167,23 +169,34 @@ describe('Mermaid component', () => {
     expect(container.querySelector('svg')).toBeNull();
   });
 
-  it('renders an error fallback when mermaid.render throws', async () => {
+  it('renders one failure message, using the caller alert when provided', async () => {
     const originalError = console.error;
     console.error = () => {};
     try {
       renderImpl = async () => {
         throw new Error('boom');
       };
-      const { container } = render(<Mermaid chart="graph TD; broken" />);
-      await waitFor(() => {
-        expect(container.textContent).toContain('図表の描画に失敗しました');
-      });
+      for (const [diagram, callerAlert] of [
+        [<Mermaid chart="graph TD; broken" />, false],
+        [<IsoDiagram id="mermaid-diagram-1" />, true],
+        [<IecDiagram id="mmd-3" />, true],
+      ] as const) {
+        const { container, getAllByText, queryByRole, unmount } = render(diagram);
+        await waitFor(() => {
+          expect(getAllByText(/図表の描画に失敗しました/)).toHaveLength(1);
+        });
+        expect(queryByRole('alert') !== null).toBe(callerAlert);
+        expect(container.querySelector('.mermaid-wrapper')?.textContent).toBe(
+          callerAlert ? '' : '図表の描画に失敗しました',
+        );
+        unmount();
+      }
     } finally {
       console.error = originalError;
     }
   });
 
-  it('invokes only the committed onRenderError after an interrupted update and shows the fallback even if it throws', async () => {
+  it('invokes only the committed onRenderError after an interrupted update and retains the fallback if it throws', async () => {
     const originalError = console.error;
     try {
       for (const throws of [false, true]) {
@@ -226,7 +239,9 @@ describe('Mermaid component', () => {
         expect(container.textContent).not.toContain('Updating diagram');
         await act(async () => rejectRender(renderError));
         await waitFor(() => {
-          expect(container.textContent).toContain('図表の描画に失敗しました');
+          expect(container.querySelector('.mermaid-wrapper')?.textContent).toBe(
+            throws ? '図表の描画に失敗しました' : '',
+          );
         });
         expect(onRenderError).toHaveBeenCalledTimes(1);
         expect(interruptedCallback).not.toHaveBeenCalled();

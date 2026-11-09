@@ -29,7 +29,7 @@ mermaid.initialize({
 
 interface MermaidProps {
     chart: string;
-    /** 描画に失敗したときに呼ばれる。role="img" の外でエラーを通知したい呼び出し側向け。 */
+    /** 描画失敗を呼び出し側で通知する。正常に戻ると内側のエラー表示を省略する。 */
     onRenderError?: () => void;
 }
 
@@ -121,15 +121,18 @@ export default function Mermaid({ chart, onRenderError }: MermaidProps) {
                 if (isMounted) setSvgStr(svg);
             } catch (error) {
                 console.error('Mermaid rendering failed:', error);
+                let errorHandled = false;
                 if (isMounted) {
                     try {
-                        onRenderErrorRef.current?.();
+                        const notify = onRenderErrorRef.current;
+                        notify?.();
+                        errorHandled = !!notify;
                     } catch (callbackError) {
                         console.error('Mermaid onRenderError callback failed:', callbackError);
                     }
                 }
                 if (isMounted)
-                    setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
+                    setSvgStr(errorHandled ? '' : `<p class="text-red-500">図表の描画に失敗しました</p>`);
             }
         };
 
