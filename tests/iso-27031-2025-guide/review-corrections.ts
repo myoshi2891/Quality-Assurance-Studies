@@ -6,6 +6,7 @@ export const DIAGRAM_CORRECTIONS: Readonly<Record<string, DiagramCorrection>> = 
 
 // 横にはみ出す全ての表を、直前の見出しを名前にしたキーボード操作領域にする。
 const SCROLL_REGION = /<h[234] id="([^"]+)"|<div class="table-scroll">/g;
+/** Make source table wrappers keyboard accessible and name them from the preceding heading. */
 const makeScrollRegions = (html: string) => {
     let heading = '';
     return html.replace(SCROLL_REGION, (match, id?: string) => {
@@ -17,6 +18,7 @@ const makeScrollRegions = (html: string) => {
     });
 };
 
+/** Apply approved markup corrections to the reference HTML without changing the archived inventory. */
 export const applyReviewCorrections = (html: string) =>
     makeScrollRegions(html)
         .replace('<aside class="sidebar">', '<aside class="sidebar" id="sidebar">')
@@ -24,6 +26,7 @@ export const applyReviewCorrections = (html: string) =>
         // 原本HTMLの生成時に $10〜$13 が $1 + '0'〜'3' として展開された末尾のゴミ数字を除去する。
         .replace(/<\/svg>\s*[0123](\s*<\/div>)/g, '</svg>$1');
 
+/** Apply approved node and edge corrections to reference diagrams while preserving other diagram fields. */
 export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges: readonly DiagramEdge[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
     const correction = DIAGRAM_CORRECTIONS[diagram.id];
     if (!correction) return diagram;

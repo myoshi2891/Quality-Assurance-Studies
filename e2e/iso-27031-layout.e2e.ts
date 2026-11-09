@@ -149,6 +149,8 @@ for (const width of [390, 900, 901, 1440]) {
                 );
 
             const expected = await reference.evaluate(collect, { selectors, properties, root: '' });
+            // The sticky row has an opaque surface so checklist text cannot show through it.
+            expected['.checklist-progress']![0]!.backgroundColor = 'rgb(18, 35, 59)';
             const actual = await page.evaluate(collect, { selectors, properties, root: '.iso27031-page ' });
             for (const selector of selectors) expect.soft(actual[selector], selector).toEqual(expected[selector]);
 
@@ -365,7 +367,7 @@ for (const width of [390, 1440]) {
 }
 
 for (const width of [390, 900, 901, 1440]) {
-    test(`${width}px: all heading anchors clear fixed header and disclaimer, and main clears sidebar`, async ({ page }) => {
+    test(`${width}px: heading anchors and sticky checklist clear fixed chrome, and main clears sidebar`, async ({ page }) => {
         await page.setViewportSize({ width, height: 900 });
         await page.setContent(`<style>${preflight}${globals}${readFileSync(`${base}/guide.css`, 'utf8')}</style>${markup()}`);
         const banner = width <= 900 ? 76 : 38;
@@ -377,6 +379,31 @@ for (const width of [390, 900, 901, 1440]) {
         await expect(page.locator('.sidebar')).toHaveCSS('top', `${60 + banner}px`);
         await expect(page.locator('.nav-toggle')).toHaveCSS('top', `${72 + banner}px`);
         await expect(page.locator('main.main')).toHaveCSS('margin-left', width <= 900 ? '0px' : '280px');
+
+        const progress = page.locator('.checklist-progress');
+        const stickyTop = (width <= 900 ? 124 : 60) + banner;
+        await expect(page.locator('.iso27031-page')).toHaveCSS('overflow-x', 'clip');
+        await expect(page.locator('.iso27031-page')).toHaveCSS('overflow-y', 'visible');
+        await expect(progress).toHaveCSS('top', `${stickyTop}px`);
+        await page.evaluate(top => {
+            const card = document.querySelector('.checklist-card')!.getBoundingClientRect();
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.scrollTo(0, window.scrollY + card.top - top + 100);
+        }, stickyTop);
+        for (const distance of [0, 150]) {
+            await page.evaluate(distance => window.scrollBy(0, distance), distance);
+            const bounds = await progress.boundingBox();
+            expect(bounds!.y).toBeCloseTo(stickyTop, 0);
+            await expect(progress).toBeInViewport();
+            expect(await progress.evaluate(el => {
+                const r = el.getBoundingClientRect();
+                return el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
+            })).toBe(true);
+        }
+        // A resized disclaimer must move the sticky row without a reload.
+        await page.evaluate(height => document.documentElement.style.setProperty('--disclaimer-height', `${height}px`), banner + 24);
+        expect((await progress.boundingBox())!.y).toBeCloseTo(stickyTop + 24, 0);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     });
 }
 

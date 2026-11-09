@@ -63,7 +63,12 @@ describe('foundation CSS', () => {
             if (r.selector === expected && (r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params : null) === original.media)
                 candidates.push(r.nodes.filter(n => n.type === 'decl').map(d => { const n = d as postcss.Declaration; return [n.prop, n.value, n.important || null]; }));
         });
-        expect(candidates).toContainEqual(original.decls);
+        // Root scrolling belongs to the document; clip preserves sticky positioning.
+        const decls = [':root', 'html', 'body'].includes(original.selector)
+            ? original.decls.filter(([prop]) => prop !== 'scroll-behavior').map(([prop, value, important]) =>
+                [prop, prop === 'overflow-x' && value === 'hidden' ? 'clip' : value, important])
+            : original.decls;
+        expect(candidates).toContainEqual(decls);
     }));
 
     it('isolates all rules and offsets fixed chrome and headings without clobbering main margin or hero padding', () => {

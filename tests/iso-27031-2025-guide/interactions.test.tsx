@@ -8,6 +8,24 @@ import inventory from '../../docs/migration-inventory/iso-27031-2025-guide.json'
 
 const base = 'app/iso-27031-2025-guide';
 
+// Expected alternatives are fixed independently of the component under test.
+const expectedAlternatives: Record<string, string> = {
+  'mmd-0': 'ISO/IEC 27031:2025 図 0：RTOとRPOの概念図。最後に確実に残っているデータの時点（例：直近のバックアップ）から障害発生までの間隔が「RPO：失ってよいデータの時間幅」、障害発生からICTサービス復旧までの間隔が「RTO：止まってよい時間」を示す。',
+  'mmd-1': 'ISO/IEC 27031:2025 図 1：関連規格マップ。事業継続の規格（ISO 22301 要求事項、ISO 22313 ガイダンス）、情報セキュリティの規格（ISO/IEC 27001 / 27002、ISO/IEC 27005 リスク管理、ISO/IEC 27035-1 インシデント対応）と、その結節点となる ISO/IEC 27031:2025 IRBC の関係を示す。',
+  'mmd-2': 'ISO/IEC 27031:2025 図 2：改訂の変遷。2011年版（自社ICT中心の準備）から、環境の変化（クラウド・SaaS・外部依存の拡大）を経て、2025年版（外部サービスへの依存も含めて準備）となり、ISO 27001 / ISO 22301と統合して運用する流れを示す。',
+  'mmd-3': 'ISO/IEC 27031:2025 図 3：規格の章構成と全体の流れ。第6章 BCMへ統合する、第7章 事業側の期待を把握する、第8章 前提を決める（目的・RTO・RPO）、第9章 戦略を選ぶ、第10章 継続計画を作る、第11章 試験・演習・監査、第12章 最終MBCOの確定、第13章 経営層による評価へ進み、第13章から第6章へフィードバックで戻る。また、第11章の試験・演習・監査の学びを第9章の戦略と第10章の継続計画へ反映する。',
+  'mmd-4': 'ISO/IEC 27031:2025 図 4：IRBCのBCM統合。経営・BCMの事業継続の目標、ISO/IEC 27005 リスクマネジメント、ISO/IEC 27035-1 インシデントマネジメント、BCM戦略のすべてが IRBC（ICT側の準備）へ入力され、ICTサービスの確実な復旧を実現する。',
+  'mmd-5': 'ISO/IEC 27031:2025 図 5：事業側の期待の把握フロー。重要な事業プロセスから、BIA（止まったときの影響を評価）、重要なICTサービスの特定、依存関係の洗い出し（内部システム・ネットワーク・外部サービス）、契約面の確認（SLA・復旧に関する取り決め）へと進む。',
+  'mmd-6': 'ISO/IEC 27031:2025 図 6：前提条件と目標の設定。事業が求める最低限の水準 MBCO から ICTサービスごとに分解し、何時間以内に戻すかの RTO 設定と、何分前のデータまで許容するかの RPO 設定を行い、設備冗長化・復旧能力を検討して、目標の合意（事業部門・ICT部門・経営層）に至る。',
+  'mmd-7': 'ISO/IEC 27031:2025 図 7：IRBC戦略の6要素。IRBC戦略から、人材と知識、設備、技術、データ、プロセス、供給者（クラウド・委託先）の6つの柱へ展開される。',
+  'mmd-8': 'ISO/IEC 27031:2025 図 8：RTO・RPOからクラウドDR方式を選ぶ判断フロー。RTOはどれくらい？の問いから、数時間以上でもよい場合は Backup and Restore（Cold）、数十分程度なら Pilot Light、数分程度なら Warm Standby（Warm）、ゼロに近いなら Multi-site active/active（Hot）へ分岐し、それぞれ RPO を満たせるか検討し、満たせる場合は候補として採用し、満たせない場合はデータ複製方式を見直す。',
+  'mmd-9': 'ISO/IEC 27031:2025 図 9：ICT継続計画の発動シーケンス。監視・運用担当の異常検知から、インシデント責任者への第一報、影響確認と発動基準チェック、経営層への計画発動進言と発動承認、復旧組織への手順書に基づく復旧開始指示、復旧完了報告、経営層へのサービス復旧報告の一連の流れを示す。',
+  'mmd-10': 'ISO/IEC 27031:2025 図 10：試験・演習・監査のPDCA。試験・演習の計画から、演習の実施、結果の評価（RTO・RPOを満たしたか）、学びの整理、戦略・計画の改善へと循環する。',
+  'mmd-11': 'ISO/IEC 27031:2025 図 11：最終MBCOの確定と評価。試験・演習・監査の結果から、実際に達成できる水準の把握、最終MBCOの確定、経営層によるIRBCの評価へと進み、課題があれば戦略・計画・投資の見直し、問題なければ継続的な運用と定期見直しへ進む。',
+  'mmd-12': 'ISO/IEC 27031:2025 図 12：導入ストーリーの例。事業部門の期待を聞くことから、決済：数分・サイト：1時間の目標設定、決済：複数拠点・サイト：縮小版待機の戦略選択、計画・手順書の作成、半期ごとの演習実施、経営層が評価しMBCO確定に至るストーリーを示す。',
+  'mmd-13': 'ISO/IEC 27031:2025 図 13：次の一歩の学習ロードマップ。1. 本ガイドで全体像をつかむ、2. 正式版の規格を入手し第6〜13章を確認、3. 自社の重要ICTサービスでRTO・RPOを仮置き、4. 既存のISO 27001・ISO 22301の運用と接続、5. 小さな演習から開始し結果を経営層へ報告の順に進む。',
+};
+
 afterEach(cleanup);
 
 it('shows the text alternative outside the image for every diagram only after rendering fails', () => {
@@ -16,7 +34,9 @@ it('shows the text alternative outside the image for every diagram only after re
         const C = sourceModule(`${base}/Diagram.tsx`, { onMermaidChart: (_, onError) => { fail = onError; } }).default as React.ComponentType<{ id: string }>;
         const r = render(<C id={id} />);
         const image = r.getByRole('img');
-        const label = image.getAttribute('aria-label')!;
+        const expected = expectedAlternatives[id]!;
+        expect(expected).toBeString();
+        expect(image.getAttribute('aria-label')).toBe(expected);
         expect(r.queryByRole('alert')).toBeNull();
         expect(image.nextElementSibling).toBeNull();
         expect(fail).toBeFunction();
@@ -24,9 +44,9 @@ it('shows the text alternative outside the image for every diagram only after re
         const alert = r.getByRole('alert');
         expect(alert.closest('[role="img"]')).toBeNull();
         const explanation = alert.nextElementSibling!;
-        expect(explanation?.textContent).toBe(label);
+        expect(explanation?.textContent).toBe(expected);
         expect(explanation.closest('[role="img"],noscript,[hidden]')).toBeNull();
-        expect(image.getAttribute('aria-label')).toBe(label);
+        expect(image.getAttribute('aria-label')).toBe(expected);
         r.unmount();
     }
 });
