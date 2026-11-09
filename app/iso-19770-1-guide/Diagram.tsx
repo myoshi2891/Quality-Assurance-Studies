@@ -20,5 +20,5 @@ const ROADMAP_STEPS = ['① 目的・経営課題の整理（箇条4・5）', '�
 export default function Diagram({id}: {id:string}) {
   // role="img" の内側は読み上げられないため、描画失敗はラッパーの外で通知する。
   const [failed,setFailed]=useState(false);
-  return <><div className="mermaid-diagram" id={id} tabIndex={0} role="img" aria-label={LABELS[id]}>{id==='mermaid-diagram-8'&&<noscript><ol style={{listStyle:'none',margin:0,padding:0}}>{ROADMAP_STEPS.map(step=><li key={step}>{step}</li>)}</ol></noscript>}<Mermaid chart={DIAGRAMS[id]!} onRenderError={()=>setFailed(true)} /></div>{failed&&<p role="alert">図表の描画に失敗しました。上の説明文と本文を参照してください。</p>}</>;
+  return <><div className="mermaid-diagram" id={id} tabIndex={0} role="img" aria-label={LABELS[id]}>{id==='mermaid-diagram-8'&&<noscript><ol style={{listStyle:'none',margin:0,padding:0}}>{ROADMAP_STEPS.map(step=><li key={step}>{step}</li>)}</ol></noscript>}<Mermaid chart={DIAGRAMS[id]!} onRenderError={()=>setFailed(true)} /></div>{failed&&<><p role="alert">図表の描画に失敗しました。以下の説明文と本文を参照してください。</p>{id==='mermaid-diagram-8'&&<p>{LABELS[id]}</p>}</>}</>;
 }
