@@ -4,13 +4,18 @@ Updated 2026-11-09
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 2026-11-09: ISO/IEC 27031:2025 ガイドの移行
+## 2026-11-09: ISO/IEC 27031:2025 ガイドの移行とレイアウト・完全性レビュー修正
 
 - `Iso-27031-2025-guide.html`を`/iso-27031-2025-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を125ルートへ同期。
 - 全21カテゴリー（Section00〜20）を順に個別実装・個別コミット。33見出し、階層目次33リンク、7表、14 Mermaid図、注記、外部リンク、コード例、全76 CSSルールとレスポンシブ境界、ヒーロー・本文・フッターを固定インベントリと一対一照合。
-- 対象148件（page: 141件, interactions: 4件, integration: 3件）が成功。
+- レイアウト・完全性修正:
+  - `guide.css`先頭の`main { margin: 0 !important; padding: 0 !important; }`および`.hero { padding-top: 0 !important; overflow: visible !important; }`が原本の`.main { margin-left: var(--sw); padding: 40px 48px 80px; }`を潰し、メインコンテンツが左の固定サイドバーの下に隠れていた不具合を解消。
+  - 固定ヘッダー（60px）と動的ディスクレーマー（`var(--disclaimer-height, 0px)`）に合わせて`.sidebar`・`.nav-toggle`・見出し（`h2, h3, h4`）のオフセットと900px以下の`visibility: hidden`・`prefers-reduced-motion: reduce`・`:focus-visible`輪郭を追加。
+  - `Section18.tsx`（`#irbc-checklist`）の9項目の進捗バー（`.cp-fill`）・カウント（`0 / 9`〜`9 / 9`）・完了バナー（`.cp-done`）のインタラクション、およびモバイル目次開放中の背面`main.main`の`inert`化・修飾キークリック維持を実装。
+  - `Section14.tsx`に残存していた未変換のMarkdown `**...**`を`<strong>`へ修正し、原本HTML生成時の`$10`〜`$13`展開バグによる末尾ゴミ数字の除去と合わせて`review-corrections.ts`で原本側を補正。`diagrams.ts`のMermaid配色（`lineColor`・`signalColor`・`clusterBorder`・`edgeLabelBackground`）と`mmd-0`の`classDef pt`、`.nav-toggle`の文言を原本HTMLと完全一致させた。
+- 対象298件（page: 282件, interactions: 13件, integration: 3件）およびビルド・サーバー不要のChrome比較40件（`e2e/iso-27031-layout.e2e.ts`：4幅×CSS前後2順序の8件、2幅×14実SVGの28件、4幅のヘッダー・Disclaimerオフセットとサイドバー余白4件）が成功。
 - 元HTML・Markdownを`archive/html-archive/iso/Iso-27031-2025-guide.html`・`archive/md-archive/iso/Iso-27031-2025-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
-- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint成功。全体11881件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
+- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint、Markdown lint成功。全体12031件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
 
 ## 2026-11-09: 図の代替説明とレビュー済み接続の検証
 

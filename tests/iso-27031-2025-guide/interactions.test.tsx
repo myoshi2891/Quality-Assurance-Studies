@@ -89,14 +89,14 @@ describe('source TOC interactions', () => {
 
     it('opens and closes by link and Escape, making the closed mobile TOC inert immediately', () => {
         const original = window.matchMedia;
-        let change: (() => void) | undefined;
+        let change = undefined as (() => void) | undefined;
         const query = {
             matches: true,
             addEventListener: (_type: string, callback: () => void) => {
                 change = callback;
             },
             removeEventListener: (_type: string, callback: () => void) => {
-                expect(callback).toBe(change);
+                expect(callback as unknown).toBe(change);
                 change = undefined;
             },
         };
@@ -225,7 +225,7 @@ describe('source TOC interactions', () => {
 
     it('makes main.main inert only while the mobile TOC is open and restores prior state on close or unmount', () => {
         const original = window.matchMedia;
-        let change: (() => void) | undefined;
+        let change = undefined as (() => void) | undefined;
         const query = {
             matches: true,
             addEventListener: (_type: string, callback: () => void) => {
