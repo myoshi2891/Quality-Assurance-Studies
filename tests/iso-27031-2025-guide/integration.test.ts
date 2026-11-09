@@ -1,10 +1,13 @@
 import { expect, it } from 'bun:test';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
+import inventory from '../../docs/migration-inventory/iso-27031-2025-guide.json';
 
 it('registers the IRBC guide once and synchronizes all 125 routes', () => {
   const href = '/iso-27031-2025-guide';
@@ -22,3 +25,15 @@ it('registers the IRBC guide once and synchronizes all 125 routes', () => {
   expect(PAGES).toHaveLength(125);
   expect(EXPECTED_PAGE_COUNT).toBe(125);
 });
+
+for (const ext of ['html', 'md'] as const) {
+  it(`archives original ${ext} out of the root and preserves tracked bytes`, () => {
+    const base = 'Iso-27031-2025-guide';
+    expect(existsSync(`${base}.${ext}`)).toBe(false);
+    expect(
+      createHash('sha256')
+        .update(readFileSync(`archive/${ext}-archive/iso/${base}.${ext}`))
+        .digest('hex')
+    ).toBe(inventory.hashes[ext]);
+  });
+}
