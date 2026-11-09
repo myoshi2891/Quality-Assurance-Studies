@@ -6,40 +6,6 @@
     all: revert;
 }
 
-/* globals.css resets */
-.iso27031-page main {
-
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.iso27031-page .hero {
-    min-height: 0 !important;
-    display: block !important;
-    overflow: visible !important;
-    padding-top: 0 !important;
-}
-
-.iso27031-page .mermaid-wrapper {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-}
-
-.iso27031-page foreignObject {
-    overflow: visible;
-}
-
-.iso27031-page h1, .iso27031-page h2, .iso27031-page h3, .iso27031-page h4 {
-    scroll-margin-top: 80px;
-}
-
 .iso27031-page {
     --bg: #07111e;
     --panel: #0d1b2e;
@@ -569,3 +535,35 @@
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+/* Fixed application header and dynamic disclaimer are outside this page. */
+.iso27031-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
+.iso27031-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
+.iso27031-page h2, .iso27031-page h3, .iso27031-page h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+/* On narrow screens the fixed .nav-toggle (top 72px, about 36px tall) overlaps the landing position, so clear its bottom edge. */
+@media (max-width: 900px) {
+    .iso27031-page h2, .iso27031-page h3, .iso27031-page h4 { scroll-margin-top: calc(124px + var(--disclaimer-height, 0px)); }
+    .iso27031-page .sidebar { visibility: hidden; transition: transform 0.2s, visibility 0s linear 0.2s; }
+    .iso27031-page .sidebar.open { visibility: visible; transition: transform 0.2s, visibility 0s; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .iso27031-page .sidebar, .iso27031-page .sidebar.open { transition: none; }
+}
+
+.iso27031-page .main { max-width: none; }
+.iso27031-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; display: block !important; overflow: visible !important; }
+.iso27031-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iso27031-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iso27031-page .mermaid-wrapper .edgeLabel, .iso27031-page .mermaid-wrapper .edgeLabel p, .iso27031-page .mermaid-wrapper .edgeLabel span { color: #c7d6ec !important; background-color: #07111e !important; }
+.iso27031-page .mermaid-wrapper .edgeLabel rect { fill: #07111e !important; }
+.iso27031-page .sidebar a:focus-visible, .iso27031-page button:focus-visible, .iso27031-page summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* キーボードで横スクロールできる表・図の領域にも、同じフォーカスの輪郭を出す。 */
+.iso27031-page .table-scroll:focus-visible, .iso27031-page .mermaid-diagram:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.iso27031-page .hero { min-height: 0; display: block; text-align: start; }
+.iso27031-page .hero::after { all: revert; }
+.iso27031-page .hero-title { font-family: inherit; background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.iso27031-page .hero-meta { animation: none; justify-content: normal; gap: 0; }
+.iso27031-page table { color: var(--text); }
+.iso27031-page tbody tr:hover td { background: transparent; }
+.iso27031-page tbody tr:nth-child(even):hover td { background: rgba(255, 255, 255, 0.02); }
