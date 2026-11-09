@@ -509,5 +509,5 @@ it('registers ISO IEC IEEE 29119-3 under ISO with its learning summary', () => {
 });
 
 it('registers ISO/IEC 27031:2025 under ISO', () => {
-  expect(NAV_ITEMS.find(item => item.href === '/iso-27031-2025-guide')).toEqual({ href: '/iso-27031-2025-guide', label: 'ISO/IEC 27031:2025 初学者ガイド', description: '事業継続のためのICTの準備（IRBC）の要求事項とクラウドDR方式の解説。', category: 'iso' });
+  expect(NAV_ITEMS.find(item => item.href === '/iso-27031-2025-guide')).toEqual({ href: '/iso-27031-2025-guide', label: 'ISO/IEC 27031:2025 初学者ガイド', description: '事業継続のためのICTの準備（IRBC）のガイダンスとクラウドDR方式の解説。', category: 'iso' });
 });
