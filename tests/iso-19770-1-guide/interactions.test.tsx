@@ -7,19 +7,17 @@ import { sourceModule } from '../helpers/source-module';
 import inventory from '../../docs/migration-inventory/iso-19770-1-guide.json';
 const base='app/iso-19770-1-guide';
 afterEach(cleanup);
-it('shows the existing roadmap explanation outside the image only after rendering fails',()=>{
-    for(const id of ['mermaid-diagram-8','mermaid-diagram-1']){
+it('shows the text alternative outside the image for every diagram only after rendering fails',()=>{
+    for(const {id} of inventory.diagrams){
         let fail:(()=>void)|undefined;
         const C=sourceModule(`${base}/Diagram.tsx`,{onMermaidChart:(_,onError)=>{fail=onError;}}).default as React.ComponentType<{id:string}>;
         const r=render(<C id={id}/>),image=r.getByRole('img'),label=image.getAttribute('aria-label')!;
         expect(r.queryByRole('alert')).toBeNull();expect(image.nextElementSibling).toBeNull();
         expect(fail).toBeFunction();act(()=>fail!());
         const alert=r.getByRole('alert');expect(alert.closest('[role="img"]')).toBeNull();
-        if(id==='mermaid-diagram-8'){
-            const explanation=alert.nextElementSibling!;
-            expect(explanation.textContent).toBe(label);
-            expect(explanation.closest('[role="img"],noscript,[hidden]')).toBeNull();
-        }else expect(alert.nextElementSibling).toBeNull();
+        const explanation=alert.nextElementSibling!;
+        expect(explanation?.textContent).toBe(label);
+        expect(explanation.closest('[role="img"],noscript,[hidden]')).toBeNull();
         expect(image.getAttribute('aria-label')).toBe(label);r.unmount();
     }
 });
