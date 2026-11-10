@@ -21,6 +21,9 @@ const makeScrollRegions = (html: string) => {
 /** Apply approved markup corrections to the reference HTML without changing the archived inventory. */
 export const applyReviewCorrections = (html: string) =>
     makeScrollRegions(html)
+        .replace(/<a\b[^>]*>\s*<\/a>/g, '')
+        .replace(/<a href="https:\/\/www\.vde-verlag\.de\/iec-normen\/preview-pdf\/info_isoiec30173"([^>]*)>https:\/\/www\.vde-verlag\.de\/iec-normen\/preview-pdf\/info_isoiec30173<\/a>\{ed1\.0\}en\.pdf/g,
+            '<a href="https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30173%7Bed1.0%7Den.pdf"$1>https://www.vde-verlag.de/iec-normen/preview-pdf/info_isoiec30173%7Bed1.0%7Den.pdf</a>')
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
 /** Apply approved node and edge corrections to reference diagrams while preserving other diagram fields. */

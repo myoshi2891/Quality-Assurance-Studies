@@ -149,10 +149,11 @@ describe('assembled source inventory', () => {
     const page = () => cached ??= render('page');
     const expected = source(inventory.originalBody);
     for (const [name, group] of Object.entries(inventory.groups)) {
-        it(`${name}: exact ordered count`, () => expect(page()(group.selector)).toHaveLength(group.items.length));
-        group.items.forEach((html, i) =>
+        const items = expected(group.selector).toArray();
+        it(`${name}: exact ordered count`, () => expect(page()(group.selector)).toHaveLength(items.length));
+        items.forEach((element, i) =>
             it(`${name} ${i}: complete original element`, () =>
-                expect(tree(page()(group.selector)[i]!)).toEqual(tree(source(html)('body').children()[0]!))),
+                expect(tree(page()(group.selector)[i]!)).toEqual(tree(element))),
         );
     }
     for (const development of [false, true]) {
