@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-11-09
+Updated 2026-11-10
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -827,6 +827,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-27031-2025-guide.html` | `/iso-27031-2025-guide` | ✅ 21カテゴリー・37見出し・階層目次33リンク・26表・14図・全76 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-23009-1-2026-guide.html` | `/iso-23009-1-2026-guide` | ✅ ダーク配色・41見出し・目次40リンク・24表・6図・XML2例・9注記・外部23リンク・71 CSSルール (archive/、HTML・MD両方) |
 | `Iso-iec-5338-guide.html` | `/iso-iec-5338-guide` | ✅ 46見出し・14目次リンク・23表・10図・8注記・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-30141-2024-guide.html` | `/iso-iec-30141-2024-guide` | ✅ 45見出し・目次44リンク・21表・11図・9注記・理解度8問・68 CSSルール、HTML・MDアーカイブ済み |
