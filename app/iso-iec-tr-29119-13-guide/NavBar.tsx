@@ -36,8 +36,8 @@ export default function NavBar() {
 
   /** Dismiss the drawer, optionally returning keyboard focus to its floating toggle. */
   function close(restoreFocus = true) {
-    setOpen(false);
     if (restoreFocus) button.current?.focus();
+    setOpen(false);
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function NavBar() {
   return <>
     <nav className="toc" id="toc" aria-label="目次" ref={nav} inert={mobile && !open}>
       <div className="toc-title">目次</div>
-      {TOC_ITEMS.map(item => <a key={item.href} href={item.href} className={active === item.href ? 'active' : undefined} aria-current={active === item.href ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return; close(false); }}>{item.text}</a>)}
+      {TOC_ITEMS.map(item => <a key={item.href} href={item.href} className={active === item.href ? 'active' : undefined} aria-current={active === item.href ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return; close(mobile && open); }}>{item.text}</a>)}
     </nav>
     <div className="toc-backdrop" id="toc-backdrop" onClick={() => close()} />
     <button className="toc-fab" id="toc-fab" type="button" ref={button} aria-label={open ? '目次を閉じる' : '目次を開く'} aria-expanded={open} aria-controls="toc" onClick={() => setOpen(value => !value)}>

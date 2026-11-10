@@ -64,7 +64,10 @@ describe('mobile TOC', () => {
       expect(r.container.querySelector('.main')?.hasAttribute('inert') ?? false).toBe(false);
       expect(document.body.style.overflow).toBe(overflow);
       if(mode==='backdrop') expect(document.activeElement).toBe(button);
-      if(mode==='link') expect(document.activeElement).not.toBe(button);
+      if(mode==='link') {
+        expect(document.activeElement===button).toBe(true);
+        expect(r.container.querySelector('.toc')!.hasAttribute('inert')).toBe(true);
+      }
     } finally { r.restore(); }
   });
   for(const modifier of ['ctrlKey','metaKey','shiftKey','altKey']) it(`preserves native modified link behavior: ${modifier}`,()=> {
@@ -110,6 +113,10 @@ for(const [index,d] of inventory.diagrams.entries()) it(`${d.id}: meaningful acc
   const r=render(<C index={index}/>); const img=r.getByRole('img'); const name=img.getAttribute('aria-label')!;
   expect(name).toContain(d.heading.replace(/\s+/g,' ').trim()); expect(name.length).toBeGreaterThan(40); expect(img.getAttribute('tabindex')).toBe('0');
   expect(r.queryByRole('alert')).toBeNull(); act(()=>fail?.()); expect(r.getByRole('alert').textContent).toContain('図表の描画に失敗しました'); expect(r.container.textContent).toContain(name);
+  r.rerender(<C index={index}/>); expect(r.getByRole('alert')).toBeTruthy();
+  r.rerender(<C index={(index+1)%inventory.diagrams.length}/>); expect(r.queryByRole('alert')===null).toBe(true);
+  act(()=>fail?.()); expect(r.getByRole('alert')).toBeTruthy();
+  r.rerender(<C index={index}/>); expect(r.queryByRole('alert')===null).toBe(true);
 });
 
 for(const development of [false,true]) it(`hydrates actual page without warnings and connects checklist/TOC events, development=${development}`,async()=> {
