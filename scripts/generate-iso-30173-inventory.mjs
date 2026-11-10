@@ -3,8 +3,10 @@ import * as cheerio from 'cheerio';
 import postcss from 'postcss';
 import crypto from 'node:crypto';
 
-const html = fs.readFileSync('Iso-30173-guide.html', 'utf-8');
-const md = fs.readFileSync('Iso-30173-guide.md', 'utf-8');
+const stem = 'Iso-30173-guide';
+const read = ext => fs.readFileSync(fs.existsSync(`${stem}.${ext}`) ? `${stem}.${ext}` : `archive/${ext}-archive/iso/${stem}.${ext}`, 'utf-8');
+const html = read('html');
+const md = read('md');
 const $ = cheerio.load(html);
 
 const title = $('title').text().trim();
