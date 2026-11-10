@@ -346,7 +346,7 @@
 .iso29119-13-page .mermaid-wrapper foreignObject span,
 .iso29119-13-page .mermaid-wrapper foreignObject div {
   margin: 0 !important;
-  line-height: 1.4 !important;
+  line-height: 1.5 !important;
   overflow-wrap: anywhere;
 }
 .iso29119-13-page .mermaid-wrapper .edgeLabel rect,
@@ -355,7 +355,7 @@
 .iso29119-13-page .mermaid-wrapper .edgeLabel p,
 .iso29119-13-page .mermaid-wrapper .edgeLabel span,
 .iso29119-13-page .mermaid-wrapper .edgeLabel text,
-.iso29119-13-page .mermaid-wrapper .edgeLabels .label { background-color: #ffffff !important; color: #1c2b45 !important; fill: #1c2b45 !important; }
+.iso29119-13-page .mermaid-wrapper .edgeLabels .label { background-color: #ffffff !important; color: #14284b !important; fill: #14284b !important; }
 .iso29119-13-page .mermaid-source:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .iso29119-13-page *::-webkit-scrollbar { width: 6px; height: 6px; }
 .iso29119-13-page *::-webkit-scrollbar-track { background: transparent; }
@@ -369,3 +369,12 @@
 @media (prefers-reduced-motion: reduce) {
   .iso29119-13-page *, .iso29119-13-page *::before, .iso29119-13-page *::after { transition: none !important; scroll-behavior: auto !important; }
 }
+/* Browser comparisons expose higher-specificity shared heading/table rules. */
+.iso29119-13-page .hero h1 { font-family: inherit; font-weight: 700; }
+.iso29119-13-page .doc table, .iso29119-13-page .doc thead { color: var(--text); }
+.iso29119-13-page .doc th { font-family: inherit; letter-spacing: normal; }
+.iso29119-13-page .doc tbody tr:hover td { background: transparent; }
+.iso29119-13-page .doc tbody tr:nth-child(even):hover td { background: #fafcff; }
+.iso29119-13-page .doc th { text-transform: none; }
+.iso29119-13-page .hero { text-align: start; }
+.iso29119-13-page .tag { font-family: inherit; }
