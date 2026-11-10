@@ -228,6 +228,7 @@ describe('source TOC interactions', () => {
             const C = nav();
             const r = render(<C />);
             expect(observed).toContain(diagram);
+            act(() => flush());
             place(headings, 2);
             act(() => {
                 notify([], {} as ResizeObserver);

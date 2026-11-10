@@ -216,14 +216,30 @@ for (const width of [390, 1440]) {
                 const collectSeq = (outer: Element) => {
                     const norm = (s: string | null) => (s ?? '').replace(/\s+/g, ' ').trim();
                     const actors = Array.from(outer.querySelectorAll('rect.actor'), n => ({
+                        name: n.getAttribute('name'),
+                        label: norm(n.parentElement!.querySelector('text.actor')!.textContent),
                         fill: getComputedStyle(n).fill,
                         stroke: getComputedStyle(n).stroke,
                     }));
-                    const messages = Array.from(outer.querySelectorAll('.messageText'), n => ({
-                        text: norm(n.textContent),
-                        fill: getComputedStyle(n).fill,
+                    const lifelines = Array.from(outer.querySelectorAll('.actor-line'), n => ({
+                        name: n.getAttribute('name'),
+                        x: Number(n.getAttribute('x1')),
                     }));
-                    const lines = Array.from(outer.querySelectorAll('.messageLine0, .messageLine1'), n => ({
+                    // Resolve each endpoint to its nearest lifeline, including self-message paths.
+                    const participantAt = (x: number) => lifelines.reduce((nearest, actor) =>
+                        Math.abs(actor.x - x) < Math.abs(nearest.x - x) ? actor : nearest,
+                    ).name;
+                    const messageLines = Array.from(outer.querySelectorAll<SVGGeometryElement>('.messageLine0, .messageLine1'));
+                    const messages = Array.from(outer.querySelectorAll('.messageText'), (n, i) => {
+                        const line = messageLines[i]!;
+                        return {
+                            text: norm(n.textContent),
+                            fill: getComputedStyle(n).fill,
+                            sender: participantAt(line.getPointAtLength(0).x),
+                            receiver: participantAt(line.getPointAtLength(line.getTotalLength()).x),
+                        };
+                    });
+                    const lines = messageLines.map(n => ({
                         stroke: getComputedStyle(n).stroke,
                     }));
                     return { actors, messages, lines };

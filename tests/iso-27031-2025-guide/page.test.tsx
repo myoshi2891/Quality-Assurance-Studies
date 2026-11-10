@@ -20,7 +20,11 @@ function tree(n: AnyNode): unknown {
     if (n.type === 'text') return norm(n.data) || null;
     if (!isTag(n)) return null;
     const attrs = { ...n.attribs };
-    for (const k of ['role', 'aria-label', 'aria-describedby', 'aria-current', 'aria-expanded', 'aria-controls', 'tabindex', 'type']) delete attrs[k];
+    const tableScroll = n.attribs.class?.split(/\s+/).includes('table-scroll');
+    for (const k of ['role', 'aria-label', 'aria-describedby', 'aria-current', 'aria-expanded', 'aria-controls', 'tabindex', 'type']) {
+        if (tableScroll && (k === 'role' || k === 'tabindex')) continue;
+        delete attrs[k];
+    }
     if (attrs.class) {
         attrs.class = attrs.class.replace(/(^|\s+)active\b/g, '').trim();
         if (!attrs.class) delete attrs.class;
@@ -48,6 +52,9 @@ for (const [i, category] of inventory.sections.entries()) {
             const actual = render(`Section${String(i).padStart(2, '0')}`, development);
             const expected = source(category.html);
             expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));
+            expect(actual('.table-scroll').toArray().map(n => actual(n).attr('aria-label'))).toEqual(
+                expected('.table-scroll').toArray().map(n => expected(n).attr('aria-label')),
+            );
             actual('.mermaid-diagram').empty();
             expected('.mermaid-diagram').empty();
             expect(norm(actual('body').text())).toBe(norm(expected('body').text()));

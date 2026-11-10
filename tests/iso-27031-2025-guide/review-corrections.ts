@@ -21,6 +21,7 @@ const makeScrollRegions = (html: string) => {
 /** Apply approved markup corrections to the reference HTML without changing the archived inventory. */
 export const applyReviewCorrections = (html: string) =>
     makeScrollRegions(html)
+        .replace(/(<p><strong>9\.2 の6観点<\/strong><\/p>\s*<div class="table-scroll" tabindex="0" role="region") aria-labelledby="[^"]+"/, '$1 aria-label="9.2 の6観点"')
         .replace('<aside class="sidebar">', '<aside class="sidebar" id="sidebar">')
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
         // 原本HTMLの生成時に $10〜$13 が $1 + '0'〜'3' として展開された末尾のゴミ数字を除去する。
