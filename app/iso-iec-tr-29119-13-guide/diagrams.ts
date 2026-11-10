@@ -1,5 +1,40 @@
 // Sources are taken from the rendered HTML, including its TB enrolment layout.
-export const MERMAID_CONFIG = "%%{init: {\n  \"theme\": \"base\",\n  \"themeVariables\": {\n    \"fontFamily\": \"Noto Sans JP, Hiragino Sans, Yu Gothic, sans-serif\",\n    \"fontSize\": \"15px\",\n    \"background\": \"#ffffff\",\n    \"primaryColor\": \"#e8f0ff\",\n    \"primaryTextColor\": \"#14284b\",\n    \"primaryBorderColor\": \"#3b6ef5\",\n    \"lineColor\": \"#3b6ef5\",\n    \"secondaryColor\": \"#e6f7f4\",\n    \"tertiaryColor\": \"#f5f8fd\",\n    \"clusterBkg\": \"#f5f8fd\",\n    \"clusterBorder\": \"#b8c8e6\",\n    \"edgeLabelBackground\": \"#ffffff\",\n    \"textColor\": \"#1c2b45\",\n    \"pie1\": \"#3b6ef5\",\n    \"pie2\": \"#14b8a6\",\n    \"pie3\": \"#f59e0b\",\n    \"pie4\": \"#8b5cf6\"\n  },\n  \"flowchart\": {\n    \"curve\": \"basis\",\n    \"htmlLabels\": true,\n    \"padding\": 14,\n    \"wrappingWidth\": 400,\n    \"useMaxWidth\": false,\n    \"subGraphTitleMargin\": {\n      \"top\": 8,\n      \"bottom\": 14\n    }\n  }\n}}%%";
+export const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Noto Sans JP, Hiragino Sans, Yu Gothic, sans-serif",
+    "fontSize": "15px",
+    "background": "#ffffff",
+    "primaryColor": "#e8f0ff",
+    "primaryTextColor": "#14284b",
+    "primaryBorderColor": "#3b6ef5",
+    "lineColor": "#3b6ef5",
+    "secondaryColor": "#e6f7f4",
+    "tertiaryColor": "#f5f8fd",
+    "clusterBkg": "#f5f8fd",
+    "clusterBorder": "#b8c8e6",
+    "edgeLabelBackground": "#ffffff",
+    "textColor": "#1c2b45",
+    "pie1": "#3b6ef5",
+    "pie2": "#14b8a6",
+    "pie3": "#f59e0b",
+    "pie4": "#8b5cf6",
+    "mainBkg": "#e8f0ff",
+    "nodeBorder": "#3b6ef5",
+    "signalColor": "#3b6ef5"
+  },
+  "flowchart": {
+    "curve": "basis",
+    "htmlLabels": true,
+    "padding": 14,
+    "wrappingWidth": 400,
+    "useMaxWidth": false,
+    "subGraphTitleMargin": {
+      "top": 8,
+      "bottom": 14
+    }
+  }
+}}%%`;
 
 export const DIAGRAMS: readonly string[] = [
   MERMAID_CONFIG + "\nflowchart LR\nA[\"ISO/IEC 規格文書の種類\"] --> B[\"IS: 国際規格要求事項を定める\"]\nA --> C[\"TS: 技術仕様書将来IS化の可能性\"]\nA --> D[\"TR: 技術報告書情報・指針・現状データ\"]\nD --> E[\"本ガイドの対象29119-13\"]",
