@@ -62,7 +62,7 @@ for (const [i, category] of inventory.sections.entries()) {
 describe('foundation CSS', () => {
     inventory.css.forEach((original, i) => it(`CSS ${i}: every declaration ${original.selector}`, () => {
         const candidates: unknown[] = [];
-        const expected = original.selector.split(',').map(s => [':root', 'html', 'body'].includes(s.trim()) ? scope : `${scope} ${s.trim()}`).join(', ');
+        const expected = [...new Set(original.selector.split(',').map(s => [':root', 'html', 'body'].includes(s.trim()) ? scope : `${scope} ${s.trim()}`))].join(', ');
         postcss.parse(readFileSync(`${base}/guide.css`, 'utf8')).walkRules(r => {
             if (r.selector === expected && (r.parent?.type === 'atrule' ? (r.parent as postcss.AtRule).params : null) === original.media)
                 candidates.push(r.nodes.filter(n => n.type === 'decl').map(d => { const n = d as postcss.Declaration; return [n.prop, n.value, n.important ? '!important' : null]; }));
