@@ -32,7 +32,7 @@ function source(html: string) {
   $('script').remove();
   $('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');
   $('pre.mermaid').each((_, n) => {
-    const index = inventory.diagrams.findIndex(d => norm(d.source) === norm($(n).text()));
+    const index = inventory.diagrams.findIndex(d => norm(d.source) === norm($(n).clone().find('br').replaceWith('&lt;br/&gt;').end().text()));
     $(n).replaceWith(`<div class="mermaid-source" data-diagram="diagram-${index}"></div>`);
   });
   $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_, n) => n.type === 'text' && /^\s*$/.test(n.data)).remove();
@@ -77,6 +77,8 @@ describe('foundation CSS', () => {
 
 describe('source diagrams', () => {
   for (const [i, diagram] of inventory.diagrams.entries()) it(`${diagram.id}: exact source, parser and shared renderer`, async () => {
+    const original = load(inventory.originalBody)('pre.mermaid').eq(i);
+    expect((diagram.source.match(/<br\/>/g) ?? []).length).toBe(original.find('br').length);
     const charts: string[] = [];
     const C = sourceModule(`${base}/Diagram.tsx`, { onMermaidChart: c => charts.push(c) }).default as React.ComponentType<{ index: number }>;
     renderToStaticMarkup(<C index={i} />);

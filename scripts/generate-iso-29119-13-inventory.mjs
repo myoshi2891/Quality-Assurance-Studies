@@ -28,7 +28,7 @@ const selectors = {
   diagrams: '.diagram', checklist: '.checklist li', tags: 'main .tag',
 };
 const groups = Object.fromEntries(Object.entries(selectors).map(([name, selector]) => [name, { selector, items: $(selector).toArray().map(n => $.html(n)) }]));
-const diagrams = $('pre.mermaid').toArray().map((n, i) => ({ id: `diagram-${i}`, source: $(n).text().trim(), heading: $(n).parent().prevAll('h2,h3').first().text() }));
+const diagrams = $('pre.mermaid').toArray().map((n, i) => ({ id: `diagram-${i}`, source: $(n).clone().find('br').replaceWith('&lt;br/&gt;').end().text().trim(), heading: $(n).parent().prevAll('h2,h3').first().text() }));
 const inventory = { source: stem + '.html', title: $('title').text(), hashes: Object.fromEntries(['html','md'].map(ext => [ext, crypto.createHash('sha256').update(read(ext)).digest('hex')])),
   originalBody: $('body').html(), originalCss: $('style').text(), hero: $.html($('.hero')), sections, css, diagrams, groups };
 fs.writeFileSync('docs/migration-inventory/iso-iec-tr-29119-13-guide.json', JSON.stringify(inventory, null, 2) + '\n');
