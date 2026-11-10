@@ -123,11 +123,9 @@ export default function NavBar() {
                         setOpen(false);
                     }
                 }}
-                role="navigation"
-                aria-label="目次"
             >
                 <div className="side-title">ISO/IEC 27031:2025</div>
-                <nav>
+                <nav aria-label="目次">
                     {TOC_ITEMS.map(item => (
                         <a
                             key={item.target}

@@ -16,7 +16,7 @@ export default function Section18() {
                 `}<div className="checklist-progress">{`
                     `}<span className="cp-label">{`進捗`}</span>{`
                     `}<div className="cp-bar"><div className="cp-fill" style={count > 0 ? { width: `${(count / 9) * 100}%` } : undefined}></div></div>{`
-                    `}<span className="cp-count">{`${count} / 9`}</span>{`
+                    `}<span className="cp-count">{`${count} / 9`}</span><span className="checklist-status" role="status" aria-live="polite" aria-atomic="true">{`確認済み ${count} / 9 項目。${count === 9 ? "すべて確認できました。次は演習計画を立てましょう。" : ""}`}</span>{`
                 `}</div>{`
                 `}<div className="check-group">{`
                     `}<div className="cg-title">{`

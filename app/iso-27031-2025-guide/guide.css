@@ -13,6 +13,7 @@
     --line: #25405f;
     --text: #e6eefc;
     --dim: #c7d6ec;
+    --ink: var(--dim);
     --faint: #9cb0cf;
     --accent: #7c9eff;
     --sw: 280px;
@@ -249,6 +250,12 @@
     color: var(--dim);
 }
 
+/* Keep cell typography stable when shared table rules load later. */
+.iso27031-page th, .iso27031-page td {
+    color: var(--ink) !important;
+    font-size: inherit !important;
+}
+
 .iso27031-page td strong {
     color: #fff;
 }
@@ -366,6 +373,17 @@
     margin-bottom: 18px;
     position: sticky;
     top: 0;
+}
+
+/* The live status stays available to assistive technology without changing the progress row layout. */
+.iso27031-page .checklist-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
 
 .iso27031-page .cp-label {
