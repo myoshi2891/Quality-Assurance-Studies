@@ -44,7 +44,7 @@ export default function NavBar() {
     if (!mobile || !open) return;
     /** Cycle through the drawer links and floating close button in either direction. */
     const keydown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { setOpen(false); button.current?.focus(); return; }
+      if (event.key === 'Escape') { close(); return; }
       if (event.key !== 'Tab') return;
       const items: HTMLElement[] = [...(nav.current?.querySelectorAll<HTMLAnchorElement>('a[href]') ?? []), ...(button.current ? [button.current] : [])];
       const index = items.indexOf(document.activeElement as HTMLElement);
