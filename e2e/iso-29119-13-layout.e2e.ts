@@ -26,7 +26,7 @@ function markup() {
 }
 
 const selectors = ['.main','.hero','.eyebrow','.hero h1','main.doc','h2','h3','main p','main ul','main ol','main li','strong','em','main a','hr','.table-wrap','table','thead','th','td','td strong','blockquote','blockquote p','.tag','.tag-lead','.tag-tr','.tag-gen','.tag-ex','.progress','.progress-head','.progress-count','.progress-bar','.progress-fill','.checklist','.checklist label','.checklist input','.cl-text','.toc','.toc-title','.toc a','.toc-fab','.toc-fab .bar','.toc-backdrop'];
-const properties = ['color','backgroundColor','backgroundImage','fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','marginTop','marginRight','marginBottom','marginLeft','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth','borderTopColor','borderRightColor','borderBottomColor','borderLeftColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','textDecorationLine','verticalAlign','appearance'];
+const properties = ['color','backgroundColor','backgroundImage','fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','marginTop','marginRight','marginBottom','marginLeft','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth','borderTopColor','borderRightColor','borderBottomColor','borderLeftColor','borderRadius','display','listStyleType','textAlign','whiteSpace','width','minWidth','maxWidth','boxShadow','textDecorationLine','verticalAlign','appearance','textTransform'];
 for (const width of [390,900,1024,1025,1440]) for (const order of ['before','after']) {
   test(`${width}px CSS ${order}: every source design component survives global and retained route styles`, async ({page}) => {
     await page.setViewportSize({width,height:900});
@@ -46,6 +46,8 @@ for (const width of [390,900,1024,1025,1440]) for (const order of ['before','aft
     await ref.locator('tbody tr').first().hover(); await page.locator('tbody tr').first().hover();
     const hover=(n:Element)=>Array.from(n.children,c=>({background:getComputedStyle(c).backgroundColor,color:getComputedStyle(c).color}));
     expect(await page.locator('tbody tr').first().evaluate(hover)).toEqual(await ref.locator('tbody tr').first().evaluate(hover));
+    await ref.addStyleTag({content:'* { transition: none !important; }'});
+    await page.addStyleTag({content:'* { transition: none !important; }'});
     // Checked colors, custom tick image and line-through labels must survive preflight as well.
     await ref.locator('.checklist input').first().check(); await page.locator('.checklist input').first().check();
     const state=(n:Element)=>({bg:getComputedStyle(n).backgroundColor,image:getComputedStyle(n).backgroundImage,color:getComputedStyle(n).color,decoration:getComputedStyle(n).textDecorationLine});
