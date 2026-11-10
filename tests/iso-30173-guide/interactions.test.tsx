@@ -1,10 +1,9 @@
-import { describe, expect, it, afterEach, beforeEach } from 'bun:test';
+import { describe, expect, it, afterEach } from 'bun:test';
 import React from 'react';
 import { render, fireEvent, cleanup, act } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { hydrateRoot, type Root } from 'react-dom/client';
 import { sourceModule } from '../helpers/source-module';
-import inventory from '../../docs/migration-inventory/iso-30173-guide.json';
 
 const base = 'app/iso-30173-guide';
 

@@ -24,7 +24,7 @@ export const applyReviewCorrections = (html: string) =>
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
 /** Apply approved node and edge corrections to reference diagrams while preserving other diagram fields. */
-export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges: readonly DiagramEdge[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
+export const reviewedDiagrams = <D extends { id: string; nodes: readonly { id: string; label: string }[]; edges?: readonly unknown[] }>(diagrams: readonly D[]): D[] => diagrams.map(diagram => {
     const correction = DIAGRAM_CORRECTIONS[diagram.id];
     if (!correction) return diagram;
     return {
