@@ -4,12 +4,12 @@ import ts from 'typescript';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
-it('registers the WCAG guide once in ISO and synchronizes all 126 routes', () => {
+it('registers the WCAG guide once in ISO and synchronizes all 127 routes', () => {
     const entries = NAV_ITEMS.filter(n => n.href === '/iso-iec-40500-2025-guide');
     expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
 
     expect(PAGES.filter(p => p.path === '/iso-iec-40500-2025-guide')[0]?.h1.test(inventory.groups.headings.items[0]!.children[0] as string)).toBe(true);
-    expect(EXPECTED_PAGE_COUNT).toBe(126); expect(PAGES).toHaveLength(126); expect(NAV_ITEMS).toHaveLength(126);
+    expect(EXPECTED_PAGE_COUNT).toBe(127); expect(PAGES).toHaveLength(127); expect(NAV_ITEMS).toHaveLength(127);
 });
 it('typechecks every page module without a production build', () => {
     const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile);
