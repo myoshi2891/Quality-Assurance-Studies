@@ -14,13 +14,8 @@
     scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
-.iso30173-page .sidebar {
-    top: calc(60px + var(--disclaimer-height, 0px));
-}
-
-.iso30173-page .toggle {
-    top: calc(72px + var(--disclaimer-height, 0px));
-}
+.iso30173-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
+.iso30173-page .toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
 
 .iso30173-page .table-scroll:focus-visible {
     outline: 2px solid var(--accent);

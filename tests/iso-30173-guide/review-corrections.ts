@@ -21,7 +21,6 @@ const makeScrollRegions = (html: string) => {
 /** Apply approved markup corrections to the reference HTML without changing the archived inventory. */
 export const applyReviewCorrections = (html: string) =>
     makeScrollRegions(html)
-        .replace('<nav class="sidebar" id="sidebar" aria-label="目次">', '<aside class="sidebar" id="sidebar"><nav aria-label="目次">')
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
 /** Apply approved node and edge corrections to reference diagrams while preserving other diagram fields. */

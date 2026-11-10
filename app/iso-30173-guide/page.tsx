@@ -30,27 +30,27 @@ export default function Page() {
         <div className="iso30173-page">
             <NavBar />
             <main className="main">
-                <header className="hero">
-                    <span className="eyebrow">ISO規格ガイド ・ 初学者向け</span>
+                <header className="hero">{" "}
+                    <span className="eyebrow">ISO規格ガイド ・ 初学者向け</span>{" "}
                     <h1 className="hero-title">
                         ISO/IEC 30173:2023（デジタルツイン
                         概念と用語）初学者向けステップバイステップ解説
-                    </h1>
-                    <div className="meta">
+                    </h1>{" "}
+                    <div className="meta">{" "}
                         <div className="meta-item">
                             <span className="meta-label">対象読者</span>
                             <span className="meta-value">ソフトウェア／QAエンジニア、DX・IoT・医療・製造分野の担当者（初学者）</span>
-                        </div>
+                        </div>{" "}
                         <div className="meta-item">
                             <span className="meta-label">調査日</span>
                             <span className="meta-value">2026年10月22日</span>
-                        </div>
+                        </div>{" "}
                         <div className="meta-item">
                             <span className="meta-label">対象規格</span>
                             <span className="meta-value">ISO/IEC 30173:2023 Digital twin — Concepts and terminology</span>
-                        </div>
-                    </div>
-                </header>
+                        </div>{" "}
+                    </div>{" "}
+                </header>{" "}
                 <Section00 />
                 <Section01 />
                 <Section02 />
