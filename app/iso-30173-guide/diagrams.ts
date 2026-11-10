@@ -3,8 +3,8 @@ export const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
     "background": "#07111e",
-    "primaryColor": "#12233b",
-    "mainBkg": "#12233b",
+    "primaryColor": "#16233a",
+    "mainBkg": "#16233a",
     "primaryTextColor": "#e6edf7",
     "primaryBorderColor": "#7c9eff",
     "lineColor": "#9cb0cf",
@@ -13,8 +13,8 @@ export const MERMAID_CONFIG = `%%{init: {
     "tertiaryColor": "#0d1b2e",
     "nodeBorder": "#7c9eff",
     "clusterBkg": "#0d1b2e",
-    "clusterBorder": "#1f3352",
-    "edgeLabelBackground": "#07111e",
+    "clusterBorder": "#2a3f63",
+    "edgeLabelBackground": "#0d1b2e",
     "fontFamily": "Noto Sans JP, sans-serif",
     "fontSize": "15px"
   },
@@ -190,3 +190,4 @@ flowchart TB
     L1 --> L2 --> L3 --> L4 --> L5 --> L6 --> L7
 `
 };
+

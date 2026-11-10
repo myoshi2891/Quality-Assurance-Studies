@@ -1,25 +1,9 @@
-/* Scoped Styles for ISO/IEC 30173:2023 Guide */
+/* ==========================================================================
+   ISO/IEC 30173:2023 Guide Scoped CSS & Resets
+   ========================================================================== */
 
-.iso30173-page {
-    --disclaimer-height: 0px;
-}
-
-/* Base resets without breaking main left margin (var(--side) = 300px) */
-.iso30173-page .hero {
-    min-height: 0;
-}
-
-.iso30173-page h2,
-.iso30173-page h3 {
-    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
-}
-
-.iso30173-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
-.iso30173-page .toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
-
-.iso30173-page .table-scroll:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+.iso30173-page, .iso30173-page :where(:not(svg, svg *)) {
+    all: revert;
 }
 
 .iso30173-page {
@@ -293,6 +277,17 @@
     color: var(--text);
 }
 
+/* Keep cell typography stable when shared table rules load later. */
+.iso30173-page th {
+    color: #fff !important;
+    font-size: inherit !important;
+}
+
+.iso30173-page td {
+    color: var(--text) !important;
+    font-size: inherit !important;
+}
+
 .iso30173-page tr:last-child td {
     border-bottom: 0;
 }
@@ -463,17 +458,37 @@
   }
 }
 
+/* Fixed application header and dynamic disclaimer are outside this page. */
+.iso30173-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
+.iso30173-page .toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
+.iso30173-page h2, .iso30173-page h3 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+/* On narrow screens the fixed .toggle (top 72px, about 36px tall) overlaps the landing position, so clear its bottom edge. */
 @media (max-width: 900px) {
-    .iso30173-page .sidebar {
-        visibility: hidden;
-    }
-    .iso30173-page .sidebar.open {
-        visibility: visible;
-    }
+    .iso30173-page h2, .iso30173-page h3 { scroll-margin-top: calc(124px + var(--disclaimer-height, 0px)); }
+    .iso30173-page .sidebar { visibility: hidden; transition: transform 0.2s, visibility 0s linear 0.2s; }
+    .iso30173-page .sidebar.open { visibility: visible; transition: transform 0.2s, visibility 0s; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .iso30173-page .sidebar, .iso30173-page .sidebar.open { transition: none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .iso30173-page .sidebar {
-        transition: none !important;
-    }
-}
+.iso30173-page .main { max-width: none; }
+.iso30173-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; display: block !important; overflow: visible !important; }
+.iso30173-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iso30173-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iso30173-page .mermaid-wrapper .edgeLabel, .iso30173-page .mermaid-wrapper .edgeLabel p, .iso30173-page .mermaid-wrapper .edgeLabel span { color: #e6edf7 !important; background-color: #0d1b2e !important; }
+.iso30173-page .mermaid-wrapper .edgeLabel rect { fill: #0d1b2e !important; }
+.iso30173-page .sidebar a:focus-visible, .iso30173-page button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* キーボードで横スクロールできる表・図の領域にも、同じフォーカスの輪郭を出す。 */
+.iso30173-page .table-scroll:focus-visible, .iso30173-page .mermaid-diagram:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.iso30173-page .hero { min-height: 0; display: block; text-align: start; }
+.iso30173-page .hero::after { all: revert; }
+.iso30173-page .hero-title { font-family: inherit; background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.iso30173-page .callout { font-size: inherit; line-height: inherit; }
+.iso30173-page .callout-def { font-size: 16px; }
+.iso30173-page .callout p { font-size: inherit; color: var(--text); }
+.iso30173-page .callout strong { display: inline; margin: 0; }
+.iso30173-page table { color: var(--text); }
+.iso30173-page tbody tr:hover td { background: transparent; }
+.iso30173-page tbody tr:nth-child(even):hover td { background: rgba(255, 255, 255, 0.02); }

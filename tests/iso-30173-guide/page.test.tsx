@@ -76,10 +76,13 @@ describe('foundation CSS', () => {
         const root = postcss.parse(css);
         root.walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
         for (const text of [
+            'all: revert',
             'var(--disclaimer-height, 0px)',
             '.iso30173-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }',
             '.iso30173-page .toggle { top: calc(72px + var(--disclaimer-height, 0px)); }',
             'scroll-margin-top: calc(80px + var(--disclaimer-height, 0px))',
+            'scroll-margin-top: calc(124px + var(--disclaimer-height, 0px))',
+            '.iso30173-page .main { max-width: none; }',
             'foreignObject',
             'max-width: none',
             '(max-width: 900px)',
@@ -88,6 +91,19 @@ describe('foundation CSS', () => {
         ]) {
             expect(css).toContain(text);
         }
+
+        // Regression guard: .iso30173-page must NOT shadow --disclaimer-height with 0px,
+        // and fixed-chrome offset rules must appear AFTER the original .sidebar { top: 0 } and .toggle { top: 12px } rules.
+        expect(css).not.toContain('--disclaimer-height: 0px');
+        expect(css.lastIndexOf('.iso30173-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }')).toBeGreaterThan(
+            css.indexOf('top: 0;'),
+        );
+        expect(css.lastIndexOf('.iso30173-page .toggle { top: calc(72px + var(--disclaimer-height, 0px)); }')).toBeGreaterThan(
+            css.indexOf('top: 12px;'),
+        );
+        expect(css.lastIndexOf('scroll-margin-top: calc(80px + var(--disclaimer-height, 0px))')).toBeGreaterThan(
+            css.lastIndexOf('scroll-margin-top: 20px;'),
+        );
 
         // Regression guard: global reset rules must NOT force margin:0 !important or padding:0 !important on <main>,
         // nor padding-top:0 !important on .hero, which hid main content under the fixed 300px sidebar.
@@ -123,7 +139,7 @@ describe('source diagrams', () => {
         const mermaid = (await import(entry)).default;
         await expect(mermaid.parse(charts[0]!)).resolves.toBeTruthy();
         expect(charts[0]!).toContain('"background": "#07111e"');
-        expect(charts[0]!).toContain('"primaryColor": "#12233b"');
+        expect(charts[0]!).toContain('"primaryColor": "#16233a"');
         expect(charts[0]!.split('}%%')[0]).not.toContain("'");
     });
 });
@@ -163,3 +179,4 @@ describe('assembled source inventory', () => {
         });
     }
 });
+

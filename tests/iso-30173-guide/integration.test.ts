@@ -37,3 +37,4 @@ for (const ext of ['html', 'md'] as const) {
     ).toBe(inventory.hashes[ext]);
   });
 }
+

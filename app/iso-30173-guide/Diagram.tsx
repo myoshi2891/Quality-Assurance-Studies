@@ -34,3 +34,4 @@ export default function Diagram({ id }: { id: string }) {
     </>
   );
 }
+
