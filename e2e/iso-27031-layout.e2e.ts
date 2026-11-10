@@ -131,10 +131,13 @@ for (const width of [390, 900, 901, 1440]) {
             await reference.setContent(
                 `<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody).replace(/<svg[\s\S]*?<\/svg>/g, '')}`,
             );
+            // The new live status has no visual footprint in the archived design.
+            await reference.locator('.checklist-status').evaluate(status => status.remove());
             await reference.locator('.sidebar a').first().evaluate(link => link.classList.add('active'));
 
             const own = readFileSync(`${base}/guide.css`, 'utf8');
-            const css = preflight + globals + (order === 'before' ? retained + own : own + retained);
+            const interference = 'th, td { color: magenta !important; font-size: 2px !important; }';
+            const css = preflight + globals + (order === 'before' ? retained + interference + own : own + retained + interference);
             await page.setContent(`<style>${css}</style>${markup()}`);
 
             const collect = ({ selectors, properties, root }: { selectors: string[]; properties: string[]; root: string }) =>
@@ -156,6 +159,7 @@ for (const width of [390, 900, 901, 1440]) {
 
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             await expect(page.locator('.hero')).toHaveCSS('min-height', '0px');
+            await expect(page.getByRole('status')).toHaveText('確認済み 0 / 9 項目。');
             await expect(page.locator('.nav-toggle')).toHaveCSS('display', width <= 900 ? 'block' : 'none');
 
             for (const pseudo of ['::before', '::after']) {

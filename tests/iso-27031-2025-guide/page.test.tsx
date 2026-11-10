@@ -75,6 +75,10 @@ describe('foundation CSS', () => {
             ? original.decls.filter(([prop]) => prop !== 'scroll-behavior').map(([prop, value, important]) =>
                 [prop, prop === 'overflow-x' && value === 'hidden' ? 'clip' : value, important])
             : original.decls;
+        if (original.selector === ':root') {
+            const index = decls.findIndex(([prop]) => prop === '--dim');
+            decls.splice(index + 1, 0, ['--ink', 'var(--dim)', null]);
+        }
         expect(candidates).toContainEqual(decls);
     }));
 
@@ -96,6 +100,16 @@ describe('foundation CSS', () => {
         ]) {
             expect(css).toContain(text);
         }
+        const cellResets: Record<string, [string, boolean]> = {};
+        root.walkRules(r => {
+            if (r.selectors.includes(`${scope} th`) && r.selectors.includes(`${scope} td`)) {
+                r.walkDecls(d => { cellResets[d.prop] = [d.value, Boolean(d.important)]; });
+            }
+        });
+        expect(css).toContain('--ink: var(--dim);');
+        expect(cellResets.color).toEqual(['var(--ink)', true]);
+        expect(cellResets['font-size']).toEqual(['inherit', true]);
+
         // Regression guard: global reset rules must NOT force margin:0 !important or padding:0 !important on <main>,
         // nor padding-top:0 !important on .hero, which hid main content under the fixed 280px sidebar.
         const forbiddenMainHeroImportant: string[] = [];

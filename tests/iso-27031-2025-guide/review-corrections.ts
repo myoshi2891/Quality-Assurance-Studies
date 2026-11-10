@@ -23,6 +23,8 @@ export const applyReviewCorrections = (html: string) =>
     makeScrollRegions(html)
         .replace(/(<p><strong>9\.2 の6観点<\/strong><\/p>\s*<div class="table-scroll" tabindex="0" role="region") aria-labelledby="[^"]+"/, '$1 aria-label="9.2 の6観点"')
         .replace('<aside class="sidebar">', '<aside class="sidebar" id="sidebar">')
+        .replace('<nav>', '<nav aria-label="目次">')
+        .replace('<span class="cp-count">0 / 9</span>', '<span class="cp-count">0 / 9</span><span class="checklist-status" role="status" aria-live="polite" aria-atomic="true">確認済み 0 / 9 項目。</span>')
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
         // 原本HTMLの生成時に $10〜$13 が $1 + '0'〜'3' として展開された末尾のゴミ数字を除去する。
         .replace(/<\/svg>\s*[0123](\s*<\/div>)/g, '</svg>$1');

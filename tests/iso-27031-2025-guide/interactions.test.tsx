@@ -159,6 +159,36 @@ describe('source TOC interactions', () => {
         }
     });
 
+    it('keeps the mobile TOC open when focus moves to its toggle or another link, and closes it on outside blur', () => {
+        const original = window.matchMedia;
+        window.matchMedia = (() => ({ matches: true, addEventListener() {}, removeEventListener() {} })) as unknown as typeof window.matchMedia;
+        const outside = document.createElement('button');
+        document.body.append(outside);
+        try {
+            const C = nav();
+            const r = render(<C />);
+            const button = r.getByRole('button', { name: '目次を開く' });
+            fireEvent.click(button);
+            const navigation = r.getByRole('navigation', { name: '目次' });
+            expect(navigation.tagName).toBe('NAV');
+            const sidebar = navigation.closest('aside')!;
+            expect(sidebar.hasAttribute('role')).toBe(false);
+            expect(sidebar.hasAttribute('aria-label')).toBe(false);
+            const links = navigation.querySelectorAll('a');
+
+            fireEvent.blur(links[0]!, { relatedTarget: button });
+            expect(button.getAttribute('aria-expanded')).toBe('true');
+            fireEvent.blur(links[0]!, { relatedTarget: links[1] });
+            expect(button.getAttribute('aria-expanded')).toBe('true');
+            fireEvent.blur(links[1]!, { relatedTarget: outside });
+            expect(button.getAttribute('aria-expanded')).toBe('false');
+            expect(sidebar.hasAttribute('inert')).toBe(true);
+        } finally {
+            outside.remove();
+            window.matchMedia = original;
+        }
+    });
+
     it('observes all 33 source headings, marks active location from measured positions and disconnects', () => {
         const previous = globalThis.IntersectionObserver;
         let callback: IntersectionObserverCallback = () => {};
@@ -336,6 +366,11 @@ describe('IRBC checklist progress', () => {
         const count = r.container.querySelector('.cp-count')!;
         const fill = r.container.querySelector('.cp-fill') as HTMLElement;
         const done = r.container.querySelector('.cp-done') as HTMLElement;
+        const status = r.getByRole('status');
+        expect(status.getAttribute('aria-live')).toBe('polite');
+        expect(status.getAttribute('aria-atomic')).toBe('true');
+        expect(status.textContent).toBe('確認済み 0 / 9 項目。');
+        expect(status.closest('[hidden], [inert], [aria-hidden="true"]')).toBeNull();
 
         expect(count.textContent).toBe('0 / 9');
         expect(done.hidden).toBe(true);
@@ -344,16 +379,24 @@ describe('IRBC checklist progress', () => {
         }
 
         for (const [i, box] of boxes.entries()) {
+            box.focus();
             fireEvent.click(box);
             const k = i + 1;
             expect(count.textContent).toBe(`${k} / 9`);
             expect(fill.style.width).toBe(`${(k / 9) * 100}%`);
             expect(done.hidden).toBe(k !== 9);
+            expect(r.getByRole('status')).toBe(status);
+            expect(status.textContent).toBe(`確認済み ${k} / 9 項目。${k === 9 ? 'すべて確認できました。次は演習計画を立てましょう。' : ''}`);
+            expect(document.activeElement).toBe(box);
         }
 
         // Unchecking one hides completion banner and updates count/width
+        boxes[0]!.focus();
         fireEvent.click(boxes[0]!);
         expect(count.textContent).toBe('8 / 9');
+        expect(r.getByRole('status')).toBe(status);
+        expect(status.textContent).toBe('確認済み 8 / 9 項目。');
+        expect(document.activeElement).toBe(boxes[0]!);
         expect(fill.style.width).toBe(`${(8 / 9) * 100}%`);
         expect(done.hidden).toBe(true);
     });
