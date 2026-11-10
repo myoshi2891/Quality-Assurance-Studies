@@ -89,7 +89,7 @@ export default function NavBar() {
       <div className="toc-title">目次</div>
       {TOC_ITEMS.map(item => <a key={item.href} href={item.href} className={active === item.href ? 'active' : undefined} aria-current={active === item.href ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return; close(false); }}>{item.text}</a>)}
     </nav>
-    <div className="toc-backdrop" id="toc-backdrop" aria-hidden="true" onClick={() => close()} />
+    <div className="toc-backdrop" id="toc-backdrop" onClick={() => close()} />
     <button className="toc-fab" id="toc-fab" type="button" ref={button} aria-label={open ? '目次を閉じる' : '目次を開く'} aria-expanded={open} aria-controls="toc" onClick={() => setOpen(value => !value)}>
       <span className="bar" /><span className="bar" /><span className="bar" />
     </button>
