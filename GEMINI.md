@@ -14,9 +14,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
   - `Section18.tsx`（`#irbc-checklist`）の9項目の進捗バー（`.cp-fill`）・カウント（`0 / 9`〜`9 / 9`）・完了バナー（`.cp-done`）のインタラクション、およびモバイル目次開放中の背面`main.main`の`inert`化・修飾キークリック維持を実装。
   - `Section14.tsx`に残存していた未変換のMarkdown `**...**`を`<strong>`へ修正し、原本HTML生成時の`$10`〜`$13`展開バグによる末尾ゴミ数字の除去と合わせて`review-corrections.ts`で原本側を補正。`diagrams.ts`のMermaid配色（`lineColor`・`signalColor`・`clusterBorder`・`edgeLabelBackground`）と`mmd-0`の`classDef pt`、`.nav-toggle`の文言を原本HTMLと完全一致させた。
 - 追加レビュー: 図3の試験結果から戦略・計画への経路と図8のRPO判定の両分岐を代替説明へ補完し、全14図の名前・描画失敗時説明を独立した期待値で照合。進捗行はページをスクロールコンテナーにせず固定ヘッダー・免責表示・モバイル目次ボタンの下へ追従し、4幅でスクロール・免責表示の高さ変更を検証。ナビのIRBC説明をガイダンスへ修正し、ガイド内の名前付き関数29件すべてへJSDocを付与。
-- 対象298件（page: 282件, interactions: 13件, integration: 3件）およびビルド・サーバー不要のChrome比較40件（`e2e/iso-27031-layout.e2e.ts`：4幅×CSS前後2順序の8件、2幅×14実SVGの28件、4幅のヘッダー・Disclaimerオフセットとサイドバー余白4件）が成功。
+- 対象299件（page: 282件, interactions: 14件, integration: 3件）およびビルド・サーバー不要のChrome比較40件（`e2e/iso-27031-layout.e2e.ts`：4幅×CSS前後2順序の8件、2幅×14実SVGの28件、4幅のヘッダー・Disclaimerオフセットとサイドバー余白4件）が成功。
 - 元HTML・Markdownを`archive/html-archive/iso/Iso-27031-2025-guide.html`・`archive/md-archive/iso/Iso-27031-2025-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
-- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint、Markdown lint成功。全体12031件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
+- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint、Markdown lint成功。全体12032件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
 
 ## 2026-11-09: 図の代替説明とレビュー済み接続の検証
 

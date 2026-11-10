@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-11-09
+Updated 2026-11-10
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -19,9 +19,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - `Section18.tsx`（`#irbc-checklist`）の9項目の進捗バー（`.cp-fill`）・カウント（`0 / 9`〜`9 / 9`）・完了バナー（`.cp-done`）のインタラクション、およびモバイル目次開放中の背面`main.main`の`inert`化・修飾キークリック維持を実装。
   - `Section14.tsx`に残存していた未変換のMarkdown `**...**`を`<strong>`へ修正し、原本HTML生成時の`$10`〜`$13`展開バグによる末尾ゴミ数字の除去と合わせて`review-corrections.ts`で原本側を補正。`diagrams.ts`のMermaid配色（`lineColor`・`signalColor`・`clusterBorder`・`edgeLabelBackground`）と`mmd-0`の`classDef pt`、`.nav-toggle`の文言を原本HTMLと完全一致させた。
 - 追加レビュー: 図3の試験結果から戦略・計画への経路と図8のRPO判定の両分岐を代替説明へ補完し、全14図の名前・描画失敗時説明を独立した期待値で照合。進捗行はページをスクロールコンテナーにせず固定ヘッダー・免責表示・モバイル目次ボタンの下へ追従し、4幅でスクロール・免責表示の高さ変更を検証。ナビのIRBC説明をガイダンスへ修正し、ガイド内の名前付き関数29件すべてへJSDocを付与。
-- 対象298件（page: 282件, interactions: 13件, integration: 3件）およびビルド・サーバー不要のChrome比較40件（`e2e/iso-27031-layout.e2e.ts`：4幅×CSS前後2順序の8件、2幅×14実SVGの28件、4幅のヘッダー・Disclaimerオフセットとサイドバー余白4件）が成功。
+- 2026-11-10追加レビュー: 表の色・文字サイズをページ固有の`!important`でリセット。チェックリストの常設politeステータスが進捗と完了手順を通知し、チェックボックスのフォーカスを保持する。目次ランドマークを内側の`nav`へ移し、トグル・別リンク・外部へのblurを検証。
+- 対象299件（page: 282件, interactions: 14件, integration: 3件）およびビルド・サーバー不要のChrome比較40件（`e2e/iso-27031-layout.e2e.ts`：4幅×CSS前後2順序の8件、2幅×14実SVGの28件、4幅のヘッダー・Disclaimerオフセットとサイドバー余白4件）が成功。
 - 元HTML・Markdownを`archive/html-archive/iso/Iso-27031-2025-guide.html`・`archive/md-archive/iso/Iso-27031-2025-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
-- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint、Markdown lint成功。全体12031件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
+- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint、Markdown lint成功。全体12032件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
 
 ## 2026-11-09: 図の代替説明とレビュー済み接続の検証
 
@@ -471,7 +472,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `git rev-parse --short HEAD`で現在のリビジョンを取得する（固定値は記載しない） |
 | 最新コミット内容 | 記録時点のスナップショット（現在の件名は`git log -1 --format=%s`で取得する）: `chore(iso-27031): archive original HTML and Markdown with identical bytes` |
 | 次の作業 | `/iso-27031-2025-guide`の目視確認（ユーザー担当）。`/iso-19770-1-guide`の目視確認（ユーザー担当）。`/iec62304-beginner-guide`の目視確認（ユーザー担当）。`/iso-iec-40500-2025-guide`の目視確認（ユーザー担当）。`/iso-iec-9075-1-2023-guide`の目視確認（ユーザー担当）。`/iso-iec-ieee-29119-3-2021-guide`と`/iso-iec-ts-30149-2024-guide`の目視確認、および`e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成での実行はユーザー担当。ビルドは指示により未実施。 |
-| ビルド状態 | ISO 27031対象298件・変更対象型検査・lint・Markdown lint成功。全体12031件（225ファイル）成功。全体型検査には既存の対象外エラーあり。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | ISO 27031対象299件・変更対象型検査・lint・Markdown lint成功。全体12032件（225ファイル）成功。全体型検査には既存の対象外エラーあり。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
@@ -2080,8 +2081,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 125 ルート（ガイドライブラリ index + 124 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
-- 全体12031件（225ファイル）すべて成功。ISO 27031対象298件、ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
-- 新規追加「ISO/IEC 27031:2025 初学者ガイド」（`/iso-27031-2025-guide`）は対象298件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
+- 全体12032件（225ファイル）すべて成功。ISO 27031対象299件、ISO 40500対象336件・ブラウザー32件・実ページ2幅・型検査成功。SQLフレームワーク対象354件・ブラウザー34件・追加ソースとテストの型検査成功。ISO IEC IEEE 29119-3対象274件、TS 30149対象285件、Chrome94件、lintも成功。
+- 新規追加「ISO/IEC 27031:2025 初学者ガイド」（`/iso-27031-2025-guide`）は対象299件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Specification by Example実践ガイド」（`/specification-by-example-guide`）は対象446件・関連692件・Chromium22件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
@@ -2095,13 +2096,14 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
   7. `/software-testing-craftsmans-approach-guide`の目視確認（ユーザー担当、ビルド未実施）。
   8. `/testing-computer-software-guide`の目視確認（未完了。ビルドは依頼により未実施）。
   9. `/working-effectively-with-legacy-code-guide`の目視確認（ビルドは依頼により未実施）。
-  10. `/iso-9075-1-guide` と `/iso-11179-1-2023-guide` の目視確認。
-  11. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
-  12. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
-  13. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
-  14. `e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
-  14. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
-  15. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
+  10. `/iso-9075-1-guide` の目視確認。
+  11. `/iso-11179-1-2023-guide` の目視確認。
+  12. `/iso-27799-2025-guide` と `/iso-23009-1-2026-guide` の目視確認（ユーザー担当、ビルド未実施）。
+  13. `/iso-iec-ieee-29119-3-2021-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
+  14. `/iso-iec-ts-30149-2024-guide`の目視確認（ユーザー担当、ビルドは指示により未実施）。
+  15. `e2e/mermaid-layout.e2e.ts`の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行（ユーザー担当）。
+  16. `bun run build` による本番ビルド確認（エージェントは自律実行しない）。結果の共有を待つ。
+  17. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
