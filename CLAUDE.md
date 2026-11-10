@@ -1,8 +1,23 @@
 # CLAUDE.md
 
-Updated 2026-11-09
+Updated 2026-11-10
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-09: ISO/IEC 27031:2025 ガイドの移行とレイアウト・完全性レビュー修正
+
+- `Iso-27031-2025-guide.html`を`/iso-27031-2025-guide`へ移行し、ISOカテゴリー・ナビ・E2E一覧を125ルートへ同期。
+- 全21カテゴリー（Section00〜20）を順に個別実装・個別コミット。37見出し、階層目次33リンク、26表、14 Mermaid図、注記、外部リンク、コード例、全76 CSSルールとレスポンシブ境界、ヒーロー・本文・フッターを固定インベントリと一対一照合。
+- レイアウト・完全性修正:
+  - `guide.css`先頭の`main { margin: 0 !important; padding: 0 !important; }`および`.hero { padding-top: 0 !important; overflow: visible !important; }`が原本の`.main { margin-left: var(--sw); padding: 40px 48px 80px; }`を潰し、メインコンテンツが左の固定サイドバーの下に隠れていた不具合を解消。
+  - 固定ヘッダー（60px）と動的ディスクレーマー（`var(--disclaimer-height, 0px)`）に合わせて`.sidebar`・`.nav-toggle`・見出し（`h2, h3, h4`）のオフセットと900px以下の`visibility: hidden`・`prefers-reduced-motion: reduce`・`:focus-visible`輪郭を追加。
+  - `Section18.tsx`（`#irbc-checklist`）の9項目の進捗バー（`.cp-fill`）・カウント（`0 / 9`〜`9 / 9`）・完了バナー（`.cp-done`）のインタラクション、およびモバイル目次開放中の背面`main.main`の`inert`化・修飾キークリック維持を実装。
+  - `Section14.tsx`に残存していた未変換のMarkdown `**...**`を`<strong>`へ修正し、原本HTML生成時の`$10`〜`$13`展開バグによる末尾ゴミ数字の除去と合わせて`review-corrections.ts`で原本側を補正。`diagrams.ts`のMermaid配色（`lineColor`・`signalColor`・`clusterBorder`・`edgeLabelBackground`）と`mmd-0`の`classDef pt`、`.nav-toggle`の文言を原本HTMLと完全一致させた。
+- 追加レビュー: 図3の試験結果から戦略・計画への経路と図8のRPO判定の両分岐を代替説明へ補完し、全14図の名前・描画失敗時説明を独立した期待値で照合。進捗行はページをスクロールコンテナーにせず固定ヘッダー・免責表示・モバイル目次ボタンの下へ追従し、4幅でスクロール・免責表示の高さ変更を検証。ナビのIRBC説明をガイダンスへ修正し、ガイド内の名前付き関数29件すべてへJSDocを付与。
+- 2026-11-10追加レビュー: 表の色・文字サイズをページ固有の`!important`でリセット。チェックリストの常設politeステータスが進捗と完了手順を通知し、チェックボックスのフォーカスを保持する。目次ランドマークを内側の`nav`へ移し、トグル・別リンク・外部へのblurを検証。
+- 対象299件（page: 282件, interactions: 14件, integration: 3件）およびビルド・サーバー不要のChrome比較40件（`e2e/iso-27031-layout.e2e.ts`：4幅×CSS前後2順序の8件、2幅×14実SVGの28件、4幅のヘッダー・Disclaimerオフセットとサイドバー余白4件）が成功。
+- 元HTML・Markdownを`archive/html-archive/iso/Iso-27031-2025-guide.html`・`archive/md-archive/iso/Iso-27031-2025-guide.md`へ移動し、Git追跡とSHA-256一致を確認。
+- npm経由で検証、対象ソース・テスト・E2EのTypeScript、lint、Markdown lint成功。全体12032件（225ファイル）成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-27031-2025-guide`）。
 
 ## 2026-11-09: 図の代替説明とレビュー済み接続の検証
 
@@ -453,7 +468,7 @@ bun test             # ユニットテスト (bun test 全体, 222 ファイル�
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 124 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 125 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:layout   # サーバー・ビルド不要のレイアウト回帰（--project=<suite> で個別実行）
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
@@ -1353,6 +1368,7 @@ bun test        # ユニットテスト成功
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-27031-2025-guide.html` | `/iso-27031-2025-guide` | ✅ 21カテゴリー・37見出し・階層目次33リンク・26表・14図・全76 CSSルール、HTML・MDアーカイブ済み |
 | `Software-testing-craftsmans-approach-guide.html` | `/software-testing-craftsmans-approach-guide` | ✅ ダーク配色・16セクション・目次16リンク・22表・11図・参考文献17件 (archive/、HTML・MD両方) |
 | `Specification-by-example-guide.html` | `/specification-by-example-guide` | ✅ 紙色テーマ・11セクション・目次18リンク・7表・6図・Gherkin1例・保存チェック8項目 (archive/、HTML・MD両方) |
 | `Iso-14496-22-guide.html` | `/iso-14496-22-guide` | ✅ ダーク配色・47見出し・目次46リンク・27表・10図・コード2例・16注記・参考リンク22件 (archive/、HTML・MD両方) |
@@ -1379,7 +1395,7 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -1390,21 +1406,22 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 124 ルート（ガイドライブラリ index + 123 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 125 ルート（ガイドライブラリ index + 124 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
-- 新規追加「ISO/IEC 9075-1 SQL/Framework ガイド」（`/iso-9075-1-guide`）と「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。
+- 新規追加「ISO/IEC 27031:2025 初学者ガイド」（`/iso-27031-2025-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
-  1. `/iso-19770-1-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  2. `/iec62304-beginner-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  3. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  4. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  5. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  6. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
-  7. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
-  8. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  9. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
-  10. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
+  1. `/iso-27031-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  2. `/iso-19770-1-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  3. `/iec62304-beginner-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  4. `/iso-iec-40500-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  5. `/iso-iec-9075-1-2023-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  6. `/specification-by-example-guide`・`/software-testing-craftsmans-approach-guide`・`/testing-computer-software-guide`・`/working-effectively-with-legacy-code-guide`・`/iso-9075-1-guide`・`/iso-11179-1-2023-guide`・`/iso-27799-2025-guide`・`/iso-23009-1-2026-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  7. 本番ビルド（`bun run build`）の確認をユーザーに依頼し、結果の共有を待つ（エージェントは自律実行しない）。
+  8. ホーム（`/`）とグローバルメニュー（ドロワー）の目視・操作確認をユーザーに依頼する。
+  9. `/iso-iec-ieee-29119-3-2021-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  10. `/iso-iec-ts-30149-2024-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
+  11. `e2e/mermaid-layout.e2e.ts` の全対象ルート（`page.tsx`のimportから導出）の本番構成（`playwright.config.ts`）での実行をユーザーに依頼する。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
 【ビルド検証の制約】

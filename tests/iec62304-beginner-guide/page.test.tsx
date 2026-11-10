@@ -106,9 +106,9 @@ describe('source diagrams', () => {
     });
     it('mmd-5: class B adds unit decomposition and leaves class A and C unchanged',()=>{
         const original=inventory.diagrams.find(d=>d.id==='mmd-5')!,reviewed=diagrams.find(d=>d.id==='mmd-5')!;
-        // 補正の空振りを防ぐため、補正先のノードが原本に存在し、原本の文言とは異なることを確かめる。
+        // インベントリと補正後の期待値の両方にユニット分割の要件を記録する。
         expect(Object.keys(DIAGRAM_NODE_LABELS['mmd-5']!)).toEqual(['N5_CB']);
-        expect(original.nodes.find(n=>n.id==='N5_CB')!.label).not.toContain('ユニットへの分割');
+        expect(original.nodes.find(n=>n.id==='N5_CB')!.label).toContain('ユニットへの分割');
         expect(reviewed.nodes.find(n=>n.id==='N5_CB')!.label).toBe('クラス B<br/>A に加えて アーキテクチャ・ユニットへの分割・ユニット検証・統合テスト');
         expect(reviewed.nodes.filter(n=>n.id!=='N5_CB')).toEqual(original.nodes.filter(n=>n.id!=='N5_CB'));
         expect(reviewed.edges).toEqual(original.edges);

@@ -109,6 +109,11 @@ describe('coverage dashboard static totals', () => {
         expect(total).toBeGreaterThan(0);
         expect($('#mc-scope').text()).toMatch(new RegExp(`\\b${total} pages?\\b`));
         expect($('#kpi-pages-tested').text()).toBe(`${tested}/ ${total}`);
+        expect($('#cnt-routes').text()).toBe(String(total));
+        expect($('#cnt-total').text()).toBe(String(total));
+        expect($('#cnt-e2e').text()).toBe(String(total));
+        expect($('#cnt-tested').text()).toBe(String(tested));
+        expect($('#cnt-untested').text()).toBe(String(total - tested));
         expect($('#kpi-pages-desc-count').text()).toBe(String(total));
         expect($('#kpi-pages-desc-tested').text()).toBe(String(tested));
         expect($('#kpi-pages-desc-status').text()).toBe(tested === total ? '完了' : '未完了');
