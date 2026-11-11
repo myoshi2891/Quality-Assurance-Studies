@@ -142,8 +142,9 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-27031-2025-guide', h1: /ISO\/IEC 27031:2025 初学者向けステップバイステップ解説/ },
   { path: '/iso-30173-guide', h1: /ISO\/IEC 30173:2023（デジタルツイン\s*概念と用語）初学者向けステップバイステップ解説/ },
   { path: '/iso-iec-tr-29119-13-guide', h1: /ISO\/IEC TR 29119-13:2022 初学者向けステップバイステップ解説ガイド/ },
+  { path: '/iso-iec-awi-ts-42119-7-guide', h1: /ISO\/IEC AWI TS 42119-7 初学者向け解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 127;
+export const EXPECTED_PAGE_COUNT = 128;
 
 

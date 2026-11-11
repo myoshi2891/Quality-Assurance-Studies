@@ -1,8 +1,18 @@
 # Project Overview
 
-Updated 2026-11-10
+Updated 2026-11-11
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-11: ISO/IEC AWI TS 42119-7 レッドチーミングガイドの移行
+
+- `/iso-iec-awi-ts-42119-7-guide`をISOカテゴリーへ追加し、ナビ・E2E一覧を128ルート（ホーム＋127ガイド）へ同期。
+- 導入と第0〜17章の全19カテゴリーを順に移行し、それぞれ原本照合後に個別コミット。79見出し、階層目次78リンク、33表の全セル、8図、26コールアウト、14用語欄、8凡例、外部16リンク、チェック16項目（8・4・4）、全82 CSSルールを固定インベントリと一対一照合。通常のコードブロックは原本どおり0件。
+- `app/iso-iec-awi-ts-42119-7-guide/`へ`page.tsx`・`guide.css`・`Section00.tsx`〜`Section18.tsx`・`NavBar.tsx`・`toc.ts`・`Checklist.tsx`・`Diagram.tsx`・`diagrams.ts`を配置。青いダーク配色、290px目次、960px境界、ヒーロー装飾、表、注記、凡例、チェック進捗を保持。共通・残留CSSの文字サイズ・色・表・装飾干渉を補正。
+- MermaidはHTML内SVGを基準にラベル・接続・配色・グラデーションを保存。Markdownと異なる図1・図5・図6のTB方向、図3のLR方向を保持。共有レンダラーとその初期設定・SVG補正を含めて検証し、全図へ代替説明・描画失敗時の可視説明を付与。
+- 目次の開閉・修飾キー・Escape・フォーカス復帰・本文の`inert`・78見出し追従・Observer解除、全チェックの選択/解除・独立進捗・フォーカス、SWC開発/本番DOM・全文・SSR hydration、33表のキーボード操作と名前を検証。
+- 原本は`archive/html-archive/iso/Iso-iec-awi-ts-42119-7-guide.html`・`archive/md-archive/iso/Iso-iec-awi-ts-42119-7-guide.md`へ移動。SHA-256一致、Git追跡、rename 100%を確認。
+- 対象426件（page:407件、interactions:16件、integration:3件）、共有Mermaid契約253件、ブラウザー比較31件（5幅×CSS前後2順序、8実SVG×2幅、5幅×免責高さ3条件）、全体13178件（234ファイル）、対象型検査・lint・Markdown lintが成功。全体型検査には既存の対象外エラーが残る。npm経由、本番ビルド未実施・目視確認はユーザー担当（`http://localhost:3000/iso-iec-awi-ts-42119-7-guide`）。
 
 ## 2026-11-10: ISO/IEC TR 29119-13:2022 生体認証テストガイドの移行
 
@@ -545,6 +555,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
+- `app/iso-iec-awi-ts-42119-7-guide/page.tsx`（`guide.css`・19カテゴリー・目次78リンク・Mermaid8図・独立チェック3組）。
+
 - `app/iso-iec-tr-29119-13-guide/page.tsx`（同名フォルダーに`guide.css`・20カテゴリー・目次・チェックリスト・図コンポーネント）。
 
 - `app/iso-iec-40500-2025-guide/page.tsx`（`guide.css`・14カテゴリー・目次50リンク・Mermaid9図・コード5例・学習チェック10項目。対象313件、原本ブラウザー32件、実ページ2幅で9図正常）。
@@ -854,6 +866,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-awi-ts-42119-7-guide.html` | `/iso-iec-awi-ts-42119-7-guide` | ✅ 19カテゴリー・79見出し・階層目次78リンク・33表・8図・26注記・14用語欄・外部16リンク・チェック16項目・82 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-tr-29119-13-guide.html` | `/iso-iec-tr-29119-13-guide` | ✅ 20カテゴリー・57見出し・目次19リンク・26表・17図・注記13件・外部14リンク・根拠ラベル55件・チェック10項目・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30173-guide.html` | `/iso-30173-guide` | ✅ 15カテゴリー・52見出し・階層目次51リンク・30表・10図・注記16件・外部リンク40件・66 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-27031-2025-guide.html` | `/iso-27031-2025-guide` | ✅ 21カテゴリー・37見出し・階層目次33リンク・26表・14図・全76 CSSルール、HTML・MDアーカイブ済み |
@@ -921,7 +934,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -934,11 +947,12 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 127 ルート（ガイドライブラリ index + 126 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 128 ルート（ガイドライブラリ index + 127 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
+  1. `/iso-iec-awi-ts-42119-7-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-tr-29119-13-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-30173-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   2. `/iso-27031-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
