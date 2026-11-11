@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import { sourceModule } from '../tests/helpers/source-module';
 import inventory from '../docs/migration-inventory/iso-iec-awi-ts-42119-7-guide.json';
+import { applyReviewCorrections } from '../tests/iso-iec-awi-ts-42119-7-guide/review-corrections';
 
 const base='app/iso-iec-awi-ts-42119-7-guide';
 const globals=readFileSync('node_modules/tailwindcss/preflight.css','utf8')+readFileSync('app/globals.css','utf8');
@@ -22,7 +23,7 @@ const properties=['color','backgroundColor','fontFamily','fontSize','fontWeight'
 for(const width of [390,768,960,961,1440]) for(const order of ['before','after']) test(`${width}px retained CSS ${order}: all source design declarations`,async({page})=>{
   await page.setViewportSize({width,height:900});
   const ref=await page.context().newPage();await ref.setViewportSize({width,height:900});
-  await ref.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+  await ref.setContent(`<style>${inventory.originalCss}</style>${applyReviewCorrections(inventory.originalBody)}`);
   const own=readFileSync(`${base}/guide.css`,'utf8');
   await page.setContent(`<style>${globals}${order==='before'?retained+own:own+retained}</style>${markup()}`);
   // Compare initial source state; current-location highlighting is validated by interaction tests.

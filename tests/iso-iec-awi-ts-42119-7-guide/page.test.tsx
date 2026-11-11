@@ -7,6 +7,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-awi-ts-42119-7-guide.json';
 import { sourceModule } from '../helpers/source-module';
+import { applyReviewCorrections } from './review-corrections';
 
 const base = 'app/iso-iec-awi-ts-42119-7-guide';
 const scope = '.iso42119-7-page';
@@ -28,7 +29,7 @@ function tree(n: AnyNode): unknown {
 
 /** HTML indentation between table rows/cells is omitted to avoid invalid React hydration text nodes. */
 function source(html: string) {
-  const $ = load(html);
+  const $ = load(applyReviewCorrections(html));
   $('table,thead,tbody,tfoot,tr').contents().filter((_,n)=>n.type === 'text' && /^\s*$/.test(n.data)).remove();
   return $;
 }
@@ -94,9 +95,10 @@ describe('assembled source inventory', () => {
   let cached: ReturnType<typeof render>;
   const page = () => cached ??= render('page');
   for (const [name, group] of Object.entries(inventory.groups)) {
-    it(`${name}: exact ordered count`, () => expect(page()(group.selector)).toHaveLength(group.items.length));
-    group.items.forEach((html, i) => it(`${name} ${i}: complete original element`, () =>
-      expect(tree(page()(group.selector)[i]!)).toEqual(tree(load(html)('body').children()[0]!))));
+    const expected = source(inventory.originalBody)(group.selector).toArray();
+    it(`${name}: exact ordered count`, () => expect(page()(group.selector)).toHaveLength(expected.length));
+    expected.forEach((element, i) => it(`${name} ${i}: complete original element`, () =>
+      expect(tree(page()(group.selector)[i]!)).toEqual(tree(element))));
   }
   for (const development of [false,true]) it(`complete page, metadata and inline text SWC development=${development}`, () => {
     const $ = render('page',development), ref = source(inventory.originalBody);

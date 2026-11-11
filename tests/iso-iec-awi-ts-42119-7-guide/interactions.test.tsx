@@ -15,6 +15,7 @@ describe('independent preparation, execution and reporting checklists', () => {
     const C = sourceModule(`${base}/Checklist.tsx`).default as React.ComponentType<{items:string[]}>;
     const r = render(<C items={items} />), boxes = r.getAllByRole('checkbox') as HTMLInputElement[];
     expect(boxes).toHaveLength(items.length);
+    items.forEach((item, i) => expect(r.getByRole('checkbox', { name: item.replace(/\s+/g, ' ').trim() })).toBe(boxes[i]!));
     expect(r.getByRole('status').textContent).toBe(`0 / ${items.length}`);
     boxes.forEach((box,i)=> {box.focus(); fireEvent.click(box); expect(box.checked).toBe(true); expect(box.closest('li')!.className).toBe('done'); expect(document.activeElement).toBe(box); expect(r.getByRole('status').textContent).toBe(`${i+1} / ${items.length}`); expect(r.getByRole('progressbar').getAttribute('aria-valuenow')).toBe(String(i+1)); expect((r.container.querySelector('.cp-fill') as HTMLElement).style.width).toBe(`${(i+1)/items.length*100}%`);});
     boxes.forEach((box,i)=> {fireEvent.click(box); expect(box.checked).toBe(false); expect(box.closest('li')!.className).toBe(''); expect(r.getByRole('status').textContent).toBe(`${items.length-i-1} / ${items.length}`);});

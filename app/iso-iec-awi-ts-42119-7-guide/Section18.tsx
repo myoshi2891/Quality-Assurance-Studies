@@ -124,7 +124,7 @@ export default function Section18() {
 </td>
 </tr>
 <tr className="even">
-<td>{"Microsoft AI Red Team「Red Teaming in Generative AI Systems」（PyRIT\n論文）"}</td>
+<td>{"Microsoft AI Red Team「PyRIT: A Framework for Security Risk Identification and Red Teaming in Generative AI Systems」（PyRIT\n論文）"}</td>
 <td>{"PyRIT の設計と実績"}</td>
 <td>
 <a href="https://ceur-ws.org/Vol-3920/paper13.pdf" rel="noopener noreferrer" target="_blank">{"https://ceur-ws.org/Vol-3920/paper13.pdf"}</a>
@@ -156,13 +156,6 @@ export default function Section18() {
 <td>{"道具の比較と、PyRIT のアーカイブに関する記述（要確認）"}</td>
 <td>
 <a href="https://dev.to/ventrova/how-to-test-your-llm-app-for-prompt-injection-promptfoo-vs-garak-vs-giskard-vs-pyrit-vs-2oim" rel="noopener noreferrer" target="_blank">{"https://dev.to/ventrova/how-to-test-your-llm-app-for-prompt-injection-promptfoo-vs-garak-vs-giskard-vs-pyrit-vs-2oim"}</a>
-</td>
-</tr>
-<tr className="odd">
-<td>{"8ksec.io「Red Teaming LLM Applications at Scale with garak and\nPyRIT」"}</td>
-<td>{"継続的なレッドチーミングのパイプライン例"}</td>
-<td>
-<a href="https://8ksec.io/red-teaming-llm-applications-garak-pyrit/" rel="noopener noreferrer" target="_blank">{"https://8ksec.io/red-teaming-llm-applications-garak-pyrit/"}</a>
 </td>
 </tr>
 </tbody>
