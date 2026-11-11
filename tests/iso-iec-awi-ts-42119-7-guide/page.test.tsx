@@ -22,8 +22,15 @@ function tree(n: AnyNode): unknown {
     delete attrs[k];
   }
   if (attrs.class) { attrs.class = attrs.class.replace(/(^|\s+)active\b/g, '').trim(); if (!attrs.class) delete attrs.class; }
-  if (attrs.style === 'width:0%') delete attrs.style;
+  if (attrs.style) { attrs.style = attrs.style.replace(/\s+/g, '').replace(/;$/, ''); if (attrs.style === 'width:0%') delete attrs.style; }
   return { tag: n.tagName, attrs, children: attrs['data-diagram'] !== undefined ? [] : n.children.map(tree).filter(Boolean) };
+}
+
+/** HTML indentation between table rows/cells is omitted to avoid invalid React hydration text nodes. */
+function source(html: string) {
+  const $ = load(html);
+  $('table,thead,tbody,tfoot,tr').contents().filter((_,n)=>n.type === 'text' && /^\s*$/.test(n.data)).remove();
+  return $;
 }
 
 /** Compile production modules through Next.js/SWC in both development and production JSX modes. */
@@ -36,7 +43,7 @@ for (const [i, category] of inventory.sections.entries()) {
   describe(`category ${String(i).padStart(2,'0')}: ${category.name}`, () => {
     for (const development of [false,true]) it(`complete DOM and inline text, SWC development=${development}`, () => {
       const actual = render(`Section${String(i).padStart(2,'0')}`, development);
-      const expected = load(category.html);
+      const expected = source(category.html);
       expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));
       actual('[data-diagram]').empty(); expected('[data-diagram]').empty();
       expect(norm(actual('body').text())).toBe(norm(expected('body').text()));
@@ -92,7 +99,7 @@ describe('assembled source inventory', () => {
       expect(tree(page()(group.selector)[i]!)).toEqual(tree(load(html)('body').children()[0]!))));
   }
   for (const development of [false,true]) it(`complete page, metadata and inline text SWC development=${development}`, () => {
-    const $ = render('page',development), ref = load(inventory.originalBody);
+    const $ = render('page',development), ref = source(inventory.originalBody);
     for (const selector of ['.hero','main.main','.sidebar','.nav-toggle']) expect(tree($(selector)[0]!)).toEqual(tree(ref(selector)[0]!));
     $('[data-diagram]').empty(); ref('[data-diagram]').empty();
     expect(norm($('main').text())).toBe(norm(ref('main').text()));
