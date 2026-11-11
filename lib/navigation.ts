@@ -176,6 +176,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: 'IEC 62304の安全クラス、開発・保守・リスク管理・SOUPを解説する追加原稿ガイド。EU/米国/日本の規制対応表と導入手順付き。', category: 'iso' },
   { href: '/iso-19770-1-guide', label: 'ISO/IEC 19770-1:2017 初学者ガイド', description: 'IT資産管理システムの要求事項、PDCA、プロセス領域、3つのティアと段階的導入を学ぶ。', category: 'iso' },
   { href: '/iso-27031-2025-guide', label: 'ISO/IEC 27031:2025 初学者ガイド', description: '事業継続のためのICTの準備（IRBC）のガイダンスとクラウドDR方式の解説。', category: 'iso' },
+  { href: '/iso-30173-guide', label: 'ISO/IEC 30173:2023 初学者ガイド', description: 'デジタルツインの概念・用語・システムコンテキスト・関係者と実務活用を学ぶ。', category: 'iso' },
+  { href: '/iso-iec-tr-29119-13-guide', label: 'ISO/IEC TR 29119-13 生体認証テストガイド', description: '生体認証の性能指標・全品質特性・リスクベースドテストと29119シリーズの適用を学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

@@ -140,8 +140,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iec62304-beginner-guide', h1: /IEC 62304:2006 初学者向けステップバイステップ解説ガイド/, uniqueText: /規制上の位置づけ（EU \/ 米国 \/ 日本）/ },
   { path: '/iso-19770-1-guide', h1: /ISO\/IEC 19770-1:2017\s*初学者向けステップバイステップ解説ガイド/ },
   { path: '/iso-27031-2025-guide', h1: /ISO\/IEC 27031:2025 初学者向けステップバイステップ解説/ },
+  { path: '/iso-30173-guide', h1: /ISO\/IEC 30173:2023（デジタルツイン\s*概念と用語）初学者向けステップバイステップ解説/ },
+  { path: '/iso-iec-tr-29119-13-guide', h1: /ISO\/IEC TR 29119-13:2022 初学者向けステップバイステップ解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 125;
+export const EXPECTED_PAGE_COUNT = 127;
 
 
