@@ -72,7 +72,7 @@ describe('source diagrams', () => {
     expect(norm(chart.slice(chart.indexOf('}%%') + 3))).toBe(norm(diagram.source));
     const config = JSON.parse(chart.match(/%%\{init: ([\s\S]*?)\}%%/)![1]!);
     expect(config.theme).toBe('base');
-    expect(config.themeVariables).toMatchObject({primaryTextColor:'#000000',lineColor:'#7c9eff',edgeLabelBackground:'#0b1a2e'});
+    expect(config.themeVariables).toMatchObject({primaryTextColor:'#000000',lineColor:'#9db4d8',edgeLabelBackground:'#0b1a2e'});
     expect(chart.split('}%%')[0]).not.toContain("'");
     expect($('[role="img"]').attr('aria-label')).toContain(diagram.id);
     for (const label of diagram.labels) expect($('[role="img"]').attr('aria-label')).toContain(label);
