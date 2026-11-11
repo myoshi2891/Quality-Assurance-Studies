@@ -1,8 +1,17 @@
 # ソフトウェアテスト実施概要
 
-最終更新日: 2026-11-11
+最終更新日: 2026-11-12
 
 本プロジェクトにおいて、システムの品質（正しく動くか・快適に使えるか）を担保するために実施するテスト項目の概要と目的を以下に定義します。
+
+## 2026-11-12: ISO/IEC 42001:2023 初学者ガイドの移行
+
+* `/iso-iec-42001-2023-beginner-guide`をISOカテゴリーに登録。129ルート（ホーム＋128ガイド）に同期。
+* 導入＋20章を原本照合後にカテゴリー単位で個別コミット。121見出し、目次20リンク、45表の全セル、9図、25注記、19用語欄、外部23リンク、6グループ22チェック項目と全76 CSSルールを固定インベントリと一対一照合。コードブロックは原本どおり0件。
+* `app/iso-iec-42001-2023-beginner-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section20.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`を配置。290px目次、900px境界、青い配色、装飾、チェック状態・全体進捗・保存復元・リセットを維持。固定ヘッダーと動的免責高さに追従。
+* HTML内SVGを基準に9図のラベル・接続・形・配色・方向・書体を検証。Markdownと異なる導入ロードマップの認証申込ラベルはHTMLを優先。共有Mermaidコンポーネントは変更せずページ側で設定。
+* 原本HTML・Markdownを`archive/html-archive/iso/Iso-iec-42001-2023-beginner-guide.html`・`archive/md-archive/iso/Iso-iec-42001-2023-beginner-guide.md`へ移動。SHA-256一致・Git追跡・rename 100%を確認。
+* npm経由で検証。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-iec-42001-2023-beginner-guide`）。対象415件（page:410件、interactions:2件、integration:3件）、共有Mermaid契約255件、ブラウザー比較33件、対象型検査・lint・Markdown lint成功。全体13594件（237ファイル）すべて成功。全体型検査には既存の対象外テストエラーあり。ビルド未実施、目視確認はユーザー担当。
 
 ## 2026-11-11: ISO/IEC AWI TS 42119-7 レッドチーミングガイドの移行
 
