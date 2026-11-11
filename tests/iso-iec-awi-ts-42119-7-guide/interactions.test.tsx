@@ -82,3 +82,12 @@ it('hydrates the complete real page without changing source text or producing re
   expect(errors).toEqual([]); expect(host.textContent).toBe(before);
   await act(async()=>root!.unmount());host.remove();
 });
+
+it('uses measured heading positions for active TOC links on scroll and preserves mobile link focus',async()=>{
+  const C=sourceModule(`${base}/NavBar.tsx`).default as React.ComponentType;
+  const targets=inventory.toc.flatMap(t=>[t,...t.children]);
+  const r=render(<><C/>{targets.map(t=><h2 key={t.target} id={t.target}>{t.text}</h2>)}</>);
+  targets.forEach((t,i)=> {const h=document.getElementById(t.target)!;h.getBoundingClientRect=()=>({top:i<4?-200:300+i*100,bottom:400,left:0,right:100,width:100,height:30,x:0,y:0,toJSON(){}});});
+  await act(async()=>{window.dispatchEvent(new Event('scroll'));await new Promise(resolve=>setTimeout(resolve,40));});
+  expect(r.container.querySelector('[aria-current="location"]')!.getAttribute('data-target')).toBe(targets[3]!.target);
+});
