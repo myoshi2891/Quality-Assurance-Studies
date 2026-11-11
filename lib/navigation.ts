@@ -178,6 +178,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-27031-2025-guide', label: 'ISO/IEC 27031:2025 初学者ガイド', description: '事業継続のためのICTの準備（IRBC）のガイダンスとクラウドDR方式の解説。', category: 'iso' },
   { href: '/iso-30173-guide', label: 'ISO/IEC 30173:2023 初学者ガイド', description: 'デジタルツインの概念・用語・システムコンテキスト・関係者と実務活用を学ぶ。', category: 'iso' },
   { href: '/iso-iec-tr-29119-13-guide', label: 'ISO/IEC TR 29119-13 生体認証テストガイド', description: '生体認証の性能指標・全品質特性・リスクベースドテストと29119シリーズの適用を学ぶ。', category: 'iso' },
+  { href: '/iso-iec-awi-ts-42119-7-guide', label: 'ISO/IEC AWI TS 42119-7 レッドチーミングガイド', description: 'AIレッドチーミングの用語・リスク・方法論・測定評価・報告・運用とエージェント型AIを学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
