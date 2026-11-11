@@ -1,4 +1,4 @@
-const MERMAID_CONFIG = "%%{init: {\"theme\":\"base\",\"look\":\"neo\",\"themeVariables\":{\"background\":\"#0b1a2e\",\"primaryColor\":\"#16294a\",\"primaryBorderColor\":\"#7c9eff\",\"primaryTextColor\":\"#000000\",\"lineColor\":\"#9db4d8\",\"secondaryColor\":\"#0f1f38\",\"tertiaryColor\":\"#0f1f38\",\"clusterBkg\":\"#0f1f38\",\"clusterBorder\":\"#4a6bb5\",\"edgeLabelBackground\":\"#0b1a2e\",\"textColor\":\"#e6edf7\",\"fontFamily\":\"Noto Sans JP, Noto Sans CJK JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif\",\"fontSize\":\"16px\",\"actorBkg\":\"#16294a\",\"actorBorder\":\"#7c9eff\",\"actorTextColor\":\"#e6edf7\",\"actorLineColor\":\"#6c82a8\",\"signalColor\":\"#9db4d8\",\"signalTextColor\":\"#e6edf7\"},\"flowchart\":{\"htmlLabels\":true,\"curve\":\"linear\",\"nodeSpacing\":40,\"rankSpacing\":40},\"sequence\":{\"actorFontFamily\":\"Noto Sans JP, sans-serif\",\"messageFontFamily\":\"Noto Sans JP, sans-serif\"}}}%%";
+const MERMAID_CONFIG = "%%{init: {\"theme\":\"base\",\"look\":\"neo\",\"themeVariables\":{\"background\":\"#0b1a2e\",\"primaryColor\":\"#16294a\",\"mainBkg\":\"#16294a\",\"nodeBorder\":\"#7c9eff\",\"gradientStart\":\"#4a6bb5\",\"gradientStop\":\"hsl(217.3333333333, 15.5555555556%, 25.8823529412%)\",\"primaryBorderColor\":\"#7c9eff\",\"primaryTextColor\":\"#000000\",\"lineColor\":\"#9db4d8\",\"secondaryColor\":\"#0f1f38\",\"tertiaryColor\":\"#0f1f38\",\"clusterBkg\":\"#0f1f38\",\"clusterBorder\":\"#4a6bb5\",\"edgeLabelBackground\":\"#0b1a2e\",\"textColor\":\"#e6edf7\",\"fontFamily\":\"Noto Sans JP, Noto Sans CJK JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif\",\"fontSize\":\"16px\",\"actorBkg\":\"#16294a\",\"actorBorder\":\"#7c9eff\",\"actorTextColor\":\"#e6edf7\",\"actorLineColor\":\"#6c82a8\",\"signalColor\":\"#9db4d8\",\"signalTextColor\":\"#e6edf7\"},\"flowchart\":{\"htmlLabels\":true,\"curve\":\"linear\",\"nodeSpacing\":40,\"rankSpacing\":40},\"sequence\":{\"actorFontFamily\":\"Noto Sans JP, sans-serif\",\"messageFontFamily\":\"Noto Sans JP, sans-serif\"}}}%%";
 
 export const DIAGRAMS = [
   `${MERMAID_CONFIG}
@@ -61,7 +61,7 @@ S5 --> S6["実行して結果を判定"]
 classDef flowStep fill:#dcfce7,stroke:#15803d,color:#000000
 class S1,S2,S3,S4,S5,S6 flowStep`,
   `${MERMAID_CONFIG}
-flowchart LR
+flowchart TB
 subgraph PH1["準備"]
 P11["チーム編成"] --> P12["目標と範囲の設定"]
 P12 --> P13["リスクシナリオ作成"]
