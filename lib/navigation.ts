@@ -179,6 +179,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-30173-guide', label: 'ISO/IEC 30173:2023 初学者ガイド', description: 'デジタルツインの概念・用語・システムコンテキスト・関係者と実務活用を学ぶ。', category: 'iso' },
   { href: '/iso-iec-tr-29119-13-guide', label: 'ISO/IEC TR 29119-13 生体認証テストガイド', description: '生体認証の性能指標・全品質特性・リスクベースドテストと29119シリーズの適用を学ぶ。', category: 'iso' },
   { href: '/iso-iec-awi-ts-42119-7-guide', label: 'ISO/IEC AWI TS 42119-7 レッドチーミングガイド', description: 'AIレッドチーミングの用語・リスク・方法論・測定評価・報告・運用とエージェント型AIを学ぶ。', category: 'iso' },
+  { href: '/iso-iec-42001-2023-beginner-guide', label: 'ISO/IEC 42001:2023 初学者ガイド', description: 'AIマネジメントシステムの要求事項・附属書の管理策・導入・認証を段階的に学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
