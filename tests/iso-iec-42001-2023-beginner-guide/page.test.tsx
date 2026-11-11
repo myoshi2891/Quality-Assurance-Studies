@@ -30,6 +30,7 @@ function tree(n: AnyNode): unknown {
 /** HTML indentation between table rows/cells is omitted to avoid invalid React hydration text nodes. */
 function source(html: string) {
   const $ = load(applyReviewCorrections(html));
+  $('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');
   $('table,thead,tbody,tfoot,tr').contents().filter((_,n)=>n.type === 'text' && /^\s*$/.test(n.data)).remove();
   return $;
 }

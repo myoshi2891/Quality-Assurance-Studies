@@ -28,6 +28,7 @@ for(const width of [390,768,900,901,1440]) for(const order of ['before','after']
   await page.setContent(`<style>${globals}${order==='before'?retained+own:own+retained}</style>${markup()}`);
   // Compare initial source state; current-location highlighting is validated by interaction tests.
   await page.locator('.sidebar a.active').evaluateAll(links=>links.forEach(a=>a.classList.remove('active')));
+  await ref.locator('.mermaid-diagram').evaluateAll(nodes=>nodes.forEach(n=>n.replaceChildren()));
   await page.locator('.mermaid-diagram').evaluateAll(nodes=>nodes.forEach(n=>n.replaceChildren()));
   const collect=({root,selectors,properties}:{root:string;selectors:string[];properties:string[]})=>Object.fromEntries(selectors.map(selector=>[selector,Array.from(document.querySelectorAll(root+selector),el=>{const style=getComputedStyle(el);return Object.fromEntries(properties.map(p=>[p,style[p as keyof CSSStyleDeclaration]]));})]));
   const expected=await ref.evaluate(collect,{root:'',selectors,properties}),actual=await page.evaluate(collect,{root:'.iso42001-page ',selectors,properties});
