@@ -69,8 +69,8 @@
 .iso42001-page .mermaid-wrapper svg { display: block; max-width: none !important; height: auto !important; margin: 0 auto; }
 .iso42001-page .mermaid-wrapper foreignObject { overflow: visible !important; }
 .iso42001-page .mermaid-wrapper foreignObject p, .iso42001-page .mermaid-wrapper foreignObject span, .iso42001-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.5 !important; }
-.iso42001-page .mermaid-wrapper .edgeLabel rect { fill: var(--panel) !important; stroke: none !important; }
-.iso42001-page .mermaid-wrapper .edgeLabel { background: var(--panel) !important; color: var(--text) !important; }
+.iso42001-page .mermaid-wrapper .edgeLabel rect { fill: #0b1b2e !important; stroke: none !important; }
+.iso42001-page .mermaid-wrapper .edgeLabel { background: #0b1b2e !important; color: var(--text) !important; }
 .iso42001-page .table-scroll:focus-visible, .iso42001-page a:focus-visible, .iso42001-page button:focus-visible, .iso42001-page input:focus-visible, .iso42001-page [role="img"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .iso42001-page .checklist label { cursor: pointer; }
 @media (max-width:900px) {
@@ -88,3 +88,5 @@
 .iso42001-page .check-card { padding: 16px 18px 10px; }
 .iso42001-page .check-overall { top: calc(68px + var(--disclaimer-height, 0px)); }
 @media(max-width:900px) { .iso42001-page .check-overall { top: calc(116px + var(--disclaimer-height, 0px)); } }
+
+.iso42001-page table { color: var(--text); }
