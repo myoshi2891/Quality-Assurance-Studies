@@ -91,7 +91,7 @@
 .iso42119-7-page .hero-title { font-family: inherit; letter-spacing: normal; background: none; -webkit-text-fill-color: currentColor; }
 .iso42119-7-page .hero-sub { max-width: none; }
 .iso42119-7-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); bottom: auto; height: calc(100dvh - 60px - var(--disclaimer-height, 0px)); }
-.iso42119-7-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 40; }
+.iso42119-7-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); z-index: 60; }
 .iso42119-7-page h2, .iso42119-7-page h3 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
 .iso42119-7-page section { padding-top: 0; }
 .iso42119-7-page section + section { border-top: 0; }
