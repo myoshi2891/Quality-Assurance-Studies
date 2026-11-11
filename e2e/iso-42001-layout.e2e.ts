@@ -44,3 +44,30 @@ for(const width of [390,768,900,901,1440]) for(const order of ['before','after']
 
 
 for (const width of [390,768,900,901,1440]) test(width+'px chrome offsets',async({page})=>{await page.setViewportSize({width,height:900});await page.setContent('<style>'+globals+readFileSync(base+'/guide.css','utf8')+'</style>'+markup());for(const height of [38,76,120]) {await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('.sidebar')).toHaveCSS('top',(60+height)+'px');await expect(page.locator('.toggle')).toHaveCSS('top',(72+height)+'px');if(width<=900){await page.locator('.sidebar').evaluate(el=>el.classList.add('open'));await page.locator('.toggle').click({trial:true});}}});
+
+for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) test(`${width}px ${d.id}: real Mermaid semantics, labels and palette`,async({page})=>{
+  await page.setViewportSize({width,height:900});
+  await page.setContent(`<style>${globals}${readFileSync(`${base}/guide.css`,'utf8')}</style>${markup()}`);
+  await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
+  const {DIAGRAMS}=sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:string[]};
+  await page.evaluate(async({id,chart,globalConfig,fixups})=>{const m=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,c:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(globalConfig);const{svg}=await m.render('generated-'+id,chart);document.getElementById(id)!.querySelector('.mermaid-wrapper')!.innerHTML=svg;Function(fixups+';return applySvgFixups;')()(document.getElementById(id)!.querySelector('svg'),chart);},{id:d.id,chart:DIAGRAMS[i]!,globalConfig,fixups});
+  const ref=await page.context().newPage();await ref.setContent(`<style>${inventory.originalCss}</style><div class="mermaid-diagram">${d.svg}</div>`);
+  const collect=(el:Element)=>({nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,'').replace(/D\d+_/g,''),text:n.querySelector('.nodeLabel')!.textContent!.replace(/\s+/g,' ').trim(),shape:n.firstElementChild!.tagName,stroke:getComputedStyle(n.firstElementChild!).stroke,fill:getComputedStyle(n.firstElementChild!).fill,color:getComputedStyle(n.querySelector('.nodeLabel')!).color})),gradients:Array.from(el.querySelectorAll('[fill^="url"] linearGradient stop'),n=>({offset:n.getAttribute('offset'),color:getComputedStyle(n).stopColor,opacity:getComputedStyle(n).stopOpacity})),clusters:Array.from(el.querySelectorAll('.cluster rect'),n=>({fill:getComputedStyle(n).fill,stroke:getComputedStyle(n).stroke.replace(/#[^"]+-gradient/,'#diagram-gradient')})),edges:Array.from(el.querySelectorAll('path[data-edge]'),n=>({id:n.getAttribute('data-id')!.replace(/D\d+_/g,''),stroke:getComputedStyle(n).stroke,end:!!n.getAttribute('marker-end')})),messages:Array.from(el.querySelectorAll('text.messageText'),n=>({text:n.textContent,color:getComputedStyle(n).fill})),actors:Array.from(el.querySelectorAll('text.actor'),n=>n.textContent!.replace(/\s+/g,' ').trim())});
+  expect(await page.locator(`#${d.id}`).evaluate(collect)).toEqual(await ref.locator('.mermaid-diagram').evaluate(collect));
+
+  // Compare each original connection on its flow axis; unrelated nodes can be centered differently by Dagre.
+  const positions=(el:Element)=>Object.fromEntries(Array.from(el.querySelectorAll('g.node'),n=>[n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,'').replace(/D\d+_/g,''),(n.getAttribute('transform')!.match(/[-\d.]+/g) ?? []).map(Number)]));
+  const original=await ref.locator('.mermaid-diagram').evaluate(positions),current=await page.locator(`#${d.id}`).evaluate(positions);
+  for(const edge of d.edges.map(edge=>edge.replace(/D\d+_/g,''))){
+    const [,from,to]=edge.split('_');
+    const a=original[from!]!,b=original[to!]!,x=Math.abs(a[0]!-b[0]!),y=Math.abs(a[1]!-b[1]!);
+    const axis=x>y?0:1;
+    expect(Math.sign(current[to!]![axis]!-current[from!]![axis]!),edge).toBe(Math.sign(b[axis]!-a[axis]!));
+  }
+  const reachable=await page.locator(`#${d.id}`).evaluate(el=>{const svg=el.querySelector('svg')!,left=svg.getBoundingClientRect().left;const start=el.scrollLeft;el.scrollLeft=el.scrollWidth;return {left,outer:el.getBoundingClientRect().left,moved:start===el.scrollLeft?0:left-svg.getBoundingClientRect().left,scroll:el.scrollLeft};});
+  expect(reachable.left).toBeGreaterThanOrEqual(reachable.outer);
+  expect(Math.abs(reachable.moved-reachable.scroll)).toBeLessThanOrEqual(1);
+  expect(await page.locator(`#${d.id} svg`).count()).toBe(1);
+  await ref.close();
+});
+
