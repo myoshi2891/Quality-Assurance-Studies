@@ -50,11 +50,15 @@ for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) 
   const collect=(el:Element)=>({nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),text:n.querySelector('.nodeLabel')!.textContent!.replace(/\s+/g,' ').trim(),shape:n.firstElementChild!.tagName,stroke:getComputedStyle(n.firstElementChild!).stroke,fill:getComputedStyle(n.firstElementChild!).fill,color:getComputedStyle(n.querySelector('.nodeLabel')!).color})),clusters:Array.from(el.querySelectorAll('.cluster rect'),n=>({fill:getComputedStyle(n).fill,stroke:getComputedStyle(n).stroke})),edges:Array.from(el.querySelectorAll('path[data-edge]'),n=>({id:n.getAttribute('data-id'),stroke:getComputedStyle(n).stroke,end:!!n.getAttribute('marker-end')})),messages:Array.from(el.querySelectorAll('text.messageText'),n=>({text:n.textContent,color:getComputedStyle(n).fill})),actors:Array.from(el.querySelectorAll('text.actor'),n=>n.textContent!.replace(/\s+/g,' ').trim())});
   expect(await page.locator(`#${d.id}`).evaluate(collect)).toEqual(await ref.locator('.mermaid-diagram').evaluate(collect));
 
-  const directions=(el:Element)=>{
-    const nodes=Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),point:(n.getAttribute('transform')!.match(/[-\d.]+/g) ?? []).map(Number)}));
-    return nodes.flatMap((a,i)=>nodes.slice(i+1).map(b=>({from:a.id,to:b.id,x:Math.sign(a.point[0]!-b.point[0]!),y:Math.sign(a.point[1]!-b.point[1]!)})));
-  };
-  expect(await page.locator(`#${d.id}`).evaluate(directions)).toEqual(await ref.locator('.mermaid-diagram').evaluate(directions));
+  // Compare each original connection on its flow axis; unrelated nodes can be centered differently by Dagre.
+  const positions=(el:Element)=>Object.fromEntries(Array.from(el.querySelectorAll('g.node'),n=>[n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),(n.getAttribute('transform')!.match(/[-\d.]+/g) ?? []).map(Number)]));
+  const original=await ref.locator('.mermaid-diagram').evaluate(positions),current=await page.locator(`#${d.id}`).evaluate(positions);
+  for(const edge of d.edges){
+    const [,from,to]=edge.split('_');
+    const a=original[from!]!,b=original[to!]!,x=Math.abs(a[0]!-b[0]!),y=Math.abs(a[1]!-b[1]!);
+    const axis=x>y?0:1;
+    expect(Math.sign(current[to!]![axis]!-current[from!]![axis]!),edge).toBe(Math.sign(b[axis]!-a[axis]!));
+  }
   const reachable=await page.locator(`#${d.id}`).evaluate(el=>{const svg=el.querySelector('svg')!,left=svg.getBoundingClientRect().left;const start=el.scrollLeft;el.scrollLeft=el.scrollWidth;return {left,outer:el.getBoundingClientRect().left,moved:start===el.scrollLeft?0:left-svg.getBoundingClientRect().left,scroll:el.scrollLeft};});
   expect(reachable.left).toBeGreaterThanOrEqual(reachable.outer);
   expect(Math.abs(reachable.moved-reachable.scroll)).toBeLessThanOrEqual(1);

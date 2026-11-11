@@ -41,7 +41,7 @@ for (const [index,d] of inventory.diagrams.entries()) it(`${d.id}: readable desc
 /** Test mobile mode without browser geometry dependencies. */
 function mobile() {
   const original=window.matchMedia;
-  window.matchMedia=((query:string)=>({matches:query.includes('960px'),media:query,addEventListener(){},removeEventListener(){}})) as typeof window.matchMedia;
+  window.matchMedia=((query:string)=>({matches:query.includes('960px'),media:query,addEventListener(){},removeEventListener(){}})) as unknown as typeof window.matchMedia;
   return ()=>{window.matchMedia=original;};
 }
 
