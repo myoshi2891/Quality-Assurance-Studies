@@ -253,9 +253,16 @@ for (const width of [390, 1440]) {
                 );
             const sourceCenters = await reference.locator('#' + id).evaluate(centers);
             const actualCenters = await page.locator('#' + id).evaluate(centers);
+            const firstNodeId = Object.keys(sourceCenters)[0]!;
+            const sourceOrigin = sourceCenters[firstNodeId]!;
+            const actualOrigin = actualCenters[firstNodeId]!;
             for (const [nodeId, sourcePos] of Object.entries(sourceCenters)) {
                 expect(actualCenters[nodeId], `${id} missing center for ${nodeId}`).toBeDefined();
-                expect(sourcePos).toBeDefined();
+                for (const axis of ['x', 'y'] as const) {
+                    const sourceOffset = sourcePos[axis] - sourceOrigin[axis];
+                    const actualOffset = actualCenters[nodeId]![axis] - actualOrigin[axis];
+                    expect(Math.abs(actualOffset - sourceOffset), `${id} ${nodeId} relative ${axis}`).toBeLessThanOrEqual(1);
+                }
             }
 
             const geometry = await page.locator('#' + id + ' g.node').evaluateAll(nodes =>
