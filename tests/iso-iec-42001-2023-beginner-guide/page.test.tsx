@@ -18,7 +18,7 @@ function tree(n: AnyNode): unknown {
   if (n.type === 'text') return norm(n.data) || null;
   if (!isTag(n)) return null;
   const attrs = { ...n.attribs };
-  for (const k of ['role','aria-label','aria-labelledby','aria-valuenow','aria-valuemin','aria-valuemax','aria-current','aria-expanded','aria-controls','tabindex','inert','type']) {
+  for (const k of ['role','aria-live','aria-label','aria-labelledby','aria-valuenow','aria-valuemin','aria-valuemax','aria-current','aria-expanded','aria-controls','tabindex','inert','type']) {
     if (k === 'type' && n.tagName === 'input') continue;
     delete attrs[k];
   }

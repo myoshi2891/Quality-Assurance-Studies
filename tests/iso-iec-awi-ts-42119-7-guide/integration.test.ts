@@ -10,7 +10,7 @@ import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-iec-awi-ts-42119-7-guide.json';
 
-it('registers the red teaming guide exactly once in ISO and smoke E2E at 128 routes', () => {
+it('registers the red teaming guide exactly once in ISO and smoke E2E at 129 routes', () => {
   const href = '/iso-iec-awi-ts-42119-7-guide';
   const items = NAV_ITEMS.filter(i=>i.href === href);
   expect(items).toHaveLength(1);
@@ -19,7 +19,7 @@ it('registers the red teaming guide exactly once in ISO and smoke E2E at 128 rou
   const pages = PAGES.filter(p=>p.path === href); expect(pages).toHaveLength(1);
   const Page = sourceModule('app/iso-iec-awi-ts-42119-7-guide/page.tsx').default as React.ComponentType;
   expect(pages[0]!.h1.test(load(renderToStaticMarkup(React.createElement(Page)))('h1').text())).toBe(true);
-  expect(NAV_ITEMS).toHaveLength(128); expect(PAGES).toHaveLength(128); expect(EXPECTED_PAGE_COUNT).toBe(128);
+  expect(NAV_ITEMS).toHaveLength(129); expect(PAGES).toHaveLength(129); expect(EXPECTED_PAGE_COUNT).toBe(129);
 });
 for (const ext of ['html','md'] as const) it(`archives original ${ext} with identical tracked bytes`, () => {
   const name = `Iso-iec-awi-ts-42119-7-guide.${ext}`;

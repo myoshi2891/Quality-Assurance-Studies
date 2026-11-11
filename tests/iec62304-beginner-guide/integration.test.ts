@@ -5,7 +5,7 @@ import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
 import { NAV_ITEMS, matchesQuery } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
-it('registers this additional source once, retains the earlier guide, and synchronizes 128 routes',()=>{
+it('registers this additional source once, retains the earlier guide, and synchronizes 129 routes',()=>{
     const href='/iec62304-beginner-guide';
     expect(NAV_ITEMS.filter(i=>i.href===href)).toHaveLength(1);
     expect(NAV_ITEMS.find(i=>i.href===href)).toMatchObject({category:'iso',label:'IEC 62304 初学者ステップガイド'});
@@ -17,5 +17,5 @@ it('registers this additional source once, retains the earlier guide, and synchr
     const Page=sourceModule('app/iec62304-beginner-guide/page.tsx').default as React.ComponentType;
     const heading=load(renderToStaticMarkup(React.createElement(Page)))('h1').first().text();
     expect(PAGES.find(i=>i.path===href)!.h1.test(heading)).toBe(true);
-    expect(EXPECTED_PAGE_COUNT).toBe(128);expect(PAGES).toHaveLength(128);expect(NAV_ITEMS).toHaveLength(128);
+    expect(EXPECTED_PAGE_COUNT).toBe(129);expect(PAGES).toHaveLength(129);expect(NAV_ITEMS).toHaveLength(129);
 });
