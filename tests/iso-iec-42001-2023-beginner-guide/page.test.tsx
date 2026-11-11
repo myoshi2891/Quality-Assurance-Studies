@@ -24,7 +24,7 @@ function tree(n: AnyNode): unknown {
   }
   if (attrs.class) { attrs.class = attrs.class.replace(/(^|\s+)active\b/g, '').trim(); if (!attrs.class) delete attrs.class; }
   if (attrs.style) { attrs.style = attrs.style.replace(/\s+/g, '').replace(/;$/, ''); if (attrs.style === 'width:0%') delete attrs.style; }
-  return { tag: n.tagName, attrs, children: attrs['data-diagram'] !== undefined ? [] : n.children.map(tree).filter(Boolean) };
+  return { tag: n.tagName, attrs, children: attrs.class === 'mermaid-diagram' ? [] : n.children.map(tree).filter(Boolean) };
 }
 
 /** HTML indentation between table rows/cells is omitted to avoid invalid React hydration text nodes. */
@@ -46,7 +46,7 @@ for (const [i, category] of inventory.sections.entries()) {
       const actual = render(`Section${String(i).padStart(2,'0')}`, development);
       const expected = source(category.html);
       expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));
-      actual('[data-diagram]').empty(); expected('[data-diagram]').empty();
+      actual('.mermaid-diagram').empty(); expected('.mermaid-diagram').empty();
       expect(norm(actual('body').text())).toBe(norm(expected('body').text()));
     });
   });
@@ -102,7 +102,7 @@ describe('assembled source inventory', () => {
   for (const development of [false,true]) it(`complete page, metadata and inline text SWC development=${development}`, () => {
     const $ = render('page',development), ref = source(inventory.originalBody);
     for (const selector of ['.hero','main.main','.sidebar','.toggle']) expect(tree($(selector)[0]!)).toEqual(tree(ref(selector)[0]!));
-    $('[data-diagram]').empty(); ref('[data-diagram]').empty();
+    $('.mermaid-diagram').empty(); ref('.mermaid-diagram').empty();
     expect(norm($('main').text())).toBe(norm(ref('main').text()));
     const ids = $('[id]').map((_,n)=>$(n).attr('id')).get();
     expect(new Set(ids).size).toBe(ids.length);
