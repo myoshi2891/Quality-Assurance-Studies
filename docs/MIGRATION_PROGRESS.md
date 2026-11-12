@@ -2135,6 +2135,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - 新規追加「Software Testing: A Craftsman’s Approach入門ガイド」（`/software-testing-craftsmans-approach-guide`）は対象259件・関連501件・Chromium30件・lint・対象型検査が成功。目視確認はユーザー担当、本番ビルドは未実施。
 - 新規追加「Testing Computer Software入門ガイド」（`/testing-computer-software-guide`）を登録済み。目視確認はユーザー担当、ビルドは未実施。
 - 新規追加「ISO 11179-1 メタデータレジストリガイド」（`/iso-11179-1-2023-guide`）を登録済み。保留中の作業（ユーザー担当）:
+  1. `/iso-iec-42001-2023-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-awi-ts-42119-7-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-tr-29119-13-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-30173-guide`の目視確認（ユーザー担当、ビルド未実施）。
