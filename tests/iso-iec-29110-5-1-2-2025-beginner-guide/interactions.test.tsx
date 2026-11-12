@@ -1,6 +1,7 @@
 import {afterEach,expect,it} from 'bun:test';
 import React,{act} from 'react';
 import {render,fireEvent,cleanup} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {renderToString} from 'react-dom/server';
 import {hydrateRoot} from 'react-dom/client';
 import {sourceModule} from '../helpers/source-module';
@@ -23,7 +24,24 @@ for(const [i,item]of inventory.groups.checklist.items.entries())it(`checklist ${
 it('all checks complete then revert independently',()=>{const C=component('Checklist');const r=render(<C/>);const boxes=r.getAllByRole('checkbox');for(const box of boxes)fireEvent.click(box);expect(r.getByRole('status').textContent).toBe('8 / 8 完了');expect(r.container.querySelector('.progress.complete')).toBeTruthy();fireEvent.click(boxes[2]!);expect(r.getByRole('status').textContent).toBe('7 / 8 完了');expect(r.container.querySelector('.progress.complete')).toBeNull();});
 
 for(const html of inventory.groups.glossary.items)it(`glossary independently searches ${html.match(/data-term="([^"]+)/)![1]}`,()=>{const C=component('Glossary');const r=render(<C/>);const input=r.getByRole('searchbox');const term=html.match(/data-term="([^"]+)/)![1]!.split(' ')[0]!;fireEvent.change(input,{target:{value:'  '+term.toLowerCase()+'  '}});const visible=[...r.container.querySelectorAll('.gloss-card')].filter(n=>!n.hasAttribute('hidden'));expect(visible.length).toBeGreaterThan(0);for(const n of visible)expect(n.getAttribute('data-term')!.toLowerCase()).toContain(term.toLowerCase());expect(r.getByRole('status').textContent).toBe(visible.length+' 件');fireEvent.change(input,{target:{value:'zz-no-such-term'}});expect(r.getByRole('status').textContent).toBe('0 件');expect((r.container.querySelector('.gloss-empty') as HTMLElement).style.display).toBe('block');fireEvent.change(input,{target:{value:''}});expect(r.getByRole('status').textContent).toBe('14 件');});
-it('FAQ first answer starts open and all FAQ/quiz answers preserve native details',()=>{for(const name of ['Section14','Section16']){const C=component(name);const r=render(<C/>);const details=r.container.querySelectorAll('details');expect(details.length).toBe(name==='Section14'?7:3);expect(details[0]!.open).toBe(name==='Section14');for(const d of details){expect(d.querySelector('summary')).toBeTruthy();d.open=!d.open;expect(d.querySelector('summary')!.textContent).toBeTruthy();}r.unmount();}});
+it('FAQ first answer starts open and all FAQ/quiz answers preserve native details',async()=>{
+ const user=userEvent.setup();
+ for(const name of ['Section14','Section16']){
+  const C=component(name);const r=render(<C/>);const details=r.container.querySelectorAll('details');
+  expect(details.length).toBe(name==='Section14'?7:3);
+  expect(details[0]!.open).toBe(name==='Section14');
+  for(const d of details){
+   const summary=d.querySelector('summary')!;
+   expect(summary).toBeTruthy();expect(summary.textContent).toBeTruthy();
+   const initial=d.open;
+   await user.click(summary);expect(d.open).toBe(!initial);
+   // Native summary keyboard activation is checked in the Chromium layout suite;
+   // Happy DOM and user-event do not implement that browser default action.
+   await user.click(summary);expect(d.open).toBe(initial);
+  }
+  r.unmount();
+ }
+});
 it('all diagrams expose their accessible description and visible failure fallback',async()=>{for(const [index,d]of inventory.diagrams.entries()){let error:(()=>void)|undefined;const C=sourceModule(base+'/Diagram.tsx',{onMermaidChart:(_,cb)=>{error=cb;}}).default as React.ComponentType<{index:number}>;const r=render(<C index={index}/>);const description=d.edges.map(e=>{const [,from,to]=e.id.split('_');const text=(id:string|undefined)=>d.nodes.find(n=>n.id===id)!.text.replaceAll('<br/>',' ');return `「${text(from)}」から「${text(to)}」へ${e.label?`（${e.label}）`:''}${e.dotted?'点線でつながる':'進む'}。`;}).join('');expect(r.getByRole('img').getAttribute('aria-label')).toBe(description);await act(async()=>error?.());expect(r.getByRole('alert').textContent).toContain(description);r.unmount();}});
 it('server-rendered page hydrates without text, table or nested-label warnings',async()=>{const C=component('page');const container=document.createElement('div');document.body.append(container);container.innerHTML=renderToString(<C/>);const errors:unknown[]=[];const previous=console.error;console.error=(...args)=>errors.push(args);let root:ReturnType<typeof hydrateRoot>|undefined;try{await act(async()=>{root=hydrateRoot(container,<C/>,{onRecoverableError:e=>errors.push(e)});});expect(errors).toEqual([]);}finally{await act(async()=>root?.unmount());console.error=previous;container.remove();}});
 

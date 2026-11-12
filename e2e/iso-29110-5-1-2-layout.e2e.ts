@@ -7,7 +7,7 @@ import { sourceModule } from '../tests/helpers/source-module';
 import inventory from '../docs/migration-inventory/iso-iec-29110-5-1-2-2025-beginner-guide.json';
 import { load } from 'cheerio';
 /** Fix invalid source labels and script-initialized counters before comparing. */
-function applyReviewCorrections(html:string){const $=load(html);$('script').remove();$('label label').each((_,n)=>{ $(n).replaceWith($(n).contents()); });$('.progress-label').text('0 / 8 完了');return $('body').html()!;}
+function applyReviewCorrections(html:string){const $=load(html);$('script').remove();$('label label').each((_,n)=>{ $(n).replaceWith($(n).contents()); });$('.progress-label').text('0 / 8 完了');const s8=$('tr').filter((_,n)=>$(n).children('td').first().text().trim()==='S8');s8.children('td').eq(1).text(' Early Stage Adoption of ISO/IEC 29110 Software Project Management Practices: A Case Study ');s8.children('td').eq(2).text('Rory V. O’Connor');return $('body').html()!;}
 function publicationLabel(svg:string){return svg;}
 
 const base='app/iso-iec-29110-5-1-2-2025-beginner-guide';
@@ -46,7 +46,44 @@ for(const width of [390,768,980,981,1440]) for(const order of ['before','after']
 });
 
 
-for (const width of [390,768,980,981,1440]) test(width+'px chrome offsets',async({page})=>{await page.setViewportSize({width,height:980});await page.setContent('<style>'+globals+readFileSync(base+'/guide.css','utf8')+'</style>'+markup());await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('html')).toHaveCSS('scroll-behavior','auto');for(const height of [38,76,120]) {await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('.sidebar')).toHaveCSS('top',(60+height)+'px');if(width<=980){await expect(page.locator('.nav-toggle')).toHaveCSS('top',(72+height)+'px');await page.locator('.iso29110-page').evaluate(el=>el.classList.add('nav-open'));await page.locator('.nav-toggle').click({trial:true});}}});
+for (const width of [390,768,980,981,1440]) test(width+'px chrome offsets and native disclosures',async({page})=>{
+ await page.setViewportSize({width,height:980});
+ await page.setContent('<style>'+globals+readFileSync(base+'/guide.css','utf8')+'</style>'+markup());
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await expect(page.locator('html')).toHaveCSS('scroll-behavior','auto');
+ for(const height of [38,76,120]){
+  await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);
+  await expect(page.locator('.sidebar')).toHaveCSS('top',(60+height)+'px');
+  if(width<=980) await expect(page.locator('.nav-toggle')).toHaveCSS('top',(72+height)+'px');
+  for(const selector of ['h2','h3']){
+   const heading=page.locator('.iso29110-page '+selector).last();
+   await expect(heading).toHaveCSS('scroll-margin-top',((width<=980?132:80)+height)+'px');
+   await heading.evaluate(el=>el.scrollIntoView());
+   const top=await heading.evaluate(el=>el.getBoundingClientRect().top);
+   const bottom=width<=980?await page.locator('.nav-toggle').evaluate(el=>el.getBoundingClientRect().bottom):60+height;
+   expect(top).toBeGreaterThanOrEqual(bottom);
+  }
+  if(width<=980){
+   await page.locator('.iso29110-page').evaluate(el=>el.classList.add('nav-open'));
+   await page.locator('.nav-toggle').click({trial:true});
+   await page.locator('.iso29110-page').evaluate(el=>el.classList.remove('nav-open'));
+  }
+ }
+ const details=page.locator('details');
+ await expect(details).toHaveCount(10);
+ for(let i=0;i<await details.count();i++){
+  const disclosure=details.nth(i),summary=disclosure.locator('summary');
+  const initial=i===0;
+  expect(await disclosure.evaluate(el=>(el as HTMLDetailsElement).open)).toBe(initial);
+  await expect(summary).not.toBeEmpty();
+  await summary.click();
+  expect(await disclosure.evaluate(el=>(el as HTMLDetailsElement).open)).toBe(!initial);
+  await summary.press('Enter');
+  expect(await disclosure.evaluate(el=>(el as HTMLDetailsElement).open)).toBe(initial);
+  await summary.press('Space');
+  expect(await disclosure.evaluate(el=>(el as HTMLDetailsElement).open)).toBe(!initial);
+ }
+});
 
 for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) test(`${width}px ${d.id}: real Mermaid semantics, labels and palette`,async({page})=>{
   await page.setViewportSize({width,height:980});

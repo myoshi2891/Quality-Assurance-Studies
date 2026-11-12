@@ -33,6 +33,10 @@ function tree(n: AnyNode): unknown {
 function source(html: string) {
   const $ = load(html);
   $('script').remove();
+  // S8 bibliographic correction verified against the linked PDF; keep the archive intact.
+  const s8 = $('tr').filter((_, n) => $(n).children('td').first().text().trim() === 'S8');
+  s8.children('td').eq(1).text(' Early Stage Adoption of ISO/IEC 29110 Software Project Management Practices: A Case Study ');
+  s8.children('td').eq(2).text('Rory V. O’Connor');
   $('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');
   $('.diagram-scroll').each((_, n) => {
     const index = inventory.diagrams.findIndex(d => d.svg.includes($(n).find('svg').attr('id') ? `id=\"${$(n).find('svg').attr('id')}\"` : '__absent__')); 
