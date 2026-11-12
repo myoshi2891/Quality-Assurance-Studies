@@ -61,5 +61,8 @@
     "next": "^16.4.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
+  },
+  "patchedDependencies": {
+    "@mermaid-js/layout-elk@0.2.0": "patches/@mermaid-js%2Flayout-elk@0.2.0.patch"
   }
 }
