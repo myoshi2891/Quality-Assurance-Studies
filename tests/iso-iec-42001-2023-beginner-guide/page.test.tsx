@@ -65,7 +65,7 @@ describe('foundation CSS', () => {
   }));
   it('isolates CSS, restores preflight defaults and offsets application chrome', () => {
     const css = readFileSync(`${base}/guide.css`,'utf8');
-    postcss.parse(css).walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
+    postcss.parse(css).walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope) || (s === 'html' && r.parent?.type === 'atrule' && (r.parent as postcss.AtRule).params === '(prefers-reduced-motion: reduce)')).toBe(true)));
     for (const text of ['all: revert','var(--disclaimer-height, 0px)','height: calc(100dvh - 60px','scroll-margin-top: calc(80px','prefers-reduced-motion: reduce','foreignObject','max-width: none','.table-scroll:focus-visible']) expect(css).toContain(text);
     expect(css).not.toContain('--disclaimer-height: 0px');
   });

@@ -43,7 +43,7 @@ for(const width of [390,768,900,901,1440]) for(const order of ['before','after']
 });
 
 
-for (const width of [390,768,900,901,1440]) test(width+'px chrome offsets',async({page})=>{await page.setViewportSize({width,height:900});await page.setContent('<style>'+globals+readFileSync(base+'/guide.css','utf8')+'</style>'+markup());for(const height of [38,76,120]) {await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('.sidebar')).toHaveCSS('top',(60+height)+'px');await expect(page.locator('.toggle')).toHaveCSS('top',(72+height)+'px');if(width<=900){await page.locator('.sidebar').evaluate(el=>el.classList.add('open'));await page.locator('.toggle').click({trial:true});}}});
+for (const width of [390,768,900,901,1440]) test(width+'px chrome offsets',async({page})=>{await page.setViewportSize({width,height:900});await page.setContent('<style>'+globals+readFileSync(base+'/guide.css','utf8')+'</style>'+markup());await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('html')).toHaveCSS('scroll-behavior','auto');for(const height of [38,76,120]) {await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('.sidebar')).toHaveCSS('top',(60+height)+'px');await expect(page.locator('.toggle')).toHaveCSS('top',(72+height)+'px');if(width<=900){await page.locator('.sidebar').evaluate(el=>el.classList.add('open'));await page.locator('.toggle').click({trial:true});}}});
 
 for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) test(`${width}px ${d.id}: real Mermaid semantics, labels and palette`,async({page})=>{
   await page.setViewportSize({width,height:900});
@@ -64,8 +64,19 @@ for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) 
     const axis=x>y?0:1;
     expect(Math.sign(current[to!]![axis]!-current[from!]![axis]!),edge).toBe(Math.sign(b[axis]!-a[axis]!));
   }
-  const reachable=await page.locator(`#${d.id}`).evaluate(el=>{const svg=el.querySelector('svg')!,left=svg.getBoundingClientRect().left;const start=el.scrollLeft;el.scrollLeft=el.scrollWidth;return {left,outer:el.getBoundingClientRect().left,moved:start===el.scrollLeft?0:left-svg.getBoundingClientRect().left,scroll:el.scrollLeft};});
+  const reachable=await page.locator(`#${d.id} .mermaid-wrapper`).evaluate(el=>{
+    const svg=el.querySelector('svg')!;
+    el.scrollLeft=0;
+    const left=svg.getBoundingClientRect().left,outer=el.getBoundingClientRect().left;
+    const overflowing=el.scrollWidth>el.clientWidth;
+    el.scrollLeft=el.scrollWidth;
+    return {left,outer,overflowing,moved:left-svg.getBoundingClientRect().left,scroll:el.scrollLeft};
+  });
   expect(reachable.left).toBeGreaterThanOrEqual(reachable.outer);
+  if(reachable.overflowing) {
+    expect(reachable.scroll).toBeGreaterThan(0);
+    expect(reachable.moved).toBeGreaterThan(0);
+  }
   expect(Math.abs(reachable.moved-reachable.scroll)).toBeLessThanOrEqual(1);
   expect(await page.locator(`#${d.id} svg`).count()).toBe(1);
   await ref.close();
