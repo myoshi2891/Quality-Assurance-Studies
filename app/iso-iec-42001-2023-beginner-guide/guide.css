@@ -65,7 +65,7 @@
 .iso42001-page *::-webkit-scrollbar { width: 6px; height: 6px; }
 .iso42001-page *::-webkit-scrollbar-track { background: transparent; }
 .iso42001-page *::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
-.iso42001-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; }
+.iso42001-page .mermaid-wrapper { overflow-x: auto; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; }
 .iso42001-page .mermaid-wrapper svg { display: block; max-width: none !important; height: auto !important; margin: 0 auto; }
 .iso42001-page .mermaid-wrapper foreignObject { overflow: visible !important; }
 .iso42001-page .mermaid-wrapper foreignObject p, .iso42001-page .mermaid-wrapper foreignObject span, .iso42001-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.5 !important; }
@@ -78,7 +78,7 @@
  .iso42001-page .sidebar.open { visibility: visible; }
  .iso42001-page h2, .iso42001-page h3 { scroll-margin-top: calc(130px + var(--disclaimer-height, 0px)); }
 }
-@media (prefers-reduced-motion: reduce) { .iso42001-page * { scroll-behavior: auto; transition: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .iso42001-page * { scroll-behavior: auto; transition: none; } }
 
 
 .iso42001-page .hero { text-align: start; }
