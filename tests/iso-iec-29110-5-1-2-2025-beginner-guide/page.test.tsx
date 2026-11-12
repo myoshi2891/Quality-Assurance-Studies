@@ -76,7 +76,7 @@ describe('foundation CSS', () => {
   }));
   it('isolates original styles, resets shared styling, retains sticky/grid layout and offsets application chrome', () => {
     const css = readFileSync(`${base}/guide.css`,'utf8');
-    postcss.parse(css).walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope)).toBe(true)));
+    postcss.parse(css).walkRules(r => r.selectors.forEach(s => expect(s.startsWith(scope) || s === 'html:has(.iso29110-page)').toBe(true)));
     for (const text of ['all: revert','var(--disclaimer-height, 0px)','height: calc(100dvh - 60px','scroll-margin-top: calc(80px','prefers-reduced-motion: reduce','foreignObject','max-width: none','.table-scroll:focus-visible']) expect(css).toContain(text);
     expect(css).not.toContain('--disclaimer-height: 0px');
   });
@@ -130,3 +130,5 @@ describe('assembled source inventory', () => {
     });
   });
 });
+
+it('disables document scrolling animation for reduced motion only while this route exists',()=>{const css=readFileSync(`${base}/guide.css`,'utf8');expect(css).toContain('html:has(.iso29110-page)');});
