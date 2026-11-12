@@ -1,0 +1,11 @@
+import React from 'react';
+import Diagram from './Diagram';
+/** 0. 30秒で分かる要約 */
+export default function Section01(){return <><h2 id="0-30秒で分かる要約">{"0. 30秒で分かる要約"}</h2>
+{"\n            "}
+<div className="table-scroll" tabIndex="0" role="region" aria-labelledby="0-30秒で分かる要約">{"\n                "}<table><thead><tr className="header"><th style={{"textAlign":"left"}}>{"質問"}</th><th style={{"textAlign":"left"}}>{"答え"}</th></tr></thead><tbody><tr className="odd"><td style={{"textAlign":"left"}}>{"これは何の規格？"}</td><td style={{"textAlign":"left"}}>{"\n                                25人以下の小さな組織が、"}<strong>{"重すぎない"}</strong>{"やり方でソフトウェア開発を管理するための"}<strong>{"ガイドライン"}</strong>{"\n                            "}</td></tr><tr className="even"><td style={{"textAlign":"left"}}>{"何が書かれている？"}</td><td style={{"textAlign":"left"}}>{"\n                                "}<strong>{"プロジェクト管理（PM）"}</strong>{" と\n                                "}<strong>{"ソフトウェア実装（SI）"}</strong>{"\n                                の2つのプロセスの目的・活動・タスク・役割・成果物\n                            "}</td></tr><tr className="odd"><td style={{"textAlign":"left"}}>{"誰向け？"}</td><td style={{"textAlign":"left"}}>{"\n                                安全重要でないソフトを、"}<strong>{"1つのチーム"}</strong>{"で"}<strong>{"1つの製品"}</strong>{"として開発するVSE\n                            "}</td></tr><tr className="even"><td style={{"textAlign":"left"}}>{"開発手法は？"}</td><td style={{"textAlign":"left"}}>{"\n                                ウォーターフォール、反復、アジャイルなど"}<strong>{"何でもよい"}</strong>{"\n                            "}</td></tr><tr className="odd"><td style={{"textAlign":"left"}}>{"2025年版の新しさは？"}</td><td style={{"textAlign":"left"}}>{"\n                                2011年版TRを改訂し、サポート・テスト・アクセシビリティ・セキュリティの"}<strong>{"追加パート（付録A〜D）"}</strong>{"\n                                が加わった\n                            "}</td></tr></tbody></table>{"\n            "}</div>
+{"\n            "}
+<figure className="diagram" data-diagram="1">{"\n                "}<div className="diagram-scroll"><Diagram index={0} /></div>{"\n                "}<figcaption>{"図1"}</figcaption>{"\n            "}</figure>
+{"\n            "}
+<p className="source-line">{"出典：ISO公式ページ（S1）、規格プレビュー（S3）。"}</p>
+{"\n\n            "}</>;}
