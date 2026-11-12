@@ -39,7 +39,7 @@ function source(html: string) {
     $(n).html(`<div class="mermaid-source" data-diagram="diagram-${index}"></div>`);
   });
   // Original check markup nests labels illegally; use one accessible label per item.
-  $('label label').each((_,n)=>$(n).replaceWith($(n).contents()));
+  $('label label').each((_,n)=>{ $(n).replaceWith($(n).contents()); });
   $('.progress-label').text('0 / 8 完了');
   $('.sidebar').removeAttr('id');
   $('table,thead,tbody,tfoot,tr,colgroup').contents().filter((_, n) => n.type === 'text' && /^\s*$/.test(n.data)).remove();
@@ -92,7 +92,7 @@ describe('source diagrams', () => {
     expect(norm(chart.slice(chart.indexOf('}%%') + 3))).toBe(norm(diagram.source));
     const config = JSON.parse(chart.match(/%%\{init: ([\s\S]*?)\}%%/)![1]!);
     expect(config.theme).toBe('base');
-    expect(config.themeVariables).toMatchObject({ primaryTextColor:'#e6edf7',lineColor:'#7c9eff',edgeLabelBackground:'#0d1b2e' });
+    expect(config.themeVariables).toMatchObject({ primaryTextColor:'#e6edf7',lineColor:'#9db4e0',edgeLabelBackground:'#0d1b2e' });
     expect(chart.split('}%%')[0]).not.toContain("'");
     const entry: string = 'mermaid/dist/mermaid.esm.mjs';
     await expect((await import(entry)).default.parse(chart)).resolves.toBeTruthy();
