@@ -1,8 +1,17 @@
 # Project Overview
 
-Updated 2026-11-12
+Updated 2026-11-13
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-13: ISO/IEC 2382-15:1999 初学者ガイドの移行
+
+- `/iso-iec-2382-15-guide`をISOカテゴリーへ登録し、131ルート（ホーム＋130ガイド）へ同期。
+- 導入と第1〜9章の全10カテゴリーを順に実装・テストし、カテゴリーごとに個別コミット。49見出し、43階層目次リンク、18表の全セル、14図、9コード例、13コールアウト、15用語欄、26外部リンク、5チェック、5ネイティブ回答、3メタ情報、全87 CSSルールを固定インベントリと一対一照合。
+- `app/iso-iec-2382-15-guide/`に`page.tsx`、`guide.css`、`Section00.tsx`〜`Section09.tsx`、`NavBar.tsx`、`toc.ts`、`Diagram.tsx`、`diagrams.ts`、`Checklist.tsx`を配置。288px固定目次、960px境界、ダーク配色、装飾、コード強調、チェック進捗、目次内の現在項目追従を保持。ヘッダー・動的免責高さと重ならない位置へ調整。
+- 図はHTML内SVGからノードと全接続を抽出し、原本の書体・配色・図形・矢印方向を維持。共有Mermaidは変更せず、代替説明と可視エラーフォールバックを付与。
+- 原本は`archive/html-archive/iso/Iso-iec-2382-15-guide.html`、`archive/md-archive/iso/Iso-iec-2382-15-guide.md`へ同一内容で移動。SHA-256、Git追跡、rename 100%、アーカイブからの棚卸し再現性を検証。
+- npm経由で対象349件（page:321、interactions:24、integration:4）、共有Mermaid契約261件、ブラウザー自動比較44件、対象型検査、lint、Markdown lintを検証。全体14,400件（243ファイル）。ブラウザー比較は5幅×CSS読込2順序、14図×2幅、5幅でのヘッダーオフセット・回答のキーボード操作、全9コード例の原本強調トークン・配色・空白比較を含む。ビルド未実施、目視確認はユーザー担当。
 
 ## 2026-11-12: ISO/IEC 29110-5-1-2:2025 Basicプロファイルガイドの移行
 
@@ -967,11 +976,12 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 130 ルート（ガイドライブラリ index + 129 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 131 ルート（ガイドライブラリ index + 130 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
+  1. `/iso-iec-2382-15-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-29110-5-1-2-2025-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-42001-2023-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-tr-29119-13-guide`の目視確認（ユーザー担当、ビルド未実施）。

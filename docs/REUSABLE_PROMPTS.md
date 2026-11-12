@@ -1,6 +1,8 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-11-12
+最終更新日: 2026-11-13
+
+`/iso-iec-2382-15-guide`は導入＋9章をカテゴリーごとに個別コミットして移行済み。HTML・Markdownは同一内容でアーカイブ済み。`npm test -- tests/iso-iec-2382-15-guide`と`npm run e2e:layout -- --project=iso-2382-15`で349件の契約と44件の原本デザイン自動比較を再検証できます。目視確認はユーザー担当、ビルド未実施。
 
 `/iso-iec-29110-5-1-2-2025-beginner-guide`は全18カテゴリーを個別コミットして移行済み。原本HTML・Markdownは同一内容でアーカイブ済み。目視確認はユーザー担当、ビルド未実施。`npm test -- tests/iso-iec-29110-5-1-2-2025-beginner-guide`と`npm run e2e:layout -- --project=iso-29110-5-1-2`で再検証できます。
 
