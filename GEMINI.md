@@ -4,6 +4,15 @@ Updated 2026-11-13
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-13: ISO/IEC FDIS 33063 初学者ガイドの移行
+
+- `/iso-33063-fdis-guide`をISOカテゴリーへ登録し、132ルート（ホーム＋131ガイド）へ同期。
+- 導入と第1〜14章の全15カテゴリーを順番に実装・照合し、個別コミット。51見出し、14目次リンク、24表の全セル、9図、16コールアウト、22外部リンク、5ネイティブ回答、3メタ情報、全50 CSSルールを固定インベントリと一対一照合。通常のコードブロックは原本どおり0件。
+- `app/iso-33063-fdis-guide/`に`page.tsx`、`guide.css`、`Section00.tsx`〜`Section14.tsx`、`NavBar.tsx`、`toc.ts`、`Diagram.tsx`、`diagrams.ts`、`elk-layout.d.ts`を配置。280px固定目次、900px境界、ダーク配色、装飾、表の中央揃え、回答欄を保持し、ヘッダー・動的免責高さを回避。目次の開閉・キーボード操作・現在位置追従を検証。
+- 原本SVGとMarkdownを照合して、グループ枠・色分け・点線・分岐・シーケンス図を復元。neo描画、120px固定ラベル、40pxのノード・ランク間隔、書体・配色・改行を保持。現行Mermaidによるグループ内の経路長再計算は、線種・矢印端余白・接続方向と区別して検証。循環フィードバックを含む複合階層図だけ公式ELK拡張を使い、他の図の方向も保持。`@mermaid-js/layout-elk@0.2.0`を固定し、`bun.lock`を同期。共有Mermaidは変更せず、拡張をページ側で遅延ロードする。参加者名を使う代替説明と可視エラーフォールバックを付与。
+- 原本は`archive/html-archive/iso/Iso-33063-fdis-guide.html`、`archive/md-archive/iso/Iso-33063-fdis-guide.md`へ同一内容で移動。SHA-256・Git追跡・rename 100%と、アーカイブからの棚卸し再現性を検証。
+- npm経由で対象274件（page:255、interactions:14、integration:5）、共有Mermaid契約263件、ブラウザー自動比較33件、対象型検査、lint、Markdown lintを検証。全体14,676件（246ファイル）。ブラウザー比較は5幅×CSS読込2順序、9図×2幅、5幅でのヘッダーオフセット・回答のキーボード操作を含む。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-13: ISO/IEC 2382-15:1999 初学者ガイドの移行
 
 - `/iso-iec-2382-15-guide`をISOカテゴリーへ登録し、131ルート（ホーム＋130ガイド）へ同期。
@@ -976,11 +985,12 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 131 ルート（ガイドライブラリ index + 130 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 132 ルート（ガイドライブラリ index + 131 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
+  1. `/iso-33063-fdis-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-2382-15-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-29110-5-1-2-2025-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-42001-2023-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
