@@ -9,10 +9,10 @@ describe('IEC 62304 registration and original archives', () => {
     it('registers once in the international standards category after ISO 29119', () => {
         const entries = NAV_ITEMS.filter(item => item.href === href); expect(entries).toHaveLength(1);
         expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
-        expect(groupByCategory(NAV_ITEMS).find(g => g.category === 'iso')?.items.map(i => i.href)).toEqual(['/iso-29119-1-2022-guide', href, '/iso-9075-1-guide', '/iso-11179-1-2023-guide','/iso-14496-22-guide','/iso-19770-5-guide','/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide','/iso-14496-22-2026-beginner-guide','/iso-iec-30141-2024-guide']);
+        expect(groupByCategory(NAV_ITEMS).find(g => g.category === 'iso')?.items.map(i => i.href)).toEqual(['/iso-29119-1-2022-guide', href, '/iso-9075-1-guide', '/iso-11179-1-2023-guide','/iso-14496-22-guide','/iso-19770-5-guide','/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide','/iso-14496-22-2026-beginner-guide','/iso-iec-30141-2024-guide','/iso-iec-ts-30149-2024-guide','/iso-iec-ieee-29119-3-2021-guide','/iso-iec-9075-1-2023-guide','/iso-iec-40500-2025-guide','/iec62304-beginner-guide','/iso-19770-1-guide','/iso-27031-2025-guide','/iso-30173-guide','/iso-iec-tr-29119-13-guide','/iso-iec-awi-ts-42119-7-guide','/iso-iec-42001-2023-beginner-guide']);
     });
-    it('synchronizes 118 registered routes and the source H1', () => {
-        expect(EXPECTED_PAGE_COUNT).toBe(118); expect(NAV_ITEMS).toHaveLength(118); expect(PAGES).toHaveLength(118);
+    it('synchronizes 128 registered routes and the source H1', () => {
+        expect(EXPECTED_PAGE_COUNT).toBe(129); expect(NAV_ITEMS).toHaveLength(129); expect(PAGES).toHaveLength(129);
         const entries = PAGES.filter(p => p.path === href); expect(entries).toHaveLength(1); expect(entries[0]?.h1.test('IEC 62304:2006 初学者向けステップバイステップ解説ガイド')).toBe(true);
     });
     for (const ext of ['html', 'md'] as const) {

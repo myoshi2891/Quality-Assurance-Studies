@@ -44,6 +44,10 @@ test.describe('smoke: all pages', () => {
       await expect(page.getByRole('link', { name: 'QA_STUDIES' })).toBeVisible();
       await expect(page.getByRole('heading', { level: 1, name: p.h1 })).toBeVisible();
 
+      if (p.uniqueText) {
+        await expect(page.getByRole('heading', { level: 2, name: p.uniqueText })).toBeVisible();
+      }
+
       await page.waitForLoadState('networkidle');
 
       expect(pageErrors, `pageerror events on ${p.path}`).toEqual([]);

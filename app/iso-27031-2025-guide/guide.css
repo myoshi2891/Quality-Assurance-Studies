@@ -1,0 +1,589 @@
+/* ==========================================================================
+   ISO/IEC 27031:2025 Guide Scoped CSS & Resets
+   ========================================================================== */
+
+.iso27031-page, .iso27031-page :where(:not(svg, svg *)) {
+    all: revert;
+}
+
+.iso27031-page {
+    --bg: #07111e;
+    --panel: #0d1b2e;
+    --card: #12233b;
+    --line: #25405f;
+    --text: #e6eefc;
+    --dim: #c7d6ec;
+    --ink: var(--dim);
+    --faint: #9cb0cf;
+    --accent: #7c9eff;
+    --sw: 280px;
+}
+
+.iso27031-page * {
+    box-sizing: border-box;
+}
+
+.iso27031-page {
+    overflow-x: clip;
+}
+
+.iso27031-page {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP',
+                    -apple-system,
+                    'Hiragino Kaku Gothic ProN',
+                    'Yu Gothic',
+                    Meiryo,
+                    sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    overflow-x: clip;
+}
+
+.iso27031-page .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--sw);
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 20px 14px;
+    z-index: 20;
+}
+
+.iso27031-page .side-title {
+    font-weight: 800;
+    color: var(--accent);
+    font-size: 15px;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+}
+
+.iso27031-page .sidebar nav a {
+    display: block;
+    color: var(--faint);
+    text-decoration: none;
+    font-size: 13.5px;
+    line-height: 1.5;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+}
+
+.iso27031-page .sidebar nav a.nav-h3 {
+    padding-left: 22px;
+    font-size: 12.5px;
+}
+
+.iso27031-page .sidebar nav a:hover {
+    color: var(--text);
+    background: #12233b;
+}
+
+.iso27031-page .sidebar nav a.active {
+    color: #fff;
+    background: #16304f;
+    border-left-color: var(--accent);
+}
+
+.iso27031-page .main {
+    margin-left: var(--sw);
+    padding: 40px 48px 80px;
+}
+
+.iso27031-page .hero {
+    position: relative;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, #0f2038, #0b1829);
+    border-radius: 16px;
+    padding: 32px 36px;
+    margin-bottom: 36px;
+    overflow: hidden;
+}
+
+.iso27031-page .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(124, 158, 255, 0.28), transparent 70%);
+}
+
+.iso27031-page .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin-bottom: 14px;
+}
+
+.iso27031-page .hero-title {
+    margin: 0 0 18px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.4;
+    position: relative;
+}
+
+.iso27031-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    position: relative;
+}
+
+.iso27031-page .hero-meta p {
+    margin: 0;
+    padding: 4px 18px;
+    border-right: 1px solid var(--line);
+    font-size: 13.5px;
+    color: var(--dim);
+    flex: 1 1 260px;
+}
+
+.iso27031-page .hero-meta p:last-child {
+    border-right: none;
+}
+
+.iso27031-page h2 {
+    font-size: 23px;
+    font-weight: 800;
+    margin: 56px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    color: #fff;
+    scroll-margin-top: 16px;
+}
+
+.iso27031-page h3 {
+    font-size: 18.5px;
+    font-weight: 700;
+    margin: 34px 0 12px;
+    color: var(--accent);
+    scroll-margin-top: 16px;
+}
+
+.iso27031-page h4 {
+    font-size: 16.5px;
+    margin: 26px 0 10px;
+    color: var(--text);
+}
+
+.iso27031-page p, .iso27031-page ul, .iso27031-page ol {
+    color: var(--dim);
+}
+
+.iso27031-page strong {
+    color: #fff;
+}
+
+.iso27031-page a {
+    color: var(--accent);
+    word-break: break-all;
+}
+
+.iso27031-page hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 36px 0;
+}
+
+.iso27031-page code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.88em;
+    background: #0d1b2e;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1px 6px;
+    color: #bcd0ff;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.iso27031-page blockquote {
+    margin: 20px 0;
+    padding: 14px 20px;
+    background: var(--panel);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+}
+
+.iso27031-page blockquote p {
+    margin: 6px 0;
+    color: var(--dim);
+}
+
+.iso27031-page .table-scroll {
+    overflow-x: auto;
+    margin: 18px 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.iso27031-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14.5px;
+}
+
+.iso27031-page th {
+    background: #16304f;
+    color: #fff;
+    text-align: left;
+    font-weight: 700;
+}
+
+.iso27031-page th, .iso27031-page td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    color: var(--dim);
+}
+
+/* Keep cell typography stable when shared table rules load later. */
+.iso27031-page th, .iso27031-page td {
+    color: var(--ink) !important;
+    font-size: inherit !important;
+}
+
+.iso27031-page td strong {
+    color: #fff;
+}
+
+.iso27031-page tr:last-child td {
+    border-bottom: none;
+}
+
+.iso27031-page tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.iso27031-page ul li input[type='checkbox'] {
+    margin-right: 8px;
+    accent-color: var(--accent);
+}
+
+.iso27031-page li {
+    margin: 4px 0;
+}
+
+.iso27031-page .mermaid-diagram {
+    display: block;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 22px 0;
+}
+
+.iso27031-page .mermaid-diagram svg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: none;
+    flex-shrink: 0;
+}
+
+.iso27031-page .mermaid-diagram foreignObject div, .iso27031-page .mermaid-diagram foreignObject span, .iso27031-page .mermaid-diagram foreignObject p {
+    white-space: normal !important;
+}
+
+.iso27031-page .mermaid-diagram foreignObject {
+    overflow: visible;
+}
+
+.iso27031-page .mermaid-diagram p {
+    color: inherit;
+    margin: 0;
+}
+
+.iso27031-page .page-footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--faint);
+    font-size: 13px;
+}
+
+.iso27031-page .nav-toggle {
+    display: none;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 30;
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font: inherit;
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .iso27031-page .nav-toggle {
+        display: block;
+    }
+    .iso27031-page .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s;
+    }
+    .iso27031-page .sidebar.open {
+        transform: none;
+    }
+    .iso27031-page .main {
+        margin-left: 0;
+        padding: 64px 16px 60px;
+    }
+    .iso27031-page .hero {
+        padding: 22px 18px;
+    }
+    .iso27031-page .hero-title {
+        font-size: 22px;
+    }
+    .iso27031-page .hero-meta p {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+}
+
+.iso27031-page .checklist-card {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, #0f2038, #0b1829);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 20px 0;
+}
+
+.iso27031-page .checklist-progress {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    position: sticky;
+    top: 0;
+}
+
+/* The live status stays available to assistive technology without changing the progress row layout. */
+.iso27031-page .checklist-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.iso27031-page .cp-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.iso27031-page .cp-bar {
+    flex: 1;
+    height: 10px;
+    background: #0d1b2e;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.iso27031-page .cp-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #4f78e8, #7c9eff);
+    border-radius: 999px;
+    transition: width 0.25s;
+}
+
+.iso27031-page .cp-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--dim);
+    min-width: 52px;
+    text-align: right;
+}
+
+.iso27031-page .check-group {
+    margin-top: 18px;
+}
+
+.iso27031-page .cg-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.iso27031-page .cg-icon {
+    font-size: 20px;
+}
+
+.iso27031-page .cg-phase {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 1px 10px;
+}
+
+.iso27031-page .cg-name {
+    font-weight: 700;
+    color: #fff;
+    font-size: 15px;
+}
+
+.iso27031-page ul.check-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.iso27031-page .check-item {
+    margin: 0;
+}
+
+.iso27031-page .check-item label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    height: 100%;
+    padding: 12px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--dim);
+    transition: border-color 0.15s,
+                    background 0.15s;
+}
+
+.iso27031-page .check-item label:hover {
+    border-color: var(--accent);
+    background: #16304f;
+}
+
+.iso27031-page .check-item input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.iso27031-page .ci-box {
+    flex: 0 0 22px;
+    height: 22px;
+    margin-top: 2px;
+    border: 2px solid var(--faint);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: transparent;
+    font-weight: 800;
+}
+
+.iso27031-page .ci-num {
+    flex: 0 0 auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--faint);
+    margin-top: 4px;
+}
+
+.iso27031-page .ci-text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    min-width: 0;
+}
+
+.iso27031-page .check-item input:checked ~ .ci-box {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #07111e;
+}
+
+.iso27031-page .check-item input:checked ~ .ci-text {
+    color: var(--faint);
+    text-decoration: line-through;
+    text-decoration-color: var(--faint);
+}
+
+.iso27031-page .check-item label:has(input:checked) {
+    border-color: #4f78e8;
+    background: #12294a;
+}
+
+.iso27031-page .check-item input:focus-visible ~ .ci-box {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.iso27031-page .cp-done {
+    margin-top: 18px;
+    padding: 12px 16px;
+    border: 1px solid var(--accent);
+    background: #12294a;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+}
+
+@media (max-width: 700px) {
+    .iso27031-page ul.check-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* clip keeps horizontal overflow contained without making this wrapper a sticky scroll container. */
+/* Fixed application header and dynamic disclaimer are outside this page. */
+.iso27031-page .checklist-progress { top: calc(60px + var(--disclaimer-height, 0px)); background: var(--card); z-index: 10; }
+.iso27031-page .sidebar { top: calc(60px + var(--disclaimer-height, 0px)); }
+.iso27031-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
+.iso27031-page h2, .iso27031-page h3, .iso27031-page h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+/* On narrow screens the fixed .nav-toggle (top 72px, about 36px tall) overlaps the landing position, so clear its bottom edge. */
+@media (max-width: 900px) {
+    .iso27031-page h2, .iso27031-page h3, .iso27031-page h4 { scroll-margin-top: calc(124px + var(--disclaimer-height, 0px)); }
+    .iso27031-page .checklist-progress { top: calc(124px + var(--disclaimer-height, 0px)); }
+    .iso27031-page .sidebar { visibility: hidden; transition: transform 0.2s, visibility 0s linear 0.2s; }
+    .iso27031-page .sidebar.open { visibility: visible; transition: transform 0.2s, visibility 0s; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .iso27031-page .sidebar, .iso27031-page .sidebar.open { transition: none; }
+}
+
+.iso27031-page .main { max-width: none; }
+.iso27031-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; display: block !important; overflow: visible !important; }
+.iso27031-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iso27031-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iso27031-page .mermaid-wrapper .edgeLabel, .iso27031-page .mermaid-wrapper .edgeLabel p, .iso27031-page .mermaid-wrapper .edgeLabel span { color: #c7d6ec !important; background-color: #07111e !important; }
+.iso27031-page .mermaid-wrapper .edgeLabel rect { fill: #07111e !important; }
+.iso27031-page .sidebar a:focus-visible, .iso27031-page button:focus-visible, .iso27031-page summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* キーボードで横スクロールできる表・図の領域にも、同じフォーカスの輪郭を出す。 */
+.iso27031-page .table-scroll:focus-visible, .iso27031-page .mermaid-diagram:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.iso27031-page .hero { min-height: 0; display: block; text-align: start; }
+.iso27031-page .hero::after { all: revert; }
+.iso27031-page .hero-title { font-family: inherit; background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.iso27031-page .hero-meta { animation: none; justify-content: normal; gap: 0; }
+.iso27031-page table { color: var(--text); }
+.iso27031-page tbody tr:hover td { background: transparent; }
+.iso27031-page tbody tr:nth-child(even):hover td { background: rgba(255, 255, 255, 0.02); }

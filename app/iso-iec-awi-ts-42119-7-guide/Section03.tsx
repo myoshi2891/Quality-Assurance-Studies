@@ -1,0 +1,117 @@
+import React from 'react';
+import Diagram from './Diagram';
+/** Preserve source category: 2. 規格の基本情報とステータス（Step 0）. */
+export default function Section03() {
+    return <>
+<h2 id="2-規格の基本情報とステータスstep-0">{"2.\n規格の基本情報とステータス（Step 0）"}</h2>{"\n"}
+<div className="callout callout-intro">
+<div className="callout-head">
+<span className="callout-icon">{"💡"}</span>
+<span className="callout-title">{"この章でやること"}</span>
+</div>
+<div className="callout-body">
+<p>{"この章では、規格の正式名称、開発の進み具合、担当組織を整理します。「今どこまで進んでいるのか」を正しく把握することが目的です。"}</p>
+</div>
+</div>{"\n"}
+<h3 id="2-1-基本情報-">{"2-1. 基本情報 🟢"}</h3>{"\n"}
+<div className="table-scroll" tabIndex={0} role="region" aria-labelledby="2-1-基本情報-">
+<table>
+<thead>
+<tr className="header">
+<th>{"項目"}</th>
+<th>{"内容"}</th>
+</tr>
+</thead>
+<tbody>
+<tr className="odd">
+<td>{"正式名称"}</td>
+<td>{"Artificial intelligence — Testing of AI — Part 7: Red teaming"}</td>
+</tr>
+<tr className="even">
+<td>{"文書の種類"}</td>
+<td>{"Technical Specification（TS：技術仕様書）"}</td>
+</tr>
+<tr className="odd">
+<td>{"版"}</td>
+<td>{"Edition 1（第1版）"}</td>
+</tr>
+<tr className="even">
+<td>{"現在のステータス"}</td>
+<td>{"Under development（開発中）、ステージ 20.00"}</td>
+</tr>
+<tr className="odd">
+<td>{"担当委員会"}</td>
+<td>{"ISO/IEC JTC 1/SC 42（人工知能の分野を担当する委員会）"}</td>
+</tr>
+<tr className="even">
+<td>{"補足"}</td>
+<td>{"ISO公式ページには「作業部会がドラフトを準備した」と記載されています"}</td>
+</tr>
+</tbody>
+</table>
+</div>{"\n"}
+<h3 id="2-2-日付の経緯-">{"2-2. 日付の経緯 🟢"}</h3>{"\n"}
+<div className="table-scroll" tabIndex={0} role="region" aria-labelledby="2-2-日付の経緯-">
+<table>
+<thead>
+<tr className="header">
+<th>{"ステージ"}</th>
+<th>{"日付"}</th>
+<th>{"意味"}</th>
+</tr>
+</thead>
+<tbody>
+<tr className="odd">
+<td>{"10.99"}</td>
+<td>{"2025-04-15"}</td>
+<td>{"新規プロジェクトの承認"}</td>
+</tr>
+<tr className="even">
+<td>{"20.00"}</td>
+<td>{"2025-04-15"}</td>
+<td>{"委員会の作業計画に新規プロジェクトとして登録（"}<strong>{"現在の表示"}</strong>{"）"}</td>
+</tr>
+</tbody>
+</table>
+</div>{"\n"}
+<p>{"DIN（ドイツ規格協会）の案件ページには、国際側の担当が "}<strong>{"ISO/IEC\nJTC 1/SC 42/JWG 2"}</strong>{" と書かれています🟢。JWG（Joint Working\nGroup）とは、SC 42 と SC\n7（ソフトウェア工学の委員会）が共同で運営する作業部会のことで、DINのドイツ語ページでは「AIベースシステムのテスト」を扱うグループと説明されています。"}</p>{"\n"}
+<h3 id="2-3-ステージの全体像">{"2-3. ステージの全体像"}</h3>{"\n"}
+<p>{"この図は、ISOの規格づくりの段階を、ISO公式ページに載っているステージ名に沿って並べたものです。左から右へ読み進めてください。色のついたノードが現在地です。"}</p>{"\n"}
+<Diagram index={0}/>{"\n"}
+<div className="legend">
+<div className="legend-head">{"各ノードの意味："}</div>
+<ul>{"\n"}
+<li>{"「10.99\n新規プロジェクト承認」：この作業を始めてよいと正式に認められた"}</li>{"\n"}
+<li>{"「20.00\n作業計画に登録」：委員会の作業リストに載った。"}<strong>{"ISO公式ページが示す現在地"}</strong>
+</li>{"\n"}
+<li>{"「20.20 〜\n20.99」：作業原案（WD）を議論し、コメントを集め、委員会原案へ進めてよいか決める準備段階"}</li>{"\n"}
+<li>{"「30.00 〜 30.99」：委員会原案（CD）として各国が審議する段階"}</li>{"\n"}
+<li>{"「50.00」：最終テキストが提出され、正式承認に進む段階"}</li>{"\n"}
+<li>{"「60.60」：国際的な文書として発行される。"}<strong>{"ここに到達して初めて「公開された規格」になります"}</strong>
+</li>{"\n"}
+</ul>
+</div>{"\n"}
+<h3 id="2-4-ステージ表示の読み方に関する注意">{"2-4.\nステージ表示の読み方に関する注意"}</h3>{"\n"}
+<p>{"ISO公式ページの表示は、2025年4月の登録時点のまま（20.00）です🟢。一方、ETRIの2026年6月の論文は「2026年のワーキングドラフト」を参照して内容を紹介しています🟡。つまり、"}<strong>{"公式ページの表示より実際の作業は先に進んでいる可能性があります"}</strong>{"\n⚪。ステージ表示は、作業が節目を超えたときに更新されるため、日々の議論の進み具合とは必ずしも一致しません。"}</p>{"\n"}
+<div className="callout callout-practice">
+<div className="callout-head">
+<span className="callout-icon">{"💡"}</span>
+<span className="callout-title">{"実務上の意味"}</span>
+</div>
+<div className="callout-body">
+<p>{"現時点では「規格に準拠している」と主張することはできません。ここで学ぶ内容は、「将来の標準化の方向性を先取りして、レッドチーミングを手順立てて行う」ために使ってください。"}</p>
+</div>
+</div>{"\n"}
+<div className="glossary">
+<div className="glossary-head">{"📖 このセクションで登場した用語"}</div>
+<ul>{"\n"}
+<li>{"ステージ：ISOが規格づくりの進み具合を数字で表す区分"}</li>{"\n"}
+<li>{"WD（Working Draft）：作業原案。委員会に出す前の、作業部会の草案"}</li>{"\n"}
+<li>{"CD（Committee\nDraft）：委員会原案。各国の代表が審議する段階の草案"}</li>{"\n"}
+<li>{"SC 42：ISOとIECの合同技術委員会（JTC\n1）の下にある、人工知能担当の分科委員会"}</li>{"\n"}
+<li>{"JWG：複数の委員会が共同で運営する作業部会"}</li>{"\n"}
+</ul>
+</div>{"\n"}
+<hr />{"\n"}
+</>;
+}

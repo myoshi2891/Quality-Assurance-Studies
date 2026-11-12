@@ -15,6 +15,7 @@ const MERMAID_CONFIG = `%%{init: {
   "theme": "base",
   "themeVariables": {
     "background": "#07111e",
+    "mainBkg": "#0f2138",
     "primaryColor": "#0f2138",
     "primaryTextColor": "#e7edf7",
     "primaryBorderColor": "#86efc9",

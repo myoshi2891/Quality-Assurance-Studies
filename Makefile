@@ -80,7 +80,7 @@ dev-shell:
 .PHONY: css-reset
 css-reset:
 	@echo ".next キャッシュを削除して dev サーバーを再起動します..."
-	-kill $$(lsof -ti:3000) 2>/dev/null; true
+	-kill $$(lsof -tiTCP:3000 -sTCP:LISTEN) 2>/dev/null; true
 	rm -rf .next
 	docker compose -f $(COMPOSE_DEV_FILE) down 2>/dev/null; true
 	bun run dev

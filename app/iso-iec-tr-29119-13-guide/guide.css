@@ -1,0 +1,380 @@
+.iso29119-13-page, .iso29119-13-page :where(:not(svg, svg *)) { all: revert; }
+
+    .iso29119-13-page {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --line: #dbe3f0;
+      --text: #1c2b45;
+      --muted: #5d6f8f;
+      --accent: #2f5fe0;
+      --accent-soft: #e8f0ff;
+      --teal: #0b7a6f;
+      --pad-x: clamp(20px, 4vw, 56px);
+    }
+
+    .iso29119-13-page * { box-sizing: border-box; }
+    .iso29119-13-page { scroll-behavior: smooth; scroll-padding-top: 16px; }
+
+    .iso29119-13-page {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    /* ---- 全体レイアウト: サイドバーは左端、本文は残り全幅 ---- */
+    .iso29119-13-page .app {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .iso29119-13-page .toc {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 24px 16px;
+      background: var(--surface);
+      border-right: 1px solid var(--line);
+      font-size: 13px;
+    }
+    .iso29119-13-page .toc-title { margin: 0 8px 10px; color: var(--muted); font-size: 12px; letter-spacing: .1em; }
+    .iso29119-13-page .toc a {
+      display: block;
+      padding: 5px 8px;
+      border-left: 2px solid transparent;
+      border-radius: 4px;
+      color: var(--muted);
+      line-height: 1.5;
+      text-decoration: none;
+    }
+    .iso29119-13-page .toc a:hover { color: var(--accent); }
+    .iso29119-13-page .toc a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-soft); }
+
+    /* ---- 右カラム: ヒーローと本文をひと続きに ---- */
+    .iso29119-13-page .main {
+      min-width: 0;
+      background: linear-gradient(180deg, #e8f0ff 0, var(--bg) 380px);
+    }
+
+    .iso29119-13-page .hero { padding: 56px var(--pad-x) 8px; }
+    .iso29119-13-page .eyebrow {
+      display: inline-block;
+      padding: 4px 16px;
+      border: 1px solid #b6e3dd;
+      border-radius: 99px;
+      background: #e6f7f4;
+      color: var(--teal);
+      font-size: 13px;
+      letter-spacing: .06em;
+    }
+    .iso29119-13-page .hero h1 {
+      margin: 18px 0 0;
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.4;
+      color: #0f1e3a;
+    }
+
+    .iso29119-13-page .doc { min-width: 0; padding: 24px var(--pad-x) 96px; }
+    .iso29119-13-page .doc h2 {
+      margin: 56px 0 16px;
+      padding: 10px 0 10px 16px;
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(90deg, var(--accent-soft), transparent);
+      font-size: 26px;
+      color: #0f1e3a;
+    }
+    .iso29119-13-page .doc h3 { margin: 36px 0 12px; font-size: 20px; color: var(--teal); }
+    .iso29119-13-page .doc p, .iso29119-13-page .doc li { overflow-wrap: anywhere; }
+    .iso29119-13-page .doc a { color: var(--accent); word-break: break-all; }
+    .iso29119-13-page .doc hr { margin: 32px 0; border: 0; border-top: 1px solid var(--line); }
+    .iso29119-13-page .doc ul { padding-left: 1.4em; }
+    .iso29119-13-page .doc code {
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #eef2fa;
+      font-family: "JetBrains Mono", monospace;
+      font-size: .9em;
+    }
+
+    /* 注意書き */
+    .iso29119-13-page .doc blockquote {
+      margin: 18px 0;
+      padding: 12px 18px;
+      border: 1px solid #f1dca0;
+      border-left: 4px solid #f59e0b;
+      border-radius: 8px;
+      background: #fff8e6;
+      color: #5c4410;
+    }
+    .iso29119-13-page .doc blockquote p { margin: 6px 0; }
+
+    /* ---- 表 ---- */
+    .iso29119-13-page .table-wrap {
+      margin: 18px 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+    .iso29119-13-page .doc table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 14.5px; }
+    .iso29119-13-page .doc th {
+      padding: 10px 14px;
+      background: #eaf0fc;
+      color: #14284b;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .iso29119-13-page .doc td { padding: 10px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+    .iso29119-13-page .doc tr:nth-child(even) td { background: #fafcff; }
+
+    /* ---- 根拠ラベル（直前の文字との余白を確保） ---- */
+    .iso29119-13-page .tag {
+      display: inline-block;
+      margin: 0 6px 0 12px;
+      padding: 1px 10px;
+      border-radius: 99px;
+      font-size: 11.5px;
+      font-weight: 700;
+      line-height: 1.7;
+      white-space: nowrap;
+      vertical-align: 1px;
+    }
+    .iso29119-13-page .tag-lead { margin-left: 0; }
+    .iso29119-13-page .tag-tr  { background: #dff5f1; color: #0b6b61; border: 1px solid #a8ddd5; }
+    .iso29119-13-page .tag-gen { background: #e6ecff; color: #2c4bb0; border: 1px solid #b4c3f5; }
+    .iso29119-13-page .tag-ex  { background: #fff0cf; color: #8a5a00; border: 1px solid #f0d089; }
+
+    /* ---- Mermaid 図 ---- */
+    .iso29119-13-page .diagram {
+      margin: 22px 0;
+      padding: 18px;
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .iso29119-13-page .diagram pre.mermaid { margin: 0; background: none; text-align: center; }
+
+    /* ---- 理解度チェックリスト ---- */
+    .iso29119-13-page .progress {
+      margin: 16px 0 14px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .iso29119-13-page .progress-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #14284b;
+    }
+    .iso29119-13-page .progress-count { color: var(--accent); font-variant-numeric: tabular-nums; }
+    .iso29119-13-page .progress-bar { height: 8px; overflow: hidden; border-radius: 99px; background: #e3eaf6; }
+    .iso29119-13-page .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--teal));
+      transition: width .3s ease;
+    }
+    .iso29119-13-page .progress.complete .progress-count::after { content: " 🎉 全項目クリア"; color: var(--teal); }
+
+    .iso29119-13-page .doc ul.checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .iso29119-13-page .checklist li { margin: 0; }
+    .iso29119-13-page .checklist label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      height: 100%;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      line-height: 1.6;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+    }
+    .iso29119-13-page .checklist label:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(47, 95, 224, .12); }
+    .iso29119-13-page .checklist input[type=checkbox] {
+      appearance: none;
+      -webkit-appearance: none;
+      flex: none;
+      width: 22px;
+      height: 22px;
+      margin: 1px 0 0;
+      border: 2px solid #7d8ba6;
+      border-radius: 6px;
+      background: #fff center / 14px no-repeat;
+      cursor: pointer;
+      transition: background-color .15s, border-color .15s;
+    }
+    .iso29119-13-page .checklist input[type=checkbox]:checked {
+      border-color: var(--teal);
+      background-color: var(--teal);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+    .iso29119-13-page .checklist input[type=checkbox]:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .iso29119-13-page .checklist li:has(input:checked) label { background: #effaf8; border-color: #a8ddd5; }
+    .iso29119-13-page .checklist li:has(input:checked) .cl-text { color: var(--muted); text-decoration: line-through; text-decoration-color: #9cc9c2; }
+
+    /* ---- 目次ドロワー用（デスクトップでは非表示） ---- */
+    .iso29119-13-page .toc-fab, .iso29119-13-page .toc-backdrop { display: none; }
+
+    /* ---- タブレット以下: 目次はハンバーガー（右下）で開閉 ---- */
+    @media (max-width: 1024px) {
+      .iso29119-13-page .app { grid-template-columns: 1fr; }
+
+      .iso29119-13-page .toc {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1001;
+        width: min(320px, 86vw);
+        height: auto;
+        padding-top: 28px;
+        box-shadow: 8px 0 32px rgba(15, 30, 58, .18);
+        transform: translateX(-105%);
+        visibility: hidden;
+        transition: transform .25s ease, visibility 0s linear .25s;
+      }
+      .iso29119-13-page .toc-open .toc { transform: none; visibility: visible; transition: transform .25s ease; }
+
+      .iso29119-13-page .toc-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(15, 30, 58, .4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s ease;
+      }
+      .iso29119-13-page .toc-open .toc-backdrop { opacity: 1; pointer-events: auto; }
+      .iso29119-13-page .toc-open { overflow: hidden; }
+
+      .iso29119-13-page .toc-fab {
+        position: fixed;
+        right: max(20px, env(safe-area-inset-right));
+        bottom: max(20px, env(safe-area-inset-bottom));
+        z-index: 1002;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 56px;
+        height: 56px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 6px 20px rgba(47, 95, 224, .4);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .iso29119-13-page .toc-fab:hover { background: #2450c8; }
+      .iso29119-13-page .toc-fab:focus-visible { outline: 3px solid rgba(47, 95, 224, .45); outline-offset: 3px; }
+      .iso29119-13-page .toc-fab .bar {
+        display: block;
+        width: 22px;
+        height: 2.5px;
+        border-radius: 2px;
+        background: #fff;
+        transition: transform .25s ease, opacity .2s ease;
+      }
+      .iso29119-13-page .toc-open .toc-fab .bar:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+      .iso29119-13-page .toc-open .toc-fab .bar:nth-child(2) { opacity: 0; }
+      .iso29119-13-page .toc-open .toc-fab .bar:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    }
+
+    @media (max-width: 900px) {
+      .iso29119-13-page .doc h2 { font-size: 22px; }
+      .iso29119-13-page .doc ul.checklist { grid-template-columns: 1fr; }
+    }
+
+  
+/* Keep the original grid and hero padding; the app shell already offsets the page. */
+.iso29119-13-page .main, .iso29119-13-page main.doc { max-width: none; }
+.iso29119-13-page .hero::before, .iso29119-13-page .hero::after { all: revert; }
+.iso29119-13-page .toc {
+  top: calc(60px + var(--disclaimer-height, 0px));
+  height: calc(100dvh - 60px - var(--disclaimer-height, 0px));
+}
+.iso29119-13-page h2, .iso29119-13-page h3 {
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+/* Explicit protection against shared important table styles and retained route CSS. */
+.iso29119-13-page .doc th {
+  color: #14284b !important;
+  font-size: 14.5px !important;
+}
+.iso29119-13-page .doc td {
+  color: var(--text) !important;
+  font-size: 14.5px !important;
+}
+.iso29119-13-page .doc td strong { color: inherit !important; }
+.iso29119-13-page .table-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.iso29119-13-page .mermaid-wrapper {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+.iso29119-13-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iso29119-13-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iso29119-13-page .mermaid-wrapper foreignObject p,
+.iso29119-13-page .mermaid-wrapper foreignObject span,
+.iso29119-13-page .mermaid-wrapper foreignObject div {
+  margin: 0 !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere;
+}
+.iso29119-13-page .mermaid-wrapper .edgeLabel rect,
+.iso29119-13-page .mermaid-wrapper .edgeLabels rect { fill: #ffffff !important; stroke: none !important; }
+.iso29119-13-page .mermaid-wrapper .edgeLabel,
+.iso29119-13-page .mermaid-wrapper .edgeLabel p,
+.iso29119-13-page .mermaid-wrapper .edgeLabel span,
+.iso29119-13-page .mermaid-wrapper .edgeLabel text,
+.iso29119-13-page .mermaid-wrapper .edgeLabels .label { background-color: #ffffff !important; color: #14284b !important; fill: #14284b !important; }
+.iso29119-13-page .mermaid-source:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.iso29119-13-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.iso29119-13-page *::-webkit-scrollbar-track { background: transparent; }
+.iso29119-13-page *::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+@media (max-width: 1024px) {
+  /* Keep the drawer below the shared header/disclaimer and within this route's stacking context. */
+  .iso29119-13-page .toc { z-index: 32; }
+  .iso29119-13-page .toc-backdrop { top: calc(60px + var(--disclaimer-height, 0px)); z-index: 31; }
+  .iso29119-13-page .toc-fab { z-index: 33; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .iso29119-13-page *, .iso29119-13-page *::before, .iso29119-13-page *::after { transition: none !important; scroll-behavior: auto !important; }
+}
+/* Browser comparisons expose higher-specificity shared heading/table rules. */
+.iso29119-13-page .hero h1 { font-family: inherit; font-weight: 700; }
+.iso29119-13-page .doc table, .iso29119-13-page .doc thead { color: var(--text); }
+.iso29119-13-page .doc th { font-family: inherit; letter-spacing: normal; }
+.iso29119-13-page .doc tbody tr:hover td { background: transparent; }
+.iso29119-13-page .doc tbody tr:nth-child(even):hover td { background: #fafcff; }
+.iso29119-13-page .doc th { text-transform: none; }
+.iso29119-13-page .hero { text-align: start; }
+.iso29119-13-page .tag { font-family: inherit; }

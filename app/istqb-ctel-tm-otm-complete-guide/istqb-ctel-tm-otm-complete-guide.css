@@ -843,7 +843,7 @@
 .istqb-ctel-tm-otm-page .mermaid-wrapper {
     min-width: 400px;
     display: flex;
-    justify-content: center;
+    justify-content: safe center;
     width: 100%;
 }
 .istqb-ctel-tm-otm-page .mermaid-wrapper svg {

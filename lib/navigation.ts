@@ -157,7 +157,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/quality-is-free-guide', label: 'Quality Is Free 入門ガイド', description: 'Crosbyの品質の4原則・品質コスト・14ステップ改善・成熟度グリッドをソフトウェア開発へ応用。', category: 'books-practices' },
 
   { href: '/iso-29119-1-2022-guide', label: 'ISO 29119-1:2022 ガイド', description: '国際テスト規格ISO/IEC/IEEE 29119-1:2022の一般概念、プロセス階層、リスクベースドテストを初学者向けに体系解説。', category: 'iso' },
-  { href: '/iec-62304-beginner-guide', label: 'IEC 62304 初学者向けガイド', description: '医療機器ソフトウェアの安全クラス、開発・保守・リスク管理、SOUPとQAの実践を段階的に解説。', category: 'iso' },
+  { href: '/iec-62304-beginner-guide', label: 'IEC 62304 初学者向けガイド', description: 'IEC 62304の安全クラス、開発・保守・リスク管理、SOUPを解説する既存ガイド。QAチェックリスト付き。', category: 'iso' },
   { href: '/iso-9075-1-guide', label: 'ISO 9075-1 SQL/Framework ガイド', description: 'SQL標準の全体像、Part 1の役割、適合性、SQL:2023・JSON・PGQとQAの活用を段階的に解説。', category: 'iso' },
   { href: '/iso-11179-1-2023-guide', label: 'ISO 11179-1 メタデータレジストリ ガイド', description: '意味と表現の分離、11179ファミリー、登録運用・メタデータ設計とQAへの活用を段階的に解説。', category: 'iso' },
   { href: '/iso-14496-22-guide', label: 'ISO 14496-22 Open Font Format ガイド', description: 'OFFとOpenTypeの関係、フォント構造・描画、第5版の24ビットGID拡張とQA観点を段階的に解説。', category: 'iso' },
@@ -169,6 +169,17 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-iec-5338-guide', label: 'ISO/IEC 5338 AIライフサイクル ガイド', description: 'AIシステムのライフサイクル、4プロセスグループ、AI固有プロセスと導入手順を段階的に解説。', category: 'iso' },
   { href: '/iso-14496-22-2026-beginner-guide', label: 'ISO 14496-22:2026（OFF第5版）初学者向け解説', description: '2026年7月発行の第5版Open Font Formatをバイナリ構造・表示パイプライン・可変フォントから段階的に解説。', category: 'iso' },
   { href: '/iso-iec-30141-2024-guide', label: 'ISO/IEC 30141:2024 IoT参照アーキテクチャ ガイド', description: 'IoTの6つのビュー、構築パターン、関連規格と設計・開発・QAでの活用を段階的に解説。', category: 'iso' },
+  { href: '/iso-iec-ts-30149-2024-guide', label: 'ISO/IEC TS 30149:2024 初学者ガイド', description: 'IoTの信頼に足る性質を、5特性・管理・保証・実務チェックから段階的に学ぶ。', category: 'iso' },
+  { href: '/iso-iec-ieee-29119-3-2021-guide', label: 'ISO/IEC/IEEE 29119-3:2021 初学者ガイド', description: 'テスト文書の役割・記載項目・適合とテーラリングを、実務例から段階的に学ぶ。', category: 'iso' },
+  { href: '/iso-iec-9075-1-2023-guide', label: 'ISO 9075-1:2023 SQLフレームワーク 初学者ガイド', description: 'SQL標準の全体像・適合性・SQL:2023・実装状況を、図解・FAQ・学習チェックリストで学ぶ。', category: 'iso' },
+  { href: '/iso-iec-40500-2025-guide', label: 'ISO/IEC 40500:2025 WCAG 2.2 ガイド', description: 'WCAG 2.2の構造・新規9基準の実装・準拠判断を、図解・コード・QAチェックから段階的に学ぶ。', category: 'iso' },
+  { href: '/iec62304-beginner-guide', label: 'IEC 62304 初学者ステップガイド', description: 'IEC 62304の安全クラス、開発・保守・リスク管理・SOUPを解説する追加原稿ガイド。EU/米国/日本の規制対応表と導入手順付き。', category: 'iso' },
+  { href: '/iso-19770-1-guide', label: 'ISO/IEC 19770-1:2017 初学者ガイド', description: 'IT資産管理システムの要求事項、PDCA、プロセス領域、3つのティアと段階的導入を学ぶ。', category: 'iso' },
+  { href: '/iso-27031-2025-guide', label: 'ISO/IEC 27031:2025 初学者ガイド', description: '事業継続のためのICTの準備（IRBC）のガイダンスとクラウドDR方式の解説。', category: 'iso' },
+  { href: '/iso-30173-guide', label: 'ISO/IEC 30173:2023 初学者ガイド', description: 'デジタルツインの概念・用語・システムコンテキスト・関係者と実務活用を学ぶ。', category: 'iso' },
+  { href: '/iso-iec-tr-29119-13-guide', label: 'ISO/IEC TR 29119-13 生体認証テストガイド', description: '生体認証の性能指標・全品質特性・リスクベースドテストと29119シリーズの適用を学ぶ。', category: 'iso' },
+  { href: '/iso-iec-awi-ts-42119-7-guide', label: 'ISO/IEC AWI TS 42119-7 レッドチーミングガイド', description: 'AIレッドチーミングの用語・リスク・方法論・測定評価・報告・運用とエージェント型AIを学ぶ。', category: 'iso' },
+  { href: '/iso-iec-42001-2023-beginner-guide', label: 'ISO/IEC 42001:2023 初学者ガイド', description: 'AIマネジメントシステムの要求事項・附属書の管理策・導入・認証を段階的に学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
