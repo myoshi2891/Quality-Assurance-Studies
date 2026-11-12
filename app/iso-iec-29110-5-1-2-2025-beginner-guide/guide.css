@@ -863,3 +863,12 @@
  .iso29110-page *, .iso29110-page *::before, .iso29110-page *::after { transition: none !important; scroll-behavior: auto !important; }
 }
 
+/* Original computed colors and flex-child presentation, including retained route CSS. */
+.iso29110-page .hero h1, .iso29110-page .content table, .iso29110-page .callout-body p { color: var(--text); }
+.iso29110-page .progress-label { display: block; margin: 0; }
+@media (prefers-reduced-motion: reduce) {
+ html:has(.iso29110-page) { scroll-behavior: auto !important; }
+}
+.iso29110-page .callout-body p.source-line { color: var(--muted); }
+/* The original SVG gives label containers white text; visible label spans remain pale blue. */
+.iso29110-page .mermaid-wrapper .edgeLabels .label { color: #fff !important; }
