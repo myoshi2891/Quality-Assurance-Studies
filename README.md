@@ -4,6 +4,12 @@
 
 本プロジェクトにおいて、システムの品質（正しく動くか・快適に使えるか）を担保するために実施するテスト項目の概要と目的を以下に定義します。
 
+## 2026-11-13: FDIS 33063 の ELK 循環参照エラー修正
+
+* ELK 0.2.0 の D3 selection が React 管理下の `<html>` を保持し、内部の JSON 化で Fiber の循環参照をたどる不具合を再現。不要なデバッグ用 JSON 化を除き、グループ複製では DOM を除外。
+* `patches/@mermaid-js%2Flayout-elk@0.2.0.patch` を `package.json` と `bun.lock` の `patchedDependencies` に登録。通常の `bun install` で修正を再適用する。対象はページが使用する core エントリーで、独立した CDN 用 ESM/min ビルドは対象外。
+* 既存ブラウザー比較はページと同じ core エントリーをバンドルし、React Fiber 相当の循環参照を持つ DOM で全9図を2幅で検証する。修正前は階層図で同じ TypeError を再現。共有 Mermaid コンポーネントと図の定義は変更なし。 Bunで全体14,676件（246ファイル、失敗0）、関連ユニット547件、ブラウザー比較33件、全体lint、変更文書のMarkdown lint、frozen-lockfileでのBunインストール確認は成功。
+
 ## 2026-11-13: ISO/IEC FDIS 33063 初学者ガイドの移行
 
 * `/iso-33063-fdis-guide`をISOカテゴリーへ登録し、132ルート（ホーム＋131ガイド）へ同期。

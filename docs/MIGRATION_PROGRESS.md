@@ -9,6 +9,12 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
+## 2026-11-13: FDIS 33063 の ELK 循環参照エラー修正
+
+- ELK 0.2.0 の D3 selection が React 管理下の `<html>` を保持し、内部の JSON 化で Fiber の循環参照をたどる不具合を再現。不要なデバッグ用 JSON 化を除き、グループ複製では DOM を除外。
+- `patches/@mermaid-js%2Flayout-elk@0.2.0.patch` を `package.json` と `bun.lock` の `patchedDependencies` に登録。通常の `bun install` で修正を再適用する。対象はページが使用する core エントリーで、独立した CDN 用 ESM/min ビルドは対象外。
+- 既存ブラウザー比較はページと同じ core エントリーをバンドルし、React Fiber 相当の循環参照を持つ DOM で全9図を2幅で検証する。修正前は階層図で同じ TypeError を再現。共有 Mermaid コンポーネントと図の定義は変更なし。 Bunで全体14,676件（246ファイル、失敗0）、関連ユニット547件、ブラウザー比較33件、全体lint、変更文書のMarkdown lint、frozen-lockfileでのBunインストール確認は成功。
+
 ## 2026-11-13: ISO/IEC FDIS 33063 初学者ガイドの移行
 
 - `/iso-33063-fdis-guide`をISOカテゴリーへ登録し、132ルート（ホーム＋131ガイド）へ同期。
@@ -539,10 +545,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `36960686`（本仕様書同期直前の最終実装HEAD。現在のリビジョンは`git rev-parse --short HEAD`で取得） |
+| 最新 HEAD | `8e43eedf`（本修正前のHEAD。循環参照修正は作業ツリーに反映。現在のリビジョンは`git rev-parse --short HEAD`で取得） |
 | 最新コミット内容 | `feat(iso33063): register FDIS guide and synchronize 132 application routes` |
 | 次の作業 | `/iso-33063-fdis-guide`の目視確認（ユーザー担当）。ビルドは未実施。 |
-| ビルド状態 | npm経由で対象274件・共有Mermaid契約263件・ブラウザー比較33件・対象型検査・lint・Markdown lint成功。全体14,676件（246ファイル）成功。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | ELK循環参照修正後、Bunで関連547件・循環参照付きブラウザー比較33件・全体lint・Markdown lint・frozen-lockfile確認成功。全体14,676件（246ファイル、失敗0）成功。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
