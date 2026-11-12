@@ -857,6 +857,7 @@
  .iso29110-page .sidebar { visibility: hidden; }
  .iso29110-page.nav-open .sidebar { visibility: visible; }
  .iso29110-page .nav-toggle { top: calc(72px + var(--disclaimer-height, 0px)); }
+ .iso29110-page h2, .iso29110-page h3 { scroll-margin-top: calc(132px + var(--disclaimer-height, 0px)); }
  .iso29110-page.nav-open .scrim { top: calc(60px + var(--disclaimer-height, 0px)); }
 }
 @media (prefers-reduced-motion: reduce) {
