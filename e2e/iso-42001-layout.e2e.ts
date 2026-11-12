@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { transformSync } from 'next/dist/build/swc';
 import { sourceModule } from '../tests/helpers/source-module';
 import inventory from '../docs/migration-inventory/iso-iec-42001-2023-beginner-guide.json';
-const applyReviewCorrections = (html: string) => html;
+import { applyReviewCorrections, publicationLabel } from '../tests/helpers/iso42001-review';
 
 const base='app/iso-iec-42001-2023-beginner-guide';
 const globals=readFileSync('node_modules/tailwindcss/preflight.css','utf8')+readFileSync('app/globals.css','utf8');
@@ -51,7 +51,7 @@ for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) 
   await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'});
   const {DIAGRAMS}=sourceModule(`${base}/diagrams.ts`) as {DIAGRAMS:string[]};
   await page.evaluate(async({id,chart,globalConfig,fixups})=>{const m=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,c:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(globalConfig);const{svg}=await m.render('generated-'+id,chart);document.getElementById(id)!.querySelector('.mermaid-wrapper')!.innerHTML=svg;Function(fixups+';return applySvgFixups;')()(document.getElementById(id)!.querySelector('svg'),chart);},{id:d.id,chart:DIAGRAMS[i]!,globalConfig,fixups});
-  const ref=await page.context().newPage();await ref.setContent(`<style>${inventory.originalCss}</style><div class="mermaid-diagram">${d.svg}</div>`);
+  const ref=await page.context().newPage();await ref.setContent(`<style>${inventory.originalCss}</style><div class="mermaid-diagram">${publicationLabel(d.svg)}</div>`);
   const collect=(el:Element)=>({nodes:Array.from(el.querySelectorAll('g.node'),n=>({id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,'').replace(/D\d+_/g,''),font:getComputedStyle(n.querySelector('.nodeLabel')!).fontFamily,fontSize:getComputedStyle(n.querySelector('.nodeLabel')!).fontSize,lineHeight:getComputedStyle(n.querySelector('.nodeLabel')!).lineHeight,text:n.querySelector('.nodeLabel')!.textContent!.replace(/\s+/g,' ').trim(),shape:n.firstElementChild!.tagName,stroke:getComputedStyle(n.firstElementChild!).stroke,fill:getComputedStyle(n.firstElementChild!).fill,color:getComputedStyle(n.querySelector('.nodeLabel')!).color})),gradients:Array.from(el.querySelectorAll('[fill^="url"] linearGradient stop'),n=>({offset:n.getAttribute('offset'),color:getComputedStyle(n).stopColor,opacity:getComputedStyle(n).stopOpacity})),clusters:Array.from(el.querySelectorAll('.cluster rect'),n=>({fill:getComputedStyle(n).fill,stroke:getComputedStyle(n).stroke.replace(/#[^"]+-gradient/,'#diagram-gradient')})),edges:Array.from(el.querySelectorAll('path[data-edge]'),n=>({id:n.getAttribute('data-id')!.replace(/D\d+_/g,''),stroke:getComputedStyle(n).stroke,end:!!n.getAttribute('marker-end')})),messages:Array.from(el.querySelectorAll('text.messageText'),n=>({text:n.textContent,color:getComputedStyle(n).fill})),actors:Array.from(el.querySelectorAll('text.actor'),n=>n.textContent!.replace(/\s+/g,' ').trim())});
   expect(await page.locator(`#${d.id}`).evaluate(collect)).toEqual(await ref.locator('.mermaid-diagram').evaluate(collect));
 

@@ -7,7 +7,7 @@ import { isTag, type AnyNode } from 'domhandler';
 import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-iec-42001-2023-beginner-guide.json';
 import { sourceModule } from '../helpers/source-module';
-const applyReviewCorrections = (html: string) => html;
+import { applyReviewCorrections, publicationLabel } from '../helpers/iso42001-review';
 
 const base = 'app/iso-iec-42001-2023-beginner-guide';
 const scope = '.iso42001-page';
@@ -78,7 +78,7 @@ describe('source diagrams', () => {
     const $ = load(renderToStaticMarkup(<C index={i} />));
     expect(charts).toHaveLength(1);
     const chart = charts[0]!;
-    expect(norm(chart.slice(chart.indexOf('}%%') + 3))).toBe(norm(diagram.source));
+    expect(norm(chart.slice(chart.indexOf('}%%') + 3))).toBe(norm(publicationLabel(diagram.source)));
     const config = JSON.parse(chart.match(/%%\{init: ([\s\S]*?)\}%%/)![1]!);
     expect(config.theme).toBe('base');
     expect(config.themeVariables).toMatchObject({primaryColor:"#12233b",primaryTextColor:"#e6edf7",lineColor:"#7c9eff",edgeLabelBackground:"#0b1b2e"});
@@ -87,7 +87,7 @@ describe('source diagrams', () => {
     for (const label of diagram.labels) expect($('[role="img"]').attr('aria-label')).toContain(label);
     const entry: string = 'mermaid/dist/mermaid.esm.mjs';
     await expect((await import(entry)).default.parse(chart)).resolves.toBeTruthy();
-    for (const node of diagram.nodes) expect(chart).toContain(`"${node.label}"`);
+    for (const node of diagram.nodes) expect(chart).toContain(`"${publicationLabel(node.label)}"`);
   });
 });
 
