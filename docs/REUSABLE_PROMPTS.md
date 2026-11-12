@@ -2,6 +2,8 @@
 
 最終更新日: 2026-11-12
 
+`/iso-iec-29110-5-1-2-2025-beginner-guide`は全18カテゴリーを個別コミットして移行済み。原本HTML・Markdownは同一内容でアーカイブ済み。目視確認はユーザー担当、ビルド未実施。`npm test -- tests/iso-iec-29110-5-1-2-2025-beginner-guide`と`npm run e2e:layout -- --project=iso-29110-5-1-2`で再検証できます。
+
 `/iso-iec-42001-2023-beginner-guide`は21カテゴリーを個別コミットして移行済み。原本HTML・Markdownはアーカイブ済み。目視確認はユーザー担当、ビルド未実施。`npm test -- tests/iso-iec-42001-2023-beginner-guide`と`npm run e2e:layout -- --project=iso-42001`で自動検証を再実行できます。
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。

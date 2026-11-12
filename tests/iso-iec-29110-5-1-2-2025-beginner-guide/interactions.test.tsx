@@ -1,0 +1,56 @@
+import {afterEach,expect,it} from 'bun:test';
+import React,{act} from 'react';
+import {render,fireEvent,cleanup} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {renderToString} from 'react-dom/server';
+import {hydrateRoot} from 'react-dom/client';
+import {sourceModule} from '../helpers/source-module';
+import inventory from '../../docs/migration-inventory/iso-iec-29110-5-1-2-2025-beginner-guide.json';
+const base='app/iso-iec-29110-5-1-2-2025-beginner-guide';
+afterEach(cleanup);
+/** Load actual JSX through Next's SWC transform. */
+function component(file:string){return sourceModule(`${base}/${file}.tsx`).default as React.ComponentType;}
+
+it('mobile drawer handles toggle, backdrop, Escape, focus, modified links, inert, Tab and unmount',()=>{
+ const original=window.matchMedia;window.matchMedia=(()=>({matches:true,addEventListener(){},removeEventListener(){}})) as unknown as typeof window.matchMedia;
+ try{const C=component('NavBar');const r=render(<div className="iso29110-page"><C/><main className="content"/></div>);const nav=r.container.querySelector('nav')!,button=r.getByRole('button'),main=r.container.querySelector('main')!;
+ expect(nav.hasAttribute('inert')).toBe(true);expect(button.getAttribute('aria-controls')).toBe(nav.id);
+ for(const dismiss of ['escape','link','scrim']){fireEvent.click(button);expect(button.getAttribute('aria-expanded')).toBe('true');expect(main.hasAttribute('inert')).toBe(true);expect(document.body.style.overflow).toBe('hidden');const a=nav.querySelector('a')!;expect(document.activeElement).toBe(a);fireEvent.keyDown(document,{key:'Tab',shiftKey:true});expect(document.activeElement).toBe(button);fireEvent.keyDown(document,{key:'Tab'});expect(document.activeElement).toBe(a);for(const key of ['ctrlKey','metaKey','shiftKey','altKey']){fireEvent.click(a,{[key]:true});expect(button.getAttribute('aria-expanded')).toBe('true');}if(dismiss==='escape')fireEvent.keyDown(document,{key:'Escape'});else if(dismiss==='link')fireEvent.click(a);else fireEvent.click(r.container.querySelector('.scrim')!);expect(button.getAttribute('aria-expanded')).toBe('false');expect(main.hasAttribute('inert')).toBe(false);expect(document.activeElement).toBe(button);}
+ fireEvent.click(button);r.unmount();expect(document.body.style.overflow).toBe('');expect(main.hasAttribute('inert')).toBe(false);
+ }finally{window.matchMedia=original;}
+});
+
+for(const [i,item]of inventory.groups.checklist.items.entries())it(`checklist ${i}: select/unselect, progress, done class and stable focus`,()=>{const C=component('Checklist');const r=render(<C/>);const box=r.getAllByRole('checkbox')[i] as HTMLInputElement;expect(box.closest('label')?.textContent?.replace(/\s+/g,' ').trim()).toBe(item.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim());box.focus();fireEvent.click(box);expect(box.checked).toBe(true);expect(box.closest('li')!.className).toBe('done');expect(r.getByRole('status').textContent).toBe('1 / 8 完了');expect(r.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('1');expect((r.container.querySelector('.progress-fill') as HTMLElement).style.width).toBe('12.5%');expect(document.activeElement).toBe(box);fireEvent.click(box);expect(r.getByRole('status').textContent).toBe('0 / 8 完了');expect(box.closest('li')!.className).toBe('');});
+it('all checks complete then revert independently',()=>{const C=component('Checklist');const r=render(<C/>);const boxes=r.getAllByRole('checkbox');for(const box of boxes)fireEvent.click(box);expect(r.getByRole('status').textContent).toBe('8 / 8 完了');expect(r.container.querySelector('.progress.complete')).toBeTruthy();fireEvent.click(boxes[2]!);expect(r.getByRole('status').textContent).toBe('7 / 8 完了');expect(r.container.querySelector('.progress.complete')).toBeNull();});
+
+for(const html of inventory.groups.glossary.items)it(`glossary independently searches ${html.match(/data-term="([^"]+)/)![1]}`,()=>{const C=component('Glossary');const r=render(<C/>);const input=r.getByRole('searchbox');const term=html.match(/data-term="([^"]+)/)![1]!.split(' ')[0]!;fireEvent.change(input,{target:{value:'  '+term.toLowerCase()+'  '}});const visible=[...r.container.querySelectorAll('.gloss-card')].filter(n=>!n.hasAttribute('hidden'));expect(visible.length).toBeGreaterThan(0);for(const n of visible)expect(n.getAttribute('data-term')!.toLowerCase()).toContain(term.toLowerCase());expect(r.getByRole('status').textContent).toBe(visible.length+' 件');fireEvent.change(input,{target:{value:'zz-no-such-term'}});expect(r.getByRole('status').textContent).toBe('0 件');expect((r.container.querySelector('.gloss-empty') as HTMLElement).style.display).toBe('block');fireEvent.change(input,{target:{value:''}});expect(r.getByRole('status').textContent).toBe('14 件');});
+it('FAQ first answer starts open and all FAQ/quiz answers preserve native details',async()=>{
+ const user=userEvent.setup();
+ for(const name of ['Section14','Section16']){
+  const C=component(name);const r=render(<C/>);const details=r.container.querySelectorAll('details');
+  expect(details.length).toBe(name==='Section14'?7:3);
+  expect(details[0]!.open).toBe(name==='Section14');
+  for(const d of details){
+   const summary=d.querySelector('summary')!;
+   expect(summary).toBeTruthy();expect(summary.textContent).toBeTruthy();
+   const initial=d.open;
+   await user.click(summary);expect(d.open).toBe(!initial);
+   // Native summary keyboard activation is checked in the Chromium layout suite;
+   // Happy DOM and user-event do not implement that browser default action.
+   await user.click(summary);expect(d.open).toBe(initial);
+  }
+  r.unmount();
+ }
+});
+it('all diagrams expose their accessible description and visible failure fallback',async()=>{for(const [index,d]of inventory.diagrams.entries()){let error:(()=>void)|undefined;const C=sourceModule(base+'/Diagram.tsx',{onMermaidChart:(_,cb)=>{error=cb;}}).default as React.ComponentType<{index:number}>;const r=render(<C index={index}/>);const description=d.edges.map(e=>{const [,from,to]=e.id.split('_');const text=(id:string|undefined)=>d.nodes.find(n=>n.id===id)!.text.replaceAll('<br/>',' ');return `「${text(from)}」から「${text(to)}」へ${e.label?`（${e.label}）`:''}${e.dotted?'点線でつながる':'進む'}。`;}).join('');expect(r.getByRole('img').getAttribute('aria-label')).toBe(description);await act(async()=>error?.());expect(r.getByRole('alert').textContent).toContain(description);r.unmount();}});
+it('server-rendered page hydrates without text, table or nested-label warnings',async()=>{const C=component('page');const container=document.createElement('div');document.body.append(container);container.innerHTML=renderToString(<C/>);const errors:unknown[]=[];const previous=console.error;console.error=(...args)=>errors.push(args);let root:ReturnType<typeof hydrateRoot>|undefined;try{await act(async()=>{root=hydrateRoot(container,<C/>,{onRecoverableError:e=>errors.push(e)});});expect(errors).toEqual([]);}finally{await act(async()=>root?.unmount());console.error=previous;container.remove();}});
+
+it('FAQ toolbar opens and closes every answer idempotently',()=>{const C=component('Section14');const r=render(<C/>);for(const name of ['すべて開く','すべて開く','すべて閉じる','すべて閉じる']){fireEvent.click(r.getByRole('button',{name}));expect([...r.container.querySelectorAll('details')].map(d=>d.open)).toEqual(Array(7).fill(name==='すべて開く'));}});
+
+it('TOC observes all 46 headings, follows each fragment and disconnects on unmount',()=>{
+ const saved=globalThis.IntersectionObserver;const observed:Element[]=[];let disconnected=false;
+ globalThis.IntersectionObserver=class {observe(n:Element){observed.push(n);}disconnect(){disconnected=true;}} as unknown as typeof IntersectionObserver;
+ const heads=document.createElement('div');heads.innerHTML=inventory.groups.toc.items.map(html=>{const href=html.match(/href="([^"]+)/)![1]!;return `<h2 id="${href.slice(1)}">heading</h2>`;}).join('');document.body.append(heads);
+ try{const C=component('NavBar');const r=render(<div className="iso29110-page"><C/><main className="content"/></div>);expect(observed.map(n=>n.id)).toEqual([...heads.children].map(n=>n.id));for(const h of heads.children){history.replaceState(null,'','#'+h.id);fireEvent(window,new Event('hashchange'));const links=r.container.querySelectorAll('a[aria-current="location"]');expect(links).toHaveLength(1);expect(links[0]!.getAttribute('href')).toBe('#'+h.id);}r.unmount();expect(disconnected).toBe(true);
+ }finally{globalThis.IntersectionObserver=saved;heads.remove();history.replaceState(null,'','/');}
+});

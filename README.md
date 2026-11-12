@@ -4,6 +4,15 @@
 
 本プロジェクトにおいて、システムの品質（正しく動くか・快適に使えるか）を担保するために実施するテスト項目の概要と目的を以下に定義します。
 
+## 2026-11-12: ISO/IEC 29110-5-1-2:2025 Basicプロファイルガイドの移行
+
+* `/iso-iec-29110-5-1-2-2025-beginner-guide`をISOカテゴリーに登録。130ルート（ホーム＋129ガイド）へ同期。
+* 導入＋17章の全18カテゴリーを順番に実装・原本照合し、個別コミット。47見出し、46階層目次リンク、28表の全セル、13図、17注記、14用語、8チェック項目、10個のネイティブ回答、16外部リンク、142 CSSルールを固定インベントリと一対一照合。通常のコードブロックは0件。
+* `app/iso-iec-29110-5-1-2-2025-beginner-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section17.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・`Glossary.tsx`・`Checklist.tsx`を配置。300px固定目次、980px/640px境界、ダーク配色、ヒーロー装飾、用語検索、FAQ一括開閉、チェック進捗を保持。ヘッダーと動的免責高さに追従。
+* 図はMarkdownと異なる文言・ノード・接続・方向もHTML内SVGを優先。共有Mermaidは変更せず、書体・線色・ラベル色の設定をページ側に保存。全接続・分岐・点線を伝える代替説明と描画失敗時の可視フォールバックを付与。
+* 原本HTML・Markdownは`archive/html-archive/iso/Iso-iec-29110-5-1-2-2025-beginner-guide.html`・`archive/md-archive/iso/Iso-iec-29110-5-1-2-2025-beginner-guide.md`へ同一内容で移動。SHA-256一致・Git追跡・rename 100%を確認。
+* npm経由で対象451件（page:419件、interactions:29件、integration:3件）・共有Mermaid契約259件・ブラウザー比較41件・対象型検査・lint・Markdown lintが成功。全体14,049件（240ファイル）がすべて成功。全体型検査には従来の対象外テストエラーが残るが、対象ソース・テスト・E2Eの型検査は成功。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-iec-29110-5-1-2-2025-beginner-guide`）。
+
 ## 2026-11-12: ISO/IEC 42001:2023 初学者ガイドの移行
 
 * `/iso-iec-42001-2023-beginner-guide`をISOカテゴリーに登録。129ルート（ホーム＋128ガイド）に同期。

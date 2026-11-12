@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 129 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 24 iso)', () => {
-    expect(NAV_ITEMS).toHaveLength(129);
+  it('contains 130 entries (home + 9 foundation + 11 fdn-ext + 22 advanced + 20 specialist + 5 expert + 2 cicd-devops + 8 tools-frameworks + 27 books-practices + 25 iso)', () => {
+    expect(NAV_ITEMS).toHaveLength(130);
   });
 
   it('every item has a unique href', () => {
@@ -308,7 +308,7 @@ describe('groupByCategory', () => {
 
   it('places 23 items in the iso group', () => {
     const iso = groupByCategory(NAV_ITEMS).find((g) => g.category === 'iso');
-    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide', '/iso-14496-22-2026-beginner-guide', '/iso-iec-30141-2024-guide', '/iso-iec-ts-30149-2024-guide','/iso-iec-ieee-29119-3-2021-guide','/iso-iec-9075-1-2023-guide','/iso-iec-40500-2025-guide','/iec62304-beginner-guide','/iso-19770-1-guide','/iso-27031-2025-guide','/iso-30173-guide','/iso-iec-tr-29119-13-guide','/iso-iec-awi-ts-42119-7-guide','/iso-iec-42001-2023-beginner-guide']);
+    expect(iso?.items.map(item => item.href)).toEqual(['/iso-29119-1-2022-guide', '/iec-62304-beginner-guide', '/iso-9075-1-guide', '/iso-11179-1-2023-guide', '/iso-14496-22-guide','/iso-19770-5-guide', '/iso-23009-1-2026-guide','/iso-27799-2025-guide','/iso-30130-guide','/iso-iec-tr-29138-2-2009-guide','/iso-iec-5338-guide', '/iso-14496-22-2026-beginner-guide', '/iso-iec-30141-2024-guide', '/iso-iec-ts-30149-2024-guide','/iso-iec-ieee-29119-3-2021-guide','/iso-iec-9075-1-2023-guide','/iso-iec-40500-2025-guide','/iec62304-beginner-guide','/iso-19770-1-guide','/iso-27031-2025-guide','/iso-30173-guide','/iso-iec-tr-29119-13-guide','/iso-iec-awi-ts-42119-7-guide','/iso-iec-42001-2023-beginner-guide','/iso-iec-29110-5-1-2-2025-beginner-guide']);
     expect(iso?.title).toBe('ISO 国際規格');
   });
 
