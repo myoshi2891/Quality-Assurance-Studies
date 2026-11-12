@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 /**
  * Mermaid 図の「実際に描画された結果」を検証する E2E。
@@ -27,18 +27,41 @@ interface MermaidRoute {
     readonly expectsLightTheme: boolean;
 }
 
-/** components/Mermaid を使うページを app/ から収集する。 */
+const LIGHT_THEME_PATTERN = /"theme"\s*:\s*"base"/;
+
+/** テンプレート文字列内の \" で書かれた設定も検出できるよう、引用符のエスケープを外す。 */
+const unescapeQuotes = (source: string): string => source.replaceAll('\\"', '"');
+
+const RELATIVE_IMPORT_PATTERN = /(?:from\s+|import\s*\(?\s*)['"](\.{1,2}\/[^'"]+)['"]/g;
+
+/** page.tsx から相対 import で到達できるソースを集める。図はカテゴリー別ファイルやページ固有の Diagram 経由で描画されることがある。 */
+function reachableSources(pagePath: string): string[] {
+    const sources = new Map<string, string>();
+    const visit = (file: string): void => {
+        if (sources.has(file)) return;
+        const source = readFileSync(file, 'utf8');
+        sources.set(file, source);
+        for (const [, specifier] of source.matchAll(RELATIVE_IMPORT_PATTERN)) {
+            const target = ['.tsx', '.ts'].map((ext) => resolve(dirname(file), specifier + ext)).find(existsSync);
+            if (target) visit(target);
+        }
+    };
+    visit(pagePath);
+    return [...sources.values()];
+}
+
+/** components/Mermaid へ到達するページを app/ から収集する。 */
 function mermaidRoutes(): MermaidRoute[] {
     const routes: MermaidRoute[] = [];
     for (const entry of readdirSync(APP_DIR, { withFileTypes: true })) {
         if (!entry.isDirectory()) continue;
         const pagePath = join(APP_DIR, entry.name, 'page.tsx');
         if (!existsSync(pagePath)) continue;
-        const source = readFileSync(pagePath, 'utf8');
-        if (!source.includes('components/Mermaid')) continue;
+        const sources = reachableSources(pagePath);
+        if (!sources.some((source) => source.includes('components/Mermaid'))) continue;
         routes.push({
             path: `/${entry.name}`,
-            expectsLightTheme: /"theme"\s*:\s*"base"/.test(source),
+            expectsLightTheme: sources.some((source) => LIGHT_THEME_PATTERN.test(unescapeQuotes(source))),
         });
     }
     return routes;

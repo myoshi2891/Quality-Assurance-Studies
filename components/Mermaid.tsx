@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 
 mermaid.initialize({
@@ -29,6 +29,24 @@ mermaid.initialize({
 
 interface MermaidProps {
     chart: string;
+    /** 描画失敗を呼び出し側で通知する。正常に戻ると内側のエラー表示を省略する。 */
+    onRenderError?: () => void;
+}
+
+// モジュールの読み込みごとに 1 回だけ決まる識別子。HMR 等で再読み込みされ連番が
+// 初期化されても、以前のインスタンスが描画した SVG と ID が重ならない。
+const moduleSessionId =
+    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2, 10);
+
+// 描画試行ごとに単調増加する連番。採番は同期的に行うため、
+// 同一ミリ秒に並行して始まった描画同士でも ID が衝突しない。
+let renderSequence = 0;
+
+function nextRenderId(): string {
+    renderSequence += 1;
+    return `mermaid-svg-${moduleSessionId}-${renderSequence}`;
 }
 
 /**
@@ -73,7 +91,11 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
  *
  * @param chart - Mermaid diagram source code
  */
-export default function Mermaid({ chart }: MermaidProps) {
+export default function Mermaid({ chart, onRenderError }: MermaidProps) {
+    const onRenderErrorRef = useRef(onRenderError);
+    useLayoutEffect(() => {
+        onRenderErrorRef.current = onRenderError;
+    }, [onRenderError]);
     const [svgStr, setSvgStr] = useState<string>('');
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -94,13 +116,23 @@ export default function Mermaid({ chart }: MermaidProps) {
                     await document.fonts.ready;
                 }
                 if (!isMounted) return;
-                const id = `mermaid-svg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                const id = nextRenderId();
                 const { svg } = await mermaid.render(id, chart);
                 if (isMounted) setSvgStr(svg);
             } catch (error) {
                 console.error('Mermaid rendering failed:', error);
+                let errorHandled = false;
+                if (isMounted) {
+                    try {
+                        const notify = onRenderErrorRef.current;
+                        notify?.();
+                        errorHandled = !!notify;
+                    } catch (callbackError) {
+                        console.error('Mermaid onRenderError callback failed:', callbackError);
+                    }
+                }
                 if (isMounted)
-                    setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
+                    setSvgStr(errorHandled ? '' : `<p class="text-red-500">図表の描画に失敗しました</p>`);
             }
         };
 

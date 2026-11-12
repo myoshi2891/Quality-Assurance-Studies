@@ -137,3 +137,51 @@ describe('Mermaid ページのテーマ上書き契約', () => {
         }
     }
 });
+
+// 共有初期化の mainBkg はページの primaryColor より優先されるため、ページ側でも指定しないと既定ノードが #0f2040 になる
+describe('base theme configs override the shared node background', () => {
+    const CONFIG_FILES = ['app/appium-essentials-guide/page.tsx', 'app/iso-14496-22-2026-beginner-guide/diagrams.ts', 'app/iso-29119-1-2022-guide/diagrams.ts', 'app/iso-iec-30141-2024-guide/diagrams.ts', 'app/iso-iec-ts-30149-2024-guide/diagrams.ts', 'app/istqb-ctal-tm-chapter3-managing-the-team/diagrams.ts', 'app/testing-ai-confidence-engineering-guide/page.tsx', 'app/unit-testing-principles-practices-patterns-guide/page.tsx'];
+
+    // 1 ファイルに複数の設定があると別の設定の mainBkg で漏れを見逃すため、ディレクティブ単位で調べる。
+    // 文字列リテラル内の \" で書かれた設定も同じ形へ揃えて対象にする
+    const baseThemeConfigs = readdirSync(APP_DIR, { recursive: true, encoding: 'utf8' })
+        .filter((name) => /\.tsx?$/.test(name))
+        .flatMap((name) =>
+            [...readFileSync(join(APP_DIR, name), 'utf8').matchAll(/%%\{[\s\S]*?\}%%/g)]
+                .map(([directive]) => ({ file: `app/${name}`, directive: directive.replaceAll('\\"', '"') }))
+                .filter(({ directive }) => /"theme"\s*:\s*"base"/.test(directive) && directive.includes('"primaryColor"'))
+        );
+
+    it('discovers every listed config', () => {
+        const discovered = baseThemeConfigs.map(({ file }) => file);
+        expect(CONFIG_FILES.filter((file) => !discovered.includes(file))).toEqual([]);
+    });
+
+    it('sets mainBkg in every config that combines the base theme with primaryColor', () => {
+        expect(baseThemeConfigs.filter(({ directive }) => !directive.includes('"mainBkg"')).map(({ file }) => file)).toEqual([]);
+    });
+
+    it.each(CONFIG_FILES)('%s sets mainBkg to its primaryColor', (file) => {
+        const source = readFileSync(join(APP_DIR, '..', file), 'utf8');
+        const primary = source.match(/"primaryColor"\s*:\s*"(#[0-9a-fA-F]+)"/)?.[1];
+        expect(primary).toBeDefined();
+        expect(source.match(/"mainBkg"\s*:\s*"(#[0-9a-fA-F]+)"/)?.[1]).toBe(primary);
+    });
+});
+
+// 図が親より広いと素の center は左へはみ出し、スクロールの原点より左は到達できない
+describe('overflowing diagrams stay reachable from the left edge', () => {
+    const WRAPPER_RULES = [
+        ['app/perfect-software-guide/perfect-software-guide.css', '.perfect-software-layout .mermaid-wrapper'],
+        ['app/software-testing-with-generative-ai-guide/software-testing-with-generative-ai-guide.css', '.software-testing-genai-layout .mermaid-wrapper'],
+        ['app/software-testing-with-generative-ai-guide/software-testing-with-generative-ai-guide.css', '.software-testing-genai-layout .mermaid-container'],
+        ['app/istqb-ctel-tm-otm-complete-guide/istqb-ctel-tm-otm-complete-guide.css', '.istqb-ctel-tm-otm-page .mermaid-wrapper'],
+    ] as const;
+
+    it.each(WRAPPER_RULES)('%s %s uses safe center', (file, selector) => {
+        const css = stripCssComments(readFileSync(join(APP_DIR, '..', file), 'utf8'));
+        const body = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].find((rule) => rule[1]!.split(',').some((part) => part.trim() === selector))?.[2];
+        expect(body).toBeDefined();
+        expect(body).toMatch(/justify-content:\s*safe center/);
+    });
+});

@@ -63,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
+    <html lang="ja" data-scroll-behavior="smooth">
       <body>
         {/*
           Tabler アイコンフォント。CSS の @import はページ CSS を読み終えるまで
