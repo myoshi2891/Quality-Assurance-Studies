@@ -23,7 +23,7 @@ function tree(n: AnyNode): unknown {
   }
   if (attrs.class) { attrs.class = attrs.class.replace(/(^|\s+)active\b/g, '').trim(); if (!attrs.class) delete attrs.class; }
   if (n.tagName === 'button') delete attrs['aria-label'];
-  if (attrs.class === 'sidebar') delete attrs.id;
+  if (attrs.class === 'sidebar' || attrs.class === 'mermaid-source') delete attrs.id;
   if (attrs.class === 'progress-fill') delete attrs.style;
   if (attrs.style) { attrs.style = attrs.style.replace(/\s+/g, '').replace(/;$/, ''); if (attrs.style === 'width:0%') delete attrs.style; }
   return { tag: n.tagName, attrs, children: attrs.class === 'mermaid-source' ? [] : n.children.map(tree).filter(Boolean) };
