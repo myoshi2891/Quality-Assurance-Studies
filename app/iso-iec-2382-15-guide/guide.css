@@ -531,3 +531,17 @@ html:has(.iso2382-page) { scroll-behavior: smooth; }
 html:has(.iso2382-page) { scroll-behavior: auto; }
 .iso2382-page *, .iso2382-page *::before, .iso2382-page *::after { transition: none !important; animation: none !important; }
 }
+
+/* Shared compound selectors must not change inherited source typography. */
+.iso2382-page .hero h1 { font-family: var(--sans); }
+.iso2382-page .callout p { font-size: inherit; }
+.iso2382-page pre code { display: inline; white-space: pre; width: auto; }
+
+.iso2382-page table { color: var(--text); }
+.iso2382-page .hero { text-align: start; }
+.iso2382-page .hero::after, .iso2382-page .code-block::before, .iso2382-page .code-block code::before, .iso2382-page .code-block code::after { content: none; }
+.iso2382-page .hero-title { background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.iso2382-page .hero-meta { justify-content: normal; gap: normal; animation: none; }
+.iso2382-page .code-block { padding: 0; white-space: normal; }
+.iso2382-page .code-block code { font-family: var(--mono); white-space: pre; }
+.iso2382-page .mermaid-diagram .label { font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif; }

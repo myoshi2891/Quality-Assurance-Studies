@@ -156,7 +156,7 @@ export default function NavBar() {
         return; close(mobile && open); }}>{"9-4. このガイドの限界"}</a>{"\n                            "}</li>{"\n                        "}</ul>{"\n                    "}</li>{"\n                "}</ul></nav>
     </aside>
     <div className="scrim" onClick={() => close()}/>
-    <button className="sidebar-toggle" type="button" ref={button} aria-label={open ? '目次を閉じる' : '目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={() => setOpen(value => !value)}>
+    <button id="sidebarToggle" className="sidebar-toggle" type="button" ref={button} aria-label={open ? '目次を閉じる' : '目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={() => setOpen(value => !value)}>
       ☰ 目次
     </button>
   </>;
