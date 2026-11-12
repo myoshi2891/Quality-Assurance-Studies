@@ -1,0 +1,101 @@
+import type { CheerioAPI } from 'cheerio';
+
+// レビューで承認した原本からの意図的な差分。原本 HTML と比較する検証では、比較前に原本側へ同じ補正を当てる。
+// 原本の参照表は「空の外部リンク + URL 表示用リンク」の 2 要素に分かれ、プレビューPDFは表示側の href が途中で切れていた。
+// 1 参照 = 1 リンク（完全な URL を href と表示文字列に持つ）へ統合する。
+export function applyReviewCorrections($: CheerioAPI): void {
+    $('main a').each((_, el) => {
+        const empty = $(el);
+        const visible = empty.next('a');
+        if (empty.text() !== '' || visible.length === 0) return;
+        const href = empty.attr('href') ?? '';
+        const tail = visible[0]!.next;
+        if (tail?.type === 'text' && visible.text() + tail.data.trim() === href) tail.data = ' ';
+        visible.remove();
+        empty.text(href);
+    });
+    // 原本に Markdown の強調記法がそのまま残っていた段落（附属書A の導入文）を <strong> として扱う
+    $('main p').each((_, el) => {
+        const inner = $(el).html();
+        if (inner?.includes('**')) $(el).html(inner.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'));
+    });
+    // 進捗件数の更新をスクリーンリーダーへ通知する（原本は aria-live なし）
+    $('main .cp-count').attr('aria-live', 'polite');
+    // 本文全体は有料で未確認のため、「適合性評価の要求事項を定めない」との断定を公開プレビューの範囲での確認に改める
+    $('main td').contents().each((_, node) => {
+        if (node.type !== 'text') return;
+        for (const [before, after] of CONFORMITY_CLAIMS) node.data = node.data.replace(before, after);
+    });
+    // 横スクロールする表をキーボードで操作できるよう、名前付きのフォーカス可能な領域にする（原本は属性なし）
+    $('main h3[id="61-5特性の早見表"]').nextAll('.table-scroll').first().attr({ 'aria-label': '表：6.1 5特性の早見表', role: 'region', tabindex: '0' });
+    // 附属書Aの A.1・A.2 はパターンではなく、Table A.1 も関心事の表なので、パターンと読める見出し・セルを改める
+    $('main th, main td').each((_, el) => {
+        const cell = $(el);
+        const corrected = ANNEX_A_CELLS[cell.text().trim()];
+        if (corrected) cell.text(corrected);
+    });
+    // 第1節・4.2・箇条5・6.2・箇条7・7.1・箇条8・箇条9・10.2・箇条11の表も同じ形式の名前付きフォーカス可能領域にする（見出し行の組で表を特定するため、セル名の補正より後に行う）
+    for (const [headers, label] of TABLE_SCROLL_REGIONS) {
+        $('main .table-scroll')
+            .filter((_, el) => $(el).find('th').toArray().map(th => $(th).text().trim()).join('|') === headers.join('|'))
+            .attr({ 'aria-label': label, role: 'region', tabindex: '0' });
+    }
+    // 図8の矢印は「支える側 → 支えられる側」へ改める（図2の証拠 → 信頼に足る性質と同じ向き。原本は主張 → 論拠 → 証拠）
+    $('main #mmd-8 [data-id]').each((_, el) => {
+        const id = $(el).attr('data-id') ?? '';
+        $(el).attr('data-id', ASSURANCE_EDGE_IDS[id] ?? id);
+    });
+    // 図はクライアント描画のため、適用フローの全手順と戻りの流れを図の直後に本文としても示す（原本は図のみ）
+    $('main #mmd-10').after(`<ol type="1">${APPLICATION_STEPS.map(step => `<li>${step}</li>`).join('')}</ol>`);
+}
+
+export const ANNEX_A_CELLS: Readonly<Record<string, string>> = {
+    'パターン名': '節の名称',
+    'Relation with ISO/IEC 30141': 'Relation with ISO/IEC 30141（パターンではない節）',
+    'Concerns': 'Concerns（パターンではない節）',
+    '附属書Aの各パターン表': '附属書Aの関心事の表（Table A.1）と各パターン表（Table A.2〜A.6）',
+    '実践手順の雛形': '実装アーキテクチャの関心事（Table A.1）と実践手順の雛形（Table A.2〜A.6）',
+};
+
+export const ASSURANCE_EDGE_IDS: Readonly<Record<string, string>> = {
+    L_N8_CL_N8_AR_0: 'L_N8_AR_N8_CL_0',
+    L_N8_AR_N8_EV_0: 'L_N8_EV_N8_AR_0',
+};
+
+// 図の番号（DIAGRAM_n）ごとの、原本と異なる接続。ここにない図は原本の Markdown と一致させる
+export const DIAGRAM_EDGE_CORRECTIONS: Readonly<Record<number, readonly string[]>> = {
+    7: [
+        'N8_EV["証拠 evidence<br/>試験結果・レビュー記録・設計書"] --> N8_AR["論拠 argument<br/>なぜ主張が成り立つと言えるか"]',
+        'N8_AR --> N8_CL["主張 claim<br/>この機器は安全に停止する"]',
+    ],
+};
+
+export const APPLICATION_STEPS = [
+    '対象IoTシステムを30141のビューで整理する',
+    '5特性ごとに目標を言語化する',
+    '前提とリスクを洗い出す',
+    '主張・論拠・証拠の対応表を作る',
+    '設計・実装・テストで証拠を作る',
+    '運用で証拠を更新し成熟度を高める。運用で得た結果をもとに手順3へ戻り、前提とリスクを見直す',
+] as const;
+
+export const TABLE_SCROLL_REGIONS = [
+    [['疑問', 'この規格が与える答えの方向性'], '表：1 この規格が答える疑問'],
+    [['箇条', '論点', '初学者向けの理解'], '表：4.2 規格が整理する3つの関係'],
+    [['箇条', 'タイトル', '内容の概要', '本ガイドの対応Step'], '表：5 規格の全体構成マップ（箇条）'],
+    [['図表', 'タイトル', '読む目的'], '表：5 規格の全体構成マップ（図表）'],
+    [['観点', 'Reliability', 'Resilience'], '表：6.2 ReliabilityとResilienceの違い'],
+    [['節', '要素', '初学者向けの意味（節タイトルからの一般的な解釈）'], '表：7 箇条7の管理要素'],
+    [['状況', '起きがちな問題'], '表：7.1 合成で起きがちな問題'],
+    [['節', '視点', '対応する図', '問い'], '表：8 箇条8の3つの視点'],
+    [['悪い例（根拠のない主張）', '良い例（証拠に裏づけられた主張）'], '表：8.1 根拠のない主張と証拠に裏づけられた主張'],
+    [['節', '節の名称', '対応表', '目的（名称からの一般的な解釈）'], '表：9 附属書Aの節と対応表'],
+    [['特性', '主なテスト・検証の観点', '証拠の例'], '表：10.2 特性別のテスト観点の例'],
+    [['文書', '発行元', '位置づけ', 'TS 30149との関係'], '表：11 関連する規格・フレームワークとの違い'],
+] as const;
+
+export const CONFORMITY_CLAIMS = [
+    ['TSは規範的規定（要求事項等）を含み得る文書区分だが、本書は信頼に足る性質の原則・要素と構築パターンを整理し、適合性評価の要求事項を定めるものではない', 'TSは規範的規定（要求事項等）を含み得る文書区分。本書は信頼に足る性質の原則・要素と構築パターンを整理した文書で、公開プレビュー（目次・序文・Scope）の範囲では適合性評価の要求事項は確認できなかった（本文全体は未確認）'],
+    ['を示し、適合性評価用の要求事項は定めない', 'を示す。公開プレビューの範囲では適合性評価用の要求事項は確認できなかった（本文全体は未確認）'],
+    ['を示す文書であり、適合性評価用の要求事項を定めていない（またISO/IEC自身は認証を行わない）', 'を示す文書。公開プレビューの範囲では適合性評価用の要求事項は確認できなかった（本文全体は未確認）。なおISO/IEC自身は認証を行わない'],
+] as const;

@@ -8,7 +8,8 @@ import { transformSync } from 'next/dist/build/swc';
 // Only Mermaid's effect-driven SVG renderer is a stub; browser tests render real SVGs.
 // Next.js/SWC trims numeric newline entities differently from TypeScript/Bun, so
 // `development` switches the JSX transform to match the dev or production build.
-export function sourceModule(path: string, { development = false }: { development?: boolean } = {}): Record<string, unknown> {
+// `onMermaidChart` observes the chart and exposes the renderer's failure callback for interaction tests.
+export function sourceModule(path: string, { development = false, onMermaidChart }: { development?: boolean; onMermaidChart?: (chart: string, onRenderError?: () => void) => void } = {}): Record<string, unknown> {
     const cache = new Map<string, Record<string, unknown>>();
     function load(filename: string): Record<string, unknown> {
         filename = resolve(filename);
@@ -18,7 +19,7 @@ export function sourceModule(path: string, { development = false }: { developmen
         const localRequire = createRequire(filename);
         const requireSource = (request: string): unknown => {
             if (request.endsWith('.css')) return {};
-            if (request.endsWith('components/Mermaid')) return { __esModule: true, default: () => React.createElement('div', { className: 'mermaid-wrapper' }) };
+            if (request.endsWith('components/Mermaid')) return { __esModule: true, default: ({ chart, onRenderError }: { chart: string; onRenderError?: () => void }) => { onMermaidChart?.(chart, onRenderError); return React.createElement('div', { className: 'mermaid-wrapper' }); } };
             if (!request.startsWith('.')) return localRequire(request);
             const base = resolve(dirname(filename), request);
             const target = ['.tsx', '.ts'].map(ext => base + ext).find(existsSync);

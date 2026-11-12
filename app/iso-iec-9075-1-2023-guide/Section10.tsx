@@ -1,0 +1,22 @@
+import React from 'react';
+import Diagram from './Diagram';
+export default function Section() { return <>
+<h2 id="step-8版の状況と今後cor-12026次期改訂">{"\n                    STEP 8：版の状況と今後（Cor 1:2026・次期改訂）\n                "}</h2>
+{"\n                "}
+<h3 id="8-1-規格のライフサイクルisoカタログより">{"\n                    8-1. 規格のライフサイクル（ISOカタログより）\n                "}</h3>
+{"\n                "}
+<div className="table-scroll">{"\n                    "}<table><thead><tr className="header"><th>{"項目"}</th><th>{"値"}</th><th>{"出典"}</th></tr></thead><tbody><tr className="odd"><td>{"版"}</td><td>{"第6版（Edition 6）"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="even"><td>{"発行"}</td><td>{"2023-06（60.60：2023-06-01）"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="odd"><td>{"ページ数"}</td><td>{"74"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="even"><td>{"担当委員会"}</td><td>{"ISO/IEC JTC 1/SC 32（Data management and interchange）"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="odd"><td>{"ICS"}</td><td>{"35.060（情報技術で使われる言語）"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="even"><td>{"現在のステージ"}</td><td><strong>{"90.92：改訂予定"}</strong>{"（2025-06-22〜）"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="odd"><td>{"前の版"}</td><td>{"ISO/IEC 9075-1:2016 および Cor 1:2022（いずれも撤回）"}</td><td><a className="cite" href="#ref-S1">{"[S1]"}</a></td></tr><tr className="even"><td>{"技術正誤表"}</td><td>{"\n                                    "}<strong>{"ISO/IEC 9075-1:2023/Cor 1:2026"}</strong>{"（2026-08-03発行、1ページ、無料）\n                                "}</td><td><a className="cite" href="#ref-S19">{"[S19]"}</a></td></tr><tr className="odd"><td>{"置き換え予定"}</td><td><strong>{"ISO/IEC CD 9075-1"}</strong>{"（開発中）"}</td><td>{"\n                                    "}<a className="cite" href="#ref-S1">{"[S1]"}</a>{"\n                                    "}<a className="cite" href="#ref-S20">{"[S20]"}</a>{"\n                                "}</td></tr></tbody></table>{"\n                "}</div>
+{"\n                "}
+<div className="callout-warn">{"\n                    "}<span className="callout-icon">{"⚠️"}</span>{"\n                    "}<div className="callout-body">{"\n                        "}<p>{"\n                            Cor 1:2026\n                            の"}<strong>{"修正内容そのもの"}</strong>{"は、ISOカタログのメタデータからは確認できませんでした。必要な場合は正誤表の本文（ISOのOBPプレビュー等）を直接確認してください。\n                        "}</p>{"\n                    "}</div>{"\n                "}</div>
+{"\n                "}
+<h3 id="8-2-版の流れ図">{"8-2. 版の流れ（図）"}</h3>
+{"\n                "}
+<Diagram id="mmd-9" />
+{"\n                "}
+<h3 id="8-3-次の標準で何が来そうか参考">{"8-3. 次の標準で何が来そうか（参考）"}</h3>
+{"\n                "}
+<p>{"\n                    Winand氏は、"}<code>{"GROUP BY ALL"}</code>{"\n                    について「次の標準に入る可能性が高い。ただし現行標準はGROUP\n                    BY句に式を許さないため、列名以外を足す場合は非適合になる」と述べています\n                    "}<a className="cite" href="#ref-S10">{"[S10]"}</a>{"。Eisentraut氏も2023年時点で「明確なロードマップはないが、PGQの拡充、JSON、コア言語の磨き込みが続きそう」と見通しを書いています\n                    "}<a className="cite" href="#ref-S5">{"[S5]"}</a>{"。ただし、"}<strong>{"CD 9075-1の中身は非公開部分が多く、本ガイドでは確認できていません"}</strong>{"。\n                "}</p>
+{"\n                "}
+<hr />
+{"\n                "}
+</>; }

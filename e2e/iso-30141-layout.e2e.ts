@@ -14,6 +14,8 @@ const inventory={originalCss:original('head style').html()};
 function markup() { const Page = sourceModule(`${base}/page.tsx`).default as React.ComponentType; return renderToStaticMarkup(React.createElement(Page)); }
 // レビュー修正を比較用の原本にも適用し、訂正による文字量の変化を原本側にも反映する
 original('body *').contents().each((_, node) => { if (node.type === 'text') node.data = correctNormalized(node.data); });
+// 原本の参照表にある空の外部リンクは、レビューで削除を承認した差分のため比較用の原本からも除く
+original('main a').filter((_, el) => original(el).text().trim() === '').remove();
 const reviewedBody = emphasizeHtml(original('body').html()!);
 const selectors=['.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.hero-meta > div','h2','h3','main p','main ul','main ol','main li','main strong','.table-scroll','table','th','td','td strong','td a','.callout','.page-footer','.side-title','.side-title span','.sidebar ul','.sidebar li','.sidebar a','.nav-toggle','main code'];
 selectors.push('h4','details','summary','.nav-list','.nav-sub','main hr');

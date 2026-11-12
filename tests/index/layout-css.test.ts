@@ -51,3 +51,11 @@ describe('global drawer offset (components/header.css)', () => {
     expect(rule['max-height']).toBe('calc(100dvh - 60px - var(--disclaimer-height, 0px))');
   });
 });
+
+describe('root smooth scrolling contract', () => {
+  it('declares smooth scrolling to Next.js on the root html element', () => {
+    expect(decls('app/globals.css', 'html', 'base')['scroll-behavior']).toBe('smooth');
+    const htmlTag = readFileSync('app/layout.tsx', 'utf8').match(/<html\b[^>]*>/)?.[0];
+    expect(htmlTag).toMatch(/\bdata-scroll-behavior=["']smooth["']/);
+  });
+});
