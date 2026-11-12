@@ -1,0 +1,48 @@
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#0a1626",
+    "mainBkg": "#243049",
+    "primaryColor": "#243049",
+    "primaryTextColor": "#e6edf7",
+    "primaryBorderColor": "#7c9eff",
+    "lineColor": "#7c9eff",
+    "edgeLabelBackground": "#0d1b2e",
+    "fontFamily": "Noto Sans JP, sans-serif",
+    "fontSize": "16px"
+  },
+  "htmlLabels": true,
+  "flowchart": {
+    "curve": "basis"
+  }
+}}%%`;
+export const DIAGRAMS = [
+  "flowchart LR\nOV1[\"VSE<br/>25人以下の小さな組織\"]\nOV2[\"重い標準は<br/>使いにくい\"]\nOV3[\"ISO/IEC 29110<br/>VSE向けの軽量な標準群\"]\nOV4[\"Basicプロファイル<br/>1チーム・1製品向け\"]\nOV5[\"本書<br/>29110-5-1-2:2025<br/>管理と実装のガイド\"]\nOV1 --> OV2\nOV2 --> OV3\nOV3 --> OV4\nOV4 --> OV5\nstyle OV1 fill: #1f2a44,stroke: #7c9eff,color: #ffffff\nstyle OV2 fill: #1f2a44,stroke: #7c9eff,color: #ffffff\nstyle OV3 fill: #1f2a44,stroke: #7c9eff,color: #ffffff\nstyle OV4 fill: #1f2a44,stroke: #7c9eff,color: #ffffff\nstyle OV5 fill: #7c9eff,stroke: #1f2a44,color: #0b1020\n",
+  "flowchart TB\nVS1[\"ISO/IEC/IEEE 12207<br/>ソフトウェアライフサイクル\"]\nVS4[\"一部を選び出す<br/>プロファイル化\"]\nVS2[\"ISO/IEC/IEEE 15289<br/>文書化\"]\nVS3[\"ISO/IEC/IEEE 15288<br/>システムライフサイクル\"]\nVS5[\"ISO/IEC 29110<br/>VSE向けの軽量版\"]\nVS1 --> VS4\nVS2 --> VS4\nVS3 --> VS4\nVS4 --> VS5\nstyle VS1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle VS4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle VS2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle VS3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle VS5 fill: #7c9eff,stroke: #243049,color: #0b1020\n",
+  "flowchart TB\nSR1[\"29110-1<br/>概要・用語\"]\nSR2[\"29110-2<br/>プロファイルの枠組み\"]\nSR3[\"29110-4-1<br/>Basicプロファイルの仕様\"]\nSR4[\"29110-5-1-2:2025<br/>Basicプロファイルのガイド（本書）\"]\nSR5[\"29110-3<br/>認証・評価\"]\nSR1 --> SR2\nSR2 --> SR3\nSR3 --> SR4\nSR5 --> SR3\nstyle SR1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SR2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SR3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SR4 fill: #7c9eff,stroke: #243049,color: #0b1020\nstyle SR5 fill: #243049,stroke: #7c9eff,color: #ffffff\n",
+  "flowchart LR\nPR1[\"Entry<br/>入門\"]\nPR2[\"Basic<br/>基本（本書）\"]\nPR3[\"Intermediate<br/>中級\"]\nPR4[\"Advanced<br/>上級\"]\nPR1 --> PR2\nPR2 --> PR3\nPR3 --> PR4\nstyle PR1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle PR2 fill: #7c9eff,stroke: #243049,color: #0b1020\nstyle PR3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle PR4 fill: #243049,stroke: #7c9eff,color: #ffffff\n",
+  "flowchart TB\nDJ1{\"開発するソフトは<br/>安全重要か？\"}\nDJ9[\"本書の対象外<br/>別の規格を検討\"]\nDJ2{\"組織や部門は<br/>25人以下か？\"}\nDJ3[\"大きな組織でも使用は妨げられない<br/>ただし想定読者はVSE\"]\nDJ4{\"1チームで<br/>1製品を作るか？\"}\nDJ8[\"複数プロジェクト向けの<br/>上位プロファイルを検討\"]\nDJ5{\"プロジェクトは<br/>小さな試作レベルか？\"}\nDJ6[\"Entryプロファイルも検討\"]\nDJ7[\"Basicプロファイル（本書）を採用\"]\nDJ1 -->|\"はい\"| DJ9\nDJ1 -->|\"いいえ\"| DJ2\nDJ2 -->|\"いいえ\"| DJ3\nDJ2 -->|\"はい\"| DJ4\nDJ3 --> DJ4\nDJ4 -->|\"いいえ\"| DJ8\nDJ4 -->|\"はい\"| DJ5\nDJ5 -->|\"はい\"| DJ6\nDJ5 -->|\"いいえ\"| DJ7\nstyle DJ1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle DJ9 fill: #7a2e3a,stroke: #3f1219,color: #ffffff\nstyle DJ2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle DJ3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle DJ4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle DJ8 fill: #7a2e3a,stroke: #3f1219,color: #ffffff\nstyle DJ5 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle DJ6 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle DJ7 fill: #1e6b4f,stroke: #0b3d2c,color: #ffffff\n",
+  "flowchart LR\nRL1[\"顧客<br/>作業指示書\"]\nRL2[\"PM<br/>プロジェクト管理\"]\nRL3[\"SI<br/>ソフトウェア実装\"]\nRL4[\"顧客<br/>受入れ\"]\nRL5[\"変更要求\"]\nRL1 --> RL2\nRL2 -->|\"プロジェクト計画\"| RL3\nRL3 -->|\"進捗・成果物\"| RL2\nRL3 -->|\"ソフトウェアと文書\"| RL4\nRL5 --> RL2\nstyle RL1 fill: #4a3a1f,stroke: #e2b45a,color: #ffffff\nstyle RL2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle RL3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle RL4 fill: #4a3a1f,stroke: #e2b45a,color: #ffffff\nstyle RL5 fill: #2b3a2f,stroke: #7fd19a,color: #ffffff\n",
+  "flowchart LR\nPM1[\"PM.01<br/>計画\"]\nPM2[\"PM.02<br/>計画の実行\"]\nPM3[\"PM.03<br/>評価と管理\"]\nPM4[\"PM.04<br/>クロージャ\"]\nCR1[\"変更要求\"]\nPM1 --> PM2\nPM2 --> PM3\nPM3 -->|\"逸脱あり是正・再計画\"| PM2\nPM3 -->|\"完了\"| PM4\nCR1 -.-> PM2\nstyle PM1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle PM2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle PM3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle PM4 fill: #1e6b4f,stroke: #0b3d2c,color: #ffffff\nstyle CR1 fill: #2b3a2f,stroke: #7fd19a,color: #ffffff\n",
+  "flowchart TB\nSI1[\"SI.01 開始<br/>環境の準備\"]\nSI2[\"SI.02 要求分析<br/>要求仕様を作成\"]\nSI3[\"SI.03 設計<br/>アーキテクチャと詳細設計\"]\nSI4[\"SI.04 構築<br/>コード作成と単体テスト\"]\nSI5[\"SI.05 結合とテスト<br/>要求を満たすか確認\"]\nSI6[\"SI.06 製品の組み立て<br/>納品できる形にまとめる\"]\nSI1 --> SI2\nSI2 --> SI3\nSI3 --> SI4\nSI4 --> SI5\nSI5 --> SI6\nSI5 -.->|\"欠陥あり\"| SI4\nSI3 -.->|\"要求の変更\"| SI2\nstyle SI1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SI2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SI3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SI4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SI5 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle SI6 fill: #1e6b4f,stroke: #0b3d2c,color: #ffffff\n",
+  "flowchart LR\nCT1[\"タスク\"]\nCT2{\"条件を<br/>満たすか？\"}\nCT3[\"実施する<br/>必須として扱う\"]\nCT4[\"実施は任意\"]\nCT5[\"対象外<br/>適用しない\"]\nCT1 --> CT2\nCT2 -->|\"満たす\"| CT3\nCT2 -->|\"一部の条件\"| CT4\nCT2 -->|\"満たさない\"| CT5\nstyle CT1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle CT2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle CT3 fill: #1e6b4f,stroke: #0b3d2c,color: #ffffff\nstyle CT4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle CT5 fill: #4a4a4a,stroke: #9a9a9a,color: #ffffff\n",
+  "flowchart TB\nAD1[\"手順1<br/>現状を知る<br/>今のやり方を書き出す\"]\nAD2[\"手順2<br/>適用可否を確認<br/>安全重要でないか、1チーム1製品か\"]\nAD3[\"手順3<br/>差分を見つける<br/>PMとSIのタスクと比較\"]\nAD4[\"手順4<br/>小さく始める<br/>パイロットプロジェクト\"]\nAD5[\"手順5<br/>成果物とツールを整える<br/>テンプレートと管理ツール\"]\nAD6[\"手順6<br/>振り返る<br/>是正し、定着させる\"]\nAD1 --> AD2\nAD2 --> AD3\nAD3 --> AD4\nAD4 --> AD5\nAD5 --> AD6\nAD6 -.->|\"次のプロジェクト\"| AD3\nstyle AD1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle AD2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle AD3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle AD4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle AD5 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle AD6 fill: #1e6b4f,stroke: #0b3d2c,color: #ffffff\n",
+  "flowchart LR\nCH1[\"2011年版<br/>TR 29110-5-1-2<br/>技術報告書\"]\nCH2[\"2025年版<br/>29110-5-1-2<br/>国際規格\"]\nCH3[\"基本は<br/>PMとSI\"]\nCH4[\"追加できる拡張<br/>付録A〜D\"]\nCH1 -->|\"技術的に改訂\"| CH2\nCH2 --> CH3\nCH2 --> CH4\nstyle CH1 fill: #4a4a4a,stroke: #9a9a9a,color: #ffffff\nstyle CH2 fill: #7c9eff,stroke: #243049,color: #0b1020\nstyle CH3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle CH4 fill: #243049,stroke: #7c9eff,color: #ffffff\n",
+  "flowchart TB\nEX1[\"Basicプロファイル本体<br/>PM + SI\"]\nEX2[\"付録A<br/>サポートプロセス\"]\nEX3[\"付録B<br/>テスト強化タスク\"]\nEX4[\"付録C<br/>アクセシビリティタスク\"]\nEX5[\"付録D<br/>セキュリティタスク\"]\nEX6[\"付録E<br/>デプロイメントパッケージ<br/>導入支援資料\"]\nEX1 -->|\"追加できる\"| EX2\nEX1 -->|\"追加できる\"| EX3\nEX1 -->|\"追加できる\"| EX4\nEX1 -->|\"追加できる\"| EX5\nEX6 -.->|\"導入を支援\"| EX1\nstyle EX1 fill: #7c9eff,stroke: #243049,color: #0b1020\nstyle EX2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EX3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EX4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EX5 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EX6 fill: #4a3a1f,stroke: #e2b45a,color: #ffffff\n",
+  "flowchart TB\nEG1[\"週初めの計画確認<br/>PM.02：実行\"]\nEG2[\"要求・設計・実装の作業<br/>SI.02〜SI.04\"]\nEG3[\"週末のレビュー<br/>検証：机上レビュー\"]\nEG4[\"進捗状況記録を更新<br/>PM.03：評価と管理\"]\nEG5{\"計画から<br/>ずれたか？\"}\nEG6[\"是正措置を決める<br/>再計画\"]\nEG1 --> EG2\nEG2 --> EG3\nEG3 --> EG4\nEG4 --> EG5\nEG5 -->|\"はい\"| EG6\nEG5 -->|\"いいえ\"| EG1\nEG6 --> EG1\nstyle EG1 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EG2 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EG3 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EG4 fill: #243049,stroke: #7c9eff,color: #ffffff\nstyle EG5 fill: #4a3a1f,stroke: #e2b45a,color: #ffffff\nstyle EG6 fill: #243049,stroke: #7c9eff,color: #ffffff\n"
+].map(source => `${MERMAID_CONFIG}\n${source}`);
+export const DESCRIPTIONS = [
+  "VSE 25人以下の小さな組織 → 重い標準は 使いにくい → ISO/IEC 29110 VSE向けの軽量な標準群 → Basicプロファイル 1チーム・1製品向け → 本書 29110-5-1-2:2025 管理と実装のガイド",
+  "ISO/IEC/IEEE 12207 ソフトウェアライフサイクル → 一部を選び出す プロファイル化 → ISO/IEC/IEEE 15289 文書化 → ISO/IEC/IEEE 15288 システムライフサイクル → ISO/IEC 29110 VSE向けの軽量版",
+  "29110-1 概要・用語 → 29110-2 プロファイルの枠組み → 29110-4-1 Basicプロファイルの仕様 → 29110-5-1-2:2025 Basicプロファイルのガイド（本書） → 29110-3 認証・評価",
+  "Entry 入門 → Basic 基本（本書） → Intermediate 中級 → Advanced 上級",
+  "開発するソフトは 安全重要か？ → 本書の対象外 別の規格を検討 → 組織や部門は 25人以下か？ → 大きな組織でも使用は妨げられない ただし想定読者はVSE → 1チームで 1製品を作るか？ → 複数プロジェクト向けの 上位プロファイルを検討 → プロジェクトは 小さな試作レベルか？ → Entryプロファイルも検討 → Basicプロファイル（本書）を採用",
+  "顧客 作業指示書 → PM プロジェクト管理 → SI ソフトウェア実装 → 顧客 受入れ → 変更要求",
+  "PM.01 計画 → PM.02 計画の実行 → PM.03 評価と管理 → PM.04 クロージャ → 変更要求",
+  "SI.01 開始 環境の準備 → SI.02 要求分析 要求仕様を作成 → SI.03 設計 アーキテクチャと詳細設計 → SI.04 構築 コード作成と単体テスト → SI.05 結合とテスト 要求を満たすか確認 → SI.06 製品の組み立て 納品できる形にまとめる",
+  "タスク → 条件を 満たすか？ → 実施する 必須として扱う → 実施は任意 → 対象外 適用しない",
+  "手順1 現状を知る 今のやり方を書き出す → 手順2 適用可否を確認 安全重要でないか、1チーム1製品か → 手順3 差分を見つける PMとSIのタスクと比較 → 手順4 小さく始める パイロットプロジェクト → 手順5 成果物とツールを整える テンプレートと管理ツール → 手順6 振り返る 是正し、定着させる",
+  "2011年版 TR 29110-5-1-2 技術報告書 → 2025年版 29110-5-1-2 国際規格 → 基本は PMとSI → 追加できる拡張 付録A〜D",
+  "Basicプロファイル本体 PM + SI → 付録A サポートプロセス → 付録B テスト強化タスク → 付録C アクセシビリティタスク → 付録D セキュリティタスク → 付録E デプロイメントパッケージ 導入支援資料",
+  "週初めの計画確認 PM.02：実行 → 要求・設計・実装の作業 SI.02〜SI.04 → 週末のレビュー 検証：机上レビュー → 進捗状況記録を更新 PM.03：評価と管理 → 計画から ずれたか？ → 是正措置を決める 再計画"
+];
