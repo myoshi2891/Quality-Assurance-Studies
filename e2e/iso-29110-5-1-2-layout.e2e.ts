@@ -61,7 +61,7 @@ for(const width of [390,1440]) for(const [i,d] of inventory.diagrams.entries()) 
   // Compare each original connection on its flow axis; unrelated nodes can be centered differently by Dagre.
   const positions=(el:Element)=>Object.fromEntries(Array.from(el.querySelectorAll('g.node'),n=>[n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,'').replace(/D\d+_/g,''),(n.getAttribute('transform')!.match(/[-\d.]+/g) ?? []).map(Number)]));
   const original=await ref.locator('.diagram-scroll').evaluate(positions),current=await page.locator(`#${d.id}`).evaluate(positions);
-  for(const edge of d.edges.map(edge=>edge.replace(/D\d+_/g,''))){
+  for(const edge of d.edges.map(edge=>edge.id)){
     const [,from,to]=edge.split('_');
     const a=original[from!]!,b=original[to!]!,x=Math.abs(a[0]!-b[0]!),y=Math.abs(a[1]!-b[1]!);
     const axis=x>y?0:1;
