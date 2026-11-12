@@ -1,6 +1,8 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-11-11
+最終更新日: 2026-11-12
+
+`/iso-iec-42001-2023-beginner-guide`は21カテゴリーを個別コミットして移行済み。原本HTML・Markdownはアーカイブ済み。目視確認はユーザー担当、ビルド未実施。`npm test -- tests/iso-iec-42001-2023-beginner-guide`と`npm run e2e:layout -- --project=iso-42001`で自動検証を再実行できます。
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 

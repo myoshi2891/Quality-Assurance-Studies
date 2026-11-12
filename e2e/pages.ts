@@ -15,6 +15,7 @@ export interface PageMeta {
 }
 
 export const PAGES: readonly PageMeta[] = [
+  { path: '/iso-iec-42001-2023-beginner-guide', h1: /42001:2023.*初学者/s },
   { path: '/', h1: /登る順に並べた/ },
   { path: '/modern-software-testing-complete-guide-2025', h1: /羅針盤/ },
   { path: '/acceptance-testing-guide', h1: /Acceptance.*Testing/s },
@@ -145,6 +146,6 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/iso-iec-awi-ts-42119-7-guide', h1: /ISO\/IEC AWI TS 42119-7 初学者向け解説ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 128;
+export const EXPECTED_PAGE_COUNT = 129;
 
 

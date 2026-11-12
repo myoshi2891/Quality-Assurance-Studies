@@ -9,7 +9,7 @@ import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-30173-guide.json';
 
-it('registers the digital twin guide once and synchronizes all 128 routes', () => {
+it('registers the digital twin guide once and synchronizes all 129 routes', () => {
   const href = '/iso-30173-guide';
   const items = NAV_ITEMS.filter((i) => i.href === href);
   expect(items).toHaveLength(1);
@@ -21,9 +21,9 @@ it('registers the digital twin guide once and synchronizes all 128 routes', () =
   const h1 = load(renderToStaticMarkup(React.createElement(Page)))('h1').first().text().replace(/\s+/g, ' ').trim();
   expect(h1).not.toBe('');
   expect(pages[0]!.h1.test(h1)).toBe(true);
-  expect(NAV_ITEMS).toHaveLength(128);
-  expect(PAGES).toHaveLength(128);
-  expect(EXPECTED_PAGE_COUNT).toBe(128);
+  expect(NAV_ITEMS).toHaveLength(129);
+  expect(PAGES).toHaveLength(129);
+  expect(EXPECTED_PAGE_COUNT).toBe(129);
 });
 
 for (const ext of ['html', 'md'] as const) {

@@ -1,8 +1,17 @@
 # Project Overview
 
-Updated 2026-11-11
+Updated 2026-11-12
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
+
+## 2026-11-12: ISO/IEC 42001:2023 初学者ガイドの移行
+
+- `/iso-iec-42001-2023-beginner-guide`をISOカテゴリーに登録。129ルート（ホーム＋128ガイド）に同期。
+- 導入＋20章を原本照合後にカテゴリー単位で個別コミット。121見出し、目次20リンク、45表の全セル、9図、25注記、19用語欄、外部23リンク、6グループ22チェック項目と全76 CSSルールを固定インベントリと一対一照合。コードブロックは原本どおり0件。
+- `app/iso-iec-42001-2023-beginner-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section20.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`を配置。290px目次、900px境界、青い配色、装飾、チェック状態・全体進捗・保存復元・リセットを維持。固定ヘッダーと動的免責高さに追従。
+- HTML内SVGを基準に9図のラベル・接続・形・配色・方向・書体を検証。Markdownと異なる導入ロードマップの認証申込ラベルはHTMLを優先。共有Mermaidコンポーネントは変更せずページ側で設定。
+- 原本HTML・Markdownを`archive/html-archive/iso/Iso-iec-42001-2023-beginner-guide.html`・`archive/md-archive/iso/Iso-iec-42001-2023-beginner-guide.md`へ移動。SHA-256一致・Git追跡・rename 100%を確認。
+- npm経由で検証。ビルド未実施、目視確認はユーザー担当（`http://localhost:3000/iso-iec-42001-2023-beginner-guide`）。対象415件（page:410件、interactions:2件、integration:3件）、共有Mermaid契約255件、ブラウザー比較33件、対象型検査・lint・Markdown lint成功。全体13594件（237ファイル）すべて成功。全体型検査には既存の対象外テストエラーあり。ビルド未実施、目視確認はユーザー担当。
 
 ## 2026-11-11: ISO/IEC AWI TS 42119-7 レッドチーミングガイドの移行
 
@@ -866,6 +875,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-42001-2023-beginner-guide.html` | `/iso-iec-42001-2023-beginner-guide` | ✅ 21カテゴリー・121見出し・20目次リンク・45表・9図・22チェック・HTML/MDアーカイブ済み |
 | `Iso-iec-awi-ts-42119-7-guide.html` | `/iso-iec-awi-ts-42119-7-guide` | ✅ 19カテゴリー・79見出し・階層目次78リンク・33表・8図・26注記・14用語欄・外部16リンク・チェック16項目・82 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-iec-tr-29119-13-guide.html` | `/iso-iec-tr-29119-13-guide` | ✅ 20カテゴリー・57見出し・目次19リンク・26表・17図・注記13件・外部14リンク・根拠ラベル55件・チェック10項目・67 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-30173-guide.html` | `/iso-30173-guide` | ✅ 15カテゴリー・52見出し・階層目次51リンク・30表・10図・注記16件・外部リンク40件・66 CSSルール、HTML・MDアーカイブ済み |
@@ -934,7 +944,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7、42001:2023は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -947,12 +957,12 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 128 ルート（ガイドライブラリ index + 127 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 129 ルート（ガイドライブラリ index + 128 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
-  1. `/iso-iec-awi-ts-42119-7-guide`の目視確認（ユーザー担当、ビルド未実施）。
+  1. `/iso-iec-42001-2023-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-tr-29119-13-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-30173-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
   2. `/iso-27031-2025-guide` の目視確認をユーザーに依頼する（ビルド未実施）。
