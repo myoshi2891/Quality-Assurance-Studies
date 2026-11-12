@@ -107,6 +107,16 @@ export default function NavBar() {
             window.removeEventListener('hashchange', hash);
         };
     }, []);
+    useEffect(() => {
+        const sidebar = nav.current;
+        const link = sidebar?.querySelector<HTMLAnchorElement>('a[aria-current="location"]');
+        if (!sidebar || !link) return;
+        const entry = link.getBoundingClientRect();
+        const bounds = sidebar.getBoundingClientRect();
+        if (entry.top < bounds.top + 40 || entry.bottom > bounds.bottom - 40) {
+            sidebar.scrollTop += entry.top - bounds.top - bounds.height / 3;
+        }
+    }, [active]);
     return <>
     <aside className={"sidebar" + (open ? " open" : "")} id="sidebar" aria-label="目次" ref={nav} inert={mobile && !open}>
       <div className="sidebar-title">ISO/IEC 2382-15:1999</div>
