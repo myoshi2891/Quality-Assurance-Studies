@@ -28,3 +28,11 @@ it('all diagrams expose their accessible description and visible failure fallbac
 it('server-rendered page hydrates without text, table or nested-label warnings',async()=>{const C=component('page');const container=document.createElement('div');document.body.append(container);container.innerHTML=renderToString(<C/>);const errors:unknown[]=[];const previous=console.error;console.error=(...args)=>errors.push(args);let root:ReturnType<typeof hydrateRoot>|undefined;try{await act(async()=>{root=hydrateRoot(container,<C/>,{onRecoverableError:e=>errors.push(e)});});expect(errors).toEqual([]);}finally{await act(async()=>root?.unmount());console.error=previous;container.remove();}});
 
 it('FAQ toolbar opens and closes every answer idempotently',()=>{const C=component('Section14');const r=render(<C/>);for(const name of ['すべて開く','すべて開く','すべて閉じる','すべて閉じる']){fireEvent.click(r.getByRole('button',{name}));expect([...r.container.querySelectorAll('details')].map(d=>d.open)).toEqual(Array(7).fill(name==='すべて開く'));}});
+
+it('TOC observes all 46 headings, follows each fragment and disconnects on unmount',()=>{
+ const saved=globalThis.IntersectionObserver;const observed:Element[]=[];let disconnected=false;
+ globalThis.IntersectionObserver=class {observe(n:Element){observed.push(n);}disconnect(){disconnected=true;}} as unknown as typeof IntersectionObserver;
+ const heads=document.createElement('div');heads.innerHTML=inventory.groups.toc.items.map(html=>{const href=html.match(/href="([^"]+)/)![1]!;return `<h2 id="${href.slice(1)}">heading</h2>`;}).join('');document.body.append(heads);
+ try{const C=component('NavBar');const r=render(<div className="iso29110-page"><C/><main className="content"/></div>);expect(observed.map(n=>n.id)).toEqual([...heads.children].map(n=>n.id));for(const h of heads.children){history.replaceState(null,'','#'+h.id);fireEvent(window,new Event('hashchange'));const links=r.container.querySelectorAll('a[aria-current="location"]');expect(links).toHaveLength(1);expect(links[0]!.getAttribute('href')).toBe('#'+h.id);}r.unmount();expect(disconnected).toBe(true);
+ }finally{globalThis.IntersectionObserver=saved;heads.remove();history.replaceState(null,'','/');}
+});
