@@ -25,6 +25,7 @@ const LAYOUT_SUITES: ReadonlyArray<{ name: string; testMatch: string | string[];
       'quality-is-free-layout.e2e.ts',
     ],
   },
+  { name: 'iso-2382-15', testMatch: 'iso-2382-15-layout.e2e.ts' },
   { name: 'iec62304', testMatch: 'iec62304-layout.e2e.ts' },
   { name: 'iec-62304', testMatch: 'iec-62304-layout.e2e.ts' },
   { name: 'iso-9075', testMatch: 'iso-9075-layout.e2e.ts' },
