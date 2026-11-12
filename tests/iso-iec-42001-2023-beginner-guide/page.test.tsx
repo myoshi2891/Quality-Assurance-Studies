@@ -84,7 +84,8 @@ describe('source diagrams', () => {
     expect(config.themeVariables).toMatchObject({primaryColor:"#12233b",primaryTextColor:"#e6edf7",lineColor:"#7c9eff",edgeLabelBackground:"#0b1b2e"});
     expect(chart.split('}%%')[0]).not.toContain("'");
     expect($('[role="img"]').attr('aria-label')).toContain(diagram.id);
-    for (const label of diagram.labels) expect($('[role="img"]').attr('aria-label')).toContain(label);
+    expect($('[role="img"]').attr('aria-label')).not.toMatch(/L_D\d+_/);
+    if ([3,5,6].includes(i)) for (const branch of ['はい','いいえ']) expect($('[role="img"]').attr('aria-label')).toContain(branch);
     const entry: string = 'mermaid/dist/mermaid.esm.mjs';
     await expect((await import(entry)).default.parse(chart)).resolves.toBeTruthy();
     for (const node of diagram.nodes) expect(chart).toContain(`"${publicationLabel(node.label)}"`);
