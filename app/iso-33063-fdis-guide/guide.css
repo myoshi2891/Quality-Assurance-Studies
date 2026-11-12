@@ -60,3 +60,5 @@ html:has(.iso33063-page) { scroll-behavior: smooth; }
 html:has(.iso33063-page) { scroll-behavior: auto; }
 .iso33063-page *, .iso33063-page *::before, .iso33063-page *::after { transition: none !important; animation: none !important; }
 }
+
+.iso33063-page blockquote.callout p { font-size: inherit; color: var(--dim); }

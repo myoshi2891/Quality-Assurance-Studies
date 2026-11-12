@@ -19,7 +19,8 @@ const diagrams=$('.mermaid-diagram').toArray().map((n,i)=>{
  const sequence=s.find('[data-et="message"]').toArray().map((n,i)=>({from:$(n).attr('data-from'),to:$(n).attr('data-to'),dotted:$(n).attr('class').includes('messageLine1'),message:messages[i]}));
  const actors=s.find('text.actor').toArray().map(n=>norm($(n).text()));
  const clusters=s.find('.cluster').toArray().map(n=>({id:$(n).attr('id').replace(/^svg-mmd-\d+-/,''),text:norm($(n).find('.cluster-label').text())}));
- const description=type==='sequence'?sequence.map(e=>`${e.from} → ${e.to}：${e.message}${e.dotted?'（破線）':''}。`).join(''):edges.map(e=>`${nodes.find(n=>n.id===e.from).text} → ${nodes.find(n=>n.id===e.to).text}${e.label?'（'+e.label+'）':''}${e.dotted?'（点線）':''}。`).join('');
+ const names=Object.fromEntries([...blocks[i].matchAll(/^participant\s+(\w+)\s+as\s+(.+)$/gm)].map(m=>[m[1],m[2]]));
+ const description=type==='sequence'?sequence.map(e=>`${names[e.from]} → ${names[e.to]}：${e.message}${e.dotted?'（破線）':''}。`).join(''):edges.map(e=>`${nodes.find(n=>n.id===e.from).text} → ${nodes.find(n=>n.id===e.to).text}${e.label?'（'+e.label+'）':''}${e.dotted?'（点線）':''}。`).join('');
  return{id:s.attr('id'),type,svg:$.html(s.find('svg')),nodes,edges,clusters,actors,sequence,source:blocks[i],direction:blocks[i].match(/(?:flowchart|graph)\s+(TD|LR|TB|RL|BT)/)?.[1]??null,description};
 });
 const selectors={headings:'main h1,main h2,main h3,main h4',toc:'#sidebar a',tables:'main table',code:'main pre',callouts:'main .callout',references:'main a[href^="http"]',answers:'main details',metadata:'.metas .m',diagrams:'main .mermaid-diagram'};
