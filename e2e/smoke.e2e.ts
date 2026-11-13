@@ -71,6 +71,10 @@ test('ISO 2382 mobile drawer cycles focus and restores scrolling and interaction
   await expect(main).toHaveAttribute('inert', '');
   await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
 
+  await expect(page.getByRole('dialog', { name: '目次' })).toBeVisible();
+  await expect(drawer).not.toHaveAttribute('aria-modal');
+  const closeButton = drawer.getByRole('button', { name: '目次を閉じる' });
+  await expect(closeButton).toBeInViewport();
   const links = drawer.getByRole('link');
   await expect(links.first()).toBeFocused();
   for (let i = 1; i < await links.count(); i++) {
@@ -78,11 +82,11 @@ test('ISO 2382 mobile drawer cycles focus and restores scrolling and interaction
     await expect(links.nth(i)).toBeFocused();
   }
   await page.keyboard.press('Tab');
-  await expect(toggle).toBeFocused();
+  await expect(closeButton).toBeFocused();
   await page.keyboard.press('Tab');
   await expect(links.first()).toBeFocused();
   await page.keyboard.press('Shift+Tab');
-  await expect(toggle).toBeFocused();
+  await expect(closeButton).toBeFocused();
   await page.keyboard.press('Shift+Tab');
   await expect(links.last()).toBeFocused();
 
@@ -94,6 +98,11 @@ test('ISO 2382 mobile drawer cycles focus and restores scrolling and interaction
   await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
   await expect(main.locator('#sec-36')).toBeInViewport();
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+
+  await toggle.click();
+  await drawer.getByRole('button', { name: '目次を閉じる' }).click();
+  await expect(toggle).toBeFocused();
+  await expect(drawer).not.toHaveAttribute('role');
 
   // Real wheel input must move the document after the drawer releases its lock.
   await main.locator('#sec-36').hover();

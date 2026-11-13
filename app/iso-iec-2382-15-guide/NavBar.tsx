@@ -33,6 +33,7 @@ export default function NavBar() {
             if (!inert)
                 main?.removeAttribute('inert');
             releaseScrollLock();
+            button.current?.focus();
         };
     }, [mobile, open]);
     /** Dismiss the drawer, optionally returning keyboard focus to its floating toggle. */
@@ -44,7 +45,7 @@ export default function NavBar() {
     useEffect(() => {
         if (!mobile || !open)
             return;
-        /** Cycle through the drawer links and floating close button in either direction. */
+        /** Cycle through the drawer links and its close button in either direction. */
         const keydown = (event: KeyboardEvent) => {
             if (document.getElementById('global-nav-panel')) return;
             if (event.key === 'Escape') {
@@ -53,7 +54,7 @@ export default function NavBar() {
             }
             if (event.key !== 'Tab')
                 return;
-            const items: HTMLElement[] = [...(nav.current?.querySelectorAll<HTMLAnchorElement>('a[href]') ?? []), ...(button.current ? [button.current] : [])];
+            const items = [...(nav.current?.querySelectorAll<HTMLElement>('a[href], button') ?? [])];
             const index = items.indexOf(document.activeElement as HTMLElement);
             const next = index < 0 ? 0 : (index + (event.shiftKey ? -1 : 1) + items.length) % items.length;
             event.preventDefault();
@@ -119,7 +120,7 @@ export default function NavBar() {
         }
     }, [active]);
     return <>
-    <aside className={"sidebar" + (open ? " open" : "")} id="sidebar" aria-label="目次" ref={nav} inert={mobile && !open}>
+    <aside className={"sidebar" + (open ? " open" : "")} id="sidebar" aria-label="目次" role={mobile && open ? 'dialog' : undefined} ref={nav} inert={mobile && !open}>
       <div className="sidebar-title">ISO/IEC 2382-15:1999</div>
       <nav><ul className="nav-list">{"\n                    "}<li className="nav-h2">{"\n                        "}<a href="#sec-1" data-target="sec-1" className={active === '#sec-1' ? 'active' : undefined} aria-current={active === '#sec-1' ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
         return; close(mobile && open); }}>{"第1章 この規格を一言でいうと"}</a>{"\n                        "}<ul>{"\n                            "}<li className="nav-h3">{"\n                                "}<a href="#sec-2" data-target="sec-2" className={active === '#sec-2' ? 'active' : undefined} aria-current={active === '#sec-2' ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
@@ -165,9 +166,10 @@ export default function NavBar() {
         return; close(mobile && open); }}>{"9-3. 著名な開発者・コミュニティの一次発信"}</a>{"\n                            "}</li>{"\n                            "}<li className="nav-h3">{"\n                                "}<a href="#sec-42" data-target="sec-42" className={active === '#sec-42' ? 'active' : undefined} aria-current={active === '#sec-42' ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
         return; close(mobile && open); }}>{"9-3-補. 報道（C++26）"}</a>{"\n                            "}</li>{"\n                            "}<li className="nav-h3">{"\n                                "}<a href="#sec-43" data-target="sec-43" className={active === '#sec-43' ? 'active' : undefined} aria-current={active === '#sec-43' ? 'location' : undefined} onClick={event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
         return; close(mobile && open); }}>{"9-4. このガイドの限界"}</a>{"\n                            "}</li>{"\n                        "}</ul>{"\n                    "}</li>{"\n                "}</ul></nav>
+      {mobile && open && <button className="sidebar-close" type="button" onClick={() => close()}>目次を閉じる</button>}
     </aside>
     <div className="scrim" onClick={() => close()}/>
-    <button id="sidebarToggle" className="sidebar-toggle" type="button" ref={button} aria-label={open ? '目次を閉じる' : '目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={() => setOpen(value => !value)}>
+    <button id="sidebarToggle" className="sidebar-toggle" type="button" ref={button} style={mobile && open ? { display: 'none' } : undefined} aria-label={open ? '目次を閉じる' : '目次を開く'} aria-expanded={open} aria-controls="sidebar" onClick={() => setOpen(value => !value)}>
       ☰ 目次
     </button>
   </>;

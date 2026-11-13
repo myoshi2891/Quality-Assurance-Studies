@@ -551,3 +551,5 @@ html:has(.iso2382-page) { scroll-behavior: auto; }
 .iso2382-page .code-block { padding: 0; white-space: normal; }
 .iso2382-page .code-block code { font-family: var(--mono); white-space: pre; }
 .iso2382-page .mermaid-diagram .label { font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif; }
+
+.iso2382-page .sidebar-close { position: sticky; bottom: 0; background: #12284a; color: #fff; border: 1px solid #2c4a86; border-radius: 10px; padding: 8px 14px; cursor: pointer; }
