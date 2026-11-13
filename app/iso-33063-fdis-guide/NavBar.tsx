@@ -46,6 +46,7 @@ export default function NavBar() {
             return;
         /** Cycle through the drawer links and floating close button in either direction. */
         const keydown = (event: KeyboardEvent) => {
+            if (document.getElementById('global-nav-panel')) return;
             if (event.key === 'Escape') {
                 close();
                 return;
