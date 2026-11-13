@@ -17,7 +17,7 @@
 .iso33063-page h3{font-size:18px;margin:34px 0 12px;color:var(--acc)}.iso33063-page p, .iso33063-page li{color:var(--dim)}.iso33063-page strong{color:#fff}.iso33063-page a{color:var(--acc);word-break:break-all}
 .iso33063-page code:not(pre code){background:var(--card2);padding:2px 6px;border-radius:5px;font-family:"JetBrains Mono",monospace;font-size:.9em}
 .iso33063-page .table-scroll{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
-.iso33063-page table{border-collapse:collapse;width:100%;font-size:14.5px}.iso33063-page th{background:var(--card2);color:#fff;text-align:left}.iso33063-page th, .iso33063-page td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}.iso33063-page tr:last-child td{border-bottom:0}.iso33063-page tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.iso33063-page table{border-collapse:collapse;width:100%}.iso33063-page th{background:var(--card2);color:#fff;text-align:left}.iso33063-page th, .iso33063-page td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}.iso33063-page tr:last-child td{border-bottom:0}.iso33063-page tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
 .iso33063-page blockquote.callout{margin:18px 0;padding:12px 18px;border-left:4px solid var(--acc);background:var(--card);border-radius:0 10px 10px 0}.iso33063-page blockquote.callout p{margin:6px 0}
 .iso33063-page .mermaid-diagram{display:block;overflow-x:auto;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:20px;margin:20px 0}
 .iso33063-page .mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
@@ -38,7 +38,14 @@ html:has(.iso33063-page) { scroll-behavior: smooth; }
 .iso33063-page .hero h1 { font-family: inherit; }
 .iso33063-page .hero-title { background: none; -webkit-text-fill-color: currentColor; animation: none; }
 .iso33063-page h2, .iso33063-page h3 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
-.iso33063-page table { color: inherit; }
+.iso33063-page { --ink: var(--text); }
+.iso33063-page table { color: var(--ink); }
+.iso33063-page th, .iso33063-page td { color: var(--ink) !important; font-size: 1rem !important; }
+.iso33063-page td { background: transparent; line-height: inherit; }
+.iso33063-page thead th { font-family: inherit; letter-spacing: normal; white-space: normal; text-transform: none; }
+.iso33063-page td strong { color: inherit !important; font-weight: 700 !important; }
+.iso33063-page td code { background: var(--card2) !important; color: inherit !important; font-size: .9em !important; }
+.iso33063-page tr:hover td { background: transparent !important; }
 .iso33063-page .mermaid-wrapper { background: transparent; border: none; border-radius: 0; box-shadow: none; margin: 0; padding: 0; width: 100%; max-width: none; }
 .iso33063-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
 .iso33063-page .mermaid-wrapper foreignObject { overflow: visible !important; }
