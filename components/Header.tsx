@@ -5,6 +5,7 @@ import Link from 'next/link';
 import './header.css';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, groupByCategory, matchesQuery, type NavCategory } from '../lib/navigation';
+import { acquireBodyScrollLock } from '../lib/bodyScrollLock';
 
 interface HeaderProps {
   className?: string;
@@ -108,11 +109,10 @@ export default function Header({ className }: HeaderProps) {
 
   useEffect(() => {
     if (!isOpen) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const releaseScrollLock = acquireBodyScrollLock();
     searchRef.current?.focus();
     return () => {
-      document.body.style.overflow = previous;
+      releaseScrollLock();
       // Escape / オーバーレイなど遷移を伴わない閉じ方では、
       // フォーカスを起点のハンバーガーへ戻す（キーボード操作の迷子を防ぐ）。
       if (restoreFocusRef.current) hamburgerRef.current?.focus();
