@@ -537,7 +537,13 @@ html:has(.iso2382-page) { scroll-behavior: auto; }
 .iso2382-page .callout p { font-size: inherit; }
 .iso2382-page pre code { display: inline; white-space: pre; width: auto; }
 
+.iso2382-page { --ink: var(--text); }
 .iso2382-page table { color: var(--text); }
+.iso2382-page td { color: var(--ink) !important; font-size: 1rem !important; }
+.iso2382-page th { background: #112444 !important; color: #fff !important; font-size: 14.5px !important; }
+.iso2382-page td strong { color: inherit !important; font-weight: 700 !important; }
+.iso2382-page td code { background: #102340 !important; color: #cfe0ff !important; font-size: 0.88em !important; }
+.iso2382-page tbody tr:hover td { background: #0d1f3a !important; }
 .iso2382-page .hero { text-align: start; }
 .iso2382-page .hero::after, .iso2382-page .code-block::before, .iso2382-page .code-block code::before, .iso2382-page .code-block code::after { content: none; }
 .iso2382-page .hero-title { background: none; -webkit-text-fill-color: currentColor; animation: none; }

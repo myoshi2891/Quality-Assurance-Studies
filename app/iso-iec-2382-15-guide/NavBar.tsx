@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { TOC_ITEMS } from './toc';
+import { acquireBodyScrollLock } from '../../lib/bodyScrollLock';
 /** Preserve the responsive drawer, keyboard focus cycle and measured current-section links. */
 export default function NavBar() {
     const [mobile, setMobile] = useState(false);
@@ -23,16 +24,15 @@ export default function NavBar() {
         const app = nav.current?.closest('.iso2382-page');
         const main = app?.querySelector('.main');
         const inert = main?.hasAttribute('inert');
-        const overflow = document.body.style.overflow;
+        const releaseScrollLock = acquireBodyScrollLock();
         app?.classList.add('nav-open');
         main?.setAttribute('inert', '');
-        document.body.style.overflow = 'hidden';
         nav.current?.querySelector<HTMLAnchorElement>('a')?.focus();
         return () => {
             app?.classList.remove('nav-open');
             if (!inert)
                 main?.removeAttribute('inert');
-            document.body.style.overflow = overflow;
+            releaseScrollLock();
         };
     }, [mobile, open]);
     /** Dismiss the drawer, optionally returning keyboard focus to its floating toggle. */
@@ -46,6 +46,7 @@ export default function NavBar() {
             return;
         /** Cycle through the drawer links and floating close button in either direction. */
         const keydown = (event: KeyboardEvent) => {
+            if (document.getElementById('global-nav-panel')) return;
             if (event.key === 'Escape') {
                 close();
                 return;

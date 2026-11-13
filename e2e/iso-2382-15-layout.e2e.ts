@@ -4,20 +4,27 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {readFileSync} from 'node:fs';
 import {transformSync} from 'next/dist/build/swc';
 import {sourceModule} from '../tests/helpers/source-module';
+import {applyReviewCorrections} from '../tests/iso-iec-2382-15-guide/review-corrections';
 import inventory from '../docs/migration-inventory/iso-iec-2382-15-guide.json';
 const base='app/iso-iec-2382-15-guide';
 const globals=readFileSync('node_modules/tailwindcss/preflight.css','utf8')+readFileSync('app/globals.css','utf8');
 const retained=readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css','utf8');
 function markup(){const Page=sourceModule(base+'/page.tsx').default as React.ComponentType;return renderToStaticMarkup(React.createElement(Page));}
-const selectors=['.sidebar','.sidebar-title','.nav-list','.nav-list ul','.nav-list li','.nav-list a','.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.meta-item','.meta-label','.meta-value','h2','h3','h4','p','ul','ol','li','a','code','.table-scroll','table','th','td','.code-block','.code-lang','pre','pre code','.callout','.callout-icon','.callout-body','.callout-body p','.glossary','.glossary-title','details','details summary','.checklist-card','.checklist-progress','.cp-bar','.cp-fill','.cp-count','ul.checklist','ul.checklist li','ul.checklist input','.mermaid-diagram','.page-footer'];
+const selectors=['.sidebar','.sidebar-title','.nav-list','.nav-list ul','.nav-list li','.nav-list a','.main','.hero','.eyebrow','.hero-title','.hero-sub','.hero-meta','.meta-item','.meta-label','.meta-value','h2','h3','h4','p','ul','ol','li','a','code','.table-scroll','table','th','td','td strong','td code','.code-block','.code-lang','pre','pre code','.callout','.callout-icon','.callout-body','.callout-body p','.glossary','.glossary-title','details','details summary','.checklist-card','.checklist-progress','.cp-bar','.cp-fill','.cp-count','ul.checklist','ul.checklist li','ul.checklist input','.mermaid-diagram','.page-footer'];
 const properties=['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','textAlign','whiteSpace','textTransform','marginTop','marginRight','marginBottom','marginLeft','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth','borderTopColor','borderRightColor','borderBottomColor','borderLeftColor','borderRadius','display','width','minWidth','maxWidth','minHeight','listStyleType','boxShadow','backgroundImage','overflowX','verticalAlign','webkitTextFillColor','animationName','rowGap','columnGap','justifyContent'];
 for(const width of [390,768,960,961,1440])for(const order of ['before','after'])test(`${width}px styles ${order}: every source category and declaration`,async({page})=>{
  await page.setViewportSize({width,height:980});const ref=await page.context().newPage();await ref.setViewportSize({width,height:980});
- await ref.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+ await ref.setContent(`<style>${inventory.originalCss} td { font-size: 1rem; }</style>${applyReviewCorrections(inventory.originalBody)}`);
  const own=readFileSync(base+'/guide.css','utf8');await page.setContent(`<style>${globals}${order==='before'?retained+own:own+retained}</style>${markup()}`);
  for(const p of [ref,page]){await p.locator('.mermaid-diagram').evaluateAll(nodes=>nodes.forEach(n=>n.replaceChildren()));await p.locator('details').evaluateAll(nodes=>nodes.forEach(n=>(n as HTMLDetailsElement).open=true));}
  const collect=({root,selectors,properties}:{root:string;selectors:string[];properties:string[]})=>Object.fromEntries(selectors.map(selector=>[selector,Array.from(document.querySelectorAll(root+selector),el=>{const s=getComputedStyle(el);return Object.fromEntries(properties.map(p=>[p,s[p as keyof CSSStyleDeclaration]]));})]));
  const expected=await ref.evaluate(collect,{root:'',selectors,properties}),actual=await page.evaluate(collect,{root:'.iso2382-page ',selectors,properties});for(const selector of selectors)expect.soft(actual[selector],selector).toEqual(expected[selector]);
+ await expect(page.locator('td').first()).toHaveCSS('color','rgb(230, 237, 247)');
+ await expect(page.locator('td').first()).toHaveCSS('font-size','16px');
+ await expect(page.locator('th').first()).toHaveCSS('color','rgb(255, 255, 255)');
+ await expect(page.locator('th').first()).toHaveCSS('font-size','14.5px');
+ await page.locator('tbody td').first().hover();
+ await expect(page.locator('tbody td').first()).toHaveCSS('background-color','rgb(13, 31, 58)');
  const pseudo=(el:Element)=>{const s=getComputedStyle(el,'::before');return{content:s.content,width:s.width,height:s.height,background:s.backgroundImage,position:s.position,top:s.top,right:s.right,pointer:s.pointerEvents};};expect(await page.locator('.hero').evaluate(pseudo)).toEqual(await ref.locator('.hero').evaluate(pseudo));expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await ref.close();
 });
 const shared=readFileSync('components/Mermaid.tsx','utf8');const config=Function('return ('+shared.match(/mermaid.initialize\((\{[\s\S]*?\n\})\);/)![1]+');')() as object;
@@ -35,7 +42,7 @@ for(const width of [390,1440])for(const [i,d]of inventory.diagrams.entries())tes
 for(const width of [390,768,960,961,1440])test(`${width}px chrome offsets and keyboard disclosures`,async({page})=>{await page.setViewportSize({width,height:980});await page.setContent(`<style>${globals}${readFileSync(base+'/guide.css','utf8')}</style>${markup()}`);for(const height of [38,76,120]){await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('.sidebar')).toHaveCSS('top',60+height+'px');if(width<=960)await expect(page.locator('.sidebar-toggle')).toHaveCSS('top',72+height+'px');for(const selector of ['h2','h3'])await expect(page.locator(selector).last()).toHaveCSS('scroll-margin-top',(width<=960?132:80)+height+'px');}for(const d of await page.locator('details').all()){const summary=d.locator('summary');await summary.focus();await page.keyboard.press('Enter');await expect(d).toHaveAttribute('open','');await page.keyboard.press('Space');await expect(d).not.toHaveAttribute('open');}await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('html')).toHaveCSS('scroll-behavior','auto');});
 
 test('all nine code examples preserve original syntax tokens, colors and whitespace',async({page})=>{
- const ref=await page.context().newPage();await ref.setContent(`<style>${inventory.originalCss}</style>${inventory.originalBody}`);
+ const ref=await page.context().newPage();await ref.setContent(`<style>${inventory.originalCss} td { font-size: 1rem; }</style>${applyReviewCorrections(inventory.originalBody)}`);
  const original=readFileSync('archive/html-archive/iso/Iso-iec-2382-15-guide.html','utf8');const script=original.slice(original.indexOf('var KW = {'),original.lastIndexOf('})();'));
  await ref.addScriptTag({content:'(()=>{'+script+'})();'});
  await page.setContent(`<style>${globals}${readFileSync(base+'/guide.css','utf8')}</style>${markup()}`);
