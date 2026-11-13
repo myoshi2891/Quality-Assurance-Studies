@@ -378,7 +378,7 @@ it('2382: global drawer owns Tab and Escape while the TOC remains open', () => {
     fireEvent.click(tocToggle);
     fireEvent.click(r.getByRole('button', { name: 'ガイドを探す' }));
     const close = r.getByRole('button', { name: 'ナビゲーションを閉じる' });
-    const summaries = r.getByRole('dialog').querySelectorAll<HTMLElement>('summary');
+    const summaries = r.getByRole('dialog', { name: 'ナビゲーションメニュー' }).querySelectorAll<HTMLElement>('summary');
     const last = summaries[summaries.length - 1]!;
     last.focus();
     fireEvent.keyDown(last, { key: 'Tab' });
@@ -386,7 +386,8 @@ it('2382: global drawer owns Tab and Escape while the TOC remains open', () => {
     fireEvent.keyDown(close, { key: 'Tab', shiftKey: true });
     expect(document.activeElement === last).toBe(true);
     fireEvent.keyDown(document, { key: 'Escape' });
-    expect(r.queryByRole('dialog')).toBeNull();
+    expect(r.queryByRole('dialog', { name: 'ナビゲーションメニュー' })).toBeNull();
+    expect(r.getByRole('dialog', { name: '目次' })).toBeTruthy();
     expect(tocToggle.getAttribute('aria-expanded')).toBe('true');
     expect(document.body.style.overflow).toBe('hidden');
     fireEvent.keyDown(document, { key: 'Tab' });
