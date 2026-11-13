@@ -1,6 +1,7 @@
 /** Reviewed content corrections; preserve the archived migration inventory. */
 export function applyReviewCorrections(html: string): string {
   return html
+    .replace('PRMを評価するための <strong>採点基準</strong>。', 'PRMに基づく <strong>評価指標</strong> を用いて、実施されているプロセスを評価するためのモデル。')
     .replace('第2版（FDIS / 2026年10月時点で承認フェーズ）', '第2版（FDIS）')
     .replace('開発中（FDIS投票段階）', '発行準備中（60.00：International Standard under publication）。ISO公式ページで2026年11月13日確認。')
     .replace('そのテストプロセスの能力を評価するためのモデル（採点基準）', '選択したプロセス品質特性に基づく品質次元と、テストプロセス次元からなる評価モデル')
