@@ -1,6 +1,7 @@
 /** Reviewed content corrections; preserve the archived migration inventory. */
 export function applyReviewCorrections(html: string): string {
   return html
+    .replace(/組織全体の成熟度/g, '評価対象の組織または組織単位の成熟度')
     .replace(/33063は、能力の測り方を\s+/, "33063と組み合わせて利用できる能力測定の枠組みの一つが ")
     .replace(/\s+に依拠します。公開されている目次から、レベル構成は次のとおり確認できます。/, " です。この枠組みの能力レベルとプロセス属性は任意に採用でき、すべてのアセスメントで必須ではありません。以下は33020を採用する場合の説明です。公開されている目次から、レベル構成は次のとおり確認できます。")
     .replace(/そして出力は、/, "この枠組みを採用した場合の出力は、")
