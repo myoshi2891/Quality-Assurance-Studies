@@ -1,6 +1,13 @@
 /** Reviewed content corrections; preserve the archived migration inventory. */
 export function applyReviewCorrections(html: string): string {
   return html
+    .replace('第2版（FDIS / 2026年10月時点で承認フェーズ）', '第2版（FDIS）')
+    .replace('開発中（FDIS投票段階）', '発行準備中（60.00：International Standard under publication）。ISO公式ページで2026年11月13日確認。')
+    .replace('そのテストプロセスの能力を評価するためのモデル（採点基準）', '選択したプロセス品質特性に基づく品質次元と、テストプロセス次元からなる評価モデル')
+    .replace(/(テストプロセス次元からなる評価モデル<\/strong>)\s*です。/, '$1です。能力評価はその一例で、ISO/IEC 33020の能力測定フレームワークは任意に採用できます（§7参照）。')
+    .replace('（プロセスごとに能力を評価）', '（選択したプロセス品質特性に基づく品質次元で、プロセスごとに評価。ISO/IEC 33020を任意に採用した能力評価はその一例。§7参照）')
+    .replace('33063はプロセスごとに能力を評価する', '33063は選択したプロセス品質特性に基づく品質次元で、プロセスごとに評価する')
+    .replace('連続的表現</strong>、TMMiは', '連続的表現</strong>です。ISO/IEC 33020を任意に採用した能力評価はその一例です（§7参照）。TMMiは')
     .replace('ISO公式ページによると、本規格は ', '2026年10月6日時点のISO公式ページのステージ表記に基づくと、本規格は ')
     .replace('（FDIS投票開始、期間8週間）', '（校正刷りの事務局送付、またはFDIS投票開始：8週間）')
     .replace('現在地（FDIS投票中）', '2026年10月6日時点の承認段階（50.20）')
