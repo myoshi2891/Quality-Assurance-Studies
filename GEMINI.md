@@ -4,6 +4,11 @@ Updated 2026-11-14
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-14: ISO 42005のリスク評価・影響評価の比較修正
+
+- 第3章の比較表・説明・比喩・図の補足を修正。ISO/IEC 23894のリスク評価も個人・集団・社会への結果を考慮することを明示し、両評価を目的と焦点で区別する説明へ統一。第13章の理解度チェックも評価対象の重なりを問う文言へ同期。
+- 原本アーカイブと固定インベントリは保持。`tests/iso-iec-42005-2025-beginner-guide/review-corrections.ts`で訂正を原本比較へ適用し、表の3セル・本文・旧表現の除去・確認問題を開発/本番変換で検証。対象446件、全体15,134件（249ファイル）、原本ブラウザー比較39件、対象型検査、全体ESLint・Markdown lint成功。テスト件数・ファイル台帳・ルート数は変更なし。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-14: ISO/IEC 42005:2025 初学者ガイドの移行
 
 - `/iso-iec-42005-2025-beginner-guide`をISOカテゴリーへ登録。133ルート（ホーム＋132ガイド）、ISOは28件へ同期。
