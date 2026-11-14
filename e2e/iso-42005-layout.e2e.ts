@@ -61,4 +61,27 @@ for(const width of [390,1440])for(const [i,d]of inventory.diagrams.entries())tes
  }
  expect(await page.locator('#diagram-'+i+' svg').count()).toBe(1);const geometry=await page.locator('.mermaid-diagram').nth(i).evaluate(el=>{const svg=el.querySelector('svg')!,box=svg.getBoundingClientRect();el.scrollLeft=0;const left=box.left;el.scrollLeft=el.scrollWidth;return {width:box.width,height:box.height,left,outer:el.getBoundingClientRect().left,scroll:el.scrollLeft,moved:left-svg.getBoundingClientRect().left,nodes:Array.from(svg.querySelectorAll('g.node'),n=>{const r=n.getBoundingClientRect();return r.width>0&&r.height>0;})};});expect(geometry.width).toBeGreaterThan(0);expect(geometry.height).toBeGreaterThan(0);expect(geometry.left).toBeGreaterThanOrEqual(geometry.outer);expect(Math.abs(geometry.scroll-geometry.moved)).toBeLessThanOrEqual(1);expect(geometry.nodes.every(Boolean)).toBe(true);await ref.close();
 });
-for(const width of [390,768,900,901,1440])test(`${width}px chrome offsets and keyboard disclosures`,async({page})=>{await page.setViewportSize({width,height:980});await page.setContent(`<style>${globals}${readFileSync(base+'/guide.css','utf8')}</style>${markup()}`);for(const height of [38,76,120]){await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('#sidebar')).toHaveCSS('top',60+height+'px');if(width<=900)await expect(page.locator('#navToggle')).toHaveCSS('top',72+height+'px');for(const selector of ['h2','h3'])await expect(page.locator(selector).last()).toHaveCSS('scroll-margin-top',(width<=900?132:80)+height+'px');}for(const d of await page.locator('details').all()){const summary=d.locator('summary');await summary.focus();await page.keyboard.press('Enter');await expect(d).toHaveAttribute('open','');await page.keyboard.press('Space');await expect(d).not.toHaveAttribute('open');}await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('html')).toHaveCSS('scroll-behavior','auto');});
+for(const width of [390,768,900,901,1440])test(`${width}px chrome offsets and keyboard disclosures`,async({page})=>{await page.setViewportSize({width,height:980});await page.setContent(`<style>${globals}${readFileSync(base+'/guide.css','utf8')}</style>${markup()}`);for(const height of [38,76,120]){await page.evaluate(h=>document.documentElement.style.setProperty('--disclaimer-height',h+'px'),height);await expect(page.locator('#sidebar')).toHaveCSS('top',60+height+'px');if(width<=900)await expect(page.locator('#navToggle')).toHaveCSS('top',72+height+'px');for(const selector of ['h2','h3'])await expect(page.locator(selector).last()).toHaveCSS('scroll-margin-top',(width<=900?132:80)+height+'px');}for(const d of await page.locator('details').all()){const summary=d.locator('summary');await summary.focus();await page.keyboard.press('Enter');await expect(d).toHaveAttribute('open','');await page.keyboard.press('Space');await expect(d).not.toHaveAttribute('open');}await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('html')).toHaveCSS('scroll-behavior','auto');
+ // Later, more-specific CSS must not reintroduce cards or compress the diagram.
+ await page.addStyleTag({content:`
+ .iso42005-page [data-reset-fixture] {overflow-x:hidden;width:80px;max-width:80px}
+ .iso42005-page [data-reset-fixture] .mermaid-wrapper {background:red;border:8px solid red;border-radius:30px;box-shadow:0 0 10px red;margin:20px;padding:20px;width:50%;max-width:60px}
+ `});
+ for(const className of ['mermaid-container','mermaid-wrap']){
+   const geometry=await page.evaluate(className=>{
+     const outer=document.createElement('div');outer.className=className;outer.setAttribute('data-reset-fixture','');
+     outer.innerHTML='<div class="mermaid-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 32" style="width:1600px;max-width:100%;height:auto"><rect width="1600" height="32"/></svg></div>';
+     document.querySelector('.iso42005-page')!.append(outer);
+     const wrapper=outer.querySelector<HTMLElement>('.mermaid-wrapper')!,svg=outer.querySelector('svg')!;
+     const style=getComputedStyle(wrapper),container=getComputedStyle(outer);
+     const reset={background:style.backgroundColor,border:style.borderTopWidth,radius:style.borderRadius,shadow:style.boxShadow,margin:style.margin,padding:style.padding,maxWidth:style.maxWidth};
+     const start=svg.getBoundingClientRect();outer.scrollLeft=outer.scrollWidth;const end=svg.getBoundingClientRect(),bounds=outer.getBoundingClientRect();
+     const result={reset,overflow:container.overflowX,width:outer.clientWidth,wrapperWidth:wrapper.getBoundingClientRect().width,svgWidth:end.width,scroll:outer.scrollLeft,moved:start.left-end.left,left:start.left-bounds.left,right:end.right-bounds.right};
+     outer.remove();return result;
+   },className);
+   expect(geometry.reset).toEqual({background:'rgba(0, 0, 0, 0)',border:'0px',radius:'0px',shadow:'none',margin:'0px',padding:'0px',maxWidth:'none'});
+   expect(geometry.overflow).toBe('auto');expect(geometry.width).toBeGreaterThan(80);expect(geometry.wrapperWidth).toBe(geometry.width);
+   expect(geometry.svgWidth).toBe(1600);expect(geometry.scroll).toBeGreaterThan(0);expect(geometry.moved).toBeCloseTo(geometry.scroll,1);
+   expect(geometry.left).toBeGreaterThanOrEqual(-1);expect(geometry.right).toBeLessThanOrEqual(1);
+ }
+});
