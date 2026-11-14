@@ -8,8 +8,8 @@ import inventory from '../../docs/migration-inventory/software-testing-craftsman
 it('registers Craftsman once in books-practices with a short description', () => {
     const items=NAV_ITEMS.filter(i=>i.href===`/${inventory.slug}`);expect(items).toHaveLength(1);expect(items[0]?.category).toBe('books-practices');expect(items[0]?.description.length).toBeLessThanOrEqual(80);
 });
-it('synchronizes navigation and smoke registry at 132 routes with original H1', () => {
-    expect(NAV_ITEMS).toHaveLength(132);expect(PAGES).toHaveLength(132);expect(EXPECTED_PAGE_COUNT).toBe(132);
+it('synchronizes navigation and smoke registry at 133 routes with original H1', () => {
+    expect(NAV_ITEMS).toHaveLength(133);expect(PAGES).toHaveLength(133);expect(EXPECTED_PAGE_COUNT).toBe(133);
     const items=PAGES.filter(i=>i.path===`/${inventory.slug}`);expect(items).toHaveLength(1);expect(items[0]?.h1.test("Software Testing: A Craftsman's Approach 入門ガイド")).toBe(true);
 });
 for(const ext of ['html','md'] as const) it(`archives original ${ext} with byte-for-byte fidelity`, () => {

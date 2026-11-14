@@ -4,6 +4,20 @@ Updated 2026-11-14
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
+## 2026-11-14: ISO 42005のリスク評価・影響評価の比較修正
+
+- 第3章の比較表・説明・比喩・図の補足を修正。ISO/IEC 23894のリスク評価も個人・集団・社会への結果を考慮することを明示し、両評価を目的と焦点で区別する説明へ統一。第13章の理解度チェックも評価対象の重なりを問う文言へ同期。
+- 原本アーカイブと固定インベントリは保持。`tests/iso-iec-42005-2025-beginner-guide/review-corrections.ts`で訂正を原本比較へ適用し、表の3セル・本文・旧表現の除去・確認問題を開発/本番変換で検証。対象446件、全体15,134件（249ファイル）、原本ブラウザー比較39件、対象型検査、全体ESLint・Markdown lint成功。テスト件数・ファイル台帳・ルート数は変更なし。ビルド未実施、目視確認はユーザー担当。
+
+## 2026-11-14: ISO/IEC 42005:2025 初学者ガイドの移行
+
+- `/iso-iec-42005-2025-beginner-guide`をISOカテゴリーへ登録。133ルート（ホーム＋132ガイド）、ISOは28件へ同期。
+- 導入＋第0〜15章の17カテゴリーを順番に実装し、各カテゴリーの原本比較テスト成功後に個別コミット。79見出し、67階層目次、47表の全セル、12図、15注記、13用語欄、14外部リンク、13チェック項目、全72 CSSルールを固定インベントリと照合。通常のコードブロックと開閉回答は原本どおり0件。
+- `app/iso-iec-42005-2025-beginner-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section16.tsx`・`NavBar.tsx`・`toc.ts`・`Checklist.tsx`・`Diagram.tsx`・`diagrams.ts`・`diagram-layouts.ts`・`restoreDiagramLayout.ts`を配置。290px固定目次、900px/600px境界、ダーク配色、ヒーロー装飾、表・注記・用語欄・チェックの配色と余白を保持。モバイル目次のキーボード循環・背景inert・共有スクロールロック、動的免責高さを反映。
+- 図はHTML内SVGのノード・分岐・接続を優先し、Markdownと異なる第5章の分岐も原本HTMLへ一致。Mermaidの再計測による配置・折り返しの変化はページ側の座標復元で補正し、共有コンポーネントは変更しない。描画失敗時は可視の説明を表示。チェックは既存の`iso42005-cl-1`で保存・復元・リセットし、不正な保存値や保存拒否にも対応。
+- 原本は`archive/html-archive/iso/Iso-iec-42005-2025-beginner-guide.html`と`archive/md-archive/iso/Iso-iec-42005-2025-beginner-guide.md`へ同一内容で移動。SHA-256、Git追跡、rename 100%、棚卸し再現性を検証。
+- npm経由で対象446件（page:406、interactions:36、integration:4）、共有Mermaid契約265件、原本ブラウザー比較39件が成功。ブラウザー比較は5幅×CSS読込2順序、12実SVG×2幅、5幅×免責高さ3条件を含む。図の横スクロール両端は実スクロール領域で再検証済み。全体15,134件（249ファイル）、全体ESLint、対象ソース・テスト・E2E型検査、Markdown lintが成功。全体型検査には対象外テストの既存診断が残る。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-14: ISO ガイドのレビュー指摘対応
 
 - 33063 のモバイル目次を、閉じる操作を含む名前付きモーダルダイアログで囲み、祖先ごとの兄弟要素を `inert` にして共通ヘッダーを含む背景操作を遮断。終了時は元の `inert` を保持して復元し、デスクトップ目次は非モーダルを維持。
@@ -915,6 +929,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-iec-42005-2025-beginner-guide.html` | `/iso-iec-42005-2025-beginner-guide` | ✅ 17カテゴリー・79見出し・67目次・47表・12図・13チェック・全72 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-33063-fdis-guide.html` | `/iso-33063-fdis-guide` | ✅ 15カテゴリー・51見出し・14目次・24表・9図・全50 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-2382-15-guide.html` | `/iso-iec-2382-15-guide` | ✅ 10カテゴリー・49見出し・43目次・18表・14図・9コード例・全87 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-29110-5-1-2-2025-beginner-guide.html` | `/iso-iec-29110-5-1-2-2025-beginner-guide` | ✅ 18カテゴリー・47見出し・46目次リンク・28表・13図・検索・チェック・HTML/MDアーカイブ済み |
@@ -987,7 +1002,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7、42001:2023、29110-5-1-2:2025、2382-15:1999、FDIS 33063は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7、42001:2023、29110-5-1-2:2025、2382-15:1999、FDIS 33063、42005:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -1000,11 +1015,12 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 132 ルート（ガイドライブラリ index + 131 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 133 ルート（ガイドライブラリ index + 132 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが残っています（`Sonarqube.html`、ISO 各規格など）。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
+  1. `/iso-iec-42005-2025-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-33063-fdis-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-2382-15-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-29110-5-1-2-2025-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。

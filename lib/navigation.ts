@@ -183,6 +183,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/iso-iec-29110-5-1-2-2025-beginner-guide', label: 'ISO/IEC 29110-5-1-2:2025 Basicプロファイルガイド', description: '超小規模組織向けBasicプロファイルのPM・SIプロセス、役割・成果物と導入手順を学ぶ。', category: 'iso' },
   { href: '/iso-iec-2382-15-guide', label: 'ISO/IEC 2382-15:1999 初学者ガイド', description: 'プログラミング言語の共通用語を図解とPython・TypeScript・Go・Rust・C++の例で学ぶ。', category: 'iso' },
   { href: '/iso-33063-fdis-guide', label: 'ISO/IEC FDIS 33063 初学者ガイド', description: 'テストプロセスの能力評価を、規格の関係・能力レベル・評価指標・架空ケースから学ぶ。', category: 'iso' },
+  { href: '/iso-iec-42005-2025-beginner-guide', label: 'ISO/IEC 42005:2025 初学者ガイド', description: 'AIシステム影響評価のプロセス・文書化・他規格との連携を、図解と実践例で学ぶ。', category: 'iso' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
