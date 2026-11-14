@@ -1,3 +1,4 @@
+import {applyReviewCorrections} from '../tests/iso-iec-42005-2025-beginner-guide/review-corrections';
 import {test,expect} from '@playwright/test';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
@@ -14,7 +15,7 @@ const selectors=['#sidebar','.brand','.brand small','#sidebar ul','#sidebar li',
 const properties=['color','backgroundColor','fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','textAlign','whiteSpace','textTransform','marginTop','marginRight','marginBottom','marginLeft','paddingTop','paddingRight','paddingBottom','paddingLeft','borderTopWidth','borderRightWidth','borderBottomWidth','borderLeftWidth','borderTopColor','borderRightColor','borderBottomColor','borderLeftColor','borderRadius','display','width','minWidth','maxWidth','minHeight','listStyleType','boxShadow','backgroundImage','overflowX','verticalAlign','webkitTextFillColor','animationName','rowGap','columnGap','justifyContent'];
 for(const width of [390,768,900,901,1440])for(const order of ['before','after'])test(`${width}px styles ${order}: every source category and declaration`,async({page})=>{
  await page.setViewportSize({width,height:980});const ref=await page.context().newPage();await ref.setViewportSize({width,height:980});
- await ref.setContent(`<style>${inventory.originalCss}${reviewedTableCss}</style>${inventory.originalBody!}`);
+ await ref.setContent(`<style>${inventory.originalCss}${reviewedTableCss}</style>${applyReviewCorrections(inventory.originalBody!)}`);
  const own=readFileSync(base+'/guide.css','utf8');await page.setContent(`<style>${globals}${order==='before'?retained+own:own+retained}</style>${markup()}`);
  for(const p of [ref,page]){await p.locator('.cl-count').evaluateAll(nodes=>nodes.forEach(n=>n.textContent='0 / 13')); await p.locator('.mermaid-diagram').evaluateAll(nodes=>nodes.forEach(n=>n.replaceChildren()));await p.locator('details').evaluateAll(nodes=>nodes.forEach(n=>(n as HTMLDetailsElement).open=true));}
  const collect=({root,selectors,properties}:{root:string;selectors:string[];properties:string[]})=>Object.fromEntries(selectors.map(selector=>[selector,Array.from(document.querySelectorAll(root+selector),el=>{const s=getComputedStyle(el);return Object.fromEntries(properties.map(p=>[p,s[p as keyof CSSStyleDeclaration]]));})]));
