@@ -585,8 +585,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `774b5986`（比較説明・確認問題の修正。仕様書同期コミット自体は含まない） |
-| 最新コミット内容 | `fix(iso42005): align the learning check with assessment overlap` |
+| 最新 HEAD | `91b834fd`（42005の手引きとしての位置づけと、42001に基づく附属書Aの管理策の説明を修正。仕様書同期コミット自体は含まない） |
+| 最新コミット内容 | `fix(iso42005): clarify guidance scope and align Annex A controls with ISO 42001` |
 | 次の作業 | `/iso-iec-42005-2025-beginner-guide`の目視確認（ユーザー担当）。ビルド未実施。 |
 | ビルド状態 | 全体15,134件（249ファイル、失敗0）、対象446件・共有Mermaid265件・ブラウザー比較39件・対象型検査・全体ESLint・Markdown lint成功。全体型検査は既存の対象外診断あり。npm経由、ビルド未実施、目視確認はユーザー担当。 |
 
