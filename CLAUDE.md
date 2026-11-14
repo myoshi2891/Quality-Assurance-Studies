@@ -1,8 +1,13 @@
 # CLAUDE.md
 
-Updated 2026-11-14
+Updated 2026-11-15
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-15: ISO 42005のMermaid CSSリセット補強
+
+- ページ固有の`.mermaid-wrapper`リセット8項目の値を保持し、全宣言へ`!important`を追加。`.mermaid-container`と`.mermaid-wrap`に横スクロール・100%幅のリセットを追加し、SVGの縮小防止を維持。
+- 関連711件（ページ・操作・登録446件＋共有Mermaid265件）、ブラウザー比較39件、対象型検査、全体ESLint、Markdown lint成功。5画面幅で後読み込みCSSへの耐性、両外側クラスのスクロール両端到達と1600px図の非縮小を確認。テスト件数・ファイル台帳は変更なし。今回の全体テスト・ビルド・目視確認は未実施。
 
 ## 2026-11-14: ISO 42005のリスク評価・影響評価の比較修正
 

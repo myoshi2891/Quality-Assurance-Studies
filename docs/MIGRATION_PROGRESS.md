@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-11-14
+Updated 2026-11-15
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -8,6 +8,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 > **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 133 ルート = ガイドライブラリ index + 132 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+
+## 2026-11-15: ISO 42005のMermaid CSSリセット補強
+
+- ページ固有の`.mermaid-wrapper`リセット8項目の値を保持し、全宣言へ`!important`を追加。`.mermaid-container`と`.mermaid-wrap`に横スクロール・100%幅のリセットを追加し、SVGの縮小防止を維持。
+- 関連711件（ページ・操作・登録446件＋共有Mermaid265件）、ブラウザー比較39件、対象型検査、全体ESLint、Markdown lint成功。5画面幅で後読み込みCSSへの耐性、両外側クラスのスクロール両端到達と1600px図の非縮小を確認。テスト件数・ファイル台帳は変更なし。今回の全体テスト・ビルド・目視確認は未実施。
 
 ## 2026-11-14: ISO 42005のリスク評価・影響評価の比較修正
 
@@ -585,10 +590,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `91b834fd`（42005の手引きとしての位置づけと、42001に基づく附属書Aの管理策の説明を修正。仕様書同期コミット自体は含まない） |
-| 最新コミット内容 | `fix(iso42005): clarify guidance scope and align Annex A controls with ISO 42001` |
+| 最新 HEAD | `723f424e`（Mermaidのwrapper・外側スクロール領域のCSSリセットを補強。仕様書同期コミット自体は含まない） |
+| 最新コミット内容 | `fix(iso42005): enforce Mermaid wrapper and scroll-container resets` |
 | 次の作業 | `/iso-iec-42005-2025-beginner-guide`の目視確認（ユーザー担当）。ビルド未実施。 |
-| ビルド状態 | 全体15,134件（249ファイル、失敗0）、対象446件・共有Mermaid265件・ブラウザー比較39件・対象型検査・全体ESLint・Markdown lint成功。全体型検査は既存の対象外診断あり。npm経由、ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | 今回は関連711件・ブラウザー比較39件・対象型検査・全体ESLint・Markdown lint成功。直近の全体実測は2026-11-14の15,134件（249ファイル、失敗0）。今回は全体テスト・ビルド・目視確認未実施。目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
