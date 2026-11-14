@@ -8,6 +8,7 @@ export default function NavBar() {
     const [open, setOpen] = useState(false);
     const [active, setActive] = useState('');
     const nav = useRef<HTMLElement>(null);
+    const boundary = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
     useEffect(() => {
         const query = window.matchMedia('(max-width: 900px)');
@@ -22,16 +23,24 @@ export default function NavBar() {
         if (!mobile || !open)
             return;
         const app = nav.current?.closest('.iso33063-page');
-        const main = app?.querySelector('.main');
-        const inert = main?.hasAttribute('inert');
+        const background: Element[] = [];
+        let current: Element | null = boundary.current;
+        while (current?.parentElement) {
+            for (const sibling of current.parentElement.children) {
+                if (sibling !== current && !sibling.hasAttribute('inert')) {
+                    sibling.setAttribute('inert', '');
+                    background.push(sibling);
+                }
+            }
+            if (current.parentElement === document.body) break;
+            current = current.parentElement;
+        }
         const releaseScrollLock = acquireBodyScrollLock();
         app?.classList.add('nav-open');
-        main?.setAttribute('inert', '');
         nav.current?.querySelector<HTMLAnchorElement>('a')?.focus();
         return () => {
             app?.classList.remove('nav-open');
-            if (!inert)
-                main?.removeAttribute('inert');
+            background.forEach(element => element.removeAttribute('inert'));
             releaseScrollLock();
         };
     }, [mobile, open]);
@@ -46,7 +55,6 @@ export default function NavBar() {
             return;
         /** Cycle through the drawer links and floating close button in either direction. */
         const keydown = (event: KeyboardEvent) => {
-            if (document.getElementById('global-nav-panel')) return;
             if (event.key === 'Escape') {
                 close();
                 return;
@@ -118,11 +126,11 @@ export default function NavBar() {
             sidebar.scrollTop += entry.top - bounds.top - bounds.height / 3;
         }
     }, [active]);
-    return <>
+    return <div ref={boundary} role={mobile && open ? 'dialog' : undefined} aria-modal={mobile && open ? true : undefined} aria-label={mobile && open ? '目次' : undefined}>
       <aside id="sidebar" className={open?'open':undefined} aria-label="目次" ref={nav} inert={mobile&&!open}>
         <div className="brand">ISO/IEC FDIS 33063</div><ul>{TOC_ITEMS.map(item=><li key={item.href}><a href={item.href} data-target={item.target} className={active===item.href?'active':undefined} aria-current={active===item.href?'location':undefined} onClick={event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;close(mobile&&open);}}>{item.text}</a></li>)}</ul>
       </aside>
       <div className="scrim" onClick={()=>close()}/>
       <button id="navtoggle" type="button" ref={button} aria-label="メニュー" aria-expanded={open} aria-controls="sidebar" onClick={()=>setOpen(v=>!v)}>☰</button>
-    </>;
+    </div>;
 }

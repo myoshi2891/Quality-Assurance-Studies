@@ -13,6 +13,14 @@ test('ISO 33063 mobile drawer traps keyboard focus and restores it on Escape', a
   await trigger.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   await expect(main).toHaveAttribute('inert', '');
+  const dialog = page.getByRole('dialog', { name: '目次', exact: true });
+  await expect(dialog).toHaveAttribute('aria-modal', 'true');
+  await expect(dialog.getByRole('button', { name: 'メニュー', exact: true })).toBeVisible();
+  const header = page.getByRole('navigation', { name: 'グローバルナビゲーション', includeHidden: true });
+  await expect(header).toBeVisible();
+  expect(await header.evaluate(element => !!element.closest('[inert]'))).toBe(true);
+  const headerControl = header.locator('a[href], button').first();
+  await headerControl.evaluate((element: HTMLElement) => element.focus());
   const links = drawer.getByRole('link');
   await expect(links.first()).toBeFocused();
 
@@ -43,4 +51,8 @@ test('ISO 33063 mobile drawer traps keyboard focus and restores it on Escape', a
   await expect(drawer).toHaveAttribute('inert', '');
   await expect(main).not.toHaveAttribute('inert', '');
   await expect(trigger).toBeFocused();
+  expect(await header.evaluate(element => !!element.closest('[inert]'))).toBe(false);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(dialog).toHaveCount(0);
+  await expect(drawer).not.toHaveAttribute('inert', '');
 });
