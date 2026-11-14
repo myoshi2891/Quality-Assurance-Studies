@@ -7,6 +7,35 @@
 export function applyReviewCorrections(html: string): string {
     const corrections: readonly (readonly [string, string])[] = [
     [
+        "この規格の本体は、2つの柱でできています。",
+        "ISO/IEC 42005は、本体も附属書も影響評価を支援する手引きであり、必須の要求事項を定める規格ではありません。本体は、プロセスと文書化の2つの柱で構成されます。第5章は、組織がプロセスを設計・実施する際に検討できる要素を示しています。影響評価プロセスの確立や実施に関するISO/IEC 42001の要求事項とは区別してください。"
+    ],
+    [
+        "たとえば、料理にたとえると、第5章は「レシピと台所のルール（誰が、いつ、どの手順で作るか）」、第6章は「出来上がった料理の成分表示ラベル」です。両方そろって、はじめて他人に説明できます。",
+        "たとえば料理にたとえると、第5章は「レシピや台所の運用を考えるための手引き」、第6章は「料理の内容を説明する記録の手引き」です。組織の状況に合わせて両方を活用します。"
+    ],
+    [
+        "第5章：プロセスの設計と運用に関する十二の節",
+        "第5章：プロセスの設計と運用で検討できる要素を扱う十二の節"
+    ],
+    [
+        "附属書：参考情報（informative）で、本体ほど拘束力のある位置づけではない",
+        "附属書：参考情報（informative）として本体の手引きを補足する。本体も必須の要求事項ではない"
+    ],
+    [
+        "normative（規定）：守るべき内容を定める部分",
+        "normative（規定）：規格の適用に関係する規定を示す区分。ISO/IEC 42005の本体を必須の要求事項にするという意味ではない"
+    ],
+    [
+        "【規格】LinkedIn上の実務者の投稿（2025年5月28日付）は、42001の6.1.4に、「影響評価の結果をリスク評価で考慮する」という趣旨の文があることを指摘し、影響評価はリスク評価の代わりにはならないと注意しています。また、A.5の管理策は、組織の適用宣言書（SoA）で採用するかどうかを選べる、と述べています。",
+        "【規格】ISO/IEC 42001の6.1.4は、影響評価の結果をリスク評価で考慮することを求めています。影響評価はリスク評価の代わりにはなりません。また、6.1.3に従い、組織は選択したリスク対応に必要な管理策を決定し、附属書Aと照合して必要な管理策の見落としを確認します。適用宣言書（SoA）には必要な管理策を含め、管理策の採用・除外の理由を示す必要があります。A.5もこの判断の対象ですが、リスク対応に必要な管理策を任意に省略できるという意味ではありません。"
+    ],
+    [
+        "Applicability（SoA）：採用する管理策と、その理由を宣言する書類",
+        "Applicability（SoA）：必要な管理策と、管理策の採用・除外の理由を示す書類"
+    ]
+,
+    [
         "23894：組織にとってのリスクを扱う",
         "23894：組織がAI関連のリスクを管理する。個人・集団・社会への結果も考慮する"
     ],
@@ -48,4 +77,22 @@ export function applyReviewCorrections(html: string): string {
     ]
 ];
     return corrections.reduce((text, [before, after]) => text.replace(before, after), html);
+}
+
+/** Restricted uses stop at the restriction outcome unless an exception is approved. */
+export const ASSESSMENT_EDGES = [
+    {from:'Q1',to:'Q3',label:'',dotted:false},
+    {from:'Q3',to:'F2',label:'はい',dotted:false},
+    {from:'F2',to:'Q2',label:'例外承認あり',dotted:false},
+    {from:'Q3',to:'Q2',label:'いいえ',dotted:false},
+    {from:'Q2',to:'F1',label:'はい',dotted:false},
+    {from:'Q2',to:'Q4',label:'いいえ',dotted:false},
+    {from:'Q4',to:'F1',label:'はい',dotted:false},
+    {from:'Q4',to:'F3',label:'いいえ',dotted:false},
+];
+export function reviewedDiagram<T extends {renderSource:string;description:string;nodes:{id:string;text:string}[];edges:{from:string;to:string;label:string;dotted:boolean}[]}>(diagram:T,index:number) {
+    if(index!==6)return diagram;
+    const definitions=diagram.renderSource.split('\n').filter(line=>!line.includes(' -->'));
+    return {...diagram,renderSource:[...definitions,...ASSESSMENT_EDGES.map(e=>`${e.from} -->${e.label?'|'+e.label+'|':''} ${e.to}`)].join('\n'),edges:ASSESSMENT_EDGES,
+        description:ASSESSMENT_EDGES.map(e=>`${diagram.nodes.find(n=>n.id===e.from)!.text} → ${diagram.nodes.find(n=>n.id===e.to)!.text}${e.label?'（'+e.label+'）':''}。`).join('')};
 }

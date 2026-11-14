@@ -1,4 +1,5 @@
 import {afterEach,expect,it} from 'bun:test';
+import {reviewedDiagram} from './review-corrections';
 import {load} from 'cheerio';
 import React,{act} from 'react';
 import {render,fireEvent,cleanup} from '@testing-library/react';
@@ -31,7 +32,7 @@ it('TOC observes all 67 headings, follows each fragment and disconnects on unmou
  }finally{globalThis.IntersectionObserver=saved;heads.remove();history.replaceState(null,'','/');}
 });
 
-for(const[index,d]of inventory.diagrams.entries())it(`diagram ${index}: accessible failure fallback`,async()=>{let error:(()=>void)|undefined;const C=sourceModule(base+'/Diagram.tsx',{onMermaidChart:(_,cb)=>{error=cb;}}).default as React.ComponentType<{index:number}>;const r=render(<C index={index}/>);expect(r.getByRole('img').getAttribute('aria-label')).toBe(d.description);await act(async()=>error?.());const alert=r.getByRole('alert');expect(alert.textContent).toContain(d.description);expect(alert.closest('[role="img"]')).toBeNull();expect(alert.previousElementSibling).toBe(r.getByRole('img'));});
+for(const[index,d]of inventory.diagrams.map(reviewedDiagram).entries())it(`diagram ${index}: accessible failure fallback`,async()=>{let error:(()=>void)|undefined;const C=sourceModule(base+'/Diagram.tsx',{onMermaidChart:(_,cb)=>{error=cb;}}).default as React.ComponentType<{index:number}>;const r=render(<C index={index}/>);expect(r.getByRole('img').getAttribute('aria-label')).toBe(d.description);await act(async()=>error?.());const alert=r.getByRole('alert');expect(alert.textContent).toContain(d.description);expect(alert.closest('[role="img"]')).toBeNull();expect(alert.previousElementSibling).toBe(r.getByRole('img'));});
 
 it('keeps the active TOC entry inside the sidebar viewport',()=>{const C=component('NavBar');const r=render(<C/>);const sidebar=r.container.querySelector('aside')!;const link=sidebar.querySelectorAll<HTMLAnchorElement>('a')[66]!;sidebar.getBoundingClientRect=()=>({top:100,bottom:700,height:600}) as DOMRect;link.getBoundingClientRect=()=>({top:900,bottom:930,height:30}) as DOMRect;history.replaceState(null,'',link.getAttribute('href')!);fireEvent(window,new Event('hashchange'));expect(sidebar.scrollTop).toBe(600);history.replaceState(null,'','/');});
 
@@ -46,7 +47,7 @@ it('checks every item, updates progress, persists and restores, then resets',()=
 for(const saved of ['broken','{}','null','123','["unknown","1",1]'])it(`handles malformed or stale saved checklist: ${saved}`,()=>{localStorage.setItem('iso42005-cl-1',saved);const C=component('Checklist');const r=render(<C/>);expect(r.getAllByRole('checkbox').filter(b=>(b as HTMLInputElement).checked).length).toBe(saved.includes('unknown')?1:0);localStorage.clear();});
 it('works when browser storage is unavailable',()=>{const get=Storage.prototype.getItem,set=Storage.prototype.setItem;Storage.prototype.getItem=()=>{throw Error('denied');};Storage.prototype.setItem=()=>{throw Error('denied');};try{const C=component('Checklist');const r=render(<C/>);fireEvent.click(r.getAllByRole('checkbox')[0]!);expect(r.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('1');fireEvent.click(r.getByRole('button',{name:'リセット'}));expect(r.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('0');}finally{Storage.prototype.getItem=get;Storage.prototype.setItem=set;}});
 
-for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index}: restores original geometry when the shared renderer inserts SVG`, async () => {
+for (const [index, diagram] of inventory.diagrams.map(reviewedDiagram).entries()) it(`diagram ${index}: restores original geometry when the shared renderer inserts SVG`, async () => {
     const C = sourceModule(base + '/Diagram.tsx').default as React.ComponentType<{index: number}>;
     const r = render(<C index={index}/>);
     const source = load(diagram.svg);
@@ -56,6 +57,15 @@ for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index
     node.setAttribute('id', 'generated-flowchart-' + diagram.nodes[0]!.id + '-0');
     node.append(document.createElementNS(svg.namespaceURI, 'rect'));
     svg.append(node);
+    const paths=diagram.edges.map(edge=>{
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('class','flowchart-link '+(edge.dotted?'edge-pattern-dotted':'edge-pattern-solid'));
+      path.setAttribute('data-id',`L_${edge.from}_${edge.to}_0`);
+      path.setAttribute('d','M0 0L999 0');
+      path.style.strokeDasharray=edge.dotted?'0 0 2 2 2 2 13':'0 0 986 13';
+      Object.defineProperty(path,'getTotalLength',{value:()=>{expect(path.getAttribute('d')).not.toBe('M0 0L999 0');return 120;}});
+      svg.append(path);return path;
+    });
     const originalViewBox = source('svg').attr('viewBox') ?? null;
     const originalTransform = source('g.node').first().attr('transform') ?? null;
     svg.setAttribute('viewBox', '0 0 1 1');
@@ -64,8 +74,14 @@ for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index
         r.container.querySelector('.mermaid-wrapper')!.append(svg);
         await new Promise(resolve => setTimeout(resolve, 20));
     });
-    expect(svg.getAttribute('viewBox')).toBe(originalViewBox);
-    expect(node.getAttribute('transform')).toBe(originalTransform);
-    expect(svg.style.marginBottom).toBe('0px');
+    expect(svg.getAttribute('viewBox')).toBe(index===6?'0 0 1 1':originalViewBox);
+    expect(node.getAttribute('transform')).toBe(index===6?'translate(0,0)':originalTransform);
+    expect(svg.style.marginBottom).toBe(index===6?'':'0px');
+    if(index!==6)for(const path of paths){
+      const dash=path.style.strokeDasharray.split(/[, ]+/).map(Number);
+      expect(dash.slice(0,2)).toEqual([0,0]);expect(dash.at(-1)).toBe(13);
+      if(path.classList.contains('edge-pattern-dotted')){expect(dash.slice(2,-1)).toEqual(Array(52).fill(2));}
+      else expect(dash).toEqual([0,0,107,13]);
+    }
     r.unmount();
 });
