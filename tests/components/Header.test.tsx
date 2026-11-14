@@ -8,6 +8,8 @@ mock.module('next/navigation', () => ({
 
 import { render, screen, cleanup, fireEvent, within } from '@testing-library/react';
 import Header from '../../components/Header';
+import Nav33063 from '../../app/iso-33063-fdis-guide/NavBar';
+import Nav2382 from '../../app/iso-iec-2382-15-guide/NavBar';
 
 afterEach(() => {
   cleanup();
@@ -333,4 +335,67 @@ describe('Library menu refinement', () => {
     expect(id).toBeTruthy();
     expect(document.getElementById(id!)?.textContent).toBe(NAV_ITEMS.find(i => i.href === '/istqb-ct-ai-complete-guide')?.description);
   });
+});
+
+for (const [name, NavBar, className] of [
+  ['33063', Nav33063, 'iso33063-page'],
+  ['2382', Nav2382, 'iso2382-page'],
+] as const) {
+  for (const openGlobalFirst of [false, true]) {
+    for (const closeGlobalFirst of [false, true]) {
+      it(`${name}: overlapping drawers preserve overflow (open global first=${openGlobalFirst}, close global first=${closeGlobalFirst})`, () => {
+        const matchMedia = window.matchMedia;
+        const overflow = document.body.style.overflow;
+        window.matchMedia = (() => ({ matches: true, addEventListener() {}, removeEventListener() {} })) as unknown as typeof window.matchMedia;
+        const r = render(<><Header /><div className={className}><NavBar /><main className="main" /></div></>);
+        try {
+          document.body.style.overflow = 'auto';
+          const globalToggle = r.getByRole('button', { name: 'ガイドを探す' });
+          const tocToggle = r.container.querySelector<HTMLButtonElement>('#navtoggle, .sidebar-toggle')!;
+          fireEvent.click(openGlobalFirst ? globalToggle : tocToggle);
+          fireEvent.click(openGlobalFirst ? tocToggle : globalToggle);
+          expect(document.body.style.overflow).toBe('hidden');
+          fireEvent.click(closeGlobalFirst ? globalToggle : tocToggle);
+          expect(document.body.style.overflow).toBe('hidden');
+          fireEvent.click(closeGlobalFirst ? tocToggle : globalToggle);
+          expect(document.body.style.overflow).toBe('auto');
+        } finally {
+          r.unmount();
+          window.matchMedia = matchMedia;
+          document.body.style.overflow = overflow;
+        }
+      });
+    }
+  }
+}
+
+it('2382: global drawer owns Tab and Escape while the TOC remains open', () => {
+  const matchMedia = window.matchMedia;
+  window.matchMedia = (() => ({ matches: true, addEventListener() {}, removeEventListener() {} })) as unknown as typeof window.matchMedia;
+  const r = render(<><Header /><div className="iso2382-page"><Nav2382 /><main className="main" /></div></>);
+  try {
+    const tocToggle = r.container.querySelector<HTMLButtonElement>('.sidebar-toggle')!;
+    fireEvent.click(tocToggle);
+    fireEvent.click(r.getByRole('button', { name: 'ガイドを探す' }));
+    const close = r.getByRole('button', { name: 'ナビゲーションを閉じる' });
+    const summaries = r.getByRole('dialog', { name: 'ナビゲーションメニュー' }).querySelectorAll<HTMLElement>('summary');
+    const last = summaries[summaries.length - 1]!;
+    last.focus();
+    fireEvent.keyDown(last, { key: 'Tab' });
+    expect(document.activeElement === close).toBe(true);
+    fireEvent.keyDown(close, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement === last).toBe(true);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(r.queryByRole('dialog', { name: 'ナビゲーションメニュー' })).toBeNull();
+    expect(r.getByRole('dialog', { name: '目次' })).toBeTruthy();
+    expect(tocToggle.getAttribute('aria-expanded')).toBe('true');
+    expect(document.body.style.overflow).toBe('hidden');
+    fireEvent.keyDown(document, { key: 'Tab' });
+    expect(document.activeElement === r.container.querySelector('aside a')).toBe(true);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(tocToggle.getAttribute('aria-expanded')).toBe('false');
+  } finally {
+    r.unmount();
+    window.matchMedia = matchMedia;
+  }
 });

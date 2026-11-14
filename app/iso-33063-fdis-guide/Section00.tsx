@@ -1,0 +1,2 @@
+import React from 'react';
+export default function Section00(){return <><header className="hero"><span className="badge">{"QA・テストプロセス評価 / 初学者向け"}</span><h1 className="hero-title">{"ISO/IEC\nFDIS 33063 初学者向けステップバイステップ解説ガイド"}</h1><div className="metas"><div className="m"><span>{"対象規格"}</span><b>{"ISO/IEC FDIS 33063"}</b></div><div className="m"><span>{"情報基準日"}</span><b>{"2026年10月6日（作成：2026年10月7日）"}</b></div><div className="m"><span>{"想定読者"}</span><b>{"QAエンジニア・テストマネージャ・開発者の初学者（ISO規格を初めて読む方）"}</b></div></div></header>{"\n\n\n\n\n\n\n"}</>;}

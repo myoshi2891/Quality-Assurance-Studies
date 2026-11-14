@@ -12,7 +12,7 @@ export default defineConfig({
   testDir: './e2e',
   // .e2e.ts 拡張子に揃えることで `bun test` の自動検出 (*.test.ts / *.spec.ts) から確実に除外する。
   // サーバー必須のファイルのみ明示し、レイアウト回帰テストを並列実行に巻き込まない。
-  testMatch: ['smoke.e2e.ts', 'a11y.e2e.ts', 'mermaid-layout.e2e.ts'],
+  testMatch: ['smoke.e2e.ts', 'a11y.e2e.ts', 'mermaid-layout.e2e.ts', 'iso-33063-fdis-drawer.e2e.ts'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,

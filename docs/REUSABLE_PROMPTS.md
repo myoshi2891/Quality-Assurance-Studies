@@ -1,6 +1,10 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-11-12
+最終更新日: 2026-11-13
+
+`/iso-33063-fdis-guide`は導入＋14章をカテゴリーごとに個別コミットして移行済み。HTML・Markdownは同一内容でアーカイブ済み。`bun test tests/iso-33063-fdis-guide`と`bun run e2e:layout --project=iso-33063-fdis`で274件の契約と33件の原本デザイン自動比較を再検証できます。目視確認はユーザー担当、ビルド未実施。複合階層図では公式ELK拡張0.2.0をページ側で登録します。経路長は描画器が再計算します。 React Fiber の循環参照による ELK の JSON 化失敗は `patchedDependencies` の core 向けパッチで修正済み。`bun install` で再適用し、ブラウザー比較は同じ core エントリーと循環参照を持つ DOM を使います。
+
+`/iso-iec-2382-15-guide`は導入＋9章をカテゴリーごとに個別コミットして移行済み。HTML・Markdownは同一内容でアーカイブ済み。`npm test -- tests/iso-iec-2382-15-guide`と`npm run e2e:layout -- --project=iso-2382-15`で349件の契約と44件の原本デザイン自動比較を再検証できます。目視確認はユーザー担当、ビルド未実施。
 
 `/iso-iec-29110-5-1-2-2025-beginner-guide`は全18カテゴリーを個別コミットして移行済み。原本HTML・Markdownは同一内容でアーカイブ済み。目視確認はユーザー担当、ビルド未実施。`npm test -- tests/iso-iec-29110-5-1-2-2025-beginner-guide`と`npm run e2e:layout -- --project=iso-29110-5-1-2`で再検証できます。
 

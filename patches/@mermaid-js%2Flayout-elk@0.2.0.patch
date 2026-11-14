@@ -1,0 +1,35 @@
+diff --git a/dist/chunks/mermaid-layout-elk.core/render-2SQLY5QG.mjs b/dist/chunks/mermaid-layout-elk.core/render-2SQLY5QG.mjs
+index bc01ba5602dd09139dcc2fde7649d84f88e426d0..93cb6847d327baf0192f8d9a1ac365388e5a5c1c 100644
+--- a/dist/chunks/mermaid-layout-elk.core/render-2SQLY5QG.mjs
++++ b/dist/chunks/mermaid-layout-elk.core/render-2SQLY5QG.mjs
+@@ -131,7 +131,11 @@ var render = /* @__PURE__ */ __name(async (data4Layout, svg, {
+           if (node.isGroup) {
+             log.debug("id abc88 subgraph = ", node.id, node.x, node.y, node.labelData);
+             const subgraphEl = subgraphsEl.insert("g").attr("class", "subgraph");
+-            const clusterNode = JSON.parse(JSON.stringify(node));
++            // D3 selections retain DOM parents, including React's circular Fiber metadata.
++            // The cluster copy only needs serializable layout data, not live DOM nodes.
++            const clusterNode = JSON.parse(JSON.stringify(node, (_key, value) =>
++              typeof Node !== "undefined" && value instanceof Node ? undefined : value
++            ));
+             clusterNode.x = node.offset.posX + node.width / 2;
+             clusterNode.y = node.offset.posY + node.height / 2;
+             clusterNode.width = Math.max(clusterNode.width, node.labelData.width);
+@@ -470,7 +474,7 @@ var render = /* @__PURE__ */ __name(async (data4Layout, svg, {
+     }
+   });
+   log.debug("APA01 before");
+-  log.debug("APA01 elkGraph structure:", JSON.stringify(elkGraph, null, 2));
++  log.debug("APA01 elkGraph structure:", elkGraph);
+   log.debug("APA01 elkGraph.children length:", elkGraph.children?.length);
+   log.debug("APA01 elkGraph.edges length:", elkGraph.edges?.length);
+   elkGraph.edges?.forEach((edge, index) => {
+@@ -492,7 +496,7 @@ var render = /* @__PURE__ */ __name(async (data4Layout, svg, {
+   try {
+     g = await elk.layout(elkGraph);
+     log.debug("APA01 after - success");
+-    log.debug("APA01 layout result:", JSON.stringify(g, null, 2));
++    log.debug("APA01 layout result:", g);
+   } catch (error) {
+     log.error("APA01 ELK layout error:", error);
+     throw error;
