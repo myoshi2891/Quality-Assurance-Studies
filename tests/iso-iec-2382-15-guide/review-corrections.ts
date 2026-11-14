@@ -1,6 +1,8 @@
 /** Reviewed factual corrections; keep the archived migration inventory immutable. */
 export function applyReviewCorrections(html: string): string {
   return html
+    .replace('公式プレビューや正規版で、定義と関連語を調べる', 'ISO/IEC の正規版（完全な公式版）で、定義と関連語を調べる')
+    .replace('// 公開する操作はこれだけに絞る', '// increment() と get() は公開し、value_ は非公開にする')
     .replace('ICS 15：本規格の用語クラスター', '用語分類番号 15：本規格の用語クラスター')
     .replace('<td>文に関する節</td>', '<td>宣言</td>')
     .replace('<td>英語原文の節名は未確認</td>', '<td>Declarations</td>')
