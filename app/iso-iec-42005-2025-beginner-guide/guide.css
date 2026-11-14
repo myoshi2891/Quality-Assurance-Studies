@@ -89,7 +89,13 @@ html:has(.iso42005-page) { scroll-behavior: smooth; }
 .iso42005-page td strong { color: inherit !important; font-weight: 700 !important; }
 .iso42005-page td code { background: var(--panel2) !important; color: inherit !important; font-size: .92em !important; }
 .iso42005-page tr:hover td { background: transparent !important; }
-.iso42005-page .mermaid-wrapper { background: transparent; border: none; border-radius: 0; box-shadow: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+.iso42005-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; }
+.iso42005-page .mermaid-container,
+.iso42005-page .mermaid-wrap {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
 .iso42005-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
 .iso42005-page .mermaid-wrapper foreignObject { overflow: visible !important; }
 .iso42005-page .mermaid-wrapper foreignObject div, .iso42005-page .mermaid-wrapper foreignObject span, .iso42005-page .mermaid-wrapper foreignObject p { margin: 0; line-height: 1.5; word-break: break-word; }
