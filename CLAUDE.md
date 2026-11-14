@@ -1,8 +1,20 @@
 # CLAUDE.md
 
-Updated 2026-11-13
+Updated 2026-11-14
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 2026-11-14: ISO ガイドのレビュー指摘対応
+
+- 33063 のモバイル目次を、閉じる操作を含む名前付きモーダルダイアログで囲み、祖先ごとの兄弟要素を `inert` にして共通ヘッダーを含む背景操作を遮断。終了時は元の `inert` を保持して復元し、デスクトップ目次は非モーダルを維持。
+- 2382 第7章の用語定義確認先を完全な公式版へ変更し、原本比較の補正も同期。C++ コメント補正は既存の作業ツリーで対応済みと確認。原本アーカイブと固定インベントリは変更なし。
+- `CLAUDE.md` と `GEMINI.md` の移行完了表に、移行進捗表と同じ `/iso-33063-fdis-guide`・`/iso-iec-2382-15-guide` の移行情報を追加。
+- 検証: 全体14,686テスト（246ファイル、失敗0）、関連624テスト、Chromiumでの実配信ドロワー1件、全体ESLint、Markdown lint・差分検査が成功。全体型検査は対象外ファイルの診断で失敗したが、変更ファイルの診断は0件。本番ビルドは未実施。
+
+## 2026-11-14: ISO 2382-15 コード例の比較期待値修正
+
+- 第5章の C++ カプセル化コメントの修正を `tests/iso-iec-2382-15-guide/review-corrections.ts` に反映。章単体・コード一覧・ページ全体の比較で発生した5件の失敗を解消。アーカイブと固定インベントリは維持し、既存テスト数・ファイル構成は変更なし。
+- 対象349テスト、全体14,685テスト（246ファイル、失敗0）、全体ESLint、Markdown lint、差分検査が成功。
 
 ## 2026-11-13: ISO ガイドのレビュー修正
 
@@ -1459,6 +1471,8 @@ bun test        # ユニットテスト成功
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-33063-fdis-guide.html` | `/iso-33063-fdis-guide` | ✅ 15カテゴリー・51見出し・14目次・24表・9図・全50 CSSルール・HTML/MDアーカイブ済み |
+| `Iso-iec-2382-15-guide.html` | `/iso-iec-2382-15-guide` | ✅ 10カテゴリー・49見出し・43目次・18表・14図・9コード例・全87 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-29110-5-1-2-2025-beginner-guide.html` | `/iso-iec-29110-5-1-2-2025-beginner-guide` | ✅ 18カテゴリー・47見出し・46目次リンク・28表・13図・検索・チェック・HTML/MDアーカイブ済み |
 | `Iso-iec-42001-2023-beginner-guide.html` | `/iso-iec-42001-2023-beginner-guide` | ✅ 21カテゴリー・121見出し・20目次リンク・45表・9図・22チェック・HTML/MDアーカイブ済み |
 | `Iso-iec-awi-ts-42119-7-guide.html` | `/iso-iec-awi-ts-42119-7-guide` | ✅ 19カテゴリー・79見出し・階層目次78リンク・33表・8図・26注記・14用語欄・外部16リンク・チェック16項目・82 CSSルール、HTML・MDアーカイブ済み |
