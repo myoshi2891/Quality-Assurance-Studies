@@ -4,7 +4,8 @@ import { LAYOUTS } from './diagram-layouts';
  */
 export function restoreDiagramLayout(svg: SVGSVGElement, index: number) {
     const layout = LAYOUTS[index];
-    if (!layout) return;
+    // The reviewed restricted-use flow has new edges; let Mermaid lay it out.
+    if (!layout || index === 6) return;
     const apply = (node: Element | null | undefined, attributes: object) => {
         if (node) for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, String(value));
     };
@@ -19,8 +20,20 @@ export function restoreDiagramLayout(svg: SVGSVGElement, index: number) {
         if (node.style) target.querySelector('foreignObject > div')?.setAttribute('style', node.style);
     }
     for (const edge of layout.edges) {
-        const path = Array.from(svg.querySelectorAll('.flowchart-link')).find(n => n.getAttribute('data-id')?.replace(/^.*L_/, 'L_') === edge.id);
+        const path = Array.from(svg.querySelectorAll<SVGPathElement>('.flowchart-link')).find(n => n.getAttribute('data-id')?.replace(/^.*L_/, 'L_') === edge.id);
         apply(path, edge.attrs);
+        // Mermaid 11.16's neo renderer encodes marker clearance in inline dashes.
+        // Its dash generator is private: retain the rendered start/end offsets and
+        // repeat its 2px dash/gap pattern using the restored path's measured length.
+        const dash = path?.style.strokeDasharray.split(/[,\s]+/).map(Number) ?? [];
+        if (path && typeof path.getTotalLength === 'function' && dash.length >= 4 && dash[0] === 0 && dash.every(Number.isFinite)) {
+            const start = dash[1]!;
+            const end = dash.at(-1)!;
+            const middle = Math.max(0, path.getTotalLength() - start - end);
+            const dotted = path.classList.contains('edge-pattern-dotted') || path.classList.contains('edge-pattern-dashed');
+            const pattern = dotted ? Array(Math.floor(middle / 4)).fill('2 2').join(' ') : String(middle);
+            path.style.strokeDasharray = `0 ${start} ${pattern} ${end}`;
+        }
     }
     for (const label of layout.labels) {
         const target = Array.from(svg.querySelectorAll('.edgeLabel')).find(n => n.querySelector('[data-id]')?.getAttribute('data-id')?.replace(/^.*L_/, 'L_') === label.id);
