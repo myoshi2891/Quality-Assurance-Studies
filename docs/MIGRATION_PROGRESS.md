@@ -571,8 +571,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `82a7624f`（レビュー修正は作業ツリーに反映） |
-| 最新コミット内容 | `fix(iso2382): clarify class encapsulation comment in Section 5 code example` |
+| 最新 HEAD | `ab530e2f`（レビュー修正はコミット済み。`82a7624f` は過去の検証基準） |
+| 最新コミット内容 | `chore(docs): record 2026-11-14 review fixes and sync completed migration tables` |
 | 次の作業 | `/iso-33063-fdis-guide`の目視確認（ユーザー担当）。ビルドは未実施。 |
 | ビルド状態 | 追加レビュー後、全体14,686件（246ファイル、失敗0）、関連624件、全体ESLint・Markdown lint・差分検査成功。33063のモーダル境界・ヘッダーの操作遮断・フォーカス復帰は開発サーバーでChromium 1件成功。全体型検査は対象外ファイルの診断で失敗、変更ファイルの診断は0件。本番ビルド未実施、目視確認はユーザー担当。 |
 
