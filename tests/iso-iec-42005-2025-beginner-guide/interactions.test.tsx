@@ -56,8 +56,8 @@ for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index
     node.setAttribute('id', 'generated-flowchart-' + diagram.nodes[0]!.id + '-0');
     node.append(document.createElementNS(svg.namespaceURI, 'rect'));
     svg.append(node);
-    const originalViewBox = source('svg').attr('viewBox');
-    const originalTransform = source('g.node').first().attr('transform');
+    const originalViewBox = source('svg').attr('viewBox') ?? null;
+    const originalTransform = source('g.node').first().attr('transform') ?? null;
     svg.setAttribute('viewBox', '0 0 1 1');
     node.setAttribute('transform', 'translate(0,0)');
     await act(async () => {
