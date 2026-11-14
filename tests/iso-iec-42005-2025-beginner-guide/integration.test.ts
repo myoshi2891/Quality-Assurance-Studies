@@ -1,5 +1,4 @@
 import {it,expect} from 'bun:test';
-import {readFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {NAV_ITEMS} from '../../lib/navigation';
 import {PAGES,EXPECTED_PAGE_COUNT} from '../../e2e/pages';

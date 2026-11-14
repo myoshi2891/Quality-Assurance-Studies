@@ -1,4 +1,5 @@
 import {afterEach,expect,it} from 'bun:test';
+import {load} from 'cheerio';
 import React,{act} from 'react';
 import {render,fireEvent,cleanup} from '@testing-library/react';
 import {renderToString} from 'react-dom/server';
@@ -22,7 +23,7 @@ it('mobile drawer handles toggle, backdrop, Escape, focus, modified links, inert
  }finally{window.matchMedia=original;}
 });
 it('server-rendered page hydrates without text, table or nested-label warnings',async()=>{const C=component('page');const container=document.createElement('div');document.body.append(container);container.innerHTML=renderToString(<C/>);const errors:unknown[]=[];const previous=console.error;console.error=(...args)=>errors.push(args);let root:ReturnType<typeof hydrateRoot>|undefined;try{await act(async()=>{root=hydrateRoot(container,<C/>,{onRecoverableError:e=>errors.push(e)});});expect(errors).toEqual([]);}finally{await act(async()=>root?.unmount());console.error=previous;container.remove();}});
-it('TOC observes all 14 headings, follows each fragment and disconnects on unmount',()=>{
+it('TOC observes all 67 headings, follows each fragment and disconnects on unmount',()=>{
  const saved=globalThis.IntersectionObserver;const observed:Element[]=[];let disconnected=false;
  globalThis.IntersectionObserver=class {observe(n:Element){observed.push(n);}disconnect(){disconnected=true;}} as unknown as typeof IntersectionObserver;
  const heads=document.createElement('div');heads.innerHTML=inventory.groups.toc.items.map(html=>{const href=html.match(/href="([^"]+)/)![1]!;return `<h2 id="${href.slice(1)}">heading</h2>`;}).join('');document.body.append(heads);
@@ -44,3 +45,27 @@ it('checks every item, updates progress, persists and restores, then resets',()=
 });
 for(const saved of ['broken','{}','null','123','["unknown","1",1]'])it(`handles malformed or stale saved checklist: ${saved}`,()=>{localStorage.setItem('iso42005-cl-1',saved);const C=component('Checklist');const r=render(<C/>);expect(r.getAllByRole('checkbox').filter(b=>(b as HTMLInputElement).checked).length).toBe(saved.includes('unknown')?1:0);localStorage.clear();});
 it('works when browser storage is unavailable',()=>{const get=Storage.prototype.getItem,set=Storage.prototype.setItem;Storage.prototype.getItem=()=>{throw Error('denied');};Storage.prototype.setItem=()=>{throw Error('denied');};try{const C=component('Checklist');const r=render(<C/>);fireEvent.click(r.getAllByRole('checkbox')[0]!);expect(r.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('1');fireEvent.click(r.getByRole('button',{name:'リセット'}));expect(r.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('0');}finally{Storage.prototype.getItem=get;Storage.prototype.setItem=set;}});
+
+for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index}: restores original geometry when the shared renderer inserts SVG`, async () => {
+    const C = sourceModule(base + '/Diagram.tsx').default as React.ComponentType<{index: number}>;
+    const r = render(<C index={index}/>);
+    const source = load(diagram.svg);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const node = document.createElementNS(svg.namespaceURI, 'g');
+    node.setAttribute('class', 'node');
+    node.setAttribute('id', 'generated-flowchart-' + diagram.nodes[0]!.id + '-0');
+    node.append(document.createElementNS(svg.namespaceURI, 'rect'));
+    svg.append(node);
+    const originalViewBox = source('svg').attr('viewBox');
+    const originalTransform = source('g.node').first().attr('transform');
+    svg.setAttribute('viewBox', '0 0 1 1');
+    node.setAttribute('transform', 'translate(0,0)');
+    await act(async () => {
+        r.container.querySelector('.mermaid-wrapper')!.append(svg);
+        await new Promise(resolve => setTimeout(resolve, 20));
+    });
+    expect(svg.getAttribute('viewBox')).toBe(originalViewBox);
+    expect(node.getAttribute('transform')).toBe(originalTransform);
+    expect(svg.style.marginBottom).toBe('0px');
+    r.unmount();
+});
