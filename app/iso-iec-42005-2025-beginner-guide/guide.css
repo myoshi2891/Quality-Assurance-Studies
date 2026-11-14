@@ -115,3 +115,7 @@ html:has(.iso42005-page) { scroll-behavior: auto; }
 
 .iso42005-page h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
 .iso42005-page .mermaid-diagram svg p { color: inherit; }
+
+.iso42005-page th { color: #fff !important; }
+.iso42005-page p.callout { margin: 1em 0; }
+.iso42005-page .callout p { margin: 1em 0; }
