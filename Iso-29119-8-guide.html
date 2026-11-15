@@ -2476,11 +2476,9 @@ L179.815,104.382"
                                 </tr>
                                 <tr class="odd">
                                     <td>網羅性の説明</td>
-                                    <td>「このくらい書きました」</td>
+                                    <td>従来の状態遷移テストなどでも、状態・遷移のカバレッジを測定・報告できる（手動集計やツールを利用）</td>
                                     <td>
-                                        「状態を100%、遷移を100%カバーしました」と<strong
-                                            >測定できる</strong
-                                        >
+                                        従来のテスト技法を活用し、モデルの選択基準に沿った<strong>テスト生成とカバレッジ測定を自動化</strong>する
                                     </td>
                                 </tr>
                                 <tr class="even">
@@ -16958,6 +16956,7 @@ L633.267,207.083"
                     sb.inert = closed;
                     tg.setAttribute('aria-expanded', closed ? 'false' : 'true');
                     sc.classList.toggle('show', mobileSidebar.matches && !closed);
+                    if (mobileSidebar.matches && !closed && !sb.contains(document.activeElement) && document.activeElement !== tg) tg.focus();
                 }
                 function setOpen(open) {
                     if (!open && mobileSidebar.matches && sb.contains(document.activeElement)) tg.focus();
@@ -16971,6 +16970,9 @@ L633.267,207.083"
                     if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
                 sc.addEventListener('click', function () { setOpen(false); });
+                document.addEventListener('focusin', function (e) {
+                    if (mobileSidebar.matches && sb.classList.contains('open') && !sb.contains(e.target) && e.target !== tg) setOpen(false);
+                });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
                 var links = {};
