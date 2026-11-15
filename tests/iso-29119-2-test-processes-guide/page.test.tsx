@@ -11,7 +11,15 @@ import {sourceModule} from '../helpers/source-module';
 const base='app/iso-29119-2-test-processes-guide',scope='.iso29119-2-page';
 const norm=(s:string)=>s.replace(/\s+/g,' ').trim();
 function tree(n:AnyNode):unknown{if(n.type==='text')return norm(n.data)||null;if(!isTag(n))return null;const attrs={...n.attribs};for(const k of Object.keys(attrs))if(k.startsWith('aria-')||['role','inert','tabindex','checked'].includes(k))delete attrs[k];if(attrs.class)attrs.class=attrs.class.replace(/\s*active\b/g,'').trim();if(attrs.style)attrs.style=attrs.style.replace(/\s|;$/g,'');if(attrs.class==='cl-fill')delete attrs.style;if(n.tagName==='button')delete attrs.type;return{tag:n.tagName,attrs,children:attrs.class==='mermaid-diagram'?[]:n.children.map(tree).filter(Boolean)};}
-function canonical(html:string,original=false){const $=load(html);$('script').remove();if(original)$('p').each((_,n)=>{const p=$(n);p.html(p.html()!.replace('29119シリーズは5つのパートに分かれていて、','29119シリーズの中核はPart 1〜5で構成され、').replace('シリーズの5パートの関係','シリーズの中核となるPart 1〜5の関係').replace('」にあたります。','」にあたります。ほかにISO/IEC TR 29119-6:2021もあり、シリーズをアジャイルプロジェクトへ適用するためのガイダンスを提供しています。'));});if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
+function canonical(html:string,original=false){
+ if(original){
+  html=html.replaceAll('テスト対象の振る舞いを図や表で抽象化したもの（2021年版の中心概念）','テスト対象の振る舞いを抽象化し、図・表・ソースコード・要求などで表現したもの。カバレッジ項目を特定するために用いる（2021年版の中心概念）');
+  html=html.replaceAll('対象の振る舞いを図や表で抽象化したもの','対象の振る舞いを抽象化し、図・表・ソースコード・要求などで表現したもの。カバレッジ項目を特定するために用いる');
+  html=html.replaceAll('IEEE Standards Association（29119-2のカタログ）','IEEE Standards Association（29119-2:2021のカタログ）');
+  html=html.replaceAll('https://standards.ieee.org/ieee/29119-2/5309/','https://standards.ieee.org/ieee/29119-2/7498/');
+  html=html.replaceAll('シリーズの説明、Part 3・4との関係','2021年版の要旨・発行日・前版との関係');
+ }
+ const $=load(html);$('script').remove();if(original)$('p').each((_,n)=>{const p=$(n);p.html(p.html()!.replace('29119シリーズは5つのパートに分かれていて、','29119シリーズの中核はPart 1〜5で構成され、').replace('シリーズの5パートの関係','シリーズの中核となるPart 1〜5の関係').replace('」にあたります。','」にあたります。ほかにISO/IEC TR 29119-6:2021もあり、シリーズをアジャイルプロジェクトへ適用するためのガイダンスを提供しています。'));});if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
 const markupCache = new Map<string, string>();
 function render(file:string,development=false){
  const key = `${file}:${development}`;
