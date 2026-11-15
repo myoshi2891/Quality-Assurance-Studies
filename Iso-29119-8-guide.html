@@ -320,6 +320,11 @@
                 border-radius: 12px;
                 background: var(--panel);
             }
+            .table-scroll:focus-visible,
+            .mermaid-diagram:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 3px;
+            }
             .content table {
                 border-collapse: collapse;
                 width: 100%;
@@ -959,7 +964,7 @@
                             >2026年10月6日時点では「発行手続き中（Under publication）」</strong
                         >であり、規格本文はまだ一般には入手できません。ISOの公式ページには、規格本文を生成AIの学習や回答生成に使うことを禁じる旨の記載もあります。そのため、この文書は次の3層に分けて書いています。
                     </p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="0. 最初に読んでください：この文書の「根拠の強さ」について：層・内容・根拠の強さ（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -1015,7 +1020,7 @@
                         >
                     </h2>
                     <p>ISO公式ページの要旨を、私たちの言葉で言い直すと次のとおりです。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="2. 30秒でわかる 29119-8：観点・内容（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -1075,7 +1080,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="モデルベーステストの基本サイクル" aria-describedby="diagram-description-1">
+                    <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="モデルベーステストの基本サイクル" aria-describedby="diagram-description-1" tabindex="0">
                         <svg
                             id="mmd1"
                             width="1172.0625"
@@ -1784,7 +1789,7 @@ L179.815,104.382"
                         氏（モデルベーステスト理論の第一人者）は、テストの進化を「手動 → スクリプト
                         → キーワード駆動 → モデルベース」と整理しています。
                     </p>
-                    <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="テスト自動化の発展" aria-describedby="diagram-description-2">
+                    <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="テスト自動化の発展" aria-describedby="diagram-description-2" tabindex="0">
                         <svg
                             id="mmd2"
                             width="1108.0625"
@@ -2449,7 +2454,7 @@ L179.815,104.382"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="3.3 従来のテスト設計との違い：比較項目・従来のテスト設計・MBT（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -2525,7 +2530,7 @@ L179.815,104.382"
                         ISO/IEC/IEEE 29119 は、ソフトウェアテストの国際規格群です。29119-8
                         は、その中で「MBT という切り口」を担当します。
                     </p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="4. ステップ2：29119 シリーズの中での位置づけ：パート・主題・29119-8 との関係（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -2574,7 +2579,7 @@ L179.815,104.382"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="29119シリーズとMBTの関係" aria-describedby="diagram-description-3">
+                    <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="29119シリーズとMBTの関係" aria-describedby="diagram-description-3" tabindex="0">
                         <svg
                             id="mmd3"
                             width="835.5152587890625"
@@ -3501,7 +3506,7 @@ L741.743,340.671"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="5.1 「扱う」ものと「扱わない」もの：区分・項目・理由・補足（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -3575,7 +3580,7 @@ L741.743,340.671"
                         要旨は「すべての開発ライフサイクルモデルに適用できる」と明記しています。ISTQB
                         シラバスは具体像として次のように整理しています。
                     </p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="5.3 すべてのライフサイクルに適用できる：ライフサイクル・MBT の関わり方（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -3609,7 +3614,7 @@ L741.743,340.671"
                         >
                     </h2>
                     <p>ISO 公式ページに記録されたステージ履歴を、時系列で整理します。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="6. ステップ4：策定の経緯と現在のステータス：日付・ステージ・意味（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -3687,7 +3692,7 @@ L741.743,340.671"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="29119-8の策定時系列" aria-describedby="diagram-description-4">
+                    <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="29119-8の策定時系列" aria-describedby="diagram-description-4" tabindex="0">
                         <svg
                             id="mmd4"
                             width="290.765625"
@@ -4706,7 +4711,7 @@ L741.743,340.671"
                         の一般的なプロセスを提示しています。ここでは ISTQB
                         の整理と合わせ、初学者向けに次の流れで説明します。
                     </p>
-                    <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="MBTの設計・生成・評価と手戻り" aria-describedby="diagram-description-5">
+                    <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="MBTの設計・生成・評価と手戻り" aria-describedby="diagram-description-5" tabindex="0">
                         <svg
                             id="mmd5"
                             width="507.328125"
@@ -5939,7 +5944,7 @@ L375.32,1428.031"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="7.2 各ステップの役割：ステップ・やること・よくある落とし穴（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -6043,7 +6048,7 @@ L375.32,1428.031"
                         >
                     </h3>
                     <p>29119-2 は、テストプロセスを次の3層で整理しています。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="8.1 29119-2 の3層構造をおさらい：層・主なプロセス（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -6080,7 +6085,7 @@ L375.32,1428.031"
                         ISTQB シラバスは、MBT
                         の影響を「最低でもテスト分析と設計に及び、目的次第でテストプロセス全体に及ぶ」と整理しています。
                     </p>
-                    <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="MBTが各テストプロセスへ与える影響" aria-describedby="diagram-description-6">
+                    <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="MBTが各テストプロセスへ与える影響" aria-describedby="diagram-description-6" tabindex="0">
                         <svg
                             id="mmd6"
                             width="2222.703125"
@@ -7205,7 +7210,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="8.3 プロセス別の MBT 実装ポイント：プロセス・従来のやり方・MBT での実装ポイント（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -7273,7 +7278,7 @@ L1331.454,144.047"
                         ISTQB は、MBT
                         モデルが何を表すかによって次の3つに分類しています。実務のモデルは、これらを組み合わせたものになることが多いです。
                     </p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="9.1 モデルの3つの「主題」：種類・何を表すか・例・生成テストの意味（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -7305,7 +7310,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="三種類のモデルを統合するMBT" aria-describedby="diagram-description-7">
+                    <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="三種類のモデルを統合するMBT" aria-describedby="diagram-description-7" tabindex="0">
                         <svg
                             id="mmd7"
                             width="803.234375"
@@ -8044,7 +8049,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="9.2 構造モデルと振る舞いモデル：区分・説明・例（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -8075,7 +8080,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="9.3 テスト目的に合うモデルを選ぶ：テスト目的・適したモデル（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -8115,7 +8120,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="9.4 モデルの品質特性（3つの視点）：品質特性・問い・主な確認手段（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -8205,7 +8210,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="10.1 6つの基準ファミリー（ISTQB の整理）：ファミリー・概要・長所・短所（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -8263,7 +8268,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="10.2 モデル別のカバレッジ指標の例：モデル・カバレッジ指標の例（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -8307,7 +8312,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="10.3 基準の組み合わせ方：方式・意味・生成されるスイート（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -8330,7 +8335,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="テスト選択基準の合成と加算" aria-describedby="diagram-description-8">
+                    <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="テスト選択基準の合成と加算" aria-describedby="diagram-description-8" tabindex="0">
                         <svg
                             id="mmd8"
                             width="628.265625"
@@ -9031,7 +9036,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="10.4 生成の自動化度：方式・内容・成熟度（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -9076,7 +9081,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="11.1 抽象テストと具体テスト：区分・内容・想定する読者・用途（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -9111,7 +9116,7 @@ L1331.454,144.047"
                         >
                     </h3>
                     <p>自動実行の方式は2つあります。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="11.2 オフライン MBT とオンライン MBT：方式・動き・向いている場面（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -9140,7 +9145,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="オフラインMBTの実行手順" aria-describedby="diagram-description-9">
+                    <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="オフラインMBTの実行手順" aria-describedby="diagram-description-9" tabindex="0">
                         <svg
                             id="mmd9"
                             width="1064.078125"
@@ -9861,7 +9866,7 @@ L1331.454,144.047"
                         role="img"
                         aria-label="オンラインMBTの対話"
                         aria-describedby="diagram-description-10"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd10"
                             width="749"
@@ -10599,7 +10604,7 @@ z"
                         role="img"
                         aria-label="抽象テストからSUTへの具体化"
                         aria-describedby="diagram-description-11"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd11"
                             width="1366.71875"
@@ -11404,7 +11409,7 @@ z"
                         </svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-11">MBTモデルから抽象テストを生成し、キーワード実装と具体データ表を使うアダプテーション層を介して実行ツールとSUTを動かす。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="11.3 テストアダプテーション層：実行形態・アダプテーションの内容（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -11447,7 +11452,7 @@ z"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="11.4 変更が起きたとき、どこを直すか：変更の種類・影響する成果物（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -11506,7 +11511,7 @@ z"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="12.1 対応づけの考え方：29119-3 の文書（代表例）・MBT での充足の考え方（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -11570,7 +11575,7 @@ z"
                         role="img"
                         aria-label="要件から実行結果への双方向追跡"
                         aria-describedby="diagram-description-12"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd12"
                             width="1062.359375"
@@ -12242,7 +12247,7 @@ z"
                         要旨は「多くの MBT ツールが 29119-4
                         の1つ以上のテスト技法と指標を実装しているが、それらは個別のツール実装に関わるため本規格の範囲外」と述べています。
                     </p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="13. ステップ11：29119-4（テスト技法）との関係：29119-4 の技法（例）・MBT での現れ方（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -12325,7 +12330,7 @@ z"
                         role="img"
                         aria-label="ログイン・失敗回数・ロックの状態遷移"
                         aria-describedby="diagram-description-13"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd13"
                             width="953.3125"
@@ -13251,7 +13256,7 @@ L399.953,222.434"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="14.4 手順3：モデルを検証する：確認観点・結果（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -13286,7 +13291,7 @@ L399.953,222.434"
                         >
                     </h3>
                     <p>選択基準を「<strong>全遷移網羅</strong>」とした場合のテストケースです。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="14.5 手順4：選択基準を決めてテストを生成する：テスト・経路・カバーする遷移（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -13316,7 +13321,7 @@ L399.953,222.434"
                         <strong>たった2本で、全5遷移（T1〜T5）と全3状態をカバーできます。</strong>
                     </p>
                     <p>基準を強めると、本数が増えます。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="14.5 手順4：選択基準を決めてテストを生成する：基準・追加で必要になるテストの例（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -13356,7 +13361,7 @@ L399.953,222.434"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="14.6 手順5：アダプテーション（具体化）：抽象（モデル上）・具体（実行時）（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -13396,7 +13401,7 @@ L399.953,222.434"
                         >
                     </h3>
                     <p>「ロックまでの失敗回数を3回から5回に変える」という変更が入ったとします。</p>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="14.7 手順6：仕様変更に強いことを確認する：方式・修正作業（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -13442,7 +13447,7 @@ L399.953,222.434"
                         role="img"
                         aria-label="MBT導入の判断分岐"
                         aria-describedby="diagram-description-14"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd14"
                             width="1074.1484375"
@@ -14548,7 +14553,7 @@ L470.258,1327.734"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="15.2 導入の5段階（ISTQB が示す普及プロセス）：段階・内容（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -14587,7 +14592,7 @@ L470.258,1327.734"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="15.3 コストと便益：区分・主な項目（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -14653,7 +14658,7 @@ L470.258,1327.734"
                         role="img"
                         aria-label="MBTツールと周辺基盤の連携"
                         aria-describedby="diagram-description-15"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd15"
                             width="799.71875"
@@ -15468,7 +15473,7 @@ L633.267,207.083"
                             >#</a
                         >
                     </h2>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="16. ステップ14：よくある失敗とアンチパターン：#・失敗パターン・なぜ起きるか・対策（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -15562,7 +15567,7 @@ L633.267,207.083"
                         role="img"
                         aria-label="MBT学習の段階"
                         aria-describedby="diagram-description-16"
-                    >
+                     tabindex="0">
                         <svg
                             id="mmd16"
                             width="348.84375"
@@ -16460,7 +16465,7 @@ L633.267,207.083"
                     <h2 id="sec-18">
                         18. 用語集<a aria-label="リンク" class="anchor" href="#sec-18">#</a>
                     </h2>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="18. 用語集：用語・意味（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -16597,7 +16602,7 @@ L633.267,207.083"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="20.1 規格・公式情報（◎）：#・資料・URL・本ガイドでの使用箇所（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -16686,7 +16691,7 @@ L633.267,207.083"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="20.2 ISTQB（国際ソフトウェアテスト資格委員会）（○）：#・資料・URL・本ガイドでの使用箇所（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -16750,7 +16755,7 @@ L633.267,207.083"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="20.3 国際的な研究者・実務家による文献（○）：#・著者・資料・URL・本ガイドでの使用箇所（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">
@@ -16881,7 +16886,7 @@ L633.267,207.083"
                             >#</a
                         >
                     </h3>
-                    <div class="table-scroll">
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="20.4 関連する国際標準（○）：#・資料・URL・本ガイドでの使用箇所（横スクロール可能）">
                         <table>
                             <thead>
                                 <tr class="header">

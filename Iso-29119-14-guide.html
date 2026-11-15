@@ -10423,26 +10423,31 @@
                     links[a.dataset.target] = a;
                 });
                 var headings = [].slice.call(document.querySelectorAll('.main h2,.main h3')).filter(function (h) { return links[h.id]; });
+                function updateActiveSection() {
+                    var current = headings[0];
+                    headings.forEach(function (h) {
+                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                    });
+                    Object.values(links).forEach(function (a) {
+                        a.classList.toggle('active', !!current && a.dataset.target === current.id);
+                    });
+                }
                 if ('IntersectionObserver' in window) {
                     var io;
                     function observeHeadings() {
                         if (io) io.disconnect();
-                        io = new IntersectionObserver(
-                            function (es) {
-                                es.forEach(function (e) {
-                                    if (e.isIntersecting) {
-                                        Object.values(links).forEach(function (a) { a.classList.remove('active'); });
-                                        links[e.target.id].classList.add('active');
-                                    }
-                                });
-                            },
-                            { rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px' },
-                        );
+                        io = new IntersectionObserver(updateActiveSection, {
+                            rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px',
+                        });
                         headings.forEach(function (h) { io.observe(h); });
+                        updateActiveSection();
                     }
                     window.addEventListener('resize', observeHeadings);
                     observeHeadings();
                 }
+                window.addEventListener('scroll', updateActiveSection, { passive: true });
+                window.addEventListener('resize', updateActiveSection);
+                updateActiveSection();
                 document.querySelectorAll('.checklist-card').forEach(function (c) {
                     var boxes = c.querySelectorAll('input'),
                         f = c.querySelector('.cp-fill'),
