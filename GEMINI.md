@@ -1034,6 +1034,7 @@ CT-GenAI学習ガイドの横スクロールは外側`.mermaid-container`に集�
 - 全体テストすべて成功（固定件数は`docs/MIGRATION_PROGRESS.md`を参照）。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
+  1. `/iso-29119-2-test-processes-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-42005-2025-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-33063-fdis-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-2382-15-guide`の目視確認（ユーザー担当、ビルド未実施）。
