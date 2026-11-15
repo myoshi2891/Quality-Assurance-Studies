@@ -120,6 +120,9 @@ html:has(.iso42005-page) { scroll-behavior: auto; }
 .iso42005-page blockquote.callout p { font-size: inherit; color: var(--dim); }
 
 .iso42005-page h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+@media(max-width: 900px) {
+.iso42005-page h4 { scroll-margin-top: calc(132px + var(--disclaimer-height, 0px)); }
+}
 .iso42005-page .mermaid-diagram svg p { color: inherit; }
 
 .iso42005-page th { color: #fff !important; }
