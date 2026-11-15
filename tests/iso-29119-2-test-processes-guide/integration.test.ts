@@ -7,4 +7,3 @@ it('registers the same route and correct h1 in the E2E registry',()=>{const entr
 it('tracks both archived originals in Git',()=>{for(const ext of ['html','md'])expect(execFileSync('git',['ls-files',`archive/${ext}-archive/iso/Iso-29119-2-test-processes-guide.${ext}`],{encoding:'utf8'}).trim()).not.toBe('');});
 
 it('reproduces the fixed inventory from archived sources without rewriting it',()=>{expect(()=>execFileSync(process.execPath,['scripts/generate-iso-29119-2-inventory.mjs','--check'],{stdio:'pipe'})).not.toThrow();});
-
