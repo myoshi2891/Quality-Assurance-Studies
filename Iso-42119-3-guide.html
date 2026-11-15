@@ -9710,26 +9710,35 @@
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.dataset.target] = a;
                 });
-                var obs = new IntersectionObserver(
-                    function (es) {
-                        es.forEach(function (en) {
-                            if (en.isIntersecting) {
-                                Object.keys(links).forEach(function (k) {
-                                    links[k].classList.remove('active');
-                                });
-                                var a = links[en.target.id];
-                                if (a) {
-                                    a.classList.add('active');
-                                    a.scrollIntoView({ block: 'nearest' });
-                                }
-                            }
+                var headings = [].slice.call(document.querySelectorAll('.main h2[id],.main h3[id]')).filter(function (h) { return links[h.id]; });
+                var activeHeading = null;
+                function updateActiveSection() {
+                    var current = headings[0];
+                    headings.forEach(function (h) {
+                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                    });
+                    if (!current || current.id === activeHeading) return;
+                    Object.keys(links).forEach(function (k) { links[k].classList.remove('active'); });
+                    var a = links[current.id];
+                    a.classList.add('active');
+                    a.scrollIntoView({ block: 'nearest' });
+                    activeHeading = current.id;
+                }
+                if ('IntersectionObserver' in window) {
+                    var obs;
+                    function observeHeadings() {
+                        if (obs) obs.disconnect();
+                        obs = new IntersectionObserver(updateActiveSection, {
+                            rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px',
                         });
-                    },
-                    { rootMargin: '-15% 0px -75% 0px' },
-                );
-                document.querySelectorAll('.main h2[id],.main h3[id]').forEach(function (h) {
-                    obs.observe(h);
-                });
+                        headings.forEach(function (h) { obs.observe(h); });
+                    }
+                    window.addEventListener('resize', observeHeadings);
+                    observeHeadings();
+                }
+                window.addEventListener('scroll', updateActiveSection, { passive: true });
+                window.addEventListener('resize', updateActiveSection);
+                updateActiveSection();
                 document.querySelectorAll('.checklist-card').forEach(function (c) {
                     var boxes = c.querySelectorAll('input[type=checkbox]'),
                         cnt = c.querySelector('.cp-count'),

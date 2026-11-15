@@ -537,6 +537,10 @@
                 .content h2 {
                     font-size: 20px;
                 }
+                .content h2[id],
+                .content h3[id] {
+                    scroll-margin-top: 64px;
+                }
             }
         </style>
     </head>
@@ -16973,6 +16977,7 @@ L633.267,207.083"
                     });
                 });
                 function activate(id) {
+                    activeHeading = id;
                     document.querySelectorAll('.sidebar a.active').forEach(function (a) {
                         a.classList.remove('active');
                     });
@@ -16994,25 +16999,33 @@ L633.267,207.083"
                         sb.scrollTop += r.top - s.top - s.height / 3;
                     }
                 }
+                var headings = [].slice.call(document.querySelectorAll('.content h2[id],.content h3[id]'));
+                var activeHeading = null;
+                function updateActiveHeading() {
+                    var current = headings[0];
+                    headings.forEach(function (h) {
+                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                    });
+                    if (current && current.id !== activeHeading) {
+                        activate(current.id);
+                        activeHeading = current.id;
+                    }
+                }
                 if ('IntersectionObserver' in window) {
                     var io;
                     function observeHeadings() {
                         if (io) io.disconnect();
-                        io = new IntersectionObserver(
-                            function (es) {
-                                es.forEach(function (e) {
-                                    if (e.isIntersecting) activate(e.target.id);
-                                });
-                            },
-                            { rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px' },
-                        );
-                        document.querySelectorAll('.content h2[id],.content h3[id]').forEach(function (h) {
-                            io.observe(h);
+                        io = new IntersectionObserver(updateActiveHeading, {
+                            rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px',
                         });
+                        headings.forEach(function (h) { io.observe(h); });
                     }
                     window.addEventListener('resize', observeHeadings);
                     observeHeadings();
                 }
+                window.addEventListener('scroll', updateActiveHeading, { passive: true });
+                window.addEventListener('resize', updateActiveHeading);
+                updateActiveHeading();
                 document.querySelectorAll('.checklist-card').forEach(function (card) {
                     var boxes = card.querySelectorAll('input[type=checkbox]'),
                         cnt = card.querySelector('.cp-count'),

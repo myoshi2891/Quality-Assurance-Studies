@@ -265,6 +265,11 @@
                 padding: 20px 14px;
                 margin: 20px 0;
             }
+            .table-scroll:focus-visible,
+            .mermaid-diagram:focus-visible {
+                outline: 2px solid var(--accent);
+                outline-offset: 3px;
+            }
             .mermaid-diagram svg {
                 display: block;
                 margin-left: auto;
@@ -405,7 +410,7 @@
                     </div>
                 </header>
                 <h2 id="sec-1">0. この資料の位置づけ</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -452,7 +457,7 @@
                         は、「自社のテストプロセスがどれくらいちゃんとできているか」を、国際標準の物差しで客観的に評価するための“採点表のお手本（モデル）”です。</strong
                     >
                 </p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -481,7 +486,7 @@
                     </table>
                 </div>
                 <h2 id="sec-3">2. 基本情報</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -538,7 +543,7 @@
                 <p>
                     33063は単独では成り立たず、<strong>複数の規格の上に乗っています</strong>。まず地図を頭に入れましょう。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="テストプロセス評価を支える規格" aria-describedby="diagram-description-1">
+                <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="テストプロセス評価を支える規格" aria-describedby="diagram-description-1" tabindex="0">
                     <svg
                         id="svgmermaiddiagram1"
                         width="834.046875"
@@ -1288,7 +1293,7 @@
                     </svg>
                 </div>
                 <p class="diagram-description" id="diagram-description-1">29119-2が評価対象の目的と成果、33020が属性と尺度、33004がPAM要件を33063へ提供する。33063の指標と33002の実施要件を用いて実際のアセスメントを行う。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -1331,7 +1336,7 @@
                 </blockquote>
                 <h2 id="sec-5">4. Step 1：なぜこの規格が必要なのか</h2>
                 <p>テストプロセスの評価・改善モデルは、33063以前から複数ありました。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -1362,7 +1367,7 @@
                 <p>
                     モデルごとに用語・尺度が違うと、<strong>「A社のレベル3」と「B社のレベル3」を比べられない</strong>問題が起きます。そこで次の流れで標準化されました。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="評価モデルの標準化の流れ" aria-describedby="diagram-description-2">
+                <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="評価モデルの標準化の流れ" aria-describedby="diagram-description-2" tabindex="0">
                     <svg
                         id="svgmermaiddiagram2"
                         width="1019.984375"
@@ -1956,7 +1961,7 @@
                 </div>
                 <p class="diagram-description" id="diagram-description-2">モデルごとに尺度が異なる問題に対し、29119-2でプロセス、33020と33004で評価枠組みを標準化し、33063でPAMのお手本を提供する。</p>
                 <h2 id="sec-6">5. Step 2：最低限の用語を押さえる</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -2023,7 +2028,7 @@
                 </div>
                 <h2 id="sec-7">6. Step 3：モデルの二次元構造を理解する</h2>
                 <p>PAMは一般に**2つの軸（次元）**で成り立ちます。</p>
-                <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="PAMのプロセス次元と能力次元" aria-describedby="diagram-description-3">
+                <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="PAMのプロセス次元と能力次元" aria-describedby="diagram-description-3" tabindex="0">
                     <svg
                         id="svgmermaiddiagram3"
                         width="578"
@@ -2688,7 +2693,7 @@
                 </div>
                 <p class="diagram-description" id="diagram-description-3">33063のPAMを、29119-2由来の何を評価するかという次元と、33020由来のどの程度できるかという次元へ分け、それぞれ実施指標と能力指標へ対応づける。</p>
                 <p>2015年版の目次（公開されているもの）では、次のように構成されています。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -2727,7 +2732,7 @@
                     </table>
                 </div>
                 <h3 id="sec-8">縦軸と横軸のイメージ</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -2773,7 +2778,7 @@
                     33063の評価対象は、<strong>ISO/IEC/IEEE 29119-2 が定義するテストプロセス</strong
                     >です。公式概要でも、プロセスの目的と成果は29119-2で定義されたものと明記されています。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="評価対象となるテストプロセスの階層" aria-describedby="diagram-description-4">
+                <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="評価対象となるテストプロセスの階層" aria-describedby="diagram-description-4" tabindex="0">
                     <svg
                         id="svgmermaiddiagram4"
                         width="1464.109375"
@@ -3851,7 +3856,7 @@
                     </svg>
                 </div>
                 <p class="diagram-description" id="diagram-description-4">組織的テスト、テストマネジメント、動的テストの三層を示す。管理層に計画・監視とコントロール・完了、動的層に設計と実装・環境とデータ・実行・インシデント報告を配置する。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -3894,7 +3899,7 @@
                     <strong>ISO/IEC 33020</strong>
                     のプロセス能力レベルです（一般に知られている6段階）。
                 </p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -3937,7 +3942,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="六段階のプロセス能力レベル" aria-describedby="diagram-description-5">
+                <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="六段階のプロセス能力レベル" aria-describedby="diagram-description-5" tabindex="0">
                     <svg
                         id="svgmermaiddiagram5"
                         width="1000.46875"
@@ -4666,7 +4671,7 @@
                 </div>
                 <p class="diagram-description" id="diagram-description-5">レベル0の不完全から、1の実施、2の管理、3の確立、4の予測可能、5の革新へ段階的に進む。</p>
                 <h3 id="sec-11">プロセス属性（PA）との対応</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -4731,7 +4736,7 @@
                     </p>
                 </blockquote>
                 <h3 id="sec-12">評定尺度（4段階）</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -4769,7 +4774,7 @@
                     **「そのレベルのPAが Largely 以上（L/F）で、かつ、下位レベルのPAがすべて
                     Fully（F）」**であれば、そのレベルに到達したと判定します。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="能力レベル到達の判定条件" aria-describedby="diagram-description-6">
+                <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="能力レベル到達の判定条件" aria-describedby="diagram-description-6" tabindex="0">
                     <svg
                         id="svgmermaiddiagram6"
                         width="549.9453125"
@@ -5506,7 +5511,7 @@
                     </svg>
                 </div>
                 <p class="diagram-description" id="diagram-description-6">目標レベルNの属性がLまたはFか確認し、いいえなら未到達。はいなら下位レベルの全属性がFか確認し、はいで到達、いいえで未到達と判定する。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -5546,7 +5551,7 @@
                 <p>
                     ISO公式の概要は、PAMを「<strong>プロセス実施の指標とプロセス能力の指標の集合</strong>」と説明し、指標は評価者が<strong>客観的証拠を集めて評定するための基礎</strong>になると述べています。
                 </p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -5569,7 +5574,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="指標から能力判定までの証拠の流れ" aria-describedby="diagram-description-7">
+                <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="指標から能力判定までの証拠の流れ" aria-describedby="diagram-description-7" tabindex="0">
                     <svg
                         id="svgmermaiddiagram7"
                         width="836.0625"
@@ -6160,7 +6165,7 @@
                 </div>
                 <p class="diagram-description" id="diagram-description-7">指標を手がかりに記録・成果物・インタビューから客観的証拠を集め、属性をN・P・L・Fで評定して能力レベルを判定する。</p>
                 <h3 id="sec-15">例で理解する（架空）：テスト実行プロセス</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -6195,7 +6200,7 @@
                     </p>
                 </blockquote>
                 <h2 id="sec-16">10. Step 7：アセスメントの進め方（全体フロー）</h2>
-                <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="アセスメントの準備・評定・活用" aria-describedby="diagram-description-8">
+                <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="アセスメントの準備・評定・活用" aria-describedby="diagram-description-8" tabindex="0">
                     <svg
                         id="svgmermaiddiagram8"
                         width="578"
@@ -7278,7 +7283,7 @@
                     </svg>
                 </div>
                 <p class="diagram-description" id="diagram-description-8">目的と範囲を決め、モデルと指標を選び、証拠収集、属性評定、能力判定、報告を行う。能力判定目的なら取引先選定などへ活用し、改善目的なら改善計画と再評価へ進む。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -7341,7 +7346,7 @@
                     <strong>状況</strong
                     >：Web系開発会社のQAチームが「テストプロセスの現状を客観評価したい」。目的は<strong>プロセス改善</strong>。
                 </p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -7370,7 +7375,7 @@
                     </table>
                 </div>
                 <p><strong>評定結果（架空）</strong></p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -7414,7 +7419,7 @@
                         以上でなければなりません。「Lのままでは上位レベルに進めない」ルールに注意しましょう。
                     </p>
                 </blockquote>
-                <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="評定結果に応じた改善例" aria-describedby="diagram-description-9">
+                <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="評定結果に応じた改善例" aria-describedby="diagram-description-9" tabindex="0">
                     <svg
                         id="svgmermaiddiagram9"
                         width="756.859375"
@@ -8079,7 +8084,7 @@
                 </div>
                 <p class="diagram-description" id="diagram-description-9">テスト計画のPA2.2がPなら成果物の版管理・レビューを定義する。インシデント報告のPA1.1がL、PA2.1がPなら報告手順と進捗監視を補強し、再評価する。</p>
                 <h2 id="sec-18">12. 33063でよくある誤解</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -8122,7 +8127,7 @@
                     </table>
                 </div>
                 <h2 id="sec-19">13. 他のテスト改善モデルとの比較</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -8166,7 +8171,7 @@
                         <a href="https://www.es.mdu.se/pdf_publications/3997.pdf">Afzalらの調査論文</a>で版と参照関係を補足しています。
                     </p>
                 </blockquote>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -8189,7 +8194,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-10" role="img" aria-label="連続型と段階型の評価の違い" aria-describedby="diagram-description-10">
+                <div class="mermaid-diagram" id="mermaid-diagram-10" role="img" aria-label="連続型と段階型の評価の違い" aria-describedby="diagram-description-10" tabindex="0">
                     <svg
                         id="svgmermaiddiagram10"
                         width="455.375"
@@ -8666,7 +8671,7 @@
                     の概念・定義に整合させる方針を示しています。
                 </p>
                 <h2 id="sec-21">14. 最新動向（2026年10月8日時点）</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -8714,7 +8719,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-11" role="img" aria-label="33063改訂の段階" aria-describedby="diagram-description-11">
+                <div class="mermaid-diagram" id="mermaid-diagram-11" role="img" aria-label="33063改訂の段階" aria-describedby="diagram-description-11" tabindex="0">
                     <svg
                         id="svgmermaiddiagram11"
                         width="992.3125"
@@ -9373,7 +9378,7 @@
                 </div>
                 <p class="diagram-description" id="diagram-description-11">2015年版の発行から2024年の改訂予定、2026年のDISとFDIS最終投票を経て、第2版の発行と2015年版の置換へ進む。</p>
                 <h3 id="sec-22">DIS草案から読み取れる第2版の変更点</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -9411,7 +9416,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -9438,7 +9443,7 @@
                     </table>
                 </div>
                 <h2 id="sec-23">15. 学習ロードマップ</h2>
-                <div class="mermaid-diagram" id="mermaid-diagram-12" role="img" aria-label="テストプロセス評価の学習順序" aria-describedby="diagram-description-12">
+                <div class="mermaid-diagram" id="mermaid-diagram-12" role="img" aria-label="テストプロセス評価の学習順序" aria-describedby="diagram-description-12" tabindex="0">
                     <svg
                         id="svgmermaiddiagram12"
                         width="272"
@@ -10174,7 +10179,7 @@
                     </svg>
                 </div>
                 <p class="diagram-description" id="diagram-description-12">テスト基礎、29119-2のプロセス、33020の能力レベルと属性、33063のPAMを学び、TMMiと比較した後に小規模な自己評価を実践する。</p>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -10218,7 +10223,7 @@
                     </table>
                 </div>
                 <h2 id="sec-24">16. 確認クイズ</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -10268,7 +10273,7 @@
                 </div>
                 <h2 id="sec-25">17. 参照ソース（URL）</h2>
                 <h3 id="sec-26">一次情報（規格・公式・規格団体）</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -10379,7 +10384,7 @@
                     </table>
                 </div>
                 <h3 id="sec-27">国際的エキスパート・業界団体</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -10457,7 +10462,7 @@
                     </table>
                 </div>
                 <h3 id="sec-28">補足資料</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">
@@ -10492,7 +10497,7 @@
                     </table>
                 </div>
                 <h3 id="sec-29">出典の使い分け</h3>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
                             <tr class="header">

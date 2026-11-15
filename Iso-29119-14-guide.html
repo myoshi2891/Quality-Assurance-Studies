@@ -8771,7 +8771,7 @@
                                                         style="color: #ffffff !important"
                                                         class="nodeLabel"
                                                         ><p>
-                                                            Write切替<br />書き込みを新だけに<br />（旧を従に）
+                                                            Write切替<br />新を主に書き込み<br />旧同期：切戻し期間
                                                         </p></span
                                                     >
                                                 </div></foreignObject
@@ -8828,7 +8828,7 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。次に書き込みを新へ切り替え、最後に旧データを削除する。</p>
+                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。次に新ストアを書き込みの主系へ切り替え、ロールバック期間中は旧ストアへの書き込み同期も継続する。最後の削除フェーズまでは旧ストアを同期した状態で維持し、切り戻し不要と判断した後に旧データを削除する。</p>
                 <div class="callout callout-note">
                     <p>補足：図のステップ名は、Stripeの記事の見出し（Dual</p>
                     <p>writing／Backfilling／Reads の比較・切替／Changing write paths／Removing</p>
@@ -10422,23 +10422,27 @@
                 document.querySelectorAll('.nav-list a').forEach(function (a) {
                     links[a.dataset.target] = a;
                 });
-                var io = new IntersectionObserver(
-                    function (es) {
-                        es.forEach(function (e) {
-                            if (e.isIntersecting) {
-                                Object.values(links).forEach(function (a) {
-                                    a.classList.remove('active');
+                var headings = [].slice.call(document.querySelectorAll('.main h2,.main h3')).filter(function (h) { return links[h.id]; });
+                if ('IntersectionObserver' in window) {
+                    var io;
+                    function observeHeadings() {
+                        if (io) io.disconnect();
+                        io = new IntersectionObserver(
+                            function (es) {
+                                es.forEach(function (e) {
+                                    if (e.isIntersecting) {
+                                        Object.values(links).forEach(function (a) { a.classList.remove('active'); });
+                                        links[e.target.id].classList.add('active');
+                                    }
                                 });
-                                var a = links[e.target.id];
-                                if (a) a.classList.add('active');
-                            }
-                        });
-                    },
-                    { rootMargin: '-15% 0px -75% 0px' },
-                );
-                document.querySelectorAll('.main h2,.main h3').forEach(function (h) {
-                    if (links[h.id]) io.observe(h);
-                });
+                            },
+                            { rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px' },
+                        );
+                        headings.forEach(function (h) { io.observe(h); });
+                    }
+                    window.addEventListener('resize', observeHeadings);
+                    observeHeadings();
+                }
                 document.querySelectorAll('.checklist-card').forEach(function (c) {
                     var boxes = c.querySelectorAll('input'),
                         f = c.querySelector('.cp-fill'),
