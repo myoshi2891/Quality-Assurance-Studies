@@ -10,6 +10,7 @@ import Section05 from './Section05';
 import Section06 from './Section06';
 import Section07 from './Section07';
 import Section08 from './Section08';
+import Section09 from './Section09';
 import NavBar from './NavBar';
 export const metadata: Metadata = {
   title: 'ISO/IEC/IEEE 29119-2:2021 テストプロセス 初学者向けステップバイステップ解説',
@@ -27,5 +28,6 @@ export default function Page() {
       <Section06 />
       <Section07 />
       <Section08 />
+      <Section09 />
     </main></div>;
 }
