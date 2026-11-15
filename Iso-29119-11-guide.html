@@ -19615,20 +19615,45 @@
                         sb.scrollTop += r.top - s.top - s.height / 3;
                     }
                 }
-                if ('IntersectionObserver' in window) {
-                    var io = new IntersectionObserver(
-                        function (es) {
-                            es.forEach(function (e) {
-                                if (e.isIntersecting) setActive(e.target.id);
-                            });
-                        },
-                        { rootMargin: '-15% 0px -75% 0px' },
-                    );
-                    Object.keys(map).forEach(function (id) {
-                        var el = document.getElementById(id);
-                        if (el) io.observe(el);
+                var headings = Object.keys(map)
+                    .map(function (id) {
+                        return document.getElementById(id);
+                    })
+                    .filter(Boolean);
+                // 読み取り位置（画面上端から15%）より上にある最後の見出しを現在の節とする。
+                // 長い節を上方向へ戻るときも、後続の見出しが帯から出た時点で選び直される。
+                function updateActive() {
+                    if (!headings.length) return;
+                    var line = window.innerHeight * 0.15;
+                    var next = headings[0];
+                    headings.forEach(function (h) {
+                        if (h.getBoundingClientRect().top <= line) next = h;
                     });
+                    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
+                        next = headings[headings.length - 1];
+                    }
+                    setActive(next.id);
                 }
+                if ('IntersectionObserver' in window) {
+                    var io;
+                    // rootMargin は画面高から px で算出し、上15%・下75%を除いた帯を監視する。
+                    // 画面サイズが変わったら作り直し、帯の幅を現在の画面高に合わせる。
+                    function observeHeadings() {
+                        if (io) io.disconnect();
+                        var h = window.innerHeight;
+                        io = new IntersectionObserver(updateActive, {
+                            rootMargin: '-' + Math.round(h * 0.15) + 'px 0px -' + Math.round(h * 0.75) + 'px 0px',
+                        });
+                        headings.forEach(function (el) {
+                            io.observe(el);
+                        });
+                    }
+                    observeHeadings();
+                    window.addEventListener('resize', observeHeadings);
+                }
+                window.addEventListener('scroll', updateActive, { passive: true });
+                window.addEventListener('resize', updateActive);
+                updateActive();
             })();
         </script>
     </body>
