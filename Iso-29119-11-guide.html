@@ -13865,6 +13865,8 @@
     注意:
       - 畳み込み層では、空間位置ごとを1ニューロンとして数える簡易実装
         （DeepXplore原論文はチャネル単位の平均を使うなど定義が異なる）。
+      - 同じReLUを1回のモデル呼び出し内で複数回使う構成には非対応。検出時は例外とし、以後の集計も拒否する。
+      - model(...) 経由で呼び出すこと（forward() の直接呼び出しは非対応）。
       - 目的は『考え方の理解』であり、研究用途ではツール実装を参照すること。
     """</span>
     <span class="t-kw">def</span> __init__(<span class="t-kw">self</span>, model: nn.Module, threshold: float = <span class="t-num">0.0</span>, vector_axis: str = <span class="t-str">"batch"</span>):
@@ -13876,14 +13878,23 @@
         <span class="t-kw">self</span>.activated: dict[str, torch.Tensor] = {}
         <span class="t-kw">self</span>.shapes: dict[str, torch.Size] = {}                    <span class="t-com"># 層ごとのバッチ次元以外の形状</span>
         <span class="t-kw">self</span>.layer_names: list[str] = []                           <span class="t-com"># hook を登録した全ReLU層</span>
-        <span class="t-kw">self</span>.handles = []
+        <span class="t-kw">self</span>._seen = set()
+        <span class="t-kw">self</span>._shared_relu = <span class="t-kw">False</span>
+        <span class="t-kw">self</span>.handles = [model.register_forward_pre_hook(<span class="t-kw">self</span>._begin_forward)]
         <span class="t-kw">for</span> name, module <span class="t-kw">in</span> model.named_modules():
             <span class="t-kw">if</span> isinstance(module, nn.ReLU):
                 <span class="t-kw">self</span>.layer_names.append(name)
                 <span class="t-kw">self</span>.handles.append(module.register_forward_hook(<span class="t-kw">self</span>._make_hook(name)))
 
+    <span class="t-kw">def</span> _begin_forward(<span class="t-kw">self</span>, module, inputs):
+        <span class="t-kw">self</span>._seen.clear()
+
     <span class="t-kw">def</span> _make_hook(<span class="t-kw">self</span>, name: str):
         <span class="t-kw">def</span> hook(module, inputs, output):
+            <span class="t-kw">if</span> name <span class="t-kw">in</span> <span class="t-kw">self</span>._seen:
+                <span class="t-kw">self</span>._shared_relu = <span class="t-kw">True</span>
+                <span class="t-kw">raise</span> RuntimeError(<span class="t-str">f"共有ReLUの複数回呼び出しには非対応: {name}"</span>)
+            <span class="t-kw">self</span>._seen.add(name)
             out = output.detach()
             <span class="t-kw">if</span> out.dim() == <span class="t-num">0</span>:                                     <span class="t-com"># スカラー出力は1件・1ニューロンとして扱う</span>
                 out = out.reshape(<span class="t-num">1</span>, <span class="t-num">1</span>)
@@ -13905,6 +13916,8 @@
         <span class="t-kw">return</span> hook
 
     <span class="t-kw">def</span> coverage(<span class="t-kw">self</span>) -&gt; float:
+        <span class="t-kw">if</span> <span class="t-kw">self</span>._shared_relu:
+            <span class="t-kw">raise</span> RuntimeError(<span class="t-str">"共有ReLUを検出したため、カバレッジは集計できません"</span>)
         <span class="t-com"># 一度も hook が呼ばれていない層は分母に入らないため、黙って除外せず不完全として報告する</span>
         missing = [n <span class="t-kw">for</span> n <span class="t-kw">in</span> <span class="t-kw">self</span>.layer_names <span class="t-kw">if</span> n <span class="t-kw">not</span> <span class="t-kw">in</span> <span class="t-kw">self</span>.activated]
         <span class="t-kw">if</span> missing:

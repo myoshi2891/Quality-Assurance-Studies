@@ -10555,23 +10555,23 @@
                 document.querySelectorAll('.sidebar a').forEach(function (a) {
                     links[a.dataset.target] = a;
                 });
-                var io = new IntersectionObserver(
-                    function (es) {
-                        es.forEach(function (e) {
-                            if (e.isIntersecting) {
-                                Object.values(links).forEach(function (l) {
-                                    l.classList.remove('active');
-                                });
-                                var l = links[e.target.id];
-                                if (l) l.classList.add('active');
-                            }
-                        });
-                    },
-                    { rootMargin: '-15% 0px -75% 0px' },
-                );
-                document.querySelectorAll('h2[id]').forEach(function (h) {
-                    io.observe(h);
-                });
+                var headings = [].slice.call(document.querySelectorAll('h2[id]'));
+                function updateActiveSection() {
+                    var current = headings[0];
+                    headings.forEach(function (h) {
+                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.15) current = h;
+                    });
+                    Object.values(links).forEach(function (l) {
+                        l.classList.toggle('active', !!current && l.dataset.target === current.id);
+                    });
+                }
+                if ('IntersectionObserver' in window) {
+                    var io = new IntersectionObserver(updateActiveSection);
+                    headings.forEach(function (h) { io.observe(h); });
+                }
+                window.addEventListener('scroll', updateActiveSection, { passive: true });
+                window.addEventListener('resize', updateActiveSection);
+                updateActiveSection();
             })();
         </script>
     </body>

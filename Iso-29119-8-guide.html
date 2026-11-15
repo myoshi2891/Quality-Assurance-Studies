@@ -16967,6 +16967,7 @@ L633.267,207.083"
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.getAttribute('data-target')] = a;
                     a.addEventListener('click', function () {
+                        activate(a.getAttribute('data-target'));
                         if (window.innerWidth <= 900) setOpen(false);
                     });
                 });
