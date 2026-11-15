@@ -496,11 +496,13 @@
 
             @media (max-width: 900px) {
                 .sidebar {
+                    visibility: hidden;
                     transform: translateX(-100%);
                     transition: transform 0.25s;
                     box-shadow: none;
                 }
                 .sidebar.open {
+                    visibility: visible;
                     transform: none;
                     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
                 }
@@ -538,7 +540,7 @@
         </style>
     </head>
     <body>
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="目次を開く">☰ 目次</button>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="目次" aria-controls="sidebar" aria-expanded="false">☰ 目次</button>
         <div class="scrim" id="scrim"></div>
         <div class="layout">
             <aside class="sidebar" id="sidebar">
@@ -1068,7 +1070,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="図1">
+                    <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="モデルベーステストの基本サイクル" aria-describedby="diagram-description-1">
                         <svg
                             id="mmd1"
                             width="1172.0625"
@@ -1738,6 +1740,7 @@ L179.815,104.382"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-1">モデルを作成し、テストを自動生成して実行し、評価結果をモデルへ還元する。</p>
                     <p>
                         <strong>一言でまとめると</strong
                         >：「テストケースを人が1本ずつ書く」代わりに、「システムの期待動作を<strong>モデル</strong>として書き、そこからテストを<strong>機械的に導く</strong>」ための、<strong>プロセスと文書化のルールブック</strong>です。
@@ -1776,7 +1779,7 @@ L179.815,104.382"
                         氏（モデルベーステスト理論の第一人者）は、テストの進化を「手動 → スクリプト
                         → キーワード駆動 → モデルベース」と整理しています。
                     </p>
-                    <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="図2">
+                    <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="テスト自動化の発展" aria-describedby="diagram-description-2">
                         <svg
                             id="mmd2"
                             width="1108.0625"
@@ -2432,6 +2435,7 @@ L179.815,104.382"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-2">人が手順を書き実行する手動テストから、スクリプト化、キーワードによる部品再利用、モデルからの手順生成へ進む。</p>
                     <h3 id="sec-3-3">
                         3.3 従来のテスト設計との違い<a
                             aria-label="リンク"
@@ -2565,7 +2569,7 @@ L179.815,104.382"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="図3">
+                    <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="29119シリーズとMBTの関係" aria-describedby="diagram-description-3">
                         <svg
                             id="mmd3"
                             width="835.5152587890625"
@@ -3465,6 +3469,7 @@ L741.743,340.671"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-3">29119-8はPart 2のプロセスとPart 3の文書化をMBT向けに実装する。技法はツール依存で範囲外とし、Part 5は実行層で併用されやすい。</p>
                     <div class="callout callout-warn">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">⚠️</span><span>注意</span>
@@ -3677,7 +3682,7 @@ L741.743,340.671"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="図4">
+                    <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="29119-8の策定時系列" aria-describedby="diagram-description-4">
                         <svg
                             id="mmd4"
                             width="290.765625"
@@ -4650,6 +4655,7 @@ L741.743,340.671"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-4">CD登録と意見募集からDIS、FDISの登録・投票を経て、2026年9月28日の発行手続きへ進む。図では最終的な発行日を未定としている。</p>
                     <p>
                         ISO
                         ページは、このステージを「最終制作工程（最大7週間）」と説明しています。単純計算すると
@@ -4695,7 +4701,7 @@ L741.743,340.671"
                         の一般的なプロセスを提示しています。ここでは ISTQB
                         の整理と合わせ、初学者向けに次の流れで説明します。
                     </p>
-                    <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="図5">
+                    <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="MBTの設計・生成・評価と手戻り" aria-describedby="diagram-description-5">
                         <svg
                             id="mmd5"
                             width="507.328125"
@@ -5922,6 +5928,7 @@ L375.32,1428.031"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-5">目的からモデルを作り妥当性を確認する。問題があればモデルを修正し、妥当なら選択基準を決め生成・具体化・実行する。評価でモデルの問題なら修正へ、SUTの欠陥なら報告へ進み、十分なら完了する。</p>
                     <h3 id="sec-7-2">
                         7.2 各ステップの役割<a aria-label="リンク" class="anchor" href="#sec-7-2"
                             >#</a
@@ -6068,7 +6075,7 @@ L375.32,1428.031"
                         ISTQB シラバスは、MBT
                         の影響を「最低でもテスト分析と設計に及び、目的次第でテストプロセス全体に及ぶ」と整理しています。
                     </p>
-                    <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="図6">
+                    <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="MBTが各テストプロセスへ与える影響" aria-describedby="diagram-description-6">
                         <svg
                             id="mmd6"
                             width="2222.703125"
@@ -7184,6 +7191,7 @@ L1331.454,144.047"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-6">計画にツール・指針・指標を含め、分析・設計にモデリングと選択基準、実装・実行に生成と具体化、監視に影響分析、完了にモデル資産の再利用を対応づける。</p>
                     <h3 id="sec-8-3">
                         8.3 プロセス別の MBT 実装ポイント<a
                             aria-label="リンク"
@@ -7292,7 +7300,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="図7">
+                    <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="三種類のモデルを統合するMBT" aria-describedby="diagram-description-7">
                         <svg
                             id="mmd7"
                             width="803.234375"
@@ -8022,6 +8030,7 @@ L1331.454,144.047"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-7">システムの期待動作、環境・利用条件、抽象的なテスト手順を表す三つのモデルを統合し、テストケース生成器に渡す。</p>
                     <h3 id="sec-9-2">
                         9.2 構造モデルと振る舞いモデル<a
                             aria-label="リンク"
@@ -8316,7 +8325,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="図8">
+                    <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="テスト選択基準の合成と加算" aria-describedby="diagram-description-8">
                         <svg
                             id="mmd8"
                             width="628.265625"
@@ -9001,6 +9010,7 @@ L1331.454,144.047"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-8">要件カバレッジと遷移網羅の両方を満たすテストだけを選ぶ合成と、どちらかを満たすテストをすべて選ぶ加算を比較する。</p>
                     <div class="callout callout-practice">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">💡</span
@@ -9125,7 +9135,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="図9">
+                    <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="オフラインMBTの実行手順" aria-describedby="diagram-description-9">
                         <svg
                             id="mmd9"
                             width="1064.078125"
@@ -9838,12 +9848,14 @@ L1331.454,144.047"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-9">モデルから期待結果つきスクリプト一式を生成し、別の実行ツールで実行した後に結果を評価する。</p>
                     <p>オンライン MBT は、生成器と SUT が対話する形になります。</p>
                     <div
                         class="mermaid-diagram"
                         id="mermaid-diagram-10"
                         role="img"
-                        aria-label="図10"
+                        aria-label="オンラインMBTの対話"
+                        aria-describedby="diagram-description-10"
                     >
                         <svg
                             id="mmd10"
@@ -10551,6 +10563,7 @@ z"
                             ></line>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-10">生成器が次の入力を指示し、アダプタ層が具体的な操作をSUTへ送る。SUTの応答をアダプタ層で抽象化して生成器へ返し、モデルと照合して次の経路を選ぶ。</p>
                     <div class="callout callout-practice">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">💡</span
@@ -10579,7 +10592,8 @@ z"
                         class="mermaid-diagram"
                         id="mermaid-diagram-11"
                         role="img"
-                        aria-label="図11"
+                        aria-label="抽象テストからSUTへの具体化"
+                        aria-describedby="diagram-description-11"
                     >
                         <svg
                             id="mmd11"
@@ -11384,6 +11398,7 @@ z"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-11">MBTモデルから抽象テストを生成し、キーワード実装と具体データ表を使うアダプテーション層を介して実行ツールとSUTを動かす。</p>
                     <div class="table-scroll">
                         <table>
                             <thead>
@@ -11548,7 +11563,8 @@ z"
                         class="mermaid-diagram"
                         id="mermaid-diagram-12"
                         role="img"
-                        aria-label="図12"
+                        aria-label="要件から実行結果への双方向追跡"
+                        aria-describedby="diagram-description-12"
                     >
                         <svg
                             id="mmd12"
@@ -12187,6 +12203,7 @@ z"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-12">要件・ユーザーストーリー、MBTモデル要素、生成テストケース、実行結果・欠陥報告を双方向に結びつける。</p>
                     <p>
                         モデル要素に要件を紐づけておき、さらにトレーサビリティ出力に対応した生成器や要件管理ツールとの連携機能を備えた
                         MBT
@@ -12301,7 +12318,8 @@ z"
                         class="mermaid-diagram"
                         id="mermaid-diagram-13"
                         role="img"
-                        aria-label="図13"
+                        aria-label="ログイン・失敗回数・ロックの状態遷移"
+                        aria-describedby="diagram-description-13"
                     >
                         <svg
                             id="mmd13"
@@ -13204,6 +13222,7 @@ L399.953,222.434"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-13">開始時に失敗回数を0にする。未ログインで認証成功するとT1でログイン済へ進み回数を0にする。認証失敗時、失敗回数が2未満ならT2で1加算して未ログインに留まり、2ならT3でロックして0にする。T4のログアウトで未ログインへ戻り、ロックからはT5の30分経過で戻る。</p>
                     <div class="callout callout-note">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">ℹ️</span><span>補足</span>
@@ -13416,7 +13435,8 @@ L399.953,222.434"
                         class="mermaid-diagram"
                         id="mermaid-diagram-14"
                         role="img"
-                        aria-label="図14"
+                        aria-label="MBT導入の判断分岐"
+                        aria-describedby="diagram-description-14"
                     >
                         <svg
                             id="mmd14"
@@ -14505,6 +14525,7 @@ L470.258,1327.734"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-14">状態・分岐や仕様変更が多く、長期の回帰テストが必要なら、人材・時間と自動実行基盤を確認する。両方あれば試験導入し、不足すれば教育や基盤整備を優先する。規模や反復が少なければ従来技法の強化を優先する。</p>
                     <div class="callout callout-warn">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">⚠️</span><span>注意</span>
@@ -14625,7 +14646,8 @@ L470.258,1327.734"
                         class="mermaid-diagram"
                         id="mermaid-diagram-15"
                         role="img"
-                        aria-label="図15"
+                        aria-label="MBTツールと周辺基盤の連携"
+                        aria-describedby="diagram-description-15"
                     >
                         <svg
                             id="mmd15"
@@ -15431,6 +15453,7 @@ L633.267,207.083"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-15">モデル編集・シミュレータ・生成器を持つMBTツールを中心に、要件管理、テスト管理、自動化基盤、構成管理、CIサーバーを連携させる。</p>
 
                     <h2 id="sec-16">
                         16. ステップ14：よくある失敗とアンチパターン<a
@@ -15532,7 +15555,8 @@ L633.267,207.083"
                         class="mermaid-diagram"
                         id="mermaid-diagram-16"
                         role="img"
-                        aria-label="図16"
+                        aria-label="MBT学習の段階"
+                        aria-describedby="diagram-description-16"
                     >
                         <svg
                             id="mmd16"
@@ -16333,6 +16357,7 @@ L633.267,207.083"
                             </g>
                         </svg>
                     </div>
+                    <p class="diagram-description" id="diagram-description-16">テストの基礎からMBT入門、小さな状態モデルの実践、CT-MBTシラバスによる体系化へ進み、規格本文とioco理論で深掘りする。</p>
                     <h3 id="sec-17-2">
                         17.2 理解度チェックリスト<a
                             aria-label="リンク"
@@ -16916,16 +16941,28 @@ L633.267,207.083"
                 var sb = document.getElementById('sidebar'),
                     tg = document.getElementById('sidebarToggle'),
                     sc = document.getElementById('scrim');
-                function setOpen(o) {
-                    sb.classList.toggle('open', o);
-                    sc.classList.toggle('show', o);
+                var mobileSidebar = window.matchMedia('(max-width: 900px)');
+                function syncSidebar() {
+                    var closed = mobileSidebar.matches && !sb.classList.contains('open');
+                    if (closed && sb.contains(document.activeElement)) tg.focus();
+                    sb.inert = closed;
+                    tg.setAttribute('aria-expanded', closed ? 'false' : 'true');
+                    sc.classList.toggle('show', mobileSidebar.matches && !closed);
+                }
+                function setOpen(open) {
+                    if (!open && mobileSidebar.matches && sb.contains(document.activeElement)) tg.focus();
+                    sb.classList.toggle('open', open);
+                    syncSidebar();
                 }
                 tg.addEventListener('click', function () {
                     setOpen(!sb.classList.contains('open'));
                 });
-                sc.addEventListener('click', function () {
-                    setOpen(false);
+                sb.addEventListener('click', function (e) {
+                    if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                sc.addEventListener('click', function () { setOpen(false); });
+                mobileSidebar.addEventListener('change', syncSidebar);
+                syncSidebar();
                 var links = {};
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.getAttribute('data-target')] = a;
@@ -16956,19 +16993,23 @@ L633.267,207.083"
                     }
                 }
                 if ('IntersectionObserver' in window) {
-                    var io = new IntersectionObserver(
-                        function (es) {
-                            es.forEach(function (e) {
-                                if (e.isIntersecting) activate(e.target.id);
-                            });
-                        },
-                        { rootMargin: '-15% 0px -75% 0px' },
-                    );
-                    document
-                        .querySelectorAll('.content h2[id],.content h3[id]')
-                        .forEach(function (h) {
+                    var io;
+                    function observeHeadings() {
+                        if (io) io.disconnect();
+                        io = new IntersectionObserver(
+                            function (es) {
+                                es.forEach(function (e) {
+                                    if (e.isIntersecting) activate(e.target.id);
+                                });
+                            },
+                            { rootMargin: '-' + window.innerHeight * 0.15 + 'px 0px -' + window.innerHeight * 0.75 + 'px 0px' },
+                        );
+                        document.querySelectorAll('.content h2[id],.content h3[id]').forEach(function (h) {
                             io.observe(h);
                         });
+                    }
+                    window.addEventListener('resize', observeHeadings);
+                    observeHeadings();
                 }
                 document.querySelectorAll('.checklist-card').forEach(function (card) {
                     var boxes = card.querySelectorAll('input[type=checkbox]'),

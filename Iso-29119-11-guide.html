@@ -426,9 +426,11 @@
 
             @media (max-width: 960px) {
                 .sidebar {
+                    visibility: hidden;
                     transform: translateX(-100%);
                 }
                 .sidebar.open {
+                    visibility: visible;
                     transform: none;
                     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
                 }
@@ -468,7 +470,7 @@
         </style>
     </head>
     <body>
-        <button class="toggle" id="toggle" aria-controls="sidebar" aria-expanded="false">
+        <button class="toggle" id="toggle" aria-label="目次" aria-controls="sidebar" aria-expanded="false">
             目次
         </button>
         <div class="layout">
@@ -1126,7 +1128,7 @@
                     ISO/IEC/IEEE 29119
                     は、ソフトウェアテストの国際規格シリーズです。第11部はその中の「AIテスト」担当です。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-0" role="img" aria-label="図1">
+                <div class="mermaid-diagram" id="mermaid-diagram-0" role="img" aria-label="29119シリーズとAIテストの位置づけ" aria-describedby="diagram-description-1">
                     <svg
                         id="mmd0"
                         width="966.3125"
@@ -2106,6 +2108,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-1">Part 1の一般概念、Part 2のプロセス、Part 3の文書化、Part 4の技法、Part 5のキーワード駆動テストに対し、Part 11はAI特有の課題を接続する。</p>
                 <div class="callout note">
                     <p>
                         📘 従来のPart 1〜5（概念・プロセス・文書化・技法）が土台にあり、Part 11
@@ -2115,7 +2118,7 @@
                 <h3 id="13-ライフサイクル上の流れ-iso公式ページ各機関の公開情報より">
                     1.3 ライフサイクル上の流れ（✅ ISO公式ページ・各機関の公開情報より）
                 </h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="図2">
+                <div class="mermaid-diagram" id="mermaid-diagram-1" role="img" aria-label="29119-11の策定と見直しの時系列" aria-describedby="diagram-description-2">
                     <svg
                         id="mmd1"
                         width="392"
@@ -2852,6 +2855,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-2">2019年の新規プロジェクト承認から2020年のCD登録・承認と公開を経て、2025年に定期見直しを開始し2026年に終了する流れ。</p>
                 <hr />
                 <h2 id="2-step-2なぜai専用のテスト規格が必要なのか">
                     2. Step 2：なぜ「AI専用」のテスト規格が必要なのか
@@ -2944,7 +2948,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="図3">
+                <div class="mermaid-diagram" id="mermaid-diagram-2" role="img" aria-label="学習モデルと従来型コードの評価の違い" aria-describedby="diagram-description-3">
                     <svg
                         id="mmd2"
                         width="264.015625"
@@ -3796,6 +3800,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-3">学習データから学習したモデルは統計的に性能評価する。一方、仕様から作るコードは期待値と実行結果を比較する。</p>
                 <hr />
                 <h2 id="3-step-3用語aiベースシステムを正しく理解する">
                     3. Step 3：用語「AIベースシステム」を正しく理解する
@@ -3838,7 +3843,7 @@
                     </table>
                 </div>
                 <h3 id="32-テスト対象の粒度を意識する">3.2 テスト対象の「粒度」を意識する</h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="図4">
+                <div class="mermaid-diagram" id="mermaid-diagram-3" role="img" aria-label="AIシステムの構成要素とテスト観点" aria-describedby="diagram-description-4">
                     <svg
                         id="mmd3"
                         width="871.078125"
@@ -4651,6 +4656,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-4">システム全体をAIモデル、従来型のUI・API・DB、データパイプラインに分け、それぞれAI特有の品質、機能・性能・セキュリティ、データ品質を検査する。</p>
                 <div class="callout note">
                     <p>
                         📘 実務の鉄則：<strong
@@ -4811,7 +4817,7 @@
                     </p>
                 </div>
                 <h3 id="42-読む順序の推奨ルート">4.2 読む順序の推奨ルート</h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="図5">
+                <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="知識と目的に応じた規格の読み方" aria-describedby="diagram-description-5">
                     <svg
                         id="mmd4"
                         width="818.578125"
@@ -5887,6 +5893,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-5">AIの基礎知識がなければ第4章と付録Aを読み、第6章へ進む。必要な観点がテスト技法なら第8章、モデル内部なら第9章、環境・規制なら第10章を読み、計画へ反映する。</p>
                 <hr />
                 <h2 id="5-step-5aiテスト特有の課題第6章">5. Step 5：AIテスト特有の課題（第6章）</h2>
                 <h3 id="51-公式情報で確認できること">5.1 公式情報で確認できること（✅）</h3>
@@ -5962,7 +5969,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="図6">
+                <div class="mermaid-diagram" id="mermaid-diagram-5" role="img" aria-label="AIテストの課題の分類" aria-describedby="diagram-description-6">
                     <svg
                         id="mmd5"
                         width="522.453125"
@@ -7442,6 +7449,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-6">課題を仕様、データ、振る舞い、社会、テスト設計に分類する。曖昧な要求、偏りや分布シフト、非決定性、倫理・透明性、オラクル問題や入力空間の爆発を整理する。</p>
                 <hr />
                 <h2 id="6-step-6最大の難関テストオラクル問題">
                     6. Step 6：最大の難関「テストオラクル問題」
@@ -7492,7 +7500,7 @@
                     </table>
                 </div>
                 <h3 id="63-なぜaiで特に深刻なのか">6.3 なぜAIで特に深刻なのか</h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="図7">
+                <div class="mermaid-diagram" id="mermaid-diagram-6" role="img" aria-label="期待結果の有無によるオラクル戦略" aria-describedby="diagram-description-7">
                     <svg
                         id="mmd6"
                         width="1233.328125"
@@ -8388,6 +8396,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-7">期待結果を事前に決められる場合は正解率などで統計評価する。決められない場合はメタモルフィック関係、差分テスト、人間の評価、性質ベースの検査を判定根拠にする。</p>
                 <h3 id="64-対処法の早見表">6.4 対処法の早見表（📘）</h3>
                 <div class="table-scroll">
                     <table>
@@ -8448,7 +8457,7 @@
                     >（6.2.3〜6.2.6）の節があることが確認できます。従来のテストレベルをAIにも当てはめる構成だと言えます（0.3のとおり
                     TR なので、各工程でのテストを義務づけるものではありません）。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="図8">
+                <div class="mermaid-diagram" id="mermaid-diagram-7" role="img" aria-label="AIにも適用されるテストレベル" aria-describedby="diagram-description-8">
                     <svg
                         id="mmd7"
                         width="820.09375"
@@ -9043,6 +9052,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-8">統合テスト、システムテスト、システム統合テスト、受入テストの順に、6.2.3から6.2.6のテストレベルを示す。</p>
                 <div class="callout warn">
                     <p>
                         ⚠️ 6.2.1・6.2.2
@@ -9052,7 +9062,7 @@
                 <h3 id="72-aiシステムのライフサイクルとテスト">
                     7.2 AIシステムのライフサイクルとテスト（📘）
                 </h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="図9">
+                <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="AIライフサイクル全体のテスト" aria-describedby="diagram-description-9">
                     <svg
                         id="mmd8"
                         width="424.0234375"
@@ -9907,6 +9917,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-9">要求定義、データ準備、学習、モデル評価、統合、デプロイ、運用監視へ進む。劣化やドリフトを検知したら前段階へ戻し改善する。</p>
                 <h3 id="73-工程別テスト観点表">7.3 工程別テスト観点表（📘）</h3>
                 <div class="table-scroll">
                     <table>
@@ -10004,7 +10015,7 @@
                     >
                     コード・データ・モデルの3つを小さく安全な増分で、再現可能なまま、いつでもリリースできるようにする考え方です。パイプラインのトリガーは「コード変更」「モデル構造の変更」「学習・テストデータの変更」の3つで、データの変更でもパイプラインを起動できる点が従来のCI/CDと異なります。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="図10">
+                <div class="mermaid-diagram" id="mermaid-diagram-9" role="img" aria-label="CD4MLの変更から監視までの流れ" aria-describedby="diagram-description-10">
                     <svg
                         id="mmd9"
                         width="1557.875"
@@ -10908,6 +10919,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-10">コード、データ、モデル構造のいずれの変更もCD4MLパイプラインを起動する。自動テスト、ガバナンスの確認、デプロイ、監視へ進む。</p>
                 <hr />
                 <h2 id="8-step-8ブラックボックステスト第8章">
                     8. Step 8：ブラックボックステスト（第8章）
@@ -10977,7 +10989,7 @@
                 <h3 id="83-メタモルフィックテストを理解する">
                     8.3 メタモルフィックテストを理解する
                 </h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-10" role="img" aria-label="図11">
+                <div class="mermaid-diagram" id="mermaid-diagram-10" role="img" aria-label="入力変換を使うメタモルフィックテスト" aria-describedby="diagram-description-11">
                     <svg
                         id="mmd10"
                         width="1592.82421875"
@@ -12042,6 +12054,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-11">元の入力と変換後の入力をモデルに与え、両出力が関係Rを満たすかを判定する。満たせば合格、満たさなければ不具合を疑う。</p>
                 <p>
                     <strong>ポイント：正解ラベルが一切不要</strong>
                     です。「明るさを少し変えても犬は犬のはず」という関係だけで検査できます。
@@ -12066,7 +12079,7 @@
 
 <span class="t-kw">def</span> fit(X, y):
     <span class="t-com"># 既定の lbfgs ソルバーは random_state を使わないため指定しない。収束のため反復回数を十分に取る</span>
-<span class="t-kw">return</span> LogisticRegression(max_iter=<span class="t-num">1000</span>).fit(X, y)
+    <span class="t-kw">return</span> LogisticRegression(max_iter=<span class="t-num">1000</span>).fit(X, y)
 
 
 <span class="t-kw">def</span> test_mr_train_order_invariance(data):
@@ -12080,7 +12093,7 @@
 
     agreement = (base == shuffled).mean()
     <span class="t-com"># 数値誤差による境界付近のブレを許容し、一致率で判定する</span>
-<span class="t-kw">assert</span> agreement &gt;= (len(base) - <span class="t-num">1</span>) / len(base), <span class="t-str">f"一致率が低い: {agreement:.3f}"</span>
+    <span class="t-kw">assert</span> agreement &gt;= (len(base) - <span class="t-num">1</span>) / len(base), <span class="t-str">f"一致率が低い: {agreement:.3f}"</span>
 <span class="t-kw">def</span> test_mr_feature_permutation(data):
     <span class="t-str">"""MR2: 特徴量の列順を学習・推論で同じように入れ替えても、予測は変わらないはず。"""</span>
     X_tr, X_te, y_tr, _ = data
@@ -12109,7 +12122,7 @@
                 <h3 id="85-差分バックツーバックテストの考え方">
                     8.5 差分（バックツーバック）テストの考え方
                 </h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-11" role="img" aria-label="図12">
+                <div class="mermaid-diagram" id="mermaid-diagram-11" role="img" aria-label="二つのモデルを比べる差分テスト" aria-describedby="diagram-description-12">
                     <svg
                         id="mmd11"
                         width="540.03125"
@@ -12882,6 +12895,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-12">同じ入力を現行モデルAと新モデルBへ与え出力を比較する。差が小さければ変更の影響は限定的、差が大きければ該当入力を抽出し人間が正しさを確認する。</p>
                 <hr />
                 <h2 id="9-step-9ニューラルネットワークのホワイトボックステスト第9章">
                     9. Step 9：ニューラルネットワークのホワイトボックステスト（第9章）
@@ -12965,7 +12979,7 @@
                     </p>
                 </div>
                 <h3 id="93-ニューロンカバレッジの考え方">9.3 ニューロンカバレッジの考え方</h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-12" role="img" aria-label="図13">
+                <div class="mermaid-diagram" id="mermaid-diagram-12" role="img" aria-label="ニューロンカバレッジの集計" aria-describedby="diagram-description-13">
                     <svg
                         id="mmd12"
                         width="1335.65625"
@@ -13831,6 +13845,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-13">入力を第1層から第3層へ通して出力を得る間、各ニューロンがしきい値を超えたか記録する。活性化した数を全ニューロン数で割ってカバレッジを算出する。</p>
                 <p><strong>定義（簡易版）</strong></p>
                 <pre
                     class="text"
@@ -13852,16 +13867,16 @@
         （DeepXplore原論文はチャネル単位の平均を使うなど定義が異なる）。
       - 目的は『考え方の理解』であり、研究用途ではツール実装を参照すること。
     """</span>
-<span class="t-kw">def</span> __init__(<span class="t-kw">self</span>, model: nn.Module, threshold: float = <span class="t-num">0.0</span>, vector_axis: str = <span class="t-str">"batch"</span>):
+    <span class="t-kw">def</span> __init__(<span class="t-kw">self</span>, model: nn.Module, threshold: float = <span class="t-num">0.0</span>, vector_axis: str = <span class="t-str">"batch"</span>):
         <span class="t-com"># vector_axis: 1次元出力の解釈。"batch" は (batch,) のスカラー出力列、"neurons" は1サンプル分の (neurons,)</span>
-<span class="t-kw">if</span> vector_axis <span class="t-kw">not</span> <span class="t-kw">in</span> (<span class="t-str">"batch"</span>, <span class="t-str">"neurons"</span>):
+        <span class="t-kw">if</span> vector_axis <span class="t-kw">not</span> <span class="t-kw">in</span> (<span class="t-str">"batch"</span>, <span class="t-str">"neurons"</span>):
             <span class="t-kw">raise</span> ValueError(<span class="t-str">f"vector_axis は 'batch' か 'neurons' を指定する: {vector_axis!r}"</span>)
         <span class="t-kw">self</span>.threshold = threshold
         <span class="t-kw">self</span>.vector_axis = vector_axis
         <span class="t-kw">self</span>.activated: dict[str, torch.Tensor] = {}
         <span class="t-kw">self</span>.shapes: dict[str, torch.Size] = {}                    <span class="t-com"># 層ごとのバッチ次元以外の形状</span>
-<span class="t-kw">self</span>.layer_names: list[str] = []                           <span class="t-com"># hook を登録した全ReLU層</span>
-<span class="t-kw">self</span>.handles = []
+        <span class="t-kw">self</span>.layer_names: list[str] = []                           <span class="t-com"># hook を登録した全ReLU層</span>
+        <span class="t-kw">self</span>.handles = []
         <span class="t-kw">for</span> name, module <span class="t-kw">in</span> model.named_modules():
             <span class="t-kw">if</span> isinstance(module, nn.ReLU):
                 <span class="t-kw">self</span>.layer_names.append(name)
@@ -13873,14 +13888,14 @@
             <span class="t-kw">if</span> out.dim() == <span class="t-num">0</span>:                                     <span class="t-com"># スカラー出力は1件・1ニューロンとして扱う</span>
                 out = out.reshape(<span class="t-num">1</span>, <span class="t-num">1</span>)
             <span class="t-kw">elif</span> out.dim() == <span class="t-num">1</span>:                                   <span class="t-com"># 1次元出力は vector_axis に従って解釈する</span>
-<span class="t-kw">if</span> <span class="t-kw">self</span>.vector_axis == <span class="t-str">"batch"</span>:
+                <span class="t-kw">if</span> <span class="t-kw">self</span>.vector_axis == <span class="t-str">"batch"</span>:
                     out = out.unsqueeze(<span class="t-num">1</span>)                         <span class="t-com"># (batch,) → 1サンプル1ニューロンの (batch, 1)</span>
-<span class="t-kw">else</span>:
+                <span class="t-kw">else</span>:
                     out = out.unsqueeze(<span class="t-num">0</span>)                         <span class="t-com"># (neurons,) → 1サンプル分の (1, neurons)</span>
             shape = out.shape[<span class="t-num">1</span>:]
             expected = <span class="t-kw">self</span>.shapes.setdefault(name, shape)         <span class="t-com"># 初回呼び出し時の形状を記録</span>
-<span class="t-kw">if</span> shape != expected:                                  <span class="t-com"># 集計前に形状の一致を検証</span>
-<span class="t-kw">raise</span> ValueError(
+            <span class="t-kw">if</span> shape != expected:                                  <span class="t-com"># 集計前に形状の一致を検証</span>
+                <span class="t-kw">raise</span> ValueError(
                     <span class="t-str">f"{name}: 出力形状が初回 {tuple(expected)} と異なる {tuple(shape)}"</span>
                 )
             flat = out.flatten(start_dim=<span class="t-num">1</span>)                        <span class="t-com"># (batch, neurons)</span>
@@ -13897,7 +13912,7 @@
         total = sum(v.numel() <span class="t-kw">for</span> v <span class="t-kw">in</span> <span class="t-kw">self</span>.activated.values())
         covered = sum(int(v.sum()) <span class="t-kw">for</span> v <span class="t-kw">in</span> <span class="t-kw">self</span>.activated.values())
         <span class="t-kw">return</span> covered / total <span class="t-kw">if</span> total <span class="t-kw">else</span> <span class="t-num">0.0</span>
-<span class="t-kw">def</span> close(<span class="t-kw">self</span>):
+    <span class="t-kw">def</span> close(<span class="t-kw">self</span>):
         <span class="t-kw">for</span> h <span class="t-kw">in</span> <span class="t-kw">self</span>.handles:
             h.remove()
 
@@ -13984,7 +13999,7 @@
                 <h3 id="102-テスト環境の選択肢-一般的な整理">
                     10.2 テスト環境の選択肢（📘 一般的な整理）
                 </h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-13" role="img" aria-label="図14">
+                <div class="mermaid-diagram" id="mermaid-diagram-13" role="img" aria-label="危険性とデータ制約によるテスト環境選択" aria-describedby="diagram-description-14">
                     <svg
                         id="mmd13"
                         width="895.8828125"
@@ -14874,6 +14889,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-14">本番での試験が危険・高コストならシミュレーションを選ぶ。それ以外は実データが使えればステージング、使えなければ匿名化・合成データ環境で検証する。</p>
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -14963,7 +14979,7 @@
                 <p>
                     AIは「仕様どおりに動いたのに、人間の意図に反する」ことが起こりえます。テストは技術的な正しさだけでなく、<strong>意図・倫理・社会的許容</strong>を検査する必要が出てきます。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-14" role="img" aria-label="図15">
+                <div class="mermaid-diagram" id="mermaid-diagram-14" role="img" aria-label="意図とAIの振る舞いのずれへの対処" aria-describedby="diagram-description-15">
                     <svg
                         id="mmd14"
                         width="469.031005859375"
@@ -15810,6 +15826,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-15">設計者の意図・社会の価値から仕様と目的関数を作り、実際の振る舞いとのずれを判定する。ずれがあればバイアス・副作用などをテストと監視で検出し、仕様やデータを見直す。</p>
                 <h3 id="113-安全関連aiでの考え方-例医療臨床ai">
                     11.3 安全関連AIでの考え方（📘 例：医療・臨床AI）
                 </h3>
@@ -15862,7 +15879,7 @@
                         これは<strong>規格が定める手順ではなく</strong>、本書が各章の考え方を実務向けに並べ直した一例です。
                     </p>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-15" role="img" aria-label="図16">
+                <div class="mermaid-diagram" id="mermaid-diagram-15" role="img" aria-label="AIテストの計画・実施・継続監視" aria-describedby="diagram-description-16">
                     <svg
                         id="mmd15"
                         width="754.6953125"
@@ -17507,6 +17524,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-16">AI部分の特定、受入基準、データ品質、オラクル戦略の順に決める。正解ラベルの有無で評価技法を選び、必要なら内部網羅を測る。基準を満たせば展開・監視し、未達やドリフト検知では原因分析へ戻る。</p>
                 <h3 id="122-テスト計画チェックリスト">12.2 テスト計画チェックリスト</h3>
                 <div class="table-scroll">
                     <table>
@@ -17683,7 +17701,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="mermaid-diagram-16" role="img" aria-label="図17">
+                <div class="mermaid-diagram" id="mermaid-diagram-16" role="img" aria-label="AIテストを支える関連規格と資格" aria-describedby="diagram-description-17">
                     <svg
                         id="mmd16"
                         width="552.59375"
@@ -18352,6 +18370,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-17">29119-11を中心に、一般テスト規格の29119、データ品質の5259、AIマネジメントの42001、テスター向けのISTQB CT-AIを関連づける。</p>
                 <hr />
                 <h2 id="14-よくある誤解-qa">14. よくある誤解 Q&amp;A</h2>
                 <div class="table-scroll">
@@ -18409,7 +18428,7 @@
                 <hr />
                 <h2 id="15-学習ロードマップと演習">15. 学習ロードマップと演習</h2>
                 <h3 id="151-ステップ別ロードマップ">15.1 ステップ別ロードマップ</h3>
-                <div class="mermaid-diagram" id="mermaid-diagram-17" role="img" aria-label="図18">
+                <div class="mermaid-diagram" id="mermaid-diagram-17" role="img" aria-label="AIテストを学ぶロードマップ" aria-describedby="diagram-description-18">
                     <svg
                         id="mmd17"
                         width="1526.953125"
@@ -19218,6 +19237,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-18">ISTQB FLから本ガイド、ML Test ScoreとCD4ML、メタモルフィックテストの実装、DeepXplore論文へ進み、CT-AIの実務適用と正規版規格の確認につなげる。</p>
                 <h3 id="152-演習問題">15.2 演習問題</h3>
                 <p>
                     <strong>演習1（基礎）</strong
@@ -19261,10 +19281,10 @@
     <span class="t-kw">print</span>(<span class="t-str">f"予測が変わった件数: {changed.sum()} / {len(base)}"</span>)
 
     <span class="t-com"># 許容差の根拠: 再重み付けは決定境界を少し動かすだけなので、予測が変わってよいのは</span>
-<span class="t-com"># 元モデルが境界付近で迷っていた（最大確率が低い）入力に限られるはず。</span>
-<span class="t-com"># 0.9 は学習用の例であり、実プロジェクトではリスクに応じて受入基準として事前に合意する。</span>
+    <span class="t-com"># 元モデルが境界付近で迷っていた（最大確率が低い）入力に限られるはず。</span>
+    <span class="t-com"># 0.9 は学習用の例であり、実プロジェクトではリスクに応じて受入基準として事前に合意する。</span>
     confident = base_model.predict_proba(X_te).max(axis=<span class="t-num">1</span>) &gt;= <span class="t-num">0.9</span>
-<span class="t-kw">assert</span> <span class="t-kw">not</span> (changed &amp; confident).any(), <span class="t-str">"確信度の高い予測まで再重み付けで変わった"</span></code></pre>
+    <span class="t-kw">assert</span> <span class="t-kw">not</span> (changed &amp; confident).any(), <span class="t-str">"確信度の高い予測まで再重み付けで変わった"</span></code></pre>
                     <p>
                         予測が一致すること自体は合格条件にしていません。「どれだけ変わったか」を記録し、変わった入力が境界付近に限られるかを確認するのが、この演習の狙いです。
                     </p>
@@ -19542,16 +19562,26 @@
             (function () {
                 var sb = document.getElementById('sidebar'),
                     tg = document.getElementById('toggle');
+                var mobileSidebar = window.matchMedia('(max-width: 960px)');
+                function syncSidebar() {
+                    var closed = mobileSidebar.matches && !sb.classList.contains('open');
+                    if (closed && sb.contains(document.activeElement)) tg.focus();
+                    sb.inert = closed;
+                    tg.setAttribute('aria-expanded', closed ? 'false' : 'true');
+                }
+                function setOpen(open) {
+                    if (!open && mobileSidebar.matches && sb.contains(document.activeElement)) tg.focus();
+                    sb.classList.toggle('open', open);
+                    syncSidebar();
+                }
                 tg.addEventListener('click', function () {
-                    var o = sb.classList.toggle('open');
-                    tg.setAttribute('aria-expanded', o ? 'true' : 'false');
+                    setOpen(!sb.classList.contains('open'));
                 });
                 sb.addEventListener('click', function (e) {
-                    if (e.target.closest('a') && window.innerWidth <= 960) {
-                        sb.classList.remove('open');
-                        tg.setAttribute('aria-expanded', 'false');
-                    }
+                    if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                mobileSidebar.addEventListener('change', syncSidebar);
+                syncSidebar();
                 var links = [].slice.call(sb.querySelectorAll('a[data-target]'));
                 var map = {};
                 links.forEach(function (a) {

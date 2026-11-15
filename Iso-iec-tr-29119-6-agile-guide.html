@@ -297,10 +297,12 @@
             }
             @media (max-width: 900px) {
                 .sidebar {
+                    visibility: hidden;
                     transform: translateX(-100%);
                     transition: transform 0.2s;
                 }
                 .sidebar.open {
+                    visibility: visible;
                     transform: none;
                 }
                 .main {
@@ -321,8 +323,8 @@
         </style>
     </head>
     <body>
-        <button class="toggle" type="button" aria-label="目次を開閉">目次</button>
-        <nav class="sidebar">
+        <button class="toggle" type="button" aria-label="目次" aria-controls="sidebar" aria-expanded="false">目次</button>
+        <nav class="sidebar" id="sidebar">
             <div class="brand">ISO/IEC TR 29119-6:2021</div>
             <ul>
                 <li>
@@ -568,7 +570,9 @@
                     viewBox="0 15 627.375 422"
                     role="graphics-document document"
                     aria-roledescription="flowchart-v2"
-                >
+                 aria-labelledby="diagram-title-1" aria-describedby="diagram-description-1">
+                    <title id="diagram-title-1">アジャイル適用ガイドが答える三つの疑問</title>
+                    <desc id="diagram-description-1">アジャイルで29119をどう使うかに対し、概念と29119-2の対応、プロセスの取り入れ方、29119-3の文書の利用例という三つの答えを示す。</desc>
                     <style>
                         #mmd-svg-1 {
                             font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
@@ -1284,7 +1288,9 @@
                     viewBox="-35 15 619.046875 493"
                     role="graphics-document document"
                     aria-roledescription="flowchart-v2"
-                >
+                 aria-labelledby="diagram-title-2" aria-describedby="diagram-description-2">
+                    <title id="diagram-title-2">29119シリーズとアジャイル適用ガイド</title>
+                    <desc id="diagram-description-2">一般概念、テストプロセス、文書化、技法、キーワード駆動を扱うPart 1〜5と、それらをアジャイルへ適用するPart 6の関係。</desc>
                     <style>
                         #mmd-svg-2 {
                             font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
@@ -2224,7 +2230,9 @@
                     viewBox="0 15 376 432"
                     role="graphics-document document"
                     aria-roledescription="flowchart-v2"
-                >
+                 aria-labelledby="diagram-title-3" aria-describedby="diagram-description-3">
+                    <title id="diagram-title-3">三層テストプロセスの指示とフィードバック</title>
+                    <desc id="diagram-description-3">組織層が方針を与え、管理層が計画と指示を動的テスト層へ渡す。動的層は結果を管理層へ報告し、改善点を組織層へ戻す。</desc>
                     <style>
                         #mmd-svg-3 {
                             font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
@@ -2974,7 +2982,9 @@
                     viewBox="-50 -10 1027 870"
                     role="graphics-document document"
                     aria-roledescription="sequence"
-                >
+                 aria-labelledby="diagram-title-4" aria-describedby="diagram-description-4">
+                    <title id="diagram-title-4">反復開発におけるテスト活動の配置</title>
+                    <desc id="diagram-description-4">プロダクトオーナーがストーリーと受け入れ基準を提示し、開発者とテスターが確認・設計する。開発者のコミット後、CIが自動テスト結果を通知し、テスターが探索的テストで補完する。不具合があれば報告・修正・再テストを行い、ストーリー完了を報告する。</desc>
                     <g>
                         <rect
                             x="777"
@@ -3875,7 +3885,9 @@
                     viewBox="0 15 473.546875 1076.015625"
                     role="graphics-document document"
                     aria-roledescription="flowchart-v2"
-                >
+                 aria-labelledby="diagram-title-5" aria-describedby="diagram-description-5">
+                    <title id="diagram-title-5">チームへの29119適用手順</title>
+                    <desc id="diagram-description-5">現状と目的を把握し、外部へ規格適合の説明が必要ならPart 2・3の該当要求を原典で確認する。不要ならPart 6を対応表に使う。自チームの実践を対応づけ、不足を補い、ふりかえりで改善する。</desc>
                     <style>
                         #mmd-svg-5 {
                             font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
@@ -5366,12 +5378,26 @@
             (function () {
                 var sb = document.querySelector('.sidebar'),
                     tg = document.querySelector('.toggle');
+                var mobileSidebar = window.matchMedia('(max-width: 900px)');
+                function syncSidebar() {
+                    var closed = mobileSidebar.matches && !sb.classList.contains('open');
+                    if (closed && sb.contains(document.activeElement)) tg.focus();
+                    sb.inert = closed;
+                    tg.setAttribute('aria-expanded', closed ? 'false' : 'true');
+                }
+                function setOpen(open) {
+                    if (!open && mobileSidebar.matches && sb.contains(document.activeElement)) tg.focus();
+                    sb.classList.toggle('open', open);
+                    syncSidebar();
+                }
                 tg.addEventListener('click', function () {
-                    sb.classList.toggle('open');
+                    setOpen(!sb.classList.contains('open'));
                 });
                 sb.addEventListener('click', function (e) {
-                    if (e.target.closest('a')) sb.classList.remove('open');
+                    if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                mobileSidebar.addEventListener('change', syncSidebar);
+                syncSidebar();
                 var links = [].slice.call(document.querySelectorAll('.sidebar a'));
                 var io = new IntersectionObserver(
                     function (es) {

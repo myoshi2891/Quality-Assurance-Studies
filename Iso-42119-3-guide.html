@@ -402,10 +402,12 @@
                     display: block;
                 }
                 .sidebar {
+                    visibility: hidden;
                     transform: translateX(-100%);
                     transition: transform 0.2s;
                 }
                 .sidebar.open {
+                    visibility: visible;
                     transform: none;
                 }
                 .main {
@@ -439,7 +441,7 @@
         </style>
     </head>
     <body>
-        <button class="nav-toggle" id="navToggle" aria-label="目次を開く">目次</button>
+        <button class="nav-toggle" id="navToggle" aria-label="目次" aria-controls="sidebar" aria-expanded="false">目次</button>
         <aside class="sidebar" id="sidebar">
             <div class="sb-title">ISO/IEC TS 42119-3<span>初学者向けガイド</span></div>
             <nav>
@@ -870,7 +872,7 @@
                 </p>
             </blockquote>
             <h3 id="22-ここまでの道のりステージの推移">2.2 ここまでの道のり（ステージの推移）</h3>
-            <div class="mermaid-diagram" id="mmd-1" role="img">
+            <div class="mermaid-diagram" id="mmd-1" role="img" aria-label="42119-3策定の段階と差し戻し" aria-describedby="diagram-description-1">
                 <svg
                     id="mmdsvg1"
                     width="1850.59375"
@@ -1827,6 +1829,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-1">2022年の新規承認からCD登録・承認、最終テキスト受領へ進み、2025年に差し戻し、2026年に再受領する。図の調査時点は出版準備中で発行には未到達。</p>
             <p>読み取れること：</p>
             <ul>
                 <li>
@@ -1905,7 +1908,7 @@
                     など）の内容は、今回の調査では確認できていないため、本ガイドでは扱いません。
                 </p>
             </blockquote>
-            <div class="mermaid-diagram" id="mmd-2" role="img">
+            <div class="mermaid-diagram" id="mmd-2" role="img" aria-label="AIのテスト概観とV&amp;V分析の規格関係" aria-describedby="diagram-description-2">
                 <svg
                     id="mmdsvg2"
                     width="572.9765625"
@@ -2561,6 +2564,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-2">29119の一般テストを42119-2でAI向けに具体化し、42119-3の形式手法・シミュレーション・評価で補完する。22989はライフサイクル段階を提供する。</p>
             <blockquote class="callout callout-note">
                 <p>
                     図中の「テストを補完する分析手法」という矢印の意味づけは、パート名称（Testing of
@@ -2663,7 +2667,7 @@
                     AIシステムコンポーネント＋非AIコンポーネントとAIコンポーネントの相互作用</strong
                 >」と説明しています。<span class="tag tag-spec">規格公開情報</span>
             </p>
-            <div class="mermaid-diagram" id="mmd-3" role="img">
+            <div class="mermaid-diagram" id="mmd-3" role="img" aria-label="AIモデルと非AIコンポーネントの相互作用" aria-describedby="diagram-description-3">
                 <svg
                     id="mmdsvg3"
                     width="1555.84375"
@@ -3461,6 +3465,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-3">入力センサ・UIから前処理、学習済みモデル、後処理・安全装置を経て出力へ進む。非AIの安全装置がモデル出力を制限する関係も示す。</p>
             <blockquote class="callout callout-note">
                 <p>
                     図の具体的な構成は<span class="tag tag-guide">本ガイドの解説</span
@@ -3482,7 +3487,7 @@
                     >外部資料</span
                 >
             </p>
-            <div class="mermaid-diagram" id="mmd-4" role="img">
+            <div class="mermaid-diagram" id="mmd-4" role="img" aria-label="AIライフサイクルと再評価の循環" aria-describedby="diagram-description-4">
                 <svg
                     id="mmdsvg4"
                     width="2046.21875"
@@ -4482,6 +4487,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-4">構想から設計・開発、V&amp;V、展開、運用・監視、継続的妥当性確認、再評価、廃止へ進む。継続学習、劣化・環境変化、不適合による手戻りを扱う。</p>
             <blockquote class="callout callout-note">
                 <p>
                     <span class="tag tag-ext">外部資料</span>22989
@@ -4499,7 +4505,7 @@
             <h2 id="7-step-63つのアプローチを理解する本ガイドの中心">
                 7. Step 6：3つのアプローチを理解する（本ガイドの中心）
             </h2>
-            <div class="mermaid-diagram" id="mmd-5" role="img">
+            <div class="mermaid-diagram" id="mmd-5" role="img" aria-label="AIのV&amp;V分析の三つのアプローチ" aria-describedby="diagram-description-5">
                 <svg
                     id="mmdsvg5"
                     width="897.453125"
@@ -5133,6 +5139,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-5">形式手法は数学的な証明や反例発見、シミュレーションは仮想環境で危険なケースなどの実行、評価はデータセットと採点による性能測定を担う。</p>
             <h3 id="71-比較表まず全体像">7.1 比較表（まず全体像）</h3>
             <p><span class="tag tag-guide">本ガイドの解説</span></p>
             <div class="table-scroll">
@@ -5347,7 +5354,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mermaid-diagram" id="mmd-6" role="img">
+            <div class="mermaid-diagram" id="mmd-6" role="img" aria-label="シミュレーションによる反例探索" aria-describedby="diagram-description-6">
                 <svg
                     id="mmdsvg6"
                     width="1354.359375"
@@ -6208,6 +6215,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-6">抽象シナリオを記述し、速度・位置・天候などをサンプリングして実行する。要求違反があれば失敗ケースを反例として保存し、なければ探索範囲を広げるか網羅度を報告する。</p>
             <blockquote class="callout callout-note">
                 <p>
                     図は<span class="tag tag-guide">本ガイドの解説</span
@@ -6349,7 +6357,7 @@
                 <span class="tag tag-guide">本ガイドの解説</span
                 >規格の記述ではなく、初学者が考え始めるための目安です。
             </p>
-            <div class="mermaid-diagram" id="mmd-7" role="img">
+            <div class="mermaid-diagram" id="mmd-7" role="img" aria-label="性質・規模・危険性に応じた分析手法選択" aria-describedby="diagram-description-7">
                 <svg
                     id="mmdsvg7"
                     width="746.46875"
@@ -7316,9 +7324,10 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-7">性質を数式で書けて対象が証明可能な規模なら形式手法を主軸にする。どちらかがいいえなら、実試験が危険・高コスト・稀かを判断し、はいならシミュレーション、いいえなら評価を主軸にする。最後に複数手法を組み合わせ弱点を補う。</p>
             <h3 id="82-vv分析の進め方7ステップの例">8.2 V&amp;V分析の進め方（7ステップの例）</h3>
             <p><span class="tag tag-guide">本ガイドの解説</span></p>
-            <div class="mermaid-diagram" id="mmd-8" role="img">
+            <div class="mermaid-diagram" id="mmd-8" role="img" aria-label="V&amp;Vの実施と運用からのフィードバック" aria-describedby="diagram-description-8">
                 <svg
                     id="mmdsvg8"
                     width="1536.140625"
@@ -8223,6 +8232,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-8">要求・性質の明確化、リスク抽出、手法選択、環境・データ・シナリオ定義、実施、証拠整理・判定、継続監視へ進む。不適合や劣化を検知した場合は前段階へ戻って見直す。</p>
             <div class="table-scroll">
                 <table>
                     <thead>
@@ -8385,7 +8395,7 @@
             </div>
 
             <h2 id="9-関連規格との関係マップ">9. 関連規格との関係マップ</h2>
-            <div class="mermaid-diagram" id="mmd-9" role="img">
+            <div class="mermaid-diagram" id="mmd-9" role="img" aria-label="AI分析・テスト・管理の関連規格" aria-describedby="diagram-description-9">
                 <svg
                     id="mmdsvg9"
                     width="1234.40625"
@@ -9213,6 +9223,7 @@
                     </g>
                 </svg>
             </div>
+            <p class="diagram-description" id="diagram-description-9">42119-3を中心に、22989の概念とライフサイクル、5338のプロセス、24029-2の形式的頑健性評価、42119-2のテスト観点、42001の組織管理を関連づける。</p>
             <blockquote class="callout callout-note">
                 <p>
                     点線の矢印は、規格間の「関連が深い」ことを示す<span class="tag tag-guide"
@@ -9696,13 +9707,26 @@
             (function () {
                 var sb = document.getElementById('sidebar'),
                     tg = document.getElementById('navToggle');
+                var mobileSidebar = window.matchMedia('(max-width: 900px)');
+                function syncSidebar() {
+                    var closed = mobileSidebar.matches && !sb.classList.contains('open');
+                    if (closed && sb.contains(document.activeElement)) tg.focus();
+                    sb.inert = closed;
+                    tg.setAttribute('aria-expanded', closed ? 'false' : 'true');
+                }
+                function setOpen(open) {
+                    if (!open && mobileSidebar.matches && sb.contains(document.activeElement)) tg.focus();
+                    sb.classList.toggle('open', open);
+                    syncSidebar();
+                }
                 tg.addEventListener('click', function () {
-                    sb.classList.toggle('open');
+                    setOpen(!sb.classList.contains('open'));
                 });
                 sb.addEventListener('click', function (e) {
-                    if (e.target.tagName === 'A' && window.innerWidth <= 900)
-                        sb.classList.remove('open');
+                    if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                mobileSidebar.addEventListener('change', syncSidebar);
+                syncSidebar();
                 var links = {};
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.dataset.target] = a;

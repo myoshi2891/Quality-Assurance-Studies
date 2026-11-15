@@ -405,10 +405,12 @@
             }
             @media (max-width: 900px) {
                 .sidebar {
+                    visibility: hidden;
                     transform: translateX(-100%);
                     transition: transform 0.2s;
                 }
                 .sidebar.open {
+                    visibility: visible;
                     transform: none;
                 }
                 .toggle {
@@ -444,7 +446,7 @@
         </style>
     </head>
     <body>
-        <button class="toggle" id="toggle" aria-label="目次を開く">目次</button>
+        <button class="toggle" id="toggle" aria-label="目次" aria-controls="sidebar" aria-expanded="false">目次</button>
         <div class="layout">
             <nav class="sidebar" id="sidebar">
                 <div class="brand">ISO/IEC/IEEE CD 29119-14</div>
@@ -1015,7 +1017,7 @@
                 <p>
                     ISOのライフサイクル（ステージコード）の一般的な流れの中で、本規格が今どこにいるかを図にします。
                 </p>
-                <div class="mermaid-diagram" id="diagram-1" role="img">
+                <div class="mermaid-diagram" id="diagram-1" role="img" aria-label="データ移行テスト規格の策定段階" aria-describedby="diagram-description-1">
                     <svg
                         id="mmd0"
                         width="1788.34375"
@@ -2016,6 +2018,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-1">提案承認、WD承認、CD協議、CDコメント期間終了を経て、CD承認、DIS照会、FDIS承認、規格発行へ進む。CDで場合により作業グループへ差し戻す分岐もある。図の現在地はCDコメント期間終了。</p>
                 <h3 id="2-2-用語ミニ解説">2-2. 用語ミニ解説</h3>
                 <div class="table-scroll">
                     <table>
@@ -2130,7 +2133,7 @@
                     </table>
                 </div>
                 <h3 id="3-3-基本の仕組みetl">3-3. 基本の仕組み：ETL</h3>
-                <div class="mermaid-diagram" id="diagram-2" role="img">
+                <div class="mermaid-diagram" id="diagram-2" role="img" aria-label="データ移行のETL工程" aria-describedby="diagram-description-2">
                     <svg
                         id="mmd1"
                         width="978.640625"
@@ -2784,6 +2787,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-2">移行元からデータを抽出してステージング領域へ置き、型・コード・ルールを変換してから移行先へ投入する。</p>
                 <p>
                     「抽出 → 変換 → 投入」のどの段階でも、<strong>欠落・変形・重複・破損</strong>
                     が起こり得ます。これがテスト対象です。
@@ -2847,7 +2851,7 @@
                     <strong>単独で完結する規格ではなく、既存規格を前提にした"応用編"</strong>
                     です。
                 </p>
-                <div class="mermaid-diagram" id="diagram-3" role="img">
+                <div class="mermaid-diagram" id="diagram-3" role="img" aria-label="データ移行テストと既存規格の関係" aria-describedby="diagram-description-3">
                     <svg
                         id="mmd2"
                         width="1075.671875"
@@ -3652,6 +3656,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-3">29119-1の概念とリスクベース、29119-2のプロセス、29119-3の文書、29119-4の技法、20246の静的レビューを29119-14へ適用する。</p>
                 <h3 id="4-2-各パートの役割初学者向け">4-2. 各パートの役割（初学者向け）</h3>
                 <div class="table-scroll">
                     <table>
@@ -3720,7 +3725,7 @@
                     <strong>「どのリスクが大きいか」で優先順位をつけます</strong>。
                 </p>
                 <h3 id="5-2-リスクベースの流れ">5-2. リスクベースの流れ</h3>
-                <div class="mermaid-diagram" id="diagram-4" role="img">
+                <div class="mermaid-diagram" id="diagram-4" role="img" aria-label="リスクに基づくテストと移行判断" aria-describedby="diagram-description-4">
                     <svg
                         id="mmd3"
                         width="1266.703125"
@@ -4465,6 +4470,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-4">リスクを特定・分析して対策を選びテストを実施し、残留リスクを評価して移行可否を判断する。リスクが残る場合は対策を見直す。</p>
                 <h3 id="5-3-データ移行のリスク例とテスト対策の対応表解説">
                     5-3. データ移行のリスク例とテスト対策の対応表（💡解説）
                 </h3>
@@ -4577,7 +4583,7 @@
                     </table>
                 </div>
                 <h3 id="6-1-テストレベルの例図解">6-1. テストレベルの例（図解）</h3>
-                <div class="mermaid-diagram" id="diagram-5" role="img">
+                <div class="mermaid-diagram" id="diagram-5" role="img" aria-label="データ移行の四つのテストレベル" aria-describedby="diagram-description-5">
                     <svg
                         id="mmd4"
                         width="272"
@@ -5213,6 +5219,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-5">変換ロジックのコンポーネントテスト、ジョブや接続の統合テスト、切替・切り戻しを含むシステムテスト、業務担当者による受入テストを積み上げる。</p>
                 <h3 id="6-2-テストタイプ品質特性ごとの観点解説">
                     6-2. テストタイプ（品質特性）ごとの観点（💡解説）
                 </h3>
@@ -5305,7 +5312,7 @@
                     に分けて考えると整理しやすいです（実務でも広く使われる整理）。
                 </p>
                 <h3 id="7-1-全体フロー">7-1. 全体フロー</h3>
-                <div class="mermaid-diagram" id="diagram-6" role="img">
+                <div class="mermaid-diagram" id="diagram-6" role="img" aria-label="リハーサルから移行判定と切り戻しまで" aria-describedby="diagram-description-6">
                     <svg
                         id="mmd5"
                         width="1657.0625"
@@ -6344,6 +6351,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-6">移行前の範囲・マッピング確定からリハーサル、本番移行、移行後の突合へ進む。Goなら稼働開始、No-Goなら切り戻し、不具合を修正して再リハーサルする。</p>
                 <h3 id="7-2-フェーズごとにやること">7-2. フェーズごとにやること</h3>
                 <div class="table-scroll">
                     <table>
@@ -6533,7 +6541,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mermaid-diagram" id="diagram-7" role="img">
+                <div class="mermaid-diagram" id="diagram-7" role="img" aria-label="データ移行へのテストプロセス適用" aria-describedby="diagram-description-7">
                     <svg
                         id="mmd6"
                         width="360.0078125"
@@ -7463,6 +7471,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-7">計画、設計・実装、環境構築、実行、インシデント報告、監視とコントロール、完了を結びつける。監視結果から計画を見直す。</p>
                 <h3 id="8-2-テスト文書へのマッピング29119-3">
                     8-2. テスト文書へのマッピング（29119-3）
                 </h3>
@@ -7561,7 +7570,7 @@
                         >（古い構造が残り続ける）
                     </li>
                 </ul>
-                <div class="mermaid-diagram" id="diagram-8" role="img">
+                <div class="mermaid-diagram" id="diagram-8" role="img" aria-label="Expand・Migrate・Contractの三段階" aria-describedby="diagram-description-8">
                     <svg
                         id="mmd7"
                         width="688.203125"
@@ -8142,6 +8151,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-8">新旧の両方を支える拡張を行い、利用側の切替とデータ移行を進め、最後に旧構成を削除して新構成だけにする。</p>
                 <p><strong>テストの観点（💡解説）</strong></p>
                 <div class="table-scroll">
                     <table>
@@ -8184,7 +8194,7 @@
                 <p>
                     Stripeは、<strong>数億件規模のオブジェクト</strong>を持つ環境で、可用性と整合性の両方を守るために、次の4段階のパターンを紹介しています。
                 </p>
-                <div class="mermaid-diagram" id="diagram-9" role="img">
+                <div class="mermaid-diagram" id="diagram-9" role="img" aria-label="新旧併存から旧データ削除までの切替" aria-describedby="diagram-description-9">
                     <svg
                         id="mmd8"
                         width="1068.046875"
@@ -8818,6 +8828,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。次に書き込みを新へ切り替え、最後に旧データを削除する。</p>
                 <div class="callout callout-note">
                     <p>補足：図のステップ名は、Stripeの記事の見出し（Dual</p>
                     <p>writing／Backfilling／Reads の比較・切替／Changing write paths／Removing</p>
@@ -9289,7 +9300,7 @@
                 </p>
 
                 <h2 id="学習ロードマップ">学習ロードマップ</h2>
-                <div class="mermaid-diagram" id="diagram-10" role="img">
+                <div class="mermaid-diagram" id="diagram-10" role="img" aria-label="データ移行テストの学習順序" aria-describedby="diagram-description-10">
                     <svg
                         id="mmd9"
                         width="1603.0625"
@@ -10080,6 +10091,7 @@
                         </g>
                     </svg>
                 </div>
+                <p class="diagram-description" id="diagram-description-10">ETLなどの基礎、29119-1のリスク、29119-2と3のプロセスと文書、29119-4の技法、実践パターンを学び、29119-14の発行後に原文を確認する。</p>
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -10386,12 +10398,26 @@
             (function () {
                 var sb = document.getElementById('sidebar'),
                     tg = document.getElementById('toggle');
+                var mobileSidebar = window.matchMedia('(max-width: 900px)');
+                function syncSidebar() {
+                    var closed = mobileSidebar.matches && !sb.classList.contains('open');
+                    if (closed && sb.contains(document.activeElement)) tg.focus();
+                    sb.inert = closed;
+                    tg.setAttribute('aria-expanded', closed ? 'false' : 'true');
+                }
+                function setOpen(open) {
+                    if (!open && mobileSidebar.matches && sb.contains(document.activeElement)) tg.focus();
+                    sb.classList.toggle('open', open);
+                    syncSidebar();
+                }
                 tg.addEventListener('click', function () {
-                    sb.classList.toggle('open');
+                    setOpen(!sb.classList.contains('open'));
                 });
                 sb.addEventListener('click', function (e) {
-                    if (e.target.tagName === 'A') sb.classList.remove('open');
+                    if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                mobileSidebar.addEventListener('change', syncSidebar);
+                syncSidebar();
                 var links = {};
                 document.querySelectorAll('.nav-list a').forEach(function (a) {
                     links[a.dataset.target] = a;
