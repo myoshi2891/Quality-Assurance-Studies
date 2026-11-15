@@ -292,6 +292,10 @@
                 font-size: 13px;
             }
             @media (max-width: 900px) {
+                h2[id],
+                h3[id] {
+                    scroll-margin-top: 64px;
+                }
                 .sidebar {
                     visibility: hidden;
                     transform: translateX(-100%);
@@ -8125,7 +8129,7 @@
                                 <th>観点</th>
                                 <th>ISO/IEC 33063</th>
                                 <th>TMMi</th>
-                                <th>Test SPICE</th>
+                                <th>Test SPICE 3.0（2014年）</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -8145,7 +8149,10 @@
                                 <td>参照モデル</td>
                                 <td>ISO/IEC/IEEE 29119-2</td>
                                 <td>独自の成熟度モデル（5レベル）</td>
-                                <td>ISO/IEC/IEEE 12207のプロセス属性</td>
+                                <td>
+                                    プロセス参照：ISO/IEC 15504-5を起点にテスト向けに再構成し、29119-2と整合。
+                                    能力測定：ISO/IEC 15504-2の能力レベル・プロセス属性・評定尺度を使用
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -8154,6 +8161,9 @@
                     <p>
                         出典：IT
                         Wiki（韓国）の比較表。表現方式（連続型と段階型）の違いが最大のポイントです。
+                        Test SPICE欄は3.0を比較対象とし、
+                        <a href="https://doi.org/10.1007/978-3-662-43896-1_28">開発者による3.0の解説</a>と
+                        <a href="https://www.es.mdu.se/pdf_publications/3997.pdf">Afzalらの調査論文</a>で版と参照関係を補足しています。
                     </p>
                 </blockquote>
                 <div class="table-scroll">
