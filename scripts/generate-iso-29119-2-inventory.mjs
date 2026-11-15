@@ -13,7 +13,7 @@ postcss.parse($('head style').text()).walkRules(r=>css.push({selector:r.selector
 const blocks=[...md.matchAll(/```mermaid\n([\s\S]*?)```/g)].map(m=>m[1].split('\n').map(l=>l.trim()).join('\n').trim());
 const diagrams=$('.mermaid-diagram').toArray().map((n,i)=>{
  const s=$(n), type=s.find('svg').attr('aria-roledescription');
- const nodes=s.find('.node').toArray().map(n=>({id:$(n).attr('id').match(/flowchart-(.*)-\d+$/)[1],label:$(n).find('.nodeLabel').html(),text:norm($(n).find('.nodeLabel').clone().find('br').replaceWith(' ').end().text()),shape:$(n).children().first().prop('tagName').toLowerCase(),style:$(n).children().first().attr('style')}));
+ const nodes=s.find('.node').toArray().map(n=>({id:$(n).attr('id').match(/flowchart-(.*)-\d+$/)[1],label:$(n).find('.nodeLabel').html(),rawText:$(n).find('.nodeLabel').text(),text:norm($(n).find('.nodeLabel').clone().find('br').replaceWith(' ').end().text()),shape:$(n).children().first().prop('tagName').toLowerCase(),style:$(n).children().first().attr('style')}));
  const edges=s.find('.flowchart-link').toArray().map(n=>{const id=$(n).attr('data-id');const [,from,to]=id.split('_');return{id,from,to,label:norm(s.find(`.edgeLabels .label[data-id="${id}"]`).text()),arrow:!!$(n).attr('marker-end'),dotted:$(n).attr('class').includes('dotted')};});
  const messages=s.find('.messageText').toArray().map(n=>norm($(n).text()));
  const sequence=s.find('[data-et="message"]').toArray().map((n,i)=>({from:$(n).attr('data-from'),to:$(n).attr('data-to'),dotted:$(n).attr('class').includes('messageLine1'),message:messages[i]}));
@@ -23,7 +23,7 @@ const diagrams=$('.mermaid-diagram').toArray().map((n,i)=>{
  const description=type==='sequence'?sequence.map(e=>`${names[e.from]} → ${names[e.to]}：${e.message}${e.dotted?'（破線）':''}。`).join(''):edges.map(e=>`${nodes.find(n=>n.id===e.from).text} → ${nodes.find(n=>n.id===e.to).text}${e.label?'（'+e.label+'）':''}${e.dotted?'（点線）':''}。`).join('');
  const direction=blocks[i].match(/(?:flowchart|graph)\s+(TD|LR|TB|RL|BT)/)?.[1]??'TD';
  const quote=t=>t.replace(/&/g,'&amp;').replace(/\"/g,'&quot;');
- const renderSource=[`flowchart ${direction}`,...nodes.map(n=>`${n.id}${n.shape==='polygon'?'{':'['}\"${quote(n.text)}\"${n.shape==='polygon'?'}':']'}`),...edges.map(e=>`${e.from} ${e.dotted?'-.->':'-->'}${e.label?'|'+e.label+'|':''} ${e.to}`)].join('\n');
+ const renderSource=[`flowchart ${direction}`,...nodes.map(n=>`${n.id}${n.shape==='polygon'?'{':'['}\"${quote(n.rawText)}\"${n.shape==='polygon'?'}':']'}`),...edges.map(e=>`${e.from} ${e.dotted?'-.->':'-->'}${e.label?'|'+e.label+'|':''} ${e.to}`)].join('\n');
  return{renderSource,id:s.attr('id'),type,svg:$.html(s.find('svg')),nodes,edges,clusters,actors,sequence,source:blocks[i],direction:blocks[i].match(/(?:flowchart|graph)\s+(TD|LR|TB|RL|BT)/)?.[1]??null,description};
 });
 const selectors={headings:'main h1,main h2,main h3,main h4',toc:'#side a',tables:'main table',code:'main pre, main code',quotes:'main blockquote',callouts:'main .callout',references:'main a[href^="http"]',answers:'main details',glossaries:'main .glossary',checklists:'main .task-list',checks:'main input[type=checkbox]',diagrams:'main .mermaid-diagram'};
