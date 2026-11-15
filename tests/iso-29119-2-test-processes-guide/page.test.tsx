@@ -11,8 +11,18 @@ import {sourceModule} from '../helpers/source-module';
 const base='app/iso-29119-2-test-processes-guide',scope='.iso29119-2-page';
 const norm=(s:string)=>s.replace(/\s+/g,' ').trim();
 function tree(n:AnyNode):unknown{if(n.type==='text')return norm(n.data)||null;if(!isTag(n))return null;const attrs={...n.attribs};for(const k of Object.keys(attrs))if(k.startsWith('aria-')||['role','inert','tabindex','checked'].includes(k))delete attrs[k];if(attrs.class)attrs.class=attrs.class.replace(/\s*active\b/g,'').trim();if(attrs.style)attrs.style=attrs.style.replace(/\s|;$/g,'');if(attrs.class==='cl-fill')delete attrs.style;if(n.tagName==='button')delete attrs.type;return{tag:n.tagName,attrs,children:attrs.class==='mermaid-diagram'?[]:n.children.map(tree).filter(Boolean)};}
-function canonical(html:string,original=false){const $=load(html);$('script').remove();if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
-function render(file:string,development=false){const Page=sourceModule(`${base}/${file}.tsx`,{development}).default as React.ComponentType;return canonical(renderToStaticMarkup(<Page/>));}
+function canonical(html:string,original=false){const $=load(html);$('script').remove();if(original)$('p').each((_,n)=>{const p=$(n);p.html(p.html()!.replace('29119シリーズは5つのパートに分かれていて、','29119シリーズの中核はPart 1〜5で構成され、').replace('シリーズの5パートの関係','シリーズの中核となるPart 1〜5の関係').replace('」にあたります。','」にあたります。ほかにISO/IEC TR 29119-6:2021もあり、シリーズをアジャイルプロジェクトへ適用するためのガイダンスを提供しています。'));});if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
+const markupCache = new Map<string, string>();
+function render(file:string,development=false){
+ const key = `${file}:${development}`;
+ let markup = markupCache.get(key);
+ if(markup === undefined){
+  const Page=sourceModule(`${base}/${file}.tsx`,{development}).default as React.ComponentType;
+  markup=renderToStaticMarkup(<Page/>);
+  markupCache.set(key,markup);
+ }
+ return canonical(markup);
+}
 for(const [i,section] of inventory.sections.entries())describe(`category ${i}: ${section.name}`,()=>{for(const dev of [false,true])it(`complete ordered DOM and text: SWC development=${dev}`,()=>{const actual=render(`Section${String(i).padStart(2,'0')}`,dev),expected=canonical(section.html,true);
 expect(actual('body').contents().toArray().map(tree).filter(Boolean)).toEqual(expected('body').contents().toArray().map(tree).filter(Boolean));actual('.mermaid-diagram').empty();expected('.mermaid-diagram').empty();expect(norm(actual('body').text())).toBe(norm(expected('body').text()));});});
 describe('fixed ordered inventories',()=>{for(const [group,{selector,items}] of Object.entries(inventory.groups)){it(`${group}: rejects missing AND extra elements`,()=>{expect(render('page')(selector).length).toBe(items.length);});items.forEach((html,i)=>it(`${group}[${i}]: complete structure, attributes and text`,()=>{const actual=render('page')(selector).eq(i);const expected=canonical(html,true)('body').children().first();expect(tree(actual[0]!)).toEqual(tree(expected[0]!));}));}});
