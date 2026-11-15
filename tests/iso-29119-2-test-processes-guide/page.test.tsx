@@ -14,6 +14,7 @@ const norm=(s:string)=>s.replace(/\s+/g,' ').trim();
 function tree(n:AnyNode):unknown{if(n.type==='text')return norm(n.data)||null;if(!isTag(n))return null;const attrs={...n.attribs};for(const k of Object.keys(attrs))if(k.startsWith('aria-')||['role','inert','tabindex','checked'].includes(k))delete attrs[k];if(attrs.class)attrs.class=attrs.class.replace(/\s*active\b/g,'').trim();if(attrs.style)attrs.style=attrs.style.replace(/\s|;$/g,'');if(attrs.class==='cl-fill')delete attrs.style;if(n.tagName==='button')delete attrs.type;return{tag:n.tagName,attrs,children:attrs.class==='mermaid-diagram'?[]:n.children.map(tree).filter(Boolean)};}
 function canonical(html:string,original=false){
  if(original){
+  html=html.replaceAll('リスクベース：失敗したときの影響が大きい所から優先してテストする考え方','リスクベース：失敗が起きる可能性と、起きたときの影響の組み合わせに基づき、優先順位やテストの深さを決める考え方');
   html=html.replaceAll('テスト対象の振る舞いを図や表で抽象化したもの（2021年版の中心概念）','テスト対象の振る舞いを抽象化し、図・表・ソースコード・要求などで表現したもの。カバレッジ項目を特定するために用いる（2021年版の中心概念）');
   html=html.replaceAll('対象の振る舞いを図や表で抽象化したもの','対象の振る舞いを抽象化し、図・表・ソースコード・要求などで表現したもの。カバレッジ項目を特定するために用いる');
   html=html.replaceAll('IEEE Standards Association（29119-2のカタログ）','IEEE Standards Association（29119-2:2021のカタログ）');
