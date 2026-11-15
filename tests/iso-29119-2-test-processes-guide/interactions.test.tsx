@@ -5,6 +5,7 @@ import {render,fireEvent,cleanup} from '@testing-library/react';
 import {renderToString} from 'react-dom/server';
 import {hydrateRoot} from 'react-dom/client';
 import {sourceModule} from '../helpers/source-module';
+import {reviewedDescription} from './reviewed-diagrams';
 import inventory from '../../docs/migration-inventory/iso-29119-2-test-processes-guide.json';
 const base='app/iso-29119-2-test-processes-guide';
 afterEach(cleanup);
@@ -31,13 +32,13 @@ it('TOC observes all 55 headings, follows each fragment and disconnects on unmou
  }finally{globalThis.IntersectionObserver=saved;heads.remove();history.replaceState(null,'','/');}
 });
 
-for(const[index,d]of inventory.diagrams.entries())it(`diagram ${index}: accessible failure fallback`,async()=>{let error:(()=>void)|undefined;const C=sourceModule(base+'/Diagram.tsx',{onMermaidChart:(_,cb)=>{error=cb;}}).default as React.ComponentType<{index:number}>;const r=render(<C index={index}/>);expect(r.getByRole('img').getAttribute('aria-label')).toBe(d.description);await act(async()=>error?.());const alert=r.getByRole('alert');expect(alert.textContent).toContain(d.description);expect(alert.closest('[role="img"]')).toBeNull();expect(alert.previousElementSibling).toBe(r.getByRole('img'));});
+for(const[index,d]of inventory.diagrams.entries())it(`diagram ${index}: accessible failure fallback`,async()=>{let error:(()=>void)|undefined;const C=sourceModule(base+'/Diagram.tsx',{onMermaidChart:(_,cb)=>{error=cb;}}).default as React.ComponentType<{index:number}>;const r=render(<C index={index}/>);expect(r.getByRole('img').getAttribute('aria-label')).toBe(reviewedDescription(index,d.description));await act(async()=>error?.());const alert=r.getByRole('alert');expect(alert.textContent).toContain(reviewedDescription(index,d.description));expect(alert.closest('[role="img"]')).toBeNull();expect(alert.previousElementSibling).toBe(r.getByRole('img'));});
 
 it('keeps the active TOC entry inside the sidebar viewport',()=>{const C=component('NavBar');const r=render(<C/>);const sidebar=r.container.querySelector('nav')!;const link=sidebar.querySelectorAll<HTMLAnchorElement>('a')[54]!;sidebar.getBoundingClientRect=()=>({top:100,bottom:700,height:600}) as DOMRect;link.getBoundingClientRect=()=>({top:900,bottom:930,height:30}) as DOMRect;history.replaceState(null,'',link.getAttribute('href')!);fireEvent(window,new Event('hashchange'));expect(sidebar.scrollTop).toBe(600);history.replaceState(null,'','/');});
 
 it('keeps the desktop sidebar non-modal and the background interactive',()=>{const original=window.matchMedia;window.matchMedia=(()=>({matches:false,addEventListener(){},removeEventListener(){}})) as unknown as typeof window.matchMedia;try{const C=component('NavBar');const r=render(<div className="iso29119-2-page"><C/><main className="main"/></div>);expect(r.queryByRole('dialog')).toBeNull();expect(r.container.querySelector('nav')!.hasAttribute('inert')).toBe(false);expect(r.container.querySelector('main')!.hasAttribute('inert')).toBe(false);}finally{window.matchMedia=original;}});
 
-for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index}: restores original geometry when the shared renderer inserts SVG`, async () => {
+for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index}: ${index === 10 || index === 12 ? "retains reviewed Mermaid geometry" : "restores original geometry"} when SVG is inserted`, async () => {
     const C = sourceModule(base + '/Diagram.tsx').default as React.ComponentType<{index: number}>;
     const r = render(<C index={index}/>);
     const source = load(diagram.svg);
@@ -64,6 +65,13 @@ for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index
         r.container.querySelector('.mermaid-wrapper')!.append(svg);
         await new Promise(resolve => setTimeout(resolve, 20));
     });
+    if (index === 10 || index === 12) {
+        expect(svg.getAttribute('viewBox')).toBe('0 0 1 1');
+        expect(node.getAttribute('transform')).toBe('translate(0,0)');
+        for (const path of paths) expect(path.getAttribute('d')).toBe('M0 0L999 0');
+        r.unmount();
+        return;
+    }
     expect(svg.getAttribute('viewBox')).toBe(originalViewBox);
     expect(node.getAttribute('transform')).toBe(originalTransform);
     expect(svg.style.marginBottom).toBe('0px');

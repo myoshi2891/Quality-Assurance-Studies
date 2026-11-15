@@ -5,6 +5,7 @@ import {readFileSync} from 'node:fs';
 import {transformSync} from 'next/dist/build/swc';
 import {sourceModule} from '../tests/helpers/source-module';
 import inventory from '../docs/migration-inventory/iso-29119-2-test-processes-guide.json';
+import {reviewedEdges} from '../tests/iso-29119-2-test-processes-guide/reviewed-diagrams';
 const base='app/iso-29119-2-test-processes-guide';
 const globals=readFileSync('node_modules/tailwindcss/preflight.css','utf8')+readFileSync('app/globals.css','utf8');
 const reviewedTableCss='';
@@ -28,6 +29,24 @@ const restoration=transformSync(readFileSync(base+'/restoreDiagramLayout.ts','ut
 const fixups=transformSync(shared.slice(start,shared.indexOf('/**',start)),{filename:'fixups.ts',jsc:{parser:{syntax:'typescript'}}}).code as string;
 for(const width of [390,1440])for(const [i,d]of inventory.diagrams.entries())test(`${width}px ${d.id}: real SVG typography, palette, nodes and edges`,async({page})=>{
  await page.setViewportSize({width,height:980});await page.setContent(`<style>${globals}${readFileSync(base+'/guide.css','utf8')}</style>${markup()}`);await page.addScriptTag({path:'node_modules/mermaid/dist/mermaid.min.js'}); const {DIAGRAMS}=sourceModule(base+'/diagrams.ts') as {DIAGRAMS:string[]};await page.evaluate(async({id,chart,config,fixups,layouts,restoration,index})=>{const m=(window as unknown as {mermaid:{initialize:(c:object)=>void;render:(id:string,c:string)=>Promise<{svg:string}>}}).mermaid;m.initialize(config);const {svg}=await m.render('generated-'+id,chart);const host=document.getElementById(id)!.querySelector('.mermaid-wrapper')!;host.innerHTML=svg;Function(fixups+';return applySvgFixups;')()(host.querySelector('svg'),chart);Function('LAYOUTS',restoration+';return restoreDiagramLayout;')(layouts)(host.querySelector('svg'),index);},{id:'diagram-'+i,chart:DIAGRAMS[i]!,config,fixups,layouts,restoration,index:i});
+ if (i === 10 || i === 12) {
+   // These two reviewed flows have different edges and use native Mermaid geometry.
+   const svg=page.locator('#diagram-'+i+' svg');
+   const edges=await svg.locator('.flowchart-link').evaluateAll(ns=>ns.map(n=>({id:n.getAttribute('data-id'),arrow:!!n.getAttribute('marker-end')})));
+   expect(edges.map(e=>e.id).sort()).toEqual(reviewedEdges(i,d.edges).map(e=>`L_${e.from}_${e.to}_0`).sort());
+   expect(edges.every(e=>e.arrow)).toBe(true);
+   for(const edge of reviewedEdges(i,d.edges).filter(e=>e.label)) await expect(svg.locator(`.edgeLabel:has([data-id="L_${edge.from}_${edge.to}_0"])`)).toHaveText(edge.label);
+   const geometry=await svg.evaluate(el=>{
+     const box=el.getBoundingClientRect();
+     return Array.from(el.querySelectorAll<SVGGraphicsElement>('g.node'),n=>{
+       const bounds=n.firstElementChild!.getBoundingClientRect();
+       return {x:bounds.x,y:bounds.y,w:bounds.width,h:bounds.height,box:{x:box.x,y:box.y,w:box.width,h:box.height},label:!!n.querySelector('.nodeLabel')?.textContent?.trim()};
+     });
+   });
+   expect(geometry).toHaveLength(d.nodes.length);
+   for(const g of geometry){expect(g.label).toBe(true);expect(g.x).toBeGreaterThanOrEqual(g.box.x-1);expect(g.y).toBeGreaterThanOrEqual(g.box.y-1);expect(g.x+g.w).toBeLessThanOrEqual(g.box.x+g.box.w+1);expect(g.y+g.h).toBeLessThanOrEqual(g.box.y+g.box.h+1);}
+   return;
+ }
  const ref=await page.context().newPage();await ref.setContent(`<style>${inventory.originalCss}</style><div class="mermaid-diagram">${d.svg}</div>`);
  const collect=(el:Element)=>{const dash=(n:Element)=>{const a=getComputedStyle(n).strokeDasharray.split(/[, ]+/).map(Number.parseFloat);return {pattern:n.classList.contains('edge-pattern-dotted')?a.slice(2,4):'solid',arrowGap:a.length>2?a.at(-1):0};};return {gradients:Array.from(el.querySelectorAll('linearGradient stop'),n=>({offset:n.getAttribute('offset'),color:getComputedStyle(n).stopColor})),clusters:Array.from(el.querySelectorAll('.cluster'),n=>({text:n.querySelector('.cluster-label')!.textContent!.trim(),fill:getComputedStyle(n.querySelector('rect')!).fill,stroke:getComputedStyle(n.querySelector('rect')!).stroke.replace(/#[^\"]+-gradient/,'#diagram-gradient')})).sort((a,b)=>a.text.localeCompare(b.text)),actors:Array.from(el.querySelectorAll('text.actor'),n=>({text:n.textContent!.trim(),font:getComputedStyle(n).fontFamily,size:getComputedStyle(n).fontSize,color:getComputedStyle(n).fill})),messages:Array.from(el.querySelectorAll('.messageText'),n=>({text:n.textContent,font:getComputedStyle(n).fontFamily,size:getComputedStyle(n).fontSize,color:getComputedStyle(n).fill})),messageLines:Array.from(el.querySelectorAll('[data-et="message"]'),n=>({from:n.getAttribute('data-from'),to:n.getAttribute('data-to'),className:n.getAttribute('class'),stroke:getComputedStyle(n).stroke,marker:!!n.getAttribute('marker-end')})),nodes:Array.from(el.querySelectorAll('g.node'),n=>{const s=n.querySelector('.nodeLabel')!,shape=n.firstElementChild!;return{id:n.id.replace(/^.*flowchart-/,'').replace(/-\d+$/,''),text:s.textContent!.replace(/\s+/g,' ').trim(),breaks:s.querySelectorAll('br').length,font:getComputedStyle(s).fontFamily,size:getComputedStyle(s).fontSize,lineHeight:getComputedStyle(s).lineHeight,color:getComputedStyle(s).color,shape:shape.tagName,shapeWidth:Math.round(shape.getBoundingClientRect().width*100)/100,shapeHeight:Math.round(shape.getBoundingClientRect().height*100)/100,labelWidth:Math.round(s.getBoundingClientRect().width*100)/100,labelHeight:Math.round(s.getBoundingClientRect().height*100)/100,fill:getComputedStyle(shape).fill,stroke:getComputedStyle(shape).stroke.replace(/#[^\"]+-gradient/,'#diagram-gradient')};}).sort((a,b)=>a.id.localeCompare(b.id)),edges:Array.from(el.querySelectorAll('.flowchart-link'),n=>({id:n.id.replace(/^.*-L_/,'L_').replace(/_(\d+)_\d+$/,'_$1'),stroke:getComputedStyle(n).stroke,width:getComputedStyle(n).strokeWidth,arrow:!!n.getAttribute('marker-end'),dash:dash(n)})).sort((a,b)=>a.id.localeCompare(b.id)),labels:Array.from(el.querySelectorAll('.edgeLabels .label[data-id]'),n=>({id:n.getAttribute('data-id')!.replace(/^.*-L_/,'L_').replace(/_(\d+)_\d+$/,'_$1'),text:n.textContent!.replace(/\s+/g,' ').trim()})).filter(n=>n.text).sort((a,b)=>a.id.localeCompare(b.id))};};
 

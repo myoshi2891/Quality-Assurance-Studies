@@ -3,6 +3,8 @@ import { LAYOUTS } from './diagram-layouts';
  * Text, topology, theme and accessible errors still come from the shared renderer.
  */
 export function restoreDiagramLayout(svg: SVGSVGElement, index: number) {
+    // Reviewed recovery/reporting branches use Mermaid layout; archived coordinates describe the old topology.
+    if (index === 10 || index === 12) return;
     const layout = LAYOUTS[index];
     if (!layout) return;
     const apply = (node: Element | null | undefined, attributes: object) => {
