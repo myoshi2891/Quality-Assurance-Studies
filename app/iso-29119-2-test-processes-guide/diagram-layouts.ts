@@ -18,7 +18,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "SR2",
@@ -36,7 +40,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "SR3",
@@ -54,7 +62,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "SR4",
@@ -72,7 +84,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "SR5",
@@ -90,7 +106,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -144,7 +164,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "L2",
@@ -162,7 +186,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -60)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "120"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "L3",
@@ -180,7 +208,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -60)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "120"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -259,7 +291,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TM2",
@@ -277,7 +313,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TM3",
@@ -295,7 +335,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TM4",
@@ -313,7 +357,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TM5",
@@ -329,7 +377,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TM6",
@@ -347,7 +399,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -428,7 +484,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RD2",
@@ -446,7 +506,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RD3",
@@ -464,7 +528,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RD4",
@@ -482,7 +550,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RD5",
@@ -500,7 +572,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RD6",
@@ -518,7 +594,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -579,7 +659,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "OTB",
@@ -597,7 +681,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "OTC",
@@ -615,7 +703,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "OTD",
@@ -633,7 +725,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -687,7 +783,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL2",
@@ -705,7 +805,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL3",
@@ -723,7 +827,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL4",
@@ -741,7 +849,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL5",
@@ -759,7 +871,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL6",
@@ -777,7 +893,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL7",
@@ -795,7 +915,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL8",
@@ -813,7 +937,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -12)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "24"
+        },
+        "style": "display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "PL9",
@@ -831,7 +959,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -913,7 +1045,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "MC2",
@@ -931,7 +1067,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "MC3",
@@ -947,7 +1087,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "MC4",
@@ -965,7 +1109,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "MC5",
@@ -983,7 +1131,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -1064,7 +1216,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "CP2",
@@ -1082,7 +1238,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "CP3",
@@ -1100,7 +1260,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "CP4",
@@ -1118,7 +1282,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "CP5",
@@ -1136,7 +1304,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -1190,7 +1362,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "DY2",
@@ -1208,7 +1384,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "DY3",
@@ -1226,7 +1406,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "DY4",
@@ -1244,7 +1428,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -60)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "120"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "DY5",
@@ -1262,7 +1450,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -1337,7 +1529,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TDB",
@@ -1355,7 +1551,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TDC",
@@ -1373,7 +1573,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TDD",
@@ -1391,7 +1595,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TDE",
@@ -1409,7 +1617,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "TDF",
@@ -1427,7 +1639,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -1488,7 +1704,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EV2",
@@ -1506,7 +1726,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EV3",
@@ -1522,7 +1746,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EV4",
@@ -1540,7 +1768,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EV5",
@@ -1558,7 +1790,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EV6",
@@ -1576,7 +1812,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -1657,7 +1897,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EX2",
@@ -1675,7 +1919,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EX3",
@@ -1691,7 +1939,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -12)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "24"
+        },
+        "style": "display: table; white-space: nowrap; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EX4",
@@ -1709,7 +1961,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EX5",
@@ -1727,7 +1983,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EX6",
@@ -1745,7 +2005,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "EX7",
@@ -1763,7 +2027,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -1851,7 +2119,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "IC2",
@@ -1869,7 +2141,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "IC3",
@@ -1885,7 +2161,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "IC4",
@@ -1903,7 +2183,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "IC5",
@@ -1921,7 +2205,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "IC6",
@@ -1939,7 +2227,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "IC7",
@@ -1957,7 +2249,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -2045,7 +2341,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG2",
@@ -2063,7 +2363,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG3",
@@ -2081,7 +2385,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG4",
@@ -2099,7 +2407,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG5",
@@ -2117,7 +2429,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG6",
@@ -2135,7 +2451,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG7",
@@ -2153,7 +2473,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG8",
@@ -2171,7 +2495,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG9",
@@ -2189,7 +2517,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "LG10",
@@ -2207,7 +2539,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -2296,7 +2632,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL2",
@@ -2314,7 +2654,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL3",
@@ -2332,7 +2676,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL4",
@@ -2350,7 +2698,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL5",
@@ -2368,7 +2720,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -24)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "48"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL6",
@@ -2386,7 +2742,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL7",
@@ -2404,7 +2764,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "RL8",
@@ -2422,7 +2786,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -2497,7 +2865,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "AG2",
@@ -2515,7 +2887,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "AG3",
@@ -2533,7 +2909,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "AG4",
@@ -2551,7 +2931,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "AG5",
@@ -2569,7 +2953,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
@@ -2637,7 +3025,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -36)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "72"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "ST2",
@@ -2655,7 +3047,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "ST3",
@@ -2673,7 +3069,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "ST4",
@@ -2691,7 +3091,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       },
       {
         "id": "ST5",
@@ -2709,7 +3113,11 @@ export const LAYOUTS = [
         "label": {
           "transform": "translate(-60, -48)"
         },
-        "foreign": {}
+        "foreign": {
+          "width": "120",
+          "height": "96"
+        },
+        "style": "display: table; white-space: break-spaces; line-height: 1.5; max-width: 120px; text-align: center; width: 120px;"
       }
     ],
     "edges": [
