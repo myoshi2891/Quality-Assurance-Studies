@@ -1499,6 +1499,7 @@ bun test        # ユニットテスト成功
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-29119-2-test-processes-guide.html` | `/iso-29119-2-test-processes-guide` | ✅ 14カテゴリー・73見出し・55目次・27表・17図・10チェック・全57 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-42005-2025-beginner-guide.html` | `/iso-iec-42005-2025-beginner-guide` | ✅ 17カテゴリー・79見出し・67目次・47表・12図・13チェック・全72 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-33063-fdis-guide.html` | `/iso-33063-fdis-guide` | ✅ 15カテゴリー・51見出し・14目次・24表・9図・全50 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-2382-15-guide.html` | `/iso-iec-2382-15-guide` | ✅ 10カテゴリー・49見出し・43目次・18表・14図・9コード例・全87 CSSルール・HTML/MDアーカイブ済み |
