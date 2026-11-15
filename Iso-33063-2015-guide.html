@@ -10577,7 +10577,10 @@
                         if (h.getBoundingClientRect().top <= window.innerHeight * 0.15) current = h;
                     });
                     Object.values(links).forEach(function (l) {
-                        l.classList.toggle('active', !!current && l.dataset.target === current.id);
+                        var isCurrent = !!current && l.dataset.target === current.id;
+                        l.classList.toggle('active', isCurrent);
+                        if (isCurrent) l.setAttribute('aria-current', 'location');
+                        else l.removeAttribute('aria-current');
                     });
                 }
                 if ('IntersectionObserver' in window) {

@@ -646,10 +646,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
+| 更新日 | Updated 2026-11-16 |
 | 最新 HEAD | `a195ad45` |
 | 最新コミット内容 | `fix(docs): refine focus accessibility, TOC scroll tracking, and model-based testing definitions across static ISO guides` |
 | 次の作業 | `/iso-29119-2-test-processes-guide`の目視確認（ユーザー担当）。ビルド未実施。 |
-| ビルド状態 | npm経由で全体15,541件（252ファイル、失敗0）、対象405件、関連751件、原本ブラウザー比較49件、対象型検査、全体ESLint、Markdown lint、PII検査成功。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | 以前の実行（29119-2移行時）でnpm経由の全体15,541件（252ファイル、失敗0）、対象405件、関連751件、原本ブラウザー比較49件、対象型検査、全体ESLint、Markdown lint、PII検査が成功。その後の静的ISOガイド修正以降、全体テストは再実行していない。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 

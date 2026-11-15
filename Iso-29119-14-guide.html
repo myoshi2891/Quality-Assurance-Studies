@@ -404,6 +404,9 @@
                 outline-offset: 2px;
             }
             @media (max-width: 900px) {
+                html {
+                    scroll-padding-top: 80px;
+                }
                 .sidebar {
                     visibility: hidden;
                     transform: translateX(-100%);
@@ -10432,7 +10435,10 @@
                         current = headings[headings.length - 1];
                     }
                     Object.values(links).forEach(function (a) {
-                        a.classList.toggle('active', !!current && a.dataset.target === current.id);
+                        var isCurrent = !!current && a.dataset.target === current.id;
+                        a.classList.toggle('active', isCurrent);
+                        if (isCurrent) a.setAttribute('aria-current', 'location');
+                        else a.removeAttribute('aria-current');
                     });
                 }
                 if ('IntersectionObserver' in window) {

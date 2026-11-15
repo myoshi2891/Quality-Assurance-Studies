@@ -16988,12 +16988,16 @@ L633.267,207.083"
                     document.querySelectorAll('.sidebar a.active').forEach(function (a) {
                         a.classList.remove('active');
                     });
+                    document.querySelectorAll('.sidebar a[aria-current]').forEach(function (a) {
+                        a.removeAttribute('aria-current');
+                    });
                     document.querySelectorAll('.nav-h2.open').forEach(function (l) {
                         l.classList.remove('open');
                     });
                     var a = links[id];
                     if (!a) return;
                     a.classList.add('active');
+                    a.setAttribute('aria-current', 'location');
                     var li = a.closest('.nav-h2');
                     if (li) {
                         li.classList.add('open');
