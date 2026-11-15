@@ -4,6 +4,15 @@ Updated 2026-11-15
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-15: ISO/IEC/IEEE 29119-2:2021 テストプロセスガイドの移行
+
+- `/iso-29119-2-test-processes-guide`をISOカテゴリーへ登録。134ルート（ホーム＋133ガイド）、ISOは29件。
+- 導入・注意事項・第1〜11章・付録の14カテゴリーを順番に実装し、原本比較成功後に個別コミット。73見出し、55階層目次、27表の全セル、17図、11注記、3引用欄、11用語欄、5インラインコード、14外部リンク、10チェック項目、全57 CSSルールを固定インベントリと照合。通常のコードブロックと開閉回答は原本どおり0件。
+- `app/iso-29119-2-test-processes-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section13.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・`diagram-layouts.ts`・`restoreDiagramLayout.ts`を配置。280px固定目次、900px境界、ダーク配色、ヒーロー装飾、表・注記・用語欄を保持。目次はキーボード循環・Escape・背景inert・共有スクロールロック・動的免責高さへ対応。チェックは原本同様のネイティブ操作。
+- 図はHTML内SVGの全ノード・接続・ラベル・図形を正本とし、全角スペース、neoグラデーション、フォント、座標、ラベル寸法、破線を維持。Markdownの図とHTMLが異なる場合はHTMLを優先。共有Mermaidコンポーネントは変更せず、ページ側で設定と座標を復元。
+- 原本は`archive/html-archive/iso/Iso-29119-2-test-processes-guide.html`と`archive/md-archive/iso/Iso-29119-2-test-processes-guide.md`へ同一内容で移動。SHA-256・Git追跡・rename 100%・インベントリ再現性を検証。
+- 検証はnpm経由。対象405件、原本ブラウザー比較49件（5幅×CSS2順序、17実SVG×2幅、5幅×免責高さ3条件と縮小防止・スクロール両端）、対象ソース・テスト・E2E型検査、全体ESLint、Markdown lintを実施。全体15,541件（252ファイル、失敗0）、関連751件が成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-15: ISO 42005のMermaid CSSリセット補強
 
 - ページ固有の`.mermaid-wrapper`リセット8項目の値を保持し、全宣言へ`!important`を追加。`.mermaid-container`と`.mermaid-wrap`に横スクロール・100%幅のリセットを追加し、SVGの縮小防止を維持。
@@ -580,7 +589,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 249 ファイル・15134 tests)
+bun test             # ユニットテスト (bun test 全体, 252 ファイル・15541 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1536,7 +1545,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 133 ルート（ガイドライブラリ index + 132 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 134 ルート（ガイドライブラリ index + 133 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
