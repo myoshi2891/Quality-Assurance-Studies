@@ -20,6 +20,10 @@ function canonical(html:string,original=false){
   html=html.replaceAll('IEEE Standards Association（29119-2のカタログ）','IEEE Standards Association（29119-2:2021のカタログ）');
   html=html.replaceAll('https://standards.ieee.org/ieee/29119-2/5309/','https://standards.ieee.org/ieee/29119-2/7498/');
   html=html.replaceAll('シリーズの説明、Part 3・4との関係','2021年版の要旨・発行日・前版との関係');
+  // 33063:2015は旧版（2013年版）のテスト条件ベースのプロセスを評価する。2021年版のテストモデルと区別する。
+  html=html.replaceAll('33063:2015として発行され、29119-2のテストプロセスと結びついています。','33063:2015として発行されました。ただし、33063:2015が評価の前提とするのは旧版（29119-2:2013）のプロセスで、テスト設計ではテスト条件を用います。2021年版はテスト条件に代えてテストモデルを用いるため、2015年版の指標で2021年版のプロセスを直接評価することはできません。2021年版の変更を反映するため、33063の改訂案（ドラフト）が作成されています。');
+  html=html.replaceAll('<li>33063：29119-2のプロセスを、どれだけ実践できているかを評価するモデル</li>','<li>33063：テストプロセスをどれだけ実践できているかを評価するモデル。2015年版は旧版（2013年版）のプロセスが前提で、2021年版向けには改訂案で更新される</li>');
+  html=html.replaceAll('<td>ISO/IEC 33063:2015</td>','<td>ISO/IEC 33063:2015（旧版29119-2:2013のプロセスが前提。2021年版のプロセスの評価には改訂版の状況を確認）</td>');
  }
  const $=load(html);$('script').remove();if(original)$('p').each((_,n)=>{const p=$(n);p.html(p.html()!.replace('29119シリーズは5つのパートに分かれていて、','29119シリーズの中核はPart 1〜5で構成され、').replace('シリーズの5パートの関係','シリーズの中核となるPart 1〜5の関係').replace('」にあたります。','」にあたります。ほかにISO/IEC TR 29119-6:2021もあり、シリーズをアジャイルプロジェクトへ適用するためのガイダンスを提供しています。'));});if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
 const markupCache = new Map<string, string>();
