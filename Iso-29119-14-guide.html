@@ -9031,7 +9031,7 @@
                     <div class="checklist-progress">
                         <span class="cp-label">達成度</span>
                         <div class="cp-bar"><div class="cp-fill"></div></div>
-                        <span class="cp-count" data-total="5">0 / 5</span>
+                        <span class="cp-count" data-total="5" role="status" aria-atomic="true">達成度：0 / 5</span>
                     </div>
                     <ul class="checklist">
                         <li>
@@ -9075,7 +9075,7 @@
                     <div class="checklist-progress">
                         <span class="cp-label">達成度</span>
                         <div class="cp-bar"><div class="cp-fill"></div></div>
-                        <span class="cp-count" data-total="5">0 / 5</span>
+                        <span class="cp-count" data-total="5" role="status" aria-atomic="true">達成度：0 / 5</span>
                     </div>
                     <ul class="checklist">
                         <li>
@@ -9120,7 +9120,7 @@
                     <div class="checklist-progress">
                         <span class="cp-label">達成度</span>
                         <div class="cp-bar"><div class="cp-fill"></div></div>
-                        <span class="cp-count" data-total="6">0 / 6</span>
+                        <span class="cp-count" data-total="6" role="status" aria-atomic="true">達成度：0 / 6</span>
                     </div>
                     <ul class="checklist">
                         <li>
@@ -9169,7 +9169,7 @@
                     <div class="checklist-progress">
                         <span class="cp-label">達成度</span>
                         <div class="cp-bar"><div class="cp-fill"></div></div>
-                        <span class="cp-count" data-total="3">0 / 3</span>
+                        <span class="cp-count" data-total="3" role="status" aria-atomic="true">達成度：0 / 3</span>
                     </div>
                     <ul class="checklist">
                         <li>
@@ -10466,7 +10466,7 @@
                         boxes.forEach(function (b) {
                             if (b.checked) d++;
                         });
-                        n.textContent = d + ' / ' + boxes.length;
+                        n.textContent = '達成度：' + d + ' / ' + boxes.length;
                         f.style.width = (100 * d) / boxes.length + '%';
                     }
                     boxes.forEach(function (b) {

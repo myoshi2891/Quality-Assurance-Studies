@@ -16992,6 +16992,7 @@ L633.267,207.083"
                         a.removeAttribute('aria-current');
                     });
                     document.querySelectorAll('.nav-h2.open').forEach(function (l) {
+                        if (l.contains(document.activeElement)) return;
                         l.classList.remove('open');
                     });
                     var a = links[id];
