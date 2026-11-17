@@ -9704,6 +9704,12 @@
                 sb.addEventListener('click', function (e) {
                     if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                document.addEventListener('focusin', function (e) {
+                    // キーボード操作で本文へフォーカスが移ったら、モバイル目次を閉じて重なりを解消する
+                    if (!mobileSidebar.matches || !sb.classList.contains('open')) return;
+                    if (sb.contains(e.target) || e.target === tg) return;
+                    setOpen(false);
+                });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
                 var links = {};
@@ -9717,6 +9723,8 @@
                     headings.forEach(function (h) {
                         if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
                     });
+                    // ページ末尾では25%の線に届かない最後の見出しを現在位置とする
+                    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1) current = headings[headings.length - 1];
                     if (!current || current.id === activeHeading) return;
                     Object.keys(links).forEach(function (k) { links[k].classList.remove('active'); });
                     var a = links[current.id];
