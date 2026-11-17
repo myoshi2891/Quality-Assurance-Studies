@@ -547,6 +547,16 @@
                     scroll-margin-top: 64px;
                 }
             }
+
+            @media print {
+                .mermaid-diagram {
+                    overflow: visible;
+                }
+                .mermaid-diagram svg {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
         </style>
     </head>
     <body>
