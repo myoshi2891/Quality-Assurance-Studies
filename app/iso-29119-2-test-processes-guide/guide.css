@@ -56,7 +56,8 @@
 .iso29119-2-page .hero { text-align: start; }
 .iso29119-2-page .hero-title { font-family: inherit; }
 .iso29119-2-page table { color: var(--tx); }
-.iso29119-2-page td, .iso29119-2-page tbody td { color: var(--dim) !important; font-size: 14.5px !important; }
+.iso29119-2-page { --ink: var(--dim); }
+.iso29119-2-page td, .iso29119-2-page tbody td { color: var(--ink) !important; font-size: 1rem !important; }
 .iso29119-2-page th { color: #fff !important; }
 .iso29119-2-page td strong { color: #fff !important; font-weight: bold !important; }
 .iso29119-2-page tr:hover td { background: transparent !important; }

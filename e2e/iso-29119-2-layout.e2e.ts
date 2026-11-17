@@ -8,7 +8,7 @@ import inventory from '../docs/migration-inventory/iso-29119-2-test-processes-gu
 import {reviewedEdges} from '../tests/iso-29119-2-test-processes-guide/reviewed-diagrams';
 const base='app/iso-29119-2-test-processes-guide';
 const globals=readFileSync('node_modules/tailwindcss/preflight.css','utf8')+readFileSync('app/globals.css','utf8');
-const reviewedTableCss='';
+const reviewedTableCss='td{font-size:1rem}';
 const retained=readFileSync('app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css','utf8');
 function markup(){const Page=sourceModule(base+'/page.tsx').default as React.ComponentType;return renderToStaticMarkup(React.createElement(Page));}
 const selectors=['#side','.brand','#side a','.main','.hero','.badge','.hero-title','.metas','h2','h3','h4','p','ul','ol','li','a','strong','code','.table-scroll','table','th','td','.callout','.glossary','.glossary p','.glossary ul','.page-footer','.task-list','.task-list label','.task-list input'];
