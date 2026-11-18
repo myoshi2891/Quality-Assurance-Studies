@@ -6448,7 +6448,7 @@
                     </table>
                 </div>
                 <p><strong>SQLの例（件数・集計・孤児レコード検出）</strong></p>
-                <pre class="code-block"><code><span class="tk-c">-- ① 件数突合</span>
+                <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（件数・集計・孤児レコード検出）（横スクロール可能）"><code><span class="tk-c">-- ① 件数突合</span>
 <span class="tk-k">SELECT</span> 'source' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> src.orders
 <span class="tk-k">UNION ALL</span>
 <span class="tk-k">SELECT</span> 'target' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> tgt.orders;
