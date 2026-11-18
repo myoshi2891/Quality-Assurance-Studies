@@ -300,6 +300,14 @@
                 h3[id] {
                     scroll-margin-top: 72px;
                 }
+                /* フォーカス移動で表示位置まで送られた本文の操作要素を、固定の目次ボタンの下に隠さない */
+                .main a[href],
+                .main [tabindex],
+                .main summary,
+                .main button,
+                .main input {
+                    scroll-margin-top: 72px;
+                }
                 .sidebar {
                     visibility: hidden;
                     transform: translateX(-100%);
@@ -5399,6 +5407,13 @@
                 });
                 sb.addEventListener('click', function (e) {
                     if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
+                });
+                // モバイルで目次と開閉ボタンの外へキーボードフォーカスが移ったら、目次を閉じて移動先を覆わないようにする。
+                // focusin はフォーカス移動後に発火するため、setOpen の「目次内のフォーカスをボタンへ戻す」処理は働かない。
+                document.addEventListener('focusin', function (e) {
+                    if (!mobileSidebar.matches || !sb.classList.contains('open')) return;
+                    if (sb.contains(e.target) || tg.contains(e.target)) return;
+                    setOpen(false);
                 });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
