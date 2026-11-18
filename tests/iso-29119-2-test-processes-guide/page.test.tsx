@@ -11,6 +11,7 @@ import {sourceModule} from '../helpers/source-module';
 import {reviewedSource,reviewedEdges,reviewedDescription} from './reviewed-diagrams';
 const base='app/iso-29119-2-test-processes-guide',scope='.iso29119-2-page';
 const norm=(s:string)=>s.replace(/\s+/g,' ').trim();
+const LOGIN_RESET_CASE='この表の「未ログイン」は、連続失敗回数が0〜4回の状態をまとめています。そのため、ログイン成功で回数が0に戻ることは、各行を1回ずつ通すだけでは確かめられません。次の順序のケースも追加します：誤ったパスワードを4回入力する → 正しい認証情報でログインする → ログアウトして、誤ったパスワードを1回入力する。期待結果は、アカウントがロックされず、未ログインのままであることです。';
 function tree(n:AnyNode):unknown{if(n.type==='text')return norm(n.data)||null;if(!isTag(n))return null;const attrs={...n.attribs};for(const k of Object.keys(attrs))if(k.startsWith('aria-')||['role','inert','tabindex','checked'].includes(k))delete attrs[k];if(attrs.class)attrs.class=attrs.class.replace(/\s*active\b/g,'').trim();if(attrs.style)attrs.style=attrs.style.replace(/\s|;$/g,'');if(attrs.class==='cl-fill')delete attrs.style;if(n.tagName==='button')delete attrs.type;return{tag:n.tagName,attrs,children:attrs.class==='mermaid-diagram'?[]:n.children.map(tree).filter(Boolean)};}
 function canonical(html:string,original=false){
  if(original){
@@ -39,6 +40,9 @@ function canonical(html:string,original=false){
   // ロックの条件は「同じアカウントでパスワードを連続5回誤る」。失敗のきっかけをそのアカウントの誤ったパスワードに限定する。
   html=html.replaceAll('誤った認証情報を入力（失敗が4回目まで）','対象アカウントの誤ったパスワードを入力（連続失敗が4回目まで）');
   html=html.replaceAll('誤った認証情報を入力（5回目）','対象アカウントの誤ったパスワードを入力（連続失敗が5回目）');
+  // ログインに成功すると連続失敗回数は0に戻る。失敗回数をまとめた「未ログイン」では見えないため、数え直しを確かめるケースを示す。
+  html=html.replaceAll('<td>ログイン済み</td>','<td>ログイン済み（連続失敗回数を0に戻す）</td>');
+  html=html.replaceAll('実行順に並べたものが手順（TD4）です。</p>',`実行順に並べたものが手順（TD4）です。</p>\n<p>${LOGIN_RESET_CASE}</p>`);
   // 2013年版の設計プロセスはTD1（フィーチャセットの特定）からTD6まで。2021年版のTD1〜TD4は変更しない。
   html=html.replaceAll('TD2〜TD6（条件の導出、カバレッジ項目、テストケース、テストセット、手順）','TD1〜TD6（フィーチャセットの特定、条件の導出、カバレッジ項目、テストケース、テストセット、手順）');
   // TD3は選択したカバレッジ目標を満たすテストケースを導出する。全項目の網羅は目標が100%の場合の例に限る。
