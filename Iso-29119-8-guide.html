@@ -17028,6 +17028,9 @@ L633.267,207.083"
                     headings.forEach(function (h) {
                         if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
                     });
+                    if (headings.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
+                        current = headings[headings.length - 1];
+                    }
                     if (current && current.id !== activeHeading) {
                         activate(current.id);
                         activeHeading = current.id;
