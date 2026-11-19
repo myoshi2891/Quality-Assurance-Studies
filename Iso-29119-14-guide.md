@@ -470,7 +470,7 @@ Stripeは、**数億件規模のオブジェクト**を持つ環境で、可用�
 ```mermaid
 flowchart LR
     DW1["1 Dual write<br/>新旧の両方へ書く<br/>＋既存データのバックフィル"] --> DW2["2 Read切替<br/>旧新を比較しながら<br/>読み取りを新へ"]
-    DW2 --> DW3["3 Write切替<br/>書き込みを新だけに<br/>（旧を従に）"]
+    DW2 --> DW3["3 Write切替<br/>新を主に書き込み<br/>旧同期：切戻し期間"]
     DW3 --> DW4["4 旧データ削除<br/>不要になった旧を除去"]
 
     classDef s fill:#1f3a5f,stroke:#7c9eff,color:#ffffff
