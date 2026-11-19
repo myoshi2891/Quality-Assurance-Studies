@@ -466,6 +466,17 @@
                 color: var(--text-dim);
                 white-space: nowrap;
             }
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
             .checklist-card ul {
                 list-style: none;
                 padding: 0;
@@ -4676,11 +4687,7 @@ L741.743,340.671"
                     <p class="diagram-description" id="diagram-description-4">CD登録と意見募集からDIS、FDISの登録・投票を経て、2026年9月28日の発行手続きへ進む。図では最終的な発行日を未定としている。</p>
                     <p>
                         ISO
-                        ページは、このステージを「最終制作工程（最大7週間）」と説明しています。単純計算すると
-                        2026-09-28 から7週間後は
-                        <strong>2026-11-16</strong>
-                        です。したがって<strong>11月中旬までには発行される可能性が高い</strong>と推測できますが、これは筆者の概算であり、ISO
-                        が日付を約束しているわけではありません。
+                        ページは、このステージを「最終制作工程（最大7週間）」と説明しています。<strong>2026年11月19日時点でも ISO はステージ 60.00（発行手続き中）と掲載しており、ステージ 60.60（発行）の日付は公表されていません</strong>（初版確認時の2026年10月6日時点のスナップショットからステージは変わっていません）。最新の発行状況や公開日については、ISO 公式ページで直接確認してください。
                     </p>
                     <h3 id="sec-6-1">
                         補足：ISTQB シラバスに残る旧称<a
@@ -12274,7 +12281,9 @@ z"
                                 </tr>
                                 <tr class="odd">
                                     <td>デシジョンテーブルテスト</td>
-                                    <td>条件・アクションの網羅</td>
+                                    <td>
+                                        実現可能なルール（feasible rules）の網羅で測定する（各条件値やアクションを1回ずつ通すだけでは不十分。例えば AND 条件のルールでは実現可能な4通りの条件組合せすべてをテストする必要があり、真／真と偽／偽だけでは残り2ルールが未網羅になる）
+                                    </td>
                                 </tr>
                                 <tr class="even">
                                     <td>組合せテスト（ペアワイズなど）</td>
@@ -13318,7 +13327,7 @@ L399.953,222.434"
                                     <td>TC-02</td>
                                     <td>
                                         未ログイン → 失敗 → 失敗 → 失敗でロック →
-                                        30分経過で未ログイン
+                                        30分経過直前はロック維持を確認 → 30分経過で未ログイン（解除を確認）
                                     </td>
                                     <td>T2、T2、T3、T5</td>
                                 </tr>
@@ -13354,8 +13363,8 @@ L399.953,222.434"
                                 <tr class="odd">
                                     <td>要件カバレッジ</td>
                                     <td>
-                                        追加テストは不要。T3、T5 を含む既存の TC-02
-                                        に「ロック」要件の ID を紐づけて測定する
+                                        別テストは追加せず、T3、T5 を含む既存の TC-02
+                                        の流れの中で「30分経過直前までアカウントのロックが維持され、30分経過で解除される」ことを確認し、この測定対象に「ロック」要件の ID を紐づける
                                     </td>
                                 </tr>
                             </tbody>
@@ -16272,7 +16281,7 @@ L633.267,207.083"
                                                             style="color: #ffffff !important"
                                                             class="nodeLabel"
                                                             ><p>
-                                                                体系化: ISTQB CT-MBT シラバス通読<br />必要なら資格取得
+                                                                体系化: ISTQB CT-MBT シラバス通読<br />（資格は2027-01-01廃止予定）
                                                             </p></span
                                                         >
                                                     </div></foreignObject
@@ -16376,6 +16385,9 @@ L633.267,207.083"
                         </svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-16">テストの基礎からMBT入門、小さな状態モデルの実践、CT-MBTシラバスによる体系化へ進み、規格本文とioco理論で深掘りする。</p>
+                    <p>
+                        なお、ISTQB の CT-MBT 資格は<strong>2027年1月1日に廃止予定</strong>です。受験を予定している方は、各国の ISTQB 加盟ボード（Member Board）で残りの試験日程を確認してください。CT-MBT シラバス自体は、引き続き学習資料として活用できます。
+                    </p>
                     <h3 id="sec-17-2">
                         17.2 理解度チェックリスト<a
                             aria-label="リンク"
@@ -16388,7 +16400,7 @@ L633.267,207.083"
                         <div class="checklist-progress">
                             <span class="cp-label">理解度チェック</span>
                             <div class="cp-bar"><div class="cp-fill"></div></div>
-                            <span class="cp-count" data-total="12">0 / 12</span>
+                            <span class="cp-count" data-total="12" role="status" aria-atomic="true"><span class="sr-only">理解度チェック </span><span class="cp-value">0 / 12</span></span>
                         </div>
                         <ul class="task-list">
                             <li>
@@ -16564,10 +16576,8 @@ L633.267,207.083"
                         側の窓口）で確認してください。
                     </p>
                     <p>
-                        <strong>Q2. MBT 資格はありますか？</strong> あります。ISTQB の Certified
-                        Tester Model-Based Tester（CT-MBT）です。受験には Foundation Level
-                        の取得が必要です。シラバスは v1.1（2024年2月発行）で、Foundation Level v4.0
-                        に整合させた軽微な更新です。標準の研修時間は合計725分です。
+                        <strong>Q2. MBT 資格はありますか？</strong> ISTQB の Certified
+                        Tester Model-Based Tester（CT-MBT）がありますが、<strong>ISTQB はこの資格を2027年1月1日に廃止（retire）します</strong>。受験を予定している方は、各国の ISTQB 加盟ボード（Member Board）で残りの試験日程を確認してください（受験には Foundation Level の取得が必要です）。シラバス（v1.1、2024年2月発行。Foundation Level v4.0 に整合させた軽微な更新、標準の研修時間は合計725分）は、引き続き学習資料として利用できます。
                     </p>
                     <p>
                         <strong>Q3. 29119-8 に準拠すると何が嬉しいですか？</strong>
@@ -17026,7 +17036,8 @@ L633.267,207.083"
                 function updateActiveHeading() {
                     var current = headings[0];
                     headings.forEach(function (h) {
-                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                        var cutoff = Math.max(window.innerHeight * 0.25, (parseFloat(getComputedStyle(h).scrollMarginTop) || 0) + 1);
+                        if (h.getBoundingClientRect().top <= cutoff) current = h;
                     });
                     if (headings.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
                         current = headings[headings.length - 1];
@@ -17053,7 +17064,7 @@ L633.267,207.083"
                 updateActiveHeading();
                 document.querySelectorAll('.checklist-card').forEach(function (card) {
                     var boxes = card.querySelectorAll('input[type=checkbox]'),
-                        cnt = card.querySelector('.cp-count'),
+                        cnt = card.querySelector('.cp-value') || card.querySelector('.cp-count'),
                         fill = card.querySelector('.cp-fill');
                     function upd() {
                         var c = 0;
