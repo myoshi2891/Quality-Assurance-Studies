@@ -75,6 +75,13 @@ for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index
     expect(svg.getAttribute('viewBox')).toBe(originalViewBox);
     expect(node.getAttribute('transform')).toBe(originalTransform);
     expect(svg.style.marginBottom).toBe('0px');
+    await act(async () => {
+        svg.setAttribute('viewBox', '0 0 999 999');
+        svg.style.marginBottom = '10px';
+        await new Promise(resolve => setTimeout(resolve, 20));
+    });
+    expect(svg.getAttribute('viewBox')).toBe(originalViewBox);
+    expect(svg.style.marginBottom).toBe('0px');
     for(const path of paths){
       const dash=path.style.strokeDasharray.split(/[, ]+/).map(Number);
       expect(dash.slice(0,2)).toEqual([0,0]);expect(dash.at(-1)).toBe(13);

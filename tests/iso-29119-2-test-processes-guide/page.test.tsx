@@ -50,6 +50,8 @@ function canonical(html:string,original=false){
   html=html.replaceAll('テストケース：入力と期待結果の組','テストケース：事前条件・入力・期待結果の組');
   html=html.replaceAll('項目を網羅する入力と期待結果を決める','選んだカバレッジ目標を満たす事前条件・入力・期待結果を決める（目標が100%なら、すべての項目をカバーする）');
   html=html.replaceAll('TD3：カバレッジ項目をもれなくカバーするように、入力値と期待結果を決める','TD3：テスト戦略で選んだカバレッジ目標を満たすように、入力値と期待結果を決め、事前条件も合わせて保持する。目標が100%の場合は、カバレッジ項目をもれなくカバーする');
+  // 2021年版の付録にはテスト条件からテストモデルへの移行を説明する付録Eも含まれる。
+  html=html.replaceAll('7925-2:1998との対応（いずれも参考情報）','7925-2:1998との対応、付録E：テストモデル（テスト条件からの移行の説明）（いずれも参考情報）');
  }
  const $=load(html);$('script').remove();if(original)$('p').each((_,n)=>{const p=$(n);p.html(p.html()!.replace('29119シリーズは5つのパートに分かれていて、','29119シリーズの中核はPart 1〜5で構成され、').replace('シリーズの5パートの関係','シリーズの中核となるPart 1〜5の関係').replace('」にあたります。','」にあたります。ほかにISO/IEC TR 29119-6:2021もあり、シリーズをアジャイルプロジェクトへ適用するためのガイダンスを提供しています。'));});if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
 const markupCache = new Map<string, string>();
