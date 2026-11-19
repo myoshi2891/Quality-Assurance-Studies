@@ -726,7 +726,7 @@
                 </p>
             </blockquote>
             <p>各記述には、根拠の種類が分かるよう次のラベルを付けています。</p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="0. 先に読んでください：本ガイドの情報の出どころと限界：ラベル・意味・信頼度の目安（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -790,7 +790,7 @@
                 2. Step 1：まず「規格の基本情報」を押さえる
             </h2>
             <h3 id="21-基本情報">2.1 基本情報</h3>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="2.1 基本情報：項目・内容・根拠（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -838,9 +838,7 @@
                         <tr class="even">
                             <td>旧番号の可能性</td>
                             <td>
-                                同一の抄録を持つ規格案が「ISO/IEC TS
-                                17847」名義で規格データベースに掲載されていた（2022年7月に pre-draft
-                                登録）。後に 42119 シリーズへ統合されたものと見られる
+                                旧番号候補として「ISO/IEC TS 17847（Verification and validation analysis of AI systems）」名義の記載がある。後に 42119 シリーズへ統合されたものと見られる
                             </td>
                             <td><span class="tag tag-ext">外部資料</span></td>
                         </tr>
@@ -1848,7 +1846,7 @@
                 3. Step 2：42119シリーズの中での位置づけ
             </h2>
             <h3 id="31-兄弟規格との関係">3.1 兄弟規格との関係</h3>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="3.1 兄弟規格との関係：規格・役割・状態（調査時点）・根拠（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -2560,7 +2558,7 @@
                 3.2 「テスト」と「V&amp;V分析」の違い（直感的な理解）
             </h3>
             <p><span class="tag tag-guide">本ガイドの解説</span></p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="3.2 「テスト」と「V&amp;V分析」の違い（直感的な理解）：観点・テスト（42119-2が中心）・V&amp;V分析（42119-3が中心）（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -2601,7 +2599,7 @@
                 <span class="tag tag-ext">外部資料</span>ISO/IEC 22989
                 の整理を紹介している公開解説によると、検証は「システムが<strong>規定された要求を満たしている</strong>ことの確認」、妥当性確認は「システムが<strong>実環境での意図された使用を達成できる</strong>ことの確認」とされています。
             </p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="4. Step 3：用語を揃える（Verification と Validation）：観点・検証（Verification）・妥当性確認（Validation）（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -4471,7 +4469,7 @@
                     </g>
                 </svg>
             </div>
-            <p class="diagram-description" id="diagram-description-4">構想から設計・開発、V&amp;V、展開、運用・監視、継続的妥当性確認、再評価、廃止へ進む。継続学習、劣化・環境変化、不適合による手戻りを扱う。</p>
+            <p class="diagram-description" id="diagram-description-4">構想から設計・開発、V&amp;V、展開、運用・監視、再評価、廃止へ進む。継続的妥当性確認はすべてのシステムに共通する段階ではなく、継続学習を用いるシステムのみに分岐して適用され、劣化・環境変化や不適合による手戻りも扱う。</p>
             <blockquote class="callout callout-note">
                 <p>
                     <span class="tag tag-ext">外部資料</span>22989
@@ -5126,7 +5124,7 @@
             <p class="diagram-description" id="diagram-description-5">形式手法は数学的な証明や反例発見、シミュレーションは仮想環境で危険なケースなどの実行、評価はデータセットと採点による性能測定を担う。</p>
             <h3 id="71-比較表まず全体像">7.1 比較表（まず全体像）</h3>
             <p><span class="tag tag-guide">本ガイドの解説</span></p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="7.1 比較表（まず全体像）：観点・形式手法・シミュレーション・評価（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -5175,7 +5173,7 @@
             </h3>
             <p>
                 <strong>ひとことで</strong
-                >：「全ての入力について、この性質が成り立つ」を数学的に確かめる方法。成り立たなければ<strong>反例</strong>が得られます。
+                >：「全ての入力について、この性質が成り立つ」を数学的に確かめる方法。検証器の実行が決着すれば性質の<strong>証明</strong>か<strong>反例</strong>が得られますが、計算量の制約などでタイムアウトし、結論が出ずに終わる場合もあります。
             </p>
             <h4 id="何を確かめるのか例">何を確かめるのか（例）</h4>
             <p>
@@ -5183,7 +5181,7 @@
                 >代表例は<strong>局所頑健性</strong>です。画像 x
                 に、ε以下のごく小さなノイズを加えても、分類結果が変わらないことを確かめます。
             </p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="何を確かめるのか（例）：項目・内容（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -5221,7 +5219,7 @@
                 </p>
             </blockquote>
             <h4 id="根拠となる資料">根拠となる資料</h4>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="7.2 形式手法：根拠となる資料：資料・要点・種別（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -5301,7 +5299,7 @@
                 >バークレーのSeshia氏らのグループが公開している Scenic と VerifAI
                 が、典型的な最新手法を示しています。
             </p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="仕組み（Scenic + VerifAI の例）：要素・役割（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -6227,7 +6225,7 @@
                 >：データセットや課題を用意し、採点ロジックで性能を測る方法。LLMやエージェントでは特に中心的な手法です。
             </p>
             <h4 id="根拠となる資料-1">根拠となる資料</h4>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="7.3 シミュレーション：根拠となる資料：資料・要点・種別（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -6277,7 +6275,7 @@
                     >本ガイドの解説</span
                 >
             </p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="「平均して良い」だけでは足りない：pass@k と pass^k：k・pass@k = 1 − (1 − p)^k・pass^k = p^k（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -6307,7 +6305,7 @@
             </div>
             <blockquote class="callout callout-note">
                 <p>
-                    同じ「成功率90%」のAIでも、成功率90%の独立した試行を5回繰り返す場合、「5回試して少なくとも1回成功すればよい」用途なら十分ですが、「毎回確実に成功しなければならない」用途では、5回連続成功の確率は約59%にまで下がります。<strong>何を要求するかで、合否の判断が逆転する</strong>ことを意識してください。
+                    同じ「成功率90%」のAIでも、成功率90%の独立した試行を5回繰り返す場合、「5回試して少なくとも1回成功すればよい」用途では少なくとも1回成功する確率（pass@5）は0.99999となり、業務で求める合格基準（たとえば99.9%以上）を満たすなら十分と判断できます。一方、「毎回確実に成功しなければならない」用途では、5回連続成功の確率（pass^5）は約59%にまで下がります。<strong>何を要求するかで、合否の判断が逆転する</strong>ことを意識してください。
                 </p>
             </blockquote>
             <h4 id="評価の落とし穴">評価の落とし穴</h4>
@@ -8217,7 +8215,7 @@
                 </svg>
             </div>
             <p class="diagram-description" id="diagram-description-8">要求・性質の明確化、リスク抽出、手法選択、環境・データ・シナリオ定義、実施、証拠整理・判定、継続監視へ進む。不適合や劣化を検知した場合は前段階へ戻って見直す。</p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="8.2 V&amp;V分析の進め方（7ステップの例）：手順・やること・成果物の例（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -8273,7 +8271,7 @@
                 8.3 ライフサイクル段階 × 手法のマッピング例
             </h3>
             <p><span class="tag tag-guide">本ガイドの解説</span></p>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="8.3 ライフサイクル段階 × 手法のマッピング例：段階（22989）・形式手法・シミュレーション・評価（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -8313,7 +8311,7 @@
             </div>
             <h3 id="84-実務チェックリスト">8.4 実務チェックリスト</h3>
             <div class="checklist-card">
-                <div class="checklist-progress">
+                <div class="checklist-progress" role="status" aria-atomic="true">
                     <span class="cp-label">実務チェックリストの進捗</span
                     ><span class="cp-bar"><span class="cp-fill"></span></span
                     ><span class="cp-count" data-total="8">0 / 8</span>
@@ -9216,7 +9214,7 @@
                     Bibliography）は未確認です。
                 </p>
             </blockquote>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="9. 関連規格との関係マップ：規格・一言で・根拠（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -9258,7 +9256,7 @@
             </div>
 
             <h2 id="10-よくある誤解faq">10. よくある誤解（FAQ）</h2>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="10. よくある誤解（FAQ）：誤解・実際（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -9325,7 +9323,7 @@
             </div>
 
             <h2 id="11-理解度チェック">11. 理解度チェック</h2>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="11. 理解度チェック：問・答え（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -9457,11 +9455,11 @@
                         <tr class="even">
                             <td>42119-3の旧番号候補 TS 17847（AI Standards Hub）</td>
                             <td>
-                                <a href="https://aistandardshub.org/?p=13280" target="_blank" rel="noopener noreferrer"
-                                    >https://aistandardshub.org/?p=13280</a
+                                <a href="https://aistandardshub.org/" target="_blank" rel="noopener noreferrer"
+                                    >https://aistandardshub.org/</a
                                 >
                             </td>
-                            <td>同一抄録、2022年7月 pre-draft 登録の記載</td>
+                            <td>旧番号（ISO/IEC TS 17847）および旧題名（Verification and validation analysis of AI systems）の参照</td>
                         </tr>
                     </tbody>
                 </table>
@@ -9616,7 +9614,7 @@
             </blockquote>
 
             <h2 id="14-用語集">14. 用語集</h2>
-            <div class="table-scroll">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="14. 用語集：用語・意味（横スクロール可能）">
                 <table>
                     <thead>
                         <tr class="header">
@@ -9724,15 +9722,21 @@
                 var activeHeading = null;
                 function updateActiveSection() {
                     var current = headings[0];
+                    var scrollPad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+                    var cutoff = Math.max(window.innerHeight * 0.25, scrollPad + 1);
                     headings.forEach(function (h) {
-                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                        if (h.getBoundingClientRect().top <= cutoff) current = h;
                     });
                     // ページ末尾では25%の線に届かない最後の見出しを現在位置とする
                     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1) current = headings[headings.length - 1];
                     if (!current || current.id === activeHeading) return;
-                    Object.keys(links).forEach(function (k) { links[k].classList.remove('active'); });
+                    Object.keys(links).forEach(function (k) {
+                        links[k].classList.remove('active');
+                        links[k].removeAttribute('aria-current');
+                    });
                     var a = links[current.id];
                     a.classList.add('active');
+                    a.setAttribute('aria-current', 'location');
                     a.scrollIntoView({ block: 'nearest' });
                     activeHeading = current.id;
                 }
