@@ -38,6 +38,36 @@ it('keeps the active TOC entry inside the sidebar viewport',()=>{const C=compone
 
 it('keeps the desktop sidebar non-modal and the background interactive',()=>{const original=window.matchMedia;window.matchMedia=(()=>({matches:false,addEventListener(){},removeEventListener(){}})) as unknown as typeof window.matchMedia;try{const C=component('NavBar');const r=render(<div className="iso29119-2-page"><C/><main className="main"/></div>);expect(r.queryByRole('dialog')).toBeNull();expect(r.container.querySelector('nav')!.hasAttribute('inert')).toBe(false);expect(r.container.querySelector('main')!.hasAttribute('inert')).toBe(false);}finally{window.matchMedia=original;}});
 
+it('moves focus from the mobile toggle to a non-inert TOC link when resizing to desktop, and preserves focus otherwise',()=>{
+ const original=window.matchMedia;
+ let matches=true;
+ const listeners=new Set<()=>void>();
+ window.matchMedia=(()=>({get matches(){return matches;},addEventListener(_:string,fn:()=>void){listeners.add(fn);},removeEventListener(_:string,fn:()=>void){listeners.delete(fn);}})) as unknown as typeof window.matchMedia;
+ try{
+  const C=component('NavBar');
+  const r=render(<div className="iso29119-2-page"><C/><main className="main"><a href="#body-link">body</a></main></div>);
+  const nav=r.container.querySelector('nav')!;
+  const button=r.getByRole('button');
+  const firstLink=nav.querySelector<HTMLAnchorElement>('a[href]')!;
+  const bodyLink=r.container.querySelector<HTMLAnchorElement>('main a')!;
+
+  // When the toggle button holds focus and viewport crosses to desktop, focus moves to a visible, non-inert TOC link.
+  button.focus();
+  expect(document.activeElement).toBe(button);
+  expect(nav.hasAttribute('inert')).toBe(true);
+  act(()=>{matches=false;listeners.forEach(fn=>fn());});
+  expect(nav.hasAttribute('inert')).toBe(false);
+  expect(document.activeElement).toBe(firstLink);
+
+  // Switch back to mobile, focus a main link, then resize to desktop: focus must remain unchanged.
+  act(()=>{matches=true;listeners.forEach(fn=>fn());});
+  bodyLink.focus();
+  expect(document.activeElement).toBe(bodyLink);
+  act(()=>{matches=false;listeners.forEach(fn=>fn());});
+  expect(document.activeElement).toBe(bodyLink);
+ }finally{window.matchMedia=original;}
+});
+
 for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index}: ${index === 10 || index === 12 ? "retains reviewed Mermaid geometry" : "restores original geometry"} when SVG is inserted`, async () => {
     const C = sourceModule(base + '/Diagram.tsx').default as React.ComponentType<{index: number}>;
     const r = render(<C index={index}/>);

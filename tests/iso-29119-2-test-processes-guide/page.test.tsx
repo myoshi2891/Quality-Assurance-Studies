@@ -9,49 +9,13 @@ import postcss from 'postcss';
 import inventory from '../../docs/migration-inventory/iso-29119-2-test-processes-guide.json';
 import {sourceModule} from '../helpers/source-module';
 import {reviewedSource,reviewedEdges,reviewedDescription} from './reviewed-diagrams';
+import {applyReviewedContent} from './reviewed-content';
 const base='app/iso-29119-2-test-processes-guide',scope='.iso29119-2-page';
 const norm=(s:string)=>s.replace(/\s+/g,' ').trim();
-const LOGIN_RESET_CASE='この表の「未ログイン」は、連続失敗回数が0〜4回の状態をまとめています。そのため、ログイン成功で回数が0に戻ることは、各行を1回ずつ通すだけでは確かめられません。次の順序のケースも追加します：誤ったパスワードを4回入力する → 正しい認証情報でログインする → ログアウトして、誤ったパスワードを1回入力する。期待結果は、アカウントがロックされず、未ログインのままであることです。';
 function tree(n:AnyNode):unknown{if(n.type==='text')return norm(n.data)||null;if(!isTag(n))return null;const attrs={...n.attribs};for(const k of Object.keys(attrs))if(k.startsWith('aria-')||['role','inert','tabindex','checked'].includes(k))delete attrs[k];if(attrs.class)attrs.class=attrs.class.replace(/\s*active\b/g,'').trim();if(attrs.style)attrs.style=attrs.style.replace(/\s|;$/g,'');if(attrs.class==='cl-fill')delete attrs.style;if(n.tagName==='button')delete attrs.type;return{tag:n.tagName,attrs,children:attrs.class==='mermaid-diagram'?[]:n.children.map(tree).filter(Boolean)};}
 function canonical(html:string,original=false){
  if(original){
-  html=html.replaceAll('リスクベース：失敗したときの影響が大きい所から優先してテストする考え方','リスクベース：失敗が起きる可能性と、起きたときの影響の組み合わせに基づき、優先順位やテストの深さを決める考え方');
-  html=html.replaceAll('テスト対象の振る舞いを図や表で抽象化したもの（2021年版の中心概念）','テスト対象の振る舞いを抽象化し、図・表・ソースコード・要求などで表現したもの。カバレッジ項目を特定するために用いる（2021年版の中心概念）');
-  html=html.replaceAll('対象の振る舞いを図や表で抽象化したもの','対象の振る舞いを抽象化し、図・表・ソースコード・要求などで表現したもの。カバレッジ項目を特定するために用いる');
-  html=html.replaceAll('IEEE Standards Association（29119-2のカタログ）','IEEE Standards Association（29119-2:2021のカタログ）');
-  html=html.replaceAll('https://standards.ieee.org/ieee/29119-2/5309/','https://standards.ieee.org/ieee/29119-2/7498/');
-  html=html.replaceAll('シリーズの説明、Part 3・4との関係','2021年版の要旨・発行日・前版との関係');
-  // 33063:2015は旧版（2013年版）のテスト条件ベースのプロセスを評価する。2021年版のテストモデルと区別する。
-  html=html.replaceAll('33063:2015として発行され、29119-2のテストプロセスと結びついています。','33063:2015として発行されました。ただし、33063:2015が評価の前提とするのは旧版（29119-2:2013）のプロセスで、テスト設計ではテスト条件を用います。2021年版はテスト条件に代えてテストモデルを用いるため、2015年版の指標で2021年版のプロセスを直接評価することはできません。2021年版の変更を反映するため、33063の改訂案（ドラフト）が作成されています。');
-  html=html.replaceAll('<li>33063：29119-2のプロセスを、どれだけ実践できているかを評価するモデル</li>','<li>33063：テストプロセスをどれだけ実践できているかを評価するモデル。2015年版は旧版（2013年版）のプロセスが前提で、2021年版向けには改訂案で更新される</li>');
-  html=html.replaceAll('<td>ISO/IEC 33063:2015</td>','<td>ISO/IEC 33063:2015（旧版29119-2:2013のプロセスが前提。2021年版のプロセスの評価には改訂版の状況を確認）</td>');
-  // 環境の問題も、影響と報告方針によってはインシデントとして報告・追跡する。分析（IR1）と報告書の作成・更新（IR2）は区別する。
-  html=html.replaceAll('IR1：テスト手順の誤り、環境の不具合、仕様の解釈ミス、実装の欠陥を切り分ける','IR1：テスト手順の誤り、環境の不具合、仕様の解釈ミス、実装の欠陥を切り分け、報告するかを判断する材料を集める。報告書の作成・更新はIR2で行う');
-  html=html.replaceAll('ひし形「報告すべきか」：手順や環境の問題なら、テスト側を直して終わる','ひし形「報告すべきか」：手順の誤りなど報告不要と判断したものは、テスト側を直して再テストへ戻り、結果を記録する。環境の問題は、影響の大きさとチームの報告方針に基づいて報告するかを決め、報告する場合はIR2で追跡する');
-  // 2021年版の用語: 組織テスト仕様の代表例は組織テストポリシーと組織テストプラクティス。2文書で全部ではない。
-  html=html.replaceAll('の文書化規格では、これが次の2つの文書にあたります（Wikipediaの整理による）。','の文書化規格（2021年版）では、組織テスト仕様の代表例として次の2つの文書を挙げています。これですべてではなく、組織によってはほかの文書も組織テスト仕様に含まれます。');
-  html=html.replaceAll('テストポリシー（Test Policy）','組織テストポリシー（Organizational Test Policy）');
-  html=html.replaceAll('組織テスト戦略（Organizational Test Strategy）','組織テストプラクティス（Organizational Test Practices）');
-  html=html.replaceAll('方針を実現するための組織共通の進め方','方針を実現するための組織共通のテストの進め方（2013年版の「組織テスト戦略」にあたる）');
-  html=html.replaceAll('組織テスト仕様：テストポリシーと組織テスト戦略をまとめた呼び方','組織テスト仕様：組織全体のテストの方針や進め方を定める文書の総称。代表例は組織テストポリシーと組織テストプラクティスで、これらに限らない');
-  html=html.replaceAll('テストポリシー：テストの目的と原則を示す、組織レベルの短い方針','組織テストポリシー：テストの目的と原則を示す、組織レベルの短い方針');
-  // 手順にない操作を足さないのはスクリプトテストに限る。手順書のないテストでは実施した操作を記録する。
-  html=html.replaceAll('TE1：テスト環境の上で、手順書どおりに操作する。手順にない操作を足さない','TE1：テスト環境の上で操作する。スクリプトテスト（手順書のあるテスト）では手順書どおりに操作し、手順にない操作を足さない。手順書のないテスト（探索的テストなど）では、実際に行った操作を記録する');
-  // ロックの条件は「同じアカウントでパスワードを連続5回誤る」。失敗のきっかけをそのアカウントの誤ったパスワードに限定する。
-  html=html.replaceAll('誤った認証情報を入力（失敗が4回目まで）','対象アカウントの誤ったパスワードを入力（連続失敗が4回目まで）');
-  html=html.replaceAll('誤った認証情報を入力（5回目）','対象アカウントの誤ったパスワードを入力（連続失敗が5回目）');
-  // ログインに成功すると連続失敗回数は0に戻る。失敗回数をまとめた「未ログイン」では見えないため、数え直しを確かめるケースを示す。
-  html=html.replaceAll('<td>ログイン済み</td>','<td>ログイン済み（連続失敗回数を0に戻す）</td>');
-  html=html.replaceAll('実行順に並べたものが手順（TD4）です。</p>',`実行順に並べたものが手順（TD4）です。</p>\n<p>${LOGIN_RESET_CASE}</p>`);
-  // 2013年版の設計プロセスはTD1（フィーチャセットの特定）からTD6まで。2021年版のTD1〜TD4は変更しない。
-  html=html.replaceAll('TD2〜TD6（条件の導出、カバレッジ項目、テストケース、テストセット、手順）','TD1〜TD6（フィーチャセットの特定、条件の導出、カバレッジ項目、テストケース、テストセット、手順）');
-  // TD3は選択したカバレッジ目標を満たすテストケースを導出する。全項目の網羅は目標が100%の場合の例に限る。
-  html=html.replaceAll('カバレッジ項目を網羅するための入力と期待結果の組','選んだカバレッジ目標を満たすように、カバレッジ項目を実行する事前条件・入力・期待結果の組');
-  html=html.replaceAll('テストケース：入力と期待結果の組','テストケース：事前条件・入力・期待結果の組');
-  html=html.replaceAll('項目を網羅する入力と期待結果を決める','選んだカバレッジ目標を満たす事前条件・入力・期待結果を決める（目標が100%なら、すべての項目をカバーする）');
-  html=html.replaceAll('TD3：カバレッジ項目をもれなくカバーするように、入力値と期待結果を決める','TD3：テスト戦略で選んだカバレッジ目標を満たすように、入力値と期待結果を決め、事前条件も合わせて保持する。目標が100%の場合は、カバレッジ項目をもれなくカバーする');
-  // 2021年版の付録にはテスト条件からテストモデルへの移行を説明する付録Eも含まれる。
-  html=html.replaceAll('7925-2:1998との対応（いずれも参考情報）','7925-2:1998との対応、付録E：テストモデル（テスト条件からの移行の説明）（いずれも参考情報）');
+  html=applyReviewedContent(html);
  }
  const $=load(html);$('script').remove();if(original)$('p').each((_,n)=>{const p=$(n);p.html(p.html()!.replace('29119シリーズは5つのパートに分かれていて、','29119シリーズの中核はPart 1〜5で構成され、').replace('シリーズの5パートの関係','シリーズの中核となるPart 1〜5の関係').replace('」にあたります。','」にあたります。ほかにISO/IEC TR 29119-6:2021もあり、シリーズをアジャイルプロジェクトへ適用するためのガイダンスを提供しています。'));});if(original)$('.cl-count').text('0 / 13');if(original)$('a[href^="http"]').attr('target','_blank').attr('rel','noopener noreferrer');$('pre code').each((_,n)=>{$(n).text($(n).text());});$('table,thead,tbody,tr').contents().filter((_,n)=>n.type==='text'&&!n.data.trim()).remove();return $;}
 const markupCache = new Map<string, string>();

@@ -10,15 +10,29 @@ export default function NavBar() {
     const nav = useRef<HTMLElement>(null);
     const boundary = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
+    const restoreDesktopFocus = useRef(false);
     useEffect(() => {
         const query = window.matchMedia('(max-width: 900px)');
         /** Close the drawer when switching back to the desktop column. */
-        const update = () => { setMobile(query.matches); if (!query.matches)
-            setOpen(false); };
+        const update = () => {
+            const buttonFocused = document.activeElement === button.current;
+            setMobile(query.matches);
+            if (!query.matches) {
+                if (buttonFocused) restoreDesktopFocus.current = true;
+                setOpen(false);
+            }
+        };
         update();
         query.addEventListener('change', update);
         return () => query.removeEventListener('change', update);
     }, []);
+    useEffect(() => {
+        if (mobile || !restoreDesktopFocus.current) return;
+        restoreDesktopFocus.current = false;
+        const sidebar = nav.current;
+        if (!sidebar || sidebar.inert) return;
+        sidebar.querySelector<HTMLAnchorElement>('a[href]')?.focus();
+    }, [mobile]);
     useEffect(() => {
         if (!mobile || !open)
             return;
