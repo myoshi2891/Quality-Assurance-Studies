@@ -12526,11 +12526,11 @@ z"
                                 </tr>
                                 <tr class="odd">
                                     <td>ログイン済であることの確認</td>
-                                    <td>マイページへの遷移、またはセッショントークンの存在確認</td>
+                                    <td>ログイン後のセッションで認証必須ページ（マイページなど）へ実際にアクセスできることを確認する（セッショントークンの存在だけでは認証済みの根拠にしない）</td>
                                 </tr>
                                 <tr class="even">
                                     <td>ログアウト済であることの確認（TC-01、T4 の後）</td>
-                                    <td>ログアウト操作を実行した後、同じセッションで認証必須ページへアクセスし、アクセスできない（ログイン画面へ遷移する、または認証エラーになる）ことを確認する。ログアウト前には、上記のログイン済の確認を維持する</td>
+                                    <td>ログアウト操作を実行した後、ログイン済の確認で成功したのと同じセッション・同じ認証必須ページへアクセスし、アクセスできない（ログイン画面へ遷移する、または認証エラーになる）ことを確認する。ログアウト前には、上記のログイン済の確認を維持する</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -13678,7 +13678,7 @@ L470.258,1327.734"
                             </g>
                         </svg>
                     </div>
-                    <p class="diagram-description" id="diagram-description-14">状態・分岐や仕様変更が多く、長期の回帰テストが必要なら、人材・時間と自動実行基盤を確認する。両方あれば試験導入し、不足すれば教育や基盤整備を優先する。規模や反復が少なければ従来技法の強化を優先する。</p>
+                    <p class="diagram-description" id="diagram-description-14">状態や分岐が多く仕様変更も頻繁かを確認し、該当しなければ従来技法の強化を優先する。該当する場合は、長期運用または繰り返しの回帰テストがあるかを確認し、なければ従来技法の強化を優先する。ある場合は、モデルを書き維持できる人材と時間があるかを確認し、なければ先に教育・人員を確保する。人材と時間があれば自動実行の基盤が整っているかを確認し、整っていなければ先にテスト自動化基盤を整備し、整っていればMBTのパイロット導入に適している。</p>
                     <div class="callout callout-warn">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">⚠️</span><span>注意</span>
@@ -16153,6 +16153,21 @@ L633.267,207.083"
                 window.addEventListener('keydown', function (e) {
                     if (/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(e.key)) {
                         fragmentTarget = null;
+                    }
+                });
+                document.addEventListener('focusin', function (e) {
+                    if (!fragmentTarget || !e.target || !e.target.closest || !e.target.closest('.content')) return;
+                    var fragmentHeading = document.getElementById(fragmentTarget);
+                    if (!fragmentHeading) return;
+                    // 固定中の節の外へキーボードフォーカスが移ったら固定を解除し、表示中の節を現在位置にする。
+                    var all = [].slice.call(document.querySelectorAll('.content h2[id],.content h3[id]'));
+                    var next = all[all.indexOf(fragmentHeading) + 1];
+                    var afterStart = fragmentHeading === e.target || fragmentHeading.contains(e.target) ||
+                        (fragmentHeading.compareDocumentPosition(e.target) & Node.DOCUMENT_POSITION_FOLLOWING);
+                    var beforeNext = !next || (next.compareDocumentPosition(e.target) & Node.DOCUMENT_POSITION_PRECEDING);
+                    if (!(afterStart && beforeNext)) {
+                        fragmentTarget = null;
+                        updateActiveHeading();
                     }
                 });
                 function activate(id) {
