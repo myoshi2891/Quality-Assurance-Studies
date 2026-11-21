@@ -985,7 +985,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num" id="kpi-total-files">299<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">300<span class="unit">files</span></div>
       <div class="kpi-lbl">Inventory Files Total</div>
       <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
@@ -1058,7 +1058,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">299 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">300 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
@@ -1093,7 +1093,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">43 files</span>
+          <span class="inv-count" id="inv-count-e2e">44 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
@@ -1716,6 +1716,7 @@ const DATA = {
   ],
   "e2e": [
     "e2e/iso-29119-2-layout.e2e.ts",
+    "e2e/iso-29119-2-drawer.e2e.ts",
     "e2e/iso-42005-layout.e2e.ts",
     "e2e/iso-33063-fdis-layout.e2e.ts",
     "e2e/iso-33063-fdis-drawer.e2e.ts",
