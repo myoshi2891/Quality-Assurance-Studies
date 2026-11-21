@@ -5385,7 +5385,7 @@
                                 Models（HELM）」（Stanford CRFM, 2022）
                             </td>
                             <td>
-                                精度だけでなく、<strong>較正・頑健性・公平性・バイアス・毒性・効率</strong>を含む7指標を、複数シナリオで測る多指標アプローチ。30モデルを42シナリオで同一条件評価し、トレードオフを明示する
+                                精度だけでなく、<strong>較正・頑健性・公平性・バイアス・毒性・効率</strong>を含む7指標を複数シナリオで測る多指標アプローチ。全42シナリオは、可能な限り7指標を計測する16のコアシナリオと、特定の性質を掘り下げる26のターゲットシナリオに分かれ、30モデルのトレードオフを明示する
                             </td>
                             <td><span class="tag tag-ext">外部資料</span></td>
                         </tr>
@@ -6394,7 +6394,7 @@
                     </g>
                 </svg>
             </div>
-            <p class="diagram-description" id="diagram-description-8">要求・性質の明確化、リスク抽出、手法選択、環境・データ・シナリオ定義、実施、証拠整理・判定、継続監視へ進む。不適合や劣化を検知した場合は前段階へ戻って見直す。</p>
+            <p class="diagram-description" id="diagram-description-8">要求・性質の明確化、リスク抽出、手法選択、環境・データ・シナリオ定義、実施、証拠整理・判定、継続監視へ進む。手順6で不適合となった場合は手順1へ戻り、手順7の運用監視で劣化を検知した場合は手順4へ戻って見直す。</p>
             <div class="table-scroll" tabindex="0" role="region" aria-label="8.2 V&amp;V分析の進め方（7ステップの例）：手順・やること・成果物の例（横スクロール可能）">
                 <table>
                     <thead>
@@ -7877,6 +7877,7 @@
                     if (e.target !== tg) toggleHadFocus = false;
                 });
                 function syncSidebar() {
+                    if (!mobileSidebar.matches) sb.classList.remove('open');
                     var closed = mobileSidebar.matches && !sb.classList.contains('open');
                     if (closed && sb.contains(document.activeElement)) tg.focus();
                     sb.inert = closed;
@@ -7929,10 +7930,12 @@
                     var a = links[current.id];
                     a.classList.add('active');
                     a.setAttribute('aria-current', 'location');
-                    var r = a.getBoundingClientRect(),
-                        s = sb.getBoundingClientRect();
-                    if (s.height > 0 && (r.top < s.top + 40 || r.bottom > s.bottom - 40)) {
-                        sb.scrollTop += r.top - s.top - s.height / 3;
+                    if (!sb.contains(document.activeElement)) {
+                        var r = a.getBoundingClientRect(),
+                            s = sb.getBoundingClientRect();
+                        if (s.height > 0 && (r.top < s.top + 40 || r.bottom > s.bottom - 40)) {
+                            sb.scrollTop += r.top - s.top - s.height / 3;
+                        }
                     }
                     activeHeading = current.id;
                 }
