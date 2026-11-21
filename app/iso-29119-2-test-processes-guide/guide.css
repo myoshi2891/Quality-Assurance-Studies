@@ -45,7 +45,7 @@
 .iso29119-2-page .mermaid-wrapper .edgeLabels rect, .iso29119-2-page .mermaid-wrapper .edgeLabel rect { fill: #0d1b30 !important; stroke: none !important; }
 .iso29119-2-page .mermaid-wrapper .edgeLabel, .iso29119-2-page .mermaid-wrapper .edgeLabel span, .iso29119-2-page .mermaid-wrapper .edgeLabel p, .iso29119-2-page .mermaid-wrapper .edgeLabel text, .iso29119-2-page .mermaid-wrapper .edgeLabels .label { background-color: #0d1b30 !important; color: #eaf1ff !important; fill: #eaf1ff !important; }
 .iso29119-2-page .scrim { display: none; }
-.iso29119-2-page .table-scroll:focus-visible, .iso29119-2-page a:focus-visible, .iso29119-2-page button:focus-visible, .iso29119-2-page input:focus-visible { outline: 2px solid var(--ac); outline-offset: 2px; }
+.iso29119-2-page .table-scroll:focus-visible, .iso29119-2-page .mermaid-diagram:focus-visible, .iso29119-2-page a:focus-visible, .iso29119-2-page button:focus-visible, .iso29119-2-page input:focus-visible { outline: 2px solid var(--ac); outline-offset: 2px; }
 @media(max-width:900px) {
 .iso29119-2-page h2, .iso29119-2-page h3, .iso29119-2-page h4 { scroll-margin-top: calc(132px + var(--disclaimer-height, 0px)); }
 .iso29119-2-page.nav-open .scrim { display: block; position: fixed; inset: calc(60px + var(--disclaimer-height, 0px)) 0 0; background: #0008; z-index: 19; }
