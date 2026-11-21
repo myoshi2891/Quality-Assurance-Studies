@@ -12439,7 +12439,7 @@ z"
                                 <tr class="even">
                                     <td>TC-02</td>
                                     <td>
-                                        未ログイン → 失敗 → 失敗 → 失敗でロック →
+                                        未ログイン → 失敗 → 失敗（未ロック維持を確認） → 失敗でロック →
                                         30分経過直前はロック維持を確認 → 30分経過で未ログイン（解除を確認）
                                     </td>
                                     <td>T2、T2、T3、T5</td>
@@ -12518,7 +12518,7 @@ z"
                                 <tr class="even">
                                     <td>ロック維持／解除の確認（TC-02）</td>
                                     <td>
-                                        時刻スタブが30分経過直前（29分59秒）の時点で、参照専用のアカウント状態照会 API または DB のロック状態フラグなど状態を変更しない手段（認証試行やログアウト状態への依存を避ける）でロック維持を確認し、続けて30分経過時点で同じ参照専用手段によりロック解除を確認する
+                                        時刻スタブ（29分59秒時点および30分経過時点）に対して評価される参照専用の有効ロック状態チェック（アカウント状態照会 API など状態を変更しない手段、認証試行やログアウト状態への依存を避ける）で、29分59秒時点のロック維持と30分経過時点のロック解除を確認する。生の DB ロック状態フラグを用いるのは、認証試行を伴わずに期限切れが反映されることが保証されている場合に限る
                                     </td>
                                 </tr>
                                 <tr class="odd">
@@ -15847,10 +15847,10 @@ L633.267,207.083"
                                     </td>
                                     <td>
                                         <a
-                                            href="https://www.istqb.org/certifications/model-based-tester"
+                                            href="https://istqb.org/certifications/certified-tester-model-based-tester-ct-mbt/"
                                             rel="noopener noreferrer"
                                             target="_blank"
-                                            >https://www.istqb.org/certifications/model-based-tester</a
+                                            >https://istqb.org/certifications/certified-tester-model-based-tester-ct-mbt/</a
                                         >
                                     </td>
                                     <td>19章 Q2</td>
@@ -16114,7 +16114,7 @@ L633.267,207.083"
                 });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
-                var links = {};
+                var links = Object.create(null);
                 var fragmentTarget = null;
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.getAttribute('data-target')] = a;
@@ -16125,7 +16125,12 @@ L633.267,207.083"
                     });
                 });
                 function syncFragmentFromHash() {
-                    var id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+                    var id = '';
+                    try {
+                        id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+                    } catch (e) {
+                        id = '';
+                    }
                     if (id && links[id]) {
                         fragmentTarget = id;
                         activate(id);
@@ -16139,6 +16144,7 @@ L633.267,207.083"
                 }
                 window.addEventListener('wheel', clearFragmentOnUserScroll, { passive: true });
                 window.addEventListener('touchmove', clearFragmentOnUserScroll, { passive: true });
+                window.addEventListener('pointerdown', clearFragmentOnUserScroll, { passive: true });
                 window.addEventListener('keydown', function (e) {
                     if (/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(e.key)) {
                         fragmentTarget = null;
@@ -16181,17 +16187,14 @@ L633.267,207.083"
                         if (h.getBoundingClientRect().top <= cutoff) current = h;
                     });
                     if (headings.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
-                        var fragmentHeading = fragmentTarget ? document.getElementById(fragmentTarget) : null;
-                        if (fragmentHeading && links[fragmentTarget]) {
-                            var rect = fragmentHeading.getBoundingClientRect();
-                            if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
-                                current = fragmentHeading;
-                            } else {
-                                fragmentTarget = null;
-                                current = headings[headings.length - 1];
-                            }
+                        current = headings[headings.length - 1];
+                    }
+                    if (fragmentTarget && links[fragmentTarget]) {
+                        var fragmentHeading = document.getElementById(fragmentTarget);
+                        if (fragmentHeading) {
+                            current = fragmentHeading;
                         } else {
-                            current = headings[headings.length - 1];
+                            fragmentTarget = null;
                         }
                     }
                     if (current && current.id !== activeHeading) {
