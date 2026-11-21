@@ -1,0 +1,41 @@
+import React from 'react';
+import type { Metadata } from 'next';
+import './guide.css';
+import Section00 from './Section00';
+import Section01 from './Section01';
+import Section02 from './Section02';
+import Section03 from './Section03';
+import Section04 from './Section04';
+import Section05 from './Section05';
+import Section06 from './Section06';
+import Section07 from './Section07';
+import Section08 from './Section08';
+import Section09 from './Section09';
+import Section10 from './Section10';
+import Section11 from './Section11';
+import Section12 from './Section12';
+import Section13 from './Section13';
+import NavBar from './NavBar';
+export const metadata: Metadata = {
+  title: 'ISO/IEC/IEEE 29119-2:2021 テストプロセス 初学者向けステップバイステップ解説',
+  description: '組織・マネジメント・動的テストの3層、各プロセスの活動と成果物を具体例と図解から段階的に学ぶ。',
+};
+/** Retain the original fixed-sidebar layout. */
+export default function Page() {
+  return <div className="iso29119-2-page"><NavBar /><main className="main">
+      <Section00 />
+      <Section01 />
+      <Section02 />
+      <Section03 />
+      <Section04 />
+      <Section05 />
+      <Section06 />
+      <Section07 />
+      <Section08 />
+      <Section09 />
+      <Section10 />
+      <Section11 />
+      <Section12 />
+      <Section13 />
+    </main></div>;
+}

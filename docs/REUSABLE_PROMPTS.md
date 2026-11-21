@@ -1,6 +1,8 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-11-14
+最終更新日: 2026-11-15
+
+`/iso-29119-2-test-processes-guide`は14カテゴリーを個別コミットして移行済み。原本HTML・Markdownは同一内容でアーカイブ済み。`npm test -- tests/iso-29119-2-test-processes-guide`と`npm run e2e:layout -- --project=iso-29119-2`で対象405件と原本CSS・実SVG比較49件を再検証できます。134ルート・ISO29件へ同期。全体15541件（252ファイル）・関連751件・対象型検査・全体lint成功。全角スペースを含む図ラベル、配置・寸法・配色を保持し、共有Mermaidは変更していません。ビルド未実施、目視確認はユーザー担当。
 
 `/iso-iec-42005-2025-beginner-guide`は導入＋第0〜15章の17カテゴリーを個別コミットして移行済み。原本HTML・Markdownは同一内容でアーカイブ済み。`npm test -- tests/iso-iec-42005-2025-beginner-guide`と`npm run e2e:layout -- --project=iso-42005`で対象446件と原本CSS・実SVG比較39件を再検証できます。全体15134件（249ファイル）、対象型検査・全体lint成功。ビルド未実施、目視確認はユーザー担当。図の座標復元はページ側に限定し、共有Mermaidは変更していません。
 

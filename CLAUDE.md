@@ -4,6 +4,15 @@ Updated 2026-11-15
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 2026-11-15: ISO/IEC/IEEE 29119-2:2021 テストプロセスガイドの移行
+
+- `/iso-29119-2-test-processes-guide`をISOカテゴリーへ登録。134ルート（ホーム＋133ガイド）、ISOは29件。
+- 導入・注意事項・第1〜11章・付録の14カテゴリーを順番に実装し、原本比較成功後に個別コミット。73見出し、55階層目次、27表の全セル、17図、11注記、3引用欄、11用語欄、5インラインコード、14外部リンク、10チェック項目、全57 CSSルールを固定インベントリと照合。通常のコードブロックと開閉回答は原本どおり0件。
+- `app/iso-29119-2-test-processes-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section13.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・`diagram-layouts.ts`・`restoreDiagramLayout.ts`を配置。280px固定目次、900px境界、ダーク配色、ヒーロー装飾、表・注記・用語欄を保持。目次はキーボード循環・Escape・背景inert・共有スクロールロック・動的免責高さへ対応。チェックは原本同様のネイティブ操作。
+- 図はHTML内SVGの全ノード・接続・ラベル・図形を正本とし、全角スペース、neoグラデーション、フォント、座標、ラベル寸法、破線を維持。Markdownの図とHTMLが異なる場合はHTMLを優先。共有Mermaidコンポーネントは変更せず、ページ側で設定と座標を復元。
+- 原本は`archive/html-archive/iso/Iso-29119-2-test-processes-guide.html`と`archive/md-archive/iso/Iso-29119-2-test-processes-guide.md`へ同一内容で移動。SHA-256・Git追跡・rename 100%・インベントリ再現性を検証。
+- 検証は当時npm経由で実施（Bun必須の運用に対しては履歴）。2026-11-16にBunで再検証し、`bun test tests/iso-29119-2-test-processes-guide`の対象405件（3ファイル、失敗0）が成功。ESLintと型検査はBunX経由で当該E2Eを確認。ブラウザー比較は未再実行。以下は当時の記録：対象405件、原本ブラウザー比較49件（5幅×CSS2順序、17実SVG×2幅、5幅×免責高さ3条件と縮小防止・スクロール両端）、対象ソース・テスト・E2E型検査、全体ESLint、Markdown lintを実施。全体15,541件（252ファイル、失敗0）、関連751件が成功。ビルド未実施、目視確認はユーザー担当。
+
 ## 2026-11-15: ISO 42005のMermaid CSSリセット補強
 
 - ページ固有の`.mermaid-wrapper`リセット8項目の値を保持し、全宣言へ`!important`を追加。`.mermaid-container`と`.mermaid-wrap`に横スクロール・100%幅のリセットを追加し、SVGの縮小防止を維持。
@@ -580,7 +589,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test 全体, 249 ファイル・15134 tests)
+bun test             # ユニットテスト (bun test 全体, 252 ファイル・15541 tests)
 ```
 
 ### E2E テスト (Playwright)
@@ -1490,6 +1499,7 @@ bun test        # ユニットテスト成功
 | `Iec-62304-beginner-guide.html` | `/iec-62304-beginner-guide` | ✅ ダーク配色・22セクション・目次50リンク・37表・18図・13注記・30外部リンク (tests/fixtures/source-html/、HTML・MD両方) |
 | `Iec62304-beginner-guide.html` | `/iec62304-beginner-guide` | ✅ 21カテゴリー・58見出し・目次21リンク・34表・18図・注記18件・外部リンク20件・回答7件・49 CSSルール、HTML・MDアーカイブ済み |
 | `Iso-19770-1-guide.html` | `/iso-19770-1-guide` | ✅ 14カテゴリー・31見出し・階層目次30リンク・16表・10図・注記7件・外部リンク18件・回答6件・66 CSSルール、HTML・MDアーカイブ済み |
+| `Iso-29119-2-test-processes-guide.html` | `/iso-29119-2-test-processes-guide` | ✅ 14カテゴリー・73見出し・55目次・27表・17図・10チェック・全57 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-42005-2025-beginner-guide.html` | `/iso-iec-42005-2025-beginner-guide` | ✅ 17カテゴリー・79見出し・67目次・47表・12図・13チェック・全72 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-33063-fdis-guide.html` | `/iso-33063-fdis-guide` | ✅ 15カテゴリー・51見出し・14目次・24表・9図・全50 CSSルール・HTML/MDアーカイブ済み |
 | `Iso-iec-2382-15-guide.html` | `/iso-iec-2382-15-guide` | ✅ 10カテゴリー・49見出し・43目次・18表・14図・9コード例・全87 CSSルール・HTML/MDアーカイブ済み |
@@ -1525,7 +1535,7 @@ bun test        # ユニットテスト成功
 |---|---|---|---|
 | ツール系（1 ファイル）: `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | 新規ガイド系（1 ファイル）: `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
-| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7、42001:2023、29110-5-1-2:2025、2382-15:1999、FDIS 33063、42005:2025は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
+| 追加ガイド系: `Iso-*.html` / `Iso-*.md` | 未定 | ⏸ 未移行の追加ソース | CTAL-TAE第1〜8章は移行・アーカイブ済み。ISO 規格各部などの残存ソース。23009-1:2026、27799:2025、TS 30149:2024、29119-3:2021、9075-1:2023追加原本、40500:2025、19770-1:2017、27031:2025、30173:2023、TR 29119-13:2022、AWI TS 42119-7、42001:2023、29110-5-1-2:2025、2382-15:1999、FDIS 33063、42005:2025、29119-2:2021は移行・アーカイブ済み。既存登録ルートと重なる内容は差分を確認して移行方針を決定 |
 
 ## 既知の留保事項
 
@@ -1536,11 +1546,12 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 133 ルート（ガイドライブラリ index + 132 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 134 ルート（ガイドライブラリ index + 133 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメント（`Sonarqube.html`、ISO 各規格など）が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 全体テストすべて成功。ページ単体、ナビゲーション、Mermaid契約も全て成功。
 - 新規追加「ISO/IEC 30173:2023 初学者ガイド」（`/iso-30173-guide`）を登録済み。
 - 保留中の作業（次回セッション）:
+  1. `/iso-29119-2-test-processes-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-42005-2025-beginner-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-33063-fdis-guide`の目視確認（ユーザー担当、ビルド未実施）。
   1. `/iso-iec-2382-15-guide`の目視確認（ユーザー担当、ビルド未実施）。
