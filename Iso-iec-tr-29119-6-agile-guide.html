@@ -224,7 +224,7 @@
             td {
                 color: var(--dim);
             }
-            ul:has(> li > input) {
+            ul.task-list {
                 list-style: none;
                 padding: 16px 20px;
                 background: var(--card);
@@ -2157,8 +2157,8 @@
                             </td>
                         </tr>
                         <tr class="even">
-                            <td>以降の附属書</td>
-                            <td>29119-3 のテスト文書をアジャイルで使う例</td>
+                            <td>附属書C・附属書D</td>
+                            <td>附属書C：アジャイルのテスト成果物を 29119-3 の文書へ対応づけるマッピング。附属書D：アジャイルのテスト成果物の例</td>
                         </tr>
                     </tbody>
                 </table>
@@ -2244,7 +2244,7 @@
                     aria-roledescription="flowchart-v2"
                  aria-labelledby="diagram-title-3" aria-describedby="diagram-description-3">
                     <title id="diagram-title-3">三層テストプロセスの指示とフィードバック</title>
-                    <desc id="diagram-description-3">組織層が方針を与え、管理層が計画と指示を動的テスト層へ渡す。動的層は結果を管理層へ報告し、改善点を組織層へ戻す。</desc>
+                    <desc id="diagram-description-3">組織層が方針を与え、管理層が計画と指示を動的テスト層へ渡す。動的テスト層は結果の報告を管理層へ返し、管理層は改善点を組織層へ戻す。</desc>
                     <style>
                         #mmd-svg-3 {
                             font-family: 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
@@ -2996,7 +2996,7 @@
                     aria-roledescription="sequence"
                  aria-labelledby="diagram-title-4" aria-describedby="diagram-description-4">
                     <title id="diagram-title-4">反復開発におけるテスト活動の配置</title>
-                    <desc id="diagram-description-4">プロダクトオーナーがストーリーと受け入れ基準を提示し、開発者とテスターが確認・設計する。開発者のコミット後、CIが自動テスト結果を通知し、テスターが探索的テストで補完する。不具合があれば報告・修正・再テストを行い、ストーリー完了を報告する。</desc>
+                    <desc id="diagram-description-4">プロダクトオーナーがストーリーと受け入れ基準を提示し、開発者とテスターが確認・設計する。開発者のコミット後、CIが自動テスト結果を通知し、テスターが探索的テストで補完する。不具合があれば報告・修正・再テストを行い、再テストが受け入れ基準を満たした場合のみストーリー完了を報告し、満たさなければ修正へ戻す。</desc>
                     <g>
                         <rect
                             x="777"
@@ -3825,7 +3825,7 @@
                             font-weight: 400;
                         "
                     >
-                        ストーリー完了を報告
+                        再テスト合格時のみ完了を報告（不合格は修正へ）
                     </text>
                     <line
                         x1="611"
@@ -5415,7 +5415,15 @@
                     if (sb.contains(e.target) || tg.contains(e.target)) return;
                     setOpen(false);
                 });
-                mobileSidebar.addEventListener('change', syncSidebar);
+                mobileSidebar.addEventListener('change', function () {
+                    if (!mobileSidebar.matches) sb.classList.remove('open');
+                    syncSidebar();
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape' || !mobileSidebar.matches || !sb.classList.contains('open')) return;
+                    tg.focus();
+                    setOpen(false);
+                });
                 syncSidebar();
                 var links = [].slice.call(document.querySelectorAll('.sidebar a'));
                 var headings = [].slice.call(document.querySelectorAll('.main h2[id]'));
@@ -5426,7 +5434,10 @@
                         if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
                     });
                     links.forEach(function (l) {
-                        l.classList.toggle('active', !!current && l.dataset.target === current.id);
+                        var isCurrent = !!current && l.dataset.target === current.id;
+                        l.classList.toggle('active', isCurrent);
+                        if (isCurrent) l.setAttribute('aria-current', 'location');
+                        else l.removeAttribute('aria-current');
                     });
                 }
                 if ('IntersectionObserver' in window) {
