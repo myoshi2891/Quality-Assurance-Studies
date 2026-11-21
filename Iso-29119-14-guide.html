@@ -6466,11 +6466,12 @@
        <span class="tk-k">MAX</span>(ordered_at) <span class="tk-k">AS</span> max_date
 <span class="tk-k">FROM</span>   tgt.orders;
 
-<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード）</span>
+<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード。NULL参照を許容する場合は o.customer_id IS NOT NULL で除外）</span>
 <span class="tk-k">SELECT</span> o.order_id
 <span class="tk-k">FROM</span>   tgt.orders o
 <span class="tk-k">LEFT JOIN</span> tgt.customers c <span class="tk-k">ON</span> c.customer_id = o.customer_id
-<span class="tk-k">WHERE</span>  c.customer_id <span class="tk-k">IS NULL</span>;</code></pre>
+<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NOT NULL</span>
+  <span class="tk-k">AND</span>  c.customer_id <span class="tk-k">IS NULL</span>;</code></pre>
                 <div class="callout callout-practice">
                     <p>💡 ③の行単位突合は、AWS Database Migration Service</p>
                     <p>
@@ -8208,8 +8209,8 @@
                         width="1068.046875"
                         xmlns="http://www.w3.org/2000/svg"
                         class="flowchart"
-                        height="140"
-                        viewBox="0 0 1068.046875 140"
+                        height="196"
+                        viewBox="0 0 1068.046875 196"
                         role="graphics-document document"
                         aria-roledescription="flowchart-v2"
                     >
@@ -8580,6 +8581,16 @@
                                         data-points="W3sieCI6Nzg0LjAzMTI1LCJ5Ijo3MH0seyJ4Ijo4MTQuMDMxMjUsInkiOjcwfSx7IngiOjg0NC4wMzEyNSwieSI6NzB9XQ=="
                                         marker-end="url(#mmd8_flowchart-v2-pointEnd)"
                                     ></path>
+                                    <path
+                                        d="M684.023,120L684.023,148C684.023,152,680.023,156,676.023,156L432.008,156C428.008,156,424.008,152,424.008,148L424.008,124"
+                                        id="L_DW3_DW2_0"
+                                        class="edge-thickness-normal edge-pattern-dotted flowchart-link"
+                                        style=""
+                                        data-edge="true"
+                                        data-et="edge"
+                                        data-id="L_DW3_DW2_0"
+                                        marker-end="url(#mmd8_flowchart-v2-pointEnd)"
+                                    ></path>
                                 </g>
                                 <g class="edgeLabels">
                                     <g class="edgeLabel">
@@ -8645,6 +8656,31 @@
                                                     "
                                                 >
                                                     <span class="edgeLabel"></span></div
+                                            ></foreignObject>
+                                        </g>
+                                    </g>
+                                    <g class="edgeLabel" transform="translate(554.015625, 176)">
+                                        <g
+                                            class="label"
+                                            data-id="L_DW3_DW2_0"
+                                            transform="translate(-170, -12)"
+                                        >
+                                            <foreignObject width="340" height="24"
+                                                ><div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    class="labelBkg"
+                                                    style="
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        text-align: center;
+                                                    "
+                                                >
+                                                    <span class="edgeLabel"
+                                                        ><p>
+                                                            切戻し：書込制御→旧反映確認→欠損修復・再送
+                                                        </p></span
+                                                    ></div
                                             ></foreignObject>
                                         </g>
                                     </g>
@@ -8836,7 +8872,7 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。次に新ストアを書き込みの主系へ切り替え、ロールバック期間中は旧ストアへの書き込み同期も継続する。最後の削除フェーズまでは旧ストアを同期した状態で維持し、切り戻し不要と判断した後に旧データを削除する。</p>
+                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。次に新ストアを書き込みの主系へ切り替え、ロールバック期間中は旧ストアへの書き込み同期も継続する。切り戻す場合は、流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから旧へ戻す。切り戻し不要と判断した後に旧データを削除する。</p>
                 <div class="callout callout-note">
                     <p>補足：図のステップ名は、Stripeの記事の見出し（Dual</p>
                     <p>writing／Backfilling／Reads の比較・切替／Changing write paths／Removing</p>
@@ -8879,7 +8915,7 @@
                             </tr>
                             <tr class="odd">
                                 <td>切り戻しの余地</td>
-                                <td>旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく</td>
+                                <td>旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく。切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから切り替える</td>
                             </tr>
                         </tbody>
                     </table>
@@ -9002,7 +9038,7 @@
                             <tr class="odd">
                                 <td>A. Expand/Contract</td>
                                 <td>スキーマ変更の安全な段階実施</td>
-                                <td>旧構造と同期済みのデータが残る間（Expand・Migrate）は戻れる。旧構造を削除するContractで切り戻しの選択肢はなくなる／デプロイ間で一時停止できる</td>
+                                <td>旧構造と同期済みのデータが残る間（Expand・Migrate）は戻れる。ただし切り戻し期間中に受け付けた全状態を旧アプリが扱えることが前提（新機能固有の振る舞いは期間終了まで無効化するか、切り戻し時の保全手順を明文化する）。旧構造を削除するContractで切り戻しの選択肢はなくなる／デプロイ間で一時停止できる</td>
                                 <td>Contractを忘れると旧構造が残る</td>
                             </tr>
                             <tr class="even">
@@ -10424,6 +10460,17 @@
                 sb.addEventListener('click', function (e) {
                     if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                document.addEventListener('focusin', function (e) {
+                    if (mobileSidebar.matches && sb.classList.contains('open') && !sb.contains(e.target) && e.target !== tg) {
+                        setOpen(false);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && mobileSidebar.matches && sb.classList.contains('open')) {
+                        setOpen(false);
+                        tg.focus();
+                    }
+                });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
                 var links = {};
@@ -10462,6 +10509,7 @@
                 window.addEventListener('scroll', updateActiveSection, { passive: true });
                 window.addEventListener('resize', updateActiveSection);
                 updateActiveSection();
+                var refreshChecklists = [];
                 document.querySelectorAll('.checklist-card').forEach(function (c) {
                     var boxes = c.querySelectorAll('input'),
                         f = c.querySelector('.cp-fill'),
@@ -10477,8 +10525,24 @@
                     boxes.forEach(function (b) {
                         b.addEventListener('change', up);
                     });
+                    refreshChecklists.push(up);
                     up();
                 });
+                function syncChecklistsAfterRestore() {
+                    refreshChecklists.forEach(function (fn) { fn(); });
+                    setTimeout(function () {
+                        refreshChecklists.forEach(function (fn) { fn(); });
+                    }, 0);
+                }
+                window.addEventListener('pageshow', syncChecklistsAfterRestore);
+                window.addEventListener('load', syncChecklistsAfterRestore);
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', syncChecklistsAfterRestore);
+                } else {
+                    setTimeout(function () {
+                        refreshChecklists.forEach(function (fn) { fn(); });
+                    }, 0);
+                }
             })();
         </script>
     </body>
