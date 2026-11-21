@@ -19633,7 +19633,8 @@
                 // 長い節を上方向へ戻るときも、後続の見出しが帯から出た時点で選び直される。
                 function updateActive() {
                     if (!headings.length) return;
-                    var line = window.innerHeight * 0.15;
+                    var scrollPad = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+                    var line = Math.max(window.innerHeight * 0.15, scrollPad);
                     var next = headings[0];
                     headings.forEach(function (h) {
                         if (h.getBoundingClientRect().top <= line) next = h;
