@@ -12500,6 +12500,10 @@ z"
                             </thead>
                             <tbody>
                                 <tr class="odd">
+                                    <td>TC-02 の事前条件</td>
+                                    <td>新規またはリセット済みで、ログアウト状態・ロックなし・連続失敗0回のテスト用アカウントを使い、失敗の連続とロックの確認をこの状態から始める</td>
+                                </tr>
+                                <tr class="even">
                                     <td>認証成功</td>
                                     <td>
                                         正しい ID <code>user01</code>、パスワード
@@ -12523,6 +12527,10 @@ z"
                                 <tr class="odd">
                                     <td>ログイン済であることの確認</td>
                                     <td>マイページへの遷移、またはセッショントークンの存在確認</td>
+                                </tr>
+                                <tr class="even">
+                                    <td>ログアウト済であることの確認（TC-01、T4 の後）</td>
+                                    <td>ログアウト操作を実行した後、同じセッションで認証必須ページへアクセスし、アクセスできない（ログイン画面へ遷移する、または認証エラーになる）ことを確認する。ログアウト前には、上記のログイン済の確認を維持する</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -16088,6 +16096,7 @@ L633.267,207.083"
                     sc = document.getElementById('scrim');
                 var mobileSidebar = window.matchMedia('(max-width: 900px)');
                 function syncSidebar() {
+                    if (!mobileSidebar.matches) sb.classList.remove('open');
                     var closed = mobileSidebar.matches && !sb.classList.contains('open');
                     if (closed && sb.contains(document.activeElement)) tg.focus();
                     sb.inert = closed;
@@ -16102,9 +16111,6 @@ L633.267,207.083"
                 }
                 tg.addEventListener('click', function () {
                     setOpen(!sb.classList.contains('open'));
-                });
-                sb.addEventListener('click', function (e) {
-                    if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
                 sc.addEventListener('click', function () { setOpen(false); });
                 document.addEventListener('focusin', function (e) {
