@@ -38,6 +38,15 @@
                 scroll-behavior: smooth;
                 overflow-x: hidden;
             }
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+                .sidebar,
+                .cp-fill {
+                    transition: none !important;
+                }
+            }
             body {
                 margin: 0;
                 background: var(--bg);
@@ -947,8 +956,11 @@
                             </div>
                         </div>
                         <div class="m">
-                            <div class="k">調査時点</div>
-                            <div class="v">2026年10月6日までに公開されていた情報</div>
+                            <div class="k">調査時点・ステータス確認</div>
+                            <div class="v">
+                                初回調査基準日：2026年10月6日までに公開されていた情報／ISO
+                                ステータス再確認：2026年11月19日（発行ステージ・予定月の確認のみ更新）
+                            </div>
                         </div>
                         <div class="m">
                             <div class="k">規格の正式名称</div>
@@ -3704,7 +3716,7 @@ L741.743,340.671"
                                     <td><strong>国際規格として発行手続き中（現在地）</strong></td>
                                 </tr>
                                 <tr class="odd">
-                                    <td>（未定）</td>
+                                    <td>2026-12（予定月・日付未掲載）</td>
                                     <td>60.60</td>
                                     <td>国際規格発行</td>
                                 </tr>
@@ -4647,18 +4659,18 @@ L741.743,340.671"
                                                     fill: #2a3550 !important;
                                                     stroke: #8fa3c0 !important;
                                                 "
-                                                x="-76.0078125"
+                                                x="-128"
                                                 y="-42"
-                                                width="152.015625"
+                                                width="256"
                                                 height="84"
                                             ></rect>
                                             <g
                                                 class="label"
                                                 style="color: #ffffff !important"
-                                                transform="translate(-40.0078125, -24)"
+                                                transform="translate(-112, -24)"
                                             >
                                                 <rect></rect>
-                                                <foreignObject width="80.015625" height="48"
+                                                <foreignObject width="224" height="48"
                                                     ><div
                                                         style="
                                                             color: rgb(255, 255, 255) !important;
@@ -4673,7 +4685,7 @@ L741.743,340.671"
                                                         <span
                                                             style="color: #ffffff !important"
                                                             class="nodeLabel"
-                                                            ><p>発行 60.60<br />日付は未定</p></span
+                                                            ><p>発行 60.60<br />2026年12月予定（日未掲載）</p></span
                                                         >
                                                     </div></foreignObject
                                                 >
@@ -4684,10 +4696,10 @@ L741.743,340.671"
                             </g>
                         </svg>
                     </div>
-                    <p class="diagram-description" id="diagram-description-4">CD登録と意見募集からDIS、FDISの登録・投票を経て、2026年9月28日の発行手続きへ進む。図では最終的な発行日を未定としている。</p>
+                    <p class="diagram-description" id="diagram-description-4">CD登録と意見募集からDIS、FDISの登録・投票を経て、2026年9月28日の発行手続き（ステージ 60.00）へ進む。図ではステージ 60.60 の発行予定月を2026年12月（日付未掲載）としている。</p>
                     <p>
                         ISO
-                        ページは、このステージを「最終制作工程（最大7週間）」と説明しています。<strong>2026年11月19日時点でも ISO はステージ 60.00（発行手続き中）と掲載しており、ステージ 60.60（発行）の日付は公表されていません</strong>（初版確認時の2026年10月6日時点のスナップショットからステージは変わっていません）。最新の発行状況や公開日については、ISO 公式ページで直接確認してください。
+                        ページは、このステージを「最終制作工程（最大7週間）」と説明しています。<strong>2026年11月19日時点の確認では、ISO は引き続きステージ 60.00（発行手続き中）と掲載し、発行予定月を2026年12月としている一方、ステージ 60.60（発行）の具体的な日付は掲載していません</strong>（初版確認時の2026年10月6日時点のスナップショットからステージは変わっておらず、上記は2026年11月19日時点のスナップショットです）。最新の発行状況や公開日については、ISO 公式ページで直接確認してください。
                     </p>
                     <h3 id="sec-6-1">
                         補足：ISTQB シラバスに残る旧称<a
@@ -8306,7 +8318,7 @@ L1331.454,144.047"
                                 </tr>
                                 <tr class="odd">
                                     <td>デシジョンテーブル</td>
-                                    <td>すべての条件／判定、すべてのアクション</td>
+                                    <td>テスト対象の表にある実現可能なルール列（feasible rules）の網羅</td>
                                 </tr>
                                 <tr class="even">
                                     <td>データドメイン</td>
@@ -12282,7 +12294,7 @@ z"
                                 <tr class="odd">
                                     <td>デシジョンテーブルテスト</td>
                                     <td>
-                                        実現可能なルール（feasible rules）の網羅で測定する（各条件値やアクションを1回ずつ通すだけでは不十分。例えば AND 条件のルールでは実現可能な4通りの条件組合せすべてをテストする必要があり、真／真と偽／偽だけでは残り2ルールが未網羅になる）
+                                        テスト対象の表にある実現可能なルール列（feasible rules）の網羅で測定する（各条件値やアクションを1回ずつ通すだけでは不十分。例えば縮約していない完全な2条件 AND のデシジョンテーブルでは実現可能な4通りのルール列すべてをテストする必要があり、真／真と偽／偽だけでは残り2ルールが未網羅になる）
                                     </td>
                                 </tr>
                                 <tr class="even">
@@ -12348,906 +12360,7 @@ z"
                         aria-label="ログイン・失敗回数・ロックの状態遷移"
                         aria-describedby="diagram-description-13"
                      tabindex="0">
-                        <svg
-                            id="mmd13"
-                            width="953.3125"
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="flowchart"
-                            height="354.9812927246094"
-                            viewBox="0 8.958209991455078 953.3125 354.9812927246094"
-                            role="graphics-document document"
-                            aria-roledescription="flowchart-v2"
-                        >
-                            <style>
-                                #mmd13 {
-                                    font-family:
-                                        'Noto Sans JP', 'Noto Sans CJK JP',
-                                        'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-                                    font-size: 16px;
-                                    fill: #e6edf7;
-                                }
-                                @keyframes edge-animation-frame {
-                                    from {
-                                        stroke-dashoffset: 0;
-                                    }
-                                }
-                                @keyframes dash {
-                                    to {
-                                        stroke-dashoffset: 0;
-                                    }
-                                }
-                                #mmd13 .edge-animation-slow {
-                                    stroke-dasharray: 9, 5 !important;
-                                    stroke-dashoffset: 900;
-                                    animation: dash 50s linear infinite;
-                                    stroke-linecap: round;
-                                }
-                                #mmd13 .edge-animation-fast {
-                                    stroke-dasharray: 9, 5 !important;
-                                    stroke-dashoffset: 900;
-                                    animation: dash 20s linear infinite;
-                                    stroke-linecap: round;
-                                }
-                                #mmd13 .error-icon {
-                                    fill: #16263f;
-                                }
-                                #mmd13 .error-text {
-                                    fill: #e9d9c0;
-                                    stroke: #e9d9c0;
-                                }
-                                #mmd13 .edge-thickness-normal {
-                                    stroke-width: 1px;
-                                }
-                                #mmd13 .edge-thickness-thick {
-                                    stroke-width: 3.5px;
-                                }
-                                #mmd13 .edge-pattern-solid {
-                                    stroke-dasharray: 0;
-                                }
-                                #mmd13 .edge-thickness-invisible {
-                                    stroke-width: 0;
-                                    fill: none;
-                                }
-                                #mmd13 .edge-pattern-dashed {
-                                    stroke-dasharray: 3;
-                                }
-                                #mmd13 .edge-pattern-dotted {
-                                    stroke-dasharray: 2;
-                                }
-                                #mmd13 .marker {
-                                    fill: #9cb0cf;
-                                    stroke: #9cb0cf;
-                                }
-                                #mmd13 .marker.cross {
-                                    stroke: #9cb0cf;
-                                }
-                                #mmd13 svg {
-                                    font-family:
-                                        'Noto Sans JP', 'Noto Sans CJK JP',
-                                        'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-                                    font-size: 16px;
-                                }
-                                #mmd13 p {
-                                    margin: 0;
-                                }
-                                #mmd13 .label {
-                                    font-family:
-                                        'Noto Sans JP', 'Noto Sans CJK JP',
-                                        'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-                                    color: #ffffff;
-                                }
-                                #mmd13 .cluster-label text {
-                                    fill: #e9d9c0;
-                                }
-                                #mmd13 .cluster-label span {
-                                    color: #e9d9c0;
-                                }
-                                #mmd13 .cluster-label span p {
-                                    background-color: transparent;
-                                }
-                                #mmd13 .label text,
-                                #mmd13 span {
-                                    fill: #ffffff;
-                                    color: #ffffff;
-                                }
-                                #mmd13 .node rect,
-                                #mmd13 .node circle,
-                                #mmd13 .node ellipse,
-                                #mmd13 .node polygon,
-                                #mmd13 .node path {
-                                    fill: #1e3a5f;
-                                    stroke: #7c9eff;
-                                    stroke-width: 1px;
-                                }
-                                #mmd13 .rough-node .label text,
-                                #mmd13 .node .label text,
-                                #mmd13 .image-shape .label,
-                                #mmd13 .icon-shape .label {
-                                    text-anchor: middle;
-                                }
-                                #mmd13 .node .katex path {
-                                    fill: #000;
-                                    stroke: #000;
-                                    stroke-width: 1px;
-                                }
-                                #mmd13 .rough-node .label,
-                                #mmd13 .node .label,
-                                #mmd13 .image-shape .label,
-                                #mmd13 .icon-shape .label {
-                                    text-align: center;
-                                }
-                                #mmd13 .node.clickable {
-                                    cursor: pointer;
-                                }
-                                #mmd13 .root .anchor path {
-                                    fill: #9cb0cf !important;
-                                    stroke-width: 0;
-                                    stroke: #9cb0cf;
-                                }
-                                #mmd13 .arrowheadPath {
-                                    fill: #f4e5d1;
-                                }
-                                #mmd13 .edgePath .path {
-                                    stroke: #9cb0cf;
-                                    stroke-width: 2px;
-                                }
-                                #mmd13 .flowchart-link {
-                                    stroke: #9cb0cf;
-                                    fill: none;
-                                }
-                                #mmd13 .edgeLabel {
-                                    background-color: #0b1a2e;
-                                    text-align: center;
-                                }
-                                #mmd13 .edgeLabel p {
-                                    background-color: #0b1a2e;
-                                }
-                                #mmd13 .edgeLabel rect {
-                                    opacity: 0.5;
-                                    background-color: #0b1a2e;
-                                    fill: #0b1a2e;
-                                }
-                                #mmd13 .labelBkg {
-                                    background-color: rgba(11, 26, 46, 0.5);
-                                }
-                                #mmd13 .cluster rect {
-                                    fill: #16263f;
-                                    stroke: hsl(216.5853658537, 8.2352941176%, 6.6666666667%);
-                                    stroke-width: 1px;
-                                }
-                                #mmd13 .cluster text {
-                                    fill: #e9d9c0;
-                                }
-                                #mmd13 .cluster span {
-                                    color: #e9d9c0;
-                                }
-                                #mmd13 div.mermaidTooltip {
-                                    position: absolute;
-                                    text-align: center;
-                                    max-width: 200px;
-                                    padding: 2px;
-                                    font-family:
-                                        'Noto Sans JP', 'Noto Sans CJK JP',
-                                        'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-                                    font-size: 12px;
-                                    background: #16263f;
-                                    border: 1px solid
-                                        hsl(216.5853658537, 8.2352941176%, 6.6666666667%);
-                                    border-radius: 2px;
-                                    pointer-events: none;
-                                    z-index: 100;
-                                }
-                                #mmd13 .flowchartTitleText {
-                                    text-anchor: middle;
-                                    font-size: 18px;
-                                    fill: #e6edf7;
-                                }
-                                #mmd13 rect.text {
-                                    fill: none;
-                                    stroke-width: 0;
-                                }
-                                #mmd13 .icon-shape,
-                                #mmd13 .image-shape {
-                                    background-color: #0b1a2e;
-                                    text-align: center;
-                                }
-                                #mmd13 .icon-shape p,
-                                #mmd13 .image-shape p {
-                                    background-color: #0b1a2e;
-                                    padding: 2px;
-                                }
-                                #mmd13 .icon-shape rect,
-                                #mmd13 .image-shape rect {
-                                    opacity: 0.5;
-                                    background-color: #0b1a2e;
-                                    fill: #0b1a2e;
-                                }
-                                #mmd13 .label-icon {
-                                    display: inline-block;
-                                    height: 1em;
-                                    overflow: visible;
-                                    vertical-align: -0.125em;
-                                }
-                                #mmd13 .node .label-icon path {
-                                    fill: currentColor;
-                                    stroke: revert;
-                                    stroke-width: revert;
-                                }
-                                #mmd13 :root {
-                                    --mermaid-font-family:
-                                        'Noto Sans JP', 'Noto Sans CJK JP',
-                                        'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-                                }
-                                #mmd13 .st > * {
-                                    fill: #1e3a5f !important;
-                                    stroke: #7c9eff !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .st span {
-                                    fill: #1e3a5f !important;
-                                    stroke: #7c9eff !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .st tspan {
-                                    fill: #ffffff !important;
-                                }
-                                #mmd13 .lock > * {
-                                    fill: #4a2f2f !important;
-                                    stroke: #e08a8a !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .lock span {
-                                    fill: #4a2f2f !important;
-                                    stroke: #e08a8a !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .lock tspan {
-                                    fill: #ffffff !important;
-                                }
-                                #mmd13 .ok > * {
-                                    fill: #234d3a !important;
-                                    stroke: #6fd6a4 !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .ok span {
-                                    fill: #234d3a !important;
-                                    stroke: #6fd6a4 !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .ok tspan {
-                                    fill: #ffffff !important;
-                                }
-                                #mmd13 .start > * {
-                                    fill: #2a3550 !important;
-                                    stroke: #8fa3c0 !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .start span {
-                                    fill: #2a3550 !important;
-                                    stroke: #8fa3c0 !important;
-                                    color: #ffffff !important;
-                                }
-                                #mmd13 .start tspan {
-                                    fill: #ffffff !important;
-                                }
-                            </style>
-                            <g>
-                                <marker
-                                    id="mmd13_flowchart-v2-pointEnd"
-                                    class="marker flowchart-v2"
-                                    viewBox="0 0 10 10"
-                                    refX="5"
-                                    refY="5"
-                                    markerUnits="userSpaceOnUse"
-                                    markerWidth="8"
-                                    markerHeight="8"
-                                    orient="auto"
-                                >
-                                    <path
-                                        d="M 0 0 L 10 5 L 0 10 z"
-                                        class="arrowMarkerPath"
-                                        style="stroke-width: 1; stroke-dasharray: 1, 0"
-                                    ></path>
-                                </marker>
-                                <marker
-                                    id="mmd13_flowchart-v2-pointStart"
-                                    class="marker flowchart-v2"
-                                    viewBox="0 0 10 10"
-                                    refX="4.5"
-                                    refY="5"
-                                    markerUnits="userSpaceOnUse"
-                                    markerWidth="8"
-                                    markerHeight="8"
-                                    orient="auto"
-                                >
-                                    <path
-                                        d="M 0 5 L 10 10 L 10 0 z"
-                                        class="arrowMarkerPath"
-                                        style="stroke-width: 1; stroke-dasharray: 1, 0"
-                                    ></path>
-                                </marker>
-                                <marker
-                                    id="mmd13_flowchart-v2-circleEnd"
-                                    class="marker flowchart-v2"
-                                    viewBox="0 0 10 10"
-                                    refX="11"
-                                    refY="5"
-                                    markerUnits="userSpaceOnUse"
-                                    markerWidth="11"
-                                    markerHeight="11"
-                                    orient="auto"
-                                >
-                                    <circle
-                                        cx="5"
-                                        cy="5"
-                                        r="5"
-                                        class="arrowMarkerPath"
-                                        style="stroke-width: 1; stroke-dasharray: 1, 0"
-                                    ></circle>
-                                </marker>
-                                <marker
-                                    id="mmd13_flowchart-v2-circleStart"
-                                    class="marker flowchart-v2"
-                                    viewBox="0 0 10 10"
-                                    refX="-1"
-                                    refY="5"
-                                    markerUnits="userSpaceOnUse"
-                                    markerWidth="11"
-                                    markerHeight="11"
-                                    orient="auto"
-                                >
-                                    <circle
-                                        cx="5"
-                                        cy="5"
-                                        r="5"
-                                        class="arrowMarkerPath"
-                                        style="stroke-width: 1; stroke-dasharray: 1, 0"
-                                    ></circle>
-                                </marker>
-                                <marker
-                                    id="mmd13_flowchart-v2-crossEnd"
-                                    class="marker cross flowchart-v2"
-                                    viewBox="0 0 11 11"
-                                    refX="12"
-                                    refY="5.2"
-                                    markerUnits="userSpaceOnUse"
-                                    markerWidth="11"
-                                    markerHeight="11"
-                                    orient="auto"
-                                >
-                                    <path
-                                        d="M 1,1 l 9,9 M 10,1 l -9,9"
-                                        class="arrowMarkerPath"
-                                        style="stroke-width: 2; stroke-dasharray: 1, 0"
-                                    ></path>
-                                </marker>
-                                <marker
-                                    id="mmd13_flowchart-v2-crossStart"
-                                    class="marker cross flowchart-v2"
-                                    viewBox="0 0 11 11"
-                                    refX="-1"
-                                    refY="5.2"
-                                    markerUnits="userSpaceOnUse"
-                                    markerWidth="11"
-                                    markerHeight="11"
-                                    orient="auto"
-                                >
-                                    <path
-                                        d="M 1,1 l 9,9 M 10,1 l -9,9"
-                                        class="arrowMarkerPath"
-                                        style="stroke-width: 2; stroke-dasharray: 1, 0"
-                                    ></path>
-                                </marker>
-                                <g class="root">
-                                    <g class="clusters"></g>
-                                    <g class="edgePaths">
-                                        <path
-                                            d="M58.016,190L76.652,190C95.289,190,132.563,190,169.169,190C205.776,190,241.716,190,259.686,190L277.656,190"
-                                            id="L_LG0_LG1_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG0_LG1_0"
-                                            data-points="W3sieCI6NTguMDE1NjI1LCJ5IjoxOTB9LHsieCI6MTY5LjgzNTkzNzUsInkiOjE5MH0seyJ4IjoyODEuNjU2MjUsInkiOjE5MH1d"
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                        <path
-                                            d="M396.779,160L424.595,138.667C452.41,117.333,508.041,74.667,565.163,56.541C622.284,38.415,680.896,44.83,710.202,48.038L739.508,51.246"
-                                            id="L_LG1_LG2_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG1_LG2_0"
-                                            data-points="W3sieCI6Mzk2Ljc3OTQ2OTkzNjcwODksInkiOjE2MH0seyJ4Ijo1NjMuNjcxODc1LCJ5IjozMn0seyJ4Ijo3NDMuNDg0Mzc1LCJ5Ijo1MS42ODA4MDYyMjk5NTg3NzZ9XQ=="
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                        <path
-                                            d="M433.672,176.349L455.339,172.457C477.005,168.566,520.339,160.783,563.012,159.93C605.686,159.077,647.699,165.153,668.706,168.191
-L689.713,171.23"
-                                            id="L_LG1_LG4_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG1_LG4_0"
-                                            data-points="W3sieCI6NDMzLjY3MTg3NSwieSI6MTc2LjM0ODYyOTA3MjAxNjR9LHsieCI6NTYzLjY3MTg3NSwieSI6MTUzfSx7IngiOjY5My42NzE4NzUsInkiOjE3MS44MDIyNTk4ODcwMDU2NX1d"
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                        <path
-                                            d="M693.672,208.198L672.005,211.331C650.339,214.465,607.005,220.733,564.328,220.093C521.651,219.453,479.63,211.906,458.619,208.132
-L437.609,204.358"
-                                            id="L_LG4_LG1_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG4_LG1_0"
-                                            data-points="W3sieCI6NjkzLjY3MTg3NSwieSI6MjA4LjE5Nzc0MDExMjk5NDM1fSx7IngiOjU2My42NzE4NzUsInkiOjIyN30seyJ4Ijo0MzMuNjcxODc1LCJ5IjoyMDMuNjUxMzcwOTI3OTgzNn1d"
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                        <path
-                                            d="M424.118,220L447.377,230.5C470.636,241,517.154,262,572.389,277.125C627.623,292.249,691.574,301.499,723.55,306.124L755.526,310.748"
-                                            id="L_LG1_LG3_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG1_LG3_0"
-                                            data-points="W3sieCI6NDI0LjExODE5NTU2NDUxNjEsInkiOjIyMH0seyJ4Ijo1NjMuNjcxODc1LCJ5IjoyODN9LHsieCI6NzU5LjQ4NDM3NSwieSI6MzExLjMyMDkwMzk1NDgwMjI1fV0="
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                        <path
-                                            d="M743.484,70.993L713.516,75.328C683.547,79.662,623.609,88.331,570.989,102.891C518.369,117.451,473.067,137.903,450.415,148.128
-L427.764,158.354"
-                                            id="L_LG2_LG1_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG2_LG1_0"
-                                            data-points="W3sieCI6NzQzLjQ4NDM3NSwieSI6NzAuOTkzMjIwMzM4OTgzMDV9LHsieCI6NTYzLjY3MTg3NSwieSI6OTd9LHsieCI6NDI0LjExODE5NTU2NDUxNjEsInkiOjE2MH1d"
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                        <path
-                                            d="M759.484,326.568L726.849,330.14C694.214,333.712,628.943,340.856,569.021,323.5C509.099,306.145,454.526,264.29,427.24,243.362
-L399.953,222.434"
-                                            id="L_LG3_LG1_0"
-                                            class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                            style=""
-                                            data-edge="true"
-                                            data-et="edge"
-                                            data-id="L_LG3_LG1_0"
-                                            data-points="W3sieCI6NzU5LjQ4NDM3NSwieSI6MzI2LjU2Nzk2NDU3NDc0NDJ9LHsieCI6NTYzLjY3MTg3NSwieSI6MzQ4fSx7IngiOjM5Ni43Nzk0Njk5MzY3MDg5LCJ5IjoyMjB9XQ=="
-                                            marker-end="url(#mmd13_flowchart-v2-pointEnd)"
-                                        ></path>
-                                    </g>
-                                    <g class="edgeLabels">
-                                        <g
-                                            class="edgeLabel"
-                                            transform="translate(169.8359375, 190)"
-                                        >
-                                            <g
-                                                class="label"
-                                                data-id="L_LG0_LG1_0"
-                                                transform="translate(-81.8203125, -12)"
-                                            >
-                                                <foreignObject width="163.640625" height="24"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>失敗回数 を 0 に初期化</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="edgeLabel"
-                                            transform="translate(551.99174, 40.95821)"
-                                        >
-                                            <g
-                                                class="label"
-                                                data-id="L_LG1_LG2_0"
-                                                transform="translate(-100, -24)"
-                                            >
-                                                <foreignObject width="200" height="48"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table;
-                                                            white-space: break-spaces;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                            width: 200px;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>
-                                                                T1 認証成功 / 失敗回数 を 0
-                                                                にリセット
-                                                            </p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="edgeLabel"
-                                            transform="translate(563.31388, 153.0643)"
-                                        >
-                                            <g
-                                                class="label"
-                                                data-id="L_LG1_LG4_0"
-                                                transform="translate(-100, -24)"
-                                            >
-                                                <foreignObject width="200" height="48"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table;
-                                                            white-space: break-spaces;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                            width: 200px;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>
-                                                                T2 認証失敗 [失敗回数 2 未満]
-                                                            </p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g class="edgeLabel" transform="translate(563.671875, 227)">
-                                            <g
-                                                class="label"
-                                                data-id="L_LG4_LG1_0"
-                                                transform="translate(-72.0078125, -12)"
-                                            >
-                                                <foreignObject width="144.015625" height="24"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>未ログインに留まる</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="edgeLabel"
-                                            transform="translate(585.80897, 286.20175)"
-                                        >
-                                            <g
-                                                class="label"
-                                                data-id="L_LG1_LG3_0"
-                                                transform="translate(-100, -24)"
-                                            >
-                                                <foreignObject width="200" height="48"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table;
-                                                            white-space: break-spaces;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                            width: 200px;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>
-                                                                T3 認証失敗 [失敗回数 2] / 失敗回数
-                                                                を 0 にリセット
-                                                            </p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="edgeLabel"
-                                            transform="translate(577.80897, 94.95531)"
-                                        >
-                                            <g
-                                                class="label"
-                                                data-id="L_LG2_LG1_0"
-                                                transform="translate(-51.03125, -12)"
-                                            >
-                                                <foreignObject width="102.0625" height="24"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>T4 ログアウト</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="edgeLabel"
-                                            transform="translate(558.3776, 343.9395)"
-                                        >
-                                            <g
-                                                class="label"
-                                                data-id="L_LG3_LG1_0"
-                                                transform="translate(-43.90625, -12)"
-                                            >
-                                                <foreignObject width="87.8125" height="24"
-                                                    ><div
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                        class="labelBkg"
-                                                        style="
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 200px;
-                                                            text-align: center;
-                                                        "
-                                                    >
-                                                        <span class="edgeLabel"
-                                                            ><p>T5 30分経過</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                    </g>
-                                    <g class="nodes">
-                                        <g
-                                            class="node default start"
-                                            id="flowchart-LG0-0"
-                                            transform="translate(33.0078125, 190)"
-                                        >
-                                            <circle
-                                                class="basic label-container"
-                                                style="
-                                                    fill: #2a3550 !important;
-                                                    stroke: #8fa3c0 !important;
-                                                "
-                                                r="25.0078125"
-                                                cx="0"
-                                                cy="0"
-                                            ></circle>
-                                            <g
-                                                class="label"
-                                                style="color: #ffffff !important"
-                                                transform="translate(-16.0078125, -12)"
-                                            >
-                                                <rect></rect>
-                                                <foreignObject width="32.015625" height="24"
-                                                    ><div
-                                                        style="
-                                                            color: rgb(255, 255, 255) !important;
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 320px;
-                                                            text-align: center;
-                                                        "
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                    >
-                                                        <span
-                                                            style="color: #ffffff !important"
-                                                            class="nodeLabel"
-                                                            ><p>開始</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="node default st"
-                                            id="flowchart-LG1-1"
-                                            transform="translate(357.6640625, 190)"
-                                        >
-                                            <rect
-                                                class="basic label-container"
-                                                style="
-                                                    fill: #1e3a5f !important;
-                                                    stroke: #7c9eff !important;
-                                                "
-                                                x="-76.0078125"
-                                                y="-30"
-                                                width="152.015625"
-                                                height="60"
-                                            ></rect>
-                                            <g
-                                                class="label"
-                                                style="color: #ffffff !important"
-                                                transform="translate(-40.0078125, -12)"
-                                            >
-                                                <rect></rect>
-                                                <foreignObject width="80.015625" height="24"
-                                                    ><div
-                                                        style="
-                                                            color: rgb(255, 255, 255) !important;
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 320px;
-                                                            text-align: center;
-                                                        "
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                    >
-                                                        <span
-                                                            style="color: #ffffff !important"
-                                                            class="nodeLabel"
-                                                            ><p>未ログイン</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="node default ok"
-                                            id="flowchart-LG2-3"
-                                            transform="translate(819.4921875, 60)"
-                                        >
-                                            <rect
-                                                class="basic label-container"
-                                                style="
-                                                    fill: #234d3a !important;
-                                                    stroke: #6fd6a4 !important;
-                                                "
-                                                x="-76.0078125"
-                                                y="-30"
-                                                width="152.015625"
-                                                height="60"
-                                            ></rect>
-                                            <g
-                                                class="label"
-                                                style="color: #ffffff !important"
-                                                transform="translate(-40.0078125, -12)"
-                                            >
-                                                <rect></rect>
-                                                <foreignObject width="80.015625" height="24"
-                                                    ><div
-                                                        style="
-                                                            color: rgb(255, 255, 255) !important;
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 320px;
-                                                            text-align: center;
-                                                        "
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                    >
-                                                        <span
-                                                            style="color: #ffffff !important"
-                                                            class="nodeLabel"
-                                                            ><p>ログイン済</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="node default start"
-                                            id="flowchart-LG4-5"
-                                            transform="translate(819.4921875, 190)"
-                                        >
-                                            <rect
-                                                class="basic label-container"
-                                                style="
-                                                    fill: #2a3550 !important;
-                                                    stroke: #8fa3c0 !important;
-                                                "
-                                                x="-125.8203125"
-                                                y="-30"
-                                                width="251.640625"
-                                                height="60"
-                                            ></rect>
-                                            <g
-                                                class="label"
-                                                style="color: #ffffff !important"
-                                                transform="translate(-89.8203125, -12)"
-                                            >
-                                                <rect></rect>
-                                                <foreignObject width="179.640625" height="24"
-                                                    ><div
-                                                        style="
-                                                            color: rgb(255, 255, 255) !important;
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 320px;
-                                                            text-align: center;
-                                                        "
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                    >
-                                                        <span
-                                                            style="color: #ffffff !important"
-                                                            class="nodeLabel"
-                                                            ><p>動作：失敗回数 を 1 加算</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                        <g
-                                            class="node default lock"
-                                            id="flowchart-LG3-9"
-                                            transform="translate(819.4921875, 320)"
-                                        >
-                                            <rect
-                                                class="basic label-container"
-                                                style="
-                                                    fill: #4a2f2f !important;
-                                                    stroke: #e08a8a !important;
-                                                "
-                                                x="-60.0078125"
-                                                y="-30"
-                                                width="120.015625"
-                                                height="60"
-                                            ></rect>
-                                            <g
-                                                class="label"
-                                                style="color: #ffffff !important"
-                                                transform="translate(-24.0078125, -12)"
-                                            >
-                                                <rect></rect>
-                                                <foreignObject width="48.015625" height="24"
-                                                    ><div
-                                                        style="
-                                                            color: rgb(255, 255, 255) !important;
-                                                            display: table-cell;
-                                                            white-space: nowrap;
-                                                            line-height: 1.5;
-                                                            max-width: 320px;
-                                                            text-align: center;
-                                                        "
-                                                        xmlns="http://www.w3.org/1999/xhtml"
-                                                    >
-                                                        <span
-                                                            style="color: #ffffff !important"
-                                                            class="nodeLabel"
-                                                            ><p>ロック</p></span
-                                                        >
-                                                    </div></foreignObject
-                                                >
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
+                        <svg id="mmd13" width="1075.4625244140625" xmlns="http://www.w3.org/2000/svg" class="flowchart" height="262.9637145996094" viewBox="0 19.16128921508789 1075.4625244140625 262.9637145996094" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mmd13{font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;font-size:16px;fill:#e6edf7;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mmd13 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mmd13 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mmd13 .error-icon{fill:hsl(34.1538461538, 52%, 29.5098039216%);}#mmd13 .error-text{fill:rgb(140.6199999999, 174.332, 218.88);stroke:rgb(140.6199999999, 174.332, 218.88);}#mmd13 .edge-thickness-normal{stroke-width:1px;}#mmd13 .edge-thickness-thick{stroke-width:3.5px;}#mmd13 .edge-pattern-solid{stroke-dasharray:0;}#mmd13 .edge-thickness-invisible{stroke-width:0;fill:none;}#mmd13 .edge-pattern-dashed{stroke-dasharray:3;}#mmd13 .edge-pattern-dotted{stroke-dasharray:2;}#mmd13 .marker{fill:#9cb0cf;stroke:#9cb0cf;}#mmd13 .marker.cross{stroke:#9cb0cf;}#mmd13 svg{font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;font-size:16px;}#mmd13 p{margin:0;}#mmd13 .label{font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:#ffffff;}#mmd13 .cluster-label text{fill:rgb(140.6199999999, 174.332, 218.88);}#mmd13 .cluster-label span{color:rgb(140.6199999999, 174.332, 218.88);}#mmd13 .cluster-label span p{background-color:transparent;}#mmd13 .label text,#mmd13 span{fill:#ffffff;color:#ffffff;}#mmd13 .node rect,#mmd13 .node circle,#mmd13 .node ellipse,#mmd13 .node polygon,#mmd13 .node path{fill:#1e3a5f;stroke:#7c9eff;stroke-width:1px;}#mmd13 .rough-node .label text,#mmd13 .node .label text,#mmd13 .image-shape .label,#mmd13 .icon-shape .label{text-anchor:middle;}#mmd13 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mmd13 .rough-node .label,#mmd13 .node .label,#mmd13 .image-shape .label,#mmd13 .icon-shape .label{text-align:center;}#mmd13 .node.clickable{cursor:pointer;}#mmd13 .root .anchor path{fill:#9cb0cf!important;stroke-width:0;stroke:#9cb0cf;}#mmd13 .arrowheadPath{fill:#f2e4d1;}#mmd13 .edgePath .path{stroke:#9cb0cf;stroke-width:1px;}#mmd13 .flowchart-link{stroke:#9cb0cf;fill:none;}#mmd13 .edgeLabel{background-color:#0d1b2e;text-align:center;}#mmd13 .edgeLabel p{background-color:#0d1b2e;}#mmd13 .edgeLabel rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mmd13 .labelBkg{background-color:rgba(13, 27, 46, 0.5);}#mmd13 .cluster rect{fill:hsl(34.1538461538, 52%, 29.5098039216%);stroke:hsl(34.1538461538, 12%, 19.5098039216%);stroke-width:1px;}#mmd13 .cluster text{fill:rgb(140.6199999999, 174.332, 218.88);}#mmd13 .cluster span{color:rgb(140.6199999999, 174.332, 218.88);}#mmd13 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;font-size:12px;background:hsl(34.1538461538, 52%, 29.5098039216%);border:1px solid hsl(34.1538461538, 12%, 19.5098039216%);border-radius:2px;pointer-events:none;z-index:100;}#mmd13 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#e6edf7;}#mmd13 rect.text{fill:none;stroke-width:0;}#mmd13 .icon-shape,#mmd13 .image-shape{background-color:#0d1b2e;text-align:center;}#mmd13 .icon-shape p,#mmd13 .image-shape p{background-color:#0d1b2e;padding:2px;}#mmd13 .icon-shape .label rect,#mmd13 .image-shape .label rect{opacity:0.5;background-color:#0d1b2e;fill:#0d1b2e;}#mmd13 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mmd13 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mmd13 .node .neo-node{stroke:#7c9eff;}#mmd13 [data-look="neo"].node rect,#mmd13 [data-look="neo"].cluster rect,#mmd13 [data-look="neo"].node polygon{stroke:url(#mmd13-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd13 [data-look="neo"].swimlane.cluster rect{filter:none;}#mmd13 [data-look="neo"].node path{stroke:url(#mmd13-gradient);stroke-width:1px;}#mmd13 [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd13 [data-look="neo"].node .neo-line path{stroke:#7c9eff;filter:none;}#mmd13 [data-look="neo"].node circle{stroke:url(#mmd13-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd13 [data-look="neo"].node circle .state-start{fill:#000000;}#mmd13 [data-look="neo"].icon-shape .icon{fill:url(#mmd13-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd13 [data-look="neo"].icon-shape .icon-neo path{stroke:url(#mmd13-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mmd13 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#mmd13 .start&gt;*{fill:rgb(42, 53, 80)!important;stroke:rgb(143, 163, 192)!important;color:rgb(255, 255, 255)!important;}#mmd13 .start span{fill:rgb(42, 53, 80)!important;stroke:rgb(143, 163, 192)!important;color:rgb(255, 255, 255)!important;}#mmd13 .start tspan{fill:rgb(255, 255, 255)!important;}#mmd13 .st&gt;*{fill:rgb(30, 58, 95)!important;stroke:rgb(124, 158, 255)!important;color:rgb(255, 255, 255)!important;}#mmd13 .st span{fill:rgb(30, 58, 95)!important;stroke:rgb(124, 158, 255)!important;color:rgb(255, 255, 255)!important;}#mmd13 .st tspan{fill:rgb(255, 255, 255)!important;}#mmd13 .ok&gt;*{fill:rgb(35, 77, 58)!important;stroke:rgb(111, 214, 164)!important;color:rgb(255, 255, 255)!important;}#mmd13 .ok span{fill:rgb(35, 77, 58)!important;stroke:rgb(111, 214, 164)!important;color:rgb(255, 255, 255)!important;}#mmd13 .ok tspan{fill:rgb(255, 255, 255)!important;}#mmd13 .lock&gt;*{fill:rgb(74, 47, 47)!important;stroke:rgb(224, 138, 138)!important;color:rgb(255, 255, 255)!important;}#mmd13 .lock span{fill:rgb(74, 47, 47)!important;stroke:rgb(224, 138, 138)!important;color:rgb(255, 255, 255)!important;}#mmd13 .lock tspan{fill:rgb(255, 255, 255)!important;}</style><g><marker id="mmd13_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mmd13_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mmd13_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mmd13_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mmd13_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mmd13_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mmd13_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mmd13_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mmd13_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mmd13_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mmd13_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mmd13_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M55,172L73.792,172C92.583,172,130.167,172,167.083,172C204,172,240.25,172,258.375,172L276.5,172" id="mmd13-L_LG0_LG1_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_LG0_LG1_0" data-points="W3sieCI6NTUsInkiOjE3Mn0seyJ4IjoxNjcuNzUsInkiOjE3Mn0seyJ4IjoyODAuNSwieSI6MTcyfV0=" data-look="classic" marker-end="url(#mmd13_flowchart-v2-pointEnd)"></path><path d="M387.639,145L414.1,126.167C440.561,107.333,493.484,69.667,540.535,53.764C587.586,37.862,628.766,43.724,649.356,46.655L669.946,49.585" id="mmd13-L_LG1_LG2_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_LG1_LG2_0" data-points="W3sieCI6Mzg3LjYzODcyNzY3ODU3MTQsInkiOjE0NX0seyJ4Ijo1NDYuNDA2MjUsInkiOjMyfSx7IngiOjY3My45MDYyNSwieSI6NTAuMTQ5MTc3ODUzNjgxNzg1fV0=" data-look="classic" marker-end="url(#mmd13_flowchart-v2-pointEnd)"></path><path d="M418.906,162.149L440.156,159.124C461.406,156.099,503.906,150.05,548.28,150.316C592.654,150.583,638.902,157.166,662.025,160.458L685.149,163.75" id="mmd13-L_LG1_LG3_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_LG1_LG3_0" data-points="W3sieCI6NDE4LjkwNjI1LCJ5IjoxNjIuMTQ5MTc3ODUzNjgxNzh9LHsieCI6NTQ2LjQwNjI1LCJ5IjoxNDR9LHsieCI6Njg5LjEwOTM3NSwieSI6MTY0LjMxMzI4OTM3OTYxNzEyfV0=" data-look="classic" marker-end="url(#mmd13_flowchart-v2-pointEnd)"></path><path d="M673.906,69.851L652.656,72.876C631.406,75.901,588.906,81.95,546.023,94.213C503.14,106.476,459.874,124.953,438.241,134.191L416.608,143.429" id="mmd13-L_LG2_LG1_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_LG2_LG1_0" data-points="W3sieCI6NjczLjkwNjI1LCJ5Ijo2OS44NTA4MjIxNDYzMTgyMX0seyJ4Ijo1NDYuNDA2MjUsInkiOjg4fSx7IngiOjQxMi45MjkxMjk0NjQyODU3LCJ5IjoxNDV9XQ==" data-look="classic" marker-end="url(#mmd13_flowchart-v2-pointEnd)"></path><path d="M689.109,179.687L665.326,183.072C641.542,186.458,593.974,193.229,549.6,193.684C505.226,194.138,464.046,188.276,443.456,185.345L422.866,182.415" id="mmd13-L_LG3_LG1_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_LG3_LG1_0" data-points="W3sieCI6Njg5LjEwOTM3NSwieSI6MTc5LjY4NjcxMDYyMDM4Mjg4fSx7IngiOjU0Ni40MDYyNSwieSI6MjAwfSx7IngiOjQxOC45MDYyNSwieSI6MTgxLjg1MDgyMjE0NjMxODIyfV0=" data-look="classic" marker-end="url(#mmd13_flowchart-v2-pointEnd)"></path><path d="M400.195,145L407.363,141.167C414.532,137.333,428.869,129.667,436.038,142.5C443.206,155.333,443.206,188.667,436.626,201.814C430.045,214.962,416.884,207.924,410.303,204.405L403.722,200.886" id="mmd13-L_LG1_LG1_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_LG1_LG1_0" data-points="W3sieCI6NDAwLjE5NDgxMjUsInkiOjE0NX0seyJ4Ijo0NDMuMjA2MjUsInkiOjEyMn0seyJ4Ijo0NDMuMjA2MjUsInkiOjIyMn0seyJ4Ijo0MDAuMTk0ODEyNSwieSI6MTk5fV0=" data-look="classic" marker-end="url(#mmd13_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(167.75, 172)"><g class="label" data-id="L_LG0_LG1_0" transform="translate(-85.25, -12)"><foreignObject width="170.5" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>失敗回数 を 0 に初期化</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(519.4842, 51.16129)"><g class="label" data-id="L_LG1_LG2_0" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>T1 認証成功 / 失敗回数 を 0 にリセット</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(547.20625, 172)"><g class="label" data-id="L_LG1_LG1_0" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>T2 認証失敗 [失敗回数 2 未満] / 失敗回数 を 1 加算</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(554.00781, 145.08206)"><g class="label" data-id="L_LG1_LG3_0" transform="translate(-100, -24)"><foreignObject width="200" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>T3 認証失敗 [失敗回数 2] / 失敗回数 を 0 にリセット</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(546.40625, 88)"><g class="label" data-id="L_LG2_LG1_0" transform="translate(-53.1484375, -12)"><foreignObject width="106.296875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>T4 ログアウト</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(554.00781, 198.91794)"><g class="label" data-id="L_LG3_LG1_0" transform="translate(-47.625, -12)"><foreignObject width="95.25" height="24"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>T5 30分経過</p></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default start" id="mmd13-flowchart-LG0-0" data-look="classic" transform="translate(31.5, 172)"><circle class="basic label-container" style="fill:#2a3550 !important;stroke:#8fa3c0 !important" r="23.5" cx="0" cy="0"></circle><g class="label" style="color:#ffffff !important" transform="translate(-16, -12)"><rect></rect><foreignObject width="32" height="24"><div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#ffffff !important" class="nodeLabel"><p>開始</p></span></div></foreignObject></g></g><g class="node default st" id="mmd13-flowchart-LG1-1" data-look="classic" transform="translate(349.703125, 172)"><rect class="basic label-container" style="fill:#1e3a5f !important;stroke:#7c9eff !important" x="-69.203125" y="-27" width="138.40625" height="54"></rect><g class="label" style="color:#ffffff !important" transform="translate(-39.203125, -12)"><rect></rect><foreignObject width="78.40625" height="24"><div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#ffffff !important" class="nodeLabel"><p>未ログイン</p></span></div></foreignObject></g></g><g class="node default ok" id="mmd13-flowchart-LG2-2" data-look="classic" transform="translate(743.109375, 60)"><rect class="basic label-container" style="fill:#234d3a !important;stroke:#6fd6a4 !important" x="-69.203125" y="-27" width="138.40625" height="54"></rect><g class="label" style="color:#ffffff !important" transform="translate(-39.203125, -12)"><rect></rect><foreignObject width="78.40625" height="24"><div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#ffffff !important" class="nodeLabel"><p>ログイン済</p></span></div></foreignObject></g></g><g class="node default lock" id="mmd13-flowchart-LG3-3" data-look="classic" transform="translate(743.109375, 172)"><rect class="basic label-container" style="fill:#4a2f2f !important;stroke:#e08a8a !important" x="-54" y="-27" width="108" height="54"></rect><g class="label" style="color:#ffffff !important" transform="translate(-24, -12)"><rect></rect><foreignObject width="48" height="24"><div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span style="color:#ffffff !important" class="nodeLabel"><p>ロック</p></span></div></foreignObject></g></g><g class="label edgeLabel" id="LG1---LG1---1" transform="translate(743.109375, 252.02500000037253)"><rect width="0.1" height="0.1"></rect><g class="label" style="" transform="translate(0, 0)"><rect></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;"><span class="nodeLabel"></span></div></foreignObject></g></g><g class="label edgeLabel" id="LG1---LG1---2" transform="translate(1067.362500000745, 274.02500000037253)"><rect width="0.1" height="0.1"></rect><g class="label" style="" transform="translate(0, 0)"><rect></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;"><span class="nodeLabel"></span></div></foreignObject></g></g></g></g></g><defs><filter id="mmd13-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mmd13-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><linearGradient id="mmd13-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c9eff" stop-opacity="1"></stop><stop offset="100%" stop-color="hsl(94.1538461538, 12%, 14.5098039216%)" stop-opacity="1"></stop></linearGradient></svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-13">開始時に失敗回数を0にする。未ログインで認証成功するとT1でログイン済へ進み回数を0にする。認証失敗時、失敗回数が2未満ならT2で1加算して未ログインに留まり、2ならT3でロックして0にする。T4のログアウトで未ログインへ戻り、ロックからはT5の30分経過で戻る。</p>
                     <div class="callout callout-note">
@@ -13400,9 +12513,15 @@ L399.953,222.434"
                                 </tr>
                                 <tr class="odd">
                                     <td>30分経過</td>
-                                    <td>テスト用に時刻をスタブで進める（実時間30分待たない）</td>
+                                    <td>テスト用に時刻をスタブで29分59秒、続けて30分まで進める（実時間30分待たない）</td>
                                 </tr>
                                 <tr class="even">
+                                    <td>ロック維持／解除の確認（TC-02）</td>
+                                    <td>
+                                        時刻スタブが30分経過直前（29分59秒）の時点で、参照専用のアカウント状態照会 API または DB のロック状態フラグなど状態を変更しない手段（認証試行やログアウト状態への依存を避ける）でロック維持を確認し、続けて30分経過時点で同じ参照専用手段によりロック解除を確認する
+                                    </td>
+                                </tr>
+                                <tr class="odd">
                                     <td>ログイン済であることの確認</td>
                                     <td>マイページへの遷移、またはセッショントークンの存在確認</td>
                                 </tr>
@@ -16958,7 +16077,7 @@ L633.267,207.083"
                     </ul>
                 </article>
                 <footer class="page-footer">
-                    本ガイドは、2026年10月6日時点で公開されていた情報に基づく解説です。ISO/IEC/IEEE
+                    本ガイドの本文解説は、初回調査基準日である2026年10月6日時点で公開されていた情報に基づいています（ISO 公式ページの策定ステージおよび発行予定月のみ2026年11月19日に再確認・追記）。ISO/IEC/IEEE
                     29119-8
                     の本文は未確認のため、条項レベルの正確性が必要な場合は、発行後に正式な規格本文をご確認ください。
                 </footer>
@@ -16996,12 +16115,34 @@ L633.267,207.083"
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
                 var links = {};
+                var fragmentTarget = null;
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.getAttribute('data-target')] = a;
                     a.addEventListener('click', function () {
-                        activate(a.getAttribute('data-target'));
+                        fragmentTarget = a.getAttribute('data-target');
+                        activate(fragmentTarget);
                         if (window.innerWidth <= 900) setOpen(false);
                     });
+                });
+                function syncFragmentFromHash() {
+                    var id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+                    if (id && links[id]) {
+                        fragmentTarget = id;
+                        activate(id);
+                    } else {
+                        fragmentTarget = null;
+                    }
+                }
+                window.addEventListener('hashchange', syncFragmentFromHash);
+                function clearFragmentOnUserScroll() {
+                    fragmentTarget = null;
+                }
+                window.addEventListener('wheel', clearFragmentOnUserScroll, { passive: true });
+                window.addEventListener('touchmove', clearFragmentOnUserScroll, { passive: true });
+                window.addEventListener('keydown', function (e) {
+                    if (/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(e.key)) {
+                        fragmentTarget = null;
+                    }
                 });
                 function activate(id) {
                     activeHeading = id;
@@ -17040,7 +16181,18 @@ L633.267,207.083"
                         if (h.getBoundingClientRect().top <= cutoff) current = h;
                     });
                     if (headings.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
-                        current = headings[headings.length - 1];
+                        var fragmentHeading = fragmentTarget ? document.getElementById(fragmentTarget) : null;
+                        if (fragmentHeading && links[fragmentTarget]) {
+                            var rect = fragmentHeading.getBoundingClientRect();
+                            if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
+                                current = fragmentHeading;
+                            } else {
+                                fragmentTarget = null;
+                                current = headings[headings.length - 1];
+                            }
+                        } else {
+                            current = headings[headings.length - 1];
+                        }
                     }
                     if (current && current.id !== activeHeading) {
                         activate(current.id);
@@ -17061,6 +16213,7 @@ L633.267,207.083"
                 }
                 window.addEventListener('scroll', updateActiveHeading, { passive: true });
                 window.addEventListener('resize', updateActiveHeading);
+                syncFragmentFromHash();
                 updateActiveHeading();
                 document.querySelectorAll('.checklist-card').forEach(function (card) {
                     var boxes = card.querySelectorAll('input[type=checkbox]'),
