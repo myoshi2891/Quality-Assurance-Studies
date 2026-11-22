@@ -6443,7 +6443,7 @@
                             </tr>
                             <tr class="odd">
                                 <td>③ 行単位突合</td>
-                                <td>キーごとに全項目を比較（またはハッシュ比較）</td>
+                                <td>両側でキーの一意性を確認し、移行元のみ・移行先のみに存在するキーを検出したうえで、キーごとに全項目を比較（ハッシュ比較は絞り込み用で、全項目一致の保証にはならない）</td>
                                 <td>高</td>
                                 <td>項目単位の不一致すべて</td>
                             </tr>
@@ -6470,12 +6470,17 @@
        <span class="tk-k">MAX</span>(ordered_at) <span class="tk-k">AS</span> max_date
 <span class="tk-k">FROM</span>   tgt.orders;
 
-<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード）。顧客が必須なら o.customer_id IS NULL も不整合として報告し、NULL許容なら IS NOT NULL で除外する</span>
+<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード）。NULL許容の参照の場合</span>
 <span class="tk-k">SELECT</span> o.order_id
 <span class="tk-k">FROM</span>   tgt.orders o
 <span class="tk-k">LEFT JOIN</span> tgt.customers c <span class="tk-k">ON</span> c.customer_id = o.customer_id
-<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NULL</span>  <span class="tk-c">-- 必須参照の場合のみ</span>
-   <span class="tk-k">OR</span>  (o.customer_id <span class="tk-k">IS NOT NULL</span> <span class="tk-k">AND</span> c.customer_id <span class="tk-k">IS NULL</span>);</code></pre>
+<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NOT NULL</span> <span class="tk-k">AND</span> c.customer_id <span class="tk-k">IS NULL</span>;
+
+<span class="tk-c">-- 必須参照の場合：NULLも不整合として報告する</span>
+<span class="tk-k">SELECT</span> o.order_id
+<span class="tk-k">FROM</span>   tgt.orders o
+<span class="tk-k">LEFT JOIN</span> tgt.customers c <span class="tk-k">ON</span> c.customer_id = o.customer_id
+<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NULL</span> <span class="tk-k">OR</span> c.customer_id <span class="tk-k">IS NULL</span>;</code></pre>
                 <div class="callout callout-practice">
                     <p>💡 ③の行単位突合は、AWS Database Migration Service</p>
                     <p>

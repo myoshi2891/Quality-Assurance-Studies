@@ -341,7 +341,7 @@ flowchart LR
 |---|---|---|---|
 | ① 件数突合 | 移行元と移行先の行数が一致するか | 低 | 行数差が生じる欠落・重複（欠落と重複が同数で相殺されると検出できない） |
 | ② 集計値突合 | 金額合計、日付の最小／最大、キーのユニーク数など | 中 | 選択した集計値に差が出る値の変形・丸め（変形が相殺されたり、集計対象外の項目で起きたりすると検出できない） |
-| ③ 行単位突合 | キーごとに全項目を比較（またはハッシュ比較） | 高 | 項目単位の不一致すべて |
+| ③ 行単位突合 | 両側でキーの一意性を確認し、移行元のみ・移行先のみに存在するキーを検出したうえで、キーごとに全項目を比較（ハッシュ比較は絞り込み用で、全項目一致の保証にはならない） | 高 | 項目単位の不一致すべて |
 
 **SQLの例（件数・集計・孤児レコード検出）**
 
@@ -366,12 +366,17 @@ SELECT 'target' AS side,
        MAX(ordered_at) AS max_date
 FROM   tgt.orders;
 
--- 参照整合性：顧客のいない注文（孤児レコード）。顧客が必須なら o.customer_id IS NULL も不整合として報告し、NULL許容なら IS NOT NULL で除外する
+-- 参照整合性：顧客のいない注文（孤児レコード）。NULL許容の参照の場合
 SELECT o.order_id
 FROM   tgt.orders o
 LEFT JOIN tgt.customers c ON c.customer_id = o.customer_id
-WHERE  o.customer_id IS NULL  -- 必須参照の場合のみ
-   OR  (o.customer_id IS NOT NULL AND c.customer_id IS NULL);
+WHERE  o.customer_id IS NOT NULL AND c.customer_id IS NULL;
+
+-- 必須参照の場合：NULLも不整合として報告する
+SELECT o.order_id
+FROM   tgt.orders o
+LEFT JOIN tgt.customers c ON c.customer_id = o.customer_id
+WHERE  o.customer_id IS NULL OR c.customer_id IS NULL;
 ```
 
 > 💡 ③の行単位突合は、AWS Database Migration Service のデータ検証機能が「移行元の各行と移行先の対応する行を比較し、不一致を報告する」仕組みを提供している、という公式ドキュメントの記述が参考になります [S9]。
