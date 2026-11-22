@@ -110,8 +110,16 @@
                 margin: 0;
                 padding: 0;
             }
-            .nav-h2 > a {
+            .nav-h2-head {
+                display: flex;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .nav-h2 > a,
+            .nav-h2-head > a {
                 display: block;
+                flex: 1;
+                min-width: 0;
                 padding: 6px 10px;
                 border-radius: 8px;
                 color: var(--text-dim);
@@ -120,15 +128,46 @@
                 line-height: 1.5;
                 border-left: 2px solid transparent;
             }
-            .nav-h2 > a:hover {
+            .nav-h2 > a:hover,
+            .nav-h2-head > a:hover {
                 background: var(--accent-soft);
                 text-decoration: none;
                 color: #fff;
             }
-            .nav-h2 > a.active {
+            .nav-h2 > a.active,
+            .nav-h2-head > a.active {
                 background: var(--accent-soft);
                 color: #fff;
                 border-left-color: var(--accent);
+            }
+            .nav-sub-toggle {
+                flex: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 28px;
+                min-height: 28px;
+                margin-top: 2px;
+                padding: 0;
+                border: 1px solid transparent;
+                border-radius: 6px;
+                background: transparent;
+                color: var(--text-faint);
+                font-family: var(--font);
+                font-size: 12px;
+                line-height: 1;
+                cursor: pointer;
+            }
+            .nav-sub-toggle:hover {
+                background: var(--accent-soft);
+                color: #fff;
+            }
+            .nav-sub-toggle .nav-sub-icon {
+                display: inline-block;
+                transition: transform 0.15s;
+            }
+            .nav-h2.open > .nav-h2-head .nav-sub-toggle .nav-sub-icon {
+                transform: rotate(90deg);
             }
             .nav-sub {
                 display: none;
@@ -535,6 +574,10 @@
                 .sidebar-toggle {
                     display: block;
                 }
+                .nav-sub-toggle {
+                    min-width: 36px;
+                    min-height: 36px;
+                }
                 .scrim.show {
                     display: block;
                     position: fixed;
@@ -599,8 +642,11 @@
                             <a href="#sec-2" data-target="sec-2">2. 30秒でわかる 29119-8</a>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-3" data-target="sec-3">3. ステップ1：MBT とは何か</a>
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-3" data-target="sec-3">3. ステップ1：MBT とは何か</a>
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-3" aria-label="3. ステップ1：MBT とは何かのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-3">
                                 <li><a href="#sec-3-1" data-target="sec-3-1">3.1 定義</a></li>
                                 <li>
                                     <a href="#sec-3-2" data-target="sec-3-2"
@@ -620,10 +666,13 @@
                             >
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-5" data-target="sec-5"
-                                >5. ステップ3：29119-8 のスコープ</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-5" data-target="sec-5"
+                                    >5. ステップ3：29119-8 のスコープ</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-5" aria-label="5. ステップ3：29119-8 のスコープのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-5">
                                 <li>
                                     <a href="#sec-5-1" data-target="sec-5-1"
                                         >5.1 「扱う」ものと「扱わない」もの</a
@@ -642,10 +691,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-6" data-target="sec-6"
-                                >6. ステップ4：策定の経緯と現在のステータス</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-6" data-target="sec-6"
+                                    >6. ステップ4：策定の経緯と現在のステータス</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-6" aria-label="6. ステップ4：策定の経緯と現在のステータスのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-6">
                                 <li>
                                     <a href="#sec-6-1" data-target="sec-6-1"
                                         >補足：ISTQB シラバスに残る旧称</a
@@ -654,10 +706,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-7" data-target="sec-7"
-                                >7. ステップ5：MBT のプロセス全体像</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-7" data-target="sec-7"
+                                    >7. ステップ5：MBT のプロセス全体像</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-7" aria-label="7. ステップ5：MBT のプロセス全体像のサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-7">
                                 <li>
                                     <a href="#sec-7-1" data-target="sec-7-1"
                                         >7.1 MBT の基本フロー</a
@@ -676,10 +731,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-8" data-target="sec-8"
-                                >8. ステップ6：29119-2（テストプロセス）を MBT で実装するとは</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-8" data-target="sec-8"
+                                    >8. ステップ6：29119-2（テストプロセス）を MBT で実装するとは</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-8" aria-label="8. ステップ6：29119-2（テストプロセス）を MBT で実装するとはのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-8">
                                 <li>
                                     <a href="#sec-8-1" data-target="sec-8-1"
                                         >8.1 29119-2 の3層構造をおさらい</a
@@ -698,10 +756,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-9" data-target="sec-9"
-                                >9. ステップ7：モデルの種類と書き方</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-9" data-target="sec-9"
+                                    >9. ステップ7：モデルの種類と書き方</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-9" aria-label="9. ステップ7：モデルの種類と書き方のサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-9">
                                 <li>
                                     <a href="#sec-9-1" data-target="sec-9-1"
                                         >9.1 モデルの3つの「主題」</a
@@ -735,10 +796,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-10" data-target="sec-10"
-                                >10. ステップ8：テスト選択基準（何をどこまで生成するか）</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-10" data-target="sec-10"
+                                    >10. ステップ8：テスト選択基準（何をどこまで生成するか）</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-10" aria-label="10. ステップ8：テスト選択基準（何をどこまで生成するか）のサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-10">
                                 <li>
                                     <a href="#sec-10-1" data-target="sec-10-1"
                                         >10.1 6つの基準ファミリー（ISTQB の整理）</a
@@ -762,10 +826,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-11" data-target="sec-11"
-                                >11. ステップ9：テスト生成から実行まで</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-11" data-target="sec-11"
+                                    >11. ステップ9：テスト生成から実行まで</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-11" aria-label="11. ステップ9：テスト生成から実行までのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-11">
                                 <li>
                                     <a href="#sec-11-1" data-target="sec-11-1"
                                         >11.1 抽象テストと具体テスト</a
@@ -789,10 +856,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-12" data-target="sec-12"
-                                >12. ステップ10：29119-3（文書化）への対応</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-12" data-target="sec-12"
+                                    >12. ステップ10：29119-3（文書化）への対応</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-12" aria-label="12. ステップ10：29119-3（文書化）への対応のサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-12">
                                 <li>
                                     <a href="#sec-12-1" data-target="sec-12-1"
                                         >12.1 対応づけの考え方</a
@@ -811,10 +881,13 @@
                             >
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-14" data-target="sec-14"
-                                >14. ステップ12：手を動かす——ログイン機能で MBT を体験</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-14" data-target="sec-14"
+                                    >14. ステップ12：手を動かす——ログイン機能で MBT を体験</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-14" aria-label="14. ステップ12：手を動かす——ログイン機能で MBT を体験のサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-14">
                                 <li>
                                     <a href="#sec-14-1" data-target="sec-14-1">14.1 題材の仕様</a>
                                 </li>
@@ -851,10 +924,13 @@
                             </ul>
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-15" data-target="sec-15"
-                                >15. ステップ13：導入判断・ROI・KPI</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-15" data-target="sec-15"
+                                    >15. ステップ13：導入判断・ROI・KPI</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-15" aria-label="15. ステップ13：導入判断・ROI・KPIのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-15">
                                 <li>
                                     <a href="#sec-15-1" data-target="sec-15-1"
                                         >15.1 MBT 導入の判断フロー</a
@@ -884,10 +960,13 @@
                             >
                         </li>
                         <li class="nav-h2">
-                            <a href="#sec-17" data-target="sec-17"
-                                >17. 学習ロードマップとチェックリスト</a
-                            >
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-17" data-target="sec-17"
+                                    >17. 学習ロードマップとチェックリスト</a
+                                >
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-17" aria-label="17. 学習ロードマップとチェックリストのサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-17">
                                 <li>
                                     <a href="#sec-17-1" data-target="sec-17-1">17.1 学習の進め方</a>
                                 </li>
@@ -903,8 +982,11 @@
                         </li>
                         <li class="nav-h2"><a href="#sec-19" data-target="sec-19">19. FAQ</a></li>
                         <li class="nav-h2">
-                            <a href="#sec-20" data-target="sec-20">20. 出典 URL 一覧</a>
-                            <ul class="nav-sub">
+                            <div class="nav-h2-head">
+                                <a href="#sec-20" data-target="sec-20">20. 出典 URL 一覧</a>
+                                <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="nav-sub-sec-20" aria-label="20. 出典 URL 一覧のサブメニューを開閉"><span class="nav-sub-icon" aria-hidden="true">▸</span></button>
+                            </div>
+                            <ul class="nav-sub" id="nav-sub-sec-20">
                                 <li>
                                     <a href="#sec-20-1" data-target="sec-20-1"
                                         >20.1 規格・公式情報（◎）</a
@@ -12475,8 +12557,7 @@ z"
                                 <tr class="odd">
                                     <td>要件カバレッジ</td>
                                     <td>
-                                        別テストは追加せず、T3、T5 を含む既存の TC-02
-                                        の流れの中で「30分経過直前までアカウントのロックが維持され、30分経過で解除される」ことを確認し、この測定対象に「ロック」要件の ID を紐づける
+                                        T3、T5 を含む既存の TC-02 では参照専用のロック状態確認により「30分経過直前までロックが維持され、30分経過で解除される」ことを確認し、これとは別にロック適用確認用の TC-03（別アカウント使用）を追加してロック中に正しい認証情報でのログインが拒否されることを確認したうえで、「ロック」要件の ID を紐づける
                                     </td>
                                 </tr>
                             </tbody>
@@ -12521,7 +12602,13 @@ z"
                                 <tr class="even">
                                     <td>ロック状態・維持／解除の確認（TC-02）</td>
                                     <td>
-                                        3回目の失敗直後（時刻スタブを進める前）に、アカウント状態照会 API など状態を変更せず認証試行やログアウト状態にも依存しない参照専用の有効ロック状態チェックでロック状態であることを確認する。続けて、同じ参照専用の有効ロック状態チェックを時刻スタブに対して評価し、ロック開始時刻から期限（開始+30分）を算出し、その1刻み前（整数秒クロックなら29分59秒）でロック維持、期限ちょうど（30分）でロック解除を確認する。生の DB ロック状態フラグを用いるのは、認証試行を伴わずに期限切れが反映されることが保証されている場合に限る
+                                        3回目の失敗直後（時刻スタブを進める前）に、アカウント状態照会 API など状態を変更せず認証試行やログアウト状態にも依存しない参照専用の有効ロック状態チェックでロック状態であることを確認する。続けて、同じ参照専用の有効ロック状態チェックを時刻スタブに対して評価し、ロック開始時刻から期限（開始+30分）を算出し、その1刻み前（整数秒クロックなら29分59秒）でロック維持、期限ちょうど（30分）でロック解除を確認する。TC-02 は参照専用のロック状態確認に限定し、ロック中のログイン試行は混ぜない（生の DB ロック状態フラグを用いるのは、認証試行を伴わずに期限切れが反映されることが保証されている場合に限る）
+                                    </td>
+                                </tr>
+                                <tr class="odd">
+                                    <td>ロック適用（認証拒否）の確認（TC-03・別アカウント）</td>
+                                    <td>
+                                        TC-02 とは別の、新規またはリセット済み（ログアウト状態・ロックなし・連続失敗0回）のテスト用アカウントを用意する。誤ったパスワードで3回連続失敗させてロック状態にした後、ロック期間中に正しい ID と正しいパスワードでログインを試行し、認証が拒否される（ログインできない）ことを確認する。TC-02 とアカウント・テストケースを分離することで、この認証試行が TC-02 の時刻境界（29分59秒／30分）の結果に影響しないようにする
                                     </td>
                                 </tr>
                                 <tr class="odd">
@@ -16120,11 +16207,31 @@ L633.267,207.083"
                 syncSidebar();
                 var links = Object.create(null);
                 var fragmentTarget = null;
+                var pendingHashFromClick = null;
+                var pendingHashSync = 0;
+                function syncSubmenuToggles() {
+                    document.querySelectorAll('.nav-h2').forEach(function (li) {
+                        var btn = li.querySelector(':scope > .nav-h2-head > .nav-sub-toggle');
+                        if (btn) btn.setAttribute('aria-expanded', li.classList.contains('open') ? 'true' : 'false');
+                    });
+                }
+                document.querySelectorAll('.nav-sub-toggle').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var li = btn.closest('.nav-h2');
+                        if (!li) return;
+                        var willOpen = !li.classList.contains('open');
+                        li.classList.toggle('open', willOpen);
+                        li.dataset.manualOpen = willOpen ? 'true' : '';
+                        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+                    });
+                });
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
                     links[a.getAttribute('data-target')] = a;
                     a.addEventListener('click', function (e) {
                         if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-                        fragmentTarget = a.getAttribute('data-target');
+                        var target = a.getAttribute('data-target');
+                        fragmentTarget = target;
+                        pendingHashFromClick = target;
                         activate(fragmentTarget);
                         if (window.innerWidth <= 900) setOpen(false);
                     });
@@ -16136,13 +16243,22 @@ L633.267,207.083"
                     } catch (e) {
                         id = '';
                     }
-                    if (id && links[id]) {
+                    if (pendingHashFromClick && id === pendingHashFromClick && links[id]) {
+                        pendingHashFromClick = null;
                         fragmentTarget = id;
                         activate(id);
-                    } else {
-                        fragmentTarget = null;
-                        updateActiveHeading();
+                        return;
                     }
+                    // Back/Forward ナビゲーション時は復元されたビューポートに TOC を追従させ、
+                    // ハッシュ固定が復元後の表示位置を上書きしないようにする。
+                    pendingHashFromClick = null;
+                    fragmentTarget = null;
+                    updateActiveHeading();
+                    if (pendingHashSync) cancelAnimationFrame(pendingHashSync);
+                    pendingHashSync = requestAnimationFrame(function () {
+                        pendingHashSync = 0;
+                        if (!fragmentTarget) updateActiveHeading();
+                    });
                 }
                 window.addEventListener('hashchange', syncFragmentFromHash);
                 function clearFragmentOnUserScroll() {
@@ -16180,19 +16296,23 @@ L633.267,207.083"
                         a.removeAttribute('aria-current');
                     });
                     document.querySelectorAll('.nav-h2.open').forEach(function (l) {
-                        if (l.contains(document.activeElement)) return;
+                        if (l.contains(document.activeElement) || l.dataset.manualOpen === 'true') return;
                         l.classList.remove('open');
                     });
                     var a = links[id];
-                    if (!a) return;
+                    if (!a) {
+                        syncSubmenuToggles();
+                        return;
+                    }
                     a.classList.add('active');
                     a.setAttribute('aria-current', 'location');
                     var li = a.closest('.nav-h2');
                     if (li) {
                         li.classList.add('open');
-                        var h2a = li.querySelector(':scope>a');
+                        var h2a = li.querySelector(':scope > a, :scope > .nav-h2-head > a');
                         if (h2a) h2a.classList.add('active');
                     }
+                    syncSubmenuToggles();
                     var r = a.getBoundingClientRect(),
                         s = sb.getBoundingClientRect();
                     if (r.top < s.top + 40 || r.bottom > s.bottom - 40) {
