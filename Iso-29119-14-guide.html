@@ -413,20 +413,39 @@
                     scroll-padding-top: 80px;
                 }
                 .sidebar {
+                    position: static;
+                    width: auto;
+                    height: auto;
+                    border-right: 0;
+                    border-bottom: 1px solid var(--line);
+                    overflow: visible;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 24px 18px 60px;
+                }
+                .toc-drawer-ready .sidebar {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: var(--sw);
+                    border-right: 1px solid var(--line);
+                    border-bottom: 0;
+                    overflow-y: auto;
                     visibility: hidden;
                     transform: translateX(-100%);
                     transition: transform 0.2s;
                 }
-                .sidebar.open {
+                .toc-drawer-ready .sidebar.open {
                     visibility: visible;
                     transform: none;
                 }
-                .toggle {
+                .toc-drawer-ready .toggle {
                     display: block;
                 }
-                .main {
-                    margin-left: 0;
-                    padding: 64px 18px 60px;
+                .toc-drawer-ready .main {
+                    padding-top: 64px;
                 }
                 .hero {
                     padding: 24px 18px;
@@ -2075,7 +2094,7 @@
                 <div class="callout callout-verified">
                     <p>✅ <strong>【確認済み】</strong></p>
                     <p>
-                        ステージ30.60（2026-01-29、2026-10-07時点のスナップショット）の後は、ISOのステージ表上は「30.92：CDがWGへ差し戻し」または「30.99：CDがDISとして登録承認」のいずれかに進みます。DIS登録後はステージ40.00（DIS登録）となるため、最新の段階は公式ページで確認してください
+                        ステージ30.60（2026-01-29、2026-10-07時点のスナップショット）の後は、ISOのステージ表上は「30.92：CDがWGへ差し戻し」、「30.98：プロジェクト中止」、または「30.99：CDがDISとして登録承認」のいずれかに進みます。DIS登録後はステージ40.00（DIS登録）となるため、最新の段階は公式ページで確認してください
                     </p>
                     <p>[S1]。</p>
                     <p>
@@ -5326,11 +5345,11 @@
                 <div class="mermaid-diagram" id="diagram-6" role="img" aria-label="リハーサルから移行判定と切り戻しまで" aria-describedby="diagram-description-6" tabindex="0">
                     <svg
                         id="mmd5"
-                        width="1657.0625"
+                        width="2145"
                         xmlns="http://www.w3.org/2000/svg"
                         class="flowchart"
                         height="294.04998779296875"
-                        viewBox="0 0 1657.0625 294.04998779296875"
+                        viewBox="0 0 2145 294.04998779296875"
                         role="graphics-document document"
                         aria-roledescription="flowchart-v2"
                     >
@@ -5750,6 +5769,16 @@
                                         marker-end="url(#mmd5_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
+                                        d="M1649.063,46L1780,46L1911,46"
+                                        id="L_PH6_PH8_0"
+                                        class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                                        style=""
+                                        data-edge="true"
+                                        data-et="edge"
+                                        data-id="L_PH6_PH8_0"
+                                        marker-end="url(#mmd5_flowchart-v2-pointEnd)"
+                                    ></path>
+                                    <path
                                         d="M1299.145,140.73L1312.571,147.608C1325.998,154.487,1352.85,168.243,1382.509,175.122C1412.167,182,1444.63,182,1460.862,182L1477.094,182"
                                         id="L_PH5_PH7_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
@@ -5900,6 +5929,33 @@
                                                     "
                                                 >
                                                     <span class="edgeLabel"><p>Go</p></span>
+                                                </div></foreignObject
+                                            >
+                                        </g>
+                                    </g>
+                                    <g class="edgeLabel" transform="translate(1780, 46)">
+                                        <g
+                                            class="label"
+                                            data-id="L_PH6_PH8_0"
+                                            transform="translate(-95, -24)"
+                                        >
+                                            <foreignObject width="190" height="48"
+                                                ><div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    class="labelBkg"
+                                                    style="
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        max-width: 200px;
+                                                        text-align: center;
+                                                    "
+                                                >
+                                                    <span class="edgeLabel"
+                                                        ><p>
+                                                            切り戻し期間終了・<br />アーカイブ要件充足後
+                                                        </p></span
+                                                    >
                                                 </div></foreignObject
                                             >
                                         </g>
@@ -6261,7 +6317,52 @@
                                                         style="color: #ffffff !important"
                                                         class="nodeLabel"
                                                         ><p>
-                                                            稼働開始<br />旧システム停止・廃止
+                                                            新サービス稼働開始<br />Go-live
+                                                        </p></span
+                                                    >
+                                                </div></foreignObject
+                                            >
+                                        </g>
+                                    </g>
+                                    <g
+                                        class="node default endok"
+                                        id="flowchart-PH8-12"
+                                        transform="translate(2023, 46)"
+                                    >
+                                        <rect
+                                            class="basic label-container"
+                                            style="
+                                                fill: #14532d !important;
+                                                stroke: #4ade80 !important;
+                                            "
+                                            x="-108"
+                                            y="-38"
+                                            width="216"
+                                            height="76"
+                                        ></rect>
+                                        <g
+                                            class="label"
+                                            style="color: #ffffff !important"
+                                            transform="translate(-80, -24)"
+                                        >
+                                            <rect></rect>
+                                            <foreignObject width="160" height="48"
+                                                ><div
+                                                    style="
+                                                        color: rgb(255, 255, 255) !important;
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        max-width: 200px;
+                                                        text-align: center;
+                                                    "
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                >
+                                                    <span
+                                                        style="color: #ffffff !important"
+                                                        class="nodeLabel"
+                                                        ><p>
+                                                            旧システム停止・廃止<br />Decommission
                                                         </p></span
                                                     >
                                                 </div></foreignObject
@@ -6362,7 +6463,7 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-6">移行前の範囲・マッピング確定からリハーサル、本番移行、移行後の突合へ進む。Goなら稼働開始、No-Goなら切り戻し、不具合を修正して再リハーサルする。</p>
+                <p class="diagram-description" id="diagram-description-6">移行前の範囲・マッピング確定からリハーサル、本番移行、移行後の突合へ進む。Goなら新サービスを稼働開始し、切り戻し期間の終了とアーカイブ要件の充足後に旧システムを停止・廃止する。No-Goなら切り戻し、不具合を修正して再リハーサルする。</p>
                 <h3 id="7-2-フェーズごとにやること">7-2. フェーズごとにやること</h3>
                 <div class="table-scroll" tabindex="0" role="region" aria-label="7-2. フェーズごとにやること：フェーズ・主な活動・主な成果物（例）（横スクロール可能）">
                     <table>
@@ -8990,7 +9091,7 @@
                         移行元の各行と移行先の対応行を<strong>比較し、同じデータか確認し、不一致を報告</strong>する
                     </li>
                     <li>
-                        主キーまたは対象となる一意インデックスのないテーブルは<strong>検証できない</strong>。「不一致の報告がない」ことを成功とみなす前に、未検証のテーブルがないか確認する
+                        主キーまたは対象となる一意インデックスのないテーブルは<strong>検証できない</strong>。「不一致の報告がない」ことを成功とみなす前に、未検証のテーブルがないかに加え、マスキングルールの影響を受ける非キー列を含めて検証から除外されている列がないか確認し、検証が必要な除外項目は別手段で個別に確認する
                     </li>
                     <li>
                         移行中にソースが更新され続ける行は<strong
@@ -10484,6 +10585,7 @@
                     }
                 });
                 mobileSidebar.addEventListener('change', syncSidebar);
+                document.body.classList.add('toc-drawer-ready');
                 syncSidebar();
                 var links = {};
                 document.querySelectorAll('.nav-list a').forEach(function (a) {
