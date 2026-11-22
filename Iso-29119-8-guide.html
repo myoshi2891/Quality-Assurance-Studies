@@ -11636,10 +11636,10 @@ z"
                                     </td>
                                 </tr>
                                 <tr class="even">
-                                    <td>テスト設計仕様</td>
+                                    <td>テストモデル仕様（29119-3:2021 Clause 8.2）</td>
                                     <td>
                                         <strong>MBT モデルそのもの</strong
-                                        >と、選択基準の記録を設計仕様として位置づけられる
+                                        >と選択基準の記録をテンプレートの記載内容として充てられるが、目的（objective）やトレーサビリティなど同テンプレートの他項目の確認・記載を省略できるわけではない
                                     </td>
                                 </tr>
                                 <tr class="odd">
@@ -12608,7 +12608,7 @@ z"
                                 <tr class="odd">
                                     <td>ロック適用（認証拒否）の確認（TC-03・別アカウント）</td>
                                     <td>
-                                        TC-02 とは別の、新規またはリセット済み（ログアウト状態・ロックなし・連続失敗0回）のテスト用アカウントを用意する。誤ったパスワードで3回連続失敗させてロック状態にした後、ロック期間中に正しい ID と正しいパスワードでログインを試行し、認証が拒否される（ログインできない）ことを確認する。TC-02 とアカウント・テストケースを分離することで、この認証試行が TC-02 の時刻境界（29分59秒／30分）の結果に影響しないようにする
+                                        TC-02 とは別の、新規またはリセット済み（ログアウト状態・ロックなし・連続失敗0回）のテスト用アカウントを用意する。ロック閾値（現行は3回）だけ誤ったパスワードで連続失敗させ、閾値到達によりロック状態になった後で、ロック期間中に次の正しい ID と正しいパスワードでログインを試行し、認証が拒否される（ログインできない）ことを確認する（閾値に達するまではロックされないため、閾値回数の連続失敗後に検証する）。TC-02 とアカウント・テストケースを分離することで、この認証試行が TC-02 の時刻境界（29分59秒／30分）の結果に影響しないようにする
                                     </td>
                                 </tr>
                                 <tr class="odd">
@@ -12647,7 +12647,7 @@ z"
                                 <tr class="even">
                                     <td>MBT</td>
                                     <td>
-                                        <strong>モデルの1か所（T2とT3の条件）を直して再生成</strong>
+                                        <strong>モデルの1か所（T2とT3の条件）を直してモデル経路を再生成</strong>（モデル外で個別に追加した TC-03 の事前失敗回数は、T2・T3 のモデル条件とは別にロック閾値に合わせて更新／パラメータ化する）
                                     </td>
                                 </tr>
                             </tbody>
@@ -16236,14 +16236,14 @@ L633.267,207.083"
                         if (window.innerWidth <= 900) setOpen(false);
                     });
                 });
-                function syncFragmentFromHash() {
+                function syncFragmentFromHash(isInitial) {
                     var id = '';
                     try {
                         id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
                     } catch (e) {
                         id = '';
                     }
-                    if (pendingHashFromClick && id === pendingHashFromClick && links[id]) {
+                    if (links[id] && (isInitial === true || (pendingHashFromClick && id === pendingHashFromClick))) {
                         pendingHashFromClick = null;
                         fragmentTarget = id;
                         activate(id);
@@ -16357,7 +16357,7 @@ L633.267,207.083"
                 }
                 window.addEventListener('scroll', updateActiveHeading, { passive: true });
                 window.addEventListener('resize', updateActiveHeading);
-                syncFragmentFromHash();
+                syncFragmentFromHash(true);
                 updateActiveHeading();
                 document.querySelectorAll('.checklist-card').forEach(function (card) {
                     var boxes = card.querySelectorAll('input[type=checkbox]'),
