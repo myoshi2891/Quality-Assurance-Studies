@@ -11,11 +11,14 @@ export default function NavBar() {
     const boundary = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
     const restoreDesktopFocus = useRef(false);
+    const restoreMobileFocus = useRef(false);
     useEffect(() => {
         const query = window.matchMedia('(max-width: 900px)');
         /** Close the drawer when switching back to the desktop column. */
         const update = () => {
             const buttonFocused = document.activeElement === button.current;
+            if (query.matches && nav.current?.contains(document.activeElement))
+                restoreMobileFocus.current = true;
             setMobile(query.matches);
             if (!query.matches) {
                 if (buttonFocused) restoreDesktopFocus.current = true;
@@ -26,6 +29,11 @@ export default function NavBar() {
         query.addEventListener('change', update);
         return () => query.removeEventListener('change', update);
     }, []);
+    useEffect(() => {
+        if (!mobile || !restoreMobileFocus.current) return;
+        restoreMobileFocus.current = false;
+        button.current?.focus();
+    }, [mobile]);
     useEffect(() => {
         if (mobile || !restoreDesktopFocus.current) return;
         restoreDesktopFocus.current = false;
