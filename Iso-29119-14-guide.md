@@ -345,6 +345,8 @@ flowchart LR
 
 **SQLの例（件数・集計・孤児レコード検出）**
 
+※ 比較は、同じレプリケーション位置の安定したスナップショット、または書き込みを一時停止して移行先が追いついた後に行う。
+
 ```sql
 -- ① 件数突合
 SELECT 'source' AS side, COUNT(*) AS cnt FROM src.orders
@@ -364,12 +366,12 @@ SELECT 'target' AS side,
        MAX(ordered_at) AS max_date
 FROM   tgt.orders;
 
--- 参照整合性：顧客のいない注文（孤児レコード。NULL参照を許容する場合は o.customer_id IS NOT NULL で除外）
+-- 参照整合性：顧客のいない注文（孤児レコード）。顧客が必須なら o.customer_id IS NULL も不整合として報告し、NULL許容なら IS NOT NULL で除外する
 SELECT o.order_id
 FROM   tgt.orders o
 LEFT JOIN tgt.customers c ON c.customer_id = o.customer_id
-WHERE  o.customer_id IS NOT NULL
-  AND  c.customer_id IS NULL;
+WHERE  o.customer_id IS NULL  -- 必須参照の場合のみ
+   OR  (o.customer_id IS NOT NULL AND c.customer_id IS NULL);
 ```
 
 > 💡 ③の行単位突合は、AWS Database Migration Service のデータ検証機能が「移行元の各行と移行先の対応する行を比較し、不一致を報告する」仕組みを提供している、という公式ドキュメントの記述が参考になります [S9]。
@@ -489,7 +491,7 @@ flowchart LR
 | バックフィル後の検証 | 既存データの移し替え後に、**漏れがないか照合する工程が必要** |
 | 読み取り時の比較 | 新旧を**読み比べて差異を検知**してから切り替える（Reads Compare） |
 | 段階的切替 | 一気に切り替えず、読み → 書きの順に段階的に変える |
-| 切り戻しの余地 | 旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく。切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから切り替える |
+| 切り戻しの余地 | 旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく。更新順序・バージョンを保持し、切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して旧ストアが既に最新の受付済み状態と一致していればリプレイせず、その状態を検証してから切り替える。欠損がある場合のみ修復・リプレイする |
 
 ### 9-3. パターンC：Scientist（本番での新旧並走・結果比較）
 

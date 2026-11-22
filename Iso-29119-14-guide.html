@@ -444,6 +444,9 @@
                 }
             }
             @media (prefers-reduced-motion: reduce) {
+                .sidebar {
+                    transition: none;
+                }
                 html {
                     scroll-behavior: auto;
                 }
@@ -6448,6 +6451,7 @@
                     </table>
                 </div>
                 <p><strong>SQLの例（件数・集計・孤児レコード検出）</strong></p>
+                <p>※ 比較は、同じレプリケーション位置の安定したスナップショット、または書き込みを一時停止して移行先が追いついた後に行う。</p>
                 <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（件数・集計・孤児レコード検出）（横スクロール可能）"><code><span class="tk-c">-- ① 件数突合</span>
 <span class="tk-k">SELECT</span> 'source' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> src.orders
 <span class="tk-k">UNION ALL</span>
@@ -6466,12 +6470,12 @@
        <span class="tk-k">MAX</span>(ordered_at) <span class="tk-k">AS</span> max_date
 <span class="tk-k">FROM</span>   tgt.orders;
 
-<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード。NULL参照を許容する場合は o.customer_id IS NOT NULL で除外）</span>
+<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード）。顧客が必須なら o.customer_id IS NULL も不整合として報告し、NULL許容なら IS NOT NULL で除外する</span>
 <span class="tk-k">SELECT</span> o.order_id
 <span class="tk-k">FROM</span>   tgt.orders o
 <span class="tk-k">LEFT JOIN</span> tgt.customers c <span class="tk-k">ON</span> c.customer_id = o.customer_id
-<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NOT NULL</span>
-  <span class="tk-k">AND</span>  c.customer_id <span class="tk-k">IS NULL</span>;</code></pre>
+<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NULL</span>  <span class="tk-c">-- 必須参照の場合のみ</span>
+   <span class="tk-k">OR</span>  (o.customer_id <span class="tk-k">IS NOT NULL</span> <span class="tk-k">AND</span> c.customer_id <span class="tk-k">IS NULL</span>);</code></pre>
                 <div class="callout callout-practice">
                     <p>💡 ③の行単位突合は、AWS Database Migration Service</p>
                     <p>
@@ -8915,7 +8919,7 @@
                             </tr>
                             <tr class="odd">
                                 <td>切り戻しの余地</td>
-                                <td>旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく。切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから切り替える</td>
+                                <td>旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく。更新順序・バージョンを保持し、切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して旧ストアが既に最新の受付済み状態と一致していればリプレイせず、その状態を検証してから切り替える。欠損がある場合のみ修復・リプレイする</td>
                             </tr>
                         </tbody>
                     </table>
@@ -8979,6 +8983,9 @@
                 <ul>
                     <li>
                         移行元の各行と移行先の対応行を<strong>比較し、同じデータか確認し、不一致を報告</strong>する
+                    </li>
+                    <li>
+                        主キーまたは対象となる一意インデックスのないテーブルは<strong>検証できない</strong>。「不一致の報告がない」ことを成功とみなす前に、未検証のテーブルがないか確認する
                     </li>
                     <li>
                         移行中にソースが更新され続ける行は<strong
@@ -10397,7 +10404,7 @@
                             <tr class="odd">
                                 <td>第三者による要約・コメント</td>
                                 <td>S7, S10</td>
-                                <td>補足的に参照。原典（S6, S9）を優先</td>
+                                <td>関連規格の公式エントリ（ISO/IEEE）を参照する。S6・S9 は直前の行（Stripe移行・AWS DMS検証）の根拠</td>
                             </tr>
                             <tr class="even">
                                 <td>関連規格の一覧確認</td>
