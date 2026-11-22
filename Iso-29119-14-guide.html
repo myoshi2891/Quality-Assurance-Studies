@@ -6451,7 +6451,7 @@
                     </table>
                 </div>
                 <p><strong>SQLの例（件数・集計・孤児レコード検出）</strong></p>
-                <p>※ 比較は、同じレプリケーション位置の安定したスナップショット、または書き込みを一時停止して移行先が追いついた後に行う。</p>
+                <p>※ 比較は、同じレプリケーション位置に固定したスナップショットを使うか、移行先が追いついた後、すべての突合クエリが完了するまで書き込みを一時停止したままにして行う。</p>
                 <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（件数・集計・孤児レコード検出）（横スクロール可能）"><code><span class="tk-c">-- ① 件数突合</span>
 <span class="tk-k">SELECT</span> 'source' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> src.orders
 <span class="tk-k">UNION ALL</span>
