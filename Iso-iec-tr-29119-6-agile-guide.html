@@ -332,6 +332,14 @@
                     padding: 0 18px 0 0;
                 }
             }
+                    @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+                .sidebar {
+                    transition: none;
+                }
+            }
         </style>
     </head>
     <body>
@@ -3825,7 +3833,7 @@
                             font-weight: 400;
                         "
                     >
-                        再テスト合格時のみ完了を報告（不合格は修正へ）
+                        初回のCI・探索的テストが受け入れ基準を満たす、または再テスト合格で完了を報告（不合格は修正へ）
                     </text>
                     <line
                         x1="611"
@@ -5303,8 +5311,8 @@
                             <td>iTeh Standards（目次プレビュー）</td>
                             <td>
                                 <a
-                                    href="https://iteh.es/catalog/standards/iso/ed69944c-054a-460a-b4bf-7d0f051b212b/iso-iec-tr-29119-6-2021" target="_blank" rel="noopener noreferrer"
-                                    >https://iteh.es/catalog/standards/iso/ed69944c-054a-460a-b4bf-7d0f051b212b/iso-iec-tr-29119-6-2021</a
+                                    href="https://standards.iteh.ai/catalog/standards/iso/ed69944c-054a-460a-b4bf-7d0f051b212b/iso-iec-tr-29119-6-2021" target="_blank" rel="noopener noreferrer"
+                                    >https://standards.iteh.ai/catalog/standards/iso/ed69944c-054a-460a-b4bf-7d0f051b212b/iso-iec-tr-29119-6-2021</a
                                 >
                             </td>
                         </tr>
@@ -5429,10 +5437,13 @@
                 var headings = [].slice.call(document.querySelectorAll('.main h2[id]'));
                 function updateActiveSection() {
                     var current = headings[0];
+                    var atBottom = document.documentElement.scrollHeight > window.innerHeight + 1 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+                    var threshold = Math.max(window.innerHeight * 0.25, 80);
                     // 観測帯の下端（画面高の25%）までに来た最後の見出しを選ぶ。
                     headings.forEach(function (h) {
-                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                        if (h.getBoundingClientRect().top <= threshold) current = h;
                     });
+                    if (atBottom && headings.length) current = headings[headings.length - 1];
                     links.forEach(function (l) {
                         var isCurrent = !!current && l.dataset.target === current.id;
                         l.classList.toggle('active', isCurrent);
