@@ -2785,10 +2785,9 @@
                 </p>
                 <h2 id="sec-9">7. Step 4：プロセス次元（何を評価するのか）</h2>
                 <p>
-                    33063の評価対象は、<strong>ISO/IEC/IEEE 29119-2 が定義するテストプロセス</strong
-                    >です。公式概要でも、プロセスの目的と成果は29119-2で定義されたものと明記されています。
+                    33063の評価対象の<strong>ベースライン（基本構成）</strong>は、<strong>ISO/IEC/IEEE 29119-2 が定義するテストプロセス</strong>（組織的テスト、テストマネジメント、動的テストの3プロセス群）です。公式概要でも、これらのプロセスの目的と成果は29119-2で定義されたものと明記されています。これに加え、業界慣行を踏まえる場合のために、<strong>Annex D（附属書D）</strong>で静的テストプロセス群（<strong>STAT.1 ソフトウェアレビュー</strong>、<strong>STAT.2 静的解析</strong>）が追加されています。
                 </p>
-                <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="2015年版の評価対象となるテストプロセスの階層" aria-describedby="diagram-description-4" tabindex="0">
+                <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="2015年版のベースライン評価対象となる29119-2テストプロセスの階層（Annex Dで静的テストプロセス群を追加）" aria-describedby="diagram-description-4" tabindex="0">
                     <svg
                         id="svgmermaiddiagram4"
                         width="1464.109375"
@@ -3461,18 +3460,18 @@
                                         <rect
                                             class="basic label-container"
                                             style=""
-                                            x="-84.0078125"
+                                            x="-120"
                                             y="-38"
-                                            width="168.015625"
+                                            width="240"
                                             height="76"
                                         ></rect>
                                         <g
                                             class="label"
                                             style=""
-                                            transform="translate(-56.0078125, -24)"
+                                            transform="translate(-100, -24)"
                                         >
                                             <rect></rect>
-                                            <foreignObject width="112.015625" height="48"
+                                            <foreignObject width="200" height="48"
                                                 ><div
                                                     xmlns="http://www.w3.org/1999/xhtml"
                                                     style="
@@ -3485,7 +3484,7 @@
                                                 >
                                                     <span class="nodeLabel"
                                                         ><p>
-                                                            テストプロセス<br />（29119-2）
+                                                            ベースライン：テストプロセス<br />（29119-2）
                                                         </p></span
                                                     >
                                                 </div></foreignObject
@@ -3865,7 +3864,7 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-4">組織的テスト、テストマネジメント、動的テストの三層を示す。管理層に計画・監視とコントロール・完了、動的層に設計と実装・DT.2「Test environment set-up &amp; maintenance process」（テスト環境の構築・保守、2015年版）・実行・インシデント報告を配置する。</p>
+                <p class="diagram-description" id="diagram-description-4">29119-2に基づくベースラインの三層（組織的テスト、テストマネジメント、動的テスト）を示す。管理層に計画・監視とコントロール・完了、動的層に設計と実装・DT.2「Test environment set-up &amp; maintenance process」（テスト環境の構築・保守、2015年版）・実行・インシデント報告を配置する。なお、業界慣行を踏まえた評価対象として、Annex Dではこれらに加えて静的テストプロセス群（STAT.1 ソフトウェアレビュー、STAT.2 静的解析）が追加されている。</p>
                 <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
@@ -4741,8 +4740,7 @@
                 </div>
                 <blockquote class="callout">
                     <p>
-                        属性名は一般的な訳語です。公式の英語名・定義は ISO/IEC 33020
-                        で確認してください。
+                        属性名は一般的な訳語です。上表は ISO/IEC 33020:2015 時点の属性例であり、公式の英語名・定義は ISO/IEC 33020:2015 で確認してください。なお、現行の ISO/IEC 33020:2019 ではプロセス属性の構成が変更されているため、上表の2015年版の例は現行の測定基準ではありません。
                     </p>
                 </blockquote>
                 <h3 id="sec-12">評定尺度（4段階）</h3>
@@ -8713,17 +8711,29 @@
                                 <td><strong>DIS（40.20）</strong>：投票開始（12週間）</td>
                             </tr>
                             <tr class="even">
-                                <td>2026-08-27</td>
+                                <td>2026-06-22</td>
                                 <td>
-                                    <strong>FDIS（50.20）</strong
-                                    >：最終投票開始（8週間）。ISOページの段階は「50.00
-                                    最終テキスト受領・正式承認用に登録」
+                                    <strong>FDIS（50.00）</strong
+                                    >：最終テキスト受領・正式承認用に登録
                                 </td>
                             </tr>
                             <tr class="odd">
+                                <td>2026-08-27</td>
+                                <td>
+                                    <strong>FDIS（50.20）</strong>：最終投票開始（8週間）
+                                </td>
+                            </tr>
+                            <tr class="even">
                                 <td>2026-10-08（本資料の時点）</td>
                                 <td>
                                     2015年版は現行のまま。FDISは<strong>承認フェーズ</strong>で、発行後に2015年版を置き換える
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>2026-10-23（後日追記）</td>
+                                <td>
+                                    <strong>発行段階へ移行（60.00）</strong
+                                    >：FDIS承認完了・発行準備段階へ移行
                                 </td>
                             </tr>
                         </tbody>
@@ -10245,8 +10255,8 @@
                         <tbody>
                             <tr class="odd">
                                 <td>1</td>
-                                <td>33063が評価対象とするプロセスの出典は？</td>
-                                <td>ISO/IEC/IEEE 29119-2</td>
+                                <td>33063が評価対象とするプロセス（ベースラインと追加分）の出典は？</td>
+                                <td>ベースラインは ISO/IEC/IEEE 29119-2（組織的テスト・テストマネジメント・動的テスト）、追加の静的テストプロセス群（STAT.1・STAT.2）は 33063 の Annex D</td>
                             </tr>
                             <tr class="even">
                                 <td>2</td>
@@ -10344,7 +10354,7 @@
                             </tr>
                             <tr class="even">
                                 <td>6</td>
-                                <td>ISO/IEC DIS 33063:2026 草案本文（変更点・章構成）ELOT</td>
+                                <td>ISO/IEC DIS 33063:2026 草案本文（変更点・章構成）ELOT（閲覧にはELOTアカウントが必要）</td>
                                 <td>
                                     <a href="https://standardsdevelopment.elot.gr/drafts/14112" target="_blank" rel="noopener noreferrer"
                                         >https://standardsdevelopment.elot.gr/drafts/14112</a
