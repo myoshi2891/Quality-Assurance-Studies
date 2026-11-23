@@ -463,7 +463,8 @@
                 }
             }
             @media (prefers-reduced-motion: reduce) {
-                .sidebar {
+                .sidebar,
+                .toc-drawer-ready .sidebar {
                     transition: none;
                 }
                 html {
@@ -7753,6 +7754,14 @@
                                                         display: table-cell;
                                                         white-space: nowrap;
                                                         line-height: 1.5;
+                                                        max-width: 200px;
+                                                        text-align: center;
+                                                    "
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                >
+                                                    <span
+                                                        style="color: #ffffff !important"
+                                                        class="nodeLabel"
                                                         ><p>
                                                             Read切替<br />旧新を比較しながら<br />読み取りを新へ
                                                         </p></span
