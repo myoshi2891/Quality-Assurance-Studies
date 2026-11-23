@@ -19607,6 +19607,17 @@
                 sb.addEventListener('click', function (e) {
                     if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
                 });
+                document.addEventListener('focusin', function (e) {
+                    if (mobileSidebar.matches && sb.classList.contains('open') && !sb.contains(e.target) && e.target !== tg) {
+                        setOpen(false);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && mobileSidebar.matches && sb.classList.contains('open')) {
+                        setOpen(false);
+                        tg.focus();
+                    }
+                });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
                 var links = [].slice.call(sb.querySelectorAll('a[data-target]'));
