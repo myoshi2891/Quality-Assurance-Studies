@@ -240,7 +240,8 @@
                 vertical-align: top;
                 min-width: 90px;
             }
-            tr:last-child td {
+            tbody tr:last-child th,
+            tbody tr:last-child td {
                 border-bottom: 0;
             }
             tbody tr:nth-child(even) {
@@ -2754,25 +2755,25 @@
                         </thead>
                         <tbody>
                             <tr class="odd">
-                                <td><strong>テスト計画</strong></td>
+                                <th scope="row">テスト計画</th>
                                 <td>○</td>
                                 <td>△</td>
                                 <td>×</td>
                             </tr>
                             <tr class="even">
-                                <td><strong>テスト設計・実装</strong></td>
+                                <th scope="row">テスト設計・実装</th>
                                 <td>○</td>
                                 <td>○</td>
                                 <td>△</td>
                             </tr>
                             <tr class="odd">
-                                <td><strong>テスト実行</strong></td>
+                                <th scope="row">テスト実行</th>
                                 <td>○</td>
                                 <td>○</td>
                                 <td>×</td>
                             </tr>
                             <tr class="even">
-                                <td><strong>インシデント報告</strong></td>
+                                <th scope="row">インシデント報告</th>
                                 <td>○</td>
                                 <td>△</td>
                                 <td>×</td>
@@ -2785,7 +2786,7 @@
                 </p>
                 <h2 id="sec-9">7. Step 4：プロセス次元（何を評価するのか）</h2>
                 <p>
-                    33063の評価対象の<strong>ベースライン（基本構成）</strong>は、<strong>ISO/IEC/IEEE 29119-2 が定義するテストプロセス</strong>（組織的テスト、テストマネジメント、動的テストの3プロセス群）です。公式概要でも、これらのプロセスの目的と成果は29119-2で定義されたものと明記されています。これに加え、業界慣行を踏まえる場合のために、<strong>Annex D（附属書D）</strong>で静的テストプロセス群（<strong>STAT.1 ソフトウェアレビュー</strong>、<strong>STAT.2 静的解析</strong>）が追加されています。
+                    33063の評価対象の<strong>ベースライン（基本構成）</strong>は、<strong>ISO/IEC/IEEE 29119-2 が定義するテストプロセス</strong>（組織的テスト、テストマネジメント、動的テストの3プロセス群）です。公式概要でも、これらのプロセスの目的と成果は29119-2で定義されたものと明記されています。これに加え、業界慣行を踏まえる場合のために、<strong>Annex D（附属書D）</strong>で静的テストプロセス群（<strong>STAT.1 ソフトウェアレビュー</strong>、<strong>STAT.2 静的解析</strong>）が追加されています。さらに、29119-2のベースラインとは別に、<strong>Annex E（附属書E）</strong>では任意で選択できるマネジメント支援プロセス（<strong>OT.2 スキル開発</strong>、<strong>TM.4 問題解決管理</strong>、<strong>TM.5 測定</strong>）も用意されています。
                 </p>
                 <div class="mermaid-diagram" id="mermaid-diagram-4" role="img" aria-label="2015年版のベースライン評価対象となる29119-2テストプロセスの階層（Annex Dで静的テストプロセス群を追加）" aria-describedby="diagram-description-4" tabindex="0">
                     <svg
@@ -4740,7 +4741,7 @@
                 </div>
                 <blockquote class="callout">
                     <p>
-                        属性名は一般的な訳語です。上表は ISO/IEC 33020:2015 時点の属性例であり、公式の英語名・定義は ISO/IEC 33020:2015 で確認してください。なお、現行の ISO/IEC 33020:2019 ではプロセス属性の構成が変更されているため、上表の2015年版の例は現行の測定基準ではありません。
+                        属性名は一般的な訳語です。上表は ISO/IEC 33020:2015 時点の属性例であり、公式の英語名・定義は ISO/IEC 33020:2015 で確認してください。なお、現行の ISO/IEC 33020:2019 では PA 3.3（プロセス保証）を含むプロセス属性構成へ変更されており、33063 第2版もこの2019年版の能力枠組みに整合するため、上表の2015年版の例は現行の測定基準ではありません。
                     </p>
                 </blockquote>
                 <h3 id="sec-12">評定尺度（4段階）</h3>
@@ -7396,21 +7397,21 @@
                         </thead>
                         <tbody>
                             <tr class="odd">
-                                <td>テスト計画</td>
+                                <th scope="row">テスト計画</th>
                                 <td>F</td>
                                 <td>L</td>
                                 <td>P</td>
                                 <td>レベル1</td>
                             </tr>
                             <tr class="even">
-                                <td>テスト実行</td>
+                                <th scope="row">テスト実行</th>
                                 <td>F</td>
                                 <td>L</td>
                                 <td>L</td>
                                 <td>レベル2</td>
                             </tr>
                             <tr class="odd">
-                                <td>インシデント報告</td>
+                                <th scope="row">インシデント報告</th>
                                 <td>L</td>
                                 <td>P</td>
                                 <td>P</td>
@@ -8663,7 +8664,7 @@
                     <li>TMMi は段階型で、16のプロセスエリアを持ち、評価モデルと認証制度を備える</li>
                     <li>
                         ISO 29119
-                        は一連のテスト標準であり、紹介された調査対象の研究では<strong>テストプロセス改善に用いられていなかった</strong>（利用実績の観察であり、改善への利用を意図していないという意味ではない）
+                        は一連のテスト標準であり、発表スライド上では<strong>テストプロセス改善には用いられていない</strong>と要約されている（この要約は利用実績の観察に関するものであり、改善への利用を意図していないという意味ではない）。一方で、参照元の文献レビューには ISO 29119 を用いた文献が2件含まれており、そのうち1件は草案規格に基づく自己評価フレームワークのパイロットによって改善目標を特定する事例である
                     </li>
                     <li>TMMiの評価は ISO/IEC 33020 を枠組みとしている</li>
                     <li>
@@ -9410,7 +9411,8 @@
                             <tr class="odd">
                                 <td>主な変更</td>
                                 <td>
-                                    <strong>ISO/IEC/IEEE 29119-2:2021 への適応</strong
+                                    <strong>ISO/IEC/IEEE 29119-2:2021 への適応</strong>および<strong
+                                        >ISO/IEC 33020:2019 の能力枠組み（PA 3.3 を含む）への整合</strong
                                     >（技術的改訂）
                                 </td>
                             </tr>
@@ -10256,7 +10258,7 @@
                             <tr class="odd">
                                 <td>1</td>
                                 <td>33063が評価対象とするプロセス（ベースラインと追加分）の出典は？</td>
-                                <td>ベースラインは ISO/IEC/IEEE 29119-2（組織的テスト・テストマネジメント・動的テスト）、追加の静的テストプロセス群（STAT.1・STAT.2）は 33063 の Annex D</td>
+                                <td>ベースラインは ISO/IEC/IEEE 29119-2（組織的テスト・テストマネジメント・動的テスト）、追加の静的テストプロセス群（STAT.1・STAT.2）は 33063 の Annex D、任意のマネジメント支援プロセス（OT.2 スキル開発・TM.4 問題解決管理・TM.5 測定）は Annex E</td>
                             </tr>
                             <tr class="even">
                                 <td>2</td>
@@ -10286,7 +10288,7 @@
                             <tr class="odd">
                                 <td>7</td>
                                 <td>第2版（DIS/FDIS）の主な変更点は？</td>
-                                <td>29119-2:2021 への適応</td>
+                                <td>ISO/IEC/IEEE 29119-2:2021 への適応および ISO/IEC 33020:2019 の能力枠組み（PA 3.3 を含む）への整合</td>
                             </tr>
                         </tbody>
                     </table>
@@ -10316,7 +10318,7 @@
                             </tr>
                             <tr class="even">
                                 <td>2</td>
-                                <td>ISO公式：ISO/IEC FDIS 33063（第2版・承認フェーズ）</td>
+                                <td>ISO公式：ISO/IEC 33063 第2版（公式ライフサイクル・最新状況。2026年10月8日時点の状況は第14章参照）</td>
                                 <td>
                                     <a href="https://www.iso.org/standard/90135.html" target="_blank" rel="noopener noreferrer"
                                         >https://www.iso.org/standard/90135.html</a
@@ -10583,6 +10585,11 @@
                 });
                 sb.addEventListener('click', function (e) {
                     if (e.target.closest('a') && mobileSidebar.matches) setOpen(false);
+                });
+                document.addEventListener('focusin', function (e) {
+                    if (mobileSidebar.matches && sb.classList.contains('open') && !sb.contains(e.target) && e.target !== tg) {
+                        setOpen(false);
+                    }
                 });
                 mobileSidebar.addEventListener('change', syncSidebar);
                 syncSidebar();
