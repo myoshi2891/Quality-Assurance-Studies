@@ -120,3 +120,18 @@ for (const [index, diagram] of inventory.diagrams.entries()) it(`diagram ${index
     }
     r.unmount();
 });
+
+it('Section06 gives monitoring and completion activity tables distinct descriptive aria-labels',()=>{
+ const C=component('Section06');
+ const r=render(<C/>);
+ const regions=[...r.container.querySelectorAll<HTMLElement>('.table-scroll[role="region"]')];
+ const monitoring=regions.find(el=>el.textContent?.includes('TMC1'));
+ const completion=regions.find(el=>el.textContent?.includes('TC1'));
+ expect(monitoring).toBeDefined();
+ expect(completion).toBeDefined();
+ expect(monitoring!.getAttribute('aria-label')).toBe('5-2　テスト監視・制御プロセスのアクティビティ');
+ expect(completion!.getAttribute('aria-label')).toBe('5-3　テスト完了プロセスのアクティビティ');
+ expect(monitoring!.getAttribute('aria-label')).not.toBe(completion!.getAttribute('aria-label'));
+ expect(monitoring!.getAttribute('tabindex')).toBe('0');
+ expect(completion!.getAttribute('tabindex')).toBe('0');
+});
