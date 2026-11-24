@@ -1138,7 +1138,7 @@
                     </div>
 
                     <h2 id="sec-2">
-                        2. 30秒でわかる 29119-8<a aria-label="リンク" class="anchor" href="#sec-2"
+                        <span id="2-30秒でわかる-29119-8" class="heading-alias" aria-hidden="true"></span>2. 30秒でわかる 29119-8<a aria-label="リンク" class="anchor" href="#sec-2"
                             >#</a
                         >
                     </h2>
@@ -8441,12 +8441,12 @@ L1331.454,144.047"
                             <tbody>
                                 <tr class="odd">
                                     <td><strong>合成（Composition）</strong></td>
-                                    <td>すべての基準を同時に満たすテストだけを残す</td>
+                                    <td>個々のテストに適用する複数条件をすべて満たすテストを選び、生成されたスイート全体で必要なカバレッジ項目を網羅する</td>
                                     <td>積集合（絞り込み）</td>
                                 </tr>
                                 <tr class="even">
                                     <td><strong>加算（Addition）</strong></td>
-                                    <td>いずれかの基準を満たすテストをすべて残す</td>
+                                    <td>いずれかの条件を満たすテストをすべて残す</td>
                                     <td>和集合（広げる）</td>
                                 </tr>
                             </tbody>
@@ -8993,7 +8993,7 @@ L1331.454,144.047"
                                                         <span
                                                             style="color: #ffffff !important"
                                                             class="nodeLabel"
-                                                            ><p>基準A: 要件カバレッジ</p></span
+                                                            ><p>条件A: 対象要件に紐づく</p></span
                                                         >
                                                     </div></foreignObject
                                                 >
@@ -9010,18 +9010,18 @@ L1331.454,144.047"
                                                     fill: #2a3550 !important;
                                                     stroke: #8fa3c0 !important;
                                                 "
-                                                x="-93.2734375"
+                                                x="-108"
                                                 y="-30"
-                                                width="186.546875"
+                                                width="216"
                                                 height="60"
                                             ></rect>
                                             <g
                                                 class="label"
                                                 style="color: #ffffff !important"
-                                                transform="translate(-57.2734375, -12)"
+                                                transform="translate(-80, -12)"
                                             >
                                                 <rect></rect>
-                                                <foreignObject width="114.546875" height="24"
+                                                <foreignObject width="160" height="24"
                                                     ><div
                                                         style="
                                                             color: rgb(255, 255, 255) !important;
@@ -9036,7 +9036,7 @@ L1331.454,144.047"
                                                         <span
                                                             style="color: #ffffff !important"
                                                             class="nodeLabel"
-                                                            ><p>基準B: 遷移網羅</p></span
+                                                            ><p>条件B: 対象遷移を通る</p></span
                                                         >
                                                     </div></foreignObject
                                                 >
@@ -9080,7 +9080,7 @@ L1331.454,144.047"
                                                             style="color: #ffffff !important"
                                                             class="nodeLabel"
                                                             ><p>
-                                                                合成<br />両方を満たすテストのみ
+                                                                合成<br />両条件を満たすテスト群
                                                             </p></span
                                                         >
                                                     </div></foreignObject
@@ -9137,7 +9137,7 @@ L1331.454,144.047"
                             </g>
                         </svg>
                     </div>
-                    <p class="diagram-description" id="diagram-description-8">要件カバレッジと遷移網羅の両方を満たすテストだけを選ぶ合成と、どちらかを満たすテストをすべて選ぶ加算を比較する。</p>
+                    <p class="diagram-description" id="diagram-description-8">個々のテストに対して「対象要件に紐づく」（条件A）と「対象遷移を通る」（条件B）の条件を適用する例。合成では両条件を満たすテスト群を選んで絞り込み、単一テストに両カバレッジ目標の単独達成を求めずに、生成された複数テストのスイート全体で必要な要件・遷移を網羅する。加算ではどちらかを満たすテストをすべて残す。</p>
                     <div class="callout callout-practice">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">💡</span
@@ -12559,7 +12559,7 @@ z"
                                 <tr class="even">
                                     <td>境界値（データ関連）</td>
                                     <td>
-                                        閾値−1回（現行は2回）の失敗後にログイン成功してロックされないことを確認し、参照専用のテストフィクスチャ／状態照会で失敗回数を参照できる場合はログイン成功直後に失敗回数が0へリセットされたことを検証する（参照専用チェックが提供されていない場合に、続けてログアウト後に誤ったパスワードを送信して2回の失敗ではロックされず3回目でロックされることを確認する手順は、ログイン成功とログアウトを組み合わせた一連のワークフロー確認であり、ログイン成功単体によるリセットの証明ではない）。あわせて、T3を取る失敗（閾値回目、現行は3回目）で必ずロックされることを確認する
+                                        閾値−1回（現行は2回）の失敗後にログイン成功してロックされないことを確認し、参照専用のテストフィクスチャ／状態照会で失敗回数を参照できる場合はログイン成功直後に失敗回数が0へリセットされたことを検証する（参照専用チェックが提供されていない場合に、続けてログアウト後に誤ったパスワードを送信して閾値−1回（現行は2回）の失敗ではロックされず閾値回目（現行は3回目）でロックされることを確認する手順は、ログイン成功とログアウトを組み合わせた一連のワークフロー確認であり、ログイン成功単体によるリセットの証明ではない）。あわせて、T3を取る失敗（閾値回目、現行は3回目）で必ずロックされることを確認する
                                     </td>
                                 </tr>
                                 <tr class="odd">
@@ -15787,7 +15787,7 @@ L633.267,207.083"
                     </div>
 
                     <h2 id="sec-19">
-                        19. FAQ<a aria-label="リンク" class="anchor" href="#sec-19">#</a>
+                        <span id="19-faq" class="heading-alias" aria-hidden="true"></span>19. FAQ<a aria-label="リンク" class="anchor" href="#sec-19">#</a>
                     </h2>
                     <p>
                         <strong>Q1. 29119-8 はもう買って読めますか？</strong>
