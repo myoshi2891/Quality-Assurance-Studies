@@ -130,6 +130,11 @@ const ARCHIVED_CONTENT_REPLACEMENTS: ReadonlyArray<readonly [string, string]> = 
         '7925-2:1998との対応（いずれも参考情報）',
         '7925-2:1998との対応、付録E：テストモデル（テスト条件からの移行の説明）（いずれも参考情報）',
     ],
+    // 単体・結合・システム・受け入れはテストの種類ではなくテストレベル。
+    [
+        '第3層：実作業の層。テストの種類（単体、結合、システム、受け入れ）ごとに繰り返し動く',
+        '第3層：実作業の層。テストレベル（単体、結合、システム、受け入れ）ごとに繰り返し動く',
+    ],
 ];
 
 /** Apply reviewed text corrections to archived source HTML. */
