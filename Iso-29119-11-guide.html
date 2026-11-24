@@ -19631,8 +19631,10 @@
                     current = id;
                     links.forEach(function (a) {
                         a.classList.remove('active');
+                        a.removeAttribute('aria-current');
                     });
                     map[id].classList.add('active');
+                    map[id].setAttribute('aria-current', 'location');
                     var a = map[id],
                         r = a.getBoundingClientRect(),
                         s = sb.getBoundingClientRect();
