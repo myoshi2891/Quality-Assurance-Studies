@@ -646,7 +646,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 更新日 | Updated 2026-11-16 |
+| 更新日 | Updated 2026-11-25 |
 | 最新 HEAD | `a195ad45` |
 | 最新コミット内容 | `fix(docs): refine focus accessibility, TOC scroll tracking, and model-based testing definitions across static ISO guides` |
 | 次の作業 | `/iso-29119-2-test-processes-guide`の目視確認（ユーザー担当）。ビルド未実施。 |
