@@ -4,7 +4,7 @@ import ts from 'typescript';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-iec-40500-2025-guide.json';
-it('registers the WCAG guide once in ISO and synchronizes all 134 routes', () => {
+it('registers the WCAG guide once in ISO and matches its e2e h1 to the source heading', () => {
     const entries = NAV_ITEMS.filter(n => n.href === '/iso-iec-40500-2025-guide');
     expect(entries).toHaveLength(1); expect(entries[0]?.category).toBe('iso'); expect(entries[0]?.description.length).toBeLessThanOrEqual(80);
 
