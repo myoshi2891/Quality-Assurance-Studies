@@ -12612,6 +12612,10 @@ z"
                             </thead>
                             <tbody>
                                 <tr class="odd">
+                                    <td>TC-01 の事前条件</td>
+                                    <td>未ログインのブラウザーコンテキスト（認証済みセッションが残っていない状態）と、ロックされていないテスト用アカウントを用意してから開始し、TC-01 自身のログイン（T1）でセッションが確立されることを確認する</td>
+                                </tr>
+                                <tr class="odd">
                                     <td>TC-02 の事前条件</td>
                                     <td>新規またはリセット済みで、ログアウト状態・ロックなし・連続失敗0回のテスト用アカウントを使い、失敗の連続とロックの確認をこの状態から始める</td>
                                 </tr>
@@ -14797,7 +14801,7 @@ L633.267,207.083"
                                     <td>9</td>
                                     <td>生成物を手直しして運用</td>
                                     <td>その場しのぎ</td>
-                                    <td>直すのは<strong>常にモデル</strong>。生成物は再生成する</td>
+                                    <td>生成物は手で直さない。<strong>誤りの原因箇所（モデル・選択基準・具体データの対応付け・アダプターのいずれか）</strong>を直し、再生成する</td>
                                 </tr>
                                 <tr class="even">
                                     <td>10</td>
@@ -16292,6 +16296,10 @@ L633.267,207.083"
                         fragmentScrollY = window.scrollY;
                     }
                 }
+                function markPendingHash(link) {
+                    // 現在のフラグメントと同じリンクでは hashchange が発火しないため、目印を残さない。
+                    pendingHashFromClick = link.hash === window.location.hash ? null : link.hash.slice(1);
+                }
                 function syncSubmenuToggles() {
                     document.querySelectorAll('.nav-h2').forEach(function (li) {
                         var btn = li.querySelector(':scope > .nav-h2-head > .nav-sub-toggle');
@@ -16304,7 +16312,7 @@ L633.267,207.083"
                         if (!li) return;
                         var willOpen = !li.classList.contains('open');
                         li.classList.toggle('open', willOpen);
-                        li.dataset.manualOpen = willOpen ? 'true' : '';
+                        li.dataset.manualOpen = willOpen ? 'true' : 'false';
                         btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
                         var activeSubLink = li.querySelector('.nav-sub a.active');
                         var h2a = li.querySelector(':scope > a, :scope > .nav-h2-head > a');
@@ -16325,7 +16333,7 @@ L633.267,207.083"
                         if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                         var target = a.getAttribute('data-target');
                         pinFragment(target, true);
-                        pendingHashFromClick = target;
+                        markPendingHash(a);
                         activate(fragmentTarget);
                         if (window.innerWidth <= 900) setOpen(false);
                     });
@@ -16336,7 +16344,7 @@ L633.267,207.083"
                         var target = a.getAttribute('href').slice(1);
                         if (!links[target]) return;
                         pinFragment(target, true);
-                        pendingHashFromClick = target;
+                        markPendingHash(a);
                         activate(target);
                     });
                 });
@@ -16421,15 +16429,18 @@ L633.267,207.083"
                         return;
                     }
                     a.classList.add('active');
-                    a.setAttribute('aria-current', 'location');
+                    var currentLink = a;
                     var li = a.closest('.nav-h2');
                     if (li) {
-                        li.classList.add('open');
                         var h2a = li.querySelector(':scope > a, :scope > .nav-h2-head > a');
                         if (h2a) h2a.classList.add('active');
+                        if (li.dataset.manualOpen !== 'false') li.classList.add('open');
+                        // 明示的に閉じられた節は閉じたままにし、見えている親リンクを現在位置として示す。
+                        if (li.dataset.manualOpen === 'false' && h2a) currentLink = h2a;
                     }
+                    currentLink.setAttribute('aria-current', 'location');
                     syncSubmenuToggles();
-                    var r = a.getBoundingClientRect(),
+                    var r = currentLink.getBoundingClientRect(),
                         s = sb.getBoundingClientRect();
                     if (r.top < s.top + 40 || r.bottom > s.bottom - 40) {
                         sb.scrollTop += r.top - s.top - s.height / 3;
