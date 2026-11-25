@@ -5411,7 +5411,7 @@
                         <tbody>
                             <tr class="odd">
                                 <td>① 件数突合</td>
-                                <td>移行元と移行先の行数が一致するか</td>
+                                <td>マッピング規則に従って移行元データから導出した移行先の期待行数と移行先の実測行数が一致するか（行数を保存するマッピングの場合のみ移行元の生行数と直接比較）</td>
                                 <td>低</td>
                                 <td>
                                     行数差が生じる欠落・重複（欠落と重複が同数で相殺されると検出できない）
@@ -7194,16 +7194,16 @@
                     [S6]、および Simon Willison による要約コメント [S7]
                 </p>
                 <p>
-                    Stripeは、<strong>数億件規模のオブジェクト</strong>を持つ環境で、可用性と整合性の両方を守るために、4段階のパターン（Dual write・バックフィル → Read切替 → <strong>新ストアへのWrite切替と旧ストアのアーカイブ</strong> → <strong>旧ストアへの書込削除・旧データ削除</strong>）を紹介しています。以下の図では、Stripeの4段階手順に加えて、<strong>本ガイドの追加ロールバック確認</strong>として切り戻し時の書込制御・旧反映確認・欠損修復の手順を点線経路で区別して併記しています。
+                    Stripeは、<strong>数億件規模のオブジェクト</strong>を持つ環境で、可用性と整合性の両方を守るために、4段階のパターン（Dual write・バックフィル → Read切替 → <strong>新ストアへのWrite切替と旧ストアへの継続コピー（同期維持）</strong> → <strong>旧ストアへの書込経路削除・旧データ削除</strong>）を紹介しています。以下の図では、Stripeの4段階手順に加えて、<strong>本ガイドの追加ロールバック確認</strong>として切り戻し時の書込制御・旧反映確認・欠損修復を経て検証済みの旧ストアからサービスを復旧する独立した切戻し経路を点線で区別して併記しています。
                 </p>
                 <div class="mermaid-diagram" id="diagram-9" role="img" aria-label="新旧併存から旧データ削除までの切替" aria-describedby="diagram-description-9" tabindex="0">
                     <svg
                         id="mmd8"
-                        width="1068.046875"
+                        width="1200"
                         xmlns="http://www.w3.org/2000/svg"
                         class="flowchart"
-                        height="196"
-                        viewBox="0 0 1068.046875 196"
+                        height="304"
+                        viewBox="0 0 1200 304"
                         role="graphics-document document"
                         aria-roledescription="flowchart-v2"
                     >
@@ -7564,24 +7564,24 @@
                                         marker-end="url(#mmd8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
-                                        d="M784.031,70L789.031,70C794.031,70,804.031,70,813.365,70C822.698,70,831.365,70,835.698,70L840.031,70"
+                                        d="M840,70L845,70C850,70,860,70,869.333,70C878.667,70,887.333,70,891.667,70L896,70"
                                         id="L_DW3_DW4_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
                                         data-id="L_DW3_DW4_0"
-                                        data-points="W3sieCI6Nzg0LjAzMTI1LCJ5Ijo3MH0seyJ4Ijo4MTQuMDMxMjUsInkiOjcwfSx7IngiOjg0NC4wMzEyNSwieSI6NzB9XQ=="
+                                        data-points="W3sieCI6ODQwLCJ5Ijo3MH0seyJ4Ijo4NzAsInkiOjcwfSx7IngiOjkwMCwieSI6NzB9XQ=="
                                         marker-end="url(#mmd8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
-                                        d="M684.023,120L684.023,148C684.023,152,680.023,156,676.023,156L432.008,156C428.008,156,424.008,152,424.008,148L424.008,124"
-                                        id="L_DW3_DW2_0"
+                                        d="M712,120L712,186"
+                                        id="L_DW3_RB_0"
                                         class="edge-thickness-normal edge-pattern-dotted flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
-                                        data-id="L_DW3_DW2_0"
+                                        data-id="L_DW3_RB_0"
                                         marker-end="url(#mmd8_flowchart-v2-pointEnd)"
                                     ></path>
                                 </g>
@@ -7652,10 +7652,10 @@
                                             ></foreignObject>
                                         </g>
                                     </g>
-                                    <g class="edgeLabel" transform="translate(554.015625, 176)">
+                                    <g class="edgeLabel" transform="translate(712, 153)">
                                         <g
                                             class="label"
-                                            data-id="L_DW3_DW2_0"
+                                            data-id="L_DW3_RB_0"
                                             transform="translate(-240, -12)"
                                         >
                                             <foreignObject width="480" height="24"
@@ -7773,7 +7773,7 @@
                                     <g
                                         class="node default s"
                                         id="flowchart-DW3-3"
-                                        transform="translate(684.0234375, 70)"
+                                        transform="translate(712, 70)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7781,25 +7781,25 @@
                                                 fill: #1f3a5f !important;
                                                 stroke: #7c9eff !important;
                                             "
-                                            x="-100.0078125"
+                                            x="-128"
                                             y="-50"
-                                            width="200.015625"
+                                            width="256"
                                             height="100"
                                         ></rect>
                                         <g
                                             class="label"
                                             style="color: #ffffff !important"
-                                            transform="translate(-88, -36)"
+                                            transform="translate(-114, -36)"
                                         >
                                             <rect></rect>
-                                            <foreignObject width="176" height="72"
+                                            <foreignObject width="228" height="72"
                                                 ><div
                                                     style="
                                                         color: rgb(255, 255, 255) !important;
                                                         display: table-cell;
                                                         white-space: nowrap;
                                                         line-height: 1.5;
-                                                        max-width: 200px;
+                                                        max-width: 228px;
                                                         text-align: center;
                                                     "
                                                     xmlns="http://www.w3.org/1999/xhtml"
@@ -7808,7 +7808,7 @@
                                                         style="color: #ffffff !important"
                                                         class="nodeLabel"
                                                         ><p>
-                                                            Write切替（Stripe）<br />新ストアへ書込切替<br />＋旧ストアのアーカイブ
+                                                            Write切替（Stripe）<br />新ストアへ書込切替<br />＋更新を旧ストアへ継続コピー
                                                         </p></span
                                                     >
                                                 </div></foreignObject
@@ -7818,7 +7818,7 @@
                                     <g
                                         class="node default s"
                                         id="flowchart-DW4-5"
-                                        transform="translate(952.0390625, 70)"
+                                        transform="translate(1046, 70)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7826,25 +7826,25 @@
                                                 fill: #1f3a5f !important;
                                                 stroke: #7c9eff !important;
                                             "
-                                            x="-108.0078125"
+                                            x="-146"
                                             y="-50"
-                                            width="216.015625"
+                                            width="292"
                                             height="100"
                                         ></rect>
                                         <g
                                             class="label"
                                             style="color: #ffffff !important"
-                                            transform="translate(-96, -36)"
+                                            transform="translate(-132, -36)"
                                         >
                                             <rect></rect>
-                                            <foreignObject width="192" height="72"
+                                            <foreignObject width="264" height="72"
                                                 ><div
                                                     style="
                                                         color: rgb(255, 255, 255) !important;
                                                         display: table-cell;
                                                         white-space: nowrap;
                                                         line-height: 1.5;
-                                                        max-width: 200px;
+                                                        max-width: 264px;
                                                         text-align: center;
                                                     "
                                                     xmlns="http://www.w3.org/1999/xhtml"
@@ -7853,7 +7853,53 @@
                                                         style="color: #ffffff !important"
                                                         class="nodeLabel"
                                                         ><p>
-                                                            旧書込・旧データ削除（Stripe）<br />旧ストアへの書込削除<br />＋不要な旧データを除去
+                                                            旧書込経路・旧データ削除（Stripe）<br />旧ストアへの書込経路を削除<br />＋不要な旧データを除去
+                                                        </p></span
+                                                    >
+                                                </div></foreignObject
+                                            >
+                                        </g>
+                                    </g>
+                                    <g
+                                        class="node default rb"
+                                        id="flowchart-RB-6"
+                                        transform="translate(712, 240)"
+                                    >
+                                        <rect
+                                            class="basic label-container"
+                                            style="
+                                                fill: #3b2733 !important;
+                                                stroke: #ff8a80 !important;
+                                                stroke-dasharray: 5 5 !important;
+                                            "
+                                            x="-130"
+                                            y="-50"
+                                            width="260"
+                                            height="100"
+                                        ></rect>
+                                        <g
+                                            class="label"
+                                            style="color: #ffffff !important"
+                                            transform="translate(-116, -36)"
+                                        >
+                                            <rect></rect>
+                                            <foreignObject width="232" height="72"
+                                                ><div
+                                                    style="
+                                                        color: rgb(255, 255, 255) !important;
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        max-width: 232px;
+                                                        text-align: center;
+                                                    "
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                >
+                                                    <span
+                                                        style="color: #ffffff !important"
+                                                        class="nodeLabel"
+                                                        ><p>
+                                                            切戻し先（本ガイド追加確認）<br />検証済みの旧ストアから<br />サービスを復旧
                                                         </p></span
                                                     >
                                                 </div></foreignObject
@@ -7865,11 +7911,11 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。Stripeの手順ではPart 3（Write切替）で新ストアへの書き込み切替と旧ストアのアーカイブを行い、Part 4で旧ストアへの書き込み削除と不要な旧データの除去を行う。本ガイドの追加ロールバック確認として、切り戻す場合は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから旧へ戻す経路を点線で区別して示している。</p>
+                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。Stripeの手順ではPart 3（Write切替）で新ストアへ書き込みを切り替えつつ更新を旧ストアへ継続コピー（同期維持）し、Part 4で旧ストアへの書き込み経路を削除して不要な旧データを除去する。本ガイドの追加ロールバック確認として、切り戻す場合は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしたうえで、検証済みの旧ストアからサービスを復旧する独立した切戻し先へ分岐する経路を点線で区別して示している。</p>
                 <div class="callout callout-note">
                     <p>補足：図のステップ名は、Stripeの記事の見出し（Dual</p>
                     <p>writing／Backfilling／Reads の比較・切替／Changing write paths／Removing</p>
-                    <p>data）を整理し直したものです。Part 3 の新ストアへの書き込み切替・旧ストアのアーカイブおよび Part 4 の旧ストアへの書き込み削除・旧データ削除は Stripe の手順であり、点線で示した切り戻し時の書込制御・旧反映確認・欠損修復は本ガイドが追加したロールバック確認手順です。</p>
+                    <p>data）を整理し直したものです。Part 3 の新ストアへの書き込み切替・旧ストアへの更新コピー継続（一時的なアーカイブではなく削除フェーズまで同期を維持）および Part 4 の旧ストアへの書き込み経路削除・旧データ削除は Stripe の手順であり、点線で示した切り戻し時の書込制御・旧反映確認・欠損修復および検証済み旧ストアからのサービス復旧は本ガイドが追加したロールバック確認手順です。</p>
                 </div>
                 <p><strong>この事例から学べる「データ移行テストの観点」（💡解説）</strong></p>
                 <div class="table-scroll" tabindex="0" role="region" aria-label="9-2. パターンB：Dual Writing（二重書き込み）による無停止オンライン移行：観点・内容（横スクロール可能）">
@@ -7908,7 +7954,7 @@
                             </tr>
                             <tr class="odd">
                                 <td>切り戻しの余地</td>
-                                <td>Stripeの手順では Part 3 で新ストアへの書き込み切替と旧ストアのアーカイブを行い、Part 4 で旧ストアへの書き込み削除と旧データ削除を行う。これに加えて本ガイドの追加ロールバック確認として、切り戻し期間中は更新順序・バージョンを保持し、切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して旧ストアが既に最新の受付済み状態と一致していればリプレイせず、その状態を検証してから切り替える。欠損がある場合のみ修復・リプレイする</td>
+                                <td>Stripeの手順では Part 3 で新ストアへ書き込みを切り替えつつ更新を旧ストアへ継続コピー（一時的なアーカイブではなく削除フェーズまで同期を維持）し、Part 4 で旧ストアへの書き込み経路を削除して旧データ削除を行う。これに加えて本ガイドの追加ロールバック確認として、切り戻し期間中は更新順序・バージョンを保持し、切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して旧ストアが既に最新の受付済み状態と一致していればリプレイせず、その状態を検証してから切り替える。欠損がある場合のみ修復・リプレイする</td>
                             </tr>
                         </tbody>
                     </table>
@@ -9507,8 +9553,10 @@
                     }
                     if (id && links[id]) {
                         pinFragment(id);
-                        updateActiveSection();
+                    } else {
+                        clearFragmentPin();
                     }
+                    updateActiveSection();
                 }
                 window.addEventListener('hashchange', syncFragmentFromHash);
                 window.addEventListener('wheel', clearFragmentPin, { passive: true });
