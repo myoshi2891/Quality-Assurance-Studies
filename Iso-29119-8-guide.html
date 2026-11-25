@@ -620,6 +620,20 @@
             }
 
             @media print {
+                .sidebar,
+                .sidebar-toggle,
+                .scrim {
+                    display: none !important;
+                }
+                html,
+                body {
+                    overflow: visible !important;
+                }
+                .main {
+                    margin-left: 0 !important;
+                    max-width: 100% !important;
+                    overflow: visible !important;
+                }
                 .mermaid-diagram {
                     overflow: visible;
                 }
@@ -3280,9 +3294,9 @@ L741.743,340.671"
                                             <g
                                                 class="label"
                                                 data-id="L_SR8_SR4_0"
-                                                transform="translate(-96.0078125, -12)"
+                                                transform="translate(-104, -12)"
                                             >
-                                                <foreignObject width="192.015625" height="24"
+                                                <foreignObject width="208" height="24"
                                                     ><div
                                                         xmlns="http://www.w3.org/1999/xhtml"
                                                         class="labelBkg"
@@ -3290,12 +3304,12 @@ L741.743,340.671"
                                                             display: table-cell;
                                                             white-space: nowrap;
                                                             line-height: 1.5;
-                                                            max-width: 200px;
+                                                            max-width: 240px;
                                                             text-align: center;
                                                         "
                                                     >
                                                         <span class="edgeLabel"
-                                                            ><p>技法はツール依存で範囲外</p></span
+                                                            ><p>技法のツール固有実装は範囲外</p></span
                                                         >
                                                     </div></foreignObject
                                                 >
@@ -3600,7 +3614,7 @@ L741.743,340.671"
                             </g>
                         </svg>
                     </div>
-                    <p class="diagram-description" id="diagram-description-3">29119-8はPart 2のプロセスとPart 3の文書化をMBT向けに実装する。技法はツール依存で範囲外とし、Part 5は実行層で併用されやすい。</p>
+                    <p class="diagram-description" id="diagram-description-3">29119-8はPart 2のプロセスとPart 3の文書化をMBT向けに実装する。テスト技法と関連尺度自体はPart 4の定義範囲にあり、それらのツール固有実装のみをPart 8の範囲外とし、Part 5は実行層で併用されやすい。</p>
                     <div class="callout callout-warn">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">⚠️</span><span>注意</span>
@@ -3664,8 +3678,8 @@ L741.743,340.671"
                                 </tr>
                                 <tr class="even">
                                     <td><strong>扱わない</strong></td>
-                                    <td>ツール個別が実装する 29119-4 の技法</td>
-                                    <td>ツール依存のため</td>
+                                    <td>29119-4 のテスト技法のツール固有実装</td>
+                                    <td>テスト技法と関連尺度自体は 29119-4 の範囲内であり、ツール固有の実装のみ 29119-8 の範囲外のため</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -3727,7 +3741,7 @@ L741.743,340.671"
                     </div>
 
                     <h2 id="sec-6">
-                        6. ステップ4：策定の経緯と現在のステータス<a
+                        <span id="6-ステップ4策定の経緯と現在のステータス" class="heading-alias" aria-hidden="true"></span>6. ステップ4：策定の経緯と現在のステータス<a
                             aria-label="リンク"
                             class="anchor"
                             href="#sec-6"
@@ -4792,7 +4806,7 @@ L741.743,340.671"
                         ページは、このステージを「最終制作工程（最大7週間）」と説明しています。<strong>2026年11月19日時点の確認では、ISO は引き続きステージ 60.00（発行手続き中）と掲載し、発行予定月を2026年12月としている一方、ステージ 60.60（発行）の具体的な日付は掲載していません</strong>（初版確認時の2026年10月6日時点のスナップショットからステージは変わっておらず、上記は2026年11月19日時点のスナップショットです）。最新の発行状況や公開日については、ISO 公式ページで直接確認してください。
                     </p>
                     <h3 id="sec-6-1">
-                        補足：ISTQB シラバスに残る旧称<a
+                        <span id="補足istqb-シラバスに残る旧称" class="heading-alias" aria-hidden="true"></span>補足：ISTQB シラバスに残る旧称<a
                             aria-label="リンク"
                             class="anchor"
                             href="#sec-6-1"
@@ -10699,7 +10713,7 @@ z"
                         <p>
                             オンライン MBT の理論的な土台が、Tretmans らの
                             <strong>ioco（input-output conformance）理論</strong>です。SUT
-                            を「入力を受け付け出力を返すラベル付き遷移系」とみなし、モデルとの適合性を形式的に定義します。初学者はまず「仕様（モデル）が許すサスペンショントレース（入力・出力・無応答の列）の後に限り、仕様が許す出力のいずれかを SUT が返せばよく、許される出力をすべて返す必要はない一方で、そのようなトレースの後に仕様が許さない出力や想定外の無応答（沈黙）が起きれば不適合（ただし、現在の状態で仕様が未定義としている入力の後は比較対象外であり、それだけでは不適合にならない）」という直感を押さえれば十分です。
+                            を「入力を受け付け出力を返すラベル付き遷移系」とみなし、モデルとの適合性を形式的に定義します。初学者はまず「仕様（モデル）が許すサスペンショントレース（入力・出力・無応答の列）の後に限り、仕様が許す出力のいずれかを SUT が返せばよく、許される出力をすべて返す必要はない一方で、そのようなトレースの後に仕様が許さない出力や想定外の無応答（沈黙）が起きれば不適合（ただし、それまでのトレースにその入力を続けた列全体が仕様のサスペンショントレースに含まれない場合に限り比較対象外となり、ある到達可能な仕様状態でその入力が未定義であっても、別の到達可能な仕様状態を経てその拡張トレースが仕様上許される場合は除外されない）」という直感を押さえれば十分です。
                         </p>
                     </div>
                     <h3 id="sec-11-3">
@@ -12655,7 +12669,7 @@ z"
                                 <tr class="even">
                                     <td>MBT</td>
                                     <td>
-                                        <strong>モデルの1か所（T2とT3の条件）を直してモデル経路を再生成</strong>（TC-02 のロック直後確認は生成された T3 ステップに追従し［元の3回例では3回目、変更後の5回例では5回目の失敗直後］、モデル外で個別に追加した TC-03 の事前失敗回数は、T2・T3 のモデル条件とは別にロック閾値に合わせて更新／パラメータ化する）
+                                        <strong>モデルの1か所（T2とT3の条件）を直してモデル経路を再生成</strong>（TC-02 の未ロック確認は再生成された T3 ロック確認ステップの直前ステップに紐づけ［元の3回例では2回目、変更後の5回例では4回目の失敗後］、ロック直後確認は生成された T3 ステップに追従させ［元の3回例では3回目、変更後の5回例では5回目の失敗直後］、モデル外で個別に追加した TC-03 の事前失敗回数は、T2・T3 のモデル条件とは別にロック閾値に合わせて更新／パラメータ化する）
                                     </td>
                                 </tr>
                             </tbody>
@@ -15791,10 +15805,7 @@ L633.267,207.083"
                     </h2>
                     <p>
                         <strong>Q1. 29119-8 はもう買って読めますか？</strong>
-                        2026年10月6日時点では「発行手続き中」で、ISO
-                        ストアでの正式な入手はまだです。ISO
-                        は最終制作工程を最大7週間としています。発行されたら ISO ストア（および IEEE
-                        側の窓口）で確認してください。
+                        <a href="#sec-6">第6章</a>の2026年11月19日時点の再確認でも引き続きステージ 60.00（発行手続き中）で、ISO ストアでの正式な入手はまだです。ISO 公式ページでは発行予定月を2026年12月としていますが、具体的な発行日は掲載されていません。最新の発行状況や入手可否は、<a href="#sec-6">第6章</a>および <a href="https://www.iso.org/standard/89908.html" target="_blank" rel="noopener noreferrer">ISO 公式カタログページ</a>（ならびに IEEE 側の窓口）で確認してください。
                     </p>
                     <p>
                         <strong>Q2. MBT 資格はありますか？</strong> ISTQB の Certified
@@ -16427,7 +16438,7 @@ L633.267,207.083"
                                     clearFragmentPin();
                                 } else {
                                     fragmentLastDistance = dist;
-                                    if (dist <= 4) {
+                                    if (dist <= 1) {
                                         fragmentNavActive = false;
                                         fragmentTargetY = null;
                                         fragmentLastDistance = null;
