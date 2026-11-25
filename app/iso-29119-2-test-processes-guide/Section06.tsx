@@ -1,4 +1,386 @@
 import React from 'react';
 import Diagram from './Diagram';
 /** 第5章 テストマネジメントプロセス（第7章） — preserve the complete source order and inline text. */
-export default function Section06(){return <><h2 id="第5章-テストマネジメントプロセス第7章">{"第5章　テストマネジメントプロセス（第7章）"}</h2>{"\n"}<p className="callout">{"💡\nこの章では、第2層の3つのプロセス（計画・監視と制御・完了）を順に説明します。第6章の実作業がどう導かれ、どう終わるのかが分かります。"}</p>{"\n"}<h3 id="5-1-テスト戦略計画プロセス第72節">{"5-1　テスト戦略・計画プロセス（第7.2節）"}</h3>{"\n"}<h4 id="なぜ必要か">{"なぜ必要か"}</h4>{"\n"}<p >{"「どこから手を付けるか」を決めずにテストを始めると、重要な機能が手薄になり、重要でない機能に時間をかけすぎます。計画プロセスは、旅行にたとえると「"}<strong >{"行き先・予算・日程・持ち物"}</strong>{"」を決める段階です。"}</p>{"\n"}<h4 id="アクティビティの流れ">{"アクティビティの流れ"}</h4>{"\n"}<p >{"2021年版の目次で確認できた名称は、"}<code >{"TP5 テスト戦略を設計する"}</code>{"（Design\ntest strategy）と "}<code >{"TP7 テスト計画を記録する"}</code>{"（Record test\nplan）です。その他は2013年版の目次と一般的な理解をもとにしています。"}</p>{"\n"}<div className="table-scroll" tabIndex={0} role="region" aria-label="アクティビティの流れ"><table ><thead ><tr className="header"><th >{"略号"}</th><th >{"アクティビティ"}</th><th >{"内容"}</th><th >{"確認度"}</th></tr></thead><tbody ><tr className="odd"><td >{"TP1"}</td><td >{"状況を理解する（Understand context）"}</td><td >{"対象システム、制約、関係者、開発手法を把握する"}</td><td >{"🔎"}</td></tr><tr className="even"><td >{"TP2"}</td><td >{"計画の作成を組織する（Organize test plan development）"}</td><td >{"誰がいつまでに計画を作るかを決める"}</td><td >{"🔎"}</td></tr><tr className="odd"><td >{"TP3"}</td><td >{"リスクを特定し分析する（Identify and analyse risks）"}</td><td >{"何が失敗すると困るかを洗い出し、影響度と発生しやすさを見積もる"}</td><td >{"🔎"}</td></tr><tr className="even"><td >{"TP4"}</td><td >{"リスク対応方針を決める（Identify risk mitigation approaches）"}</td><td >{"リスクごとに、テストで対処する・受け入れる・他の手段で防ぐ、を決める"}</td><td >{"🔎"}</td></tr><tr className="odd"><td >{"TP5"}</td><td >{"テスト戦略を設計する（Design test strategy）"}</td><td >{"何を、どの技法で、どの深さまでテストするかを決める"}</td><td >{"✅"}</td></tr><tr className="even"><td >{"TP6"}</td><td >{"人員と日程を決める（Determine staffing and scheduling）"}</td><td >{"人、時間、環境の割り当て"}</td><td >{"🔎"}</td></tr><tr className="odd"><td >{"TP7"}</td><td >{"テスト計画を記録する（Record test plan）"}</td><td >{"決めたことを文書にする"}</td><td >{"✅"}</td></tr><tr className="even"><td >{"TP8"}</td><td >{"計画の合意を得る（Gain consensus on test plan）"}</td><td >{"関係者の合意をとる"}</td><td >{"🔎"}</td></tr><tr className="odd"><td >{"TP9"}</td><td >{"計画を伝達し公開する（Communicate test plan and make\navailable）"}</td><td >{"関係者がいつでも見られる状態にする"}</td><td >{"🔎"}</td></tr></tbody></table></div>{"\n"}<p >{"この図は、計画プロセスの流れを表しています。上から下へ読み進めてください。"}</p>{"\n"}<div className="mermaid-diagram" id="mmd6" tabIndex={0} role="region" aria-label="図6（横スクロール可能）"><Diagram index={5} /></div>{"\n"}<p >{"各ノードの意味："}</p>{"\n"}<ul >{"\n"}<li >{"TP1〜TP2：土台づくり。ここで関係者と範囲を確認する"}</li>{"\n"}<li >{"TP3〜TP4："}<strong >{"リスクベース"}</strong>{"の中核。ここでの判断が、後のテストの重みづけを決める"}</li>{"\n"}<li >{"TP5：計画の心臓部。テストの深さ、使う技法、完了基準の方針を決める"}</li>{"\n"}<li >{"TP6〜TP7：実行可能な計画へ落とし込み、文書にする"}</li>{"\n"}<li >{"TP8〜TP9：合意と共有。文書を作っただけでは計画として機能しない"}</li>{"\n"}</ul>{"\n"}<h4 id="実務での具体例">{"実務での具体例"}</h4>{"\n"}<p >{"ネットバンキングの送金機能なら、TP3では「金額計算の誤り」「二重送金」「権限のないユーザーの操作」などをリスクとして挙げます。TP5では、影響の大きい「金額計算」と「二重送金」に、境界値分析や状態遷移の設計技法を厚く適用すると決めます。"}</p>{"\n"}<h3 id="5-2-テスト監視制御プロセス第73節">{"5-2　テスト監視・制御プロセス（第7.3節）"}</h3>{"\n"}<h4 id="なぜ必要か-1">{"なぜ必要か"}</h4>{"\n"}<p >{"計画は立てた瞬間から古くなります。想定より不具合が多い、環境の準備が遅れるなど、予定どおりに進まないのが普通です。このプロセスは、車の運転でいう「"}<strong >{"ナビを見ながら、渋滞があればルートを変える"}</strong>{"」役目です。"}</p>{"\n"}<h4 id="アクティビティ">{"アクティビティ"}</h4>{"\n"}<p >{"名称は一般的な整理にもとづく🔎です。"}</p>{"\n"}<div className="table-scroll" tabIndex={0} role="region" aria-label="5-2　テスト監視・制御プロセスのアクティビティ"><table ><thead ><tr className="header"><th >{"略号"}</th><th >{"アクティビティ"}</th><th >{"内容"}</th><th >{"確認度"}</th></tr></thead><tbody ><tr className="odd"><td >{"TMC1"}</td><td >{"監視と制御の準備をする（Set up）"}</td><td >{"何を測るか、どう報告するかを決める"}</td><td >{"🔎"}</td></tr><tr className="even"><td >{"TMC2"}</td><td >{"監視する（Monitor）"}</td><td >{"進捗、不具合数、カバレッジなどの測定値を集める"}</td><td >{"🔎"}</td></tr><tr className="odd"><td >{"TMC3"}</td><td >{"制御する（Control）"}</td><td >{"ずれがあれば計画や作業を修正する"}</td><td >{"🔎"}</td></tr><tr className="even"><td >{"TMC4"}</td><td >{"報告する（Report）"}</td><td >{"関係者へ状況を伝える"}</td><td >{"🔎"}</td></tr></tbody></table></div>{"\n"}<p >{"この図は、監視と制御が繰り返し回る様子を表しています。"}</p>{"\n"}<div className="mermaid-diagram" id="mmd7" tabIndex={0} role="region" aria-label="図7（横スクロール可能）"><Diagram index={6} /></div>{"\n"}<p >{"各ノードの意味："}</p>{"\n"}<ul >{"\n"}<li >{"TMC1：最初に1回行い、測定の物差しを決める"}</li>{"\n"}<li >{"TMC2：テスト実行の結果、インシデント報告の件数など、第3層から返ってくるデータを集める"}</li>{"\n"}<li >{"ひし形「計画からずれているか」：進捗や品質が、計画の許容範囲かどうかを見る"}</li>{"\n"}<li >{"TMC3：テストの追加、優先度の変更、環境の増強などを指示する"}</li>{"\n"}<li >{"TMC4：報告後は、また測定に戻る。完了まで繰り返す"}</li>{"\n"}</ul>{"\n"}<h3 id="5-3-テスト完了プロセス第74節">{"5-3　テスト完了プロセス（第7.4節）"}</h3>{"\n"}<h4 id="なぜ必要か-2">{"なぜ必要か"}</h4>{"\n"}<p >{"テストを終えるときに片付けをしないと、次のプロジェクトで「あのテストデータはどこ？」「環境が汚れたままで動かない」という問題が起きます。"}<strong >{"引っ越しの後片付けと、次の住人への引き継ぎ"}</strong>{"にあたるプロセスです。"}</p>{"\n"}<h4 id="アクティビティ-1">{"アクティビティ"}</h4>{"\n"}<p >{"2021年版の目次では、TC1・TC2・TC4の名称を確認できました。TC3は一般的な整理にもとづきます。"}</p>{"\n"}<div className="table-scroll" tabIndex={0} role="region" aria-label="5-3　テスト完了プロセスのアクティビティ"><table ><thead ><tr className="header"><th >{"略号"}</th><th >{"アクティビティ"}</th><th >{"内容"}</th><th >{"確認度"}</th></tr></thead><tbody ><tr className="odd"><td >{"TC1"}</td><td >{"テスト資産を保管する（Archive test assets）"}</td><td >{"テストケース、手順、結果を後から使えるように残す"}</td><td >{"✅"}</td></tr><tr className="even"><td >{"TC2"}</td><td >{"テスト環境を片付ける（Clean up test environment）"}</td><td >{"環境を元の状態に戻す、または廃棄する"}</td><td >{"✅"}</td></tr><tr className="odd"><td >{"TC3"}</td><td >{"教訓を特定する（Identify lessons learned）"}</td><td >{"良かった点と改善点を整理する"}</td><td >{"🔎"}</td></tr><tr className="even"><td >{"TC4"}</td><td >{"テスト完了を報告する（Report test completion）"}</td><td >{"結果と残課題をまとめて報告する"}</td><td >{"✅"}</td></tr></tbody></table></div>{"\n"}<p >{"この図は、完了プロセスの4つのアクティビティの流れと、教訓が第1層へ戻る経路を表しています。"}</p>{"\n"}<div className="mermaid-diagram" id="mmd8" tabIndex={0} role="region" aria-label="図8（横スクロール可能）"><Diagram index={7} /></div>{"\n"}<p >{"各ノードの意味："}</p>{"\n"}<ul >{"\n"}<li >{"TC1：次回の回帰テストや監査で再利用できる形で残す"}</li>{"\n"}<li >{"TC2：本番データを含む環境なら、情報の消去もここで行う"}</li>{"\n"}<li >{"TC3：「次はこうする」を言葉にする。第4章のOT3（更新）の入力になる"}</li>{"\n"}<li >{"TC4：計画に対する実績、未解決のインシデントなどを伝える"}</li>{"\n"}</ul>{"\n"}<div className="glossary"><p >{"📖 この章で登場した用語"}</p><ul >{"\n"}<li >{"テスト戦略：何を、どの技法で、どの深さまでテストするかの方針"}</li>{"\n"}<li >{"リスク：悪いことが起きる可能性と、起きたときの影響の組み合わせ"}</li>{"\n"}<li >{"境界値分析：入力範囲の端の値でバグが出やすい性質を利用する設計技法"}</li>{"\n"}<li >{"状態遷移：画面や機能の状態が、操作によってどう移り変わるかを表す考え方"}</li>{"\n"}<li >{"テスト資産（testware）：テストケース、手順、データ、結果など、テストのために作った成果物の総称"}</li>{"\n"}</ul></div>{"\n\n"}<hr  />{"\n"}</>;}
+export default function Section06() {
+    return (
+        <>
+            <h2 id="第5章-テストマネジメントプロセス第7章">
+                {'第5章　テストマネジメントプロセス（第7章）'}
+            </h2>
+            {'\n'}
+            <p className="callout">
+                {
+                    '💡\nこの章では、第2層の3つのプロセス（計画・監視と制御・完了）を順に説明します。第6章の実作業がどう導かれ、どう終わるのかが分かります。'
+                }
+            </p>
+            {'\n'}
+            <h3 id="5-1-テスト戦略計画プロセス第72節">
+                {'5-1　テスト戦略・計画プロセス（第7.2節）'}
+            </h3>
+            {'\n'}
+            <h4 id="なぜ必要か">{'なぜ必要か'}</h4>
+            {'\n'}
+            <p>
+                {
+                    '「どこから手を付けるか」を決めずにテストを始めると、重要な機能が手薄になり、重要でない機能に時間をかけすぎます。計画プロセスは、旅行にたとえると「'
+                }
+                <strong>{'行き先・予算・日程・持ち物'}</strong>
+                {'」を決める段階です。'}
+            </p>
+            {'\n'}
+            <h4 id="アクティビティの流れ">{'アクティビティの流れ'}</h4>
+            {'\n'}
+            <p>
+                {'2021年版の目次で確認できた名称は、'}
+                <code>{'TP5 テスト戦略を設計する'}</code>
+                {'（Design\ntest strategy）と '}
+                <code>{'TP7 テスト計画を記録する'}</code>
+                {
+                    '（Record test\nplan）です。その他は2013年版の目次と一般的な理解をもとにしています。'
+                }
+            </p>
+            {'\n'}
+            <div
+                className="table-scroll"
+                tabIndex={0}
+                role="region"
+                aria-label="アクティビティの流れ"
+            >
+                <table>
+                    <thead>
+                        <tr className="header">
+                            <th>{'略号'}</th>
+                            <th>{'アクティビティ'}</th>
+                            <th>{'内容'}</th>
+                            <th>{'確認度'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="odd">
+                            <td>{'TP1'}</td>
+                            <td>{'状況を理解する（Understand context）'}</td>
+                            <td>{'対象システム、制約、関係者、開発手法を把握する'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TP2'}</td>
+                            <td>{'計画の作成を組織する（Organize test plan development）'}</td>
+                            <td>{'誰がいつまでに計画を作るかを決める'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'TP3'}</td>
+                            <td>{'リスクを特定し分析する（Identify and analyse risks）'}</td>
+                            <td>
+                                {'何が失敗すると困るかを洗い出し、影響度と発生しやすさを見積もる'}
+                            </td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TP4'}</td>
+                            <td>
+                                {'リスク対応方針を決める（Identify risk mitigation approaches）'}
+                            </td>
+                            <td>
+                                {
+                                    'リスクごとに、テストで対処する・受け入れる・他の手段で防ぐ、を決める'
+                                }
+                            </td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'TP5'}</td>
+                            <td>{'テスト戦略を設計する（Design test strategy）'}</td>
+                            <td>{'何を、どの技法で、どの深さまでテストするかを決める'}</td>
+                            <td>{'✅'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TP6'}</td>
+                            <td>{'人員と日程を決める（Determine staffing and scheduling）'}</td>
+                            <td>{'人、時間、環境の割り当て'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'TP7'}</td>
+                            <td>{'テスト計画を記録する（Record test plan）'}</td>
+                            <td>{'決めたことを文書にする'}</td>
+                            <td>{'✅'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TP8'}</td>
+                            <td>{'計画の合意を得る（Gain consensus on test plan）'}</td>
+                            <td>{'関係者の合意をとる'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'TP9'}</td>
+                            <td>
+                                {
+                                    '計画を伝達し公開する（Communicate test plan and make\navailable）'
+                                }
+                            </td>
+                            <td>{'関係者がいつでも見られる状態にする'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {'\n'}
+            <p>{'この図は、計画プロセスの流れを表しています。上から下へ読み進めてください。'}</p>
+            {'\n'}
+            <div
+                className="mermaid-diagram"
+                id="mmd6"
+                tabIndex={0}
+                role="region"
+                aria-label="図6（横スクロール可能）"
+            >
+                <Diagram index={5} />
+            </div>
+            {'\n'}
+            <p>{'各ノードの意味：'}</p>
+            {'\n'}
+            <ul>
+                {'\n'}
+                <li>{'TP1〜TP2：土台づくり。ここで関係者と範囲を確認する'}</li>
+                {'\n'}
+                <li>
+                    {'TP3〜TP4：'}
+                    <strong>{'リスクベース'}</strong>
+                    {'の中核。ここでの判断が、後のテストの重みづけを決める'}
+                </li>
+                {'\n'}
+                <li>{'TP5：計画の心臓部。テストの深さ、使う技法、完了基準の方針を決める'}</li>
+                {'\n'}
+                <li>{'TP6〜TP7：実行可能な計画へ落とし込み、文書にする'}</li>
+                {'\n'}
+                <li>{'TP8〜TP9：合意と共有。文書を作っただけでは計画として機能しない'}</li>
+                {'\n'}
+            </ul>
+            {'\n'}
+            <h4 id="実務での具体例">{'実務での具体例'}</h4>
+            {'\n'}
+            <p>
+                {
+                    'ネットバンキングの送金機能なら、TP3では「金額計算の誤り」「二重送金」「権限のないユーザーの操作」などをリスクとして挙げます。TP5では、影響の大きい「金額計算」と「二重送金」に、境界値分析や状態遷移の設計技法を厚く適用すると決めます。'
+                }
+            </p>
+            {'\n'}
+            <h3 id="5-2-テスト監視制御プロセス第73節">
+                {'5-2　テスト監視・制御プロセス（第7.3節）'}
+            </h3>
+            {'\n'}
+            <h4 id="なぜ必要か-1">{'なぜ必要か'}</h4>
+            {'\n'}
+            <p>
+                {
+                    '計画は立てた瞬間から古くなります。想定より不具合が多い、環境の準備が遅れるなど、予定どおりに進まないのが普通です。このプロセスは、車の運転でいう「'
+                }
+                <strong>{'ナビを見ながら、渋滞があればルートを変える'}</strong>
+                {'」役目です。'}
+            </p>
+            {'\n'}
+            <h4 id="アクティビティ">{'アクティビティ'}</h4>
+            {'\n'}
+            <p>{'名称は一般的な整理にもとづく🔎です。'}</p>
+            {'\n'}
+            <div
+                className="table-scroll"
+                tabIndex={0}
+                role="region"
+                aria-label="5-2　テスト監視・制御プロセスのアクティビティ"
+            >
+                <table>
+                    <thead>
+                        <tr className="header">
+                            <th>{'略号'}</th>
+                            <th>{'アクティビティ'}</th>
+                            <th>{'内容'}</th>
+                            <th>{'確認度'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="odd">
+                            <td>{'TMC1'}</td>
+                            <td>{'監視と制御の準備をする（Set up）'}</td>
+                            <td>{'何を測るか、どう報告するかを決める'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TMC2'}</td>
+                            <td>{'監視する（Monitor）'}</td>
+                            <td>{'進捗、不具合数、カバレッジなどの測定値を集める'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'TMC3'}</td>
+                            <td>{'制御する（Control）'}</td>
+                            <td>{'ずれがあれば計画や作業を修正する'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TMC4'}</td>
+                            <td>{'報告する（Report）'}</td>
+                            <td>{'関係者へ状況を伝える'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {'\n'}
+            <p>{'この図は、監視と制御が繰り返し回る様子を表しています。'}</p>
+            {'\n'}
+            <div
+                className="mermaid-diagram"
+                id="mmd7"
+                tabIndex={0}
+                role="region"
+                aria-label="図7（横スクロール可能）"
+            >
+                <Diagram index={6} />
+            </div>
+            {'\n'}
+            <p>{'各ノードの意味：'}</p>
+            {'\n'}
+            <ul>
+                {'\n'}
+                <li>{'TMC1：最初に1回行い、測定の物差しを決める'}</li>
+                {'\n'}
+                <li>
+                    {
+                        'TMC2：テスト実行の結果、インシデント報告の件数など、第3層から返ってくるデータを集める'
+                    }
+                </li>
+                {'\n'}
+                <li>
+                    {'ひし形「計画からずれているか」：進捗や品質が、計画の許容範囲かどうかを見る'}
+                </li>
+                {'\n'}
+                <li>{'TMC3：テストの追加、優先度の変更、環境の増強などを指示する'}</li>
+                {'\n'}
+                <li>{'TMC4：報告後は、また測定に戻る。完了まで繰り返す'}</li>
+                {'\n'}
+            </ul>
+            {'\n'}
+            <h3 id="5-3-テスト完了プロセス第74節">{'5-3　テスト完了プロセス（第7.4節）'}</h3>
+            {'\n'}
+            <h4 id="なぜ必要か-2">{'なぜ必要か'}</h4>
+            {'\n'}
+            <p>
+                {
+                    'テストを終えるときに片付けをしないと、次のプロジェクトで「あのテストデータはどこ？」「環境が汚れたままで動かない」という問題が起きます。'
+                }
+                <strong>{'引っ越しの後片付けと、次の住人への引き継ぎ'}</strong>
+                {'にあたるプロセスです。'}
+            </p>
+            {'\n'}
+            <h4 id="アクティビティ-1">{'アクティビティ'}</h4>
+            {'\n'}
+            <p>
+                {
+                    '2021年版の目次では、TC1・TC2・TC4の名称を確認できました。TC3は一般的な整理にもとづきます。'
+                }
+            </p>
+            {'\n'}
+            <div
+                className="table-scroll"
+                tabIndex={0}
+                role="region"
+                aria-label="5-3　テスト完了プロセスのアクティビティ"
+            >
+                <table>
+                    <thead>
+                        <tr className="header">
+                            <th>{'略号'}</th>
+                            <th>{'アクティビティ'}</th>
+                            <th>{'内容'}</th>
+                            <th>{'確認度'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="odd">
+                            <td>{'TC1'}</td>
+                            <td>{'テスト資産を保管する（Archive test assets）'}</td>
+                            <td>{'テストケース、手順、結果を後から使えるように残す'}</td>
+                            <td>{'✅'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TC2'}</td>
+                            <td>{'テスト環境を片付ける（Clean up test environment）'}</td>
+                            <td>{'環境を元の状態に戻す、または廃棄する'}</td>
+                            <td>{'✅'}</td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'TC3'}</td>
+                            <td>{'教訓を特定する（Identify lessons learned）'}</td>
+                            <td>{'良かった点と改善点を整理する'}</td>
+                            <td>{'🔎'}</td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'TC4'}</td>
+                            <td>{'テスト完了を報告する（Report test completion）'}</td>
+                            <td>{'結果と残課題をまとめて報告する'}</td>
+                            <td>{'✅'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {'\n'}
+            <p>
+                {
+                    'この図は、完了プロセスの4つのアクティビティの流れと、教訓が第1層へ戻る経路を表しています。'
+                }
+            </p>
+            {'\n'}
+            <div
+                className="mermaid-diagram"
+                id="mmd8"
+                tabIndex={0}
+                role="region"
+                aria-label="図8（横スクロール可能）"
+            >
+                <Diagram index={7} />
+            </div>
+            {'\n'}
+            <p>{'各ノードの意味：'}</p>
+            {'\n'}
+            <ul>
+                {'\n'}
+                <li>{'TC1：次回の回帰テストや監査で再利用できる形で残す'}</li>
+                {'\n'}
+                <li>{'TC2：本番データを含む環境なら、情報の消去もここで行う'}</li>
+                {'\n'}
+                <li>{'TC3：「次はこうする」を言葉にする。第4章のOT3（更新）の入力になる'}</li>
+                {'\n'}
+                <li>{'TC4：計画に対する実績、未解決のインシデントなどを伝える'}</li>
+                {'\n'}
+            </ul>
+            {'\n'}
+            <div className="glossary">
+                <p>{'📖 この章で登場した用語'}</p>
+                <ul>
+                    {'\n'}
+                    <li>{'テスト戦略：何を、どの技法で、どの深さまでテストするかの方針'}</li>
+                    {'\n'}
+                    <li>{'リスク：悪いことが起きる可能性と、起きたときの影響の組み合わせ'}</li>
+                    {'\n'}
+                    <li>{'境界値分析：入力範囲の端の値でバグが出やすい性質を利用する設計技法'}</li>
+                    {'\n'}
+                    <li>
+                        {'状態遷移：画面や機能の状態が、操作によってどう移り変わるかを表す考え方'}
+                    </li>
+                    {'\n'}
+                    <li>
+                        {
+                            'テスト資産（testware）：テストケース、手順、データ、結果など、テストのために作った成果物の総称'
+                        }
+                    </li>
+                    {'\n'}
+                </ul>
+            </div>
+            {'\n\n'}
+            <hr />
+            {'\n'}
+        </>
+    );
+}
