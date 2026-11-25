@@ -297,9 +297,8 @@
                 max-width: none;
                 flex-shrink: 0;
             }
-            .mermaid-diagram foreignObject div,
-            .mermaid-diagram foreignObject span,
-            .mermaid-diagram foreignObject p {
+            /* 折り返し指定のラベルだけ、整形由来の空白を表示しない（nowrapのラベルは元の指定を保つ） */
+            .mermaid-diagram foreignObject div[style*='break-spaces'] {
                 white-space: normal !important;
             }
             .mermaid-diagram foreignObject {
