@@ -637,6 +637,15 @@
                 .mermaid-diagram {
                     overflow: visible;
                 }
+                .table-scroll {
+                    overflow: visible;
+                }
+                .content table {
+                    min-width: 0;
+                }
+                .content th {
+                    white-space: normal;
+                }
                 .mermaid-diagram svg {
                     max-width: 100%;
                     height: auto;
@@ -1088,7 +1097,7 @@
                     </div>
                 </header>
                 <article class="content">
-                    <h2 id="sec-1">
+                    <h2 id="sec-1" tabindex="-1">
                         0. 最初に読んでください：この文書の「根拠の強さ」について<a
                             aria-label="リンク"
                             class="anchor"
@@ -1151,7 +1160,7 @@
                         </p>
                     </div>
 
-                    <h2 id="sec-2">
+                    <h2 id="sec-2" tabindex="-1">
                         <span id="2-30秒でわかる-29119-8" class="heading-alias" aria-hidden="true"></span>2. 30秒でわかる 29119-8<a aria-label="リンク" class="anchor" href="#sec-2"
                             >#</a
                         >
@@ -1893,7 +1902,7 @@ L179.815,104.382"
                         >：「テストケースを人が1本ずつ書く」代わりに、「システムの期待動作を<strong>モデル</strong>として書き、そこからテストを<strong>機械的に導く</strong>」ための、<strong>プロセスと文書化のルールブック</strong>です。
                     </p>
 
-                    <h2 id="sec-3">
+                    <h2 id="sec-3" tabindex="-1">
                         3. ステップ1：MBT とは何か<a
                             aria-label="リンク"
                             class="anchor"
@@ -1901,7 +1910,7 @@ L179.815,104.382"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-3-1">
+                    <h3 id="sec-3-1" tabindex="-1">
                         3.1 定義<a aria-label="リンク" class="anchor" href="#sec-3-1">#</a>
                     </h3>
                     <p>
@@ -1913,7 +1922,7 @@ L179.815,104.382"
                         を「同値分割、境界値分析、デシジョンテーブル、状態遷移テストといった既存のテスト技法を<strong>拡張し支える</strong>高度なテストアプローチ」と位置づけています。つまり、MBT
                         は従来技法の<strong>置き換えではなく、上に乗るもの</strong>です。
                     </p>
-                    <h3 id="sec-3-2">
+                    <h3 id="sec-3-2" tabindex="-1">
                         3.2 テスト自動化の進化の中での MBT<a
                             aria-label="リンク"
                             class="anchor"
@@ -2583,7 +2592,7 @@ L179.815,104.382"
                         </svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-2">人が手順を書き実行する手動テストから、スクリプト化、キーワードによる部品再利用、モデルからの手順生成へ進む。</p>
-                    <h3 id="sec-3-3">
+                    <h3 id="sec-3-3" tabindex="-1">
                         3.3 従来のテスト設計との違い<a
                             aria-label="リンク"
                             class="anchor"
@@ -2653,7 +2662,7 @@ L179.815,104.382"
                         </p>
                     </div>
 
-                    <h2 id="sec-4">
+                    <h2 id="sec-4" tabindex="-1">
                         4. ステップ2：29119 シリーズの中での位置づけ<a
                             aria-label="リンク"
                             class="anchor"
@@ -3625,7 +3634,7 @@ L741.743,340.671"
                         </p>
                     </div>
 
-                    <h2 id="sec-5">
+                    <h2 id="sec-5" tabindex="-1">
                         5. ステップ3：29119-8 のスコープ<a
                             aria-label="リンク"
                             class="anchor"
@@ -3633,7 +3642,7 @@ L741.743,340.671"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-5-1">
+                    <h3 id="sec-5-1" tabindex="-1">
                         5.1 「扱う」ものと「扱わない」もの<a
                             aria-label="リンク"
                             class="anchor"
@@ -3684,7 +3693,7 @@ L741.743,340.671"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-5-2">
+                    <h3 id="sec-5-2" tabindex="-1">
                         5.2 「テスト実行も自動」という前提の意味<a
                             aria-label="リンク"
                             class="anchor"
@@ -3703,7 +3712,7 @@ L741.743,340.671"
                         ISO/IEC/IEEE 29119-8
                         の適用範囲に含まれるかどうかは、<strong>規格本文を確認しなければ判断できません</strong>。
                     </p>
-                    <h3 id="sec-5-3">
+                    <h3 id="sec-5-3" tabindex="-1">
                         5.3 すべてのライフサイクルに適用できる<a
                             aria-label="リンク"
                             class="anchor"
@@ -3740,7 +3749,7 @@ L741.743,340.671"
                         </table>
                     </div>
 
-                    <h2 id="sec-6">
+                    <h2 id="sec-6" tabindex="-1">
                         <span id="6-ステップ4策定の経緯と現在のステータス" class="heading-alias" aria-hidden="true"></span>6. ステップ4：策定の経緯と現在のステータス<a
                             aria-label="リンク"
                             class="anchor"
@@ -4805,7 +4814,7 @@ L741.743,340.671"
                         ISO
                         ページは、このステージを「最終制作工程（最大7週間）」と説明しています。<strong>2026年11月19日時点の確認では、ISO は引き続きステージ 60.00（発行手続き中）と掲載し、発行予定月を2026年12月としている一方、ステージ 60.60（発行）の具体的な日付は掲載していません</strong>（初版確認時の2026年10月6日時点のスナップショットからステージは変わっておらず、上記は2026年11月19日時点のスナップショットです）。最新の発行状況や公開日については、ISO 公式ページで直接確認してください。
                     </p>
-                    <h3 id="sec-6-1">
+                    <h3 id="sec-6-1" tabindex="-1">
                         <span id="補足istqb-シラバスに残る旧称" class="heading-alias" aria-hidden="true"></span>補足：ISTQB シラバスに残る旧称<a
                             aria-label="リンク"
                             class="anchor"
@@ -4824,7 +4833,7 @@ L741.743,340.671"
                         publication」という表記との対比に基づきます）。
                     </p>
 
-                    <h2 id="sec-7">
+                    <h2 id="sec-7" tabindex="-1">
                         7. ステップ5：MBT のプロセス全体像<a
                             aria-label="リンク"
                             class="anchor"
@@ -4832,7 +4841,7 @@ L741.743,340.671"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-7-1">
+                    <h3 id="sec-7-1" tabindex="-1">
                         7.1 MBT の基本フロー<a aria-label="リンク" class="anchor" href="#sec-7-1"
                             >#</a
                         >
@@ -6070,7 +6079,7 @@ L375.32,1428.031"
                         </svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-5">目的からモデルを作り妥当性を確認する。問題があればモデルを修正し、妥当なら選択基準を決め生成・具体化・実行する。評価でモデルの問題なら修正へ、SUTの欠陥なら報告へ進み、十分なら完了する。</p>
-                    <h3 id="sec-7-2">
+                    <h3 id="sec-7-2" tabindex="-1">
                         7.2 各ステップの役割<a aria-label="リンク" class="anchor" href="#sec-7-2"
                             >#</a
                         >
@@ -6125,7 +6134,7 @@ L375.32,1428.031"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-7-3">
+                    <h3 id="sec-7-3" tabindex="-1">
                         7.3 MBT 固有の活動と成果物（ISTQB の整理）<a
                             aria-label="リンク"
                             class="anchor"
@@ -6152,7 +6161,7 @@ L375.32,1428.031"
                         >
                     </p>
 
-                    <h2 id="sec-8">
+                    <h2 id="sec-8" tabindex="-1">
                         8. ステップ6：29119-2（テストプロセス）を MBT で実装するとは<a
                             aria-label="リンク"
                             class="anchor"
@@ -6170,7 +6179,7 @@ L375.32,1428.031"
                             本文の条項どおりではない可能性があります。
                         </p>
                     </div>
-                    <h3 id="sec-8-1">
+                    <h3 id="sec-8-1" tabindex="-1">
                         8.1 29119-2 の3層構造をおさらい<a
                             aria-label="リンク"
                             class="anchor"
@@ -6201,13 +6210,13 @@ L375.32,1428.031"
                                 <tr class="odd">
                                     <td>動的テストプロセス</td>
                                     <td>
-                                        テスト設計・実装、テスト環境の構築と維持、テスト実行、テストインシデント報告
+                                        テスト設計・実装、テスト環境およびテストデータの構築と維持、テスト実行、テストインシデント報告
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-8-2">
+                    <h3 id="sec-8-2" tabindex="-1">
                         8.2 MBT が影響する箇所<a aria-label="リンク" class="anchor" href="#sec-8-2"
                             >#</a
                         >
@@ -7333,7 +7342,7 @@ L1331.454,144.047"
                         </svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-6">計画にツール・指針・指標を含め、分析・設計にモデリングと選択基準、実装・実行に生成と具体化、監視に影響分析、完了にモデル資産の再利用を対応づける。</p>
-                    <h3 id="sec-8-3">
+                    <h3 id="sec-8-3" tabindex="-1">
                         8.3 プロセス別の MBT 実装ポイント<a
                             aria-label="リンク"
                             class="anchor"
@@ -7389,7 +7398,7 @@ L1331.454,144.047"
                         </table>
                     </div>
 
-                    <h2 id="sec-9">
+                    <h2 id="sec-9" tabindex="-1">
                         9. ステップ7：モデルの種類と書き方<a
                             aria-label="リンク"
                             class="anchor"
@@ -7397,7 +7406,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-9-1">
+                    <h3 id="sec-9-1" tabindex="-1">
                         9.1 モデルの3つの「主題」<a
                             aria-label="リンク"
                             class="anchor"
@@ -8172,7 +8181,7 @@ L1331.454,144.047"
                         </svg>
                     </div>
                     <p class="diagram-description" id="diagram-description-7">システムの期待動作、環境・利用条件、抽象的なテスト手順を表す三つのモデルを統合し、テストケース生成器に渡す。</p>
-                    <h3 id="sec-9-2">
+                    <h3 id="sec-9-2" tabindex="-1">
                         9.2 構造モデルと振る舞いモデル<a
                             aria-label="リンク"
                             class="anchor"
@@ -8203,7 +8212,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-9-3">
+                    <h3 id="sec-9-3" tabindex="-1">
                         9.3 テスト目的に合うモデルを選ぶ<a
                             aria-label="リンク"
                             class="anchor"
@@ -8243,7 +8252,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-9-4">
+                    <h3 id="sec-9-4" tabindex="-1">
                         9.4 モデルの品質特性（3つの視点）<a
                             aria-label="リンク"
                             class="anchor"
@@ -8282,7 +8291,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-9-5">
+                    <h3 id="sec-9-5" tabindex="-1">
                         9.5 モデル作成のコツ<a aria-label="リンク" class="anchor" href="#sec-9-5"
                             >#</a
                         >
@@ -8309,7 +8318,7 @@ L1331.454,144.047"
                             レビューを小さく回す。テスト生成はモデルのシミュレーションでもある
                         </li>
                     </ol>
-                    <h3 id="sec-9-6">
+                    <h3 id="sec-9-6" tabindex="-1">
                         9.6 設計モデルの流用の注意（単一情報源問題）<a
                             aria-label="リンク"
                             class="anchor"
@@ -8321,7 +8330,7 @@ L1331.454,144.047"
                         開発側の設計モデルをそのままテストモデルに流用すると、<strong>設計の誤りがテストにもそのまま伝播</strong>し、テストの独立性が失われます。そのまま使った場合、導かれるテストは「実装が設計どおりか」を見る検証（Verification）にしかなりません。望ましいのは、<strong>設計用とテスト用で別の人が別のモデルを書く</strong>ことです。
                     </p>
 
-                    <h2 id="sec-10">
+                    <h2 id="sec-10" tabindex="-1">
                         10. ステップ8：テスト選択基準（何をどこまで生成するか）<a
                             aria-label="リンク"
                             class="anchor"
@@ -8333,7 +8342,7 @@ L1331.454,144.047"
                         同じモデルからでも、基準を変えればテストスイートは変わります。モデルが大きいと、無制限に生成するとテストケース爆発が起きるため、<strong>選択基準で絞り込む</strong>ことが
                         MBT の中心作業になります。
                     </p>
-                    <h3 id="sec-10-1">
+                    <h3 id="sec-10-1" tabindex="-1">
                         10.1 6つの基準ファミリー（ISTQB の整理）<a
                             aria-label="リンク"
                             class="anchor"
@@ -8391,7 +8400,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-10-2">
+                    <h3 id="sec-10-2" tabindex="-1">
                         10.2 モデル別のカバレッジ指標の例<a
                             aria-label="リンク"
                             class="anchor"
@@ -8435,7 +8444,7 @@ L1331.454,144.047"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-10-3">
+                    <h3 id="sec-10-3" tabindex="-1">
                         10.3 基準の組み合わせ方<a
                             aria-label="リンク"
                             class="anchor"
@@ -8455,7 +8464,7 @@ L1331.454,144.047"
                             <tbody>
                                 <tr class="odd">
                                     <td><strong>合成（Composition）</strong></td>
-                                    <td>個々のテストに適用する複数条件をすべて満たすテストを選び、生成されたスイート全体で必要なカバレッジ項目を網羅する</td>
+                                    <td>個々のテストに適用する複数条件をすべて満たすテストを選び、生成されたスイート全体で必要なカバレッジ項目を網羅する。絞り込み後に各カバレッジ目標が満たされているか必ず確認し、未達の目標があれば基準を見直すか別のテストを追加する</td>
                                     <td>積集合（絞り込み）</td>
                                 </tr>
                                 <tr class="even">
@@ -9151,7 +9160,7 @@ L1331.454,144.047"
                             </g>
                         </svg>
                     </div>
-                    <p class="diagram-description" id="diagram-description-8">個々のテストに対して「対象要件に紐づく」（条件A）と「対象遷移を通る」（条件B）の条件を適用する例。合成では両条件を満たすテスト群を選んで絞り込み、単一テストに両カバレッジ目標の単独達成を求めずに、生成された複数テストのスイート全体で必要な要件・遷移を網羅する。加算ではどちらかを満たすテストをすべて残す。</p>
+                    <p class="diagram-description" id="diagram-description-8">個々のテストに対して「対象要件に紐づく」（条件A）と「対象遷移を通る」（条件B）の条件を適用する例。合成では両条件を満たすテスト群を選んで絞り込み、単一テストに両カバレッジ目標の単独達成を求めずに、生成された複数テストのスイート全体で必要な要件・遷移を網羅する。ただし絞り込みで必要な経路が消えることがあるため、適用後にカバレッジを再確認し、未達があれば基準を見直すか別のテストを追加する。加算ではどちらかを満たすテストをすべて残す。</p>
                     <div class="callout callout-practice">
                         <div class="callout-title">
                             <span aria-hidden="true" class="callout-icon">💡</span
@@ -9162,7 +9171,7 @@ L1331.454,144.047"
                             >：選択結果は<strong>再現可能</strong>にします。同じモデルと同じ基準なら同じテストが得られるよう、選択の判断とその理由を記録してください。小さなモデル変更で選ばれるパスが大きく入れ替わることがあるため、「モデルが主、テストケースは派生物」という発想の転換が必要です。
                         </p>
                     </div>
-                    <h3 id="sec-10-4">
+                    <h3 id="sec-10-4" tabindex="-1">
                         10.4 生成の自動化度<a aria-label="リンク" class="anchor" href="#sec-10-4"
                             >#</a
                         >
@@ -9196,7 +9205,7 @@ L1331.454,144.047"
                         </table>
                     </div>
 
-                    <h2 id="sec-11">
+                    <h2 id="sec-11" tabindex="-1">
                         11. ステップ9：テスト生成から実行まで<a
                             aria-label="リンク"
                             class="anchor"
@@ -9204,7 +9213,7 @@ L1331.454,144.047"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-11-1">
+                    <h3 id="sec-11-1" tabindex="-1">
                         11.1 抽象テストと具体テスト<a
                             aria-label="リンク"
                             class="anchor"
@@ -9238,7 +9247,7 @@ L1331.454,144.047"
                     <p>
                         高水準から低水準へ進めるには、<strong>完全に定義された操作、具体的な入力値、具体的な期待値</strong>を補う必要があります。補う場所は、モデルの中（要素の文書化など）でも、モデルの外（抽象値と具体値の対応表など）でも構いません。
                     </p>
-                    <h3 id="sec-11-2">
+                    <h3 id="sec-11-2" tabindex="-1">
                         11.2 オフライン MBT とオンライン MBT<a
                             aria-label="リンク"
                             class="anchor"
@@ -10716,7 +10725,7 @@ z"
                             を「入力を受け付け出力を返すラベル付き遷移系」とみなし、モデルとの適合性を形式的に定義します。初学者はまず「仕様（モデル）が許すサスペンショントレース（入力・出力・無応答の列）の後に限り、仕様が許す出力のいずれかを SUT が返せばよく、許される出力をすべて返す必要はない一方で、そのようなトレースの後に仕様が許さない出力や想定外の無応答（沈黙）が起きれば不適合（ただし、それまでのトレースにその入力を続けた列全体が仕様のサスペンショントレースに含まれない場合に限り比較対象外となり、ある到達可能な仕様状態でその入力が未定義であっても、別の到達可能な仕様状態を経てその拡張トレースが仕様上許される場合は除外されない）」という直感を押さえれば十分です。
                         </p>
                     </div>
-                    <h3 id="sec-11-3">
+                    <h3 id="sec-11-3" tabindex="-1">
                         11.3 テストアダプテーション層<a
                             aria-label="リンク"
                             class="anchor"
@@ -11574,7 +11583,7 @@ z"
                     <p>
                         さらに、<strong>各テストの前提条件</strong>を整える必要があります。後条件で次の前提を作る方法と、各テストの冒頭で前提を設定する方法があります。
                     </p>
-                    <h3 id="sec-11-4">
+                    <h3 id="sec-11-4" tabindex="-1">
                         11.4 変更が起きたとき、どこを直すか<a
                             aria-label="リンク"
                             class="anchor"
@@ -11617,7 +11626,7 @@ z"
                         の大きな利点です。「画面の見た目が変わった」だけなら、モデルもテストケースも触らず、アダプテーション層だけ直せば済みます。
                     </p>
 
-                    <h2 id="sec-12">
+                    <h2 id="sec-12" tabindex="-1">
                         12. ステップ10：29119-3（文書化）への対応<a
                             aria-label="リンク"
                             class="anchor"
@@ -11636,7 +11645,7 @@ z"
                             の文書化要求の一部または全部を満たすために使える」という点までです。
                         </p>
                     </div>
-                    <h3 id="sec-12-1">
+                    <h3 id="sec-12-1" tabindex="-1">
                         12.1 対応づけの考え方<a aria-label="リンク" class="anchor" href="#sec-12-1"
                             >#</a
                         >
@@ -11691,7 +11700,7 @@ z"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-12-2">
+                    <h3 id="sec-12-2" tabindex="-1">
                         12.2 双方向トレーサビリティが鍵<a
                             aria-label="リンク"
                             class="anchor"
@@ -12365,7 +12374,7 @@ z"
                         </p>
                     </div>
 
-                    <h2 id="sec-13">
+                    <h2 id="sec-13" tabindex="-1">
                         13. ステップ11：29119-4（テスト技法）との関係<a
                             aria-label="リンク"
                             class="anchor"
@@ -12419,7 +12428,7 @@ z"
                         ツールを導入しても、基準の意味がわからず、使いこなせません。
                     </p>
 
-                    <h2 id="sec-14">
+                    <h2 id="sec-14" tabindex="-1">
                         <span id="14-ステップ12手を動かすログイン機能で-mbt-を体験" class="heading-alias" aria-hidden="true"></span>14. ステップ12：手を動かす——ログイン機能で MBT を体験<a
                             aria-label="リンク"
                             class="anchor"
@@ -12428,7 +12437,7 @@ z"
                         >
                     </h2>
                     <p>ここまでの概念を、小さな例で実感しましょう。</p>
-                    <h3 id="sec-14-1">
+                    <h3 id="sec-14-1" tabindex="-1">
                         <span id="141-題材の仕様" class="heading-alias" aria-hidden="true"></span>14.1 題材の仕様<a aria-label="リンク" class="anchor" href="#sec-14-1">#</a>
                     </h3>
                     <ul>
@@ -12437,7 +12446,7 @@ z"
                         <li>ロックは30分で解除される</li>
                         <li>ログアウトで「未ログイン」に戻る</li>
                     </ul>
-                    <h3 id="sec-14-2">
+                    <h3 id="sec-14-2" tabindex="-1">
                         <span id="142-手順1目的を決める" class="heading-alias" aria-hidden="true"></span>14.2 手順1：目的を決める<a
                             aria-label="リンク"
                             class="anchor"
@@ -12448,7 +12457,7 @@ z"
                     <p>
                         目的：<strong>ログイン関連の状態遷移が仕様どおりか確認する</strong>（振る舞いモデル、システムモデル）。
                     </p>
-                    <h3 id="sec-14-3">
+                    <h3 id="sec-14-3" tabindex="-1">
                         <span id="143-手順2モデルを書く状態遷移図" class="heading-alias" aria-hidden="true"></span>14.3 手順2：モデルを書く（状態遷移図）<a
                             aria-label="リンク"
                             class="anchor"
@@ -12481,7 +12490,7 @@ z"
                             でロックへ遷移します。
                         </p>
                     </div>
-                    <h3 id="sec-14-4">
+                    <h3 id="sec-14-4" tabindex="-1">
                         <span id="144-手順3モデルを検証する" class="heading-alias" aria-hidden="true"></span>14.4 手順3：モデルを検証する<a
                             aria-label="リンク"
                             class="anchor"
@@ -12515,7 +12524,7 @@ z"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-14-5">
+                    <h3 id="sec-14-5" tabindex="-1">
                         <span id="145-手順4選択基準を決めてテストを生成する" class="heading-alias" aria-hidden="true"></span>14.5 手順4：選択基準を決めてテストを生成する<a
                             aria-label="リンク"
                             class="anchor"
@@ -12585,7 +12594,7 @@ z"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-14-6">
+                    <h3 id="sec-14-6" tabindex="-1">
                         <span id="146-手順5アダプテーション具体化" class="heading-alias" aria-hidden="true"></span>14.6 手順5：アダプテーション（具体化）<a
                             aria-label="リンク"
                             class="anchor"
@@ -12644,7 +12653,7 @@ z"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-14-7">
+                    <h3 id="sec-14-7" tabindex="-1">
                         <span id="147-手順6仕様変更に強いことを確認する" class="heading-alias" aria-hidden="true"></span>14.7 手順6：仕様変更に強いことを確認する<a
                             aria-label="リンク"
                             class="anchor"
@@ -12677,7 +12686,7 @@ z"
                     </div>
                     <p>この差が、モデルが大きくなるほど効いてきます。</p>
 
-                    <h2 id="sec-15">
+                    <h2 id="sec-15" tabindex="-1">
                         15. ステップ13：導入判断・ROI・KPI<a
                             aria-label="リンク"
                             class="anchor"
@@ -12685,7 +12694,7 @@ z"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-15-1">
+                    <h3 id="sec-15-1" tabindex="-1">
                         15.1 MBT 導入の判断フロー<a
                             aria-label="リンク"
                             class="anchor"
@@ -13797,7 +13806,7 @@ L470.258,1327.734"
                             シラバスのコスト・便益の論点をもとにした<strong>筆者の簡易フロー</strong>です。実際には、組織の目的（品質向上か工数削減かコミュニケーション改善か）を先に決めてください。
                         </p>
                     </div>
-                    <h3 id="sec-15-2">
+                    <h3 id="sec-15-2" tabindex="-1">
                         15.2 導入の5段階（ISTQB が示す普及プロセス）<a
                             aria-label="リンク"
                             class="anchor"
@@ -13839,7 +13848,7 @@ L470.258,1327.734"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-15-3">
+                    <h3 id="sec-15-3" tabindex="-1">
                         15.3 コストと便益<a aria-label="リンク" class="anchor" href="#sec-15-3"
                             >#</a
                         >
@@ -13881,7 +13890,7 @@ L470.258,1327.734"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-15-4">
+                    <h3 id="sec-15-4" tabindex="-1">
                         15.4 追跡すべき KPI の例<a
                             aria-label="リンク"
                             class="anchor"
@@ -13898,7 +13907,7 @@ L470.258,1327.734"
                         <li>ステークホルダー（業務・開発・テスト）によるモデルの利用度</li>
                         <li>従来手法と比べた生産性向上率、欠陥検出力の向上率</li>
                     </ul>
-                    <h3 id="sec-15-5">
+                    <h3 id="sec-15-5" tabindex="-1">
                         15.5 ツールの統合<a aria-label="リンク" class="anchor" href="#sec-15-5"
                             >#</a
                         >
@@ -14717,7 +14726,7 @@ L633.267,207.083"
                     </div>
                     <p class="diagram-description" id="diagram-description-15">モデル編集・シミュレータ・生成器を持つMBTツールを中心に、要件管理、テスト管理、自動化基盤、構成管理、CIサーバーを連携させる。</p>
 
-                    <h2 id="sec-16">
+                    <h2 id="sec-16" tabindex="-1">
                         16. ステップ14：よくある失敗とアンチパターン<a
                             aria-label="リンク"
                             class="anchor"
@@ -14800,7 +14809,7 @@ L633.267,207.083"
                         </table>
                     </div>
 
-                    <h2 id="sec-17">
+                    <h2 id="sec-17" tabindex="-1">
                         17. 学習ロードマップとチェックリスト<a
                             aria-label="リンク"
                             class="anchor"
@@ -14808,7 +14817,7 @@ L633.267,207.083"
                             >#</a
                         >
                     </h2>
-                    <h3 id="sec-17-1">
+                    <h3 id="sec-17-1" tabindex="-1">
                         17.1 学習の進め方<a aria-label="リンク" class="anchor" href="#sec-17-1"
                             >#</a
                         >
@@ -15623,7 +15632,7 @@ L633.267,207.083"
                     <p>
                         なお、ISTQB の CT-MBT 資格は<strong>2027年1月1日に廃止予定</strong>です。受験を予定している方は、各国の ISTQB 加盟ボード（Member Board）で残りの試験日程を確認してください。CT-MBT シラバス自体は、引き続き学習資料として活用できます。
                     </p>
-                    <h3 id="sec-17-2">
+                    <h3 id="sec-17-2" tabindex="-1">
                         17.2 理解度チェックリスト<a
                             aria-label="リンク"
                             class="anchor"
@@ -15717,7 +15726,7 @@ L633.267,207.083"
                         </ul>
                     </div>
 
-                    <h2 id="sec-18">
+                    <h2 id="sec-18" tabindex="-1">
                         18. 用語集<a aria-label="リンク" class="anchor" href="#sec-18">#</a>
                     </h2>
                     <div class="table-scroll" tabindex="0" role="region" aria-label="18. 用語集：用語・意味（横スクロール可能）">
@@ -15800,7 +15809,7 @@ L633.267,207.083"
                         </table>
                     </div>
 
-                    <h2 id="sec-19">
+                    <h2 id="sec-19" tabindex="-1">
                         <span id="19-faq" class="heading-alias" aria-hidden="true"></span>19. FAQ<a aria-label="リンク" class="anchor" href="#sec-19">#</a>
                     </h2>
                     <p>
@@ -15833,7 +15842,7 @@ L633.267,207.083"
                         モデルの誤り・抽象度の不適切・選択基準の不適切のいずれかを疑ってください。生成物を直すのではなく、<strong>モデルまたは基準を直して再生成</strong>します。
                     </p>
 
-                    <h2 id="sec-20">
+                    <h2 id="sec-20" tabindex="-1">
                         20. 出典 URL 一覧<a aria-label="リンク" class="anchor" href="#sec-20">#</a>
                     </h2>
                     <div class="callout callout-note">
@@ -15844,7 +15853,7 @@ L633.267,207.083"
                             各情報の根拠となるソースです。「信頼度」は、本ガイドで使った箇所の根拠としての強さを示します。
                         </p>
                     </div>
-                    <h3 id="sec-20-1">
+                    <h3 id="sec-20-1" tabindex="-1">
                         20.1 規格・公式情報（◎）<a
                             aria-label="リンク"
                             class="anchor"
@@ -15932,7 +15941,7 @@ L633.267,207.083"
                             >しています。
                         </p>
                     </div>
-                    <h3 id="sec-20-2">
+                    <h3 id="sec-20-2" tabindex="-1">
                         20.2 ISTQB（国際ソフトウェアテスト資格委員会）（○）<a
                             aria-label="リンク"
                             class="anchor"
@@ -15996,7 +16005,7 @@ L633.267,207.083"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-20-3">
+                    <h3 id="sec-20-3" tabindex="-1">
                         20.3 国際的な研究者・実務家による文献（○）<a
                             aria-label="リンク"
                             class="anchor"
@@ -16127,7 +16136,7 @@ L633.267,207.083"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-20-4">
+                    <h3 id="sec-20-4" tabindex="-1">
                         20.4 関連する国際標準（○）<a
                             aria-label="リンク"
                             class="anchor"
@@ -16164,7 +16173,7 @@ L633.267,207.083"
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="sec-20-5">
+                    <h3 id="sec-20-5" tabindex="-1">
                         20.5 検索で確認できなかったこと<a
                             aria-label="リンク"
                             class="anchor"
@@ -16319,6 +16328,16 @@ L633.267,207.083"
                         pendingHashFromClick = target;
                         activate(fragmentTarget);
                         if (window.innerWidth <= 900) setOpen(false);
+                    });
+                });
+                document.querySelectorAll('.content a.anchor[href^="#"]').forEach(function (a) {
+                    a.addEventListener('click', function (e) {
+                        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                        var target = a.getAttribute('href').slice(1);
+                        if (!links[target]) return;
+                        pinFragment(target, true);
+                        pendingHashFromClick = target;
+                        activate(target);
                     });
                 });
                 function syncFragmentFromHash(isInitial) {
