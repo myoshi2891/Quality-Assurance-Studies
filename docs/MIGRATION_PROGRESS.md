@@ -63,7 +63,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/iso-29119-2-test-processes-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section13.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・`diagram-layouts.ts`・`restoreDiagramLayout.ts`を配置。280px固定目次、900px境界、ダーク配色、ヒーロー装飾、表・注記・用語欄を保持。目次はキーボード循環・Escape・背景inert・共有スクロールロック・動的免責高さへ対応。チェックは原本同様のネイティブ操作。
 - 図はHTML内SVGの全ノード・接続・ラベル・図形を正本とし、全角スペース、neoグラデーション、フォント、座標、ラベル寸法、破線を維持。Markdownの図とHTMLが異なる場合はHTMLを優先。共有Mermaidコンポーネントは変更せず、ページ側で設定と座標を復元。
 - 原本は`archive/html-archive/iso/Iso-29119-2-test-processes-guide.html`と`archive/md-archive/iso/Iso-29119-2-test-processes-guide.md`へ同一内容で移動。SHA-256・Git追跡・rename 100%・インベントリ再現性を検証。
-- 検証はnpm経由。対象405件、原本ブラウザー比較49件（5幅×CSS2順序、17実SVG×2幅、5幅×免責高さ3条件と縮小防止・スクロール両端）、対象ソース・テスト・E2E型検査、全体ESLint、Markdown lintを実施。全体15,541件（252ファイル、失敗0）、関連751件が成功。ビルド未実施、目視確認はユーザー担当。
+- 検証はnpm経由。対象405件、原本ブラウザー比較49件（5幅×CSS2順序、17実SVG×2幅、5幅×免責高さ3条件と縮小防止・スクロール両端。2026-11-15の当時の記録。2026-11-16にBunで再検証し、ブラウザー比較は未再実行）、対象ソース・テスト・E2E型検査、全体ESLint、Markdown lintを実施。全体15,541件（252ファイル、失敗0）、関連751件が成功。ビルド未実施、目視確認はユーザー担当。
 
 ## 2026-11-15: ISO 42005のMermaid CSSリセット補強
 
@@ -650,7 +650,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `a195ad45` |
 | 最新コミット内容 | `fix(docs): refine focus accessibility, TOC scroll tracking, and model-based testing definitions across static ISO guides` |
 | 次の作業 | `/iso-29119-2-test-processes-guide`の目視確認（ユーザー担当）。ビルド未実施。 |
-| ビルド状態 | 以前の実行（29119-2移行時）でnpm経由の全体15,541件（252ファイル、失敗0）、対象405件、関連751件、原本ブラウザー比較49件、対象型検査、全体ESLint、Markdown lint、PII検査が成功。その後の静的ISOガイド修正以降、全体テストは再実行していない。ビルド未実施、目視確認はユーザー担当。 |
+| ビルド状態 | 以前の実行（29119-2移行時）でnpm経由の全体15,541件（252ファイル、失敗0）、対象405件、関連751件、原本ブラウザー比較49件（2026-11-15の当時の記録。2026-11-16にBunで再検証し、ブラウザー比較は未再実行）、対象型検査、全体ESLint、Markdown lint、PII検査が成功。その後の静的ISOガイド修正以降、全体テストは再実行していない。ビルド未実施、目視確認はユーザー担当。 |
 
 ## 2026-10-25: Testing Computer Software入門ガイドの移行
 
