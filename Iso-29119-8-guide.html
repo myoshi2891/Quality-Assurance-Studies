@@ -10699,7 +10699,7 @@ z"
                         <p>
                             オンライン MBT の理論的な土台が、Tretmans らの
                             <strong>ioco（input-output conformance）理論</strong>です。SUT
-                            を「入力を受け付け出力を返すラベル付き遷移系」とみなし、モデルとの適合性を形式的に定義します。初学者はまず「観測されたトレースの後にモデルが許す出力のいずれかを SUT が返せばよく、許される出力をすべて返す必要はない一方で、モデルが許さない出力や想定外の無応答（沈黙）が起きれば不適合」という直感を押さえれば十分です。
+                            を「入力を受け付け出力を返すラベル付き遷移系」とみなし、モデルとの適合性を形式的に定義します。初学者はまず「仕様（モデル）が許すサスペンショントレース（入力・出力・無応答の列）の後に限り、仕様が許す出力のいずれかを SUT が返せばよく、許される出力をすべて返す必要はない一方で、そのようなトレースの後に仕様が許さない出力や想定外の無応答（沈黙）が起きれば不適合（ただし、現在の状態で仕様が未定義としている入力の後は比較対象外であり、それだけでは不適合にならない）」という直感を押さえれば十分です。
                         </p>
                     </div>
                     <h3 id="sec-11-3">
@@ -12495,7 +12495,7 @@ z"
                                 <tr class="odd">
                                     <td>実用：テスト目的（状態遷移の網羅）に合うか</td>
                                     <td>
-                                        OK。ただし<strong>失敗回数の境界（2回と3回）</strong>はデータ関連基準で補う必要がある
+                                        OK。ただし<strong>失敗回数の境界（2回と3回）</strong>は全遷移網羅で回数に到達するだけでは不十分であり、TC-02 で2回目失敗後の未ロック状態と3回目失敗後のロック状態の双方を明示的に検証し、さらに2回失敗後のログイン成功によるリセット挙動は別のデータ関連基準テストで補う必要がある
                                     </td>
                                 </tr>
                             </tbody>
@@ -12528,7 +12528,7 @@ z"
                                 <tr class="even">
                                     <td>TC-02</td>
                                     <td>
-                                        未ログイン → 失敗 → 失敗（未ロック維持を確認） → 失敗でロック →
+                                        未ログイン → 失敗 → 失敗（未ロック状態を明示的に確認） → 失敗（ロック状態を明示的に確認） →
                                         30分経過直前はロック維持を確認 → 30分経過で未ログイン（解除を確認）
                                     </td>
                                     <td>T2、T2、T3、T5</td>
@@ -12537,7 +12537,7 @@ z"
                         </table>
                     </div>
                     <p>
-                        <strong>たった2本で、全5遷移（T1〜T5）と全3状態をカバーできます。</strong>
+                        <strong>たった2本で、全5遷移（T1〜T5）と全3状態をカバーできます。</strong>ただし、全遷移網羅で2回・3回の失敗回数に到達するだけでは境界の検証として不十分であり、TC-02 では2回目失敗後の未ロック状態と3回目失敗後のロック状態の双方を明示的に検証する必要があります（2回失敗後のログイン成功によるリセット挙動は、下の境界値テストで別シナリオとして確認します）。
                     </p>
                     <p>基準を強めると、本数が増えます。</p>
                     <div class="table-scroll" tabindex="0" role="region" aria-label="14.5 手順4：選択基準を決めてテストを生成する：基準・追加で必要になるテストの例（横スクロール可能）">
@@ -16286,6 +16286,17 @@ L633.267,207.083"
                         li.classList.toggle('open', willOpen);
                         li.dataset.manualOpen = willOpen ? 'true' : '';
                         btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+                        var activeSubLink = li.querySelector('.nav-sub a.active');
+                        var h2a = li.querySelector(':scope > a, :scope > .nav-h2-head > a');
+                        if (activeSubLink && h2a) {
+                            if (willOpen) {
+                                h2a.removeAttribute('aria-current');
+                                activeSubLink.setAttribute('aria-current', 'location');
+                            } else {
+                                activeSubLink.removeAttribute('aria-current');
+                                h2a.setAttribute('aria-current', 'location');
+                            }
+                        }
                     });
                 });
                 document.querySelectorAll('.sidebar a[data-target]').forEach(function (a) {
