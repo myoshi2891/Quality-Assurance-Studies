@@ -6,7 +6,7 @@ import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-iec-tr-29119-13-guide.json';
 
-it('registers the biometric testing guide once and synchronizes 134 routes', () => {
+it('registers the biometric testing guide once and matches its E2E h1', () => {
   const href = '/iso-iec-tr-29119-13-guide';
   expect(NAV_ITEMS.filter(i=>i.href === href)).toHaveLength(1);
   expect(NAV_ITEMS.find(i=>i.href === href)).toMatchObject({ category:'iso', label:'ISO/IEC TR 29119-13 生体認証テストガイド' });

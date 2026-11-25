@@ -10,7 +10,7 @@ import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-iec-awi-ts-42119-7-guide.json';
 
-it('registers the red teaming guide exactly once in ISO and smoke E2E at 134 routes', () => {
+it('registers the red teaming guide exactly once in ISO and smoke E2E', () => {
   const href = '/iso-iec-awi-ts-42119-7-guide';
   const items = NAV_ITEMS.filter(i=>i.href === href);
   expect(items).toHaveLength(1);

@@ -6,7 +6,7 @@ import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-iec-29110-5-1-2-2025-beginner-guide.json';
 
-it('registers the Basic profile guide once and synchronizes 134 routes', () => {
+it('registers the Basic profile guide once and matches its E2E h1', () => {
   const href = '/iso-iec-29110-5-1-2-2025-beginner-guide';
   expect(NAV_ITEMS.filter(i=>i.href === href)).toHaveLength(1);
   expect(NAV_ITEMS.find(i=>i.href === href)).toMatchObject({ category:'iso', label:'ISO/IEC 29110-5-1-2:2025 Basicプロファイルガイド' });

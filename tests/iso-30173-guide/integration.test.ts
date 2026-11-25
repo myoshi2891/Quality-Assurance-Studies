@@ -9,7 +9,7 @@ import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/iso-30173-guide.json';
 
-it('registers the digital twin guide once and synchronizes all 134 routes', () => {
+it('registers the digital twin guide once and matches its E2E h1', () => {
   const href = '/iso-30173-guide';
   const items = NAV_ITEMS.filter((i) => i.href === href);
   expect(items).toHaveLength(1);

@@ -5,7 +5,7 @@ import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
 import { NAV_ITEMS } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
-it('registers the ITAM systems guide once and synchronizes all 134 routes',()=>{
+it('registers the ITAM systems guide once and matches its E2E h1',()=>{
     const href='/iso-19770-1-guide',items=NAV_ITEMS.filter(i=>i.href===href);
     expect(items).toHaveLength(1);expect(items[0]).toMatchObject({category:'iso',label:'ISO/IEC 19770-1:2017 初学者ガイド'});
     expect(items[0]!.description.length).toBeLessThanOrEqual(80);

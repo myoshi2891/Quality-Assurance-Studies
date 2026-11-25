@@ -5,7 +5,7 @@ import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
 import { NAV_ITEMS, matchesQuery } from '../../lib/navigation';
 import { PAGES } from '../../e2e/pages';
-it('registers this additional source once, retains the earlier guide, and synchronizes 134 routes',()=>{
+it('registers this additional source once, retains the earlier guide, and matches its E2E h1',()=>{
     const href='/iec62304-beginner-guide';
     expect(NAV_ITEMS.filter(i=>i.href===href)).toHaveLength(1);
     expect(NAV_ITEMS.find(i=>i.href===href)).toMatchObject({category:'iso',label:'IEC 62304 初学者ステップガイド'});
