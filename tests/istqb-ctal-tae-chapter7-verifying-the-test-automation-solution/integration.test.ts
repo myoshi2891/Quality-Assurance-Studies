@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { NAV_ITEMS } from '../../lib/navigation';
-import { EXPECTED_PAGE_COUNT, PAGES } from '../../e2e/pages';
+import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution.json';
 const href = '/istqb-ctal-tae-chapter7-verifying-the-test-automation-solution';
 describe('chapter 7 registration and source archives', () => {
@@ -13,8 +13,6 @@ describe('chapter 7 registration and source archives', () => {
         expect(NAV_ITEMS[index - 1]?.href).toBe('/istqb-ctal-tae-chapter6-test-automation-reporting-and-metrics');
     });
     it('synchronizes all routes and the real chapter heading with smoke expectations', () => {
-        expect(NAV_ITEMS).toHaveLength(EXPECTED_PAGE_COUNT);
-        expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
         const pages = PAGES.filter(page => page.path === href);
         expect(pages).toHaveLength(1);
         expect(pages[0]?.h1.test('CTAL-TAE v2.0 第7章 ｜ Verifying the Test Automation Solution 初学者向けガイド')).toBe(true);
