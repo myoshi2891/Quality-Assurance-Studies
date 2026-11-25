@@ -5427,7 +5427,7 @@
                             </tr>
                             <tr class="odd">
                                 <td>③ 行単位突合</td>
-                                <td>両側でキーの一意性を確認し、移行元のみ・移行先のみに存在するキーを検出したうえで、マッピング規則に従って移行元の値から導出した移行先の期待値と移行先の実測値をキーごとに全項目で比較（ハッシュ比較は絞り込み用で、全項目一致の保証にはならない）</td>
+                                <td>まずマッピング規則に従って移行元データから移行先の期待行（マッピング後のキーを含む）を導出し、期待側・実測側の双方でキーの一意性を確認して期待キー集合と実測キー集合を比較（片側のみに存在するキーを検出）したうえで、キーごとに全項目を比較（ハッシュ比較は絞り込み用で、全項目一致の保証にはならない）</td>
                                 <td>高</td>
                                 <td>項目単位の不一致すべて</td>
                             </tr>
@@ -7194,7 +7194,7 @@
                     [S6]、および Simon Willison による要約コメント [S7]
                 </p>
                 <p>
-                    Stripeは、<strong>数億件規模のオブジェクト</strong>を持つ環境で、可用性と整合性の両方を守るために、次の4段階のパターンを紹介しています。
+                    Stripeは、<strong>数億件規模のオブジェクト</strong>を持つ環境で、可用性と整合性の両方を守るために、4段階のパターン（Dual write・バックフィル → Read切替 → <strong>新ストアのみへのWrite切替</strong> → 旧データ削除）を紹介しています。以下の図では、Stripeが報告した切替手順に加えて、<strong>本ガイドのロールバック推奨策</strong>としてWrite切替後の切り戻し期間中に旧ストアへの同期を継続する保護策を併記しています。
                 </p>
                 <div class="mermaid-diagram" id="diagram-9" role="img" aria-label="新旧併存から旧データ削除までの切替" aria-describedby="diagram-description-9" tabindex="0">
                     <svg
@@ -7808,7 +7808,7 @@
                                                         style="color: #ffffff !important"
                                                         class="nodeLabel"
                                                         ><p>
-                                                            Write切替<br />新を主に書き込み<br />旧同期：切戻し期間
+                                                            Write切替<br />新のみ書込（Stripe）<br />＋旧同期（推奨策）
                                                         </p></span
                                                     >
                                                 </div></foreignObject
@@ -7865,11 +7865,11 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。次に新ストアを書き込みの主系へ切り替え、ロールバック期間中は旧ストアへの書き込み同期も継続する。切り戻す場合は、流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから旧へ戻す。切り戻し不要と判断した後に旧データを削除する。</p>
+                <p class="diagram-description" id="diagram-description-9">新旧への二重書き込みとバックフィルを行い、比較しながら読み取りを新へ切り替える。Stripeの事例では次のWrite切替で新ストアのみへ書き込むが、本ガイドのロールバック推奨策として、切り戻し期間中は旧ストアへの書き込み同期も継続する。切り戻す場合は、流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して欠損を修復・リプレイしてから旧へ戻す。切り戻し不要と判断した後に旧データを削除する。</p>
                 <div class="callout callout-note">
                     <p>補足：図のステップ名は、Stripeの記事の見出し（Dual</p>
                     <p>writing／Backfilling／Reads の比較・切替／Changing write paths／Removing</p>
-                    <p>data）を整理し直したものです。</p>
+                    <p>data）を整理し直したものです。なお、Stripeの記事ではWrite切替で新ストアのみへ書き込む構成が紹介されており、Write切替後の旧ストア同期の継続および切り戻し経路は本ガイドが追加したロールバック推奨策です。</p>
                 </div>
                 <p><strong>この事例から学べる「データ移行テストの観点」（💡解説）</strong></p>
                 <div class="table-scroll" tabindex="0" role="region" aria-label="9-2. パターンB：Dual Writing（二重書き込み）による無停止オンライン移行：観点・内容（横スクロール可能）">
@@ -7908,7 +7908,7 @@
                             </tr>
                             <tr class="odd">
                                 <td>切り戻しの余地</td>
-                                <td>旧データをすぐ消さず、旧にも書き続けて戻れるようにしておく。更新順序・バージョンを保持し、切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して旧ストアが既に最新の受付済み状態と一致していればリプレイせず、その状態を検証してから切り替える。欠損がある場合のみ修復・リプレイする</td>
+                                <td>Stripeの記事ではWrite切替で新ストアのみへ書き込むが、本ガイドのロールバック推奨策として、旧データをすぐ消さず切り戻し期間中は旧ストアにも同期し続けて戻れるようにしておく。更新順序・バージョンを保持し、切り戻し時は流入する書き込みを制御（一時停止・ドレイン）し、受付済みの全書き込みが旧ストアへ反映されたことを確認して旧ストアが既に最新の受付済み状態と一致していればリプレイせず、その状態を検証してから切り替える。欠損がある場合のみ修復・リプレイする</td>
                             </tr>
                         </tbody>
                     </table>
@@ -7974,7 +7974,7 @@
                         移行元の各行と移行先の対応行を<strong>比較し、同じデータか確認し、不一致を報告</strong>する
                     </li>
                     <li>
-                        主キーまたは対象となる一意インデックスのないテーブルは<strong>検証できない</strong>。また、AWS DMS は<strong>マスキングされた非キー列を検証からスキップする場合があり</strong>、行単位の検証で誤った値を見逃すおそれがある。さらに、主キーや一意キーをマスキングすると<strong>テーブル全体がスキップされる</strong>場合がある。「不一致の報告がない」ことを成功とみなす前に、除外されたテーブルや列がないか確認し、検証が必要な除外項目は別手段で個別に確認する
+                        主キーまたは対象となる一意インデックスのないテーブルは<strong>検証できない</strong>。また、AWS DMS は<strong>マスキングされた非キー列を検証からスキップする場合があり</strong>、行単位の検証で誤った値を見逃すおそれがある。さらに、主キーや一意キーをマスキングすると<strong>テーブル全体がスキップされる</strong>場合がある。「不一致の報告がない（失敗レコードが0件）」ことを成功とみなす前に、除外されたテーブルや列がないかの確認に加えて、<code>ValidationPending</code>（検証待ち）のレコードが残っていないかを確認し、カットオーバー時点について検証を完了させるか、未完了の残存レコードおよび検証が必要な除外項目を別手段で個別に確認する
                     </li>
                     <li>
                         移行中にソースが更新され続ける行は<strong
@@ -8503,30 +8503,6 @@
                                 stroke-width: 1px;
                             }
                             #mmd9 .cluster text {
-                                fill: #f4e5d1;
-                            }
-                            #mmd9 .cluster span {
-                                color: #f4e5d1;
-                            }
-                            #mmd9 div.mermaidTooltip {
-                                position: absolute;
-                                text-align: center;
-                                max-width: 200px;
-                                padding: 2px;
-                                font-family: 'Noto Sans JP', sans-serif;
-                                font-size: 12px;
-                                background: #0b1a2e;
-                                border: 1px solid
-                                    hsl(214.2857142857, 21.4035087719%, 21.1764705882%);
-                                border-radius: 2px;
-                                pointer-events: none;
-                                z-index: 100;
-                            }
-                            #mmd9 .flowchartTitleText {
-                                text-anchor: middle;
-                                font-size: 18px;
-                                fill: #e6edf7;
-                            }
                             #mmd9 rect.text {
                                 fill: none;
                                 stroke-width: 0;
@@ -9271,8 +9247,18 @@
                             <tr class="even">
                                 <td>[S12]</td>
                                 <td>
-                                    IEEE Standards：29119-2（テストプロセス）。P29119-14
-                                    の説明が併記
+                                    IEEE Standards：29119-2:2021（テストプロセス、2021年版）
+                                </td>
+                                <td>
+                                    <a href="https://standards.ieee.org/ieee/29119-2/7498/" target="_blank" rel="noopener noreferrer"
+                                        >https://standards.ieee.org/ieee/29119-2/7498/</a
+                                    >
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>[S12b]</td>
+                                <td>
+                                    IEEE Standards：29119-2:2013（旧版・2013年版）。関連プロジェクト一覧に P29119-14 の説明が併記
                                 </td>
                                 <td>
                                     <a href="https://standards.ieee.org/ieee/29119-2/5309/" target="_blank" rel="noopener noreferrer"
@@ -9397,7 +9383,7 @@
                             </tr>
                             <tr class="even">
                                 <td>関連規格の一覧確認</td>
-                                <td>S11, S12</td>
+                                <td>S11, S12, S12b</td>
                                 <td>関連規格の公式エントリ（ISO/IEEE）を参照する</td>
                             </tr>
                             <tr class="odd">
@@ -9478,12 +9464,85 @@
                     links[a.dataset.target] = a;
                 });
                 var headings = [].slice.call(document.querySelectorAll('.main h2,.main h3')).filter(function (h) { return links[h.id]; });
+                var fragmentTarget = null;
+                var fragmentNavActive = false;
+                var fragmentScrollY = null;
+                var fragmentSettleTimer = 0;
+                function clearFragmentPin() {
+                    fragmentTarget = null;
+                    fragmentNavActive = false;
+                    fragmentScrollY = null;
+                    if (fragmentSettleTimer) {
+                        clearTimeout(fragmentSettleTimer);
+                        fragmentSettleTimer = 0;
+                    }
+                }
+                function scheduleFragmentSettle() {
+                    if (fragmentSettleTimer) clearTimeout(fragmentSettleTimer);
+                    fragmentSettleTimer = setTimeout(function () {
+                        fragmentSettleTimer = 0;
+                        fragmentNavActive = false;
+                        if (fragmentTarget) fragmentScrollY = window.scrollY;
+                    }, 150);
+                }
+                function pinFragment(id) {
+                    if (!id || !links[id]) return;
+                    fragmentTarget = id;
+                    fragmentNavActive = true;
+                    fragmentScrollY = null;
+                    scheduleFragmentSettle();
+                }
+                sb.addEventListener('click', function (e) {
+                    var a = e.target.closest('a[data-target]');
+                    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                    pinFragment(a.dataset.target);
+                    updateActiveSection();
+                });
+                function syncFragmentFromHash() {
+                    var id = '';
+                    try {
+                        id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+                    } catch (e) {
+                        id = '';
+                    }
+                    if (id && links[id]) {
+                        pinFragment(id);
+                        updateActiveSection();
+                    }
+                }
+                window.addEventListener('hashchange', syncFragmentFromHash);
+                window.addEventListener('wheel', clearFragmentPin, { passive: true });
+                window.addEventListener('touchmove', clearFragmentPin, { passive: true });
+                window.addEventListener('pointerdown', clearFragmentPin, { passive: true });
+                window.addEventListener('keydown', function (e) {
+                    if (/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(e.key)) {
+                        clearFragmentPin();
+                    }
+                });
                 function updateActiveSection() {
+                    var scrollPaddingTop = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+                    var threshold = Math.max(window.innerHeight * 0.25, scrollPaddingTop + 8);
                     var current = headings[0];
                     headings.forEach(function (h) {
-                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.25) current = h;
+                        if (h.getBoundingClientRect().top <= threshold) current = h;
                     });
-                    if (headings.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
+                    var pinnedHeading = null;
+                    if (fragmentTarget && links[fragmentTarget]) {
+                        var candidate = document.getElementById(fragmentTarget);
+                        if (!candidate) {
+                            clearFragmentPin();
+                        } else if (fragmentNavActive) {
+                            scheduleFragmentSettle();
+                            pinnedHeading = candidate;
+                        } else if (fragmentScrollY !== null && Math.abs(window.scrollY - fragmentScrollY) > 2) {
+                            clearFragmentPin();
+                        } else {
+                            pinnedHeading = candidate;
+                        }
+                    }
+                    if (pinnedHeading) {
+                        current = pinnedHeading;
+                    } else if (headings.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
                         current = headings[headings.length - 1];
                     }
                     Object.values(links).forEach(function (a) {
@@ -9508,6 +9567,7 @@
                 }
                 window.addEventListener('scroll', updateActiveSection, { passive: true });
                 window.addEventListener('resize', updateActiveSection);
+                syncFragmentFromHash();
                 updateActiveSection();
                 var refreshChecklists = [];
                 document.querySelectorAll('.checklist-card').forEach(function (c) {
