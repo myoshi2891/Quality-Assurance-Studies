@@ -310,7 +310,8 @@
             }
             @media (max-width: 900px) {
                 h2[id],
-                h3[id] {
+                h3[id],
+                .heading-alias {
                     scroll-margin-top: 64px;
                 }
                 .sidebar {
@@ -5282,7 +5283,7 @@
                                                     "
                                                 >
                                                     <span class="nodeLabel"
-                                                        ><p>判定したいレベルNを決める</p></span
+                                                        ><p>判定したいレベルN（1〜5）を決める</p></span
                                                     >
                                                 </div></foreignObject
                                             >
@@ -5332,18 +5333,18 @@
                                         <rect
                                             class="basic label-container"
                                             style=""
-                                            x="-97.7890625"
-                                            y="-26"
-                                            width="195.578125"
-                                            height="52"
+                                            x="-102"
+                                            y="-38"
+                                            width="204"
+                                            height="76"
                                         ></rect>
                                         <g
                                             class="label"
                                             style=""
-                                            transform="translate(-69.7890625, -12)"
+                                            transform="translate(-88, -24)"
                                         >
                                             <rect></rect>
-                                            <foreignObject width="139.578125" height="24"
+                                            <foreignObject width="176" height="48"
                                                 ><div
                                                     xmlns="http://www.w3.org/1999/xhtml"
                                                     style="
@@ -5355,7 +5356,7 @@
                                                     "
                                                 >
                                                     <span class="nodeLabel"
-                                                        ><p>レベルNには未到達</p></span
+                                                        ><p>レベルNには未到達<br />（レベル1未達ならレベル0）</p></span
                                                     >
                                                 </div></foreignObject
                                             >
@@ -5389,7 +5390,7 @@
                                                     "
                                                 >
                                                     <span class="nodeLabel"
-                                                        ><p>レベルN未満の<br />全PAは F か</p></span
+                                                        ><p>レベル1〜N-1の<br />全PAは F か</p></span
                                                     >
                                                 </div></foreignObject
                                             >
@@ -5474,7 +5475,7 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-6">目標レベルNの属性がLまたはFか確認し、いいえなら未到達。はいなら下位レベルの全属性がFか確認し、はいで到達、いいえで未到達と判定する。</p>
+                <p class="diagram-description" id="diagram-description-6">レベル1〜5を対象に、目標レベルNのプロセス属性がLまたはFか確認し、いいえなら未到達（レベル1を満たさない場合はレベル0）。はいならレベル1〜N-1の全属性がFか確認し、はいで到達、いいえで未到達と判定する。たとえばPA 1.1がPの場合はレベル1未到達となり、判定結果はレベル0になる。</p>
                 <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
@@ -5507,6 +5508,12 @@
                                 <td>P</td>
                                 <td>F</td>
                                 <td><strong>レベル1</strong>（PA2.1がP）</td>
+                            </tr>
+                            <tr class="even">
+                                <td>P</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td><strong>レベル0</strong>（PA1.1がPでレベル1に未到達）</td>
                             </tr>
                         </tbody>
                     </table>
@@ -6158,11 +6165,11 @@
                 <div class="mermaid-diagram" id="mermaid-diagram-8" role="img" aria-label="アセスメントの準備・評定・活用" aria-describedby="diagram-description-8" tabindex="0">
                     <svg
                         id="svgmermaiddiagram8"
-                        width="578"
+                        width="620"
                         xmlns="http://www.w3.org/2000/svg"
                         class="flowchart"
-                        height="1356.015625"
-                        viewBox="0 0 578 1356.015625"
+                        height="1492.015625"
+                        viewBox="0 0 620 1492.015625"
                         role="graphics-document document"
                         aria-roledescription="flowchart-v2"
                     >
@@ -6523,68 +6530,90 @@
                                     ></path>
                                     <path
                                         d="M289,628L289,633C289,638,289,648,289,657.333C289,666.667,289,675.333,289,679.667L289,684"
-                                        id="L_F5_F6_0"
+                                        id="L_F5_F5v_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
-                                        data-id="L_F5_F6_0"
+                                        data-id="L_F5_F5v_0"
                                         data-points="W3sieCI6Mjg5LCJ5Ijo2Mjh9LHsieCI6Mjg5LCJ5Ijo2NTh9LHsieCI6Mjg5LCJ5Ijo2ODh9XQ=="
                                         marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
+                                        d="M413,726L468,726L468,590L409,590"
+                                        id="L_F5v_F5_0"
+                                        class="edge-thickness-normal edge-pattern-dotted flowchart-link"
+                                        style=""
+                                        data-edge="true"
+                                        data-et="edge"
+                                        data-id="L_F5v_F5_0"
+                                        data-points="W3sieCI6NDEzLCJ5Ijo3MjZ9LHsieCI6NDY4LCJ5Ijo3MjZ9LHsieCI6NDY4LCJ5Ijo1OTB9LHsieCI6NDA1LCJ5Ijo1OTB9XQ=="
+                                        marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
+                                    ></path>
+                                    <path
                                         d="M289,764L289,769C289,774,289,784,289,793.333C289,802.667,289,811.333,289,815.667L289,820"
+                                        id="L_F5v_F6_0"
+                                        class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                                        style=""
+                                        data-edge="true"
+                                        data-et="edge"
+                                        data-id="L_F5v_F6_0"
+                                        data-points="W3sieCI6Mjg5LCJ5Ijo3NjR9LHsieCI6Mjg5LCJ5Ijo3OTR9LHsieCI6Mjg5LCJ5Ijo4MjR9XQ=="
+                                        marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
+                                    ></path>
+                                    <path
+                                        d="M289,900L289,905C289,910,289,920,289,929.333C289,938.667,289,947.333,289,951.667L289,956"
                                         id="L_F6_F7_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
                                         data-id="L_F6_F7_0"
-                                        data-points="W3sieCI6Mjg5LCJ5Ijo3NjR9LHsieCI6Mjg5LCJ5Ijo3OTR9LHsieCI6Mjg5LCJ5Ijo4MjR9XQ=="
+                                        data-points="W3sieCI6Mjg5LCJ5Ijo5MDB9LHsieCI6Mjg5LCJ5Ijo5MzB9LHsieCI6Mjg5LCJ5Ijo5NjB9XQ=="
                                         marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
-                                        d="M289,876L289,881C289,886,289,896,289,905.333C289,914.667,289,923.333,289,927.667L289,932"
+                                        d="M289,1012L289,1017C289,1022,289,1032,289,1041.333C289,1050.667,289,1059.333,289,1063.667L289,1068"
                                         id="L_F7_F8_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
                                         data-id="L_F7_F8_0"
-                                        data-points="W3sieCI6Mjg5LCJ5Ijo4NzZ9LHsieCI6Mjg5LCJ5Ijo5MDZ9LHsieCI6Mjg5LCJ5Ijo5MzZ9XQ=="
+                                        data-points="W3sieCI6Mjg5LCJ5IjoxMDEyfSx7IngiOjI4OSwieSI6MTA0Mn0seyJ4IjoyODksInkiOjEwNzJ9XQ=="
                                         marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
-                                        d="M289,1012L289,1017C289,1022,289,1032,289,1041.333C289,1050.667,289,1059.333,289,1063.667L289,1068"
+                                        d="M289,1148L289,1153C289,1158,289,1168,289,1177.333C289,1186.667,289,1195.333,289,1199.667L289,1204"
                                         id="L_F8_F9_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
                                         data-id="L_F8_F9_0"
-                                        data-points="W3sieCI6Mjg5LCJ5IjoxMDEyfSx7IngiOjI4OSwieSI6MTA0Mn0seyJ4IjoyODksInkiOjEwNzJ9XQ=="
+                                        data-points="W3sieCI6Mjg5LCJ5IjoxMTQ4fSx7IngiOjI4OSwieSI6MTE3OH0seyJ4IjoyODksInkiOjEyMDh9XQ=="
                                         marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
-                                        d="M253.921,1152.937L234.268,1165.783C214.614,1178.63,175.307,1204.323,155.654,1223.503C136,1242.682,136,1255.349,136,1261.682L136,1268.016"
+                                        d="M253.921,1288.937L234.268,1301.783C214.614,1314.63,175.307,1340.323,155.654,1359.503C136,1378.682,136,1391.349,136,1397.682L136,1404.016"
                                         id="L_F9_F10_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
                                         data-id="L_F9_F10_0"
-                                        data-points="W3sieCI6MjUzLjkyMTI1OTg0MjUxOTY3LCJ5IjoxMTUyLjkzNjg4NDg0MjUxOTd9LHsieCI6MTM2LCJ5IjoxMjMwLjAxNTYyNX0seyJ4IjoxMzYsInkiOjEyNzIuMDE1NjI1fV0="
+                                        data-points="W3sieCI6MjUzLjkyMTI1OTg0MjUxOTY3LCJ5IjoxMjg4LjkzNjg4NDg0MjUxOTd9LHsieCI6MTM2LCJ5IjoxMzY2LjAxNTYyNX0seyJ4IjoxMzYsInkiOjE0MDguMDE1NjI1fV0="
                                         marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
                                     ></path>
                                     <path
-                                        d="M324.079,1152.937L343.732,1165.783C363.386,1178.63,402.693,1204.323,422.346,1223.503C442,1242.682,442,1255.349,442,1261.682L442,1268.016"
+                                        d="M324.079,1288.937L343.732,1301.783C363.386,1314.63,402.693,1340.323,422.346,1359.503C442,1378.682,442,1391.349,442,1397.682L442,1404.016"
                                         id="L_F9_F11_0"
                                         class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
                                         style=""
                                         data-edge="true"
                                         data-et="edge"
                                         data-id="L_F9_F11_0"
-                                        data-points="W3sieCI6MzI0LjA3ODc0MDE1NzQ4MDMsInkiOjExNTIuOTM2ODg0ODQyNTE5N30seyJ4Ijo0NDIsInkiOjEyMzAuMDE1NjI1fSx7IngiOjQ0MiwieSI6MTI3Mi4wMTU2MjV9XQ=="
+                                        data-points="W3sieCI6MzI0LjA3ODc0MDE1NzQ4MDMsInkiOjEyODguOTM2ODg0ODQyNTE5N30seyJ4Ijo0NDIsInkiOjEzNjYuMDE1NjI1fSx7IngiOjQ0MiwieSI6MTQwOC4wMTU2MjV9XQ=="
                                         marker-end="url(#svgmermaiddiagram8_flowchart-v2-pointEnd)"
                                     ></path>
                                 </g>
@@ -6680,7 +6709,7 @@
                                     <g class="edgeLabel">
                                         <g
                                             class="label"
-                                            data-id="L_F5_F6_0"
+                                            data-id="L_F5_F5v_0"
                                             transform="translate(0, 0)"
                                         >
                                             <foreignObject width="0" height="0"
@@ -6696,6 +6725,50 @@
                                                     "
                                                 >
                                                     <span class="edgeLabel"></span></div
+                                            ></foreignObject>
+                                        </g>
+                                    </g>
+                                    <g class="edgeLabel" transform="translate(534, 658)">
+                                        <g
+                                            class="label"
+                                            data-id="L_F5v_F5_0"
+                                            transform="translate(-64, -12)"
+                                        >
+                                            <foreignObject width="128" height="24"
+                                                ><div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    class="labelBkg"
+                                                    style="
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        max-width: 200px;
+                                                        text-align: center;
+                                                    "
+                                                >
+                                                    <span class="edgeLabel"><p>不足・不整合あり</p></span></div
+                                            ></foreignObject>
+                                        </g>
+                                    </g>
+                                    <g class="edgeLabel" transform="translate(289, 792)">
+                                        <g
+                                            class="label"
+                                            data-id="L_F5v_F6_0"
+                                            transform="translate(-16, -12)"
+                                        >
+                                            <foreignObject width="32" height="24"
+                                                ><div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    class="labelBkg"
+                                                    style="
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        max-width: 200px;
+                                                        text-align: center;
+                                                    "
+                                                >
+                                                    <span class="edgeLabel"><p>十分</p></span></div
                                             ></foreignObject>
                                         </g>
                                     </g>
@@ -6765,7 +6838,7 @@
                                             ></foreignObject>
                                         </g>
                                     </g>
-                                    <g class="edgeLabel" transform="translate(136, 1230.015625)">
+                                    <g class="edgeLabel" transform="translate(136, 1366.015625)">
                                         <g
                                             class="label"
                                             data-id="L_F9_F10_0"
@@ -6788,7 +6861,7 @@
                                             >
                                         </g>
                                     </g>
-                                    <g class="edgeLabel" transform="translate(442, 1230.015625)">
+                                    <g class="edgeLabel" transform="translate(442, 1366.015625)">
                                         <g
                                             class="label"
                                             data-id="L_F9_F11_0"
@@ -7012,8 +7085,47 @@
                                     </g>
                                     <g
                                         class="node default"
-                                        id="flowchart-F6-9"
+                                        id="flowchart-F5v-8"
                                         transform="translate(289, 726)"
+                                    >
+                                        <rect
+                                            class="basic label-container"
+                                            style=""
+                                            x="-124"
+                                            y="-38"
+                                            width="248"
+                                            height="76"
+                                        ></rect>
+                                        <g
+                                            class="label"
+                                            style=""
+                                            transform="translate(-96, -24)"
+                                        >
+                                            <rect></rect>
+                                            <foreignObject width="192" height="48"
+                                                ><div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    style="
+                                                        display: table-cell;
+                                                        white-space: nowrap;
+                                                        line-height: 1.5;
+                                                        max-width: 200px;
+                                                        text-align: center;
+                                                    "
+                                                >
+                                                    <span class="nodeLabel"
+                                                        ><p>
+                                                            STEP5.5：証拠の妥当性確認<br />網羅性・代表性・整合性
+                                                        </p></span
+                                                    >
+                                                </div></foreignObject
+                                            >
+                                        </g>
+                                    </g>
+                                    <g
+                                        class="node default"
+                                        id="flowchart-F6-9"
+                                        transform="translate(289, 862)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7050,7 +7162,7 @@
                                     <g
                                         class="node default"
                                         id="flowchart-F7-11"
-                                        transform="translate(289, 850)"
+                                        transform="translate(289, 986)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7087,7 +7199,7 @@
                                     <g
                                         class="node default"
                                         id="flowchart-F8-13"
-                                        transform="translate(289, 974)"
+                                        transform="translate(289, 1110)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7126,7 +7238,7 @@
                                     <g
                                         class="node default"
                                         id="flowchart-F9-15"
-                                        transform="translate(289, 1130.0078125)"
+                                        transform="translate(289, 1266.0078125)"
                                     >
                                         <polygon
                                             points="58.0078125,0 116.015625,-58.0078125 58.0078125,-116.015625 0,-58.0078125"
@@ -7158,7 +7270,7 @@
                                     <g
                                         class="node default"
                                         id="flowchart-F10-17"
-                                        transform="translate(136, 1310.015625)"
+                                        transform="translate(136, 1446.015625)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7192,7 +7304,7 @@
                                     <g
                                         class="node default"
                                         id="flowchart-F11-19"
-                                        transform="translate(442, 1310.015625)"
+                                        transform="translate(442, 1446.015625)"
                                     >
                                         <rect
                                             class="basic label-container"
@@ -7228,7 +7340,7 @@
                         </g>
                     </svg>
                 </div>
-                <p class="diagram-description" id="diagram-description-8">目的と範囲を決め、モデルと指標を選び、証拠収集、属性評定、能力判定、報告を行う。能力判定目的なら取引先選定などへ活用し、改善目的なら改善計画と再評価へ進む。</p>
+                <p class="diagram-description" id="diagram-description-8">目的と範囲を決め、モデルと指標を選び、証拠収集の後に網羅性・代表性・整合性の妥当性確認を行う。不足や不整合があれば証拠収集へ戻って補完し、十分と確認できてから属性評定、能力判定、報告へ進む。能力判定目的なら取引先選定などへ活用し、改善目的なら改善計画と再評価へ進む。</p>
                 <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
@@ -7265,16 +7377,21 @@
                                 <td>アセッサ</td>
                             </tr>
                             <tr class="even">
+                                <td>5.5 証拠の妥当性確認</td>
+                                <td>網羅性・代表性・整合性を確認し、不足や不整合があれば 5. 証拠の収集へ戻る</td>
+                                <td>アセッサ</td>
+                            </tr>
+                            <tr class="odd">
                                 <td>6. 属性の評定</td>
                                 <td>N/P/L/F の判定</td>
                                 <td>アセッサ</td>
                             </tr>
-                            <tr class="odd">
+                            <tr class="even">
                                 <td>7. レベル判定</td>
                                 <td>ルールに従い算出</td>
                                 <td>アセッサ</td>
                             </tr>
-                            <tr class="even">
+                            <tr class="odd">
                                 <td>8. 報告</td>
                                 <td>結果と提案をまとめる</td>
                                 <td>アセッサ</td>
@@ -10145,7 +10262,7 @@
                         </tbody>
                     </table>
                 </div>
-                <h2 id="sec-24">16. 確認クイズ</h2>
+                <h2 id="sec-24"><span id="16-確認クイズ" class="heading-alias" aria-hidden="true"></span>16. 確認クイズ</h2>
                 <div class="table-scroll" tabindex="0">
                     <table>
                         <thead>
@@ -10502,7 +10619,8 @@
                 function updateActiveSection() {
                     var current = headings[0];
                     headings.forEach(function (h) {
-                        if (h.getBoundingClientRect().top <= window.innerHeight * 0.15) current = h;
+                        var cutoff = Math.max(window.innerHeight * 0.15, (parseFloat(getComputedStyle(h).scrollMarginTop) || 0) + 1);
+                        if (h.getBoundingClientRect().top <= cutoff) current = h;
                     });
                     Object.values(links).forEach(function (l) {
                         var isCurrent = !!current && l.dataset.target === current.id;
