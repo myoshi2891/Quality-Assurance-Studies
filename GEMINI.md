@@ -11,7 +11,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/iso-29119-2-test-processes-guide/`に`page.tsx`・`guide.css`・`Section00.tsx`〜`Section13.tsx`・`NavBar.tsx`・`toc.ts`・`Diagram.tsx`・`diagrams.ts`・`diagram-layouts.ts`・`restoreDiagramLayout.ts`を配置。280px固定目次、900px境界、ダーク配色、ヒーロー装飾、表・注記・用語欄を保持。目次はキーボード循環・Escape・背景inert・共有スクロールロック・動的免責高さへ対応。チェックは原本同様のネイティブ操作。
 - 図はHTML内SVGの全ノード・接続・ラベル・図形を正本とし、全角スペース、neoグラデーション、フォント、座標、ラベル寸法、破線を維持。Markdownの図とHTMLが異なる場合はHTMLを優先。共有Mermaidコンポーネントは変更せず、ページ側で設定と座標を復元。
 - 原本は`archive/html-archive/iso/Iso-29119-2-test-processes-guide.html`と`archive/md-archive/iso/Iso-29119-2-test-processes-guide.md`へ同一内容で移動。SHA-256・Git追跡・rename 100%・インベントリ再現性を検証。
-- 検証は当時npm経由で実施（Bun必須の運用に対しては履歴）。2026-11-16にBunで再検証し、`bun test tests/iso-29119-2-test-processes-guide`の対象405件（3ファイル、失敗0）が成功。ESLintと型検査はBunX経由で当該E2Eを確認。ブラウザー比較は未再実行。以下は当時の記録：対象405件、原本ブラウザー比較49件（5幅×CSS2順序、17実SVG×2幅、5幅×免責高さ3条件と縮小防止・スクロール両端）、対象ソース・テスト・E2E型検査、全体ESLint、Markdown lintを実施。全体15,541件（252ファイル、失敗0）、関連751件が成功。ビルド未実施、目視確認はユーザー担当。
+- 検証は当時npm経由で実施（Bun必須の運用に対しては履歴）。2026-11-16にBunで再検証し、`bun test tests/iso-29119-2-test-processes-guide`の対象405件（3ファイル、失敗0）が成功。ESLintと型検査はBunX経由で当該E2Eを確認。ブラウザー比較は未再実行。以下は29119-2移行時の以前の実行記録：対象405件、原本ブラウザー比較49件（5幅×CSS2順序、17実SVG×2幅、5幅×免責高さ3条件と縮小防止・スクロール両端）、対象ソース・テスト・E2E型検査、全体ESLint、Markdown lintを実施。全体15,541件（252ファイル、失敗0）、関連751件が成功（その後のISOガイド変更以降、全体テストは未再実行）。ビルド未実施、目視確認はユーザー担当。
 
 ## 2026-11-15: ISO 42005のMermaid CSSリセット補強
 
