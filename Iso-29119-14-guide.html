@@ -5388,7 +5388,7 @@
                             </tr>
                             <tr class="odd">
                                 <td><strong>判定</strong></td>
-                                <td>残留リスクと不一致の評価／Go/No-Go（Go-live前に、Go判定まで移行元の書き込み停止（フェンス）を維持するか、チェックポイント後に受け付けた全書き込みが移行先へ到達し比較対象に含まれていることを確認する最終ゲートの通過を必須とする）</td>
+                                <td>残留リスクと不一致の評価／Go/No-Go（Go-live前に、旧系への書き込み受付を停止し処理中トランザクションをすべてドレインした後に最終チェックポイントを記録し、受付済みの全書き込みが移行先へ到達し比較対象に含まれていることを確認する最終ゲートの通過と、Go-live（新系への切替）完了までの旧書き込み経路の停止（フェンス）維持を必須とする）</td>
                                 <td>判定会議資料</td>
                             </tr>
                         </tbody>
@@ -5436,9 +5436,9 @@
                         </tbody>
                     </table>
                 </div>
-                <p><strong>SQLの例（件数・集計・孤児レコード検出）</strong></p>
-                <p>※ 以下のSQL例は移行元と移行先で列・値がそのまま一致する恒等マッピング（変換なし）を前提としている。型変換・単位換算・コード変換などのマッピング規則がある場合は、移行元に変換規則を適用して導出した期待値と移行先を比較する。書き込みの一時停止は新規の受付を止めるだけで、受付済みの書き込みの完了（ドレイン）は意味しない。比較は、1つのレプリケーション位置に固定したスナップショットを使うか、書き込みを一時停止したうえで処理中のすべてのトランザクションが確定した終了状態（コミットまたはロールバック）に達するまで待ち、移行元のチェックポイントを記録してから、そのチェックポイントまでのコミット済み変更がすべて移行先に適用されるまで待って行う。後者（書き込み一時停止方式）では、すべての突合クエリだけでなく Go/No-Go 判定と Go-live（新系への切替）が完了するまで移行元の書き込みを停止（フェンス）したままにすることを必須とする。前者（スナップショット方式）のように突合チェックポイント後も書き込みを継続する場合は、Go-live 前に、Go 判定までに移行元で受け付けたすべての書き込みをドレインして移行先へ適用し、それらすべてが比較対象に含まれていることを確認する最終ゲートの通過を必須とする。</p>
-                <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（件数・集計・孤児レコード検出）（横スクロール可能）"><code><span class="tk-c">-- ① 件数突合</span>
+                <p><strong>SQLの例（件数・集計値突合）</strong></p>
+                <p>※ 以下のSQL例は移行元と移行先で列・値がそのまま一致する恒等マッピング（変換なし）を前提としている。型変換・単位換算・コード変換などのマッピング規則がある場合は、移行元に変換規則を適用して導出した期待値と移行先を比較する。書き込みの一時停止は新規の受付を止めるだけで、受付済みの書き込みの完了（ドレイン）は意味しない。突合自体は1つのレプリケーション位置に固定したスナップショットで行う方法と、書き込みを一時停止したうえで処理中のすべてのトランザクションが確定した終了状態（コミットまたはロールバック）に達するまで待ち、移行元のチェックポイントを記録してから、そのチェックポイントまでのコミット済み変更がすべて移行先に適用されるまで待って行う方法がある。後者（書き込み一時停止方式）では、すべての突合クエリだけでなく Go/No-Go 判定と Go-live（新系への切替）が完了するまで移行元の書き込みを停止（フェンス）したままにすることを必須とする。前者（スナップショット方式）のように事前突合のチェックポイント後も書き込みを継続する場合でも、Go-live 前の最終ゲートとして、旧システムへの書き込み受付を停止し処理中のすべてのトランザクションが確定（コミットまたはロールバック）するまでドレインした後に最終チェックポイントを記録し、その最終チェックポイントまでの受付済み全書き込みが移行先へ適用され検証済みであることを確認したうえで、Go-live（新系への切替）が完了するまで旧書き込み経路の停止（フェンス）を維持することを必須とする。</p>
+                <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（件数・集計値突合）（横スクロール可能）"><code><span class="tk-c">-- ① 件数突合</span>
 <span class="tk-k">SELECT</span> 'source' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> src.orders
 <span class="tk-k">UNION ALL</span>
 <span class="tk-k">SELECT</span> 'target' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> tgt.orders;
@@ -5454,15 +5454,17 @@
        <span class="tk-k">SUM</span>(amount)     <span class="tk-k">AS</span> total_amount,
        <span class="tk-k">MIN</span>(ordered_at) <span class="tk-k">AS</span> min_date,
        <span class="tk-k">MAX</span>(ordered_at) <span class="tk-k">AS</span> max_date
-<span class="tk-k">FROM</span>   tgt.orders;
-
-<span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード）。NULL許容の参照の場合</span>
+<span class="tk-k">FROM</span>   tgt.orders;</code></pre>
+                <p><strong>SQLの例（参照整合性：孤児レコード検出）</strong></p>
+                <p>※ 以下の2つのSQLブロックのうち、対象スキーマの制約（<code>customer_id</code> が NULL 許容か必須か）に一致する方のみを実行してください。NULL 許容スキーマで必須参照用のクエリを実行すると、正当な NULL の <code>customer_id</code> まで不整合として報告されます。</p>
+                <p><strong><code>customer_id</code> が NULL 許容のスキーマの場合</strong></p>
+                <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（孤児レコード検出：NULL許容の参照）（横スクロール可能）"><code><span class="tk-c">-- 参照整合性：顧客のいない注文（孤児レコード）。NULL許容の参照の場合</span>
 <span class="tk-k">SELECT</span> o.order_id
 <span class="tk-k">FROM</span>   tgt.orders o
 <span class="tk-k">LEFT JOIN</span> tgt.customers c <span class="tk-k">ON</span> c.customer_id = o.customer_id
-<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NOT NULL</span> <span class="tk-k">AND</span> c.customer_id <span class="tk-k">IS NULL</span>;
-
-<span class="tk-c">-- 必須参照の場合：NULLも不整合として報告する</span>
+<span class="tk-k">WHERE</span>  o.customer_id <span class="tk-k">IS NOT NULL</span> <span class="tk-k">AND</span> c.customer_id <span class="tk-k">IS NULL</span>;</code></pre>
+                <p><strong><code>customer_id</code> が必須（NOT NULL）のスキーマの場合</strong></p>
+                <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（孤児レコード検出：必須参照）（横スクロール可能）"><code><span class="tk-c">-- 必須参照の場合：NULLも不整合として報告する</span>
 <span class="tk-k">SELECT</span> o.order_id
 <span class="tk-k">FROM</span>   tgt.orders o
 <span class="tk-k">LEFT JOIN</span> tgt.customers c <span class="tk-k">ON</span> c.customer_id = o.customer_id
@@ -8288,35 +8290,25 @@
                 <div class="checklist-card">
                     <div class="checklist-progress">
                         <span class="cp-label">達成度</span>
-                        <div class="cp-bar"><div class="cp-fill"></div></div>
-                        <span class="cp-count" data-total="4" role="status" aria-atomic="true">達成度：0 / 4</span>
-                    </div>
-                    <ul class="checklist">
-                        <li>
-                            <label
-                                ><input
-                                    type="checkbox"
-                                />最終的な一致率・未解決不一致・残留リスクを報告した</label
+                                />教訓を整理し、次回の移行に活かせる形で残した</label
                             >
                         </li>
-                        <li>
-                            <label
-                                ><input
-                                    type="checkbox"
-                                />旧システムの廃止前に、移行計画で承認された切り戻し期間（例：7日間）が終了していることを確認した</label
-                            >
-                        </li>
-                        <li>
-                            <label
-                                ><input
-                                    type="checkbox"
-                                />旧システムの廃止前に、保管要件（法的保管期間など）を満たすデータ退避ができている</label
-                            >
-                        </li>
-                        <li>
-                            <label
-                                ><input
-                                    type="checkbox"
+                    </ul>
+                </div>
+
+                <h2 id="よくある落とし穴">よくある落とし穴</h2>
+                <div class="table-scroll" tabindex="0" role="region" aria-label="よくある落とし穴：#・落とし穴・対策（💡解説）（横スクロール可能）">
+                    <table>
+                        <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>落とし穴</th>
+                                <th>対策（💡解説）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>1</td>
                                 <td><strong>件数が合えば大丈夫</strong>と考える</td>
                                 <td>
                                     件数が同じでも値が壊れていることがある。集計・行単位まで見る
@@ -8383,6 +8375,64 @@
                 </div>
 
                 <h2 id="faq">FAQ</h2>
+                <p>
+                    <strong>Q1. 29119-14 はもう読めますか？</strong> A.
+                    2026年10月7日時点では、ISOページで公開されているのは概要とステータス情報までです
+                    [S1]。CD本文の公開は確認できていません。発行後に規格原文（ISO／IEEE／各国規格団体）で入手してください。
+                </p>
+                <p>
+                    <strong>Q2. 認証（資格）や適合性の要求はありますか？</strong> A.
+                    概要には「要求事項とガイダンスを定める」とありますが、適合性評価や認証の仕組みについては公開情報から確認できていません。この点は
+                    <strong>未確認</strong> として扱ってください。
+                </p>
+                <p>
+                    <strong>Q3. アジャイル開発でも使えますか？</strong> A. ✅
+                    概要に、従来型とアジャイルの両方のライフサイクルに適用可能と明記されています
+                    [S1]。
+                </p>
+                <p>
+                    <strong>Q4. 29119-14 を読む前に何を学べばよいですか？</strong> A. 💡 まず
+                    <strong>29119-1（概念）と 29119-2（プロセス）</strong>
+                    のリスクベーステストの考え方、次に
+                    <strong>29119-3（文書）と 29119-4（技法）</strong>
+                    の概要を押さえるのが近道です。
+                </p>
+                <p>
+                    <strong>Q5. ISTQBの資格とは関係がありますか？</strong> A. 💡 ISTQBシラバスとISO
+                    29119は別の体系ですが、用語や考え方（リスクベース、テストプロセス）に共通点が多く、併用すると理解が進みます。ただし本規格とISTQBシラバスの対応関係は公開情報では確認できていません。
+                </p>
+
+                <h2 id="学習ロードマップ">学習ロードマップ</h2>
+                <div class="mermaid-diagram" id="diagram-10" role="img" aria-label="データ移行テストの学習順序" aria-describedby="diagram-description-10" tabindex="0">
+                    <svg
+                        id="mmd9"
+                        width="1603.0625"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="flowchart"
+                        height="140"
+                        viewBox="0 0 1603.0625 140"
+                        role="graphics-document document"
+                        aria-roledescription="flowchart-v2"
+                    >
+                        <style>
+                            #mmd9 {
+                                font-family: 'Noto Sans JP', sans-serif;
+                                font-size: 16px;
+                                fill: #e6edf7;
+                            }
+                            @keyframes edge-animation-frame {
+                                from {
+                                    stroke-dashoffset: 0;
+                                }
+                            }
+                            @keyframes dash {
+                                to {
+                                    stroke-dashoffset: 0;
+                                }
+                            }
+                            #mmd9 .edge-animation-slow {
+                                stroke-dasharray: 9, 5 !important;
+                                stroke-dashoffset: 900;
                                 animation: dash 50s linear infinite;
                                 stroke-linecap: round;
                             }
