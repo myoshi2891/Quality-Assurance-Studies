@@ -342,12 +342,15 @@
                 margin: 14px 0 22px;
             }
             .checklist-progress {
-                display: flex;
+                display: none;
                 align-items: center;
                 gap: 12px;
                 margin-bottom: 10px;
                 font-size: 13px;
                 color: var(--dim);
+            }
+            .checklist-progress.is-ready {
+                display: flex;
             }
             .cp-bar {
                 flex: 1;
@@ -5385,7 +5388,7 @@
                             </tr>
                             <tr class="odd">
                                 <td><strong>判定</strong></td>
-                                <td>残留リスクと不一致の評価／Go/No-Go</td>
+                                <td>残留リスクと不一致の評価／Go/No-Go（Go-live前に、Go判定まで移行元の書き込み停止（フェンス）を維持するか、チェックポイント後に受け付けた全書き込みが移行先へ到達し比較対象に含まれていることを確認する最終ゲートの通過を必須とする）</td>
                                 <td>判定会議資料</td>
                             </tr>
                         </tbody>
@@ -5434,7 +5437,7 @@
                     </table>
                 </div>
                 <p><strong>SQLの例（件数・集計・孤児レコード検出）</strong></p>
-                <p>※ 以下のSQL例は移行元と移行先で列・値がそのまま一致する恒等マッピング（変換なし）を前提としている。型変換・単位換算・コード変換などのマッピング規則がある場合は、移行元に変換規則を適用して導出した期待値と移行先を比較する。書き込みの一時停止は新規の受付を止めるだけで、受付済みの書き込みの完了（ドレイン）は意味しない。比較は、1つのレプリケーション位置に固定したスナップショットを使うか、書き込みを一時停止したうえで処理中のすべてのトランザクションが確定した終了状態（コミットまたはロールバック）に達するまで待ち、移行元のチェックポイントを記録してから、そのチェックポイントまでのコミット済み変更がすべて移行先に適用されるまで待って行う。後者では、すべての突合クエリが完了するまで書き込みを一時停止したままにする。</p>
+                <p>※ 以下のSQL例は移行元と移行先で列・値がそのまま一致する恒等マッピング（変換なし）を前提としている。型変換・単位換算・コード変換などのマッピング規則がある場合は、移行元に変換規則を適用して導出した期待値と移行先を比較する。書き込みの一時停止は新規の受付を止めるだけで、受付済みの書き込みの完了（ドレイン）は意味しない。比較は、1つのレプリケーション位置に固定したスナップショットを使うか、書き込みを一時停止したうえで処理中のすべてのトランザクションが確定した終了状態（コミットまたはロールバック）に達するまで待ち、移行元のチェックポイントを記録してから、そのチェックポイントまでのコミット済み変更がすべて移行先に適用されるまで待って行う。後者（書き込み一時停止方式）では、すべての突合クエリだけでなく Go/No-Go 判定と Go-live（新系への切替）が完了するまで移行元の書き込みを停止（フェンス）したままにすることを必須とする。前者（スナップショット方式）のように突合チェックポイント後も書き込みを継続する場合は、Go-live 前に、Go 判定までに移行元で受け付けたすべての書き込みをドレインして移行先へ適用し、それらすべてが比較対象に含まれていることを確認する最終ゲートの通過を必須とする。</p>
                 <pre class="code-block" tabindex="0" role="region" aria-label="SQLの例（件数・集計・孤児レコード検出）（横スクロール可能）"><code><span class="tk-c">-- ① 件数突合</span>
 <span class="tk-k">SELECT</span> 'source' <span class="tk-k">AS</span> side, <span class="tk-k">COUNT</span>(*) <span class="tk-k">AS</span> cnt <span class="tk-k">FROM</span> src.orders
 <span class="tk-k">UNION ALL</span>
@@ -8300,7 +8303,7 @@
                             <label
                                 ><input
                                     type="checkbox"
-                                />旧システムの廃止前に、切り戻し期間（7日間）が終了していることを確認した</label
+                                />旧システムの廃止前に、移行計画で承認された切り戻し期間（例：7日間）が終了していることを確認した</label
                             >
                         </li>
                         <li>
@@ -8314,25 +8317,6 @@
                             <label
                                 ><input
                                     type="checkbox"
-                                />教訓を整理し、次回の移行に活かせる形で残した</label
-                            >
-                        </li>
-                    </ul>
-                </div>
-
-                <h2 id="よくある落とし穴">よくある落とし穴</h2>
-                <div class="table-scroll" tabindex="0" role="region" aria-label="よくある落とし穴：#・落とし穴・対策（💡解説）（横スクロール可能）">
-                    <table>
-                        <thead>
-                            <tr class="header">
-                                <th>#</th>
-                                <th>落とし穴</th>
-                                <th>対策（💡解説）</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="odd">
-                                <td>1</td>
                                 <td><strong>件数が合えば大丈夫</strong>と考える</td>
                                 <td>
                                     件数が同じでも値が壊れていることがある。集計・行単位まで見る
@@ -9639,6 +9623,7 @@
                 var refreshChecklists = [];
                 document.querySelectorAll('.checklist-card').forEach(function (c) {
                     var boxes = c.querySelectorAll('input'),
+                        p = c.querySelector('.checklist-progress'),
                         f = c.querySelector('.cp-fill'),
                         n = c.querySelector('.cp-count');
                     function up() {
@@ -9654,6 +9639,7 @@
                     });
                     refreshChecklists.push(up);
                     up();
+                    if (p) p.classList.add('is-ready');
                 });
                 function syncChecklistsAfterRestore() {
                     refreshChecklists.forEach(function (fn) { fn(); });
