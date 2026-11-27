@@ -1,0 +1,75 @@
+import React from 'react';
+/** このガイドの読み方と注意 — preserve the complete source order and inline text. */
+export default function Section01() {
+    return (
+        <>
+            <h2 id="このガイドの読み方と注意">{'このガイドの読み方と注意'}</h2>
+            {'\n'}
+            <div
+                className="table-scroll"
+                tabIndex={0}
+                role="region"
+                aria-label="このガイドの読み方と注意"
+            >
+                <table>
+                    <thead>
+                        <tr className="header">
+                            <th>{'項目'}</th>
+                            <th>{'内容'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="odd">
+                            <td>{'規格本文の扱い'}</td>
+                            <td>
+                                {
+                                    '規格本文は有償で、ISOは本文のAI利用を認めていません。本書は公開されている概要・目次・解説資料と一般的なテスト知識をもとに、'
+                                }
+                                <strong>{'筆者が自分の言葉で組み立てた解説'}</strong>
+                                {'です。規格文の引用や転載はしていません。'}
+                            </td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'確認度マーク'}</td>
+                            <td>
+                                {
+                                    'プロセスやアクティビティの名称には、確認の度合いを次のように付けています。'
+                                }
+                            </td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'✅'}</td>
+                            <td>
+                                {
+                                    '2021年版の目次情報（豪州規格協会の採用版ページ、ISO/ANSIのプレビュー）で名称を確認できたもの'
+                                }
+                            </td>
+                        </tr>
+                        <tr className="even">
+                            <td>{'🔎'}</td>
+                            <td>
+                                {
+                                    '旧版（2013年版）の目次、解説スライド、一般的な理解にもとづくもの。'
+                                }
+                                <strong>{'購入した規格本文で最終確認してください'}</strong>
+                            </td>
+                        </tr>
+                        <tr className="odd">
+                            <td>{'筆者の解釈'}</td>
+                            <td>
+                                {
+                                    '「アジャイルへの当てはめ」などは規格の記述ではなく、筆者の整理です。該当箇所に明記しています。'
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {'\n'}
+            <hr />
+            {'\n\n\n'}
+            <hr />
+            {'\n'}
+        </>
+    );
+}

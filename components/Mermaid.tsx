@@ -31,6 +31,8 @@ interface MermaidProps {
     chart: string;
     /** 描画失敗を呼び出し側で通知する。正常に戻ると内側のエラー表示を省略する。 */
     onRenderError?: () => void;
+    /** applySvgFixups 完了後の SVG 要素を受け取る任意フック。 */
+    onSvgReady?: (svg: SVGSVGElement) => void;
 }
 
 // モジュールの読み込みごとに 1 回だけ決まる識別子。HMR 等で再読み込みされ連番が
@@ -91,11 +93,13 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
  *
  * @param chart - Mermaid diagram source code
  */
-export default function Mermaid({ chart, onRenderError }: MermaidProps) {
+export default function Mermaid({ chart, onRenderError, onSvgReady }: MermaidProps) {
     const onRenderErrorRef = useRef(onRenderError);
+    const onSvgReadyRef = useRef(onSvgReady);
     useLayoutEffect(() => {
         onRenderErrorRef.current = onRenderError;
-    }, [onRenderError]);
+        onSvgReadyRef.current = onSvgReady;
+    }, [onRenderError, onSvgReady]);
     const [svgStr, setSvgStr] = useState<string>('');
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -146,7 +150,10 @@ export default function Mermaid({ chart, onRenderError }: MermaidProps) {
     useEffect(() => {
         if (!svgStr || !wrapperRef.current) return;
         const svgEl = wrapperRef.current.querySelector('svg');
-        if (svgEl) applySvgFixups(svgEl as SVGSVGElement, chart);
+        if (svgEl) {
+            applySvgFixups(svgEl as SVGSVGElement, chart);
+            onSvgReadyRef.current?.(svgEl as SVGSVGElement);
+        }
     }, [svgStr, chart]);
 
     return (

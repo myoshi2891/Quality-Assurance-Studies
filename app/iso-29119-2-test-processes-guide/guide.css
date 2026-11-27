@@ -1,0 +1,70 @@
+.iso29119-2-page, .iso29119-2-page :where(:not(svg, svg *)) { all: revert; }
+.iso29119-2-page{--bg:#07111e;--card:#0d1b30;--bd:#1f3358;--ac:#7c9eff;--tx:#eaf1ff;--dim:#c7d6ec;--faint:#9cb0cf;--sw:280px}
+.iso29119-2-page *{box-sizing:border-box}.iso29119-2-page, .iso29119-2-page{overflow-x:hidden}
+.iso29119-2-page{margin:0;background:var(--bg);color:var(--tx);font:16px/1.85 "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans CJK JP",sans-serif}
+.iso29119-2-page #side{position:fixed;left:0;top:0;bottom:0;width:var(--sw);overflow-y:auto;background:#050d18;border-right:1px solid var(--bd);padding:18px 12px;z-index:20}
+.iso29119-2-page #side .brand{font-weight:800;color:var(--ac);font-size:13px;padding:0 8px 12px;border-bottom:1px solid var(--bd);margin-bottom:10px}
+.iso29119-2-page #side a{display:block;color:var(--dim);text-decoration:none;font-size:13px;line-height:1.5;padding:5px 8px;border-radius:6px;border-left:2px solid transparent}
+.iso29119-2-page #side a.nav-h3{padding-left:20px;font-size:12px;color:var(--faint)}
+.iso29119-2-page #side a:hover{background:#0d1b30}.iso29119-2-page #side a.active{color:#fff;background:#16294a;border-left-color:var(--ac)}
+.iso29119-2-page #tgl{display:none;position:fixed;top:10px;left:10px;z-index:30;background:#16294a;color:#fff;border:1px solid var(--bd);border-radius:8px;padding:6px 12px;font-size:18px}
+.iso29119-2-page .main{margin-left:var(--sw);padding:32px 48px 80px}
+.iso29119-2-page .hero{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:32px;margin-bottom:32px;overflow:hidden}
+.iso29119-2-page .hero::before{content:"";position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(124,158,255,.25),transparent 70%)}
+.iso29119-2-page .badge{display:inline-block;border:1px solid var(--ac);color:var(--ac);border-radius:999px;padding:2px 14px;font-size:12px;font-weight:700}
+.iso29119-2-page .hero-title{font-size:28px;font-weight:800;color:#fff;margin:14px 0 18px;line-height:1.4}
+.iso29119-2-page .metas{display:flex;flex-wrap:wrap}.iso29119-2-page .m{padding:0 20px;border-right:1px solid var(--bd)}.iso29119-2-page .m:first-child{padding-left:0}.iso29119-2-page .m:last-child{border-right:0}
+.iso29119-2-page .m span{display:block;font-size:11px;letter-spacing:.05em;color:var(--faint)}.iso29119-2-page .m b{font-size:14.5px;font-weight:500;color:var(--dim)}
+.iso29119-2-page h2{font-size:24px;margin:56px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--bd);color:#fff;scroll-margin-top:16px}
+.iso29119-2-page h3{font-size:19px;margin:36px 0 10px;color:var(--ac);scroll-margin-top:16px}.iso29119-2-page h4{font-size:16px;margin:24px 0 6px;color:var(--dim)}
+.iso29119-2-page p, .iso29119-2-page li{color:var(--dim)}.iso29119-2-page strong{color:#fff}.iso29119-2-page a{color:var(--ac);word-break:break-all}.iso29119-2-page hr{border:0;border-top:1px solid var(--bd);margin:28px 0}
+.iso29119-2-page code:not(pre code){background:#16294a;border-radius:4px;padding:1px 6px;font:13.5px "JetBrains Mono",monospace;color:#cfe0ff;overflow-wrap:break-word}
+.iso29119-2-page blockquote{margin:16px 0;padding:10px 16px;border-left:3px solid var(--ac);background:var(--card);border-radius:0 8px 8px 0}.iso29119-2-page blockquote p{margin:4px 0}
+.iso29119-2-page p.callout{background:#101f3a;border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:12px 16px;margin:16px 0}
+.iso29119-2-page .glossary{background:var(--card);border:1px dashed var(--bd);border-radius:10px;padding:10px 18px;margin:24px 0}.iso29119-2-page .glossary p{margin:4px 0;color:#fff;font-weight:700}.iso29119-2-page .glossary ul{margin:4px 0 8px;font-size:14.5px}
+.iso29119-2-page .table-scroll{overflow-x:auto;margin:16px 0;border:1px solid var(--bd);border-radius:10px}
+.iso29119-2-page table{border-collapse:collapse;width:100%;font-size:14.5px}.iso29119-2-page th{background:#16294a;color:#fff;text-align:left}.iso29119-2-page th, .iso29119-2-page td{padding:9px 14px;border-bottom:1px solid var(--bd);vertical-align:top;min-width:90px}.iso29119-2-page tr:last-child td{border-bottom:0}.iso29119-2-page td{color:var(--dim)}
+.iso29119-2-page .mermaid-diagram{display:block;overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:16px 0}
+.iso29119-2-page .mermaid-diagram svg{display:block;margin-left:auto;margin-right:auto;max-width:none;flex-shrink:0}
+.iso29119-2-page .mermaid-diagram p{color:inherit;margin:0}.iso29119-2-page .mermaid-diagram foreignObject{overflow:visible}.iso29119-2-page .mermaid-diagram .nodeLabel, .iso29119-2-page .mermaid-diagram .edgeLabel{color:#eaf1ff}
+.iso29119-2-page ul, .iso29119-2-page ol{padding-left:1.4em}.iso29119-2-page input[type=checkbox]{accent-color:var(--ac);margin-right:6px}.iso29119-2-page ul:has(input[type=checkbox]){list-style:none;padding-left:0}
+.iso29119-2-page .page-footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--bd);font-size:13px;color:var(--faint)}
+@media(max-width:900px){.iso29119-2-page #side{transform:translateX(-100%);transition:.2s}.iso29119-2-page #side.open{transform:none}.iso29119-2-page #tgl{display:block}.iso29119-2-page .main{margin-left:0;padding:60px 16px 60px}.iso29119-2-page .hero{padding:20px}.iso29119-2-page .m{border-right:0;border-bottom:1px solid var(--bd);padding:8px 0;width:100%}}
+
+
+/* Offset fixed source navigation below the application header and measured disclaimer. */
+.iso29119-2-page #side { top: calc(60px + var(--disclaimer-height, 0px)); height: calc(100dvh - 60px - var(--disclaimer-height, 0px)); }
+.iso29119-2-page #tgl { top: calc(72px + var(--disclaimer-height, 0px)); }
+.iso29119-2-page h2, .iso29119-2-page h3, .iso29119-2-page h4 { scroll-margin-top: calc(80px + var(--disclaimer-height, 0px)); }
+.iso29119-2-page .hero::before { pointer-events: none; }
+.iso29119-2-page .mermaid-wrapper { background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; }
+.iso29119-2-page .mermaid-container, .iso29119-2-page .mermaid-wrap { overflow-x: auto !important; max-width: 100% !important; width: 100% !important; }
+.iso29119-2-page .mermaid-wrapper svg { max-width: none !important; height: auto !important; }
+.iso29119-2-page .mermaid-wrapper foreignObject { overflow: visible !important; }
+.iso29119-2-page .mermaid-wrapper foreignObject p, .iso29119-2-page .mermaid-wrapper foreignObject span, .iso29119-2-page .mermaid-wrapper foreignObject div { margin: 0 !important; line-height: 1.5 !important; word-break: break-word !important; }
+.iso29119-2-page .mermaid-wrapper .edgeLabels rect, .iso29119-2-page .mermaid-wrapper .edgeLabel rect { fill: #0d1b30 !important; stroke: none !important; }
+.iso29119-2-page .mermaid-wrapper .edgeLabel, .iso29119-2-page .mermaid-wrapper .edgeLabel span, .iso29119-2-page .mermaid-wrapper .edgeLabel p, .iso29119-2-page .mermaid-wrapper .edgeLabel text, .iso29119-2-page .mermaid-wrapper .edgeLabels .label { background-color: #0d1b30 !important; color: #eaf1ff !important; fill: #eaf1ff !important; }
+.iso29119-2-page .scrim { display: none; }
+.iso29119-2-page .table-scroll:focus-visible, .iso29119-2-page .mermaid-diagram:focus-visible, .iso29119-2-page a:focus-visible, .iso29119-2-page button:focus-visible, .iso29119-2-page input:focus-visible { outline: 2px solid var(--ac); outline-offset: 2px; }
+@media(max-width:900px) {
+.iso29119-2-page h2, .iso29119-2-page h3, .iso29119-2-page h4 { scroll-margin-top: calc(132px + var(--disclaimer-height, 0px)); }
+.iso29119-2-page.nav-open .scrim { display: block; position: fixed; inset: calc(60px + var(--disclaimer-height, 0px)) 0 0; background: #0008; z-index: 19; }
+}
+@media(prefers-reduced-motion: reduce) { .iso29119-2-page *, .iso29119-2-page *::before, .iso29119-2-page *::after { transition: none !important; animation: none !important; } }
+
+/* Keep inherited typography and table ink independent of shared component rules. */
+.iso29119-2-page .hero { text-align: start; }
+.iso29119-2-page .hero-title { font-family: inherit; }
+.iso29119-2-page table { color: var(--tx); }
+.iso29119-2-page { --ink: var(--dim); }
+.iso29119-2-page td, .iso29119-2-page tbody td { color: var(--ink) !important; font-size: 1rem !important; }
+.iso29119-2-page th { color: #fff !important; }
+.iso29119-2-page td strong { color: #fff !important; font-weight: bold !important; }
+.iso29119-2-page tr:hover td { background: transparent !important; }
+.iso29119-2-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+.iso29119-2-page *::-webkit-scrollbar-track { background: transparent; }
+.iso29119-2-page *::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 3px; }
+.iso29119-2-page .hero-title { animation: none !important; background: none !important; -webkit-text-fill-color: #fff !important; }
+@media(prefers-reduced-motion: reduce) {
+html:has(.iso29119-2-page) { scroll-behavior: auto; }
+}

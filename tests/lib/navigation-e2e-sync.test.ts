@@ -19,6 +19,10 @@ describe('navigation registry ↔ e2e page registry', () => {
     expect(new Set(e2ePaths).size).toBe(e2ePaths.length);
   });
 
+  it('tracks the expected total route count', () => {
+    expect(EXPECTED_PAGE_COUNT).toBe(134);
+  });
+
   it('keeps EXPECTED_PAGE_COUNT in sync with the PAGES array', () => {
     expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
   });

@@ -54,6 +54,7 @@ const LAYOUT_SUITES: ReadonlyArray<{ name: string; testMatch: string | string[];
   { name: 'iso-29110-5-1-2', testMatch: 'iso-29110-5-1-2-layout.e2e.ts' },
   { name: 'iso-42001', testMatch: 'iso-42001-layout.e2e.ts' },
   { name: 'iso-42119-7', testMatch: 'iso-42119-7-layout.e2e.ts' },
+  { name: 'iso-29119-2', testMatch: 'iso-29119-2-layout.e2e.ts' },
   { name: 'iso-29119-13', testMatch: 'iso-29119-13-layout.e2e.ts' },
 ];
 

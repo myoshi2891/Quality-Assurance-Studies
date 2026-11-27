@@ -4,8 +4,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { load } from 'cheerio';
 import { sourceModule } from '../helpers/source-module';
 import { NAV_ITEMS } from '../../lib/navigation';
-import { PAGES, EXPECTED_PAGE_COUNT } from '../../e2e/pages';
-it('registers the ITAM systems guide once and synchronizes all 133 routes',()=>{
+import { PAGES } from '../../e2e/pages';
+it('registers the ITAM systems guide once and matches its E2E h1',()=>{
     const href='/iso-19770-1-guide',items=NAV_ITEMS.filter(i=>i.href===href);
     expect(items).toHaveLength(1);expect(items[0]).toMatchObject({category:'iso',label:'ISO/IEC 19770-1:2017 初学者ガイド'});
     expect(items[0]!.description.length).toBeLessThanOrEqual(80);
@@ -13,5 +13,4 @@ it('registers the ITAM systems guide once and synchronizes all 133 routes',()=>{
     const Page=sourceModule('app/iso-19770-1-guide/page.tsx').default as React.ComponentType;
     const h1=load(renderToStaticMarkup(React.createElement(Page)))('h1').first().text().replace(/\s+/g,' ').trim();
     expect(h1).not.toBe('');expect(pages[0]!.h1.test(h1)).toBe(true);
-    expect(NAV_ITEMS).toHaveLength(133);expect(PAGES).toHaveLength(133);expect(EXPECTED_PAGE_COUNT).toBe(133);
 });

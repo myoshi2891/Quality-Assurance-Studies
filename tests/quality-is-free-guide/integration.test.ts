@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { NAV_ITEMS, groupByCategory } from '../../lib/navigation';
-import { EXPECTED_PAGE_COUNT, PAGES } from '../../e2e/pages';
+import { PAGES } from '../../e2e/pages';
 import inventory from '../../docs/migration-inventory/quality-is-free-guide.json';
 const href = '/quality-is-free-guide';
 describe('quality is free registration and source archives', () => {
@@ -12,8 +12,7 @@ describe('quality is free registration and source archives', () => {
         expect(books?.items.at(-1)?.href).toBe(href);
         expect(books?.items).toHaveLength(27);
     });
-    it('synchronizes 133 routes and the real chapter heading', () => {
-        expect(EXPECTED_PAGE_COUNT).toBe(133); expect(NAV_ITEMS).toHaveLength(133); expect(PAGES).toHaveLength(133);
+    it('registers the route once in E2E with the real chapter heading', () => {
         const entry = PAGES.filter(p => p.path === href); expect(entry).toHaveLength(1);
         expect(entry[0]?.h1.test('Quality Is Free 入門ガイド 品質はなぜ「タダ」なのか、ソフトウェアエンジニアのための実践ステップ')).toBe(true);
     });
