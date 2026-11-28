@@ -2,7 +2,11 @@
 set -e
 
 # 1. AIツールや差分プレビューのトランケート（省略）マーカーの混入チェック（フック自身は除外）
-if git diff --cached --no-color --text -- ':!.githooks/*' | grep -E '^\+.*(\[[t]runcated|<[t]runcated|\.\.\.\s*\[[t]runcated)' >/dev/null 2>&1; then
+if ! added_lines=$(set -o pipefail; git diff --cached --no-color --no-ext-diff --text -- ':!.githooks/*' | tr '\000' ' ' | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+    echo -e "\033[1;31m❌ 【エラー】ステージ差分の取得に失敗したため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+if printf '%s\n' "$added_lines" | grep -E '(\[[t]runcated|<[t]runcated|\.\.\.\s*\[[t]runcated)' >/dev/null 2>&1; then
     echo -e "\033[1;31m❌ 【エラー】AIツールや差分プレビューのトランケート（省略マーカー）がコミット対象に含まれています！\033[0m" >&2
     echo -e "\033[1;31mファイルが誤って切り詰められて破損している可能性があります。コミットを中断します。\033[0m" >&2
     exit 1
