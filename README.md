@@ -215,6 +215,12 @@ To install dependencies:
 bun install
 ```
 
+To enable the tracked Git pre-commit hook (`.githooks/pre-commit`):
+
+```bash
+git config core.hooksPath .githooks
+```
+
 To run:
 
 ```bash

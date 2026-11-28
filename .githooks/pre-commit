@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -e
+
+# 1. AIツールや差分プレビューのトランケート（省略）マーカーの混入チェック（フック自身は除外）
+if ! added_lines=$(set -o pipefail; git diff --cached --no-color --no-ext-diff --text -- ':!.githooks/*' | tr '\000' ' ' | awk '/^diff --/{h=1; next} /^@@/{h=0; next} h{next} /^\+/{print substr($0, 2)}'); then
+    echo -e "\033[1;31m❌ 【エラー】ステージ差分の取得に失敗したため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+if printf '%s\n' "$added_lines" | grep -E '(\[[t]runcated|<[t]runcated|\.\.\.\s*\[[t]runcated)' >/dev/null 2>&1; then
+    echo -e "\033[1;31m❌ 【エラー】AIツールや差分プレビューのトランケート（省略マーカー）がコミット対象に含まれています！\033[0m" >&2
+    echo -e "\033[1;31mファイルが誤って切り詰められて破損している可能性があります。コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+# 2. PII / 絶対パス検査（.claude/rules/no-absolute-paths.md）
+pii_rule_file=".claude/rules/no-absolute-paths.md"
+if [ ! -f "$pii_rule_file" ]; then
+    echo -e "\033[1;31m❌ 【エラー】PII検査ルールファイル（${pii_rule_file}）が見つからないため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+if ! pii_scan_script=$(awk '
+    /^[[:space:]]*# >>> pii-scan[[:space:]]*$/ {
+        starts++
+        if (in_block) {
+            err = "duplicate or nested pii-scan start marker"
+        }
+        in_block = 1
+        next
+    }
+    /^[[:space:]]*# <<< pii-scan[[:space:]]*$/ {
+        ends++
+        if (!in_block) {
+            err = "unexpected pii-scan end marker"
+        }
+        in_block = 0
+        next
+    }
+    in_block {
+        if ($0 !~ /^[[:space:]]*(#|$)/) {
+            non_empty++
+        }
+        print
+    }
+    END {
+        if (err != "") {
+            print "pii-scan extraction error: " err > "/dev/stderr"
+            exit 1
+        }
+        if (starts == 0 || ends == 0 || in_block != 0) {
+            print "pii-scan extraction error: missing or incomplete pii-scan block" > "/dev/stderr"
+            exit 1
+        }
+        if (starts > 1 || ends > 1) {
+            print "pii-scan extraction error: duplicate pii-scan block" > "/dev/stderr"
+            exit 1
+        }
+        if (non_empty == 0) {
+            print "pii-scan extraction error: empty pii-scan block" > "/dev/stderr"
+            exit 1
+        }
+    }
+' "$pii_rule_file") || [ -z "$pii_scan_script" ]; then
+    echo -e "\033[1;31m❌ 【エラー】PII検査スクリプトの抽出に失敗したため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+if ! bash <<< "$pii_scan_script"; then
+    echo -e "\033[1;31m❌ 【エラー】PII検査に失敗したため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+exit 0
