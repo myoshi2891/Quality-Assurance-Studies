@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+# 1. AIツールや差分プレビューのトランケート（省略）マーカーの混入チェック（フック自身は除外）
+if git diff --cached --text -- ':!.githooks/*' | grep -E '^\+.*(\[[t]runcated|<[t]runcated|\.\.\.\s*\[[t]runcated)' >/dev/null 2>&1; then
+    echo -e "\033[1;31m❌ 【エラー】AIツールや差分プレビューのトランケート（省略マーカー）がコミット対象に含まれています！\033[0m" >&2
+    echo -e "\033[1;31mファイルが誤って切り詰められて破損している可能性があります。コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+# 2. PII / 絶対パス検査（.claude/rules/no-absolute-paths.md）
+if [ -f .claude/rules/no-absolute-paths.md ]; then
+    if ! awk '/# >>> pii-scan/{flag=1; next} /# <<< pii-scan/{flag=0} flag' .claude/rules/no-absolute-paths.md | bash; then
+        echo -e "\033[1;31m❌ 【エラー】PII検査に失敗したため、コミットを中断します。\033[0m" >&2
+        exit 1
+    fi
+fi
+
+exit 0
