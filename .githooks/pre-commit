@@ -9,11 +9,61 @@ if git diff --cached --text -- ':!.githooks/*' | grep -E '^\+.*(\[[t]runcated|<[
 fi
 
 # 2. PII / 絶対パス検査（.claude/rules/no-absolute-paths.md）
-if [ -f .claude/rules/no-absolute-paths.md ]; then
-    if ! awk '/# >>> pii-scan/{flag=1; next} /# <<< pii-scan/{flag=0} flag' .claude/rules/no-absolute-paths.md | bash; then
-        echo -e "\033[1;31m❌ 【エラー】PII検査に失敗したため、コミットを中断します。\033[0m" >&2
-        exit 1
-    fi
+pii_rule_file=".claude/rules/no-absolute-paths.md"
+if [ ! -f "$pii_rule_file" ]; then
+    echo -e "\033[1;31m❌ 【エラー】PII検査ルールファイル（${pii_rule_file}）が見つからないため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+if ! pii_scan_script=$(awk '
+    /^[[:space:]]*# >>> pii-scan[[:space:]]*$/ {
+        starts++
+        if (in_block) {
+            err = "duplicate or nested pii-scan start marker"
+        }
+        in_block = 1
+        next
+    }
+    /^[[:space:]]*# <<< pii-scan[[:space:]]*$/ {
+        ends++
+        if (!in_block) {
+            err = "unexpected pii-scan end marker"
+        }
+        in_block = 0
+        next
+    }
+    in_block {
+        if ($0 !~ /^[[:space:]]*(#|$)/) {
+            non_empty++
+        }
+        print
+    }
+    END {
+        if (err != "") {
+            print "pii-scan extraction error: " err > "/dev/stderr"
+            exit 1
+        }
+        if (starts == 0 || ends == 0 || in_block != 0) {
+            print "pii-scan extraction error: missing or incomplete pii-scan block" > "/dev/stderr"
+            exit 1
+        }
+        if (starts > 1 || ends > 1) {
+            print "pii-scan extraction error: duplicate pii-scan block" > "/dev/stderr"
+            exit 1
+        }
+        if (non_empty == 0) {
+            print "pii-scan extraction error: empty pii-scan block" > "/dev/stderr"
+            exit 1
+        }
+    }
+' "$pii_rule_file") || [ -z "$pii_scan_script" ]; then
+    echo -e "\033[1;31m❌ 【エラー】PII検査スクリプトの抽出に失敗したため、コミットを中断します。\033[0m" >&2
+    exit 1
+fi
+
+if ! bash <<< "$pii_scan_script"; then
+    echo -e "\033[1;31m❌ 【エラー】PII検査に失敗したため、コミットを中断します。\033[0m" >&2
+    exit 1
 fi
 
 exit 0
